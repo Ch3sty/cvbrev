@@ -125,7 +125,16 @@ export async function tolkaText(text: string, metod: 'pdf' | 'docx'): Promise<To
     skills: (kalla?.skills ?? [])
       .map((s) => ({ ...s, category: rensa(s.category), skills: rensaLista(s.skills) }))
       .filter((s) => s.skills.length > 0),
-    certifications: lokal?.certifications?.length ? lokal.certifications : undefined,
+    certifications: lokal?.certifications?.length
+      ? lokal.certifications
+          .map((c) => ({
+            ...c,
+            // Regelparserns punkttecken och platshållarutfärdare följer inte med.
+            name: rensa(c.name).replace(/^[•·*\s-]+/, ''),
+            issuer: /^certifieringsmyndighet$/i.test((c.issuer ?? '').trim()) ? '' : rensa(c.issuer),
+          }))
+          .filter((c) => c.name)
+      : undefined,
     languages: lokal?.languages?.length ? lokal.languages : undefined,
   }
 

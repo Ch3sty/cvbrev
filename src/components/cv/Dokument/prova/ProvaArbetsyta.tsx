@@ -21,7 +21,7 @@ import { IkonBock } from '@/components/illustrations/MallIkoner'
 import Mallyta from '../Mallyta'
 import KontoArk from '../KontoArk'
 import Final from '../Final'
-import Merforsaljning from '../Merforsaljning'
+import Merforsaljning, { merforsaljningsUrval } from '../Merforsaljning'
 import { FotoArkUtloggad } from '../FotoArk'
 import { useForhandsvisning, useNedladdning, type Kalla } from '../hooks'
 import type { Matning } from '../matning'
@@ -102,7 +102,9 @@ export default function ProvaArbetsyta() {
         rensaUtkast()
         setFil(ut)
       } else if (ut.typ === 'sparr') {
-        setMerforsaljning(true)
+        // Inga andra mallar att visa: till kassan i galleriet med CV:t valt.
+        if (merforsaljningsUrval(p.katalog, p.mall.id, 1, false).length) setMerforsaljning(true)
+        else router.push(`/dashboard/cv-mallar?${new URLSearchParams({ mall: p.mall.id, kop: '1', ...(id ? { cv: id } : {}) }).toString()}`)
       } else if (ut.typ === 'namn') {
         setFel(UPPLADDNING.namnSaknas)
       } else {

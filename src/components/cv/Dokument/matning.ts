@@ -43,7 +43,11 @@ export function matDokument(doc: Document): Matning {
   const hojd = Math.max(A4_KVOT, (botten - rr.top) / bredd)
   const sidor = Math.max(1, Math.ceil(hojd / A4_KVOT - 0.015))
 
-  const kandidater = Array.from(doc.querySelectorAll<HTMLElement>('[data-sektion], h2, h3'))
+  // Mallsystemet märker avsnittsrubrikerna med data-sektion; finns märkningen
+  // räknas bara den (annars blir jobbtitlar som "Projektledare" rubriker).
+  // Äldre HTML utan märkning: bara h2.
+  const markta = Array.from(doc.querySelectorAll<HTMLElement>('[data-sektion]'))
+  const kandidater = markta.length ? markta : Array.from(doc.querySelectorAll<HTMLElement>('h2'))
   const rubriker: Omit<Rubrikruta, 'avsnitt'>[] = []
   const sedda = new Set<Element>()
   for (const el of kandidater) {

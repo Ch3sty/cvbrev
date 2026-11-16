@@ -31,7 +31,7 @@ import { forvalFor } from '@/lib/cv/rubriker'
 import Mallyta from '@/components/cv/Dokument/Mallyta'
 import Ark from '@/components/cv/Dokument/Ark'
 import Final from '@/components/cv/Dokument/Final'
-import Merforsaljning from '@/components/cv/Dokument/Merforsaljning'
+import Merforsaljning, { merforsaljningsUrval } from '@/components/cv/Dokument/Merforsaljning'
 import { FotoArkInloggad, useFotoInloggad } from '@/components/cv/Dokument/FotoArk'
 import { useForhandsvisning, useNedladdning, type Kalla } from '@/components/cv/Dokument/hooks'
 import type { Matning } from '@/components/cv/Dokument/matning'
@@ -142,6 +142,12 @@ export default function CvMallarClient(p: {
   const behoverKop = (premiumMall && !p.initialIsPremium) || (format === 'docx' && !p.harWord)
   const knappText = behoverKop ? KNAPP.laddaNerIPremiumInloggad(format, mall.namn, p.pris) : KNAPP.laddaNer(format)
 
+  /** Merförsäljningen när det finns andra mallar att visa, annars betalväggen. */
+  const saljEllerVagg = () => {
+    if (merforsaljningsUrval(p.katalog, mall.id, matning?.sidor ?? 1, Boolean(fotoUrl)).length) setMerforsaljning(true)
+    else setSparr('cv-export')
+  }
+
   const laddaNer = useCallback(
     async (m: MallKort = mall, f: Format = format) => {
       if (!cv) return
@@ -150,7 +156,7 @@ export default function CvMallarClient(p: {
       setFel(null)
       if (f === 'docx' && !p.harWord) return setSparr('cv-export-word')
       if (m.niva === 'premium' && !p.initialIsPremium) return setSparr('mall')
-      if (p.gratisAnvand) return setMerforsaljning(true)
+      if (p.gratisAnvand) return saljEllerVagg()
       const namn = cvData?.personalInfo.fullName || cv.file_name.replace(/\.[^/.]+$/, '')
       const ut = await ladda({
         mall: m.id,
@@ -166,7 +172,7 @@ export default function CvMallarClient(p: {
         void logActivity('cv_generated', 'skapade ett professionellt CV', { template: m.id, format: f, cv_id: cv.id, file_name: ut.filnamn })
       } else if (ut.typ === 'sparr') {
         const s = ut.feature ? SPARR_FOR_FEATURE[ut.feature] : null
-        if (s === 'cv-export' || !s) setMerforsaljning(true)
+        if (s === 'cv-export' || !s) saljEllerVagg()
         else setSparr(s)
       } else if (ut.typ === 'namn') {
         setNamnKravs(true)
