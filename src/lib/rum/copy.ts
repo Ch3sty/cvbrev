@@ -61,6 +61,7 @@ export const UNDERSIDA = {
   allaTester: 'Alla tester',
   provlaget: 'Övningsprov',
   minaCv: 'Mina CV',
+  skapaNyttCv: 'Skapa nytt CV',
   analyseraCv: 'Analysera CV',
   cvMallar: 'CV-mallar',
   linkedin: 'LinkedIn-profilen',

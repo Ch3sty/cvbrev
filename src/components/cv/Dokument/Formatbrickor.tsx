@@ -6,10 +6,28 @@
  *
  * Ingen 'use client': används i server- och klientkomponenter.
  */
+import { IkonPdf, IkonWord } from '@/components/illustrations/MallIkoner'
 
 /** Formaten i en miniatyrs etikett: alla mallar finns som PDF. */
 export function formatTillagg(word: boolean): string {
   return word ? ', PDF och Word' : ', PDF'
+}
+
+/**
+ * Artiklarnas variant (ägaren 2026-11-16: textbrickorna såg fula ut i
+ * artikelns små miniatyrer): mallflödets filikoner i en liten ljus pill.
+ */
+export function Formatikoner({ word }: { word: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className="absolute bottom-1 right-1 flex items-center gap-px rounded-full bg-white/95 px-[3px] py-[2px] shadow-[0_1px_3px_rgba(0,0,0,.18)] ring-1 ring-black/[.08]"
+      data-format={word ? 'pdf word' : 'pdf'}
+    >
+      <IkonPdf size={14} className="text-[#B3261E]" />
+      {word ? <IkonWord size={14} className="text-[#1E4FA8]" /> : null}
+    </span>
+  )
 }
 
 export function Formatbrickor({ word, stor }: { word: boolean; stor?: boolean }) {

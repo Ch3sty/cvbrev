@@ -177,6 +177,7 @@ export default function Sidomeny() {
     ],
     cv: [
       { href: '/dashboard/profil/cv', etikett: UNDERSIDA.minaCv, chip: antalChip(cvAntal) },
+      { href: '/dashboard/skapa-cv', etikett: UNDERSIDA.skapaNyttCv },
       { href: '/dashboard/cv-analys', etikett: UNDERSIDA.analyseraCv },
       { href: '/dashboard/cv-mallar', etikett: UNDERSIDA.cvMallar },
       { href: '/dashboard/linkedin-optimizer', etikett: UNDERSIDA.linkedin, last: lasFor('linkedin') },

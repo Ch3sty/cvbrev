@@ -19,7 +19,7 @@ import PaywallCard from '@/components/paywall/PaywallCard';
 import RumHuvud from '@/components/rum/RumHuvud';
 import Golv from '@/components/rum/Golv';
 import LyftKort from '@/components/rum/LyftKort';
-import { CV_RUM, LYFT, RUBRIK, kortDatum } from '@/lib/rum/copy';
+import { CV_RUM, LYFT, RUBRIK, UNDERSIDA, kortDatum } from '@/lib/rum/copy';
 import Link from 'next/link';
 import Poangring from '@/components/rum/Poangring';
 import Veckorad from '@/components/rum/Veckorad';
@@ -471,7 +471,7 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <SektRubrik>{CV_RUM.sparadeRubrik}</SektRubrik>
+            <SektRubrik lank={{ href: '/dashboard/skapa-cv', text: UNDERSIDA.skapaNyttCv }}>{CV_RUM.sparadeRubrik}</SektRubrik>
 
             <Rader label={CV_RUM.sparadeRubrik} className="mt-4">
               {cvs.map((cv, i) => {
