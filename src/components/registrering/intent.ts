@@ -49,9 +49,9 @@ export function lasIntent(v: unknown): SignupIntent | null {
 
 /* ------------------------------------------------------------ ingången */
 
-export type SignupEntry = 'header' | 'meny' | 'login' | 'verktyg' | 'pris' | 'smakprov' | 'direkt'
+export type SignupEntry = 'header' | 'meny' | 'login' | 'verktyg' | 'pris' | 'smakprov' | 'direkt' | 'cv_prova'
 
-const ENTRIES: readonly SignupEntry[] = ['header', 'meny', 'login', 'verktyg', 'pris', 'smakprov', 'direkt']
+const ENTRIES: readonly SignupEntry[] = ['header', 'meny', 'login', 'verktyg', 'pris', 'smakprov', 'direkt', 'cv_prova']
 
 export function lasEntry(v: unknown): SignupEntry | null {
   return typeof v === 'string' && (ENTRIES as readonly string[]).includes(v) ? (v as SignupEntry) : null

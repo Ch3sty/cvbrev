@@ -208,7 +208,7 @@ export interface AnalyticsEvents {
   profile_photo_uploaded: { source: 'upload'; resized: boolean; bytes_before: number; bytes_after: number }
   profile_photo_failed: { reason: 'too_large' | 'type' | 'network' }
   letter_tone_default_set: { tone: string }
-  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality'; yrke_slug?: string }
+  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality' | 'cv_prova'; yrke_slug?: string }
   /* Kontosteget efter provet (analysen 2026-11-08, punkt 2): varje steg ska
      ha en händelse, och ett fel en felkod. draft_claim_failed när provet inte
      gick att koppla till det nya kontot (felkod http_404, http_401, natverk).
@@ -420,11 +420,34 @@ export interface AnalyticsEvents {
   export_blockerad: { reason: 'kvot' | 'mall' | 'word' | 'brev'; template?: string }
   /* Fas 0 på dagens mallytor (baslinje före Black Week). surface: galleri,
      byggare, artikel. */
-  mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep'; tier: 'free' | 'premium'; har_word: boolean; surface: string }
-  typsnitt_bytt: { font: string; surface: string }
-  nedladdning_klickad: { mall: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string }
+  mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep'; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
+  typsnitt_bytt: { font: string; surface: string; template?: string; tier?: 'free' | 'premium' }
+  nedladdning_klickad: { mall: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
   mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' }
   mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' }
+  /* Mallsatsningen fas 2 (plan-mallar avsnitt 8, utbudets avsnitt 6): de nya
+     ytorna. template och tier på alla händelser per mall. surface: mallsida,
+     prova, galleri, byggare, artikel, yrkessida. */
+  mall_visad: { template: string; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
+  farg_bytt: { template: string; tier: 'free' | 'premium'; farg: number; surface: string }
+  ordning_bytt: { template: string; tier: 'free' | 'premium'; ordning: string; surface: string }
+  rubrik_bytt: { template: string; tier: 'free' | 'premium'; sektion: string; val: 'standard' | 'forslag' | 'egen'; surface: string }
+  sidantal_visat: { template: string; tier: 'free' | 'premium'; sidor: number; surface: string }
+  forslag_visad: { grupp: string; templates: string; surface: string }
+  forslag_vald: { grupp: string; position: number; template: string; tier: 'free' | 'premium'; surface: string }
+  konto_ark_visat: { mall: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; inloggad: false; surface: string; orsak: 'nedladdning' | 'foto' | 'bild_pdf' }
+  cv_eget_start: { method: 'pdf' | 'docx' | 'namn'; surface: string }
+  cv_eget_inlast: { method: 'pdf' | 'docx'; ok: boolean; sektioner_hittade: number; surface: string }
+  cv_eget_misslyckad: { method: 'pdf' | 'docx' | 'okand'; reason: string; surface: string }
+  'belöning_visad': { template: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; nasta: 'jobb' | 'brev'; surface: string }
+  fil_delad: { template: string; format: 'pdf' | 'docx'; metod: 'dela' | 'oppna'; surface: string }
+  nasta_steg_klickad: { target: 'jobb' | 'fler_jobb' | 'brev'; template: string; surface: string }
+  merforsaljning_visad: { template: string; templates: string; surface: string }
+  merforsaljning_klick: { template: string; position: number; val: 'kort' | 'kop' | 'nej'; surface: string }
+  namn_ifyllt: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; falt: 'namn' | 'titel' }
+  fortsatt_klickad: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; template: string }
+  mallvisning_visad: { slug: string; template: string }
+  mallvisning_uppladdning_klick: { slug: string }
   cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b
