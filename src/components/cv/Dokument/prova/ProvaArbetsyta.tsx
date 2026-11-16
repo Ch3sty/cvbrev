@@ -170,15 +170,22 @@ export default function ProvaArbetsyta() {
     const forra = forraLage.current
     forraLage.current = p.inlasning.lage
     if (forra !== 'laddar' || p.inlasning.lage !== 'klar') return
-    const el = document.querySelector<HTMLElement>('.mallyta [data-arbetsyta]')
+    // Tipsraden (spåret ovanför arket) direkt under sidhuvudet, arket strax
+    // under den: hon ser sitt CV och raden om rubrikerna utan att rulla.
+    const el = document.querySelector<HTMLElement>('.mallyta [data-tips-spar]') ?? document.querySelector<HTMLElement>('.mallyta .dok-ark-yta')
     if (!el) return
+    const huvud = document.querySelector('header')?.getBoundingClientRect()
+    const kant = huvud && huvud.top <= 0 ? huvud.bottom : 0
     let reducera = false
     try {
       reducera = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     } catch {
       reducera = false
     }
-    window.setTimeout(() => el.scrollIntoView({ block: 'start', behavior: reducera ? 'auto' : 'smooth' }), 50)
+    window.setTimeout(() => {
+      const y = el.getBoundingClientRect().top + window.scrollY - kant - 4
+      window.scrollTo({ top: y, behavior: reducera ? 'auto' : 'smooth' })
+    }, 50)
   }, [p.inlasning.lage])
 
   const status =

@@ -211,7 +211,7 @@ async function testPdf(browser: Browser): Promise<string> {
   const fil = path.join(UT, 'Erik-Lindberg-CV.pdf')
   if (fs.existsSync(fil)) return fil
   const p = await browser.newPage()
-  await p.goto(`${BAS}/api/public/exempel/cv?mall=prov-enspalt`, { waitUntil: 'networkidle0' })
+  await p.goto(`${BAS}/api/public/exempel/cv?mall=linne`, { waitUntil: 'networkidle0' })
   await p.evaluate(() => document.querySelectorAll('script').forEach((s) => s.remove()))
   await p.evaluate(() => (document.documentElement.style.zoom = '1'))
   await p.pdf({ path: fil, format: 'A4', printBackground: true })
@@ -219,93 +219,197 @@ async function testPdf(browser: Browser): Promise<string> {
   return fil
 }
 
-async function utloggad(browser: Browser, vy: Vy) {
-  const steg = `utloggad-${vy}`
-  const { page, ctx, fel, nedMapp } = await nySida(browser, vy, steg)
-  await page.goto(`${BAS}/cv-mallar/prova`, { waitUntil: 'networkidle2', timeout: 120000 })
+/** Unik adress per sida, bara mot den lokala servern: uppladdningskvoten är 5 per adress. */
+let ipNr = 10
+const nyIp = () => `10.77.${Math.floor(Date.now() / 1000) % 250}.${ipNr++ % 250}`
+
+async function matArk(page: Page) {
+  return page.evaluate(() => {
+    const ark = document.querySelector<HTMLElement>('.mallyta .dok-ark-yta')
+    const r = ark?.getBoundingClientRect()
+    return r ? Math.round(r.top) : null
+  })
+}
+
+/** Den fasta raden: höjd, underkant, och navets överkant om navet finns. */
+async function matRad(page: Page) {
+  return page.evaluate(() => {
+    const rad = document.querySelector<HTMLElement>('[data-fast-rad]')?.getBoundingClientRect()
+    const nav = [...document.querySelectorAll<HTMLElement>('nav')].find((n) => {
+      const r = n.getBoundingClientRect()
+      return getComputedStyle(n).position === 'fixed' && r.bottom >= window.innerHeight - 2 && r.height < 140 && r.width > 200
+    })
+    return {
+      hojd: rad ? Math.round(rad.height) : null,
+      under: rad ? Math.round(rad.bottom) : null,
+      navTopp: nav ? Math.round(nav.getBoundingClientRect().top) : null,
+      vy: window.innerHeight,
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+    }
+  })
+}
+
+/** Text som klipps vid högerkanten (granskningen V2). */
+async function klippt(page: Page) {
+  return page.evaluate(() => {
+    const ut: string[] = []
+    for (const el of document.querySelectorAll<HTMLElement>('.mallyta p, .mallyta span, .mallyta button')) {
+      const r = el.getBoundingClientRect()
+      if (r.width && r.right > window.innerWidth + 1 && !el.closest('[class*="overflow-x-auto"]')) ut.push(el.innerText.slice(0, 40))
+    }
+    return ut.slice(0, 5)
+  })
+}
+
+async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
+  const steg = `utloggad-${vy}-${tema}`
+  const { page, ctx, fel, nedMapp } = await nySida(browser, vy, steg, tema)
+  await page.setExtraHTTPHeaders({ 'x-forwarded-for': nyIp() })
+  await page.goto(`${BAS}/cv-mallar`, { waitUntil: 'networkidle2', timeout: 120000 })
   await vila(1500)
-  await bild(page, `${steg}-01-prova`)
-  kontroll(await page.$('#ladda-upp') !== null, `${steg}: uppladdningen syns högst upp`)
+  await bild(page, `${steg}-01-cv-mallar`)
+  const uppY = await page.evaluate(() => Math.round(document.querySelector('#ladda-upp')!.getBoundingClientRect().top))
+  kontroll(uppY < (vy === 'pixel7' ? 700 : 400), `${steg}: uppladdningen före vecket (y ${uppY})`)
 
   const input = await page.$('#ladda-upp input[type=file]')
   await input!.uploadFile(await testPdf(browser))
   await vantaText(page, 'Vi hittade', 90000).catch(() => undefined)
   await vila(2500)
-  const hittade = await page.evaluate(() => document.body.innerText.includes('Vi hittade'))
-  kontroll(hittade, `${steg}: PDF:en tolkades utan konto ("Vi hittade ...")`)
-  await page.evaluate(() => document.querySelector('#valj-mall')?.scrollIntoView())
-  await vila(800)
+  const topp = await matArk(page)
+  const huvud = await page.evaluate(() => Math.round(document.querySelector('header')?.getBoundingClientRect().bottom ?? 0))
+  kontroll(topp !== null && topp >= huvud && topp - huvud <= 80, `${steg}: arket i vyn efter uppladdningen utan att hon rullar (arkets överkant ${topp} px, ${topp === null ? '?' : topp - huvud} px under sidhuvudet på ${huvud} px)`)
+  const ihop = await page.evaluate(() => {
+    const yta = document.querySelector('#ladda-upp > div:not([hidden])') as HTMLElement | null
+    return yta ? Math.round(yta.getBoundingClientRect().height) : null
+  })
+  kontroll(ihop !== null && ihop <= 48, `${steg}: uppladdningsytan ihopfälld till en rad (${ihop} px)`)
   await bild(page, `${steg}-02-efter-uppladdning`)
+  const r = await matRad(page)
+  kontroll((r.hojd ?? 999) <= (vy === 'pixel7' ? 76 : 72), `${steg}: fasta raden ${r.hojd} px hög`)
+  kontroll(r.overflow <= 0, `${steg}: ingen sidled (scrollWidth minus bredd ${r.overflow})`)
+  const k = await klippt(page)
+  kontroll(k.length === 0, `${steg}: ingen text klipps vid högerkanten (${k.join(' | ')})`)
 
-  const utkast = await page.evaluate(() => localStorage.getItem('jc_cv_prova'))
-  kontroll(Boolean(utkast), `${steg}: utkastet ligger i localStorage (jc_cv_prova)`)
+  if (tema === 'ljus') {
+    // Rubrikarket.
+    const rubrik = await page.$('button[aria-label^="Byt rubrik"]')
+    if (rubrik) {
+      await rubrik.click()
+      await vila(900)
+      await bild(page, `${steg}-03-rubrikark`)
+      const synligt = await page.evaluate(() => {
+        const ark = document.querySelector('[role=dialog]')!.getBoundingClientRect()
+        const yta = document.querySelector('.mallyta .dok-ark-yta')!.getBoundingClientRect()
+        return Math.round(ark.top - Math.max(yta.top, 0))
+      })
+      kontroll(synligt >= 150, `${steg}: dokumentet syns ovanför rubrikarket (${synligt} px)`)
+      await page.evaluate(() => ([...document.querySelectorAll<HTMLButtonElement>('[role=dialog] [role=radio]')][1])?.click())
+      await vila(1200)
+      await klickaText(page, 'Klar').catch(() => undefined)
+      await vila(500)
+    } else kontroll(false, `${steg}: rubrikerna har träffytor`)
 
-  // Rubrikarket från ett tryck på en rubrik.
-  const rubrik = await page.$('button[aria-label^="Byt rubrik"]')
-  kontroll(Boolean(rubrik), `${steg}: rubrikerna har träffytor`)
-  if (rubrik) {
-    await rubrik.click()
-    await vila(800)
-    await bild(page, `${steg}-03-rubrikark`)
-    const valt = await page.evaluate(() => {
-      const r = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] [role=radio]')][1]
-      r?.click()
-      return r?.innerText ?? ''
+    // Typsnittsarket.
+    await klickaText(page, 'Aa').catch(() => undefined)
+    await vila(1000)
+    await bild(page, `${steg}-04-typsnitt`)
+    const ovan = await page.evaluate(() => {
+      const ark = document.querySelector('[role=dialog]')!.getBoundingClientRect()
+      return Math.round(ark.top)
     })
-    await vila(1500)
-    await klickaText(page, 'Klar')
-    await vila(600)
-    kontroll(Boolean(valt), `${steg}: rubriken byttes till "${valt}"`)
+    kontroll(ovan >= (vy === 'pixel7' ? 380 : 100), `${steg}: typsnittsarket lämnar dokumentets topp synlig (arkets överkant ${ovan} px)`)
+    await page.keyboard.press('Escape')
+    await vila(400)
+
+    // Helskärmen via zoomknappen.
+    await page.evaluate(() => (document.querySelector('.mallyta button[aria-label="Läs i helskärm"]') as HTMLButtonElement | null)?.click())
+    await vila(1800)
+    await bild(page, `${steg}-05-helskarm`)
+    await page.keyboard.press('Escape')
+    await vila(400)
+
+    // Foto i en fotomall (gratis med foto, ur katalogens fält).
+    const fotoMall = await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta [aria-label*="Gratis"]')].find((x) => /Björk|foto/i.test(x.getAttribute('aria-label') ?? ''))
+      b?.click()
+      return Boolean(b)
+    })
+    await vila(2500)
+    const fotoKnapp = await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta button[aria-haspopup="dialog"]')].find((x) => /^Foto|A\s*Foto/.test(x.innerText.trim()) || x.innerText.trim().endsWith('Foto'))
+      b?.click()
+      return Boolean(b)
+    })
+    await vila(800)
+    await bild(page, `${steg}-06-fotoark`)
+    kontroll(fotoMall && fotoKnapp && (await page.evaluate(() => document.body.innerText.includes('Lägg till foto när du skapat konto'))), `${steg}: fotoarket utloggad i fotomallen`)
+    await page.keyboard.press('Escape')
+    await vila(300)
   }
 
-  // Typsnittet.
-  await klickaText(page, 'Aa').catch(() => undefined)
-  await vila(700)
-  await bild(page, `${steg}-04-typsnitt`)
-  await page.keyboard.press('Escape')
-  await vila(400)
-
-  // Helskärmen.
-  await page.evaluate(() => (document.querySelector('button[aria-label="Läs i helskärm"]') as HTMLButtonElement | null)?.click())
-  await vila(1500)
-  await bild(page, `${steg}-05-helskarm`)
-  await page.keyboard.press('Escape')
-  await vila(400)
-
-  // Ladda ner: kontoarket.
+  // Premiummall: knappen i två rader och kontoarket med vägen till kassan.
   await page.evaluate(() => {
-    const b = [...document.querySelectorAll<HTMLButtonElement>('button')].find((e) => /^Ladda ner (PDF|Word)/.test(e.innerText.trim()) && e.offsetParent !== null)
+    const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta [aria-label*="Premium"]')].find((x) => x.offsetParent !== null)
     b?.click()
   })
-  await vantaText(page, 'Skapa ett konto, så följer ditt CV med.', 15000).catch(() => undefined)
-  await vila(600)
-  await bild(page, `${steg}-06-kontoark`)
-  kontroll(await page.evaluate(() => document.body.innerText.includes('Fortsätt med Google')), `${steg}: kontoarket med Google först`)
+  await vila(2500)
+  await bild(page, `${steg}-07-premiummall`)
+  const knapp = await page.evaluate(() => {
+    const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((x) => x.innerText.includes('Ladda ner'))
+    return b ? { text: b.innerText.replace(/\n/g, ' | '), h: Math.round(b.getBoundingClientRect().height) } : null
+  })
+  kontroll(Boolean(knapp && knapp.text.includes('|') && knapp.text.includes('Premium')), `${steg}: premiumknappen i två rader (${knapp?.text}, ${knapp?.h} px)`)
 
-  if (vy === 'pixel7') {
+  if (vy === 'pixel7' && tema === 'ljus') {
+    // Gratisvägen i Linne-mallen: konto i arket, sedan filen direkt.
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta button')].find((x) => x.innerText.startsWith('Ladda ner gratis i'))
+      b?.click()
+    })
+    await vila(2500)
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((x) => /^Ladda ner (PDF|Word)$/.test(x.innerText.trim()))
+      b?.click()
+    })
+    await vantaText(page, 'Skapa ett konto, så följer ditt CV med.', 15000).catch(() => undefined)
+    await vila(600)
+    await bild(page, `${steg}-08-kontoark`)
     const tid = Date.now()
     const epost = `qa-mallar-utloggad-${tid}@jobbcoach-qa.test`
     await page.type('[role=dialog] input[type=email]', epost)
     await page.type('[role=dialog] input[type=password]', `QaMallar!${tid}`)
     await klickaText(page, 'Skapa konto och ladda ner')
-    // Kontot registreras direkt, så att raderingen hittar det.
     await vila(4000)
-    const { data } = await sb.auth.admin.listUsers({ page: 1, perPage: 200 })
-    const ny = data?.users.find((u) => u.email === epost)
+    const { data: prof } = await sb.from('profiles').select('id').eq('email', epost).maybeSingle()
+    const ny = prof ? { id: (prof as { id: string }).id } : null
     if (ny) {
-      const k = lasKonton()
-      k.push({ roll: 'utloggad', epost, id: ny.id })
-      sparaKonton(k)
+      const kk = lasKonton()
+      kk.push({ roll: 'utloggad', epost, id: ny.id })
+      sparaKonton(kk)
     }
-    kontroll(Boolean(ny), `${steg}: kontot skapades i arket (${epost})`)
+    kontroll(Boolean(ny), `${steg}: kontot skapades i arket`)
     await vantaText(page, 'Klart. Ditt CV är nedladdat.', 90000).catch(() => undefined)
     await vila(2500)
-    await bild(page, `${steg}-07-final`)
+    await bild(page, `${steg}-09-final`)
     const pdf = await vantaFil(nedMapp, '.pdf', 10000)
-    kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: PDF:en laddades ner direkt efter kontot (${pdf ? path.basename(pdf) : 'ingen'})`)
+    kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: PDF direkt efter kontot (${pdf ? path.basename(pdf) : 'ingen'})`)
+    const jobb = await page.evaluate(() => {
+      const a = document.querySelector<HTMLAnchorElement>('[role=dialog] a[aria-label*="Öppna annonsen"], [role=dialog] a[aria-label*="Dina matchningar"]')
+      return a ? a.getAttribute('href') : null
+    })
+    kontroll(jobb !== null || (await page.evaluate(() => document.body.innerText.includes('Nu brevet'))), `${steg}: jobbkortet klickbart (${jobb}) eller brevet som nästa steg`)
     if (ny) {
+      // R4: ett andra anspråk på samma utkast ger ingen ny rad.
+      const andra = await page.evaluate(async () => {
+        const r = await fetch('/api/cv/prova/hamta', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cv: { personalInfo: { fullName: 'Erik Lindberg', email: '' }, experience: [], education: [], skills: [] } }),
+        })
+        return r.json()
+      })
       const { count } = await sb.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', ny.id)
-      kontroll((count ?? 0) === 1, `${steg}: utkastet hämtades hem till cv_texts (${count})`)
+      kontroll(count === 1 && andra.ny === false, `${steg}: utkastet hämtas en gång, andra anspråket återanvänder raden (${count} rad, ny ${andra.ny})`)
     }
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
@@ -316,79 +420,191 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
   const steg = `${k.roll}-${vy}-${tema}`
   const { page, ctx, fel, nedMapp } = await nySida(browser, vy, steg, tema)
   for (const c of await sessionsCookie(k.epost)) await page.setCookie({ ...c, url: BAS, path: '/' })
-  const t0 = Date.now()
   await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2', timeout: 120000 })
-  await vila(2000)
+  await vila(2500)
   await bild(page, `${steg}-01-galleri`)
-  kontroll(page.url().includes('/dashboard/cv-mallar'), `${steg}: galleriet öppnas (${Date.now() - t0} ms)`)
-  kontroll(page.url().includes('mall='), `${steg}: valet står i adressen (${page.url().replace(BAS, '')})`)
-  kontroll(await page.evaluate(() => document.body.innerText.includes('CV: Erik Lindberg')), `${steg}: CV-chippen i toppraden`)
-
+  kontroll(page.url().includes('mall='), `${steg}: valet i adressen (${page.url().replace(BAS, '')})`)
+  // Rulla till mitten och till slutet: raden ska ligga mot navet hela vägen.
+  for (const lage of ['mitt', 'slut'] as const) {
+    await page.evaluate((l) => {
+      const m = document.querySelector('main.dashboard-main-content') as HTMLElement | null
+      const el = m && m.scrollHeight > m.clientHeight ? m : document.scrollingElement!
+      el.scrollTop = l === 'mitt' ? el.scrollHeight / 3 : el.scrollHeight
+    }, lage)
+    await vila(700)
+    const r = await matRad(page)
+    const mal = r.navTopp ?? r.vy
+    kontroll(r.under !== null && Math.abs(r.under - mal) <= 2, `${steg}: fasta raden mot ${r.navTopp ? 'navet' : 'vyns botten'} vid ${lage} (radens underkant ${r.under}, mål ${mal}, höjd ${r.hojd})`)
+    if (lage === 'slut') await bild(page, `${steg}-02-rad-${lage}`)
+  }
   if (tema === 'mork') {
+    kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
     await ctx.close()
     return
   }
-  // Byt CV-arket.
-  await klickaText(page, 'CV: Erik Lindberg')
-  await vila(700)
-  await bild(page, `${steg}-02-byt-cv`)
-  await page.keyboard.press('Escape')
-  await vila(300)
+  await page.evaluate(() => {
+    const m = document.querySelector('main.dashboard-main-content') as HTMLElement | null
+    if (m) m.scrollTop = 0
+    window.scrollTo(0, 0)
+  })
+  await vila(500)
 
-  // Rubrik sparas.
+  // B6: rubrikarket följer det sparade valet.
   const rubrik = await page.$('button[aria-label^="Byt rubrik"]')
   if (rubrik) {
     await rubrik.click()
-    await vila(700)
-    const svar = page.waitForResponse((r) => r.url().includes('/api/cv/section-titles'), { timeout: 15000 }).catch(() => null)
-    await page.evaluate(() => ([...document.querySelectorAll<HTMLButtonElement>('[role=dialog] [role=radio]')][1])?.click())
-    const r = await svar
-    kontroll(Boolean(r && r.ok()), `${steg}: rubriken sparades (PUT section-titles ${r?.status()})`)
-    await klickaText(page, 'Klar').catch(() => undefined)
+    await vila(800)
+    const valt = await page.evaluate(() => {
+      const r = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] [role=radio]')][1]
+      r?.click()
+      return r?.innerText.trim() ?? ''
+    })
+    await page.waitForResponse((r) => r.url().includes('/api/cv/section-titles'), { timeout: 15000 }).catch(() => null)
     await vila(1500)
-  } else kontroll(false, `${steg}: rubrikerna har träffytor`)
-
-  // Första nedladdningen: finalen (gratiskontot har redan använt sin i Pixel 7-varvet).
-  const forsta = !(k.roll === 'gratis' && vy === 'dator')
-  if (forsta) {
-  await page.evaluate(() => {
-    const b = [...document.querySelectorAll<HTMLButtonElement>('button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF') && e.offsetParent !== null)
-    b?.click()
-  })
-  await vantaText(page, 'Klart. Ditt CV är nedladdat.', 90000).catch(() => undefined)
-  await vila(2500)
-  await bild(page, `${steg}-03-final`)
-  const pdf = await vantaFil(nedMapp, '.pdf', 10000)
-  kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: PDF nedladdad, finalen visas (${pdf ? path.basename(pdf) : 'ingen'})`)
-  await page.keyboard.press('Escape')
-  await vila(500)
+    const markerad = await page.evaluate(() => [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] [role=radio]')].find((r) => r.getAttribute('aria-checked') === 'true')?.innerText.trim() ?? '')
+    await bild(page, `${steg}-03-rubrikark`)
+    kontroll(markerad === valt, `${steg}: rubrikarket markerar det sparade valet ("${markerad}" mot "${valt}")`)
+    await klickaText(page, 'Tillbaka till förslagen').catch(() => undefined)
+    await vila(1200)
+    await klickaText(page, 'Klar').catch(() => undefined)
+    await vila(500)
   }
 
   if (k.roll === 'gratis') {
-    // Andra nedladdningen: merförsäljningen, aldrig en tom vägg.
+    // Premiummall: köpet går direkt till köpsteget med mallen och returen.
     await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF') && e.offsetParent !== null)
+      const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta [aria-label*="Premium"]')].find((x) => x.offsetParent !== null)
+      b?.click()
+    })
+    await vila(2500)
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((x) => x.innerText.startsWith('Ladda ner') && x.innerText.includes('Premium'))
+      b?.click()
+    })
+    await vila(1500)
+    await bild(page, `${steg}-04-vagg-premiummall`)
+    const kop = await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] button, [role=dialog] a')].find((x) => /Premium|Köp/.test(x.innerText))
+      b?.click()
+      return Boolean(b)
+    })
+    await vila(3000)
+    const url = decodeURIComponent(page.url())
+    kontroll(kop && url.includes('/dashboard/valj-spar') && url.includes('retur=/dashboard/cv-mallar?') && url.includes('mall='), `${steg}: köpet går till köpsteget med retur och mall (${url.replace(BAS, '').slice(0, 160)})`)
+    await bild(page, `${steg}-05-kopsteg`)
+    await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2' })
+    await vila(2500)
+  }
+
+  // Första nedladdningen (gratis bara på Pixel 7, annars använd).
+  const forsta = !(k.roll === 'gratis' && vy === 'dator')
+  if (forsta) {
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF'))
+      b?.click()
+    })
+    await vantaText(page, 'Klart. Ditt CV är nedladdat.', 90000).catch(() => undefined)
+    await vila(2500)
+    await bild(page, `${steg}-06-final`)
+    const pdf = await vantaFil(nedMapp, '.pdf', 10000)
+    kontroll(Boolean(pdf), `${steg}: PDF nedladdad, finalen visas (${pdf ? path.basename(pdf) : 'ingen'})`)
+    await page.keyboard.press('Escape')
+    await vila(500)
+  }
+  if (k.roll === 'gratis') {
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF'))
       b?.click()
     })
     await vantaText(page, 'Ditt CV i en annan mall?', 30000).catch(() => undefined)
-    await vila(2500)
-    await bild(page, `${steg}-04-merforsaljning`)
-    kontroll(await page.evaluate(() => document.body.innerText.includes('Ditt CV i en annan mall?')), `${steg}: andra nedladdningen visar merförsäljningen`)
+    await vila(3000)
+    await bild(page, `${steg}-07-merforsaljning`)
+    const bilder = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[role=dialog] [role=radio] > span:first-child')].map((e) => Math.round(e.getBoundingClientRect().width)))
+    kontroll(bilder.length === 3 && bilder.every((b) => b >= 100), `${steg}: merförsäljningen med tre bilder om 100 px eller mer (${bilder.join(', ')})`)
+    const lofte = await page.evaluate(() => [...document.querySelectorAll('[role=dialog] [role=radio]')].map((e) => (e as HTMLElement).innerText).join(' | '))
+    kontroll(!/foto|bild/i.test(lofte), `${steg}: korten lovar inget foto utan foto (${lofte.replace(/\n/g, ' ')})`)
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] button')].find((x) => x.innerText.startsWith('Ladda ner i'))
+      b?.click()
+    })
+    await vila(3000)
+    const url = decodeURIComponent(page.url())
+    kontroll(url.includes('/dashboard/valj-spar') && url.includes('retur=/dashboard/cv-mallar?') && url.includes('mall='), `${steg}: merförsäljningens knapp direkt till köpsteget med vald mall (${url.replace(BAS, '').slice(0, 160)})`)
   } else {
-    // Premium: Word.
+    // Premium: Word, och köpreturen (?ladda=1) startar nedladdningen.
+    await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=kalksten&format=pdf&ladda=1&premium_activated=true`, { waitUntil: 'networkidle2' })
+    const pdf2 = await vantaFil(nedMapp, 'kalksten-erik-lindberg.pdf', 90000)
+    await vila(2000)
+    await bild(page, `${steg}-07-retur-ladda`)
+    kontroll(Boolean(pdf2) && !page.url().includes('ladda=1'), `${steg}: köpreturen laddar ner filen direkt och tar bort ladda ur adressen (${pdf2 ? path.basename(pdf2) : 'ingen'})`)
+    await page.keyboard.press('Escape')
     await page.evaluate(() => ([...document.querySelectorAll<HTMLButtonElement>('[role=radio]')].find((b) => b.innerText.includes('Word')))?.click())
     await vila(500)
     await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('button')].find((e) => e.innerText.trim().startsWith('Ladda ner Word') && e.offsetParent !== null)
+      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner Word'))
       b?.click()
     })
     const docx = await vantaFil(nedMapp, '.docx', 90000)
     kontroll(Boolean(docx), `${steg}: Word laddas ner (${docx ? path.basename(docx) : 'ingen'})`)
-    await vila(1500)
-    await bild(page, `${steg}-04-word-final`)
+    await steg7(page, steg)
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()
+}
+
+/** Byggarens steg 7 med ifyllt CV (granskningen V8). */
+async function steg7(page: Page, steg: string) {
+  const utkast = {
+    data: {
+      personalInfo: { fullName: 'Erik Lindberg', email: 'erik@example.com', phone: '070-123 45 67', address: 'Stockholm', title: 'Projektledare' },
+      summary: 'Projektledare med sex års erfarenhet av digitala projekt inom bank och fintech.',
+      experience: [{ position: 'Projektledare', company: 'Nordea', startDate: '2021', description: ['Ledde ett team på tolv personer'] }],
+      education: [{ degree: 'Civilingenjör', institution: 'KTH', startDate: '2013', endDate: '2018' }],
+      skills: [{ category: 'Metodik', skills: ['Scrum', 'Kanban', 'SAFe'] }],
+      languages: [{ language: 'Svenska', proficiency: 'Modersmål' }],
+      certifications: [],
+    },
+    timestamp: Date.now(),
+    expiresAt: Date.now() + 86400000,
+  }
+  await page.evaluate((u) => localStorage.setItem('jobbcoach_cv_draft', JSON.stringify(u)), utkast)
+  await page.goto(`${BAS}/dashboard/skapa-cv?steg=7`, { waitUntil: 'networkidle2' })
+  await vila(1500)
+  await page.evaluate(() => (document.querySelector('section[aria-label="Påbörjat utkast"] button') as HTMLButtonElement | null)?.click())
+  await vila(4000)
+  await bild(page, `${steg}-08-steg7`, true)
+  const har = await page.evaluate(() => ({
+    remsa: document.body.textContent!.includes('Föreslagna för dig'),
+    ark: Boolean(document.querySelector('.dok-ark-yta')),
+    knapp: [...document.querySelectorAll('button')].some((b) => b.innerText.includes('Spara och ladda ner')),
+  }))
+  kontroll(har.remsa && har.ark && har.knapp, `${steg}: steg 7 med ifyllt CV, remsan, arket och Spara och ladda ner (${JSON.stringify(har)})`)
+  // Tryck på ett avsnitt går till steget och tillbaka.
+  const avsnitt = await page.evaluate(() => {
+    const b = [...document.querySelectorAll<HTMLButtonElement>('.dok-ark-yta button[aria-label^="Erfarenhet"]')][0]
+    b?.click()
+    return Boolean(b)
+  })
+  await vila(2000)
+  const pa3 = page.url().includes('steg=3')
+  await klickaText(page, 'Granska CV').catch(() => undefined)
+  await vila(3000)
+  kontroll(avsnitt && pa3 && page.url().includes('steg=7'), `${steg}: tryck på avsnittet går till steget och Granska CV tillbaka (${page.url().replace(BAS, '')})`)
+}
+
+async function anonymt(browser: Browser) {
+  const p = await browser.newPage()
+  await p.goto(`${BAS}/cv-mallar/prova`, { waitUntil: 'domcontentloaded' })
+  const status = await p.evaluate(async () => {
+    const r = await fetch('/api/cv/generate-formatted', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ template: 'linne', structuredData: { personalInfo: { fullName: 'A B', email: '' }, experience: [], education: [], skills: [] }, format: 'pdf' }),
+    })
+    return r.status
+  })
+  kontroll(status === 401, `R3: generate-formatted utan konto svarar ${status}`)
+  await p.close()
 }
 
 async function klicka() {
@@ -396,7 +612,11 @@ async function klicka() {
   const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true, args: ['--no-sandbox'] })
   const bara = arg('bara')
   try {
-    if (!bara || bara === 'utloggad') for (const vy of ['pixel7', 'dator'] as Vy[]) await utloggad(browser, vy).catch((e) => kontroll(false, `utloggad-${vy}: ${e.message}`))
+    if (!bara || bara === 'anonymt') await anonymt(browser)
+    if (!bara || bara === 'utloggad')
+      for (const vy of ['pixel7', 'dator'] as Vy[])
+        for (const tema of ['ljus', 'mork'] as const)
+          await utloggad(browser, vy, tema).catch((e) => kontroll(false, `utloggad-${vy}-${tema}: ${e.message}`))
     if (!bara || bara === 'inloggad')
       for (const k of konton.filter((x) => x.roll !== 'utloggad'))
         for (const vy of ['pixel7', 'dator'] as Vy[])

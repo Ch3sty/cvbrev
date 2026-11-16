@@ -286,7 +286,7 @@ export default function CvMallarClient(p: {
   )
 
   return (
-    <div className="mx-auto w-full max-w-[1180px] px-3.5 pb-6 pt-3 lg:px-6">
+    <div className="mx-auto w-full max-w-[1180px] px-3.5 pt-3 lg:px-6">
       <Mallyta
         surface={SURFACE}
         katalog={p.katalog}

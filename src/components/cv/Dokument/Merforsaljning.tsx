@@ -56,7 +56,7 @@ export function kortText(m: MallKort, harFoto: boolean): string {
   if (harFoto || !m.foto) return m.kort
   const utan = (m as MallKort & { kortUtanFoto?: string }).kortUtanFoto
   if (utan) return utan
-  const t = m.kort.replace(/,?\s*(och|med ditt |med |rund )?(foto|fotoplats|rund bild|bild)$/i, '').trim()
+  const t = m.kort.replace(/,?\s*(och |med ditt |med |rund )?(foto|fotoplats|rund bild|bild)$/i, '').trim()
   return t || m.kort
 }
 

@@ -142,7 +142,7 @@ describe('merförsäljningens kort utan foto (R2)', () => {
   it('lovar inget foto när CV:t saknar foto', () => {
     // Konstnärliga mallar visas aldrig i merförsäljningen.
     for (const m of MALL_KATALOG.filter((k) => k.foto && k.familj !== 'konstnarlig')) {
-      expect(kortText(m, false)).not.toMatch(/foto|bild/i)
+      expect(kortText(m, false)).not.toMatch(/foto|bild|\boch$/i)
       expect(kortText(m, true)).toBe(m.kort)
     }
   })

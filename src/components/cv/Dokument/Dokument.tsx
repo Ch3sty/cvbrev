@@ -218,7 +218,7 @@ export default function Dokument({
       {/* Första besöket: raden ovanför arket, i ett spår med reserverad höjd
           (CLS 0), så att den aldrig täcker namnet. */}
       {interaktiv ? (
-        <div className="mb-1.5 h-9" aria-live="polite">
+        <div className="mb-1.5 h-9" aria-live="polite" data-tips-spar>
           {tips ? (
             <p className="flex h-9 items-center gap-2 rounded-xl bg-ton px-3 text-[13px] font-medium text-ton-ink">
               <IkonPenna size={16} />

@@ -35,11 +35,11 @@ export interface FormatValProps {
 export function FormatVal({ format, onFormat, mallHarWord, kanWord, last, kompakt }: FormatValProps) {
   if (kompakt) {
     const del = (vald: boolean) =>
-      `inline-flex h-full min-w-0 flex-1 items-center justify-center gap-1 rounded-[8px] px-2 text-[13px] font-semibold ${
+      `inline-flex h-full min-w-0 flex-1 items-center justify-center gap-0.5 rounded-[8px] px-1 text-[13px] font-semibold ${
         vald ? 'bg-papper text-ink-1 shadow-[0_0_0_1px_var(--ink-1)]' : 'text-ink-2 hover:text-ink-1'
       } disabled:opacity-60`
     return (
-      <div className="flex h-12 w-[150px] shrink-0 items-stretch gap-1 rounded-[10px] bg-papper-2 p-1" role="radiogroup" aria-label="Format">
+      <div className="flex h-12 w-[132px] shrink-0 items-stretch gap-0.5 rounded-[10px] bg-papper-2 p-1" role="radiogroup" aria-label="Format">
         <button type="button" role="radio" aria-checked={format === 'pdf'} className={del(format === 'pdf')} onClick={() => onFormat('pdf')} disabled={last}>
           <IkonPdf size={18} />
           {FORMAT.pdf}
@@ -128,7 +128,7 @@ export function LaddaKnapp({ text, under, format, onClick, framsteg, disabled }:
         {format === 'docx' ? <IkonWord size={18} className="shrink-0" /> : <IkonPdf size={18} className="shrink-0" />}
         {tva ? (
           <span className="min-w-0 text-left">
-            <span className="block truncate text-[15px]">{text}</span>
+            <span className="block truncate text-[14px] min-[480px]:text-[15px]">{text}</span>
             <span className="block truncate text-[12px] font-medium opacity-85">{under}</span>
           </span>
         ) : (
