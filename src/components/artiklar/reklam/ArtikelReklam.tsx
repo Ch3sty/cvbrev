@@ -404,7 +404,7 @@ export function GratisKort({
             {/* Mallraden leder till verktygssidan: intern länkkraft som kortet
                 hade förut och inte får tappa (SEO-spärrlistan punkt 4). */}
             {i === GRATIS_KORT.mallrad ? (
-              <Link href="/verktyg/cv-mallar" data-cta-klick="/verktyg/cv-mallar" className="pub-lank" style={{ fontWeight: 500 }}>
+              <Link href="/cv-mallar" data-cta-klick="/cv-mallar" className="pub-lank" style={{ fontWeight: 500 }}>
                 {r}
               </Link>
             ) : (
@@ -442,7 +442,7 @@ export function ListaSlutKort() {
             {LISTA_SLUT.knapp}
           </Link>
         }
-        lank={{ text: 'Eller börja gratis med en CV-mall', href: '/verktyg/cv-mallar' }}
+        lank={{ text: 'Eller börja gratis med en CV-mall', href: '/cv-mallar' }}
         bild={<Telefoner paket="lista" />}
       />
     </div>

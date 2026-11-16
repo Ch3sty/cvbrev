@@ -27,7 +27,7 @@ export default async function SkapaCVPage({
 }: {
   searchParams: Promise<{ mall?: string }>;
 }) {
-  // Mallen som valdes före registreringen (/verktyg/cv-mallar,
+  // Mallen som valdes före registreringen (/cv-mallar,
   // /cv-mallar/prova) följer med hit som ?mall= och förväljs i granskningen.
   const { mall } = await searchParams;
   const initialTemplate = mall && getTemplateById(mall) ? mall : undefined;

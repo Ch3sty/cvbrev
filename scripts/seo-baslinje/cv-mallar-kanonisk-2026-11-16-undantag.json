@@ -1,0 +1,421 @@
+{
+  "_om": "Mallsidorna slås ihop 2026-11-16 (SEO-strategen, Search Console 90 dagar: /cv-mallar 637 visningar pos 28,5 mot /verktyg/cv-mallar 232 visningar pos 70,3; Google bortsåg från canonical-taggen). /verktyg/cv-mallar 308:ar till /cv-mallar, som fått sidans Word-avsnitt (#word), stegen, funktionerna, Product-listan, HowTo och de fem unika FAQ-frågorna ordagrant. Inget innehåll med SEO-värde försvinner.",
+  "STATUS_BYTT": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": 200,
+      "efter": 308,
+      "mal": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Permanent omdirigering i next.config.ts; innehållet flyttat till /cv-mallar, posten struken ur sitemapen."
+    }
+  ],
+  "LD_UNDANTAG": [
+    {
+      "path": "/cv-mallar",
+      "datum": "2026-11-16",
+      "nya": true,
+      "skal": "Nya block från /verktyg/cv-mallar: ItemList med en Product per mall (url till #mall-<id> på /cv-mallar) och HowTo ur de synliga stegen; FAQPage har fått de fem frågorna som flyttade med."
+    }
+  ],
+  "LANK_BYTT": [
+    {
+      "path": "/",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/funktioner",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/cv-exempel",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/cv-mallar/underskoterska",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/cv-mallar/student",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/cv-mallar/chef",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/barnskotare",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/bartender",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/butikssaljare",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/ekonomiassistent",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/enhetschef",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/larare",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/loneadministrator",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/personlig-assistent",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/produktchef",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/saljare",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/sjukskoterska",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/sommarjobb",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/student",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/teamledare",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/personligt-brev-exempel/underskoterska",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/ai-rekrytering-sverige",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/bra-cv-guide",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-gratis-guide",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-pdf-gratis",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-word-gratis",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-word-gratis",
+      "fore": "/verktyg/cv-mallar#word",
+      "efter": "/cv-mallar#word",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/exempel-pa-cv-guide",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/fardigheter-cv-exempel",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/hur-ska-ett-cv-se-ut",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/kompetenser-cv-guide",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/online-cv-byggare-gratis",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-layout",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-utbildning",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/referenser-cv",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "fore": "/verktyg/cv-mallar",
+      "efter": "/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    }
+  ],
+  "LANK_BORTA": [
+    {
+      "path": "/artiklar/ai-rekrytering-sverige",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/bra-cv-guide",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-gratis-guide",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-pdf-gratis",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-word-gratis",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/cv-mall-word-gratis",
+      "lank": "/verktyg/cv-mallar#word",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar#word (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/exempel-pa-cv-guide",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/fardigheter-cv-exempel",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/hur-ska-ett-cv-se-ut",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/kompetenser-cv-guide",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/online-cv-byggare-gratis",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-layout",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-utbildning",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/referenser-cv",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "Bytt mot /cv-mallar (samma ställe i texten, bara href). SEO-strategens beslut 2026-11-16 ur Search Console: /cv-mallar är kanonisk, /verktyg/cv-mallar 308:ar dit och alla interna länkar pekar direkt på /cv-mallar (Word-ankaret #word står nu på /cv-mallar)."
+    }
+  ],
+  "META_BYTT": [
+    {
+      "path": "/cv-mallar",
+      "falt": "description",
+      "datum": "2026-11-16",
+      "skal": "SEO-strategen: Word nämns i beskrivningen när Word-avsnittet flyttat hit (\"som PDF eller Word\"), 156 tecken."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 /**
  * Tillståndet för eget CV utan konto (plan-mallar 3.2, beslut 2), delat
- * mellan uppladdningen högst upp och arbetsytan under på /verktyg/cv-mallar,
+ * mellan uppladdningen högst upp och arbetsytan under på /cv-mallar,
  * /cv-mallar och /cv-mallar/prova.
  *
  * Före uppladdningen visar arbetsytan exempel-CV:t i gratismallen, så sidan

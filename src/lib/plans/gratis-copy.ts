@@ -53,7 +53,7 @@ export const GRATIS_LISTA = [
   `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen`,
 ] as const
 
-/** Index i GRATIS_LISTA för mallraden, som länkar till /verktyg/cv-mallar. */
+/** Index i GRATIS_LISTA för mallraden, som länkar till /cv-mallar. */
 export const GRATIS_MALLRAD = 1
 
 /** Meningen, lång form (prissidan, FAQ). */

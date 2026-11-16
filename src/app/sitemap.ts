@@ -150,12 +150,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/verktyg/cv-mallar`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/verktyg/personligt-brev`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

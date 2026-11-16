@@ -21,6 +21,8 @@ import { prisInfo } from '@/lib/cv/mallval/pris.server'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import type { Yrkesmall } from '../yrkesmall-data'
+import { Kort, StegRader } from '@/components/publikt/VerktygsMall'
+import { FUNKTIONER, STEG, WORD_INGRESS, WORD_RADER } from './mallar-produkt'
 
 const GRATIS_NAMN = MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn)
 
@@ -169,6 +171,47 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                   </div>
                 ))}
               </div>
+            </div>
+          </Rum>
+
+          {/* Från /verktyg/cv-mallar (308 hit sedan 2026-11-16): Word-avsnittet
+              med ankaret #word, stegen och funktionerna, ordagrant. */}
+          <Rum rum="cv" yta="panel" id="word">
+            <div className="pub-wrap">
+              <p className="pub-kick">Word</p>
+              <h2 className="pub-h2">CV-mallar för Word</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                {WORD_INGRESS}
+              </p>
+              <Kort rader={WORD_RADER} />
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="mark" id="sa-funkar-det">
+            <div className="pub-wrap pub-rum-cv">
+              <h2 className="pub-h2">Så fungerar det</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Fyra steg från val till färdig PDF. Du fyller i dina uppgifter en gång och byter mall när du vill.
+              </p>
+              <div style={{ marginTop: 28 }}>
+                <StegRader rader={STEG} />
+              </div>
+              <div className="pub-handling">
+                <Link className="pub-knapp" href="/register?borja=cv">
+                  Bygg ditt CV nu
+                </Link>
+              </div>
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="ton">
+            <div className="pub-wrap">
+              <p className="pub-kick">Vad du får</p>
+              <h2 className="pub-h2">Mer än en snygg layout</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Varje mall hjälper dig genom hela ansökan, inte bara med hur sidan ser ut.
+              </p>
+              <Kort rader={FUNKTIONER} />
             </div>
           </Rum>
 

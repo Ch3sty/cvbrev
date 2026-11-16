@@ -63,7 +63,7 @@ const ALLA: LankRad[] = [
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.', objekt: 'brev', rum: 'brev' },
   { href: '/verktyg/cv-analys', rubrik: 'CV-analys', text: 'Poäng per område och varje fynd med åtgärd.', objekt: 'cv', rum: 'cv' },
   { href: '/verktyg/skapa-cv', rubrik: 'Skapa CV', text: 'Steg för steg, med exempel för varje del.', objekt: 'mallar', rum: 'cv' },
-  { href: '/verktyg/cv-mallar', rubrik: 'CV-mallar', text: `${TEMPLATE_COUNT} mallar som rekryteringssystemen läser, ${FREE_TEMPLATE_COUNT} gratis.`, objekt: 'mallar', rum: 'cv' },
+  { href: '/cv-mallar', rubrik: 'CV-mallar', text: `${TEMPLATE_COUNT} mallar som rekryteringssystemen läser, ${FREE_TEMPLATE_COUNT} gratis.`, objekt: 'mallar', rum: 'cv' },
   { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
   { href: '/verktyg/jobbmatchning', rubrik: 'Jobbmatchning', text: 'Din kompetens mot alla annonser i Platsbanken, med skälen.', objekt: 'match', rum: 'jobb' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
@@ -214,7 +214,7 @@ export default function FunktionerSida() {
                 <Link className="pub-knapp" href="/verktyg/skapa-cv">
                   Skapa CV
                 </Link>
-                <Link className="pub-lank" href="/verktyg/cv-mallar">
+                <Link className="pub-lank" href="/cv-mallar">
                   Välj en mall
                 </Link>
               </div>

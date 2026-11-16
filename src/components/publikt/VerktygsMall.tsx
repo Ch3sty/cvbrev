@@ -73,7 +73,7 @@ export interface VerktygsMallProps {
 }
 
 /** Raderna som kort med h3, två eller tre i bredd. */
-function Kort({ rader }: { rader: VerktygsRad[] }) {
+export function Kort({ rader }: { rader: VerktygsRad[] }) {
   const kolumner = rader.length % 3 === 0 && rader.length > 3 ? 'pub-raster-3' : rader.length === 3 ? 'pub-raster-3' : 'pub-raster-2'
   return (
     <div className={`pub-raster ${kolumner}`} style={{ marginTop: 32 }}>
@@ -92,7 +92,7 @@ function Kort({ rader }: { rader: VerktygsRad[] }) {
 }
 
 /** Numrerade steg med h3. Texten kan bära länkar, därför en div och inte p. */
-function StegRader({ rader }: { rader: VerktygsRad[] }) {
+export function StegRader({ rader }: { rader: VerktygsRad[] }) {
   return (
     <ol className={`pub-steg ${rader.length > 4 ? 'pub-steg-2' : ''}`.trim()}>
       {rader.map((r) => (

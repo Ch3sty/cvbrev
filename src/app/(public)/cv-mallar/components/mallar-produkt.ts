@@ -1,0 +1,130 @@
+/**
+ * Innehållet som flyttade från /verktyg/cv-mallar till /cv-mallar
+ * (SEO-strategens beslut den 16 november 2026: /cv-mallar är kanonisk, /verktyg/cv-mallar
+ * 308:ar hit). Texterna ordagrant från den sidan: Word-avsnittet med ankaret
+ * #word (artiklarna om Word-mallar länkar dit), stegen som matar HowTo,
+ * funktionerna och Product-listan över mallarna. Tal och namn ur katalogen.
+ */
+import { WORD_TEMPLATE_COUNT_ORD, talSomOrd, wordMallarSomText } from '@/lib/cv/template-antal'
+import { MALL_KATALOG, MALL_ANTAL } from '@/lib/cv/mallval/katalog'
+import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketNamn } from '@/lib/plans/plans'
+
+const versal = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
+
+/** "Linne och Björk", ur katalogen. */
+const GRATIS_NAMN = (() => {
+  const n = MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn)
+  return n.length <= 1 ? n.join('') : `${n.slice(0, -1).join(', ')} och ${n[n.length - 1]}`
+})()
+
+/**
+ * En rad per Word-mall i katalogens ordning (docs/plan-cv-word-2026-11-15.md
+ * avsnitt 8.2); en mall som stryks ur katalogen försvinner härifrån. Raderna
+ * skrivna av SEO-strategen och copywritern 2026-11-16; saknas en rad används
+ * katalogens stil.
+ */
+const WORD_TEXT: Readonly<Record<string, string>> = {
+  linne: 'Gratismallen i en spalt, och Word-filen kostar inget extra. Georgia i namnet, Calibri i texten och en tunn linje under rubrikerna.',
+  bjork: 'Gratismallen med foto, också den gratis som Word. Centrerat huvud med rund fotoplats och en accentstapel vid varje rubrik.',
+  koppar: 'Färgat huvudband med namnet i vitt och rund fotoplats. Syns utan att tumma på läsbarheten.',
+  kalksten: 'Ljusgrå sidospalt med eget fält för legitimation och behörigheter, kvadratiskt foto. Bra när intygen väger tungt.',
+  granit: 'Mörkt huvudband som fortsätter i en mörk högerspalt, rund fotoplats. Kontrast som märks i högen.',
+  kolumn: 'Garamond, med rubrikerna i en egen vänsterkolumn. Lugn och lätt att skumma.',
+  arsring: 'Årtalen i vänsterkolumnen längs en lodrät accentlinje. Gör karriärstegen tydliga.',
+  antikva: 'Times New Roman, centrerat huvud och dubbel linje. Den formella mallen för juridik, bank och offentlig sektor.',
+  fasad: 'Stort namn i versaler bakom en accentkant, kvadratiskt foto. Rakt och tydligt.',
+  raster: 'Verdana, rubrikerna som tonade band och kompetenserna i två spalter. Många kompetenser utan att det blir rörigt.',
+  folio: 'Garamond, högerställt huvud och kursiva rubriker. Elegant utan att bli stel.',
+  stal: 'Profilen i full bredd, sedan två spalter med accentlinjer. Rymmer lång erfarenhet och många uppdrag.',
+}
+export const WORD_RADER = MALL_KATALOG.filter((m) => m.word).map((m) => ({ rubrik: m.namn, text: WORD_TEXT[m.id] ?? `${m.stil}.` }))
+
+/** Word-mallarna i Premium, ur katalogen. */
+const WORD_PREMIUM_ANTAL = MALL_KATALOG.filter((m) => m.word && m.niva === 'premium').length
+
+export const WORD_INGRESS = `Behöver du en gratis CV-mall i Word? ${versal(WORD_TEMPLATE_COUNT_ORD)} av våra mallar laddas också ner som Word-fil (.docx): ${wordMallarSomText()}. Gratismallarna ${GRATIS_NAMN} hämtar du som Word utan att betala något, en fil per konto i det format du väljer. Word i de övriga ${talSomOrd(WORD_PREMIUM_ANTAL)} Word-mallarna ingår i ${paketNamn(SALD_PLAN)}. Word vill du ha när du själv ska ändra i CV:t efteråt, eller när ett bemanningsföretag eller en arbetsgivare i offentlig sektor ber om ett redigerbart format för att klistra in CV:t i sina egna system. Word-filen har gått genom samma läsning som PDF:en, så rubriker och ordning håller också där. De konstnärliga mallarna laddas ner som PDF.`
+
+/** Mallarna med fotoplats, ur katalogen. */
+const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
+const FOTO_GRATIS = MALL_KATALOG.filter((m) => m.foto && m.niva === 'gratis').map((m) => m.namn)
+
+export const STEG = [
+  { rubrik: 'Välj en mall', text: 'Bläddra bland mallar i en spalt, med sidospalt, med rubriker i marginalen eller i konstnärlig form. Alla passar alla yrken, så välj den du vill att rekryteraren ska se först, och byt när du vill.' },
+  { rubrik: 'Fyll i dina uppgifter', text: 'Formuläret leder dig genom varje avsnitt. Du kan utgå från ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.' },
+  { rubrik: 'Vi flyttar in innehållet', text: 'Allt du fyller i hamnar automatiskt på rätt plats i mallen. Byter du mall efteråt följer innehållet med, utan att du fyller i något på nytt.' },
+  { rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`, text: `Ladda ner ditt CV som PDF när du är nöjd, eller som Word-fil i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. I gratismallarna ${GRATIS_NAMN} väljer du fritt mellan de två formaten, Word i de övriga ingår i ${paketKort()}. CV:t sparas i ditt konto, så du kan komma tillbaka och ändra när som helst.` },
+]
+
+export const FUNKTIONER = [
+  { rubrik: 'Byggda för rekryteringssystem', text: `Varje mall har gått genom vår egen CV-läsare med korta och långa CV innan den fick plats i utbudet. Namn, kontaktuppgifter, rubriker och ordning kom ut rätt i alla ${MALL_ANTAL}, också i mallarna med sidospalt. En mall som inte klarar testet tar vi inte med.` },
+  { rubrik: 'PDF, och Word i utvalda mallar', text: `Alla mallar laddas ner som PDF. ${versal(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word-fil, gratismallarna ${GRATIS_NAMN} inräknade, så din gratisfil kan lika gärna vara en Word-fil. Word i de övriga Word-mallarna ingår i ${paketKort()}. PDF för de flesta ansökningar, Word när du vill ändra själv eller när annonsen ber om ett redigerbart format.` },
+  { rubrik: 'Fyra färger och rubriker för din bransch', text: 'Varje mall finns i fyra färger, och rubrikerna väljer du ur tolv uppsättningar för olika branscher: "Klinisk erfarenhet" för vården, "Behörigheter och körkort" för bygg och hantverk, "System och verktyg" för IT. Passar ingen skriver du en egen rubrik.' },
+  { rubrik: 'Ordningen du vill ha, på en sida', text: 'Sätt intygen, utbildningen eller kompetenserna först, beroende på vad rekryteraren ska se först i just din ansökan. Ligger CV:t strax över en sida drar valet Få plats på en sida ihop det utan att du behöver stryka något.' },
+  { rubrik: 'Profilbild där det passar', text: `${versal(talSomOrd(FOTO_ANTAL))} av mallarna har plats för profilbild${FOTO_GRATIS.length ? `, bland dem gratismallen ${FOTO_GRATIS.join(' och ')}` : ''}. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.` },
+  { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'Kontaktraden har plats för LinkedIn och webbplats i alla mallar. Då kan rekryteraren enkelt kontrollera dina meriter.' },
+  { rubrik: 'Redigera när du vill', text: 'Allt sparas i ditt konto. Kom tillbaka, lägg till ett nytt jobb eller byt mall utan att börja om.' },
+  { rubrik: 'Fungerar i mobilen', text: 'Hela CV-byggaren fungerar lika bra i telefonen som på datorn. Bygg och spara i telefonen, så ligger CV:t i ditt konto när du sätter dig vid skrivbordet.' },
+]
+
+/** Formfamiljen som svensk kategori i schemat (SEO-strategen 2026-11-16). */
+const KATEGORI: Readonly<Record<string, string>> = {
+  'en-spalt': 'CV-mall i en spalt',
+  sidospalt: 'CV-mall med två spalter',
+  marginal: 'CV-mall med marginalrubriker',
+  konstnarlig: 'Konstnärlig CV-mall',
+}
+
+/** Formatet i schemats beskrivning: gratismallarna laddas ner gratis i båda formaten, Word i en premiummall ingår i Premium. */
+function formatText(gratis: boolean, word: boolean): string {
+  if (gratis) return word ? 'Gratis som PDF och Word-fil' : 'Gratis som PDF'
+  return word ? 'PDF och Word-fil, ingår i Jobbcoach Premium' : 'PDF, ingår i Jobbcoach Premium'
+}
+
+/** En Product per mall, url till mallens ankare i galleriet på /cv-mallar. */
+export function produktListaSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'CV-mallar för svenska arbetsgivare',
+    description:
+      'Professionella CV-mallar i en spalt, med sidospalt, med marginalrubriker och i konstnärlig form. Testade mot rekryteringssystem och anpassade för svenska arbetsgivare.',
+    numberOfItems: MALL_ANTAL,
+    itemListElement: MALL_KATALOG.map((m, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      item: {
+        '@type': 'Product',
+        name: `CV-mall ${m.namn}`,
+        description: `${m.stil}. ${formatText(m.niva === 'gratis', m.word)}. ATS-testad och passar alla yrken.`,
+        // Miniatyren i webp, 300 x 424 px (över Googles minsta bildyta).
+        image: `https://www.jobbcoach.ai${m.bild.stor}`,
+        category: KATEGORI[m.familj] ?? 'CV-mall',
+        // brand löser GSC-varningen "No global identifier" (Google accepterar
+        // brand ELLER gtin; en digital CV-mall har ingen gtin). sku = stabil id.
+        brand: { '@type': 'Brand', name: 'Jobbcoach.ai' },
+        sku: m.id,
+        url: `https://www.jobbcoach.ai/cv-mallar#mall-${m.id}`,
+        offers: {
+          '@type': 'Offer',
+          price: m.niva === 'gratis' ? '0' : String(PLAN_BY_KEY[SALD_PLAN].amount),
+          priceCurrency: 'SEK',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.jobbcoach.ai/cv-mallar',
+          seller: { '@type': 'Organization', name: 'Jobbcoach.ai' },
+        },
+      },
+    })),
+  }
+}
+
+/** HowTo ur samma data som de synliga stegen. */
+export function howToSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'Så bygger du ett CV med Jobbcoach.ai',
+    description: 'Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in innehållet, ladda ner.',
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'SEK', value: '0' },
+    step: STEG.map((st, i) => ({ '@type': 'HowToStep', position: i + 1, name: st.rubrik, text: st.text })),
+  }
+}

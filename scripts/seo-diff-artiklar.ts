@@ -1002,7 +1002,22 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         const nyaKvar = dj.nya.filter((b) => !tillatTyp(b));
         const typerFore = dj.borta.filter(tillatTyp).map(typ).sort();
         const typerEfter = dj.nya.filter(tillatTyp).map(typ).sort();
-        if (JSON.stringify(typerFore) !== JSON.stringify(typerEfter)) {
+        // Ett undantag med nya: true får också lägga till block av en typ som
+        // redan får ändras (2026-11-16: Product-listan är en andra ItemList på
+        // /cv-mallar), men aldrig ta bort något.
+        const tillagg = (() => {
+          if (!und.nya) return false
+          const kvar = [...typerEfter]
+          return typerFore.every((t) => {
+            const i = kvar.indexOf(t)
+            if (i < 0) return false
+            kvar.splice(i, 1)
+            return true
+          })
+        })()
+        if (tillagg && typerEfter.length > typerFore.length) {
+          info(`JSON-LD: nya block av tillåten typ (${und.datum}): ${JSON.stringify(typerFore)} → ${JSON.stringify(typerEfter)}`);
+        } else if (JSON.stringify(typerFore) !== JSON.stringify(typerEfter)) {
           brott(`JSON-LD: tillåtna typer ändrade antal: ${JSON.stringify(typerFore)} → ${JSON.stringify(typerEfter)}`);
         } else if (typerFore.length) {
           info(`JSON-LD ändrad i tillåten typ (${und.datum}): ${typerFore.join(', ')}`);

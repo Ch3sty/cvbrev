@@ -155,7 +155,7 @@ export default function SkapaCvSida() {
         ingress={`Vår CV-byggare tar dig genom sju enkla steg och visar CV:t medan du skriver. Du fyller i, vi sätter ihop och du laddar ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna.`}
         fet="Gratis att börja och helt på svenska."
         primar={{ text: 'Bygg mitt CV gratis', href: '/register?borja=cv' }}
-        sekundar={{ text: 'Se mallarna', href: '/verktyg/cv-mallar' }}
+        sekundar={{ text: 'Se mallarna', href: '/cv-mallar' }}
         loften={[
           { tal: '10 min', text: 'från start till färdigt CV' },
           { tal: '7 steg', text: 'ett i taget, förhandsvisning hela vägen' },
@@ -189,7 +189,7 @@ export default function SkapaCvSida() {
                 </>
               ),
             })),
-            lank: { text: 'Se alla mallar', href: '/verktyg/cv-mallar' },
+            lank: { text: 'Se alla mallar', href: '/cv-mallar' },
           },
           {
             eyebrow: 'Resultat',

@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
     // så att lambdan ger samma PDF som lokalt och aldrig hämtar typsnitt över nätet.
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*'],
     '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
+    // Helskärmens sidor (src/lib/cv/mallar/sidbilder.ts): nedladdningens PDF-kedja
+    // och pdf.js med @napi-rs/canvas som ritar sidorna.
+    '/api/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
+    '/api/public/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
+    '/api/public/exempel/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
     // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk (TTF).
     // Webbsidans woff2 i samma mapp bakas in av next/font och behövs inte här.
     '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*.ttf'],
@@ -57,7 +62,7 @@ const nextConfig: NextConfig = {
 
   // Markera dessa paket som externa för serverside bundling
   // (native bindings i .node-filer kan inte bundlas av Turbopack)
-  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core', '@napi-rs/canvas'],
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core', '@napi-rs/canvas', 'pdfjs-dist'],
 
   // Tillåt TypeScript errors i builds (om det behövs)
   typescript: {
@@ -138,6 +143,9 @@ const nextConfig: NextConfig = {
       // Mallsatsningen (plan-mallar avsnitt 5): den gamla mallstarten går till
       // provsidan, 308 med samma frågesträng (mall, typsnitt, yrke).
       { source: '/cv-mallar/start', destination: '/cv-mallar/prova', permanent: true },
+      // SEO-strategen 2026-11-16 (Search Console): /cv-mallar är kanonisk och har
+      // fått /verktyg/cv-mallar:s innehåll; Google bortsåg från canonical-taggen.
+      { source: '/verktyg/cv-mallar', destination: '/cv-mallar', permanent: true },
       // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
       // Åtgärdar "Not found (404)" i Search Console.
       ...[

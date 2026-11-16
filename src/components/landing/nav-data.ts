@@ -51,7 +51,7 @@ export const GRUPPER: readonly NavGrupp[] = [
       { label: 'Personligt brev', href: '/verktyg/personligt-brev', ikon: 'brev' },
       { label: 'CV-analys', href: '/verktyg/cv-analys', ikon: 'analys' },
       { label: 'Skapa CV', href: '/verktyg/skapa-cv', ikon: 'cv' },
-      { label: 'CV-mallar', href: '/verktyg/cv-mallar', ikon: 'mallar' },
+      { label: 'CV-mallar', href: '/cv-mallar', ikon: 'mallar' },
       { label: 'LinkedIn-profilen', href: '/verktyg/linkedin-optimering', ikon: 'lank' },
     ],
   },

@@ -73,7 +73,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
     text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     knapp: 'Välj en mall',
-    href: '/verktyg/cv-mallar',
+    href: '/cv-mallar',
     paketrad: `Alla ${TEMPLATE_COUNT} mallar och hela CV-analysen ingår i ${KORT_PRIS}.`,
   },
   analys: {
@@ -254,7 +254,7 @@ export const GRATIS_KORT = {
   rubrik: 'Vill du prova innan du läser vidare?',
   /** Den kanoniska listan ur gratis-copy.ts: tester, mallar, analys, brev, jobb. */
   rader: GRATIS_LISTA,
-  /** Raden som länkar till /verktyg/cv-mallar (SEO-spärrlistan punkt 4). */
+  /** Raden som länkar till /cv-mallar (SEO-spärrlistan punkt 4). */
   mallrad: GRATIS_MALLRAD,
   /** Captionen under Nio-raden i sidokolumnen (S7, copy 2026-11-15). */
   nioCaption: 'Grundnivån gratis i alla nio',

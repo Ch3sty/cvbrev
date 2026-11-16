@@ -48,7 +48,7 @@ export const MEST_LASTA: readonly { title: string; href: string }[] = [
 const VERKTYG = [
   { label: 'Rekryteringstester', href: '/verktyg/rekryteringstester' },
   { label: 'CV-analys', href: '/verktyg/cv-analys' },
-  { label: 'CV-mallar', href: '/verktyg/cv-mallar' },
+  { label: 'CV-mallar', href: '/cv-mallar' },
   { label: 'Personligt brev', href: '/skapa-brev/start' },
   { label: 'Jobbmatchning', href: '/verktyg/jobbmatchning' },
 ] as const

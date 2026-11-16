@@ -17,7 +17,7 @@ export default function MallarGuideSection({ type, antal }: { type: 'cv' | 'brev
   const nounMall = isCV ? 'CV-mall' : 'mall för personligt brev'
   const nounMallar = isCV ? 'CV-mallar' : 'mallar för personligt brev'
   const galleriPath = isCV ? '/cv-exempel' : '/personligt-brev-exempel'
-  const verktygPath = isCV ? '/verktyg/cv-mallar' : '/verktyg/personligt-brev'
+  const verktygPath = isCV ? '/cv-mallar' : '/verktyg/personligt-brev'
   const verktygLabel = isCV ? 'vårt CV-verktyg' : 'vårt brevverktyg'
 
   return (

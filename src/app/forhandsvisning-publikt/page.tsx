@@ -198,7 +198,7 @@ export default function Forhandsvisning() {
                 <LankLista
                   lankar={[
                     { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen.', objekt: 'brev', rum: 'brev' },
-                    { href: '/verktyg/cv-mallar', rubrik: 'CV-mallar', text: 'Mallar som systemen läser.', objekt: 'mallar', rum: 'cv' },
+                    { href: '/cv-mallar', rubrik: 'CV-mallar', text: 'Mallar som systemen läser.', objekt: 'mallar', rum: 'cv' },
                   ]}
                 />
               </div>

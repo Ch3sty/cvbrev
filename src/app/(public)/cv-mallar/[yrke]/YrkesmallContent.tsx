@@ -496,7 +496,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Använd någon av våra mallar direkt i appen. Gratis att börja, ingen kortuppgift krävs.
           </p>
           <Link
-            href="/verktyg/cv-mallar"
+            href="/cv-mallar"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-slate-900 font-bold text-base hover:bg-slate-50 transition-colors"
           >
             Skapa CV nu

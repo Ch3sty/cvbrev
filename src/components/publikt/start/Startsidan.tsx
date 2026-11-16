@@ -77,7 +77,7 @@ const MEDIER = [
 const RESTEN: LankRad[] = [
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.', objekt: 'brev', rum: 'brev' },
   {
-    href: '/verktyg/cv-mallar',
+    href: '/cv-mallar',
     rubrik: 'CV-mallar',
     text: `${TEMPLATE_COUNT} mallar som rekryteringssystemen läser, ${FREE_TEMPLATE_COUNT} gratis.`,
     objekt: 'mallar',

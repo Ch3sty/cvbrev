@@ -5,19 +5,24 @@
  *  - /cv-exempel = innehallsexempel ("hur skriver jag mitt CV")
  *  - /cv-mallar  = mall-design ("vilken mall ska jag valja")
  *
- * SEO: ItemList + BreadcrumbList + FAQPage JSON-LD.
- * Canonical: /cv-mallar (self).
+ * SEO: ItemList (yrkessidorna), ItemList med en Product per mall, HowTo,
+ * BreadcrumbList och FAQPage JSON-LD. Canonical: /cv-mallar (self).
+ * Sedan 2026-11-16 den enda mallsidan: /verktyg/cv-mallar 308:ar hit och dess
+ * innehåll (Word-avsnittet #word, stegen, funktionerna, Product-listan och
+ * frågorna) står här (SEO-strategens beslut ur Search Console).
  */
 import type { Metadata } from 'next'
 import CvMallarPageContent from './components/CvMallarPageContent'
 import { YRKESMALL_LIST } from './yrkesmall-data'
 import { CV_MALLAR_FAQ } from './components/cv-mallar-faq'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { howToSchema, produktListaSchema } from './components/mallar-produkt'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 
 // Huvudordsplanen steg 1 (SEO-förslaget K4 a, 2026-11-14): "CV-mall" först,
 // bara löften sidan håller. Talen ur konstanterna.
 const TITEL = `CV-mall: ${TEMPLATE_COUNT} mallar att fylla i och ladda ner, ${FREE_TEMPLATE_COUNT} gratis`
-const BESKRIVNING = `CV-mallar för svenska jobb: ${TEMPLATE_COUNT} mallar att fylla i direkt och ladda ner som PDF, ${FREE_TEMPLATE_COUNT} av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet.`
+const BESKRIVNING = `CV-mallar för svenska jobb: ${TEMPLATE_COUNT} mallar att fylla i och ladda ner som PDF eller Word, ${FREE_TEMPLATE_COUNT} av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet.`
 
 export function generateMetadata(): Metadata {
   return {
@@ -91,6 +96,8 @@ export default function CvMallarHub() {
 
   return (
     <>
+      {/* Inloggade hör hemma i verktyget, som på /verktyg/cv-mallar förut (C2). */}
+      <RedirectLoggedIn to="/dashboard/cv-mallar" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
@@ -102,6 +109,14 @@ export default function CvMallarHub() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(produktListaSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema()) }}
       />
       <CvMallarPageContent yrkesmallar={YRKESMALL_LIST} faqItems={CV_MALLAR_FAQ} />
     </>

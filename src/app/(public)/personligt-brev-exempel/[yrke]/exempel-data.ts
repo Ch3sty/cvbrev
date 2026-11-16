@@ -552,7 +552,7 @@ Lisa Andersson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Undersköterska',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för vårdyrken med rätt struktur för ATS-system'
       },
       {
@@ -715,7 +715,7 @@ Emma Andersson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Studenter',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar för studenter och nyutexaminerade'
       },
       {
@@ -878,7 +878,7 @@ Emma Bergström`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Lärare',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för lärare med rätt struktur för ATS-system'
       },
       {
@@ -1041,7 +1041,7 @@ Erik Andersson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Säljare',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för sales med fokus på kvantifierade resultat och KPI:er'
       },
       {
@@ -1202,7 +1202,7 @@ emma.lindqvist@email.se`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar för studenter och sommarjobbare'
       },
       {
@@ -1371,7 +1371,7 @@ Emma Karlsson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Butikssäljare',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för detaljhandeln med fokus på försäljningsresultat'
       },
       {
@@ -1534,7 +1534,7 @@ Anna Lindqvist`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Sjuksköterska',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för sjuksköterskor med rätt struktur för ATS-system'
       },
       {
@@ -1699,7 +1699,7 @@ Anna Bergström`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Ekonomiassistent',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för ekonomiassistenter med rätt struktur för ATS-system'
       },
       {
@@ -1865,7 +1865,7 @@ Anna Bergström`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Barnskötare',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för barnskötare med rätt struktur för ATS-system'
       },
       {
@@ -2019,7 +2019,7 @@ Marcus Svensson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Bartender',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för bartenders med rätt struktur för ATS-system'
       },
       {
@@ -2184,7 +2184,7 @@ Emma Svensson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Personlig Assistent',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för personliga assistenter med rätt struktur för ATS-system och LSS-verksamhet'
       },
       {
@@ -7211,7 +7211,7 @@ Sofia Bergström`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Löneadministratör',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för löneadministratörer med rätt struktur för ATS-system'
       },
       {
@@ -7367,7 +7367,7 @@ Erik Johansson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Teamledare',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för teamledare med rätt struktur för ATS-system'
       },
       {
@@ -7532,7 +7532,7 @@ Maria Andersson`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Enhetschef',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för enhetschefer med rätt struktur för ATS-system'
       },
       {
@@ -7693,7 +7693,7 @@ Anna Bergström`
     relateradeVerktyg: [
       {
         namn: 'CV-Mallar för Produktchef',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för produktchefer med rätt struktur för tech-rekrytering'
       },
       {
@@ -7840,7 +7840,7 @@ Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min för
     verktyg: [
       {
         namn: 'CV-Mallar för vård och omsorg',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för boendestödjare och omsorgsyrken'
       },
       {
@@ -7983,7 +7983,7 @@ Jag är redo att börja omgående och arbetar gärna varierande scheman inklusiv
     verktyg: [
       {
         namn: 'CV-Mallar för servicebranschen',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för barista och caféjobb'
       },
       {
@@ -8130,7 +8130,7 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
     verktyg: [
       {
         namn: 'CV-Mallar för restaurangbranschen',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för köksbiträde och restaurangjobb'
       },
       {
@@ -8261,7 +8261,7 @@ Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är ti
     verktyg: [
       {
         namn: 'CV-Mallar för administrativa roller',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för kontorsassistent och administratörer'
       },
       {
@@ -8528,7 +8528,7 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfaren
     verktyg: [
       {
         namn: 'CV-Mallar för logistik',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för logistikassistent och lagerroller'
       },
       {
@@ -8678,7 +8678,7 @@ Jag kan börja inom fyra veckor och ser fram emot att diskutera hur jag kan stä
     verktyg: [
       {
         namn: 'CV-Mallar för socialt arbete',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för handläggare och socionomer'
       },
       {
@@ -8825,7 +8825,7 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     verktyg: [
       {
         namn: 'CV-Mallar för finans',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för bank och finansbranschen'
       },
       {
@@ -8972,7 +8972,7 @@ Med tre års erfarenhet av gästservice i högt tempo, systemvana i Opera och Me
     verktyg: [
       {
         namn: 'CV-Mallar för hotell',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för hotell och besöksnäring'
       },
       {
@@ -9123,7 +9123,7 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     verktyg: [
       {
         namn: 'CV-Mallar för vård',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för vårdadministration och hälso- och sjukvård'
       },
       {
@@ -9270,7 +9270,7 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidr
     verktyg: [
       {
         namn: 'CV-Mallar för kundtjänst',
-        slug: '/verktyg/cv-mallar',
+        slug: '/cv-mallar',
         beskrivning: 'Professionella CV-mallar anpassade för kundtjänst och serviceyrken'
       },
       {

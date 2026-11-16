@@ -9,12 +9,15 @@
  * SEO-strategen); fragorna ordagrant som tidigare. Tal ur katalogen,
  * mallnamn som text.
  */
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd } from '@/lib/cv/template-antal'
-import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
-import { paketKort } from '@/lib/plans/plans'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd, wordMallarSomText } from '@/lib/cv/template-antal'
+import { MALL_ANTAL, MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 
 const versal = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
 const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
+const FOTO_GRATIS = MALL_KATALOG.filter((m) => m.foto && m.niva === 'gratis').length
+const uppraknat = (n: string[]) => (n.length <= 1 ? n.join('') : `${n.slice(0, -1).join(', ')} och ${n[n.length - 1]}`)
+const GRATIS_NAMN = uppraknat(MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn))
 
 export const CV_MALLAR_FAQ = [
   {
@@ -69,5 +72,27 @@ export const CV_MALLAR_FAQ = [
   {
     q: 'Hur lång ska mitt CV vara?',
     a: 'Som regel 1 sida för 0-5 års erfarenhet, 1.5-2 sidor för 5-10 år, max 2 sidor för seniora positioner. Undantag: läkare, akademiker och konsulter med många meritlistor kan motivera 2-3 sidor. Mallarna håller typografin oavsett längd, och ligger du strax över en sida finns valet Få plats på en sida i mallväljaren, som drar ihop CV:t utan att du behöver stryka något.',
+  },
+  // Frågorna som flyttade med från /verktyg/cv-mallar när den sidan blev en
+  // omdirigering hit (SEO-strategen 2026-11-16), ordagrant.
+  {
+    q: 'Vilka mallar finns som Word?',
+    a: `${wordMallarSomText()}. De är märkta Word i mallväljaren. Bland dem finns mallar i en spalt, mallar med sidospalt och mallar med rubrikerna eller årtalen i marginalen, och alla ${WORD_TEMPLATE_COUNT_ORD} har gått genom vår läsning av själva Word-filen innan de kom med. ${GRATIS_NAMN} hämtar du som Word gratis, de andra Word-mallarna ingår i ${paketKort()}. Övriga mallar laddas ner som PDF.`,
+  },
+  {
+    q: 'Vad är skillnaden mellan gratismallarna och mallarna i Premium?',
+    a: `Gratismallarna ${GRATIS_NAMN} laddar du ner som PDF eller Word, en fil per konto, utan kortuppgift. De är fullständiga mallar med samma färger, typsnitt och rubrikuppsättningar som de övriga${FOTO_GRATIS ? `, och ${talSomOrd(FOTO_GRATIS)} av dem har plats för foto` : ''}. I ${paketKort()} får du alla ${MALL_ANTAL} mallar, bland dem sidospalterna och de konstnärliga, nedladdning utan tak och Word-filen i alla ${WORD_TEMPLATE_COUNT_ORD} Word-mallar. Priset är ${prisPeriod(SALD_PLAN)}.`,
+  },
+  {
+    q: 'Kan jag redigera CV:t senare?',
+    a: 'Ja. Allt du fyller i sparas i ditt konto och du kan när som helst gå tillbaka, redigera och ladda ner en ny version. Du kan också byta mall utan att förlora din data.',
+  },
+  {
+    q: 'Kan jag använda mallen för internationella ansökningar?',
+    a: 'Ja. Mallarna är språkneutrala, så du kan fylla i dem på engelska och få en professionell layout som fungerar både i Sverige och utomlands. Tänk på att vissa länder har egna konventioner: i USA är ett CV oftast en sida, i Tyskland väntas oftast ett "Lebenslauf" med foto.',
+  },
+  {
+    q: 'Är mallarna mobilanpassade när jag bygger CV:t?',
+    a: 'Ja. Hela byggprocessen fungerar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.',
   },
 ]
