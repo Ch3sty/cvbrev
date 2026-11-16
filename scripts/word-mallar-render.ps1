@@ -51,7 +51,10 @@ try {
           $delade += "delad inne i stycket, $($a.stil): $($a.text)"
         }
       }
-      $tomma = @($info | Where-Object { $_.text -eq '' -and -not $_.tabell } | ForEach-Object { $_.stil })
+      # Word kräver ett stycke efter en tabell sist i dokumentet; det räknas inte.
+      $sistaEfterTabell = $info.Count -ge 2 -and $info[$info.Count - 2].tabell -and $info[$info.Count - 1].text -eq ''
+      $granska = if ($sistaEfterTabell) { $info[0..($info.Count - 2)] } else { $info }
+      $tomma = @($granska | Where-Object { $_.text -eq '' -and -not $_.tabell } | ForEach-Object { $_.stil })
       $sidor = [int]$d.ComputeStatistics(2)
       $sista = $d.Paragraphs.Last.Range
       $raderSista = [int]$d.Range($sista.End - 1, $sista.End - 1).Information($wdFirstCharacterLineNumber)

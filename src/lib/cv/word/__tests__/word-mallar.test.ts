@@ -32,7 +32,8 @@ async function packa(cv: CVMetadata, id: string, val: MallVal = {}) {
 
 /** Kroppens stycken utanför tabeller (tabellerna, också nästlade, tas bort först). */
 function styckenUtanforTabeller(doc: string): string[] {
-  let kropp = doc
+  // Stycket som Word kräver efter en tabell sist i dokumentet (1 pt) räknas inte.
+  let kropp = doc.replace(/(<\/w:tbl>)<w:p>(?:(?!<w:p[ >])[\s\S])*?<\/w:p>(<w:sectPr)/, '$1$2')
   for (let i = 0; i < 5; i++) kropp = kropp.replace(/<w:tbl>(?:(?!<w:tbl>)[\s\S])*?<\/w:tbl>/g, '')
   return allaStycken(kropp)
 }
@@ -93,10 +94,11 @@ for (const def of WORD) {
         for (const s of styckenUtanforTabeller(doc)) {
           if (!harBild(s)) expect(text(s).trim(), `tomt stycke ${stil(s) || 'Normal'}`).not.toBe('')
         }
-        for (const s of alla) expect(s).toContain('<w:widowControl/>')
+        for (const s of alla) if (text(s).trim() || harBild(s)) expect(s).toContain('<w:widowControl/>')
 
         // Rubrik 2 håller ihop med nästa; posttitlarna med sina rader.
-        for (const s of alla.filter((x) => stil(x) === 'Heading2')) expect(s).toContain('<w:keepNext/>')
+        // (I spaltceller håller en inre tabellrad som inte bryts ihop rubriken och posten.)
+        for (const s of styckenUtanforTabeller(doc).filter((x) => stil(x) === 'Heading2')) expect(s).toContain('<w:keepNext/>')
         const poster = alla.filter((s) => stil(s) === 'Posttitel')
         expect(poster.length).toBeGreaterThanOrEqual(cv.experience.length)
         for (const s of poster) expect(s).toContain('<w:keepLines/>')
