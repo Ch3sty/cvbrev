@@ -28,11 +28,11 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kan jag ladda ner mitt CV som PDF eller Word?',
-    a: `Alla mallar laddas ner som PDF. ${versal(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word-fil (.docx), och Word-filen ingår i ${paketKort()}, också för gratismallarna ${GRATIS_NAMN}. PDF är vanligast och läses rätt av rekryteringssystemen. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format.`,
+    a: `Ja, båda. Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). I gratismallarna ${GRATIS_NAMN} är Word lika gratis som PDF: du väljer format när du hämtar din gratisfil. Word i de övriga Word-mallarna ingår i ${paketKort()}. PDF är vanligast och läses rätt av rekryteringssystemen. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format.`,
   },
   {
     q: 'Vilka mallar finns som Word?',
-    a: `${wordMallarSomText()}. De är märkta Word i mallväljaren. Bland dem finns mallar i en spalt, mallar med sidospalt och mallar med rubrikerna eller årtalen i marginalen, och alla ${WORD_TEMPLATE_COUNT_ORD} har gått genom vår läsning av själva Word-filen innan de kom med. Word-filen ingår i ${paketKort()}. Övriga mallar laddas ner som PDF.`,
+    a: `${wordMallarSomText()}. De är märkta Word i mallväljaren. Bland dem finns mallar i en spalt, mallar med sidospalt och mallar med rubrikerna eller årtalen i marginalen, och alla ${WORD_TEMPLATE_COUNT_ORD} har gått genom vår läsning av själva Word-filen innan de kom med. ${GRATIS_NAMN} hämtar du som Word gratis, de andra Word-mallarna ingår i ${paketKort()}. Övriga mallar laddas ner som PDF.`,
   },
   {
     q: 'Vilken mall passar bäst för mitt yrke?',
@@ -40,7 +40,7 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad är skillnaden mellan gratismallarna och mallarna i Premium?',
-    a: `Gratismallarna ${GRATIS_NAMN} laddar du ner som PDF, en gång per konto, utan kortuppgift. De är fullständiga mallar med samma färger, typsnitt och rubrikuppsättningar som de övriga${FOTO_GRATIS ? `, och ${talSomOrd(FOTO_GRATIS)} av dem har plats för foto` : ''}. I ${paketKort()} får du alla ${MALL_ANTAL} mallar, bland dem sidospalterna och de konstnärliga, nedladdning utan tak och Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. Priset är ${prisPeriod(SALD_PLAN)}.`,
+    a: `Gratismallarna ${GRATIS_NAMN} laddar du ner som PDF eller Word, en fil per konto, utan kortuppgift. De är fullständiga mallar med samma färger, typsnitt och rubrikuppsättningar som de övriga${FOTO_GRATIS ? `, och ${talSomOrd(FOTO_GRATIS)} av dem har plats för foto` : ''}. I ${paketKort()} får du alla ${MALL_ANTAL} mallar, bland dem sidospalterna och de konstnärliga, nedladdning utan tak och Word-filen i alla ${WORD_TEMPLATE_COUNT_ORD} Word-mallar. Priset är ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Kan jag redigera CV:t senare?',

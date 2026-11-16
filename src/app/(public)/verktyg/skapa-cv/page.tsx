@@ -29,7 +29,7 @@ const FUNKTIONER = [
   },
   {
     rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
-    text: `Alla mallar laddas ner som PDF. Välj en av de ${WORD_TEMPLATE_COUNT_ORD} Word-mallarna när du vill ändra i filen själv, eller när annonsen ber om ett format som går att redigera. Word-filen ingår i ${paketKort()}.`,
+    text: `Alla mallar laddas ner som PDF. Välj en av de ${WORD_TEMPLATE_COUNT_ORD} Word-mallarna när du vill ändra i filen själv, eller när annonsen ber om ett format som går att redigera. I gratismallarna kostar Word-filen inget, i de övriga ingår den i ${paketKort()}.`,
   },
   {
     rubrik: 'Börja från ett CV du redan har',

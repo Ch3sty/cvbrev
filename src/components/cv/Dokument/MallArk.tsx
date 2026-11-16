@@ -60,7 +60,7 @@ export default function Mallrad({ mall, pris, harWord }: MallradProps) {
           </div>
           <p className="flex items-center gap-2 text-sm text-ink-2">
             {mall.word ? <IkonWord size={18} /> : <IkonPdf size={18} />}
-            {mall.word ? MALL_ARK.word : MALL_ARK.baraPdf}
+            {mall.word ? (mall.niva === 'gratis' ? MALL_ARK.wordGratis : MALL_ARK.word) : MALL_ARK.baraPdf}
           </p>
         </div>
       </Ark>

@@ -19,7 +19,7 @@ const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
 export const CV_MALLAR_FAQ = [
   {
     q: 'Är CV-mallarna gratis att ladda ner?',
-    a: `Ja, ${FREE_TEMPLATE_COUNT} av våra ${TEMPLATE_COUNT} CV-mallar är gratis att ladda ner som PDF, en nedladdning per konto utan kortuppgift. De övriga ${PREMIUM_TEMPLATE_COUNT} ingår i ${paketKort()}. Alla ${TEMPLATE_COUNT} är testade mot rekryteringssystem, också gratismallarna, och alla har fyra färger, rubriker för din bransch och plats för LinkedIn. Mallarna i ${paketKort()} ger mer form att välja på: sidospalter, rubriker i marginalen, konstnärliga layouter och fler fotoplatser. ${versal(WORD_TEMPLATE_COUNT_ORD)} av mallarna finns dessutom som Word-fil i ${paketKort()}.`,
+    a: `Ja, ${FREE_TEMPLATE_COUNT} av våra ${TEMPLATE_COUNT} CV-mallar är gratis att ladda ner, som PDF eller Word, en nedladdning per konto utan kortuppgift. De övriga ${PREMIUM_TEMPLATE_COUNT} ingår i ${paketKort()}. Alla ${TEMPLATE_COUNT} är testade mot rekryteringssystem, också gratismallarna, och alla har fyra färger, rubriker för din bransch och plats för LinkedIn. Mallarna i ${paketKort()} ger mer form att välja på: sidospalter, rubriker i marginalen, konstnärliga layouter och fler fotoplatser. ${versal(WORD_TEMPLATE_COUNT_ORD)} av mallarna finns dessutom som Word-fil, gratismallarna inräknade.`,
   },
   {
     q: 'Vilken CV-mall är bäst för svenska arbetsgivare 2026?',
@@ -35,7 +35,7 @@ export const CV_MALLAR_FAQ = [
   },
   {
     q: 'Kan jag ladda ner CV-mallen som PDF eller Word?',
-    a: `Alla mallar laddas ner som PDF direkt från vår mallväljare, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil i ${paketKort()}, gratismallarna inräknade. Vi rekommenderar PDF när du skickar, eftersom layouten då ser likadan ut hos rekryteraren. Word passar när du vill ändra i filen själv, eller när annonsen ber om ett redigerbart format.`,
+    a: `Alla mallar laddas ner som PDF direkt från vår mallväljare, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil. Gratismallarna hämtar du som Word utan att betala, Word i de övriga Word-mallarna ingår i ${paketKort()}. Vi rekommenderar PDF när du skickar, eftersom layouten då ser likadan ut hos rekryteraren. Word passar när du vill ändra i filen själv, eller när annonsen ber om ett redigerbart format.`,
   },
   {
     q: 'Hur väljer jag rätt CV-mall för mitt yrke?',

@@ -21,7 +21,7 @@ import { uppsattningForTitel } from '@/lib/cv/mallval/uppsattning'
 export interface ArtikelMall {
   id: string
   namn: string
-  /** "Gratis, Word i Premium" osv., färdig text från servern. */
+  /** "Gratis, även som Word" osv., färdig text från servern. */
   rad: string
   bild: string
 }

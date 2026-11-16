@@ -42,8 +42,8 @@ import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn } from '@/li
  * används katalogens stil.
  */
 const WORD_TEXT: Readonly<Record<string, string>> = {
-  linne: 'Gratismallen i en spalt. Georgia i namnet, Calibri i texten och en tunn linje under rubrikerna.',
-  bjork: 'Gratismallen med foto. Centrerat huvud med rund fotoplats och en accentstapel vid varje rubrik.',
+  linne: 'Gratismallen i en spalt, och Word-filen kostar inget extra. Georgia i namnet, Calibri i texten och en tunn linje under rubrikerna.',
+  bjork: 'Gratismallen med foto, också den gratis som Word. Centrerat huvud med rund fotoplats och en accentstapel vid varje rubrik.',
   koppar: 'Färgat huvudband med namnet i vitt och rund fotoplats. Syns utan att tumma på läsbarheten.',
   kalksten: 'Ljusgrå sidospalt med eget fält för legitimation och behörigheter, kvadratiskt foto. Bra när intygen väger tungt.',
   granit: 'Mörkt huvudband som fortsätter i en mörk högerspalt, rund fotoplats. Kontrast som märks i högen.',
@@ -75,9 +75,9 @@ const KATEGORI: Readonly<Record<string, string>> = {
   konstnarlig: 'Konstnärlig CV-mall',
 }
 
-/** Formatet i schemats beskrivning: Word kräver Premium också i gratismallarna. */
+/** Formatet i schemats beskrivning: gratismallarna laddas ner gratis i båda formaten, Word i en premiummall ingår i Premium. */
 function formatText(gratis: boolean, word: boolean): string {
-  if (gratis) return word ? 'Gratis som PDF, Word-fil i Jobbcoach Premium' : 'Gratis som PDF'
+  if (gratis) return word ? 'Gratis som PDF och Word-fil' : 'Gratis som PDF'
   return word ? 'PDF och Word-fil, ingår i Jobbcoach Premium' : 'PDF, ingår i Jobbcoach Premium'
 }
 
@@ -85,12 +85,12 @@ const STEG = [
   { rubrik: 'Välj en mall', text: 'Bläddra bland mallar i en spalt, med sidospalt, med rubriker i marginalen eller i konstnärlig form. Alla passar alla yrken, så välj den du vill att rekryteraren ska se först, och byt när du vill.' },
   { rubrik: 'Fyll i dina uppgifter', text: 'Formuläret leder dig genom varje avsnitt. Du kan utgå från ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.' },
   { rubrik: 'Vi flyttar in innehållet', text: 'Allt du fyller i hamnar automatiskt på rätt plats i mallen. Byter du mall efteråt följer innehållet med, utan att du fyller i något på nytt.' },
-  { rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`, text: `Ladda ner ditt CV som PDF när du är nöjd. I ${WORD_TEMPLATE_COUNT_ORD} av mallarna kan du också hämta en Word-fil, och den ingår i ${paketKort()}. CV:t sparas i ditt konto, så du kan komma tillbaka, ändra och ladda ner igen när som helst.` },
+  { rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`, text: `Ladda ner ditt CV som PDF när du är nöjd, eller som Word-fil i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. I gratismallarna ${GRATIS_NAMN} väljer du fritt mellan de två formaten, Word i de övriga ingår i ${paketKort()}. CV:t sparas i ditt konto, så du kan komma tillbaka och ändra när som helst.` },
 ]
 
 const FUNKTIONER = [
   { rubrik: 'Byggda för rekryteringssystem', text: `Varje mall har gått genom vår egen CV-läsare med korta och långa CV innan den fick plats i utbudet. Namn, kontaktuppgifter, rubriker och ordning kom ut rätt i alla ${MALL_ANTAL}, också i mallarna med sidospalt. En mall som inte klarar testet tar vi inte med.` },
-  { rubrik: 'PDF, och Word i utvalda mallar', text: `Alla mallar laddas ner som PDF. ${versal(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word-fil, och Word-filen ingår i ${paketKort()}, även för gratismallarna. PDF för de flesta ansökningar, Word när du vill ändra själv eller när annonsen ber om ett redigerbart format.` },
+  { rubrik: 'PDF, och Word i utvalda mallar', text: `Alla mallar laddas ner som PDF. ${versal(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word-fil, gratismallarna ${GRATIS_NAMN} inräknade, så din gratisfil kan lika gärna vara en Word-fil. Word i de övriga Word-mallarna ingår i ${paketKort()}. PDF för de flesta ansökningar, Word när du vill ändra själv eller när annonsen ber om ett redigerbart format.` },
   { rubrik: 'Fyra färger och rubriker för din bransch', text: 'Varje mall finns i fyra färger, och rubrikerna väljer du ur tolv uppsättningar för olika branscher: "Klinisk erfarenhet" för vården, "Behörigheter och körkort" för bygg och hantverk, "System och verktyg" för IT. Passar ingen skriver du en egen rubrik.' },
   { rubrik: 'Ordningen du vill ha, på en sida', text: 'Sätt intygen, utbildningen eller kompetenserna först, beroende på vad rekryteraren ska se först i just din ansökan. Ligger CV:t strax över en sida drar valet Få plats på en sida ihop det utan att du behöver stryka något.' },
   { rubrik: 'Profilbild där det passar', text: `${versal(talSomOrd(FOTO_ANTAL))} av mallarna har plats för profilbild${FOTO_GRATIS.length ? `, bland dem gratismallen ${FOTO_GRATIS.join(' och ')}` : ''}. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.` },
@@ -231,7 +231,7 @@ export default function CVMallarSida() {
             id: 'word',
             eyebrow: 'Word',
             rubrik: 'CV-mallar för Word',
-            ingress: `Behöver du en CV-mall i Word? ${versal(WORD_TEMPLATE_COUNT_ORD)} av våra mallar laddas också ner som Word-fil (.docx): ${wordMallarSomText()}. Word-filen ingår i ${paketNamn(SALD_PLAN)}, även för gratismallarna, så gratis får du PDF. Word vill du ha när du själv ska ändra i CV:t efteråt, eller när ett bemanningsföretag eller en arbetsgivare i offentlig sektor ber om ett redigerbart format för att klistra in CV:t i sina egna system. Word-filen har gått genom samma läsning som PDF:en, så rubriker och ordning håller också där. De konstnärliga mallarna laddas ner som PDF.`,
+            ingress: `Behöver du en gratis CV-mall i Word? ${versal(WORD_TEMPLATE_COUNT_ORD)} av våra mallar laddas också ner som Word-fil (.docx): ${wordMallarSomText()}. Gratismallarna ${GRATIS_NAMN} hämtar du som Word utan att betala något, en fil per konto i det format du väljer. Word i de övriga ingår i ${paketNamn(SALD_PLAN)}. Word vill du ha när du själv ska ändra i CV:t efteråt, eller när ett bemanningsföretag eller en arbetsgivare i offentlig sektor ber om ett redigerbart format för att klistra in CV:t i sina egna system. Word-filen har gått genom samma läsning som PDF:en, så rubriker och ordning håller också där. De konstnärliga mallarna laddas ner som PDF.`,
             rader: WORD_RADER,
           },
         ]}
@@ -239,7 +239,7 @@ export default function CVMallarSida() {
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Välj din mall och bygg ditt CV.',
-          text: `Tjugo minuter från val till färdig PDF. ${GRATIS_NAMN} är gratis som PDF, en nedladdning utan kortuppgift. Alla ${MALL_ANTAL} mallar, nedladdning utan tak, Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna och hela CV-analysen ingår i ${paketNamn(SALD_PLAN)}.`,
+          text: `Tjugo minuter från val till färdig fil. ${GRATIS_NAMN} är gratis som PDF eller Word, en nedladdning utan kortuppgift. Alla ${MALL_ANTAL} mallar, nedladdning utan tak, Word-filen i alla ${WORD_TEMPLATE_COUNT_ORD} Word-mallar och hela CV-analysen ingår i ${paketNamn(SALD_PLAN)}.`,
           knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

@@ -308,8 +308,8 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     // vad Word ger: att ändra i CV:t själv.
     case 'cv-export-word':
       return {
-        title: `Word-filen ingår i ${PREMIUM}`,
-        body: `Word-filen ingår i ${PREMIUM}, med obegränsade nedladdningar och alla ${TEMPLATE_COUNT} mallar. Du kan ändra i CV:t själv efteråt, i Word, Google Docs eller LibreOffice.`,
+        title: `Word i den här mallen ingår i ${PREMIUM}`,
+        body: `Med ${PREMIUM} hämtar du den här mallen som Word, och alla ${TEMPLATE_COUNT} mallar utan tak på nedladdningarna. Word-filen ändrar du sedan själv, i Word, Google Docs eller LibreOffice.`,
         primary: knapp,
         secondary: 'Se vad som ingår',
       }

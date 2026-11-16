@@ -54,7 +54,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vilka format kan jag ladda ner CV:t i?',
-    a: `Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). PDF är det vanligaste och läses rätt av rekryteringssystem och rekryterares verktyg. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. Word-filen ingår i ${paketKort()}.`,
+    a: `Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). PDF är det vanligaste och läses rätt av rekryteringssystem och rekryterares verktyg. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. I gratismallarna ${GRATIS_NAMN} är Word gratis, precis som PDF. Word i de övriga Word-mallarna ingår i ${paketKort()}.`,
   },
   {
     q: 'Funkar CV-byggaren på mobilen?',

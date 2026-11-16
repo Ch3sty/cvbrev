@@ -18,12 +18,12 @@ export function antalOrd(n: number, versal = false): string {
 }
 
 /**
- * Tillägget om Word efter nivån. Word-filen kräver Premium i alla mallar
- * (spärren cv_export_word), så en gratismall får aldrig "även som Word".
+ * Tillägget om Word efter nivån. Sedan 2026-11-16 är Word gratis i
+ * gratismallarna och ingår i Premium i de övriga, så "även som Word" är
+ * sant i båda nivåerna. Parametern gratis står kvar för anroparna.
  */
-export function wordTillagg(gratis: boolean, word: boolean): string {
-  if (!word) return ''
-  return gratis ? ', Word i Premium' : ', även som Word'
+export function wordTillagg(_gratis: boolean, word: boolean): string {
+  return word ? ', även som Word' : ''
 }
 
 /** "a, b och c" */
@@ -120,7 +120,8 @@ export const UPPSATTNING_ARK = {
 
 export const MALL_ARK = {
   passar: 'Passar bäst för',
-  word: 'Finns som PDF och Word. Word ingår i Premium.',
+  word: 'Finns som PDF och Word. Mallen och båda formaten ingår i Premium.',
+  wordGratis: 'Finns som PDF och Word. Du väljer format när du laddar ner, båda är gratis i den här mallen.',
   baraPdf: 'Finns som PDF. De konstnärliga mallarna finns bara som PDF, de övriga också som Word.',
   valj: 'Välj mallen',
 } as const
@@ -293,7 +294,7 @@ export const MERFORSALJNING = {
     `Du har ${filnamn} i ${mall}. Så här ser samma CV ut i ${antalOrd(antal)} andra. Tryck på den du vill ha.`,
   kampanj: (pris: string, ordinarie: string) => `Just nu ${pris}. Ordinarie ${ordinarie}.`,
   allaPaEnSida: 'Allt på en sida',
-  wordRad: 'Word och en ny fil varje gång CV:t ändras ingår också i Premium.',
+  wordRad: 'I Premium laddar du ner på nytt varje gång CV:t ändras, som PDF eller Word.',
   knapp: (mall: string, pris: string) => `Ladda ner i ${mall}, Premium ${pris}`,
   nejTack: (mall: string) => `Nej tack, behåll ${mall}`,
 } as const
