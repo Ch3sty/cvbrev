@@ -98,7 +98,7 @@ describe('valen', () => {
     // Spec-rummen 17.3: bara Jobbcoach Premium säljs. Valet styr spåret,
     // landningen och förslagets text, aldrig paketet.
     expect(INTENTS).toEqual({
-      cv: { track: 'cv', plan: 'all_month', landning: '/dashboard/skapa-cv', ikon: 'cv' },
+      cv: { track: 'cv', plan: 'all_month', landning: '/dashboard/skapa-cv?fran=registrering', ikon: 'cv' },
       brev: { track: 'cv', plan: 'all_month', landning: '/dashboard/skapa-brev', ikon: 'brev' },
       tester: { track: 'tester', plan: 'all_month', landning: '/dashboard/tester', ikon: 'test' },
       intervju: { track: 'tester', plan: 'all_month', landning: '/dashboard/intervju', ikon: 'intervju' },

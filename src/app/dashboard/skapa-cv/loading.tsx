@@ -1,55 +1,31 @@
 /**
- * Skapa CV laddar in i FlowShell, inte i den vanliga dashboard-sidan.
+ * CV-byggaren laddar in i FlowShell, inte i den vanliga dashboard-sidan.
  *
- * Sidan är en server component, så det här skelettet syns bara under den
- * korta stunden servern läser sessionen. Desto viktigare att det har exakt
- * skalets form: topprad på 56 px i panel, tråden under, ett stegkort på mark,
- * sticky fot. Ett skelett med fel form byts ut mot något annat när sidan
- * kommer, och det syns som ett hopp även om det bara varar ett ögonblick.
- *
- * Skelettet står stilla i insunken. Bara tråden rör sig.
+ * Skelettet har byggarens form (skissen 2026-11-16): topprad 56 px, linjen
+ * under, och det vita A4-arket i dokumentets bredd (380 px på mobil, 600 px
+ * på dator), så att arket inte hoppar när sidan kommer. Ingen fot: den fasta
+ * raden ligger i ytan. Bara linjen rör sig.
  */
 export default function SkapaCvLoading() {
   return (
-    <div
-      className="flex h-[100dvh] flex-col bg-golv"
-      role="status"
-      aria-busy="true"
-      aria-label="Laddar Bygg ditt CV"
-    >
+    <div className="flex h-[100dvh] flex-col bg-golv" role="status" aria-busy="true" aria-label="Laddar Bygg ditt CV">
       <div className="flex-shrink-0 border-b border-kant bg-papper">
-        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
+        <div className="mx-auto flex h-14 w-full max-w-[1180px] items-center gap-1 px-2">
           <span className="h-11 w-11 flex-shrink-0" aria-hidden="true" />
           <div aria-hidden="true" className="h-4 w-40 rounded bg-papper-2" />
-          <span className="ml-auto pr-2 text-sm tabular-nums text-transparent">1 / 7</span>
         </div>
-        <div className="h-0.5 w-full bg-kant" aria-hidden="true" />
+        <div className="h-[3px] w-full bg-papper-2" aria-hidden="true" />
       </div>
-
       <div className="min-h-0 flex-1 overflow-hidden">
-        <div className="mx-auto w-full max-w-3xl px-4 py-4">
-          <div aria-hidden="true" className="h-3 w-24 rounded bg-papper-2" />
-          <div aria-hidden="true" className="mt-3 h-7 w-3/4 rounded bg-papper-2" />
-          <div
-            aria-hidden="true"
-            className="loading-thread mt-4 rounded-xl border border-kant bg-papper p-4 sm:p-5"
-            style={{ minHeight: 320 }}
-          >
-            <div className="h-11 rounded-lg bg-papper-2" />
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="h-11 rounded-lg bg-papper-2" />
-              <div className="h-11 rounded-lg bg-papper-2" />
+        <div className="mx-auto w-full max-w-[1180px] px-3.5 pt-3 lg:px-6">
+          <div className="grid gap-4 min-[900px]:grid-cols-[minmax(0,1fr)_296px] min-[900px]:gap-6 xl:grid-cols-[minmax(0,744px)_336px] xl:justify-center">
+            <div className="min-w-0">
+              <div className="mx-auto w-full max-w-[600px] min-[900px]:max-w-[520px] xl:max-w-[600px]">
+                <div aria-hidden="true" className="mb-1.5 h-9" />
+                <div aria-hidden="true" className="loading-thread aspect-[794/1123] w-full rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]" />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div
-        className="flex-shrink-0 border-t border-kant bg-papper"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-      >
-        <div className="mx-auto w-full max-w-3xl px-4 py-3">
-          <div aria-hidden="true" className="h-11 w-full rounded-lg bg-papper-2 sm:w-[200px]" />
         </div>
       </div>
     </div>

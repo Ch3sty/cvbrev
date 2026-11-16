@@ -34,7 +34,7 @@ export const INTENTS: Record<
     ikon: IkonNamn
   }
 > = {
-  cv: { track: 'cv', plan: SALD_PLAN, landning: '/dashboard/skapa-cv', ikon: 'cv' },
+  cv: { track: 'cv', plan: SALD_PLAN, landning: '/dashboard/skapa-cv?fran=registrering', ikon: 'cv' },
   brev: { track: 'cv', plan: SALD_PLAN, landning: '/dashboard/skapa-brev', ikon: 'brev' },
   tester: { track: 'tester', plan: SALD_PLAN, landning: '/dashboard/tester', ikon: 'test' },
   intervju: { track: 'tester', plan: SALD_PLAN, landning: '/dashboard/intervju', ikon: 'intervju' },

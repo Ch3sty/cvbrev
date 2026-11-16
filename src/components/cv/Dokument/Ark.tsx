@@ -28,15 +28,19 @@ export interface ArkProps {
   utanDimma?: boolean
   /** Extra i rubrikraden, till höger (antal, filter). */
   tillagg?: ReactNode
+  /** Centrerat på datorn (byggarens startblad: ett vägval, inte arbete). */
+  centrerad?: boolean
+  /** Går inte att stänga (startbladet): inget kryss, Esc och dimman gör inget. */
+  utanStang?: boolean
 }
 
-export default function Ark({ open, onClose, rubrik, under, children, fot, bred, utanDimma, tillagg }: ArkProps) {
+export default function Ark({ open, onClose, rubrik, under, children, fot, bred, utanDimma, tillagg, centrerad, utanStang }: ArkProps) {
   const id = useId()
   const ref = useRef<HTMLDivElement>(null)
   // onClose skapas på nytt vid varje rendering hos ytan; i en ref så att
   // fokus inte flyttas tillbaka till första fältet vid varje rendering.
   const stang = useRef(onClose)
-  stang.current = onClose
+  stang.current = utanStang ? () => undefined : onClose
 
   useEffect(() => {
     if (!open) return
@@ -67,12 +71,12 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
   if (!open || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[90] flex items-end justify-center">
+    <div className={`fixed inset-0 z-[90] flex items-end justify-center ${centrerad ? 'sm:items-center sm:p-6' : ''}`}>
       <button
         type="button"
         aria-label={DOK.stang}
         tabIndex={-1}
-        onClick={onClose}
+        onClick={utanStang ? undefined : onClose}
         className={`absolute inset-0 cursor-default ${utanDimma ? 'bg-transparent' : 'bg-[rgba(10,12,30,.55)]'}`}
       />
       <div
@@ -81,7 +85,7 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
         aria-modal="true"
         aria-labelledby={`${id}-r`}
         tabIndex={-1}
-        className={`dok-ark relative flex ${utanDimma ? 'max-h-[52dvh] sm:max-h-[88dvh]' : 'max-h-[88dvh]'} w-full flex-col rounded-t-3xl border-t border-kant bg-papper shadow-[0_-12px_40px_rgba(0,0,0,.25)] outline-none ${bred ? 'sm:max-w-[640px]' : 'sm:max-w-[520px]'}`}
+        className={`dok-ark relative flex ${utanDimma ? 'max-h-[52dvh] sm:max-h-[88dvh]' : 'max-h-[88dvh]'} w-full flex-col rounded-t-3xl border-t border-kant bg-papper shadow-[0_-12px_40px_rgba(0,0,0,.25)] outline-none ${bred ? 'sm:max-w-[640px]' : 'sm:max-w-[520px]'} ${centrerad ? 'sm:rounded-3xl sm:border' : ''}`}
       >
         <div aria-hidden className="mx-auto mt-2.5 h-1 w-9 shrink-0 rounded-full bg-kant-stark" />
         <div className="flex shrink-0 items-start gap-3 px-4 pb-2 pt-3">
@@ -92,7 +96,7 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
             {under ? <p className="mt-1 text-sm leading-5 text-ink-2">{under}</p> : null}
           </div>
           {tillagg}
-          <button
+          {utanStang ? null : <button
             type="button"
             data-stang
             onClick={onClose}
@@ -100,7 +104,7 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
             className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink-2 hover:bg-papper-2"
           >
             <IkonStang size={20} />
-          </button>
+          </button>}
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">{children}</div>
         {fot ? (

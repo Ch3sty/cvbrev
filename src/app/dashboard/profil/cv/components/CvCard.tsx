@@ -64,10 +64,13 @@ export default function CvCard({
   poang = null,
 }: CvCardProps) {
   const andrad = cv.updated_at ?? cv.created_at;
+  // Byggt i CV-byggaren (structured_data.bygge): utkast tills filen laddats ner.
+  const bygge = (cv.structured_data as { bygge?: { utkast?: boolean } } | null)?.bygge;
+  const utkast = bygge?.utkast === true;
   const meta = isLocked
     ? PAKETRADER.lastCv
     : [
-        poang !== null ? CV_RUM.cvMeta.poang(poang) : CV_RUM.cvMeta.inteAnalyserat,
+        utkast ? CV_RUM.cvMeta.utkast : poang !== null ? CV_RUM.cvMeta.poang(poang) : CV_RUM.cvMeta.inteAnalyserat,
         CV_RUM.cvMeta.andrat(formatDate(andrad).toLowerCase()),
       ].join(' ');
   const panelId = `cv-${cv.id}-detalj`;
@@ -111,6 +114,11 @@ export default function CvCard({
             />
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 border-t border-kant pt-2">
+            {bygge ? (
+              <a href={`/dashboard/skapa-cv?cv=${cv.id}`} className={RADLANK}>
+                {utkast ? CV_RUM.bygg.fortsatt : CV_RUM.bygg.redigera}
+              </a>
+            ) : null}
             <button type="button" onClick={onDownload} className={RADLANK}>
               Välj mall och ladda ner
             </button>

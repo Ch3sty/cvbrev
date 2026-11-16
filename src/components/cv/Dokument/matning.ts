@@ -42,6 +42,8 @@ export interface Matning {
   rubriker: Rubrikruta[]
   /** Namn, titel och kontaktrad (data-falt), de som syns. */
   falt: Faltruta[]
+  /** Nederkanten på sista innehållet, i bredder (byggarens "+ Fler avsnitt"). */
+  botten?: number
 }
 
 export function matDokument(doc: Document): Matning {
@@ -114,7 +116,7 @@ export function matDokument(doc: Document): Matning {
     falt.push({ falt: f, x: (r.left - rr.left) / bredd, y: (r.top - rr.top) / bredd, b: r.width / bredd, h: r.height / bredd })
   }
 
-  return { sidor, hojd, rubriker: med, falt }
+  return { sidor, hojd, rubriker: med, falt, botten: (botten - rr.top) / bredd }
 }
 
 /** Texten i iframen gör sig själv lika bred som arket (samma knep som exempel-API:t). */

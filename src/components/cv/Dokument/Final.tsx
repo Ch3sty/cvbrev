@@ -47,9 +47,14 @@ export interface FinalProps {
   titel?: string
   ort?: string
   surface: string
+  /**
+   * CV-byggaren (skissen 2026-11-16, yta 5): nästa steg är analysen av
+   * CV:t, sedan brevet och Mina CV som länkar, i stället för jobbträffen.
+   */
+  nasta?: 'analys'
 }
 
-export default function Final({ open, onClose, fil, mall, format, sidor, cvId, titel, ort, surface }: FinalProps) {
+export default function Final({ open, onClose, fil, mall, format, sidor, cvId, titel, ort, surface, nasta }: FinalProps) {
   const router = useRouter()
   const [traff, setTraff] = useState<Traff | null | 'vantar'>('vantar')
   const kanDela = useMemo(() => {
@@ -64,7 +69,7 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
 
   useEffect(() => {
     if (!open) return
-    if (!titel || titel.trim().length < 2) {
+    if (nasta === 'analys' || !titel || titel.trim().length < 2) {
       setTraff(null)
       return
     }
@@ -151,7 +156,44 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
       </div>
 
       <div className="mt-4 min-h-[156px] border-t border-kant pt-3">
-        {traff === 'vantar' ? (
+        {nasta === 'analys' ? (
+          <div className="grid gap-2.5 text-left">
+            <p className="text-ey uppercase text-ink-3">{FINAL.nastaSteg}</p>
+            <div className="grid gap-2 rounded-xl border border-kant p-3">
+              <p className="font-display text-base font-bold text-ink-1">{FINAL.analysRubrik}</p>
+              <p className="text-[13px] leading-5 text-ink-2">{FINAL.analysRad}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  capture('nasta_steg_klickad', { target: 'analys', template: mall.id, surface })
+                  router.push('/dashboard/cv-analys')
+                }}
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-ink-1 text-sm font-semibold text-papper"
+              >
+                {FINAL.analysKnapp}
+              </button>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-6">
+              <button
+                type="button"
+                onClick={() => tillBrev(null)}
+                className="inline-flex min-h-11 items-center text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+              >
+                {FINAL.brevLank}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  capture('nasta_steg_klickad', { target: 'mina_cv', template: mall.id, surface })
+                  router.push('/dashboard/profil/cv')
+                }}
+                className="inline-flex min-h-11 items-center text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+              >
+                {FINAL.minaCv}
+              </button>
+            </div>
+          </div>
+        ) : traff === 'vantar' ? (
           <div aria-hidden className="h-[140px] animate-pulse rounded-xl bg-papper-2 motion-reduce:animate-none" />
         ) : harTraff ? (
           <div className="grid gap-2.5">

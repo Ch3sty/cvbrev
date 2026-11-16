@@ -73,6 +73,30 @@ export interface MallytaProps {
   onMatt?: (m: Matning) => void
   /** Ark som ytan äger (konto, final, merförsäljning). */
   children?: ReactNode
+  /**
+   * CV-byggaren (skissen 2026-11-16): ytan äger bladen. Tryck på ett avsnitt
+   * eller huvudet går till byggaren, tomma avsnitt står som spöken med
+   * "+ Lägg till" vid rubriken, och "+ Fler avsnitt" under innehållet.
+   */
+  bygg?: {
+    onAvsnitt: (s: Sektion) => void
+    onHuvud: (f: HuvudFalt) => void
+    valt: Sektion | null
+    nyss: Sektion | null
+    spok: readonly Sektion[]
+    fler: { text: string; onClick: () => void }
+    tips: { text: string; nyckel: string }
+  }
+  /** Ersätter format och knapp i den fasta raden (byggarens Nästa-lucka). */
+  lucka?: ReactNode
+  /** Den fasta radens knapp göms (ett öppet blad äger kopparknappen). */
+  utanKnapp?: boolean
+  /** Raden ovanför den fasta raden (ett förslag, Ångra). */
+  ovanRad?: ReactNode
+  /** Ersätter mallkolumnen på datorn (byggarens dockade blad, 400 px). */
+  kolumn?: ReactNode
+  /** Svepet av (ett blad är öppet). */
+  utanSvep?: boolean
 }
 
 export default function Mallyta(p: MallytaProps) {
@@ -189,7 +213,13 @@ export default function Mallyta(p: MallytaProps) {
 
   return (
     <div className="mallyta overflow-x-clip" ref={rotRef}>
-      <div className="grid gap-4 min-[900px]:grid-cols-[minmax(0,1fr)_296px] min-[900px]:gap-6 xl:grid-cols-[minmax(0,744px)_336px] xl:justify-center">
+      <div
+        className={`grid gap-4 min-[900px]:gap-6 xl:justify-center ${
+          p.kolumn
+            ? 'min-[900px]:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,744px)_400px]'
+            : 'min-[900px]:grid-cols-[minmax(0,1fr)_296px] xl:grid-cols-[minmax(0,744px)_336px]'
+        }`}
+      >
         {/* Arbetsytan med arket. */}
         <div className="min-w-0 scroll-mt-[72px]" data-arbetsyta>
           {p.topp ? <div className="mb-2.5">{p.topp}</div> : null}
@@ -206,19 +236,26 @@ export default function Mallyta(p: MallytaProps) {
             ordning={p.katalog}
             last={p.last}
             lyft={p.lyft}
-            onSvep={(id) => valjMall(id, 'svep')}
+            onSvep={p.utanSvep ? undefined : (id) => valjMall(id, 'svep')}
             onRubrik={p.rubriker ? (s, text) => setRubrik({ sektion: s, text }) : undefined}
-            onAvsnitt={p.avsnitt ? (s) => setAvsnitt(s) : undefined}
+            onAvsnitt={p.bygg ? p.bygg.onAvsnitt : p.avsnitt ? (s) => setAvsnitt(s) : undefined}
             onHuvud={
-              p.avsnitt
-                ? (f) => {
-                    setHuvudFokus(f)
-                    setAvsnitt('huvud')
-                  }
-                : undefined
+              p.bygg
+                ? p.bygg.onHuvud
+                : p.avsnitt
+                  ? (f) => {
+                      setHuvudFokus(f)
+                      setAvsnitt('huvud')
+                    }
+                  : undefined
             }
-            tommaAvsnitt={p.avsnitt?.tomma}
-            valtAvsnitt={avsnitt === 'huvud' ? null : avsnitt}
+            tommaAvsnitt={p.bygg ? undefined : p.avsnitt?.tomma}
+            valtAvsnitt={p.bygg ? p.bygg.valt : avsnitt === 'huvud' ? null : avsnitt}
+            spokAvsnitt={p.bygg?.spok}
+            nyssAvsnitt={p.bygg?.nyss}
+            utanLinjer={Boolean(p.bygg) && !p.rubriker}
+            fler={p.bygg?.fler}
+            tips={p.bygg?.tips}
             onMatt={onMatt}
             helskarmRemsa={helskarmRemsa}
           />
@@ -240,8 +277,10 @@ export default function Mallyta(p: MallytaProps) {
           </div>
         </div>
 
+        {/* Dator: byggarens dockade blad på mallkolumnens plats. */}
+        {p.kolumn ? <div className="hidden min-w-0 min-[900px]:block">{p.kolumn}</div> : null}
         {/* Dator: mallkolumnen. */}
-        <aside className="hidden min-w-0 min-[900px]:block" aria-label={REMSA.foreslagna}>
+        <aside className={`hidden min-w-0 ${p.kolumn ? '' : 'min-[900px]:block'}`} aria-label={REMSA.foreslagna}>
           <div className="min-[900px]:sticky min-[900px]:top-20">
             <p className="text-ey uppercase text-ink-3">{REMSA.foreslagna}</p>
             {p.skal ? <p className="mt-0.5 text-meta text-ink-2">{p.skal}</p> : null}
@@ -270,7 +309,10 @@ export default function Mallyta(p: MallytaProps) {
         </aside>
       </div>
 
+      {p.ovanRad ? <div className="mx-auto mt-3 max-w-[600px]">{p.ovanRad}</div> : null}
       <FastRad
+        ersattning={p.lucka}
+        utanKnapp={p.utanKnapp}
         ovanNav={p.ovanNav}
         formatKompakt={formatKompakt}
         knapp={knapp}

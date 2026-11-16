@@ -151,6 +151,10 @@ export interface FastRadProps {
   fel?: ReactNode
   /** Ligger mot bottennavet (inloggat). */
   ovanNav?: boolean
+  /** Ersätter format och knapp (CV-byggarens Nästa-lucka). */
+  ersattning?: ReactNode
+  /** Format och knapp göms (ett öppet blad äger kopparknappen). */
+  utanKnapp?: boolean
 }
 
 /**
@@ -200,7 +204,7 @@ function useTrang() {
   return { ref, steg }
 }
 
-export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav }: FastRadProps) {
+export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav, ersattning, utanKnapp }: FastRadProps) {
   const trang = useTrang()
   return (
     <>
@@ -225,8 +229,14 @@ export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav }: F
               {dator}
             </div>
           ) : null}
-          <div className="shrink-0">{formatKompakt}</div>
-          <div className="min-w-0 flex-1 lg:w-[280px] lg:flex-none xl:w-[320px]">{knapp}</div>
+          {utanKnapp ? null : ersattning ? (
+            <div className="min-w-0 flex-1 lg:w-auto lg:max-w-[560px] lg:flex-none">{ersattning}</div>
+          ) : (
+            <>
+              <div className="shrink-0">{formatKompakt}</div>
+              <div className="min-w-0 flex-1 lg:w-[280px] lg:flex-none xl:w-[320px]">{knapp}</div>
+            </>
+          )}
         </div>
         {fel ? <div className="px-3 pb-2 lg:px-4">{fel}</div> : null}
       </div>

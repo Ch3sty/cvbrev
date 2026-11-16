@@ -61,6 +61,16 @@ export interface FlowShellProps {
   /** Innehåll och fot i en kolumn på 560 px i stället för 768 (en fråga, inte en prislista). */
   smal?: boolean
   /**
+   * Bred variant (CV-byggaren): dokumentet om 600 px och det dockade bladet
+   * om 400 px bredvid varandra. Innehållet får 1180 px, och mitten har
+   * ingen egen luft (ytan sätter sin).
+   */
+  bred?: boolean
+  /** Ingen räknare "3 / 7" i toppraden; framstegslinjen står kvar. */
+  utanRaknare?: boolean
+  /** I toppraden till höger om rubriken, till exempel "Sparat". */
+  status?: ReactNode
+  /**
    * Dörrarna i botten syns, och skalet slutar ovanför dem. För det klara
    * läget: man ser att man är hemma. Foten står kvar ovanför dörrarna.
    */
@@ -104,6 +114,9 @@ export default function FlowShell({
   exitLabel = 'Avsluta',
   utanTillbaka = false,
   smal = false,
+  bred = false,
+  utanRaknare = false,
+  status,
   visaDorrar = false,
   primaryLabel,
   onPrimary,
@@ -193,7 +206,7 @@ export default function FlowShell({
     >
       {/* Topp: tillbaka, titel, räknare, tråden. */}
       <header className="flex-shrink-0 border-b border-kant bg-papper">
-        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-1 px-2">
+        <div className={`mx-auto flex h-14 w-full ${bred ? 'max-w-[1180px]' : 'max-w-3xl'} items-center gap-1 px-2`}>
           {backButton ? (
             <button
               type="button"
@@ -211,9 +224,12 @@ export default function FlowShell({
             {title}
           </h1>
 
-          <span className="flex-shrink-0 text-sm tabular-nums text-ink-3">
-            {Math.min(step, totalSteps)} / {totalSteps}
-          </span>
+          {status ? <span className="flex-shrink-0">{status}</span> : null}
+          {utanRaknare ? null : (
+            <span className="flex-shrink-0 text-sm tabular-nums text-ink-3">
+              {Math.min(step, totalSteps)} / {totalSteps}
+            </span>
+          )}
 
           <button
             type="button"
@@ -243,7 +259,7 @@ export default function FlowShell({
 
       {/* Mitten: flödets enda scrollyta. */}
       <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className={`mx-auto w-full ${smal ? 'max-w-[560px] sm:pt-7' : 'max-w-3xl'} px-4 py-4`}>
+        <div className={`mx-auto w-full ${bred ? 'max-w-[1180px] px-0 pt-0' : `${smal ? 'max-w-[560px] sm:pt-7' : 'max-w-3xl'} px-4 py-4`}`}>
           {banner ? <div className="mb-4">{banner}</div> : null}
           {children}
         </div>

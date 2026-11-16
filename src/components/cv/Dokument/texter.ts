@@ -306,6 +306,8 @@ export const AVSNITT = {
   laggTill: 'Lägg till',
   avbryt: 'Avbryt',
   taBortAvsnitt: 'Avsnittet tas bort från CV:t. Du kan lägga till det igen.',
+  /** Ett tomt avsnitt i byggaren, för skärmläsare (UX-briefen avsnitt 3). */
+  saknas: (namn: string) => `${namn} saknas, lägg till`,
 } as const
 
 /** Namnet, titeln och kontaktraden, redigerade från arket (ägaren 2026-11-16). */
@@ -333,6 +335,13 @@ export const FINAL = {
   brevRubrik: 'Ditt CV är klart. Nu brevet.',
   brevRad: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
   brevKnapp: 'Skriv ett personligt brev',
+  /** CV-byggarens nästa steg (skissen 2026-11-16, yta 5): analysen först, sedan brevet. */
+  nastaSteg: 'Nästa steg',
+  analysRubrik: 'Analysera ditt CV',
+  analysRad: 'De flesta arbetsgivare låter ett rekryteringssystem sortera först. Vi visar vad du ska ändra.',
+  analysKnapp: 'Analysera ditt CV',
+  brevLank: 'Skriv ett personligt brev',
+  minaCv: 'Gå till Mina CV',
   jobbEtikett: (titel: string, var_: string, lank: boolean) =>
     `${[titel, var_].filter(Boolean).join(', ')}. ${lank ? 'Öppna annonsen i ny flik' : 'Se jobbet i Dina matchningar'}`,
 } as const

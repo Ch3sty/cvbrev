@@ -21,7 +21,7 @@ import { nedladdningsFelForStatus, nedladdningsFelForUndantag } from '@/lib/cv/n
 export type Kalla =
   | { typ: 'exempel'; mall: string; val: MallVal; yrke?: string }
   | { typ: 'publik'; cv: CVMetadata; mall: string; val: MallVal }
-  | { typ: 'inloggad'; cvId?: string; structuredData: unknown; cvText?: string; mall: string; val: MallVal }
+  | { typ: 'inloggad'; cvId?: string; structuredData: unknown; cvText?: string; mall: string; val: MallVal; spok?: boolean }
 
 /** Exempel-API:ts query (docs/qa/mallsystemet-2026-11-16.md avsnitt 2). */
 export function exempelSrc(mall: string, val: MallVal, yrke?: string): string {
@@ -65,6 +65,7 @@ async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal)
       structuredData: k.structuredData || undefined,
       cvText: k.cvText,
       val: k.val,
+      spok: k.spok || undefined,
     }),
     signal,
   })
@@ -72,6 +73,14 @@ async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal)
   const json = (await res.json()) as { html?: string }
   if (!json.html) throw new Error('tom')
   return json.html
+}
+
+/**
+ * Lägger serverns färdiga HTML i flikens cache (byggarens första målning),
+ * så att arket står klart utan en rundtur efter hydreringen.
+ */
+export function minnsForhandsvisning(k: Kalla, html: string): void {
+  minns(JSON.stringify(k), html)
 }
 
 export interface Forhandsvisning {

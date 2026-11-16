@@ -74,12 +74,16 @@ describe('brev utan namn', () => {
 
 describe('CV-exporten utan namn', () => {
   it.each([
-    'app/dashboard/skapa-cv/components/CVCreatorWizard.tsx',
     'app/dashboard/cv-analys/components/CVAnalysisWizard.tsx',
   ])('%s frågar efter namnet vid 422 name_required', (rel) => {
     const klient = las(rel)
     expect(klient).toMatch(/kastaOmNamnKravs\(/)
     expect(klient).toMatch(/<NameRequiredNotice/)
+  })
+
+  it('CV-byggaren frågar efter namnet vid 422 name_required (dokumentets nedladdning)', () => {
+    expect(las('app/dashboard/skapa-cv/ByggareClient.tsx')).toMatch(/ut.typ === 'namn'/)
+    expect(las('app/dashboard/skapa-cv/ByggareClient.tsx')).toMatch(/<NameRequiredNotice/)
   })
 
   it('mallgalleriet frågar efter namnet vid 422 name_required (dokumentets nedladdning)', () => {

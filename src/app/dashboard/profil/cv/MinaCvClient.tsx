@@ -471,7 +471,7 @@ export default function MinaCvClient({
           )}
 
           <section id="cv-list" className="scroll-mt-6">
-            <SektRubrik lank={{ href: '/dashboard/skapa-cv', text: UNDERSIDA.skapaNyttCv }}>{CV_RUM.sparadeRubrik}</SektRubrik>
+            <SektRubrik lank={{ href: '/dashboard/skapa-cv?fran=mina_cv', text: UNDERSIDA.skapaNyttCv }}>{CV_RUM.sparadeRubrik}</SektRubrik>
 
             <Rader label={CV_RUM.sparadeRubrik} className="mt-4">
               {cvs.map((cv, i) => {

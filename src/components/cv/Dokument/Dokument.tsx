@@ -59,6 +59,20 @@ export interface DokumentProps {
   /** Avsnitt som saknas i CV:t, som "+ Lägg till"-rader längst ner på arket. */
   tommaAvsnitt?: readonly Sektion[]
   valtAvsnitt?: Sektion | null
+  /**
+   * CV-byggaren (skissen 2026-11-16): avsnitt som bara har grå spöktext.
+   * Hela avsnittet med rubriken är träffytan, och "+ Lägg till" står som en
+   * diskret pill vid rubriken.
+   */
+  spokAvsnitt?: readonly Sektion[]
+  /** Nyss sparat avsnitt: kopparramen som tonar bort. */
+  nyssAvsnitt?: Sektion | null
+  /** Inga prickade linjer under rubriker och huvud (byggaren under ifyllandet). */
+  utanLinjer?: boolean
+  /** "+ Fler avsnitt" under sista innehållet. */
+  fler?: { text: string; onClick: () => void }
+  /** Egen tipsrad första gången, med egen nyckel. */
+  tips?: { text: string; nyckel: string }
   onSvep?: (mallId: string) => void
   onMatt?: (m: Matning) => void
   /** Remsan i helskärmens fot. */
@@ -98,6 +112,11 @@ export default function Dokument({
   onHuvud,
   tommaAvsnitt,
   valtAvsnitt,
+  spokAvsnitt,
+  nyssAvsnitt,
+  utanLinjer,
+  fler,
+  tips: egetTips,
   onSvep,
   onMatt,
   helskarmRemsa,
@@ -153,7 +172,7 @@ export default function Dokument({
     if (!interaktiv || !harRubriker) return
     let sett = true
     try {
-      sett = window.localStorage.getItem(TIPS_NYCKEL) === '1'
+      sett = window.localStorage.getItem(egetTips?.nyckel ?? TIPS_NYCKEL) === '1'
     } catch {
       sett = true
     }
@@ -164,7 +183,7 @@ export default function Dokument({
         if (!e.isIntersecting || t !== undefined) return
         setTips(true)
         try {
-          window.localStorage.setItem(TIPS_NYCKEL, '1')
+          window.localStorage.setItem(egetTips?.nyckel ?? TIPS_NYCKEL, '1')
         } catch {
           // Lagringen är avstängd: raden visas igen nästa gång, det är allt.
         }
@@ -237,7 +256,7 @@ export default function Dokument({
           {tips ? (
             <p className="flex h-9 items-center gap-2 rounded-xl bg-ton px-3 text-[13px] font-medium text-ton-ink">
               <IkonPenna size={16} />
-              {DOK.tips}
+              {egetTips?.text ?? DOK.tips}
             </p>
           ) : null}
         </div>
@@ -313,6 +332,13 @@ export default function Dokument({
           {interaktiv && bredd > 0
             ? rubriker.map((r, i) => {
                 const valt = valtAvsnitt === r.sektion
+                const spok = Boolean(spokAvsnitt?.includes(r.sektion))
+                const ram = valt || nyssAvsnitt === r.sektion
+                // Ett spöke: träffytan börjar vid rubriken och är minst 44 px.
+                const avsTopp = spok ? px(r.y) - 4 : px(r.avsnitt.y)
+                const avsHojd = spok
+                  ? Math.max(44, Math.min(px(r.avsnitt.y + r.avsnitt.h) - avsTopp, forstaSidan - avsTopp))
+                  : Math.min(px(r.avsnitt.h), forstaSidan - px(r.avsnitt.y))
                 const linjeY = px(r.y + r.h) + 2
                 const traffHojd = Math.max(44, px(r.h) + 12)
                 const traffTopp = px(r.y + r.h / 2) - traffHojd / 2
@@ -322,16 +348,26 @@ export default function Dokument({
                       <button
                         type="button"
                         disabled={last}
-                        aria-label={`${AVSNITT.rubrik[r.sektion]}: ${r.text}`}
+                        aria-label={spok ? AVSNITT.saknas(AVSNITT.rubrik[r.sektion]) : `${AVSNITT.rubrik[r.sektion]}: ${r.text}`}
+                        data-avsnitt-knapp={r.sektion}
                         onClick={() => onAvsnitt(r.sektion)}
-                        className={`absolute rounded-[4px] ${valt ? 'border-2 border-koppar' : 'hover:bg-koppar/5'}`}
+                        className={`absolute rounded-[4px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar ${
+                          ram ? '' : 'hover:bg-koppar/5'
+                        }`}
                         style={{
                           left: px(r.avsnitt.x) - 6,
-                          top: px(r.avsnitt.y),
+                          top: avsTopp,
                           width: px(r.avsnitt.b) + 12,
-                          height: Math.min(px(r.avsnitt.h), forstaSidan - px(r.avsnitt.y)),
+                          height: avsHojd,
                         }}
                       >
+                        {/* Kopparramen: aktivt avsnitt, eller nyss sparat (tonar bort). */}
+                        <span
+                          aria-hidden
+                          className={`pointer-events-none absolute inset-0 rounded-[4px] border-2 border-koppar ${
+                            rorelse ? 'transition-opacity duration-300' : ''
+                          } ${ram ? 'opacity-100' : 'opacity-0'}`}
+                        />
                         {valt ? (
                           <span className="absolute -top-[22px] left-[-2px] whitespace-nowrap rounded-full bg-koppar px-2 py-0.5 text-[10px] font-bold text-koppar-text">
                             {r.text}
@@ -339,15 +375,28 @@ export default function Dokument({
                         ) : null}
                       </button>
                     ) : null}
+                    {/* "+ Lägg till" vid ett spökes rubrik: bara pekaren, avsnittet är träffytan. */}
+                    {spok && onAvsnitt ? (
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inline-flex h-7 items-center whitespace-nowrap rounded-full border-[1.5px] border-dashed border-[#C9C6BF] bg-white px-2.5 text-[12px] font-semibold leading-none text-[#4A4A55] min-[480px]:h-[30px] min-[480px]:text-[13px]"
+                        style={{ right: Math.max(4, bredd - px(r.x + r.b) - 2), top: px(r.y + r.h / 2) - 15 }}
+                        data-lagg-till={r.sektion}
+                      >
+                        {AVSNITT.tomma[r.sektion]}
+                      </span>
+                    ) : null}
                     {/* Den prickade linjen, heldragen med penna vid hover. */}
-                    <span
-                      aria-hidden
-                      className={`pointer-events-none absolute border-t-[1.5px] border-koppar ${
-                        hover === i ? 'border-solid opacity-100' : 'border-dotted opacity-60'
-                      }`}
-                      style={{ left: px(r.x), top: linjeY, width: Math.max(px(r.b), 40) }}
-                    />
-                    {onRubrik ? (
+                    {utanLinjer ? null : (
+                      <span
+                        aria-hidden
+                        className={`pointer-events-none absolute border-t-[1.5px] border-koppar ${
+                          hover === i ? 'border-solid opacity-100' : 'border-dotted opacity-60'
+                        }`}
+                        style={{ left: px(r.x), top: linjeY, width: Math.max(px(r.b), 40) }}
+                      />
+                    )}
+                    {onRubrik && !spok ? (
                       <button
                         type="button"
                         disabled={last}
@@ -407,7 +456,7 @@ export default function Dokument({
                     <span
                       aria-hidden
                       className={`pointer-events-none absolute border-t-[1.5px] border-koppar ${
-                        hover === nyckel ? 'border-solid opacity-100' : 'border-dotted opacity-60'
+                        hover === nyckel ? 'border-solid opacity-100' : utanLinjer ? 'opacity-0' : 'border-dotted opacity-60'
                       }`}
                       style={{ left: px(f.x), top: px(f.y + f.h) + 2, width: Math.max(px(f.b), 40) }}
                     />
@@ -459,6 +508,20 @@ export default function Dokument({
                 </button>
               ))}
             </div>
+          ) : null}
+
+          {/* "+ Fler avsnitt" under sista innehållet, när det ryms på första sidan. */}
+          {fler && interaktiv && bredd > 0 && matning?.botten !== undefined && sidor === 1 && px(matning.botten) + 64 < forstaSidan ? (
+            <button
+              type="button"
+              disabled={last}
+              onClick={fler.onClick}
+              data-fler
+              className="absolute inset-x-[10%] flex min-h-11 items-center justify-center rounded-[4px] text-[13px] font-medium text-[#65656E] hover:bg-koppar/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar"
+              style={{ top: px(matning.botten) + 10 }}
+            >
+              {fler.text}
+            </button>
           ) : null}
 
           {/* Brytlinjen när CV:t fortsätter på sida 2: vid arkets nederkant,
@@ -518,6 +581,19 @@ export default function Dokument({
           <p className="min-w-0 truncate text-meta text-ink-3">{DOK.klickaHelskarm}</p>
         ) : null}
       </div>
+
+      {/* "+ Fler avsnitt" när arket är fullt: under arket i stället. */}
+      {fler && interaktiv && matning && !(sidor === 1 && matning.botten !== undefined && px(matning.botten) + 64 < forstaSidan) ? (
+        <button
+          type="button"
+          disabled={last}
+          onClick={fler.onClick}
+          data-fler
+          className="mt-1 flex min-h-11 w-full items-center justify-center rounded-xl border-[1.5px] border-dashed border-kant-stark text-sm font-semibold text-ink-2 hover:border-ink-1"
+        >
+          {fler.text}
+        </button>
+      ) : null}
 
       {helskarm ? (
         <Helskarm

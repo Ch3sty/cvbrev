@@ -77,7 +77,7 @@ export default function DashboardHero({ state, userId, onCvUploaded, utanOverlap
               }}
             />
           </div>
-          <Link href="/dashboard/skapa-cv" className={`${LINK} mt-2`}>
+          <Link href="/dashboard/skapa-cv?fran=hemskarm" className={`${LINK} mt-2`}>
             {LYFT.jobbForstaCv.byggLank}
           </Link>
         </LyftKort>

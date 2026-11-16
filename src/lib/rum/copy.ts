@@ -452,6 +452,13 @@ export const CV_RUM = {
     poang: (p: number) => `${p} av 100.`,
     inteAnalyserat: 'Inte analyserat.',
     andrat: (nar: string) => `Ändrat ${nar}.`,
+    /** Ett CV som byggs i CV-byggaren och inte laddats ner än. */
+    utkast: 'Utkast.',
+  },
+  /** Länken till CV-byggaren för ett CV som byggts där. */
+  bygg: {
+    fortsatt: 'Fortsätt bygga',
+    redigera: 'Redigera i byggaren',
   },
 } as const
 
