@@ -17,7 +17,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { uppsattningForTitel } from '@/lib/cv/mallval/uppsattning'
-import { Formatbrickor, formatTillagg } from '@/components/cv/Dokument/Formatbrickor'
+import { formatTillagg } from '@/components/cv/Dokument/Formatbrickor'
 
 export interface ArtikelMall {
   id: string
@@ -25,7 +25,7 @@ export interface ArtikelMall {
   /** "Gratis, även som Word" osv., färdig text från servern. */
   rad: string
   bild: string
-  /** Finns som Word: W-brickan bredvid PDF-brickan (ägaren 2026-11-16). */
+  /** Finns som Word: står i raden under miniatyrerna, inga brickor i artiklarna (ägaren 2026-11-16). */
   word: boolean
 }
 
@@ -148,7 +148,6 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
             <span className={`relative block aspect-[210/297] overflow-hidden rounded-md bg-white ${k === i ? 'border-2 border-koppar' : 'border border-kant group-hover:border-ink-1'}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={m.bild} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-top" />
-              <Formatbrickor word={m.word} />
             </span>
             <span className="mt-1 block truncate text-xs font-semibold text-ink-1">{m.namn}</span>
           </button>

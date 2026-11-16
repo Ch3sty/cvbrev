@@ -364,6 +364,9 @@ export const ARTIKEL = {
   uppladdning: 'Har du redan ett CV? Se det i alla mallar.',
   laddaUpp: 'Ladda upp',
   fotrad: (gratis: number) => `${antalOrd(gratis, true)} ${gratis === 1 ? 'mall är' : 'mallar är'} gratis. Alla ingår i Premium.`,
+  /** Hinten under knappen: fem visas, fler finns med ett konto. */
+  fler: (alla: number) => `Det här är fem av ${alla} mallar. Med ett konto väljer du bland alla.`,
+  flerLank: 'Skapa konto',
   mallrad: (gratis: boolean, word: boolean) =>
     `${gratis ? 'Gratis' : 'Ingår i Premium'}${wordTillagg(gratis, word)}`,
   yrkesrad: (yrke: string) =>

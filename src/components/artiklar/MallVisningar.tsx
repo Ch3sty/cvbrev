@@ -12,7 +12,7 @@
  */
 import MallVisning from './MallVisning'
 import MallVisningCv, { type ArtikelMall } from './MallVisningCv'
-import { MALL_KATALOG, GRATIS_ANTAL } from '@/lib/cv/mallar/katalog'
+import { MALL_KATALOG, GRATIS_ANTAL, MALL_ANTAL } from '@/lib/cv/mallar/katalog'
 import { FONTS } from '@/lib/cv/preview-utils'
 import { BREV_MALLAR } from '@/lib/cv/showcase-exempel'
 import { ARTIKEL, KNAPP, UPPLADDNING, DOK } from '@/components/cv/Dokument/texter'
@@ -51,7 +51,13 @@ export function CvMallVisning() {
           }
         />
       </div>
-      <p className="mt-3 text-sm text-ink-2">{ARTIKEL.fotrad(GRATIS_ANTAL)}</p>
+      <p className="mt-3 text-sm text-ink-2">
+        {ARTIKEL.fler(MALL_ANTAL)}{' '}
+        <a href="/register?borja=cv" data-cta-klick="/register?borja=cv" className="font-semibold text-ink-1 underline underline-offset-4">
+          {ARTIKEL.flerLank}
+        </a>
+      </p>
+      <p className="mt-1 text-sm text-ink-2">{ARTIKEL.fotrad(GRATIS_ANTAL)}</p>
     </aside>
   )
 }
