@@ -16,6 +16,7 @@ import {
   IconStudent,
 } from './illustrations/ExempelIcons'
 import { POPULARA_YRKEN, type PopulartYrke } from './exempel-data'
+import { arPilotSammanslagen } from '@/app/(public)/cv-mallar/pilot-slugs'
 
 const ICON_MAP: Record<
   PopulartYrke['iconKey'],
@@ -102,13 +103,16 @@ export default function ExempelPopulara() {
                       Se CV-exempel
                     </Link>
                   )}
-                  <Link
-                    href={`/cv-mallar/${yrke.slug}`}
-                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
-                  >
-                    <LayoutTemplate className="w-3.5 h-3.5" strokeWidth={2.5} />
-                    Se CV-mallar
-                  </Link>
+                  {/* Piloten (B3): yrkesmallsidan är sammanslagen med CV-exemplet. */}
+                  {arPilotSammanslagen(yrke.slug) ? null : (
+                    <Link
+                      href={`/cv-mallar/${yrke.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
+                    >
+                      <LayoutTemplate className="w-3.5 h-3.5" strokeWidth={2.5} />
+                      Se CV-mallar
+                    </Link>
+                  )}
                   {yrke.hasBrev && (
                     <Link
                       href={`/personligt-brev-exempel/${yrke.slug}`}

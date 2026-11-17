@@ -130,7 +130,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             />
             <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm">
               <Link href={`/cv-exempel/${data.slug}`} className="inline-flex min-h-11 items-center font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
-                Se CV-exempel
+                Se ett färdigt CV-exempel för {data.namnBestamd}
               </Link>
               <Link
                 href={`/personligt-brev-exempel/${data.slug}`}

@@ -2,7 +2,7 @@
 import { MetadataRoute } from 'next';
 import { getAllPostsMeta, getAllInsikterMeta } from '@/lib/blog'; // Din befintliga funktion för att hämta post-metadata
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data';
-import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data';
+import { YRKESMALL_PUBLIKA } from '@/app/(public)/cv-mallar/yrkesmall-data';
 import { getAllAuthorIds } from '@/lib/authors';
 
 // Sitemapen byggs av MDX-filer i repot och ändras bara vid deploy. Utan
@@ -51,6 +51,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.95, // Huvudhub fOr "cv mall"-sokintent
     },
+    // Stilsidorna (SEO-svepet 2026-11-17, B5 och B8): /cv-mallar minus 0,1.
+    ...['word', 'foto', 'enkla'].map((stil) => ({
+      url: `${baseUrl}/cv-mallar/${stil}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
     {
       url: `${baseUrl}/cv-exempel`,
       lastModified: new Date(),
@@ -431,8 +438,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // 7. Yrkesmall-sidor (/cv-mallar/[yrke]) - dedikerade fOr "cv mall {yrke}"-sokintent
-  const yrkesmallPages: MetadataRoute.Sitemap = YRKESMALL_SLUGS.map((slug) => ({
+  // 7. Yrkesmall-sidor (/cv-mallar/[yrke]) - dedikerade fOr "cv mall {yrke}"-sokintent.
+  // Pilotens fem (B3) 308:ar till /cv-exempel och står inte här.
+  const yrkesmallPages: MetadataRoute.Sitemap = YRKESMALL_PUBLIKA.map(({ slug }) => ({
     url: `${baseUrl}/cv-mallar/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',

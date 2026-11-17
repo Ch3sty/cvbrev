@@ -11,34 +11,41 @@
  */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { YRKESMALL_LIST, YRKESMALL_SLUGS } from '../yrkesmall-data'
+import { YRKESMALL_PUBLIKA } from '../yrkesmall-data'
 import YrkesmallContent from './YrkesmallContent'
 import { getMallKort } from '@/lib/cv/mallar/katalog'
 import { losMallIdEllerForval } from '@/lib/cv/mallar/alias'
+import { yrkesmallBeskrivning, yrkesmallTitel } from '@/lib/seo/cv-kluster'
 
 interface Props {
   params: Promise<{ yrke: string }>
 }
 
 export function generateStaticParams() {
-  return YRKESMALL_SLUGS.map(yrke => ({ yrke }))
+  // Pilotens fem yrken 308:ar till /cv-exempel (B3), de byggs inte här.
+  return YRKESMALL_PUBLIKA.map((y) => ({ yrke: y.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { yrke } = await params
-  const data = YRKESMALL_LIST.find(y => y.slug === yrke)
+  const data = YRKESMALL_PUBLIKA.find(y => y.slug === yrke)
 
   if (!data) {
-    return { title: 'CV-mall — Jobbcoach.ai' }
+    return { title: 'CV-mall' }
   }
 
+  // Titelregeln i SEO-svepet 2026-11-17 (B6): sökordet först, inget årtal,
+  // inget tankstreck, yrket i gemener; reglerna och längderna i cv-kluster.ts.
+  const titel = yrkesmallTitel(data.namnBestamd)
+  const beskrivning = yrkesmallBeskrivning(data.namnBestamd)
+
   return {
-    title: `CV-mall för ${data.namn} 2026 — gratis nedladdning | Jobbcoach.ai`,
-    description: `ATS-säker CV-mall för ${data.namnBestamd}, anpassad för svenska arbetsgivare. Se konkret exempel och vad rekryterare letar efter. Gratis nedladdning.`,
+    title: titel,
+    description: beskrivning,
     keywords: `cv mall ${data.namnBestamd}, ${data.namnBestamd} cv mall, mall cv ${data.namnBestamd}, gratis cv mall ${data.namnBestamd}, ${data.namnBestamd} cv exempel, ats-säker cv mall`,
     openGraph: {
-      title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
-      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis i ${data.freeMallNamn}, fler mallar i Jobbcoach Premium.`,
+      title: titel,
+      description: beskrivning,
       type: 'article',
       locale: 'sv_SE',
       url: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
@@ -46,8 +53,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
-      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis nedladdning.`,
+      title: titel,
+      description: beskrivning,
     },
     alternates: {
       canonical: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
@@ -58,17 +65,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function YrkesmallPage({ params }: Props) {
   const { yrke } = await params
-  const data = YRKESMALL_LIST.find(y => y.slug === yrke)
+  const data = YRKESMALL_PUBLIKA.find(y => y.slug === yrke)
 
   if (!data) {
     notFound()
   }
 
-  // Schema.org: Product (mallen ar produkten)
+  // Schema.org: Product. Produkten är gratismallen (B6): det finns inga
+  // yrkesmallar, så namnet är mallens och priset 0 gäller den.
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: `CV-mall för ${data.namn}`,
+    name: `CV-mallen ${data.freeMallNamn}`,
     description: data.intro,
     brand: {
       '@type': 'Brand',
@@ -114,7 +122,7 @@ export default async function YrkesmallPage({ params }: Props) {
   }
 
   // Tre relaterade yrkesmallar (alla utom denna)
-  const relaterade = YRKESMALL_LIST.filter(y => y.slug !== data.slug).slice(0, 3)
+  const relaterade = YRKESMALL_PUBLIKA.filter(y => y.slug !== data.slug).slice(0, 3)
 
   return (
     <>

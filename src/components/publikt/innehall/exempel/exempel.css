@@ -345,3 +345,17 @@
 .ib-hubb-guide .ib-guide-slut { margin-top: 40px; padding: 22px 24px; border-radius: 20px; background: var(--panel); border: 1px solid var(--kant); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
 .ib-hubb-guide .ib-guide-slut p { color: var(--ink-1); font-weight: 600; }
 .ib-byt-mall .ib-valjare { flex-basis: 100%; order: -1; margin-top: 0; }
+
+/* Piloten (SEO-svepet 2026-11-17, B3): mallblocket med tre riktiga miniatyrer. */
+.ib-pilot-mallar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; max-width: 720px; }
+.ib-pilot-mall { display: grid; gap: 10px; align-content: start; text-decoration: none; color: inherit; }
+.ib-pilot-mall:focus-visible { outline: 2px solid var(--koppar-ink); outline-offset: 4px; border-radius: 10px; }
+.ib-pilot-knapp { min-height: 44px; padding: 0 12px; font-size: 14px; width: 100%; }
+.ib-pilot-mall:hover .ib-pilot-knapp { transform: translateY(-1px); }
+.ib-pilot-h3 { margin-top: 48px; }
+.ib-pilot-lista { margin: 8px 0 0; padding-left: 18px; list-style: disc; color: var(--ink-2); font-size: 15px; display: grid; gap: 4px; }
+.ib-pilot-lankar { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 32px; }
+@media (max-width: 520px) {
+  .ib-pilot-mallar { gap: 8px; }
+  .ib-pilot-knapp { min-height: 44px; font-size: 13px; padding: 0 6px; }
+}

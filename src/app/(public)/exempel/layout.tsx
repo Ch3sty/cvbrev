@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
-import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { TOTAL_BREV_YRKEN, TOTAL_CV_YRKEN } from './components/exempel-data'
 
 // /exempel är hubben, inte målsida för huvudorden (huvudordsplanen steg 4,
-// SEO-förslaget K4 c, 2026-11-14). Talen ur konstanterna.
-const TITEL = 'Exempel för jobbansökan: CV, personligt brev och mallar'
-const BESKRIVNING = `Vi har ${TOTAL_CV_YRKEN} CV-exempel, ${TOTAL_BREV_YRKEN} exempel på personligt brev och ${TEMPLATE_COUNT} CV-mallar. Börja med ditt yrke och gå vidare till exemplet, brevet eller mallen du behöver.`
+// SEO-förslaget K4 c, 2026-11-14). SEO-svepet 2026-11-17 (B7): titeln släpper
+// mallorden, som /cv-mallar äger. Talen ur konstanterna.
+const TITEL = 'Exempel för din jobbansökan: CV och personligt brev per yrke'
+const BESKRIVNING = `Vi har ${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} exempel på personligt brev för svenska yrken. Börja med ditt yrke och se exemplet, brevet eller mallen du behöver.`
 
 export const metadata: Metadata = {
   title: TITEL,

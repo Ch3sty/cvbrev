@@ -18,8 +18,12 @@ import Telefon from '../../telefon/Telefon'
 import SkarmCvAnalys from '../../telefon/skarmar/SkarmCvAnalys'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
 import ExempelKlient from '@/components/exempel-shared/ExempelKlient'
-import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data'
-import { FORVALD_MALL_ID, getMallKort } from '@/lib/cv/mallar/katalog'
+import { YRKESMALL_PUBLIKA } from '@/app/(public)/cv-mallar/yrkesmall-data'
+import { FORVALD_MALL_ID, GRATIS_MALL_IDS, getMallKort } from '@/lib/cv/mallar/katalog'
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { MallMiniatyr } from '@/components/cv/MallMiniatyr'
+import { ARTIKEL } from '@/components/cv/Dokument/texter'
+import { pilotInnehall } from './pilot'
 import { CV_GALLERI, BREV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 import ExempelHjalte from './ExempelHjalte'
@@ -37,6 +41,15 @@ import './exempel.css'
 
 /** Exempelarket är enspaltigt som förvalsmallen; namnet ur katalogen. */
 const FORVALD_MALL_NAMN = getMallKort(FORVALD_MALL_ID)?.namn ?? ''
+
+/** Gratismallarnas namn ur katalogen: "Linne eller Björk". */
+const GRATIS_ELLER = (() => {
+  const n = GRATIS_MALL_IDS.map((id) => getMallKort(id)?.namn ?? id)
+  return n.length < 2 ? n.join('') : `${n.slice(0, -1).join(', ')} eller ${n[n.length - 1]}`
+})()
+
+/** Yrkesmallsidorna som finns som egna sidor (piloten 308:ar hit, B3). */
+const PUBLIKA_SLUGS = new Set(YRKESMALL_PUBLIKA.map((y) => y.slug))
 
 function kategoriNamn(kategori: string | undefined): string | undefined {
   const slug = kategori === 'teknik' ? 'tech' : kategori
@@ -63,7 +76,10 @@ export default function ExempelMall({
   const varfor = numrera(punkter(data.varforDetFungerar))
   const nummer = ankarNummer(varfor.punkter)
   const tips = punkter(data.tips)
-  const faq = fragor(data.faq)
+  // Piloten (B3): yrkesmallsidan är sammanslagen hit och mallblocket tar dess innehåll.
+  const pilot = cv ? pilotInnehall(slug, data) : null
+  const faq = pilot ? pilot.faq : fragor(data.faq)
+  const harMallsida = cv && PUBLIKA_SLUGS.has(slug)
   const intro: string | undefined = data.intro ?? data.heroSubtitle
 
   // "Använd som mall": CV:t öppnar mallväljaren med exemplets mall vald.
@@ -192,7 +208,7 @@ export default function ExempelMall({
       ) : null}
 
       {/* 5. Skrivguiden och mallkortet */}
-      {data.seoIntro || (cv && YRKESMALL_SLUGS.includes(slug)) ? (
+      {data.seoIntro || harMallsida ? (
         <Rum rum={typ} yta="panel">
           <div className="pub-wrap ib-guide-g">
             <div className="ib-guide-text">
@@ -210,19 +226,112 @@ export default function ExempelMall({
                 </>
               ) : null}
             </div>
-            {cv && YRKESMALL_SLUGS.includes(slug) ? (
+            {harMallsida ? (
               <div className="ib-mallkort">
                 <div className="ib-mallkort-bild" aria-hidden="true">
                   <MiniPapper />
                   <MiniPapper />
                 </div>
                 <h2>Letar du efter en CV-mall för {yrkeLitet}?</h2>
-                <p>Vi har en mall för {yrkeLitet} med rätt sektioner och tips från rekryterare.</p>
-                <Link className="pub-lank" href={`/cv-mallar/${slug}`}>
-                  Se mallen
+                <p>Se mallarna med rubriker för {yrkeLitet} och vad rekryterare letar efter.</p>
+                <Link className="pub-lank" href={`/cv-mallar/${slug}`} data-cta-klick={`/cv-mallar/${slug}`}>
+                  Se CV-mallarna för {yrkeLitet}
                 </Link>
               </div>
             ) : null}
+          </div>
+        </Rum>
+      ) : null}
+
+      {/* 5a. Piloten (B3): mallblocket ersätter korslänken till yrkesmallsidan. */}
+      {pilot ? (
+        <Rum rum="cv" yta="mark" id="cv-mall">
+          <div className="pub-wrap">
+            <p className="pub-kick">CV-mall</p>
+            <h2 className="pub-h2">CV-mall för {yrkeLitet}: välj och fyll i</h2>
+            <p className="pub-ingress" style={{ marginTop: 14 }}>
+              Alla våra mallar passar {yrkeLitet}. Välj rubrikerna för din bransch, fyll i direkt och ladda ner gratis i {GRATIS_ELLER}, som PDF
+              eller Word.
+            </p>
+            <div className="ib-pilot-mallar">
+              {pilot.mallar.map((m) => {
+                const gratis = m.niva === 'gratis'
+                const href = `/cv-mallar/prova?mall=${encodeURIComponent(m.id)}&yrke=${encodeURIComponent(slug)}`
+                return (
+                  <Link key={m.id} href={href} className="ib-pilot-mall" data-cta-klick={`pilot-mall-${m.id}`}>
+                    <MallMiniatyr
+                      mall={{ id: m.id, name: m.namn, imagePath: m.bild.stor, tier: gratis ? 'free' : 'premium' }}
+                      under={ARTIKEL.mallrad(gratis, m.word)}
+                    />
+                    <span className="pub-knapp ib-pilot-knapp">{gratis ? 'Fyll i gratis' : 'Prova med ditt CV'}</span>
+                  </Link>
+                )
+              })}
+            </div>
+            {pilot.tips.length ? (
+              <>
+                <h3 className="pub-h3 ib-pilot-h3">Vad rekryterare letar efter hos {yrkeLitet}</h3>
+                <div className="pub-raster pub-raster-2" style={{ marginTop: 16 }}>
+                  {pilot.tips.map((t) => (
+                    <div className="pub-kort" key={t.rubrik}>
+                      <h4 className="pub-h4" style={{ marginTop: 0 }}>
+                        {t.rubrik}
+                      </h4>
+                      <p className="pub-brod" style={{ fontSize: 15, marginTop: 8 }}>
+                        {t.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : null}
+            {pilot.synas.length || pilot.uppgifter.length ? (
+              <>
+                <h3 className="pub-h3 ib-pilot-h3">Det här ska synas i CV:t för {yrkeLitet}</h3>
+                {pilot.synas.length ? (
+                  <div className="pub-raster pub-raster-2" style={{ marginTop: 16 }}>
+                    {pilot.synas.map((v) => (
+                      <div className="pub-kort" key={v.rubrik}>
+                        <h4 className="pub-h4" style={{ marginTop: 0 }}>
+                          {v.rubrik}
+                        </h4>
+                        <p className="pub-brod" style={{ fontSize: 15, marginTop: 8 }}>
+                          {v.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {pilot.uppgifter.length ? (
+                  <div className="pub-raster pub-raster-2" style={{ marginTop: 16 }}>
+                    {pilot.uppgifter.map((u) => (
+                      <div className="pub-kort" key={u.rubrik}>
+                        <h4 className="pub-h4" style={{ marginTop: 0 }}>
+                          {u.rubrik}
+                        </h4>
+                        <ul className="ib-pilot-lista">
+                          {u.punkter.map((p) => (
+                            <li key={p}>{p}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </>
+            ) : null}
+            <h3 className="pub-h3 ib-pilot-h3">Så läser rekryteringssystemen ditt CV</h3>
+            <p className="pub-brod" style={{ marginTop: 12, maxWidth: 760 }}>
+              {pilot.atsInfo}
+            </p>
+            <p className="ib-pilot-lankar">
+              <Link className="pub-lank" href="/cv-mallar" data-cta-klick="pilot-alla-mallar">
+                Se alla {TEMPLATE_COUNT} CV-mallar
+              </Link>
+              <Link className="pub-lank" href="/cv-mallar#ladda-upp" data-cta-klick="pilot-ladda-upp">
+                Har du redan ett CV? Ladda upp det och se det i mallarna
+              </Link>
+            </p>
           </div>
         </Rum>
       ) : null}

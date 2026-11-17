@@ -271,7 +271,7 @@ export default function MallarHubGuideSection() {
               Vill du djupdyka i vad som funkar med mallar har vi separata
               guider:{' '}
               <Link
-                href="/artiklar/cv-mall-gratis-guide"
+                href="/cv-mallar"
                 className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
               >
                 var du hittar en gratis CV-mall

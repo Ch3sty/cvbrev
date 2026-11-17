@@ -194,6 +194,7 @@ import { talSomOrd } from '@/lib/cv/template-antal'
 const FOTO_MALLAR = MALL_KATALOG.filter((m) => m.foto)
 const FOTO_GRATIS = FOTO_MALLAR.filter((m) => m.niva === 'gratis').map((m) => m.namn)
 import { losMallId } from '@/lib/cv/mallar/alias'
+import { PILOT_SAMMANSLAGNA, arPilotSammanslagen } from './pilot-slugs'
 import { YRKES_CONTENT, KATEGORI_DEFAULT_CONTENT, HERO_INGRESS, type YrkesContent } from './yrkesmall-content'
 
 /** Bestamd-form-mappning fOr yrkesnamn (for naturligt sprak: "CV-mall fOr lakare") */
@@ -369,5 +370,15 @@ function buildYrkesmallList(): Yrkesmall[] {
     .filter((y): y is Yrkesmall => y !== null)
 }
 
-/** Komplett lista med alla 75 yrkesmallar (genererad från mappning + content) */
+/** Komplett lista med alla yrkesmallar (genererad från mappning + content), också pilotens fem. */
 export const YRKESMALL_LIST: Yrkesmall[] = buildYrkesmallList()
+
+/**
+ * Piloten (B3, pilot-slugs.ts): datan i YRKESMALL_LIST behövs kvar för
+ * exempelsidans mallblock; allt som listar eller länkar yrkesmallsidor läser
+ * PUBLIKA.
+ */
+export { PILOT_SAMMANSLAGNA, arPilotSammanslagen }
+
+/** Yrkesmallsidorna som finns som egna sidor (alla utom piloten). */
+export const YRKESMALL_PUBLIKA: Yrkesmall[] = YRKESMALL_LIST.filter((y) => !arPilotSammanslagen(y.slug))

@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import CVExempelPage from './CVExempelPage'
 import { CV_PUBLICERAD, CV_ANDRAD } from './publicerad'
+import { exempelTitel, pilotBeskrivning, pilotTitel } from '@/lib/seo/cv-kluster'
+import { arPilotSammanslagen } from '@/app/(public)/cv-mallar/yrkesmall-data'
+import { pilotInnehall } from '@/components/publikt/innehall/exempel/pilot'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
@@ -3995,7 +3998,7 @@ Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden.
     yrke: 'Butiksbiträde',
     sokvolym: 2400,
     metaTitle: 'CV Exempel Butiksbiträde 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för butiksbiträde. ATS-optimerat, visar kvantifierbara försäljningsresultat, kassasystem och kundservice-kompetens. Ladda ner gratis mall.',
+    metaDescription: 'Professionellt CV-exempel för butiksbiträde. ATS-optimerat, visar kvantifierbara försäljningsresultat, kassasystem och kundservice-kompetens.',
 
     seoIntro: 'Söker du jobb som butiksbiträde och behöver ett CV som sticker ut? Det här exemplet visar hur du framhäver försäljningsresultat, kundservice-erfarenhet och teknisk kompetens på ett sätt som både ATS-system och rekryterare uppskattar.\n\nEtt bra CV för butiksbiträde balanserar mjuka kompetenser (servicekänsla, stresstålig) med konkreta resultat och branschspecifik kunskap. I det här exemplet ser du hur Emma kvantifierar sin försäljning (22% ökning, 220k kr/månad), specificerar kassasystem (Extenda, Visma Retail) och visar omfattning (40-60 kunder dagligen). Dessa detaljer gör CV:t trovärdigt och relevant för svenska detaljhandelsarbetsgivare.',
 
@@ -6151,7 +6154,7 @@ Konkreta exempel bevisar att du kan kommunicera under press, leda och hantera st
     sokvolym: 750,
     kategori: 'vard',
     metaTitle: 'CV Exempel Specialistsjuksköterska 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Se professionellt CV-exempel för specialistsjuksköterska med avancerad omvårdnad, medicinteknisk utrustning och evidensbaserad vård. ATS-optimerad mall 2026.',
+    metaDescription: 'Se professionellt CV-exempel för specialistsjuksköterska med avancerad omvårdnad, medicinteknisk utrustning och evidensbaserad vård. ATS-optimerat 2026.',
 
     intro: 'Ett professionellt CV-exempel för specialistsjuksköterska som visar din specialisering, avancerade kompetens och evidensbaserade vård. Optimerat för svenska sjukhus och ATS-system.',
 
@@ -6719,7 +6722,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     sokvolym: 880,
     kategori: 'ledning',
     metaTitle: 'CV Exempel Enhetschef 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för enhetschef med budgetansvar och personalledning. ATS-optimerad mall med kvantifierbara resultat och verksamhetsutveckling.',
+    metaDescription: 'Professionellt CV-exempel för enhetschef med budgetansvar och personalledning. ATS-optimerat med kvantifierbara resultat och verksamhetsutveckling.',
 
     intro: 'Ett professionellt CV-exempel för enhetschef som visar din förmåga att kombinera budgetansvar, personalledning och verksamhetsutveckling med mätbara resultat. Detta exempel är optimerat för svenska kommuner, regioner och privata vårdgivare samt ATS-system.',
 
@@ -7556,7 +7559,7 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
     yrke: 'Personlig Assistent',
     sokvolym: 1200,
     metaTitle: 'CV Personlig Assistent: Exempel & Mall 2026 (LSS)',
-    metaDescription: 'Se hur ett starkt CV för personlig assistent ska se ut. Exempeltext, LSS-terminologi och ATS-anpassade formuleringar. Gratis mall för assistansyrket.',
+    metaDescription: 'Se hur ett starkt CV för personlig assistent ska se ut. Exempeltext, LSS-terminologi och ATS-anpassade formuleringar för assistansyrket.',
 
     seoIntro: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov, inte generiska adjektiv.
 
@@ -8362,7 +8365,7 @@ Visa både teknisk expertis OCH förmåga att utveckla personal, det är vad som
     yrke: 'Chef',
     sokvolym: 1200,
     metaTitle: 'CV Exempel Chef 2026 - Ledarskap & Personalansvar | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för chef med ledarerfarenhet. Framhäv personalansvar, resultat och teamutveckling. Gratis mall och tips för ledare 2026.',
+    metaDescription: 'Professionellt CV-exempel för chef med ledarerfarenhet. Framhäv personalansvar, resultat och teamutveckling, med tips för ledare 2026.',
 
     seoIntro: `Att skapa ett vinnande CV som chef kräver att du tydligt demonstrerar din förmåga att leda, utveckla och leverera resultat genom andra. Rekryterare och företagsledare söker inte bara efter administrativa färdigheter, de vill se konkreta bevis på hur du har påverkat verksamheten, utvecklat medarbetare och skapat högpresterande team.
 
@@ -8654,7 +8657,7 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
     sokvolym: 1100,
     kategori: 'teknik',
     metaTitle: 'CV Exempel Produktchef 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för produktchef med produktstrategi, roadmap och stakeholder management. ATS-optimerad mall som lyfter din product owner-erfarenhet.',
+    metaDescription: 'Professionellt CV-exempel för produktchef med produktstrategi, roadmap och stakeholder management. ATS-optimerat och lyfter din product owner-erfarenhet.',
 
     seoIntro: `Ett starkt CV produktchef visar din förmåga att driva produktstrategi, prioritera backlog och leverera kundvärde genom data-driven produktutveckling. Detta CV-exempel demonstrerar hur du strukturerar din product management-erfarenhet för att övertyga både rekryterare och ATS-system. Konkurrensen om produktchefsroller är hård, och arbetsgivare filtrerar snabbt bort kandidater vars CV saknar tydliga produktresultat och relevanta branschtermer.
 
@@ -9208,7 +9211,7 @@ Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risk
     yrke: 'Elevassistent',
     sokvolym: 950,
     metaTitle: 'CV Exempel Elevassistent 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV exempel för elevassistent med NPF-erfarenhet. Inkluderar profiltext, kompetenser och tips för autism/ADHD-stöd. Gratis mall 2026.',
+    metaDescription: 'Komplett CV exempel för elevassistent med NPF-erfarenhet. Inkluderar profiltext, kompetenser och tips för autism/ADHD-stöd 2026.',
 
     seoIntro: `Ett professionellt CV för elevassistent kräver tydlig fokus på din erfarenhet av att stötta elever i behov av särskilt stöd, särskilt elever med NPF-diagnoser som autism och ADHD. I den här guiden hittar du ett komplett CV-exempel som visar hur du formulerar din erfarenhet av lågaffektivt bemötande, individuella anpassningar och dokumentation i verktyg som IST och Unikum.
 
@@ -9496,7 +9499,7 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
     sokvolym: 450,
     kategori: 'service',
     metaTitle: 'CV Exempel Kundrådgivare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för kundrådgivare med SwedSec-licens, kreditbedömning och finansiell rådgivning. ATS-optimerat för bank och finans. Ladda ner gratis mall 2026.',
+    metaDescription: 'Professionellt CV-exempel för kundrådgivare med SwedSec-licens, kreditbedömning och finansiell rådgivning. ATS-optimerat för bank och finans 2026.',
 
     seoIntro: `Söker du jobb som kundrådgivare inom bank eller finans? Ditt CV behöver visa mer än bara erfarenhet av kundkontakt. Rekryterare letar efter SwedSec-licens, dokumenterad erfarenhet av kreditbedömning, bolåneförmedling och finansiell rådgivning. ATS-system som banker använder filtrerar på nyckelord som "MiFID II", "Salesforce CRM", "UC kreditprövning" och "försäkringsförmedling".
 
@@ -10555,7 +10558,7 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
     kategori: 'utbildning',
 
     metaTitle: 'CV Exempel Grundskollärare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för grundskollärare med beprövade mallar för lärarlegitimation, pedagogisk kompetens och elevresultat. Optimerad för svenska skolor 2026.',
+    metaDescription: 'Professionellt CV-exempel för grundskollärare med formuleringar för lärarlegitimation, pedagogisk kompetens och elevresultat. För svenska skolor 2026.',
 
     seoIntro: `Ett starkt CV för grundskollärare lyfter fram både din pedagogiska kompetens och dina elevresultat. Rekryterare söker efter konkreta bevis på din förmåga att höja kunskapsnivån, skapa inkluderande lärmiljöer och samarbeta med vårdnadshavare och kollegor.
 
@@ -11102,7 +11105,7 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
     kategori: 'vard',
 
     metaTitle: 'CV Exempel Fysioterapeut 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionell CV-mall för fysioterapeut med konkreta exempel på kompetenser, behandlingsmetoder och resultat. Optimerad för svenska vårdarbetsgivare 2026.',
+    metaDescription: 'Professionellt CV-exempel för fysioterapeut med konkreta exempel på kompetenser, behandlingsmetoder och resultat. Optimerat för svenska vårdarbetsgivare 2026.',
 
     seoIntro: `Ett starkt CV för fysioterapeut lyfter fram både dina behandlingsmetoder och dina patientresultat. Rekryterare söker efter kvantifierbara bevis på din kompetens inom manuell terapi, ortopedisk rehabilitering och evidensbaserad vård.
 
@@ -14410,7 +14413,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     kategori: 'ekonomi',
 
     metaTitle: 'CV Exempel Controller 2026 – Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV-exempel för controller med budgetarbete, forecasting och affärsanalys. ATS-optimerat med SAP, Power BI och kvantifierade resultat. Tips och mall.',
+    metaDescription: 'Komplett CV-exempel för controller med budgetarbete, forecasting och affärsanalys. ATS-optimerat med SAP, Power BI och kvantifierade resultat, plus tips.',
 
     seoIntro: `Hur skriver du ett CV som controller som får rekryterare att ta kontakt? En controllers CV måste visa mer än bara sifferkunskap, det handlar om att bevisa din förmåga att driva affärsbeslut med data.
 
@@ -14682,7 +14685,7 @@ Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståel
     kategori: 'service',
 
     metaTitle: 'CV Exempel Kassörska 2026 – Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV-exempel för kassörska med kassasystem, kontanthantering och kundservice. ATS-optimerat med kvantifierade resultat. Tips och mall för kassapersonal.',
+    metaDescription: 'Komplett CV-exempel för kassörska med kassasystem, kontanthantering och kundservice. ATS-optimerat med kvantifierade resultat och tips för kassapersonal.',
 
     seoIntro: `Hur skriver du ett CV som kassörska som verkligen sticker ut? I en bransch med hög konkurrens räcker det inte att bara lista arbetsuppgifter, du måste visa konkreta resultat och rätt systemkunskaper.
 
@@ -14953,7 +14956,7 @@ Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stre
     kategori: 'service',
 
     metaTitle: 'CV Exempel Butikschef 2026 – Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV-exempel för butikschef med personalansvar, budgetansvar och försäljningsresultat. ATS-optimerat med KPI:er och ledarskapsexempel. Tips och mall.',
+    metaDescription: 'Komplett CV-exempel för butikschef med personalansvar, budgetansvar och försäljningsresultat. ATS-optimerat med KPI:er, ledarskapsexempel och tips.',
 
     seoIntro: `Hur skriver du ett CV som butikschef som visar att du kan driva resultat? Som butikschef räcker det inte att lista ansvarsområden, du måste bevisa din förmåga att öka försäljning, leda personal och nå affärsmål.
 
@@ -17460,7 +17463,7 @@ Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåg
     kategori: 'ekonomi',
 
     metaTitle: 'CV Exempel Ekonom 2026 – Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV-exempel för ekonom med affärsanalys, investeringsbeslut och strategisk finansiell rådgivning. ATS-optimerat med kvantifierade resultat. Tips och mall.',
+    metaDescription: 'Komplett CV-exempel för ekonom med affärsanalys, investeringsbeslut och strategisk finansiell rådgivning. ATS-optimerat med kvantifierade resultat och tips.',
 
     seoIntro: `Hur skriver du ett CV som ekonom som öppnar dörrarna till kvalificerade finansroller? En ekonoms CV måste visa mer än akademisk bakgrund, det handlar om att bevisa din förmåga att skapa värde genom ekonomisk analys och strategisk rådgivning.
 
@@ -17733,7 +17736,7 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
     kategori: 'teknik',
 
     metaTitle: 'CV Exempel Scrum Master 2026 – Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Komplett CV-exempel för Scrum Master med agila ceremonier, teamutveckling och servant leadership. ATS-optimerat med CSM, PSM och kvantifierade resultat. Tips och mall.',
+    metaDescription: 'Komplett CV-exempel för Scrum Master med agila ceremonier, teamutveckling och servant leadership. ATS-optimerat med CSM, PSM och kvantifierade resultat.',
 
     seoIntro: `Hur skriver du ett CV som Scrum Master som visar att du är mer än en mötesplanerare? En Scrum Masters CV måste bevisa din förmåga att coacha team, ta bort blockeringar och kontinuerligt förbättra leveranskapaciteten.
 
@@ -18005,7 +18008,7 @@ Progression från Level I till Level II visar kontinuerlig utveckling och djupar
     sokvolym: 1100,
     kategori: 'service',
     metaTitle: 'CV Exempel Teamledare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Se professionellt CV-exempel för teamledare med ATS-optimerad struktur. Inkluderar coaching, målstyrning, agila metoder och performance management. Ladda ner gratis mall.',
+    metaDescription: 'Se professionellt CV-exempel för teamledare med ATS-optimerad struktur. Inkluderar coaching, målstyrning, agila metoder och performance management.',
 
     intro: 'Ett professionellt CV-exempel för teamledare som visar din förmåga att kombinera coaching, målstyrning och agil projektledning med mätbara resultat. Detta exempel är optimerat för tech, kundtjänst, försäljning och agila organisationer samt ATS-system.',
 
@@ -18903,7 +18906,7 @@ Namnge specifika system och eventuella dokumentationsmallar du använder.`
     sokvolym: 170,
     kategori: 'offentlig-sektor',
     metaTitle: 'CV Exempel LSS-handläggare 2026 - Professionell Mall',
-    metaDescription: 'Professionellt CV-exempel för LSS-handläggare med beprövade formuleringar för biståndsbedömning och myndighetsutövning. Ladda ner gratis mall.',
+    metaDescription: 'Professionellt CV-exempel för LSS-handläggare med beprövade formuleringar för biståndsbedömning och myndighetsutövning enligt LSS, klart att utgå från.',
     seoIntro: `Ett starkt CV för LSS-handläggare visar tydligt din kompetens inom biståndsbedömning, LSS-lagstiftning och myndighetsutövning. Rekryterare inom kommuner och privata utförare letar efter handläggare som kan kombinera juridisk precision med empatiskt bemötande av brukare och anhöriga.
 
 Din erfarenhet av att hantera LSS-ärenden, genomföra IBIC-utredningar och fatta välgrundade biståndsbeslut är central för att lyckas i rollen. Många sökande skriver vagt om "handläggning av ärenden" istället för att konkretisera antal ärenden, handläggningstider och beslutskvalitet. Ett professionellt CV kvantifierar din arbetsbelastning och visar resultat.
@@ -19186,7 +19189,7 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
     slug: 'hotellvard',
     kategori: 'service',
     metaTitle: 'CV Hotellvärd – Exempel & Mall 2026 | Jobbcoach.ai',
-    metaDescription: 'Se exempel på CV för hotellvärd. Professionella mallar och tips för att framhäva din servicekompetens och gästupplevelse. Skapa ett ATS-optimerat CV.',
+    metaDescription: 'Se exempel på CV för hotellvärd, med tips för att framhäva din servicekompetens och gästupplevelse. Skapa ett ATS-optimerat CV för hotell och reception.',
     heroHeading: 'CV-exempel för Hotellvärd',
     heroSubtitle: 'Skapa ett professionellt CV som visar din servicekompetens och gästorientering',
     heroCtaText: 'Skapa ditt hotellvärds-CV',
@@ -19649,7 +19652,7 @@ Praktik (assisterade VD med enklare uppgifter), sedan Kontorsassistent (80-100 b
     slug: 'boendestod',
     kategori: 'vard',
     metaTitle: 'CV Exempel Boendestöd 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionell CV-mall för boendestödjare med exempel på ADL-träning, psykiatrisk omsorg, Treserva och MI. ATS-optimerat för socialpsykiatri och LSS-verksamhet.',
+    metaDescription: 'Professionellt CV-exempel för boendestödjare med ADL-träning, psykiatrisk omsorg, Treserva och MI. ATS-optimerat för socialpsykiatri och LSS-verksamhet.',
     heroHeading: 'CV-exempel för Boendestöd',
     heroSubtitle: 'Skapa ett professionellt CV som visar din kompetens inom socialpsykiatri och stödinsatser',
     heroCtaText: 'Skapa ditt boendestöds-CV',
@@ -19898,7 +19901,7 @@ Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, m
     slug: 'koksbitrade',
     kategori: 'service',
     metaTitle: 'CV Exempel Köksbiträde 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Skapa ett ATS-optimerat CV för köksbiträde med vårt professionella exempel. Inkluderar livsmedelshygien, HACCP och storkökserfarenhet. Ladda ner gratis mall.',
+    metaDescription: 'Skapa ett ATS-optimerat CV för köksbiträde med vårt professionella exempel. Inkluderar livsmedelshygien, HACCP och storkökserfarenhet.',
     heroHeading: 'CV-exempel för Köksbiträde',
     heroSubtitle: 'Skapa ett professionellt CV som visar din erfarenhet från kök och storköksmiljöer',
     heroCtaText: 'Skapa ditt köks-CV',
@@ -20120,7 +20123,7 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
     slug: 'barista',
     kategori: 'service',
     metaTitle: 'CV Exempel Barista 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV exempel för barista med espressoberedning, latte art och kaffekunskap. ATS-optimerad mall med SCA-certifiering och kvantifierbara resultat.',
+    metaDescription: 'Professionellt CV exempel för barista med espressoberedning, latte art och kaffekunskap. ATS-optimerat med SCA-certifiering och kvantifierbara resultat.',
 
     seoIntro: `Söker du jobb som barista och behöver ett CV som visar din kaffekunskap, tekniska precision och kundservice? Det här exemplet demonstrerar hur du skapar ett professionellt barista-CV som imponerar på kaféägare och restaurangchefer som söker specialistkompetens inom kaffeberedning.
 
@@ -20616,7 +20619,7 @@ Använd det som inspiration för ditt eget CV logistikassistent och anpassa det 
     slug: 'terminalarbetare',
     kategori: 'logistik',
     metaTitle: 'CV Exempel Terminalarbetare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för terminalarbetare med truckkörning, godshantering och WMS-system. ATS-optimerad mall som lyfter din logistikbakgrund och säkerhetskompetens.',
+    metaDescription: 'Professionellt CV-exempel för terminalarbetare med truckkörning, godshantering och WMS-system. Lyfter din logistikbakgrund och säkerhetskompetens.',
 
     seoIntro: `Söker du jobb som terminalarbetare och behöver ett CV som fungerar med ATS-system? Det här exemplet visar exakt hur du strukturerar ditt CV för att matcha logistikföretags krav på godshantering, cross-docking och terminalhantering.
 
@@ -20855,7 +20858,7 @@ Använd det som inspiration för ditt eget CV terminalarbetare och anpassa det e
     slug: 'vaktmastare',
     kategori: 'service',
     metaTitle: 'CV Exempel Vaktmästare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för vaktmästare med fastighetsservice, felanmälningssystem och brandskydd. ATS-optimerad mall för skolor, kommuner och fastighetsbolag.',
+    metaDescription: 'Professionellt CV-exempel för vaktmästare med fastighetsservice, felanmälningssystem och brandskydd. ATS-optimerat för skolor, kommuner och fastighetsbolag.',
 
     seoIntro: `Söker du jobb som vaktmästare och vill ha ett CV som visar hela din bredd? Det här exemplet visar hur du strukturerar ett CV som fungerar hos kommuner, skolor och fastighetsbolag, och som passerar automatiska urvalssystem.
 
@@ -21089,7 +21092,7 @@ Använd exemplet som utgångspunkt för ditt eget CV som vaktmästare och anpass
     slug: 'socionom',
     kategori: 'offentlig-sektor',
     metaTitle: 'CV Exempel Socionom 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för socionom med myndighetsutövning, SoL/LVM, MI och Treserva. ATS-optimerad mall för socialtjänst, kommun och behandlingsarbete.',
+    metaDescription: 'Professionellt CV-exempel för socionom med myndighetsutövning, SoL/LVM, MI och Treserva. ATS-optimerat för socialtjänst, kommun och behandlingsarbete.',
 
     seoIntro: `Söker du tjänst som socionom och vill ha ett CV som visar både myndighetshantverket och det mänskliga arbetet? Det här exemplet visar hur du strukturerar ett CV för socialtjänst, kommun och behandlingsverksamhet.
 
@@ -21319,7 +21322,7 @@ Använd exemplet som grund för ditt eget CV som socionom och anpassa lagrum, me
     slug: 'stodpedagog',
     kategori: 'vard',
     metaTitle: 'CV Exempel Stödpedagog 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för stödpedagog med tydliggörande pedagogik, AKK, IBIC och lågaffektivt bemötande. Mall anpassad för LSS-boende och daglig verksamhet.',
+    metaDescription: 'Professionellt CV-exempel för stödpedagog med tydliggörande pedagogik, AKK, IBIC och lågaffektivt bemötande. Anpassat för LSS-boende och daglig verksamhet.',
 
     seoIntro: `Söker du tjänst som stödpedagog och vill ha ett CV som visar ditt metodansvar, inte bara din omsorgserfarenhet? Det här exemplet visar hur du strukturerar ett CV för LSS-boenden, daglig verksamhet och andra verksamheter inom funktionsstöd.
 
@@ -21554,7 +21557,7 @@ Använd exemplet som grund för ditt eget CV som stödpedagog och anpassa metode
     slug: 'chauffor',
     kategori: 'logistik',
     metaTitle: 'CV Exempel Chaufför 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för chaufför med C-körkort, YKB, lastsäkring och leveransprecision. ATS-optimerad mall för distribution, åkeri och transport.',
+    metaDescription: 'Professionellt CV-exempel för chaufför med C-körkort, YKB, lastsäkring och leveransprecision. ATS-optimerat för distribution, åkeri och transport.',
 
     seoIntro: `Söker du jobb som chaufför och vill ha ett CV som en trafikledare kan säga ja till på trettio sekunder? Det här exemplet visar hur du strukturerar ett CV för distribution, åkerier och transportföretag.
 
@@ -21788,7 +21791,7 @@ Använd exemplet som grund för ditt eget CV som chaufför och anpassa detaljern
     slug: 'it-tekniker',
     kategori: 'teknik',
     metaTitle: 'CV Exempel IT-tekniker 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för IT-tekniker med first line support, Active Directory, Intune och ärendesystem. ATS-optimerad mall för servicedesk och IT-support.',
+    metaDescription: 'Professionellt CV-exempel för IT-tekniker med first line support, Active Directory, Intune och ärendesystem. ATS-optimerat för servicedesk och IT-support.',
 
     seoIntro: `Söker du jobb som IT-tekniker och vill ha ett CV som tar sig igenom både ATS-filtret och den tekniska granskningen? Det här exemplet visar hur du strukturerar ett CV för servicedesk, first line support och onsite-roller.
 
@@ -22007,7 +22010,7 @@ Använd exemplet som grund för ditt eget CV som IT-tekniker och anpassa systemn
     slug: 'telefonforsaljare',
     kategori: 'service',
     metaTitle: 'CV Exempel Telefonförsäljare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för telefonförsäljare med samtalsvolym, konvertering och CRM-vana. ATS-optimerad mall för telemarketing, innesälj och mötesbokning.',
+    metaDescription: 'Professionellt CV-exempel för telefonförsäljare med samtalsvolym, konvertering och CRM-vana. ATS-optimerat för telemarketing, innesälj och mötesbokning.',
 
     seoIntro: `Söker du jobb som telefonförsäljare och vill ha ett CV som säljer lika bra som du gör i luren? Det här exemplet visar hur du strukturerar ett CV för telemarketing, innesälj och mötesbokning.
 
@@ -22229,7 +22232,7 @@ Använd exemplet som grund för ditt eget CV som telefonförsäljare och anpassa
     slug: 'diskare',
     kategori: 'restaurang',
     metaTitle: 'CV Exempel Diskare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för diskare med tempo, hygienrutiner och maskinvana. Enkel mall som fungerar för restaurang, storkök och första jobbet.',
+    metaDescription: 'Professionellt CV-exempel för diskare med tempo, hygienrutiner och maskinvana. Enkelt upplägg som fungerar för restaurang, storkök och första jobbet.',
 
     seoIntro: `Söker du jobb som diskare och undrar vad man ens skriver i CV:t? Mer än du tror. Det här exemplet visar hur du strukturerar ett CV som ger krögare och kökschefer exakt det de letar efter: pålitlighet, tempo och ordning.
 
@@ -22438,7 +22441,7 @@ Använd exemplet som grund för ditt eget CV som diskare, och kom ihåg att disk
     slug: 'snickare',
     kategori: 'hantverk',
     metaTitle: 'CV Exempel Snickare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för snickare och träarbetare med yrkesbevis, ID06 och säkerhetsutbildningar. Mall för byggföretag, byggservice och lärlingar.',
+    metaDescription: 'Professionellt CV-exempel för snickare och träarbetare med yrkesbevis, ID06 och säkerhetsutbildningar. För byggföretag, byggservice och lärlingar.',
 
     seoIntro: `Söker du jobb som snickare och vill ha ett CV som en platschef kan bemanna efter direkt? Det här exemplet visar hur du strukturerar ett CV för byggföretag, byggservice och renovering.
 
@@ -22664,7 +22667,7 @@ Använd exemplet som grund för ditt eget CV som snickare eller träarbetare, oc
     slug: 'elektriker',
     kategori: 'hantverk',
     metaTitle: 'CV Exempel Elektriker 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll. Mall för installationsföretag, service och lärlingar.',
+    metaDescription: 'Professionellt CV-exempel för elektriker med ECY-certifikat, felsökning, laddboxar och egenkontroll. För installationsföretag, service och lärlingar.',
 
     seoIntro: `Söker du jobb som elektriker och vill ha ett CV som visar exakt vad ett elföretag kan sätta dig på? Det här exemplet visar hur du strukturerar ett CV för installationsföretag, serviceelektriker och lärlingsansökningar.
 
@@ -22881,7 +22884,7 @@ Använd exemplet som grund för ditt eget CV som elektriker och anpassa efter tj
     slug: 'vaktare',
     kategori: 'service',
     metaTitle: 'CV Exempel Väktare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för väktare med VU1, VU2, rondering och rapportering. Mall för bevakningsföretag som Securitas, Avarn och CUBSEC.',
+    metaDescription: 'Professionellt CV-exempel för väktare med VU1, VU2, rondering och rapportering. För bevakningsföretag som Securitas, Avarn och CUBSEC.',
 
     seoIntro: `Söker du jobb som väktare och vill ha ett CV som bevakningsföretagen kan godkänna snabbt? Det här exemplet visar hur du strukturerar ett CV för ronderande bevakning, stationära uppdrag och larmutryckning.
 
@@ -23112,7 +23115,7 @@ Använd exemplet som grund för ditt eget CV som väktare och anpassa efter uppd
     slug: 'stadare',
     kategori: 'service',
     metaTitle: 'CV Exempel Städare 2026 - Professionell Mall | Jobbcoach.ai',
-    metaDescription: 'Professionellt CV-exempel för städare med städmetoder, kemikaliehantering och kvalitetsuppföljning. Mall för städföretag, kontorsstäd och institutionsstäd.',
+    metaDescription: 'Professionellt CV-exempel för städare med städmetoder, kemikaliehantering och kvalitetsuppföljning. För städföretag, kontorsstäd och institutionsstäd.',
 
     seoIntro: `Söker du jobb som städare och vill ha ett CV som visar att städning är ett yrke med metoder, inte bara en syssla? Det här exemplet visar hur du strukturerar ett CV för städföretag, kontorsstäd, institutionsstäd och hemstäd.
 
@@ -23336,9 +23339,17 @@ export async function generateMetadata({ params }: { params: Promise<{ yrke: str
   // Exempelsidan är alltid den kanoniska URL:en
   const canonicalUrl = `https://www.jobbcoach.ai/cv-exempel/${yrke}`
 
+  // Titelregeln i SEO-svepet 2026-11-17 (B6): exempelsidan säljer inte en
+  // mall per yrke, så "mall" står inte i titeln. Pilotens fem (B3) tar båda
+  // sökintentionerna och har egen titel och beskrivning. metaTitle i datan
+  // används inte längre.
+  const pilot = arPilotSammanslagen(yrke)
+  const titel = pilot ? pilotTitel(data.yrke) : exempelTitel(data.yrke)
+  const beskrivning = pilot ? pilotBeskrivning(data.yrke) : data.metaDescription
+
   return {
-    title: data.metaTitle,
-    description: data.metaDescription,
+    title: titel,
+    description: beskrivning,
 
     // Canonical URL
     alternates: {
@@ -23350,8 +23361,8 @@ export async function generateMetadata({ params }: { params: Promise<{ yrke: str
     openGraph: {
       type: 'article',
       url: canonicalUrl,
-      title: data.metaTitle,
-      description: data.metaDescription,
+      title: titel,
+      description: beskrivning,
       siteName: 'Jobbcoach.ai',
       locale: 'sv_SE',
     },
@@ -23359,8 +23370,8 @@ export async function generateMetadata({ params }: { params: Promise<{ yrke: str
     // Twitter Card metadata - använder samma dynamiska OG-bild
     twitter: {
       card: 'summary_large_image',
-      title: data.metaTitle,
-      description: data.metaDescription,
+      title: titel,
+      description: beskrivning,
     },
 
     // Additional metadata
@@ -23432,7 +23443,9 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     "keywords": `cv, ${data.yrke.toLowerCase()}, jobbansökan, ATS-optimering`
   }
 
-  // 2. FAQPage Schema - för featured snippets
+  // 2. FAQPage Schema - för featured snippets. Piloten (B3) får yrkesmallens
+  // frågor efter exempelsidans, samma som de synliga.
+  const pilot = pilotInnehall(yrke, data)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -23451,6 +23464,13 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
           "text": item.svar
         }
       }))
+      .concat(
+        (pilot?.faqTillagda ?? []).map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a },
+        })),
+      )
   }
 
   // 3. HowTo Schema - för tips-sektionen
