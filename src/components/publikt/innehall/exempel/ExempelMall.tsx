@@ -258,7 +258,7 @@ export default function ExempelMall({
                 const gratis = m.niva === 'gratis'
                 const href = `/cv-mallar/prova?mall=${encodeURIComponent(m.id)}&yrke=${encodeURIComponent(slug)}`
                 return (
-                  <Link key={m.id} href={href} className="ib-pilot-mall" data-cta-klick={`pilot-mall-${m.id}`}>
+                  <Link key={m.id} href={href} className="ib-pilot-mall" data-cta-klick={href}>
                     <MallMiniatyr
                       mall={{ id: m.id, name: m.namn, imagePath: m.bild.stor, tier: gratis ? 'free' : 'premium' }}
                       under={ARTIKEL.mallrad(gratis, m.word)}
@@ -325,10 +325,10 @@ export default function ExempelMall({
               {pilot.atsInfo}
             </p>
             <p className="ib-pilot-lankar">
-              <Link className="pub-lank" href="/cv-mallar" data-cta-klick="pilot-alla-mallar">
+              <Link className="pub-lank" href="/cv-mallar" data-cta-klick="/cv-mallar">
                 Se alla {TEMPLATE_COUNT} CV-mallar
               </Link>
-              <Link className="pub-lank" href="/cv-mallar#ladda-upp" data-cta-klick="pilot-ladda-upp">
+              <Link className="pub-lank" href="/cv-mallar#ladda-upp" data-cta-klick="/cv-mallar#ladda-upp">
                 Har du redan ett CV? Ladda upp det och se det i mallarna
               </Link>
             </p>

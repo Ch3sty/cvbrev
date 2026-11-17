@@ -1,9 +1,15 @@
 import type { Metadata } from 'next'
 
+// SEO-svepet 2026-11-17 (docs/plan-seo-cv-kluster-2026-11-17.md, B1): titeln
+// och beskrivningen säger hur nya byggaren fungerar, "Direkt på arket".
+const TITEL = 'Skapa CV gratis: skriv direkt på arket, PDF eller Word'
+const DELNING = 'Skapa CV gratis: skriv direkt på arket i en färdig mall'
+const BESKRIVNING =
+  'Skapa CV gratis i en färdig mall: skriv direkt på arket eller ladda upp ett CV du har. Jobbcoachen föreslår punkter och du laddar ner som PDF eller Word.'
+
 export const metadata: Metadata = {
-  title: 'Skapa CV gratis online | Jobbcoach.ai',
-  description:
-    'Bygg ditt CV i sju steg med förhandsvisning och mallar som läses rätt av rekryteringssystem. Ladda ner som PDF, eller Word i utvalda mallar. Allt på svenska.',
+  title: TITEL,
+  description: BESKRIVNING,
   keywords: [
     'skapa cv',
     'skapa cv gratis',
@@ -15,11 +21,13 @@ export const metadata: Metadata = {
     'bygga cv',
     'cv-skapare svenska',
     'cv-skapare online',
+    'cv byggare',
+    'skriv cv online',
+    'cv online gratis',
   ],
   openGraph: {
-    title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
-    description:
-      'Gratis att börja. Sju enkla steg, förhandsvisning, ATS-säkra mallar och nedladdning som PDF, eller Word i utvalda mallar.',
+    title: DELNING,
+    description: BESKRIVNING,
     url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -27,9 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
-    description:
-      'Gratis att börja. Sju enkla steg, förhandsvisning, ATS-säkra mallar och nedladdning som PDF, eller Word i utvalda mallar.',
+    title: DELNING,
+    description: BESKRIVNING,
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/verktyg/skapa-cv',

@@ -12,7 +12,8 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
-import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd } from '@/lib/cv/template-antal'
+import { FREE_CV_BYGG_AI_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import { GRATIS_MALL_IDS, getMallKort } from '@/lib/cv/mallar/katalog'
 
 /** Gratismallarnas namn ur katalogen: "Linne och Björk". */
@@ -30,7 +31,8 @@ export interface FaqItem {
 export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur skapar jag ett professionellt CV?',
-    a: `Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en förhandsvisning av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF, eller som Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna.`,
+    // SEO-svepet 2026-11-17 (B1): svaret beskriver nya byggaren, direkt på arket.
+    a: `Skriv vilket jobb du söker, så får avsnitten rubriker och exempeltext för yrket. Ladda sedan upp ett CV du har, så fyller vi i avsnitten, eller skriv från början. Du fyller i direkt på arket i den mall du valt, och när du kommer till ett jobb kan Jobbcoachen föreslå punkterna; ${talSomOrd(FREE_CV_BYGG_AI_PER_ACCOUNT)} förslag ingår gratis på ditt konto. Till sist väljer du mall och laddar ner som PDF, eller som Word i de ${WORD_TEMPLATE_COUNT} Word-mallarna.`,
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
@@ -38,7 +40,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',
-    a: 'Tio till femton minuter om du har dina uppgifter framför dig. Vi guidar dig genom sju steg och alla fält är optionella efter de viktigaste. Vill du gå snabbare laddar du upp ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.',
+    a: 'Det beror på hur mycket du har att skriva. Har du ett CV sedan tidigare laddar du upp det, så fyller vi i avsnitten och du putsar bara. Börjar du från början leder byggaren dig avsnitt för avsnitt, och Jobbcoachen kan föreslå punkterna.',
   },
   {
     q: 'Behöver jag ladda upp ett befintligt CV?',
@@ -50,7 +52,9 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur sparas mitt CV medan jag bygger det?',
-    a: 'Medan du bygger ligger utkastet i din webbläsare. Du kan stänga fliken mitt i ett steg och fortsätta där du slutade, så länge du använder samma webbläsare. I sista steget sparar du CV:t i ditt konto, och då finns det kvar för redigering och nedladdning från vilken enhet du vill.',
+    // Lagringsundantaget (ägarens besked 2026-11-17): hur nya byggaren sparar,
+    // kontrollerat i ByggareClient.tsx (sparaServer). Inget om var data lagras.
+    a: 'CV:t sparas i ditt konto när du har sparat första avsnittet, och därefter efter varje avsnitt du fyller i. Du kan stänga sidan när du vill och fortsätta där du slutade från Mina CV, på vilken enhet som helst.',
   },
   {
     q: 'Vilka format kan jag ladda ner CV:t i?',

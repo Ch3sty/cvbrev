@@ -1,17 +1,19 @@
 /**
- * CV-byggaren, steg 3 av 7: erfarenheten med förhandsvisning och vald mall.
- * Mallnamnet läses ur mallregistret (SIMPLE_TEMPLATES), första gratismallen.
+ * CV-byggaren "Direkt på arket": avsnittet Erfarenhet öppet i förvalsmallen,
+ * med Jobbcoachens förslag på punkter. Inga steg (saas-leads P6,
+ * 2026-11-17): byggaren har avsnitt, inte ett flöde i sju steg. Mallnamnet
+ * läses ur katalogen, första gratismallen.
  */
 
-import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { FORVALD_MALL_ID, getMallKort } from '@/lib/cv/mallar/katalog'
 import Telefon from '../Telefon'
-import { SkarmBock, SkarmFot, SkarmGolv, SkarmMatare, SkarmVagg } from '../delar'
+import { SkarmBock, SkarmFot, SkarmGolv, SkarmVagg } from '../delar'
 
 export default function SkarmSkapaCv({ glid, className }: { glid?: boolean; className?: string }) {
-  const mall = SIMPLE_TEMPLATES.find((t) => t.tier === 'free')?.name ?? 'Linne'
+  const mall = getMallKort(FORVALD_MALL_ID)?.namn ?? 'Linne'
   return (
     <Telefon rum="cv" glid={glid} className={className}>
-      <SkarmVagg kick="Skapa CV, steg 3 av 7" rubrik="Erfarenhet" sub={`Mall: ${mall}. Sparas medan du skriver.`} />
+      <SkarmVagg kick="Skapa CV" rubrik="Erfarenhet" sub={`Mall: ${mall}. Tryck på ett avsnitt för att fylla i.`} />
       <SkarmGolv>
         <div className="s-kort">
           <div className="s-kick2">Senaste jobbet</div>
@@ -30,11 +32,8 @@ export default function SkarmSkapaCv({ glid, className }: { glid?: boolean; clas
             </div>
           ))}
         </div>
-        <div className="s-kort">
-          <SkarmMatare etikett="Ifyllt" varde={<b>3 av 7</b>} andel={3 / 7} forsta />
-        </div>
       </SkarmGolv>
-      <SkarmFot knapp="Nästa steg: utbildning" />
+      <SkarmFot knapp="Spara" />
     </Telefon>
   )
 }
