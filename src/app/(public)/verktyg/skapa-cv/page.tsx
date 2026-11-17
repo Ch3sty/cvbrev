@@ -174,8 +174,8 @@ export default function SkapaCvSida() {
             <div>
               <p className="pub-kick">Så ser arket ut</p>
               <p className="pub-brod" style={{ marginTop: 8 }}>
-                Det här är byggaren: CV:t i {FORVALD.namn}, där du trycker på ett avsnitt och fyller i. Grå exempeltext visar vad som brukar stå
-                där och följer inte med i filen.
+                I byggaren skriver du direkt på arket i den mall du valt, här {FORVALD.namn}. Tryck på ett avsnitt och fyll i. Grå exempeltext
+                visar vad som brukar stå där och följer inte med i filen.
               </p>
               <span className="pub-knapp" style={{ marginTop: 18 }}>
                 Prova {FORVALD.namn} med ditt namn
