@@ -150,6 +150,19 @@ const nextConfig: NextConfig = {
       // SEO-strategen 2026-11-16 (Search Console): /cv-mallar är kanonisk och har
       // fått /verktyg/cv-mallar:s innehåll; Google bortsåg från canonical-taggen.
       { source: '/verktyg/cv-mallar', destination: '/cv-mallar', permanent: true },
+      // SEO för CV-klustret 2026-11-17 (docs/plan-seo-cv-kluster-2026-11-17.md, B2):
+      // de tre mallartiklarna slås ihop med /cv-mallar och /cv-mallar/word, och
+      // piloten slår ihop fem yrkespar med exempelsidan. Ett hopp, inga kedjor.
+      { source: '/artiklar/cv-mall-gratis-guide', destination: '/cv-mallar', permanent: true },
+      { source: '/artiklar/cv-mall-word-gratis', destination: '/cv-mallar/word', permanent: true },
+      { source: '/artiklar/cv-mall-pdf-gratis', destination: '/cv-mallar', permanent: true },
+      { source: '/cv-mall-gratis-guide', destination: '/cv-mallar', permanent: true },
+      { source: '/cv-mall-word-gratis', destination: '/cv-mallar/word', permanent: true },
+      { source: '/cv-mallar/saljare', destination: '/cv-exempel/saljare', permanent: true },
+      { source: '/cv-mallar/butikssaljare', destination: '/cv-exempel/butikssaljare', permanent: true },
+      { source: '/cv-mallar/barnskotare', destination: '/cv-exempel/barnskotare', permanent: true },
+      { source: '/cv-mallar/ingenjor', destination: '/cv-exempel/ingenjor', permanent: true },
+      { source: '/cv-mallar/larare', destination: '/cv-exempel/larare', permanent: true },
       // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
       // Åtgärdar "Not found (404)" i Search Console.
       ...[
@@ -159,8 +172,6 @@ const nextConfig: NextConfig = {
         'cv-och-personligt-brev',
         'referenser-cv',
         'exempel-pa-cv-guide',
-        'cv-mall-gratis-guide',
-        'cv-mall-word-gratis',
         'skillnad-cv-personligt-brev',
         'vad-ar-ett-cv',
         'bra-cv-guide',
