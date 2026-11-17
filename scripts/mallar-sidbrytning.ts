@@ -84,7 +84,10 @@ async function main() {
           const efter = Array.from(h.closest('.start')?.querySelectorAll('h3, p, li') ?? []).find((e) => txt(e) && !h.contains(e))
           return { rubrik: txt(h), nasta: txt(efter) }
         })
-        return { poster, rubriker }
+        // Spaltens texter: en flytande spalt (utbud 2, varv 2) gör att huvudspalten
+        // tar full bredd under spalten, så huvudspaltens rader känns igen på texten, inte på x.
+        const spaltText = Array.from(document.querySelectorAll('.spalt-sido li, .spalt-sido p, .spalt-sido h2')).map((e) => txt(e)).filter(Boolean)
+        return { poster, rubriker, spaltText }
       })
       await sida.close()
 
@@ -110,6 +113,9 @@ async function main() {
         const rader = new Set(g.rader.filter((r) => r.sida === sidnr).map((r) => Math.round(r.y)))
         if (rader.size <= 2) fel.push(`sida ${sidnr} har bara ${rader.size} rad(er): ${g.rader.filter((r) => r.sida === sidnr).map((r) => norm(r.text)).join(' | ').slice(0, 80)}`)
       }
+      // Huvudspaltens rader: allt som inte är spaltens text (spalten flyter sedan utbud 2, varv 2).
+      const spaltNorm = s.spaltText.map(norm)
+      const arHuvud = (r: { text: string }) => !spaltNorm.some((x) => x.includes(norm(r.text)) || norm(r.text).includes(x))
       // Sidospalter (G1): varje sida har huvudspaltens innehåll, aldrig bara spaltens.
       if (def.layout.typ === 'sidospalt' && !def.layout.spalt.huvudISpalten) {
         const grans = def.layout.spalt.bredd * 2.835
@@ -129,11 +135,11 @@ async function main() {
             : (x: number) => (l.spalt.sida === 'vanster' ? x > l.spalt.bredd * 2.835 : x < 595 - l.spalt.bredd * 2.835)
         const botten = 842 - (def.sida.botten - (resultat.steg ? 4 : 0)) * 2.835
         for (let sidnr = 1; sidnr < g.sidor; sidnr++) {
-          const ys = g.rader.filter((r) => r.sida === sidnr && iHuvud(r.x)).map((r) => r.y)
+          const ys = g.rader.filter((r) => r.sida === sidnr && iHuvud(r)).map((r) => r.y)
           if (!ys.length) continue
           const tomt = (botten - Math.max(...ys)) / 2.835
           if (tomt <= 30) continue
-          const nasta = g.rader.filter((r) => r.sida === sidnr + 1 && iHuvud(r.x))
+          const nasta = g.rader.filter((r) => r.sida === sidnr + 1 && iHuvud(r))
           if (!nasta.length) continue
           const overst = Math.min(...nasta.map((r) => r.y))
           const post = s.poster.find((p) => p.forsta && nasta.some((r) => Math.abs(r.y - overst) < 2 && norm(r.text).startsWith(norm(p.forsta).slice(0, 20))))

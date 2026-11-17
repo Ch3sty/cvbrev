@@ -731,6 +731,22 @@ ${s.linje ? `.spalt-sido{border-${s.sida === 'vanster' ? 'right' : 'left'}:${lin
 .spalt-sido .huvud .namn,.spalt-sido .huvud .titel{color:inherit}
 .spalt-sido .niva,.spalt-sido .intyg-detalj{color:inherit;opacity:0.85}
 .spalt-sido .lista li::marker{color:inherit}`)
+    if (!s.helSida) {
+      // Spalten flyter (granskningsvarv 2 av utbud 2): bakgrund och kant slutar där
+      // spaltens innehåll slutar, och huvudspalten tar full textbredd på sidorna under
+      // spalten. Spaltens minsta höjd når bottenmarginalen på sida 1 (sätts av skriptet
+      // efter huvudet, som Word-panelen). Huvudspaltens block flödar bredvid spalten
+      // som egna block (flow-root), så att linjer och punkter aldrig hamnar under den.
+      const sidled = s.sida === 'vanster' ? 'left' : 'right'
+      const mot = s.sida === 'vanster' ? 'right' : 'left'
+      ut.push(`.spalter-flyt{margin:0 calc(-1 * var(--sida-hoger)) 0 calc(-1 * var(--sida-vanster));padding:0 var(--sida-hoger) 0 var(--sida-vanster)}
+.spalter-flyt::after{content:"";display:block;clear:both}
+.spalter-flyt>.spalt-sido{float:${sidled};margin-${sidled}:calc(-1 * var(--sida-${s.sida === 'vanster' ? 'vanster' : 'hoger'}));margin-${mot}:${s.mellanrum}mm}
+.spalter-flyt>.spalt-huvud{padding:${s.luft.topp}mm 0 0}
+.spalter-flyt>.spalt-huvud .avsnitt>*,.spalter-flyt>.spalt-huvud .start>*{display:flow-root}
+.spalter-flyt>.spalt-huvud .avsnitt>.post,.spalter-flyt>.spalt-huvud .start>.post{break-inside:avoid}
+.spalter-flyt>.spalt-huvud .avsnitt>.post.post-lang{break-inside:auto}`)
+    }
     if (s.intygsfalt) {
       const fl = s.intygsfalt
       ut.push(`.intygsfalt .start,.intygsfalt{break-inside:avoid}
@@ -873,9 +889,10 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
       // En tabellrad per rutrad: Chrome bryter sidan mellan raderna, aldrig inuti en ruta.
       const per = new Map(dok.huvudspalt.map((a, i) => [a.sektion as string, delar[i]]))
       const rader = def.rutor.rutnat
-        .map(([v, h]) => [per.get(v) ?? '', per.get(h) ?? ''])
-        .filter(([v, h]) => v || h)
-        .map(([v, h]) => `<tr><td>${v}</td><td>${h}</td></tr>`)
+        // Raden fylls från vänster: saknas det vänstra avsnittet står det högra till vänster och högercellen är tom.
+        .map((rad) => rad.map((s) => per.get(s)).filter((x): x is string => Boolean(x)))
+        .filter((rad) => rad.length)
+        .map((rad) => `<tr><td>${rad[0]}</td><td>${rad[1] ?? ''}</td></tr>`)
       const rutnat = `<table class="rutnat" role="presentation"><tbody>${rader.join('')}</tbody></table>`
       const nya: string[] = []
       const nyaS: string[] = []
@@ -910,6 +927,15 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
     // DOM-ordning; den korta spalten ryms nästan alltid på sida 1, och då
     // läses den hel före huvudspalten i stället för mitt emellan sida 1 och
     // 2 av erfarenheten. direction: rtl lägger en högerspalt till höger.
+    if (!s.helSida) {
+      // Flytande spalt (granskningsvarv 2): huvudet ovanför, spalten först i DOM:en,
+      // huvudspalten flödar bredvid och tar full bredd under spalten. Skriptet ger
+      // spalten minsta höjd till bottenmarginalen på sida 1 (samma mått i skärm och
+      // utskrift: avståndet från arkets överkant); utan skript slutar den med innehållet.
+      const botten = matt(def, val).sida.botten
+      const skript = `<script>(function(){var s=document.querySelector('.spalter-flyt>.spalt-sido'),cv=document.querySelector('.cv');if(!s||!cv)return;function satt(){s.style.minHeight='';var mm=96/25.4,av=(s.getBoundingClientRect().top-cv.getBoundingClientRect().top)/mm;s.style.minHeight=Math.max(0,297-${botten}-av-1.5).toFixed(2)+'mm'}satt();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(satt)})()</script>`
+      kropp = `${huvud(dok, c)}${axel}<div class="spalter-flyt"><aside class="spalt spalt-sido">${sido}</aside><main class="spalt spalt-huvud cv-kropp">${huvudspalt}</main></div>${skript}`
+    } else {
     const celler = `<td class="spalt spalt-sido">${sido}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td>`
     // Huvudet är tabellens första rad och tabellen minst en sida hög, så att
     // panelen alltid når nederkanten på sida 1 (granskningen G1, som Word).
@@ -924,6 +950,7 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
     // Hel sida (Ritning): topp- och bottenmarginalen som rader som upprepas på varje sida (R5).
     const marg = s.helSida ? `<thead><tr class="marg"><td></td><td></td></tr></thead><tfoot><tr class="marg fot"><td></td><td></td></tr></tfoot>` : ''
     kropp = `${fore}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}">${kolumner}${marg}<tbody>${huvudrad}<tr class="spaltrad">${celler}</tr></tbody></table>`
+    }
   } else if (l.typ === 'tvaspalt') {
     const full = dok.fullBredd.map((a) => avsnitt(a, c, false)).join('')
     const hoger = dok.sidospalt.map((a) => avsnitt(a, c, true)).join('')
