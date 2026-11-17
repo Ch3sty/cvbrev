@@ -1,4 +1,9 @@
 /** 4. Kalksten: Premium, PDF och Word. Ljusgrå vänsterspalt med intygsfält och kvadratiskt foto (spec 3.4). */
+/*
+ * Sidospalt: spaltens höjd på sida 1 sätts av minhöjdsskriptet i render/html.ts
+ * (flytande spalt, granskningsvarv 2 av utbud 2). När spaltmallens mått ändras
+ * körs scripts/mallar-spaltytor.ts i samma steg som scripts/mallbilder.ts.
+ */
 import { franKatalog } from '../katalog'
 import type { MallDef } from '../typer'
 import { EN_SIDA, HUVUDSPALT, PUNKT } from './gemensamt'

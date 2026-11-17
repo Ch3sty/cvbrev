@@ -37,6 +37,8 @@ const FOTO =
   Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#9aa4ae"/><circle cx="100" cy="80" r="40" fill="#cfd5db"/><rect x="45" y="130" width="110" height="70" rx="50" fill="#cfd5db"/></svg>').toString('base64')
 
 const CHROME_SIDOR = new Map<string, number>()
+/** Filerna med långt CV i sidospaltsmallarna (undantaget i jamforSidor). */
+const SPALT_LANGT = new Set<string>()
 /** Rubrikerna per fil och profilens rubrik, för jämförelsen i R8. */
 const RUBRIKER = new Map<string, { alla: string[]; profil: string }>()
 
@@ -51,6 +53,22 @@ async function jamforSidor(namn: string): Promise<string[]> {
   const c = await lasPdfGeometri(readFileSync(path.join(ut, `${namn}-chrome.pdf`)))
   const w = await lasPdfGeometri(readFileSync(path.join(ut, `${namn}.pdf`)))
   const fel: string[] = []
+  // Undantag (utbud 2, varv 3, beslut a): långt CV i sidospaltsmallarna. PDF:ens
+  // spalt flyter och huvudspalten tar full bredd under den, Word behåller spalten
+  // som tabellrad, så avsnitt kan hamna en sida senare i Word. Här jämförs i
+  // stället sidantal och avsnittsordning; hela poster kontrolleras av COM-rapporten.
+  if (SPALT_LANGT.has(namn)) {
+    if (c.sidor !== w.sidor) fel.push(`långt CV i sidospalt: ${w.sidor} sidor i Word, ${c.sidor} i Chrome`)
+    const ordning = (g: typeof c) =>
+      rub.alla
+        .map((h) => ({ h, s: sidaForRubrik(g, h), y: g.rader.find((x) => norm(x.text) === norm(h))?.y ?? 0 }))
+        .filter((x) => x.s > 0)
+        .sort((a, b) => a.s - b.s || a.y - b.y)
+        .map((x) => x.h)
+    const [oc, ow] = [ordning(c), ordning(w)]
+    if (oc.join('|') !== ow.join('|')) fel.push(`långt CV i sidospalt: avsnittsordningen skiljer (${ow.join(', ')} mot ${oc.join(', ')})`)
+    return fel
+  }
   for (const h of rub.alla) {
     const a = sidaForRubrik(c, h)
     const b = sidaForRubrik(w, h)
@@ -85,6 +103,7 @@ async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
       const cv: CVMetadata = structuredClone(bas)
       if (def.foto && langd !== 'kort') cv.personalInfo.profilePhotoUrl = FOTO
       const namn = `${def.id}-${langd}`
+      if (langd === 'langt' && def.layout.typ === 'sidospalt') SPALT_LANGT.add(namn)
       const buf = await byggWordCv(cv, def.id)
       writeFileSync(path.join(ut, `${namn}.docx`), buf)
       const html = renderaMallHtml(cv, def.id)!
