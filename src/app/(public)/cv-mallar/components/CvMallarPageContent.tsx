@@ -16,13 +16,25 @@ import ProvaProvider from '@/components/cv/Dokument/prova/ProvaKontext'
 import Uppladdning from '@/components/cv/Dokument/prova/Uppladdning'
 import ProvaArbetsyta from '@/components/cv/Dokument/prova/ProvaArbetsyta'
 import Miniatyr from '@/components/cv/Dokument/Miniatyr'
-import { MALL_KATALOG, MALL_ANTAL, GRATIS_ANTAL } from '@/lib/cv/mallval/katalog'
+import { MALL_KATALOG, MALL_ANTAL, GRATIS_ANTAL, WORD_ANTAL } from '@/lib/cv/mallval/katalog'
 import { prisInfo } from '@/lib/cv/mallval/pris.server'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import type { Yrkesmall } from '../yrkesmall-data'
 import { Kort, StegRader } from '@/components/publikt/VerktygsMall'
 import { FUNKTIONER, STEG, WORD_INGRESS, WORD_RADER } from './mallar-produkt'
+import { arPilotSammanslagen } from '../pilot-slugs'
+import { ANTAL_EN_SPALT, ANTAL_FOTO, STIL_SIDOR, stilMallar, type Stil } from '@/lib/seo/cv-kluster'
+
+/**
+ * Mallar efter stil (SEO-svepet 2026-11-17, B4 punkt 3): ett kort per
+ * stilsida, talen ur katalogen och bilden av en mall med egenskapen.
+ */
+const STILAR: { stil: Stil; antal: string; bild: string }[] = [
+  { stil: 'word', antal: `${WORD_ANTAL} mallar som Word-fil`, bild: 'kolumn' },
+  { stil: 'foto', antal: `${ANTAL_FOTO} mallar med fotoplats`, bild: 'bjork' },
+  { stil: 'enkla', antal: `${ANTAL_EN_SPALT} mallar i en spalt`, bild: 'linne' },
+]
 
 const GRATIS_NAMN = MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn)
 
@@ -132,12 +144,15 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                 och körkort&quot;. Klicka på ditt yrke för att se vad rekryteraren letar efter och hur du får fram det i mallen.
               </p>
               <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {yrkesmallar.map((y) => (
+                {yrkesmallar.map((y) => {
+                  // Piloten (B3): yrkesmallsidan är sammanslagen med CV-exemplet.
+                  const pilot = arPilotSammanslagen(y.slug)
+                  return (
                   <Link
                     key={y.slug}
-                    href={`/cv-mallar/${y.slug}`}
+                    href={pilot ? `/cv-exempel/${y.slug}` : `/cv-mallar/${y.slug}`}
                     className="pub-kort block h-full hover:border-ink-1"
-                    aria-label={`Se CV-mall för ${y.namn}`}
+                    aria-label={pilot ? `Se CV-exempel och mallar för ${y.namn}` : `Se CV-mall för ${y.namn}`}
                   >
                     <p className="text-[10px] font-bold uppercase tracking-wide text-ton-ink">{KATEGORI_LABEL[y.kategori]}</p>
                     <h3 className="pub-h4" style={{ marginTop: 4 }}>
@@ -146,10 +161,11 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                     <p className="mt-2 line-clamp-3 text-sm text-ink-2">{y.intro}</p>
                     <p className="mt-3 flex items-center justify-between gap-2 text-[12px]">
                       <span className="font-semibold uppercase tracking-wide text-ink-3">{PAKETRADER.mallarGratisOchPaket}</span>
-                      <span className="font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4">Se mall</span>
+                      <span className="font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4">{pilot ? 'Se exempel och mall' : 'Se mall'}</span>
                     </p>
                   </Link>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </Rum>
@@ -236,6 +252,13 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                     långa CV och olika ordning på avsnitten innan den kom med i utbudet, också mallarna med sidospalt. Du får designkänslan utan
                     att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
                   </p>
+                  <p>
+                    Vad systemen läser och vad de hoppar över går vi igenom i guiden om ett{' '}
+                    <Link href="/artiklar/ats-vanligt-cv" className="pub-lank">
+                      ATS-vänligt CV
+                    </Link>
+                    .
+                  </p>
                 </GuideBlock>
                 <GuideBlock eyebrow="Branschmatchning" title="Olika yrken kräver olika upplägg">
                   <p>
@@ -249,6 +272,21 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                     Det handlar också om visuell kod. Vården och offentlig sektor förväntar sig dämpade färger och tydlig struktur.
                     Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en form som matchar branschen du söker dig till,
                     och en av mallens fyra färger som passar tonen: dämpad till vården, varmare till service och kreativa yrken.
+                  </p>
+                  <p>
+                    Mer om layout, typsnitt och luft finns i guiden om{' '}
+                    <Link href="/artiklar/hur-ska-ett-cv-se-ut" className="pub-lank">
+                      hur ett CV ska se ut
+                    </Link>
+                    , och funderar du på foto läser du först om{' '}
+                    <Link href="/artiklar/cv-bild-guide" className="pub-lank">
+                      bild i CV:t
+                    </Link>
+                    . Söker du utomlands har vi en egen guide för{' '}
+                    <Link href="/artiklar/cv-pa-engelska-resume" className="pub-lank">
+                      CV på engelska
+                    </Link>
+                    .
                   </p>
                 </GuideBlock>
                 <GuideBlock eyebrow="Erfarenhetsnivå" title="Mallen ska passa hur långt du kommit i karriären">
@@ -281,13 +319,114 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
             </div>
           </Rum>
 
-          <Rum rum="cv" yta="mark" id="fragor">
+          {/* Från de sammanslagna artiklarna cv-mall-gratis-guide och
+              cv-mall-pdf-gratis (B4, 308 hit sedan 2026-11-17), omskrivna. */}
+          <Rum rum="cv" yta="mark" id="gratis-cv-mall">
+            <div className="pub-wrap" style={{ maxWidth: 760 }}>
+              <p className="pub-kick">Gratis</p>
+              <h2 className="pub-h2">Var hittar man en gratis CV-mall?</h2>
+              <div className="pub-brod" style={{ marginTop: 16, display: 'grid', gap: 12 }}>
+                <p>
+                  Den första källan har du troligen redan. I Word ligger Microsofts egna CV-mallar under Arkiv och Nytt, Google Docs har ett
+                  mallgalleri med några enkla CV-mallar, och på Mac och iPhone har Pages en egen kategori för CV. Alla tre är gratis och sparar
+                  till PDF. Priset betalar du i tid: du byter ut exempeltexten, flyttar rubriker och kontrollerar att inget av ditt hamnat på ett
+                  ställe där systemen inte läser.
+                </p>
+                <p>
+                  Designverktygen på nätet har de mest påkostade mallarna, men där sitter ofta låsen. Mallen du fastnat för kräver ett konto med
+                  kort, eller så får gratisfilen en vattenstämpel. Läs villkoren innan du lägger en kväll på texten, inte efteråt.
+                </p>
+                <p>Oavsett var du hittar mallen finns det tre slags mallar vi avråder från, eftersom rekryteringssystemen ofta läser dem fel:</p>
+                <ul style={{ display: 'grid', gap: 8, paddingLeft: 20, listStyle: 'disc' }}>
+                  <li>
+                    <b>Textrutor.</b> Text som ligger i en ruta läses för sig, i fel ordning eller inte alls.
+                  </li>
+                  <li>
+                    <b>Tabeller för layout.</b> En sidopanel byggd som tabell kan komma ut i fel ordning, så att rader från två spalter blandas
+                    ihop.
+                  </li>
+                  <li>
+                    <b>Text i sidhuvudet.</b> Namn och kontaktuppgifter i dokumentets sidhuvud hoppas ofta över, och då saknas det viktigaste.
+                  </li>
+                </ul>
+                <p>
+                  Hos oss är {uppraknat(GRATIS_NAMN)} gratis. Du fyller i mallen direkt på sidan, eller laddar upp ett CV du har, och laddar ner
+                  en fil som PDF eller Word, utan kortuppgift och utan vattenstämpel. Alla {MALL_ANTAL} mallar har gått genom vår egen CV-läsare
+                  innan de kom med, så du slipper gissa om texten kommer fram.
+                </p>
+              </div>
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="panel" id="pdf-eller-word">
+            <div className="pub-wrap" style={{ maxWidth: 760 }}>
+              <p className="pub-kick">Filformat</p>
+              <h2 className="pub-h2">PDF eller Word?</h2>
+              <div className="pub-brod" style={{ marginTop: 16, display: 'grid', gap: 12 }}>
+                <p>
+                  Skicka CV:t som PDF om annonsen inte ber om något annat. En PDF ser likadan ut oavsett vilken dator, telefon eller vilket
+                  program rekryteraren öppnar den i. Ett Word-dokument byter typsnitt när mottagaren saknar ditt, och då kan en rad brytas fel
+                  eller en rubrik hamna ensam längst ner på sidan.
+                </p>
+                <p>
+                  Word är rätt val när annonsen eller bemanningsföretaget ber om det, ofta för att CV:t ska läsas in i deras eget system, och när
+                  du själv vill fortsätta ändra i filen. {WORD_ANTAL} av våra mallar finns som riktig Word-fil:{' '}
+                  <Link href="/cv-mallar/word" className="pub-lank" data-cta-klick="/cv-mallar/word">
+                    CV-mallar i Word
+                  </Link>
+                  .
+                </p>
+                <p>
+                  Två misstag är vanliga när CV:t sparas som PDF. Det första är att skanna eller fotografera ett utskrivet CV. Då innehåller
+                  filen en bild, och systemen kan inte läsa text ur en bild, så spara alltid direkt från programmet. Det andra är filnamnet:
+                  Dokument1.pdf ser slarvigt ut i inkorgen. Döp filen efter dig, till exempel Anna-Andersson-CV.pdf.
+                </p>
+              </div>
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="mark" id="mallar-efter-stil">
+            <div className="pub-wrap">
+              <p className="pub-kick">Efter stil</p>
+              <h2 className="pub-h2">Mallar efter stil</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Vet du redan vad du vill ha? Här är mallarna sorterade efter det de flesta letar efter.
+              </p>
+              <div className="pub-raster pub-raster-3" style={{ marginTop: 28 }}>
+                {STILAR.map(({ stil, antal, bild }) => {
+                  const sida = STIL_SIDOR[stil]
+                  const mall = stilMallar(stil).find((m) => m.id === bild) ?? stilMallar(stil)[0]
+                  return (
+                    <Link
+                      key={stil}
+                      href={sida.path}
+                      data-cta-klick={sida.path}
+                      className="pub-kort grid grid-cols-[72px_1fr] items-center gap-4 hover:border-ink-1"
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <span className="relative block aspect-[210/297] w-[72px] overflow-hidden rounded-md border border-kant bg-white">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={mall.bild.liten} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-top" />
+                      </span>
+                      <span>
+                        <span className="pub-h4 block">{sida.kort}</span>
+                        <span className="mt-1 block text-sm text-ink-2">{antal}</span>
+                        <span className="pub-lank mt-2 inline-block text-sm">Se mallarna</span>
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="panel" id="fragor">
             <div className="pub-wrap" style={{ maxWidth: 820 }}>
               <Faq rubrik="Vanliga frågor om CV-mallar" ingress="Allt du behöver veta innan du väljer." fragor={faqItems} />
             </div>
           </Rum>
 
-          <Rum rum="cv" yta="panel" storlek="tat">
+          <Rum rum="cv" yta="mark" storlek="tat">
             <div className="pub-wrap" style={{ maxWidth: 820 }}>
               <div className="pub-kort text-center">
                 <h2 className="pub-h3">Letar du efter ett färdigt CV-exempel i stället?</h2>

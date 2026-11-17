@@ -13,7 +13,8 @@
  */
 import type { Metadata } from 'next'
 import CvMallarPageContent from './components/CvMallarPageContent'
-import { YRKESMALL_LIST } from './yrkesmall-data'
+import { YRKESMALL_LIST, YRKESMALL_PUBLIKA } from './yrkesmall-data'
+import { CV_MALLAR_BESKRIVNING } from '@/lib/seo/cv-kluster'
 import { CV_MALLAR_FAQ } from './components/cv-mallar-faq'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { howToSchema, produktListaSchema } from './components/mallar-produkt'
@@ -22,7 +23,9 @@ import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 // Huvudordsplanen steg 1 (SEO-förslaget K4 a, 2026-11-14): "CV-mall" först,
 // bara löften sidan håller. Talen ur konstanterna.
 const TITEL = `CV-mall: ${TEMPLATE_COUNT} mallar att fylla i och ladda ner, ${FREE_TEMPLATE_COUNT} gratis`
-const BESKRIVNING = `CV-mallar för svenska jobb: ${TEMPLATE_COUNT} mallar att fylla i och ladda ner som PDF eller Word, ${FREE_TEMPLATE_COUNT} av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet.`
+// SEO-svepet 2026-11-17 (B4 punkt 6): beskrivningen säger att uppladdningen
+// visar CV:t i mallarna; längden mäts i src/lib/seo/__tests__/cv-kluster.test.ts.
+const BESKRIVNING = CV_MALLAR_BESKRIVNING
 
 export function generateMetadata(): Metadata {
   return {
@@ -56,9 +59,10 @@ export default function CvMallarHub() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'CV-mallar för svenska yrken',
-    description: `CV-mallar för ${YRKESMALL_LIST.length} svenska yrken, med rätt sektioner och rekryterarens tips per yrke.`,
-    numberOfItems: YRKESMALL_LIST.length,
-    itemListElement: YRKESMALL_LIST.map((y, idx) => ({
+    // Yrkesmallsidorna som finns (B3): pilotens fem 308:ar till /cv-exempel.
+    description: `CV-mallar för ${YRKESMALL_PUBLIKA.length} svenska yrken, med rätt sektioner och rekryterarens tips per yrke.`,
+    numberOfItems: YRKESMALL_PUBLIKA.length,
+    itemListElement: YRKESMALL_PUBLIKA.map((y, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
       name: `CV-mall för ${y.namn}`,

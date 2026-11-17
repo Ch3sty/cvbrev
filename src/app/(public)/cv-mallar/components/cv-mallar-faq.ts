@@ -10,7 +10,7 @@
  * mallnamn som text.
  */
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd, wordMallarSomText } from '@/lib/cv/template-antal'
-import { MALL_ANTAL, MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+import { MALL_ANTAL, MALL_KATALOG, WORD_ANTAL } from '@/lib/cv/mallar/katalog'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 
 const versal = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
@@ -90,6 +90,21 @@ export const CV_MALLAR_FAQ = [
   {
     q: 'Kan jag använda mallen för internationella ansökningar?',
     a: 'Ja. Mallarna är språkneutrala, så du kan fylla i dem på engelska och få en professionell layout som fungerar både i Sverige och utomlands. Tänk på att vissa länder har egna konventioner: i USA är ett CV oftast en sida, i Tyskland väntas oftast ett "Lebenslauf" med foto.',
+  },
+  // Från de sammanslagna artiklarna cv-mall-gratis-guide, cv-mall-pdf-gratis
+  // och cv-mall-word-gratis (SEO-svepet 2026-11-17, B4 punkt 5), skrivna mot
+  // produktfacit. Befintliga frågor ovan och nedan ordagrant.
+  {
+    q: 'Var hittar jag en gratis CV-mall?',
+    a: `Hos oss är ${GRATIS_NAMN} gratis: du fyller i mallen direkt på sidan och laddar ner en fil som PDF eller Word, utan kortuppgift och utan vattenstämpel. Word har egna CV-mallar under Arkiv och Nytt, Google Docs har ett mallgalleri och Pages har en egen kategori för CV. Vilken du än väljer, kontrollera att mallen inte bygger på textrutor, tabeller för layout eller text i sidhuvudet, eftersom rekryteringssystemen ofta läser dem fel.`,
+  },
+  {
+    q: 'Ska jag skicka CV:t som PDF eller Word?',
+    a: `PDF, om annonsen inte ber om något annat. En PDF ser likadan ut hos rekryteraren som hos dig, medan ett Word-dokument kan byta typsnitt och brytas om när mottagaren saknar ditt. Ber annonsen eller bemanningsföretaget om Word skickar du Word, ofta för att CV:t ska läsas in i deras eget system. ${WORD_ANTAL} av våra mallar finns som Word-fil.`,
+  },
+  {
+    q: 'Kan jag använda Words egna CV-mallar?',
+    a: `Ja, men kontrollera dem först. Words mallar ligger under Arkiv och Nytt och är gratis. Många av de designade bygger på textrutor, tabeller eller kolumner som rekryteringssystemen läser i fel ordning eller hoppar över, medan de mest avskalade, i en spalt med standardrubriker, fungerar bättre. Vill du slippa kontrollera själv är alla våra ${MALL_ANTAL} mallar testade mot rekryteringssystem, och ${WORD_ANTAL} av dem laddar du ner som Word-fil.`,
   },
   {
     q: 'Är mallarna mobilanpassade när jag bygger CV:t?',
