@@ -579,7 +579,7 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
 async function artikelOchYrke(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
   const steg = `publik-${vy}-${tema}`
   const { page, ctx, fel } = await nySida(browser, vy, steg, tema)
-  await page.goto(`${BAS}/artiklar/cv-mall-gratis-guide`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await page.goto(`${BAS}/artiklar/bra-cv-guide`, { waitUntil: 'networkidle2', timeout: 120000 })
   const aside = await page.$('aside[aria-label="Så ser ditt CV ut i våra mallar"]')
   if (aside) {
     await aside.scrollIntoView()

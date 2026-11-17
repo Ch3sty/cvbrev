@@ -12,7 +12,7 @@ import { forbjudet, knappInom640, slaIhop, smaText } from './klicktest-publikt-v
 
 const ARTIKLAR = [
   { slug: 'matrislogik-test-guide', primar: '/verktyg/rekryteringstester/prova', prova: '/verktyg/rekryteringstester/prova' },
-  { slug: 'cv-mall-gratis-guide', primar: '/cv-mallar', prova: '/cv-mallar' },
+  { slug: 'bra-cv-guide', primar: '/cv-mallar', prova: '/cv-mallar' },
   { slug: 'karriarbyte-olika-aldrar', primar: null, prova: null },
 ] as const
 

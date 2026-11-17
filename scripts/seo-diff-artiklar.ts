@@ -451,7 +451,7 @@ const OVRIGA = [
   '/rakna-ut/uppsagningstid',
   '/rakna-ut/vad-kostar-en-anstalld',
   // Artiklar med showcase (CV-kluster), så att showcasens byte också prövas.
-  '/artiklar/cv-mall-gratis-guide',
+  '/artiklar/cv-exempel-yrken',
   '/artiklar/bra-cv-guide',
 ];
 
@@ -487,7 +487,6 @@ const DEL_B_ARTIKLAR_EXTRA = [
   'bra-cv-guide',
   'byta-karriar-jobbsokande-guide',
   'cv-bild-guide',
-  'cv-mall-pdf-gratis',
   'hur-skriver-man-ett-personligt-brev',
   'online-cv-byggare-gratis',
   'saga-upp-sig',
@@ -506,7 +505,7 @@ const DEL_B_ARTIKLAR_EXTRA = [
   'hur-ska-ett-cv-se-ut',
   'vanliga-misstag-personligt-brev',
   // showcase och karriär utan produkt
-  'cv-mall-gratis-guide',
+  'cv-innehall-struktur',
   'vaga-byta-jobb',
 ].map((s) => `/artiklar/${s}`);
 
