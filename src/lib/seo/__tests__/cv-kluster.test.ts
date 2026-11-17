@@ -29,7 +29,7 @@ import { metadata as skapaCvMeta } from '@/app/(public)/verktyg/skapa-cv/layout'
 import { metadata as exempelMeta } from '@/app/(public)/exempel/layout'
 import nextConfig from '../../../../next.config'
 
-const TANKSTRECK = /[–—]/
+const TANKSTRECK = new RegExp('[\\u2013\\u2014]')
 
 /** Exempelsidornas data ur källan: slug, yrke och metaDescription. */
 function exempelSidor(): { slug: string; yrke: string; beskrivning: string }[] {

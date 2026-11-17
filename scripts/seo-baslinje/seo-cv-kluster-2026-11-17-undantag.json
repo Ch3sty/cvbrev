@@ -1,0 +1,2833 @@
+{
+ "_om": "Undantag för spår B (kod och sidor) i SEO-svepet för CV-klustret, 2026-11-17. SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, avsnitt 4.1. Artiklarnas undantag ligger i seo-cv-kluster-2026-11-17-artiklar-undantag.json (spår A). FAQ-frågor ändras inte (bara svar och tillägg), därför ingen FAQ_BYTT; svaren syns som FAQPage under LD_UNDANTAG.",
+ "STATUS_BYTT": [
+  {
+   "path": "/artiklar/cv-mall-gratis-guide",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B2: artikeln slås ihop med målsidan (innehållet i B4 och B5), permanent omdirigering i next.config.ts, ett hopp."
+  },
+  {
+   "path": "/artiklar/cv-mall-word-gratis",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-mallar/word",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B2: artikeln slås ihop med målsidan (innehållet i B4 och B5), permanent omdirigering i next.config.ts, ett hopp."
+  },
+  {
+   "path": "/artiklar/cv-mall-pdf-gratis",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B2: artikeln slås ihop med målsidan (innehållet i B4 och B5), permanent omdirigering i next.config.ts, ett hopp."
+  },
+  {
+   "path": "/cv-mall-gratis-guide",
+   "fore": 308,
+   "efter": 308,
+   "mal": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B2: artikeln slås ihop med målsidan (innehållet i B4 och B5), permanent omdirigering i next.config.ts, ett hopp."
+  },
+  {
+   "path": "/cv-mall-word-gratis",
+   "fore": 308,
+   "efter": 308,
+   "mal": "/cv-mallar/word",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B2: artikeln slås ihop med målsidan (innehållet i B4 och B5), permanent omdirigering i next.config.ts, ett hopp."
+  },
+  {
+   "path": "/cv-mallar/saljare",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-exempel/saljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B2 och B3: piloten slår ihop yrkesmallsidan med CV-exemplet, permanent omdirigering i next.config.ts, borta ur sitemapen."
+  },
+  {
+   "path": "/cv-mallar/butikssaljare",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-exempel/butikssaljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B2 och B3: piloten slår ihop yrkesmallsidan med CV-exemplet, permanent omdirigering i next.config.ts, borta ur sitemapen."
+  },
+  {
+   "path": "/cv-mallar/barnskotare",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-exempel/barnskotare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B2 och B3: piloten slår ihop yrkesmallsidan med CV-exemplet, permanent omdirigering i next.config.ts, borta ur sitemapen."
+  },
+  {
+   "path": "/cv-mallar/ingenjor",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-exempel/ingenjor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B2 och B3: piloten slår ihop yrkesmallsidan med CV-exemplet, permanent omdirigering i next.config.ts, borta ur sitemapen."
+  },
+  {
+   "path": "/cv-mallar/larare",
+   "fore": 200,
+   "efter": 308,
+   "mal": "/cv-exempel/larare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B2 och B3: piloten slår ihop yrkesmallsidan med CV-exemplet, permanent omdirigering i next.config.ts, borta ur sitemapen."
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/verktyg/skapa-cv",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: titeln beskriver nya byggaren direkt på arket."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: beskrivningen beskriver nya byggaren, uppladdningen och Jobbcoachens förslag."
+  },
+  {
+   "path": "/cv-mallar",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B4 punkt 6: beskrivningen säger att uppladdningen visar CV:t i mallarna."
+  },
+  {
+   "path": "/exempel",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B7: /exempel slutar konkurrera om mallorden."
+  },
+  {
+   "path": "/exempel",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B7: beskrivningen utan antalet mallar."
+  },
+  {
+   "path": "/cv-mallar/lakare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/lakare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/specialistsjukskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/specialistsjukskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/barnmorska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/barnmorska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/fysioterapeut",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/fysioterapeut",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/sjukskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/sjukskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/underskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/underskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/vardbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/vardbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/hemtjanst",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/hemtjanst",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/hemtjanstpersonal",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/hemtjanstpersonal",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/personlig-assistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/personlig-assistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/psykolog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/psykolog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kurator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kurator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/boendestod",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/boendestod",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/vardadministrator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/vardadministrator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/forskollarare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/forskollarare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/grundskollarare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/grundskollarare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/specialpedagog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/specialpedagog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/elevassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/elevassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/fritidspedagog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/fritidspedagog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/fritidsledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/fritidsledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/student",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/student",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/butiksbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/butiksbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/butikschef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/butikschef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kassorska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kassorska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kundtjanstmedarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kundtjanstmedarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kundtjanst",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kundtjanst",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/hotellvard",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/hotellvard",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/receptionist",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/receptionist",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kundradgivare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kundradgivare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/lagerarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/lagerarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/truckforare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/truckforare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/logistiker",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/logistiker",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/lagerchef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/lagerchef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/terminalarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/terminalarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/logistikassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/logistikassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/fastighetsskotare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/fastighetsskotare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/servicemedarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/servicemedarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/lokalvardare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/lokalvardare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kock",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kock",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/bartender",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/bartender",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/konditor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/konditor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/barista",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/barista",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/servitris-restaurangbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/servitris-restaurangbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/koksbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/koksbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/account-manager",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/account-manager",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/sommarjobb",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/sommarjobb",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/systemutvecklare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/systemutvecklare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/devops-engineer",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/devops-engineer",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/it-konsult",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/it-konsult",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/projektledare-it",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/projektledare-it",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/scrum-master",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/scrum-master",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/produktchef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/produktchef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/automationsingenior",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/automationsingenior",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/konstruktor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/konstruktor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/ekonomiassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/ekonomiassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/administrativ-assistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/administrativ-assistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/redovisningsekonom",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/redovisningsekonom",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/controller",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/controller",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/ekonom",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/ekonom",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/hr-specialist",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/hr-specialist",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/administrator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/administrator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/handlaggare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/handlaggare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/lss-handlaggare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/lss-handlaggare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/socialsekreterare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/socialsekreterare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/kontorsassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/kontorsassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/chef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/chef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/enhetschef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/enhetschef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/projektledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/projektledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-mallar/teamledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titelregeln för yrkesmallsidorna (utan årtal, tankstreck och versalt yrke)."
+  },
+  {
+   "path": "/cv-mallar/teamledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningen med rubriker för yrket och talen ur katalogen."
+  },
+  {
+   "path": "/cv-exempel/aldreboende",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/aldreboende",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/gymnasieelev",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/gymnasieelev",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/civilingenjor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/civilingenjor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/underskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/underskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/vardadministrator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/vardadministrator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/vardbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/vardbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/hemtjanst",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/hemtjanst",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/forskollarare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/forskollarare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/receptionist",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/receptionist",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens titel tar båda sökintentionerna."
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens beskrivning."
+  },
+  {
+   "path": "/cv-exempel/lagerarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/lagerarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/administrator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/administrator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/lokalvardare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/lokalvardare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/handlaggare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/handlaggare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/lakare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/lakare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/butiksbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/butiksbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens titel tar båda sökintentionerna."
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens beskrivning."
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens titel tar båda sökintentionerna."
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens beskrivning."
+  },
+  {
+   "path": "/cv-exempel/sommarjobb",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/sommarjobb",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/it-konsult",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/it-konsult",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/student",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/student",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens titel tar båda sökintentionerna."
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens beskrivning."
+  },
+  {
+   "path": "/cv-exempel/sjukskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/sjukskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/specialistsjukskoterska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/specialistsjukskoterska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/ekonomiassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/ekonomiassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/enhetschef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/enhetschef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/barnmorska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/barnmorska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens titel tar båda sökintentionerna."
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: pilotens beskrivning."
+  },
+  {
+   "path": "/cv-exempel/personlig-assistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/personlig-assistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/servitris-restaurangbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/servitris-restaurangbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kock",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kock",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/chef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/chef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/produktchef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/produktchef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/projektledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/projektledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/elevassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/elevassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kundradgivare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kundradgivare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kundtjanst",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kundtjanst",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kundtjanstmedarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kundtjanstmedarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kurator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kurator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/grundskollarare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/grundskollarare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/specialpedagog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/specialpedagog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/fysioterapeut",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/fysioterapeut",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kontorsassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kontorsassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/automationsingenior",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/automationsingenior",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/konstruktor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/konstruktor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/truckforare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/truckforare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/logistiker",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/logistiker",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/loneadministrator",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/loneadministrator",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/lagerchef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/lagerchef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/fastighetsskotare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/fastighetsskotare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/hemtjanstpersonal",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/hemtjanstpersonal",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/servicemedarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/servicemedarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/socialsekreterare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/socialsekreterare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/hr-specialist",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/hr-specialist",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/controller",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/controller",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/kassorska",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/kassorska",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/butikschef",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/butikschef",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/account-manager",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/account-manager",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/systemutvecklare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/systemutvecklare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/devops-engineer",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/devops-engineer",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/projektledare-it",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/projektledare-it",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/fritidspedagog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/fritidspedagog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/redovisningsekonom",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/redovisningsekonom",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/bartender",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/bartender",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/konditor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/konditor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/ekonom",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/ekonom",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/scrum-master",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/scrum-master",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/teamledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/teamledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/fritidsledare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/fritidsledare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/psykolog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/psykolog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/lss-handlaggare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/lss-handlaggare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/hotellvard",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/hotellvard",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/administrativ-assistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/administrativ-assistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/boendestod",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/boendestod",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/koksbitrade",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/koksbitrade",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/barista",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/barista",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/logistikassistent",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/logistikassistent",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/terminalarbetare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/terminalarbetare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/vaktmastare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/vaktmastare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/socionom",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/socionom",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/stodpedagog",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/stodpedagog",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/chauffor",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/chauffor",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/it-tekniker",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/it-tekniker",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/telefonforsaljare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/telefonforsaljare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/diskare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/diskare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/snickare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/snickare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/elektriker",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/elektriker",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/vaktare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/vaktare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  },
+  {
+   "path": "/cv-exempel/stadare",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: titeln genereras utan ordet mall."
+  },
+  {
+   "path": "/cv-exempel/stadare",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: beskrivningar med ordet mall skrivna om utan den satsen, 110 till 158 tecken."
+  }
+ ],
+ "RUBRIK_BYTT": [
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h2 Sex saker som gör CV-byggandet enkelt",
+   "efter": "h2 Det här gör CV-byggandet enkelt",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: kontrollblockets rubrik (talet sex stämmer inte längre)."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h2 Tio minuters arbete som gör skillnad i månader",
+   "efter": "h2 Gör skillnad i varje ansökan",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: resultatblockets rubrik, tio minuter går inte att belägga."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 10 minuter till färdigt CV",
+   "efter": "h3 Ladda upp ditt gamla CV och börja där det slutade",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: raden i resultatblocket enligt specen."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Välj en mall",
+   "efter": "h3 Skriv vilket jobb du söker",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: stegen, funktionerna och blocken beskriver nya byggaren, inga sju steg och inga obelagda minuter. Steg 1 i HowTo och stegblocket."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Fyll i sju enkla steg",
+   "efter": "h3 Ladda upp ett CV eller skriv från början",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: stegen, funktionerna och blocken beskriver nya byggaren, inga sju steg och inga obelagda minuter. Steg 2."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Vi sätter ihop CV:t",
+   "efter": "h3 Fyll i direkt på arket",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: stegen, funktionerna och blocken beskriver nya byggaren, inga sju steg och inga obelagda minuter. Steg 3."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Ladda ner som PDF, eller Word i 26 av mallarna",
+   "efter": "h3 Välj mall och ladda ner",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: stegen, funktionerna och blocken beskriver nya byggaren, inga sju steg och inga obelagda minuter. Steg 4; funktionen med samma rubrik står kvar."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Förhandsvisning medan du skriver",
+   "efter": "h3 Arket är byggaren",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: stegen, funktionerna och blocken beskriver nya byggaren, inga sju steg och inga obelagda minuter. Funktionen ersätts enligt specen."
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "fore": "h2 Letar du efter en CV-mall för säljare?",
+   "efter": "h2 CV-mall för säljare: välj och fyll i",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: mallblocket ersätter korslänksblocket (yrkesmallsidan är sammanslagen hit)."
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "fore": "h2 Letar du efter en CV-mall för butikssäljare?",
+   "efter": "h2 CV-mall för butikssäljare: välj och fyll i",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: mallblocket ersätter korslänksblocket (yrkesmallsidan är sammanslagen hit)."
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "fore": "h2 Letar du efter en CV-mall för barnskötare?",
+   "efter": "h2 CV-mall för barnskötare: välj och fyll i",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: mallblocket ersätter korslänksblocket (yrkesmallsidan är sammanslagen hit)."
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "fore": "h2 Letar du efter en CV-mall för ingenjör?",
+   "efter": "h2 CV-mall för ingenjör: välj och fyll i",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: mallblocket ersätter korslänksblocket (yrkesmallsidan är sammanslagen hit)."
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "fore": "h2 Letar du efter en CV-mall för lärare?",
+   "efter": "h2 CV-mall för lärare: välj och fyll i",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: mallblocket ersätter korslänksblocket (yrkesmallsidan är sammanslagen hit)."
+  }
+ ],
+ "LANK_BYTT": [
+  {
+   "path": "/exempel",
+   "fore": "/artiklar/cv-mall-gratis-guide",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4 och B4 punkt 7: länken går till slutmålet, artikeln 308:ar dit."
+  },
+  {
+   "path": "/exempel",
+   "fore": "/cv-mallar/saljare",
+   "efter": "/cv-exempel/saljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: piloten, yrkesmallsidan är sammanslagen med CV-exemplet som redan länkas här."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "/cv-mallar/saljare",
+   "efter": "/cv-exempel/saljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B9: hubben länkar pilotens yrken till exempelsidan."
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "fore": "/cv-mallar/saljare",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: korslänken till den sammanslagna yrkesmallsidan ersätts av mallblocket med Se alla CV-mallar."
+  },
+  {
+   "path": "/exempel",
+   "fore": "/cv-mallar/butikssaljare",
+   "efter": "/cv-exempel/butikssaljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: piloten, yrkesmallsidan är sammanslagen med CV-exemplet som redan länkas här."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "/cv-mallar/butikssaljare",
+   "efter": "/cv-exempel/butikssaljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B9: hubben länkar pilotens yrken till exempelsidan."
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "fore": "/cv-mallar/butikssaljare",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: korslänken till den sammanslagna yrkesmallsidan ersätts av mallblocket med Se alla CV-mallar."
+  },
+  {
+   "path": "/exempel",
+   "fore": "/cv-mallar/barnskotare",
+   "efter": "/cv-exempel/barnskotare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: piloten, yrkesmallsidan är sammanslagen med CV-exemplet som redan länkas här."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "/cv-mallar/barnskotare",
+   "efter": "/cv-exempel/barnskotare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B9: hubben länkar pilotens yrken till exempelsidan."
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "fore": "/cv-mallar/barnskotare",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: korslänken till den sammanslagna yrkesmallsidan ersätts av mallblocket med Se alla CV-mallar."
+  },
+  {
+   "path": "/exempel",
+   "fore": "/cv-mallar/ingenjor",
+   "efter": "/cv-exempel/ingenjor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: piloten, yrkesmallsidan är sammanslagen med CV-exemplet som redan länkas här."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "/cv-mallar/ingenjor",
+   "efter": "/cv-exempel/ingenjor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B9: hubben länkar pilotens yrken till exempelsidan."
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "fore": "/cv-mallar/ingenjor",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: korslänken till den sammanslagna yrkesmallsidan ersätts av mallblocket med Se alla CV-mallar."
+  },
+  {
+   "path": "/exempel",
+   "fore": "/cv-mallar/larare",
+   "efter": "/cv-exempel/larare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: piloten, yrkesmallsidan är sammanslagen med CV-exemplet som redan länkas här."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "/cv-mallar/larare",
+   "efter": "/cv-exempel/larare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B9: hubben länkar pilotens yrken till exempelsidan."
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "fore": "/cv-mallar/larare",
+   "efter": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: korslänken till den sammanslagna yrkesmallsidan ersätts av mallblocket med Se alla CV-mallar."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/verktyg/skapa-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B1: HowTo med de fyra nya stegen utan totalTime, FAQPage med de omskrivna svaren; WebApplication utan sju steg (produktfacit: inga sju steg någonstans).",
+   "andrade": [
+    "HowTo",
+    "FAQPage",
+    "WebApplication"
+   ]
+  },
+  {
+   "path": "/cv-mallar",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3 och B4: ItemList över yrkesmallsidorna utan pilotens fem, FAQPage med tre nya frågor.",
+   "andrade": [
+    "ItemList",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/cv-mallar/lakare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/specialistsjukskoterska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/barnmorska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/fysioterapeut",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/sjukskoterska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/underskoterska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/vardbitrade",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/hemtjanst",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/hemtjanstpersonal",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/personlig-assistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/psykolog",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kurator",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/boendestod",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/vardadministrator",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/forskollarare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/grundskollarare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/specialpedagog",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/elevassistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/fritidspedagog",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/fritidsledare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/student",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/butiksbitrade",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/butikschef",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kassorska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kundtjanstmedarbetare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kundtjanst",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/hotellvard",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/receptionist",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kundradgivare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/lagerarbetare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/truckforare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/logistiker",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/lagerchef",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/terminalarbetare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/logistikassistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/fastighetsskotare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/servicemedarbetare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/lokalvardare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kock",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/bartender",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/konditor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/barista",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/servitris-restaurangbitrade",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/koksbitrade",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/account-manager",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/sommarjobb",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/systemutvecklare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/devops-engineer",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/it-konsult",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/projektledare-it",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/scrum-master",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/produktchef",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/automationsingenior",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/konstruktor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/ekonomiassistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/administrativ-assistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/redovisningsekonom",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/controller",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/ekonom",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/hr-specialist",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/administrator",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/handlaggare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/lss-handlaggare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/socialsekreterare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/kontorsassistent",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/chef",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/enhetschef",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/projektledare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-mallar/teamledare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B6: Product-namnet är gratismallens namn.",
+   "andrade": [
+    "Product"
+   ]
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: yrkesmallens frågor efter exempelsidans, utan dubbletter, samma som de synliga.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: yrkesmallens frågor efter exempelsidans, utan dubbletter, samma som de synliga.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: yrkesmallens frågor efter exempelsidans, utan dubbletter, samma som de synliga.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: yrkesmallens frågor efter exempelsidans, utan dubbletter, samma som de synliga.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, B3: yrkesmallens frågor efter exempelsidans, utan dubbletter, samma som de synliga.",
+   "andrade": [
+    "FAQPage"
+   ]
+  }
+ ]
+}
