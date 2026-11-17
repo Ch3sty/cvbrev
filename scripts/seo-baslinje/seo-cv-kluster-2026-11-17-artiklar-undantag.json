@@ -1,0 +1,412 @@
+{
+ "_om": "Undantag för spår A (artiklarna) i SEO-svepet för CV-klustret, 2026-11-17. SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md. De tre borttagna artiklarnas STATUS_BYTT (200 till 308) ligger i spår B:s fil seo-cv-kluster-2026-11-17-undantag.json.",
+ "META_BYTT": [
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/meritforteckning-eller-cv",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/meritforteckning-eller-cv",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/datorkunskaper-cv",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/datorkunskaper-cv",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/nyckelord-i-cv",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/nyckelord-i-cv",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/ladda-upp-cv-linkedin",
+   "falt": "title",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/ladda-upp-cv-linkedin",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A5: ny seoTitle och description på plats 5 till 9 (titel högst 60, description 110 till 158, varje påstående finns i artikeln)."
+  },
+  {
+   "path": "/artiklar/cv-pa-engelska-resume",
+   "falt": "description",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A6: description tar \"cv engelska mall\" (153 tecken), seoTitle oförändrad."
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/online-cv-byggare-gratis",
+   "lank": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/online-cv-byggare-gratis",
+   "lank": "/artiklar/cv-mall-pdf-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/online-cv-byggare-gratis",
+   "lank": "/artiklar/cv-mall-word-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar/word (308 i spår B); länken byts mot slutmålet /cv-mallar/word i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/skriva-cv-guide",
+   "lank": "/artiklar/cv-mall-pdf-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/skriva-cv-guide",
+   "lank": "/artiklar/cv-mall-word-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar/word (308 i spår B); länken byts mot slutmålet /cv-mallar/word i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/cv-och-personligt-brev",
+   "lank": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/hur-skriver-man-cv",
+   "lank": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/skillnad-cv-personligt-brev",
+   "lank": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "lank": "/artiklar/cv-mall-pdf-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, A4: artikeln är sammanslagen med /cv-mallar (308 i spår B); länken byts mot slutmålet /cv-mallar i samma mening, inte via omdirigeringen."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/arbetslivserfarenhet-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ats-vanligt-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: FAQ-svaret följer texten (A1, A2, A8; frågorna oförändrade) och BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bild-i-cv-ja-eller-nej",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-bild-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-innehall-struktur",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-och-personligt-brev",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-pa-engelska-resume",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-utan-erfarenhet",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/datorkunskaper-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/exempel-pa-kompetenser-lista",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/fardigheter-kompetenser-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/handlingsord-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hobbyer-intressen-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-ska-ett-cv-se-ut",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-skriver-man-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/korrekturlasa-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ladda-upp-cv-linkedin",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ledarskapsformagor-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/meritforteckning-eller-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/nyckelord-i-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/online-cv-byggare-gratis",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: FAQ-svaret följer texten (A1, A2, A8; frågorna oförändrade) och BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-pa-engelska",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/prestationer-utmarkelser-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/skapa-cv-med-ai",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: FAQ-svaret följer texten (A1, A2, A8; frågorna oförändrade) och BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skillnad-cv-personligt-brev",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-cv-guide",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/sprak-i-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/tidshantering-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/utbildning-i-cv",
+   "datum": "2026-11-17",
+   "skal": "SEO-strategens plan, docs/plan-seo-cv-kluster-2026-11-17.md, spår A: BlogPostings wordCount och description följer de nya meningarna och den nya metadatan.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  }
+ ]
+}
