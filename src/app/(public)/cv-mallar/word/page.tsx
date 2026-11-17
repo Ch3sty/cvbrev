@@ -35,10 +35,13 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+// FAQ-svaren och schemat bär inget belopp: sidan CDN-cachas ett dygn och
+// kampanjpriset får inte hamna i schemat. Priset står i Premium-raden under
+// galleriet, som följer kampanjen (MedKampanjPris i StilSida).
 const FAQ = [
   {
     q: 'Är CV-mallarna i Word gratis?',
-    a: `Ja, i ${GRATIS_NAMN}. Du laddar ner Word-filen en gång per konto utan kort, precis som PDF:en. Word i de övriga ${talSomOrd(WORD_PREMIUM)} Word-mallarna ingår i ${paketMedPris(SALD_PLAN)}, tillsammans med alla ${TEMPLATE_COUNT} mallar och nedladdning utan tak.`,
+    a: `Ja, i ${GRATIS_NAMN}. Du laddar ner Word-filen en gång per konto utan kort, precis som PDF:en. Word i de övriga ${talSomOrd(WORD_PREMIUM)} Word-mallarna ingår i Premium, tillsammans med alla ${TEMPLATE_COUNT} mallar och nedladdning utan tak.`,
   },
   {
     // P4 (saas-lead): undantaget för långt CV i sidospaltsmallarna nämns här, inte i säljtexten.

@@ -227,7 +227,7 @@ export default function SkapaCvSida() {
           },
         ]}
         slut={{
-          // S6: VerktygsMall tar text här, så raden står med ordinarie pris.
+          // S6: VerktygsMall låter priset i raden följa kampanjen (MedKampanjPris).
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Skapa ditt CV gratis på minuter.',
           text: `Skriv direkt på arket, låt Jobbcoachen föreslå punkterna och ladda ner i en mall som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, Word i alla ${WORD_TEMPLATE_COUNT} Word-mallar, hela CV-analysen och nedladdning utan tak ingår i ${paketKort()}.`,

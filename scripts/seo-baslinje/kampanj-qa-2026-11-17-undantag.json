@@ -1,0 +1,11 @@
+{
+ "_om": "Kampanj-QA före Black Week (fix/kampanj-qa, 2026-11-17). FAQ-svaren på stilsidorna får inte bära belopp eftersom sidorna CDN-cachas ett dygn och schemat inte följer kampanjen; priset står i Premium-raden under galleriet, som följer kampanjen via MedKampanjPris. Frågorna oförändrade.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/cv-mallar/word",
+   "datum": "2026-11-17",
+   "skal": "Kampanj-QA (fix/kampanj-qa): FAQ-svaret \"Är CV-mallarna i Word gratis?\" säger \"ingår i Premium\" utan belopp, så att FAQPage inte visar 149 kr medan sidan visar kampanjpriset 23–30 november. Frågan oförändrad.",
+   "andrade": ["FAQPage"]
+  }
+ ]
+}

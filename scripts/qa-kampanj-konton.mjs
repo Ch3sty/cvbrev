@@ -35,13 +35,29 @@ const FIL = `${SCRATCH}/qa-kampanj-konton.json`
 const LOSEN = 'QaKampanj!2026-11-13'
 const spara = (d) => fs.writeFileSync(FIL, JSON.stringify(d, null, 2))
 const las = () => (fs.existsSync(FIL) ? JSON.parse(fs.readFileSync(FIL, 'utf8')) : {})
-const NAMN = ['gratis', 'betalt']
+const NAMN = ['gratis', 'betalt', 'kop-bw', 'kop-cm', 'kop-ford']
+const SKAPA = process.env.KOP === '1' ? ['kop-bw', 'kop-cm', 'kop-ford'] : ['gratis', 'betalt']
+/** Före detta kund: kampanjpriset ska aldrig visas. */
+const FORE_DETTA = (namn) => namn === 'betalt' || namn === 'kop-ford'
+
+/** Ett vanligt CV i CVMetadata-form, samma persona som byggarens fixtur. */
+const CV = {
+  personalInfo: { fullName: 'Erik Lindberg', title: 'Projektledare inom IT', email: 'erik.lindberg@email.se', phone: '073-456 78 90', address: 'Stockholm' },
+  summary: 'Erfaren projektledare med sex års erfarenhet av digitala projekt inom bank och fintech.',
+  experience: [
+    { position: 'Senior projektledare', company: 'Nordea', startDate: '2021', description: ['Leder ett team på tolv personer', 'Ansvarar för en budget på 15 MSEK'] },
+    { position: 'Projektledare', company: 'Klarna', startDate: '2018', endDate: '2021', description: ['Ledde åtta produktprojekt'] },
+  ],
+  education: [{ degree: 'Civilingenjör, industriell ekonomi', institution: 'KTH', startDate: '2011', endDate: '2016' }],
+  skills: ['Projektledning', 'Scrum', 'Budget'],
+  languages: [{ language: 'Svenska', proficiency: 'Modersmål' }, { language: 'Engelska', proficiency: 'Flytande' }],
+}
 
 async function skapa() {
   const ut = las()
   const ts = ut.ts ?? Date.now()
   ut.ts = ts
-  for (const namn of NAMN) {
+  for (const namn of SKAPA) {
     if (ut[namn]) continue
     const email = `qa-kampanj-${ts}-${namn}@jobbcoach-qa.test`
     const fullName = `QA Kampanj ${namn}`
@@ -58,14 +74,28 @@ async function skapa() {
       email_verified_at: new Date().toISOString(),
       onboarding_track: 'allt',
       onboarding_track_asked_at: new Date().toISOString(),
-      ...(namn === 'betalt' ? { subscription_status: 'canceled' } : {}),
+      ...(FORE_DETTA(namn) ? { subscription_status: 'canceled' } : {}),
+      ...(namn.startsWith('kop') ? {} : { free_cv_exports_used: 1 }),
     })
     if (pErr) throw new Error(`profil ${namn}: ${pErr.message}`)
+    const { data: cv, error: cErr } = await admin
+      .from('cv_texts')
+      .insert({ user_id: userId, file_name: 'QA Kampanj CV.pdf', original_file_path: '', cv_text: `${CV.personalInfo.fullName}\n${CV.summary}`, structured_data: CV })
+      .select('id')
+      .single()
+    if (cErr) throw new Error(`cv_texts ${namn}: ${cErr.message}`)
+    ut[namn].cvId = cv.id
+    spara(ut)
+    if (!namn.startsWith('kop')) {
+      const rader = Array.from({ length: 3 }, () => ({ user_id: userId, feature_name: 'cv_bygg_punkter', endpoint: '/api/cv/bygg/forslag', ai_model: 'qa', prompt_tokens: 0, completion_tokens: 0, total_tokens: 0, cost_usd: 0, cost_sek: 0, metadata: { qa: true } }))
+      const { error: aErr } = await admin.from('ai_usage_costs').insert(rader)
+      if (aErr) throw new Error(`ai_usage_costs ${namn}: ${aErr.message}`)
+    }
     console.log('skapad', namn, email, userId)
   }
 }
 
-const TABELLER = ['user_activities', 'user_activity', 'user_activity_log', 'email_log', 'email_schedule', 'test_planer', 'profiles']
+const TABELLER = ['cv_texts', 'formatted_cv_downloads', 'ai_usage_costs', 'premium_grants', 'cancel_intents', 'user_activities', 'user_activity', 'user_activity_log', 'email_log', 'email_schedule', 'test_planer', 'profiles']
 
 /** Provsidans prov (qa-kampanj.mjs provsida): raden per token och IP-gränsen per exakt nyckel. */
 async function raderaProv(ut) {
@@ -105,6 +135,15 @@ async function radera() {
       if (!count) continue
       const { error: dErr } = await admin.from(t).delete().eq(kol, k.userId)
       console.log(`${namn}: ${t} ${count} rader ${dErr ? 'FEL ' + dErr.message : 'raderade'}`)
+    }
+    // Filer i Storage under kontots mapp (byggaren sparar cvs/users/<id>/).
+    for (const bucket of ['cvs', 'profile-photos']) {
+      const { data: filer } = await admin.storage.from(bucket).list(`users/${k.userId}`)
+      const vagar = (filer ?? []).map((f) => `users/${k.userId}/${f.name}`)
+      if (vagar.length) {
+        const { error: sErr } = await admin.storage.from(bucket).remove(vagar)
+        console.log(`${namn}: ${bucket} ${vagar.length} filer ${sErr ? 'FEL ' + sErr.message : 'raderade'}`)
+      }
     }
     const { error } = await admin.auth.admin.deleteUser(k.userId)
     console.log(`${namn}: kontot ${error ? 'FEL ' + error.message : 'raderat'}`)

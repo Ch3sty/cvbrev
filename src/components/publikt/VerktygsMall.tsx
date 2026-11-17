@@ -23,6 +23,7 @@ import Faq from './Faq'
 import PremiumBlock from './PremiumBlock'
 import FastKnapprad from './FastKnapprad'
 import PubliktSida from './PubliktSida'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import type { RumNamn } from './telefon/Telefon'
 
 export interface VerktygsLank {
@@ -63,6 +64,7 @@ export interface VerktygsMallProps {
   fritt?: ReactNode
   citat?: { text: string; namn: string; roll?: string }
   slut: {
+    /** Priset i raden ("149 kr i månaden") följer kampanjen via MedKampanjPris. */
     eyebrow: string
     rubrik: string
     text: ReactNode
@@ -238,7 +240,7 @@ export default function VerktygsMall(p: VerktygsMallProps) {
 
         {/* 8. Slutet på bläck */}
         <PremiumBlock
-          kick={p.slut.eyebrow}
+          kick={<MedKampanjPris text={p.slut.eyebrow} />}
           rubrik={p.slut.rubrik}
           text={p.slut.text}
           knapp={{ text: p.slut.knapp.text, href: p.slut.knapp.href }}

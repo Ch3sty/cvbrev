@@ -5,7 +5,7 @@
 // i SCRATCH, se feedback_arbetskopior_och_qa_bilder).
 //
 //   SCRATCH=<tmp> BAS=http://localhost:3471 node scripts/qa-kampanj.mjs <flöde> <bredd>
-//     flöde  publikt | gratis | betalt | registrering | installningar
+//     flöde  publikt | gratis | betalt | registrering | installningar | ytor-publikt | ytor-gratis | ytor-betalt
 //     bredd  412 (Pixel 7) | 1280
 //
 // publikt: /priser och / utan inloggning, med besökarens klocka flyttad via
@@ -19,6 +19,18 @@
 //   Provets token och IP sparas i kontofilen och raderas med kontona.
 // registrering: rutan för mejlvalet finns och är oikryssad.
 // installningar: växeln för erbjudanden finns och sparar.
+//
+// 2026-11-17, ytorna som ändrats sedan 13 nov (fix/kampanj-qa):
+// ytor-publikt: utloggat i fyra klockor (localStorage): slutrutan på
+//   /verktyg/skapa-cv, Premium-raden på /cv-mallar/word, /foto, /enkla,
+//   premiumknappen och kontoarket på /cv-mallar och /cv-mallar/prova, och
+//   inga kampanjord i title, H1, description, FAQ eller schema.
+// ytor-gratis / ytor-betalt: byggaren (premiummall, betalväggen,
+//   Jobbcoachens kvotvägg) och CV-mallarna (premiummall, Word,
+//   merförsäljningen). Konton med CV ur qa-kampanj-konton.mjs.
+// LAGE=fore|bw|cm|efter säger vilken klocka servern startats med
+//   (KAMPANJ_NU) för de inloggade flödena; standard bw. Kontrollerna
+//   väntar sig kampanjpriset bara för gratis under bw och cm.
 
 import puppeteer from 'puppeteer-core'
 import fs from 'node:fs'
@@ -38,7 +50,7 @@ fs.mkdirSync(UT, { recursive: true })
 const RESULTAT = path.join(UT, 'resultat.jsonl')
 const KONTON = fs.existsSync(`${SCRATCH}/qa-kampanj-konton.json`) ? JSON.parse(fs.readFileSync(`${SCRATCH}/qa-kampanj-konton.json`, 'utf8')) : {}
 const [floede, bredd] = process.argv.slice(2)
-const prefix = `${floede}-${bredd}${process.env.MORKT === '1' ? '-morkt' : ''}`
+const prefix = `${floede}-${bredd}${process.env.LAGE ? '-' + process.env.LAGE : ''}${process.env.MORKT === '1' ? '-morkt' : ''}`
 let nr = 0
 const fel = []
 const vanta = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -52,7 +64,7 @@ async function bild(p, namn, hel = false) {
   nr += 1
   await p.screenshot({ path: path.join(UT, `${prefix}-${String(nr).padStart(2, '0')}-${namn}.png`), fullPage: hel }).catch(() => {})
 }
-async function ga(p, u, waitUntil = 'networkidle2') {
+async function ga(p, u, waitUntil = process.env.VANTA || 'networkidle2') {
   await p.goto(BAS + u, { waitUntil, timeout: 180000 })
   await vanta(700)
 }
@@ -77,6 +89,13 @@ async function loggaIn(p, konto) {
   await vanta(1200)
   await avvisaKakor(p)
 }
+
+/** Serverns klocka (KAMPANJ_NU) för de inloggade flödena: fore | bw | cm | efter. */
+const LAGE = process.env.LAGE || 'bw'
+const NYCKEL = { bw: 'black-week-2026', cm: 'cyber-monday-2026' }
+const KAMPANJPRIS = { bw: 99, cm: 49 }
+/** Kampanjpriset kontot ska se i inloggat just nu, annars null (före detta kund eller ingen kampanj). */
+const kampanjPris = (kontoNamn) => (kontoNamn === 'gratis' ? KAMPANJPRIS[LAGE] ?? null : null)
 
 const LAGEN = {
   fore: '2026-11-22T23:59:00+01:00',
@@ -157,7 +176,8 @@ async function artikel(p, lage) {
     schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent).join(' '),
     faq: [...document.querySelectorAll('details, [data-faq], .faq')].map((e) => e.textContent).join(' '),
   }))
-  const kampanjord = /Black Week|Cyber Monday|99 kr|49 kr|första månaden|rabatt/i
+  // \b: "149 kr" ska inte räknas som "49 kr".
+  const kampanjord = /Black Week|Cyber Monday|\b99 kr|\b49 kr|första månaden|rabatt/i
   const smutsigt = Object.entries(seo).filter(([, v]) => kampanjord.test(v)).map(([k]) => k)
   logg(`${lage}: inga kampanjord i title, H1, description, FAQ eller schema`, smutsigt.length === 0, { smutsigt })
   await p.evaluate(() => document.querySelector('aside.ib-prova')?.scrollIntoView({ block: 'center' }))
@@ -212,8 +232,9 @@ async function provsida(p, kontoNamn) {
   }
   await ga(p, svar.redirect)
   const text = await p.evaluate(() => document.querySelector('[data-prov-typ]')?.innerText.replace(/\s+/g, ' ') ?? '')
-  const ok = kontoNamn === 'gratis'
-    ? text.includes('Premium, 99 kr första månaden, sedan 149 kr i månaden')
+  const kp = kampanjPris(kontoNamn)
+  const ok = kp
+    ? text.includes(`Premium, ${kp} kr första månaden, sedan 149 kr i månaden`)
     : text.includes('Premium, 149 kr i månaden') && !text.includes('första månaden')
   logg('provsidan visar rätt pris', ok, { url: svar.redirect, utdrag: text.slice(text.indexOf('Nästa steg'), text.indexOf('Nästa steg') + 220) })
   await bild(p, 'provsida')
@@ -222,28 +243,34 @@ async function provsida(p, kontoNamn) {
 async function inloggat(browser, mobil, kontoNamn) {
   const konto = KONTON[kontoNamn]
   if (!konto) throw new Error(`konto ${kontoNamn} saknas, kör qa-kampanj-konton.mjs skapa`)
+  const kp = kampanjPris(kontoNamn)
   const p = await nySida(browser, mobil)
   await loggaIn(p, konto)
   await ga(p, '/dashboard')
   const rad = await p.evaluate(() => document.body.innerText.includes('Nej tack'))
-  logg('raden i inloggat', kontoNamn === 'gratis' ? rad : !rad, { rad })
+  logg('raden i inloggat', kp ? rad : !rad, { rad })
   await bild(p, 'hemvy')
 
   await ga(p, '/dashboard/valj-spar?paket=all_month&steg=kop&plats=kampanjrad')
   const text = await p.evaluate(() => document.body.innerText)
-  const harKampanj = text.includes('99 kr första månaden') && text.includes('Till betalning, 99 kr')
-  logg('köpsteget visar rätt pris', kontoNamn === 'gratis' ? harKampanj : text.includes('Till betalning, 149 kr') && !harKampanj, {})
+  const forstaManaden = /\d+ kr första månaden/.test(text)
+  logg(
+    'köpsteget visar rätt pris',
+    kp ? text.includes(`${kp} kr första månaden`) && text.includes(`Till betalning, ${kp} kr`) : text.includes('Till betalning, 149 kr') && !forstaManaden,
+    {}
+  )
   const samtycke = await p.evaluate(() => document.querySelector('input[type="checkbox"]')?.closest('label')?.innerText)
-  logg('samtycket', kontoNamn === 'gratis' ? /99 kr dras i dag, sedan 149 kr/.test(samtycke ?? '') : /149 kr dras varje månad/.test(samtycke ?? ''), { samtycke })
+  logg('samtycket', kp ? new RegExp(`${kp} kr dras i dag, sedan 149 kr`).test(samtycke ?? '') : /149 kr dras varje månad/.test(samtycke ?? ''), { samtycke })
   await bild(p, 'kopsteg', true)
 
   if (kontoNamn === 'gratis') {
     // Fel kampanj från klienten ska ge 409 prisAndrat, aldrig en kassa.
-    const svar = await p.evaluate(async () => {
-      const r = await fetch('/api/stripe/create-plan-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: 'all_month', consent: true, kampanj: null, source: 'qa' }) })
+    const fel = kp ? null : 'black-week-2026'
+    const svar = await p.evaluate(async (fel) => {
+      const r = await fetch('/api/stripe/create-plan-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: 'all_month', consent: true, kampanj: fel, source: 'qa' }) })
       return { status: r.status, json: await r.json() }
-    })
-    logg('fel pris ger 409 prisAndrat', svar.status === 409 && svar.json.prisAndrat === true && svar.json.kampanj?.nyckel === 'black-week-2026', { status: svar.status, fel: svar.json.error })
+    }, fel)
+    logg('fel pris ger 409 prisAndrat', svar.status === 409 && svar.json.prisAndrat === true && (svar.json.kampanj?.nyckel ?? null) === (NYCKEL[LAGE] ?? null), { status: svar.status, fel: svar.json.error })
 
     await p.click('input[type="checkbox"]')
     await vanta(300)
@@ -252,8 +279,14 @@ async function inloggat(browser, mobil, kontoNamn) {
       p.evaluate(() => [...document.querySelectorAll('button')].find((b) => /Till betalning/.test(b.innerText))?.click()),
     ])
     await vanta(4000)
-    const stripeText = await p.evaluate(() => document.body.innerText)
-    logg('Stripes kassa visar 99 kr att betala', /99,00|99 kr|SEK 99|99,00 kr/.test(stripeText) && /Black Week/i.test(stripeText), { url: p.url().slice(0, 60) })
+    const stripeText = await p.evaluate(() => document.body.innerText.replace(/\s+/g, ' '))
+    // Kassan är facit. På mobil ligger kupongens namn under "Visa mer info",
+    // så beloppet och "Därefter 149,00 kr" räcker där.
+    const belopp = kp ?? 149
+    const kassaOk = kp
+      ? new RegExp(`${belopp},00 kr`).test(stripeText) && (/Black Week|Cyber Monday/i.test(stripeText) || /Därefter 149,00 kr/.test(stripeText))
+      : /149,00 kr/.test(stripeText) && !/Därefter/.test(stripeText)
+    logg(`Stripes kassa visar ${belopp} kr att betala`, kassaOk, { url: p.url().slice(0, 60), utdrag: (stripeText.match(/Abonnera[^]{0,120}/) ?? [''])[0] })
     await bild(p, 'stripe-kassa')
     await ga(p, '/dashboard')
   }
@@ -281,11 +314,228 @@ async function installningar(browser, mobil) {
   const finns = await p.evaluate(() => document.body.innerText.includes('Erbjudanden och tips på mejl'))
   logg('växeln finns', finns)
   const fore = await p.evaluate(() => document.querySelector('[aria-label="Ta emot erbjudanden och tips"]')?.getAttribute('aria-checked'))
+  // På mobil kan växeln hamna under bottennavet; mitt i bild först.
+  await p.evaluate(() => document.querySelector('[aria-label="Ta emot erbjudanden och tips"]')?.scrollIntoView({ block: 'center' }))
+  await vanta(300)
   await p.click('[aria-label="Ta emot erbjudanden och tips"]')
   await vanta(1500)
   const efter = await p.evaluate(() => document.querySelector('[aria-label="Ta emot erbjudanden och tips"]')?.getAttribute('aria-checked'))
   logg('växeln byter läge', fore !== efter, { fore, efter })
   await bild(p, 'installningar')
+  await p.close()
+}
+
+
+/* -------------------------------------------- ytorna sedan 13 november */
+
+/**
+ * Priset i den synliga texten, utan kampanjraderna (de prövas för sig).
+ * Returnerar texterna med "kr" i, så att loggen visar vad som stod.
+ */
+async function prisTexter(p) {
+  return p.evaluate(() => {
+    const ut = []
+    const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+    while (tw.nextNode()) {
+      const n = tw.currentNode
+      if (!/\bkr\b/.test(n.textContent)) continue
+      const el = n.parentElement
+      if (!el || el.closest('.kampanj-rad, a[href*="kampanjrad"], script, style, [aria-hidden="true"]')) continue
+      if (el.getClientRects().length === 0 || getComputedStyle(el).visibility === 'hidden') continue
+      const blk = el.closest('p, li, button, a, h1, h2, h3, h4, label') ?? el
+      ut.push(blk.innerText.replace(/\s+/g, ' ').trim())
+    }
+    return [...new Set(ut)].filter(Boolean)
+  })
+}
+
+/** Stämmer texterna med väntat kampanjpris (tal) eller ordinarie (null)? */
+function prisStammer(texter, kp) {
+  const t = texter.join(' | ').toLowerCase()
+  const forsta = [...t.matchAll(/(\d+) kr första månaden/g)].map((m) => Number(m[1]))
+  if (kp) return forsta.length > 0 && forsta.every((x) => x === kp)
+  return forsta.length === 0 && /149 kr/.test(t)
+}
+
+/** Inga kampanjord i title, H1, description, FAQ eller schema (CDN-cache ett dygn). */
+async function seoRen(p, lage, sida) {
+  const seo = await p.evaluate(() => ({
+    title: document.title,
+    h1: document.querySelector('h1')?.innerText ?? '',
+    desc: document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '',
+    schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent).join(' '),
+    faq: [...document.querySelectorAll('details, [data-faq], .faq')].map((e) => e.textContent).join(' '),
+  }))
+  const kampanjord = /Black Week|Cyber Monday|99 kr|49 kr|första månaden|rabatt/i
+  const smutsigt = Object.entries(seo).filter(([, v]) => kampanjord.test(v)).map(([k]) => k)
+  logg(`${lage}: ${sida} inga kampanjord i title, H1, description, FAQ eller schema`, smutsigt.length === 0, { smutsigt })
+}
+
+async function klickaRe(p, src, sel = 'button, a, [role="radio"]') {
+  return p.evaluate(
+    (src, sel) => {
+      const r = new RegExp(src, 'i')
+      const el = [...document.querySelectorAll(sel)].find(
+        (e) => e.getClientRects().length > 0 && !e.disabled && r.test((e.innerText || e.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim())
+      )
+      if (!el) return null
+      el.scrollIntoView({ block: 'center' })
+      el.click()
+      return (el.innerText || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim()
+    },
+    src,
+    sel
+  )
+}
+
+/** Dialogens (kontoark, betalvägg, merförsäljning) synliga text, annars null. */
+const dialogText = (p) =>
+  p.evaluate(() => {
+    const d = [...document.querySelectorAll('[role="dialog"], [role="alertdialog"], dialog[open]')].filter((e) => e.getClientRects().length > 0)
+    return d.length ? d.map((e) => e.innerText.replace(/\s+/g, ' ').trim()).join(' | ') : null
+  })
+
+/** Knapparna med "Ladda ner" och ett pris. */
+const prisKnappar = (p) =>
+  p.evaluate(() =>
+    [...document.querySelectorAll('button')]
+      .filter((e) => e.getClientRects().length > 0 && /ladda ner/i.test(e.innerText) && /\bkr\b/i.test(e.innerText))
+      .map((e) => e.innerText.replace(/\s+/g, ' ').trim())
+  )
+
+/** Väntat pris per läge för publika sidor (besökarens klocka). */
+const PUBLIKT_KP = { fore: null, bw: 99, cm: 49, efter: null }
+
+async function ytorPublikt(browser, mobil) {
+  for (const [lage, nu] of Object.entries(LAGEN)) {
+    const kp = PUBLIKT_KP[lage]
+    const p = await nySida(browser, mobil)
+    await p.evaluateOnNewDocument((nu) => {
+      try { localStorage.setItem('kampanj_nu', nu) } catch {}
+    }, nu)
+
+    // Verktygssidan: slutrutan på bläck (VerktygsMall, eyebrow med priset).
+    await ga(p, '/verktyg/skapa-cv')
+    await avvisaKakor(p)
+    const kick = await p.evaluate(() =>
+      [...document.querySelectorAll('.pub-kick')]
+        .filter((e) => e.getClientRects().length > 0 && /\bkr\b/i.test(e.innerText))
+        .map((e) => e.innerText.replace(/\s+/g, ' ').trim())
+    )
+    logg(`${lage}: /verktyg/skapa-cv slutrutan följer kampanjen`, kick.length === 1 && prisStammer(kick, kp), { kick })
+    await p.evaluate(() => [...document.querySelectorAll('.pub-kick')].find((e) => /\bkr\b/i.test(e.innerText) && e.getClientRects().length > 0)?.scrollIntoView({ block: 'center' }))
+    await vanta(300)
+    await bild(p, `skapa-cv-slut-${lage}`)
+    await seoRen(p, lage, '/verktyg/skapa-cv')
+
+    // Stilsidorna: Premium-raden under galleriet.
+    for (const stil of ['word', 'foto', 'enkla']) {
+      await ga(p, `/cv-mallar/${stil}`)
+      const rad = await p.evaluate(() =>
+        [...document.querySelectorAll('p')]
+          .filter((e) => e.getClientRects().length > 0 && /ingår i/.test(e.innerText) && /Säg upp när du vill/.test(e.innerText) && /\bkr\b/i.test(e.innerText))
+          .map((e) => e.innerText.replace(/\s+/g, ' ').trim())
+      )
+      logg(`${lage}: /cv-mallar/${stil} Premium-raden följer kampanjen`, rad.length === 1 && prisStammer(rad, kp), { rad })
+      await seoRen(p, lage, `/cv-mallar/${stil}`)
+      if (stil === 'word') {
+        await p.evaluate(() => [...document.querySelectorAll('p')].find((e) => /Säg upp när du vill/.test(e.innerText) && /ingår i/.test(e.innerText) && e.getClientRects().length > 0)?.scrollIntoView({ block: 'center' }))
+        await vanta(300)
+        await bild(p, `stil-word-${lage}`)
+      }
+    }
+
+    // Mallsidan och provsidan utloggad: premiumknappen och kontoarket.
+    for (const sida of ['/cv-mallar', '/cv-mallar/prova']) {
+      const namnet = sida.endsWith('prova') ? 'prova' : 'mallar'
+      await ga(p, sida)
+      const falt = await p.$('input[placeholder="Ditt namn"]')
+      if (falt) {
+        await falt.type('Erik Lindberg', { delay: 5 })
+        await vanta(1500)
+      }
+      const mall = await klickaRe(p, 'Premium$', 'button')
+      await vanta(1500)
+      const knapp = await prisKnappar(p)
+      logg(`${lage}: ${sida} premiumknappen följer kampanjen`, knapp.length > 0 && prisStammer(knapp, kp), { mall, knapp })
+      await bild(p, `${namnet}-knapp-${lage}`)
+      const klick = await klickaRe(p, '^Ladda ner (PDF|Word) i ', 'button')
+      await vanta(1500)
+      const ark = await dialogText(p)
+      logg(`${lage}: ${sida} kontoarket följer kampanjen`, !!ark && prisStammer([ark], kp), { klick, ark: ark?.slice(0, 300) })
+      await bild(p, `${namnet}-kontoark-${lage}`)
+    }
+    await p.close()
+  }
+}
+
+async function ytorInloggat(browser, mobil, kontoNamn) {
+  const konto = KONTON[kontoNamn]
+  if (!konto?.cvId) throw new Error(`konto ${kontoNamn} saknar cvId, kör qa-kampanj-konton.mjs skapa`)
+  const kp = kampanjPris(kontoNamn)
+  const p = await nySida(browser, mobil)
+  await loggaIn(p, konto)
+
+  // Byggaren: premiummallen förvald, knappen och betalväggen.
+  await ga(p, `/dashboard/skapa-cv?cv=${konto.cvId}&mall=koppar`)
+  await vanta(1500)
+  const knappB = await prisKnappar(p)
+  logg('skapa-cv: premiumknappen följer kampanjen', knappB.length > 0 && prisStammer(knappB, kp), { knappB })
+  await bild(p, 'skapa-cv-knapp')
+  const klickB = await klickaRe(p, '^(Spara och )?ladda ner (PDF|Word) i ', 'button')
+  await vanta(2000)
+  const vaggB = (await dialogText(p)) ?? (await prisTexter(p)).join(' | ')
+  logg('skapa-cv: betalväggen för premiummallen följer kampanjen', prisStammer([vaggB], kp), { klickB, vagg: vaggB.slice(0, 300) })
+  await bild(p, 'skapa-cv-betalvagg')
+
+  // Byggaren: Jobbcoachens kvotvägg (tre gratisförslag förbrukade i skapa).
+  await ga(p, `/dashboard/skapa-cv?cv=${konto.cvId}&ark=erfarenhet:0`)
+  await p.waitForSelector('[data-coach-knapp]', { visible: true, timeout: 20000 }).catch(() => null)
+  await p.click('[data-coach-knapp]').catch(() => {})
+  await p.waitForFunction(() => document.body.innerText.includes('Låt Jobbcoachen skriva resten av ditt CV'), { timeout: 15000 }).catch(() => null)
+  const kvot = await p.evaluate(() => {
+    const h = [...document.querySelectorAll('*')].find((e) => e.children.length === 0 && /Låt Jobbcoachen skriva resten av ditt CV/.test(e.textContent))
+    let kort = h
+    for (let i = 0; i < 8 && kort && !/\bkr\b/i.test(kort.innerText); i++) kort = kort.parentElement
+    return kort ? kort.innerText.replace(/\s+/g, ' ').trim() : null
+  })
+  logg('skapa-cv: Jobbcoachens kvotvägg följer kampanjen', !!kvot && prisStammer([kvot], kp), { kvot: kvot?.slice(0, 300) })
+  await p.evaluate(() => [...document.querySelectorAll('*')].find((e) => e.children.length === 0 && /Låt Jobbcoachen skriva resten/.test(e.textContent))?.scrollIntoView({ block: 'center' }))
+  await vanta(300)
+  await bild(p, 'skapa-cv-kvotvagg')
+
+  // CV-mallarna: premiummall, Word i premiummall och merförsäljningen.
+  await ga(p, `/dashboard/cv-mallar?cv=${konto.cvId}&mall=koppar`)
+  await vanta(1500)
+  const knappM = await prisKnappar(p)
+  logg('cv-mallar: premiumknappen följer kampanjen', knappM.length > 0 && prisStammer(knappM, kp), { knappM })
+  const klickM = await klickaRe(p, '^(Spara och )?ladda ner (PDF|Word) i ', 'button')
+  await vanta(2000)
+  const vaggM = (await dialogText(p)) ?? (await prisTexter(p)).join(' | ')
+  logg('cv-mallar: betalväggen för premiummallen följer kampanjen', prisStammer([vaggM], kp), { klickM, vagg: vaggM.slice(0, 300) })
+  await bild(p, 'cv-mallar-betalvagg')
+
+  await ga(p, `/dashboard/cv-mallar?cv=${konto.cvId}&mall=koppar`)
+  await vanta(1500)
+  const word = await klickaRe(p, 'Word$', '[role="radio"]')
+  // Valet Word i en premiummall öppnar betalväggen direkt (onFormat).
+  await vanta(1500)
+  let klickW = 'valet Word'
+  if (!(await dialogText(p))) {
+    klickW = await klickaRe(p, '^(Spara och )?ladda ner Word i ', 'button')
+    await vanta(2000)
+  }
+  const vaggW = (await dialogText(p)) ?? (await prisTexter(p)).join(' | ')
+  logg('cv-mallar: betalväggen för Word följer kampanjen', /Word/i.test(vaggW) && prisStammer([vaggW], kp), { word, klickW, vagg: vaggW.slice(0, 300) })
+  await bild(p, 'cv-mallar-word')
+
+  await ga(p, `/dashboard/cv-mallar?cv=${konto.cvId}&mall=linne`)
+  await vanta(1500)
+  const klickS = await klickaRe(p, 'ladda ner', 'button')
+  await vanta(2500)
+  const salj = await dialogText(p)
+  logg('cv-mallar: merförsäljningen följer kampanjen', !!salj && prisStammer([salj], kp), { klickS, salj: salj?.slice(0, 300) })
+  await bild(p, 'cv-mallar-merforsaljning')
   await p.close()
 }
 
@@ -308,6 +558,8 @@ try {
   else if (floede === 'gratis' || floede === 'betalt') await inloggat(browser, mobil, floede)
   else if (floede === 'registrering') await registrering(browser, mobil)
   else if (floede === 'installningar') await installningar(browser, mobil)
+  else if (floede === 'ytor-publikt') await ytorPublikt(browser, mobil)
+  else if (floede === 'ytor-gratis' || floede === 'ytor-betalt') await ytorInloggat(browser, mobil, floede.slice(5))
   else throw new Error('okänt flöde')
 } finally {
   await browser.close()

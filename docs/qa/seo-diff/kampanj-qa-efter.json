@@ -1,0 +1,1528 @@
+[
+  {
+    "path": "/verktyg/skapa-cv",
+    "status": 200,
+    "h1": [
+      "Skapa ditt CV gratis på minuter"
+    ],
+    "title": "Skapa CV gratis: skriv direkt på arket, PDF eller Word",
+    "description": "Skapa CV gratis i en färdig mall: skriv direkt på arket eller ladda upp ett CV du har. Jobbcoachen föreslår punkter och du laddar ner som PDF eller Word.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/skapa-cv",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/skapa-cv/opengraph-image-hksbes?806913400b5c65ef",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skriv vilket jobb du söker"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda upp ett CV eller skriv från början"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fyll i direkt på arket"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj mall och ladda ner"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det här gör CV-byggandet enkelt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mallar som rekryteringssystemen kan läsa"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arket är byggaren"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoachen skriver punkterna"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rubriker som följer yrket"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utkastet väntar på dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF, eller Word i 26 av mallarna"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Börja från ett CV du redan har"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fungerar lika bra i mobilen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Mallar som passar din bransch"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Linne"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Björk"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Koppar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Gör skillnad i varje ansökan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda upp ditt gamla CV och börja där det slutade"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsbart för systemen i alla mallar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Skapa ditt CV gratis på minuter."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om att skapa CV"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#ladda-upp",
+      "/cv-mallar/prova?mall=linne",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Skriv vilket jobb du söker, så får avsnitten rubriker och exempeltext för yrket. Ladda sedan upp ett CV du har, så fyller vi i avsnitten, eller skriv från början. Du fyller i direkt på arket i den mall du valt, och när du kommer till ett jobb kan Jobbcoachen föreslå punkterna; tre förslag ingår gratis på ditt konto. Till sist väljer du mall och laddar ner som PDF, eller som Word i de 26 Word-mallarna.\"},\"name\":\"Hur skapar jag ett professionellt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du bygger ditt CV och laddar ner det som PDF en gång utan att lämna kortuppgifter. Två av mallarna, Linne och Björk, är gratis, och de räcker långt för de flesta ansökningar. Vill du ha alla 40 mallar, ladda ner utan tak och hämta Word-filen i 26 av mallarna ingår det i Premium, 149 kr i månaden.\"},\"name\":\"Är det gratis att skapa CV online hos er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det beror på hur mycket du har att skriva. Har du ett CV sedan tidigare laddar du upp det, så fyller vi i avsnitten och du putsar bara. Börjar du från början leder byggaren dig avsnitt för avsnitt, och Jobbcoachen kan föreslå punkterna.\"},\"name\":\"Hur lång tid tar det att skapa ett CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Du kan börja från ett tomt papper och fylla i allt själv. Men om du redan har ett CV i Word eller PDF kan du ladda upp det och vi extraherar all data automatiskt. Det sparar tid och du slipper skriva om allt manuellt.\"},\"name\":\"Behöver jag ladda upp ett befintligt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Inte direkt från LinkedIn, men nästan. Spara din LinkedIn-profil som PDF (knappen Mer, Spara som PDF på din profilsida) och ladda upp den som vilket CV som helst, så läser vi ut roller, utbildning och kompetenser. Har du Premium kan LinkedIn-optimeringen dessutom spara sitt resultat som ett nytt CV.\"},\"name\":\"Kan jag importera mina uppgifter från LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"CV:t sparas i ditt konto när du har sparat första avsnittet, och därefter efter varje avsnitt du fyller i. Du kan stänga sidan när du vill och fortsätta där du slutade från Mina CV, på vilken enhet som helst.\"},\"name\":\"Hur sparas mitt CV medan jag bygger det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Alla mallar laddas ner som PDF, och 26 av dem finns också som Word-fil (.docx). PDF är det vanligaste och läses rätt av rekryteringssystem och rekryterares verktyg. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. I gratismallarna Linne och Björk är Word gratis, precis som PDF. Word i de övriga Word-mallarna ingår i Premium.\"},\"name\":\"Vilka format kan jag ladda ner CV:t i?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Hela byggaren är gjord för mobilen först och fungerar lika smidigt på telefonen som på datorn. Bygg klart och spara i telefonen, så ligger CV:t i ditt konto och går att öppna, redigera och ladda ner från datorn.\"},\"name\":\"Funkar CV-byggaren på mobilen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från yrkestitel till färdig fil: skriv vilket jobb du söker, ladda upp eller börja från början, fyll i direkt på arket och ladda ner.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så skapar du ett CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Skriv vilket jobb du söker\",\"position\":1,\"text\":\"Yrkestiteln styr rubrikerna, den grå exempeltexten och Jobbcoachens förslag, så att CV:t talar branschens språk från början.\"},{\"@type\":\"HowToStep\",\"name\":\"Ladda upp ett CV eller skriv från början\",\"position\":2,\"text\":\"Har du ett CV i PDF eller Word, eller en PDF av din LinkedIn-profil, fyller vi i avsnitten åt dig. Annars börjar du på ett tomt ark.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i direkt på arket\",\"position\":3,\"text\":\"Tryck på ett avsnitt och skriv. När du kommer till ett jobb trycker du på Skriv punkter åt mig så föreslår Jobbcoachen punkterna.\"},{\"@type\":\"HowToStep\",\"name\":\"Välj mall och ladda ner\",\"position\":4,\"text\":\"Byt mall, färg och typsnitt utan att något försvinner, och ladda ner som PDF, eller som Word i de 26 Word-mallarna.\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Skapa CV gratis online med vår CV-byggare. Skriv direkt på arket i en färdig mall eller ladda upp ett CV du har, låt Jobbcoachen föreslå punkterna och ladda ner som PDF, eller Word i 26 av mallarna. Helt på svenska.\",\"featureList\":\"CV-byggare direkt på arket, rubriker som följer yrket, förslag på punkter från Jobbcoachen, ATS-säkra mallar, PDF-nedladdning, Word i 26 av mallarna, uppladdning av befintligt CV, mobilanpassad\",\"name\":\"Jobbcoach.ai CV-byggare\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Skapa CV helt gratis, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/skapa-cv\"}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/v2/linne-stor.webp",
+      "alt": "Mallen Linne"
+    },
+    "bilder": [
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": "Mallen Linne"
+      }
+    ],
+    "faq": [
+      "Hur skapar jag ett professionellt CV?",
+      "Är det gratis att skapa CV online hos er?",
+      "Hur lång tid tar det att skapa ett CV?",
+      "Behöver jag ladda upp ett befintligt CV?",
+      "Kan jag importera mina uppgifter från LinkedIn?",
+      "Hur sparas mitt CV medan jag bygger det?",
+      "Vilka format kan jag ladda ner CV:t i?",
+      "Funkar CV-byggaren på mobilen?",
+      "ld: Hur skapar jag ett professionellt CV?",
+      "ld: Är det gratis att skapa CV online hos er?",
+      "ld: Hur lång tid tar det att skapa ett CV?",
+      "ld: Behöver jag ladda upp ett befintligt CV?",
+      "ld: Kan jag importera mina uppgifter från LinkedIn?",
+      "ld: Hur sparas mitt CV medan jag bygger det?",
+      "ld: Vilka format kan jag ladda ner CV:t i?",
+      "ld: Funkar CV-byggaren på mobilen?"
+    ],
+    "ord": 1191
+  },
+  {
+    "path": "/cv-mallar/word",
+    "status": 200,
+    "h1": [
+      "CV-mallar i Word att fylla i och ladda ner"
+    ],
+    "title": "CV-mall i Word: 26 mallar att fylla i och ladda ner",
+    "description": "CV-mallar i Word med dina uppgifter redan på plats: 26 mallar som .docx, Linne och Björk gratis. Fyll i online, ladda ner Word-filen och ändra vidare.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar/word",
+    "ogImage": "https://www.jobbcoach.ai/cv-mallar/word/opengraph-image-ud1ipp?299d94ff62052b00",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla 26 CV-mallar som finns i Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad du får när du laddar ner som Word"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "När Word är rätt val och när PDF är bättre"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så laddar du ner ditt CV som Word-fil"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vill du hellre börja i Word själv?"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fler mallar och guider"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om CV-mallar i Word"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar/enkla",
+      "/cv-mallar/foto",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=antikva",
+      "/cv-mallar/prova?mall=antikva",
+      "/cv-mallar/prova?mall=arsring",
+      "/cv-mallar/prova?mall=arsring",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=ek",
+      "/cv-mallar/prova?mall=ek",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=folio",
+      "/cv-mallar/prova?mall=folio",
+      "/cv-mallar/prova?mall=furu",
+      "/cv-mallar/prova?mall=furu",
+      "/cv-mallar/prova?mall=granit",
+      "/cv-mallar/prova?mall=granit",
+      "/cv-mallar/prova?mall=index",
+      "/cv-mallar/prova?mall=index",
+      "/cv-mallar/prova?mall=kalksten",
+      "/cv-mallar/prova?mall=kalksten",
+      "/cv-mallar/prova?mall=kolumn",
+      "/cv-mallar/prova?mall=kolumn",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=lind",
+      "/cv-mallar/prova?mall=lind",
+      "/cv-mallar/prova?mall=linne",
+      "/cv-mallar/prova?mall=linne",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=not",
+      "/cv-mallar/prova?mall=not",
+      "/cv-mallar/prova?mall=pergament",
+      "/cv-mallar/prova?mall=pergament",
+      "/cv-mallar/prova?mall=ramverk",
+      "/cv-mallar/prova?mall=ramverk",
+      "/cv-mallar/prova?mall=raster",
+      "/cv-mallar/prova?mall=raster",
+      "/cv-mallar/prova?mall=sand",
+      "/cv-mallar/prova?mall=sand",
+      "/cv-mallar/prova?mall=skylt",
+      "/cv-mallar/prova?mall=skylt",
+      "/cv-mallar/prova?mall=spar",
+      "/cv-mallar/prova?mall=spar",
+      "/cv-mallar/prova?mall=stal",
+      "/cv-mallar/prova?mall=stal",
+      "/cv-mallar/prova?mall=valv",
+      "/cv-mallar/prova?mall=valv",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar\",\"name\":\"CV-mallar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar/word\",\"name\":\"CV-mallar i Word\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, i Linne och Björk. Du laddar ner Word-filen en gång per konto utan kort, precis som PDF:en. Word i de övriga 24 Word-mallarna ingår i Premium, tillsammans med alla 40 mallar och nedladdning utan tak.\"},\"name\":\"Är CV-mallarna i Word gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, samma layout, typsnitt och sidantal. I mallarna med sidospalt (Kalksten, Granit, Sand och Ek) kan ett avsnitt hamna på nästa sida i Word när CV:t är långt.\"},\"name\":\"Ser Word-filen likadan ut som PDF:en?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, de flesta rekryteringssystem läser både Word och PDF. Våra Word-filer har gått genom samma läsning som PDF:erna innan mallen kom med, med korta och långa CV: namnet kommer först, och rubrikerna och ordningen kommer ut rätt. Det som brukar ställa till det i Word är textrutor, tabeller för layout och text i sidhuvudet.\"},\"name\":\"Läser rekryteringssystemen Word-filer?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Filen är ett vanligt Word-dokument, så du ändrar text, typsnitt och färger i Word som i vilket dokument som helst. Vill du byta mall är det enklare att göra det hos oss innan du laddar ner, eftersom innehållet då följer med till den nya mallen.\"},\"name\":\"Kan jag ändra typsnitt och färg i Word-filen efteråt?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En .docx-fil, det format Word sparar i som standard. Du väljer Word eller PDF när du laddar ner, och mallarna som inte finns i Word laddas ner som PDF.\"},\"name\":\"Vilket filformat får jag när jag väljer Word?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"CV-mallen Linne\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=linne\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Björk\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=bjork\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Koppar\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=koppar\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Kalksten\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=kalksten\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Granit\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=granit\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Kolumn\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=kolumn\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Årsring\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=arsring\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Antikva\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=antikva\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Fasad\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=fasad\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Raster\",\"position\":10,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=raster\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Folio\",\"position\":11,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=folio\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Stål\",\"position\":12,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=stal\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Lind\",\"position\":13,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=lind\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Alm\",\"position\":14,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=alm\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Valv\",\"position\":15,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=valv\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Sand\",\"position\":16,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=sand\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Furu\",\"position\":17,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=furu\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Ramverk\",\"position\":18,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=ramverk\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Index\",\"position\":19,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=index\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Skylt\",\"position\":20,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=skylt\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Loft\",\"position\":21,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=loft\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Pergament\",\"position\":22,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=pergament\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Betong\",\"position\":23,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=betong\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Not\",\"position\":24,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=not\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Spår\",\"position\":25,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=spar\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Ek\",\"position\":26,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=ek\"}],\"name\":\"CV-mallar i Word att fylla i och ladda ner\",\"numberOfItems\":26}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/v2/linne-liten.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/mallar/v2/linne-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/arsring-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/arsring-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/granit-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kolumn-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/arsring-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/antikva-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/fasad-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/raster-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/folio-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/stal-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/lind-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/alm-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/valv-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/sand-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/furu-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/ramverk-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/index-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/skylt-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/loft-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/pergament-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/betong-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/not-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/spar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/ek-stor.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Är CV-mallarna i Word gratis?",
+      "Ser Word-filen likadan ut som PDF:en?",
+      "Läser rekryteringssystemen Word-filer?",
+      "Kan jag ändra typsnitt och färg i Word-filen efteråt?",
+      "Vilket filformat får jag när jag väljer Word?",
+      "ld: Är CV-mallarna i Word gratis?",
+      "ld: Ser Word-filen likadan ut som PDF:en?",
+      "ld: Läser rekryteringssystemen Word-filer?",
+      "ld: Kan jag ändra typsnitt och färg i Word-filen efteråt?",
+      "ld: Vilket filformat får jag när jag väljer Word?"
+    ],
+    "ord": 1132
+  },
+  {
+    "path": "/cv-mallar/foto",
+    "status": 200,
+    "h1": [
+      "CV-mallar med plats för bild"
+    ],
+    "title": "CV-mall med bild: 15 mallar med plats för foto",
+    "description": "CV-mallar med bild: 15 mallar med fotoplats, Björk gratis. Fyll i CV:t online, lägg till ditt foto i kontot och ladda ner som PDF eller Word.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar/foto",
+    "ogImage": "https://www.jobbcoach.ai/cv-mallar/foto/opengraph-image-ucofdl?1785ece753e0894b",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla 15 CV-mallar med plats för foto"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Var fotot sitter i mallarna"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fotot i kontot, och vad mallen gör utan"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "När bild är vanligt, och vad bilden ska klara"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fler mallar och guider"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om CV-mallar med bild"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cv-bild-guide",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar/enkla",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=ek",
+      "/cv-mallar/prova?mall=ek",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=granit",
+      "/cv-mallar/prova?mall=granit",
+      "/cv-mallar/prova?mall=kakel",
+      "/cv-mallar/prova?mall=kakel",
+      "/cv-mallar/prova?mall=kalksten",
+      "/cv-mallar/prova?mall=kalksten",
+      "/cv-mallar/prova?mall=kant",
+      "/cv-mallar/prova?mall=kant",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=morkrum",
+      "/cv-mallar/prova?mall=morkrum",
+      "/cv-mallar/prova?mall=panorama",
+      "/cv-mallar/prova?mall=panorama",
+      "/cv-mallar/prova?mall=sand",
+      "/cv-mallar/prova?mall=sand",
+      "/cv-mallar/prova?mall=siluett",
+      "/cv-mallar/prova?mall=siluett",
+      "/cv-mallar/word",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar\",\"name\":\"CV-mallar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar/foto\",\"name\":\"CV-mallar med bild\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Björk är gratis, med en rund fotoplats i det centrerade huvudet. Du laddar ner en fil per konto som PDF eller Word, utan kortuppgift och utan vattenstämpel. De övriga fjorton mallarna med fotoplats ingår i Premium.\"},\"name\":\"Vilka CV-mallar med bild är gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I förhandsvisningen står din initial där fotot ska sitta, så att du ser hur mallen ser ut. I filen du laddar ner tas platsen bort när du inte har lagt till något foto, och du kan också slå av fotot i en mall som har det.\"},\"name\":\"Vad händer med fotoplatsen om jag inte har något foto?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, fotot lägger du till när du har ett konto. Uppladdningen av CV:t och valet av mall fungerar utan konto, men när du trycker på fotot ber vi dig skapa ett gratis konto först.\"},\"name\":\"Kan jag lägga till fotot utan konto?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Alla mallar med fotoplats har gått genom vår egen CV-läsare både med och utan foto, och texten kommer ut i rätt ordning med namnet först. Fotot ligger i en egen yta i mallen och inte mitt i texten.\"},\"name\":\"Läser rekryteringssystemen CV:t när det har ett foto?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tio av de 15 mallarna med fotoplats finns som Word-fil, gratismallen Björk inräknad. De övriga laddas ner som PDF.\"},\"name\":\"Finns mallarna med bild också som Word-fil?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"CV-mallen Björk\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=bjork\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Koppar\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=koppar\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Kalksten\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=kalksten\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Granit\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=granit\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Fasad\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=fasad\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Mörkrum\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=morkrum\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Siluett\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=siluett\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Alm\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=alm\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Sand\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=sand\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Loft\",\"position\":10,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=loft\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Betong\",\"position\":11,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=betong\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Ek\",\"position\":12,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=ek\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Panorama\",\"position\":13,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=panorama\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Kakel\",\"position\":14,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=kakel\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Kant\",\"position\":15,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=kant\"}],\"name\":\"CV-mallar med plats för bild\",\"numberOfItems\":15}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/v2/bjork-liten.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/mallar/v2/bjork-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/granit-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/fasad-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/morkrum-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/siluett-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/alm-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/sand-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/loft-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/betong-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/ek-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/panorama-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kakel-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kant-stor.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Vilka CV-mallar med bild är gratis?",
+      "Vad händer med fotoplatsen om jag inte har något foto?",
+      "Kan jag lägga till fotot utan konto?",
+      "Läser rekryteringssystemen CV:t när det har ett foto?",
+      "Finns mallarna med bild också som Word-fil?",
+      "ld: Vilka CV-mallar med bild är gratis?",
+      "ld: Vad händer med fotoplatsen om jag inte har något foto?",
+      "ld: Kan jag lägga till fotot utan konto?",
+      "ld: Läser rekryteringssystemen CV:t när det har ett foto?",
+      "ld: Finns mallarna med bild också som Word-fil?"
+    ],
+    "ord": 940
+  },
+  {
+    "path": "/cv-mallar/enkla",
+    "status": 200,
+    "h1": [
+      "Enkla CV-mallar i en spalt"
+    ],
+    "title": "Enkel CV-mall: 17 lugna mallar i en spalt, 2 gratis",
+    "description": "Enkla CV-mallar i en spalt som rekryteringssystemen läser rätt: 17 mallar med standardrubriker, Linne och Björk gratis som PDF eller Word.",
+    "canonical": "https://www.jobbcoach.ai/cv-mallar/enkla",
+    "ogImage": "https://www.jobbcoach.ai/cv-mallar/enkla/opengraph-image-762xfw?2fa724d650b74f3",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla 17 enkla CV-mallar i en spalt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Därför fungerar en enkel mall i en spalt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "När en enkel mall inte räcker"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så gör du en enkel mall personlig utan att tappa läsbarheten"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Utbildningen först när erfarenheten är kort"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fler mallar och guider"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om enkla CV-mallar"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/artiklar/cv-exempel-student-nyexaminerad",
+      "/artiklar/cv-utan-erfarenhet",
+      "/artiklar/cv-utan-erfarenhet",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar/foto",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=alm",
+      "/cv-mallar/prova?mall=antikva",
+      "/cv-mallar/prova?mall=antikva",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=betong",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=bjork",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=fasad",
+      "/cv-mallar/prova?mall=folio",
+      "/cv-mallar/prova?mall=folio",
+      "/cv-mallar/prova?mall=index",
+      "/cv-mallar/prova?mall=index",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=koppar",
+      "/cv-mallar/prova?mall=lind",
+      "/cv-mallar/prova?mall=lind",
+      "/cv-mallar/prova?mall=linne",
+      "/cv-mallar/prova?mall=linne",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=loft",
+      "/cv-mallar/prova?mall=not",
+      "/cv-mallar/prova?mall=not",
+      "/cv-mallar/prova?mall=pergament",
+      "/cv-mallar/prova?mall=pergament",
+      "/cv-mallar/prova?mall=ramverk",
+      "/cv-mallar/prova?mall=ramverk",
+      "/cv-mallar/prova?mall=raster",
+      "/cv-mallar/prova?mall=raster",
+      "/cv-mallar/prova?mall=skylt",
+      "/cv-mallar/prova?mall=skylt",
+      "/cv-mallar/prova?mall=valv",
+      "/cv-mallar/prova?mall=valv",
+      "/cv-mallar/word",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar\",\"name\":\"CV-mallar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/cv-mallar/enkla\",\"name\":\"Enkla CV-mallar\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Linne och Björk är gratis, båda i en spalt. Du laddar ner en fil per konto som PDF eller Word, utan kortuppgift och utan vattenstämpel. De övriga femton mallarna i en spalt ingår i Premium.\"},\"name\":\"Vilka enkla CV-mallar är gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Rekryteraren läser innehållet, och en spalt gör det lätt att hitta det viktigaste. Rekryteringssystemen läser också en spalt i rätt ordning, uppifrån och ner. En designad mall kan ge ett starkare första intryck i kreativa yrken, men i de flesta ansökningar är det tydligheten som avgör.\"},\"name\":\"Är en enkel CV-mall sämre än en designad?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Med innehållet först och detaljerna sedan. Välj en av mallens fyra färger, byt typsnitt för brödtexten om du vill och ge avsnitten rubriker för din bransch. En profil på tre meningar som säger vad du kan och vad du söker gör mer än någon grafik.\"},\"name\":\"Hur får jag en enkel CV-mall att sticka ut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, CV:t fortsätter på nästa sida med samma rubriker. Ligger du strax över en sida drar valet Få plats på en sida ihop marginaler och text i samma mall. Har du mycket att få med, till exempel många uppdrag, rymmer en mall med sidospalt mer på samma yta.\"},\"name\":\"Får ett långt CV plats i en mall med en spalt?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Brödtexten är Calibri, Arial, Times New Roman, Verdana, Garamond eller Georgia, beroende på mall, och du kan byta typsnitt för brödtexten själv. Namnet och rubrikerna behåller mallens typsnitt, så formen håller.\"},\"name\":\"Vilka typsnitt har de enkla mallarna?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"CV-mallen Linne\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=linne\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Björk\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=bjork\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Koppar\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=koppar\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Antikva\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=antikva\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Fasad\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=fasad\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Raster\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=raster\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Folio\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=folio\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Lind\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=lind\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Alm\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=alm\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Valv\",\"position\":10,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=valv\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Ramverk\",\"position\":11,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=ramverk\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Index\",\"position\":12,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=index\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Skylt\",\"position\":13,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=skylt\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Loft\",\"position\":14,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=loft\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Pergament\",\"position\":15,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=pergament\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Betong\",\"position\":16,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=betong\"},{\"@type\":\"ListItem\",\"name\":\"CV-mallen Not\",\"position\":17,\"url\":\"https://www.jobbcoach.ai/cv-mallar/prova?mall=not\"}],\"name\":\"Enkla CV-mallar i en spalt\",\"numberOfItems\":17}"
+    ],
+    "forstaBild": {
+      "src": "/mallar/v2/linne-liten.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/mallar/v2/linne-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/antikva-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/antikva-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/antikva-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/fasad-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/raster-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/folio-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/lind-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/alm-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/valv-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/ramverk-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/index-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/skylt-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/loft-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/pergament-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/betong-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/not-stor.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Vilka enkla CV-mallar är gratis?",
+      "Är en enkel CV-mall sämre än en designad?",
+      "Hur får jag en enkel CV-mall att sticka ut?",
+      "Får ett långt CV plats i en mall med en spalt?",
+      "Vilka typsnitt har de enkla mallarna?",
+      "ld: Vilka enkla CV-mallar är gratis?",
+      "ld: Är en enkel CV-mall sämre än en designad?",
+      "ld: Hur får jag en enkel CV-mall att sticka ut?",
+      "ld: Får ett långt CV plats i en mall med en spalt?",
+      "ld: Vilka typsnitt har de enkla mallarna?"
+    ],
+    "ord": 1067
+  },
+  {
+    "path": "/verktyg/cv-analys",
+    "status": 200,
+    "h1": [
+      "Få konkret feedback på ditt CV på 60 sekunder"
+    ],
+    "title": "CV-analys: poäng och konkreta förslag | Jobbcoach.ai",
+    "description": "Vi läser ditt CV som ett rekryteringssystem gör och ger dig en läsbarhetspoäng, poängen du kan nå och konkreta åtgärder. En analys gratis per konto.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/cv-analys",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/cv-analys/opengraph-image-j3dyn0?e9c165f01f2c5df8",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Analysera ditt CV direkt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda upp ditt CV"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi analyserar i bakgrunden"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Få ATS-poäng och förslag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spara den förbättrade versionen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex saker rekryteraren och systemet ser först"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsbarhet för rekryteringssystem"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Struktur"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Språk och grammatik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Nyckelord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kvantifiering"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Profil och styrkor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fem saker som lyfter vilket CV som helst"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kvantifiera dina resultat"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Börja varje punkt med ett verb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Använd annonsens egna ord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "En sida räcker ofta"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hoppa över bilden"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hela analysen, varje fynd med åtgärd."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Frågor om CV-analysen"
+      }
+    ],
+    "lankar": [
+      "#mini-analys",
+      "#mini-analys",
+      "#mini-analys",
+      "#sa-funkar-det",
+      "/",
+      "/exempel",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "#mini-analys",
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Mellan 30 och 60 sekunder från att du klickat på \\\"Analysera\\\". Vi läser igenom hela CV:t, kontrollerar struktur, språk, nyckelord och kvantifiering, och visar en läsbarhetspoäng plus konkreta förbättringsförslag direkt på skärmen. Du behöver inte göra något under tiden, bara vänta in resultatet.\"},\"name\":\"Hur lång tid tar en CV-analys?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS-poängen är ett mått från 0 till 100 på hur väl ditt CV fungerar med Applicant Tracking Systems, de rekryteringssystem svenska arbetsgivare använder för att sålla bland ansökningar. Poängen är vår samlade bedömning av struktur, läsbarhet, nyckelord och formatering. Bredvid den ser du vad poängen kan bli om du följer förslagen, så du vet hur mycket det finns att hämta.\"},\"name\":\"Vad betyder ATS-poängen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Förslagen kommer i fyra delar. Personbeskrivning: din öppning, omskriven så att den säger vad du kan. Roller: varje erfarenhet med resultat och siffror i stället för bara ansvar. Kompetenser: det som saknas eller borde stå tydligare. Automatiska förbättringar: struktur, formatering, innehåll och nyckelord som rekryteringssystemen letar efter. För varje förslag ser du den nuvarande texten och en föreslagen omskrivning, och de tyngsta fynden står först.\"},\"name\":\"Vilka förbättringsförslag får jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Analysen är byggd för svenska CV och svensk arbetsmarknad: förslagen, nyckelorden och omskrivningarna kommer på svenska. Har du ett engelskt CV går det att ladda upp, men räkna med att förslagen blir på svenska. Svenska arbetsgivare föredrar oftast ansökningar på svenska om jobbet inte är uttalat internationellt.\"},\"name\":\"Behöver jag ha CV:t på svenska?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En analys per konto är gratis, utan att du lämnar kortuppgifter. Du ser läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet i klartext med åtgärd. Vill du se alla fynd och köra om analysen efter en rättning ingår det i Premium, 149 kr i månaden.\"},\"name\":\"Hur många analyser får jag göra gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Med Premium kör du analysen utan tak, så du kan rätta efter fynden, ladda upp igen och se om poängen rör sig. Det är användbart när du testar olika rubriker, byter ordningsföljd eller skräddarsyr CV:t för en specifik bransch och vill veta om ändringen gjorde skillnad.\"},\"name\":\"Kan jag köra analysen igen när jag ändrat i CV:t?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. CV-filerna ligger i en privat lagring som bara du kommer åt. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.\"},\"name\":\"Är mitt CV säkert hos er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får upp resultatet direkt och kan välja vilka förslag du vill applicera. Klickar du i en förbättring uppdateras potentialpoängen i realtid så du ser exakt hur mycket bättre CV:t blir. När du är nöjd kan du spara den förbättrade versionen och ladda ner den som PDF.\"},\"name\":\"Vad händer efter analysen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från upplagt CV till starkare ansökan: ladda upp, vi analyserar, få ATS-poäng, spara förbättrad version.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så analyserar du ditt CV med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Ladda upp ditt CV\",\"position\":1,\"text\":\"Ladda upp ett befintligt CV som PDF eller välj ett du redan sparat. Analysen är byggd för svenska CV.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi analyserar i bakgrunden\",\"position\":2,\"text\":\"Det tar 30 till 60 sekunder. Vi kontrollerar struktur, språk, nyckelord och kvantifierade resultat.\"},{\"@type\":\"HowToStep\",\"name\":\"Få ATS-poäng och förslag\",\"position\":3,\"text\":\"Du får en ATS-poäng från 0 till 100, poängen du kan nå med förslagen och förslag i fyra delar med exakt vad som bör ändras.\"},{\"@type\":\"HowToStep\",\"name\":\"Spara den förbättrade versionen\",\"position\":4,\"text\":\"Välj vilka förslag du vill applicera, granska före och efter och ladda ner som PDF.\"}],\"totalTime\":\"PT60S\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"CV-analys som ger ATS-poäng från 0 till 100, poängen du kan nå med förslagen och konkreta förbättringsförslag på 60 sekunder. Anpassad för svenska arbetsgivare.\",\"featureList\":\"ATS-poäng 0-100, poängen du kan nå med förslagen, förslag i fyra delar (personbeskrivning, roller, kompetenser, automatiska förbättringar), före och efter-text, byggd för svenska CV\",\"name\":\"Jobbcoach.ai CV-analys\",\"offers\":{\"@type\":\"Offer\",\"description\":\"1 CV-analys gratis per konto, ingen kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/cv-analys\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Hur lång tid tar en CV-analys?",
+      "Vad betyder ATS-poängen?",
+      "Vilka förbättringsförslag får jag?",
+      "Behöver jag ha CV:t på svenska?",
+      "Hur många analyser får jag göra gratis?",
+      "Kan jag köra analysen igen när jag ändrat i CV:t?",
+      "Är mitt CV säkert hos er?",
+      "Vad händer efter analysen?",
+      "ld: Hur lång tid tar en CV-analys?",
+      "ld: Vad betyder ATS-poängen?",
+      "ld: Vilka förbättringsförslag får jag?",
+      "ld: Behöver jag ha CV:t på svenska?",
+      "ld: Hur många analyser får jag göra gratis?",
+      "ld: Kan jag köra analysen igen när jag ändrat i CV:t?",
+      "ld: Är mitt CV säkert hos er?",
+      "ld: Vad händer efter analysen?"
+    ],
+    "ord": 949
+  },
+  {
+    "path": "/verktyg/jobbcoachen",
+    "status": 200,
+    "h1": [
+      "Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad"
+    ],
+    "title": "Jobbcoachen: karriärsvar med källor | Jobbcoach.ai",
+    "description": "Fråga om lön, intervju, uppsägning eller karriärbyte. Svaren bygger på Arbetsförmedlingen, SCB och fackförbund, med källa till varje svar.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/jobbcoachen",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/jobbcoachen/opengraph-image-99okik?9cb33943547410e0",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ställ frågan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi söker bland verifierade källor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Du får svar med källhänvisning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Följ upp tills det är klart"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex områden vi hjälper dig med"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV och personligt brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Marknadslön och löneförhandling"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Intervjuförberedelse"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetsrätt och LAS"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Karriärbyte och utveckling"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "A-kassa, sjukdom och CSN"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Verifierad svensk arbetsmarknadsdata"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetsförmedlingen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "SCB"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fackförbund"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Försäkringskassan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CSN"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skatteverket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sluta googla. Fråga någon som vet."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om karriärrådgivning"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#sa-funkar-det",
+      "/",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Jobbcoachen söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett kort, läsbart svar med klickbara källhänvisningar så du själv kan dubbelkolla. Inget mer googlande och gissa vilken sida som är seriös.\"},\"name\":\"Hur fungerar Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Jobbcoachen svarar utifrån en kunskapsbas om svensk arbetsmarknad där SCB:s lönestrukturstatistik och fackförbundens publicerade underlag ingår. Du får en bild av marknadslönen per yrke utan att behöva läsa rapporter på 80 sidor själv. Varje svar anger källa, så du vet var siffrorna kommer ifrån och kan kontrollera dem själv.\"},\"name\":\"Var hittar jag tillförlitlig löneinformation i Sverige?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Jobbcoachen förklarar hur svensk arbetsrätt fungerar i praktiken (LAS, uppsägningstider, semesterregler, anställningsformer) och hänvisar till lagtext och officiella källor. Men vi ger inte juridisk rådgivning i enskilda ärenden. Står du inför en konflikt eller uppsägning rekommenderar vi att du kontaktar ditt fackförbund eller en jurist.\"},\"name\":\"Kan jag få juridisk rådgivning här?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi använder verifierade svenska källor: Arbetsförmedlingen för regler och program, SCB för lönestatistik och arbetsmarknadsdata, fackförbund (Unionen, Kommunal, IF Metall m.fl.) för avtal och stöd, samt Försäkringskassan, CSN och Skatteverket för ersättningar och regler kring sjukdom, studier och skatt. Varje svar markeras med (Källa N) direkt i texten så du kan klicka dig vidare.\"},\"name\":\"Vilka källor använder Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kunskapsbasen är ett femtiotal dokument om svensk arbetsmarknad från Arbetsförmedlingen, SCB, fackförbund och myndigheter. Den uppdateras när vi gör en ny genomgång, inte automatiskt när en källa ändras. Därför anger varje svar sin källa, så att du kan kontrollera att siffran eller regeln fortfarande gäller innan du lutar dig mot den.\"},\"name\":\"Hur ofta uppdateras informationen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter, och de kommer inte tillbaka nästa dag. Vill du skriva fler än tio ingår Jobbcoachen utan tak i Premium, 149 kr i månaden.\"},\"name\":\"Är det gratis att använda Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst.\"},\"name\":\"Kan jag dela mitt CV med Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i Premium, 149 kr i månaden, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: två CV-mallar, en CV-analys, ett personligt brev var sjunde dag och grundnivån i alla åtta testtyperna.\"},\"name\":\"Vad händer när mina tio meddelanden är slut?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från fråga till svar med källhänvisning: ställ frågan, vi söker bland verifierade källor, du får svaret med citat, du följer upp.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så får du karriärråd med Jobbcoachen på Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Ställ frågan\",\"position\":1,\"text\":\"Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi söker bland verifierade källor\",\"position\":2,\"text\":\"Jobbcoachen söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.\"},{\"@type\":\"HowToStep\",\"name\":\"Du får svar med källhänvisning\",\"position\":3,\"text\":\"Svaret är kort och konkret med klickbara källor markerade direkt i texten.\"},{\"@type\":\"HowToStep\",\"name\":\"Följ upp tills det är klart\",\"position\":4,\"text\":\"Jobbcoachen minns samtalet och du kan följa upp utan att börja om.\"}],\"totalTime\":\"PT2M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Karriärrådgivning baserad på Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket. Få svar på frågor om lön, intervju, arbetsrätt och karriärbyte med klickbara källhänvisningar.\",\"featureList\":\"Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev\",\"name\":\"Jobbcoachen från Jobbcoach.ai\",\"offers\":{\"@type\":\"Offer\",\"description\":\"10 meddelanden gratis per konto, utan kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/jobbcoachen\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Hur fungerar Jobbcoachen?",
+      "Var hittar jag tillförlitlig löneinformation i Sverige?",
+      "Kan jag få juridisk rådgivning här?",
+      "Vilka källor använder Jobbcoachen?",
+      "Hur ofta uppdateras informationen?",
+      "Är det gratis att använda Jobbcoachen?",
+      "Kan jag dela mitt CV med Jobbcoachen?",
+      "Vad händer när mina tio meddelanden är slut?",
+      "ld: Hur fungerar Jobbcoachen?",
+      "ld: Var hittar jag tillförlitlig löneinformation i Sverige?",
+      "ld: Kan jag få juridisk rådgivning här?",
+      "ld: Vilka källor använder Jobbcoachen?",
+      "ld: Hur ofta uppdateras informationen?",
+      "ld: Är det gratis att använda Jobbcoachen?",
+      "ld: Kan jag dela mitt CV med Jobbcoachen?",
+      "ld: Vad händer när mina tio meddelanden är slut?"
+    ],
+    "ord": 1005
+  },
+  {
+    "path": "/verktyg/linkedin-optimering",
+    "status": 200,
+    "h1": [
+      "Hamna i rekryterarnas sökresultat på LinkedIn"
+    ],
+    "title": "LinkedIn-optimering för rekryterarsök | Jobbcoach.ai",
+    "description": "Vi skriver om rubrik, om-mig och kompetenser så att rekryterare hittar dig. Du klistrar in din text och får den tillbaka. Vi loggar aldrig in åt dig.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/linkedin-optimering",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/linkedin-optimering/opengraph-image-1ou6pi?8887ee2fbee65a43",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hämta din profiltext från LinkedIn"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Klistra in i fem fält"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi optimerar fem sektioner samtidigt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jämför före och efter"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kopiera tillbaka till LinkedIn"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fem sektioner i ett pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rubrik, högst 220 tecken"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Om mig, 250 till 350 ord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Erfarenhet i STAR-format"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utbildning, valfritt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kompetenser i 3 till 4 grupper"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Varför du inte syns i dag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryterare söker på sökord"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rubriken avgör om du visas"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Algoritmen belönar fullständighet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Bred eller skarp inriktning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Stå ut i mängden"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sikta på en specifik roll"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sluta vara osynlig. Börja synas i dag."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om LinkedIn-optimering"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#sa-funkar-det",
+      "/",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger \\\"Marknadsförare\\\" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel \\\"B2B SaaS marknadsförare i Stockholm\\\". Det handlar inte om att du är osynlig, utan om att profilen inte är skriven för det sökspråk rekryterare använder.\"},\"name\":\"Varför syns jag inte på LinkedIn idag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel \\\"Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag\\\" i stället för bara \\\"Frontend-utvecklare\\\". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.\"},\"name\":\"Hur skriver man en bra LinkedIn-rubrik?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS är förkortningen för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.\"},\"name\":\"Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn själv. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.\"},\"name\":\"Loggar ni in på min LinkedIn?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom alla fält då är ifyllda från början.\"},\"name\":\"Hur lång tid tar optimeringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, men det går snabbare om du har ett sparat CV. Då fyller vi i din erfarenhet, utbildning och kompetenser från ditt CV. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.\"},\"name\":\"Behöver jag ladda upp mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Stå ut bygger en bred profil som fungerar mot flera arbetsgivare och rekryterare i din bransch, bra om du är öppen för olika typer av roller. Sikta på en specifik roll lyfter fram exakt de sökord och formuleringar som krävs för en given titel, till exempel Senior backendutvecklare eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst.\"},\"name\":\"Vad är skillnaden mellan \\\"Stå ut i mängden\\\" och \\\"Sikta på en specifik roll\\\"?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"LinkedIn-optimeringen ingår i Jobbcoach Premium, 149 kr i månaden, tillsammans med alla CV-mallar, hela CV-analysen, personliga brev utan tak och rekryteringstesterna. Du säger upp när du vill. Utan prenumeration kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.\"},\"name\":\"Vad kostar LinkedIn-optimeringen?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fem steg från din nuvarande profiltext till uppdaterad LinkedIn-profil: hämta din profiltext, klistra in eller välj sparat CV, vi optimerar fem sektioner, jämför före och efter, kopiera tillbaka till LinkedIn.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"149\"},\"name\":\"Så optimerar du din LinkedIn-profil med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Hämta din profiltext från LinkedIn\",\"position\":1,\"text\":\"Kopiera din nuvarande rubrik, om-mig och erfarenhet från LinkedIn. Eller välj ett sparat CV som källa.\"},{\"@type\":\"HowToStep\",\"name\":\"Klistra in i fem fält\",\"position\":2,\"text\":\"Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser. Inga obligatoriska fält.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi optimerar fem sektioner samtidigt\",\"position\":3,\"text\":\"Jobbcoach.ai bearbetar alla fem sektioner parallellt med svensk arbetsmarknad som ram, branschens nyckelord och anpassning för rekryteringssystem (ATS) på 30 till 60 sekunder.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför före och efter\",\"position\":4,\"text\":\"En delad vy visar din nuvarande text bredvid den optimerade. Per sektion ser du hur poängen ändrats och vad som skrivits om.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera tillbaka till LinkedIn\",\"position\":5,\"text\":\"En knapp kopierar alla sektioner eller en i taget. Du klistrar in på LinkedIn manuellt och sparar.\"}],\"totalTime\":\"PT5M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Optimera din LinkedIn-profil för rekryterares sökningar. Vi förbättrar rubrik, om-mig, erfarenhet, utbildning och kompetenser samtidigt. Du klistrar in din text och får en optimerad version tillbaka, vi loggar aldrig in på din LinkedIn.\",\"featureList\":\"Optimering av rubrik, om-mig, erfarenhet, utbildning och kompetenser, poäng före och efter per sektion, två lägen (stå ut eller specifik roll), CV-autofyll från sparat CV, kopiera och klistra in utan LinkedIn-inloggning, STAR-format på erfarenhet, anpassning för rekryteringssystem (ATS) med branschens nyckelord\",\"name\":\"Jobbcoach.ai LinkedIn-optimering\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Ingår i Jobbcoach Premium, 149 kr i månaden\",\"price\":\"149\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/linkedin-optimering\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Varför syns jag inte på LinkedIn idag?",
+      "Hur skriver man en bra LinkedIn-rubrik?",
+      "Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?",
+      "Loggar ni in på min LinkedIn?",
+      "Hur lång tid tar optimeringen?",
+      "Behöver jag ladda upp mitt CV?",
+      "Vad är skillnaden mellan \"Stå ut i mängden\" och \"Sikta på en specifik roll\"?",
+      "Vad kostar LinkedIn-optimeringen?",
+      "ld: Varför syns jag inte på LinkedIn idag?",
+      "ld: Hur skriver man en bra LinkedIn-rubrik?",
+      "ld: Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?",
+      "ld: Loggar ni in på min LinkedIn?",
+      "ld: Hur lång tid tar optimeringen?",
+      "ld: Behöver jag ladda upp mitt CV?",
+      "ld: Vad är skillnaden mellan \"Stå ut i mängden\" och \"Sikta på en specifik roll\"?",
+      "ld: Vad kostar LinkedIn-optimeringen?"
+    ],
+    "ord": 1193
+  }
+]
