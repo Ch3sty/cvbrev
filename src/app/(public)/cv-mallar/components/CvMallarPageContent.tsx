@@ -200,6 +200,11 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                 {WORD_INGRESS}
               </p>
               <Kort rader={WORD_RADER} />
+              <p style={{ marginTop: 24 }}>
+                <Link href="/cv-mallar/word" className="pub-lank" data-cta-klick="/cv-mallar/word">
+                  Alla Word-mallar
+                </Link>
+              </p>
             </div>
           </Rum>
 
