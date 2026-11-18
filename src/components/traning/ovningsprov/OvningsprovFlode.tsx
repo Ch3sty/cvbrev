@@ -37,6 +37,7 @@ import { useFlodeLage } from '../PassShell'
 import Klocka from './Klocka'
 import OvningsResultatVy from './OvningsResultatVy'
 import Segmentstapel, { type SegmentLage } from './Segmentstapel'
+import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
 
 export interface OvningsprovFlodeProps {
   vy: Ovningsvy
@@ -299,7 +300,12 @@ function Verbalt({
       <section className="sticky top-0 z-[2] max-h-[38vh] overflow-y-auto rounded-2xl border border-kant bg-papper px-4 py-3.5 text-sm leading-[22px] text-ink-2 lg:max-h-[46vh]" aria-label={FRAGA.texten}>
         <p className="text-[11px] font-semibold uppercase leading-[14px] tracking-[.06em] text-ink-3">{FRAGA.texten}</p>
         <b className="mb-1.5 mt-1.5 block font-display text-[15px] leading-5 tracking-[-.01em] text-ink-1">{del.titel}</b>
-        {del.text}
+        {/* Samma styckeindelning som textpassen (VnUppgift, splitIntoParagraphs). */}
+        <div className="space-y-2">
+          {splitIntoParagraphs(del.text).map((stycke, i) => (
+            <p key={i}>{stycke}</p>
+          ))}
+        </div>
       </section>
       <div className="px-0.5 pt-1">
         <p className="text-[11px] font-semibold uppercase leading-[14px] tracking-[.06em] text-ink-3">{FRAGA.pastaendeRubrik(iDel, antal)}</p>
