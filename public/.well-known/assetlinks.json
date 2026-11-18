@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ai.jobbcoach.testklar",
+      "sha256_cert_fingerprints": [
+        "DA:2A:CA:B7:D3:30:CD:54:91:86:7E:DA:F1:2D:DE:46:A3:EA:1B:CD:12:2F:E8:92:87:DA:90:06:4F:3C:F0:60",
+        "4A:6C:1B:99:00:8A:31:A9:62:9A:C5:68:42:8C:34:2C:83:C3:D6:F7:FF:61:52:D2:F3:55:2A:80:0E:8C:C1:91"
+      ]
+    }
+  }
+]
