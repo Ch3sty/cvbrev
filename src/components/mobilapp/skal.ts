@@ -91,13 +91,16 @@ export function haptik(typ: HaptikTyp = 'latt'): void {
 }
 
 /**
- * Statusfältets ikoner: mörka i appens ljusa rum, ljusa över passens mörka
- * vägg (konceptet: "Statusfältets färg följer vyn"). SystemBars-stilen
- * DARK betyder ljusa ikoner för mörk bakgrund, LIGHT mörka ikoner.
+ * Statusfältets ikoner. Appen ritar inte under statusfältet (viewport-fit
+ * auto i app-layouten): remsan bakom fältet är skalets nattbakgrund i alla
+ * vyer, så ikonerna är alltid ljusa (SystemBars-stilen DARK). Parametern står
+ * kvar för anroparna. Tidigare följde ikonerna vyn, men då hamnade de delade
+ * helskärmsflödena (fixed inset-0) under fältet och deras översta rad gick
+ * inte att trycka på.
  */
-export function statusfalt(stil: 'ljust' | 'morkt'): void {
+export function statusfalt(_stil: 'ljust' | 'morkt'): void {
   if (!arAppen() || !finnsPlugin('SystemBars')) return;
-  tyst(kalla('SystemBars', 'setStyle', { style: stil === 'ljust' ? 'LIGHT' : 'DARK' }));
+  tyst(kalla('SystemBars', 'setStyle', { style: 'DARK' }));
 }
 
 let startskarmDold = false;

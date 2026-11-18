@@ -190,14 +190,17 @@ export function ovningsprovFor(t: Deltyp): string | null {
       return ovningsprovHref('figurer');
     case 'deduktiv':
       return ovningsprovHref('deduktiv');
-    case 'talserie':
-    case 'spatial':
-    case 'ordforrad':
-      return iprovProvSynligt() ? '/dashboard/tester/iprov' : null;
+    // Talserier, spatial förmåga och ordförråd har inget eget övningsprov
+    // mot klockan, varken på webben eller i appen. I-provets övningsprov
+    // täcker dem men visas bara för den som valt I-provet (byggKatalog),
+    // precis som webbens IprovRad.
     default:
       return null;
   }
 }
+
+/** I-provets övningsprov, bara när Mitt test är I-provet och provet är synligt. */
+const IPROV_PROV = '/dashboard/tester/iprov';
 
 /** Nivån ur Nivåkollen för en testtyp, null om den inte är gjord. */
 export function nivaFor(s: Pick<Traningsstatus, 'niva' | 'nivakoll'>, t: Deltyp): number | null {
@@ -283,8 +286,8 @@ export function byggKatalog(s: Traningsstatus): Katalog {
   }
 
   let ovningsprov: Katalog['ovningsprov'] = null;
-  const forsta = val === 'iprov' ? 'talserie' : ingarTyper.find((t) => ovningsprovFor(t));
-  const href = forsta ? ovningsprovFor(forsta) : null;
+  const forsta = ingarTyper.find((t) => ovningsprovFor(t));
+  const href = val === 'iprov' ? (iprovProvSynligt() ? IPROV_PROV : null) : forsta ? ovningsprovFor(forsta) : null;
   if (href && val !== 'personlighet') {
     const r = provrad(s.format);
     ovningsprov = {

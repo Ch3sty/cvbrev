@@ -12,10 +12,9 @@
  * appens rot. Webben laddar dem aldrig, och passens delade komponenter
  * behåller webbens typsnitt eftersom de inte använder variablerna.
  *
- * Android 15 ritar appen ända upp under statusfältet, och sajten anger
- * viewport-fit=cover. Ramen håller därför avståndet till systemfälten med
- * safe-area, och remsan bakom statusfältet har väggens färg. Appens ljusa
- * vyer byter remsan till rummets färg (Systemfalt).
+ * Appen ritar inte under statusfältet (viewport-fit auto nedan): skalet lägger
+ * webbvyn mellan systemfälten, och remsan bakom statusfältet är skalets
+ * nattbakgrund med ljusa ikoner i alla vyer (skal.ts, statusfalt).
  */
 import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, Figtree } from 'next/font/google';
@@ -44,9 +43,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// viewport-fit auto: skalet (Capacitor SystemBars) lägger då webbvyn under
+// statusfältet i stället för bakom det. Webbens delade helskärmsflöden
+// (passen, övningsproven, resultatvyerna: fixed inset-0) hamnade annars med
+// sin översta rad under klockan, där trycken inte når sidan.
 export const viewport: Viewport = {
   themeColor: VAGG_FARG.tran,
-  viewportFit: 'cover',
+  viewportFit: 'auto',
 };
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
