@@ -36,7 +36,7 @@ describe('bankversion 4', () => {
       expect(poolFor(n, 3).length).toBe(129)
       expect(poolFor(n, 3).some((q) => q.fran_version === 4)).toBe(false)
     }
-    expect(SPATIAL_VERSION).toBe(4)
+    expect(SPATIAL_VERSION).toBeGreaterThanOrEqual(4)
   })
   it('version 4: samma fördelning per form och aldrig två av samma form i följd', () => {
     for (const niva of NIVAER) {
@@ -72,7 +72,7 @@ describe('kopiespärren mot alla nivåer', () => {
   })
   it('tärningens hörn: sex avbildningar, och varje avbildad uppgift är lika giltig och får samma nyckel', () => {
     expect(HORN_ANTAL()).toBe(6)
-    for (const q of alla.filter((x) => x.form === 'C')) {
+    for (const q of alla.filter((x) => x.form === 'C' && x.referens.kind === 'kub')) { // tärningarna; kropparna (version 5) har inget hörn
       for (let i = 0; i < 6; i++) {
         const h = hornUppgift(q, i)
         expect(verifieraFraga(h).fel, `${q.id} ${i}`).toEqual([])

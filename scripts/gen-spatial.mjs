@@ -50,6 +50,20 @@ export async function laddaFormer() {
     // grupp + tak: ingen uppsättning distraktortyper i mer än hälften av nivåns uppgifter (testansvarig 2026-11-10, Ä1)
     FORMER.D = { bygg: D.byggUppgiftD, sparrar: D.sparrarD, nyckel: D.nyckelD, grupp: (q) => q.typer.filter(Boolean).sort().join('+'), tak: { grund: 12, avancerad: 8, expert: 8 } };
   }
+  // Omgång 3 (2026-11-19, bankversion 5): nya uppgiftstyper inom formerna. En
+  // A-uppgift med spegellinjer (referens.axlar) prövas mot spegling.mjs, en
+  // C-uppgift med en kropp (referens.kind 'kropp') mot kropp.mjs. Formernas
+  // egna spärrar och nycklar gäller som förut för alla andra uppgifter.
+  if (existsSync('scripts/lib/spatial/spegling.mjs') && !FORMER.A.medSpegling) {
+    const S = await import('./lib/spatial/spegling.mjs');
+    const { sparrar, nyckel } = FORMER.A;
+    FORMER.A = { ...FORMER.A, medSpegling: true, sparrar: (q) => (q.referens?.axlar ? S.sparrarS(q) : sparrar(q)), nyckel: (q) => (q.referens?.axlar ? `spegling:${q.referens.axlar.join('')}:${nyckel(q)}` : nyckel(q)) };
+  }
+  if (existsSync('scripts/lib/spatial/kropp.mjs') && FORMER.C && !FORMER.C.medKropp) {
+    const K = await import('./lib/spatial/kropp.mjs');
+    const { sparrar, nyckel } = FORMER.C;
+    FORMER.C = { ...FORMER.C, medKropp: true, sparrar: (q) => (q.referens?.kind === 'kropp' ? K.sparrarK(q) : sparrar(q)), nyckel: (q) => (q.referens?.kind === 'kropp' ? K.nyckelK(q) : nyckel(q)) };
+  }
 }
 
 function formBank(form, niva) {

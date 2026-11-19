@@ -23,6 +23,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { captureServer } from '@/lib/analytics/server';
 import { blandaSeedat } from '../pass-figur';
 import { steg2Motor, type Niva, type Steg2Motor } from './motor.server';
+import { hittaSpatial } from '@/lib/spatialV1/fragor.server';
 import { IPROV_TEST_TYPE, iprovDelar, type IprovDelDef, type IprovDelResultat, type IprovVy } from './iprov';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,7 +71,8 @@ function kalla(d: IprovDelDef): { motor: Steg2Motor | null; nivaer: Niva[]; filt
   if (d.kind === 'talserie') return { motor, nivaer: ['avancerad', 'expert'], filter: () => true };
   if (d.form === 'Bklipp') return { motor, nivaer: ['expert'], filter: (m, id) => m.gruppNyckel(id) === 'B' };
   if (d.form === 'D') return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === 'D' };
-  return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === 'C' };
+  // Tärningsdeltestet: bara tärningar, inte kropparna som också ligger i form C (bankversion 5).
+  return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === 'C' && hittaSpatial(id)?.referens?.kind === 'kub' };
 }
 
 /** Uppgifterna för ett deltest: jämnt ur nivåerna, lätt först. Tomt när motorn saknas. */

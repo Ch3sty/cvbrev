@@ -300,6 +300,15 @@ export const NIVAER_B = {
   avancerad: { vikningar: 2, hal: [1, 2], facit: [2, 4], klipp: false },
   expert: { vikningar: 3, hal: [1], facit: [4, 8], klipp: true },
 };
+/**
+ * Omgång 3 (2026-11-19, fran_version 5): expert får en variant utan klipp,
+ * två vikningar varav minst en sned, och två hål. Upp till fyra lager och åtta
+ * hål; facit ska ha minst sex. Uppgiften känns igen på att den saknar klipp och
+ * har två vikningar (nivaB).
+ */
+export const EXPERT_TVA_VIK = { vikningar: 2, hal: [2], facit: [3, 4], klipp: false };
+/** Nivåns regler för en uppgift: expertvarianten utan klipp, annars nivån. */
+export const nivaB = (q) => (q.niva === 'expert' && !q.klipp && q.vikningar?.length === 2 ? EXPERT_TVA_VIK : NIVAER_B[q.niva]);
 
 const TEXT = {
   stansat: 'Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål.',
@@ -313,7 +322,7 @@ const TEXT = {
 };
 export const DISTRAKTORTYPER_B = Object.keys(TEXT).filter((t) => t !== 'stansat2');
 /** Varianterna från omgång 2, per nivå. */
-export const VARIANTER_B = { grund: ['diagonal', 'remsa', 'tva_hal'], avancerad: ['remsa_forst', 'tva_hal'] };
+export const VARIANTER_B = { grund: ['diagonal', 'remsa', 'tva_hal'], avancerad: ['remsa_forst', 'tva_hal'], expert: ['tva_vik'] };
 
 /** Det uppvikta arket när vikningarna öppnas, med fel eller rätt. */
 function utfall(hal, klippRuta, vikningar, regioner) {
@@ -326,7 +335,7 @@ const arkNyckel = (u) => `${nyck(u.hal)}|${nyck(u.klipp)}`;
 const iArket = (u) => [...u.hal, ...u.klipp].every(([r, c]) => r >= 0 && c >= 0 && r < N && c < N);
 
 export function byggUppgiftB({ niva, id, fro, variant }) {
-  const L = NIVAER_B[niva];
+  const L = variant === 'tva_vik' ? EXPERT_TVA_VIK : NIVAER_B[niva];
   if (variant && !VARIANTER_B[niva]?.includes(variant)) return null;
   const rng = mulberry32(hashString(fro));
   const valj = (a) => a[Math.floor(rng() * a.length)];
@@ -341,7 +350,7 @@ export function byggUppgiftB({ niva, id, fro, variant }) {
     else if (niva === 'grund') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && vikTyp(v, poly) === 'halv');
     if (niva === 'avancerad' && variant === 'remsa_forst') k = k.filter((v) => (i === 0 ? (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k) && vikTyp(v, poly) === 'remsa' : true));
     else if (niva === 'avancerad') k = k.filter((v) => vikTyp(v, poly) !== 'remsa' || i === 1);
-    if (niva === 'expert') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k));
+    if (niva === 'expert' && variant !== 'tva_vik') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k));
     if (!k.length) return null;
     const v = valj(k);
     vikningar.push(v);
@@ -361,7 +370,8 @@ export function byggUppgiftB({ niva, id, fro, variant }) {
   const bara = stansbara(vikningar);
   if (!bara.length) return null;
   const hal = [valj(bara)];
-  if (variant === 'tva_hal') {
+  if (variant === 'tva_vik' && !typer.includes('diagonal')) return null;
+  if (variant === 'tva_hal' || variant === 'tva_vik') {
     const andra = bara.filter((p) => p.join() !== hal[0].join());
     if (!andra.length) return null;
     hal.push(valj(andra));
@@ -614,7 +624,7 @@ export const nyckelB = (q) => `${JSON.stringify(q.vikningar)}|${nyck(q.sekvens[q
 export function sparrarB(q) {
   const fel = [];
   const id = q.id;
-  const L = NIVAER_B[q.niva];
+  const L = nivaB(q);
   const r = vik(q.vikningar);
   if (!r) return [`${id}: vikningarna går inte att utföra`];
   const regioner = r.steg.map((s) => s.fore);

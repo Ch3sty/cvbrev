@@ -29,8 +29,12 @@ export const PER_FORM = 5;
  * avancerad, 33 expert), aktiva sedan 2026-11-19 efter testansvarigs granskning;
  * nivåtestet har samma fördelning per form som version 2, och sessioner med
  * version 2 drar ur samma pool som förut.
+ *
+ * Bankversion 5 (docs/fragebank/spatial-2026-11-19-omg3.md): 90 nya uppgifter
+ * med fran_version 5 i nya typer inom formerna (A spegling i två linjer, C
+ * kroppar och snitt); samma fördelning per form. Aktiv sedan 2026-11-19.
  */
-export const SPATIAL_VERSION = 4;
+export const SPATIAL_VERSION = 5;
 export const FORMER: SpatialForm[] = ['A', 'B', 'C', 'D'];
 /** Antal per form i nivåtestet, per version. */
 export function perFormFor(version: number): Partial<Record<SpatialForm, number>> {

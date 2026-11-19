@@ -17,6 +17,9 @@
 //        hål, hål fria från arkets kontur, klipp minst 8 px, viklinje minst 2,5
 //   C    symbolens minsta axel minst 10 px, konturer 3, kontrast symbol mot
 //        sida minst 4,5:1 på alla tre sidor
+//   Bankversion 5: kroppen (C) har kubkanten minst 8 px, en pil, och den
+//   streckade snittlinjen i koppar bara när uppgiften har ett snitt; brickans
+//   spegellinjer (A) är streckade i ram-grått, en per linje i uppgiften.
 // =============================================================================
 
 import React from 'react';
@@ -193,6 +196,19 @@ export function matFigur(fig: SpatialFigur, skala: number, var_: string): string
     const linje = t.find((x) => x.startsWith('<line') && attr(x, 'stroke') === G.farger.ram);
     if (!linje) fel.push(`${var_}: viklinjen saknas`);
     else if (!attr(linje, 'stroke-dasharray')) fel.push(`${var_}: viklinjen är inte streckad`);
+  }
+  if (fig.kind === 'brick' && fig.axlar?.length) {
+    const linjer = t.filter((x) => x.startsWith('<line') && attr(x, 'stroke') === G.farger.ram && attr(x, 'stroke-dasharray'));
+    if (linjer.length !== fig.axlar.length) fel.push(`${var_}: ${linjer.length} spegellinjer ritade, uppgiften har ${fig.axlar.length}`);
+  }
+  if (fig.kind === 'kropp') {
+    const kant = G.kropp.kant * skala;
+    if (kant < g5.minRutaPx) fel.push(`${var_}: kubkanten är ${kant.toFixed(1)} px, minst ${g5.minRutaPx}`);
+    const pil = t.filter((x) => x.startsWith('<line') && attr(x, 'stroke') === G.farger.ink);
+    if (pil.length !== 1) fel.push(`${var_}: pilen saknas`);
+    const snitt = t.filter((x) => x.startsWith('<line') && attr(x, 'stroke') === G.farger.koppar);
+    if ((fig.snitt === undefined) !== (snitt.length === 0)) fel.push(`${var_}: snittlinjen ${fig.snitt === undefined ? 'ritas utan snitt' : 'saknas'}`);
+    if (snitt.some((x) => !attr(x, 'stroke-dasharray'))) fel.push(`${var_}: snittlinjen är inte streckad`);
   }
   if (fig.kind === 'kub') {
     for (const sida of ['t', 'l', 'r'] as const) {

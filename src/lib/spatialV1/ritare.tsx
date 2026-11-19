@@ -1,6 +1,9 @@
 // src/lib/spatialV1/ritare.tsx
 // =============================================================================
-// Ritarna för Spatial förmåga: brick (form A), ark (form B) och kub (form C).
+// Ritarna för Spatial förmåga: brick (form A), ark (form B), kub (form C) och,
+// från bankversion 5, kropp (form C: kuber på en platta) och brickans
+// spegellinjer (form A). De nya ritas bara när figuren har dem (kind 'kropp',
+// BrickFigur.axlar); alla äldre figurer ritas exakt som förut.
 // Skissens figurritare (docs/design/skiss-tester-steg2-2026-11-09.html) är
 // förlagan. Måtten kommer ur geometri.json, som
 // scripts/spatial-geometri-check.mjs mäter på samma utdata.
@@ -14,7 +17,7 @@
 
 import React from 'react';
 import data from './geometri.json';
-import type { ArkStansFigur, ArkUtFigur, ArkVikFigur, BrickFigur, KubFigur, KubSida, Punkt, SpatialFigur } from './types';
+import type { ArkStansFigur, ArkUtFigur, ArkVikFigur, BrickFigur, KroppFigur, KubFigur, KubSida, Punkt, SpatialFigur, SpegelAxel } from './types';
 
 export const SPATIAL_GEOMETRI = data;
 const G = data;
@@ -42,6 +45,16 @@ export function brickRutor(fig: BrickFigur) {
   }));
 }
 
+/** Spegellinjerna i form A (bankversion 5): ändpunkterna i viewBox, genom figurens mitt (50, 50). */
+export function brickAxel(a: SpegelAxel): [Punkt, Punkt] {
+  const [r0, r1] = G.brickAxel.rak;
+  const [d0, d1] = G.brickAxel.diag;
+  if (a === 'v') return [[50, r0], [50, r1]];
+  if (a === 'h') return [[r0, 50], [r1, 50]];
+  if (a === 'd') return [[d0, d0], [d1, d1]];
+  return [[d1, d0], [d0, d1]];
+}
+
 const Brick: React.FC<{ fig: BrickFigur }> = ({ fig }) => {
   const ins = G.brick.markSw / 2;
   return (
@@ -53,6 +66,10 @@ const Brick: React.FC<{ fig: BrickFigur }> = ({ fig }) => {
           <rect key={i} x={r.x} y={r.y} width={r.size} height={r.size} rx={G.brick.rx} fill={F.ink} />
         )
       )}
+      {fig.axlar?.map((a, i) => {
+        const [p, q] = brickAxel(a);
+        return <line key={`ax${i}`} x1={p[0]} y1={p[1]} x2={q[0]} y2={q[1]} stroke={F.ram} strokeWidth={G.brickAxel.sw} strokeDasharray={G.brickAxel.streck} strokeLinecap="round" />;
+      })}
     </>
   );
 };
@@ -379,6 +396,112 @@ const Kub: React.FC<{ fig: KubFigur }> = ({ fig }) => {
 };
 
 // =============================================================================
+// Form C, kroppar (bankversion 5)
+// =============================================================================
+
+type Punkt3 = [number, number, number];
+/** En synlig sida av en kub; `snitt` är snittlinjen över sidan när snittet går genom den. */
+export type KroppYta = { typ: 't' | 'l' | 'r'; pts: Punkt[]; kub: Punkt3; snitt?: [Punkt, Punkt] };
+
+/**
+ * Kroppens delar i viewBox-enheter, delas med mätningen. Isometrin är
+ * tärningens: x snett nedåt åt höger, y snett nedåt åt vänster, z uppåt.
+ * Kuberna målas bakifrån och fram (x + y + z växer), och bara sidor som inte
+ * ligger an mot en annan kub ritas. Hela ritningen centreras i rutan.
+ */
+export function kroppDelar(fig: KroppFigur) {
+  const K = G.kropp;
+  const N = K.n;
+  const c30 = Math.sqrt(3) / 2;
+  const proj = ([x, y, z]: Punkt3): Punkt => [(x - y) * c30 * K.kant, ((x + y) / 2 - z) * K.kant];
+  const h = (x: number, y: number) => (x >= 0 && y >= 0 && x < N && y < N ? fig.h[y][x] : 0);
+  // pilen ligger på plattans nivå utanför plattan och pekar rakt mot sidorna den tittar på
+  const pil3: [Punkt3, Punkt3] =
+    fig.blick === 'l'
+      ? [[N / 2, N + K.pil.fran, 0], [N / 2, N + K.pil.till, 0]]
+      : [[N + K.pil.fran, N / 2, 0], [N + K.pil.till, N / 2, 0]];
+  const snitt3: [Punkt3, Punkt3] | null =
+    fig.snitt === undefined
+      ? null
+      : fig.blick === 'l'
+        ? [[-K.snitt.ut, fig.snitt + 0.5, 0], [N + K.snitt.ut, fig.snitt + 0.5, 0]]
+        : [[fig.snitt + 0.5, -K.snitt.ut, 0], [fig.snitt + 0.5, N + K.snitt.ut, 0]];
+  const ytor: KroppYta[] = [];
+  const kuber: Punkt3[] = [];
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) for (let z = 0; z < h(x, y); z++) kuber.push([x, y, z]);
+  kuber.sort((a, b) => a[0] + a[1] + a[2] - (b[0] + b[1] + b[2]) || a[2] - b[2] || a[0] - b[0]);
+  // snittet går genom rad k (y = k + 0,5 för 'l', x = k + 0,5 för 'r'): linjen över ovansidan och den sida som skär planet
+  const k = fig.snitt;
+  const iRad = (x: number, y: number) => k !== undefined && (fig.blick === 'l' ? y === k : x === k);
+  const m = (k ?? 0) + 0.5;
+  for (const [x, y, z] of kuber) {
+    const rad = iRad(x, y);
+    if (h(x, y) === z + 1) {
+      const sn: [Punkt3, Punkt3] = fig.blick === 'l' ? [[x, m, z + 1], [x + 1, m, z + 1]] : [[m, y, z + 1], [m, y + 1, z + 1]];
+      ytor.push({ typ: 't', kub: [x, y, z], pts: ([[x, y, z + 1], [x + 1, y, z + 1], [x + 1, y + 1, z + 1], [x, y + 1, z + 1]] as Punkt3[]).map(proj), ...(rad ? { snitt: sn.map(proj) as [Punkt, Punkt] } : {}) });
+    }
+    if (h(x, y + 1) <= z) {
+      const sn: [Punkt3, Punkt3] = [[m, y + 1, z + 1], [m, y + 1, z]];
+      ytor.push({ typ: 'l', kub: [x, y, z], pts: ([[x, y + 1, z + 1], [x + 1, y + 1, z + 1], [x + 1, y + 1, z], [x, y + 1, z]] as Punkt3[]).map(proj), ...(rad && fig.blick === 'r' ? { snitt: sn.map(proj) as [Punkt, Punkt] } : {}) });
+    }
+    if (h(x + 1, y) <= z) {
+      const sn: [Punkt3, Punkt3] = [[x + 1, m, z + 1], [x + 1, m, z]];
+      ytor.push({ typ: 'r', kub: [x, y, z], pts: ([[x + 1, y, z + 1], [x + 1, y + 1, z + 1], [x + 1, y + 1, z], [x + 1, y, z]] as Punkt3[]).map(proj), ...(rad && fig.blick === 'l' ? { snitt: sn.map(proj) as [Punkt, Punkt] } : {}) });
+    }
+  }
+  const platta = ([[0, 0, 0], [N, 0, 0], [N, N, 0], [0, N, 0]] as Punkt3[]).map(proj);
+  const natet: [Punkt, Punkt][] = [];
+  for (let i = 1; i < N; i++) {
+    natet.push([proj([i, 0, 0]), proj([i, N, 0])]);
+    natet.push([proj([0, i, 0]), proj([N, i, 0])]);
+  }
+  const pil = pil3.map(proj) as [Punkt, Punkt];
+  const snitt = snitt3 ? (snitt3.map(proj) as [Punkt, Punkt]) : null;
+  // centrera allt som ritas: plattan, kuberna, pilen och snittlinjen
+  const alla = [...platta, ...ytor.flatMap((y) => y.pts), ...pil, ...(snitt ?? [])];
+  const xs = alla.map((p) => p[0]);
+  const ys = alla.map((p) => p[1]);
+  const dx = 50 - (Math.min(...xs) + Math.max(...xs)) / 2;
+  const dy = 50 - (Math.min(...ys) + Math.max(...ys)) / 2;
+  const t = (p: Punkt): Punkt => [r2(p[0] + dx), r2(p[1] + dy)];
+  return {
+    platta: platta.map(t),
+    natet: natet.map(([a, b]) => [t(a), t(b)] as [Punkt, Punkt]),
+    ytor: ytor.map((y) => ({ ...y, pts: y.pts.map(t), ...(y.snitt ? { snitt: y.snitt.map(t) as [Punkt, Punkt] } : {}) })),
+    pil: pil.map(t) as [Punkt, Punkt],
+    snitt: snitt ? (snitt.map(t) as [Punkt, Punkt]) : null,
+  };
+}
+
+const Kropp: React.FC<{ fig: KroppFigur }> = ({ fig }) => {
+  const K = G.kropp;
+  const d = kroppDelar(fig);
+  const P = K.pil;
+  const [a, b] = d.pil;
+  const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const u: Punkt = [(b[0] - a[0]) / len, (b[1] - a[1]) / len];
+  const v: Punkt = [-u[1], u[0]];
+  const bas: Punkt = [b[0] - u[0] * P.huvudLangd, b[1] - u[1] * P.huvudLangd];
+  const huvud: Punkt[] = [b, [r2(bas[0] + v[0] * P.huvudHalv), r2(bas[1] + v[1] * P.huvudHalv)], [r2(bas[0] - v[0] * P.huvudHalv), r2(bas[1] - v[1] * P.huvudHalv)]];
+  const fyll = { t: F.papper, l: F.gra, r: F.papper };
+  return (
+    <>
+      <path d={bana(d.platta)} fill={F.papper} stroke={F.ram} strokeWidth={K.plattaSw} strokeLinejoin="round" />
+      <path d={d.natet.map(([p, q]) => `M${p[0]} ${p[1]} L${q[0]} ${q[1]}`).join(' ')} fill="none" stroke={F.ram} strokeWidth={K.plattaSw} />
+      {d.snitt ? <line x1={d.snitt[0][0]} y1={d.snitt[0][1]} x2={d.snitt[1][0]} y2={d.snitt[1][1]} stroke={F.koppar} strokeWidth={K.snitt.sw} strokeDasharray={K.snitt.streck} strokeLinecap="round" /> : null}
+      {d.ytor.map((y, i) => (
+        <React.Fragment key={i}>
+          <path d={bana(y.pts)} fill={fyll[y.typ]} stroke={F.ink} strokeWidth={K.sw} strokeLinejoin="round" />
+          {y.snitt ? <line x1={y.snitt[0][0]} y1={y.snitt[0][1]} x2={y.snitt[1][0]} y2={y.snitt[1][1]} stroke={F.koppar} strokeWidth={K.snitt.sw} strokeDasharray={K.snitt.streck} strokeLinecap="round" /> : null}
+        </React.Fragment>
+      ))}
+      <line x1={a[0]} y1={a[1]} x2={r2(bas[0] + u[0])} y2={r2(bas[1] + u[1])} stroke={F.ink} strokeWidth={P.sw} strokeLinecap="round" />
+      <path d={bana(huvud)} fill={F.ink} stroke={F.ink} strokeWidth={G.kontur.tunn} strokeLinejoin="round" />
+    </>
+  );
+};
+
+// =============================================================================
 // Huvudritaren
 // =============================================================================
 
@@ -395,6 +518,8 @@ export const SpatialFigurElement: React.FC<{ fig: SpatialFigur }> = ({ fig }) =>
       return <ArkUt fig={fig} />;
     case 'kub':
       return <Kub fig={fig} />;
+    case 'kropp':
+      return <Kropp fig={fig} />;
   }
 };
 

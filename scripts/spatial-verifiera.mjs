@@ -26,12 +26,23 @@
 //      klipp syns bara genom alla lager. Exakt ett alternativ ska stämma, och
 //      ingen distraktor får vara facit vridet i planet.
 //
+// Nya uppgiftstyper från omgång 3 (fran_version 5), läses också ur det som ritas:
+//   A med spegellinjer (referens.axlar): referensen speglas i linjerna i tur
+//      och ordning. Exakt ett alternativ ska vara resultatet, frågan ska nämna
+//      linjerna i den ordningen och förklaringen vridningen de blir.
+//   C med kropp (referens.kind 'kropp'): kolumnerna sorteras efter var de
+//      hamnar på skärmen sett från pilens sida, och facit är den högsta stapeln
+//      per kolumn (vy) eller staplarna i den rad snittlinjen går genom (snitt).
+//      Teckningen ska gå att lita på: varje kropp på plattan som ritas likadant
+//      (räknat med ett djupbuffer på isometrins triangelnät, inte med
+//      ritarens målarordning) ska ge samma facit.
+//
 // Kopiespärren (dubbletter, längst ned): samma uppgift vriden eller speglad.
 // Från omgång 2 (fran_version 4) gäller den mot alla banker och nivåer, och
 // tärningar jämförs också med hörnet vridet ett tredjedels varv eller speglat.
 //
 // Kör: node scripts/spatial-verifiera.mjs              (de tre bankerna)
-//      node scripts/spatial-verifiera.mjs --version 4  (bara fran_version 4)
+//      node scripts/spatial-verifiera.mjs --version 4  (bara fran_version 4, eller 5)
 //      node scripts/spatial-verifiera.mjs <bank.json>
 // Exit 1 vid fel. Varningar stoppar inte.
 // =============================================================================
@@ -78,7 +89,52 @@ function brickLagen(f) {
   return vr;
 }
 
+/** Spegling i en linje genom figurens mitt, i figurens egen ram: lodrät, vågrät, sned från övre vänstra hörnet, sned från övre högra. */
+function brickSpeglaI(f, axel) {
+  const n = brickNorm(f.cells, f.mark);
+  const H = Math.max(...n.cells.map((c) => c[0])) + 1;
+  const W = Math.max(...n.cells.map((c) => c[1])) + 1;
+  const g = { v: ([r, c]) => [r, W - 1 - c], h: ([r, c]) => [H - 1 - r, c], d: ([r, c]) => [c, r], a: ([r, c]) => [W - 1 - c, H - 1 - r] }[axel];
+  return { cells: n.cells.map(g), mark: n.mark ? g(n.mark) : null };
+}
+const AXELORD = { v: 'lodräta', h: 'vågräta', d: 'sneda', a: 'sneda' };
+
+function verifieraSpegling(q) {
+  const fel = [];
+  const varn = [];
+  const axlar = q.referens.axlar;
+  const ref = { cells: q.referens.cells, mark: q.referens.mark };
+  if (axlar.length !== 2 || axlar.some((a) => !AXELORD[a])) return { fel: ['spegellinjerna går inte att läsa'], varn };
+  const atta = [...brickLagen(ref), ...brickLagen(brickSpegla(ref))].map(brickKey);
+  if (new Set(atta).size !== 8) fel.push('referensen har en symmetri, två alternativ kan se likadana ut');
+  const facit = brickKey(axlar.reduce((f, a) => brickSpeglaI(f, a), ref));
+  const alt = q.options.map((o) => brickKey({ cells: o.cells, mark: o.mark }));
+  if (new Set(alt).size !== alt.length) fel.push('två alternativ är lika');
+  const ratt = alt.map((a, i) => (a === facit ? i : -1)).filter((i) => i >= 0);
+  if (ratt.length !== 1) fel.push(`${ratt.length} alternativ är figuren speglad i linjerna, ska vara exakt ett`);
+  else if (ratt[0] !== q.correctAnswer) fel.push(`facit står på ${q.correctAnswer + 1} men speglingen är alternativ ${ratt[0] + 1}`);
+  if (alt.includes(brickKey(ref))) fel.push('ett alternativ är referensen orörd');
+  // ingen genväg: minst en distraktor är också en vridning
+  const lagen = brickLagen(ref).map(brickKey);
+  if (alt.filter((a, i) => i !== q.correctAnswer && lagen.slice(1).includes(a)).length < 1) fel.push('ingen distraktor är en vridning, facit går att hitta utan att spegla');
+  // frågan nämner linjerna i ordning, förklaringen vridningen
+  const fraga = new RegExp(`först i den ${AXELORD[axlar[0]]} linjen och sedan i den ${AXELORD[axlar[1]]}`);
+  if (!fraga.test(q.fraga)) fel.push(`frågan nämner inte linjerna i ordningen ${axlar.join(', ')}`);
+  if (axlar[0] === axlar[1] || (AXELORD[axlar[0]] === 'sneda' && AXELORD[axlar[1]] === 'sneda')) fel.push('två linjer med samma namn i frågan');
+  const g = lagen.indexOf(facit) * 90;
+  const text = { 90: /90 grader medurs/, 180: /180 grader|halvt varv/, 270: /90 grader moturs/ }[g];
+  if (!text) fel.push('facit är ingen vridning av referensen');
+  else if (!text.test(q.forklaring)) fel.push(`förklaringen nämner inte vridningen ${g} grader`);
+  for (const o of [q.referens, ...q.options]) {
+    const n = brickNorm(o.cells, o.mark);
+    if (Math.max(...n.cells.map((c) => c[0])) + 1 > o.n || Math.max(...n.cells.map((c) => c[1])) + 1 > o.n) fel.push(`en figur ryms inte i ${o.n}×${o.n}`);
+  }
+  if (q.options.some((o) => o.axlar)) fel.push('ett alternativ har spegellinjer');
+  return { fel, varn };
+}
+
 function verifieraA(q) {
+  if (q.referens.axlar) return verifieraSpegling(q);
   const fel = [];
   const varn = [];
   const ref = { cells: q.referens.cells, mark: q.referens.mark };
@@ -462,7 +518,141 @@ function mojlig(ref, kand) {
   return false;
 }
 
+// --- kroppar (omgång 3)
+const KN = 3;
+const KH = 3;
+/** Skärmläget (isometrin, kanten 1): x snett ned åt höger, y snett ned åt vänster, z upp. */
+const kSkarm = ([x, y, z]) => [(x - y) * Math.sqrt(3) / 2, (x + y) / 2 - z];
+/**
+ * Kolumnerna sedda från pilens sida, från vänster till höger på skärmen.
+ * Sidorna pilen tittar på: 'l' de grå med normalen +y, 'r' de vita med +x.
+ * Varje kolumn är rutorna med samma läge längs sidans bredd.
+ */
+function kKolumner(blick) {
+  const kol = [];
+  for (let i = 0; i < KN; i++) {
+    const rutor = [];
+    for (let j = 0; j < KN; j++) rutor.push(blick === 'l' ? [i, j] : [j, i]); // [x, y]
+    // kolumnens läge på skärmen: mitten av dess främre sida
+    const fram = blick === 'l' ? [i + 0.5, KN, 0] : [KN, i + 0.5, 0];
+    kol.push({ rutor, sx: kSkarm(fram)[0] });
+  }
+  return kol.sort((a, b) => a.sx - b.sx).map((k) => k.rutor);
+}
+const kHojd = (h, [x, y]) => h[y][x];
+function kFacit(h, blick, snitt) {
+  return kKolumner(blick).map((rutor) => {
+    if (snitt === undefined) return Math.max(...rutor.map((r) => kHojd(h, r)));
+    const rad = rutor.find(([x, y]) => (blick === 'l' ? y : x) === snitt);
+    return kHojd(h, rad);
+  });
+}
+/** Ett alternativ (brickfigur) som stapelprofil: höjden per kolumn från botten, null om det inte är staplar. */
+function kProfil(o) {
+  const n = brickNorm(o.cells, null);
+  const H = Math.max(...n.cells.map((c) => c[0])) + 1;
+  const W = Math.max(...n.cells.map((c) => c[1])) + 1;
+  const p = [];
+  for (let c = 0; c < W; c++) {
+    const rader = n.cells.filter((x) => x[1] === c).map((x) => x[0]).sort((a, b) => a - b);
+    if (!rader.length || rader.at(-1) !== H - 1 || rader.some((r, i) => i && r !== rader[i - 1] + 1)) return null;
+    p.push(rader.length);
+  }
+  return p;
+}
+/**
+ * Bilden med djupbuffer: varje kubsida (och plattans rutor) delas i sina två
+ * trianglar på skärmen, och triangeln får den sida vars punkt ligger närmast
+ * betraktaren (störst x + y + z i triangelns tyngdpunkt). Sidor mellan två
+ * kuber ritas inte (de syns aldrig och ritaren hoppar över dem).
+ */
+function kBild(h) {
+  const buf = new Map();
+  const uv = ([x, y, z]) => [x - y, x + y - 2 * z];
+  const sida = (horn, typ) => {
+    const s = horn.map(uv);
+    // diagonalen som är lodrät på skärmen delar romben i två trianglar
+    const [i, j] = s[0][0] === s[2][0] ? [0, 2] : [1, 3];
+    const andra = [0, 1, 2, 3].filter((k) => k !== i && k !== j);
+    const mitt = s.reduce((a, b) => [a[0] + b[0] / 4, a[1] + b[1] / 4], [0, 0]);
+    const lab = `${typ}${mitt[0]},${mitt[1]}`;
+    for (const k of andra) {
+      const t = [i, j, k];
+      const c2 = t.reduce((a, q) => [a[0] + s[q][0], a[1] + s[q][1]], [0, 0]);
+      const c3 = t.reduce((a, q) => a + horn[q][0] + horn[q][1] + horn[q][2], 0) / 3;
+      const nyck = `${c2[0]},${c2[1]}`;
+      const f = buf.get(nyck);
+      if (!f || f.d < c3 - 1e-9) buf.set(nyck, { d: c3, lab });
+    }
+  };
+  const H = (x, y) => (x >= 0 && y >= 0 && x < KN && y < KN ? h[y][x] : 0);
+  for (let y = 0; y < KN; y++)
+    for (let x = 0; x < KN; x++) {
+      sida([[x, y, 0], [x + 1, y, 0], [x + 1, y + 1, 0], [x, y + 1, 0]], 'golv');
+      for (let z = 0; z < h[y][x]; z++) {
+        if (z === h[y][x] - 1) sida([[x, y, z + 1], [x + 1, y, z + 1], [x + 1, y + 1, z + 1], [x, y + 1, z + 1]], 'topp');
+        if (H(x, y + 1) <= z) sida([[x, y + 1, z + 1], [x + 1, y + 1, z + 1], [x + 1, y + 1, z], [x, y + 1, z]], 'gra');
+        if (H(x + 1, y) <= z) sida([[x + 1, y, z + 1], [x + 1, y + 1, z + 1], [x + 1, y + 1, z], [x + 1, y, z]], 'vit');
+      }
+    }
+  return [...buf.entries()].map(([k, v]) => `${k}:${v.lab}`).sort().join('|');
+}
+let K_BILDER = null;
+/** Alla kroppar på plattan (staplar 0 till 3) grupperade efter bild. Räknas en gång per körning. */
+function kGrupp(h) {
+  if (!K_BILDER) {
+    K_BILDER = new Map();
+    for (let i = 0; i < (KH + 1) ** (KN * KN); i++) {
+      const b = [];
+      let t = i;
+      for (let y = 0; y < KN; y++) {
+        b.push([]);
+        for (let x = 0; x < KN; x++) {
+          b[y].push(t % (KH + 1));
+          t = Math.floor(t / (KH + 1));
+        }
+      }
+      const k = kBild(b);
+      if (!K_BILDER.has(k)) K_BILDER.set(k, []);
+      K_BILDER.get(k).push(b);
+    }
+  }
+  return K_BILDER.get(kBild(h)) ?? [];
+}
+
+function verifieraKropp(q) {
+  const fel = [];
+  const varn = [];
+  const ref = q.referens;
+  const { h, blick, snitt } = ref;
+  if (h?.length !== KN || h.some((r) => r.length !== KN || r.some((x) => !Number.isInteger(x) || x < 0 || x > KH))) return { fel: ['kroppen är inte staplar 0 till 3 på en 3×3-platta'], varn };
+  if (blick !== 'l' && blick !== 'r') return { fel: ['pilen går inte att läsa'], varn };
+  if (snitt !== undefined && !(Number.isInteger(snitt) && snitt >= 0 && snitt < KN)) return { fel: ['snittet ligger utanför plattan'], varn };
+  const facit = kFacit(h, blick, snitt);
+  if (facit.some((x) => x < 1)) fel.push('facit har en tom kolumn, brickan tappar sitt läge i sidled');
+  // teckningen: varje kropp som ritas likadant ger samma facit
+  const grupp = kGrupp(h);
+  if (!grupp.some((b) => JSON.stringify(b) === JSON.stringify(h))) fel.push('kroppen finns inte bland sina egna bilder');
+  const andra = grupp.filter((b) => kFacit(b, blick, snitt).join() !== facit.join());
+  if (andra.length) fel.push(`${andra.length} andra kroppar ritas likadant men ger ett annat facit`);
+  const prof = q.options.map(kProfil);
+  if (prof.some((p) => !p)) fel.push('ett alternativ är inte staplar från botten');
+  const nyck = prof.map((p) => (p ? p.join() : '?'));
+  if (new Set(nyck).size !== 4) fel.push('två alternativ är lika');
+  const ratt = nyck.map((n, i) => (n === facit.join() ? i : -1)).filter((i) => i >= 0);
+  if (ratt.length !== 1) fel.push(`${ratt.length} alternativ stämmer med kroppen, ska vara exakt ett`);
+  else if (ratt[0] !== q.correctAnswer) fel.push(`facit står på ${q.correctAnswer + 1} men kroppen ger alternativ ${ratt[0] + 1}`);
+  // facit med färre kolumner kan inte placeras i sidled; spegelsymmetriskt facit gör "bakifrån" rätt
+  if (prof.some((p) => p && p.length !== KN)) fel.push('ett alternativ är inte tre kolumner brett');
+  if (facit.join() === [...facit].reverse().join()) fel.push('facit är spegelsymmetriskt');
+  // texten: frågan följer typen, förklaringen nämner facit från vänster
+  if (snitt === undefined ? !/från pilens håll/.test(q.fraga) || /snitt/.test(q.fraga) : !/streckade linjen/.test(q.fraga) || !/snittytan/.test(q.fraga)) fel.push('frågan passar inte uppgiften');
+  if (!q.forklaring.includes(`${facit[0]}, ${facit[1]} och ${facit[2]}`)) fel.push(`förklaringen nämner inte ${facit.join(', ')}`);
+  return { fel, varn };
+}
+
 function verifieraC(q) {
+  if (q.referens?.kind === 'kropp') return verifieraKropp(q);
   const fel = [];
   const varn = [];
   const ref = q.referens;
@@ -608,13 +798,36 @@ const vyText = (v) => ['t', 'l', 'r'].map((s) => `${v[s].symbol}${RIKTADE_C.has(
 const kubKanonRitad = (q) => `${vyText(q.referens)}#${vyText(q.options[q.correctAnswer])}`;
 const kubKanon = (q) => HORN.map((h) => `${vyText(hornAvbild(h, q.referens))}#${vyText(hornAvbild(h, q.options[q.correctAnswer]))}`).sort()[0];
 
+/**
+ * C, kroppar: samma uppgift är samma kropp sedd från samma håll relativt
+ * kroppen. Kroppen läggs i tittarens ram (kolumn från vänster, djup från
+ * pilen), tomma rader längst bort och närmast tas bort, och ramen jämförs
+ * också spegelvänd i sidled (hela uppgiften speglad på skärmen: grå och vita
+ * sidor byter plats). En kropp vriden ett kvarts varv och sedd från den andra
+ * sidan blir alltså samma nyckel. Snittets rad räknas i samma ram.
+ */
+function kroppKanonV(q) {
+  const { h, blick, snitt } = q.referens;
+  const kol = kKolumner(blick);
+  const djup = (r) => (blick === 'l' ? r[1] : r[0]);
+  const V = [];
+  for (let d = 0; d < KN; d++) V.push(kol.map((rutor) => kHojd(h, rutor.find((r) => djup(r) === d))));
+  const fyllda = V.map((rad, d) => (rad.some(Boolean) ? d : -1)).filter((d) => d >= 0);
+  const T = V.slice(fyllda[0], fyllda.at(-1) + 1);
+  const s = snitt === undefined ? 'vy' : `snitt${snitt - fyllda[0]}`;
+  const a = T.map((r) => r.join('')).join('/');
+  const b = T.map((r) => [...r].reverse().join('')).join('/');
+  return `K:${s}:${a < b ? a : b}`;
+}
+
 export function kanoniskNyckel(q) {
   if (q.form === 'A') return `A:${brickKanon(q)}`;
+  if (q.form === 'C' && q.referens?.kind === 'kropp') return `C:${kroppKanonV(q)}`;
   if (q.form === 'C') return `C:${kubKanon(q)}`;
   return `${q.form}:${vikKanon(q)}`;
 }
 /** Nyckeln som gällde i omgång 1 (C utan hörnets symmetri). Samma som kanoniskNyckel för A, B och D. */
-const ritadNyckel = (q) => (q.form === 'C' ? `C:${kubKanonRitad(q)}` : kanoniskNyckel(q));
+const ritadNyckel = (q) => (q.form === 'C' && q.referens?.kind !== 'kropp' ? `C:${kubKanonRitad(q)}` : kanoniskNyckel(q));
 
 /**
  * Kopior: par av uppgifter som är samma uppgift (samma figur, samma
@@ -672,7 +885,7 @@ export function verifieraBanker(filer = BANKER, { version } = {}) {
   return res;
 }
 
-export { SIDA3D, VRID24, upp3D };
+export { SIDA3D, VRID24, upp3D, kFacit, kBild, kGrupp };
 
 if (process.argv[1]?.endsWith('spatial-verifiera.mjs')) {
   const arg = process.argv.slice(2);

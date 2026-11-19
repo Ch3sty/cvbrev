@@ -26,7 +26,7 @@ import type { GenomgangSpatial, KubFigur, SpatialFigur, VisadSpatial } from '@/l
 import type { GenomgangTalserie, TalserieBage, VisadTalserie } from '@/lib/talserierV1/types'
 import { visaTal } from '@/lib/talserierV1/layout'
 import type { Steg2Kind } from '@/app/dashboard/tester/testConfig'
-import { FORM_NAMN } from '@/lib/tester/steg2/namn'
+import { FORM_NAMN, SPATIAL_TYP_NAMN } from '@/lib/tester/steg2/namn'
 
 export const BOKSTAV = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -201,8 +201,16 @@ function Figur({ fig, className = '' }: { fig: SpatialFigur; className?: string 
 }
 
 const FORM_ETIKETT: Record<string, string> = { A: 'Figuren', C: 'Tärningen' }
+/** Bankversion 5: kroppar i form C och spegling i två linjer i form A får egen rubrik och etikett. */
+const arKropp = (u: Pick<VisadSpatial, 'referens'>) => u.referens?.kind === 'kropp'
+const arSpegling = (u: Pick<VisadSpatial, 'referens'>) => u.referens?.kind === 'brick' && !!u.referens.axlar?.length
+const etikett = (u: Pick<VisadSpatial, 'form' | 'referens'>) => (arKropp(u) ? 'Kroppen' : FORM_ETIKETT[u.form])
 
-function formNamn(u: Pick<VisadSpatial, 'form' | 'klipp'>) {
+function formNamn(u: Pick<VisadSpatial, 'form' | 'klipp' | 'referens'>) {
+  if (arKropp(u)) return SPATIAL_TYP_NAMN.kropp
+  if (arSpegling(u)) return SPATIAL_TYP_NAMN.spegling
+  if (u.form === 'A') return SPATIAL_TYP_NAMN.vriden
+  if (u.form === 'C') return SPATIAL_TYP_NAMN.tarning
   return u.form === 'B' && u.klipp ? FORM_NAMN.Bklipp : FORM_NAMN[u.form]
 }
 
@@ -301,7 +309,7 @@ export function SpatialUppgift({
     <div className="min-w-0">
       <p className="text-ey uppercase text-ink-3">{formNamn(u)}</p>
       <H className="mt-1 font-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 min-[400px]:text-[20px]">{u.fraga}</H>
-      {u.form === 'A' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Spegelbilder räknas inte. Ett av fyra.</p> : null}
+      {u.form === 'A' && !arSpegling(u) ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Spegelbilder räknas inte. Ett av fyra.</p> : null}
       {u.form === 'D' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Hål och klipp syns bara där de går genom alla lager.</p> : null}
     </div>
   )
@@ -315,7 +323,7 @@ export function SpatialUppgift({
       ) : u.referens ? (
         <div className="grid grid-cols-2 items-center gap-2.5">
           <div className="matrisyta relative [aspect-ratio:1/1] rounded-xl border border-kant bg-papper-2" data-spatial-referens>
-            <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold uppercase tracking-[.04em] text-ink-3">{FORM_ETIKETT[u.form]}</span>
+            <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold uppercase tracking-[.04em] text-ink-3">{etikett(u)}</span>
             <span className="absolute inset-3">
               <Figur fig={u.referens} />
             </span>
@@ -344,7 +352,7 @@ export function SpatialGenomgangVy({ g, valt }: { g: GenomgangSpatial; valt: num
     bild = (
       <div className="matrisyta flex items-center gap-2">
         <div className="relative [aspect-ratio:1/1] flex-1 rounded-xl border border-kant bg-papper-2">
-          <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold uppercase tracking-[.04em] text-ink-3">{FORM_ETIKETT[g.form]}</span>
+          <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold uppercase tracking-[.04em] text-ink-3">{etikett(g)}</span>
           <span className="absolute inset-3">
             <Figur fig={ref} />
           </span>

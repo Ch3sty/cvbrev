@@ -7,6 +7,10 @@
 //   C  tärningar: kubrotation i 3D (I-provets namn, skissens beslut 12)
 //   D  pappersvikning i I-provets riktning: utvikt ark med hål och klipp,
 //      välj hur det ser ut ihopvikt (ägarens beslut 2026-11-10, version 2)
+// Bankversion 5 (omgång 3, docs/fragebank/spatial-2026-11-19-omg3.md) lägger
+// nya uppgiftstyper inom formerna: A spegling i två linjer (BrickFigur.axlar),
+// C kroppar av kuber sedda från pilens håll och snitt (KroppFigur), B två
+// vikningar med två hål på expert.
 // Fyra alternativ A till D, blandade per session med logicTestV7/blanda.ts.
 // Ren typfil.
 // =============================================================================
@@ -25,7 +29,14 @@ export interface BrickFigur {
   n: 3 | 4 | 5;
   cells: Ruta[];
   mark?: Ruta;
+  /**
+   * Form A, spegling i två linjer (bankversion 5): linjerna figuren speglas i,
+   * i tur och ordning, ritade streckade genom figurens mitt. v lodrät, h vågrät,
+   * d diagonal från övre vänstra hörnet, a diagonal från övre högra hörnet.
+   */
+  axlar?: SpegelAxel[];
 }
+export type SpegelAxel = 'v' | 'h' | 'd' | 'a';
 
 /** Form B, en vikning: arket som det ligger (poly), halvan som viks över (grå), viklinjen och pilen. */
 export interface ArkVikFigur {
@@ -73,7 +84,23 @@ export interface KubFigur {
   markera?: ('t' | 'l' | 'r')[];
 }
 
-export type SpatialFigur = BrickFigur | ArkVikFigur | ArkStansFigur | ArkUtFigur | KubFigur;
+/**
+ * Form C, kroppar (bankversion 5): staplar av kuber på en platta, sedda snett
+ * ovanifrån som tärningen. h[y][x] är antalet kuber i rutan; x går snett nedåt
+ * åt höger (de vita sidorna vetter åt det hållet), y snett nedåt åt vänster
+ * (de grå sidorna). Pilen på plattan visar varifrån kroppen ses: 'l' rakt mot
+ * de grå sidorna, 'r' rakt mot de vita sidorna till höger. `snitt` är raden
+ * tvärs över pilen (y för 'l', x för 'r') som kroppen sågas itu genom, ritad
+ * som en streckad linje på plattan.
+ */
+export interface KroppFigur {
+  kind: 'kropp';
+  h: number[][];
+  blick: 'l' | 'r';
+  snitt?: number;
+}
+
+export type SpatialFigur = BrickFigur | ArkVikFigur | ArkStansFigur | ArkUtFigur | KubFigur | KroppFigur;
 
 export interface SpatialFraga {
   /** sp-<g|a|e>-<a|b|c|d>-<nn> */
@@ -89,7 +116,7 @@ export interface SpatialFraga {
   /** Frågan som den står ovanför alternativen. */
   fraga: string;
   /** Form A och C: figuren man jämför med. */
-  referens?: BrickFigur | KubFigur;
+  referens?: BrickFigur | KubFigur | KroppFigur;
   /** Form B: rutorna överst, vikningarna och sist det stansade arket (högst fyra, SP-B7). */
   sekvens?: (ArkVikFigur | ArkStansFigur)[];
   /** Fyra alternativ, ordning före sessionens blandning. */
@@ -107,7 +134,8 @@ export interface SpatialFraga {
   avslojande?: (('t' | 'l' | 'r')[])[];
   /** 3: frågebanken 2026-11-19 (docs/fragebank/spatial-2026-11-19.md), aktiv sedan SPATIAL_VERSION 3. */
   /** 4: frågebanken 2026-11-19 omgång 2 (docs/fragebank/spatial-2026-11-19-omg2.md), aktiveras med SPATIAL_VERSION 4. */
-  fran_version: 1 | 2 | 3 | 4;
+  /** 5: frågebanken 2026-11-19 omgång 3 (docs/fragebank/spatial-2026-11-19-omg3.md), aktiveras med SPATIAL_VERSION 5. */
+  fran_version: 1 | 2 | 3 | 4 | 5;
   pensionerad_fran?: number;
 }
 
@@ -118,7 +146,7 @@ export interface VisadSpatial {
   klipp?: boolean;
   difficulty: number;
   fraga: string;
-  referens?: BrickFigur | KubFigur;
+  referens?: BrickFigur | KubFigur | KroppFigur;
   sekvens?: (ArkVikFigur | ArkStansFigur)[];
   options: SpatialFigur[];
 }

@@ -164,6 +164,38 @@
     },
     "symbolSw": 3
   },
+  "brickAxel": {
+    "_om": "Form A, spegling i två linjer (bankversion 5): linjerna genom figurens mitt (50, 50), ram-grått och streckat som viklinjen, ovanpå rutorna. Rak linje från 16 till 84, diagonal från 18 till 82.",
+    "rak": [
+      16,
+      84
+    ],
+    "diag": [
+      18,
+      82
+    ],
+    "sw": 2.5,
+    "streck": "4 4"
+  },
+  "kropp": {
+    "_om": "Form C, kroppar (bankversion 5): kuber på en 3×3-platta i samma isometri som tärningen (30 grader). En kubkant är kant enheter. Hela ritningen (platta, kuber, pil och snittlinje) centreras i rutan som arket. Sidorna som tärningen: ovansida papper, vänster grå, höger papper, bläckkontur. Plattan har ram-grå kontur och rutnät. Pilen ligger på plattans nivå, från fran till till rutor utanför plattan. Snittlinjen är streckad i bläck på plattan och sticker ut så många rutor (ut) utanför plattan på båda sidor.",
+    "n": 3,
+    "kant": 10.8,
+    "sw": 2.5,
+    "plattaSw": 2.5,
+    "pil": {
+      "sw": 3,
+      "fran": 1.85,
+      "till": 0.4,
+      "huvudLangd": 6.5,
+      "huvudHalv": 4.5
+    },
+    "snitt": {
+      "sw": 3,
+      "streck": "4 3",
+      "ut": 0.7
+    }
+  },
   "noder": {
     "brickMax": 80,
     "arkMax": 120,

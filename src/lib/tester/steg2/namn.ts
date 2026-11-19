@@ -17,13 +17,28 @@ export const FAMILJ_NAMN: Record<string, string> = {
 };
 
 export const FORM_NAMN = {
-  A: 'Vriden figur',
+  A: 'Vriden och speglad figur',
   /** Form B utan klipp: vikt och stansat ark, välj hur det ser ut uppvikt. */
   B: 'Uppvikning',
   Bklipp: 'Pappersvikning med klipp',
-  C: 'Tärningar',
+  C: 'Tärningar och kroppar',
   /** Form D: utvikt ark, välj hur det ser ut ihopvikt (I-provets deltest 2). */
   D: 'Pappersvikning',
+} as const;
+
+/**
+ * Rubriken över uppgiften för de nya uppgiftstyperna i spatial förmåga
+ * (bankversion 5, docs/fragebank/spatial-2026-11-19-omg3.md). De ligger inom
+ * formerna A och C, så "Var du tappar" räknar dem som förut per form.
+ */
+export const SPATIAL_TYP_NAMN = {
+  /** Form A med spegellinjer: spegling i två linjer. */
+  spegling: 'Speglad figur',
+  /** Form C med en kropp av kuber: vy eller snitt. */
+  kropp: 'Kroppar',
+  /** Rubriken för de äldre typerna, som inte har spegling eller kroppar. */
+  vriden: 'Vriden figur',
+  tarning: 'Tärningar',
 } as const;
 
 /** Passets namn per typ (hemvyn, toppraden). */

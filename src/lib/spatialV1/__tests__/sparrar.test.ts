@@ -161,7 +161,7 @@ describe('form C: tärningar, lösaren och spärrfixturer', () => {
   })
   it('varje vy av kuben går ihop med referensen, ingen vy av spegelbilden gör det (kiraliteten)', () => {
     for (const n of NIVAER) {
-      for (const q of bank(n).filter((x: Q) => x.form === 'C')) {
+      for (const q of bank(n).filter((x: Q) => x.form === 'C' && x.referens.kind === 'kub')) { // kropparna (bankversion 5) har ingen kub
         const ref = vy(q.referens)
         for (const Q of C.VRIDNINGAR) expect(C.konsistent(ref, C.vy(q.kub, Q))).toBe(true)
         const sp = C.spegla(q.kub)
@@ -204,7 +204,7 @@ describe('form C: tärningar, lösaren och spärrfixturer', () => {
     expect(fel(q)).toMatch(/SP-C7/)
   })
   it('expert: de tre distraktorerna har rätt sidor och en riktning fel var', () => {
-    for (const q of bank('Expert').filter((x: Q) => x.form === 'C')) {
+    for (const q of bank('Expert').filter((x: Q) => x.form === 'C' && x.referens.kind === 'kub')) {
       expect(q.typer.filter((t: string) => t === 'vriden').length).toBe(3)
     }
   })
