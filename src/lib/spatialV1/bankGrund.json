@@ -12126,7 +12126,8 @@
   ],
   "difficulty": 2,
   "p_prior": 0.8,
-  "fran_version": 1
+  "fran_version": 1,
+  "pensionerad_fran": 4
  },
  {
   "id": "sp-g-c-16",
@@ -28405,5 +28406,7809 @@
   "difficulty": 2,
   "p_prior": 0.8,
   "fran_version": 3
+ },
+ {
+  "id": "sp-g-a-34",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 3,
+  "referens": {
+   "kind": "brick",
+   "n": 3,
+   "cells": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel",
+   "",
+   "flyttad",
+   "spegel_vriden"
+  ],
+  "misstag": [
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-35",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel_vriden",
+   "",
+   "spegel",
+   "flyttad"
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-36",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "flyttad",
+   "spegel_vriden",
+   "spegel",
+   ""
+  ],
+  "misstag": [
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   ""
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-37",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel_vriden",
+   "",
+   "spegel",
+   "flyttad"
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-38",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel_vriden",
+   "spegel",
+   "flyttad",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   ""
+  ],
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-39",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel_vriden",
+   "",
+   "flyttad",
+   "spegel"
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+  ],
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-40",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "flyttad",
+   "",
+   "spegel",
+   "spegel_vriden"
+  ],
+  "misstag": [
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-41",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "spegel_vriden",
+   "spegel",
+   "flyttad"
+  ],
+  "misstag": [
+   "",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-a-42",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel_vriden",
+   "",
+   "flyttad",
+   "spegel"
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
+  "vridning": 90,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-33",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och två hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "fel_axel",
+   "extra",
+   "stansat"
+  ],
+  "misstag": [
+   "",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen.",
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "Du ritade bara de två hålen som stansades. När arket viks upp får varje lager samma två hål."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 4 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-34",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och ett hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      4,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      0.5
+     ],
+     [
+      2,
+      1.5
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "extra",
+   "",
+   "fel_axel",
+   "stansat"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen.",
+   "Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 2 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-35",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och två hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "stansat",
+   "fel_axel",
+   "extra"
+  ],
+  "misstag": [
+   "",
+   "Du ritade bara de två hålen som stansades. När arket viks upp får varje lager samma två hål.",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen.",
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 4 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-36",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och två hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "extra",
+   "stansat",
+   "",
+   "fel_axel"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "Du ritade bara de två hålen som stansades. När arket viks upp får varje lager samma två hål.",
+   "",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 4 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-37",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och ett hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.623918,
+      1.376082
+     ],
+     [
+      1.376082,
+      2.623918
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "extra",
+   "fel_axel",
+   "stansat",
+   ""
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen.",
+   "Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål.",
+   ""
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 2 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "d",
+    "k": 0,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-38",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och ett hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "stansat",
+   "extra",
+   "",
+   "fel_axel"
+  ],
+  "misstag": [
+   "Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål.",
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 2 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-39",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och två hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_axel",
+   "",
+   "stansat",
+   "extra"
+  ],
+  "misstag": [
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen.",
+   "",
+   "Du ritade bara de två hålen som stansades. När arket viks upp får varje lager samma två hål.",
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 4 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-b-40",
+  "niva": "grund",
+  "form": "B",
+  "fraga": "Arket viks och ett hål stansas. Hur ser arket ut när det viks upp?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      4
+     ],
+     [
+      4,
+      0
+     ]
+    ],
+    "pil": [
+     [
+      1.376082,
+      1.376082
+     ],
+     [
+      2.623918,
+      2.623918
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "extra",
+   "stansat",
+   "",
+   "fel_axel"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålen speglas bara över linjerna där arket vikts.",
+   "Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål.",
+   "",
+   "Du speglade över fel linje. Hålen speglas över den streckade viklinjen."
+  ],
+  "forklaring": "Arket viks en gång. Vik upp baklänges, den sista vikningen först, och spegla hålen över varje viklinje. Det ger 2 hål.",
+  "uppvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": []
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "a",
+    "k": 4,
+    "flytt": -1
+   }
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-33",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "dubbelring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "fel_symbol",
+   "framande",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "",
+   "Med kvadraten och den fyllda kvadraten placerade så här måste ovansidan visa en prick, inte en dubbelring.",
+   "En triangel kan inte sitta där. Med pricken och kvadraten placerade så här måste vänster sida visa en dubbelring.",
+   "Med dubbelringen och kvadraten placerade så här måste höger sida visa en prick, inte en stjärna."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-34",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "dubbelring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "stjarna",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "fel_symbol",
+   "fel_symbol",
+   "framande"
+  ],
+  "misstag": [
+   "",
+   "Med stjärnan och dubbelringen placerade så här måste ovansidan visa en fylld kvadrat, inte en prick.",
+   "Med den fyllda kvadraten och dubbelringen placerade så här måste vänster sida visa en stjärna, inte en prick.",
+   "En triangel kan inte sitta där. Med stjärnan och dubbelringen placerade så här måste ovansidan visa en fylld kvadrat."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Dubbelringen och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-35",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "stjarna",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_symbol",
+   "framande",
+   "",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "Med den fyllda kvadraten och kvadraten placerade så här måste ovansidan visa en stjärna, inte en prick.",
+   "En triangel kan inte sitta där. Med pricken och stjärnan placerade så här måste vänster sida visa en fylld kvadrat.",
+   "",
+   "Med pricken och den fyllda kvadraten placerade så här måste höger sida visa en stjärna, inte en dubbelring."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Stjärnan och den fyllda kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-36",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "dubbelring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_symbol",
+   "framande",
+   "spegel",
+   ""
+  ],
+  "misstag": [
+   "Med ringen och kvadraten placerade så här måste ovansidan visa en dubbelring, inte en prick.",
+   "En triangel kan inte sitta där. Med ringen och kvadraten placerade så här måste ovansidan visa en dubbelring.",
+   "Spegelvänd. Samma tre sidor, men i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-37",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "dubbelring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_symbol",
+   "fel_symbol",
+   "",
+   "framande"
+  ],
+  "misstag": [
+   "Med ringen och kvadraten placerade så här måste vänster sida visa en dubbelring, inte en prick.",
+   "Med pricken och kvadraten placerade så här måste vänster sida visa en ring, inte en dubbelring.",
+   "",
+   "En triangel kan inte sitta där. Med dubbelringen och kvadraten placerade så här måste ovansidan visa en ring."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-38",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "stjarna",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "dubbelring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_symbol",
+   "framande",
+   "fel_symbol",
+   ""
+  ],
+  "misstag": [
+   "Med dubbelringen och stjärnan placerade så här måste ovansidan visa en fylld kvadrat, inte en kvadrat.",
+   "En triangel kan inte sitta där. Med dubbelringen och stjärnan placerade så här måste höger sida visa en fylld kvadrat.",
+   "Med den fyllda kvadraten och dubbelringen placerade så här måste höger sida visa en stjärna, inte en ring.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Den fyllda kvadraten och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-39",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "stjarna",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "fel_symbol",
+   "framande",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "",
+   "Med den fyllda kvadraten och pricken placerade så här måste höger sida visa en stjärna, inte en kvadrat.",
+   "En triangel kan inte sitta där. Med den fyllda kvadraten och stjärnan placerade så här måste vänster sida visa en prick.",
+   "Med ringen och pricken placerade så här måste vänster sida visa en stjärna, inte en fylld kvadrat."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Stjärnan och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-c-40",
+  "niva": "grund",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "stjarna",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "framande",
+   "fel_symbol",
+   "fel_symbol",
+   ""
+  ],
+  "misstag": [
+   "En triangel kan inte sitta där. Med stjärnan och ringen placerade så här måste ovansidan visa en kvadrat.",
+   "Ringen syns redan på den första tärningen och kan inte hamna på vänster sida när kvadraten och stjärnan står så här.",
+   "Med dubbelringen och stjärnan placerade så här måste ovansidan visa en kvadrat, inte en ring.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "stjarna",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "dubbelring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-34",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegelvand",
+   "fel_linje",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-35",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_linje",
+   "hal_saknas",
+   "spegelvand",
+   ""
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   ""
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-36",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": []
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "hal_saknas",
+   "",
+   "spegelvand",
+   "fel_linje"
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-37",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_linje",
+   "hal_extra",
+   "hal_saknas",
+   ""
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   ""
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-38",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "hal_saknas",
+   "fel_linje",
+   "spegelvand"
+  ],
+  "misstag": [
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-39",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_linje",
+   "hal_extra",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-40",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_linje",
+   "",
+   "hal_extra",
+   "spegelvand"
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-41",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "hal_saknas",
+   "fel_linje",
+   "spegelvand",
+   ""
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   ""
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
+ },
+ {
+  "id": "sp-g-d-42",
+  "niva": "grund",
+  "form": "D",
+  "fraga": "Arket viks längs den streckade linjen. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "hal_extra",
+   "fel_linje",
+   "",
+   "spegelvand"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks en gång. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": []
+  },
+  "difficulty": 2,
+  "p_prior": 0.8,
+  "fran_version": 4
  }
 ]

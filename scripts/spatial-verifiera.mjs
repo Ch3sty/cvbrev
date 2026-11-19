@@ -26,8 +26,12 @@
 //      klipp syns bara genom alla lager. Exakt ett alternativ ska stämma, och
 //      ingen distraktor får vara facit vridet i planet.
 //
+// Kopiespärren (dubbletter, längst ned): samma uppgift vriden eller speglad.
+// Från omgång 2 (fran_version 4) gäller den mot alla banker och nivåer, och
+// tärningar jämförs också med hörnet vridet ett tredjedels varv eller speglat.
+//
 // Kör: node scripts/spatial-verifiera.mjs              (de tre bankerna)
-//      node scripts/spatial-verifiera.mjs --version 3  (bara fran_version 3)
+//      node scripts/spatial-verifiera.mjs --version 4  (bara fran_version 4)
 //      node scripts/spatial-verifiera.mjs <bank.json>
 // Exit 1 vid fel. Varningar stoppar inte.
 // =============================================================================
@@ -549,36 +553,101 @@ function brickKanon(q) {
   return r8.map((r, i) => `${brickKey(r)}#${brickKey(f8[i])}`).sort()[0];
 }
 
-/** C: tärningen ritas alltid från samma hörn, så referensen och facit som de är. */
+/**
+ * C: tärningen ritas alltid från samma hörn. Hörnet går ändå att vrida i sig
+ * självt: ett tredjedels varv runt hörnets diagonal flyttar ovansidan till
+ * vänster sida, vänster till höger och höger till ovansidan, och en spegling
+ * byter vänster mot höger. En uppgift som bara skiljer sig så (samma tärning,
+ * samma vridning, annan startvridning) är en kopia (2026-11-19, omgång 2).
+ * Avbildningarna är de sex teckenpermutationer som för de synliga sidornas
+ * normaler på varandra; symbolernas upp-vektor följer med i 3D.
+ */
+const HORN = (() => {
+  const ut = [];
+  const perms = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]];
+  const synliga = ['t', 'l', 'r'];
+  for (const p of perms)
+    for (let s = 0; s < 8; s++) {
+      const M = [0, 1, 2].map((i) => [0, 1, 2].map((j) => (j === p[i] ? (s & (1 << i) ? -1 : 1) : 0)));
+      const till = {};
+      for (const x of synliga) {
+        const bild = matVec(M, SIDA3D[x].n);
+        const y = synliga.find((z) => eq3(SIDA3D[z].n, bild));
+        if (!y) break;
+        till[x] = y;
+      }
+      if (Object.keys(till).length === 3) ut.push({ M, till });
+    }
+  return ut;
+})();
+function hornAvbild({ M, till }, v) {
+  const ut = {};
+  for (const x of ['t', 'l', 'r']) {
+    const { symbol, riktning } = v[x];
+    const y = till[x];
+    if (!RIKTADE_C.has(symbol)) {
+      ut[y] = { symbol, riktning: 0 };
+      continue;
+    }
+    const upp = matVec(M, upp3D(x, riktning));
+    const r = [0, 1, 2, 3].find((k) => eq3(upp3D(y, k), upp));
+    if (r === undefined) throw new Error('hörnavbildningen gav en riktning utanför sidan');
+    ut[y] = { symbol, riktning: r };
+  }
+  return ut;
+}
+/** Uppgiften C avbildad med hörnets symmetri h (referens och alternativ). För test och nyckel. */
+export function hornUppgift(q, i) {
+  const h = HORN[i];
+  const fig = (v) => ({ ...v, ...hornAvbild(h, v) });
+  return { ...q, referens: fig(q.referens), options: q.options.map(fig) };
+}
+export const HORN_ANTAL = () => HORN.length;
 const vyText = (v) => ['t', 'l', 'r'].map((s) => `${v[s].symbol}${RIKTADE_C.has(v[s].symbol) ? v[s].riktning : ''}`).join('|');
-const kubKanon = (q) => `${vyText(q.referens)}#${vyText(q.options[q.correctAnswer])}`;
+/** Nyckeln före omgång 2: referensen och facit som de är ritade. */
+const kubKanonRitad = (q) => `${vyText(q.referens)}#${vyText(q.options[q.correctAnswer])}`;
+const kubKanon = (q) => HORN.map((h) => `${vyText(hornAvbild(h, q.referens))}#${vyText(hornAvbild(h, q.options[q.correctAnswer]))}`).sort()[0];
 
 export function kanoniskNyckel(q) {
   if (q.form === 'A') return `A:${brickKanon(q)}`;
   if (q.form === 'C') return `C:${kubKanon(q)}`;
   return `${q.form}:${vikKanon(q)}`;
 }
+/** Nyckeln som gällde i omgång 1 (C utan hörnets symmetri). Samma som kanoniskNyckel för A, B och D. */
+const ritadNyckel = (q) => (q.form === 'C' ? `C:${kubKanonRitad(q)}` : kanoniskNyckel(q));
 
 /**
- * Par av uppgifter på samma nivå som är samma uppgift vriden eller speglad.
- * Fel när en uppgift i paret har fran_version 3 eller senare, varning när båda
- * är äldre. Grund B är undantagen (fel blir varning): formen har bara 32 uppgifter.
+ * Kopior: par av uppgifter som är samma uppgift (samma figur, samma
+ * operation) och bara skiljer sig i startvridning eller spegling.
+ *
+ * Från omgång 2 (fran_version 4) gäller spärren mot alla banker och alla
+ * nivåer: ett par där någon uppgift har fran_version 4 eller senare är alltid
+ * fel, oavsett nivå och form (grund B är inte undantagen för de nya).
+ *
+ * Äldre par bedöms som i omgång 1: fel när paret är på samma nivå, samma
+ * uppgift enligt omgång 1:s nyckel och någon har fran_version 3 (utom grund B,
+ * som bara har 32 uppgifter). Alla andra äldre par, också par på olika nivåer
+ * och tärningar som bara skiljer sig i hörnets vridning, ger en varning.
  */
 export function dubbletter(fragor) {
   const fel = [];
   const varn = [];
-  const sedda = new Map();
+  const grupper = new Map();
   for (const q of fragor) {
-    const k = `${q.niva}:${kanoniskNyckel(q)}`;
-    const forra = sedda.get(k);
-    if (!forra) {
-      sedda.set(k, q);
-      continue;
-    }
-    const text = `${q.id}: samma uppgift som ${forra.id}, vriden eller speglad`;
-    const ny = q.fran_version >= 3 || forra.fran_version >= 3;
-    if (ny && !(q.niva === 'grund' && q.form === 'B')) fel.push(text);
-    else varn.push(text);
+    const k = kanoniskNyckel(q);
+    if (!grupper.has(k)) grupper.set(k, []);
+    const forra = grupper.get(k);
+    // en rad per kopia: mot den första som ger fel, annars mot den första i gruppen
+    const text = (f) => `${q.id}: samma uppgift som ${f.id}${q.niva === f.niva ? '' : ` (${f.niva})`}, vriden eller speglad`;
+    const arFel = (f) => {
+      const max = Math.max(q.fran_version, f.fran_version);
+      if (max >= 4) return true;
+      return max >= 3 && q.niva === f.niva && !(q.niva === 'grund' && q.form === 'B') && ritadNyckel(q) === ritadNyckel(f);
+    };
+    const f = forra.find(arFel);
+    if (f) fel.push(text(f));
+    else if (forra.length) varn.push(text(forra[0]));
+    forra.push(q);
   }
   return { fel, varn };
 }
@@ -603,7 +672,7 @@ export function verifieraBanker(filer = BANKER, { version } = {}) {
   return res;
 }
 
-export { SIDA3D, VRID24 };
+export { SIDA3D, VRID24, upp3D };
 
 if (process.argv[1]?.endsWith('spatial-verifiera.mjs')) {
   const arg = process.argv.slice(2);

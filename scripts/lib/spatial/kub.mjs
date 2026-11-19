@@ -360,3 +360,51 @@ export function sparrarC(q) {
   if (q.misstag.some((m, i) => i !== q.correctAnswer && !m)) fel.push(`${id}: misstagstext saknas`);
   return fel;
 }
+
+// ------------------------------------------------- förklaring med grannar
+
+const PLATS_ORDNING = ['t', 'l', 'r'];
+const GENITIV = (best) => `${best}s`;
+
+/**
+ * Förklaringen för en uppgift där bara en riktad sida syns på båda tärningarna
+ * (expert): vilken granne den pekar mot (eller bort från) på den första
+ * tärningen, vilken sida som tagit grannens plats runt hörnet i rätt
+ * alternativ, och åt vilket håll den därför pekar nu. Räknas ur kuben och
+ * orienteringen, inte ur texten (testansvarig 2026-11-19: förklaringen ska
+ * lära ut metoden). Null om uppgiften inte har den formen.
+ */
+export function forklaringGrannar(q) {
+  const { kub, orientering: Q } = q;
+  if (!kub || !Q) return null;
+  const Qt = transp(Q);
+  const refKropp = Object.fromEntries(SIDOR.map((p) => [p, POS[p].n]));
+  const facKropp = Object.fromEntries(SIDOR.map((p) => [p, mulMV(Qt, POS[p].n)]));
+  const plats = (kropp, n) => SIDOR.find((p) => eqv(kropp[p], n));
+  const delade = kub.filter((s) => plats(refKropp, s.n) && plats(facKropp, s.n));
+  if (delade.length !== 1 || !RIKTADE.has(delade[0].symbol)) return null;
+  const S = delade[0];
+  const u = S.upp;
+  // på den första tärningen: pekar mot eller bort från en synlig granne
+  const motRef = plats(refKropp, u);
+  const bortRef = plats(refKropp, neg(u));
+  if (!motRef === !bortRef) return null;
+  const A = kub.find((s) => eqv(s.n, refKropp[motRef ?? bortRef]));
+  const C = kub.find((s) => eqv(s.n, neg(A.n)));
+  const pC = plats(facKropp, C.n);
+  if (!pC) return null;
+  // i rätt alternativ: pilen pekar mot C när den pekade bort från A, och tvärtom
+  const motFac = eqv(u, C.n);
+  if (motFac !== !!bortRef || (!motFac && !eqv(u, neg(C.n)))) return null;
+  // C står där A stod runt hörnet, räknat från den delade sidan
+  const steg = (kropp, x) => (PLATS_ORDNING.indexOf(plats(kropp, x.n)) - PLATS_ORDNING.indexOf(plats(kropp, S.n)) + 3) % 3;
+  if (steg(refKropp, A) !== steg(facKropp, C)) return null;
+  const subj = S.symbol === 'pil' ? 'pilen' : 'triangelns spets';
+  const stor = (t) => t[0].toUpperCase() + t.slice(1);
+  const riktning = (mot) => (mot ? 'mot' : 'bort från');
+  return (
+    `Bara ${BEST[S.symbol]} syns på båda tärningarna. På den första pekar ${subj} ${riktning(!!motRef)} ${BEST[A.symbol]}. ` +
+    `I rätt alternativ har ${BEST[C.symbol]} tagit ${GENITIV(BEST[A.symbol])} plats runt hörnet, och ${BEST[C.symbol]} är sidan mittemot ${BEST[A.symbol]}. ` +
+    `${stor(subj)} pekar därför ${riktning(motFac)} ${BEST[C.symbol]}.`
+  );
+}

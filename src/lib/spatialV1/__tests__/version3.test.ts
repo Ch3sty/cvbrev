@@ -30,7 +30,7 @@ describe('bankversion 3', () => {
       expect(poolFor(n, 1).length).toBe(72)
       expect(poolFor(n, 2).some((q) => q.fran_version === 3)).toBe(false)
     }
-    expect(SPATIAL_VERSION).toBe(3)
+    expect(SPATIAL_VERSION).toBeGreaterThanOrEqual(3)
   })
   it('version 3: samma fördelning per form och aldrig två av samma form i följd', () => {
     for (const niva of NIVAER) {
@@ -46,6 +46,6 @@ describe('bankversion 3', () => {
   it('den oberoende verifieraren hittar inga fel i någon uppgift', () => {
     const res = verifieraBanker()
     expect(res.fel).toEqual([])
-    expect(res.antal).toBe(387)
+    expect(res.antal).toBe(allaSpatial().length) // 387 i version 3, fler när omgång 2 (fran_version 4) ligger i bankerna
   })
 })

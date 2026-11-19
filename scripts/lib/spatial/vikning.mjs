@@ -288,14 +288,22 @@ export function vikTyp(v, poly) {
   return Math.abs(a - b) < EPS ? 'halv' : 'remsa';
 }
 
+// facit: antal hål i facit per stansat hål. hal: hur många hål som får stansas.
+// Grund fick i omgång 2 (2026-11-19, fran_version 4) tre nya varianter, eftersom
+// en halv vikning längs en mittlinje med ett hål bara ger 32 uppgifter: diagonal
+// halvvikning, remsa (en rutbred kant viks in) och två hål i en halv vikning.
+// Avancerad fick två: första vikningen en remsa (förut alltid halv eller diagonal)
+// och två hål. Varianten väljs med byggUppgiftB({ variant }); utan variant är
+// byggaren som förut.
 export const NIVAER_B = {
-  grund: { vikningar: 1, hal: [1], facit: [2, 2], klipp: false },
-  avancerad: { vikningar: 2, hal: [1], facit: [2, 4], klipp: false },
+  grund: { vikningar: 1, hal: [1, 2], facit: [2, 2], klipp: false },
+  avancerad: { vikningar: 2, hal: [1, 2], facit: [2, 4], klipp: false },
   expert: { vikningar: 3, hal: [1], facit: [4, 8], klipp: true },
 };
 
 const TEXT = {
   stansat: 'Du ritade bara hålet som stansades. När arket viks upp får varje lager ett hål.',
+  stansat2: 'Du ritade bara de två hålen som stansades. När arket viks upp får varje lager samma två hål.',
   bara_sista: 'Du vek bara upp den sista vikningen. Arket har vikts fler gånger än så.',
   fel_axel: 'Du speglade över fel linje. Hålen speglas över den streckade viklinjen.',
   utelamnad: 'Du hoppade över en av vikningarna när du vek upp.',
@@ -303,7 +311,9 @@ const TEXT = {
   en_fel_plats: 'Rätt antal hål, men ett sitter på fel ställe.',
   fel_ordning: 'Du vek upp i fel ordning. Den sista vikningen öppnas först.',
 };
-export const DISTRAKTORTYPER_B = Object.keys(TEXT);
+export const DISTRAKTORTYPER_B = Object.keys(TEXT).filter((t) => t !== 'stansat2');
+/** Varianterna från omgång 2, per nivå. */
+export const VARIANTER_B = { grund: ['diagonal', 'remsa', 'tva_hal'], avancerad: ['remsa_forst', 'tva_hal'] };
 
 /** Det uppvikta arket när vikningarna öppnas, med fel eller rätt. */
 function utfall(hal, klippRuta, vikningar, regioner) {
@@ -315,8 +325,9 @@ function utfall(hal, klippRuta, vikningar, regioner) {
 const arkNyckel = (u) => `${nyck(u.hal)}|${nyck(u.klipp)}`;
 const iArket = (u) => [...u.hal, ...u.klipp].every(([r, c]) => r >= 0 && c >= 0 && r < N && c < N);
 
-export function byggUppgiftB({ niva, id, fro }) {
+export function byggUppgiftB({ niva, id, fro, variant }) {
   const L = NIVAER_B[niva];
+  if (variant && !VARIANTER_B[niva]?.includes(variant)) return null;
   const rng = mulberry32(hashString(fro));
   const valj = (a) => a[Math.floor(rng() * a.length)];
 
@@ -325,8 +336,11 @@ export function byggUppgiftB({ niva, id, fro }) {
   let poly = ARK;
   for (let i = 0; i < L.vikningar; i++) {
     let k = kandidater(poly);
-    if (niva === 'grund') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && vikTyp(v, poly) === 'halv');
-    if (niva === 'avancerad') k = k.filter((v) => vikTyp(v, poly) !== 'remsa' || i === 1);
+    if (niva === 'grund' && variant === 'diagonal') k = k.filter((v) => vikTyp(v, poly) === 'diagonal' && Math.abs(area(klipp(poly, v, 1)) - area(klipp(poly, v, -1))) < EPS);
+    else if (niva === 'grund' && variant === 'remsa') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k) && vikTyp(v, poly) === 'remsa');
+    else if (niva === 'grund') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && vikTyp(v, poly) === 'halv');
+    if (niva === 'avancerad' && variant === 'remsa_forst') k = k.filter((v) => (i === 0 ? (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k) && vikTyp(v, poly) === 'remsa' : true));
+    else if (niva === 'avancerad') k = k.filter((v) => vikTyp(v, poly) !== 'remsa' || i === 1);
     if (niva === 'expert') k = k.filter((v) => (v.typ === 'v' || v.typ === 'h') && Number.isInteger(v.k));
     if (!k.length) return null;
     const v = valj(k);
@@ -347,6 +361,12 @@ export function byggUppgiftB({ niva, id, fro }) {
   const bara = stansbara(vikningar);
   if (!bara.length) return null;
   const hal = [valj(bara)];
+  if (variant === 'tva_hal') {
+    const andra = bara.filter((p) => p.join() !== hal[0].join());
+    if (!andra.length) return null;
+    hal.push(valj(andra));
+    hal.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  }
   let klippRuta = null;
   if (L.klipp) {
     const kant = bara.filter((p) => p.join() !== hal[0].join() && oppnaSidor(r.slut, p) >= 1 && kantEllerHorn(r.slut, p));
@@ -355,7 +375,7 @@ export function byggUppgiftB({ niva, id, fro }) {
   }
 
   const facit = utfall(hal, klippRuta, vikningar, regioner);
-  if (facit.hal.length < L.facit[0] || facit.hal.length > L.facit[1]) return null;
+  if (facit.hal.length < L.facit[0] * hal.length || facit.hal.length > L.facit[1] * hal.length) return null;
   if (!ok(facit)) return null;
   // varje vikning ska ge fler hål (eller klipp) när den viks upp, annars spelar den ingen roll för svaret
   if (!varjeVikningRaknas(hal, klippRuta ? [klippRuta] : [], vikningar, regioner)) return null;
@@ -434,12 +454,12 @@ export function byggUppgiftB({ niva, id, fro }) {
     niva,
     form: 'B',
     ...(klippRuta ? { klipp: true } : {}),
-    fraga: klippRuta ? 'Arket viks, ett hål stansas och en bit klipps bort. Hur ser arket ut när det viks upp?' : 'Arket viks och ett hål stansas. Hur ser arket ut när det viks upp?',
+    fraga: klippRuta ? 'Arket viks, ett hål stansas och en bit klipps bort. Hur ser arket ut när det viks upp?' : `Arket viks och ${hal.length === 2 ? 'två hål' : 'ett hål'} stansas. Hur ser arket ut när det viks upp?`,
     sekvens,
     options: alla.map((a) => ({ kind: 'ark-ut', n: N, hal: a.u.hal, klipp: a.u.klipp })),
     correctAnswer: alla.findIndex((a) => !a.typ),
     typer: alla.map((a) => a.typ),
-    misstag: alla.map((a) => (a.typ ? TEXT[a.typ] : '')),
+    misstag: alla.map((a) => (a.typ ? TEXT[a.typ === 'stansat' && hal.length === 2 ? 'stansat2' : a.typ] : '')),
     forklaring: `Arket viks ${antal}. Vik upp baklänges, den sista vikningen först, och spegla hålen${klippRuta ? ' och klippet' : ''} över varje viklinje. Det ger ${facit.hal.length} hål.`,
     uppvikning,
     vikningar,
@@ -614,7 +634,9 @@ export function sparrarB(q) {
   for (const p of [...stans.hal, ...klippRutor]) if (!bara.has(p.join(','))) fel.push(`${id}: SP-B1 ${p.join(',')} ligger på en viklinje eller utanför arket`);
 
   // SP-B2 antal hål i facit
-  if (facit.hal.length < L.facit[0] || facit.hal.length > L.facit[1]) fel.push(`${id}: SP-B2 facit har ${facit.hal.length} hål, nivån ${L.facit.join(' till ')}`);
+  const h = stans.hal.length;
+  if (!L.hal.includes(h)) fel.push(`${id}: SP-B2 ${h} stansade hål, nivån ${L.hal.join(' eller ')}`);
+  if (facit.hal.length < L.facit[0] * h || facit.hal.length > L.facit[1] * h) fel.push(`${id}: SP-B2 facit har ${facit.hal.length} hål, nivån ${L.facit.map((x) => x * h).join(' till ')}`);
 
   // SP-B3 alternativen olika, inget lika med det stansade arket om det inte är avsikten
   const nycklar = q.options.map(arkNyckel);

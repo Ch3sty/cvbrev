@@ -30,7 +30,7 @@ export const PER_FORM = 5;
  * nivåtestet har samma fördelning per form som version 2, och sessioner med
  * version 2 drar ur samma pool som förut.
  */
-export const SPATIAL_VERSION = 3;
+export const SPATIAL_VERSION = 4;
 export const FORMER: SpatialForm[] = ['A', 'B', 'C', 'D'];
 /** Antal per form i nivåtestet, per version. */
 export function perFormFor(version: number): Partial<Record<SpatialForm, number>> {
