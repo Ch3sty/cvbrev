@@ -1,0 +1,3777 @@
+[
+ {
+  "id": "fs-a-vaxl-42",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren vrids åt fel håll.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 2,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-43",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs runt banan; i den andra och fjärde går pricken ett steg moturs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren. Pilen i mitten har vridits ett steg för långt.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 2,
+     "s1": 2,
+     "ko": -1
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-44",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken går åt fel håll. Pilen i mitten står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 2,
+     "s1": 4,
+     "ko": -3
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-45",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 2,
+     "s1": 6,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-46",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken två steg medurs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Pricken har gått ett steg för långt. Pilen i mitten har vridits ett steg för långt.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten har vridits ett steg för långt.",
+   "",
+   "Pricken har gått ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 0,
+     "ko": 2
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-47",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs längs kanten; i den andra och fjärde går pricken två steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten vrids åt fel håll.",
+   "Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken står på fel plats.",
+   "Pricken står på fel plats. Pilen i mitten står kvar som i den femte figuren.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten står kvar som i den femte figuren.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 0,
+     "ko": -2
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-48",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader moturs i varje steg. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader moturs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt höger, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 6
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 1,
+     "s1": 0,
+     "ko": -3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-49",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken ett steg moturs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten har vridits ett steg för långt.",
+   "Pricken står på fel plats."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 3,
+     "s1": 3,
+     "ko": -1
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-50",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken står på fel plats. Pilen i mitten vrids åt fel håll.",
+   "Pricken går åt fel håll. Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken går åt fel håll.",
+   "",
+   "Pricken går åt fel håll. Pilen i mitten vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -2,
+     "s1": 3,
+     "ko": -3
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-19",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka åt höger.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka åt höger. Den korta visaren har vridits ett steg för långt.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 7
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-27",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-kvart-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids 45 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 2
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-20",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren pekar växelvis snett nedåt vänster och åt höger.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Den korta visaren pekar snett nedåt vänster, men ska peka åt höger.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger. Den korta visaren pekar snett nedåt vänster, men ska peka åt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt vänster, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 7
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      5,
+      2
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-28",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-pendel-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar växelvis nedåt och snett uppåt vänster. Den korta visaren vrids 45 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren pekar nedåt, men ska peka snett uppåt vänster. Den korta visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka snett uppåt vänster. Den korta visaren pekar uppåt, men ska peka åt höger.",
+   "Den korta visaren pekar uppåt, men ska peka åt höger.",
+   "Den långa visaren pekar nedåt, men ska peka snett uppåt vänster.",
+   "Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      4,
+      7
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 7
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-29",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-steg-trecykel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt vänster, snett uppåt vänster och snett nedåt höger, och börjar sedan om. Den korta visaren vrids 135 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt höger.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger. Den korta visaren pekar uppåt, men ska peka snett uppåt höger.",
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt höger. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      7,
+      3
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 5
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-21",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader medurs i varje steg. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka uppåt. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar nedåt, men ska peka uppåt. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 3
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-30",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-kvart-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids 135 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den korta visaren pekar snett nedåt vänster, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt vänster, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar snett nedåt vänster, men ska peka snett nedåt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 2
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 5
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-22",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader moturs i varje steg. Den korta visaren pekar växelvis åt vänster och snett uppåt höger.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt vänster, men ska peka snett uppåt höger.",
+   "Den korta visaren pekar åt vänster, men ska peka snett uppåt höger.",
+   "Den långa visaren pekar nedåt, men ska peka åt höger.",
+   "Den långa visaren pekar nedåt, men ska peka åt höger. Den korta visaren pekar åt vänster, men ska peka snett uppåt höger.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 5
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      1
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-31",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-pendel-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar växelvis snett nedåt höger och uppåt. Den korta visaren vrids 135 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka uppåt. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka uppåt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka uppåt. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "",
+   "Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      3,
+      0
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 5
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-32",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-steg-trecykel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning snett uppåt höger, snett nedåt höger och nedåt, och börjar sedan om. Den korta visaren vrids 45 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar snett uppåt höger, men ska peka nedåt. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka nedåt. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt.",
+   "",
+   "Den korta visaren pekar åt höger, men ska peka uppåt.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka nedåt.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka nedåt. Den korta visaren pekar åt höger, men ska peka uppåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      1,
+      3,
+      4
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-23",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader medurs i varje steg. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren har vridits ett steg för långt.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 1
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-24",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader medurs i varje steg. Den korta visaren pekar växelvis snett uppåt höger och uppåt.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett nedåt höger.",
+   "",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett nedåt höger. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 1
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      1,
+      0
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-33",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-pendel-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar växelvis snett nedåt vänster och åt höger. Den korta visaren vrids 45 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt vänster, men ska peka åt höger. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka åt höger. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den korta visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      5,
+      2
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-34",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-steg-trecykel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren pekar i tur och ordning snett uppåt höger, snett nedåt vänster och nedåt, och börjar sedan om.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka nedåt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett nedåt vänster. Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar uppåt, men ska peka snett nedåt vänster. Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett nedåt vänster. Den korta visaren pekar snett uppåt höger, men ska peka nedåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 7
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      1,
+      5,
+      4
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-25",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka uppåt.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka uppåt. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka uppåt. Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 7
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-26",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren pekar växelvis snett nedåt vänster och nedåt.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka snett nedåt höger. Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren har vridits ett steg för långt.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 7
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      5,
+      4
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-35",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-steg-trecykel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader moturs i varje steg. Den korta visaren pekar i tur och ordning snett nedåt vänster, snett uppåt höger och nedåt, och börjar sedan om.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar åt höger, men ska peka åt vänster. Den korta visaren pekar snett nedåt vänster, men ska peka nedåt.",
+   "",
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt vänster.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt vänster. Den korta visaren pekar snett uppåt höger, men ska peka nedåt.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka nedåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 7
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      5,
+      1,
+      4
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-27",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader moturs i varje steg. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt.",
+   "",
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 5
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-flera-36",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "F10",
+  "variant": "klocka-pendel-steg",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar växelvis åt vänster och snett uppåt höger. Den korta visaren vrids 135 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett uppåt höger. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar åt vänster, men ska peka snett uppåt höger. Den korta visaren pekar uppåt, men ska peka åt höger.",
+   "Den korta visaren pekar uppåt, men ska peka åt höger.",
+   "Den långa visaren pekar åt vänster, men ska peka snett uppåt höger.",
+   "Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      1
+     ]
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-28",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader medurs i varje steg. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 3
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-29",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader medurs i varje steg. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar uppåt, men ska peka nedåt. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 1
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-30",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-kvart",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader moturs i varje steg. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka snett uppåt vänster. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "",
+   "Den långa visaren pekar snett uppåt höger, men ska peka snett uppåt vänster. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 5
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-31",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader medurs i varje steg. Den korta visaren pekar växelvis snett nedåt höger och åt vänster.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren pekar snett nedåt höger, men ska peka åt vänster.",
+   "",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt vänster. Den korta visaren pekar snett nedåt höger, men ska peka åt vänster.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt höger, men ska peka åt vänster.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt vänster.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 3
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      3,
+      6
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-32",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 45 grader medurs i varje steg. Den korta visaren pekar växelvis åt vänster och snett nedåt höger.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren pekar åt vänster, men ska peka snett nedåt höger.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt vänster, men ska peka snett nedåt höger.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visaren pekar åt vänster, men ska peka snett nedåt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 1
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      3
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-33",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader moturs i varje steg. Den korta visaren pekar växelvis åt höger och snett nedåt höger.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren pekar åt vänster, men ska peka nedåt. Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren pekar åt vänster, men ska peka nedåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 5
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      2,
+      3
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vrid-34",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "F10",
+  "variant": "klocka-steg-pendel",
+  "difficulty": 2,
+  "p_prior": 0.52,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 135 grader medurs i varje steg. Den korta visaren pekar växelvis snett nedåt höger och åt höger.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger. Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 3
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      3,
+      2
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

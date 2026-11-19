@@ -25,6 +25,9 @@ import parti3Expert from './bankParti3Expert.json';
 import parti4Grund from './bankParti4Grund.json';
 import parti4Avancerad from './bankParti4Avancerad.json';
 import parti4Expert from './bankParti4Expert.json';
+import parti5Grund from './bankParti5Grund.json';
+import parti5Avancerad from './bankParti5Avancerad.json';
+import parti5Expert from './bankParti5Expert.json';
 import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda';
 import type { SerieFraga, SerieNiva } from './types';
 
@@ -45,13 +48,13 @@ export const FRAGOR_PER_SESSION = 15;
  * 2026-11-19-omg2.md): parti 4 (bankParti4*.json, fran_version 4) går in i
  * poolen på alla tre nivåerna. Sessioner med version 1 till 3 drar som förut.
  */
-export const SERIE_VERSION = 4;
-export type SerieVersion = 1 | 2 | 3 | 4;
+export const SERIE_VERSION = 5;
+export type SerieVersion = 1 | 2 | 3 | 4 | 5;
 
 /** Sessionens version ur meta; saknas den, eller äldre: version 1. */
 export function serieVersion(meta: unknown): SerieVersion {
   const v = (meta as { serie_version?: unknown } | null)?.serie_version;
-  return v === 4 ? 4 : v === 3 ? 3 : v === 2 ? 2 : 1;
+  return v === 5 ? 5 : v === 4 ? 4 : v === 3 ? 3 : v === 2 ? 2 : 1;
 }
 
 const BANK: Record<SerieNiva, SerieFraga[]> = {
@@ -74,10 +77,17 @@ const PARTI4: Record<SerieNiva, SerieFraga[]> = {
   expert: parti4Expert as unknown as SerieFraga[],
 };
 
+/** Parti 5 (fran_version 5, klockan, F9 och F10): i poolen från serie_version 5. */
+const PARTI5: Record<SerieNiva, SerieFraga[]> = {
+  grund: parti5Grund as unknown as SerieFraga[],
+  avancerad: parti5Avancerad as unknown as SerieFraga[],
+  expert: parti5Expert as unknown as SerieFraga[],
+};
+
 export function poolFor(niva: SerieNiva, version: SerieVersion = 1): SerieFraga[] {
   if (version === 1) return BANK[niva];
   const aktiva = BANK[niva].filter((q) => !q.pensionerad_fran || q.pensionerad_fran > version);
-  return [...aktiva, ...(version >= 3 ? PARTI3[niva] : []), ...(version >= 4 ? PARTI4[niva] : [])];
+  return [...aktiva, ...(version >= 3 ? PARTI3[niva] : []), ...(version >= 4 ? PARTI4[niva] : []), ...(version >= 5 ? PARTI5[niva] : [])];
 }
 
 /**
@@ -118,7 +128,7 @@ export function allaFigurFragor(): SerieFraga[] {
  * fråga som saknas rättas som fel.
  */
 export function allaFragor(): SerieFraga[] {
-  return (['grund', 'avancerad', 'expert'] as const).flatMap((n) => [...BANK[n], ...PARTI3[n], ...PARTI4[n]]);
+  return (['grund', 'avancerad', 'expert'] as const).flatMap((n) => [...BANK[n], ...PARTI3[n], ...PARTI4[n], ...PARTI5[n]]);
 }
 
 export function valjFragor(niva: SerieNiva, sessionId: string, antal = FRAGOR_PER_SESSION, version: SerieVersion = 1): SerieFraga[] {

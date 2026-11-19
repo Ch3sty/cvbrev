@@ -99,6 +99,12 @@ export type Geometri = {
   tile: { ruta: number; gap: number; start: number; rx: number };
   sectorwheel: { radie: number };
   dotsorbit: { banaR: number; prickR: number };
+  /**
+   * Figurseriernas klocka (parti 5): prickad urtavla i ram-grått med radien
+   * banaR, lång visare (längd lang, kontur kontur.sw) och kort visare (längd
+   * kort, kontur kortSw) från mitten, och ett nav i bläck med radien navR.
+   */
+  klocka: { banaR: number; banaSw: number; banaStreck: string; lang: number; kort: number; kortSw: number; navR: number };
   balanceline: {
     linjeY: number;
     linjeX: [number, number];

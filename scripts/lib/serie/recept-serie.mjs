@@ -192,6 +192,41 @@ MALLAR.push({
   ],
 });
 
+// F9 och F10 (parti 5, 2026-11-19): klockan, en ny primitiv med två visare
+// som rör sig var för sig i samma figur. Avancerad var nästan uttömd för pilen
+// och orbitalen i F4, så klockan får egna mallar. Alla frågor i mallarna är
+// klockor, så `grupptak` är hela mallen.
+//
+// Två lägen med fem olika värden var går alltid i takt (FS3). Den ena visaren
+// har därför alltid ett läge som återkommer bland de fem visade: kvartsvarv,
+// en pendel mellan två lägen, eller två serier där ett läge upprepas.
+const pendel = (r) => { const a = r8(r); return cykel(blanda(r, [a, (a + valj(r, UDDA)) % 8])); };
+MALLAR.push({
+  // Avancerad: den ena visaren går 45 eller 135 grader i varje steg, den andra
+  // tar kvartsvarv, pendlar eller går runt tre lägen. Samma form som F4, ny figur.
+  id: 'F10', namn: 'Två visare', niva: 'avancerad', antal: 38, p_prior: 0.52, difficulty: 2, parti: 5, grupptak: 38,
+  varianter: [
+    { namn: 'klocka-steg-kvart', family: 'vridning', regler: (r) => ({ prim: 'klocka', dims: { lang: steg(r8(r), valj(r, UDDA)), kort: steg(r8(r), valj(r, KVART)) } }) },
+    { namn: 'klocka-kvart-steg', family: 'flera', regler: (r) => ({ prim: 'klocka', dims: { lang: steg(r8(r), valj(r, KVART)), kort: steg(r8(r), valj(r, UDDA)) } }) },
+    { namn: 'klocka-steg-pendel', family: 'vridning', regler: (r) => ({ prim: 'klocka', dims: { lang: steg(r8(r), valj(r, UDDA)), kort: pendel(r) } }) },
+    { namn: 'klocka-pendel-steg', family: 'flera', regler: (r) => ({ prim: 'klocka', dims: { lang: pendel(r), kort: steg(r8(r), valj(r, UDDA)) } }) },
+    // Den ena visaren går runt tre lägen i tur och ordning, som formen i F4:s duo-orbital-form.
+    { namn: 'klocka-steg-trecykel', family: 'flera', regler: (r) => { const t = cykel(blanda(r, [0, 1, 2, 3, 4, 5, 6, 7]).slice(0, 3)); return valj(r, [0, 1]) ? { prim: 'klocka', dims: { lang: steg(r8(r), valj(r, UDDA)), kort: t } } : { prim: 'klocka', dims: { lang: t, kort: steg(r8(r), valj(r, UDDA)) } }; } },
+  ],
+});
+MALLAR.push({
+  // Expert: två svåra regler samtidigt, en på varje visare. Den ena tar
+  // växande steg eller går i två serier, den andra går i två serier. Ingen
+  // annan mall har två sådana regler i samma figur (F7 är två serier och en
+  // tretakt, F8 växande steg och ett kvartsvarv eller en trecykel).
+  id: 'F9', namn: 'Två visare i otakt', niva: 'expert', antal: 25, p_prior: 0.32, difficulty: 4, parti: 5, grupptak: 25,
+  varianter: [
+    { namn: 'klocka-vaxande-vaxelvis', family: 'vaxande', regler: (r) => ({ prim: 'klocka', dims: { lang: vaxande(r), kort: vaxelvis(r) } }) },
+    { namn: 'klocka-vaxelvis-vaxande', family: 'vaxelvis', regler: (r) => ({ prim: 'klocka', dims: { lang: vaxelvis(r), kort: vaxande(r) } }) },
+    { namn: 'klocka-vaxelvis-vaxelvis', family: 'flera', regler: (r) => ({ prim: 'klocka', dims: { lang: vaxelvis(r), kort: vaxelvis(r) } }) },
+  ],
+});
+
 /** Spannet för p_prior per nivå (A3). */
 export const P_PRIOR_SPANN = { grund: [0.6, 0.95], avancerad: [0.05, 0.95], expert: [0.05, 0.45] };
 

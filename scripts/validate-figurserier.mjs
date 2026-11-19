@@ -62,7 +62,7 @@ for (const { fil, fragor } of filer) {
       if (q.p_prior !== m.p_prior) f(`p_prior ${q.p_prior}, mallen ${m.id} säger ${m.p_prior} (p_prior står per mall)`);
     }
     if (q.difficulty !== m.difficulty) f(`difficulty ${q.difficulty}, mallen säger ${m.difficulty}`);
-    if (![1, 2, 3, 4].includes(q.fran_version)) f('fran_version ska vara 1 till 4 (parti 2, 3 och 4)');
+    if (![1, 2, 3, 4, 5].includes(q.fran_version)) f('fran_version ska vara 1 till 5 (parti 2 till 5)');
     if (!Array.isArray(q.rad) || q.rad.length !== 5) f('raden ska ha fem figurer');
     if (!Array.isArray(q.options) || q.options.length !== 6) f('sex alternativ krävs');
     if (!Number.isInteger(q.correctAnswer) || q.correctAnswer < 0 || q.correctAnswer > 5) f('correctAnswer utanför 0 till 5');

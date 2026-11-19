@@ -170,6 +170,15 @@
     "banaR": 30,
     "prickR": 6
   },
+  "klocka": {
+    "banaR": 32,
+    "banaSw": 2.5,
+    "banaStreck": "0 4.57",
+    "lang": 25,
+    "kort": 12.5,
+    "kortSw": 5,
+    "navR": 4.5
+  },
   "balanceline": {
     "linjeY": 50,
     "linjeX": [12, 88],

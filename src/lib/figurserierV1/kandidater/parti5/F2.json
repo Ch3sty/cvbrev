@@ -1,0 +1,147 @@
+[
+ {
+  "id": "fs-g-antal-20",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "F2",
+  "variant": "prickar-antal",
+  "difficulty": 1,
+  "p_prior": 0.72,
+  "title": "Prickarna, en regel",
+  "rule": "Den sista pricken medurs försvinner i varje steg.",
+  "rad": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     6,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara två, inte sju.",
+   "Prickarna har flyttat sig, men i raden står de still.",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara två, inte sju."
+  ],
+  "regler": {
+   "prim": "prickar",
+   "dims": {
+    "start": {
+     "regel": "konstant",
+     "v": 5
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 7,
+     "k": -1
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

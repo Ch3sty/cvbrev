@@ -131,6 +131,8 @@ export function allaPrimitiver(): V7Cell[] {
   ut.push({ kind: 'tally', count: 3, orientation: 'vertical' }, { kind: 'tally', count: 5, orientation: 'horizontal' });
   for (const head of ['filled', 'open'] as const) ut.push({ kind: 'vector', angle: 45, length: 'long', head });
   ut.push({ kind: 'sectorwheel', filled: [0, 3, 5] });
+  // Figurseriernas klocka (parti 5): V2 och V5 prövas också på den.
+  ut.push({ kind: 'klocka', lang: 1, kort: 6 }, { kind: 'klocka', lang: 4, kort: 0 });
   ut.push({ kind: 'balanceline', items: [{ shape: 'square', posX: 0, side: 'above', fill: 'gray' }, { shape: 'circle', posX: 2, side: 'below', fill: 'none' }] });
   return ut;
 }

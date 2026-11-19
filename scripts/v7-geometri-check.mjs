@@ -367,6 +367,15 @@ export function element(cell) {
       ut.push(karnaElement(cell.karna));
       return ut;
     }
+    case 'klocka': {
+      // Figurseriernas klocka (parti 5): urtavlan är referens (prickad, ram-grå),
+      // visarna och navet ett element som utgår från mitten.
+      const K = G.klocka;
+      return [
+        el('urtavla', [cirkel(C, K.banaR, K.banaSw / 2)], { ram: true, radie: K.banaR }),
+        el('visare', [kapsel(C, pa(cell.lang, K.lang), sw), kapsel(C, pa(cell.kort, K.kort), K.kortSw / 2), skiva(C, K.navR)]),
+      ];
+    }
     default:
       return null;
   }
@@ -474,6 +483,8 @@ export function geometriSerie(q, { hel = false } = {}) {
     for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`${g.toUpperCase()}: ${x}`));
     if (tom(c)) fel.push(`G11: tom figur (${c.kind})`);
     if (c.kind === 'duo') zonFel(c).forEach((x) => fel.push(x));
+    // K1 (parti 5): klockans visare pekar aldrig åt samma håll, då döljer den långa den korta.
+    if (c.kind === 'klocka' && ((c.lang % 8) + 8) % 8 === ((c.kort % 8) + 8) % 8) fel.push('K1: klockans visare pekar åt samma håll');
   }
   if (hel && ((q.rad ?? []).length !== G.serie.rad.figurer || (q.options ?? []).length !== 6)) fel.push(`S5: raden har ${(q.rad ?? []).length} figurer och ${(q.options ?? []).length} alternativ, ska vara ${G.serie.rad.figurer} och 6`);
   return fel;
@@ -761,6 +772,7 @@ function yttermatt(cell) {
     case 'tile': return 3 * G.tile.ruta + 2 * G.tile.gap;
     case 'lattice': return 2 * G.lattice.ruta + G.lattice.gap;
     case 'sectorwheel': return 2 * G.sectorwheel.radie;
+    case 'klocka': return 2 * G.klocka.banaR;
     // undantag (regler.yttermattUndantag): mäts på längsta axeln
     case 'vector': return G.vector.lang.svans - G.vector.lang.spets;
     case 'tally': return G.tally.langd;
@@ -1030,6 +1042,8 @@ process.exit(1);
 // G11, G12, S1 till S5), G6 på vridna dimensioner, G7 (FS3) och G9 (FS1, FS2)
 // ur scripts/lib/serie/sparrar.mjs; en gång G3 för duo (alla lägen, antal och
 // kärnor) och V11/V12 på renderarens utdata med seriens gränser (spec 10).
+// Klockan (parti 5): G3 på alla 56 lägespar och K1 (visarna pekar aldrig åt
+// samma håll) per figur.
 const SERIE_BANKER = [
   'src/lib/figurserierV1/bankGrund.json',
   'src/lib/figurserierV1/bankAvancerad.json',
@@ -1059,11 +1073,24 @@ function g3Duo() {
   return { fel, n };
 }
 
+/** G3 för klockan (parti 5): alla 56 lägespar där visarna inte sammanfaller. */
+function g3Klocka() {
+  const fel = [];
+  let n = 0;
+  for (let lang = 0; lang < 8; lang++) for (let kort = 0; kort < 8; kort++) {
+    if (lang === kort) continue;
+    n++;
+    const k = kontrolleraCell({ kind: 'klocka', lang, kort });
+    for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`G3 klocka ${lang}/${kort}: ${x}`));
+  }
+  return { fel, n };
+}
+
 function g6Serie(q) {
   const fel = [];
   const dims = q.regler?.dims ?? {};
   for (const [id, r] of Object.entries(dims)) {
-    if (!['vinkel', 'satellit', 'start', 'ylage', 'kvinkel'].includes(id)) continue;
+    if (!['vinkel', 'satellit', 'start', 'ylage', 'kvinkel', 'lang', 'kort'].includes(id)) continue;
     if (r.regel === 'konstant' || r.regel === 'cykel') continue;
     const steg = r.regel === 'steg' ? [r.k] : r.regel === 'vaxande' ? [r.d0, r.dd] : [r.ke, r.ko, r.s1 - r.s0];
     let g = 8;
@@ -1144,6 +1171,8 @@ async function serieMain() {
   }
   const g3 = g3Duo();
   fel.push(...g3.fel);
+  const g3k = g3Klocka();
+  fel.push(...g3k.fel);
   // V11 och V12 på renderarens utdata.
   const tsx = fileURLToPath(new URL('../node_modules/tsx/dist/cli.mjs', import.meta.url));
   const skript = fileURLToPath(new URL('./lib/matris/svg-matt.tsx', import.meta.url));
@@ -1156,12 +1185,12 @@ async function serieMain() {
       b.forbjudna.forEach((x) => fel.push(`V12: ${x}`));
     }
   }
-  console.log(`Figurserier: ${rakn.fragor} frågor, ${rakn.celler} figurer; G3 duo ${g3.n} kombinationer`);
+  console.log(`Figurserier: ${rakn.fragor} frågor, ${rakn.celler} figurer; G3 duo ${g3.n} kombinationer, klocka ${g3k.n}`);
   if (fel.length) {
     console.log(`\n${fel.length} fel:`);
     fel.forEach((x) => console.log('  ' + x));
     process.exit(1);
   }
-  console.log('Inga fel (G1, G2, G3 duo, G4, G6, G7, G9, G11, G12, S1 till S5, V11, V12).');
+  console.log('Inga fel (G1, G2, G3 duo och klocka, G4, G6, G7, G9, G11, G12, S1 till S5, K1, V11, V12).');
   process.exit(0);
 }

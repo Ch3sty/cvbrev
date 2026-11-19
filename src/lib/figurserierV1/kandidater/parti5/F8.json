@@ -1,0 +1,1427 @@
+[
+ {
+  "id": "fs-e-vax-15",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "klocka-vaxande-kvart",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren vrids åt fel håll. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-14",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "klocka-vaxande-trecykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt vänster, snett uppåt vänster och nedåt, och börjar sedan om. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      7,
+      4
+     ]
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-16",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-orbital-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går moturs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Symbolen i mitten följer ordningen kryss, minus, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken går åt fel håll.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara plus, inte minus.",
+   "Symbolen i mitten ska vara plus, inte minus.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara plus, inte minus.",
+   "Steget har inte vuxit sista gången."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -1,
+     "dd": -1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "minus",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-15",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-kant-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går medurs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Formen i mitten följer ordningen romb, kvadrat, cirkel och börjar om. Formen i mitten är ofylld i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Steget har inte vuxit sista gången. Formen i mitten ska vara cirkel, inte kvadrat. Formen i mitten ska vara ofylld, som i hela raden.",
+   "Steget har inte vuxit sista gången.",
+   "Pricken går åt fel håll. Formen i mitten ska vara cirkel, inte kvadrat. Formen i mitten ska vara ofylld, som i hela raden.",
+   "Pricken går åt fel håll. Formen i mitten ska vara ofylld, som i hela raden.",
+   "",
+   "Formen i mitten ska vara cirkel, inte kvadrat."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": 2,
+     "dd": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "square",
+      "circle"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-17",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-kant-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går medurs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten följer ordningen ring, plus, kryss och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Symbolen i mitten ska vara kryss, inte plus.",
+   "Pricken har gått ett steg för långt.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara kryss, inte ring.",
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara kryss, inte ring.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara kryss, inte plus.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": 2,
+     "dd": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "ring",
+      "plus",
+      "cross"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-16",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-orbital-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går medurs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten följer ordningen kvadrat, cirkel, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren. Formen i mitten ska vara romb, inte kvadrat.",
+   "",
+   "Pricken står kvar som i den femte figuren.",
+   "Pricken står på fel plats. Formen i mitten ska vara romb, inte kvadrat.",
+   "Pricken står på fel plats. Formen i mitten ska vara romb, inte cirkel.",
+   "Formen i mitten ska vara romb, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 1,
+     "dd": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "circle",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-18",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "klocka-vaxande-kvart",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren har vridits ett steg för långt.",
+   "Den korta visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 1,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-17",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "klocka-vaxande-trecykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt höger, nedåt och uppåt, och börjar sedan om. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      2,
+      4,
+      0
+     ]
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-19",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-orbital-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går medurs runt banan, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten följer ordningen kryss, ring, minus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara minus, inte kryss.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte kryss.",
+   "Symbolen i mitten ska vara minus, inte ring.",
+   "",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte ring.",
+   "Pricken har gått ett steg för långt."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": 2,
+     "dd": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "ring",
+      "minus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-18",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-kant-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går moturs längs kanten, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten följer ordningen romb, cirkel, kvadrat och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren.",
+   "Formen i mitten ska vara kvadrat, inte cirkel.",
+   "Pricken står kvar som i den femte figuren. Formen i mitten ska vara kvadrat, inte romb.",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara kvadrat, inte romb.",
+   "",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara kvadrat, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -1,
+     "dd": -1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "circle",
+      "square"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "black"
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

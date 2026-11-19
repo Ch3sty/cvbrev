@@ -1,0 +1,1271 @@
+[
+ {
+  "id": "fs-a-vaxl-42",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren vrids åt fel håll.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 2,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-43",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs runt banan; i den andra och fjärde går pricken ett steg moturs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren. Pilen i mitten har vridits ett steg för långt.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 2,
+     "s1": 2,
+     "ko": -1
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-44",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken går åt fel håll. Pilen i mitten står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 2,
+     "s1": 4,
+     "ko": -3
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-45",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 2,
+     "s1": 6,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-46",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken två steg medurs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Pricken har gått ett steg för långt. Pilen i mitten har vridits ett steg för långt.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten har vridits ett steg för långt.",
+   "",
+   "Pricken har gått ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 0,
+     "ko": 2
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-47",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs längs kanten; i den andra och fjärde går pricken två steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten vrids åt fel håll.",
+   "Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken står på fel plats.",
+   "Pricken står på fel plats. Pilen i mitten står kvar som i den femte figuren.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen i mitten står kvar som i den femte figuren.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 0,
+     "ko": -2
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-48",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "klocka-vaxelvis-kvart",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader moturs i varje steg. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader moturs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt höger, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 6
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 1,
+     "s1": 0,
+     "ko": -3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-49",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-orbital-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken ett steg moturs runt banan. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten vrids åt fel håll.",
+   "",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten har vridits ett steg för långt.",
+   "Pricken står på fel plats."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 3,
+     "s1": 3,
+     "ko": -1
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-a-vaxl-50",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "recept": "F5",
+  "variant": "duo-kant-pil-vaxelvis",
+  "difficulty": 3,
+  "p_prior": 0.5,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader moturs i varje steg.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken står på fel plats. Pilen i mitten vrids åt fel håll.",
+   "Pricken går åt fel håll. Pilen i mitten står kvar som i den femte figuren.",
+   "Pricken går åt fel håll.",
+   "",
+   "Pricken går åt fel håll. Pilen i mitten vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -2,
+     "s1": 3,
+     "ko": -3
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 6
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

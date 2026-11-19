@@ -36,6 +36,9 @@ function info(prim, id) {
     case 'prickar.antal': return { slag: 'antal', elem: ['prick', 'prickar'], lagg: 'En prick till läggs till medurs', ta: 'Den sista pricken medurs försvinner' };
     case 'poly.horn': return { slag: 'antal', elem: ['hörn', 'hörn'], ett: true, lagg: 'Figuren får ett hörn till', ta: 'Figuren förlorar ett hörn' };
     case 'poly.fyllning': return { slag: 'kat', subj: 'Figuren', namn: (v) => FYLL[v] };
+    // Klockan (parti 5): visarna vrids och pekar, som pilen.
+    case 'klocka.lang': return { slag: 'vrid', subj: 'Den långa visaren', pekar: true };
+    case 'klocka.kort': return { slag: 'vrid', subj: 'Den korta visaren', pekar: true };
     case 'grundform.bas': return { slag: 'kat', subj: 'Grundformen', namn: (v) => FORM[v], substantiv: true };
     case 'grundform.symbol': return { slag: 'kat', subj: 'Symbolen', namn: (v) => SYMBOL[v], substantiv: true };
     // "Fyllningen följer ordningen" (granskning 01, avsnitt 4 punkt 8).
@@ -195,8 +198,9 @@ export function misstagText(regler, facitV, fel) {
         meningar.push(r.regel === 'vaxelvis' ? `${S} står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.` : `${S} står kvar som i den femte figuren.`);
         break;
       case 'som_femte': meningar.push(`${S} står kvar som i den femte figuren.`); break;
-      case 'jamn': meningar.push(JAMN); break;
-      case 'vaxer_inte': meningar.push(vrid ? 'Vridningen har inte vuxit sista gången.' : 'Steget har inte vuxit sista gången.'); break;
+      // Klockan har två visare: misstaget säger vilken (parti 5).
+      case 'jamn': meningar.push(prim === 'klocka' ? `${S} fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.` : JAMN); break;
+      case 'vaxer_inte': meningar.push(prim === 'klocka' ? `${S.replace(/en$/, 'ens')} vridning har inte vuxit sista gången.` : vrid ? 'Vridningen har inte vuxit sista gången.' : 'Steget har inte vuxit sista gången.'); break;
       default:
         if (I.pekar) meningar.push(`${S} pekar ${RIKTNING[mod(f.v, 8)]}, men ska peka ${RIKTNING[mod(fv, 8)]}.`);
         else meningar.push(vrid ? `${S} är ${plural(S) ? 'vridna' : 'vriden'} till fel läge.` : `${S} står på fel plats.`);
@@ -210,7 +214,7 @@ export function titel(regler) {
   const { prim, dims } = regler;
   const rorliga = Object.keys(dims).filter((id) => dims[id].regel !== 'konstant');
   const namn = {
-    pil: 'Pilen', orbital: 'Pricken runt cirkeln', stralar: 'Strecken', prickar: 'Prickarna', sektor: 'Sektorhjulet', block: 'Rutorna längs kanten', poly: 'Månghörningen', grundform: 'Grundformen',
+    pil: 'Pilen', orbital: 'Pricken runt cirkeln', stralar: 'Strecken', prickar: 'Prickarna', sektor: 'Sektorhjulet', block: 'Rutorna längs kanten', poly: 'Månghörningen', grundform: 'Grundformen', klocka: 'Klockan',
   }[prim] ?? (prim.includes('kant') ? 'Pricken längs kanten' : 'Pricken på banan');
   const n = rorliga.length;
   return `${namn}, ${n === 1 ? 'en regel' : n === 2 ? 'två regler' : 'tre regler'}`;

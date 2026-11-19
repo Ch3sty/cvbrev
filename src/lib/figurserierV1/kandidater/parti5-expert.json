@@ -1,0 +1,5659 @@
+[
+ {
+  "id": "fs-e-vaxl-32",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "klocka-vaxelvis-trecykel",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. Luckan hör till den andra serien. Den korta visaren pekar i tur och ordning snett nedåt höger, nedåt och snett nedåt vänster, och börjar sedan om.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den långa visaren har vridits ett steg för långt.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 2,
+     "s1": 1,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      3,
+      4,
+      5
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-antal-20",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "block-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Rutorna längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går de svarta rutorna två steg medurs längs kanten; i den andra och fjärde går de svarta rutorna tre steg medurs längs kanten. Luckan hör till den andra serien. Antalet svarta rutor ökar med en i varje figur, oavsett serie. De sitter ihop medurs längs kanten från den första svarta.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 192
+   },
+   {
+    "kind": "tile",
+    "pattern": 292
+   },
+   {
+    "kind": "tile",
+    "pattern": 15
+   },
+   {
+    "kind": "tile",
+    "pattern": 203
+   },
+   {
+    "kind": "tile",
+    "pattern": 486
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 39
+   },
+   {
+    "kind": "tile",
+    "pattern": 487
+   },
+   {
+    "kind": "tile",
+    "pattern": 480
+   },
+   {
+    "kind": "tile",
+    "pattern": 9
+   },
+   {
+    "kind": "tile",
+    "pattern": 288
+   },
+   {
+    "kind": "tile",
+    "pattern": 431
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Antalet svarta rutor ska vara sju, inte fyra.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte fyra.",
+   "De svarta rutorna står på fel plats. Antalet ska vara sju, inte två.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte två.",
+   "De svarta rutorna står på fel plats."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 2,
+     "ko": 3
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-33",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg moturs runt banan; i den andra och fjärde går pricken ett steg medurs runt banan. Luckan hör till den andra serien. Symbolen i mitten följer ordningen minus, plus, ring och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken står på fel plats. Symbolen i mitten ska vara ring, inte minus.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara ring, inte plus.",
+   "Symbolen i mitten ska vara ring, inte plus.",
+   "",
+   "Pricken står på fel plats.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara ring, inte minus."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -3,
+     "s1": 2,
+     "ko": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "minus",
+      "plus",
+      "ring"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-34",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken ett steg medurs längs kanten. Luckan hör till den andra serien. Formen i mitten följer ordningen cirkel, kvadrat, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken går åt fel håll.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Pricken går åt fel håll. Formen i mitten ska vara romb, inte cirkel.",
+   "Formen i mitten ska vara romb, inte cirkel.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara romb, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": -2,
+     "s1": 3,
+     "ko": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "circle",
+      "square",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-35",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg medurs runt banan; i den andra och fjärde går pricken tre steg moturs runt banan. Luckan hör till den andra serien. Formen i mitten följer ordningen romb, kvadrat, cirkel och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara cirkel, inte kvadrat.",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara cirkel, inte kvadrat.",
+   "Formen i mitten ska vara cirkel, inte romb.",
+   "",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara cirkel, inte romb.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": 1,
+     "s1": 7,
+     "ko": -3
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "square",
+      "circle"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-36",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs längs kanten; i den andra och fjärde går pricken två steg medurs längs kanten. Luckan hör till den andra serien. Symbolen i mitten följer ordningen plus, kryss, minus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte plus.",
+   "Symbolen i mitten ska vara minus, inte plus.",
+   "Pricken står på fel plats.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte plus.",
+   "Pricken står på fel plats.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 3,
+     "ko": 2
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "plus",
+      "cross",
+      "minus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-37",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "klocka-vaxelvis-trecykel",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt vänster, snett uppåt vänster och snett uppåt höger, och börjar sedan om. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett uppåt höger.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren pekar åt vänster, men ska peka snett uppåt höger. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett uppåt höger. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      7,
+      1
+     ]
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 2,
+     "s1": 3,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-38",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg medurs runt banan; i den andra och fjärde går pricken tre steg medurs runt banan. Luckan hör till den andra serien. Symbolen i mitten följer ordningen ring, plus, kryss och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pricken går åt fel håll.",
+   "",
+   "Pricken står på fel plats.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara kryss, inte plus.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara kryss, inte plus.",
+   "Symbolen i mitten ska vara kryss, inte plus."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 1,
+     "s1": 5,
+     "ko": 3
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "ring",
+      "plus",
+      "cross"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-39",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg moturs längs kanten; i den andra och fjärde går pricken ett steg medurs längs kanten. Luckan hör till den andra serien. Formen i mitten följer ordningen romb, cirkel, kvadrat och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte romb.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Formen i mitten ska vara kvadrat, inte romb.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte cirkel.",
+   "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -1,
+     "s1": 6,
+     "ko": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "circle",
+      "square"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-40",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs runt banan; i den andra och fjärde går pricken två steg moturs runt banan. Luckan hör till den andra serien. Formen i mitten följer ordningen romb, cirkel, kvadrat och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte cirkel.",
+   "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte romb.",
+   "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte romb.",
+   "Pricken står på fel plats.",
+   "",
+   "Formen i mitten ska vara kvadrat, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": 2,
+     "s1": 2,
+     "ko": -2
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "circle",
+      "square"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "black"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-41",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs längs kanten; i den andra och fjärde går pricken två steg moturs längs kanten. Luckan hör till den andra serien. Symbolen i mitten följer ordningen minus, ring, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Symbolen i mitten ska vara plus, inte ring.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Symbolen i mitten ska vara plus, inte ring.",
+   "Pricken går åt fel håll.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara plus, inte ring.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 1,
+     "ko": -2
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "minus",
+      "ring",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-42",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "klocka-vaxelvis-trecykel",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 45 grader moturs; i den andra och fjärde vrids den långa visaren 90 grader medurs. Luckan hör till den andra serien. Den korta visaren pekar i tur och ordning snett nedåt höger, åt höger och nedåt, och börjar sedan om.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster.",
+   "Den korta visaren pekar åt höger, men ska peka nedåt.",
+   "",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren pekar snett nedåt höger, men ska peka nedåt.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka nedåt.",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren pekar åt höger, men ska peka nedåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -1,
+     "s1": 3,
+     "ko": 2
+    },
+    "kort": {
+     "regel": "cykel",
+     "varden": [
+      3,
+      2,
+      4
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-15",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "klocka-vaxande-kvart",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren vrids åt fel håll. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 3,
+     "k": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-14",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "klocka-vaxande-trecykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt vänster, snett uppåt vänster och nedåt, och börjar sedan om. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka nedåt. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      6,
+      7,
+      4
+     ]
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-16",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-orbital-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går moturs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Symbolen i mitten följer ordningen kryss, minus, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken går åt fel håll.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara plus, inte minus.",
+   "Symbolen i mitten ska vara plus, inte minus.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara plus, inte minus.",
+   "Steget har inte vuxit sista gången."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -1,
+     "dd": -1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "minus",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-15",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-kant-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går medurs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Formen i mitten följer ordningen romb, kvadrat, cirkel och börjar om. Formen i mitten är ofylld i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Steget har inte vuxit sista gången. Formen i mitten ska vara cirkel, inte kvadrat. Formen i mitten ska vara ofylld, som i hela raden.",
+   "Steget har inte vuxit sista gången.",
+   "Pricken går åt fel håll. Formen i mitten ska vara cirkel, inte kvadrat. Formen i mitten ska vara ofylld, som i hela raden.",
+   "Pricken går åt fel håll. Formen i mitten ska vara ofylld, som i hela raden.",
+   "",
+   "Formen i mitten ska vara cirkel, inte kvadrat."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": 2,
+     "dd": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "square",
+      "circle"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-17",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-kant-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går medurs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten följer ordningen ring, plus, kryss och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Symbolen i mitten ska vara kryss, inte plus.",
+   "Pricken har gått ett steg för långt.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara kryss, inte ring.",
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara kryss, inte ring.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara kryss, inte plus.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": 2,
+     "dd": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "ring",
+      "plus",
+      "cross"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-16",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-orbital-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går medurs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten följer ordningen kvadrat, cirkel, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren. Formen i mitten ska vara romb, inte kvadrat.",
+   "",
+   "Pricken står kvar som i den femte figuren.",
+   "Pricken står på fel plats. Formen i mitten ska vara romb, inte kvadrat.",
+   "Pricken står på fel plats. Formen i mitten ska vara romb, inte cirkel.",
+   "Formen i mitten ska vara romb, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 1,
+     "dd": 1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "circle",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-18",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "klocka-vaxande-kvart",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids 90 grader medurs i varje steg. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren har vridits ett steg för långt.",
+   "Den korta visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 1,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-17",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "klocka-vaxande-trecykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren pekar i tur och ordning åt höger, nedåt och uppåt, och börjar sedan om. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren pekar åt höger, men ska peka uppåt.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "cykel",
+     "varden": [
+      2,
+      4,
+      0
+     ]
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-19",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F8",
+  "variant": "duo-orbital-symbol-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går medurs runt banan, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten följer ordningen kryss, ring, minus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara minus, inte kryss.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte kryss.",
+   "Symbolen i mitten ska vara minus, inte ring.",
+   "",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, inte ring.",
+   "Pricken har gått ett steg för långt."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": 2,
+     "dd": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "ring",
+      "minus"
+     ]
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-18",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F8",
+  "variant": "duo-kant-form-vaxande-cykel",
+  "difficulty": 3,
+  "p_prior": 0.45,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Pricken går moturs längs kanten, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten följer ordningen romb, cirkel, kvadrat och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken står kvar som i den femte figuren.",
+   "Formen i mitten ska vara kvadrat, inte cirkel.",
+   "Pricken står kvar som i den femte figuren. Formen i mitten ska vara kvadrat, inte romb.",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara kvadrat, inte romb.",
+   "",
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara kvadrat, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -1,
+     "dd": -1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "diamond",
+      "circle",
+      "square"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "black"
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-20",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader medurs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren vrids åt fel håll. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren pekar uppåt, men ska peka snett uppåt höger.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar uppåt, men ska peka snett uppåt höger.",
+   "Den långa visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -2,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 5,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-43",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 2,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": -2,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-19",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 45 grader medurs. I den första, tredje och femte vrids den korta visaren 90 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -2,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -2,
+     "s1": 5,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-21",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt höger, men ska peka nedåt.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar åt höger, men ska peka nedåt.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -3,
+     "s1": 2,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-44",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren pekar nedåt, men ska peka snett nedåt höger.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar nedåt, men ska peka snett nedåt höger.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 1,
+     "s1": 3,
+     "ko": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-20",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 4,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": -3,
+     "s1": 1,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-22",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 1,
+     "s1": 0,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-45",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka snett nedåt vänster. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -2,
+     "s1": 7,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-21",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader medurs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar nedåt, men ska peka åt vänster. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka åt vänster. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -1,
+     "s1": 0,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-23",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar åt vänster, men ska peka snett uppåt vänster.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar åt vänster, men ska peka snett uppåt vänster.",
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -2,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -3,
+     "s1": 3,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-46",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 2,
+     "s1": 6,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-22",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader moturs; i den andra och fjärde vrids den korta visaren 135 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar nedåt, men ska peka åt höger. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren pekar nedåt, men ska peka åt höger. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": -1,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -2,
+     "s1": 6,
+     "ko": -3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-24",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett uppåt vänster. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett uppåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 4,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-47",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt.",
+   "Den långa visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 3,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-23",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader medurs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt höger. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt höger. Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 1,
+     "s1": 5,
+     "ko": 2
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -3,
+     "s1": 7,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-25",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar åt höger, men ska peka snett nedåt höger. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -3,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-48",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka åt höger. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": 1,
+     "s1": 4,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -2,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-24",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 3,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 2,
+     "s1": 5,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-26",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visarens vridning har inte vuxit sista gången."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -1,
+     "s1": 3,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-49",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren har vridits ett steg för långt.",
+   "Den korta visaren pekar snett uppåt vänster, men ska peka snett uppåt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-25",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 90 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 4,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 2,
+     "s1": 0,
+     "ko": -2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-27",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 1,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-50",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 135 grader moturs; i den andra och fjärde vrids den långa visaren 90 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt höger. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -3,
+     "s1": 6,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 5,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-26",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 45 grader medurs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt höger, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -2,
+     "s1": 4,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": -3,
+     "s1": 6,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-28",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt vänster, men ska peka uppåt.",
+   "Den långa visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "Den korta visaren pekar åt vänster, men ska peka uppåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 2,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 1,
+     "s1": 2,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

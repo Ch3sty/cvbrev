@@ -14,7 +14,7 @@
 // sparrFelSerie en gång till.
 // =============================================================================
 
-import { PRIM, byggCell, dimNyckel, giltigt, stable } from './celler-serie.mjs';
+import { PRIM, byggCell, dimNyckel, giltigt, stable, lasCell } from './celler-serie.mjs';
 import { tolkaRad, radVarden, period, iTakt, enklaste, VISADE } from './tolka-serie.mjs';
 import { kandidater, analysera, kravFel, utanRen } from './distraktorer.mjs';
 import { sparrFelSerie, MIN_PERIOD, nabarMangd } from './sparrar.mjs';
@@ -130,6 +130,8 @@ export function byggAlternativ(r, mall, regler, meta, { pos, forsok = mall.niva 
   for (const k of kandidater(regler, radV, facitV, { expert })) {
     if (!dims.every((d) => giltigt(d, k.v[d.id]))) continue;
     const cell = byggCell(regler.prim, k.v);
+    // En cell som inte går att läsa (klockans visare åt samma håll) fäller FS6; tas aldrig in.
+    if (!lasCell(cell)) continue;
     const key = dimNyckel(cell);
     if (key === facitKey || visade.has(key) || sett.has(key)) continue;
     if (geometriSerie({ rad: [], options: [cell] }).length) continue;

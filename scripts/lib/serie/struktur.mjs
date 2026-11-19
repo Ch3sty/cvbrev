@@ -20,7 +20,7 @@ export function strukturNyckel(q) {
     const r = dims[id];
     switch (r.regel) {
       case 'konstant': return `${id}:k`;
-      case 'steg': return `${id}:steg${typeof r.k === 'number' && ['vinkel', 'satellit', 'start', 'ylage', 'kvinkel'].includes(id) ? steg8(r.k) : r.k}`;
+      case 'steg': return `${id}:steg${typeof r.k === 'number' && LAGESDIMENSIONER.includes(id) ? steg8(r.k) : r.k}`;
       case 'vaxande': return `${id}:vax${r.d0}/${r.dd}`;
       case 'cykel': return `${id}:cykel${r.varden.length}${new Set(r.varden).size < r.varden.length ? 'u' : ''}`;
       case 'vaxelvis': return `${id}:vxl${r.ke}/${r.ko}`;
@@ -39,7 +39,8 @@ export function radNyckel(q) {
  * ordning, oavsett form- eller fyllningsfas. Två frågor på samma nivå får
  * inte dela den. Null när frågan inte har någon rörlig lägesdimension.
  */
-const LAGESDIMENSIONER = ['vinkel', 'satellit', 'start', 'ylage', 'kvinkel'];
+// Klockans två visare (lang, kort) sedan parti 5.
+const LAGESDIMENSIONER = ['vinkel', 'satellit', 'start', 'ylage', 'kvinkel', 'lang', 'kort'];
 export function lagesNyckel(q) {
   const rorliga = LAGESDIMENSIONER.filter((id) => q.regler?.dims?.[id] && q.regler.dims[id].regel !== 'konstant');
   if (!rorliga.length) return null;
@@ -96,11 +97,14 @@ export function foljdNycklar(q) {
 export function regelNyckel(q) {
   const { prim, dims } = q.regler ?? {};
   if (!prim || !dims) return null;
+  if (prim === 'klocka') return klockNyckel(dims);
   const delar = Object.keys(dims).sort().map((id) => {
     const r = dims[id];
     const lage = LAGESDIMENSIONER.includes(id);
     switch (r.regel) {
-      case 'konstant': return `${id}=${r.v}`;
+      // Granskningen av parti 5, punkt 3: i duo är en del som står still bara
+      // "stilla", inte ett läge; figuren vriden som helhet är samma uppgift (fs-g-vrid-42).
+      case 'konstant': return prim.startsWith('duo-') && lage ? `${id}:stilla` : `${id}=${r.v}`;
       case 'steg': return `${id}:steg${lage ? steg8(r.k) : r.k}`;
       case 'vaxande': return `${id}:vax${r.d0}/${r.dd}`;
       case 'cykel': return `${id}:cykel[${[...r.varden].map(String).sort().join(',')}]`;
@@ -109,4 +113,44 @@ export function regelNyckel(q) {
     }
   });
   return `${prim}|${delar.join('|')}`;
+}
+
+/**
+ * Regelnyckeln för klockan (parti 5). Urtavlan ser likadan ut vriden, så en
+ * klockserie som vridits som helhet är samma uppgift. Därför räknas inga
+ * lägen alls: en visare som står still är bara "står still" (inte var), och
+ * en cykel räknas som stegen mellan lägena, med fasen bortvriden. Strängare än
+ * regelNyckel för de andra primitiverna, som räknar konstanta lägen.
+ */
+function klockNyckel(dims) {
+  const delar = Object.keys(dims).sort().map((id) => {
+    const r = dims[id];
+    switch (r.regel) {
+      case 'konstant': return `${id}:stilla`;
+      case 'steg': return `${id}:steg${steg8(r.k)}`;
+      case 'vaxande': return `${id}:vax${r.d0}/${r.dd}`;
+      case 'vaxelvis': return `${id}:vxl${steg8(r.ke)}/${steg8(r.ko)}`;
+      case 'cykel': {
+        // Granskningen av parti 5, punkt 2: cykeln räknas som mängden lägen den
+        // går runt, med vridningen bortvriden, inte som stegföljden. Samma tre
+        // lägen i omvänd ordning är samma nyckel (fs-a-flera-34 och 35).
+        const v = [...new Set(r.varden.map(steg8))];
+        const fas = Array.from({ length: 8 }, (_, d) => v.map((x) => steg8(x - d)).sort((a, b) => a - b).join(',')).sort()[0];
+        return `${id}:cykel{${fas}}`;
+      }
+      default: return `${id}:${r.regel}`;
+    }
+  });
+  return `klocka|${delar.join('|')}`;
+}
+
+/**
+ * Granskningen av parti 5, punkt 1: båda visarna i två serier med samma steg
+ * i båda serierna vrider klockan som en stel figur (F5 på en figur, inte fyra
+ * serier). Sant när klockans båda visare går växelvis med lika ke och ko.
+ */
+export function stelaVisare(q) {
+  const d = q.regler?.dims;
+  if (q.regler?.prim !== 'klocka' || d?.lang?.regel !== 'vaxelvis' || d?.kort?.regel !== 'vaxelvis') return false;
+  return steg8(d.lang.ke) === steg8(d.kort.ke) && steg8(d.lang.ko) === steg8(d.kort.ko);
 }

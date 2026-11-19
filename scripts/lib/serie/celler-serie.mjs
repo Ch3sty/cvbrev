@@ -120,6 +120,16 @@ export const PRIM = {
       return b && b.antal >= 2 && b.antal <= 7 ? { start: b.start, antal: b.antal } : null;
     },
   },
+  // Klockan (parti 5, 2026-11-19): urtavla med en lång och en kort visare,
+  // båda med pilens åtta lägen. Två delar som rör sig var för sig i en och
+  // samma figur. Visarna pekar aldrig åt samma håll: då döljer den långa den
+  // korta, och cellen går inte att läsa (FS6 och K1 i geometrikontrollen).
+  klocka: {
+    grupp: 'klocka',
+    dims: [rot('lang', 'den långa visaren'), rot('kort', 'den korta visaren')],
+    bygg: (v) => ({ kind: 'klocka', lang: mod(v.lang, 8), kort: mod(v.kort, 8) }),
+    las: (c) => (c.kind === 'klocka' && mod(c.lang, 8) !== mod(c.kort, 8) ? { lang: mod(c.lang, 8), kort: mod(c.kort, 8) } : null),
+  },
   poly: {
     grupp: 'manghorning',
     dims: [ord('horn', 3, 8, 'antalet hörn'), kat('fyllning', ['none', 'gray', 'black'], 'fyllningen')],
@@ -191,6 +201,7 @@ export function primFor(cell) {
     case 'tile': return 'block';
     case 'poly': return 'poly';
     case 'dotsorbit': return 'prickar';
+    case 'klocka': return 'klocka';
     case 'stack': return 'grundform';
     case 'duo': return `duo-${cell.ytter.typ}-${cell.karna.typ}`;
     default: return null;

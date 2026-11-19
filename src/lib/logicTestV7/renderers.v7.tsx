@@ -16,6 +16,7 @@ import type {
   DotsOrbitCell,
   BalanceLineCell,
   DuoCell,
+  KlockaCell,
   Quad,
 } from './types.v7';
 import { GEOMETRI } from './geometri';
@@ -97,6 +98,8 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <BalanceLineRenderer cell={cell} />;
     case 'duo':
       return <DuoRenderer cell={cell} />;
+    case 'klocka':
+      return <KlockaRenderer cell={cell} />;
   }
 };
 
@@ -893,6 +896,30 @@ const DuoRenderer: React.FC<{ cell: DuoCell }> = ({ cell }) => {
     <>
       {ytter}
       {karna}
+    </>
+  );
+};
+
+// =============================================================================
+// 15. KLOCKA: urtavla med två visare (figurserier, parti 5)
+// =============================================================================
+// Urtavlan är referens och ritas som orbitalens bana: prickad, i ram-grått.
+// Visarna är bläck från mitten: den långa i kontur.sw, den korta kortare och
+// bredare (kortSw), så att de skiljs på både längd och bredd. Navet i bläck
+// täcker visarnas rundade ändar i mitten. Måtten ur geometri.json (klocka).
+
+const KlockaRenderer: React.FC<{ cell: KlockaCell }> = ({ cell }) => {
+  const K = G.klocka;
+  const visare = (lage: number, langd: number, bredd: number) => {
+    const [x, y] = banLage(lage, langd);
+    return <line x1="50" y1="50" x2={x} y2={y} stroke={STROKE} strokeWidth={bredd} strokeLinecap="round" />;
+  };
+  return (
+    <>
+      <circle cx="50" cy="50" r={K.banaR} fill="none" stroke={RAM} strokeWidth={K.banaSw} strokeDasharray={K.banaStreck} strokeLinecap="round" />
+      {visare(cell.kort, K.kort, K.kortSw)}
+      {visare(cell.lang, K.lang, SW)}
+      <circle cx="50" cy="50" r={K.navR} fill={FILL_BLACK} />
     </>
   );
 };

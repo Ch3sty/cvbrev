@@ -16,7 +16,7 @@
 //      alternativen och de fem visade ska ge sex plus fem olika bilder (ingen
 //      distraktor ser ut som facit eller som en visad figur).
 //   3. Banken: unika id över alla figurbanker, ingen rad två gånger, inga
-//      tankstreck, fran_version 3 bara i parti 3.
+//      tankstreck, fran_version 3, 4 och 5 bara i parti 3, 4 och 5.
 //   3b. Följden (granskningen av parti 3, punkt 5): samma lägesföljd inom
 //      nivå och familj, också under en annan primitiv eller vriden
 //      (foljdNycklar i scripts/lib/serie/struktur.mjs). Fel när en fråga som
@@ -41,10 +41,10 @@ import { execFileSync } from 'node:child_process';
 import { cellSvg } from '../src/lib/logicTestV7/svgMatt';
 import type { LayeredCell } from '../src/lib/logicTestV7/layered.v7';
 // @ts-expect-error ren JavaScript
-import { foljdNycklar, regelNyckel } from './lib/serie/struktur.mjs';
+import { foljdNycklar, regelNyckel, stelaVisare } from './lib/serie/struktur.mjs';
 
 const B = 'src/lib/figurserierV1';
-const HARNAST = ['Grund', 'Avancerad', 'Expert', 'Parti2Grund', 'Parti2Avancerad', 'Parti3Grund', 'Parti3Avancerad', 'Parti3Expert', 'Parti4Grund', 'Parti4Avancerad', 'Parti4Expert'].map((n) => `${B}/bank${n}.json`);
+const HARNAST = ['Grund', 'Avancerad', 'Expert', 'Parti2Grund', 'Parti2Avancerad', 'Parti3Grund', 'Parti3Avancerad', 'Parti3Expert', 'Parti4Grund', 'Parti4Avancerad', 'Parti4Expert', 'Parti5Grund', 'Parti5Avancerad', 'Parti5Expert'].map((n) => `${B}/bank${n}.json`);
 const BRYTER = ['BryterGrund', 'BryterAvancerad'].map((n) => `${B}/bank${n}.json`);
 
 /** Parti 3, godkända i granskningen 2026-11-19 (de fem ersättarna står inte här). */
@@ -86,8 +86,31 @@ const GODKANDA_PARTI4 = new Set([
   'fs-e-antal-19', 'fs-e-vaxl-31', 'fs-e-flera-07', 'fs-e-flera-08', 'fs-e-vax-04', 'fs-e-vax-05',
   'fs-e-flera-09', 'fs-e-flera-10', 'fs-e-vax-08', 'fs-e-vax-09', 'fs-e-flera-11',
 ]);
+/**
+ * Parti 5, godkända i granskningen 2026-11-19 (omgång 3,
+ * docs/fragebank/figurserier-2026-11-19-omg3-granskning.md): 92 av 95.
+ * fs-e-flera-19, fs-a-flera-35 och fs-g-vrid-42 är strukna.
+ */
+const GODKANDA_PARTI5 = new Set([
+  'fs-g-vrid-35', 'fs-g-vand-36', 'fs-g-vand-37', 'fs-g-vand-38', 'fs-g-vrid-36', 'fs-g-vrid-37',
+  'fs-g-vand-39', 'fs-g-vrid-38', 'fs-g-vrid-39', 'fs-g-vrid-40', 'fs-g-vrid-41', 'fs-g-antal-20',
+  'fs-a-vaxl-42', 'fs-a-vaxl-43', 'fs-a-vaxl-44', 'fs-a-vaxl-45', 'fs-a-vaxl-46', 'fs-a-vaxl-47',
+  'fs-a-vaxl-48', 'fs-a-vaxl-49', 'fs-a-vaxl-50', 'fs-a-vrid-19', 'fs-a-flera-27', 'fs-a-vrid-20',
+  'fs-a-flera-28', 'fs-a-flera-29', 'fs-a-vrid-21', 'fs-a-flera-30', 'fs-a-vrid-22', 'fs-a-flera-31',
+  'fs-a-flera-32', 'fs-a-vrid-23', 'fs-a-vrid-24', 'fs-a-flera-33', 'fs-a-flera-34', 'fs-a-vrid-25',
+  'fs-a-vrid-26', 'fs-a-vrid-27', 'fs-a-flera-36', 'fs-a-vrid-28', 'fs-a-vrid-29', 'fs-a-vrid-30',
+  'fs-a-vrid-31', 'fs-a-vrid-32', 'fs-a-vrid-33', 'fs-a-vrid-34', 'fs-e-vaxl-32', 'fs-e-antal-20',
+  'fs-e-vaxl-33', 'fs-e-vaxl-34', 'fs-e-vaxl-35', 'fs-e-vaxl-36', 'fs-e-vaxl-37', 'fs-e-vaxl-38',
+  'fs-e-vaxl-39', 'fs-e-vaxl-40', 'fs-e-vaxl-41', 'fs-e-vaxl-42', 'fs-e-vax-15', 'fs-e-flera-14',
+  'fs-e-vax-16', 'fs-e-flera-15', 'fs-e-vax-17', 'fs-e-flera-16', 'fs-e-vax-18', 'fs-e-flera-17',
+  'fs-e-vax-19', 'fs-e-flera-18', 'fs-e-vax-20', 'fs-e-vaxl-43', 'fs-e-vax-21', 'fs-e-vaxl-44',
+  'fs-e-flera-20', 'fs-e-vax-22', 'fs-e-vaxl-45', 'fs-e-flera-21', 'fs-e-vax-23', 'fs-e-vaxl-46',
+  'fs-e-flera-22', 'fs-e-vax-24', 'fs-e-vaxl-47', 'fs-e-flera-23', 'fs-e-vax-25', 'fs-e-vaxl-48',
+  'fs-e-flera-24', 'fs-e-vax-26', 'fs-e-vaxl-49', 'fs-e-flera-25', 'fs-e-vax-27', 'fs-e-vaxl-50',
+  'fs-e-flera-26', 'fs-e-vax-28',
+]);
 const granskad = (q: { fran_version: number; id: string }) =>
-  q.fran_version <= 2 || (q.fran_version === 3 && GODKANDA_PARTI3.has(q.id)) || (q.fran_version === 4 && GODKANDA_PARTI4.has(q.id));
+  q.fran_version <= 2 || (q.fran_version === 3 && GODKANDA_PARTI3.has(q.id)) || (q.fran_version === 4 && GODKANDA_PARTI4.has(q.id)) || (q.fran_version === 5 && GODKANDA_PARTI5.has(q.id));
 
 type Cell = Record<string, unknown> & { kind: string };
 type Fraga = { id: string; niva: string; regler?: unknown; rad: Cell[]; options: Cell[]; correctAnswer: number; rule: string; title: string; misstag: string[]; fran_version: number; form?: string };
@@ -129,6 +152,9 @@ function avkoda(c: Cell): Record<string, Egenskap> | null {
     }
     case 'poly': return { form: kat('poly'), horn: tal(c.sides as number, 3, 8), fyll: kat(c.fill), vridning: kat(c.rotation) };
     case 'stack': return { form: kat('stack'), bas: kat(c.base), symbol: kat(c.symbol), fyll: kat(c.baseFill) };
+    // Klockan (parti 5): två visare med var sitt läge. Pekar de åt samma håll
+    // går figuren inte att läsa (den långa döljer den korta).
+    case 'klocka': return mod8(c.lang as number) === mod8(c.kort as number) ? null : { form: kat('klocka'), lang: rot(c.lang as number), kort: rot(c.kort as number) };
     case 'duo': {
       const y = c.ytter as { typ: string; lage: number; antal?: number };
       const k = c.karna as Record<string, unknown>;
@@ -239,18 +265,20 @@ for (const f of [...new Set([...HARNAST, ...BRYTER, ...valda])].filter((x) => ex
 }
 for (const f of valda) {
   const bank = JSON.parse(readFileSync(f, 'utf8')) as Fraga[];
-  const parti3 = /Parti3/.test(f);
   for (const q of bank) {
     n++;
     if (q.form === 'bryter') { fel.push(`${q.id}: bryter mönstret i en härnäst-bank`); continue; }
     if (q.rad.length !== 5 || q.options.length !== 6) fel.push(`${q.id}: ska ha fem figurer och sex alternativ`);
-    const parti4 = /parti4/i.test(f);
-    if (parti4 ? q.fran_version !== 4 : parti3 !== (q.fran_version === 3)) fel.push(`${q.id}: fran_version ${q.fran_version} i ${f}`);
+    // Parti 3 och senare: fran_version är partiets nummer (bankParti5*, kandidater/parti5-*).
+    const parti = Number(/parti(\d+)/i.exec(f)?.[1] ?? 0);
+    if (parti >= 3 ? q.fran_version !== parti : q.fran_version >= 3) fel.push(`${q.id}: fran_version ${q.fran_version} i ${f}`);
     if (/[–—]/.test([q.rule, q.title, ...q.misstag].join(' '))) fel.push(`${q.id}: tankstreck i texten`);
     const rk = JSON.stringify([...q.rad, q.options[q.correctAnswer]]);
     if (rader.has(rk)) fel.push(`${q.id}: samma rad som ${rader.get(rk)}`);
     rader.set(rk, q.id);
     fel.push(...regelFel(q), ...renderFel(q));
+    // Granskningen av parti 5, punkt 1: klockan med båda visarna i samma två serier är en stel figur.
+    if (stelaVisare(q) && !granskad(q)) fel.push(`${q.id}: båda visarna har samma steg i båda serierna, klockan vrids som en stel figur`);
   }
   console.log(`${f}: ${bank.length} uppgifter`);
 }

@@ -1,0 +1,2460 @@
+[
+ {
+  "id": "fs-e-vax-20",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader medurs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren vrids åt fel håll. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren pekar uppåt, men ska peka snett uppåt höger.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar uppåt, men ska peka snett uppåt höger.",
+   "Den långa visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -2,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 5,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-43",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 2,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": -2,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-19",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 45 grader medurs. I den första, tredje och femte vrids den korta visaren 90 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett uppåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -2,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -2,
+     "s1": 5,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-21",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt höger, men ska peka nedåt.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar åt höger, men ska peka nedåt.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -3,
+     "s1": 2,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-44",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren pekar nedåt, men ska peka snett nedåt höger.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar nedåt, men ska peka snett nedåt höger.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren pekar uppåt, men ska peka snett uppåt vänster. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 1,
+     "s1": 3,
+     "ko": 2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-20",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 4,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": -3,
+     "s1": 1,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-22",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 1,
+     "s1": 0,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-45",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka snett nedåt vänster. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett nedåt höger, men ska peka snett uppåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": -2,
+     "s1": 7,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 1,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-21",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader medurs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar nedåt, men ska peka åt vänster. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Den långa visaren pekar nedåt, men ska peka åt vänster. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -1,
+     "s1": 0,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-23",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar åt vänster, men ska peka snett uppåt vänster.",
+   "Den långa visaren vrids åt fel håll.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar åt vänster, men ska peka snett uppåt vänster.",
+   "Den korta visaren vrids åt fel håll.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -2,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -3,
+     "s1": 3,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-46",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren pekar nedåt, men ska peka snett nedåt vänster.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 2,
+     "s1": 6,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-22",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader moturs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader moturs; i den andra och fjärde vrids den korta visaren 135 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar nedåt, men ska peka åt höger. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren pekar nedåt, men ska peka åt höger. Den korta visaren vrids åt fel håll.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": -1,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -2,
+     "s1": 6,
+     "ko": -3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-24",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett uppåt vänster. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka snett uppåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 4,
+     "ko": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-47",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 45 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt.",
+   "Den långa visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster. Den korta visaren står kvar som i den femte figuren.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren pekar snett nedåt vänster, men ska peka uppåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 3,
+     "s1": 3,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-23",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader medurs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt höger. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett nedåt vänster, men ska peka snett uppåt höger. Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren vrids åt fel håll. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den korta visaren pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Den långa visaren vrids åt fel håll."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 1,
+     "s1": 5,
+     "ko": 2
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -3,
+     "s1": 7,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-25",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt höger, men ska peka snett nedåt höger.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar åt höger, men ska peka snett nedåt höger. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -3,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-48",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 45 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader medurs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren pekar snett uppåt höger, men ska peka åt höger. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visarens vridning har inte vuxit sista gången.",
+   "Den korta visarens vridning har inte vuxit sista gången.",
+   ""
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": 1,
+     "s1": 4,
+     "ko": 3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -2,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-24",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 45 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visaren har vridits ett steg för långt.",
+   "",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster.",
+   "Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren står kvar som i den femte figuren.",
+   "Den långa visaren pekar åt vänster, men ska peka snett nedåt vänster. Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": 3,
+     "s1": 3,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 2,
+     "s1": 5,
+     "ko": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-26",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren vrids åt fel håll.",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger. Den korta visaren vrids åt fel håll.",
+   "",
+   "Den långa visaren pekar snett uppåt vänster, men ska peka snett nedåt höger. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visarens vridning har inte vuxit sista gången."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 4,
+     "d0": 1,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -1,
+     "s1": 3,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-49",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 90 grader medurs; i den andra och fjärde vrids den långa visaren 135 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren har vridits ett steg för långt.",
+   "Den korta visaren pekar snett uppåt vänster, men ska peka snett uppåt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 0,
+     "ko": -3
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-25",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 135 grader medurs; i den andra och fjärde vrids den långa visaren 90 grader moturs. I den första, tredje och femte vrids den korta visaren 90 grader medurs; i den andra och fjärde vrids den korta visaren 90 grader moturs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 4
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 4
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Den långa visaren står kvar som i den femte figuren. Den korta visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren har vridits ett steg för långt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 3,
+     "s1": 4,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 2,
+     "s1": 0,
+     "ko": -2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-27",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt vänster, men ska peka snett nedåt vänster.",
+   "Den långa visaren har vridits ett steg för långt.",
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt höger, men ska peka snett nedåt vänster."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": -1,
+     "dd": -1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 1,
+     "s1": 7,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vaxl-50",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxande",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids den långa visaren 135 grader moturs; i den andra och fjärde vrids den långa visaren 90 grader moturs. Luckan hör till den andra serien. Den korta visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 7
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 3
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren pekar snett nedåt höger, men ska peka åt höger. Den korta visaren har vridits ett steg för långt.",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren står kvar som i den femte figuren.",
+   "",
+   "Den korta visaren står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -3,
+     "s1": 6,
+     "ko": -2
+    },
+    "kort": {
+     "regel": "vaxande",
+     "s0": 5,
+     "d0": 2,
+     "dd": 1
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-flera-26",
+  "niva": "expert",
+  "family": "flera",
+  "recept": "F9",
+  "variant": "klocka-vaxelvis-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Varannan figur hör till samma serie, för båda visarna. I den första, tredje och femte vrids den långa visaren 90 grader moturs; i den andra och fjärde vrids den långa visaren 45 grader medurs. I den första, tredje och femte vrids den korta visaren 135 grader moturs; i den andra och fjärde vrids den korta visaren 90 grader medurs. Luckan hör till den andra serien för båda.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 2,
+    "kort": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 3
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 1
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar snett uppåt höger, men ska peka åt höger.",
+   "Den långa visaren står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "Den korta visaren pekar snett nedåt höger, men ska peka åt höger.",
+   "",
+   "Den långa visaren fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Den korta visaren pekar snett uppåt höger, men ska peka åt höger."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -2,
+     "s1": 4,
+     "ko": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": -3,
+     "s1": 6,
+     "ko": 2
+    }
+   }
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "fs-e-vax-28",
+  "niva": "expert",
+  "family": "vaxande",
+  "recept": "F9",
+  "variant": "klocka-vaxande-vaxelvis",
+  "difficulty": 4,
+  "p_prior": 0.32,
+  "title": "Klockan, två regler",
+  "rule": "Den långa visaren vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Varannan figur hör till samma serie. I den första, tredje och femte vrids den korta visaren 45 grader medurs; i den andra och fjärde vrids den korta visaren 135 grader medurs. Luckan hör till den andra serien.",
+  "rad": [
+   {
+    "kind": "klocka",
+    "lang": 3,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 0,
+    "kort": 2
+   },
+   {
+    "kind": "klocka",
+    "lang": 4,
+    "kort": 5
+   },
+   {
+    "kind": "klocka",
+    "lang": 1,
+    "kort": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 6
+   },
+   {
+    "kind": "klocka",
+    "lang": 6,
+    "kort": 0
+   },
+   {
+    "kind": "klocka",
+    "lang": 5,
+    "kort": 1
+   },
+   {
+    "kind": "klocka",
+    "lang": 7,
+    "kort": 6
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den långa visarens vridning har inte vuxit sista gången. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar åt vänster, men ska peka uppåt.",
+   "Den långa visarens vridning har inte vuxit sista gången.",
+   "Den långa visaren har vridits ett steg för långt. Den korta visaren pekar snett uppåt höger, men ska peka uppåt.",
+   "Den korta visaren pekar åt vänster, men ska peka uppåt."
+  ],
+  "regler": {
+   "prim": "klocka",
+   "dims": {
+    "lang": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 2,
+     "dd": 1
+    },
+    "kort": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 1,
+     "s1": 2,
+     "ko": 3
+    }
+   }
+  },
+  "fran_version": 5
+ }
+]

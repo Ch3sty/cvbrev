@@ -174,6 +174,19 @@ export type DuoCell = {
 };
 
 // =============================================================================
+// 15. KLOCKA: figurseriernas urtavla med två visare (parti 5, 2026-11-19)
+// =============================================================================
+// En prickad urtavla i ram-grått och två visare från mitten: en lång och smal,
+// en kort och bred. Lägena som pilens: 0 = klockan 12, medurs i 45-gradersteg.
+// Visarna pekar aldrig åt samma håll (då döljer den långa den korta); det är
+// generatorns och kontrollens sak, renderaren ritar vad den får.
+export type KlockaCell = {
+  kind: 'klocka';
+  lang: number;
+  kort: number;
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -190,7 +203,8 @@ export type V7Cell =
   | SectorWheelCell
   | DotsOrbitCell
   | BalanceLineCell
-  | DuoCell;
+  | DuoCell
+  | KlockaCell;
 
 export type Question = {
   id: string;
