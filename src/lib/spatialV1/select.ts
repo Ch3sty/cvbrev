@@ -23,8 +23,14 @@ export const PER_FORM = 5;
  * Version 2 (2026-11-10): form D, pappersvikning i I-provets riktning, kommer
  * in. Nivåtestet blir 4 A, 3 B, 4 C och 4 D. Sessioner med version 1 drar
  * som förut, fem av A, B och C (D har fran_version 2 och finns inte i deras pool).
+ *
+ * Bankversion 3 (frågebanken 2026-11-19, docs/fragebank/spatial-2026-11-19.md):
+ * 99 nya uppgifter med fran_version 3 sist i bankfilerna (33 grund, 33
+ * avancerad, 33 expert), aktiva sedan 2026-11-19 efter testansvarigs granskning;
+ * nivåtestet har samma fördelning per form som version 2, och sessioner med
+ * version 2 drar ur samma pool som förut.
  */
-export const SPATIAL_VERSION = 2;
+export const SPATIAL_VERSION = 3;
 export const FORMER: SpatialForm[] = ['A', 'B', 'C', 'D'];
 /** Antal per form i nivåtestet, per version. */
 export function perFormFor(version: number): Partial<Record<SpatialForm, number>> {

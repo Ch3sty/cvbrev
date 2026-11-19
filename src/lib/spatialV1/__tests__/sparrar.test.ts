@@ -250,10 +250,10 @@ describe('form D: pappersvikning ihopvikt, motorn och spärrfixturer', () => {
   const ett = (n = 'Avancerad') => kopia(alla(n)[0])
   const fel = (q: Q) => (D.sparrarD(q) as string[]).join(' | ')
 
-  it('minst 24 uppgifter per nivå, med version 2', () => {
+  it('minst 24 uppgifter per nivå, med version 2 eller senare', () => {
     for (const n of NIVAER) {
       expect(alla(n).length).toBeGreaterThanOrEqual(24)
-      for (const q of alla(n)) expect(q.fran_version).toBe(2)
+      for (const q of alla(n)) expect(q.fran_version).toBeGreaterThanOrEqual(2)
     }
   })
   it('distraktorerna varierar: ingen typ eller uppsättning dominerar nivån (testansvarig 2026-11-10)', () => {

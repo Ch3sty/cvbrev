@@ -105,7 +105,8 @@ export interface SpatialFraga {
   uppvikning?: (ArkStansFigur | ArkUtFigur)[];
   /** Form C: referensen med de sidor som avslöjar varje distraktor markerade, per alternativ (tom för facit). */
   avslojande?: (('t' | 'l' | 'r')[])[];
-  fran_version: 1 | 2;
+  /** 3: frågebanken 2026-11-19 (docs/fragebank/spatial-2026-11-19.md), aktiv sedan SPATIAL_VERSION 3. */
+  fran_version: 1 | 2 | 3;
   pensionerad_fran?: number;
 }
 
