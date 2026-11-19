@@ -4,7 +4,7 @@
 // (skissens tal), så att vyerna ser exakt samma form i förhandsvisningen
 // som i produktion. Ren.
 
-import { dagarMellan, type Dag } from '@/lib/traning/datum';
+import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum';
 import { DELTYP_NAMN } from '@/lib/traning/mittTest';
 import { byggBana } from './bana';
 import { ETIKETT, FORTSATT, KALLAS, MAT_DIG, TRANA, ZON_RUBRIK, ingarI, nivaRadText } from './copy';
@@ -179,6 +179,7 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
       ingarIPlan: !!plan && plan.typer.includes(typ),
       niva: lage,
       senasteNivakoll: nk?.dag ?? null,
+      senasteTraning: senasteAv(u.punkter, 'trana', false)?.dag ?? null,
       antalTraningar: u.punkter.filter((p) => p.slag === 'trana').length,
       primar: primar(typ, u, g, lage),
       synlig: u.synlig,
@@ -229,7 +230,22 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     fortsatt,
     personlighet: { gjord: inp.personlighet.gjord, href: PERSONLIGHET_HREF },
     paket: inp.paket,
+    kurva: kurvaFor(inp),
+    aktivaDagar: [...new Set(inp.aktivaDagar)].filter((d) => d >= laggTill(inp.idag, -13) && d <= inp.idag).sort(),
   };
+}
+
+/** Dagar i Hems minigraf, i dag inräknat. */
+export const KURVA_DAGAR = 28;
+
+/** Hems minigraf: de synliga typernas punkter de senaste 28 dagarna. */
+function kurvaFor(inp: ModellIn): UtvecklingsPunkt[] {
+  const last = !inp.gratis.premium && !inp.gratis.harHistorik;
+  const fran = laggTill(inp.idag, -(KURVA_DAGAR - 1));
+  return TEST_TYP_ORDNING.filter((t) => inp.typer[t].synlig)
+    .flatMap((t) => synligaPunkter(inp.typer[t].punkter, last))
+    .filter((p) => p.dag >= fran && p.dag <= inp.idag)
+    .sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0));
 }
 
 export function byggUtvecklingV4(inp: ModellIn): UtvecklingV4Data {

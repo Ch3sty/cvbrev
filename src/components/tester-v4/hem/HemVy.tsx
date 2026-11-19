@@ -1,20 +1,22 @@
 /**
- * Hem i Rekryteringstester v4 (docs/plan-tester-v4-bygg.md 3.3, utkast v4
- * avsnitt 2, skissens webb-Hem): var du står och vad som är rimligt
- * härnäst, räknat ur dina resultat.
+ * Hem i Rekryteringstester (skissen Hem A, godkänd 2026-11-19; utkast v4
+ * avsnitt 2): var du står och vad som är rimligt härnäst, räknat ur dina
+ * resultat.
  *
- *   Väggen       PlanHuvud: provet, nedräkningen och banan, eller datumet
- *                och "Hem" utan plan
- *   Lyft kort    Nästa steg: första hinten, vyns enda kopparknapp
- *   Flikar       Hem, Tester, Din utveckling
- *   Golvet       två spalter på dator: Fler steg, Dagsmål och plankortet;
- *                Så ligger du till, Fortsätt där du slutade och gratisraden
+ *   Väggen        PlanHuvud: provet, den stora nedräkningen och banan, eller
+ *                 datumet och "Hem" utan plan
+ *   Lyft kort     Nästa steg: första hinten med typens nivåband, vyns enda
+ *                 kopparknapp
+ *   Navigeringen  tre kort, Hem, Tester och Din utveckling (sticky på dator)
+ *   Ingångarna    Tester (minikatalogen) och Din utveckling (minigrafen, Så
+ *                 ligger du till, senaste övningsprovet)
+ *   Gratisraden   när dagens grundnivåtest är gjort
+ *   Nedersta      Fler steg, Dagar i rad (eller plankortet utan plan) och
+ *                 Fortsätt där du slutade
  *
- * Hintarna kommer färdiga i prioritetsordning ur datan (hintar.ts, A). Saknas
- * data är första hinten ett tydligt första steg. Ordet "pass" används inte.
- *
- * Server component; öarna (NastaSteg, FlerSteg, GratisRad, PlanKort,
- * HintVisad) är klient.
+ * Hintarna kommer färdiga i prioritetsordning ur datan (hintar.ts). Ordet
+ * "pass" används inte. Server component; öarna (NastaSteg, FlerSteg,
+ * GratisRad, PlanKort, HintVisad) är klient.
  */
 
 import Golv from '@/components/rum/Golv'
@@ -24,10 +26,12 @@ import NastaSteg from './NastaSteg'
 import FlerSteg from './FlerSteg'
 import Dagsmal from './Dagsmal'
 import GratisRad from './GratisRad'
-import SaLiggerDuTill from './SaLiggerDuTill'
 import FortsattDarDuSlutade from './FortsattDarDuSlutade'
 import PlanKort from './PlanKort'
-import Flikar from './Flikar'
+import Navigering from './Navigering'
+import TesterIngang from './TesterIngang'
+import UtvecklingIngang from './UtvecklingIngang'
+import { navTexter, nivaKalla } from './hemData'
 import { HintVisad, type HintKontext } from './HintSparning'
 
 export default function HemVy({ data }: { data: TesterV4Data }) {
@@ -35,29 +39,26 @@ export default function HemVy({ data }: { data: TesterV4Data }) {
   const kontext: HintKontext = { planTest: plan?.mittTest ?? null, planTyper: plan?.typer ?? [] }
   const forsta = hintar[0] ?? null
   const fler = hintar.slice(1, 4)
-  // Står inget i vänsterspalten (artikelingången utan data) flyttar högerspalten dit.
-  const dagsmalSyns = !!plan && (data.dagsmal.mal != null || data.dagsmal.dagarIRad > 0)
-  const vansterTom = fler.length === 0 && !dagsmalSyns && !!plan
+  const hintTyp = forsta?.testtyp ? (data.typer.find((t) => t.id === forsta.testtyp) ?? null) : null
+  // Nedersta raden: tre spalter på bred skärm, färre när en del saknas.
+  const antalNederst = (fler.length ? 1 : 0) + 1 + (data.fortsatt ? 1 : 0)
+  const nederstKolumner = antalNederst === 3 ? 'xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1fr)]' : antalNederst === 2 ? 'lg:grid-cols-2' : ''
   return (
     <div className="flex flex-1 flex-col" data-hem-v4 data-lage={plan ? (plan.franArtikel && !plan.provdatum ? 'artikel' : 'plan') : 'fritt'}>
       <HintVisad hintar={hintar.slice(0, 4)} idag={data.idag} kontext={kontext} />
       <PlanHuvud plan={plan} idag={data.idag} typer={data.typer} bana={data.bana} />
       <Golv lyft className="pb-10">
-        <NastaSteg hint={forsta} kontext={kontext} />
-        <Flikar aktiv="hem" />
-        <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
-          {vansterTom ? null : (
-            <div className="flex min-w-0 flex-col gap-4">
-              <FlerSteg hintar={fler} kontext={kontext} />
-              {plan ? <Dagsmal lage={data.dagsmal} /> : null}
-              {plan ? null : <PlanKort />}
-            </div>
-          )}
-          <div className="flex min-w-0 flex-col gap-4">
-            <SaLiggerDuTill typer={data.typer} plan={plan} />
-            <FortsattDarDuSlutade fortsatt={data.fortsatt} idag={data.idag} />
-            <GratisRad gratis={data.gratis} planTest={plan?.mittTest ?? null} />
-          </div>
+        <NastaSteg hint={forsta} kontext={kontext} typ={hintTyp} planNamn={plan?.namn ?? null} nivaKalla={hintTyp ? nivaKalla(data.kurva, hintTyp.id) : null} />
+        <Navigering aktiv="hem" texter={navTexter(data)} />
+        <div className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2">
+          <TesterIngang data={data} />
+          <UtvecklingIngang data={data} />
+        </div>
+        <GratisRad gratis={data.gratis} planTest={plan?.mittTest ?? null} />
+        <div className={`grid grid-cols-1 items-stretch gap-4 ${nederstKolumner}`}>
+          {fler.length ? <FlerSteg hintar={fler} kontext={kontext} plan={plan} menyer={data.menyer} idag={data.idag} /> : null}
+          {plan ? <Dagsmal lage={data.dagsmal} idag={data.idag} aktivaDagar={data.aktivaDagar} /> : <PlanKort />}
+          <FortsattDarDuSlutade fortsatt={data.fortsatt} idag={data.idag} />
         </div>
       </Golv>
     </div>

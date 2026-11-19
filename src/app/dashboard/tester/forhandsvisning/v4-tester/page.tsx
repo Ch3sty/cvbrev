@@ -13,6 +13,8 @@ import { fixturTester, type FixturLage, type FixturNiva } from '@/lib/tester/v4/
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
 import NastaSteg from '@/components/tester-v4/hem/NastaSteg'
+import Navigering from '@/components/tester-v4/hem/Navigering'
+import { navTexter } from '@/components/tester-v4/hem/hemData'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,6 +37,7 @@ export default async function ForhandsvisningTesterV4({
       data={data}
       startTyp={arTestTypId(typ) ? typ : null}
       nastaSteg={hint ? <NastaSteg hint={hint} /> : null}
+      nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
     />
   )
 }

@@ -20,6 +20,8 @@ import type { PlanKey } from '@/lib/plans/plans'
 import { Betalvagg } from '@/components/traning/HemKlient'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
 import NastaSteg from '@/components/tester-v4/hem/NastaSteg'
+import Navigering from '@/components/tester-v4/hem/Navigering'
+import { navTexter } from '@/components/tester-v4/hem/hemData'
 
 const SCOPES: readonly string[] = ['cv', 'tester', 'allt']
 const PLANER: readonly string[] = ['cv_week', 'test_week', 'all_day', 'all_week', 'all_month', 'all_quarter']
@@ -48,6 +50,7 @@ export default async function AllaTesterPage({
         data={data}
         startTyp={arTestTypId(typ) ? typ : null}
         nastaSteg={hint ? <NastaSteg hint={hint} /> : null}
+        nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
       />
     </Betalvagg>
   )

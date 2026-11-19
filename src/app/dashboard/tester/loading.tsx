@@ -1,7 +1,7 @@
 /**
  * Laddar Hem (tester v4): väggen med toppraden, eyebrow, rubriken och en
  * statusrad som skelett i väggens eget ljus, det lyfta kortet Nästa steg
- * med tråden längs överkanten, flikarna och golvets två spalter i samma höjd
+ * med tråden längs överkanten, navigeringens tre kort och de två ingångarna i samma höjd
  * som den riktiga vyn, så att inget hoppar när datan landar.
  *
  * Hem är serverrenderad, så det här syns bara under en navigering.
@@ -32,8 +32,12 @@ export default function Loading() {
           <div className={`${G} mt-2.5 h-3.5 w-[80%]`} />
           <div className={`${G} mt-3.5 h-12 !rounded-xl sm:w-44`} />
         </section>
-        <div className="h-11 border-b border-kant" />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-3 gap-2 lg:gap-3">
+          {[0, 1, 2].map((k) => (
+            <div key={k} className={`min-h-[76px] rounded-[14px] lg:min-h-[72px] ${k === 0 ? "bg-vagg" : "border border-kant bg-papper"}`} />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
           {[0, 1].map((k) => (
             <div key={k} className="rounded-2xl border border-kant bg-papper p-4">
               <div className={`${G} h-3 w-[30%]`} />

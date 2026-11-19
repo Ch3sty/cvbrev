@@ -98,6 +98,8 @@ export interface TesttypKort {
   ingarIPlan: boolean;
   niva: NivaLage;
   senasteNivakoll: Dag | null;
+  /** Senaste dagen med en träning i typen, eller null. */
+  senasteTraning: Dag | null;
   antalTraningar: number;
   /** Träna, eller Mät din nivå om omätt, eller Grundnivå för gratis. */
   primar: Handling;
@@ -242,6 +244,14 @@ export interface TesterV4Data {
   personlighet: { gjord: boolean; href: string };
   /** För Betalvagg. */
   paket: Paketinfo;
+  /**
+   * Hems minigraf: alla punkter de senaste 28 dagarna (i dag inräknat) för
+   * de synliga typerna, i tidsordning. Gratis utan historik: bara senaste
+   * punkten per typ, som i Din utveckling.
+   */
+  kurva: UtvecklingsPunkt[];
+  /** Dagar med minst ett slutfört test de senaste 14 dagarna, för veckoraden. */
+  aktivaDagar: Dag[];
 }
 
 export type MonsterLage = 'omott' | 'mott' | 'saker' | 'snabb';

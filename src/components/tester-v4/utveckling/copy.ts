@@ -20,8 +20,6 @@ export const UTV = {
   undertext: ' Träning, nivåkoll och prov i samma graf. Nivåerna läggs aldrig ihop.',
   utanDatum: 'Inget provdatum än.',
 
-  flikar: { etikett: 'Rekryteringstester', hem: 'Hem', tester: 'Tester', utveckling: 'Din utveckling' },
-
   graf: {
     eyebrow: 'Nivån över tid',
     meta: 'träning, nivåkoll och prov',

@@ -7,7 +7,9 @@
  */
 import { redirect } from 'next/navigation'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
-import { hamtaUtvecklingV4 } from '@/lib/tester/v4/hamta.server'
+import { hamtaTesterV4, hamtaUtvecklingV4 } from '@/lib/tester/v4/hamta.server'
+import Navigering from '@/components/tester-v4/hem/Navigering'
+import { navTexter } from '@/components/tester-v4/hem/hemData'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import UtvecklingVy from '@/components/tester-v4/utveckling/UtvecklingVy'
 import { Betalvagg } from '@/components/traning/HemKlient'
@@ -26,11 +28,13 @@ export default async function KurvanSida({
 }) {
   const user = await hamtaVerifieradAnvandare()
   if (!user) redirect('/login')
-  const [data, sp] = await Promise.all([hamtaUtvecklingV4(user.id), searchParams])
+  // hamtaTesterV4 delar underlaget (React cache) med hamtaUtvecklingV4: ingen extra läsning,
+  // bara modellen för navigeringens undertexter.
+  const [data, tester, sp] = await Promise.all([hamtaUtvecklingV4(user.id), hamtaTesterV4(user.id), searchParams])
   const typ = Array.isArray(sp.typ) ? sp.typ[0] : sp.typ
   return (
     <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)}>
-      <UtvecklingVy data={data} startTyp={arTestTypId(typ) ? typ : null} />
+      <UtvecklingVy data={data} startTyp={arTestTypId(typ) ? typ : null} nav={<Navigering aktiv="utveckling" texter={navTexter(tester)} />} />
     </Betalvagg>
   )
 }

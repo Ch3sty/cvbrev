@@ -8,14 +8,14 @@
  *
  *   Väggen      Din utveckling, planens namn eller Alla testtyper, en statusrad
  *   Lyft kort   Nivån över tid: valen, grafen, legenden, detaljen
- *   Flikar      Hem, Tester, Din utveckling
+ *   Navigering  Hem, Tester, Din utveckling (tre kort, nav-propen)
  *   Golvet      Nivå per testtyp | Resultat och mönstren
  *
  * ?typ=<id> väljer typen vid start och följer valet med replaceState (ingen
  * navigering). Gratis: bara senaste punkten per typ och låsta rader.
  */
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import Vagg from '@/components/rum/Vagg'
 import Topprad from '@/components/rum/Topprad'
@@ -26,7 +26,7 @@ import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { LasChip } from '@/components/traning/HemKlient'
 import { DELTYP_NAMN } from '@/lib/traning/mittTest'
 import { TEST_TYP_ORDNING, type TestTypId, type UtvecklingsPunkt, type UtvecklingV4Data } from '@/lib/tester/v4/typer'
-import { HEM_HREF, TESTER_HREF, UTVECKLING_HREF, menyHref } from '@/lib/tester/v4/rutter'
+import { menyHref } from '@/lib/tester/v4/rutter'
 import { LAS_CHIP } from '@/lib/tester/v4/copy'
 import Graf, { tonFarg } from './Graf'
 import GrafChips from './GrafChips'
@@ -45,37 +45,14 @@ export interface UtvecklingVyProps {
   startPeriod?: Period | null
   /** Förhandsvisningen: en vald punkt vid start. */
   startPunkt?: string | null
+  /** Navigeringen (hem/Navigering) med Din utveckling aktivt; sidan bygger den på servern. */
+  nav?: ReactNode
 }
 
 const NAMN: Record<TestTypId, string> = Object.fromEntries(TEST_TYP_ORDNING.map((t) => [t, DELTYP_NAMN[t]])) as Record<
   TestTypId,
   string
 >
-
-function Flikar() {
-  const flikar = [
-    { href: HEM_HREF, text: UTV.flikar.hem },
-    { href: TESTER_HREF, text: UTV.flikar.tester },
-    { href: UTVECKLING_HREF, text: UTV.flikar.utveckling, aktiv: true },
-  ]
-  return (
-    <nav aria-label={UTV.flikar.etikett} className="-mt-1 flex gap-1.5 border-b border-kant" data-flikar>
-      {flikar.map((f) => (
-        <Link
-          key={f.href}
-          href={f.href}
-          aria-current={f.aktiv ? 'page' : undefined}
-          prefetch={f.aktiv ? false : undefined}
-          className={`-mb-px inline-flex h-11 items-center border-b-2 px-3.5 text-sm font-semibold ${
-            f.aktiv ? 'border-koppar text-ink-1' : 'border-transparent text-ink-3 hover:text-ink-1'
-          }`}
-        >
-          {f.text}
-        </Link>
-      ))}
-    </nav>
-  )
-}
 
 function Legend({ data, typer }: { data: UtvecklingV4Data; typer: TestTypId[] }) {
   const plan = data.plan
@@ -129,7 +106,7 @@ function Legend({ data, typer }: { data: UtvecklingV4Data; typer: TestTypId[] })
   )
 }
 
-export default function UtvecklingVy({ data, startTyp = null, startPeriod = null, startPunkt = null }: UtvecklingVyProps) {
+export default function UtvecklingVy({ data, startTyp = null, startPeriod = null, startPunkt = null, nav = null }: UtvecklingVyProps) {
   const plan = data.plan
   const [typVal, setTypVal] = useState<TypVal>(startTyp ?? 'alla')
   const [period, setPeriod] = useState<Period>(startPeriod && (startPeriod !== 'plan' || plan) ? startPeriod : 'allt')
@@ -281,7 +258,7 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
             </div>
           </LyftKort>
         )}
-        <Flikar />
+        {nav}
         <div className="grid grid-cols-1 items-start gap-4 pb-10 lg:grid-cols-2">
           <NivaPerTyp typer={data.typer} planNamn={plan?.namn ?? null} typVal={typVal} onTyp={valjTyp} />
           <div className="flex flex-col gap-4">

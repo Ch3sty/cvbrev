@@ -3,7 +3,7 @@
 /**
  * Tester v4 (utkast v4 avsnitt 3 och 4, skissens webbvy "Tester"): väggen
  * med "Alla tester" och planraden, kortet Nästa steg (C:s NastaSteg, som
- * plats tills integrationen), flikarna, rutnätet av testtyper och typens
+ * plats tills integrationen), navigeringen, rutnätet av testtyper och typens
  * meny.
  *
  * Med plan: provets delar och övningsprovet i en tonad grupp "Ingår i
@@ -38,7 +38,6 @@ import OvningsprovKort from './OvningsprovKort'
 import PersonlighetKort from './PersonlighetKort'
 import TypMenyPanel from './TypMenyPanel'
 import { TESTER } from './copy'
-import Flikar from '../hem/Flikar'
 
 const GLAS =
   'inline-flex min-h-11 items-center rounded-xl border border-vagg-kant bg-white/[.08] px-3.5 text-[13px] font-semibold text-vagg-ink'
@@ -124,11 +123,14 @@ export default function TesterVy({
   data,
   startTyp = null,
   nastaSteg,
+  nav,
 }: {
   data: TesterV4Data
   startTyp?: TestTypId | null
   /** Kortet Nästa steg (C:s NastaSteg), monteras i integrationen. */
   nastaSteg?: ReactNode
+  /** Navigeringen (hem/Navigering) med Tester aktivt; sidan bygger den på servern. */
+  nav?: ReactNode
 }) {
   const [oppen, setOppen] = useState<TestTypId | null>(startTyp && arTestTypId(startTyp) ? startTyp : null)
 
@@ -215,7 +217,7 @@ export default function TesterVy({
         </Vagg>
         <Golv lyft={!!nastaSteg} className="pb-10">
           {nastaSteg ? <div onClickCapture={fangaMenyLank}>{nastaSteg}</div> : null}
-          <Flikar aktiv="tester" />
+          {nav}
           <div className={`grid items-start gap-4 ${oppen ? 'min-[1100px]:grid-cols-[minmax(0,1fr)_380px]' : ''}`}>
             <div className="grid min-w-0 gap-4">
               {plan && iPlan.length ? (

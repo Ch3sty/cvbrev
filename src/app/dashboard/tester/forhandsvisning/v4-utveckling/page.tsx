@@ -11,7 +11,9 @@
  *     &punkt=senaste  den senaste synliga punkten vald (eller ett id)
  */
 import { notFound } from 'next/navigation'
-import { fixturUtveckling, type FixturLage, type FixturNiva } from '@/lib/tester/v4/fixturer'
+import { fixturTester, fixturUtveckling, type FixturLage, type FixturNiva } from '@/lib/tester/v4/fixturer'
+import Navigering from '@/components/tester-v4/hem/Navigering'
+import { navTexter } from '@/components/tester-v4/hem/hemData'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import UtvecklingVy from '@/components/tester-v4/utveckling/UtvecklingVy'
 import { arPeriod } from '@/components/tester-v4/utveckling/geometri'
@@ -51,7 +53,7 @@ export default async function ForhandsvisningUtvecklingV4({
   }
   return (
     <Betalvagg scope={null} track={null} planKey={null}>
-      <UtvecklingVy data={data} startTyp={startTyp} startPeriod={arPeriod(period) ? period : null} startPunkt={punkt} />
+      <UtvecklingVy data={data} startTyp={startTyp} startPeriod={arPeriod(period) ? period : null} startPunkt={punkt} nav={<Navigering aktiv="utveckling" texter={navTexter(fixturTester(lage, niva, { artikel: forst(sp.artikel) === '1' }))} />} />
     </Betalvagg>
   )
 }
