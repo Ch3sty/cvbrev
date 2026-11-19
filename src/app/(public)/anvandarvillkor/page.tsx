@@ -77,7 +77,7 @@ const RUBRIKER = [
 ];
 
 export default function TermsOfServicePage() {
-  const lastUpdatedDate = "2026-11-15"; // *** UPPDATERA detta datum när villkoren ändras ***
+  const lastUpdatedDate = "2026-11-19"; // *** UPPDATERA detta datum när villkoren ändras ***
 
   return (
     <PubliktSida>
@@ -88,7 +88,7 @@ export default function TermsOfServicePage() {
         <section>
           <h2 id="godkannande-av-villkoren">1. Godkännande av Villkoren</h2>
           <p>
-            Välkommen till jobbcoach.ai ("Tjänsten"), som drivs av jobbcoach.ai ("vi", "oss", "vår"). Dessa Användarvillkor ("Villkoren") styr din åtkomst till och användning av vår webbplats (www.jobbcoach.ai) och de tjänster vi erbjuder, inklusive generering av personliga brev och CV-relaterade funktioner med hjälp av artificiell intelligens (AI).
+            Välkommen till jobbcoach.ai ("Tjänsten"), som drivs av jobbcoach.ai ("vi", "oss", "vår"). Dessa Användarvillkor ("Villkoren") styr din åtkomst till och användning av vår webbplats (www.jobbcoach.ai), vår app Testklar och de tjänster vi erbjuder, inklusive generering av personliga brev och CV-relaterade funktioner med hjälp av artificiell intelligens (AI).
           </p>
           <p>
             Genom att registrera ett konto, få åtkomst till eller använda Tjänsten, bekräftar du att du har läst, förstått och godkänner att vara bunden av dessa Villkor samt vår <Link href="/integritetspolicy">Integritetspolicy</Link>. Om du inte godkänner dessa Villkor, får du inte använda Tjänsten.
@@ -102,6 +102,9 @@ export default function TermsOfServicePage() {
           <h2 id="beskrivning-av-tjansten">2. Beskrivning av Tjänsten</h2>
           <p>
             jobbcoach.ai tillhandahåller en plattform där användare kan ladda upp sitt CV, klistra in jobbannonser och använda vår AI-teknologi för att generera utkast till personliga brev. Tjänsten kan erbjudas i olika nivåer, inklusive en gratisversion med begränsad funktionalitet och en betald prenumeration, {PREMIUM}, med utökade funktioner och högre användningsgränser.
+          </p>
+          <p>
+            Testklar är vår app för Android, där du övar inför rekryteringstester och I-provet. Appen ingår i Tjänsten och dessa Villkor gäller fullt ut även där. Du använder samma konto i appen som på webben, och ditt konto, dina resultat och {PREMIUM} följer med mellan dem. Övningarna i Testklar är framtagna av jobbcoach.ai och är inte de officiella proven.
           </p>
           <p>
             Vi strävar efter att Tjänsten ska vara tillgänglig och funktionell, men vi garanterar inte oavbruten eller felfri drift. Vi förbehåller oss rätten att ändra, uppdatera, avbryta eller begränsa Tjänsten eller dess funktioner när som helst, med eller utan förvarning.
@@ -177,13 +180,16 @@ export default function TermsOfServicePage() {
           </p>
           <ul>
             <li>
-              <strong>Betalningshantering:</strong> Alla betalningar hanteras säkert via vår tredjepartsleverantör, Stripe.com. Genom att göra ett köp godkänner du även Stripes användarvillkor och integritetspolicy. Vi lagrar inga kortuppgifter.
+              <strong>Betalningshantering:</strong> Betalningar på webben hanteras säkert via vår tredjepartsleverantör, Stripe.com. Genom att göra ett köp godkänner du även Stripes användarvillkor och integritetspolicy. Vi lagrar inga kortuppgifter.
+            </li>
+            <li>
+              <strong>Köp i appen Testklar:</strong> Köper du {PREMIUM} i appen betalar du via Google Play, och då gäller även Google Plays villkor för köpet. Prenumerationen förnyas automatiskt varje månad tills du säger upp den, och du säger upp den i Google Play under Prenumerationer. Uppsägningen börjar gälla när den period du redan har betalat tar slut. Frågor om återbetalning för köp i appen hanteras enligt Google Plays regler.
             </li>
             <li>
               <strong>Period och förnyelse:</strong> {PREMIUM} betalas i förskott för en månad i taget. Prenumerationen förnyas automatiskt på samma datum varje månad tills du säger upp den.
             </li>
             <li>
-              <strong>Uppsägning:</strong> Du kan säga upp prenumerationen när som helst i ditt konto under Prenumeration, eller genom att kontakta oss. Uppsägningen börjar gälla när den period du redan har betalat tar slut. Fram till dess har du tillgång till allt som ingår, och inget mer dras.
+              <strong>Uppsägning:</strong> En prenumeration köpt på webben kan du säga upp när som helst i ditt konto under Prenumeration, eller genom att kontakta oss. Uppsägningen börjar gälla när den period du redan har betalat tar slut. Fram till dess har du tillgång till allt som ingår, och inget mer dras.
             </li>
             <li>
               <strong>Ångerrätt och återbetalning:</strong> I kassan samtycker du till att {KORT} startar direkt och bekräftar att ångerrätten på fjorton dagar därmed inte gäller, eftersom innehållet börjar levereras med en gång. Betalda perioder återbetalas inte, utom där lagen kräver det.
@@ -240,10 +246,10 @@ export default function TermsOfServicePage() {
              Vi kan säga upp eller stänga av ditt konto och din åtkomst till Tjänsten omedelbart, utan föregående meddelande eller ansvar, enligt eget gottfinnande, av vilken anledning som helst och utan begränsning, inklusive men inte begränsat till, om du bryter mot Villkoren.
            </p>
            <p>
-             Vill du avsluta ditt konto gör du det själv under Inställningar, Radera mitt konto, genom att skriva en bekräftelse. Då tas kontot och all data som hör till det bort: din profil, CV-texter, personliga brev, testresultat och samtal med Jobbcoachen i databasen samt uppladdade CV-filer och profilfoto i vår lagring. Kvar blir kvitton och betalningsunderlag hos Stripe i sju år, eftersom bokföringslagen kräver det, samt tekniska säkerhetsloggar som inte går att koppla till dig. Läs mer i vår <Link href="/integritetspolicy">Integritetspolicy</Link>.
+             Vill du avsluta ditt konto gör du det själv under Inställningar, Radera mitt konto, genom att skriva en bekräftelse, eller i appen Testklar under Radera konto. Då tas kontot och all data som hör till det bort: din profil, CV-texter, personliga brev, testresultat och samtal med Jobbcoachen i databasen samt uppladdade CV-filer och profilfoto i vår lagring. Kvar blir kvitton och betalningsunderlag hos Stripe i sju år, eftersom bokföringslagen kräver det, samt tekniska säkerhetsloggar som inte går att koppla till dig. Läs mer i vår <Link href="/integritetspolicy">Integritetspolicy</Link>.
            </p>
            <p>
-             Raderingen är inte detsamma som att säga upp {PREMIUM}. Vill du behålla kontot men sluta betala säger du upp prenumerationen under Profil och Prenumeration, utan bindningstid, och den period du redan betalat gäller ut. Raderar du kontot medan prenumerationen löper avslutas den i samma stund, och inget mer dras.
+             Raderingen är inte detsamma som att säga upp {PREMIUM}. Vill du behålla kontot men sluta betala säger du upp prenumerationen under Profil och Prenumeration, utan bindningstid, och den period du redan betalat gäller ut. Raderar du kontot medan en prenumeration köpt på webben löper avslutas den i samma stund, och inget mer dras. En prenumeration köpt i appen via Google Play avslutas inte av raderingen. Den säger du upp i Google Play, annars fortsätter Google att dra pengar.
            </p>
            <p>
              Vid uppsägning upphör din rätt att använda Tjänsten omedelbart. Alla bestämmelser i Villkoren som till sin natur bör överleva uppsägning ska överleva uppsägning, inklusive, utan begränsning, äganderättsbestämmelser, garantifriskrivningar, skadeslöshållande och ansvarsbegränsningar.
