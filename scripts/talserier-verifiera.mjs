@@ -16,13 +16,17 @@
 //      differens (period två och tre), varvade delserier (aritmetiska eller
 //      geometriska), Fibonaccilik (summa av två föregående plus c),
 //      tribonacci, ×k + c, geometrisk differens, p × förra + q × förrförra,
-//      växlande operationer (+d eller ×k), kvot som växer jämnt
+//      växlande operationer (+d eller ×k), kvot som växer jämnt, polynom av
+//      grad tre (bankversion 3, när skillnaden mellan stegen växer jämnt)
 //  V4  talen är rimliga: heltal, inom nivåns gräns, högst fyra tecken,
 //      alternativen olika och sorterade, inget alternativ är ett visat tal
 //  V5  genomgångens bågar stämmer med raden (+d, ×k, ÷k, ×k ± c, summa)
 //  V6  regeltexten nämner regelns tal
 //  V7  (över bankerna) ingen ny rad är samma serie som en annan rad, förskjuten
 //      eller identisk: högst tre tal i följd gemensamma, facit inräknat
+//  V8  (över bankerna, rader från bankversion 3) ingen rad har samma stegföljd
+//      som en annan rad på någon nivå, flyttad uppåt eller nedåt: högst tre
+//      steg i följd gemensamma (godkända par från granskningen undantagna)
 // Varningar (fäller inte): ett polynom av grad tre genom alla visade tal som
 // ger en distraktor. Med fem visade tal passar ett sådant nästan alltid.
 //
@@ -67,14 +71,15 @@ const FAMILJ = {
     return ut.map((x) => (arHel(x) ? tilltal(x) : NaN));
   },
   andra_ordningen: (p, n) => {
+    // steg nummer j (från 0) är d + j s + t (0 + 1 + ... + (j − 1))
     const ut = [p.a];
-    for (let i = 1; i < n; i++) ut.push(ut[i - 1] + p.d + (i - 1) * p.s);
+    for (let j = 0; ut.length < n; j++) ut.push(ut[j] + p.d + j * p.s + ((p.t ?? 0) * j * (j - 1)) / 2);
     return ut;
   },
   vaxelvis: (p, n) => {
-    const st = p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp];
+    const st = p.steg ?? (p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp]);
     const ut = [p.a];
-    for (let i = 1; i < n; i++) ut.push(ut[i - 1] + st[(i - 1) % 2]);
+    for (let i = 1; i < n; i++) ut.push(ut[i - 1] + st[(i - 1) % st.length]);
     return ut;
   },
   varvad: (p, n) => {
@@ -91,6 +96,14 @@ const FAMILJ = {
   },
   affin: (p, n) => {
     const ut = [p.a];
+    if (p.turas) {
+      // steg 0, 2, 4 ... är det första räknesättet, steg 1, 3, 5 ... det andra
+      const ggr = (x) => p.k * x;
+      const pl = (x) => x + p.c;
+      const ops = p.forst === 'ggr' ? [ggr, pl] : [pl, ggr];
+      while (ut.length < n) ut.push(ops[(ut.length - 1) % 2](ut[ut.length - 1]));
+      return ut;
+    }
     while (ut.length < n) ut.push(p.k * ut[ut.length - 1] + p.c);
     return ut;
   },
@@ -159,6 +172,11 @@ const REGLER = [
       const q = delat(minus(ggr(v[3], v[1]), ggr(v[2], v[2])), det);
       return p && q && ((s) => plus(ggr(p, sista(s)), ggr(q, sista(s, 2))));
     },
+  },
+  {
+    namn: 'polynom av grad tre',
+    bestamd: 4,
+    bygg: () => (s) => minus(plus(minus(ggr(Q(4), sista(s)), ggr(Q(6), sista(s, 2))), ggr(Q(4), sista(s, 3))), sista(s, 4)),
   },
   {
     namn: 'kvoten växer jämnt',
@@ -301,7 +319,7 @@ export function verifiera(q) {
     let ok;
     if ((m = t.match(/^([+-]?\d+)$/))) ok = till - fran[0] === Number(m[1]);
     else if ((m = t.match(/^×(\d+)$/))) ok = till === fran[0] * Number(m[1]);
-    else if ((m = t.match(/^÷(\d+)$/))) ok = till * Number(m[1]) === fran[0];
+    else if ((m = t.match(/^×\((-\d+)\)$/))) ok = till === fran[0] * Number(m[1]);    else if ((m = t.match(/^÷(\d+)$/))) ok = till * Number(m[1]) === fran[0];
     else if ((m = t.match(/^×\(?(-?\d+)\)? ([+-])(\d+)$/))) ok = till === Number(m[1]) * fran[0] + (m[2] === '+' ? 1 : -1) * Number(m[3]);
     else if ((m = t.match(/^summa(?: ([+-])(\d+))?$/))) ok = fran.length === 2 && till === fran[0] + fran[1] + (m[1] ? (m[1] === '+' ? 1 : -1) * Number(m[2]) : 0);
     else ok = null;
@@ -314,10 +332,10 @@ export function verifiera(q) {
   const ska = {
     aritmetisk: [Math.abs(p.d)],
     geometrisk: p.q === 1 ? [p.r] : [],
-    andra_ordningen: [Math.abs(p.s)],
-    vaxelvis: [p.upp, p.ned],
+    andra_ordningen: p.t ? [Math.abs(p.t)] : [Math.abs(p.s)],
+    vaxelvis: p.steg ? p.steg.map(Math.abs) : [p.upp, p.ned],
     varvad: [Math.abs(p.d0), Math.abs(p.d1)],
-    geodiff: p.r === 2 && /dubblas/.test(q.regel) ? [] : [p.r],
+    geodiff: (p.r === 2 && /dubblas/.test(q.regel)) || (p.r === 0.5 && /halveras/.test(q.regel)) ? [] : [p.r],
     affin: [Math.abs(p.k), Math.abs(p.c)],
     summa: p.c ? [Math.abs(p.c)] : [],
   }[q.family];
@@ -371,6 +389,53 @@ export function arForskjuten(q, andra, min = FORSKJUTNING_MIN) {
   return andra.some((x) => x.id !== q.id && gemensamFoljd(rad, helRad(x)) >= min);
 }
 
+// --------------------------------------------------------- samma stegföljd
+// V8 (granskningen av omgång 2, 2026-11-19): två rader är samma serie flyttad
+// uppåt eller nedåt när stegen (differenserna i raden med facit) delar minst
+// STEGFOLJD_MIN steg i följd, oavsett startvärde. Gäller rader från
+// bankversion 3 mot alla rader på alla nivåer, även samma nivå.
+// GODKANDA_STEGPAR är par som testansvarig godkände innan spärren fanns
+// (talserier-2026-11-19-omg2-granskning.md, punkt 4 och 5); inga nya läggs till.
+export const STEGFOLJD_MIN = 4;
+export const GODKANDA_STEGPAR = new Set([
+  // punkt 5: halvering plus konstant, olika nivåer
+  'ts-a-geod-19/ts-g-geom-04', 'ts-a-geod-22/ts-g-geom-04',
+  // punkt 4: samma regel två gånger på en nivå
+  'ts-a-geod-17/ts-a-geod-18', 'ts-a-geod-17/ts-a-geod-20', 'ts-a-geod-17/ts-a-geod-21', 'ts-a-geod-18/ts-a-geod-20',
+  'ts-a-geod-18/ts-a-geod-21', 'ts-a-geod-19/ts-a-geod-22', 'ts-a-geod-20/ts-a-geod-21', 'ts-a-andra-03/ts-a-andra-06',
+  'ts-g-andra-36/ts-g-andra-42', 'ts-g-andra-36/ts-g-andra-43', 'ts-g-andra-36/ts-g-andra-44', 'ts-g-andra-36/ts-g-andra-45',
+  'ts-g-andra-37/ts-g-andra-38', 'ts-g-andra-40/ts-g-andra-41', 'ts-g-andra-42/ts-g-andra-43', 'ts-g-andra-42/ts-g-andra-44',
+  'ts-g-andra-42/ts-g-andra-45', 'ts-g-andra-43/ts-g-andra-44', 'ts-g-andra-43/ts-g-andra-45', 'ts-g-andra-44/ts-g-andra-45',
+  'ts-g-arit-04/ts-g-arit-35', 'ts-g-arit-18/ts-g-arit-40', 'ts-g-arit-28/ts-g-arit-41', 'ts-g-arit-33/ts-g-arit-39',
+]);
+
+const stegfoljd = (q) => {
+  const r = helRad(q);
+  return r.slice(1).map((x, i) => x - r[i]);
+};
+const parNyckel = (a, b) => [a.id, b.id].sort().join('/');
+
+/** Par där minst en rad har fran_version >= franVersion och stegen delar minst `min` steg i följd. Godkända par räknas inte. */
+export function sammaStegPar(fragor, franVersion = 3, min = STEGFOLJD_MIN) {
+  const par = [];
+  for (let i = 0; i < fragor.length; i++) {
+    for (let j = i + 1; j < fragor.length; j++) {
+      const [a, b] = [fragor[i], fragor[j]];
+      if (a.fran_version < franVersion && b.fran_version < franVersion) continue;
+      if (GODKANDA_STEGPAR.has(parNyckel(a, b))) continue;
+      const n = gemensamFoljd(stegfoljd(a), stegfoljd(b));
+      if (n >= min) par.push({ a, b, n });
+    }
+  }
+  return par;
+}
+
+/** Har raden samma stegföljd som någon av de andra (alla nivåer)? */
+export function harSammaSteg(q, andra, min = STEGFOLJD_MIN) {
+  const s = stegfoljd(q);
+  return andra.some((x) => x.id !== q.id && !GODKANDA_STEGPAR.has(parNyckel(q, x)) && gemensamFoljd(s, stegfoljd(x)) >= min);
+}
+
 if (process.argv[1]?.endsWith('talserier-verifiera.mjs')) {
   const vi = process.argv.indexOf('--version');
   const bara = vi > 0 ? Number(process.argv[vi + 1]) : null;
@@ -390,12 +455,19 @@ if (process.argv[1]?.endsWith('talserier-verifiera.mjs')) {
   // som bara består av version 1 (kända, tas i nästa omgång).
   const alla = BANKER.flatMap((f) => JSON.parse(readFileSync(f, 'utf8')));
   const nyRad = (q) => (bara !== null ? q.fran_version === bara : q.fran_version > 1);
+  // Ett par i version 1 räknas som åtgärdat när ena raden är pensionerad
+  // (version 2 och omgång 2, bankversion 3); det gäller från den versionen.
   let gamlaPar = 0;
+  let atgardade = 0;
   for (const { a, b, n: m } of forskjutnaPar(alla)) {
     if (nyRad(a) || nyRad(b)) allaFel.push(`${a.id} och ${b.id}: V7 samma serie förskjuten, ${m} tal i följd gemensamma`);
+    else if (bara === null && (a.pensionerad_fran || b.pensionerad_fran)) atgardade++;
     else if (bara === null) gamlaPar++;
   }
   if (gamlaPar) allaVarn.push(`V7 ${gamlaPar} förskjutna eller identiska par bara i version 1 (kända sedan granskningen 2026-11-19)`);
+  // V8: samma stegföljd (flyttad rad), rader från bankversion 3, alla nivåer
+  for (const { a, b, n: m } of sammaStegPar(alla, bara !== null ? bara : 3)) allaFel.push(`${a.id} och ${b.id}: V8 samma stegföljd, ${m} steg i följd gemensamma`);
+  if (atgardade) console.log(`V7: ${atgardade} par i version 1 åtgärdade genom pensionering`);
   for (const f of allaFel) console.log(f);
   for (const v of allaVarn) console.log('varning:', v);
   console.log(`${n} uppgifter, ${allaFel.length} fel, ${allaVarn.length} varningar`);

@@ -59,8 +59,8 @@ export interface TalserieFraga {
   /** Misstagstext per alternativ, tom för facit. */
   misstag: string[];
   bagar: TalserieBage[];
-  /** Bankversionen uppgiften kom med (2: frågebanksomgången 2026-11-19). */
-  fran_version: 1 | 2;
+  /** Bankversionen uppgiften kom med (2: frågebanksomgången 2026-11-19, 3: omgång 2 samma dag). */
+  fran_version: 1 | 2 | 3;
   /** Väljs aldrig till nya sessioner från den här talserie_version. */
   pensionerad_fran?: number;
 }

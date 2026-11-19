@@ -16,7 +16,7 @@ import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda';
 import type { TalserieFraga, TalserieNiva } from './types';
 
 export const FRAGOR_PER_SESSION = 15;
-export const TALSERIE_VERSION = 2;
+export const TALSERIE_VERSION = 3;
 /** Högst så många av samma regelfamilj i ett urval (TS8). */
 export const MAX_PER_FAMILJ = 5;
 /** Ungefärlig tid för nivåtestet (briefen avsnitt 3). */

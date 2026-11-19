@@ -50,7 +50,7 @@ describe('talseriernas bankversion 2', () => {
       expect(v1).toContain(id)
       expect(v2).not.toContain(id)
     }
-    expect(TALSERIE_VERSION).toBe(2)
+    expect(TALSERIE_VERSION).toBeGreaterThanOrEqual(2)
   })
 
   it('ingen ny rad är en förskjutning av en annan rad (V7)', () => {

@@ -77,6 +77,14 @@ const FAMILJER = {
     fel: (p) => [
       { typ: 'okande_kvot', f: (s) => (p.q === 1 ? s[s.length - 1] * (p.r + 1) : s[s.length - 1] / 4) },
       ...(p.r >= 3 ? [{ typ: 'okande_kvot', f: (s) => s[s.length - 1] * (p.r - 1) }] : []),
+      // bankversion 3: halveringen får fler typade fel (drog bort en fjärdedel,
+      // delade med åtta), eftersom noll och visade tal inte får vara alternativ
+      ...(p.q === 2
+        ? [
+            { typ: 'fel_del', f: (s) => (s[s.length - 1] * 3) / 4 },
+            { typ: 'okande_kvot', f: (s) => s[s.length - 1] / 8 },
+          ]
+        : []),
     ],
   },
   andra_ordningen: {
@@ -86,17 +94,31 @@ const FAMILJER = {
       const s = valj(rng, [-2, -3, -4, -5, 2, 3, 4, 5]);
       return s < 0 ? { a: randInt(rng, 10, 80), d: randInt(rng, -6, 4), s } : { a: randInt(rng, -80, -10), d: randInt(rng, -4, 6), s };
     },
-    serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d + (s.length - 1) * p.s),
-    nyckel: (p) => `${p.d},${p.s}`,
+    // p.t (bankversion 3): skillnaden mellan stegen växer också, med t per tal
+    serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d + (s.length - 1) * p.s + ((p.t ?? 0) * (s.length - 1) * (s.length - 2)) / 2),
+    nyckel: (p) => (p.t ? `${p.d},${p.s},${p.t}` : `${p.d},${p.s}`),
     regel: (p) =>
-      p.s > 0
+      p.t
+        ? // alla fem visade steg (granskningen av omgång 2: fyra steg som +1, +1, +2, +4 läses som dubblering)
+          `Stegen är ${[0, 1, 2, 3, 4].map((i) => steg(p.d + i * p.s + (p.t * i * (i - 1)) / 2)).join(', ')} och så vidare. Skillnaden mellan två steg ${p.t > 0 ? 'växer' : 'minskar'} med ${Math.abs(p.t)} varje gång (${[0, 1, 2, 3].map((i) => steg(p.s + i * p.t)).join(', ')}).`
+        : p.s > 0
         ? `Steget växer med ${p.s} för varje tal (${steg(p.d)}, ${steg(p.d + p.s)}, ${steg(p.d + 2 * p.s)} och så vidare).`
         : `Steget minskar med ${-p.s} för varje tal (${steg(p.d)}, ${steg(p.d + p.s)}, ${steg(p.d + 2 * p.s)} och så vidare).`,
     bagar: (p, s) => differensbagar(s),
-    fel: (p) => [
-      { typ: 'dubbel_okning', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) + 2 * p.s },
-      { typ: 'tecken_andra', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) - p.s },
-    ],
+    fel: (p) => {
+      if (p.t) {
+        const dd = (s) => s[s.length - 1] - 2 * s[s.length - 2] + s[s.length - 3];
+        const d = (s) => s[s.length - 1] - s[s.length - 2];
+        return [
+          { typ: 'tredje_for_mycket', f: (s) => s[s.length - 1] + d(s) + dd(s) + 2 * p.t },
+          { typ: 'tredje_fel_hall', f: (s) => s[s.length - 1] + d(s) + dd(s) - p.t },
+        ];
+      }
+      return [
+        { typ: 'dubbel_okning', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) + 2 * p.s },
+        { typ: 'tecken_andra', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) - p.s },
+      ];
+    },
   },
   vaxelvis: {
     params(rng, niva) {
@@ -105,14 +127,27 @@ const FAMILJER = {
       const start = niva === 'grund' ? randInt(rng, 2, 40) : randInt(rng, -30, 150);
       return { a: start, upp: a, ned: b, forst: valj(rng, ['upp', 'ned']) };
     },
+    // p.steg (bankversion 3): tre steg som turas om, till exempel +5, +3, −4
     serie: (p, n) => {
-      const st = p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp];
-      return iterera([p.a], n, (s) => s[s.length - 1] + st[(s.length - 1) % 2]);
+      const st = p.steg ?? (p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp]);
+      return iterera([p.a], n, (s) => s[s.length - 1] + st[(s.length - 1) % st.length]);
     },
-    nyckel: (p) => `${p.upp},${p.ned},${p.forst}`,
-    regel: (p) => `Stegen växlar: ${p.forst === 'upp' ? `+${p.upp}, sedan −${p.ned}` : `−${p.ned}, sedan +${p.upp}`}, och så vidare.`,
+    nyckel: (p) => (p.steg ? `tre:${p.steg.join(',')}` : `${p.upp},${p.ned},${p.forst}`),
+    regel: (p) =>
+      p.steg
+        ? `Tre steg turas om: ${p.steg.map(steg).join(', ')}, och sedan samma tre igen.`
+        : `Stegen växlar: ${p.forst === 'upp' ? `+${p.upp}, sedan −${p.ned}` : `−${p.ned}, sedan +${p.upp}`}, och så vidare.`,
     bagar: (p, s) => differensbagar(s),
     fel: (p) => {
+      if (p.steg) {
+        const st = p.steg;
+        return [
+          { typ: 'fel_fas', f: (s) => s[s.length - 1] + st[s.length % 3] },
+          { typ: 'hoppade_steg', f: (s) => s[s.length - 1] + st[(s.length + 1) % 3] },
+          { typ: 'period_tva', f: (s) => s[s.length - 1] + (s[s.length - 2] - s[s.length - 3]) },
+          { typ: 'netto_tre', f: (s) => s[s.length - 1] + st[0] + st[1] + st[2] },
+        ];
+      }
       const st = p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp];
       return [
         { typ: 'fel_fas', f: (s) => s[s.length - 1] + st[s.length % 2] },
@@ -150,7 +185,7 @@ const FAMILJER = {
     },
     nyckel: (p) => `${p.d0},${p.g0},${p.d1},${p.g1},${p.byt}`,
     regel: (p) => {
-      const t = (a, d, g) => (g ? `gånger ${d}` : d > 0 ? `plus ${d}` : `minus ${-d}`);
+      const t = (a, d, g) => (g ? `gånger ${fmt(d)}` : d > 0 ? `plus ${d}` : `minus ${-d}`);
       const del = [t(p.a0, p.d0, p.g0), t(p.a1, p.d1, p.g1)];
       const [x, y] = p.byt ? [del[1], del[0]] : del;
       return `Två serier varvas. Tal 1, 3, 5 och så vidare går ${x} för varje steg, tal 2, 4, 6 går ${y}.`;
@@ -164,7 +199,7 @@ const FAMILJER = {
       return s.slice(2).map((_, j) => {
         const i = j + 2;
         const d = i % 2 === 0 ? x : y;
-        return { fran: [i - 2], till: i, text: d.g ? `×${d.d}` : steg(d.d), serie: i % 2 };
+        return { fran: [i - 2], till: i, text: d.g ? (d.d < 0 ? `×(${fmt(d.d)})` : `×${d.d}`) : steg(d.d), serie: i % 2 };
       });
     },
     fel: (p) => [
@@ -197,11 +232,18 @@ const FAMILJER = {
     },
     serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d * p.r ** (s.length - 1)),
     nyckel: (p) => `${p.d},${p.r}`,
-    regel: (p) => `Steget blir ${p.r} gånger större för varje tal (${steg(p.d)}, ${steg(p.d * p.r)}, ${steg(p.d * p.r * p.r)} och så vidare).`,
+    regel: (p) =>
+      p.r === 0.5
+        ? `Steget halveras för varje tal (${steg(p.d)}, ${steg(p.d / 2)}, ${steg(p.d / 4)} och så vidare).`
+        : `Steget blir ${p.r} gånger större för varje tal (${steg(p.d)}, ${steg(p.d * p.r)}, ${steg(p.d * p.r * p.r)} och så vidare).`,
     bagar: (p, s) => differensbagar(s),
-    fel: (p) => [
-      { typ: 'kvot_fel', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) * (p.r + 1) },
-    ],
+    fel: (p) =>
+      p.r === 0.5
+        ? [
+            { typ: 'for_litet_steg', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) / 4 },
+            { typ: 'steget_kvar', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) * 2 },
+          ]
+        : [{ typ: 'kvot_fel', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) * (p.r + 1) }],
   },
   affin: {
     params(rng, niva) {
@@ -209,14 +251,43 @@ const FAMILJER = {
       const c = valj(rng, [-9, -7, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 9]);
       return { a: randInt(rng, -6, 12), k, c };
     },
-    serie: (p, n) => iterera([p.a], n, (s) => p.k * s[s.length - 1] + p.c),
-    nyckel: (p) => `${p.k},${p.c}`,
-    regel: (p) => `Varje tal är det förra gånger ${p.k < 0 ? `minus ${-p.k}` : p.k}, ${p.c > 0 ? `plus ${p.c}` : `minus ${-p.c}`}.`,
-    bagar: (p, s) => s.slice(1).map((_, i) => ({ fran: [i], till: i + 1, text: `×${p.k < 0 ? `(−${-p.k})` : p.k} ${p.c > 0 ? '+' : '−'}${Math.abs(p.c)}` })),
-    fel: (p) => [
-      { typ: 'utan_c', f: (s) => p.k * s[s.length - 1] },
-      { typ: 'fel_ordning', f: (s) => p.k * (s[s.length - 1] + p.c) },
-    ],
+    // p.turas (bankversion 3): gånger k och plus c turas om, ett räknesätt per
+    // steg; p.forst säger vilket som kommer först ('ggr' eller 'plus')
+    serie: (p, n) =>
+      p.turas
+        ? iterera([p.a], n, (s) => ((s.length - 1) % 2 === (p.forst === 'ggr' ? 0 : 1) ? p.k * s[s.length - 1] : s[s.length - 1] + p.c))
+        : iterera([p.a], n, (s) => p.k * s[s.length - 1] + p.c),
+    nyckel: (p) => (p.turas ? `turas:${p.k},${p.c},${p.forst}` : `${p.k},${p.c}`),
+    regel: (p) => {
+      if (!p.turas) return `Varje tal är det förra gånger ${p.k < 0 ? `minus ${-p.k}` : p.k}, ${p.c > 0 ? `plus ${p.c}` : `minus ${-p.c}`}.`;
+      const g = `gånger ${fmt(p.k)}`;
+      const c = p.c > 0 ? `plus ${p.c}` : `minus ${-p.c}`;
+      return `Två räknesätt turas om: ${p.forst === 'ggr' ? `${g}, sedan ${c}` : `${c}, sedan ${g}`}, och så vidare.`;
+    },
+    bagar: (p, s) =>
+      s.slice(1).map((_, i) => ({
+        fran: [i],
+        till: i + 1,
+        text: !p.turas
+          ? `×${p.k < 0 ? `(−${-p.k})` : p.k} ${p.c > 0 ? '+' : '−'}${Math.abs(p.c)}`
+          : i % 2 === (p.forst === 'ggr' ? 0 : 1)
+            ? p.k < 0
+              ? `×(${fmt(p.k)})`
+              : `×${p.k}`
+            : steg(p.c),
+      })),
+    fel: (p) =>
+      p.turas
+        ? [
+            // tog det andra räknesättet (fel fas)
+            { typ: 'fel_fas', f: (s) => ((s.length - 1) % 2 === (p.forst === 'ggr' ? 0 : 1) ? s[s.length - 1] + p.c : p.k * s[s.length - 1]) },
+            // båda räknesätten i samma steg
+            { typ: 'bada_samtidigt', f: (s) => p.k * s[s.length - 1] + p.c },
+          ]
+        : [
+            { typ: 'utan_c', f: (s) => p.k * s[s.length - 1] },
+            { typ: 'fel_ordning', f: (s) => p.k * (s[s.length - 1] + p.c) },
+          ],
   },
   summa: {
     params(rng) {
@@ -279,6 +350,16 @@ const TEXT = {
   fel_ordning: ['Du lade till före multiplikationen. Regeln multiplicerar först.', 'lade du till före multiplikationen'],
   summa_fel_par: ['Du lade ihop fel tal. Varje tal är summan av de två närmast före.', 'lade du ihop fel tal'],
   dubbel: ['Du dubblade förra talet i stället för att lägga ihop de två närmast före.', 'dubblade du förra talet'],
+  // bankversion 3
+  fel_del: ['Du räknade med fel del av talet. Kvoten mellan talen är densamma hela vägen.', 'räknade du med fel del av talet'],
+  tredje_for_mycket: ['Du ändrade steget för mycket. Skillnaden mellan stegen växer lika mycket varje gång.', 'ändrade du steget för mycket'],
+  tredje_fel_hall: ['Du ändrade skillnaden mellan stegen åt fel håll. Jämför stegen två och två.', 'ändrade du skillnaden mellan stegen åt fel håll'],
+  hoppade_steg: ['Du hoppade över ett steg i turordningen. De tre stegen kommer i samma ordning hela tiden.', 'hoppade du över ett steg i turordningen'],
+  period_tva: ['Du lät två steg växla, men det är tre steg som turas om.', 'lät du två steg växla i stället för tre'],
+  netto_tre: ['Du lade ihop alla tre stegen, men serien tar dem ett i taget.', 'lade du ihop alla tre stegen'],
+  for_litet_steg: ['Du gjorde steget för litet. Steget halveras en gång per tal, inte två.', 'gjorde du steget för litet'],
+  steget_kvar: ['Du lät steget växa, men det halveras för varje tal.', 'lät du steget växa'],
+  bada_samtidigt: ['Du tog båda räknesätten i samma steg. De turas om, ett per steg.', 'tog du båda räknesätten i samma steg'],
 };
 
 export const DISTRAKTORTYPER = Object.keys(TEXT);

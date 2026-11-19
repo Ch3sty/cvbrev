@@ -17,6 +17,9 @@
 //   delserier, var och en aritmetisk eller geometrisk), geodiff (differensen
 //   är geometrisk), affin (×k + c), summa_c (summan av de två föregående plus
 //   c) och rekursion2 (p × förra + q × förrförra).
+// Bankversion 3 (2026-11-19, omgång 2) lägger till vaxelvis3 (tre steg som
+// turas om) och kubisk (polynom av grad tre: skillnaden mellan stegen växer
+// jämnt), eftersom de nya raderna bygger på de reglerna.
 // =============================================================================
 
 import { q, add, sub, mul, div, eq, arHeltal, tal } from './rationell.mjs';
@@ -77,6 +80,25 @@ function vaxelvis(v, k) {
   const d = [sub(v[1], v[0]), sub(v[2], v[1])];
   const f = (s) => add(s[s.length - 1], d[(s.length - 1) % 2]);
   return passar(v, 3, f) ? forlang(v, k, f) : null;
+}
+
+/** Differenserna går i en cykel om tre: d0, d1, d2, d0 ... */
+function vaxelvis3(v, k) {
+  if (v.length < 5) return null;
+  const d = [sub(v[1], v[0]), sub(v[2], v[1]), sub(v[3], v[2])];
+  const f = (s) => add(s[s.length - 1], d[(s.length - 1) % 3]);
+  return passar(v, 4, f) ? forlang(v, k, f) : null;
+}
+
+/** Polynom av grad högst 3: konstant tredje differens. */
+function kubisk(v, k) {
+  if (v.length < 5) return null;
+  const f = (s) => {
+    const n = s.length;
+    // s[n] = 4 s[n-1] - 6 s[n-2] + 4 s[n-3] - s[n-4]
+    return sub(add(sub(mul(R(4), s[n - 1]), mul(R(6), s[n - 2])), mul(R(4), s[n - 3])), s[n - 4]);
+  };
+  return passar(v, 4, f) ? forlang(v, k, f) : null;
 }
 
 /** Stegen växlar mellan två operationer, var och en +d eller ×k. */
@@ -176,7 +198,7 @@ function rekursion2(v, k) {
   return passar(v, 4, f) ? forlang(v, k, f) : null;
 }
 
-const ENKLA = { aritmetisk, geometrisk, kvadratisk, vaxelvis, geodiff, affin, summa_c: summaC, rekursion2 };
+const ENKLA = { aritmetisk, geometrisk, kvadratisk, kubisk, vaxelvis, vaxelvis3, geodiff, affin, summa_c: summaC, rekursion2 };
 const FLERA = { vaxelvis_op: vaxelvisOp, varvad };
 
 /**
