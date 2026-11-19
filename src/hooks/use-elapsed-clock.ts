@@ -44,7 +44,9 @@ export function sekunderSedan(startedAt: string | Date | number | null | undefin
  */
 export function useElapsedClock(startedAt: string | Date | number | null | undefined): string {
   const ms = useMemo(() => startMs(startedAt), [startedAt])
-  const [label, setLabel] = useState(() => formatClock(ms === null ? 0 : sekunderSedan(ms)))
+  // Första ritningen är alltid 00:00 så att serverns och webbläsarens text
+  // stämmer (annars React #418 när sekunden slår om); effekten tar in tiden.
+  const [label, setLabel] = useState(() => formatClock(0))
 
   useEffect(() => {
     if (ms === null) {

@@ -42,7 +42,7 @@ export default async function TraningHem({
   const s = underlag.status;
   // Ingången visas bara före första resultatet, även ett grundnivåtest: planen
   // får aldrig låsa ute Hem för den som redan har testat.
-  const harResultat = data.typer.some((t) => t.niva.status === 'matt');
+  const harResultat = underlag.modell.aktivaDagar.length > 0 || data.typer.some((t) => t.niva.status === 'matt');
   if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && !harResultat && underlag.valdeTester && sp.visa !== 'hem') {
     redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
