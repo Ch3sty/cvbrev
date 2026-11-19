@@ -14,8 +14,9 @@
 // DV1), fran_version 1, inga tankstreck och inga ord som "lätt", "snart",
 // "kommer", "samma test" (DV7), DD1 till DD6 och DV2, DV3, DV5 (sparrar.mjs).
 // Bankens aktiva uppgifter (inte pensionerade) dessutom DD7 till DD9, och
-// bankversionerna: fran_version 1 eller 2, pensionerad_fran 2, ersättarna
-// pekar på en pensionerad uppgift (scripts/laga-deduktiv-v2.mjs).
+// bankversionerna: fran_version 1, 2 eller 3 (3 bara i banken, frågebanken
+// 2026-11-19), pensionerad_fran 2, ersättarna pekar på en pensionerad
+// uppgift (scripts/laga-deduktiv-v2.mjs).
 // Över allt: unika id och ingen uppgift två gånger.
 // Exit 1 vid fel.
 // =============================================================================
@@ -62,8 +63,11 @@ for (const fil of filer) {
     allaId.set(`${slag}:${q.id}`, fil);
     if (!TILLATEN_NIVA[q.typ]?.includes(q.niva)) f(`${q.typ} hör inte hemma på ${q.niva}`);
     if (!FAMILJER.includes(q.family)) f(`okänd familj ${q.family}`);
-    if (q.p_prior !== P_PRIOR[q.typ]) f(`p_prior ${q.p_prior}, ${q.typ} ska ha ${P_PRIOR[q.typ]}`);
-    if (q.fran_version !== 1 && q.fran_version !== 2) f('fran_version ska vara 1 eller 2');
+    // Grund-D2 i bankens aktiva pool har 0,62 (granskning 2026-11-19, punkt 7): fyra platser och tre villkor är lättare än avancerad-D2.
+    const prior = slag === 'bank' && q.niva === 'grund' && q.typ === 'D2' && !q.pensionerad_fran ? 0.62 : P_PRIOR[q.typ];
+    if (q.p_prior !== prior) f(`p_prior ${q.p_prior}, ${q.niva} ${q.typ} ska ha ${prior}`);
+    if (![1, 2, 3].includes(q.fran_version)) f('fran_version ska vara 1, 2 eller 3');
+    if (q.fran_version === 3 && slag !== 'bank') f('fran_version 3 finns bara i bankfilerna');
     if (q.pensionerad_fran != null && q.pensionerad_fran !== 2) f('pensionerad_fran ska vara 2');
     if (q.pensionerad_fran != null && q.pensionerad_fran <= q.fran_version) f('pensionerad före sin första version');
     if (q.ersatter && !fragor.some((x) => x.id === q.ersatter && x.pensionerad_fran === q.fran_version)) f(`ersätter ${q.ersatter}, som inte är pensionerad i version ${q.fran_version}`);

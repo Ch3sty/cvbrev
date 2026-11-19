@@ -22,14 +22,19 @@ export const FRAGOR_PER_SESSION = 12;
  * eller DD8 har pensionerad_fran 2 och ersätts av lagade kopior med
  * fran_version 2 (scripts/laga-deduktiv-v2.mjs). Gamla sessioner utan
  * meta.deduktiv_version läser version 1.
+ *
+ * Bankversion 3 (frågebanken 2026-11-19): 100 nya uppgifter med
+ * fran_version 3 (38 grund, 37 avancerad, 25 expert). Sessioner med
+ * version 2 drar ur samma pool som förut. Godkänd av testansvarig
+ * (docs/fragebank/deduktiv-2026-11-19-granskning.md).
  */
-export const DEDUKTIV_VERSION = 2;
-export type DeduktivVersion = 1 | 2;
+export const DEDUKTIV_VERSION = 3;
+export type DeduktivVersion = 1 | 2 | 3;
 
 /** Sessionens bankversion ur meta; saknas den gäller version 1. */
 export function deduktivVersion(meta: unknown): DeduktivVersion {
   const v = (meta as { deduktiv_version?: unknown } | null)?.deduktiv_version;
-  return v === 2 ? 2 : 1;
+  return v === 3 ? 3 : v === 2 ? 2 : 1;
 }
 /** 15 minuter för hela testet, alla nivåer. */
 export const TIDSGRANS_S = 15 * 60;

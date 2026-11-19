@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { deduktivUrval, giltigtSvar, punkterFor, raknaResultat, valjDelar } from '../motor.server'
 import { ovningsformat, ovningsformatUrNyckel, provradTexter } from '../format'
 import { hittaDeduktivFraga, genomgaDeduktiv } from '@/lib/deduktivV1/fragor.server'
-import { poolFor } from '@/lib/deduktivV1/select'
+import { DEDUKTIV_VERSION, poolFor } from '@/lib/deduktivV1/select'
 
 describe('deduktivens övningsprov', () => {
   it('SHL: 12 uppgifter på 18 minuter, övriga vårt format 16 på 20', () => {
@@ -19,7 +19,7 @@ describe('deduktivens övningsprov', () => {
     expect(provradTexter(shl, false).rad).toBe('Samma format som SHL Verify deduktiv: 12 uppgifter på 18 minuter.')
   })
 
-  it('urvalet: en fjärdedel grund, sedan avancerad, expert sist, bara version 2', () => {
+  it('urvalet: en fjärdedel grund, sedan avancerad, expert sist, bara aktuell bankversion', () => {
     expect(deduktivUrval(12)).toEqual({ grund: 3, avancerad: 5, expert: 4 })
     expect(deduktivUrval(16)).toEqual({ grund: 4, avancerad: 7, expert: 5 })
     const delar = valjDelar('deduktiv', 'seed-d', new Set(), 1, 16)
@@ -27,7 +27,7 @@ describe('deduktivens övningsprov', () => {
     expect(new Set(delar).size).toBe(16)
     const niva = delar.map((id) => hittaDeduktivFraga(id)!.niva)
     expect(niva).toEqual([...Array(4).fill('grund'), ...Array(7).fill('avancerad'), ...Array(5).fill('expert')])
-    const aktiva = new Set([...poolFor('grund', 2), ...poolFor('avancerad', 2), ...poolFor('expert', 2)].map((q) => q.id))
+    const aktiva = new Set([...poolFor('grund', DEDUKTIV_VERSION), ...poolFor('avancerad', DEDUKTIV_VERSION), ...poolFor('expert', DEDUKTIV_VERSION)].map((q) => q.id))
     expect(delar.every((id) => aktiva.has(id))).toBe(true)
     expect(punkterFor('deduktiv', delar)).toHaveLength(16)
   })

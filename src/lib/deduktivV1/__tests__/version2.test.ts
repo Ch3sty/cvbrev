@@ -38,7 +38,9 @@ describe('deduktiv bankversion 2', () => {
   })
 
   it('golvet håller: 30, 30 och 20 i version 2, och version 1 är oförändrad', () => {
-    expect(DEDUKTIV_VERSION).toBe(2)
+    // Version 2 finns kvar för sessioner som startade i den, även när en senare version är aktiv.
+    expect(DEDUKTIV_VERSION).toBeGreaterThanOrEqual(2)
+    expect(poolFor('grund', 2).some((q) => q.fran_version > 2)).toBe(false)
     expect([poolFor('grund', 2).length, poolFor('avancerad', 2).length, poolFor('expert', 2).length]).toEqual([30, 30, 20])
     expect([poolFor('grund', 1).length, poolFor('avancerad', 1).length, poolFor('expert', 1).length]).toEqual([30, 30, 20])
     expect(poolFor('grund', 1).some((q) => q.fran_version === 2)).toBe(false)
