@@ -96,6 +96,15 @@ const andraVarde = (regel, a, b) => (rr, cc) => (regel === 'schack' ? (SCHACK(rr
 /** Rörelsens text (M1, M4) för en egenskap som vrids. */
 function rorelseText(subj, verb, p, n = 8) {
   const g = GRAD(p.k, n); const rk = RIKT(p.k, n);
+  // Kolumnvis (parti 05, expert): samma rörelse nedåt i kolumnerna.
+  if (p.axel === 'kolumn') {
+    let tk = p.vaxlar
+      ? `${subj} ${verb} ${g} grader ${rk} för varje steg nedåt i den första och den tredje kolumnen, och lika mycket ${rk === 'medurs' ? 'moturs' : 'medurs'} i mittkolumnen.`
+      : `${subj} ${verb} ${g} grader ${rk} för varje steg nedåt i kolumnen.`;
+    if (p.mall === 'fri') tk += ' Varje kolumn har sitt eget startläge.';
+    else if (p.d) tk += ` Varje kolumn börjar ${GRAD(p.d, n)} grader ${RIKT(p.d, n)} jämfört med kolumnen till vänster.`;
+    return tk;
+  }
   let t = p.vaxlar
     ? `${subj} ${verb} ${g} grader ${rk} för varje steg åt höger i den första och den tredje raden, och lika mycket ${rk === 'medurs' ? 'moturs' : 'medurs'} i mittraden.`
     : `${subj} ${verb} ${g} grader ${rk} för varje steg åt höger i raden.`;
@@ -116,7 +125,10 @@ export function radvisRotation(r, p) {
   const n = 8;
   const st = starter(r, p, n);
   const kr = stegFor(p);
-  const lage = (rr, cc) => st(rr) + kr(rr) * cc;
+  // p.axel === 'kolumn' (parti 05): rörelsen går nedåt i kolumnerna, som
+  // rutnätet transponerat. Diagonalen och schackmönstret är desamma.
+  const kol = p.axel === 'kolumn';
+  const lage = kol ? (rr, cc) => st(cc) + kr(cc) * rr : (rr, cc) => st(rr) + kr(rr) * cc;
   const monster = p.prim === 'stralar' ? (p.monster ?? valj(r, STRALMONSTER)) : p.prim === 'sektor' ? (p.monster ?? valj(r, SEKTORMONSTER)) : null;
   // Andra egenskaper: konstant eller enligt regel, värdena slumpade.
   const andra = {};
@@ -137,7 +149,9 @@ export function radvisRotation(r, p) {
   // Facits läge får inte finnas bland de synliga i samma egenskap när den är
   // ensam om att variera; spärrarna avgör resten.
   const fp = lage(2, 2); const fv = v(2, 2);
-  const huvud = [fp + 1, fp - 1, fp + 4, fp + p.k, fp - p.k, fp - 2 * p.k, lage(2, 1), lage(2, 0), fp + 2, fp - 2, lage(1, 2) + (lage(1, 2) - lage(0, 2)), lage(1, 2), fp + (p.d ?? 0) - p.k];
+  const huvud = kol
+    ? [fp + 1, fp - 1, fp + 4, fp + p.k, fp - p.k, fp - 2 * p.k, lage(1, 2), lage(0, 2), fp + 2, fp - 2, lage(2, 1) + (lage(2, 1) - lage(2, 0)), lage(2, 1), fp + (p.d ?? 0) - p.k]
+    : [fp + 1, fp - 1, fp + 4, fp + p.k, fp - p.k, fp - 2 * p.k, lage(2, 1), lage(2, 0), fp + 2, fp - 2, lage(1, 2) + (lage(1, 2) - lage(0, 2)), lage(1, 2), fp + (p.d ?? 0) - p.k];
   const kand = [];
   const flips = [{}];
   for (const dim of ['langd', 'spets', 'center']) {
@@ -174,6 +188,10 @@ export function radvisRotation(r, p) {
     stralar: 'Strecken vrider sig radvis',
     sektor: 'Sektorerna vrider sig radvis',
   }[p.prim];
+  if (kol) {
+    const tk = title.replace('radvis', 'kolumnvis');
+    return { family: p.family, title: p.vaxlar ? `${tk}, kolumnerna växlar riktning` : tk, rule: delar.join(' '), grid, facit, kandidater: kand };
+  }
   return { family: p.family, title: p.vaxlar ? `${title}, raderna växlar riktning` : title, rule: delar.join(' '), grid, facit, kandidater: kand };
 }
 

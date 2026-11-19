@@ -1,0 +1,196 @@
+{
+  "kalla": "docs/fragebank/matris-2026-11-19-omg2-granskning.md",
+  "godkanda": [
+    "v7e-b6-vand-01",
+    "v7e-b6-vand-05",
+    "v7e-b6-vand-06",
+    "v7e-b6-byte-01",
+    "v7e-b6-byte-03",
+    "v7e-b6-byte-04",
+    "v7e-b6-byte-05",
+    "v7e-b6-byte-06",
+    "v7e-b6-byte-07",
+    "v7e-b6-byte-09",
+    "v7a-b6-speg-01",
+    "v7a-b6-speg-02",
+    "v7a-b6-speg-03",
+    "v7a-b6-lform-01",
+    "v7a-b6-lform-02",
+    "v7a-b6-byte-05",
+    "v7a-b6-byte-07",
+    "v7a-b6-byte-08",
+    "v7g-b6-byte-02",
+    "v7g-b6-byte-05",
+    "v7g-b6-byte-06",
+    "v7g-b6-byte-07",
+    "v7g-b6-byte-08",
+    "v7g-b6-byte-10",
+    "v7g-b6-byte-13",
+    "v7a-b6-rot-01",
+    "v7a-b6-rot-03",
+    "v7g-b6-rot-02",
+    "v7g-b6-rot-03",
+    "v7g-b6-rot-04",
+    "v7g-b6-rot-05",
+    "v7g-b6-rot-06",
+    "v7g-b6-rot-07",
+    "v7g-b6-lform-02",
+    "v7a-b6-vand-01",
+    "v7a-b6-vrid-02",
+    "v7a-b6-vrid-03",
+    "v7a-b6-vrid-07",
+    "v7g-b6-vrid-01",
+    "v7g-b6-vrid-02",
+    "v7g-b6-vrid-03",
+    "v7e-b6-over-01",
+    "v7e-b6-over-02",
+    "v7e-b6-over-03",
+    "v7e-b6-over-04",
+    "v7e-b6-over-05",
+    "v7e-b6-over-06",
+    "v7e-b6-over-07",
+    "v7e-b6-over-08",
+    "v7e-b6-lfler-01",
+    "v7e-b6-lfler-02",
+    "v7e-b6-lfler-03",
+    "v7e-b6-lfler-04",
+    "v7e-b6-lfler-05",
+    "v7e-b6-lfler-06",
+    "v7e-b6-lfler-07",
+    "v7e-b6-lfler-08"
+  ],
+  "strukna": [
+    {
+      "id": "v7e-b6-vrid-01",
+      "skal": "avancerads M4-pil transponerad"
+    },
+    {
+      "id": "v7e-b6-vrid-02",
+      "skal": "avancerads M4-pil transponerad"
+    },
+    {
+      "id": "v7e-b6-vrid-03",
+      "skal": "avancerads M4-pil transponerad, rad 3 räcker"
+    },
+    {
+      "id": "v7e-b6-vand-02",
+      "skal": "90-graderssteg med jämn startförskjutning, rad 3 räcker"
+    },
+    {
+      "id": "v7e-b6-vand-03",
+      "skal": "som vand-02 och dess spegelbild"
+    },
+    {
+      "id": "v7e-b6-vand-04",
+      "skal": "spegelbild av vand-01"
+    },
+    {
+      "id": "v7e-b6-byte-02",
+      "skal": "90-graderssteg med jämn startförskjutning, rad 3 räcker"
+    },
+    {
+      "id": "v7e-b6-byte-08",
+      "skal": "spegelbild av byte-07"
+    },
+    {
+      "id": "v7a-b6-antal-01",
+      "skal": "samma regel som v7a-v3-antal-02"
+    },
+    {
+      "id": "v7a-b6-byte-01",
+      "skal": "samma regel som v7e-b5-byte-02"
+    },
+    {
+      "id": "v7a-b6-byte-02",
+      "skal": "samma regel som v7e-b5-byte-03"
+    },
+    {
+      "id": "v7a-b6-byte-03",
+      "skal": "samma regel som v7a-b5-byte-06"
+    },
+    {
+      "id": "v7a-b6-byte-04",
+      "skal": "samma regel som v7e-b5-byte-01"
+    },
+    {
+      "id": "v7a-b6-byte-06",
+      "skal": "spegelbild av v7a-v3-byte-23"
+    },
+    {
+      "id": "v7a-b6-rot-02",
+      "skal": "samma bild som v7g-b6-rot-03 (transponerad)"
+    },
+    {
+      "id": "v7a-b6-vand-02",
+      "skal": "spegelbild av v7a-v3-vand-23"
+    },
+    {
+      "id": "v7a-b6-vand-03",
+      "skal": "start 180 grader, för lätt"
+    },
+    {
+      "id": "v7a-b6-vand-04",
+      "skal": "start 180 grader, spegelbild av vand-03"
+    },
+    {
+      "id": "v7a-b6-vand-05",
+      "skal": "start 180 grader, för lätt"
+    },
+    {
+      "id": "v7a-b6-vand-06",
+      "skal": "start 180 grader, för lätt"
+    },
+    {
+      "id": "v7a-b6-vrid-01",
+      "skal": "spegelbild av v7a-v3-vrid-22"
+    },
+    {
+      "id": "v7a-b6-vrid-04",
+      "skal": "transponerad spegelbild av v7a-v3-vrid-27"
+    },
+    {
+      "id": "v7a-b6-vrid-05",
+      "skal": "start 180 grader, för lätt"
+    },
+    {
+      "id": "v7a-b6-vrid-06",
+      "skal": "start 180 grader, för lätt"
+    },
+    {
+      "id": "v7g-b6-byte-01",
+      "skal": "spegelbild av v7g-v3-byte-08"
+    },
+    {
+      "id": "v7g-b6-byte-03",
+      "skal": "samma bild som v7a-b5-byte-03 (transponerad)"
+    },
+    {
+      "id": "v7g-b6-byte-04",
+      "skal": "transponerad spegelbild av v7g-b5-byte-06"
+    },
+    {
+      "id": "v7g-b6-byte-09",
+      "skal": "spegelbild av v7g-v3-byte-10"
+    },
+    {
+      "id": "v7g-b6-byte-11",
+      "skal": "transponerad spegelbild av v7g-v3-byte-12"
+    },
+    {
+      "id": "v7g-b6-byte-12",
+      "skal": "spegelbild av v7g-v3-byte-11"
+    },
+    {
+      "id": "v7g-b6-rot-01",
+      "skal": "samma rutnät som v7a-v3-rot-08 och v7g-v3-rot-06"
+    },
+    {
+      "id": "v7g-b6-lform-01",
+      "skal": "samma latinska kvadrat som v7g-3c-lform-07"
+    },
+    {
+      "id": "v7g-b6-lform-03",
+      "skal": "samma latinska kvadrat som v7g-v3-lform-06"
+    }
+  ]
+}

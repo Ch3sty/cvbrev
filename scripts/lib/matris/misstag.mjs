@@ -66,7 +66,11 @@ function textRotation(q, t, R, F, regel) {
   if (lika(F, senast)) return `${subj} har inte ${verb} sista steget.`;
   if (steg && lika(F, rotera(dim, R, regel.info.k))) return `${subj} har ${verb} ett steg för långt.`;
   if (regel.regel === 'rot-kumulativ' && lika(F, rotera(dim, seq[7], regel.info.a + regel.info.b * 6))) return `${subj} har ${verb} lika långt som förra steget. Steget ska bli längre varje gång.`;
-  if (lika(F, forra) && steg) return regel.info.vaxlar ? `${subj} har ${verb} åt samma håll som i mittraden. Raderna växlar riktning.` : `${subj} har ${verb} åt fel håll.`;
+  if (lika(F, forra) && steg) {
+    if (!regel.info.vaxlar) return `${subj} har ${verb} åt fel håll.`;
+    // Kolumnvis (parti 05): det är mittkolumnen som går åt andra hållet.
+    return kol ? `${subj} har ${verb} åt samma håll som i mittkolumnen. Kolumnerna växlar riktning.` : `${subj} har ${verb} åt samma håll som i mittraden. Raderna växlar riktning.`;
+  }
   // vriden j steg från rätt läge
   for (let j = 1; j < dim.n; j++) {
     if (!lika(rotera(dim, R, j), F)) continue;
