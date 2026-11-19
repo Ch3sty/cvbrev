@@ -5,6 +5,7 @@
  * tillstånd. Talen i scenerna är illustration, aldrig någons riktiga nivå.
  */
 import type { CSSProperties } from 'react';
+import type { Remsdag } from '@/lib/mobilapp/onboarding';
 
 function Bild({ svg, viewBox, max, style }: { svg: string; viewBox: string; max: number; style?: CSSProperties }) {
   return (
@@ -108,38 +109,27 @@ export function NattSkala({ nu, sikte, aria }: { nu: number; sikte: number | nul
   );
 }
 
-type Dagtyp = 'matning' | 'pass' | 'vila' | 'ommatning' | 'general' | 'prov';
-
-/** Planremsan: en stapel per dag fram till provet (konceptets planremsa, dagarna ur byggPlan). */
-export function Planremsa({ dagar, natt }: { dagar: readonly Dagtyp[]; natt?: boolean }) {
-  const farg: Record<Dagtyp, string> = {
-    matning: 'var(--kop)',
-    pass: natt ? 'rgba(255,255,255,.55)' : 'var(--a-ink)',
-    vila: 'transparent',
-    ommatning: 'var(--kop)',
-    general: natt ? '#8FA3F0' : 'var(--himmel-ink)',
+/** Planremsan: en stapel per dag fram till provet, enligt testernas v4-bana (onboarding.ts planremsa). */
+export function Planremsa({ dagar, natt }: { dagar: readonly Remsdag[]; natt?: boolean }) {
+  const farg: Record<Remsdag, string> = {
+    nivakoll: 'var(--kop)',
+    trana: natt ? 'rgba(255,255,255,.55)' : 'var(--a-ink)',
+    ovningsprov: natt ? '#8FA3F0' : 'var(--himmel-ink)',
     prov: natt ? '#fff' : 'var(--a-ink)',
   };
-  const hojd: Record<Dagtyp, number> = { matning: 16, pass: 10, vila: 10, ommatning: 16, general: 16, prov: 22 };
+  const hojd: Record<Remsdag, number> = { nivakoll: 16, trana: 10, ovningsprov: 16, prov: 22 };
   const harProv = dagar.includes('prov');
   return (
     <div aria-hidden="true">
       <div className="tk-remsa">
         {dagar.map((t, i) => (
-          <i
-            key={i}
-            style={{
-              height: hojd[t],
-              background: farg[t],
-              border: t === 'vila' ? `1.5px dashed ${natt ? 'rgba(255,255,255,.35)' : 'var(--a-kant-stark)'}` : undefined,
-            }}
-          />
+          <i key={i} style={{ height: hojd[t], background: farg[t] }} />
         ))}
       </div>
       <div className="tk-remsa-forklaring">
         <span>
-          <i style={{ background: farg.pass }} />
-          pass
+          <i style={{ background: farg.trana }} />
+          träning
         </span>
         <span>
           <i style={{ background: 'var(--kop)' }} />
@@ -147,14 +137,10 @@ export function Planremsa({ dagar, natt }: { dagar: readonly Dagtyp[]; natt?: bo
         </span>
         {harProv && (
           <span>
-            <i style={{ background: farg.general }} />
+            <i style={{ background: farg.ovningsprov }} />
             övningsprov
           </span>
         )}
-        <span>
-          <i style={{ border: `1.5px dashed ${natt ? 'rgba(255,255,255,.35)' : 'var(--a-kant-stark)'}` }} />
-          vila
-        </span>
       </div>
     </div>
   );

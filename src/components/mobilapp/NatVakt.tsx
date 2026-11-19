@@ -25,7 +25,7 @@ export default function NatVakt() {
       <div className="tk-banner">
         <span>
           <b>Ingen anslutning</b>
-          <span>Passen behöver nät. Din nivå och dina pass är sparade.</span>
+          <span>Testerna behöver nät. Din nivå och dina resultat är sparade.</span>
         </span>
         <button type="button" onClick={() => window.location.reload()}>
           Försök igen

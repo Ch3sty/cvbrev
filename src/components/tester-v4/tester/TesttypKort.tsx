@@ -16,6 +16,7 @@ import type { Handling, TestTypId, TesttypKort as Kort } from '@/lib/tester/v4/t
 import Nivaband from '../Nivaband'
 import TypSymbol from './TypSymbol'
 import { TESTER } from './copy'
+import { omattMeta } from '@/lib/tester/v4/rutter'
 import { useOppnaLas } from './LasKontext'
 
 export const KORT_KLASS =
@@ -28,9 +29,9 @@ export const KNAPP_LITEN =
 export const KNAPP_LITEN_LAS =
   'relative z-[2] inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-[10px] border border-kant-stark bg-papper-2 px-3.5 text-sm font-semibold text-ink-2'
 
-export function kortStatus(k: Pick<Kort, 'niva' | 'senasteNivakoll' | 'antalTraningar'>): string {
+export function kortStatus(k: Pick<Kort, 'id' | 'niva' | 'senasteNivakoll' | 'antalTraningar'>): string {
   if (k.niva.status === 'paborjad' && k.niva.svar) return TESTER.kort.paborjad(k.niva.svar.besvarade, k.niva.svar.antal)
-  if (k.niva.status !== 'matt') return TESTER.kort.omatt
+  if (k.niva.status !== 'matt') return omattMeta(k.id)
   return k.senasteNivakoll
     ? TESTER.kort.matt(kortDatum(k.senasteNivakoll), k.antalTraningar)
     : TESTER.kort.mattUtanDatum(k.antalTraningar)

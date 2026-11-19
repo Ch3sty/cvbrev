@@ -8,8 +8,8 @@
  * - Startskärmen döljs när första vyn är målad.
  * - Android-tillbaka, i den här ordningen:
  *   1. Ett öppet ark (köp, notis, ett test, radera) stängs.
- *   2. I passen, Nivåkollen, övningsproven och resultaten gör tillbaka
- *      samma sak som krysset uppe till vänster.
+ *   2. I träningen, Nivåkollen, övningsproven och resultaten gör tillbaka
+ *      samma sak som krysset (data-kryss) uppe i hörnet.
  *   3. En undersida går till sin flik: via toppradens tillbakapil om den
  *      finns, annars till Tester för testernas sidor och Idag för resten.
  *   4. Tester och Utveckling går till Idag.
@@ -22,13 +22,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import { APP_FLIK, appFlik } from '@/lib/mobilapp/appvag';
 import { arAppen, doljStartskarm, plattform, stangAppen } from '../skal';
 import { finnsPlugin, kalla, lyssnaPa } from '../skal-plugin';
+import { KRYSS_SELEKTOR } from '@/lib/mobilapp/kryss';
 
 const STANG_FONSTER_MS = 2000;
 
-/** Kryssen i de delade passvyerna (PassShell, ResultatSkal, Kvitto, IprovFlode, övningsproven). */
-const KRYSS = ['Avsluta passet', 'Stäng', 'Avbryt', 'Avbryt provet', 'Tillbaka till resultatet']
-  .map((etikett) => `button[aria-label="${etikett}"], a[aria-label="${etikett}"]`)
-  .join(', ');
 
 function synlig(el: Element): el is HTMLElement {
   if (!(el instanceof HTMLElement)) return false;
@@ -36,9 +33,12 @@ function synlig(el: Element): el is HTMLElement {
   return r.width > 0 && r.height > 0;
 }
 
-/** Krysset uppe till vänster i en helskärmsvy: det första synliga i övre delen av skärmen. */
+/** Krysset uppe i hörnet i en helskärmsvy: det första synliga i övre delen av skärmen. */
 function hittaKryss(): HTMLElement | null {
-  const kandidater = Array.from(document.querySelectorAll(KRYSS)).filter(synlig);
+  // Märkta kryss (data-kryss) går före etiketterna, som bara är en reserv.
+  const kandidater = Array.from(document.querySelectorAll(KRYSS_SELEKTOR))
+    .filter(synlig)
+    .sort((x, y) => Number(y.hasAttribute('data-kryss')) - Number(x.hasAttribute('data-kryss')));
   return kandidater.find((el) => el.getBoundingClientRect().top < 140) ?? null;
 }
 

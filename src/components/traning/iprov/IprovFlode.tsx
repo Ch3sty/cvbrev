@@ -75,7 +75,7 @@ function Skal({
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-iprov>
       <header className={`flex-shrink-0 ${vagg ? 'bg-vagg text-vagg-ink' : 'border-b border-kant bg-papper'}`}>
         <div className="mx-auto flex h-14 w-full max-w-[560px] items-center gap-2 px-2">
-          <button type="button" onClick={onStang} aria-label="Stäng" className={`inline-flex h-11 w-11 items-center justify-center rounded-[10px] ${vagg ? 'text-vagg-ink' : 'text-ink-1'}`}>
+          <button type="button" onClick={onStang} aria-label="Stäng" data-kryss="" className={`inline-flex h-11 w-11 items-center justify-center rounded-[10px] ${vagg ? 'text-vagg-ink' : 'text-ink-1'}`}>
             <IkonX />
           </button>
           <div className="min-w-0 flex-1">

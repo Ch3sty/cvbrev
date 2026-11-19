@@ -102,7 +102,7 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
               Radera kontot?
             </h2>
             <p className="tk-p" style={{ marginTop: 6 }}>
-              Konto, nivå, pass och resultat raderas. En prenumeration avslutar du själv där du köpte den, raderingen gör det inte.
+              Konto, nivå, träning och resultat raderas. En prenumeration avslutar du själv där du köpte den, raderingen gör det inte.
             </p>
             <label className="tk-meta" htmlFor="tk-radera-falt" style={{ display: 'block', marginTop: 16, marginBottom: 6 }}>
               Skriv RADERA för att bekräfta

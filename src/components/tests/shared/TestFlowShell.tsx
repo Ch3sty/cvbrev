@@ -125,6 +125,7 @@ export default function TestFlowShell({
               type="button"
               onClick={onExit}
               aria-label={exitLabel}
+              data-kryss=""
               className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-ink-1 transition-colors hover:bg-insunken"
             >
               <X className="h-5 w-5" strokeWidth={1.75} />

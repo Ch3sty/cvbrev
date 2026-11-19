@@ -17,7 +17,7 @@ import type { Serie } from '@/lib/traning/serie';
 import { arPausdag } from '@/lib/traning/serie';
 import { arSondag, laggTill, veckodag, type Dag } from '@/lib/traning/datum';
 import { nivaKort } from '@/lib/traning/pass-copy';
-import { provrad } from '@/lib/traning/rubrik';
+import { kortDatum, provrad } from '@/lib/traning/rubrik';
 import {
   DELTYPER,
   DELTYP_NAMN,
@@ -29,9 +29,21 @@ import {
 } from '@/lib/traning/mittTest';
 import { TRANING_RUTT, nivakollHref, ovningsprovHref, steg2PassHref } from '@/lib/traning/rutter';
 import { TEST_CONFIGS, testPaths } from '@/app/dashboard/tester/testConfig';
-import { deduktivSynlig } from '@/lib/deduktivV1/status';
-import { figurserierSynliga } from '@/lib/figurserierV1/status';
 import { iprovProvSynligt } from '@/lib/tester/steg2Status';
+import { GRATISRAD, KALLAS, LAS_CHIP, MAT_DIG, TESTA_DIG, ingarIDelar, inteI } from '@/lib/tester/v4/copy';
+import { NIVAKOLL_FINNS, PLAN_HREF, omattMeta, utvecklingHref } from '@/lib/tester/v4/rutter';
+import {
+  ZON_GRANSER,
+  type Handling,
+  type NivaLage,
+  type TestTypId,
+  type TesterV4Data,
+  type TesttypKort,
+  type UtvecklingsPunkt,
+  type Zon,
+} from '@/lib/tester/v4/typer';
+import { TESTER, nivaText, rattAv } from '@/components/tester-v4/tester/copy';
+import { APP_PREMIUM } from './appvag';
 
 /** Testtyperna i appen plus planens egen symbol. */
 export type AppTyp = Deltyp | 'plan';
@@ -104,7 +116,7 @@ export function serieText(serie: Serie): string {
   if (serie.status === 'pausad') return 'Dagarna i rad pausar, inget bryts.';
   const n = serie.dagar;
   if (serie.gjordIdag) return n <= 1 ? 'Första dagen i rad.' : `${versal(ord(n))} dagar i rad.`;
-  if (n >= 1) return `${versal(ord(n))} ${n === 1 ? 'dag' : 'dagar'} i rad. Dagens pass gör det ${ord(n + 1)}.`;
+  if (n >= 1) return `${versal(ord(n))} ${n === 1 ? 'dag' : 'dagar'} i rad. Dagens träning gör det ${ord(n + 1)}.`;
   return 'Dagarna i rad börjar i dag.';
 }
 
@@ -136,22 +148,17 @@ export interface Katalog {
   fler: KatalogKort[];
 }
 
-const ALIAS: Partial<Record<Deltyp, string>> = {
-  matris: 'Kallas även Matrigma eller IQ-test',
-  talserie: 'Kallas även talföljder',
-  spatial: 'Kallas även rumsuppfattning',
-  ordforrad: 'Synonymer och motsatsord',
-  personlighet: 'Inga rätta svar',
-};
+/** Raden under namnet ur v4:s KALLAS. Personligheten har ingen nivå. */
+function kallasFor(t: Deltyp): string {
+  return t === 'personlighet' ? TESTER.personlighet.text : KALLAS[t];
+}
 
 type NivakollTyp = 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk';
 const NIVAKOLL_TYPER: readonly Deltyp[] = ['figurserie', 'deduktiv', 'verbal', 'numerisk'];
 const STEG2_TYPER: readonly Deltyp[] = ['talserie', 'spatial', 'ordforrad'];
 
-/** Syns testtypen i appen? Samma flaggor som webbens katalog. */
+/** Syns testtypen i appen? Samma regel som v4 (hamta.server.ts: deltypSynlig). */
 export function typSynlig(t: Deltyp): boolean {
-  if (t === 'figurserie') return figurserierSynliga();
-  if (t === 'deduktiv') return deduktivSynlig();
   return deltypSynlig(t);
 }
 
@@ -232,7 +239,7 @@ function kortFor(s: Traningsstatus, t: Deltyp): KatalogKort {
     // Grundpasset är gratis på mätningens dag (gratisnivan.ts); annars Premium.
     const gratisIdag = t === 'matris' && s.start?.dag === s.idag;
     rader.push({
-      titel: niva != null ? 'Passet på din nivå' : 'Ett pass',
+      titel: niva != null ? 'Träna på din nivå' : 'Träna',
       meta: 'Nio uppgifter, regeln efter varje svar',
       href: pass,
       chip: betalande || gratisIdag ? null : las,
@@ -261,7 +268,7 @@ function kortFor(s: Traningsstatus, t: Deltyp): KatalogKort {
   return {
     typ: t,
     namn: DELTYP_NAMN[t],
-    alias: ALIAS[t] ?? 'Ingår i rekryteringstester',
+    alias: kallasFor(t),
     meta,
     nivaer: t === 'personlighet' ? null : [true, betalande, betalande],
     rader,
@@ -299,6 +306,219 @@ export function byggKatalog(s: Traningsstatus): Katalog {
   }
 
   return { mittTest, ingar, ovningsprov, fler };
+}
+
+/* ------------------------------------------------------------ katalogen, v4 */
+//
+// Tester-fliken läser samma data som webbens Tester v4 (hamtaTesterV4) och
+// visar samma innehåll och regler i appens form: korten med nivåstaplar och
+// typens ark med Träna, Testa dig på en nivå och Mät dig. Låsen, kvoten och
+// "Gratis en gång" kommer ur v4:s Handling; appen har inga egna gratisregler.
+// Ett låst val leder till appens köpvy (Google Play), som webbens betalvägg.
+
+export type ArkChip = { text: string; ton: 'gjord' | 'fri' | 'las' };
+
+export interface ArkRad {
+  titel: string;
+  meta: string;
+  /** Null: raden står som text (Nivåkollen som inte finns än i typen). */
+  href: string | null;
+  chip: ArkChip | null;
+}
+
+export interface SenasteRad {
+  id: string;
+  dag: string;
+  slag: string;
+  varde: string;
+  href: string | null;
+}
+
+export interface KatalogArk {
+  /** Med plan: provets format, annars "kallas även". */
+  rad: string;
+  niva: NivaLage;
+  trana: { eyebrow: string; rubrik: string; text: string; knapp: { text: string; href: string; las: boolean } };
+  /** Öva på mönstret, tom lista utan mönsterdata. */
+  monster: ArkRad[];
+  testa: { eyebrow: string; rubrik: string; text: string; rader: ArkRad[] };
+  matDig: { eyebrow: string; rader: ArkRad[] };
+  senaste: { eyebrow: string; rader: SenasteRad[]; historik: { text: string; href: string } };
+}
+
+export interface KatalogKortV4 extends KatalogKort {
+  typ: TestTypId;
+  ingarIPlan: boolean;
+  /** Nivån med decimalkomma bredvid staplarna, null om typen inte är mätt. */
+  nivaTal: string | null;
+  ark: KatalogArk;
+}
+
+export interface KatalogV4 {
+  mittTest: { titel: string; meta: string; href: string; andra: string } | null;
+  /** "Ingår i Alva Logic · 1 del" */
+  ingarRubrik: string | null;
+  ingar: KatalogKortV4[];
+  ovningsprov: { titel: string; meta: string; href: string; las: boolean } | null;
+  /** "Används i andra rekryteringstest, inte i Alva Logic" eller "Alla testtyper". */
+  flerRubrik: string;
+  fler: KatalogKortV4[];
+  personlighet: { titel: string; meta: string; href: string; gjord: boolean };
+  /** Gratisraden längst ner, null med Premium. */
+  gratis: { rubrik: string; text: string; knapp: string; href: string } | null;
+}
+
+export const MONSTER_RUBRIK = 'Öva på mönstret';
+
+const forstaLiten = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+
+/** Chipet för en handling: lås, metan ("1 kvar i dag", "Gratis en gång") eller inget. */
+function chipFor(h: Pick<Handling, 'las' | 'meta'>): ArkChip | null {
+  if (h.las) return { text: h.las.chip, ton: 'las' };
+  if (h.meta) return { text: h.meta, ton: 'fri' };
+  return null;
+}
+
+/** Ett låst val leder till appens köpvy, ett öppet till handlingens adress. */
+function hrefFor(h: Pick<Handling, 'las' | 'href'>): string {
+  return h.las ? APP_PREMIUM : h.href;
+}
+
+/** Kortets rad under namnet (webbens kortStatus). Nivån står i staplarna, aldrig i löptext. */
+export function kortMeta(k: Pick<TesttypKort, 'id' | 'niva' | 'senasteNivakoll' | 'antalTraningar'>): string {
+  if (k.niva.status === 'paborjad' && k.niva.svar) return TESTER.kort.paborjad(k.niva.svar.besvarade, k.niva.svar.antal);
+  if (k.niva.status !== 'matt') return omattMeta(k.id);
+  return k.senasteNivakoll ? TESTER.kort.matt(kortDatum(k.senasteNivakoll), k.antalTraningar) : TESTER.kort.mattUtanDatum(k.antalTraningar);
+}
+
+/** Staplarna grund, avancerad, expert: fyllda upp till zonen där nivån ligger. */
+export function zonStaplar(niva: NivaLage): [boolean, boolean, boolean] {
+  const v = niva.niva;
+  if (v == null) return [false, false, false];
+  const nadd = (z: Zon) => v >= ZON_GRANSER[z][0];
+  return [nadd('grund'), nadd('avancerad'), nadd('expert')];
+}
+
+function senasteVarde(p: UtvecklingsPunkt): string {
+  if (p.slag === 'ovningsprov') return p.resultat ? rattAv(p.resultat) : '';
+  return p.niva != null ? nivaText(p.niva) : p.resultat ? rattAv(p.resultat) : '';
+}
+
+function arkFor(data: TesterV4Data, k: TesttypKort): KatalogArk {
+  const meny = data.menyer[k.id];
+  const premium = data.gratis.premium;
+  const t = meny.trana;
+  const tranaText = t.las ? `${t.etikett}, ${forstaLiten(t.las.chip)}` : t.meta ? `${t.etikett} · ${t.meta}` : t.etikett;
+
+  const nk = meny.nivakoll;
+  const nivakollRad: ArkRad = {
+    titel: MAT_DIG.nivakollRubrik,
+    meta: MAT_DIG.nivakollText,
+    href: NIVAKOLL_FINNS[k.id] ? hrefFor(nk) : null,
+    chip: nk.las || !nk.senaste ? chipFor(nk) : { text: `${kortDatum(nk.senaste.dag)} · ${nivaText(nk.senaste.niva)}`, ton: 'gjord' },
+  };
+  const senasteProv = meny.senaste.prov.at(-1) ?? null;
+  const provRader: ArkRad[] = meny.ovningsprov.map((o, i) => ({
+    titel: o.rubrik,
+    meta: o.text,
+    href: hrefFor(o),
+    chip: o.las ? chipFor(o) : i === 0 && senasteProv ? { text: kortDatum(senasteProv.dag), ton: 'gjord' } : null,
+  }));
+
+  const senaste = [...meny.senaste.nivakoller.slice(-3), ...meny.senaste.prov.slice(-2)].map((p) => ({
+    id: p.id,
+    dag: kortDatum(p.dag),
+    slag: p.slag === 'ovningsprov' ? TESTER.meny.ovningsprov : p.kalla === 'nivatest' ? TESTER.meny.nivatest : TESTER.meny.nivakoll,
+    varde: senasteVarde(p),
+    href: p.href,
+  }));
+
+  return {
+    rad: meny.rad,
+    niva: k.niva,
+    trana: { eyebrow: TESTER.meny.trana, rubrik: t.rubrik, text: t.text, knapp: { text: tranaText, href: hrefFor(t), las: !!t.las } },
+    monster: (meny.monster ?? []).map((m) => ({
+      titel: m.namn,
+      meta: `${m.ratt} av ${m.antal} rätt`,
+      // Mönstret tränas i Träna, som ingår i Premium.
+      href: premium ? m.href : APP_PREMIUM,
+      chip: premium ? null : { text: LAS_CHIP.premiumKort, ton: 'las' },
+    })),
+    testa: {
+      eyebrow: TESTA_DIG.eyebrow,
+      rubrik: TESTA_DIG.rubrik,
+      text: NIVAKOLL_FINNS[k.id] ? TESTA_DIG.text : TESTER.meny.testaTextNivatest,
+      rader: meny.nivaer.map((n) => ({ titel: n.rubrik, meta: n.text, href: hrefFor(n), chip: chipFor(n) })),
+    },
+    matDig: { eyebrow: MAT_DIG.eyebrow, rader: [nivakollRad, ...provRader] },
+    senaste: { eyebrow: TESTER.meny.senaste, rader: senaste, historik: { text: TESTER.meny.historik, href: utvecklingHref(k.id) } },
+  };
+}
+
+function kortV4(data: TesterV4Data, k: TesttypKort): KatalogKortV4 {
+  return {
+    typ: k.id,
+    namn: k.namn,
+    alias: k.kallas,
+    meta: kortMeta(k),
+    nivaer: zonStaplar(k.niva),
+    nivaTal: k.niva.niva != null && k.niva.status !== 'omatt' ? nivaText(k.niva.niva) : null,
+    rader: [],
+    ingarIPlan: k.ingarIPlan,
+    ark: arkFor(data, k),
+  };
+}
+
+/** Tester-fliken ur v4:s data: Mitt test, provets delar, övningsprovet, resten och personligheten. */
+export function byggKatalogV4(data: TesterV4Data): KatalogV4 {
+  const plan = data.plan;
+  const synliga = data.typer.filter((k) => k.synlig && typSynlig(k.id));
+  const iPlan = plan ? synliga.filter((k) => k.ingarIPlan) : [];
+  const ovriga = plan ? synliga.filter((k) => !k.ingarIPlan) : synliga;
+
+  let mittTest: KatalogV4['mittTest'] = null;
+  if (plan) {
+    const d = plan.dagarKvar;
+    const meta = d != null && d > 0 ? (d === 1 ? '1 dag kvar' : `${d} dagar kvar`) : d === 0 ? 'Provet är i dag' : 'Inget datum';
+    mittTest = { titel: `Mitt test: ${plan.namn}`, meta, href: PLAN_HREF, andra: TESTER.vagg.andra };
+  }
+
+  let ovningsprov: KatalogV4['ovningsprov'] = null;
+  const forstaTyp = plan?.typer.find((t) => data.menyer[t]) ?? null;
+  if (plan?.ovningsprov && iPlan.length) {
+    const h = forstaTyp ? data.menyer[forstaTyp].ovningsprov[0] : undefined;
+    const las = h ? !!h.las : !data.gratis.premium;
+    ovningsprov = { titel: plan.ovningsprov.namn, meta: plan.ovningsprov.meta, href: las ? APP_PREMIUM : plan.ovningsprov.href, las };
+  }
+
+  const g = data.gratis;
+  const kvar = g.grundKvarIdag > 0;
+  const gratis: KatalogV4['gratis'] = g.premium
+    ? null
+    : {
+        rubrik: kvar ? GRATISRAD.rubrikKvar : GRATISRAD.rubrikSlut,
+        text: kvar
+          ? 'Valfri testtyp, och Nivåkollen en gång per testtyp. Genomgången av svaren är alltid öppen.'
+          : 'Proven ligger på avancerad nivå. Träna, avancerad och expert, Nivåkollen när du vill och övningsprov ingår i Premium.',
+        knapp: GRATISRAD.knapp,
+        href: APP_PREMIUM,
+      };
+
+  return {
+    mittTest,
+    ingarRubrik: plan && iPlan.length ? ingarIDelar(plan.namn, plan.typer.length || iPlan.length) : null,
+    ingar: iPlan.map((k) => kortV4(data, k)),
+    ovningsprov,
+    flerRubrik: plan && iPlan.length ? inteI(plan.namn) : TESTER.allaTyper,
+    fler: ovriga.map((k) => kortV4(data, k)),
+    personlighet: {
+      titel: TESTER.personlighet.namn,
+      meta: data.personlighet.gjord ? TESTER.personlighet.knappGjord : TESTER.personlighet.text,
+      href: data.personlighet.href,
+      gjord: data.personlighet.gjord,
+    },
+    gratis,
+  };
 }
 
 /* ------------------------------------------------------------ kurvan */

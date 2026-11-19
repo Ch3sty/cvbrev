@@ -8,3 +8,12 @@ html:has([data-mobilapp]) #jc-samtycke,
 html:has([data-mobilapp]) #jc-samtycke-rot {
   display: none !important;
 }
+
+/*
+ * Webbens sidfot (Footer.tsx i client-layout) visas aldrig i appen. Den döljs
+ * i layouten utifrån adressen, men proxyns omskrivningar (till exempel
+ * /priser till appens köpvy) behåller webbens adress, så den syns annars.
+ */
+html:has([data-mobilapp]) footer[data-site-chrome="footer"] {
+  display: none !important;
+}

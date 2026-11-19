@@ -44,7 +44,13 @@ Ja: slå på Supabase > Authentication > Sign In / Providers > Allow anonymous s
 Driftsätt om efteråt.
 
 ## 8. Säg ja till körningarna i produktionsdatabasen
-Jag kör i ordning: tabellen `app_enheter`, utskicksfunktionen `app-paminnelse`, dess hemligheter (från filen i 6.3), schemat var 15:e minut. Och städningen av anonyma konton om du sa ja i steg 2.
+Jag kör i ordning:
+1. `supabase/migrations/20261120110000_app_enheter.sql`, tabellen `app_enheter`.
+2. Utskicksfunktionen `app-paminnelse` driftsätts med `--no-verify-jwt`, och dess hemligheter sätts (från filen i 6.3).
+3. `supabase/migrations/20261120110100_app_paminnelse_cron.sql`, schemat var 15:e minut. Kräver steg 1 och 2.
+4. `supabase/migrations/20261120110200_app_anonyma_stadning.sql`, städningen av anonyma konton, om du sa ja i steg 2. Den raderar en användare i taget, så en enda som inte går att radera stoppar aldrig resten.
+
+Filerna hette tidigare 20261113150000, 20261113150100 och 20261113160000. De har fått nya tidsstämplar efter webbens senaste migrering och har aldrig körts.
 
 ## Sedan gör jag
 Lägger `google-services.json` i appen och Plays SHA-256 i `public/.well-known/assetlinks.json`, bygger version 2, provar Google-inloggning, köp med licenstestaren och påminnelsen på din telefon via Intern testning. När allt fungerar: du flyttar versionen till Produktion i Play Console.

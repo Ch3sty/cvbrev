@@ -158,6 +158,7 @@ export default function PassShell({
             type="button"
             onClick={onAvsluta}
             aria-label={avslutaEtikett}
+            data-kryss=""
             className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 transition-colors hover:bg-papper-2"
           >
             <IkonX />

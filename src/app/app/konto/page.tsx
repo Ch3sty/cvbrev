@@ -20,6 +20,8 @@ import { dagSthlm } from '@/lib/traning/datum';
 import { TRANING_RUTT } from '@/lib/traning/rutter';
 import { deltesterForPlan, mittTestNamn, mittTestUrPlan } from '@/lib/traning/mittTest';
 import { appPlattform, appVersion } from '@/lib/mobilapp/appvag';
+import { PLAN_BY_KEY, SALD_PLAN } from '@/lib/plans/plans';
+import { GRATISRAD } from '@/lib/tester/v4/copy';
 import FlikInnehall from '@/components/mobilapp/FlikInnehall';
 import KontoHandlingar from '@/components/mobilapp/KontoHandlingar';
 import Tillbaka from '@/components/mobilapp/Tillbaka';
@@ -83,11 +85,11 @@ export default async function Konto() {
             <p style={{ fontWeight: 600, marginTop: 2 }}>
               {harPremium
                 ? [KALLA[lage.kalla ?? ''], tillDag ? `${butik ? 'förnyas' : 'gäller till'} ${datumText(tillDag)}` : null].filter(Boolean).join(', ') || 'Aktivt'
-                : 'Nivåkollen och resultaten ingår'}
+                : GRATISRAD.rubrikKvar}
             </p>
             <p className="tk-meta">
               {!harPremium
-                ? 'Passen varje dag ingår i Premium, 149 kr i månaden.'
+                ? `Valfri testtyp, och Nivåkollen en gång per testtyp. Träning på din nivå, avancerad nivå och expertnivå ingår i Premium, ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden.`
                 : butik
                   ? `Sägs upp i ${lage.kalla === 'play' ? 'Google Play' : 'App Store'}. Gäller även på jobbcoach.ai.`
                   : 'Köpt på jobbcoach.ai och hanteras där, under Prenumeration. Gäller även här, med samma konto.'}

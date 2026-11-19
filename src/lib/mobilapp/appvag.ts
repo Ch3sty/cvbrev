@@ -44,9 +44,15 @@ export const APP_FLIK = {
   konto: '/dashboard/installningar',
 } as const;
 
+/** Webbens Tester v4 (lib/tester/v4/rutter.ts TESTER_HREF). I appen är det fliken Tester. */
+const TESTER_ALLA = '/dashboard/tester/alla';
+
 /** Appens egna vyer, dit proxyn skriver om flikarnas adresser. */
 const EGNA_VYER: Record<string, string> = {
   [APP_FLIK.tester]: '/app/katalog',
+  // Webbens Tester v4 (TESTER_HREF, menyHref med ?typ=). Appen har en enda
+  // Tester-vy; proxyn behåller ?typ= och katalogen öppnar typens ark.
+  [TESTER_ALLA]: '/app/katalog',
   [APP_FLIK.utveckling]: '/app/utveckling',
   [APP_FLIK.konto]: '/app/konto',
   // Passens betalväggar går till webbens köpsteg (kopstegHref) och
@@ -59,7 +65,7 @@ const EGNA_VYER: Record<string, string> = {
 export function appFlik(pathname: string): 'idag' | 'tester' | 'utveckling' | null {
   const p = pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname;
   if (p === APP_FLIK.idag) return 'idag';
-  if (p === APP_FLIK.tester) return 'tester';
+  if (p === APP_FLIK.tester || p === TESTER_ALLA) return 'tester';
   if (p === APP_FLIK.utveckling) return 'utveckling';
   return null;
 }

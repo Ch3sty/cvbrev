@@ -130,7 +130,7 @@ export default function KopVy(p: KopVyProps) {
           )}
         </section>
         <button type="button" className="tk-knapp kop tk-tryck" onClick={() => router.replace(APP_FLIK.idag)}>
-          Till dagens pass
+          Till dagens träning
         </button>
         {toast && <Toast text={toast} />}
       </div>
@@ -138,8 +138,9 @@ export default function KopVy(p: KopVyProps) {
   }
 
   const rader = [
-    'Ett pass om dagen nära din nivå, extrapass på det du tappar',
-    'Ny nivåkoll varje vecka och hela kurvan',
+    'Träning på din nivå varje dag, med extra övning där du tappar',
+    'Avancerad nivå och expertnivå i alla testtyper',
+    'Nivåkollen när du vill och hela kurvan',
     p.mittTest ? `Övningsprov i samma format som ${p.mittTest}` : 'Övningsprov i samma format som riktiga rekryteringstester',
     'Samma Premium på jobbcoach.ai, med personliga brev och Jobbcoachen',
   ];
@@ -149,7 +150,7 @@ export default function KopVy(p: KopVyProps) {
       <div>
         <p className="tk-ey kop">Ingår i Premium</p>
         <h2 className="tk-h2" style={{ marginTop: 4 }}>
-          Passen på din nivå, varje dag
+          Träning på din nivå, varje dag
         </h2>
       </div>
       <ul className="tk-ingar">

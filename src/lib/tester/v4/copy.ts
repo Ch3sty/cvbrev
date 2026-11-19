@@ -60,7 +60,7 @@ export const NIVA_TEST_ANTAL: Readonly<Record<TestTypId, Readonly<Record<Zon, nu
   numerisk: { grund: 20, avancerad: 20, expert: 20 },
   talserie: { grund: 15, avancerad: 15, expert: 15 },
   spatial: { grund: 15, avancerad: 15, expert: 15 },
-  ordforrad: { grund: 15, avancerad: 15, expert: 15 },
+  ordforrad: { grund: 20, avancerad: 20, expert: 20 },
 };
 
 export function nivaRadText(typ: TestTypId, zon: Zon): string {

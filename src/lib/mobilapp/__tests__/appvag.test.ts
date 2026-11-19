@@ -23,7 +23,9 @@ describe('appvag', () => {
     expect(appVag('/dashboard/tester/kurvan')).toBe('/app/utveckling');
     expect(appVag('/dashboard/installningar')).toBe('/app/konto');
     expect(appVag('/dashboard/tester/installningar')).toBe('/app/tester/installningar');
-    expect(appVag('/dashboard/tester/alla')).toBe('/app/tester/alla');
+    // En enda Tester-vy: webbens Tester v4 är appens katalog (proxyn behåller ?typ=).
+    expect(appVag('/dashboard/tester/alla')).toBe('/app/katalog');
+    expect(appVag('/dashboard/tester/alla/')).toBe('/app/katalog');
     expect(appVag('/dashboard/installningar/annat')).toBe(WEBBEN_VAG);
   });
 
@@ -31,6 +33,7 @@ describe('appvag', () => {
     expect(appFlik('/dashboard')).toBe('idag');
     expect(appFlik('/dashboard/tester')).toBe('tester');
     expect(appFlik('/dashboard/tester/kurvan')).toBe('utveckling');
+    expect(appFlik('/dashboard/tester/alla')).toBe('tester');
     expect(appFlik('/dashboard/tester/pass')).toBe(null);
     expect(appFlik('/dashboard/installningar')).toBe(null);
   });

@@ -219,10 +219,10 @@ export default function KontoVy({
 
   const rubrik = login ? 'Logga in' : lage === 'forst' ? 'Skapa ditt konto' : 'Spara din nivå';
   const text = login
-    ? 'Samma konto som på jobbcoach.ai. Nivå, pass och Premium följer med åt båda hållen.'
+    ? 'Samma konto som på jobbcoach.ai. Nivå, träning och Premium följer med åt båda hållen.'
     : lage === 'forst'
-      ? `Kontot sparar ${planText} och nivån från Nivåkollen, som börjar direkt efteråt. Samma konto som på jobbcoach.ai, så nivå, pass och Premium följer med åt båda hållen.`
-      : `${niva != null ? `Nivå ${niva}, ` : 'Nivån, '}${planText} och dagens grundpass sparas på kontot. Samma konto som på jobbcoach.ai, så nivå, pass och Premium följer med åt båda hållen.`;
+      ? `Kontot sparar ${planText} och nivån från Nivåkollen, som börjar direkt efteråt. Samma konto som på jobbcoach.ai, så nivå, träning och Premium följer med åt båda hållen.`
+      : `${niva != null ? `Nivå ${niva}, ` : 'Nivån, '}${planText} och dagens grundnivåtest sparas på kontot. Samma konto som på jobbcoach.ai, så nivå, träning och Premium följer med åt båda hållen.`;
 
   return (
     <div className="tk">

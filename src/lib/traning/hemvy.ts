@@ -827,6 +827,7 @@ export function byggHemvy(inp: HemIn): HemModell {
   if (niva == null && s.plan?.mitt_test === 'iprov' && iprovTyper.length > 0) {
     const kind = iprovTyper.find((t) => t === rotation) ?? iprovTyper[0];
     const V = HEM.vnPass;
+    const iprovKvotSlut = !betalande && s.grundKvarIdag === 0;
     const titel = kind === 'spatial' ? 'Spatial förmåga, sex uppgifter' : kind === 'talserie' ? 'Talserier, sex uppgifter' : 'Ordförråd, sex ord';
     return {
       tillstand: 'annat_test',
@@ -842,10 +843,14 @@ export function byggHemvy(inp: HemIn): HemModell {
         eyebrow: HEM.pass.eyebrow,
         eyebrowTon: 'koppar',
         titel,
-        text: kind === 'spatial' ? V.spatialMeta : kind === 'talserie' ? V.talserieMeta : V.ordMeta,
+        // Tester v4: ett grundnivåtest om dagen över alla typer. Är dagens gjort
+        // (s.grundKvarIdag 0) lovar kortet inget gratis nivåtest; trycket hade gett 429.
+        text: iprovKvotSlut ? HEM.pass.kvotText() : kind === 'spatial' ? V.spatialMeta : kind === 'talserie' ? V.talserieMeta : V.ordMeta,
         handling: betalande
           ? { typ: 'lank', text: HEM.pass.knapp, href: steg2PassHref(kind) }
-          : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'talserie' ? 'talserier' : kind}-grund` },
+          : iprovKvotSlut
+            ? kop(s, 'tests_above_base', 'kvot')
+            : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'talserie' ? 'talserier' : kind}-grund` },
       },
       sektioner: [
         ...vnLista,

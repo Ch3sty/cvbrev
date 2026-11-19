@@ -1,17 +1,18 @@
 /**
  * Idag, appens start (konceptets V.hem). Proxyn skriver om appens /dashboard
- * hit. Samma läsning som webbens hemvy (getTraningSummary och byggHemvy) i en
- * rundtur på servern, så första HTML har dagkortet med riktiga tal.
+ * hit. Samma läsning som webbens Hem i testerna v4 (hamtaTesterV4 och
+ * underlaget, delat med cache()) i en rundtur på servern, så första HTML har
+ * dagkortet med riktiga tal.
  *
- * Saknas planen och valde de tester vid registreringen går de, som på
- * webben, till ingången (Test och datum). Nivåkollen före kontot och
- * appens egen onboarding kommer i ett senare steg (docs/plan-app.md).
+ * Saknas planen och har de inget resultat än, och valde de tester eller
+ * intervju vid registreringen, går de som på webben till ingången (Plan
+ * inför provet, ?forsta=1): samma beslut, ingangForst.
  */
 import { redirect } from 'next/navigation';
 import { after } from 'next/server';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
-import { getTraningSummary, markeraTraningSedd } from '@/lib/traning/getTraningSummary';
-import { byggHemvy } from '@/lib/traning/hemvy';
+import { markeraTraningSedd } from '@/lib/traning/getTraningSummary';
+import { hamtaTesterV4, hamtaUnderlagV4, ingangForst } from '@/lib/tester/v4/hamta.server';
 import { TRANING_RUTT } from '@/lib/traning/rutter';
 import { datumText } from '@/lib/traning/rubrik';
 import { veckodagNamn } from '@/lib/traning/datum';
@@ -26,21 +27,19 @@ export default async function Idag({
   const user = await hamtaVerifieradAnvandare();
   if (!user) redirect('/login');
 
-  const [sum, sp] = await Promise.all([getTraningSummary(user.id), searchParams]);
-  const s = sum.status;
-  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && sum.valdeTester && sp.visa !== 'hem') {
+  const [underlag, data, sp] = await Promise.all([hamtaUnderlagV4(user.id), hamtaTesterV4(user.id), searchParams]);
+  if (sp.visa !== 'hem' && ingangForst(underlag, data)) {
     redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
 
-  const m = byggHemvy({ status: s, idag: sum.idag, flerTester: sum.flerTester, jobbsok: sum.jobbsok });
-  if (m.nyPunkt) after(() => markeraTraningSedd(user.id));
+  if (underlag.status?.nyPunkt) after(() => markeraTraningSedd(user.id));
 
   const meta = user.user_metadata as { full_name?: string; name?: string } | undefined;
   return (
     <IdagVy
-      m={m}
-      s={s}
-      dag={`${veckodagNamn(sum.idag)} ${datumText(sum.idag)}`}
+      data={data}
+      aktivaDagar={underlag.modell.aktivaDagar}
+      dag={`${veckodagNamn(data.idag)} ${datumText(data.idag)}`}
       initial={initialer(meta?.full_name ?? meta?.name, user.email)}
     />
   );

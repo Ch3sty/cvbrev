@@ -27,6 +27,7 @@ import {
   arSteg,
   DATUMVAL_TEXT,
   datumText,
+  GRATISLOFTE,
   lasMinne,
   planremsa,
   planSammanfattning,
@@ -241,14 +242,14 @@ export default function Onboarding({ startSteg, inloggad }: { startSteg: Steg; i
             </div>
             <h1 className="tk-h1">Träna inför ditt rekryteringstest</h1>
             <p className="tk-p" style={{ marginTop: 10 }}>
-              Ett pass om dagen i samma format som provet. Regeln efter varje svar, och nivån som stiger vecka för vecka fram till provdagen.
+              Uppgifter i samma format som provet. Regeln efter varje svar, och nivån som stiger vecka för vecka fram till provdagen.
             </p>
             <div className="tk-onb-fot">
               <p className="tk-meta" style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
                 <span style={{ color: 'var(--kop-ink)', flex: '0 0 auto' }}>
                   <IkonBock size={18} />
                 </span>
-                <span>Nivåkollen och första passet är gratis. Premium 149 kr i månaden. Säg upp när du vill.</span>
+                <span>{GRATISLOFTE}</span>
               </p>
               <button type="button" className="tk-knapp kop tk-tryck" onClick={() => (haptik('latt'), ga('test'))}>
                 Kom igång
@@ -318,7 +319,7 @@ export default function Onboarding({ startSteg, inloggad }: { startSteg: Steg; i
             <StegRad steg={steg} />
             <h1 className="tk-h1">När är provet?</h1>
             <p className="tk-p" style={{ margin: '8px 0 16px' }}>
-              Vi lägger passen fram till dagen, med ny nivåkoll varje vecka och övningsprov de sista dagarna.
+              Vi lägger upp träningen fram till dagen, med ny nivåkoll var sjunde dag och ett övningsprov två dagar före provet.
             </p>
             <div className="tk-datumval">
               {(['1v', '2v', '3v', '1m'] as const).map((d) => (
@@ -422,7 +423,7 @@ export default function Onboarding({ startSteg, inloggad }: { startSteg: Steg; i
               Nivåkollen
             </h1>
             <p className="tk-p" style={{ marginTop: 10 }}>
-              Tolv uppgifter som följer dina svar: rätt ger svårare, fel ger lättare. Ingen förklaring under tiden, allt efteråt. Du får en nivå mellan 1 och 10 och passen
+              Tolv uppgifter som följer dina svar: rätt ger svårare, fel ger lättare. Ingen förklaring under tiden, allt efteråt. Du får en nivå mellan 1 och 10 och träningen
               börjar där.
             </p>
             <div className="tk-fakta">

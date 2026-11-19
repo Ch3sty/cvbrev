@@ -4,7 +4,7 @@
  * Nivåögonblicket (konceptets V.nkResultat): rummet släcks, talet räknar upp
  * från 1 till nivån med haptik när det landar, skalan fylls, meningen säger
  * vad nivån betyder. Tre tal, målet som förslag och en enda kopparknapp:
- * utan konto "Spara och fortsätt", med konto dagens grundpass. Var de
+ * utan konto "Spara och fortsätt", med konto dagens grundnivåtest. Var de
  * tappade som staplar och planen som remsa.
  *
  * Vymodellen är webbens egen (matningResultat i lib/traning/resultat.ts),
@@ -14,9 +14,10 @@ import { useEffect, useState } from 'react';
 import type { MatningResultat } from '@/lib/traning/resultat';
 import { IkonX } from '../ikoner';
 import { haptik, statusfalt } from '../skal';
+import { GRUNDTEST_IDAG, type Remsdag } from '@/lib/mobilapp/onboarding';
 import { NattSkala, Planremsa } from './Bilder';
 
-type Dagtyp = 'matning' | 'pass' | 'vila' | 'ommatning' | 'general' | 'prov';
+type Dagtyp = Remsdag;
 
 function useRaknaUpp(mal: number, ms = 900): number {
   const [n, setN] = useState(1);
@@ -121,7 +122,7 @@ export default function Nivaogonblick({
                 Ett konto, så står nivån kvar
               </h2>
               <p className="tk-p" style={{ marginTop: 6 }}>
-                Nivå {vm.heltal}, {provText} och dagens grundpass, gratis i dag. Samma konto som på jobbcoach.ai.
+                Nivå {vm.heltal}, {provText} och dagens grundnivåtest, gratis i dag. Samma konto som på jobbcoach.ai.
               </p>
               <button type="button" className="tk-knapp kop tk-tryck" style={{ marginTop: 14 }} onClick={onSpara}>
                 Spara och fortsätt
@@ -129,15 +130,15 @@ export default function Nivaogonblick({
             </>
           ) : (
             <>
-              <p className="tk-ey kop">I dag, gratis</p>
+              <p className="tk-ey kop">{GRUNDTEST_IDAG.eyebrow}</p>
               <h2 className="tk-h2" style={{ marginTop: 4 }}>
-                Ett grundpass på din nivå
+                {GRUNDTEST_IDAG.rubrik}
               </h2>
               <p className="tk-p" style={{ marginTop: 6 }}>
-                Nio uppgifter, cirka tio minuter. Regeln efter varje svar. Från i morgon ingår passen i Premium.
+                {GRUNDTEST_IDAG.text}
               </p>
               <button type="button" className="tk-knapp kop tk-tryck" style={{ marginTop: 14 }} onClick={onGrundpass}>
-                Gör dagens grundpass
+                {GRUNDTEST_IDAG.knapp}
               </button>
             </>
           )}

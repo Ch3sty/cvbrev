@@ -6,12 +6,13 @@
  * När mätningen är avslutad tar appen över och visar nivåögonblicket i
  * stället för webbens resultatvy; PassFlode ändras inte.
  *
- * Krysset uppe till vänster ("Avsluta passet") leder tillbaka till
+ * Krysset uppe till vänster (data-kryss, "Avsluta träningen") leder tillbaka till
  * Nivåkollens start i stället för till Idag, eftersom kontot kanske inte
  * finns än. Svaren är sparade efter varje fråga.
  */
 import { useMemo, useRef } from 'react';
 import PassFlode from '@/components/traning/PassFlode';
+import { AVSLUTA_SELEKTOR } from '@/lib/mobilapp/kryss';
 import { fetchPassApi, type Avslut, type PassApi, type Traningsstatus } from '@/lib/traning/klient';
 
 export default function NivakollPass({
@@ -44,7 +45,7 @@ export default function NivakollPass({
     <div
       className="flex flex-1 flex-col"
       onClickCapture={(e) => {
-        const kryss = (e.target as Element | null)?.closest?.('button[aria-label="Avsluta passet"], a[aria-label="Avsluta passet"]');
+        const kryss = (e.target as Element | null)?.closest?.(AVSLUTA_SELEKTOR);
         if (!kryss) return;
         e.preventDefault();
         e.stopPropagation();

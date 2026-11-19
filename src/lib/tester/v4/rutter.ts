@@ -7,6 +7,7 @@
 
 import { TRANING_RUTT, nivakollHref, ovningsprovHref, passHref, sessionHref, steg2PassHref, vnPassHref } from '@/lib/traning/rutter';
 import type { TestTypId, Zon } from './typer';
+import { NIVA_TEST_ANTAL } from './copy';
 
 export const HEM_HREF = '/dashboard/tester';
 export const TESTER_HREF = '/dashboard/tester/alla';
@@ -110,4 +111,12 @@ export function ovningsprovHrefV4(typ: TestTypId): string | null {
 /** Genomgången av en slutförd session i passflödet. */
 export function genomgangHref(sessionId: string): string {
   return sessionHref(sessionId);
+}
+
+/**
+ * Raden för en omätt testtyp: Nivåkollen där den finns, annars nivåtestet på
+ * grundnivå (talserier, spatial förmåga, ordförråd har ingen Nivåkoll).
+ */
+export function omattMeta(typ: TestTypId): string {
+  return NIVAKOLL_FINNS[typ] ? 'Nivåkoll, 8 min' : `Nivåtest, ${NIVA_TEST_ANTAL[typ].grund} uppgifter`;
 }

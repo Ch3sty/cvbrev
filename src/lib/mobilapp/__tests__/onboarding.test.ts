@@ -10,6 +10,8 @@ import {
   stegRad,
   tolkaMinne,
   STANDARD,
+  GRATISLOFTE,
+  GRUNDTEST_IDAG,
 } from '../onboarding';
 import { arNyIdentitet } from '../onboarding-overforing.server';
 
@@ -34,22 +36,37 @@ describe('provdatumFor', () => {
 });
 
 describe('planen', () => {
-  it('sammanfattar med webbens byggPlan', () => {
+  it('sammanfattar ur v4:s bana, utan ordet pass', () => {
     const p = planSammanfattning('2026-12-04', IDAG);
     expect(p.rubrik).toBe('Planen till 4 december');
     expect(p.dagar).toBe(21);
-    expect(p.text).toMatch(/^21 dagar, \d+ pass, .* och två övningsprov$/);
+    // Nivåkoll dag 0, 7 och 14; övningsprovet dag 19; provet dag 21.
+    expect(p.text).toBe('21 dagar, tre nivåkoller och ett övningsprov');
+    expect(p.text).not.toMatch(/pass/);
   });
-  it('utan datum en rullande vecka', () => {
-    expect(planSammanfattning(null, IDAG).rubrik).toBe('Planen, en vecka i taget');
-    const r = planremsa(null, IDAG);
-    expect(r[0]).toBe('matning');
-    expect(r).toHaveLength(8);
+  it('utan datum en rullande vecka till nästa nivåkoll', () => {
+    const p = planSammanfattning(null, IDAG);
+    expect(p.rubrik).toBe('Planen, en vecka i taget');
+    expect(p.text).not.toMatch(/pass/);
+    expect(planremsa(null, IDAG)).toEqual(['nivakoll', 'trana', 'trana', 'trana', 'trana', 'trana', 'trana', 'nivakoll']);
   });
-  it('remsan slutar på provdagen', () => {
-    const r = planremsa('2026-11-20', IDAG);
-    expect(r[r.length - 1]).toBe('prov');
-    expect(r[r.length - 2]).toBe('general');
+  it('remsan: nivåkoll var sjunde dag, övningsprovet två dagar före och provet sist', () => {
+    const r = planremsa('2026-12-04', IDAG);
+    expect(r).toHaveLength(22);
+    expect([r[0], r[7], r[14]]).toEqual(['nivakoll', 'nivakoll', 'nivakoll']);
+    expect(r[19]).toBe('ovningsprov');
+    expect(r[21]).toBe('prov');
+    expect(r.filter((d) => d === 'nivakoll')).toHaveLength(3);
+    const kort = planremsa('2026-11-20', IDAG);
+    expect(kort[kort.length - 1]).toBe('prov');
+    expect(kort[kort.length - 3]).toBe('ovningsprov');
+  });
+  it('gratislöftena följer v4 och har inget hårdkodat pris', () => {
+    expect(GRATISLOFTE).toBe('Ett grundnivåtest om dagen, gratis, valfri testtyp. Nivåkollen är gratis en gång per testtyp.');
+    expect(GRUNDTEST_IDAG.text).toContain('Ett grundnivåtest om dagen ingår gratis, valfri testtyp.');
+    for (const t of [GRATISLOFTE, ...Object.values(GRUNDTEST_IDAG)]) {
+      expect(t).not.toMatch(/kr|pass|—/);
+    }
   });
   it('kroppen till plan-API:t är webbens planFranVal plus provdatum', () => {
     const k = planKropp({ test: 'iprov', datum: '1v', kalender: null }, IDAG);
@@ -109,6 +126,7 @@ describe('arNyIdentitet', () => {
 
 describe('planens rad', () => {
   it('en nivåkoll, inte ett', () => {
-    expect(planSammanfattning('2026-11-27', IDAG).text).toMatch(/, en nivåkoll och /);
+    expect(planSammanfattning('2026-11-20', IDAG).text).toBe('7 dagar, en nivåkoll och ett övningsprov');
+    expect(planSammanfattning('2026-11-27', IDAG).text).toBe('14 dagar, två nivåkoller och ett övningsprov');
   });
 });

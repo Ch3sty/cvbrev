@@ -6,7 +6,8 @@
 //
 // Ren fil, går att importera från klienten och från vitest.
 
-import { byggPlan, raknaPlan } from '@/lib/traning/plan';
+import { NIVAKOLL_INTERVALL_DAGAR, foreslagetOvningsprov } from '@/lib/tester/v4/bana';
+import { GRATISRAD, GRUND_GRATISRAD } from '@/lib/tester/v4/copy';
 import { dagSthlm, laggTill, dagarMellan, arGiltigDag, type Dag } from '@/lib/traning/datum';
 import { PROVDATUM_MAX_DAGAR } from '@/lib/traning/testplan';
 import { arMittTest, planFranVal, type MittTest } from '@/lib/traning/mittTest';
@@ -75,31 +76,68 @@ export function datumText(dag: Dag): string {
 const TAL = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio'];
 const tal = (n: number) => (n >= 0 && n < TAL.length ? TAL[n] : String(n));
 
+/** Planremsans dagar enligt testernas v4-bana (bana.ts). */
+export type Remsdag = 'nivakoll' | 'trana' | 'ovningsprov' | 'prov';
+
+/** Utan datum: en rullande vecka plus nästa Nivåkoll. */
+const RULLANDE_DAGAR = NIVAKOLL_INTERVALL_DAGAR;
+
 /**
- * Planens rad under datumvalet, räknad med webbens byggPlan: dagar, pass,
+ * Planremsan enligt v4:s bana (bana.ts): Nivåkollen i dag och sedan var
+ * sjunde dag, övningsprovet två dagar före provet och provet sist. Övriga
+ * dagar är träning. Utan datum en rullande vecka till nästa Nivåkoll.
+ */
+export function planremsa(prov: Dag | null, idag: Dag = dagSthlm()): Remsdag[] {
+  const n = prov ? Math.max(0, dagarMellan(idag, prov)) : RULLANDE_DAGAR;
+  const ov = foreslagetOvningsprov(prov, idag);
+  const ut: Remsdag[] = [];
+  for (let i = 0; i <= n; i++) {
+    const dag = laggTill(idag, i);
+    if (prov && dag === prov) ut.push('prov');
+    else if (i > 0 && ov && dag === ov) ut.push('ovningsprov');
+    else if (i % NIVAKOLL_INTERVALL_DAGAR === 0) ut.push('nivakoll');
+    else ut.push('trana');
+  }
+  return ut;
+}
+
+/**
+ * Planens rad under datumvalet, räknad ur samma bana som remsan: dagar,
  * nivåkoller och övningsprov. Utan datum en rullande vecka.
  */
 export function planSammanfattning(prov: Dag | null, idag: Dag = dagSthlm()): { rubrik: string; text: string; dagar: number } {
   if (!prov) {
-    return { rubrik: 'Planen, en vecka i taget', text: 'Ett pass om dagen, ny nivåkoll var sjunde dag', dagar: 7 };
+    return { rubrik: 'Planen, en vecka i taget', text: 'Träning på din nivå, ny nivåkoll var sjunde dag', dagar: RULLANDE_DAGAR };
   }
-  const plan = byggPlan({ start: idag, prov, idag, betalande: true });
-  const r = raknaPlan(plan);
+  const remsa = planremsa(prov, idag);
+  const nk = remsa.filter((d) => d === 'nivakoll').length;
+  const ov = remsa.filter((d) => d === 'ovningsprov').length;
   const dagar = dagarMellan(idag, prov);
-  const delar = [
-    `${dagar} ${dagar === 1 ? 'dag' : 'dagar'}`,
-    `${r.pass} pass`,
-    `${r.ommatning === 1 ? 'en nivåkoll' : `${tal(r.ommatning)} nivåkoller`}`,
-  ];
-  if (r.general > 0) delar.push(`${tal(r.general)} övningsprov`);
+  const delar = [`${dagar} ${dagar === 1 ? 'dag' : 'dagar'}`, nk === 1 ? 'en nivåkoll' : `${tal(nk)} nivåkoller`];
+  if (ov > 0) delar.push(ov === 1 ? 'ett övningsprov' : `${tal(ov)} övningsprov`);
   const text = delar.length > 1 ? `${delar.slice(0, -1).join(', ')} och ${delar[delar.length - 1]}` : delar[0];
   return { rubrik: `Planen till ${datumText(prov)}`, text, dagar };
 }
 
-/** Planremsans dagar: mätning i dag, pass, vila, nivåkoll, övningsprov, provet. */
-export function planremsa(prov: Dag | null, idag: Dag = dagSthlm()): ('matning' | 'pass' | 'vila' | 'ommatning' | 'general' | 'prov')[] {
-  return byggPlan({ start: idag, prov, idag, betalande: true, rullandeDagar: 7 }).map((d) => d.typ);
-}
+/* ------------------------------------------------------------ gratislöftena */
+
+/**
+ * Gratisnivån i v4 (gratis.ts, ägarens beslut 2026-11-19): ett grundnivåtest
+ * om dagen över alla testtyper och Nivåkollen en gång per testtyp. Inget pris
+ * här; köpvyn visar butikens pris.
+ */
+export const GRATISLOFTE = `${GRATISRAD.rubrikKvar}, valfri testtyp. Nivåkollen är gratis en gång per testtyp.`;
+
+/**
+ * Efter Nivåkollen dag 0: grundträningen i dag är dagens gratistest och räknas
+ * in i kvoten (quotaService GRUND_KVOT_TEST_TYPER), så det står ett, inte två.
+ */
+export const GRUNDTEST_IDAG = {
+  eyebrow: 'I dag, gratis',
+  rubrik: 'Träna på grundnivå',
+  text: `Nio uppgifter, cirka tio minuter. Regeln efter varje svar. ${GRUND_GRATISRAD}`,
+  knapp: 'Träna på grundnivå',
+} as const;
 
 /* ------------------------------------------------------------ minnet i appen */
 

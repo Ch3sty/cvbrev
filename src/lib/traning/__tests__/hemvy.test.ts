@@ -371,3 +371,28 @@ describe('beslut-hemvy 2026-10-11', () => {
     expect(rad?.meta).not.toMatch(/\b0\b/)
   })
 })
+
+describe('I-provet utan nivå (1r) och dagens kvot (M5)', () => {
+  const iprov = (grundKvarIdag?: number) => {
+    const inp = fixtur('1a')
+    const s = inp.status!
+    return byggHemvy({
+      ...inp,
+      status: {
+        ...s,
+        niva: null,
+        ...(grundKvarIdag != null ? { grundKvarIdag } : {}),
+        plan: { ...s.plan!, mitt_test: 'iprov', leverantor: null, testtyper: ['ordforrad', 'spatial', 'talserie'] },
+      },
+    })
+  }
+  it('kvoten kvar: nivåtestet på grundnivå, gratis', () => {
+    const m = iprov(1)
+    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Gör nivåtestet, grund' })
+  })
+  it('dagens grundnivåtest gjort: inget löfte om gratis, köpknapp', () => {
+    const m = iprov(0)
+    expect(m.lyft.handling).toMatchObject({ typ: 'kop' })
+    expect(m.lyft.text).toContain('Nästa gratis test i morgon, valfri typ')
+  })
+})

@@ -1,5 +1,5 @@
 // src/lib/mobilapp/notis.ts
-// Påminnelsen om dagens pass (docs/plan-app.md, avsnitt 2.7, och konceptets
+// Påminnelsen om dagens test (docs/plan-app.md, avsnitt 2.7, och konceptets
 // notisfråga). En notis om dagen vid vald tid, svensk tid. Tiden sparas i
 // app_enheter.paminnelse_tid; utskicket görs av edge-funktionen
 // supabase/functions/app-paminnelse, som pg_cron anropar varje kvart.
@@ -50,5 +50,5 @@ export function validerEnhet(v: unknown, kravToken: boolean): { ok: true; data: 
   return { ok: true, data };
 }
 
-/** Texten i notisen (uppdraget och konceptet). */
-export const NOTIS_TEXT = { titel: 'Dags för dagens pass i Testklar', text: 'Ditt pass för i dag väntar.' };
+/** Texten i notisen, samma för gratis och Premium (supabase/functions/app-paminnelse). */
+export const NOTIS_TEXT = { titel: 'Dags för dagens test i Testklar', text: 'Några minuter i dag räcker för att hålla nivån.' };

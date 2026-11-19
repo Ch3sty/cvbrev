@@ -1,9 +1,9 @@
 'use client';
 
 /**
- * Notisfrågan efter första klara passet (konceptets ark "notis" och
+ * Notisfrågan efter första klara testet (konceptets ark "notis" och
  * "system", docs/plan-app.md 2.7). Aldrig vid start: flikarnas layout
- * skickar visa bara när kontot har ett klart pass och ingen telefon i
+ * skickar visa bara när kontot har ett klart test och ingen telefon i
  * app_enheter. Vår egen fråga kommer först; systemets dialog visas bara
  * efter ett ja här. "Inte nu" sparas på telefonen och frågan kommer inte
  * igen; påminnelsen går att slå på i kontot.
@@ -120,7 +120,7 @@ export default function NotisFraga({ visa, harEnhet }: { visa: boolean; harEnhet
               </h2>
             </div>
             <p className="tk-p" style={{ marginTop: 12 }}>
-              En notis om dagen, &quot;Dags för dagens pass i Testklar&quot;. Aldrig mer än en, och du stänger av när du vill.
+              En notis om dagen, &quot;Dags för dagens test i Testklar&quot;. Aldrig mer än en, och du stänger av när du vill.
             </p>
             <p className="tk-ey" style={{ marginTop: 16 }}>
               När passar det?

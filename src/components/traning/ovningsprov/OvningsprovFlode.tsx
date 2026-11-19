@@ -202,7 +202,7 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-ovningsprov={vy.typ}>
       <header className="flex-shrink-0 border-b border-kant bg-papper">
         <div className="mx-auto flex h-[60px] w-full max-w-[640px] items-center gap-2 pl-1 pr-2">
-          <button type="button" onClick={stang} aria-label={FRAGA.avbryt} className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 hover:bg-papper-2">
+          <button type="button" onClick={stang} aria-label={FRAGA.avbryt} data-kryss="" className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 hover:bg-papper-2">
             <IkonX />
           </button>
           <p className="min-w-0 flex-1">

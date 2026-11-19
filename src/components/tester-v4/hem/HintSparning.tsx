@@ -50,6 +50,8 @@ export interface HintKontext {
   planTest: string | null
   /** Planens typer, för i_planens_test. */
   planTyper: readonly TestTypId[]
+  /** Appen (Testklar) skickar 'app'; utelämnat är webben. */
+  plattform?: 'webb' | 'app'
 }
 
 function egenskaper(h: Pick<Hint, 'id' | 'typ' | 'testtyp'>, k: HintKontext, plats: number) {
@@ -60,7 +62,7 @@ function egenskaper(h: Pick<Hint, 'id' | 'typ' | 'testtyp'>, k: HintKontext, pla
     plats,
     plan_test: k.planTest,
     i_planens_test: h.testtyp ? k.planTyper.includes(h.testtyp) : false,
-    plattform: 'webb' as const,
+    plattform: k.plattform ?? ('webb' as const),
   }
 }
 

@@ -59,6 +59,7 @@ export default function ResultatSkal({ kontext, raknare, vagg, golv, fot, motion
                 type="button"
                 onClick={stang}
                 aria-label={PASS_COPY.topp.stang}
+                data-kryss=""
                 className="-ml-1 inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px]"
               >
                 <IkonX />

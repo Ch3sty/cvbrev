@@ -57,6 +57,7 @@ export default function Kvitto({ data, markera = true }: KvittoProps) {
             <Link
               href={TRANING_HREF}
               aria-label={PASS_COPY.topp.stang}
+              data-kryss=""
               className="-mr-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px] text-vagg-ink"
             >
               <IkonX />
