@@ -16,7 +16,7 @@ import type { OrdFraga, OrdNiva, OrdTyp } from './types';
 
 export const FRAGOR_PER_SESSION = 20;
 export const BLOCK = 5;
-export const ORD_VERSION = 3;
+export const ORD_VERSION = 4;
 /** Ungefärlig tid för nivåtestet (briefen avsnitt 4). */
 export const TIDSGRANS_S: Record<OrdNiva, number> = { grund: 8 * 60, avancerad: 10 * 60, expert: 12 * 60 };
 /** Tid per uppgift i provformat. */
