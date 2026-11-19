@@ -115,6 +115,25 @@ export function kontrolleraFalt(epost: string, losen: string): KontoSvar | null 
   return null;
 }
 
+/**
+ * E-posten på den anonyma användaren, via /api/konto/byt-epost. Supabase
+ * skickar inga mejl själv (ingen SMTP sedan flytten till Irland), så
+ * updateUser({ email }) lämnade adressen hängande i new_email. Rutten sätter
+ * den direkt på ett konto utan e-post. Felen kastas med samma koder som
+ * Supabase, så felhanteringen nedan är oförändrad.
+ */
+async function sattEpost(epost: string): Promise<void> {
+  const r = await fetch('/api/konto/byt-epost', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: epost }),
+  });
+  if (r.ok) return;
+  const j = (await r.json().catch(() => null)) as { error?: unknown } | null;
+  const kod = typeof j?.error === 'string' ? j.error : `http_${r.status}`;
+  throw Object.assign(new Error(kod), { code: kod });
+}
+
 /** Skapa konto med e-post och lösenord. En anonym session blir själv kontot. */
 export async function skapaKontoEpost(epost: string, losen: string): Promise<KontoSvar> {
   const fel = kontrolleraFalt(epost, losen);
@@ -126,8 +145,7 @@ export async function skapaKontoEpost(epost: string, losen: string): Promise<Kon
     let userId: string;
     if (lage === 'anonym') {
       // E-posten först: Supabase tillåter inte lösenord på en anonym användare utan e-post.
-      const e = await supabase.auth.updateUser({ email: epost.trim() });
-      if (e.error) throw e.error;
+      await sattEpost(epost.trim());
       const p = await supabase.auth.updateUser({ password: losen });
       if (p.error) throw p.error;
       userId = p.data.user.id;

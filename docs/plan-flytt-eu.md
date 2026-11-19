@@ -138,7 +138,7 @@ Om backningen sker efter att användare har skrivit i NYA: dumpa data ur NYA fö
 
 Flytten räknas inte som klar förrän de här punkterna är gjorda.
 
-- [ ] **E-postbyte i appen via Resend.** Ersätt `supabase.auth.updateUser({ email })` i appens konto (`src/components/mobilapp/inloggning/konto.ts`) med en egen rutt som skapar bekräftelselänken med `auth.admin.generateLink({ type: 'email_change_new' })` och skickar den med Resend, på samma sätt som `/api/auth/forgot-password`. Då används Supabases SMTP inte alls och behöver inte sättas i NYA.
+- [x] **E-postbyte i appen via Resend (klart 2026-11-19).** Ersätt `supabase.auth.updateUser({ email })` i appens konto (`src/components/mobilapp/inloggning/konto.ts`) med en egen rutt som skapar bekräftelselänken med `auth.admin.generateLink({ type: 'email_change_new' })` och skickar den med Resend, på samma sätt som `/api/auth/forgot-password`. Då används Supabases SMTP inte alls och behöver inte sättas i NYA.
 - [ ] **RevenueCat:** inget konto finns än, ingen åtgärd vid flytten. Webhooken pekar på `/api/app/revenuecat` hos Vercel när den sätts upp.
 - [ ] **aggregate-daily-metrics:** slå på i NYA vid bytet (rättat anrop, skriver bara till `admin_daily_metrics` som admin-sidan Drift läser).
 - [ ] **Byt databaslösenorden** i båda projekten efter flytten och ta bort `OLD_DB_URL` och `NEW_DB_URL` ur `.env.local`.

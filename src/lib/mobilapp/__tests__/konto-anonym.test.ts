@@ -1,6 +1,7 @@
 // Appens kontoskapande (components/mobilapp/inloggning/konto.ts) med och
 // utan anonym session. Den anonyma användaren blir själv kontot med e-post
-// (updateUser, e-post före lösenord); utan anonym session signUp som webben.
+// (/api/konto/byt-epost, sedan updateUser med lösenordet); utan anonym session
+// signUp som webben.
 // Vid inloggning på ett befintligt konto flyttas Nivåkollen med den anonyma
 // sessionens token.
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -60,14 +61,25 @@ describe('Nivåkollen före kontot', () => {
     expect(await startaAnonym()).toBe(false);
   });
 
-  it('en anonym session blir själv kontot: e-post först, sedan lösenord, ingen signUp', async () => {
+  it('en anonym session blir själv kontot: e-post via rutten, sedan lösenord, ingen signUp', async () => {
     await startaAnonym();
     anrop.length = 0;
     const r = await skapaKontoEpost('ny@exempel.se', 'langtlosen');
     expect(r).toEqual({ ok: true, nytt: true });
-    expect(anrop).toEqual(['updateUser:email', 'updateUser:password']);
+    // E-posten via rutten (Supabase skickar inga mejl), före lösenordet.
+    expect(anrop).toEqual(['updateUser:password']);
+    expect(fetchar[0]).toEqual({ url: '/api/konto/byt-epost', kropp: { email: 'ny@exempel.se' } });
     expect(fetchar.map((f) => f.url)).toContain('/api/app/anonym/nytt-konto');
     expect(fetchar.some((f) => f.url === '/api/app/anonym/overfor')).toBe(false);
+  });
+
+  it('en upptagen adress ger samma fel som förut och inget lösenord sätts', async () => {
+    await startaAnonym();
+    anrop.length = 0;
+    vi.stubGlobal('fetch', async () => new Response(JSON.stringify({ error: 'email_exists' }), { status: 409 }));
+    const r = await skapaKontoEpost('finns@exempel.se', 'langtlosen');
+    expect(r).toMatchObject({ ok: false, falt: 'epost', finns: true });
+    expect(anrop).toEqual([]);
   });
 
   it('utan anonym session skapas kontot med signUp som på webben', async () => {
