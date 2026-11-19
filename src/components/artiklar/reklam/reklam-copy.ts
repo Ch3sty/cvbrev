@@ -25,7 +25,7 @@ import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
-import { GRATIS_LISTA, GRATIS_MALLRAD, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { GRATIS_LISTA, GRATIS_MALLRAD, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 
 const PLAN = PLAN_BY_KEY[SALD_PLAN]
 /** "Jobbcoach Premium" */
@@ -106,7 +106,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
 export const INLINE_PROVA = {
   etikett: 'Prova på riktigt',
   rubrik: 'Vilken figur hör hemma i den tomma rutan?',
-  text: `Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA} gratis med konto.`,
+  text: `Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA_DAG}, gratis med konto.`,
   knapp: 'Prova fem frågor',
   href: '/verktyg/rekryteringstester/prova',
   /** Paketraden (S2): leverantörsnamnen, alltid "i samma format som". */
@@ -257,7 +257,7 @@ export const GRATIS_KORT = {
   /** Raden som länkar till /cv-mallar (SEO-spärrlistan punkt 4). */
   mallrad: GRATIS_MALLRAD,
   /** Captionen under Nio-raden i sidokolumnen (S7, copy 2026-11-15). */
-  nioCaption: 'Grundnivån gratis i alla nio',
+  breddCaption: 'Åtta testtyper och personlighetstestet',
   knapp: 'Skapa konto gratis',
   href: '/register',
   sekundar: { text: 'Se vad som ingår i Premium', href: '/priser' },

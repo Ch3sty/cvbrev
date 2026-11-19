@@ -50,7 +50,7 @@ interface Props {
 export const FRAGA: Record<string, string> = {
   logik: 'Vilken figur kommer härnäst?',
   figurer: 'Vilken figur kommer härnäst i raden?',
-  deduktiv: 'Vem står var när alla villkor gäller?',
+  deduktiv: 'Vad måste gälla när alla villkor gäller?',
   talserie: 'Vilka tal kommer härnäst?',
   spatial: 'Vrida, vika och se i tre dimensioner',
   ordforrad: 'Synonymer och motsatsord',

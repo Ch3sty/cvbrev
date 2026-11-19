@@ -89,7 +89,7 @@ export default async function Konto() {
             </p>
             <p className="tk-meta">
               {!harPremium
-                ? `Valfri testtyp, och Nivåkollen en gång per testtyp. Träning på din nivå, avancerad nivå och expertnivå ingår i Premium, ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden.`
+                ? `Valfri testtyp. Där Nivåkollen finns gör du den en gång gratis. Träning på din nivå, avancerad nivå och expertnivå ingår i Premium, ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden.`
                 : butik
                   ? `Sägs upp i ${lage.kalla === 'play' ? 'Google Play' : 'App Store'}. Gäller även på jobbcoach.ai.`
                   : 'Köpt på jobbcoach.ai och hanteras där, under Prenumeration. Gäller även här, med samma konto.'}

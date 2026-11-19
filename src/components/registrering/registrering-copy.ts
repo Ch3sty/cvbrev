@@ -231,7 +231,7 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Grundnivån i alla testtyper är gratis med kontot. Träningspass på din nivå varje dag ingår i ${PREMIUM}.`,
+      under: `Ett grundnivåtest om dagen är gratis med kontot, i vilken testtyp du vill. Att träna på din nivå så ofta du vill ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ` i alla ${TESTTYPER_ORD} testtyperna.` },
@@ -350,7 +350,7 @@ export const KONTO_GRATIS = {
   kick: 'Det här ingår gratis',
   rubrik: 'Börja med det som avgör urvalet',
   rader: [
-    { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} typerna, med genomgång av varje fråga.` },
+    { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} typerna, ett test om dagen, med genomgång av varje fråga.` },
     { ikon: 'cv', namn: 'CV-analysen', text: 'Poängen och det tyngsta fyndet i ditt CV.' },
     { ikon: 'brev', namn: 'Ett personligt brev', text: 'Skrivet på annonsen utifrån ditt CV.' },
   ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev'; namn: string; text: string }[],

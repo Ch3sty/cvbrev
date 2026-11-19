@@ -145,7 +145,7 @@ export function SymVerbal(p: IlluProps) {
 
 /* ------------------------------------------------------------ Nio */
 
-/** De nio testtyperna, i rutnätets ordning rad för rad. */
+/** De nio glyferna, åtta testtyper och personlighetstestet, i rutnätets ordning rad för rad. */
 export const TEST_TYPER = [
   'matris',
   'figurer',

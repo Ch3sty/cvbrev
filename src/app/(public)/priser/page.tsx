@@ -22,6 +22,7 @@ import Rum from '@/components/publikt/Rum'
 import Station from '@/components/publikt/Station'
 import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
 import TestBredd from '@/components/publikt/TestBredd'
+import Bankbredd from '@/components/publikt/Bankbredd'
 import PrisTabell from '@/components/publikt/PrisTabell'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -47,7 +48,7 @@ import {
 } from './components/priser-data'
 import { faqSchema, prisSchema } from './components/priser-schema'
 import { FORTROENDE, FUNKTIONER, GRATIS, GUIDE, PAKET_KORT } from '@/components/pricing/paket-copy'
-import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
@@ -168,7 +169,11 @@ export default function PriserSida() {
                 <ul className="pub-gratis-rad" aria-label="Gratisnivån i siffror">
                   {/* Testplattan har bild i stället för tal: Nio-rutnätet (S10). */}
                   <li className="pub-rum-tran tb-platta">
-                    <TestBredd form="rutnat" text="Grundnivån i alla nio" label="Nio testtyper, grundnivån i alla" />
+                    <TestBredd
+                      form="rutnat"
+                      text="Åtta testtyper och personlighetstestet"
+                      label="Åtta testtyper och personlighetstestet, grundnivån gratis ett test om dagen"
+                    />
                   </li>
                   {GRATIS_RAD.map((g) => (
                     <li key={g.text} className={`pub-rum-${g.rum}`}>
@@ -199,7 +204,7 @@ export default function PriserSida() {
             objekt="matris"
             rubrik={tester.rubrik}
             rubrikNiva="h3"
-            gratisRad={`Ingår i Premium. Gratis: ${GRUNDNIVAN_ALLA} med genomgång, och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
+            gratisRad={`Ingår i Premium. Gratis: ${GRUNDNIVAN_ALLA_DAG}, med genomgång, och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
             text={
               <>
                 {tester.text.replace(/\d+ till \d+ minuter/, `${PROV_MINUTER.min} till ${PROV_MINUTER.max} minuter`)}{' '}
@@ -221,6 +226,13 @@ export default function PriserSida() {
               text: `Gör personlighetstestet, ${T.personlighetProv} påståenden utan konto`,
               href: '/verktyg/personlighetstest',
             }}
+            efter={
+              // Bankbredden i Premium-stationen, aldrig på gratisplattan: där
+              // skulle talet läsas som gratis (docs/design/bankbredd-2026-11-19.md).
+              <div className="pub-kort" style={{ marginTop: 28, padding: 22 }}>
+                <Bankbredd form="platta" yta="ljus" text="Nivån räknas bara på det du inte sett den senaste månaden." />
+              </div>
+            }
             telefon={
               <div className="pub-duo">
                 <SkarmMatris />

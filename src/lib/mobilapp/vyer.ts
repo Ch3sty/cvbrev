@@ -498,7 +498,7 @@ export function byggKatalogV4(data: TesterV4Data): KatalogV4 {
     : {
         rubrik: kvar ? GRATISRAD.rubrikKvar : GRATISRAD.rubrikSlut,
         text: kvar
-          ? 'Valfri testtyp, och Nivåkollen en gång per testtyp. Genomgången av svaren är alltid öppen.'
+          ? 'Valfri testtyp. Där Nivåkollen finns gör du den en gång gratis. Genomgången av svaren är alltid öppen.'
           : 'Proven ligger på avancerad nivå. Träna, avancerad och expert, Nivåkollen när du vill och övningsprov ingår i Premium.',
         knapp: GRATISRAD.knapp,
         href: APP_PREMIUM,

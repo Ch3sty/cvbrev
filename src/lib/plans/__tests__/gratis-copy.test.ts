@@ -17,6 +17,8 @@ import {
   GRATIS_MENING_LANG_DELAR,
   GRATIS_PASTAENDEN,
   GRATIS_TESTRAD_PROV,
+  GRUNDNIVAN_ALLA_DAG,
+  GRUNDNIVAN_RAD,
   TESTTYPER_ORD,
 } from '../gratis-copy'
 import { TEST_GROUPS } from '@/app/dashboard/tester/components/testCatalog'
@@ -27,7 +29,7 @@ import { FREE_HIGHLIGHTS, GRATIS_RAD } from '@/app/(public)/priser/components/pr
 import { GRATIS } from '@/components/pricing/paket-copy'
 import { KONTO_GRATIS, STEG3 } from '@/components/registrering/registrering-copy'
 
-const ALLA = [GRATIS_FAQ, ...GRATIS_LISTA, GRATIS_MENING_KORT, GRATIS_MENING_LANG, GRATIS_TESTRAD_PROV]
+const ALLA = [GRUNDNIVAN_ALLA_DAG, GRUNDNIVAN_RAD, GRATIS_FAQ, ...GRATIS_LISTA, GRATIS_MENING_KORT, GRATIS_MENING_LANG, GRATIS_TESTRAD_PROV]
 
 describe('gratisnivån, en källa', () => {
   it('räknar de kognitiva testtyperna som Alla tester visar', () => {
@@ -46,7 +48,7 @@ describe('gratisnivån, en källa', () => {
 
   it('listan är fem rader, tester först, och mallraden pekas ut', () => {
     expect(GRATIS_LISTA).toHaveLength(5)
-    expect(GRATIS_LISTA[0]).toBe('Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga')
+    expect(GRATIS_LISTA[0]).toBe('Grundnivån i alla åtta testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje fråga')
     expect(GRATIS_LISTA[GRATIS_MALLRAD]).toBe('Två CV-mallar och en nedladdning')
     expect(GRATIS_LISTA[2]).toBe('En CV-analys med poängen och det tyngsta fyndet')
     expect(GRATIS_LISTA[3]).toBe('Ett personligt brev var sjunde dag, att läsa på skärmen')
@@ -55,15 +57,15 @@ describe('gratisnivån, en källa', () => {
 
   it('meningarna ordagrant enligt beslutet', () => {
     expect(GRATIS_MENING_LANG).toBe(
-      'Utan att betala gör du grundnivån i alla åtta testtyperna och personlighetstestet med 50 påståenden, får två CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag att läsa på skärmen, tre matchade jobb och tio meddelanden till Jobbcoachen. Inget kort behövs.'
+      'Utan att betala gör du grundnivån i alla åtta testtyperna, ett test om dagen, och personlighetstestet med 50 påståenden, får två CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag att läsa på skärmen, tre matchade jobb och tio meddelanden till Jobbcoachen. Inget kort behövs.'
     )
     expect(GRATIS_MENING_LANG_DELAR.map((d) => d.text).join('')).toBe(GRATIS_MENING_LANG)
     expect(GRATIS_MENING_KORT).toBe(
-      'Grundnivån i alla tester, två CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.'
+      'Ett grundnivåtest om dagen, två CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.'
     )
-    expect(GRATIS_TESTRAD_PROV).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto.')
+    expect(GRATIS_TESTRAD_PROV).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen.')
     expect(GRATIS_FAQ).toBe(
-      'Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna och personlighetstestet, 2 CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag, 3 matchade jobb och 10 meddelanden till Jobbcoachen.'
+      'Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna, ett test om dagen, och personlighetstestet, 2 CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag, 3 matchade jobb och 10 meddelanden till Jobbcoachen.'
     )
   })
 
@@ -73,8 +75,8 @@ describe('gratisnivån, en källa', () => {
     expect(GRATIS_RAD).toBe(GRATIS_MENING_KORT)
     expect(GRATIS.delar).toBe(GRATIS_MENING_LANG_DELAR)
     expect(KONTO_GRATIS.rader[0].namn).toBe('Rekryteringstesterna')
-    expect(KONTO_GRATIS.rader[0].text).toBe('Grundnivån i alla åtta typerna, med genomgång av varje fråga.')
-    expect(STEG3.forslag.tester.gratis).toEqual(['Grundnivån i alla åtta testtyperna', 'Genomgång av varje fråga', 'Personlighetstestet med 50 påståenden'])
+    expect(KONTO_GRATIS.rader[0].text).toBe('Grundnivån i alla åtta typerna, ett test om dagen, med genomgång av varje fråga.')
+    expect(STEG3.forslag.tester.gratis).toEqual(['Grundnivån i alla åtta testtyperna, ett test om dagen', 'Genomgång av varje fråga', 'Personlighetstestet med 50 påståenden'])
     expect(STEG3.forslag.cv.gratis).toEqual([GRATIS_LISTA[1], GRATIS_LISTA[2]])
     expect(STEG3.forslag.brev.gratis).toEqual([GRATIS_LISTA[3], GRATIS_LISTA[2]])
   })

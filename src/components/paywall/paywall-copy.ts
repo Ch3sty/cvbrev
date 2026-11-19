@@ -87,6 +87,13 @@ export interface PaywallCopyOpts {
    * Prisraden och knappen får då kampanjpriset; null ger ordinarie.
    */
   kampanj?: KampanjPrisInfo | null
+  /**
+   * Gratisnivåns grundnivåtest kvar i dag (Gratislage.grundKvarIdag), variant
+   * testniva. Är det 0 erbjuder det sekundära inget nytt grundtest utan
+   * länken "Se vad som ingår" (textdäcket 2026-11-19, F4). Okänt gäller
+   * variantens sekundära.
+   */
+  grundKvarIdag?: number | null
 }
 
 /** Kortformen, en gång här så att ingen rad hårdkodar ordet. */
@@ -204,6 +211,22 @@ export function testrumRubrik(plats: BetalvaggPlats | undefined): string | null 
   }
 }
 
+/** T11: rubriken när dagens grundnivåtest är gjort (kvotlåset och test-tak). */
+export const TESTKVOT_RUBRIK = 'Dagens grundnivåtest är gjort'
+
+/**
+ * T11, kvotlåset i testrummet (plats 'kvot', textdäcket 2026-11-19): dagens
+ * grundnivåtest är gjort. Rubrik och brödtext byts, det sekundära är länken
+ * "Se vad som ingår" och knappen står kvar, med kampanjpriset under en kampanj.
+ */
+function testKvotCopy(): Pick<PaywallCopy, 'title' | 'body' | 'secondary'> {
+  return {
+    title: TESTKVOT_RUBRIK,
+    body: `Ett nytt öppnar i morgon, i vilken testtyp du vill. Med ${PREMIUM} väntar du inte: träning på din nivå och tester på alla nivåer, utan tak, och övningsprov mot klockan.`,
+    secondary: PAKETRADER.jamfor,
+  }
+}
+
 /** Featuren varje variant spärrar på. Driver mätningen av feature_blocked. */
 export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   mall: 'cv_templates_all',
@@ -248,7 +271,12 @@ export function getPaywallCopy(
   // sekundära är länken "Se vad som ingår", aldrig "Kör grundnivån igen"
   // (art-director 24.2 fråga 1, 24.3 punkt 5).
   const testrum = variant === 'testniva' ? testrumRubrik(opts?.plats) : null
-  const copy = testrum ? { ...bygg, title: testrum, secondary: PAKETRADER.jamfor } : bygg
+  const copy =
+    variant === 'testniva' && opts?.plats === 'kvot'
+      ? { ...bygg, ...testKvotCopy() }
+      : testrum
+        ? { ...bygg, title: testrum, secondary: PAKETRADER.jamfor }
+        : bygg
   // LinkedIn-väggen bär fulla namnet i rubriken, så prisraden tar den korta
   // formen och namnet står en gång på kortet (copy-premium 3 och 8).
   const kampanj = opts?.kampanj && plan === SALD_PLAN ? opts.kampanj : null
@@ -277,9 +305,9 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'testniva':
       return {
         title: `Avancerad nivå ingår i ${PREMIUM}`,
-        body: `${PREMIUM} ger alla ${TESTTYPER_ORD} testtyperna på alla nivåer, träning varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.`,
+        body: `Avancerad och expert i alla ${TESTTYPER_ORD} testtyperna, träning på din nivå utan tak, övningsprov mot klockan och det fördjupade personlighetstestet. Nivån räknas bara på uppgifter du inte sett den senaste månaden.`,
         primary: knapp,
-        secondary: 'Kör grundnivån igen',
+        secondary: opts?.grundKvarIdag != null && opts.grundKvarIdag <= 0 ? PAKETRADER.jamfor : 'Kör grundnivån igen',
       }
 
     // PW3, alternativ B. Den kvitterar vad användaren redan fått innan den
@@ -371,8 +399,8 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
 
     case 'test-tak':
       return {
-        title: 'Dagens omgång är gjord',
-        body: `${PREMIUM} ger alla nivåer, övningsprov mot klockan och träning utan tak, varje dag.`,
+        title: TESTKVOT_RUBRIK,
+        body: `${PREMIUM} ger alla nivåer, övningsprov mot klockan och träning på din nivå utan tak.`,
         primary: knapp,
         secondary: 'Kom tillbaka i morgon',
       }

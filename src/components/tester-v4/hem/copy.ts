@@ -60,10 +60,10 @@ export const HEM_V4 = {
     hemRad: (etikett: string) => `Nästa steg: ${etikett}`,
     hemRadUtan: 'Var du står',
     hemKort: 'Nästa steg',
-    testerRad: (antal: number, matta: number) => `${antal} testtyper, ${matta} mätta, alla öppna`,
+    testerRad: (antal: number, matta: number) => `${matta} av ${antal} mätta, alla nivåer öppna`,
     testerRadGratis: (antal: number, kvar: boolean) =>
-      `${antal} testtyper, ${kvar ? 'ett grundnivåtest gratis i dag' : 'dagens grundnivåtest gjort'}`,
-    testerKort: (antal: number) => `${antal} testtyper`,
+      `${talOrd(antal)} testtyper, ${kvar ? 'ett grundnivåtest gratis i dag' : 'dagens grundnivåtest gjort'}`,
+    testerKort: (antal: number) => `${talOrd(antal)} testtyper`,
     utvecklingRad: (niva: string, andring: string | null) => `Nivå ${niva}${andring ? `, ${andring}` : ''}`,
     upp: (v: string) => `upp ${v} på fyra veckor`,
     ned: (v: string) => `ned ${v} på fyra veckor`,
@@ -94,8 +94,8 @@ export const HEM_V4 = {
   /** Ingångskortet Tester. */
   ingangTester: {
     eyebrow: 'Tester',
-    rubrik: (antal: string) => `${antal} tester, alla öppna`,
-    rubrikGratis: (antal: string) => `${antal} tester, grundnivån gratis`,
+    rubrik: (antal: string) => `${antal} testtyper och personlighetstestet`,
+    rubrikGratis: (antal: string) => `${antal} testtyper, ett gratis grundnivåtest om dagen`,
     medPlan: (delar: string, plan: string) => `${delar} ingår i ${plan}. De andra är bra hjärnträning och förekommer i andra rekryteringstest.`,
     utanPlan: 'Alla testtyper som förekommer i rekryteringstest. Börja där du är osäker, eller där provet du ska göra ligger.',
     alla: 'Alla tester',
@@ -148,7 +148,7 @@ export const HEM_V4 = {
   },
 } as const
 
-/** Tal som ord i rubriker: "Nio tester". */
+/** Tal som ord i rubriker: "Åtta testtyper". */
 export function talOrd(n: number): string {
   const ord = ['Noll', 'Ett', 'Två', 'Tre', 'Fyra', 'Fem', 'Sex', 'Sju', 'Åtta', 'Nio', 'Tio']
   return ord[n] ?? String(n)

@@ -44,7 +44,7 @@ function nioRader(provTyp: string | null) {
         label={`Grundnivån i alla åtta testtyperna${typ && !iprov ? `, ${TEST_TYP_NAMN[typ]} markerad` : ''}`}
       />
     ),
-    gratis: <TestBredd form="rad" yta="vagg" label="Nio testtyper" />,
+    gratis: <TestBredd form="rad" yta="vagg" label="Åtta testtyper och personlighetstestet" />,
   }
 }
 

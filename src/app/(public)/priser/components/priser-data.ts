@@ -76,7 +76,7 @@ const TESTER: ComparisonGroup = {
       label: 'Grundnivån',
       sub: `alla ${TESTTYPER_ORD} testtyperna och personlighetstestet`,
       free: g('Ingår, med genomgång'),
-      premium: ja('Ingår, plus ett pass om dagen på din nivå'),
+      premium: ja('Ingår, plus träning på din nivå utan tak'),
     },
     {
       label: 'Avancerad och expertnivå',
@@ -102,12 +102,12 @@ const TESTER: ComparisonGroup = {
     },
     {
       label: 'Din utveckling',
-      sub: 'alla pass i en kurva',
+      sub: 'alla tester och träningar i en kurva',
       free: g('Senaste sessionen'),
       premium: ja('Hela historiken'),
     },
     {
-      label: 'Extrapass och övningsprov',
+      label: 'Riktad träning och övningsprov',
       sub: 'på det du tappar, och i samma format som ditt test',
       free: NEJ,
       premium: ja('Ingår'),

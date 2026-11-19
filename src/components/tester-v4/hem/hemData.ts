@@ -24,9 +24,9 @@ export interface NavTexter {
 
 const N = HEM_V4.nav
 
-/** Synliga testtyper plus personligheten: "9 testtyper". */
+/** Synliga kognitiva testtyper: åtta. Personlighetstestet räknas för sig, som i gratis-copy. */
 export function antalTesttyper(data: Pick<TesterV4Data, 'typer'>): number {
-  return data.typer.filter((t) => t.synlig).length + 1
+  return data.typer.filter((t) => t.synlig).length
 }
 
 /**

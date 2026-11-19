@@ -137,7 +137,7 @@ export const GRATISRAD = {
   rubrikKvar: 'Ett grundnivåtest om dagen, gratis',
   rubrikSlut: 'Det här var grundnivån',
   text: (kvar: boolean, prisrad: string, namn: string) =>
-    `${kvar ? 'Valfri testtyp, och Nivåkollen en gång per testtyp. Genomgången av svaren är alltid öppen. ' : ''}Proven ligger på avancerad nivå. Öva där, så ofta du vill, med Premium, ${prisrad}. Träna, avancerad och expert, Nivåkollen när du vill, övningsprov och hela historiken ingår så länge du har ${namn}.`,
+    `${kvar ? 'Valfri testtyp. Där Nivåkollen finns gör du den en gång gratis. Genomgången av svaren är alltid öppen. ' : ''}Proven ligger på avancerad nivå. Öva där, så ofta du vill, med Premium, ${prisrad}. Träna, avancerad och expert, Nivåkollen när du vill, övningsprov och hela historiken ingår så länge du har ${namn}.`,
   knapp: 'Öppna allt',
 } as const;
 

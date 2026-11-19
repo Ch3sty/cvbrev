@@ -1,0 +1,1081 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "h1": [
+      "Därför får du inte svar på dina ansökningar"
+    ],
+    "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+    "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+    "canonical": "https://www.jobbcoach.ai",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre verktyg som gör ansökan starkare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analys"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbmatchning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vi matchar din erfarenhet mot tjänstens krav"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobbcoachen svarar hela vägen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Robotarna har redan läst ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Och resten av jobbsöket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt i Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Svaren på det du undrar"
+      }
+    ],
+    "lankar": [
+      "#tre-verktyg",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/funktioner#sokta-tjanster",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"email\":\"info@jobbcoach.ai\",\"logo\":\"https://www.jobbcoach.ai/icon.png\",\"name\":\"Jobbcoach.ai\",\"sameAs\":[\"https://www.facebook.com/jobbcoach.ai\",\"https://www.instagram.com/jobbcoach.ai\"],\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"WebSite\",\"inLanguage\":\"sv-SE\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS (Applicant Tracking System) är de rekryteringssystem de flesta större svenska arbetsgivare använder för att sortera ansökningar automatiskt. Är ditt CV inte läsbart för systemet kan du sorteras bort innan en människa ens öppnar det. Alla våra CV-mallar är byggda för att systemen ska kunna läsa dem.\"},\"name\":\"Vad är ATS, och varför ska mitt CV vara anpassat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi skriver utkastet utifrån ditt CV och jobbannonsen. Du läser igenom, justerar tonen där det behövs och skickar. Resultatet låter som du, bara mer genomarbetat än om du skrivit varje brev från noll.\"},\"name\":\"Hur mycket av jobbet gör ni åt mig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Runt 60 sekunder från att du klistrar in annonsen till ett färdigt utkast. Du sparar en kvart eller mer per ansökan jämfört med att skriva från grunden.\"},\"name\":\"Hur snabbt kan jag skapa ett personligt brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.\"},\"name\":\"Är mina uppgifter säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna och personlighetstestet, 2 CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag, 3 matchade jobb och 10 meddelanden till Jobbcoachen. Söker du på allvar ingår allt i Jobbcoach Premium, 149 kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.\"},\"name\":\"Vad kostar det, och vad får jag utan att betala?\"}]}]}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "Hur mycket av jobbet gör ni åt mig?",
+      "Hur snabbt kan jag skapa ett personligt brev?",
+      "Är mina uppgifter säkra?",
+      "Vad kostar det, och vad får jag utan att betala?",
+      "ld: Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "ld: Hur mycket av jobbet gör ni åt mig?",
+      "ld: Hur snabbt kan jag skapa ett personligt brev?",
+      "ld: Är mina uppgifter säkra?",
+      "ld: Vad kostar det, och vad får jag utan att betala?"
+    ],
+    "ord": 1034
+  },
+  {
+    "path": "/verktyg/rekryteringstester",
+    "status": 200,
+    "h1": [
+      "Träna på rekryteringstester innan arbetsgivaren testar dig"
+    ],
+    "title": "Rekryteringstester: öva logik, I-provet och mer gratis",
+    "description": "Öva på matrislogik, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd, och inför I-provet. Grundnivån är gratis, ingen kortuppgift.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/rekryteringstester",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/rekryteringstester/opengraph-image-1ge1s0?bd858035cc0de84d",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Gör ett prov direkt, utan konto"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lös frågorna i din takt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se resultat och tid direkt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Se vad du missade"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex färdigheter som avgör testet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Mönsterigenkänning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Läsförståelse"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kritiskt tänkande"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Snabbräkning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tabelltolkning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Åtta testtyper, alla gratis att börja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbalt resonemang"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriskt resonemang"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Figurserier"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Deduktiv slutledning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Talserier"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spatial förmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ordförråd"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vilket test ska du göra?"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Polisen eller Försvarsmakten"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrigma"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Alva Labs"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "SHL"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Aon"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lokförare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Annat eller vet inte"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personlighet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ta reda på vad rekryteraren ser i dig"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Noggrannhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Extraversion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Känslostabilitet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vänlighet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppenhet"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träning som syns på resultatet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gratis att prova"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rapport efter varje pass"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Premium tar bort taket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så förbereder du dig inför ett rekryteringstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öva på rätt testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Träna under tidspress"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Välj tillfälle och miljö"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svara ärligt på personlighetsdelen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Reda ut frågorna i förväg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Räkna med att det känns svårt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Inför testet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tips inför testet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Så läser du resultatet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tester hos myndigheter"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Guider per testtyp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logiska tester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matrislogik"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Numeriska test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verbala test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "I-provet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spatial förmåga"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Talserier"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ordförståelse test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personlighetstest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Deduktiva och induktiva test"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Alva Labs logiktest"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "MAP från Assessio"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Träna nu. Kom förberedd sen."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om rekryteringstester"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#testtyper",
+      "/",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/alva-labs-logiktest",
+      "/artiklar/aon-cut-e-test",
+      "/artiklar/aon-cut-e-test#testet-for-lokforare",
+      "/artiklar/arbetspsykologiska-tester",
+      "/artiklar/deduktivt-induktivt-test",
+      "/artiklar/deduktivt-induktivt-test",
+      "/artiklar/i-prov",
+      "/artiklar/i-prov",
+      "/artiklar/logiktest-tips",
+      "/artiklar/logiska-tester",
+      "/artiklar/map-test-personlighetstest",
+      "/artiklar/matrigma-test",
+      "/artiklar/matrislogik-test-guide",
+      "/artiklar/numeriskt-test-guide",
+      "/artiklar/ordforstaelse-test",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/rotation-test-guide",
+      "/artiklar/stanine-testresultat",
+      "/artiklar/talserier",
+      "/artiklar/tester-hos-myndigheter",
+      "/artiklar/tester-hos-myndigheter",
+      "/artiklar/verbalt-test-guide",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/verktyg/personlighetstest",
+      "/verktyg/personlighetstest",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova?typ=deduktiv&mitt_test=shl",
+      "/verktyg/rekryteringstester/prova?typ=figurserie&mitt_test=aon",
+      "/verktyg/rekryteringstester/prova?typ=figurserie&mitt_test=lokforare",
+      "/verktyg/rekryteringstester/prova?typ=iprov&mitt_test=iprov",
+      "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=alva",
+      "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=annat",
+      "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=matrigma"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Rekryteringstester är standardiserade prov som mäter logiskt tänkande, språkförståelse och sifferanalys. Arbetsgivare använder dem för att jämföra kandidater på samma villkor och för att förutsäga hur du kommer prestera i rollen. Vanliga leverantörer i Sverige är SHL, Cut-e och Assessio och tester förekommer både hos myndigheter, konsultbolag och i tjänstemannaroller.\"},\"name\":\"Vad är rekryteringstester och varför används de?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på 15 frågor per pass i samma format som SHL och Cut-e använder.\"},\"name\":\"Hur fungerar ett matrislogik-test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. I våra träningspass bedömer du 40 påståenden per pass, och övningsprovet har 48.\"},\"name\":\"Vad är verbalt resonemang och hur tränar man på det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på 20 frågor per pass, och övningsprovet har 36.\"},\"name\":\"Vad är numeriskt resonemang?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Träna i samma tidspress som det skarpa testet och gör flera pass per testtyp. Det viktigaste är att lära sig formatet, så att du inte slösar tid på att tolka frågan utan kan fokusera på själva lösningen. Efter varje pass går vi igenom dina rätt och fel så du ser exakt vilka mönster du missade och kan jobba på dem.\"},\"name\":\"Hur tränar jag bäst inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Det är fusk att se de exakta frågorna i det skarpa testet i förväg, men att träna på samma typ av frågor är helt accepterat och även förväntat. Tester som SHL och Cut-e mäter en stabil förmåga som påverkas av träning, ungefär som körkortsteorin. Den som tränat på formatet hinner bättre.\"},\"name\":\"Är det fusk att träna inför ett rekryteringstest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Väl utformade tester är mer objektiva än magkänsla, eftersom alla kandidater bedöms på samma sätt. Etablerade leverantörer som Aon (tidigare cut-e) och Assessio låter dessutom oberoende granskare som DNV och Buros certifiera sina tester. Testet är ändå ett komplement till intervjun, inte en ersättning. En seriös arbetsgivare väger samman test, intervju och erfarenhet.\"},\"name\":\"Är rekryteringstester rättvisa?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Begåvningstester ger oftast ett normerat värde, alltså hur du presterar jämfört med en jämförelsegrupp, medan personlighetstester ger en profil utan rätt eller fel. Du kan be om återkoppling, och resultaten är personuppgifter som hanteras enligt GDPR. Vissa arbetsgivare, som Saab och Sweco enligt tidningen Ingenjören, sparar testresultat i upp till två år, så du kan slippa göra om testet om du söker en ny tjänst hos dem. Fråga gärna hur länge resultatet sparas och hur det vägs in.\"},\"name\":\"Vad betyder mitt resultat, och vilka rättigheter har jag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Matrislogik tar runt 20 minuter på grundnivå och 25 på avancerad nivå, verbalt resonemang runt 20 minuter på både grund- och avancerad nivå och numeriskt resonemang runt 25 minuter på både grund- och avancerad nivå. Övningsproven går mot klockan: 25 minuter i matrislogik, 40 i verbalt och 40 i numeriskt. I träningspassen kan du när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.\"},\"name\":\"Hur lång tid tar varje test?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. I-provet, som görs vid mönstringen och i polisens prövning, har sex deltester: synonymer, pappersvikning, talserier, motsatsord, tärningar och pappersvikning med klipp. Versionen som används sedan maj 2025 heter I-prov 2025. Hos oss övar du på ordförråd, talserier och spatial förmåga i tre nivåer, och grundnivån är gratis med konto. Övningsprovet för I-provet, halvt eller helt, med de sex deltesterna i provets ordning och tid per deltest, ingår i Premium, 149 kr i månaden. Vi visar antal rätt per deltest men aldrig ett resultat på provets niogradiga skala, och vi har ingen koppling till Plikt- och prövningsverket, Polisen eller Försvarsmakten.\"},\"name\":\"Kan jag öva på I-provet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det skiljer sig mellan myndigheterna, och ingen av dem skriver vilket test du får i en viss rekrytering. Skatteverket, Kronofogden, Försäkringskassan och Arbetsförmedlingen skriver att de ofta använder webbaserade tester av personliga egenskaper och problemlösningsförmåga i urvalet, oftast före intervjun. Säkerhetspolisen har begåvningstest, personlighetstester och en psykologbedömning. Tullaspiranter gör ett databaserat begåvningstest hos Plikt- och prövningsverket. Kriminalvården beskriver inget teststeg. Vilket test det blir står i inbjudan.\"},\"name\":\"Vilka tester använder myndigheterna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du grundnivån i alla åtta testtyperna med full genomgång, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i Premium, 149 kr i månaden. Där ingår också det fördjupade personlighetstestet med 120 påståenden; grundtestet är gratis.\"},\"name\":\"Är testerna gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Många arbetsgivare, framför allt inom konsult, bank och offentlig sektor, låter kandidater göra ett personlighetstest som en del av urvalsprocessen. Testet mäter hur du fungerar i arbete, inte om du är en bra eller dålig person. Det finns inga rätta svar. Arbetsgivaren jämför din profil med vad rollen kräver och med andra kandidater.\"},\"name\":\"Vad är ett personlighetstest i rekrytering?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Big Five är den psykologiska modell som ligger till grund för de flesta seriösa personlighetstester i rekrytering, bland annat de som SHL och Assessio använder. Modellen mäter fem dimensioner: Öppenhet (kreativitet och nyfikenhet), Noggrannhet (struktur och målmedvetenhet), Extraversion (social energi), Vänlighet (samarbete och empati) och Känslostabilitet (stresstålighet). Vår personlighetsprofil bygger på samma modell.\"},\"name\":\"Vad är Big Five-modellen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Delvis. Du kan svara på ett sätt som du tror att arbetsgivaren vill se, men moderna tester har inbyggda konsistenskontroller som fångar upp om du svarar orealistiskt positivt. Det vanligaste rådet från rekryterare är att svara ärligt. Det du faktiskt vill ta med dig från vår profil är förståelsen för vilka dimensioner du hamnar på, så att du kan prata om dem på ett genomtänkt sätt i intervjun.\"},\"name\":\"Går det att manipulera ett personlighetstest?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från val av test till färdig rapport: välj test, lös frågorna i din takt, se resultat och tid direkt och se vad du missade.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så tränar du på rekryteringstester med Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Välj test\",\"position\":1,\"text\":\"Välj bland åtta testtyper, från matrislogik till talserier. Grundnivån i varje typ är gratis med konto, med genomgång efteråt.\"},{\"@type\":\"HowToStep\",\"name\":\"Lös frågorna i din takt\",\"position\":2,\"text\":\"Timern räknar uppåt så att du ser tempot, men ingenting bryter mitt i en fråga. Markera ditt svar och gå vidare.\"},{\"@type\":\"HowToStep\",\"name\":\"Se resultat och tid direkt\",\"position\":3,\"text\":\"När du svarat klart ser du andel rätt, antal korrekta svar, total tid och snittid per fråga. Du väntar inte på något.\"},{\"@type\":\"HowToStep\",\"name\":\"Se vad du missade\",\"position\":4,\"text\":\"Fråga för fråga jämför du ditt svar med facit. Du ser vilka mönster du missade och vet vad du ska träna mer på.\"}],\"totalTime\":\"PT20M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"VideoObject\",\"contentUrl\":\"https://www.jobbcoach.ai/videos/tester-v3-169.mp4\",\"description\":\"Tjugo sekunder om hur träningen ser ut: logiktest, verbalt resonemang och numeriskt test i samma format som det riktiga testet, resultatet med din nivå direkt, regeln bakom varje fråga, nivåkurvan fram till provdagen och övningsprovet mot klockan.\",\"duration\":\"PT20S\",\"inLanguage\":\"sv\",\"name\":\"Så tränar du på rekryteringstester hos Jobbcoach.ai\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"thumbnailUrl\":[\"https://www.jobbcoach.ai/videos/tester-v3-169-affisch.webp\"],\"transcript\":\"Kallad till ett rekryteringstest? Logiktest. Samma format som det riktiga testet. Verbalt resonemang. Numeriskt test. Rätt, fel och nivå direkt. Och regeln bakom varje fråga. Din nivå fram till provdagen. Och övningsprov mot klockan. Träna nu. Kom förberedd sen. Starta gratis test.\",\"uploadDate\":\"2026-10-14T09:00:00+02:00\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"EducationalApplication\",\"description\":\"Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga, ordförråd, ett övningsprov inför I-provet och Big Five-baserad personlighetsanalys.\",\"featureList\":\"Matrislogik i rutnät om tre gånger tre, figurserier, deduktiv slutledning med övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna figurer, pappersvikning och tärningar, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med 50 eller 120 påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, träning utan tak med Jobbcoach Premium\",\"name\":\"Jobbcoach.ai Rekryteringstester\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Fem frågor utan konto, grundnivån i alla testtyper med gratiskonto, utan kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/rekryteringstester\"}"
+    ],
+    "forstaBild": {
+      "src": "/videos/tester-v3-169-affisch.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/videos/tester-v3-169-affisch.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Vad är rekryteringstester och varför används de?",
+      "Hur fungerar ett matrislogik-test?",
+      "Vad är verbalt resonemang och hur tränar man på det?",
+      "Vad är numeriskt resonemang?",
+      "Hur tränar jag bäst inför ett rekryteringstest?",
+      "Är det fusk att träna inför ett rekryteringstest?",
+      "Är rekryteringstester rättvisa?",
+      "Vad betyder mitt resultat, och vilka rättigheter har jag?",
+      "Hur lång tid tar varje test?",
+      "Kan jag öva på I-provet?",
+      "Vilka tester använder myndigheterna?",
+      "Är testerna gratis?",
+      "Vad är ett personlighetstest i rekrytering?",
+      "Vad är Big Five-modellen?",
+      "Går det att manipulera ett personlighetstest?",
+      "ld: Vad är rekryteringstester och varför används de?",
+      "ld: Hur fungerar ett matrislogik-test?",
+      "ld: Vad är verbalt resonemang och hur tränar man på det?",
+      "ld: Vad är numeriskt resonemang?",
+      "ld: Hur tränar jag bäst inför ett rekryteringstest?",
+      "ld: Är det fusk att träna inför ett rekryteringstest?",
+      "ld: Är rekryteringstester rättvisa?",
+      "ld: Vad betyder mitt resultat, och vilka rättigheter har jag?",
+      "ld: Hur lång tid tar varje test?",
+      "ld: Kan jag öva på I-provet?",
+      "ld: Vilka tester använder myndigheterna?",
+      "ld: Är testerna gratis?",
+      "ld: Vad är ett personlighetstest i rekrytering?",
+      "ld: Vad är Big Five-modellen?",
+      "ld: Går det att manipulera ett personlighetstest?"
+    ],
+    "ord": 2740
+  },
+  {
+    "path": "/priser",
+    "status": 200,
+    "h1": [
+      "Jobbcoach Premium, 149 kr i månaden"
+    ],
+    "title": "Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai",
+    "description": "Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.",
+    "canonical": "https://www.jobbcoach.ai/priser",
+    "ogImage": "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?54a5f7a4598cd380",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt i Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vill du se först?"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad du faktiskt får, funktion för funktion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoachen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hjälpredan Kom igång tar dig igenom allt i rätt ordning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad som ingår, rad för rad"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fler frågor om priset?"
+      }
+    ],
+    "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/verktyg/personlighetstest"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med övningsprov, intervjuprovet utan dagsgräns och personlighetstestet, jobbmatchning med de 25 bästa träffarna och Jobbcoachen. 149 kr i månaden, och inget av det kostar extra.\"},\"name\":\"Vad ingår i Jobbcoach Premium?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan mejlar vi vad du gjort och vad som är kvar, så att du kan säga upp innan nästa dragning om du är klar. Ingen förnyelse i smyg.\"},\"name\":\"Vad händer när månaden är slut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och grundnivån i testerna fungerar, och köper Premium först när du vill ha resten.\"},\"name\":\"Kan jag börja gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I ditt konto, under Profil och Prenumeration, när du vill. Ingen bindningstid, inget att skriva eller ringa om. Månaden du redan betalat gäller ut.\"},\"name\":\"Hur säger jag upp?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"description\":\"Tester, CV, personliga brev, jobbmatchning och Jobbcoachen\",\"name\":\"Jobbcoach Premium\",\"offers\":{\"@type\":\"AggregateOffer\",\"availability\":\"https://schema.org/InStock\",\"highPrice\":149,\"lowPrice\":149,\"offerCount\":1,\"offers\":[{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.\",\"name\":\"Jobbcoach Premium, en månad\",\"price\":149,\"priceCurrency\":\"SEK\",\"priceSpecification\":{\"@type\":\"UnitPriceSpecification\",\"price\":149,\"priceCurrency\":\"SEK\",\"referenceQuantity\":{\"@type\":\"QuantitativeValue\",\"unitCode\":\"MON\",\"value\":1}},\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"}],\"priceCurrency\":\"SEK\"},\"url\":\"https://www.jobbcoach.ai/priser\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Vad ingår i Jobbcoach Premium?",
+      "Vad händer när månaden är slut?",
+      "Kan jag börja gratis?",
+      "Hur säger jag upp?",
+      "ld: Vad ingår i Jobbcoach Premium?",
+      "ld: Vad händer när månaden är slut?",
+      "ld: Kan jag börja gratis?",
+      "ld: Hur säger jag upp?"
+    ],
+    "ord": 1224
+  },
+  {
+    "path": "/funktioner",
+    "status": 200,
+    "h1": [
+      "Allt du behöver för att landa nästa jobb"
+    ],
+    "title": "Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai",
+    "description": "Alla verktyg för jobbsöket: rekryteringstester, CV-analys, CV-mallar, personliga brev, jobbmatchning och Jobbcoachen. Byggt för svensk arbetsmarknad.",
+    "canonical": "https://www.jobbcoach.ai/funktioner",
+    "ogImage": "https://www.jobbcoach.ai/funktioner/opengraph-image-12m5h9?64e8310691b98b4a",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Ett CV som både systemet och rekryteraren läser"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Bygg CV:t steg för steg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "40 mallar, 2 gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Foto och LinkedIn där mallen stöder det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ladda ner som PDF"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobben hittar dig, och du går förberedd in i intervjun."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobbcoachen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Bli hittad på LinkedIn"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Alla verktyg, samlade"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor"
+      }
+    ],
+    "lankar": [
+      "#brev",
+      "#cv-analys",
+      "#cv-skapa-mallar",
+      "#jobbcoachen",
+      "#jobbmatchning",
+      "#linkedin",
+      "#tester",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/integritetspolicy#cookies",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/skapa-cv"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ChatGPT är ett allmänt språkverktyg utan kunskap om svensk arbetsmarknad, rekryteringssystemen eller hur rekryterare faktiskt sållar ansökningar. Vi är byggda för just det: vi läser ditt CV, matchar mot annonsens krav och formaterar för de system svenska arbetsgivare använder. Du behöver inte skriva någon instruktion för att få ett bra resultat.\"},\"name\":\"Hur skiljer sig era verktyg från ChatGPT?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort: profil, CV, brev, testresultat och uppladdade filer. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.\"},\"name\":\"Är det säkert att lämna mitt CV till er?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi hämtar annonserna från Arbetsförmedlingen och JobTech tre gånger per dygn, så nya annonser kommer med inom några timmar. Matchningen körs när du öppnar sidan. Gratis ser du dina 3 bästa träffar, i Premium de 25 bästa, med skälen utskrivna.\"},\"name\":\"Hur ofta uppdateras jobbmatchningen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kontot går tillbaka till gratisnivån när perioden är slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser. Du kan köpa Premium igen när du vill.\"},\"name\":\"Vad händer om jag säger upp prenumerationen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Skapa konto, så är gratisnivån igång direkt: 2 CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, första personliga brevet och sedan ett var sjunde dag, och i testerna grundnivån i alla åtta testtyperna. Vill du ha mer ingår allt i Premium, 149 kr i månaden.\"},\"name\":\"Hur kommer jag igång gratis?\"}]}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Hur skiljer sig era verktyg från ChatGPT?",
+      "Är det säkert att lämna mitt CV till er?",
+      "Hur ofta uppdateras jobbmatchningen?",
+      "Vad händer om jag säger upp prenumerationen?",
+      "Hur kommer jag igång gratis?",
+      "ld: Hur skiljer sig era verktyg från ChatGPT?",
+      "ld: Är det säkert att lämna mitt CV till er?",
+      "ld: Hur ofta uppdateras jobbmatchningen?",
+      "ld: Vad händer om jag säger upp prenumerationen?",
+      "ld: Hur kommer jag igång gratis?"
+    ],
+    "ord": 1065
+  },
+  {
+    "path": "/verktyg/jobbcoachen",
+    "status": 200,
+    "h1": [
+      "Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad"
+    ],
+    "title": "Jobbcoachen: karriärsvar med källor | Jobbcoach.ai",
+    "description": "Fråga om lön, intervju, uppsägning eller karriärbyte. Svaren bygger på Arbetsförmedlingen, SCB och fackförbund, med källa till varje svar.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/jobbcoachen",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/jobbcoachen/opengraph-image-99okik?9cb33943547410e0",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ställ frågan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Vi söker bland verifierade källor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Du får svar med källhänvisning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Följ upp tills det är klart"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sex områden vi hjälper dig med"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV och personligt brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Marknadslön och löneförhandling"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Intervjuförberedelse"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetsrätt och LAS"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Karriärbyte och utveckling"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "A-kassa, sjukdom och CSN"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Verifierad svensk arbetsmarknadsdata"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetsförmedlingen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "SCB"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Fackförbund"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Försäkringskassan"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CSN"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Skatteverket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sluta googla. Fråga någon som vet."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om karriärrådgivning"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "#sa-funkar-det",
+      "/",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Jobbcoachen söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett kort, läsbart svar med klickbara källhänvisningar så du själv kan dubbelkolla. Inget mer googlande och gissa vilken sida som är seriös.\"},\"name\":\"Hur fungerar Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Jobbcoachen svarar utifrån en kunskapsbas om svensk arbetsmarknad där SCB:s lönestrukturstatistik och fackförbundens publicerade underlag ingår. Du får en bild av marknadslönen per yrke utan att behöva läsa rapporter på 80 sidor själv. Varje svar anger källa, så du vet var siffrorna kommer ifrån och kan kontrollera dem själv.\"},\"name\":\"Var hittar jag tillförlitlig löneinformation i Sverige?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Jobbcoachen förklarar hur svensk arbetsrätt fungerar i praktiken (LAS, uppsägningstider, semesterregler, anställningsformer) och hänvisar till lagtext och officiella källor. Men vi ger inte juridisk rådgivning i enskilda ärenden. Står du inför en konflikt eller uppsägning rekommenderar vi att du kontaktar ditt fackförbund eller en jurist.\"},\"name\":\"Kan jag få juridisk rådgivning här?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi använder verifierade svenska källor: Arbetsförmedlingen för regler och program, SCB för lönestatistik och arbetsmarknadsdata, fackförbund (Unionen, Kommunal, IF Metall m.fl.) för avtal och stöd, samt Försäkringskassan, CSN och Skatteverket för ersättningar och regler kring sjukdom, studier och skatt. Varje svar markeras med (Källa N) direkt i texten så du kan klicka dig vidare.\"},\"name\":\"Vilka källor använder Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kunskapsbasen är ett femtiotal dokument om svensk arbetsmarknad från Arbetsförmedlingen, SCB, fackförbund och myndigheter. Den uppdateras när vi gör en ny genomgång, inte automatiskt när en källa ändras. Därför anger varje svar sin källa, så att du kan kontrollera att siffran eller regeln fortfarande gäller innan du lutar dig mot den.\"},\"name\":\"Hur ofta uppdateras informationen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter, och de kommer inte tillbaka nästa dag. Vill du skriva fler än tio ingår Jobbcoachen utan tak i Premium, 149 kr i månaden.\"},\"name\":\"Är det gratis att använda Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst.\"},\"name\":\"Kan jag dela mitt CV med Jobbcoachen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i Premium, 149 kr i månaden, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: två CV-mallar, en CV-analys, ett personligt brev var sjunde dag och grundnivån i alla åtta testtyperna.\"},\"name\":\"Vad händer när mina tio meddelanden är slut?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Fyra steg från fråga till svar med källhänvisning: ställ frågan, vi söker bland verifierade källor, du får svaret med citat, du följer upp.\",\"estimatedCost\":{\"@type\":\"MonetaryAmount\",\"currency\":\"SEK\",\"value\":\"0\"},\"name\":\"Så får du karriärråd med Jobbcoachen på Jobbcoach.ai\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Ställ frågan\",\"position\":1,\"text\":\"Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige.\"},{\"@type\":\"HowToStep\",\"name\":\"Vi söker bland verifierade källor\",\"position\":2,\"text\":\"Jobbcoachen söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.\"},{\"@type\":\"HowToStep\",\"name\":\"Du får svar med källhänvisning\",\"position\":3,\"text\":\"Svaret är kort och konkret med klickbara källor markerade direkt i texten.\"},{\"@type\":\"HowToStep\",\"name\":\"Följ upp tills det är klart\",\"position\":4,\"text\":\"Jobbcoachen minns samtalet och du kan följa upp utan att börja om.\"}],\"totalTime\":\"PT2M\"}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Karriärrådgivning baserad på Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket. Få svar på frågor om lön, intervju, arbetsrätt och karriärbyte med klickbara källhänvisningar.\",\"featureList\":\"Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev\",\"name\":\"Jobbcoachen från Jobbcoach.ai\",\"offers\":{\"@type\":\"Offer\",\"description\":\"10 meddelanden gratis per konto, utan kortuppgift\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/jobbcoachen\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Hur fungerar Jobbcoachen?",
+      "Var hittar jag tillförlitlig löneinformation i Sverige?",
+      "Kan jag få juridisk rådgivning här?",
+      "Vilka källor använder Jobbcoachen?",
+      "Hur ofta uppdateras informationen?",
+      "Är det gratis att använda Jobbcoachen?",
+      "Kan jag dela mitt CV med Jobbcoachen?",
+      "Vad händer när mina tio meddelanden är slut?",
+      "ld: Hur fungerar Jobbcoachen?",
+      "ld: Var hittar jag tillförlitlig löneinformation i Sverige?",
+      "ld: Kan jag få juridisk rådgivning här?",
+      "ld: Vilka källor använder Jobbcoachen?",
+      "ld: Hur ofta uppdateras informationen?",
+      "ld: Är det gratis att använda Jobbcoachen?",
+      "ld: Kan jag dela mitt CV med Jobbcoachen?",
+      "ld: Vad händer när mina tio meddelanden är slut?"
+    ],
+    "ord": 1005
+  }
+]

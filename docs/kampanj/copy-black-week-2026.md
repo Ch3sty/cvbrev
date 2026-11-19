@@ -42,11 +42,11 @@ Stängknappen döljer kortet för resten av kampanjen. På Cyber Monday visas ko
 ### Black Week
 
 - `kort.bw.rubrik`: Black Week: första månaden Premium för 99 kr
-- `kort.bw.brodtext`: Övningsprov med tid och ett pass om dagen fram till provet. Sedan 149 kr i månaden. Till och med söndag.
+- `kort.bw.brodtext`: Övningsprov med tid och träning på din nivå fram till provet. Sedan 149 kr i månaden. Till och med söndag.
 - `kort.bw.knapp`: Köp Premium, 99 kr
 - `kort.bw.stang`: Nej tack
 
-Rubrik 44 tecken, brödtext 104 tecken.
+Rubrik 44 tecken, brödtext 106 tecken.
 
 ### Cyber Monday
 
@@ -157,7 +157,7 @@ Två mejl. Mejl 1 går morgonen den 23 november, mejl 2 morgonen den 30 november
 
 - `mejl.bw.stycke2`:
 
-> Vill du ha struktur lägger vi upp ett pass om dagen fram till ditt provdatum. CV, personliga brev, Jobbcoachen och jobbmatchningen ingår också. Allt inför ansökan på ett ställe, hela veckan till och med söndag.
+> Du tränar på din nivå så ofta du vill, i alla åtta testtyperna, och nivån räknas bara på uppgifter du inte sett den senaste månaden. Vill du ha struktur lägger vi upp en plan fram till ditt provdatum. CV, personliga brev, Jobbcoachen och jobbmatchningen ingår också. Allt inför ansökan på ett ställe, hela veckan till och med söndag.
 
 - `mejl.bw.prisrad.belopp`: 99 kr
 - `mejl.bw.prisrad.struket`: 149 kr
@@ -181,7 +181,7 @@ Två mejl. Mejl 1 går morgonen den 23 november, mejl 2 morgonen den 30 november
 
 - `mejl.cm.stycke2`:
 
-> Gör övningsprovet med tid, se var du tappar poäng och få ett pass om dagen tills det är dags på riktigt. CV, personliga brev och Jobbcoachen följer med.
+> Gör övningsprovet med tid, se var du tappar poäng och träna på din nivå så ofta du vill tills det är dags på riktigt. CV, personliga brev och Jobbcoachen följer med.
 
 - `mejl.cm.prisrad.belopp`: 49 kr
 - `mejl.cm.prisrad.struket`: 149 kr

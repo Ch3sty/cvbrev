@@ -143,18 +143,18 @@ describe('prissidan', () => {
   it('gratisnivån lovar bara det som är sant i båda gaterna (spec-rummen 23.3, 23.7 b)', () => {
     // Den kanoniska källan (gratis-copy.ts, beslut 2026-11-15): grundnivån i
     // alla testtyper, aldrig Nivåkollen publikt.
-    expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga')
+    expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje fråga')
     expect(GRATIS_RAD).toBe(
-      `Grundnivån i alla tester, ${talSomOrd(GRATIS_ANTAL)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.`
+      `Ett grundnivåtest om dagen, ${talSomOrd(GRATIS_ANTAL)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.`
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const grund = tester.rows.find((r) => r.label === 'Grundnivån')!
     expect(grund.sub).toBe('alla åtta testtyperna och personlighetstestet')
     expect(grund.free.text).toBe('Ingår, med genomgång')
-    expect(grund.premium.text).toBe('Ingår, plus ett pass om dagen på din nivå')
+    expect(grund.premium.text).toBe('Ingår, plus träning på din nivå utan tak')
     expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')
     const sist = tester.rows[tester.rows.length - 1]
-    expect(sist.label).toBe('Extrapass och övningsprov')
+    expect(sist.label).toBe('Riktad träning och övningsprov')
     expect(sist.free.ton).toBe('nej')
     expect(sist.premium.text).toBe('Ingår')
     expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och grundnivån i testerna fungerar')

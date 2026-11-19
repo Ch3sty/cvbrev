@@ -228,7 +228,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               fråga, och personlighetstestet som visar vad rekryteraren läser ut av dig.
             </>
           }
-          text={`${storForst(TESTTYPER_ORD)} testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Ett nivåtest visar var du står, ett kort pass om dagen tränar det du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.`}
+          text={`${storForst(TESTTYPER_ORD)} testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Ett nivåtest visar var du står, träningen följer din nivå och lägger tiden där du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.`}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }}
           knappNot={`${storForst(GRUNDNIVAN_ALLA)} och personlighetstestet gratis`}
           telefon={

@@ -16,8 +16,9 @@
 //   En ny Nivåkoll kräver tests_above_base (beslutaTillgang). En per testtyp
 //   och dag: en avslutad i dag visas i stället för att en ny skapas.
 // - Avslutet går genom slutfor_traningssession: nivåpunkt med test_kind
-//   typen, typ matning eller ommatning, frågestatistik typ matning (inte för
-//   uppgifter hon haft inom 30 dagar). Matrisens nivå, kurva och dag
+//   typen, typ matning eller ommatning, frågestatistik typ matning. Uppgifter hon haft inom
+//   30 dagar räknas varken i nivån eller i frågestatistiken; är alla upprepade
+//   står nivån kvar om en tidigare finns. Matrisens nivå, kurva och dag
 //   2-mejlet läser bara test_kind matris.
 // - Alla skrivningar med service role, villkorade på user_id.
 // =============================================================================
@@ -79,7 +80,7 @@ export interface NivakollMeta {
   nivaer: Record<string, BankNiva>;
   /** Verbalt och numeriskt: underlagens id (sedda.server läser delar). */
   delar?: string[];
-  /** Uppgifter hon haft inom 30 dagar: räknas i nivån men inte i frågestatistiken. */
+  /** Uppgifter hon haft inom 30 dagar: räknas inte i nivån (står nivån kvar om alla är upprepade och en tidigare nivå finns) och inte i frågestatistiken. Bara om alla är upprepade och ingen tidigare nivå finns räknas de. */
   upprepade: string[];
   fore: number | null;
   dag: Dag;

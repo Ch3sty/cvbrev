@@ -44,17 +44,19 @@ const tal = (n: number) => (n < TAL.length ? TAL[n] : String(n));
 const talLitet = (n: number) => (n < TAL.length ? TAL[n].toLowerCase() : String(n));
 
 /** Knappens och textens ord per start. */
-function startText(s: Start, typ: TestTypId, premium: boolean): { rubrik: string; text: string; knapp: string } {
+function startText(s: Start, typ: TestTypId, harPremium: boolean): { rubrik: string; text: string; knapp: string } {
+  const gratisNivakoll = harPremium ? '' : ' Gratis.';
+  const gratisNivatest = harPremium ? '' : ' Ett grundnivåtest om dagen är gratis.';
   if (s.slag === 'nivakoll')
     return {
       rubrik: 'Kurvan börjar med Nivåkollen',
-      text: `Tolv uppgifter i ${typNamnSmall(typ)}, cirka åtta minuter. Du får din nivå och första punkten på kurvan.${premium ? '' : ' Gratis.'}`,
+      text: `Tolv uppgifter i ${typNamnSmall(typ)}, cirka åtta minuter. Du får din nivå och första punkten på kurvan.${gratisNivakoll}`,
       knapp: 'Gör Nivåkollen',
     };
   if (s.slag === 'nivatest')
     return {
       rubrik: 'Kurvan börjar med ett nivåtest',
-      text: `Grundnivån i ${typNamnSmall(typ)}, ${NIVA_TEST_ANTAL[typ].grund} uppgifter. Du får din nivå och första punkten på kurvan.${premium ? '' : ' Ett grundnivåtest om dagen är gratis.'}`,
+      text: `Grundnivån i ${typNamnSmall(typ)}, ${NIVA_TEST_ANTAL[typ].grund} uppgifter. Du får din nivå och första punkten på kurvan.${gratisNivatest}`,
       knapp: 'Gör nivåtestet',
     };
   return {

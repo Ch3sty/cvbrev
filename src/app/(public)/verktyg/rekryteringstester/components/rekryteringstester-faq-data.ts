@@ -6,7 +6,7 @@
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { TESTTAL } from '@/components/publikt/testtal'
-import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 
 // Talen läses ur testConfig (spec-publikt-v2 del A avsnitt 6, ägarens beslut 1
 // 2026-10-12): träningspassens antal, övningsprovet nämnt separat.
@@ -24,7 +24,7 @@ function tidSvar(): string {
   return (
     `Matrislogik tar ${niva(T.matrisGrund.minuter, T.matrisAvancerad.minuter)}, verbalt resonemang ${niva(T.verbalGrund.minuter, T.verbalAvancerad.minuter)} och numeriskt resonemang ${niva(T.numeriskGrund.minuter, T.numeriskAvancerad.minuter)}. ` +
     `Övningsproven går mot klockan: ${T.matrisProv.provMinuter} minuter i matrislogik, ${T.verbalProv.provMinuter} i verbalt och ${T.numeriskProv.provMinuter} i numeriskt. ` +
-    'I träningspassen kan du när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.'
+    'I träningen kan du när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.'
   )
 }
 
@@ -48,10 +48,10 @@ export const MYNDIGHETER_FAQ: FaqItem = {
   lank: { text: 'Tester hos myndigheter', href: `/artiklar/${MYNDIGHETER_SLUG}` },
 }
 
-/** Listan med myndighetsfrågan direkt efter frågan om I-provet. */
+/** Listan med myndighetsfrågan efter frågorna om I-provet, spatial förmåga och deduktiv slutledning (textdäcket 2026-11-19). */
 export function faqMedMyndigheter(finns: boolean): FaqItem[] {
   if (!finns) return REKRYTERINGSTESTER_FAQ_ITEMS
-  const i = REKRYTERINGSTESTER_FAQ_ITEMS.findIndex((f) => f.q === 'Kan jag öva på I-provet?')
+  const i = REKRYTERINGSTESTER_FAQ_ITEMS.findIndex((f) => f.q === 'Vilka uppgifter finns i testet i deduktiv slutledning?')
   const ut = [...REKRYTERINGSTESTER_FAQ_ITEMS]
   ut.splice(i < 0 ? ut.length : i + 1, 0, MYNDIGHETER_FAQ)
   return ut
@@ -64,19 +64,19 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur fungerar ett matrislogik-test?',
-    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på ' + T.matrisGrund.fragor + ' frågor per pass i samma format som SHL och Cut-e använder.',
+    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på ' + T.matrisGrund.fragor + ' frågor per test i samma format som SHL och Cut-e använder.',
   },
   {
     q: 'Vad är verbalt resonemang och hur tränar man på det?',
-    a: 'Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. I våra träningspass bedömer du ' + T.verbalGrund.fragor + ' påståenden per pass, och övningsprovet har ' + T.verbalProv.fragor + '.',
+    a: 'Verbalt resonemang testar din förmåga att läsa en kort text och avgöra om ett påstående är sant, falskt eller om informationen inte räcker för att avgöra. Det handlar inte om allmänbildning utan om vad texten faktiskt säger. I våra tester bedömer du ' + T.verbalGrund.fragor + ' påståenden per test, och övningsprovet har ' + T.verbalProv.fragor + '.',
   },
   {
     q: 'Vad är numeriskt resonemang?',
-    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på ' + T.numeriskGrund.fragor + ' frågor per pass, och övningsprovet har ' + T.numeriskProv.fragor + '.',
+    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på ' + T.numeriskGrund.fragor + ' frågor per test, och övningsprovet har ' + T.numeriskProv.fragor + '.',
   },
   {
     q: 'Hur tränar jag bäst inför ett rekryteringstest?',
-    a: 'Träna i samma tidspress som det skarpa testet och gör flera pass per testtyp. Det viktigaste är att lära sig formatet, så att du inte slösar tid på att tolka frågan utan kan fokusera på själva lösningen. Efter varje pass går vi igenom dina rätt och fel så du ser exakt vilka mönster du missade och kan jobba på dem.',
+    a: 'Träna i samma tidspress som det skarpa testet och gör flera omgångar per testtyp. Det viktigaste är att lära sig formatet, så att du inte slösar tid på att tolka frågan utan kan fokusera på själva lösningen. Efter varje test går vi igenom dina rätt och fel så du ser exakt vilka mönster du missade och kan jobba på dem.',
   },
   {
     q: 'Är det fusk att träna inför ett rekryteringstest?',
@@ -99,8 +99,16 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
     a: 'Ja. I-provet, som görs vid mönstringen och i polisens prövning, har sex deltester: synonymer, pappersvikning, talserier, motsatsord, tärningar och pappersvikning med klipp. Versionen som används sedan maj 2025 heter I-prov 2025. Hos oss övar du på ordförråd, talserier och spatial förmåga i tre nivåer, och grundnivån är gratis med konto. Övningsprovet för I-provet, halvt eller helt, med de sex deltesterna i provets ordning och tid per deltest, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Vi visar antal rätt per deltest men aldrig ett resultat på provets niogradiga skala, och vi har ingen koppling till Plikt- och prövningsverket, Polisen eller Försvarsmakten.',
   },
   {
+    q: 'Vilka uppgifter finns i testet i spatial förmåga?',
+    a: 'Spatial förmåga, eller rumsuppfattning, är att vrida, vika och sätta ihop former i huvudet. I vårt test möter du vridna och speglade figurer, pappersvikning med och utan klipp, tärningar som ska kännas igen fast de vridits och kroppar av kuber som du ska se från ett annat håll eller såga itu. Tre av I-provets sex deltester bygger på förmågan: pappersvikning, tärningar och pappersvikning med klipp. Grundnivån är gratis med konto, ett test om dagen, och efter varje uppgift ser du tekniken som löser den. Spatial förmåga går att träna upp, så övningen lönar sig.',
+  },
+  {
+    q: 'Vilka uppgifter finns i testet i deduktiv slutledning?',
+    a: 'Deduktiv slutledning är att dra den slutsats som måste följa av givna villkor, inte den som låter rimlig. Hos oss finns fem format: villkorskedjor med om och så, syllogismer med alla, några och ingen, sanningssägare och lögnare där var och en antingen alltid talar sanning eller alltid ljuger, tabellpussel där personer ska paras med platser och saker, och uppgifter där du ska peka ut det som inte kan stämma. Dessutom ordningsuppgifter där personer eller möten ska placeras utifrån villkor. Tabellpusslen börjar på avancerad nivå. Grundnivån har tolv uppgifter på femton minuter och är gratis med konto, ett test om dagen. Övningsprovet har samma antal uppgifter och samma tid som SHL Verify deduktiv och ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '.',
+  },
+  {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du ' + GRUNDNIVAN_ALLA + ' med full genomgång, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du ' + GRUNDNIVAN_ALLA_DAG + ', med full genomgång och utan att lämna kortuppgifter. Resultatet är ditt. Att träna på din nivå så ofta du vill, avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

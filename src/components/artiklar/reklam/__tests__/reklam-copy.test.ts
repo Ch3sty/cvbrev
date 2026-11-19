@@ -117,18 +117,21 @@ describe('reklamkortens texter', () => {
     }
   })
 
-  it('testernas gratisnivå nämner aldrig dygn eller varje dag (spec-rummen 23.3)', () => {
+  it('testernas gratisnivå säger dagsgränsen, ett grundnivåtest om dagen (textdäcket 2026-11-19)', () => {
     for (const t of TEXTER) {
       expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/)
     }
-    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto. Resten ingår i Premium.')
+    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen. Resten ingår i Premium.')
+    expect(GRATIS_KORT.rader[0]).toContain('ett test om dagen')
   })
 
   it('gratisbrevet är ett per brevfönster, aldrig ett om dagen', () => {
     expect(LETTER_WINDOW_DAYS).toBe(7)
+    // Bara breven: testraden får säga "ett test om dagen", ett brev aldrig.
     for (const t of [INLINE.brev.text, SIDO.cv.gratisrad ?? '', ...GRATIS_KORT.rader]) {
-      expect(t, t).not.toMatch(/om dagen/)
+      expect(t, t).not.toMatch(/brev[^.]*om dagen|om dagen[^.]*brev/)
     }
+    expect(GRATIS_KORT.rader.find((r) => /brev/.test(r))).toContain('var sjunde dag')
     expect(INLINE.brev.text).toContain('var sjunde dag')
     expect(SIDO.cv.gratisrad).toContain('var sjunde dag')
   })
@@ -171,7 +174,7 @@ describe('F22: publika copykällor', () => {
 
   it('provkortets text och paketrad enligt S2', () => {
     expect(INLINE_PROVA.text).toBe(
-      'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna gratis med konto.'
+      'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna, ett test om dagen, gratis med konto.'
     )
     expect(INLINE_PROVA.paketrad).toBe(
       'Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.'

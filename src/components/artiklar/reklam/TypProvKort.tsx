@@ -56,34 +56,34 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Gör nivåtestet i deduktivt',
     href: viaKonto(nivakollHref('deduktiv')),
     sekundar: { text: 'Övningsprovet mot klockan', href: viaKonto(ovningsprovHref('deduktiv')) },
-    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och övningsprovet mot klockan ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, träning så ofta du vill och övningsprovet mot klockan ingår i ${KORT_PRIS}.`,
   },
   talserie: {
     etikett: 'Öva talserier',
     rubrik: 'Talserier i tre nivåer, med lösning efter varje rad',
     text: 'Grundnivån är gratis med konto: femton talserier på tolv minuter och genomgång av varje rad. Sedan två luckor som i I-provet.',
-    knapp: 'Gör nivåtestet i talserier',
+    knapp: 'Gör grundnivån i talserier',
     href: viaKonto('/dashboard/tester/talserier-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, träning så ofta du vill och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   spatial: {
     etikett: 'Öva spatial förmåga',
-    rubrik: 'Vridna figurer, pappersvikning och tärningar',
+    rubrik: 'Vridna figurer, pappersvikning, tärningar och kroppar',
     text: 'Grundnivån i spatial förmåga är gratis med konto: femton uppgifter på tolv minuter och genomgång av varje figur.',
-    knapp: 'Gör nivåtestet i spatial förmåga',
+    knapp: 'Gör grundnivån i spatial förmåga',
     href: viaKonto('/dashboard/tester/spatial-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, träning så ofta du vill och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   ordforrad: {
     etikett: 'Öva ordförståelse',
     rubrik: 'Synonymer och motsatsord i tre nivåer',
     text: 'Grundnivån är gratis med konto: tjugo ord på åtta minuter, och efteråt betydelsen och en exempelmening för varje ord.',
-    knapp: 'Gör nivåtestet i ordförråd',
+    knapp: 'Gör grundnivån i ordförråd',
     href: viaKonto('/dashboard/tester/ordforrad-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, träning så ofta du vill och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   iprov: {
     etikett: 'Öva inför I-provet',
@@ -92,7 +92,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Börja med grundnivån gratis',
     href: viaKonto('/dashboard/tester'),
     sekundar: { text: 'Se I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Halva och hela I-provets övningsprov, avancerad och expertnivå och ett träningspass om dagen ingår i ${KORT_PRIS}.`,
+    paketrad: `Halva och hela I-provets övningsprov, avancerad och expertnivå och träning så ofta du vill ingår i ${KORT_PRIS}.`,
   },
 }
 
@@ -167,7 +167,7 @@ function Bild({ typ }: { typ: ProvKortTyp }) {
         form="rutnat"
         markerade={['ordforrad', 'spatial', 'talserier']}
         text="Sex deltester, tre testtyper"
-        label="Nio testtyper, I-provets tre markerade: ordförråd, spatial förmåga och talserier"
+        label="Åtta testtyper och personlighetstestet, I-provets tre markerade: ordförråd, spatial förmåga och talserier"
       />
     </div>
   )
@@ -189,7 +189,7 @@ export default function TypProvKort({ typ, cluster, slug }: { typ: ProvKortTyp; 
         <p className="ib-rub">{c.rubrik}</p>
         <p className="ib-prova-text">{c.text}</p>
         {typ !== 'iprov' ? (
-          <TestBredd form="rad" markerad={NIO_TYP[typ]} label={`En av nio testtyper, ${TEST_TYP_NAMN[NIO_TYP[typ]]}`} />
+          <TestBredd form="rad" markerad={NIO_TYP[typ]} label={`En av åtta testtyper, ${TEST_TYP_NAMN[NIO_TYP[typ]]}`} />
         ) : null}
         <div className="pub-handling">
           <Link href={c.href} data-cta={`article-inline-${cluster}`} data-cta-klick={c.href} className="pub-knapp">

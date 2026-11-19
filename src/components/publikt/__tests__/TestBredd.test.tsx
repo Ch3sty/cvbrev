@@ -20,10 +20,10 @@ const html = (el: React.ReactElement) => {
 
 describe('TestBredd', () => {
   it('ritar nio glyfer i ordningen, med etiketten på figuren', () => {
-    const d = html(<TestBredd form="rad" label="Nio testtyper" />)
+    const d = html(<TestBredd form="rad" label="Åtta testtyper och personlighetstestet" />)
     const fig = d.querySelector('figure')!
     expect(fig.getAttribute('role')).toBe('img')
-    expect(fig.getAttribute('aria-label')).toBe('Nio testtyper')
+    expect(fig.getAttribute('aria-label')).toBe('Åtta testtyper och personlighetstestet')
     expect(fig.className).toBe('tb tb-rad tb-ljus')
     const li = Array.from(d.querySelectorAll('li'))
     expect(li.map((l) => l.dataset.typ)).toEqual([...TEST_TYPER])

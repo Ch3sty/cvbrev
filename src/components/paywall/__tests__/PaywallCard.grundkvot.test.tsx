@@ -1,8 +1,9 @@
 /**
- * Testväggens sekundära när dagens grundnivåtest är gjort (svepet före Black
- * Week, 2026-11-19). "Kör grundnivån igen" ledde rakt in i kvotspärren. Med
- * grundKvarIdag 0 visar kortet v4:s "I morgon"-läge (lasNivaTest, skal kvot)
- * i stället, och köpknappen står kvar.
+ * Testväggen när dagens grundnivåtest är gjort (svepet före Black Week,
+ * 2026-11-19, textdäcket T11 och F4). "Kör grundnivån igen" ledde rakt in i
+ * kvotspärren. Med grundKvarIdag 0 är det sekundära länken "Se vad som
+ * ingår", och kvotlåset (plats 'kvot') säger "Dagens grundnivåtest är gjort".
+ * Köpknappen står kvar, med kampanjpriset under en kampanj.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
@@ -15,25 +16,40 @@ vi.mock('@/lib/analytics/events', () => ({
 }))
 vi.mock('next/navigation', () => ({ usePathname: () => '/dashboard/tester/alla' }))
 
-import PaywallCard, { grundSlutIdag } from '../PaywallCard'
+import PaywallCard from '../PaywallCard'
 import GraValSheet from '../GraValSheet'
+import { getPaywallCopy } from '../paywall-copy'
 import { KampanjPrisProvider } from '@/components/kampanj/KampanjPrisKontext'
 import { KAMPANJ_BY_NYCKEL, visning } from '@/lib/kampanj/kampanj'
 import { byggGratislage, lasNivaTest } from '@/lib/tester/v4/gratis'
-import { LAS_CHIP, ZON_RUBRIK } from '@/lib/tester/v4/copy'
+import { lasFor } from '@/components/tester-v4/tester/lasning'
 
 const KNAPP = 'Köp Premium, 149 kr i månaden'
-const I_MORGON = `${ZON_RUBRIK.grund} · ${LAS_CHIP.kvot}`
+const RUBRIK = 'Dagens grundnivåtest är gjort'
 
 describe('testväggen efter dagens grundnivåtest', () => {
   beforeEach(() => captureMock.mockClear())
 
-  it('grundSlutIdag gäller bara testniva med känd kvot 0', () => {
-    expect(grundSlutIdag('testniva', 0)).toBe(true)
-    expect(grundSlutIdag('testniva', 1)).toBe(false)
-    expect(grundSlutIdag('testniva', null)).toBe(false)
-    expect(grundSlutIdag('testniva', undefined)).toBe(false)
-    expect(grundSlutIdag('mall', 0)).toBe(false)
+  it('F4: det sekundära villkoras på grundKvarIdag', () => {
+    expect(getPaywallCopy('testniva', { grundKvarIdag: 1 }).secondary).toBe('Kör grundnivån igen')
+    expect(getPaywallCopy('testniva', { grundKvarIdag: null }).secondary).toBe('Kör grundnivån igen')
+    expect(getPaywallCopy('testniva').secondary).toBe('Kör grundnivån igen')
+    expect(getPaywallCopy('testniva', { grundKvarIdag: 0 }).secondary).toBe('Se vad som ingår')
+  })
+
+  it('T11: kvotlåset ger plats kvot och rubriken, aldrig Avancerad nivå', () => {
+    expect(lasFor({ slag: 'niva_test', zon: 'grund', las: { skal: 'kvot', chip: 'I morgon' } }).plats).toBe('kvot')
+    const g = byggGratislage({ premium: false, harHistorik: false, grundIdag: 1, nivakollGjord: {}, kampanj: null })
+    expect(g.grundKvarIdag).toBe(0)
+    expect(lasFor({ slag: 'niva_test', zon: 'grund', las: lasNivaTest(g, 'grund').las }).plats).toBe('kvot')
+    const c = getPaywallCopy('testniva', { plats: 'kvot' })
+    expect(c.title).toBe(RUBRIK)
+    expect(c.title).not.toMatch(/Avancerad nivå/)
+    expect(c.body).toBe(
+      'Ett nytt öppnar i morgon, i vilken testtyp du vill. Med Premium väntar du inte: träning på din nivå och tester på alla nivåer, utan tak, och övningsprov mot klockan.'
+    )
+    expect(c.secondary).toBe('Se vad som ingår')
+    expect(getPaywallCopy('test-tak').title).toBe(RUBRIK)
   })
 
   it('kvoten kvar: "Kör grundnivån igen" står kvar som förut', () => {
@@ -41,36 +57,34 @@ describe('testväggen efter dagens grundnivåtest', () => {
     render(<PaywallCard variant="testniva" plats="testniva" onSecondary={onSecondary} grundKvarIdag={1} />)
     fireEvent.click(screen.getByRole('button', { name: 'Kör grundnivån igen' }))
     expect(onSecondary).toHaveBeenCalledTimes(1)
-    expect(screen.queryByText(I_MORGON)).toBeNull()
   })
 
-  it('kvoten slut: inget nytt grundtest, "Grundnivå · I morgon" och köpknappen kvar', () => {
+  it('kvoten slut: inget nytt grundtest, länken Se vad som ingår och köpknappen kvar', () => {
     const onSecondary = vi.fn()
-    const { container } = render(<PaywallCard variant="testniva" plats="testniva" onSecondary={onSecondary} grundKvarIdag={0} />)
+    render(<PaywallCard variant="testniva" plats="testniva" onSecondary={onSecondary} grundKvarIdag={0} />)
     expect(screen.queryByText('Kör grundnivån igen')).toBeNull()
-    expect(screen.getByText(I_MORGON)).toBeTruthy()
-    expect(container.querySelector('[data-grund-kvot="i-morgon"]')?.tagName).toBe('SPAN')
+    expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
     expect(screen.getByRole('button', { name: KNAPP })).toBeTruthy()
-    // Bara köpknappen är en knapp; I morgon är status, ingen handling.
     expect(screen.getAllByRole('button')).toHaveLength(1)
   })
 
-  it('samma ord som v4:s låsta grundnivå när kvoten är slut', () => {
-    const g = byggGratislage({ premium: false, harHistorik: false, grundIdag: 1, nivakollGjord: {}, kampanj: null })
-    expect(g.grundKvarIdag).toBe(0)
-    expect(lasNivaTest(g, 'grund').las?.chip).toBe(LAS_CHIP.kvot)
-    render(<PaywallCard variant="testniva" onSecondary={() => {}} grundKvarIdag={g.grundKvarIdag} />)
-    expect(screen.getByText(I_MORGON)).toBeTruthy()
+  it('kvotlåset: rubriken, Bankbredd och ingen statusrad', () => {
+    const { container } = render(<PaywallCard variant="testniva" plats="kvot" testTyp="matris" onSecondary={() => {}} grundKvarIdag={0} />)
+    expect(screen.getByRole('heading', { name: RUBRIK })).toBeTruthy()
+    expect(container.querySelector('figure.bb.bb-rad.bb-ljus')).toBeTruthy()
+    expect(container.querySelector('.bb-staplar li[data-markerad]')?.getAttribute('data-typ')).toBe('matris')
+    expect(container.querySelector('[data-grund-kvot]')).toBeNull()
+    expect(container.textContent).not.toMatch(/·/)
   })
 
-  it('under Black Week står kampanjknappen kvar bredvid I morgon', () => {
+  it('under Black Week står kampanjknappen kvar', () => {
     render(
       <KampanjPrisProvider kampanj={visning(KAMPANJ_BY_NYCKEL['black-week-2026'])}>
-        <PaywallCard variant="testniva" onSecondary={() => {}} grundKvarIdag={0} />
+        <PaywallCard variant="testniva" plats="kvot" onSecondary={() => {}} grundKvarIdag={0} />
       </KampanjPrisProvider>
     )
     expect(screen.getByRole('button', { name: 'Köp Premium, 99 kr första månaden' })).toBeTruthy()
-    expect(screen.getByText(I_MORGON)).toBeTruthy()
+    expect(screen.getByRole('heading', { name: RUBRIK })).toBeTruthy()
   })
 
   it('arket (GraValSheet) för vidare kvoten till kortet', () => {
@@ -88,13 +102,12 @@ describe('testväggen efter dagens grundnivåtest', () => {
       />
     )
     expect(screen.queryByText('Kör grundnivån igen')).toBeNull()
-    expect(screen.getByText(I_MORGON)).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
     expect(screen.getByRole('button', { name: KNAPP })).toBeTruthy()
   })
 
   it('arkets väggar med egen rubrik behåller länken Se vad som ingår', () => {
     render(<PaywallCard variant="testniva" plats="riktat" onSecondary={() => {}} grundKvarIdag={0} />)
     expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
-    expect(screen.queryByText(I_MORGON)).toBeNull()
   })
 })

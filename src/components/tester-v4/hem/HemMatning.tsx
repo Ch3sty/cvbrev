@@ -44,7 +44,8 @@ export function HemVisad({ plan, premium, matta }: { plan: boolean; premium: boo
     if (skickad.current) return
     skickad.current = true
     if (redanVisadIBesoket()) return
-    capture('hem_visad', { plan, niva: premium ? 'premium' : 'gratis', matta_typer: matta, plattform: 'webb' })
+    const niva = premium ? 'premium' : 'gratis'
+    capture('hem_visad', { plan, niva, matta_typer: matta, plattform: 'webb' })
   }, [plan, premium, matta])
   return null
 }

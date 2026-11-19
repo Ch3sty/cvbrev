@@ -77,7 +77,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
   test_week: paket('test_week', {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
     ingar: [
-      'Alla 19 tester, grundnivå till expert',
+      'Alla åtta testtyperna, grundnivå till expert',
       'Övningsprov mot klockan, automatisk inlämning',
       'Fördjupade personlighetstestet, 120 påståenden',
       'Hela din historik, inte bara senaste',

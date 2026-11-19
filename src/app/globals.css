@@ -2106,3 +2106,56 @@ html {
 .tb-vagg.tb-rutnat .tb-glyfer { background: var(--vagg-kant); border-color: var(--vagg-kant); }
 .tb-vagg.tb-rutnat .tb-glyfer li { background: rgba(255, 255, 255, .06); }
 .tb-vagg .tb-text { color: var(--vagg-mjuk); }
+
+/* ------------------------------------------------------------------
+   Bankbredden (Bankbredd.tsx, art director 2026-11-19,
+   docs/design/bankbredd-2026-11-19.md avsnitt 3). Ett stort tal och åtta
+   staplar med Nio-glyferna under. Linjär skala från noll: stapelns höjd är
+   --v (antal / största antal) av --bb-h. Fast geometri, inga mätningar i
+   JS, alltså CLS noll. Smalare än cirka 440 px bryter staplarna under
+   talet. Ytan byter bara variablerna på .bb. Här och inte i publikt.css,
+   eftersom betalväggen i inloggat också ritar elementet. Marginalerna
+   sätts av kortet som bär elementet.
+   ------------------------------------------------------------------ */
+.bb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin: 0; min-width: 0;
+  --bb-h: 40px; --bb-stapel-b: 14px; --bb-glyf: 24px; --bb-glyf-gap: 6px;
+  --bb-stapel: var(--ink-3); --bb-glyfer: var(--ink-2); --bb-glyf-dim: var(--ink-3);
+  --bb-tal-ink: var(--ink-1); --bb-ord: var(--ink-3); --bb-bas: var(--kant);
+  --bb-mark: var(--koppar); --bb-mark-ink: var(--ink-1);
+}
+.bb-tal { display: flex; align-items: baseline; gap: 6px; flex: none; margin: 0; white-space: nowrap; }
+.bb-tal b { font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 32px; line-height: 1; font-weight: 800; letter-spacing: -.03em; color: var(--bb-tal-ink); }
+.bb-over, .bb-enhet { font-size: 13px; font-weight: 500; line-height: 1; color: var(--bb-ord); }
+.bb-staplar {
+  flex: 1 1 210px; max-width: 280px; position: relative; margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px;
+  color: var(--bb-glyfer); --illu-accent: currentColor;
+}
+.bb-staplar::before { content: ''; position: absolute; left: 0; right: 0; top: var(--bb-h); border-top: 1px solid var(--bb-bas); }
+.bb-staplar li { display: grid; gap: var(--bb-glyf-gap); justify-items: center; min-width: 0; }
+.bb-staplar i { display: flex; align-items: flex-end; width: 100%; max-width: var(--bb-stapel-b); height: var(--bb-h); }
+.bb-staplar i::before { content: ''; display: block; width: 100%; height: calc(var(--v) * 100%); background: var(--bb-stapel); border-radius: 4px 4px 0 0; }
+.bb-staplar svg { display: block; width: 100%; max-width: var(--bb-glyf); height: auto; aspect-ratio: 1; }
+.bb-staplar li[data-markerad] { color: var(--bb-mark-ink); --illu-accent: var(--bb-mark); }
+.bb-staplar li[data-markerad] i::before { background: var(--bb-mark); }
+.bb-staplar[data-nagon-markerad] li:not([data-markerad]) { color: var(--bb-glyf-dim); }
+/* Hel bredd under talet och staplarna, raden högst 40 ch: utfyllnaden tar resten. */
+.bb-text { flex: 0 0 100%; box-sizing: border-box; padding-inline-end: max(0px, calc(100% - 40ch)); font-size: 13px; line-height: 1.4; color: var(--bb-ord); }
+
+/* Platta: stationen på /priser. Talet i tre rader, 48 px (56 från 700 px). */
+.bb-platta { --bb-h: 72px; --bb-stapel-b: 18px; --bb-glyf: 28px; --bb-glyf-gap: 8px; gap: 16px 28px; }
+.bb-platta .bb-tal { display: grid; gap: 6px; }
+.bb-platta .bb-tal b { font-size: 48px; letter-spacing: -.035em; }
+.bb-platta .bb-over, .bb-platta .bb-enhet { font-size: 14px; }
+.bb-platta .bb-staplar { flex-basis: 260px; max-width: 360px; gap: 8px; }
+.bb-platta .bb-text { font-size: 14px; }
+@media (min-width: 700px) { .bb-platta .bb-tal b { font-size: 56px; } }
+
+/* Vägg och premium-bläck. Premium-bläcket saknar --vagg-svag. */
+.bb-vagg {
+  --bb-stapel: var(--vagg-svag, rgba(255, 255, 255, .34)); --bb-glyfer: var(--vagg-mjuk); --bb-glyf-dim: var(--vagg-mjuk);
+  --bb-tal-ink: var(--vagg-ink); --bb-ord: var(--vagg-mjuk); --bb-bas: var(--vagg-kant);
+  --bb-mark: var(--koppar-ljus); --bb-mark-ink: var(--vagg-ink);
+}
+.bb-vagg .bb-staplar[data-nagon-markerad] li:not([data-markerad]) { opacity: .8; }

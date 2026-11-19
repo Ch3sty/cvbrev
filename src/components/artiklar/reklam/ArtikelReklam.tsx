@@ -22,6 +22,7 @@ import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
 import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
 import ProvMatris from '@/components/publikt/innehall/ProvMatris'
 import TestBredd from '@/components/publikt/TestBredd'
+import Bankbredd from '@/components/publikt/Bankbredd'
 import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
@@ -214,8 +215,8 @@ export function ProvKort({
         <p className="pub-kick">{etikett}</p>
         <p className="ib-rub">{rubrik}</p>
         <p className="ib-prova-text">{text}</p>
-        {/* Nio-raden: "en av nio", matrisen markerad (S2, S6). */}
-        <TestBredd form="rad" markerad="matris" label="En av nio testtyper, matrislogik" />
+        {/* Nio-raden: en av testtyperna, matrisen markerad (S2, S6). */}
+        <TestBredd form="rad" markerad="matris" label="En av åtta testtyper, matrislogik" />
         <div className="pub-handling">
           <Link
             href={INLINE_PROVA.href}
@@ -262,7 +263,7 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
             ))}
           </ul>
           {/* Sidokolumnen har ingen listrad intill rutnätet, så raden får caption (S7, S13). */}
-          <TestBredd form="rad" text={GRATIS_KORT.nioCaption} label="Nio testtyper, grundnivån gratis i alla" className="ib-tb-sido" />
+          <TestBredd form="rad" text={GRATIS_KORT.breddCaption} label="Åtta testtyper och personlighetstestet, grundnivån gratis" className="ib-tb-sido" />
           <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp" style={{ width: '100%', marginTop: 16 }}>
             {GRATIS_KORT.knapp}
           </Link>
@@ -355,6 +356,13 @@ export function SlutKort({ paket, cluster, slug }: { paket: Exclude<ArtikelPaket
         kick={copy.etikett}
         rubrik={gradientSlut(copy.rubrik)}
         rubrikNiva="p"
+        mellan={
+          // Bankbredden i testpaketets slutkort, på bläcket mellan rubrik och
+          // punkter (docs/design/bankbredd-2026-11-19.md avsnitt 4).
+          paket === 'test' ? (
+            <Bankbredd form="rad" yta="vagg" text="Nivån räknas bara på uppgifter du inte sett den senaste månaden." />
+          ) : undefined
+        }
         punkter={copy.rader}
         pris
         knapp={
@@ -397,7 +405,7 @@ export function GratisKort({
         <p className="pub-h3 ib-rub">{GRATIS_KORT.rubrik}</p>
       </div>
       {/* Ingen caption: listans första rad står intill och säger bredden. */}
-      <TestBredd form="rutnat" label="Nio testtyper, grundnivån gratis i alla" />
+      <TestBredd form="rutnat" label="Åtta testtyper och personlighetstestet, grundnivån gratis" />
       <ul className="pub-bock">
         {GRATIS_KORT.rader.map((r, i) => (
           <li key={r}>

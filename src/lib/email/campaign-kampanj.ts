@@ -7,6 +7,7 @@
 
 import { signUnsubscribe } from './unsubscribe';
 import type { KampanjNyckel } from '@/lib/kampanj/kampanj';
+import { TESTTYPER_ORD } from '@/lib/plans/gratis-copy';
 
 export const kampanjMejlTyp = (nyckel: KampanjNyckel) => `campaign:${nyckel}`;
 
@@ -34,7 +35,7 @@ const COPY: Record<KampanjNyckel, MejlCopy> = {
     stycke1:
       'Har du ett logiktest eller I-provet framför dig? Den här veckan kostar första månaden Premium 99 kr i stället för 149 kr. Du gör övningsprov med tid, i samma format som på riktigt, och ser exakt var du tappar poäng.',
     stycke2:
-      'Vill du ha struktur lägger vi upp ett pass om dagen fram till ditt provdatum. CV, personliga brev, Jobbcoachen och jobbmatchningen ingår också. Allt inför ansökan på ett ställe, hela veckan till och med söndag.',
+      `Du tränar på din nivå så ofta du vill, i alla ${TESTTYPER_ORD} testtyperna, och nivån räknas bara på uppgifter du inte sett den senaste månaden. Vill du ha struktur lägger vi upp en plan fram till ditt provdatum. CV, personliga brev, Jobbcoachen och jobbmatchningen ingår också. Allt inför ansökan på ett ställe, hela veckan till och med söndag.`,
     belopp: '99 kr',
     knapp: 'Köp Premium, 99 kr första månaden',
     villkor:
@@ -50,7 +51,7 @@ const COPY: Record<KampanjNyckel, MejlCopy> = {
     stycke1:
       'I dag, och bara i dag, kostar första månaden Premium 49 kr i stället för 149 kr. Det är vårt lägsta pris i år. Vid midnatt är det borta.',
     stycke2:
-      'Gör övningsprovet med tid, se var du tappar poäng och få ett pass om dagen tills det är dags på riktigt. CV, personliga brev och Jobbcoachen följer med.',
+      'Gör övningsprovet med tid, se var du tappar poäng och träna på din nivå så ofta du vill tills det är dags på riktigt. CV, personliga brev och Jobbcoachen följer med.',
     belopp: '49 kr',
     knapp: 'Köp Premium, 49 kr första månaden',
     villkor:

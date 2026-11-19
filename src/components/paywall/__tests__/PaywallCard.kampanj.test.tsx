@@ -91,10 +91,16 @@ describe('betalväggens copy efter beslutet 2026-11-15 (S4, S5)', () => {
   it('testniva och test-tak säger typerna och "utan tak", aldrig 19 tester eller obegränsat', async () => {
     const { getPaywallCopy } = await import('../paywall-copy')
     expect(getPaywallCopy('testniva').body).toBe(
-      'Premium ger alla åtta testtyperna på alla nivåer, träning varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.'
+      'Avancerad och expert i alla åtta testtyperna, träning på din nivå utan tak, övningsprov mot klockan och det fördjupade personlighetstestet. Nivån räknas bara på uppgifter du inte sett den senaste månaden.'
     )
-    expect(getPaywallCopy('test-tak').body).toBe('Premium ger alla nivåer, övningsprov mot klockan och träning utan tak, varje dag.')
+    expect(getPaywallCopy('test-tak').body).toBe('Premium ger alla nivåer, övningsprov mot klockan och träning på din nivå utan tak.')
     expect(getPaywallCopy('testniva', { plats: 'kurva' }).title).toBe('Hela din utveckling ingår i Premium')
+    // T11: kvotlåset säger att dagens grundnivåtest är gjort, aldrig Avancerad nivå.
+    const kvot = getPaywallCopy('testniva', { plats: 'kvot' }).title
+    expect(kvot).toBe('Dagens grundnivåtest är gjort')
+    expect(kvot).not.toMatch(/Avancerad nivå/)
+    const { lasFor } = await import('@/components/tester-v4/tester/lasning')
+    expect(lasFor({ slag: 'niva_test', zon: 'grund', las: { skal: 'kvot', chip: 'I morgon' } }).plats).toBe('kvot')
   })
 
   it('prisraden står på två rader, "Säg upp när du vill." för sig', () => {

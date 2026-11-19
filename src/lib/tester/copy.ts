@@ -15,7 +15,7 @@ import { ordTal, versal } from './resultat'
 export const TESTETS_FRAGA: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Vilken figur kommer härnäst?',
   figurserie: 'Vilken figur kommer härnäst i raden?',
-  deduktiv: 'Vem står var när alla villkor gäller?',
+  deduktiv: 'Vad måste gälla när alla villkor gäller?',
   talserie: 'Vilka tal kommer härnäst?',
   spatial: 'Vrida, vika och se i tre dimensioner',
   ordforrad: 'Vilket ord betyder samma sak?',

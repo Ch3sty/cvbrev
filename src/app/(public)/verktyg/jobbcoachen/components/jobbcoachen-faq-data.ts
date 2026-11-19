@@ -6,7 +6,7 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
-import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 import { FREE_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal'
 
 const PREMIUM_PRIS = `${paketKort()}, ${prisPeriod(SALD_PLAN)}`
@@ -47,6 +47,6 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad händer när mina tio meddelanden är slut?',
-    a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag och ${GRUNDNIVAN_ALLA}.`,
+    a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag och ${GRUNDNIVAN_ALLA_DAG}.`,
   },
 ]

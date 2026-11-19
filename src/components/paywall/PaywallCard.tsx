@@ -35,9 +35,8 @@ import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
-import TestBredd from '@/components/publikt/TestBredd'
-import { TEST_TYP_NAMN, type TestTyp } from '@/components/illustrations/TestGlyfer'
-import { LAS_CHIP, ZON_RUBRIK } from '@/lib/tester/v4/copy'
+import Bankbredd from '@/components/publikt/Bankbredd'
+import type { TestTyp } from '@/components/illustrations/TestGlyfer'
 
 export { PRISER_HREF }
 
@@ -124,8 +123,9 @@ export interface PaywallCardProps {
   dagarKvar?: number | null
   /**
    * Testtypen väggen gäller, variant testniva och test-tak: markeras i
-   * Nio-raden mellan brödtext och prisrad (S4, S5). Utan typ står alla nio
-   * i samma vikt.
+   * Bankbredd mellan brödtext och prisrad (docs/design/bankbredd-2026-11-19.md
+   * avsnitt 4). Utan typ, eller för personlighetstestet som saknar bank, står
+   * alla åtta staplar i samma vikt.
    */
   testTyp?: TestTyp
   /**
@@ -137,19 +137,11 @@ export interface PaywallCardProps {
   /**
    * Gratisnivåns grundnivåtest kvar i dag (Gratislage.grundKvarIdag), variant
    * testniva. Är det 0 erbjuder kortet inget nytt grundtest: det sekundära
-   * blir v4:s "I morgon"-läge (lasNivaTest, skal kvot) och köpknappen står
-   * kvar. Utelämnat (okänt) gäller copyns sekundära som förut.
+   * blir länken "Se vad som ingår" (textdäcket F4) och köpknappen står kvar.
+   * Utelämnat (okänt) gäller copyns sekundära som förut.
    */
   grundKvarIdag?: number | null
   className?: string
-}
-
-/**
- * Sant när testväggens sekundära skulle erbjuda ett nytt grundtest fast
- * dagens grundnivåtest redan är gjort. Ren, för testerna.
- */
-export function grundSlutIdag(variant: PaywallVariant, grundKvarIdag: number | null | undefined): boolean {
-  return variant === 'testniva' && grundKvarIdag != null && grundKvarIdag <= 0
 }
 
 export default function PaywallCard({
@@ -237,6 +229,7 @@ export default function PaywallCard({
     track,
     plan: knappPlan,
     plats: platsen,
+    grundKvarIdag,
     // En spårkund har redan en prenumeration och får ingen ny kassa, alltså
     // inget kampanjpris heller.
     kampanj: sparKund ? null : kampanj,
@@ -335,22 +328,9 @@ export default function PaywallCard({
           </button>
         )
       default:
-        // Dagens grundnivåtest är gjort: ingen knapp till ett nytt grundtest
-        // (den leder rakt in i kvotspärren). Samma "I morgon"-läge som v4:s
-        // låsta grundnivå, "Grundnivå · I morgon", som status utan handling.
-        if (!arPrisText(copy.secondary) && grundSlutIdag(variant, grundKvarIdag))
-          return (
-            <span
-              className="inline-flex min-h-11 items-center justify-center gap-1.5 self-center text-sm font-semibold text-ink-3"
-              data-grund-kvot="i-morgon"
-            >
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth={1.8}>
-                <rect x="5" y="10.5" width="14" height="10" rx="2.5" />
-                <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
-              </svg>
-              {`${ZON_RUBRIK.grund} · ${LAS_CHIP.kvot}`}
-            </span>
-          )
+        // Är dagens grundnivåtest gjort säger copyn "Se vad som ingår" i
+        // stället för ett nytt grundtest (F4), och kvotlåsets rubrik säger
+        // "Dagens grundnivåtest är gjort" (T11), så ingen statusrad behövs.
         // En sekundär handling som hör hemma i vyn (till exempel "Ta bort ett
         // gammalt CV") vinner över länken till prissidan. Säger copyn "Se
         // vad som ingår" eller "Se priset" är det länken ändå.
@@ -377,11 +357,7 @@ export default function PaywallCard({
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
       {variant === 'testniva' || variant === 'test-tak' ? (
         <div className="mt-3">
-          <TestBredd
-            form="rad"
-            markerad={testTyp}
-            label={testTyp ? `Nio testtyper, ${TEST_TYP_NAMN[testTyp]} låst` : 'Nio testtyper'}
-          />
+          <Bankbredd form="rad" yta="ljus" markerad={testTyp && testTyp !== 'personlighet' ? testTyp : undefined} />
         </div>
       ) : null}
       {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{prisradPaTvaRader(copy.prisrad)}</p> : null}

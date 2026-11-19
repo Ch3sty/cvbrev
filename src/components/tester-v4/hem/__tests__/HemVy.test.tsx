@@ -53,7 +53,7 @@ describe('HemVy (skissen Hem A)', () => {
     expect(dagar.querySelectorAll('[data-veckorad] [data-status]').length).toBe(7)
     expect(text(container.querySelector('[data-sa-ligger]')!)).toContain('Alva Logic')
     expect(container.querySelector('[data-katalog="matris"][data-i-plan]')).not.toBeNull()
-    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Nio tester, alla öppna')
+    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Åtta testtyper och personlighetstestet')
     expect(container.querySelector('[data-ingang="tester"] a[href="/dashboard/tester/alla"]')).not.toBeNull()
     expect(text(container.querySelector('[data-ingang="utveckling"]')!)).toContain('Fyra veckor i figurer och mönster')
     expect(container.querySelector('[data-minigraf="dator"] [data-nivakoll]')).not.toBeNull()
@@ -88,7 +88,7 @@ describe('HemVy (skissen Hem A)', () => {
     const rad = container.querySelector('[data-gratisrad]')!
     expect(text(rad)).toContain(`Proven ligger på avancerad nivå. Öva där, så ofta du vill, med Premium, ${data.gratis.pris.prisrad}.`)
     expect(text(container.querySelector('[data-gratis]')!)).toContain('Det här var grundnivån')
-    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Nio tester, grundnivån gratis')
+    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Åtta testtyper, ett gratis grundnivåtest om dagen')
     expect(text(container.querySelector('[data-tester-fot]')!)).toContain('Dagens grundnivåtest är gjort')
     expect(text(container.querySelector('[data-ingang="utveckling"]')!)).toContain('Hela historiken ingår i Premium')
   })
@@ -181,13 +181,13 @@ describe('navigeringens undertexter (hemData)', () => {
     const b = fixturTester('b', 'premium')
     const t = navTexter(b)
     expect(t.rad.hem).toBe(`Nästa steg: ${b.hintar[0].knapp.etikett}`)
-    expect(t.rad.tester).toMatch(/^9 testtyper, \d mätta, alla öppna$/)
-    expect(t.kort.tester).toBe('9 testtyper')
+    expect(t.rad.tester).toMatch(/^\d av 8 mätta, alla nivåer öppna$/)
+    expect(t.kort.tester).toBe('Åtta testtyper')
   })
 
   it('gratis: grundnivån i stället för alla öppna', () => {
-    expect(navTexter(fixturTester('b', 'gratis')).rad.tester).toBe('9 testtyper, ett grundnivåtest gratis i dag')
-    expect(navTexter(fixturTester('b', 'gratis', { kvotAnvand: true })).rad.tester).toBe('9 testtyper, dagens grundnivåtest gjort')
+    expect(navTexter(fixturTester('b', 'gratis')).rad.tester).toBe('Åtta testtyper, ett grundnivåtest gratis i dag')
+    expect(navTexter(fixturTester('b', 'gratis', { kvotAnvand: true })).rad.tester).toBe('Åtta testtyper, dagens grundnivåtest gjort')
   })
 
   it('Din utveckling: aktuell nivå (samma som bandet) mot första punkten inom fyra veckor', () => {

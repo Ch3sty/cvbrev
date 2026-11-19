@@ -1,0 +1,269 @@
+{
+ "_om": "Undantag för textdäcket 2026-11-19, grupp A (MDX-artiklarna), enligt docs/rapporter/textdack-granskning-seo.md avsnittet Undantag i SEO-diffen. Läses av scripts/seo-diff-artiklar.ts. Inga rubriker, länkar eller FAQ-frågor tas bort. Rubrik-id kopierade ur docs/qa/seo-diff/textdack-efter.json. Grupp B (slutkontrollen 2026-11-19): poster för /verktyg/rekryteringstester, /, /funktioner och /verktyg/jobbcoachen samt en omdöpt H3 på testsidan, ur diffen mot live (docs/qa/seo-diff/textdack-b-diff.md).",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-19",
+   "skal": "T4, öppen fråga 1: bara de två meningarna om gratisnivån rättade 2026-11-19 i FAQ-svaret (frontmatter och FAQItem), Nivåkollen och första passet blir grundnivåtest om dagen. Title, seoTitle, description, rubriker och updated orörda. Noteras i avläsningen 2 dec.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cubiks-logiks-test",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/matrigma-test",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/verifierade-testresultat-vs-cv",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T7): FAQ-svar om gratisnivån ändrat i frontmatter och FAQItem, brödtext och wordCount följer.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/din-digitala-jobbcoach",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/logiktest-exempel-med-losningar",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/tester-hos-myndigheter",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/vanliga-intervjufragor-svar",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/talserier",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/i-prov",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T1, T3, T6): FAQ-svaret \"Är testerna gratis?\" med dagsgränsen, två nya FAQ-frågor (Vilka uppgifter finns i testet i spatial förmåga? / i deduktiv slutledning?), featureList och offers.description med ett grundnivåtest om dagen. Inga frågor borttagna.",
+   "andrade": [
+    "FAQPage",
+    "WebApplication"
+   ]
+  },
+  {
+   "path": "/",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T1): GRATIS_FAQ med dagsgränsen, ett grundnivåtest om dagen. Startsidans graf är ett block. Frågorna oförändrade.",
+   "andrade": [
+    "Organization+WebSite+FAQPage"
+   ]
+  },
+  {
+   "path": "/funktioner",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T1): FAQ-svaret om gratisnivån läser GRUNDNIVAN_ALLA_DAG, ett grundnivåtest om dagen. Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/verktyg/jobbcoachen",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T1): FAQ-svaret om vad som händer när gratissamtalen är slut läser GRUNDNIVAN_ALLA_DAG, ett grundnivåtest om dagen. Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage"
+   ]
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "falt": "description",
+   "datum": "2026-11-19",
+   "skal": "T7: description med speglade figurer och kroppar av kuber (152 tecken)."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "falt": "title",
+   "datum": "2026-11-19",
+   "skal": "T7: seoTitle Deduktiv slutledningsförmåga: test, exempel och lösningar, på Search Console-underlaget (578 visningar landar på logiska-tester). Avläsning 28 dagar efter publicering."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "falt": "description",
+   "datum": "2026-11-19",
+   "skal": "T7: ny description med fem deduktiva format (145 tecken)."
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "rubrik": "h2#spegling-i-tva-linjer Spegling i två linjer",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "rubrik": "h2#kroppar-av-kuber-vyn-fran-pilen-och-snittet Kroppar av kuber: vyn från pilen och snittet",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h2#fem-format-i-deduktiva-test-med-ett-lost-exempel-var Fem format i deduktiva test, med ett löst exempel var",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h3#villkorskedjor-om-och-sa Villkorskedjor: om och så",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h3#alla-nagra-och-ingen Alla, några och ingen",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h3#sanningssagare-och-lognare Sanningssägare och lögnare",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h3#tabellpussel Tabellpussel",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "rubrik": "h3#det-som-inte-kan-stamma Det som inte kan stämma",
+   "datum": "2026-11-19",
+   "skal": "T7: nytt avsnitt, befintliga rubriker orörda."
+  }
+ ],
+ "RUBRIK_BYTT": [
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "h3 Rapport efter varje pass",
+   "efter": "h3 Rapport efter varje test",
+   "datum": "2026-11-19",
+   "skal": "Textdäcket 2026-11-19 (T3): ordet pass byts mot test i synlig text, husregeln. Samma kort, samma nivå, samma innehåll."
+  }
+ ]
+}

@@ -33,7 +33,8 @@ import MattLank from '@/components/publikt/MattLank'
 import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
 import { MatrisBricka } from '@/components/publikt/MatrisExpert'
 import { TESTTAL } from '@/components/publikt/testtal'
-import { ANTAL_TESTTYPER, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
+import { ANTAL_TESTTYPER, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA_DAG, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
+import Bankbredd from '@/components/publikt/Bankbredd'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
 import Produktfilm from '@/components/publikt/Produktfilm'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
@@ -76,7 +77,7 @@ const TESTTYPER: {
   {
     rubrik: 'Matrislogik',
     bild: 'matris',
-    text: 'Hitta mönstret i en 3×3-matris med abstrakta former. Tränar mönsterigenkänning och logiskt tänkande i samma format som SHL Inductive Reasoning och Cut-e Scales.',
+    text: 'Hitta mönstret i en 3×3-matris: abstrakta former, grupper av tecken, streckfigurer och klockor. Tränar mönsterigenkänning och logiskt tänkande i samma format som SHL Inductive Reasoning och Cut-e Scales.',
     fakta: [
       { niva: 'Grundnivå', text: `${T.matrisGrund.fragor} frågor, cirka ${T.matrisGrund.minuter} minuter` },
       { niva: 'Avancerad nivå', text: `${T.matrisAvancerad.fragor} frågor, cirka ${T.matrisAvancerad.minuter} minuter` },
@@ -103,7 +104,7 @@ const TESTTYPER: {
   {
     rubrik: 'Figurserier',
     bild: 'figur',
-    text: 'En rad figurer som följer en regel, och du väljer nästa. Induktiv logik i samma format som Aon scales ix och SHL Inductive Reasoning.',
+    text: 'En rad figurer som följer en regel, och du väljer nästa. Pilar, former och klockor med två visare. Induktiv logik i samma format som Aon scales ix och SHL Inductive Reasoning.',
     fakta: [
       { niva: 'Grundnivå', text: `${T.figurGrund.fragor} frågor, cirka ${T.figurGrund.minuter} minuter` },
       { niva: 'Avancerad och expert', text: `I ${PREMIUM}` },
@@ -112,7 +113,7 @@ const TESTTYPER: {
   {
     rubrik: 'Deduktiv slutledning',
     bild: 'deduktiv',
-    text: 'Villkor i text och en fråga om vad som måste gälla. Övningsprovet har samma antal uppgifter och samma tid som SHL Verify deduktiv.',
+    text: 'Villkor i text och en fråga om vad som måste gälla, eller vad som inte kan stämma. Om och så, alla och några, sanningssägare och lögnare, tabellpussel och ordningsuppgifter. Övningsprovet har samma antal uppgifter och samma tid som SHL Verify deduktiv.',
     fakta: [
       { niva: 'Grundnivå', text: `${T.deduktivGrund.fragor} uppgifter, cirka ${T.deduktivGrund.minuter} minuter` },
       { niva: 'Avancerad och expert', text: `I ${PREMIUM}` },
@@ -130,7 +131,7 @@ const TESTTYPER: {
   {
     rubrik: 'Spatial förmåga',
     bild: 'spatial',
-    text: 'Rumsuppfattning: vridna figurer, pappersvikning och tärningar. Tre av de sex deltesterna i I-provet bygger på förmågan.',
+    text: 'Rumsuppfattning: vridna och speglade figurer, pappersvikning, tärningar och kroppar av kuber sedda från olika håll. Tre av de sex deltesterna i I-provet bygger på förmågan.',
     fakta: [
       { niva: 'Grundnivå', text: `${T.spatialGrund.fragor} uppgifter, cirka ${T.spatialGrund.minuter} minuter` },
       { niva: 'Avancerad nivå', text: `${T.spatialAvancerad.fragor} uppgifter, cirka ${T.spatialAvancerad.minuter} minuter` },
@@ -233,11 +234,11 @@ const GUIDER = [
   { rubrik: 'Numeriska test', text: 'Tabelläsning, procent och huvudräkning som håller under tidspress.', href: '/artiklar/numeriskt-test-guide' },
   { rubrik: 'Verbala test', text: 'Sant, falskt eller går ej att avgöra, och fällan som fäller flest.', href: '/artiklar/verbalt-test-guide' },
   { rubrik: 'I-provet', text: 'Mönstringen och polisens prövning: de sex deltesterna, kraven och en löst uppgift per deltest.', href: '/artiklar/i-prov' },
-  { rubrik: 'Spatial förmåga', text: 'Rumsuppfattning: vridna figurer, pappersvikning och tärningar, med lösta uppgifter.', href: '/artiklar/rotation-test-guide' },
+  { rubrik: 'Spatial förmåga', text: 'Rumsuppfattning: vridna och speglade figurer, pappersvikning, tärningar och kroppar av kuber, med lösta uppgifter.', href: '/artiklar/rotation-test-guide' },
   { rubrik: 'Talserier', text: 'Åtta regeltyper, differensraden och tjugo talserier med lösning.', href: '/artiklar/talserier' },
   { rubrik: 'Ordförståelse test', text: 'Synonymer och motsatsord, fällorna bland alternativen och tjugo ord med facit.', href: '/artiklar/ordforstaelse-test' },
   { rubrik: 'Personlighetstest', text: 'Femfaktormodellen, vad dimensionerna betyder för olika roller och varför ärlighet lönar sig.', href: '/artiklar/personlighetstest-jobb-guide' },
-  { rubrik: 'Deduktiva och induktiva test', text: 'Regel till slutsats eller exempel till regel. Sex lösta uppgifter och vilka tester Aon och SHL använder.', href: '/artiklar/deduktivt-induktivt-test' },
+  { rubrik: 'Deduktiva och induktiva test', text: 'Regel till slutsats eller exempel till regel. Fem deduktiva format med lösning och vilka tester Aon och SHL använder.', href: '/artiklar/deduktivt-induktivt-test' },
   { rubrik: 'Alva Labs logiktest', text: 'Tjugo adaptiva matrisuppgifter med två minuter var, och hur skalan 1 till 10 ska läsas.', href: '/artiklar/alva-labs-logiktest' },
   { rubrik: 'MAP från Assessio', text: 'Personlighetstestet med 200 påståenden: vad de fem faktorerna mäter och vad arbetsgivaren ser.', href: '/artiklar/map-test-personlighetstest' },
 ]
@@ -311,10 +312,10 @@ export default function RekryteringstesterSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Fem frågor utan konto, grundnivån i alla testtyper med gratiskonto, utan kortuppgift',
+      description: 'Fem frågor utan konto, ett grundnivåtest om dagen i alla testtyper med gratiskonto, utan kortuppgift',
     },
     featureList:
-      `Matrislogik i rutnät om tre gånger tre, figurserier, deduktiv slutledning med övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna figurer, pappersvikning och tärningar, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, träning utan tak med ${paketNamn(SALD_PLAN)}`,
+      `Matrislogik i rutnät om tre gånger tre med former, teckengrupper, streckfigurer och klockor, figurserier med pilar, former och klockor med två visare, deduktiv slutledning med villkorskedjor, syllogismer, sanningssägare och lögnare, tabellpussel och ordningsuppgifter samt övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna och speglade figurer, pappersvikning, tärningar och kroppar av kuber, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje test, genomgång fråga för fråga med rätt svar, träning utan tak med ${paketNamn(SALD_PLAN)}`,
   }
 
   // Stegens namn är de synliga h3:orna och texten deras brödtext, så att
@@ -397,12 +398,12 @@ export default function RekryteringstesterSida() {
             kick="Rekryteringstester, kom förberedd till provet"
             h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
             ingress="Matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang i samma format som SHL, Aon och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet."
-            fet={`Fem frågor gratis här, ${GRUNDNIVAN_ALLA} gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje test.`}
+            fet={`Fem frågor gratis här, ${GRUNDNIVAN_ALLA_DAG}, gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje test.`}
             primar={{ text: 'Starta gratis test', href: PROVA, dataCta: 'hero-primary' }}
             sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
             tal={[
-              { tal: `${ANTAL_TESTTYPER} testtyper`, text: 'gratis på grundnivå med konto' },
-              { tal: `${T.matrisGrund.minuter} min`, text: 'per pass' },
+              { tal: `${ANTAL_TESTTYPER} testtyper`, text: 'grundnivån gratis, ett test om dagen' },
+              { tal: `${T.matrisGrund.minuter} min`, text: 'per test' },
               { tal: '5 frågor', text: 'att prova utan konto' },
             ]}
             bildLag
@@ -490,10 +491,10 @@ export default function RekryteringstesterSida() {
               <p className="pub-kick">Kognitiva tester</p>
               <h2 className="pub-h2">Åtta testtyper, alla gratis att börja</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Med ett gratiskonto gör du grundnivån i varje testtyp, med full genomgång efteråt, och resultatet är ditt. Börja
-                gärna med Nivåkollen: tolv uppgifter som anpassar sig efter dina svar och på cirka åtta minuter visar var du står.
-                Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, <MedKampanjPris text={PRIS} />. Säg
-                upp när du vill.
+                Med ett gratiskonto gör du ett grundnivåtest om dagen, i vilken av de åtta testtyperna du vill, med full genomgång
+                efteråt. Resultatet är ditt. I matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt börjar du med ett
+                kort nivåtest som visar var du står. Att träna vidare på din nivå, med avancerad nivå, expertnivå och övningsprov mot
+                klockan, ingår i {PREMIUM}, <MedKampanjPris text={PRIS} />. Säg upp när du vill.
               </p>
               <div className="pub-raster pub-raster-3 pub-rum-tran">
                 {TESTTYPER.map((t) => (
@@ -637,19 +638,23 @@ export default function RekryteringstesterSida() {
                 <div className="pub-kort">
                   <Objekt typ="prova" />
                   <h3 className="pub-h4">Gratis att prova</h3>
-                  <p>Fem frågor med facit här, utan konto. Med kontot gör du {GRUNDNIVAN_ALLA} gratis. Ingen kortuppgift.</p>
+                  <p>Fem frågor med facit här, utan konto. Med kontot gör du {GRUNDNIVAN_ALLA_DAG}, gratis. Ingen kortuppgift.</p>
                 </div>
                 <div className="pub-kort">
                   <Objekt typ="rapport" />
-                  <h3 className="pub-h4">Rapport efter varje pass</h3>
+                  <h3 className="pub-h4">Rapport efter varje test</h3>
                   <p>Resultat, tid och en genomgång fråga för fråga med rätt svar.</p>
                 </div>
                 <div className="pub-kort pub-kort-premium">
                   <Objekt typ="uppat" />
                   <h3 className="pub-h4">{PREMIUM} tar bort taket</h3>
                   <p>
-                    Alla nivåer, övningsprov mot klockan, det fördjupade personlighetstestet och hela din resultathistorik, <MedKampanjPris text={PRIS} />.
+                    Alla nivåer, träning på din nivå utan tak, övningsprov mot klockan, det fördjupade personlighetstestet och hela din historik, <MedKampanjPris text={PRIS} />.
                   </p>
+                  {/* Bankbredden (docs/design/bankbredd-2026-11-19.md avsnitt 4): kortet sätter marginalen, 18 px. */}
+                  <div style={{ marginTop: 18 }}>
+                    <Bankbredd form="rad" yta="vagg" text="Nivån räknas bara på uppgifter du inte sett den senaste månaden." />
+                  </div>
                 </div>
               </div>
             </div>

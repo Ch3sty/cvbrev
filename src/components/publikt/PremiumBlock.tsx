@@ -40,6 +40,7 @@ export default function PremiumBlock({
   rubrikNiva = 'h2',
   text,
   punkter,
+  mellan,
   pris,
   knapp,
   lank,
@@ -54,6 +55,8 @@ export default function PremiumBlock({
   rubrikNiva?: 'h1' | 'h2' | 'h3' | 'p'
   text?: ReactNode
   punkter?: readonly string[]
+  /** En bild mellan rubrik (och ingress) och punkterna, till exempel Bankbredd i artiklarnas slutkort. */
+  mellan?: ReactNode
   /** Visa priset stort. */
   pris?: boolean
   knapp: ReactNode | { text: string; href: string }
@@ -83,6 +86,7 @@ export default function PremiumBlock({
           {text}
         </p>
       ) : null}
+      {mellan ? <div style={{ marginTop: 26 }}>{mellan}</div> : null}
       {punkter?.length ? (
         <ul className="pub-bock" style={{ marginTop: 28 }}>
           {punkter.map((p) => (

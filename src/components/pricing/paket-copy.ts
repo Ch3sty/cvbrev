@@ -34,7 +34,7 @@ import {
   type PlanLength,
 } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
@@ -222,7 +222,7 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: ingarGratis(`${GRUNDNIVAN_ALLA}, med genomgång.`),
+      sub: ingarGratis(`${GRUNDNIVAN_ALLA_DAG}, med genomgång.`),
       text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i de typer de stora urvalstesten använder: matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga och ordförråd, i tre nivåer från grund till expert, plus personlighetstestet. I övningsprovet går klockan på riktigt i samma format som Matrigma, Alva, SHL, Aon och I-provet, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och din utveckling dag för dag visar när du är redo.',
       steg: [
         'Grundnivån visar var du står i varje typ.',

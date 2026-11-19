@@ -13,6 +13,8 @@ export interface Las {
 }
 
 export function lasFor(h: Pick<Handling, 'slag' | 'las' | 'zon'>): Las {
+  // Dagens grundnivåtest är gjort (T11): kvotväggen, inte nivåväggen.
+  if (h.las?.skal === 'kvot') return { feature: 'tests_above_base', plats: 'kvot' }
   if (h.las?.skal === 'nivakoll_gjord') return { feature: 'tests_above_base', plats: 'ommatning' }
   switch (h.slag) {
     case 'trana':

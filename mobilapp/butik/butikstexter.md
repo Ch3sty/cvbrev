@@ -8,30 +8,37 @@ Testklar: Logiktest & övning
 
 ## Kort beskrivning (högst 80 tecken)
 
-Öva rekryteringstest: figurmatriser, numeriskt, verbalt, spatialt och I-provet
+Öva rekryteringstest och I-provet. Åtta testtyper, regeln efter varje svar.
 
 ## Fullständig beskrivning (högst 4 000 tecken)
 
 Du har fått ett rekryteringstest i kallelsen. Testklar, appen från jobbcoach.ai, tränar dig fram till dagen.
 
-Börja med Nivåkollen. Den är gratis och ger dig din nivå på åtta minuter. Sedan gör du ett pass om dagen på din nivå, i samma format som proven arbetsgivare använder: figurer och mönster, talserier, numeriskt resonemang, ordförråd och verbal förmåga, spatial förmåga, deduktiv slutledning och text som ska läsas noga.
+Börja med Nivåkollen. Den är gratis och ger dig din nivå på åtta minuter. Sedan gör du ett grundnivåtest om dagen gratis, i vilken av de åtta testtyperna du vill: matrislogik, figurserier, deduktiv slutledning, talserier, numeriskt resonemang, ordförråd, verbal förmåga och spatial förmåga. I de format som arbetsgivarnas tester brukar ha.
 
 Efter varje svar visar vi regeln. Du ser varför svaret stämmer, så att du lär dig mönstret i stället för att gissa nästa gång.
 
-VAD DU FÅR
-• Nivåkollen gratis: din nivå på åtta minuter, utan konto.
-• Ett pass om dagen, cirka tio minuter, på din nivå.
+VAD DU FÅR GRATIS
+• Nivåkollen: din nivå på åtta minuter.
+• Ett grundnivåtest om dagen, i valfri testtyp.
 • Regeln efter varje svar, med förklaring.
-• Kurvan som visar hur nivån rör sig vecka för vecka.
+• Grundversionen av personlighetstestet.
+
+VAD PREMIUM ÖPPNAR
+• Träning på din nivå, så ofta du vill. Tio minuter om dagen på din nivå.
+• Avancerad nivå och expertnivå i alla testtyper.
 • Övningsprov mot klockan i provets format, för de sista dagarna före provet.
 • Övning inför I-provet: samma delar och samma tidspress.
-• En påminnelse om dagens pass, på den tid du väljer.
+• Kurvan som visar hur nivån rör sig vecka för vecka, med hela historiken.
+• En påminnelse om dagens träning, på den tid du väljer.
+
+Nivån räknas bara på uppgifter du inte sett den senaste månaden. Den visar vad du kan, inte vad du minns.
 
 FÖR VEM
-Testklar är för dig som ska göra ett logiktest eller ett rekryteringstest i en ansökan, för dig som vill bli snabbare på figurmatriser och talserier, och för dig som ska skriva I-provet.
+Testklar är för dig som ska göra ett logiktest eller ett rekryteringstest i en ansökan, för dig som vill bli snabbare på figurmatriser, talserier och deduktiva uppgifter, och för dig som ska skriva I-provet.
 
 PREMIUM
-Nivåkollen och dagens grundpass är gratis. Premium låser upp alla testtyper, passen på din nivå, övningsproven och hela kurvan. Premium kostar 149 kr i månaden och förnyas varje månad tills du säger upp det. Du säger upp när du vill i Google Play.
+Nivåkollen och ett grundnivåtest om dagen är gratis. Premium öppnar avancerad nivå och expertnivå i alla testtyper, träning på din nivå så ofta du vill, övningsproven och hela kurvan. Premium kostar 149 kr i månaden och förnyas varje månad tills du säger upp det. Du säger upp när du vill i Google Play.
 
 SAMMA KONTO SOM PÅ WEBBEN
 Logga in med Google eller e-post. Har du redan ett konto på jobbcoach.ai finns din nivå, dina resultat och din Premium här, och tvärtom.
@@ -39,6 +46,10 @@ Logga in med Google eller e-post. Har du redan ett konto på jobbcoach.ai finns 
 Testerna är framtagna av jobbcoach.ai och är övningar. De är inte de officiella proven och har ingen koppling till testutgivarna eller Försvarsmakten.
 
 Frågor? Skriv till oss via jobbcoach.ai/kontakt.
+
+## Nytt i den här versionen (högst 500 tecken)
+
+Fler sorters uppgifter i träningen: kroppar av kuber och speglingar i spatial förmåga, sanningssägare och lögnare, tabellpussel och villkorskedjor i deduktiv slutledning, klockor i figurserier och matriser. Ett grundnivåtest om dagen är gratis, i vilken testtyp du vill. Ordet pass är borta: nu heter det träning och test, som på webben. Klockan fortsätter räkna om du laddar om sidan mitt i ett test.
 
 ## Övrigt i Play Console
 
@@ -82,5 +93,5 @@ Testutgivarnas varumärken (Matrigma, Alva, SHL, Aon med flera) står inte i tit
 ## Kontroll av längder
 
 ```
-node -e "const t=['Testklar: Logiktest & övning','Öva rekryteringstest: figurmatriser, numeriskt, verbalt, spatialt och I-provet'];t.forEach(s=>console.log([...s].length,s))"
+node -e "const t=['Testklar: Logiktest & övning','Öva rekryteringstest och I-provet. Åtta testtyper, regeln efter varje svar.'];t.forEach(s=>console.log([...s].length,s))"
 ```

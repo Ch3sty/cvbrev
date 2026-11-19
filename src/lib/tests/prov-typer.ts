@@ -148,7 +148,7 @@ export const PROV_COPY: Readonly<Record<NyProvTyp, ProvTypCopy>> = {
   deduktiv: {
     kick: 'Deduktivt test, fem uppgifter',
     h1: 'Prova ett deduktivt test',
-    ingressFet: 'Några villkor och en fråga om vad som måste gälla.',
+    ingressFet: 'Några villkor och en fråga om vad som måste gälla, eller inte kan stämma.',
     ingress: ' Du räknar inte, du håller reda på villkoren. Fem uppgifter, inget konto, ingen tidtagning.',
     fragaKick: 'Deduktivt test, provet',
     forklaring: 'lösningen',
@@ -158,7 +158,7 @@ export const PROV_COPY: Readonly<Record<NyProvTyp, ProvTypCopy>> = {
   spatial: {
     kick: 'Spatial förmåga, fem uppgifter',
     h1: 'Prova ett test i spatial förmåga',
-    ingressFet: 'Spatial förmåga (rumsuppfattning): vridna figurer, pappersvikning och tärningar.',
+    ingressFet: 'Spatial förmåga (rumsuppfattning): vridna och speglade figurer, pappersvikning, tärningar och kroppar av kuber.',
     ingress: ' Fem uppgifter, inget konto, ingen tidtagning.',
     fragaKick: 'Spatial förmåga, provet',
     forklaring: 'tekniken',
