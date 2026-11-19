@@ -4,7 +4,9 @@ import path from 'node:path'
 
 // Kandidatfilerna (matris, verbalt, numeriskt) granskas av testansvarig och
 // får aldrig nå appen: ingenting under src/ importerar från en katalog som
-// heter kandidater. Gäller även dynamiska importer och require.
+// heter kandidater. Gäller även dynamiska importer och require. En
+// komponentmapp med samma namn (for-rekryterare/components/kandidater)
+// importeras utan filnamn och räknas inte.
 function allaFiler(dir: string, ut: string[] = []): string[] {
   for (const namn of readdirSync(dir)) {
     const p = path.join(dir, namn)
@@ -22,7 +24,7 @@ describe('kandidatkatalogerna', () => {
     for (const fil of allaFiler('src').filter((f) => !f.endsWith('kandidater.test.ts'))) {
       const text = readFileSync(fil, 'utf8')
       for (const m of text.matchAll(IMPORT)) {
-        if (/(^|\/)kandidater(\/|$)/.test(m[1])) traffar.push(`${fil}: ${m[1]}`)
+        if (/(^|\/)kandidater\//.test(m[1])) traffar.push(`${fil}: ${m[1]}`)
       }
     }
     expect(traffar).toEqual([])
@@ -30,7 +32,7 @@ describe('kandidatkatalogerna', () => {
 
   it('kontrollen hittar en sådan import', () => {
     const prov = "import x from '../kandidater/parti-01.json'\nconst y = await import(\"@/lib/verbalTestV2/kandidater/parti-01.json\")"
-    const traffar = [...prov.matchAll(IMPORT)].map((m) => m[1]).filter((s) => /(^|\/)kandidater(\/|$)/.test(s))
+    const traffar = [...prov.matchAll(IMPORT)].map((m) => m[1]).filter((s) => /(^|\/)kandidater\//.test(s))
     expect(traffar).toHaveLength(2)
   })
 
