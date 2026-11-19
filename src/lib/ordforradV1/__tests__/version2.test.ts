@@ -9,25 +9,20 @@ import { describe, expect, it } from 'vitest'
 // @ts-ignore ren JavaScript
 import { verifiera } from '../../../../scripts/ordforrad-verifiera.mjs'
 import { ORD_VERSION, poolFor, allaOrd, valjOrd } from '../select'
-import { ordforradAntal, ordforradRedo } from '../status'
+import { ordforradRedo } from '../status'
 import { hittaOrd } from '../fragor.server'
 
 describe('ordförråd version 2', () => {
   it('verifieraren hittar inga fel', () => {
     expect(verifiera().fel).toEqual([])
   })
-  it('version 2 är aktiverad', () => {
-    expect(ORD_VERSION).toBe(2)
+  it('version 2 finns kvar för sina sessioner', () => {
+    expect(ORD_VERSION).toBeGreaterThanOrEqual(2)
     const v2 = allaOrd().filter((q) => q.fran_version === 2)
     expect(v2.length).toBe(101)
     for (const n of ['grund', 'avancerad', 'expert'] as const) {
-      expect(poolFor(n).length).toBe(poolFor(n, 1).length + v2.filter((q) => q.niva === n).length)
+      expect(poolFor(n, 2).length).toBe(poolFor(n, 1).length + v2.filter((q) => q.niva === n).length)
     }
-    expect(ordforradAntal()).toEqual({
-      grund: { synonym: 67, antonym: 61 },
-      avancerad: { synonym: 77, antonym: 60 },
-      expert: { synonym: 75, antonym: 12 },
-    })
     expect(ordforradRedo()).toBe(true)
   })
   it('version 1 drar samma pool och samma urval som före version 2', () => {
@@ -47,7 +42,8 @@ describe('ordförråd version 2', () => {
     for (const n of ['grund', 'avancerad', 'expert'] as const) {
       const bank = allaOrd().filter((q) => q.niva === n)
       const forsta2 = bank.findIndex((q) => q.fran_version === 2)
-      expect(bank.slice(forsta2).every((q) => q.fran_version === 2)).toBe(true)
+      // efter version 2 kommer bara senare versioner (version 3 ligger sist, omgång 2)
+      expect(bank.slice(forsta2).every((q) => q.fran_version >= 2)).toBe(true)
     }
   })
 })

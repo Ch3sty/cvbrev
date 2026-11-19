@@ -4222,5 +4222,1660 @@
    "ifyllda_distraktorer": 0
   },
   "fran_version": 2
+ },
+ {
+  "id": "of-e-s-76",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "implementera",
+  "ordklass": "verb",
+  "options": [
+   "argumentera",
+   "genomföra",
+   "ifrågasätta",
+   "prioritera",
+   "kommentera"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Argumentera betyder framföra argument.",
+   "",
+   "Ifrågasätta betyder uttrycka tvivel om.",
+   "Prioritera betyder ge företräde åt.",
+   "Kommentera betyder ge kommentarer till."
+  ],
+  "facit_betyder": "utföra från början till slut",
+  "exempel": "Vi ska implementera det nya systemet i höst.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL implementera: förklaras med genomföra (\"förverkliga, genomföra\")"
+   ],
+   "so_id": "766802",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 19673,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-77",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "facilitera",
+  "ordklass": "verb",
+  "options": [
+   "underlätta",
+   "kartlägga",
+   "sammanfatta",
+   "rapportera",
+   "förhandla"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Kartlägga betyder göra karta över.",
+   "Sammanfatta betyder återge det viktigaste i.",
+   "Rapportera betyder bland annat lämna rapport.",
+   "Förhandla betyder överlägga i syfte att utarbeta överenskommelse."
+  ],
+  "facit_betyder": "skapa gynnsammare förutsättningar för",
+  "exempel": "Hennes uppgift är att facilitera samtalet i gruppen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL facilitera: förklaras med underlätta (\"underlätta el. möjliggöra process, grupputveckling m.m.\")"
+   ],
+   "so_id": null,
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 276,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-78",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "legitim",
+  "ordklass": "adjektiv",
+  "options": [
+   "ekonomisk",
+   "detaljerad",
+   "muntlig",
+   "laglig",
+   "kortvarig"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ekonomisk betyder bland annat som har att göra med ekonomi.",
+   "Detaljerad betyder noggrann och uttömmande in i minsta detalj.",
+   "Muntlig betyder som uttrycks i talad form.",
+   "",
+   "Kortvarig betyder som inte varar länge."
+  ],
+  "facit_betyder": "som uppfyller lagens krav",
+  "exempel": "Han har en legitim rätt att stanna i landet.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO legitim: synonym laglig",
+    "SAOL legitim: förklaras med laglig (\"laglig; rättmätig\")",
+    "SO laglig: synonym legitim"
+   ],
+   "so_id": "227692",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 20691,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-79",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kontinuerlig",
+  "ordklass": "adjektiv",
+  "options": [
+   "kostnadsfri",
+   "individuell",
+   "frivillig",
+   "fortlöpande",
+   "kvalificerad"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kostnadsfri betyder gratis.",
+   "Individuell betyder som gäller enskilda varelser.",
+   "Frivillig betyder som utförs av fri vilja.",
+   "",
+   "Kvalificerad betyder som har (mer än) tillräckliga kunskaper och färdigheter."
+  ],
+  "facit_betyder": "som pågår hela tiden",
+  "exempel": "Vi erbjuder kontinuerlig utbildning för all personal.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO kontinuerlig: synonym fortlöpande",
+    "SAOL kontinuerlig: förklaras med fortlöpande (\"obruten, sammanhängande; fortlöpande\")",
+    "SO fortlöpande: synonym kontinuerlig"
+   ],
+   "so_id": "214229",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 40948,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-80",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konsolidera",
+  "ordklass": "verb",
+  "options": [
+   "spekulera",
+   "tolka",
+   "illustrera",
+   "förutse",
+   "befästa"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Spekulera betyder bland annat tänka fritt och fantasifullt.",
+   "Tolka betyder bland annat utläsa och i ord uttrycka (egentlig) innebörd av.",
+   "Illustrera betyder förse med illustrationer.",
+   "Förutse betyder på förhand räkna ut inträffandet av.",
+   ""
+  ],
+  "facit_betyder": "göra fastare och säkrare",
+  "exempel": "Företaget vill konsolidera sin position på marknaden.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: konsolidera och befästa listas som synonymer",
+    "synonymer.se: konsolidera och befästa listas som synonymer"
+   ],
+   "so_id": "213333",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 3635,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-81",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "essentiell",
+  "ordklass": "adjektiv",
+  "options": [
+   "grundläggande",
+   "anmärkningsvärd",
+   "föränderlig",
+   "motsägelsefull",
+   "obegriplig"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Anmärkningsvärd betyder värd att notera eller uppmärksamma.",
+   "Föränderlig betyder som lätt undergår förändringar.",
+   "Motsägelsefull betyder som innehåller motstridiga tankegångar.",
+   "Obegriplig betyder omöjlig att begripa."
+  ],
+  "facit_betyder": "som har stor och avgörande betydelse",
+  "exempel": "Vatten är essentiellt för allt liv.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: essentiell och grundläggande listas som synonymer",
+    "synonymer.se: essentiell och grundläggande listas som synonymer"
+   ],
+   "so_id": "144407",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 2841,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-82",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konfiskera",
+  "ordklass": "verb",
+  "options": [
+   "åtala",
+   "beslagta",
+   "deklarera",
+   "inspektera",
+   "arrestera"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Åtala betyder väcka åtal mot.",
+   "",
+   "Deklarera betyder bland annat offentligt tillkännage.",
+   "Inspektera betyder utföra (kvalitets)kontroll av.",
+   "Arrestera betyder gripa för att sätta i fängelse eller förvar."
+  ],
+  "facit_betyder": "ta i beslag",
+  "exempel": "Tullen konfiskerade varorna vid gränsen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL konfiskera: förklaras med beslagta (\"beslagta, dra in till staten\")"
+   ],
+   "so_id": "212771",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 4668,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-83",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "prestige",
+  "ordklass": "substantiv",
+  "options": [
+   "avundsjuka",
+   "anseende",
+   "tålamod",
+   "förmögenhet",
+   "ensamhet"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Avundsjuka betyder (varaktig) känsla av avund.",
+   "",
+   "Tålamod betyder förmåga att uthärda (förekomst av något oönskat) utan att bli (öppet) irriterad.",
+   "Förmögenhet betyder bland annat (viss) samlad mängd av större ekonomiska tillgångar.",
+   "Ensamhet betyder det att vara ensam."
+  ],
+  "facit_betyder": "grad av uppskattning",
+  "exempel": "Jobbet ger hög lön och mycket prestige.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL prestige: förklaras med anseende (\"anseende, inflytande, status\")"
+   ],
+   "so_id": "285516",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 43822,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-84",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "renommé",
+  "ordklass": "substantiv",
+  "options": [
+   "bokslut",
+   "rykte",
+   "kontor",
+   "inkomst",
+   "personal"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Bokslut betyder sammanställning av bokföring vid slutet av en redovisningsperiod.",
+   "",
+   "Kontor betyder bland annat arbetsplats för tjänstemän som arbetar med administration.",
+   "Inkomst betyder fastställd regelbunden ersättning.",
+   "Personal betyder (grupp av) anställda."
+  ],
+  "facit_betyder": "det anseende som någon eller något har",
+  "exempel": "Restaurangen har ett gott renommé.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO renommé: förklaras med rykte (\"(gott) rykte\")",
+    "SAOL renommé: förklaras med rykte (\"anseende, rykte\")"
+   ],
+   "so_id": "296199",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 4067,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-85",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "emanera",
+  "ordklass": "verb",
+  "options": [
+   "kulminera",
+   "härröra",
+   "stagnera",
+   "förtvina",
+   "fluktuera"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kulminera betyder nå sin kulmen.",
+   "",
+   "Stagnera betyder gradvis upphöra att utvecklas i positiv riktning.",
+   "Förtvina betyder vissna bort.",
+   "Fluktuera betyder växla upp och ned i storlek eller värde."
+  ],
+  "facit_betyder": "ha sitt ursprung",
+  "exempel": "Problemen emanerar från den gamla organisationen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL emanera: förklaras med härröra (\"utgå, härröra\")"
+   ],
+   "so_id": "142653",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 253,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-86",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kapabel",
+  "ordklass": "adjektiv",
+  "options": [
+   "fåfäng",
+   "naiv",
+   "duglig",
+   "tålmodig",
+   "lättsinnig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Fåfäng betyder bland annat överdrivet mån om sitt yttre eller sitt anseende.",
+   "Naiv betyder som liknar ett barn.",
+   "",
+   "Tålmodig betyder som har tålamod.",
+   "Lättsinnig betyder obetänksam och ansvarslös."
+  ],
+  "facit_betyder": "som har mer än tillräcklig förmåga",
+  "exempel": "Hon är fullt kapabel att leda projektet.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL kapabel: förklaras med duglig (\"i stånd till ngt, duglig, skicklig\")"
+   ],
+   "so_id": "203298",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 59811,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-87",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "transparent",
+  "ordklass": "adjektiv",
+  "options": [
+   "brandfarlig",
+   "vattentät",
+   "elastisk",
+   "återvinningsbar",
+   "genomskinlig"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Brandfarlig betyder som lätt kan fatta eld.",
+   "Vattentät betyder som inte släpper igenom vatten.",
+   "Elastisk betyder som har hög elasticitet.",
+   "Återvinningsbar betyder som kan återvinnas.",
+   ""
+  ],
+  "facit_betyder": "som släpper igenom ljus och som man kan se klart igenom",
+  "exempel": "Förpackningen är gjord av transparent plast.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO transparent: förklaras med genomskinlig (\"genomskinlig\")",
+    "SAOL transparent: förklaras med genomskinlig (\"genomskinlig, genomlysande; lättbegriplig, öppen\")"
+   ],
+   "so_id": "366840",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 25992,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-88",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kategorisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "sarkastisk",
+   "teatralisk",
+   "ovillkorlig",
+   "dialektal",
+   "nostalgisk"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Sarkastisk betyder präglad av sarkasm.",
+   "Teatralisk betyder tillgjort dramatisk.",
+   "",
+   "Dialektal betyder präglad av dialekt.",
+   "Nostalgisk betyder som kännetecknas av nostalgi."
+  ],
+  "facit_betyder": "som gäller utan undantag eller (förmildrande) villkor",
+  "exempel": "Han gav ett kategoriskt nej till förslaget.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL kategorisk: förklaras med ovillkorlig (\"bestämd, ovillkorlig\")"
+   ],
+   "so_id": "205479",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5110,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-89",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "vederbörlig",
+  "ordklass": "adjektiv",
+  "options": [
+   "frånvarande",
+   "kostbar",
+   "gemytlig",
+   "tillbörlig",
+   "vardaglig"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Frånvarande betyder som inte är närvarande.",
+   "Kostbar betyder dyrbar.",
+   "Gemytlig betyder som uppträder trevligt och vänligt och därigenom sprider en god stämning omkring sig.",
+   "",
+   "Vardaglig betyder som ofta sker eller förekommer eller används."
+  ],
+  "facit_betyder": "som rimligen kan krävas",
+  "exempel": "Ansökan ska lämnas in i vederbörlig ordning.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO vederbörlig: förklaras med tillbörlig (\"\")",
+    "SAOL vederbörlig: förklaras med tillbörlig (\"behörig, tillbörlig\")"
+   ],
+   "so_id": "388882",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 13592,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-90",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kompatibel",
+  "ordklass": "adjektiv",
+  "options": [
+   "kostsam",
+   "förenlig",
+   "flyttbar",
+   "hållbar",
+   "trådlös"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kostsam betyder som har högt pris.",
+   "",
+   "Flyttbar betyder möjlig att flytta.",
+   "Hållbar betyder tillräckligt stadig (i sin uppbyggnad) för att stå emot påfrestningar.",
+   "Trådlös betyder som fungerar utan hjälp av ledningar."
+  ],
+  "facit_betyder": "som kan förenas eller som överensstämmer",
+  "exempel": "Förslaget är inte kompatibelt med gällande regler.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: kompatibel och förenlig listas som synonymer",
+    "synonymer.se: kompatibel och förenlig listas som synonymer"
+   ],
+   "so_id": "212057",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 10459,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-91",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "preferens",
+  "ordklass": "substantiv",
+  "options": [
+   "misstro",
+   "tolerans",
+   "försening",
+   "rättelse",
+   "företräde"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Misstro betyder brist på förtroende.",
+   "Tolerans betyder bland annat respekt för andras (avvikande) åsikter eller beteenden.",
+   "Försening betyder det att något inträffar (eller kommer) senare än normalt.",
+   "Rättelse betyder bland annat ändring av felaktig ordalydelse till riktig.",
+   ""
+  ],
+  "facit_betyder": "rätt att komma i fråga i första hand",
+  "exempel": "Medlemmar har preferens när platserna fördelas.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL preferens: förklaras med företräde (\"företräde, förmånsrätt; böjelse, sympati\")"
+   ],
+   "so_id": "284846",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 11338,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-92",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "nepotism",
+  "ordklass": "substantiv",
+  "options": [
+   "protektionism",
+   "svågerpolitik",
+   "nationalism",
+   "liberalism",
+   "kapitalism"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Protektionism betyder åtgärder för att begränsa ett lands import av varor.",
+   "",
+   "Nationalism betyder åskådning som hävdar den egna nationens värde och intressen.",
+   "Liberalism betyder en politisk åskådning som slår vakt om såväl den enskildes som den privata företagsamhetens frihet.",
+   "Kapitalism betyder ekonomiskt system som kännetecknas av att huvuddelen av produktionsmedlen befinner sig i enskild ägo."
+  ],
+  "facit_betyder": "otillbörligt gynnande av släktingar eller vänner",
+  "exempel": "Tjänsten gick till chefens brorson, ett tydligt fall av nepotism.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO nepotism: synonym svågerpolitik",
+    "SO svågerpolitik: synonym nepotism"
+   ],
+   "so_id": "257370",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5607,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-93",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kontroversiell",
+  "ordklass": "adjektiv",
+  "options": [
+   "ekonomisk",
+   "tidsenlig",
+   "omstridd",
+   "storskalig",
+   "banbrytande"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ekonomisk betyder bland annat som har att göra med ekonomi.",
+   "Tidsenlig betyder som väl återger det typiska under viss (förfluten) tidsperiod.",
+   "",
+   "Storskalig betyder som sker i stor skala.",
+   "Banbrytande betyder som öppnar nya vägar."
+  ],
+  "facit_betyder": "som det råder stor oenighet om",
+  "exempel": "Beslutet var mycket kontroversiellt.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL kontroversiell: förklaras med omstridd (\"som vållar tvist, omtvistad, omstridd\")",
+    "SAOL omstridd: förklaras med kontroversiell (\"kontroversiell\")"
+   ],
+   "so_id": "214634",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 24365,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-94",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskret",
+  "ordklass": "adjektiv",
+  "options": [
+   "lättrörd",
+   "sparsam",
+   "ambitiös",
+   "storväxt",
+   "taktfull"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Lättrörd betyder som lätt påverkas känslomässigt.",
+   "Sparsam betyder bland annat återhållsam med utgifter.",
+   "Ambitiös betyder full av ambition.",
+   "Storväxt betyder stor till växten.",
+   ""
+  ],
+  "facit_betyder": "som strävar att undvika att såra eller förarga andra",
+  "exempel": "Hon tog upp frågan på ett diskret sätt.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL diskret: förklaras med taktfull (\"taktfull, finkänslig\")"
+   ],
+   "so_id": "135718",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 72992,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-95",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "integritet",
+  "ordklass": "substantiv",
+  "options": [
+   "lönsamhet",
+   "flexibilitet",
+   "okränkbarhet",
+   "tillgänglighet",
+   "effektivitet"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Lönsamhet betyder det att ge (gott) ekonomiskt utbyte.",
+   "Flexibilitet betyder förmåga till anpassning.",
+   "",
+   "Tillgänglighet betyder det att vara tillgänglig.",
+   "Effektivitet betyder det att vara effektiv."
+  ],
+  "facit_betyder": "rätt att ha en egen sfär som är skyddad mot intrång",
+  "exempel": "Lagen ska skydda den personliga integriteten.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL integritet: förklaras med okränkbarhet (\"orubbat tillstånd; okränkbarhet; oberoende\")"
+   ],
+   "so_id": "195918",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 130438,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-96",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konsultera",
+  "ordklass": "verb",
+  "options": [
+   "bokföra",
+   "rådfråga",
+   "avskeda",
+   "fakturera",
+   "utbilda"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Bokföra betyder formellt registrera.",
+   "",
+   "Avskeda betyder säga upp (någon) från tjänst.",
+   "Fakturera betyder upprätta faktura för.",
+   "Utbilda betyder bland annat förmedla (relevanta) kunskaper och färdigheter."
+  ],
+  "facit_betyder": "fråga (någon) om råd",
+  "exempel": "Konsultera din läkare innan du börjar med medicinen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL konsultera: förklaras med rådfråga (\"rådfråga; rådgöra\")"
+   ],
+   "so_id": "213969",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 8910,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-s-97",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "proaktiv",
+  "ordklass": "adjektiv",
+  "options": [
+   "omtänksam",
+   "självkritisk",
+   "förutseende",
+   "lättretlig",
+   "samarbetsvillig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Omtänksam betyder som (ofta) visar omtanke.",
+   "Självkritisk betyder kritisk mot den egna personen.",
+   "",
+   "Lättretlig betyder som ofta retar upp sig på småsaker.",
+   "Samarbetsvillig betyder villig att samarbeta."
+  ],
+  "facit_betyder": "som förnuftigt bedömer framtida utveckling",
+  "exempel": "Vi söker en proaktiv projektledare som ser problemen i tid.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL proaktiv: förklaras med förutseende (\"förebyggande, förutseende\")"
+   ],
+   "so_id": "876262",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 3340,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-13",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "deduktiv",
+  "ordklass": "adjektiv",
+  "options": [
+   "retorisk",
+   "semantisk",
+   "induktiv",
+   "produktiv",
+   "normativ"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Retorisk betyder som har att göra med eller utgör retorik.",
+   "Semantisk betyder som har att göra med semantik.",
+   "",
+   "Produktiv betyder som har stor förmåga att producera.",
+   "Normativ betyder som anger en norm."
+  ],
+  "facit_betyder": "som drar allmänna slutsatser utifrån enskilda fall",
+  "exempel": "Hon använde en deduktiv metod i uppsatsen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO deduktiv: motsats induktiv",
+    "SO induktiv: motsats deduktiv"
+   ],
+   "so_id": "133174",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 745,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-14",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "makrokosmos",
+  "ordklass": "substantiv",
+  "options": [
+   "atmosfär",
+   "civilisation",
+   "mikrokosmos",
+   "ekosystem",
+   "organism"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Atmosfär betyder bland annat gashölje kring himlakropp.",
+   "Civilisation betyder (materiellt och kulturellt) välordnat samhällsskick.",
+   "",
+   "Ekosystem betyder enhet som innefattar alla organismer och deras omgivning inom ett område.",
+   "Organism betyder enskild, levande helhet."
+  ],
+  "facit_betyder": "mycket litet system som kan anses utgöra en miniatyr av (en del av) universum",
+  "exempel": "Filosofen såg människan som en spegel av makrokosmos.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: makrokosmos och mikrokosmos listas som motsatsord",
+    "synonymer.se: makrokosmos och mikrokosmos listas som motsatsord"
+   ],
+   "so_id": "237924",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 452,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-15",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "endogen",
+  "ordklass": "adjektiv",
+  "options": [
+   "fysisk",
+   "cyklisk",
+   "heterogen",
+   "kemisk",
+   "exogen"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Fysisk betyder bland annat som har att göra med fysiken.",
+   "Cyklisk betyder som regelbundet upprepas, moment för moment.",
+   "Heterogen betyder uppbyggd av olikartade beståndsdelar.",
+   "Kemisk betyder som har att göra med kemin och dess lagar.",
+   ""
+  ],
+  "facit_betyder": "som uppkommer genom påverkan utifrån",
+  "exempel": "Forskarna letade efter endogena faktorer bakom sjukdomen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO endogen: motsats exogen",
+    "SO exogen: motsats endogen"
+   ],
+   "so_id": "143024",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 792,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-16",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "syntes",
+  "ordklass": "substantiv",
+  "options": [
+   "hypotes",
+   "analys",
+   "citat",
+   "statistik",
+   "metod"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Hypotes betyder (vetenskapligt) antagande som görs för att förklara iakttagna fakta, och som kan prövas med hjälp av nya iakttagelser.",
+   "",
+   "Citat betyder ordagrant återgivet (kortare) avsnitt av text.",
+   "Statistik betyder vetenskapen om metoder för insamling, bearbetning, redovisning och analys av numeriska data.",
+   "Metod betyder planmässigt tillvägagångssätt."
+  ],
+  "facit_betyder": "djupgående och noggrann undersökning av abstrakt företeelses beståndsdelar",
+  "exempel": "Uppsatsen avslutas med en syntes av resultaten.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO syntes: motsats analys",
+    "SO analys: motsats syntes"
+   ],
+   "so_id": "352325",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 146059,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-17",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "hausse",
+  "ordklass": "substantiv",
+  "options": [
+   "prognos",
+   "likviditet",
+   "emission",
+   "utdelning",
+   "baisse"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Prognos betyder förutsägelse om kommande utveckling eller förlopp.",
+   "Likviditet betyder förmåga att snabbt skaffa fram betalningsmedel.",
+   "Emission betyder bland annat utgivning.",
+   "Utdelning betyder det att dela ut något.",
+   ""
+  ],
+  "facit_betyder": "marknadsläge som kännetecknas av låga priser",
+  "exempel": "Efter rapporten blev det hausse på börsen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO hausse: motsats baisse",
+    "SO baisse: motsats hausse"
+   ],
+   "so_id": "180169",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1883,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-18",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "nominell",
+  "ordklass": "adjektiv",
+  "options": [
+   "skattefri",
+   "månatlig",
+   "årlig",
+   "reell",
+   "offentlig"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Skattefri betyder som man inte behöver betala skatt för.",
+   "Månatlig betyder som återkommer varje månad.",
+   "Årlig betyder som förekommer eller utförs varje år.",
+   "",
+   "Offentlig betyder bland annat öppen eller tillgänglig för alla människor."
+  ],
+  "facit_betyder": "räknad i fast penningvärde, alltså med hänsyn till prisförändringar",
+  "exempel": "Den nominella lönen steg, men priserna steg mer.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO nominell: motsats reell"
+   ],
+   "so_id": "259916",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 6086,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-19",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konvergera",
+  "ordklass": "verb",
+  "options": [
+   "kalibrera",
+   "extrapolera",
+   "eskalera",
+   "oscillera",
+   "divergera"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Kalibrera betyder anpassa eller ställa in (något) efter i förväg fastställda mått.",
+   "Extrapolera betyder uppskatta värden utanför ett känt område utifrån värdena inom det.",
+   "Eskalera betyder stegvis öka omfånget av.",
+   "Oscillera betyder snabbt växla i riktning eller styrka.",
+   ""
+  ],
+  "facit_betyder": "avlägsna sig från varandra",
+  "exempel": "Ländernas ekonomier har börjat konvergera.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO konvergera: motsats divergera",
+    "SO divergera: motsats konvergera"
+   ],
+   "so_id": "214788",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 795,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-20",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "utopi",
+  "ordklass": "substantiv",
+  "options": [
+   "parodi",
+   "dystopi",
+   "satir",
+   "allegori",
+   "elegi"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Parodi betyder avsiktligt förlöjligande förvrängning.",
+   "",
+   "Satir betyder framställning som är ironisk eller hånfull på ett elegant och (ofta) träffande sätt.",
+   "Allegori betyder berättelse eller bildframställning vars olika detaljer har en dold innebörd.",
+   "Elegi betyder bland annat dikt som uttrycker vemodsfylld längtan eller klagan."
+  ],
+  "facit_betyder": "negativ framtidsvision",
+  "exempel": "Romanen beskriver en utopi där alla är lyckliga.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: utopi och dystopi listas som motsatsord",
+    "synonymer.se: utopi och dystopi listas som motsatsord"
+   ],
+   "so_id": "383141",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 27150,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-21",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "zenit",
+  "ordklass": "substantiv",
+  "options": [
+   "meridian",
+   "polcirkel",
+   "nadir",
+   "ekvator",
+   "latitud"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Meridian betyder tänkt (halv)cirkel på jordytan som går genom polerna.",
+   "Polcirkel betyder endera av de båda breddgrader som utgör sydlig eller nordlig gräns för de områden där solen någon gång under året befinner sig över horisonten mer än ett dygn i följd.",
+   "",
+   "Ekvator betyder tänkt cirkel runt jordklotet lika långt från båda polerna.",
+   "Latitud betyder bland annat (mått på) en orts avstånd från ekvatorn längs en nord-sydlig linje."
+  ],
+  "facit_betyder": "den (bortskymda) punkt på himlen som ligger rakt under viss ort",
+  "exempel": "I tropikerna kan solen stå i zenit mitt på dagen.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: zenit och nadir listas som motsatsord",
+    "synonymer.se: zenit och nadir listas som motsatsord"
+   ],
+   "so_id": "398835",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 13841,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-22",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "aktiva",
+  "ordklass": "substantiv",
+  "options": [
+   "kalkyl",
+   "budget",
+   "likviditet",
+   "passiva",
+   "prognos"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kalkyl betyder beräkning av troligt utfall.",
+   "Budget betyder plan med angivande av tillgängliga medel och deras fördelning på olika poster under viss tid.",
+   "Likviditet betyder förmåga att snabbt skaffa fram betalningsmedel.",
+   "",
+   "Prognos betyder förutsägelse om kommande utveckling eller förlopp."
+  ],
+  "facit_betyder": "(sammanfattningen av) skulder och eget kapital",
+  "exempel": "Fastigheterna redovisas bland bolagets aktiva.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO aktiva: motsats passiva",
+    "SO passiva: motsats aktiva"
+   ],
+   "so_id": "101655",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 290628,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-23",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "mikroskopisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "elektrisk",
+   "fotografisk",
+   "biologisk",
+   "makroskopisk",
+   "anatomisk"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Elektrisk betyder som har att göra med elektricitet.",
+   "Fotografisk betyder som har att göra med fotografi.",
+   "Biologisk betyder bland annat som har att göra med levande organismer och livsprocesser.",
+   "",
+   "Anatomisk betyder som har att göra med anatomi."
+  ],
+  "facit_betyder": "synlig för blotta ögat",
+  "exempel": "Bakterierna är mikroskopiska.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO mikroskopisk: motsats makroskopisk",
+    "SO makroskopisk: motsats mikroskopisk"
+   ],
+   "so_id": "244212",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 6034,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "of-e-m-24",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "summarisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "diplomatisk",
+   "juridisk",
+   "personlig",
+   "utförlig",
+   "officiell"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Diplomatisk betyder bland annat som bedrivs i form av (regelbunden) diplomati.",
+   "Juridisk betyder som har att göra med juridik.",
+   "Personlig betyder bland annat som har att göra med eller tillhör enskilda personer.",
+   "",
+   "Officiell betyder bland annat fastslagen eller skapad av (statlig) myndighet."
+  ],
+  "facit_betyder": "som behandlar även de smärre detaljerna",
+  "exempel": "Han gav bara en summarisk redogörelse för läget.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO summarisk: synonym eller förklaring kortfattad",
+    "SO kortfattad: motsats utförlig"
+   ],
+   "so_id": "349020",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5328,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "ingen distraktor är synonym, motsats eller jämför-ord till ordet eller synonym till facit i SO, SAOL, Wiktionary eller synonymer.se, inga synonympar mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19 (omgång 2)",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 3
  }
 ]
