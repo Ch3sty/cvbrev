@@ -46,3 +46,7 @@ create policy app_enheter_egen_radera on public.app_enheter
 
 comment on table public.app_enheter is
   'Testklar-appens telefoner: FCM-token och påminnelsetid (svensk tid). Utskick: edge-funktionen app-paminnelse via pg_cron var 15:e minut.';
+
+-- Ingen anonym åtkomst alls; inloggade bara det policyerna släpper.
+revoke all on public.app_enheter from anon;
+revoke truncate, references, trigger on public.app_enheter from authenticated;
