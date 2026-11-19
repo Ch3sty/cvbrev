@@ -81,6 +81,47 @@ describe('TesterVy', () => {
     expect(container.querySelector('[data-testtyp] [data-las]')).toBeNull()
   })
 
+  it('väggen utan plan: datumet, "Alla tester", statusraden och Välj prov', () => {
+    const { container } = render(<TesterVy data={fixturTester('a', 'premium')} />)
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Alla tester')
+    const huvud = container.querySelector('[data-huvud="tester"]') as HTMLElement
+    expect(huvud.textContent).toContain('Vet du vilket test?')
+    expect(huvud.querySelector('[data-valj-prov]')?.getAttribute('href')).toBe('/dashboard/tester/installningar')
+  })
+
+  it('väggen med plan: samma som Hem, nedräkningen och banan', () => {
+    const { container } = render(<TesterVy data={fixturTester('b', 'premium')} />)
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Alva Logic')
+    expect(container.querySelector('[data-huvud="tester"]')).not.toBeNull()
+    expect(container.querySelector('[data-nedrakning]')).not.toBeNull()
+    expect(container.querySelector('[data-bana]')).not.toBeNull()
+  })
+
+  it('artikelplanen utan datum: Lägg till provdatum på väggen', () => {
+    const { container } = render(<TesterVy data={fixturTester('b', 'gratis', { artikel: true })} />)
+    expect(container.querySelector('[data-lagg-till-datum]')?.getAttribute('href')).toBe('/dashboard/tester/installningar?steg=3')
+  })
+
+  it('kortet under väggen: Prova något nytt med dagsmålet till höger', () => {
+    const { container } = render(<TesterVy data={fixturTester('b', 'premium')} />)
+    const kort = container.querySelector('[data-sidkort="tester"]') as HTMLElement
+    expect(kort.getAttribute('data-slag')).toBe('nivakoll')
+    expect(kort.textContent).toContain('Prova något nytt')
+    expect(kort.textContent).toContain('testtyper väntar')
+    expect(kort.querySelector('[data-dagsmal="panel"]')?.textContent).toContain('Dagsmål 1 av 2 i dag')
+    expect(container.querySelector('[data-hint]')).toBeNull()
+  })
+
+  it('gratis med kvoten slut och ingen Nivåkoll kvar: nästa test i morgon', () => {
+    const d = fixturTester('a', 'gratis', { kvotAnvand: true })
+    const alla = { ...d, gratis: { ...d.gratis, nivakollGjord: Object.fromEntries(d.typer.map((t) => [t.id, true])) } }
+    const { container } = render(<TesterVy data={alla} />)
+    const kort = container.querySelector('[data-sidkort="tester"]') as HTMLElement
+    expect(kort.getAttribute('data-slag')).toBe('imorgon')
+    expect(kort.querySelector('[data-sidkort-knapp]')?.getAttribute('href')).toContain('plats=kvot')
+    expect(kort.querySelector('[data-dagsmal="panel"]')?.textContent).toContain('Inget dagsmål valt')
+  })
+
   it('inget "pass" i renderad text i något läge', () => {
     for (const lage of ['a', 'b', 'c'] as const) {
       for (const niva of ['premium', 'gratis'] as const) {

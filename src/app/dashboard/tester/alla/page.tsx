@@ -19,7 +19,6 @@ import type { Scope } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { Betalvagg } from '@/components/traning/HemKlient'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
-import NastaSteg from '@/components/tester-v4/hem/NastaSteg'
 import Navigering from '@/components/tester-v4/hem/Navigering'
 import { navTexter } from '@/components/tester-v4/hem/hemData'
 
@@ -42,14 +41,12 @@ export default async function AllaTesterPage({
 
   const data = await hamtaTesterV4(user.id)
   const typ = Array.isArray(sp.typ) ? sp.typ[0] : sp.typ
-  const hint = data.hintar[0] ?? null
 
   return (
     <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
       <TesterVy
         data={data}
         startTyp={arTestTypId(typ) ? typ : null}
-        nastaSteg={hint ? <NastaSteg hint={hint} /> : null}
         nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
       />
     </Betalvagg>

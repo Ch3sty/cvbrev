@@ -1,10 +1,10 @@
 'use client'
 
 /**
- * Tester v4 (utkast v4 avsnitt 3 och 4, skissens webbvy "Tester"): väggen
- * med "Alla tester" och planraden, kortet Nästa steg (C:s NastaSteg, som
- * plats tills integrationen), navigeringen, rutnätet av testtyper och typens
- * meny.
+ * Tester v4 (utkast v4 avsnitt 3 och 4, skissens webbvy "Tester"): samma
+ * vägg som Hem (PlanHuvud; utan plan "Alla tester"), kortet Prova något nytt
+ * med dagsmålet till höger (skissen 2026-11-19, lib/tester/v4/sidkort.ts),
+ * navigeringen, rutnätet av testtyper och typens meny.
  *
  * Med plan: provets delar och övningsprovet i en tonad grupp "Ingår i
  * <provet> · N delar", sedan "Används i andra rekryteringstest, inte i
@@ -18,16 +18,16 @@
  */
 
 import Link from 'next/link'
-import { useCallback, useEffect, useState, type MouseEvent, type ReactNode } from 'react'
-import Vagg from '@/components/rum/Vagg'
-import Topprad from '@/components/rum/Topprad'
-import Rubrik from '@/components/rum/Rubrik'
+import { useCallback, useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react'
 import Golv from '@/components/rum/Golv'
+import PlanHuvud from '@/components/tester-v4/hem/PlanHuvud'
+import Dagsmal from '@/components/tester-v4/hem/Dagsmal'
+import SidKort from '@/components/tester-v4/SidKort'
+import { testerKort } from '@/lib/tester/v4/sidkort'
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import { kortDatum } from '@/lib/traning/rubrik'
-import { PLAN_HREF, PROVDATUM_HREF, TESTER_HREF } from '@/lib/tester/v4/rutter'
+import { TESTER_HREF } from '@/lib/tester/v4/rutter'
 import type { Handling, PlanV4, TestTypId, TesterV4Data } from '@/lib/tester/v4/typer'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import { LasProvider } from './LasKontext'
@@ -38,9 +38,6 @@ import OvningsprovKort from './OvningsprovKort'
 import PersonlighetKort from './PersonlighetKort'
 import TypMenyPanel from './TypMenyPanel'
 import { TESTER } from './copy'
-
-const GLAS =
-  'inline-flex min-h-11 items-center rounded-xl border border-vagg-kant bg-white/[.08] px-3.5 text-[13px] font-semibold text-vagg-ink'
 
 /** Rutnätet: ett kort på mobil, två från 640 px, tre från 1100 px (två när menyn står bredvid). */
 export function rutnatKlass(oppen: boolean): string {
@@ -59,39 +56,12 @@ function satt(typ: TestTypId | null) {
   }
 }
 
-function PlanStatus({ plan }: { plan: PlanV4 | null }) {
-  if (!plan) {
-    return (
-      <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span>
-          {TESTER.vagg.utanPlan} <b className="font-semibold text-vagg-ink">{TESTER.vagg.utanPlanFraga}</b>{' '}
-          {TESTER.vagg.utanPlanRest}
-        </span>
-        <Link href={PLAN_HREF} className={GLAS}>
-          {TESTER.vagg.valj}
-        </Link>
-      </span>
-    )
-  }
-  const delar: string[] = []
-  if (plan.provdatum) delar.push(kortDatum(plan.provdatum))
-  if (plan.dagarKvar != null && plan.dagarKvar >= 0) delar.push(`${plan.dagarKvar} ${plan.dagarKvar === 1 ? 'dag' : 'dagar'} kvar`)
+/** Väggens statusrad utan plan (med plan står provet, nedräkningen och banan som på Hem). */
+function UtanPlanRad() {
   return (
-    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-      <span>
-        {TESTER.vagg.planPrefix} <b className="font-semibold text-vagg-ink">{plan.namn}</b>
-        {delar.length ? ` · ${delar.join(' · ')}` : ''}
-      </span>
-      {plan.provdatum ? (
-        <Link href={PLAN_HREF} className={GLAS}>
-          {TESTER.vagg.andra}
-        </Link>
-      ) : (
-        <Link href={PROVDATUM_HREF} className={GLAS}>
-          {TESTER.vagg.laggTillDatum}
-        </Link>
-      )}
-    </span>
+    <>
+      {TESTER.vagg.utanPlan} <b className="font-semibold text-vagg-ink">{TESTER.vagg.utanPlanFraga}</b> {TESTER.vagg.utanPlanRest}
+    </>
   )
 }
 
@@ -122,13 +92,10 @@ function GratisRad({ gratis }: { gratis: TesterV4Data['gratis'] }) {
 export default function TesterVy({
   data,
   startTyp = null,
-  nastaSteg,
   nav,
 }: {
   data: TesterV4Data
   startTyp?: TestTypId | null
-  /** Kortet Nästa steg (C:s NastaSteg), monteras i integrationen. */
-  nastaSteg?: ReactNode
   /** Navigeringen (hem/Navigering) med Tester aktivt; sidan bygger den på servern. */
   nav?: ReactNode
 }) {
@@ -151,7 +118,7 @@ export default function TesterVy({
     if (startTyp && arTestTypId(startTyp)) setOppen(startTyp)
   }, [startTyp])
 
-  // Nästa steg pekar på /dashboard/tester/alla?typ=<id>. Här står vi redan på
+  // Kortet under väggen kan peka på /dashboard/tester/alla?typ=<id>. Här står vi redan på
   // sidan, så länken öppnar menyn direkt utan att hämta sidan igen.
   const fangaMenyLank = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -173,6 +140,7 @@ export default function TesterVy({
   )
 
   const plan = data.plan
+  const sidkort = useMemo(() => testerKort(data), [data])
   const synliga = data.typer.filter((k) => k.synlig)
   const iPlan = plan ? synliga.filter((k) => k.ingarIPlan) : []
   const ovriga = plan ? synliga.filter((k) => !k.ingarIPlan) : synliga
@@ -210,13 +178,22 @@ export default function TesterVy({
   return (
     <LasProvider paket={data.paket} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
       <div className="flex flex-1 flex-col" data-tester-v4 data-plan={plan?.mittTest ?? 'ingen'}>
-        <Vagg tat={!nastaSteg}>
-          <Topprad />
-          <p className="mt-4 text-ey text-vagg-mjuk lg:mt-2">{TESTER.vagg.eyebrow}</p>
-          <Rubrik titel={TESTER.vagg.rubrik} rad={<PlanStatus plan={plan} />} className="!mt-1.5" />
-        </Vagg>
-        <Golv lyft={!!nastaSteg} className="pb-10">
-          {nastaSteg ? <div onClickCapture={fangaMenyLank}>{nastaSteg}</div> : null}
+        <PlanHuvud
+          plan={plan}
+          idag={data.idag}
+          typer={data.typer}
+          bana={data.bana}
+          sida="tester"
+          utanPlan={{ rubrik: TESTER.vagg.rubrik, rad: <UtanPlanRad /> }}
+        />
+        <Golv lyft className="pb-10">
+          <div onClickCapture={fangaMenyLank}>
+            <SidKort
+              sida="tester"
+              kort={sidkort}
+              panel={<Dagsmal iPanel lage={data.dagsmal} idag={data.idag} aktivaDagar={data.aktivaDagar} />}
+            />
+          </div>
           {nav}
           <div className={`grid items-start gap-4 ${oppen ? 'min-[1100px]:grid-cols-[minmax(0,1fr)_380px]' : ''}`}>
             <div className="grid min-w-0 gap-4">

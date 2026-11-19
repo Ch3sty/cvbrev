@@ -1,6 +1,2 @@
-import VaggLaddar from '@/components/rum/VaggLaddar';
-
-/** Undersidan laddar: väggen står, inget hoppar. */
-export default function Loading() {
-  return <VaggLaddar />;
-}
+// Samma vägg, kort och navigering som Hem medan sidan laddar (skissen 2026-11-19: inget hoppar mellan sidorna).
+export { default } from '../loading'

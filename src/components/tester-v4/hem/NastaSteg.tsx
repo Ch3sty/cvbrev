@@ -20,6 +20,7 @@ import LyftKort from '@/components/rum/LyftKort'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { IkonLas, IkonPil, IkonX } from '@/components/illustrations/RumSymboler'
 import Nivaband from '@/components/tester-v4/Nivaband'
+import { SIDKORT_KLASS } from '@/components/tester-v4/SidKort'
 import TypSymbol from '@/components/tester-v4/tester/TypSymbol'
 import { IngarChip } from '@/components/tester-v4/tester/TesttypKort'
 import { NIVAKOLL_FINNS } from '@/lib/tester/v4/rutter'
@@ -91,7 +92,7 @@ export default function NastaSteg({
   const las = hint.knapp.las
   const band = typ ? <TypBand kort={typ} planNamn={planNamn} kalla={nivaKalla} /> : null
   return (
-    <LyftKort label={HEM_V4.nastaSteg} utanOverlapp={utanOverlapp} className={`lg:px-6 lg:py-[22px] ${className ?? ''}`}>
+    <LyftKort label={HEM_V4.nastaSteg} utanOverlapp={utanOverlapp} className={`${SIDKORT_KLASS} ${className ?? ''}`}>
       {hint.stangbar ? (
         <button
           type="button"

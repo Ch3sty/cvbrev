@@ -12,7 +12,6 @@ import { notFound } from 'next/navigation'
 import { fixturTester, type FixturLage, type FixturNiva } from '@/lib/tester/v4/fixturer'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
-import NastaSteg from '@/components/tester-v4/hem/NastaSteg'
 import Navigering from '@/components/tester-v4/hem/Navigering'
 import { navTexter } from '@/components/tester-v4/hem/hemData'
 
@@ -31,12 +30,10 @@ export default async function ForhandsvisningTesterV4({
   const niva = (forst(sp.niva) === 'gratis' ? 'gratis' : 'premium') as FixturNiva
   const data = fixturTester(lage, niva, { kvotAnvand: forst(sp.kvot) === '1', artikel: forst(sp.artikel) === '1' })
   const typ = forst(sp.typ)
-  const hint = data.hintar[0]
   return (
     <TesterVy
       data={data}
       startTyp={arTestTypId(typ) ? typ : null}
-      nastaSteg={hint ? <NastaSteg hint={hint} /> : null}
       nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
     />
   )

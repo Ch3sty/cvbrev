@@ -259,6 +259,8 @@ export type MonsterLage = 'omott' | 'mott' | 'saker' | 'snabb';
 export interface UtvecklingV4Data {
   idag: Dag;
   plan: PlanV4 | null;
+  /** Väggens bana, samma som Hem och Tester. Tom utan plan. */
+  bana: BanaDag[];
   typer: { id: TestTypId; namn: string; ingarIPlan: boolean; niva: NivaLage }[];
   /** Alla typer, tidsordning. */
   punkter: UtvecklingsPunkt[];

@@ -69,10 +69,29 @@ describe('UtvecklingVy', () => {
     expect(dator.querySelectorAll('[data-punkt]').length).toBe(2)
   })
 
-  it('tomt läge: första linjen och knappen till typens meny', () => {
-    render(<UtvecklingVy data={data({ punkter: [] })} />)
+  it('tomt läge: grafens text och kortet Vad kurvan säger med första Nivåkollen', () => {
+    const { container } = render(<UtvecklingVy data={data({ punkter: [] })} />)
     expect(screen.getByText('Gör Nivåkollen i en testtyp, så får grafen sin första linje.')).toBeTruthy()
-    expect(screen.getByRole('link', { name: 'Mät din nivå' }).getAttribute('href')).toBe('/dashboard/tester/alla?typ=matris')
+    expect(container.querySelector('[data-sidkort="utveckling"]')?.getAttribute('data-slag')).toBe('forsta')
+    expect(screen.getByRole('link', { name: /Mät din nivå/ }).getAttribute('href')).toBe('/dashboard/tester/pass?typ=matning')
+    // En enda kopparknapp: kortets.
+    expect(container.querySelectorAll('.knapp-primar').length).toBe(1)
+  })
+
+  it('väggen utan plan: datumet, "Din utveckling" och Välj prov, kortet med nivåpanelen', () => {
+    const { container } = render(<UtvecklingVy data={data()} />)
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Din utveckling')
+    expect(container.querySelector('[data-huvud="utveckling"] [data-valj-prov]')?.getAttribute('href')).toBe('/dashboard/tester/installningar')
+    expect(container.querySelector('[data-sidkort-panel="kurvan"] svg[data-nivaband]')).not.toBeNull()
+    expect(container.textContent ?? '').not.toContain('—')
+  })
+
+  it('väggen med plan: samma som Hem, provets namn och banan', () => {
+    const { container } = render(<UtvecklingVy data={data({ plan: PLAN_ALVA, provdag: '2026-11-25', bana: [{ dag: '2026-11-19', status: 'idag' }, { dag: '2026-11-25', status: 'prov' }] })} />)
+    expect(container.querySelector('[data-huvud="utveckling"]')).not.toBeNull()
+    expect(container.querySelector('[data-nedrakning]')).not.toBeNull()
+    expect(container.querySelector('[data-bana]')).not.toBeNull()
+    expect(container.querySelector('[data-sidkort-panel="kurvan"]')?.textContent).toContain('Mot provets nivå')
   })
 
   it('?typ= väljer typen vid start', () => {

@@ -14,6 +14,7 @@ import { nivaLage } from './niva-lage';
 import { NIVAKOLL_FINNS, PERSONLIGHET_HREF, menyHref, nivaTestHref, nivakollHrefV4, ovningsprovHrefV4, tranaHref } from './rutter';
 import {
   TEST_TYP_ORDNING,
+  type BanaDag,
   type DagsmalLage,
   type Fortsatt,
   type Gratislage,
@@ -208,20 +209,10 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     ? { punkt: senaste, rubrik: senaste.slag === 'trana' ? FORTSATT.trana(senaste.typ) : senaste.slag === 'nivakoll' ? FORTSATT.nivakoll(senaste.typ) : FORTSATT.ovningsprov(senaste.provNamn ?? 'Övningsprov') }
     : null;
 
-  const senasteNivakollPlan = plan
-    ? plan.typer
-        .map((t) => senasteAv(inp.typer[t]?.punkter ?? [], 'nivakoll')?.dag ?? null)
-        .filter((d): d is Dag => !!d)
-        .sort()
-        .pop() ?? null
-    : null;
-
   return {
     idag: inp.idag,
     plan,
-    bana: plan
-      ? byggBana({ planStart: plan.planStart, provdatum: plan.provdatum, idag: inp.idag, gjordaDagar: inp.aktivaDagar, senasteNivakoll: senasteNivakollPlan })
-      : [],
+    bana: banaFor(inp),
     typer,
     menyer,
     hintar: byggHintar({ idag: inp.idag, plan, typer: hintIn, premium: g.premium, nivakollGjord: g.nivakollGjord, grundKvarIdag: g.grundKvarIdag }),
@@ -233,6 +224,22 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     kurva: kurvaFor(inp),
     aktivaDagar: [...new Set(inp.aktivaDagar)].filter((d) => d >= laggTill(inp.idag, -13) && d <= inp.idag).sort(),
   };
+}
+
+/**
+ * Väggens bana, samma på Hem, Tester och Din utveckling: planens start till
+ * provdagen, ur samma underlag (ingen egen läsning). Tom utan plan.
+ */
+function banaFor(inp: ModellIn): BanaDag[] {
+  const { plan } = inp;
+  if (!plan) return [];
+  const senasteNivakollPlan =
+    plan.typer
+      .map((t) => senasteAv(inp.typer[t]?.punkter ?? [], 'nivakoll')?.dag ?? null)
+      .filter((d): d is Dag => !!d)
+      .sort()
+      .pop() ?? null;
+  return byggBana({ planStart: plan.planStart, provdatum: plan.provdatum, idag: inp.idag, gjordaDagar: inp.aktivaDagar, senasteNivakoll: senasteNivakollPlan });
 }
 
 /** Dagar i Hems minigraf, i dag inräknat. */
@@ -263,6 +270,7 @@ export function byggUtvecklingV4(inp: ModellIn): UtvecklingV4Data {
   return {
     idag: inp.idag,
     plan,
+    bana: banaFor(inp),
     typer,
     punkter,
     historikLast: last,

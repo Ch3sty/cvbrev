@@ -66,6 +66,49 @@ export const TESTER = {
     lasEtikett: (vad: string, chip: string) => `${vad}. ${chip}.`,
   },
   gratis: GRATISRAD,
+  /** Kortet under väggen (skissen 2026-11-19): något nytt att prova, räknat ur dina testtyper. */
+  provaNytt: {
+    etikett: 'Prova något nytt',
+    vantar: (n: number) => (n === 1 ? '1 testtyp väntar' : `${n} testtyper väntar`),
+    nivakoll: {
+      rubrik: (typ: string) => `Gör Nivåkollen i ${typ}`,
+      skal: (typ: string) => `Du har inte mött ${typ} än. Åtta minuter, så vet du var du ligger och får en ny linje i grafen.`,
+      skalPlan: (Typ: string, prov: string) => `${Typ} ingår i ${prov} och är inte mätt än. Åtta minuter, så vet du var du ligger.`,
+      tips: 'Gör den utvilad. Den väljer nivån för din träning.',
+    },
+    paborjad: {
+      rubrik: (typ: string) => `Gör klart Nivåkollen i ${typ}`,
+      skal: 'Svaren du redan gett är sparade. Gör klart, så får du din nivå.',
+      tips: 'Resten tar några minuter.',
+    },
+    grund: {
+      rubrik: (typ: string) => `Testa dig på grundnivån i ${typ}`,
+      skal: (typ: string) => `Du har inte provat ${typ} än. Grundnivån lär dig reglerna, och resultatet får du i procent.`,
+      tips: 'Ta det lugnt. Här lär du dig hur uppgifterna fungerar.',
+      tipsGratis: 'Ett grundnivåtest om dagen ingår gratis.',
+      knapp: 'Testa grundnivån',
+    },
+  },
+  /** Alla testtyper mätta: den du tränat minst den senaste veckan. */
+  dagsIgen: {
+    etikett: 'Dags igen',
+    allaMatta: 'Alla testtyper mätta',
+    rubrik: (typ: string) => `Träna ${typ}`,
+    rubrikGrund: (typ: string) => `Testa grundnivån i ${typ}`,
+    aldrig: (typ: string) => `Du har mätt nivån i ${typ} men inte tränat där än. Träningen följer din nivå, med förklaring efter varje svar.`,
+    enVecka: (typ: string) => `Du har inte tränat ${typ} på en vecka. Tio minuter räcker för att hålla nivån.`,
+    minst: (typ: string) => `Av dina testtyper är det ${typ} du tränat minst den senaste veckan.`,
+    gratisSkal: (typ: string) => `Av dina testtyper är det ${typ} du övat minst den senaste veckan. Dagens gratis grundnivåtest passar bra här.`,
+    tips: 'Tio minuter räcker.',
+  },
+  /** Gratis: dagens grundnivåtest är gjort och ingen Nivåkoll är kvar att göra gratis. */
+  imorgon: {
+    etikett: 'Nästa test i morgon',
+    meta: 'Dagens test är gjort',
+    rubrik: 'Nästa gratis test går i morgon',
+    skal: (prisrad: string) => `Med Premium fortsätter du nu, på alla nivåer och i alla testtyper, ${prisrad}.`,
+    tips: 'Ett nytt grundnivåtest i morgon, efter midnatt.',
+  },
 } as const
 
 /** Resultatet som "13 av 20". */

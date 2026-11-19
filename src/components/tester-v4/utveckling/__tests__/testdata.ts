@@ -49,6 +49,7 @@ export function data(over: Partial<UtvecklingV4Data> = {}): UtvecklingV4Data {
   return {
     idag: '2026-11-19',
     plan: null,
+    bana: [],
     typer: TEST_TYP_ORDNING.map((id) => ({ id, namn: DELTYP_NAMN[id], ingarIPlan: false, niva: nivaer[id] ?? omatt })),
     punkter,
     historikLast: false,

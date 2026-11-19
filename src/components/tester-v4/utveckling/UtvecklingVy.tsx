@@ -6,7 +6,8 @@
  * punkt. Första bilden ritas på servern ur samma props, så grafen står på
  * plats utan att något hoppar.
  *
- *   Väggen      Din utveckling, planens namn eller Alla testtyper, en statusrad
+ *   Väggen      samma som Hem (PlanHuvud): provet och banan, eller "Din utveckling"
+ *   Kortet      Vad kurvan säger, med nivån mot provets nivå (lib/tester/v4/sidkort.ts)
  *   Lyft kort   Nivån över tid: valen, grafen, legenden, detaljen
  *   Navigering  Hem, Tester, Din utveckling (tre kort, nav-propen)
  *   Golvet      Nivå per testtyp | Resultat och mönstren
@@ -16,17 +17,15 @@
  */
 
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
-import Link from 'next/link'
-import Vagg from '@/components/rum/Vagg'
-import Topprad from '@/components/rum/Topprad'
-import Rubrik from '@/components/rum/Rubrik'
 import Golv from '@/components/rum/Golv'
+import PlanHuvud from '@/components/tester-v4/hem/PlanHuvud'
+import SidKort from '@/components/tester-v4/SidKort'
+import { kurvKort } from '@/lib/tester/v4/sidkort'
+import KurvPanel from './KurvPanel'
 import LyftKort from '@/components/rum/LyftKort'
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { LasChip } from '@/components/traning/HemKlient'
 import { DELTYP_NAMN } from '@/lib/traning/mittTest'
 import { TEST_TYP_ORDNING, type TestTypId, type UtvecklingsPunkt, type UtvecklingV4Data } from '@/lib/tester/v4/typer'
-import { menyHref } from '@/lib/tester/v4/rutter'
 import { LAS_CHIP } from '@/lib/tester/v4/copy'
 import Graf, { tonFarg } from './Graf'
 import GrafChips from './GrafChips'
@@ -169,62 +168,37 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
   }
 
   const matta = data.typer.filter((t) => t.niva.status === 'matt').length
-  const statusrad = plan ? (
-    plan.dagarKvar != null && plan.dagarKvar >= 0 ? (
-      <>
-        {plan.dagarKvar === 0 ? (
-          <b className="font-semibold text-vagg-ink">{UTV.provetIdag}</b>
-        ) : (
-          <>
-            <b className="font-semibold text-vagg-ink">{UTV.dagarKvar(plan.dagarKvar)}</b>
-            {UTV.dagarKvarRad}
-          </>
-        )}
-        {UTV.undertext}
-      </>
-    ) : (
-      <>
-        {UTV.utanDatum}
-        {UTV.undertext}
-      </>
-    )
-  ) : (
+  const utanPlanRad = (
     <>
       <b className="font-semibold text-vagg-ink">{UTV.matta(matta, data.typer.length)}</b>
       {UTV.mattaRad}
-      {UTV.undertext}
+      {UTV.undertextKort}
     </>
   )
+  const sidkort = useMemo(() => kurvKort(data), [data])
 
   const tom = synligaAlla.length === 0
-  const forstaTyp: TestTypId =
-    plan?.typer.find((t) => data.typer.find((x) => x.id === t)?.niva.status !== 'matt') ?? plan?.typer[0] ?? 'matris'
   const periodTom = !tom && dator.markorer.length === 0
   const visaMonster =
     !!data.matrisMonster?.length && (plan ? plan.typer.includes('matris') : typerMedData.includes('matris'))
 
   return (
     <div className="flex flex-1 flex-col" data-vy="din-utveckling">
-      <Vagg>
-        <Topprad brand={UTV.brand} />
-        <p className="mt-2 text-ey text-vagg-mjuk">{UTV.eyebrow}</p>
-        <Rubrik titel={plan ? plan.namn : UTV.rubrikUtanPlan} rad={statusrad} className="!mt-1" />
-      </Vagg>
+      <PlanHuvud
+        plan={plan}
+        idag={data.idag}
+        typer={data.typer}
+        bana={data.bana}
+        sida="utveckling"
+        utanPlan={{ rubrik: UTV.eyebrow, rad: utanPlanRad }}
+      />
       <Golv lyft>
+        <SidKort sida="utveckling" kort={sidkort} panel={<KurvPanel panel={sidkort.panel} />} />
+        {nav}
         {tom ? (
-          <LyftKort
-            label={UTV.graf.eyebrow}
-            eyebrow={UTV.graf.eyebrow}
-            eyebrowTon="neutral"
-            text={UTV.graf.tom}
-            handling={
-              <Link href={menyHref(forstaTyp)} className={`${KNAPP_PRIMAR_SMAL} self-start`}>
-                {UTV.graf.tomKnapp}
-              </Link>
-            }
-          />
+          <LyftKort utanOverlapp label={UTV.graf.eyebrow} eyebrow={UTV.graf.eyebrow} eyebrowTon="neutral" text={UTV.graf.tom} />
         ) : (
-          <LyftKort label={UTV.graf.eyebrow} eyebrow={UTV.graf.eyebrow} eyebrowTon="neutral">
+          <LyftKort utanOverlapp label={UTV.graf.eyebrow} eyebrow={UTV.graf.eyebrow} eyebrowTon="neutral">
             <div className="mt-3 flex flex-col gap-3" id="utv-graf">
               <GrafChips
                 typer={chipTyper}
@@ -258,7 +232,6 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
             </div>
           </LyftKort>
         )}
-        {nav}
         <div className="grid grid-cols-1 items-start gap-4 pb-10 lg:grid-cols-2">
           <NivaPerTyp typer={data.typer} planNamn={plan?.namn ?? null} typVal={typVal} onTyp={valjTyp} />
           <div className="flex flex-col gap-4">

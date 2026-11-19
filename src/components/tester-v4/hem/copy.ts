@@ -16,6 +16,8 @@ export const HEM_V4 = {
   provIdag: 'Provet är i dag',
   andra: 'Ändra',
   laggTillDatum: 'Lägg till provdatum',
+  /** Väggen utan plan, samma på alla tre sidorna. */
+  valjProv: 'Välj prov',
   /** Banan. */
   bana: {
     idag: 'i dag',

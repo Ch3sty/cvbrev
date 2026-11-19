@@ -73,13 +73,28 @@ function Veckorad({ idag, aktiva }: { idag: Dag; aktiva: readonly Dag[] }) {
   )
 }
 
-export default function Dagsmal({ lage, idag, aktivaDagar }: { lage: DagsmalLage; idag: Dag; aktivaDagar: readonly Dag[] }) {
+export default function Dagsmal({
+  lage,
+  idag,
+  aktivaDagar,
+  iPanel = false,
+}: {
+  lage: DagsmalLage
+  idag: Dag
+  aktivaDagar: readonly Dag[]
+  /** Som ljus panel i kortet under väggen (Tester): talet och veckan bredvid varandra på alla bredder. */
+  iPanel?: boolean
+}) {
   const { mal, gjortIdag, dagarIRad } = lage
   return (
     <section
       aria-labelledby="dagar-i-rad"
-      className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 rounded-2xl border border-kant bg-papper px-4 py-3.5 sm:px-5 sm:py-4 xl:grid-cols-1 xl:content-start xl:gap-y-3"
-      data-dagsmal
+      className={
+        iPanel
+          ? 'grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 rounded-[14px] bg-papper-2 px-4 pb-2 pt-4 lg:px-[18px]'
+          : 'grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 rounded-2xl border border-kant bg-papper px-4 py-3.5 sm:px-5 sm:py-4 xl:grid-cols-1 xl:content-start xl:gap-y-3'
+      }
+      data-dagsmal={iPanel ? 'panel' : ''}
     >
       <h2 id="dagar-i-rad" className="col-span-full text-ey text-ink-3">
         {K.rubrik}
@@ -93,10 +108,10 @@ export default function Dagsmal({ lage, idag, aktivaDagar }: { lage: DagsmalLage
           <span className="hidden xl:inline">{K.dag(dagarIRad)}</span>
         </span>
       </p>
-      <div className="justify-self-end xl:justify-self-start">
+      <div className={iPanel ? 'justify-self-end' : 'justify-self-end xl:justify-self-start'}>
         <Veckorad idag={idag} aktiva={aktivaDagar} />
       </div>
-      <p className="col-span-full flex items-center justify-between gap-2.5 text-meta text-ink-3 xl:mt-auto">
+      <p className={`col-span-full flex items-center justify-between gap-2.5 text-meta text-ink-3 ${iPanel ? '' : 'xl:mt-auto'}`}>
         <span>{mal ? K.mal(gjortIdag, mal) : K.ingetMal}</span>
         <Link href={PROVDATUM_HREF} className="inline-flex min-h-11 items-center text-[13px] font-semibold text-ink-2 underline decoration-kant-stark underline-offset-4">
           {mal ? K.andra : K.valj}
