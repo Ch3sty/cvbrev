@@ -29,7 +29,11 @@
   --natt-svag: #6b6f97;
   --natt-kant: rgba(255, 255, 255, 0.12);
   --ton: #e4e7f3;
+  /* Samma färger med appens prefix: webbens mörka rumsläge skriver över
+     --ton och --ton-ink på samma element (data-rum), --a-ton påverkas inte. */
+  --a-ton: #e4e7f3;
   --ton-ink: #3a4480;
+  --a-ton-ink: #3a4480;
   --pos: #2f7d5b;
   --pos-mjuk: #dcefe5;
   --fel: #b3382e;
@@ -367,8 +371,8 @@
   border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
-  background: var(--ton);
-  color: var(--ton-ink);
+  background: var(--a-ton);
+  color: var(--a-ton-ink);
   white-space: nowrap;
   flex: 0 0 auto;
 }

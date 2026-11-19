@@ -197,9 +197,9 @@ function Ark({ k, onStang }: { k: KatalogKortV4; onStang: () => void }) {
             <i style={{ flex: 1, height: 1, background: 'var(--a-kant-stark)' }} />
           </div>
 
-          <section aria-label={a.testa.eyebrow} data-testa style={{ display: 'grid', gap: 10, background: 'var(--ton)', borderRadius: 20, padding: '14px 16px' }}>
+          <section aria-label={a.testa.eyebrow} data-testa style={{ display: 'grid', gap: 10, background: 'var(--a-ton)', borderRadius: 20, padding: '14px 16px' }}>
             <div>
-              <p className="tk-ey" style={{ color: 'var(--ton-ink)' }}>
+              <p className="tk-ey" style={{ color: 'var(--a-ton-ink)' }}>
                 {a.testa.eyebrow}
               </p>
               <h3 style={{ fontSize: 16, fontWeight: 700, lineHeight: '21px', marginTop: 2 }}>{a.testa.rubrik}</h3>
