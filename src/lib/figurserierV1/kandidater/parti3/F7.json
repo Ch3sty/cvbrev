@@ -1,0 +1,3086 @@
+[
+ {
+  "id": "fs-e-vaxl-11",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken ett steg medurs runt banan. Luckan hör till den andra serien. Symbolen i mitten följer ordningen kryss, minus, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken går åt fel håll.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Symbolen i mitten ska vara plus, inte kryss.",
+   "",
+   "Symbolen i mitten ska vara plus, inte kryss.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara plus, inte kryss."
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 3,
+     "s1": 7,
+     "ko": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "minus",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-12",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg moturs längs kanten; i den andra och fjärde går pricken ett steg moturs längs kanten. Luckan hör till den andra serien. Formen i mitten följer ordningen kvadrat, cirkel, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pricken går åt fel håll.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara romb, inte kvadrat.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara romb, inte cirkel.",
+   "Pricken går åt fel håll. Formen i mitten ska vara romb, inte kvadrat.",
+   "Formen i mitten ska vara romb, inte cirkel."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": -3,
+     "s1": 4,
+     "ko": -1
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "circle",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-13",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "pil-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pilen, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids pilen 135 grader moturs; i den andra och fjärde vrids pilen 90 grader medurs. Luckan hör till den andra serien. Pilen följer ordningen kort, lång, lång och börjar om. Spetsen är fylld i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "filled"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "filled"
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pilen har vridits ett steg för långt. Spetsen ska vara fylld, som i hela raden.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Pilen har vridits ett steg för långt. Pilen ska vara lång, inte kort. Spetsen ska vara fylld, som i hela raden.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara lång, inte kort. Spetsen ska vara fylld, som i hela raden.",
+   "",
+   "Pilen ska vara lång, inte kort."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -3,
+     "s1": 5,
+     "ko": 2
+    },
+    "langd": {
+     "regel": "cykel",
+     "varden": [
+      "short",
+      "long",
+      "long"
+     ]
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "filled"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-14",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "orbital-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken runt cirkeln, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg medurs runt cirkeln; i den andra och fjärde går pricken två steg moturs runt cirkeln. Luckan hör till den andra serien. Mittpunkten följer ordningen ofylld, fylld, fylld och börjar om.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Mittpunkten ska vara fylld, inte ofylld.",
+   "Mittpunkten ska vara fylld, inte ofylld.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, inte ofylld.",
+   "",
+   "Pricken står på fel plats.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": 1,
+     "s1": 2,
+     "ko": -2
+    },
+    "mitt": {
+     "regel": "cykel",
+     "varden": [
+      "open",
+      "filled",
+      "filled"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-15",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs runt banan; i den andra och fjärde går pricken tre steg moturs runt banan. Luckan hör till den andra serien. Formen i mitten följer ordningen kvadrat, cirkel, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara romb, inte kvadrat.",
+   "Pricken står på fel plats.",
+   "",
+   "Formen i mitten ska vara romb, inte kvadrat.",
+   "Pricken står på fel plats. Formen i mitten ska vara romb, inte kvadrat.",
+   "Pricken har gått ett steg för långt."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": 3,
+     "s1": 7,
+     "ko": -3
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "circle",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "none"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-16",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg moturs längs kanten; i den andra och fjärde går pricken ett steg medurs längs kanten. Luckan hör till den andra serien. Symbolen i mitten följer ordningen kryss, ring, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Pricken står på fel plats. Symbolen i mitten ska vara plus, inte ring.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Symbolen i mitten ska vara plus, inte ring.",
+   "Symbolen i mitten ska vara plus, inte kryss.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara plus, inte kryss.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -3,
+     "s1": 2,
+     "ko": 1
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "cross",
+      "ring",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-08",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "sektor-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Sektorhjulet, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 90 grader moturs; i den andra och fjärde vrids de svarta sektorerna 45 grader medurs. Luckan hör till den andra serien. Antalet svarta sektorer ökar med en i varje figur, oavsett serie. De sitter ihop medurs från den första svarta.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sex, inte en.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "De svarta sektorerna vrids åt fel håll. Antalet ska vara sex, inte tre.",
+   "De svarta sektorerna vrids åt fel håll. Antalet ska vara sex, inte en.",
+   "Antalet svarta sektorer ska vara sex, inte tre."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 6,
+     "ke": -2,
+     "s1": 5,
+     "ko": 1
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-09",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "stralar-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Strecken, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 45 grader medurs; i den andra och fjärde vrids strecken 90 grader medurs. Luckan hör till den andra serien. Antalet streck ökar med ett i varje figur, oavsett serie. Strecken sitter ihop medurs från det första.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Antalet streck ska vara sju, inte två.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte fem.",
+   "Strecken är vridna till fel läge.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte två.",
+   "",
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte fem."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": 1,
+     "s1": 7,
+     "ko": 2
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-17",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg moturs runt banan; i den andra och fjärde går pricken tre steg medurs runt banan. Luckan hör till den andra serien. Symbolen i mitten följer ordningen minus, ring, plus och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Symbolen i mitten ska vara plus, inte ring.",
+   "Symbolen i mitten ska vara plus, inte minus.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Symbolen i mitten ska vara plus, inte minus.",
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara plus, inte ring.",
+   "Pricken har gått ett steg för långt.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-orbital-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -1,
+     "s1": 2,
+     "ko": 3
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "minus",
+      "ring",
+      "plus"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-18",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken tre steg medurs längs kanten. Luckan hör till den andra serien. Formen i mitten följer ordningen kvadrat, cirkel, romb och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken har gått ett steg för långt. Formen i mitten ska vara romb, inte kvadrat.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "",
+   "Pricken har gått ett steg för långt.",
+   "Formen i mitten ska vara romb, inte kvadrat.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara romb, inte kvadrat."
+  ],
+  "regler": {
+   "prim": "duo-kant-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -2,
+     "s1": 1,
+     "ko": 3
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "circle",
+      "diamond"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "black"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-19",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "pil-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pilen, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids pilen 135 grader medurs; i den andra och fjärde vrids pilen 90 grader moturs. Luckan hör till den andra serien. Spetsen följer ordningen öppen, fylld, fylld och börjar om. Pilen är kort i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "filled"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Spetsen ska vara fylld, inte öppen.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara kort, som i hela raden. Spetsen ska vara fylld, inte öppen.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara kort, som i hela raden.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara kort, som i hela raden. Spetsen ska vara fylld, inte öppen."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": 3,
+     "s1": 4,
+     "ko": -2
+    },
+    "spets": {
+     "regel": "cykel",
+     "varden": [
+      "open",
+      "filled",
+      "filled"
+     ]
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-20",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "orbital-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken runt cirkeln, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg moturs runt cirkeln; i den andra och fjärde går pricken tre steg moturs runt cirkeln. Luckan hör till den andra serien. Mittpunkten följer ordningen fylld, ofylld, ofylld och börjar om.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, inte fylld.",
+   "Pricken står på fel plats.",
+   "Mittpunkten ska vara ofylld, inte fylld.",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, inte fylld.",
+   "Pricken står på fel plats."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxelvis",
+     "s0": 2,
+     "ke": -1,
+     "s1": 2,
+     "ko": -3
+    },
+    "mitt": {
+     "regel": "cykel",
+     "varden": [
+      "filled",
+      "open",
+      "open"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-21",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-orbital-form-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken på banan, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg moturs runt banan; i den andra och fjärde går pricken tre steg moturs runt banan. Luckan hör till den andra serien. Formen i mitten följer ordningen kvadrat, romb, cirkel och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Pricken står på fel plats.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara cirkel, inte romb.",
+   "Formen i mitten ska vara cirkel, inte romb.",
+   "",
+   "Pricken står på fel plats. Formen i mitten ska vara cirkel, inte romb."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": -1,
+     "s1": 0,
+     "ko": -3
+    },
+    "kform": {
+     "regel": "cykel",
+     "varden": [
+      "square",
+      "diamond",
+      "circle"
+     ]
+    },
+    "kfyll": {
+     "regel": "konstant",
+     "v": "black"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-22",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "duo-kant-symbol-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken längs kanten, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken tre steg medurs längs kanten; i den andra och fjärde går pricken två steg moturs längs kanten. Luckan hör till den andra serien. Symbolen i mitten följer ordningen plus, kryss, ring och börjar om.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Symbolen i mitten ska vara ring, inte kryss.",
+   "Pricken går åt fel håll.",
+   "",
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Symbolen i mitten ska vara ring, inte kryss.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara ring, inte kryss."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": 3,
+     "s1": 4,
+     "ko": -2
+    },
+    "ksymbol": {
+     "regel": "cykel",
+     "varden": [
+      "plus",
+      "cross",
+      "ring"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-10",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "sektor-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Sektorhjulet, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 135 grader moturs; i den andra och fjärde vrids de svarta sektorerna 180 grader moturs. Luckan hör till den andra serien. Antalet svarta sektorer ökar med en i varje figur, oavsett serie. De sitter ihop medurs från den första svarta.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna är vridna till fel läge. Antalet ska vara sex, inte två.",
+   "Antalet svarta sektorer ska vara sex, inte en.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet ska vara sex, inte två.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet ska vara sex, inte en."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": -3,
+     "s1": 2,
+     "ko": 4
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-11",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "stralar-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Strecken, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 90 grader medurs; i den andra och fjärde vrids strecken 135 grader medurs. Luckan hör till den andra serien. Antalet streck ökar med ett i varje figur, oavsett serie. Strecken sitter ihop medurs från det första.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Strecken har vridits ett steg för långt. Antalet ska vara sju, inte tre.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte fem.",
+   "Strecken har vridits ett steg för långt. Antalet ska vara sju, inte fem.",
+   "Antalet streck ska vara sju, inte tre.",
+   ""
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 5,
+     "ke": 2,
+     "s1": 7,
+     "ko": 3
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-23",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "pil-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pilen, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids pilen 45 grader moturs; i den andra och fjärde vrids pilen 45 grader medurs. Luckan hör till den andra serien. Spetsen följer ordningen fylld, öppen, öppen och börjar om. Pilen är lång i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara lång, som i hela raden. Spetsen ska vara öppen, inte fylld.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara lång, som i hela raden. Spetsen ska vara öppen, inte fylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Spetsen ska vara öppen, inte fylld.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara lång, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxelvis",
+     "s0": 3,
+     "ke": -1,
+     "s1": 4,
+     "ko": 1
+    },
+    "spets": {
+     "regel": "cykel",
+     "varden": [
+      "filled",
+      "open",
+      "open"
+     ]
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "long"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-24",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "orbital-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken runt cirkeln, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken ett steg medurs runt cirkeln; i den andra och fjärde går pricken två steg moturs runt cirkeln. Luckan hör till den andra serien. Mittpunkten följer ordningen fylld, ofylld, ofylld och börjar om.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Mittpunkten ska vara ofylld, inte fylld.",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, inte fylld.",
+   "",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Mittpunkten ska vara ofylld, inte fylld.",
+   "Pricken står på fel plats."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxelvis",
+     "s0": 4,
+     "ke": 1,
+     "s1": 4,
+     "ko": -2
+    },
+    "mitt": {
+     "regel": "cykel",
+     "varden": [
+      "filled",
+      "open",
+      "open"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-12",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "sektor-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Sektorhjulet, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 135 grader moturs; i den andra och fjärde vrids de svarta sektorerna 90 grader moturs. Luckan hör till den andra serien. Antalet svarta sektorer ökar med en i varje figur, oavsett serie. De sitter ihop medurs från den första svarta.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Antalet ska vara sex, inte två.",
+   "De svarta sektorerna står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Antalet svarta sektorer har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "De svarta sektorerna är vridna till fel läge. Antalet ska vara sex, inte två.",
+   "",
+   "Antalet svarta sektorer har inte ökat. Luckan ska ha en mer än den femte figuren."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 1,
+     "ke": -3,
+     "s1": 6,
+     "ko": -2
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-antal-13",
+  "niva": "expert",
+  "family": "antal",
+  "recept": "F7",
+  "variant": "stralar-vaxelvis-antalsteg",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Strecken, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 90 grader moturs; i den andra och fjärde vrids strecken 135 grader medurs. Luckan hör till den andra serien. Antalet streck minskar med ett i varje figur, oavsett serie. Strecken sitter ihop medurs från det första.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Antalet streck ska vara två, inte sex.",
+   "",
+   "Strecken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
+   "Strecken är vridna till fel läge. Antalet streck har inte minskat. Luckan ska ha ett färre än den femte figuren.",
+   "Strecken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Antalet streck har inte minskat. Luckan ska ha ett färre än den femte figuren.",
+   "Strecken är vridna till fel läge. Antalet ska vara två, inte sex."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "vaxelvis",
+     "s0": 7,
+     "ke": -2,
+     "s1": 2,
+     "ko": 3
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 7,
+     "k": -1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-25",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "pil-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pilen, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids pilen 135 grader medurs; i den andra och fjärde vrids pilen 45 grader moturs. Luckan hör till den andra serien. Spetsen följer ordningen fylld, öppen, öppen och börjar om. Pilen är kort i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "filled"
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pilen vrids åt fel håll. Pilen ska vara kort, som i hela raden. Spetsen ska vara öppen, inte fylld.",
+   "",
+   "Spetsen ska vara öppen, inte fylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
+   "Pilen vrids åt fel håll. Pilen ska vara kort, som i hela raden.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara kort, som i hela raden. Spetsen ska vara öppen, inte fylld."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 3,
+     "s1": 4,
+     "ko": -1
+    },
+    "spets": {
+     "regel": "cykel",
+     "varden": [
+      "filled",
+      "open",
+      "open"
+     ]
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-e-vaxl-26",
+  "niva": "expert",
+  "family": "vaxelvis",
+  "recept": "F7",
+  "variant": "orbital-vaxelvis-tretakt",
+  "difficulty": 4,
+  "p_prior": 0.35,
+  "title": "Pricken runt cirkeln, två regler",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg medurs runt cirkeln; i den andra och fjärde går pricken tre steg medurs runt cirkeln. Luckan hör till den andra serien. Mittpunkten följer ordningen ofylld, fylld, fylld och börjar om.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, inte ofylld.",
+   "Pricken går åt fel håll.",
+   "Pricken går åt fel håll. Mittpunkten ska vara fylld, inte ofylld.",
+   "Pricken står på fel plats.",
+   "Mittpunkten ska vara fylld, inte ofylld."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxelvis",
+     "s0": 0,
+     "ke": 2,
+     "s1": 7,
+     "ko": 3
+    },
+    "mitt": {
+     "regel": "cykel",
+     "varden": [
+      "open",
+      "filled",
+      "filled"
+     ]
+    }
+   }
+  },
+  "fran_version": 3
+ }
+]

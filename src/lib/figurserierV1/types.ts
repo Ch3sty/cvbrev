@@ -38,8 +38,8 @@ export interface SerieFraga {
   correctAnswer: number;
   /** Ett per alternativ på originalindex, tomt för facit. */
   misstag: string[];
-  /** 1: de klassiska nivåtestens bank. 2: omgång 3 (parti 2 och bryter mönstret), bara i pass och övningsprov. */
-  fran_version: 1 | 2;
+  /** 1: de klassiska nivåtestens bank. 2: omgång 3 (parti 2 och bryter mönstret), bara i pass och övningsprov. 3: parti 3 (2026-11-19), i nivåtesten från serie_version 3 och i pass och prov. */
+  fran_version: 1 | 2 | 3;
   /** Pensionerad från den här serie_version (väljs aldrig till nya sessioner, står kvar för gamla). */
   pensionerad_fran?: number;
   /** Generatorns regler per egenskap (för kontrollerna, visas aldrig). */

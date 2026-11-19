@@ -1,0 +1,3209 @@
+[
+ {
+  "id": "fs-g-vand-08",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-kant-symbol-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken längs kanten, en regel",
+  "rule": "Pricken går ett steg moturs längs kanten i varje steg. Symbolen i mitten är plus i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats.",
+   "",
+   "Symbolen i mitten ska vara plus, som i hela raden.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara plus, som i hela raden.",
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara plus, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 7
+    },
+    "ksymbol": {
+     "regel": "konstant",
+     "v": "plus"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-09",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-orbital-pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken på banan, en regel",
+  "rule": "Pricken går ett steg moturs runt banan i varje steg. Pilen i mitten pekar snett nedåt höger i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken står på fel plats.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett nedåt höger, som i hela raden.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett nedåt höger, som i hela raden.",
+   "Pricken går åt fel håll. Pilen i mitten ska peka snett nedåt höger, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 7
+    },
+    "kvinkel": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-15",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "duo-kant-pil-vrid",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen i mitten, en regel",
+  "rule": "Pilen i mitten vrids 45 grader moturs i varje steg. Pricken står på samma plats i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten pekar snett uppåt vänster, men ska peka snett uppåt höger.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten står kvar som i den femte figuren.",
+   "",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten vrids åt fel håll.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten pekar nedåt, men ska peka snett uppåt höger."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "konstant",
+     "v": 2
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 7
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-16",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids 45 grader moturs i varje steg. Pilen är kort i hela raden. Spetsen är öppen i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pilen har vridits ett steg för långt.",
+   "",
+   "Pilen pekar åt vänster, men ska peka uppåt.",
+   "Pilen pekar snett nedåt vänster, men ska peka uppåt. Spetsen ska vara öppen, som i hela raden.",
+   "Pilen vrids åt fel håll. Spetsen ska vara öppen, som i hela raden.",
+   "Pilen pekar snett nedåt höger, men ska peka uppåt. Pilen ska vara kort, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 7
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-10",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "orbital-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken runt cirkeln, en regel",
+  "rule": "Pricken går tre steg moturs runt cirkeln i varje steg. Mittpunkten är ofylld i hela raden.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats.",
+   "Mittpunkten ska vara ofylld, som i hela raden.",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden.",
+   "Pricken har gått ett steg för långt. Mittpunkten ska vara ofylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 5
+    },
+    "mitt": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-17",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "stralar-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Strecken, en regel",
+  "rule": "Strecken vrids 135 grader moturs i varje steg. Antalet streck är två i hela raden.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken är vridna till fel läge.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 5
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 2
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-18",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "sektor-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Sektorhjulet, en regel",
+  "rule": "De svarta sektorerna vrids 45 grader moturs i varje steg. Antalet svarta sektorer är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna har vridits ett steg för långt.",
+   "De svarta sektorerna vrids åt fel håll. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 7
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-11",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "block-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Rutorna längs kanten, en regel",
+  "rule": "De svarta rutorna går tre steg medurs längs kanten i varje steg. Antalet svarta rutor är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 11
+   },
+   {
+    "kind": "tile",
+    "pattern": 292
+   },
+   {
+    "kind": "tile",
+    "pattern": 200
+   },
+   {
+    "kind": "tile",
+    "pattern": 7
+   },
+   {
+    "kind": "tile",
+    "pattern": 416
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 448
+   },
+   {
+    "kind": "tile",
+    "pattern": 38
+   },
+   {
+    "kind": "tile",
+    "pattern": 73
+   },
+   {
+    "kind": "tile",
+    "pattern": 192
+   },
+   {
+    "kind": "tile",
+    "pattern": 36
+   },
+   {
+    "kind": "tile",
+    "pattern": 295
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "De svarta rutorna står på fel plats.",
+   "De svarta rutorna har gått ett steg för långt.",
+   "",
+   "De svarta rutorna står på fel plats. Antalet svarta rutor ska vara tre, som i hela raden.",
+   "De svarta rutorna står på fel plats. Antalet svarta rutor ska vara tre, som i hela raden.",
+   "De svarta rutorna går åt fel håll. Antalet svarta rutor ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 3
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-12",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-kant-symbol-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken längs kanten, en regel",
+  "rule": "Pricken går tre steg moturs längs kanten i varje steg. Symbolen i mitten är kryss i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats.",
+   "",
+   "Pricken står på fel plats. Symbolen i mitten ska vara kryss, som i hela raden.",
+   "Pricken går åt fel håll. Symbolen i mitten ska vara kryss, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Symbolen i mitten ska vara kryss, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 5
+    },
+    "ksymbol": {
+     "regel": "konstant",
+     "v": "cross"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-13",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-orbital-pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken på banan, en regel",
+  "rule": "Pricken går ett steg moturs runt banan i varje steg. Pilen i mitten pekar åt höger i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken står på fel plats.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken har gått ett steg för långt. Pilen i mitten ska peka åt höger, som i hela raden.",
+   "Pilen i mitten ska peka åt höger, som i hela raden.",
+   "",
+   "Pricken står på fel plats. Pilen i mitten ska peka åt höger, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 7
+    },
+    "kvinkel": {
+     "regel": "konstant",
+     "v": 2
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-19",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "duo-kant-pil-vrid",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen i mitten, en regel",
+  "rule": "Pilen i mitten vrids 45 grader moturs i varje steg. Pricken står på samma plats i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten pekar snett nedåt vänster, men ska peka snett uppåt vänster.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten pekar nedåt, men ska peka snett uppåt vänster.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten pekar åt höger, men ska peka snett uppåt vänster.",
+   "",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten står kvar som i den femte figuren."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "konstant",
+     "v": 1
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 4,
+     "k": 7
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-20",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids 135 grader medurs i varje steg. Pilen är kort i hela raden. Spetsen är fylld i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "filled"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen har vridits ett steg för långt.",
+   "Pilen pekar snett nedåt höger, men ska peka snett nedåt vänster.",
+   "Pilen står kvar som i den femte figuren. Spetsen ska vara fylld, som i hela raden.",
+   "",
+   "Pilen pekar snett uppåt höger, men ska peka snett nedåt vänster. Pilen ska vara kort, som i hela raden.",
+   "Pilen pekar nedåt, men ska peka snett nedåt vänster. Spetsen ska vara fylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 3
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "filled"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-14",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "orbital-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken runt cirkeln, en regel",
+  "rule": "Pricken går ett steg moturs runt cirkeln i varje steg. Mittpunkten är fylld i hela raden.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 3
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pricken står på fel plats.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden.",
+   "",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 7
+    },
+    "mitt": {
+     "regel": "konstant",
+     "v": "filled"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-21",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "stralar-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Strecken, en regel",
+  "rule": "Strecken vrids 45 grader medurs i varje steg. Antalet streck är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Strecken har vridits ett steg för långt.",
+   "",
+   "Strecken är vridna till fel läge.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 7,
+     "k": 1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-22",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "sektor-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Sektorhjulet, en regel",
+  "rule": "De svarta sektorerna vrids 135 grader moturs i varje steg. Antalet svarta sektorer är ett i hela raden.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "De svarta sektorerna har vridits ett steg för långt.",
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara ett, som i hela raden.",
+   "De svarta sektorerna vrids åt fel håll. Antalet svarta sektorer ska vara ett, som i hela raden.",
+   "",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara ett, som i hela raden."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 5
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-15",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "block-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Rutorna längs kanten, en regel",
+  "rule": "Den svarta rutan går tre steg moturs längs kanten i varje steg. Antalet svarta rutor är ett i hela raden.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 4
+   },
+   {
+    "kind": "tile",
+    "pattern": 8
+   },
+   {
+    "kind": "tile",
+    "pattern": 256
+   },
+   {
+    "kind": "tile",
+    "pattern": 2
+   },
+   {
+    "kind": "tile",
+    "pattern": 64
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 32
+   },
+   {
+    "kind": "tile",
+    "pattern": 1
+   },
+   {
+    "kind": "tile",
+    "pattern": 128
+   },
+   {
+    "kind": "tile",
+    "pattern": 6
+   },
+   {
+    "kind": "tile",
+    "pattern": 448
+   },
+   {
+    "kind": "tile",
+    "pattern": 73
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den svarta rutan har gått ett steg för långt.",
+   "Den svarta rutan står på fel plats.",
+   "Den svarta rutan går åt fel håll. Antalet svarta rutor ska vara ett, som i hela raden.",
+   "Den svarta rutan står på fel plats. Antalet svarta rutor ska vara ett, som i hela raden.",
+   "Den svarta rutan står kvar som i den femte figuren. Antalet svarta rutor ska vara ett, som i hela raden."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 5
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 1
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-16",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-kant-symbol-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken längs kanten, en regel",
+  "rule": "Pricken går ett steg moturs längs kanten i varje steg. Symbolen i mitten är ring i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats.",
+   "Pricken står kvar som i den femte figuren. Symbolen i mitten ska vara ring, som i hela raden.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara ring, som i hela raden.",
+   "",
+   "Pricken står på fel plats. Symbolen i mitten ska vara ring, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 7
+    },
+    "ksymbol": {
+     "regel": "konstant",
+     "v": "ring"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-17",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-orbital-pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken på banan, en regel",
+  "rule": "Pricken går ett steg moturs runt banan i varje steg. Pilen i mitten pekar snett uppåt vänster i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Pricken står på fel plats.",
+   "Pricken har gått ett steg för långt.",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten ska peka snett uppåt vänster, som i hela raden.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett uppåt vänster, som i hela raden.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett uppåt vänster, som i hela raden.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 7
+    },
+    "kvinkel": {
+     "regel": "konstant",
+     "v": 7
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-23",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "duo-kant-pil-vrid",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen i mitten, en regel",
+  "rule": "Pilen i mitten vrids 135 grader moturs i varje steg. Pricken står på samma plats i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten pekar nedåt, men ska peka åt höger.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten vrids åt fel håll.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten pekar åt vänster, men ska peka åt höger.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten pekar snett uppåt höger, men ska peka åt höger.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "konstant",
+     "v": 6
+    },
+    "kvinkel": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 5
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-24",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids 135 grader moturs i varje steg. Pilen är lång i hela raden. Spetsen är öppen i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pilen pekar nedåt, men ska peka åt höger.",
+   "",
+   "Pilen har vridits ett steg för långt.",
+   "Pilen vrids åt fel håll. Spetsen ska vara öppen, som i hela raden.",
+   "Pilen pekar åt vänster, men ska peka åt höger. Pilen ska vara lång, som i hela raden.",
+   "Pilen pekar snett uppåt höger, men ska peka åt höger. Pilen ska vara lång, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 5
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "long"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-18",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "orbital-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken runt cirkeln, en regel",
+  "rule": "Pricken går ett steg medurs runt cirkeln i varje steg. Mittpunkten är fylld i hela raden.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Pricken står på fel plats.",
+   "",
+   "Pricken har gått ett steg för långt.",
+   "Pricken går åt fel håll. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara fylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "steg",
+     "s0": 6,
+     "k": 1
+    },
+    "mitt": {
+     "regel": "konstant",
+     "v": "filled"
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-25",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "stralar-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Strecken, en regel",
+  "rule": "Strecken vrids 135 grader medurs i varje steg. Antalet streck är två i hela raden.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Strecken är vridna till fel läge.",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken vrids åt fel håll. Antalet streck ska vara två, som i hela raden.",
+   "",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 3
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 2
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vrid-26",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "sektor-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Sektorhjulet, en regel",
+  "rule": "De svarta sektorerna vrids 45 grader moturs i varje steg. Antalet svarta sektorer är fyra i hela raden.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "De svarta sektorerna har vridits ett steg för långt.",
+   "",
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara fyra, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara fyra, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara fyra, som i hela raden."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 7
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 4
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-19",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "block-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Rutorna längs kanten, en regel",
+  "rule": "De svarta rutorna går ett steg moturs längs kanten i varje steg. Antalet svarta rutor är två i hela raden.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 6
+   },
+   {
+    "kind": "tile",
+    "pattern": 3
+   },
+   {
+    "kind": "tile",
+    "pattern": 9
+   },
+   {
+    "kind": "tile",
+    "pattern": 72
+   },
+   {
+    "kind": "tile",
+    "pattern": 192
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 288
+   },
+   {
+    "kind": "tile",
+    "pattern": 36
+   },
+   {
+    "kind": "tile",
+    "pattern": 384
+   },
+   {
+    "kind": "tile",
+    "pattern": 1
+   },
+   {
+    "kind": "tile",
+    "pattern": 201
+   },
+   {
+    "kind": "tile",
+    "pattern": 75
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "De svarta rutorna har gått ett steg för långt.",
+   "De svarta rutorna står på fel plats.",
+   "",
+   "De svarta rutorna står på fel plats. Antalet svarta rutor ska vara två, som i hela raden.",
+   "De svarta rutorna står kvar som i den femte figuren. Antalet svarta rutor ska vara två, som i hela raden.",
+   "De svarta rutorna går åt fel håll. Antalet svarta rutor ska vara två, som i hela raden."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 7
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 2
+    }
+   }
+  },
+  "fran_version": 3
+ },
+ {
+  "id": "fs-g-vand-20",
+  "niva": "grund",
+  "family": "vandring",
+  "recept": "F1",
+  "variant": "duo-orbital-pil-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Pricken på banan, en regel",
+  "rule": "Pricken går ett steg medurs runt banan i varje steg. Pilen i mitten pekar snett nedåt vänster i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pricken har gått ett steg för långt.",
+   "Pricken står på fel plats.",
+   "",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten ska peka snett nedåt vänster, som i hela raden.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett nedåt vänster, som i hela raden.",
+   "Pricken står på fel plats. Pilen i mitten ska peka snett nedåt vänster, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-orbital-pil",
+   "dims": {
+    "ylage": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    },
+    "kvinkel": {
+     "regel": "konstant",
+     "v": 5
+    }
+   }
+  },
+  "fran_version": 3
+ }
+]

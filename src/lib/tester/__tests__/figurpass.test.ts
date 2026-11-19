@@ -47,11 +47,11 @@ describe('figurpassets urval', () => {
 })
 
 describe('bankerna efter omgång 3', () => {
-  it('bryter når golvet på båda nivåerna; härnäst i pass är nivåtestets bank plus parti 2', () => {
+  it('bryter når golvet på båda nivåerna; härnäst i pass är nivåtestets bank, parti 3 och parti 2', () => {
     expect(bryterPool('grund').length).toBeGreaterThanOrEqual(BRYTER_GOLV)
     expect(bryterPool('avancerad').length).toBeGreaterThanOrEqual(BRYTER_GOLV)
-    expect(harnastPool('grund').length).toBe(44)
-    expect(harnastPool('avancerad').length).toBe(46)
+    expect(harnastPool('grund').length).toBe(83)
+    expect(harnastPool('avancerad').length).toBe(85)
   })
 
   it('klassiska urvalet per sessions-id är oförändrat i grund och avancerad; de pensionerade väljs aldrig i version 2', () => {
@@ -66,7 +66,13 @@ describe('bankerna efter omgång 3', () => {
     const bank = JSON.parse(readFileSync('src/lib/figurserierV1/bankExpert.json', 'utf8'))
     expect(poolFor('expert', 1)).toHaveLength(bank.length)
     expect(poolFor('expert', 2)).toHaveLength(bank.length - 2)
-    expect(SERIE_VERSION).toBe(2)
+    expect(SERIE_VERSION).toBe(3)
+    // Version 3 (2026-11-19): parti 3 läggs till, version 1 och 2 är oförändrade.
+    for (const n of ['grund', 'avancerad', 'expert'] as const) {
+      const p3 = JSON.parse(readFileSync(`src/lib/figurserierV1/bankParti3${n[0].toUpperCase() + n.slice(1)}.json`, 'utf8'))
+      expect(poolFor(n, 3)).toHaveLength(poolFor(n, 2).length + p3.length)
+      expect(poolFor(n, 3).filter((q) => q.fran_version === 3)).toHaveLength(p3.length)
+    }
   })
 })
 
