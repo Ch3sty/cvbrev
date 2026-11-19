@@ -14,8 +14,8 @@
 // DV1), fran_version 1, inga tankstreck och inga ord som "lätt", "snart",
 // "kommer", "samma test" (DV7), DD1 till DD6 och DV2, DV3, DV5 (sparrar.mjs).
 // Bankens aktiva uppgifter (inte pensionerade) dessutom DD7 till DD9, och
-// bankversionerna: fran_version 1, 2 eller 3 (3 bara i banken, frågebanken
-// 2026-11-19), pensionerad_fran 2, ersättarna pekar på en pensionerad
+// bankversionerna: fran_version 1 till 4 (3 och 4 bara i banken, frågebanken
+// 2026-11-19 omgång 1 och 2), pensionerad_fran 2 eller 4, ersättarna pekar på en pensionerad
 // uppgift (scripts/laga-deduktiv-v2.mjs).
 // Över allt: unika id och ingen uppgift två gånger.
 // Exit 1 vid fel.
@@ -35,7 +35,8 @@ const STANDARD = [
   'src/lib/deduktivV1/bankExpert.json',
 ];
 const filer = process.argv.slice(2).length ? process.argv.slice(2) : STANDARD.filter((f) => existsSync(f));
-const ID = /^dd-([gae])-(d[123])-\d{2}$/;
+// Två siffror, tre från omgång 2 (version 4) när en nivå passerar 99.
+const ID = /^dd-([gae])-(d[123])-\d{2,3}$/;
 const NIVA_FOR_KOD = { g: 'grund', a: 'avancerad', e: 'expert' };
 const TILLATEN_NIVA = { D1: ['grund'], D2: ['grund', 'avancerad'], D3: ['expert'] };
 const FORBJUDET = [/[–—]/, /\blätt/i, /\bsnart\b/i, /\bkommer\b/i, /samma test/i, /\benkelt\b/i, /\buppenbart\b/i, /\bposition/i];
@@ -66,9 +67,10 @@ for (const fil of filer) {
     // Grund-D2 i bankens aktiva pool har 0,62 (granskning 2026-11-19, punkt 7): fyra platser och tre villkor är lättare än avancerad-D2.
     const prior = slag === 'bank' && q.niva === 'grund' && q.typ === 'D2' && !q.pensionerad_fran ? 0.62 : P_PRIOR[q.typ];
     if (q.p_prior !== prior) f(`p_prior ${q.p_prior}, ${q.niva} ${q.typ} ska ha ${prior}`);
-    if (![1, 2, 3].includes(q.fran_version)) f('fran_version ska vara 1, 2 eller 3');
-    if (q.fran_version === 3 && slag !== 'bank') f('fran_version 3 finns bara i bankfilerna');
-    if (q.pensionerad_fran != null && q.pensionerad_fran !== 2) f('pensionerad_fran ska vara 2');
+    if (![1, 2, 3, 4].includes(q.fran_version)) f('fran_version ska vara 1, 2, 3 eller 4');
+    if (q.fran_version >= 3 && slag !== 'bank') f(`fran_version ${q.fran_version} finns bara i bankfilerna`);
+    // 2: lagade i version 2. 4: nästan-dubbletter pensionerade i omgång 2 (granskning 2026-11-19).
+    if (q.pensionerad_fran != null && ![2, 4].includes(q.pensionerad_fran)) f('pensionerad_fran ska vara 2 eller 4');
     if (q.pensionerad_fran != null && q.pensionerad_fran <= q.fran_version) f('pensionerad före sin första version');
     if (q.ersatter && !fragor.some((x) => x.id === q.ersatter && x.pensionerad_fran === q.fran_version)) f(`ersätter ${q.ersatter}, som inte är pensionerad i version ${q.fran_version}`);
     const antalAlt = q.typ === 'D1' ? 4 : 5;
@@ -89,8 +91,17 @@ for (const fil of filer) {
     for (const t of texter) for (const re of FORBJUDET) if (re.test(t)) f(`förbjudet ord eller tecken (${re}) i "${t}"`);
     if (q.typ === 'D2' && q.villkor && (q.villkor.length < 3 || q.villkor.length > 5)) f(`D2 ska ha tre till fem villkor, har ${q.villkor.length}`);
     if (q.typ === 'D3' && q.villkor && (q.villkor.length < 5 || q.villkor.length > 6)) f(`D3 ska ha fem till sex villkor, har ${q.villkor.length}`);
-    for (const x of sparrFel(q)) f(x);
-    const aktiv = slag === 'bank' && !q.pensionerad_fran;
+    // losning_granskad: testansvarig har skrivit om lösningstexten (dd-e-d3-77, omgranskning
+    // 2026-11-19). Då får texten avvika från lösarens ordalydelse; stegens villkor, remsan och
+    // lösningen kontrolleras ändå (DD5 i övrigt, DV1, DV3, DV5).
+    const ordagrant = 'DD5: förklaringen är inte lösarens gång ordagrant';
+    for (const x of sparrFel(q)) if (!(q.losning_granskad === true && x === ordagrant)) f(x);
+    if (q.losning_granskad === true && q.losning?.steg?.at(-1)?.foljd !== undefined) {
+      const sista = q.losning.steg.at(-1);
+      if (!Array.isArray(sista.markor) || !sista.markor.length) f('granskad lösningstext: sista steget saknar villkor');
+    }
+    // Pensionerad från 4 är fortfarande aktiv i version 3 och ska klara spärrarna.
+    const aktiv = slag === 'bank' && (!q.pensionerad_fran || q.pensionerad_fran > 2);
     if (aktiv) for (const x of [...dd7(q), ...dd8(q), ...dd9(q)]) f(x);
     // Strukturen jämförs bland de aktiva; en ersättare har samma pussel som den pensionerade.
     const k = strukturNyckel(q);

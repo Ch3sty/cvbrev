@@ -17,7 +17,8 @@ const alla = [...bank('Grund'), ...bank('Avancerad'), ...bank('Expert')]
 
 describe('deduktiv bankversion 2', () => {
   it('ingen aktiv uppgift fälls av DD7, DD8 eller DD9', () => {
-    for (const q of alla.filter((x) => !x.pensionerad_fran)) expect([...S.dd7(q), ...S.dd8(q), ...S.dd9(q)], q.id).toEqual([])
+    // Aktiva i version 2 och senare: pensionerade från 4 är kvar i version 2 och 3.
+    for (const q of alla.filter((x) => !x.pensionerad_fran || x.pensionerad_fran > 2)) expect([...S.dd7(q), ...S.dd8(q), ...S.dd9(q)], q.id).toEqual([])
   }, 60_000)
 
   it('de kända fallen från granskning 02 fälls och är pensionerade', () => {
@@ -51,6 +52,6 @@ describe('deduktiv bankversion 2', () => {
     expect(deduktivVersion({ deduktiv_version: 2 })).toBe(2)
     const id = '6f7d2a10-0000-4000-8000-000000000001'
     expect(valjFragor('avancerad', id).map((q) => q.id)).toEqual(valjFragor('avancerad', id, 12, 1).map((q) => q.id))
-    expect(valjFragor('avancerad', id, 12, 2).some((q) => q.pensionerad_fran)).toBe(false)
+    expect(valjFragor('avancerad', id, 12, 2).some((q) => q.pensionerad_fran != null && q.pensionerad_fran <= 2)).toBe(false)
   })
 })

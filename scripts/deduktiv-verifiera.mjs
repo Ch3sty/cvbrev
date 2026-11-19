@@ -21,11 +21,23 @@
 // mängderna i "alla" och "inga" har medlemmar. Facit ska vara nödvändigt i
 // båda läsningarna, varje distraktor inte nödvändig i någon.
 //
+// Nästan-dubbletter (omgång 2, 2026-11-19): två schemapussel är samma när
+// villkoren (och antagandet) blir lika efter att elementen döpts om och/eller
+// raden speglats (plats k blir n+1-k, vänster blir höger). Temat räknas inte:
+// kollegor i rad och pärmar på hylla är samma pussel. Frågan räknas inte
+// heller: samma pussel med en annan fråga är en nästan-dubblett. Två
+// premisskedjor är nästan-dubbletter när premissernas ord överlappar till
+// minst hälften (Jaccard). Uppgifter från version 4 och senare får inte ha
+// någon nästan-dubblett bland alla andra (pensionerade inräknade). Par där
+// båda är äldre skrivs ut som kända: kontrollen kom efter version 3, och de
+// paren får testansvarig ta ställning till (inget byter innehåll under sitt id).
+//
 // Kör: node scripts/deduktiv-verifiera.mjs [fil ...]   (standard: bankfilerna)
 // Exit 1 vid fel.
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
 const STANDARD = ['src/lib/deduktivV1/bankGrund.json', 'src/lib/deduktivV1/bankAvancerad.json', 'src/lib/deduktivV1/bankExpert.json'];
 const filer = process.argv.slice(2).length ? process.argv.slice(2) : STANDARD;
@@ -266,13 +278,142 @@ function verifieraD1(q) {
   return fel;
 }
 
+/* ----------------------------- nästan-dubbletter ----------------------------- */
+
+/** Från den här bankversionen fäller en nästan-dubblett uppgiften. */
+export const DUBBLETTKONTROLL_FRAN = 4;
+
+/** Pusslets nyckel oberoende av namn, spegling, tema och fråga. */
+export function pusselNyckel(q) {
+  const t = tolkaSchema(q);
+  const n = t.n;
+  const vs = t.antagande ? [...t.villkor, { ...t.antagande, typ: 'om_plats' }] : t.villkor;
+  const SYM = new Set(['granne', 'inte_granne', 'grupp']);
+  const RIKTAD = new Set(['fore', 'direkt']);
+  let bast = null;
+  for (const perm of permutationer(n)) {
+    for (const spegel of [false, true]) {
+      const rad = vs.map((c) => {
+        let a = perm[c.a];
+        let b = c.b != null ? perm[c.b] : null;
+        let k = c.k ?? null;
+        if (spegel) {
+          if (k != null) k = n + 1 - k;
+          if (RIKTAD.has(c.typ)) [a, b] = [b, a];
+        }
+        if (SYM.has(c.typ) && b < a) [a, b] = [b, a];
+        return `${c.typ}:${a}:${b ?? ''}:${k ?? ''}`;
+      }).sort().join('|');
+      if (bast == null || rad < bast) bast = rad;
+    }
+  }
+  return `${t.grupper ? 'dag' : 'rad'}:${n}:${bast}`;
+}
+
+const ORD = (q) => new Set(q.villkor.join(' ').toLowerCase().replace(/[^a-zåäö0-9 ]/g, ' ').split(/s+/).filter((w) => w.length >= 4));
+function jaccard(a, b) {
+  let s = 0;
+  for (const x of a) if (b.has(x)) s++;
+  return s / (a.size + b.size - s);
+}
+
+/**
+ * Lös nyckel (granskning omgång 2, 2026-11-19): villkorstyperna och hur
+ * villkoren knyter ihop elementen, utan de exakta platserna, plus
+ * lösningsgången som följd av villkorstyper per steg. Fångar pussel där bara
+ * en fast plats eller ett "inte på plats" har flyttats. Två nycklar, och lika
+ * på någon av dem ger en varning (fäller inte):
+ *   graf    villkoren utan platser, med namnbyte och spegling,
+ *   gang    villkorstyperna som mängd plus lösningsgången,
+ *   monster villkorstyperna plus vilka slags steg gången har (lås, kedja,
+ *           kvar, fall, antagande, övrigt), oavsett ordning och gruppering
+ *           (omgranskningen 2026-11-19: dd-a-d2-79 och 101),
+ *   kedja   bara satt när gången är "lås platser, en kedja fyller resten"
+ *           (omgranskningen: 110 och 114, 06, 64 och 116); två sådana i
+ *           samma tema och storlek varnas även med olika villkorstyper.
+ */
+export function losaNycklar(q) {
+  const t = tolkaSchema(q);
+  const n = t.n;
+  const vs = t.antagande ? [...t.villkor, { ...t.antagande, typ: 'om_plats' }] : t.villkor;
+  const SYM = new Set(['granne', 'inte_granne', 'grupp']);
+  const RIKTAD = new Set(['fore', 'direkt']);
+  let bast = null;
+  for (const perm of permutationer(n)) {
+    for (const spegel of [false, true]) {
+      const rad = vs.map((c) => {
+        let a = perm[c.a];
+        let b = c.b != null ? perm[c.b] : null;
+        if (spegel && RIKTAD.has(c.typ)) [a, b] = [b, a];
+        if (SYM.has(c.typ) && b < a) [a, b] = [b, a];
+        return `${c.typ}:${a}:${b ?? ''}`;
+      }).sort().join('|');
+      if (bast == null || rad < bast) bast = rad;
+    }
+  }
+  const typ = (m) => (m === 'Om' ? 'om' : m === 'Kvar' ? 'kvar' : t.villkor[m - 1]?.typ ?? '?');
+  const gang = (q.losning?.steg ?? []).map((st) => st.markor.map(typ).sort().join('+')).join('>');
+  const typer = vs.map((c) => c.typ).sort().join(',');
+  const tema = `${t.grupper ? 'dag' : 'rad'}:${n}`;
+  const ORDNA = new Set(['fore', 'direkt']);
+  const slag = (q.losning?.steg ?? []).map((st) => {
+    if (st.markor.includes('Om')) return 'om';
+    if (/^Kvar för/.test(st.foljd)) return 'kvar';
+    if (/^Med .* inte ihop/.test(st.foljd)) return 'fall';
+    const ty = st.markor.map(typ);
+    if (ty.every((x) => x === 'plats')) return 'las';
+    if (ty.every((x) => ORDNA.has(x))) return 'kedja';
+    return 'ovrigt';
+  });
+  const mangd = [...new Set(slag)].sort().join(',');
+  const barKedja = slag.length && slag.every((x) => x === 'las' || x === 'kedja' || x === 'om') && slag.includes('kedja');
+  return { graf: `${tema}:${bast}`, gang: `${tema}:${typer}#${gang}`, monster: `${tema}:${typer}#${mangd}`, kedja: barKedja ? tema : null };
+}
+
+/** Par med samma lösa nyckel (graf, gång, mönster eller ren kedja) som inte redan är nästan-dubbletter: [a, b]. */
+export function lika(lista) {
+  const x = lista.filter((q) => q.typ !== 'D1').map((q) => ({ q, ...losaNycklar(q), p: pusselNyckel(q) }));
+  const ut = [];
+  for (let i = 0; i < x.length; i++)
+    for (let j = i + 1; j < x.length; j++)
+      if (
+        x[i].p !== x[j].p &&
+        (x[i].graf === x[j].graf || x[i].gang === x[j].gang || x[i].monster === x[j].monster || (x[i].kedja && x[i].kedja === x[j].kedja))
+      )
+        ut.push([x[i].q, x[j].q]);
+  return ut;
+}
+
+/** Par av nästan-dubbletter i listan: [a, b, skäl]. */
+export function nastanDubbletter(lista) {
+  const ut = [];
+  const schema = lista.filter((q) => q.typ !== 'D1').map((q) => ({ q, k: pusselNyckel(q) }));
+  const perNyckel = new Map();
+  for (const x of schema) {
+    if (!perNyckel.has(x.k)) perNyckel.set(x.k, []);
+    perNyckel.get(x.k).push(x.q);
+  }
+  for (const grupp of perNyckel.values())
+    for (let i = 0; i < grupp.length; i++) for (let j = i + 1; j < grupp.length; j++) ut.push([grupp[i], grupp[j], 'samma pussel med andra namn, spegling eller fråga']);
+  const d1 = lista.filter((q) => q.typ === 'D1').map((q) => ({ q, o: ORD(q) }));
+  for (let i = 0; i < d1.length; i++)
+    for (let j = i + 1; j < d1.length; j++) {
+      const v = jaccard(d1[i].o, d1[j].o);
+      if (v >= 0.5) ut.push([d1[i].q, d1[j].q, `premissernas ord överlappar till ${Math.round(v * 100)} procent`]);
+    }
+  return ut;
+}
+
 /* ---------------------------------- körning --------------------------------- */
 
+function kor() {
 let antal = 0;
 const fel = [];
 const perFil = [];
+const alla = [];
 for (const fil of filer) {
   const lista = JSON.parse(readFileSync(fil, 'utf8'));
+  alla.push(...lista);
   let ok = 0;
   for (const q of lista) {
     antal++;
@@ -288,9 +429,42 @@ for (const fil of filer) {
   perFil.push(`${fil}: ${ok} av ${lista.length} bevisade`);
 }
 for (const x of perFil) console.log(x);
+let kanda = 0;
+const kandaPar = [];
+let dubbletter = 0;
+try {
+  for (const [a, b, skal] of nastanDubbletter(alla)) {
+    if (a.ersatter === b.id || b.ersatter === a.id) continue;
+    const ny = [a, b].some((q) => (q.fran_version ?? 1) >= DUBBLETTKONTROLL_FRAN && !q.pensionerad_fran);
+    // Ett äldre par där den ena är pensionerad är löst.
+    if (!ny && (a.pensionerad_fran || b.pensionerad_fran)) continue;
+    if (ny) {
+      dubbletter++;
+      fel.push(`nästan-dubblett: ${a.id} och ${b.id}, ${skal}`);
+    } else {
+      kanda++;
+      kandaPar.push(`${a.id}/${b.id}`);
+    }
+  }
+} catch (e) {
+  fel.push(`nästan-dubbletter: ${e.message ?? e}`);
+}
+console.log(`Nästan-dubbletter: ${dubbletter} med version ${DUBBLETTKONTROLL_FRAN} eller senare. Kända par mellan äldre versioner (${kanda}): ${kandaPar.join(', ') || 'inga'}.`);
+// Varningar: samma villkorstyper och samma lösningsgång med flyttade platser, bland uppgifter som inte är pensionerade.
+try {
+  const varn = lika(alla.filter((q) => !q.pensionerad_fran));
+  const nya = varn.filter(([a, b]) => [a, b].some((q) => (q.fran_version ?? 1) >= DUBBLETTKONTROLL_FRAN));
+  console.log(`Varning, samma lösningsgång med flyttade platser: ${varn.length} par, varav ${nya.length} med version ${DUBBLETTKONTROLL_FRAN} eller senare.`);
+  for (const [a, b] of nya) console.log(`  VARNING ${a.id} och ${b.id}`);
+} catch (e) {
+  fel.push(`lös nyckel: ${e.message ?? e}`);
+}
 if (fel.length) {
   for (const x of fel) console.error('FEL', x);
   console.error(`${fel.length} fel`);
   process.exit(1);
 }
 console.log(`Verifieringen: alla ${antal} uppgifter har exakt ett svar som följer av villkoren.`);
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) kor();

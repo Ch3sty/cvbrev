@@ -24,7 +24,7 @@ export type DeduktivFamilj =
   | 'rorelse';
 
 export interface DeduktivFraga {
-  /** dd-<g|a|e>-<d1|d2|d3>-<nn> */
+  /** dd-<g|a|e>-<d1|d2|d3>-<nn>, från omgång 2 (version 4) även tre siffror */
   id: string;
   niva: DeduktivNiva;
   typ: DeduktivTyp;
@@ -46,9 +46,11 @@ export interface DeduktivFraga {
   losning: DeduktivLosning;
   /** Lösarens form (visas aldrig). */
   formell?: unknown;
-  fran_version: 1 | 2 | 3;
+  fran_version: 1 | 2 | 3 | 4;
   /** Bankversionen uppgiften pensioneras från (DD7, DD8); gamla sessioner läser den ändå. */
-  pensionerad_fran?: 2;
+  pensionerad_fran?: 2 | 4;
+  /** Lösningstexten är omskriven av testansvarig och får avvika från lösarens ordalydelse. */
+  losning_granskad?: true;
   /** Den pensionerade uppgift som den här lagade kopian ersätter. */
   ersatter?: string;
 }

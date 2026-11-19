@@ -18,7 +18,8 @@ describe('deduktiv bankversion 3', () => {
   it('100 nya uppgifter: 38 grund (30 D1, 8 D2), 37 avancerad, 25 expert', () => {
     const per = (n: string, typ?: string) => nya.filter((q) => q.niva === n && (!typ || q.typ === typ)).length
     expect([per('grund', 'D1'), per('grund', 'D2'), per('avancerad'), per('expert')]).toEqual([30, 8, 37, 25])
-    expect(nya.some((q) => q.pensionerad_fran || q.ersatter)).toBe(false)
+    // Åtta av dem pensioneras från version 4 (nästan-dubbletter, granskning omgång 2), ingen tidigare.
+    expect(nya.some((q) => (q.pensionerad_fran != null && q.pensionerad_fran !== 4) || q.ersatter)).toBe(false)
     expect(new Set(alla.map((q) => q.id)).size).toBe(alla.length)
   })
 
@@ -28,7 +29,7 @@ describe('deduktiv bankversion 3', () => {
   })
 
   it('poolerna: 68, 67 och 45 i version 3; version 1 och 2 är oförändrade', () => {
-    expect(DEDUKTIV_VERSION).toBe(3)
+    expect(DEDUKTIV_VERSION).toBeGreaterThanOrEqual(3)
     expect([poolFor('grund', 3).length, poolFor('avancerad', 3).length, poolFor('expert', 3).length]).toEqual([68, 67, 45])
     for (const v of [1, 2] as const) {
       expect([poolFor('grund', v).length, poolFor('avancerad', v).length, poolFor('expert', v).length]).toEqual([30, 30, 20])
@@ -42,7 +43,7 @@ describe('deduktiv bankversion 3', () => {
     const id = '6f7d2a10-0000-4000-8000-000000000002'
     for (const n of ['grund', 'avancerad', 'expert'] as const) {
       expect(valjFragor(n, id, 12, 2).every((q) => q.fran_version !== 3)).toBe(true)
-      expect(valjFragor(n, id, 12, 3).every((q) => !q.pensionerad_fran)).toBe(true)
+      expect(valjFragor(n, id, 12, 3).every((q) => !q.pensionerad_fran || q.pensionerad_fran > 3)).toBe(true)
     }
   })
 })
