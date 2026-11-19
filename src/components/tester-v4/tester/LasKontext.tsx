@@ -23,7 +23,16 @@ const PLANER: readonly string[] = ['cv_week', 'test_week', 'all_day', 'all_week'
 const somScope = (v: string | null): Scope | null => (v && SCOPES.includes(v) ? (v as Scope) : null)
 const somPlan = (v: string | null): PlanKey | null => (v && PLANER.includes(v) ? (v as PlanKey) : null)
 
-export function LasProvider({ paket, children }: { paket: Paketinfo; children: ReactNode }) {
+export function LasProvider({
+  paket,
+  grundKvarIdag = null,
+  children,
+}: {
+  paket: Paketinfo
+  /** Gratislage.grundKvarIdag: 0 ger väggen "I morgon" i stället för ett nytt grundtest. */
+  grundKvarIdag?: number | null
+  children: ReactNode
+}) {
   const [las, setLas] = useState<Las | null>(null)
   const oppna = useCallback((h: Pick<Handling, 'slag' | 'las' | 'zon'>) => setLas(lasFor(h)), [])
   return (
@@ -40,6 +49,7 @@ export function LasProvider({ paket, children }: { paket: Paketinfo; children: R
           track={somScope(paket.track)}
           planKey={somPlan(paket.planKey)}
           surface="/dashboard/tester/alla"
+          grundKvarIdag={grundKvarIdag}
         />
       ) : null}
     </Kontext.Provider>

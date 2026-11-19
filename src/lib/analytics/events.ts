@@ -518,6 +518,22 @@ export interface AnalyticsEvents {
   trana_klart: TesterV4Kontext & { testtyp: string; ratt: number; antal: number; niva_efter?: number | null }
   nivakoll_gjord: TesterV4Kontext & { testtyp: string; niva: number | null; raknas?: boolean }
   kvot_slut_visad: TesterV4Kontext & { surface: string; testtyp?: string | null }
+  /** Nya Hem (2026-11-19): en gång per besök. Inga personuppgifter. */
+  hem_visad: { plan: boolean; niva: 'gratis' | 'premium'; matta_typer: number; plattform: 'webb' | 'app' }
+  /** Tryck i navigeringen Hem, Tester, Din utveckling; sida är den man stod på. */
+  tester_nav_klickad: {
+    mal: 'hem' | 'tester' | 'utveckling'
+    sida: 'hem' | 'tester' | 'utveckling'
+    plattform: 'webb' | 'app'
+  }
+  /** Tryck i ingångskorten på Hem: knappen (eller rubriklänken) eller ett typkort. */
+  hem_ingang_klickad: {
+    ingang: 'tester' | 'utveckling'
+    kalla: 'knapp' | 'typkort'
+    /** Typkortets testtyp (eller personlighet), null för knappen. */
+    testtyp: string | null
+    plattform: 'webb' | 'app'
+  }
   bank_slut_visad: TesterV4Kontext & { testtyp: string; niva?: string | null }
   provdatum_hoppat_over: { steg: 2 | 3 | 'efter_konto'; mitt_test?: string | null }
   /** Provdatumskärmen efter kontot (beslut 4, 2026-11-10), för I-prov och lokförare. */

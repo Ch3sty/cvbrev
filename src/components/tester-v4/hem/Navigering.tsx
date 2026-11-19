@@ -7,13 +7,15 @@
  *   Mobil   tre lika breda kort, ikon ovanför texten, i flödet
  *
  * Det aktiva kortet har väggens mörka färg, "Du är här" och
- * aria-current="page". Riktiga länkar. Server component.
+ * aria-current="page". Riktiga länkar. Server component; själva <nav> är
+ * NavMedMatning (HemMatning.tsx), som skickar tester_nav_klickad.
  */
 
 import Link from 'next/link'
 import { HEM_HREF, TESTER_HREF, UTVECKLING_HREF } from '@/lib/tester/v4/rutter'
 import { HEM_V4 } from './copy'
 import type { NavTexter, NavVal } from './hemData'
+import { NavMedMatning } from './HemMatning'
 
 const N = HEM_V4.nav
 
@@ -54,7 +56,8 @@ const VAL: { id: NavVal; href: string; namn: string; Ikon: () => React.JSX.Eleme
 
 export default function Navigering({ aktiv, texter }: { aktiv: NavVal; texter: NavTexter }) {
   return (
-    <nav
+    <NavMedMatning
+      sida={aktiv}
       aria-label={N.etikett}
       className="grid grid-cols-3 gap-2 lg:sticky lg:top-0 lg:z-[3] lg:-my-2.5 lg:gap-3 lg:bg-golv lg:py-2.5"
       data-nav-tester
@@ -92,6 +95,6 @@ export default function Navigering({ aktiv, texter }: { aktiv: NavVal; texter: N
           </Link>
         )
       })}
-    </nav>
+    </NavMedMatning>
   )
 }

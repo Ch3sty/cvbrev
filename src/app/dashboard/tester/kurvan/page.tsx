@@ -33,7 +33,7 @@ export default async function KurvanSida({
   const [data, tester, sp] = await Promise.all([hamtaUtvecklingV4(user.id), hamtaTesterV4(user.id), searchParams])
   const typ = Array.isArray(sp.typ) ? sp.typ[0] : sp.typ
   return (
-    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)}>
+    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={tester.gratis.premium ? null : tester.gratis.grundKvarIdag}>
       <UtvecklingVy data={data} startTyp={arTestTypId(typ) ? typ : null} nav={<Navigering aktiv="utveckling" texter={navTexter(tester)} />} />
     </Betalvagg>
   )

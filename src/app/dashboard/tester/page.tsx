@@ -51,7 +51,7 @@ export default async function TraningHem({
   if (s?.nyPunkt) after(() => markeraTraningSedd(user.id));
 
   return (
-    <Betalvagg scope={data.paket.scope as Scope | null} track={data.paket.track as Scope | null} planKey={data.paket.planKey as PlanKey | null}>
+    <Betalvagg scope={data.paket.scope as Scope | null} track={data.paket.track as Scope | null} planKey={data.paket.planKey as PlanKey | null} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
       <HemVy data={data} />
     </Betalvagg>
   );

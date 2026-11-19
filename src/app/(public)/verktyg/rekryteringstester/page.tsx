@@ -27,6 +27,7 @@ import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
 import LankLista from '@/components/publikt/LankLista'
 import Faq from '@/components/publikt/Faq'
 import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import MattLank from '@/components/publikt/MattLank'
 import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
@@ -43,6 +44,8 @@ import type { MittTest } from '@/lib/traning/mittTest'
 
 const PROVA = '/verktyg/rekryteringstester/prova'
 const PREMIUM = paketKort()
+// Priset i löptext följer kampanjen (Black Week) via MedKampanjPris: sidan
+// CDN-cachas, så båda varianterna ritas och KampanjHuvud väljer i webbläsaren.
 const PRIS = prisPeriod(SALD_PLAN)
 const T = TESTTAL
 
@@ -489,7 +492,7 @@ export default function RekryteringstesterSida() {
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
                 Med ett gratiskonto gör du grundnivån i varje testtyp, med full genomgång efteråt, och resultatet är ditt. Börja
                 gärna med Nivåkollen: tolv uppgifter som anpassar sig efter dina svar och på cirka åtta minuter visar var du står.
-                Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
+                Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, <MedKampanjPris text={PRIS} />. Säg
                 upp när du vill.
               </p>
               <div className="pub-raster pub-raster-3 pub-rum-tran">
@@ -645,7 +648,7 @@ export default function RekryteringstesterSida() {
                   <Objekt typ="uppat" />
                   <h3 className="pub-h4">{PREMIUM} tar bort taket</h3>
                   <p>
-                    Alla nivåer, övningsprov mot klockan, det fördjupade personlighetstestet och hela din resultathistorik, {PRIS}.
+                    Alla nivåer, övningsprov mot klockan, det fördjupade personlighetstestet och hela din resultathistorik, <MedKampanjPris text={PRIS} />.
                   </p>
                 </div>
               </div>
@@ -728,7 +731,7 @@ export default function RekryteringstesterSida() {
           <PremiumBlock
             kick={
               <>
-                Jobbcoach <PremiumOrd />, {PRIS}
+                Jobbcoach <PremiumOrd />, <MedKampanjPris text={PRIS} />
               </>
             }
             rubrik="Träna nu. Kom förberedd sen."

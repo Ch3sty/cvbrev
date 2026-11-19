@@ -43,11 +43,14 @@ export function Betalvagg({
   scope,
   track,
   planKey,
+  grundKvarIdag = null,
 }: {
   children: ReactNode
   scope: Scope | null
   track: Scope | null
   planKey: PlanKey | null
+  /** Gratislage.grundKvarIdag: 0 ger väggen "I morgon" i stället för ett nytt grundtest. */
+  grundKvarIdag?: number | null
 }) {
   const [last, setLast] = useState<{ feature: Feature; plats: BetalvaggPlats } | null>(null)
   const oppna = useCallback((feature: Feature, plats: BetalvaggPlats) => setLast({ feature, plats }), [])
@@ -65,6 +68,7 @@ export function Betalvagg({
           track={track}
           planKey={planKey}
           surface="/dashboard/tester"
+          grundKvarIdag={grundKvarIdag}
         />
       ) : null}
     </Kontext.Provider>

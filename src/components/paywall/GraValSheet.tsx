@@ -47,6 +47,8 @@ export interface GraValSheetProps {
   dagarKvar?: number | null
   /** Mallen väggen gäller (mallflödet): mätningen och köpreturen. */
   mall?: { id: string; tier: 'free' | 'premium'; retur?: string | null } | null
+  /** Grundnivåtest kvar i dag på gratisnivån. 0 ger "I morgon" i stället för ett nytt grundtest. */
+  grundKvarIdag?: number | null
 }
 
 export default function GraValSheet({
@@ -60,6 +62,7 @@ export default function GraValSheet({
   plats,
   dagarKvar = null,
   mall = null,
+  grundKvarIdag = null,
 }: GraValSheetProps) {
   // gray_option_tapped en gång per öppning.
   const mattRef = useRef(false)
@@ -86,6 +89,7 @@ export default function GraValSheet({
             plats={plats}
             dagarKvar={dagarKvar}
             mall={mall}
+            grundKvarIdag={grundKvarIdag}
             bare
           />
         </div>

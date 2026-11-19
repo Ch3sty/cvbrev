@@ -16,7 +16,7 @@
  *
  * Hintarna kommer färdiga i prioritetsordning ur datan (hintar.ts). Ordet
  * "pass" används inte. Server component; öarna (NastaSteg, FlerSteg,
- * GratisRad, PlanKort, HintVisad) är klient.
+ * GratisRad, PlanKort, HintVisad och mätningen i HemMatning) är klient.
  */
 
 import Golv from '@/components/rum/Golv'
@@ -33,6 +33,7 @@ import TesterIngang from './TesterIngang'
 import UtvecklingIngang from './UtvecklingIngang'
 import { navTexter, nivaKalla } from './hemData'
 import { HintVisad, type HintKontext } from './HintSparning'
+import { HemVisad, IngangarMedMatning } from './HemMatning'
 
 export default function HemVy({ data }: { data: TesterV4Data }) {
   const { plan, hintar } = data
@@ -46,14 +47,15 @@ export default function HemVy({ data }: { data: TesterV4Data }) {
   return (
     <div className="flex flex-1 flex-col" data-hem-v4 data-lage={plan ? (plan.franArtikel && !plan.provdatum ? 'artikel' : 'plan') : 'fritt'}>
       <HintVisad hintar={hintar.slice(0, 4)} idag={data.idag} kontext={kontext} />
+      <HemVisad plan={!!plan} premium={data.gratis.premium} matta={data.typer.filter((t) => t.synlig && t.niva.status === 'matt').length} />
       <PlanHuvud plan={plan} idag={data.idag} typer={data.typer} bana={data.bana} />
       <Golv lyft className="pb-10">
         <NastaSteg hint={forsta} kontext={kontext} typ={hintTyp} planNamn={plan?.namn ?? null} nivaKalla={hintTyp ? nivaKalla(data.kurva, hintTyp.id) : null} />
         <Navigering aktiv="hem" texter={navTexter(data)} />
-        <div className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2">
+        <IngangarMedMatning className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2">
           <TesterIngang data={data} />
           <UtvecklingIngang data={data} />
-        </div>
+        </IngangarMedMatning>
         <GratisRad gratis={data.gratis} planTest={plan?.mittTest ?? null} />
         <div className={`grid grid-cols-1 items-stretch gap-4 ${nederstKolumner}`}>
           {fler.length ? <FlerSteg hintar={fler} kontext={kontext} plan={plan} menyer={data.menyer} idag={data.idag} /> : null}

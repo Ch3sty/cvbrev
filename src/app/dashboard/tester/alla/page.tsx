@@ -45,7 +45,7 @@ export default async function AllaTesterPage({
   const hint = data.hintar[0] ?? null
 
   return (
-    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)}>
+    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
       <TesterVy
         data={data}
         startTyp={arTestTypId(typ) ? typ : null}

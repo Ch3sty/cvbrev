@@ -37,6 +37,7 @@ import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 import TestBredd from '@/components/publikt/TestBredd'
 import { TEST_TYP_NAMN, type TestTyp } from '@/components/illustrations/TestGlyfer'
+import { LAS_CHIP, ZON_RUBRIK } from '@/lib/tester/v4/copy'
 
 export { PRISER_HREF }
 
@@ -133,7 +134,22 @@ export interface PaywallCardProps {
    * köpreturen till kassan.
    */
   mall?: { id: string; tier: 'free' | 'premium'; retur?: string | null } | null
+  /**
+   * Gratisnivåns grundnivåtest kvar i dag (Gratislage.grundKvarIdag), variant
+   * testniva. Är det 0 erbjuder kortet inget nytt grundtest: det sekundära
+   * blir v4:s "I morgon"-läge (lasNivaTest, skal kvot) och köpknappen står
+   * kvar. Utelämnat (okänt) gäller copyns sekundära som förut.
+   */
+  grundKvarIdag?: number | null
   className?: string
+}
+
+/**
+ * Sant när testväggens sekundära skulle erbjuda ett nytt grundtest fast
+ * dagens grundnivåtest redan är gjort. Ren, för testerna.
+ */
+export function grundSlutIdag(variant: PaywallVariant, grundKvarIdag: number | null | undefined): boolean {
+  return variant === 'testniva' && grundKvarIdag != null && grundKvarIdag <= 0
 }
 
 export default function PaywallCard({
@@ -153,6 +169,7 @@ export default function PaywallCard({
   dagarKvar = null,
   testTyp,
   mall = null,
+  grundKvarIdag = null,
   className,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -318,6 +335,22 @@ export default function PaywallCard({
           </button>
         )
       default:
+        // Dagens grundnivåtest är gjort: ingen knapp till ett nytt grundtest
+        // (den leder rakt in i kvotspärren). Samma "I morgon"-läge som v4:s
+        // låsta grundnivå, "Grundnivå · I morgon", som status utan handling.
+        if (!arPrisText(copy.secondary) && grundSlutIdag(variant, grundKvarIdag))
+          return (
+            <span
+              className="inline-flex min-h-11 items-center justify-center gap-1.5 self-center text-sm font-semibold text-ink-3"
+              data-grund-kvot="i-morgon"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                <rect x="5" y="10.5" width="14" height="10" rx="2.5" />
+                <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
+              </svg>
+              {`${ZON_RUBRIK.grund} · ${LAS_CHIP.kvot}`}
+            </span>
+          )
         // En sekundär handling som hör hemma i vyn (till exempel "Ta bort ett
         // gammalt CV") vinner över länken till prissidan. Säger copyn "Se
         // vad som ingår" eller "Se priset" är det länken ändå.

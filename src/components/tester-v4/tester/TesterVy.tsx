@@ -208,7 +208,7 @@ export default function TesterVy({
   )
 
   return (
-    <LasProvider paket={data.paket}>
+    <LasProvider paket={data.paket} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
       <div className="flex flex-1 flex-col" data-tester-v4 data-plan={plan?.mittTest ?? 'ingen'}>
         <Vagg tat={!nastaSteg}>
           <Topprad />
