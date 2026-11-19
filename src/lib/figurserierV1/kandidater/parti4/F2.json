@@ -1,0 +1,288 @@
+[
+ {
+  "id": "fs-g-antal-18",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "F2",
+  "variant": "prickar-antal",
+  "difficulty": 1,
+  "p_prior": 0.72,
+  "title": "Prickarna, en regel",
+  "rule": "En prick till läggs till medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     6,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara sju, inte fem.",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara sju, inte fem.",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara sju, inte två.",
+   "Prickarna har flyttat sig, men i raden står de still.",
+   "Prickarna har flyttat sig, men i raden står de still. Antalet ska vara sju, inte fem.",
+   ""
+  ],
+  "regler": {
+   "prim": "prickar",
+   "dims": {
+    "start": {
+     "regel": "konstant",
+     "v": 6
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-antal-19",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "F2",
+  "variant": "sektor-antal",
+  "difficulty": 1,
+  "p_prior": 0.72,
+  "title": "Sektorhjulet, en regel",
+  "rule": "En sektor till blir svart medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     7
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sju, inte fyra.",
+   "",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sju, inte tre.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sju, inte tre.",
+   "De svarta sektorerna är vridna, men i raden står de still.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sju, inte tre."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "konstant",
+     "v": 7
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 2,
+     "k": 1
+    }
+   }
+  },
+  "fran_version": 4
+ }
+]

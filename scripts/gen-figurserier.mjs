@@ -77,7 +77,8 @@ if (PARTI === 2) {
     if (m) nummer[`${m[1]}-${m[2]}`] = Math.max(nummer[`${m[1]}-${m[2]}`] ?? 0, Number(m[3]));
   }
 }
-const mallar = PARTI === 2 ? MALLAR.filter((m) => PARTI2[m.id]).map((m) => ({ ...m, antal: PARTI2[m.id] })) : MALLAR;
+// Mallar från ett senare parti (F8, parti 4) står utanför parti 1.
+const mallar = PARTI === 2 ? MALLAR.filter((m) => PARTI2[m.id]).map((m) => ({ ...m, antal: PARTI2[m.id] })) : MALLAR.filter((m) => !m.parti);
 
 for (const mall of mallar) {
   const r = mulberry32(hashString(`${SEED}:${mall.id}`));

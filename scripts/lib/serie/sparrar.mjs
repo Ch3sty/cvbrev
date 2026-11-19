@@ -153,7 +153,8 @@ export function fs5(q) {
 const TOM = (c) =>
   (c.kind === 'ray' && c.rays.length === 0) ||
   (c.kind === 'sectorwheel' && c.filled.length === 0) ||
-  (c.kind === 'tile' && c.pattern === 0);
+  (c.kind === 'tile' && c.pattern === 0) ||
+  (c.kind === 'dotsorbit' && c.dots.length === 0);
 export function fs6(q) {
   const fel = [];
   const celler = [...q.rad.map((c, i) => [c, `figur ${i + 1}`]), ...q.options.map((c, i) => [c, `alternativ ${BOKSTAV[i]}`])];
@@ -303,7 +304,7 @@ export function s14(q) {
  */
 export function s15(q) {
   const r = q.regler?.dims?.antal;
-  return ['stralar', 'sektor', 'block'].includes(q.regler?.prim) && r?.regel === 'cykel' ? [`${q.id}: S15 grupp-antal, antalet går i cykel på en grupprimitiv`] : [];
+  return ['stralar', 'sektor', 'block', 'prickar'].includes(q.regler?.prim) && r?.regel === 'cykel' ? [`${q.id}: S15 grupp-antal, antalet går i cykel på en grupprimitiv`] : [];
 }
 
 /** S13: en regel vars dimension har samma värde i alla sex alternativ. */

@@ -1,0 +1,1649 @@
+[
+ {
+  "id": "fs-g-vax-23",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "prickar-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Prickarna, en regel",
+  "rule": "Prickarna går moturs runt mitten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Antalet prickar är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Steget har inte vuxit sista gången.",
+   "",
+   "Prickarna står på fel plats. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna går åt fel håll. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna står kvar som i den femte figuren. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna står på fel plats. Antalet prickar ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "prickar",
+   "dims": {
+    "start": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -2,
+     "dd": -1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-24",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "duo-kant-symbol-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pricken längs kanten, en regel",
+  "rule": "Pricken går moturs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten är minus i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Steget har inte vuxit sista gången.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, som i hela raden.",
+   "",
+   "Pricken står på fel plats. Symbolen i mitten ska vara minus, som i hela raden.",
+   "Pricken har gått ett steg för långt. Symbolen i mitten ska vara minus, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Symbolen i mitten ska vara minus, som i hela raden."
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": -2,
+     "dd": -1
+    },
+    "ksymbol": {
+     "regel": "konstant",
+     "v": "minus"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-25",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "duo-kant-pil-vaxande-grund",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pilen i mitten, en regel",
+  "rule": "Pilen i mitten vrids moturs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Pricken står på samma plats i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten har vridits ett steg för långt.",
+   "",
+   "Pricken har flyttat sig, men i raden står den still. Pilen i mitten vrids åt fel håll.",
+   "Pricken har flyttat sig, men i raden står den still."
+  ],
+  "regler": {
+   "prim": "duo-kant-pil",
+   "dims": {
+    "ylage": {
+     "regel": "konstant",
+     "v": 2
+    },
+    "kvinkel": {
+     "regel": "vaxande",
+     "s0": 2,
+     "d0": -1,
+     "dd": -1
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-27",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "orbital-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pricken runt cirkeln, en regel",
+  "rule": "Pricken går moturs runt cirkeln, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Mittpunkten är fylld i hela raden.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Steget har inte vuxit sista gången.",
+   "Pricken har gått ett steg för långt. Mittpunkten ska vara fylld, som i hela raden.",
+   "",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": -2,
+     "dd": -1
+    },
+    "mitt": {
+     "regel": "konstant",
+     "v": "filled"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-28",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "stralar-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Strecken, en regel",
+  "rule": "Strecken vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Antalet streck är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Vridningen har inte vuxit sista gången.",
+   "",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
+   "Vridningen har inte vuxit sista gången. Antalet streck ska vara tre, som i hela raden.",
+   "Vridningen har inte vuxit sista gången. Antalet streck ska vara tre, som i hela raden.",
+   "Antalet streck ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": -2,
+     "dd": -1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-29",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "prickar-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Prickarna, en regel",
+  "rule": "Prickarna går medurs runt mitten, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Antalet prickar är två i hela raden.",
+  "rad": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Prickarna går åt fel håll.",
+   "Prickarna har gått ett steg för långt.",
+   "",
+   "Steget har inte vuxit sista gången. Antalet prickar ska vara två, som i hela raden.",
+   "Prickarna står på fel plats. Antalet prickar ska vara två, som i hela raden.",
+   "Prickarna står kvar som i den femte figuren. Antalet prickar ska vara två, som i hela raden."
+  ],
+  "regler": {
+   "prim": "prickar",
+   "dims": {
+    "start": {
+     "regel": "vaxande",
+     "s0": 3,
+     "d0": 1,
+     "dd": 1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 2
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-30",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "duo-kant-symbol-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pricken längs kanten, en regel",
+  "rule": "Pricken går medurs längs kanten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Symbolen i mitten är plus i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Steget har inte vuxit sista gången.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara plus, som i hela raden.",
+   "Symbolen i mitten ska vara plus, som i hela raden.",
+   "Steget har inte vuxit sista gången. Symbolen i mitten ska vara plus, som i hela raden.",
+   "Pricken står på fel plats. Symbolen i mitten ska vara plus, som i hela raden.",
+   ""
+  ],
+  "regler": {
+   "prim": "duo-kant-symbol",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 2,
+     "dd": 1
+    },
+    "ksymbol": {
+     "regel": "konstant",
+     "v": "plus"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-31",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "pil-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Pilen är kort i hela raden. Spetsen är öppen i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "short",
+    "head": "filled"
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Vridningen har inte vuxit sista gången.",
+   "Pilen pekar snett nedåt höger, men ska peka nedåt. Pilen ska vara kort, som i hela raden.",
+   "Pilen står kvar som i den femte figuren. Pilen ska vara kort, som i hela raden.",
+   "Pilen pekar snett uppåt vänster, men ska peka nedåt. Spetsen ska vara öppen, som i hela raden.",
+   "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": -2,
+     "dd": -1
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-34",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "prickar-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Prickarna, en regel",
+  "rule": "Prickarna går medurs runt mitten, och steget växer med ett varje gång: två, tre, fyra steg och så vidare. Antalet prickar är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "dotsorbit",
+    "dots": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Steget har inte vuxit sista gången.",
+   "Prickarna står kvar som i den femte figuren. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna står på fel plats. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna har gått ett steg för långt. Antalet prickar ska vara tre, som i hela raden.",
+   "Prickarna står på fel plats. Antalet prickar ska vara tre, som i hela raden.",
+   ""
+  ],
+  "regler": {
+   "prim": "prickar",
+   "dims": {
+    "start": {
+     "regel": "vaxande",
+     "s0": 5,
+     "d0": 2,
+     "dd": 1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-35",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "pil-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Pilen är kort i hela raden. Spetsen är öppen i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "short",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "filled"
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Vridningen har inte vuxit sista gången.",
+   "Vridningen har inte vuxit sista gången. Spetsen ska vara öppen, som i hela raden.",
+   "Vridningen har inte vuxit sista gången. Pilen ska vara kort, som i hela raden.",
+   "",
+   "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, som i hela raden.",
+   "Pilen ska vara kort, som i hela raden. Spetsen ska vara öppen, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxande",
+     "s0": 7,
+     "d0": 2,
+     "dd": 1
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "short"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-36",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "pil-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pilen, en regel",
+  "rule": "Pilen vrids moturs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Pilen är lång i hela raden. Spetsen är öppen i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 135,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "filled"
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Vridningen har inte vuxit sista gången.",
+   "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, som i hela raden.",
+   "",
+   "Pilen står kvar som i den femte figuren. Pilen ska vara lång, som i hela raden.",
+   "Pilen pekar nedåt, men ska peka snett uppåt höger. Pilen ska vara lång, som i hela raden.",
+   "Pilen vrids åt fel håll. Spetsen ska vara öppen, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "vaxande",
+     "s0": 5,
+     "d0": -2,
+     "dd": -1
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "long"
+    },
+    "spets": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-37",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "orbital-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Pricken runt cirkeln, en regel",
+  "rule": "Pricken går moturs runt cirkeln, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Mittpunkten är ofylld i hela raden.",
+  "rad": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 1
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 6
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 3
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 7
+   }
+  ],
+  "options": [
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 5
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 4
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 0
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 7
+   },
+   {
+    "kind": "orbital",
+    "center": "open",
+    "satellite": 2
+   },
+   {
+    "kind": "orbital",
+    "center": "filled",
+    "satellite": 6
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Pricken har gått ett steg för långt.",
+   "Pricken går åt fel håll.",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara ofylld, som i hela raden.",
+   "",
+   "Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden."
+  ],
+  "regler": {
+   "prim": "orbital",
+   "dims": {
+    "satellit": {
+     "regel": "vaxande",
+     "s0": 1,
+     "d0": -1,
+     "dd": -1
+    },
+    "mitt": {
+     "regel": "konstant",
+     "v": "open"
+    }
+   }
+  },
+  "fran_version": 4
+ },
+ {
+  "id": "fs-g-vax-38",
+  "niva": "grund",
+  "family": "vaxande",
+  "recept": "F3",
+  "variant": "stralar-vaxande",
+  "difficulty": 2,
+  "p_prior": 0.65,
+  "title": "Strecken, en regel",
+  "rule": "Strecken vrids medurs, och vridningen växer med 45 grader varje gång: 45, 90, 135 grader och så vidare. Antalet streck är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Strecken vrids åt fel håll.",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
+   "Vridningen har inte vuxit sista gången. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "stralar",
+   "dims": {
+    "start": {
+     "regel": "vaxande",
+     "s0": 6,
+     "d0": 1,
+     "dd": 1
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 4
+ }
+]

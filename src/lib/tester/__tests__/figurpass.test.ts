@@ -8,7 +8,8 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { valjFigurpass, valjFigurer, bastaFigurGrundProcent, FIGUR_HARNAST } from '../pass-figur'
-import { valjFragor, poolFor, harnastPool, bryterPool, BRYTER_GOLV, SERIE_VERSION } from '@/lib/figurserierV1/select'
+import { valjFragor, poolFor, harnastPool, bryterPool, allaFragor, serieVersion, BRYTER_GOLV, SERIE_VERSION } from '@/lib/figurserierV1/select'
+import { rattaSerieSvar } from '@/lib/figurserierV1/fragor.server'
 import { valjFigurDelar, FIGUR_URVAL } from '@/lib/ovningsprov/motor.server'
 import { ovningsformat, provradTexter } from '@/lib/ovningsprov/format'
 import { featureForTestType } from '@/lib/tests/sessionGate'
@@ -50,11 +51,12 @@ describe('figurpassets urval', () => {
 })
 
 describe('bankerna efter omgång 3', () => {
-  it('bryter når golvet på båda nivåerna; härnäst i pass är nivåtestets bank, parti 3 och parti 2', () => {
+  it('bryter når golvet på båda nivåerna; härnäst i pass är nivåtestets bank, parti 3, parti 4 och parti 2', () => {
     expect(bryterPool('grund').length).toBeGreaterThanOrEqual(BRYTER_GOLV)
     expect(bryterPool('avancerad').length).toBeGreaterThanOrEqual(BRYTER_GOLV)
-    expect(harnastPool('grund').length).toBe(83)
-    expect(harnastPool('avancerad').length).toBe(85)
+    expect(harnastPool('grund').length).toBe(116)
+    expect(harnastPool('avancerad').length).toBe(126)
+    expect(harnastPool('expert').length).toBe(76)
   })
 
   it('klassiska urvalet per sessions-id är oförändrat i grund och avancerad; de pensionerade väljs aldrig i version 2', () => {
@@ -69,13 +71,28 @@ describe('bankerna efter omgång 3', () => {
     const bank = JSON.parse(readFileSync('src/lib/figurserierV1/bankExpert.json', 'utf8'))
     expect(poolFor('expert', 1)).toHaveLength(bank.length)
     expect(poolFor('expert', 2)).toHaveLength(bank.length - 2)
-    expect(SERIE_VERSION).toBe(3)
+    expect(SERIE_VERSION).toBe(4)
     // Version 3 (2026-11-19): parti 3 läggs till, version 1 och 2 är oförändrade.
+    // Version 4 (2026-11-19, omgång 2): parti 4 läggs till, version 1 till 3 är oförändrade.
     for (const n of ['grund', 'avancerad', 'expert'] as const) {
-      const p3 = JSON.parse(readFileSync(`src/lib/figurserierV1/bankParti3${n[0].toUpperCase() + n.slice(1)}.json`, 'utf8'))
+      const N = n[0].toUpperCase() + n.slice(1)
+      const p3 = JSON.parse(readFileSync(`src/lib/figurserierV1/bankParti3${N}.json`, 'utf8'))
       expect(poolFor(n, 3)).toHaveLength(poolFor(n, 2).length + p3.length)
       expect(poolFor(n, 3).filter((q) => q.fran_version === 3)).toHaveLength(p3.length)
+      const p4 = JSON.parse(readFileSync(`src/lib/figurserierV1/bankParti4${N}.json`, 'utf8'))
+      expect(poolFor(n, 4).map((q) => q.id)).toEqual([...poolFor(n, 3).map((q) => q.id), ...p4.map((q: { id: string }) => q.id)])
+      expect(poolFor(n, 4).filter((q) => q.fran_version === 4)).toHaveLength(p4.length)
+      expect(poolFor(n, 3).some((q) => q.fran_version === 4)).toBe(false)
     }
+  })
+
+  it('parti 4 rättas: varje fråga finns i allaFragor, och version 4 läses ur meta', () => {
+    const p4 = ['Grund', 'Avancerad', 'Expert'].flatMap((N) => JSON.parse(readFileSync(`src/lib/figurserierV1/bankParti4${N}.json`, 'utf8')) as { id: string; correctAnswer: number }[])
+    const ids = new Set(allaFragor().map((q) => q.id))
+    expect(p4.every((q) => ids.has(q.id))).toBe(true)
+    expect(rattaSerieSvar(p4.map((q) => ({ q_id: q.id, selected: q.correctAnswer })))).toBe(p4.length)
+    expect(serieVersion({ serie_version: 4 })).toBe(4)
+    expect(serieVersion({})).toBe(1)
   })
 })
 

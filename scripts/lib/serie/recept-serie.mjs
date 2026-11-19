@@ -160,6 +160,38 @@ export const MALLAR = [
   },
 ];
 
+// F8 (parti 4, 2026-11-19, granskningen av parti 3 punkt 7): expert med två
+// rörelser i stället för växelvis i tretakt. `parti: 4` håller mallen utanför
+// generatorn för parti 1.
+//
+// Granskningen av parti 4 (docs/fragebank/figurserier-2026-11-19-omg2-
+// granskning.md, punkt 1 och avsnittet F8): växande steg plus kvartsvarv är F3
+// plus F4:s andra regel, så mallen står på p_prior 0,45 och svårighet 3, inte
+// 0,38 och 4. Pilen med växande vridning och växlande längd, orbitalen med
+// växande steg och växlande mitt och duon med växlande fyllning är
+// F4-uppgifter och är strukna. I stället tar pricken växande steg medan
+// symbolen eller formen i mitten går i en trecykel.
+//
+// Två rörelser kräver två delar, och bara duon har det: alla F8 är duo med
+// kantprick eller med orbital. `grupptak` lyfter taket per primitivgrupp från
+// ⌈14/3⌉ till sju, så att de två duogrupperna delar mallen.
+MALLAR.push({
+  id: 'F8', namn: 'Två rörelser', niva: 'expert', antal: 14, p_prior: 0.45, difficulty: 3, parti: 4, grupptak: 7,
+  varianter: [
+    // Två rörliga lägen med fem olika värden var går alltid i takt (FS3); den
+    // ena rörelsen tar därför kvartsvarv, så att ett läge återkommer i raden.
+    { namn: 'duo-kant-pil-vaxande', family: 'flera', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: vaxande(r), kvinkel: steg(r8(r), valj(r, KVART)) } }) },
+    { namn: 'duo-orbital-pil-vaxande', family: 'flera', regler: (r) => ({ prim: 'duo-orbital-pil', dims: { ylage: vaxande(r), kvinkel: steg(r8(r), valj(r, KVART)) } }) },
+    { namn: 'duo-kant-pil-pilvaxer', family: 'vaxande', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: steg(r8(r), valj(r, KVART)), kvinkel: vaxande(r) } }) },
+    { namn: 'duo-orbital-pil-pilvaxer', family: 'vaxande', regler: (r) => ({ prim: 'duo-orbital-pil', dims: { ylage: steg(r8(r), valj(r, KVART)), kvinkel: vaxande(r) } }) },
+    // Trecykeln i mitten (granskningen av parti 4, punkt 1).
+    { namn: 'duo-orbital-symbol-vaxande-cykel', family: 'vaxande', regler: (r) => ({ prim: 'duo-orbital-symbol', dims: { ylage: vaxande(r), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'ring'], 3) } }) },
+    { namn: 'duo-kant-form-vaxande-cykel', family: 'flera', regler: (r) => ({ prim: 'duo-kant-form', dims: { ylage: vaxande(r), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: konst(valj(r, ['none', 'black'])) } }) },
+    { namn: 'duo-kant-symbol-vaxande-cykel', family: 'vaxande', regler: (r) => ({ prim: 'duo-kant-symbol', dims: { ylage: vaxande(r), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'ring'], 3) } }) },
+    { namn: 'duo-orbital-form-vaxande-cykel', family: 'flera', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: vaxande(r), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: konst(valj(r, ['none', 'black'])) } }) },
+  ],
+});
+
 /** Spannet för p_prior per nivå (A3). */
 export const P_PRIOR_SPANN = { grund: [0.6, 0.95], avancerad: [0.05, 0.95], expert: [0.05, 0.45] };
 

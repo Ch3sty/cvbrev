@@ -32,6 +32,8 @@ function info(prim, id) {
     case 'sektor.antal': return { slag: 'antal', elem: ['svart sektor', 'svarta sektorer'], lagg: 'En sektor till blir svart medurs', ta: 'Den sista svarta sektorn medurs blir vit' };
     case 'block.start': return { slag: 'ga', subj: 'De svarta rutorna', subjEn: 'Den svarta rutan', var: 'längs kanten' };
     case 'block.antal': return { slag: 'antal', elem: ['svart ruta', 'svarta rutor'], lagg: 'En ruta till blir svart medurs längs kanten', ta: 'Den sista svarta rutan medurs blir vit' };
+    case 'prickar.start': return { slag: 'ga', subj: 'Prickarna', var: 'runt mitten' };
+    case 'prickar.antal': return { slag: 'antal', elem: ['prick', 'prickar'], lagg: 'En prick till läggs till medurs', ta: 'Den sista pricken medurs försvinner' };
     case 'poly.horn': return { slag: 'antal', elem: ['hörn', 'hörn'], ett: true, lagg: 'Figuren får ett hörn till', ta: 'Figuren förlorar ett hörn' };
     case 'poly.fyllning': return { slag: 'kat', subj: 'Figuren', namn: (v) => FYLL[v] };
     case 'grundform.bas': return { slag: 'kat', subj: 'Grundformen', namn: (v) => FORM[v], substantiv: true };
@@ -135,7 +137,7 @@ export function regelText(regler, varierar) {
   const ids = Object.keys(dims);
   for (const id of ids) if (dims[id].regel !== 'konstant') delar.push(regelMening(prim, id, dims[id], { fler: fler(id) }));
   // Bågen som växer från ett fast ställe: starten står still, det säger regeln redan.
-  const bageVaxer = ['stralar', 'sektor', 'block'].includes(prim) && dims.antal?.regel === 'steg' && dims.start?.regel === 'konstant';
+  const bageVaxer = ['stralar', 'sektor', 'block', 'prickar'].includes(prim) && dims.antal?.regel === 'steg' && dims.start?.regel === 'konstant';
   for (const id of ids) {
     if (dims[id].regel !== 'konstant' || !varierar.has(id)) continue;
     if (bageVaxer && id === 'start') continue;
@@ -208,7 +210,7 @@ export function titel(regler) {
   const { prim, dims } = regler;
   const rorliga = Object.keys(dims).filter((id) => dims[id].regel !== 'konstant');
   const namn = {
-    pil: 'Pilen', orbital: 'Pricken runt cirkeln', stralar: 'Strecken', sektor: 'Sektorhjulet', block: 'Rutorna längs kanten', poly: 'Månghörningen', grundform: 'Grundformen',
+    pil: 'Pilen', orbital: 'Pricken runt cirkeln', stralar: 'Strecken', prickar: 'Prickarna', sektor: 'Sektorhjulet', block: 'Rutorna längs kanten', poly: 'Månghörningen', grundform: 'Grundformen',
   }[prim] ?? (prim.includes('kant') ? 'Pricken längs kanten' : 'Pricken på banan');
   const n = rorliga.length;
   return `${namn}, ${n === 1 ? 'en regel' : n === 2 ? 'två regler' : 'tre regler'}`;

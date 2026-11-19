@@ -107,6 +107,19 @@ export const PRIM = {
       return b && b.antal <= 7 ? { start: b.start, antal: b.antal } : null;
     },
   },
+  // Prickbågen (parti 4, 2026-11-19): renderarens dotsorbit, prickar på en
+  // osynlig cirkelbana, som en båge av sammanhängande lägen precis som
+  // strålarna. Minst två prickar: en ensam prick läses som orbitalens.
+  prickar: {
+    grupp: 'prickbage',
+    dims: [rot('start', 'prickarna'), ord('antal', 2, 7, 'antalet prickar')],
+    bygg: (v) => ({ kind: 'dotsorbit', dots: sortNum(bage(v.start, v.antal)) }),
+    las: (c) => {
+      if (c.kind !== 'dotsorbit') return null;
+      const b = bageAv(c.dots);
+      return b && b.antal >= 2 && b.antal <= 7 ? { start: b.start, antal: b.antal } : null;
+    },
+  },
   poly: {
     grupp: 'manghorning',
     dims: [ord('horn', 3, 8, 'antalet hörn'), kat('fyllning', ['none', 'gray', 'black'], 'fyllningen')],
@@ -177,6 +190,7 @@ export function primFor(cell) {
     case 'sectorwheel': return 'sektor';
     case 'tile': return 'block';
     case 'poly': return 'poly';
+    case 'dotsorbit': return 'prickar';
     case 'stack': return 'grundform';
     case 'duo': return `duo-${cell.ytter.typ}-${cell.karna.typ}`;
     default: return null;
