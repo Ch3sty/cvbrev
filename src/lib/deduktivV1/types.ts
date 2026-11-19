@@ -5,12 +5,15 @@
 //   D2 schemapussel (grund, avancerad): personer eller saker på plats 1 till n,
 //      villkor, en fråga, fem alternativ.
 //   D3 villkor i rörelse (expert): som D2 plus ett antagande i frågan.
+//   D4 nya familjer (alla nivåer, bankversion 5): villkorskedjor med om och
+//      så, syllogismer, sanningssägare och lögnare, tabellpussel och
+//      schemapussel med flera lösningar. Fem alternativ, ingen remsa.
 // Uppgifterna byggs av scripts/gen-deduktiv.mjs (lösare, spärrar DD1 till DD5).
 // Ren typfil, får importeras från klienten.
 // =============================================================================
 
 export type DeduktivNiva = 'grund' | 'avancerad' | 'expert';
-export type DeduktivTyp = 'D1' | 'D2' | 'D3';
+export type DeduktivTyp = 'D1' | 'D2' | 'D3' | 'D4';
 export type DeduktivFamilj =
   | 'premiss'
   | 'plats'
@@ -21,10 +24,15 @@ export type DeduktivFamilj =
   | 'direkt_vanster_om'
   | 'ordning'
   | 'samma_grupp'
-  | 'rorelse';
+  | 'rorelse'
+  | 'om_sa'
+  | 'kvantor'
+  | 'sanning'
+  | 'tabell'
+  | 'kan_inte';
 
 export interface DeduktivFraga {
-  /** dd-<g|a|e>-<d1|d2|d3>-<nn>, från omgång 2 (version 4) även tre siffror */
+  /** dd-<g|a|e>-<d1|d2|d3|d4>-<nn>, från omgång 2 (version 4) även tre siffror */
   id: string;
   niva: DeduktivNiva;
   typ: DeduktivTyp;
@@ -46,7 +54,7 @@ export interface DeduktivFraga {
   losning: DeduktivLosning;
   /** Lösarens form (visas aldrig). */
   formell?: unknown;
-  fran_version: 1 | 2 | 3 | 4;
+  fran_version: 1 | 2 | 3 | 4 | 5;
   /** Bankversionen uppgiften pensioneras från (DD7, DD8); gamla sessioner läser den ändå. */
   pensionerad_fran?: 2 | 4;
   /** Lösningstexten är omskriven av testansvarig och får avvika från lösarens ordalydelse. */

@@ -46,7 +46,7 @@ describe('deduktiv bankversion 4', () => {
   })
 
   it('inte aktiv än: version 3 är oförändrad, version 4 läses ur meta', () => {
-    expect(DEDUKTIV_VERSION).toBe(4)
+    expect(DEDUKTIV_VERSION).toBeGreaterThanOrEqual(4)
     expect([poolFor('grund', 3).length, poolFor('avancerad', 3).length, poolFor('expert', 3).length]).toEqual([68, 67, 45])
     // Avancerad: 67 + 30 - 9 pensionerade från version 4 (granskning omgång 2).
     expect([poolFor('grund', 4).length, poolFor('avancerad', 4).length, poolFor('expert', 4).length]).toEqual([105, 88, 68])

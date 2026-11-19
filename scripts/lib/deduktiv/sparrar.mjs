@@ -224,7 +224,7 @@ export function dd6(q) {
  * Par (i, j): i medför j.
  */
 export function medforPar(q) {
-  if (q.typ === 'D1') return [];
+  if (q.typ === 'D1' || q.typ === 'D4') return []; // D4 har E4 i d4.mjs
   const f = q.formell;
   if (f.fraga.form === 'vem') return [];
   const g = grupperFor(f);
@@ -307,7 +307,7 @@ const elementIPastaende = (x) => (x.b != null ? [x.a, x.b] : [x.a]);
  * lösa. Gäller måste- och omöjligt-frågor.
  */
 export function dd9(q) {
-  if (q.typ === 'D1') return [];
+  if (q.typ === 'D1' || q.typ === 'D4') return []; // D4 har E5 i d4.mjs
   const f = q.formell;
   if (f.fraga.form === 'vem') return [];
   const facit = f.alternativ[q.correctAnswer];

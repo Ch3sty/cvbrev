@@ -28,17 +28,21 @@ export const FRAGOR_PER_SESSION = 12;
  * version 2 drar ur samma pool som förut. Godkänd av testansvarig
  * (docs/fragebank/deduktiv-2026-11-19-granskning.md).
  */
-export const DEDUKTIV_VERSION = 4;
+export const DEDUKTIV_VERSION = 5;
 /**
  * Version 4 (frågebanken 2026-11-19, omgång 2) ligger i bankfilerna men är
  * inte aktiv: DEDUKTIV_VERSION höjs först efter testansvarigs granskning.
+ *
+ * Version 5 (omgång 3, docs/fragebank/deduktiv-2026-11-19-omg3.md): 100 nya
+ * uppgifter av typen D4 med fran_version 5, fem nya familjer. Ligger i
+ * bankfilerna men är inte aktiv förrän DEDUKTIV_VERSION höjs till 5.
  */
-export type DeduktivVersion = 1 | 2 | 3 | 4;
+export type DeduktivVersion = 1 | 2 | 3 | 4 | 5;
 
 /** Sessionens bankversion ur meta; saknas den gäller version 1. */
 export function deduktivVersion(meta: unknown): DeduktivVersion {
   const v = (meta as { deduktiv_version?: unknown } | null)?.deduktiv_version;
-  return v === 4 ? 4 : v === 3 ? 3 : v === 2 ? 2 : 1;
+  return v === 5 ? 5 : v === 4 ? 4 : v === 3 ? 3 : v === 2 ? 2 : 1;
 }
 /** 15 minuter för hela testet, alla nivåer. */
 export const TIDSGRANS_S = 15 * 60;

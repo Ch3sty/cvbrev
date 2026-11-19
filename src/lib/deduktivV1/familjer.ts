@@ -17,6 +17,11 @@ export const DEDUKTIV_FAMILJ_NAMN: Record<DeduktivFamilj, string> = {
   ordning: 'Före och efter',
   samma_grupp: 'Samma grupp',
   rorelse: 'Villkor i rörelse',
+  om_sa: 'Om och så',
+  kvantor: 'Alla, några och ingen',
+  sanning: 'Sanning och lögn',
+  tabell: 'Tabellpussel',
+  kan_inte: 'Det som inte kan stämma',
 };
 
 export function deduktivFamiljNamn(id: string | null | undefined): string | null {

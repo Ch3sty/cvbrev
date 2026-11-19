@@ -17273,5 +17273,5366 @@
    ]
   },
   "fran_version": 4
+ },
+ {
+  "id": "dd-a-d4-01",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "om_sa",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": null,
+  "villkor": [
+   "Om Nora vinner upphandlingen, anställer teamet två konsulter.",
+   "Om teamet anställer två konsulter, räcker budgeten inte till utbildningen.",
+   "Om styrelsen godkänner utbildningen, räcker budgeten till utbildningen.",
+   "Styrelsen godkänner utbildningen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Nora vinner inte upphandlingen.",
+   "Teamet anställer två konsulter.",
+   "Styrelsen godkänner inte utbildningen.",
+   "Nora vinner upphandlingen.",
+   "Budgeten räcker inte till utbildningen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "",
+   "Av villkoren följer tvärtom att teamet inte anställer två konsulter.",
+   "Av villkoren följer tvärtom att styrelsen godkänner utbildningen.",
+   "Av villkoren följer tvärtom att Nora inte vinner upphandlingen.",
+   "Av villkoren följer tvärtom att budgeten räcker till utbildningen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      4,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Styrelsen godkänner utbildningen, så enligt villkor 3 räcker budgeten till utbildningen."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Budgeten räcker till utbildningen. Villkor 2 säger att budgeten inte räcker till utbildningen om teamet anställer två konsulter, alltså anställer teamet inte två konsulter."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Teamet anställer inte två konsulter. Villkor 1 säger att teamet anställer två konsulter om Nora vinner upphandlingen, alltså vinner Nora inte upphandlingen."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "om_sa",
+   "atomer": [
+    {
+     "s": "Nora",
+     "v": "vinner",
+     "r": "upphandlingen"
+    },
+    {
+     "s": "teamet",
+     "v": "anställer",
+     "r": "två konsulter"
+    },
+    {
+     "s": "budgeten",
+     "v": "räcker",
+     "r": "till utbildningen"
+    },
+    {
+     "s": "styrelsen",
+     "v": "godkänner",
+     "r": "utbildningen"
+    }
+   ],
+   "villkor": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": false
+     },
+     "q": {
+      "a": 2,
+      "neg": true
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 3,
+      "neg": false
+     },
+     "q": {
+      "a": 2,
+      "neg": false
+     }
+    },
+    {
+     "typ": "lit",
+     "a": 3,
+     "neg": false
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "lit",
+     "a": 0,
+     "neg": true
+    },
+    {
+     "typ": "lit",
+     "a": 1,
+     "neg": false
+    },
+    {
+     "typ": "lit",
+     "a": 3,
+     "neg": true
+    },
+    {
+     "typ": "lit",
+     "a": 0,
+     "neg": false
+    },
+    {
+     "typ": "lit",
+     "a": 2,
+     "neg": true
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-02",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "om_sa",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": null,
+  "villkor": [
+   "Om Olle byter avdelning, får Olle ett nytt passerkort.",
+   "Om Olle får ett nytt passerkort, skickar it-avdelningen ett mejl till Olle."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Om it-avdelningen skickar ett mejl till Olle, får Olle ett nytt passerkort.",
+   "Om it-avdelningen inte skickar ett mejl till Olle, byter Olle inte avdelning.",
+   "Om Olle får ett nytt passerkort, byter Olle avdelning.",
+   "Om Olle inte byter avdelning, får Olle ett nytt passerkort.",
+   "Om it-avdelningen inte skickar ett mejl till Olle, byter Olle avdelning."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det vänder på villkor 2. Det kan stämma, men det måste inte.",
+   "",
+   "Det vänder på villkor 1. Det kan stämma, men det måste inte.",
+   "Villkoren avgör inte vad som gäller om Olle inte byter avdelning. Det kan stämma, men det måste inte.",
+   "Villkoren avgör inte vad som gäller om it-avdelningen inte skickar ett mejl till Olle. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att it-avdelningen inte skickar ett mejl till Olle."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "It-avdelningen skickar inte ett mejl till Olle. Villkor 2 säger att it-avdelningen skickar ett mejl till Olle om Olle får ett nytt passerkort, alltså får Olle inte ett nytt passerkort."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Olle får inte ett nytt passerkort. Villkor 1 säger att Olle får ett nytt passerkort om Olle byter avdelning, alltså byter Olle inte avdelning."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Alltså gäller: om it-avdelningen inte skickar ett mejl till Olle, byter Olle inte avdelning."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "om_sa",
+   "atomer": [
+    {
+     "s": "Olle",
+     "v": "byter",
+     "r": "avdelning"
+    },
+    {
+     "s": "Olle",
+     "v": "får",
+     "r": "ett nytt passerkort"
+    },
+    {
+     "s": "it-avdelningen",
+     "v": "skickar",
+     "r": "ett mejl till Olle"
+    }
+   ],
+   "villkor": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": false
+     },
+     "q": {
+      "a": 2,
+      "neg": false
+     }
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": true
+     },
+     "q": {
+      "a": 0,
+      "neg": true
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": false
+     },
+     "q": {
+      "a": 0,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": true
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": true
+     },
+     "q": {
+      "a": 0,
+      "neg": false
+     }
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "nodvandig",
+    "obestamd",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-03",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "om_sa",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": null,
+  "villkor": [
+   "Om projektet förlängs, stannar Pia kvar i gruppen.",
+   "Om Pia inte får ett nytt avtal, stannar Pia inte kvar i gruppen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Om Pia stannar kvar i gruppen, förlängs projektet.",
+   "Om Pia inte stannar kvar i gruppen, får Pia inte ett nytt avtal.",
+   "Om projektet förlängs, får Pia ett nytt avtal.",
+   "Om Pia stannar kvar i gruppen, förlängs projektet inte.",
+   "Om Pia inte får ett nytt avtal, stannar Pia kvar i gruppen."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det vänder på villkor 1. Det kan stämma, men det måste inte.",
+   "Det vänder på villkor 2. Det kan stämma, men det måste inte.",
+   "",
+   "Villkoren avgör inte vad som gäller om Pia stannar kvar i gruppen. Det kan stämma, men det måste inte.",
+   "Villkoren avgör inte vad som gäller om Pia inte får ett nytt avtal. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att projektet förlängs."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Projektet förlängs, så enligt villkor 1 stannar Pia kvar i gruppen."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Pia stannar kvar i gruppen. Villkor 2 säger att Pia inte stannar kvar i gruppen om Pia inte får ett nytt avtal, alltså får Pia ett nytt avtal."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Alltså gäller: om projektet förlängs, får Pia ett nytt avtal."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "om_sa",
+   "atomer": [
+    {
+     "s": "projektet",
+     "v": "förlängs",
+     "r": ""
+    },
+    {
+     "s": "Pia",
+     "v": "stannar",
+     "r": "kvar i gruppen"
+    },
+    {
+     "s": "Pia",
+     "v": "får",
+     "r": "ett nytt avtal"
+    }
+   ],
+   "villkor": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": true
+     },
+     "q": {
+      "a": 1,
+      "neg": true
+     }
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": false
+     },
+     "q": {
+      "a": 0,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": true
+     },
+     "q": {
+      "a": 2,
+      "neg": true
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 2,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": false
+     },
+     "q": {
+      "a": 0,
+      "neg": true
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": true
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "nodvandig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-04",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "om_sa",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": null,
+  "villkor": [
+   "Om Rut åker på mässan, håller Rasmus i styrgruppen.",
+   "Om Rasmus visar kunden runt, håller Rasmus inte i styrgruppen.",
+   "Om kunden besöker kontoret, visar Rasmus kunden runt."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Rut åker inte på mässan och kunden besöker kontoret.",
+   "Om Rasmus inte håller i styrgruppen, visar Rasmus kunden runt.",
+   "Rut åker på mässan och kunden besöker inte kontoret.",
+   "Rut åker på mässan och kunden besöker kontoret.",
+   "Rasmus håller inte i styrgruppen och kunden besöker kontoret."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma. Villkoren utesluter inte att Rut inte åker på mässan och att kunden besöker kontoret.",
+   "Det vänder på villkor 2. Det kan stämma, men det måste inte.",
+   "Det kan stämma. Villkoren utesluter inte att Rut åker på mässan och att kunden inte besöker kontoret.",
+   "",
+   "Det kan stämma. Villkoren utesluter inte att Rasmus inte håller i styrgruppen och att kunden besöker kontoret."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Rut åker på mässan och att kunden besöker kontoret."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Rut åker på mässan, så enligt villkor 1 håller Rasmus i styrgruppen."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Rasmus håller i styrgruppen. Villkor 2 säger att Rasmus inte håller i styrgruppen om Rasmus visar kunden runt, alltså visar Rasmus inte kunden runt."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Kunden besöker kontoret, så enligt villkor 3 visar Rasmus kunden runt."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Det går inte ihop, så båda kan inte stämma."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "om_sa",
+   "atomer": [
+    {
+     "s": "Rut",
+     "v": "åker",
+     "r": "på mässan"
+    },
+    {
+     "s": "Rasmus",
+     "v": "håller",
+     "r": "i styrgruppen"
+    },
+    {
+     "s": "Rasmus",
+     "v": "visar",
+     "r": "kunden runt"
+    },
+    {
+     "s": "kunden",
+     "v": "besöker",
+     "r": "kontoret"
+    }
+   ],
+   "villkor": [
+    {
+     "typ": "om",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 2,
+      "neg": false
+     },
+     "q": {
+      "a": 1,
+      "neg": true
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 3,
+      "neg": false
+     },
+     "q": {
+      "a": 2,
+      "neg": false
+     }
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "och",
+     "p": {
+      "a": 0,
+      "neg": true
+     },
+     "q": {
+      "a": 3,
+      "neg": false
+     }
+    },
+    {
+     "typ": "om",
+     "p": {
+      "a": 1,
+      "neg": true
+     },
+     "q": {
+      "a": 2,
+      "neg": false
+     }
+    },
+    {
+     "typ": "och",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 3,
+      "neg": true
+     }
+    },
+    {
+     "typ": "och",
+     "p": {
+      "a": 0,
+      "neg": false
+     },
+     "q": {
+      "a": 3,
+      "neg": false
+     }
+    },
+    {
+     "typ": "och",
+     "p": {
+      "a": 1,
+      "neg": true
+     },
+     "q": {
+      "a": 3,
+      "neg": false
+     }
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-05",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kvantor",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Ordet några betyder här minst en, kanske alla.",
+  "villkor": [
+   "Några säljare talar tyska.",
+   "Några som talar tyska åker på mässan i Köln.",
+   "Alla som talar tyska har gjort språktestet."
+  ],
+  "fraga": "Vilken slutsats följer inte av villkoren?",
+  "options": [
+   "Några säljare har gjort språktestet.",
+   "Några som åker på mässan i Köln har gjort språktestet.",
+   "Några som har gjort språktestet talar tyska.",
+   "Några som talar tyska är säljare.",
+   "Några säljare åker på mässan i Köln."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Måste gälla.",
+   "Måste gälla.",
+   "Måste gälla.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det följer. De säljare som talar tyska har gjort testet.",
+   "Det följer. De som talar tyska och åker till Köln har gjort testet.",
+   "Det följer. Det finns de som talar tyska, och alla de har gjort testet.",
+   "Det följer av villkor 1, sett från andra hållet.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några säljare talar tyska, och alla som talar tyska har gjort språktestet. Alltså har några säljare gjort testet."
+    },
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några som talar tyska åker till Köln, och de har också gjort testet."
+    },
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "De säljare som talar tyska och de tysktalande som åker till Köln kan vara helt olika personer. Att några säljare åker till Köln följer alltså inte."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kvantor",
+   "termer": [
+    "salj",
+    "tyska",
+    "koln",
+    "test"
+   ],
+   "individer": [],
+   "villkor": [
+    [
+     {
+      "typ": "nagra",
+      "x": "salj",
+      "y": "tyska"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "tyska",
+      "y": "koln"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "tyska",
+      "y": "test"
+     }
+    ]
+   ],
+   "fraga": {
+    "form": "foljer_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "salj",
+     "y": "test"
+    },
+    {
+     "typ": "nagra",
+     "x": "koln",
+     "y": "test"
+    },
+    {
+     "typ": "nagra",
+     "x": "test",
+     "y": "tyska"
+    },
+    {
+     "typ": "nagra",
+     "x": "tyska",
+     "y": "salj"
+    },
+    {
+     "typ": "nagra",
+     "x": "salj",
+     "y": "koln"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "nodvandig",
+    "nodvandig",
+    "nodvandig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-06",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kvantor",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Ordet några betyder här minst en, kanske alla.",
+  "villkor": [
+   "Några timanställda har inte gått brandutbildningen.",
+   "Alla skyddsombud har gått brandutbildningen.",
+   "Alla i skyddskommittén är skyddsombud."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Alla timanställda sitter i skyddskommittén.",
+   "Ingen timanställd sitter i skyddskommittén.",
+   "Några timanställda är skyddsombud.",
+   "Alla som har gått brandutbildningen är skyddsombud.",
+   "Alla i skyddskommittén har gått brandutbildningen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "",
+   "Det kan stämma, men villkoren kräver det inte. De timanställda som har gått utbildningen kan sitta i kommittén.",
+   "Det kan stämma. De timanställda som har gått brandutbildningen kan vara skyddsombud.",
+   "Det kan stämma. Det vänder på villkor 2, och villkoren utesluter det inte.",
+   "Det är sant. De i kommittén är skyddsombud, och alla skyddsombud har gått utbildningen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Den som sitter i skyddskommittén är skyddsombud och har alltså gått brandutbildningen."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Några timanställda har inte gått utbildningen. De kan inte sitta i kommittén, så alla timanställda kan inte göra det."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kvantor",
+   "termer": [
+    "tim",
+    "brand",
+    "ombud",
+    "kommitte"
+   ],
+   "individer": [],
+   "villkor": [
+    [
+     {
+      "typ": "nagra_inte",
+      "x": "tim",
+      "y": "brand"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "ombud",
+      "y": "brand"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "kommitte",
+      "y": "ombud"
+     }
+    ]
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "tim",
+     "y": "kommitte"
+    },
+    {
+     "typ": "inga",
+     "x": "tim",
+     "y": "kommitte"
+    },
+    {
+     "typ": "nagra",
+     "x": "tim",
+     "y": "ombud"
+    },
+    {
+     "typ": "alla",
+     "x": "brand",
+     "y": "ombud"
+    },
+    {
+     "typ": "alla",
+     "x": "kommitte",
+     "y": "brand"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-07",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kvantor",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Ordet några betyder här minst en, kanske alla.",
+  "villkor": [
+   "Några sommarvikarier jobbar i kassan.",
+   "Ingen som jobbar i kassan hanterar returer.",
+   "Alla sommarvikarier har gått introduktionen."
+  ],
+  "fraga": "Vilken slutsats följer inte av villkoren?",
+  "options": [
+   "Några sommarvikarier hanterar inte returer.",
+   "Ingen sommarvikarie hanterar returer.",
+   "Några som har gått introduktionen jobbar i kassan.",
+   "Några som har gått introduktionen hanterar inte returer.",
+   "Ingen som hanterar returer jobbar i kassan."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Måste gälla.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det följer. De sommarvikarier som jobbar i kassan hanterar inte returer.",
+   "",
+   "Det följer. De sommarvikarier som jobbar i kassan har gått introduktionen.",
+   "Det följer. Sommarvikarierna i kassan har gått introduktionen och hanterar inte returer.",
+   "Det följer av villkor 2, sett från andra hållet."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Några sommarvikarier jobbar i kassan, och ingen i kassan hanterar returer. De sommarvikarierna hanterar alltså inte returer."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Alla sommarvikarier har gått introduktionen, också de i kassan."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Om de sommarvikarier som inte jobbar i kassan säger villkoren inget. De kan hantera returer. Att ingen sommarvikarie gör det följer alltså inte."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kvantor",
+   "termer": [
+    "vikarie",
+    "kassa",
+    "retur",
+    "intro"
+   ],
+   "individer": [],
+   "villkor": [
+    [
+     {
+      "typ": "nagra",
+      "x": "vikarie",
+      "y": "kassa"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "kassa",
+      "y": "retur"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "vikarie",
+      "y": "intro"
+     }
+    ]
+   ],
+   "fraga": {
+    "form": "foljer_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "nagra_inte",
+     "x": "vikarie",
+     "y": "retur"
+    },
+    {
+     "typ": "inga",
+     "x": "vikarie",
+     "y": "retur"
+    },
+    {
+     "typ": "nagra",
+     "x": "intro",
+     "y": "kassa"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "intro",
+     "y": "retur"
+    },
+    {
+     "typ": "inga",
+     "x": "retur",
+     "y": "kassa"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "nodvandig",
+    "nodvandig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-09",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Tre kollegor, Ida, Maja och Viktor, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Ida säger: ”Exakt en av Viktor och mig är lögnare.”",
+   "Maja säger: ”Viktor är sanningssägare.”",
+   "Viktor säger: ”Ida är sanningssägare.”"
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ida är sanningssägare.",
+   "Exakt en av dem är lögnare.",
+   "Exakt en av Maja och Viktor är lögnare.",
+   "Ida och Maja är båda lögnare.",
+   "Maja och Viktor är båda sanningssägare."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Lösningen är att alla är lögnare. Där är det falskt.",
+   "Lösningen är att alla är lögnare. Där är det falskt.",
+   "Lösningen är att alla är lögnare. Där är det falskt.",
+   "",
+   "Lösningen är att alla är lögnare. Där är det falskt."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Det enda som går ihop med det Ida säger är att Viktor är lögnare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Då är det Maja säger falskt, så Maja är lögnare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Viktor är lögnare, så det Viktor säger är falskt. Alltså gäller att Ida är lögnare."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Ida",
+    "Maja",
+    "Viktor"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "exakt_en_logn",
+      "x": 0,
+      "y": 2
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "sann",
+      "x": 2
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "sann",
+      "x": 0
+     }
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "sann",
+     "x": 0
+    },
+    {
+     "typ": "antal_logn",
+     "k": 1
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 1,
+     "y": 2
+    },
+    {
+     "typ": "bada_logn",
+     "x": 0,
+     "y": 1
+    },
+    {
+     "typ": "bada_sann",
+     "x": 1,
+     "y": 2
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "nodvandig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-11",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Tre kollegor, Bo, Dan och Eva, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Bo säger: ”Minst en av Dan och Eva är lögnare.”",
+   "Dan säger: ”Exakt en av Eva och mig är lögnare.”",
+   "Eva säger: ”Dan är lögnare.”"
+  ],
+  "fraga": "Exakt vilka av dem är lögnare?",
+  "options": [
+   "Eva",
+   "Dan och Eva",
+   "Ingen av dem",
+   "Bo och Eva",
+   "Bo"
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Stämmer med villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "",
+   "I det fallet är Eva lögnare, men det Eva säger stämmer.",
+   "I det fallet är Bo sanningssägare, men det Bo säger är falskt.",
+   "I det fallet är Bo lögnare, men det Bo säger stämmer.",
+   "I det fallet är Dan sanningssägare, men det Dan säger är falskt."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Det enda som går ihop med det Dan säger är att Eva är lögnare."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Då stämmer det Bo säger, så Bo är sanningssägare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Eva är lögnare, så det Eva säger är falskt. Alltså gäller att Dan är sanningssägare."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Lögnaren är alltså Eva."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Bo",
+    "Dan",
+    "Eva"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "minst_en_logn",
+      "x": 1,
+      "y": 2
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "exakt_en_logn",
+      "x": 1,
+      "y": 2
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "logn",
+      "x": 1
+     }
+    }
+   ],
+   "fraga": {
+    "form": "vilka"
+   },
+   "alternativ": [
+    {
+     "typ": "mangd",
+     "s": [
+      2
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      1,
+      2
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": []
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      0,
+      2
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      0
+     ]
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-12",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Pia, Rasmus, Tove och Ulf, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Pia säger: ”Tove och Ulf är båda sanningssägare.”",
+   "Rasmus säger: ”Pia är lögnare.”",
+   "Tove säger: ”Pia och Ulf är båda sanningssägare.”",
+   "Ulf säger: ”Ingen av oss fyra är lögnare.”"
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Rasmus och Tove är båda lögnare.",
+   "Pia och Tove är båda lögnare.",
+   "Pia och Rasmus är båda lögnare.",
+   "Exakt en av dem är lögnare.",
+   "Pia är sanningssägare."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Lösningen är att lögnarna är Pia, Tove och Ulf. Där är det falskt.",
+   "",
+   "Lösningen är att lögnarna är Pia, Tove och Ulf. Där är det falskt.",
+   "Lösningen är att lögnarna är Pia, Tove och Ulf. Där är det falskt.",
+   "Lösningen är att lögnarna är Pia, Tove och Ulf. Där är det falskt."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Ulf är sanningssägare."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ulf är sanningssägare, så det Ulf säger stämmer. Alltså gäller att Pia, Rasmus och Tove är sanningssägare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Det går inte ihop med det Rasmus säger."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Antagandet håller inte. Alltså är Ulf lögnare."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Då är det Pia säger falskt, så Pia är lögnare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Då stämmer det Rasmus säger, så Rasmus är sanningssägare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då är det Tove säger falskt, så Tove är lögnare."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Pia",
+    "Rasmus",
+    "Tove",
+    "Ulf"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "bada_sann",
+      "x": 2,
+      "y": 3
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "logn",
+      "x": 0
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "bada_sann",
+      "x": 0,
+      "y": 3
+     }
+    },
+    {
+     "talare": 3,
+     "sager": {
+      "typ": "antal_logn",
+      "k": 0
+     }
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "bada_logn",
+     "x": 1,
+     "y": 2
+    },
+    {
+     "typ": "bada_logn",
+     "x": 0,
+     "y": 2
+    },
+    {
+     "typ": "bada_logn",
+     "x": 0,
+     "y": 1
+    },
+    {
+     "typ": "antal_logn",
+     "k": 1
+    },
+    {
+     "typ": "sann",
+     "x": 0
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "nodvandig",
+    "omojlig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-13",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Cilla, Dan, Karin och Nora, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Cilla säger: ”Exakt två av oss fyra är lögnare.”",
+   "Dan säger: ”Nora och jag är båda sanningssägare.”",
+   "Karin säger: ”Ingen av oss fyra är lögnare.”",
+   "Nora säger: ”Cilla och Karin är båda lögnare.”"
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Minst en av Cilla och Nora är lögnare.",
+   "Nora är sanningssägare.",
+   "Cilla är sanningssägare.",
+   "Exakt en av Karin och Nora är lögnare.",
+   "Minst en av Cilla och Dan är lögnare."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Måste gälla.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "",
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "Det är sant i varje fall som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Cilla är sanningssägare."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då är det Nora säger falskt, så Nora är lögnare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Då är det Dan säger falskt, så Dan är lögnare."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Cilla är sanningssägare, så det Cilla säger stämmer. Alltså gäller att Karin är sanningssägare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Det går inte ihop med det Karin säger."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Antagandet håller inte, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Cilla",
+    "Dan",
+    "Karin",
+    "Nora"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "antal_logn",
+      "k": 2
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "bada_sann",
+      "x": 1,
+      "y": 3
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "antal_logn",
+      "k": 0
+     }
+    },
+    {
+     "talare": 3,
+     "sager": {
+      "typ": "bada_logn",
+      "x": 0,
+      "y": 2
+     }
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "minst_en_logn",
+     "x": 0,
+     "y": 3
+    },
+    {
+     "typ": "sann",
+     "x": 3
+    },
+    {
+     "typ": "sann",
+     "x": 0
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 2,
+     "y": 3
+    },
+    {
+     "typ": "minst_en_logn",
+     "x": 0,
+     "y": 1
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "nodvandig",
+    "omojlig",
+    "nodvandig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-14",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Tre kollegor, Carl, Hanna och Tom, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Carl säger: ”Exakt en av Tom och mig är lögnare.”",
+   "Hanna säger: ”Carl är lögnare.”",
+   "Tom säger: ”Hanna är lögnare.”"
+  ],
+  "fraga": "Exakt vilka av dem är lögnare?",
+  "options": [
+   "Carl och Hanna",
+   "Alla tre",
+   "Carl",
+   "Carl och Tom",
+   "Tom"
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Stämmer med villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "I det fallet är Carl lögnare, men det Carl säger stämmer.",
+   "I det fallet är Hanna lögnare, men det Hanna säger stämmer.",
+   "I det fallet är Carl lögnare, men det Carl säger stämmer.",
+   "",
+   "I det fallet är Hanna sanningssägare, men det Hanna säger är falskt."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Det enda som går ihop med det Carl säger är att Tom är lögnare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Tom är lögnare, så det Tom säger är falskt. Alltså gäller att Hanna är sanningssägare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Hanna är sanningssägare, så det Hanna säger stämmer. Alltså gäller att Carl är lögnare."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Lögnarna är alltså Carl och Tom."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Carl",
+    "Hanna",
+    "Tom"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "exakt_en_logn",
+      "x": 0,
+      "y": 2
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "logn",
+      "x": 0
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "logn",
+      "x": 1
+     }
+    }
+   ],
+   "fraga": {
+    "form": "vilka"
+   },
+   "alternativ": [
+    {
+     "typ": "mangd",
+     "s": [
+      0,
+      1
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      0
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      0,
+      2
+     ]
+    },
+    {
+     "typ": "mangd",
+     "s": [
+      2
+     ]
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "nodvandig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-15",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Bea, Ida, Jonas och Per, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Bea säger: ”Ida är lögnare.”",
+   "Ida säger: ”Exakt en av Per och mig är lögnare.”",
+   "Jonas säger: ”Exakt en av Bea och Per är lögnare.”",
+   "Per säger: ”Jonas är sanningssägare.”"
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ingen av dem är lögnare.",
+   "Ida är lögnare.",
+   "Exakt en av Bea och Jonas är lögnare.",
+   "Exakt en av Jonas och Per är lögnare.",
+   "Exakt en av Ida och Per är lögnare."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Lösningen är att lögnarna är Bea, Jonas och Per. Där är det falskt.",
+   "Lösningen är att lögnarna är Bea, Jonas och Per. Där är det falskt.",
+   "Lösningen är att lögnarna är Bea, Jonas och Per. Där är det falskt.",
+   "Lösningen är att lögnarna är Bea, Jonas och Per. Där är det falskt.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Det enda som går ihop med det Ida säger är att Per är lögnare."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [],
+     "foljd": "Per är lögnare, så det Per säger är falskt. Alltså gäller att Jonas är lögnare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Jonas är lögnare, så det Jonas säger är falskt. Alltså gäller att Bea är lögnare."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Bea är lögnare, så det Bea säger är falskt. Alltså gäller att Ida är sanningssägare."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Bea",
+    "Ida",
+    "Jonas",
+    "Per"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "logn",
+      "x": 1
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "exakt_en_logn",
+      "x": 1,
+      "y": 3
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "exakt_en_logn",
+      "x": 0,
+      "y": 3
+     }
+    },
+    {
+     "talare": 3,
+     "sager": {
+      "typ": "sann",
+      "x": 2
+     }
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "antal_logn",
+     "k": 0
+    },
+    {
+     "typ": "logn",
+     "x": 1
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 0,
+     "y": 2
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 2,
+     "y": 3
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 1,
+     "y": 3
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-16",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "sanning",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Tre kollegor, Hanna, Jonas och Kim, säger en sak var. Var och en är antingen sanningssägare eller lögnare. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt.",
+  "villkor": [
+   "Hanna säger: ”Minst en av Jonas och Kim är lögnare.”",
+   "Jonas säger: ”Kim är sanningssägare.”",
+   "Kim säger: ”Hanna och jag är båda sanningssägare.”"
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Kim är sanningssägare.",
+   "Minst en av Hanna och Kim är lögnare.",
+   "Jonas är lögnare.",
+   "Exakt en av Hanna och Jonas är lögnare.",
+   "Hanna är sanningssägare."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Måste gälla.",
+   "Måste gälla.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "",
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "Det är sant i varje fall som går ihop med villkoren.",
+   "Det är sant i varje fall som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Kim är sanningssägare."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Då stämmer det Jonas säger, så Jonas är sanningssägare."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Då är det Hanna säger falskt, så Hanna är lögnare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Det går inte ihop med det Kim säger."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Antagandet håller inte, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "sanning",
+   "namn": [
+    "Hanna",
+    "Jonas",
+    "Kim"
+   ],
+   "villkor": [
+    {
+     "talare": 0,
+     "sager": {
+      "typ": "minst_en_logn",
+      "x": 1,
+      "y": 2
+     }
+    },
+    {
+     "talare": 1,
+     "sager": {
+      "typ": "sann",
+      "x": 2
+     }
+    },
+    {
+     "talare": 2,
+     "sager": {
+      "typ": "bada_sann",
+      "x": 0,
+      "y": 2
+     }
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "sann",
+     "x": 2
+    },
+    {
+     "typ": "minst_en_logn",
+     "x": 0,
+     "y": 2
+    },
+    {
+     "typ": "logn",
+     "x": 1
+    },
+    {
+     "typ": "exakt_en_logn",
+     "x": 0,
+     "y": 1
+    },
+    {
+     "typ": "sann",
+     "x": 0
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "nodvandig",
+    "nodvandig",
+    "nodvandig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-18",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Cilla, Dan, Hanna och Rut, arbetar på var sitt ställe: kundtjänst, receptionen, HR och lagret. De kör var sin tjänstebil, och bilarna är grön, röd, svart och vit.",
+  "villkor": [
+   "Den som arbetar på lagret kör inte den svarta bilen.",
+   "Varken Dan eller Hanna arbetar i receptionen.",
+   "Dan arbetar inte på HR.",
+   "Den som arbetar på HR kör inte den svarta bilen.",
+   "Rut arbetar inte i receptionen.",
+   "Rut kör varken den gröna eller den vita bilen.",
+   "Varken Cilla eller Rut arbetar på HR.",
+   "Dan kör den gröna bilen.",
+   "Den som kör den vita bilen arbetar inte på HR."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Cilla arbetar på lagret.",
+   "Hanna arbetar på lagret.",
+   "Dan arbetar på lagret.",
+   "Cilla kör den svarta bilen.",
+   "Rut arbetar i receptionen."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Lösningen ger att Cilla arbetar i receptionen.",
+   "Lösningen ger att Hanna arbetar på HR.",
+   "",
+   "Lösningen ger att Cilla kör den vita bilen.",
+   "Lösningen ger att Rut arbetar i kundtjänst."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      8
+     ],
+     "villkor": [],
+     "foljd": "Dan kör alltså den gröna bilen."
+    },
+    {
+     "markor": [
+      2,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan arbeta i receptionen. Cilla arbetar alltså i receptionen."
+    },
+    {
+     "markor": [
+      3,
+      7
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan arbeta på HR. Hanna arbetar alltså på HR."
+    },
+    {
+     "markor": [
+      4,
+      9
+     ],
+     "villkor": [],
+     "foljd": "Hanna kör alltså den röda bilen."
+    },
+    {
+     "markor": [
+      6
+     ],
+     "villkor": [],
+     "foljd": "Rut kör alltså den svarta bilen."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Cilla kör alltså den vita bilen."
+    },
+    {
+     "markor": [
+      1,
+      5,
+      7
+     ],
+     "villkor": [],
+     "foljd": "Rut arbetar alltså i kundtjänst."
+    },
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Dan arbetar alltså på lagret."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Cilla",
+    "Dan",
+    "Hanna",
+    "Rut"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "avd",
+     "varden": [
+      "i kundtjänst",
+      "i receptionen",
+      "på HR",
+      "på lagret"
+     ]
+    },
+    "B": {
+     "mall": "bil",
+     "varden": [
+      "grön",
+      "röd",
+      "svart",
+      "vit"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "inte_lank",
+     "a": 3,
+     "b": 2,
+     "fran": "A"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 1,
+     "q": 2,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "inte",
+     "p": 1,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 2,
+     "fran": "A"
+    },
+    {
+     "typ": "inte",
+     "p": 3,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "varken",
+     "p": 3,
+     "kat": "B",
+     "v": 0,
+     "w": 3
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 3,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 3,
+     "fran": "B"
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 1
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "nodvandig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-19",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Bea, Disa, Nils och Tom, har var sin roll: analytiker, designer, projektledare och testare. De äter lunch vid var sin tid: klockan 11.30, 12, 12.30 och 13.",
+  "villkor": [
+   "Den som är projektledare äter inte lunch klockan 11.30.",
+   "Varken Bea eller Nils är projektledare.",
+   "Den som äter lunch klockan 12 är analytiker.",
+   "Varken Bea eller Tom äter lunch klockan 12.30.",
+   "Disa äter lunch klockan 13."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Tom är analytiker.",
+   "Bea äter lunch klockan 12.",
+   "Tom äter lunch klockan 12.",
+   "Disa är testare.",
+   "Nils är designer."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel om Bea är designer och äter lunch klockan 11.30, Disa är projektledare och äter lunch klockan 13, Nils är testare och äter lunch klockan 12.30, Tom är analytiker och äter lunch klockan 12.",
+   "Det kan stämma, till exempel om Bea är analytiker och äter lunch klockan 12, Disa är projektledare och äter lunch klockan 13, Nils är designer och äter lunch klockan 12.30, Tom är testare och äter lunch klockan 11.30.",
+   "Det kan stämma, till exempel om Bea är designer och äter lunch klockan 11.30, Disa är projektledare och äter lunch klockan 13, Nils är testare och äter lunch klockan 12.30, Tom är analytiker och äter lunch klockan 12.",
+   "",
+   "Det kan stämma, till exempel om Bea är analytiker och äter lunch klockan 12, Disa är projektledare och äter lunch klockan 13, Nils är designer och äter lunch klockan 12.30, Tom är testare och äter lunch klockan 11.30."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Disa är testare."
+    },
+    {
+     "markor": [
+      5
+     ],
+     "villkor": [],
+     "foljd": "Disa äter alltså lunch klockan 13."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara projektledare. Tom är alltså projektledare."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då finns inget kvar för Tom. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Bea",
+    "Disa",
+    "Nils",
+    "Tom"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "roll",
+     "varden": [
+      "analytiker",
+      "designer",
+      "projektledare",
+      "testare"
+     ]
+    },
+    "B": {
+     "mall": "lunch",
+     "varden": [
+      "11.30",
+      "12",
+      "12.30",
+      "13"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 0,
+     "fran": "A"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 2,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "lank",
+     "a": 0,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 3,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 3
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 1
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-20",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Eva, Karin, Olga och Sara, har var sin roll: analytiker, designer, testare och utvecklare. De bor i var sin stad: Gävle, Lund, Malmö och Ystad.",
+  "villkor": [
+   "Sara bor varken i Gävle eller i Lund.",
+   "Varken Eva eller Karin är designer.",
+   "Varken Karin eller Sara är testare.",
+   "Den som är utvecklare bor i Malmö.",
+   "Den som bor i Lund är designer.",
+   "Varken Eva eller Olga bor i Gävle."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Eva bor i Gävle.",
+   "Eva är utvecklare.",
+   "Olga är analytiker.",
+   "Olga bor i Gävle.",
+   "Eva bor i Ystad."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Lösningen ger att Eva bor i Ystad.",
+   "Lösningen ger att Eva är testare.",
+   "Lösningen ger att Olga är designer.",
+   "Lösningen ger att Olga bor i Lund.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara designer. Olga är alltså designer."
+    },
+    {
+     "markor": [
+      4,
+      5,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Olga bor alltså i Lund."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara testare. Eva är alltså testare."
+    },
+    {
+     "markor": [
+      2,
+      4,
+      5,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Eva bor alltså i Ystad."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Eva",
+    "Karin",
+    "Olga",
+    "Sara"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "roll",
+     "varden": [
+      "analytiker",
+      "designer",
+      "testare",
+      "utvecklare"
+     ]
+    },
+    "B": {
+     "mall": "stad",
+     "varden": [
+      "Gävle",
+      "Lund",
+      "Malmö",
+      "Ystad"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "varken",
+     "p": 3,
+     "kat": "B",
+     "v": 0,
+     "w": 1
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 1,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "ingen_av",
+     "p": 1,
+     "q": 3,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "lank",
+     "a": 3,
+     "b": 2,
+     "fran": "A"
+    },
+    {
+     "typ": "lank",
+     "a": 1,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 2,
+     "kat": "B",
+     "v": 0
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 3
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-21",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Dan, Gun, Isak och Jonas, arbetar på var sitt ställe: kundtjänst, receptionen, ekonomi och lagret. De kör var sin tjänstebil, och bilarna är blå, grön, röd och svart.",
+  "villkor": [
+   "Varken Gun eller Isak arbetar på ekonomi.",
+   "Dan arbetar inte på ekonomi.",
+   "Isak kör varken den röda eller den svarta bilen.",
+   "Dan kör varken den röda eller den svarta bilen.",
+   "Den som arbetar på lagret kör den svarta bilen."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Gun kör den röda bilen.",
+   "Isak arbetar i receptionen.",
+   "Dan arbetar i receptionen.",
+   "Isak kör den gröna bilen.",
+   "Isak arbetar i kundtjänst."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Det kan stämma, till exempel om Dan arbetar i kundtjänst och kör den blå bilen, Gun arbetar på lagret och kör den svarta bilen, Isak arbetar i receptionen och kör den gröna bilen, Jonas arbetar på ekonomi och kör den röda bilen.",
+   "Det kan stämma, till exempel om Dan arbetar i receptionen och kör den blå bilen, Gun arbetar på lagret och kör den svarta bilen, Isak arbetar i kundtjänst och kör den gröna bilen, Jonas arbetar på ekonomi och kör den röda bilen.",
+   "Det kan stämma, till exempel om Dan arbetar i kundtjänst och kör den blå bilen, Gun arbetar på lagret och kör den svarta bilen, Isak arbetar i receptionen och kör den gröna bilen, Jonas arbetar på ekonomi och kör den röda bilen.",
+   "Det kan stämma, till exempel om Dan arbetar i receptionen och kör den blå bilen, Gun arbetar på lagret och kör den svarta bilen, Isak arbetar i kundtjänst och kör den gröna bilen, Jonas arbetar på ekonomi och kör den röda bilen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Gun kör den röda bilen."
+    },
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan arbeta på ekonomi. Jonas arbetar alltså på ekonomi."
+    },
+    {
+     "markor": [
+      5
+     ],
+     "villkor": [],
+     "foljd": "Då kan ingen arbeta på lagret. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Dan",
+    "Gun",
+    "Isak",
+    "Jonas"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "avd",
+     "varden": [
+      "i kundtjänst",
+      "i receptionen",
+      "på ekonomi",
+      "på lagret"
+     ]
+    },
+    "B": {
+     "mall": "bil",
+     "varden": [
+      "blå",
+      "grön",
+      "röd",
+      "svart"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "ingen_av",
+     "p": 1,
+     "q": 2,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "inte",
+     "p": 0,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "varken",
+     "p": 2,
+     "kat": "B",
+     "v": 2,
+     "w": 3
+    },
+    {
+     "typ": "varken",
+     "p": 0,
+     "kat": "B",
+     "v": 2,
+     "w": 3
+    },
+    {
+     "typ": "lank",
+     "a": 3,
+     "b": 3,
+     "fran": "A"
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 0
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-22",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Cilla, Lisa, Nora och Olga, går var sin kurs: arbetsrätt, Excel, presentationsteknik och svenska. De är lediga var sin dag: måndag, tisdag, onsdag och torsdag.",
+  "villkor": [
+   "Den som är ledig på tisdag går kursen i arbetsrätt.",
+   "Olga är varken ledig på måndag eller på torsdag.",
+   "Varken Cilla eller Lisa går kursen i Excel.",
+   "Den som är ledig på onsdag går kursen i svenska.",
+   "Varken Cilla eller Nora är ledig på torsdag.",
+   "Olga går inte kursen i svenska."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Cilla är ledig på tisdag.",
+   "Cilla är ledig på onsdag.",
+   "Lisa är ledig på onsdag.",
+   "Olga går kursen i presentationsteknik.",
+   "Olga är ledig på torsdag."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Lösningen ger att Cilla är ledig på onsdag.",
+   "",
+   "Lösningen ger att Lisa är ledig på torsdag.",
+   "Lösningen ger att Olga går kursen i arbetsrätt.",
+   "Lösningen ger att Olga är ledig på tisdag."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      4,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Olga är alltså ledig på tisdag."
+    },
+    {
+     "markor": [
+      1,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Olga går alltså kursen i arbetsrätt."
+    },
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan gå kursen i Excel. Nora går alltså kursen i Excel."
+    },
+    {
+     "markor": [
+      4,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Nora är alltså ledig på måndag."
+    },
+    {
+     "markor": [
+      5
+     ],
+     "villkor": [],
+     "foljd": "Cilla är alltså ledig på onsdag."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Cilla",
+    "Lisa",
+    "Nora",
+    "Olga"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "kurs",
+     "varden": [
+      "arbetsrätt",
+      "Excel",
+      "presentationsteknik",
+      "svenska"
+     ]
+    },
+    "B": {
+     "mall": "dag",
+     "varden": [
+      "måndag",
+      "tisdag",
+      "onsdag",
+      "torsdag"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "lank",
+     "a": 0,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "varken",
+     "p": 3,
+     "kat": "B",
+     "v": 0,
+     "w": 3
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 1,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "lank",
+     "a": 3,
+     "b": 2,
+     "fran": "B"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 2,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "inte",
+     "p": 3,
+     "kat": "A",
+     "v": 3
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 3
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "nodvandig",
+    "omojlig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-23",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Anna, Pia, Rut och Vera, har var sin roll: analytiker, designer, projektledare och testare. De bor i var sin stad: Gävle, Lund, Malmö och Ystad.",
+  "villkor": [
+   "Anna bor inte i Ystad.",
+   "Varken Pia eller Vera är designer.",
+   "Den som är projektledare bor i Lund.",
+   "Den som bor i Malmö är testare.",
+   "Rut är analytiker."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Vera bor i Lund.",
+   "Vera är projektledare.",
+   "Rut bor i Gävle.",
+   "Vera bor i Malmö.",
+   "Pia bor i Lund."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel om Anna är designer och bor i Gävle, Pia är testare och bor i Malmö, Rut är analytiker och bor i Ystad, Vera är projektledare och bor i Lund.",
+   "Det kan stämma, till exempel om Anna är designer och bor i Gävle, Pia är testare och bor i Malmö, Rut är analytiker och bor i Ystad, Vera är projektledare och bor i Lund.",
+   "",
+   "Det kan stämma, till exempel om Anna är designer och bor i Gävle, Pia är projektledare och bor i Lund, Rut är analytiker och bor i Ystad, Vera är testare och bor i Malmö.",
+   "Det kan stämma, till exempel om Anna är designer och bor i Gävle, Pia är projektledare och bor i Lund, Rut är analytiker och bor i Ystad, Vera är testare och bor i Malmö."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Rut bor i Gävle."
+    },
+    {
+     "markor": [
+      5
+     ],
+     "villkor": [],
+     "foljd": "Rut är alltså analytiker."
+    },
+    {
+     "markor": [
+      2,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara designer. Anna är alltså designer."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då finns inget kvar för Anna. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Anna",
+    "Pia",
+    "Rut",
+    "Vera"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "roll",
+     "varden": [
+      "analytiker",
+      "designer",
+      "projektledare",
+      "testare"
+     ]
+    },
+    "B": {
+     "mall": "stad",
+     "varden": [
+      "Gävle",
+      "Lund",
+      "Malmö",
+      "Ystad"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "inte",
+     "p": 0,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "ingen_av",
+     "p": 1,
+     "q": 3,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "lank",
+     "a": 2,
+     "b": 1,
+     "fran": "A"
+    },
+    {
+     "typ": "lank",
+     "a": 3,
+     "b": 2,
+     "fran": "B"
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 0
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 1
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-24",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Bo, Cilla, Disa och Mats, arbetar på var sitt ställe: kundtjänst, ekonomi, HR och lagret. De kör var sin tjänstebil, och bilarna är blå, grön, röd och svart.",
+  "villkor": [
+   "Cilla arbetar varken på HR eller på lagret.",
+   "Varken Bo eller Disa arbetar på HR.",
+   "Varken Bo eller Mats kör den gröna bilen.",
+   "Disa arbetar inte på ekonomi.",
+   "Den som kör den blå bilen arbetar inte på ekonomi.",
+   "Den som kör den röda bilen arbetar på lagret.",
+   "Cilla kör inte den gröna bilen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Bo kör den svarta bilen.",
+   "Cilla arbetar på lagret.",
+   "Bo arbetar på HR.",
+   "Cilla kör den svarta bilen.",
+   "Mats kör den röda bilen."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Lösningen ger att Bo kör den röda bilen.",
+   "Lösningen ger att Cilla arbetar på ekonomi.",
+   "Lösningen ger att Bo arbetar på lagret.",
+   "",
+   "Lösningen ger att Mats kör den blå bilen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan arbeta på HR. Mats arbetar alltså på HR."
+    },
+    {
+     "markor": [
+      3,
+      7
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan köra den gröna bilen. Disa kör alltså den gröna bilen."
+    },
+    {
+     "markor": [
+      2,
+      4,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Disa arbetar alltså i kundtjänst."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Cilla arbetar alltså på ekonomi."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Bo arbetar alltså på lagret."
+    },
+    {
+     "markor": [
+      1,
+      5,
+      6,
+      7
+     ],
+     "villkor": [],
+     "foljd": "Cilla kör alltså den svarta bilen."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Bo",
+    "Cilla",
+    "Disa",
+    "Mats"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "avd",
+     "varden": [
+      "i kundtjänst",
+      "på ekonomi",
+      "på HR",
+      "på lagret"
+     ]
+    },
+    "B": {
+     "mall": "bil",
+     "varden": [
+      "blå",
+      "grön",
+      "röd",
+      "svart"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "varken",
+     "p": 1,
+     "kat": "A",
+     "v": 2,
+     "w": 3
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 2,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 3,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "inte",
+     "p": 2,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "inte_lank",
+     "a": 1,
+     "b": 0,
+     "fran": "B"
+    },
+    {
+     "typ": "lank",
+     "a": 3,
+     "b": 2,
+     "fran": "B"
+    },
+    {
+     "typ": "inte",
+     "p": 1,
+     "kat": "B",
+     "v": 1
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 0,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 2
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "nodvandig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-25",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Anna, Bo, Frida och Leo, arbetar på var sitt ställe: kundtjänst, receptionen, HR och lagret. De äter lunch vid var sin tid: klockan 11, 12, 12.30 och 13.",
+  "villkor": [
+   "Varken Anna eller Leo arbetar på lagret.",
+   "Den som äter lunch klockan 11 arbetar inte på HR.",
+   "Den som äter lunch klockan 13 arbetar i kundtjänst.",
+   "Bo äter inte lunch klockan 11.",
+   "Den som äter lunch klockan 12 arbetar inte på HR.",
+   "Varken Frida eller Leo äter lunch klockan 11."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Bo äter lunch klockan 12.",
+   "Bo äter lunch klockan 13.",
+   "Frida arbetar på lagret.",
+   "Frida äter lunch klockan 13.",
+   "Leo äter lunch klockan 12."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel om Anna arbetar i receptionen och äter lunch klockan 11, Bo arbetar på lagret och äter lunch klockan 12, Frida arbetar i kundtjänst och äter lunch klockan 13, Leo arbetar på HR och äter lunch klockan 12.30.",
+   "Det kan stämma, till exempel om Anna arbetar i receptionen och äter lunch klockan 11, Bo arbetar i kundtjänst och äter lunch klockan 13, Frida arbetar på lagret och äter lunch klockan 12, Leo arbetar på HR och äter lunch klockan 12.30.",
+   "Det kan stämma, till exempel om Anna arbetar i receptionen och äter lunch klockan 11, Bo arbetar i kundtjänst och äter lunch klockan 13, Frida arbetar på lagret och äter lunch klockan 12, Leo arbetar på HR och äter lunch klockan 12.30.",
+   "Det kan stämma, till exempel om Anna arbetar i receptionen och äter lunch klockan 11, Bo arbetar på lagret och äter lunch klockan 12, Frida arbetar i kundtjänst och äter lunch klockan 13, Leo arbetar på HR och äter lunch klockan 12.30.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Leo äter lunch klockan 12."
+    },
+    {
+     "markor": [
+      1,
+      3,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Leo arbetar alltså i receptionen."
+    },
+    {
+     "markor": [
+      4,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan äta lunch klockan 11. Anna äter alltså lunch klockan 11."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då finns inget kvar för Anna. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Anna",
+    "Bo",
+    "Frida",
+    "Leo"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "avd",
+     "varden": [
+      "i kundtjänst",
+      "i receptionen",
+      "på HR",
+      "på lagret"
+     ]
+    },
+    "B": {
+     "mall": "lunch",
+     "varden": [
+      "11",
+      "12",
+      "12.30",
+      "13"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 3,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 0,
+     "fran": "B"
+    },
+    {
+     "typ": "lank",
+     "a": 0,
+     "b": 3,
+     "fran": "B"
+    },
+    {
+     "typ": "inte",
+     "p": 1,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 2,
+     "q": 3,
+     "kat": "B",
+     "v": 0
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 1
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-26",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Alva, Bo, Frida och Rasmus, har var sin roll: analytiker, projektledare, testare och utvecklare. De kör var sin tjänstebil, och bilarna är blå, röd, svart och vit.",
+  "villkor": [
+   "Den som är testare kör inte den röda bilen.",
+   "Den som kör den röda bilen är inte utvecklare.",
+   "Varken Frida eller Rasmus är utvecklare.",
+   "Alva kör varken den blå eller den vita bilen.",
+   "Varken Frida eller Rasmus kör den blå bilen.",
+   "Den som är projektledare kör den blå bilen.",
+   "Frida kör varken den blå eller den vita bilen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Rasmus är testare.",
+   "Rasmus kör den röda bilen.",
+   "Bo är testare.",
+   "Bo är analytiker.",
+   "Bo kör den svarta bilen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "",
+   "Lösningen ger att Rasmus kör den vita bilen.",
+   "Lösningen ger att Bo är projektledare.",
+   "Lösningen ger att Bo är projektledare.",
+   "Lösningen ger att Bo kör den blå bilen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      4,
+      5,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara projektledare. Bo är alltså projektledare."
+    },
+    {
+     "markor": [
+      6
+     ],
+     "villkor": [],
+     "foljd": "Bo kör alltså den blå bilen."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara utvecklare. Alva är alltså utvecklare."
+    },
+    {
+     "markor": [
+      2,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Alva kör alltså den svarta bilen."
+    },
+    {
+     "markor": [
+      5,
+      7
+     ],
+     "villkor": [],
+     "foljd": "Frida kör alltså den röda bilen."
+    },
+    {
+     "markor": [
+      5
+     ],
+     "villkor": [],
+     "foljd": "Rasmus kör alltså den vita bilen."
+    },
+    {
+     "markor": [
+      1,
+      3,
+      5,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Frida är alltså analytiker."
+    },
+    {
+     "markor": [
+      3,
+      5,
+      6
+     ],
+     "villkor": [],
+     "foljd": "Rasmus är alltså testare."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Alva",
+    "Bo",
+    "Frida",
+    "Rasmus"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "roll",
+     "varden": [
+      "analytiker",
+      "projektledare",
+      "testare",
+      "utvecklare"
+     ]
+    },
+    "B": {
+     "mall": "bil",
+     "varden": [
+      "blå",
+      "röd",
+      "svart",
+      "vit"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "inte_lank",
+     "a": 2,
+     "b": 1,
+     "fran": "A"
+    },
+    {
+     "typ": "inte_lank",
+     "a": 3,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "ingen_av",
+     "p": 2,
+     "q": 3,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "varken",
+     "p": 0,
+     "kat": "B",
+     "v": 0,
+     "w": 3
+    },
+    {
+     "typ": "ingen_av",
+     "p": 2,
+     "q": 3,
+     "kat": "B",
+     "v": 0
+    },
+    {
+     "typ": "lank",
+     "a": 1,
+     "b": 0,
+     "fran": "A"
+    },
+    {
+     "typ": "varken",
+     "p": 2,
+     "kat": "B",
+     "v": 0,
+     "w": 3
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 1
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "A",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "A",
+     "v": 0
+    },
+    {
+     "typ": "har",
+     "p": 1,
+     "kat": "B",
+     "v": 2
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "omojlig",
+    "omojlig",
+    "omojlig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-27",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "tabell",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor, Hanna, Nils, Rut och Sara, har var sin roll: designer, projektledare, testare och utvecklare. De bor i var sin stad: Gävle, Malmö, Umeå och Ystad.",
+  "villkor": [
+   "Varken Hanna eller Nils är projektledare.",
+   "Nils bor varken i Gävle eller i Malmö.",
+   "Den som bor i Malmö är inte projektledare.",
+   "Den som bor i Gävle är designer.",
+   "Sara är varken designer eller projektledare."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Rut bor i Umeå.",
+   "Sara bor i Ystad.",
+   "Rut bor i Ystad.",
+   "Sara är utvecklare.",
+   "Sara är testare."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel om Hanna är designer och bor i Gävle, Nils är testare och bor i Ystad, Rut är projektledare och bor i Umeå, Sara är utvecklare och bor i Malmö.",
+   "",
+   "Det kan stämma, till exempel om Hanna är designer och bor i Gävle, Nils är testare och bor i Umeå, Rut är projektledare och bor i Ystad, Sara är utvecklare och bor i Malmö.",
+   "Det kan stämma, till exempel om Hanna är designer och bor i Gävle, Nils är testare och bor i Umeå, Rut är projektledare och bor i Ystad, Sara är utvecklare och bor i Malmö.",
+   "Det kan stämma, till exempel om Hanna är designer och bor i Gävle, Nils är utvecklare och bor i Umeå, Rut är projektledare och bor i Ystad, Sara är testare och bor i Malmö."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Sara bor i Ystad."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Nils bor alltså i Umeå."
+    },
+    {
+     "markor": [
+      1,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan vara projektledare. Rut är alltså projektledare."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då finns inget kvar för Rut. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "tabell",
+   "namn": [
+    "Hanna",
+    "Nils",
+    "Rut",
+    "Sara"
+   ],
+   "kategorier": {
+    "A": {
+     "mall": "roll",
+     "varden": [
+      "designer",
+      "projektledare",
+      "testare",
+      "utvecklare"
+     ]
+    },
+    "B": {
+     "mall": "stad",
+     "varden": [
+      "Gävle",
+      "Malmö",
+      "Umeå",
+      "Ystad"
+     ]
+    }
+   },
+   "villkor": [
+    {
+     "typ": "ingen_av",
+     "p": 0,
+     "q": 1,
+     "kat": "A",
+     "v": 1
+    },
+    {
+     "typ": "varken",
+     "p": 1,
+     "kat": "B",
+     "v": 0,
+     "w": 1
+    },
+    {
+     "typ": "inte_lank",
+     "a": 1,
+     "b": 1,
+     "fran": "B"
+    },
+    {
+     "typ": "lank",
+     "a": 0,
+     "b": 0,
+     "fran": "B"
+    },
+    {
+     "typ": "varken",
+     "p": 3,
+     "kat": "A",
+     "v": 0,
+     "w": 1
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 2
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 2,
+     "kat": "B",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 3
+    },
+    {
+     "typ": "har",
+     "p": 3,
+     "kat": "A",
+     "v": 2
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-28",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den lila pärmen ligger inte på plats 5.",
+   "Den gröna pärmen ligger bredvid den svarta pärmen.",
+   "Den röda pärmen ligger någonstans till vänster om den blå pärmen.",
+   "Den lila pärmen ligger inte på plats 1.",
+   "Den blå pärmen ligger inte bredvid den lila pärmen."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Den blå pärmen ligger inte bredvid den röda pärmen.",
+   "Den gröna pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den blå pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den gröna pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den lila pärmen ligger någonstans till vänster om den blå pärmen."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Röd, Lila, Grön, Svart och Blå, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Grön, Svart, Lila, Röd och Blå, från plats 1.",
+   "",
+   "Det kan stämma, till exempel med ordningen Grön, Svart, Lila, Röd och Blå, från plats 1.",
+   "Det är sant i varje ordning som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att den blå pärmen ligger direkt till vänster om den gröna pärmen."
+    },
+    {
+     "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 1. Där ligger alltså den röda pärmen."
+    },
+    {
+     "markor": [
+      2,
+      5
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 3. Där ligger alltså den gröna pärmen."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då kan ingen ligga på plats 5. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "svart"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 5
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 1
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 0
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-29",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den gröna pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den blå pärmen ligger någonstans till vänster om den vita pärmen.",
+   "Den gröna pärmen ligger direkt till vänster om den lila pärmen.",
+   "Den lila pärmen ligger inte på plats 3."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Den lila pärmen ligger direkt till vänster om den röda pärmen.",
+   "Den gröna pärmen ligger bredvid den vita pärmen.",
+   "Den blå pärmen ligger bredvid den röda pärmen.",
+   "Den blå pärmen ligger bredvid den gröna pärmen.",
+   "Den lila pärmen ligger någonstans till vänster om den vita pärmen."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Blå, Vit, Grön, Lila och Röd, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Blå, Vit, Grön, Lila och Röd, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Grön, Lila, Blå, Röd och Vit, från plats 1.",
+   "",
+   "Det kan stämma, till exempel med ordningen Grön, Lila, Blå, Röd och Vit, från plats 1."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att den blå pärmen ligger bredvid den gröna pärmen."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 1. Där ligger alltså den gröna pärmen."
+    },
+    {
+     "markor": [
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för den lila pärmen. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 3
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 4
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-30",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Isak står någonstans till vänster om Nora.",
+   "Viktor står någonstans till vänster om Isak.",
+   "Kim står bredvid Viktor.",
+   "Erik står inte bredvid Isak."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Isak står bredvid Kim.",
+   "Viktor står någonstans till vänster om Kim.",
+   "Viktor står någonstans till vänster om Erik.",
+   "Erik står inte bredvid Viktor.",
+   "Kim står direkt till vänster om Erik."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Erik, Viktor, Kim, Isak och Nora, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Erik, Viktor, Kim, Isak och Nora, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Kim, Viktor, Isak, Nora och Erik, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Erik, Kim, Viktor, Isak och Nora, från plats 1.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Kim står direkt till vänster om Erik."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan stå på plats 1. Där står alltså Kim."
+    },
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för Viktor. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "personer",
+   "namn": [
+    "Erik",
+    "Isak",
+    "Kim",
+    "Nora",
+    "Viktor"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 1
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-31",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Ida står direkt till vänster om Lisa.",
+   "Frida står inte på plats 4.",
+   "Ida står någonstans till vänster om Ulf.",
+   "Lisa står inte bredvid Ulf."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Sara står någonstans till vänster om Ida.",
+   "Lisa står direkt till vänster om Frida.",
+   "Frida står på plats 3.",
+   "Frida står inte bredvid Ulf.",
+   "Ida står inte bredvid Ulf."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "",
+   "Det kan stämma, till exempel med ordningen Ida, Lisa, Frida, Sara och Ulf, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Ida, Lisa, Frida, Sara och Ulf, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Frida, Ida, Lisa, Sara och Ulf, från plats 1.",
+   "Det är sant i varje ordning som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Sara står någonstans till vänster om Ida."
+    },
+    {
+     "markor": [
+      2,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan stå på plats 4. Där står alltså Ida."
+    },
+    {
+     "markor": [
+      1,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för Lisa. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "personer",
+   "namn": [
+    "Frida",
+    "Ida",
+    "Lisa",
+    "Sara",
+    "Ulf"
+   ],
+   "villkor": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 4
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 3
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 4
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-32",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Mats står direkt till vänster om Anna.",
+   "Anna står inte bredvid Erik.",
+   "Anna står någonstans till vänster om Rasmus.",
+   "Anna står inte bredvid Isak."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Rasmus står direkt till vänster om Isak.",
+   "Anna står inte bredvid Rasmus.",
+   "Isak står på plats 5.",
+   "Anna står på plats 2.",
+   "Mats står någonstans till vänster om Rasmus."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Mats, Anna, Rasmus, Isak och Erik, från plats 1.",
+   "",
+   "Det kan stämma, till exempel med ordningen Mats, Anna, Rasmus, Erik och Isak, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Mats, Anna, Rasmus, Erik och Isak, från plats 1.",
+   "Det är sant i varje ordning som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Anna inte står bredvid Rasmus."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan stå på plats 3. Där står alltså Anna."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då kan ingen stå på plats 4. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "personer",
+   "namn": [
+    "Anna",
+    "Erik",
+    "Isak",
+    "Mats",
+    "Rasmus"
+   ],
+   "villkor": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 5
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 4
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-33",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den blå pärmen ligger inte bredvid den gröna pärmen.",
+   "Den blå pärmen ligger inte på plats 5.",
+   "Den röda pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den gröna pärmen ligger någonstans till vänster om den röda pärmen."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Den blå pärmen ligger någonstans till vänster om den gröna pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den blå pärmen.",
+   "Den vita pärmen ligger direkt till vänster om den röda pärmen.",
+   "Den blå pärmen ligger direkt till vänster om den röda pärmen.",
+   "Den röda pärmen ligger på plats 4."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Blå, Vit, Grön, Röd och Svart, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Grön, Röd, Svart, Blå och Vit, från plats 1.",
+   "",
+   "Det kan stämma, till exempel med ordningen Grön, Vit, Blå, Röd och Svart, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Blå, Vit, Grön, Röd och Svart, från plats 1."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att den vita pärmen ligger direkt till vänster om den röda pärmen."
+    },
+    {
+     "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 5. Där ligger alltså den svarta pärmen."
+    },
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för den blå pärmen. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 2
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-34",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Anna står inte bredvid Bo.",
+   "Anna står inte på plats 1.",
+   "Gustav står bredvid Åsa.",
+   "Anna står någonstans till vänster om Tom."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Bo står någonstans till vänster om Tom.",
+   "Gustav står direkt till vänster om Anna.",
+   "Anna står bredvid Åsa.",
+   "Tom står någonstans till vänster om Gustav.",
+   "Gustav står någonstans till vänster om Tom."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Bo, Gustav, Åsa, Anna och Tom, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Åsa, Gustav, Anna, Tom och Bo, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Gustav, Åsa, Anna, Tom och Bo, från plats 1.",
+   "",
+   "Det är sant i varje ordning som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Tom står någonstans till vänster om Gustav."
+    },
+    {
+     "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan stå på plats 1. Där står alltså Bo."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för Åsa. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "personer",
+   "namn": [
+    "Anna",
+    "Bo",
+    "Gustav",
+    "Tom",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 1
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 3
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 3
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-35",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den blå pärmen ligger inte bredvid den lila pärmen.",
+   "Den blå pärmen ligger bredvid den vita pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den vita pärmen."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Den gröna pärmen ligger någonstans till vänster om den blå pärmen.",
+   "Den gröna pärmen ligger på plats 4.",
+   "Den blå pärmen ligger bredvid den gröna pärmen.",
+   "Den gröna pärmen ligger bredvid den lila pärmen.",
+   "Den lila pärmen ligger på plats 4."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Det kan stämma, till exempel med ordningen Grön, Lila, Svart, Vit och Blå, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Svart, Vit, Blå, Grön och Lila, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Svart, Vit, Blå, Grön och Lila, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Svart, Vit, Blå, Grön och Lila, från plats 1.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att den lila pärmen ligger på plats 4."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 5. Där ligger alltså den gröna pärmen."
+    },
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan ligga på plats 3. Där ligger alltså den vita pärmen."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Då finns ingen plats kvar för den svarta pärmen. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 4
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 5
+ },
+ {
+  "id": "dd-a-d4-36",
+  "niva": "avancerad",
+  "typ": "D4",
+  "family": "kan_inte",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Vera står någonstans till vänster om Rasmus.",
+   "Filip står bredvid Åsa.",
+   "Åsa står någonstans till vänster om Vera.",
+   "Nils står någonstans till vänster om Vera."
+  ],
+  "fraga": "Vilket kan inte vara sant?",
+  "options": [
+   "Rasmus står inte bredvid Vera.",
+   "Filip står på plats 2.",
+   "Filip står på plats 1.",
+   "Åsa står direkt till vänster om Filip.",
+   "Filip står inte bredvid Rasmus."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "",
+   "Det kan stämma, till exempel med ordningen Nils, Filip, Åsa, Vera och Rasmus, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Filip, Åsa, Nils, Vera och Rasmus, från plats 1.",
+   "Det kan stämma, till exempel med ordningen Åsa, Filip, Nils, Vera och Rasmus, från plats 1.",
+   "Det är sant i varje ordning som går ihop med villkoren."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Anta att Rasmus inte står bredvid Vera."
+    },
+    {
+     "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Ingen annan kan stå på plats 4. Där står alltså Rasmus."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "villkor": [],
+     "foljd": "Då kan ingen stå på plats 5. Det går inte ihop, så alternativet kan inte vara sant."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "slag": "kan_inte",
+   "tema": "personer",
+   "namn": [
+    "Filip",
+    "Nils",
+    "Rasmus",
+    "Vera",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    }
+   ],
+   "fraga": {
+    "form": "kan_inte"
+   },
+   "alternativ": [
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 5
  }
 ]

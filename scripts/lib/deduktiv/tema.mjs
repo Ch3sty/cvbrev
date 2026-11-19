@@ -83,7 +83,7 @@ const MALL = {
 };
 
 /** Villkorstyp till familj ("Var du tappade" per villkorstyp, copy 4.6). */
-export const FAMILJER = ['premiss', 'plats', 'inte_plats', 'granne', 'inte_granne', 'vanster_om', 'direkt_vanster_om', 'ordning', 'samma_grupp', 'rorelse'];
+export const FAMILJER = ['premiss', 'plats', 'inte_plats', 'granne', 'inte_granne', 'vanster_om', 'direkt_vanster_om', 'ordning', 'samma_grupp', 'rorelse', 'om_sa', 'kvantor', 'sanning', 'tabell', 'kan_inte'];
 
 /** Namnet på remsan: personens namn, pärmens färg med stor bokstav. */
 export function etikett(tema, x) {

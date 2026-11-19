@@ -127,6 +127,7 @@ function tolkaSchema(q) {
     if (antagande.typ !== 'plats') throw new Error('antagandet är inte en plats');
     fraga = { form: 'omojlig' };
   } else if (/^Vilket måste vara sant\?$/.test(q.fraga)) fraga = { form: 'maste' };
+  else if (q.typ === 'D4' && /^Vilket kan inte vara sant\?$/.test(q.fraga)) fraga = { form: 'kan_inte' };
   else if (fv && /^(Vem|Vilken)/.test(q.fraga)) fraga = { form: 'vem', k: +fv[1] };
   else throw new Error(`frågan går inte att tolka: "${q.fraga}"`);
   const alternativ = q.options.map((o) => {
@@ -310,7 +311,7 @@ export function pusselNyckel(q) {
   return `${t.grupper ? 'dag' : 'rad'}:${n}:${bast}`;
 }
 
-const ORD = (q) => new Set(q.villkor.join(' ').toLowerCase().replace(/[^a-zåäö0-9 ]/g, ' ').split(/s+/).filter((w) => w.length >= 4));
+const ORD = (q) => new Set(q.villkor.join(' ').toLowerCase().replace(/[^a-zåäö0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length >= 4));
 function jaccard(a, b) {
   let s = 0;
   for (const x of a) if (b.has(x)) s++;
@@ -372,7 +373,7 @@ export function losaNycklar(q) {
 
 /** Par med samma lösa nyckel (graf, gång, mönster eller ren kedja) som inte redan är nästan-dubbletter: [a, b]. */
 export function lika(lista) {
-  const x = lista.filter((q) => q.typ !== 'D1').map((q) => ({ q, ...losaNycklar(q), p: pusselNyckel(q) }));
+  const x = lista.filter((q) => q.typ === 'D2' || q.typ === 'D3').map((q) => ({ q, ...losaNycklar(q), p: pusselNyckel(q) }));
   const ut = [];
   for (let i = 0; i < x.length; i++)
     for (let j = i + 1; j < x.length; j++)
@@ -387,7 +388,7 @@ export function lika(lista) {
 /** Par av nästan-dubbletter i listan: [a, b, skäl]. */
 export function nastanDubbletter(lista) {
   const ut = [];
-  const schema = lista.filter((q) => q.typ !== 'D1').map((q) => ({ q, k: pusselNyckel(q) }));
+  const schema = lista.filter((q) => q.typ === 'D2' || q.typ === 'D3').map((q) => ({ q, k: pusselNyckel(q) }));
   const perNyckel = new Map();
   for (const x of schema) {
     if (!perNyckel.has(x.k)) perNyckel.set(x.k, []);
@@ -401,6 +402,522 @@ export function nastanDubbletter(lista) {
       const v = jaccard(d1[i].o, d1[j].o);
       if (v >= 0.5) ut.push([d1[i].q, d1[j].q, `premissernas ord överlappar till ${Math.round(v * 100)} procent`]);
     }
+  ut.push(...d4Dubbletter(lista));
+  return ut;
+}
+
+/* ------------------------------------ D4 ------------------------------------ */
+// Omgång 3 (bankversion 5): nya familjer med egna lösningsgångar. Varje familj
+// tolkas ur TEXTEN med egna mallar här (ingen kod från scripts/lib/deduktiv/),
+// och svaret prövas mot alla modeller. Frågeformerna:
+//   "Vad måste gälla?"                          exakt ett alternativ gäller i alla modeller
+//   "Vilket kan inte vara sant?"                exakt ett gäller i ingen modell
+//   "Vilken slutsats följer inte av villkoren?" exakt ett gäller inte i alla modeller
+//   "Exakt vilka av dem är lögnare?"            exakt en lösning, alternativen är mängder
+//   "Vem ...?"                                  exakt en lösning, alternativen är namn
+// Dessutom: inget villkor är överflödigt (tas ett bort är facit inte längre ensamt svar).
+
+const FRAGA_D4 = {
+  'Vad måste gälla?': 'maste',
+  'Vilket kan inte vara sant?': 'kan_inte',
+  'Vilken slutsats följer inte av villkoren?': 'foljer_inte',
+  'Exakt vilka av dem är lögnare?': 'maste',
+};
+
+/** Svaren (index) givet en statusfunktion över alternativen. */
+function svarD4(form, st) {
+  const ar = (s) => (form === 'maste' ? s === 'n' : form === 'kan_inte' ? s === 'o' : s !== 'n');
+  return st.map((s, i) => (ar(s) ? i : -1)).filter((i) => i >= 0);
+}
+
+/** Status 'n' (alla), 'o' (ingen), 'b' (några) för påståendet över modellerna. */
+function st3(M, galler) {
+  const s = M.filter(galler).length;
+  return s === M.length ? 'n' : s === 0 ? 'o' : 'b';
+}
+
+/** Gemensam prövning: modeller(med) ger modellerna med villkoren i `med`. */
+function provaD4(q, form, antal, modellerMed, alt) {
+  const fel = [];
+  const alla = Array.from({ length: antal }, (_, i) => i);
+  const M = modellerMed(alla);
+  if (!M.length) return ['villkoren motsäger varandra'];
+  const st = alt.map((g) => st3(M, g));
+  const svar = svarD4(form, st);
+  if (svar.length !== 1) fel.push(`${svar.length} alternativ är svar, ska vara exakt ett`);
+  else if (svar[0] !== q.correctAnswer) fel.push(`alternativ ${svar[0] + 1} är svaret, facit säger ${q.correctAnswer + 1}`);
+  alla.forEach((i) => {
+    // Ett lockvillkor i om_sa bär en fälla som en distraktors misstag pekar på.
+    const lock = new RegExp(`(^|[^0-9])[Vv]illkor ${i + 1}([^0-9]|$)`);
+    if (q.family === 'om_sa' && (q.misstag ?? []).some((m, j) => j !== q.correctAnswer && lock.test(m) && /säger inget om vad som gäller om|visar inte att/.test(m))) return;
+    const M2 = modellerMed(alla.filter((j) => j !== i));
+    const s2 = svarD4(form, alt.map((g) => st3(M2, g)));
+    if (s2.length === 1 && s2[0] === q.correctAnswer) fel.push(`villkor ${i + 1} är överflödigt`);
+  });
+  return { fel, M };
+}
+
+/* om_sa: atomerna (s, v, r) ur formell, texterna byggs här och slås upp. */
+function omsaTexter(atomer) {
+  const st = (s) => s[0].toUpperCase() + s.slice(1);
+  const F = atomer.map((x) => {
+    const r = x.r ? ` ${x.r}` : '';
+    return { h: [`${st(x.s)} ${x.v}${r}`, `${st(x.s)} ${x.v} inte${r}`], hl: [`${x.s} ${x.v}${r}`, `${x.s} ${x.v} inte${r}`], b: [`${x.s} ${x.v}${r}`, `${x.s} inte ${x.v}${r}`], i: [`${x.v} ${x.s}${r}`, `${x.v} ${x.s} inte${r}`] };
+  });
+  const karta = new Map();
+  const lit = [];
+  F.forEach((_, a) => [0, 1].forEach((ng) => lit.push({ a, ng })));
+  for (const l of lit) karta.set(`${F[l.a].h[l.ng]}.`, { t: 'lit', l });
+  for (const p of lit)
+    for (const r of lit) {
+      if (p.a === r.a) continue;
+      karta.set(`Om ${F[p.a].b[p.ng]}, ${F[r.a].i[r.ng]}.`, { t: 'om', p, r });
+      karta.set(`${F[p.a].h[p.ng]} och ${F[r.a].hl[r.ng]}.`, { t: 'och', p, r });
+    }
+  return karta;
+}
+function omsaVarde(x, m) {
+  const l = (y) => (((m >> y.a) & 1) === 1) !== (y.ng === 1);
+  if (x.t === 'lit') return l(x.l);
+  if (x.t === 'om') return !l(x.p) || l(x.r);
+  return l(x.p) && l(x.r);
+}
+function tolkaOmsa(q) {
+  const atomer = q.formell?.atomer;
+  if (!Array.isArray(atomer) || atomer.length < 2 || atomer.length > 5) throw new Error('om_sa: atomerna saknas');
+  const karta = omsaTexter(atomer);
+  const las = (t) => {
+    const x = karta.get(t);
+    if (!x) throw new Error(`texten går inte att tolka: "${t}"`);
+    return x;
+  };
+  return { n: atomer.length, villkor: q.villkor.map(las), alternativ: q.options.map(las) };
+}
+function verifieraOmsa(q, form) {
+  const t = tolkaOmsa(q);
+  const U = Array.from({ length: 1 << t.n }, (_, m) => m);
+  const med = (idx) => U.filter((m) => idx.every((i) => omsaVarde(t.villkor[i], m)));
+  return provaD4(q, form, t.villkor.length, med, t.alternativ.map((x) => (m) => omsaVarde(x, m))).fel;
+}
+
+/* kvantor: formell som D1 (mängdmodellen), frågeformen ur texten. */
+function verifieraKvantor(q, form) {
+  const f = q.formell;
+  const fel = [];
+  if (!/några betyder här minst en, kanske alla/.test(q.intro ?? '')) fel.push('kvantor: inledningen definierar inte några');
+  if (f.villkor.length !== q.villkor.length) fel.push('formell: antalet villkor skiljer sig från texten');
+  const g = { termer: f.termer, individer: f.individer ?? [] };
+  const status = (prem, a) => {
+    const s0 = d1Status({ ...g, premisser: prem }, a, false);
+    const s1 = d1Status({ ...g, premisser: prem }, a, true);
+    if (s0 !== s1 || s0 === 'motsagelse') return null;
+    return s0 === 'nodvandig' ? 'n' : s0 === 'omojlig' ? 'o' : 'b';
+  };
+  const st = f.alternativ.map((a) => status(f.villkor, a));
+  if (st.some((s) => s == null)) return [...fel, 'ett alternativ har olika status med och utan existens'];
+  const svar = svarD4(form, st);
+  if (svar.length !== 1) fel.push(`${svar.length} alternativ är svar, ska vara exakt ett`);
+  else if (svar[0] !== q.correctAnswer) fel.push(`alternativ ${svar[0] + 1} är svaret, facit säger ${q.correctAnswer + 1}`);
+  f.villkor.forEach((_, i) => {
+    const prem = f.villkor.filter((__, j) => j !== i);
+    const s2 = f.alternativ.map((a) => status(prem, a));
+    if (s2.some((s) => s == null)) return;
+    const sv = svarD4(form, s2);
+    if (sv.length === 1 && sv[0] === q.correctAnswer) fel.push(`villkor ${i + 1} är överflödigt`);
+  });
+  return fel;
+}
+
+/* sanning: namnen ur inledningen, påståendena ur citaten. */
+const TAL_D4 = { en: 1, två: 2, tre: 3, fyra: 4 };
+function tolkaSanning(q) {
+  const m = /^(Tre|Fyra) kollegor, (.+), säger en sak var\. Var och en är antingen sanningssägare eller lögnare\. En sanningssägare säger alltid något sant, och en lögnare säger alltid något falskt\.$/.exec(q.intro ?? '');
+  if (!m) throw new Error('sanning: inledningen går inte att tolka');
+  const n = TAL_D4[m[1].toLowerCase()];
+  const namn = m[2].split(/, | och /);
+  if (namn.length !== n) throw new Error('sanning: antalet namn stämmer inte');
+  const idx = (x, talare) => {
+    if (/^(jag|Jag|mig)$/.test(x)) {
+      if (talare == null) throw new Error('jag utan talare');
+      return talare;
+    }
+    const i = namn.indexOf(x);
+    if (i < 0) throw new Error(`okänt namn ${x}`);
+    return i;
+  };
+  const pastaende = (t, talare) => {
+    const oss = talare == null ? 'dem' : `oss ${['', 'en', 'två', 'tre', 'fyra'][n]}`;
+    let r;
+    if ((r = /^(\S+) är lögnare\.$/.exec(t))) return (mm) => ((mm >> idx(r[1], talare)) & 1) === 1;
+    if ((r = /^(\S+) är sanningssägare\.$/.exec(t))) return (mm) => ((mm >> idx(r[1], talare)) & 1) === 0;
+    if ((r = /^(\S+) och (\S+) är båda lögnare\.$/.exec(t))) { const a = idx(r[1], talare), b = idx(r[2], talare); return (mm) => ((mm >> a) & 1) === 1 && ((mm >> b) & 1) === 1; }
+    if ((r = /^(\S+) och (\S+) är båda sanningssägare\.$/.exec(t))) { const a = idx(r[1], talare), b = idx(r[2], talare); return (mm) => ((mm >> a) & 1) === 0 && ((mm >> b) & 1) === 0; }
+    if ((r = /^Minst en av (\S+) och (\S+) är lögnare\.$/.exec(t))) { const a = idx(r[1], talare), b = idx(r[2], talare); return (mm) => ((mm >> a) & 1) === 1 || ((mm >> b) & 1) === 1; }
+    if ((r = /^Exakt en av (\S+) och (\S+) är lögnare\.$/.exec(t))) { const a = idx(r[1], talare), b = idx(r[2], talare); return (mm) => ((mm >> a) & 1) !== ((mm >> b) & 1); }
+    const antal = (mm) => Array.from({ length: n }, (_, i) => (mm >> i) & 1).reduce((s, x) => s + x, 0);
+    if (t === `Ingen av ${oss} är lögnare.`) return (mm) => antal(mm) === 0;
+    if ((r = new RegExp(`^Exakt (en|två|tre) av ${oss} är lögnare\\.$`).exec(t))) { const k = TAL_D4[r[1]]; return (mm) => antal(mm) === k; }
+    if ((r = new RegExp(`^Minst (en|två|tre) av ${oss} är lögnare\\.$`).exec(t))) { const k = TAL_D4[r[1]]; return (mm) => antal(mm) >= k; }
+    if (talare == null) {
+      // Mängder: exakt de uppräknade är lögnare.
+      let s = null;
+      if (t === 'Ingen av dem') s = [];
+      else if (t === `Alla ${['', '', '', 'tre', 'fyra'][n]}`) s = namn.map((_, i) => i);
+      else if (/^[A-ZÅÄÖ][a-zåäö]+((, [A-ZÅÄÖ][a-zåäö]+)* och [A-ZÅÄÖ][a-zåäö]+)?$/.test(t)) s = t.split(/, | och /).map((x) => idx(x, null));
+      if (s) return (mm) => namn.every((_, i) => (((mm >> i) & 1) === 1) === s.includes(i));
+    }
+    throw new Error(`påståendet går inte att tolka: "${t}"`);
+  };
+  const villkor = q.villkor.map((v) => {
+    const r = /^(\S+) säger: ”(.+)”$/.exec(v);
+    if (!r) throw new Error(`villkoret går inte att tolka: "${v}"`);
+    const tal = idx(r[1], null);
+    const p = pastaende(r[2], tal);
+    return { tal, p, text: r[2] };
+  });
+  return { n, namn, villkor, alternativ: q.options.map((o) => pastaende(o, null)) };
+}
+function verifieraSanning(q, form) {
+  const t = tolkaSanning(q);
+  const U = Array.from({ length: 1 << t.n }, (_, m) => m);
+  const med = (idx) => U.filter((m) => idx.every((i) => t.villkor[i].p(m) === (((m >> t.villkor[i].tal) & 1) === 0)));
+  const { fel, M } = provaD4(q, form, t.villkor.length, med, t.alternativ);
+  if (q.fraga === 'Exakt vilka av dem är lögnare?' && M.length !== 1) fel.push(`${M.length} lösningar, vilka-frågan kräver exakt en`);
+  return fel;
+}
+
+/* tabell: kategoriernas fraser byggs här ur formell.kategorier (mall och värden). */
+const BIL_D4 = { röd: 'röda', blå: 'blå', grön: 'gröna', vit: 'vita', svart: 'svarta', gul: 'gula' };
+const MALL_D4 = {
+  roll: { pos: (v) => `är ${v}`, neg: (v) => `är inte ${v}`, vk: (v, w) => `är varken ${v} eller ${w}` },
+  stad: { pos: (v) => `bor i ${v}`, neg: (v) => `bor inte i ${v}`, vk: (v, w) => `bor varken i ${v} eller i ${w}` },
+  kurs: { pos: (v) => `går kursen i ${v}`, neg: (v) => `går inte kursen i ${v}`, vk: (v, w) => `går varken kursen i ${v} eller kursen i ${w}` },
+  dag: { pos: (v) => `är ledig på ${v}`, neg: (v) => `är inte ledig på ${v}`, vk: (v, w) => `är varken ledig på ${v} eller på ${w}` },
+  bil: { pos: (v) => `kör den ${BIL_D4[v]} bilen`, neg: (v) => `kör inte den ${BIL_D4[v]} bilen`, vk: (v, w) => `kör varken den ${BIL_D4[v]} eller den ${BIL_D4[w]} bilen` },
+  avd: { pos: (v) => `arbetar ${v}`, neg: (v) => `arbetar inte ${v}`, vk: (v, w) => `arbetar varken ${v} eller ${w}` },
+  lunch: { pos: (v) => `äter lunch klockan ${v}`, neg: (v) => `äter inte lunch klockan ${v}`, vk: (v, w) => `äter lunch varken klockan ${v} eller klockan ${w}` },
+};
+function tolkaTabell(q) {
+  const f = q.formell;
+  const namn = f?.namn;
+  const K = f?.kategorier;
+  if (!namn || !K?.A || !K?.B) throw new Error('tabell: namn eller kategorier saknas');
+  const n = namn.length;
+  if (!(q.intro ?? '').startsWith(`${['', '', '', 'Tre', 'Fyra', 'Fem'][n]} kollegor, `)) throw new Error('tabell: inledningen stämmer inte med antalet');
+  for (const k of ['A', 'B']) {
+    if (K[k].varden.length !== n) throw new Error('tabell: antalet värden stämmer inte');
+    // Avdelningarna står utan preposition i inledningen ("på lagret" blir "lagret").
+    for (const v of K[k].varden) if (!q.intro.includes(K[k].mall === 'avd' ? v.replace(/^(på|i) /, '') : v)) throw new Error(`tabell: värdet ${v} saknas i inledningen`);
+  }
+  const fr = (k, typ, v, w) => MALL_D4[K[k].mall][typ](K[k].varden[v], w != null ? K[k].varden[w] : undefined);
+  const karta = new Map();
+  const vardeAv = (m, k, p) => m[k][p];
+  const lagg = (text, g) => {
+    if (karta.has(text)) throw new Error(`tabell: två tolkningar av "${text}"`);
+    karta.set(text, g);
+  };
+  for (const k of ['A', 'B'])
+    for (let v = 0; v < n; v++) {
+      for (let p = 0; p < n; p++) {
+        lagg(`${namn[p]} ${fr(k, 'pos', v)}.`, (m) => vardeAv(m, k, p) === v);
+        lagg(`${namn[p]} ${fr(k, 'neg', v)}.`, (m) => vardeAv(m, k, p) !== v);
+        for (let w = 0; w < n; w++) if (w !== v) lagg(`${namn[p]} ${fr(k, 'vk', v, w)}.`, (m) => vardeAv(m, k, p) !== v && vardeAv(m, k, p) !== w);
+        for (let p2 = 0; p2 < n; p2++) if (p2 !== p) lagg(`Varken ${namn[p]} eller ${namn[p2]} ${fr(k, 'pos', v)}.`, (m) => vardeAv(m, k, p) !== v && vardeAv(m, k, p2) !== v);
+      }
+    }
+  for (let a = 0; a < n; a++)
+    for (let b = 0; b < n; b++) {
+      const lank = (m) => m.B[m.A.indexOf(a)] === b;
+      lagg(`Den som ${fr('A', 'pos', a)} ${fr('B', 'pos', b)}.`, lank);
+      lagg(`Den som ${fr('B', 'pos', b)} ${fr('A', 'pos', a)}.`, lank);
+      lagg(`Den som ${fr('A', 'pos', a)} ${fr('B', 'neg', b)}.`, (m) => !lank(m));
+      lagg(`Den som ${fr('B', 'pos', b)} ${fr('A', 'neg', a)}.`, (m) => !lank(m));
+    }
+  const las = (t) => {
+    const g = karta.get(t);
+    if (!g) throw new Error(`texten går inte att tolka: "${t}"`);
+    return g;
+  };
+  let vem = null;
+  const vm = /^Vem (.+)\?$/.exec(q.fraga);
+  if (vm) {
+    for (const k of ['A', 'B']) for (let v = 0; v < n; v++) if (fr(k, 'pos', v) === vm[1]) vem = { k, v };
+    if (!vem) throw new Error(`frågan går inte att tolka: "${q.fraga}"`);
+  }
+  const alternativ = q.options.map((o) => {
+    if (!vem) return las(o);
+    const p = namn.indexOf(o);
+    if (p < 0) throw new Error(`alternativet "${o}" är inget namn`);
+    return (m) => m[vem.k][p] === vem.v;
+  });
+  return { n, namn, villkor: q.villkor.map(las), alternativ, vem };
+}
+function verifieraTabell(q, form) {
+  const t = tolkaTabell(q);
+  const P = permutationer(t.n).map((p) => p.map((x) => x - 1));
+  const U = [];
+  for (const A of P) for (const B of P) U.push({ A, B });
+  const med = (idx) => U.filter((m) => idx.every((i) => t.villkor[i](m)));
+  const { fel, M } = provaD4(q, t.vem ? 'maste' : form, t.villkor.length, med, t.alternativ);
+  if (t.vem && M.length !== 1) fel.push(`${M.length} lösningar, vem-frågan kräver exakt en`);
+  return fel;
+}
+
+/* kan_inte: schemapusslet ur texten (tolkaSchema), flera lösningar. */
+function verifieraKanInte(q) {
+  const t = tolkaSchema(q);
+  if (t.fraga.form !== 'kan_inte' || t.antagande) return ['kan_inte: frågan ska vara "Vilket kan inte vara sant?" utan antagande'];
+  const P = permutationer(t.n);
+  const med = (idx) => P.filter((p) => idx.every((i) => galler(t.villkor[i], p, t.grupper)));
+  const { fel, M } = provaD4(q, 'kan_inte', t.villkor.length, med, t.alternativ.map((x) => (p) => galler(x, p, t.grupper)));
+  if (M.length < 2) fel.push(`${M.length} lösning, kan_inte ska ha minst två`);
+  return fel;
+}
+
+function verifieraD4(q) {
+  const form = FRAGA_D4[q.fraga] ?? (/^Vem .+\?$/.test(q.fraga) ? 'maste' : null);
+  if (!form) return [`frågan går inte att tolka: "${q.fraga}"`];
+  if (q.losning?.schema != null) return ['D4 har ingen remsa'];
+  switch (q.family) {
+    case 'om_sa': return verifieraOmsa(q, form);
+    case 'kvantor': return verifieraKvantor(q, form);
+    case 'sanning': return verifieraSanning(q, form);
+    case 'tabell': return verifieraTabell(q, form);
+    case 'kan_inte': return verifieraKanInte(q);
+    default: return [`okänd D4-familj ${q.family}`];
+  }
+}
+
+/* ------------------------- D4: nycklar för dubbletter ------------------------ */
+// Exakt nyckel (fäller): samma villkor efter namnbyte (och för om_sa negation av
+// en atom, för kan_inte spegling). Frågan räknas inte. Lös nyckel (varnar):
+//   om_sa    lösningsgången som följd av regler (framåt, bakåt, fall, motsägelse),
+//   kvantor  villkorens former, för D1 och kvantor gemensamt,
+//   sanning  antalet personer och påståendenas slag (med jag eller utan),
+//   tabell   antalet personer och villkorens slag,
+//   kan_inte villkoren utan platser (graf) plus påståendet som ska falla.
+
+function omsaRegler(t) {
+  // Framåt (MP) och bakåt (MT) ur fakta; utan fakta antas förledet i facit eller ett alternativ.
+  const fakta = t.villkor.filter((x) => x.t === 'lit').map((x) => x.l);
+  const imp = t.villkor.filter((x) => x.t === 'om');
+  const nyck = (l) => `${l.a}:${l.ng}`;
+  const kor = (start) => {
+    const k = new Set(start.map(nyck));
+    const regler = [];
+    for (let v = 0; v < 12; v++) {
+      let gjort = false;
+      for (const c of imp) {
+        const pk = nyck(c.p);
+        const nq = nyck({ a: c.r.a, ng: 1 - c.r.ng });
+        if (k.has(pk) && !k.has(nyck(c.r))) {
+          k.add(nyck(c.r));
+          regler.push(`fram${c.p.ng ? '-' : ''}${c.r.ng ? '-' : ''}`);
+          gjort = true;
+          break;
+        }
+        if (k.has(nq) && !k.has(nyck({ a: c.p.a, ng: 1 - c.p.ng }))) {
+          k.add(nyck({ a: c.p.a, ng: 1 - c.p.ng }));
+          regler.push(`bak${c.p.ng ? '-' : ''}${c.r.ng ? '-' : ''}`);
+          gjort = true;
+          break;
+        }
+      }
+      if (!gjort) break;
+    }
+    const mots = [...k].some((x) => k.has(x.replace(/:(\d)$/, (_, d) => `:${1 - d}`)));
+    return { regler, mots };
+  };
+  if (fakta.length) {
+    const r = kor(fakta);
+    if (r.regler.length >= 2 || r.mots) return r.regler.join('>');
+  }
+  // Inga eller för få steg: pröva antagande om varje literal; fall och motsägelse.
+  const ut = [];
+  for (let a = 0; a < 5; a++)
+    for (const ng of [0, 1]) {
+      const r = kor([...fakta, { a, ng }]);
+      if (r.regler.length) ut.push(`${r.mots ? 'mots' : 'anta'}(${r.regler.join('>')})`);
+    }
+  return ut.sort().join('|');
+}
+
+function omsaExakt(t) {
+  let bast = null;
+  for (const perm of permutationer(t.n)) {
+    for (let flip = 0; flip < 1 << t.n; flip++) {
+      const L = (l) => `${perm[l.a]}${((flip >> l.a) & 1) ^ l.ng}`;
+      const rad = t.villkor.map((x) => (x.t === 'lit' ? `l${L(x.l)}` : `${x.t}${L(x.p)}${L(x.r)}`)).sort().join(',');
+      if (bast == null || rad < bast) bast = rad;
+    }
+  }
+  return `om_sa:${t.n}:${bast}`;
+}
+
+/**
+ * Kvantor och D1: premisserna efter namnbyte på termer och individer. Med
+ * sym (den lösa nyckeln) räknas "inga x är y" och "några x är y" lika åt
+ * båda hållen, som de är logiskt.
+ */
+export function premissNyckel(q, sym = false) {
+  const f = q.formell;
+  const prem = q.typ === 'D4' ? f.villkor : f.premisser;
+  const T = f.termer;
+  const I = f.individer ?? [];
+  let bast = null;
+  for (const pt of permutationer(T.length)) {
+    for (const pi of permutationer(Math.max(I.length, 1))) {
+      const tm = (x) => pt[T.indexOf(x)];
+      const im = (x) => pi[I.indexOf(x)];
+      const par = (s) => {
+        const a = tm(s.x);
+        const b = tm(s.y);
+        return sym && (s.typ === 'inga' || s.typ === 'nagra') && b < a ? `${b}:${a}` : `${a}:${b}`;
+      };
+      const rad = prem.map((p) => p.map((s) => (s.i != null ? `${s.typ}:i${im(s.i)}:${tm(s.x)}` : `${s.typ}:${par(s)}`)).sort().join('+')).sort().join(',');
+      if (bast == null || rad < bast) bast = rad;
+    }
+  }
+  return `premiss:${T.length}:${I.length}:${bast}`;
+}
+
+function sanningExakt(q) {
+  const t = tolkaSanning(q);
+  // Påståendets struktur ur texten med namnen bytta mot index.
+  const kod = q.villkor.map((v) => {
+    const r = /^(\S+) säger: ”(.+)”$/.exec(v);
+    return { tal: t.namn.indexOf(r[1]), text: r[2] };
+  });
+  let bast = null;
+  for (const perm of permutationer(t.n)) {
+    const rad = kod
+      .map(({ tal, text }) => {
+        let s = text;
+        // \b räknar inte å, ä och ö som bokstäver, så gränserna skrivs ut.
+        t.namn.forEach((x, i) => (s = s.replace(new RegExp(`(?<![A-Za-zÅÄÖåäö])${x}(?![A-Za-zÅÄÖåäö])`, 'g'), `#${perm[i]}`)));
+        s = s.replace(/^(#\d) och (jag)/, '$2 och $1').replace(/^(#\d) och (#\d)/, (m0, a, b) => (a < b ? m0 : `${b} och ${a}`)).replace(/av (#\d|mig) och (#\d|mig)/, (m0, a, b) => (a < b ? m0 : `av ${b} och ${a}`));
+        return `${perm[tal]}:${s}`;
+      })
+      .sort()
+      .join('|');
+    if (bast == null || rad < bast) bast = rad;
+  }
+  return `sanning:${t.n}:${bast}`;
+}
+function sanningLos(q) {
+  const t = tolkaSanning(q);
+  const slag = q.villkor.map((v) => {
+    const r = /^(\S+) säger: ”(.+)”$/.exec(v);
+    const s = r[2].replace(/(?<![A-Za-zÅÄÖåäö])[A-ZÅÄÖ][a-zåäö]+(?![A-Za-zÅÄÖåäö])/g, (x) => (t.namn.includes(x) ? 'X' : x)).replace(/\b(jag|Jag|mig)\b/g, 'J');
+    return s;
+  });
+  return `sanning:${t.n}:${slag.sort().join('|')}`;
+}
+
+/** Tabell: Weisfeiler-Lehman-hash över personer, värden och villkor (isomorfa pussel får samma hash). */
+function tabellExakt(q) {
+  const f = q.formell;
+  const n = f.namn.length;
+  const noder = [];
+  const kant = [];
+  const P = (p) => p;
+  const V = (k, v) => n + (k === 'A' ? 0 : n) + v;
+  for (let i = 0; i < 3 * n; i++) noder.push(i < n ? 'P' : 'V');
+  for (const c of f.villkor) {
+    const id = noder.length;
+    noder.push(c.typ);
+    const e = (x, lbl) => kant.push([id, x, lbl]);
+    if (c.p != null) e(P(c.p), 'p');
+    if (c.q != null) e(P(c.q), 'p');
+    if (c.v != null && c.kat) e(V(c.kat, c.v), 'v');
+    if (c.w != null && c.kat) e(V(c.kat, c.w), 'v');
+    if (c.typ === 'lank' || c.typ === 'inte_lank') {
+      e(V('A', c.a), 'a');
+      e(V('B', c.b), 'b');
+    }
+  }
+  // Kategorierna kan bytas: A- och B-värden har samma etikett, kanterna a/b likaså.
+  let lab = noder.slice();
+  for (let r = 0; r < 4; r++) {
+    const fore = lab;
+    lab = fore.map((l, i) => {
+      const gr = kant.filter(([a, b]) => a === i || b === i).map(([a, b, x]) => `${x === 'a' || x === 'b' ? 'ab' : x}:${fore[a === i ? b : a]}`).sort().join(',');
+      return hash(`${l}(${gr})`);
+    });
+  }
+  return `tabell:${n}:${f.villkor.length}:${hash(lab.slice().sort().join('|'))}`;
+}
+function hash(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619) >>> 0;
+  return h.toString(16);
+}
+function tabellLos(q) {
+  const f = q.formell;
+  return `tabell:${f.namn.length}:${f.villkor.map((c) => c.typ).sort().join(',')}`;
+}
+
+/** kan_inte: exakt som schemapusslen (villkoren), lös som grafen plus påståendet. */
+function kanInteExakt(q) {
+  return pusselNyckel({ ...q, fraga: 'Vilket kan inte vara sant?' });
+}
+function kanInteLos(q) {
+  const t = tolkaSchema(q);
+  const facit = t.alternativ[q.correctAnswer];
+  // Villkorstyperna som mängd med antal och påståendets typ, utan vilka element
+  // de knyter ihop: fångar pussel där bara ett "inte på plats" har flyttats till
+  // en annan person (granskning omgång 2, punkt 5 till 12).
+  const typer = t.villkor.map((c) => c.typ).sort().join(',');
+  return `kan_inte:${t.grupper ? 'dag' : 'rad'}:${t.n}:${typer}#${facit.typ}`;
+}
+
+/** Nycklarna för en D4-uppgift. */
+export function d4Nycklar(q) {
+  switch (q.family) {
+    case 'om_sa': {
+      const t = tolkaOmsa(q);
+      return { exakt: omsaExakt(t), los: `om_sa:${omsaRegler(t)}` };
+    }
+    case 'kvantor': return { exakt: premissNyckel(q), los: `sym:${premissNyckel(q, true)}` };
+    case 'sanning': return { exakt: sanningExakt(q), los: sanningLos(q) };
+    case 'tabell': return { exakt: tabellExakt(q), los: tabellLos(q) };
+    case 'kan_inte': return { exakt: kanInteExakt(q), los: kanInteLos(q) };
+    default: throw new Error(`okänd D4-familj ${q.family}`);
+  }
+}
+
+/** Den exakta nyckeln för schemapusslen utan antagande (D3:s grundpussel), för jämförelsen med kan_inte. */
+function grundNyckel(q) {
+  if (q.typ !== 'D3') return pusselNyckel(q);
+  const x = { ...q, fraga: 'Vilket måste vara sant?', options: [] };
+  return pusselNyckel({ ...x, typ: 'D2' });
+}
+
+/** Par av nästan-dubbletter bland D4 och mellan D4 och äldre familjer: [a, b, skäl]. */
+export function d4Dubbletter(lista) {
+  const ut = [];
+  const d4 = lista.filter((q) => q.typ === 'D4').map((q) => ({ q, ...d4Nycklar(q) }));
+  for (let i = 0; i < d4.length; i++)
+    for (let j = i + 1; j < d4.length; j++) if (d4[i].exakt === d4[j].exakt) ut.push([d4[i].q, d4[j].q, 'samma villkor med andra namn']);
+  // kvantor mot D1 (premisskedjorna): samma premisser.
+  const d1 = lista.filter((q) => q.typ === 'D1').map((q) => ({ q, k: premissNyckel(q) }));
+  for (const x of d4.filter((y) => y.q.family === 'kvantor')) for (const y of d1) if (x.exakt === y.k) ut.push([x.q, y.q, 'samma premisser som en premisskedja']);
+  // kan_inte mot D2 och D3: samma villkor (frågan räknas inte).
+  const schema = lista.filter((q) => q.typ === 'D2' || q.typ === 'D3').map((q) => ({ q, k: grundNyckel(q) }));
+  for (const x of d4.filter((y) => y.q.family === 'kan_inte')) for (const y of schema) if (x.exakt === y.k) ut.push([x.q, y.q, 'samma villkor som ett schemapussel']);
+  return ut;
+}
+
+/** D4-par med samma lösa nyckel (varnar). */
+export function d4Lika(lista) {
+  const d4 = lista.filter((q) => q.typ === 'D4').map((q) => ({ q, ...d4Nycklar(q) }));
+  const ut = [];
+  for (let i = 0; i < d4.length; i++)
+    for (let j = i + 1; j < d4.length; j++) if (d4[i].exakt !== d4[j].exakt && d4[i].los === d4[j].los) ut.push([d4[i].q, d4[j].q]);
+  // kvantor mot D1 med samma premissformer.
+  const d1 = lista.filter((q) => q.typ === 'D1');
+  for (const x of d4.filter((y) => y.q.family === 'kvantor'))
+    for (const y of d1) if (x.exakt !== premissNyckel(y) && x.los === `sym:${premissNyckel(y, true)}`) ut.push([x.q, y]);
   return ut;
 }
 
@@ -419,7 +936,7 @@ for (const fil of filer) {
     antal++;
     let f;
     try {
-      f = q.typ === 'D1' ? verifieraD1(q) : verifieraSchema(q);
+      f = q.typ === 'D1' ? verifieraD1(q) : q.typ === 'D4' ? verifieraD4(q) : verifieraSchema(q);
     } catch (e) {
       f = [String(e.message ?? e)];
     }
@@ -452,7 +969,8 @@ try {
 console.log(`Nästan-dubbletter: ${dubbletter} med version ${DUBBLETTKONTROLL_FRAN} eller senare. Kända par mellan äldre versioner (${kanda}): ${kandaPar.join(', ') || 'inga'}.`);
 // Varningar: samma villkorstyper och samma lösningsgång med flyttade platser, bland uppgifter som inte är pensionerade.
 try {
-  const varn = lika(alla.filter((q) => !q.pensionerad_fran));
+  const aktiva = alla.filter((q) => !q.pensionerad_fran);
+  const varn = [...lika(aktiva), ...d4Lika(aktiva)];
   const nya = varn.filter(([a, b]) => [a, b].some((q) => (q.fran_version ?? 1) >= DUBBLETTKONTROLL_FRAN));
   console.log(`Varning, samma lösningsgång med flyttade platser: ${varn.length} par, varav ${nya.length} med version ${DUBBLETTKONTROLL_FRAN} eller senare.`);
   for (const [a, b] of nya) console.log(`  VARNING ${a.id} och ${b.id}`);
