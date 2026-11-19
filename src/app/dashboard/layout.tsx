@@ -19,11 +19,12 @@ import type { Viewport } from 'next';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { hamtaSummering } from '@/lib/dashboard/summaryForRequest';
-import type { DashboardSummary } from '@/contexts/DashboardDataContext';
 import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
-import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
+import { PATHNAME_HEADER, SOK_HEADER } from '@/lib/rum/pathname-header';
+import { TRANING_RUTT } from '@/lib/traning/rutter';
+import { skaTillIngangen } from '@/lib/tester/v4/hamta.server';
 import { EPOSTBANNER_AVFARDAD_COOKIE } from '@/components/dashboard/epostbanner-cookie';
 import { OMSTYRNING_SKRIPT } from './profil/omstyrning';
 import { KAMPANJ_STANGD_COOKIE, kampanjNu, visning } from '@/lib/kampanj/kampanj';
@@ -33,6 +34,27 @@ import { kampanjForVisning } from '@/lib/kampanj/kampanj.server';
 async function rumForRequest(): Promise<Rum> {
   const h = await headers();
   return rumForPath(h.get(PATHNAME_HEADER));
+}
+
+/**
+ * Hems omdirigering till ingången (Plan inför provet, ?forsta=1) vid en hel
+ * sidladdning av /dashboard/tester. Sidan ligger i loading.tsx:s
+ * Suspense-gräns, så ett redirect() där kommer först när skalet strömmat:
+ * webbläsaren fick ett 200-svar, laddade det och följde sedan en
+ * meta-refresh, två hela dokument efter varandra (QA 2026-11-19: 2,3-3,2 s
+ * för ett nytt konto). Här, före skalet, blir samma beslut en riktig 307.
+ *
+ * Bara dokumentladdningar av just Hem utan ?visa=hem. Underlaget delas med
+ * sidan (cache()), så det kostar ingen extra läsning. RSC-hämtningar
+ * (klientnavigering, förhämtning) hoppas över; där gör sidan samma kontroll.
+ * Appens sidor under /app har egen layout och påverkas inte.
+ */
+async function hemTillIngangen(userId: string): Promise<boolean> {
+  const h = await headers();
+  if (h.get(PATHNAME_HEADER) !== TRANING_RUTT.hem || h.has('rsc')) return false;
+  if (new URLSearchParams(h.get(SOK_HEADER) ?? '').get('visa') === 'hem') return false;
+  // Ett läsfel får aldrig fälla det inloggade läget; sidan kontrollerar igen.
+  return skaTillIngangen(userId).catch(() => false);
 }
 
 /**
@@ -59,7 +81,14 @@ export default async function DashboardLayout({
   // Går summaryn fel ska det inte ta ner hela det inloggade läget. Skalet
   // renderas ändå och DashboardDataProvider hämtar om på klienten. Svaret
   // delas med sidan i samma request (hamtaSummering är cache()).
-  const initialSummary: DashboardSummary | null = await hamtaSummering(user.id);
+  // Kampanjens profilläsning (nedan) och Hems ingångsbeslut går i samma
+  // omgång, inte efter.
+  const [initialSummary, { kampanj, behorig }, tillIngangen] = await Promise.all([
+    hamtaSummering(user.id),
+    kampanjForVisning(user.id, kampanjNu()),
+    hemTillIngangen(user.id),
+  ]);
+  if (tillIngangen) redirect(`${TRANING_RUTT.installningar}?forsta=1`);
 
   const rum = await rumForRequest();
 
@@ -75,7 +104,7 @@ export default async function DashboardLayout({
   // Kampanjraden (lib/kampanj) avgörs också här: bara under en kampanj, bara
   // för konton som aldrig haft Premium och bara om raden inte stängts för
   // just den kampanjen. Utanför kampanjerna görs ingen extra läsning.
-  const { kampanj, behorig } = await kampanjForVisning(user.id, kampanjNu());
+  // (Läst ovan, i samma omgång som summeringen.)
   const kampanjStangd = kampanj && cookieStore.get(KAMPANJ_STANGD_COOKIE)?.value === kampanj.nyckel;
   const kampanjRad = kampanj && behorig && !kampanjStangd ? visning(kampanj) : null;
   // Betalväggarna i rummen visar kampanjpriset oavsett om raden stängts (K1, K4).

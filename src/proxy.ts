@@ -28,7 +28,7 @@ import {
   buildAttribution,
   serializeAttribution,
 } from '@/lib/analytics/attribution'
-import { PATHNAME_HEADER } from '@/lib/rum/pathname-header'
+import { PATHNAME_HEADER, SOK_HEADER } from '@/lib/rum/pathname-header'
 import { appVag, arAppen, arAppSida, arStripeKassa } from '@/lib/mobilapp/appvag'
 
 /**
@@ -98,8 +98,11 @@ export async function proxy(request: NextRequest) {
   // request-headers) och skrivs alltid över, så den kan inte komma utifrån.
   // 404-omskrivningarna nedan påverkas inte: de byter sida, inte rum.
   request.headers.delete(PATHNAME_HEADER)
+  request.headers.delete(SOK_HEADER)
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
     request.headers.set(PATHNAME_HEADER, request.nextUrl.pathname)
+    // Dashboard-layouten läser ?visa=hem för Hems ingång.
+    request.headers.set(SOK_HEADER, request.nextUrl.search)
   }
 
   // Appens sidor (docs/plan-app.md) nås bara från appskalet.

@@ -23,7 +23,7 @@ import { after } from 'next/server';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { markeraTraningSedd } from '@/lib/traning/getTraningSummary';
 import { TRANING_RUTT } from '@/lib/traning/rutter';
-import { hamtaTesterV4, hamtaUnderlagV4 } from '@/lib/tester/v4/hamta.server';
+import { hamtaTesterV4, hamtaUnderlagV4, ingangForst } from '@/lib/tester/v4/hamta.server';
 import HemVy from '@/components/tester-v4/hem/HemVy';
 import { Betalvagg } from '@/components/traning/HemKlient';
 import type { Scope } from '@/lib/access/features';
@@ -41,9 +41,10 @@ export default async function TraningHem({
 
   const s = underlag.status;
   // Ingången visas bara före första resultatet, även ett grundnivåtest: planen
-  // får aldrig låsa ute Hem för den som redan har testat.
-  const harResultat = underlag.modell.aktivaDagar.length > 0 || data.typer.some((t) => t.niva.status === 'matt');
-  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && !harResultat && underlag.valdeTester && sp.visa !== 'hem') {
+  // får aldrig låsa ute Hem för den som redan har testat. Vid en hel
+  // sidladdning har dashboard-layouten redan gjort omdirigeringen som en 307; här
+  // fångas klientnavigeringen och appens omexport.
+  if (sp.visa !== 'hem' && ingangForst(underlag, data)) {
     redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
 

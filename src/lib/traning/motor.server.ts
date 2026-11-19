@@ -1412,9 +1412,19 @@ export async function hamtaTraningsstatus(args: {
   sedd_at?: string | null;
 }): Promise<Traningsstatus> {
   const idag = args.idag ?? dagSthlm();
-  const [lage, beh] = await Promise.all([lasLage(args.admin, args.userId, idag), lasBehorighet(args.supabase, args.userId)]);
+  // Grundnivåkvoten läses i samma omgång som läget (en räkning, utan svar
+  // vid läsfel) och används bara för gratiskonton; förut kom den sist, i en
+  // egen rundtur efter smakprovet.
+  const [lage, beh, grundIdag] = await Promise.all([
+    lasLage(args.admin, args.userId, idag),
+    lasBehorighet(args.supabase, args.userId),
+    grundnivaIdag(args.admin, args.userId, GRUND_KVOT_TEST_TYPER),
+  ]);
   const betalande = beh.harOvanGrund;
   const format = formatForPlan(lage.plan?.leverantor, lage.plan?.variant);
+  // Smakprovsraden i 1a och T1 (19.3 fråga 3): bara före den första mätningen.
+  // Läses parallellt med märkesregistreringen nedan.
+  const smakprovLas = antalMatningar(lage.slutforda) === 0 && lage.punkter.length === 0 ? lasSmakprov(args.admin, args.userId, idag).catch(() => null) : Promise.resolve(null);
   // Dagarna räknar alla pass, text- och sifferpassen med (beställning omgång 2, B2).
   const allaDagar = allaPassDagar(lage);
   const aktiva = aktivaDagar(allaDagar);
@@ -1445,9 +1455,8 @@ export async function hamtaTraningsstatus(args: {
     !!senaste?.skapad_at && (!args.sedd_at || new Date(senaste.skapad_at).getTime() > new Date(args.sedd_at).getTime());
 
   const familjer = varDuTappar(familjeunderlag(lage));
-  // Smakprovsraden i 1a och T1 (19.3 fråga 3): bara före den första mätningen.
-  const smakprov = antalMatningar(lage.slutforda) === 0 && lage.punkter.length === 0 ? await lasSmakprov(args.admin, args.userId, idag) : null;
-  const grundKvarIdag = betalande ? undefined : Math.max(0, GRUNDNIVA_TEST_PER_DAG - (await grundnivaIdag(args.admin, args.userId, GRUND_KVOT_TEST_TYPER)));
+  const smakprov = await smakprovLas;
+  const grundKvarIdag = betalande ? undefined : Math.max(0, GRUNDNIVA_TEST_PER_DAG - grundIdag);
 
   return {
     idag,

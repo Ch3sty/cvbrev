@@ -299,6 +299,24 @@ export async function hamtaUtvecklingV4(userId: string): Promise<UtvecklingV4Dat
   return byggUtvecklingV4({ ...modell, matrisMonster: familjer && familjer.length ? matrisMonsterUr(familjer) : null });
 }
 
+/**
+ * Ska Hem skicka vidare till ingången (Plan inför provet, ?forsta=1)? Bara
+ * utan plan och utan något resultat, även ett grundnivåtest, och bara för den
+ * som valde tester eller intervju vid registreringen. Delas av Hems sida och
+ * dashboard-layouten, som gör omdirigeringen innan svaret börjar strömma.
+ */
+export function ingangForst(underlag: Awaited<ReturnType<typeof hamtaUnderlagV4>>, data: TesterV4Data): boolean {
+  const s = underlag.status;
+  const harResultat = underlag.modell.aktivaDagar.length > 0 || data.typer.some((t) => t.niva.status === 'matt');
+  return !!s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && !harResultat && underlag.valdeTester;
+}
+
+/** Samma beslut ur databasen, för dashboard-layouten. */
+export async function skaTillIngangen(userId: string): Promise<boolean> {
+  const underlag = await hamtaUnderlagV4(userId);
+  return ingangForst(underlag, byggTesterV4(underlag.modell));
+}
+
 /** För Hems redirect till ingången: registreringens val tester eller intervju. */
 export async function valdeTesterV4(userId: string): Promise<boolean> {
   return (await hamtaUnderlagV4(userId)).valdeTester;
