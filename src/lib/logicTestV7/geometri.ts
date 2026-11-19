@@ -105,6 +105,18 @@ export type Geometri = {
    * kort, kontur kortSw) från mitten, och ett nav i bläck med radien navR.
    */
   klocka: { banaR: number; banaSw: number; banaStreck: string; lang: number; kort: number; kortSw: number; navR: number };
+  /**
+   * Matrisernas grupp (parti 06): ett till nio små tecken (cirkel, kvadrat
+   * eller triangel) på tärningens platser i ett 3 × 3-raster med koordinaterna
+   * lagen. Triangeln som offset från platsens mitt.
+   */
+  grupp: { lagen: [number, number, number]; cirkelR: number; kvadratHalv: number; kvadratRx: number; triangel: Punkt[] };
+  /**
+   * Matrisernas streckfigur (parti 06): åtta streck i en kvadrat med hörnen
+   * ram[0] och ram[1] (fyra sidor, två diagonaler, två mittstreck). Streck som
+   * saknas ritas prickade i ram-grått (refStreck), som orbitalens bana.
+   */
+  streckfigur: { ram: [number, number]; refStreck: string };
   balanceline: {
     linjeY: number;
     linjeX: [number, number];

@@ -1,0 +1,67 @@
+// scripts/befordra-matris-parti-06.mjs
+// =============================================================================
+// Aktiverar matrislogikens parti 06 (2026-11-19, omgång 3) EFTER
+// testansvarigs granskning. Läser beslutsfilen och lägger de godkända
+// kandidaterna ur src/lib/logicTestV7/kandidater/matris-parti-06.v7.json
+// sist i de skarpa V3-filerna, med fran_version: 7:
+//
+//   v7g-b7-*  -> questionBankGrundV3.v7.json
+//   v7a-b7-*  -> questionBankAvanceradV3.v7.json
+//   v7e-b7-*  -> questionBankExpertV3.v7.json
+//
+// Steg 1 (utan --sla-pa) ändrar ingenting för någon användare: frågorna med
+// fran_version 7 är inte valbara i bank_version 3 (klassiska test) eller i
+// TRANINGSVERSION 6 (passen, Nivåkollen, övningsprovet). De finns bara i
+// ALLA_<nivå>, så att rättningen hittar dem när de väl visas.
+// Steg 2 (--sla-pa) höjer TRANINGSVERSION från 6 till 7 i
+// selectQuestions.v7.ts. Pass som redan pågår har sitt urval sparat i meta
+// och påverkas inte, och klassiska test står kvar på BANK_VERSION 3.
+//
+// Kör: node scripts/befordra-matris-parti-06.mjs --beslut=docs/qa/matris-parti-06/beslut.json
+//      ... --sla-pa
+// Beslutsfilen: { "godkanda": ["v7g-b7-klocka-01", ...] }. Ett id som redan
+// finns i en V3-fil skrivs inte två gånger, och ett befordrat id får aldrig
+// byta innehåll.
+// Efteråt: validate-v7-questions, v7-parallel-check, v7-facit-check,
+// v7-distraktor-check --krav=v3 och v7-geometri-check på de tre V3-filerna,
+// samt vitest för logicTestV7 och traning (traningsversion.test.ts klarar
+// version 6 och 7, parti06.test.ts räknar kandidaterna).
+// =============================================================================
+
+import { readFileSync, writeFileSync } from 'node:fs';
+
+const arg = (n) => process.argv.find((a) => a.startsWith(`--${n}=`))?.slice(n.length + 3) ?? null;
+const beslutFil = arg('beslut');
+if (!beslutFil) { console.error('Ange --beslut=<fil> med { "godkanda": [...] }'); process.exit(2); }
+const godkanda = new Set(JSON.parse(readFileSync(beslutFil, 'utf8')).godkanda ?? []);
+
+const D = 'src/lib/logicTestV7';
+const las = (f) => JSON.parse(readFileSync(f, 'utf8'));
+const kandidater = las(`${D}/kandidater/matris-parti-06.v7.json`).filter((q) => godkanda.has(q.id));
+const saknas = [...godkanda].filter((id) => !kandidater.some((q) => q.id === id));
+if (saknas.length) { console.error(`✗ finns inte bland kandidaterna: ${saknas.join(', ')}`); process.exit(1); }
+
+const MAL = { g: `${D}/questionBankGrundV3.v7.json`, a: `${D}/questionBankAvanceradV3.v7.json`, e: `${D}/questionBankExpertV3.v7.json` };
+for (const [n, fil] of Object.entries(MAL)) {
+  const bank = las(fil);
+  const finns = new Map(bank.map((q) => [q.id, q]));
+  let nya = 0;
+  for (const q of kandidater.filter((x) => x.id.startsWith(`v7${n}-b7-`))) {
+    const ut = { ...q, fran_version: 7 };
+    if (finns.has(q.id)) {
+      if (JSON.stringify(finns.get(q.id)) !== JSON.stringify(ut)) { console.error(`✗ ${q.id} finns redan i ${fil} med annat innehåll`); process.exit(1); }
+      continue;
+    }
+    bank.push(ut); nya++;
+  }
+  writeFileSync(fil, JSON.stringify(bank, null, 2) + '\n');
+  console.log(`✓ ${fil}: ${nya} nya`);
+}
+
+if (process.argv.includes('--sla-pa')) {
+  const f = `${D}/selectQuestions.v7.ts`;
+  const text = readFileSync(f, 'utf8');
+  if (!/export const TRANINGSVERSION = 6;/.test(text)) { console.error('✗ hittar inte TRANINGSVERSION = 6'); process.exit(1); }
+  writeFileSync(f, text.replace('export const TRANINGSVERSION = 6;', 'export const TRANINGSVERSION = 7;'));
+  console.log('✓ TRANINGSVERSION = 7');
+}

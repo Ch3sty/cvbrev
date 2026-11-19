@@ -65,8 +65,10 @@ export function ramFel(cell: V7Cell): string[] {
   for (const t of taggar(primitivSvg(cell))) {
     const harRam = t.includes(`"${G.farger.ram}"`);
     const bana = t.startsWith('<circle') && t.includes('stroke-dasharray');
+    // Streckfigurens tomma platser (parti 06): prickade linjer, referens som banan.
+    const prickadLinje = cell.kind === 'streckfigur' && t.startsWith('<line') && t.includes('stroke-dasharray');
     const tomRuta = t.startsWith('<rect') && t.includes('fill="none"');
-    if (harRam && !(bana || tomRuta)) fel.push(`${cell.kind}: ram-grått på ${t}`);
+    if (harRam && !(bana || tomRuta || prickadLinje)) fel.push(`${cell.kind}: ram-grått på ${t}`);
     if ((cell.kind === 'tile' || cell.kind === 'lattice') && tomRuta && !t.includes(`stroke="${G.farger.ram}"`)) {
       fel.push(`${cell.kind}: tom ruta utan ram-grått: ${t}`);
     }
@@ -133,6 +135,9 @@ export function allaPrimitiver(): V7Cell[] {
   ut.push({ kind: 'sectorwheel', filled: [0, 3, 5] });
   // Figurseriernas klocka (parti 5): V2 och V5 prövas också på den.
   ut.push({ kind: 'klocka', lang: 1, kort: 6 }, { kind: 'klocka', lang: 4, kort: 0 });
+  // Matrisernas grupp och streckfigur (parti 06).
+  for (const form of ['circle', 'square', 'triangle'] as const) for (const fill of ['black', 'none'] as const) ut.push({ kind: 'grupp', antal: 9, form, fill });
+  ut.push({ kind: 'streckfigur', streck: [0, 4, 7] }, { kind: 'streckfigur', streck: [] });
   ut.push({ kind: 'balanceline', items: [{ shape: 'square', posX: 0, side: 'above', fill: 'gray' }, { shape: 'circle', posX: 2, side: 'below', fill: 'none' }] });
   return ut;
 }

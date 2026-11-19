@@ -86,6 +86,7 @@ export function tomFigur(cell, q) {
   if (cell.kind === 'tile') return cell.pattern === 0;
   if (cell.kind === 'lattice') return cell.cells.every((x) => x === 'empty');
   if (cell.kind === 'dotsorbit') return cell.dots.length === 0;
+  if (cell.kind === 'streckfigur') return cell.streck.length === 0;
   if (cell.kind === 'orbital') return cell.satellite === null && POS.some(([r, c]) => q.grid[r][c]?.satellite !== null && q.grid[r][c]?.satellite !== undefined);
   return false;
 }

@@ -17,6 +17,8 @@ import type {
   BalanceLineCell,
   DuoCell,
   KlockaCell,
+  GruppCell,
+  StreckfigurCell,
   Quad,
 } from './types.v7';
 import { GEOMETRI } from './geometri';
@@ -100,6 +102,10 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <DuoRenderer cell={cell} />;
     case 'klocka':
       return <KlockaRenderer cell={cell} />;
+    case 'grupp':
+      return <GruppRenderer cell={cell} />;
+    case 'streckfigur':
+      return <StreckfigurRenderer cell={cell} />;
   }
 };
 
@@ -920,6 +926,88 @@ const KlockaRenderer: React.FC<{ cell: KlockaCell }> = ({ cell }) => {
       {visare(cell.kort, K.kort, K.kortSw)}
       {visare(cell.lang, K.lang, SW)}
       <circle cx="50" cy="50" r={K.navR} fill={FILL_BLACK} />
+    </>
+  );
+};
+
+// =============================================================================
+// 16. GRUPP: ett till nio små tecken på tärningens platser (matris parti 06)
+// =============================================================================
+// Platserna i 3 × 3-rastret (rad, kolumn) per antal, som på en tärning, så att
+// antalet går att se utan att räkna ett och ett upp till sex. Svarta tecken är
+// bläck utan kontur, ofyllda har bläckkontur.
+
+/** Tärningens platser per antal, [rad, kolumn] i rastret. */
+export const GRUPP_PLATSER: Record<number, [number, number][]> = {
+  1: [[1, 1]],
+  2: [[0, 0], [2, 2]],
+  3: [[0, 0], [1, 1], [2, 2]],
+  4: [[0, 0], [0, 2], [2, 0], [2, 2]],
+  5: [[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]],
+  6: [[0, 0], [1, 0], [2, 0], [0, 2], [1, 2], [2, 2]],
+  7: [[0, 0], [1, 0], [2, 0], [1, 1], [0, 2], [1, 2], [2, 2]],
+  8: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]],
+  9: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]],
+};
+
+const GruppRenderer: React.FC<{ cell: GruppCell }> = ({ cell }) => {
+  const P = G.grupp;
+  const svart = cell.fill === 'black';
+  const fill = svart ? FILL_BLACK : FILL_NONE;
+  const stroke = svart ? 'none' : STROKE;
+  const platser = GRUPP_PLATSER[cell.antal] ?? [];
+  return (
+    <>
+      {platser.map(([rad, kol], i) => {
+        const x = P.lagen[kol];
+        const y = P.lagen[rad];
+        if (cell.form === 'circle') return <circle key={i} cx={x} cy={y} r={P.cirkelR} fill={fill} stroke={stroke} strokeWidth={SW} />;
+        if (cell.form === 'square') {
+          const h = P.kvadratHalv;
+          return <rect key={i} x={x - h} y={y - h} width={2 * h} height={2 * h} rx={P.kvadratRx} fill={fill} stroke={stroke} strokeWidth={SW} />;
+        }
+        return <path key={i} d={bana(P.triangel.map(([dx, dy]) => [x + dx, y + dy] as [number, number]))} fill={fill} stroke={stroke} strokeWidth={SW} strokeLinejoin="round" />;
+      })}
+    </>
+  );
+};
+
+// =============================================================================
+// 17. STRECKFIGUR: åtta möjliga streck i en kvadrat (matris parti 06)
+// =============================================================================
+// Strecken som finns är bläck. De som saknas är referens och ritas prickade i
+// ram-grått (som orbitalens bana), först, så att bläcket ligger överst där
+// strecken möts.
+
+/** Strecken 0 till 7 som [x1, y1, x2, y2] i kvadraten [a, b]. */
+export const streckfigurLinjer = (a: number, b: number): [number, number, number, number][] => {
+  const m = (a + b) / 2;
+  return [
+    [a, a, b, a], // 0 översta sidan
+    [b, a, b, b], // 1 högra sidan
+    [a, b, b, b], // 2 nedersta sidan
+    [a, a, a, b], // 3 vänstra sidan
+    [a, a, b, b], // 4 diagonalen från övre vänstra hörnet
+    [b, a, a, b], // 5 diagonalen från övre högra hörnet
+    [m, a, m, b], // 6 lodräta mittstrecket
+    [a, m, b, m], // 7 vågräta mittstrecket
+  ];
+};
+
+const StreckfigurRenderer: React.FC<{ cell: StreckfigurCell }> = ({ cell }) => {
+  const S = G.streckfigur;
+  const linjer = streckfigurLinjer(S.ram[0], S.ram[1]);
+  const finns = new Set(cell.streck);
+  return (
+    <>
+      {linjer.map(([x1, y1, x2, y2], i) =>
+        finns.has(i) ? null : (
+          <line key={`r${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke={RAM} strokeWidth={SW_RAM} strokeDasharray={S.refStreck} strokeLinecap="round" />
+        )
+      )}
+      {linjer.map(([x1, y1, x2, y2], i) =>
+        finns.has(i) ? <line key={`s${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" /> : null
+      )}
     </>
   );
 };

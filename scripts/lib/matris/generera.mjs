@@ -18,6 +18,7 @@ import { misstagFor, urvalsText } from './misstag.mjs';
 import { tolka, familjFor } from './tolka.mjs';
 import { analysera, plusFel, tomFigur, facitUdda, eliminerbara } from './distraktorer.mjs';
 import { radvisRotation, radvisBlock, radvis2x2, radvisBalans, antalEgenRiktning, dubbelOverlagring } from './generera-v3.mjs';
+import { klockaRegler, gruppRakna, streckOverlagring, streckTillagg } from './generera-parti06.mjs';
 import { sparrFel, dimNyckel, utseendeNyckel, s11Majoritet, s11Rostning, delarRader } from './sparrar.mjs';
 
 export const key = (c) => stable(c);
@@ -881,7 +882,7 @@ export function mjukNyckel(q, medVarden = true) {
 // =============================================================================
 // Bygg en färdig fråga ur ett recept.
 // =============================================================================
-const BYGGARE = { pilVridning, stralVridning, tileRotation, sektorRotation, latticeMonster, latticeVandring, orbitalVandring, pilMedByte, orbitalMedByte, latticeTvaVandrare, balansRegel, latinAntal, latinForm, latinFlera, overlagring, spegling, antalSekvens, antalSumma, latinTrippelStack, latinTrippelPil, overlagringVriden, radvisRotation, radvisBlock, radvis2x2, radvisBalans, antalEgenRiktning, dubbelOverlagring };
+const BYGGARE = { pilVridning, stralVridning, tileRotation, sektorRotation, latticeMonster, latticeVandring, orbitalVandring, pilMedByte, orbitalMedByte, latticeTvaVandrare, balansRegel, latinAntal, latinForm, latinFlera, overlagring, spegling, antalSekvens, antalSumma, latinTrippelStack, latinTrippelPil, overlagringVriden, radvisRotation, radvisBlock, radvis2x2, radvisBalans, antalEgenRiktning, dubbelOverlagring, klockaRegler, gruppRakna, streckOverlagring, streckTillagg };
 export { BYGGARE };
 
 // =============================================================================

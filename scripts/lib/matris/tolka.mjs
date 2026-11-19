@@ -19,7 +19,7 @@
 
 import { dimsFor, rotera, spegelbilder, element, vKey, mod, tile, LAT_MEDURS } from './celler.mjs';
 
-const ORDNING = ['konstant', 'spegling', 'overlagring', 'overlagring-vriden', 'rot-steg', 'rot-kumulativ', 'rad-steg', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'rad-aritm', 'antal-steg', 'periodisk'];
+const ORDNING = ['konstant', 'spegling', 'overlagring', 'overlagring-vriden', 'rot-steg', 'rot-kumulativ', 'rad-steg', 'latin', 'rad', 'kolumn', 'diagonal', 'summa', 'rad-aritm', 'antal-steg', 'periodisk', 'differens', 'tillagg'];
 const LASORDNING = ['rot-steg', 'rot-kumulativ', 'periodisk', 'antal-steg'];
 
 // Ringar kan läsas på två sätt: antal + innersta + yttre, eller som en
@@ -222,6 +222,33 @@ function reglerFor(dim, V, seq, kind) {
     if ([0, 1].every((r) => V[r][0] + V[r][1] === V[r][2])) add('summa', V[2][0] + V[2][1], { axel: 'kolumn' });
     if ([0, 1].every((c) => V[0][c] + V[1][c] === V[2][c])) add('summa', V[0][2] + V[1][2], { axel: 'rad' });
   }
+  // Parti 06, bara gruppens antal: skillnad per rad (tredje = första minus
+  // andra) eller per kolumn (nedersta = översta minus mittersta).
+  if (dim.antal && dim.grupp && !harNull) {
+    if ([0, 1].every((r) => V[r][0] - V[r][1] === V[r][2])) add('differens', V[2][0] - V[2][1], { axel: 'kolumn' });
+    if ([0, 1].every((c) => V[0][c] - V[1][c] === V[2][c])) add('differens', V[0][2] - V[1][2], { axel: 'rad' });
+  }
+  // Parti 06, bara streckfiguren: samma streck läggs till eller tas bort i
+  // varje rad (axel 'rad', åt höger) eller kolumn (axel 'kolumn', nedåt).
+  // Steget från första till andra rutan är detsamma i alla tre linjerna, och
+  // steget från andra till tredje detsamma i de två första; luckan får det.
+  if (dim.segment && !harNull) {
+    for (const axel of ['rad', 'kolumn']) {
+      const at = (i, j) => (axel === 'rad' ? V[i][j] : V[j][i]);
+      const steg = (a, b) => ({ plus: b.filter((x) => !a.includes(x)), minus: a.filter((x) => !b.includes(x)) });
+      const s0 = [0, 1, 2].map((i) => steg(at(i, 0), at(i, 1)));
+      const s1 = [0, 1].map((i) => steg(at(i, 1), at(i, 2)));
+      const samma = (l) => l.every((x) => vKey(x) === vKey(l[0]));
+      const nagot = (x) => x.plus.length + x.minus.length > 0;
+      if (samma(s0) && samma(s1) && nagot(s0[0]) && nagot(s1[0])) {
+        const bas = at(2, 1);
+        if (s1[0].minus.some((x) => !bas.includes(x)) || s1[0].plus.some((x) => bas.includes(x))) continue;
+        const pred = [...bas.filter((x) => !s1[0].minus.includes(x)), ...s1[0].plus].sort((a, b) => a - b);
+        // d: stegens storlek, så att utseendet (S8, S10) skiljer på dem.
+        add('tillagg', pred, { axel, steg0: s0[0], steg1: s1[0], d: `${s0[0].plus.length}-${s0[0].minus.length}/${s1[0].plus.length}-${s1[0].minus.length}` });
+      }
+    }
+  }
 
   // Överlagring med vridning räknas bara när ingen enklare regel förklarar
   // de synliga rutorna. En vridning i läsordning är till exempel alltid också
@@ -298,6 +325,8 @@ const RORELSE_REGLER = new Set(['rot-steg', 'rot-kumulativ', 'rad-steg']);
  * rörelsen: rotation med byte. Annars efter primitiven, som i läsordningen.
  */
 function familjRadvis(q, t, aktiva) {
+  // Klockan (parti 06): två visare som båda bär en regel är två rörelser.
+  if (t.kind === 'klocka') return aktiva.length >= 2 ? 'tva-rorelser' : 'vridning';
   const rs = aktiva.filter((r) => r.regel === 'rad-steg');
   const ovr = aktiva.filter((r) => r.regel !== 'rad-steg');
   const sammaSteg = rs.every((r) => r.info.k === rs[0].info.k && r.info.vaxlar === rs[0].info.vaxlar);
@@ -319,7 +348,7 @@ export function familjFor(q, t = tolka(q)) {
   const regler = new Set(aktiva.map((r) => r.regel));
   if (regler.has('spegling')) return 'spegling';
   if (regler.has('overlagring') || regler.has('overlagring-vriden')) return 'overlagring';
-  if (regler.has('summa') || regler.has('rad-aritm')) return 'antal-andras';
+  if (regler.has('summa') || regler.has('rad-aritm') || regler.has('differens') || regler.has('tillagg')) return 'antal-andras';
   if (t.kind === 'balanceline') return 'tva-rorelser';
   if (regler.has('rad-steg')) return familjRadvis(q, t, aktiva);
   // Minst två regler varav en latinsk kvadrat, och de övriga är latinska

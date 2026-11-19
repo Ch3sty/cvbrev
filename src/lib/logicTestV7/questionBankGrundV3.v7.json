@@ -16251,5 +16251,1426 @@
       "",
       "Strecken har inte vridit sig sista steget."
     ]
+  },
+  {
+    "id": "v7g-b7-klocka-02",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 90 grader moturs för varje steg åt höger i raden. Varje rad börjar 135 grader medurs jämfört med raden ovanför. Den korta visaren pekar åt höger i hörnen och i mitten och snett uppåt höger i de andra rutorna, som ett schackmönster.",
+    "difficulty": 2,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.65,
+    "recept": "K-schack",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren pekar åt ett håll som inte finns i matrisen.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har inte växlat riktning. Den pekar åt höger i hörnen och i mitten.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte växlat riktning. Den pekar åt höger i hörnen och i mitten."
+    ]
+  },
+  {
+    "id": "v7g-b7-klocka-10",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren pekar uppåt i hörnen och i mitten och snett uppåt vänster i de andra rutorna, som ett schackmönster. Den korta visaren vrider sig 90 grader medurs för varje steg åt höger i raden. Varje rad börjar 45 grader moturs jämfört med raden ovanför.",
+    "difficulty": 2,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.65,
+    "recept": "K-schack",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten. Den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-01",
+    "title": "Figurerna läggs ihop",
+    "rule": "I varje rad har den tredje rutan lika många figurer som de två första tillsammans. Figurerna är alltid svarta trianglar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.65,
+    "recept": "G-summa",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "En figur för lite.",
+      "",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Antalen är dragna från varandra i stället för ihoplagda."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-03",
+    "title": "Antalet ändras lika mycket varje steg",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i raden. Figurerna är alltid ofyllda trianglar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.65,
+    "recept": "G-steg",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "En figur för lite.",
+      "Antalet figurer har inte ändrats sista steget.",
+      "",
+      "Antalet figurer har ändrats åt fel håll.",
+      "Samma som rutan ovanför."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-05",
+    "title": "Antalet ändras lika mycket varje steg",
+    "rule": "Antalet figurer ökar med tre för varje steg åt höger i raden. Figurerna är alltid svarta cirklar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.65,
+    "recept": "G-steg",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "",
+      "En figur för lite.",
+      "Antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer har ändrats åt fel håll.",
+      "Samma som rutan ovanför."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-01",
+    "title": "Strecken läggs ihop",
+    "rule": "Den tredje rutan i varje rad har alla streck som finns i den första eller den andra rutan.",
+    "difficulty": 2,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.65,
+    "recept": "S-overlagring",
+    "fran_version": 7,
+    "misstag": [
+      "Tar bort det som finns i båda. Allt ska med.",
+      "Visar bara det gemensamma. Allt ska med.",
+      "Fyra streck saknas: den högra sidan, diagonalen från övre vänstra hörnet, det lodräta mittstrecket och det vågräta mittstrecket.",
+      "Fyra streck saknas: den högra sidan, den vänstra sidan, det lodräta mittstrecket och det vågräta mittstrecket.",
+      "Kopierar den första rutan i raden.",
+      ""
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-02",
+    "title": "Bara de gemensamma strecken",
+    "rule": "Den nedersta rutan i varje kolumn har bara de streck som finns i både den översta och den mittersta rutan.",
+    "difficulty": 2,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-overlagring",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Tar med allt. Bara det som finns i båda ska med.",
+      "Visar det som skiljer. Bara det som finns i båda ska med.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Kopierar den mittersta rutan i kolumnen.",
+      "Den översta sidan ska inte vara med."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-03",
+    "title": "Figuren byggs upp streck för streck",
+    "rule": "Från den första till den andra rutan läggs ett streck till, och från den andra till den tredje läggs ett annat streck till. Det är samma streck i alla tre raderna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.65,
+    "recept": "S-bygg",
+    "fran_version": 7,
+    "misstag": [
+      "Strecket i sista steget har inte lagts till.",
+      "Två streck saknas: den högra sidan och diagonalen från övre vänstra hörnet.",
+      "",
+      "Den översta sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Den nedersta sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Diagonalen från övre högra hörnet är med i stället för diagonalen från övre vänstra hörnet."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-06",
+    "title": "Figuren byggs upp streck för streck",
+    "rule": "Från den översta till den mittersta rutan läggs ett streck till, och från den mittersta till den nedersta läggs två andra streck till. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-bygg",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Två streck saknas: den vänstra sidan och diagonalen från övre högra hörnet.",
+      "Tre streck saknas: den vänstra sidan, diagonalen från övre vänstra hörnet och diagonalen från övre högra hörnet.",
+      "Den översta sidan är med i stället för den vänstra sidan.",
+      "Det lodräta mittstrecket är med i stället för den vänstra sidan.",
+      "Det vågräta mittstrecket är med i stället för den vänstra sidan."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-08",
+    "title": "Figuren plockas isär streck för streck",
+    "rule": "Från den första till den andra rutan tas ett streck bort, och från den andra till den tredje tas två andra streck bort. Det är samma streck i alla tre raderna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-riv",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Strecken i sista steget har inte tagits bort.",
+      "Tre streck för mycket: den nedersta sidan, diagonalen från övre vänstra hörnet och det lodräta mittstrecket.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den högra sidan.",
+      "Den nedersta sidan är med i stället för den högra sidan.",
+      "Den översta sidan ska inte vara med."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-10",
+    "title": "Figuren plockas isär streck för streck",
+    "rule": "Från den översta till den mittersta rutan tas två streck bort, och från den mittersta till den nedersta tas två andra streck bort. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.65,
+    "recept": "S-riv",
+    "fran_version": 7,
+    "misstag": [
+      "Två streck för mycket: den vänstra sidan och diagonalen från övre vänstra hörnet.",
+      "Fyra streck för mycket: den nedersta sidan, den vänstra sidan, diagonalen från övre vänstra hörnet och det lodräta mittstrecket.",
+      "Den vänstra sidan är med i stället för den översta sidan.",
+      "Den vänstra sidan är med i stället för den högra sidan.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den översta sidan.",
+      ""
+    ]
   }
 ]

@@ -8198,5 +8198,1775 @@
       "",
       "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat."
     ]
+  },
+  {
+    "id": "v7e-b7-klocka-01",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-02",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 90 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 45 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-03",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 90 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 0
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt fel håll.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren har vridit sig åt fel håll. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-04",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 45 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt fel håll.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt fel håll. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-05",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 45 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 5
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-06",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 90 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 4
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren och den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-07",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren pekar åt höger, snett nedåt vänster eller nedåt, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 4
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt vänster.",
+      "Den långa visaren har inte vridit sig sista steget. Tredje raden och tredje kolumnen har redan en kort visare som pekar nedåt.",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt vänster.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar nedåt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-08",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 90 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren pekar åt vänster, snett nedåt höger eller nedåt, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 3
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger.",
+      "",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-09",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren pekar åt höger, snett nedåt vänster eller snett nedåt höger, och varje riktning finns en gång i varje rad och en gång i varje kolumn. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar åt höger.",
+      "",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar åt höger. Den korta visaren har inte vridit sig sista steget.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-10",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket moturs i mittkolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 2
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Den korta visaren har inte vridit sig sista steget.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-11",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket moturs i mittkolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har vridit sig ett steg för långt.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-12",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader moturs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket medurs i mittkolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittkolumnen. Kolumnerna växlar riktning.",
+      "Den långa visaren och den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittkolumnen. Kolumnerna växlar riktning. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-01",
+    "title": "Figurerna läggs ihop, och formen och fyllningen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är svarta i hörnen och i mitten och ofyllda i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Antalet figurer stämmer, men fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "En figur för lite. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "En figur för lite. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för lite. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-02",
+    "title": "Figurerna läggs ihop, och formen och fyllningen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda, de andra svarta.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för mycket. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "",
+      "En figur för lite. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för lite. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-05",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i den första och den tredje raden, och minskar lika mycket i mittraden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är ofyllda i hörnen och i mitten och svarta i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-06",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i den första och den tredje raden, och minskar lika mycket i mittraden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta, de andra ofyllda.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "Antalet figurer stämmer, men figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta.",
+      "Antalet figurer har inte ändrats sista steget. Tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "",
+      "Antalet figurer har inte ändrats sista steget. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta.",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Antalet figurer har inte ändrats sista steget. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-07",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer minskar med ett för varje steg nedåt i den första och den tredje kolumnen, och ökar lika mycket i mittkolumnen. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är svarta i hörnen och i mitten och ofyllda i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "Antalet figurer har inte ändrats sista steget. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Antalet figurer har inte ändrats sista steget. Fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
   }
 ]

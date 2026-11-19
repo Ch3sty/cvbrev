@@ -13,7 +13,7 @@
 // inte vad hon tänkte.
 // =============================================================================
 
-import { rotera, spegelbilder, element, vKey, mod, vardeNamn, konstantText, saknasText, LAT_NAMN, lattice as LAT } from './celler.mjs';
+import { rotera, spegelbilder, element, vKey, mod, vardeNamn, konstantText, saknasText, LAT_NAMN, lattice as LAT, STRECK_NAMN, PIL8 } from './celler.mjs';
 import { tolka, tolkaVy, OPS, POS } from './tolka.mjs';
 
 const lika = (a, b) => vKey(a) === vKey(b);
@@ -23,7 +23,9 @@ const ETT_ORD = new Set(['streck', 'kryss']);
 const artikel = (sing) => (ETT_ORD.has(sing.split(' ').pop()) ? 'Ett' : 'En');
 
 // Hur en dimension säger "alla har/är".
-const PRED = { fyllning: 'är', basfyll: 'är', sidor: 'är', bas: 'är', riktning: 'är', symbol: 'har-en', antal: 'har', ringantal: 'har', stralar: 'har', sektorer: 'har', inre: 'inre', satellit: 'har-pl', polyrot: 'är' };
+const PRED = { fyllning: 'är', basfyll: 'är', sidor: 'är', bas: 'är', riktning: 'är', symbol: 'har-en', antal: 'har', ringantal: 'har', stralar: 'har', sektorer: 'har', inre: 'inre', satellit: 'har-pl', polyrot: 'är', gruppform: 'är', gruppfyll: 'är', gruppantal: 'har' };
+// Det som räknas i en räknedimension: ringar, gruppens figurer (parti 06) eller streck.
+const elFor = (dim) => (dim.id === 'ringantal' ? 'ring' : dim.id === 'gruppantal' ? 'figur' : 'streck');
 
 function allaText(scope, cellMedV, dimId) {
   const n = vardeNamn(cellMedV, dimId);
@@ -123,6 +125,16 @@ function textMangd(dim, R, F, seq) {
   const sF = new Set(eF);
   const ext = eF.filter((x) => !sR.has(x));
   const sak = eR.filter((x) => !sF.has(x));
+  // Streckfiguren (parti 06): säg vilket streck.
+  if (dim.segment) {
+    const N = (x) => STRECK_NAMN[Number(x)];
+    if (ext.length === 1 && sak.length === 0) return `${stor(N(ext[0]))} ska inte vara med.`;
+    if (sak.length === 1 && ext.length === 0) return `${stor(N(sak[0]))} saknas.`;
+    if (ext.length === 1 && sak.length === 1) return `${stor(N(ext[0]))} är med i stället för ${N(sak[0])}.`;
+    if (ext.length >= 2 && sak.length === 0 && TAL_STOR[ext.length]) return `${TAL_STOR[ext.length]} streck för mycket: ${lista(ext.map(N))}.`;
+    if (sak.length >= 2 && ext.length === 0 && TAL_STOR[sak.length]) return `${TAL_STOR[sak.length]} streck saknas: ${lista(sak.map(N))}.`;
+    return null;
+  }
   // 3×3 och 2×2 med svarta rutor: säg vilken ruta (15.7).
   const nExt = rutnamn(dim, ext);
   const nSak = rutnamn(dim, sak);
@@ -144,6 +156,11 @@ function textMangd(dim, R, F, seq) {
 function textPeriodisk(q, t, R, F, regel) {
   const dim = regel.dim;
   const seq = seqFor(q, t, dim.id);
+  // Klockans visare i schackmönster (parti 06): visaren växlar riktning, den vrids inte.
+  if (dim.klocka && regel.info.p === 2) {
+    if (seq.some((v) => lika(v, F))) return `${dim.subj} har inte växlat riktning. Den pekar ${PIL8[R]} i hörnen och i mitten.`;
+    return `${dim.subj} pekar åt ett håll som inte finns i matrisen.`;
+  }
   const storlekar = (dim.mangd || dim.tile) ? new Set(seq.map((v) => element(dim, v).length)) : null;
   if (storlekar && storlekar.size > 1) {
     // en mängd som växer eller krymper: räkna, inte vrid
@@ -160,14 +177,14 @@ function textPeriodisk(q, t, R, F, regel) {
     if (r) return r;
   }
   if (dim.antal && typeof F === 'number' && typeof R === 'number') {
-    const el = dim.id === 'ringantal' ? ['ring', 'ringar'] : ['streck', 'streck'];
+    const el = [elFor(dim)];
     if (lika(F, seq[7])) return `${stor(dim.namn)} har inte ändrats sista steget.`;
     if (F === R + 1) return `${artikel(el[0])} ${el[0]} för mycket.`;
     if (F === R - 1) return `${artikel(el[0])} ${el[0]} för lite.`;
     if (lika(F, seq[6])) return `${stor(dim.namn)} har ändrats åt fel håll.`;
     return null;
   }
-  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.', basfyll: 'Fyllningen har inte växlat mellan ofylld och grå.', symbol: 'Symbolen har inte växlat.' };
+  const VAXLAR = { spets: 'Spetsen har inte växlat mellan fylld och öppen.', langd: 'Längden har inte växlat mellan lång och kort.', mitt: 'Mittpunkten har inte växlat fyllning.', riktning: 'Strecken har inte växlat riktning.', basfyll: 'Fyllningen har inte växlat mellan ofylld och grå.', symbol: 'Symbolen har inte växlat.', gruppfyll: 'Fyllningen har inte växlat mellan svart och ofylld.', gruppform: 'Formen har inte växlat.' };
   if (lika(F, seq[7])) return regel.info.p === 2 ? (VAXLAR[dim.id] ?? `${stor(dim.namn)} har inte bytt.`) : `${stor(dim.namn)} har inte ändrats sista steget.`;
   if (!seq.some((v) => lika(v, F))) {
     const n = vardeNamn(cellMed(q, t, dim.id, F), dim.id);
@@ -235,6 +252,9 @@ function textRadKolumn(q, t, R, F, regel) {
     if (dim.id === 'spets') return `Pilarna ${D} har ${R === 'open' ? 'öppen' : 'fylld'} spets.`;
     if (dim.id === 'langd') return `Pilarna ${D} är ${R === 'long' ? 'långa' : 'korta'}.`;
     if (dim.id === 'mitt') return `Mittpunkten är ${R === 'filled' ? 'fylld' : 'ofylld'} ${D}.`;
+    if (dim.id === 'gruppfyll') return `Figurerna ${D} är ${R === 'black' ? 'svarta' : 'ofyllda'}.`;
+    if (dim.klocka) return `${dim.subj} pekar ${PIL8[R]} ${D}.`;
+    if (dim.id === 'gruppform') { const n = vardeNamn(cell, dim.id); return n ? `Figurerna ${D} är ${n.pl}.` : null; }
     const n = vardeNamn(cell, dim.id);
     return n ? `Rutorna på diagonalen från övre vänstra hörnet har ${n.en}.` : null;
   }
@@ -333,11 +353,50 @@ function textSpegling(q, t, R, F, regel) {
   return textMangd(dim, R, F, null);
 }
 
+// Skillnad (parti 06, gruppens antal): tredje rutan är första minus andra.
+function textDifferens(q, t, R, F, regel) {
+  const dim = regel.dim;
+  const V = gridV(q, t, dim.id);
+  const [A, B] = regel.info.axel === 'kolumn' ? [V[2][0], V[2][1]] : [V[0][2], V[1][2]];
+  const el = elFor(dim);
+  if (F === A + B) return 'Antalen är ihoplagda i stället för dragna från varandra.';
+  if (F === A || F === B) return 'Antalet är taget från bara en av rutorna. Den andra ska dras ifrån.';
+  const ovanfor = regel.info.axel === 'kolumn' ? V[1][2] : V[2][1];
+  if (F === ovanfor && F !== R + 1 && F !== R - 1) return regel.info.axel === 'kolumn' ? 'Antalet är detsamma som i rutan ovanför. Räkna på raden i stället.' : 'Antalet är detsamma som i rutan till vänster. Räkna på kolumnen i stället.';
+  if (F === R + 1) return `${artikel(el)} ${el} för mycket.`;
+  if (F === R - 1) return `${artikel(el)} ${el} för lite.`;
+  return null;
+}
+
+// Streck som läggs till eller tas bort (parti 06, streckfiguren).
+function textTillagg(q, t, R, F, regel) {
+  const dim = regel.dim;
+  const V = gridV(q, t, dim.id);
+  const { axel, steg1 } = regel.info;
+  const fore = axel === 'rad' ? V[2][1] : V[1][2];
+  if (lika(F, fore)) {
+    if (steg1.plus.length && !steg1.minus.length) return `${steg1.plus.length === 1 ? 'Strecket' : 'Strecken'} i sista steget har inte lagts till.`;
+    if (steg1.minus.length && !steg1.plus.length) return `${steg1.minus.length === 1 ? 'Strecket' : 'Strecken'} i sista steget har inte tagits bort.`;
+    return 'Sista steget saknas. Figuren är densamma som i rutan före.';
+  }
+  return textMangd({ ...dim, mangd: true }, R, F, null);
+}
+
 function textSumma(q, t, R, F, regel) {
   const dim = regel.dim;
   const V = gridV(q, t, dim.id);
   const [A, B] = regel.info.axel === 'kolumn' ? [V[2][0], V[2][1]] : [V[0][2], V[1][2]];
-  const el = dim.id === 'ringantal' ? 'ring' : 'streck';
+  const el = elFor(dim);
+  // Gruppen (parti 06): meningar med subjekt, så att de går att sätta efter "Formen stämmer, men".
+  if (dim.grupp) {
+    if (F === A || F === B) return 'Antalet är taget från bara en av rutorna. Båda ska räknas ihop.';
+    if (F === Math.abs(A - B)) return 'Antalen är dragna från varandra i stället för ihoplagda.';
+    const ovanfor = regel.info.axel === 'kolumn' ? V[1][2] : V[2][1];
+    if (F === ovanfor && F !== R + 1 && F !== R - 1) return regel.info.axel === 'kolumn' ? 'Antalet är detsamma som i rutan ovanför. Räkna ihop raden i stället.' : 'Antalet är detsamma som i rutan till vänster. Räkna ihop kolumnen i stället.';
+    if (F === R + 1) return 'En figur för mycket.';
+    if (F === R - 1) return 'En figur för lite.';
+    return null;
+  }
   if (F === A || F === B) return 'Tar bara med en av rutorna. Antalen ska läggas ihop.';
   if (F === Math.abs(A - B)) return 'Drar ifrån i stället för att lägga ihop.';
   const ovanfor = regel.info.axel === 'kolumn' ? V[1][2] : V[2][1];
@@ -369,21 +428,22 @@ function textFor(q, t, dimId, F) {
     case 'konstant': return textKonstant(q, t, R, F, regel);
     case 'rot-steg': case 'rot-kumulativ': case 'rad-steg': return textRotation(q, t, R, F, regel);
     case 'rad-aritm': {
-      const el = dim.id === 'ringantal' ? 'ring' : 'streck';
+      const el = elFor(dim);
       const V = gridV(q, t, dim.id);
       const kol = regel.info.axel === 'kolumn';
       const senast = kol ? V[1][2] : V[2][1];
       if (F === senast) return `${stor(dim.namn)} har inte ändrats sista steget.`;
       if (F === R + 1) return `${artikel(el)} ${el} för mycket.`;
       if (F === R - 1) return `${artikel(el)} ${el} för lite.`;
-      if (F === senast - regel.info.d) return regel.info.vaxlar ? `${stor(dim.namn)} har ändrats åt samma håll som i mittraden. Raderna växlar riktning.` : `${stor(dim.namn)} har ändrats åt fel håll.`;
+      // Kolumnvis växling (granskningen av parti 06): mittkolumnen går åt andra hållet.
+      if (F === senast - regel.info.d) return regel.info.vaxlar ? (kol ? `${stor(dim.namn)} har ändrats åt samma håll som i mittkolumnen. Kolumnerna växlar riktning.` : `${stor(dim.namn)} har ändrats åt samma håll som i mittraden. Raderna växlar riktning.`) : `${stor(dim.namn)} har ändrats åt fel håll.`;
       return null;
     }
     case 'periodisk':
       if (dim.balans && dim.sida) return textBalansSida(q, t, R, F, regel);
       return textPeriodisk(q, t, R, F, regel);
     case 'antal-steg': {
-      const el = dim.id === 'ringantal' ? 'ring' : 'streck';
+      const el = elFor(dim);
       if (F === R + 1) return `${artikel(el)} ${el} för mycket.`;
       if (F === R - 1) return `${artikel(el)} ${el} för lite.`;
       return null;
@@ -396,6 +456,8 @@ function textFor(q, t, dimId, F) {
     case 'overlagring-vriden': return textOverlagringVriden(q, t, R, F, regel);
     case 'spegling': return textSpegling(q, t, R, F, regel);
     case 'summa': return textSumma(q, t, R, F, regel);
+    case 'differens': return textDifferens(q, t, R, F, regel);
+    case 'tillagg': return textTillagg(q, t, R, F, regel);
     default: return null;
   }
 }
@@ -405,7 +467,7 @@ function slaIhop(a, b) {
   const latin = /^(Tredje raden och tredje kolumnen har redan|Tredje raden har redan|Tredje kolumnen har redan) (.+)\.$/;
   const ma = a.match(latin); const mb = b.match(latin);
   if (ma && mb && ma[1] === mb[1]) return `${ma[1]} ${ma[2]} och ${mb[2]}.`;
-  const SUBJ = /^(Den svarta rutan|Den grå rutan|De svarta rutorna|De grå rutorna|Pricken|Krysset|Kvadraten|Cirkeln|Pilen|Mönstret|Strecken|Längden|Spetsen|Mittpunkten) (.+)$/;
+  const SUBJ = /^(Den svarta rutan|Den grå rutan|De svarta rutorna|De grå rutorna|Pricken|Krysset|Kvadraten|Cirkeln|Pilen|Mönstret|Strecken|Längden|Spetsen|Mittpunkten|Den långa visaren|Den korta visaren) (.+)$/;
   const sa = a.match(SUBJ); const sb = b.match(SUBJ);
   if (sa && sb && sa[2] === sb[2] && sa[1] !== sb[1]) return `${sa[1]} och ${liten(sb[1])} ${sa[2]}`;
   if (sa && sb && sa[1] === sb[1]) return `${a.slice(0, -1)} och ${sb[2]}`;
@@ -417,6 +479,7 @@ function rattNamn(regel) {
   const d = regel.dim;
   if (d.balans) return null;
   if (regel.regel === 'overlagring-vriden') return null; // "Vridningen stämmer, men" sätts i textOverlagringVriden
+  if (d.klocka) return d.namn; // klockan (parti 06): två vridningar, säg vilken visare som stämmer
   if (d.typ === 'rot' && (d.verb === 'vridit sig')) return 'vridningen';
   if (d.typ === 'rot') return 'läget';
   if (d.id.startsWith('lat-')) return null;

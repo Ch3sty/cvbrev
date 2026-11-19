@@ -187,6 +187,31 @@ export type KlockaCell = {
 };
 
 // =============================================================================
+// 16. GRUPP: ett till nio små tecken på tärningens platser (matris parti 06)
+// =============================================================================
+// Antalet räknas (summa, skillnad, jämna steg), formen och fyllningen kan bära
+// egna regler. Platserna följer antalet som på en tärning, så att antalet är
+// det enda som skiljer två grupper med samma form och fyllning.
+export type GruppCell = {
+  kind: 'grupp';
+  antal: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  form: 'circle' | 'square' | 'triangle';
+  fill: 'black' | 'none';
+};
+
+// =============================================================================
+// 17. STRECKFIGUR: åtta möjliga streck i en kvadrat (matris parti 06)
+// =============================================================================
+// 0 översta sidan, 1 högra, 2 nedersta, 3 vänstra, 4 diagonalen från övre
+// vänstra hörnet, 5 diagonalen från övre högra hörnet, 6 lodräta mittstrecket,
+// 7 vågräta mittstrecket. Streck som saknas ritas prickade i ram-grått, så att
+// det syns vilka platser som är tomma (överlagring, streck som läggs till).
+export type StreckfigurCell = {
+  kind: 'streckfigur';
+  streck: number[];
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -204,7 +229,9 @@ export type V7Cell =
   | DotsOrbitCell
   | BalanceLineCell
   | DuoCell
-  | KlockaCell;
+  | KlockaCell
+  | GruppCell
+  | StreckfigurCell;
 
 export type Question = {
   id: string;

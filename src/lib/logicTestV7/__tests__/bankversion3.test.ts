@@ -94,8 +94,9 @@ describe('versionsfälten', () => {
     expect(alla.filter((q) => q.pensionerad_fran === 3)).toHaveLength(157)
     // Version 3, bank 3.1 (fran_version 4, beställning omgång 2 C1) och parti 04
     // (fran_version 5, scripts/befordra-matris-parti-04.mjs, efter granskning)
-    // och parti 05 (fran_version 6, scripts/befordra-matris-parti-05.mjs).
-    for (const q of alla) if (q.fran_version !== undefined) expect([3, 4, 5, 6], q.id).toContain(q.fran_version)
+    // och parti 05 (fran_version 6, scripts/befordra-matris-parti-05.mjs)
+    // och parti 06 (fran_version 7, scripts/befordra-matris-parti-06.mjs).
+    for (const q of alla) if (q.fran_version !== undefined) expect([3, 4, 5, 6, 7], q.id).toContain(q.fran_version)
   })
 })
 

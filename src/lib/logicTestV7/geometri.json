@@ -179,6 +179,17 @@
     "kortSw": 5,
     "navR": 4.5
   },
+  "grupp": {
+    "lagen": [28, 50, 72],
+    "cirkelR": 7,
+    "kvadratHalv": 6.5,
+    "kvadratRx": 1.5,
+    "triangel": [[0, -7.5], [7, 6], [-7, 6]]
+  },
+  "streckfigur": {
+    "ram": [20, 80],
+    "refStreck": "0 5"
+  },
   "balanceline": {
     "linjeY": 50,
     "linjeX": [12, 88],

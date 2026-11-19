@@ -186,6 +186,40 @@ function dimsBalans(c) {
   return out;
 }
 
+// ---------------------------------------------------------------- parti 06
+// Klockan (figurseriernas primitiv, i matriserna från parti 06): två visare
+// som var och en är en vridning på åtta lägen. Gruppen: antal, form och
+// fyllning. Streckfiguren: mängden av åtta möjliga streck (överlagring och
+// streck som läggs till eller tas bort). Flaggorna klocka, grupp och segment
+// avgränsar parti 06:s regler och texter, så att inget befintligt läses om.
+function dimsKlocka(c) {
+  return [
+    { id: 'lang', typ: 'rot', n: 8, varde: c.lang, namn: 'den långa visaren', subj: 'Den långa visaren', verb: 'vridit sig', grad: 45, klocka: true },
+    { id: 'kort', typ: 'rot', n: 8, varde: c.kort, namn: 'den korta visaren', subj: 'Den korta visaren', verb: 'vridit sig', grad: 45, klocka: true },
+  ];
+}
+function dimsGrupp(c) {
+  return [
+    { id: 'gruppantal', typ: 'kat', antal: true, grupp: true, varde: c.antal, namn: 'antalet figurer' },
+    { id: 'gruppform', typ: 'kat', grupp: true, varde: c.form, namn: 'formen' },
+    { id: 'gruppfyll', typ: 'kat', grupp: true, varde: c.fill, namn: 'fyllningen' },
+  ];
+}
+function dimsStreckfigur(c) {
+  return [{ id: 'streck8', typ: 'mangd', segment: true, varde: sortNum(c.streck), namn: 'strecken', subj: 'Strecken', element: ['streck', 'streck'] }];
+}
+/** Streckfigurens streck med namn (bestämd form), index som i types.v7.ts. */
+export const STRECK_NAMN = ['den översta sidan', 'den högra sidan', 'den nedersta sidan', 'den vänstra sidan', 'diagonalen från övre vänstra hörnet', 'diagonalen från övre högra hörnet', 'det lodräta mittstrecket', 'det vågräta mittstrecket'];
+const GRUPPFORM = {
+  circle: { en: 'en ruta med cirklar', pl: 'cirklar' },
+  square: { en: 'en ruta med kvadrater', pl: 'kvadrater' },
+  triangle: { en: 'en ruta med trianglar', pl: 'trianglar' },
+};
+const GRUPPFYLL = {
+  black: { en: 'en ruta med svarta figurer', pl: 'svarta', adj: 'svarta' },
+  none: { en: 'en ruta med ofyllda figurer', pl: 'ofyllda', adj: 'ofyllda' },
+};
+
 export function dimsFor(cell) {
   if (cell === null || Array.isArray(cell)) return null;
   switch (cell.kind) {
@@ -200,6 +234,9 @@ export function dimsFor(cell) {
     case 'tally': return dimsTally(cell);
     case 'ring': return dimsRing(cell);
     case 'balanceline': return dimsBalans(cell);
+    case 'klocka': return dimsKlocka(cell);
+    case 'grupp': return dimsGrupp(cell);
+    case 'streckfigur': return dimsStreckfigur(cell);
     default: return null;
   }
 }
@@ -261,6 +298,11 @@ export function vardeNamn(cell, dimId) {
     case 'satellit': return v === null ? { en: 'en utan prick', pl: 'utan prick' } : { en: `en med pricken ${LAGE8[v]}`, pl: `med pricken ${LAGE8[v]}` };
     case 'polyrot': return v === 0 ? { en: 'en ovriden', pl: 'ovridna' } : { en: `en vriden ${v} grader`, pl: `vridna ${v} grader` };
     case 'vinkel': return { en: `en pil som pekar ${PIL8[v]}`, pl: `pilar som pekar ${PIL8[v]}` };
+    case 'lang': return { en: `en lång visare som pekar ${PIL8[v]}`, pl: `långa visare som pekar ${PIL8[v]}` };
+    case 'kort': return { en: `en kort visare som pekar ${PIL8[v]}`, pl: `korta visare som pekar ${PIL8[v]}` };
+    case 'gruppantal': return { en: `en ruta med ${medAntal(v, 'figur', 'figurer')}`, pl: medAntal(v, 'figur', 'figurer') };
+    case 'gruppform': return GRUPPFORM[v] ?? null;
+    case 'gruppfyll': return GRUPPFYLL[v] ?? null;
     default:
       if (dimId.startsWith('lat-')) {
         if (v.length === 1) return { en: `en med ${LAT_NAMN[d.lat].element[0]} ${LAGE4[v[0]]}`, pl: `med ${LAT_NAMN[d.lat].element[0]} ${LAGE4[v[0]]}` };
@@ -291,6 +333,11 @@ export function konstantText(cell, dimId, kind) {
     case 'ringantal': return `Alla figurer har ${medAntal(v, 'ring', 'ringar')}.`;
     case 'inre': return `Den innersta ringen är alltid ${FYLL[v].adj}.`;
     case 'yttre': return v.split('+').every((x) => x === 'none') ? 'De yttre ringarna är alltid ofyllda.' : null;
+    case 'lang': return `Den långa visaren pekar alltid ${PIL8[v]}.`;
+    case 'kort': return `Den korta visaren pekar alltid ${PIL8[v]}.`;
+    case 'gruppform': return GRUPPFORM[v] ? `Alla figurer är ${GRUPPFORM[v].pl}.` : null;
+    case 'gruppfyll': return GRUPPFYLL[v] ? `Alla figurer är ${GRUPPFYLL[v].pl}.` : null;
+    case 'gruppantal': return `Alla rutor har ${medAntal(v, 'figur', 'figurer')}.`;
     default:
       if (dimId.startsWith('lat-') && v.length === 0) return `Matrisen har ${LAT_NAMN[d.lat].ingen}.`;
       return null;
@@ -315,10 +362,11 @@ export const SIDA = { above: 'ovanför', below: 'under' };
 export const PRIMITIV = {
   vector: 'pil', orbital: 'orbital', ray: 'stralar', sectorwheel: 'sektorhjul', tile: 'block3x3', lattice: 'ruta2x2',
   stack: 'grundform', poly: 'grundform', ring: 'ringar', balanceline: 'balanslinje', tally: 'rakning', dotsorbit: 'orbital',
+  klocka: 'klocka', grupp: 'grupp', streckfigur: 'streckfigur',
 };
 export function primitivFor(q) {
   const c = q?.grid?.[0]?.[0];
   if (!c || Array.isArray(c)) return 'lager';
   return PRIMITIV[c.kind] ?? c.kind;
 }
-export { LAGE4, LAGE8, FYLL, SIDOR, BAS, SYMBOL, LAT_NAMN };
+export { LAGE4, LAGE8, FYLL, SIDOR, BAS, SYMBOL, LAT_NAMN, PIL8 };

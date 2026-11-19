@@ -1,0 +1,5975 @@
+[
+  {
+    "id": "v7e-b7-klocka-01",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-02",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 90 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 45 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-03",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 90 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 0
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt fel håll.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren har vridit sig åt fel håll. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-04",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 45 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt fel håll.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt fel håll. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-05",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 45 grader medurs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 5
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-06",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader moturs för varje steg nedåt i kolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 90 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 4
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-kolumn",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren och den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-07",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren pekar åt höger, snett nedåt vänster eller nedåt, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 4
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt vänster.",
+      "Den långa visaren har inte vridit sig sista steget. Tredje raden och tredje kolumnen har redan en kort visare som pekar nedåt.",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt vänster.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar nedåt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-08",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 90 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren pekar åt vänster, snett nedåt höger eller nedåt, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 3
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger.",
+      "",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Tredje raden och tredje kolumnen har redan en kort visare som pekar snett nedåt höger."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-09",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren pekar åt höger, snett nedåt vänster eller snett nedåt höger, och varje riktning finns en gång i varje rad och en gång i varje kolumn. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "E-K-vaxla-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar åt höger.",
+      "",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar åt höger. Den korta visaren har inte vridit sig sista steget.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-10",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket moturs i mittkolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 2
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning.",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittraden. Raderna växlar riktning. Den korta visaren har inte vridit sig sista steget.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-11",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad har sitt eget startläge. Den korta visaren vrider sig 90 grader medurs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket moturs i mittkolumnen. Varje kolumn har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 4
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 3
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 6,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har vridit sig ett steg för långt.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren och den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7e-b7-klocka-12",
+    "title": "En visare går radvis, den andra kolumnvis",
+    "rule": "Den långa visaren vrider sig 45 grader moturs för varje steg nedåt i den första och den tredje kolumnen, och lika mycket medurs i mittkolumnen. Varje kolumn har sitt eget startläge. Den korta visaren vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad har sitt eget startläge.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 7
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 7
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 4
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 7
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-K-dubbel-vaxling",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig åt samma håll som i mittkolumnen. Kolumnerna växlar riktning.",
+      "Den långa visaren och den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren har vridit sig åt samma håll som i mittkolumnen. Kolumnerna växlar riktning. Den korta visaren har inte vridit sig sista steget."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-01",
+    "title": "Figurerna läggs ihop, och formen och fyllningen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är svarta i hörnen och i mitten och ofyllda i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Antalet figurer stämmer, men fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "En figur för lite. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "En figur för lite. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för lite. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-02",
+    "title": "Figurerna läggs ihop, och formen och fyllningen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda, de andra svarta.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för mycket. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "",
+      "En figur för lite. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för lite. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-05",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i den första och den tredje raden, och minskar lika mycket i mittraden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är ofyllda i hörnen och i mitten och svarta i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en ruta med cirklar. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-06",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i den första och den tredje raden, och minskar lika mycket i mittraden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta, de andra ofyllda.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "Antalet figurer stämmer, men figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta.",
+      "Antalet figurer har inte ändrats sista steget. Tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "",
+      "Antalet figurer har inte ändrats sista steget. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta.",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Antalet figurer har inte ändrats sista steget. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är svarta."
+    ]
+  },
+  {
+    "id": "v7e-b7-grupp-07",
+    "title": "Antalet ändras lika mycket varje steg, och formen och fyllningen byts",
+    "rule": "Antalet figurer minskar med ett för varje steg nedåt i den första och den tredje kolumnen, och ökar lika mycket i mittkolumnen. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är svarta i hörnen och i mitten och ofyllda i de andra rutorna, som ett schackmönster.",
+    "difficulty": 4,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-G-tre-regler",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med kvadrater.",
+      "Antalet figurer har inte ändrats sista steget. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Antalet figurer har inte ändrats sista steget. Fyllningen har inte växlat mellan svart och ofylld.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en ruta med kvadrater. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7a-b7-klocka-17",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 90 grader moturs för varje steg åt höger i raden. Varje rad börjar 135 grader medurs jämfört med raden ovanför. Den korta visaren pekar åt vänster, snett uppåt vänster eller snett nedåt vänster, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 3,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 4,
+          "kort": 6
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 6
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 7
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 6
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "K-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar åt vänster.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Tredje raden och tredje kolumnen har redan en kort visare som pekar åt vänster.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar åt vänster."
+    ]
+  },
+  {
+    "id": "v7a-b7-klocka-19",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren pekar åt höger, snett nedåt höger eller snett nedåt vänster, och varje riktning finns en gång i varje rad och en gång i varje kolumn. Den korta visaren vrider sig 45 grader medurs för varje steg åt höger i raden. Varje rad börjar 135 grader moturs jämfört med raden ovanför.",
+    "difficulty": 3,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 5
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 7
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 5,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.55,
+    "recept": "K-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den korta visaren stämmer, men tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt vänster.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt höger. Den korta visaren har inte vridit sig sista steget.",
+      "Tredje raden och tredje kolumnen har redan en lång visare som pekar snett nedåt vänster. Den korta visaren har inte vridit sig sista steget.",
+      ""
+    ]
+  },
+  {
+    "id": "v7a-b7-klocka-20",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 45 grader medurs för varje steg åt höger i raden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Den korta visaren pekar uppåt, snett uppåt höger eller åt vänster, och varje riktning finns en gång i varje rad och en gång i varje kolumn.",
+    "difficulty": 3,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 6
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 0
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 1,
+          "kort": 6
+        },
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 2,
+        "kort": 0
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 4,
+        "kort": 0
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "K-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men tredje raden och tredje kolumnen har redan en kort visare som pekar uppåt.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Tredje raden och tredje kolumnen har redan en kort visare som pekar uppåt.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Tredje raden och tredje kolumnen har redan en kort visare som pekar uppåt."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-01",
+    "title": "Figurerna läggs ihop, och formen byts",
+    "rule": "I varje rad har den tredje rutan lika många figurer som de två första tillsammans. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är alltid ofyllda.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.55,
+    "recept": "G-antal-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Formen stämmer, men antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Formen stämmer, men antalen är dragna från varandra i stället för ihoplagda.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Antalen är dragna från varandra i stället för ihoplagda. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      ""
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-03",
+    "title": "Figurerna läggs ihop, och fyllningen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda, de andra svarta. Figurerna är alltid kvadrater.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "Fyllningen stämmer, men antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Fyllningen stämmer, men antalet är detsamma som i rutan till vänster. Räkna ihop kolumnen i stället.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "",
+      "Antalet är detsamma som i rutan till vänster. Räkna ihop kolumnen i stället. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-04",
+    "title": "Antalet ändras lika mycket varje steg, och formen byts",
+    "rule": "Antalet figurer minskar med ett för varje steg åt höger i den första och den tredje raden, och ökar lika mycket i mittraden. Figurerna är cirklar i hörnen och i mitten och kvadrater i de andra rutorna, som ett schackmönster. Figurerna är alltid svarta.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer stämmer, men formen har inte växlat.",
+      "Formen stämmer, men antalet figurer har ändrats åt samma håll som i mittraden. Raderna växlar riktning.",
+      "Antalet figurer har inte ändrats sista steget. Formen har inte växlat.",
+      "",
+      "Antalet figurer har ändrats åt samma håll som i mittraden. Raderna växlar riktning. Formen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-06",
+    "title": "Antalet ändras lika mycket varje steg, och fyllningen byts",
+    "rule": "Antalet figurer ökar med ett för varje steg åt höger i den första och den tredje raden, och minskar lika mycket i mittraden. Figurerna är ofyllda i hörnen och i mitten och svarta i de andra rutorna, som ett schackmönster. Figurerna är alltid kvadrater.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "square",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "square",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "square",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Fyllningen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men fyllningen har inte växlat mellan svart och ofylld.",
+      "Fyllningen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Antalet figurer har inte ändrats sista steget. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-07",
+    "title": "Figurerna läggs ihop, och fyllningen byts",
+    "rule": "I varje rad har den tredje rutan lika många figurer som de två första tillsammans. Figurerna är svarta i hörnen och i mitten och ofyllda i de andra rutorna, som ett schackmönster. Figurerna är alltid cirklar.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "circle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Fyllningen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men fyllningen har inte växlat mellan svart och ofylld.",
+      "Fyllningen stämmer, men antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "En figur för mycket. Fyllningen har inte växlat mellan svart och ofylld.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop. Fyllningen har inte växlat mellan svart och ofylld."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-09",
+    "title": "Antalet ändras lika mycket varje steg, och fyllningen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i raden. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda, de andra svarta. Figurerna är alltid trianglar.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "Fyllningen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "Fyllningen stämmer, men det är en figur för lite.",
+      "En figur för mycket. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      "En figur för lite. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är ofyllda.",
+      ""
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-10",
+    "title": "Figurerna läggs ihop, och formen byts",
+    "rule": "I varje kolumn har den nedersta rutan lika många figurer som de två ovanför tillsammans. Figurerna är kvadrater i hörnen och i mitten och cirklar i de andra rutorna, som ett schackmönster. Figurerna är alltid ofyllda.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "square",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "square",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för mycket.",
+      "Antalet figurer stämmer, men formen har inte växlat.",
+      "Formen stämmer, men antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "En figur för mycket. Formen har inte växlat.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop. Formen har inte växlat.",
+      ""
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-11",
+    "title": "Antalet ändras lika mycket varje steg, och formen byts",
+    "rule": "Antalet figurer minskar med ett för varje steg åt höger i den första och den tredje raden, och ökar lika mycket i mittraden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är alltid svarta.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.55,
+    "recept": "G-antal-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "",
+      "Formen stämmer, men det är en figur för lite.",
+      "Antalet figurer har inte ändrats sista steget. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "En figur för lite. Tredje raden och tredje kolumnen har redan en ruta med cirklar."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-12",
+    "title": "Figurerna läggs ihop, och formen byts",
+    "rule": "I varje rad har den tredje rutan lika många figurer som de två första tillsammans. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är cirklar, de andra trianglar. Figurerna är alltid svarta.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.55,
+    "recept": "G-antal-monster",
+    "fran_version": 7,
+    "misstag": [
+      "Antalet figurer stämmer, men figurerna på diagonalen från övre vänstra hörnet till nedre högra är cirklar.",
+      "",
+      "Formen stämmer, men antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Formen stämmer, men antalen är dragna från varandra i stället för ihoplagda.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är cirklar.",
+      "Antalen är dragna från varandra i stället för ihoplagda. Figurerna på diagonalen från övre vänstra hörnet till nedre högra är cirklar."
+    ]
+  },
+  {
+    "id": "v7a-b7-grupp-14",
+    "title": "Antalet ändras lika mycket varje steg, och formen byts",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i raden. Cirklar, kvadrater och trianglar finns en gång var i varje rad och varje kolumn. Figurerna är alltid svarta.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "square",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 7,
+          "form": "square",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "triangle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.55,
+    "recept": "G-antal-latin",
+    "fran_version": 7,
+    "misstag": [
+      "Formen stämmer, men det är en figur för lite.",
+      "Antalet figurer stämmer, men tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Formen stämmer, men antalet figurer har inte ändrats sista steget.",
+      "En figur för lite. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      "Antalet figurer har inte ändrats sista steget. Tredje raden och tredje kolumnen har redan en ruta med cirklar.",
+      ""
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-01",
+    "title": "Bara strecken som skiljer",
+    "rule": "Den tredje rutan i varje rad har de streck som finns i bara en av den första och den andra rutan. Streck som finns i båda försvinner.",
+    "difficulty": 3,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            5,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.55,
+    "recept": "S-overlagring-a",
+    "fran_version": 7,
+    "misstag": [
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Två streck saknas: den högra sidan och det vågräta mittstrecket.",
+      "Den nedersta sidan saknas.",
+      "Kopierar den första rutan i raden."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-02",
+    "title": "Strecken dras ifrån",
+    "rule": "Den nedersta rutan i varje kolumn har de streck från den översta rutan som inte finns i den mittersta.",
+    "difficulty": 3,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.55,
+    "recept": "S-overlagring-a",
+    "fran_version": 7,
+    "misstag": [
+      "Tar med allt. Det som finns i den mittersta rutan i kolumnen ska bort.",
+      "Tar med det som bara finns i den mittersta rutan i kolumnen. Det ska bort.",
+      "Visar det gemensamma. Det är just det som ska bort.",
+      "",
+      "Drar bort åt fel håll.",
+      "Kopierar den översta rutan i kolumnen."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-03",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den första till den andra rutan läggs ett streck till, och från den andra till den tredje tas ett streck bort. Det är samma streck i alla tre raderna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Strecket i sista steget har inte tagits bort.",
+      "",
+      "Diagonalen från övre högra hörnet är med i stället för den nedersta sidan.",
+      "Diagonalen från övre högra hörnet är med i stället för den högra sidan.",
+      "Den översta sidan ska inte vara med.",
+      "Den högra sidan saknas."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-04",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den översta till den mittersta rutan tas ett streck bort, och från den mittersta till den nedersta läggs ett streck till. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            3,
+            4,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          4,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Den nedersta sidan saknas.",
+      "",
+      "Det vågräta mittstrecket är med i stället för den nedersta sidan.",
+      "Den högra sidan är med i stället för den nedersta sidan.",
+      "Diagonalen från övre högra hörnet är med i stället för den nedersta sidan.",
+      "Det lodräta mittstrecket är med i stället för den nedersta sidan."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-05",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den första till den andra rutan läggs ett streck till och ett annat tas bort, och från den andra till den tredje läggs ett streck till. Det är samma streck i alla tre raderna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            5,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Strecket i sista steget har inte lagts till.",
+      "",
+      "Den översta sidan är med i stället för den nedersta sidan.",
+      "Den högra sidan är med i stället för den nedersta sidan.",
+      "Den vänstra sidan är med i stället för den nedersta sidan.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den nedersta sidan."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-07",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den första till den andra rutan läggs två streck till, och från den andra till den tredje tas ett streck bort. Det är samma streck i alla tre raderna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            3,
+            4,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Strecket i sista steget har inte tagits bort.",
+      "Den översta sidan är med i stället för den nedersta sidan.",
+      "Den översta sidan är med i stället för den vänstra sidan.",
+      "Den översta sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Den översta sidan är med i stället för det vågräta mittstrecket."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-08",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den översta till den mittersta rutan läggs ett streck till och ett annat tas bort, och från den mittersta till den nedersta läggs ett streck till och ett annat tas bort. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Den översta sidan är med i stället för den vänstra sidan.",
+      "Den högra sidan är med i stället för den vänstra sidan.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den vänstra sidan.",
+      "Diagonalen från övre högra hörnet är med i stället för den vänstra sidan.",
+      "",
+      "Det vågräta mittstrecket är med i stället för den vänstra sidan."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-09",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den första till den andra rutan läggs två streck till, och från den andra till den tredje tas två streck bort. Det är samma streck i alla tre raderna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Strecken i sista steget har inte tagits bort.",
+      "Den högra sidan är med i stället för den vänstra sidan.",
+      "",
+      "Den högra sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Den högra sidan är med i stället för diagonalen från övre högra hörnet.",
+      "Den högra sidan är med i stället för det vågräta mittstrecket."
+    ]
+  },
+  {
+    "id": "v7a-b7-streck-10",
+    "title": "Streck läggs till och tas bort",
+    "rule": "Från den översta till den mittersta rutan tas två streck bort, och från den mittersta till den nedersta läggs två streck till. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 3,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            5,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2,
+          3,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.55,
+    "recept": "S-blandat",
+    "fran_version": 7,
+    "misstag": [
+      "Två streck saknas: den översta sidan och diagonalen från övre högra hörnet.",
+      "Den högra sidan är med i stället för den översta sidan.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den översta sidan.",
+      "Det lodräta mittstrecket är med i stället för den översta sidan.",
+      "",
+      "Det vågräta mittstrecket är med i stället för den översta sidan."
+    ]
+  },
+  {
+    "id": "v7g-b7-klocka-02",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren vrider sig 90 grader moturs för varje steg åt höger i raden. Varje rad börjar 135 grader medurs jämfört med raden ovanför. Den korta visaren pekar åt höger i hörnen och i mitten och snett uppåt höger i de andra rutorna, som ett schackmönster.",
+    "difficulty": 2,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 2
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 2,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 6,
+          "kort": 1
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 5,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 3,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 3,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 1,
+        "kort": 2
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 1
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.65,
+    "recept": "K-schack",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren pekar åt ett håll som inte finns i matrisen.",
+      "Den korta visaren stämmer, men den långa visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte vridit sig sista steget. Den korta visaren har inte växlat riktning. Den pekar åt höger i hörnen och i mitten.",
+      "",
+      "Den långa visaren har vridit sig ett steg för långt. Den korta visaren har inte växlat riktning. Den pekar åt höger i hörnen och i mitten."
+    ]
+  },
+  {
+    "id": "v7g-b7-klocka-10",
+    "title": "Den ena visaren vrider sig, den andra följer rutnätet",
+    "rule": "Den långa visaren pekar uppåt i hörnen och i mitten och snett uppåt vänster i de andra rutorna, som ett schackmönster. Den korta visaren vrider sig 90 grader medurs för varje steg åt höger i raden. Varje rad börjar 45 grader moturs jämfört med raden ovanför.",
+    "difficulty": 2,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 1
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 3
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 5
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 0
+        },
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 2
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 4
+        }
+      ],
+      [
+        {
+          "kind": "klocka",
+          "lang": 0,
+          "kort": 7
+        },
+        {
+          "kind": "klocka",
+          "lang": 7,
+          "kort": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 5
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 1
+      },
+      {
+        "kind": "klocka",
+        "lang": 0,
+        "kort": 3
+      },
+      {
+        "kind": "klocka",
+        "lang": 7,
+        "kort": 5
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.65,
+    "recept": "K-schack",
+    "fran_version": 7,
+    "misstag": [
+      "Den korta visaren stämmer, men den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten.",
+      "Den långa visaren stämmer, men den korta visaren har inte vridit sig sista steget.",
+      "Den långa visaren stämmer, men den korta visaren har vridit sig ett steg för långt.",
+      "Den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten. Den korta visaren har inte vridit sig sista steget.",
+      "",
+      "Den långa visaren har inte växlat riktning. Den pekar uppåt i hörnen och i mitten. Den korta visaren har vridit sig ett steg för långt."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-01",
+    "title": "Figurerna läggs ihop",
+    "rule": "I varje rad har den tredje rutan lika många figurer som de två första tillsammans. Figurerna är alltid svarta trianglar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 2,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.65,
+    "recept": "G-summa",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "En figur för lite.",
+      "",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Antalet är taget från bara en av rutorna. Båda ska räknas ihop.",
+      "Antalen är dragna från varandra i stället för ihoplagda."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-03",
+    "title": "Antalet ändras lika mycket varje steg",
+    "rule": "Antalet figurer ökar med två för varje steg åt höger i raden. Figurerna är alltid ofyllda trianglar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "triangle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "triangle",
+          "fill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 3,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 5,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "triangle",
+        "fill": "none"
+      },
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "triangle",
+        "fill": "none"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.65,
+    "recept": "G-steg",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "En figur för lite.",
+      "Antalet figurer har inte ändrats sista steget.",
+      "",
+      "Antalet figurer har ändrats åt fel håll.",
+      "Samma som rutan ovanför."
+    ]
+  },
+  {
+    "id": "v7g-b7-grupp-05",
+    "title": "Antalet ändras lika mycket varje steg",
+    "rule": "Antalet figurer ökar med tre för varje steg åt höger i raden. Figurerna är alltid svarta cirklar.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "grupp",
+          "antal": 2,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 5,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 8,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 3,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 6,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 9,
+          "form": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "grupp",
+          "antal": 1,
+          "form": "circle",
+          "fill": "black"
+        },
+        {
+          "kind": "grupp",
+          "antal": 4,
+          "form": "circle",
+          "fill": "black"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "grupp",
+        "antal": 8,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 7,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 6,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 4,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 1,
+        "form": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "grupp",
+        "antal": 9,
+        "form": "circle",
+        "fill": "black"
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.65,
+    "recept": "G-steg",
+    "fran_version": 7,
+    "misstag": [
+      "En figur för mycket.",
+      "",
+      "En figur för lite.",
+      "Antalet figurer har inte ändrats sista steget.",
+      "Antalet figurer har ändrats åt fel håll.",
+      "Samma som rutan ovanför."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-01",
+    "title": "Strecken läggs ihop",
+    "rule": "Den tredje rutan i varje rad har alla streck som finns i den första eller den andra rutan.",
+    "difficulty": 2,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.65,
+    "recept": "S-overlagring",
+    "fran_version": 7,
+    "misstag": [
+      "Tar bort det som finns i båda. Allt ska med.",
+      "Visar bara det gemensamma. Allt ska med.",
+      "Fyra streck saknas: den högra sidan, diagonalen från övre vänstra hörnet, det lodräta mittstrecket och det vågräta mittstrecket.",
+      "Fyra streck saknas: den högra sidan, den vänstra sidan, det lodräta mittstrecket och det vågräta mittstrecket.",
+      "Kopierar den första rutan i raden.",
+      ""
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-02",
+    "title": "Bara de gemensamma strecken",
+    "rule": "Den nedersta rutan i varje kolumn har bara de streck som finns i både den översta och den mittersta rutan.",
+    "difficulty": 2,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-overlagring",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Tar med allt. Bara det som finns i båda ska med.",
+      "Visar det som skiljer. Bara det som finns i båda ska med.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Kopierar den mittersta rutan i kolumnen.",
+      "Den översta sidan ska inte vara med."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-03",
+    "title": "Figuren byggs upp streck för streck",
+    "rule": "Från den första till den andra rutan läggs ett streck till, och från den andra till den tredje läggs ett annat streck till. Det är samma streck i alla tre raderna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.65,
+    "recept": "S-bygg",
+    "fran_version": 7,
+    "misstag": [
+      "Strecket i sista steget har inte lagts till.",
+      "Två streck saknas: den högra sidan och diagonalen från övre vänstra hörnet.",
+      "",
+      "Den översta sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Den nedersta sidan är med i stället för diagonalen från övre vänstra hörnet.",
+      "Diagonalen från övre högra hörnet är med i stället för diagonalen från övre vänstra hörnet."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-06",
+    "title": "Figuren byggs upp streck för streck",
+    "rule": "Från den översta till den mittersta rutan läggs ett streck till, och från den mittersta till den nedersta läggs två andra streck till. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-bygg",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Två streck saknas: den vänstra sidan och diagonalen från övre högra hörnet.",
+      "Tre streck saknas: den vänstra sidan, diagonalen från övre vänstra hörnet och diagonalen från övre högra hörnet.",
+      "Den översta sidan är med i stället för den vänstra sidan.",
+      "Det lodräta mittstrecket är med i stället för den vänstra sidan.",
+      "Det vågräta mittstrecket är med i stället för den vänstra sidan."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-08",
+    "title": "Figuren plockas isär streck för streck",
+    "rule": "Från den första till den andra rutan tas ett streck bort, och från den andra till den tredje tas två andra streck bort. Det är samma streck i alla tre raderna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            4
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          2
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.65,
+    "recept": "S-riv",
+    "fran_version": 7,
+    "misstag": [
+      "",
+      "Strecken i sista steget har inte tagits bort.",
+      "Tre streck för mycket: den nedersta sidan, diagonalen från övre vänstra hörnet och det lodräta mittstrecket.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den högra sidan.",
+      "Den nedersta sidan är med i stället för den högra sidan.",
+      "Den översta sidan ska inte vara med."
+    ]
+  },
+  {
+    "id": "v7g-b7-streck-10",
+    "title": "Figuren plockas isär streck för streck",
+    "rule": "Från den översta till den mittersta rutan tas två streck bort, och från den mittersta till den nedersta tas två andra streck bort. Det är samma streck i alla tre kolumnerna.",
+    "difficulty": 2,
+    "family": "antal-andras",
+    "grid": [
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            2,
+            3,
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            0,
+            1,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "streckfigur",
+          "streck": [
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "streckfigur",
+          "streck": [
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          1,
+          4
+        ]
+      },
+      {
+        "kind": "streckfigur",
+        "streck": [
+          0,
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.65,
+    "recept": "S-riv",
+    "fran_version": 7,
+    "misstag": [
+      "Två streck för mycket: den vänstra sidan och diagonalen från övre vänstra hörnet.",
+      "Fyra streck för mycket: den nedersta sidan, den vänstra sidan, diagonalen från övre vänstra hörnet och det lodräta mittstrecket.",
+      "Den vänstra sidan är med i stället för den översta sidan.",
+      "Den vänstra sidan är med i stället för den högra sidan.",
+      "Diagonalen från övre vänstra hörnet är med i stället för den översta sidan.",
+      ""
+    ]
+  }
+]

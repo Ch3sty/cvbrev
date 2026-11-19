@@ -239,6 +239,17 @@ function glyfPunkter(d) {
 }
 const ellipsPunkter = (e) => [[e.cx - e.rx, e.cy, sw], [e.cx + e.rx, e.cy, sw], [e.cx, e.cy - e.ry, sw], [e.cx, e.cy + e.ry, sw], [e.linje[0], e.linje[1], sw], [e.linje[2], e.linje[3], sw]];
 
+/** K1 (figurserier parti 5, matriser parti 06): klockans visare pekar åt samma håll. */
+const klockaK1 = (c) => c.kind === 'klocka' && ((c.lang % 8) + 8) % 8 === ((c.kort % 8) + 8) % 8;
+
+/** Gruppens platser per antal, [rad, kolumn] (samma som GRUPP_PLATSER i renderers.v7.tsx). */
+export const GRUPP_PLATSER = {
+  1: [[1, 1]], 2: [[0, 0], [2, 2]], 3: [[0, 0], [1, 1], [2, 2]], 4: [[0, 0], [0, 2], [2, 0], [2, 2]],
+  5: [[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]], 6: [[0, 0], [1, 0], [2, 0], [0, 2], [1, 2], [2, 2]],
+  7: [[0, 0], [1, 0], [2, 0], [1, 1], [0, 2], [1, 2], [2, 2]], 8: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]],
+  9: [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]],
+};
+
 /** Undantagna från G1 (rutnät av avsikt, granskningen avsnitt 3). */
 const G1_UNDANTAG = new Set(['tile', 'lattice', 'sectorwheel']);
 
@@ -375,6 +386,27 @@ export function element(cell) {
         el('urtavla', [cirkel(C, K.banaR, K.banaSw / 2)], { ram: true, radie: K.banaR }),
         el('visare', [kapsel(C, pa(cell.lang, K.lang), sw), kapsel(C, pa(cell.kort, K.kort), K.kortSw / 2), skiva(C, K.navR)]),
       ];
+    }
+    case 'grupp': {
+      // Matris parti 06: varje tecken är ett eget element (G1 mellan tecknen).
+      const P = G.grupp;
+      const svart = cell.fill === 'black';
+      return (GRUPP_PLATSER[cell.antal] ?? []).map(([rad, kol], i) => {
+        const c = [P.lagen[kol], P.lagen[rad]];
+        let form;
+        if (cell.form === 'circle') form = [svart ? skiva(c, P.cirkelR) : cirkel(c, P.cirkelR, sw)];
+        else if (cell.form === 'square') { const h = P.kvadratHalv + (svart ? 0 : sw); form = [låda(c[0] - h, c[1] - h, c[0] + h, c[1] + h)]; }
+        else form = polygon(P.triangel.map(([dx, dy]) => [c[0] + dx, c[1] + dy]), svart ? 0 : sw);
+        return el(`tecken ${i + 1}`, form, { centrum: c });
+      });
+    }
+    case 'streckfigur': {
+      // Matris parti 06: strecken möts i hörnen och i mitten av avsikt, så
+      // figuren är ett element. Prickade platser (referens) räknas med i G2.
+      const [a, b] = G.streckfigur.ram;
+      const m = (a + b) / 2;
+      const L = [[a, a, b, a], [b, a, b, b], [a, b, b, b], [a, a, a, b], [a, a, b, b], [b, a, a, b], [m, a, m, b], [a, m, b, m]];
+      return [el('streckfigur', L.map(([x1, y1, x2, y2]) => kapsel([x1, y1], [x2, y2], sw)))];
     }
     default:
       return null;
@@ -545,6 +577,9 @@ function allaLagen() {
   for (let m = 1; m < 256; m++) ut.push({ kind: 'dotsorbit', dots: [0, 1, 2, 3, 4, 5, 6, 7].filter((i) => (m >> i) & 1) });
   for (const center of ['filled', 'open']) for (const satellite of [null, 0, 1, 2, 3, 4, 5, 6, 7]) ut.push({ kind: 'orbital', center, satellite });
   for (const orientation of ['vertical', 'horizontal']) for (let count = 1; count <= 5; count++) ut.push({ kind: 'tally', count, orientation });
+  // Matris parti 06: alla antal, former och fyllningar i gruppen, alla 255 streckfigurer.
+  for (let antal = 1; antal <= 9; antal++) for (const form of ['circle', 'square', 'triangle']) for (const fill of ['black', 'none']) ut.push({ kind: 'grupp', antal, form, fill });
+  for (let m = 1; m < 256; m++) ut.push({ kind: 'streckfigur', streck: [0, 1, 2, 3, 4, 5, 6, 7].filter((i) => (m >> i) & 1) });
   // balanslinjen: kvadrat och cirkel i alla par av olika fack
   const fack = [];
   for (let posX = 0; posX < 3; posX++) for (const side of ['above', 'below']) fack.push({ posX, side });
@@ -598,6 +633,8 @@ function rorligaLagen(cell) {
     }
     return out;
   }
+  // Matris parti 06: klockans två visare är två rörliga element.
+  if (cell.kind === 'klocka') return { lang: String(cell.lang), kort: String(cell.kort) };
   if (cell.kind === 'lattice') {
     const out = {};
     for (const typ of ['fill_black', 'fill_gray', 'dot', 'cross']) {
@@ -675,6 +712,7 @@ function tom(cell) {
     case 'balanceline': return cell.items.length === 0;
     case 'tally': return cell.count === 0;
     case 'ring': return cell.rings.length === 0;
+    case 'streckfigur': return cell.streck.length === 0;
     default: return false;
   }
 }
@@ -737,6 +775,7 @@ export function geometriFraga(q, { expert = false, strikt = true } = {}) {
     const k = kontrolleraCell(c);
     if (k.okand) { fel.push(`okänd celltyp ${c.kind}`); continue; }
     for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`${g.toUpperCase()}: ${x}`));
+    if (klockaK1(c)) fel.push('K1: klockans visare pekar åt samma håll');
   }
   if (q.grid.flat().some((c) => c !== null && tom(c))) fel.push('G11: tom figur i rutnätet');
   const tommaAlt = q.options.map((o, i) => (tom(o) ? i + 1 : 0)).filter(Boolean);
@@ -773,6 +812,8 @@ function yttermatt(cell) {
     case 'lattice': return 2 * G.lattice.ruta + G.lattice.gap;
     case 'sectorwheel': return 2 * G.sectorwheel.radie;
     case 'klocka': return 2 * G.klocka.banaR;
+    case 'grupp': return G.grupp.lagen[2] - G.grupp.lagen[0] + 2 * G.grupp.cirkelR;
+    case 'streckfigur': return G.streckfigur.ram[1] - G.streckfigur.ram[0];
     // undantag (regler.yttermattUndantag): mäts på längsta axeln
     case 'vector': return G.vector.lang.svans - G.vector.lang.spets;
     case 'tally': return G.tally.langd;
@@ -900,6 +941,7 @@ for (const fil of filer) {
       const k = kontrolleraCell(c);
       if (k.okand) { fel.push(`${tag} okänd celltyp ${c.kind}, saknar geometri`); continue; }
       for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fynd(g.toUpperCase(), x));
+      if (klockaK1(c)) fynd('G1', 'K1: klockans visare pekar åt samma håll');
     }
     // G11
     const tommaRutor = q.grid.flat().filter((c) => c !== null && tom(c)).length;
