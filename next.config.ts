@@ -163,6 +163,10 @@ const nextConfig: NextConfig = {
       { source: '/cv-mallar/barnskotare', destination: '/cv-exempel/barnskotare', permanent: true },
       { source: '/cv-mallar/ingenjor', destination: '/cv-exempel/ingenjor', permanent: true },
       { source: '/cv-mallar/larare', destination: '/cv-exempel/larare', permanent: true },
+      // Rekryteringstester är produktnamnet och den adress folk skriver för hand.
+      // Search Console 2026-11-19: okänd för Google, inga visningar eller länkar,
+      // så det här är bekvämlighet mot 404, inte en SEO-flytt. Ett hopp.
+      { source: '/rekryteringstester', destination: '/verktyg/rekryteringstester', permanent: true },
       // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
       // Åtgärdar "Not found (404)" i Search Console.
       ...[
