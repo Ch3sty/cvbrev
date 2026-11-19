@@ -25,7 +25,7 @@ import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
-import { formatClock } from '@/hooks/use-elapsed-clock';
+import { formatClock, sekunderSedan, startMs } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
 import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
@@ -116,6 +116,9 @@ export function VerbalTestSession({
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME);
+  // Nedräkningen ankras i sessionens started_at (servertid), samma mönster
+  // som VerbalProvSession. Null tills rehydreringen svarat.
+  const [startedAtMs, setStartedAtMs] = useState<number | null>(null);
   const [statementStartTime, setStatementStartTime] = useState(Date.now());
 
   // Osparade svar per passage+påstående. Ref för logiken (stabila referenser
@@ -156,12 +159,15 @@ export function VerbalTestSession({
       });
 
       let redirected = false;
+      // started_at från servern, så att nedräkningen inte börjar om vid omladdning.
+      let started: number | null = null;
       let byter = false;
       try {
         const res = await fetch(`${sessionEndpoint}?id=${sessionId}`);
         if (res.ok) {
           const data = await res.json();
           const session = data?.session;
+          started = startMs(session?.started_at);
           if (session && !cancelled) {
             const v = underlagsVersion(session.meta);
             if (v !== version) {
@@ -211,6 +217,8 @@ export function VerbalTestSession({
       } finally {
         if (!cancelled && !redirected && !byter) {
           setAnswers(initial);
+          // Nätverksfel/404: klocka från nu, blockera aldrig testet.
+          setStartedAtMs(started ?? Date.now());
           setIsHydrating(false);
           setStatementStartTime(Date.now());
         }
@@ -355,24 +363,33 @@ export function VerbalTestSession({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinishing, flushPending, completeEndpoint, sessionId]);
 
-  // Timer, startar när rehydreringen är klar. När tiden går ut öppnas
-  // avsluta-modalen så eventuella fel vid slutförandet syns för användaren.
+  // Timer, startar när rehydreringen är klar och räknas från sessionens
+  // started_at varje tick, så en omladdning aldrig ger nya minuter. När tiden
+  // går ut öppnas avsluta-modalen så eventuella fel vid slutförandet syns.
   useEffect(() => {
-    if (isHydrating) return;
+    if (isHydrating || startedAtMs === null) return;
+    const compute = () => Math.max(0, TOTAL_TIME - sekunderSedan(startedAtMs));
+    const timeUp = () => {
+      setFinishError(null);
+      setShowFinishConfirm(true);
+      void handleFinishTest();
+    };
+    const initial = compute();
+    setTimeRemaining(initial);
+    if (initial <= 0) {
+      timeUp();
+      return;
+    }
     const timer = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setFinishError(null);
-          setShowFinishConfirm(true);
-          void handleFinishTest();
-          return 0;
-        }
-        return prev - 1;
-      });
+      const remaining = compute();
+      setTimeRemaining(remaining);
+      if (remaining <= 0) {
+        clearInterval(timer);
+        timeUp();
+      }
     }, 1000);
     return () => clearInterval(timer);
-  }, [handleFinishTest, isHydrating]);
+  }, [handleFinishTest, isHydrating, startedAtMs]);
 
   /* ----------------------------- Interaktion ----------------------------- */
 

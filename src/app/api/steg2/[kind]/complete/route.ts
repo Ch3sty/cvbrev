@@ -9,6 +9,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 import { steg2Motor } from '@/lib/tester/steg2/motor.server';
+import { sessionstid } from '@/lib/tests/sessionstid';
 
 type Svar = { q_id: string; selected: number; correct: boolean; time_spent?: number };
 
@@ -35,7 +36,7 @@ export async function POST(request: Request, ctx: { params: Promise<{ kind: stri
     const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris) as unknown as Svar[];
     const score = motor.ratta(answers);
     const aktiv = answers.reduce((s, a) => s + (typeof a.time_spent === 'number' ? a.time_spent : 0), 0);
-    const timeSpent = aktiv > 0 ? aktiv : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+    const timeSpent = sessionstid(session.started_at, Date.now(), aktiv);
 
     const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')

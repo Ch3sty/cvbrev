@@ -6,6 +6,7 @@ import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 import { skickaKlassiskStatistik } from '@/lib/tests/klassiskStatistik';
+import { sessionstid } from '@/lib/tests/sessionstid';
 
 export async function POST(request: Request) {
   try {
@@ -60,15 +61,14 @@ export async function POST(request: Request) {
     // Poängen räknas på unika svar och originalindex mot facit i banken.
     const score = rattaMatrisSvar(answers);
 
-    // Aktiv tid = summan av tiden per besvarad fråga (väggklocka räknar med
-    // pauser och blir missvisande). Fallback för sessioner utan tidsdata.
+    // Sessionens tid räknas från started_at (servertid), så en omladdning
+    // mitt i testet inte nollar den (src/lib/tests/sessionstid.ts). Summan av
+    // tiden per uppgift är bara reserv när started_at saknas.
     const activeTime = answers.reduce(
       (sum: number, a: any) => sum + (typeof a.time_spent === 'number' ? a.time_spent : 0),
       0
     );
-    const timeSpent = activeTime > 0
-      ? activeTime
-      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+    const timeSpent = sessionstid(session.started_at, Date.now(), activeTime);
 
     // Update session
     const { error: updateError } = await testSkrivKlient()

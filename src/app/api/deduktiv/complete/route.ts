@@ -10,6 +10,7 @@ import { arBlandad } from '@/lib/logicTestV7/blanda';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { arDeduktivTestTyp, rattaDeduktivSvar, deduktivStatistik } from '@/lib/deduktivV1/fragor.server';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
+import { sessionstid } from '@/lib/tests/sessionstid';
 
 type Svar = { q_id: string; selected: number; correct: boolean; time_spent?: number };
 
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
     const answers = unikaSvar(session.answers, SVARSNYCKLAR.matris) as unknown as Svar[];
     const score = rattaDeduktivSvar(answers);
     const aktiv = answers.reduce((s, a) => s + (typeof a.time_spent === 'number' ? a.time_spent : 0), 0);
-    const timeSpent = aktiv > 0 ? aktiv : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+    const timeSpent = sessionstid(session.started_at, Date.now(), aktiv);
 
     const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')

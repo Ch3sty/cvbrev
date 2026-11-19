@@ -27,7 +27,7 @@ import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
-import { formatClock } from '@/hooks/use-elapsed-clock';
+import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/numerical-shared/PassageDisplay';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
@@ -134,8 +134,10 @@ export function NumericalTestSession({
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [testStartTime] = useState(Date.now());
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  // Klockan räknas från sessionens started_at (servertid), så en omladdning
+  // inte nollar den. Null tills rehydreringen svarat.
+  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(null);
+  const elapsed = useElapsedClock(sessionStartedAt);
 
   // Osparade svar per frågeid. Ref för logiken (stabila referenser i
   // asynkrona kedjor), state-räknaren driver bannern.
@@ -161,13 +163,6 @@ export function NumericalTestSession({
     setFailedCount(n);
   }, []);
 
-  // Tids-räknare
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - testStartTime) / 1000));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [testStartTime]);
 
   const currentPassage = passages[currentPassageIndex];
   const currentQuestion = currentPassage?.questions[currentQuestionIndex];
@@ -201,6 +196,7 @@ export function NumericalTestSession({
                 data.sessions.find((s: any) => s?.id === sessionId)
               : null);
           if (session && !cancelled) {
+            if (typeof session.started_at === 'string') setSessionStartedAt(session.started_at);
             const v = underlagsVersion(session.meta);
             if (v !== version) {
               byter = true;
@@ -260,6 +256,8 @@ export function NumericalTestSession({
         // Nätverksfel: fortsätt med tomt state, blockera inte testet.
       } finally {
         if (!cancelled && !redirected && !byter) {
+          // Nätverksfel/404: klocka från nu, blockera aldrig testet.
+          setSessionStartedAt((s) => s ?? new Date().toISOString());
           setIsHydrating(false);
           setQuestionStartTime(Date.now());
         }
@@ -478,7 +476,7 @@ export function NumericalTestSession({
       progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
       meter={
         <TestMeterRow
-          time={formatClock(elapsedSeconds)}
+          time={elapsed}
           current={currentQuestionNumber}
           total={totalQuestions}
         />

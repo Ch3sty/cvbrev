@@ -79,7 +79,9 @@ export function DeduktivTestSession({ sessionId, level, answerEndpoint, complete
   /** Markerat men inte skickat (spec 1.1, "Valt, inte skickat"). */
   const [markerat, setMarkerat] = useState<number | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [sessionStartedAt] = useState(new Date());
+  // Klockan räknas från sessionens started_at (servertid), så en omladdning
+  // inte nollar den. Null tills sessionen är läst.
+  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(() => serverSession?.startedAt ?? null);
   const elapsed = useElapsedClock(sessionStartedAt);
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHydrating, setIsHydrating] = useState(() => !(serverSession != null && !serverCompleted && questions.length > 0));
@@ -119,6 +121,7 @@ export function DeduktivTestSession({ sessionId, level, answerEndpoint, complete
         const data = await res.json();
         const session = data?.session;
         if (!session || cancelled) return;
+        if (typeof session.started_at === 'string') setSessionStartedAt(session.started_at);
         if (session.completed_at) {
           redirected = true;
           router.replace(resultsPath(sessionId));

@@ -20,7 +20,7 @@ import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
-import { formatClock } from '@/hooks/use-elapsed-clock';
+import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
 
 interface Props {
@@ -54,8 +54,10 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
   const [isHydrating, setIsHydrating] = useState(true);
   const [finishError, setFinishError] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [testStartTime] = useState(Date.now());
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  // Klockan räknas från sessionens started_at (servertid), så en omladdning
+  // inte nollar den. Null tills rehydreringen svarat.
+  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(null);
+  const elapsed = useElapsedClock(sessionStartedAt);
 
   // Osparade svar per questionId. Ref för logiken (stabila referenser i
   // asynkrona kedjor), state-räknaren driver bannern.
@@ -77,12 +79,6 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
     setPassages(selectPassagesForSession(sessionIdProp, undefined, version));
   }, [sessionIdProp, version]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - testStartTime) / 1000));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [testStartTime]);
 
   /* ------------------------- Rehydrering vid mount ------------------------- */
 
@@ -99,6 +95,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
           const data = await res.json();
           const session = data?.session;
           if (session && !cancelled) {
+            if (typeof session.started_at === 'string') setSessionStartedAt(session.started_at);
             if (underlagsVersion(session.meta) !== version) {
               byter = true;
               setVersion(underlagsVersion(session.meta));
@@ -141,6 +138,8 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
         // Nätverksfel: fortsätt med tomt state, blockera inte testet.
       } finally {
         if (!cancelled && !redirected && !byter) {
+          // Nätverksfel/404: klocka från nu, blockera aldrig testet.
+          setSessionStartedAt((s) => s ?? new Date().toISOString());
           setIsHydrating(false);
           setQuestionStartTime(Date.now());
         }
@@ -336,7 +335,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
       progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
       meter={
         <TestMeterRow
-          time={formatClock(elapsedSeconds)}
+          time={elapsed}
           current={currentQuestionNumber}
           total={totalQuestions}
         />

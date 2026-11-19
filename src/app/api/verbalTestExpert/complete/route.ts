@@ -6,6 +6,7 @@ import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/verbalTestExpert/validator';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 import { skickaUnderlagStatistik } from '@/lib/tests/klassiskStatistik';
+import { sessionstid } from '@/lib/tests/sessionstid';
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,9 +43,7 @@ export async function POST(request: NextRequest) {
       (sum: number, a: any) => sum + (typeof a.timeSpent === 'number' ? a.timeSpent : 0),
       0
     );
-    const timeSpent = activeTime > 0
-      ? activeTime
-      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+    const timeSpent = sessionstid(session.started_at, Date.now(), activeTime);
 
     const { error: updateError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')

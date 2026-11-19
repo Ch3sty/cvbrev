@@ -137,7 +137,9 @@ export function MatrixTestSession({
     () => serverRestored?.answers ?? Array(questions.length).fill(null)
   );
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [sessionStartedAt] = useState(new Date());
+  // Klockan räknas från sessionens started_at (servertid), så en omladdning
+  // inte nollar den. Null tills sessionen är läst.
+  const [sessionStartedAt, setSessionStartedAt] = useState<string | null>(() => serverSession?.startedAt ?? null);
   const elapsed = useElapsedClock(sessionStartedAt);
   const [isSaving, setIsSaving] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
@@ -198,6 +200,7 @@ export function MatrixTestSession({
           const data = await res.json();
           const session = data?.session;
           if (session && !cancelled) {
+            if (typeof session.started_at === 'string') setSessionStartedAt(session.started_at);
             if (session.completed_at) {
               // Redan avslutad session → direkt till resultatet.
               // Behåll laddvyn tills navigeringen sker.

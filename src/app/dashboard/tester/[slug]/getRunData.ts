@@ -63,6 +63,11 @@ export interface RunSession {
   answers: SavedAnswer[]
   /** Satt när provet redan är rättat. Vyn skickar då vidare till resultatet. */
   completedAt: string | null
+  /**
+   * Sessionens started_at, serverns tid. Klockan i vyn räknas härifrån så
+   * att en omladdning inte nollar den. Valfri så att äldre fixturer håller.
+   */
+  startedAt?: string | null
   score: number | null
   timeSpent: number | null
   /** Matrislogikens frågor i visad ordning, utan facit. */
@@ -125,6 +130,7 @@ export async function getRunData(
       id: string
       answers: unknown
       completed_at: string | null
+      started_at?: string | null
       score: number | null
       time_spent: number | null
       test_type: string | null
@@ -136,6 +142,7 @@ export async function getRunData(
         id: row.id,
         answers: Array.isArray(row.answers) ? (row.answers as SavedAnswer[]) : [],
         completedAt: row.completed_at,
+        startedAt: row.started_at ?? null,
         score: row.score,
         timeSpent: row.time_spent,
         ...(config.kind === 'matris' ? { fragor: matrisInnehall(row).fragor } : {}),

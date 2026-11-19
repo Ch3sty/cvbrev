@@ -6,6 +6,7 @@ import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/numericalTest/validator';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
 import { skickaUnderlagStatistik } from '@/lib/tests/klassiskStatistik';
+import { sessionstid } from '@/lib/tests/sessionstid';
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,16 +41,14 @@ export async function POST(request: NextRequest) {
     // Calculate score and time
     const score = calculateScore(unikaSvar(session.answers, SVARSNYCKLAR.passageFraga));
 
-    // Aktiv tid = summan av tiden per besvarad fråga. Väggklocka sedan
-    // started_at räknar med pauser och gör per-fråga-statistiken
-    // missvisande — används bara som fallback för sessioner utan tidsdata.
+    // Sessionens tid räknas från started_at (servertid), så en omladdning
+    // mitt i testet inte nollar den (src/lib/tests/sessionstid.ts). Summan av
+    // tiden per uppgift är bara reserv när started_at saknas.
     const activeTime = unikaSvar(session.answers, SVARSNYCKLAR.passageFraga).reduce(
       (sum: number, answer: any) => sum + (typeof answer.timeSpent === 'number' ? answer.timeSpent : 0),
       0
     );
-    const totalTimeSpent = activeTime > 0
-      ? activeTime
-      : Math.floor((Date.now() - new Date(session.started_at).getTime()) / 1000);
+    const totalTimeSpent = sessionstid(session.started_at, Date.now(), activeTime);
 
     // Update session as completed
     const { error: updateError } = await testSkrivKlient()
