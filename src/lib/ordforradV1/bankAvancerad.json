@@ -4818,5 +4818,1861 @@
    "ifyllda_distraktorer": 2
   },
   "fran_version": 1
+ },
+ {
+  "id": "of-a-s-56",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ihärdig",
+  "ordklass": "adjektiv",
+  "options": [
+   "ödmjuk",
+   "uthållig",
+   "lojal",
+   "pratsam",
+   "nyfiken"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ödmjuk betyder som inriktar sig på att inte känna eller hävda någon stolthet.",
+   "",
+   "Lojal betyder som alltid står på en viss persons eller grupps sida.",
+   "Pratsam betyder som (gärna) pratar mycket.",
+   "Nyfiken betyder angelägen om att få veta."
+  ],
+  "facit_betyder": "som kan hålla på länge med något utan att förtröttas",
+  "exempel": "Med ihärdigt arbete klarade hon examen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL ihärdig: förklaras med uthållig (\"uthållig, trägen\")"
+   ],
+   "so_id": "191311",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 7038,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-57",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förbrylla",
+  "ordklass": "verb",
+  "options": [
+   "övertyga",
+   "irritera",
+   "uppmuntra",
+   "förvirra",
+   "imponera"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Övertyga betyder få att betrakta (påstående eller dylikt) som sanning.",
+   "Irritera betyder orsaka irritation hos.",
+   "Uppmuntra betyder bland annat försöka ge (någon) lust.",
+   "",
+   "Imponera betyder väcka stor beundran eller respekt."
+  ],
+  "facit_betyder": "skapa tankemässig oreda hos",
+  "exempel": "Frågan förbryllade alla i rummet.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL förbrylla: förklaras med förvirra (\"förvirra, förvåna\")"
+   ],
+   "so_id": "160869",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 855,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-58",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "erfordra",
+  "ordklass": "verb",
+  "options": [
+   "beräkna",
+   "kräva",
+   "erbjuda",
+   "leverera",
+   "tillåta"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Beräkna betyder bland annat göra en beräkning av.",
+   "",
+   "Erbjuda betyder bland annat ge (någon) möjlighet att komma i åtnjutande av.",
+   "Leverera betyder fullgöra leverans av.",
+   "Tillåta betyder (förklara sig) inte lägga några hinder i vägen för."
+  ],
+  "facit_betyder": "behöva för att kunna genomföras",
+  "exempel": "Uppgiften erfordrar stor noggrannhet.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO erfordra: förklaras med kräva (\"kräva\")",
+    "SAOL erfordra: förklaras med kräva (\"fordra, kräva\")"
+   ],
+   "so_id": "144097",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1457,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-59",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förolämpa",
+  "ordklass": "verb",
+  "options": [
+   "avbryta",
+   "kränka",
+   "smickra",
+   "övertala",
+   "förvåna"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Avbryta betyder hastigt få att upphöra.",
+   "",
+   "Smickra betyder göra (någon) till föremål för smicker.",
+   "Övertala betyder få (någon) att gå med på.",
+   "Förvåna betyder få (någon) att reagera såsom inför något oväntat."
+  ],
+  "facit_betyder": "angripa den personliga hedern hos",
+  "exempel": "Han ville inte förolämpa någon.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL förolämpa: förklaras med kränka (\"kränka, såra\")",
+    "SAOL kränka: förklaras med förolämpa (\"förolämpa; våldföra sig på; bryta mot\")"
+   ],
+   "so_id": "163491",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 18074,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-60",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillförsikt",
+  "ordklass": "substantiv",
+  "options": [
+   "förväntan",
+   "misströstan",
+   "nyfikenhet",
+   "tålamod",
+   "förtröstan"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "antonym",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Förväntan betyder hopp om viss utveckling.",
+   "Det är motsatsen. Misströstan betyder tvivel på gynnsam utveckling.",
+   "Nyfikenhet betyder det att vara nyfiken.",
+   "Tålamod betyder förmåga att uthärda (förekomst av något oönskat) utan att bli (öppet) irriterad.",
+   ""
+  ],
+  "facit_betyder": "tro på att allt kommer att ordna sig till det bästa",
+  "exempel": "Hon såg framtiden an med tillförsikt.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO tillförsikt: synonym förtröstan",
+    "SAOL tillförsikt: förklaras med förtröstan (\"tillit, förtröstan\")",
+    "SO förtröstan: synonym tillförsikt"
+   ],
+   "so_id": "361142",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 10605,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-61",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "iaktta",
+  "ordklass": "verb",
+  "options": [
+   "analysera",
+   "informera",
+   "presentera",
+   "observera",
+   "kommentera"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Analysera betyder bland annat göra analys av.",
+   "Informera betyder lämna information.",
+   "Presentera betyder formellt göra (någon) bekant med viss person.",
+   "",
+   "Kommentera betyder ge kommentarer till."
+  ],
+  "facit_betyder": "komma att upptäcka",
+  "exempel": "Forskarna iakttog djuren i flera veckor.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL iaktta: förklaras med observera (\"se på, observera\")",
+    "SAOL observera: förklaras med iaktta (\"iaktta, ge akt på; lägga märke till\")"
+   ],
+   "so_id": "190610",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 30126,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-62",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "fullständig",
+  "ordklass": "adjektiv",
+  "options": [
+   "modern",
+   "officiell",
+   "komplett",
+   "aktuell",
+   "frivillig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Modern betyder bland annat som hänger samman med nutiden.",
+   "Officiell betyder bland annat fastslagen eller skapad av (statlig) myndighet.",
+   "",
+   "Aktuell betyder som (nödvändigtvis) tilldrar sig uppmärksamhet vid det givna tillfället.",
+   "Frivillig betyder som utförs av fri vilja."
+  ],
+  "facit_betyder": "som inte saknar någon väsentlig del eller egenskap",
+  "exempel": "Hon lämnade in en fullständig ansökan.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL komplett: förklaras med fullständig (\"fullständig; fullkomlig\")"
+   ],
+   "so_id": "157982",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 120128,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-63",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "betona",
+  "ordklass": "verb",
+  "options": [
+   "nedtona",
+   "antyda",
+   "upprepa",
+   "förklara",
+   "framhäva"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "antonym",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Det är motsatsen. Nedtona betyder dämpa.",
+   "Antyda betyder bland annat flyktigt omnämna eller behandla.",
+   "Upprepa betyder utföra (något) ytterligare en eller flera gånger.",
+   "Förklara betyder bland annat tillkännage som sin ståndpunkt.",
+   ""
+  ],
+  "facit_betyder": "fästa uppmärksamheten på",
+  "exempel": "Hon betonade vikten av samarbete.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL framhäva: förklaras med betona (\"understryka, betona\")"
+   ],
+   "so_id": "117922",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 62445,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-64",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "nyckfull",
+  "ordklass": "adjektiv",
+  "options": [
+   "pratsam",
+   "oberäknelig",
+   "förutsägbar",
+   "beskedlig",
+   "tålmodig"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "antonym",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Pratsam betyder som (gärna) pratar mycket.",
+   "",
+   "Det är motsatsen. Förutsägbar betyder möjlig att förutsäga.",
+   "Beskedlig betyder som i (alltför) liten grad hävdar sin vilja eller sina anspråk.",
+   "Tålmodig betyder som har tålamod."
+  ],
+  "facit_betyder": "vars handlande inte kan förutses",
+  "exempel": "Vädret i fjällen är nyckfullt.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL nyckfull: förklaras med oberäknelig (\"oberäknelig, oförutsägbar\")"
+   ],
+   "so_id": "261342",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 2285,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-65",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avskaffa",
+  "ordklass": "verb",
+  "options": [
+   "begränsa",
+   "införa",
+   "utreda",
+   "förnya",
+   "upphäva"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "antonym",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Begränsa betyder bland annat utgöra gräns för.",
+   "Det är motsatsen. Införa betyder bland annat (börja) göra allmänt brukad.",
+   "Utreda betyder undersöka och bringa klarhet i.",
+   "Förnya betyder bland annat ge ny fräschhet och livskraft åt.",
+   ""
+  ],
+  "facit_betyder": "låta upphöra att gälla",
+  "exempel": "Riksdagen beslutade att avskaffa avgiften.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL avskaffa: förklaras med upphäva (\"göra slut på; upphäva\")"
+   ],
+   "so_id": "110758",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 111429,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-66",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "medge",
+  "ordklass": "verb",
+  "options": [
+   "upprepa",
+   "antyda",
+   "erkänna",
+   "garantera",
+   "påstå"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Upprepa betyder utföra (något) ytterligare en eller flera gånger.",
+   "Antyda betyder bland annat flyktigt omnämna eller behandla.",
+   "",
+   "Garantera betyder utlova förverkligandet av.",
+   "Påstå betyder framföra som ett faktum."
+  ],
+  "facit_betyder": "förklara sig skyldig",
+  "exempel": "Han medgav att han hade gjort ett misstag.",
+  "kalla": {
+   "verifierad_mot": "SAOL och SO",
+   "belagg": [
+    "SAOL medge: förklaras med erkänna (\"hålla med om, erkänna\")",
+    "SO erkänna: förklaras med medge (\"\")"
+   ],
+   "so_id": "242012",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 95669,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-67",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "fullgöra",
+  "ordklass": "verb",
+  "options": [
+   "fördela",
+   "anmäla",
+   "beskriva",
+   "utföra",
+   "planera"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Fördela betyder dela upp och sprida.",
+   "Anmäla betyder bland annat lämna formellt meddelande om.",
+   "Beskriva betyder bland annat redogöra för de väsentliga egenskaperna hos (någon eller något) i syfte att ge en helhetsbild.",
+   "",
+   "Planera betyder bland annat göra upp plan för."
+  ],
+  "facit_betyder": "vara verksam med och föra (uppdrag eller handling) till sitt slut",
+  "exempel": "Han ska fullgöra sina uppgifter före jul.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL fullgöra: förklaras med utföra (\"utföra; uppfylla\")",
+    "SAOL utföra: förklaras med fullgöra (\"fullgöra\")"
+   ],
+   "so_id": "157872",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 82071,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-68",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillfällighet",
+  "ordklass": "substantiv",
+  "options": [
+   "metod",
+   "princip",
+   "orsak",
+   "slump",
+   "vana"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Metod betyder planmässigt tillvägagångssätt.",
+   "Princip betyder grundläggande sats eller regel.",
+   "Orsak betyder tillstånd, händelse eller handling som (direkt) ger upphov till annat tillstånd eller annan händelse eller handling.",
+   "",
+   "Vana betyder sätt att bete sig eller förhålla sig (i viss situation) som har lärts in genom ständig upprepning."
+  ],
+  "facit_betyder": "resultat eller yttring av omständigheter som inte kunnat förutses eller kontrolleras",
+  "exempel": "Det var ingen tillfällighet att de möttes.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO tillfällighet: synonym slump",
+    "SAOL tillfällighet: förklaras med slump (\"slump\")",
+    "SO slump: synonym tillfällighet",
+    "SAOL slump: förklaras med tillfällighet (\"tillfällighet\")"
+   ],
+   "so_id": "361081",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 38792,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-69",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ståndaktig",
+  "ordklass": "adjektiv",
+  "options": [
+   "stolt",
+   "blyg",
+   "orubblig",
+   "sansad",
+   "lojal"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Stolt betyder fylld av tillfredsställelse och självkänsla.",
+   "Blyg betyder som känner sig osäker eller utlämnad vid umgänge med andra.",
+   "",
+   "Sansad betyder lugn och vettig.",
+   "Lojal betyder som alltid står på en viss persons eller grupps sida."
+  ],
+  "facit_betyder": "som inte låter sig påverkas eller förändras",
+  "exempel": "Hon var ståndaktig i sin kritik.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL ståndaktig: förklaras med orubblig (\"som håller stånd, fast, orubblig\")"
+   ],
+   "so_id": "347352",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1448,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-70",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förespråka",
+  "ordklass": "verb",
+  "options": [
+   "undersöka",
+   "förorda",
+   "beskriva",
+   "analysera",
+   "förkasta"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "antonym"
+  ],
+  "misstag": [
+   "Undersöka betyder noggrant studera för att skaffa fram fakta om.",
+   "",
+   "Beskriva betyder bland annat redogöra för de väsentliga egenskaperna hos (någon eller något) i syfte att ge en helhetsbild.",
+   "Analysera betyder bland annat göra analys av.",
+   "Det är motsatsen. Förkasta betyder förklara sig på inget sätt kunna godta."
+  ],
+  "facit_betyder": "formellt uttala sitt stöd för",
+  "exempel": "Hon förespråkar ett nytt arbetssätt.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL förespråka: förklaras med förorda (\"tala för, förorda\")",
+    "SAOL förorda: förklaras med förespråka (\"tala för, förespråka\")"
+   ],
+   "so_id": "161490",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 26938,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-71",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "expandera",
+  "ordklass": "verb",
+  "options": [
+   "rekrytera",
+   "investera",
+   "samarbeta",
+   "förhandla",
+   "utvidga"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Rekrytera betyder locka (lämpliga personer) till ledig tjänst eller dylikt.",
+   "Investera betyder satsa (ekonomiskt värde) med grundad förhoppning om senare avkastning.",
+   "Samarbeta betyder arbeta tillsammans (med andra).",
+   "Förhandla betyder överlägga i syfte att utarbeta överenskommelse.",
+   ""
+  ],
+  "facit_betyder": "göra (område eller dylikt) större",
+  "exempel": "Företaget expanderade till Norge.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO expandera: synonym utvidga",
+    "SO utvidga: synonym expandera"
+   ],
+   "so_id": "145297",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 29707,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-72",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förtroende",
+  "ordklass": "substantiv",
+  "options": [
+   "ansvar",
+   "omsorg",
+   "tillit",
+   "lojalitet",
+   "beundran"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ansvar betyder skyldighet att se till att viss verksamhet fungerar och att ta konsekvenserna om så inte sker.",
+   "Omsorg betyder bland annat (noggrann och kärleksfull) vård och skötsel.",
+   "",
+   "Lojalitet betyder det att vara lojal.",
+   "Beundran betyder känsla av stark uppskattning av någon eller något såsom särskilt framstående."
+  ],
+  "facit_betyder": "tro på att någon är pålitlig och vill väl",
+  "exempel": "Väljarna har stort förtroende för henne.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL förtroende: förklaras med tillit (\"tillit; tillitsfull information\")",
+    "SAOL tillit: förklaras med förtroende (\"förtroende, förtröstan\")"
+   ],
+   "so_id": "165511",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 298001,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-73",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "välvillig",
+  "ordklass": "adjektiv",
+  "options": [
+   "envis",
+   "vänlig",
+   "ödmjuk",
+   "modig",
+   "sansad"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Envis betyder som energiskt försöker få rätt eller få sin vilja igenom.",
+   "",
+   "Ödmjuk betyder som inriktar sig på att inte känna eller hävda någon stolthet.",
+   "Modig betyder bland annat som kan handla utan fruktan för följder.",
+   "Sansad betyder lugn och vettig."
+  ],
+  "facit_betyder": "som visar positiv inställning",
+  "exempel": "Hon var välvilligt inställd till förslaget.",
+  "kalla": {
+   "verifierad_mot": "SO och Wiktionary",
+   "belagg": [
+    "SO välvillig: jämför vänlig",
+    "SO vänlig: jämför välvillig",
+    "Wiktionary: välvillig och vänlig listas som synonymer"
+   ],
+   "so_id": "395790",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 6010,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-74",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "arrogant",
+  "ordklass": "adjektiv",
+  "options": [
+   "nervös",
+   "barnslig",
+   "punktlig",
+   "högdragen",
+   "omtyckt"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Nervös betyder bland annat som har orolig läggning.",
+   "Barnslig betyder som har ett (mindre) barns sinnelag.",
+   "Punktlig betyder som håller (den avtalade) tiden exakt.",
+   "",
+   "Omtyckt betyder som många tycker om."
+  ],
+  "facit_betyder": "som uppträder med anspråk på att betraktas som förmer än andra",
+  "exempel": "Han verkade arrogant på mötet.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL arrogant: förklaras med högdragen (\"högdragen, aggressiv\")"
+   ],
+   "so_id": "107463",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 28574,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-75",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "kompensera",
+  "ordklass": "verb",
+  "options": [
+   "ersätta",
+   "förhandla",
+   "investera",
+   "debitera",
+   "förlänga"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Förhandla betyder överlägga i syfte att utarbeta överenskommelse.",
+   "Investera betyder satsa (ekonomiskt värde) med grundad förhoppning om senare avkastning.",
+   "Debitera betyder påföra (någon) en kostnad.",
+   "Förlänga betyder bland annat göra längre."
+  ],
+  "facit_betyder": "ge ekonomisk ersättning till",
+  "exempel": "Företaget kompenserade kunderna för förseningen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL kompensera: förklaras med ersätta (\"uppväga, ersätta; utjämna\")"
+   ],
+   "so_id": "212095",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 94250,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-76",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ambition",
+  "ordklass": "substantiv",
+  "options": [
+   "rutin",
+   "humor",
+   "strävan",
+   "nyfikenhet",
+   "förmåga"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Rutin betyder bland annat skicklighet som uppnåtts genom erfarenhet.",
+   "Humor betyder förmåga att skämta och uppskatta skämt.",
+   "",
+   "Nyfikenhet betyder det att vara nyfiken.",
+   "Förmåga betyder bland annat möjlighet att utföra något, som enbart beror av inre egenskaper eller dylikt."
+  ],
+  "facit_betyder": "det att sträva efter något",
+  "exempel": "Hennes ambition är att bli chef.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL ambition: förklaras med strävan (\"strävan, anspråk; framåtanda\")"
+   ],
+   "so_id": "103206",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 80844,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-s-77",
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "suverän",
+  "ordklass": "adjektiv",
+  "options": [
+   "erfaren",
+   "populär",
+   "överlägsen",
+   "självsäker",
+   "kostsam"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Erfaren betyder som har långvarigt utövande av någon verksamhet bakom sig.",
+   "Populär betyder bland annat allmänt omtyckt.",
+   "",
+   "Självsäker betyder som har (alltför) hög uppfattning om den egna personens värde och styrka.",
+   "Kostsam betyder som har högt pris."
+  ],
+  "facit_betyder": "som i väsentliga avseenden är uppenbart bättre än",
+  "exempel": "Laget gjorde en suverän insats.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO suverän: förklaras med överlägsen (\"\")",
+    "SAOL suverän: förklaras med överlägsen (\"överlägsen\")"
+   ],
+   "so_id": "349497",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 47777,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-45",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "muntlig",
+  "ordklass": "adjektiv",
+  "options": [
+   "ofullständig",
+   "nationell",
+   "skriftlig",
+   "kortfattad",
+   "anonym"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ofullständig betyder som saknar något (väsentligt).",
+   "Nationell betyder bland annat som utövas eller kontrolleras av en nation.",
+   "",
+   "Kortfattad betyder som uttrycks med få ord.",
+   "Anonym betyder bland annat vars upphovsman inte kan identifieras."
+  ],
+  "facit_betyder": "som uttrycks i skriven form",
+  "exempel": "Provet har en muntlig del.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO muntlig: motsats skriftlig",
+    "SO skriftlig: motsats muntlig"
+   ],
+   "so_id": "249703",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 41073,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-46",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "inflation",
+  "ordklass": "substantiv",
+  "options": [
+   "deflation",
+   "valuta",
+   "arbetslöshet",
+   "konjunktur",
+   "recession"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Valuta betyder bland annat gällande betalningsmedel för visst land.",
+   "Arbetslöshet betyder det att vara arbetslös.",
+   "Konjunktur betyder viss, tillfällig och föränderlig, nivå för den ekonomiska aktiviteten i samhället.",
+   "Recession betyder mildare lågkonjunktur."
+  ],
+  "facit_betyder": "sänkning av den allmänna prisnivån",
+  "exempel": "Inflationen steg under året.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO inflation: motsats deflation",
+    "SO deflation: motsats inflation"
+   ],
+   "so_id": "192922",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 81597,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-47",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sympati",
+  "ordklass": "substantiv",
+  "options": [
+   "respekt",
+   "beundran",
+   "avundsjuka",
+   "medkänsla",
+   "antipati"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "synonym",
+   ""
+  ],
+  "misstag": [
+   "Respekt betyder bland annat visad eller upplevd hög värdering.",
+   "Beundran betyder känsla av stark uppskattning av någon eller något såsom särskilt framstående.",
+   "Avundsjuka betyder (varaktig) känsla av avund.",
+   "Medkänsla betyder ungefär detsamma som sympati, inte motsatsen.",
+   ""
+  ],
+  "facit_betyder": "stark, känslomässig motvilja",
+  "exempel": "Hon kände sympati för de drabbade.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO sympati: motsats antipati",
+    "SO antipati: motsats sympati"
+   ],
+   "so_id": "351921",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 66117,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-48",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "spontan",
+  "ordklass": "adjektiv",
+  "options": [
+   "engagerad",
+   "omtyckt",
+   "kreativ",
+   "genomtänkt",
+   "impulsiv"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "synonym"
+  ],
+  "misstag": [
+   "Engagerad betyder bland annat som känner (starkt) engagemang.",
+   "Omtyckt betyder som många tycker om.",
+   "Kreativ betyder som har förmåga att komma med nya idéer.",
+   "",
+   "Impulsiv betyder ungefär detsamma som spontan, inte motsatsen."
+  ],
+  "facit_betyder": "som noga tänkts igenom",
+  "exempel": "Det var ett spontant beslut.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO spontan: motsats genomtänkt",
+    "SO genomtänkt: motsats spontan"
+   ],
+   "so_id": "336994",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 55312,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-49",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillträda",
+  "ordklass": "verb",
+  "options": [
+   "anträda",
+   "efterträda",
+   "frånträda",
+   "ansöka",
+   "delegera"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Anträda betyder påbörja (en resa eller verksamhet).",
+   "Efterträda betyder överta ämbete eller verksamhet efter.",
+   "",
+   "Ansöka betyder formellt begära.",
+   "Delegera betyder bland annat formellt överlåta befogenhet."
+  ],
+  "facit_betyder": "(formellt) inleda sin verksamhet på",
+  "exempel": "Hon tillträder tjänsten i mars.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO tillträda: motsats frånträda",
+    "SO frånträda: motsats tillträda"
+   ],
+   "so_id": "362095",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 9768,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-50",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fälla",
+  "ordklass": "verb",
+  "options": [
+   "häkta",
+   "överklaga",
+   "frikänna",
+   "utreda",
+   "åtala"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Häkta betyder bland annat verkställa häktning av.",
+   "Överklaga betyder klaga över (dom eller beslut).",
+   "",
+   "Utreda betyder undersöka och bringa klarhet i.",
+   "Åtala betyder väcka åtal mot."
+  ],
+  "facit_betyder": "juridiskt förklara oskyldig",
+  "exempel": "Rätten fällde den åtalade för bedrägeri.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO fälla: motsats frikänna",
+    "SO frikänna: motsats fälla"
+   ],
+   "so_id": "159354",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 137654,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-51",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "urban",
+  "ordklass": "adjektiv",
+  "options": [
+   "kommunal",
+   "lantlig",
+   "nordlig",
+   "ekonomisk",
+   "industriell"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kommunal betyder som har att göra med en kommuns verksamhet.",
+   "",
+   "Nordlig betyder bland annat som kommer från norr.",
+   "Ekonomisk betyder bland annat som har att göra med ekonomi.",
+   "Industriell betyder som har att göra med industri."
+  ],
+  "facit_betyder": "som har att göra med landsbygden",
+  "exempel": "Hon trivs bäst i en urban miljö.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: urban och lantlig listas som motsatsord",
+    "synonymer.se: urban och lantlig listas som motsatsord"
+   ],
+   "so_id": "380242",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 94414,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-52",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "manuell",
+  "ordklass": "adjektiv",
+  "options": [
+   "fysisk",
+   "kontinuerlig",
+   "periodisk",
+   "automatisk",
+   "optisk"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Fysisk betyder bland annat som har att göra med fysiken.",
+   "Kontinuerlig betyder bland annat som pågår hela tiden.",
+   "Periodisk betyder som uppträder (på samma sätt) med jämna mellanrum.",
+   "",
+   "Optisk betyder bland annat som har att göra med ljuset och dess lagar."
+  ],
+  "facit_betyder": "som (skenbart) agerar på egen hand",
+  "exempel": "Bilen har manuell växellåda.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: manuell och automatisk listas som motsatsord",
+    "synonymer.se: manuell och automatisk listas som motsatsord"
+   ],
+   "so_id": "239125",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 29815,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-53",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "abstrakt",
+  "ordklass": "adjektiv",
+  "options": [
+   "vardaglig",
+   "logisk",
+   "konkret",
+   "gammaldags",
+   "kreativ"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Vardaglig betyder som ofta sker eller förekommer eller används.",
+   "Logisk betyder som har att göra med logik.",
+   "",
+   "Gammaldags betyder som följer en äldre tids normer.",
+   "Kreativ betyder som har förmåga att komma med nya idéer."
+  ],
+  "facit_betyder": "som direkt kan uppfattas med sinnena",
+  "exempel": "Det var ett abstrakt resonemang.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO abstrakt: motsats konkret",
+    "SO konkret: motsats abstrakt"
+   ],
+   "so_id": "100276",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 32312,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-54",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "beröm",
+  "ordklass": "substantiv",
+  "options": [
+   "belöning",
+   "lovord",
+   "ansvar",
+   "respekt",
+   "kritik"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "synonym",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Belöning betyder pengar eller utmärkelse som delas ut som ersättning.",
+   "Lovord betyder ungefär detsamma som beröm, inte motsatsen. Den exakta motsatsen till beröm är klander.",
+   "Ansvar betyder skyldighet att se till att viss verksamhet fungerar och att ta konsekvenserna om så inte sker.",
+   "Respekt betyder bland annat visad eller upplevd hög värdering.",
+   ""
+  ],
+  "facit_betyder": "angrepp (på någon eller något) genom påpekande av misstag eller felaktigheter",
+  "exempel": "Hon fick mycket beröm för rapporten.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO kritik: synonym eller förklaring klander",
+    "SO klander: motsats beröm"
+   ],
+   "so_id": "116899",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 92288,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-55",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "minoritet",
+  "ordklass": "substantiv",
+  "options": [
+   "befolkning",
+   "regering",
+   "majoritet",
+   "opposition",
+   "koalition"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Befolkning betyder sammanfattningen av alla invånare i visst område.",
+   "Regering betyder högsta styrelse för ett land.",
+   "",
+   "Opposition betyder bland annat aktivt avståndstagande från något.",
+   "Koalition betyder sammanslutning av självständiga parter för visst syfte."
+  ],
+  "facit_betyder": "det att vara fler än motståndarna",
+  "exempel": "En minoritet av medlemmarna röstade nej.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO minoritet: motsats majoritet",
+    "SO majoritet: motsats minoritet"
+   ],
+   "so_id": "245263",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 111142,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-56",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kollektiv",
+  "ordklass": "adjektiv",
+  "options": [
+   "nationell",
+   "gemensam",
+   "regional",
+   "politisk",
+   "individuell"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "synonym",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Nationell betyder bland annat som utövas eller kontrolleras av en nation.",
+   "Gemensam betyder ungefär detsamma som kollektiv, inte motsatsen.",
+   "Regional betyder som har att göra med ett (större) geografiskt område.",
+   "Politisk betyder som har att göra med politik.",
+   ""
+  ],
+  "facit_betyder": "som gäller enskilda varelser",
+  "exempel": "Avtalet ger ett kollektivt skydd för alla anställda.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO kollektiv: motsats individuell",
+    "SO individuell: motsats kollektiv"
+   ],
+   "so_id": "210874",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 83003,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-57",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "efterfrågan",
+  "ordklass": "substantiv",
+  "options": [
+   "ränta",
+   "budget",
+   "utbud",
+   "export",
+   "vinst"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ränta betyder bland annat överenskommet pris på kredit.",
+   "Budget betyder plan med angivande av tillgängliga medel och deras fördelning på olika poster under viss tid.",
+   "",
+   "Export betyder organiserad försäljning av varor eller tjänster från det egna landet till utlandet.",
+   "Vinst betyder bland annat ökning av tillgångarnas värde (för person eller företag) som uppkommit genom affärshandlingar."
+  ],
+  "facit_betyder": "sammanfattningen av alla varor eller tjänster som erbjuds",
+  "exempel": "Efterfrågan på sjuksköterskor är stor.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO efterfrågan: motsats utbud",
+    "SO utbud: motsats efterfrågan"
+   ],
+   "so_id": "140737",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 261299,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-58",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "ytlig",
+  "ordklass": "adjektiv",
+  "options": [
+   "blek",
+   "vass",
+   "kall",
+   "hal",
+   "djup"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Blek betyder bland annat som har svag, vitaktig färg.",
+   "Vass betyder som har mycket spetsig vinkel.",
+   "Kall betyder som har låg temperatur.",
+   "Hal betyder som man lätt glider eller halkar på.",
+   ""
+  ],
+  "facit_betyder": "(intellektuellt) inträngande eller grundläggande",
+  "exempel": "Han hade bara en ytlig kunskap om ämnet.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO ytlig: motsats djup",
+    "SO djup: motsats ytlig"
+   ],
+   "so_id": "398569",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 40502,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-59",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "akut",
+  "ordklass": "adjektiv",
+  "options": [
+   "kronisk",
+   "smittsam",
+   "ärftlig",
+   "skarp",
+   "medfödd"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "synonym",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Smittsam betyder som lätt överförs från en individ till en annan.",
+   "Ärftlig betyder som förs vidare genom arv.",
+   "Skarp betyder ungefär detsamma som akut, inte motsatsen.",
+   "Medfödd betyder som man har från födelsen."
+  ],
+  "facit_betyder": "som har ett mycket långvarigt förlopp",
+  "exempel": "Patienten hade en akut infektion.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO akut: motsats kronisk",
+    "SO kronisk: motsats akut"
+   ],
+   "so_id": "101743",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 331313,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-a-m-60",
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "preliminär",
+  "ordklass": "adjektiv",
+  "options": [
+   "skriftlig",
+   "juridisk",
+   "slutgiltig",
+   "provisorisk",
+   "omfattande"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "synonym",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Skriftlig betyder som uttrycks i skriven form.",
+   "Juridisk betyder som har att göra med juridik.",
+   "",
+   "Provisorisk betyder ungefär detsamma som preliminär, inte motsatsen.",
+   "Omfattande betyder som har stort omfång."
+  ],
+  "facit_betyder": "som man (till sist) kommer fram till som gällande",
+  "exempel": "Det här är bara en preliminär tidplan.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO preliminär: motsats slutgiltig",
+    "SO slutgiltig: motsats preliminär"
+   ],
+   "so_id": "284946",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 53658,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
  }
 ]

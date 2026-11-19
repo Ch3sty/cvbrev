@@ -9,6 +9,7 @@
 import grund from './bankGrund.json';
 import avancerad from './bankAvancerad.json';
 import expert from './bankExpert.json';
+import { ORD_VERSION } from './select';
 import type { OrdFraga, OrdNiva, OrdTyp } from './types';
 
 export const MINST_PER_NIVA_OCH_TYP = 40;
@@ -26,9 +27,9 @@ const BANK: Record<OrdNiva, OrdFraga[]> = {
   expert: expert as unknown as OrdFraga[],
 };
 
-/** Antal uppgifter per nivå och typ. */
+/** Antal aktiva uppgifter per nivå och typ (inlagda men ännu inte aktiverade versioner räknas inte). */
 export function ordforradAntal(): Record<OrdNiva, Record<OrdTyp, number>> {
-  const r = (n: OrdNiva, t: OrdTyp) => BANK[n].filter((q) => q.typ === t && !q.pensionerad_fran).length;
+  const r = (n: OrdNiva, t: OrdTyp) => BANK[n].filter((q) => q.typ === t && q.fran_version <= ORD_VERSION && !q.pensionerad_fran).length;
   return {
     grund: { synonym: r('grund', 'synonym'), antonym: r('grund', 'antonym') },
     avancerad: { synonym: r('avancerad', 'synonym'), antonym: r('avancerad', 'antonym') },

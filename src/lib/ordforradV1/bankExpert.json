@@ -171,7 +171,7 @@
    "Eftergift betyder bland annat (partiellt) övergivande av egna krav för att tillfredsställa någon annans vilja.",
    "Uppror betyder (organiserat och inte tillfälligt) angrepp mot statsmakten av någon grupp i samma land."
   ],
-  "facit_betyder": "",
+  "facit_betyder": "tillstånd där lagar inte upprätthålls och samhällsordningen brutit samman",
   "exempel": "När polisen strejkade bröt ren anarki ut i staden.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1384,7 +1384,7 @@
    "Trötthet betyder bland annat det att vara trött.",
    ""
   ],
-  "facit_betyder": "",
+  "facit_betyder": "brist på intresse, känslor och engagemang",
   "exempel": "Efter det svåra beskedet hamnade han i total apati.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1870,7 +1870,7 @@
    "Immanent betyder som utgör en oskiljbar, organisk del.",
    "Intressant liknar intrigant till ljudet men betyder som kan fånga och hålla kvar uppmärksamheten."
   ],
-  "facit_betyder": "",
+  "facit_betyder": "som smider ränker, alltså i hemlighet planerar för att skada andra eller vinna fördelar",
   "exempel": "Den intrigante kollegan försökte ställa de andra mot varandra.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -2958,5 +2958,1269 @@
    "ifyllda_distraktorer": 2
   },
   "fran_version": 1
+ },
+ {
+  "id": "of-e-s-55",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "efemär",
+  "ordklass": "adjektiv",
+  "options": [
+   "beständig",
+   "kortlivad",
+   "sällsynt",
+   "eftersökt",
+   "marginell"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "antonym",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Det är motsatsen. Beständig betyder bland annat som bibehåller sina väsentliga egenskaper.",
+   "",
+   "Sällsynt betyder som förekommer i ett mycket litet antal fall.",
+   "Eftersökt betyder bland annat som många efterfrågar.",
+   "Marginell betyder som har liten omfattning eller betydelse."
+  ],
+  "facit_betyder": "som har kort livslängd",
+  "exempel": "Framgången visade sig vara efemär.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL efemär: förklaras med kortlivad (\"kortlivad; förgänglig, flyktig\")"
+   ],
+   "so_id": "140562",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 164,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-56",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "evident",
+  "ordklass": "adjektiv",
+  "options": [
+   "relativ",
+   "uppenbar",
+   "tvivelaktig",
+   "relevant",
+   "aktuell"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "antonym",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Relativ betyder bland annat som står i ett förhållande till en viss storhet.",
+   "",
+   "Det är motsatsen. Tvivelaktig betyder bland annat som man knappast kan tro på.",
+   "Relevant betyder som är av intresse i det aktuella sammanhanget.",
+   "Aktuell betyder som (nödvändigtvis) tilldrar sig uppmärksamhet vid det givna tillfället."
+  ],
+  "facit_betyder": "fullständigt tydlig",
+  "exempel": "Det var evident att planen inte höll.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO evident: synonym uppenbar",
+    "SAOL evident: förklaras med uppenbar (\"obestridlig, uppenbar\")",
+    "SO uppenbar: synonym evident"
+   ],
+   "so_id": "144934",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1935,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-57",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bagatellisera",
+  "ordklass": "verb",
+  "options": [
+   "förringa",
+   "överdriva",
+   "sammanfatta",
+   "analysera",
+   "ifrågasätta"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "antonym",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Det är motsatsen. Överdriva betyder få (något) att framstå som större eller viktigare än vad som verkligen är fallet.",
+   "Sammanfatta betyder återge det viktigaste i.",
+   "Analysera betyder bland annat göra analys av.",
+   "Ifrågasätta betyder uttrycka tvivel om."
+  ],
+  "facit_betyder": "värdera (någon eller något) lägre än vad som är rättvist",
+  "exempel": "Han bagatelliserade problemen.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: bagatellisera och förringa listas som synonymer",
+    "synonymer.se: bagatellisera och förringa listas som synonymer"
+   ],
+   "so_id": "112410",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5405,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-58",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "antagonist",
+  "ordklass": "substantiv",
+  "options": [
+   "motståndare",
+   "förebild",
+   "förhandlare",
+   "åskådare",
+   "bundsförvant"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "antonym"
+  ],
+  "misstag": [
+   "",
+   "Förebild betyder företeelse som något annat formas i enlighet med.",
+   "Förhandlare betyder person med uppgift att föra förhandlingar.",
+   "Åskådare betyder person som är närvarande och ser på något.",
+   "Det är motsatsen. Bundsförvant betyder part som samarbetar med viss annan part."
+  ],
+  "facit_betyder": "person som aktivt försöker förhindra viss utveckling",
+  "exempel": "Han var hennes främsta antagonist i debatten.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL antagonist: förklaras med motståndare (\"motståndare\")"
+   ],
+   "so_id": "105534",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5304,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-59",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "magnifik",
+  "ordklass": "adjektiv",
+  "options": [
+   "torftig",
+   "dramatisk",
+   "storslagen",
+   "historisk",
+   "romantisk"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "antonym",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Det är motsatsen. Torftig betyder som är i sämsta laget och bara nätt och jämnt tillräcklig.",
+   "Dramatisk betyder bland annat som har att göra med teater.",
+   "",
+   "Historisk betyder bland annat som har att göra med historia.",
+   "Romantisk betyder bland annat kännetecknad av längtan bort från vardagen."
+  ],
+  "facit_betyder": "som gör ett starkt och mäktigt intryck",
+  "exempel": "Utsikten från toppen var magnifik.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL magnifik: förklaras med storslagen (\"storslagen, storartad, ståtlig\")"
+   ],
+   "so_id": "237613",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 9410,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-60",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "tendentiös",
+  "ordklass": "adjektiv",
+  "options": [
+   "teknisk",
+   "detaljerad",
+   "akademisk",
+   "objektiv",
+   "partisk"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "antonym",
+   ""
+  ],
+  "misstag": [
+   "Teknisk betyder bland annat som har att göra med teknik.",
+   "Detaljerad betyder noggrann och uttömmande in i minsta detalj.",
+   "Akademisk betyder bland annat som har att göra med högre undervisning och forskning.",
+   "Det är motsatsen. Objektiv betyder bland annat som enbart tar hänsyn till fakta.",
+   ""
+  ],
+  "facit_betyder": "som (otillbörligt) gynnar eller stöder en part på en annan, konkurrerande, parts bekostnad",
+  "exempel": "Rapporten var tendentiös och ensidig.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL tendentiös: förklaras med partisk (\"med utpräglat syfte; partisk, snedvriden\")"
+   ],
+   "so_id": "358874",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1759,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-61",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "stringent",
+  "ordklass": "adjektiv",
+  "options": [
+   "strikt",
+   "slarvig",
+   "abstrakt",
+   "kreativ",
+   "poetisk"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Slarvig betyder som inte är tillräckligt noggrann och ordentlig.",
+   "Abstrakt betyder som inte kan uppfattas med sinnena.",
+   "Kreativ betyder som har förmåga att komma med nya idéer.",
+   "Poetisk betyder bland annat som har att göra med poesi."
+  ],
+  "facit_betyder": "logiskt följdriktig och exakt",
+  "exempel": "Analysen var stringent och lätt att följa.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO strikt: förklaras med stringent (\"\")"
+   ],
+   "so_id": "344936",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 5170,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-62",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "deskriptiv",
+  "ordklass": "adjektiv",
+  "options": [
+   "pedagogisk",
+   "kronologisk",
+   "spekulativ",
+   "normativ",
+   "beskrivande"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "antonym",
+   ""
+  ],
+  "misstag": [
+   "Pedagogisk betyder bland annat som har att göra med (metoder för) uppfostran och undervisning.",
+   "Kronologisk betyder bland annat som har att göra med tideräkning.",
+   "Spekulativ betyder bland annat som har att göra med fritt och fantasifullt tänkande.",
+   "Det är motsatsen. Normativ betyder som anger en norm.",
+   ""
+  ],
+  "facit_betyder": "som inriktar sig på att beskriva",
+  "exempel": "Studien är deskriptiv och tar inte ställning.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL deskriptiv: förklaras med beskrivande (\"beskrivande\")"
+   ],
+   "so_id": "134210",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1964,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-63",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "nonchalant",
+  "ordklass": "adjektiv",
+  "options": [
+   "pratsam",
+   "tafatt",
+   "envis",
+   "vårdslös",
+   "nervös"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Pratsam betyder som (gärna) pratar mycket.",
+   "Tafatt betyder som uppträder oskickligt och klumpigt.",
+   "Envis betyder som energiskt försöker få rätt eller få sin vilja igenom.",
+   "",
+   "Nervös betyder bland annat som har orolig läggning."
+  ],
+  "facit_betyder": "som brister i aktsamhet och rimlig försiktighet",
+  "exempel": "Han var nonchalant med säkerhetsreglerna.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL nonchalant: förklaras med vårdslös (\"vårdslös; respektlös\")",
+    "SAOL vårdslös: förklaras med nonchalant (\"oförsiktig, nonchalant\")"
+   ],
+   "so_id": "259942",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 24801,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-64",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fiktiv",
+  "ordklass": "adjektiv",
+  "options": [
+   "uppdiktad",
+   "kortfattad",
+   "historisk",
+   "anonym",
+   "poetisk"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Kortfattad betyder som uttrycks med få ord.",
+   "Historisk betyder bland annat som har att göra med historia.",
+   "Anonym betyder bland annat vars upphovsman inte kan identifieras.",
+   "Poetisk betyder bland annat som har att göra med poesi."
+  ],
+  "facit_betyder": "som inte är verklig",
+  "exempel": "Romanen utspelar sig i en fiktiv stad.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL fiktiv: förklaras med uppdiktad (\"inbillad; uppdiktad\")"
+   ],
+   "so_id": "148747",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 16288,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-65",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskutabel",
+  "ordklass": "adjektiv",
+  "options": [
+   "principiell",
+   "föråldrad",
+   "obligatorisk",
+   "omtvistlig",
+   "fördelaktig"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Principiell betyder som utgör eller grundar sig på någon princip.",
+   "Föråldrad betyder som mist sin aktualitet.",
+   "Obligatorisk betyder som måste utföras eller ingå i visst skeende.",
+   "",
+   "Fördelaktig betyder som är till fördel (för någon eller något)."
+  ],
+  "facit_betyder": "som på goda grunder kan ifrågasättas",
+  "exempel": "Det är diskutabelt om beslutet var rätt.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL diskutabel: förklaras med omtvistlig (\"omtvistlig, inte självklar\")"
+   ],
+   "so_id": "135769",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 2527,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-66",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "hegemoni",
+  "ordklass": "substantiv",
+  "options": [
+   "opposition",
+   "tradition",
+   "autonomi",
+   "diplomati",
+   "herravälde"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Opposition betyder bland annat aktivt avståndstagande från något.",
+   "Tradition betyder bland annat fast etablerad sedvänja inom en grupp som yttrar sig i (regelbundet) återkommande händelser med i stort sett oförändrad utformning.",
+   "Autonomi betyder vidsträckt rätt att bestämma om egna angelägenheter.",
+   "Diplomati betyder verksamhet som rör mellanstatliga politiska förbindelser.",
+   ""
+  ],
+  "facit_betyder": "oinskränkt makt(utövning)",
+  "exempel": "Landet hade länge hegemoni i regionen.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL hegemoni: förklaras med herravälde (\"övervälde, herravälde, ledarskap\")"
+   ],
+   "so_id": "180533",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 4040,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-67",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fatal",
+  "ordklass": "adjektiv",
+  "options": [
+   "sporadisk",
+   "marginell",
+   "ödesdiger",
+   "kronisk",
+   "banal"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Sporadisk betyder som förekommer bara vid enstaka tillfällen.",
+   "Marginell betyder som har liten omfattning eller betydelse.",
+   "",
+   "Kronisk betyder som har ett mycket långvarigt förlopp.",
+   "Banal betyder alltför ofta använd eller förekommande."
+  ],
+  "facit_betyder": "som är eller kommer att bli av stor och allvarlig betydelse",
+  "exempel": "Beslutet fick fatala följder.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO fatal: synonym ödesdiger",
+    "SO ödesdiger: synonym fatal"
+   ],
+   "so_id": "147439",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 6483,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-68",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "pompös",
+  "ordklass": "adjektiv",
+  "options": [
+   "ironisk",
+   "nostalgisk",
+   "gammaldags",
+   "högtravande",
+   "romantisk"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Ironisk betyder skenbart uppskattande men i verkligheten kritisk eller hånfull.",
+   "Nostalgisk betyder som kännetecknas av nostalgi.",
+   "Gammaldags betyder som följer en äldre tids normer.",
+   "",
+   "Romantisk betyder bland annat kännetecknad av längtan bort från vardagen."
+  ],
+  "facit_betyder": "onaturligt högstämd eller högtidlig",
+  "exempel": "Talet var pompöst och långt.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO pompös: förklaras med högtravande (\"\")",
+    "SAOL pompös: förklaras med högtravande (\"ståtlig, praktfull; högtravande, uppblåst\")"
+   ],
+   "so_id": "283016",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1759,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-69",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "profan",
+  "ordklass": "adjektiv",
+  "options": [
+   "juridisk",
+   "akademisk",
+   "världslig",
+   "sakral",
+   "medicinsk"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "antonym",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Juridisk betyder som har att göra med juridik.",
+   "Akademisk betyder bland annat som har att göra med högre undervisning och forskning.",
+   "",
+   "Det är motsatsen. Sakral betyder förknippad med gudstjänstliv.",
+   "Medicinsk betyder som har att göra med läkarvetenskapen."
+  ],
+  "facit_betyder": "som har att göra med det materiella livet",
+  "exempel": "Kyrkan används numera för profana ändamål.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL profan: förklaras med världslig (\"inte kyrklig, lekmanna-, världslig\")"
+   ],
+   "so_id": "286808",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 978,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-70",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "rigorös",
+  "ordklass": "adjektiv",
+  "options": [
+   "teknisk",
+   "ambitiös",
+   "modern",
+   "kortfattad",
+   "noggrann"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Teknisk betyder bland annat som har att göra med teknik.",
+   "Ambitiös betyder full av ambition.",
+   "Modern betyder bland annat som hänger samman med nutiden.",
+   "Kortfattad betyder som uttrycks med få ord.",
+   ""
+  ],
+  "facit_betyder": "grundlig och omsorgsfull",
+  "exempel": "Läkemedlet genomgick rigorösa tester.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO rigorös: förklaras med noggrann (\"\")",
+    "SAOL rigorös: förklaras med noggrann (\"ytterst sträng el. noggrann\")"
+   ],
+   "so_id": "298436",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 3104,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-71",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "vulgär",
+  "ordklass": "adjektiv",
+  "options": [
+   "naiv",
+   "tafatt",
+   "kultiverad",
+   "ohyfsad",
+   "pratsam"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "antonym",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Naiv betyder som liknar ett barn.",
+   "Tafatt betyder som uppträder oskickligt och klumpigt.",
+   "Det är motsatsen. Kultiverad betyder bland annat som har bildning och ett förfinat umgängessätt.",
+   "",
+   "Pratsam betyder som (gärna) pratar mycket."
+  ],
+  "facit_betyder": "som gör ett oordentligt intryck",
+  "exempel": "Han använde ett vulgärt språk.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL vulgär: förklaras med ohyfsad (\"simpel, grov, ohyfsad; i sammansättn. äv. alltför förenklad\")"
+   ],
+   "so_id": "393752",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 7376,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-72",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "abrupt",
+  "ordklass": "adjektiv",
+  "options": [
+   "tidig",
+   "sporadisk",
+   "ljudlig",
+   "kraftfull",
+   "plötslig"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Tidig betyder som infaller i början av en viss tidsperiod.",
+   "Sporadisk betyder som förekommer bara vid enstaka tillfällen.",
+   "Ljudlig betyder som ljuder starkt.",
+   "Kraftfull betyder som har stor kraft.",
+   ""
+  ],
+  "facit_betyder": "som sker eller uppkommer hastigt och oväntat",
+  "exempel": "Samtalet fick ett abrupt slut.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL abrupt: förklaras med plötslig (\"tvärt avbruten, plötslig, tvär\")"
+   ],
+   "so_id": "100210",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 13555,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-73",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "approximativ",
+  "ordklass": "adjektiv",
+  "options": [
+   "jämförbar",
+   "procentuell",
+   "avvikande",
+   "obekräftad",
+   "ungefärlig"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Jämförbar betyder som kan likställas.",
+   "Procentuell betyder som räknas i procent.",
+   "Avvikande betyder som klart avviker.",
+   "Obekräftad betyder som (ännu) inte bestyrkts eller besannats.",
+   ""
+  ],
+  "facit_betyder": "som ungefär motsvarar det faktiska förhållandet",
+  "exempel": "Siffrorna är approximativa.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO approximativ: synonym ungefärlig",
+    "SAOL approximativ: förklaras med ungefärlig (\"ungefärlig\")",
+    "SO ungefärlig: synonym approximativ",
+    "SAOL ungefärlig: förklaras med approximativ (\"inte exakt, approximativ\")"
+   ],
+   "so_id": "106294",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1533,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-74",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fragil",
+  "ordklass": "adjektiv",
+  "options": [
+   "bräcklig",
+   "antik",
+   "dyrbar",
+   "genomskinlig",
+   "ihålig"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Antik betyder bland annat som har att göra med antiken.",
+   "Dyrbar betyder mycket värdefull.",
+   "Genomskinlig betyder som släpper igenom ljus och som man kan se klart igenom.",
+   "Ihålig betyder vars inre inte är utfyllt."
+  ],
+  "facit_betyder": "föga hållfast",
+  "exempel": "Ekonomin är fortfarande fragil.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO fragil: förklaras med bräcklig (\"\")",
+    "SAOL fragil: förklaras med bräcklig (\"bräcklig, ömtålig, skör\")"
+   ],
+   "so_id": "154590",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 845,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-s-75",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "obstruera",
+  "ordklass": "verb",
+  "options": [
+   "förhandla",
+   "debattera",
+   "hindra",
+   "underlätta",
+   "övervaka"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "antonym",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Förhandla betyder överlägga i syfte att utarbeta överenskommelse.",
+   "Debattera betyder delta i debatt om.",
+   "",
+   "Det är motsatsen. Underlätta betyder skapa gynnsammare förutsättningar för.",
+   "Övervaka betyder hålla under uppsikt (under längre tid)."
+  ],
+  "facit_betyder": "skapa eller utgöra hinder för",
+  "exempel": "Oppositionen försökte obstruera beslutet.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL obstruera: förklaras med hindra (\"hindra, försvåra att ngt genomförs\")"
+   ],
+   "so_id": "264579",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 2172,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-m-08",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konkav",
+  "ordklass": "adjektiv",
+  "options": [
+   "platt",
+   "konvex",
+   "sfärisk",
+   "elliptisk",
+   "spetsig"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Platt betyder bland annat som har två parallella begränsningsytor på litet avstånd från varandra.",
+   "",
+   "Sfärisk betyder formad som en sfär.",
+   "Elliptisk betyder bland annat formad som en ellips.",
+   "Spetsig betyder som slutar i en spets."
+  ],
+  "facit_betyder": "jämnt buktad utåt",
+  "exempel": "Linsen är konkav.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO konkav: motsats konvex",
+    "SO konvex: motsats konkav"
+   ],
+   "so_id": "213001",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 1412,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-m-09",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "artificiell",
+  "ordklass": "adjektiv",
+  "options": [
+   "konstgjord",
+   "naturlig",
+   "industriell",
+   "elektrisk",
+   "digital"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "synonym",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Konstgjord betyder ungefär detsamma som artificiell, inte motsatsen.",
+   "",
+   "Industriell betyder som har att göra med industri.",
+   "Elektrisk betyder som har att göra med elektricitet.",
+   "Digital betyder som anger värden med hjälp av sifferuttryck."
+  ],
+  "facit_betyder": "som finns i eller uppkommer ur den ursprungliga, omgivande verkligheten",
+  "exempel": "Rummet hade artificiell belysning.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO artificiell: synonym eller förklaring konstgjord",
+    "SO konstgjord: motsats naturlig"
+   ],
+   "so_id": "107556",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 12425,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-m-10",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prolog",
+  "ordklass": "substantiv",
+  "options": [
+   "monolog",
+   "epilog",
+   "sonett",
+   "prosa",
+   "kapitel"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Monolog betyder en persons samtal med sig själv.",
+   "",
+   "Sonett betyder typ av lång, lyrisk dikt med invecklad rimflätning.",
+   "Prosa betyder (skrift)språklig framställningsform som inte är bunden av metriska regler.",
+   "Kapitel betyder bland annat större, formellt avgränsat avsnitt i bok."
+  ],
+  "facit_betyder": "(fristående) avslutning på litterärt verk",
+  "exempel": "Romanen inleds med en kort prolog.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO prolog: motsats epilog",
+    "SO epilog: motsats prolog"
+   ],
+   "so_id": "287310",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 3933,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-m-11",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "statisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "robust",
+   "symmetrisk",
+   "dynamisk",
+   "linjär",
+   "kompakt"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Robust betyder som tål påfrestningar väl.",
+   "Symmetrisk betyder som kan delas så att den ena halvan blir den andra halvans spegelbild.",
+   "",
+   "Linjär betyder som har formen av en rät linje.",
+   "Kompakt betyder sammanpressad till mindre omfång än normalt eller förväntat."
+  ],
+  "facit_betyder": "som präglas av rörelse och förändring",
+  "exempel": "Modellen är statisk och tar inte hänsyn till tiden.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO statisk: motsats dynamisk",
+    "SO dynamisk: motsats statisk"
+   ],
+   "so_id": "340548",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 20548,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "of-e-m-12",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "manifest",
+  "ordklass": "adjektiv",
+  "options": [
+   "uppenbar",
+   "latent",
+   "lokal",
+   "akut",
+   "partiell"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "synonym",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Uppenbar betyder ungefär detsamma som manifest, inte motsatsen.",
+   "",
+   "Lokal betyder begränsad till visst mindre område.",
+   "Akut betyder bland annat som (plötsligt) är mycket aktuell.",
+   "Partiell betyder som inte har största möjliga omfattning."
+  ],
+  "facit_betyder": "som existerar men för tillfället inte kan observeras",
+  "exempel": "Sjukdomen blev manifest först efter flera år.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO manifest: motsats latent",
+    "SO latent: motsats manifest"
+   ],
+   "so_id": "238803",
+   "hamtad": "2026-11-19"
+  },
+  "popularitet": 16833,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-19",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 2
  }
 ]

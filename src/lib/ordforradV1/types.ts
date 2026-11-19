@@ -48,7 +48,8 @@ export interface OrdFraga {
   popularitet: number;
   /** Granskningsfälten för OF2, OF3 och OF6. */
   granskning: { of2_ordklass: string; of3_parvis: string; of6_stil: string; kandidat_fran: string };
-  fran_version: 1;
+  /** Bankversionen uppgiften kom med. Aktiv när den är <= ORD_VERSION (select.ts). */
+  fran_version: number;
   pensionerad_fran?: number;
 }
 

@@ -1,0 +1,2729 @@
+[
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "nöjd",
+  "ordklass": "adjektiv",
+  "facit": "belåten",
+  "distraktorer": [
+   {
+    "ord": "sömnig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nyfiken",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hungrig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "envis",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Kunden var nöjd med resultatet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "riktig",
+  "ordklass": "adjektiv",
+  "facit": "korrekt",
+  "distraktorer": [
+   {
+    "ord": "billig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "stilla",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vänlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tidig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var det riktiga svaret.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "enorm",
+  "ordklass": "adjektiv",
+  "facit": "kolossal",
+  "distraktorer": [
+   {
+    "ord": "rund",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "platt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "trång",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "grov",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det kom en enorm mängd ansökningar.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skicka",
+  "ordklass": "verb",
+  "facit": "sända",
+  "distraktorer": [
+   {
+    "ord": "packa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ringa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skriva",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hämta",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Jag skickar paketet i morgon.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tvätta",
+  "ordklass": "verb",
+  "facit": "rengöra",
+  "distraktorer": [
+   {
+    "ord": "stryka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vika",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sortera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hänga",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Glöm inte att tvätta händerna.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ganska",
+  "ordklass": "adverb",
+  "facit": "tämligen",
+  "distraktorer": [
+   {
+    "ord": "alltid",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sällan",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "redan",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tyvärr",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Filmen var ganska bra.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "yrke",
+  "ordklass": "substantiv",
+  "facit": "profession",
+  "distraktorer": [
+   {
+    "ord": "utbildning",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "semester",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kollega",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kunskap",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon valde yrke redan i gymnasiet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "gåva",
+  "ordklass": "substantiv",
+  "facit": "present",
+  "distraktorer": [
+   {
+    "ord": "fest",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "brev",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nyckel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "biljett",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon fick en gåva av sina kollegor.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tillverka",
+  "ordklass": "verb",
+  "facit": "producera",
+  "distraktorer": [
+   {
+    "ord": "designa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "reparera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beställa",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Fabriken tillverkar cyklar.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "begära",
+  "ordklass": "verb",
+  "facit": "kräva",
+  "distraktorer": [
+   {
+    "ord": "erbjuda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skicka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "låna",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "visa",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon begärde att få se kontraktet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "träffa",
+  "ordklass": "verb",
+  "facit": "möta",
+  "distraktorer": [
+   {
+    "ord": "hälsa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vinka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "bjuda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hjälpa",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Vi träffas vid stationen klockan tre.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "fara",
+  "ordklass": "substantiv",
+  "facit": "risk",
+  "distraktorer": [
+   {
+    "ord": "brist",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "regel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "plikt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "avgift",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det finns ingen fara för brand.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tyvärr",
+  "ordklass": "adverb",
+  "facit": "dessvärre",
+  "distraktorer": [
+   {
+    "ord": "äntligen",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hittills",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "troligen",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "snart",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Tyvärr kan jag inte komma på fredag.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lära",
+  "ordklass": "verb",
+  "facit": "undervisa",
+  "distraktorer": [
+   {
+    "ord": "skriva",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "rätta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beställa",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon vill lära barnen att simma.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "hat",
+  "ordklass": "substantiv",
+  "facit": "avsky",
+  "distraktorer": [
+   {
+    "ord": "avund",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skuld",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tvivel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hunger",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Filmen handlar om hat och hämnd.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "grym",
+  "ordklass": "adjektiv",
+  "facit": "brutal",
+  "distraktorer": [
+   {
+    "ord": "envis",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "klumpig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nervös",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ivrig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var en grym behandling av djuren.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skräck",
+  "ordklass": "substantiv",
+  "facit": "fasa",
+  "distraktorer": [
+   {
+    "ord": "sorg",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tvivel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "längtan",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon såg med skräck hur vattnet steg.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "nyttig",
+  "ordklass": "adjektiv",
+  "facit": "hälsosam",
+  "distraktorer": [
+   {
+    "ord": "färsk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "salt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "enkel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "mild",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Frukt är nyttigt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vanlig",
+  "ordklass": "adjektiv",
+  "facit": "alldaglig",
+  "distraktorer": [
+   {
+    "ord": "ärlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "bekväm",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ensidig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "frivillig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var en helt vanlig dag på kontoret.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fördel",
+  "ordklass": "substantiv",
+  "facit": "nackdel",
+  "distraktorer": [
+   {
+    "ord": "nytta",
+    "typ": "synonym"
+   },
+   {
+    "ord": "möjlighet",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "effekt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "resultat",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "En fördel med jobbet är de flexibla tiderna.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mottagare",
+  "ordklass": "substantiv",
+  "facit": "avsändare",
+  "distraktorer": [
+   {
+    "ord": "brevbärare",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "adress",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "frimärke",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kuvert",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Mottagaren måste skriva under när paketet kommer.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinnare",
+  "ordklass": "substantiv",
+  "facit": "förlorare",
+  "distraktorer": [
+   {
+    "ord": "deltagare",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "arrangör",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tränare",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "publik",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Vinnaren fick en pokal.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ökning",
+  "ordklass": "substantiv",
+  "facit": "minskning",
+  "distraktorer": [
+   {
+    "ord": "mätning",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beräkning",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "prognos",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "statistik",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det har skett en ökning av antalet sökande.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "bakåt",
+  "ordklass": "adverb",
+  "facit": "framåt",
+  "distraktorer": [
+   {
+    "ord": "uppåt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nedåt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hemåt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "utåt",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han tog ett steg bakåt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "sist",
+  "ordklass": "adverb",
+  "facit": "först",
+  "distraktorer": [
+   {
+    "ord": "snart",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "länge",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "redan",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nyss",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han kom sist till mötet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "trött",
+  "ordklass": "adjektiv",
+  "facit": "pigg",
+  "distraktorer": [
+   {
+    "ord": "mätt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sur",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hes",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "stel",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon var trött efter det långa passet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "öster",
+  "ordklass": "substantiv",
+  "facit": "väster",
+  "distraktorer": [
+   {
+    "ord": "norr",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "söder",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "mitt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kust",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Solen går upp i öster.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "smal",
+  "ordklass": "adjektiv",
+  "facit": "bred",
+  "distraktorer": [
+   {
+    "ord": "sval",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "söt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sned",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "klar",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Stigen var smal och brant.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vakna",
+  "ordklass": "verb",
+  "facit": "somna",
+  "distraktorer": [
+   {
+    "ord": "sjunga",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "läsa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "dansa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "duscha",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Jag vaknade tidigt i morse.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fylla",
+  "ordklass": "verb",
+  "facit": "tömma",
+  "distraktorer": [
+   {
+    "ord": "blanda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "värma",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skaka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "frysa",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon fyllde glaset med vatten.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "dyr",
+  "ordklass": "adjektiv",
+  "facit": "billig",
+  "distraktorer": [
+   {
+    "ord": "vacker",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "mogen",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "rostig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "luddig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var en dyr resa.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "långsam",
+  "ordklass": "adjektiv",
+  "facit": "snabb",
+  "distraktorer": [
+   {
+    "ord": "noga",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vaksam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "dyster",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "mogen",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Datorn var långsam i dag.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "heltid",
+  "ordklass": "substantiv",
+  "facit": "deltid",
+  "distraktorer": [
+   {
+    "ord": "semester",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tjänst",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ledighet",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "lön",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon arbetar heltid som sjuksköterska.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "börja",
+  "ordklass": "verb",
+  "facit": "sluta",
+  "distraktorer": [
+   {
+    "ord": "träna",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "städa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "baka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vila",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Kursen börjar på måndag.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tråkig",
+  "ordklass": "adjektiv",
+  "facit": "rolig",
+  "distraktorer": [
+   {
+    "ord": "stilig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "pratsam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "fuktig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kylig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Mötet var långt och tråkigt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vänster",
+  "ordklass": "adjektiv",
+  "facit": "höger",
+  "distraktorer": [
+   {
+    "ord": "bakre",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "främre",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "mellersta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "övre",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon skriver med vänster hand.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "yttre",
+  "ordklass": "adjektiv",
+  "facit": "inre",
+  "distraktorer": [
+   {
+    "ord": "övre",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sista",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "enda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "bakre",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Den yttre dörren var låst.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ihärdig",
+  "ordklass": "adjektiv",
+  "facit": "uthållig",
+  "distraktorer": [
+   {
+    "ord": "lojal",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ödmjuk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "pratsam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nyfiken",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Med ihärdigt arbete klarade hon examen.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förbrylla",
+  "ordklass": "verb",
+  "facit": "förvirra",
+  "distraktorer": [
+   {
+    "ord": "imponera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "irritera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "övertyga",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "uppmuntra",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Frågan förbryllade alla i rummet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "erfordra",
+  "ordklass": "verb",
+  "facit": "kräva",
+  "distraktorer": [
+   {
+    "ord": "erbjuda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tillåta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "leverera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beräkna",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Uppgiften erfordrar stor noggrannhet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förolämpa",
+  "ordklass": "verb",
+  "facit": "kränka",
+  "distraktorer": [
+   {
+    "ord": "förvåna",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "övertala",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "avbryta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "smickra",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han ville inte förolämpa någon.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillförsikt",
+  "ordklass": "substantiv",
+  "facit": "förtröstan",
+  "distraktorer": [
+   {
+    "ord": "misströstan",
+    "typ": "antonym"
+   },
+   {
+    "ord": "förväntan",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tålamod",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nyfikenhet",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon såg framtiden an med tillförsikt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "iaktta",
+  "ordklass": "verb",
+  "facit": "observera",
+  "distraktorer": [
+   {
+    "ord": "analysera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kommentera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "presentera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "informera",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Forskarna iakttog djuren i flera veckor.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "fullständig",
+  "ordklass": "adjektiv",
+  "facit": "komplett",
+  "distraktorer": [
+   {
+    "ord": "aktuell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "officiell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "modern",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "frivillig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon lämnade in en fullständig ansökan.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "betona",
+  "ordklass": "verb",
+  "facit": "framhäva",
+  "distraktorer": [
+   {
+    "ord": "upprepa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "antyda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nedtona",
+    "typ": "antonym"
+   }
+  ],
+  "exempel": "Hon betonade vikten av samarbete.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "nyckfull",
+  "ordklass": "adjektiv",
+  "facit": "oberäknelig",
+  "distraktorer": [
+   {
+    "ord": "pratsam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beskedlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förutsägbar",
+    "typ": "antonym"
+   },
+   {
+    "ord": "tålmodig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Vädret i fjällen är nyckfullt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avskaffa",
+  "ordklass": "verb",
+  "facit": "upphäva",
+  "distraktorer": [
+   {
+    "ord": "förnya",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "begränsa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "införa",
+    "typ": "antonym"
+   },
+   {
+    "ord": "utreda",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Riksdagen beslutade att avskaffa avgiften.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "medge",
+  "ordklass": "verb",
+  "facit": "erkänna",
+  "distraktorer": [
+   {
+    "ord": "påstå",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "upprepa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "antyda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "garantera",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han medgav att han hade gjort ett misstag.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "fullgöra",
+  "ordklass": "verb",
+  "facit": "utföra",
+  "distraktorer": [
+   {
+    "ord": "planera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beskriva",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "fördela",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "anmäla",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han ska fullgöra sina uppgifter före jul.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillfällighet",
+  "ordklass": "substantiv",
+  "facit": "slump",
+  "distraktorer": [
+   {
+    "ord": "vana",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "orsak",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "princip",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "metod",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var ingen tillfällighet att de möttes.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ståndaktig",
+  "ordklass": "adjektiv",
+  "facit": "orubblig",
+  "distraktorer": [
+   {
+    "ord": "lojal",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "stolt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sansad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "blyg",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon var ståndaktig i sin kritik.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förespråka",
+  "ordklass": "verb",
+  "facit": "förorda",
+  "distraktorer": [
+   {
+    "ord": "förkasta",
+    "typ": "antonym"
+   },
+   {
+    "ord": "analysera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beskriva",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "undersöka",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon förespråkar ett nytt arbetssätt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "expandera",
+  "ordklass": "verb",
+  "facit": "utvidga",
+  "distraktorer": [
+   {
+    "ord": "investera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "samarbeta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förhandla",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "rekrytera",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Företaget expanderade till Norge.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förtroende",
+  "ordklass": "substantiv",
+  "facit": "tillit",
+  "distraktorer": [
+   {
+    "ord": "lojalitet",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "omsorg",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ansvar",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beundran",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Väljarna har stort förtroende för henne.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "välvillig",
+  "ordklass": "adjektiv",
+  "facit": "vänlig",
+  "distraktorer": [
+   {
+    "ord": "ödmjuk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sansad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "envis",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "modig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon var välvilligt inställd till förslaget.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "arrogant",
+  "ordklass": "adjektiv",
+  "facit": "högdragen",
+  "distraktorer": [
+   {
+    "ord": "nervös",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "omtyckt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "barnslig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "punktlig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han verkade arrogant på mötet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "kompensera",
+  "ordklass": "verb",
+  "facit": "ersätta",
+  "distraktorer": [
+   {
+    "ord": "förhandla",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "investera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förlänga",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "debitera",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Företaget kompenserade kunderna för förseningen.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ambition",
+  "ordklass": "substantiv",
+  "facit": "strävan",
+  "distraktorer": [
+   {
+    "ord": "nyfikenhet",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förmåga",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "rutin",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "humor",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hennes ambition är att bli chef.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "suverän",
+  "ordklass": "adjektiv",
+  "facit": "överlägsen",
+  "distraktorer": [
+   {
+    "ord": "erfaren",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "populär",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "självsäker",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kostsam",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Laget gjorde en suverän insats.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "muntlig",
+  "ordklass": "adjektiv",
+  "facit": "skriftlig",
+  "distraktorer": [
+   {
+    "ord": "kortfattad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "anonym",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ofullständig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nationell",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Provet har en muntlig del.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "inflation",
+  "ordklass": "substantiv",
+  "facit": "deflation",
+  "distraktorer": [
+   {
+    "ord": "recession",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "konjunktur",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "arbetslöshet",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "valuta",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Inflationen steg under året.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sympati",
+  "ordklass": "substantiv",
+  "facit": "antipati",
+  "distraktorer": [
+   {
+    "ord": "medkänsla",
+    "typ": "synonym"
+   },
+   {
+    "ord": "avundsjuka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "beundran",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "respekt",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon kände sympati för de drabbade.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "spontan",
+  "ordklass": "adjektiv",
+  "facit": "genomtänkt",
+  "distraktorer": [
+   {
+    "ord": "impulsiv",
+    "typ": "synonym"
+   },
+   {
+    "ord": "kreativ",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "omtyckt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "engagerad",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var ett spontant beslut.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillträda",
+  "ordklass": "verb",
+  "facit": "frånträda",
+  "distraktorer": [
+   {
+    "ord": "anträda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ansöka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "efterträda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "delegera",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon tillträder tjänsten i mars.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fälla",
+  "ordklass": "verb",
+  "facit": "frikänna",
+  "distraktorer": [
+   {
+    "ord": "åtala",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "häkta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "utreda",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "överklaga",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Rätten fällde den åtalade för bedrägeri.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "urban",
+  "ordklass": "adjektiv",
+  "facit": "lantlig",
+  "distraktorer": [
+   {
+    "ord": "kommunal",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nordlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "industriell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ekonomisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon trivs bäst i en urban miljö.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "manuell",
+  "ordklass": "adjektiv",
+  "facit": "automatisk",
+  "distraktorer": [
+   {
+    "ord": "optisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "fysisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "periodisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kontinuerlig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Bilen har manuell växellåda.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "abstrakt",
+  "ordklass": "adjektiv",
+  "facit": "konkret",
+  "distraktorer": [
+   {
+    "ord": "logisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kreativ",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "gammaldags",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vardaglig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var ett abstrakt resonemang.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "beröm",
+  "ordklass": "substantiv",
+  "facit": "kritik",
+  "distraktorer": [
+   {
+    "ord": "lovord",
+    "typ": "synonym"
+   },
+   {
+    "ord": "belöning",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "respekt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ansvar",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Hon fick mycket beröm för rapporten.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "minoritet",
+  "ordklass": "substantiv",
+  "facit": "majoritet",
+  "distraktorer": [
+   {
+    "ord": "opposition",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "regering",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "koalition",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "befolkning",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "En minoritet av medlemmarna röstade nej.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kollektiv",
+  "ordklass": "adjektiv",
+  "facit": "individuell",
+  "distraktorer": [
+   {
+    "ord": "gemensam",
+    "typ": "synonym"
+   },
+   {
+    "ord": "politisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "regional",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "nationell",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Avtalet ger ett kollektivt skydd för alla anställda.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "efterfrågan",
+  "ordklass": "substantiv",
+  "facit": "utbud",
+  "distraktorer": [
+   {
+    "ord": "ränta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "export",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vinst",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "budget",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Efterfrågan på sjuksköterskor är stor.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "ytlig",
+  "ordklass": "adjektiv",
+  "facit": "djup",
+  "distraktorer": [
+   {
+    "ord": "kall",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "vass",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "hal",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "blek",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han hade bara en ytlig kunskap om ämnet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "akut",
+  "ordklass": "adjektiv",
+  "facit": "kronisk",
+  "distraktorer": [
+   {
+    "ord": "skarp",
+    "typ": "synonym"
+   },
+   {
+    "ord": "smittsam",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "medfödd",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ärftlig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Patienten hade en akut infektion.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "preliminär",
+  "ordklass": "adjektiv",
+  "facit": "slutgiltig",
+  "distraktorer": [
+   {
+    "ord": "provisorisk",
+    "typ": "synonym"
+   },
+   {
+    "ord": "omfattande",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "skriftlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "juridisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det här är bara en preliminär tidplan.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "efemär",
+  "ordklass": "adjektiv",
+  "facit": "kortlivad",
+  "distraktorer": [
+   {
+    "ord": "beständig",
+    "typ": "antonym"
+   },
+   {
+    "ord": "marginell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sällsynt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "eftersökt",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Framgången visade sig vara efemär.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "evident",
+  "ordklass": "adjektiv",
+  "facit": "uppenbar",
+  "distraktorer": [
+   {
+    "ord": "relevant",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tvivelaktig",
+    "typ": "antonym"
+   },
+   {
+    "ord": "relativ",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "aktuell",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det var evident att planen inte höll.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bagatellisera",
+  "ordklass": "verb",
+  "facit": "förringa",
+  "distraktorer": [
+   {
+    "ord": "analysera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "överdriva",
+    "typ": "antonym"
+   },
+   {
+    "ord": "ifrågasätta",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sammanfatta",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han bagatelliserade problemen.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "antagonist",
+  "ordklass": "substantiv",
+  "facit": "motståndare",
+  "distraktorer": [
+   {
+    "ord": "bundsförvant",
+    "typ": "antonym"
+   },
+   {
+    "ord": "åskådare",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förebild",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förhandlare",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han var hennes främsta antagonist i debatten.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "magnifik",
+  "ordklass": "adjektiv",
+  "facit": "storslagen",
+  "distraktorer": [
+   {
+    "ord": "torftig",
+    "typ": "antonym"
+   },
+   {
+    "ord": "dramatisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "romantisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "historisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Utsikten från toppen var magnifik.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "tendentiös",
+  "ordklass": "adjektiv",
+  "facit": "partisk",
+  "distraktorer": [
+   {
+    "ord": "objektiv",
+    "typ": "antonym"
+   },
+   {
+    "ord": "teknisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "akademisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "detaljerad",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Rapporten var tendentiös och ensidig.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "stringent",
+  "ordklass": "adjektiv",
+  "facit": "strikt",
+  "distraktorer": [
+   {
+    "ord": "slarvig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "poetisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kreativ",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "abstrakt",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Analysen var stringent och lätt att följa.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "deskriptiv",
+  "ordklass": "adjektiv",
+  "facit": "beskrivande",
+  "distraktorer": [
+   {
+    "ord": "normativ",
+    "typ": "antonym"
+   },
+   {
+    "ord": "spekulativ",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "pedagogisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kronologisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Studien är deskriptiv och tar inte ställning.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "nonchalant",
+  "ordklass": "adjektiv",
+  "facit": "vårdslös",
+  "distraktorer": [
+   {
+    "ord": "nervös",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tafatt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "envis",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "pratsam",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han var nonchalant med säkerhetsreglerna.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fiktiv",
+  "ordklass": "adjektiv",
+  "facit": "uppdiktad",
+  "distraktorer": [
+   {
+    "ord": "historisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kortfattad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "poetisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "anonym",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Romanen utspelar sig i en fiktiv stad.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskutabel",
+  "ordklass": "adjektiv",
+  "facit": "omtvistlig",
+  "distraktorer": [
+   {
+    "ord": "fördelaktig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "principiell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "föråldrad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "obligatorisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Det är diskutabelt om beslutet var rätt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "hegemoni",
+  "ordklass": "substantiv",
+  "facit": "herravälde",
+  "distraktorer": [
+   {
+    "ord": "autonomi",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "diplomati",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "opposition",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tradition",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Landet hade länge hegemoni i regionen.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fatal",
+  "ordklass": "adjektiv",
+  "facit": "ödesdiger",
+  "distraktorer": [
+   {
+    "ord": "marginell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kronisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "banal",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sporadisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Beslutet fick fatala följder.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "pompös",
+  "ordklass": "adjektiv",
+  "facit": "högtravande",
+  "distraktorer": [
+   {
+    "ord": "nostalgisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ironisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "gammaldags",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "romantisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Talet var pompöst och långt.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "profan",
+  "ordklass": "adjektiv",
+  "facit": "världslig",
+  "distraktorer": [
+   {
+    "ord": "sakral",
+    "typ": "antonym"
+   },
+   {
+    "ord": "juridisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "medicinsk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "akademisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Kyrkan används numera för profana ändamål.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "rigorös",
+  "ordklass": "adjektiv",
+  "facit": "noggrann",
+  "distraktorer": [
+   {
+    "ord": "ambitiös",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kortfattad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "teknisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "modern",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Läkemedlet genomgick rigorösa tester.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "vulgär",
+  "ordklass": "adjektiv",
+  "facit": "ohyfsad",
+  "distraktorer": [
+   {
+    "ord": "kultiverad",
+    "typ": "antonym"
+   },
+   {
+    "ord": "naiv",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tafatt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "pratsam",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Han använde ett vulgärt språk.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "abrupt",
+  "ordklass": "adjektiv",
+  "facit": "plötslig",
+  "distraktorer": [
+   {
+    "ord": "kraftfull",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ljudlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sporadisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "tidig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Samtalet fick ett abrupt slut.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "approximativ",
+  "ordklass": "adjektiv",
+  "facit": "ungefärlig",
+  "distraktorer": [
+   {
+    "ord": "jämförbar",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "avvikande",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "obekräftad",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "procentuell",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Siffrorna är approximativa.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fragil",
+  "ordklass": "adjektiv",
+  "facit": "bräcklig",
+  "distraktorer": [
+   {
+    "ord": "dyrbar",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "antik",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "genomskinlig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "ihålig",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Ekonomin är fortfarande fragil.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "obstruera",
+  "ordklass": "verb",
+  "facit": "hindra",
+  "distraktorer": [
+   {
+    "ord": "underlätta",
+    "typ": "antonym"
+   },
+   {
+    "ord": "övervaka",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "debattera",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "förhandla",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Oppositionen försökte obstruera beslutet.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konkav",
+  "ordklass": "adjektiv",
+  "facit": "konvex",
+  "distraktorer": [
+   {
+    "ord": "elliptisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sfärisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "spetsig",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "platt",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Linsen är konkav.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "artificiell",
+  "ordklass": "adjektiv",
+  "facit": "naturlig",
+  "distraktorer": [
+   {
+    "ord": "konstgjord",
+    "typ": "synonym"
+   },
+   {
+    "ord": "digital",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "industriell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "elektrisk",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Rummet hade artificiell belysning.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prolog",
+  "ordklass": "substantiv",
+  "facit": "epilog",
+  "distraktorer": [
+   {
+    "ord": "kapitel",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "monolog",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "prosa",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "sonett",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Romanen inleds med en kort prolog.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "statisk",
+  "ordklass": "adjektiv",
+  "facit": "dynamisk",
+  "distraktorer": [
+   {
+    "ord": "symmetrisk",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "linjär",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "kompakt",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "robust",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Modellen är statisk och tar inte hänsyn till tiden.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "manifest",
+  "ordklass": "adjektiv",
+  "facit": "latent",
+  "distraktorer": [
+   {
+    "ord": "uppenbar",
+    "typ": "synonym"
+   },
+   {
+    "ord": "partiell",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "akut",
+    "typ": "samma_falt"
+   },
+   {
+    "ord": "lokal",
+    "typ": "samma_falt"
+   }
+  ],
+  "exempel": "Sjukdomen blev manifest först efter flera år.",
+  "kalla_kandidat": "handskrivet 2026-11-19"
+ }
+]
