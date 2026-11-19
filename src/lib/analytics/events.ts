@@ -115,6 +115,15 @@ export interface PassKlart {
   familj?: string | null
 }
 
+/** Kontexten på rekryteringstesternas v4-händelser (planen A8). */
+export interface TesterV4Kontext {
+  /** Planens test (mitt_test), null utan plan. */
+  plan_test: string | null
+  /** Händelsens testtyp ingår i planens prov. */
+  i_planens_test?: boolean
+  plattform: 'webb' | 'app'
+}
+
 export interface AnalyticsEvents {
   article_viewed: ClusterContext & { slug: string }
   article_cta_shown: ClusterContext & { slug?: string; position: CtaPosition; variant?: string }
@@ -277,7 +286,9 @@ export interface AnalyticsEvents {
     /** Mallen väggen gäller (mallflödet, utbudets avsnitt 6), och dess nivå. */
     template?: string
     tier?: 'free' | 'premium'
-  }
+    /** Tester v4 (A8): låsets skäl, t.ex. premium, kvot eller nivakoll_gjord. */
+    lage?: string
+  } & Partial<TesterV4Kontext>
   paywall_cta_clicked: {
     variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
     surface: string
@@ -294,7 +305,9 @@ export interface AnalyticsEvents {
     /** Kontots källa och val (jc_kontokalla), läggs på av capture(). */
     konto_kalla?: string
     mitt_test?: string
-  }
+    /** Tester v4 (A8): låsets skäl, t.ex. premium, kvot eller nivakoll_gjord. */
+    lage?: string
+  } & Partial<TesterV4Kontext>
   /* Prissidan finns på två ytor: den publika /priser och den inloggade
      prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
      skiljer dem åt, state säger vilket av de tre inloggade tillstånden som
@@ -494,7 +507,18 @@ export interface AnalyticsEvents {
     /** Valet i "Mitt test", när det finns. */
     mitt_test?: string | null
     variant?: string | null
-  }
+  } & Partial<TesterV4Kontext>
+  /* ---------------------------------------------- Rekryteringstesterna v4
+     docs/plan-tester-v4-bygg.md A8. Alla med plan_test, i_planens_test och
+     plattform (TesterV4Kontext). */
+  hint_visad: TesterV4Kontext & { hint_typ: string; hint_id: string; testtyp: string | null; plats: number }
+  hint_klickad: TesterV4Kontext & { hint_typ: string; hint_id: string; testtyp: string | null; plats: number | string }
+  plan_skapad: TesterV4Kontext & { kalla: 'ingang' | 'installningar' | 'artikel' | 'efter_konto' | string; har_datum?: boolean }
+  dagsmal_satt: TesterV4Kontext & { dagsmal: number | null }
+  trana_klart: TesterV4Kontext & { testtyp: string; ratt: number; antal: number; niva_efter?: number | null }
+  nivakoll_gjord: TesterV4Kontext & { testtyp: string; niva: number | null; raknas?: boolean }
+  kvot_slut_visad: TesterV4Kontext & { surface: string; testtyp?: string | null }
+  bank_slut_visad: TesterV4Kontext & { testtyp: string; niva?: string | null }
   provdatum_hoppat_over: { steg: 2 | 3 | 'efter_konto'; mitt_test?: string | null }
   /** Provdatumskärmen efter kontot (beslut 4, 2026-11-10), för I-prov och lokförare. */
   provdatum_skarm_visad: { mitt_test: string }

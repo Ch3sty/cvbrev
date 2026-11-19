@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { aktivUndersida, rumForPath } from '../rum'
+import { UNDERSIDA } from '../copy'
 
 describe('rumForPath (spec-rummen avsnitt 5)', () => {
   it('Träningen äger /dashboard/tester och allt under', () => {
@@ -64,5 +65,35 @@ describe('aktivUndersida', () => {
     expect(aktivUndersida('/dashboard', rader)?.href).toBe('/dashboard')
     expect(aktivUndersida('/dashboard/sokta-tjanster/5', rader)?.href).toBe('/dashboard/sokta-tjanster')
     expect(aktivUndersida('/dashboard/okand', rader)).toBeNull()
+  })
+})
+
+describe('sidomenyn i Rekryteringstester (tester v4, planen 3.3)', () => {
+  const tran = [
+    { href: '/dashboard/tester', exact: true },
+    { href: '/dashboard/tester/alla' },
+    { href: '/dashboard/tester/kurvan' },
+    { href: '/dashboard/tester/installningar' },
+  ]
+  it('raderna heter Hem, Tester, Din utveckling och Plan inför provet', () => {
+    expect([UNDERSIDA.hem, UNDERSIDA.tester, UNDERSIDA.dinUtveckling, UNDERSIDA.planInforProvet]).toEqual([
+      'Hem',
+      'Tester',
+      'Din utveckling',
+      'Plan inför provet',
+    ])
+  })
+  it('Hem är exakt, typens meny och undersidorna markerar rätt rad', () => {
+    expect(aktivUndersida('/dashboard/tester', tran)?.href).toBe('/dashboard/tester')
+    expect(aktivUndersida('/dashboard/tester/alla', tran)?.href).toBe('/dashboard/tester/alla')
+    expect(aktivUndersida('/dashboard/tester/kurvan', tran)?.href).toBe('/dashboard/tester/kurvan')
+    expect(aktivUndersida('/dashboard/tester/installningar', tran)?.href).toBe('/dashboard/tester/installningar')
+    // Ett test under /dashboard/tester markerar ingen rad (Hem är exakt).
+    expect(aktivUndersida('/dashboard/tester/pass', tran)).toBeNull()
+  })
+  it('ingen rad säger pass', () => {
+    for (const t of [UNDERSIDA.hem, UNDERSIDA.tester, UNDERSIDA.dinUtveckling, UNDERSIDA.planInforProvet]) {
+      expect(t).not.toMatch(/\bpass\b/i)
+    }
   })
 })

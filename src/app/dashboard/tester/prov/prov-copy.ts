@@ -29,8 +29,8 @@ export const PROVSIDA = {
     nivakollRubrik: 'Nästa steg: Nivåkollen',
     nivakollText: (n: number) =>
       `Dina ${talord(n)} svar räknas in. Några frågor till som anpassar sig efter hur det går, sedan vet du din nivå och får ett pass för i dag.`,
-    passRubrik: 'Nästa steg: dagens pass',
-    passText: 'Du har gjort Nivåkollen. Passet ligger på din nivå och tar några minuter.',
+    passRubrik: 'Nästa steg: träna på din nivå',
+    passText: 'Du har gjort Nivåkollen. Träningen ligger på din nivå och tar några minuter.',
   },
   genomgang: 'Tryck på en fråga för att visa eller dölja regeln och rätt svar.',
   traning: 'Se vad som ingår',

@@ -28,16 +28,16 @@ export default function PassPerTyp({ pass, className }: { pass: DinUtvecklingDat
   // De nya typerna står bara när hon har pass i dem; de tre första står alltid.
   const rader = RADER.filter((r) => r.nyckel === 'matris' || r.nyckel === 'verbal' || r.nyckel === 'numerisk' || antal(r.nyckel) > 0)
   return (
-    <UKort label="Pass per testtyp" className={className} data="pass-per-typ">
-      <Eyebrow>Pass per testtyp</Eyebrow>
-      <T2>{summa === 1 ? 'Ett pass hittills' : `${summa} pass hittills`}</T2>
+    <UKort label="Träning per testtyp" className={className} data="pass-per-typ">
+      <Eyebrow>Träning per testtyp</Eyebrow>
+      <T2>{summa === 1 ? 'En omgång hittills' : `${summa} omgångar hittills`}</T2>
       <ul className="mt-3 flex flex-col gap-2.5">
         {rader.map((r) => {
           const n = antal(r.nyckel)
           return (
             <li key={r.nyckel} className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 text-sm leading-5 text-ink-1">
               <span>{r.namn}</span>
-              <span className="tabular-nums text-ink-3">{n === 1 ? '1 pass' : `${n} pass`}</span>
+              <span className="tabular-nums text-ink-3">{n === 1 ? '1 omgång' : `${n} omgångar`}</span>
               <span className="col-span-2 block h-1.5 rounded-full bg-papper-2" aria-hidden="true">
                 <i className="block h-full rounded-full bg-koppar" style={{ width: `${n === 0 ? 0 : Math.max(4, (n / max) * 100)}%` }} />
               </span>

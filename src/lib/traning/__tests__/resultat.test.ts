@@ -124,8 +124,8 @@ describe('S1: nivån sjönk, 8 oktober', () => {
     expect(r.riktning).toBe('ner')
     expect(r.tal[1]).toEqual({ varde: '5,1', etikett: 'nivå, från 5,2' })
     // 19.2 fråga 5: två av missarna var uppgifter över nivån.
-    expect(r.mening).toBe('Två av missarna var uppgifter över din nivå. De väger lätt när de blir fel och tungt när de blir rätt. Nivån rör sig högst ett halvt steg per pass.')
-    expect(r.kort.text).toMatch(/Mönstret går att öva i ett extrapass.$/)
+    expect(r.mening).toBe('Två av missarna var uppgifter över din nivå. De väger lätt när de blir fel och tungt när de blir rätt. Nivån rör sig högst ett halvt steg per dag.')
+    expect(r.kort.text).toMatch(/Mönstret går att träna för sig.$/)
     expect(r.kort.axelMitt).toBe('ihåliga staplar: fel svar')
     expect(r.kort.eyebrow).toBe('Vad som hände')
     expect(r.kort.titel).toBe('Fyra missar, tre på samma mönster')
@@ -140,8 +140,8 @@ describe('riktat pass', () => {
     const r = passResultat({ ...avslut, typ: 'riktat', niva_efter: null }, { ...vy, typ: 'riktat' }, status)
     expect(r.rubrik).toBe('7 av 9 rätt.')
     expect(r.skala).toBeNull()
-    expect(r.mening).toBe('Ett extrapass övar ett mönster. Det ändrar inte din nivå.')
-    expect(r.eyebrow).toBe('Extrapasset klart')
+    expect(r.mening).toBe('Träning på ett mönster övar just det. Den ändrar inte din nivå.')
+    expect(r.eyebrow).toBe('Träningen på mönstret klar')
   })
 })
 
@@ -155,15 +155,15 @@ describe('M1: nivåmätningen med betalväggen', () => {
     )
     expect(r.tal.map((t) => t.varde)).toEqual(['9 av 12', '3 av 12', '52 s'])
     expect(r.tal[2].etikett).toBe('snitt, provet ger 68')
-    expect(r.siktetMening).toContain('18 dagars pass')
+    expect(r.siktetMening).toContain('18 dagars träning')
     // Målet på egen rad, aldrig på skalan (copy-efter-lyftet avsnitt 4).
     expect(r.malRad).toMatch(/^Mål till provet: nivå \d(,\d)?$/)
     expect(r.skala.aria).not.toMatch(/[Ss]ikte/)
     expect(r.planRubrik).toBe('Planen fram till 24 oktober')
     expect(r.plan.map((p) => p.titel)).toEqual([
       'I dag: Nivåkollen',
-      'I dag: ett grundpass',
-      '7 okt och varje dag: passet på din nivå',
+      'I dag: träning på grundnivå',
+      '7 okt och varje dag: träning på din nivå',
       '13 och 20 okt: ny nivåkoll',
       '22 och 23 okt: övningsprov',
       '24 okt: provdagen',
@@ -179,7 +179,7 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.betalvagg!.rubrik).toBe('18 dagar kvar. Premium täcker hela vägen.')
     // 19.4 punkt 1: "samma format som" när leverantören är känd.
     expect(r.betalvagg!.text).toContain('övningsprov i samma format som Matrigma. Plus')
-    expect(r.betalvagg!.lank).toBe('Gör dagens grundpass gratis')
+    expect(r.betalvagg!.lank).toBe('Gör dagens grundnivå gratis')
     expect(r.betalvagg!.lankTill).toBe('grundpass')
     expect(r.plan[1].chip).toMatchObject({ text: 'Gratis' })
     expect(r.familjer.map((f) => f.titel)).toEqual(['Vrider sig och byter utseende', 'Varje antal en gång per rad', 'Rätt men långsamt: Figuren speglas'])
@@ -197,7 +197,7 @@ describe('M1: nivåmätningen med betalväggen', () => {
     const r = matningResultat(avslut, status, true)
     expect(r.betalvagg).toBeNull()
     expect(r.plan.some((p) => p.last || p.chip?.las)).toBe(false)
-    expect(r.plan.some((p) => p.titel === 'I dag: ett grundpass')).toBe(false)
+    expect(r.plan.some((p) => p.titel === 'I dag: träning på grundnivå')).toBe(false)
   })
 })
 
@@ -205,7 +205,7 @@ describe('O1: veckans ommätning', () => {
   it('före och efter, nästa ommätning som datum', () => {
     const { avslut, status } = resultatdata('O1')
     const r = ommatningResultat(avslut, status)
-    expect(r.rubrik).toBe('5,8. Passen hade räknat dig till 5,7.')
+    expect(r.rubrik).toBe('5,8. Träningen hade räknat dig till 5,7.')
     expect(r.skala).toMatchObject({ nu: 5.8, fran: 5.0, franEtikett: '6 okt 5' })
     expect(r.tal.map((t) => t.varde)).toEqual(['10 av 12', '+0,8', '1 av 12'])
     expect(r.tal[1].etikett).toBe('på en vecka')
@@ -268,7 +268,7 @@ describe('M1 när grundpasset redan är gjort (19.2 fråga 6)', () => {
     const d = byggForhandsdata('M1', { grundGjort: true })
     if (!('resultat' in d)) throw new Error('ingen resultatram')
     const r = matningResultat(d.resultat.avslut, d.resultat.status, false)
-    expect(r.plan[1]).toMatchObject({ titel: 'I dag: ett grundpass', chip: { text: 'Klart' } })
+    expect(r.plan[1]).toMatchObject({ titel: 'I dag: träning på grundnivå', chip: { text: 'Klart' } })
     expect(r.betalvagg).toMatchObject({ lank: 'Tillbaka till Rekryteringstester', lankTill: 'tillbaka' })
   })
 })
@@ -277,7 +277,7 @@ describe('generalrepetitionen (19.2 fråga 8)', () => {
   it('meningen säger formatet och att punkten väger som en ommätning', () => {
     const { avslut, vy, status } = resultatdata('P4')
     const r = passResultat({ ...avslut, typ: 'general' }, { ...vy, typ: 'general' }, status)
-    expect(r.mening).toBe('Samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Punkten väger tyngre på kurvan än ett vanligt pass.')
+    expect(r.mening).toBe('Samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Punkten väger tyngre på kurvan än en vanlig träning.')
     expect(r.eyebrow).toBe('Övningsprovet klart')
   })
 })
@@ -289,7 +289,7 @@ describe('K1: kvittot', () => {
     expect(d.kvitto.namn).toBe('Första veckan')
     expect(d.kvitto.eyebrow).toBe('Milstolpe, tisdag 13 oktober')
     expect(d.kvitto.mening).toBe(
-      'Sju dagar sedan starten, fem pass, ingen missad dag. Nivån gick från 5 till 5,8. Nästa märke: Nivån upp, vid 6.'
+      'Sju dagar sedan starten, fem omgångar, ingen missad dag. Nivån gick från 5 till 5,8. Nästa märke: Nivån upp, vid 6.'
     )
   })
 

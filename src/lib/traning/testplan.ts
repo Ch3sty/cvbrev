@@ -45,6 +45,8 @@ export interface PlanAndring {
   mitt_test?: MittTest | null;
   mitt_test_variant?: MittVariant | null;
   extra_typer?: string[];
+  /** Tester v4: frivilligt dagsmål, 1 till 3 test om dagen, null = inget. */
+  dagsmal?: 1 | 2 | 3 | null;
 }
 
 export type Validering<T> = { ok: true; data: T } | { ok: false; fel: string };
@@ -101,6 +103,10 @@ export function validerPlan(body: unknown, idag: Dag): Validering<PlanAndring> {
       return { ok: false, fel: 'ogiltiga_extra_typer' };
     }
     ut.extra_typer = [...new Set(b.extra_typer as string[])];
+  }
+  if (har(b, 'dagsmal')) {
+    if (b.dagsmal !== null && b.dagsmal !== 1 && b.dagsmal !== 2 && b.dagsmal !== 3) return { ok: false, fel: 'ogiltigt_dagsmal' };
+    ut.dagsmal = b.dagsmal as 1 | 2 | 3 | null;
   }
   // Varianten gäller bara Matrigma.
   if (ut.leverantor !== undefined && ut.leverantor !== 'matrigma' && !har(b, 'variant')) ut.variant = null;

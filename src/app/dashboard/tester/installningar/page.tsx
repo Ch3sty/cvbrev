@@ -4,6 +4,9 @@
  * registreringen och saknar plan (?forsta=1), och sidan där typ, leverantör
  * och provdatum ändras och tas bort ("Test och datum" i sidomenyn).
  *
+ * Plan inför provet (tester v4): samma steg, plus dagsmålet i datumsteget
+ * och Avsluta planen i teststeget (Ingang).
+ *
  * Planen läses här på servern; går läsningen fel börjar ingången tom, och
  * sparandet säger ifrån om det inte går (aldrig "sparat" på fel).
  */
@@ -26,7 +29,8 @@ export default async function Installningar({
   try {
     const { data, error } = await testSkrivKlient()
       .from('test_planer')
-      .select('testtyper, leverantor, variant, provdatum, utfall, mitt_test, mitt_test_variant, extra_typer')
+      // '*': dagsmal (tester v4) följer med när migreringen körts, utan att frågan faller före.
+      .select('*')
       .eq('user_id', user.id)
       .maybeSingle();
     if (error) throw error;

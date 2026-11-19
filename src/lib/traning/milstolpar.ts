@@ -159,3 +159,13 @@ export function nyaMilstolpar(inp: MilstolparIn): MilstolpeNyckel[] {
 
   return nadda.filter((k) => !redan.has(k));
 }
+
+/**
+ * Märkena som gäller i dag. Provdagen gäller bara när ett provdatum finns och
+ * dagen har passerat: ett märke som nåddes inför ett tidigare datum står kvar
+ * i test_milstolpar men visas inte när planen fått ett nytt datum framåt
+ * (kontot ccb52d89 nådde Provdagen 28 okt och bytte sedan till 25 nov).
+ */
+export function giltigaMilstolpar<T extends { nyckel: string }>(milstolpar: readonly T[], provdatum: string | null, idag: string): T[] {
+  return milstolpar.filter((m) => m.nyckel !== 'provdagen' || (!!provdatum && idag > provdatum));
+}

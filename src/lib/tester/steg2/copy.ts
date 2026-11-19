@@ -7,7 +7,7 @@
 
 import type { Steg2PassKind } from './pass';
 
-const NAMN: Record<Steg2PassKind, string> = { talserie: 'Talseriepass', spatial: 'Spatialpass', ordforrad: 'Ordpass' };
+const NAMN: Record<Steg2PassKind, string> = { talserie: 'Träna talserier', spatial: 'Träna spatial förmåga', ordforrad: 'Träna ordförråd' };
 const TYP: Record<Steg2PassKind, string> = { talserie: 'Talserier', spatial: 'Spatial förmåga', ordforrad: 'Ordförråd' };
 
 export function steg2PassCopy(kind: Steg2PassKind) {
@@ -16,15 +16,15 @@ export function steg2PassCopy(kind: Steg2PassKind) {
     topp: {
       titel: TYP[kind],
       rad: (niva: 'grund' | 'avancerad', grupp: string | null, n: number, av: number) =>
-        `${grupp ? `Riktat pass, ${grupp.toLowerCase()}` : 'Dagens pass'}, uppgift ${n} av ${av}${niva === 'avancerad' ? ', avancerad' : ''}`,
+        `${grupp ? `Träna på mönstret, ${grupp.toLowerCase()}` : 'Träna'}, uppgift ${n} av ${av}${niva === 'avancerad' ? ', avancerad' : ''}`,
       radUtan: grupp0(),
-      avsluta: 'Avsluta passet',
+      avsluta: 'Avsluta träningen',
     },
     knapp: {
       svara: 'Svara',
       nasta: 'Nästa uppgift',
       visaResultat: 'Visa resultatet',
-      genomga: 'Gå igenom passet',
+      genomga: 'Gå igenom svaren',
       tillResultatet: 'Till resultatet',
       foregaende: 'Föregående',
       tillbaka: 'Tillbaka till Rekryteringstester',
@@ -32,8 +32,8 @@ export function steg2PassCopy(kind: Steg2PassKind) {
     },
     vetInte: kind === 'talserie' ? 'Vet inte, visa regeln' : 'Vet inte, visa lösningen',
     fel: {
-      hamta: 'Passet gick inte att hämta.',
-      hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+      hamta: 'Träningen gick inte att hämta.',
+      hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',
       svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
       avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
       betalvagg: `${NAMN[kind]}et ingår i Premium.`,
@@ -42,7 +42,7 @@ export function steg2PassCopy(kind: Steg2PassKind) {
           ? 'Sex uppgifter varje dag, två vridna figurer, tre pappersvikningar och en tärning, med lösningen efter varje svar.'
           : 'Sex talserier varje dag, med regeln efter varje svar.',
     },
-    laddar: { session: 'Hämtar passet', resultat: 'Räknar fram resultatet' },
+    laddar: { session: 'Hämtar uppgifterna', resultat: 'Räknar fram resultatet' },
     resultat: {
       eyebrow: 'Klart',
       rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
@@ -53,15 +53,15 @@ export function steg2PassCopy(kind: Steg2PassKind) {
       budgetEtikett: 'provets tid',
       tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
       tappadeRubrik: 'Var du tappar',
-      tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+      tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i träningen`,
       upprepad: 'Du har haft de här uppgifterna förut. De räknas inte i statistiken.',
-      imorgon: (svagast: string | null) => (svagast ? `I morgon: riktat pass på ${svagast.toLowerCase()}.` : `I morgon: ett nytt ${NAMN[kind].toLowerCase()}.`),
-      riktat: 'Riktat pass',
-      ingenNiva: 'Passet ändrar inte din nivå på skalan.',
+      imorgon: (svagast: string | null) => (svagast ? `I morgon: träning på ${svagast.toLowerCase()}.` : `I morgon: ny träning i ${TYP[kind].toLowerCase()}.`),
+      riktat: 'Träning på mönstret',
+      ingenNiva: 'Träningen räknas i din nivå, högst ett halvt steg om dagen. Nivåtesten på en fast nivå flyttar den inte.',
     },
   };
 }
 
 function grupp0() {
-  return 'Dagens pass';
+  return 'Träna';
 }

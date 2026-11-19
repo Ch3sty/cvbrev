@@ -83,6 +83,7 @@ import { raknaSerie, type Serie } from './serie';
 import { arPassTid, fragaEfterProvet, type PassTid } from './testplan';
 import type { FragaStatistik } from './svarighet';
 import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
+import { GRUND_KVOT_TEST_TYPER, GRUND_TEST_TYPER, GRUNDNIVA_TEST_PER_DAG, startOfTodayStockholm } from '@/lib/quota/quotaService';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
 import { VN_PASS_TEST_TYPER, kindForTestTyp, type VnKind } from '@/lib/tester/pass-typer';
 import { FIGURPASS_TEST_TYPE, bastaFigurGrundProcent } from '@/lib/tester/pass-figur';
@@ -104,7 +105,7 @@ function andraKind(t: string | null | undefined): AndraKind | null {
 
 /** Nivåkollen per testtyp utanför matrisen: senaste nivån och dagen (testplanen steg 1). */
 export type NivakollLage = Partial<Record<NivakollKind, { niva: number; dag: Dag }>>;
-import type { SlutfordSession } from './milstolpar';
+import { giltigaMilstolpar, type SlutfordSession } from './milstolpar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = SupabaseClient<any, any, any>;
@@ -140,6 +141,13 @@ export interface Testplan {
   pass_tid?: PassTid | null;
   /** "Mitt test är …" (steg 2, 20261109140000). Null: planen läses ur leverantor. */
   mitt_test?: string | null;
+  /** Tester v4 (20261120090000): dagen planen startade, och dagsmålet. */
+  plan_start?: Dag | null;
+  dagsmal?: number | null;
+  /** Var planen skapades: artikel eller installningar (20261120100000). Null: okänt. */
+  kalla?: string | null;
+  /** Senaste ändringen, fallback för plan_start före migreringen. */
+  uppdaterad_at?: string | null;
   mitt_test_variant?: string | null;
   extra_typer?: string[];
 }
@@ -232,6 +240,10 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
         mitt_test: typeof planRad.mitt_test === 'string' ? planRad.mitt_test : null,
         mitt_test_variant: typeof planRad.mitt_test_variant === 'string' ? planRad.mitt_test_variant : null,
         extra_typer: Array.isArray(planRad.extra_typer) ? (planRad.extra_typer as string[]) : [],
+        plan_start: arGiltigDag(planRad.plan_start) ? planRad.plan_start : null,
+        dagsmal: typeof planRad.dagsmal === 'number' ? planRad.dagsmal : null,
+        kalla: typeof planRad.kalla === 'string' ? planRad.kalla : null,
+        uppdaterad_at: typeof planRad.uppdaterad_at === 'string' ? planRad.uppdaterad_at : null,
       }
     : null;
 
@@ -542,6 +554,22 @@ async function lasSmakprov(admin: Klient, userId: string, idag: Dag): Promise<Sm
 
 /* ------------------------------ Skapa session ------------------------------ */
 
+/** Slutförda grundnivåtest i dag, svensk tid. Ett läsfel ger 0: kvoten får aldrig bryta onboardingens löfte. */
+async function grundnivaIdag(admin: Klient, userId: string, typer: readonly string[] = GRUND_TEST_TYPER): Promise<number> {
+  const { count, error } = await admin
+    .from('logic_test_v4_sessions')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .in('test_type', [...typer])
+    .not('completed_at', 'is', null)
+    .gte('completed_at', startOfTodayStockholm().toISOString());
+  if (error) {
+    console.error('[traning] grundnivåkvoten gick inte att läsa', error);
+    return 0;
+  }
+  return count ?? 0;
+}
+
 export type SkapaResultat =
   | { ok: true; vy: Sessionsvy }
   | { ok: false; status: 402 | 429 | 422 | 409; beslut?: TillgangBeslut; fel: string };
@@ -558,6 +586,8 @@ export async function skapaTraningssession(args: {
 }): Promise<SkapaResultat> {
   const idag = args.idag ?? dagSthlm();
   const [lage, beh] = await Promise.all([lasLage(args.admin, args.userId, idag), lasBehorighet(args.supabase, args.userId)]);
+  // Dag 0-grundpasset räknas in i dagens grundnivåkvot (ägarens beslut 2026-11-19).
+  const grundIdag = args.begard === 'pass' && !beh.harOvanGrund ? await grundnivaIdag(args.admin, args.userId) : undefined;
 
   const beslut = beslutaTillgang({
     begard: args.begard,
@@ -567,6 +597,7 @@ export async function skapaTraningssession(args: {
     passSlutfordaIdag: passIdag(lage.slutforda, idag),
     forstaTraningsdag: lage.slutforda[0]?.dag ?? null,
     idag,
+    grundIdag,
   });
   if (!beslut.tillatet) {
     return { ok: false, status: beslut.skal === 'kvot' ? 429 : 402, beslut, fel: beslut.skal };
@@ -1298,6 +1329,19 @@ export interface Traningsstatus {
    */
   start: { dag: Dag; niva: number } | null;
   /**
+   * Tester v4: dagen Plan inför provet startade (test_planer.plan_start, före
+   * migreringen dagen för senaste ändringen). "Dag N av M" och banan räknas
+   * härifrån. start ovan behåller sin betydelse (första mätningen), eftersom
+   * gratisregeln i hemvy.ts och appens kurva läser den. Null utan plan.
+   */
+  planStart?: Dag | null;
+  /**
+   * Tester v4: grundnivåtest kvar i dag utan paket (0 eller 1), samma kvot
+   * som sessionsrutterna (quotaService GRUND_KVOT_TEST_TYPER). Saknas för
+   * Premium och i äldre fixturer.
+   */
+  grundKvarIdag?: number;
+  /**
    * Temat (familjens id) som dagens pass får om det startas nu: samma
    * valjTema som skapaTraningssession, så kortet på hemvyn säger det passet
    * sedan gör. Null utan familjer i banken.
@@ -1403,6 +1447,7 @@ export async function hamtaTraningsstatus(args: {
   const familjer = varDuTappar(familjeunderlag(lage));
   // Smakprovsraden i 1a och T1 (19.3 fråga 3): bara före den första mätningen.
   const smakprov = antalMatningar(lage.slutforda) === 0 && lage.punkter.length === 0 ? await lasSmakprov(args.admin, args.userId, idag) : null;
+  const grundKvarIdag = betalande ? undefined : Math.max(0, GRUNDNIVA_TEST_PER_DAG - (await grundnivaIdag(args.admin, args.userId, GRUND_KVOT_TEST_TYPER)));
 
   return {
     idag,
@@ -1427,8 +1472,10 @@ export async function hamtaTraningsstatus(args: {
     form: lage.punkter.length ? beraknaForm({ punkter: lage.punkter, aktivaDagar: aktiva, idag }) : null,
     aktivitet: raknaAktivitet(lage.slutforda),
     varDuTappar: { svagaste: familjer.svagaste, langsamma: familjer.langsamma },
-    milstolpar,
-    ovisade: milstolpar.filter((m) => !m.visad_at).map((m) => m.nyckel),
+    milstolpar: giltigaMilstolpar(milstolpar, prov, idag),
+    ovisade: giltigaMilstolpar(milstolpar, prov, idag).filter((m) => !m.visad_at).map((m) => m.nyckel),
+    ...(grundKvarIdag != null ? { grundKvarIdag } : {}),
+    planStart: lage.plan ? lage.plan.plan_start ?? (lage.plan.uppdaterad_at ? dagSthlm(lage.plan.uppdaterad_at) : null) : null,
     dagensPassGjort: allaDagar.some((s) => s.dag === idag && (s.typ === 'pass' || s.typ === 'riktat' || s.typ === 'general')),
     vnPassIdag: {
       verbal: lage.andraPass.some((p) => p.kind === 'verbal' && p.dag === idag),

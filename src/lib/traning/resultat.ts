@@ -244,7 +244,7 @@ export function passResultat(avslut: Avslut, vy: Sessionsvy, status: Traningssta
           sikte,
           etikettNu: `Nu ${nivaKort(efter)}`,
           etikettFran: fore != null ? `från ${nivaKort(fore)}` : null,
-          aria: `Nivåskala 1 till 10.${fore != null ? ` Före passet ${nivaKort(fore)},` : ''} nu ${nivaKort(efter)}.${sikte != null ? ` Mål ${nivaKort(sikte)}.` : ''}`,
+          aria: `Nivåskala 1 till 10.${fore != null ? ` Före träningen ${nivaKort(fore)},` : ''} nu ${nivaKort(efter)}.${sikte != null ? ` Mål ${nivaKort(sikte)}.` : ''}`,
         }
       : null;
   const malRad = skala && sikte != null ? PASS_COPY.matning.malRad(sikte, harProvdatum(status)) : null;

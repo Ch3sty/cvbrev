@@ -23,6 +23,7 @@
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { fragaProvdatumEfterKonto, type Provkalla } from '@/lib/analytics/provkalla';
+import { dagSthlm } from './datum';
 import { planFranVal, type MittTest } from './mittTest';
 
 export interface MittTestFranKalla {
@@ -71,8 +72,14 @@ export async function sattMittTestFranKalla(admin: SupabaseClient<any>, userId: 
     const p = planFranVal(kalla.mitt_test, null, []);
     const { error } = await admin
       .from('test_planer')
-      .upsert({ user_id: userId, ...p, uppdaterad_at: new Date().toISOString() }, { onConflict: 'user_id', ignoreDuplicates: true });
-    if (error) throw error;
+      .upsert({ user_id: userId, ...p, plan_start: dagSthlm(), kalla: 'artikel', uppdaterad_at: new Date().toISOString() }, { onConflict: 'user_id', ignoreDuplicates: true });
+    if (error && (error as { code?: string }).code === 'PGRST204') {
+      // Före migreringarna 20261120090000 och 20261120100000: utan plan_start och kalla.
+      const igen = await admin
+        .from('test_planer')
+        .upsert({ user_id: userId, ...p, uppdaterad_at: new Date().toISOString() }, { onConflict: 'user_id', ignoreDuplicates: true });
+      if (igen.error) throw igen.error;
+    } else if (error) throw error;
     return { mittTest: kalla.mitt_test, satt: true, provdatumSkarm: fragaProvdatumEfterKonto(kalla.mitt_test) };
   } catch (e) {
     // Valet är en genväg, inte ett krav: utan det landar kontot som förut.

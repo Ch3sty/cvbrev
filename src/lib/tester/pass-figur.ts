@@ -13,7 +13,7 @@ import type { V7Cell } from '@/lib/logicTestV7/types.v7';
 import type { SerieFamilj } from '@/lib/figurserierV1/familjer';
 import type { SerieForm } from '@/lib/figurserierV1/types';
 import type { Dag } from '@/lib/traning/datum';
-import { arOsett, type Sedda } from './pass-urval';
+import { arOsett, settInomFonstret, type Sedda } from './pass-urval';
 
 export const FIGURPASS_TEST_TYPE = 'figurserie-pass';
 export const FIGUR_ANTAL = 4;
@@ -145,7 +145,7 @@ export function valjFigurer(
       return da < db ? -1 : da > db ? 1 : 0;
     });
   const ids = [...osedda, ...sett].slice(0, n).map((p) => p.id);
-  return { ids, upprepad: ids.some((id) => !arOsett(id, sedda, idag)) };
+  return { ids, upprepad: ids.some((id) => settInomFonstret(id, sedda, idag)) };
 }
 
 /** Passets fyra: tre härnäst och en bryter sist, eller fyra härnäst under golvet. */

@@ -10,13 +10,21 @@ import { formatForPlan } from '@/lib/traning/tempo';
 import { fel, inloggad, internt, lasKropp } from '@/lib/traning/rutt.server';
 
 const KOLUMNER =
-  'user_id, testtyper, leverantor, variant, provdatum, sikte, utfall, utfall_svarat_at, utfall_fraga_igen_at, skapad_at, uppdaterad_at, mitt_test, mitt_test_variant, extra_typer';
+  'user_id, testtyper, leverantor, variant, provdatum, sikte, utfall, utfall_svarat_at, utfall_fraga_igen_at, skapad_at, uppdaterad_at, mitt_test, mitt_test_variant, extra_typer, plan_start, dagsmal, kalla';
+/** Utan migreringen 20261120090000 (plan_start, dagsmal): samma läsning som förut. */
+const KOLUMNER_FORE_V4 = KOLUMNER.replace(', plan_start, dagsmal, kalla', '');
+/** Kolumnen saknas (Postgres 42703, PostgREST PGRST204). */
+const saknarKolumn = (e: unknown) => {
+  const k = (e as { code?: string } | null)?.code;
+  return k === '42703' || k === 'PGRST204';
+};
 
 export async function GET() {
   const a = await inloggad();
   if (!a.ok) return a.svar;
   try {
-    const { data, error } = await a.admin.from('test_planer').select(KOLUMNER).eq('user_id', a.userId).maybeSingle();
+    let { data, error } = await a.admin.from('test_planer').select(KOLUMNER).eq('user_id', a.userId).maybeSingle();
+    if (error && saknarKolumn(error)) ({ data, error } = await a.admin.from('test_planer').select(KOLUMNER_FORE_V4).eq('user_id', a.userId).maybeSingle());
     if (error) throw error;
     const idag = dagSthlm();
     const f = formatForPlan(data?.leverantor, data?.variant);
@@ -40,7 +48,7 @@ export async function PUT(request: Request) {
   try {
     const { data: fore, error: lasFel } = await a.admin
       .from('test_planer')
-      .select('provdatum')
+      .select('provdatum, mitt_test')
       .eq('user_id', a.userId)
       .maybeSingle();
     if (lasFel) throw lasFel;
@@ -53,13 +61,27 @@ export async function PUT(request: Request) {
       andring.utfall_fraga_igen_at = null;
     }
 
-    const { data, error } = fore
-      ? await a.admin.from('test_planer').update(andring).eq('user_id', a.userId).select(KOLUMNER).single()
-      : await a.admin
-          .from('test_planer')
-          .insert({ user_id: a.userId, ...andring })
-          .select(KOLUMNER)
-          .single();
+    // Plan inför provet startar om när testet eller datumet byts (tester v4):
+    // banan och "dag N av M" räknas från plan_start, aldrig från första nivåkollen.
+    const nyttTest = v.data.mitt_test !== undefined && (!fore || fore.mitt_test !== v.data.mitt_test);
+    const nyttDatum = v.data.provdatum !== undefined && (!fore || fore.provdatum !== v.data.provdatum);
+    if (nyttTest || nyttDatum) andring.plan_start = idag;
+    // Valt själv i Plan inför provet: inte längre artikelns plan.
+    if (nyttTest) andring.kalla = 'installningar';
+
+    const skriv = (rad: Record<string, unknown>, kol: string) =>
+      fore
+        ? a.admin.from('test_planer').update(rad).eq('user_id', a.userId).select(kol).single()
+        : a.admin.from('test_planer').insert({ user_id: a.userId, ...rad }).select(kol).single();
+    let { data, error } = await skriv(andring, KOLUMNER);
+    if (error && saknarKolumn(error)) {
+      // Före migreringen: skriv utan de nya fälten.
+      const { plan_start: _p, dagsmal: _d, kalla: _k, ...utan } = andring;
+      void _p;
+      void _d;
+      void _k;
+      ({ data, error } = await skriv(utan, KOLUMNER_FORE_V4));
+    }
     if (error) throw error;
     return NextResponse.json({ plan: data });
   } catch (e) {

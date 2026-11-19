@@ -32,7 +32,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
-import { LANK } from '@/components/shell/knappar'
+import { KNAPP_SEKUNDAR_SMAL, LANK, LANK_FEL } from '@/components/shell/knappar'
 import { IkonKalender, SymPerson, SymPlan } from '@/components/illustrations/RumSymboler'
 import { capture } from '@/lib/analytics/events'
 import { sparaKontokalla } from '@/lib/analytics/provkalla'
@@ -61,6 +61,7 @@ import {
 } from '@/lib/traning/mittTest'
 import { antalTid, formatTitel, ovningsformat } from '@/lib/ovningsprov/format'
 import { TaBortSvar } from './HemKlient'
+import { PLANVAL } from '@/components/tester-v4/hem/copy'
 
 export interface IngangPlan {
   testtyper: string[] | null
@@ -71,6 +72,8 @@ export interface IngangPlan {
   mitt_test?: string | null
   mitt_test_variant?: string | null
   extra_typer?: string[] | null
+  /** Tester v4: frivilligt dagsmål, 1 till 3 test om dagen. Saknas före migreringen. */
+  dagsmal?: number | null
 }
 
 type IprovVar = 'polis' | 'varnplikt' | 'officer' | 'vet_inte'
@@ -167,6 +170,10 @@ export default function Ingang({
     plan?.variant === 'klassisk' || plan?.variant === 'adaptiv' ? plan.variant : 'vet_inte'
   )
   const [datum, setDatum] = useState<string>(plan?.provdatum ?? '')
+  const sparatDagsmal = plan?.dagsmal === 1 || plan?.dagsmal === 2 || plan?.dagsmal === 3 ? plan.dagsmal : null
+  const [dagsmal, setDagsmal] = useState<number | null>(sparatDagsmal)
+  const [avsluta, setAvsluta] = useState<'stangd' | 'fraga' | 'arbetar'>('stangd')
+  const [avslutaFel, setAvslutaFel] = useState(false)
   const [sparar, setSparar] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
 
@@ -217,7 +224,9 @@ export default function Ingang({
     setSparar(true)
     setFel(null)
     const p = planFranVal(val, varianten(), kryssLista())
-    const kropp = { ...p, provdatum }
+    // Dagsmålet (tester v4) följer bara med när valet syns i steget.
+    const visaDagsmal = !efterKonto && !baraPersonlighet
+    const kropp = visaDagsmal ? { ...p, provdatum, dagsmal } : { ...p, provdatum }
     try {
       const svar = await fetch('/api/traning/plan', {
         method: 'PUT',
@@ -225,6 +234,7 @@ export default function Ingang({
         body: JSON.stringify(kropp),
       })
       if (!svar.ok) throw new Error(String(svar.status))
+      if (visaDagsmal && dagsmal !== sparatDagsmal) capture('dagsmal_satt', { dagsmal, plan_test: p.mitt_test, plattform: 'webb' })
       // Valet följer med till betalväggens händelser (provkalla.ts).
       sparaKontokalla({ mitt_test: p.mitt_test })
       if (provdatum) {
@@ -273,6 +283,22 @@ export default function Ingang({
       return
     }
     router.push(TRANING_RUTT.hem)
+  }
+
+  /** Avsluta planen (tester v4): DELETE, sedan Hem. Allt gjort ligger kvar; aldrig "avslutad" på fel. */
+  const avslutaPlan = async () => {
+    if (avsluta === 'arbetar') return
+    setAvsluta('arbetar')
+    setAvslutaFel(false)
+    try {
+      const r = await fetch('/api/traning/plan', { method: 'DELETE' })
+      if (!r.ok) throw new Error(String(r.status))
+      router.push(TRANING_RUTT.hem)
+      router.refresh()
+    } catch {
+      setAvslutaFel(true)
+      setAvsluta('fraga')
+    }
   }
 
   const fortsatt = () => {
@@ -465,6 +491,36 @@ export default function Ingang({
             ) : null}
 
             <p className="px-1 text-xs leading-4 text-ink-3">{INGANG.leverantor.varumarke}</p>
+
+            {sparatVal && !forsta && !efterKonto ? (
+              avsluta === 'stangd' ? (
+                <button type="button" className={`${LANK_FEL} min-h-11 self-start px-1 text-left`} onClick={() => setAvsluta('fraga')} data-avsluta-planen>
+                  {PLANVAL.avsluta.lank}
+                </button>
+              ) : (
+                <section role="alertdialog" aria-labelledby="avsluta-rubrik" aria-describedby="avsluta-text" className="rounded-2xl border border-kant bg-papper px-4 py-3.5" data-avsluta-fraga>
+                  <h2 id="avsluta-rubrik" className="font-display text-[19px] font-bold leading-6 tracking-[-.02em] text-ink-1">
+                    {PLANVAL.avsluta.rubrik}
+                  </h2>
+                  <p id="avsluta-text" className="mt-1.5 text-sm leading-[21px] text-ink-2">
+                    {PLANVAL.avsluta.text}
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <button type="button" className={KNAPP_SEKUNDAR_SMAL} disabled={avsluta === 'arbetar'} onClick={() => void avslutaPlan()}>
+                      {avsluta === 'arbetar' ? PLANVAL.avsluta.arbetar : PLANVAL.avsluta.ja}
+                    </button>
+                    <button type="button" className={`${LANK} min-h-11`} disabled={avsluta === 'arbetar'} onClick={() => { setAvsluta('stangd'); setAvslutaFel(false) }}>
+                      {PLANVAL.avsluta.nej}
+                    </button>
+                  </div>
+                  {avslutaFel ? (
+                    <p role="alert" className="mt-2 text-sm text-fel">
+                      {PLANVAL.avsluta.fel}
+                    </p>
+                  ) : null}
+                </section>
+              )
+            ) : null}
           </>
         ) : null}
 
@@ -474,7 +530,7 @@ export default function Ingang({
               <h1 className="font-display text-[26px] font-bold leading-[30px] tracking-[-.02em] text-ink-1">
                 {baraPersonlighet ? INGANG.datum.fragaPersonlighet : INGANG.datum.fraga}
               </h1>
-              <p className="mt-1.5 text-meta text-ink-3">{baraPersonlighet ? INGANG.datum.ledtradPersonlighet : INGANG.datum.ledtrad}</p>
+              <p className="mt-1.5 text-meta text-ink-3">{baraPersonlighet ? INGANG.datum.ledtradPersonlighet : PLANVAL.datumLedtrad}</p>
             </div>
             {efterKonto && val === 'iprov' ? (
               <div className="px-0.5" data-variant>
@@ -528,6 +584,33 @@ export default function Ingang({
                   {planInfo.dagar ? <b className="font-semibold text-ink-1">{planInfo.dagar} </b> : null}
                   {planInfo.text}
                 </p>
+              </div>
+            ) : null}
+            {!efterKonto && !baraPersonlighet ? (
+              <div className="px-0.5" data-dagsmal-val>
+                <p className="text-[13px] font-semibold leading-[18px] text-ink-2">
+                  {PLANVAL.dagsmal.fraga} <span className="font-normal text-ink-3">{PLANVAL.dagsmal.valfritt}</span>
+                </p>
+                <div className="mt-2 grid grid-cols-2 gap-2.5" role="radiogroup" aria-label={PLANVAL.dagsmal.fraga}>
+                  {PLANVAL.dagsmal.val.map((v) => {
+                    const vald = dagsmal === v.mal
+                    return (
+                      <button
+                        key={v.titel}
+                        type="button"
+                        role="radio"
+                        aria-checked={vald}
+                        onClick={() => setDagsmal(v.mal)}
+                        className={`${kortKlass(vald)} !min-h-[64px] ${v.mal == null ? 'col-span-2' : ''}`}
+                        data-dagsmal={v.mal ?? 'inget'}
+                      >
+                        <span className="block pr-5 text-[15px] font-semibold leading-[19px] text-ink-1">{v.titel}</span>
+                        <span className="mt-1 block text-xs leading-4 text-ink-3">{v.rad}</span>
+                        {vald ? <span aria-hidden="true" className="absolute right-3 top-3 h-4 w-4 rounded-full bg-ink-1" /> : null}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             ) : null}
             <div className="flex flex-col items-start gap-1 px-1">

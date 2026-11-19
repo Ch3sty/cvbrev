@@ -1,27 +1,32 @@
 /**
- * Hemvyn i Rekryteringstester (spec-rummen våg 2, konceptets 1a till 1p,
- * T1, X1 och W1 till W4).
+ * Hem i Rekryteringstester v4 (docs/plan-tester-v4-bygg.md 3.3, utkast v4
+ * avsnitt 2): var du står och vad som är rimligt härnäst, räknat ur dina
+ * resultat. Väggen bär Plan inför provet med nedräkning och banan (eller
+ * datumet och "Hem"), det lyfta kortet Nästa steg, golvet Fler steg,
+ * Dagsmål, Så ligger du till och Fortsätt där du slutade.
  *
- * Serverrenderad med en rundtur: getTraningSummary läser motorns status,
- * testernas två frågor och delar Jobbsökets summering med layouten. Första
- * HTML innehåller väggen, kurvan och det lyfta kortet med riktiga tal.
+ * Serverrenderad med en omgång: hamtaTesterV4 (A) läser allt parallellt och
+ * faller per del till tomt läge. Saknas planen och valde hon tester eller
+ * intervju vid registreringen är ingången (Plan inför provet, ?forsta=1)
+ * första vyn. När vyn ritas med en ny punkt markeras profilen efter svaret
+ * (traning_sedd_at), som förut.
  *
- * Saknas planen och valde hon tester eller intervju vid registreringen är
- * ingången (E1 till E3) första vyn. Annars står hemvyn i tomt läge (T1).
- *
- * När vyn ritas med en ny punkt markeras profilen efter svaret
- * (traning_sedd_at), så kurvan ritar sig en gång och står stilla nästa gång.
+ * I appen nås adressen aldrig: proxyn skriver om /dashboard/tester till
+ * appens Tester (/app/katalog). Signaturen är oförändrad för omexporten i
+ * src/app/app/tester/page.tsx.
  *
  * Katalogen med alla tester bor på /dashboard/tester/alla.
  */
 import { redirect } from 'next/navigation';
 import { after } from 'next/server';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
-import { getTraningSummary, markeraTraningSedd } from '@/lib/traning/getTraningSummary';
-import { byggHemvy } from '@/lib/traning/hemvy';
+import { markeraTraningSedd } from '@/lib/traning/getTraningSummary';
 import { TRANING_RUTT } from '@/lib/traning/rutter';
-import Hemvy from '@/components/traning/Hemvy';
+import { hamtaTesterV4, hamtaUnderlagV4 } from '@/lib/tester/v4/hamta.server';
+import HemVy from '@/components/tester-v4/hem/HemVy';
 import { Betalvagg } from '@/components/traning/HemKlient';
+import type { Scope } from '@/lib/access/features';
+import type { PlanKey } from '@/lib/plans/plans';
 
 export default async function TraningHem({
   searchParams,
@@ -31,19 +36,18 @@ export default async function TraningHem({
   const user = await hamtaVerifieradAnvandare();
   if (!user) redirect('/login');
 
-  const [sum, sp] = await Promise.all([getTraningSummary(user.id), searchParams]);
+  const [underlag, data, sp] = await Promise.all([hamtaUnderlagV4(user.id), hamtaTesterV4(user.id), searchParams]);
 
-  const s = sum.status;
-  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && sum.valdeTester && sp.visa !== 'hem') {
+  const s = underlag.status;
+  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && underlag.valdeTester && sp.visa !== 'hem') {
     redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
 
-  const m = byggHemvy({ status: s, idag: sum.idag, flerTester: sum.flerTester, jobbsok: sum.jobbsok });
-  if (m.nyPunkt) after(() => markeraTraningSedd(user.id));
+  if (s?.nyPunkt) after(() => markeraTraningSedd(user.id));
 
   return (
-    <Betalvagg scope={sum.paket.scope} track={sum.paket.track} planKey={sum.paket.planKey}>
-      <Hemvy m={m} />
+    <Betalvagg scope={data.paket.scope as Scope | null} track={data.paket.track as Scope | null} planKey={data.paket.planKey as PlanKey | null}>
+      <HemVy data={data} />
     </Betalvagg>
   );
 }

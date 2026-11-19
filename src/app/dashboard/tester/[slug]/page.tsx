@@ -16,6 +16,7 @@ import { arSteg2Kind } from '@/app/dashboard/tester/testConfig'
 import TestHubPage from '@/components/tests/shared/TestHubPage'
 import { getTestConfig } from '../testConfig'
 import { getForsok } from './getForsok'
+import { getGrundKvot } from './getGrundKvot'
 
 export default async function TestSlugPage({
   params,
@@ -32,7 +33,8 @@ export default async function TestSlugPage({
   // Steg 2: syns när motor och vy är klara (src/lib/tester/steg2Status.ts).
   if (arSteg2Kind(config.kind) && !steg2Synlig(config.kind)) notFound()
 
-  const forsok = await getForsok(config)
+  // Gratisraden (tester v4): ett grundnivåtest om dagen över alla testtyper.
+  const [forsok, grundKvot] = await Promise.all([getForsok(config), getGrundKvot(config)])
 
-  return <TestHubPage config={config} forsok={forsok} />
+  return <TestHubPage config={config} forsok={forsok} grundKvot={grundKvot} />
 }

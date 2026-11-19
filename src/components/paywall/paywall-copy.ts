@@ -277,7 +277,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'testniva':
       return {
         title: `Avancerad nivå ingår i ${PREMIUM}`,
-        body: `${PREMIUM} ger alla ${TESTTYPER_ORD} testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.`,
+        body: `${PREMIUM} ger alla ${TESTTYPER_ORD} testtyperna på alla nivåer, träning varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.`,
         primary: knapp,
         secondary: 'Kör grundnivån igen',
       }
@@ -372,7 +372,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'test-tak':
       return {
         title: 'Dagens omgång är gjord',
-        body: `${PREMIUM} ger alla nivåer, övningsprov mot klockan och pass utan tak, varje dag.`,
+        body: `${PREMIUM} ger alla nivåer, övningsprov mot klockan och träning utan tak, varje dag.`,
         primary: knapp,
         secondary: 'Kom tillbaka i morgon',
       }

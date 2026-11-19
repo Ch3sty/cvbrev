@@ -1,0 +1,63 @@
+/*
+ * Seriefärgerna i Din utveckling: en färg per testtyp när ingen plan finns
+ * (med plan står planens typer i koppar och övriga i ink-3). Färgen följer
+ * typen, aldrig ordningen, så ett filter målar aldrig om en linje.
+ *
+ * Dataviz-skillens validerade kategoriska palett, ordningen följer
+ * TEST_TYP_ORDNING. Kontrollerad med validate_palette.js 2026-11-19:
+ * ljust mot papper #FFFFFF och mörkt mot träningens papper #171B2E, alla
+ * hårda kontroller passerar. Tre ljusa steg ligger under 3:1 mot papperet,
+ * så legenden, ändetiketterna och resultatlistan bär identiteten (relief).
+ * Text bär aldrig seriefärgen.
+ */
+
+.rot {
+  --utv-matris: #2a78d6;
+  --utv-figurserie: #eb6834;
+  --utv-deduktiv: #1baf7a;
+  --utv-verbal: #eda100;
+  --utv-numerisk: #e87ba4;
+  --utv-talserie: #008300;
+  --utv-spatial: #4a3aa7;
+  --utv-ordforrad: #e34948;
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme='light'])) .rot {
+    --utv-matris: #3987e5;
+    --utv-figurserie: #d95926;
+    --utv-deduktiv: #199e70;
+    --utv-verbal: #c98500;
+    --utv-numerisk: #d55181;
+    --utv-talserie: #008300;
+    --utv-spatial: #9085e9;
+    --utv-ordforrad: #e66767;
+  }
+}
+
+:global(:root[data-theme='dark']) .rot {
+  --utv-matris: #3987e5;
+  --utv-figurserie: #d95926;
+  --utv-deduktiv: #199e70;
+  --utv-verbal: #c98500;
+  --utv-numerisk: #d55181;
+  --utv-talserie: #008300;
+  --utv-spatial: #9085e9;
+  --utv-ordforrad: #e66767;
+}
+
+/* Fokus på en punkt i grafen: ringen ritas i SVG, inte som outline. */
+.punkt:focus,
+.punkt:focus-visible {
+  outline: none !important;
+}
+
+.punkt {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .markor {
+    transition: r 0.12s ease;
+  }
+}

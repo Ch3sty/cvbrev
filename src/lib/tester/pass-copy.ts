@@ -28,13 +28,13 @@ export function vnFamiljNamn(f: string | null | undefined): string | null {
 const NIVA_NAMN: Record<VnNiva, string> = { grund: 'Grund', avancerad: 'Avancerad' };
 
 export const VN_PASS_COPY = {
-  namn: (kind: VnKind) => (kind === 'verbal' ? 'Textpass' : 'Sifferpass'),
+  namn: (kind: VnKind) => (kind === 'verbal' ? 'Träna ord och text' : 'Träna siffror och tabeller'),
   topp: {
     /** Toppradens titel: passets namn, i riktat pass familjen. Aldrig den aktuella frågans typ. */
-    titel: (kind: VnKind, familj: string | null) => vnFamiljNamn(familj) ?? (kind === 'verbal' ? 'Textpass' : 'Sifferpass'),
+    titel: (kind: VnKind, familj: string | null) => vnFamiljNamn(familj) ?? (kind === 'verbal' ? 'Ord och text' : 'Siffror och tabeller'),
     rad: (kind: VnKind, niva: VnNiva, riktat: boolean) =>
-      `${riktat ? (kind === 'verbal' ? 'Extra textpass' : 'Extra sifferpass') : kind === 'verbal' ? 'Dagens textpass' : 'Dagens sifferpass'}, ${NIVA_NAMN[niva].toLowerCase()}`,
-    avsluta: 'Avsluta passet',
+      `${riktat ? 'Träna på mönstret' : 'Träna'}, ${NIVA_NAMN[niva].toLowerCase()}`,
+    avsluta: 'Avsluta träningen',
   },
   niva: (niva: VnNiva) => NIVA_NAMN[niva],
   raknare: 'Räknare tillåten',
@@ -54,39 +54,39 @@ export const VN_PASS_COPY = {
     visaResultat: 'Visa resultatet',
     forsokIgen: 'Försök igen',
     tillbaka: 'Tillbaka till Rekryteringstester',
-    genomga: 'Gå igenom passet',
+    genomga: 'Gå igenom svaren',
     tillResultatet: 'Till resultatet',
     foregaende: 'Föregående',
     ovaTypen: 'Öva den här typen',
   },
   resultat: {
-    eyebrow: (kind: VnKind, riktat: boolean) => (riktat ? 'Extrapasset klart' : kind === 'verbal' ? 'Textpasset klart' : 'Sifferpasset klart'),
+    eyebrow: (kind: VnKind, riktat: boolean) => (riktat ? 'Träningen på mönstret klar' : 'Träningen klar'),
     rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
     ringAria: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
     tempoRubrik: 'Tempot',
     tempo: (tid: number, budget: number) =>
-      tid <= budget ? 'Inom provets tid för underlaget.' : 'Över provets tid för underlaget. Tempot kommer med passen.',
+      tid <= budget ? 'Inom provets tid för underlaget.' : 'Över provets tid för underlaget. Tempot kommer med träningen.',
     tempoAria: (tid: number, budget: number) => `Tid ${tid} sekunder mot provets tid ${budget} sekunder`,
     tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
     budgetEtikett: 'provets tid',
     tappadeRubrik: 'Var du tappade',
-    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i träningen`,
     upprepad: 'Du har haft det här underlaget förut. Det räknas inte i statistiken.',
     expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
-    imorgon: (kind: VnKind) => `I morgon: ett nytt ${kind === 'verbal' ? 'textpass' : 'sifferpass'}.`,
+    imorgon: (kind: VnKind) => `I morgon: ny träning i ${kind === 'verbal' ? 'ord och text' : 'siffror och tabeller'}.`,
   },
   fel: {
-    hamta: 'Passet gick inte att hämta.',
-    hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+    hamta: 'Träningen gick inte att hämta.',
+    hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',
     svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
     avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
     familj: 'Den typen har för få nya underlag på din nivå just nu.',
-    familjRad: 'Gör dagens pass, så kommer typen tillbaka.',
-    betalvagg: (kind: VnKind) => `${kind === 'verbal' ? 'Textpasset' : 'Sifferpasset'} ingår i Premium.`,
-    betalvaggRad: 'Ett kort pass varje dag, med förklaring efter varje svar och övning på de typer du tappar i.',
+    familjRad: 'Träna blandat, så kommer typen tillbaka.',
+    betalvagg: (kind: VnKind) => `Träning i ${kind === 'verbal' ? 'ord och text' : 'siffror och tabeller'} ingår i Premium.`,
+    betalvaggRad: 'Träning på din nivå, med förklaring efter varje svar och övning på de typer du tappar i.',
   },
   laddar: {
-    session: 'Hämtar passet',
+    session: 'Hämtar uppgifterna',
     resultat: 'Räknar fram resultatet',
   },
   /** "två missar" i genomgångens knapp. */
@@ -99,11 +99,11 @@ export const VN_PASS_COPY = {
  * VN_PASS_COPY; nivån står som ord i toppraden, aldrig som tal.
  */
 export const FIGUR_PASS_COPY = {
-  namn: 'Figurpass',
+  namn: 'Träna figurserier',
   topp: {
-    titel: 'Figurpass',
-    rad: (niva: VnNiva) => `Dagens figurpass, ${NIVA_NAMN[niva].toLowerCase()}`,
-    avsluta: 'Avsluta passet',
+    titel: 'Figurserier',
+    rad: (niva: VnNiva) => `Träna, ${NIVA_NAMN[niva].toLowerCase()}`,
+    avsluta: 'Avsluta träningen',
   },
   fraga: {
     uppgift: (n: number, av: number) => `Uppgift ${n} av ${av}`,
@@ -123,7 +123,7 @@ export const FIGUR_PASS_COPY = {
   knapp: {
     nasta: 'Nästa',
     visaResultat: 'Visa resultatet',
-    genomga: 'Gå igenom passet',
+    genomga: 'Gå igenom svaren',
     tillResultatet: 'Till resultatet',
     foregaende: 'Föregående',
     ovaFamiljen: 'Öva den här typen',
@@ -131,33 +131,33 @@ export const FIGUR_PASS_COPY = {
     forsokIgen: 'Försök igen',
   },
   fel: {
-    hamta: 'Passet gick inte att hämta.',
-    hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+    hamta: 'Träningen gick inte att hämta.',
+    hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',
     svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
     avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
-    betalvagg: 'Figurpasset ingår i Premium.',
+    betalvagg: 'Träning i figurserier ingår i Premium.',
     betalvaggRad: 'Fyra figurserier varje dag, med regeln förklarad efter varje svar.',
   },
   laddar: {
-    session: 'Hämtar passet',
+    session: 'Hämtar uppgifterna',
     resultat: 'Räknar fram resultatet',
   },
   resultat: {
-    eyebrow: 'Figurpasset klart',
+    eyebrow: 'Träningen klar',
     rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
     ringAria: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
     tempoRubrik: 'Tempot',
     tempo: (tid: number, budget: number) =>
-      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med passen.',
+      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med träningen.',
     tempoAria: (tidPer: number, budgetPer: number) => `Tid ${tidPer} sekunder per uppgift mot provets ${budgetPer}`,
     budgetEtikett: 'provets tid',
     tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
     tappadeRubrik: 'Var du tappade',
-    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i träningen`,
     upprepad: 'Du har sett den här raden förut. Den räknas inte i statistiken.',
     expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
-    imorgon: 'I morgon: ett nytt figurpass.',
-    ingenNiva: 'Figurpasset ändrar inte din nivå. Den sätts i Nivåkollen.',
+    imorgon: 'I morgon: ny träning i figurserier.',
+    ingenNiva: 'Träningen räknas i din nivå, högst ett halvt steg om dagen. Nivåtesten på en fast nivå flyttar den inte.',
   },
 } as const;
 
@@ -166,11 +166,11 @@ export const FIGUR_PASS_COPY = {
  * FIGUR_PASS_COPY; nivån står som ord i toppraden, aldrig som tal.
  */
 export const DEDUKTIV_PASS_COPY = {
-  namn: 'Deduktivpass',
+  namn: 'Träna deduktiv slutledning',
   topp: {
-    titel: 'Deduktivpass',
-    rad: (niva: VnNiva) => `Dagens deduktivpass, ${NIVA_NAMN[niva].toLowerCase()}`,
-    avsluta: 'Avsluta passet',
+    titel: 'Deduktiv slutledning',
+    rad: (niva: VnNiva) => `Träna, ${NIVA_NAMN[niva].toLowerCase()}`,
+    avsluta: 'Avsluta träningen',
   },
   fraga: {
     uppgift: (n: number, av: number) => `Uppgift ${n} av ${av}`,
@@ -182,39 +182,39 @@ export const DEDUKTIV_PASS_COPY = {
     svara: 'Svara',
     nasta: 'Nästa',
     visaResultat: 'Visa resultatet',
-    genomga: 'Gå igenom passet',
+    genomga: 'Gå igenom svaren',
     tillResultatet: 'Till resultatet',
     foregaende: 'Föregående',
     tillbaka: 'Tillbaka till Rekryteringstester',
     forsokIgen: 'Försök igen',
   },
   fel: {
-    hamta: 'Passet gick inte att hämta.',
-    hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+    hamta: 'Träningen gick inte att hämta.',
+    hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',
     svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
     avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
-    betalvagg: 'Deduktivpasset ingår i Premium.',
+    betalvagg: 'Träning i deduktiv slutledning ingår i Premium.',
     betalvaggRad: 'Fyra uppgifter varje dag, med lösningen steg för steg efter varje svar.',
   },
   laddar: {
-    session: 'Hämtar passet',
+    session: 'Hämtar uppgifterna',
     resultat: 'Räknar fram resultatet',
   },
   resultat: {
-    eyebrow: 'Deduktivpasset klart',
+    eyebrow: 'Träningen klar',
     rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
     ringAria: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
     tempoRubrik: 'Tempot',
     tempo: (tid: number, budget: number) =>
-      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med passen.',
+      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med träningen.',
     tempoAria: (tidPer: number, budgetPer: number) => `Tid ${tidPer} sekunder per uppgift mot provets ${budgetPer}`,
     budgetEtikett: 'provets tid',
     tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
     tappadeRubrik: 'Var du tappade',
-    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i träningen`,
     upprepad: 'Du har haft den här uppgiften förut. Den räknas inte i statistiken.',
     expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
-    imorgon: 'I morgon: ett nytt deduktivpass.',
-    ingenNiva: 'Passet ändrar inte din nivå. Den sätts i Nivåkollen.',
+    imorgon: 'I morgon: ny träning i deduktiv slutledning.',
+    ingenNiva: 'Träningen räknas i din nivå, högst ett halvt steg om dagen. Nivåtesten på en fast nivå flyttar den inte.',
   },
 } as const;

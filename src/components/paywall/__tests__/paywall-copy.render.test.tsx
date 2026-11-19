@@ -30,7 +30,7 @@ describe('betalväggarnas copy per spärr', () => {
   })
 
   it('arket från testrummets låsta rader namnger det låsta, sekundären är Se vad som ingår (24.3 punkt 5)', () => {
-    expect(getPaywallCopy('testniva', { plats: 'riktat' }).title).toBe('Extrapassen ingår i Premium')
+    expect(getPaywallCopy('testniva', { plats: 'riktat' }).title).toBe('Träning på mönstret ingår i Premium')
     expect(getPaywallCopy('testniva', { plats: 'generalrepetition' }).title).toBe('Övningsprovet ingår i Premium')
     expect(getPaywallCopy('testniva', { plats: 'ommatning' }).title).toBe('Nya nivåkoller ingår i Premium')
     for (const plats of ['riktat', 'generalrepetition', 'ommatning', 'kurva'] as const) {
@@ -42,7 +42,7 @@ describe('betalväggarnas copy per spärr', () => {
     expect(getPaywallCopy('testniva', { plats: 'testniva' }).title).toBe('Avancerad nivå ingår i Premium')
 
     render(<PaywallCard variant="testniva" plats="riktat" onSecondary={() => {}} />)
-    expect(screen.getByText('Extrapassen ingår i Premium')).toBeTruthy()
+    expect(screen.getByText('Träning på mönstret ingår i Premium')).toBeTruthy()
     expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
     expect(screen.queryByText('Kör grundnivån igen')).toBeNull()
   })

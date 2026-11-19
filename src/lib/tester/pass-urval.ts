@@ -17,6 +17,7 @@
 import { dagarMellan, type Dag } from '@/lib/traning/datum';
 import { SITTER_PROCENT } from './resultat';
 import { VN_KARENS_DAGAR, VN_RIKTAT_MINST_OSEDDA, type VnNiva } from './pass-typer';
+import { karensDagar } from './v4/karens';
 
 /** Senast sedd dag per underlags-id. */
 export type Sedda = ReadonlyMap<string, Dag>;
@@ -46,9 +47,23 @@ export function passNiva(bastaGrundProcent: number | null): VnNiva {
 }
 
 /** Är underlaget osett inom karensen? */
+/**
+ * Mätfönstret (tester v4, sann mätning): en uppgift som hon haft inom så här
+ * många dagar räknas inte mot nivån, även när den kortare karensen (KARENS_V4)
+ * redan släppt fram den i urvalet.
+ */
+export const MATNING_FONSTER_DAGAR = VN_KARENS_DAGAR;
+
+/** Sedd inom mätfönstret: får visas (efter karensen) men räknas inte mot nivån. */
+export function settInomFonstret(id: string, sedda: Sedda, idag: Dag): boolean {
+  const dag = sedda.get(id);
+  return !!dag && dagarMellan(dag, idag) <= MATNING_FONSTER_DAGAR;
+}
+
+/** Fri att väljas: inte sedd inom karensen (30 dagar, med KARENS_V4 en vecka). */
 export function arOsett(id: string, sedda: Sedda, idag: Dag): boolean {
   const dag = sedda.get(id);
-  return !dag || dagarMellan(dag, idag) > VN_KARENS_DAGAR;
+  return !dag || dagarMellan(dag, idag) > karensDagar(VN_KARENS_DAGAR);
 }
 
 /**
@@ -73,7 +88,8 @@ export function valjUnderlag(args: {
   const osedda = forst.length > 0 ? forst : allaOsedda;
   if (osedda.length > 0) {
     const rng = mulberry32(hash(args.seed));
-    return { id: osedda[Math.floor(rng() * osedda.length)].id, upprepad: false };
+    const id = osedda[Math.floor(rng() * osedda.length)].id;
+    return { id, upprepad: settInomFonstret(id, sedda, idag) };
   }
   // Det äldst sedda; lika gamla i poolens ordning.
   const aldst = [...pool].sort((a, b) => {

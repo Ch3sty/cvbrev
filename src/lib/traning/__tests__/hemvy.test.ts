@@ -74,14 +74,14 @@ describe('tillstånden med konceptets exempeltal', () => {
     const m = modell('1b')
     expect(m.vagg.rubrik).toBe('14 dagar till Matrigma')
     // Sifferregeln (beslut-hemvy 2026-10-11 punkt 2): nivån bara i dagsraden, ett tal.
-    expect(m.vagg.rad).toBe('Fyra dagar i rad. Dagens pass är kvar.')
+    expect(m.vagg.rad).toBe('Fyra dagar i rad. Dagens träning är kvar.')
     expect(m.vagg.dagsrad!.tal).toMatchObject({ varde: '5,4', etikett: 'din nivå, började på 5' })
     // Tillägget 2026-10-11 punkt 4: från tre punkter bär etiketten formen på mobil.
     expect(m.vagg.dagsrad!.tal.etikettMobil).toBeTruthy()
     expect(m.vagg.vecka!.status).toEqual(['tom', 'gjord', 'gjord', 'gjord', 'gjord', 'nu', 'vila'])
     // copy-plan 3.8: nivån är huvudtalet på väggen, eyebrowen säger den inte.
-    expect(m.lyft.eyebrow).toBe('Dagens pass')
-    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta dagens pass' })
+    expect(m.lyft.eyebrow).toBe('Träna')
+    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Träna' })
     expect(m.kontext?.text).toBe('Matrigma, 24 okt')
   })
   it('1g: efter passet, 7 av 9 rätt och "I morgon" byts mot söndagens vila', () => {
@@ -89,7 +89,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     // copy-plan 3.3: titeln säger nivån, rätt-talet är kortets enda tal.
     expect(m.lyft.titel).toBe('Nivån steg till 5,6.')
     expect(m.lyft.tal).toEqual({ varde: '7 av 9', etikett: 'rätt' })
-    expect(m.vagg.rad).toBe('Fem dagar i rad. Dagens pass är gjort.')
+    expect(m.vagg.rad).toBe('Fem dagar i rad. Dagens träning är gjord.')
     const imorgon = m.sektioner.find((s) => s.typ === 'status' && s.nyckel === 'imorgon')
     expect(imorgon && imorgon.typ === 'status' ? imorgon.text : null).toBe('Söndag är vilodag. Måndag: samma mönster, ett steg svårare.')
     expect(m.nyPunkt).toBe(true)
@@ -97,8 +97,8 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('1h och 1i', () => {
     const h = modell('1h')
     // 20.5 fråga 3: h1 upprepar aldrig toppradens brand.
-    expect(h.vagg.rubrik).toBe('Ett pass om dagen')
-    expect(h.vagg.rad).toBe('Fyra dagar i rad. Dagens pass är kvar.')
+    expect(h.vagg.rubrik).toBe('Träning varje dag')
+    expect(h.vagg.rad).toBe('Fyra dagar i rad. Dagens träning är kvar.')
     expect(h.vagg.datumBox?.text).toMatch(/^Sätt ett datum, så lägger vi upp planen/)
     expect(h.vagg.dagsrad!.tal.varde).toBe('5,4')
     const i = modell('1i')
@@ -138,12 +138,12 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
     expect(c.vagg.rubrik).toBe('I övermorgon: Matrigma')
-    expect(c.vagg.rad).toBe('Elva pass bakom dig. Nu återstår bara övningsprovet.')
+    expect(c.vagg.rad).toBe('Elva omgångar bakom dig. Nu återstår bara övningsprovet.')
     expect(c.vagg.dagsrad!.ring).toBe('general')
     const d = modell('1d')
     expect(d.vagg.dagsrad).toBeUndefined()
     // copy-plan 3.9: nivåmätningarna stryks ur meningen.
-    expect(d.vagg.provdag?.text).toMatch(/^Du har gjort elva pass och två övningsprov\./)
+    expect(d.vagg.provdag?.text).toMatch(/^Du har gjort elva omgångar och två övningsprov\./)
     expect(d.vagg.provdag?.skala?.etikettNu).toBe('Du 6,4')
     // Provdagen visar aldrig den låsta provdagen-raden (16.2).
     expect(d.sektioner.some((s) => s.typ === 'rader' && s.nyckel === 'provdagen')).toBe(false)
@@ -163,7 +163,7 @@ describe('tillstånden med konceptets exempeltal', () => {
     expect(p.vagg.rubrik).toBe('Personlighetstest den 24 oktober')
     expect(p.vagg.dagsrad).toBeUndefined()
     const x = modell('X1')
-    expect(x.lyft.titel).toBe('Passet gick inte att hämta.')
+    expect(x.lyft.titel).toBe('Träningen gick inte att hämta.')
     expect(x.lyft.handling?.typ).toBe('forsok')
     expect(x.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
     expect(x.vagg.rad).toBe('')
@@ -182,10 +182,10 @@ describe('tillstånden med konceptets exempeltal', () => {
     const m = modell('1t')
     expect(m.tillstand).toBe('annat_test')
     expect(m.vagg.rubrik).toBe('14 dagar till siffertestet')
-    expect(m.vagg.rad).toBe('Nivå och kurva följer figurer och mönster. För siffror och text finns ett kort pass varje dag.')
+    expect(m.vagg.rad).toBe('Nivå och kurva följer figurer och mönster. För siffror och text finns träning varje dag.')
     expect(m.vagg.kurva).toBeUndefined()
     expect(m.vagg.planbild).toBeUndefined()
-    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Testet avgör också om passen börjar på grundnivå eller avancerad nivå.' })
+    expect(m.lyft).toMatchObject({ eyebrow: 'Första träningen', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Testet avgör också om träningen börjar på grundnivå eller avancerad nivå.' })
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
     const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
     const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null
@@ -220,7 +220,7 @@ describe('tillstånden med konceptets exempeltal', () => {
 describe('gratisnivån (17.2)', () => {
   it('dag 2 utan paket: passet visas med tema och nivå, knappen köper paketet', () => {
     const m = modell('1f')
-    expect(m.lyft.eyebrow).toBe('Dagens pass')
+    expect(m.lyft.eyebrow).toBe('Träna')
     expect(m.lyft.handling).toMatchObject({ typ: 'kop', text: kopKnapp(), feature: 'tests_above_base', plats: 'dag2' })
     expect(m.lyft.handling).toHaveProperty('prisrad', 'Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
     // copy-premium avsnitt 8: kortformen i knappen, ryms på 360 px.
@@ -236,8 +236,19 @@ describe('gratisnivån (17.2)', () => {
     const inp = fixtur('1f')
     const s = { ...inp.status!, idag: '2026-10-06', dagensPassGjort: false, dagarKvar: 18 }
     const m = byggHemvy({ ...inp, idag: '2026-10-06', status: s })
-    expect(m.lyft.eyebrow).toBe('Dagens pass på grundnivå')
-    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta grundpasset' })
+    expect(m.lyft.eyebrow).toBe('Träna på grundnivå')
+    expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Träna på grundnivå' })
+  })
+  it('mätningens dag men dagens gratistest redan gjort (tester v4): inget löfte om gratis, köpknapp', () => {
+    const inp = fixtur('1f')
+    const s = { ...inp.status!, idag: '2026-10-06', dagensPassGjort: false, dagarKvar: 18, grundKvarIdag: 0 }
+    const m = byggHemvy({ ...inp, idag: '2026-10-06', status: s })
+    expect(m.lyft.text).not.toContain('Gratis i dag')
+    expect(m.lyft.text).toContain('Nästa gratis test i morgon, valfri typ')
+    expect(m.lyft.handling).toMatchObject({ typ: 'kop' })
+    // Kvoten kvar: som förut.
+    const fri = byggHemvy({ ...inp, idag: '2026-10-06', status: { ...s, grundKvarIdag: 1 } })
+    expect(fri.lyft.handling).toMatchObject({ typ: 'lank', text: 'Träna på grundnivå' })
   })
 })
 
@@ -274,7 +285,7 @@ describe('ingången och raderna', () => {
   it('E3: 14 dagar från en lördag ger konceptets plan (granskningen 3.3)', () => {
     expect(plantext('2026-10-10', '2026-10-24')).toEqual({
       dagar: '14 dagar.',
-      text: 'Åtta pass fram till provet, ett övningsprov två dagar före och vila på provdagen. Du kan ändra datumet när du vill.',
+      text: 'Åtta träningsdagar fram till provet, ett övningsprov två dagar före och vila på provdagen. Du kan ändra datumet när du vill.',
     })
   })
   it('Jobbsöket-raden', () => {

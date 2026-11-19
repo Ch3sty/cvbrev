@@ -49,7 +49,7 @@ import {
   seddaFigurTestTyper,
   type SeddRad,
 } from '@/lib/tester/sedda.server';
-import { arOsett } from '@/lib/tester/pass-urval';
+import { settInomFonstret } from '@/lib/tester/pass-urval';
 import type { VnUnderlag } from '@/lib/tester/pass-typer';
 import { NIVAKOLL_TEST_TYPE, passNivaUrNiva, vantadAndel, type NivakollKind } from './niva';
 import { pFor, pGrund, pNiva } from './las.server';
@@ -151,7 +151,7 @@ export function valjNivakoll(kind: NivakollKind, sedda: Sedda, idag: Dag, seed: 
       for (const id of val.ids) {
         nivaer[id] = n;
         fragor.push(id);
-        if (!arOsett(id, sedda, idag)) upprepade.push(id);
+        if (settInomFonstret(id, sedda, idag)) upprepade.push(id);
       }
     }
     return { fragor, nivaer, upprepade };
@@ -515,10 +515,18 @@ export function raknaNivakoll(args: {
   p: (nyckel: string) => number;
   pBank: Record<BankNiva, readonly number[]>;
   pGrund: readonly number[];
+  /**
+   * Uppgifter hon haft inom mätfönstret (tester v4, sann mätning): de syns i
+   * resultatet men räknas inte i nivån. Är alla upprepade står nivån kvar.
+   */
+  upprepade?: ReadonlySet<string>;
 }): NivakollResultat {
   const per = new Map(args.svar.map((s) => [s.q_id, s]));
   const nivaSvar = args.uppgifter.map((u) => ({ p: args.p(u.nyckel), correct: per.get(u.nyckel)?.correct === true }));
-  const { niva, delta } = matningsNiva(nivaSvar, args.fore);
+  const upp = args.upprepade ?? new Set<string>();
+  const raknade = args.uppgifter.filter((u) => !upp.has(u.nyckel)).map((u) => ({ p: args.p(u.nyckel), correct: per.get(u.nyckel)?.correct === true }));
+  const { niva, delta } =
+    raknade.length === 0 && args.fore != null ? { niva: args.fore, delta: 0 } : matningsNiva(raknade.length ? raknade : nivaSvar, args.fore);
   const perNiva = (['grund', 'avancerad', 'expert'] as const)
     .map((n) => {
       const us = args.uppgifter.filter((u) => u.niva === n);
@@ -576,6 +584,7 @@ export async function slutforNivakoll(args: { admin: Klient; userId: string; ses
     p: (n) => pFor(kind, n, stat.get(n)),
     pBank: { grund: pNiva(kind, 'grund'), avancerad: pNiva(kind, 'avancerad'), expert: kind === 'verbal' ? [] : pNiva(kind, 'expert') },
     pGrund: pGrund(kind),
+    upprepade: new Set(meta.upprepade),
   });
 
   const upprepade = new Set(meta.upprepade);

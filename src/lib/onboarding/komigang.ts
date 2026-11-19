@@ -316,8 +316,8 @@ export function brickaText(
         titel: 'Nivåkollen',
         text:
           paket === 'tester'
-            ? 'Cirka åtta minuter, sedan ett pass på din nivå'
-            : 'Gratis, cirka åtta minuter, sedan ett pass på din nivå',
+            ? 'Cirka åtta minuter, sedan träning på din nivå'
+            : 'Gratis, cirka åtta minuter, sedan träning på din nivå',
         klarText:
           typeof fakta.matrisRatt === 'number' && typeof fakta.matrisAv === 'number'
             ? `${fakta.matrisRatt} av ${fakta.matrisAv} rätt`
@@ -392,7 +392,7 @@ export function brickaText(
 
 /** Gratisvarianterna ur designfilens slutcopy ("Kom igång, gratis"). */
 const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>> = {
-  matris_grund: { titel: 'Nivåkollen', text: 'Gratis, cirka åtta minuter, sedan ett pass på din nivå' },
+  matris_grund: { titel: 'Nivåkollen', text: 'Gratis, cirka åtta minuter, sedan träning på din nivå' },
   personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
   intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
   analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },

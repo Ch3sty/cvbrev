@@ -115,7 +115,7 @@ const gratisRad = (kampanj: KampanjVisning | null) =>
  */
 export const TILL_TRANINGEN = {
   nivakoll: 'Till träningen: nivåkollen, 8 minuter.',
-  pass: 'Till träningen: dagens pass, nio uppgifter.',
+  pass: 'Till träningen: nio uppgifter på din nivå.',
   lank: 'Min plan',
 } as const;
 

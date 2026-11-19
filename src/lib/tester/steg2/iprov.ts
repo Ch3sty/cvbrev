@@ -117,7 +117,7 @@ export const IPROV_COPY = {
   resultatEyebrow: (halvt: boolean, datum: string) => `${halvt ? 'Halva provet' : 'Hela provet'}, ${datum}`,
   resultatRubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
   tappar: 'Var du tappar',
-  riktat: 'Riktat pass, sex uppgifter',
+  riktat: 'Träning på mönstret, sex uppgifter',
   stanine: (variant: string | null) => {
     const krav = variant === 'varnplikt' ? 'Värnplikten kräver minst 3' : variant === 'officer' ? 'Officersprogrammet kräver minst 6' : 'Polisen kräver minst 4';
     return `${krav} på I-provets niogradiga skala. Den räknas mot Pliktverkets normgrupp och går inte att härleda ur ett övningsprov.`;

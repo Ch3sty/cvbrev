@@ -179,7 +179,7 @@ export const RESULTAT = {
   },
   status: {
     imorgonProv: 'I morgon är det provet. Tre uppvärmningsfrågor på morgonen, inget mer.',
-    imorgonPass: 'I morgon: dagens pass, nio uppgifter.',
+    imorgonPass: 'I morgon: träning på din nivå, nio uppgifter.',
     minPlan: 'Min plan',
   },
   tillbaka: 'Tillbaka till Rekryteringstester',

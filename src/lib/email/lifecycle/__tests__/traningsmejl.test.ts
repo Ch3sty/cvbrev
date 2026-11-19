@@ -148,13 +148,13 @@ describe('pass_dag2', () => {
     const db = grund();
     const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
     const tema = familjNamn('vridning')!;
-    expect(r.subject).toBe(`Dagens pass: ${tema}`);
+    expect(r.subject).toBe(`Dagens träning: ${tema}`);
     expect(r.preheader).toBe(PASS_FORM);
     expect(PASS_FORM).toBe('Nio uppgifter, cirka tio minuter.');
     expect(r.html).toContain(`Hej Anna. Dagens tema är ${tema}. Nio uppgifter, cirka tio minuter.`);
-    expect(r.html).toContain('Nivåkollen gav dig 5,4, och passet börjar där.');
+    expect(r.html).toContain('Nivåkollen gav dig 5,4, och träningen börjar där.');
     expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass?typ=pass&utm_source=lifecycle');
-    expect(r.html).toContain('Starta dagens pass');
+    expect(r.html).toContain('Starta dagens träning');
     expect(r.html).toContain('/api/email/unsubscribe?uid=u1');
     expect(r.html).not.toContain('ingår i Premium');
     utanTalstreck(r.subject, r.preheader, r.html);
@@ -171,12 +171,12 @@ describe('pass_dag2', () => {
     expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass/s1?utm_source=lifecycle');
     expect(r.html).toContain('Visa genomgången');
     // Väggens besked, priset ur plans.
-    expect(dag2Vaggrad()).toBe(`Från dag två ingår passen i Premium, ${prisPeriod(SALD_PLAN)}.`);
+    expect(dag2Vaggrad()).toBe(`Från dag två ingår träningen i Premium, ${prisPeriod(SALD_PLAN)}.`);
     expect(r.html).toContain(dag2Vaggrad());
     expect(r.html).toContain('149 kr i månaden');
     // Länken till dagens pass visar väggen (betalvagg_visad plats dag2).
     expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass?typ=pass&utm_source=lifecycle');
-    expect(r.html).toContain('Se dagens pass');
+    expect(r.html).toContain('Se dagens träning');
     expect(r.html).not.toContain('Dagens tema');
     expect(r.html).toContain('/api/email/unsubscribe?uid=u1');
     utanTalstreck(r.subject, r.preheader, r.html);
@@ -202,7 +202,7 @@ describe('pass_dag2', () => {
   it('utan tema står Blandade mönster', async () => {
     h.tema = null;
     const r = await passDag2Mejl.render(ctx(grund(), 'u1', { dag: IDAG }));
-    expect(r.subject).toBe('Dagens pass: Blandade mönster');
+    expect(r.subject).toBe('Dagens träning: Blandade mönster');
   });
 
   it.each([
@@ -299,7 +299,7 @@ describe('pass_dag2 för alla testtyper (beslut 3, 2026-11-10)', () => {
 
     h.scope = 'allt';
     const betalande = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
-    expect(betalande.subject).toBe('Dagens pass: Figurpass');
+    expect(betalande.subject).toBe('Dagens träning: Figurserier');
     expect(betalande.html).toContain('typ=figurpass');
   });
 
@@ -603,7 +603,7 @@ describe('sändningen', () => {
     expect(h.send).toHaveBeenCalledTimes(1);
     const arg = h.send.mock.calls[0][0];
     expect(arg.scheduledAt).toBe('2026-10-12T05:00:00.000Z');
-    expect(arg.subject).toBe(`Dagens pass: ${familjNamn('vridning')}`);
+    expect(arg.subject).toBe(`Dagens träning: ${familjNamn('vridning')}`);
     expect(db.tables.email_log[0]).toMatchObject({ resend_id: 're_1', email_type: `pass_dag2_${IDAG}` });
   });
 

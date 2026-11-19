@@ -223,7 +223,7 @@ function SektionFor({ s, forstaRad, spann }: { s: Sektion; forstaRad: boolean; s
   if (s.typ === 'tempo') {
     return (
       <div className={lyftDator}>
-        <Kort label="Tempo och pass">
+        <Kort label="Tempo och träning">
           {s.eyebrow ? <p className="mb-2 hidden text-ey text-ink-3 lg:block">{s.eyebrow}</p> : null}
           <EttTal tal={s.tal} />
           {s.meta ? <p className="mt-3 text-meta text-ink-3">{s.meta}</p> : null}

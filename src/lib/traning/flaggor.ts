@@ -25,6 +25,14 @@ export const BANK_KALIBRERAD_OVER_7_5 = false;
 /** Dagar innan en fråga får komma tillbaka, med den lilla banken. */
 export const ATERANVAND_EFTER_DAGAR = BANK_RACKER_30_DAGAR ? 30 : 14;
 
+/**
+ * Tester v4 (planen A6): kortare karens i visningar och sann mätning genom
+ * räknereglerna i src/lib/tester/v4/karens.ts. På sedan 2026-11-19 (ägarens
+ * beslut): urvalet släpper fram en uppgift efter en vecka, men uppgifter som
+ * setts inom 30 dagar räknas inte mot nivån.
+ */
+export const KARENS_V4 = true;
+
 /** Antal svar per fråga innan den uppmätta andelen rätt ersätter priorn. */
 export const MIN_SVAR_FOR_KALIBRERING = 30;
 

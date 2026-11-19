@@ -30,6 +30,7 @@
 
 import { dagarMellan, type Dag } from './datum';
 import { ATERANVAND_EFTER_DAGAR } from './flaggor';
+import { karensDagar } from '@/lib/tester/v4/karens';
 import { bandForP, nivaForP, NARA_NIVAN_P, pForNiva, type Band, type Prior } from './svarighet';
 import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda';
 
@@ -73,7 +74,7 @@ export function senastSedd(sedda: readonly Sedd[]): Map<string, Dag> {
 export function friskhet(
   senast: Dag | undefined,
   idag: Dag,
-  aterAnvandEfter = ATERANVAND_EFTER_DAGAR
+  aterAnvandEfter = karensDagar(ATERANVAND_EFTER_DAGAR)
 ): Friskhet | null {
   if (!senast) return 0;
   const sedan = dagarMellan(senast, idag);
@@ -87,6 +88,8 @@ interface Kandidat {
   q: BankFragaInfo;
   friskhet: Friskhet;
   slump: number;
+  /** Dagar sedan hon senast hade frågan, null om aldrig. */
+  sedan?: number | null;
 }
 
 function kandidater(
@@ -100,9 +103,10 @@ function kandidater(
   const ut: Kandidat[] = [];
   for (const q of bank) {
     const slump = rng();
-    const f = friskhet(senast.get(q.id), idag);
+    const s = senast.get(q.id);
+    const f = friskhet(s, idag);
     if (f === null) continue;
-    ut.push({ q, friskhet: f, slump });
+    ut.push({ q, friskhet: f, slump, sedan: s ? dagarMellan(s, idag) : null });
   }
   return ut;
 }
@@ -114,8 +118,13 @@ export function arUpprepad(f: Friskhet): boolean {
   return f === 2 || f === 3;
 }
 
+/**
+ * Upprepade räknas inte mot nivån. Med den kortare karensen (KARENS_V4) kan
+ * en fråga komma tillbaka efter en vecka; den räknas ändå som upprepad tills
+ * ATERANVAND_EFTER_DAGAR (30) gått, så att mätningen förblir sann.
+ */
 function upprepadeAv(valda: readonly Kandidat[]): string[] {
-  return valda.filter((k) => arUpprepad(k.friskhet)).map((k) => k.q.id);
+  return valda.filter((k) => arUpprepad(k.friskhet) || (k.sedan != null && k.sedan < ATERANVAND_EFTER_DAGAR)).map((k) => k.q.id);
 }
 
 /**

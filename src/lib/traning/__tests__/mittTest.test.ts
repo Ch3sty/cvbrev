@@ -68,8 +68,8 @@ describe('Mitt test är …', () => {
   it('Så lägger vi upp det: passen, provet och Alla tester, utan talstreck', () => {
     const r = upplagg('lokforare', [], 'Figurserier, 20 uppgifter på 5 minuter.')
     expect(r.map((x) => x.nyckel)).toEqual(['passen', 'provet', 'alla'])
-    expect(r[0].text).toBe('Figurserier, text, siffror och deduktivt i tur och ordning, i Aons tempo.')
-    expect(r[2].text).toBe('Dina fyra deltester överst, resten under Fler tester.')
+    expect(r[0].text).toBe('Figurserier, text, siffror och deduktivt står först och är märkta som provets delar, i Aons tempo.')
+    expect(r[2].text).toBe('Dina fyra deltester överst. Alla andra testtyper är öppna också.')
     for (const x of r) expect(x.text).not.toMatch(/[—·]/)
   })
 

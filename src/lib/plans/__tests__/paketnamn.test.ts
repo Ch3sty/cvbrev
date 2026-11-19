@@ -248,8 +248,8 @@ describe('skrivregeln för Jobbcoach Premium', () => {
     ['paketen', /(^|[^A-Za-zåäö_])paketen(?![A-Za-zåäö_])/],
   ]
 
-  /** Gement premium som ord i en sträng (inte premium_, isPremium, 'premium' som värde). */
-  const GEMENT = /['"`>][^'"`<]*(^|[^A-Za-z_'"`-])premium[ .,][^'"`<]*/
+  /** Gement premium som ord i en sträng (inte premium_, isPremium, obj.premium, 'premium' som värde). */
+  const GEMENT = /['"`>][^'"`<]*(^|[^A-Za-z_'"`.-])premium[ .,][^'"`<]*/
 
   it('ingen förbjuden form i någon användarsträng i src', () => {
     const traffar: string[] = []
@@ -285,6 +285,8 @@ describe('skrivregeln för Jobbcoach Premium', () => {
     expect(GEMENT.test("if (tier === 'premium') return")).toBe(false)
     expect(GEMENT.test('premium_until')).toBe(false)
     expect(GEMENT.test('if (isPremium) return')).toBe(false)
+    expect(GEMENT.test("const L = { skal: 'premium' as const, chip: LAS_CHIP.premium }")).toBe(false)
+    expect(GEMENT.test("etikett: 'Öppna med premium nu'")).toBe(true)
   })
 
   it('en knappsträng överallt: skaffaKnapp, ctaLabel och kopKnapp ger samma (copy-premium 8)', async () => {

@@ -71,7 +71,7 @@ describe('VnPassFlode', () => {
   it('textpasset: rubriken står still, förklaringen efter svaret, resultatet 3 av 4', async () => {
     const { vy, api } = fixtur('verbal', 'va-07-foreningsstod')
     render(<VnPassFlode api={api} vy={vy} forhandsvisning />)
-    expect(rubrik()).toBe('Textpass')
+    expect(rubrik()).toBe('Ord och text')
     expect(screen.getByText('1 / 4')).toBeInTheDocument()
     expect(screen.getAllByRole('radio').map((r) => r.textContent)).toEqual(['Sant', 'Falskt', 'Går inte att avgöra'])
 
@@ -88,7 +88,7 @@ describe('VnPassFlode', () => {
         fireEvent.click(screen.getByRole('radio', { name: new RegExp(`^${val}`) }))
       })
       await waitFor(() => expect(document.querySelector('[data-vn-forklaring]')).not.toBeNull())
-      expect(rubrik()).toBe('Textpass')
+      expect(rubrik()).toBe('Ord och text')
       expect(screen.getAllByRole('radio')).toHaveLength(3)
       await act(async () => {
         fireEvent.click(screen.getByRole('button', { name: i === 3 ? 'Visa resultatet' : 'Nästa' }))
@@ -96,7 +96,7 @@ describe('VnPassFlode', () => {
     }
     await waitFor(() => expect(document.querySelector('[data-vn-resultat]')).not.toBeNull())
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('3 av 4 rätt.')
-    expect(rubrik()).toBe('Textpass')
+    expect(rubrik()).toBe('Ord och text')
     expect(screen.getByText('Öva den här typen')).toBeInTheDocument()
     expect(screen.getByText('Du är på expertnivå. Gör nivåtestet i stället.')).toBeInTheDocument()
     expect(document.body.textContent).not.toMatch(/[—–]/)
@@ -113,7 +113,7 @@ describe('VnPassFlode', () => {
   it('sifferpasset: underlaget med tabellen, alternativen som rader, räknare tillåten', () => {
     const { vy, api } = fixtur('numerisk', 'na-01-kommunbudget')
     render(<VnPassFlode api={api} vy={vy} forhandsvisning />)
-    expect(rubrik()).toBe('Sifferpass')
+    expect(rubrik()).toBe('Siffror och tabeller')
     expect(screen.getByText('Räknare tillåten')).toBeInTheDocument()
     expect(document.querySelector('table')).not.toBeNull()
     expect(screen.getAllByRole('radio')).toHaveLength(4)

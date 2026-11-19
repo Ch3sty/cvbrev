@@ -269,7 +269,7 @@ export interface UppleggRad {
  */
 export function upplagg(val: MittTest, kryss: readonly string[], ovningsprovText: string | null): UppleggRad[] {
   if (val === 'personlighet') {
-    return [{ nyckel: 'passen', titel: 'Personligheten', text: 'Inga pass och ingen nivå. Vi visar hur profilen tolkas.' }];
+    return [{ nyckel: 'passen', titel: 'Personligheten', text: 'Ingen träning och ingen nivå. Vi visar hur profilen tolkas.' }];
   }
   const typer = passtyper(val, kryss);
   const ord = typer.map((t) => PASS_ORD[t]);
@@ -277,11 +277,12 @@ export function upplagg(val: MittTest, kryss: readonly string[], ovningsprovText
   const tempo = val === 'lokforare' ? ', i Aons tempo' : '';
   rader.push({
     nyckel: 'passen',
-    titel: 'Passen',
+    titel: 'Träningen',
+    // Tester v4: inget "pass" utåt, provets delar står först och är märkta.
     text:
       typer.length > 1
-        ? `${versalForst(upprakning(ord))} i tur och ordning${tempo}.`
-        : `${versalForst(ord[0] ?? 'figurer och mönster')} varje passdag${tempo}.`,
+        ? `${versalForst(upprakning(ord))} står först och är märkta som provets delar${tempo}.`
+        : `${versalForst(ord[0] ?? 'figurer och mönster')} står först och är märkt som provets del${tempo}.`,
   });
   if (ovningsprovText) rader.push({ nyckel: 'provet', titel: 'Övningsprovet', text: ovningsprovText });
   const n = deltester(val, kryss).length;
@@ -289,10 +290,10 @@ export function upplagg(val: MittTest, kryss: readonly string[], ovningsprovText
     rader.push({
       nyckel: 'alla',
       titel: 'Alla tester',
-      text: `Dina ${n < TALORD.length ? TALORD[n] : n} deltester överst, resten under Fler tester.`,
+      text: `Dina ${n < TALORD.length ? TALORD[n] : n} deltester överst. Alla andra testtyper är öppna också.`,
     });
   } else {
-    rader.push({ nyckel: 'alla', titel: 'Alla tester', text: 'Ditt deltest överst, resten under Fler tester.' });
+    rader.push({ nyckel: 'alla', titel: 'Alla tester', text: 'Ditt deltest överst. Alla andra testtyper är öppna också.' });
   }
   return rader;
 }

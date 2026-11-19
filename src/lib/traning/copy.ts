@@ -10,8 +10,8 @@ export const TRANING_COPY = {
   imorgon: {
     familjUpp: 'samma mönster, ett steg svårare',
     nyFamilj: 'nytt mönster',
-    pass: 'nästa pass',
-    grundpass: 'nästa grundpass',
+    pass: 'ny träning',
+    grundpass: 'ny träning på grundnivå',
     ommatning: 'ny nivåkoll, 8 minuter',
     general: 'övningsprov',
     prov: 'provet. Bara tre uppvärmningsfrågor.',
@@ -50,8 +50,8 @@ export const TRANING_COPY = {
     },
   },
   fel: {
-    passHamtas: 'Passet gick inte att hämta.',
-    forsokIgen: 'Försök igen. Din nivå och dina pass är sparade, ingenting försvann.',
+    passHamtas: 'Träningen gick inte att hämta.',
+    forsokIgen: 'Försök igen. Din nivå och din träning är sparade, ingenting försvann.',
     familjSaknas: 'Det mönstret har för få uppgifter än så länge.',
     redanBesvarad: 'Frågan är redan besvarad.',
   },
@@ -69,7 +69,7 @@ export function talord(n: number, ett: 'en' | 'ett' = 'ett'): string {
 }
 
 function antalPass(n: number): string {
-  return `${talord(n, 'ett')} pass`;
+  return `${talord(n, 'en')} ${n === 1 ? 'omgång' : 'omgångar'}`;
 }
 
 export function versal(s: string): string {

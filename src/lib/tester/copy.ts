@@ -201,7 +201,8 @@ export const RESULTAT = {
     text: 'Resultatet syns i Din utveckling.',
     rytm: {
       under: 'Samma nivå igen i morgon.',
-      gratisGrund: 'Grundnivån är öppen en gång om dagen. Samma nivå igen i morgon.',
+      /** Tester v4: ett gratis grundnivåtest om dagen, oavsett testtyp. */
+      gratisGrund: 'Ett gratis test om dagen, valfri typ. Nästa gratis test i morgon.',
       nastaOppen: 'Nästa nivå väntar i Alla tester.',
       nastaLast: () => `Nästa nivå ingår i ${paketKort()}.`,
       provOppet: 'Övningsprovet väntar i Alla tester.',

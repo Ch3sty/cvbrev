@@ -91,14 +91,20 @@ describe('återanvändningen', () => {
   })
 
   it('friskhet: aldrig sedd, efter fönstret, inte förra veckan, minst två dagar, aldrig i går eller i dag', () => {
-    expect(friskhet(undefined, IDAG)).toBe(0)
-    expect(friskhet(laggTill(IDAG, -ATERANVAND_EFTER_DAGAR), IDAG)).toBe(1)
-    expect(friskhet(laggTill(IDAG, -14), IDAG)).toBe(2)
-    expect(friskhet(laggTill(IDAG, -8), IDAG)).toBe(2)
-    expect(friskhet(laggTill(IDAG, -7), IDAG)).toBe(3)
-    expect(friskhet(laggTill(IDAG, -2), IDAG)).toBe(3)
+    // Med 30 dagars karens (KARENS_V4 av).
+    const A = ATERANVAND_EFTER_DAGAR
+    expect(friskhet(undefined, IDAG, A)).toBe(0)
+    expect(friskhet(laggTill(IDAG, -ATERANVAND_EFTER_DAGAR), IDAG, A)).toBe(1)
+    expect(friskhet(laggTill(IDAG, -14), IDAG, A)).toBe(2)
+    expect(friskhet(laggTill(IDAG, -8), IDAG, A)).toBe(2)
+    expect(friskhet(laggTill(IDAG, -7), IDAG, A)).toBe(3)
+    expect(friskhet(laggTill(IDAG, -2), IDAG, A)).toBe(3)
+    expect(friskhet(laggTill(IDAG, -1), IDAG, A)).toBeNull()
+    expect(friskhet(IDAG, IDAG, A)).toBeNull()
+    // KARENS_V4 (på sedan 2026-11-19): fri igen efter en vecka, aldrig i går eller i dag.
+    expect(friskhet(laggTill(IDAG, -7), IDAG)).toBe(1)
+    expect(friskhet(laggTill(IDAG, -6), IDAG)).toBe(3)
     expect(friskhet(laggTill(IDAG, -1), IDAG)).toBeNull()
-    expect(friskhet(IDAG, IDAG)).toBeNull()
   })
 
   it('aldrig samma fråga två dagar i rad, och osedda före sedda', () => {

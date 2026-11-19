@@ -99,7 +99,7 @@ describe('PassFlode', () => {
       })
     }
     await waitFor(() => expect(document.querySelector('[data-resultat]')).not.toBeNull(), { timeout: 3000 })
-    expect(screen.getByText('Passet klart')).toBeInTheDocument()
+    expect(screen.getByText('Träningen klar')).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/^9 av 9 rätt\./)
   })
 })

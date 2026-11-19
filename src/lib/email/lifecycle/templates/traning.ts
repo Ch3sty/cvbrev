@@ -146,7 +146,7 @@ function textLank(label: string, url: string, typ: string): string {
  * läses ur plans (regel R1: namnet följs av pris).
  */
 export function dag2Vaggrad(): string {
-  return `Från dag två ingår passen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`;
+  return `Från dag två ingår träningen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`;
 }
 
 /**
@@ -160,13 +160,13 @@ function passDag2Typ(ctx: LifecycleContext, start: ForstaStart, premium: boolean
   const vad = start.via === 'grundtest' ? `grundtestet i ${t.namn}` : `Nivåkollen i ${t.namn}`;
 
   if (premium) {
-    const subject = `Dagens pass: ${t.pass}`;
+    const subject = `Dagens träning: ${t.pass}`;
     const preheader = t.form;
     const stycken = [
       paragraph(`${hej(ctx)} I går gjorde du ${escapeHtml(vad)}. I dag väntar ${escapeHtml(t.pass.toLowerCase())}. ${escapeHtml(t.form)}`),
       paragraph(
         niva !== null
-          ? `Nivåkollen gav dig ${nivaText(niva)}, och passet börjar där. Vi förklarar varje svar när du är klar.`
+          ? `Nivåkollen gav dig ${nivaText(niva)}, och träningen börjar där. Vi förklarar varje svar när du är klar.`
           : 'Vi förklarar varje svar när du är klar.'
       ),
     ];
@@ -178,8 +178,8 @@ function passDag2Typ(ctx: LifecycleContext, start: ForstaStart, premium: boolean
         type: PASS_DAG2_TYPE,
         userId: ctx.userId,
         preheader,
-        body: heading('Dagens pass') + stycken.join(''),
-        ctaLabel: 'Starta dagens pass',
+        body: heading('Dagens träning') + stycken.join(''),
+        ctaLabel: 'Starta dagens träning',
         ctaUrl: t.lank,
       }),
     };
@@ -200,7 +200,7 @@ function passDag2Typ(ctx: LifecycleContext, start: ForstaStart, premium: boolean
   ];
   const note =
     paragraph(`${dag2Vaggrad()} ${escapeHtml(t.pass)}: ${escapeHtml(t.form)}`) +
-    `<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;">${textLank('Se dagens pass', t.lank, PASS_DAG2_TYPE)}</p>`;
+    `<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;">${textLank('Se dagens träning', t.lank, PASS_DAG2_TYPE)}</p>`;
 
   return {
     subject,
@@ -243,13 +243,13 @@ export const passDag2Mejl: LifecycleEmail = {
 
     if (premium) {
       const tema = familjNamn(await dagensTemaFor(ctx.admin, ctx.userId, dag)) ?? BLANDAT;
-      const subject = `Dagens pass: ${tema}`;
+      const subject = `Dagens träning: ${tema}`;
       const preheader = PASS_FORM;
       const stycken = [
         paragraph(`${hej(ctx)} Dagens tema är ${escapeHtml(tema)}. ${PASS_FORM}`),
         paragraph(
           niva !== null
-            ? `Nivåkollen gav dig ${nivaText(niva)}, och passet börjar där. Vi förklarar varje svar när du är klar.`
+            ? `Nivåkollen gav dig ${nivaText(niva)}, och träningen börjar där. Vi förklarar varje svar när du är klar.`
             : 'Passet börjar på din nivå. Vi förklarar varje svar när du är klar.'
         ),
       ];
@@ -261,8 +261,8 @@ export const passDag2Mejl: LifecycleEmail = {
           type: PASS_DAG2_TYPE,
           userId: ctx.userId,
           preheader,
-          body: heading('Dagens pass') + stycken.join(''),
-          ctaLabel: 'Starta dagens pass',
+          body: heading('Dagens träning') + stycken.join(''),
+          ctaLabel: 'Starta dagens träning',
           ctaUrl: LANK.pass,
         }),
       };
@@ -285,8 +285,8 @@ export const passDag2Mejl: LifecycleEmail = {
       ),
     ];
     const note =
-      paragraph(`${dag2Vaggrad()} Ett pass är nio uppgifter på din nivå och tar cirka tio minuter.`) +
-      `<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;">${textLank('Se dagens pass', LANK.pass, PASS_DAG2_TYPE)}</p>`;
+      paragraph(`${dag2Vaggrad()} En träning är nio uppgifter på din nivå och tar cirka tio minuter.`) +
+      `<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;">${textLank('Se dagens träning', LANK.pass, PASS_DAG2_TYPE)}</p>`;
 
     return {
       subject,

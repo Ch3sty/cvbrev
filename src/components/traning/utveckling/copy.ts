@@ -9,15 +9,15 @@ import { ordTal } from '@/lib/tester/resultat'
 
 export const UTV = {
   rubrik: 'Din utveckling',
-  rad: 'Passen flyttar nivån lite, nivåkollen mer.',
+  rad: 'Träningen flyttar nivån lite, nivåkollen mer.',
   radUtanKurva: 'Resultaten från de klassiska testerna, nivå för nivå.',
   kurvaHjalp: 'Vad är nivån?',
   stat: { idag: 'nivå i dag', matning: 'vid start', sikte: 'mål' },
   nivanUpp: 'Nivån upp',
-  legend: { pass: 'pass', matning: 'nivåkoll', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
+  legend: { pass: 'träning', matning: 'nivåkoll', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
   utanKurva: {
     titel: 'Nivåkurvan börjar med din första nivåkoll.',
-    text: 'Tolv uppgifter i logiktestet, från lätta till svåra. Sedan en punkt per pass.',
+    text: 'Tolv uppgifter i logiktestet, från lätta till svåra. Sedan en punkt per träning.',
     knapp: 'Kolla min nivå, 8 min',
   },
   tomt: {
@@ -61,13 +61,13 @@ export const UTV = {
   tappar: {
     rubrik: 'Var du tappar',
     bara: 'Gäller logiktestet. För text och siffror räknar vi inte mönster än.',
-    tomt: 'Mönstren räknas när du gjort nivåkollen eller ett pass i logiktestet.',
+    tomt: 'Mönstren räknas när du gjort nivåkollen eller tränat i logiktestet.',
     tomtTitel: 'Inga mönster än',
     inget: 'Inget tapp än',
     ingetText: 'Alla mönster med minst två frågor har gått rätt hittills.',
     rattAv: (r: number, a: number) => `${r} av ${a}`,
     langsam: 'rätt men långsamt',
-    riktat: (namn: string) => `Extrapass på ${namn}`,
+    riktat: (namn: string) => `Träna på ${namn}`,
     legend: { ratt: 'rätt i tid', langsam: 'rätt men långsamt', svag: 'svagast' },
     aria: (namn: string, r: number, a: number, l: number) =>
       `${namn}: ${r} rätt av ${a}${l ? `, varav ${l} rätt men långsamt` : ''}`,
@@ -75,20 +75,20 @@ export const UTV = {
 
   tempo: {
     rubrik: 'Tempo mot provets tid',
-    tomt: 'Tempot räknas när du gjort ett pass i logiktestet.',
-    tomtTitel: 'Inget pass än',
+    tomt: 'Tempot räknas när du tränat i logiktestet.',
+    tomtTitel: 'Ingen träning än',
     /** Rubriken (art-director 2026-10-11, avvikelse 5): ett tal, i ord upp till tjugo. */
     titel: (over: number, antal: number) =>
       over === 0 ? 'Allt inom provets tid' : `${versal(ordTal(over))} av ${ordTal(antal)} över provets tid`,
     snittText: (s: number) => `Snitt ${s} s per fråga.`,
     budgetEtikett: (s: number) => `provets tid, ${s} s`,
     fast: 'Fel och långsam samtidigt betyder att du satt fast. På provet är det bättre att gissa och gå vidare.',
-    senaste: (datum: string) => `Senaste passet, ${datum}`,
+    senaste: (datum: string) => `Senaste träningen, ${datum}`,
     fraga: (n: number) => `fråga ${n}`,
     stapelTitel: (n: number, s: number, ratt: boolean) => `Fråga ${n}: ${s} s, ${ratt ? 'rätt' : 'fel'}`,
     legend: { ratt: 'rätt', fel: 'fel', over: 'över provets tid' },
-    perPass: 'Snitt per pass',
-    perPassMeta: 'Frågorna nära din nivå, de senaste passen. Strecket är provets tid.',
+    perPass: 'Snitt per omgång',
+    perPassMeta: 'Frågorna nära din nivå, de senaste omgångarna. Strecket är provets tid.',
     passTitel: (datum: string, s: number | null) => (s == null ? `${datum}: inget sparat snitt` : `${datum}: ${s} s per fråga`),
     sek: (s: number) => `${s} s`,
     aria: (over: number, antal: number, snitt: number, budget: number) =>

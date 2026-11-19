@@ -43,6 +43,7 @@ import { dagSthlm } from '@/lib/traning/datum'
 import BastaKort from '@/components/tests/testsida/BastaKort'
 import ForsokKort, { type ForsokRad } from '@/components/tests/testsida/ForsokKort'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
+import { GRUND_GRATISRAD } from '@/lib/tester/v4/copy'
 
 interface QuotaLock {
   feature: string
@@ -107,7 +108,16 @@ function Fakta({ tal, etikett }: { tal: string | number; etikett: string }) {
   )
 }
 
-export default function TestHubPage({ config, forsok }: { config: TestConfig; forsok?: ForsokRad[] | null }) {
+export default function TestHubPage({
+  config,
+  forsok,
+  grundKvot,
+}: {
+  config: TestConfig
+  forsok?: ForsokRad[] | null
+  /** Tester v4: grundnivåkvoten över alla testtyper, läst på servern. Utelämnad: sidans egen kontroll. */
+  grundKvot?: { kvar: number; nextResetAt: string } | null
+}) {
   const router = useRouter()
   const { loading: profileLoading } = useProfile()
   const { summary } = useDashboardData()
@@ -207,12 +217,14 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
   // ser väggen medan hennes data laddar.
   const idag = dagSthlm()
   const kvotAnvand =
-    !!summary &&
-    requiredFeature === null &&
-    !scopeHasFeature(scope, 'tests_above_base') &&
-    sessions.some((s) => !!s.completed_at && dagSthlm(s.completed_at) === idag)
+    (!!summary &&
+      requiredFeature === null &&
+      !scopeHasFeature(scope, 'tests_above_base') &&
+      sessions.some((s) => !!s.completed_at && dagSthlm(s.completed_at) === idag)) ||
+    grundKvot?.kvar === 0
   const tak: QuotaLock | null =
-    quotaLock ?? (kvotAnvand ? { feature: config.quotaFeature, nextResetAt: nextMidnightISO() } : null)
+    quotaLock ??
+    (kvotAnvand ? { feature: config.quotaFeature, nextResetAt: grundKvot?.kvar === 0 ? grundKvot.nextResetAt : nextMidnightISO() } : null)
 
   // Bäst räknat i andel, mot varje sessions eget antal (de kortade testen 2026-10-11).
   const andel = (s: ForsokRad) => (s.score ?? 0) / (totalForSession(config.slug, s.meta) || config.totalQuestions)
@@ -270,6 +282,11 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
               </button>
             </div>
           )}
+          {!isLocked && !tak && grundKvot && grundKvot.kvar > 0 ? (
+            <p className="mt-2.5 text-sm text-ink-2" data-gratisrad>
+              {GRUND_GRATISRAD}
+            </p>
+          ) : null}
           {startError ? (
             <p className="mt-3 text-sm text-ink-1" role="alert">
               {startError}

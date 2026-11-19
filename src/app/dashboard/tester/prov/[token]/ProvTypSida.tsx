@@ -72,16 +72,16 @@ export default function ProvTypSida({
     vidare = harNivakoll
       ? {
           href: '/dashboard/tester',
-          knapp: 'Till dagens pass',
-          rubrik: 'Nästa steg: dagens pass',
-          text: `Du har gjort Nivåkollen i ${c.namn}. Passet ligger på din nivå och tar några minuter.`,
+          knapp: 'Träna',
+          rubrik: 'Nästa steg: träna på din nivå',
+          text: `Du har gjort Nivåkollen i ${c.namn}. Träningen ligger på din nivå och tar några minuter.`,
           cta: `prov-${typ}-pass`,
         }
       : {
           href: nivakollHref(typ),
           knapp: `Kolla min nivå, cirka ${c.nivakollMinuter} min`,
           rubrik: 'Nästa steg: Nivåkollen',
-          text: `Dina ${talord(totalt)} svar räknas in. Några uppgifter till, sedan vet du din nivå i ${c.namn} och får ett pass för i dag.`,
+          text: `Dina ${talord(totalt)} svar räknas in. Några uppgifter till, sedan vet du din nivå i ${c.namn} och kan träna på din nivå.`,
           cta: `prov-${typ}-nivakollen`,
         }
   } else if (typ === 'iprov') {
@@ -103,7 +103,7 @@ export default function ProvTypSida({
       href: g.href,
       knapp: `Gör grundtestet i ${g.namn}`,
       rubrik: `Nästa steg: grundtestet`,
-      text: `Grundnivån i ${g.namn} är gratis, med genomgång efter testet. Avancerad, expert och pass varje dag ingår i ${premium}.`,
+      text: `Grundnivån i ${g.namn} är gratis, med genomgång efter testet. Avancerad, expert och träning varje dag ingår i ${premium}.`,
       cta: `prov-${typ}-grundtest`,
     }
   }

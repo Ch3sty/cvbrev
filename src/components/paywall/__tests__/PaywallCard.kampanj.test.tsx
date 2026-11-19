@@ -91,9 +91,9 @@ describe('betalväggens copy efter beslutet 2026-11-15 (S4, S5)', () => {
   it('testniva och test-tak säger typerna och "utan tak", aldrig 19 tester eller obegränsat', async () => {
     const { getPaywallCopy } = await import('../paywall-copy')
     expect(getPaywallCopy('testniva').body).toBe(
-      'Premium ger alla åtta testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.'
+      'Premium ger alla åtta testtyperna på alla nivåer, träning varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.'
     )
-    expect(getPaywallCopy('test-tak').body).toBe('Premium ger alla nivåer, övningsprov mot klockan och pass utan tak, varje dag.')
+    expect(getPaywallCopy('test-tak').body).toBe('Premium ger alla nivåer, övningsprov mot klockan och träning utan tak, varje dag.')
     expect(getPaywallCopy('testniva', { plats: 'kurva' }).title).toBe('Hela din utveckling ingår i Premium')
   })
 

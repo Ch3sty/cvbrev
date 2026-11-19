@@ -29,12 +29,15 @@ describe('figurpassets urval', () => {
     expect(b.ids).toHaveLength(4)
   })
 
-  it('karensen: sedda inom 30 dagar väljs sist och markerar passet upprepat', () => {
+  it('karensen: sedda inom en vecka väljs sist; sedda inom 30 dagar markerar passet upprepat (räknas inte i nivån)', () => {
     const p = pool('h', 4)
-    const sedda = new Map(p.map((x) => [x.id, '2026-10-01']))
+    const sedda = new Map(p.map((x) => [x.id, '2026-10-08']))
     const r = valjFigurer([...p, { id: 'ny' }], 2, sedda, IDAG, 's')
     expect(r.ids[0]).toBe('ny')
     expect(r.upprepad).toBe(true)
+    // Sedd för elva dagar sedan: fri efter den kortare karensen men fortfarande upprepad.
+    const fri = valjFigurer(p, 1, new Map(p.map((x) => [x.id, '2026-10-01'])), IDAG, 's')
+    expect(fri.upprepad).toBe(true)
     const gammal = valjFigurer(p, 2, new Map(p.map((x) => [x.id, '2026-08-01'])), IDAG, 's')
     expect(gammal.upprepad).toBe(false)
   })

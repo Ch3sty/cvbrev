@@ -56,8 +56,10 @@ describe('urvalet och karensen', () => {
         const sedda = seddaUrRader(kind, rader)
         const v = valjUnderlag({ pool: p, sedda, idag: dag, seed: `${kind}:${d}` })!
         const forra = sett.filter((s) => s.id === v.id).pop()
-        if (forra) expect(laggTill(forra.dag, VN_KARENS_DAGAR) < dag || v.upprepad).toBe(true)
-        if (d < 30) expect(v.upprepad).toBe(false)
+        // KARENS_V4: tidigast efter en vecka, och inom 30 dagar alltid märkt upprepat (räknas inte i nivån).
+        if (forra) expect(laggTill(forra.dag, 7) <= dag).toBe(true)
+        if (forra && laggTill(forra.dag, VN_KARENS_DAGAR) >= dag) expect(v.upprepad).toBe(true)
+        if (!forra) expect(v.upprepad).toBe(false)
         sett.push({ id: v.id, dag })
         rader.push({ id: `p${d}`, test_type: `${kind}-pass`, meta: { underlag_id: v.id }, created_at: `${dag}T08:00:00Z` })
       }

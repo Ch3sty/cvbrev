@@ -60,14 +60,14 @@ describe('milstolparna', () => {
     expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-12')).toBe(false)
     expect(forstaVeckanNadd('2026-10-06', gratis, '2026-10-13')).toBe(true)
     expect(forstaVeckanSammanfattning('2026-10-06', gratis)).toEqual({ pass: 6, ommatningar: 0, generalrepetitioner: 0 })
-    expect(TRANING_COPY.forstaVeckan.gratis(6)).toBe('Sju dagar sedan starten, sex pass, ingen missad dag')
+    expect(TRANING_COPY.forstaVeckan.gratis(6)).toBe('Sju dagar sedan starten, sex omgångar, ingen missad dag')
   })
 
   it('K1-sammanfattningen: fem pass och en ommätning, mätningen räknas inte', () => {
     const s = forstaVeckanSammanfattning('2026-10-06', [...K1, { dag: '2026-10-14', typ: 'pass' }])
     expect(s).toEqual({ pass: 5, ommatningar: 1, generalrepetitioner: 0 })
     // copy-plan 3.9: nivåmätningen stryks ur meningen.
-    expect(TRANING_COPY.forstaVeckan.betalande(s.pass)).toBe('Sju dagar sedan starten, fem pass, ingen missad dag')
+    expect(TRANING_COPY.forstaVeckan.betalande(s.pass)).toBe('Sju dagar sedan starten, fem omgångar, ingen missad dag')
     // Riktade pass räknas som pass.
     expect(forstaVeckanSammanfattning('2026-10-06', [{ dag: '2026-10-07', typ: 'riktat' }]).pass).toBe(1)
   })
@@ -152,7 +152,7 @@ describe('I morgon', () => {
     expect(imorgonRad({ idag: '2026-10-23', start: '2026-10-06', prov: PROV, ratt: 4, antal: 9 }).text).toBe(
       'I morgon: provet. Bara tre uppvärmningsfrågor.'
     )
-    expect(imorgonRad({ idag: '2026-10-07', start: null, ratt: 4, antal: 9 }).text).toBe('I morgon: nästa grundpass')
+    expect(imorgonRad({ idag: '2026-10-07', start: null, ratt: 4, antal: 9 }).text).toBe('I morgon: ny träning på grundnivå')
   })
 
   it('två tredjedelar rätt räcker för "samma familj, ett steg svårare"', () => {

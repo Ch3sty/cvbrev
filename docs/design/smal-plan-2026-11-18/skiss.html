@@ -1,0 +1,967 @@
+<meta charset="utf-8">
+<title>Plan inför provet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* ---------- dokumentets tokens (följer läsarens tema) ---------- */
+:root{
+  color-scheme:light;
+  --d-bg:#EEF0F3;--d-papper:#FFFFFF;--d-papper-2:#F5F6F8;--d-kant:#DDE0E6;--d-kant-stark:#C3C8D2;
+  --d-ink:#15161C;--d-ink-2:#474A56;--d-ink-3:#6E717E;
+  --d-accent:#E0702A;--d-accent-ink:#A84C14;--d-accent-mjuk:#FBE5D4;
+  --d-natt:#141529;--d-natt-ink:#F3F3FA;--d-natt-mjuk:#AEB1CC;
+  --bezel:#0F0F14;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --d-bg:#0F1016;--d-papper:#171922;--d-papper-2:#1E2030;--d-kant:#2A2D3D;--d-kant-stark:#3C4055;
+    --d-ink:#F1F1F6;--d-ink-2:#C3C5D2;--d-ink-3:#8E91A3;
+    --d-accent:#F0813A;--d-accent-ink:#F5A66E;--d-accent-mjuk:rgba(240,129,58,.16);
+    --bezel:#2A2B36;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --d-bg:#0F1016;--d-papper:#171922;--d-papper-2:#1E2030;--d-kant:#2A2D3D;--d-kant-stark:#3C4055;
+  --d-ink:#F1F1F6;--d-ink-2:#C3C5D2;--d-ink-3:#8E91A3;
+  --d-accent:#F0813A;--d-accent-ink:#F5A66E;--d-accent-mjuk:rgba(240,129,58,.16);
+  --bezel:#2A2B36;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--d-bg);color:var(--d-ink);font-family:Figtree,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:23px;padding-inline:16px;padding-block:0 96px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--d-accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto}
+.disp{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;font-variation-settings:"opsz" 96}
+.huvud{padding:44px 0 28px;display:grid;gap:14px}
+.huvud .ey{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-accent-ink)}
+.huvud h1{font-size:clamp(34px,5vw,56px);line-height:1;font-weight:800;letter-spacing:-.03em}
+.huvud p.ingress{max-width:66ch;font-size:17px;line-height:26px;color:var(--d-ink-2)}
+.meta{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:13px;color:var(--d-ink-3)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.toc a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--d-kant);background:var(--d-papper);padding:7px 12px;border-radius:999px;color:var(--d-ink-2)}
+.toc a:hover{border-color:var(--d-kant-stark);color:var(--d-ink)}
+section.del{padding-top:44px;margin-top:44px;border-top:1px solid var(--d-kant)}
+section.del>header{display:grid;gap:8px;margin-bottom:22px;max-width:72ch}
+section.del>header .nr{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3)}
+section.del>header h2{font-size:clamp(26px,3.2vw,34px);line-height:1.08;font-weight:800;letter-spacing:-.025em}
+section.del>header p{color:var(--d-ink-2)}
+.kolumner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ruta{background:var(--d-papper);border:1px solid var(--d-kant);border-radius:18px;padding:18px 20px}
+.ruta h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.ruta p,.ruta li{color:var(--d-ink-2);font-size:14px;line-height:21px}
+.ruta ul,.ruta ol{margin:0;padding-left:18px}
+.ruta li{margin-bottom:6px}
+.ruta b{color:var(--d-ink);font-weight:600}
+.ruta.accent{border-color:color-mix(in srgb,var(--d-accent) 45%,var(--d-kant))}
+.beslut{background:var(--d-natt);color:var(--d-natt-ink);border-radius:22px;padding:24px 24px 14px;margin-top:20px}
+.beslut h3{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.beslut ol{margin:0;padding-left:22px;color:var(--d-natt-mjuk)}
+.beslut li{margin-bottom:10px;font-size:14.5px;line-height:21px}
+.beslut li b{color:var(--d-natt-ink);font-weight:600}
+.tabell{overflow-x:auto;background:var(--d-papper);border:1px solid var(--d-kant);border-radius:18px}
+.tabell table{min-width:760px}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:20px}
+th,td{text-align:left;padding:11px 14px;border-top:1px solid var(--d-kant);vertical-align:top;color:var(--d-ink-2)}
+th{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--d-ink-3);border-top:0}
+td b{color:var(--d-ink);font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--d-papper-2);padding:1px 5px;border-radius:5px}
+
+/* ---------- prototypens scen ---------- */
+.scen{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start}
+@media (min-width:1000px){.scen.app{grid-template-columns:452px minmax(0,1fr)}.scen.app .telkol{position:sticky;top:16px}}
+.telkol{display:grid;gap:12px;justify-items:center}
+.styr{display:grid;gap:14px}
+.styr h3{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3);margin:6px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--d-kant);background:var(--d-papper);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--d-ink-2);min-height:36px}
+.chips button:hover{border-color:var(--d-kant-stark);color:var(--d-ink)}
+.chips button.aktiv{background:var(--d-ink);color:var(--d-bg);border-color:var(--d-ink)}
+.not{background:var(--d-papper);border:1px solid var(--d-kant);border-radius:16px;padding:14px 16px;font-size:14px;line-height:21px;color:var(--d-ink-2)}
+.not h4{font-size:13px;font-weight:600;color:var(--d-ink-3);margin-bottom:6px}
+.not ul{margin:0;padding-left:18px}
+.not li{margin-bottom:5px}
+.not b{color:var(--d-ink);font-weight:600}
+
+/* ================= TELEFONEN: appens fasta tokens (appkonceptet) ================= */
+.tel{
+  --a-bg:#F1F1EE;--a-papper:#FFFFFF;--a-papper-2:#F6F6F3;--a-kant:#E3E2DC;--a-kant-stark:#C9C8C0;
+  --a-ink:#16151C;--a-ink-2:#4A4953;--a-ink-3:#76757F;
+  --kop:#E8732A;--kop-djup:#C95F1C;--kop-mjuk:#FBE4D2;--kop-ink:#A64A18;
+  --ton:#E4E7F3;--ton-ink:#3A4480;--pos:#2F7D5B;--pos-mjuk:#DCEFE5;
+  --himmel:#D9E4FA;--himmel-ink:#2C4A98;--salvia:#D5E9DC;--salvia-ink:#1F6A45;--syren:#E8DCF7;--syren-ink:#5B3E9E;
+  --sand:#F7E0C6;--sand-ink:#9A5A16;--rosa:#F9D9DD;--rosa-ink:#9B2F43;--gul:#F6ECC3;--gul-ink:#7A5E0B;--turkos:#CFE9EA;--turkos-ink:#0F6B70;
+  --lyft:0 1px 2px rgba(20,20,30,.05),0 12px 28px -16px rgba(20,20,30,.22);
+  width:412px;height:915px;max-width:100%;background:var(--a-bg);border-radius:46px;border:10px solid var(--bezel);
+  box-shadow:0 40px 80px -36px rgba(10,12,30,.55);overflow:hidden;position:relative;color:var(--a-ink);
+  font-family:Figtree,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:22px;flex:0 0 auto;isolation:isolate;color-scheme:light
+}
+.tel .lager{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--a-bg)}
+.tel .stat{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:13px;font-weight:600}
+.tel .stat .sig{display:flex;gap:5px;align-items:center}
+.tel .stat .sig i{display:block;width:13px;height:11px;border-radius:2px;background:currentColor;opacity:.9}
+.tel .stat .sig i:last-child{width:20px;border-radius:3px}
+.tel .kropp{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;display:flex;flex-direction:column;gap:14px;padding:0 20px 24px}
+.tel .kropp::-webkit-scrollbar{display:none}
+.tel .kropp>*{flex:0 0 auto}
+.tel .gest{height:22px;flex:0 0 auto;position:relative}
+.tel .gest::after{content:"";position:absolute;left:50%;bottom:7px;transform:translateX(-50%);width:120px;height:4px;border-radius:2px;background:currentColor;opacity:.55}
+@media (prefers-reduced-motion:no-preference){
+  .tel .in-flik{animation:inFlik .2s ease-out both}
+  .ark-lager{animation:dim .22s ease-out both}
+  .ark{animation:upp .32s cubic-bezier(.2,.8,.2,1) both}
+  .tryck{transition:transform .12s ease}.tryck:active{transform:scale(.97)}
+}
+@keyframes inFlik{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes dim{from{background:rgba(8,9,22,0)}to{background:rgba(8,9,22,.55)}}
+@keyframes upp{from{transform:translateY(100%)}to{transform:none}}
+
+.a-knapp{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:16px;border:0;font-size:16px;font-weight:600;width:100%;white-space:nowrap;letter-spacing:-.005em}
+.a-knapp.kop{background:linear-gradient(180deg,#F08A45 0%,var(--kop) 55%,var(--kop-djup) 100%);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 6px 18px -8px rgba(201,95,28,.7)}
+.a-knapp.morkt{background:var(--a-ink);color:#fff}
+.a-knapp.ljus{background:var(--a-papper);border:1.5px solid var(--a-kant-stark);color:var(--a-ink)}
+.a-knapp.liten{height:40px;font-size:14px;border-radius:12px}
+.a-lank{background:none;border:0;padding:11px 0;margin:-11px 0;min-height:44px;display:inline-flex;align-items:center;font-weight:500;color:var(--a-ink-2);text-decoration:underline;text-decoration-color:var(--a-kant-stark);text-underline-offset:3px;font-size:14px}
+.toast{position:absolute;left:50%;bottom:104px;transform:translateX(-50%);background:var(--a-ink);color:#fff;font-size:13.5px;font-weight:500;padding:11px 16px;border-radius:999px;z-index:60;white-space:nowrap;box-shadow:var(--lyft);display:flex;gap:8px;align-items:center}
+.toast svg{width:16px;height:16px}
+.harlinje{height:1px;background:var(--a-kant);margin:4px 0}
+.katalog{display:grid;gap:10px}
+.tkort{display:flex;gap:12px;align-items:center;background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;padding:12px 14px 12px 12px;text-align:left;width:100%;color:inherit;font:inherit;min-height:72px}
+.tkort.plan{border:1.5px solid var(--kop);box-shadow:inset 0 0 0 1px var(--kop);background:color-mix(in srgb,var(--kop-mjuk) 35%,var(--a-papper))}
+.tkort .t{flex:1;min-width:0}
+.tkort .t b{display:block;font-size:15.5px;font-weight:600;line-height:20px}
+.tkort .t b .chip{display:inline-flex;vertical-align:2px;margin-left:2px}
+.tkort .t>span{display:block;font-size:13px;line-height:18px;color:var(--a-ink-3);margin-top:2px}
+.tkort .nivaer{display:flex;gap:4px;margin-top:8px}
+.tkort .nivaer i{height:5px;flex:1;border-radius:3px;background:var(--a-kant)}
+.tkort .nivaer i.fri{background:var(--a-ink)}
+.tkort .nivaer i.kop{background:var(--kop)}
+.tkort .a-knapp{flex:0 0 auto;height:40px}
+.graflegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--a-ink-2);margin-top:4px}
+.graflegend span{display:inline-flex;align-items:center;gap:6px}
+.graflegend span.dim{opacity:.55}
+.graflegend span.plan{font-weight:600;color:var(--a-ink)}
+.graflegend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.nivarad{display:flex;gap:12px;align-items:center;padding:4px 0}
+.nivarad .chip{height:20px;font-size:10.5px;padding:0 6px;vertical-align:2px}
+.nivalista{display:grid;gap:10px}
+.hgrupp{display:grid;gap:2px}
+.htitel{display:flex;gap:10px;align-items:center;font-size:14px;margin-bottom:4px}
+.htitel b{font-weight:600}
+.hrad{display:grid;grid-template-columns:64px 1fr auto;gap:10px;font-size:13px;line-height:18px;padding:7px 0;border-top:1px solid var(--a-kant);color:var(--a-ink-3);font-variant-numeric:tabular-nums}
+.hrad b{color:var(--a-ink);font-weight:600;text-align:right}
+button.hrad{background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;font:inherit;cursor:pointer;min-height:36px}
+button.nivarad{background:none;border:0;width:100%;text-align:left;font:inherit;color:inherit;border-radius:12px;padding:6px 0}
+.nivarad.vald{background:var(--a-papper-2);padding:6px 8px;margin:0 -8px;width:calc(100% + 16px)}
+.nivaband{width:100%;height:auto;display:block}
+.nivaband text{font-family:Figtree,sans-serif;font-size:10.5px;font-weight:500;fill:var(--a-ink-3)}
+.tkort .t .nivaband{margin-top:6px;max-width:280px}
+.forslag .tips{margin-top:12px;font-size:13px;line-height:18px;color:rgba(255,255,255,.88);padding-top:10px;border-top:1px solid rgba(255,255,255,.25)}
+.valkort{border-radius:18px;padding:14px 16px;display:grid;gap:10px;border:1.5px solid transparent}
+.valkort.trana{background:var(--kop-mjuk);border-color:color-mix(in srgb,var(--kop) 40%,transparent)}
+.valkort.testa{background:var(--ton);border-color:color-mix(in srgb,var(--ton-ink) 30%,transparent)}
+.valkort b{font-size:16px;line-height:20px;display:block}
+.valkort .a-p{font-size:14px;line-height:20px;color:var(--a-ink-2)}
+.valtopp{display:flex;gap:12px;align-items:center}
+.valikon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;background:var(--a-papper)}
+.valikon svg{width:24px;height:24px}
+.valkort.trana .valikon{color:var(--kop-ink)}
+.valkort.testa .valikon{color:var(--ton-ink)}
+.a-ey.ton{color:var(--ton-ink)}
+.valkort.testa .rader{background:var(--a-papper);border-color:transparent}
+.eller{display:flex;align-items:center;gap:12px;color:var(--a-ink-3);font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin:-2px 0}
+.eller::before,.eller::after{content:"";flex:1;height:1px;background:var(--a-kant-stark)}
+.trana b{font-size:16px;line-height:20px}
+.webb .valkort.testa{background:var(--ton)}
+.grupp-prov{background:color-mix(in srgb,var(--kop-mjuk) 55%,var(--a-papper));border:1px solid color-mix(in srgb,var(--kop) 35%,transparent);border-radius:22px;padding:12px;display:grid;gap:10px}
+.grupp-prov .sekt{margin:0 2px}
+.grupp-prov .a-ey{color:var(--kop-ink)}
+.webb .grupp-prov{background:color-mix(in srgb,var(--koppar-mjuk) 55%,var(--papper));border-color:color-mix(in srgb,var(--koppar) 35%,transparent);padding:14px;border-radius:18px;margin-bottom:16px}
+.webb .grupp-prov .wsekt{color:var(--koppar-ink);margin-bottom:0}
+.webb .valikon{background:var(--papper)}
+.ingar{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ingar li{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:20px}
+.ingar li svg{width:18px;height:18px;flex:0 0 auto;color:var(--kop-ink);margin-top:1px}
+.appchips{display:flex;gap:6px;flex-wrap:wrap}
+.appchips button{height:34px;padding:0 11px;border-radius:999px;border:1px solid var(--a-kant-stark);background:var(--a-papper);font-size:12.5px;font-weight:600;color:var(--a-ink-2)}
+.appchips button.aktiv{background:var(--a-ink);color:#fff;border-color:var(--a-ink)}
+.appchips.sekundar button{height:30px;font-size:12px}
+.detalj{display:flex;gap:10px;align-items:center;background:var(--a-papper-2);border-radius:14px;padding:10px 12px}
+.detalj b{display:block;font-size:14px;line-height:18px}
+.detalj span{display:block;font-size:12.5px;color:var(--a-ink-3);line-height:17px}
+.graflegend i.ring{width:10px;height:10px;border-radius:50%;border:2px solid var(--a-ink-2);background:none;box-sizing:border-box}
+.graflegend i.prick{width:7px;height:7px;border-radius:50%;background:var(--a-ink-2)}
+.graflegend i.fyrkant{width:9px;height:9px;border-radius:2px;background:var(--a-ink-2)}
+.webb .nivaband text{fill:var(--ink-3)}
+.webb .nivarad.vald{background:var(--papper-2)}
+.webb .trana{background:var(--koppar-mjuk)}
+.webb .detalj{background:var(--papper-2)}
+.trana .a-knapp{color:#fff}
+.trana .a-knapp.kop{background:linear-gradient(180deg,#F08A45 0%,#E8732A 55%,#C95F1C 100%)}
+.wsekt{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:12px}
+.wtyp{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:14px;display:grid;gap:10px;text-align:left;cursor:pointer;color:var(--ink-1);font:inherit;align-content:start;min-width:0}
+.wtyp.plan{border:1.5px solid var(--koppar);box-shadow:inset 0 0 0 1px var(--koppar);background:color-mix(in srgb,var(--koppar-mjuk) 35%,var(--papper))}
+.wtyp.vald{outline:2.5px solid var(--ink-1);outline-offset:2px}
+.wtyp .topp{display:flex;gap:12px;align-items:center;min-width:0}
+.wtyp .namn{display:grid;gap:4px;min-width:0}
+.wtyp .namn b{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:16px;line-height:20px;font-weight:700;letter-spacing:-.01em}
+.wtyp .namn .wchip{justify-self:start}
+.wtyp .status{font-size:13px;color:var(--ink-3);line-height:18px}
+.wtyp .knapp-primar.liten{height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;border-radius:10px;padding:0 14px}
+.wtyp .knapp-primar.las{background:var(--papper-2);color:var(--ink-2);border:1px solid var(--kant-stark)}
+.wtyp .sym.klocka{width:44px;height:44px;border-radius:13px;background:var(--ink-1);color:#fff;display:grid;place-items:center;flex:0 0 auto}
+.wmd{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start;position:relative}
+.wpanel{background:var(--papper);padding:22px 22px 28px;display:grid;grid-auto-rows:max-content;gap:14px;align-content:start;position:relative;overflow:auto;color:var(--ink-1)}
+.wpanel .a-h2{font-family:"Schibsted Grotesk",Inter,sans-serif}
+.wmd .wpanel{border:1px solid var(--kant);border-radius:16px;position:sticky;top:16px;box-shadow:var(--lyft)}
+@media (min-width:1100px){.wmd.oppen{grid-template-columns:minmax(0,1fr) 380px}}
+@media (max-width:1099px){.wmd .wpanel{position:absolute;right:0;top:0;width:min(440px,100%);z-index:5}}
+.wstang{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:12px;border:0;background:var(--papper-2);color:var(--ink-1);display:grid;place-items:center;cursor:pointer;z-index:2}
+.wover{position:absolute;inset:0;background:rgba(8,9,22,.45);display:flex;justify-content:flex-end;align-items:stretch;z-index:6}
+.wover .wpanel.sida{width:min(440px,100%);box-shadow:var(--lyft)}
+.wover .wpanel.mitt{width:min(560px,100%);margin:auto;border-radius:16px;max-height:90%}
+.a-ey{font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--a-ink-3)}
+.a-ey.kop{color:var(--kop-ink)}
+.a-h1{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 48;font-size:28px;line-height:31px;font-weight:800;letter-spacing:-.025em}
+.a-h2{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 32;font-size:20px;line-height:24px;font-weight:700;letter-spacing:-.02em}
+.a-p{color:var(--a-ink-2);font-size:14.5px;line-height:21px}
+.a-meta{font-size:13px;line-height:18px;color:var(--a-ink-3)}
+.kort{background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;padding:16px}
+.kort.lyft{box-shadow:var(--lyft);border-color:transparent}
+.rad{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 16px;border-top:1px solid var(--a-kant);width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;font:inherit;color:inherit}
+.rad:first-child{border-top:0}
+.rad .t{flex:1;min-width:0}
+.rad .t b{display:block;font-size:15px;font-weight:600;line-height:20px}
+.rad .t span{display:block;font-size:13px;line-height:18px;color:var(--a-ink-3);margin-top:1px}
+.rad .t span.chip{display:inline-flex;margin-top:0;color:var(--kop-ink)}
+.rad .sym{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto}
+.rad .sym svg{width:28px;height:28px}
+.rad .chev{width:20px;height:20px;color:var(--a-ink-3);flex:0 0 auto}
+.rad .varde{font-size:14px;color:var(--a-ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rad.plan{background:color-mix(in srgb,var(--kop-mjuk) 45%,var(--a-papper))}
+.rader{background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;overflow:hidden}
+.chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:8px;font-size:11.5px;font-weight:600;background:var(--ton);color:var(--ton-ink);white-space:nowrap}
+.chip.las{background:var(--a-papper-2);color:var(--a-ink-3)}
+.chip.gjord{background:var(--pos-mjuk);color:var(--pos)}
+.chip.kop{background:var(--kop-mjuk);color:var(--kop-ink)}
+.chip.fri{background:var(--salvia);color:var(--salvia-ink)}
+.chip svg{width:12px;height:12px}
+.topprad{height:56px;display:flex;align-items:center;gap:8px;padding:0 12px 0 20px;flex:0 0 auto}
+.topprad .brand{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-weight:800;font-size:18px;letter-spacing:-.02em;flex:1}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--syren);color:var(--syren-ink);display:grid;place-items:center;font-weight:700;font-size:14px;border:0}
+.flik{flex:0 0 auto;height:70px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--a-papper);border-top:1px solid var(--a-kant);padding:6px 10px 0}
+.flik button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:var(--a-ink-3);font-size:11.5px;font-weight:500;line-height:14px;border-radius:14px}
+.flik button .pill{width:56px;height:30px;border-radius:15px;display:grid;place-items:center}
+.flik button svg{width:24px;height:24px}
+.flik button.aktiv{color:var(--a-ink);font-weight:600}
+.flik button.aktiv .pill{background:var(--kop-mjuk);color:var(--kop-ink)}
+.ark-lager{position:absolute;inset:0;z-index:40;display:flex;align-items:flex-end;background:rgba(8,9,22,.55)}
+.ark{background:var(--a-papper);border-radius:28px 28px 0 0;padding:10px 20px 30px;width:100%;color:var(--a-ink);max-height:94%;overflow-y:auto;scrollbar-width:none;display:grid;gap:14px}
+.ark::-webkit-scrollbar{display:none}
+.ark .handtag{width:40px;height:4px;border-radius:2px;background:var(--a-kant-stark);margin:0 auto 2px}
+.sekt{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:4px}
+.sekt .a-ey{flex:1}
+.sekt button{font-size:13px;font-weight:600;color:var(--a-ink-2);background:none;border:0;padding:11px 0;margin:-11px 0;min-height:44px;display:inline-flex;align-items:center}
+.huvudrad{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.huvudrad .a-meta b{color:var(--a-ink);font-weight:600}
+.forslag{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background:linear-gradient(135deg,#F28B46 0%,var(--kop) 45%,#B9531A 100%);box-shadow:0 18px 36px -18px rgba(201,95,28,.75)}
+.forslag .a-ey{color:rgba(255,255,255,.82);letter-spacing:.07em}
+.forslag .a-h2{color:#fff;font-size:22px;line-height:26px;margin-top:4px}
+.forslag p{color:rgba(255,255,255,.88);font-size:14px;line-height:20px;margin-top:6px}
+.forslag .a-knapp{margin-top:14px;background:#fff;color:var(--a-ink)}
+.forslag .alt{margin-top:4px;text-align:center;font-size:13px;color:rgba(255,255,255,.85)}
+.forslag .alt button{background:none;border:0;color:#fff;text-decoration:underline;text-underline-offset:3px;font-size:13px;font-weight:500;padding:11px 4px;min-height:44px}
+.forslag.natt{background:linear-gradient(135deg,#2B3470 0%,#1B2246 55%,#121737 100%);box-shadow:0 18px 36px -18px rgba(20,25,60,.7)}
+.dagsmal{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--a-ink-3);flex-wrap:wrap;min-height:44px}
+.dagsmal .punkter{display:flex;gap:6px}
+.dagsmal .punkter i{width:12px;height:12px;border-radius:50%;border:2px solid var(--a-kant-stark);display:block}
+.dagsmal .punkter i.fylld{background:var(--kop);border-color:var(--kop)}
+.dagsmal .punkter i.extra{border-style:dashed;border-color:var(--kop)}
+.dagsmal b{color:var(--a-ink);font-weight:600}
+.dagsmal .andra{margin-left:auto;background:none;border:0;font-size:13px;font-weight:600;color:var(--a-ink-2);padding:0 4px;min-height:44px;min-width:44px}
+.svg-bred{width:100%;height:auto;display:block;overflow:visible}
+.svg-bred text{font-family:Figtree,sans-serif;font-size:11px;font-weight:500;fill:var(--a-ink-3)}
+.monster{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 12px}
+.monster div{display:flex;gap:8px;align-items:center;font-size:11.5px;line-height:14px;color:var(--a-ink);min-height:44px}
+.monster div span{display:block;min-width:0}
+.monster div span small{display:block;font-size:11px;color:var(--a-ink-3);margin-top:1px}
+.monster svg{width:36px;height:36px;flex:0 0 auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--a-ink-3);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1.5px solid var(--a-ink-3)}
+.legend i.m{background:var(--a-ink);opacity:.3;border-color:transparent}
+.legend i.s{background:var(--kop);border-color:var(--kop)}
+.legend i.n{background:var(--kop);border-color:var(--kop);box-shadow:0 0 0 2px var(--a-papper),0 0 0 3.5px var(--kop)}
+.tal-par{display:flex;align-items:baseline;gap:10px}
+.tal-par .tal{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:44px;line-height:44px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.tal-par .a-meta b{color:var(--pos);font-weight:600}
+.val{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.val button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--a-papper);border:1.5px solid var(--a-kant);border-radius:16px;padding:12px;color:var(--a-ink);position:relative;min-height:64px}
+.val button b{font-size:14.5px;line-height:18px;font-weight:600}
+.val button span{font-size:12px;line-height:16px;color:var(--a-ink-3)}
+.val button.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.val button.bred{grid-column:1/-1}
+.laast{display:flex;gap:12px;align-items:flex-start;background:var(--a-papper);border:1.5px solid var(--kop);border-radius:20px;padding:14px 16px}
+.laast .t{flex:1}
+.laast .t b{display:block;font-size:15px;font-weight:700;line-height:20px}
+.laast .t p{font-size:13.5px;line-height:19px;color:var(--a-ink-2);margin-top:4px}
+.laast .a-knapp{margin-top:12px}
+.flikar{display:flex;gap:6px;background:var(--a-papper-2);border-radius:12px;padding:4px}
+.flikar button{flex:1;height:44px;border:0;border-radius:9px;background:none;font-size:13px;font-weight:600;color:var(--a-ink-3)}
+.flikar button.aktiv{background:var(--a-papper);color:var(--a-ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.artikel{background:#fff;color:#1A1A1F;border-radius:0;flex:1;padding:22px 20px;display:grid;gap:12px;align-content:start;font-family:Inter,Figtree,sans-serif}
+.artikel .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#A8491A}
+.artikel h2{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:27px;line-height:30px;font-weight:800;letter-spacing:-.025em}
+.artikel p{font-size:15px;line-height:23px;color:#4A4A55}
+.artikel .box{background:#EBEDF6;border-radius:16px;padding:16px;display:grid;gap:8px;margin-top:8px}
+.artikel .box b{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:17px;font-weight:700;color:#1A1A1F}
+.artikel .box span{font-size:13px;color:#4A4A55}
+.artikel .box button{height:48px;border-radius:12px;border:0;background:linear-gradient(180deg,#E8863B,#E07A2F 55%,#C4621F);color:#1A1206;font-weight:600;font-size:15px}
+.band{display:flex;gap:4px;align-items:center}
+.band i{flex:1;height:8px;border-radius:4px;background:var(--a-kant)}
+.band i.pa{background:var(--kop)}
+.band i.dim{opacity:.5}
+
+/* ================= WEBBEN: Rummen, Träningen (indigo) ================= */
+.webb{
+  --koppar:#E07A2F;--koppar-ink:#A8491A;--koppar-djup:#C4621F;--koppar-ljus:#F4B98A;--koppar-text:#1A1206;--koppar-mjuk:#FBE3D0;--kop:#E07A2F;--kop-ink:#A8491A;--kop-mjuk:#FBE3D0;--kop-djup:#C4621F;
+  --a-kant:#E3E1DC;--a-kant-stark:#C9C6BF;--a-papper:#FFFFFF;--a-papper-2:#F4F3F0;--a-ink:#1A1A1F;--a-ink-2:#4A4A55;--a-ink-3:#65656E;--a-bg:#EBEDF6;--pos:#2F7D5B;--pos-mjuk:#DCEFE5;
+  --himmel:#D9E4FA;--himmel-ink:#2C4A98;--salvia:#D5E9DC;--salvia-ink:#1F6A45;--syren:#E8DCF7;--syren-ink:#5B3E9E;--sand:#F7E0C6;--sand-ink:#9A5A16;--rosa:#F9D9DD;--rosa-ink:#9B2F43;--gul:#F6ECC3;--gul-ink:#7A5E0B;--turkos:#CFE9EA;--turkos-ink:#0F6B70;
+  --ink-1:#1A1A1F;--ink-2:#4A4A55;--ink-3:#65656E;--papper:#FFFFFF;--papper-2:#F4F3F0;--kant:#E3E1DC;--kant-stark:#C9C6BF;
+  --positiv:#2F7D5B;--positiv-mjuk:#DCEFE5;
+  --vagg:#1B2246;--vagg-2:#2B3470;--vagg-3:#121737;--vagg-ink:#F5F6FC;--vagg-mjuk:#AEB4DA;--vagg-svag:#6F78B0;--vagg-kant:rgba(255,255,255,.12);
+  --golv:#EBEDF6;--ton:#DFE3F6;--ton-ink:#3B4790;--ljus:#93A0EC;
+  --lyft:0 1px 2px rgba(20,22,40,.06),0 14px 32px -18px rgba(20,22,40,.28);
+  background:var(--golv);color:var(--ink-1);border-radius:18px;border:1px solid var(--d-kant);overflow:hidden;position:relative;font-family:Inter,Figtree,system-ui,sans-serif;font-size:14px;line-height:21px;color-scheme:light;width:100%
+}
+.webb .ram{display:grid;grid-template-columns:1fr}
+@media (min-width:900px){.webb .ram{grid-template-columns:248px minmax(0,1fr)}}
+.webb .sidomeny{background:var(--papper);border-right:1px solid var(--kant);padding:18px 14px;display:none;flex-direction:column;gap:4px}
+@media (min-width:900px){.webb .sidomeny{display:flex}}
+.webb .sidomeny .brand{font-family:"Schibsted Grotesk",Inter,sans-serif;font-weight:800;font-size:17px;letter-spacing:-.02em;padding:4px 10px 14px;color:var(--ink-1)}
+.webb .sidomeny .dorr{height:48px;display:flex;align-items:center;padding:0 12px;border-radius:12px;font-weight:500;color:var(--ink-2)}
+.webb .sidomeny .dorr.aktiv{background:var(--ton-ink);color:#fff}
+.webb .sidomeny .grupp{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:16px 12px 6px}
+.webb .sidomeny .under{height:40px;display:flex;align-items:center;padding:0 12px;color:var(--ink-2);font-size:14px;border-radius:8px}
+.webb .sidomeny .under.aktiv{box-shadow:inset 3px 0 0 var(--koppar);color:var(--ink-1);font-weight:600}
+.webb .sidomeny .konto{margin-top:auto;padding:12px;font-size:13px;color:var(--ink-2);border-top:1px solid var(--kant)}
+.webb .sidomeny .konto span{display:block;font-size:12px;color:var(--ink-3)}
+.vagg{background:radial-gradient(120% 90% at 100% 0%,var(--vagg-2) 0%,var(--vagg) 50%,var(--vagg-3) 100%);color:var(--vagg-ink);padding:0 20px 56px;border-radius:0 0 28px 28px}
+@media (min-width:900px){.vagg{padding:0 40px 56px}}
+.vagg .topp{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.vagg .topp b{font-family:"Schibsted Grotesk",Inter,sans-serif;font-weight:700;font-size:15px}
+.vagg .topp .av{width:34px;height:34px;border-radius:50%;background:var(--vagg-2);display:grid;place-items:center;font-weight:600;font-size:13px;border:1px solid var(--vagg-kant)}
+.vagg .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--vagg-mjuk)}
+.vagg h1{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:34px;line-height:36px;font-weight:800;letter-spacing:-.025em;margin-top:6px}
+@media (min-width:900px){.vagg h1{font-size:44px;line-height:46px}}
+.vagg .status{margin-top:8px;color:var(--vagg-mjuk);font-size:14px}
+.vagg .status b{color:var(--vagg-ink);font-weight:600}
+.vagg .glas{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant);color:var(--vagg-ink);font-size:13px;font-weight:600}
+.vagg .instrument{margin-top:22px}
+.vagg .instrument text{fill:var(--vagg-mjuk)}
+.golv{padding:0 16px 40px;display:grid;gap:16px;max-width:1120px}
+@media (min-width:900px){.golv{padding:0 40px 40px}}
+.lyftkort{background:var(--papper);border-radius:16px;box-shadow:var(--lyft);padding:20px;margin-top:-30px;display:grid;gap:8px;position:relative}
+.lyftkort .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.lyftkort h2{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em}
+.lyftkort p{color:var(--ink-2)}
+.lyftkort .knapprad{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.knapp-primar{height:48px;padding:0 20px;border-radius:12px;border:0;background:linear-gradient(180deg,#E8863B,var(--koppar) 55%,var(--koppar-djup));color:var(--koppar-text);font-weight:600;font-size:15px}
+.lank{background:none;border:0;padding:0;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--kant-stark);font-size:14px;font-weight:500}
+.tvaspalt{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:900px){.tvaspalt{grid-template-columns:1fr 1fr}}
+.wkort{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:16px;display:grid;gap:10px;align-content:start}
+.wkort .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);display:flex;justify-content:space-between;align-items:baseline}
+.wkort .ey button{font-size:13px;font-weight:600;color:var(--ink-2);background:none;border:0;padding:0;text-transform:none;letter-spacing:0}
+.webb .wrad{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 0;border-top:1px solid var(--kant)}
+.webb .wrad:first-of-type{border-top:0}
+.webb .wrad .t{flex:1;min-width:0}
+.webb .wrad .t b{display:block;font-weight:600;font-size:14px}
+.webb .wrad .t span{display:block;font-size:13px;color:var(--ink-3)}
+.webb .wrad .t span.wchip{display:inline-flex;color:var(--koppar-ink);margin-left:4px;vertical-align:2px}
+.webb .wrad .v{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wchip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:7px;font-size:11.5px;font-weight:600;background:var(--ton);color:var(--ton-ink);white-space:nowrap}
+.wchip.kop{background:var(--koppar-mjuk);color:var(--koppar-ink)}
+.wchip.las{background:var(--papper-2);color:var(--ink-3)}
+.wchip.fri{background:var(--positiv-mjuk);color:var(--positiv)}
+.webb .monster{grid-template-columns:repeat(2,1fr)}
+@media (min-width:900px){.webb .monster{grid-template-columns:repeat(3,1fr)}}
+.webb .monster div{color:var(--ink-1)}
+.webb .monster div span small{color:var(--ink-3)}
+.webb .lank,.webb .wkort .ey button,.webb .glas{min-height:44px;display:inline-flex;align-items:center;cursor:pointer}
+.webb .wrad[role=button]{cursor:pointer}
+.webb .wrad.plan{box-shadow:inset 3px 0 0 var(--koppar);padding-left:12px}
+.webb .wrad .t b .wchip{display:inline-flex;vertical-align:2px;margin-left:4px}
+.webb .graflegend{color:var(--ink-2)}
+.vagg .graflegend{color:var(--vagg-mjuk)}
+.vagg .graflegend span.plan{color:var(--vagg-ink)}
+.vagg .instrument .svg-bred text{fill:var(--vagg-mjuk)}
+.webb .hrad{border-color:var(--kant)}
+.webb .chip.kop{background:var(--koppar-mjuk);color:var(--koppar-ink)}
+.webb .wkort .ey button{padding:11px 0;margin:-11px 0}
+.webb .legend{color:var(--ink-3)}
+.webb .legend i{border-color:var(--ink-3)}
+.webb .legend i.m{background:var(--ink-1);opacity:.3;border-color:transparent}
+.webb .legend i.s,.webb .legend i.n{background:var(--koppar);border-color:var(--koppar)}
+.webb .legend i.n{box-shadow:0 0 0 2px var(--papper),0 0 0 3.5px var(--koppar)}
+.webb .svg-bred text{fill:var(--ink-3)}
+.webb .tal-par .tal{font-family:"Schibsted Grotesk",Inter,sans-serif}
+.webb .laast{border-radius:14px}
+.webb .dagsmal{color:var(--ink-3)}
+.webb .dagsmal b{color:var(--ink-1)}
+.webb .dagsmal .punkter i{border-color:var(--kant-stark)}
+.webb .dagsmal .punkter i.fylld{background:var(--koppar);border-color:var(--koppar)}
+.wflikar{display:flex;gap:6px;border-bottom:1px solid var(--kant);margin-top:-4px}
+.wflikar button{height:44px;padding:0 14px;border:0;background:none;font-weight:600;color:var(--ink-3);font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.wflikar button.aktiv{color:var(--ink-1);border-bottom-color:var(--koppar)}
+.wlaast{background:var(--papper);border:1.5px solid var(--koppar);border-radius:16px;padding:16px 18px;display:grid;gap:6px}
+.wlaast b{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:17px;font-weight:700}
+.wlaast p{color:var(--ink-2);font-size:14px}
+.wlaast .knapprad{display:flex;gap:14px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.dold{display:none !important}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-las" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+<symbol id="i-idag" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 4a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/></symbol>
+<symbol id="i-tester" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" opacity=".5"/></g><rect x="15" y="15" width="4.4" height="4.4" rx="1" fill="currentColor"/></symbol>
+<symbol id="i-utv" viewBox="0 0 24 24"><path d="M3.5 17.5c3-1 4.5-6.5 7.5-7.5s4.5 3.5 8 1.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="19" cy="11.5" r="2.3" fill="currentColor"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+<header class="huvud">
+  <div class="ey">Utkast för godkännande</div>
+  <h1 class="disp">Plan inför provet: träningen ligger fri, planen föreslår</h1>
+  <p class="ingress">Allting är fritt. Tester visar allt vi har: alla testtyper i en lista, och i varje typ Träna, tre svårighetsnivåer, Nivåkollen och övningsprov. Hem visar var just de står och vad som är rimligt härnäst, räknat ur deras resultat. Den som vet sitt test lägger en Plan inför provet över samma vyer: provets delar märks "Ingår i Alva Logic", huvudet får nedräkning och banan. Utveckling visar träning, nivåkoller och prov i samma graf, med nivån som band 1 till 10 överallt. Här är Hem, Tester och Utveckling i tre lägen, i appen Testklar och på webben.</p>
+  <div class="meta"><span>18 november 2026</span><span>Fem roller, art director håller pennan</span><span>Pixel 7, 412 × 915, och /dashboard/tester</span><span>Källa: docs/design/smal-plan-2026-11-18/skiss.html</span></div>
+  <nav class="toc" aria-label="Avsnitt"><a href="#princip">Principen</a><a href="#andras">Vad ändras och varför</a><a href="#beslut">Ägarens beslut</a><a href="#prototyp">Skisserna</a><a href="#regler">Mätreglerna</a><a href="#oenigt">Oenigheter</a><a href="#ordning">Ordning</a></nav>
+</header>
+
+<section class="del" id="princip">
+  <header><div class="nr">Principen</div><h2 class="disp">Appen föreslår, användaren väljer</h2><p>Rikedom ska komma ur djupet i det egna provet, inte ur antalet testtyper. Det smala valet får aldrig se tunt ut igen, för det styr inte längre vad som syns.</p></header>
+  <div class="kolumner">
+    <div class="ruta"><h3>Tester visar allt vi har</h3><p>Alla testtyper i samma lista, alltid. Tryck på en typ öppnar menyn: Träna (uppgifter som följer nivån, förklaring efter varje svar, fokus på svaga mönster, räknas i utvecklingen), Grundnivå, Avancerad nivå, Expertnivå, Nivåkollen och övningsprov, plus senaste resultat. Ordet "pass" finns inte. Med plan står provets delar först med etiketten "Ingår i Alva Logic".</p></div>
+    <div class="ruta accent"><h3>Hem visar nästa steg</h3><p>Hintar räknade ur datan i prioritetsordning: Nivåkoll saknas, svagaste mönstret, tempot, sju dagar sedan nivåkollen, provet nära. Varje hint har ett skäl ur datan, en knapp och ett tips. Under: Så ligger du till med nivåbandet, och Fortsätt där du slutade. Med plan ligger huvudet med nedräkning och banan överst. Saknas data finns ett tydligt första steg. Samma kort ligger överst i Tester.</p></div>
+    <div class="ruta"><h3>Nivån som band, utvecklingen som graf</h3><p>Nivån ritas som ett band 1 till 10 i tre zoner med knopp och osäkerhet, samma komponent i lista, meny, Hem och Utveckling; aldrig som löptext. Utveckling visar träning, nivåkoller och övningsprov i samma graf med olika markörer, testtyp och period att välja, punkter att trycka på. Premium är öppet så länge de har Premium. Gratis: ett grundnivåtest om dagen, valfri typ, och Nivåkollen en gång per testtyp; resten är Premium.</p></div>
+  </div>
+</section>
+
+<section class="del" id="andras">
+  <header><div class="nr">Vad ändras mot i dag</div><h2 class="disp">Från "Mitt test styr vyn" till "planen lyser upp vyn"</h2></header>
+  <div class="tabell"><table>
+    <thead><tr><th>I dag</th><th>Förslag</th><th>Varför</th></tr></thead>
+    <tbody>
+      <tr><td>Valet Mitt test bestämmer vilka pass, rader och kurvor som finns. Ett deltest ger en rad och en punkt.</td><td><b>Alla testtyper syns alltid i samma lista.</b> Planens delar står först med accentram och etiketten "I ditt prov"; resten följer direkt i samma stil. Ingen separat sektion.</td><td>Ägarens beslut. Nischning ska ge fokus, inte tomhet. 14 av 18 smala val sattes dessutom tyst av oss från artiklar.</td></tr>
+      <tr><td>"Fler pass i dag" listar andra testtyper. Djupet i matrisen (elva mönsterfamiljer, tempo) syns bara som två rader "Var du tappar".</td><td><b>Dina mönster</b>: elva rutor i fyra tillstånd (omött, mött, säker, snabb), riktad träning per mönster, tempo över tid. Lika många saker att ta sig igenom som sju testtyper, och sant.</td><td>Testansvarig: datan finns redan i <code>familjer.ts</code> och <code>berakna.ts</code>, bara ritningen saknas.</td></tr>
+      <tr><td>Planen är ett pass om dagen, nivåkoll var sjunde dag, söndag fri. Övningsprov ligger på fasta dagar.</td><td><b>Träningen är fri.</b> Planen föreslår nivåkoll var sjunde dag och övningsprov två dagar före, som ihåliga ringar på banan. Allt kan göras när som helst.</td><td>Ägaren: "så fungerar alla körprovsappar". Nivån hålls sann genom att högst en nivåkoll per dag räknas och bara osedda frågor flyttar den.</td></tr>
+      <tr><td>Kurvan har en punkt och ingen framtid. "Dag 38 av 45" räknar från första nivåkollen.</td><td><b>Banan</b> från i dag till provdagen med gjorda dagar fyllda, föreslagna som konturer. Utveckling visar <b>en graf med en linje per testtyp</b> där provets delar står ut, nivå per testtyp med reglage, och nivåkoller och övningsprov med datum och resultat.</td><td>En punkt utan riktning ser tom ut. Felet rättas genom att planen får en egen startdag.</td></tr>
+      <tr><td>Artiklar om Alva och Matrigma sätter Mitt test tyst, utan provdatum.</td><td><b>"Träna inför Alva Logic"</b> skapar en synlig Plan inför provet och landar i Idag med "Lägg till provdatum" som valfritt chip.</td><td>Samma landning som ägaren vill, men planen har ett namn och går att ändra med ett tryck.</td></tr>
+      <tr><td>Gratis: Nivåkollen per deltest och ett grundpass dag 0. Smala gratisanvändare har inget nytt dag 2.</td><td><b>Gratis: ett grundnivåtest om dagen, valfri typ, och Nivåkollen en gång per testtyp.</b> Jobbcoach Premium, 149 kr i månaden, öppnar all träning, alla nivåer, alla mönster och övningsproven så länge de har Premium.</td><td>Ägarens beslut omgång 3. Fritt läge ger fler gratis ingångar dag 0; betalväggen får konkret innehåll i mönsterrutorna.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="beslut" id="beslut"><h3>Ägarens beslut som skissen bygger på</h3><ol>
+    <li><b>Fritt läge som standard, Plan inför provet som tillval.</b> Standardläget får inget eget namn.</li>
+    <li><b>Frågebanken anpassas efter designen, inte tvärtom.</b> Räcker banken inte görs den större eller karensen ändras. Bankarbetet kommer sist, efter skisser och implementering.</li>
+    <li><b>Träningen ligger fritt.</b> Obegränsad träning för Premium, användaren väljer själv när nivåkoll och övningsprov görs. Planen föreslår, låser inte. Intensitet är högst ett frivilligt dagsmål.</li>
+    <li><b>Artikelbesökaren landar i sin plan men ser alla tester.</b> Det som ingår i rekryteringens test framhävs, resten går att träna fritt.</li>
+    <li><b>Gratis: Nivåkollen och ett första pass i varje testtyp.</b> Resten är Jobbcoach Premium, 149 kr i månaden. Pris och namn läses ur paketet och kampanjen, så Black Week-priset syns på betalväggarna när det gäller; skissen visar ordinarie pris.</li>
+    <li><b>Karensen kortas.</b> Frågor kommer tillbaka oftare; sann mätning löses genom hur upprepade frågor räknas i nivån.</li>
+    <li><b>Omgång 4: allting fritt.</b> Alla testtyper i samma inbjudande lista i Idag och Tester; provets delar står ut bland dem, ingen separat sektion. Inget läge låser in.</li>
+    <li><b>Omgång 4: all utveckling i en graf</b> med en linje per testtyp, provets delar markerade. Nivåkoller och övningsprov följs över tid per testtyp.</li>
+    <li><b>Omgång 4: tryck på en testtyp</b> ger det vanliga menyvalet: Ett pass, Grundnivå, Avancerad nivå, Expertnivå, Nivåkoll och övningsprov.</li>
+    <li><b>Omgång 4: Premium är öppet så länge man har Premium</b>, inte "fram till provet". Inget översiktsbegrepp som ingen förstår.</li>
+    <li><b>Omgång 5 och 6: Tester behålls som i v3.</b> Startfliken ger hintar ur datan med tips, och kortet Nästa steg ligger även överst i Tester. "Träna" läggs in i varje testtyps meny och förklaras. Ordet "pass" används inte utåt. Träningens data redovisas tillsammans med Nivåkollens och provens i Din utveckling. Nivån visas visuellt, "Ingår i Alva Logic" som etikett. Gratis beslutat i omgång 7: ett grundnivåtest om dagen, valfri typ, Nivåkollen en gång per testtyp, genomgången alltid öppen; Träna, avancerad, expert, Nivåkollen igen, övningsprov och historik är Premium.</li>
+  </ol></div>
+</section>
+
+<section class="del" id="prototyp">
+  <header><div class="nr">Skisserna</div><h2 class="disp">Idag, Tester och Utveckling i tre lägen</h2><p>Välj läge, nivå och plattform. Telefonen är klickbar: flikarna längst ner, varje testtyp i listan öppnar sin meny, "Ändra" öppnar väljaren Plan inför provet, och "Ingång från artikel" visar landningen från Alva-artikeln. Allt är skiss, inga tal är kontots riktiga.</p></header>
+  <div class="styr" style="margin-bottom:22px">
+    <div class="chips" id="c-lage" role="group" aria-label="Läge">
+      <button data-v="a" class="aktiv">(a) Inget valt test</button><button data-v="b">(b) Plan: Alva Logic</button><button data-v="c">(c) Plan: I-provet</button>
+    </div>
+    <div style="display:flex;gap:8px 18px;flex-wrap:wrap">
+      <div class="chips" id="c-niva" role="group" aria-label="Nivå"><button data-v="premium" class="aktiv">Premium</button><button data-v="gratis">Gratis</button></div>
+      <div class="chips" id="c-plattform" role="group" aria-label="Plattform"><button data-v="app" class="aktiv">Appen Testklar</button><button data-v="webb">Webben /dashboard/tester</button></div>
+      <div class="chips" id="c-extra" role="group" aria-label="Flöden"><button data-v="plan">Väljaren Plan inför provet</button><button data-v="typ">Meny för en testtyp</button><button data-v="artikel">Ingång från artikel</button></div>
+    </div>
+  </div>
+  <div class="scen app" id="scen">
+    <div class="telkol" id="telkol"><div class="tel" id="tel" aria-label="Skiss av appen"></div></div>
+    <div class="webb dold" id="webb" aria-label="Skiss av webben"></div>
+    <div class="styr" id="noter"></div>
+  </div>
+</section>
+
+<section class="del" id="regler">
+  <header><div class="nr">Mätreglerna</div><h2 class="disp">Fri träning, sann nivå</h2><p>Ägaren vill kortare karens. Testansvarigs krav löses i räkningen i stället för i väntetiden.</p></header>
+  <div class="kolumner">
+    <div class="ruta"><h3>Karens i visningar</h3><p>En fråga får komma igen efter N andra visningar i samma testtyp, där N är hälften av banken i användarens nivåfönster. Golvet sätts efter bankräkningen. Tar de osedda frågorna slut föreslås i första hand träning på ett annat mönster eller på närliggande nivå; händelsen <code>bank_slut_visad</code> mäts, och syns den i mer än 5 % av Premium-sessionerna flyttas bankarbetet före allt annat. Nya frågor när banken fyllts på.</p></div>
+    <div class="ruta"><h3>Bara osedda räknas</h3><p>I träning, nivåkoll och övningsprov. Passet säger "7 av 9 räknas mot nivån". En upprepning räknas bara om den tidigare var fel och det gått minst 14 dagar. Rätt besvarade upprepningar räknas aldrig men tränar.</p></div>
+    <div class="ruta"><h3>Högst en nivåkoll per dag</h3><p>Fler går att göra, märks "övning, räknas inte" och ritas inte. Vikt 0,5 mot nivån före, som i dag. Dagstak 0,5 på summan av dagens träning. Träna följer nivån och räknas mot den; Grundnivå, Avancerad nivå och Expertnivå är fasta nivåtest i procent och flyttar inte nivån. Övningsprov ritas som egen markör och räknas inte om till nivå.</p></div>
+    <div class="ruta"><h3>Vad vi får säga</h3><p>Fritt läge: "övar det som oftast ingår, eftersom du inte vet". Valt test: "samma format som provet". Aldrig att träning i en typ hjälper i en annan. Nivåer visas bredvid varandra som profil, aldrig som summa. Ingen decimal under tolv svar; då står ett band.</p></div>
+  </div>
+</section>
+
+<section class="del" id="oenigt">
+  <header><div class="nr">Oenigheter</div><h2 class="disp">Vad vi var oense om och hur det löstes</h2></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Fråga</th><th>Ståndpunkter</th><th>Lösning</th><th>Motivering</th></tr></thead>
+    <tbody>
+      <tr><td><b>Intensitet</b></td><td>Tre takter (copy, UX, testansvarig) mot inget schema (ägaren)</td><td>Frivilligt dagsmål, ett till tre test om dagen eller av</td><td>Ägarens beslut. Ett dagsmål ger en synlig rad och en påminnelse utan att lova ett schema vi sedan tjatar om</td></tr>
+      <tr><td><b>Nivåkoll var sjunde dag</b></td><td>Fast intervall (testansvarig) mot fritt (ägaren)</td><td>Föreslås var sjunde dag, görs när som helst, högst en per dag räknas, vikt 0,5</td><td>Talet blir sant genom räkningen. Testansvarig står fast vid räknereglerna och de är med</td></tr>
+      <tr><td><b>Bank före lansering</b></td><td>Banken först (testansvarig, UX, saas-lead) mot bank sist (ägaren)</td><td>Karens i visningar, bara osedda räknas, ärlig rad som sista utväg</td><td>Nivån kan inte ljuga med reglerna; det som återstår är trötthet på kända figurer, som raden tar hand om tills banken vuxit</td></tr>
+      <tr><td><b>Gratis återkomstkrok</b></td><td>Ett gratis pass i veckan (saas-lead) mot fast gratisnivå (ägaren)</td><td>Nivåkoll och ett första pass per testtyp</td><td>Ägarens beslut omgång 3. Fritt läge ger ändå fler gratis ingångar dag 0 än i dag</td></tr>
+      <tr><td><b>Tyst val från artikel</b></td><td>Sluta sätta valet (saas-lead) mot sätt leverantören utan fråga (UX)</td><td>Planen skapas synligt med namn och huvud; datum och dagsmål är valfria chips</td><td>Ägaren vill att de landar i sin plan. Skillnaden mot i dag: planen syns och går att ändra med ett tryck</td></tr>
+      <tr><td><b>Namn på standardläget</b></td><td>"Öppen träning" (copy) mot inget namn (ägaren)</td><td>Inget namn, rubriken Tester</td><td>Ägarens beslut; när allt är öppet behöver läget ingen etikett</td></tr>
+      <tr><td><b>Mitt test eller planen</b></td><td>Behåll Mitt test (copy, UX omgång 1)</td><td>Plan inför provet ersätter Mitt test i gränssnittet</td><td>Ägarens beslut; "inför provet" finns redan som sektionsrubrik</td></tr>
+      <tr><td><b>Djup i det egna provet mot bredd</b></td><td>Mönsterrutnät och "Övriga tester" hopfällt (testansvarig, UX, saas-lead, art director i v1 och v2) mot allt synligt i en lista (ägaren omgång 4)</td><td>Alla testtyper i samma lista, planens delar först och ut; mönstren kvar som fördjupning i Utveckling</td><td>Ägarens beslut. Djupet ligger i typens meny och i Utveckling i stället för att tränga undan bredden</td></tr>
+      <tr><td><b>Utveckling per testtyp eller per prov</b></td><td>Hjälte för provets typ, övriga hopfällda (UX, art director v2) mot alla typer i en graf (ägaren omgång 4)</td><td>En graf med en linje per testtyp där provets delar står ut; nivå per testtyp och historik under</td><td>Ägarens beslut. Alla gör tester och får resultat</td></tr>
+      <tr><td><b>Översikten som bild</b></td><td>Fält som fylls i (art director) mot inget sådant begrepp (ägaren)</td><td>Borttaget. Listan och grafen bär översikten</td><td>Ägarens beslut: begreppet förstås inte</td></tr>
+      <tr><td><b>Premiums slut</b></td><td>"Fram till provet" (copy, saas-lead) mot öppet så länge man har Premium (ägaren)</td><td>"Så länge du har Premium", "säg upp när du vill"</td><td>Ägarens beslut omgång 4</td></tr>
+      <tr><td><b>Startfliken</b></td><td>Hem (copy), Nästa steg som enda kort (testansvarig, art director), slå ihop med Tester (UX, saas-lead som reserv)</td><td>Hem med hintar ur datan, Så ligger du till och Fortsätt där du slutade; kortet Nästa steg även överst i Tester</td><td>Ägaren omgång 6: båda förslagen behålls. Hem får ett eget syfte (var du står, nästa steg); Tester förblir katalogen</td></tr>
+      <tr><td><b>Passen</b></td><td>Stryk begreppet (alla) mot behåll motorns regler (testansvarig)</td><td>"Träna" i varje typ, förklarat i fyra punkter; Grund, Avancerad, Expert är fasta nivåtest i procent</td><td>Ägaren omgång 6. Motorns regler lever i Träna, ordet pass försvinner utåt</td></tr>
+      <tr><td><b>Gratis enhetligt</b></td><td>Ett test om dagen, valfri typ (saas-lead A) mot mätning gratis och träning Premium med dagskvot (testansvarig) mot lås på zonerna (art director)</td><td>Ett grundnivåtest om dagen, valfri typ; Nivåkollen en gång per testtyp; genomgången alltid öppen. Träna, avancerad, expert, Nivåkollen igen, övningsprov och historik är Premium</td><td>Ägarens beslut omgång 7: annars kan någon köra ett gratis test om dagen i en månad före provet</td></tr>
+      <tr><td><b>Nivån som text</b></td><td>"nivå 5,3" i löptext (v3) mot visuell indikator (ägaren)</td><td>Nivåbandet 1 till 10 i tre zoner med knopp, osäkerhet och tak, samma komponent överallt</td><td>Ägaren omgång 5; testansvarigs osäkerhetsband och tak 7,5 ingår</td></tr>
+      <tr><td><b>Dagar i rad</b></td><td>Behåll (saas-lead) mot inga missräkningar (copy)</td><td>Räknar dagar med slutförd session, pausar tyst</td><td>Raden finns, skulden finns inte</td></tr>
+      <tr><td><b>Nivå för I-provet</b></td><td>Kräver ny nivåberäkning före djup (testansvarig)</td><td>Nivåkoll för tre deltester byggs i implementeringen; tills tolv svar visas band</td><td>Läget får inte lanseras med rader utan innehåll, men bygget ryms i steg 2</td></tr>
+      <tr><td><b>Riktning i kurvan</b></td><td>Föreslagna nivåkoller som ringar (testansvarig, art director) mot helt fritt</td><td>Ringarna ritas som förslag och kan göras när som helst</td><td>En punkt utan framtid ser tom ut; en ihålig ring lovar inget men ger riktning</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="del" id="ordning">
+  <header><div class="nr">Ordning</div><h2 class="disp">Skisser, implementering, frågor</h2></header>
+  <div class="kolumner">
+    <div class="ruta"><h3>1. Skisser</h3><p>Den här artefakten. Fyra roller granskar efter ägaren.</p></div>
+    <div class="ruta"><h3>2. Implementering</h3><ul><li>Listan med alla testtyper i Idag och Tester, typens meny som ark, väljaren Plan inför provet, banan, grafen med en linje per testtyp, nivå per testtyp och historiken för nivåkoller och övningsprov</li><li>Mönsterrutnätet för matris; nivåkoll för ordförråd, spatial och talserier; nivåpunkter per <code>test_kind</code></li><li>Räknereglerna: osedda, en nivåkoll per dag, dagstak</li><li>De två felen: planens startdag i <code>test_planer</code>, märket Provdagen nycklat till datumet</li><li>Mäthändelser med <code>har_plan</code>, <code>plan_test</code>, <code>i_planens_test</code>, <code>lage</code></li></ul></div>
+    <div class="ruta"><h3>3. Frågebankerna</h3><p>Behov räknat per testtyp med den nya karensen, matris och figurserier först. Avläsning fyra veckor efter driftsättning: träningsdagar per vecka för betalande, träningar dag 2 till 7 för nya, köp per läge och ingång.</p></div>
+  </div>
+</section>
+</div>
+
+<script>
+/* ------------------------------------------------------------ data */
+const SVG = {
+  matris: `<g fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="5"/><path d="M18 6v36M30 6v36M6 18h36M6 30h36" opacity=".45"/></g><g fill="currentColor"><circle cx="12" cy="12" r="2.6"/><rect x="21.5" y="9.5" width="5" height="5" rx="1"/><path d="M36 9.4l3 5.2h-6z"/><rect x="9.5" y="21.5" width="5" height="5" rx="1"/><path d="M24 21.4l3 5.2h-6z"/><circle cx="36" cy="24" r="2.6"/><path d="M12 33.4l3 5.2h-6z"/><circle cx="24" cy="36" r="2.6"/></g><rect x="31.5" y="31.5" width="9" height="9" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>`,
+  figurserie: `<rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17.3 15v18M30.6 15v18" stroke="currentColor" stroke-width="1.5" opacity=".45"/><path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor"/><rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor"/><rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>`,
+  deduktiv: `<path d="M8 11h22M8 18h15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".65"/><rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" stroke-width="1.5" opacity=".45"/><rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="27" y="29" width="6" height="7" rx="1.5" fill="#E8732A"/><rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor"/>`,
+  verbal: `<rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16h24M12 23h9M12 30h24M12 37h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".65"/><rect x="23" y="20" width="14" height="6" rx="3" fill="#E8732A"/>`,
+  ordforrad: `<rect x="6" y="9" width="36" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><text x="24" y="24.5" font-family="Figtree,sans-serif" font-size="8" font-weight="700" letter-spacing="0" text-anchor="middle" textLength="28" lengthAdjust="spacingAndGlyphs" fill="currentColor">LYHÖRD</text><rect x="12" y="29" width="10" height="4" rx="2" fill="currentColor" opacity=".5"/><rect x="26" y="29" width="10" height="4" rx="2" fill="#E8732A"/>`,
+  numerisk: `<rect x="5" y="8" width="22" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 16h22M5 24h22M5 32h22M14 8v30" stroke="currentColor" stroke-width="1.5" opacity=".45"/><rect x="31" y="26" width="5" height="12" rx="1.5" fill="currentColor" opacity=".55"/><rect x="38" y="14" width="5" height="24" rx="1.5" fill="#E8732A"/><path d="M29 40h15" stroke="currentColor" stroke-width="2"/>`,
+  talserie: `<rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 15v18M24 15v18M34 15v18" stroke="currentColor" stroke-width="1.5" opacity=".45"/><text x="9" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">2</text><text x="19" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">5</text><text x="29" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">9</text><rect x="35.5" y="19.5" width="7" height="9" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>`,
+  spatial: `<path d="M10 18l14-7 14 7v14l-14 7-14-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 18l14 7 14-7M24 25v14" stroke="currentColor" stroke-width="1.5" opacity=".55"/><circle cx="31" cy="21" r="3" fill="#E8732A"/>`,
+  personlighet: `<path d="M8 30a16 16 0 0 1 32 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><circle cx="29" cy="22" r="3.5" fill="#E8732A"/><path d="M24 30l5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
+};
+/* punkter: [dag från 11 okt, nivå, slag] där slag är nk (Nivåkoll), tr (träning), ov (övningsprov, värdet är text) */
+const TYPER = [
+  { id:'matris', namn:'Figurer och mönster', ton:'himmel', niva:6.3, tran:14, kallas:'Kallas även Matrigma eller logiktest', nivaer:['Lär dig reglerna: en regel','Provets normala nivå: två regler','Svårare än de flesta prov: tre regler'], svag:['Figuren speglas',2,6], tempo:14, senast:'Träna, 7 av 10 rätt, i går',
+    punkter:[[0,5.0,'nk'],[2,5.2,'tr'],[4,5.3,'tr'],[7,5.4,'nk'],[9,5.5,'tr'],[11,5.6,'tr'],[14,5.8,'nk'],[17,5.9,'tr'],[20,6.0,'tr'],[24,6.0,'tr'],[28,6.1,'tr'],[31,6.1,'nk'],[32,'13 av 20 · 4 över tid','ov'],[34,6.2,'tr'],[36,6.3,'tr'],[37,6.3,'tr']] },
+  { id:'figurserie', namn:'Figurserier', ton:'turkos', niva:null, kallas:'Ingår i SHL Verify och Aon', nivaer:['Lär dig reglerna: en regel','Provets normala nivå: två regler','Svårare än de flesta prov: tre regler'], punkter:[] },
+  { id:'deduktiv', namn:'Deduktiv slutledning', ton:'rosa', niva:5.3, tran:3, kallas:'Ingår i SHL Verify och Aon', nivaer:['Lär dig reglerna: tre villkor','Provets normala nivå: fem villkor','Svårare än de flesta prov: villkor i rörelse'], punkter:[[22,5.0,'nk'],[26,5.1,'tr'],[30,5.2,'tr'],[34,5.3,'nk']] },
+  { id:'verbal', namn:'Ord och text', ton:'gul', niva:5.0, tran:2, kallas:'Ingår i SHL Verify och Aon', nivaer:['Lär dig reglerna: svaret står i texten','Provets normala nivå: två ståndpunkter','Svårare än de flesta prov: argument'], punkter:[[26,5.0,'nk'],[33,5.0,'tr']] },
+  { id:'numerisk', namn:'Siffror och tabeller', ton:'salvia', niva:null, kallas:'Ingår i SHL Verify och Aon', nivaer:['Lär dig reglerna: läs av och räkna','Provets normala nivå: flera räknesteg','Svårare än de flesta prov: prognos, marginal'], punkter:[] },
+  { id:'talserie', namn:'Talserier', ton:'salvia', niva:4.2, tran:4, kallas:'Kallas även talföljder', nivaer:['Lär dig reglerna: en lucka','Provets normala nivå: två luckor','Svårare än de flesta prov: blandade regler'], svag:['Växande steg',3,6], tempo:22, senast:'Träna, 5 av 10 rätt, i söndags', punkter:[[29,3.8,'nk'],[31,3.9,'tr'],[33,4.1,'tr'],[35,'I-provet, talserier: 11 av 16','ov'],[36,4.2,'nk']] },
+  { id:'spatial', namn:'Spatial förmåga', ton:'sand', niva:null, kallas:'Kallas även rumsuppfattning', nivaer:['Lär dig reglerna: en vikning','Provets normala nivå: två vikningar','Svårare än de flesta prov: speglingar, klipp'], punkter:[] },
+  { id:'ordforrad', namn:'Ordförråd', ton:'syren', niva:null, svar:8, kallas:'Ingår i I-provet', nivaer:['Lär dig reglerna: vardagsord','Provets normala nivå: formella ord','Svårare än de flesta prov: lånord'], punkter:[] },
+];
+const PRIS = { namn:'Jobbcoach Premium', rad:'149 kr i månaden' }; /* läses ur paketMedPris och kampanj i bygget */
+const PLAN = {
+  a: null,
+  b: { lev:'Alva Logic', typer:['matris'], prov:'25 nov', kvar:7, ovn:'Övningsprov Alva', ovnMeta:'20 uppgifter, två minuter var', ovnDag:'23 nov', format:'Provet har 20 uppgifter med två minuter var.' },
+  c: { lev:'I-provet', typer:['ordforrad','spatial','talserie'], prov:'30 nov', kvar:12, ovn:'Övningsprov I-provet', ovnMeta:'I provets ordning, med provets tid', ovnDag:'28 nov', format:'Provet har tre delar i fast ordning med egen tid per del.' },
+};
+const FAMILJER = [['Figuren vrider sig','snabb'],['Hela mönstret vrider sig','saker'],['Figuren flyttar sig runt kanten','saker'],['Vrider sig och byter utseende','mott',3,4],['Två saker rör sig samtidigt','mott',1,3],['Varje antal en gång per rad','saker'],['Varje form en gång per rad','saker'],['Form och antal, en gång var per rad','omott'],['Två rutor läggs ihop','saker'],['Figuren speglas','mott',2,6],['Antalet ökar eller minskar','omott']];
+const S = { lage:'a', flik:'hem', premium:true, plattform:'app', ark:null, arkTyp:null, artikel:false, planIhop:false, toast:null, hintBort:false, kvotAnvand:true, grafTyp:'alla', period:'allt', punkt:null };
+const n = x => String(x).replace('.', ',');
+const sv = (id, st) => `<svg style="width:20px;height:20px;${st||''}"><use href="#${id}"/></svg>`;
+const plan = () => PLAN[S.lage];
+const iPlan = id => !!plan() && plan().typer.includes(id);
+const typer = () => S.artikel ? TYPER.map(t => Object.assign({}, t, { niva:null, tran:0, svar:0, punkter:[], svag:null, senast:null })) : TYPER;
+const omatt = t => t.niva == null && !t.svar;
+const ordnade = () => { const a = typer(); return plan() ? a.filter(t => iPlan(t.id)).concat(a.filter(t => !iPlan(t.id))) : a; };
+const typ = id => typer().find(t => t.id === id);
+const TON = { himmel:'var(--himmel-ink)', turkos:'var(--turkos-ink)', rosa:'var(--rosa-ink)', gul:'var(--gul-ink)', salvia:'var(--salvia-ink)', sand:'var(--sand-ink)', syren:'var(--syren-ink)' };
+const datum = d => d <= 20 ? `${11 + d} okt` : `${d - 20} nov`;
+const etikett = () => plan() ? `<span class="chip kop">Ingår i ${plan().lev}</span>` : '';
+const gratisKvar = () => S.premium ? null : (S.kvotAnvand ? 0 : 1);
+
+/* ------------------------------------------------------------ byggstenar */
+const stat = () => `<div class="stat"><span>9:41</span><span class="sig"><i></i><i></i><i></i></span></div>`;
+const gest = () => `<div class="gest"></div>`;
+function flikrad() {
+  const f = [['hem','Hem','i-idag'],['tester','Tester','i-tester'],['utveckling','Utveckling','i-utv']];
+  return `<nav class="flik" aria-label="Flikar">${f.map(x => `<button class="${S.flik === x[0] ? 'aktiv' : ''}" onclick="app.flik('${x[0]}')"><span class="pill"><svg><use href="#${x[2]}"/></svg></span>${x[1]}</button>`).join('')}</nav>`;
+}
+const topprad = t => `<div class="topprad"><span class="brand">${t}</span><button class="avatar tryck" aria-label="Konto">C</button></div>`;
+const ikon = (t, px) => { px = px || 40; return `<span class="sym" style="width:${px}px;height:${px}px;border-radius:${Math.round(px*.3)}px;background:var(--${t.ton});color:var(--${t.ton}-ink);display:grid;place-items:center;flex:0 0 auto"><svg viewBox="0 0 48 48" style="width:${Math.round(px*.68)}px;height:${Math.round(px*.68)}px">${SVG[t.id] || SVG.personlighet}</svg></span>`; };
+const toast = () => S.toast ? `<div class="toast">${sv('i-check')}${S.toast}</div>` : '';
+const chipLas = () => `<span class="chip las">${sv('i-las')}Premium</span>`;
+const chipKvot = () => { const k = gratisKvar(); return k == null ? '' : (k ? '<span class="chip fri">1 kvar i dag</span>' : '<span class="chip las">I morgon</span>'); };
+
+/* nivåbandet: en komponent i tre storlekar. 1 till 10, tre zoner, osäkerhet ±0,6, tak 7,5, omätt streckat */
+function nivaband(t, storlek, opts) {
+  opts = opts || {};
+  const W = 344; const liten = storlek === 'liten'; const stor = storlek === 'stor';
+  const H = liten ? 24 : (stor ? 62 : 54); const y = liten ? 12 : 16; const L = 12, R = 12;
+  const x = v => L + (v - 1) / 9 * (W - L - R);
+  const pl = iPlan(t.id); const dim = !!plan() && !pl && !opts.aktiv;
+  const farg = dim ? 'var(--a-ink-3)' : 'var(--kop)'; const mjuk = dim ? 'rgba(0,0,0,.08)' : 'var(--kop-mjuk)';
+  const om = omatt(t); const tjock = liten ? 6 : 8;
+  let s = `<svg viewBox="0 0 ${W} ${H}" class="nivaband ${storlek}" aria-label="${t.namn}: ${om ? 'inte mätt' : t.svar ? t.svar + ' av 12 svar' : 'nivå ' + n(t.niva) + ' av 10'}">`;
+  /* zonerna */
+  [[1,4],[4,7],[7,10]].forEach((z, i) => { s += `<line x1="${x(z[0]) + (i ? 2 : 0)}" y1="${y}" x2="${x(z[1]) - (i < 2 ? 2 : 0)}" y2="${y}" stroke="var(--a-kant)" stroke-width="${tjock}" stroke-linecap="round" ${om ? 'stroke-dasharray="3 5"' : ''}/>`; });
+  if (!om && !t.svar) {
+    const v = t.niva;
+    s += `<rect x="${x(Math.max(1, v - .6))}" y="${y - tjock/2 - 3}" width="${x(Math.min(10, v + .6)) - x(Math.max(1, v - .6))}" height="${tjock + 6}" rx="5" fill="${mjuk}"/>`;
+    s += `<line x1="${x(1)}" y1="${y}" x2="${x(v)}" y2="${y}" stroke="${farg}" stroke-width="${tjock}" stroke-linecap="round"/>`;
+    s += `<circle cx="${x(v)}" cy="${y}" r="${liten ? 10 : 12}" fill="${farg}" stroke="var(--a-papper)" stroke-width="2.5"/><text x="${x(v)}" y="${y + (liten ? 3.5 : 4)}" text-anchor="middle" style="font-size:${liten ? 9.5 : 11}px;font-weight:700;fill:#fff">${n(v)}</text>`;
+  } else if (t.svar) {
+    s += `<rect x="${x(3.5)}" y="${y - tjock/2 - 3}" width="${x(6.5) - x(3.5)}" height="${tjock + 6}" rx="5" fill="${mjuk}"/><text x="${x(5)}" y="${y + 3.5}" text-anchor="middle" style="font-size:${liten ? 9.5 : 11}px;font-weight:600;fill:var(--a-ink-2)">${t.svar} av 12 svar</text>`;
+  } else {
+    s += `<text x="${x(5.5)}" y="${y + 3.5}" text-anchor="middle" style="font-size:${liten ? 10 : 11}px;font-weight:600;fill:var(--a-ink-3)">Nivåkoll, 8 min</text>`;
+  }
+  if (!liten) {
+    s += `<text x="${x(2.5)}" y="${y + 24}" text-anchor="middle">Grund</text><text x="${x(5.5)}" y="${y + 24}" text-anchor="middle">Avancerad</text><text x="${x(8.5)}" y="${y + 24}" text-anchor="middle">Expert</text>`;
+    s += `<text x="${x(1)}" y="${y + 38}" text-anchor="start">1</text><text x="${x(10)}" y="${y + 38}" text-anchor="end">10</text>`;
+    if (stor) s += `<line x1="${x(7.5)}" y1="${y - 10}" x2="${x(7.5)}" y2="${y - 6}" stroke="var(--a-ink-3)" stroke-width="1.5"/><text x="${x(7.5)}" y="${y + 38}" text-anchor="middle">tak i dag 7,5</text>`;
+  }
+  return s + `</svg>`;
+}
+
+function huvud() {
+  const p = plan();
+  if (!p) return `<div class="huvudrad"><div><div class="a-ey">ons 19 nov</div><h1 class="a-h1">Hem</h1><p class="a-meta" style="margin-top:4px">Var du står och vad som är rimligt härnäst.</p></div></div>`;
+  const kvar = S.artikel ? `<button class="a-lank" onclick="app.ark('plan')">Lägg till provdatum</button>` : `<b>${p.kvar} dagar kvar</b> till provet ${p.prov}`;
+  return `<div class="huvudrad"><div><div class="a-ey kop">Plan inför provet</div><h1 class="a-h1">${p.lev}</h1><p class="a-meta" style="margin-top:4px">${kvar}</p></div><button class="a-lank" style="margin-top:6px" onclick="app.ark('plan')">Ändra</button></div>`;
+}
+function bana(opts) {
+  opts = opts || {};
+  const p = plan(); if (!p) return '';
+  const W = 372, y = 30, L = 14, R = 26;
+  const dagar = S.artikel ? 10 : p.kvar; const gjorda = S.artikel ? 0 : 3; const tot = dagar + gjorda;
+  const X = i => L + (i / tot) * (W - L - R);
+  const ink = opts.vagg ? 'var(--vagg-mjuk)' : 'var(--a-ink-3)'; const spar = opts.vagg ? 'var(--vagg-svag)' : 'var(--a-kant-stark)';
+  const kop = opts.vagg ? 'var(--koppar)' : 'var(--kop)'; const bg = opts.vagg ? 'var(--vagg)' : 'var(--a-bg)';
+  let s = `<svg class="svg-bred" viewBox="0 0 ${W} 64" aria-label="Banan till provdagen: ${gjorda} dagar med träning, ${dagar} dagar kvar">`;
+  s += `<line x1="${X(0)}" y1="${y}" x2="${X(tot)}" y2="${y}" stroke="${spar}" stroke-width="2"/>`;
+  if (gjorda) s += `<line x1="${X(0)}" y1="${y}" x2="${X(gjorda)}" y2="${y}" stroke="${kop}" stroke-width="3" stroke-linecap="round"/>`;
+  for (let i = 0; i <= tot; i++) {
+    const x = X(i);
+    if (i < gjorda) s += `<circle cx="${x}" cy="${y}" r="5.5" fill="${kop}"/>`;
+    else if (i === gjorda) s += `<circle cx="${x}" cy="${y}" r="8" fill="${bg}" stroke="${kop}" stroke-width="3"/><circle cx="${x}" cy="${y}" r="3" fill="${kop}"/>`;
+    else if (i === tot && !S.artikel) s += `<rect x="${x-7}" y="${y-9}" width="14" height="18" rx="3" fill="${bg}" stroke="${ink}" stroke-width="1.8"/><path d="M${x-3} ${y}h6M${x} ${y-3}v6" stroke="${ink}" stroke-width="1.6" stroke-linecap="round"/>`;
+    else if (i === tot) s += `<circle cx="${x}" cy="${y}" r="6" fill="none" stroke="${ink}" stroke-width="1.6" stroke-dasharray="2 3"/>`;
+    else if (!S.artikel && i === tot - 2) s += `<rect x="${x-7}" y="${y-7}" width="14" height="14" rx="3" fill="${bg}" stroke="${ink}" stroke-width="1.8" stroke-dasharray="3 2.5"/>`;
+    else if (!S.artikel && i === gjorda + 4) s += `<circle cx="${x}" cy="${y}" r="7" fill="${bg}" stroke="${ink}" stroke-width="1.8" stroke-dasharray="3 2.5"/><circle cx="${x}" cy="${y}" r="2" fill="${ink}"/>`;
+    else s += `<circle cx="${x}" cy="${y}" r="4" fill="${bg}" stroke="${ink}" stroke-width="1.4" opacity=".8"/>`;
+  }
+  s += `<text x="${X(gjorda)}" y="12" text-anchor="middle" style="font-weight:700;fill:${opts.vagg ? 'var(--vagg-ink)' : 'var(--a-ink)'}">i dag</text>`;
+  if (!S.artikel) { s += `<text x="${X(gjorda+4)}" y="12" text-anchor="middle">nivåkoll, förslag</text><text x="${X(tot)}" y="56" text-anchor="end">provet ${p.prov}</text>`; }
+  else s += `<text x="${X(tot)}" y="56" text-anchor="end">tills det sitter</text>`;
+  if (gjorda) s += `<text x="${X(0)}" y="56" text-anchor="start">${gjorda} dagar</text>`;
+  return s + `</svg>`;
+}
+
+/* ------------------------------------------------------------ hintarna ur datan, i prioritetsordning */
+function hintar() {
+  const p = plan(); const H = [];
+  const mina = p ? typer().filter(t => iPlan(t.id)) : typer();
+  if (S.artikel) {
+    H.push({ ey:'Första steget', rubrik:'Inför Alva Logic: börja med Nivåkollen i figurer och mönster', skal:'Åtta minuter, och du vet var du ligger. Sedan tränar du på din nivå tills provdagen. Alla andra tester är öppna också.', knapp:'Gör Nivåkollen', tips:'Gör den utvilad. Den väljer nivån för din träning.', typ:'matris' });
+    return H;
+  }
+  /* 1. Nivåkoll saknas i provets delar */
+  if (p) mina.filter(omatt).forEach(t => H.push({ ey:'Nivåkoll saknas', rubrik:`Gör Nivåkollen i ${t.namn.toLowerCase()}`, skal:`${t.namn} ingår i ${p.lev} och är inte mätt än.`, knapp:'Mät din nivå', tips:'Åtta minuter. Den väljer nivån för din träning.', typ:t.id }));
+  mina.filter(t => t.svar).forEach(t => H.push({ ey:'Nivåkoll påbörjad', rubrik:`Gör klart Nivåkollen i ${t.namn.toLowerCase()}`, skal:`${t.svar} av 12 svar. Fyra till, så får du ett nivåtal.`, knapp:'Fortsätt', tips:'Resultatet sparas mellan gångerna.', typ:t.id }));
+  /* 2. svagaste mönstret med minst sex svar under 60 procent */
+  mina.filter(t => t.svag && t.svag[1] / t.svag[2] < .6).forEach(t => H.push({ ey:'Svagaste mönstret', rubrik:`Träna på ${t.svag[0].toLowerCase()}`, skal:`${t.svag[1]} av ${t.svag[2]} rätt i ${t.namn.toLowerCase()}. Här tappar du mest.`, knapp:'Träna', tips: t.id === 'matris' ? 'Leta efter axeln först, sedan vad som byter sida.' : 'Skriv upp skillnaden mellan talen innan du gissar.', typ:t.id }));
+  /* 3. tempo över 30 procent över provets tid */
+  mina.filter(t => t.tempo > 30).forEach(t => H.push({ ey:'Tempot', rubrik:`Träna ${t.namn.toLowerCase()} mot klockan`, skal:`${t.tempo} % av uppgifterna tar längre än provets tid. Reglerna kan du.`, knapp:'Träna', tips:'Hoppa över och kom tillbaka. Provet straffar inte en hoppad uppgift mer än ett fel.', typ:t.id }));
+  /* 4. sju dagar sedan nivåkollen */
+  mina.filter(t => t.niva && t.punkter.filter(q => q[2] === 'nk').slice(-1)[0] && 38 - t.punkter.filter(q => q[2] === 'nk').slice(-1)[0][0] >= 7).forEach(t => H.push({ ey:'Sju dagar sedan sist', rubrik:`Dags att se om nivån rört sig i ${t.namn.toLowerCase()}`, skal:`Senaste Nivåkollen ${datum(t.punkter.filter(q => q[2] === 'nk').slice(-1)[0][0])}, ${t.tran} träningar sedan dess.`, knapp:'Mät din nivå', tips:'Högst en om dagen räknas. Gör den när du är utvilad.', typ:t.id }));
+  /* 5. provet nära */
+  if (p && p.kvar <= 7) H.push({ ey:'Provet nära', rubrik:`${p.ovn} om ${p.kvar - 2} dagar`, skal:`Vi föreslår ett ${p.ovnDag}, två dagar före provet. Gör det när du vill.`, knapp:'Gör ett övningsprov', tips:'Gör det samma tid på dagen som provet.', typ:p.typer[0], ov:true });
+  /* utan plan: omätta typer som förslag sist */
+  if (!p) mina.filter(omatt).slice(0, 2).forEach(t => H.push({ ey:'Prova något nytt', rubrik:`Gör Nivåkollen i ${t.namn.toLowerCase()}`, skal:'Du har inte mött den än. Åtta minuter, så får den sin linje i grafen.', knapp:'Mät din nivå', tips:'Gör den utvilad. Den väljer nivån för din träning.', typ:t.id }));
+  /* inget pekar: första steget eller rotation */
+  if (!H.length) { const t = typer().find(omatt) || typer()[0]; H.push({ ey:'Prova något nytt', rubrik:`Gör Nivåkollen i ${t.namn.toLowerCase()}`, skal:'Inget i din data pekar åt något håll just nu. En ny testtyp ger en ny linje i grafen.', knapp:'Mät din nivå', tips:'Åtta minuter.', typ:t.id }); }
+  return H;
+}
+function hintKort(h, liten) {
+  const tt = typ(h.typ); const las = !S.premium && (h.ov || h.knapp === 'Träna' || (h.knapp === 'Mät din nivå' && tt && !omatt(tt))); const kvot = false;
+  if (liten) return `<button class="rad tryck" onclick="app.ark('typ','${h.typ}')"><span class="t"><b>${h.rubrik}</b><span>${h.skal}</span></span>${las ? chipLas() : sv('i-chev','color:var(--a-ink-3)')}</button>`;
+  return `<div class="forslag"><div class="a-ey">${h.ey}</div><h2 class="a-h2">${h.rubrik}</h2><p>${h.skal}</p><button class="a-knapp tryck" onclick="app.ark('typ','${h.typ}')">${las ? sv('i-las') : ''}${las ? 'Ingår i Premium' : h.knapp}</button><p class="tips">Tips: ${h.tips}</p></div>`;
+}
+function kvotRad() {
+  if (S.premium) return '';
+  const k = gratisKvar();
+  return `<div class="laast"><span class="sym" style="width:40px;height:40px;border-radius:12px;background:var(--kop-mjuk);color:var(--kop-ink);display:grid;place-items:center;flex:0 0 auto">${sv('i-las')}</span><div class="t"><b>${k ? 'Ett grundnivåtest om dagen, gratis' : 'Det här var grundnivån'}</b><p>${k ? 'Valfri testtyp, och Nivåkollen en gång per testtyp. Genomgången av svaren är alltid öppen. Proven ligger på avancerad nivå. ' : 'Proven ligger på avancerad nivå. '}Öva där, så ofta du vill, med Premium, ${PRIS.rad}. Träna, avancerad och expert, Nivåkollen när du vill, övningsprov och hela historiken ingår så länge du har ${PRIS.namn}.</p><button class="a-knapp kop tryck" style="height:46px">Öppna allt</button></div></div>`;
+}
+function dagsmal() {
+  if (S.artikel) return '';
+  const gjort = S.premium && plan() ? 1 : 0; const mal = 2;
+  let p = ''; for (let i = 0; i < mal; i++) p += `<i class="${i < gjort ? 'fylld' : ''}"></i>`;
+  return `<div class="dagsmal"><span class="punkter">${p}</span><span>Dagsmål <b>${gjort} av ${mal}</b> · <b>${S.premium ? 4 : 1}</b> dagar i rad</span><button class="andra" onclick="app.ark('plan')">Ändra</button></div>`;
+}
+function planKort() {
+  if (S.planIhop) return `<div class="rader"><button class="rad tryck" onclick="app.ark('plan')"><span class="t"><b>Plan inför provet</b><span>Vet du vilket test? Välj, så framhäver vi det.</span></span>${sv('i-chev','color:var(--a-ink-3)')}</button></div>`;
+  return `<div class="kort lyft" style="display:grid;gap:10px"><div><div class="a-ey">Plan inför provet</div><h2 class="a-h2" style="margin-top:4px">Vet du vilket test du ska göra?</h2><p class="a-p" style="margin-top:4px">Välj, så framhäver vi det och föreslår vad du övar fram till provdagen. De flesta vet inte, och då är bredden rätt.</p></div><div class="val"><button class="tryck" onclick="app.ark('plan')"><b>Ja, jag vet</b><span>Välj test och datum</span></button><button class="tryck" onclick="app.ihop()"><b>Inte än</b><span>Träna brett, välj senare</span></button></div></div>`;
+}
+function nivarad(t, opts) {
+  opts = opts || {};
+  return `<button class="nivarad tryck ${opts.vald ? 'vald' : ''}" onclick="${opts.onclick || `app.ark('typ','${t.id}')`}">${ikon(t, 36)}<span style="flex:1;min-width:0"><span style="display:flex;justify-content:space-between;gap:8px;font-size:14px;align-items:baseline"><b style="font-weight:600">${t.namn}</b>${iPlan(t.id) ? etikett() : ''}</span>${nivaband(t, 'liten', { aktiv: opts.vald })}</span></button>`;
+}
+
+/* ------------------------------------------------------------ Hem */
+function vyHem() {
+  const p = plan(); const H = hintar(); let h = huvud();
+  if (p) h += `<div class="kort" style="padding:12px 14px 6px">${bana()}</div>`;
+  if (!(S.artikel && S.hintBort)) h += `<div class="sekt"><span class="a-ey">Nästa steg</span>${S.artikel ? '<button onclick="app.hintBort()">Stäng</button>' : ''}</div>` + hintKort(H[0]);
+  h += dagsmal();
+  if (H.length > 1) h += `<div class="sekt"><span class="a-ey">Fler steg</span><span class="a-meta">ur dina resultat</span></div><div class="rader">${H.slice(1, 4).map(x => hintKort(x, true)).join('')}</div>`;
+  h += kvotRad();
+  const mina = (p ? typer().filter(t => iPlan(t.id)) : typer().filter(t => !omatt(t)));
+  if (mina.length) h += `<div class="sekt"><span class="a-ey">Så ligger du till</span><button onclick="app.flik('utveckling')">Utveckling</button></div><div class="kort" style="display:grid;gap:10px">${mina.map(t => nivarad(t)).join('')}</div>`;
+  const senast = typer().find(t => t.senast);
+  if (senast && !S.artikel) h += `<div class="sekt"><span class="a-ey">Fortsätt där du slutade</span></div><div class="rader"><button class="rad tryck" onclick="app.ark('typ','${senast.id}')">${ikon(senast, 40)}<span class="t"><b>${senast.namn}</b><span>${senast.senast}.</span></span>${sv('i-chev','color:var(--a-ink-3)')}</button></div>`;
+  if (!p) h += planKort();
+  return `<div class="lager in-flik">${stat()}${topprad('Testklar')}<div class="kropp">${h}</div>${flikrad()}${gest()}${toast()}</div>`;
+}
+
+/* ------------------------------------------------------------ Tester (som v3, med Nästa steg överst) */
+function testkort(t) {
+  const pl = iPlan(t.id); const om = omatt(t);
+  const meta = om ? 'Nivåkoll, 8 min' : (t.svar ? `Nivåkoll påbörjad` : `Nivåkoll ${datum(t.punkter.filter(q => q[2] === 'nk').slice(-1)[0][0])} · ${t.tran} träningar`);
+  return `<button class="tkort tryck ${pl ? 'plan' : ''}" onclick="app.ark('typ','${t.id}')">${ikon(t, 52)}<span class="t"><b>${t.namn} ${pl ? etikett() : ''}</b><span>${meta}</span>${nivaband(t, 'liten')}</span>${sv('i-chev','color:var(--a-ink-3);flex:0 0 auto')}</button>`;
+}
+function ovnkort() {
+  const p = plan(); if (!p) return '';
+  return `<button class="tkort tryck plan" onclick="app.ark('typ','${p.typer[0]}')"><span class="sym" style="width:52px;height:52px;border-radius:16px;background:var(--a-ink);color:#fff;display:grid;place-items:center;flex:0 0 auto"><svg viewBox="0 0 24 24" style="width:26px;height:26px"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12.5" r="7.5"/><path d="M12 8.5v4.5l3 2M9 3h6"/></g></svg></span><span class="t"><b>${p.ovn} ${etikett()}</b><span>${p.ovnMeta}. ${S.artikel ? 'Gör det när du vill.' : 'Senast 12 nov: 13 av 20. Vi föreslår ett ' + p.ovnDag + '.'}</span></span>${S.premium ? sv('i-chev','color:var(--a-ink-3);flex:0 0 auto') : chipLas()}</button>`;
+}
+const personkort = () => `<button class="tkort tryck"><span class="sym" style="width:52px;height:52px;border-radius:16px;background:var(--rosa);color:var(--rosa-ink);display:grid;place-items:center;flex:0 0 auto"><svg viewBox="0 0 48 48" style="width:36px;height:36px">${SVG.personlighet}</svg></span><span class="t"><b>Personlighet</b><span>Påståenden om dig. Inga rätta svar, ingen nivå.</span></span>${sv('i-chev','color:var(--a-ink-3);flex:0 0 auto')}</button>`;
+function vyTester() {
+  const p = plan(); const H = hintar();
+  let h = `<div class="huvudrad"><div><h1 class="a-h1">Tester</h1><p class="a-meta" style="margin-top:4px">Alla öppna. Tryck på en testtyp för träning, nivåer, nivåkoll och övningsprov.</p></div></div>`;
+  h += `<div class="sekt"><span class="a-ey">Nästa steg</span></div>` + hintKort(H[0]);
+  if (p) h += `<div class="rader"><button class="rad tryck" onclick="app.ark('plan')"><span class="t"><b>Plan inför provet: ${p.lev}</b><span>${S.artikel ? 'Lägg till provdatum och dagsmål när du vill' : p.prov + ' · ' + p.kvar + ' dagar kvar · dagsmål två'}</span></span><span class="a-lank" style="font-size:13px">Ändra</span></button></div>`;
+  else h += planKort();
+  if (p) {
+    const delar = p.typer.length; h += `<div class="grupp-prov"><div class="sekt"><span class="a-ey">Ingår i ${p.lev} · ${delar} ${delar === 1 ? 'del' : 'delar'}</span></div><div class="katalog">${typer().filter(t => iPlan(t.id)).map(testkort).join('')}${ovnkort()}</div></div>`;
+    h += `<div class="sekt"><span class="a-ey">Används i andra rekryteringstest, inte i ${p.lev}</span></div><div class="katalog">${typer().filter(t => !iPlan(t.id)).map(testkort).join('')}${personkort()}</div>`;
+  } else h += `<div class="sekt"><span class="a-ey">Alla tester</span></div><div class="katalog">${typer().map(testkort).join('')}${personkort()}</div>`;
+  h += kvotRad();
+  return `<div class="lager in-flik">${stat()}${topprad('Testklar')}<div class="kropp">${h}</div>${flikrad()}${gest()}${toast()}</div>`;
+}
+
+/* ------------------------------------------------------------ Utveckling: interaktiv graf */
+function graf(opts) {
+  opts = opts || {};
+  const W = 372, H = 180, L = 24, R = 16, T = 14, B = 26; const yMin = 3, yMax = 8;
+  const xMin = S.period === '4v' ? 10 : (S.period === 'plan' ? 14 : 0); const xMax = plan() ? 45 : 40;
+  const X = d => L + ((d - xMin) / (xMax - xMin)) * (W - L - R), Y = v => T + (1 - (v - yMin) / (yMax - yMin)) * (H - T - B);
+  const ink = 'var(--a-ink-3)'; const grid = 'var(--a-kant)'; const kop = 'var(--kop)'; const bg = 'var(--a-papper)';
+  const p = plan(); const med = typer().filter(t => t.punkter.length);
+  const synlig = t => S.grafTyp === 'alla' || S.grafTyp === t.id;
+  const premium = S.premium;
+  let s = `<svg class="svg-bred graf" viewBox="0 0 ${W} ${H}" aria-label="Nivån över tid, en linje per testtyp. Nivåkoll som ring, övningsprov som fyrkant, träning som punkt.">`;
+  for (let v = 3; v <= 8; v++) s += `<line x1="${L}" y1="${Y(v)}" x2="${W-R}" y2="${Y(v)}" stroke="${grid}"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`;
+  if (p && !S.artikel) s += `<line x1="${X(45)}" y1="${T-2}" x2="${X(45)}" y2="${H-B+4}" stroke="${ink}" stroke-width="1.5" stroke-dasharray="3 4"/><text x="${X(45)}" y="${T-2}" text-anchor="end">provet</text>`;
+  s += `<text x="${X(xMin)}" y="${H-6}" text-anchor="start">${datum(xMin)}</text><text x="${X(38)}" y="${H-6}" text-anchor="end">i dag</text>`;
+  const rita = (t, fram) => {
+    const pl = p ? iPlan(t.id) : false; if (fram !== pl) return '';
+    const farg = p ? (pl ? kop : TON[t.ton]) : TON[t.ton];
+    const op = !synlig(t) ? .15 : (p && !pl ? .4 : 1); const sw = pl ? 2.5 : 1.75;
+    let pts = t.punkter.filter(q => q[0] >= xMin);
+    if (!premium) pts = pts.slice(-1);
+    const linje = pts.filter(q => q[2] !== 'ov');
+    let r = `<g opacity="${op}">`;
+    if (linje.length > 1) r += `<path d="${linje.map((q,i) => (i ? 'L' : 'M') + X(q[0]) + ' ' + Y(q[1])).join('')}" fill="none" stroke="${farg}" stroke-width="${sw}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    pts.forEach((q, i) => {
+      const vald = S.punkt && S.punkt.typ === t.id && S.punkt.dag === q[0];
+      const x = X(q[0]); const klick = `onclick="app.punkt('${t.id}',${q[0]})"`;
+      if (q[2] === 'ov') r += `<rect x="${x-6}" y="${H-B-12}" width="12" height="12" rx="2" fill="${farg}" stroke="${bg}" stroke-width="1.5" ${klick} style="cursor:pointer"/>`;
+      else if (q[2] === 'nk') r += `<circle cx="${x}" cy="${Y(q[1])}" r="${vald ? 8 : 6}" fill="${bg}" stroke="${farg}" stroke-width="${vald ? 3 : 2.5}" ${klick} style="cursor:pointer"/>`;
+      else r += `<circle cx="${x}" cy="${Y(q[1])}" r="${vald ? 5 : 3}" fill="${farg}" stroke="${bg}" stroke-width="1.2" ${klick} style="cursor:pointer"/>`;
+      if (vald) r += `<line x1="${x}" y1="${T}" x2="${x}" y2="${H-B}" stroke="${farg}" stroke-width="1" stroke-dasharray="2 3"/>`;
+    });
+    const sista = linje[linje.length-1];
+    if (pl && sista && synlig(t)) r += `<text x="${X(sista[0])+9}" y="${Y(sista[1])+4}" style="font-weight:700;fill:${farg}">${n(sista[1])}</text>`;
+    return r + `</g>`;
+  };
+  med.forEach(t => s += rita(t, false)); med.forEach(t => s += rita(t, true));
+  s += `</svg>`;
+  s += `<div class="graflegend"><span><i class="ring"></i>Nivåkoll</span><span><i class="prick"></i>Träning</span><span><i class="fyrkant"></i>Övningsprov</span>${p ? '<span class="plan"><i style="background:var(--kop)"></i>ingår i ' + p.lev + '</span>' : ''}</div>`;
+  return s;
+}
+function grafChips() {
+  const med = typer().filter(t => t.punkter.length);
+  const c = (v, namn, grupp) => `<button class="${(grupp === 'typ' ? S.grafTyp : S.period) === v ? 'aktiv' : ''}" onclick="app.${grupp === 'typ' ? 'grafTyp' : 'period'}('${v}')">${namn}</button>`;
+  return `<div class="appchips">${c('alla','Alla','typ')}${med.map(t => c(t.id, t.namn, 'typ')).join('')}</div><div class="appchips sekundar">${c('4v','4 veckor','period')}${plan() ? c('plan','Planen','period') : ''}${c('allt','Allt','period')}</div>`;
+}
+function punktDetalj() {
+  if (!S.punkt) return `<p class="a-meta">Tryck på en punkt för detaljer.</p>`;
+  const t = typ(S.punkt.typ); const q = t.punkter.find(x => x[0] === S.punkt.dag); if (!q) return '';
+  const slag = q[2] === 'nk' ? 'Nivåkoll' : (q[2] === 'ov' ? 'Övningsprov' : 'Träning');
+  const varde = q[2] === 'ov' ? q[1] : `nivå ${n(q[1])}`;
+  const extra = q[2] === 'nk' ? '12 uppgifter · 2 över provets tid' : (q[2] === 'tr' ? '10 uppgifter · 7 rätt · tema: ' + (t.svag ? t.svag[0].toLowerCase() : 'blandat') : 'utan förklaringar, mot klockan');
+  return `<div class="detalj">${ikon(t, 36)}<div style="flex:1;min-width:0"><b>${datum(q[0])} · ${slag}</b><span>${t.namn} · ${varde}</span><span>${extra}</span></div><button class="a-knapp ljus liten tryck" style="width:auto;padding:0 12px" onclick="app.ark('typ','${t.id}')">Öppna</button></div>`;
+}
+function resultat() {
+  const typerMed = ordnade().filter(t => t.punkter.length && (S.grafTyp === 'alla' || S.grafTyp === t.id));
+  if (!typerMed.length) return '<p class="a-p">Inga resultat än.</p>';
+  return typerMed.map(t => `<div class="hgrupp ${iPlan(t.id) ? 'plan' : ''}"><div class="htitel">${ikon(t, 28)}<b>${t.namn}</b>${iPlan(t.id) ? etikett() : ''}</div>${t.punkter.filter(q => q[2] !== 'tr' || S.grafTyp === t.id).slice(S.premium ? 0 : -1).reverse().map(q => `<button class="hrad tryck" onclick="app.punkt('${t.id}',${q[0]})"><span>${datum(q[0])}</span><span>${q[2] === 'nk' ? 'Nivåkoll' : q[2] === 'ov' ? 'Övningsprov' : 'Träning'}</span><b>${q[2] === 'ov' ? q[1] : n(q[1])}</b></button>`).join('')}</div>`).join('');
+}
+function vyUtveckling() {
+  const p = plan(); const alla = typer(); const med = alla.filter(t => t.punkter.length);
+  let h = `<div class="huvudrad"><div><h1 class="a-h1">Utveckling</h1><p class="a-meta" style="margin-top:4px">${p ? `${p.lev}${S.artikel ? '' : ' · ' + p.kvar + ' dagar kvar till provet'}` : `${med.length} av ${alla.length} testtyper mätta. Nivåerna läggs aldrig ihop.`}</p></div></div>`;
+  h += `<div class="kort" style="display:grid;gap:10px"><div class="sekt" style="margin:0"><span class="a-ey">Nivån över tid</span><span class="a-meta">träning, nivåkoll och prov</span></div>${med.length ? grafChips() + graf() + punktDetalj() : `<p class="a-p">Gör Nivåkollen i en testtyp, så får grafen sin första linje.</p>`}${S.premium || !med.length ? '' : `<button class="chip las" style="height:32px;padding:0 12px;justify-self:center">${sv('i-las')} Hela historiken ingår i Premium</button>`}</div>`;
+  h += `<div class="kort" style="display:grid;gap:12px"><div class="sekt" style="margin:0"><span class="a-ey">Nivå per testtyp</span><span class="a-meta">tryck för att välja i grafen</span></div>${ordnade().map(t => nivarad(t, { vald: S.grafTyp === t.id, onclick: `app.grafTyp('${S.grafTyp === t.id ? 'alla' : t.id}')` })).join('')}</div>`;
+  h += `<div class="kort" style="display:grid;gap:12px"><div class="sekt" style="margin:0"><span class="a-ey">Resultat</span><span class="a-meta">${S.grafTyp === 'alla' ? 'nivåkoller och prov, alla typer' : 'allt i vald typ'}</span></div>${resultat()}</div>`;
+  if (S.lage === 'b' && !S.artikel) h += `<div class="kort" style="display:grid;gap:10px"><div class="sekt" style="margin:0"><span class="a-ey">Mönstren i figurer och mönster</span><span class="a-meta">6 säkra · 3 mötta · 2 inte mötta</span></div><div class="monster">${FAMILJER.map(monsterRuta).join('')}</div>${legend()}<p class="a-meta">Säker: minst sex svar nära din nivå på fjorton dagar, minst fem rätt. Snabb: säker och högst ett över provets tid. Under sex svar står antalet, aldrig ett omdöme. Tryck på ett mönster för att träna på det.</p></div>`;
+  h += kvotRad();
+  return `<div class="lager in-flik">${stat()}${topprad('Testklar')}<div class="kropp">${h}</div>${flikrad()}${gest()}${toast()}</div>`;
+}
+function monsterRuta(f) {
+  const [namn, st, a, b] = f; let inre = '';
+  if (st === 'omott') inre = `<rect x="4" y="4" width="32" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" opacity=".6"/>`;
+  else if (st === 'mott') { const h = 32 * (a / b); inre = `<rect x="4" y="4" width="32" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".7"/><rect x="4" y="${36 - h}" width="32" height="${h}" fill="currentColor" opacity=".25"/>`; }
+  else if (st === 'saker') inre = `<rect x="4" y="4" width="32" height="32" rx="8" fill="var(--kop)"/><path d="M13 20.5l5 5 9-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  else inre = `<rect x="1.5" y="1.5" width="37" height="37" rx="11" fill="none" stroke="var(--kop)" stroke-width="2"/><rect x="6" y="6" width="28" height="28" rx="7" fill="var(--kop)"/><path d="M14 20.5l4.5 4.5 8-9" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const under = st === 'mott' ? `${a} av ${b} svar` : (st === 'omott' ? 'inte mött' : (st === 'saker' ? 'säker' : 'snabb'));
+  return `<div><svg viewBox="0 0 40 40" aria-hidden="true">${inre}</svg><span>${namn}<small>${under}</small></span></div>`;
+}
+const legend = () => `<div class="legend"><span><i></i>inte mött</span><span><i class="m"></i>mött, antal svar</span><span><i class="s"></i>säker</span><span><i class="n"></i>snabb</span></div>`;
+
+/* ------------------------------------------------------------ arken */
+function arkPlanInnehall() {
+  const p = plan();
+  const lev = ['Alva Logic','Matrigma','SHL Verify','I-provet','Aon','Annat'];
+  const under = { 'Alva Logic':'Figurmatriser', 'Matrigma':'Figurmatriser', 'SHL Verify':'Siffror, deduktivt, figurserier, text', 'I-provet':'Ordförråd, spatial, talserier', 'Aon':'Figurserier, siffror, deduktivt, text', 'Annat':'Vi börjar med det som oftast ingår' };
+  const vald = p ? p.lev : null;
+  const paminn = S.plattform === 'app' ? 'Målet är ditt. Vi påminner i appen, vi räknar inte missar.' : 'Målet är ditt. Vi räknar inte missar.';
+  return `<div><div class="a-ey kop">Plan inför provet</div><h2 class="a-h2" style="margin-top:4px">Vilket test ska du göra?</h2><p class="a-p" style="margin-top:4px">Vi föreslår vad du övar och när det är läge för nivåkoll och övningsprov. Du bestämmer. Allt är öppet hela tiden.</p></div>
+    <div class="val">${lev.map(l => `<button class="tryck ${l === vald ? 'vald' : ''}"><b>${l}</b><span>${under[l]}</span></button>`).join('')}</div>
+    <div><div class="a-ey">När är provet? <span style="font-weight:500;text-transform:none;letter-spacing:0">valfritt</span></div><div class="val" style="margin-top:8px"><button class="tryck ${p && !S.artikel ? 'vald' : ''}"><b>${p && !S.artikel ? p.prov : 'Välj datum'}</b><span>Ger nedräkning och bana</span></button><button class="tryck ${!p || S.artikel ? 'vald' : ''}"><b>Har inget datum än</b><span>Banan är öppen, tills det sitter</span></button></div></div>
+    <div><div class="a-ey">Vill du ha ett dagsmål? <span style="font-weight:500;text-transform:none;letter-spacing:0">valfritt</span></div><div class="val" style="margin-top:8px"><button class="tryck"><b>Ett test om dagen</b><span>Cirka tio minuter</span></button><button class="tryck ${p ? 'vald' : ''}"><b>Två om dagen</b><span>Träning och nivåkoll eller prov</span></button><button class="tryck bred ${p ? '' : 'vald'}"><b>Inget dagsmål</b><span>${paminn}</span></button></div></div>
+    <button class="a-knapp morkt tryck" onclick="app.skapa()">${p ? 'Spara planen' : 'Skapa planen'}</button>
+    ${p ? `<div class="harlinje"></div><button class="a-knapp ljus liten tryck" style="height:44px" onclick="app.ark('avsluta')">Avsluta planen</button>` : ''}`;
+}
+function arkAvslutaInnehall() {
+  return `<div><h2 class="a-h2">Avsluta planen?</h2><p class="a-p" style="margin-top:6px">Allt du gjort sparas: grafen, nivåerna och resultaten ligger kvar i Utveckling. Du tränar vidare fritt och kan lägga en ny plan när som helst.</p></div>
+    <button class="a-knapp morkt tryck" onclick="app.avsluta()">Avsluta planen</button>
+    <button class="a-knapp ljus tryck" onclick="app.ark('plan')">Behåll planen</button>`;
+}
+function arkTypInnehall() {
+  const t = typ(S.arkTyp) || typer()[0]; const p = plan(); const pl = iPlan(t.id); const om = omatt(t);
+  const nk = t.punkter.filter(q => q[2] === 'nk'); const ov = t.punkter.filter(q => q[2] === 'ov');
+  const senasteNk = nk.length ? nk[nk.length-1] : null; const senasteOv = ov.length ? ov[ov.length-1] : null;
+  const chev = sv('i-chev','color:var(--a-ink-3)');
+  const rad = (titel, meta, hoger) => `<button class="rad tryck"><span class="t"><b>${titel}</b><span>${meta}</span></span>${hoger}</button>`;
+  let h = `<div style="display:flex;gap:14px;align-items:center">${ikon(t, 56)}<div><h2 class="a-h2">${t.namn}</h2><p class="a-meta">${pl ? `Ingår i ${p.lev}. ${p.format}` : t.kallas}</p></div></div>`;
+  h += `<div style="margin-top:4px">${nivaband(t, 'mellan', { aktiv:true })}</div>`;
+  const tranaKnapp = om ? 'Gör Nivåkollen först' : (!S.premium ? sv('i-las') + 'Träna, ingår i Premium' : 'Träna');
+  h += `<div class="valkort trana"><div class="valtopp"><span class="valikon"><svg viewBox="0 0 24 24"><path d="M4 14c3-1 4.5-6 7.5-7s4 4 8.5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="20" cy="9" r="2.4" fill="currentColor"/></svg></span><div><div class="a-ey kop">Träna</div><b>Träning som följer din nivå</b></div></div><p class="a-p">Svårare när du klarar dig, lättare när du tappar, så det är alltid lagom svårt. Förklaring efter varje svar och mer av det du tappar${t.svag ? ', just nu ' + t.svag[0].toLowerCase() : ''}. Räknas i din utveckling.</p><button class="a-knapp ${S.premium ? 'kop' : 'morkt'} tryck" style="height:48px;color:#fff">${tranaKnapp}</button></div>`;
+  h += `<div class="eller">eller</div>`;
+  h += `<div class="valkort testa"><div class="valtopp"><span class="valikon"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/><path d="M13.5 17l1.8 1.8 3.2-3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><div class="a-ey ton">Testa dig på en nivå</div><b>En fast svårighet, som ett prov</b></div></div><p class="a-p">Du får resultat i procent. Flyttar inte din nivå.</p><div class="rader">`;
+  h += rad('Grundnivå', t.nivaer[0] + '. 15 uppgifter.', gratisKvar() == null ? chev : chipKvot());
+  h += rad('Avancerad nivå', t.nivaer[1] + '. 15 uppgifter.', S.premium ? chev : chipLas());
+  h += rad('Expertnivå', t.nivaer[2] + '. 15 uppgifter.', S.premium ? chev : chipLas());
+  h += `</div></div><div class="sekt"><span class="a-ey">Mät dig</span></div><div class="rader">`;
+  h += rad('Nivåkollen, mät din nivå', 'Tolv uppgifter, cirka åtta minuter. Högst en om dagen räknas.', senasteNk ? (S.premium ? `<span class="chip gjord">${sv('i-check')}${datum(senasteNk[0])} · ${n(senasteNk[1])}</span>` : `<span class="chip las">${sv('i-las')}Igen med Premium</span>`) : (S.premium ? chev : '<span class="chip fri">Gratis en gång</span>'));
+  if (pl && p) h += rad(p.ovn, p.ovnMeta + '. Utan förklaringar.', S.premium ? (senasteOv ? `<span class="chip gjord">${sv('i-check')}${datum(senasteOv[0])}</span>` : chev) : chipLas());
+  else if (t.id === 'matris') h += rad('Övningsprov mot klockan', 'Välj format: Alva Logic eller Matrigma. Utan förklaringar.', S.premium ? chev : chipLas());
+  h += `</div>`;
+  if (senasteNk || senasteOv) h += `<div><div class="a-ey">Senaste resultat</div><div class="hgrupp" style="margin-top:6px">${nk.slice(-3).map(r => `<div class="hrad"><span>${datum(r[0])}</span><span>Nivåkoll</span><b>${n(r[1])}</b></div>`).concat(ov.slice(-2).map(r => `<div class="hrad"><span>${datum(r[0])}</span><span>Övningsprov</span><b>${r[1]}</b></div>`)).join('')}</div><button class="a-lank" style="margin-top:6px" onclick="app.flik('utveckling');app.grafTyp('${t.id}')">Hela historiken i Utveckling</button></div>`;
+  return h;
+}
+const ark = (inner, label) => `<div class="ark-lager" onclick="if(event.target===this)app.ark(null)"><div class="ark" role="dialog" aria-label="${label}"><div class="handtag"></div>${inner}</div></div>`;
+function artikelInnehall() {
+  return `<div style="font-size:13px;color:#65656E">jobbcoach.ai · Rekryteringstester</div><div class="ey">Alva Labs</div><h2>Alva Logic: så funkar testet och så övar du</h2><p>Alva Logic är ett matristest med 20 uppgifter och två minuter per uppgift. Varje uppgift är en figurmatris med en lucka, och du väljer den figur som fullföljer mönstret. Testet är adaptivt och mäter hur säkert och snabbt du läser regler i figurer.</p><p>Den effekt som är belagd är övning i samma format: vana vid tempot, matrisens uppställning och mönsterfamiljerna. Det är det vår träning gör.</p><div class="box"><b>Träna inför Alva Logic</b><span>Nivåkollen är gratis. Du landar i en Plan inför provet med figurer och mönster märkt "Ingår i Alva Logic" och alla andra tester öppna.</span><button class="tryck" onclick="app.franArtikel()">Träna inför Alva Logic</button><span>Du kan lägga till provdatum senare, om du vill.</span></div>`;
+}
+const vyArtikel = () => `<div class="lager in-flik"><div class="stat" style="color:#1A1A1F"><span>9:41</span><span class="sig"><i></i><i></i><i></i></span></div><div class="artikel">${artikelInnehall()}</div><div class="gest" style="color:#1A1A1F"></div></div>`;
+
+/* ------------------------------------------------------------ webben */
+function webb() {
+  const p = plan(); const alla = typer(); const med = alla.filter(t => t.punkter.length); const H = hintar();
+  const flikar = `<div class="wflikar">${[['hem','Hem'],['tester','Tester'],['utveckling','Din utveckling']].map(f => `<button class="${S.flik === f[0] ? 'aktiv' : ''}" onclick="app.flik('${f[0]}')">${f[1]}</button>`).join('')}</div>`;
+  let vagg, golv;
+  const wkvot = S.premium ? '' : `<div class="wlaast"><b>${gratisKvar() ? 'Ett grundnivåtest om dagen, gratis' : 'Det här var grundnivån'}</b><p>${gratisKvar() ? 'Valfri testtyp, och Nivåkollen en gång per testtyp. Genomgången av svaren är alltid öppen. ' : ''}Proven ligger på avancerad nivå. Öva där, så ofta du vill, med Premium, ${PRIS.rad}. Träna, avancerad och expert, Nivåkollen när du vill, övningsprov och hela historiken ingår så länge du har ${PRIS.namn}.</p><div class="knapprad"><button class="knapp-primar">Öppna allt</button></div></div>`;
+  const whint = (h, liten) => liten ? `<div class="wrad" role="button" tabindex="0" onclick="app.ark('typ','${h.typ}')"><span class="t"><b>${h.rubrik}</b><span>${h.skal}</span></span><span class="v">${h.knapp}</span></div>` : `<div class="lyftkort"><div class="ey">${h.ey}</div><h2>${h.rubrik}</h2><p>${h.skal}</p><div class="knapprad"><button class="knapp-primar" onclick="app.ark('typ','${h.typ}')">${h.knapp}</button><span style="font-size:13px;color:var(--ink-3)">Tips: ${h.tips}</span></div></div>`;
+  const wtest = (t) => { const pl = iPlan(t.id); const om = omatt(t); return `<div class="wrad ${pl ? 'plan' : ''}" onclick="app.ark('typ','${t.id}')" role="button" tabindex="0">${ikon(t, 40)}<span class="t"><b>${t.namn} ${pl ? '<span class="wchip kop">Ingår i ' + p.lev + '</span>' : ''}</b><span>${om ? 'Nivåkoll, 8 min' : t.svar ? 'Nivåkoll påbörjad' : 'Nivåkoll ' + datum(t.punkter.filter(q => q[2] === 'nk').slice(-1)[0][0]) + ' · ' + t.tran + ' träningar'}</span><span style="display:block;max-width:300px">${nivaband(t, 'liten')}</span></span></div>`; };
+  const wovn = p ? `<div class="wrad plan"><span class="t"><b>${p.ovn} <span class="wchip kop">Ingår i ${p.lev}</span></b><span>${p.ovnMeta}. ${S.artikel ? 'Gör det när du vill.' : 'Senast 12 nov: 13 av 20. Vi föreslår ett ' + p.ovnDag + '.'}</span></span>${S.premium ? '<span class="v">Gör ett nu</span>' : '<span class="wchip las">Premium</span>'}</div>` : '';
+  if (S.flik === 'hem') {
+    vagg = p ? `<div class="ey">Plan inför provet</div><h1>${p.lev}</h1><p class="status">${S.artikel ? '<span class="glas" role="button" tabindex="0" onclick="app.ark(\'plan\')">Lägg till provdatum</span>' : `<b>${p.kvar} dagar kvar</b> till provet ${p.prov} · dagsmål två <span class="glas" style="margin-left:12px" onclick="app.ark('plan')" role="button" tabindex="0">Ändra</span>`}</p><div class="instrument">${bana({vagg:true})}</div>` : `<div class="ey">ons 19 nov</div><h1>Hem</h1><p class="status">Var du står och vad som är rimligt härnäst. <b>${med.length} av ${alla.length}</b> testtyper mätta.</p>`;
+    const mina = (p ? alla.filter(t => iPlan(t.id)) : alla.filter(t => !omatt(t)));
+    golv = whint(H[0]) + flikar + `<div class="tvaspalt"><div style="display:grid;gap:16px;align-content:start">${H.length > 1 ? `<div class="wkort"><div class="ey">Fler steg <span style="text-transform:none;letter-spacing:0;font-weight:400">ur dina resultat</span></div>${H.slice(1,4).map(x => whint(x, true)).join('')}</div>` : ''}${!p ? (S.planIhop ? `<div class="wkort"><div class="wrad" style="border-top:0"><span class="t"><b>Plan inför provet</b><span>Vet du vilket test? Välj, så framhäver vi det.</span></span><button class="lank" onclick="app.ark('plan')">Välj</button></div></div>` : `<div class="wkort"><div class="ey">Plan inför provet</div><b style="font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:19px;letter-spacing:-.02em">Vet du vilket test du ska göra?</b><p style="color:var(--ink-2)">Välj, så framhäver vi det och föreslår vad du övar fram till provdagen.</p><div class="knapprad" style="display:flex;gap:12px;flex-wrap:wrap"><button class="knapp-primar" style="background:var(--ink-1);color:#fff" onclick="app.ark('plan')">Ja, jag vet</button><button class="lank" onclick="app.ihop()">Inte än, träna brett</button></div></div>`) : ''}</div><div style="display:grid;gap:16px;align-content:start">${mina.length ? `<div class="wkort"><div class="ey">Så ligger du till <button onclick="app.flik('utveckling')">Utveckling</button></div><div class="nivalista">${mina.map(t => nivarad(t)).join('')}</div></div>` : ''}${wkvot}</div></div>`;
+  } else if (S.flik === 'tester') {
+    vagg = `<div class="ey">Tester</div><h1>Alla tester</h1><p class="status">${p ? `Plan inför provet: <b>${p.lev}</b>${S.artikel ? '' : ' · ' + p.prov} <span class="glas" style="margin-left:12px" role="button" tabindex="0" onclick="app.ark('plan')">Ändra</span>` : 'Alla öppna. <b>Vet du vilket test?</b> Välj, så framhäver vi det.'}</p>`;
+    const kortTyp = (t) => { const pl = iPlan(t.id); const om = omatt(t); const vald = S.ark === 'typ' && S.arkTyp === t.id; const status = om ? 'Nivåkoll, 8 min' : (t.svar ? 'Nivåkoll påbörjad, ' + t.svar + ' av 12 svar' : 'Nivåkoll ' + datum(t.punkter.filter(q => q[2] === 'nk').slice(-1)[0][0]) + ' · ' + t.tran + ' träningar'); const knapp = om ? 'Mät din nivå' : (S.premium ? 'Träna' : 'Grundnivå · ' + (gratisKvar() ? '1 kvar i dag' : 'i morgon')); return `<button class="wtyp ${pl ? 'plan' : ''} ${vald ? 'vald' : ''}" onclick="app.ark('typ','${t.id}')"><span class="topp">${ikon(t, 44)}<span class="namn"><b>${t.namn}</b>${pl ? '<span class="wchip kop">Ingår i ' + p.lev + '</span>' : ''}</span></span>${nivaband(t, 'liten')}<span class="status">${status}</span><span class="knapp-primar liten">${knapp}</span>${!om && S.premium ? '<span class="status">Följer din nivå, förklaring efter varje svar.</span>' : ''}</button>`; };
+    const ovnKort = p ? `<button class="wtyp plan" onclick="app.ark('typ','${p.typer[0]}')"><span class="topp"><span class="sym klocka"><svg viewBox="0 0 24 24" style="width:24px;height:24px"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12.5" r="7.5"/><path d="M12 8.5v4.5l3 2M9 3h6"/></g></svg></span><span class="namn"><b>${p.ovn}</b><span class="wchip kop">Ingår i ${p.lev}</span></span></span><span class="status">${p.ovnMeta}. ${S.artikel ? 'Gör det när du vill.' : 'Senast 12 nov: 13 av 20. Vi föreslår ett ' + p.ovnDag + '.'}</span><span class="knapp-primar liten ${S.premium ? '' : 'las'}">${S.premium ? 'Gör ett övningsprov' : 'Ingår i Premium'}</span></button>` : '';
+    const personKort = `<button class="wtyp"><span class="topp"><span class="sym" style="width:44px;height:44px;border-radius:13px;background:var(--rosa);color:var(--rosa-ink);display:grid;place-items:center;flex:0 0 auto"><svg viewBox="0 0 48 48" style="width:30px;height:30px">${SVG.personlighet}</svg></span><span class="namn"><b>Personlighet</b></span></span><span class="status">Påståenden om dig. Inga rätta svar, ingen nivå.</span><span class="knapp-primar liten">Gör profilen</span></button>`;
+    const delar = p ? p.typer.length : 0;
+    const vanster = p ? `<div class="grupp-prov"><div class="wsekt">Ingår i ${p.lev} · ${delar} ${delar === 1 ? 'del' : 'delar'}</div><div class="wgrid">${typer().filter(t => iPlan(t.id)).map(kortTyp).join('')}${ovnKort}</div></div><div class="wsekt">Används i andra rekryteringstest, inte i ${p.lev}</div><div class="wgrid">${typer().filter(t => !iPlan(t.id)).map(kortTyp).join('')}${personKort}</div>` : `<div class="wsekt">Alla testtyper</div><div class="wgrid">${typer().map(kortTyp).join('')}${personKort}</div>`;
+    golv = whint(H[0]) + flikar + `<div class="wmd ${S.ark === 'typ' ? 'oppen' : ''}"><div>${vanster}</div>${S.ark === 'typ' ? `<aside class="wpanel"><button class="wstang" onclick="app.ark(null)" aria-label="Stäng">${sv('i-x')}</button>${arkTypInnehall()}</aside>` : ''}</div>${wkvot}`;
+  } else {
+    vagg = `<div class="ey">Din utveckling</div><h1>${p ? p.lev : 'Alla testtyper'}</h1><p class="status">${p ? `<b>${p.kvar} dagar kvar</b> till provet.` : `<b>${med.length} av ${alla.length}</b> testtyper mätta.`} Träning, nivåkoll och prov i samma graf. Nivåerna läggs aldrig ihop.</p>`;
+    golv = `<div class="lyftkort"><div class="ey">Nivån över tid</div>${med.length ? grafChips() + `<div style="max-width:760px">${graf()}</div>` + punktDetalj() : '<p>Gör Nivåkollen i en testtyp, så får grafen sin första linje.</p>'}${S.premium || !med.length ? '' : `<span class="wchip las">Hela historiken ingår i Premium</span>`}</div>${flikar}<div class="tvaspalt"><div class="wkort"><div class="ey">Nivå per testtyp <span style="text-transform:none;letter-spacing:0;font-weight:400">tryck för att välja i grafen</span></div><div class="nivalista">${ordnade().map(t => nivarad(t, { vald: S.grafTyp === t.id, onclick: `app.grafTyp('${S.grafTyp === t.id ? 'alla' : t.id}')` })).join('')}</div></div><div style="display:grid;gap:16px;align-content:start"><div class="wkort"><div class="ey">Resultat</div>${resultat()}</div>${S.lage === 'b' && !S.artikel ? `<div class="wkort"><div class="ey">Mönstren i figurer och mönster</div><div class="monster">${FAMILJER.map(monsterRuta).join('')}</div>${legend()}</div>` : ''}${wkvot}</div></div>`;
+  }
+  const dialog = S.ark === 'plan' ? arkPlanInnehall() : S.ark === 'avsluta' ? arkAvslutaInnehall() : S.ark === 'typ' ? arkTypInnehall() : '';
+  return `<div class="ram"><aside class="sidomeny"><div class="brand">jobbcoach.ai</div><div class="dorr aktiv">Rekryteringstester</div><div class="dorr">CV</div><div class="dorr">Personliga brev</div><div class="dorr">Jobbsöket</div><div class="grupp">Rekryteringstester</div><div class="under ${S.flik === 'hem' ? 'aktiv' : ''}">Hem</div><div class="under ${S.flik === 'tester' ? 'aktiv' : ''}">Tester</div><div class="under ${S.flik === 'utveckling' ? 'aktiv' : ''}">Din utveckling</div><div class="konto">Christian<span>${S.premium ? 'Hela paketet' : 'Gratis'}</span></div></aside><main><div class="vagg"><div class="topp"><b>Rekryteringstester</b><span class="av">C</span></div>${vagg}</div><div class="golv">${golv}</div></main></div>${dialog && !(S.ark === 'typ' && S.flik === 'tester') ? `<div class="wover" onclick="if(event.target===this)app.ark(null)"><div class="wpanel ${S.ark === 'typ' ? 'sida' : 'mitt'}"><button class="wstang" onclick="app.ark(null)" aria-label="Stäng">${sv('i-x')}</button>${dialog}</div></div>` : ''}`;
+}
+
+/* ------------------------------------------------------------ noter */
+function noter() {
+  const lage = { a:'Inget valt test. Hem visar Nästa steg räknat ur datan (här: svagaste mönstret i figurer och mönster), fler steg som rader, Så ligger du till med nivåbandet för mätta typer, Fortsätt där du slutade och plankortet.', b:'Plan inför provet för Alva Logic. Huvudet med nedräkning och banan överst, sedan Nästa steg ur provets delar: svagaste mönstret, sju dagar sedan nivåkollen och övningsprovet när provet är nära. Figurer och mönster bär etiketten Ingår i Alva Logic.', c:'Plan inför provet för I-provet. Nästa steg: Nivåkoll saknas i spatial förmåga, ordförrådets nivåkoll är påbörjad (8 av 12), talserier har ett svagt mönster. Tre delar märkta Ingår i I-provet.' }[S.lage];
+  return `<div class="not"><h4>Det här läget</h4><p>${S.artikel ? 'Landning från Alva-artikeln, ny användare utan data. Nästa steg är det första steget: Nivåkollen i figurer och mönster, med tips. Kortet går att stänga. Alla tester öppna i Tester.' : lage}</p></div>
+  <div class="not"><h4>Hintarna</h4><p>Räknas ur datan i prioritetsordning: Nivåkoll saknas i provets delar, svagaste mönstret (minst sex svar under 60 procent), tempo (över 30 procent över provets tid), sju dagar sedan nivåkollen, provet nära. Varje hint har ett skäl ur datan, en knapp som öppnar testtypens meny, och ett tips. Pekar inget åt något håll föreslås en ny testtyp. Samma kort ligger överst i Tester.</p></div>
+  <div class="not"><h4>Gratis</h4><p>${S.premium ? 'Premium: Träna, avancerad och expert, Nivåkollen när du vill, övningsprov, historik och kurva, så länge du har Premium.' : 'Gratis (ägarens beslut omgång 7): ett grundnivåtest om dagen, valfri testtyp; Nivåkollen en gång per testtyp; genomgången av svaren alltid öppen. Träna, avancerad, expert, Nivåkollen igen, övningsprov och historik bär lås. Grundnivån visar "1 kvar i dag" eller "I morgon", Nivåkollen "Gratis en gång".'} Pris och namn läses ur paketMedPris och kampanjen.</p></div>
+  <div class="not"><h4>Nivåbandet</h4><p>Samma komponent i lista (liten), meny (mellan) och Hem och Utveckling. Skala 1 till 10 i tre zoner (Grund, Avancerad, Expert), fyllning till nivån, knopp med talet, ljusare band ±0,6 för mätningens osäkerhet. Omätt: streckat med "Nivåkoll, 8 min". Påbörjad: "8 av 12 svar". Koppar för provets delar, grått för övriga när en plan finns. Ingen nivå som löptext.</p></div>
+  <div class="not"><h4>Din utveckling</h4><p>Chips för testtyp (Alla eller en) och period (4 veckor, Planen, Allt). Nivåkoll som ring, träning som punkt, övningsprov som fyrkant på tidsaxeln. Tryck på en punkt visar detaljer under grafen med knappen Öppna. Raderna i Nivå per testtyp väljer typ i grafen; Resultat följer valet och visar träningarna när en typ är vald.</p></div>`;
+}
+
+/* ------------------------------------------------------------ styrning */
+const app = {
+  rita() {
+    const tel = document.getElementById('tel'), webbEl = document.getElementById('webb'), telkol = document.getElementById('telkol'), scen = document.getElementById('scen');
+    if (S.plattform === 'app') {
+      telkol.classList.remove('dold'); webbEl.classList.add('dold'); scen.classList.add('app');
+      let html = S.ark === 'artikel' ? vyArtikel() : ({ hem: vyHem, tester: vyTester, utveckling: vyUtveckling }[S.flik])();
+      if (S.ark === 'plan') html += ark(arkPlanInnehall(), 'Plan inför provet');
+      if (S.ark === 'avsluta') html += ark(arkAvslutaInnehall(), 'Avsluta planen');
+      if (S.ark === 'typ') html += ark(arkTypInnehall(), 'Testtyp');
+      tel.innerHTML = html;
+    } else {
+      telkol.classList.add('dold'); webbEl.classList.remove('dold'); scen.classList.remove('app');
+      webbEl.innerHTML = S.ark === 'artikel' ? `<div class="artikel" style="max-width:720px;margin:0 auto;padding:40px 24px">${artikelInnehall()}</div>` : webb();
+    }
+    document.getElementById('noter').innerHTML = noter();
+    document.querySelectorAll('#c-lage button').forEach(b => b.classList.toggle('aktiv', b.dataset.v === S.lage && !S.artikel));
+    document.querySelectorAll('#c-niva button').forEach(b => b.classList.toggle('aktiv', (b.dataset.v === 'premium') === S.premium));
+    document.querySelectorAll('#c-plattform button').forEach(b => b.classList.toggle('aktiv', b.dataset.v === S.plattform));
+    document.querySelectorAll('#c-extra button').forEach(b => b.classList.toggle('aktiv', b.dataset.v === S.ark || (b.dataset.v === 'artikel' && S.artikel)));
+  },
+  visa(t) { S.toast = t; app.rita(); clearTimeout(app._t); app._t = setTimeout(() => { S.toast = null; app.rita(); }, 2200); },
+  flik(f) { S.flik = f; S.ark = null; app.rita(); },
+  ark(a, typ) { S.ark = a; if (typ) S.arkTyp = typ; app.rita(); },
+  lage(l) { S.lage = l; S.artikel = false; S.ark = null; S.planIhop = false; S.grafTyp = 'alla'; S.punkt = null; app.rita(); },
+  ihop() { S.planIhop = true; app.rita(); },
+  hintBort() { S.hintBort = true; app.rita(); },
+  grafTyp(v) { S.grafTyp = v; S.punkt = null; app.rita(); },
+  period(v) { S.period = v; app.rita(); },
+  punkt(typ, dag) { S.punkt = { typ, dag }; app.rita(); },
+  skapa() { if (!plan()) S.lage = 'b'; S.ark = null; S.flik = 'hem'; app.visa(plan() ? 'Planen sparad' : 'Planen skapad'); },
+  avsluta() { S.lage = 'a'; S.artikel = false; S.ark = null; S.flik = 'hem'; S.planIhop = true; app.visa('Planen avslutad. Allt du gjort sparas.'); },
+  franArtikel() { S.lage = 'b'; S.artikel = true; S.ark = null; S.flik = 'hem'; S.premium = false; S.kvotAnvand = false; S.hintBort = false; app.rita(); },
+};
+document.getElementById('c-lage').addEventListener('click', e => { const b = e.target.closest('button'); if (b) app.lage(b.dataset.v); });
+document.getElementById('c-niva').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { S.premium = b.dataset.v === 'premium'; S.kvotAnvand = true; app.rita(); } });
+document.getElementById('c-plattform').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { S.plattform = b.dataset.v; app.rita(); } });
+document.getElementById('c-extra').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.v === 'artikel') { S.artikel = false; S.ark = S.ark === 'artikel' ? null : 'artikel'; S.flik = 'hem'; } else if (b.dataset.v === 'typ') { S.ark = S.ark === 'typ' ? null : 'typ'; S.arkTyp = plan() ? plan().typer[0] : 'matris'; } else { S.ark = S.ark === 'plan' ? null : 'plan'; } app.rita(); });
+app.rita();
+</script>

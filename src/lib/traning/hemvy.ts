@@ -316,7 +316,7 @@ export function kurvansLabel(k: Omit<KurvaData, 'ariaLabel'>, passKvar: boolean)
   if (pk.length) {
     delar.push(`Nivå per dag från starten ${datumText(k.start)}: ${pk.map((p) => nivaKort(p.niva)).join(', ')}.`);
   }
-  delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', passet kvar' : ''}.`);
+  delar.push(`I dag ${datumText(k.idag)}${passKvar ? ', träningen kvar' : ''}.`);
   if (k.sikte != null && k.prov) delar.push(`Mål ${nivaKort(k.sikte)}.`);
   const om = k.plan.filter((p) => p.typ === 'ommatning' && p.dag > k.idag).map((p) => datumText(p.dag));
   if (om.length) delar.push(`${om.length === 1 ? 'Ny nivåkoll' : 'Nya nivåkoller'} ${om.join(' och ')}.`);
@@ -514,7 +514,7 @@ export function dagensRotation(s: Pick<Traningsstatus, 'plan' | 'idag'>): string
 }
 
 export const MITT_TEST_HEM = {
-  iDag: 'Dagens pass i din plan.',
+  iDag: 'Dagens träning i din plan.',
 } as const;
 
 /**
@@ -835,10 +835,10 @@ export function byggHemvy(inp: HemIn): HemModell {
       nyPunkt: false,
       vagg: {
         rubrik: prov && dagarKvar != null && dagarKvar >= 0 ? rubrikForeProv(ri, dagarKvar) : HEM.rubrikUtanDatum,
-        rad: 'Passen går i tur och ordning mellan deltesterna i I-provet. Ett kort pass varje dag.',
+        rad: 'Träningen går i tur och ordning mellan deltesterna i I-provet, en omgång varje dag.',
       },
       lyft: {
-        label: 'Dagens pass',
+        label: 'Träna',
         eyebrow: HEM.pass.eyebrow,
         eyebrowTon: 'koppar',
         titel,
@@ -960,7 +960,10 @@ export function byggHemvy(inp: HemIn): HemModell {
 
   const idagPlan = s.plandagar.find((p) => p.dag === s.idag) ?? null;
   const dagTyp = idagPlan?.typ ?? (arSondag(s.idag) ? 'vila' : 'pass');
-  const gratisForsta = !betalande && s.start.dag === s.idag;
+  // Tester v4: ett grundnivåtest om dagen över alla typer. Är dagens gjort
+  // (s.grundKvarIdag 0) lovar kortet inget gratispass; trycket hade gett 429.
+  const kvotSlut = !betalande && s.grundKvarIdag === 0;
+  const gratisForsta = !betalande && s.start.dag === s.idag && !kvotSlut;
   const passLast = !betalande && !GRATISNIVA.grundpassVarjeDag && s.start.dag < s.idag;
   const tema = namnFamilj(s.dagensTema) ?? HEM.pass.temaSaknas;
   const svagaste = namnFamilj(s.varDuTappar.svagaste[0]?.family) ?? null;
@@ -973,7 +976,7 @@ export function byggHemvy(inp: HemIn): HemModell {
     const kurva = kurvaFor(s);
     const inforPlanbild = kurva ? undefined : planbildFor(s, aktuelltProv);
     const akt = s.aktivitet;
-    const passText = antalOrd(akt.pass, 'ett', 'pass', 'pass');
+    const passText = antalOrd(akt.pass, 'en', 'omgång', 'omgångar');
     const sektioner: Sektion[] = [];
     const svag = s.varDuTappar.svagaste[0];
     if (svag) {
@@ -1069,7 +1072,7 @@ export function byggHemvy(inp: HemIn): HemModell {
   } else if (passLast) {
     // 17.2: grundpasset bara dag 0. Passet visas med tema och nivå, knappen köper.
     lyft = {
-      label: 'Dagens pass',
+      label: 'Träna',
       eyebrow: HEM.pass.eyebrow,
       eyebrowTon: 'koppar',
       titel: tema,
@@ -1077,9 +1080,19 @@ export function byggHemvy(inp: HemIn): HemModell {
       handling: kop(s, 'tests_above_base', 'dag2'),
       fot: HEM.pass.lastFot,
     };
+  } else if (kvotSlut && s.start.dag === s.idag) {
+    lyft = {
+      label: 'Träna',
+      eyebrow: HEM.pass.eyebrowGrund,
+      eyebrowTon: 'koppar',
+      titel: tema,
+      text: HEM.pass.kvotText(),
+      handling: kop(s, 'tests_above_base', 'kvot'),
+      fot: HEM.pass.lastFot,
+    };
   } else if (gratisForsta) {
     lyft = {
-      label: 'Dagens pass',
+      label: 'Träna',
       eyebrow: HEM.pass.eyebrowGrund,
       eyebrowTon: 'koppar',
       titel: tema,
@@ -1088,7 +1101,7 @@ export function byggHemvy(inp: HemIn): HemModell {
     };
   } else {
     lyft = {
-      label: 'Dagens pass',
+      label: 'Träna',
       eyebrow: HEM.pass.eyebrow,
       eyebrowTon: 'koppar',
       titel: tema,
@@ -1266,7 +1279,7 @@ function provdagModell(s: Traningsstatus, inp: HemIn, ri: RubrikIn, niva: number
     // Nivåmätningarna stryks ur meningen (copy-plan 3.9).
     akt.pass + akt.generalrepetitioner > 0
       ? `Du har gjort ${[
-          akt.pass ? antalOrd(akt.pass, 'ett', 'pass', 'pass') : null,
+          akt.pass ? antalOrd(akt.pass, 'en', 'omgång', 'omgångar') : null,
           akt.generalrepetitioner ? antalOrd(akt.generalrepetitioner, 'ett', 'övningsprov', 'övningsprov') : null,
         ]
           .filter(Boolean)
@@ -1333,7 +1346,7 @@ function planbildLabel(plan: readonly PlanDag[], idag: Dag, prov: Dag, matt = fa
   const om = plan.filter((p) => p.typ === 'ommatning').map((p) => datumText(p.dag));
   const gen = plan.filter((p) => p.typ === 'general').map((p) => datumText(p.dag));
   return [
-    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: ${matt ? 'Nivåkollen gjord' : 'Nivåkollen i dag'}, pass varje dag med vilodag söndag`,
+    `Planen från ${datumText(idag)} till provet ${datumText(prov)}: ${matt ? 'Nivåkollen gjord' : 'Nivåkollen i dag'}, träning varje dag med vilodag söndag`,
     om.length ? `, ny nivåkoll ${om.join(' och ')}` : '',
     gen.length ? `, övningsprov ${gen.join(' och ')}` : '',
     `, prov ${datumText(prov)}.`,

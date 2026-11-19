@@ -18,7 +18,7 @@
 //   Brev      1 per konto, därefter 1 per rullande sju dygn
 //   Chatt     10 per konto (inte per dygn)
 //   Analys    1 per konto (inte per 72 h)
-//   Tester    1 per test_type och dygn på grundnivån, oförändrat
+//   Tester    1 grundnivåtest per dygn över alla testtyper (2026-11-19)
 //
 // Behörigheten frågas per feature via userHasAccess. isPremium-parametrarna
 // är borta: en kund med Träningspaketet har inte obegränsade brev, och en
@@ -119,8 +119,74 @@ function accessResult(limit: number): QuotaResult {
 }
 
 /**
- * Dagskvot för test-/provsessioner: max 1 SLUTFÖRD session per test_type och
- * dygn på grundnivån. Påbörjade men oavslutade sessioner bränner ingen kvot.
+ * Grundnivåtesten, ett test_type per testtyp (ägarens beslut 2026-11-19,
+ * omgång 7): utan paket ett grundnivåtest om dagen, valfri testtyp, samma
+ * regel för alla typer. 'matrislogik' är matrisens grundnivå (kolumnens
+ * default), 'verbal-resonemang' och 'numerical-reasoning' textens och
+ * siffrornas.
+ */
+export const GRUND_TEST_TYPER = [
+  'matrislogik',
+  'figurserier-grund',
+  'deduktiv-grund',
+  'talserier-grund',
+  'spatial-grund',
+  'ordforrad-grund',
+  'verbal-resonemang',
+  'numerical-reasoning',
+] as const;
+
+/**
+ * Sessionerna som räknas mot grundnivåkvoten: grundnivåtesten och dag
+ * 0-grundpasset (matrislogik-pass), som appens onboarding lovar och som
+ * räknas in i samma dagskvot (planen A2).
+ */
+export const GRUND_KVOT_TEST_TYPER: readonly string[] = [...GRUND_TEST_TYPER, 'matrislogik-pass'];
+
+/** Grundnivåtest per dag utan paket. */
+export const GRUNDNIVA_TEST_PER_DAG: number = GRATISNIVA.grundnivaTestPerDag;
+
+export function arGrundTestTyp(testType: string): boolean {
+  return (GRUND_TEST_TYPER as readonly string[]).includes(testType);
+}
+
+/**
+ * Dagskvoten för grundnivån över alla testtyper: slutförda sessioner i
+ * GRUND_KVOT_TEST_TYPER sedan midnatt svensk tid. Premium (tests_above_base)
+ * är obegränsat.
+ */
+export async function checkGrundnivaQuota(
+  supabase: AnySupabase,
+  userId: string,
+  now: Date = new Date()
+): Promise<QuotaResult> {
+  if (await userHasAccess(supabase, userId, 'tests_above_base')) {
+    return accessResult(GRUNDNIVA_TEST_PER_DAG);
+  }
+  const since = startOfTodayStockholm(now).toISOString();
+  const { count } = await supabase
+    .from('logic_test_v4_sessions')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .in('test_type', GRUND_KVOT_TEST_TYPER as string[])
+    .not('completed_at', 'is', null)
+    .gte('completed_at', since);
+  const used = count ?? 0;
+  return {
+    allowed: used < GRUNDNIVA_TEST_PER_DAG,
+    isPremium: false,
+    used,
+    limit: GRUNDNIVA_TEST_PER_DAG,
+    nextResetAt: nextMidnightStockholm(now).toISOString(),
+  };
+}
+
+/**
+ * Dagskvot för test-/provsessioner. Är testType en grundnivå räknas hela
+ * GRUND_KVOT_TEST_TYPER: ett grundnivåtest om dagen över alla typer
+ * (checkGrundnivaQuota). Övriga, de äldre proven, som förut: en SLUTFÖRD
+ * session per test_type och dygn. Påbörjade men oavslutade sessioner
+ * bränner ingen kvot.
  *
  * Nivåspärren ligger inte här utan i testConfig och sessionsrutterna: allt
  * över grundnivån kräver featuren tests_above_base och når aldrig kvoten.
@@ -130,6 +196,8 @@ export async function checkDailyTestQuota(
   userId: string,
   testType: string
 ): Promise<QuotaResult> {
+  if (arGrundTestTyp(testType)) return checkGrundnivaQuota(supabase, userId);
+
   if (await userHasAccess(supabase, userId, 'tests_above_base')) {
     return accessResult(DAILY_LIMIT_TEST_SESSIONS);
   }

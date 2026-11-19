@@ -16,6 +16,14 @@
 // =============================================================================
 
 export const GRATISNIVA = {
+  /**
+   * Ägarens beslut 2026-11-19 (omgång 7): ett grundnivåtest om dagen, valfri
+   * testtyp, samma regel för alla typer. Dag 0-grundpasset räknas in i samma
+   * kvot (quotaService GRUND_KVOT_TEST_TYPER).
+   */
+  grundnivaTestPerDag: 1,
+  /** Träna (passen på din nivå) ingår i Premium. Webben erbjuder aldrig Träna gratis; låset sitter i vyn. */
+  tranaGratis: false,
   /** Grundpass (frågor under din nivå ur grundbanken) per dag utan paket. Med grundpassVarjeDag false gäller det bara dag 0. */
   grundpassPerDag: 1,
   /**

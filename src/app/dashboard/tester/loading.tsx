@@ -1,14 +1,13 @@
 /**
- * Laddar (konceptets L1): väggen står med toppraden, och rubriken,
- * dagsraden, veckan och kurvan som skelett i väggens eget ljus (vitt 8
- * procent), i samma höjd som mitt i träningen (1b), så inget hoppar när
- * datan landar. Det lyfta kortet laddar med tråden längs överkanten.
+ * Laddar Hem (tester v4): väggen med toppraden, eyebrow, rubriken och en
+ * statusrad som skelett i väggens eget ljus, det lyfta kortet Nästa steg
+ * med tråden längs överkanten, flikarna och golvets två spalter i samma höjd
+ * som den riktiga vyn, så att inget hoppar när datan landar.
  *
- * Hemvyn är serverrenderad, så det här syns bara under en navigering.
+ * Hem är serverrenderad, så det här syns bara under en navigering.
  */
 import Vagg from '@/components/rum/Vagg';
 import Topprad from '@/components/rum/Topprad';
-import Lagesrad from '@/components/rum/Lagesrad';
 import Golv from '@/components/rum/Golv';
 
 const V = 'skelett-vagg';
@@ -17,41 +16,36 @@ const G = 'rounded-lg bg-papper-2';
 export default function Loading() {
   return (
     <div className="flex flex-1 flex-col" aria-busy="true">
-      <Vagg tat={false}>
-        <Topprad lagen={<Lagesrad aktiv="plan" plats="topprad" />} />
-        <Lagesrad aktiv="plan" />
-        <div role="status" aria-label="Laddar" className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-8">
-          <div className="mt-2">
-            <div className={`${V} h-9 w-[78%]`} />
-            <div className={`${V} mt-3 h-[14px] w-[60%]`} />
-          </div>
-          <div>
-            <div className="mt-5 flex items-center gap-4 rounded-2xl border border-vagg-kant bg-white/5 p-3.5 lg:mt-0">
-              <div className={`${V} h-14 w-14 shrink-0 !rounded-full`} />
-              <div className="flex-1">
-                {[48].map((b, i) => (
-                  <div key={i}>
-                    <div className={`${V} h-6`} style={{ width: b }} />
-                    <div className={`${V} mt-1.5 h-2.5 w-4/5`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className={`${V} mt-3.5 h-[42px] !rounded-[11px]`} />
-          </div>
+      <Vagg>
+        <Topprad />
+        <div role="status" aria-label="Laddar">
+          <div className={`${V} mt-3 h-3 w-24`} />
+          <div className={`${V} mt-3 h-9 w-[46%] lg:h-11`} />
+          <div className={`${V} mt-3 h-[14px] w-[64%]`} />
+          <div className={`${V} mt-[22px] h-10 max-w-[840px] !rounded-xl`} />
         </div>
-        <p className="mt-[22px] text-ey text-vagg-mjuk">Din nivå, dag för dag</p>
-        <div className={`${V} mt-2 aspect-[380/150] max-w-[840px] !rounded-xl lg:aspect-[840/170]`} />
-        <div className={`${V} mt-2 h-3 w-[45%]`} />
       </Vagg>
-      <Golv lyft>
-        <section aria-label="Dagens pass laddar" className="loading-thread relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft lg:max-w-[calc((100%-32px)/3)]">
-          <div className={`${G} h-3.5 w-[35%]`} />
-          <div className={`${G} mt-2 h-[27px] w-[72%]`} />
-          <div className={`${G} mt-2.5 h-3.5`} />
-          <div className={`${G} mt-1.5 h-3.5 w-[84%]`} />
-          <div className={`${G} mt-3.5 h-12 !rounded-xl`} />
+      <Golv lyft className="pb-10">
+        <section aria-label="Nästa steg laddar" className="loading-thread relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft">
+          <div className={`${G} h-3.5 w-[28%]`} />
+          <div className={`${G} mt-2 h-[27px] w-[62%]`} />
+          <div className={`${G} mt-2.5 h-3.5 w-[80%]`} />
+          <div className={`${G} mt-3.5 h-12 !rounded-xl sm:w-44`} />
         </section>
+        <div className="h-11 border-b border-kant" />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {[0, 1].map((k) => (
+            <div key={k} className="rounded-2xl border border-kant bg-papper p-4">
+              <div className={`${G} h-3 w-[30%]`} />
+              {[0, 1, 2].map((r) => (
+                <div key={r} className="mt-4">
+                  <div className={`${G} h-3.5 w-[70%]`} />
+                  <div className={`${G} mt-2 h-3 w-[85%]`} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </Golv>
     </div>
   );

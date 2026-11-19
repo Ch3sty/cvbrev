@@ -28,7 +28,7 @@ export const FORM_NAMN = {
 
 /** Passets namn per typ (hemvyn, toppraden). */
 export const STEG2_PASS_NAMN = {
-  talserie: 'Talseriepass',
-  spatial: 'Spatialpass',
-  ordforrad: 'Ordpass',
+  talserie: 'Träna talserier',
+  spatial: 'Träna spatial förmåga',
+  ordforrad: 'Träna ordförråd',
 } as const;

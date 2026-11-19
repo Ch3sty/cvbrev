@@ -71,6 +71,12 @@ export interface TillgangIn {
   /** Första dagen med en slutförd träningssession, och i dag. Bara för grundpassVarjeDag = false. */
   forstaTraningsdag?: string | null;
   idag?: string;
+  /**
+   * Slutförda grundnivåtest (GRUND_TEST_TYPER) i dag, svensk tid. Dag
+   * 0-grundpasset räknas in i samma dagskvot som grundnivåtesten
+   * (GRATISNIVA.grundnivaTestPerDag). Saknas fältet gäller bara passets egen kvot.
+   */
+  grundIdag?: number;
   gratis?: typeof GRATISNIVA | Record<keyof typeof GRATISNIVA, boolean | number>;
 }
 
@@ -100,6 +106,11 @@ export function beslutaTillgang(inp: TillgangIn): TillgangBeslut {
       const grans = Number(g.grundpassPerDag);
       if (inp.passSlutfordaIdag >= grans) {
         return { tillatet: false, typ: 'pass', skal: 'kvot', anvant: inp.passSlutfordaIdag, grans };
+      }
+      if (inp.grundIdag != null) {
+        const dagsgrans = Number(g.grundnivaTestPerDag ?? grans);
+        const anvant = inp.grundIdag + inp.passSlutfordaIdag;
+        if (anvant >= dagsgrans) return { tillatet: false, typ: 'pass', skal: 'kvot', anvant, grans: dagsgrans };
       }
       return { tillatet: true, typ: 'pass', variant: 'grund' };
     }

@@ -60,6 +60,11 @@ export const UNDERSIDA = {
   testOchDatum: 'Test och datum',
   allaTester: 'Alla tester',
   provlaget: 'Övningsprov',
+  /** Tester v4 (docs/plan-tester-v4-bygg.md 3.3): sidomenyns fyra rader. */
+  hem: 'Hem',
+  tester: 'Tester',
+  dinUtveckling: 'Din utveckling',
+  planInforProvet: 'Plan inför provet',
   minaCv: 'Mina CV',
   skapaNyttCv: 'Skapa nytt CV',
   analyseraCv: 'Analysera CV',
@@ -382,7 +387,7 @@ export const KORS = {
     dagar === 0 ? `I dag: ${till}.` : dagar === 1 ? `I morgon: ${till}.` : `${dagar} dagar till ${till}.`,
   aldrigMattFraga: 'Har du ett rekryteringstest på gång?',
   aldrigMattTitel: 'Kolla din nivå, 8 minuter.',
-  aldrigMattText: 'Gratis. Sedan ett pass om dagen fram till provet, i samma format som leverantören.',
+  aldrigMattText: 'Gratis. Sedan träning varje dag fram till provet, i samma format som leverantören.',
   lank: 'Till Rekryteringstester',
   /** Typen i nivåraden ("i figurer och mönster"). */
   typNiva: { matris: 'figurer och mönster', numerisk: 'siffror', verbal: 'text' } as Record<string, string>,

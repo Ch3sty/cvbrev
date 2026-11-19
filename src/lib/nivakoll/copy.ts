@@ -39,10 +39,10 @@ const NIVA_ORD: Record<BankNiva, string> = { grund: 'grundnivå', avancerad: 'av
 
 /** Passets namn per typ. */
 export const PASS_NAMN: Record<NivakollKind, string> = {
-  figurserie: 'Figurpasset',
-  deduktiv: 'Deduktivpasset',
-  verbal: 'Textpasset',
-  numerisk: 'Sifferpasset',
+  figurserie: 'Träning i figurserier',
+  deduktiv: 'Träning i deduktiv slutledning',
+  verbal: 'Träning i ord och text',
+  numerisk: 'Träning i siffror och tabeller',
 };
 
 /** Cirka-tiden per typ på startraderna. */
@@ -96,7 +96,7 @@ export const NIVAKOLL_COPY = {
     tillResultatet: 'Till resultatet',
     foregaende: 'Föregående',
     nasta: 'Nästa',
-    startaPass: (kind: NivakollKind) => `Starta ${PASS_NAMN[kind].toLowerCase()}`,
+    startaPass: (_kind: NivakollKind) => 'Träna',
   },
   laddar: { session: 'Hämtar Nivåkollen', resultat: 'Räknar fram din nivå' },
   fel: {
@@ -105,7 +105,7 @@ export const NIVAKOLL_COPY = {
     svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
     avslut: 'Nivån gick inte att räkna fram. Svaren är sparade, försök igen.',
     betalvagg: 'En ny nivåkoll ingår i Premium.',
-    betalvaggRad: () => `Den första Nivåkollen i varje test är gratis. Med ${paketKort()}, ${prisPeriod(SALD_PLAN)}, kollar du nivån igen när passen har flyttat dig.`,
+    betalvaggRad: () => `Den första Nivåkollen i varje test är gratis. Med ${paketKort()}, ${prisPeriod(SALD_PLAN)}, kollar du nivån igen när träningen har flyttat dig.`,
     kop: () => kopKnapp(SALD_PLAN),
   },
   resultat: {
@@ -125,17 +125,17 @@ export const NIVAKOLL_COPY = {
     foreRad: (fore: number, delta: number) =>
       delta > 0 ? `Förra nivåkollen: ${nivaKort(fore)}. Du har gått upp.` : delta < 0 ? `Förra nivåkollen: ${nivaKort(fore)}.` : `Förra nivåkollen: ${nivaKort(fore)}. Samma nivå.`,
     pass: {
-      eyebrow: 'Dagens pass',
+      eyebrow: 'Träna',
       titel: (kind: NivakollKind, niva: 'grund' | 'avancerad') => `${PASS_NAMN[kind]} på ${niva === 'grund' ? 'grundnivå' : 'avancerad nivå'}`,
       text: (kind: NivakollKind, niva: 'grund' | 'avancerad') =>
         niva === 'grund'
-          ? `Fyra uppgifter på grundnivå med förklaringen efter varje svar. Sitter grunden flyttar Nivåkollen upp passen.`
-          : `Grundnivån sitter, så passen tar uppgifterna på avancerad nivå, ${NIVA_GOR[kind].avancerad}.`,
-      last: () => `Passen ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}. Nivåkollen och genomgången är dina ändå.`,
+          ? `Fyra uppgifter på grundnivå med förklaringen efter varje svar. Sitter grunden flyttar Nivåkollen upp träningen.`
+          : `Grundnivån sitter, så träningen tar uppgifterna på avancerad nivå, ${NIVA_GOR[kind].avancerad}.`,
+      last: () => `Träningen ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}. Nivåkollen och genomgången är dina ändå.`,
       kop: () => kopKnapp(SALD_PLAN),
     },
     varDuTappade: 'Var du tappade i Nivåkollen',
-    ingaFamiljer: 'Inget du tappade på i Nivåkollen. Passen börjar på din nivå.',
+    ingaFamiljer: 'Inget du tappade på i Nivåkollen. Träningen börjar på din nivå.',
     familjMeta: (r: number, a: number) => `${r} av ${a} rätt.`,
   },
   genomgang: {
@@ -152,10 +152,10 @@ export const NIVAKOLL_COPY = {
   /** Startraden i Alla tester och Fler kurvor. */
   rad: {
     titel: 'Nivåkollen',
-    text: (kind: NivakollKind) => `Kolla din nivå på cirka ${MINUTER[kind]} minuter. Dagens pass väljs efter den.`,
+    text: (kind: NivakollKind) => `Kolla din nivå på cirka ${MINUTER[kind]} minuter. Träningen följer den.`,
     /** Logikens rad leder till matrisens Nivåkoll. */
-    textMatris: 'Kolla din nivå på cirka åtta minuter. Dagens pass väljs efter den.',
-    gjord: (niva: number) => `Senaste nivån ${nivaKort(niva)}. Dagens pass väljs efter den.`,
+    textMatris: 'Kolla din nivå på cirka åtta minuter. Träningen följer den.',
+    gjord: (niva: number) => `Senaste nivån ${nivaKort(niva)}. Träningen följer den.`,
     knapp: 'Kolla min nivå',
   },
 } as const;

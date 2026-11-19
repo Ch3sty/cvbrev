@@ -21,7 +21,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { scheduleIdle } from '@/lib/scheduleIdle'
-import { scopeHasFeature, type Feature } from '@/lib/access/features'
+import type { Feature } from '@/lib/access/features'
 import { menyFot, menyRad, paketNamn, type PaketLage } from '@/lib/onboarding/paket-rader'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
@@ -33,23 +33,16 @@ import { Avatar, initialer } from '@/components/dashboard/ProfileMenu'
 import { useCandidateInterests } from '@/hooks/useCandidateInterests'
 import { TEST_GROUPS } from '@/app/dashboard/tester/components/testCatalog'
 import { aktivUndersida, DORRAR, rumForPath, type Rum } from '@/lib/rum/rum'
-import { CHIP, GRUPP_RUBRIK, KONTORAD, NAV, UNDERSIDA, provlageFormat } from '@/lib/rum/copy'
+import { CHIP, GRUPP_RUBRIK, KONTORAD, NAV, UNDERSIDA } from '@/lib/rum/copy'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import Chip from './Chip'
 import { DORR_IKON } from './Dorrnav'
 import { useRum } from './RumKontext'
 import { markeraRumYta } from './rumMatning'
-import { KURVAN_HREF, TRANING_RUTT } from '@/lib/traning/rutter'
+import { KURVAN_HREF } from '@/lib/traning/rutter'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
-
-/**
- * Provlägets format i klartext på den låsta raden (spec 16.2 fråga 2). När
- * våg 2 inför provdatum visas raden inte alls på provdagen, för någon.
- */
-const PROV = getTestConfig('matrislogik-prov')
-const PROV_FORMAT = PROV ? provlageFormat(PROV.totalQuestions, PROV.examMinutes ?? PROV.minutes) : undefined
 
 /** Gratisnivån innan summeringen hunnit fram. */
 const TOM_PAKET: PaketLage = {
@@ -159,21 +152,13 @@ export default function Sidomeny() {
   const antalChip = (n: number | null) => (typeof n === 'number' && n > 0 ? <Chip liten>{n}</Chip> : undefined)
 
   const undersidor: Record<Rum, Undersida[]> = {
-    // Våg 2: hemvyn (Dagens pass), Kurvan, katalogen på Alla tester,
-    // Provläget och Test och datum (spec 4.3).
+    // Tester v4 (docs/plan-tester-v4-bygg.md 3.3): Hem, Tester, Din
+    // utveckling och Plan inför provet. Övningsprovet ligger i typens meny.
     tran: [
-      { href: '/dashboard/tester', etikett: UNDERSIDA.dagensPass, exact: true },
-      { href: KURVAN_HREF, etikett: UNDERSIDA.kurvan },
-      { href: '/dashboard/tester/alla', etikett: UNDERSIDA.allaTester, chip: <Chip liten>{TEST_GROUPS.length}</Chip> },
-      {
-        // Samma övningsprov som hemvyn leder till (copy-plan 4.11).
-        href: TRANING_RUTT.provlaget,
-        etikett: UNDERSIDA.provlaget,
-        last: scopeHasFeature(paket.scope, 'test_exam_mode')
-          ? undefined
-          : { feature: 'test_exam_mode', variant: 'testniva', text: CHIP.lastEtikett, format: PROV_FORMAT },
-      },
-      { href: '/dashboard/tester/installningar', etikett: UNDERSIDA.testOchDatum },
+      { href: '/dashboard/tester', etikett: UNDERSIDA.hem, exact: true },
+      { href: '/dashboard/tester/alla', etikett: UNDERSIDA.tester, chip: <Chip liten>{TEST_GROUPS.length}</Chip> },
+      { href: KURVAN_HREF, etikett: UNDERSIDA.dinUtveckling },
+      { href: '/dashboard/tester/installningar', etikett: UNDERSIDA.planInforProvet },
     ],
     cv: [
       { href: '/dashboard/profil/cv', etikett: UNDERSIDA.minaCv, chip: antalChip(cvAntal) },

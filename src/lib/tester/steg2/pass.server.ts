@@ -17,6 +17,8 @@
 // - Alla skrivningar med service role, villkorade på user_id.
 // =============================================================================
 
+import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { nivaUrNivatest } from '@/lib/tester/v4/steg2-niva.server';
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
@@ -283,7 +285,7 @@ export async function svaraSteg2Pass(args: { admin: Klient; userId: string; sess
   return { ok: true, nyckel: args.nyckel, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal };
 }
 
-export type SlutforSteg2Pass = { ok: true; vy: Steg2PassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
+export type SlutforSteg2Pass = { ok: true; niva_efter?: number | null; vy: Steg2PassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function slutforSteg2Pass(args: { admin: Klient; userId: string; sessionId: string }): Promise<SlutforSteg2Pass> {
   const rad = await hamtaSteg2Pass(args.admin, args.userId, args.sessionId);
@@ -318,6 +320,20 @@ export async function slutforSteg2Pass(args: { admin: Klient; userId: string; se
   if (error) throw error;
   if (!((data ?? {}) as { slutford?: boolean }).slutford) return { ok: false, status: 409, fel: 'redan_avslutad' };
 
+  // Tester v4 (A4, A7): nivån efter träningen. Riktade övningar och upprepade
+  // uppgifter flyttar inte nivån. Utan nivåpunkt är nivåtestets skattning nivån före.
+  const senasteTest = lage.rader.find((r) => r.completed_at && m.arTestTyp(r.test_type));
+  const nivaEfter = meta.grupp
+    ? null
+    : await uppdateraNivaEfterTraning({
+        admin: args.admin,
+        userId: args.userId,
+        kind: meta.test_kind as Steg2PassKind,
+        sessionId: rad.id,
+        svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })),
+        foreReserv: senasteTest ? nivaUrNivatest({ test_type: senasteTest.test_type ?? '', score: senasteTest.score ?? null, answers: senasteTest.answers, meta: senasteTest.meta }) : null,
+      });
+
   void captureServer('pass_klart', args.userId, {
     test_kind: meta.test_kind,
     typ: meta.grupp ? 'riktat' : 'pass',
@@ -325,7 +341,7 @@ export async function slutforSteg2Pass(args: { admin: Klient; userId: string; se
     niva: meta.niva,
     familj: meta.grupp,
     niva_fore: null,
-    niva_efter: null,
+    niva_efter: nivaEfter,
     ratt,
     antal: meta.antal,
     over_tid: tid_s > meta.budget_s ? 1 : 0,
@@ -337,5 +353,5 @@ export async function slutforSteg2Pass(args: { admin: Klient; userId: string; se
 
   const efter = await hamtaSteg2Pass(args.admin, args.userId, rad.id);
   const vy = efter ? steg2PassVy(efter) : null;
-  return vy ? { ok: true, vy } : { ok: false, status: 404, fel: 'session_saknas' };
+  return vy ? { ok: true, vy, niva_efter: nivaEfter } : { ok: false, status: 404, fel: 'session_saknas' };
 }

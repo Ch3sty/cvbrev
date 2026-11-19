@@ -17,6 +17,7 @@
 // - Alla skrivningar med service role, villkorade på user_id.
 // =============================================================================
 
+import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
@@ -352,7 +353,7 @@ export async function svaraVnPass(args: {
 
 /* ------------------------------- Avslutet ---------------------------- */
 
-export type SlutforVnPass = { ok: true; vy: VnPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
+export type SlutforVnPass = { ok: true; niva_efter?: number | null; vy: VnPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function slutforVnPass(args: { admin: Klient; userId: string; sessionId: string; idag?: Dag }): Promise<SlutforVnPass> {
   const idag = args.idag ?? dagSthlm();
@@ -395,6 +396,10 @@ export async function slutforVnPass(args: { admin: Klient; userId: string; sessi
   if (error) throw error;
   const res = (data ?? {}) as { slutford?: boolean };
   if (!res.slutford) return { ok: false, status: 409, fel: 'redan_avslutad' };
+  // Tester v4 (A4): nivån efter träningen, för grafen. Upprepade underlag räknas inte.
+  const nivaEfter = meta.typ === 'pass'
+    ? await uppdateraNivaEfterTraning({ admin: args.admin, userId: args.userId, kind: meta.test_kind, sessionId: rad.id, svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })), idag })
+    : null;
 
   void captureServer(meta.typ === 'riktat' ? 'riktat_klart' : 'pass_klart', args.userId, {
     test_kind: meta.test_kind,
@@ -403,7 +408,7 @@ export async function slutforVnPass(args: { admin: Klient; userId: string; sessi
     niva: meta.niva,
     familj: meta.familj,
     niva_fore: null,
-    niva_efter: null,
+    niva_efter: nivaEfter,
     ratt,
     antal: meta.antal,
     over_tid: tid_s > meta.budget_s ? 1 : 0,
@@ -415,7 +420,7 @@ export async function slutforVnPass(args: { admin: Klient; userId: string; sessi
 
   const efter = await hamtaVnPass(args.admin, args.userId, rad.id);
   const vy = efter ? vnPassVy(efter) : null;
-  return vy ? { ok: true, vy } : { ok: false, status: 404, fel: 'session_saknas' };
+  return vy ? { ok: true, vy, niva_efter: nivaEfter } : { ok: false, status: 404, fel: 'session_saknas' };
 }
 
 /* ------------------------------- Hemvyn ------------------------------ */
