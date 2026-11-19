@@ -95,7 +95,7 @@ export type BankVersion = 1 | 2 | 3;
  * sessioner och percentilen rörs inte. Frågor med fran_version: 4 är de 15
  * ombyggda ur omgång 2.
  */
-export const TRANINGSVERSION = 4;
+export const TRANINGSVERSION = 5;
 
 /** Meta som sätts på nya klassiska sessioner tillsammans med blandningen. */
 export const BANK_VERSION_META = { bank_version: BANK_VERSION } as const;

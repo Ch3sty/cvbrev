@@ -51,6 +51,7 @@ const P_PRIOR_SPANN = { grund: [0.6, 0.95], avancerad: [0.45, 0.72], expert: [0.
 // av dubbletter, tankstreck och parallellitet; struktur och facit gäller dem
 // fortfarande.
 const TANKSTRECK = /[—–]/;
+const OGILTIG_TEXT = /\b(undefined|null|NaN)\b|\[object Object\]/;
 const pensionerade = bank.filter((q) => q.pensionerad === true).length;
 
 for (const q of bank) {
@@ -64,6 +65,15 @@ for (const q of bank) {
   // Tankstreck i titel och regel är ett fel för alla ej pensionerade frågor
   // (spec-rummen 15.5). Misstag kontrolleras nedan.
   if (aktiv && TANKSTRECK.test(`${q.title ?? ''}${q.rule ?? ''}`)) errors.push(`${tag} tankstreck i titel eller regel`);
+
+  // Ett namn som saknas i en namntabell blir "undefined" i texten (parti 04,
+  // granskningen 2026-11-19). Titel, regel och misstag visas för användaren.
+  if (aktiv) {
+    const texter = [['titel', q.title], ['regel', q.rule], ...(Array.isArray(q.misstag) ? q.misstag.map((m, i) => [`misstag ${i}`, m]) : [])];
+    for (const [falt, t] of texter) {
+      if (typeof t === 'string' && OGILTIG_TEXT.test(t)) errors.push(`${tag} ${falt} innehåller ${t.match(OGILTIG_TEXT)[0]}`);
+    }
+  }
 
   // Orbital (spec-rummen 15.8): pricken bara på de åtta kompasspunkterna
   // (index 0 till 7, aldrig 30 grader), ramen alltid den streckade cirkeln

@@ -3498,5 +3498,1603 @@
       "Drar bort åt fel håll.",
       "Kopierar den mittersta rutan i kolumnen."
     ]
+  },
+  {
+    "id": "v7e-b5-byte-01",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 90 grader medurs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Spetsen växlar mellan fylld och öppen som ett schackmönster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa, de andra korta.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "",
+      "Längden stämmer, men pilen hamnar 45 grader för långt.",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa.",
+      "Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-02",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 90 grader moturs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "Längden stämmer, men pilen hamnar 45 grader för kort.",
+      "Vridningen stämmer, men längden har inte växlat mellan lång och kort.",
+      "Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "",
+      "Pilen hamnar 45 grader för kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Pilen hamnar 45 grader för kort. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-03",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 135 grader medurs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Spetsen växlar mellan fylld och öppen som ett schackmönster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa, de andra korta.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "Längden stämmer, men pilen hamnar 45 grader för långt.",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa.",
+      "",
+      "Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-04",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 135 grader moturs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "Längden stämmer, men pilen hamnar 45 grader för kort.",
+      "Vridningen stämmer, men längden har inte växlat mellan lång och kort.",
+      "",
+      "Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Pilen hamnar 45 grader för kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Pilen hamnar 45 grader för kort. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-05",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 45 grader medurs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Spetsen växlar mellan fylld och öppen som ett schackmönster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är korta, de andra långa.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "Längden stämmer, men pilen har vridit sig ett steg för långt.",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra är korta.",
+      "Pilarna på diagonalen från övre vänstra hörnet till nedre högra är korta. Spetsen har inte växlat mellan fylld och öppen.",
+      "",
+      "Pilen har vridit sig ett steg för långt. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen har vridit sig ett steg för långt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är korta. Spetsen har inte växlat mellan fylld och öppen."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-08",
+    "title": "Pilen vrider sig radvis och byter",
+    "rule": "Pilen vrider sig 45 grader moturs för varje steg åt höger i raden. Varje rad har sitt eget startläge. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-M2-pil-fri-tre",
+    "fran_version": 5,
+    "misstag": [
+      "Längden stämmer, men pilen har inte vridit sig sista steget.",
+      "Vridningen stämmer, men längden har inte växlat mellan lång och kort.",
+      "Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Pilen har inte vridit sig sista steget. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Pilen har inte vridit sig sista steget. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-01",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 7
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 7
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 4
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 4
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för kort.",
+      "Läget stämmer, men mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för långt.",
+      "",
+      "Pricken hamnar 45 grader för kort. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Pricken hamnar 45 grader för långt. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra."
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-02",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 45 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 3
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 2
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 3
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 2
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "Mittpunkten stämmer, men pricken har flyttat ett steg för långt.",
+      "Läget stämmer, men mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken har inte flyttat sista steget.",
+      "Pricken har flyttat ett steg för långt. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "",
+      "Pricken har inte flyttat sista steget. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra."
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-03",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 45 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad börjar 90 grader moturs jämfört med raden ovanför. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 2
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 1
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "",
+      "Mittpunkten stämmer, men pricken har inte flyttat sista steget.",
+      "Läget stämmer, men mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken har flyttat ett steg för långt.",
+      "Pricken har inte flyttat sista steget. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Pricken har flyttat ett steg för långt. Mittpunkten är ofylld på diagonalen från övre vänstra hörnet till nedre högra."
+    ]
+  },
+  {
+    "id": "v7e-b5-speg-05",
+    "title": "Två speglingar i rad",
+    "rule": "Den mittersta rutan i varje kolumn är den översta speglad i en lodrät linje (vänster och höger byter plats). Den nedersta är den mittersta speglad i diagonalen från övre vänstra hörnet.",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 312
+        },
+        {
+          "kind": "tile",
+          "pattern": 51
+        },
+        {
+          "kind": "tile",
+          "pattern": 57
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 120
+        },
+        {
+          "kind": "tile",
+          "pattern": 30
+        },
+        {
+          "kind": "tile",
+          "pattern": 60
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 150
+        },
+        {
+          "kind": "tile",
+          "pattern": 90
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 60
+      },
+      {
+        "kind": "tile",
+        "pattern": 57
+      },
+      {
+        "kind": "tile",
+        "pattern": 312
+      },
+      {
+        "kind": "tile",
+        "pattern": 402
+      },
+      {
+        "kind": "tile",
+        "pattern": 210
+      },
+      {
+        "kind": "tile",
+        "pattern": 211
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 5,
+    "misstag": [
+      "Samma som rutan ovanför. Den andra speglingen saknas.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Speglar i fel linje.",
+      "Vrider i stället för att spegla.",
+      "",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-10",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad börjar 90 grader moturs jämfört med raden ovanför. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars ofylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 1
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 4
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 6
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för långt.",
+      "",
+      "Läget stämmer, men mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för kort.",
+      "Pricken hamnar 45 grader för långt. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Pricken hamnar 45 grader för kort. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra."
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-11",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars ofylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 6
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 1
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 4
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 2
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 2
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 0
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 1
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 7
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 0
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för långt.",
+      "Läget stämmer, men mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för kort.",
+      "Pricken hamnar 45 grader för långt. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Pricken hamnar 45 grader för kort. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-b5-vand-12",
+    "title": "Pricken vandrar radvis och mitten byter, raderna växlar riktning",
+    "rule": "Pricken flyttar 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad börjar 90 grader moturs jämfört med raden ovanför. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars ofylld.",
+    "difficulty": 4,
+    "family": "vandring",
+    "grid": [
+      [
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 7
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 4
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 1
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 5
+        },
+        {
+          "kind": "orbital",
+          "center": "filled",
+          "satellite": 0
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        }
+      ],
+      [
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 3
+        },
+        {
+          "kind": "orbital",
+          "center": "open",
+          "satellite": 0
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 5
+      },
+      {
+        "kind": "orbital",
+        "center": "filled",
+        "satellite": 4
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 6
+      },
+      {
+        "kind": "orbital",
+        "center": "open",
+        "satellite": 4
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-M4-orbital",
+    "fran_version": 5,
+    "misstag": [
+      "",
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för kort.",
+      "Läget stämmer, men mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Mittpunkten stämmer, men pricken hamnar 45 grader för långt.",
+      "Pricken hamnar 45 grader för kort. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra.",
+      "Pricken hamnar 45 grader för långt. Mittpunkten är fylld på diagonalen från övre vänstra hörnet till nedre högra."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-09",
+    "title": "Pilen vrider sig radvis och byter, raderna växlar riktning",
+    "rule": "Pilen vrider sig 135 grader moturs för varje steg åt höger i den första och den tredje raden, och lika mycket medurs i mittraden. Varje rad börjar 90 grader medurs jämfört med raden ovanför. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-M4-pil-tre",
+    "fran_version": 5,
+    "misstag": [
+      "",
+      "Längden stämmer, men pilen hamnar 45 grader för kort.",
+      "Vridningen stämmer, men längden har inte växlat mellan lång och kort.",
+      "Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Pilen hamnar 45 grader för kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Pilen hamnar 45 grader för kort. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets."
+    ]
+  },
+  {
+    "id": "v7e-b5-byte-10",
+    "title": "Pilen vrider sig radvis och byter, raderna växlar riktning",
+    "rule": "Pilen vrider sig 135 grader medurs för varje steg åt höger i den första och den tredje raden, och lika mycket moturs i mittraden. Varje rad börjar 90 grader moturs jämfört med raden ovanför. Spetsen växlar mellan fylld och öppen som ett schackmönster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa, de andra korta.",
+    "difficulty": 4,
+    "family": "rotation-med-byte",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "E-M4-pil-tre",
+    "fran_version": 5,
+    "misstag": [
+      "",
+      "Längden stämmer, men pilen hamnar 45 grader för långt.",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa.",
+      "Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Spetsen har inte växlat mellan fylld och öppen.",
+      "Pilen hamnar 45 grader för långt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra är långa. Spetsen har inte växlat mellan fylld och öppen."
+    ]
   }
 ]

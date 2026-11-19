@@ -92,8 +92,9 @@ describe('versionsfälten', () => {
   it('157 frågor bär pensionerad_fran 3, och ingen ny fråga saknar fran_version', () => {
     const alla = [...ALLA_GRUND, ...ALLA_AVANCERAD, ...ALLA_EXPERT] as unknown as Q[]
     expect(alla.filter((q) => q.pensionerad_fran === 3)).toHaveLength(157)
-    // Version 3 och bank 3.1 (fran_version 4, beställning omgång 2 C1).
-    for (const q of alla) if (q.fran_version !== undefined) expect([3, 4], q.id).toContain(q.fran_version)
+    // Version 3, bank 3.1 (fran_version 4, beställning omgång 2 C1) och parti 04
+    // (fran_version 5, scripts/befordra-matris-parti-04.mjs, efter granskning).
+    for (const q of alla) if (q.fran_version !== undefined) expect([3, 4, 5], q.id).toContain(q.fran_version)
   })
 })
 

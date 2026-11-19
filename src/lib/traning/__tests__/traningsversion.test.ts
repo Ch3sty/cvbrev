@@ -9,6 +9,8 @@ import { describe, expect, it } from 'vitest'
 import { BANK_VERSION, TRANINGSVERSION, poolFor, ALLA_MATRISFRAGOR } from '@/lib/logicTestV7/selectQuestions.v7'
 import { TRANINGSBANK } from '../bank.server'
 
+// TRANINGSVERSION är en literal (4 före --sla-pa), så den läses som number här.
+const TV: number = TRANINGSVERSION
 const franVersion = (q: unknown) => (q as { fran_version?: number }).fran_version
 
 describe('träningsversionen', () => {
@@ -18,7 +20,7 @@ describe('träningsversionen', () => {
   })
 
   it('motorn läser version 4 eller 5: allt i version 3 plus frågorna med fran_version 4 till TRANINGSVERSION', () => {
-    expect([4, 5]).toContain(TRANINGSVERSION)
+    expect([4, 5]).toContain(TV)
     const v3 = new Set([...poolFor('grund', 3), ...poolFor('avancerad', 3), ...poolFor('expert', 3)].map((q) => q.id))
     const bank = new Set(TRANINGSBANK.map((q) => q.id))
     for (const id of v3) expect(bank.has(id)).toBe(true)
@@ -26,13 +28,13 @@ describe('träningsversionen', () => {
     expect(v4).toHaveLength(15)
     const v5 = ALLA_MATRISFRAGOR.filter((q) => franVersion(q) === 5)
     // Version 5 är parti 04: före --sla-pa är det befordrade inte valbart.
-    if (TRANINGSVERSION === 5) expect(v5.length).toBeGreaterThan(0)
-    const nya = [...v4, ...(TRANINGSVERSION >= 5 ? v5 : [])]
+    if (TV === 5) expect(v5.length).toBeGreaterThan(0)
+    const nya = [...v4, ...(TV >= 5 ? v5 : [])]
     for (const q of nya) {
       expect(bank.has(q.id)).toBe(true)
       expect(v3.has(q.id)).toBe(false)
     }
-    for (const q of TRANINGSVERSION >= 5 ? [] : v5) expect(bank.has(q.id)).toBe(false)
+    for (const q of TV >= 5 ? [] : v5) expect(bank.has(q.id)).toBe(false)
     expect(bank.size).toBe(v3.size + nya.length)
   })
 })

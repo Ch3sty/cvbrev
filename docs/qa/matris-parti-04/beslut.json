@@ -1,0 +1,230 @@
+{
+  "kalla": "docs/fragebank/matris-2026-11-19-granskning.md",
+  "godkanda": [
+    "v7e-b5-byte-01",
+    "v7e-b5-byte-02",
+    "v7e-b5-byte-03",
+    "v7e-b5-byte-04",
+    "v7e-b5-byte-05",
+    "v7e-b5-byte-08",
+    "v7e-b5-vand-01",
+    "v7e-b5-vand-02",
+    "v7e-b5-vand-03",
+    "v7a-b5-tva-01",
+    "v7a-b5-tva-02",
+    "v7a-b5-tva-03",
+    "v7a-b5-tva-04",
+    "v7a-b5-lant-01",
+    "v7a-b5-lant-02",
+    "v7a-b5-lant-03",
+    "v7a-b5-antal-01",
+    "v7g-b5-speg-01",
+    "v7g-b5-speg-02",
+    "v7g-b5-speg-03",
+    "v7g-b5-speg-04",
+    "v7a-b5-byte-01",
+    "v7a-b5-byte-02",
+    "v7a-b5-byte-03",
+    "v7a-b5-byte-04",
+    "v7a-b5-byte-05",
+    "v7a-b5-byte-06",
+    "v7a-b5-byte-07",
+    "v7a-b5-lform-01",
+    "v7a-b5-lform-02",
+    "v7a-b5-lform-03",
+    "v7a-b5-lform-04",
+    "v7a-b5-lform-05",
+    "v7a-b5-speg-01",
+    "v7a-b5-speg-02",
+    "v7a-b5-speg-03",
+    "v7a-b5-speg-04",
+    "v7g-b5-byte-01",
+    "v7g-b5-byte-02",
+    "v7g-b5-byte-03",
+    "v7g-b5-byte-04",
+    "v7g-b5-byte-05",
+    "v7g-b5-byte-06",
+    "v7g-b5-byte-07",
+    "v7a-b5-lfler-01",
+    "v7a-b5-lfler-02",
+    "v7g-b5-over-01",
+    "v7g-b5-over-02",
+    "v7g-b5-over-03",
+    "v7g-b5-over-04",
+    "v7g-b5-over-05",
+    "v7g-b5-lfler-01",
+    "v7a-b5-rot-01",
+    "v7a-b5-rot-02",
+    "v7a-b5-rot-03",
+    "v7a-b5-rot-04",
+    "v7a-b5-rot-05",
+    "v7e-b5-speg-05",
+    "v7g-b5-rot-01",
+    "v7g-b5-rot-02",
+    "v7g-b5-rot-03",
+    "v7g-b5-rot-04",
+    "v7g-b5-vand-01",
+    "v7g-b5-vand-02",
+    "v7g-b5-vand-03",
+    "v7a-b5-vand-01",
+    "v7a-b5-vand-02",
+    "v7a-b5-vand-03",
+    "v7a-b5-vand-04",
+    "v7g-b5-lform-01",
+    "v7g-b5-lform-02",
+    "v7g-b5-lform-03",
+    "v7e-b5-vand-10",
+    "v7e-b5-vand-11",
+    "v7e-b5-vand-12",
+    "v7e-b5-byte-09",
+    "v7e-b5-byte-10"
+  ],
+  "efter_textfix": [
+    "v7a-b5-lform-02",
+    "v7a-b5-lform-04",
+    "v7a-b5-lform-05",
+    "v7a-b5-lfler-01",
+    "v7g-b5-lfler-01",
+    "v7g-b5-lform-01",
+    "v7a-b5-lant-03"
+  ],
+  "strukna": [
+    {
+      "id": "v7g-b5-speg-05",
+      "skal": "fel nivå: diagonalspegling av block är inte grund"
+    },
+    {
+      "id": "v7a-b5-antal-02",
+      "skal": "samma regel som v7a-b5-antal-01"
+    },
+    {
+      "id": "v7e-b5-vrid-04",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vrid-05",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vrid-06",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vrid-07",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vrid-08",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vrid-09",
+      "skal": "avancerads M2-pil-fri-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-04",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-05",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-06",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-07",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-08",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-vand-09",
+      "skal": "avancerads M2-orbital-diagonal, inte expert"
+    },
+    {
+      "id": "v7e-b5-antal-01",
+      "skal": "avancerads antal-mallar, inte expert"
+    },
+    {
+      "id": "v7e-b5-antal-02",
+      "skal": "avancerads antal-mallar, inte expert"
+    },
+    {
+      "id": "v7e-b5-antal-03",
+      "skal": "avancerads antal-mallar, inte expert"
+    },
+    {
+      "id": "v7e-b5-antal-04",
+      "skal": "avancerads antal-mallar, inte expert"
+    },
+    {
+      "id": "v7e-b5-antal-05",
+      "skal": "avancerads antal-mallar, inte expert"
+    },
+    {
+      "id": "v7e-b5-speg-01",
+      "skal": "samma regel och format som avancerads speglingar"
+    },
+    {
+      "id": "v7e-b5-speg-02",
+      "skal": "samma regel och format som avancerads speglingar"
+    },
+    {
+      "id": "v7e-b5-speg-03",
+      "skal": "samma regel och format som avancerads speglingar"
+    },
+    {
+      "id": "v7e-b5-speg-04",
+      "skal": "samma regel och format som avancerads speglingar"
+    },
+    {
+      "id": "v7e-b5-byte-06",
+      "skal": "nästan-dubblett av byte-02"
+    },
+    {
+      "id": "v7e-b5-byte-07",
+      "skal": "nästan-dubblett av byte-05"
+    },
+    {
+      "id": "v7e-b5-vrid-01",
+      "skal": "omgranskningen: avancerads M4-pil (v7a-v3-vrid-31 till -38 har 45, 90 och 135 grader)"
+    },
+    {
+      "id": "v7e-b5-vrid-02",
+      "skal": "omgranskningen: avancerads M4-pil (v7a-v3-vrid-31 till -38 har 45, 90 och 135 grader)"
+    },
+    {
+      "id": "v7e-b5-vrid-03",
+      "skal": "omgranskningen: avancerads M4-pil (v7a-v3-vrid-31 till -38 har 45, 90 och 135 grader)"
+    },
+    {
+      "id": "v7e-b5-vrid-10",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    },
+    {
+      "id": "v7e-b5-vrid-11",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    },
+    {
+      "id": "v7e-b5-vrid-12",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    },
+    {
+      "id": "v7e-b5-vrid-13",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    },
+    {
+      "id": "v7e-b5-vrid-14",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    },
+    {
+      "id": "v7e-b5-vrid-15",
+      "skal": "omgranskningen: avancerads M4-pil, delvis dubbletter som bara skiljer i den konstanta egenskapen"
+    }
+  ],
+  "omgranskning": "docs/fragebank/matris-2026-11-19-granskning.md, Omgranskning 2026-11-19"
+}

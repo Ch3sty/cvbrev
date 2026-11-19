@@ -353,7 +353,7 @@ export function latinAntal(r, p) {
     mk = (n) => ring([...Array(n - 1).fill('none'), inner]);
     utanfor = [];
     konstantByt = (c) => ring([...c.rings.slice(0, -1), inner === 'black' ? 'gray' : 'black']);
-    rule = `Den innersta ringen är alltid ${inner === 'black' ? 'svart' : 'grå'}, de andra är ofyllda. Varje rad och varje kolumn har exakt en figur med en ring, en med två och en med tre.`;
+    rule = `${inner === 'none' ? 'Alla ringar är ofyllda.' : `Den innersta ringen är alltid ${inner === 'black' ? 'svart' : 'grå'}, de andra är ofyllda.`} Varje rad och varje kolumn har exakt en figur med en ring, en med två och en med tre.`;
     title = 'Antal ringar i rader och kolumner';
   } else if (format === 'sektor') {
     varden = p.antal ?? [1, 2, 3];
@@ -394,7 +394,7 @@ export function latinForm(r, p) {
     const fjarde = ['circle', 'square', 'triangle', 'diamond'].find((b) => !baser.includes(b));
     extra = (c) => [stack(fjarde, sym), stack(c.base, sym === 'dot' ? 'plus' : 'dot'), stack(c.base, sym, 'black')];
     const NB = { circle: 'cirkel', square: 'kvadrat', triangle: 'triangel', diamond: 'romb' };
-    const SY = { dot: 'en prick', plus: 'ett plus', minus: 'ett minus' };
+    const SY = { dot: 'en prick', plus: 'ett plus', minus: 'ett minus', cross: 'ett kryss', ring: 'en ring' };
     rule = `Alla figurer är ofyllda och har ${SY[sym]}. Varje rad och varje kolumn har exakt en ${NB[baser[0]]}, en ${NB[baser[1]]} och en ${NB[baser[2]]}.`;
     title = 'Grundformen i rader och kolumner';
   } else if (format === 'stack-symbol') {
@@ -402,8 +402,8 @@ export function latinForm(r, p) {
     varden = p.symboler ?? ['plus', 'minus', 'dot']; mk = (s) => stack(b, s);
     const fjarde = ['plus', 'minus', 'dot', 'cross'].find((s) => !varden.includes(s));
     extra = (c) => [stack(b, fjarde), stack(b === 'circle' ? 'square' : 'circle', c.symbol), stack(b, c.symbol, 'black')];
-    const NB = { circle: 'en cirkel', square: 'en kvadrat', diamond: 'en romb' };
-    const SY = { plus: 'plus', minus: 'minus', dot: 'prick', cross: 'kryss' };
+    const NB = { circle: 'en cirkel', square: 'en kvadrat', triangle: 'en triangel', diamond: 'en romb' };
+    const SY = { plus: 'plus', minus: 'minus', dot: 'prick', cross: 'kryss', ring: 'ring' };
     rule = `Alla figurer har ${NB[b]} som grundform. Varje rad och varje kolumn har exakt en med ${SY[varden[0]]}, en med ${SY[varden[1]]} och en med ${SY[varden[2]]}.`;
     title = 'Symbolen i rader och kolumner';
   } else if (format === 'ring-inre') {
@@ -459,7 +459,7 @@ export function latinFlera(r, p) {
     V1 = ['circle', 'square', 'triangle']; V2 = p.symboler ?? ['plus', 'minus', 'dot'];
     if (p.tre) { V3 = ['none', 'gray', 'black']; mk = (a, b, c) => stack(a, b, c); }
     else mk = (a, b) => stack(a, b);
-    const SY = { plus: 'plus', minus: 'minus', dot: 'prick', ring: 'ring' };
+    const SY = { plus: 'plus', minus: 'minus', dot: 'prick', ring: 'ring', cross: 'kryss' };
     rule = `Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en triangel, och exakt en med ${SY[V2[0]]}, en med ${SY[V2[1]]} och en med ${SY[V2[2]]}.${p.tre ? ' Varje rad och varje kolumn har också exakt en ofylld, en grå och en svart grundform.' : ' Formerna är ofyllda.'} Egenskaperna följer var sin ordning.`;
     title = p.tre ? 'Form, symbol och fyllning' : 'Form och symbol i rader och kolumner';
   } else if (format === 'stack-fyll') {
