@@ -103,10 +103,13 @@ export default function DeduktivLosning({ losning, utfall, misstag, rapport }: D
           <span className="text-ey uppercase text-ton-ink">Lösningen</span>
           <span className="text-[12px] leading-4 text-ink-3">{utfall}</span>
         </p>
-        <ol className="mt-2 flex list-none flex-col gap-2 p-0">
+        {/* Märkena står bredvid varandra (högst tre per rad) i en kolumn som alla
+            steg delar via subgrid, så texten börjar på samma ställe i varje steg
+            och ett steg med fyra villkor inte blir fyra rader högt. */}
+        <ol className="mt-2 grid list-none grid-cols-[auto_1fr] gap-x-2.5 gap-y-2 p-0">
           {losning.steg.map((s, i) => (
-            <li key={i} className="grid grid-cols-[22px_1fr] gap-2.5">
-              <span className="flex flex-col gap-1">
+            <li key={i} className="col-span-2 grid grid-cols-subgrid">
+              <span className="flex max-w-[74px] flex-wrap content-start gap-1">
                 {s.markor.length ? s.markor.map((m, j) => <Markor key={j} m={m} />) : <span className="h-[22px] w-[22px]" aria-hidden="true" />}
               </span>
               <p className="regelpanel-regel text-sm leading-[21px]">
