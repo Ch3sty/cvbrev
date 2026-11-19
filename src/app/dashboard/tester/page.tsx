@@ -8,7 +8,8 @@
  * Serverrenderad med en omgång: hamtaTesterV4 (A) läser allt parallellt och
  * faller per del till tomt läge. Saknas planen och valde hon tester eller
  * intervju vid registreringen är ingången (Plan inför provet, ?forsta=1)
- * första vyn. När vyn ritas med en ny punkt markeras profilen efter svaret
+ * första vyn, men bara tills de har ett första resultat i någon testtyp.
+ * När vyn ritas med en ny punkt markeras profilen efter svaret
  * (traning_sedd_at), som förut.
  *
  * I appen nås adressen aldrig: proxyn skriver om /dashboard/tester till
@@ -39,7 +40,10 @@ export default async function TraningHem({
   const [underlag, data, sp] = await Promise.all([hamtaUnderlagV4(user.id), hamtaTesterV4(user.id), searchParams]);
 
   const s = underlag.status;
-  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && underlag.valdeTester && sp.visa !== 'hem') {
+  // Ingången visas bara före första resultatet, även ett grundnivåtest: planen
+  // får aldrig låsa ute Hem för den som redan har testat.
+  const harResultat = data.typer.some((t) => t.niva.status === 'matt');
+  if (s && !s.plan && s.niva == null && s.aktivitet.matningar === 0 && !harResultat && underlag.valdeTester && sp.visa !== 'hem') {
     redirect(`${TRANING_RUTT.installningar}?forsta=1`);
   }
 
