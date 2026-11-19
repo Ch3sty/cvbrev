@@ -7,7 +7,7 @@
 -- samma värde sätts som edge-funktionens CRON_SECRET (för hand, aldrig i git):
 --
 --   select decrypted_secret from vault.decrypted_secrets where name = 'cron_secret_app_paminnelse';
---   supabase secrets set CRON_SECRET_APP_PAMINNELSE=<värdet> --project-ref dbvbnbkvadvlhjhomibg
+--   supabase secrets set CRON_SECRET_APP_PAMINNELSE=<värdet> --project-ref mnlrpfidyzuaxxlftruf
 
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
@@ -31,7 +31,7 @@ select cron.schedule(
   '*/15 * * * *',
   $$
   select net.http_post(
-    url := 'https://dbvbnbkvadvlhjhomibg.supabase.co/functions/v1/app-paminnelse',
+    url := 'https://mnlrpfidyzuaxxlftruf.supabase.co/functions/v1/app-paminnelse',
     headers := jsonb_build_object(
       'Content-Type', 'application/json',
       'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'cron_secret_app_paminnelse')

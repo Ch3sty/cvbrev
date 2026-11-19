@@ -37,7 +37,7 @@ const envTest = lasEnv('.env.test.local')
 if (!envTest.STRIPE_SECRET_KEY?.startsWith('sk_test_')) throw new Error('ingen testnyckel')
 const stripe = new Stripe(envTest.STRIPE_SECRET_KEY, { apiVersion: '2025-02-24.acacia' })
 const ref = new URL(env.NEXT_PUBLIC_SUPABASE_URL).hostname.split('.')[0]
-if (ref !== 'dbvbnbkvadvlhjhomibg') throw new Error('fel projekt')
+if (ref !== 'mnlrpfidyzuaxxlftruf') throw new Error('fel projekt')
 async function sql(query) {
   const r = await fetch(`https://api.supabase.com/v1/projects/${ref}/database/query`, {
     method: 'POST',

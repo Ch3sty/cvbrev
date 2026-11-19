@@ -33,7 +33,7 @@ import { laddaEnv } from './_env';
 
 laddaEnv();
 
-const PROJEKT = 'dbvbnbkvadvlhjhomibg';
+const PROJEKT = 'mnlrpfidyzuaxxlftruf';
 const LEVANDE = new Set(['active', 'trialing', 'past_due', 'unpaid']);
 
 const args = process.argv.slice(2);
