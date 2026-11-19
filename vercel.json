@@ -13,5 +13,8 @@
       "path": "/api/cron/pricing-sync",
       "schedule": "0 6 * * *"
     }
+  ],
+  "regions": [
+    "dub1"
   ]
 }
