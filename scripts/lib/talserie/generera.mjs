@@ -24,7 +24,8 @@ export const KORT = { grund: 'g', avancerad: 'a', expert: 'e' };
 /** Taket för den geometriska familjen på grund (TS6-undantaget, se familjen). */
 export const GEOMETRISK_MAX_GRUND = 400;
 
-const fmt = (x) => (x < 0 ? `−${-x}` : `${x}`);
+// decimalkomma (bankversion 4: gånger 1,5); heltal skrivs som förut
+const fmt = (x) => (x < 0 ? `−${String(-x).replace('.', ',')}` : String(x).replace('.', ','));
 const steg = (d) => (d < 0 ? `−${-d}` : d === 0 ? '0' : `+${d}`);
 
 const heltal = (x) => Number.isInteger(x);
@@ -70,11 +71,46 @@ const FAMILJER = {
       if (r === '3') return { a: randInt(rng, 1, 3), r: 3, q: 1 };
       return { a: valj(rng, [64, 96, 128, 160, 192, 224, 256, 320]), r: 1, q: 2 };
     },
-    serie: (p, n) => iterera([p.a], n, (s) => (s[s.length - 1] * p.r) / p.q),
-    regel: (p) => (p.q === 1 ? `Varje tal är ${p.r} gånger det förra.` : `Varje tal är hälften av det förra.`),
-    nyckel: (p) => `${p.r}/${p.q}`,
-    bagar: (p, s) => s.slice(1).map((_, i) => ({ fran: [i], till: i + 1, text: p.q === 1 ? `×${p.r}` : '÷2' })),
-    fel: (p) => [
+    // p.kv (bankversion 4): två räknesätt som turas om, var och en gånger
+    // eller delat med ett heltal, till exempel [[3, 1], [1, 2]] = gånger 3, sedan delat med 2
+    serie: (p, n) =>
+      p.kv
+        ? iterera([p.a], n, (s) => (s[s.length - 1] * p.kv[(s.length - 1) % 2][0]) / p.kv[(s.length - 1) % 2][1])
+        : iterera([p.a], n, (s) => (s[s.length - 1] * p.r) / p.q),
+    regel: (p) => {
+      if (p.kv) {
+        const t = ([r, q]) => (q === 1 ? `gånger ${r}` : `delat med ${q}`);
+        return `Två räknesätt turas om: ${t(p.kv[0])}, sedan ${t(p.kv[1])}, och så vidare.`;
+      }
+      return p.q === 1 ? `Varje tal är ${p.r} gånger det förra.` : `Varje tal är hälften av det förra.`;
+    },
+    nyckel: (p) => (p.kv ? `tur:${p.kv.map(([r, q]) => `${r}/${q}`).join(',')}` : `${p.r}/${p.q}`),
+    bagar: (p, s) =>
+      s.slice(1).map((_, i) => {
+        if (!p.kv) return { fran: [i], till: i + 1, text: p.q === 1 ? `×${p.r}` : '÷2' };
+        const [r, q] = p.kv[i % 2];
+        return { fran: [i], till: i + 1, text: q === 1 ? `×${r}` : `÷${q}` };
+      }),
+    fel: (p) =>
+      p.kv
+        ? [
+            // tog det andra räknesättet (fel fas)
+            { typ: 'fel_fas_kvot', f: (s) => (s[s.length - 1] * p.kv[s.length % 2][0]) / p.kv[s.length % 2][1] },
+            // båda räknesätten i samma steg
+            { typ: 'bada_samtidigt', f: (s) => (s[s.length - 1] * p.kv[0][0] * p.kv[1][0]) / (p.kv[0][1] * p.kv[1][1]) },
+            // multiplicerade där serien delar, eller delade där den multiplicerar
+            { typ: 'fel_rakneart', f: (s) => (s[s.length - 1] * p.kv[(s.length - 1) % 2][1]) / p.kv[(s.length - 1) % 2][0] },
+            // rätt räknesätt men ett tal för mycket eller för lite (gånger 4 i stället för 3, delat med 3 i stället för 2)
+            ...[1, -1].map((e) => ({
+              typ: p.kv.some(([, q]) => q > 1) ? 'fel_tal_kvot' : 'fel_faktor',
+              f: (s) => {
+                const [r, q] = p.kv[(s.length - 1) % 2];
+                if (q === 1) return r + e > 1 ? s[s.length - 1] * (r + e) : NaN;
+                return q + e > 1 ? s[s.length - 1] / (q + e) : NaN;
+              },
+            })),
+          ]
+        : [
       { typ: 'okande_kvot', f: (s) => (p.q === 1 ? s[s.length - 1] * (p.r + 1) : s[s.length - 1] / 4) },
       ...(p.r >= 3 ? [{ typ: 'okande_kvot', f: (s) => s[s.length - 1] * (p.r - 1) }] : []),
       // bankversion 3: halveringen får fler typade fel (drog bort en fjärdedel,
@@ -85,7 +121,7 @@ const FAMILJER = {
             { typ: 'okande_kvot', f: (s) => s[s.length - 1] / 8 },
           ]
         : []),
-    ],
+          ],
   },
   andra_ordningen: {
     params(rng, niva) {
@@ -199,7 +235,7 @@ const FAMILJER = {
       return s.slice(2).map((_, j) => {
         const i = j + 2;
         const d = i % 2 === 0 ? x : y;
-        return { fran: [i - 2], till: i, text: d.g ? (d.d < 0 ? `×(${fmt(d.d)})` : `×${d.d}`) : steg(d.d), serie: i % 2 };
+        return { fran: [i - 2], till: i, text: d.g ? (d.d < 0 ? `×(${fmt(d.d)})` : `×${fmt(d.d)}`) : steg(d.d), serie: i % 2 };
       });
     },
     fel: (p) => [
@@ -235,10 +271,22 @@ const FAMILJER = {
     regel: (p) =>
       p.r === 0.5
         ? `Steget halveras för varje tal (${steg(p.d)}, ${steg(p.d / 2)}, ${steg(p.d / 4)} och så vidare).`
-        : `Steget blir ${p.r} gånger större för varje tal (${steg(p.d)}, ${steg(p.d * p.r)}, ${steg(p.d * p.r * p.r)} och så vidare).`,
+        : // bankversion 4: steget byter tecken varje gång
+          p.r === -0.5
+          ? `Steget halveras och byter tecken för varje tal (${steg(p.d)}, ${steg(p.d / -2)}, ${steg(p.d / 4)}, ${steg(p.d / -8)} och så vidare).`
+          : p.r === -2
+            ? `Steget dubblas och byter tecken för varje tal (${steg(p.d)}, ${steg(p.d * -2)}, ${steg(p.d * 4)}, ${steg(p.d * -8)} och så vidare).`
+            : `Steget blir ${p.r} gånger större för varje tal (${steg(p.d)}, ${steg(p.d * p.r)}, ${steg(p.d * p.r * p.r)} och så vidare).`,
     bagar: (p, s) => differensbagar(s),
     fel: (p) =>
-      p.r === 0.5
+      p.r < 0
+        ? [
+            // rätt storlek på steget men behöll tecknet
+            { typ: 'utan_teckenbyte', f: (s) => s[s.length - 1] - p.r * (s[s.length - 1] - s[s.length - 2]) },
+            // bytte tecken men behöll storleken
+            { typ: 'bara_teckenbyte', f: (s) => s[s.length - 1] - (s[s.length - 1] - s[s.length - 2]) },
+          ]
+        : p.r === 0.5
         ? [
             { typ: 'for_litet_steg', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) / 4 },
             { typ: 'steget_kvar', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) * 2 },
@@ -273,7 +321,7 @@ const FAMILJER = {
           : i % 2 === (p.forst === 'ggr' ? 0 : 1)
             ? p.k < 0
               ? `×(${fmt(p.k)})`
-              : `×${p.k}`
+              : `×${fmt(p.k)}`
             : steg(p.c),
       })),
     fel: (p) =>
@@ -352,7 +400,7 @@ const TEXT = {
   dubbel: ['Du dubblade förra talet i stället för att lägga ihop de två närmast före.', 'dubblade du förra talet'],
   // bankversion 3
   fel_del: ['Du räknade med fel del av talet. Kvoten mellan talen är densamma hela vägen.', 'räknade du med fel del av talet'],
-  tredje_for_mycket: ['Du ändrade steget för mycket. Skillnaden mellan stegen växer lika mycket varje gång.', 'ändrade du steget för mycket'],
+  tredje_for_mycket: ['Du ändrade steget för mycket. Skillnaden mellan stegen ändras lika mycket varje gång.', 'ändrade du steget för mycket'],
   tredje_fel_hall: ['Du ändrade skillnaden mellan stegen åt fel håll. Jämför stegen två och två.', 'ändrade du skillnaden mellan stegen åt fel håll'],
   hoppade_steg: ['Du hoppade över ett steg i turordningen. De tre stegen kommer i samma ordning hela tiden.', 'hoppade du över ett steg i turordningen'],
   period_tva: ['Du lät två steg växla, men det är tre steg som turas om.', 'lät du två steg växla i stället för tre'],
@@ -360,6 +408,13 @@ const TEXT = {
   for_litet_steg: ['Du gjorde steget för litet. Steget halveras en gång per tal, inte två.', 'gjorde du steget för litet'],
   steget_kvar: ['Du lät steget växa, men det halveras för varje tal.', 'lät du steget växa'],
   bada_samtidigt: ['Du tog båda räknesätten i samma steg. De turas om, ett per steg.', 'tog du båda räknesätten i samma steg'],
+  // bankversion 4
+  fel_fas_kvot: ['Du tog fel räknesätt i turordningen. De två räknesätten turas om, ett per steg.', 'tog du fel räknesätt i turordningen'],
+  fel_rakneart: ['Du multiplicerade där serien delar, eller delade där den multiplicerar.', 'multiplicerade du där serien delar, eller tvärtom'],
+  fel_faktor: ['Du multiplicerade med fel tal. Titta på vilka två tal serien multiplicerar med, ett i taget.', 'multiplicerade du med fel tal'],
+  fel_tal_kvot: ['Du multiplicerade eller delade med fel tal. Titta på vilka två räknesätt som turas om.', 'multiplicerade eller delade du med fel tal'],
+  utan_teckenbyte: ['Steget har rätt storlek, men du glömde att byta tecken. Steget byter tecken varje gång.', 'glömde du att byta tecken på steget'],
+  bara_teckenbyte: ['Du bytte tecken på steget men ändrade inte storleken.', 'bytte du tecken på steget utan att ändra storleken'],
 };
 
 export const DISTRAKTORTYPER = Object.keys(TEXT);
@@ -384,7 +439,9 @@ export function byggFraga({ familj, params, niva, visade: nVisade, id }) {
   const F = FAMILJER[familj];
   const k = N.luckor;
   const full = F.serie(params, nVisade + k + 1);
-  if (!full.every(heltal)) return null;
+  // talet efter luckorna behövs bara till distraktorn "ett steg för långt";
+  // är det inget heltal faller den distraktorn bort (bankversion 4)
+  if (!full.slice(0, nVisade + k).every(heltal)) return null;
   const visade = full.slice(0, nVisade);
   const facit = full.slice(nVisade, nVisade + k);
   const efter = full[nVisade + k];

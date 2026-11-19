@@ -7,7 +7,7 @@
 
 export const FAMILJ_NAMN: Record<string, string> = {
   aritmetisk: 'Samma steg varje gång',
-  geometrisk: 'Gånger samma tal',
+  geometrisk: 'Gånger och delat',
   andra_ordningen: 'Växande differens',
   vaxelvis: 'Växelvis plus och minus',
   varvad: 'Två varvade serier',

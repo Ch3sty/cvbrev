@@ -26,7 +26,13 @@
 //      eller identisk: högst tre tal i följd gemensamma, facit inräknat
 //  V8  (över bankerna, rader från bankversion 3) ingen rad har samma stegföljd
 //      som en annan rad på någon nivå, flyttad uppåt eller nedåt: högst tre
-//      steg i följd gemensamma (godkända par från granskningen undantagna)
+//      steg i följd gemensamma (godkända par från granskningen undantagna).
+//      Från bankversion 4 jämförs också kvoterna mellan geometriska rader:
+//      samma serie i annan skala (eller i annan fas) har samma kvotföljd
+//  V9  (bankversion 4, tredje ordningen) inget alternativ stämmer med en
+//      enklare läsning av de sista stegen: samma steg som sist, eller steget
+//      ändrat lika mycket som sist (granskningen av omgång 2, villkoret för
+//      tredje ordningen på expert)
 // Varningar (fäller inte): ett polynom av grad tre genom alla visade tal som
 // ger en distraktor. Med fem visade tal passar ett sådant nästan alltid.
 //
@@ -67,7 +73,8 @@ const FAMILJ = {
   aritmetisk: (p, n) => Array.from({ length: n }, (_, i) => p.a + p.d * i),
   geometrisk: (p, n) => {
     const ut = [Q(p.a)];
-    while (ut.length < n) ut.push(ggr(ut[ut.length - 1], Q(p.r, p.q)));
+    // bankversion 4: p.kv, två kvoter [täljare, nämnare] som turas om
+    while (ut.length < n) ut.push(ggr(ut[ut.length - 1], p.kv ? Q(p.kv[(ut.length - 1) % 2][0], p.kv[(ut.length - 1) % 2][1]) : Q(p.r, p.q)));
     return ut.map((x) => (arHel(x) ? tilltal(x) : NaN));
   },
   andra_ordningen: (p, n) => {
@@ -319,6 +326,7 @@ export function verifiera(q) {
     let ok;
     if ((m = t.match(/^([+-]?\d+)$/))) ok = till - fran[0] === Number(m[1]);
     else if ((m = t.match(/^×(\d+)$/))) ok = till === fran[0] * Number(m[1]);
+    else if ((m = t.match(/^×(\d+),(\d+)$/))) ok = till === fran[0] * Number(`${m[1]}.${m[2]}`);
     else if ((m = t.match(/^×\((-\d+)\)$/))) ok = till === fran[0] * Number(m[1]);    else if ((m = t.match(/^÷(\d+)$/))) ok = till * Number(m[1]) === fran[0];
     else if ((m = t.match(/^×\(?(-?\d+)\)? ([+-])(\d+)$/))) ok = till === Number(m[1]) * fran[0] + (m[2] === '+' ? 1 : -1) * Number(m[3]);
     else if ((m = t.match(/^summa(?: ([+-])(\d+))?$/))) ok = fran.length === 2 && till === fran[0] + fran[1] + (m[1] ? (m[1] === '+' ? 1 : -1) * Number(m[2]) : 0);
@@ -331,17 +339,44 @@ export function verifiera(q) {
   const p = q.params;
   const ska = {
     aritmetisk: [Math.abs(p.d)],
-    geometrisk: p.q === 1 ? [p.r] : [],
+    geometrisk: p.kv ? p.kv.flat().filter((x) => x !== 1) : p.q === 1 ? [p.r] : [],
     andra_ordningen: p.t ? [Math.abs(p.t)] : [Math.abs(p.s)],
     vaxelvis: p.steg ? p.steg.map(Math.abs) : [p.upp, p.ned],
     varvad: [Math.abs(p.d0), Math.abs(p.d1)],
-    geodiff: (p.r === 2 && /dubblas/.test(q.regel)) || (p.r === 0.5 && /halveras/.test(q.regel)) ? [] : [p.r],
+    geodiff:
+      (p.r === 2 && /dubblas/.test(q.regel)) ||
+      (p.r === 0.5 && /halveras/.test(q.regel)) ||
+      (p.r === -2 && /dubblas och byter tecken/.test(q.regel)) ||
+      (p.r === -0.5 && /halveras och byter tecken/.test(q.regel))
+        ? []
+        : [p.r],
     affin: [Math.abs(p.k), Math.abs(p.c)],
     summa: p.c ? [Math.abs(p.c)] : [],
   }[q.family];
-  const talIText = new Set((q.regel.match(/\d+/g) ?? []).map(Number));
+  // decimalkomma räknas som ett tal (bankversion 4: gånger 1,5)
+  const talIText = new Set((q.regel.match(/\d+(?:,\d+)?/g) ?? []).map((x) => Number(x.replace(',', '.'))));
   for (const x of ska) if (!talIText.has(x)) fel.push(`${id}: V6 regeltexten nämner inte ${fmt(x)}`);
   if (q.family === 'geometrisk' && p.q > 1 && !/(hälften|tredjedel)/.test(q.regel)) fel.push(`${id}: V6 regeltexten säger inte vilken del`);
+
+  // V9
+  if (q.family === 'andra_ordningen' && p.t && q.fran_version >= 4) {
+    const r = q.visade;
+    const n = r.length;
+    const d1 = r[n - 1] - r[n - 2];
+    const dd = d1 - (r[n - 2] - r[n - 3]);
+    const enkla = [
+      ['samma steg som sist', [r[n - 1] + d1, r[n - 1] + 2 * d1]],
+      ['steget ändrat lika mycket som sist', [r[n - 1] + d1 + dd, r[n - 1] + 2 * d1 + 3 * dd]],
+    ];
+    // rätt första tal och sedan den enklare läsningen
+    const f0 = facit[0];
+    const e0 = f0 - r[n - 1];
+    enkla.push(['rätt första tal, sedan samma steg', [f0, f0 + e0]], ['rätt första tal, sedan steget ändrat lika mycket', [f0, f0 + e0 + (e0 - d1)]]);
+    for (const [namn, v] of enkla) {
+      const i = q.options.findIndex((o) => nyck(o) === nyck(v));
+      if (i >= 0 && nyck(v) !== nyck(facit)) fel.push(`${id}: V9 alternativ ${i + 1} stämmer med en enklare läsning (${namn})`);
+    }
+  }
 
   return { fel, varn };
 }
@@ -415,25 +450,43 @@ const stegfoljd = (q) => {
 };
 const parNyckel = (a, b) => [a.id, b.id].sort().join('/');
 
-/** Par där minst en rad har fran_version >= franVersion och stegen delar minst `min` steg i följd. Godkända par räknas inte. */
+/** En rad som pensioneras från samma version som den kom med finns aldrig i någon pool. */
+const aldrigVisad = (q) => q.pensionerad_fran != null && q.pensionerad_fran <= q.fran_version;
+
+/** Kvoterna i raden med facit som exakta bråk ("1/3", "4"), för geometriska rader. */
+const kvotfoljd = (q) => {
+  const r = helRad(q);
+  return r.slice(1).map((x, i) => {
+    const k = delat(Q(x), Q(r[i]));
+    return k ? `${k.n}/${k.d}` : 'x';
+  });
+};
+/** Kvotjämförelsen (granskningen av omgång 3): båda geometriska och minst en från bankversion 4. */
+export const KVOT_FRAN = 4;
+const sammaKvot = (a, b, min) =>
+  a.family === 'geometrisk' && b.family === 'geometrisk' && Math.max(a.fran_version ?? 0, b.fran_version ?? 0) >= KVOT_FRAN && gemensamFoljd(kvotfoljd(a), kvotfoljd(b)) >= min;
+
+/** Par där minst en rad har fran_version >= franVersion och stegen (eller kvoterna) delar minst `min` i följd. Godkända par räknas inte. */
 export function sammaStegPar(fragor, franVersion = 3, min = STEGFOLJD_MIN) {
   const par = [];
   for (let i = 0; i < fragor.length; i++) {
     for (let j = i + 1; j < fragor.length; j++) {
       const [a, b] = [fragor[i], fragor[j]];
       if (a.fran_version < franVersion && b.fran_version < franVersion) continue;
+      if (aldrigVisad(a) || aldrigVisad(b)) continue;
       if (GODKANDA_STEGPAR.has(parNyckel(a, b))) continue;
       const n = gemensamFoljd(stegfoljd(a), stegfoljd(b));
       if (n >= min) par.push({ a, b, n });
+      else if (sammaKvot(a, b, min)) par.push({ a, b, n: gemensamFoljd(kvotfoljd(a), kvotfoljd(b)), kvot: true });
     }
   }
   return par;
 }
 
-/** Har raden samma stegföljd som någon av de andra (alla nivåer)? */
+/** Har raden samma stegföljd (eller, geometriskt, samma kvotföljd) som någon av de andra (alla nivåer)? */
 export function harSammaSteg(q, andra, min = STEGFOLJD_MIN) {
   const s = stegfoljd(q);
-  return andra.some((x) => x.id !== q.id && !GODKANDA_STEGPAR.has(parNyckel(q, x)) && gemensamFoljd(s, stegfoljd(x)) >= min);
+  return andra.some((x) => x.id !== q.id && !aldrigVisad(x) && !GODKANDA_STEGPAR.has(parNyckel(q, x)) && (gemensamFoljd(s, stegfoljd(x)) >= min || sammaKvot(q, x, min)));
 }
 
 if (process.argv[1]?.endsWith('talserier-verifiera.mjs')) {
@@ -466,7 +519,7 @@ if (process.argv[1]?.endsWith('talserier-verifiera.mjs')) {
   }
   if (gamlaPar) allaVarn.push(`V7 ${gamlaPar} förskjutna eller identiska par bara i version 1 (kända sedan granskningen 2026-11-19)`);
   // V8: samma stegföljd (flyttad rad), rader från bankversion 3, alla nivåer
-  for (const { a, b, n: m } of sammaStegPar(alla, bara !== null ? bara : 3)) allaFel.push(`${a.id} och ${b.id}: V8 samma stegföljd, ${m} steg i följd gemensamma`);
+  for (const { a, b, n: m, kvot } of sammaStegPar(alla, bara !== null ? bara : 3)) allaFel.push(`${a.id} och ${b.id}: V8 samma ${kvot ? 'kvotföljd' : 'stegföljd'}, ${m} ${kvot ? 'kvoter' : 'steg'} i följd gemensamma`);
   if (atgardade) console.log(`V7: ${atgardade} par i version 1 åtgärdade genom pensionering`);
   for (const f of allaFel) console.log(f);
   for (const v of allaVarn) console.log('varning:', v);

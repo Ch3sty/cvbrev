@@ -8,16 +8,12 @@
 import { describe, expect, it } from 'vitest'
 // @ts-ignore ren JavaScript
 import { forskjutnaPar, sammaStegPar } from '../../../../scripts/talserier-verifiera.mjs'
-import { valjTalserier, poolFor, allaTalserier, MAX_PER_FAMILJ, TALSERIE_VERSION } from '../select'
+import { valjTalserier, poolFor, allaTalserier, MAX_PER_FAMILJ } from '../select'
 
 const NIVAER = ['grund', 'avancerad', 'expert'] as const
 const PENSIONERADE = ['ts-e-affin-16', 'ts-a-affin-08', 'ts-a-affin-06', 'ts-e-affin-14', 'ts-a-affin-16', 'ts-e-affin-06', 'ts-g-andra-09', 'ts-g-vaxel-09']
 
 describe('talseriernas bankversion 3', () => {
-  it('version 3 är påslagen', () => {
-    expect(TALSERIE_VERSION).toBe(3)
-  })
-
   it('version 2 har exakt samma pool som före omgång 2', () => {
     const storlek = { grund: 106, avancerad: 105, expert: 103 }
     for (const niva of NIVAER) {
