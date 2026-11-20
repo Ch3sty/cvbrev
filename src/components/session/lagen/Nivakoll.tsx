@@ -57,6 +57,12 @@ export interface NivakollApi<S> {
 export interface NivakollStart extends Omit<StartskarmProps, 'bas' | 'knapp' | 'kryssruta' | 'regler' | 'sparrad' | 'fortsattTillganglig'> {
   regler: [StartRegel, StartRegel, StartRegel]
   sparr?: ReactNode
+  /**
+   * Väggen när servern nekar starten med 402 eller 403 fast startskärmen
+   * såg öppen ut (etapp 7): väggen står på startskärmen och mäter sig själv,
+   * aldrig ett felmeddelande och aldrig en händelse utan vägg.
+   */
+  betalvagg?: ReactNode
   fortsatt: boolean
 }
 
@@ -296,15 +302,18 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
   /* ------------------------------ Ritningen --------------------------- */
 
   if (fas.typ === 'start' || ((fas.typ === 'startar' || fas.typ === 'startfel') && p.start && !s)) {
-    const st = p.start!
+    const { betalvagg, ...st } = p.start!
+    const nekad = fas.typ === 'startfel' && (fas.status === 402 || fas.status === 403) && betalvagg ? betalvagg : null
+    const sparr = st.sparr ?? nekad
     return (
       <Startskarm
         {...st}
+        sparr={sparr}
         bas={bas}
-        sparrad={st.sparr ? 'premium' : 'none'}
+        sparrad={sparr ? 'premium' : 'none'}
         fortsattTillganglig={st.fortsatt}
         knapp={
-          st.sparr
+          sparr
             ? null
             : {
                 text: st.fortsatt ? SESSION.start.fortsatt.nivakoll : SESSION.start.starta.nivakoll,
@@ -313,7 +322,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
               }
         }
         kortRad={
-          fas.typ === 'startfel' ? (
+          fas.typ === 'startfel' && !nekad ? (
             <span role="alert" className="text-ink-1">
               {SESSION.fel.start}
             </span>

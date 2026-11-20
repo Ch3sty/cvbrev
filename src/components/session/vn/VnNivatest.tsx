@@ -3,8 +3,8 @@
 /**
  * Nivåtestet i Ord och text och Siffror och tabeller i ramen
  * (plan-testflode-2026-11-20 etapp 2), alla nivåer inklusive expert.
- * Ersätter VerbalTestSession, VerbalExpertSession och NumericalTestSession i
- * TestRunner; de står kvar oanvända till etapp 5.
+ * Ersatte VerbalTestSession, VerbalExpertSession och NumericalTestSession i
+ * TestRunner (raderade i etapp 5).
  *
  * Uppgifterna kommer från servern utan facit (getRunData, eller session-
  * routens reservväg), så att frågebankerna lämnar klientpaketet. Urvalet

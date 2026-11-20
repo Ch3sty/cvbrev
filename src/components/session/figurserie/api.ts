@@ -10,7 +10,7 @@
 import type { SavedAnswer } from '@/app/dashboard/tester/[slug]/getRunData'
 import type { VisadSerie } from '@/lib/figurserierV1/types'
 
-/** POST-kropparna, ordagrant som FigurserieTestSession, OvningsprovFlode och Startark. */
+/** POST-kropparna, ordagrant som de raderade FigurserieTestSession, OvningsprovFlode och Startark skickade. */
 export const KROPP = {
   nivatestSvar: (sessionId: string, questionId: string, selectedIndex: number, timeSpent: number) => ({
     sessionId,

@@ -126,6 +126,8 @@ export default async function PassStartSida({
           kind={kind}
           grupp={grupp}
           start={st.start}
+          harNivakoll={st.harNivakoll}
+          utanNivakoll={forsta(sp.nivakoll) === 'sen'}
           forklaringEfterSvar={st.forklaringEfterSvar}
           datum={st.datum}
         />

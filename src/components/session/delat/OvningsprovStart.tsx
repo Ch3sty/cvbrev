@@ -7,14 +7,15 @@
  * figurseriernas: eyebrow med typen, rubriken, formatraden, scenen, tre
  * regler ur formatet och kortet med en knapp. Betalväggen är Startarkets,
  * ordagrant i mätningen (betalvagg_visad och paywall_cta_clicked med plats
- * provlage), och följer kampanjpriset.
+ * provlage), och följer kampanjpriset. Den delas med figurseriernas och
+ * ord och texts, siffror och tabellers övningsprov (OvningsprovBetalvagg).
  */
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { capture } from '@/lib/analytics/events'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
-import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
+import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { START } from '@/lib/ovningsprov/copy'
@@ -24,14 +25,57 @@ import Startskarm from '../Startskarm'
 import type { ScenId } from '../scener'
 import { SESSION } from '../copy'
 
-function Betalvagg({ typ, format, dagarKvar, fran, tillbakaHref }: { typ: Provtyp; format: Ovningsformat; dagarKvar: number | null; fran: string | null; tillbakaHref: string }) {
+/**
+ * Övningsprovets betalvägg (Startarkets, ordagrant i mätningen: betalvagg_visad
+ * och paywall_cta_clicked med plats provlage och test_kind provtypen). Etapp 7:
+ * en komponent för alla övningsprov, med lage och kampanjen i klicket, och
+ * delbar på startskärmen (del: kortet utan knappen på mobil, knappen i foten).
+ */
+export function OvningsprovBetalvagg({
+  typ,
+  format,
+  dagarKvar,
+  fran,
+  tillbakaHref,
+  del,
+}: {
+  typ: Provtyp
+  format: Ovningsformat
+  dagarKvar: number | null
+  fran: string | null
+  tillbakaHref: string
+  del?: 'kort' | 'fot'
+}) {
+  const kampanj = useKampanjPris()
   const visad = useRef(false)
   useEffect(() => {
-    if (visad.current) return
+    if (visad.current || del === 'fot') return
     visad.current = true
-    capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: dagarKvar, test_kind: typ, ...(fran ? { kalla: fran } : {}) })
-  }, [dagarKvar, fran, typ])
+    capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: dagarKvar, test_kind: typ, lage: 'ovningsprov', ...(fran ? { kalla: fran } : {}) })
+  }, [dagarKvar, fran, typ, del])
   const B = START.betalvagg
+  const knapp = (klass: string) => (
+    <Link
+      href={kopstegHref(SALD_PLAN, 'provlage')}
+      className={`${KNAPP_PRIMAR} ${klass}`}
+      onClick={() =>
+        capture('paywall_cta_clicked', {
+          variant: 'testniva',
+          plan: SALD_PLAN,
+          surface: 'ovningsprov',
+          cta: 'primary',
+          plats: 'provlage',
+          kampanj: kampanj?.nyckel ?? null,
+          test_kind: typ,
+          lage: 'ovningsprov',
+        })
+      }
+      data-startark-kop
+    >
+      <PremiumKnappText />
+    </Link>
+  )
+  if (del === 'fot') return knapp('')
   return (
     <section aria-label={B.eyebrow} className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-startark-betalvagg>
       <p className="text-ey uppercase text-koppar-ink">{B.eyebrow}</p>
@@ -40,13 +84,7 @@ function Betalvagg({ typ, format, dagarKvar, fran, tillbakaHref }: { typ: Provty
         <PremiumPrisradText />
       </p>
       <div className={KNAPPRAD}>
-        <Link
-          href={kopstegHref(SALD_PLAN, 'provlage')}
-          className={KNAPP_PRIMAR}
-          onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'ovningsprov', cta: 'primary', plats: 'provlage' })}
-        >
-          <PremiumKnappText />
-        </Link>
+        {knapp(del === 'kort' ? 'hidden lg:inline-flex' : '')}
         <Link href={tillbakaHref} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
           {B.lank}
         </Link>
@@ -54,6 +92,7 @@ function Betalvagg({ typ, format, dagarKvar, fran, tillbakaHref }: { typ: Provty
     </section>
   )
 }
+OvningsprovBetalvagg.fotDel = true as const
 
 export interface OvningsprovStartProps {
   typ: Provtyp
@@ -111,7 +150,7 @@ export default function OvningsprovStart(p: OvningsprovStartProps) {
       fortsattTillganglig={p.pagaende}
       sparr={
         p.last ? (
-          <Betalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
+          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
         ) : gjort ? (
           <section className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-gjort-idag>
             <p className="text-sm font-semibold text-ink-1">{START.gjortIdag}</p>

@@ -96,7 +96,6 @@ function tranaApi(api: PassApi, begard: 'pass' | 'riktat', family: string | null
     async skapa() {
       const r = await skapaMatris(api, begard, { family, pagaende })
       if (!r.ok) {
-        if (r.status === 402) capture('betalvagg_visad', { plats: betalvaggPlats(begard), dagar_kvar: null })
         return { ok: false, status: r.status }
       }
       senaste = r.vy.vy
@@ -153,6 +152,9 @@ export default function MatrisTrana({
   const bas = { test_kind: 'matris', lage: 'trana' as const, niva: vy?.vy.variant === 'grund' || start?.grund ? 'grund' : null, format: null }
   const rubrik = begard === 'riktat' ? 'Träna ett mönster' : 'Träna figurer och mönster'
   const formatrad = begard === 'riktat' && famNamn ? famNamn : null
+  const premiumVagg = (
+    <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('matris')} scope={scope} plats={betalvaggPlats(begard)} matning={{ test_kind: 'matris', lage: 'trana' }} />
+  )
 
   // Gör Nivåkollen först: startskärmens variant (avsnitt 2).
   if (start && begard === 'pass' && !start.harNivakoll && !start.pagaende && !start.sparr && !utanNivakoll) {
@@ -213,7 +215,7 @@ export default function MatrisTrana({
                 : { titel: 'Nivån rör sig högst ett halvt steg om dagen.', text: 'Svaren hittills sparas om du avbryter.' },
               fortsatt: Boolean(start.pagaende),
               kortRad: start.pagaende ? SESSION.start.kvar(start.pagaende.kvar) : null,
-              // Riktat pass i ett mönster med för få osedda uppgifter (422), som i PassFlode.
+              // Riktad träning i ett mönster med för få osedda uppgifter (422), som i det raderade PassFlode.
               startfelRad: (status) =>
                 status === 422 ? (
                   <>
@@ -226,15 +228,20 @@ export default function MatrisTrana({
               fotnot: 'Rätt svar och regeln i genomgången efteråt, också med förklaringen avstängd.',
               sparr:
                 start.sparr === 'premium' ? (
-                  <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('matris')} scope={scope} plats={betalvaggPlats(begard)} />
+                  premiumVagg
                 ) : start.sparr === 'quota' ? (
                   <PaywallCard
                     variant="test-tak"
                     testTyp={testTypForKind('matris')}
                     scope={scope}
                     quota={{ feature: 'test:matrislogik-pass', nextResetAt: start.nastaTillfalle ?? new Date().toISOString() }}
+                    matning={{ test_kind: 'matris', lage: 'trana' }}
                   />
                 ) : null,
+              sparrTyp: start.sparr === 'quota' ? 'quota' : 'premium',
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg som vid
+              // premiumspärren, som mäter sig själv (förut en händelse utan vägg).
+              betalvagg: premiumVagg,
             }
           : null
       }

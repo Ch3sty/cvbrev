@@ -3,8 +3,8 @@
 /**
  * Deduktivens övningsprov i ramen (plan-testflode-2026-11-20 etapp 3):
  * startskärmen på /ovningsprov/deduktiv och provet på
- * /ovningsprov/deduktiv/<id>. Ersätter Startark och OvningsprovFlode för
- * deduktivt; de står kvar för verbalt och numeriskt. Samma rutter och
+ * /ovningsprov/deduktiv/<id>. Ersatte Startark och OvningsprovFlode för
+ * deduktivt (raderade i etapp 5). Samma rutter och
  * kroppar: start {typ, fran}, svar {sessionId, nyckel, svar, tid}, slutför
  * {sessionId}. Hård gräns: provet lämnas in när tiden är ute.
  */
@@ -73,7 +73,9 @@ export function DeduktivOvningsprovStart(p: DeduktivOvningsprovStartProps) {
           router.push(ovningsprovSessionHref('deduktiv', r.id))
           return true
         }
-        if (r.status === 429) router.refresh()
+        // 402: spärren gäller (servern såg det före sidan), 429: dagens prov är gjort.
+        // Sidan läses om och visar väggen eller raden, som mäter sig själv.
+        if (r.status === 429 || r.status === 402) router.refresh()
         return false
       }}
     />

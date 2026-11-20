@@ -15,6 +15,7 @@ import { SEKUNDER_PER_UPPGIFT as ORD_S } from '@/lib/ordforradV1/select'
 import { dagSthlm } from '@/lib/traning/datum'
 import { kortDatum } from '@/lib/traning/rubrik'
 import { lasTestInstallningar } from '@/lib/tester/installningar.server'
+import { senasteNivakollNiva } from '@/lib/nivakoll/las.server'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = SupabaseClient<any, any, any>
@@ -34,6 +35,8 @@ function antalSvar(answers: unknown): number {
 export interface Steg2TranaStartlage {
   start: { last: boolean; fortsatt: boolean; kvar: number | null; antal: number; budgetPerUppgift: number | null }
   forklaringEfterSvar: boolean
+  /** En Nivåkoll i typen finns (etapp 7: annars "Gör Nivåkollen först", som matrisen). */
+  harNivakoll: boolean
   datum: string
 }
 
@@ -42,10 +45,11 @@ const FAST_BUDGET: Record<Steg2PassKind, number | null> = { talserie: TAL_S, spa
 
 export async function steg2TranaStart(supabase: Klient, admin: Klient, userId: string, kind: Steg2PassKind, grupp: string | null): Promise<Steg2TranaStartlage> {
   const idag = dagSthlm()
-  const [har, radRes, installningar] = await Promise.all([
+  const [har, radRes, installningar, nivakoll] = await Promise.all([
     harVnPass(supabase, userId).catch(() => false),
     admin.from('logic_test_v4_sessions').select('id, meta, answers, completed_at').eq('user_id', userId).eq('test_type', STEG2_PASS_TEST_TYPE[kind]).order('created_at', { ascending: false }).limit(5),
     lasTestInstallningar(admin, userId),
+    senasteNivakollNiva(admin, userId, kind).catch(() => null),
   ])
   const rader = ((radRes as { data: unknown }).data ?? []) as Rad[]
   // Samma regel som skapaSteg2Pass: ett påbörjat i dag med samma grupp återupptas.
@@ -64,6 +68,7 @@ export async function steg2TranaStart(supabase: Klient, admin: Klient, userId: s
       budgetPerUppgift: kind === 'spatial' ? null : meta ? Math.round(meta.budget_s / Math.max(1, meta.antal)) : FAST_BUDGET[kind],
     },
     forklaringEfterSvar: installningar.forklaring_efter_svar,
+    harNivakoll: nivakoll != null,
     datum: kortDatum(idag),
   }
 }

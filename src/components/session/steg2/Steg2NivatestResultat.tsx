@@ -5,8 +5,7 @@
  * resultatskärm (plan-testflode-2026-11-20 avsnitt 4.2, etapp 4).
  * TestResultsPage räknar som förut (analysen från servern, test_completed,
  * statusraden med köpet) och lämnar ritningen hit. "Gå igenom" öppnar
- * genomgången i ramen, samma vy som testet. Steg2Review står kvar oanvänd
- * till etapp 5.
+ * genomgången i ramen, samma vy som testet (Steg2Review raderades i etapp 5).
  */
 
 import { useState, type ReactNode } from 'react'

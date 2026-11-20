@@ -3,8 +3,8 @@
 /**
  * Logikens övningsprov i ramen (plan-testflode-2026-11-20 avsnitt 2 och
  * etapp 3), motorns typ general: startskärmen på /ovningsprov/logik och
- * provet på /pass/<id>. Ersätter Startark och LogikProvFraga för logiken;
- * de står kvar oanvända till etapp 5.
+ * provet på /pass/<id>. Ersatte Startark och LogikProvFraga för logiken
+ * (raderade i etapp 5).
  *
  * Format ur planens leverantör, som förut:
  *   Fast (vårt, Matrigma klassisk, SHL)  fri navigering: ‹, räknaren och
@@ -16,7 +16,7 @@
  *        uppgiftens tid är ute går provet vidare med tidenUte, som förut.
  * Ringen räknar ned från sessionens start på servern (hård gräns): vid noll
  * lämnas provet in, och ett 410 från servern gör samma sak. Samma rutter och
- * kroppar (PassApi) som PassFlode och LogikProvFraga skickade.
+ * kroppar (PassApi) som de raderade PassFlode och LogikProvFraga skickade.
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -91,7 +91,10 @@ export function MatrisOvningsprovStart({ api = fetchPassApi, ...p }: MatrisOvnin
         }
         const r = await skapaMatris(api, 'general', {})
         if (!r.ok) {
-          if (r.status === 402) capture('betalvagg_visad', { plats: 'generalrepetition', dagar_kvar: null })
+          // 402: spärren gäller. Sidan läses om och visar övningsprovets vägg,
+          // som mäter visningen (plats provlage, etapp 7) i stället för en
+          // händelse utan vägg.
+          if (r.status === 402) router.refresh()
           return false
         }
         capture('pass_startat', { typ: 'general', variant: r.vy.vy.variant })

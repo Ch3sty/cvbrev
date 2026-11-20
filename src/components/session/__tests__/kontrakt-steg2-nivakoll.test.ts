@@ -42,19 +42,20 @@ describe('Nivåkollen i talserier, spatial och ordförråd', () => {
     ])
   })
 
-  it('409 på ett svar räknas som sparat; 402 vid start skjuter betalvagg_visad plats ommatning med typens test_kind', async () => {
+  it('409 på ett svar räknas som sparat; 402 vid start skjuter ingen händelse utan vägg (etapp 7: väggen mäter sig själv)', async () => {
     spionera({ status: 409, json: { error: 'redan_besvarad' } })
     const api = steg2KollApi('spatial', fetchNivakollApi)
     expect(await api.svara({ sessionId: 'k', nyckel: 'n', valt: 0, tid: 1 })).toBe(true)
     spionera({ status: 402, json: { error: 'feature_required' } })
     expect(await api.skapa()).toEqual({ ok: false, status: 402 })
-    expect(capture).toHaveBeenCalledWith('betalvagg_visad', { plats: 'ommatning', dagar_kvar: null, test_kind: 'spatial' })
+    expect(capture).not.toHaveBeenCalledWith('betalvagg_visad', expect.anything())
   })
 
-  it('nivamatning_startad och betalvagg_visad med samma egenskaper som i de andra typerna', () => {
+  it('nivamatning_startad och betalväggarna med samma egenskaper som i de andra typerna', () => {
     const k = fs.readFileSync(path.resolve(__dirname, '../steg2/Steg2Nivakoll.tsx'), 'utf8')
     expect(k).toContain("capture('nivamatning_startad', { ommatning: v.typ === 'ommatning', smakprov: 0, test_kind: kind })")
-    expect(k).toContain("capture('betalvagg_visad', { plats: 'matning', dagar_kvar: null, test_kind: vy.kind })")
+    expect(k).toContain(`plats="ommatning" matning={{ test_kind: kind, lage: 'nivakoll' }}`)
+    expect(k).toContain('<NivakollKop testKind={vy.kind} />')
   })
 
   it('vyn till ramens form: uppgiften som nivåtestet och Träna, facit ur motorns genomgång', () => {

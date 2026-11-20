@@ -324,6 +324,7 @@ export default function TestHubPage({
                 scope={scope}
                 track={track}
                 plats="testniva"
+                matning={{ test_kind: config.kind, lage: 'nivatest' }}
               />
             ) : tak ? (
               <PaywallCard
@@ -332,6 +333,7 @@ export default function TestHubPage({
                 scope={scope}
                 track={track}
                 quota={{ feature: tak.feature, nextResetAt: tak.nextResetAt }}
+                matning={{ test_kind: config.kind, lage: 'nivatest' }}
               />
             ) : null
           }

@@ -32,7 +32,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
-import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
+import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
+import { capture } from '@/lib/analytics/events'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { TRANING_HREF, TRANING_RUTT, steg2PassHref } from '@/lib/traning/rutter'
@@ -91,7 +92,41 @@ const bas = (halvt: boolean): SessionHandelseBas => ({ test_kind: 'iprov', lage:
 
 /* ------------------------------------------------------------ Startskärmen */
 
-function Betalvagg({ tillbakaHref }: { tillbakaHref: string }) {
+/**
+ * Väggen på I-provets startskärm (plats provlage, som övningsprovets). Etapp 7:
+ * mäts som övriga testväggar (betalvagg_visad och paywall_cta_clicked med
+ * test_kind iprov och lage iprov; före etapp 7 mättes den inte alls) och
+ * delar sig på mobil så att köpknappen står i foten.
+ */
+function Betalvagg({ tillbakaHref, del }: { tillbakaHref: string; del?: 'kort' | 'fot' }) {
+  const kampanj = useKampanjPris()
+  const visad = useRef(false)
+  useEffect(() => {
+    if (visad.current || del === 'fot') return
+    visad.current = true
+    capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: null, test_kind: 'iprov', lage: 'iprov' })
+  }, [del])
+  const knapp = (klass: string) => (
+    <Link
+      href={kopstegHref(SALD_PLAN, 'provlage')}
+      className={`${KNAPP_PRIMAR} ${klass}`}
+      onClick={() =>
+        capture('paywall_cta_clicked', {
+          variant: 'testniva',
+          plan: SALD_PLAN,
+          surface: 'iprov',
+          cta: 'primary',
+          plats: 'provlage',
+          kampanj: kampanj?.nyckel ?? null,
+          test_kind: 'iprov',
+          lage: 'iprov',
+        })
+      }
+    >
+      <PremiumKnappText />
+    </Link>
+  )
+  if (del === 'fot') return knapp('')
   return (
     <section aria-label="Ingår i Premium" className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-iprov-last>
       <p className="text-ey uppercase text-koppar-ink">Ingår i Premium</p>
@@ -100,9 +135,7 @@ function Betalvagg({ tillbakaHref }: { tillbakaHref: string }) {
         <PremiumPrisradText />
       </p>
       <div className={KNAPPRAD}>
-        <Link href={kopstegHref(SALD_PLAN, 'provlage')} className={KNAPP_PRIMAR}>
-          <PremiumKnappText />
-        </Link>
+        {knapp(del === 'kort' ? 'hidden lg:inline-flex' : '')}
         <Link href={tillbakaHref} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
           {SESSION.resultat.tillbaka}
         </Link>
@@ -110,6 +143,8 @@ function Betalvagg({ tillbakaHref }: { tillbakaHref: string }) {
     </section>
   )
 }
+
+Betalvagg.fotDel = true as const
 
 function Omfang({ halvt, onAndra }: { halvt: boolean; onAndra: (h: boolean) => void }) {
   const val = (h: boolean) => {

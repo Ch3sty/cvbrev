@@ -24,7 +24,7 @@ import { paketKort } from '@/lib/plans/plans';
 
 const BEGARDA: readonly Begard[] = ['matning', 'pass', 'riktat', 'general'];
 
-const KVOT_TEXT = `Dagens grundpass är gjort. Nästa i morgon, eller köp ${paketKort()} för passet på din nivå.`;
+const KVOT_TEXT = `Dagens träning på grundnivå är gjord. Nästa i morgon, eller köp ${paketKort()} för träningen på din nivå.`;
 
 export async function POST(request: Request) {
   const a = await inloggad();

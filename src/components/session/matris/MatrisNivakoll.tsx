@@ -12,9 +12,8 @@
  * och nivåberäkningen är motorns, orörda.
  */
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import PaywallCard from '@/components/paywall/PaywallCard'
-import { PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import type { Scope } from '@/lib/access/features'
 import { capture } from '@/lib/analytics/events'
@@ -28,6 +27,7 @@ import Kurva from '@/components/traning/Kurva'
 import { imorgonFranStatus, MilstolpeKortVy } from '@/components/traning/resultatDelar'
 import Nivakoll, { type NivakollApi, type NivakollSession } from '../lagen/Nivakoll'
 import Resultatskarm from '../Resultatskarm'
+import NivakollKop from '../delat/NivakollKop'
 import { MATRIS, type MatrisU } from '../typer/Matris'
 import { SESSION } from '../copy'
 import { MatrisMiniatyrer } from './delar'
@@ -82,7 +82,6 @@ function kollApi(api: PassApi, pagaende: string | null, forsta: Sessionsvy | nul
     async skapa() {
       const r = await skapaMatris(api, 'matning', { pagaende })
       if (!r.ok) {
-        if (r.status === 402) capture('betalvagg_visad', { plats: 'ommatning', dagar_kvar: null })
         return { ok: false, status: r.status }
       }
       senaste = r.vy.vy
@@ -165,8 +164,10 @@ export default function MatrisNivakoll({ start = null, vy = null, betalande, dat
               kortRad: start.pagaende ? SESSION.start.kvar(start.pagaende.kvar) : null,
               fotnot: 'Rätt svar och regeln vid varje uppgift kommer i genomgången.',
               sparr: start.sparr ? (
-                <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('matris')} scope={scope} plats="ommatning" />
+                <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('matris')} scope={scope} plats="ommatning" matning={{ test_kind: 'matris', lage: 'nivakoll' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('matris')} scope={scope} plats="ommatning" matning={{ test_kind: 'matris', lage: 'nivakoll' }} />,
             }
           : null
       }
@@ -212,13 +213,6 @@ function KollResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; b
 
   const vmM = !ommatning ? matningResultat(avslut, status, betalande, m.vy.smakprov) : null
   const vmO = ommatning ? ommatningResultat(avslut, status) : null
-  // M1:s betalvägg mäts som förut, en gång per visning (plats matning).
-  const visad = useRef(false)
-  useEffect(() => {
-    if (!vmM?.betalvagg || visad.current) return
-    visad.current = true
-    capture('betalvagg_visad', { plats: 'matning', dagar_kvar: vmM.dagarKvar })
-  }, [vmM])
 
   const niva = vmM ? vmM.niva : vmO!.niva
   const heltal = nivaHeltal(niva)
@@ -251,14 +245,16 @@ function KollResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; b
       nastaSteg={{
         titel: imorgon.tema ? `I morgon: ${imorgon.tema.toLowerCase()}` : 'Träningen följer nivån',
         text: imorgon.status,
-        extra: betalande ? null : (
-          <p className="mt-2 text-sm font-medium leading-5 text-ink-1" data-nivakoll-prisrad>
-            Träningen på din nivå ingår i Premium. <PremiumPrisradText />
-          </p>
-        ),
         knapp: { text: betalande ? 'Träna på din nivå' : 'Träna på grundnivå', href: passHref('pass'), data: 'trana' },
       }}
-      status={vmO?.milstolpe ? <MilstolpeKortVy m={vmO.milstolpe} /> : null}
+      // M1:s betalvägg: köpet i statusraden som före ramen (plats matning, etapp 7).
+      status={
+        vmO?.milstolpe ? (
+          <MilstolpeKortVy m={vmO.milstolpe} />
+        ) : vmM?.betalvagg ? (
+          <NivakollKop testKind="matris" dagarKvar={vmM.dagarKvar} rad="Träningen på din nivå ingår i Premium." />
+        ) : null
+      }
       tillbakaHref={TRANING_RUTT.alla}
     />
   )

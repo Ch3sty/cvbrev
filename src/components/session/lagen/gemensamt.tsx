@@ -21,7 +21,7 @@ export function Sparfelsrad({ antal, onForsok }: { antal: number; onForsok: () =
   )
 }
 
-/** Meddelandekortet i main: startfel, hämtfel, avslutsfel (som FigurPassFlode). */
+/** Meddelandekortet i main: startfel, hämtfel, avslutsfel (mönstret från det raderade FigurPassFlode). */
 export function Meddelande({ titel, text, children }: { titel: string; text?: string | null; children?: ReactNode }) {
   return (
     <section role="status" className="rounded-xl border border-kant bg-papper p-4" data-meddelande>

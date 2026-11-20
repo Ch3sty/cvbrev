@@ -288,6 +288,8 @@ export interface AnalyticsEvents {
     tier?: 'free' | 'premium'
     /** Tester v4 (A8): låsets skäl, t.ex. premium, kvot eller nivakoll_gjord. */
     lage?: string
+    /** Testtypen väggen gäller (testflödet etapp 7). */
+    test_kind?: string
   } & Partial<TesterV4Kontext>
   paywall_cta_clicked: {
     variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
@@ -305,8 +307,13 @@ export interface AnalyticsEvents {
     /** Kontots källa och val (jc_kontokalla), läggs på av capture(). */
     konto_kalla?: string
     mitt_test?: string
-    /** Tester v4 (A8): låsets skäl, t.ex. premium, kvot eller nivakoll_gjord. */
+    /**
+     * Tester v4 (A8): låsets skäl. Testväggarna i sessionsramen skickar
+     * ramens läge här (etapp 7), samma värde som i betalvagg_visad.
+     */
     lage?: string
+    /** Testtypen väggen gäller, samma värde som i betalvagg_visad (etapp 7). */
+    test_kind?: string
   } & Partial<TesterV4Kontext>
   /* Prissidan finns på två ytor: den publika /priser och den inloggade
      prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
@@ -568,8 +575,10 @@ export interface AnalyticsEvents {
     dagar_kvar: number | null
     /** Varifrån (riktlinjer-tester-v2 1.8): 'provrad' när provraden i Alla tester öppnade den. */
     kalla?: string
-    /** Testtypen vid övningsprovets betalvägg: logik, verbal, numerisk. */
+    /** Testtypen väggen gäller (övningsprovet sedan förut, alla testväggar från etapp 7 i testflödet). */
     test_kind?: string
+    /** Sessionsramens läge (plan-testflode-2026-11-20 avsnitt 8.2): nivakoll, nivatest, trana, ovningsprov, iprov, personlighet. */
+    lage?: string
     /** Kontots källa ('smakprov:<slug>', 'artikel:<slug>', 'hubb') och val, läggs på av capture(). */
     konto_kalla?: string
     mitt_test?: string

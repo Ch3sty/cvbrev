@@ -141,10 +141,24 @@ export interface PaywallCardProps {
    * Utelämnat (okänt) gäller copyns sekundära som förut.
    */
   grundKvarIdag?: number | null
+  /**
+   * Testväggarna i sessionsramen (plan-testflode-2026-11-20 avsnitt 8 och 9,
+   * etapp 7): testtypen och ramens läge följer med i betalvagg_visad,
+   * paywall_cta_clicked (och test_kind i paywall_shown), så att väggen kan
+   * läsas per typ och läge. Övriga egenskaper är oförändrade.
+   */
+  matning?: { test_kind: string; lage: string } | null
+  /**
+   * Startskärmens delning på mobil (avsnitt 9.2: knappen i fotens position).
+   * 'kort': allt utom köpknappen på mobil (knappen står kvar från lg).
+   * 'fot': bara köpknappen, utan mätning av visningen (kortet mäter).
+   * Utelämnad: hela kortet som förut.
+   */
+  del?: 'kort' | 'fot'
   className?: string
 }
 
-export default function PaywallCard({
+function PaywallCard({
   variant,
   feature,
   scope = null,
@@ -162,6 +176,8 @@ export default function PaywallCard({
   testTyp,
   mall = null,
   grundKvarIdag = null,
+  matning = null,
+  del,
   className,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -189,7 +205,7 @@ export default function PaywallCard({
   // omritningar och StrictMode:s dubbelkörning i utvecklingsläge.
   const shownRef = useRef(false)
   useEffect(() => {
-    if (isPremium || shownRef.current) return
+    if (isPremium || shownRef.current || del === 'fot') return
     shownRef.current = true
     capture('paywall_shown', {
       variant,
@@ -199,13 +215,15 @@ export default function PaywallCard({
       price_shown: true,
       kampanj: kampanjNyckel,
       ...(mall ? { template: mall.id, tier: mall.tier } : {}),
+      ...(matning ? { test_kind: matning.test_kind } : {}),
     })
-    capture('betalvagg_visad', { plats: platsen, dagar_kvar: dagarKvar })
+    capture('betalvagg_visad', { plats: platsen, dagar_kvar: dagarKvar, ...(matning ? { test_kind: matning.test_kind, lage: matning.lage } : {}) })
     // Var fel spår tar i taket. Skjuts en gång per montering, samma som ovan.
     if (sparradFeature) {
       capture('feature_blocked', { feature: sparradFeature, scope, surface })
     }
-  }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar, kampanjNyckel])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar, kampanjNyckel, del])
 
   const ctaClicked = (cta: 'primary' | 'secondary') =>
     capture('paywall_cta_clicked', {
@@ -216,6 +234,7 @@ export default function PaywallCard({
       plats: platsen,
       kampanj: kampanjNyckel,
       ...(mall ? { template: mall.id, tier: mall.tier } : {}),
+      ...(matning ? { test_kind: matning.test_kind, lage: matning.lage } : {}),
     })
 
   // Kontot har redan funktionen. Ingen betalvägg.
@@ -351,6 +370,15 @@ export default function PaywallCard({
     }
   })()
 
+  // Fotens knapp (startskärmen på mobil): samma knapp och handling, inget annat.
+  if (del === 'fot') {
+    return (
+      <button type="button" onClick={primarHandling} className={`${KNAPP_PRIMAR} ${className ?? ''}`} data-paywall-fot>
+        {copy.primary}
+      </button>
+    )
+  }
+
   const innehall = (
     <>
       <h3 className="text-kort-t text-ink-1">{copy.title}</h3>
@@ -362,7 +390,7 @@ export default function PaywallCard({
       ) : null}
       {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{prisradPaTvaRader(copy.prisrad)}</p> : null}
       <div className={KNAPPRAD}>
-        <button type="button" onClick={primarHandling} className={KNAPP_PRIMAR}>
+        <button type="button" onClick={primarHandling} className={del === 'kort' ? `${KNAPP_PRIMAR} hidden lg:inline-flex` : KNAPP_PRIMAR}>
           {copy.primary}
         </button>
         {secondary}
@@ -386,3 +414,8 @@ export default function PaywallCard({
     </section>
   )
 }
+
+/** Startskärmen känner igen väggar som kan dela sig i kort och fot (Startskarm, del). */
+PaywallCard.fotDel = true as const
+
+export default PaywallCard

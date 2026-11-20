@@ -4,7 +4,7 @@
 // =============================================================================
 // Sparandet i testlägen (plan-testflode-2026-11-20 avsnitt 1, Sparande):
 // optimistisk nästa, svaret skickas i bakgrunden med kö och omförsök
-// (useRobustAnswerSaving-mönstret). Ett nyare svar på samma uppgift ersätter
+// (mönstret från det raderade useRobustAnswerSaving). Ett nyare svar på samma uppgift ersätter
 // det gamla i kön. Misslyckas sparningen efter omförsöken räknas den som
 // osparad och ramen visar raden "Ett svar sparades inte" med "Försök igen",
 // aldrig ett blockerande fel mitt i tiden. Före inlämningen töms kön.

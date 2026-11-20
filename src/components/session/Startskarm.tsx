@@ -17,10 +17,13 @@
  *      i foten på mobil
  *
  * Låst läge: kortet byts mot betalväggen (PaywallCard eller kvotkortet) som
- * anroparen ritar; ingen kopparknapp i foten då.
+ * anroparen ritar. På mobil står väggens köpknapp i foten, där Starta annars
+ * står (avsnitt 9.2, etapp 7): en vägg som kan dela sig (PaywallCard och
+ * övningsprovets vägg, markerade med fotDel) ritas som kort utan knapp och
+ * knappen i foten, synlig utan att rulla. Från lg står knappen i kortet.
  */
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { cloneElement, isValidElement, useEffect, useRef, type ReactElement, type ReactNode } from 'react'
 import Link from 'next/link'
 import { IkonFlagga, IkonInfo, IkonKlocka, IkonTillbaka, IkonX } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
@@ -78,6 +81,15 @@ export interface StartskarmProps {
 }
 
 const IKON = [IkonKlocka, IkonInfo, IkonFlagga]
+
+type DelbarVagg = ReactElement<{ del?: 'kort' | 'fot' }>
+
+/** Väggen kan dela sig i kort och fot (PaywallCard.fotDel och övningsprovets vägg). */
+function delbar(sparr: ReactNode): sparr is DelbarVagg {
+  if (!isValidElement(sparr)) return false
+  const typ = sparr.type as { fotDel?: boolean } | string
+  return typeof typ !== 'string' && Boolean(typ.fotDel)
+}
 
 function Kryssruta({ varde, onAndra }: { varde: boolean; onAndra: (v: boolean) => void }) {
   return (
@@ -174,9 +186,13 @@ export default function Startskarm(p: StartskarmProps) {
       </button>
     ) : null
 
+  // Väggens knapp får fotens plats på mobil: i den fasta startskärmen ramens
+  // fot, på nivåtestets startsida (inline, i rummet) en fot som står kvar
+  // ovanför bottennavigeringen.
+  const delad = delbar(p.sparr)
   const kort = p.sparr ? (
     <div className="relative z-[2] -mt-[30px]" data-start-sparr={p.sparrad}>
-      {p.sparr}
+      {delad ? cloneElement(p.sparr as DelbarVagg, { del: 'kort' }) : p.sparr}
     </div>
   ) : (
     <section className={lyft} data-start-kort>
@@ -202,6 +218,21 @@ export default function Startskarm(p: StartskarmProps) {
             {p.efter}
           </div>
         </div>
+        {delad ? (
+          <>
+            {/* Platsen foten tar, så att golvets sista rad inte hamnar under den. */}
+            <div className="h-[73px] lg:hidden" aria-hidden="true" />
+            {/* Fast mot skärmen: rummets main rullar och räknar bort sin egen
+                bottenmarginal, så en sticky fot hamnade mitt i kortet. */}
+            <div
+              className="fixed inset-x-0 z-30 border-t border-kant bg-papper px-4 py-3 lg:hidden"
+              style={{ bottom: 'var(--bottom-nav-h, 0px)' }}
+              data-start-fot="vagg"
+            >
+              {cloneElement(p.sparr as DelbarVagg, { del: 'fot' })}
+            </div>
+          </>
+        ) : null}
       </div>
     )
   }
@@ -220,7 +251,8 @@ function FastStart({
   knappEl: (klass: string) => ReactNode
   fotRef: React.RefObject<HTMLElement | null>
 }) {
-  const harFot = Boolean(p.knapp) && !p.sparr
+  const vaggFot = delbar(p.sparr) ? cloneElement(p.sparr, { del: 'fot' }) : null
+  const harFot = (Boolean(p.knapp) && !p.sparr) || Boolean(vaggFot)
   useRamLage(fotRef, harFot)
   const topp = (
     <div className="-mx-1 flex h-14 items-center gap-2 text-vagg-ink">
@@ -254,7 +286,9 @@ function FastStart({
       </main>
       {harFot ? (
         <footer ref={fotRef} className="flex-shrink-0 border-t border-kant bg-papper lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
-          <div className="mx-auto flex min-h-[72px] w-full max-w-[560px] items-center px-4 py-3">{knappEl('')}</div>
+          <div className="mx-auto flex min-h-[72px] w-full max-w-[560px] items-center px-4 py-3" data-start-fot={vaggFot ? 'vagg' : 'start'}>
+            {vaggFot ?? knappEl('')}
+          </div>
         </footer>
       ) : null}
     </div>

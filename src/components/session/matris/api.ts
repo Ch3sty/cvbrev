@@ -4,7 +4,7 @@
 // Träna, det riktade träningspasset och logikens övningsprov
 // (plan-testflode-2026-11-20 etapp 3). Inga rutter, tabellformat eller
 // POST-kroppar ändras: allt går genom PassApi (src/lib/traning/klient.ts)
-// som förut, och svarets kropp byggs här ordagrant som PassFlode byggde den.
+// som förut, och svarets kropp byggs här ordagrant som det raderade PassFlode byggde den.
 // Kontrakttestet (__tests__/kontrakt.test.ts) låser kropparna.
 // =============================================================================
 
@@ -17,7 +17,7 @@ export interface MatrisVy {
   status: Traningsstatus | null
 }
 
-/** Svarets kropp, ordagrant som PassFlode: vet inte och tiden ute alltid med. */
+/** Svarets kropp, ordagrant som det raderade PassFlode: vet inte och tiden ute alltid med. */
 export function svarKropp(p: { sessionId: string; questionId: string; valt: number | null; vetInte?: boolean; tidenUte?: boolean; tid: number }): SvarIn {
   return {
     sessionId: p.sessionId,
@@ -29,7 +29,7 @@ export function svarKropp(p: { sessionId: string; questionId: string; valt: numb
   }
 }
 
-/** Avslutar och läser vyn och statusen, som PassFlode (resultatets underlag). */
+/** Avslutar och läser vyn och statusen, som det raderade PassFlode (resultatets underlag). */
 export async function slutforMatris(api: PassApi, sessionId: string, reserv: Sessionsvy | null): Promise<{ ok: true; vy: MatrisVy } | { ok: false; status: number }> {
   const r = await api.slutfor(sessionId)
   if (!r.ok) {

@@ -2,8 +2,8 @@
 
 /**
  * Nivåtestet i talserier, spatial förmåga och ordförråd i ramen
- * (plan-testflode-2026-11-20 etapp 4). Ersätter Steg2TestSession i
- * TestRunner; den gamla står kvar oanvänd till etapp 5. Samma data och
+ * (plan-testflode-2026-11-20 etapp 4). Ersatte Steg2TestSession i
+ * TestRunner (raderad i etapp 5). Samma data och
  * samma rutter som förut: uppgifterna och de sparade svaren läses på servern
  * (getRunData), svaret postas till /api/steg2/<typ>/answer med {sessionId,
  * questionId, selectedIndex, timeSpent} och inlämningen till /complete med

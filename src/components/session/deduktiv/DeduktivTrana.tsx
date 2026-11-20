@@ -2,8 +2,8 @@
 
 /**
  * Träna deduktiv slutledning i ramen (plan-testflode-2026-11-20 etapp 3).
- * Ersätter DeduktivPassFlode på /dashboard/tester/pass?typ=deduktivpass och
- * /pass/<id>; den gamla står kvar oanvänd till etapp 5. Samma rutter och
+ * Ersatte DeduktivPassFlode på /dashboard/tester/pass?typ=deduktivpass och
+ * /pass/<id> (raderad i etapp 5). Samma rutter och
  * kroppar (pass-klient.ts): skapa {}, svar {sessionId, nyckel, visat, tid},
  * slutför {sessionId}. Förklaringen bär lösningsgången och schemat.
  */
@@ -111,8 +111,10 @@ export default function DeduktivTrana({ start = null, vy = null, forklaringEfter
               kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
               fotnot: 'Rätt svar och lösningsgången i genomgången efteråt, också med förklaringen avstängd.',
               sparr: start.last ? (
-                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('deduktiv')} scope={scope} plats="dag2" />
+                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('deduktiv')} scope={scope} plats="dag2" matning={{ test_kind: 'deduktiv', lage: 'trana' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('deduktiv')} scope={scope} plats="dag2" matning={{ test_kind: 'deduktiv', lage: 'trana' }} />,
             }
           : null
       }

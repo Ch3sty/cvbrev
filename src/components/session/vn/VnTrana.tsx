@@ -2,9 +2,9 @@
 
 /**
  * Träna Ord och text och Siffror och tabeller i ramen
- * (plan-testflode-2026-11-20 etapp 2). Ersätter VnPassFlode på
+ * (plan-testflode-2026-11-20 etapp 2). Ersatte VnPassFlode på
  * /dashboard/tester/pass?typ=textpass|sifferpass (med family: det riktade)
- * och /pass/<id>; den gamla står kvar oanvänd till etapp 5. Samma rutter och
+ * och /pass/<id> (raderad i etapp 5). Samma rutter och
  * kroppar (pass-klient.ts): skapa {kind, familj?}, svar {sessionId, nyckel,
  * svar, tid}, slutför {sessionId}.
  *
@@ -144,8 +144,10 @@ export default function VnTrana({ kind, familj = null, start = null, vy = null, 
               kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
               fotnot: 'Rätt svar och förklaringen i genomgången efteråt, också med förklaringen avstängd.',
               sparr: start.last ? (
-                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" />
+                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" matning={{ test_kind: kind, lage: 'trana' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" matning={{ test_kind: kind, lage: 'trana' }} />,
             }
           : null
       }

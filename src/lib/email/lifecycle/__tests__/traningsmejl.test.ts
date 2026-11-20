@@ -32,7 +32,7 @@ import {
   dag2Vaggrad,
 } from '../templates/traning';
 import { SALD_PLAN, prisPeriod } from '@/lib/plans/plans';
-import { stockholmKlockslag, valjTraningsmejl, avbrytSchemalagtPassmejl } from '../traningsmejl';
+import { stockholmKlockslag, valjTraningsmejl, avbrytSchemalagtPassmejl, NIVAKOLL_KIND } from '../traningsmejl';
 import { scheduleTraningsmejl, scheduleKomIgangMejl, runLifecycleEmails, schemalaggTill } from '../runner';
 import { familjNamn } from '@/lib/logicTestV7/familjer';
 import { ovningsformat } from '@/lib/ovningsprov/format';
@@ -302,6 +302,32 @@ describe('pass_dag2 för alla testtyper (beslut 3, 2026-11-10)', () => {
     expect(betalande.subject).toBe('Dagens träning: Figurserier');
     expect(betalande.html).toContain('typ=figurpass');
   });
+
+  it('känner Nivåkollen i alla åtta typer (etapp 7): test_type till typ', () => {
+    expect(Object.values(NIVAKOLL_KIND).sort()).toEqual(['deduktiv', 'figurserie', 'matris', 'numerisk', 'ordforrad', 'spatial', 'talserie', 'verbal']);
+    expect(NIVAKOLL_KIND['talserie-nivakoll']).toBe('talserie');
+    expect(NIVAKOLL_KIND['spatial-nivakoll']).toBe('spatial');
+    expect(NIVAKOLL_KIND['ordforrad-nivakoll']).toBe('ordforrad');
+  });
+
+  for (const [kind, namn] of [
+    ['talserie', 'talserier'],
+    ['spatial', 'spatial förmåga'],
+    ['ordforrad', 'ordförråd'],
+  ] as const) {
+    it(`första Nivåkollen i ${namn} utlöser mejlet utan valet I-prov, med länken till genomgången`, async () => {
+      const db = typDb({
+        sessioner: [{ id: `n-${kind}`, user_id: 'u1', test_type: `${kind}-nivakoll`, completed_at: mitt(IGAR) }],
+      });
+      expect(await passDag2Mejl.shouldSend(ctx(db, 'u1', { dag: IDAG }))).toBe(true);
+      h.scope = null;
+      const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
+      expect(r.html).toContain(`Nivåkollen i ${namn}`);
+      expect(r.html).toContain(`kind=${kind}`);
+      expect(r.html).toContain(`/dashboard/tester/pass/n-${kind}`);
+      utanTalstreck(r.subject, r.html);
+    });
+  }
 
   it('en Nivåkoll i en ny typ efter den första ger inget mejl', async () => {
     const db = typDb({

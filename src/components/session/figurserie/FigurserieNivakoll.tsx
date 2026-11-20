@@ -2,16 +2,14 @@
 
 /**
  * Nivåkollen i figurserier i ramen (plan-testflode-2026-11-20 etapp 1).
- * Ersätter NivakollFlode för figurserier; de tre andra typerna går kvar i
- * NivakollFlode till etapp 2 och 3. Samma rutter och kroppar
+ * Ersatte NivakollFlode för figurserier (raderad i etapp 5; alla typer går
+ * i ramen). Samma rutter och kroppar
  * (pass-klient.ts): skapa {kind}, svar {sessionId, nyckel, svar, tid},
  * slutför {sessionId}. nivamatning_startad och betalvagg_visad skjuts med
  * samma egenskaper som förut.
  */
 
-import { useEffect, useRef } from 'react'
 import PaywallCard from '@/components/paywall/PaywallCard'
-import { PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import type { Scope } from '@/lib/access/features'
 import { capture } from '@/lib/analytics/events'
@@ -24,6 +22,7 @@ import { sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import Nivakoll, { type NivakollApi, type NivakollSession } from '../lagen/Nivakoll'
 import Resultatskarm from '../Resultatskarm'
+import NivakollKop from '../delat/NivakollKop'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { SESSION } from '../copy'
 import { Miniatyrer } from './delar'
@@ -55,7 +54,6 @@ function kollApi(a: KollApi): NivakollApi<NivakollVy> {
   return {
     async skapa() {
       const r = await a.skapa('figurserie')
-      if (!r.ok && r.status === 402) capture('betalvagg_visad', { plats: 'ommatning', dagar_kvar: null, test_kind: 'figurserie' })
       return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
     },
     async svara({ sessionId, nyckel, valt, tid }) {
@@ -104,8 +102,10 @@ export default function FigurserieNivakoll({ start = null, vy = null, betalande,
               kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
               fotnot: 'Rätt svar och regeln vid varje uppgift kommer i genomgången.',
               sparr: start.last ? (
-                <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('figurserie')} scope={scope} plats="ommatning" />
+                <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('figurserie')} scope={scope} plats="ommatning" matning={{ test_kind: 'figurserie', lage: 'nivakoll' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="tests_above_base" testTyp={testTypForKind('figurserie')} scope={scope} plats="ommatning" matning={{ test_kind: 'figurserie', lage: 'nivakoll' }} />,
             }
           : null
       }
@@ -131,13 +131,6 @@ function NivakollResultat({
 }) {
   const r = vy.resultat!
   const R = NIVAKOLL_COPY.resultat
-  // Betalväggen bor på Träna-startskärmen; resultatet mäter som förut (plats matning).
-  const visad = useRef(false)
-  useEffect(() => {
-    if (betalande || visad.current) return
-    visad.current = true
-    capture('betalvagg_visad', { plats: 'matning', dagar_kvar: null, test_kind: vy.kind })
-  }, [betalande, vy.kind])
   const s = lasNivakoll(vy)
   const missar = s.uppgifter.map((u, i) => ({ u, i, f: s.facit?.[u.nyckel] })).filter((x) => !x.f?.correct)
   const snitt = Math.round(r.tid_s / Math.max(1, r.antal))
@@ -170,13 +163,10 @@ function NivakollResultat({
       nastaSteg={{
         titel: R.pass.titel(vy.kind, r.passNiva),
         text: R.pass.text(vy.kind, r.passNiva),
-        extra: betalande ? null : (
-          <p className="mt-2 text-sm font-medium leading-5 text-ink-1" data-nivakoll-prisrad>
-            Träningen ingår i Premium. <PremiumPrisradText />
-          </p>
-        ),
         knapp: { text: r.passNiva === 'grund' ? 'Träna på grundnivå' : 'Träna på avancerad nivå', href: TRANING_RUTT.figurpass, data: 'trana' },
       }}
+      // Köpet i statusraden, som före ramen (plats matning, etapp 7).
+      status={betalande ? null : <NivakollKop testKind={vy.kind} />}
       tillbakaHref={TRANING_RUTT.alla}
     />
   )

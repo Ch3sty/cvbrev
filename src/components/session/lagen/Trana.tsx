@@ -58,6 +58,14 @@ export interface TranaStart extends Omit<StartskarmProps, 'bas' | 'knapp' | 'kry
   regel3: { titel: string; text?: string | null }
   /** Betalväggen när träningen inte ingår (gratis). */
   sparr?: ReactNode
+  /** Spärrens slag i test_start_viewed (matrisens kvotkort: quota). Utelämnad: premium. */
+  sparrTyp?: 'quota' | 'premium'
+  /**
+   * Väggen när servern nekar starten med 402 eller 403 fast startskärmen
+   * såg öppen ut (etapp 7): väggen står på startskärmen och mäter sig själv,
+   * aldrig ett felmeddelande och aldrig en händelse utan vägg.
+   */
+  betalvagg?: ReactNode
   fortsatt: boolean
   /** Typens egen rad när starten nekas med en känd status (matrisens riktade pass: 422, för få uppgifter). */
   startfelRad?: (status: number) => ReactNode | null
@@ -308,19 +316,22 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
   /* ------------------------------ Ritningen --------------------------- */
 
   if (fas.typ === 'start' || ((fas.typ === 'startar' || fas.typ === 'startfel') && p.start && !s)) {
-    const st = p.start!
-    const sparrad = st.sparr ? 'premium' : 'none'
-    const startfel = fas.typ === 'startfel'
+    const { betalvagg, sparrTyp, ...st } = p.start!
+    const nekad = fas.typ === 'startfel' && (fas.status === 402 || fas.status === 403) && betalvagg ? betalvagg : null
+    const sparr = st.sparr ?? nekad
+    const sparrad = sparr ? (st.sparr ? (sparrTyp ?? 'premium') : 'premium') : 'none'
+    const startfel = fas.typ === 'startfel' && !nekad
     return (
       <Startskarm
         {...st}
+        sparr={sparr}
         bas={bas}
-        regler={[st.regel1, st.sparr ? { titel: 'Förklaringen efter varje svar.', text: SESSION.start.kryssrutaPa } : null, st.regel3]}
-        kryssruta={st.sparr ? null : { varde: forklaring, onAndra: andraForklaring }}
+        regler={[st.regel1, sparr ? { titel: 'Förklaringen efter varje svar.', text: SESSION.start.kryssrutaPa } : null, st.regel3]}
+        kryssruta={sparr ? null : { varde: forklaring, onAndra: andraForklaring }}
         sparrad={sparrad}
         fortsattTillganglig={st.fortsatt}
         knapp={
-          st.sparr
+          sparr
             ? null
             : {
                 text: st.fortsatt ? SESSION.start.fortsatt.trana : SESSION.start.starta.trana,

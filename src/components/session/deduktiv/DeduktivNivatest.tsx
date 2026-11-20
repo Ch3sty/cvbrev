@@ -2,9 +2,8 @@
 
 /**
  * Nivåtestet i deduktiv slutledning i ramen (plan-testflode-2026-11-20 etapp
- * 3), grundnivå, avancerad nivå och expertnivå. Ersätter DeduktivTestSession
- * i TestRunner; den gamla står kvar oanvänd till etapp 5. Samma rutter och
- * kroppar som förut.
+ * 3), grundnivå, avancerad nivå och expertnivå. Ersatte DeduktivTestSession
+ * i TestRunner (raderad i etapp 5). Samma rutter och kroppar som förut.
  */
 
 import type { GenomgangDeduktiv, VisadDeduktiv } from '@/lib/deduktivV1/types'

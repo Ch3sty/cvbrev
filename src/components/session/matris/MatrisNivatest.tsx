@@ -2,8 +2,8 @@
 
 /**
  * Nivåtestet i Figurer och mönster i ramen (plan-testflode-2026-11-20 etapp
- * 3), grundnivå, avancerad nivå och expertnivå. Ersätter MatrixTestSession i
- * TestRunner; den gamla står kvar oanvänd till etapp 5. Reglaget
+ * 3), grundnivå, avancerad nivå och expertnivå. Ersatte MatrixTestSession i
+ * TestRunner (raderad i etapp 5). Reglaget
  * "Förklarande text" och svårighetsprickarna är borta: uppgiften ser ut som
  * i det riktiga testet. Samma rutter och kroppar som förut.
  */

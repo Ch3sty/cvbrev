@@ -28,21 +28,28 @@ describe('de gamla namnen skjuts som förut', () => {
       "capture('nivamatning_startad', { ommatning: v.typ === 'ommatning', smakprov: 0, test_kind: 'figurserie' })"
     )
   })
-  it('betalvagg_visad plats ommatning vid 402 och plats matning på resultatet', () => {
+  it('betalvagg_visad plats ommatning från väggen (också vid 402) och plats matning från köpet på resultatet (etapp 7)', () => {
     const k = kallkod('components/session/figurserie/FigurserieNivakoll.tsx')
-    expect(k).toContain("capture('betalvagg_visad', { plats: 'ommatning', dagar_kvar: null, test_kind: 'figurserie' })")
-    expect(k).toContain("capture('betalvagg_visad', { plats: 'matning', dagar_kvar: null, test_kind: vy.kind })")
+    expect(k).toContain(`plats="ommatning" matning={{ test_kind: 'figurserie', lage: 'nivakoll' }}`)
+    expect(k).toContain('betalvagg: <PaywallCard')
+    expect(k).toContain('<NivakollKop testKind={vy.kind} />')
+    expect(kallkod('components/session/delat/NivakollKop.tsx')).toContain(
+      "capture('betalvagg_visad', { plats: 'matning', dagar_kvar: dagarKvar, test_kind: testKind, lage: 'nivakoll' })"
+    )
   })
-  it('övningsprovets start och betalvägg som i Startark', () => {
+  it('övningsprovets start och betalvägg som i Startark, plus lage (etapp 7)', () => {
     const k = kallkod('components/session/figurserie/FigurserieOvningsprov.tsx')
     expect(k).toContain("capture('pass_startat', { typ: 'general', variant: 'niva' })")
-    expect(k).toContain("capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: dagarKvar, test_kind: 'figurer', ...(fran ? { kalla: fran } : {}) })")
-    expect(k).toContain("capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'ovningsprov', cta: 'primary', plats: 'provlage' })")
+    expect(k).toContain('<OvningsprovBetalvagg typ="figurer"')
+    const v = kallkod('components/session/delat/OvningsprovStart.tsx')
+    expect(v).toContain("capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: dagarKvar, test_kind: typ, lage: 'ovningsprov', ...(fran ? { kalla: fran } : {}) })")
+    expect(v).toContain("capture('paywall_cta_clicked', {")
+    expect(v).toMatch(/variant: 'testniva',\s+plan: SALD_PLAN,\s+surface: 'ovningsprov',\s+cta: 'primary',\s+plats: 'provlage',/)
   })
   it('test_completed och statusradens köp ligger kvar i TestResultsPage', () => {
     const k = kallkod('components/tests/shared/TestResultsPage.tsx')
     expect(k).toContain("logUserActivity(uid, 'test_completed'")
-    expect(k).toContain("capture('betalvagg_visad', { plats: 'testresultat', dagar_kvar: null })")
+    expect(k).toContain("capture('betalvagg_visad', { plats: 'testresultat', dagar_kvar: null, test_kind: testKind, lage: 'nivatest' })")
   })
   it('serverns namn är orörda', () => {
     for (const namn of ['pass_klart', 'nivamatning_klar', 'ommatning_klar', 'generalrepetition_klar', 'provpaket_klart']) {

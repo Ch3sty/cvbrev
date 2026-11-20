@@ -2,17 +2,24 @@
 
 /**
  * Träna talserier, spatial förmåga och ordförråd i ramen
- * (plan-testflode-2026-11-20 etapp 4). Ersätter Steg2PassFlode på
+ * (plan-testflode-2026-11-20 etapp 4). Ersatte Steg2PassFlode på
  * /dashboard/tester/pass?typ=steg2pass&kind=<typ> (med grupp: det riktade)
- * och /pass/<id>; den gamla står kvar oanvänd till etapp 5. Samma rutter och
+ * och /pass/<id> (raderad i etapp 5). Samma rutter och
  * kroppar (pass-klient.ts): skapa {kind, grupp}, svar {sessionId, nyckel,
  * visat, tid}, slutför {sessionId}.
  *
  * Talseriens Träna byter inte längre hela vyn mot en genomgång: korten får
  * rätt och fel och Förklaringen kommer under svaren, som i alla typer.
  * "Vet inte" finns (passens rutt tar emot ett obesvarat svar).
+ *
+ * "Gör Nivåkollen först" (avsnitt 2, Nivåkollen; etapp 7): utan en Nivåkoll i
+ * typen visar startskärmen knappen "Gör Nivåkollen" och länken "Träna utan
+ * Nivåkollen", som matrisen. Inte för det riktade, inte vid Fortsätt och inte
+ * när väggen står där.
  */
 
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import type { Scope } from '@/lib/access/features'
@@ -20,7 +27,10 @@ import { fetchSteg2PassApi, type Steg2PassApi } from '@/lib/tester/pass-klient'
 import { steg2PassCopy } from '@/lib/tester/steg2/copy'
 import type { Steg2PassKind, Steg2PassVy } from '@/lib/tester/steg2/pass'
 import { FAMILJ_NAMN, FORM_NAMN } from '@/lib/tester/steg2/namn'
-import { sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { nivakollHref, sessionHref, steg2PassHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
+import { LANK } from '@/components/shell/knappar'
+import Startskarm from '../Startskarm'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
@@ -34,6 +44,10 @@ export interface Steg2TranaProps {
   /** Startskärmen (/pass?typ=steg2pass). Utelämnad på /pass/<id>. */
   start?: { last: boolean; fortsatt: boolean; kvar: number | null; antal: number; budgetPerUppgift: number | null } | null
   vy?: Steg2PassVy | null
+  /** En Nivåkoll i typen finns. Utelämnad (gammal anropare): ingen knuff. */
+  harNivakoll?: boolean
+  /** "Träna utan Nivåkollen" tryckt: ingen knuff mot Nivåkollen. */
+  utanNivakoll?: boolean
   forklaringEfterSvar: boolean
   datum: string | null
   api?: Steg2PassApi
@@ -92,16 +106,57 @@ function undertitelFor(kind: Steg2PassKind, grupp: string | null, niva: Steg2Pas
   return SESSION.undertitel('trana', niva)
 }
 
-export default function Steg2Trana({ kind, grupp = null, start = null, vy = null, forklaringEfterSvar, datum, api = fetchSteg2PassApi }: Steg2TranaProps) {
+export default function Steg2Trana({
+  kind,
+  grupp = null,
+  start = null,
+  vy = null,
+  harNivakoll = true,
+  utanNivakoll = false,
+  forklaringEfterSvar,
+  datum,
+  api = fetchSteg2PassApi,
+}: Steg2TranaProps) {
+  const router = useRouter()
   const { summary } = useDashboardData()
   const scope = (summary?.paket?.scope ?? null) as Scope | null
   const ritare = steg2Ritare(kind)
   const g = grupp ?? vy?.grupp ?? null
   const gruppNamn = steg2GruppNamn(kind, g)
+  const bas = { test_kind: kind, lage: 'trana' as const, niva: vy?.niva ?? null, format: null }
+
+  // Gör Nivåkollen först: startskärmens variant (avsnitt 2), som matrisen.
+  if (start && !grupp && !harNivakoll && !start.fortsatt && !start.last && !utanNivakoll) {
+    return (
+      <Startskarm
+        bas={bas}
+        tillbakaHref={TRANING_RUTT.alla}
+        eyebrow={ritare.namn}
+        rubrik={`Träna ${GEMEN[kind]}`}
+        scen={kind}
+        rita
+        regler={[
+          { titel: `${nivakollAntalTid(NIVAKOLL_OMFANG[kind])}.`, text: 'Nivåkollen sätter din nivå, och träningen följer den.' },
+          { titel: 'Gör Nivåkollen först.', text: 'Ingen förklaring under tiden, den kommer efteråt.' },
+          { titel: 'Sedan tränar du på rätt nivå.', text: `${antalOrd(start.antal, true)} uppgifter om dagen, med förklaringen efter varje svar.` },
+        ]}
+        sparrad="none"
+        fortsattTillganglig={false}
+        knapp={{ text: 'Gör Nivåkollen', onClick: () => router.push(nivakollHref(kind)) }}
+        kortRad={
+          <Link href={`${steg2PassHref(kind)}&nivakoll=sen`} className={`${LANK} inline-flex min-h-11 items-center`} data-utan-nivakoll>
+            Träna utan Nivåkollen
+          </Link>
+        }
+        fotnot="Nivåkollen ingår gratis en gång."
+      />
+    )
+  }
+
   return (
     <Trana<Steg2U, Steg2PassVy>
       ritare={ritare}
-      bas={{ test_kind: kind, lage: 'trana', niva: vy?.niva ?? null, format: null }}
+      bas={bas}
       undertitel={(v) => undertitelFor(kind, g, v?.niva ?? null)}
       vy={vy}
       las={lasSteg2Pass}
@@ -128,8 +183,10 @@ export default function Steg2Trana({ kind, grupp = null, start = null, vy = null
               kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
               fotnot: 'Rätt svar och förklaringen i genomgången efteråt, också med förklaringen avstängd.',
               sparr: start.last ? (
-                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" />
+                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" matning={{ test_kind: kind, lage: 'trana' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" matning={{ test_kind: kind, lage: 'trana' }} />,
             }
           : null
       }

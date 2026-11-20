@@ -2,8 +2,8 @@
 
 /**
  * Figurseriernas nivåtest i ramen (plan-testflode-2026-11-20 etapp 1).
- * Ersätter FigurserieTestSession i TestRunner; den gamla står kvar oanvänd
- * till etapp 5. Samma data och samma rutter som förut: uppgifterna och de
+ * Ersatte FigurserieTestSession i TestRunner (raderad i etapp 5). Samma data
+ * och samma rutter som förut: uppgifterna och de
  * sparade svaren läses på servern (getRunData), svaret postas till
  * /api/figurserier/answer med {sessionId, questionId, selectedIndex,
  * timeSpent} och inlämningen till /complete med {sessionId}.

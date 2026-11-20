@@ -4,7 +4,7 @@
 // (plan-testflode-2026-11-20 etapp 2). Inga rutter, tabellformat eller
 // POST-kroppar ändras: kropparna byggs här av rena funktioner som
 // kontrakttestet (__tests__/kontrakt.test.ts) låser mot det
-// VerbalTestSession, VerbalExpertSession och NumericalTestSession skickade.
+// de raderade VerbalTestSession, VerbalExpertSession och NumericalTestSession skickade.
 // =============================================================================
 
 import type { VnNivatestInnehall, VnVisadUppgift } from '@/lib/tester/vn-nivatest'

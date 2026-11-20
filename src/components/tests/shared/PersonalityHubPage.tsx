@@ -100,7 +100,7 @@ export default function PersonalityHubPage({ config, startlage }: { config: Test
       fortsattTillganglig={Boolean(pagaende)}
       sparr={
         last ? (
-          <PaywallCard variant="testniva" testTyp="personlighet" feature={kravs ?? undefined} scope={scope} track={track} plats="testniva" />
+          <PaywallCard variant="testniva" testTyp="personlighet" feature={kravs ?? undefined} scope={scope} track={track} plats="testniva" matning={{ test_kind: 'personlighet', lage: 'personlighet' }} />
         ) : null
       }
       knapp={last ? null : { text: knappText, onClick: () => void starta(), laddar: startar }}

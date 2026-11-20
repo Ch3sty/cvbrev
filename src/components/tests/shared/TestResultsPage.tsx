@@ -29,7 +29,8 @@
 
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
 import { capture } from '@/lib/analytics/events'
-import { SALD_PLAN, kopKnapp } from '@/lib/plans/plans'
+import { SALD_PLAN } from '@/lib/plans/plans'
+import { PremiumKnappText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
@@ -118,14 +119,20 @@ function rytmLast(config: TestConfig, pct: number, scope: Scope | null | undefin
   return !!nasta?.requiresFeature && !scopeHasFeature(scope, nasta.requiresFeature)
 }
 
-/** Köpknappen i statusraden. betalvagg_visad en gång per montering, plats testresultat. */
-function StatusKop() {
+/**
+ * Köpknappen i statusraden. betalvagg_visad en gång per montering, plats
+ * testresultat. Etapp 7 i testflödet: test_kind och lage nivatest i båda
+ * händelserna, kampanjen i klicket, och knappen visar kampanjpriset när
+ * kontot kan få det (samma text som köpsteget ett klick senare).
+ */
+function StatusKop({ testKind }: { testKind: string }) {
+  const kampanj = useKampanjPris()
   const visad = useRef(false)
   useEffect(() => {
     if (visad.current) return
     visad.current = true
-    capture('betalvagg_visad', { plats: 'testresultat', dagar_kvar: null })
-  }, [])
+    capture('betalvagg_visad', { plats: 'testresultat', dagar_kvar: null, test_kind: testKind, lage: 'nivatest' })
+  }, [testKind])
   return (
     <button
       type="button"
@@ -137,12 +144,15 @@ function StatusKop() {
           cta: 'primary',
           plan: SALD_PLAN,
           plats: 'testresultat',
+          kampanj: kampanj?.nyckel ?? null,
+          test_kind: testKind,
+          lage: 'nivatest',
         })
         window.location.href = kopstegHref(SALD_PLAN, 'testresultat')
       }}
       className={`${KNAPP_SEKUNDAR} sm:w-auto`}
     >
-      {kopKnapp(SALD_PLAN)}
+      <PremiumKnappText />
     </button>
   )
 }
@@ -392,7 +402,7 @@ export default function TestResultsPage({
       </Link>
       {last ? (
         <span className="basis-full sm:basis-auto">
-          <StatusKop />
+          <StatusKop testKind={config.kind} />
         </span>
       ) : null}
     </div>
@@ -437,7 +447,7 @@ export default function TestResultsPage({
                 <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
                 <span>{rytm}</span>
               </span>
-              <StatusKop />
+              <StatusKop testKind={config.kind} />
             </div>
           ) : utanCv ? (
             <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
@@ -502,7 +512,7 @@ export default function TestResultsPage({
                 <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
                 <span>{rytm}</span>
               </span>
-              <StatusKop />
+              <StatusKop testKind={config.kind} />
             </div>
           ) : utanCv ? (
             <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
@@ -564,7 +574,7 @@ export default function TestResultsPage({
                 <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
                 <span>{rytm}</span>
               </span>
-              <StatusKop />
+              <StatusKop testKind={config.kind} />
             </div>
           ) : utanCv ? (
             <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
@@ -620,7 +630,7 @@ export default function TestResultsPage({
             <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
             <span>{rytm}</span>
           </span>
-          <StatusKop />
+          <StatusKop testKind={config.kind} />
         </div>
       ) : utanCv ? (
         <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">

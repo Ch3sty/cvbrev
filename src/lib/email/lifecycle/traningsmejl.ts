@@ -5,9 +5,11 @@
 // via hjälpredans schema i morgonslotten. Ingen egen cron.
 //
 //   pass_dag2           dag 2 efter första Nivåkollen i vilken testtyp som helst,
-//                       07:00 till alla (sedan 2026-11-09). För konton med valet
-//                       I-prov 2025 också första grundtestet i spatial förmåga,
-//                       talserier eller ordförråd (saas-leads beslut 3, 2026-11-10).
+//                       07:00 till alla (sedan 2026-11-09). Nivåkollen finns i
+//                       alla åtta typer sedan 2026-11-20 (testflödet etapp 6).
+//                       För konton med valet I-prov 2025 räknas också första
+//                       grundtestet i spatial förmåga, talserier eller ordförråd
+//                       (saas-leads beslut 3, 2026-11-10).
 //   dagen_fore_provet   provdatum minus ett, 08:00
 //   vecka_utan_datum    dag 7 efter Nivåkollen, utan provdatum
 //
@@ -23,7 +25,7 @@ import { Resend } from 'resend';
 import type { AnySupabase } from './types';
 import { cancelScheduled } from './schedule';
 import { arGiltigDag, dagSthlm, laggTill, type Dag } from '@/lib/traning/datum';
-import { NIVAKOLL_TEST_TYPER } from '@/lib/nivakoll/niva';
+import { NIVAKOLL_KINDS, NIVAKOLL_TEST_TYPE as NIVAKOLL_TEST_TYPE_PER_KIND, NIVAKOLL_TEST_TYPER } from '@/lib/nivakoll/niva';
 import { VN_PASS_TEST_TYPER } from '@/lib/tester/pass-typer';
 import { FIGURPASS_TEST_TYPE } from '@/lib/tester/pass-figur';
 import { DEDUKTIVPASS_TEST_TYPE } from '@/lib/tester/pass-deduktiv';
@@ -76,17 +78,21 @@ const NIVAKOLL_TEST_TYPE = 'matrislogik-matning';
 
 /** Typerna som kan utlösa dag 2-mejlet. */
 export type StartKind = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad';
-const NIVAKOLL_KIND: Readonly<Record<string, StartKind>> = {
+/**
+ * Nivåkollens test_type per typ, alla åtta: matrisens och de sju i
+ * NIVAKOLL_TEST_TYPE (talserier, spatial förmåga och ordförråd sedan etapp 6
+ * i testflödet, 2026-11-20). Läses ur niva.ts så att en ny typ aldrig faller
+ * bort här.
+ */
+export const NIVAKOLL_KIND: Readonly<Record<string, StartKind>> = {
   [NIVAKOLL_TEST_TYPE]: 'matris',
-  'figurserie-nivakoll': 'figurserie',
-  'deduktiv-nivakoll': 'deduktiv',
-  'verbal-nivakoll': 'verbal',
-  'numerisk-nivakoll': 'numerisk',
+  ...Object.fromEntries(NIVAKOLL_KINDS.map((k) => [NIVAKOLL_TEST_TYPE_PER_KIND[k], k])),
 };
 const START_KINDS: readonly StartKind[] = ['matris', 'figurserie', 'deduktiv', 'verbal', 'numerisk', 'talserie', 'spatial', 'ordforrad'];
 /**
- * I-prov 2025 saknar Nivåkoll i sina typer (spatial förmåga, talserier,
- * ordförråd). För konton med valet räknas första avslutade grundtestet.
+ * Spatial förmåga, talserier och ordförråd fick Nivåkollen först 2026-11-20.
+ * För konton med valet I-prov 2025 räknas också första avslutade grundtestet
+ * i de tre typerna, som förut.
  */
 export const IPROV_GRUNDTEST: Readonly<Record<string, StartKind>> = {
   'spatial-grund': 'spatial',

@@ -4,21 +4,18 @@
  * Övningsprovet i Ord och text och Siffror och tabeller i ramen
  * (plan-testflode-2026-11-20 etapp 2): startskärmen på /ovningsprov/verbal
  * och /ovningsprov/numerisk och provet på /ovningsprov/<typ>/<id>.
- * Ersätter Startark och OvningsprovFlode för de två typerna; de står kvar
- * för logik och deduktivt. Samma rutter och kroppar: start {typ, fran},
- * svar {sessionId, nyckel, svar, tid}, slutför {sessionId}. Betalväggens
- * mätning är Startarkets, ordagrant (plats provlage). Hård gräns: provet
+ * Ersatte Startark och OvningsprovFlode för de två typerna (raderade i
+ * etapp 5). Samma rutter och kroppar: start {typ, fran}, svar {sessionId,
+ * nyckel, svar, tid}, slutför {sessionId}. Betalväggen är
+ * OvningsprovBetalvagg, mätningen som Startarkets (plats provlage). Hård gräns: provet
  * lämnas in när klockan når noll.
  */
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { capture } from '@/lib/analytics/events'
-import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
-import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
-import { kopstegHref } from '@/lib/onboarding/steps'
-import { SALD_PLAN } from '@/lib/plans/plans'
+import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { START } from '@/lib/ovningsprov/copy'
 import { antalTid, ordningText, type Ovningsformat } from '@/lib/ovningsprov/format'
 import { ovningsResultat } from '@/lib/ovningsprov/resultat'
@@ -29,6 +26,7 @@ import { VN_TRE, type VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import Staplar from '@/components/traning/Staplar'
 import Ovningsprov from '../lagen/Ovningsprov'
 import Startskarm from '../Startskarm'
+import { OvningsprovBetalvagg } from '../delat/OvningsprovStart'
 import Resultatskarm from '../Resultatskarm'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { SESSION } from '../copy'
@@ -58,36 +56,6 @@ export interface VnOvningsprovStartProps {
   fran: string | null
 }
 
-function Betalvagg({ typ, format, dagarKvar, fran, tillbakaHref }: { typ: VnKind; format: Ovningsformat; dagarKvar: number | null; fran: string | null; tillbakaHref: string }) {
-  const visad = useRef(false)
-  useEffect(() => {
-    if (visad.current) return
-    visad.current = true
-    capture('betalvagg_visad', { plats: 'provlage', dagar_kvar: dagarKvar, test_kind: typ, ...(fran ? { kalla: fran } : {}) })
-  }, [dagarKvar, fran, typ])
-  const B = START.betalvagg
-  return (
-    <section aria-label={B.eyebrow} className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-startark-betalvagg>
-      <p className="text-ey uppercase text-koppar-ink">{B.eyebrow}</p>
-      <p className="mt-1.5 text-sm leading-5 text-ink-2">{B.text(format, dagarKvar)}</p>
-      <p className="mt-1 text-sm font-medium leading-5 text-ink-1">
-        <PremiumPrisradText />
-      </p>
-      <div className={KNAPPRAD}>
-        <Link
-          href={kopstegHref(SALD_PLAN, 'provlage')}
-          className={KNAPP_PRIMAR}
-          onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'ovningsprov', cta: 'primary', plats: 'provlage' })}
-        >
-          <PremiumKnappText />
-        </Link>
-        <Link href={tillbakaHref} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
-          {B.lank}
-        </Link>
-      </div>
-    </section>
-  )
-}
 
 export function VnOvningsprovStart(p: VnOvningsprovStartProps) {
   const router = useRouter()
@@ -108,7 +76,9 @@ export function VnOvningsprovStart(p: VnOvningsprovStartProps) {
       router.push(ovningsprovSessionHref(p.typ, r.id))
       return
     }
-    if (r.status === 429) router.refresh()
+    // 402: spärren gäller (servern såg det före sidan), 429: dagens prov är gjort.
+    // Sidan läses om och visar väggen eller raden, som mäter sig själv.
+    if (r.status === 429 || r.status === 402) router.refresh()
     setFel(true)
     setStartar(false)
   }
@@ -137,7 +107,7 @@ export function VnOvningsprovStart(p: VnOvningsprovStartProps) {
       fortsattTillganglig={Boolean(p.pagaende)}
       sparr={
         p.last ? (
-          <Betalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
+          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
         ) : gjort ? (
           <section className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-gjort-idag>
             <p className="text-sm font-semibold text-ink-1">{START.gjortIdag}</p>

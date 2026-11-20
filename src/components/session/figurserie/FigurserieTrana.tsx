@@ -1,9 +1,9 @@
 'use client'
 
 /**
- * Träna figurserier i ramen (plan-testflode-2026-11-20 etapp 1). Ersätter
+ * Träna figurserier i ramen (plan-testflode-2026-11-20 etapp 1). Ersatte
  * FigurPassFlode på /dashboard/tester/pass?typ=figurpass och
- * /pass/<id>; den gamla står kvar oanvänd till etapp 5. Samma rutter och
+ * /pass/<id> (raderad i etapp 5). Samma rutter och
  * kroppar (pass-klient.ts): skapa {}, svar {sessionId, nyckel, visat, tid},
  * slutför {sessionId}.
  */
@@ -108,8 +108,10 @@ export default function FigurserieTrana({ start = null, vy = null, forklaringEft
               kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
               fotnot: 'Rätt svar och regeln i genomgången efteråt, också med förklaringen avstängd.',
               sparr: start.last ? (
-                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('figurserie')} scope={scope} plats="dag2" />
+                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('figurserie')} scope={scope} plats="dag2" matning={{ test_kind: 'figurserie', lage: 'trana' }} />
               ) : null,
+              // Servern nekar starten (402) fast sidan såg öppen ut: samma vägg (etapp 7).
+              betalvagg: <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind('figurserie')} scope={scope} plats="dag2" matning={{ test_kind: 'figurserie', lage: 'trana' }} />,
             }
           : null
       }

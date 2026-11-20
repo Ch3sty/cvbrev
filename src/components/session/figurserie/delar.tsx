@@ -20,7 +20,7 @@ export function Miniatyrer({ poster }: { poster: { u: FigurserieU; ratt: number 
   )
 }
 
-/** Tid per uppgift mot provets tid: stapeln med budgetlinjen (FigurResultatVy). */
+/** Tid per uppgift mot provets tid: stapeln med budgetlinjen (som i den raderade FigurResultatVy). */
 export function TempoStapel({ tidPer, budgetPer }: { tidPer: number; budgetPer: number }) {
   const max = Math.max(tidPer, budgetPer) * 1.15
   const andel = max > 0 ? tidPer / max : 0
