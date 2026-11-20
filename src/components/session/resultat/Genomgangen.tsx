@@ -32,6 +32,9 @@ import { Bitar, IkonBock, mmss, type BrickUtfall } from './delar'
 
 type RadUtfall = BrickUtfall
 
+/** Typerna vars svar står i en rad: uppgiften får hela bredden och domen står under. */
+const STAPLAD: readonly string[] = ['talserie', 'spatial', 'ordforrad']
+
 function utfallFor(p: GenomgangPost<RamUppgift>): RadUtfall {
   if (p.facit.correct) return 'ratt'
   if (p.valt == null) return 'obesvarad'
@@ -214,7 +217,9 @@ export default function Genomgangen<U extends RamUppgift>(p: GenomgangenProps<U>
           <Chev />
         </button>
         {oppen ? (
-          <div id={panelId} className="res-panel-utfalld" data-bred={UL || iUppgift ? '' : undefined} data-lista-panel>
+          // Bred (uppgiften över domen) också för typerna med en rad svar (talserier, spatial, ordförråd):
+          // fyra eller fem klossar ryms inte i 300 px bredvid domen, och etiketterna lade sig över grannarna.
+          <div id={panelId} className="res-panel-utfalld" data-bred={UL || iUppgift || STAPLAD.includes(ritare.kind) ? '' : undefined} data-lista-panel>
             <div data-uppgiften className="min-w-0">
               {UL ? (
                 <div className="mb-3" data-lista-underlag>
