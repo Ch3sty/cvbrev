@@ -251,3 +251,59 @@ Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/f
 - Siffror och tabeller på mobil, uppgift 3: sista svaret hamnade 14 px under foten i den stora matrisen.
 - Den stora matrisen på 2560 avbröts av belastning mot Supabase och kördes inte om. App-läget kontrollerades inte i den här omgången.
 - Testkontona i `qa-konton.json` ligger kvar.
+
+## Omgång 3 (2026-11-20/21)
+
+Skissen "Testerna, omgång 3: upplevelsen" (artefakten WsTzySXM8d4DyHpAwheJs8), byggd på grenen `feat/tester-omgang3` från `4d7347dd`. Byggspecen låg utanför repot. Inga rutter, POST-kroppar, händelsenamn, kvoter, priser, kampanjfiler eller juridiska texter ändrade; inga databasmigreringar.
+
+### Vad som byggdes per steg
+
+- **Bankinnehållet** (gren `innehall/tester-omgang3`, sammanslagen i `effc4cf3`): strukturerat facit för numeriskt (`losning.steg`, `anvander`, `slutsats`, 333 av 336 frågor) och verbalt (`stod`, `narmast`), namn på leden i deduktiva premisskedjor (`formell.termnamn`, `atomnamn`), rättade `facit_betyder` i ordförrådet och fyra rättade misstagstexter för tärningar. Commits `23d8ad41`, `cab1166f`, `5d3c1753`, `29cce3b2`, `c4a0d207`, `124b8cd0`, `d51c8ac9`, `3fed83b5`, `7961975d`, `0c167cb6`. Tolv verbala facit (falskt till "går inte att avgöra") väntar på ägaren och är inte rörda.
+- **Steg 1, grunden** (`673093ce`): formspråkets tokens och klasser, huvudet med stapeln i bitar och uppgiftens nivå (Träna), klossarna, domen och foten i sessionsramen.
+- **Steg 2a, brädets typer** (`ef1a986d`, sammanslagen i `efacbc1d`): figurbrickorna, matrisen, figurserier (två rader på telefon), talserier, spatial, ordförråd, personlighet och I-provets mellanblad.
+- **Steg 2b, underlagets typer** (`dc169442`, `f469b12a`, `e7c53509`): tabell, diagrammen, textuppgift, ord och text, deduktiv med villkorens bilder, remsan och kladdytorna. Facit för underlagets typer skickas bara med rättningen.
+- **Steg 3a, sidorna** (`d9bfbc4f`, `3f12bac8`): Hem, Tester och Din utveckling med samma vägg, startarket, Vägen till provet och Dagens träning (`lib/tester/v4/vagen.ts`), tomma lägen som brädets lucka.
+- **Steg 3b, målgången, resultatet och spärrarna** (`82c2f4d3`, `7eb4adc5`, sammanslagen i `a83ce755`): målgången i Träna med nivån före och efter, resultatsidan för test med genomgången, spärrarna (`TestSparr.tsx`) runt dagens texter och pris.
+- **Steg 4, integration och slutkontroll** (den här):
+  - `c5593d04` tre rubriker i mönsternamnen ("Öva på villkor med om och så", "Öva på villkoret inte bredvid varandra", "Öva på villkoret direkt till vänster om").
+  - `2795629d` mönsternamnen ur `lib/tester/v4/monsterNamn.ts` på målgången ("Det du missade: ..." med länk till riktad träning för matris, ord och text, siffror och tabeller, talserier, spatial och ordförråd), i genomgångens tagg per rad (Träna i alla typer utom ord och siffror, där mönstret per uppgift saknas i datan; övningsprov i matris, deduktivt och figurserier) och i Var du tappade. Nytt prop `monsterRader` på `Resultatskarm`, hjälparen `session/resultat/monster.ts`. Inget id når användaren: okänt mönster ger ingen rad.
+  - `d0c33725` spärrens siffror: `lib/tester/v4/sparrData.ts` tar nivån i typen, provet med dagen, formatet och dagar kvar ur `TesterV4Data`. Tester (`LasProvider` med `underlag`, låsen i "Välj hur du vill öva" skickar typen), Hem och Din utveckling (`Betalvagg`, utan typ) och övningsprovets startskärm (provet ur planraden som sidan redan läser). Provet och formatet bara när typen ingår i planen; eget urval heter "Provet". `betalvagg_visad.dagar_kvar` fylls nu också från arket på Tester och Hem (samma händelse och egenskap).
+  - `7f2da198` delar som skulle döljas syntes i fel bredd (klasser i globals.css utanför Tailwinds lager vinner över `hidden`): "3 rätt i rad" i huvudet på telefon tryckte ihop stapeln, periodvalet i Din utveckling ritades två gånger, "Texten fortsätter" och sidledspilen syntes på dator. Mätaren i Tre mått flödade ut ur panelen på 1440 med sidomenyn. Filtret Missarna och Alla 44 px.
+  - `3b266b78` spärrens ark ritades bakom startarket (z 51 mot 50), med köpknappen skuren på dator och dold på telefon. Startarket har nu z 50.
+  - `d8f7408f` räknevägen i domen och spärrens siffror var mörkt på mörkt i mörkt läge; tryckytan för "7 dagar kvar" och sidledspilen 44 px.
+
+### Nya fält i API-svaren (alla valfria, inga namn ändrade)
+
+- Svaren i Träna (pass, riktat, ord och siffror, steg 2, figur, deduktiv): `uppgift_niva`, `nasta_niva`.
+- Slutför i Träna (`/api/traning/{deduktivpass,figurpass,steg2pass,vnpass}/slutfor`): `niva_fore`, `niva_efter`.
+- Återkopplingen efter svar och genomgången efter rättning: `vnFacit` (`losning`, `stod`, `narmast`), deduktivt `ledNamn`; uppgiften i deduktivt `struktur` (villkorens form, utan facit).
+- Övningsprovets genomgång: `monster` (mönstrets namn) för deduktivt och figurserier.
+- Facit når aldrig den utloggade: provsidans och artikelns svar före claim granskades i nätverket (inga `losning`, `stod`, `narmast`, `slutsats`, `anvander`, `vnFacit`, `ledNamn`, `formell`, rätt svar eller förklaring).
+
+### Prov och mätning (slutkontrollen)
+
+- tsc rent. Hela vitest-sviten 277 filer och 3560 test gröna (13 hoppade över), berörda mappar 51 filer och 490 test efter rättningarna. `next build` grönt tre gånger (efter integrationen och efter varje rättning).
+- SEO-diffen mot produktion (21 sidor, `scripts/seo-diff-artiklar.ts`, avtryck taget mot www.jobbcoach.ai samma kväll) och provkontrollen (19 sidor, `scripts/qa-omgang2-publikt-prov.ts`): Fel: 0 båda. Ord i main oförändrade på de hårda sidorna (personlighetstestet 621, provsidan 111).
+- Utloggat mot bygget: provsidans startskärm för alla nio typer, talserier från start till spärren och `/register?test=`, artikelprovet i numeriskt-test-guide (ingen 500 i det byggda) till spärren, personlighetsprovet till `/register?personlighet=`. Ingen facitnyckel i HTML eller nätverkssvar. IP-gränsen (tre prov per dygn) nåddes; provsidan på telefon kontrollerades därför bara till startskärmen och gränsens meddelande.
+- Klicktest i Chrome mot bygget (skärmdumpar i scratchpad `omgang3-bygg/steg4/bilder`): Träna i alla åtta typer från startskärm till målgång på 1440 och 412 (412 som bredd i samma session), deduktivt, ord och text och spatial också som Pixel 7; nivåtest i deduktivt, talserier och ord och text till resultat och genomgång (sessionssidan `/test/<id>` svarar i bygget, ingen 404); Nivåkollens resultat i tre typer; övningsprov i ord och text från start till resultat på Pixel 7 och resultaten i deduktivt och figurserier; Hem, Tester, Din utveckling och startarket med premiumkontot, gratiskontot och premiumkontot med plan (SHL Verify, provdag 27 nov, lagd via "Välj prov"); spärrarna med gratiskontot (kvoten i arket och på nivåtestets sida, låst nivå, låst övningsprov, Träna, övningsprovets startskärm); mörkt läge; app-UA (`JobbcoachApp/`) med appens start, en träning och målgången; 768 och 1024.
+- Köpknappens mål är oförändrat: `/dashboard/valj-spar?paket=all_month&steg=kop&plats=<plats>` med samma platser som i dag (`kvot`, `test_tak`, `testniva`, `generalrepetition`, `dag2`, `provlage`). Inget köp gjordes.
+- Tangentbord: Enter startar, bokstaven väljer, Enter svarar och domen kommer, Esc stänger startarket, fokusringen syns (2 px). Kontrast i klossar och dom över 4,5:1 i ljust och mörkt i stickprovet (talserier).
+- `scripts/perf-inloggat.ts` (Pixel 7, 3x CPU, LTE, median av tre, `--samtycke`, premiumkontot): Hem 952 ms, Tester 772 ms, Din utveckling 772 ms, resultat deduktivt 392 och talserier 504 ms, första uppgiften deduktivt nivåtest 364, deduktiv Träna 404 och steg 2 Träna 552 ms, startskärmar 680 till 740 ms, CLS 0 överallt. Flikbytet Hem, Tester, Din utveckling, Hem: CLS 0 på 1440 och Pixel 7.
+
+### Kvar efter slutkontrollen
+
+- Kosmetiskt: på 1024 kortas typens namn och undertiteln i sessionens huvud ("Deduktiv slutl..."); tooltipen "Din första punkt" i Din utveckling skärs någon pixel och provflaggan ligger nära den; etiketten "din nivå när du började" krockar med sista markören när alla uppgifter låg på samma nivå; "Något ser fel ut" och provsidans typval (omgång 2) har 32 och 40 px tryckyta; "Skicka igen" i e-postbannern 20 px (inte tester); "Du har gjort tre prov idag" (provsidans meddelande) skriver "idag".
+- Spärrens rader om provet (provets namn, dag, dagar kvar) är prövade i enhetstest och på premiumkontots plan i datan, men inte sedda i webbläsaren: inget gratiskonto har en plan.
+- Mönstertaggen per rad saknas i ord och text och siffror och tabeller (Träna och övningsprov) och i nivåtesten: mönstret per uppgift finns inte i deras data.
+- Övningsprovets plan-länk på Hem leder till planens prov (SHL Verify: numeriskt) också när dagens typ är ord och text.
+- QA-raderna från slutkontrollen ligger kvar (se nedan).
+
+### QA-rader från slutkontrollen
+
+Premiumkontot `…+jobbcoach-qa-omg2-premium@gmail.com`: en plan i `test_planer` (SHL Verify, provdag 2026-11-27, ett test om dagen) lagd via gränssnittet, träningssessioner i alla åtta typer (flera återupptogs), sex nivåtestsessioner (tre avbrutna av testskriptet, tre avslutade), ett övningsprov i ord och text. Gratiskontot: inga nya sessioner (bara spärrarna). Utloggat: tre provsessioner i `anon_test_sessions` och en i `anon_personality_samples`. Inget raderat.
+
+### Backning
+
+- Hela omgången: `git revert -m 1 <merge-commit på main>` om grenen slås ihop med en merge, annars `git revert --no-edit 4d7347dd..<sista commit>` i ett svep. Ingen databasändring finns att backa; planraden och sessionerna ovan är vanliga användardata.
+- Bara gränssnittet: revertera commits från `673093ce` och framåt utom bankinnehållets (`23d8ad41` till `0c167cb6`, `effc4cf3`). Bankfälten (`losning`, `stod`, `narmast`, `formell`, `ledNamn`) är valfria i typerna och läses bara av det nya gränssnittet, så bankerna kan stå kvar när gränssnittet backas. De rättade definitionerna och misstagstexterna är rättelser och bör stå kvar.
+- En enskild rättning i steg 4 backas med `git revert <hash>` (listan ovan); de är oberoende av varandra utom att `d0c33725` använder `session/resultat/monster.ts` från `2795629d`.
