@@ -45,7 +45,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 0
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-a-s-02",
@@ -625,7 +626,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 3
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-a-s-14",
@@ -1043,7 +1045,7 @@
    "",
    "Förbjuda betyder bestämma att något inte får göras eller förekomma."
   ],
-  "facit_betyder": "(på en gång) klargöra de verkliga egenskaperna hos",
+  "facit_betyder": "berätta något som har hållits hemligt",
   "exempel": "Han lovade att inte yppa någonting om planerna.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1061,7 +1063,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-23",
@@ -1334,7 +1337,7 @@
    "",
    "Skön betyder bland annat fulländat vacker."
   ],
-  "facit_betyder": "fysiskt väl utvecklad",
+  "facit_betyder": "som växer tätt och kraftigt",
   "exempel": "Trädgården var fylld av yppig grönska efter sommarregnet.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1352,7 +1355,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-29",
@@ -1401,7 +1405,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 3
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-a-s-30",
@@ -1913,7 +1918,7 @@
    "Prövning betyder bland annat psykisk påfrestning.",
    "Förrädare betyder person som sviker det han/hon förväntas vara solidarisk mot."
   ],
-  "facit_betyder": "utbredning längs en eller två huvudriktningar i rummet",
+  "facit_betyder": "hur stort område eller hur mycket något gäller",
   "exempel": "Skadornas omfattning blev känd först efter stormen.",
   "kalla": {
    "verifierad_mot": "SAOL och SO",
@@ -1933,7 +1938,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 3
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-41",
@@ -2305,7 +2311,7 @@
    "Oväntad betyder som man inte väntat sig.",
    "Tillfällig betyder bland annat som förekommer eller är verksam bara under begränsad tid."
   ],
-  "facit_betyder": "viktig",
+  "facit_betyder": "ganska stor till mängd eller omfattning",
   "exempel": "Det krävdes en avsevärd insats för att bli klar.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -2323,7 +2329,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-49",
@@ -2353,7 +2360,7 @@
    "Neutral betyder bland annat som inte tar ställning för någondera parten.",
    "Officiell betyder bland annat fastslagen eller skapad av (statlig) myndighet."
   ],
-  "facit_betyder": "som har viss rättighet",
+  "facit_betyder": "som har goda skäl för sig",
   "exempel": "Kritiken mot förslaget var befogad.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -2371,7 +2378,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 3
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-50",
@@ -2693,7 +2701,7 @@
    "Svår betyder bland annat som kräver betydande ansträngning.",
    "Sned betyder som inte är parallell med eller vinkelrät mot en (ofta) naturlig grundriktning."
   ],
-  "facit_betyder": "som består av eller kännetecknas av en enda enhet",
+  "facit_betyder": "som är lätt att förstå eller överblicka",
   "exempel": "Frågan om det nya datasystemet visade sig vara mycket komplex.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -2712,7 +2720,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 0
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-m-02",
@@ -2889,7 +2898,7 @@
    "Snabb betyder som utför något på kort tid.",
    ""
   ],
-  "facit_betyder": "som har liten muskelkraft",
+  "facit_betyder": "som har låg styrka eller intensitet",
   "exempel": "Det var en intensiv arbetsvecka före den stora slutbesiktningen.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -2908,7 +2917,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-m-06",
@@ -3475,7 +3485,7 @@
    "Snäll betyder som (ofta) låter sitt handlande styras av omtanke om andra.",
    "Underbar betyder bland annat som ger ojämförligt starka positiva upplevelser."
   ],
-  "facit_betyder": "som strider mot verkliga förhållanden",
+  "facit_betyder": "som döljer vad man egentligen tycker eller känner",
   "exempel": "Hon gav ett uppriktigt svar på frågan.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -3494,7 +3504,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-m-18",
@@ -3916,7 +3927,7 @@
    "Antik betyder bland annat som har att göra med antiken.",
    ""
   ],
-  "facit_betyder": "som har kraftig konstruktion och inte lätt rubbas eller ändras",
+  "facit_betyder": "som är stabil och inte lätt rubbas",
   "exempel": "Det politiska läget i landet var mycket labilt efter det brutala valet.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -3935,7 +3946,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-m-27",
@@ -4210,7 +4222,7 @@
    "",
    "Uppriktig betyder som låter sitt handlande (särskilt sina yttranden) svara mot sina egentliga (innersta) känslor och övertygelser."
   ],
-  "facit_betyder": "som har egenskaper motsatta de naturliga",
+  "facit_betyder": "som uttrycker ogillande eller avvisande",
   "exempel": "Svaret från kunden var positivt.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -4229,7 +4241,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-m-33",
@@ -5332,7 +5345,7 @@
    "Garantera betyder utlova förverkligandet av.",
    "Påstå betyder framföra som ett faktum."
   ],
-  "facit_betyder": "förklara sig skyldig",
+  "facit_betyder": "säga att något är sant, ofta något som talar emot en själv",
   "exempel": "Han medgav att han hade gjort ett misstag.",
   "kalla": {
    "verifierad_mot": "SAOL och SO",
@@ -5351,7 +5364,8 @@
    "kandidat_fran": "handskrivet 2026-11-19",
    "ifyllda_distraktorer": 0
   },
-  "fran_version": 2
+  "fran_version": 2,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-a-s-67",
