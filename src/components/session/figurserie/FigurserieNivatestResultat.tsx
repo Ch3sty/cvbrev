@@ -13,7 +13,7 @@ import { visatForSvar } from '@/lib/logicTestV7/blanda'
 import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import Resultatskarm, { type ResultatTal } from '../Resultatskarm'
-import Genomgang, { type GenomgangPost } from '../lagen/Genomgang'
+import Genomgang, { type GenomgangKalla, type GenomgangPost } from '../lagen/Genomgang'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { SESSION, type NivaNamn } from '../copy'
 import { tillFigurserieU } from './FigurserieNivatest'
@@ -63,6 +63,7 @@ export function nivatestPoster(serie: GenomgangSerie[], answers: unknown): Genom
 export default function FigurserieNivatestResultat(p: FigurserieNivatestResultatProps) {
   const router = useRouter()
   const [genomgang, setGenomgang] = useState<number | null>(null)
+  const [kalla, setKalla] = useState<GenomgangKalla>('ga_igenom')
   const poster = nivatestPoster(p.serie, p.answers)
   const missar = poster.map((x, i) => ({ ...x, i })).filter((x) => !x.facit.correct)
   const undertitel = SESSION.undertitel('nivatest', p.niva)
@@ -77,6 +78,7 @@ export default function FigurserieNivatestResultat(p: FigurserieNivatestResultat
         start={genomgang}
         budgetPerUppgift={null}
         sessionId={null}
+        kalla={kalla}
         onStang={() => setGenomgang(null)}
       />
     )
@@ -98,7 +100,8 @@ export default function FigurserieNivatestResultat(p: FigurserieNivatestResultat
         titel: poster.length ? SESSION.resultat.genomgangTitel(missar.length) : SESSION.resultat.genomgangTitel(0),
         text: p.genomgangText,
         miniatyrer: <Miniatyrer poster={missar.map((m) => ({ u: m.u, ratt: m.facit.ratt }))} />,
-        onGaIgenom: () => setGenomgang(missar[0]?.i ?? 0),
+        lista: poster.length ? { ritare: FIGURSERIE, lage: 'nivatest', poster, sessionId: null, onOppna: (i: number) => (setKalla('rad'), setGenomgang(i)) } : null,
+        onGaIgenom: () => (setKalla('ga_igenom'), setGenomgang(missar[0]?.i ?? 0)),
         onVisaAlla: missar.length && missar.length < poster.length ? () => setGenomgang(0) : null,
       }}
       tappadeKort={p.tappadeKort}

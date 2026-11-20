@@ -47,23 +47,42 @@ export function VillkorKort({ intro, villkor }: { intro: string | null; villkor:
   )
 }
 
-export function DeduktivUppgift({ u, vald, facit, efterFel, onValj, last, forklaring }: UppgiftProps<DeduktivU>) {
+export function DeduktivUppgift({ u, vald, facit, efterFel, onValj, last, forklaring, kompakt = false }: UppgiftProps<DeduktivU>) {
   const fem = u.options.length >= 5
-  return (
-    <div className="flex flex-col gap-1 lg:flex-row lg:items-start lg:gap-10" data-deduktiv-uppgift>
-      <div
-        className="sess-villkor -mx-4 -mt-4 bg-golv px-4 pb-3 pt-4 lg:m-0 lg:max-w-[560px] lg:flex-1 lg:bg-transparent lg:p-0"
-        data-fem={fem ? '' : undefined}
-      >
+  // Kompakt (Uppgiftslistans utfällda rad): villkoren över uppgiften, inte fästa.
+  if (kompakt) {
+    return (
+      <div className="flex flex-col gap-3.5" data-deduktiv-uppgift="kompakt">
         <VillkorKort intro={u.intro} villkor={u.villkor} />
-      </div>
-      <div className="flex min-w-0 flex-col gap-3.5 lg:w-[400px] lg:flex-none">
         <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
           {u.fraga}
         </h2>
         <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-deduktiv-alt>
           {u.options.map((text, i) => (
-            <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} efterFel={efterFel} disabled={last} onValj={onValj}>
+            <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
+              {text}
+            </SvarRad>
+          ))}
+        </div>
+        {forklaring}
+      </div>
+    )
+  }
+  return (
+    <div className="flex flex-col gap-1 lg:flex-row lg:items-start lg:gap-10" data-deduktiv-uppgift>
+      <div
+        className="sess-villkor -mx-4 -mt-4 bg-golv px-4 pb-3 pt-4 lg:m-0 lg:max-w-[560px] lg:flex-1 lg:bg-transparent lg:p-0 xl:max-w-[640px]"
+        data-fem={fem ? '' : undefined}
+      >
+        <VillkorKort intro={u.intro} villkor={u.villkor} />
+      </div>
+      <div className="flex min-w-0 flex-col gap-3.5 lg:w-[400px] lg:flex-none xl:w-[440px]">
+        <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
+          {u.fraga}
+        </h2>
+        <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-deduktiv-alt>
+          {u.options.map((text, i) => (
+            <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
               {text}
             </SvarRad>
           ))}

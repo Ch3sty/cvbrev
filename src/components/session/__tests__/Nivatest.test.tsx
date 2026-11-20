@@ -53,7 +53,7 @@ describe('nivåtestet i ramen', () => {
       />
     )
     // Mjuk gräns: fem minuter över, testet går vidare och ringen säger tiden över.
-    expect(document.querySelector('[data-klocka="sista"]')?.textContent).toMatch(/^\+5:0\d$/)
+    expect(document.querySelector('[data-klocka="over"]')?.textContent).toMatch(/^\+5:0\d$/)
     expect(screen.getByText('1 / 3')).toBeTruthy()
     // Nästa utan val lämnar obesvarad.
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)

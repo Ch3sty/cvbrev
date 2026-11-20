@@ -61,7 +61,7 @@ describe('de gamla namnen skjuts som förut', () => {
 
 describe('ramens händelser skjuts bara från handelser.ts', () => {
   it('ingen typ eller annan fil skjuter test_* direkt', () => {
-    const nya = ['test_start_viewed', 'test_session_started', 'test_question_answered', 'test_session_abandoned', 'test_session_completed', 'test_submit_blocked', 'traning_installning_andrad']
+    const nya = ['test_start_viewed', 'test_session_started', 'test_question_answered', 'test_session_abandoned', 'test_session_completed', 'test_submit_blocked', 'traning_installning_andrad', 'genomgang_oppnad', 'genomgang_rad_utfalld', 'genomgang_steg', 'genomgang_klar', 'forklaring_tid']
     for (const fil of allaFiler(SRC)) {
       if (fil.endsWith(path.join('session', 'handelser.ts')) || fil.endsWith(path.join('analytics', 'events.ts'))) continue
       const kod = fs.readFileSync(fil, 'utf8')

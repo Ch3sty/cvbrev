@@ -26,6 +26,7 @@ import Resultatskarm from '../Resultatskarm'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import Losningsgang from './Losningsgang'
 
 export interface DeduktivTranaProps {
@@ -118,7 +119,7 @@ export default function DeduktivTrana({ start = null, vy = null, forklaringEfter
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -128,12 +129,14 @@ function TranaResultat({
   datum,
   harNivakoll,
   gaIgenom,
+  lista,
   stang,
 }: {
   vy: DeduktivPassVy
   datum: string | null
   harNivakoll: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -160,6 +163,7 @@ function TranaResultat({
       genomgang={{
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Lösningsgången och ditt misstag vid varje uppgift, i samma vy som träningen.' : 'Gå igenom uppgifterna och lösningen bakom varje.',
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

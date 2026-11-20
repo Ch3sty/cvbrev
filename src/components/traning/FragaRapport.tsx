@@ -19,20 +19,27 @@ export interface FragaRapportProps {
   sessionId?: string | null
   testKind?: RapportTestKind
   bankVersion?: number | null
+  /** Förklaringens fotrad (omgång 2): länken i 12 px ink-3 nere till höger, arket i kortets bredd. */
+  liten?: boolean
 }
 
 type Lage = 'stangd' | 'oppen' | 'skickar' | 'skickad' | 'fel'
 
-export default function FragaRapport({ qId, sessionId = null, testKind = 'matris', bankVersion = null }: FragaRapportProps) {
+export default function FragaRapport({ qId, sessionId = null, testKind = 'matris', bankVersion = null, liten = false }: FragaRapportProps) {
   const [lage, setLage] = useState<Lage>('stangd')
   const [orsak, setOrsak] = useState<RapportOrsak | null>(null)
   const [kommentar, setKommentar] = useState('')
   const rubrikId = useId()
 
-  if (lage === 'skickad') return <p className="mt-2 text-sm text-ink-2" role="status">{C.kvitto}</p>
+  if (lage === 'skickad') return <p className={liten ? 'py-1.5 text-[12px] leading-4 text-ink-2' : 'mt-2 text-sm text-ink-2'} role="status">{C.kvitto}</p>
   if (lage === 'stangd') {
     return (
-      <button type="button" className={`${LANK} mt-2 inline-flex min-h-9 items-center`} onClick={() => setLage('oppen')} data-fraga-rapport>
+      <button
+        type="button"
+        className={liten ? 'inline-flex min-h-8 items-center text-[12px] leading-4 text-ink-3 underline decoration-kant-stark underline-offset-2 hover:text-ink-1' : `${LANK} mt-2 inline-flex min-h-9 items-center`}
+        onClick={() => setLage('oppen')}
+        data-fraga-rapport
+      >
         {C.lank}
       </button>
     )
@@ -54,7 +61,7 @@ export default function FragaRapport({ qId, sessionId = null, testKind = 'matris
   }
 
   return (
-    <div role="group" aria-labelledby={rubrikId} className="mt-3 rounded-[14px] border border-kant bg-papper px-4 py-3.5" data-fraga-rapport-ark>
+    <div role="group" aria-labelledby={rubrikId} className={`${liten ? 'mb-1.5 mt-1 w-full text-left' : 'mt-3'} rounded-[14px] border border-kant bg-papper px-4 py-3.5`} data-fraga-rapport-ark>
       <p id={rubrikId} className="text-sm font-medium text-ink-1">{C.rubrik}</p>
       <div className="mt-2.5 flex flex-wrap gap-2">
         {RAPPORT_ORSAKER.map((o) => (

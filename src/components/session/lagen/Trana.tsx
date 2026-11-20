@@ -29,9 +29,9 @@ import Forklaringen from '../Forklaringen'
 import { SESSION } from '../copy'
 import { lagesregler } from '../lagesregler'
 import { sessionHandelser, type SessionHandelseBas } from '../handelser'
-import type { RamFacit, RamUppgift, TypRitare } from '../typ'
-import Genomgang from './Genomgang'
-import { ForsokIgen, Meddelande, ramUnderlag, useLamnadSida } from './gemensamt'
+import { forklaringInnehall, type RamFacit, type RamUppgift, type TypRitare } from '../typ'
+import Genomgang, { type GenomgangKalla } from './Genomgang'
+import { ForsokIgen, Meddelande, ramUnderlag, useLamnadSida, type ResultatLista } from './gemensamt'
 
 /** Träningen i ramens form; typens wiring mappar motorns vy hit. */
 export interface TranaSession<U extends RamUppgift> {
@@ -82,7 +82,8 @@ export interface TranaProps<U extends RamUppgift, S> {
   api: TranaApi<S>
   /** Kryssrutans sparade läge. */
   forklaringEfterSvar: boolean
-  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void }) => ReactNode
+  /** ctrl.lista: Uppgiftslistan färdig för Resultatskarm (genomgang.lista), omgång 2. */
+  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; lista: ResultatLista<U> }) => ReactNode
   tillbakaHref: string
   /** Adressen byts till sessionens, så att en omladdning återupptar. */
   sessionAdress?: (id: string) => string
@@ -101,7 +102,7 @@ type Fas =
   | { typ: 'avslutar' }
   | { typ: 'avslutfel' }
   | { typ: 'resultat' }
-  | { typ: 'genomgang'; fran: number }
+  | { typ: 'genomgang'; fran: number; kalla?: GenomgangKalla }
 
 function forstaObesvarade<U extends RamUppgift>(s: TranaSession<U>): number {
   const i = s.uppgifter.findIndex((u) => !s.besvarade[u.nyckel])
@@ -357,7 +358,8 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
 
   if (!s || fas.typ === 'startar' || fas.typ === 'startfel') {
     return (
-      <SessionsRam lage="trana" titel={titel} undertitel={undertitel} form={ritare.form} raknare={null} framsteg={0} bekraftaAvbryt={false} onAvbryt={tillbaka} fot={null}>
+      <SessionsRam lage="trana" titel={titel} undertitel={undertitel} form={ritare.form}
+      scen={ritare.kind} raknare={null} framsteg={0} bekraftaAvbryt={false} onAvbryt={tillbaka} fot={null}>
         {fas.typ === 'startfel' ? (
           <Meddelande titel={SESSION.fel.hamta} text={SESSION.fel.hamtaRad}>
             <ForsokIgen onClick={() => void starta()} />
@@ -373,25 +375,38 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
 
   const antal = s.uppgifter.length
 
-  if (fas.typ === 'resultat' && vy) {
-    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran }), stang: tillbaka })}</>
-  }
-
-  if (fas.typ === 'genomgang') {
-    const poster = s.uppgifter.map((u) => {
+  const poster = () =>
+    s.uppgifter.map((u) => {
       const b = s.besvarade[u.nyckel]
       const f = s.facit[u.nyckel]
       return { u, valt: b?.valt ?? null, facit: f ?? { ratt: -1, correct: false, regel: null, misstag: null }, tid_s: b?.tid_s ?? null }
     })
+
+  if (fas.typ === 'resultat' && vy) {
+    const lista: ResultatLista<U> = {
+      ritare,
+      lage: 'trana',
+      poster: poster(),
+      sessionId: s.id,
+      bas,
+      budgetPerUppgift: s.budgetPerUppgift,
+      onOppna: (i) => setFas({ typ: 'genomgang', fran: i, kalla: 'rad' }),
+    }
+    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran, kalla: 'ga_igenom' }), stang: tillbaka, lista })}</>
+  }
+
+  if (fas.typ === 'genomgang') {
     return (
       <Genomgang
         ritare={ritare}
         lage="trana"
         titel={titel}
-        poster={poster}
+        poster={poster()}
         start={fas.fran}
         budgetPerUppgift={s.budgetPerUppgift}
         sessionId={s.id}
+        bas={bas}
+        kalla={fas.kalla ?? 'direkt'}
         onStang={s.harResultat ? () => setFas({ typ: 'resultat' }) : tillbaka}
       />
     )
@@ -404,6 +419,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
         titel={titel}
         undertitel={undertitel}
         form={ritare.form}
+      scen={ritare.kind}
         raknare={{ nr: antal, antal }}
         framsteg={1}
         bekraftaAvbryt={false}
@@ -460,8 +476,9 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
         regel={facit.regel}
         text={facit.text}
         misstag={facit.misstag}
-        detalj={facit.detalj}
+        innehall={forklaringInnehall(ritare, u, facit, valtVisat, 'svar')}
         rapport={{ qId: u.nyckel, sessionId: s.id, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
+        matning={{ bas, sessionId: s.id, index: idx, plats: 'svar' }}
         rullaFram
       />
     ) : null
@@ -472,6 +489,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       titel={titel}
       undertitel={undertitel}
       form={ritare.form}
+      scen={ritare.kind}
       raknare={{ nr: Math.min(idx + 1, antal), antal }}
       framsteg={besvarade / antal}
       klocka={<Klocka lage="referens" sekunder={harSvarat ? tidPaUppgift : sekunder} budget={s.budgetPerUppgift} />}

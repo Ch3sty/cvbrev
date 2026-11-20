@@ -24,6 +24,7 @@ import Resultatskarm from '../Resultatskarm'
 import NivakollKop from '../delat/NivakollKop'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 import { SESSION } from '../copy'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import Losningsgang from './Losningsgang'
 
 export interface DeduktivNivakollProps {
@@ -107,7 +108,7 @@ export default function DeduktivNivakoll({ start = null, vy = null, betalande, d
             }
           : null
       }
-      resultat={(v, ctrl) => <KollResultat vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <KollResultat vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -118,6 +119,7 @@ function KollResultat({
   datum,
   gjordIdag,
   gaIgenom,
+  lista,
   stang,
 }: {
   vy: NivakollVy
@@ -125,6 +127,7 @@ function KollResultat({
   datum: string | null
   gjordIdag: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -153,6 +156,7 @@ function KollResultat({
       genomgang={{
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: 'Rätt svar, lösningsgången och ditt misstag vid varje uppgift.',
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

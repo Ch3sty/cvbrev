@@ -96,3 +96,42 @@ Planen: `docs/plan-testflode-2026-11-20.md`. En rad per push med vad som gick li
 - Tester: `src/components/session/__tests__/betalvaggar.test.tsx` (platserna, händelserna, foten, kampanjpriset, ingen vägg inne i en session), dag 2-mejlets typer i `traningsmejl.test.ts`, de två gamla källkodstesterna uppdaterade.
 - Ingen databasändring. Inga ändringar i `src/lib/kampanj`, `src/app/api/stripe`, `src/components/kampanj`, `src/lib/plans`.
 - Backning: `git revert 1e3652b1`.
+
+## Omgång 2, steg A: grunden i ramen (2026-11-20)
+
+Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/feedback-testflode-ux-2026-11-21.md` och `docs/design/feedback-testflode-saas-lead-2026-11-21.md`. Allt i `src/components/session/`; inga rutter, POST-kroppar, kvoter, motorer, banker, priser eller kampanjfiler rörda. Ingen databasändring.
+
+### Vad som gick live
+
+- **Ytan (`SessionsRam`).** Foten ligger i main: på mobil en rad över hela bredden längst ned (sticky, `mt-auto`), från lg i kolumnen 24 px under innehållet och sticky nedtill när innehållet är längre. Nästa högst 360 px och högerställd, ‹ eller Vet inte till vänster. I Bred ritas kolumnen som rutnät (560 + 40 + 400, från xl 640 + 40 + 440); med underlag står foten under högerspalten, utan underlag (deduktivt) har foten ett eget rutnät så att knapparna står under typens högerspalt. Kolumnerna från xl: Smal 496, Mellan 600, Remsa 816, Bred 1120 (`FORM_BREDD_XL`). Toppluften från lg `clamp(40px, (100dvh − 920px) / 2, 120px)` (`TOPPLUFT`), också för de fästa villkoren. Nya props: `scen` (typens id för scenen på golvet). Nya data-attribut för QA: `data-ram-kolumn`, `data-ram-uppgift`, `data-ram-fot`, `data-ram-vakt`, `data-form`.
+- **Klockan (`Klocka`).** Kapsel med ring och tal, alltid m:ss, alla lägen enligt artboarden. Props oförändrade. `data-klocka` är `lugn`, `sista`, `over` eller `referens` (`over` är nytt; tidigare `sista` även över tiden). `klockText(kvar, mjuk)` exporteras.
+- **Rätt/fel-systemet.** `Marke.tsx` (märkena `ratt`, `fel`, `ton`, varianten `fylld` för listans rader, `pop`, och `Las` för det publika låset). `Svarskort`: vit yta och 1 px ring efter facit, märket i brickans plats, `Pill` och ny prop `ditt` på `SvarRad` och `SvarRuta` (alla typer skickar `ditt={facit != null && vald === i}`). Pillen på figurrutor döljs under 110 px rutbredd (container query). Rörelserna `sess-pop`, `sess-pill` i `globals.css`, av under prefers-reduced-motion.
+- **Förklaringen (`Forklaringen`).** Kortet med rubrikrad, kropp och fotrad; "Något ser fel ut" är `FragaRapport` med ny prop `liten`. Nya props `innehall` (typens plats, `detalj` finns kvar som alias) och `matning`.
+- **Scenen på golvet (`ScenGolv`).** I ramen från 1440 px, tonas ut när vakten efter foten når ner till scenen.
+- **Uppgiftslistan (`Uppgiftslistan`).** Ersätter genomgångskortet i `Resultatskarm` i alla lägen (`genomgang.lista`); kortet med miniatyrer och "Visa alla" ritas bara om en vy inte skickar `lista`. Alla lägen och resultatvyer skickar den: Träna, Nivåkollen och övningsproven via lägets `ctrl.lista`, nivåtestens resultat (`KlassiskNivatestResultat`, `FigurserieNivatestResultat`, `Steg2NivatestResultat`, `VnNivatestResultat`), matrisens övningsprov och I-provet (alla deltest med mellanrubriker).
+- **Publikt läge.** `lagesregler('publikt')`: ingen klocka, linjär, inget hopp, `facit: false`; `Lagesregler` fick flaggan `facit`. Avbryt-dialogen "Avbryta provet? Inget sparas.", sista knappen Visa resultatet, `LAGESNAMN.publikt` "Prova gratis", `KLART.publikt` "Provet klart". Räknaren saknar chevron när ramen inte får `ark`.
+- **Mätningen (saas-leads prio 1).** Nya händelser i `handelser.ts` och `AnalyticsEvents`: `genomgang_oppnad` (`kalla` ga_igenom, rad eller direkt, `start_index`, `antal`, `fel`), `genomgang_rad_utfalld` (`index`, `utfall`, bara tryck), `genomgang_steg` (`index`, `riktning`, `tid_ms` på förra uppgiften), `genomgang_klar` (`sett`, `elapsed_ms`) och `forklaring_tid` (`tid_ms`, `utfall`, `plats` svar, genomgang eller lista). Alla bär `SessionHandelseBas`; i genomgången och listan utan egen bas är `niva` och `format` null. Inga gamla namn eller egenskaper ändrade; grep-testet täcker de nya.
+- **Talraden (`Talrad.tsx`).** Gemensam, ritas på servern, krymper likformigt med behållaren via `min(px, cqw)`. Används av talserierna i ramen (`typer/Steg2`) och av artiklarnas `TalserieUppgift`. Stegens etiketter under raden har nu sin plats reserverad från start (CLS 0 vid facit), utom de varvade seriernas andra rad.
+
+### Kontraktet för steg B (typerna)
+
+- **Förklaringens innehåll:** sätt `TypRitare.Forklaring: ComponentType<ForklaringInnehallProps<U>>` (`{ u, facit, valt, plats }`). Lägena, genomgången och listan ritar den i Förklaringens kropp under regeln och löptexten via `forklaringInnehall(ritare, u, facit, valt, plats)`. Utan den används `RamFacit.detalj` som förut (deduktivens lösningsgång ligger kvar där tills den flyttas). Regel, löptext och misstag kommer fortfarande ur `RamFacit`.
+- **Uppgiftslistans miniatyr:** `TypRitare.Miniatyr: ComponentType<{ u }>`, 22 till 32 px hög, aria-hidden. Finns för talserier, spatial och ordförråd (`ListMiniatyr` i `typer/Steg2`) och figurserier (`SerieMiniatyr`); matris, deduktiv, verbal och numerisk saknar och raden står då utan miniatyr.
+- **Svarets namn i raden:** `TypRitare.svarEtikett(u, i)`; utan den bokstaven. Ord och text och Siffror och tabeller ger de tre fastas ord.
+- **Utfälld rad:** listan ritar typens `Uppgift` med `last`, facit och den nya propen `kompakt` (smal behållare utanför ramen: stapla, inga fästa underlag, inga negativa marginaler). Deduktivt hanterar `kompakt`; övriga typer staplar redan. Har typen `underlag` ritas dess `Ritare` med `genomgang` ovanför uppgiften.
+- **Svarskort:** skicka `ditt` (se ovan). Egna kort ska använda `Marke` och `Pill` för rätt och fel, aldrig `IkonCheck` eller `IkonKryss`.
+- **Talraden:** bågar och felsteg ritas i `Talrad`s `overlay` (SVG i radens designmått, `geometri(n, ovan)` ger `cx(i)`), med `ovan` och `under` reserverade från start; klasserna `talrad-bage` och `talrad-in` finns i `globals.css`. Etiketterna i `efter` kan tas bort när bågarna finns.
+- **Måtten från xl:** kolumnen är bredare (se ovan); typer med fasta mått (matrisen 336, talradens rutor, spatialens figurkort) får sina xl-steg i steg B. Deduktivets högerspalt är 440 från xl så att den följer foten.
+
+### Kontraktet för steg C (publika vyerna)
+
+- Ramen i det publika provet: `SessionsRam` med `lage="publikt"`, utan `klocka` och `ark`, `bekraftaAvbryt`, `scen` med typens id. `lagesregler('publikt').facit` är falskt: typens `Uppgift` får `facit={null}` hela vägen.
+- Resultatet: `Uppgiftslistan` med `last` (och valfritt `lasText`) direkt, eller via `Resultatskarm` `genomgang.lista` med `last: true`. Raderna visar nummer, miniatyr, ritat märke, "Rätt" eller "Fel" och låset; obesvarade räknas som fel; inga händelser skjuts. Rubriken "Fem uppgifter, två fel" räknas ut (`SESSION.lista.titelLast`).
+- `Talrad` (utan 'use client') används i artikelns ruta och i provet; den ryms på 300 px.
+- Märken och lås: `Marke` och `Las` ur `src/components/session/Marke.tsx`.
+
+### Avvikelser från skissen
+
+- Skissens scen på golvet har egna motiv i generatorn; ramen använder typens scen ur `scener/` (som startskärmen) i vagg-2-kontur.
+- Rubriken "Vilket tal kommer härnäst?" ovanför talradens kort, bågarna, villkorskortets nya typografi och de övriga typspecifika facit-bilderna är steg B.
+- Från lg står foten 24 px under sista svaret (skissen och UX-beslutet 1a), så dess höjd följer uppgiftens längd: fyra eller fem svar, och i Träna under Förklaringen efter svaret. Den flyttar aldrig i sidled och aldrig inom en uppgift före svaret (Vet inte står kvar osynlig). På mobil står den fast längst ned som förut.

@@ -7,21 +7,20 @@
  * resultatet utan dialog.
  */
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import SessionsRam from '../SessionsRam'
 import Forklaringen from '../Forklaringen'
 import { SESSION } from '../copy'
+import { basFor, sessionHandelser, type SessionHandelseBas } from '../handelser'
 import type { Lage } from '../lagesregler'
-import type { RamFacit, RamUppgift, TypRitare } from '../typ'
+import { forklaringInnehall, type GenomgangPost, type RamUppgift, type TypRitare } from '../typ'
 import type { RapportTestKind } from '@/lib/traning/fragaRapport'
 import { ramUnderlag } from './gemensamt'
 
-export interface GenomgangPost<U extends RamUppgift> {
-  u: U
-  valt: number | null
-  facit: RamFacit
-  tid_s?: number | null
-}
+export type { GenomgangPost }
+
+/** Varifrån genomgången öppnades (genomgang_oppnad). */
+export type GenomgangKalla = 'ga_igenom' | 'rad' | 'direkt'
 
 export interface GenomgangProps<U extends RamUppgift> {
   ritare: TypRitare<U>
@@ -37,13 +36,61 @@ export interface GenomgangProps<U extends RamUppgift> {
   sista?: { text: string; onClick: () => void } | null
   /** Undertiteln i stället för "[läget], genomgång" (I-provet: deltestet). */
   undertitel?: string
+  /** Mätningens bas. Utelämnad: typens id och läget. */
+  bas?: SessionHandelseBas | null
+  /** Varifrån den öppnades: "Gå igenom", en rads "Öppna i genomgången" eller direkt utan resultat. */
+  kalla?: GenomgangKalla
 }
 
-export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, poster, start = 0, budgetPerUppgift = null, sessionId, onStang, sista: sistaKnapp = null, undertitel }: GenomgangProps<U>) {
+export default function Genomgang<U extends RamUppgift>({
+  ritare,
+  lage,
+  titel,
+  poster,
+  start = 0,
+  budgetPerUppgift = null,
+  sessionId,
+  onStang,
+  sista: sistaKnapp = null,
+  undertitel,
+  bas: basIn = null,
+  kalla = 'ga_igenom',
+}: GenomgangProps<U>) {
   const [pos, setPos] = useState(() => Math.max(0, Math.min(start, poster.length - 1)))
+  const bas = basFor(ritare.kind, lage, basIn)
+  const antal = poster.length
+
+  // Mätningen (saas-leads prio 1): öppnad en gång, ett steg per byte med
+  // tiden på den förra uppgiften, klar när sista uppgiftens knapp trycks.
+  const oppnad = useRef(0)
+  const steg = useRef({ pos, vid: 0 })
+  const sett = useRef(new Set<number>())
+  useEffect(() => {
+    const nu = performance.now()
+    oppnad.current = nu
+    steg.current = { pos, vid: nu }
+    sett.current.add(pos)
+    const fel = poster.filter((x) => !x.facit.correct).length
+    sessionHandelser.genomgangOppnad(bas, { session_id: sessionId, antal, fel, start_index: pos, kalla })
+    // En gång när genomgången öppnas.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const ga = (till: number) => {
+    const ny = Math.max(0, Math.min(antal - 1, till))
+    if (ny === pos) return
+    const nu = performance.now()
+    sessionHandelser.genomgangSteg(bas, { session_id: sessionId, index: ny, antal, riktning: ny > pos ? 'fram' : 'tillbaka', tid_ms: Math.round(nu - steg.current.vid) })
+    steg.current = { pos: ny, vid: nu }
+    sett.current.add(ny)
+    setPos(ny)
+  }
+  const klar = (vidare: () => void) => {
+    sessionHandelser.genomgangKlar(bas, { session_id: sessionId, antal, sett: sett.current.size, elapsed_ms: Math.round(performance.now() - oppnad.current) })
+    vidare()
+  }
+
   const p = poster[pos]
   if (!p) return null
-  const antal = poster.length
   const sista = pos >= antal - 1
   const Uppgift = ritare.Uppgift
   const utfall = p.valt === null ? (lage === 'trana' ? 'vet_inte' : 'obesvarad') : p.facit.correct ? 'ratt' : 'fel'
@@ -54,8 +101,9 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
       regel={p.facit.regel}
       text={p.facit.text}
       misstag={p.facit.misstag}
-      detalj={p.facit.detalj}
+      innehall={forklaringInnehall(ritare, p.u, p.facit, p.valt, 'genomgang')}
       rapport={{ qId: p.u.nyckel, sessionId, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
+      matning={{ bas, sessionId, index: pos, plats: 'genomgang' }}
     />
   )
   return (
@@ -68,13 +116,14 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
       framsteg={(pos + 1) / antal}
       nyckel={`g-${p.u.nyckel}`}
       underlag={ramUnderlag(ritare, p.u, true)}
+      scen={ritare.kind}
       bekraftaAvbryt={false}
       onAvbryt={onStang}
       fot={{
-        vanster: { typ: 'tillbaka', onClick: () => setPos((x) => Math.max(0, x - 1)), disabled: pos === 0 },
+        vanster: { typ: 'tillbaka', onClick: () => ga(pos - 1), disabled: pos === 0 },
         primar: {
           text: sista ? (sistaKnapp?.text ?? SESSION.knapp.tillResultatet) : SESSION.knapp.nasta,
-          onClick: sista ? (sistaKnapp?.onClick ?? onStang) : () => setPos((x) => Math.min(antal - 1, x + 1)),
+          onClick: sista ? () => klar(sistaKnapp?.onClick ?? onStang) : () => ga(pos + 1),
           data: 'genomgang-nasta',
         },
       }}

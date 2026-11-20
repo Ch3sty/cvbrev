@@ -22,6 +22,7 @@
 import { SpatialSvg } from '@/lib/spatialV1/ritare'
 import type { SpatialFigur, SpatialFraga } from '@/lib/spatialV1/types'
 import { visaTal } from '@/lib/talserierV1/layout'
+import Talrad, { type TalradRuta } from '@/components/session/Talrad'
 import talserier from '@/lib/artikelfigurer/talserier.json'
 import spatial from '@/lib/artikelfigurer/spatial.json'
 import ordforrad from '@/lib/artikelfigurer/ordforrad.json'
@@ -43,27 +44,17 @@ function hamta<T>(m: Map<string, T>, id: string, namn: string): T {
 
 /* ---------------------------------------------------------------- talserier */
 
+/**
+ * Raden: den gemensamma Talrad (omgång 2), som krymper med artikelrutan så
+ * att hela serien alltid står på en rad, också på 300 px. Lösningen fyller
+ * luckan med rätt tal på positiv, som facit i testerna.
+ */
 function Rad({ visade, luckor, facit }: { visade: number[]; luckor: number; facit?: number[] }) {
-  return (
-    <div className="flex flex-wrap justify-center gap-1">
-      {visade.map((t, i) => (
-        <span key={i} className="min-w-[38px] rounded-lg border border-kant bg-papper px-1 py-2 text-center text-[16px] font-semibold tabular-nums text-ink-1">
-          {visaTal(t)}
-        </span>
-      ))}
-      {Array.from({ length: luckor }, (_, i) =>
-        facit ? (
-          <span key={`l${i}`} className="min-w-[38px] rounded-lg border-2 border-koppar bg-papper px-1 py-2 text-center text-[16px] font-semibold tabular-nums text-ink-1">
-            {visaTal(facit[i])}
-          </span>
-        ) : (
-          <span key={`l${i}`} className="min-w-[38px] rounded-lg border border-dashed border-ink-3 bg-papper-2 px-1 py-2 text-center text-[16px] font-semibold text-ink-3">
-            ?
-          </span>
-        )
-      )}
-    </div>
-  )
+  const rutor: TalradRuta[] = [
+    ...visade.map((t) => ({ text: visaTal(t) })),
+    ...Array.from({ length: luckor }, (_, i) => (facit ? { text: visaTal(facit[i]), lucka: true, facit: true } : { text: null, lucka: true })),
+  ]
+  return <Talrad rutor={rutor} liten />
 }
 
 export function TalserieUppgift({ id, facit = false }: { id: string; facit?: boolean }) {

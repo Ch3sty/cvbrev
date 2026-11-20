@@ -9,10 +9,10 @@ import { SESSION } from '../copy'
 
 describe('lägesreglerna', () => {
   it('Nivåkollen: tyst, linjär, ingen klocka, inget hopp', () => {
-    expect(lagesregler('nivakoll')).toEqual({ aterkoppling: 'efter', navigering: 'linjar', tid: 'ingen', hopp: 'nej', gest: 'bekrafta' })
+    expect(lagesregler('nivakoll')).toEqual({ aterkoppling: 'efter', navigering: 'linjar', tid: 'ingen', hopp: 'nej', gest: 'bekrafta', facit: true })
   })
   it('nivåtest: fri navigering, mjuk gräns, hopp tillåtet', () => {
-    expect(lagesregler('nivatest')).toEqual({ aterkoppling: 'efter', navigering: 'fri', tid: 'mjuk', hopp: 'ja', gest: 'bekrafta' })
+    expect(lagesregler('nivatest')).toEqual({ aterkoppling: 'efter', navigering: 'fri', tid: 'mjuk', hopp: 'ja', gest: 'bekrafta', facit: true })
     expect(harTillbaka(lagesregler('nivatest'))).toBe(true)
   })
   it('Träna: direkt med förklaringen på, efter med den av, alltid samma gest', () => {
@@ -29,6 +29,13 @@ describe('lägesreglerna', () => {
   it('bara personlighet har ett tryck', () => {
     for (const l of ['nivakoll', 'nivatest', 'trana', 'ovningsprov', 'iprov'] as const) expect(lagesregler(l).gest).toBe('bekrafta')
     expect(lagesregler('personlighet').gest).toBe('ett_tryck')
+  })
+  it('publikt: ingen klocka, inget facit, ingen väg tillbaka, Visa resultatet sist', () => {
+    expect(lagesregler('publikt')).toEqual({ aterkoppling: 'efter', navigering: 'linjar', tid: 'ingen', hopp: 'nej', gest: 'bekrafta', facit: false })
+    expect(harTillbaka(lagesregler('publikt'))).toBe(false)
+    expect(sistaKnapp('publikt')).toBe('visa_resultatet')
+    expect(SESSION.avbryt.titel('publikt')).toBe('Avbryta provet?')
+    expect(SESSION.avbryt.text('publikt')).toBe('Inget sparas.')
   })
   it('sista knappen', () => {
     expect(sistaKnapp('nivakoll')).toBe('visa_resultatet')

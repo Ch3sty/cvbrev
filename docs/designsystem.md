@@ -433,6 +433,55 @@ Alla tester, lägen och typer går i en ram, `src/components/session/`
 De gamla skalen (`TestFlowShell`, `PassShell`, `ResultatSkal`, `Startark`
 och lägesflödena i `src/components/traning`) är raderade sedan etapp 5.
 
+#### Omgång 2: ytan, klockan, rätt och fel, Förklaringen och listan
+
+Skissen godkänd 2026-11-21 (artboards Main, Ram-prov-2560, Ram-prov-412,
+Klockan, Resultat-1440 och -412, facit-vyerna). Steg A byggde det
+gemensamma; typerna (steg B) och de publika vyerna (steg C) bygger på det.
+Kontraktet för byggarna står i `docs/bygg-noter-testflode.md`.
+
+- **Ytan.** Mobilen som förut: foten är en rad över hela bredden längst ned,
+  svaren syns utan rullning. Från lg står foten i kolumnen, 24 px under
+  sista svaret och sticky nedtill i main när innehållet är längre; Nästa
+  högst 360 px och högerställd, ‹ eller Vet inte till vänster, i Bred under
+  högerspalten. Kolumnens innehåll är Smal 432, Mellan 560, Remsa 672, Bred
+  1000 (560 + 40 + 400) från lg och 496, 600, 816, 1120 (640 + 40 + 440) från
+  xl (`FORM_BREDD`, `FORM_BREDD_XL`). Toppluften från lg är
+  `clamp(40px, (100dvh − 920px) / 2, 120px)` (`TOPPLUFT`): rubriken står på
+  samma pixel genom hela sessionen.
+- **Klockan** är en kapsel, aldrig ett tal i ringen: 36 px hög på dator
+  (ringen 26, talet 14 px), 30 på mobil (22 och 12), papper-2, märke klockan
+  tolv på spåret. Alltid m:ss och varje sekund. De sista två minuterna
+  koppar-mjuk med koppar-ink; mjuk gräns visar tiden över som "+1:23"; hård
+  gräns står på 0:00; referensen i Träna har sekunderna i ink-3 och blir
+  aldrig koppar. Talets bredd är fast per teckenantal (CLS 0).
+- **Rätt och fel** ritas med sessionens egna märken (`Marke`: rätt, fel och
+  ton, rund bricka med 2 px ring och handritat tecken), aldrig med
+  standardikoner. Efter facit är svarskortet vitt med 1 px ring i positiv
+  eller fel, märket ersätter brickan (pop 240 ms) och pillen "Rätt svar",
+  "Ditt svar" eller "Rätt, ditt svar" glider in från höger (200 ms, 120 ms
+  fördröjning). Övriga kort dämpas till .38. De tre fasta har märket 20 px
+  före texten och ingen pill. Ingen rörelse under prefers-reduced-motion.
+- **Förklaringen** är ett kort: rubrikraden på utfallets mjuka yta (märket
+  28 px, "Rätt", "Inte den här", "Förklaringen" eller "Obesvarad", tiden i
+  ink-3), kroppen på papper (eyebrow, regeln i display 18/23, löptexten,
+  typens innehåll, hårlinje och "Ditt misstag") och fotraden med "Något ser
+  fel ut" i 12 px ink-3. Vet inte och obesvarad är ton, aldrig rött.
+- **Scenen på golvet:** typens scen i vagg-2-kontur, 16 % opacitet, 240 px,
+  nere till höger från 1440 px, aldrig i kolumnen. Den tonas bort när
+  kolumnen når ner till den.
+- **Resultatet** visar alla uppgifter i Uppgiftslistan i stället för
+  genomgångskortet: rader om 56 px (nummer, miniatyr, märket, "B, rätt C",
+  tiden, chevronen), fel på fel-mjuk och obesvarad på papper-2, filtret Alla
+  eller Bara fel som två textknappar, "Gå igenom" som sekundär knapp. En rad
+  fälls ut till hela uppgiften med facit och Förklaringen. I Träna står felen
+  utfällda från början, i testlägena den första missen. Det publika provet
+  har samma rader låsta: märket, "Rätt" eller "Fel" och låset, ingen
+  utfällning.
+- **Talraden** är en komponent (`Talrad`) som krymper likformigt med sin
+  behållare: hela serien står alltid på en rad, i ramen på 412 px och i en
+  artikelruta på 300 px.
+
 ## 7. Illustrationer, ikoner och symboler
 
 Primitiverna i `src/components/illustrations/primitives.tsx`: konturer i

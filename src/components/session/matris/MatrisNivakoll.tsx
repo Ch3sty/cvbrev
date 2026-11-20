@@ -32,6 +32,7 @@ import { MATRIS, type MatrisU } from '../typer/Matris'
 import { SESSION } from '../copy'
 import { MatrisMiniatyrer } from './delar'
 import { skapaMatris, slutforMatris, svarKropp, type MatrisVy } from './api'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import type { RamFacit } from '../typ'
 
 export interface MatrisNivakollProps {
@@ -171,7 +172,7 @@ export default function MatrisNivakoll({ start = null, vy = null, betalande, dat
             }
           : null
       }
-      resultat={(v, ctrl) => <KollResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <KollResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -204,7 +205,7 @@ export function KurvKort({ status, rubrik, idPrefix }: { status: Traningsstatus 
   )
 }
 
-function KollResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; stang: () => void }) {
+function KollResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void }) {
   const avslut = m.avslut!
   const status = m.status
   const ommatning = avslut.typ === 'ommatning'
@@ -237,6 +238,7 @@ function KollResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; b
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: 'Rätt svar och regeln vid varje uppgift, i samma vy som Nivåkollen.',
         miniatyrer: <MatrisMiniatyrer poster={missar.map((x) => ({ u: x.u, ratt: x.f?.ratt ?? null }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

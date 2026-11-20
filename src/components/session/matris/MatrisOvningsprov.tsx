@@ -35,7 +35,7 @@ import Staplar from '@/components/traning/Staplar'
 import SessionsRam from '../SessionsRam'
 import Klocka from '../Klocka'
 import Resultatskarm from '../Resultatskarm'
-import Genomgang, { type GenomgangPost } from '../lagen/Genomgang'
+import Genomgang, { type GenomgangKalla, type GenomgangPost } from '../lagen/Genomgang'
 import { ForsokIgen, Meddelande, Sparfelsrad, useLamnadSida, useSekunderSedan } from '../lagen/gemensamt'
 import { SESSION } from '../copy'
 import { sessionHandelser } from '../handelser'
@@ -147,6 +147,7 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
 
   const [fas, setFas] = useState<Fas>(() => (forsta.vy.avslutad ? (forsta.avslut ? 'resultat' : 'genomgang') : 'fraga'))
   const [genomgangFran, setGenomgangFran] = useState(0)
+  const [genomgangKalla, setGenomgangKalla] = useState<GenomgangKalla>('ga_igenom')
   const [svar, setSvar] = useState<Record<string, number>>(() =>
     Object.fromEntries(forsta.vy.besvarade.filter((x) => x.valdVisat != null).map((x) => [x.q_id, x.valdVisat as number]))
   )
@@ -319,7 +320,14 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
   /* ------------------------------ Ritningen ---------------------------- */
 
   if (fas === 'resultat' && m.avslut) {
-    return <LogikResultat m={m} gaIgenom={(fran = 0) => (setGenomgangFran(fran), setFas('genomgang'))} stang={stang} />
+    return (
+      <LogikResultat
+        m={m}
+        gaIgenom={(fran = 0) => (setGenomgangFran(fran), setGenomgangKalla('ga_igenom'), setFas('genomgang'))}
+        oppna={(i) => (setGenomgangFran(i), setGenomgangKalla('rad'), setFas('genomgang'))}
+        stang={stang}
+      />
+    )
   }
   if (fas === 'genomgang') {
     return (
@@ -329,6 +337,7 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
         titel={MATRIS.namn}
         poster={poster(vy)}
         start={genomgangFran}
+        kalla={m.avslut ? genomgangKalla : 'direkt'}
         budgetPerUppgift={vy.budget_s}
         sessionId={vy.id}
         onStang={m.avslut ? () => setFas('resultat') : stang}
@@ -383,6 +392,7 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
       titel={MATRIS.namn}
       undertitel={undertitel(of)}
       form={MATRIS.form}
+      scen="matris"
       raknare={{ nr: Math.min(idx + 1, antal), antal }}
       framsteg={Math.min(idx + 1, antal) / antal}
       klocka={klocka}
@@ -473,7 +483,7 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
   )
 }
 
-function LogikResultat({ m, gaIgenom, stang }: { m: MatrisVy; gaIgenom: (fran?: number) => void; stang: () => void }) {
+function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (fran?: number) => void; oppna: (i: number) => void; stang: () => void }) {
   const avslut = m.avslut!
   const vy = m.vy
   const status = m.status
@@ -521,6 +531,7 @@ function LogikResultat({ m, gaIgenom, stang }: { m: MatrisVy; gaIgenom: (fran?: 
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: vm.genomgang.text,
         miniatyrer: <MatrisMiniatyrer poster={missar.map((x) => ({ u: x.u, ratt: x.facit.ratt }))} />,
+        lista: { ritare: MATRIS, lage: 'ovningsprov', poster: alla, sessionId: vy.id, budgetPerUppgift: vy.budget_s, onOppna: oppna },
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < alla.length ? () => gaIgenom(0) : null,
       }}

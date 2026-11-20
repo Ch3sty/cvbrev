@@ -29,6 +29,7 @@ import { visaTal } from '@/lib/talserierV1/layout'
 import type { Steg2Kind } from '@/app/dashboard/tester/testConfig'
 import { FORM_NAMN, SPATIAL_TYP_NAMN } from '@/lib/tester/steg2/namn'
 import { SvarRad, SvarRuta, tillstandFor } from '../Svarskort'
+import GemensamTalrad, { type TalradRuta } from '../Talrad'
 import type { RamFacit, RamUppgift, TypRitare, UppgiftProps } from '../typ'
 
 /* ------------------------------------------------------------------ Typerna */
@@ -96,14 +97,11 @@ export function steg2Facit(kind: Steg2Kind, g: unknown, valt: number | null, cor
 
 const talparText = (o: number[]) => o.map(visaTal).join(' och ')
 
-/** Siffrornas storlek efter talets längd, så att "−1024" ryms i rutan. */
-function talStorlek(tecken: number, rutor: number): string {
-  const tat = rutor >= 8
-  if (tecken <= 2) return tat ? 'text-[19px] lg:text-[22px]' : 'text-[24px] leading-[28px] lg:text-[28px] lg:leading-[32px]'
-  if (tecken === 3) return tat ? 'text-[16px] lg:text-[19px]' : 'text-[20px] lg:text-[24px]'
-  return tat ? 'text-[13px] lg:text-[16px]' : 'text-[16px] lg:text-[19px]'
-}
-
+/**
+ * Talraden i ramen: den gemensamma Talrad (omgång 2), som krymper med sin
+ * behållare så att hela serien ryms på 412 px. Stegen efter facit står som
+ * etiketter under raden tills steg B ritar bågarna i Talrads overlay.
+ */
 function Talrad({ u, facit, data }: { u: VisadTalserie; facit: number | null; data: GenomgangTalserie | null }) {
   const n = u.visade.length + u.luckor
   const svar = facit != null ? u.options[facit] ?? null : null
@@ -112,43 +110,19 @@ function Talrad({ u, facit, data }: { u: VisadTalserie; facit: number | null; da
     if (b.serie === undefined) continue
     for (const i of [...b.fran, b.till]) serieFor.set(i, b.serie)
   }
+  const rutor: TalradRuta[] = Array.from({ length: n }, (_, i) => {
+    const lucka = i >= u.visade.length
+    const tal = lucka ? svar?.[i - u.visade.length] ?? null : u.visade[i]
+    return { text: tal === null ? null : visaTal(tal), lucka, facit: lucka && tal !== null, ton: !lucka && serieFor.get(i) === 0 }
+  })
   return (
-    <div className="mx-auto w-fit max-w-full">
-      <div
-        role="list"
-        aria-label="Talraden"
-        className="grid gap-1 min-[400px]:gap-1.5"
-        style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 56px))` }}
-        data-talrad
-      >
-        {Array.from({ length: n }, (_, i) => {
-          const lucka = i >= u.visade.length
-          const tal = lucka ? svar?.[i - u.visade.length] ?? null : u.visade[i]
-          const text = tal === null ? '?' : visaTal(tal)
-          const serie = serieFor.get(i)
-          const kant = lucka
-            ? tal === null
-              ? 'border-dashed border-kant-stark bg-papper-2 text-ink-3'
-              : 'border-positiv bg-papper text-ink-1 shadow-[inset_0_0_0_1px_var(--positiv)]'
-            : serie === 0
-              ? 'border-ton-ink bg-papper text-ink-1'
-              : 'border-kant bg-papper text-ink-1'
-          return (
-            <span
-              key={i}
-              role="listitem"
-              aria-label={lucka ? (tal === null ? 'lucka' : `lucka, ${text}`) : text}
-              className={`flex h-12 min-w-0 items-center justify-center rounded-xl border font-sess-display font-bold tabular-nums tracking-[-.02em] ${kant} ${talStorlek(text.length, n)}`}
-              data-lucka={lucka ? (tal === null ? 'tom' : 'fylld') : undefined}
-            >
-              {text}
-            </span>
-          )
-        })}
-      </div>
-      {data?.bagar?.length ? (
-        <div className={`relative mt-1.5 ${data.bagar.some((b) => b.serie === 1) ? 'h-9' : 'h-5'}`} aria-hidden="true" data-talrad-bagar>
-          {data.bagar.map((b, k) => {
+    <GemensamTalrad
+      rutor={rutor}
+      // Raden under står alltid (26 px), så att svaren inte flyttar när stegen kommer efter facit (CLS 0).
+      // Varvade serier behöver 16 px till för den andra seriens steg.
+      efter={
+        <div className={`relative mt-1.5 ${data?.bagar?.some((b) => b.serie === 1) ? 'h-9' : 'h-5'}`} aria-hidden="true" data-talrad-bagar={data?.bagar?.length ? '' : 'tom'}>
+          {(data?.bagar ?? []).map((b, k) => {
             const fran = b.fran[b.fran.length - 1]
             const mitt = ((fran + b.till + 1) / 2 / n) * 100
             return (
@@ -162,8 +136,8 @@ function Talrad({ u, facit, data }: { u: VisadTalserie; facit: number | null; da
             )
           })}
         </div>
-      ) : null}
-    </div>
+      }
+    />
   )
 }
 
@@ -180,7 +154,7 @@ function TalserieUppgift({ u, vald, facit, efterFel, onValj, last, facitData }: 
       </div>
       <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-steg2-alternativ>
         {v.options.map((o, i) => (
-          <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} efterFel={efterFel} disabled={last} onValj={onValj}>
+          <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
             <span className="tabular-nums">{talparText(o)}</span>
           </SvarRad>
         ))}
@@ -312,7 +286,7 @@ function SpatialUppgift({ u, vald, facit, efterFel, onValj, last, facitData }: U
       </div>
       <div role="radiogroup" aria-label="Svarsalternativ" className="matrisyta grid grid-cols-2 gap-2.5 lg:grid-cols-4 lg:gap-2" data-steg2-alternativ>
         {v.options.map((o, i) => (
-          <SvarRuta key={i} i={i} tillstand={tillstandFor(i, vald, facit)} efterFel={efterFel} disabled={last} onValj={onValj} className="[aspect-ratio:186/150] lg:[aspect-ratio:1/1]">
+          <SvarRuta key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj} className="[aspect-ratio:186/150] lg:[aspect-ratio:1/1]">
             <span className="block h-full w-full p-2.5 pt-3.5 lg:p-1.5 lg:pt-2.5">
               <Figur fig={o} />
             </span>
@@ -367,7 +341,7 @@ function OrdUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<Ext
       </div>
       <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-steg2-alternativ>
         {v.options.map((o, i) => (
-          <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} efterFel={efterFel} disabled={last} onValj={onValj}>
+          <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
             {o}
           </SvarRad>
         ))}
@@ -388,9 +362,46 @@ export function Steg2Uppgift(p: UppgiftProps<Steg2U>) {
 const NAMN: Record<Steg2Kind, string> = { talserie: 'Talserier', spatial: 'Spatial förmåga', ordforrad: 'Ordförråd' }
 
 const RITARE: Record<Steg2Kind, TypRitare<Steg2U>> = {
-  talserie: { kind: 'talserie', namn: NAMN.talserie, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift },
-  spatial: { kind: 'spatial', namn: NAMN.spatial, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift },
-  ordforrad: { kind: 'ordforrad', namn: NAMN.ordforrad, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift },
+  talserie: { kind: 'talserie', namn: NAMN.talserie, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift, Miniatyr: ListMiniatyr },
+  spatial: { kind: 'spatial', namn: NAMN.spatial, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift, Miniatyr: ListMiniatyr },
+  ordforrad: { kind: 'ordforrad', namn: NAMN.ordforrad, form: 'smal', antalAlternativ: (u) => u.v.options.length, Uppgift: Steg2Uppgift, Miniatyr: ListMiniatyr },
+}
+
+/**
+ * Uppgiftslistans miniatyr (omgång 2, skissen Resultat-1440): talraden i
+ * rutor om 26 × 22 (22 på mobil) med luckan på ton, ordet i versaler, den
+ * spatiala referensfiguren i 22 px. Steg B kan byta mot typens egen.
+ */
+function ListMiniatyr({ u }: { u: Steg2U }) {
+  if (u.kind === 'talserie') {
+    const n = u.v.visade.length + u.v.luckor
+    return (
+      <span className="inline-flex gap-[3px]" data-mini="talserie">
+        {Array.from({ length: n }, (_, i) => {
+          const lucka = i >= u.v.visade.length
+          return (
+            <i
+              key={i}
+              className={`flex h-[22px] w-[22px] items-center justify-center rounded-[5px] font-sess-display text-[10px] font-bold not-italic tabular-nums sm:w-[26px] ${
+                lucka ? 'border border-dashed border-kant-stark bg-ton text-ink-3' : 'bg-papper-2 text-ink-1'
+              }`}
+            >
+              {lucka ? '?' : visaTal(u.v.visade[i])}
+            </i>
+          )
+        })}
+      </span>
+    )
+  }
+  if (u.kind === 'ordforrad') {
+    return (
+      <span className="inline-flex h-[22px] max-w-[140px] items-center rounded-[5px] bg-papper-2 px-2" data-mini="ordforrad">
+        <span className="truncate font-sess-display text-[11px] font-extrabold uppercase tracking-[.03em] text-ink-1">{u.v.ord}</span>
+      </span>
+    )
+  }
+  const fig = u.v.referens ?? u.v.sekvens?.[u.v.sekvens.length - 1] ?? u.v.options[0]
+  return <span className="matrisyta block h-7 w-7 rounded-[5px] bg-papper-2 p-0.5" data-mini="spatial">{fig ? <Figur fig={fig} /> : null}</span>
 }
 
 export function steg2Ritare(kind: Steg2Kind): TypRitare<Steg2U> {

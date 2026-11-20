@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import { SESSION } from '../copy'
 import type { RamUppgift, TypRitare } from '../typ'
+import type { UppgiftslistanProps } from '../Uppgiftslistan'
 
 /** "Ett svar sparades inte." med Försök igen, ovanför foten. Aldrig blockerande. */
 export function Sparfelsrad({ antal, onForsok }: { antal: number; onForsok: () => void }) {
@@ -89,3 +90,14 @@ export function useLamnadSida(aktiv: boolean, skjut: () => void) {
     skjuten.current = true
   }
 }
+
+/**
+ * Uppgiftslistan färdig från läget (omgång 2 steg A): resultatets ctrl.lista
+ * i Träna, Nivåkollen och övningsprovet. Typens resultatvy lägger den i
+ * Resultatskarm som genomgang.lista; "Gå igenom" är genomgang.onGaIgenom.
+ */
+export type ResultatLista<U extends RamUppgift> = Omit<UppgiftslistanProps<U>, 'onGaIgenom'>
+
+/** ResultatLista utan typparameter, för typernas resultatvyer som bara skickar den vidare till Resultatskarm. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ResultatListaVidare = ResultatLista<any>

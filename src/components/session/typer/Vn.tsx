@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from 'react'
 import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
 import { visningstitel } from '@/lib/tester/titel'
 import type { VnVisadUppgift, VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
-import { SvarRad, TreFasta, tillstandFor } from '../Svarskort'
+import { BOKSTAV, SvarRad, TreFasta, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
 import VnDiagram from './VnDiagram'
 import s from './vn.module.css'
@@ -223,7 +223,7 @@ export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftPro
       ) : (
         <div role="radiogroup" aria-label={VN_ORD.svarAria} className="flex flex-col gap-2">
           {u.alternativ.map((a, i) => (
-            <SvarRad key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} efterFel={efterFel} disabled={last} onValj={onValj}>
+            <SvarRad key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
               <span className="tabular-nums">{a.text}</span>
             </SvarRad>
           ))}
@@ -231,6 +231,11 @@ export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftPro
       )}
     </div>
   )
+}
+
+/** Uppgiftslistans svar: de tre fasta med sina ord ("Sant", "Falskt"), raderna med bokstaven. */
+function vnSvarEtikett(u: VnU, i: number): string {
+  return u.form === 'tre' ? (u.alternativ[i]?.text ?? BOKSTAV(i)) : BOKSTAV(i)
 }
 
 /** Uppgiftsarkets mellanrubriker: textens eller underlagets rubrik där det börjar. */
@@ -249,6 +254,7 @@ export const VERBAL: TypRitare<VnU> = {
   namn: 'Ord och text',
   form: 'bred',
   antalAlternativ: (u) => u.alternativ.length,
+  svarEtikett: vnSvarEtikett,
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   arkGrupper: grupper,
@@ -259,6 +265,7 @@ export const NUMERISK: TypRitare<VnU> = {
   namn: 'Siffror och tabeller',
   form: 'bred',
   antalAlternativ: (u) => u.alternativ.length,
+  svarEtikett: vnSvarEtikett,
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   arkGrupper: grupper,

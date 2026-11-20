@@ -1,21 +1,38 @@
 'use client'
 
 /**
- * Sessionsramen (plan-testflode-2026-11-20 avsnitt 1): en ram för alla
- * lägen och typer.
+ * Sessionsramen (plan-testflode-2026-11-20 avsnitt 1, omgång 2 steg A): en
+ * ram för alla lägen och typer.
  *
  *   +----------------------------------------------------------+
- *   | [X]  Figurserier                          3 / 15   (o)   |  huvud 56 px, papper
+ *   | [X]  Figurserier                     3 / 16  ( 19:42 )    |  huvud 56 px, papper
  *   |      Nivåtest, grundnivå                                  |
  *   |■■■■■■■■■■■■■■■□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□|  framstegsstapel 6 px
  *   |  [uppgift och svar, Förklaringen i Träna]                 |  main, golv, enda scrollytan
- *   | [‹ eller Vet inte]  [          Nästa                   ] |  fot 72 px + safe area
+ *   |  [‹]                              [ Nästa      ]          |  foten i kolumnen från lg
+ *   |                                               [scen]      |  scenen på golvet från 1440
  *   +----------------------------------------------------------+
  *
+ * Ytan (UX 2026-11-21 punkt 1, skissens Main, Ram-prov-2560 och -412):
+ * - Mobil som förut i princip: foten är en rad över hela bredden längst ned
+ *   (72 px plus safe area), sticky i main, så att svaren syns utan rullning.
+ * - Från lg står foten i kolumnen direkt under innehållet, 24 px under sista
+ *   svaret, sticky nedtill i main när innehållet är längre än skärmen. Nästa
+ *   högst 360 px och högerställd, ‹ eller Vet inte till vänster. I Bred
+ *   följer foten högerspalten.
+ * - Kolumnen: Smal 432, Mellan 560, Remsa 672, Bred 1000 (560 + 40 + 400)
+ *   från lg och ett steg större från xl (1280): 496, 600, 816 och 1120
+ *   (640 + 40 + 440). Måtten är innehållets bredd (lagesregler FORM_BREDD).
+ * - Toppluften från lg: clamp(40px, (100dvh − 920px) / 2, 120px), så att
+ *   rubriken står på samma pixel genom hela sessionen.
+ * - Scenen på golvet (`scen`, typens id): ScenGolv nere till höger från 1440.
+ *
+ * Knappen flyttar aldrig i sidled mellan uppgifter och aldrig inom en
+ * uppgift (Vet inte står kvar osynlig, CLS 0).
+ *
  * Ramen läser lägesreglerna och fattar inga beslut om typen; typen ritar
- * bara sin uppgift i main. Huvudets och fotens innehåll följer
- * innehållsformens kolumn, framstegsstapeln går över hela bredden.
- * fixed inset-0 på alla enheter: sidomenyn är borta under sessionen.
+ * bara sin uppgift i main. fixed inset-0 på alla enheter: sidomenyn är borta
+ * under sessionen.
  *
  * X öppnar alltid avbryt-dialogen (utom i genomgången, där X stänger).
  * Andra trycket på X stänger dialogen igen: i appen Testklar trycker
@@ -32,6 +49,7 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { SESSION } from './copy'
 import type { Innehallsform, Lage } from './lagesregler'
 import RamDialog from './RamDialog'
+import ScenGolv from './ScenGolv'
 import Uppgiftsarket, { type ArkCell } from './Uppgiftsarket'
 import { useRamLage } from './useRamLage'
 
@@ -91,15 +109,46 @@ export interface SessionsRamProps {
    * står kvar (med sin rullning) medan påståendena byts.
    */
   underlag?: { nyckel: string; innehall: ReactNode } | null
+  /**
+   * Typens id för scenen på golvet (ScenGolv, från 1440 px): samma nycklar
+   * som scener/ (matris, figurserie, deduktiv, verbal, numerisk, talserie,
+   * spatial, ordforrad, personlighet, iprov). Utelämnad: ingen scen.
+   */
+  scen?: string | null
   children: ReactNode
 }
 
-const KOLUMN: Record<Innehallsform, string> = {
-  smal: 'max-w-[560px] lg:max-w-[432px]',
-  mellan: 'max-w-[560px]',
-  remsa: 'max-w-[672px]',
-  bred: 'max-w-[560px] lg:max-w-[1000px]',
+/** Huvudets kolumn: innehållets bredd plus 16 px på var sida. */
+const HUVUD: Record<Innehallsform, string> = {
+  smal: 'max-w-[560px] lg:max-w-[464px] xl:max-w-[528px]',
+  mellan: 'max-w-[560px] lg:max-w-[592px] xl:max-w-[632px]',
+  remsa: 'max-w-[672px] lg:max-w-[704px] xl:max-w-[848px]',
+  bred: 'max-w-[560px] lg:max-w-[1032px] xl:max-w-[1152px]',
 }
+
+/** Kolumnen från lg (med 16 px sidluft): innehållet blir FORM_BREDD och FORM_BREDD_XL. */
+const KOLUMN_LG: Record<Innehallsform, string> = {
+  smal: 'lg:max-w-[464px] xl:max-w-[528px]',
+  mellan: 'lg:max-w-[592px] xl:max-w-[632px]',
+  remsa: 'lg:max-w-[704px] xl:max-w-[848px]',
+  bred: 'lg:max-w-[1032px] xl:max-w-[1152px]',
+}
+
+/** Innehållets bredd under lg, som förut (kolumnen 560 eller 672 med 16 px sidluft). */
+const MOBIL: Record<Innehallsform, string> = {
+  smal: 'max-w-[528px]',
+  mellan: 'max-w-[528px]',
+  remsa: 'max-w-[640px]',
+  bred: 'max-w-[528px]',
+}
+
+/** Bred från lg: underlaget (eller villkoren) till vänster, uppgiften och foten till höger. */
+const BRED_GRID = 'lg:grid lg:grid-cols-[minmax(0,560px)_minmax(0,400px)] lg:items-start lg:gap-x-10 xl:grid-cols-[minmax(0,640px)_minmax(0,440px)]'
+/** Foten i Bred utan underlag (typen ritar sina två spalter själv): knapparna under högerspalten. */
+const BRED_FOT = 'lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-10 xl:grid-cols-[minmax(0,1fr)_440px]'
+/** Toppluften från lg (lagesregler TOPPLUFT). */
+const TOPPLUFT = 'lg:pt-[clamp(40px,calc((100dvh_-_920px)_/_2),120px)]'
+const TOPPLUFT_STICKY = 'lg:top-[clamp(40px,calc((100dvh_-_920px)_/_2),120px)]'
 
 export function Snurra() {
   return (
@@ -130,12 +179,14 @@ export default function SessionsRam({
   tangent = null,
   rad,
   underlag = null,
+  scen = null,
   children,
 }: SessionsRamProps) {
   const fotRef = useRef<HTMLElement | null>(null)
   const mainRef = useRef<HTMLElement | null>(null)
   const innehallRef = useRef<HTMLDivElement | null>(null)
   const raknarRef = useRef<HTMLButtonElement | null>(null)
+  const vaktRef = useRef<HTMLDivElement | null>(null)
   const [fragarAvbryt, setFragarAvbryt] = useState(false)
   const [arkOppet, setArkOppet] = useState(false)
   useRamLage(fotRef, Boolean(fot))
@@ -228,14 +279,68 @@ export default function SessionsRam({
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const kolumn = KOLUMN[form]
   const vanster = fot?.vanster ?? null
   const primar = fot?.primar ?? null
+  const bred = form === 'bred'
+  const bredUtanUnderlag = bred && !underlag
+  const mobil = MOBIL[form]
+
+  // Foten: en rad över hela bredden längst ned på mobil (sticky i main, mt-auto
+  // när innehållet är kort), i kolumnen direkt under innehållet från lg.
+  const fotrad =
+    (fot && primar) || rad ? (
+      <div className="sticky bottom-0 z-20 -mx-4 mt-auto lg:mx-0 lg:mt-0" data-ram-fot>
+        {rad ? <div className={`mx-auto w-full bg-golv px-4 pb-2 lg:max-w-none lg:px-0 lg:pb-0 lg:pt-3 ${mobil}`}>{rad}</div> : null}
+        {fot && primar ? (
+          <footer ref={fotRef} className="border-t border-kant bg-papper pb-[env(safe-area-inset-bottom,0px)] lg:border-0 lg:bg-golv lg:pb-4 lg:pt-6">
+            <div className={bredUtanUnderlag ? BRED_FOT : undefined}>
+              <div className={`mx-auto flex min-h-[72px] w-full items-center gap-3 px-4 py-3 lg:col-start-2 lg:min-h-0 lg:max-w-none lg:justify-end lg:p-0 ${mobil}`}>
+                {vanster?.typ === 'tillbaka' ? (
+                  <button
+                    type="button"
+                    onClick={vanster.onClick}
+                    disabled={vanster.disabled}
+                    aria-label={SESSION.foregaende}
+                    className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-kant-stark bg-papper text-ink-1 transition-colors hover:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-40 lg:mr-auto lg:border-kant"
+                    data-foregaende
+                  >
+                    <IkonTillbaka />
+                  </button>
+                ) : vanster?.typ === 'vet_inte' ? (
+                  <button
+                    type="button"
+                    onClick={vanster.onClick}
+                    disabled={vanster.disabled || vanster.dold}
+                    aria-hidden={vanster.dold || undefined}
+                    tabIndex={vanster.dold ? -1 : undefined}
+                    className={`inline-flex min-h-11 max-w-[46%] flex-shrink items-center px-1 text-left text-sm font-medium leading-[18px] text-ink-1 underline decoration-kant-stark underline-offset-4 lg:mr-auto ${vanster.dold ? 'invisible' : 'disabled:opacity-40'}`}
+                    data-vet-inte={vanster.dold ? 'dold' : ''}
+                  >
+                    {vanster.text}
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={primar.onClick}
+                  disabled={primar.disabled || primar.laddar}
+                  aria-busy={primar.laddar || undefined}
+                  className={`${KNAPP_PRIMAR} min-w-0 flex-1 touch-manipulation disabled:cursor-not-allowed lg:max-w-[360px] lg:flex-[1_1_220px]`}
+                  data-primar={primar.data ?? ''}
+                >
+                  {primar.laddar ? <Snurra /> : null}
+                  <span className="truncate">{primar.text}</span>
+                </button>
+              </div>
+            </div>
+          </footer>
+        ) : null}
+      </div>
+    ) : null
 
   return (
-    <div className="fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text" data-sessionsram={lage} data-pass-shell>
-      <header className="flex-shrink-0 bg-papper">
-        <div className={`mx-auto flex h-14 w-full items-center gap-1.5 pl-1 pr-2 lg:pr-1 ${kolumn}`}>
+    <div className="fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text" data-sessionsram={lage} data-pass-shell data-form={form}>
+      <header className="relative z-20 flex-shrink-0 bg-papper">
+        <div className={`mx-auto flex h-14 w-full items-center gap-1.5 pl-1 pr-2 lg:pr-1 ${HUVUD[form]}`}>
           <button
             type="button"
             onClick={trycktKryss}
@@ -262,19 +367,19 @@ export default function SessionsRam({
                 aria-label={SESSION.raknare.oppna(raknare.nr, raknare.antal)}
                 aria-haspopup="dialog"
                 aria-expanded={arkOppet}
-                className="inline-flex h-11 flex-shrink-0 items-center gap-0.5 rounded-[10px] pl-2.5 pr-1.5 text-[13px] font-medium tabular-nums text-ink-2 transition-colors hover:bg-papper-2"
+                className="inline-flex h-11 flex-shrink-0 items-center gap-0.5 rounded-[10px] pl-2 pr-1 text-[13px] font-medium tabular-nums text-ink-1 transition-colors hover:bg-papper-2"
                 data-raknare
               >
                 {raknare.nr} / {raknare.antal}
                 <IkonChev size={16} className="rotate-90 text-ink-3" />
               </button>
             ) : (
-              <span className="inline-flex h-11 flex-shrink-0 items-center px-2 text-[13px] font-medium tabular-nums text-ink-2" aria-hidden="true" data-raknare>
+              <span className="inline-flex h-11 flex-shrink-0 items-center px-1 text-[13px] font-medium tabular-nums text-ink-1" aria-hidden="true" data-raknare>
                 {raknare.nr} / {raknare.antal}
               </span>
             )
           ) : null}
-          {klocka ? <span className="ml-1 flex-shrink-0">{klocka}</span> : null}
+          {klocka ? <span className="ml-1.5 flex flex-shrink-0 items-center lg:ml-2">{klocka}</span> : null}
         </div>
         <div
           className="relative h-1.5 w-full overflow-hidden bg-kant"
@@ -296,75 +401,38 @@ export default function SessionsRam({
         ) : null}
       </header>
 
-      <main ref={mainRef} tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain outline-none">
-        <div ref={innehallRef} className={`serie-kolumn mx-auto w-full px-4 pb-6 pt-4 lg:pb-10 lg:pt-10 ${kolumn}`}>
+      <main ref={mainRef} tabIndex={-1} className="relative z-10 min-h-0 flex-1 overflow-y-auto overscroll-contain outline-none">
+        <div
+          ref={innehallRef}
+          className={`mx-auto flex min-h-full w-full flex-col lg:min-h-0 lg:px-4 lg:pb-10 ${TOPPLUFT} ${KOLUMN_LG[form]} ${bred ? BRED_GRID : ''}`}
+          data-ram-kolumn
+          data-ram-bred={underlag ? '' : undefined}
+        >
           {underlag ? (
-            <div className="lg:grid lg:grid-cols-[minmax(0,560px)_minmax(0,400px)] lg:items-start lg:gap-10" data-ram-bred>
-              <div
-                key={`u-${underlag.nyckel}`}
-                // Fäst överst på mobil medan hon svarar. När Förklaringen står
-                // under svaren (Träna, genomgången) rullar underlaget med, så
-                // att påståendet och rätt svar syns ovanför förklaringen.
-                className="sess-in sticky top-0 z-10 -mx-4 -mt-4 bg-golv px-4 pb-3 pt-4 max-lg:[&:has(~*_[data-forklaringen])]:static lg:top-0 lg:m-0 lg:bg-transparent lg:p-0"
-                data-ram-underlag
-              >
-                {underlag.innehall}
-              </div>
-              <div key={nyckel} className={nyckel ? 'sess-in' : undefined}>
-                {children}
-              </div>
+            <div
+              key={`u-${underlag.nyckel}`}
+              // Fäst överst på mobil medan hon svarar. När Förklaringen står
+              // under svaren (Träna, genomgången) rullar underlaget med, så
+              // att påståendet och rätt svar syns ovanför förklaringen.
+              className={`sess-in sticky top-0 z-10 bg-golv px-4 pb-3 pt-4 max-lg:[&:has(~*_[data-forklaringen])]:static lg:col-start-1 lg:row-start-1 lg:bg-transparent lg:p-0 ${TOPPLUFT_STICKY}`}
+              data-ram-underlag
+            >
+              <div className={`mx-auto w-full lg:max-w-none ${mobil}`}>{underlag.innehall}</div>
             </div>
-          ) : (
-            <div key={nyckel} className={nyckel ? 'sess-in' : undefined}>
+          ) : null}
+          <div
+            className={`flex flex-1 flex-col px-4 lg:block lg:flex-none lg:px-0 ${underlag ? 'pt-0 lg:col-start-2 lg:row-start-1' : `pt-4 lg:pt-0 ${bred ? 'lg:col-span-2' : ''}`}`}
+            data-ram-uppgift
+          >
+            <div key={nyckel} className={`serie-kolumn mx-auto w-full pb-6 lg:max-w-none lg:pb-0 ${mobil} ${nyckel ? 'sess-in' : ''}`}>
               {children}
             </div>
-          )}
+            {fotrad}
+            <div ref={vaktRef} aria-hidden="true" className="pointer-events-none -mt-6 h-6" data-ram-vakt />
+          </div>
         </div>
       </main>
-
-      {rad ? <div className={`mx-auto w-full flex-shrink-0 px-4 pb-2 ${kolumn}`}>{rad}</div> : null}
-
-      {fot && primar ? (
-        <footer ref={fotRef} className="flex-shrink-0 border-t border-kant bg-papper" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
-          <div className={`mx-auto flex min-h-[72px] w-full items-center gap-3 px-4 py-3 ${kolumn}`}>
-            {vanster?.typ === 'tillbaka' ? (
-              <button
-                type="button"
-                onClick={vanster.onClick}
-                disabled={vanster.disabled}
-                aria-label={SESSION.foregaende}
-                className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-kant-stark bg-papper text-ink-1 transition-colors hover:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-40"
-                data-foregaende
-              >
-                <IkonTillbaka />
-              </button>
-            ) : vanster?.typ === 'vet_inte' ? (
-              <button
-                type="button"
-                onClick={vanster.onClick}
-                disabled={vanster.disabled || vanster.dold}
-                aria-hidden={vanster.dold || undefined}
-                tabIndex={vanster.dold ? -1 : undefined}
-                className={`inline-flex min-h-11 max-w-[46%] flex-shrink items-center px-1 text-left text-sm font-medium leading-[18px] text-ink-1 underline decoration-kant-stark underline-offset-4 ${vanster.dold ? 'invisible' : 'disabled:opacity-40'}`}
-                data-vet-inte={vanster.dold ? 'dold' : ''}
-              >
-                {vanster.text}
-              </button>
-            ) : null}
-            <button
-              type="button"
-              onClick={primar.onClick}
-              disabled={primar.disabled || primar.laddar}
-              aria-busy={primar.laddar || undefined}
-              className={`${KNAPP_PRIMAR} min-w-0 flex-1 touch-manipulation disabled:cursor-not-allowed`}
-              data-primar={primar.data ?? ''}
-            >
-              {primar.laddar ? <Snurra /> : null}
-              <span className="truncate">{primar.text}</span>
-            </button>
-          </div>
-        </footer>
-      ) : null}
+      {scen ? <ScenGolv id={scen} rot={mainRef} vakt={vaktRef} /> : null}
 
       <RamDialog
         open={fragarAvbryt}

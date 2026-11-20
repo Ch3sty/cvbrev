@@ -21,6 +21,7 @@ import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 import { FIGUR_PASS_COPY } from '@/lib/tester/pass-copy'
 import { Bricka, BOKSTAV, SvarRuta, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
+import { SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
 
 export interface FigurserieU extends RamUppgift {
   form: 'harnast' | 'bryter'
@@ -106,6 +107,7 @@ export function FigurserieUppgift({ u, vald, facit, efterFel, onValj, last }: Up
                 key={i}
                 i={i}
                 tillstand={tillstandFor(i, vald, facit)}
+                ditt={facit != null && vald === i}
                 efterFel={efterFel}
                 disabled={last}
                 onValj={onValj}
@@ -127,4 +129,5 @@ export const FIGURSERIE: TypRitare<FigurserieU> = {
   form: 'remsa',
   antalAlternativ: (u) => (u.form === 'bryter' ? u.rad.length : u.options.length),
   Uppgift: FigurserieUppgift,
+  Miniatyr: ({ u }) => <SerieMiniatyr rad={u.rad} form={u.form} ratt={null} fast />,
 }

@@ -2230,6 +2230,44 @@ html {
 @keyframes sess-bricka { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 .sess-bricka-ikon { animation: sess-bricka 240ms cubic-bezier(.2, .8, .2, 1) both; }
 
+/* Rätt/fel-systemet (omgång 2 steg A): det ritade märket poppar in 240 ms,
+   pillen glider in från höger 200 ms med 120 ms fördröjning. Rätt kort efter
+   ett fel kommer 120 ms efter felet. prefers-reduced-motion stänger allt
+   (blocket längst ned). */
+@keyframes sess-pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.sess-pop { animation: sess-pop 240ms cubic-bezier(.2, .8, .2, 1) both; transform-origin: center; }
+@keyframes sess-in-fran-hoger { from { transform: translateX(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+.sess-pill { animation: sess-in-fran-hoger 200ms ease-out 120ms both; }
+[data-efter-fel] .sess-pop { animation-delay: 120ms; }
+[data-efter-fel] .sess-pill { animation-delay: 240ms; }
+/* Figurrutan: pillen bara när rutan är bred nog (spatialens 112 px och uppåt). */
+.sess-svar-ruta { container-type: inline-size; }
+@container (max-width: 109px) {
+  .sess-svar-ruta > .sess-pill { display: none; }
+}
+
+/* Talraden (Talrad.tsx): luckan fylls med facit 220 ms nedifrån, bågarna i
+   overlay ritas in med .talrad-bage (steg B sätter fördröjningen per båge).
+   Under prefers-reduced-motion står allt direkt (blocket längst ned). */
+@keyframes talrad-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.talrad-in { animation: talrad-in 220ms cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes talrad-rita { to { stroke-dashoffset: 0; } }
+.talrad-bage { stroke-dasharray: 220; stroke-dashoffset: 220; animation: talrad-rita 220ms ease-out forwards; }
+
+/* Scenen på golvet (ScenGolv, från 1440 px): typens scen i vagg-2-kontur på
+   golvet, 16 % opacitet, tonas bort när kolumnen når ner. */
+.sess-scen-golv {
+  color: var(--vagg-2);
+  --illu-fill: var(--golv);
+  --illu-dim: currentColor;
+  --illu-mjuk: var(--golv);
+  transition: opacity 200ms ease-out;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sess-scen-golv { color: var(--vagg-mjuk); }
+}
+:root[data-theme="dark"] .sess-scen-golv { color: var(--vagg-mjuk); }
+
 /* Figurrutornas mått: 121×96 i tre kolumner på mobil, kvadrater sex i rad
    när kolumnen är remsans 672 (container query på .serie-kolumn). */
 .sess-alt { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
@@ -2270,7 +2308,8 @@ html {
 .sess-villkor { position: sticky; top: 0; z-index: 5; max-height: 42vh; overflow-y: auto; overscroll-behavior: contain; }
 .sess-villkor[data-fem] { max-height: 38vh; }
 @media (min-width: 1024px) {
-  .sess-villkor, .sess-villkor[data-fem] { top: 24px; max-height: none; overflow: visible; }
+  /* Samma toppluft som kolumnen (omgång 2): villkoren står kvar där rubriken började. */
+  .sess-villkor, .sess-villkor[data-fem] { top: clamp(40px, calc((100dvh - 920px) / 2), 120px); max-height: none; overflow: visible; }
 }
 
 /* Förklaringen: glider in under svaren 120 ms efter facit. */
@@ -2291,11 +2330,17 @@ html {
   [data-sessionsram] *,
   [data-sessionsram] *::before,
   [data-sessionsram] *::after,
-  .sess-ark {
+  .sess-ark,
+  .sess-pop,
+  .sess-pill,
+  .sess-scen-golv,
+  .talrad-bage,
+  .talrad-in {
     animation: none !important;
     transition: none !important;
   }
   [data-sessionsram] .sess-snurr { animation: sess-snurr 1400ms linear infinite !important; }
+  .talrad-bage { stroke-dashoffset: 0; }
 }
 
 /* Ramen ligger i dashboardens innehållslager (relative z-10) medan sidomenyn

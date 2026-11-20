@@ -643,12 +643,26 @@ export interface AnalyticsEvents {
   test_session_completed: SessionHandelseBas & { session_id: string; besvarade: number; elapsed_ms: number; over_tid: boolean }
   test_submit_blocked: SessionHandelseBas & { session_id: string; obesvarade: number }
   traning_installning_andrad: { forklaring_efter_svar: boolean }
+  /* Genomgången och Förklaringen (omgång 2 steg A, saas-leads prio 1 i
+     docs/design/feedback-testflode-saas-lead-2026-11-21.md). Skjuts av
+     ramen (src/components/session/handelser.ts via Genomgang,
+     Uppgiftslistan och Forklaringen), aldrig av typerna. */
+  /** kalla: ga_igenom är knappen ovanför listan, rad är "Öppna i genomgången", direkt när resultatet saknas och genomgången öppnas av sig själv. */
+  genomgang_oppnad: SessionHandelseBas & { session_id: string | null; antal: number; fel: number; start_index: number; kalla: 'ga_igenom' | 'rad' | 'direkt' }
+  /** En rad i Uppgiftslistan fälldes ut av ett tryck (de som står utfällda från början räknas inte). */
+  genomgang_rad_utfalld: SessionHandelseBas & { session_id: string | null; index: number; antal: number; utfall: 'ratt' | 'fel' | 'obesvarad' }
+  /** Ett steg i genomgången: uppgiften hon kom till och tiden hon stod på den förra. */
+  genomgang_steg: SessionHandelseBas & { session_id: string | null; index: number; antal: number; riktning: 'fram' | 'tillbaka'; tid_ms: number }
+  /** Sista uppgiften nådd och knappen tryckt. sett: antal olika uppgifter hon visats. */
+  genomgang_klar: SessionHandelseBas & { session_id: string | null; antal: number; sett: number; elapsed_ms: number }
+  /** Tiden Förklaringen stod framme, en gång per visning. plats: efter svaret (Träna), i genomgången eller i en utfälld rad. */
+  forklaring_tid: SessionHandelseBas & { session_id: string | null; index: number; utfall: 'ratt' | 'fel' | 'vet_inte' | 'obesvarad'; tid_ms: number; plats: 'svar' | 'genomgang' | 'lista' }
 }
 
 /** Det varje händelse från sessionsramen bär (avsnitt 8.2). */
 export interface SessionHandelseBas {
   test_kind: string
-  lage: 'nivakoll' | 'nivatest' | 'trana' | 'ovningsprov' | 'iprov' | 'personlighet'
+  lage: 'nivakoll' | 'nivatest' | 'trana' | 'ovningsprov' | 'iprov' | 'personlighet' | 'publikt'
   niva: string | null
   format: string | null
 }

@@ -14,7 +14,7 @@ import { visatForSvar } from '@/lib/logicTestV7/blanda'
 import type { Steg2Kind } from '@/app/dashboard/tester/testConfig'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import Resultatskarm, { type ResultatTal } from '../Resultatskarm'
-import Genomgang, { type GenomgangPost } from '../lagen/Genomgang'
+import Genomgang, { type GenomgangKalla, type GenomgangPost } from '../lagen/Genomgang'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
 import { SESSION, type NivaNamn } from '../copy'
 
@@ -65,6 +65,7 @@ export function steg2NivatestPoster(kind: Steg2Kind, genomgang: unknown[], answe
 export default function Steg2NivatestResultat(p: Steg2NivatestResultatProps) {
   const router = useRouter()
   const [genomgang, setGenomgang] = useState<number | null>(null)
+  const [kalla, setKalla] = useState<GenomgangKalla>('ga_igenom')
   const ritare = steg2Ritare(p.kind)
   const poster = steg2NivatestPoster(p.kind, p.genomgang, p.answers)
   const missar = poster.map((x, i) => ({ ...x, i })).filter((x) => !x.facit.correct)
@@ -80,6 +81,7 @@ export default function Steg2NivatestResultat(p: Steg2NivatestResultatProps) {
         start={genomgang}
         budgetPerUppgift={null}
         sessionId={p.sessionId}
+        kalla={kalla}
         onStang={() => setGenomgang(null)}
       />
     )
@@ -101,7 +103,8 @@ export default function Steg2NivatestResultat(p: Steg2NivatestResultatProps) {
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: p.genomgangText,
         miniatyrer: <Steg2Miniatyrer poster={missar.map((m) => m.u)} />,
-        onGaIgenom: () => setGenomgang(missar[0]?.i ?? 0),
+        lista: poster.length ? { ritare: ritare, lage: 'nivatest', poster, sessionId: p.sessionId, onOppna: (i: number) => (setKalla('rad'), setGenomgang(i)) } : null,
+        onGaIgenom: () => (setKalla('ga_igenom'), setGenomgang(missar[0]?.i ?? 0)),
         onVisaAlla: missar.length && missar.length < poster.length ? () => setGenomgang(0) : null,
       }}
       tappadeKort={p.tappadeKort}

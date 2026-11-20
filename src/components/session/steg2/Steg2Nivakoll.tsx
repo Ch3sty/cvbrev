@@ -29,6 +29,7 @@ import Nivakoll, { type NivakollApi, type NivakollSession } from '../lagen/Nivak
 import Resultatskarm from '../Resultatskarm'
 import NivakollKop from '../delat/NivakollKop'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { antalOrd, SESSION } from '../copy'
 
 export interface Steg2NivakollProps {
@@ -128,7 +129,7 @@ export default function Steg2Nivakoll({ kind, start = null, vy = null, betalande
           : null
       }
       resultat={(v, ctrl) => (
-        <NivakollResultat kind={kind} vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />
+        <NivakollResultat kind={kind} vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />
       )}
     />
   )
@@ -141,6 +142,7 @@ function NivakollResultat({
   datum,
   gjordIdag,
   gaIgenom,
+  lista,
   stang,
 }: {
   kind: Steg2NivakollKind
@@ -149,6 +151,7 @@ function NivakollResultat({
   datum: string | null
   gjordIdag: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -181,6 +184,7 @@ function NivakollResultat({
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Rätt svar och förklaringen vid varje uppgift, i samma vy som Nivåkollen.' : 'Gå igenom uppgifterna och förklaringen bakom varje.',
         miniatyrer: <Steg2Miniatyrer poster={missar.map((m) => m.u)} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

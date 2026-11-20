@@ -25,6 +25,7 @@ import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { antalOrd, SESSION } from '../copy'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { Miniatyrer, TempoStapel } from './delar'
 
 export interface FigurserieTranaProps {
@@ -115,7 +116,7 @@ export default function FigurserieTrana({ start = null, vy = null, forklaringEft
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -125,12 +126,14 @@ function TranaResultat({
   datum,
   harNivakoll,
   gaIgenom,
+  lista,
   stang,
 }: {
   vy: FigurPassVy
   datum: string | null
   harNivakoll: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -160,6 +163,7 @@ function TranaResultat({
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Regeln och ditt misstag vid varje uppgift, i samma vy som träningen.' : 'Gå igenom uppgifterna och regeln bakom varje.',
         miniatyrer: <Miniatyrer poster={missar.map((m) => ({ u: m.u, ratt: m.f?.ratt ?? null }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

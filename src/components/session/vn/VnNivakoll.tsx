@@ -27,6 +27,7 @@ import NivakollKop from '../delat/NivakollKop'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { SESSION } from '../copy'
 import { VnMissar, vnFacit } from './delar'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { indexFor, numrera, vnUnderlagFran, vnUppgiftFran, type VnKind, type VnUtanNummer } from './las'
 
 export interface VnNivakollProps {
@@ -142,7 +143,7 @@ export default function VnNivakoll({ kind, start = null, vy = null, betalande, d
             }
           : null
       }
-      resultat={(v, ctrl) => <Resultat kind={kind} vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <Resultat kind={kind} vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -154,6 +155,7 @@ function Resultat({
   datum,
   gjordIdag,
   gaIgenom,
+  lista,
   stang,
 }: {
   kind: VnKind
@@ -162,6 +164,7 @@ function Resultat({
   datum: string | null
   gjordIdag: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -192,6 +195,7 @@ function Resultat({
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: 'Rätt svar och förklaringen vid varje uppgift.',
         miniatyrer: <VnMissar poster={missar.map((m) => ({ nr: m.i + 1, u: m.u }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

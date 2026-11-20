@@ -41,6 +41,7 @@ import { antalOrd, SESSION } from '../copy'
 import type { RamFacit } from '../typ'
 import { MatrisMiniatyrer } from './delar'
 import { skapaMatris, slutforMatris, svarKropp, type MatrisVy } from './api'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import type { MatrisStartlage } from '@/app/dashboard/tester/pass/start-etapp3.server'
 
 export interface MatrisTranaProps {
@@ -245,12 +246,12 @@ export default function MatrisTrana({
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
 
-function TranaResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; stang: () => void }) {
+function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void }) {
   const avslut = m.avslut!
   const vm = passResultat(avslut, m.vy, m.status)
   const s = lasMatrisPass(m)
@@ -281,6 +282,7 @@ function TranaResultat({ m, betalande, datum, gaIgenom, stang }: { m: MatrisVy; 
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Regeln och ditt misstag vid varje uppgift, i samma vy som träningen.' : 'Gå igenom uppgifterna och regeln bakom varje.',
         miniatyrer: <MatrisMiniatyrer poster={missar.map((x) => ({ u: x.u, ratt: x.f?.ratt ?? null }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

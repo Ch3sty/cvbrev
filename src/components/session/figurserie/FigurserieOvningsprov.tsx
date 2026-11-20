@@ -189,6 +189,7 @@ export default function FigurserieOvningsprov({ vy, dagarKvar, datum }: Figurser
               titel: SESSION.resultat.genomgangTitel(missar.length),
               text: vm.genomgang.text,
               miniatyrer: <Miniatyrer poster={missar.map((m) => ({ u: m.u, ratt: m.facit.ratt }))} />,
+              lista: ctrl.lista,
               onGaIgenom: () => ctrl.gaIgenom(missar[0]?.i ?? 0),
               onVisaAlla: missar.length && missar.length < alla.length ? () => ctrl.gaIgenom(0) : null,
             }}

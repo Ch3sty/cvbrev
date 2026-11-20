@@ -8,7 +8,7 @@
 // mappa sin motors vy till RamUppgift; ramen och lägena rörs inte.
 // =============================================================================
 
-import type { ComponentType, ReactNode } from 'react'
+import { createElement, type ComponentType, type ReactNode } from 'react'
 import type { Innehallsform } from './lagesregler'
 
 /** En uppgift i ramen: nyckeln är motorns (frågans id eller punktens nyckel). */
@@ -39,6 +39,12 @@ export interface UppgiftProps<U extends RamUppgift> {
   forklaring?: ReactNode
   /** Typens egen facitdata (RamFacit.data), bara efter facit: talseriens bågar, spatialens uppvikning (etapp 4). */
   facitData?: unknown
+  /**
+   * Ritas i en smal behållare utanför ramen (Uppgiftslistans utfällda rad på
+   * resultatsidan, 672 px): typen staplar allt i en spalt, utan fästa
+   * underlag och utan negativa marginaler mot ramens kolumn (omgång 2).
+   */
+  kompakt?: boolean
 }
 
 export interface TypRitare<U extends RamUppgift> {
@@ -63,6 +69,53 @@ export interface TypRitare<U extends RamUppgift> {
   arkGrupper?: (uppgifter: U[]) => { fran: number; rubrik: string }[]
   /** Bred utan underlag (deduktivt, etapp 3): Förklaringen står under svaren i högerspalten. */
   forklaringIUppgift?: boolean
+  /**
+   * Uppgiftslistans miniatyr (omgång 2): uppgiften i 22 till 32 px höjd i
+   * radens andra cell, till exempel talraden i små rutor, ordet eller
+   * figurens remsa. aria-hidden; radens text bär meningen. Utelämnad: raden
+   * står utan miniatyr.
+   */
+  Miniatyr?: ComponentType<{ u: U }>
+  /** Svarets namn i Uppgiftslistan ("B, rätt C"). Utelämnad: bokstaven A till F. De tre fasta: "Sant", "Falskt". */
+  svarEtikett?: (u: U, i: number) => string
+  /**
+   * Typens innehåll i Förklaringens kropp (omgång 2, steg B fyller den):
+   * lösningsgången, ordboksartikeln, diagrammets markering. Ritas under
+   * regeln och löptexten i Träna, genomgången och Uppgiftslistan. Utelämnad:
+   * RamFacit.detalj som förut.
+   */
+  Forklaring?: ComponentType<ForklaringInnehallProps<U>>
+}
+
+/** En uppgift med hennes svar och facit, efteråt: genomgången och Uppgiftslistan. */
+export interface GenomgangPost<U extends RamUppgift> {
+  u: U
+  valt: number | null
+  facit: RamFacit
+  tid_s?: number | null
+}
+
+/** Det typens Förklaring får (TypRitare.Forklaring). */
+export interface ForklaringInnehallProps<U extends RamUppgift> {
+  u: U
+  facit: RamFacit
+  /** Hennes svar, visat index; null när hon inte svarade eller tryckte Vet inte. */
+  valt: number | null
+  /** Var kortet står: efter svaret i Träna, i genomgången eller i en utfälld rad. */
+  plats: 'svar' | 'genomgang' | 'lista'
+}
+
+/** Förklaringens innehåll för en uppgift: typens Forklaring, annars RamFacit.detalj. */
+export function forklaringInnehall<U extends RamUppgift>(
+  ritare: TypRitare<U>,
+  u: U,
+  facit: RamFacit,
+  valt: number | null,
+  plats: ForklaringInnehallProps<U>['plats']
+): ReactNode {
+  const F = ritare.Forklaring
+  if (F) return createElement(F, { u, facit, valt, plats })
+  return facit.detalj ?? null
 }
 
 /** Facit och förklaring per uppgift, efter svaret (Träna) eller efteråt (genomgången). */

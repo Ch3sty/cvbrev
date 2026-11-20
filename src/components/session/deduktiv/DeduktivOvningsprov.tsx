@@ -151,6 +151,7 @@ export default function DeduktivOvningsprov({ vy, dagarKvar, datum }: DeduktivOv
             genomgang={{
               titel: SESSION.resultat.genomgangTitel(missar.length),
               text: vm.genomgang.text,
+              lista: ctrl.lista,
               onGaIgenom: () => ctrl.gaIgenom(missar[0]?.i ?? 0),
               onVisaAlla: missar.length && missar.length < alla.length ? () => ctrl.gaIgenom(0) : null,
             }}

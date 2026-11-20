@@ -18,6 +18,7 @@ const OBJEKT: Record<Lage, string> = {
   ovningsprov: 'övningsprovet',
   iprov: 'övningsprovet',
   personlighet: 'testet',
+  publikt: 'provet',
 };
 
 /** Konsekvensraden under rubriken (avsnitt 1, Avbryt-dialogen). */
@@ -28,6 +29,7 @@ const KONSEKVENS: Record<Lage, string> = {
   ovningsprov: 'Avbryter du sparas inget resultat.',
   iprov: 'Avbryter du sparas inget resultat.',
   personlighet: 'Dina svar sparas. Du kan fortsätta från startsidan.',
+  publikt: 'Inget sparas.',
 };
 
 /** Lägets namn i undertiteln och på startskärmens topprad. */
@@ -38,6 +40,7 @@ export const LAGESNAMN: Record<Lage, string> = {
   ovningsprov: 'Övningsprov',
   iprov: 'I-provet',
   personlighet: 'Personlighetstest',
+  publikt: 'Prova gratis',
 };
 
 /** "[Läget] klart" som eyebrow på resultatet (Ordlistan, Klart). */
@@ -48,6 +51,7 @@ export const KLART: Record<Lage, string> = {
   ovningsprov: 'Övningsprovet klart',
   iprov: 'Övningsprovet klart',
   personlighet: 'Testet klart',
+  publikt: 'Provet klart',
 };
 
 export type NivaNamn = keyof typeof NIVA_ORD;
@@ -131,6 +135,43 @@ export const SESSION = {
     blockerat: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
     lamnaIn: 'Svaren gick inte att lämna in. Kontrollera uppkopplingen och försök igen.',
   },
+  /** Pillen på svarskortet efter facit (omgång 2, rätt/fel-systemet). */
+  svar: {
+    ratt: 'Rätt svar',
+    ditt: 'Ditt svar',
+    rattDitt: 'Rätt, ditt svar',
+  },
+  /** Uppgiftslistan på resultatsidan (omgång 2, ersätter genomgångskortet). */
+  lista: {
+    eyebrow: 'Uppgifterna',
+    /** "Femton uppgifter, tre fel och en obesvarad", "Sex uppgifter, alla rätt". */
+    titel: (antal: number, fel: number, obesvarade: number): string => {
+      const bas = `${antalOrd(antal, true)} uppgifter`
+      const felOrd = fel === 1 ? 'ett fel' : `${antalOrd(fel)} fel`
+      const obesOrd = obesvarade === 1 ? 'en obesvarad' : `${antalOrd(obesvarade)} obesvarade`
+      if (fel === 0 && obesvarade === 0) return `${bas}, alla rätt`
+      if (obesvarade === 0) return `${bas}, ${felOrd}`
+      if (fel === 0) return `${bas}, ${obesOrd}`
+      return `${bas}, ${felOrd} och ${obesOrd}`
+    },
+    /** Det publika provet: "Fem uppgifter, två fel". Obesvarade räknas som fel där. */
+    titelLast: (antal: number, fel: number): string =>
+      fel === 0 ? `${antalOrd(antal, true)} uppgifter, alla rätt` : `${antalOrd(antal, true)} uppgifter, ${fel === 1 ? 'ett fel' : `${antalOrd(fel)} fel`}`,
+    rakning: (missar: number, antal: number) => `${missar} av ${antal} fel`,
+    allaRatt: 'Alla rätt',
+    alla: 'Alla',
+    baraFel: 'Bara fel',
+    filterAria: 'Visa uppgifter',
+    gaIgenom: 'Gå igenom',
+    oppna: 'Öppna i genomgången',
+    /** Radens svar: "A, rätt", "B, rätt C", "Obesvarad, rätt C", "Vet inte, rätt C". */
+    radSvar: (valt: string | null, ratt: string, correct: boolean, vetInte = false): string =>
+      valt == null ? `${vetInte ? 'Vet inte' : 'Obesvarad'}, rätt ${ratt}` : correct ? `${valt}, rätt` : `${valt}, rätt ${ratt}`,
+    radLast: (correct: boolean) => (correct ? 'Rätt' : 'Fel'),
+    las: 'Rätt svar och regeln',
+    radAria: (nr: number, utfall: string) => `Uppgift ${nr}, ${utfall}`,
+    sekunder: (s: number) => `${Math.round(s)} s`,
+  },
   forklaring: {
     eyebrow: 'Förklaringen',
     ratt: 'Rätt',
@@ -161,6 +202,7 @@ export const SESSION = {
       ovningsprov: 'Starta övningsprovet',
       iprov: 'Starta övningsprovet',
       personlighet: 'Starta testet',
+      publikt: 'Starta provet',
     } as Record<Lage, string>,
     fortsatt: {
       nivakoll: 'Fortsätt Nivåkollen',
@@ -169,6 +211,7 @@ export const SESSION = {
       ovningsprov: 'Fortsätt övningsprovet',
       iprov: 'Fortsätt övningsprovet',
       personlighet: 'Fortsätt testet',
+      publikt: 'Fortsätt provet',
     } as Record<Lage, string>,
     gorOm: 'Gör om testet',
     startar: 'Startar',

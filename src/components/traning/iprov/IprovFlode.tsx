@@ -45,7 +45,8 @@ import Startskarm from '@/components/session/Startskarm'
 import Resultatskarm from '@/components/session/Resultatskarm'
 import RamDialog from '@/components/session/RamDialog'
 import Klocka from '@/components/session/Klocka'
-import Genomgang, { type GenomgangPost } from '@/components/session/lagen/Genomgang'
+import Genomgang, { type GenomgangKalla, type GenomgangPost } from '@/components/session/lagen/Genomgang'
+import type { ListPost } from '@/components/session/Uppgiftslistan'
 import { Sparfelsrad, useLamnadSida } from '@/components/session/lagen/gemensamt'
 import { SESSION, antalOrd } from '@/components/session/copy'
 import { sessionHandelser, type SessionHandelseBas } from '@/components/session/handelser'
@@ -299,7 +300,7 @@ function useSvarsko(sessionId: string) {
 
 /* ------------------------------------------------------------------- Flödet */
 
-type Fas = { typ: 'prov' } | { typ: 'resultat' } | { typ: 'genomgang'; del: number; pos: number }
+type Fas = { typ: 'prov' } | { typ: 'resultat' } | { typ: 'genomgang'; del: number; pos: number; kalla?: GenomgangKalla }
 
 export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
   const router = useRouter()
@@ -442,11 +443,12 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
           start={fas.pos}
           sessionId={vy.id}
           onStang={() => setFas({ typ: 'resultat' })}
-          sista={nasta != null ? { text: 'Nästa deltest', onClick: () => setFas({ typ: 'genomgang', del: nasta, pos: 0 }) } : null}
+          kalla={fas.kalla ?? 'ga_igenom'}
+          sista={nasta != null ? { text: 'Nästa deltest', onClick: () => setFas({ typ: 'genomgang', del: nasta, pos: 0, kalla: fas.kalla }) } : null}
         />
       )
     }
-    return <IprovResultat vy={vy} onStang={stang} gaIgenom={(delNr, pos) => setFas({ typ: 'genomgang', del: delNr, pos })} />
+    return <IprovResultat vy={vy} onStang={stang} gaIgenom={(delNr, pos, kalla = 'ga_igenom') => setFas({ typ: 'genomgang', del: delNr, pos, kalla })} />
   }
 
   if (!del) {
@@ -539,6 +541,7 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
       titel="I-provet"
       undertitel={`Deltest ${delIndex + 1} av ${antalDelar}, ${del.namn.toLowerCase()}`}
       form={ritare.form}
+      scen={ritare.kind}
       raknare={{ nr: idx + 1, antal }}
       framsteg={(idx + 1) / antal}
       klocka={<Klocka lage="grans" kvar={kvar} total={del.max_s} />}
@@ -624,7 +627,7 @@ function LAGES_UNDERTITEL(vy: IprovVy): string {
 
 /* ------------------------------------------------------------------ Resultatet */
 
-function IprovResultat({ vy, onStang, gaIgenom }: { vy: IprovVy; onStang: () => void; gaIgenom: (del: number, pos: number) => void }) {
+function IprovResultat({ vy, onStang, gaIgenom }: { vy: IprovVy; onStang: () => void; gaIgenom: (del: number, pos: number, kalla?: GenomgangKalla) => void }) {
   const r = vy.resultat!
   const tid = r.delar.reduce((s, d) => s + d.tid_s, 0)
   const max = r.delar.reduce((s, d) => s + d.max_s, 0)
@@ -635,6 +638,19 @@ function IprovResultat({ vy, onStang, gaIgenom }: { vy: IprovVy; onStang: () => 
     const lista = (vy.genomgang?.[di] ?? []) as ({ nyckel: string; rattVisat: number } & Record<string, unknown>)[]
     lista.forEach((g, pos) => {
       if (d.svar[g.nyckel] !== g.rattVisat) missar.push({ del: di, pos, u: tillSteg2U(d.kind, g, g.nyckel) })
+    })
+  })
+  // Uppgiftslistan (omgång 2): alla deltestens uppgifter i provets ordning, deltesten som mellanrubriker.
+  const lista: ListPost<Steg2U>[] = []
+  const plats: { del: number; pos: number }[] = []
+  const grupper: { fran: number; rubrik: string }[] = []
+  vy.delar.forEach((d, di) => {
+    const g = (vy.genomgang?.[di] ?? []) as ({ nyckel: string } & Record<string, unknown>)[]
+    if (g.length) grupper.push({ fran: lista.length, rubrik: d.namn })
+    g.forEach((x, pos) => {
+      const valt = d.svar[x.nyckel] ?? null
+      lista.push({ u: tillSteg2U(d.kind, x, x.nyckel), valt, facit: steg2Facit(d.kind, x, valt), ritare: ritareFor(d) })
+      plats.push({ del: di, pos })
     })
   })
   const sorterade = [...r.delar].sort((a, b) => a.ratt / Math.max(1, a.antal) - b.ratt / Math.max(1, b.antal))
@@ -663,6 +679,16 @@ function IprovResultat({ vy, onStang, gaIgenom }: { vy: IprovVy; onStang: () => 
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: 'Rätt svar och förklaringen vid varje uppgift, deltest för deltest.',
         miniatyrer: <Steg2Miniatyrer poster={missar.map((m) => m.u)} />,
+        lista: lista.length
+          ? {
+              ritare: ritareFor(vy.delar[0]),
+              lage: 'iprov',
+              poster: lista,
+              grupper,
+              sessionId: vy.id,
+              onOppna: (i: number) => gaIgenom(plats[i]?.del ?? 0, plats[i]?.pos ?? 0, 'rad'),
+            }
+          : null,
         onGaIgenom: () => gaIgenom(missar[0]?.del ?? 0, missar[0]?.pos ?? 0),
         onVisaAlla: missar.length ? () => gaIgenom(0, 0) : null,
       }}

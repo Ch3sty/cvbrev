@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import type { VnNivatestGenomgang } from '@/lib/tester/vn-nivatest'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import Resultatskarm, { type ResultatTal } from '../Resultatskarm'
-import Genomgang from '../lagen/Genomgang'
+import Genomgang, { type GenomgangKalla } from '../lagen/Genomgang'
 import { vnRitare } from '../typer/Vn'
 import { SESSION, type NivaNamn } from '../copy'
 import { vnGenomgangPoster, VnMissar } from './delar'
@@ -41,6 +41,7 @@ export default function VnNivatestResultat(p: VnNivatestResultatProps) {
   const router = useRouter()
   const ritare = vnRitare(p.kind)
   const [fran, setFran] = useState<number | null>(null)
+  const [kalla, setKalla] = useState<GenomgangKalla>('ga_igenom')
   const poster = useMemo(() => vnGenomgangPoster(p.kind, p.genomgang), [p.kind, p.genomgang])
   const missar = poster.map((x, i) => ({ ...x, i })).filter((x) => !x.facit.correct)
   const undertitel = SESSION.undertitel('nivatest', p.niva)
@@ -55,6 +56,7 @@ export default function VnNivatestResultat(p: VnNivatestResultatProps) {
         start={fran}
         budgetPerUppgift={null}
         sessionId={null}
+        kalla={kalla}
         onStang={() => setFran(null)}
       />
     )
@@ -76,7 +78,8 @@ export default function VnNivatestResultat(p: VnNivatestResultatProps) {
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: p.genomgangText,
         miniatyrer: <VnMissar poster={missar.map((m) => ({ nr: m.i + 1, u: m.u }))} />,
-        onGaIgenom: () => setFran(missar[0]?.i ?? 0),
+        lista: poster.length ? { ritare: ritare, lage: 'nivatest', poster, sessionId: null, onOppna: (i: number) => (setKalla('rad'), setFran(i)) } : null,
+        onGaIgenom: () => (setKalla('ga_igenom'), setFran(missar[0]?.i ?? 0)),
         onVisaAlla: missar.length && missar.length < poster.length ? () => setFran(0) : null,
       }}
       tappadeKort={p.tappadeKort}

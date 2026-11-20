@@ -73,6 +73,7 @@ export function MatrisUppgift({ u, vald, facit, efterFel, onValj, last }: Uppgif
             key={i}
             i={i}
             tillstand={tillstandFor(i, vald, facit)}
+            ditt={facit != null && vald === i}
             efterFel={efterFel}
             disabled={last}
             onValj={onValj}

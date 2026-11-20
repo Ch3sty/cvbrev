@@ -25,8 +25,8 @@ import type { ArkCell } from '../Uppgiftsarket'
 import type { RamUppgift, TypRitare } from '../typ'
 import { useSessionSparning } from '../useSessionSparning'
 import { ovningsprovApi } from '../figurserie/api'
-import Genomgang, { type GenomgangPost } from './Genomgang'
-import { ramUnderlag, Sparfelsrad, useLamnadSida, useSekunderSedan } from './gemensamt'
+import Genomgang, { type GenomgangKalla, type GenomgangPost } from './Genomgang'
+import { ramUnderlag, Sparfelsrad, useLamnadSida, useSekunderSedan, type ResultatLista } from './gemensamt'
 
 export interface OvningsprovProps<U extends RamUppgift> {
   ritare: TypRitare<U>
@@ -40,7 +40,8 @@ export interface OvningsprovProps<U extends RamUppgift> {
   tillVarde: (i: number, u: U) => string
   franVarde: (v: string, u: U) => number | null
   genomgangPoster: (vy: Ovningsvy) => GenomgangPost<U>[]
-  resultat: (vy: Ovningsvy, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void }) => ReactNode
+  /** ctrl.lista: Uppgiftslistan färdig för Resultatskarm (genomgang.lista), omgång 2. */
+  resultat: (vy: Ovningsvy, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; lista: ResultatLista<U> }) => ReactNode
   stangHref: string
 }
 
@@ -56,6 +57,7 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
   const fri = regler.navigering === 'fri'
   const [fas, setFas] = useState<Fas>(p.vy.avslutad ? 'resultat' : 'fraga')
   const [genomgangFran, setGenomgangFran] = useState(0)
+  const [genomgangKalla, setGenomgangKalla] = useState<GenomgangKalla>('ga_igenom')
   const [svar, setSvar] = useState<Record<string, number>>(() => {
     const ut: Record<string, number> = {}
     for (const [k, v] of Object.entries(p.vy.svar)) {
@@ -153,7 +155,21 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
   const stang = useCallback(() => router.push(p.stangHref), [router, p.stangHref])
 
   if (fas === 'resultat' && vy.resultat) {
-    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => (setGenomgangFran(fran), setFas('genomgang')), stang })}</>
+    const oppna = (fran: number, kalla: GenomgangKalla) => {
+      setGenomgangFran(fran)
+      setGenomgangKalla(kalla)
+      setFas('genomgang')
+    }
+    const lista: ResultatLista<U> = {
+      ritare,
+      lage: 'ovningsprov',
+      poster: p.genomgangPoster(vy),
+      sessionId: vy.id,
+      bas,
+      budgetPerUppgift: vy.format.budget_s,
+      onOppna: (i) => oppna(i, 'rad'),
+    }
+    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => oppna(fran, 'ga_igenom'), stang, lista })}</>
   }
   if (fas === 'genomgang') {
     return (
@@ -163,6 +179,8 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
         titel={ritare.namn}
         poster={p.genomgangPoster(vy)}
         start={genomgangFran}
+        bas={bas}
+        kalla={genomgangKalla}
         budgetPerUppgift={vy.format.budget_s}
         sessionId={vy.id}
         onStang={() => setFas('resultat')}
@@ -186,6 +204,7 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
       titel={ritare.namn}
       undertitel={p.undertitel}
       form={ritare.form}
+      scen={ritare.kind}
       raknare={{ nr: idx + 1, antal }}
       framsteg={(idx + 1) / antal}
       klocka={<Klocka lage="grans" kvar={kvar} total={vy.tidsgrans_s} />}

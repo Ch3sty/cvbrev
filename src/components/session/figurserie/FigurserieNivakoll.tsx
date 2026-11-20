@@ -25,6 +25,7 @@ import Resultatskarm from '../Resultatskarm'
 import NivakollKop from '../delat/NivakollKop'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { SESSION } from '../copy'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { Miniatyrer } from './delar'
 
 export interface FigurserieNivakollProps {
@@ -109,7 +110,7 @@ export default function FigurserieNivakoll({ start = null, vy = null, betalande,
             }
           : null
       }
-      resultat={(v, ctrl) => <NivakollResultat vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <NivakollResultat vy={v} betalande={betalande} datum={datum} gjordIdag={ctrl.gjordIdag} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -120,6 +121,7 @@ function NivakollResultat({
   datum,
   gjordIdag,
   gaIgenom,
+  lista,
   stang,
 }: {
   vy: NivakollVy
@@ -127,6 +129,7 @@ function NivakollResultat({
   datum: string | null
   gjordIdag: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -156,6 +159,7 @@ function NivakollResultat({
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: 'Rätt svar, regeln och ditt misstag vid varje uppgift.',
         miniatyrer: <Miniatyrer poster={missar.map((m) => ({ u: m.u, ratt: m.f?.ratt ?? null }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

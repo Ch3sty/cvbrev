@@ -258,6 +258,7 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
       titel={titel}
       undertitel={undertitel}
       form="mellan"
+      scen="personlighet"
       raknare={{ nr: idx + 1, antal: items.length }}
       framsteg={besvarade / items.length}
       nyckel={item.id}

@@ -36,6 +36,7 @@ import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
 import { antalOrd, SESSION } from '../copy'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { TempoStapel } from '../figurserie/delar'
 
 export interface Steg2TranaProps {
@@ -190,12 +191,12 @@ export default function Steg2Trana({
             }
           : null
       }
-      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
 
-function Resultat({ vy, datum, gaIgenom, stang }: { vy: Steg2PassVy; datum: string | null; gaIgenom: (fran?: number) => void; stang: () => void }) {
+function Resultat({ vy, datum, gaIgenom, lista, stang }: { vy: Steg2PassVy; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void }) {
   const r = vy.resultat!
   const kind = vy.kind
   const ritare = steg2Ritare(kind)
@@ -227,6 +228,7 @@ function Resultat({ vy, datum, gaIgenom, stang }: { vy: Steg2PassVy; datum: stri
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Rätt svar och förklaringen vid varje uppgift, i samma vy som träningen.' : 'Gå igenom uppgifterna och förklaringen bakom varje.',
         miniatyrer: <Steg2Miniatyrer poster={missar.map((m) => m.u)} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

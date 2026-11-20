@@ -228,6 +228,7 @@ export default function VnOvningsprov({ vy, dagarKvar, datum }: VnOvningsprovPro
               titel: SESSION.resultat.genomgangTitel(missar.length),
               text: vm.genomgang.text,
               miniatyrer: <VnMissar poster={missar.map((m) => ({ nr: m.i + 1, u: m.u }))} />,
+              lista: ctrl.lista,
               onGaIgenom: () => ctrl.gaIgenom(missar[0]?.i ?? 0),
               onVisaAlla: missar.length && missar.length < alla.length ? () => ctrl.gaIgenom(0) : null,
             }}

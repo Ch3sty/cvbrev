@@ -32,6 +32,7 @@ import { vnRitare, type VnU } from '../typer/Vn'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
 import { VnMissar, vnFacit } from './delar'
+import type { ResultatListaVidare } from '../lagen/gemensamt'
 import { indexFor, numrera, vnUnderlagFran, vnUppgiftFran, type VnKind } from './las'
 
 export interface VnTranaProps {
@@ -151,7 +152,7 @@ export default function VnTrana({ kind, familj = null, start = null, vy = null, 
             }
           : null
       }
-      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
     />
   )
 }
@@ -161,12 +162,14 @@ function Resultat({
   datum,
   harNivakoll,
   gaIgenom,
+  lista,
   stang,
 }: {
   vy: VnPassVy
   datum: string | null
   harNivakoll: boolean
   gaIgenom: (fran?: number) => void
+  lista: ResultatListaVidare
   stang: () => void
 }) {
   const r = vy.resultat!
@@ -198,6 +201,7 @@ function Resultat({
         titel: SESSION.resultat.genomgangTitel(missar.length),
         text: missar.length ? 'Rätt svar och förklaringen vid varje uppgift.' : 'Gå igenom uppgifterna och förklaringen bakom varje.',
         miniatyrer: <VnMissar poster={missar.map((m) => ({ nr: m.i + 1, u: m.u }))} />,
+        lista: lista,
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}

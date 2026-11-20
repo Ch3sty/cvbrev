@@ -9,7 +9,8 @@
  *          ringen 56 px fylld till andelen rätt (s1)
  *          eyebrow "[Läget] klart", huvudtalet
  *          två tal, aldrig fler (s2), meningen, nivåskalan där läget rör nivån
- *   GOLV   Genomgång (det lyfta kortet, s3), Var du tappade, Tempo,
+ *   GOLV   Uppgiftslistan (det lyfta kortet, s3, omgång 2; genomgångskortet
+ *          utan lista), Var du tappade, Tempo,
  *          Nästa steg med vyns enda kopparknapp (s4), statusraden,
  *          länken "Tillbaka till Rekryteringstester"
  *
@@ -27,6 +28,7 @@ import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, LANK } from '@/components/shell/knappar'
 import { KLART, SESSION } from './copy'
 import type { Lage } from './lagesregler'
 import { useRamLage } from './useRamLage'
+import Uppgiftslistan, { type UppgiftslistanProps } from './Uppgiftslistan'
 
 export interface ResultatTal {
   varde: string
@@ -61,6 +63,16 @@ export interface ResultatskarmProps {
     miniatyrer?: ReactNode
     onGaIgenom: () => void
     onVisaAlla?: (() => void) | null
+    /**
+     * Uppgiftslistan (omgång 2 steg A): alla uppgifter med facit i stället
+     * för genomgångskortet. Lägena ger den färdig i resultatets ctrl.lista
+     * (Träna, Nivåkollen, övningsprovet) och nivåtestens resultat bygger den
+     * ur sina poster. "Gå igenom" är onGaIgenom ovan; titel, text,
+     * miniatyrer och onVisaAlla används bara utan lista.
+     */
+    // Typerna blandas (I-provet), så listan tas emot otypad här.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    lista?: Omit<UppgiftslistanProps<any>, 'onGaIgenom'> | null
   } | null
   /** Det lyfta kortets innehåll när genomgången saknas (personlighetsprofilen). */
   lyft?: ReactNode
@@ -171,7 +183,11 @@ export default function Resultatskarm(p: ResultatskarmProps) {
 
         <div className="px-4 pb-8 lg:px-10">
           <div className="mx-auto flex w-full max-w-[672px] flex-col gap-4">
-            {p.genomgang ? (
+            {p.genomgang?.lista ? (
+              <div className="steg s3 relative z-[2] -mt-[30px]" data-resultat-genomgang data-resultat-lista>
+                <Uppgiftslistan {...p.genomgang.lista} onGaIgenom={p.genomgang.onGaIgenom} />
+              </div>
+            ) : p.genomgang ? (
               <section
                 aria-label={R.genomgang}
                 className="steg s3 relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5"

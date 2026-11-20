@@ -40,4 +40,34 @@ export const sessionHandelser = {
   installningAndrad(p: { forklaring_efter_svar: boolean }) {
     capture('traning_installning_andrad', p)
   },
+
+  /* Genomgången och Förklaringen (omgång 2 steg A, saas-leads prio 1). Nya
+     namn, inga gamla byts. Skjuts av Genomgang, Uppgiftslistan och
+     Forklaringen, aldrig av typerna. */
+  genomgangOppnad(
+    bas: SessionHandelseBas,
+    p: { session_id: string | null; antal: number; fel: number; start_index: number; kalla: 'ga_igenom' | 'rad' | 'direkt' }
+  ) {
+    capture('genomgang_oppnad', { ...bas, ...p })
+  },
+  genomgangRadUtfalld(bas: SessionHandelseBas, p: { session_id: string | null; index: number; antal: number; utfall: 'ratt' | 'fel' | 'obesvarad' }) {
+    capture('genomgang_rad_utfalld', { ...bas, ...p })
+  },
+  genomgangSteg(bas: SessionHandelseBas, p: { session_id: string | null; index: number; antal: number; riktning: 'fram' | 'tillbaka'; tid_ms: number }) {
+    capture('genomgang_steg', { ...bas, ...p })
+  },
+  genomgangKlar(bas: SessionHandelseBas, p: { session_id: string | null; antal: number; sett: number; elapsed_ms: number }) {
+    capture('genomgang_klar', { ...bas, ...p })
+  },
+  forklaringTid(
+    bas: SessionHandelseBas,
+    p: { session_id: string | null; index: number; utfall: 'ratt' | 'fel' | 'vet_inte' | 'obesvarad'; tid_ms: number; plats: 'svar' | 'genomgang' | 'lista' }
+  ) {
+    capture('forklaring_tid', { ...bas, ...p })
+  },
+}
+
+/** Basen när läget inte har en egen (genomgången, listan): typens id och läget, nivå och format okända. */
+export function basFor(testKind: string, lage: SessionHandelseBas['lage'], bas?: SessionHandelseBas | null): SessionHandelseBas {
+  return bas ?? { test_kind: testKind, lage, niva: null, format: null }
 }

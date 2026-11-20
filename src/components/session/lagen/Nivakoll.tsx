@@ -19,8 +19,8 @@ import { SESSION } from '../copy'
 import { sessionHandelser, type SessionHandelseBas } from '../handelser'
 import type { RamFacit, RamUppgift, TypRitare } from '../typ'
 import { useSessionSparning } from '../useSessionSparning'
-import Genomgang from './Genomgang'
-import { ForsokIgen, Meddelande, ramUnderlag, Sparfelsrad, useLamnadSida } from './gemensamt'
+import Genomgang, { type GenomgangKalla } from './Genomgang'
+import { ForsokIgen, Meddelande, ramUnderlag, Sparfelsrad, useLamnadSida, type ResultatLista } from './gemensamt'
 import type { ApiFel } from './Trana'
 
 export interface NivakollSession<U extends RamUppgift> {
@@ -77,7 +77,8 @@ export interface NivakollProps<U extends RamUppgift, S> {
   /** Skjuts när en ny Nivåkoll visar sin första uppgift (nivamatning_startad som förut). */
   onStartad?: (s: S) => void
   /** Raden på resultatet när dagens Nivåkoll öppnas igen. */
-  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; gjordIdag: boolean }) => ReactNode
+  /** ctrl.lista: Uppgiftslistan färdig för Resultatskarm (genomgang.lista), omgång 2. */
+  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; gjordIdag: boolean; lista: ResultatLista<U> }) => ReactNode
   tillbakaHref: string
   sessionAdress?: (id: string) => string
   /** Dagens färdiga Nivåkoll öppnad igen: resultatet får raden om i morgon. */
@@ -94,7 +95,7 @@ type Fas =
   | { typ: 'avslutar' }
   | { typ: 'avslutfel' }
   | { typ: 'resultat' }
-  | { typ: 'genomgang'; fran: number }
+  | { typ: 'genomgang'; fran: number; kalla?: GenomgangKalla }
 
 function forstaObesvarade<U extends RamUppgift>(s: NivakollSession<U>): number {
   const i = s.uppgifter.findIndex((u) => !s.besvarade[u.nyckel])
@@ -337,7 +338,8 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
   const titel = ritare.namn
   if (!s || fas.typ === 'startar' || fas.typ === 'startfel') {
     return (
-      <SessionsRam lage="nivakoll" titel={titel} undertitel={p.undertitel} form={ritare.form} raknare={null} framsteg={0} bekraftaAvbryt={false} onAvbryt={tillbaka} fot={null}>
+      <SessionsRam lage="nivakoll" titel={titel} undertitel={p.undertitel} form={ritare.form}
+      scen={ritare.kind} raknare={null} framsteg={0} bekraftaAvbryt={false} onAvbryt={tillbaka} fot={null}>
         {fas.typ === 'startfel' ? (
           <Meddelande titel={SESSION.fel.hamta} text={SESSION.fel.hamtaRad}>
             <ForsokIgen onClick={() => void starta()} />
@@ -353,26 +355,39 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
 
   const antal = s.antal ?? s.uppgifter.length
 
-  if (fas.typ === 'resultat' && vy) {
-    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran }), stang: tillbaka, gjordIdag: gjordIdag.current })}</>
-  }
-
-  if (fas.typ === 'genomgang') {
-    const poster = s.uppgifter.map((u) => ({
+  const poster = () =>
+    s.uppgifter.map((u) => ({
       u,
       valt: s.besvarade[u.nyckel]?.valt ?? null,
       facit: s.facit?.[u.nyckel] ?? { ratt: -1, correct: false, regel: null, misstag: null },
       tid_s: s.besvarade[u.nyckel]?.tid_s ?? null,
     }))
+
+  if (fas.typ === 'resultat' && vy) {
+    const lista: ResultatLista<U> = {
+      ritare,
+      lage: 'nivakoll',
+      poster: poster(),
+      sessionId: s.id,
+      bas,
+      budgetPerUppgift: s.budgetPerUppgift,
+      onOppna: (i) => setFas({ typ: 'genomgang', fran: i, kalla: 'rad' }),
+    }
+    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran, kalla: 'ga_igenom' }), stang: tillbaka, gjordIdag: gjordIdag.current, lista })}</>
+  }
+
+  if (fas.typ === 'genomgang') {
     return (
       <Genomgang
         ritare={ritare}
         lage="nivakoll"
         titel={titel}
-        poster={poster}
+        poster={poster()}
         start={fas.fran}
         budgetPerUppgift={s.budgetPerUppgift}
         sessionId={s.id}
+        bas={bas}
+        kalla={fas.kalla ?? 'direkt'}
         onStang={s.harResultat ? () => setFas({ typ: 'resultat' }) : tillbaka}
       />
     )
@@ -390,6 +405,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
       titel={titel}
       undertitel={p.undertitel}
       form={ritare.form}
+      scen={ritare.kind}
       raknare={{ nr: Math.min(idx + 1, antal), antal }}
       framsteg={(Math.min(idx + 1, antal)) / antal}
       nyckel={u.nyckel}

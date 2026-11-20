@@ -169,6 +169,7 @@ export default function Nivatest<U extends RamUppgift>(p: NivatestProps<U>) {
       titel={ritare.namn}
       undertitel={p.undertitel}
       form={ritare.form}
+      scen={ritare.kind}
       raknare={{ nr: idx + 1, antal }}
       framsteg={(idx + 1) / antal}
       klocka={<Klocka lage="grans" kvar={kvar} total={p.budgetS} mjuk />}
