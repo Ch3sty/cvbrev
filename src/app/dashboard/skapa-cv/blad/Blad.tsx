@@ -621,10 +621,11 @@ function SprakBlad({ cv, dator, onSpara, onStang }: BladProps) {
               <input id={`s-${i}`} className={FALT} value={l.language} onChange={(e) => satt(i, { language: e.target.value })} />
             </Falt>
             <Falt id={`n-${i}`} etikett={SPRAK.niva}>
-              <select id={`n-${i}`} className={FALT} value={l.proficiency} onChange={(e) => satt(i, { proficiency: e.target.value as CVLanguage['proficiency'] })}>
+              <select id={`n-${i}`} className={FALT} value={l.proficiency ?? ''} onChange={(e) => satt(i, { proficiency: e.target.value as CVLanguage['proficiency'] })}>
                 {NIVAER.map((n) => (
                   <option key={n}>{n}</option>
                 ))}
+                <option value="">{SPRAK.ingenNiva}</option>
               </select>
             </Falt>
             <button type="button" onClick={() => setLista((x) => x.filter((_, j) => j !== i))} className={`${LANK_FEL} col-span-2 inline-flex min-h-11 items-center justify-self-start`}>

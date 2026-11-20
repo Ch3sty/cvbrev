@@ -16,6 +16,7 @@ import { sprakLage, tolkaNiva, tvattaSprak, MAX_SPRAKNAMN } from '../sprak'
 import { normalizeStructuredData } from '../normalize-structured-data'
 import { byggDokument } from '../mallar/innehall'
 import { MALLAR } from '../mallar/register'
+import { renderDefHtml } from '../mallar/render/html'
 
 const CV_TEXT = `Åsa Öberg
 Undersköterska, Region Västmanland, 2019 - pågående
@@ -181,6 +182,27 @@ describe('roles-CV med språk i mallen', () => {
       { language: 'Svenska', proficiency: 'Modersmål' },
       { language: 'Engelska', proficiency: '' },
     ])
+  })
+
+  it('sparad tom nivå förblir tom genom normalisering och mallinnehåll (CVMetadata-format)', () => {
+    const sparat = {
+      personalInfo: { fullName: 'Åsa Öberg', email: 'asa@exempel.se' },
+      experience: [{ position: 'Undersköterska', company: 'Region Västmanland', startDate: '2019', description: [] }],
+      education: [],
+      skills: [],
+      languages: [{ language: 'Engelska', proficiency: '' }],
+    }
+    const cv = normalizeStructuredData(JSON.parse(JSON.stringify(sparat)))!
+    expect(cv.languages).toEqual([{ language: 'Engelska', proficiency: '' }])
+    const dok = byggDokument(cv, MALLAR[0])
+    const sprak = [...dok.fullBredd, ...dok.huvudspalt, ...dok.sidospalt].find((a) => a.sektion === 'sprak')
+    expect(sprak?.innehall).toEqual({ typ: 'sprak', rader: [{ sprak: 'Engelska', niva: '' }] })
+    // HTML-utskriften skriver ingen tom nivå i någon mall.
+    for (const def of MALLAR) {
+      const html = renderDefHtml(cv, def)
+      expect(html, def.id).toContain('Engelska')
+      expect(html, def.id).not.toMatch(/<span class="niva"><\/span>/)
+    }
   })
 
   it('gammalt roles-CV utan språknyckel får inget språkfält', () => {

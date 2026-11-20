@@ -15,7 +15,7 @@
  * sa anroparen kan falla tillbaka till regex-parsern pa cv_text.
  */
 
-import type { CVLanguage, CVMetadata } from './cv-metadata';
+import type { CVMetadata } from './cv-metadata';
 import type { ParsedCV } from './cv-parser';
 
 /**
@@ -159,7 +159,7 @@ function parsedCVToCVMetadata(parsed: ParsedCV): CVMetadata | null {
           .filter(l => l && typeof l.language === 'string' && l.language.trim())
           .map(l => ({
             language: l.language.trim(),
-            proficiency: (l.proficiency || '') as CVLanguage['proficiency'],
+            proficiency: l.proficiency || '',
           }))
       : undefined,
   };

@@ -13,15 +13,12 @@
  *
  * Klientsäker, ren data och rena funktioner.
  */
-import type { CVLanguage } from './cv-metadata'
+import type { CVLanguage, Sprakniva } from './cv-metadata'
 
-export type Sprakniva = CVLanguage['proficiency']
+export type { Sprakniva }
 
 /** Ett språk ur inläsningen: nivån är tom när CV:t inte anger någon. */
-export interface InlastSprak {
-  language: string
-  proficiency: Sprakniva | ''
-}
+export type InlastSprak = CVLanguage
 
 export const SPRAKNIVAER: readonly Sprakniva[] = ['Modersmål', 'Tvåspråkig', 'Flytande', 'Konversation', 'Nybörjare']
 

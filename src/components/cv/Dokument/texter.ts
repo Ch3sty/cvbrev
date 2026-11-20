@@ -307,6 +307,8 @@ export const AVSNITT = {
   taBort: 'Ta bort',
   laggTill: 'Lägg till',
   avbryt: 'Avbryt',
+  /** Språk utan nivå: CV:t angav ingen, och vi gissar inte (src/lib/cv/sprak.ts). */
+  ingenNiva: 'Ingen nivå angiven',
   taBortAvsnitt: 'Avsnittet tas bort från CV:t. Du kan lägga till det igen.',
   /**
    * "+ Lägg till" med avsnittets rubrik i vald mall och rubrikuppsättning

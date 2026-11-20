@@ -267,10 +267,11 @@ export default function AvsnittArk({ sektion, fokus, rubrik, cv, onSpara, onClos
                 <input className={FALT} value={x.language} onChange={(e) => satt((c) => void (c.languages![i].language = e.target.value))} />
               </Falt>
               <Falt etikett="Nivå">
-                <select className={FALT} value={x.proficiency} onChange={(e) => satt((c) => void (c.languages![i].proficiency = e.target.value as CVLanguage['proficiency']))}>
+                <select className={FALT} value={x.proficiency ?? ''} onChange={(e) => satt((c) => void (c.languages![i].proficiency = e.target.value as CVLanguage['proficiency']))}>
                   {NIVAER.map((n) => (
                     <option key={n}>{n}</option>
                   ))}
+                  <option value="">{AVSNITT.ingenNiva}</option>
                 </select>
               </Falt>
               {taBort(() => satt((c) => void c.languages!.splice(i, 1)))}

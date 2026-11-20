@@ -68,9 +68,16 @@ export interface CVCertification {
   credentialId?: string;
 }
 
+/** De fem språknivåerna. */
+export type Sprakniva = 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig';
+
 export interface CVLanguage {
   language: string;
-  proficiency: 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig';
+  /**
+   * Tom sträng när CV:t inte anger någon nivå (inläsningen gissar aldrig,
+   * src/lib/cv/sprak.ts). Mallarna skriver då bara språket.
+   */
+  proficiency: Sprakniva | '';
 }
 
 export interface CVMetadata {

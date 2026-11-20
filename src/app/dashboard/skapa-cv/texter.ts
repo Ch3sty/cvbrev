@@ -121,6 +121,7 @@ export const KOMP = {
 export const SPRAK = {
   sprak: 'Språk',
   niva: 'Nivå',
+  ingenNiva: 'Ingen nivå angiven',
   lagg: '+ Lägg till språk',
 } as const
 
