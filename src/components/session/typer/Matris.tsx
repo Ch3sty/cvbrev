@@ -1,21 +1,25 @@
 'use client'
 
 /**
- * Figurer och mönster i ramen (plan-testflode-2026-11-20 avsnitt 3.2), samma
- * uppgift i alla lägen: matrisen, frågan och sex svar.
+ * Figurer och mönster i ramen (plan-testflode-2026-11-20 avsnitt 3.2, omgång 3
+ * steg 2a: skissens Test-matris, Test-matris-expert, Mobil-matris och
+ * Mobil-matris-facit), samma uppgift i alla lägen: brädet, frågan och sex svar.
  *
- *   Mobil   matrisen 264 × 264 centrerad, frågan under, sex rutor 3 × 2 à
- *           121 × 96. Cirka 510 px, svaren syns utan att rulla på Pixel 7.
- *   Dator   innehållsformen Smal (464): matrisen 336 × 336, sex rutor 3 × 2
- *           à 133 × 104. Cirka 600 px av 766. Från xl (Smal 496) matrisen
- *           400 × 400 och rutorna 158 × 120 (omgång 2 B1).
+ *   Brädet  mörk yta med vita brickor och luckan som streckad kopparruta med
+ *           ett frågetecken. Efter facit står rätt figur i luckan på grön
+ *           bricka med grön ring.
+ *   Mobil   brädet över hela bredden, frågan under och sex klossar 3 × 2 à
+ *           86 px. Domen glider upp nedifrån, inget ovanför byter plats.
+ *   Dator   brädet till vänster (420, 500 från xl), frågan, svaren och domen
+ *           i spalten till höger (data-brade-layout="sida", globals.css), så
+ *           att allt ryms på 1440 × 900 utan rullning.
  *
- * Efter facit (Träna och genomgången) fylls luckan med rätt figur i bläck och
- * 2 px positiv ram. Ingen svårighetsrad och inget reglage för förklarande
- * text: en uppgift ser ut som i det riktiga testet.
+ * Utanför ramen (Uppgiftslistans utfällda rad, artikelns provruta) står allt
+ * i en spalt med brädet högst 420 brett.
  *
- * Figurerna är V7-renderarna inne i .matrisyta, så att de följer bläck och
- * papper i mörkt läge. Alla rutor har aspect-ratio (CLS 0).
+ * Figurerna är V7-renderarna: på brickan i väggfärg (.sess-fig-ruta), i
+ * klossarna i figurens bläck (.sess-fig), med tjock linje. Alla rutor har
+ * aspect-ratio eller fast höjd (CLS 0).
  */
 
 import { FigurV7, LuckaV7, type LayeredCell } from '@/lib/logicTestV7/layered.v7'
@@ -30,33 +34,42 @@ export interface MatrisU extends RamUppgift {
 
 export const MATRIS_FRAGA = 'Vilken figur passar i den tomma rutan?'
 
-/** Matrisen med luckan; efter facit står rätt figur i luckan. */
+/** Luckan på brädet: streckad kopparruta med frågetecknet. */
+export function BradeLucka({ className = '' }: { className?: string }) {
+  return (
+    <div className={`sess-lucka ${className}`} data-lucka="tom">
+      <span aria-hidden="true">?</span>
+    </div>
+  )
+}
+
+/** Brädet med luckan; efter facit står rätt figur i luckan. */
 export function Matrisen({ grid, fylld = null }: { grid: (LayeredCell | null)[][]; fylld?: LayeredCell | null }) {
   const kolumner = grid[0]?.length ?? 3
+  const antal = grid.flat().filter(Boolean).length
   return (
-    <div className="matrisyta sess-matris mx-auto rounded-xl border border-kant bg-papper p-2" data-matris>
-      <div
-        role="img"
-        aria-label={fylld ? 'Matris med nio figurer, rätt figur i den tomma rutan' : 'Matris med åtta figurer och en tom ruta'}
-        className="grid h-full w-full gap-px overflow-hidden rounded-[6px] bg-kant"
-        style={{ gridTemplateColumns: `repeat(${kolumner}, minmax(0, 1fr))` }}
-      >
-        {grid.flat().map((cell, i) =>
-          cell ? (
-            <div key={i} className="flex aspect-square items-center justify-center bg-papper">
-              <FigurV7 cell={cell} />
-            </div>
-          ) : fylld ? (
-            <div key={i} className="sess-lucka-matris flex aspect-square items-center justify-center bg-papper" data-lucka="fylld">
-              <FigurV7 cell={fylld} />
-            </div>
-          ) : (
-            <div key={i} className="flex aspect-square items-center justify-center bg-papper-2" data-lucka="tom">
-              <LuckaV7 />
-            </div>
-          )
-        )}
-      </div>
+    <div
+      role="img"
+      aria-label={fylld ? `Matris med ${antal + 1} figurer, rätt figur i den tomma rutan` : `Matris med ${antal} figurer och en tom ruta`}
+      className="matrisyta sess-brade sess-matrisbrade"
+      style={{ gridTemplateColumns: `repeat(${kolumner}, minmax(0, 1fr))` }}
+      data-matris
+      data-kolumner={kolumner}
+      data-brade-sida
+    >
+      {grid.flat().map((cell, i) =>
+        cell ? (
+          <div key={i} className="sess-brade-ruta sess-fig-ruta">
+            <FigurV7 cell={cell} />
+          </div>
+        ) : fylld ? (
+          <div key={i} className="sess-brade-ruta sess-fig-ruta" data-fylld="" data-lucka="fylld">
+            <FigurV7 cell={fylld} />
+          </div>
+        ) : (
+          <BradeLucka key={i} />
+        )
+      )}
     </div>
   )
 }
@@ -66,12 +79,12 @@ export function MatrisUppgift({ u, vald, facit, efterFel, onValj, last }: Uppgif
   // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
   const Rubrik = useRubrikTagg()
   return (
-    <div className="flex flex-col gap-3.5 lg:gap-4 xl:gap-3" data-matris-uppgift>
+    <div className="flex flex-col gap-3.5 lg:gap-5" data-matris-uppgift data-brade-layout="sida">
       <Matrisen grid={u.grid} fylld={fylld} />
-      <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-center text-ink-1 outline-none">
+      <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none lg:pt-1">
         {MATRIS_FRAGA}
       </Rubrik>
-      <div role="radiogroup" aria-label="Svarsalternativ" className="matrisyta sess-alt sess-alt-matris" data-matris-alt>
+      <div role="radiogroup" aria-label="Svarsalternativ" className="matrisyta sess-fig sess-alt sess-alt-matris sess-alt-brade" data-matris-alt>
         {u.options.map((o, i) => (
           <SvarRuta
             key={i}

@@ -171,13 +171,13 @@ describe('klossarnas lägen', () => {
     expect(screen.getByText(SESSION.svar.ratt)).toBeTruthy()
     expect(screen.getByText(SESSION.svar.ratt).closest('.sess-topp')).toBeTruthy()
   })
-  it('de tre fasta och Likert är klossar', () => {
+  it('de tre fasta är klossar, Likert är fem ringar (steg 2a)', () => {
     const tre = render(<TreFasta etiketter={['Sant', 'Falskt', 'Går inte att avgöra']} vald={1} facit={2} />)
     expect(Array.from(tre.container.querySelectorAll('.sess-kloss')).map((k) => k.getAttribute('data-tillstand'))).toEqual(['dampad', 'fel', 'ratt'])
     tre.unmount()
     const { container } = render(<LikertScale value={4} onChange={() => {}} />)
-    expect(container.querySelectorAll('.sess-kloss')).toHaveLength(5)
-    expect(container.querySelector('.sess-kloss[data-tillstand="vald"] .sess-tangent')!.textContent).toBe('4')
+    expect(container.querySelectorAll('.sess-skala-val')).toHaveLength(5)
+    expect(container.querySelector('.sess-skala-val[data-tillstand="vald"]')!.getAttribute('data-steg')).toBe('4')
   })
 })
 

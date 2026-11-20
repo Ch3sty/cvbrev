@@ -56,11 +56,12 @@ describe('talserier: bågarna och hennes steg', () => {
     expect(container.querySelector('[data-talrad-overlay]')).toBeNull()
     const yta = container.querySelector('[data-talrad]')!.parentElement as HTMLElement
     const fore = `${yta.style.paddingTop}|${yta.style.paddingBottom}`
-    expect(fore).toContain(String(TALRAD_BAGAR.ovan))
+    // Brädet ritar talraden i skala 1,5 (omgång 3 steg 2a).
+    expect(fore).toContain(String(TALRAD_BAGAR.ovan * 1.5))
     rerender(<Steg2Uppgift {...props} vald={1} facit={2} last facitData={talGenomgang} />)
     expect(`${yta.style.paddingTop}|${yta.style.paddingBottom}`).toBe(fore)
     expect(container.querySelectorAll('[data-talrad-overlay] path.talrad-bage')).toHaveLength(6)
-    expect(container.querySelector('[data-hennes-steg]')?.textContent).toContain('ditt svar: −8')
+    expect(container.querySelector('[data-hennes-steg]')?.textContent).toContain('ditt steg: −8')
     const lucka = container.querySelector('[data-lucka="fylld"]') as HTMLElement
     expect(lucka.style.animationDelay).toBe(`${bagarTiming(6).lucka}ms`)
   })
@@ -93,7 +94,7 @@ describe('spatial: vridning, spegling och hål', () => {
     const g = { ...v, rattVisat: 0, misstag: ['', 'Spegelvänd.', '', ''], forklaring: 'Vrid figuren 90° medurs.' }
     const { container } = render(<Steg2Uppgift u={u} nr={1} antal={6} vald={1} facit={0} last facitData={g} />)
     expect(container.querySelector('[data-vrid="90"]')).toBeTruthy()
-    expect(container.querySelector('[data-vrid-etikett]')?.textContent).toBe('90° medurs')
+    expect(container.querySelector('[data-vrid-etikett]')?.textContent).toBe('90 grader medurs')
     expect(container.querySelectorAll('[data-spegellinje]')).toHaveLength(1)
   })
 
@@ -111,10 +112,11 @@ describe('spatial: vridning, spegling och hål', () => {
     const steg = container.querySelectorAll('[data-vik-steg]')
     expect(steg).toHaveLength(3)
     expect(steg[1].getAttribute('data-vik-steg')).toBe('ratt')
-    expect(steg[2].textContent).toBe('Ditt svar: ett hål för mycket')
+    expect(steg[2].textContent).toContain('Ditt svar')
+    expect(steg[2].parentElement?.textContent).toContain('ett hål för mycket')
     expect(container.querySelectorAll('[data-hal-marke] circle')).toHaveLength(1)
     // Frågans ark står kvar osynligt och håller kortets höjd.
-    expect(container.querySelector('[data-spatial-sekvens]')?.parentElement?.className).toContain('opacity-0')
+    expect(container.querySelector('[data-spatial-sekvens]')?.closest('[data-dold]')).toBeTruthy()
   })
 })
 
@@ -142,23 +144,27 @@ describe('ordförråd: ordkortet och ordboksartikeln', () => {
     const facit = steg2Facit('ordforrad', g, 1)
     const { container: c2 } = render(<>{forklaringInnehall(steg2Ritare('ordforrad'), u, facit, 1, 'svar')}</>)
     expect(c2.querySelector('[data-uppslag]')?.textContent).toContain('besluta')
-    expect(c2.textContent).toContain('synonym till bestämma')
-    expect(c2.textContent).toContain('fatta beslut i, avgöra.')
+    expect(c2.textContent).toContain('Rätt synonym')
+    expect(c2.querySelector('[data-ord-kalla]')?.textContent).toBe('Källa: Svensk ordbok (SO)')
+    const egen = steg2Facit('ordforrad', { ...g, facit_betyder_kalla: 'egen' }, 1)
+    const { container: c3 } = render(<>{forklaringInnehall(steg2Ritare('ordforrad'), u, egen, 1, 'svar')}</>)
+    expect(c3.querySelector('[data-ord-kalla]')).toBeNull()
+    expect(c2.textContent).toContain('Fatta beslut i, avgöra.')
     expect(c2.textContent).toContain('”Vi måste besluta oss före fredag.”')
     expect(c2.querySelector('[data-hennes-ord]')?.textContent).toContain('inte en synonym')
-    expect(c2.textContent).toContain('överväga, låta tankarna arbeta med något.')
+    expect(c2.textContent).toContain('Överväga, låta tankarna arbeta med något.')
   })
 })
 
 describe('personlighetstestet: Likertkorten', () => {
-  it('fem kort i rad, ett tryck väljer', () => {
+  it('fem ringar på en linje, ett tryck väljer (omgång 3 steg 2a)', () => {
     const onChange = vi.fn()
     const { container } = render(<LikertScale value={4} onChange={onChange} />)
-    expect(container.querySelector('[data-likert]')?.className).toContain('grid-cols-5')
+    expect(container.querySelector('[data-likert]')?.className).toContain('sess-skala')
     const kort = container.querySelectorAll('[role="radio"]')
     expect(kort).toHaveLength(5)
-    expect(kort[0].className).toContain('h-[104px]')
-    expect(kort[0].className).toContain('lg:h-[112px]')
+    expect([...kort].map((k) => k.getAttribute('data-steg'))).toEqual(['1', '2', '3', '4', '5'])
+    expect(kort[2].textContent).toBe('Varken eller')
     expect(kort[3].getAttribute('aria-checked')).toBe('true')
     fireEvent.click(kort[1])
     expect(onChange).toHaveBeenCalledWith(2)

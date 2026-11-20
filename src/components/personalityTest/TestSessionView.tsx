@@ -29,10 +29,10 @@ import LikertScale from './LikertScale';
 import type { LikertValue, PersonalityItem, PersonalityTestType } from '@/lib/personalityTest/types';
 import { forstaObesvarade, nastaIndex, svarIOrdning } from '@/lib/personalityTest/aterupptag';
 
-/** Undertiteln: läget och nivån, som i de andra testen. */
+/** Undertiteln (skissens Test-personlighet, omgång 3): vad testet är, och att inget är rätt eller fel. */
 const UNDERTITEL: Record<PersonalityTestType, string> = {
-  'personlighet-grund': 'Personlighetstest, grundnivå',
-  'personlighet-avancerad': 'Personlighetstest, avancerad nivå',
+  'personlighet-grund': 'Arbetsprofil, inga rätt eller fel',
+  'personlighet-avancerad': 'Arbetsprofil, inga rätt eller fel',
 };
 
 const NIVA: Record<PersonalityTestType, string> = { 'personlighet-grund': 'grund', 'personlighet-avancerad': 'avancerad' };
@@ -277,6 +277,11 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
       }}
       ark={{ celler, onValj: (i) => ga(i) }}
       bitar={personlighetsBitar(svar)}
+      klocka={
+        <span className="sess-kapsel font-sess-text" data-kapsel="raknare">
+          <b>{idx + 1}</b> av {items.length}
+        </span>
+      }
       tangent={last || lamnar ? null : { antal: 5, onValj: (i) => ((via.current = 'keyboard'), void valj(i)) }}
       rad={
         sparfel || lamnaFel ? (
@@ -303,30 +308,34 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
             },
       }}
     >
-      {/* Omgång 2 steg B2 (skissens Personlighet-1440 och -412): påståendet
-          direkt på golvet i display 22/28 (26/32 på dator), skalan under och
-          en tyst rad om gesten och att inget är rätt eller fel. */}
-      <div className="flex flex-col" data-personlighet>
-        <div data-pastaende>
-          <p className="text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-ink-3">
-            Påstående {idx + 1} av {items.length}
-          </p>
+      {/* Omgång 3 steg 2a (skissens Test-personlighet och Mobil-personlighet):
+          påståendet på papper med citattecknet i koppar, skalan som fem
+          ringar under (på telefonen nedtill ovanför foten) och raden om
+          gesten. */}
+      <div className="flex flex-1 flex-col pt-1 lg:pt-0" data-personlighet data-brade-layout="personlighet">
+        <div className="sess-pastaende" data-pastaende>
+          <svg viewBox="0 0 56 44" aria-hidden="true" className="h-[34px] w-11 lg:h-11 lg:w-14">
+            <path d="M0 44V26C0 11 8 2 22 0v9c-6 2-9 7-9 13h9v22H0Zm30 0V26C30 11 38 2 52 0v9c-6 2-9 7-9 13h9v22H30Z" fill="var(--sess-lucka)" />
+          </svg>
           <h2
             tabIndex={-1}
             data-uppgift-rubrik
-            className="mt-2.5 font-sess-display text-[22px] font-bold leading-[28px] tracking-[-.015em] text-ink-1 outline-none [text-wrap:balance] lg:text-[26px] lg:leading-[32px]"
+            className="mt-4 font-sess-display text-[26px] font-extrabold leading-[32px] tracking-[-.02em] text-ink-1 outline-none [text-wrap:balance] min-[400px]:text-[29px] min-[400px]:leading-[36px] lg:mt-[18px] lg:text-[40px] lg:leading-[48px]"
           >
             {item.text}
           </h2>
+          <p className="sr-only">
+            Påstående {idx + 1} av {items.length}
+          </p>
         </div>
-        <div className="mt-5 lg:mt-6">
+        <div className="mt-auto pb-2 pt-7 lg:mt-11 lg:pb-0 lg:pt-0">
+          <p className="mb-[18px] text-center font-sess-display text-base font-bold leading-[22px] text-ink-1 lg:hidden" aria-hidden="true">
+            Hur väl stämmer det på dig?
+          </p>
           <LikertScale value={svar[idx]} onChange={(v) => void valj(v - 1)} disabled={last} />
         </div>
-        <p className="mt-3 flex justify-between gap-3 text-[12px] leading-4 text-ink-3 lg:text-[13px] lg:leading-[18px]">
-          <span>
-            Ett tryck svarar<span className="hidden lg:inline"> och går vidare</span>.
-          </span>
-          <span>Inga rätt eller fel</span>
+        <p className="mt-5 text-[13px] leading-[18px] text-ink-2 lg:mt-11 lg:text-sm lg:leading-5">
+          Ett tryck svarar och går vidare. Svara som du brukar vara<span className="hidden lg:inline">, inte som du vill vara</span>.
         </p>
       </div>
     </SessionsRam>
