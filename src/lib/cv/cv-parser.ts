@@ -4,6 +4,7 @@
  */
 
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
+import { tvattaSprak, type InlastSprak } from './sprak';
 
 // Interfaces for parsed CV structure
 export interface ParsedRole {
@@ -26,6 +27,12 @@ export interface ParsedCV {
   roles: ParsedRole[];
   education: ParsedEducation[];
   skills: string[];
+  /**
+   * Språk som uttryckligen står i CV:t (src/lib/cv/sprak.ts). Lyckad
+   * inläsning sätter alltid listan, tom när inget språk står; saknad nyckel
+   * betyder att vi aldrig letat (CV inlästa före 2026-11-21 och reserven).
+   */
+  languages?: InlastSprak[];
   profile?: string;
   name?: string;
   contact?: {
@@ -69,7 +76,10 @@ Returnera en JSON-struktur med följande format:
       "description": "Eventuella detaljer"
     }
   ],
-  "skills": ["färdighet1", "färdighet2"]
+  "skills": ["färdighet1", "färdighet2"],
+  "languages": [
+    { "language": "Språket som det står i CV:t", "proficiency": "Nivån som CV:t anger den, eller tom sträng" }
+  ]
 }
 
 KRITISKA REGLER FÖR SVENSKA CV:n:
@@ -79,6 +89,13 @@ KRITISKA REGLER FÖR SVENSKA CV:n:
 4. Om någon "agerade projektledare" inom annan roll, behåll originaltiteln (t.ex. "Målare")
 5. Extrahera EXAKT företagsnamn efter kommatecken i rollbeskrivningar
 6. Vid sammmanhängande text, identifiera var varje ny roll börjar
+
+REGLER FÖR SPRÅK (languages):
+1. Ta BARA med språk som uttryckligen står i CV-texten: i ett avsnitt som "Språk", "Språkkunskaper" eller "Languages", eller i löptext som "flytande engelska" eller "talar arabiska".
+2. Gissa ALDRIG språk utifrån vilket språk CV:t är skrivet på, personens namn, ursprung eller arbetsplatser. Ett svenskt CV utan språkavsnitt ger INTE "Svenska".
+3. Skriv språkets namn som det står i CV:t, utan nivån (t.ex. "Engelska", inte "Flytande engelska").
+4. proficiency: nivån så som CV:t anger den, översatt till en av "Modersmål", "Tvåspråkig", "Flytande", "Konversation", "Nybörjare" (mycket god eller C1/C2 = Flytande, god eller B1/B2 = Konversation, grundläggande eller A1/A2 = Nybörjare). Anger CV:t ingen nivå: tom sträng "".
+5. Står inga språk i CV:t: "languages": [].
 
 VANLIGA FEL ATT UNDVIKA:
 - "Ansvarig" är ALDRIG ett företagsnamn
@@ -109,7 +126,9 @@ Exempel på KORREKT rollextraktion:
       systemInstruction: 'Du är en expert på att analysera och strukturera CV-information. Svara alltid med giltig JSON.',
       prompt,
       temperature: 0.1, // Låg temperatur för konsekvent parsning
-      maxOutputTokens: 2400,
+      // 2600 sedan språken kom med (2026-11-21): ett kapat svar blir
+      // ogiltig JSON och faller till reserven.
+      maxOutputTokens: 2600,
       thinkingBudget: 0,
     });
 
@@ -153,17 +172,24 @@ Exempel på KORREKT rollextraktion:
 
     parsedData.skills = parsedData.skills || [];
 
+    // Alltid en lista vid lyckad inläsning: nyckeln betyder "vi har letat".
+    // Bara språk som står i texten följer med (inga gissade modersmål).
+    parsedData.languages = tvattaSprak(parsedData.languages, cvText);
+
     console.log('✅ CV parsed successfully:', {
       rolesFound: parsedData.roles.length,
       educationFound: parsedData.education.length,
       skillsFound: parsedData.skills.length,
+      languagesFound: parsedData.languages.length,
     });
 
     return parsedData;
 
   } catch (error) {
     console.error('❌ Error parsing CV:', error);
-    // Return a fallback structure if AI parsing fails
+    // Return a fallback structure if AI parsing fails. Reserven letar inte
+    // efter språk och får därför ingen languages-nyckel (sprakLage blir
+    // 'inte_inlast', inte 'saknas').
     return fallbackParse(cvText);
   }
 }

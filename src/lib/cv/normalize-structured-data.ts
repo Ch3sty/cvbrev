@@ -15,7 +15,7 @@
  * sa anroparen kan falla tillbaka till regex-parsern pa cv_text.
  */
 
-import type { CVMetadata } from './cv-metadata';
+import type { CVLanguage, CVMetadata } from './cv-metadata';
 import type { ParsedCV } from './cv-parser';
 
 /**
@@ -150,5 +150,17 @@ function parsedCVToCVMetadata(parsed: ParsedCV): CVMetadata | null {
     skills: (parsed.skills && parsed.skills.length > 0)
       ? [{ category: 'Kompetenser', skills: parsed.skills }]
       : [],
+    // Språken (sedan 2026-11-21) i samma form som CVMetadata. En tom nivå
+    // betyder att CV:t inte anger någon; mallarna skriver då bara språket.
+    // Kompetenser som bara är ett språknamn visas under Språk, inte två
+    // gånger (kompetenser() i mallar/innehall.ts).
+    languages: Array.isArray(parsed.languages)
+      ? parsed.languages
+          .filter(l => l && typeof l.language === 'string' && l.language.trim())
+          .map(l => ({
+            language: l.language.trim(),
+            proficiency: (l.proficiency || '') as CVLanguage['proficiency'],
+          }))
+      : undefined,
   };
 }
