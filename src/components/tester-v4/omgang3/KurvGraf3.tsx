@@ -31,7 +31,8 @@ export function punktAria(p: UtvecklingsPunkt, namn: string): string {
 }
 
 function Etikett({ x, y, rad1, rad2, mobil, W }: { x: number; y: number; rad1: string; rad2: string; mobil: boolean; W: number }) {
-  const w = Math.max(rad1.length, rad2.length) * (mobil ? 6.8 : 7) + 28
+  // Bredden räknas med marginal för den feta andra raden, så att texten håller sig inom rutan.
+  const w = Math.min(W - 8, Math.max(rad1.length, rad2.length) * (mobil ? 7.2 : 7.6) + 32)
   const h = mobil ? 40 : 48
   const left = Math.max(4, Math.min(x - w / 2, W - w - 4))
   const top = y - h - 16
@@ -230,7 +231,6 @@ export default function KurvGraf3({
           <text x={k.idagX} y={Y(5.5) + 6} textAnchor="middle" className="t3-disp" fontSize="17" fontWeight="800" style={{ fill: 'var(--koppar-ink)' }}>
             ?
           </text>
-          <Etikett x={k.idagX + (mobil ? 40 : 90)} y={Y(5.5) - 4} rad1="Din första punkt" rad2={`Nivåkollen, cirka ${omfang ? ORD[omfang.minuter] ?? omfang.minuter : 'åtta'} minuter`} mobil={mobil} W={matt.W} />
         </g>
       ) : null}
 
@@ -246,6 +246,10 @@ export default function KurvGraf3({
           </>
         ) : null}
       </g>
+      {/* Tooltipen ritas efter "i dag"-linjen, så att linjen aldrig skär texten. */}
+      {k.lage === 'ingen' ? (
+        <Etikett x={k.idagX + (mobil ? 40 : 90)} y={Y(5.5) - 4} rad1="Din första punkt" rad2={`Nivåkollen, cirka ${omfang ? ORD[omfang.minuter] ?? omfang.minuter : 'åtta'} minuter`} mobil={mobil} W={matt.W} />
+      ) : null}
 
       {/* Kvar till provets nivå */}
       {k.lage === 'fylld' && sista && kvar != null && kvar > 0 && k.iPlan && k.provX != null ? (
