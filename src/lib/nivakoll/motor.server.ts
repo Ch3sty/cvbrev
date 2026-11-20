@@ -213,7 +213,7 @@ export function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, s
     const q = hittaDeduktivFraga(nyckel);
     if (!q) return null;
     const v = visaDeduktiv(q, sessionId, true);
-    return { kind, nyckel, niva, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null };
+    return { kind, nyckel, niva, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null, struktur: v.struktur ?? null };
   }
   const underlag = kind === 'verbal' ? underlagFor(kind, nyckel) : delar.find((d) => nycklarFor(kind, d).includes(nyckel));
   if (!underlag) return null;
@@ -247,7 +247,7 @@ export function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | nul
     return {
       selected: b.selected,
       correct: b.correct,
-      genomgang: { correct: b.correct, ratt: String(g.rattVisat), valt: svar, forklaring: null, misstag: !b.correct && b.visat !== null ? g.misstag[b.visat] || null : null, losning: g.losning },
+      genomgang: { correct: b.correct, ratt: String(g.rattVisat), valt: svar, forklaring: null, misstag: !b.correct && b.visat !== null ? g.misstag[b.visat] || null : null, losning: g.losning, ledNamn: g.ledNamn ?? null },
     };
   }
   if (u.kind !== 'verbal' && u.kind !== 'numerisk') return null;
@@ -255,11 +255,11 @@ export function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | nul
     // "Vet inte": rätt svar ur rättningen av ett giltigt svar.
     const r = ratta(kind, u.underlag, u.nyckel, u.alternativ[0]?.id, sessionId);
     if (!r) return null;
-    return { selected: -1, correct: false, genomgang: { correct: false, ratt: r.ratt, valt: null, forklaring: r.forklaring, misstag: null } };
+    return { selected: -1, correct: false, genomgang: { correct: false, ratt: r.ratt, valt: null, forklaring: r.forklaring, misstag: null, ...(r.vnFacit ? { data: r.vnFacit } : {}) } };
   }
   const r = ratta(kind, u.underlag, u.nyckel, svar, sessionId);
   if (!r) return null;
-  return { selected: r.selected, correct: r.correct, genomgang: { correct: r.correct, ratt: r.ratt, valt: svar, forklaring: r.forklaring, misstag: null } };
+  return { selected: r.selected, correct: r.correct, genomgang: { correct: r.correct, ratt: r.ratt, valt: svar, forklaring: r.forklaring, misstag: null, ...(r.vnFacit ? { data: r.vnFacit } : {}) } };
 }
 
 function familjNamn(kind: NivakollKind, u: NivakollUppgift, svar: string | null): string | null {

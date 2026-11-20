@@ -143,6 +143,7 @@ function aterkopplingFor(rad: DeduktivRad, s: DeduktivSvar): DeduktivAterkopplin
     rattVisat: g.rattVisat,
     valtVisat: s.visat,
     losning: g.losning,
+    ledNamn: g.ledNamn ?? null,
     misstag: !s.correct && s.visat !== null ? g.misstag[s.visat] || null : null,
     familj: q.family,
   };

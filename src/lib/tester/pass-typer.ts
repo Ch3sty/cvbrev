@@ -96,11 +96,25 @@ export interface VnUnderlag {
   diagram?: unknown | null;
 }
 
+/**
+ * Strukturerat facit (omgång 3, steg 2b) ur innehållsspåret: räknevägen och
+ * vad frågan använder i underlaget (numeriskt), meningarna som avgör
+ * påståendet och den närmaste som inte räcker (verbalt). Avslöjar svaret:
+ * skickas bara med facit, aldrig med uppgiften.
+ */
+export interface VnFacitData {
+  losning?: import('@/lib/numericalTest/types').NumeriskLosning | null;
+  stod?: string[] | null;
+  narmast?: string | null;
+}
+
 export interface VnAterkoppling {
   correct: boolean;
   /** Rätt svar: verbalt true/false/cannot_say, numeriskt alternativets id. */
   ratt: string;
   forklaring: string | null;
+  /** Räknevägen och stödmeningarna (omgång 3, steg 2b). Utelämnad när banken saknar dem. */
+  vnFacit?: VnFacitData | null;
 }
 
 export interface VnTappad {

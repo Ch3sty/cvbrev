@@ -204,7 +204,7 @@ export function vnPassVy(rad: VnRad): VnPassVy | null {
   for (const s of svar) {
     besvarade[s.q_id] = { svar: s.svar, tid_s: s.time_spent };
     const r = ratta(meta.test_kind, meta.underlag_id, s.q_id, s.svar, rad.id);
-    if (r) aterkoppling[s.q_id] = { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring };
+    if (r) aterkoppling[s.q_id] = { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring, ...(r.vnFacit ? { vnFacit: r.vnFacit } : {}) };
   }
   return {
     id: rad.id,
@@ -346,7 +346,7 @@ export async function svaraVnPass(args: {
   return {
     ok: true,
     nyckel: args.nyckel,
-    aterkoppling: { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring },
+    aterkoppling: { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring, ...(r.vnFacit ? { vnFacit: r.vnFacit } : {}) },
     besvarade,
     antal: meta.antal,
     klar: besvarade >= meta.antal,

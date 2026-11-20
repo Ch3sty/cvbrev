@@ -31,6 +31,8 @@ import { captureServer } from '@/lib/analytics/server';
 import { lasBehorighet } from '@/lib/traning/motor.server';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { visningstitel } from '@/lib/tester/titel';
+import { vnFacitData } from '@/lib/tester/pass-bank.server';
+import type { VnFacitData } from '@/lib/tester/pass-typer';
 import { lasSeddaUnderlag, seddaFigurerUrRader, seddaFigurTestTyper, type SeddRad } from '@/lib/tester/sedda.server';
 import { genomgaFigur, hittaFigurFraga, visaFigur, figurPermutation } from '@/lib/figurserierV1/fragor.server';
 import { bryterPool, harnastPool } from '@/lib/figurserierV1/select';
@@ -243,7 +245,7 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
       .filter((q): q is NonNullable<typeof q> => !!q)
       .map((q) => {
         const v = visaDeduktiv(q, seed, true);
-        return { id: q.id, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null };
+        return { id: q.id, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null, struktur: v.struktur ?? null };
       });
   }
   if (typ === 'figurer') {
@@ -279,7 +281,7 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
 }
 
 /** Rätt svar och förklaring för en punkt. */
-function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring: string | null } | null {
+function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring: string | null; vnFacit?: VnFacitData | null } | null {
   if (typ === 'deduktiv') {
     const q = hittaDeduktivFraga(p.del);
     return q ? { ratt: String(genomgaDeduktiv(q, seed, true).rattVisat), forklaring: null } : null;
@@ -290,10 +292,10 @@ function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring
   }
   if (typ === 'verbal') {
     const s = VERBAL_PER_ID.get(p.del)?.statements[Number(p.punkt)];
-    return s ? { ratt: s.correctAnswer, forklaring: s.explanation ?? null } : null;
+    return s ? { ratt: s.correctAnswer, forklaring: s.explanation ?? null, vnFacit: vnFacitData(s) } : null;
   }
   const q = NUM_PER_ID.get(p.del)?.questions.find((x) => x.id === p.punkt);
-  return q ? { ratt: q.correctAnswerId, forklaring: q.explanation ?? null } : null;
+  return q ? { ratt: q.correctAnswerId, forklaring: q.explanation ?? null, vnFacit: vnFacitData(q) } : null;
 }
 
 /** Är svaret ett giltigt svar på punkten? */
@@ -378,7 +380,8 @@ export function raknaResultat(args: {
       forklaring: f.forklaring,
       tid_s: s?.tid ?? 0,
       ...(typ === 'figurer' || typ === 'deduktiv' ? { misstag } : {}),
-      ...(dg ? { losning: dg.losning } : {}),
+      ...(dg ? { losning: dg.losning, ledNamn: dg.ledNamn ?? null } : {}),
+      ...(f.vnFacit ? { vnFacit: f.vnFacit } : {}),
     });
     const grupp =
       typ === 'deduktiv'

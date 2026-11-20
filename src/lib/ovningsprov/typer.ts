@@ -80,6 +80,8 @@ export interface DeduktivDel {
   premisser: boolean;
   /** Antal platser när uppgiften har en remsa, annars null (omgång 2, B1). */
   platser?: number | null;
+  /** Villkorens form för bilderna och kladdytorna (omgång 3, steg 2b), utan facit. */
+  struktur?: import('@/lib/deduktivV1/struktur').DeduktivStruktur | null;
 }
 
 /** En uppgift i provet, i ordning: del (text eller underlag) och punkt i delen. */
@@ -107,6 +109,10 @@ export interface Genomgangspunkt {
   misstag?: string | null;
   /** Deduktivt: lösningsgången och remsan efter avslutet. */
   losning?: import('@/lib/deduktivV1/types').DeduktivLosning | null;
+  /** Deduktivt: kedjans namn på leden (omgång 3, steg 2b). */
+  ledNamn?: import('@/lib/deduktivV1/types').DeduktivLedNamn | null;
+  /** Ord och text, siffror och tabeller: räknevägen och stödmeningarna efter avslutet (omgång 3, steg 2b). */
+  vnFacit?: import('@/lib/tester/pass-typer').VnFacitData | null;
 }
 
 export interface Ovningsresultat {

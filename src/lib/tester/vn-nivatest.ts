@@ -54,6 +54,8 @@ export interface VnGenomgangPunkt {
   forklaring: string | null;
   valt: string | null;
   tid_s: number | null;
+  /** Räknevägen och stödmeningarna (omgång 3, steg 2b), bara i genomgången efter rättningen. */
+  vnFacit?: import('./pass-typer').VnFacitData | null;
 }
 
 export interface VnNivatestGenomgang extends VnNivatestInnehall {

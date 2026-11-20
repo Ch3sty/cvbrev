@@ -21,6 +21,8 @@ import { selectPassagesForSession as numAvancerad } from '@/lib/numericalTestV2/
 import { selectPassagesForSession as numExpert } from '@/lib/numericalTestExpert/selectPassages'
 import type { Passage as NumPassage } from '@/lib/numericalTest/types'
 import { underlagsVersion, type UnderlagVersion } from './underlagVersion'
+import { vnFacitData } from './pass-bank.server'
+import type { VnFacitData } from './pass-typer'
 import {
   sparadeVnSvar,
   VN_TRE,
@@ -36,7 +38,7 @@ interface VerbalPassage {
   title: string
   topic: string
   text: string
-  statements: { text: string; correctAnswer: string; explanation?: string }[]
+  statements: { text: string; correctAnswer: string; explanation?: string; stod?: string[]; narmast?: string }[]
 }
 
 type Urval =
@@ -61,6 +63,7 @@ export function arVnNivatestSlug(slug: string): boolean {
 interface Facit {
   ratt: string
   forklaring: string | null
+  vnFacit: VnFacitData | null
 }
 
 function bygg(slug: string, sessionId: string, meta: unknown): { innehall: VnNivatestInnehall; facit: Map<string, Facit> } | null {
@@ -85,7 +88,7 @@ function bygg(slug: string, sessionId: string, meta: unknown): { innehall: VnNiv
           iDel: i + 1,
           delAntal: p.statements.length,
         })
-        facit.set(nyckel, { ratt: s.correctAnswer, forklaring: s.explanation ?? null })
+        facit.set(nyckel, { ratt: s.correctAnswer, forklaring: s.explanation ?? null, vnFacit: vnFacitData(s) })
       })
     }
   } else {
@@ -113,7 +116,7 @@ function bygg(slug: string, sessionId: string, meta: unknown): { innehall: VnNiv
           iDel: i + 1,
           delAntal: p.questions.length,
         })
-        facit.set(q.id, { ratt: q.correctAnswerId, forklaring: q.explanation ?? null })
+        facit.set(q.id, { ratt: q.correctAnswerId, forklaring: q.explanation ?? null, vnFacit: vnFacitData(q) })
       })
     }
   }
@@ -139,7 +142,7 @@ export function vnGenomgang(slug: string, sessionId: string, meta: unknown, answ
     const punkter: VnGenomgangPunkt[] = b.innehall.uppgifter.map((u) => {
       const f = b.facit.get(u.nyckel)
       const s = sparade.get(u.nyckel)
-      return { nyckel: u.nyckel, ratt: f?.ratt ?? '', forklaring: f?.forklaring ?? null, valt: s?.varde ?? null, tid_s: s?.tid_s ?? null }
+      return { nyckel: u.nyckel, ratt: f?.ratt ?? '', forklaring: f?.forklaring ?? null, valt: s?.varde ?? null, tid_s: s?.tid_s ?? null, ...(f?.vnFacit ? { vnFacit: f.vnFacit } : {}) }
     })
     return { ...b.innehall, punkter }
   } catch (e) {
