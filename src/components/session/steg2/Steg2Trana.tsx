@@ -1,0 +1,186 @@
+'use client'
+
+/**
+ * Träna talserier, spatial förmåga och ordförråd i ramen
+ * (plan-testflode-2026-11-20 etapp 4). Ersätter Steg2PassFlode på
+ * /dashboard/tester/pass?typ=steg2pass&kind=<typ> (med grupp: det riktade)
+ * och /pass/<id>; den gamla står kvar oanvänd till etapp 5. Samma rutter och
+ * kroppar (pass-klient.ts): skapa {kind, grupp}, svar {sessionId, nyckel,
+ * visat, tid}, slutför {sessionId}.
+ *
+ * Talseriens Träna byter inte längre hela vyn mot en genomgång: korten får
+ * rätt och fel och Förklaringen kommer under svaren, som i alla typer.
+ * "Vet inte" finns (passens rutt tar emot ett obesvarat svar).
+ */
+
+import PaywallCard from '@/components/paywall/PaywallCard'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
+import type { Scope } from '@/lib/access/features'
+import { fetchSteg2PassApi, type Steg2PassApi } from '@/lib/tester/pass-klient'
+import { steg2PassCopy } from '@/lib/tester/steg2/copy'
+import type { Steg2PassKind, Steg2PassVy } from '@/lib/tester/steg2/pass'
+import { FAMILJ_NAMN, FORM_NAMN } from '@/lib/tester/steg2/namn'
+import { sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { testTypForKind } from '@/components/illustrations/TestGlyfer'
+import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Resultatskarm from '../Resultatskarm'
+import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
+import { antalOrd, SESSION } from '../copy'
+import { TempoStapel } from '../figurserie/delar'
+
+export interface Steg2TranaProps {
+  kind: Steg2PassKind
+  grupp?: string | null
+  /** Startskärmen (/pass?typ=steg2pass). Utelämnad på /pass/<id>. */
+  start?: { last: boolean; fortsatt: boolean; kvar: number | null; antal: number; budgetPerUppgift: number | null } | null
+  vy?: Steg2PassVy | null
+  forklaringEfterSvar: boolean
+  datum: string | null
+  api?: Steg2PassApi
+}
+
+const GEMEN: Record<Steg2PassKind, string> = { talserie: 'talserier', spatial: 'spatial förmåga', ordforrad: 'ordförråd' }
+const ORD_GRUPP: Record<string, string> = { synonym: 'Synonymer', antonym: 'Motsatsord' }
+
+/** Gruppens namn i klartext: talseriens regelfamilj, spatialens form, ordförrådets typ. */
+export function steg2GruppNamn(kind: Steg2PassKind, grupp: string | null | undefined): string | null {
+  if (!grupp) return null
+  if (kind === 'talserie') return FAMILJ_NAMN[grupp] ?? null
+  if (kind === 'spatial') return (FORM_NAMN as Record<string, string>)[grupp] ?? null
+  return ORD_GRUPP[grupp] ?? null
+}
+
+export function lasSteg2Pass(vy: Steg2PassVy): TranaSession<Steg2U> {
+  const besvarade: TranaSession<Steg2U>['besvarade'] = {}
+  for (const [k, b] of Object.entries(vy.besvarade)) besvarade[k] = { valt: b.visat, tid_s: b.tid_s }
+  const facit: TranaSession<Steg2U>['facit'] = {}
+  for (const [k, a] of Object.entries(vy.aterkoppling)) facit[k] = steg2Facit(vy.kind, a.genomgang, a.valtVisat, a.correct)
+  return {
+    id: vy.id,
+    uppgifter: vy.uppgifter.map((u) => tillSteg2U(vy.kind, u, u.nyckel)),
+    besvarade,
+    facit,
+    avslutad: vy.avslutad,
+    harResultat: Boolean(vy.resultat),
+    budgetPerUppgift: vy.uppgifter.length ? Math.round(vy.budget_s / vy.uppgifter.length) : 60,
+  }
+}
+
+function tranaApi(kind: Steg2PassKind, grupp: string | null, a: Steg2PassApi): TranaApi<Steg2PassVy> {
+  return {
+    async skapa() {
+      const r = await a.skapa(kind, grupp)
+      return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
+    },
+    async svara({ sessionId, nyckel, valt, tid }) {
+      const r = await a.svara({ sessionId, nyckel, visat: valt, tid })
+      if (!r.ok) return { ok: false, status: r.status }
+      const at = r.aterkoppling
+      return { ok: true, klar: r.klar, facit: steg2Facit(kind, at.genomgang, at.valtVisat, at.correct) }
+    },
+    hamta: (id) => a.session(id),
+    async slutfor(id) {
+      const r = await a.slutfor(id)
+      return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
+    },
+  }
+}
+
+function undertitelFor(kind: Steg2PassKind, grupp: string | null, niva: Steg2PassVy['niva'] | null): string {
+  const namn = steg2GruppNamn(kind, grupp)
+  if (grupp) return `Träna, ${(namn ?? 'mönstret').toLowerCase()}`
+  return SESSION.undertitel('trana', niva)
+}
+
+export default function Steg2Trana({ kind, grupp = null, start = null, vy = null, forklaringEfterSvar, datum, api = fetchSteg2PassApi }: Steg2TranaProps) {
+  const { summary } = useDashboardData()
+  const scope = (summary?.paket?.scope ?? null) as Scope | null
+  const ritare = steg2Ritare(kind)
+  const g = grupp ?? vy?.grupp ?? null
+  const gruppNamn = steg2GruppNamn(kind, g)
+  return (
+    <Trana<Steg2U, Steg2PassVy>
+      ritare={ritare}
+      bas={{ test_kind: kind, lage: 'trana', niva: vy?.niva ?? null, format: null }}
+      undertitel={(v) => undertitelFor(kind, g, v?.niva ?? null)}
+      vy={vy}
+      las={lasSteg2Pass}
+      api={tranaApi(kind, grupp, api)}
+      forklaringEfterSvar={forklaringEfterSvar}
+      tillbakaHref={TRANING_RUTT.alla}
+      sessionAdress={sessionHref}
+      start={
+        start
+          ? {
+              tillbakaHref: TRANING_RUTT.alla,
+              eyebrow: ritare.namn,
+              rubrik: gruppNamn ? `Träna: ${gruppNamn.toLowerCase()}` : `Träna ${GEMEN[kind]}`,
+              scen: kind,
+              rita: !start.fortsatt && !start.last,
+              regel1: {
+                titel: `${antalOrd(start.antal, true)} uppgifter i egen takt.`,
+                text: start.budgetPerUppgift
+                  ? `Ringen visar provets tid per uppgift, ${start.budgetPerUppgift} sekunder.`
+                  : 'Ringen visar provets tid för varje uppgift.',
+              },
+              regel3: { titel: 'Nivån rör sig högst ett halvt steg om dagen.', text: 'Svaren hittills sparas om du avbryter.' },
+              fortsatt: start.fortsatt,
+              kortRad: start.fortsatt && start.kvar != null ? SESSION.start.kvar(start.kvar) : null,
+              fotnot: 'Rätt svar och förklaringen i genomgången efteråt, också med förklaringen avstängd.',
+              sparr: start.last ? (
+                <PaywallCard variant="testniva" feature="test_daily_pass" testTyp={testTypForKind(kind)} scope={scope} plats="dag2" />
+              ) : null,
+            }
+          : null
+      }
+      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} gaIgenom={ctrl.gaIgenom} stang={ctrl.stang} />}
+    />
+  )
+}
+
+function Resultat({ vy, datum, gaIgenom, stang }: { vy: Steg2PassVy; datum: string | null; gaIgenom: (fran?: number) => void; stang: () => void }) {
+  const r = vy.resultat!
+  const kind = vy.kind
+  const ritare = steg2Ritare(kind)
+  const s = lasSteg2Pass(vy)
+  const tidPer = r.antal ? Math.round(r.tid_s / r.antal) : 0
+  const budgetPer = r.antal ? Math.round(r.budget_s / r.antal) : s.budgetPerUppgift
+  const over = s.uppgifter.filter((u) => {
+    const b = s.besvarade[u.nyckel]
+    return (b?.tid_s ?? 0) > budgetPer
+  }).length
+  const missar = s.uppgifter.map((u, i) => ({ u, i, f: s.facit[u.nyckel] })).filter((x) => !x.f?.correct)
+  const R = steg2PassCopy(kind).resultat
+  const svagast = r.tappade.find((t) => t.ratt < t.antal)?.familj ?? null
+  return (
+    <Resultatskarm
+      lage="trana"
+      titel={ritare.namn}
+      undertitel={undertitelFor(kind, vy.grupp, vy.niva)}
+      datum={datum}
+      onStang={stang}
+      ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
+      huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
+      tal={[
+        { varde: `${tidPer} s`, etikett: `per uppgift, provets tid ${budgetPer} s` },
+        { varde: `${over} av ${r.antal}`, etikett: 'över provets tid', koppar: over > 0 },
+      ]}
+      mening={vy.upprepad ? R.upprepad : R.ingenNiva}
+      genomgang={{
+        titel: SESSION.resultat.genomgangTitel(missar.length),
+        text: missar.length ? 'Rätt svar och förklaringen vid varje uppgift, i samma vy som träningen.' : 'Gå igenom uppgifterna och förklaringen bakom varje.',
+        miniatyrer: <Steg2Miniatyrer poster={missar.map((m) => m.u)} />,
+        onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
+        onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
+      }}
+      tappade={{ rader: r.tappade.map((t) => ({ namn: t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel })) }}
+      tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
+      nastaSteg={{
+        titel: R.imorgon(svagast),
+        text: null,
+        knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+      }}
+      tillbakaHref={TRANING_RUTT.alla}
+    />
+  )
+}

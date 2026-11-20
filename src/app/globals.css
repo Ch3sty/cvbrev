@@ -2192,6 +2192,23 @@ html {
   [data-sessionsram] .text-fraga { font-size: 24px; line-height: 30px; }
 }
 
+/* Fokus flyttas till uppgiftens rubrik vid ny uppgift och efter dialogen,
+   utan synlig ring (avsnitt 1, Tangentbord): rummets ring gäller inte här. */
+[data-sessionsram] [data-uppgift-rubrik]:focus-visible,
+[data-sessionsram] > main:focus-visible { outline: none; }
+
+/* Testklar i mörkt läge: appens rot sätter egna ljusa --fel, --fel-mjuk, --ton
+   och --ton-ink, så att fel-kortet och Förklaringen blev ljusa med ljus text
+   på mörkt golv. I ramen gäller webbens mörka värden (rummet Tester). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]) [data-mobilapp] [data-sessionsram] {
+    --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --ton: #232B55; --ton-ink: #B9C2F2;
+  }
+}
+:root[data-theme="dark"]:has([data-rum]) [data-mobilapp] [data-sessionsram] {
+  --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --ton: #232B55; --ton-ink: #B9C2F2;
+}
+
 /* Framstegsstapeln och ringen. */
 .sess-framsteg { transform-origin: left center; transition: transform 240ms ease-out; }
 .sess-ring { transition: stroke-dashoffset 1000ms linear, stroke 300ms ease-out; }

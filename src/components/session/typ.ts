@@ -37,6 +37,8 @@ export interface UppgiftProps<U extends RamUppgift> {
    * läget den under uppgiften.
    */
   forklaring?: ReactNode
+  /** Typens egen facitdata (RamFacit.data), bara efter facit: talseriens bågar, spatialens uppvikning (etapp 4). */
+  facitData?: unknown
 }
 
 export interface TypRitare<U extends RamUppgift> {
@@ -73,4 +75,6 @@ export interface RamFacit {
   text?: string | null
   /** Typens egen förklaring under regeln, till exempel deduktivens lösningsgång (etapp 3). */
   detalj?: ReactNode
+  /** Typens egen facitdata som uppgiften ritar efter facit (etapp 4), till exempel motorns genomgång. */
+  data?: unknown
 }

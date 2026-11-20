@@ -64,7 +64,7 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov' | 'dedSession' | 'dedResult' | 'deduktivpass' | 'deduktivprov' | 'nivakoll' | 'verbalSession' | 'numSession';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov' | 'dedSession' | 'dedResult' | 'deduktivpass' | 'deduktivprov' | 'nivakoll' | 'verbalSession' | 'numSession' | 'talSession' | 'talResult' | 'steg2pass' | 'iprov' | 'personlighet';
   /**
    * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
    * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
@@ -145,6 +145,15 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/ovningsprov/deduktiv', namn: 'tester/ovningsprov deduktivt', budget: 'flode' },
   { path: '/dashboard/tester/ovningsprov/deduktiv/ID', namn: 'deduktivprov uppgift', budget: 'flode', dynamisk: 'deduktivprov' },
   { path: '/dashboard/tester/pass/ID', namn: 'nivakoll uppgift eller resultat', budget: 'flode', dynamisk: 'nivakoll' },
+  // Sessionsramen etapp 4: talserier, spatial, ordförråd, I-provet och personlighetstestet.
+  { path: '/dashboard/tester/ordforrad-grund', namn: 'ordförråd testsida', budget: 'lista' },
+  { path: '/dashboard/tester/talserier-grund/test/ID', namn: 'talserier uppgift', budget: 'flode', dynamisk: 'talSession' },
+  { path: '/dashboard/tester/talserier-grund/test/ID/results', namn: 'talserier resultat', budget: 'flode', dynamisk: 'talResult' },
+  { path: '/dashboard/tester/pass?typ=steg2pass&kind=spatial', namn: 'spatial träna startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass/ID', namn: 'steg2 träna uppgift', budget: 'flode', dynamisk: 'steg2pass' },
+  { path: '/dashboard/tester/iprov', namn: 'iprov startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/iprov/ID', namn: 'iprov deltest', budget: 'flode', dynamisk: 'iprov' },
+  { path: '/dashboard/tester/personlighet-grund/test/ID', namn: 'personlighet påstående', budget: 'flode', dynamisk: 'personlighet' },
 
   // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
@@ -297,7 +306,19 @@ async function main() {
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'verbal-resonemang').is('completed_at', null).limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'numerical-reasoning').is('completed_at', null).limit(1),
   ]);
+  const [{ data: tal }, { data: talKlar }, { data: s2pass }, { data: iprov }, { data: pers }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'talserier-grund').is('completed_at', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'talserier-grund').not('completed_at', 'is', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).in('test_type', ['talserie-pass', 'spatial-pass', 'ordforrad-pass']).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'iprov-prov').limit(1),
+    sb.from('personality_test_sessions').select('id').eq('user_id', userId).eq('test_type', 'personlighet-grund').is('completed_at', null).limit(1),
+  ]);
   const idPerTyp: Record<string, string | null> = {
+    talSession: tal?.[0]?.id ?? null,
+    talResult: talKlar?.[0]?.id ?? null,
+    steg2pass: s2pass?.[0]?.id ?? null,
+    iprov: iprov?.[0]?.id ?? null,
+    personlighet: pers?.[0]?.id ?? null,
     verbalSession: vSess?.[0]?.id ?? null,
     numSession: nSess?.[0]?.id ?? null,
     deduktivpass: dedPass?.[0]?.id ?? null,

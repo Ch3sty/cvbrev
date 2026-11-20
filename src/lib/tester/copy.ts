@@ -63,9 +63,9 @@ export const TESTSIDA = {
   startar: 'Startar testet',
   startProv: 'Starta provet',
   gorOmProv: 'Gör om provet',
-  text: 'Du kan pausa. Svaren sparas medan du gör testet, och efter testet går vi igenom varje fråga.',
+  text: 'Du kan pausa. Svaren sparas medan du gör testet, och efter testet går vi igenom varje uppgift.',
   textProv: 'Ingen förklaring under tiden. Provet lämnas in när tiden är ute, och genomgången kommer efteråt.',
-  fakta: { fragor: 'frågor', minuter: 'minuter', niva: 'nivå', nivaer: 'nivåer', pastaenden: 'påståenden' },
+  fakta: { fragor: 'uppgifter', minuter: 'minuter', niva: 'nivå', nivaer: 'nivåer', pastaenden: 'påståenden' },
   bast: {
     rub: 'Ditt bästa',
     /** Bara i title och aria-label, aldrig som synlig text. */
@@ -88,7 +88,7 @@ export const TESTSIDA = {
   },
 } as const
 
-/** Substantivet för en fråga i testet: påståenden i verbalt, annars frågor. */
+/** Substantivet för en uppgift i testet: påståenden i verbalt, annars uppgifter (ordlistan, plan-testflode avsnitt 6). */
 export interface Sakord {
   en: string
   flera: string
@@ -113,7 +113,7 @@ export function sakord(kind: TestKind, slug: string): Sakord {
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
   }
-  return { en: 'fråga', flera: 'frågor', bestamd: 'frågorna', neutrum: false }
+  return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
 }
 
 export const RESULTAT = {
@@ -142,8 +142,8 @@ export const RESULTAT = {
       spatial: 'Förklaringen står vid varje uppgift.',
       ordforrad: 'Facit och en exempelmening står vid varje ord.',
       verbal: 'Förklaringen står vid varje påstående.',
-      numerisk: 'Uträkningen står vid varje fråga.',
-      prov: 'Facit står vid varje fråga.',
+      numerisk: 'Uträkningen står vid varje uppgift.',
+      prov: 'Facit står vid varje uppgift.',
     },
     sammaFamilj: (n: number, av: number, namn: string, matris: boolean) =>
       `${versal(ordTal(n))} av ${ordTal(av)} är samma ${matris ? `mönster: ${namn}` : `typ: ${namn.toLowerCase()}`}.`,
@@ -156,8 +156,8 @@ export const RESULTAT = {
     visaGenomgang: 'Visa genomgången',
     saknas: 'Genomgången saknas för det här försöket',
     saknasText:
-      'Resultatet sparades före genomgången per fråga, eller ur en tidigare version av frågebanken. Poängen står kvar, men vi kan inte visa vilka frågor du fick. Gör om testet så får du full genomgång.',
-    rubrikLista: 'Fråga för fråga',
+      'Resultatet sparades före genomgången per uppgift, eller ur en tidigare version av uppgiftsbanken. Poängen står kvar, men vi kan inte visa vilka uppgifter du fick. Gör om testet så får du full genomgång.',
+    rubrikLista: 'Uppgift för uppgift',
   },
   tappade: {
     rub: 'Var du tappade i det här testet',
@@ -165,7 +165,7 @@ export const RESULTAT = {
     titel: (namn: string, r: number, t: number) => `${namn}, ${r} av ${t}`,
     allaSatt: (matris: boolean) => (matris ? 'Alla mönster satt' : 'Inga tapp i någon typ'),
     fot: (term: string, flera: string) => `${versal(term)} med minst två ${flera} i testet. Hela bilden finns i Din utveckling.`,
-    term: { matris: 'mönster', figurserie: 'mönster', deduktiv: 'villkorstyper', talserie: 'regler', spatial: 'uppgiftsformer', ordforrad: 'frågetyper', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
+    term: { matris: 'mönster', figurserie: 'mönster', deduktiv: 'villkorstyper', talserie: 'regler', spatial: 'uppgiftsformer', ordforrad: 'uppgiftstyper', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
   },
   tempo: {
     rub: 'Tempo mot provets tid',
@@ -190,7 +190,7 @@ export const RESULTAT = {
     axelForsta: (s: { en: string }) => `${s.en} 1`,
     axelSista: (n: number, s: { en: string }) => `${s.en} ${n}`,
     legend: { ratt: 'rätt', fel: 'fel', over: 'över provets tid' },
-    aria: (over: number, av: number, budget: number, en = 'fråga') =>
+    aria: (over: number, av: number, budget: number, en = 'uppgift') =>
       `Tid per ${en}. ${over} av ${av} tog längre än provets ${budget} sekunder.`,
   },
   /**

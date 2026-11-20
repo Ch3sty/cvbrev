@@ -47,11 +47,11 @@ export function mmss(sekunder: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
 
-/** "Fråga 4 och 7", "Fråga 2, 4 och 7". */
+/** "Uppgift 4 och 7", "Uppgift 2, 4 och 7". */
 export function fragorText(nummer: readonly number[]): string {
   if (nummer.length === 0) return '';
-  if (nummer.length === 1) return `Fråga ${nummer[0]}`;
-  return `Fråga ${nummer.slice(0, -1).join(', ')} och ${nummer[nummer.length - 1]}`;
+  if (nummer.length === 1) return `Uppgift ${nummer[0]}`;
+  return `Uppgift ${nummer.slice(0, -1).join(', ')} och ${nummer[nummer.length - 1]}`;
 }
 
 const MANADER = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
@@ -143,7 +143,7 @@ export const PASS_COPY = {
     uppvarmningRad: 'Ingen tid, ingen nivå, inget sparas',
   },
   tid: {
-    aria: 'Tid på frågan mot provets tid',
+    aria: 'Tid på uppgiften mot provets tid',
     provetsTid: (budget: number) => `provets tid ${mmss(budget)}`,
   },
   fraga: {
@@ -181,7 +181,7 @@ export const PASS_COPY = {
     tillbaka: 'Tillbaka till Rekryteringstester',
     visaKurvan: 'Visa kurvan',
     genomga: (n: number) => (n === 1 ? 'Gå igenom missen' : `Gå igenom de ${talord(n)} missarna`),
-    genomgaAlla: 'Gå igenom alla frågor',
+    genomgaAlla: 'Gå igenom alla uppgifter',
     visaKvittot: 'Visa kvittot',
     startaPass: 'Träna',
   },
@@ -257,15 +257,15 @@ export const PASS_COPY = {
     tempo: {
       eyebrow: 'Tempo',
       over: (fragor: string) => `${fragor} tog över provets tid`,
-      inga: 'Alla frågor inom provets tid',
+      inga: 'Alla uppgifter inom provets tid',
       snitt: (snitt: number, budget: number) => `Snitt ${snitt} s, provet ger ${budget}.`,
       gaIgenom: 'Gå igenom dem först.',
-      axelStart: 'fråga 1',
+      axelStart: 'uppgift 1',
       axelMitt: 'streckad linje: provets tid',
       /** S1: fel svar ritas ihåliga (20.3 punkt 4). */
       axelFel: 'ihåliga staplar: fel svar',
-      axelSlut: (n: number) => `fråga ${n}`,
-      aria: (budget: number) => `Tid per fråga. Streckad linje: provets tid, ${budget} sekunder.`,
+      axelSlut: (n: number) => `uppgift ${n}`,
+      aria: (budget: number) => `Tid per uppgift. Streckad linje: provets tid, ${budget} sekunder.`,
     },
     vadHande: {
       eyebrow: 'Vad som hände',
@@ -277,13 +277,13 @@ export const PASS_COPY = {
             : `${versal(talord(fel, 'en'))} missar, inget mönster sticker ut`,
       /** Efter mönstrets beskrivning (19.2 fråga 5). */
       familjOvas: 'Mönstret går att träna för sig.',
-      ingenFamilj: 'Gå igenom dem. Regeln och misstaget står vid varje fråga.',
+      ingenFamilj: 'Gå igenom dem. Regeln och misstaget står vid varje uppgift.',
     },
     genomgang: {
       rubrik: 'Genomgången',
-      fel: (n: number) => `Fråga ${n}, fel`,
-      vetInte: (n: number) => `Fråga ${n}, vet inte`,
-      tidenUte: (n: number) => `Fråga ${n}, tiden tog slut`,
+      fel: (n: number) => `Uppgift ${n}, fel`,
+      vetInte: (n: number) => `Uppgift ${n}, vet inte`,
+      tidenUte: (n: number) => `Uppgift ${n}, tiden tog slut`,
       sekunder: (s: number) => `${s} s.`,
       visa: 'Visa',
       allaRatt: (n: number) => (n === 1 ? 'En rätt' : `${versal(talord(n))} rätt`),
@@ -333,7 +333,7 @@ export const PASS_COPY = {
       general: (dagar: string) => `${dagar}: övningsprov`,
       generalMeta: (format: string) => format,
       prov: (dag: string) => `${dag}: provdagen`,
-      provMeta: 'Bara tre uppvärmningsfrågor.',
+      provMeta: 'Bara tre uppgifter att värma upp på.',
     },
     betalvagg: {
       rubrik: (dagar: number | null) =>
@@ -381,7 +381,7 @@ export const PASS_COPY = {
   },
   genomgangVy: {
     titel: 'Genomgången',
-    rad: (nr: number, antal: number) => `Fråga ${nr} av ${antal}`,
+    rad: (nr: number, antal: number) => `Uppgift ${nr} av ${antal}`,
     nasta: 'Nästa',
     tillResultatet: 'Tillbaka till resultatet',
     foregaende: 'Föregående',

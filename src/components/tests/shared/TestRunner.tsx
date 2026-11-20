@@ -20,7 +20,9 @@ import DeduktivNivatest from '@/components/session/deduktiv/DeduktivNivatest'
 // Statisk import, som matrisen: en dynamisk import la uppgiften bakom en
 // Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
 import FigurserieNivatest from '@/components/session/figurserie/FigurserieNivatest'
-import { Steg2TestSession } from '@/components/tests/steg2/Steg2TestSession'
+// Sessionsramen (plan-testflode-2026-11-20, etapp 4): talserier, spatial
+// förmåga och ordförråd. Steg2TestSession står kvar oanvänd till etapp 5.
+import Steg2Nivatest from '@/components/session/steg2/Steg2Nivatest'
 // Sessionsramen (plan-testflode-2026-11-20, etapp 2): ord och text, siffror
 // och tabeller får uppgifterna från servern, så bankerna och urvalet lämnar
 // klientpaketet. VerbalTestSession, VerbalExpertSession och
@@ -144,10 +146,12 @@ export default function TestRunner({
   // Testplanens steg 2: talserier, spatial förmåga, ordförråd.
   if (arSteg2Kind(config.kind)) {
     return (
-      <Steg2TestSession
+      <Steg2Nivatest
         kind={config.kind}
         sessionId={sessionId}
+        slug={config.slug}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
+        minuter={config.examMinutes ?? config.minutes}
         resultsPath={resultsPath}
         initialRun={runData}
         {...endpoints}

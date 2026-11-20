@@ -501,6 +501,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
           vald={valtVisat}
           facit={facit ? facit.ratt : null}
           efterFel={Boolean(facit && !facit.correct && valtVisat !== null)}
+          facitData={facit?.data}
           last={!kanValja}
           onValj={(i) => {
             via.current = 'tap'

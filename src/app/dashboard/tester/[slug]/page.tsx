@@ -41,6 +41,7 @@ export default async function TestSlugPage({
     getForsok(config),
     getGrundKvot(config),
     config.kind === 'figurserie' ||
+    arSteg2Kind(config.kind) ||
     ((config.kind === 'verbal' || config.kind === 'numerisk' || config.kind === 'matris' || config.kind === 'deduktiv') && config.level !== 'prov')
       ? getStartlage(config)
       : Promise.resolve(null),

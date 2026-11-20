@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { DIMENSION_META, bandFor } from '@/lib/personalityTest/insights';
 import type { BigFiveScores } from '@/lib/personalityTest/types';
 
@@ -24,23 +23,13 @@ const BAND_LABELS: Record<'low' | 'mid' | 'high', string> = {
 
 export default function BigFiveChart({ scores }: BigFiveChartProps) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.1 }}
-      className="bg-papper rounded-3xl border border-orange-100 overflow-hidden"
-      style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}
-    >
-      <div
-        className="h-1"
-        style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }}
-      />
+    <section className="steg s1 overflow-hidden rounded-2xl border border-[color:var(--lyft-kant)] bg-papper shadow-lyft">
       <div className="p-5 sm:p-7">
         <div className="mb-5">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+          <div className="mb-1 text-ey uppercase text-koppar-ink">
             Översikt
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-ink-1 tracking-tight">
+          <h2 className="font-display text-xl font-bold tracking-tight text-ink-1 sm:text-2xl">
             Dina fem dimensioner
           </h2>
         </div>
@@ -52,12 +41,7 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
             const band = bandFor(score);
 
             return (
-              <motion.div
-                key={dim}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.15 + idx * 0.05 }}
-              >
+              <div key={dim} data-dimension={dim} data-index={idx}>
                 <div className="flex items-baseline justify-between gap-3 mb-1.5">
                   <h3 className="text-sm sm:text-base font-bold text-ink-1">
                     {meta.name}
@@ -66,10 +50,10 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
                     <span
                       className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full ${
                         band === 'high'
-                          ? 'bg-orange-100 text-orange-700 border border-orange-200'
+                          ? 'border border-ink-1 bg-papper text-ink-1'
                           : band === 'low'
                           ? 'bg-papper-2 text-ink-2 border border-kant'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'border border-kant-stark bg-papper text-ink-2'
                       }`}
                     >
                       {BAND_LABELS[band]}
@@ -83,31 +67,22 @@ export default function BigFiveChart({ scores }: BigFiveChartProps) {
                 <div className="relative h-3 bg-papper-2 rounded-full overflow-hidden">
                   {/* Skala-markörer */}
                   <div className="absolute inset-0 flex pointer-events-none">
-                    <div className="flex-1 border-r border-white/60" />
-                    <div className="flex-1 border-r border-white/60" />
+                    <div className="flex-1 border-r border-papper" />
+                    <div className="flex-1 border-r border-papper" />
                     <div className="flex-1" />
                   </div>
-                  <motion.div
-                    className="h-full rounded-full"
-                    style={{
-                      background:
-                        'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)',
-                    }}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${score}%` }}
-                    transition={{ duration: 0.8, delay: 0.2 + idx * 0.08, ease: 'easeOut' }}
-                  />
+                  <div className="h-full rounded-full bg-koppar" style={{ width: `${score}%` }} />
                 </div>
 
                 <div className="flex items-center justify-between mt-1 text-[10px] text-ink-3">
                   <span>{meta.poles.low}</span>
                   <span>{meta.poles.high}</span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

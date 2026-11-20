@@ -24,7 +24,7 @@ import { kortDatum } from '@/lib/traning/rubrik'
 import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
 import { deduktivPassVy, hamtaDeduktivPass } from '@/lib/tester/pass-deduktiv.server'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
-import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
+import Steg2Trana from '@/components/session/steg2/Steg2Trana'
 import { hamtaSteg2Pass, steg2PassVy } from '@/lib/tester/steg2/pass.server'
 import { hamtaNivakoll, nivakollVy } from '@/lib/nivakoll/motor.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
@@ -93,9 +93,15 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
       return <DeduktivTrana vy={deduVy} forklaringEfterSvar={installningar.forklaring_efter_svar} harNivakoll={nivakoll != null} datum={kortDatum(dag)} />
     }
     // Passen i testplanens steg 2 har samma adress.
-    const s2 = await hamtaSteg2Pass(admin, userId, sessionId)
+    // Sessionsramen (plan-testflode-2026-11-20, etapp 4): inställningen läses
+    // samtidigt, så att träningen inte väntar en rundtur till.
+    const [s2, s2Installningar] = await Promise.all([hamtaSteg2Pass(admin, userId, sessionId), lasTestInstallningar(admin, userId)])
     const s2Vy = s2 ? steg2PassVy(s2) : null
-    if (s2Vy) return <Steg2PassFlode vy={s2Vy} />
+    if (s2Vy) {
+      const installningar = s2Installningar
+      const dag = s2?.completed_at ? dagSthlm(s2.completed_at) : dagSthlm()
+      return <Steg2Trana kind={s2Vy.kind} vy={s2Vy} forklaringEfterSvar={installningar.forklaring_efter_svar} datum={kortDatum(dag)} />
+    }
     // Nivåkollen för de andra testtyperna har samma adress (testplanen steg 1).
     const koll = await hamtaNivakoll(admin, userId, sessionId)
     const kollVy = koll ? nivakollVy(koll) : null

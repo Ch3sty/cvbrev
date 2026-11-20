@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { CheckCircle2, AlertTriangle, Briefcase } from '@/components/illustrations/RumIkoner';
 import {
   DIMENSION_META,
@@ -25,31 +24,19 @@ export default function DimensionCard({
   const text = DIMENSION_TEXTS[dimension][band];
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="bg-papper rounded-3xl border border-kant overflow-hidden"
-      style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}
-    >
+    <section className="steg s2 overflow-hidden rounded-2xl border border-kant bg-papper" data-index={index}>
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-1">
+            <div className="mb-1 text-ey uppercase text-ink-3">
               {meta.name}
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
+            <h3 className="font-display text-lg font-bold leading-tight text-ink-1 sm:text-xl">
               {text.headline}
             </h3>
           </div>
           <div className="flex-shrink-0 text-right">
-            <div
-              className="inline-flex items-center justify-center px-3 py-1.5 rounded-2xl text-white font-bold text-sm tabular-nums"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 4px 12px -3px rgba(220, 38, 38, 0.4)',
-              }}
-            >
+            <div className="inline-flex items-center justify-center rounded-xl border border-kant bg-papper-2 px-3 py-1.5 font-display text-lg font-bold tabular-nums text-ink-1">
               {score}
             </div>
             <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-3 mt-1">
@@ -63,32 +50,32 @@ export default function DimensionCard({
         </p>
 
         <div className="grid sm:grid-cols-2 gap-3 mb-4">
-          <div className="rounded-2xl bg-emerald-50/60 border border-emerald-100 p-3">
+          <div className="rounded-xl bg-positiv-mjuk p-3">
             <div className="flex items-center gap-1.5 mb-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" strokeWidth={2.5} />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+              <CheckCircle2 className="h-3.5 w-3.5 text-positiv" strokeWidth={2.5} />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-positiv">
                 Styrkor
               </span>
             </div>
             <ul className="space-y-1">
               {text.strengths.map((s, i) => (
-                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-emerald-600 before:font-bold">
+                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-positiv before:font-bold">
                   {s}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-2xl bg-amber-50/60 border border-amber-100 p-3">
+          <div className="rounded-xl bg-papper-2 p-3">
             <div className="flex items-center gap-1.5 mb-1.5">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" strokeWidth={2.5} />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
+              <AlertTriangle className="h-3.5 w-3.5 text-ink-2" strokeWidth={2.5} />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-ink-2">
                 Att vara medveten om
               </span>
             </div>
             <ul className="space-y-1">
               {text.watchOuts.map((w, i) => (
-                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-amber-600 before:font-bold">
+                <li key={i} className="text-xs sm:text-sm text-ink-2 leading-snug pl-3 relative before:content-['•'] before:absolute before:left-0 before:text-ink-3 before:font-bold">
                   {w}
                 </li>
               ))}
@@ -96,10 +83,10 @@ export default function DimensionCard({
           </div>
         </div>
 
-        <div className="rounded-2xl bg-orange-50/60 border border-orange-100 p-3">
+        <div className="rounded-xl bg-ton p-3">
           <div className="flex items-center gap-1.5 mb-1.5">
-            <Briefcase className="w-3.5 h-3.5 text-orange-600" strokeWidth={2.5} />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-orange-700">
+            <Briefcase className="h-3.5 w-3.5 text-ton-ink" strokeWidth={2.5} />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-ton-ink">
               I arbetslivet
             </span>
           </div>
@@ -108,6 +95,6 @@ export default function DimensionCard({
           </p>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

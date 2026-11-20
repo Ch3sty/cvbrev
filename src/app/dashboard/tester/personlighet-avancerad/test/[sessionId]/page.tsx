@@ -1,35 +1,18 @@
-'use client';
+// Personlighetstestet i sessionsramen (plan-testflode-2026-11-20, etapp 4).
+// De sparade svaren läses på servern, så att första påståendet målas ur
+// första HTML utan laddskelett (LCP, CLS 0). Utan svar från servern hämtar
+// vyn själv som förut.
 
-import { useEffect, useState } from 'react';
-import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import TestSessionView from '@/components/personalityTest/TestSessionView';
-import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad';
+import { redirect } from 'next/navigation'
+import TestSessionView from '@/components/personalityTest/TestSessionView'
+import { ITEMS_AVANCERAD } from '@/lib/personalityTest/itemsAvancerad'
+import { lasPersonlighetSvar } from '@/lib/personalityTest/sparade.server'
 
-interface PageProps {
-  params: Promise<{ sessionId: string }>;
-}
+const BAS = '/dashboard/tester/personlighet-avancerad/test'
 
-export default function PersonlighetAvanceradTestPage({ params }: PageProps) {
-  const [sessionId, setSessionId] = useState<string | null>(null);
-
-  useEffect(() => {
-    params.then((p) => setSessionId(p.sessionId));
-  }, [params]);
-
-  if (!sessionId) {
-    return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-6">
-        <LoadingSkeleton variant="card" label="Testet laddas" />
-      </div>
-    );
-  }
-
-  return (
-    <TestSessionView
-      sessionId={sessionId}
-      testType="personlighet-avancerad"
-      items={ITEMS_AVANCERAD}
-      resultsBasePath="/dashboard/tester/personlighet-avancerad/test"
-    />
-  );
+export default async function PersonlighetAvanceradTestPage({ params }: { params: Promise<{ sessionId: string }> }) {
+  const { sessionId } = await params
+  const sparade = await lasPersonlighetSvar(sessionId)
+  if (sparade?.completed) redirect(`${BAS}/${sessionId}/results`)
+  return <TestSessionView sessionId={sessionId} testType="personlighet-avancerad" items={ITEMS_AVANCERAD} resultsBasePath={BAS} sparade={sparade} />
 }

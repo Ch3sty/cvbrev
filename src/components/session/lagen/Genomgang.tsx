@@ -33,9 +33,13 @@ export interface GenomgangProps<U extends RamUppgift> {
   budgetPerUppgift?: number | null
   sessionId: string | null
   onStang: () => void
+  /** Sista uppgiftens knapp i stället för "Till resultatet" (I-provet: nästa deltest), etapp 4. */
+  sista?: { text: string; onClick: () => void } | null
+  /** Undertiteln i stället för "[läget], genomgång" (I-provet: deltestet). */
+  undertitel?: string
 }
 
-export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, poster, start = 0, budgetPerUppgift = null, sessionId, onStang }: GenomgangProps<U>) {
+export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, poster, start = 0, budgetPerUppgift = null, sessionId, onStang, sista: sistaKnapp = null, undertitel }: GenomgangProps<U>) {
   const [pos, setPos] = useState(() => Math.max(0, Math.min(start, poster.length - 1)))
   const p = poster[pos]
   if (!p) return null
@@ -58,7 +62,7 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
     <SessionsRam
       lage={lage}
       titel={titel}
-      undertitel={SESSION.genomgangUndertitel(lage)}
+      undertitel={undertitel ?? SESSION.genomgangUndertitel(lage)}
       form={ritare.form}
       raknare={{ nr: pos + 1, antal }}
       framsteg={(pos + 1) / antal}
@@ -69,8 +73,8 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
       fot={{
         vanster: { typ: 'tillbaka', onClick: () => setPos((x) => Math.max(0, x - 1)), disabled: pos === 0 },
         primar: {
-          text: sista ? SESSION.knapp.tillResultatet : SESSION.knapp.nasta,
-          onClick: sista ? onStang : () => setPos((x) => Math.min(antal - 1, x + 1)),
+          text: sista ? (sistaKnapp?.text ?? SESSION.knapp.tillResultatet) : SESSION.knapp.nasta,
+          onClick: sista ? (sistaKnapp?.onClick ?? onStang) : () => setPos((x) => Math.min(antal - 1, x + 1)),
           data: 'genomgang-nasta',
         },
       }}
@@ -82,6 +86,7 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
           antal={antal}
           vald={p.valt}
           facit={p.facit.ratt}
+          facitData={p.facit.data}
           last
           forklaring={ritare.forklaringIUppgift ? forklaringen : undefined}
         />

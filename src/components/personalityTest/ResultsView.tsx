@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Home, RotateCcw } from '@/components/illustrations/RumIkoner';
 
@@ -136,7 +135,7 @@ export default function ResultsView({
     <>
       {vagg}
       <Golv>
-      <div className="w-full max-w-3xl space-y-5 sm:space-y-6">
+      <div className="motion w-full max-w-3xl space-y-5 sm:space-y-6">
         <BigFiveChart scores={scores} />
 
         {ORDER.map((dim, i) => (
@@ -150,12 +149,7 @@ export default function ResultsView({
         )}
 
         {/* Foten: vyns enda kopparknapp. */}
-        <motion.section
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="flex flex-col gap-3 sm:flex-row"
-        >
+        <section className="steg s4 flex flex-col gap-3 sm:flex-row">
           <Link href={hubPath} className={`${KNAPP_SEKUNDAR} flex-1 gap-2`}>
             <Home className="h-4 w-4" strokeWidth={2.5} />
             Till testhuben
@@ -164,7 +158,7 @@ export default function ResultsView({
             <RotateCcw className="h-4 w-4" strokeWidth={2.5} />
             Gör om testet
           </Link>
-        </motion.section>
+        </section>
       </div>
       </Golv>
     </>

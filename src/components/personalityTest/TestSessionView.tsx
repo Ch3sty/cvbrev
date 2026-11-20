@@ -1,27 +1,82 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Flag, AlertCircle } from '@/components/illustrations/RumIkoner';
+/**
+ * Personlighetstestet i sessionsramen (plan-testflode-2026-11-20 avsnitt 2,
+ * Personlighet, etapp 4). Samma rutter och kroppar som förut, låsta i
+ * kontrakt-steg2.test.ts:
+ *
+ *   GET  /api/personalityTest/answer?sessionId=  sparade svar, återupptagning
+ *   POST /api/personalityTest/answer {sessionId, questionId, value}
+ *   POST /api/personalityTest/complete {sessionId}
+ *
+ * Ramen i läget personlighet: ingen klocka, räknaren "12 / 50" öppnar
+ * uppgiftsarket, ‹ i foten. Skalan är fem Svarskort (rader på mobil, fem i
+ * rad på dator). Testet saknar rätt svar, så ett tryck är svaret: det sparas
+ * och nästa påstående kommer efter 250 ms (gest ett_tryck). "Nästa" i foten
+ * används bara efter att hon gått tillbaka och är inaktiv tills påståendet är
+ * besvarat. På sista påståendet "Lämna in" med ramens dialog, aktiv först när
+ * allt är besvarat. Profilen räknas på servern som förut.
+ */
 
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import SessionsRam from '@/components/session/SessionsRam';
+import { SESSION } from '@/components/session/copy';
+import { sessionHandelser } from '@/components/session/handelser';
+import { useLamnadSida } from '@/components/session/lagen/gemensamt';
+import type { ArkCell } from '@/components/session/Uppgiftsarket';
 import LikertScale from './LikertScale';
-import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import TestFlowShell from '@/components/tests/shared/TestFlowShell';
-import ConfirmDialog from '@/components/shell/ConfirmDialog';
-import { AVBRYT } from '@/lib/tester/bekrafta';
-import type {
-  LikertValue,
-  PersonalityItem,
-  PersonalityTestType,
-} from '@/lib/personalityTest/types';
+import type { LikertValue, PersonalityItem, PersonalityTestType } from '@/lib/personalityTest/types';
 import { forstaObesvarade, nastaIndex, svarIOrdning } from '@/lib/personalityTest/aterupptag';
 
-/** Testets namn i provskalets topprad. Speglar title i testConfig. */
-const TITLE_BY_TYPE: Record<PersonalityTestType, string> = {
+/** Undertiteln: läget och nivån, som i de andra testen. */
+const UNDERTITEL: Record<PersonalityTestType, string> = {
   'personlighet-grund': 'Personlighetstest, grundnivå',
   'personlighet-avancerad': 'Personlighetstest, avancerad nivå',
+};
+
+const NIVA: Record<PersonalityTestType, string> = { 'personlighet-grund': 'grund', 'personlighet-avancerad': 'avancerad' };
+
+/** POST-kropparna, ordagrant som förut (kontrakt-steg2.test.ts). */
+export const PERSONLIGHET_KROPP = {
+  svar: (sessionId: string, questionId: string, value: LikertValue) => ({ sessionId, questionId, value }),
+  klar: (sessionId: string) => ({ sessionId }),
+} as const;
+
+export const personlighetApi = {
+  async sparade(sessionId: string): Promise<{ completed: boolean; answers: unknown } | null> {
+    try {
+      const res = await fetch(`/api/personalityTest/answer?sessionId=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
+      return res.ok ? await res.json() : null;
+    } catch {
+      return null;
+    }
+  },
+  async svara(sessionId: string, questionId: string, value: LikertValue): Promise<boolean> {
+    try {
+      const res = await fetch('/api/personalityTest/answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(PERSONLIGHET_KROPP.svar(sessionId, questionId, value)),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  },
+  async lamnaIn(sessionId: string): Promise<{ ok: boolean; fel?: string }> {
+    try {
+      const res = await fetch('/api/personalityTest/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(PERSONLIGHET_KROPP.klar(sessionId)),
+      });
+      const data = await res.json().catch(() => null);
+      return data && (data.success || data.message) ? { ok: true } : { ok: false, fel: data?.error };
+    } catch {
+      return { ok: false };
+    }
+  },
 };
 
 interface TestSessionViewProps {
@@ -29,409 +84,235 @@ interface TestSessionViewProps {
   testType: PersonalityTestType;
   items: PersonalityItem[];
   resultsBasePath: string; // ex: '/dashboard/tester/personlighet-grund/test'
+  /** Sparade svar, lästa på servern (sparade.server.ts). Utelämnade: vyn hämtar själv. */
+  sparade?: { answers: unknown[]; completed: boolean } | null;
 }
 
-export default function TestSessionView({
-  sessionId,
-  testType,
-  items,
-  resultsBasePath,
-}: TestSessionViewProps) {
+const VIDARE_MS = 250;
+
+export default function TestSessionView({ sessionId, testType, items, resultsBasePath, sparade: franServern = null }: TestSessionViewProps) {
   const router = useRouter();
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [answers, setAnswers] = useState<(LikertValue | null)[]>(
-    () => Array(items.length).fill(null)
-  );
-  // Sparade svar hämtas från servern vid mount, så att en omladdning
-  // fortsätter vid första obesvarade i stället för påstående 1.
-  const [loaded, setLoaded] = useState(false);
+  const start = useMemo(() => {
+    if (!franServern) return null;
+    const s = svarIOrdning(items, franServern.answers as never);
+    return { svar: s, forsta: forstaObesvarade(s) };
+    // Bara vid första renderingen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const [idx, setIdx] = useState(start?.forsta ?? 0);
+  const [svar, setSvar] = useState<(LikertValue | null)[]>(() => start?.svar ?? Array(items.length).fill(null));
+  const [laddat, setLaddat] = useState(Boolean(start));
+  const [besokta, setBesokta] = useState<Set<number>>(() => new Set(Array.from({ length: (start?.forsta ?? 0) + 1 }, (_, i) => i)));
   // Låset gäller från tryck tills sparningen bekräftats och vyn gått vidare,
   // så att ett snabbt andra tryck aldrig landar på samma påstående.
-  const lockRef = useRef(false);
-  const [locked, setLocked] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
-  const [showFinishConfirm, setShowFinishConfirm] = useState(false);
-  const [fragarAvbryt, setFragarAvbryt] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const lasRef = useRef(false);
+  const [last, setLast] = useState(false);
+  const [sparfel, setSparfel] = useState(false);
+  const [lamnaInOppen, setLamnaInOppen] = useState(false);
+  const [lamnar, setLamnar] = useState(false);
+  const [lamnaFel, setLamnaFel] = useState(false);
+  const ankom = useRef(Date.now());
+  const sessionStart = useRef(Date.now());
+  const via = useRef<'tap' | 'keyboard'>('tap');
+  const bas = useMemo(() => ({ test_kind: 'personlighet', lage: 'personlighet' as const, niva: NIVA[testType], format: null }), [testType]);
 
+  // Sparade svar hämtas vid start, så att en omladdning fortsätter vid första
+  // obesvarade. Lästa på servern: bara test_session_started.
   useEffect(() => {
+    if (start) {
+      sessionHandelser.startad(bas, { session_id: sessionId, antal: items.length, tid_budget_s: null, resumed: start.svar.some((s) => s !== null) });
+      return;
+    }
     let avbruten = false;
-    (async () => {
-      try {
-        const res = await fetch(
-          `/api/personalityTest/answer?sessionId=${encodeURIComponent(sessionId)}`,
-          { cache: 'no-store' }
-        );
-        if (res.ok) {
-          const data = await res.json();
-          if (avbruten) return;
-          if (data.completed) {
-            router.replace(`${resultsBasePath}/${sessionId}/results`);
-            return;
-          }
-          const sparade = svarIOrdning(items, data.answers);
-          setAnswers(sparade);
-          setCurrentIdx(forstaObesvarade(sparade));
-        }
-      } catch (error) {
-        console.error('Failed to load answers:', error);
-      } finally {
-        if (!avbruten) setLoaded(true);
+    void (async () => {
+      const data = await personlighetApi.sparade(sessionId);
+      if (avbruten) return;
+      if (data?.completed) {
+        router.replace(`${resultsBasePath}/${sessionId}/results`);
+        return;
       }
+      const sparade = svarIOrdning(items, (data?.answers ?? null) as never);
+      const forsta = forstaObesvarade(sparade);
+      setSvar(sparade);
+      setIdx(forsta);
+      setBesokta(new Set(Array.from({ length: forsta + 1 }, (_, i) => i)));
+      setLaddat(true);
+      ankom.current = Date.now();
+      sessionHandelser.startad(bas, {
+        session_id: sessionId,
+        antal: items.length,
+        tid_budget_s: null,
+        resumed: sparade.some((s) => s !== null),
+      });
     })();
     return () => {
       avbruten = true;
     };
-  }, [sessionId, items, resultsBasePath, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId, items, resultsBasePath, router, bas]);
 
-  const item = items[currentIdx];
-  const answeredCount = useMemo(
-    () => answers.filter((a) => a !== null).length,
-    [answers]
-  );
-  const allAnswered = answeredCount === items.length;
+  const besvarade = useMemo(() => svar.filter((a) => a !== null).length, [svar]);
+  const allaBesvarade = besvarade === items.length;
+  const sista = idx === items.length - 1;
 
-  const saveAnswer = useCallback(
-    async (questionId: string, value: LikertValue): Promise<boolean> => {
-      try {
-        const res = await fetch('/api/personalityTest/answer', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId, questionId, value }),
-        });
-        return res.ok;
-      } catch (error) {
-        console.error('Failed to save answer:', error);
-        return false;
-      }
-    },
-    [sessionId]
+  const avbrottVidLamning = useLamnadSida(laddat && !lamnar, () =>
+    sessionHandelser.avbruten(bas, { session_id: sessionId, index: idx, besvarade, elapsed_ms: Date.now() - sessionStart.current })
   );
 
-  const handleSelect = useCallback(
-    async (value: LikertValue) => {
-      if (lockRef.current || !loaded) return;
-      lockRef.current = true;
-      setLocked(true);
-      setSaveError(null);
+  const ga = useCallback((till: number) => {
+    if (lasRef.current || till < 0 || till >= items.length) return;
+    setIdx(till);
+    setBesokta((b) => new Set(b).add(till));
+    ankom.current = Date.now();
+    via.current = 'tap';
+  }, [items.length]);
 
-      const idx = currentIdx;
-      const previous = answers[idx];
-      const next = [...answers];
-      next[idx] = value;
-      setAnswers(next);
-
-      const ok = await saveAnswer(items[idx].id, value);
+  const valj = useCallback(
+    async (i: number) => {
+      if (lasRef.current || !laddat) return;
+      const varde = (i + 1) as LikertValue;
+      lasRef.current = true;
+      setLast(true);
+      setSparfel(false);
+      const fran = idx;
+      const forra = svar[fran];
+      const nya = [...svar];
+      nya[fran] = varde;
+      setSvar(nya);
+      const ok = await personlighetApi.svara(sessionId, items[fran].id, varde);
       if (!ok) {
-        setAnswers((cur) => {
-          const back = [...cur];
-          back[idx] = previous;
-          return back;
+        setSvar((cur) => {
+          const bak = [...cur];
+          bak[fran] = forra;
+          return bak;
         });
-        setSaveError('Svaret sparades inte. Försök igen.');
-        lockRef.current = false;
-        setLocked(false);
+        setSparfel(true);
+        lasRef.current = false;
+        setLast(false);
         return;
       }
-
-      // Vidare till nästa obesvarade, låset släpps först när vyn bytt påstående
+      sessionHandelser.besvarad(bas, { session_id: sessionId, index: fran, elapsed_ms: Date.now() - ankom.current, via: via.current, vet_inte: false });
+      // Ett tryck går vidare: till nästa obesvarade efter 250 ms. På sista
+      // påståendet står vyn kvar med Lämna in.
       setTimeout(() => {
-        setCurrentIdx(nastaIndex(next, idx));
-        lockRef.current = false;
-        setLocked(false);
-      }, 200);
+        const till = nastaIndex(nya, fran);
+        lasRef.current = false;
+        setLast(false);
+        if (till !== fran) {
+          setIdx(till);
+          setBesokta((b) => new Set(b).add(till));
+          ankom.current = Date.now();
+        }
+        via.current = 'tap';
+      }, VIDARE_MS);
     },
-    [answers, currentIdx, items, loaded, saveAnswer]
+    [idx, svar, items, laddat, sessionId, bas]
   );
 
-  const handlePrev = () => {
-    if (!lockRef.current && currentIdx > 0) setCurrentIdx(currentIdx - 1);
-  };
-
-  const handleNext = () => {
-    if (!lockRef.current && currentIdx < items.length - 1) setCurrentIdx(currentIdx + 1);
-  };
-
-  const handleFinish = async () => {
-    setSubmitError(null);
-    try {
-      const response = await fetch('/api/personalityTest/complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId }),
-      });
-      const data = await response.json();
-      if (data.success || data.message) {
-        router.push(`${resultsBasePath}/${sessionId}/results`);
-      } else {
-        setSubmitError(data.error ?? 'Något gick fel');
-      }
-    } catch (error) {
-      console.error('Failed to finish test:', error);
-      setSubmitError('Kunde inte spara resultatet. Försök igen.');
+  const lamnaIn = async () => {
+    setLamnar(true);
+    setLamnaFel(false);
+    const r = await personlighetApi.lamnaIn(sessionId);
+    if (!r.ok) {
+      setLamnar(false);
+      setLamnaFel(true);
+      setLamnaInOppen(false);
+      return;
     }
+    avbrottVidLamning();
+    sessionHandelser.klar(bas, { session_id: sessionId, besvarade, elapsed_ms: Date.now() - sessionStart.current, over_tid: false });
+    router.push(`${resultsBasePath}/${sessionId}/results`);
   };
 
-  // Tangentbordsgenvägar: siffrorna 1-5
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') handlePrev();
-      if (e.key === 'ArrowRight') handleNext();
-      const num = parseInt(e.key, 10);
-      if (num >= 1 && num <= 5) {
-        handleSelect(num as LikertValue);
-      }
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIdx, handleSelect]);
+  const celler: ArkCell[] = items.map((_, i) =>
+    i === idx ? 'aktuell' : svar[i] !== null ? 'besvarad' : besokta.has(i) && i < Math.max(...besokta) ? 'hoppad' : 'kvar'
+  );
 
-  if (!loaded) {
+  const item = items[idx];
+  const titel = 'Personlighet';
+  const undertitel = UNDERTITEL[testType];
+
+  if (!laddat || !item) {
     return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-6">
-        <LoadingSkeleton variant="card" label="Testet laddas" />
-      </div>
+      <SessionsRam
+        lage="personlighet"
+        titel={titel}
+        undertitel={undertitel}
+        form="mellan"
+        raknare={null}
+        framsteg={0}
+        bekraftaAvbryt={false}
+        onAvbryt={() => router.push('/dashboard/tester')}
+        fot={null}
+      >
+        <p aria-busy="true" className="loading-thread rounded-xl border border-kant bg-papper p-4 text-sm text-ink-3">
+          {SESSION.laddar.session}
+        </p>
+      </SessionsRam>
     );
   }
 
   return (
-    <TestFlowShell
-      title={TITLE_BY_TYPE[testType]}
-      onExit={() => setFragarAvbryt(true)}
-      exitLabel={AVBRYT.aria}
-      progressPercent={(answeredCount / items.length) * 100}
-      meter={
-        <div className="flex items-center justify-between gap-3 text-xs sm:text-sm">
-          <span className="font-bold tabular-nums text-ink-1">
-            Fråga {currentIdx + 1}{' '}
-            <span className="font-normal text-ink-3">av {items.length}</span>
-          </span>
-          <span className="rounded-full border border-orange-100 bg-orange-50 px-2 py-0.5 font-semibold tabular-nums text-orange-700">
-            {answeredCount} svar
-          </span>
-        </div>
+    <SessionsRam
+      lage="personlighet"
+      titel={titel}
+      undertitel={undertitel}
+      form="mellan"
+      raknare={{ nr: idx + 1, antal: items.length }}
+      framsteg={besvarade / items.length}
+      nyckel={item.id}
+      bekraftaAvbryt={!lamnar}
+      onAvbryt={() => {
+        avbrottVidLamning();
+        sessionHandelser.avbruten(bas, { session_id: sessionId, index: idx, besvarade, elapsed_ms: Date.now() - sessionStart.current });
+        router.push('/dashboard/tester');
+      }}
+      lamnaIn={{
+        open: lamnaInOppen,
+        obesvarade: items.length - besvarade,
+        onBekrafta: lamnaIn,
+        onStang: () => setLamnaInOppen(false),
+        text: 'Alla påståenden är besvarade. Vi räknar fram din profil och du ser den direkt.',
+      }}
+      ark={{ celler, onValj: (i) => ga(i) }}
+      tangent={last || lamnar ? null : { antal: 5, onValj: (i) => ((via.current = 'keyboard'), void valj(i)) }}
+      rad={
+        sparfel || lamnaFel ? (
+          <p role="alert" className="rounded-xl border border-kant bg-papper px-3.5 py-2.5 text-sm leading-5 text-ink-1">
+            {lamnaFel ? 'Profilen gick inte att räkna fram. Svaren är sparade, försök igen.' : 'Svaret sparades inte. Tryck igen.'}
+          </p>
+        ) : null
       }
-      footer={
-        <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            onClick={handlePrev}
-            disabled={currentIdx === 0}
-            aria-label="Föregående påstående"
-            className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-kant bg-papper text-ink-2 transition-colors hover:border-orange-300 hover:text-orange-700 disabled:cursor-not-allowed disabled:opacity-40 touch-manipulation"
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
-          </button>
-
-          {currentIdx === items.length - 1 ? (
-            <button
-              onClick={() => setShowFinishConfirm(true)}
-              disabled={!allAnswered}
-              title={allAnswered ? 'Slutför testet' : 'Svara på alla frågor för att slutföra'}
-              className={`${KNAPP_PRIMAR_SMAL} flex-1 disabled:cursor-not-allowed touch-manipulation`}
-            >
-              <Flag className="h-4 w-4" strokeWidth={2.5} />
-              Lämna in
-            </button>
-          ) : (
-            <button
-              onClick={handleNext}
-              className={`${KNAPP_PRIMAR_SMAL} flex-1 touch-manipulation`}
-            >
-              Nästa
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-            </button>
-          )}
-        </div>
-      }
+      fot={{
+        vanster: { typ: 'tillbaka', disabled: idx === 0 || last, onClick: () => ga(idx - 1) },
+        primar: sista
+          ? {
+              text: SESSION.knapp.lamnaIn,
+              onClick: () => setLamnaInOppen(true),
+              disabled: !allaBesvarade || last,
+              laddar: lamnar,
+              data: 'lamna-in',
+            }
+          : {
+              text: SESSION.knapp.nasta,
+              onClick: () => ga(idx + 1),
+              disabled: svar[idx] === null || last,
+              data: 'nasta',
+            },
+      }}
     >
-        <div className="space-y-5 sm:space-y-6">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIdx}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.22 }}
-              className="space-y-5 sm:space-y-6"
-            >
-              <div className="text-center">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-2">
-                  Påstående {currentIdx + 1} av {items.length}
-                </div>
-                <div className="bg-papper border border-orange-100 rounded-3xl p-6 sm:p-8 md:p-10 max-w-2xl mx-auto"
-                  style={{ boxShadow: '0 8px 24px -12px rgba(249, 115, 22, 0.2)' }}>
-                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-ink-1 leading-relaxed">
-                    {item.text}
-                  </p>
-                </div>
-                <p className="text-xs sm:text-sm text-ink-3 mt-3">
-                  Välj det alternativ som stämmer bäst för dig
-                </p>
-              </div>
-
-              {/* Under sparningen tar knapparna inte emot tryck, men ser likadana ut. */}
-              <div
-                className={locked ? 'pointer-events-none' : undefined}
-                aria-busy={locked}
-              >
-                <LikertScale value={answers[currentIdx]} onChange={handleSelect} />
-              </div>
-              {saveError && (
-                <p role="alert" className="text-center text-sm text-red-700">
-                  {saveError}
-                </p>
-              )}
-            </motion.div>
-          </AnimatePresence>
-
-
-          {/* Visuell ruta som visar att man kan navigera */}
-          <QuestionNavigationDots
-            total={items.length}
-            currentIdx={currentIdx}
-            answers={answers}
-            onNavigate={(i) => {
-              if (!lockRef.current) setCurrentIdx(i);
-            }}
-          />
+      <div className="flex flex-col gap-4 lg:gap-5" data-personlighet>
+        <div className="rounded-xl border border-kant bg-papper px-4 py-5 lg:px-6 lg:py-7" data-pastaende>
+          <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">
+            Påstående {idx + 1} av {items.length}
+          </p>
+          <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga mt-1.5 text-ink-1 outline-none">
+            {item.text}
+          </h2>
+          <p className="mt-2 text-sm leading-5 text-ink-2">Välj det som stämmer bäst för dig. Det finns inga rätt eller fel.</p>
         </div>
-
-      {/* Finish-modal */}
-      <AnimatePresence>
-        {showFinishConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
-            onClick={() => setShowFinishConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 8 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-papper rounded-3xl max-w-md w-full overflow-hidden"
-              style={{ boxShadow: '0 24px 60px -16px rgba(220, 38, 38, 0.4)' }}
-            >
-              <div
-                className="absolute top-0 inset-x-0 h-1"
-                style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }}
-              />
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <div
-                    className="flex-shrink-0 w-11 h-11 rounded-2xl flex items-center justify-center text-white"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.4)',
-                    }}
-                  >
-                    <Flag className="w-5 h-5" strokeWidth={2.25} />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
-                      Slutför testet?
-                    </h3>
-                    <p className="text-sm text-ink-2 mt-1">
-                      Du har besvarat <span className="font-bold text-ink-1">{answeredCount}</span> av{' '}
-                      <span className="font-bold text-ink-1">{items.length}</span> påståenden. Vi
-                      beräknar din profil och du kan se resultatet direkt.
-                    </p>
-                  </div>
-                </div>
-
-                {submitError && (
-                  <div className="mb-3 px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-sm text-red-700 inline-flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    <span>{submitError}</span>
-                  </div>
-                )}
-
-                <div className="flex gap-2 sm:gap-3 mt-5">
-                  <button
-                    onClick={() => setShowFinishConfirm(false)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-kant bg-papper text-ink-2 font-semibold text-sm hover:border-orange-300 hover:text-orange-700 transition-colors min-h-[48px]"
-                  >
-                    Tillbaka
-                  </button>
-                  <button
-                    onClick={handleFinish}
-                    className="flex-1 px-4 py-3 rounded-xl text-white font-bold text-sm transition-all hover:-translate-y-0.5 min-h-[48px]"
-                    style={{
-                      background: 'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
-                      boxShadow: '0 8px 20px -6px rgba(220, 38, 38, 0.45)',
-                    }}
-                  >
-                    Se min profil
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <ConfirmDialog
-        open={fragarAvbryt}
-        onCancel={() => setFragarAvbryt(false)}
-        onConfirm={() => {
-          setFragarAvbryt(false);
-          router.push('/dashboard/tester');
-        }}
-        title={AVBRYT.titel('test')}
-        description={AVBRYT.text('test')}
-        confirmLabel={AVBRYT.bekrafta}
-        cancelLabel={AVBRYT.fortsatt}
-        destructive
-      />
-    </TestFlowShell>
-  );
-}
-
-function QuestionNavigationDots({
-  total,
-  currentIdx,
-  answers,
-  onNavigate,
-}: {
-  total: number;
-  currentIdx: number;
-  answers: (LikertValue | null)[];
-  onNavigate: (idx: number) => void;
-}) {
-  return (
-    <div className="bg-papper rounded-2xl border border-kant p-3 sm:p-4">
-      <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-3 mb-2 text-center">
-        Översikt, välj ett påstående för att hoppa dit
+        <LikertScale value={svar[idx]} onChange={(v) => void valj(v - 1)} disabled={last} />
       </div>
-      <div className="grid grid-cols-10 sm:grid-cols-15 gap-1">
-        {Array.from({ length: total }).map((_, i) => {
-          const isCurrent = i === currentIdx;
-          const isAnswered = answers[i] !== null;
-          return (
-            <button
-              key={i}
-              onClick={() => onNavigate(i)}
-              className={`relative min-h-11 rounded-md text-[9px] sm:text-[10px] font-bold tabular-nums transition-all touch-manipulation ${
-                isCurrent
-                  ? 'ring-2 ring-orange-500 ring-offset-1 text-white'
-                  : isAnswered
-                  ? 'text-white hover:scale-105'
-                  : 'bg-papper-2 text-ink-3 hover:bg-kant'
-              }`}
-              style={
-                isAnswered || isCurrent
-                  ? { background: 'linear-gradient(135deg, #F97316, #DC2626)' }
-                  : undefined
-              }
-              aria-label={`Gå till påstående ${i + 1}`}
-            >
-              {i + 1}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    </SessionsRam>
   );
 }

@@ -1,6 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+/**
+ * Skalan i personlighetstestet som Svarskort (plan-testflode-2026-11-20
+ * avsnitt 2 och 3.1, etapp 4): fem rader på mobil, fem lika breda i rad på
+ * dator. Designsystemets färger, ingen gradient och inget rörelsebibliotek.
+ * Brickan bär siffran (1 till 5) i stället för en bokstav; vald är bläck.
+ */
+
 import type { LikertValue } from '@/lib/personalityTest/types';
 
 interface LikertScaleProps {
@@ -19,63 +25,36 @@ const OPTIONS: { value: LikertValue; label: string }[] = [
 
 export default function LikertScale({ value, onChange, disabled }: LikertScaleProps) {
   return (
-    <div className="w-full">
-      {/* Mobile: vertikal stack med label bredvid siffran. Desktop (sm+): horisontell 5-kolumns grid. */}
-      <div className="flex flex-col gap-2 sm:grid sm:grid-cols-5 sm:gap-2">
-        {OPTIONS.map((option, i) => {
-          const isSelected = value === option.value;
-          return (
-            <motion.button
-              key={option.value}
-              type="button"
-              onClick={() => onChange(option.value)}
-              disabled={disabled}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, delay: 0.04 * i }}
-              className={`relative flex items-center sm:flex-col sm:justify-center gap-3 sm:gap-1.5 rounded-2xl p-3 sm:p-4 min-h-[56px] sm:min-h-[100px] transition-all touch-manipulation
-                ${
-                  isSelected
-                    ? 'border-2 text-white'
-                    : 'border bg-papper text-ink-2 hover:border-orange-300 hover:-translate-y-0.5'
-                }
-                ${disabled ? 'opacity-60 cursor-not-allowed' : ''}
-              `}
-              style={
-                isSelected
-                  ? {
-                      borderColor: 'transparent',
-                      background:
-                        'linear-gradient(135deg, #F97316, #DC2626, #BE185D)',
-                      boxShadow: '0 8px 24px -6px rgba(220, 38, 38, 0.5)',
-                    }
-                  : { borderColor: '#E2E8F0' }
-              }
-              aria-pressed={isSelected}
-              aria-label={`${option.label} (${option.value})`}
+    <div role="radiogroup" aria-label="Hur väl stämmer påståendet?" className="flex flex-col gap-2 lg:grid lg:grid-cols-5" data-likert>
+      {OPTIONS.map((o) => {
+        const vald = value === o.value;
+        return (
+          <button
+            key={o.value}
+            type="button"
+            role="radio"
+            aria-checked={vald}
+            aria-label={`${o.label} (${o.value})`}
+            disabled={disabled}
+            onClick={() => onChange(o.value)}
+            data-tillstand={vald ? 'vald' : 'neutral'}
+            data-svar={o.value}
+            className={`sess-kort flex min-h-[52px] w-full touch-manipulation items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left text-base font-medium leading-[22px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default lg:min-h-[104px] lg:flex-col lg:justify-center lg:gap-2 lg:px-2 lg:text-center lg:text-sm lg:leading-[18px] ${
+              vald ? 'border-ink-1 bg-papper shadow-[inset_0_0_0_1px_var(--ink-1)]' : 'border-kant bg-papper hover:border-kant-stark'
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className={`sess-bricka inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-bold leading-4 lg:h-8 lg:w-8 lg:text-[14px] ${
+                vald ? 'bg-ink-1 text-papper' : 'bg-papper-2 text-ink-2'
+              }`}
             >
-              {/* Siffran */}
-              <span
-                className={`flex-shrink-0 w-9 h-9 sm:w-auto sm:h-auto rounded-full sm:rounded-none flex items-center justify-center text-lg sm:text-xl font-bold tabular-nums ${
-                  isSelected
-                    ? 'bg-white/20 text-white sm:bg-transparent'
-                    : 'bg-papper-2 text-ink-1 sm:bg-transparent'
-                }`}
-              >
-                {option.value}
-              </span>
-              {/* Label */}
-              <span
-                className={`text-sm sm:text-xs leading-tight text-left sm:text-center flex-1 sm:flex-initial ${
-                  isSelected ? 'text-white sm:text-white/90' : 'text-ink-2 sm:text-ink-3'
-                }`}
-              >
-                {option.label}
-              </span>
-            </motion.button>
-          );
-        })}
-      </div>
+              {o.value}
+            </span>
+            <span className="min-w-0 flex-1 lg:flex-none">{o.label}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

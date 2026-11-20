@@ -22,7 +22,7 @@
 
 import { useEffect, useRef, type ReactNode } from 'react'
 import Link from 'next/link'
-import { IkonFlagga, IkonInfo, IkonKlocka, IkonTillbaka } from '@/components/illustrations/RumSymboler'
+import { IkonFlagga, IkonInfo, IkonKlocka, IkonTillbaka, IkonX } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { scenFor, type ScenId } from './scener'
 import { SESSION, LAGESNAMN } from './copy'
@@ -70,6 +70,11 @@ export interface StartskarmProps {
   efter?: ReactNode
   /** Toppraden i rummet (inline): anroparens egen. */
   topprad?: ReactNode
+  /**
+   * Mitt i en session (I-provets mellanskärm, etapp 4): krysset frågar först,
+   * i stället för tillbaka-länken, och skärmen skjuter ingen test_start_viewed.
+   */
+  onAvbryt?: (() => void) | null
 }
 
 const IKON = [IkonKlocka, IkonInfo, IkonFlagga]
@@ -146,7 +151,7 @@ export default function Startskarm(p: StartskarmProps) {
   const fotRef = useRef<HTMLElement | null>(null)
   const visad = useRef(false)
   useEffect(() => {
-    if (visad.current) return
+    if (visad.current || p.onAvbryt) return
     visad.current = true
     sessionHandelser.startVisad(p.bas, { fortsatt_tillganglig: p.fortsattTillganglig, sparrad: p.sparrad })
     // En gång per montering.
@@ -219,9 +224,15 @@ function FastStart({
   useRamLage(fotRef, harFot)
   const topp = (
     <div className="-mx-1 flex h-14 items-center gap-2 text-vagg-ink">
-      <Link href={p.tillbakaHref ?? '/dashboard/tester'} aria-label={SESSION.start.tillbaka} className="-ml-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px]" data-kryss="">
-        <IkonTillbaka />
-      </Link>
+      {p.onAvbryt ? (
+        <button type="button" onClick={p.onAvbryt} aria-label={SESSION.avbryt.aria} className="-ml-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px]" data-kryss="">
+          <IkonX />
+        </button>
+      ) : (
+        <Link href={p.tillbakaHref ?? '/dashboard/tester'} aria-label={SESSION.start.tillbaka} className="-ml-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px]" data-kryss="">
+          <IkonTillbaka />
+        </Link>
+      )}
       <span className="flex-1 text-center text-[15px] font-semibold tracking-[-.01em]">{LAGESNAMN[p.bas.lage]}</span>
       <span className="w-11" aria-hidden="true" />
     </div>

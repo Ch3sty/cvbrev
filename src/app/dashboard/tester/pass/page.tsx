@@ -27,7 +27,8 @@ import MatrisTrana from '@/components/session/matris/MatrisTrana'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { deduktivNivakollStart, deduktivTranaStart, matrisStart } from './start-etapp3.server'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
-import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
+import Steg2Trana from '@/components/session/steg2/Steg2Trana'
+import { steg2TranaStart } from './start-steg2.server'
 import { steg2Synlig } from '@/lib/tester/steg2Status'
 import { arNivakollKind } from '@/lib/nivakoll/niva'
 import type { Begard } from '@/lib/traning/tillgang'
@@ -108,9 +109,21 @@ export default async function PassStartSida({
   if (typ === 'steg2pass') {
     const kind = forsta(sp.kind)
     if ((kind === 'talserie' || kind === 'spatial' || kind === 'ordforrad') && steg2Synlig(kind)) {
-      await passSida()
+      // Sessionsramen (plan-testflode-2026-11-20, etapp 4): startskärmen först.
+      // Steg2PassFlode står kvar oanvänd till etapp 5.
+      const { userId, supabase } = await passSida()
       const grupp = forsta(sp.grupp)
-      return <Steg2PassFlode key={`${kind}|${grupp ?? ''}`} starta={{ kind, grupp }} />
+      const st = await steg2TranaStart(supabase, testSkrivKlient(), userId, kind, grupp)
+      return (
+        <Steg2Trana
+          key={`${kind}|${grupp ?? ''}`}
+          kind={kind}
+          grupp={grupp}
+          start={st.start}
+          forklaringEfterSvar={st.forklaringEfterSvar}
+          datum={st.datum}
+        />
+      )
     }
   }
   // Deduktivpasset (testplanen steg 1). Sessionsramen, etapp 3:

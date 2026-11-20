@@ -35,8 +35,8 @@ describe('formen på talen och datumen', () => {
     expect(deltaText(0.04)).toBe('0,0')
     expect(mmss(38)).toBe('0:38')
     expect(mmss(68)).toBe('1:08')
-    expect(fragorText([4, 7])).toBe('Fråga 4 och 7')
-    expect(fragorText([2, 4, 7])).toBe('Fråga 2, 4 och 7')
+    expect(fragorText([4, 7])).toBe('Uppgift 4 och 7')
+    expect(fragorText([2, 4, 7])).toBe('Uppgift 2, 4 och 7')
     expect(datumLista(['2026-10-13', '2026-10-20'])).toBe('13 och 20 okt')
     expect(datumLista(['2026-10-27', '2026-11-03'])).toBe('27 okt och 3 nov')
   })
@@ -84,7 +84,7 @@ describe('P4: passet klart, 10 oktober', () => {
   })
 
   it('tempot: fråga 4 och 7 över provets tid, staplarna följer', () => {
-    expect(r.kort.titel).toBe('Fråga 4 och 7 tog över provets tid')
+    expect(r.kort.titel).toBe('Uppgift 4 och 7 tog över provets tid')
     expect(r.kort.text).toContain('Snitt 44 s, provet ger 68.')
     const over = r.kort.staplar.staplar.map((s, i) => (s.over ? i + 1 : 0)).filter(Boolean)
     expect(over).toEqual([4, 7])
@@ -97,7 +97,7 @@ describe('P4: passet klart, 10 oktober', () => {
   it('genomgången: fråga 3 och 8 med misstaget ur banken, sju rätt', () => {
     expect(r.genomgang.missar).toEqual([2, 7])
     expect(r.genomgang.ratt).toBe(7)
-    expect(r.genomgang.rader.map((x) => x.titel)).toEqual(['Fråga 3, fel', 'Fråga 8, fel'])
+    expect(r.genomgang.rader.map((x) => x.titel)).toEqual(['Uppgift 3, fel', 'Uppgift 8, fel'])
     expect(r.genomgang.rader[0].meta).toMatch(/52 s\.$/)
     expect(r.primar).toEqual({ etikett: 'Gå igenom de två missarna', handling: 'genomga' })
   })

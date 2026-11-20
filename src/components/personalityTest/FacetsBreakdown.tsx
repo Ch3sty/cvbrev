@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Microscope, TrendingUp, TrendingDown } from '@/components/illustrations/RumIkoner';
 import {
   DIMENSION_META,
@@ -35,19 +34,14 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
   const bottom = bottomFacets(facetScores, 5);
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: 0.4 }}
-      className="space-y-4"
-    >
+    <section className="steg s4 space-y-4">
       {/* Topp och botten */}
       <div className="grid sm:grid-cols-2 gap-3">
-        <div className="bg-papper rounded-3xl border border-emerald-100 overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-kant bg-papper">
           <div className="p-5">
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+              <TrendingUp className="h-4 w-4 text-positiv" strokeWidth={2.5} />
+              <span className="text-ey uppercase text-positiv">
                 Dina starkaste drag
               </span>
             </div>
@@ -57,7 +51,7 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
                   <span className="font-semibold text-ink-2">
                     {i + 1}. {FACET_META[t.facet].name}
                   </span>
-                  <span className="font-bold tabular-nums px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs">
+                  <span className="rounded-full bg-positiv-mjuk px-2 py-0.5 text-xs font-bold tabular-nums text-positiv">
                     {t.score}
                   </span>
                 </li>
@@ -66,11 +60,11 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
           </div>
         </div>
 
-        <div className="bg-papper rounded-3xl border border-kant overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-kant bg-papper">
           <div className="p-5">
             <div className="flex items-center gap-2 mb-3">
               <TrendingDown className="w-4 h-4 text-ink-3" strokeWidth={2.5} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-2">
+              <span className="text-ey uppercase text-ink-2">
                 Mindre framträdande
               </span>
             </div>
@@ -91,26 +85,17 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
       </div>
 
       {/* Alla 30 facetter grupperade per dimension */}
-      <div className="bg-papper rounded-3xl border border-orange-100 overflow-hidden"
-        style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.18)' }}>
-        <div className="h-1"
-          style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626, #BE185D)' }} />
+      <div className="overflow-hidden rounded-2xl border border-kant bg-papper">
         <div className="p-5 sm:p-7">
           <div className="flex items-start gap-3 mb-5">
-            <div
-              className="flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center text-white"
-              style={{
-                background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.4)',
-              }}
-            >
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-papper-2 text-ink-1">
               <Microscope className="w-5 h-5" strokeWidth={2.25} />
             </div>
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700 mb-0.5">
+              <div className="mb-0.5 text-ey uppercase text-ink-3">
                 Djupgående
               </div>
-              <h2 className="text-lg sm:text-xl font-bold text-ink-1 leading-tight">
+              <h2 className="font-display text-lg font-bold leading-tight text-ink-1 sm:text-xl">
                 Alla 30 facetter
               </h2>
               <p className="text-xs sm:text-sm text-ink-2 mt-1">
@@ -125,7 +110,7 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
               const facets = DIMENSION_FACETS[dim];
               return (
                 <div key={dim}>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-orange-700 mb-2">
+                  <div className="mb-2 text-[11px] font-bold uppercase tracking-wider text-ink-3">
                     {meta.name}
                   </div>
                   <div className="grid sm:grid-cols-2 gap-2">
@@ -142,14 +127,7 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
                             </span>
                           </div>
                           <div className="h-1 bg-papper rounded-full overflow-hidden">
-                            <div
-                              className="h-full rounded-full"
-                              style={{
-                                width: `${score}%`,
-                                background:
-                                  'linear-gradient(90deg, #FB923C, #DC2626)',
-                              }}
-                            />
+                            <div className="h-full rounded-full bg-koppar" style={{ width: `${score}%` }} />
                           </div>
                         </div>
                       );
@@ -161,6 +139,6 @@ export default function FacetsBreakdown({ facetScores }: FacetsBreakdownProps) {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

@@ -68,7 +68,16 @@ export interface SessionsRamProps {
   /** Efter bekräftad avbrytning, eller direkt när bekraftaAvbryt är falskt. */
   onAvbryt: () => void
   /** Lämna in-dialogen, styrd av läget. */
-  lamnaIn?: { open: boolean; obesvarade: number; onBekrafta: () => void | Promise<void>; onStang: () => void } | null
+  lamnaIn?: {
+    open: boolean
+    obesvarade: number
+    onBekrafta: () => void | Promise<void>
+    onStang: () => void
+    /** Egna ord (I-provet: "Avsluta deltestet?"), etapp 4. Utelämnade: "Lämna in?". */
+    titel?: string
+    text?: string
+    bekrafta?: string
+  } | null
   /** Uppgiftsarket, bara i lägen med väg tillbaka. */
   ark?: { celler: ArkCell[]; onValj: (i: number) => void; grupper?: { fran: number; rubrik: string }[] } | null
   /** Bokstäverna markerar alternativ. */
@@ -149,6 +158,22 @@ export default function SessionsRam({
     if (bekraftaAvbryt) setFragarAvbryt((v) => !v)
     else onAvbryt()
   }, [bekraftaAvbryt, onAvbryt])
+
+  // Avbryt-dialogen stängd med Fortsätt eller Esc: dialogen lämnar fokus på
+  // krysset, och då hade Enter direkt efter öppnat den igen. Fokus går till
+  // uppgiftens rubrik i stället, så att Enter trycker på primärknappen
+  // (etapp 4, rättelse från etapp 2).
+  const avbrytVarOppen = useRef(false)
+  useEffect(() => {
+    if (fragarAvbryt) {
+      avbrytVarOppen.current = true
+      return
+    }
+    if (!avbrytVarOppen.current) return
+    avbrytVarOppen.current = false
+    const mal = innehallRef.current?.querySelector<HTMLElement>('[data-uppgift-rubrik]') ?? mainRef.current
+    mal?.focus({ preventScroll: true })
+  }, [fragarAvbryt])
 
   const dialogOppen = fragarAvbryt || arkOppet || Boolean(lamnaIn?.open)
 
@@ -270,7 +295,7 @@ export default function SessionsRam({
         ) : null}
       </header>
 
-      <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <main ref={mainRef} tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain outline-none">
         <div ref={innehallRef} className={`serie-kolumn mx-auto w-full px-4 pb-6 pt-4 lg:pb-10 lg:pt-10 ${kolumn}`}>
           {underlag ? (
             <div className="lg:grid lg:grid-cols-[minmax(0,560px)_minmax(0,400px)] lg:items-start lg:gap-10" data-ram-bred>
@@ -355,9 +380,9 @@ export default function SessionsRam({
       {lamnaIn ? (
         <RamDialog
           open={lamnaIn.open}
-          titel={SESSION.lamnaIn.titel}
-          text={SESSION.lamnaIn.text(lamnaIn.obesvarade)}
-          primar={SESSION.lamnaIn.bekrafta}
+          titel={lamnaIn.titel ?? SESSION.lamnaIn.titel}
+          text={lamnaIn.text ?? SESSION.lamnaIn.text(lamnaIn.obesvarade)}
+          primar={lamnaIn.bekrafta ?? SESSION.lamnaIn.bekrafta}
           lank={SESSION.lamnaIn.fortsatt}
           onPrimar={lamnaIn.onBekrafta}
           onLank={lamnaIn.onStang}

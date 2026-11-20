@@ -34,7 +34,7 @@ import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
-import { KIND_LABEL, testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, arSteg2Kind, testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
 import type { Startlage } from '@/app/dashboard/tester/[slug]/getStartlage'
 import Startskarm from '@/components/session/Startskarm'
 import { SESSION } from '@/components/session/copy'
@@ -263,7 +263,8 @@ export default function TestHubPage({
   // figurserierna får startskärmen ovanför Ditt bästa och Dina försök.
   // Etapp 2: ord och text, siffror och tabeller får samma startark.
   // Etapp 3: Figurer och mönster och Deduktiv slutledning likaså.
-  if (config.kind === 'figurserie' || ((config.kind === 'verbal' || config.kind === 'numerisk' || config.kind === 'matris' || config.kind === 'deduktiv') && !arProv)) {
+  // Etapp 4: talserier, spatial förmåga och ordförråd.
+  if (config.kind === 'figurserie' || arSteg2Kind(config.kind) || ((config.kind === 'verbal' || config.kind === 'numerisk' || config.kind === 'matris' || config.kind === 'deduktiv') && !arProv)) {
     const last = startlage ? startlage.last : isLocked
     const pagaende = startlage?.pagaende ?? null
     const sparrad: 'none' | 'quota' | 'premium' = last ? 'premium' : tak && !pagaende ? 'quota' : 'none'
