@@ -207,22 +207,39 @@ export function ProvResultatRuta({
     return (
       <div className="prov3-art" data-prov-vantar="" aria-busy="true">
         <div className="prov3-art-topp">
-          <div>
+          <div className="min-w-0">
             <p className="res-ey text-ink-3">{P3.artikel.eyebrow(typ)}</p>
             <p className="prov3-art-tal invisible">{A.huvudtal(0, total)}</p>
+            <p className="mt-1 max-w-[46ch] text-sm leading-5 text-ink-2" aria-live="polite">
+              {A.rattar}
+              <span className="invisible" aria-hidden="true">
+                {' '}
+                {P3.artikel.mening('flera', [0, 1])}
+              </span>
+            </p>
           </div>
+          {/* Samma brickor som resultatet, med märket och ordet osynliga: ingen höjdändring (CLS 0). */}
           <ol className="prov3-art-brickor" style={{ ['--kol' as string]: total }} aria-hidden="true">
             {Array.from({ length: total }, (_, i) => (
               <li key={i} className="opacity-40">
                 <b>{i + 1}</b>
+                <span className="invisible">
+                  <Marke typ="ratt" storlek={22} fylld />
+                </span>
+                <span className="invisible">{P3.ratt}</span>
               </li>
             ))}
           </ol>
         </div>
-        <p className="text-sm leading-5 text-ink-2" aria-live="polite">
-          {A.rattar}
-        </p>
-        <div className="prov3-oppen min-h-[560px]" aria-hidden="true" />
+        <div className="prov3-art-kontorad invisible" aria-hidden="true">
+          <span className="prov3-ark-las" />
+          <span className="min-w-0 flex-1">
+            <b className="block text-sm leading-5">{P3.sparr.arkRubrik(typ, 'flera', 2, total)}</b>
+            <span className="block text-[12px] leading-4">{P3.sparr.litenKort}</span>
+          </span>
+        </div>
+        {/* Minst en skärmhöjd: artikeln under rutan står utanför bild när resultatet växer fram. */}
+        <div className="prov3-oppen prov3-art-vantar" aria-hidden="true" />
       </div>
     )
   }

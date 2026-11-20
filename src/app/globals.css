@@ -4177,6 +4177,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-art-lank { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border-radius: 12px; background: var(--vagg); color: var(--vagg-ink); border: 2px dashed var(--koppar); font-weight: 600; font-size: 13px; line-height: 16px; }
 @media (max-width: 639px) { .prov3-art-lank { width: 100%; justify-content: space-between; } }
 .prov3-art-sparr { border-radius: 22px; padding: 18px; }
+.prov3-art-vantar { min-height: max(560px, 100svh); }
 @media (min-width: 640px) { .prov3-art-sparr { padding: 22px 24px; } }
 
 /* Registreringens provpanel (beslut G). */
