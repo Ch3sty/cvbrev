@@ -324,11 +324,20 @@ export default function SessionsRam({
                   onClick={primar.onClick}
                   disabled={primar.disabled || primar.laddar}
                   aria-busy={primar.laddar || undefined}
-                  className={`${KNAPP_PRIMAR} min-w-0 flex-1 touch-manipulation disabled:cursor-not-allowed lg:max-w-[360px] lg:flex-[1_1_220px]`}
+                  className={`${KNAPP_PRIMAR} relative min-w-0 flex-1 touch-manipulation disabled:cursor-not-allowed lg:max-w-[360px] lg:flex-[1_1_220px]`}
                   data-primar={primar.data ?? ''}
                 >
-                  {primar.laddar ? <Snurra /> : null}
-                  <span className="truncate">{primar.text}</span>
+                  {/* Snurran står utanför textens flöde och texten byts som ny
+                      nod (nyckeln), så att Nästa, Lämna in och laddningen
+                      aldrig flyttar något (slutkontrollen omgång 2, CLS 0). */}
+                  {primar.laddar ? (
+                    <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2">
+                      <Snurra />
+                    </span>
+                  ) : null}
+                  <span key={primar.text} className="truncate">
+                    {primar.text}
+                  </span>
                 </button>
               </div>
             </div>

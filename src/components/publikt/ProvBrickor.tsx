@@ -39,6 +39,7 @@ export default function ProvBrickor({
   mini,
   lasText,
   mobil = 'rader',
+  vantar = false,
   className = '',
 }: {
   totalt: number
@@ -50,6 +51,8 @@ export default function ProvBrickor({
   /** Låsets text från 640 px. Utelämnad: "Rätt svar och regeln". */
   lasText?: string
   mobil?: 'rader' | 'brickor'
+  /** Rättningen pågår: raderna står i sin storlek utan märke och utfall. */
+  vantar?: boolean
   className?: string
 }) {
   const felSet = new Set(fel)
@@ -60,15 +63,15 @@ export default function ProvBrickor({
     return { i, ratt, m }
   })
   return (
-    <div role="img" aria-label={brickorText(fel, totalt)} className={className} data-prov-brickor={mobil}>
+    <div role="img" aria-label={vantar ? undefined : brickorText(fel, totalt)} aria-hidden={vantar || undefined} className={className} data-prov-brickor={mobil}>
       <ol className={`m-0 list-none p-0 ${mobil === 'brickor' ? 'hidden sm:block' : ''}`}>
         {rader.map(({ i, ratt, m }) => (
-          <li key={i} className="border-t border-kant first:border-t-0" data-lista-rad={ratt ? 'ratt' : 'fel'} data-last="">
-            <div className={`flex h-14 items-center gap-2.5 px-3 sm:gap-3.5 sm:px-4 ${ratt ? 'bg-papper' : 'bg-fel-mjuk'}`}>
+          <li key={i} className="border-t border-kant first:border-t-0" data-lista-rad={vantar ? undefined : ratt ? 'ratt' : 'fel'} data-last="">
+            <div className={`flex h-14 items-center gap-2.5 px-3 sm:gap-3.5 sm:px-4 ${ratt || vantar ? 'bg-papper' : 'bg-fel-mjuk'}`}>
               <span className="w-[22px] flex-shrink-0 text-[13px] tabular-nums text-ink-3">{i + 1}</span>
               {m ? <span className="flex min-w-0 flex-shrink items-center overflow-hidden">{m}</span> : null}
-              <Marke typ={ratt ? 'ratt' : 'fel'} storlek={22} />
-              <span className="text-sm font-medium leading-5 text-ink-1">{L.radLast(ratt)}</span>
+              {vantar ? <span className="h-[22px] w-[22px] flex-shrink-0 rounded-full bg-papper-2" /> : <Marke typ={ratt ? 'ratt' : 'fel'} storlek={22} />}
+              <span className={`text-sm font-medium leading-5 text-ink-1 ${vantar ? 'invisible' : ''}`}>{L.radLast(ratt)}</span>
               <span className="ml-auto inline-flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap text-[12px] leading-4 text-ink-3 sm:rounded-full sm:bg-papper-2 sm:px-2.5 sm:py-[3px]" data-lista-las>
                 <Las storlek={13} />
                 <span className="hidden sm:inline">{lasText ?? L.las}</span>

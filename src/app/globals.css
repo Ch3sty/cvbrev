@@ -2178,7 +2178,8 @@ html {
   --font-sess-display: var(--font-display), Inter, system-ui, sans-serif;
 }
 
-/* Uppgiftens fråga: 20/26 700 på mobil, 24/30 på dator. Bara i ramen; utanför
+/* Uppgiftens fråga: 20/26 700 på mobil, 24/30 från lg och 28/34 från xl
+   (skissen, slutkontrollen omgång 2). Bara i ramen; utanför
    gäller Tailwinds text-fraga som förut. */
 [data-sessionsram] .text-fraga {
   font-family: var(--font-sess-display);
@@ -2190,6 +2191,9 @@ html {
 }
 @media (min-width: 1024px) {
   [data-sessionsram] .text-fraga { font-size: 24px; line-height: 30px; }
+}
+@media (min-width: 1280px) {
+  [data-sessionsram] .text-fraga { font-size: 28px; line-height: 34px; }
 }
 
 /* Fokus flyttas till uppgiftens rubrik vid ny uppgift och efter dialogen,
@@ -2240,9 +2244,10 @@ html {
 .sess-pill { animation: sess-in-fran-hoger 200ms ease-out 120ms both; }
 [data-efter-fel] .sess-pop { animation-delay: 120ms; }
 [data-efter-fel] .sess-pill { animation-delay: 240ms; }
-/* Figurrutan: pillen bara när rutan är bred nog (spatialens 112 px och uppåt). */
+/* Figurrutan: pillen bara när rutan är bred nog för den bredvid märket
+   (8 + 24 px märke, 4 px luft, "Rätt svar" 81 px, 6 px kant: 124 px). */
 .sess-svar-ruta { container-type: inline-size; }
-@container (max-width: 109px) {
+@container (max-width: 123px) {
   .sess-svar-ruta > .sess-pill { display: none; }
 }
 
@@ -2291,11 +2296,12 @@ html {
   .sess-ruta { aspect-ratio: 1; }
 }
 
-/* Matrisens och figurseriernas rutor (omgång 2 B1): "Rätt, ditt svar" är för
-   lång för en ruta under 150 px och lägger sig över märket; märket och den
-   gröna ringen bär svaret där, skärmläsaren får det i aria-label. */
-@container (max-width: 149px) {
-  .sess-alt .sess-svar-ruta > .sess-pill[data-pill="ratt-ditt"] { display: none; }
+/* Alla figurrutor (omgång 2 B1, generellt sedan slutkontrollen: matris,
+   figurserier, spatialens och talseriernas bildrutor): "Rätt, ditt svar" är
+   för lång för en ruta under 156 px och lägger sig över märket; märket och
+   den gröna ringen bär svaret där, skärmläsaren får det i aria-label. */
+@container (max-width: 155px) {
+  .sess-svar-ruta > .sess-pill[data-pill="ratt-ditt"] { display: none; }
 }
 
 /* Remsan när figurerna själva är svaren (bryter mönstret). */

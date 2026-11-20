@@ -63,6 +63,12 @@ function fakeAdmin() {
 }
 
 vi.mock('server-only', () => ({}))
+// Rutten räknar ut token före raden (slutkontrollen omgång 2). Fast token
+// håller urvalet deterministiskt: ordförrådets ord "regel" träffar annars FACIT.
+vi.mock('node:crypto', async (orig) => {
+  const m = await orig<typeof import('node:crypto')>()
+  return { ...m, default: m, randomUUID: () => '33333333-4444-4555-8666-777777777777' }
+})
 vi.mock('@/lib/supabase/admin', () => ({ getSupabaseAdmin: () => fakeAdmin() }))
 vi.mock('@/lib/supabase/server', () => ({
   createServerClient: () => ({ auth: { getUser: async () => ({ data: { user: db.user } }) } }),

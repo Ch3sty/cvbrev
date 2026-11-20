@@ -47,7 +47,7 @@ import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import type { RamFacit, TypRitare } from '@/components/session/typ'
 import type { ListPost } from '@/components/session/Uppgiftslistan'
 import ProvUppgiftVy from '@/components/publikt/prov/ProvUppgiftVy'
-import { PROV_NAMN, franMatris, franPublika, provForm, type MatrisFraga, type ProvPost, type ProvU } from '@/components/publikt/prov/provPost'
+import { PROV_NAMN, franMatris, franPublika, provForm, varmProvet, type MatrisFraga, type ProvPost, type ProvU } from '@/components/publikt/prov/provPost'
 import { PROV_RAM, forklaringOrd } from '@/components/publikt/prov/prov-copy'
 
 /** Introts exempel för typerna utöver matrisen (sidan läser det fortfarande; startskärmen visar scenen i stället). */
@@ -104,6 +104,12 @@ export default function ProvaFlow({ typ: typProp = 'matris' }: { typ?: ProvTyp; 
     setPhase('result')
     capture('sample_restored', { kind: 'test' })
   }, [])
+
+  // Startskärmen: servern värms medan hon läser reglerna, så att Starta
+  // inte väntar på en kall funktion (slutkontrollen omgång 2).
+  useEffect(() => {
+    if (phase === 'intro') varmProvet()
+  }, [phase])
 
   async function start() {
     setLoading(true)

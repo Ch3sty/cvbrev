@@ -111,7 +111,9 @@ function startSvar(typ: ProvTyp, slug: string) {
 }
 
 function anrop(fetchMock: ReturnType<typeof vi.fn>, i: number) {
-  const [url, init] = fetchMock.mock.calls[i] as [string, RequestInit]
+  // Uppvärmningen (GET utan kropp, varmProvet) räknas inte: bara POST-anropen bär kontraktet.
+  const posts = fetchMock.mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method !== 'GET')
+  const [url, init] = posts[i] as [string, RequestInit]
   return { url, method: init?.method, body: init?.body ? JSON.parse(String(init.body)) : undefined }
 }
 
@@ -210,7 +212,7 @@ describe.each<[string, ProvTyp]>([
     }
     await waitFor(() => expect(handelse('sample_completed')).toHaveLength(1))
 
-    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(fetchMock.mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method !== 'GET')).toHaveLength(2)
     const ratta = anrop(fetchMock, 1)
     expect(ratta.url).toBe('/api/public/test-session')
     expect(ratta.method).toBe('POST')

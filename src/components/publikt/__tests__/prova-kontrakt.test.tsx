@@ -85,7 +85,9 @@ async function svara() {
 }
 
 function anrop(fetchMock: ReturnType<typeof vi.fn>, i: number) {
-  const [url, init] = fetchMock.mock.calls[i] as [string, RequestInit]
+  // Uppvärmningen (GET utan kropp, varmProvet) räknas inte: bara POST-anropen bär kontraktet.
+  const posts = fetchMock.mock.calls.filter(([, init]) => (init as RequestInit | undefined)?.method !== 'GET')
+  const [url, init] = posts[i] as [string, RequestInit]
   return { url, method: init?.method, body: init?.body ? JSON.parse(String(init.body)) : undefined }
 }
 

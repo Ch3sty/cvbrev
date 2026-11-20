@@ -27,7 +27,7 @@ import type { ProvaResultat } from '@/lib/tests/prova-lokalt'
 import { KNAPP_PRIMAR_SMAL, LANK } from '@/components/shell/knappar'
 import ProvBrickor, { ProvRing } from '@/components/publikt/ProvBrickor'
 import ProvUppgiftVy from '@/components/publikt/prov/ProvUppgiftVy'
-import { franMatris, franPublika, type MatrisFraga, type ProvPost } from '@/components/publikt/prov/provPost'
+import { franMatris, franPublika, varmProvet, type MatrisFraga, type ProvPost } from '@/components/publikt/prov/provPost'
 import { PROV_RAM, forklaringOrd } from '@/components/publikt/prov/prov-copy'
 import { useArtikelProv, type ArtikelProvLage } from './useArtikelProv'
 
@@ -102,6 +102,12 @@ function ProvRuta<U>({
   if (lage.fas === 'resultat' && lage.resultat && lage.token) {
     return <ProvResultatRuta typ={typ} slug={slug} resultat={lage.resultat} token={lage.token} poster={poster} />
   }
+  // Sista svaret är skickat och rättningen pågår: resultatets ruta står
+  // direkt i sin slutliga storlek, utan tal och märken, så att artikeln
+  // under rutan inte flyttar när svaret kommer (slutkontrollen omgång 2, CLS 0).
+  if (lage.fas === 'pagar' && lage.laddar && lage.index + 1 >= lage.total && lage.token) {
+    return <ProvResultatRuta typ={typ} slug={slug} resultat={null} token={lage.token} poster={poster} total={lage.total} />
+  }
 
   const post = lage.fas === 'forsta' ? forsta : (poster[lage.index] ?? forsta)
   const nr = lage.fas === 'forsta' ? 1 : lage.index + 1
@@ -122,7 +128,10 @@ function ProvRuta<U>({
         </p>
       </Band>
       <div className="px-4 pb-1 pt-4 sm:px-6 sm:pt-5" key={post.u.nyckel}>
-        <ProvUppgiftVy post={post} nr={nr} antal={lage.total} vald={vald} onValj={setVald} last={lage.laddar} rubrik="p" deltest={deltest[nr - 1]} />
+        <ProvUppgiftVy post={post} nr={nr} antal={lage.total} vald={vald} onValj={(i) => {
+            if (lage.fas === 'forsta') varmProvet()
+            setVald(i)
+          }} last={lage.laddar} rubrik="p" deltest={deltest[nr - 1]} />
       </div>
       {lage.fel ? (
         <p role="alert" className="mx-4 mt-3 rounded-xl border border-kant bg-papper-2 px-3.5 py-2.5 text-sm leading-5 text-ink-1 sm:mx-6">
@@ -156,7 +165,25 @@ function ProvRuta<U>({
   )
 }
 
-function ProvResultatRuta({ typ, slug, resultat, token, poster }: { typ: ProvTyp; slug: string; resultat: ProvaResultat; token: string; poster: ProvPost[] }) {
+function ProvResultatRuta({
+  typ,
+  slug,
+  resultat,
+  token,
+  poster,
+  total: totalIn,
+}: {
+  typ: ProvTyp
+  slug: string
+  /** Null medan rättningen pågår: samma ruta och storlek, utan tal, märken och länk. */
+  resultat: ProvaResultat | null
+  token: string
+  poster: ProvPost[]
+  total?: number
+}) {
+  const vantar = resultat === null
+  const total = resultat?.total ?? totalIn ?? 0
+  const score = resultat?.score ?? 0
   const registerHref = `/register?test=${encodeURIComponent(token)}`
   const S = PROV_RAM.sparr
   const mini = (i: number): ReactNode => {
@@ -169,29 +196,35 @@ function ProvResultatRuta({ typ, slug, resultat, token, poster }: { typ: ProvTyp
     ) : null
   }
   return (
-    <div className={KORT} data-prov-resultat>
+    <div className={KORT} {...(vantar ? { 'data-prov-vantar': '', 'aria-busy': true } : { 'data-prov-resultat': '' })}>
       <Band>
         <div className="flex items-center gap-3.5">
-          <ProvRing andel={resultat.total ? resultat.score / resultat.total : 0} storlek={48} />
+          <ProvRing andel={vantar ? 0 : total ? score / total : 0} storlek={48} />
           <div className="min-w-0">
             <Eyebrow />
-            <p className="mt-0.5 font-sess-display text-[22px] font-extrabold leading-7 tracking-[-.015em] text-ink-1">{A.huvudtal(resultat.score, resultat.total)}</p>
+            <p className={`mt-0.5 font-sess-display text-[22px] font-extrabold leading-7 tracking-[-.015em] text-ink-1 ${vantar ? 'invisible' : ''}`}>{A.huvudtal(score, total)}</p>
           </div>
         </div>
       </Band>
-      <ProvBrickor totalt={resultat.total} fel={resultat.fel} mini={mini} lasText={`Rätt svar och ${forklaringOrd(typ)}`} className="border-t border-kant" />
+      <ProvBrickor totalt={total} fel={resultat?.fel ?? []} vantar={vantar} mini={mini} lasText={`Rätt svar och ${forklaringOrd(typ)}`} className="border-t border-kant" />
       <div className="border-t border-kant px-4 pb-4 pt-4 sm:px-6 sm:pb-5">
         <p className="font-sess-display text-[18px] font-bold leading-6 tracking-[-.01em] text-ink-1">{S.titel(typ)}</p>
-        <p className="mt-1 text-sm leading-[21px] text-ink-2">{S.textKort(resultat.total)}</p>
+        <p className="mt-1 text-sm leading-[21px] text-ink-2">{S.textKort(total)}</p>
         <div className="mt-3.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link
-            href={registerHref}
-            data-cta="artikel-prov-gate"
-            className={`${KNAPP_PRIMAR_SMAL} w-full sm:w-auto sm:min-w-[240px]`}
-            onClick={() => capture('signup_started', { cluster: 'test', source_page: `/artiklar/${slug}` })}
-          >
-            {S.knapp}
-          </Link>
+          {vantar ? (
+            <span aria-hidden="true" className={`${KNAPP_PRIMAR_SMAL} pointer-events-none w-full opacity-40 sm:w-auto sm:min-w-[240px]`}>
+              {S.knapp}
+            </span>
+          ) : (
+            <Link
+              href={registerHref}
+              data-cta="artikel-prov-gate"
+              className={`${KNAPP_PRIMAR_SMAL} w-full sm:w-auto sm:min-w-[240px]`}
+              onClick={() => capture('signup_started', { cluster: 'test', source_page: `/artiklar/${slug}` })}
+            >
+              {S.knapp}
+            </Link>
+          )}
           <p className="text-[13px] leading-[18px] text-ink-3">{S.litenKort}</p>
         </div>
       </div>

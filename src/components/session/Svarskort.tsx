@@ -14,9 +14,12 @@
  * inset-skugga, så ingenting flyttar, CLS 0). Brickan byts mot det ritade
  * märket (Marke) med 240 ms pop, och pillen "Rätt svar", "Ditt svar" eller
  * "Rätt, ditt svar" glider in från höger 200 ms med 120 ms fördröjning. I de
- * tre fasta står märket 20 px före texten och ingen pill. På en figurruta
+ * tre fasta sitter märket (20 px) på kortets överkant och ingen pill. På en figurruta
  * står pillen uppe till höger och döljs när rutan är för smal för den
- * (container query i globals.css). prefers-reduced-motion stänger rörelsen.
+ * (container query i globals.css). På raden sitter pillen som en flik på
+ * kortets överkant till höger, utanför textens flöde, så att svarets text
+ * aldrig bryts om när facit kommer (slutkontrollen omgång 2: CLS 0 också
+ * med långa påståenden). prefers-reduced-motion stänger rörelsen.
  *
  * `ditt`: sant på kortet hon valde. Behövs bara för att skilja "Rätt svar"
  * från "Rätt, ditt svar"; typerna skickar `ditt={vald === i}`.
@@ -87,13 +90,15 @@ export function pillText(tillstand: Tillstand, ditt?: boolean): string | null {
 }
 
 /** Pillen "Rätt svar", "Ditt svar" eller "Rätt, ditt svar". */
-export function Pill({ tillstand, ditt, className = '' }: { tillstand: Tillstand; ditt?: boolean; className?: string }) {
+export function Pill({ tillstand, ditt, flik = false, className = '' }: { tillstand: Tillstand; ditt?: boolean; flik?: boolean; className?: string }) {
   const text = pillText(tillstand, ditt)
   if (!text) return null
   const farg = tillstand === 'fel' ? 'bg-fel-mjuk text-fel' : 'bg-positiv-mjuk text-positiv'
+  // Fliken på radens överkant: 18 px hög, mitt på kanten, ryms i listans 8 px mellanrum.
+  const matt = flik ? 'px-2 py-[2px] text-[10px] leading-[14px]' : 'px-2 py-[3px] text-[11px] leading-4'
   return (
     <span
-      className={`sess-pill inline-flex flex-shrink-0 items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[11px] font-semibold uppercase leading-4 tracking-[.04em] ${farg} ${className}`}
+      className={`sess-pill inline-flex flex-shrink-0 items-center whitespace-nowrap rounded-full font-semibold uppercase tracking-[.04em] ${matt} ${farg} ${className}`}
       data-pill={tillstand === 'fel' ? 'ditt' : ditt ? 'ratt-ditt' : 'ratt'}
     >
       {text}
@@ -132,7 +137,7 @@ export function SvarRuta({ i, tillstand, ditt, efterFel, disabled, onValj, child
       data-tillstand={tillstand}
       data-efter-fel={efterFel && tillstand === 'ratt' ? '' : undefined}
       data-svar={BOKSTAV(i)}
-      className={`sess-kort sess-svar-ruta relative w-full min-w-0 touch-manipulation rounded-xl border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default ${KANT[tillstand]} ${className}`}
+      className={`sess-kort sess-svar-ruta relative isolate w-full min-w-0 touch-manipulation rounded-xl border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default ${KANT[tillstand]} ${className}`}
     >
       <Bricka i={i} tillstand={tillstand} className="absolute left-2 top-2 z-10" />
       <Pill tillstand={tillstand} ditt={ditt} className="absolute right-1.5 top-2 z-10" />
@@ -153,16 +158,16 @@ export function SvarRad({ i, tillstand, ditt, efterFel, disabled, onValj, childr
       data-tillstand={tillstand}
       data-efter-fel={efterFel && tillstand === 'ratt' ? '' : undefined}
       data-svar={BOKSTAV(i)}
-      className={`sess-kort flex min-h-[52px] w-full touch-manipulation items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left text-base font-medium leading-[22px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default ${KANT[tillstand]}`}
+      className={`sess-kort relative isolate flex min-h-[52px] w-full touch-manipulation items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left text-base font-medium leading-[22px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default ${KANT[tillstand]}`}
     >
       <Bricka i={i} tillstand={tillstand} />
       <span className="min-w-0 flex-1">{children}</span>
-      <Pill tillstand={tillstand} ditt={ditt} />
+      <Pill tillstand={tillstand} ditt={ditt} flik className="absolute -top-[9px] right-3 z-10" />
     </button>
   )
 }
 
-/** Sant, Falskt, Går inte att avgöra: Svarskort utan bricka, märket 20 px före texten efter facit. */
+/** Sant, Falskt, Går inte att avgöra: Svarskort utan bricka, märket på överkanten efter facit. */
 export function TreFasta({
   etiketter,
   vald,
@@ -189,9 +194,15 @@ export function TreFasta({
             disabled={disabled}
             onClick={() => onValj?.(i)}
             data-tillstand={t}
-            className={`sess-kort flex min-h-[52px] touch-manipulation items-center justify-center gap-1.5 rounded-xl border px-1.5 py-1.5 text-center text-sm font-semibold leading-[18px] text-ink-1 ${KANT[t]}`}
+            className={`sess-kort relative isolate flex min-h-[52px] touch-manipulation items-center justify-center gap-1.5 rounded-xl border px-1.5 py-1.5 text-center text-sm font-semibold leading-[18px] text-ink-1 ${KANT[t]}`}
           >
-            {t === 'ratt' || t === 'fel' ? <Marke typ={t} storlek={20} pop /> : null}
+            {/* Märket sitter på kortets överkant till höger, som radernas
+                flik, så att den centrerade texten aldrig flyttar (CLS 0). */}
+            {t === 'ratt' || t === 'fel' ? (
+              <span aria-hidden="true" className="absolute -top-[11px] right-2 z-10 inline-flex rounded-full bg-papper" data-tre-marke>
+                <Marke typ={t} storlek={20} pop />
+              </span>
+            ) : null}
             <span>{e}</span>
             {t === 'ratt' || t === 'fel' ? <span className="sr-only">{t === 'fel' ? `, ${SESSION.svar.ditt}` : vald === i ? `, ${SESSION.svar.rattDitt}` : `, ${SESSION.svar.ratt}`}</span> : null}
           </button>

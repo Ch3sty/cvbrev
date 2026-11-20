@@ -57,6 +57,22 @@ export interface MatrisFraga {
 
 export { PROV_NAMN }
 
+let uppvarmd = false
+
+/**
+ * Värmer provets server en gång per sidladdning (GET, 204, ingen databas och
+ * ingen kvot), så att POST:en som startar provet inte väntar på en kall
+ * funktion och bankernas laddning (slutkontrollen omgång 2). Provsidan gör
+ * det när startskärmen visas, artikelns provruta vid första trycket.
+ */
+export function varmProvet(): void {
+  if (uppvarmd || typeof window === 'undefined') return
+  uppvarmd = true
+  void fetch('/api/public/test-session', { method: 'GET', cache: 'no-store' }).catch(() => {
+    uppvarmd = false
+  })
+}
+
 /** Matrisens radminiatyr i Uppgiftslistan: rutnätet hon redan sett, utan alternativ. */
 function MatrisMini({ u }: { u: MatrisU }) {
   return <ProvBricka rutnat={u.grid as Rutnat} className="pub-bricka-mini" />

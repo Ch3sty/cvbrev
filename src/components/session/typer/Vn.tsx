@@ -10,7 +10,7 @@
  *               text, 44 vh för siffror. Det står kvar medan uppgifterna
  *               i samma underlag byts.
  *   Uppgiften   eyebrow "PÅSTÅENDE 2 AV 4 OM TEXTEN", påståendet i display
- *               20/28 (frågan om siffror 24/30 på dator), sedan svaren: tre
+ *               20/28 (frågan om siffror 24/30 från lg, 28/34 från xl), sedan svaren: tre
  *               lika breda knappar (Sant, Falskt, Går inte att avgöra) med
  *               hjälpraden om den tredje under, eller rader A till D.
  *
@@ -341,7 +341,7 @@ export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftPro
         <Rubrik
           tabIndex={-1}
           data-uppgift-rubrik
-          className={`mt-2 font-sess-display font-bold text-ink-1 outline-none [text-wrap:pretty] ${u.kind === 'numerisk' ? 'text-[20px] leading-[26px] lg:text-[24px] lg:leading-[30px]' : 'text-[20px] leading-7'}`}
+          className={`mt-2 font-sess-display font-bold text-ink-1 outline-none [text-wrap:pretty] ${u.kind === 'numerisk' ? 'text-[20px] leading-[26px] lg:text-[24px] lg:leading-[30px] xl:text-[28px] xl:leading-[34px]' : 'text-[20px] leading-7'}`}
         >
           {u.text}
         </Rubrik>

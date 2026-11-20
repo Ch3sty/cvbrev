@@ -16,6 +16,7 @@
  * reglerna gör det aldrig (ägarens beslut 2026-11-09).
  */
 
+import { randomUUID } from 'node:crypto'
 import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
@@ -30,9 +31,8 @@ import {
   tillOriginalSvar,
   toPublicQuestion,
 } from '@/lib/tests/anon-session'
-import { arBlandad } from '@/lib/logicTestV7/blanda'
-import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
-import { skapaMedBlandning } from '@/lib/logicTestV7/fragor.server'
+import { arBlandad, BLANDAD_META } from '@/lib/logicTestV7/blanda'
+import { BANK_VERSION_META, bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { sparaProvUtfall } from '@/lib/tests/prov-utfall.server'
 import { andelSomLoserFlest } from '@/lib/tests/prova-percentil'
 import { hamtaProvUtfall } from '@/lib/tests/prova-percentil.server'
@@ -45,6 +45,16 @@ const SLUG = /^[a-z0-9-]{1,100}$/
 /** Tre provsessioner per IP och dygn. */
 const IP_LIMIT = 3
 const SCOPE = 'anon_test'
+
+/**
+ * Uppvärmningen (omgång 2, slutkontrollen): provsidans startskärm och
+ * artikelns provruta frågar en gång innan besökaren startar, så att
+ * funktionen och bankerna redan är laddade när POST kommer. Ingen databas,
+ * ingen kvot, inget sparas.
+ */
+export function GET() {
+  return new NextResponse(null, { status: 204, headers: { 'Cache-Control': 'no-store' } })
+}
 
 export async function POST(request: Request) {
   let body: { token?: unknown; answers?: unknown; typ?: unknown; artikel?: unknown } = {}
@@ -148,13 +158,26 @@ export async function POST(request: Request) {
   if (arNyProvTyp(typ)) return startaTyp(admin, typ, hashIp(ip), typeof body.artikel === 'string' && SLUG.test(body.artikel) ? body.artikel : null)
 
   // Nya prov får meta.alternativ_blandade: alternativen visas i en ordning
-  // seedad på token + frågans id.
-  const { data, error } = await skapaMedBlandning(
-    admin,
-    'anon_test_sessions',
-    { questions: [], ip_hash: hashIp(ip) },
-    'token, expires_at, meta'
-  )
+  // seedad på token + frågans id. Uppgift 1 stod i en artikel (ArtikelProv):
+  // urvalet och ordningen följer artikelns fasta frö i meta.urval_seed.
+  // Token, meta och frågornas id räknas ut här och skrivs i en enda insert
+  // (förut insert och en eller två uppdateringar, slutkontrollen omgång 2).
+  const artikel = typeof body.artikel === 'string' && SLUG.test(body.artikel) ? body.artikel : null
+  const nyToken = randomUUID()
+  const meta: Record<string, unknown> = {
+    ...BLANDAD_META,
+    ...BANK_VERSION_META,
+    ...(artikel ? { urval_seed: artikelSeedMatris(artikel), artikel } : {}),
+  }
+  const seed = provSeed({ token: nyToken, meta })
+  // Frågorna härleds deterministiskt ur fröet, så vi sparar bara id:na
+  // för spårbarhet. Facit ligger kvar i frågebanken på servern.
+  const questions = questionsForToken(seed, bankVersion(meta))
+  const { data, error } = await admin
+    .from('anon_test_sessions')
+    .insert({ token: nyToken, questions: questions.map((q) => q.id), ip_hash: hashIp(ip), meta })
+    .select('token, expires_at')
+    .single()
 
   if (error || !data) {
     console.error('[anon-test] Kunde inte skapa session:', error)
@@ -164,29 +187,11 @@ export async function POST(request: Request) {
     )
   }
 
-  const row = data as unknown as { token: string; expires_at: string; meta?: unknown }
-
-  // Uppgift 1 stod i en artikel (ArtikelProv): urvalet och ordningen följer
-  // artikelns fasta frö, som sparas i meta.urval_seed.
-  const artikel = typeof body.artikel === 'string' && SLUG.test(body.artikel) ? body.artikel : null
-  if (artikel) {
-    const meta = { ...((row.meta as Record<string, unknown> | null) ?? {}), urval_seed: artikelSeedMatris(artikel), artikel }
-    await admin.from('anon_test_sessions').update({ meta }).eq('token', row.token)
-    row.meta = meta
-  }
-  const seed = provSeed(row)
-
-  // Frågorna härleds deterministiskt ur fröet, så vi sparar bara id:na
-  // för spårbarhet. Facit ligger kvar i frågebanken på servern.
-  const questions = questionsForToken(seed, bankVersion(row.meta))
-  await admin
-    .from('anon_test_sessions')
-    .update({ questions: questions.map((q) => q.id) })
-    .eq('token', row.token)
+  const row = data as unknown as { token: string; expires_at: string }
 
   return NextResponse.json({
     token: row.token,
-    questions: questions.map((q) => toPublicQuestion(q, seed, arBlandad(row.meta))),
+    questions: questions.map((q) => toPublicQuestion(q, seed, arBlandad(meta))),
     total: ANON_QUESTION_COUNT,
     expiresAt: row.expires_at,
   })
@@ -198,10 +203,20 @@ export async function POST(request: Request) {
  * samma ordning på alternativen; resten visas i provets egen ordning.
  */
 async function startaTyp(admin: SupabaseClient<any>, typ: NyProvTyp, ipHash: string, artikel: string | null) {
+  // Token och urval räknas ut före raden, så att den skrivs i en enda insert
+  // (förut insert och sedan en uppdatering med uppgifterna).
+  const nyToken = randomUUID()
+  const fro = artikel ? artikelSeed(typ, artikel) : null
+  const refs = valjProv(typ, fro ?? nyToken, nyToken, fro)
+  const uppgifter = refs.map(publikUppgift)
+  if (refs.length === 0 || uppgifter.some((u) => !u)) {
+    return NextResponse.json({ error: 'Kunde inte starta provet just nu. Försök igen om en stund.' }, { status: 500 })
+  }
   const { data, error } = await admin
     .from('anon_test_sessions')
     .insert({
-      questions: [],
+      token: nyToken,
+      questions: refs,
       ip_hash: ipHash,
       test_kind: typ,
       meta: { alternativ_blandade: true, prov_typ: typ, ...(artikel ? { artikel } : {}) },
@@ -213,13 +228,6 @@ async function startaTyp(admin: SupabaseClient<any>, typ: NyProvTyp, ipHash: str
     return NextResponse.json({ error: 'Kunde inte starta provet just nu. Försök igen om en stund.' }, { status: 500 })
   }
   const row = data as { token: string; expires_at: string }
-  const fro = artikel ? artikelSeed(typ, artikel) : null
-  const refs = valjProv(typ, fro ?? row.token, row.token, fro)
-  const uppgifter = refs.map(publikUppgift)
-  if (refs.length === 0 || uppgifter.some((u) => !u)) {
-    return NextResponse.json({ error: 'Kunde inte starta provet just nu. Försök igen om en stund.' }, { status: 500 })
-  }
-  await admin.from('anon_test_sessions').update({ questions: refs }).eq('token', row.token)
   return NextResponse.json({
     token: row.token,
     typ,
