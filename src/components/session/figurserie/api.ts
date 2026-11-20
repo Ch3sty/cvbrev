@@ -26,7 +26,9 @@ export const KROPP = {
 
 async function postJson(url: string, kropp: unknown): Promise<Response | null> {
   try {
-    return await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(kropp) })
+    // keepalive: ett svar som är på väg när sidan laddas om eller stängs går
+    // ändå fram (kön i testlägen skickar optimistiskt). Kroppen är oförändrad.
+    return await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(kropp), keepalive: true })
   } catch {
     return null
   }

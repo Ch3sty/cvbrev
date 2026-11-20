@@ -15,11 +15,11 @@
  */
 
 import dynamic from 'next/dynamic'
-import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
+import MatrisNivatest from '@/components/session/matris/MatrisNivatest'
+import DeduktivNivatest from '@/components/session/deduktiv/DeduktivNivatest'
 // Statisk import, som matrisen: en dynamisk import la uppgiften bakom en
 // Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
 import FigurserieNivatest from '@/components/session/figurserie/FigurserieNivatest'
-import { DeduktivTestSession } from '@/components/tests/deduktiv/DeduktivTestSession'
 import { Steg2TestSession } from '@/components/tests/steg2/Steg2TestSession'
 // Sessionsramen (plan-testflode-2026-11-20, etapp 2): ord och text, siffror
 // och tabeller får uppgifterna från servern, så bankerna och urvalet lämnar
@@ -107,11 +107,15 @@ export default function TestRunner({
     )
   }
 
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 3). MatrixTestSession
+  // står kvar oanvänd till etapp 5, så att en revert aldrig saknar kod.
   if (config.kind === 'matris') {
     return (
-      <MatrixTestSession
+      <MatrisNivatest
         sessionId={sessionId}
+        slug={config.slug}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
+        minuter={config.examMinutes ?? config.minutes}
         resultsPath={resultsPath}
         initialRun={runData}
         {...endpoints}
@@ -151,11 +155,14 @@ export default function TestRunner({
     )
   }
 
+  // Sessionsramen (etapp 3). DeduktivTestSession står kvar oanvänd till etapp 5.
   if (config.kind === 'deduktiv') {
     return (
-      <DeduktivTestSession
+      <DeduktivNivatest
         sessionId={sessionId}
+        slug={config.slug}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
+        minuter={config.examMinutes ?? config.minutes}
         resultsPath={resultsPath}
         initialRun={runData}
         {...endpoints}

@@ -93,6 +93,7 @@ export default function InstallPrompt() {
           adressfältet räcker (planen, avsnitt 3). */}
       <div
         className="fixed inset-x-0 z-30 border-t border-kant bg-papper lg:hidden"
+        data-installrad
         style={{
           bottom: 'calc(var(--bottom-nav-h, 0px) + var(--flow-footer-h, 0px))',
         }}

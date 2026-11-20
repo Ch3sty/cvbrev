@@ -16,7 +16,7 @@
  * över foten. role="status" så att skärmläsaren läser utfallet.
  */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { IkonCheck, IkonKryss } from '@/components/illustrations/RumSymboler'
 import FragaRapport, { type FragaRapportProps } from '@/components/traning/FragaRapport'
 import { SESSION } from './copy'
@@ -34,6 +34,8 @@ export interface ForklaringenProps {
   rapport?: FragaRapportProps
   /** Rulla fram panelen när den monteras (efter ett svar, inte i genomgången). */
   rullaFram?: boolean
+  /** Typens egen förklaring under regeln (deduktivens lösningsgång och schema). */
+  detalj?: ReactNode
 }
 
 const YTA: Record<Utfall, string> = {
@@ -51,7 +53,7 @@ const RAD: Record<Utfall, string> = {
 
 const LUFT_OVER_FOTEN = 12
 
-export default function Forklaringen({ utfall, tid, regel, text = null, misstag, rapport, rullaFram = false }: ForklaringenProps) {
+export default function Forklaringen({ utfall, tid, regel, text = null, misstag, rapport, rullaFram = false, detalj = null }: ForklaringenProps) {
   const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -106,6 +108,14 @@ export default function Forklaringen({ utfall, tid, regel, text = null, misstag,
                 {text}
               </p>
             ) : null}
+          </>
+        ) : null}
+        {detalj ? (
+          <>
+            {!regel && !text && utfall !== 'vet_inte' && utfall !== 'obesvarad' ? <p className="mt-2.5 text-[12px] font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">{C.eyebrow}</p> : null}
+            <div className="mt-1.5" data-forklaring-detalj>
+              {detalj}
+            </div>
           </>
         ) : null}
         {misstag ? (

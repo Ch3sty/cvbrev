@@ -32,6 +32,11 @@ export interface NivakollSession<U extends RamUppgift> {
   avslutad: boolean
   harResultat: boolean
   budgetPerUppgift: number
+  /**
+   * Adaptiva Nivåkoller (matrisen): antalet uppgifter i sessionen. Listan
+   * innehåller bara de besvarade och den aktuella; nästa kommer från servern.
+   */
+  antal?: number
 }
 
 export interface NivakollApi<S> {
@@ -39,6 +44,14 @@ export interface NivakollApi<S> {
   /** Sant när svaret sparades (409 räknas som sparat). */
   svara(inp: { sessionId: string; nyckel: string; valt: number; tid: number }): Promise<boolean>
   slutfor(sessionId: string): Promise<{ ok: true; vy: S } | ApiFel>
+  /**
+   * Adaptiv Nivåkoll (avsnitt 1, Sparande): servern väljer nästa uppgift efter
+   * svaret, så Nästa väntar på svaret med spinnern i knappen i stället för
+   * kön. Vyn som kommer tillbaka bär den nya uppgiften.
+   */
+  svaraAdaptivt?(inp: { sessionId: string; nyckel: string; valt: number; tid: number }): Promise<{ ok: true; vy: S; klar: boolean } | ApiFel>
+  /** Läser om sessionen (svaret var redan taget, 409). */
+  hamta?(sessionId: string): Promise<S | null>
 }
 
 export interface NivakollStart extends Omit<StartskarmProps, 'bas' | 'knapp' | 'kryssruta' | 'regler' | 'sparrad' | 'fortsattTillganglig'> {
@@ -70,6 +83,8 @@ type Fas =
   | { typ: 'startar' }
   | { typ: 'startfel'; status: number }
   | { typ: 'fraga' }
+  | { typ: 'sparar' }
+  | { typ: 'svarfel'; valt: number; tid: number }
   | { typ: 'avslutar' }
   | { typ: 'avslutfel' }
   | { typ: 'resultat' }
@@ -127,7 +142,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
       setFas({ typ: 'fraga' })
       ankom.current = Date.now()
       sessionStart.current = Date.now()
-      sessionHandelser.startad(bas, { session_id: n.id, antal: n.uppgifter.length, tid_budget_s: null, resumed: resumed || forsta > 0 })
+      sessionHandelser.startad(bas, { session_id: n.id, antal: n.antal ?? n.uppgifter.length, tid_budget_s: null, resumed: resumed || forsta > 0 })
       if (p.sessionAdress) {
         try {
           window.history.replaceState(null, '', p.sessionAdress(n.id))
@@ -164,7 +179,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
   useEffect(() => {
     if (oppnad.current || !s || s.avslutad || !p.vy) return
     oppnad.current = true
-    sessionHandelser.startad(bas, { session_id: s.id, antal: s.uppgifter.length, tid_budget_s: null, resumed: true })
+    sessionHandelser.startad(bas, { session_id: s.id, antal: s.antal ?? s.uppgifter.length, tid_budget_s: null, resumed: true })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -200,16 +215,68 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
   }, [])
 
   const besvaradeAntal = Object.keys(svar).length
-  const aktiv = Boolean(s) && fas.typ === 'fraga'
+  const aktiv = Boolean(s) && (fas.typ === 'fraga' || fas.typ === 'sparar' || fas.typ === 'svarfel')
   const avbrottVidLamning = useLamnadSida(aktiv, () => {
     if (s) sessionHandelser.avbruten(bas, { session_id: s.id, index: idx, besvarade: besvaradeAntal, elapsed_ms: Date.now() - sessionStart.current })
   })
   const tillbaka = useCallback(() => router.push(p.tillbakaHref), [router, p.tillbakaHref])
 
+  /** Adaptiv: svaret går till servern, som svarar med nästa uppgift. */
+  const svaraAdaptivt = async (valt: number, tid: number) => {
+    if (!s || !api.svaraAdaptivt) return
+    const u = s.uppgifter[Math.min(idx, s.uppgifter.length - 1)]
+    const elapsed = Date.now() - ankom.current
+    setFas({ typ: 'sparar' })
+    const r = await api.svaraAdaptivt({ sessionId: s.id, nyckel: u.nyckel, valt, tid })
+    if (!r.ok) {
+      if (r.status === 409 && api.hamta) {
+        // Redan besvarad (dubbeltryck, två flikar): fortsätt där servern står.
+        const ny = await api.hamta(s.id)
+        if (ny) {
+          const n = p.las(ny)
+          setVy(ny)
+          const ut: Record<string, number> = {}
+          for (const [k, b] of Object.entries(n.besvarade)) if (b.valt != null) ut[k] = b.valt
+          setSvar(ut)
+          const forsta = forstaObesvarade(n)
+          if (forsta >= n.uppgifter.length) {
+            avbrottVidLamning()
+            void avsluta(n.id)
+            return
+          }
+          setIdx(forsta)
+          setMarkerad(null)
+          setFas({ typ: 'fraga' })
+          ankom.current = Date.now()
+          return
+        }
+      }
+      setFas({ typ: 'svarfel', valt, tid })
+      return
+    }
+    sessionHandelser.besvarad(bas, { session_id: s.id, index: idx, elapsed_ms: elapsed, via: via.current, vet_inte: false })
+    setSvar((x) => ({ ...x, [u.nyckel]: valt }))
+    setVy(r.vy)
+    if (r.klar) {
+      avbrottVidLamning()
+      void avsluta(s.id)
+      return
+    }
+    setIdx((i) => i + 1)
+    setMarkerad(null)
+    setFas({ typ: 'fraga' })
+    ankom.current = Date.now()
+    via.current = 'tap'
+  }
+
   const nasta = () => {
     if (!s || markerad === null || fas.typ !== 'fraga') return
     const u = s.uppgifter[idx]
     const tid = Math.max(0, Math.round((Date.now() - ankom.current) / 1000))
+    if (api.svaraAdaptivt) {
+      void svaraAdaptivt(markerad, tid)
+      return
+    }
     sparning.spara(u.nyckel, { sessionId: s.id, valt: markerad, tid })
     sessionHandelser.besvarad(bas, { session_id: s.id, index: idx, elapsed_ms: Date.now() - ankom.current, via: via.current, vet_inte: false })
     const nya = { ...svar, [u.nyckel]: markerad }
@@ -275,7 +342,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
     )
   }
 
-  const antal = s.uppgifter.length
+  const antal = s.antal ?? s.uppgifter.length
 
   if (fas.typ === 'resultat' && vy) {
     return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran }), stang: tillbaka, gjordIdag: gjordIdag.current })}</>
@@ -303,9 +370,10 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
   }
 
   const avslutar = fas.typ === 'avslutar' || fas.typ === 'avslutfel'
-  const u = s.uppgifter[Math.min(idx, antal - 1)]
+  const u = s.uppgifter[Math.min(idx, s.uppgifter.length - 1)]
   const sista = Object.keys(svar).length >= antal - 1 && svar[u.nyckel] == null
   const Uppgift = ritare.Uppgift
+  const sparar = fas.typ === 'sparar'
 
   return (
     <SessionsRam
@@ -330,6 +398,10 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
           <p role="alert" className="rounded-xl border border-kant bg-papper px-3.5 py-2.5 text-sm leading-5 text-ink-1">
             {SESSION.fel.avslut}
           </p>
+        ) : fas.typ === 'svarfel' ? (
+          <p role="alert" className="rounded-xl border border-kant bg-papper px-3.5 py-2.5 text-sm leading-5 text-ink-1">
+            {SESSION.sparfel.blockerat}
+          </p>
         ) : sparning.osparade > 0 ? (
           <Sparfelsrad antal={sparning.osparade} onForsok={() => void sparning.forsokIgen()} />
         ) : null
@@ -338,20 +410,22 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
         primar:
           fas.typ === 'avslutfel'
             ? { text: SESSION.knapp.forsokIgen, onClick: () => void avsluta(s.id), data: 'forsok-igen' }
-            : {
-                text: sista || avslutar ? SESSION.knapp.visaResultat : SESSION.knapp.nasta,
-                onClick: nasta,
-                disabled: markerad === null && !avslutar,
-                laddar: fas.typ === 'avslutar',
-                data: sista ? 'visa-resultatet' : 'nasta',
-              },
+            : fas.typ === 'svarfel'
+              ? { text: SESSION.knapp.forsokIgen, onClick: () => void svaraAdaptivt(fas.valt, fas.tid), data: 'forsok-igen' }
+              : {
+                  text: sista || avslutar ? SESSION.knapp.visaResultat : SESSION.knapp.nasta,
+                  onClick: nasta,
+                  disabled: markerad === null && !avslutar && !sparar,
+                  laddar: fas.typ === 'avslutar' || sparar,
+                  data: sista ? 'visa-resultatet' : 'nasta',
+                },
       }}
     >
       <Uppgift
         u={u}
         nr={idx + 1}
         antal={antal}
-        vald={avslutar ? svar[u.nyckel] ?? markerad : markerad}
+        vald={avslutar ? svar[u.nyckel] ?? markerad : fas.typ === 'svarfel' ? fas.valt : markerad}
         facit={null}
         last={fas.typ !== 'fraga'}
         onValj={(i) => {

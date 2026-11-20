@@ -636,12 +636,20 @@ html[data-flow-dorrar='true'] .cookie-banner-container {
    i DOM:en överst på sidan: en rubrik skärmläsare fortfarande läste upp och
    en yta som blev synlig så fort skalets bakgrund inte täckte hela bredden.
    Under ett flöde finns bara flödets egen topprad. */
-html[data-flow-active='true'] [data-dashboard-header] {
+html[data-flow-active='true']:not(:has([data-sessionsram].fixed)) [data-dashboard-header] {
   display: none !important;
 }
 /* Rummens topprad (våg 1b, spec 4.2) följer samma regel. */
-html[data-flow-active='true'] [data-topprad] {
+html[data-flow-active='true']:not(:has([data-sessionsram].fixed)) [data-topprad] {
   display: none !important;
+}
+/* Under sessionsramen (fixed inset-0, täcker allt) döljs de i stället med
+   synligheten: de står kvar i flödet, så sidan under ramen hoppar inte när
+   ramen kommer (CLS 0 vid övergången från en vanlig sida). Synligheten tar
+   dem också ur skärmläsarens träd. */
+html:has([data-sessionsram].fixed) [data-dashboard-header],
+html:has([data-sessionsram].fixed) [data-topprad] {
+  visibility: hidden !important;
 }
 
 /* Samma sak för cookie-bannern. Den ligger på z-999 längst ner och lägger sig
@@ -2231,6 +2239,23 @@ html {
 /* Luckan efter facit i Träna och genomgången: figuren i bläck, 2 px positiv. */
 .serie > .ruta.sess-lucka-fylld { box-shadow: inset 0 0 0 2px var(--positiv); background: var(--papper); animation: sess-tona 160ms ease-out both; }
 
+/* Figurer och mönster (3.2): matrisen 264 på mobil, 336 i Smal på dator,
+   alltid kvadratisk och med fast storlek före bilden (CLS 0). Luckan efter
+   facit: rätt figur i bläck med 2 px positiv ram. */
+.sess-matris { width: 264px; height: 264px; max-width: 100%; }
+@media (min-width: 1024px) { .sess-matris { width: 336px; height: 336px; } }
+.sess-lucka-matris { box-shadow: inset 0 0 0 2px var(--positiv); animation: sess-tona 160ms ease-out both; }
+
+/* Deduktiv slutledning (3.4), innehållsformen Bred: villkoren i egen spalt
+   till vänster på dator (560), uppgiften och svaren till höger (400). På
+   mobil står villkoren fästa överst med egen rullning, högst 42 vh och 38 vh
+   när uppgiften har fem alternativ, så att svaren syns utan att rulla. */
+.sess-villkor { position: sticky; top: 0; z-index: 5; max-height: 42vh; overflow-y: auto; overscroll-behavior: contain; }
+.sess-villkor[data-fem] { max-height: 38vh; }
+@media (min-width: 1024px) {
+  .sess-villkor, .sess-villkor[data-fem] { top: 24px; max-height: none; overflow: visible; }
+}
+
 /* Förklaringen: glider in under svaren 120 ms efter facit. */
 @keyframes sess-forklaring { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 .sess-forklaring { animation: sess-forklaring 280ms cubic-bezier(.2, .8, .2, 1) 120ms both; }
@@ -2270,4 +2295,10 @@ div:has(> main.dashboard-main-content [data-sessionsram]) {
    från första målningen; ingenting synligt flyttar sig. */
 html:has([data-sessionsram].fixed) {
   scrollbar-gutter: auto;
+}
+/* Installationsraden hålls undan under ramen (avsnitt 1, Lagret): den står
+   annars ovanpå foten mitt i en session eller en genomgång. Raden står kvar
+   i sitt tillstånd och visas när hon lämnar ramen. */
+html:has([data-sessionsram].fixed) [data-installrad] {
+  display: none;
 }

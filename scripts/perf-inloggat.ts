@@ -126,6 +126,11 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/pass?typ=textpass', namn: 'ord och text träna startskärm', budget: 'flode' },
   { path: '/dashboard/tester/pass?typ=nivakoll&kind=numerisk', namn: 'siffror nivakoll startskärm', budget: 'flode' },
   { path: '/dashboard/tester/ovningsprov/numerisk', namn: 'tester/ovningsprov numeriskt', budget: 'flode' },
+  // Etapp 3: Figurer och mönster och Deduktiv slutledning.
+  { path: '/dashboard/tester/pass?typ=pass&nivakoll=sen', namn: 'figurer och mönster träna startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass?typ=matning', namn: 'figurer och mönster nivakoll startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass?typ=deduktivpass', namn: 'deduktiv träna startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass?typ=nivakoll&kind=deduktiv', namn: 'deduktiv nivakoll startskärm', budget: 'flode' },
   // Deduktiv slutledning (omgång 3, B1): mät med --epost <qa-konto> som har deduktivsessioner.
   { path: '/dashboard/tester/deduktiv-grund', namn: 'deduktiv testsida', budget: 'lista' },
   // Testplanen steg 2: nivåtestens startsidor och I-prov-provets startark.

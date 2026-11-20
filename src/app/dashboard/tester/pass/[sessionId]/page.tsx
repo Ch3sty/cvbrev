@@ -6,7 +6,11 @@
  */
 
 import { notFound } from 'next/navigation'
-import PassFlode from '@/components/traning/PassFlode'
+import MatrisNivakoll from '@/components/session/matris/MatrisNivakoll'
+import MatrisTrana from '@/components/session/matris/MatrisTrana'
+import MatrisOvningsprov from '@/components/session/matris/MatrisOvningsprov'
+import DeduktivTrana from '@/components/session/deduktiv/DeduktivTrana'
+import DeduktivNivakoll from '@/components/session/deduktiv/DeduktivNivakoll'
 import { hamtaSession, sessionsvy } from '@/lib/traning/motor.server'
 import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
 import VnTrana from '@/components/session/vn/VnTrana'
@@ -18,7 +22,6 @@ import { senasteNivakollNiva } from '@/lib/nivakoll/las.server'
 import { dagSthlm } from '@/lib/traning/datum'
 import { kortDatum } from '@/lib/traning/rubrik'
 import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
-import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import { deduktivPassVy, hamtaDeduktivPass } from '@/lib/tester/pass-deduktiv.server'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
 import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
@@ -80,7 +83,15 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Deduktivpasset har samma adress (testplanen steg 1).
     const dedu = await hamtaDeduktivPass(admin, userId, sessionId)
     const deduVy = dedu ? deduktivPassVy(dedu) : null
-    if (deduVy) return <DeduktivPassFlode vy={deduVy} />
+    if (deduVy) {
+      // Sessionsramen (etapp 3). DeduktivPassFlode står kvar oanvänd till etapp 5.
+      const [installningar, nivakoll] = await Promise.all([
+        lasTestInstallningar(admin, userId),
+        senasteNivakollNiva(admin, userId, 'deduktiv').catch(() => null),
+      ])
+      const dag = dedu?.completed_at ? dagSthlm(dedu.completed_at) : dagSthlm()
+      return <DeduktivTrana vy={deduVy} forklaringEfterSvar={installningar.forklaring_efter_svar} harNivakoll={nivakoll != null} datum={kortDatum(dag)} />
+    }
     // Passen i testplanens steg 2 har samma adress.
     const s2 = await hamtaSteg2Pass(admin, userId, sessionId)
     const s2Vy = s2 ? steg2PassVy(s2) : null
@@ -97,7 +108,27 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
       const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
       return <VnNivakoll kind={kollVy.kind} vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
     }
+    if (kollVy.kind === 'deduktiv') {
+      const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
+      return <DeduktivNivakoll vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
+    }
     return <NivakollFlode vy={kollVy} betalande={betalande} />
   }
-  return <PassFlode vy={vy} betalande={betalande} />
+  // Sessionsramen (etapp 3): matrisens Nivåkoll, Träna, riktat och övningsprov.
+  // PassFlode står kvar oanvänd till etapp 5.
+  const dag = rad?.completed_at ? dagSthlm(rad.completed_at) : dagSthlm()
+  const m = { vy, avslut: null, status: null }
+  if (vy.typ === 'general') return <MatrisOvningsprov vy={m} />
+  if (vy.typ === 'matning' || vy.typ === 'ommatning') return <MatrisNivakoll vy={m} betalande={betalande} datum={kortDatum(dag)} />
+  const installningar = await lasTestInstallningar(admin, userId)
+  return (
+    <MatrisTrana
+      begard={vy.typ === 'riktat' ? 'riktat' : 'pass'}
+      family={vy.family}
+      vy={m}
+      forklaringEfterSvar={installningar.forklaring_efter_svar}
+      betalande={betalande}
+      datum={kortDatum(dag)}
+    />
+  )
 }

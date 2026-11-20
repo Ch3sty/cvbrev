@@ -108,7 +108,8 @@ export function enhetsord(kind: TestKind): Sakord {
 }
 
 export function sakord(kind: TestKind, slug: string): Sakord {
-  if (kind === 'figurserie' || kind === 'deduktiv' || kind === 'talserie' || kind === 'spatial' || kind === 'ordforrad') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
+  // Figurer och mönster i sessionsramen (etapp 3): uppgift, inte fråga (ordlistan).
+  if (kind === 'matris' || kind === 'figurserie' || kind === 'deduktiv' || kind === 'talserie' || kind === 'spatial' || kind === 'ordforrad') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
   }
@@ -134,7 +135,7 @@ export const RESULTAT = {
     titel: (n: number, s: { en: string; flera: string; neutrum: boolean }) =>
       `${versal(ordTal(n, s.neutrum))} ${n === 1 ? s.en : s.flera} att titta på`,
     regel: {
-      matris: 'Regeln står vid varje fråga.',
+      matris: 'Regeln står vid varje uppgift.',
       figurserie: 'Regeln står vid varje uppgift.',
       deduktiv: 'Lösningsgången står vid varje uppgift.',
       talserie: 'Regeln står vid varje uppgift.',

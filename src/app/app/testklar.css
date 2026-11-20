@@ -862,3 +862,17 @@
   --font-sess-display: var(--tk-disp);
   --font-sess-text: var(--tk-text);
 }
+/* Appens rot sätter --fel och --fel-mjuk i ljust (appens egna kort), men
+   ramen följer webbens mörka läge. Utan det här blev felytan ljusrosa med
+   ljus text i mörkt läge (Förklaringen och det valda felaktiga kortet).
+   Samma värden som webbens mörka tokens i globals.css. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):has([data-rum]) [data-mobilapp] [data-sessionsram] {
+    --fel: #e57f74;
+    --fel-mjuk: #3f1f1c;
+  }
+}
+:root[data-theme='dark']:has([data-rum]) [data-mobilapp] [data-sessionsram] {
+  --fel: #e57f74;
+  --fel-mjuk: #3f1f1c;
+}

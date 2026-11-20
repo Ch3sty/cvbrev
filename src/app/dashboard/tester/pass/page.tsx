@@ -12,7 +12,6 @@
  * adressen till /dashboard/tester/pass/<id> utan omladdning.
  */
 
-import PassFlode from '@/components/traning/PassFlode'
 import VnTrana from '@/components/session/vn/VnTrana'
 import VnNivakoll from '@/components/session/vn/VnNivakoll'
 import { vnNivakollStart, vnTranaStart } from './start-vn.server'
@@ -20,7 +19,13 @@ import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
 import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { figurNivakollStart, figurTranaStart } from './start.server'
-import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
+import { redirect } from 'next/navigation'
+import DeduktivTrana from '@/components/session/deduktiv/DeduktivTrana'
+import DeduktivNivakoll from '@/components/session/deduktiv/DeduktivNivakoll'
+import MatrisNivakoll from '@/components/session/matris/MatrisNivakoll'
+import MatrisTrana from '@/components/session/matris/MatrisTrana'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
+import { deduktivNivakollStart, deduktivTranaStart, matrisStart } from './start-etapp3.server'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
 import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
 import { steg2Synlig } from '@/lib/tester/steg2Status'
@@ -78,7 +83,8 @@ export default async function PassStartSida({
   if (typ === 'nivakoll') {
     const kind = forsta(sp.kind)
     const { betalande, userId, supabase } = await passSida()
-    if (!arNivakollKind(kind)) return <PassFlode key="matning" start={{ typ: 'matning', family: null, format: null }} betalande={betalande} />
+    // Matrisens Nivåkoll har sin egen adress (passHref('matning')).
+    if (!arNivakollKind(kind)) redirect(TRANING_RUTT.matning)
     if (kind === 'figurserie') {
       const st = await figurNivakollStart(supabase, testSkrivKlient(), userId)
       if (st.idagKlar) return <FigurserieNivakoll key="nivakoll|figurserie|klar" vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
@@ -89,6 +95,12 @@ export default async function PassStartSida({
       const st = await vnNivakollStart(supabase, testSkrivKlient(), userId, kind)
       if (st.idagKlar) return <VnNivakoll key={`nivakoll|${kind}|klar`} kind={kind} vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
       return <VnNivakoll key={`nivakoll|${kind}`} kind={kind} start={st.start} betalande={betalande} datum={st.datum} />
+    }
+    // Etapp 3: deduktiv slutledning i ramen.
+    if (kind === 'deduktiv') {
+      const st = await deduktivNivakollStart(supabase, testSkrivKlient(), userId)
+      if (st.idagKlar) return <DeduktivNivakoll key="nivakoll|deduktiv|klar" vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
+      return <DeduktivNivakoll key="nivakoll|deduktiv" start={st.start} betalande={betalande} datum={st.datum} />
     }
     return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
   }
@@ -101,24 +113,47 @@ export default async function PassStartSida({
       return <Steg2PassFlode key={`${kind}|${grupp ?? ''}`} starta={{ kind, grupp }} />
     }
   }
-  // Deduktivpasset (testplanen steg 1).
+  // Deduktivpasset (testplanen steg 1). Sessionsramen, etapp 3:
+  // startskärmen först. DeduktivPassFlode står kvar oanvänd till etapp 5.
   if (typ === 'deduktivpass') {
-    await passSida()
-    return <DeduktivPassFlode key="deduktivpass" starta />
+    const { userId, supabase } = await passSida()
+    const st = await deduktivTranaStart(supabase, testSkrivKlient(), userId)
+    return (
+      <DeduktivTrana key="deduktivpass" start={st.start} forklaringEfterSvar={st.forklaringEfterSvar} harNivakoll={st.harNivakoll} datum={st.datum} />
+    )
   }
   const begard: Begard = TYPER.includes(typ as Begard) ? (typ as Begard) : 'pass'
-  const { betalande } = await passSida()
+  // Logikens övningsprov startas alltid från sin startskärm (avsnitt 4.1).
+  if (begard === 'general') redirect(TRANING_RUTT.provlaget)
+  const { betalande, userId, supabase } = await passSida()
   const family = forsta(sp.family)
-  const format = forsta(sp.format)
-  // Nyckeln monterar om flödet när en ny start begärs från samma sida. Utan
-  // den återanvänder routern komponenten (mätningens resultat står kvar på
-  // /pass?typ=matning), startad-spärren hindrar en ny start och "Starta
-  // dagens pass" ser död ut (ägaren 2026-10-11).
-  return (
-    <PassFlode
-      key={`${begard}|${family ?? ''}|${format ?? ''}`}
-      start={{ typ: begard, family, format }}
-      betalande={betalande}
-    />
-  )
+  // Sessionsramen, etapp 3: Figurer och mönster. Nivåkollen och Träna får
+  // startskärmen; PassFlode står kvar oanvänd till etapp 5.
+  if (begard === 'matning') {
+    const st = await matrisStart(supabase, testSkrivKlient(), userId, 'matning')
+    return (
+      <MatrisNivakoll
+        key="matning"
+        start={{ sparr: st.sparr === 'premium' ? 'premium' : null, pagaende: st.pagaende }}
+        betalande={betalande}
+        datum={st.datum}
+      />
+    )
+  }
+  if (begard === 'pass' || begard === 'riktat') {
+    const st = await matrisStart(supabase, testSkrivKlient(), userId, begard, family)
+    return (
+      <MatrisTrana
+        key={`${begard}|${family ?? ''}`}
+        begard={begard}
+        family={family}
+        start={st}
+        utanNivakoll={forsta(sp.nivakoll) === 'sen'}
+        forklaringEfterSvar={st.forklaringEfterSvar}
+        betalande={betalande}
+        datum={st.datum}
+      />
+    )
+  }
+  redirect(TRANING_RUTT.alla)
 }

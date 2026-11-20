@@ -4,7 +4,10 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { KROPP, figurserieNivatestApi, ovningsprovApi } from '../figurserie/api'
-import { fetchFigurPassApi, fetchNivakollApi } from '@/lib/tester/pass-klient'
+import { fetchDeduktivPassApi, fetchFigurPassApi, fetchNivakollApi } from '@/lib/tester/pass-klient'
+import { fetchPassApi } from '@/lib/traning/klient'
+import { fetchUppvarmningApi } from '@/components/traning/Uppvarmning'
+import { svarKropp } from '../matris/api'
 
 type Anrop = { url: string; metod: string; kropp: unknown }
 
@@ -83,5 +86,68 @@ describe('POST-kropparna är desamma som förut', () => {
       ['/api/traning/nivakoll/svar', { sessionId: 'k1', nyckel: 'fs-2', svar: '5', tid: 9 }],
       ['/api/traning/nivakoll/slutfor', { sessionId: 'k1' }],
     ])
+  })
+})
+
+describe('etapp 3: matrisens och deduktivens kroppar är desamma som förut', () => {
+  it('matrisens Nivåkoll, Träna och övningsprov: PassFlodes kroppar, kalibreringen orörd', async () => {
+    const anrop = spionera({ json: { session: { id: 'm1' }, aterkoppling: null, nasta: null, besvarade: 1, antal: 12, klar: false } })
+    await fetchPassApi.skapa('matning')
+    await fetchPassApi.skapa('riktat', { family: 'rotation-med-byte' })
+    await fetchPassApi.skapa('general')
+    // Svaret: {sessionId, questionId, selectedIndex, vetInte, tidenUte, timeSpent}, som PassFlode.
+    await fetchPassApi.svara(svarKropp({ sessionId: 'm1', questionId: 'v7-1', valt: 2, tid: 14 }))
+    await fetchPassApi.svara(svarKropp({ sessionId: 'm1', questionId: 'v7-2', valt: null, vetInte: true, tid: 30 }))
+    await fetchPassApi.svara(svarKropp({ sessionId: 'm1', questionId: 'v7-3', valt: null, tidenUte: true, tid: 120 }))
+    await fetchPassApi.slutfor('m1')
+    expect(anrop.map((a) => [a.url, a.kropp])).toEqual([
+      ['/api/traning/pass/session', { typ: 'matning' }],
+      ['/api/traning/pass/session', { typ: 'riktat', family: 'rotation-med-byte' }],
+      ['/api/traning/pass/session', { typ: 'general' }],
+      ['/api/traning/pass/svar', { sessionId: 'm1', questionId: 'v7-1', selectedIndex: 2, vetInte: false, tidenUte: false, timeSpent: 14 }],
+      ['/api/traning/pass/svar', { sessionId: 'm1', questionId: 'v7-2', selectedIndex: null, vetInte: true, tidenUte: false, timeSpent: 30 }],
+      ['/api/traning/pass/svar', { sessionId: 'm1', questionId: 'v7-3', selectedIndex: null, vetInte: false, tidenUte: true, timeSpent: 120 }],
+      ['/api/traning/pass/complete', { sessionId: 'm1' }],
+    ])
+    expect(Object.keys(svarKropp({ sessionId: 'a', questionId: 'b', valt: 0, tid: 0 }))).toEqual(['sessionId', 'questionId', 'selectedIndex', 'vetInte', 'tidenUte', 'timeSpent'])
+  })
+
+  it('matrisens och deduktivens nivåtest: samma /answer och /complete som figurserierna', async () => {
+    const anrop = spionera({ json: { success: true } })
+    for (const api of ['/api/logicTestV4', '/api/logicTestV6', '/api/deduktiv']) {
+      const n = figurserieNivatestApi({ sessionId: 's9', answerEndpoint: `${api}/answer`, completeEndpoint: `${api}/complete`, sessionEndpoint: `${api}/session` })
+      await n.svara('q-1', 4, 21)
+      await n.lamnaIn()
+    }
+    expect(anrop.map((a) => [a.url, a.kropp])).toEqual([
+      ['/api/logicTestV4/answer', { sessionId: 's9', questionId: 'q-1', selectedIndex: 4, timeSpent: 21 }],
+      ['/api/logicTestV4/complete', { sessionId: 's9' }],
+      ['/api/logicTestV6/answer', { sessionId: 's9', questionId: 'q-1', selectedIndex: 4, timeSpent: 21 }],
+      ['/api/logicTestV6/complete', { sessionId: 's9' }],
+      ['/api/deduktiv/answer', { sessionId: 's9', questionId: 'q-1', selectedIndex: 4, timeSpent: 21 }],
+      ['/api/deduktiv/complete', { sessionId: 's9' }],
+    ])
+  })
+
+  it('deduktivens Träna, Nivåkoll och övningsprov: samma rutter som förut', async () => {
+    const anrop = spionera({ json: { session: { id: 'd1' } } })
+    await fetchDeduktivPassApi.skapa()
+    await fetchDeduktivPassApi.svara({ sessionId: 'd1', nyckel: 'dd-g-d1-01', visat: 3, tid: 50 })
+    await fetchDeduktivPassApi.slutfor('d1')
+    await fetchNivakollApi.skapa('deduktiv')
+    await ovningsprovApi.starta('deduktiv')
+    expect(anrop.map((a) => [a.url, a.kropp])).toEqual([
+      ['/api/traning/deduktivpass/session', {}],
+      ['/api/traning/deduktivpass/svar', { sessionId: 'd1', nyckel: 'dd-g-d1-01', visat: 3, tid: 50 }],
+      ['/api/traning/deduktivpass/slutfor', { sessionId: 'd1' }],
+      ['/api/traning/nivakoll/session', { kind: 'deduktiv' }],
+      ['/api/traning/ovningsprov/session', { typ: 'deduktiv', fran: 'hubb' }],
+    ])
+  })
+
+  it('uppvärmningen: {questionId, selectedIndex}, inget sparas', async () => {
+    const anrop = spionera({ json: { correct: true, rattVisat: 1, regel: 'r' } })
+    await fetchUppvarmningApi.svara('v7-9', 1)
+    expect(anrop).toEqual([{ url: '/api/traning/uppvarmning', metod: 'POST', kropp: { questionId: 'v7-9', selectedIndex: 1 } }])
   })
 })

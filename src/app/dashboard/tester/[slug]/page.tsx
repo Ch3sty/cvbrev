@@ -40,7 +40,8 @@ export default async function TestSlugPage({
   const [forsok, grundKvot, startlage] = await Promise.all([
     getForsok(config),
     getGrundKvot(config),
-    config.kind === 'figurserie' || ((config.kind === 'verbal' || config.kind === 'numerisk') && config.level !== 'prov')
+    config.kind === 'figurserie' ||
+    ((config.kind === 'verbal' || config.kind === 'numerisk' || config.kind === 'matris' || config.kind === 'deduktiv') && config.level !== 'prov')
       ? getStartlage(config)
       : Promise.resolve(null),
   ])

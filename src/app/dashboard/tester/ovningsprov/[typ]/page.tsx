@@ -15,6 +15,10 @@ import { notFound } from 'next/navigation'
 import Startark from '@/components/traning/ovningsprov/Startark'
 import { FigurserieOvningsprovStart } from '@/components/session/figurserie/FigurserieOvningsprov'
 import { VnOvningsprovStart } from '@/components/session/vn/VnOvningsprov'
+import { DeduktivOvningsprovStart } from '@/components/session/deduktiv/DeduktivOvningsprov'
+import { MatrisOvningsprovStart } from '@/components/session/matris/MatrisOvningsprov'
+import { lasTraningsmeta } from '@/lib/traning/historik'
+import { TEST_TYPE } from '@/lib/traning/tillgang'
 import { arProvtyp, ovningsformat } from '@/lib/ovningsprov/format'
 import { lasMeta, TIDSMARGINAL_MS } from '@/lib/ovningsprov/motor.server'
 import { OVNINGSPROV_TEST_TYPE } from '@/lib/ovningsprov/typer'
@@ -43,7 +47,14 @@ export default async function OvningsprovStartSida({
     lasBehorighet(supabase, userId).catch(() => ({ harOvanGrund: false, harProvlage: false, harHistorik: false })),
     admin.from('test_planer').select('*').eq('user_id', userId).maybeSingle(),
     typ === 'logik'
-      ? Promise.resolve({ data: [], error: null })
+      ? // Sessionsramen (etapp 3): en påbörjad generalrepetition fortsätts från startskärmen.
+        admin
+          .from('logic_test_v4_sessions')
+          .select('id, meta, created_at, started_at, completed_at')
+          .eq('user_id', userId)
+          .eq('test_type', TEST_TYPE.general)
+          .order('created_at', { ascending: false })
+          .limit(5)
       : admin
           .from('logic_test_v4_sessions')
           .select('id, meta, created_at, started_at, completed_at')
@@ -62,9 +73,10 @@ export default async function OvningsprovStartSida({
   const rader = ((sessRes as { data: unknown }).data ?? []) as Rad[]
   const nu = Date.now()
   const pagaende = rader.find((r) => {
-    const m = lasMeta(r.meta)
-    if (!m || r.completed_at) return false
-    return nu <= new Date(r.started_at ?? r.created_at).getTime() + m.tidsgrans_s * 1000 + TIDSMARGINAL_MS
+    if (r.completed_at) return false
+    const tidsgrans = typ === 'logik' ? lasTraningsmeta(r.meta)?.tidsgrans_s ?? null : lasMeta(r.meta)?.tidsgrans_s ?? null
+    if (!tidsgrans) return false
+    return nu <= new Date(r.started_at ?? r.created_at).getTime() + tidsgrans * 1000 + TIDSMARGINAL_MS
   })
   const gjort = rader.find((r) => r.completed_at && dagSthlm(r.completed_at) === idag)
 
@@ -95,6 +107,32 @@ export default async function OvningsprovStartSida({
         last={!beh.harProvlage}
         pagaende={pagaende?.id ?? null}
         gjortIdag={pagaende ? null : gjort?.id ?? null}
+        tillbakaHref={TRANING_RUTT.alla}
+        fran={fran}
+      />
+    )
+  }
+  // Etapp 3: deduktivt och logiken har ramens startskärm.
+  if (typ === 'deduktiv') {
+    return (
+      <DeduktivOvningsprovStart
+        format={format}
+        dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
+        last={!beh.harProvlage}
+        pagaende={pagaende?.id ?? null}
+        gjortIdag={pagaende ? null : gjort?.id ?? null}
+        tillbakaHref={TRANING_RUTT.alla}
+        fran={fran}
+      />
+    )
+  }
+  if (typ === 'logik') {
+    return (
+      <MatrisOvningsprovStart
+        format={format}
+        dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
+        last={!beh.harProvlage}
+        pagaende={pagaende?.id ?? null}
         tillbakaHref={TRANING_RUTT.alla}
         fran={fran}
       />

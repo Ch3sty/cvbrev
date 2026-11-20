@@ -9,6 +9,7 @@ import { notFound, redirect } from 'next/navigation'
 import OvningsprovFlode from '@/components/traning/ovningsprov/OvningsprovFlode'
 import FigurserieOvningsprov from '@/components/session/figurserie/FigurserieOvningsprov'
 import VnOvningsprov from '@/components/session/vn/VnOvningsprov'
+import DeduktivOvningsprov from '@/components/session/deduktiv/DeduktivOvningsprov'
 import { hamtaOvningsprov, ovningsvy } from '@/lib/ovningsprov/motor.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { arGiltigDag, dagarMellan, dagSthlm } from '@/lib/traning/datum'
@@ -39,5 +40,7 @@ export default async function OvningsprovSessionSida({ params }: { params: Promi
   if (vy.typ === 'figurer') return <FigurserieOvningsprov vy={vy} dagarKvar={dagarKvar} datum={datum} />
   // Etapp 2: ord och text, siffror och tabeller i ramen.
   if (vy.typ === 'verbal' || vy.typ === 'numerisk') return <VnOvningsprov vy={vy} dagarKvar={dagarKvar} datum={datum} />
+  // Etapp 3: deduktivt i ramen.
+  if (vy.typ === 'deduktiv') return <DeduktivOvningsprov vy={vy} dagarKvar={dagarKvar} datum={datum} />
   return <OvningsprovFlode vy={vy} dagarKvar={dagarKvar} datum={datum} />
 }

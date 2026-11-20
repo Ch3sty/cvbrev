@@ -58,6 +58,13 @@ import FigurserieNivatestResultat from '@/components/session/figurserie/Figurser
 import VnNivatestResultat from '@/components/session/vn/VnNivatestResultat'
 import type { VnNivatestGenomgang } from '@/lib/tester/vn-nivatest'
 import { KLART } from '@/components/session/copy'
+import KlassiskNivatestResultat from '@/components/session/delat/KlassiskNivatestResultat'
+import { MATRIS } from '@/components/session/typer/Matris'
+import { DEDUKTIV } from '@/components/session/typer/Deduktiv'
+import { matrisPoster } from '@/components/session/matris/MatrisNivatest'
+import { deduktivPoster } from '@/components/session/deduktiv/DeduktivNivatest'
+import { MatrisMiniatyrer } from '@/components/session/matris/delar'
+import { NIVA_ORD } from '@/lib/traning/rubrik'
 import { kortDatum } from '@/lib/traning/rubrik'
 import { dagSthlm } from '@/lib/traning/datum'
 
@@ -511,6 +518,70 @@ export default function TestResultsPage({
             : { titel: last ? RESULTAT.status.text : rytm ?? RESULTAT.status.text, text: last ? null : RESULTAT.status.text, knapp: 'Alla tester', href: '/dashboard/tester/alla' }
         }
         motion={nyss}
+      />
+    )
+  }
+
+  // Figurer och mönster och Deduktiv slutledning i sessionsramens
+  // resultatskärm (plan-testflode-2026-11-20, etapp 3). Allt ovan räknas som
+  // förut; bara ritningen byts.
+  if ((matris && !prov) || deduktiv) {
+    const minuter = config.examMinutes ?? config.minutes
+    const overSek = timeSpent - minuter * 60
+    const nasta = config.nextSlug ? TEST_CONFIGS.find((c) => c.slug === config.nextSlug) : undefined
+    const nastaOppen = !!nasta && (!nasta.requiresFeature || (scope !== undefined && scopeHasFeature(scope, nasta.requiresFeature)))
+    const nastaTitel = nasta ? (nasta.level === 'prov' ? 'Nästa steg: övningsprovet' : `Nästa nivå: ${NIVA_ORD[nasta.level as keyof typeof NIVA_ORD] ?? nasta.title}`) : ''
+    const gemensamt = {
+      niva: config.level as 'grund' | 'avancerad' | 'expert',
+      hubHref: testPaths.hub(config.slug),
+      datum: session.completed_at ? kortDatum(dagSthlm(session.completed_at)) : null,
+      eyebrow: nyss || !session.completed_at ? KLART.nivatest : datumText(session.completed_at),
+      ratt: score,
+      totalt: total,
+      tal: [
+        { varde: minSek(timeSpent), etikett: `av ${minuter} min` },
+        overSek > 0
+          ? { varde: `${Math.max(1, Math.round(overSek / 60))} min`, etikett: 'över provets tid', koppar: true }
+          : { varde: tempoTal.tal, etikett: tempoTal.etikett },
+      ],
+      mening: rad,
+      genomgangText: lage === 'missar' ? [regel, samma].filter(Boolean).join(' ') : null,
+      tappadeKort: harTappade ? <TappadeKort grupper={analys.grupper} svagast={analys.svagast} matris={figur} term={term} flera={sak.flera} /> : null,
+      tempoKort: tempo ? <TempoKort tempo={tempo} sak={tempoOrd} /> : null,
+      status: last ? (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+          <span className="flex min-w-0 items-center gap-2.5">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
+            <span>{rytm}</span>
+          </span>
+          <StatusKop />
+        </div>
+      ) : utanCv ? (
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+          <span className="flex min-w-0 items-center gap-2.5">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
+            <span>{RESULTAT.status.cv}</span>
+          </span>
+          <Link href="/dashboard/profil/cv" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
+            {RESULTAT.status.lankCv}
+          </Link>
+        </div>
+      ) : null,
+      nasta:
+        nastaOppen && nasta && pct >= SITTER_PROCENT
+          ? { titel: nastaTitel, text: RESULTAT.status.text, knapp: nasta.level === 'prov' ? 'Till övningsprovet' : 'Till nästa nivå', href: testPaths.hub(nasta.slug) }
+          : { titel: last ? RESULTAT.status.text : rytm ?? RESULTAT.status.text, text: last ? null : RESULTAT.status.text, knapp: 'Alla tester', href: '/dashboard/tester/alla' },
+      motion: nyss,
+    }
+    if (deduktiv) {
+      return <KlassiskNivatestResultat {...gemensamt} ritare={DEDUKTIV} poster={deduktivPoster(session.deduktiv ?? [], session.answers)} />
+    }
+    return (
+      <KlassiskNivatestResultat
+        {...gemensamt}
+        ritare={MATRIS}
+        poster={matrisPoster(session.genomgang ?? [], session.answers)}
+        miniatyrer={(missar) => <MatrisMiniatyrer poster={missar.map((m) => ({ u: m.u, ratt: m.facit.ratt }))} />}
       />
     )
   }

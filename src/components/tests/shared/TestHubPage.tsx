@@ -98,7 +98,13 @@ const MATER: Record<Exclude<TestKind, 'personlighet'>, HjalpId> = {
 }
 
 /** Typens namn i ramen (ordlistan, plan-testflode-2026-11-20 avsnitt 6). */
-const RAM_NAMN: Partial<Record<TestKind, string>> = { verbal: 'Ord och text', numerisk: 'Siffror och tabeller' }
+const RAM_NAMN: Partial<Record<TestKind, string>> = {
+  verbal: 'Ord och text',
+  numerisk: 'Siffror och tabeller',
+  // Etapp 3.
+  matris: 'Figurer och mönster',
+  deduktiv: 'Deduktiv slutledning',
+}
 
 const HJALP_RUBRIK = {
   grund: 'Vad betyder grundnivån?',
@@ -256,7 +262,8 @@ export default function TestHubPage({
   // Sessionsramens startark (plan-testflode-2026-11-20 avsnitt 4.1, etapp 1):
   // figurserierna får startskärmen ovanför Ditt bästa och Dina försök.
   // Etapp 2: ord och text, siffror och tabeller får samma startark.
-  if (config.kind === 'figurserie' || ((config.kind === 'verbal' || config.kind === 'numerisk') && !arProv)) {
+  // Etapp 3: Figurer och mönster och Deduktiv slutledning likaså.
+  if (config.kind === 'figurserie' || ((config.kind === 'verbal' || config.kind === 'numerisk' || config.kind === 'matris' || config.kind === 'deduktiv') && !arProv)) {
     const last = startlage ? startlage.last : isLocked
     const pagaende = startlage?.pagaende ?? null
     const sparrad: 'none' | 'quota' | 'premium' = last ? 'premium' : tak && !pagaende ? 'quota' : 'none'
@@ -284,7 +291,11 @@ export default function TestHubPage({
           topprad={<Topprad />}
           bas={{ test_kind: config.kind, lage: 'nivatest', niva: config.level, format: null }}
           eyebrow={RAM_NAMN[config.kind] ?? KIND_LABEL[config.kind]}
-          rubrik={RAM_NAMN[config.kind] ? sessionRubrik(config.kind as 'verbal' | 'numerisk', config.level as 'grund' | 'avancerad' | 'expert') : config.title}
+          rubrik={
+            RAM_NAMN[config.kind]
+              ? sessionRubrik(config.kind as 'verbal' | 'numerisk' | 'matris' | 'deduktiv', config.level as 'grund' | 'avancerad' | 'expert')
+              : config.title
+          }
           scen={config.kind}
           rita={!pagaende && !last && sparrad === 'none'}
           regler={[
@@ -292,7 +303,13 @@ export default function TestHubPage({
               titel: `${config.totalQuestions} uppgifter. Provets tid är ${minuter} minuter, klockan stoppar dig inte.`,
               text: 'Tiden över syns i resultatet.',
             },
-            { titel: 'Rätt svar efteråt, med genomgång.', text: 'Du kan gå tillbaka och ändra svar tills du lämnar in.' },
+            {
+              titel: 'Rätt svar efteråt, med genomgång.',
+              text:
+                config.kind === 'deduktiv'
+                  ? 'Utgå bara från det som står. Du kan gå tillbaka och ändra svar tills du lämnar in.'
+                  : 'Du kan gå tillbaka och ändra svar tills du lämnar in.',
+            },
             { titel: 'Resultatet syns i Din utveckling.', text: gratisGrund ? GRUND_GRATISRAD : null },
           ]}
           sparrad={sparrad}

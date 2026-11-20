@@ -59,6 +59,8 @@ export interface TranaStart extends Omit<StartskarmProps, 'bas' | 'knapp' | 'kry
   /** Betalväggen när träningen inte ingår (gratis). */
   sparr?: ReactNode
   fortsatt: boolean
+  /** Typens egen rad när starten nekas med en känd status (matrisens riktade pass: 422, för få uppgifter). */
+  startfelRad?: (status: number) => ReactNode | null
 }
 
 export interface TranaProps<U extends RamUppgift, S> {
@@ -329,7 +331,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
         kortRad={
           startfel ? (
             <span role="alert" className="text-ink-1">
-              {SESSION.fel.start}
+              {(fas.typ === 'startfel' && st.startfelRad?.(fas.status)) || SESSION.fel.start}
             </span>
           ) : (
             st.kortRad
@@ -439,6 +441,19 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
 
   const utfall = facit ? (valtVisat === null ? 'vet_inte' : facit.correct ? 'ratt' : 'fel') : null
   const tidPaUppgift = sparad?.tid ?? s.besvarade[u.nyckel]?.tid_s ?? Math.round(sekunder)
+  const forklaringen =
+    facit && utfall ? (
+      <Forklaringen
+        utfall={utfall}
+        tid={{ sekunder: tidPaUppgift, budget: s.budgetPerUppgift }}
+        regel={facit.regel}
+        text={facit.text}
+        misstag={facit.misstag}
+        detalj={facit.detalj}
+        rapport={{ qId: u.nyckel, sessionId: s.id, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
+        rullaFram
+      />
+    ) : null
 
   return (
     <SessionsRam
@@ -491,18 +506,9 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
             via.current = 'tap'
             setMarkerad(i)
           }}
+          forklaring={ritare.forklaringIUppgift ? forklaringen : undefined}
         />
-        {facit && utfall ? (
-          <Forklaringen
-            utfall={utfall}
-            tid={{ sekunder: tidPaUppgift, budget: s.budgetPerUppgift }}
-            regel={facit.regel}
-            text={facit.text}
-            misstag={facit.misstag}
-            rapport={{ qId: u.nyckel, sessionId: s.id, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
-            rullaFram
-          />
-        ) : null}
+        {ritare.forklaringIUppgift ? null : forklaringen}
       </div>
     </SessionsRam>
   )

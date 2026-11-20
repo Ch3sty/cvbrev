@@ -43,6 +43,17 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
   const sista = pos >= antal - 1
   const Uppgift = ritare.Uppgift
   const utfall = p.valt === null ? (lage === 'trana' ? 'vet_inte' : 'obesvarad') : p.facit.correct ? 'ratt' : 'fel'
+  const forklaringen = (
+    <Forklaringen
+      utfall={utfall}
+      tid={p.tid_s != null ? { sekunder: p.tid_s, budget: budgetPerUppgift } : null}
+      regel={p.facit.regel}
+      text={p.facit.text}
+      misstag={p.facit.misstag}
+      detalj={p.facit.detalj}
+      rapport={{ qId: p.u.nyckel, sessionId, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
+    />
+  )
   return (
     <SessionsRam
       lage={lage}
@@ -65,15 +76,16 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
       }}
     >
       <div className="flex flex-col gap-4" data-genomgang-post={pos + 1}>
-        <Uppgift u={p.u} nr={pos + 1} antal={antal} vald={p.valt} facit={p.facit.ratt} last />
-        <Forklaringen
-          utfall={utfall}
-          tid={p.tid_s != null ? { sekunder: p.tid_s, budget: budgetPerUppgift } : null}
-          regel={p.facit.regel}
-          text={p.facit.text}
-          misstag={p.facit.misstag}
-          rapport={{ qId: p.u.nyckel, sessionId, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
+        <Uppgift
+          u={p.u}
+          nr={pos + 1}
+          antal={antal}
+          vald={p.valt}
+          facit={p.facit.ratt}
+          last
+          forklaring={ritare.forklaringIUppgift ? forklaringen : undefined}
         />
+        {ritare.forklaringIUppgift ? null : forklaringen}
       </div>
     </SessionsRam>
   )

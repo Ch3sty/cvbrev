@@ -59,6 +59,8 @@ async function post<T>(url: string, kropp: unknown): Promise<{ ok: true; data: T
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(kropp),
+      // Ett svar på väg när sidan laddas om går ändå fram (övningsprovets kö).
+      keepalive: true,
     });
     const data = (await res.json().catch(() => null)) as Record<string, unknown> | null;
     if (!res.ok) {

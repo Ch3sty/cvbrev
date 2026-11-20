@@ -8,7 +8,7 @@
 // mappa sin motors vy till RamUppgift; ramen och lägena rörs inte.
 // =============================================================================
 
-import type { ComponentType } from 'react'
+import type { ComponentType, ReactNode } from 'react'
 import type { Innehallsform } from './lagesregler'
 
 /** En uppgift i ramen: nyckeln är motorns (frågans id eller punktens nyckel). */
@@ -31,6 +31,12 @@ export interface UppgiftProps<U extends RamUppgift> {
   onValj?: (i: number) => void
   /** Låst: under sparning, efter facit och i genomgången. */
   last: boolean
+  /**
+   * Förklaringen, när typen ritar den i sin egen svarsspalt
+   * (TypRitare.forklaringIUppgift, innehållsformen Bred). Annars ritar
+   * läget den under uppgiften.
+   */
+  forklaring?: ReactNode
 }
 
 export interface TypRitare<U extends RamUppgift> {
@@ -53,6 +59,8 @@ export interface TypRitare<U extends RamUppgift> {
   }
   /** Uppgiftsarkets mellanrubriker, till exempel textens rubrik i verbalt. */
   arkGrupper?: (uppgifter: U[]) => { fran: number; rubrik: string }[]
+  /** Bred utan underlag (deduktivt, etapp 3): Förklaringen står under svaren i högerspalten. */
+  forklaringIUppgift?: boolean
 }
 
 /** Facit och förklaring per uppgift, efter svaret (Träna) eller efteråt (genomgången). */
@@ -63,4 +71,6 @@ export interface RamFacit {
   misstag: string | null
   /** Förklaringen som löptext (ord och text, siffror och tabeller), etapp 2. */
   text?: string | null
+  /** Typens egen förklaring under regeln, till exempel deduktivens lösningsgång (etapp 3). */
+  detalj?: ReactNode
 }
