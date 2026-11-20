@@ -2605,7 +2605,13 @@
     "nodvandig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "pool": "i bilpoolen",
+    "el": "elbil",
+    "gammal": "äldre än fem år",
+    "salj": "ska säljas"
+   }
   },
   "fran_version": 1
  },
@@ -4478,7 +4484,13 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "tung": "över 20 kilo",
+    "ensam": "lyfts av en person",
+    "hyllaA": "paket till hylla A",
+    "kaj": "ska till lastkajen"
+   }
   },
   "fran_version": 3
  },
@@ -5440,7 +5452,13 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "besikt": "ska besiktas i veckan",
+    "hall1": "i hall 1",
+    "vinter": "har vinterdäck",
+    "hall2": "står i hall 2"
+   }
   },
   "fran_version": 3
  },
@@ -6032,7 +6050,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "not": "innehåller nötter",
+    "skola": "serveras i skolmatsalen",
+    "bageri": "från bageriet",
+    "personal": "serveras i personalrummet"
+   }
   },
   "fran_version": 3
  },
@@ -6367,7 +6391,13 @@
     "nodvandig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "utland": "brev till utlandet",
+    "morgon": "sorteras på morgonen",
+    "rek": "rekommenderade brev",
+    "kommun": "från kommunen"
+   }
   },
   "fran_version": 3
  },
@@ -6605,7 +6635,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "hyg": "tandhygienister",
+    "lord": "arbetar varannan lördag",
+    "jour": "jour på fredagar",
+    "lak": "tandläkare"
+   }
   },
   "fran_version": 4
  },
@@ -7076,7 +7112,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "akt2": "i andra akten",
+    "peruk": "bär peruk",
+    "kor": "sjunger i kören",
+    "akt1": "i första akten"
+   }
   },
   "fran_version": 4
  },
@@ -7450,7 +7492,13 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "natt": "arbetar natt",
+    "lakem": "delar ut läkemedel",
+    "ssk": "sjuksköterskor",
+    "usk": "undersköterska"
+   }
   },
   "fran_version": 4
  },
@@ -7688,7 +7736,13 @@
     "obestamd",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "stor": "bostäder över 100 kvadratmeter",
+    "tre": "görs av tre personer",
+    "bil": "får en extra bil",
+    "lord": "görs på lördag"
+   }
   },
   "fran_version": 4
  },
@@ -7909,7 +7963,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "lang": "mer än fyra kilometer",
+    "buss": "åker skolbuss",
+    "frit": "går på fritids",
+    "cykel": "cyklar till skolan"
+   }
   },
   "fran_version": 4
  },
@@ -8146,7 +8206,13 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "sen": "anmälde efter sista dagen",
+    "sal": "skriver i salen",
+    "forl": "förlängd tid",
+    "hemma": "skriver hemma"
+   }
   },
   "fran_version": 4
  },
@@ -8867,7 +8933,13 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "oper": "opereras i morgon",
+    "fasta": "fastar",
+    "foder": "får kvällsmat",
+    "vacc": "ska vaccineras"
+   }
   },
   "fran_version": 4
  },
@@ -9209,7 +9281,13 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "fyr": "jobb i fyrfärg",
+    "m2": "trycks på maskin 2",
+    "kommun": "kommunen beställer",
+    "m1": "trycks på maskin 1"
+   }
   },
   "fran_version": 4
  },
@@ -9551,7 +9629,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "vatten": "skador på vattenledningar",
+    "bes": "besiktas på plats",
+    "samma": "avgörs samma dag",
+    "inbrott": "gäller inbrott"
+   }
   },
   "fran_version": 4
  },
@@ -9798,7 +9882,13 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "kommun": "skickas till kommunen",
+    "pl": "granskas av projektledare",
+    "andras": "ändras efter fredag",
+    "jul": "klar före jul"
+   }
   },
   "fran_version": 4
  },

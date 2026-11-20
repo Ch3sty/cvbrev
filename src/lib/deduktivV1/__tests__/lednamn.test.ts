@@ -20,9 +20,9 @@ describe('deduktiva lednamn', () => {
     for (const q of alla) expect(kollaLedNamn(q), q.id).toEqual([])
   })
 
-  it('90 av 105 premisskedjor har namn (15 D1 har en term som bara står i alternativen)', () => {
+  it('alla 105 premisskedjor har namn (15 D1 har en term som bara står i alternativen och namnges med alternativens ord)', () => {
     expect(kedjor.length).toBe(105)
-    expect(kedjor.filter((q) => q.formell.termnamn || q.formell.atomnamn).length).toBe(90)
+    expect(kedjor.filter((q) => q.formell.termnamn || q.formell.atomnamn).length).toBe(105)
     for (const q of kedjor.filter((x) => x.family === 'om_sa')) expect(q.formell.atomnamn, q.id).toBeDefined()
   })
 

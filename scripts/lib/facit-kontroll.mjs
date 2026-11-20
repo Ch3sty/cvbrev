@@ -397,7 +397,10 @@ export function kollaLedNamn(q) {
     const nycklar = Object.keys(f.termnamn);
     for (const id of ids) if (!(id in f.termnamn)) fel.push(`termnamn saknar ${id}`);
     for (const k of nycklar) if (!ids.includes(k)) fel.push(`termnamn har ${k}, som inte är en term`);
-    for (const [k, v] of Object.entries(f.termnamn)) fel.push(...kollaNamn(v, premissOrd, k));
+    // En term som inte står i någon premiss (bara i alternativen) namnges med alternativens ord.
+    const iPremiss = new Set([...(f.premisser ?? []), ...(Array.isArray(f.villkor) ? f.villkor : [])].flat().flatMap((p) => [p?.x, p?.y]));
+    const altOrd = [...premissOrd, ...(q.options ?? []).flatMap(ordI)];
+    for (const [k, v] of Object.entries(f.termnamn)) fel.push(...kollaNamn(v, iPremiss.has(k) ? premissOrd : altOrd, k));
     const v = Object.values(f.termnamn).map((x) => String(x).toLowerCase());
     if (new Set(v).size !== v.length) fel.push('två termer har samma namn');
   }
