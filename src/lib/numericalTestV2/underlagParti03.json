@@ -643,7 +643,19 @@
               "uttryck": "82 × 45 / 1 000 = 3,69 ≈ 3,7",
               "etikett": "svinnets värde i tkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Handske, par"
+            ],
+            "kolumner": [
+              "Ingående saldo (st)",
+              "Inleverans (st)",
+              "Utleverans (st)",
+              "Inventerat saldo (st)",
+              "Styckpris (kr)"
+            ]
+          }
         }
       },
       {
@@ -2134,7 +2146,19 @@
               "uttryck": "(32 230 − 31 050) / 1 000 = 1,18",
               "etikett": "överskridande i mkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Mark och grund",
+              "Stomme",
+              "Installationer",
+              "Ytskikt"
+            ],
+            "kolumner": [
+              "Budget (tkr)",
+              "Prognos slutkostnad (tkr)"
+            ]
+          }
         }
       },
       {
@@ -2208,7 +2232,16 @@
               "uttryck": "640 / 12 600 × 100 ≈ 5,1 %",
               "etikett": "i procent av budget"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Stomme"
+            ],
+            "kolumner": [
+              "Budget (tkr)",
+              "Prognos slutkostnad (tkr)"
+            ]
+          }
         }
       },
       {
@@ -2282,7 +2315,16 @@
               "uttryck": "13 400 / 1 000 = 13,4",
               "etikett": "slutkostnad i mkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Stomme"
+            ],
+            "kolumner": [
+              "Utfall hittills (tkr)",
+              "Färdigställt (%)"
+            ]
+          }
         }
       },
       {
@@ -2365,7 +2407,19 @@
               "uttryck": "18 510 / 31 050 × 100 ≈ 59,6 %",
               "etikett": "förbrukad andel"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Mark och grund",
+              "Stomme",
+              "Installationer",
+              "Ytskikt"
+            ],
+            "kolumner": [
+              "Budget (tkr)",
+              "Utfall hittills (tkr)"
+            ]
+          }
         }
       }
     ]
@@ -3473,7 +3527,16 @@
               "uttryck": "1 455 / 52 ≈ 28,0",
               "etikett": "per vecka"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Kustvik"
+            ],
+            "kolumner": [
+              "Uppdrag",
+              "Ambulanser"
+            ]
+          }
         }
       },
       {
@@ -4089,7 +4152,19 @@
               "uttryck": "65 + 25 × 76 / 100 + 20 × 85 / 100 = 101",
               "etikett": "plus lagerlogistik och elektriker"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Undersköterska",
+              "Barnskötare",
+              "Lagerlogistik",
+              "Elektriker"
+            ],
+            "kolumner": [
+              "Påbörjade",
+              "Godkända (%)"
+            ]
+          }
         }
       },
       {
@@ -4172,7 +4247,17 @@
               "uttryck": "8 120 / 1 000 = 8,12 ≈ 8,1",
               "etikett": "omräknat till mkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Undersköterska",
+              "Elektriker"
+            ],
+            "kolumner": [
+              "Platser",
+              "Kostnad per plats (tkr)"
+            ]
+          }
         }
       },
       {
@@ -4255,7 +4340,17 @@
               "uttryck": "(5,9 − 3) / 3 × 100 ≈ 97 %",
               "etikett": "skillnad i procent av barnskötarna"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Elektriker",
+              "Barnskötare"
+            ],
+            "kolumner": [
+              "Platser",
+              "Sökande"
+            ]
+          }
         }
       },
       {
@@ -4338,7 +4433,18 @@
               "uttryck": "5 160 / 44 ≈ 117",
               "etikett": "kostnad per godkänd"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Undersköterska"
+            ],
+            "kolumner": [
+              "Platser",
+              "Påbörjade",
+              "Godkända (%)",
+              "Kostnad per plats (tkr)"
+            ]
+          }
         }
       }
     ]

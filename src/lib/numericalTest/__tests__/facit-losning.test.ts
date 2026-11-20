@@ -29,10 +29,45 @@ describe('numeriskt facit, losning', () => {
     for (const { b } of banker) for (const p of b) for (const q of p.questions) expect(kollaNumeriskLosning(p, q), q.id).toEqual([])
   })
 
-  it('306 av 336 frågor har losning (de övriga saknar ett tal som svar eller går inte att räkna säkert)', () => {
-    let n = 0
-    for (const { b } of banker) for (const p of b) for (const q of p.questions) if (q.losning) n++
-    expect(n).toBe(306)
+  it('333 av 336 frågor har losning, 21 av dem med slutsats; utan: två rena avläsningar och en logaritm', () => {
+    const utan: string[] = []
+    let slutsats = 0
+    let anvander = 0
+    for (const { b } of banker)
+      for (const p of b)
+        for (const q of p.questions) {
+          if (!q.losning) utan.push(q.id)
+          else if (q.losning.slutsats) slutsats++
+          if (q.losning?.anvander) anvander++
+        }
+    expect(utan.sort()).toEqual(['num-p05-q01', 'num-p11-q01', 'numv2-p04-q04'])
+    expect(slutsats).toBe(21)
+    expect(anvander).toBeGreaterThanOrEqual(270)
+  })
+
+  it('räknaren: rötter, potenser med bråkexponent och jämförelser', () => {
+    expect(raknaUttryck('(176 / 120)^(1 / 5) ≈ 1,0796').fel).toEqual([])
+    expect(raknaUttryck('√12,64 ≈ 3,6').fel).toEqual([])
+    expect(raknaUttryck('40 × (1 + 0,15)³ ≈ 60,84').fel).toEqual([])
+    expect(raknaUttryck('68,6 > 38,1 > 37,3').fel).toEqual([])
+    expect(raknaUttryck('38,1 > 68,6').fel.join()).toMatch(/stämmer inte/)
+  })
+
+  it('slutsats: talen i rätt alternativ kommer ur stegen och slutsatsen skiljer ut det', () => {
+    const p = banker[0].b.find((x: P) => x.id === 'num-p01')
+    const q = JSON.parse(JSON.stringify(p.questions.find((x: P) => x.id === 'num-p01-q01')))
+    expect(kollaNumeriskLosning(p, q)).toEqual([])
+    q.losning.slutsats = 'Kläder och Elektronik säljer mest.'
+    expect(kollaNumeriskLosning(p, q).join()).toMatch(/rymmer alternativet "Kläder"/)
+    q.losning.slutsats = 'Den största kategorin vinner.'
+    expect(kollaNumeriskLosning(p, q).join()).toMatch(/skiljer inte ut/)
+  })
+
+  it('anvander: ett tal ur tabellen ska stå i en vald rad och kolumn', () => {
+    const p = banker[0].b.find((x: P) => x.id === 'num-p01')
+    const q = JSON.parse(JSON.stringify(p.questions.find((x: P) => x.id === 'num-p01-q02')))
+    q.losning.anvander.kolumner = ['Q1', 'Q2']
+    expect(kollaNumeriskLosning(p, q).join()).toMatch(/talet 14,0 står inte i de valda/)
   })
 
   it('räknaren: svensk form, = exakt, ≈ avrundat, % sist i ledet', () => {

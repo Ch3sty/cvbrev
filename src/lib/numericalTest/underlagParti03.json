@@ -470,7 +470,16 @@
               "uttryck": "276 / 12 = 23",
               "etikett": "pallar per leverans"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Kustlast"
+            ],
+            "kolumner": [
+              "Leveranser",
+              "Pallar"
+            ]
+          }
         }
       },
       {
@@ -4004,7 +4013,16 @@
               "uttryck": "1 870 / 31 ≈ 60",
               "etikett": "rumsnätter per dag"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Maj"
+            ],
+            "kolumner": [
+              "Dagar",
+              "Uthyrda rumsnätter"
+            ]
+          }
         }
       }
     ]
@@ -4478,7 +4496,16 @@
               "uttryck": "28 × 595 = 16 660",
               "etikett": "kostnad"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Villa Ängby"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Timmar på plats"
+            ]
+          }
         }
       },
       {
@@ -4543,7 +4570,16 @@
               "uttryck": "210 / 6 = 35",
               "etikett": "kartonger per flyttare"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Kontor Hamnen"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Kartonger"
+            ]
+          }
         }
       },
       {
@@ -4617,7 +4653,18 @@
               "uttryck": "66 / 138 × 100 ≈ 48 %",
               "etikett": "radhus Bergas andel"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Lägenhet Söder",
+              "Villa Ängby",
+              "Kontor Hamnen",
+              "Radhus Berga"
+            ],
+            "kolumner": [
+              "Körsträcka (km)"
+            ]
+          }
         }
       },
       {
@@ -4682,7 +4729,19 @@
               "uttryck": "3 × 5 + 4 × 7 + 6 × 6 + 3 × 8 = 103",
               "etikett": "flyttare gånger timmar, summerat"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Lägenhet Söder",
+              "Villa Ängby",
+              "Kontor Hamnen",
+              "Radhus Berga"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Timmar på plats"
+            ]
+          }
         }
       }
     ]
@@ -5773,7 +5832,17 @@
               "uttryck": "220 × 5 + 380 × 6 = 3 380",
               "etikett": "yta gånger städtillfällen, summerat"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Tandläkaren",
+              "Butiken"
+            ],
+            "kolumner": [
+              "Yta (kvm)",
+              "Städtillfällen per vecka"
+            ]
+          }
         }
       }
     ]

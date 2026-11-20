@@ -128,7 +128,16 @@
               "uttryck": "680 × 385 / 1 000 = 261,8",
               "etikett": "lönekostnad i tkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Kvällsskift"
+            ],
+            "kolumner": [
+              "Skift per vecka",
+              "Faktisk bemanning"
+            ]
+          }
         }
       },
       {
@@ -211,7 +220,20 @@
               "uttryck": "(288 − 264) / 288 × 100 ≈ 8,3 %",
               "etikett": "skillnad i procent av det planerade"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Dagskift",
+              "Kvällsskift",
+              "Nattskift",
+              "Helgskift"
+            ],
+            "kolumner": [
+              "Skift per vecka",
+              "Planerad bemanning",
+              "Faktisk bemanning"
+            ]
+          }
         }
       },
       {
@@ -368,7 +390,17 @@
               "uttryck": "40 × 385 / 1 000 = 15,4",
               "etikett": "kostnad i tkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Nattskift"
+            ],
+            "kolumner": [
+              "Skift per vecka",
+              "Planerad bemanning",
+              "Faktisk bemanning"
+            ]
+          }
         }
       }
     ]
@@ -781,7 +813,20 @@
               "uttryck": "5 100 / 69 ≈ 74",
               "etikett": "timmar per tjänst"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Sjuksköterskor",
+              "Undersköterskor",
+              "Ingenjörer",
+              "Ekonomer",
+              "Chefer"
+            ],
+            "kolumner": [
+              "Tillsatta tjänster",
+              "Intern tid (timmar)"
+            ]
+          }
         }
       }
     ]
@@ -1293,7 +1338,17 @@
               "uttryck": "21 840 × 0,85 = 18 564",
               "etikett": "förbrukning i liter"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Lätt lastbil"
+            ],
+            "kolumner": [
+              "Antal fordon",
+              "Körsträcka per fordon (mil)",
+              "Förbrukning (liter per mil)"
+            ]
+          }
         }
       },
       {
@@ -1458,7 +1513,19 @@
               "uttryck": "34 800 / 78 240 × 100 ≈ 44,5 %",
               "etikett": "personbilarnas andel"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Personbil",
+              "Lätt lastbil",
+              "Tung lastbil",
+              "Minibuss"
+            ],
+            "kolumner": [
+              "Antal fordon",
+              "Körsträcka per fordon (mil)"
+            ]
+          }
         }
       },
       {
@@ -2259,7 +2326,17 @@
               "uttryck": "919 548 × 6 / 100 / 1 000 ≈ 55,2",
               "etikett": "besparing i tkr"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Norra slingan",
+              "Södra slingan"
+            ],
+            "kolumner": [
+              "Km per tur",
+              "Ersättning (kr per km)"
+            ]
+          }
         }
       },
       {

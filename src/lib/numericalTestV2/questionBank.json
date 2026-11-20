@@ -68,7 +68,29 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Tillväxtfaktor över 5 månader = 21.5/12.5 = 1.72. Månatlig takt = 1.72^(1/5) − 1 ≈ 0.1149 = 11.5%. Närmast är 11%.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "21,5 / 12,5 = 1,72",
+              "etikett": "tillväxtfaktor januari till juni"
+            },
+            {
+              "uttryck": "1,72^(1 / 5) ≈ 1,1146",
+              "etikett": "tillväxtfaktor per månad"
+            },
+            {
+              "uttryck": "(1,1146 − 1) × 100 ≈ 11,5 %",
+              "etikett": "tillväxt per månad"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jan",
+              "Jun"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p01-q02",
@@ -99,7 +121,22 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Tillväxt = (21.5 − 12.5) / 12.5 × 100% = 9.0/12.5 × 100% = 72%. Påståendet stämmer precis.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(21,5 − 12,5) / 12,5 × 100 = 72 %",
+              "etikett": "tillväxt januari till juni"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jan",
+              "Jun"
+            ]
+          },
+          "slutsats": "Ja, tillväxten är exakt 72 procent, alltså över 70 procent."
+        }
       },
       {
         "id": "numv2-p01-q03",
@@ -939,7 +976,32 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Företagskund: 3 230 kr exkl moms × 1.25 = 4 037.5 kr inkl moms. Rabatt: (5 000 − 4 037.5) / 5 000 = 19.25%. Privatkund: 4 275 kr. Rabatt: (5 000 − 4 275) / 5 000 = 14.5%. Företagskunden får större rabatt.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 000 × (1 − 0,15) × (1 − 0,05) = 3 230",
+              "etikett": "företagskundens pris exklusive moms"
+            },
+            {
+              "uttryck": "3 230 × (1 + 0,25) = 4 037,5",
+              "etikett": "företagskundens pris inklusive moms"
+            },
+            {
+              "uttryck": "(5 000 − 4 037,5) / 5 000 × 100 = 19,25 %",
+              "etikett": "företagskundens rabatt"
+            },
+            {
+              "uttryck": "5 000 × (1 − 0,10) × (1 − 0,05) = 4 275",
+              "etikett": "privatkundens pris inklusive moms"
+            },
+            {
+              "uttryck": "(5 000 − 4 275) / 5 000 × 100 = 14,5 %",
+              "etikett": "privatkundens rabatt"
+            }
+          ],
+          "slutsats": "Företagskunden får mest värde, 19,25 procent rabatt mot 14,5 procent för privatkunden."
+        }
       },
       {
         "id": "numv2-p05-q04",
@@ -1988,7 +2050,41 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Den procentuella ökningen för ett år beräknas mot föregående års slutvärde. 2021: (560 − 500)/500 = 12,0%. 2022: (610 − 560)/560 ≈ 8,9% (cirka 9%). 2023: (702 − 610)/610 ≈ 15,1% (cirka 15%). 2024: (800 − 702)/702 ≈ 14,0%. Högst är alltså 2023 med cirka 15,1%, trots att 2023 inte är det år med störst ökning i absoluta kronor. En vanlig fälla är att välja 2024 eftersom värdet då växte mest i kronor (98 tkr), men i procent var 2023 högre eftersom basen var lägre.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(560 − 500) / 500 × 100 = 12 %",
+              "etikett": "2021"
+            },
+            {
+              "uttryck": "(610 − 560) / 560 × 100 ≈ 8,9 %",
+              "etikett": "2022"
+            },
+            {
+              "uttryck": "(702 − 610) / 610 × 100 ≈ 15,1 %",
+              "etikett": "2023"
+            },
+            {
+              "uttryck": "(800 − 702) / 702 × 100 ≈ 14,0 %",
+              "etikett": "2024"
+            },
+            {
+              "uttryck": "15,1 > 14,0 > 12 > 8,9",
+              "etikett": "2023, 2024, 2021, 2022"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "2020",
+              "2021",
+              "2022",
+              "2023",
+              "2024"
+            ]
+          },
+          "slutsats": "Högst procentuell ökning hade 2023 (cirka 15%)."
+        }
       },
       {
         "id": "numv2-p10-q03",
@@ -2058,7 +2154,25 @@
         ],
         "correctAnswerId": "a",
         "explanation": "CAGR räknas över fyra tillväxtår (2020 till 2024): CAGR = (800 / 500)^(1/4) − 1 = 1,6^0,25 − 1 ≈ 1,1247 − 1 ≈ 0,1247 = 12,5%. Distraktorn 15,0% är den vanliga fällan att dela den totala tillväxten på antalet år (60% / 4 = 15%), vilket ignorerar ränta-på-ränta-effekten och därför överskattar takten. Distraktorn 16,0% fås om man felaktigt delar på antalet datapunkter genom att räkna fem år i stället för fyra tillväxtperioder, och 10,0% av en grov underskattning.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(800 / 500)^(1 / 4) ≈ 1,1247",
+              "etikett": "tillväxtfaktor per år"
+            },
+            {
+              "uttryck": "(1,1247 − 1) × 100 ≈ 12,5 %",
+              "etikett": "CAGR"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "2020",
+              "2024"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2229,7 +2343,40 @@
         ],
         "correctAnswerId": "a",
         "explanation": "I SEK: EUR 1 368 000, USD 1 590 000, GBP 1 122 000, PLN 1 272 000. Lägst är GBP-leverantören med 1 122 000 kr. Fällan är att tro att den högsta växelkursen (GBP 13,20) ger den dyraste fakturan, men det lägsta lokala beloppet (85 000) väger tyngre. EUR (1 368 000) och PLN (1 272 000) är båda dyrare än GBP, och USD är dyrast av alla.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 000 × 11,40 = 1 368 000",
+              "etikett": "leverantör 1 i kronor"
+            },
+            {
+              "uttryck": "150 000 × 10,60 = 1 590 000",
+              "etikett": "leverantör 2 i kronor"
+            },
+            {
+              "uttryck": "85 000 × 13,20 = 1 122 000",
+              "etikett": "leverantör 3 i kronor"
+            },
+            {
+              "uttryck": "480 000 × 2,65 = 1 272 000",
+              "etikett": "leverantör 4 i kronor"
+            },
+            {
+              "uttryck": "1 122 000 < 1 272 000 < 1 368 000 < 1 590 000",
+              "etikett": "leverantör 3, 4, 1, 2"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Leverantör 1 (EUR)",
+              "Leverantör 2 (USD)",
+              "Leverantör 3 (GBP)",
+              "Leverantör 4 (PLN)"
+            ]
+          },
+          "slutsats": "Leverantör 3 (GBP) är billigast räknat i kronor."
+        }
       },
       {
         "id": "numv2-p11-q04",
@@ -2440,7 +2587,20 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Skillnaden i marginal är 46 − 40 = 6 procentenheter. Relativt: 6 / 40 × 100% = 15%. Distraktorerna blandar ihop procentenheter (den absoluta skillnaden) med relativ procentuell förändring (förändringen delad på utgångsvärdet).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "46 − 40 = 6",
+              "etikett": "förändring i procentenheter"
+            },
+            {
+              "uttryck": "6 / 40 × 100 = 15 %",
+              "etikett": "relativ förändring"
+            }
+          ],
+          "slutsats": "Förändringen är 6 procentenheter, vilket är en relativ ökning på cirka 15%."
+        }
       },
       {
         "id": "numv2-p12-q04",

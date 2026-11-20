@@ -48,8 +48,8 @@ function tokensUttryck(s) {
       ut.push({ op: '^', exponent: Number(e) });
       continue;
     }
-    if ('+×/()%'.includes(c) || c === MINUS) { ut.push({ op: c }); i++; continue; }
-    if (c === '=' || c === '≈') { ut.push({ rel: c }); i++; continue; }
+    if ('+×/()%^√'.includes(c) || c === MINUS) { ut.push({ op: c }); i++; continue; }
+    if ('=≈<>≤≥'.includes(c)) { ut.push({ rel: c }); i++; continue; }
     if (c === '-') throw new Error('bindestreck som minus, använd U+2212');
     if (c === '.' ) throw new Error('punkt i uttrycket, decimalkomma krävs');
     if (c === '*') throw new Error('stjärna som gånger, använd ×');
@@ -77,11 +77,20 @@ function raknaSegment(t, hela) {
       return v;
     }
     if (x.op === MINUS) return -potens();
+    if (x.op === '√') {
+      const r = potens();
+      if (r < 0) throw new Error(`roten ur ett negativt tal i "${hela}"`);
+      return Math.sqrt(r);
+    }
     throw new Error(`oväntat "${x.op}" i "${hela}"`);
   }
   function potens() {
     let b = primar();
-    while (titta() && titta().op === '^') b = b ** ta().exponent;
+    // Upphöjda siffror (1,05³) eller ^ följt av ett tal eller en parentes ((176 / 120)^(1 / 5)).
+    while (titta() && titta().op === '^') {
+      const x = ta();
+      b = x.exponent !== undefined ? b ** x.exponent : b ** primar();
+    }
     return b;
   }
   function produkt() {
@@ -111,8 +120,9 @@ function raknaSegment(t, hela) {
 
 /**
  * Räknar ett uttryck som "(14,0 − 6,8) / 6,8 × 100 ≈ 105,9 %".
- * Leden skiljs av = (exakt) och ≈ (högerledet är ett tal, avrundat till sina
- * decimaler). Varje led jämförs med ledet före. Returnerar
+ * Leden skiljs av = (exakt), ≈ (högerledet är ett tal, avrundat till sina
+ * decimaler) och jämförelserna < > ≤ ≥, som ska stämma. Varje led jämförs
+ * med ledet före. √ och ^ med tal eller parentes ger rötter och potenser. Returnerar
  * { fel: string[], led: { varde, procent }[], tal: token[], forstaTal: token[] }.
  */
 export function raknaUttryck(uttryck) {
@@ -125,6 +135,7 @@ export function raknaUttryck(uttryck) {
     if (x.rel) { rel.push(x.rel); delar.push([]); } else delar[delar.length - 1].push(x);
   }
   if (!rel.length) fel.push(`"${uttryck}" saknar = eller ≈`);
+  const JAMFOR = { '<': (a, b) => a < b, '>': (a, b) => a > b, '≤': (a, b) => a <= b, '≥': (a, b) => a >= b };
   const led = [];
   for (const d of delar) {
     if (!d.length) { fel.push(`tomt led i "${uttryck}"`); return { fel, led, tal: [] }; }
@@ -133,7 +144,9 @@ export function raknaUttryck(uttryck) {
   for (let k = 1; k < led.length; k++) {
     const a = led[k - 1].varde;
     const b = led[k].varde;
-    if (rel[k - 1] === '=') {
+    if (rel[k - 1] in JAMFOR) {
+      if (!JAMFOR[rel[k - 1]](a, b)) fel.push(`"${uttryck}": ${+a.toFixed(6)} ${rel[k - 1]} ${+b.toFixed(6)} stämmer inte`);
+    } else if (rel[k - 1] === '=') {
       if (Math.abs(a - b) > 1e-10 * Math.max(1, Math.abs(a), Math.abs(b))) fel.push(`"${uttryck}": led ${k + 1} är inte lika med led ${k} (${+a.toFixed(6)})`);
     } else {
       const d = delar[k];
@@ -147,7 +160,9 @@ export function raknaUttryck(uttryck) {
     }
   }
   if (led.length > 1 && led.slice(0, -1).some((l) => l.procent) && !led[led.length - 1].procent) fel.push(`"${uttryck}": % i ett tidigare led men inte i det sista`);
-  return { fel, led, tal: t.filter((x) => 'tal' in x), forstaTal: delar[0].filter((x) => 'tal' in x) };
+  // Talen som ska finnas i underlaget: första ledet och varje led efter en jämförelse.
+  const kallLed = delar.filter((_, k) => k === 0 || rel[k - 1] in JAMFOR);
+  return { fel, led, tal: t.filter((x) => 'tal' in x), forstaTal: kallLed.flat().filter((x) => 'tal' in x) };
 }
 
 /** Svensk textkontroll för uttryck och etiketter. */
@@ -227,6 +242,83 @@ export function underlagetsPoster(passage) {
 }
 
 /**
+ * `anvander`: posterna finns i underlaget och är inte ovanvant, och varje tal
+ * som stegen hämtar ur tabellen eller diagrammet står i en vald cell (rad och
+ * kolumn) eller under en vald etikett.
+ */
+function kollaAnvander(passage, anvander, tabellTal = []) {
+  const fel = [];
+  const cellTal = (c) => talIText(String(c));
+  const t = passage.dataTable;
+  if (t && anvander.rader && anvander.kolumner) {
+    const ki = anvander.kolumner.map((k) => t.headers.indexOf(k));
+    // Radens etikett (första cellen) räknas med, till exempel kalkylräntan "13 %".
+    const valda = t.rows.filter((r) => anvander.rader.includes(String(r[0]))).flatMap((r) => [...cellTal(r[0]), ...ki.flatMap((i) => (i >= 0 ? cellTal(r[i]) : []))]);
+    for (const x of tabellTal) if (!valda.some((y) => lika(y, x.tal) || lika(y / 100, x.tal))) fel.push(`anvander: talet ${x.text} står inte i de valda raderna och kolumnerna`);
+  }
+  const c = passage.chartData;
+  const etik = anvander.staplar ?? anvander.sektorer ?? anvander.punkter;
+  if (c && etik) {
+    const valda = c.data.filter((d) => etik.includes(String(d.label ?? d.x))).map((d) => d.value ?? d.y);
+    for (const x of tabellTal) if (!valda.some((y) => lika(Math.abs(y), x.tal) || lika(Math.abs(y) / 100, x.tal))) fel.push(`anvander: talet ${x.text} står inte under de valda etiketterna`);
+  }
+  const poster = underlagetsPoster(passage);
+  const ov = (passage.ovanvant ?? []).map(String);
+  const typ = { rader: 'rad', kolumner: 'kolumn', staplar: 'stapel', sektorer: 'stapel', punkter: 'punkt' };
+  for (const [k, v] of Object.entries(anvander)) {
+    if (!(k in poster)) { fel.push(`anvander.${k} är inget känt fält`); continue; }
+    if (!Array.isArray(v) || !v.length) { fel.push(`anvander.${k} är tom`); continue; }
+    for (const x of v) {
+      if (!poster[k].includes(x)) fel.push(`anvander.${k}: "${x}" finns inte i underlaget`);
+      if (ov.includes(`${typ[k]} ${x}`)) fel.push(`anvander.${k}: "${x}" är ovanvant`);
+    }
+    if (new Set(v).size !== v.length) fel.push(`anvander.${k} har dubbletter`);
+  }
+  return fel;
+}
+
+const ordAv = (t) => (String(t).toLowerCase().match(/[a-zåäöéü]{4,}/g) ?? []);
+const altTalAlla = (t) => [...String(t).matchAll(ALT_TAL)].map((m) => { const n = m[3].replace(/[   ]/g, '').replace(',', '.'); return { varde: Number(n), decimaler: (n.split('.')[1] ?? '').length }; });
+
+/**
+ * `slutsats` när svaret inte är ett enda tal: varje tal i det rätta
+ * alternativet är ett leds värde (avrundat till alternativets decimaler) eller
+ * ett givet tal ur frågan eller underlagets etiketter (årtal, "Leverantör 3"), och
+ * slutsatsen skiljer ut det rätta alternativet från varje annat alternativ
+ * som stegen inte redan utesluter: den rymmer det rätta alternativets text,
+ * ett ord ur det eller ett tal ur det som det andra alternativet saknar. Slutsatsen får inte
+ * rymma ett annat alternativs hela text.
+ */
+function kollaSlutsats(fraga, slutsats, varden, passage) {
+  const fel = [];
+  if (typeof slutsats !== 'string' || !slutsats.trim()) return ['slutsats är tom'];
+  if (slutsats.length > 200) fel.push('slutsats är längre än 200 tecken');
+  fel.push(...textFel(slutsats).map((x) => `slutsats: ${x}`));
+  const opts = fraga.options ?? [];
+  const ratt = opts.find((o) => o.id === fraga.correctAnswerId);
+  if (!ratt) return ['rätt alternativ saknas'];
+  const poster = underlagetsPoster(passage ?? {});
+  const givna = [fraga.questionText ?? '', ...Object.values(poster).flat()].flatMap(talIText);
+  const traffar = (t) => altTalAlla(t).every((x) => givna.some((g) => lika(g, x.varde)) || varden.some((v) => Math.abs(Math.abs(v) - Math.abs(x.varde)) <= 0.5 * 10 ** -x.decimaler + 1e-9 * Math.max(1, Math.abs(v))));
+  if (!traffar(ratt.text)) fel.push(`talen i det rätta alternativet "${ratt.text}" kommer inte ur stegen`);
+  const s = slutsats.toLowerCase();
+  const rattOrd = ordAv(ratt.text);
+  for (const o of opts) {
+    if (o.id === ratt.id) continue;
+    if (o.text.trim().length >= 3 && s.includes(o.text.trim().toLowerCase()) && !ratt.text.toLowerCase().includes(o.text.trim().toLowerCase())) fel.push(`slutsatsen rymmer alternativet "${o.text}"`);
+    const uteslutetAvTal = altTalAlla(o.text).length > 0 && !traffar(o.text);
+    if (uteslutetAvTal) continue;
+    // Ett tal i det rätta alternativet som det andra saknar och som slutsatsen nämner skiljer också.
+    const andraTal = altTalAlla(o.text).map((x) => x.varde);
+    const slutTal = talIText(slutsats);
+    const skiljerTal = altTalAlla(ratt.text).some((x) => !andraTal.some((y) => lika(x.varde, y)) && slutTal.some((y) => lika(x.varde, y)));
+    const skiljer = skiljerTal || s.includes(ratt.text.trim().toLowerCase()) || rattOrd.some((w) => !ordAv(o.text).includes(w) && s.includes(w));
+    if (!skiljer) fel.push(`slutsatsen skiljer inte ut det rätta alternativet från "${o.text}"`);
+  }
+  return fel;
+}
+
+/**
  * Hela kontrollen av en frågas `losning`. Tom lista när den stämmer eller saknas.
  *  - varje uttryck räknas om och stämmer, i svensk form
  *  - varje tal i ett uttryck finns i underlaget (inledningen, tabellen,
@@ -243,6 +335,8 @@ export function kollaNumeriskLosning(passage, fraga) {
   const fel = [];
   if (!L || !Array.isArray(L.steg) || !L.steg.length) return ['losning.steg saknas eller är tomt'];
   const kalla = underlagetsTal(passage, fraga);
+  const textTal = [passage.contextText ?? '', fraga.questionText ?? ''].flatMap(talIText);
+  const tabellTal = [];
   const tidigare = [];
   let sista = null;
   let sistaProcent = false;
@@ -260,14 +354,21 @@ export function kollaNumeriskLosning(passage, fraga) {
     // Bara första ledets tal: de senare leden är resultat som räknas om.
     for (const x of r.forstaTal) {
       const n = x.tal;
-      const ok = KONSTANTER.has(n) || kalla.some((y) => lika(y, n)) || tidigare.some((y) => lika(Math.abs(y), n));
+      const ok = KONSTANTER.has(n) || kalla.some((y) => lika(y, n) || lika(y / 100, n)) || tidigare.some((y) => lika(Math.abs(y), n));
       if (!ok) fel.push(`steg ${i + 1}: talet ${x.text} finns inte i underlaget eller i ett tidigare led`);
+      else if (!KONSTANTER.has(n) && !tidigare.some((y) => lika(Math.abs(y), n)) && !textTal.some((y) => lika(y, n) || lika(y / 100, n))) tabellTal.push(x);
     }
     for (const l of r.led) tidigare.push(l.varde);
     sista = r.led[r.led.length - 1].varde;
     sistaProcent = r.led[r.led.length - 1].procent;
   });
   if (fel.length) return fel;
+
+  if (L.slutsats !== undefined) {
+    fel.push(...kollaSlutsats(fraga, L.slutsats, tidigare, passage));
+    if (L.anvander !== undefined) fel.push(...kollaAnvander(passage, L.anvander, tabellTal));
+    return fel;
+  }
 
   // Det rätta alternativet
   const opts = fraga.options ?? [];
@@ -294,21 +395,7 @@ export function kollaNumeriskLosning(passage, fraga) {
     if (Math.abs(bv - sista) > Math.max(1e-9, 0.005 * Math.abs(bv), halv)) fel.push(`sista värdet ${sista} skiljer sig från berakning (${bv})`);
   }
 
-  // anvander
-  if (L.anvander !== undefined) {
-    const poster = underlagetsPoster(passage);
-    const ov = (passage.ovanvant ?? []).map(String);
-    const typ = { rader: 'rad', kolumner: 'kolumn', staplar: 'stapel', sektorer: 'stapel', punkter: 'punkt' };
-    for (const [k, v] of Object.entries(L.anvander)) {
-      if (!(k in poster)) { fel.push(`anvander.${k} är inget känt fält`); continue; }
-      if (!Array.isArray(v) || !v.length) { fel.push(`anvander.${k} är tom`); continue; }
-      for (const x of v) {
-        if (!poster[k].includes(x)) fel.push(`anvander.${k}: "${x}" finns inte i underlaget`);
-        if (ov.includes(`${typ[k]} ${x}`)) fel.push(`anvander.${k}: "${x}" är ovanvant`);
-      }
-      if (new Set(v).size !== v.length) fel.push(`anvander.${k} har dubbletter`);
-    }
-  }
+  if (L.anvander !== undefined) fel.push(...kollaAnvander(passage, L.anvander, tabellTal));
   return fel;
 }
 

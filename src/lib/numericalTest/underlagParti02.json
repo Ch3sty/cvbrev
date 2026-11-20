@@ -1430,7 +1430,16 @@
               "uttryck": "34 / 420 × 100 ≈ 8,1 %",
               "etikett": "i procent av de lagade"
             }
-          ]
+          ],
+          "anvander": {
+            "rader": [
+              "Måndag"
+            ],
+            "kolumner": [
+              "Lagade portioner",
+              "Serverade portioner"
+            ]
+          }
         }
       }
     ]

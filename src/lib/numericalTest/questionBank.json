@@ -90,7 +90,27 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Elektronik: 68.6 MSEK. Hushåll: 37.3 MSEK. Kläder: 38.1 MSEK. Sport: 26.0 MSEK. Elektronik leder klart.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "68,6 > 38,1 > 37,3 > 26,0",
+              "etikett": "helår 2024: Elektronik, Kläder, Hushåll, Sport"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Elektronik",
+              "Hushåll",
+              "Kläder",
+              "Sport"
+            ],
+            "kolumner": [
+              "Totalt"
+            ]
+          },
+          "slutsats": "Elektronik har högst försäljning under hela 2024."
+        }
       },
       {
         "id": "num-p01-q02",
@@ -173,7 +193,27 @@
         ],
         "correctAnswerId": "d",
         "explanation": "Q1: 31.8. Q2: 37.6. Q3: 43.8. Q4: 56.8 MSEK. Q4 har högst total.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "56,8 > 43,8 > 37,6 > 31,8",
+              "etikett": "total per kvartal: Q4, Q3, Q2, Q1"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Totalt"
+            ],
+            "kolumner": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ]
+          },
+          "slutsats": "Q4 har högst total försäljning."
+        }
       },
       {
         "id": "num-p01-q04",
@@ -662,7 +702,39 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Premium: 38.5/85.5 ≈ 45%. Standard: 32.4/62.8 ≈ 52%. Bas: 28.8/41.2 ≈ 70%. Bas har klart högst kostnadsandel.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "38,5 / 85,5 × 100 ≈ 45 %",
+              "etikett": "Premium"
+            },
+            {
+              "uttryck": "32,4 / 62,8 × 100 ≈ 52 %",
+              "etikett": "Standard"
+            },
+            {
+              "uttryck": "28,8 / 41,2 × 100 ≈ 70 %",
+              "etikett": "Bas"
+            },
+            {
+              "uttryck": "70 > 52 > 45",
+              "etikett": "Bas, Standard, Premium"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Premium",
+              "Standard",
+              "Bas"
+            ],
+            "kolumner": [
+              "Intäkter",
+              "Rörliga kostnader"
+            ]
+          },
+          "slutsats": "Bas har högst andel rörliga kostnader i förhållande till intäkterna."
+        }
       },
       {
         "id": "num-p04-q02",
@@ -741,7 +813,29 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Bas-linjen ger ett täckningsbidrag på 12.4 MSEK (positivt). Lägger man ned linjen försvinner det bidraget, och totalt TB minskar med 12.4 MSEK. Även om Bas har låg marginal bidrar den ändå positivt till de fasta kostnaderna.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "89,8 − 12,4 = 77,4",
+              "etikett": "täckningsbidrag utan Bas"
+            },
+            {
+              "uttryck": "77,4 − 89,8 = −12,4",
+              "etikett": "förändring"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Bas",
+              "Totalt"
+            ],
+            "kolumner": [
+              "Täckningsbidrag"
+            ]
+          },
+          "slutsats": "Täckningsbidraget försämras med 12,4 MSEK."
+        }
       },
       {
         "id": "num-p04-q04",
@@ -894,7 +988,25 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Från jan (120) till jun (176) över 5 månader: (176/120)^(1/5) − 1 ≈ 0.080 = 8.0%. Kontroll: 130/120 = 1.083, 140/130 = 1.077, 151/140 = 1.079 — konsekvent runt 8%.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(176 / 120)^(1 / 5) ≈ 1,0796",
+              "etikett": "tillväxtfaktor per månad"
+            },
+            {
+              "uttryck": "(1,0796 − 1) × 100 ≈ 8,0 %",
+              "etikett": "tillväxt per månad"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jan",
+              "Jun"
+            ]
+          }
+        }
       },
       {
         "id": "num-p05-q03",
@@ -1102,7 +1214,20 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Procentenheter: 4.5 − 3 = 1.5 procentenheter. Procentuell ökning: (4.5 − 3) / 3 × 100% = 50%. Skillnaden mellan procentenheter och procent är viktig att förstå.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4,5 − 3 = 1,5",
+              "etikett": "höjning i procentenheter"
+            },
+            {
+              "uttryck": "(4,5 − 3) / 3 × 100 = 50 %",
+              "etikett": "höjning i procent"
+            }
+          ],
+          "slutsats": "Höjningen är 1,5 procentenheter, vilket är 50 procent."
+        }
       },
       {
         "id": "num-p06-q04",
@@ -1224,7 +1349,27 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Stockholm: 4 250. Göteborg: 3 180. Malmö: 2 640. Uppsala: 1 430. Stockholm har flest leveranser.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 250 > 3 180 > 2 640 > 1 430",
+              "etikett": "leveranser: Stockholm, Göteborg, Malmö, Uppsala"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Stockholm",
+              "Göteborg",
+              "Malmö",
+              "Uppsala"
+            ],
+            "kolumner": [
+              "Antal leveranser"
+            ]
+          },
+          "slutsats": "Stockholm hade flest leveranser."
+        }
       },
       {
         "id": "num-p07-q02",
@@ -1440,7 +1585,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Acme: 34%. Nordkraft: 28%. Svensk Energi: 22%. Övriga: 16%. Nordkraft har näst störst andel efter Acme.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "34 > 28 > 22 > 16",
+              "etikett": "andel i procent: Acme Energi, Nordkraft, Svensk Energi, Övriga"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Acme Energi",
+              "Nordkraft",
+              "Svensk Energi",
+              "Övriga"
+            ]
+          },
+          "slutsats": "Nordkraft har näst störst marknadsandel."
+        }
       },
       {
         "id": "num-p08-q02",
@@ -1830,7 +1992,29 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Lördag har 9600 kr, vilket är högst. Närmast ligger fredag med 7200 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9 600 > 7 200 > 5 100 > 4 500 > 4 200 > 3 800",
+              "etikett": "försäljning: lördag, fredag, torsdag, onsdag, måndag, tisdag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Måndag",
+              "Tisdag",
+              "Onsdag",
+              "Torsdag",
+              "Fredag",
+              "Lördag"
+            ],
+            "kolumner": [
+              "Försäljning"
+            ]
+          },
+          "slutsats": "Lördag hade högst försäljning."
+        }
       },
       {
         "id": "num-p10-q02",
