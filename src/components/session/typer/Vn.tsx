@@ -312,7 +312,7 @@ export function VnUnderlag({ u, genomgang = false, facitData }: { u: VnU; genomg
         </article>
         {mer ? (
           <div className={`${s.skugga} pointer-events-none absolute inset-x-[2px] bottom-[7px] flex h-14 items-end justify-center rounded-b-[22px] pb-2.5`} aria-hidden="true" data-vn-fortsatter>
-            <span className="sess-fortsatter lg:hidden">
+            <span className="sess-fortsatter lg:!hidden">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 9l6 6 6-6" />
               </svg>

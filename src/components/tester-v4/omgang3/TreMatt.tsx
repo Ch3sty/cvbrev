@@ -29,7 +29,8 @@ function Minigraf({ pts, bredd, hojd, band }: { pts: { t: number; v: number }[];
   const sista = pts[pts.length - 1]
   const forsta = pts[0]
   return (
-    <svg viewBox={`0 0 ${bredd} ${hojd}`} width={bredd} height={hojd} aria-hidden="true" className="block min-w-0 flex-1">
+    // Krymper med panelen (smal kolumn bredvid sidomenyn) i stället för att flöda ut ur den.
+    <svg viewBox={`0 0 ${bredd} ${hojd}`} width={bredd} height={hojd} aria-hidden="true" className="block min-w-0 flex-1" style={{ width: '100%', maxWidth: bredd, height: 'auto' }}>
       <rect x="0" y="0" width={bredd} height={bandH} rx="8" style={{ fill: 'var(--t3-spar-prov)' }} />
       <text x="10" y="17" fontSize="11" fontWeight="700" style={{ fill: 'var(--sess-rad3-ink)' }}>
         {band}
@@ -48,7 +49,7 @@ function Minigraf({ pts, bredd, hojd, band }: { pts: { t: number; v: number }[];
 function Skala({ bredd, text }: { bredd: number; text: string }) {
   const w = (bredd - 12) / 3
   return (
-    <svg viewBox={`0 0 ${bredd} 96`} width={bredd} height={96} role="img" aria-label="Skalan går från 1 till 10 i tre zoner: Grund 1 till 4, Avancerad 4 till 7 och Expert 7 till 10." className="block min-w-0 flex-1">
+    <svg viewBox={`0 0 ${bredd} 96`} width={bredd} height={96} role="img" aria-label="Skalan går från 1 till 10 i tre zoner: Grund 1 till 4, Avancerad 4 till 7 och Expert 7 till 10." className="block min-w-0 flex-1" style={{ width: '100%', maxWidth: bredd, height: 'auto' }}>
       <rect x="0" y="0" width={bredd} height="26" rx="8" style={{ fill: 'var(--t3-spar-prov)' }} />
       <text x="10" y="17" fontSize="11" fontWeight="700" style={{ fill: 'var(--sess-rad3-ink)' }}>
         {text}

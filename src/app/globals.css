@@ -3751,7 +3751,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 /* Papperet på golvet: genomgången och Var du tappade. */
 .res-ark { background: var(--papper); color: var(--ink-1); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); overflow: hidden; }
 .res-filt { display: inline-flex; padding: 4px; border-radius: 14px; background: var(--golv); gap: 4px; }
-.res-filt > button { min-height: 40px; min-width: 44px; padding: 0 12px; border-radius: 10px; font-weight: 600; font-size: 14px; line-height: 20px; color: var(--sess-tangent-ink); display: inline-flex; align-items: center; gap: 8px; }
+.res-filt > button { min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 10px; font-weight: 600; font-size: 14px; line-height: 20px; color: var(--sess-tangent-ink); display: inline-flex; align-items: center; gap: 8px; }
 .res-filt > button[aria-pressed="true"] { background: var(--papper); color: var(--ink-1); box-shadow: 0 2px 0 var(--sess-kant); }
 .res-filt em { font-style: normal; font-weight: 700; font-size: 12px; line-height: 20px; min-width: 22px; padding: 0 6px; border-radius: 7px; background: var(--sess-bit); color: var(--sess-tangent-ink); text-align: center; }
 .res-filt > button[aria-pressed="true"] em[data-miss] { background: var(--sess-fel-yta); color: var(--sess-fel-ink); }

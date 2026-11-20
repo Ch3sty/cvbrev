@@ -205,7 +205,7 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
               </div>
             </div>
             {linjeLage === 'fylld' ? (
-              <div className="t3-seg hidden xl:inline-flex" role="group" aria-label="Period">
+              <div className="t3-seg max-xl:!hidden" role="group" aria-label="Period">
                 {periodVal.map((p) => (
                   <button key={p.id} type="button" aria-pressed={period === p.id} onClick={() => setPeriod(p.id)}>
                     {p.text}
@@ -260,7 +260,7 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
             </span>
           </div>
           {linjeLage === 'fylld' ? (
-            <div className="t3-seg t3-seg-mobil xl:hidden" role="group" aria-label="Period">
+            <div className="t3-seg t3-seg-mobil xl:!hidden" role="group" aria-label="Period">
               {periodVal.map((p) => (
                 <button key={p.id} type="button" aria-pressed={period === p.id} onClick={() => setPeriod(p.id)}>
                   {p.text}

@@ -257,7 +257,7 @@ function SifferTabell({ t, markering }: { t: NonNullable<VnVisatUnderlag['tabell
           </table>
         </div>
         {mer ? (
-          <span className="sess-mer-sidled lg:hidden">
+          <span className="sess-mer-sidled lg:!hidden">
             <button type="button" aria-label="Visa fler kolumner" onClick={() => rull.current?.scrollBy({ left: 160, behavior: 'smooth' })}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M9 6l6 6-6 6" />

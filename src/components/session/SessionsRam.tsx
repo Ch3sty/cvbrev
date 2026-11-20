@@ -481,7 +481,8 @@ export default function SessionsRam({
 
           <div className="col-start-3 row-start-1 flex items-center justify-end gap-1.5 lg:gap-2">
             {visaIRad ? (
-              <span className="sess-kapsel hidden lg:inline-flex" data-kapsel="rad3" data-i-rad={iRad}>
+              // max-lg:!hidden: .sess-kapsel står utanför Tailwinds lager och vinner annars över hidden.
+              <span className="sess-kapsel max-lg:!hidden" data-kapsel="rad3" data-i-rad={iRad}>
                 <Bock />
                 {SESSION.huvud.iRad(iRad!)}
               </span>
