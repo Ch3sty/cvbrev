@@ -3096,7 +3096,8 @@ a.t3-dag:focus-visible { outline: 3px solid var(--sess-indigo); outline-offset: 
 @media (max-width: 1279.98px) { .t3-stat[data-stat="tempo"] .t3-stat-tal > span:last-child { display: none; } }
 .t3-ark-dimma { position: fixed; inset: 0; z-index: 50; background: var(--dimma, rgba(10, 12, 30, .55)); border: 0; animation: t3-tona 200ms ease-out both; }
 .t3-ark {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 51; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
+  /* z 50 som dimman och Sheet: spärrens ark (GraValSheet) öppnas ur startarket och läggs senare i body, alltså ovanpå. */
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
   display: flex; flex-direction: column; gap: 14px; padding: 10px 16px calc(24px + env(safe-area-inset-bottom)); outline: none;
   background: var(--papper); color: var(--ink-1); border-radius: 26px 26px 0 0; box-shadow: 0 -10px 28px var(--sess-skugga);
   animation: t3-ark-upp 260ms cubic-bezier(.2, .8, .2, 1) both;
