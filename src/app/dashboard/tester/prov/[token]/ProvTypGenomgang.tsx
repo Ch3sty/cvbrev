@@ -1,19 +1,20 @@
 'use client'
 
 /**
- * Genomgången av provet utan konto i typerna utöver matrisen
- * (spec-prov-fler-typer-2026-11-09 avsnitt 4). Varje uppgift ritas med
- * testernas egna komponenter i genomgångsläge: Nivåkollens för figurserier,
- * deduktivt, verbalt och numeriskt, steg 2:s för spatial förmåga, talserier
- * och ordförråd. Rätt svar och förklaringen står under, som i testerna.
+ * Genomgången av provet utan konto i typerna utöver matrisen, efter kontot
+ * (spec-prov-fler-typer-2026-11-09 avsnitt 4, omgång 2 steg C): sessionsramens
+ * Uppgiftslistan med en rad per uppgift, rätt svar och Förklaringen i den
+ * utfällda raden, och "Gå igenom" som öppnar ramens Genomgang. Uppgifterna
+ * ritas av typernas komponenter i session/typer, samma som i testerna.
  */
 
-import NivakollUppgift from '@/components/traning/nivakoll/NivakollUppgift'
-import { Steg2Genomgang } from '@/components/tests/steg2/Uppgifter'
-import type { GenomgangUppgift } from '@/lib/tests/prov-typer'
+import { useMemo, useState } from 'react'
+import Uppgiftslistan from '@/components/session/Uppgiftslistan'
+import Genomgang from '@/components/session/lagen/Genomgang'
+import type { RamUppgift, TypRitare } from '@/components/session/typ'
+import { genomgangPoster, provRitare, PROV_NAMN } from '@/components/publikt/prov/provPost'
+import type { GenomgangUppgift, ProvTyp } from '@/lib/tests/prov-typer'
 import type { VnUnderlag } from '@/lib/tester/pass-typer'
-
-const PANEL = 'rounded-xl border border-kant bg-panel p-4 sm:p-6'
 
 export default function ProvTypGenomgang({
   uppgifter,
@@ -24,30 +25,36 @@ export default function ProvTypGenomgang({
   underlag: Record<string, VnUnderlag>
   token: string
 }) {
+  const poster = useMemo(() => genomgangPoster(uppgifter, underlag), [uppgifter, underlag])
+  // I-provets uppgifter bär sitt deltest; övriga prov är en typ.
+  const typ: ProvTyp = uppgifter.some((u) => u.deltest) ? 'iprov' : (uppgifter[0]?.kind ?? 'figurserie')
+  const ritare = useMemo(() => provRitare(typ, poster), [typ, poster]) as TypRitare<RamUppgift>
+  const [oppen, setOppen] = useState<{ start: number; kalla: 'ga_igenom' | 'rad' } | null>(null)
+  const forstaMiss = Math.max(0, poster.findIndex((p) => !p.facit.correct))
+
   return (
-    <ol className="list-none space-y-4 p-0" data-prov-genomgang>
-      {uppgifter.map((u, i) => (
-        <li key={u.nyckel} className={PANEL} data-correct={'valt' in u ? u.correct : u.genomgang.correct}>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[.06em] text-ink-3">
-            {u.deltest ? `${i + 1}. ${u.deltest}` : `Uppgift ${i + 1}`}
-            {('valt' in u ? u.correct : u.genomgang.correct) ? ', rätt' : ', fel'}
-          </p>
-          {'valt' in u ? (
-            <Steg2Genomgang kind={u.kind} g={u.genomgang} valt={u.valt} />
-          ) : (
-            <NivakollUppgift
-              u={u.data}
-              nr={i + 1}
-              antal={uppgifter.length}
-              vald={u.genomgang.valt}
-              genomgang={u.genomgang}
-              underlag={underlag}
-              sessionId={u.seed || token}
-              last
-            />
-          )}
-        </li>
-      ))}
-    </ol>
+    <div data-prov-genomgang>
+      <Uppgiftslistan
+        ritare={ritare}
+        lage="publikt"
+        poster={poster as never}
+        sessionId={token}
+        onGaIgenom={() => setOppen({ start: forstaMiss, kalla: 'ga_igenom' })}
+        onOppna={(i) => setOppen({ start: i, kalla: 'rad' })}
+      />
+      {oppen ? (
+        <Genomgang
+          ritare={ritare}
+          lage="publikt"
+          titel={PROV_NAMN[typ]}
+          undertitel="Ditt prov, genomgång"
+          poster={poster as never}
+          start={oppen.start}
+          sessionId={token}
+          kalla={oppen.kalla}
+          onStang={() => setOppen(null)}
+        />
+      ) : null}
+    </div>
   )
 }

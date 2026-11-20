@@ -19,6 +19,7 @@
 import { FigurV7, LuckaV7 } from '@/lib/logicTestV7/layered.v7'
 import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 import { FIGUR_PASS_COPY } from '@/lib/tester/pass-copy'
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import { Bricka, BOKSTAV, SvarRuta, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
 import { SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
@@ -88,12 +89,14 @@ function BryterRemsa({ u, vald, facit, onValj, last }: Pick<UppgiftProps<Figurse
 
 export function FigurserieUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<FigurserieU>) {
   const bryter = u.form === 'bryter'
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   return (
     <div className="flex flex-col gap-3.5 lg:gap-4" data-figurserie-uppgift={u.form}>
       <div>
-        <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
+        <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
           {bryter ? FIGUR_PASS_COPY.fraga.bryter : FIGUR_PASS_COPY.fraga.harnast}
-        </h2>
+        </Rubrik>
         {bryter ? <p className="mt-1 text-sm leading-5 text-ink-2">{FIGUR_PASS_COPY.fraga.bryterHjalp}</p> : null}
       </div>
       {bryter ? (

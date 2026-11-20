@@ -1,0 +1,12 @@
+{
+  "_om": "Undantag för omgång 2 steg C, de publika testvyerna i sessionsramen (docs/qa/seo-diff/omgang2-publikt-README.md). Läses av scripts/seo-diff-artiklar.ts.",
+  "LANK_BYTT": [
+    {
+      "path": "/verktyg/rekryteringstester/prova",
+      "fore": "/",
+      "efter": "/verktyg/rekryteringstester",
+      "datum": "2026-11-20",
+      "skal": "Provsidan ritas i sessionsramen (skissen KtViRMpthysT8t34isdnPK, godkänd av ägaren): flödesskalets logga med länken till startsidan ersätts av ramens kryss, som stänger provet till /verktyg/rekryteringstester, och länken Läs om rekryteringstester står kvar under kortet. Sidan är noindex med canonical till /verktyg/rekryteringstester."
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+[
+  {
+    "path": "/artiklar/alva-labs-logiktest",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "alva-labs-logiktest",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/aon-cut-e-test",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "figurserie",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-figurserie",
+      "data-cta-slug": "aon-cut-e-test",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur kommer härnäst?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/cubiks-logiks-test",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "numerisk",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-numerisk",
+      "data-cta-slug": "cubiks-logiks-test",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 4,
+    "rubrikerIRutan": 0,
+    "radio": 4,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5InköpRäknare tillåtenKontorets förbrukningsmaterialTabellen visar ett kontors be"
+  },
+  {
+    "path": "/artiklar/deduktivt-induktivt-test",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "deduktiv",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-deduktiv",
+      "data-cta-slug": "deduktivt-induktivt-test",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 4,
+    "rubrikerIRutan": 0,
+    "radio": 4,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Villkor11. Alla som går vidare till intervju har skickat in arbetsprov.22. Ingen"
+  },
+  {
+    "path": "/artiklar/i-prov",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "iprov",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-iprov",
+      "data-cta-slug": "i-prov",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 5,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": "En uppgift ur vart och ett av I-provets sex deltester, i provets ordning. Svara här, så fortsätter provet. Rätt svar och tekniken visas med ett gratiskonto.Prova självUppgift 1 av 6SynonymerSynonymtankeVilket ord betyder ungefär detsamma?Ai"
+  },
+  {
+    "path": "/artiklar/logiktest-exempel-med-losningar",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "logiktest-exempel-med-losningar",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/logiktest-tips",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "logiktest-tips",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/logiska-tester",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "logiska-tester",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/matrigma-test",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "matrigma-test",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/numeriskt-test-guide",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "numerisk",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-numerisk",
+      "data-cta-slug": "numeriskt-test-guide",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 4,
+    "rubrikerIRutan": 0,
+    "radio": 4,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Transport och miljöRäknare tillåtenStadens hyrcyklarTabellen visar uthyrningen a"
+  },
+  {
+    "path": "/artiklar/ordforstaelse-test",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "ordforrad",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-ordforrad",
+      "data-cta-slug": "ordforstaelse-test",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 5,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5SynonymkändVilket ord betyder ungefär detsamma?AförkyldBsåradCutviladDberömdEutt"
+  },
+  {
+    "path": "/artiklar/rotation-test-guide",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "spatial",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-spatial",
+      "data-cta-slug": "rotation-test-guide",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 4,
+    "rubrikerIRutan": 0,
+    "radio": 4,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5FigurenVriden figurVilken figur är samma som den första, bara vriden?Spegelbilde"
+  },
+  {
+    "path": "/artiklar/stanine-testresultat",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "iprov",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-iprov",
+      "data-cta-slug": "stanine-testresultat",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 5,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": "En uppgift ur vart och ett av I-provets sex deltester, i provets ordning. Svara här, så fortsätter provet. Rätt svar och tekniken visas med ett gratiskonto.Prova självUppgift 1 av 6SynonymerSynonymsvårVilket ord betyder ungefär detsamma?Ano"
+  },
+  {
+    "path": "/artiklar/talserier",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "talserie",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-talserie",
+      "data-cta-slug": "talserier",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 5,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilket tal kommer härnäst?2923332737?A31B41C43D47E63Inget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/tester-hos-myndigheter",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "matris",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-matris",
+      "data-cta-slug": "tester-hos-myndigheter",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 6,
+    "rubrikerIRutan": 0,
+    "radio": 6,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5Vilken figur passar i den tomma rutan?ABCDEFInget konto behövs.Svara"
+  },
+  {
+    "path": "/artiklar/verbalt-test-guide",
+    "status": 200,
+    "rutor": 1,
+    "attr": {
+      "data-artikel-prov": "verbal",
+      "data-cta-position": "inline",
+      "data-cta-cluster": "test",
+      "data-cta-variant": "prov-verbal",
+      "data-cta-slug": "verbalt-test-guide",
+      "aria-label": "Prova testet direkt"
+    },
+    "svarsknappar": 3,
+    "rubrikerIRutan": 0,
+    "radio": 3,
+    "facit": [],
+    "text": "Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.Prova självUppgift 1 av 5SamhälleIdeella uppdrag i cv:tEn stor del av föreningslivet i Sverige bygger på "
+  },
+  {
+    "path": "/artiklar/map-test-personlighetstest",
+    "status": 200,
+    "rutor": 0,
+    "attr": null,
+    "svarsknappar": 0,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": ""
+  },
+  {
+    "path": "/artiklar/personlighetstest-jobb-guide",
+    "status": 200,
+    "rutor": 0,
+    "attr": null,
+    "svarsknappar": 0,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": ""
+  },
+  {
+    "path": "/verktyg/personlighetstest",
+    "status": 200,
+    "rutor": 0,
+    "attr": null,
+    "svarsknappar": 0,
+    "rubrikerIRutan": 0,
+    "radio": 5,
+    "facit": [],
+    "text": ""
+  }
+]

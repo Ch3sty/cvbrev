@@ -1,32 +1,36 @@
 'use client'
 
 /**
- * Personlighetsprovet (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 3,
- * design docs/design/rod-trad-prov-2026-09-24.html, Del A med finishomgången).
+ * Personlighetsprovet (docs/design/rod-trad-prov-spec-2026-09-24.md, avsnitt 3)
+ * i sessionsramens form, omgång 2 steg C (skissen Personlighetsprov och
+ * Personlighetsprov-resultat, godkänd av ägaren).
  *
  * En panel som byter innehåll på plats: inbjudan, svarar, laddar, resultat,
- * plus fel och kvot. Tjugo påståenden ett i taget, en femgradig skala som
- * reglage, profilen direkt och spärren före tolkningen. Omvändningen,
- * kravprofilerna och intervjupunkterna lämnar aldrig servern före claim:
- * de låsta blocken är tomma platshållare.
+ * plus fel och kvot. Tjugo påståenden ett i taget med Likertkorten ur det
+ * inloggade testet (LikertScale), profilen direkt med de fem
+ * faktorerna och spärren före tolkningen. Omvändningen, kravprofilerna och
+ * intervjupunkterna lämnar aldrig servern före claim: de låsta blocken är
+ * tomma platshållare.
  *
- * Rubriken är ett p med display-stil, aldrig h2 eller h3, så artikelns
+ * Ett tryck svarar och går vidare efter 160 ms. Påstående 1 och korten
+ * ritas på servern (sidan serverrenderar panelen, mdx-klient utan ssr:
+ * false). Rubrikerna är p med display-stil, aldrig h1 till h6, så artikelns
  * rubrikträd är orört. Inga data-cta-position-attribut, så panelen räknas
- * inte som ett reklamkort. Panelens höjd låses av citatets min-höjd (två
- * rader), reglagets fasta höjd och det valda ordets reserverade rad.
+ * inte som ett reklamkort. Påståendets rad har två raders min-höjd, så att
+ * korten inte flyttar mellan påståendena.
  */
 
-import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Lock } from 'lucide-react'
 import { capture } from '@/lib/analytics/events'
 import { storePendingPersonlighet } from '@/lib/letters/claim-draft-client'
-import { IlluBlurGate } from '@/components/illustrations/StartFlowIllustrations'
-import { IlluProfilPentagon } from '@/components/illustrations/TestIllustrations'
 import { useFriSikt } from '@/components/shared/useFriSikt'
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
 import FlowError from '@/components/shell/FlowError'
 import StatusRow from '@/components/shell/StatusRow'
+import LikertScale from '@/components/personalityTest/LikertScale'
+import { Las } from '@/components/session/Marke'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import {
   ANTAL_PASTAENDEN,
   SKALA,
@@ -63,23 +67,15 @@ interface Sparat {
   start?: number
 }
 
-const KNAPP =
-  'inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-hover sm:w-auto'
-const TEXTLANK =
-  'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
-const PANEL = 'not-prose relative my-8 overflow-hidden rounded-xl border border-kant bg-panel p-4 sm:p-6'
+const KORT = 'rounded-2xl border border-kant bg-papper p-4 sm:p-6'
+const LYFT = 'rounded-2xl border border-[color:var(--lyft-kant,var(--kant))] bg-papper p-4 shadow-lyft sm:p-6'
+const EYEBROW = 'text-[11px] font-semibold uppercase leading-4 tracking-[.08em]'
+const ETIKETTER = SKALA.map((s) => s.label)
 
-/** Platshållarradernas bredder, ur designfilen. */
-const BREDD = {
-  krav: [88, 76, 92, 70, 84, 78],
-  intervju: [84, 90, 72, 86, 64],
-  omvanda: [80, 68, 50],
-}
+/** Platshållarradernas bredder (två rader per låst block, skissen). */
+const BREDD = [86, 64]
 
-/** Ordningen i femhörningen, medurs från toppen. */
-const PENTAGON: readonly Faktor[] = ['conscientiousness', 'extraversion', 'stability', 'agreeableness', 'openness']
-
-/** Ett tryck går vidare efter 160 ms, så att fyllningen hinner synas. */
+/** Ett tryck går vidare efter 160 ms, så att valet hinner synas. */
 const VIDARE_MS = 160
 /** Skelettet står minst så här länge, så att bytet inte blinkar. */
 const MIN_LADDNING_MS = 450
@@ -144,7 +140,6 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
   const [svar, setSvar] = useState<Partial<Record<SmakprovId, SkalVarde>>>({})
   const [index, setIndex] = useState(0)
   const [valt, setValt] = useState<SkalVarde | null>(null)
-  const [fokusLage, setFokusLage] = useState<SkalVarde | null>(null)
   const [fel, setFel] = useState<FelTyp | null>(null)
   const [kvot, setKvot] = useState<string | null>(null)
   const [resultat, setResultat] = useState<Resultat | null>(null)
@@ -152,7 +147,6 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
   const citatRef = useRef<HTMLParagraphElement>(null)
   const resultatRef = useRef<HTMLParagraphElement>(null)
   const felRef = useRef<HTMLDivElement>(null)
-  const stoppRef = useRef<Array<HTMLButtonElement | null>>([])
   const sparrRef = useRef<HTMLElement>(null)
   const startRef = useRef<number | null>(null)
   const vidareRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -180,15 +174,18 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
     startRef.current = s.start ?? Date.now()
   }, [])
 
-  useEffect(() => () => {
-    if (vidareRef.current) clearTimeout(vidareRef.current)
-  }, [])
+  useEffect(
+    () => () => {
+      if (vidareRef.current) clearTimeout(vidareRef.current)
+    },
+    []
+  )
 
-  // Fokus till citatet vid varje byte av påstående, men bara efter ett val.
+  // Fokus till påståendet vid varje byte, men bara efter ett val.
   useEffect(() => {
     if (!flyttaFokusRef.current) return
     flyttaFokusRef.current = false
-    citatRef.current?.focus()
+    citatRef.current?.focus({ preventScroll: true })
   }, [index])
 
   // Resultatet: fokus, mätning, token inför registreringen.
@@ -247,7 +244,7 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
     [slug]
   )
 
-  /** Ett val på reglaget. Går vidare efter 160 ms. */
+  /** Ett tryck på ett kort. Går vidare efter 160 ms. */
   function valj(v: SkalVarde) {
     if (phase === 'laddar' || phase === 'resultat') return
     if (vidareRef.current) clearTimeout(vidareRef.current)
@@ -312,57 +309,38 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
     requestAnimationFrame(() => citatRef.current?.focus())
   }
 
-  /** Radiogruppen: pilarna flyttar fokus och val, mellanslag och Enter går vidare. */
-  function onTangent(e: KeyboardEvent<HTMLDivElement>) {
-    const nu = fokusLage ?? valt ?? 3
-    let ny: number | null = null
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') ny = Math.min(5, nu + 1)
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ny = Math.max(1, nu - 1)
-    if (e.key === 'Home') ny = 1
-    if (e.key === 'End') ny = 5
-    if (ny !== null) {
-      e.preventDefault()
-      setValt(ny as SkalVarde)
-      setFokusLage(ny as SkalVarde)
-      stoppRef.current[ny - 1]?.focus()
-      return
-    }
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault()
-      valj((fokusLage ?? valt ?? 3) as SkalVarde)
-    }
-  }
-
-  const eyebrow = (
-    <p id={rubrikId} className="text-steg uppercase text-ink-3">
-      {COPY.eyebrow}
-    </p>
-  )
-  const rubrik = (
-    <p className="mt-2 font-display text-[22px] font-bold leading-7 tracking-[-0.02em] text-ink-1 [text-wrap:balance]">
-      {COPY.rubrik}
-    </p>
+  /* -------------------------------------------------------------- huvudet */
+  const huvud = (
+    <div className="mb-4">
+      <p id={rubrikId} className={`${EYEBROW} text-koppar-ink`}>
+        {COPY.eyebrow}
+      </p>
+      <p className="mt-1.5 font-display text-[26px] font-extrabold leading-[30px] tracking-[-0.02em] text-ink-1 [text-wrap:balance] sm:text-[32px] sm:leading-[36px]">
+        {COPY.rubrik}
+      </p>
+      <p className="mt-2 text-[15px] leading-[23px] text-ink-2 sm:text-[17px] sm:leading-[26px]">{COPY.ingress}</p>
+    </div>
   )
 
   /* -------------------------------------------------------------- kvoten */
   if (kvot) {
     return (
-      <aside ref={sparrRef} className={PANEL} aria-labelledby={rubrikId}>
-        {eyebrow}
-        {rubrik}
-        <StatusRow tone="neutral" showDot wrap className="mt-4">
-          {kvot}
-        </StatusRow>
-        <Link
-          href="/register"
-          data-cta="personlighetsprov-gate"
-          onClick={() => capture('signup_started', { cluster: 'test', source_page: kallsida })}
-          className={`mt-4 ${KNAPP}`}
-        >
-          {COPY.sparr.knapp}
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </Link>
-        <p className="mt-3 text-meta text-ink-3">{COPY.sparr.villkor}</p>
+      <aside ref={sparrRef} className="prov-rum not-prose my-8" aria-labelledby={rubrikId}>
+        {huvud}
+        <div className={LYFT}>
+          <StatusRow tone="neutral" showDot wrap>
+            {kvot}
+          </StatusRow>
+          <Link
+            href="/register"
+            data-cta="personlighetsprov-gate"
+            onClick={() => capture('signup_started', { cluster: 'test', source_page: kallsida })}
+            className={`mt-4 ${KNAPP_PRIMAR} sm:w-auto sm:min-w-[240px]`}
+          >
+            {COPY.sparr.knapp}
+          </Link>
+          <p className="mt-3 text-[13px] leading-[18px] text-ink-3">{COPY.sparr.villkor}</p>
+        </div>
       </aside>
     )
   }
@@ -371,246 +349,149 @@ export default function Personlighetsprov({ slug }: PersonlighetsprovProps) {
   if (phase === 'resultat' && resultat) {
     const inloggad = Boolean(resultat.href)
     const registerHref = `/register?personlighet=${encodeURIComponent(resultat.token)}`
-    const segmentFor = (k: Faktor) => resultat.faktorer.find((f) => f.key === k)?.segment ?? 3
-    const levels = PENTAGON.map((k) => segmentFor(k) / 5)
 
     return (
-      <>
-        <aside className={PANEL} aria-labelledby={rubrikId} aria-live="polite">
-          <p
-            id={rubrikId}
-            ref={resultatRef}
-            tabIndex={-1}
-            className="text-steg uppercase text-ink-3 focus:outline-none"
-          >
-            {COPY.resultat.eyebrow}
-          </p>
-          <div className="mt-3 flex items-start gap-4">
-            <span className="shrink-0 text-ink-1">
-              <IlluProfilPentagon levels={levels} size={96} className="sm:hidden" />
-              <IlluProfilPentagon levels={levels} size={112} className="hidden sm:block" />
-            </span>
-            <p className="mt-1 min-w-0 flex-1 text-varde text-ink-1 sm:text-xl sm:leading-[26px]">
-              {resultat.mening}
+      <div className="prov-rum not-prose my-8">
+        <aside aria-labelledby={rubrikId} aria-live="polite">
+          {huvud}
+          <div className={KORT} data-personlighet-profil>
+            <p ref={resultatRef} tabIndex={-1} className={`${EYEBROW} text-ink-3 focus:outline-none`}>
+              {COPY.resultat.eyebrow}
             </p>
+            <p className="mt-1 font-sess-display text-[20px] font-bold leading-[26px] tracking-[-.01em] text-ink-1">{COPY.resultat.titel}</p>
+            <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{resultat.mening}</p>
+
+            <ul className="mt-3 border-t border-kant">
+              {resultat.faktorer.map((f) => (
+                <li key={f.key} className="border-b border-kant py-3.5">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-[15px] font-semibold leading-5 text-ink-1">{f.namn}</span>
+                    <Segmentrad n={f.segment} className="w-[132px] flex-shrink-0 sm:w-[156px]" />
+                  </div>
+                  <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{f.lasning}</p>
+                </li>
+              ))}
+            </ul>
+
+            <LastBlock etikett={COPY.last.kravprofiler} />
+            <LastBlock etikett={COPY.last.intervju} />
+            <LastBlock etikett={COPY.last.omvanda} sista />
+            {inloggad ? null : <p className="sr-only">{COPY.last.sr}</p>}
           </div>
-
-          <ul className="mt-4 grid gap-4 border-t border-kant pt-4">
-            {resultat.faktorer.map((f) => (
-              <li key={f.key}>
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-sm font-semibold leading-5 text-ink-1">{f.namn}</span>
-                  <span className="whitespace-nowrap text-meta font-medium text-ink-2">{f.bandOrd}</span>
-                </div>
-                <Segmentrad n={f.segment} />
-                <p className="mt-2 text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]">{f.lasning}</p>
-              </li>
-            ))}
-          </ul>
-
-          <LastBlock etikett={COPY.last.kravprofiler} bredder={BREDD.krav} forsta />
-          <LastBlock etikett={COPY.last.intervju} bredder={BREDD.intervju} />
-          <LastBlock etikett={COPY.last.omvanda} bredder={BREDD.omvanda} />
-          {inloggad ? null : <p className="sr-only">{COPY.last.sr}</p>}
         </aside>
 
-        <section ref={sparrRef} className="not-prose mb-8 mt-6 rounded-xl border border-kant-stark bg-panel p-4 sm:p-6">
-          <div className="sm:flex sm:items-start sm:gap-5">
-            <IlluBlurGate size={96} className="hidden shrink-0 text-ink-1 sm:block" />
-            <div className="min-w-0 flex-1">
-              <p className="text-kort text-ink-1">{inloggad ? COPY.inloggad.rubrik : COPY.sparr.rubrik}</p>
-              <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
-                {inloggad ? COPY.inloggad.text : COPY.sparr.text}
-              </p>
-              {inloggad ? (
-                <Link href={resultat.href!} data-cta="personlighetsprov-konto" className={`mt-4 ${KNAPP}`}>
-                  {COPY.inloggad.knapp}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              ) : (
-                <Link
-                  href={registerHref}
-                  data-cta="personlighetsprov-gate"
-                  onClick={() => capture('signup_started', { cluster: 'test', source_page: kallsida })}
-                  className={`mt-4 ${KNAPP}`}
-                >
-                  {COPY.sparr.knapp}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-              )}
-              <div className="mt-3 flex flex-wrap items-center gap-x-5 text-meta text-ink-3">
-                {inloggad ? null : <span>{COPY.sparr.villkor}</span>}
-                <button type="button" onClick={gorOm} className={TEXTLANK}>
-                  {COPY.sparr.igen}
-                </button>
-              </div>
-            </div>
+        <section ref={sparrRef} aria-label={inloggad ? COPY.inloggad.rubrik : COPY.sparr.eyebrow} className={`mt-4 ${LYFT}`} data-personlighet-sparr>
+          {inloggad ? null : (
+            <p className={`${EYEBROW} flex items-center gap-2 text-ton-ink`}>
+              <Las storlek={14} />
+              {COPY.sparr.eyebrow}
+            </p>
+          )}
+          <p className="mt-2 font-sess-display text-[20px] font-bold leading-[26px] tracking-[-.01em] text-ink-1 sm:text-[22px] sm:leading-7">
+            {inloggad ? COPY.inloggad.rubrik : COPY.sparr.rubrik}
+          </p>
+          <p className="mt-1.5 text-[15px] leading-[23px] text-ink-2">{inloggad ? COPY.inloggad.text : COPY.sparr.text}</p>
+          <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+            {inloggad ? (
+              <Link href={resultat.href!} data-cta="personlighetsprov-konto" className={`${KNAPP_PRIMAR} sm:w-auto sm:min-w-[240px]`}>
+                {COPY.inloggad.knapp}
+              </Link>
+            ) : (
+              <Link
+                href={registerHref}
+                data-cta="personlighetsprov-gate"
+                onClick={() => capture('signup_started', { cluster: 'test', source_page: kallsida })}
+                className={`${KNAPP_PRIMAR} sm:w-auto sm:min-w-[240px]`}
+              >
+                {COPY.sparr.knapp}
+              </Link>
+            )}
+            {inloggad ? null : <p className="text-[13px] leading-[18px] text-ink-3">{COPY.sparr.villkor}</p>}
           </div>
+          <button type="button" onClick={gorOm} className={`${LANK} mt-2 inline-flex min-h-11 items-center`}>
+            {COPY.sparr.igen}
+          </button>
         </section>
-      </>
+      </div>
     )
   }
 
   /* ------------------------------------------ inbjudan, svarar, laddar */
   const laddar = phase === 'laddar'
-  const inbjudan = phase === 'inbjudan'
   const n = index + 1
-  const framsteg = laddar ? 100 : inbjudan ? 0 : (n / ANTAL_PASTAENDEN) * 100
-  const fyllning = valt ? ((valt - 1) / 4) * 100 : 0
-  const valtOrd = valt ? SKALA[valt - 1].label : null
+  const framsteg = laddar ? 1 : phase === 'inbjudan' ? 0 : index / ANTAL_PASTAENDEN
   const felCopy = fel === 'natverk' ? COPY.fel.natverk : COPY.fel.server
-  // Roving tabindex: det valda läget, annars mitten, är gruppens tabbstopp.
-  const tabbStopp = fokusLage ?? valt ?? 3
 
   return (
-    <aside className={PANEL} aria-labelledby={rubrikId}>
-      {/* Framstegslinjen: tråden längs panelens överkant, från påstående 2. */}
-      {inbjudan ? null : (
-        <span
-          aria-hidden="true"
-          className="absolute -top-px left-0 h-0.5 rounded-sm bg-accent transition-[width] duration-[160ms] ease-out motion-reduce:transition-none"
-          style={{ width: `${framsteg}%` }}
-        />
-      )}
-      {eyebrow}
-      {inbjudan ? (
-        <>
-          {rubrik}
-          <p className="mt-2 text-sm leading-[22px] text-ink-2 sm:text-base sm:leading-6">{COPY.ingress}</p>
-        </>
-      ) : null}
+    <aside className="prov-rum not-prose my-8" aria-labelledby={rubrikId}>
+      {huvud}
+      <div className={KORT} data-personlighet-prov>
+        <div className="flex items-center justify-between gap-3">
+          <span className={`${EYEBROW} tabular-nums text-ink-3`} aria-live="polite">
+            {COPY.steg.raknare(laddar ? ANTAL_PASTAENDEN : n)}
+          </span>
+          <span className="text-[13px] leading-[18px] text-ink-3">{laddar || fel ? COPY.steg.klart : COPY.steg.hoger}</span>
+        </div>
+        <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-kant" aria-hidden="true">
+          <span className="block h-full origin-left rounded-full bg-koppar transition-transform duration-200 ease-out motion-reduce:transition-none" style={{ transform: `scaleX(${framsteg})` }} />
+        </div>
 
-      <div className="mt-4 flex justify-between gap-3 text-meta tabular-nums text-ink-3">
-        <span aria-live="polite">{COPY.steg.raknare(laddar ? ANTAL_PASTAENDEN : n)}</span>
-        <span>{laddar || fel ? COPY.steg.klart : COPY.steg.hoger}</span>
-      </div>
-
-      {fel ? null : laddar ? (
-        <LoadingSkeleton variant="writing" label={COPY.laddar.rubrik} meta={COPY.laddar.meta} className="mt-4" />
-      ) : (
-        // Flexkolumn: "Föregående påstående" står före reglaget i DOM:en (Skift+Tab
-        // från reglaget når den, spec avsnitt 8 punkt 16) men ritas under det.
-        <div className="flex flex-col">
-          <div className="mt-3 min-h-[52px] sm:min-h-[56px]">
-            <blockquote className="border-l-[3px] border-accent py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
-              <p id={citatId} ref={citatRef} tabIndex={-1} className="focus:outline-none">
+        {fel ? null : laddar ? (
+          <LoadingSkeleton variant="writing" label={COPY.laddar.rubrik} meta={COPY.laddar.meta} className="mt-5" />
+        ) : (
+          <>
+            <div className="mt-4 min-h-[56px] sm:min-h-[60px]">
+              <p
+                id={citatId}
+                ref={citatRef}
+                tabIndex={-1}
+                className="font-sess-display text-[19px] font-bold leading-[26px] tracking-[-.01em] text-ink-1 [text-wrap:pretty] focus:outline-none sm:text-[22px] sm:leading-[30px]"
+              >
                 {textFor(aktuellt)}
               </p>
-            </blockquote>
-          </div>
-          <p className="mt-2 text-meta text-ink-3">{COPY.instruktion}</p>
-
-          {inbjudan ? null : (
-            <div className="order-last mt-2 flex items-center justify-between gap-3">
-              {index > 0 ? (
-                <button type="button" onClick={foregaende} className={TEXTLANK}>
-                  {COPY.tillbaka}
-                </button>
-              ) : (
-                <span />
-              )}
-              <span className="text-meta text-ink-3">{COPY.sparas}</span>
             </div>
-          )}
-
-          {/* Reglaget: fem stopp på ett insunket spår, fyllt i bläck till valt läge. */}
-          <div className="relative mt-4">
-            <div
-              aria-hidden="true"
-              className="absolute left-[10%] right-[10%] top-[18px] h-2 rounded-full bg-insunken shadow-insunken"
-            >
-              <span
-                className="absolute inset-y-0 left-0 rounded-full bg-ink-1 transition-[width] duration-[160ms] ease-out motion-reduce:transition-none"
-                style={{ width: `${fyllning}%` }}
+            <div className="mt-3.5">
+              <LikertScale
+                value={valt}
+                onChange={(v) => valj(v as SkalVarde)}
+                etiketter={ETIKETTER}
+                ariaLabel={COPY.reglage.etikett}
+                ariaDescribedBy={citatId}
               />
             </div>
-            <div
-              role="radiogroup"
-              aria-label={COPY.reglage.etikett}
-              aria-describedby={citatId}
-              onKeyDown={onTangent}
-              className="relative grid h-11 grid-cols-5"
-            >
-              {SKALA.map((s) => {
-                const ar = valt === s.value
-                const passerad = valt !== null && s.value < valt
-                return (
-                  <button
-                    key={s.value}
-                    ref={(el) => {
-                      stoppRef.current[s.value - 1] = el
-                    }}
-                    type="button"
-                    role="radio"
-                    aria-checked={ar}
-                    aria-label={`${s.label}, ${COPY.reglage.lage(s.value)}`}
-                    tabIndex={s.value === tabbStopp ? 0 : -1}
-                    onClick={() => valj(s.value)}
-                    onFocus={() => setFokusLage(s.value)}
-                    onBlur={() => setFokusLage(null)}
-                    className="group relative flex h-11 items-center justify-center rounded-lg outline-none focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-[6px] focus-visible:outline-accent"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`flex items-center justify-center rounded-full border-2 transition-[width,height,background-color,border-color] duration-[160ms] ease-out motion-reduce:transition-none ${
-                        ar
-                          ? 'h-6 w-6 border-ink-1 bg-ink-1 text-white'
-                          : passerad
-                            ? 'h-3.5 w-3.5 border-ink-1 bg-ink-1'
-                            : 'h-3.5 w-3.5 border-kant-stark bg-panel group-hover:border-ink-1'
-                      }`}
-                    >
-                      {ar ? (
-                        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 10.5l4 4 8-9" />
-                        </svg>
-                      ) : null}
-                    </span>
-                  </button>
-                )
-              })}
+            <div className="mt-3.5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <p className="text-[13px] leading-[18px] text-ink-3">{COPY.instruktion}</p>
+              {index > 0 ? (
+                <button type="button" onClick={foregaende} className={`${LANK} inline-flex min-h-11 flex-shrink-0 items-center self-start sm:self-auto`}>
+                  {COPY.tillbaka}
+                </button>
+              ) : null}
             </div>
-            <div className="mt-0.5 flex justify-between gap-3 text-meta text-ink-3" aria-hidden="true">
-              <span>{SKALA[0].label}</span>
-              <span>{SKALA[4].label}</span>
-            </div>
-            <p
-              className={`mt-1 min-h-5 text-center text-sm leading-5 ${valtOrd ? 'font-medium text-ink-1' : 'text-ink-3'}`}
-              aria-live="polite"
-            >
-              {valtOrd ?? COPY.reglage.tom}
-            </p>
+          </>
+        )}
+
+        {fel ? (
+          <div ref={felRef} tabIndex={-1} className="mt-4 focus:outline-none">
+            <FlowError title={felCopy.rubrik} message={felCopy.text} retryLabel={felCopy.lank} onRetry={() => token && void skicka(token, ordning, svar)} />
           </div>
-        </div>
-      )}
-
-      {fel ? (
-        <div ref={felRef} tabIndex={-1} className="mt-4 focus:outline-none">
-          <FlowError
-            title={felCopy.rubrik}
-            message={felCopy.text}
-            retryLabel={felCopy.lank}
-            onRetry={() => token && void skicka(token, ordning, svar)}
-          />
-        </div>
-      ) : null}
-
-      {laddar || fel || !inbjudan ? null : <p className="mt-3 text-meta text-ink-3">{COPY.fotnot}</p>}
+        ) : null}
+      </div>
+      <p className="mt-3 text-[13px] leading-[18px] text-ink-3">{COPY.fotnot}</p>
     </aside>
   )
 }
 
-/** Ett låst block: etikett med hänglås och tomma platshållarrader. */
-function LastBlock({ etikett, bredder, forsta }: { etikett: string; bredder: number[]; forsta?: boolean }) {
+/** Ett låst block: etikett med låset och två tomma platshållarrader. */
+function LastBlock({ etikett, sista = false }: { etikett: string; sista?: boolean }) {
   return (
-    <div className={forsta ? 'mt-4 border-t border-kant pt-4' : 'mt-5'}>
-      <p className="flex items-center gap-2 text-sm font-semibold leading-5 text-ink-3">
-        <Lock className="h-4 w-4 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+    <div className={`py-4 ${sista ? 'pb-0' : 'border-b border-kant'}`}>
+      <p className="flex items-center gap-2 text-sm font-semibold leading-5 text-ink-2">
+        <Las storlek={14} className="text-ink-3" />
         {etikett}
       </p>
-      <div className="mt-2.5 grid gap-2.5" aria-hidden="true">
-        {bredder.map((b, i) => (
-          <div key={i} className="h-3 rounded bg-kant opacity-[0.55]" style={{ width: `${b}%` }} />
+      <div className="mt-2.5 grid gap-2" aria-hidden="true">
+        {BREDD.map((b, i) => (
+          <div key={i} className="h-2.5 rounded-full bg-papper-2" style={{ width: `${b}%` }} />
         ))}
       </div>
     </div>

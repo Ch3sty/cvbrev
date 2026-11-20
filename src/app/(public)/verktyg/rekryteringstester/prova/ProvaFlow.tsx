@@ -1,87 +1,93 @@
 'use client'
 
 /**
- * Fem matrislogikfrågor utan konto (docs/plan-konvertering.md, C9), i
- * flödesskalet enligt skissen docs/design/skiss-prov-konto-2026-11-09.html
- * (godkänd av ägaren 2026-11-09).
+ * Provet utan konto (docs/plan-konvertering.md, C9) i sessionsramen, omgång 2
+ * steg C (skissen KtViRMpthysT8t34isdnPK, Prova-start, Prova-uppgift och
+ * Prova-resultat, godkänd av ägaren).
  *
- * Tre vyer i skalet: intron på väggen med provbladet, frågan med matrisen och
- * alternativen bredvid varandra från 900 px, och resultatet med ringen och
- * spärren med besökarens fem brickor. Toppraden har bara loggan och Logga in;
- * tråden visar framsteget, 20 procent per fråga. Samtycket ligger under den
- * scrollande mitten (globals.css, .pub-flode-skal), så useFriSikt behövs inte.
+ * Tre vyer:
+ *   start     ramens Startskarm i publikt läge: typens scen, rubriken, de
+ *             tre reglerna och det lyfta kortet med typvalet och en
+ *             kopparknapp (data-cta="prova-start"). Renderas på servern.
+ *   uppgift   SessionsRam i publikt läge: ingen klocka, ingen Förklaring,
+ *             inget facit, ingen väg tillbaka. Ett tryck markerar, Nästa
+ *             bekräftar och går vidare, sista knappen är Visa resultatet.
+ *             Uppgiften ritas av typens komponent (session/typer), samma som
+ *             inloggat. Avbryt frågar "Avbryta provet? Inget sparas.".
+ *   resultat  ramens resultatbild: väggen med ringen och "3 av 5 rätt",
+ *             Uppgiftslistan låst (utfallet per uppgift, aldrig rätt svar)
+ *             och spärren med data-cta="prova-gate" till /register?test=.
  *
- * Frågorna kommer från samma V7-pool som det inloggade grundtestet. Facit
- * finns aldrig i klienten: rättningen sker på servern, som bara svarar med
- * antal rätt, vilka positioner som blev fel och, när underlaget räcker,
- * percentilen. Rätt alternativ och reglerna kommer först med kontot.
+ * Facit finns aldrig i klienten: rättningen sker på servern, som bara svarar
+ * med antal rätt, vilka positioner som blev fel och, när underlaget räcker,
+ * percentilen. Kropparna mot /api/public/test-session är som förut: matrisen
+ * startas utan kropp, typerna med { typ }, rättningen { token, answers }.
  */
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { FigurV7, LuckaV7 } from '@/lib/logicTestV7/layered.v7'
-import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
+import { useRouter } from 'next/navigation'
 import { capture } from '@/lib/analytics/events'
 import { sparaProvkalla, sparaProvkallaUrAdress } from '@/lib/analytics/provkalla'
 import { readPendingTestSession, storePendingTestSession } from '@/lib/letters/claim-draft-client'
 import { lasSparatProv, sparaProv, type ProvaResultat, type Rutnat } from '@/lib/tests/prova-lokalt'
-import PubliktFlodesskal from '@/components/registrering/PubliktFlodesskal'
 import { loggaInHref } from '@/components/registrering/RegisterKontoSteg'
-import { KONTO_PANEL, PROVA, SKAL } from '@/components/registrering/registrering-copy'
-import { MedKampanjPris } from '@/components/kampanj/Kampanj'
-import ProvBrickor from '@/components/publikt/ProvBrickor'
-import { MATRIS_EXPERT_ALTERNATIV, MATRIS_EXPERT_RUTOR, MatrisFigur, MatrisLucka } from '@/components/publikt/MatrisExpert'
-import TypUppgiftVy from '@/components/publikt/prov/TypUppgiftVy'
-import { PROV_TYP_PANEL } from '@/components/registrering/registrering-copy'
-import { PROV_COPY, PROV_MITT_TEST, arNyProvTyp, provAntal, type ProvStart, type ProvTyp, type PublikUppgift } from '@/lib/tests/prov-typer'
+import { PROVA } from '@/components/registrering/registrering-copy'
+import { PROV_COPY, PROV_MITT_TEST, PROV_TYPER, arNyProvTyp, type ProvStart, type ProvTyp, type PublikUppgift } from '@/lib/tests/prov-typer'
 import type { VnUnderlag } from '@/lib/tester/pass-typer'
+import SessionsRam from '@/components/session/SessionsRam'
+import Startskarm from '@/components/session/Startskarm'
+import Uppgiftslistan from '@/components/session/Uppgiftslistan'
+import Dagsring from '@/components/rum/Dagsring'
+import { Las } from '@/components/session/Marke'
+import { IkonX } from '@/components/illustrations/RumSymboler'
+import { KLART, SESSION } from '@/components/session/copy'
+import { ramUnderlag } from '@/components/session/lagen/gemensamt'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
+import type { RamFacit, TypRitare } from '@/components/session/typ'
+import type { ListPost } from '@/components/session/Uppgiftslistan'
+import ProvUppgiftVy from '@/components/publikt/prov/ProvUppgiftVy'
+import { PROV_NAMN, franMatris, franPublika, provForm, type MatrisFraga, type ProvPost, type ProvU } from '@/components/publikt/prov/provPost'
+import { PROV_RAM, forklaringOrd } from '@/components/publikt/prov/prov-copy'
 
-/** Introts exempel för typerna utöver matrisen: en riktig uppgift ur banken, utan facit. */
+/** Introts exempel för typerna utöver matrisen (sidan läser det fortfarande; startskärmen visar scenen i stället). */
 export interface ProvExempel {
   uppgift: PublikUppgift
   underlag: Record<string, VnUnderlag>
 }
 
-interface PublicQuestion {
-  id: string
-  grid: (LayeredCell | null)[][]
-  options: LayeredCell[]
-}
-
 interface StartResponse {
   token: string
-  questions: PublicQuestion[]
+  questions: MatrisFraga[]
   total: number
 }
 
 type Phase = 'intro' | 'running' | 'result'
 
-const BOKSTAV = 'ABCDEFGH'
+const TILLBAKA = '/verktyg/rekryteringstester'
+const PROVA_PATH = '/verktyg/rekryteringstester/prova'
 
-export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: { typ?: ProvTyp; exempel?: ProvExempel | null }) {
+/** Typvalets ordning på startskärmen: matrisen först, I-provet sist. */
+const TYPVAL: readonly ProvTyp[] = ['matris', 'figurserie', 'talserie', 'numerisk', 'verbal', 'deduktiv', 'spatial', 'ordforrad', 'iprov']
+
+export default function ProvaFlow({ typ: typProp = 'matris' }: { typ?: ProvTyp; exempel?: ProvExempel | null }) {
+  const router = useRouter()
   const [phase, setPhase] = useState<Phase>('intro')
   const [typ, setTyp] = useState<ProvTyp>(typProp)
-  const [session, setSession] = useState<StartResponse | null>(null)
-  // Typerna utöver matrisen (spec-prov-fler-typer-2026-11-09).
-  const [typSession, setTypSession] = useState<ProvStart | null>(null)
-  const [typSvar, setTypSvar] = useState<(string | null)[]>([])
+  const [token, setToken] = useState<string | null>(null)
+  const [poster, setPoster] = useState<ProvPost[]>([])
+  const [deltest, setDeltest] = useState<(string | null)[]>([])
+  const [svar, setSvar] = useState<(string | number | null)[]>([])
   const [rutnat, setRutnat] = useState<Rutnat[]>([])
   const [index, setIndex] = useState(0)
-  const [answers, setAnswers] = useState<number[]>([])
+  const [vald, setVald] = useState<number | null>(null)
   const [result, setResult] = useState<ProvaResultat | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [registerHref, setRegisterHref] = useState<string | null>(null)
   const aterstalld = useRef(false)
-  const rotRef = useRef<HTMLDivElement>(null)
 
-  // Ny vy eller ny fråga börjar överst i den scrollande mitten.
-  useEffect(() => {
-    const mitt = rotRef.current?.closest('main')
-    if (mitt && typeof mitt.scrollTo === 'function') mitt.scrollTo({ top: 0 })
-  }, [phase, index])
-
-  // Valet och artikeln ur adressen (?mitt_test=, ?fran=), för kontots källa.
+  // Valet och artikeln ur adressen (?mitt_test=, ?fran=, /pedro med utm), för kontots källa.
   useEffect(() => {
     sparaProvkallaUrAdress(window.location.search, 'smakprov')
   }, [])
@@ -92,7 +98,7 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
     if (!sparat) return
     aterstalld.current = true
     if (sparat.typ && arNyProvTyp(sparat.typ)) setTyp(sparat.typ)
-    setSession({ token: sparat.token, questions: [], total: sparat.result.total })
+    setToken(sparat.token)
     setRutnat(sparat.rutnat)
     setResult(sparat.result)
     setPhase('result')
@@ -115,28 +121,29 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
         if (typeof data.registerHref === 'string') setRegisterHref(data.registerHref)
         return
       }
+      let nya: ProvPost[]
       if (ny) {
         const s = data as ProvStart
-        setTypSession(s)
-        setSession({ token: s.token, questions: [], total: s.total })
+        nya = franPublika(s.uppgifter, s.underlag)
+        setDeltest(s.uppgifter.map((u) => u.deltest ?? null))
         setRutnat([])
-        setTypSvar(new Array(s.uppgifter.length).fill(null))
-        setIndex(0)
-        setPhase('running')
-        capture('sample_started', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
-        const mitt = PROV_MITT_TEST[typ]
-        sparaProvkalla({ via: 'smakprov', ...(mitt ? { mitt_test: mitt } : {}) })
-        return
+        setToken(s.token)
+      } else {
+        const s = data as StartResponse
+        nya = s.questions.map(franMatris)
+        setDeltest([])
+        setRutnat(s.questions.map((q) => q.grid))
+        setToken(s.token)
       }
-      const started = data as StartResponse
-      setSession(started)
-      setRutnat(started.questions.map((q) => q.grid))
-      setAnswers(new Array(started.questions.length).fill(-1))
+      setPoster(nya)
+      setSvar(new Array(nya.length).fill(null))
       setIndex(0)
+      setVald(null)
       setPhase('running')
       capture('sample_started', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
       // Kom besökaren från en artikel blir källan smakprov:<slug>.
-      sparaProvkalla({ via: 'smakprov' })
+      const mitt = PROV_MITT_TEST[typ]
+      sparaProvkalla({ via: 'smakprov', ...(mitt ? { mitt_test: mitt } : {}) })
     } catch {
       setError('Vi nådde inte servern. Kontrollera uppkopplingen och försök igen.')
     } finally {
@@ -144,14 +151,14 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
     }
   }
 
-  async function submit(finalAnswers: (number | string | null)[], token: string) {
+  async function submit(alla: (string | number | null)[], t: string) {
     setLoading(true)
     setError(null)
     try {
       const res = await fetch('/api/public/test-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, answers: finalAnswers }),
+        body: JSON.stringify({ token: t, answers: alla }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -165,7 +172,7 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
         percentile: typeof data.percentile === 'number' ? data.percentile : null,
       }
       setResult(r)
-      sparaProv(token, r, rutnat, typ)
+      sparaProv(t, r, rutnat, typ)
       setPhase('result')
     } catch {
       setError('Vi nådde inte servern. Försök igen.')
@@ -174,502 +181,309 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
     }
   }
 
-  function choose(optionIndex: number) {
-    if (!session || loading) return
-    const next = [...answers]
-    next[index] = optionIndex
-    setAnswers(next)
-
-    if (index + 1 < session.questions.length) {
+  /** Nästa (eller Visa resultatet): det markerade svaret gäller och nästa uppgift kommer. */
+  function bekrafta() {
+    const post = poster[index]
+    if (!post || vald === null || loading || !token) return
+    const next = [...svar]
+    next[index] = post.varde(vald)
+    setSvar(next)
+    if (index + 1 < poster.length) {
       setIndex(index + 1)
+      setVald(null)
     } else {
-      void submit(next, session.token)
+      void submit(next, token)
     }
   }
 
-  function chooseTyp(svar: string) {
-    if (!typSession || loading) return
-    const next = [...typSvar]
-    next[index] = svar
-    setTypSvar(next)
-    if (index + 1 < typSession.uppgifter.length) setIndex(index + 1)
-    else void submit(next, typSession.token)
+  function tillStart() {
+    setPhase('intro')
+    setPoster([])
+    setSvar([])
+    setIndex(0)
+    setVald(null)
+    setResult(null)
+    setError(null)
+    aterstalld.current = false
   }
 
   useEffect(() => {
     if (phase === 'result' && result && !aterstalld.current) {
-      capture('sample_completed', { kind: 'test', cluster: 'test', test_kind: typ })
-      capture('signup_gate_shown', { kind: 'test', cluster: 'test', test_kind: typ })
+      capture('sample_completed', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
+      capture('signup_gate_shown', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
     }
   }, [phase, result, typ])
 
-  const antal = typSession?.uppgifter.length || session?.questions.length || session?.total || provAntal(typ)
-  const framsteg = phase === 'intro' ? 0 : phase === 'running' ? ((index + 1) / antal) * 100 : 100
-  const loginHref = loggaInHref({
-    intent: null,
-    smakprov: phase === 'result' && session ? { typ: 'test', token: session.token } : null,
-  })
+  if (phase === 'result' && result && token) {
+    return (
+      <ProvResultat
+        typ={typ}
+        result={result}
+        token={token}
+        poster={poster}
+        rutnat={rutnat}
+        onStang={() => router.push(TILLBAKA)}
+        onGorOm={() => {
+          aterstalld.current = false
+          tillStart()
+        }}
+      />
+    )
+  }
 
-  return (
-    <PubliktFlodesskal
-      bredd="full"
-      framsteg={framsteg}
-      toppLank={{ href: loginHref, text: SKAL.loggaIn, forklaring: SKAL.harKonto }}
-    >
-      <div ref={rotRef} className="pub-prov">
-        {phase === 'intro' ? (
-          <Intro typ={typ} exempel={exempel} loading={loading} error={error} registerHref={registerHref} onStart={start} />
-        ) : null}
+  if (phase === 'running' && poster[index]) {
+    const post = poster[index]
+    const antal = poster.length
+    const sista = index + 1 >= antal
+    return (
+      <SessionsRam
+        lage="publikt"
+        titel={PROV_NAMN[typ]}
+        undertitel={PROV_RAM.undertitel(antal)}
+        form={provForm([post])}
+        raknare={{ nr: index + 1, antal }}
+        framsteg={index / antal}
+        nyckel={post.u.nyckel}
+        underlag={ramUnderlag(post.ritare, post.u)}
+        scen={typ}
+        bekraftaAvbryt
+        onAvbryt={tillStart}
+        tangent={loading ? null : { antal: post.ritare.antalAlternativ(post.u), onValj: setVald }}
+        fot={{
+          primar: {
+            text: sista ? SESSION.knapp.visaResultat : SESSION.knapp.nasta,
+            onClick: bekrafta,
+            disabled: vald === null,
+            laddar: loading,
+            data: 'prova-nasta',
+          },
+        }}
+        rad={
+          error ? (
+            <p role="alert" className="rounded-xl border border-kant bg-papper px-3.5 py-2.5 text-sm leading-5 text-ink-1">
+              {error}
+            </p>
+          ) : null
+        }
+      >
+        <ProvUppgiftVy post={post} nr={index + 1} antal={antal} vald={vald} onValj={setVald} last={loading} deltest={deltest[index]} />
+      </SessionsRam>
+    )
+  }
 
-        {phase === 'running' && typSession && typSession.uppgifter[index] ? (
-          <TypFraga
-            typ={typ}
-            uppgift={typSession.uppgifter[index]}
-            underlag={typSession.underlag}
-            seed={typSession.token}
-            nu={index + 1}
-            av={typSession.uppgifter.length}
-            loading={loading}
-            error={error}
-            onSvar={chooseTyp}
-          />
-        ) : null}
-
-        {phase === 'running' && session && !typSession ? (
-          <Fraga
-            fraga={session.questions[index]}
-            nu={index + 1}
-            av={session.questions.length}
-            loading={loading}
-            error={error}
-            onVal={choose}
-          />
-        ) : null}
-
-        {phase === 'result' && result && session ? (
-          <ResultGate result={result} token={session.token} rutnat={rutnat} typ={typ} />
-        ) : null}
-      </div>
-    </PubliktFlodesskal>
-  )
+  return <ProvStartskarm typ={typ} loading={loading} error={error} registerHref={registerHref} onStart={start} onStang={() => router.push(TILLBAKA)} />
 }
 
-/* ------------------------------------------------------------ delar */
+/* ------------------------------------------------------------ startskärmen */
 
-function Pil() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="pub-prov-pil">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  )
-}
-
-function Segment({ av, klara, className = '' }: { av: number; klara: number; className?: string }) {
-  return (
-    <div className={`pub-prov-segment ${className}`.trim()} aria-hidden="true">
-      {Array.from({ length: av }, (_, i) => (
-        <i key={i} className={i < klara ? 'klar' : undefined} />
-      ))}
-    </div>
-  )
-}
-
-function Intro({
+function ProvStartskarm({
   typ,
-  exempel,
   loading,
   error,
   registerHref,
   onStart,
+  onStang,
 }: {
   typ: ProvTyp
-  exempel: ProvExempel | null
   loading: boolean
   error: string | null
   registerHref: string | null
   onStart: () => void
+  onStang: () => void
 }) {
   const c = arNyProvTyp(typ) ? PROV_COPY[typ] : null
-  const n = provAntal(typ)
-  const t = c
-    ? {
-        ...PROVA.intro,
-        kick: c.kick,
-        h1: c.h1,
-        ingressFet: c.ingressFet,
-        ingress: c.ingress,
-        steg: [n === 6 ? 'Sex uppgifter' : 'Fem uppgifter', 'Resultatet direkt', 'Kontot visar vad du missade'],
-        bladKick: 'Så ser en uppgift ut',
-        bladFotRubrik:
-          c.forklaring === 'regeln'
-            ? 'Regeln bakom uppgiften'
-            : c.forklaring === 'lösningen'
-              ? 'Lösningen'
-              : c.forklaring === 'tekniken'
-                ? 'Tekniken bakom svaret'
-                : 'Förklaringen',
-        bladFot: 'Visas för varje uppgift när provet är hämtat till ditt konto.',
-      }
-    : PROVA.intro
+  const h1 = c ? c.h1 : PROVA.intro.h1
+  const ingress = c ? c.ingressFet : PROVA.intro.ingressFet
+  const regler = PROV_RAM.start.regler(typ)
+  const loginHref = loggaInHref({ intent: null, smakprov: null })
   return (
-    <>
-      <section className="pub-rum-tran pub-yta-vagg pub-prov-intro">
-        <div className="pub-prov-wrap pub-prov-intro-g">
-          <div>
-            <p className="pub-kick">{t.kick}</p>
-            <h1 className="pub-prov-h1">{t.h1}</h1>
-            <p className="pub-ingress pub-prov-ingress">
-              <b>{t.ingressFet}</b>
-              {t.ingress}
-            </p>
-            <ol className="pub-prov-steg">
-              {t.steg.map((s, i) => (
-                <li key={s}>
-                  <b>{i + 1}</b>
-                  {s}
-                </li>
-              ))}
-            </ol>
-            {error ? (
-              <div className="pub-prov-fel" role="alert">
-                <p>{error}</p>
-                {registerHref ? (
-                  <Link href={registerHref} className="pub-lank">
-                    {t.skapaKonto}
-                  </Link>
-                ) : null}
-              </div>
-            ) : null}
-            <div className="pub-prov-handling">
-              <button type="button" onClick={onStart} disabled={loading} data-cta="prova-start" className="pub-knapp">
-                {loading ? t.knappBusy : t.knapp}
-                {loading ? null : <Pil />}
-              </button>
-              <span className="pub-liten">{t.liten}</span>
-            </div>
-          </div>
-
-          {c && exempel ? (
-            <div className="pub-prov-blad pub-prov-blad-intro pub-prov-blad-typ" aria-hidden="true" inert>
-              <div className="pub-prov-blad-topp">
-                <p className="pub-kick">{t.bladKick}</p>
-                <Segment av={n} klara={1} />
-              </div>
-              <TypUppgiftVy uppgift={exempel.uppgift} underlag={exempel.underlag} nr={1} antal={n} seed="exempel" onSvar={() => {}} disabled />
-              <div className="pub-prov-blad-fot">
-                <Las />
-                <div>
-                  <b>{t.bladFotRubrik}</b>
-                  {t.bladFot}
-                </div>
-              </div>
-            </div>
-          ) : (
-          <div className="pub-prov-blad pub-prov-blad-intro" aria-hidden="true">
-            <div className="pub-prov-blad-topp">
-              <p className="pub-kick">{t.bladKick}</p>
-              <Segment av={5} klara={1} />
-            </div>
-            <div className="pub-prov-matris">
-              <div className="pub-prov-matris-g">
-                {MATRIS_EXPERT_RUTOR.map((r, i) => (
-                  <div key={i}>
-                    <svg viewBox="0 0 100 100" focusable="false">
-                      <MatrisFigur ruta={r} streck={3.6} />
-                    </svg>
-                  </div>
-                ))}
-                <div className="lucka">
-                  <svg viewBox="0 0 100 100" focusable="false">
-                    <MatrisLucka streck={3.6} />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="pub-prov-alt pub-prov-alt-intro">
-              {MATRIS_EXPERT_ALTERNATIV.map((a) => (
-                <div key={a.bokstav} className={a.bokstav === 'C' ? 'vald' : undefined}>
-                  <b>{a.bokstav}</b>
-                  <svg viewBox="0 0 100 100" focusable="false">
-                    <MatrisFigur ruta={a.ruta} streck={3.6} />
-                  </svg>
-                </div>
-              ))}
-            </div>
-            <div className="pub-prov-blad-fot">
-              <Las />
-              <div>
-                <b>{t.bladFotRubrik}</b>
-                {t.bladFot}
-              </div>
-            </div>
-          </div>
-          )}
-        </div>
-      </section>
-      <p className="pub-prov-mer">
-        {t.merFore}{' '}
-        <Link href="/verktyg/rekryteringstester" className="pub-lank">
-          {t.merLank}
-        </Link>
-      </p>
-    </>
-  )
-}
-
-function Las() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="pub-prov-las">
-      <rect x="5" y="11" width="14" height="10" rx="2" />
-      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-    </svg>
-  )
-}
-
-function Fraga({
-  fraga,
-  nu,
-  av,
-  loading,
-  error,
-  onVal,
-}: {
-  fraga: PublicQuestion
-  nu: number
-  av: number
-  loading: boolean
-  error: string | null
-  onVal: (i: number) => void
-}) {
-  const t = PROVA.fraga
-  return (
-    <>
-      <section className="pub-rum-tran pub-yta-vagg pub-prov-fraga-vagg">
-        <div className="pub-prov-wrap">
-          <div>
-            <p className="pub-kick">{t.kick}</p>
-            <p className="pub-prov-fraga-rub">{t.rubrik(nu, av)}</p>
-          </div>
-          <Segment av={av} klara={nu} />
-        </div>
-      </section>
-      <section className="pub-prov-wrap pub-prov-fraga-kropp">
-        {/*
-          Ingen frågetitel och ingen regel före svar: båda beskriver mönstret
-          i ord. De visas i genomgången när provet är hämtat till ett konto.
-        */}
-        <div className="pub-prov-blad pub-prov-blad-fraga">
-          <div className="pub-prov-blad-fraga-g">
-            <div className="pub-prov-matris matrisyta">
-              <div className="pub-prov-matris-g">
-                {fraga.grid.flat().map((cell, i) => (
-                  <div key={i} className={cell ? undefined : 'lucka'}>
-                    {cell ? <FigurV7 cell={cell} /> : <LuckaV7 />}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h1 className="pub-prov-fraga-txt">{t.fraga}</h1>
-              <div className="pub-prov-alt matrisyta">
-                {fraga.options.map((option, i) => (
-                  <button
-                    key={`${fraga.id}-${i}`}
-                    type="button"
-                    onClick={() => onVal(i)}
-                    disabled={loading}
-                    aria-label={t.alternativ(BOKSTAV[i])}
-                  >
-                    <b aria-hidden="true">{BOKSTAV[i]}</b>
-                    <FigurV7 cell={option} />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+    <Startskarm
+      bas={{ test_kind: typ, lage: 'publikt', niva: null, format: null }}
+      // Krysset stänger provet till verktygssidan. onAvbryt i stället för
+      // tillbaka-länken: startskärmen skjuter då ingen test_start_viewed,
+      // som hör till de inloggade testerna.
+      onAvbryt={onStang}
+      eyebrow={PROV_NAMN[typ]}
+      rubrik={h1}
+      formatrad={ingress}
+      scen={typ}
+      rita
+      regler={regler}
+      knapp={{ text: PROV_RAM.start.knapp, onClick: onStart, laddar: loading, cta: 'prova-start' }}
+      kortRad={
+        <>
+          <p className="text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-ink-3">{PROV_RAM.start.valjTyp}</p>
+          <nav aria-label={PROV_RAM.start.valjTypAria} className="mt-2.5 flex flex-wrap gap-2" data-prova-typval>
+            {TYPVAL.filter((t) => (PROV_TYPER as readonly string[]).includes(t)).map((t) => {
+              const aktiv = t === typ
+              return (
+                <Link
+                  key={t}
+                  href={t === 'matris' ? PROVA_PATH : `${PROVA_PATH}?typ=${t}`}
+                  replace
+                  scroll={false}
+                  aria-current={aktiv ? 'page' : undefined}
+                  className={`inline-flex min-h-10 items-center rounded-full border px-3.5 text-sm font-semibold leading-5 transition-colors ${
+                    aktiv ? 'border-ink-1 bg-ink-1 text-papper' : 'border-kant-stark bg-papper text-ink-1 hover:border-ink-1'
+                  }`}
+                >
+                  {PROV_NAMN[t]}
+                </Link>
+              )
+            })}
+          </nav>
           {error ? (
-            <p className="pub-prov-fel" role="alert">
-              {error}
-            </p>
+            <div role="alert" className="mt-3.5 rounded-xl border border-kant bg-papper-2 px-3.5 py-2.5 text-sm leading-5 text-ink-1">
+              <p>{error}</p>
+              {registerHref ? (
+                <Link href={registerHref} className={`${LANK} mt-1 inline-flex min-h-9 items-center`}>
+                  {PROVA.intro.skapaKonto}
+                </Link>
+              ) : null}
+            </div>
           ) : null}
+        </>
+      }
+      fotnot={PROV_RAM.start.fotnot}
+      sparrad="none"
+      fortsattTillganglig={false}
+      efter={
+        <div className="mt-5 flex flex-col gap-1 text-sm leading-5 text-ink-2">
+          <p>
+            {PROVA.intro.merFore}{' '}
+            <Link href={TILLBAKA} className={LANK}>
+              {PROVA.intro.merLank}
+            </Link>
+          </p>
+          <p>
+            Har du redan ett konto?{' '}
+            <Link href={loginHref} className={LANK}>
+              Logga in
+            </Link>
+          </p>
         </div>
-        <p className="pub-liten pub-prov-under-blad" aria-live="polite">
-          {loading ? t.rattar : t.under}
-        </p>
-      </section>
-    </>
+      }
+    />
   )
 }
 
-/** En uppgift i typerna utöver matrisen, i samma skal som matrisens fråga. */
-function TypFraga({
+/* ------------------------------------------------------------ resultatet */
+
+/** En rad utan uppgift (resultatet återställt ur fliken): numret och utfallet, ingen miniatyr. */
+function utanUppgift(typ: ProvTyp): TypRitare<{ nyckel: string }> {
+  return { kind: typ, namn: PROV_NAMN[typ], form: 'smal', antalAlternativ: () => 0, Uppgift: () => null }
+}
+
+function ProvResultat({
   typ,
-  uppgift,
-  underlag,
-  seed,
-  nu,
-  av,
-  loading,
-  error,
-  onSvar,
+  result,
+  token,
+  poster,
+  rutnat,
+  onStang,
+  onGorOm,
 }: {
   typ: ProvTyp
-  uppgift: PublikUppgift
-  underlag: Record<string, VnUnderlag>
-  seed: string
-  nu: number
-  av: number
-  loading: boolean
-  error: string | null
-  onSvar: (svar: string) => void
+  result: ProvaResultat
+  token: string
+  poster: ProvPost[]
+  rutnat: Rutnat[]
+  onStang: () => void
+  onGorOm: () => void
 }) {
-  const c = arNyProvTyp(typ) ? PROV_COPY[typ] : null
-  return (
-    <>
-      <section className="pub-rum-tran pub-yta-vagg pub-prov-fraga-vagg">
-        <div className="pub-prov-wrap">
-          <div>
-            <p className="pub-kick">{c?.fragaKick ?? PROVA.fraga.kick}</p>
-            <p className="pub-prov-fraga-rub">{PROV_TYP_PANEL.fraga(nu, av)}</p>
-          </div>
-          <Segment av={av} klara={nu} />
-        </div>
-      </section>
-      <section className="pub-prov-wrap pub-prov-fraga-kropp">
-        <div className="pub-prov-blad pub-prov-blad-typ" key={uppgift.nyckel}>
-          <TypUppgiftVy uppgift={uppgift} underlag={underlag} nr={nu} antal={av} seed={seed} onSvar={onSvar} disabled={loading} />
-          {error ? (
-            <p className="pub-prov-fel" role="alert">
-              {error}
-            </p>
-          ) : null}
-        </div>
-        <p className="pub-liten pub-prov-under-blad" aria-live="polite">
-          {loading ? PROVA.fraga.rattar : 'Ingen tidtagning. Nästa uppgift kommer när du svarat.'}
-        </p>
-      </section>
-    </>
-  )
-}
-
-/**
- * Resultatet och spärren. Antal rätt, vilka som blev fel och, när
- * underlaget räcker, percentilen. Rätt svar och reglerna ligger kvar på
- * servern tills kontot finns. ResultGate behåller data-cta="prova-gate".
- */
-function ResultGate({ result, token, rutnat, typ }: { result: ProvaResultat; token: string; rutnat: Rutnat[]; typ: ProvTyp }) {
   const registerHref = `/register?test=${encodeURIComponent(token)}`
-  const t = PROVA.resultat
-  const ny = arNyProvTyp(typ) ? typ : null
-  const andel = Math.max(0, Math.min(1, result.total ? result.score / result.total : 0))
+  const antal = result.total
+  const fel = new Set(result.fel)
+  const andel = Math.max(0, Math.min(1, antal ? result.score / antal : 0))
+  const S = PROV_RAM.sparr
+  const loginHref = loggaInHref({ intent: null, smakprov: { typ: 'test', token } })
 
   useEffect(() => {
     storePendingTestSession(token)
   }, [token])
 
+  // Raderna: uppgifterna när de finns i minnet, annars matrisens rutnät ur fliken eller bara numret.
+  const lista: ListPost<ProvU>[] = Array.from({ length: antal }, (_, i) => {
+    const facit: RamFacit = { ratt: -1, correct: !fel.has(i), regel: null, misstag: null }
+    const p = poster[i] ?? (typ === 'matris' && rutnat[i] ? franMatris({ id: `r${i}`, grid: rutnat[i], options: [] }) : null)
+    if (p) return { u: p.u, valt: null, facit, ritare: p.ritare }
+    return { u: { nyckel: `r${i}` } as ProvU, valt: null, facit, ritare: utanUppgift(typ) as unknown as TypRitare<ProvU> }
+  })
+
   return (
-    <>
-      <section className="pub-rum-tran pub-yta-vagg pub-prov-res-vagg">
-        <div className="pub-prov-wrap pub-prov-res-g">
-          <div className="pub-prov-ring" style={{ ['--p' as string]: andel }} aria-hidden="true">
-            <svg viewBox="0 0 132 132" focusable="false">
-              <circle className="bak" cx="66" cy="66" r="58" />
-              <circle className="fram" cx="66" cy="66" r="58" />
-            </svg>
-            <div className="siffra">
-              {result.score}
-              <small>{t.ringAv(result.total)}</small>
+    <div className="motion fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text" data-sessionsram="resultat" data-resultatskarm="publikt" role="region" aria-label={KLART.publikt}>
+      <main className="sess-tona min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div className="vagg px-4 pb-11 lg:px-10">
+          <div className="mx-auto w-full max-w-[672px]">
+            <div className="-mx-1 flex h-14 items-center gap-2 text-vagg-ink">
+              <button type="button" onClick={onStang} aria-label={SESSION.resultat.stang} data-kryss="" className="-ml-1 inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px]">
+                <IkonX />
+              </button>
+              <p className="min-w-0 flex-1">
+                <span className="block truncate text-[15px] font-semibold leading-5">{PROV_NAMN[typ]}</span>
+                <span className="block truncate text-xs leading-4 text-vagg-mjuk">{PROV_RAM.undertitel(antal)}</span>
+              </p>
             </div>
-          </div>
-          <div>
-            <p className="pub-kick">{t.kick}</p>
-            <h1 className="pub-prov-h2">{t.rubrik(result.score, result.total)}</h1>
-            {result.percentile !== null ? (
-              <div className="pub-prov-kurva">
-                <Kurva position={1 - result.percentile / 100} />
-                <p>
-                  <b>{t.percentil(result.percentile)}</b>
-                  {t.percentilUnder}
+            <div className="steg s1 mt-3 flex items-center gap-4" role="status">
+              <Dagsring status="gjord" storlek={56} fyllAnimering andel={andel} label={SESSION.resultat.ringAria(result.score, antal)} />
+              <div className="min-w-0">
+                <p className="text-ey uppercase text-koppar-ljus" data-resultat-eyebrow>
+                  {KLART.publikt}
                 </p>
+                <h1 className="text-h1-liten mt-1 text-vagg-ink" data-resultat-huvudtal>
+                  {SESSION.resultat.rattAv(result.score, antal)}
+                </h1>
               </div>
+            </div>
+            <p className="steg s2 mt-3.5 max-w-[52ch] text-[15px] leading-[22px] text-vagg-mjuk">{PROV_RAM.resultat.mening(typ, result.fel.length)}</p>
+            {result.percentile !== null ? (
+              <p className="steg s2 mt-2 flex items-center gap-2 text-sm leading-5 text-vagg-ink" data-resultat-rad>
+                <span className="h-2 w-2 shrink-0 rounded-full bg-koppar-ljus" aria-hidden="true" />
+                {PROV_RAM.resultat.percentil(result.percentile)}
+              </p>
             ) : null}
           </div>
         </div>
-      </section>
-      <section className="pub-prov-wrap pub-prov-res-kropp">
-        <div className="pub-kort pub-prov-sparr">
-          <div>
-            <h2 className="pub-prov-h3">{ny ? PROV_TYP_PANEL.sparr(ny, result.fel) : t.sparr(result.fel)}</h2>
-            <ProvBrickor totalt={result.total} fel={result.fel} rutnat={rutnat} />
-            <ul className="pub-prov-bock">
-              {(ny ? PROV_TYP_PANEL.rader(ny, result.fel, result.total) : KONTO_PANEL.rader(result.fel, result.total)).map((r) => (
-                <li key={r.fet}>
-                  <span>
-                    <b>{r.fet}</b>
-                    {r.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="pub-prov-sparr-handling">
-            <Link
-              href={registerHref}
-              data-cta="prova-gate"
-              onClick={() =>
-                capture('signup_started', {
-                  cluster: 'test',
-                  source_page: '/verktyg/rekryteringstester/prova',
-                })
-              }
-              className="pub-knapp"
-            >
-              {t.knapp(result.fel)}
-              <Pil />
-            </Link>
-            <p className="pub-liten">{t.liten}</p>
+
+        <div className="px-4 pb-8 lg:px-10">
+          <div className="mx-auto flex w-full max-w-[672px] flex-col gap-4">
+            <div className="steg s3 relative z-[2] -mt-[30px]" data-resultat-lista>
+              <Uppgiftslistan<ProvU> ritare={(lista[0]?.ritare ?? utanUppgift(typ)) as TypRitare<ProvU>} lage="publikt" poster={lista} last lasText={`Rätt svar och ${forklaringOrd(typ)}`} />
+            </div>
+
+            <section aria-label={S.eyebrow(typ)} className="steg s4 rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-6" data-prova-sparr>
+              <p className="flex items-center gap-2 text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-ton-ink">
+                <Las storlek={14} />
+                {S.eyebrow(typ)}
+              </p>
+              <p className="mt-2 font-sess-display text-[20px] font-bold leading-[26px] tracking-[-.01em] text-ink-1 sm:text-[22px] sm:leading-7">{S.titel(typ)}</p>
+              <p className="mt-1.5 text-[15px] leading-[23px] text-ink-2">{S.text(antal)}</p>
+              <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+                <Link
+                  href={registerHref}
+                  data-cta="prova-gate"
+                  onClick={() => capture('signup_started', { cluster: 'test', source_page: PROVA_PATH })}
+                  className={`${KNAPP_PRIMAR} sm:w-auto sm:min-w-[240px]`}
+                >
+                  {S.knapp}
+                </Link>
+                <p className="text-[13px] leading-[18px] text-ink-3">{S.liten}</p>
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1">
+                <button type="button" onClick={onGorOm} className={`${LANK} inline-flex min-h-11 items-center`} data-prova-gor-om>
+                  {PROV_RAM.resultat.gorOm}
+                </button>
+                <span className="text-[13px] leading-[18px] text-ink-3">
+                  Har du redan ett konto?{' '}
+                  <Link href={loginHref} className={LANK}>
+                    Logga in
+                  </Link>
+                </span>
+              </div>
+            </section>
           </div>
         </div>
-        <p className="pub-prov-premium">
-          <PremiumIkon />
-          <span>
-            <b className="pub-gradord">{KONTO_PANEL.premiumRad.namn}</b>
-            <span>
-              {/* Priset följer kampanjen (K2); sidan CDN-cachas, så båda varianterna står i HTML:en. */}
-              <MedKampanjPris text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text} />
-            </span>
-          </span>
-        </p>
-      </section>
-    </>
-  )
-}
-
-/** Klockkurvan med markören (IlluTestResultat), ritad för väggen. */
-function Kurva({ position }: { position: number }) {
-  const p = Math.min(0.95, Math.max(0.05, position))
-  const x = 16 + p * 128
-  const bell = Math.exp(-Math.pow((p - 0.5) / 0.24, 2) / 2)
-  const y = 78 - bell * 52
-  return (
-    <svg viewBox="0 0 160 100" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M12 78h136" stroke="currentColor" strokeWidth="3" strokeOpacity=".35" />
-      <path d="M16 78c18 0 26-4 34-22s14-30 30-30 22 12 30 30 16 22 34 22" stroke="currentColor" strokeWidth="3" />
-      <path d={`M${x.toFixed(1)} ${y.toFixed(1)}v${(78 - y).toFixed(1)}`} stroke="currentColor" strokeWidth="3" strokeOpacity=".45" strokeDasharray="4 5" />
-      <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="8" fill="var(--koppar)" stroke="currentColor" strokeWidth="3" />
-    </svg>
-  )
-}
-
-function PremiumIkon() {
-  return (
-    <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <rect x="6" y="6" width="52" height="52" rx="8" />
-      <path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45" />
-      <circle cx="14.5" cy="14.5" r="3.5" />
-      <path d="M28 18h8v-7" />
-      <circle cx="32" cy="32" r="3.5" />
-      <rect x="44" y="44" width="10" height="10" rx="2" fill="var(--koppar)" stroke="none" />
-    </svg>
+      </main>
+    </div>
   )
 }

@@ -39,6 +39,7 @@ import { visaTal } from '@/lib/talserierV1/layout'
 import type { Steg2Kind } from '@/app/dashboard/tester/testConfig'
 import { FORM_NAMN, SPATIAL_TYP_NAMN } from '@/lib/tester/steg2/namn'
 import Marke from '../Marke'
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import { SvarRad, SvarRuta, tillstandFor } from '../Svarskort'
 import GemensamTalrad, { TALRAD_BAGAR, TalradBagar, bagarTiming, type TalradRuta } from '../Talrad'
 import type { ForklaringInnehallProps, RamFacit, RamUppgift, TypRitare, UppgiftProps } from '../typ'
@@ -159,11 +160,13 @@ function TalserieRad({ u, facit, vald, data }: { u: VisadTalserie; facit: number
 function TalserieUppgift({ u, vald, facit, efterFel, onValj, last, facitData }: UppgiftProps<Extract<Steg2U, { kind: 'talserie' }>>) {
   const v = u.v
   const data = facit != null ? ((facitData as GenomgangTalserie | undefined) ?? null) : null
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   return (
     <div className="flex flex-col gap-3.5 lg:gap-4" data-steg2-uppgift="talserie">
-      <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
+      <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
         {v.luckor === 2 ? 'Vilka två tal kommer härnäst, i ordning?' : 'Vilket tal kommer härnäst?'}
-      </h2>
+      </Rubrik>
       <div className="rounded-2xl border border-kant bg-papper px-3 pb-3 pt-2.5 shadow-[0_1px_2px_rgba(27,34,70,.05)] sm:px-5 sm:pb-4 sm:pt-3.5" data-talrad-kort>
         <TalserieRad u={v} facit={facit} vald={vald} data={data} />
       </div>
@@ -420,12 +423,14 @@ const FIGURKORT_BREDD = 'w-[132px] min-[400px]:w-[148px] lg:w-[160px] xl:w-[200p
 function SpatialUppgift({ u, vald, facit, efterFel, onValj, last, facitData }: UppgiftProps<Extract<Steg2U, { kind: 'spatial' }>>) {
   const v = u.v
   const g = facit != null ? ((facitData as GenomgangSpatial | undefined) ?? null) : null
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   const fraga = (
     <div className="min-w-0">
       <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">{formNamn(v)}</p>
-      <h2 tabIndex={-1} data-uppgift-rubrik className="mt-1 font-sess-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 outline-none lg:text-[20px] lg:leading-[25px]">
+      <Rubrik tabIndex={-1} data-uppgift-rubrik className="mt-1 font-sess-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 outline-none lg:text-[20px] lg:leading-[25px]">
         {v.fraga}
-      </h2>
+      </Rubrik>
       {v.form === 'A' && !arSpegling(v) ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-2">Spegelbilder räknas inte.</p> : null}
       {v.form === 'D' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-2">Hål och klipp syns bara där de går genom alla lager.</p> : null}
     </div>
@@ -553,6 +558,8 @@ const relFarg = (typ: 'synonym' | 'antonym') => (typ === 'synonym' ? 'text-ton-i
 function OrdUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<Extract<Steg2U, { kind: 'ordforrad' }>>) {
   const v = u.v
   const syn = v.typ === 'synonym'
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   return (
     <div className="flex flex-col gap-3.5 lg:gap-4" data-steg2-uppgift="ordforrad">
       <div className="flex items-center gap-4 rounded-2xl border border-kant bg-papper px-4 py-4 shadow-[0_1px_2px_rgba(27,34,70,.05)] lg:gap-5 lg:px-6 lg:py-5" data-ordkort>
@@ -568,14 +575,14 @@ function OrdUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<Ext
           <p className={`text-[11px] font-semibold uppercase leading-4 tracking-[.08em] ${relFarg(v.typ)}`} data-ord-typ={v.typ}>
             {syn ? 'Synonym' : 'Motsatsord'}
           </p>
-          <h2
+          <Rubrik
             tabIndex={-1}
             data-uppgift-rubrik
             lang="sv"
             className="mt-1 break-words font-sess-display text-[34px] font-extrabold uppercase leading-[38px] tracking-[.02em] text-ink-1 outline-none [hyphens:auto] lg:text-[44px] lg:leading-[48px]"
           >
             {v.ord}
-          </h2>
+          </Rubrik>
           <p className="mt-1.5 text-sm leading-5 text-ink-2">{syn ? 'Vilket ord betyder ungefär detsamma?' : 'Vilket ord betyder motsatsen?'}</p>
         </div>
       </div>

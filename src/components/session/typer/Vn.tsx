@@ -20,6 +20,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
 import { visningstitel } from '@/lib/tester/titel'
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import type { VnVisadUppgift, VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import { BOKSTAV, SvarRad, TreFasta, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
@@ -137,6 +138,8 @@ export function VnUnderlag({ u, genomgang = false }: { u: VnU; genomgang?: boole
   const ul = u.underlag
   const ref = useRef<HTMLElement | null>(null)
   const mer = useMerUnder(ref)
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h3.
+  const rubrik = useRubrikTagg()
   const text = ul.typ !== 'siffror'
   // Mobil: 42 vh för text, 44 vh för siffror; dator: spaltens höjd.
   const hojd = text ? 'max-h-[42vh]' : 'max-h-[44vh]'
@@ -153,7 +156,11 @@ export function VnUnderlag({ u, genomgang = false }: { u: VnU; genomgang?: boole
           <p className="min-w-0 truncate text-ey uppercase text-ink-3">{amneText(ul.amne) ?? (text ? 'Texten' : 'Underlaget')}</p>
           {text ? null : <span className="flex-shrink-0 text-[12px] leading-4 text-ink-3">{VN_ORD.raknare}</span>}
         </div>
-        <h3 className="mt-1 font-sess-display text-[17px] font-bold leading-6 tracking-[-.01em] text-ink-1">{visningstitel(ul.titel)}</h3>
+        {rubrik === 'p' ? (
+          <p className="mt-1 font-sess-display text-[17px] font-bold leading-6 tracking-[-.01em] text-ink-1">{visningstitel(ul.titel)}</p>
+        ) : (
+          <h3 className="mt-1 font-sess-display text-[17px] font-bold leading-6 tracking-[-.01em] text-ink-1">{visningstitel(ul.titel)}</h3>
+        )}
         {text ? (
           <div className="mt-2 max-w-[640px] space-y-3 text-base leading-[26px] text-ink-1 lg:text-[17px] lg:leading-7">
             {splitIntoParagraphs(ul.text ?? '').map((p, i) => (
@@ -204,13 +211,15 @@ function useSfg(aktiv: boolean, onValj?: (i: number) => void) {
 
 export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<VnU>) {
   useSfg(u.form === 'tre' && !last && Boolean(onValj), onValj)
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   return (
     <div className="flex flex-col gap-3 lg:pt-1" data-vn-uppgift={u.nyckel}>
       <div>
         <p className="text-ey uppercase text-ink-3">{eyebrow(u)}</p>
-        <h2 tabIndex={-1} data-uppgift-rubrik className="mt-1 font-sess-display text-[17px] font-semibold leading-6 text-ink-1 outline-none [text-wrap:pretty]">
+        <Rubrik tabIndex={-1} data-uppgift-rubrik className="mt-1 font-sess-display text-[17px] font-semibold leading-6 text-ink-1 outline-none [text-wrap:pretty]">
           {u.text}
-        </h2>
+        </Rubrik>
       </div>
       {u.form === 'tre' ? (
         <TreFasta

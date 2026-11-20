@@ -36,8 +36,9 @@ import {
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
 import StatusRow from '@/components/shell/StatusRow'
-import ProvBrickor, { ProvBricka } from '@/components/publikt/ProvBrickor'
-import { arNyProvTyp } from '@/lib/tests/prov-typer'
+import ProvBrickor, { ProvRing } from '@/components/publikt/ProvBrickor'
+import { PROV_NAMN, PROV_RAM, forklaringOrd } from '@/components/publikt/prov/prov-copy'
+import { arNyProvTyp, type ProvTyp } from '@/lib/tests/prov-typer'
 import { lasSparatProv, type Rutnat } from '@/lib/tests/prova-lokalt'
 import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import { VALKOMMEN_PATH, TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
@@ -60,7 +61,6 @@ import {
   SMAKPROV,
   SMAKPROV_UNDER,
   STEG2,
-  type PanelRad,
 } from './registrering-copy'
 
 const MIN_LOSEN = 8
@@ -464,21 +464,6 @@ export default function RegisterKontoSteg({
 
 /* ------------------------------------------------------------ panelerna */
 
-function PanelRader({ rader }: { rader: readonly PanelRad[] }) {
-  return (
-    <ul className="pub-prov-bock">
-      {rader.map((r) => (
-        <li key={r.fet}>
-          <span>
-            <b>{r.fet}</b>
-            {r.text}
-          </span>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
 function PremiumRad({ text }: { text: string }) {
   return (
     <p className="pub-konto-premium">
@@ -490,37 +475,46 @@ function PremiumRad({ text }: { text: string }) {
 }
 
 /**
- * Efter provet: talet, de fem brickorna med den missade markerad och vad
- * kontot öppnar. Utan resultat (provet hämtat, utgånget eller över
- * gränsen) samma löfte utan tal, aldrig ett påhittat resultat.
+ * Efter provet (omgång 2 steg C, skissen Register-prov): sessionsramens
+ * resultatbild. Väggen med ringen och "3 av 5 rätt", Uppgiftslistans låsta
+ * rader (på mobil märkena i en rad) och raden om vad kontot låser upp.
+ * Resultatet kommer från servern (antal rätt, totalt, vilka som blev fel);
+ * miniatyrerna ritas bara när matrisens rutnät finns i fliken. Utan
+ * resultat (provet hämtat, utgånget eller över gränsen) samma löfte utan
+ * tal, aldrig ett påhittat resultat.
  */
 function ProvPanel({ resultat, rutnat, nio }: { resultat: ProvResultat | null; rutnat: Rutnat[]; nio?: ReactNode }) {
-  const totalt = resultat?.totalt ?? 5
-  // Typerna utöver matrisen (spec-prov-fler-typer avsnitt 4): samma panel, egna rader.
-  const ny = resultat?.typ && arNyProvTyp(resultat.typ) ? resultat.typ : null
-  if (ny) rutnat = []
-  const forstaFel = resultat?.fel[0]
-  const lasbild = typeof forstaFel === 'number' ? rutnat[forstaFel] : undefined
+  const typ: ProvTyp = resultat?.typ && arNyProvTyp(resultat.typ) ? resultat.typ : 'matris'
+  // Rutnäten är matrisens; typerna utöver matrisen har inga i fliken.
+  if (typ !== 'matris') rutnat = []
+  const P = PROV_RAM.panel
+  const eyebrow = !resultat ? KONTO_PANEL.kick : typ === 'iprov' ? P.eyebrowIprov : P.eyebrow(PROV_NAMN[typ])
   return (
-    <aside className={`pub-rum-tran pub-konto-panel${resultat && resultat.fel.length ? ' pub-konto-panel-bild' : ''}`}>
-      <p className="pub-kick">{KONTO_PANEL.kick}</p>
-      {resultat ? (
-        <div className="pub-konto-prov-rad">
-          <p className="pub-konto-tal">
-            {resultat.ratt}
-            <small>{KONTO_PANEL.av(resultat.totalt)}</small>
-          </p>
-          <ProvBrickor totalt={resultat.totalt} fel={resultat.fel} rutnat={rutnat} numrerade={false} />
+    <aside className="prov-rum pub-konto-provpanel self-start overflow-hidden rounded-[18px] border border-kant bg-papper shadow-lyft" data-prov-panel>
+      <div className="vagg px-5 py-5 sm:px-6 sm:py-6">
+        <div className="flex items-center gap-4">
+          {resultat ? <ProvRing andel={resultat.totalt ? resultat.ratt / resultat.totalt : 0} storlek={52} yta="vagg" /> : null}
+          <div className="min-w-0">
+            <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.08em] text-koppar-ljus">{eyebrow}</p>
+            {resultat ? (
+              <p className="mt-1 font-sess-display text-[28px] font-extrabold leading-8 tracking-[-.02em] text-vagg-ink sm:text-[32px] sm:leading-9">
+                {P.huvudtal(resultat.ratt, resultat.totalt)}
+              </p>
+            ) : (
+              <h2 className="mt-1 font-sess-display text-[20px] font-bold leading-[26px] text-vagg-ink">{KONTO_PANEL.rubrikUtan}</h2>
+            )}
+            {/* Panelens rubrik för skärmläsaren: vad kontot visar (bilden bär utfallet). */}
+            {resultat ? (
+              <h2 className="sr-only">
+                {typ === 'matris' ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : PROV_TYP_PANEL.rubrik(typ, resultat.fel, resultat.totalt)}
+              </h2>
+            ) : null}
+          </div>
         </div>
-      ) : null}
-      <h2>{ny && resultat ? PROV_TYP_PANEL.rubrik(ny, resultat.fel, resultat.totalt) : resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
-      <PanelRader rader={ny ? PROV_TYP_PANEL.rader(ny, resultat?.fel ?? null, totalt) : KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
-      {/* Nio-raden under de tre raderna, ovanför premiumraden (S1). */}
-      {nio}
-      <div className="pub-konto-dator">
-        <PremiumRad text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text} />
+        {nio ? <div className="mt-4">{nio}</div> : null}
       </div>
-      {lasbild ? <ProvBricka rutnat={lasbild} className="pub-konto-lasbild" /> : null}
+      {resultat ? <ProvBrickor totalt={resultat.totalt} fel={resultat.fel} rutnat={rutnat} mobil="brickor" lasText={`Rätt svar och ${forklaringOrd(typ)}`} /> : null}
+      <p className="border-t border-kant px-5 py-3.5 text-sm leading-5 text-ink-2 sm:px-6">{P.fot(typ)}</p>
     </aside>
   )
 }

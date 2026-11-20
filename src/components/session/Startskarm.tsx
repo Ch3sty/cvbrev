@@ -43,6 +43,8 @@ export interface StartKnapp {
   onClick: () => void
   laddar?: boolean
   disabled?: boolean
+  /** data-cta på knappen (det publika provets "prova-start", omgång 2 steg C). */
+  cta?: string
 }
 
 export interface StartskarmProps {
@@ -180,6 +182,7 @@ export default function Startskarm(p: StartskarmProps) {
         aria-busy={p.knapp.laddar || undefined}
         className={`${KNAPP_PRIMAR} ${klass}`}
         data-starta
+        data-cta={p.knapp.cta}
       >
         {p.knapp.laddar ? <Snurra /> : null}
         {p.knapp.laddar ? SESSION.start.startar : p.knapp.text}

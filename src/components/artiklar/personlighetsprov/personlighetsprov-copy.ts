@@ -30,7 +30,7 @@ export const COPY = {
   sparas: 'Svar sparas i panelen',
   fotnot: 'Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.',
   laddar: { rubrik: 'Vi räknar ihop din profil', meta: 'Tar en sekund.' },
-  resultat: { eyebrow: 'Din profil' },
+  resultat: { eyebrow: 'Din profil', titel: 'Fem faktorer, 1 till 5' },
   segment: (n: number) => `${n} av 5`,
   last: {
     kravprofiler: 'Så läses din profil mot sex vanliga kravprofiler',
@@ -39,6 +39,7 @@ export const COPY = {
     sr: 'Du ser hela tolkningen när du skapat ett konto.',
   },
   sparr: {
+    eyebrow: 'Hela tolkningen',
     rubrik: 'Spara profilen och se hela tolkningen',
     text: 'Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.',
     knapp: 'Skapa konto gratis',

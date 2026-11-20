@@ -15,6 +15,7 @@
  * Förklaringen (lösningsgången) står under svaren i högerspalten.
  */
 
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import { SvarRad, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
 
@@ -49,14 +50,16 @@ export function VillkorKort({ intro, villkor }: { intro: string | null; villkor:
 
 export function DeduktivUppgift({ u, vald, facit, efterFel, onValj, last, forklaring, kompakt = false }: UppgiftProps<DeduktivU>) {
   const fem = u.options.length >= 5
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   // Kompakt (Uppgiftslistans utfällda rad): villkoren över uppgiften, inte fästa.
   if (kompakt) {
     return (
       <div className="flex flex-col gap-3.5" data-deduktiv-uppgift="kompakt">
         <VillkorKort intro={u.intro} villkor={u.villkor} />
-        <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
+        <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
           {u.fraga}
-        </h2>
+        </Rubrik>
         <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-deduktiv-alt>
           {u.options.map((text, i) => (
             <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
@@ -77,9 +80,9 @@ export function DeduktivUppgift({ u, vald, facit, efterFel, onValj, last, forkla
         <VillkorKort intro={u.intro} villkor={u.villkor} />
       </div>
       <div className="flex min-w-0 flex-col gap-3.5 lg:w-[400px] lg:flex-none xl:w-[440px]">
-        <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
+        <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-ink-1 outline-none">
           {u.fraga}
-        </h2>
+        </Rubrik>
         <div role="radiogroup" aria-label="Svarsalternativ" className="flex flex-col gap-2" data-deduktiv-alt>
           {u.options.map((text, i) => (
             <SvarRad key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>

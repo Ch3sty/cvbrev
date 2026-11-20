@@ -18,6 +18,7 @@
  */
 
 import { FigurV7, LuckaV7, type LayeredCell } from '@/lib/logicTestV7/layered.v7'
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import { SvarRuta, tillstandFor } from '../Svarskort'
 import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
 
@@ -61,12 +62,14 @@ export function Matrisen({ grid, fylld = null }: { grid: (LayeredCell | null)[][
 
 export function MatrisUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<MatrisU>) {
   const fylld = facit != null ? u.options[facit] ?? null : null
+  // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
+  const Rubrik = useRubrikTagg()
   return (
     <div className="flex flex-col gap-3.5 lg:gap-4" data-matris-uppgift>
       <Matrisen grid={u.grid} fylld={fylld} />
-      <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga text-center text-ink-1 outline-none">
+      <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-center text-ink-1 outline-none">
         {MATRIS_FRAGA}
-      </h2>
+      </Rubrik>
       <div role="radiogroup" aria-label="Svarsalternativ" className="matrisyta sess-alt sess-alt-matris" data-matris-alt>
         {u.options.map((o, i) => (
           <SvarRuta

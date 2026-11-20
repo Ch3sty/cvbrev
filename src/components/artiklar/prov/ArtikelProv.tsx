@@ -43,7 +43,7 @@ export default function ArtikelProv({ typ, slug, cluster }: { typ: string; slug:
   }
   return (
     <aside
-      className="not-prose art-prov"
+      className="not-prose art-prov prov-rum"
       aria-label="Prova testet direkt"
       data-artikel-prov={typ}
       data-cta-position="inline"

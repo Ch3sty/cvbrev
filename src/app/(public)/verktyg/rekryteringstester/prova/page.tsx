@@ -40,7 +40,10 @@ export default async function ProvaSida({ searchParams }: { searchParams: Promis
   const exempel = arNyProvTyp(typ) ? artikelUppgift(typ, 'prova-intro') : null
   return (
     <PubliktSida>
-      <ProvaFlow key={typ} typ={typ} exempel={exempel} />
+      {/* Sessionsramens testrum (omgång 2 steg C): rummets tokens gäller hela sidan, som i de inloggade testerna. */}
+      <div data-rum="tran">
+        <ProvaFlow key={typ} typ={typ} exempel={exempel} />
+      </div>
     </PubliktSida>
   )
 }

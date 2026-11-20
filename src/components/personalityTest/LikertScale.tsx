@@ -8,6 +8,10 @@
  * (22 px i 40 px, etiketten 13/17). Designsystemets färger, ingen gradient
  * och inget rörelsebibliotek. Brickan bär siffran (1 till 5) i stället för
  * en bokstav; vald är bläck.
+ *
+ * Samma kort i det publika personlighetsprovet (omgång 2 steg C): `etiketter`
+ * ger provets egna ord för lägena och aria-propsen kopplar gruppen till
+ * påståendet. Utelämnade: som förut.
  */
 
 import type { LikertValue } from '@/lib/personalityTest/types';
@@ -16,6 +20,10 @@ interface LikertScaleProps {
   value: LikertValue | null;
   onChange: (value: LikertValue) => void;
   disabled?: boolean;
+  /** Lägenas ord, 1 till 5. Utelämnade: testets egna. */
+  etiketter?: readonly string[];
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
 }
 
 const OPTIONS: { value: LikertValue; label: string }[] = [
@@ -26,18 +34,19 @@ const OPTIONS: { value: LikertValue; label: string }[] = [
   { value: 5, label: 'Stämmer perfekt' },
 ];
 
-export default function LikertScale({ value, onChange, disabled }: LikertScaleProps) {
+export default function LikertScale({ value, onChange, disabled, etiketter, ariaLabel, ariaDescribedBy }: LikertScaleProps) {
   return (
-    <div role="radiogroup" aria-label="Hur väl stämmer påståendet?" className="grid grid-cols-5 gap-1.5 lg:gap-2" data-likert>
+    <div role="radiogroup" aria-label={ariaLabel ?? 'Hur väl stämmer påståendet?'} aria-describedby={ariaDescribedBy} className="grid grid-cols-5 gap-1.5 lg:gap-2" data-likert>
       {OPTIONS.map((o) => {
         const vald = value === o.value;
+        const label = etiketter?.[o.value - 1] ?? o.label;
         return (
           <button
             key={o.value}
             type="button"
             role="radio"
             aria-checked={vald}
-            aria-label={`${o.label} (${o.value})`}
+            aria-label={`${label} (${o.value})`}
             disabled={disabled}
             onClick={() => onChange(o.value)}
             data-tillstand={vald ? 'vald' : 'neutral'}
@@ -54,7 +63,7 @@ export default function LikertScale({ value, onChange, disabled }: LikertScalePr
             >
               {o.value}
             </span>
-            <span className="min-w-0 break-words">{o.label}</span>
+            <span className="min-w-0 break-words">{label}</span>
           </button>
         );
       })}

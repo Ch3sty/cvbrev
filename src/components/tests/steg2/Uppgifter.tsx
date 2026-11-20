@@ -499,21 +499,6 @@ export function TalserieGenomgangVy({ g, valt }: { g: GenomgangTalserie; valt: n
   )
 }
 
-/** En uppgift under testet, per typ. */
-export function Steg2Uppgift(p: {
-  kind: Steg2Kind
-  u: unknown
-  valt: number | null
-  ratt?: number | null
-  onValj?: (i: number) => void
-  disabled?: boolean
-}) {
-  if (p.kind === 'talserie') return <TalserieUppgift u={p.u as VisadTalserie} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
-  if (p.kind === 'spatial') return <SpatialUppgift u={p.u as VisadSpatial} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
-  if (p.kind === 'ordforrad') return <OrdUppgift u={p.u as OrdUppgiftData} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
-  return null
-}
-
 /** Genomgången av en uppgift, per typ. */
 export function Steg2Genomgang({ kind, g, valt }: { kind: Steg2Kind; g: unknown; valt: number | null }) {
   if (kind === 'talserie') return <TalserieGenomgangVy g={g as GenomgangTalserie} valt={valt} />
