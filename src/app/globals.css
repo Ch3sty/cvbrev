@@ -2755,7 +2755,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .sess-parm-knapp[aria-pressed="true"] { transform: translateY(-8px); }
 .sess-platsnr { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--sess-indigo); color: var(--sess-indigo-ink); font: 800 12px/24px var(--font-sess-display); text-align: center; }
 @media (min-width: 1024px) { .sess-platsnr { width: 28px; height: 28px; font-size: 14px; line-height: 28px; } }
-.sess-platsnr[data-svar] { background: var(--sess-ratt); color: var(--papper); }
+.sess-platsnr[data-nr-svar] { background: var(--sess-ratt); color: var(--papper); }
 .sess-platsnr[data-om] { background: var(--sess-lucka); color: #1A1206; }
 .sess-hylla { height: 12px; border-radius: 6px; background: var(--sess-brade); }
 .sess-val { min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1.5px solid var(--sess-kant); background: var(--papper); font-weight: 600; font-size: 13px; line-height: 16px; color: var(--ink-1); }

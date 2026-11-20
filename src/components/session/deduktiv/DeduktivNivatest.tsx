@@ -13,7 +13,7 @@ import type { GenomgangPost } from '../lagen/Genomgang'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 
 export function tillDeduktivU(q: VisadDeduktiv): DeduktivU {
-  return { nyckel: q.id, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: q.options, platser: q.platser ?? null }
+  return { nyckel: q.id, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: q.options, platser: q.platser ?? null, struktur: q.struktur ?? null }
 }
 
 interface Svar {
@@ -36,7 +36,7 @@ export function deduktivPoster(genomgang: GenomgangDeduktiv[], answers: unknown)
         correct: valt === q.rattVisat,
         regel: null,
         misstag: valt != null && valt !== q.rattVisat ? q.misstag[valt] || null : null,
-        data: q.losning,
+        data: { ...q.losning, ledNamn: q.ledNamn ?? null },
       },
       tid_s: typeof a?.time_spent === 'number' ? a.time_spent : null,
     }

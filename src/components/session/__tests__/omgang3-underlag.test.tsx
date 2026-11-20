@@ -124,3 +124,90 @@ describe('siffror och tabeller', () => {
     expect(container.querySelector('[data-raknevag]')).toBeNull()
   })
 })
+
+describe('deduktiv slutledning: villkorens bilder, kladdytorna och kedjan', async () => {
+  const { fireEvent } = await import('@testing-library/react')
+  const { VillkorKort, DEDUKTIV } = await import('../typer/Deduktiv')
+  const { grupperUrIntro, kedjansLankar, kedjansSegment, avstava } = await import('../deduktiv/Kladd')
+  const { hittaDeduktivFraga, visaDeduktiv, genomgaDeduktiv } = await import('@/lib/deduktivV1/fragor.server')
+  const vis = (id: string) => {
+    const q = hittaDeduktivFraga(id)!
+    return { v: visaDeduktiv(q, 's', true), g: genomgaDeduktiv(q, 's', true) }
+  }
+
+  it('platsvillkoren får en bild var, och ritaren har villkorskortet som underlag (Nästa i domen)', () => {
+    const { v } = vis('dd-g-d2-08')
+    const { container } = render(<VillkorKort intro={v.intro} villkor={v.villkor} platser={v.platser} struktur={v.struktur} />)
+    expect(container.querySelectorAll('.sess-bild')).toHaveLength(v.villkor.length)
+    expect(DEDUKTIV.underlag).toBeTruthy()
+    expect(DEDUKTIV.forklaringIUppgift).toBeFalsy()
+  })
+
+  it('hyllan: tryck på en pärm och sedan en plats, tryck på platsen lägger tillbaka den', () => {
+    const { v } = vis('dd-g-d2-08')
+    const { container } = render(<VillkorKort intro={v.intro} villkor={v.villkor} platser={v.platser} struktur={v.struktur} />)
+    const pärm = container.querySelector<HTMLButtonElement>('[data-kladd="plats"] [aria-pressed]')!
+    fireEvent.click(pärm)
+    expect(pärm.getAttribute('aria-pressed')).toBe('true')
+    const plats2 = container.querySelector<HTMLButtonElement>('[data-plats="2"] button')!
+    fireEvent.click(plats2)
+    expect(plats2.hasAttribute('data-fylld')).toBe(true)
+    expect(container.querySelectorAll('[data-kladd="plats"] [aria-pressed]')).toHaveLength(3)
+    fireEvent.click(plats2)
+    expect(plats2.hasAttribute('data-fylld')).toBe(false)
+    expect(container.querySelectorAll('[data-kladd="plats"] [aria-pressed]')).toHaveLength(4)
+  })
+
+  it('antagandet står låst på sin plats med OM, och facit fyller platserna med svaret grönt', () => {
+    const { v, g } = vis('dd-e-d3-10')
+    const { container, rerender } = render(<VillkorKort intro={v.intro} villkor={v.villkor} platser={v.platser} struktur={v.struktur} />)
+    const las = container.querySelector<HTMLButtonElement>('[data-plats="6"] button')!
+    expect(las.disabled).toBe(true)
+    expect(las.hasAttribute('data-om')).toBe(true)
+    rerender(<VillkorKort intro={v.intro} villkor={v.villkor} platser={v.platser} struktur={v.struktur} losning={g.losning} />)
+    expect(container.querySelector('[data-deduktiv-remsa="fylld"]')).not.toBeNull()
+    expect(container.querySelectorAll('[data-plats] button[data-fylld]')).toHaveLength(6)
+  })
+
+  it('turordningens dagar ur introraden', () => {
+    expect(grupperUrIntro('Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.')).toEqual([
+      { fran: 1, till: 3, namn: 'Måndag' },
+      { fran: 4, till: 6, namn: 'Tisdag' },
+    ])
+  })
+
+  it('kryssrutan: ett tryck kryss, två bock, tre tomt', () => {
+    const { v } = vis('dd-a-d4-18')
+    const { container } = render(<VillkorKort intro={v.intro} villkor={v.villkor} struktur={v.struktur} />)
+    const ruta = container.querySelector<HTMLButtonElement>('[data-kladd="tabell"] .sess-kryssruta')!
+    fireEvent.click(ruta)
+    expect(ruta.getAttribute('data-varde')).toBe('kryss')
+    fireEvent.click(ruta)
+    expect(ruta.getAttribute('data-varde')).toBe('bock')
+    fireEvent.click(ruta)
+    expect(ruta.getAttribute('data-varde')).toBe('')
+    expect(avstava('Receptionen')).toBe('Recep­tionen')
+  })
+
+  it('sanning och lögn: prova dig fram per person, aldrig som svar', () => {
+    const { v } = vis('dd-g-d4-13')
+    const { container } = render(<VillkorKort intro={v.intro} villkor={v.villkor} struktur={v.struktur} />)
+    const knapp = container.querySelector<HTMLButtonElement>('[data-kladd="sanning"] .sess-val')!
+    fireEvent.click(knapp)
+    expect(knapp.getAttribute('aria-pressed')).toBe('true')
+    fireEvent.click(knapp)
+    expect(knapp.getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('kedjan: bara efter facit, med ledens namn i stället för bokstäver', () => {
+    const { v, g } = vis('dd-g-d1-01')
+    const { container, rerender } = render(<VillkorKort intro={v.intro} villkor={v.villkor} struktur={v.struktur} />)
+    expect(container.querySelector('[data-kedjan]')).toBeNull()
+    rerender(<VillkorKort intro={v.intro} villkor={v.villkor} struktur={v.struktur} losning={g.losning} ledNamn={g.ledNamn} />)
+    expect(container.querySelector('[data-kedjan]')?.textContent).toContain('arbetar natt')
+    const k = kedjansLankar(v.struktur!, g.ledNamn)!
+    expect(kedjansSegment(k.lankar)).toHaveLength(1)
+    // Utan namnen ritas ingen kedja.
+    expect(kedjansLankar(v.struktur!, null)).toBeNull()
+  })
+})

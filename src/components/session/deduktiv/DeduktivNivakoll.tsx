@@ -37,14 +37,14 @@ export interface DeduktivNivakollProps {
 
 export function lasDeduktivKoll(vy: NivakollVy): NivakollSession<DeduktivU> {
   const uppgifter: DeduktivU[] = []
-  for (const u of vy.uppgifter) if (u.kind === 'deduktiv') uppgifter.push({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null })
+  for (const u of vy.uppgifter) if (u.kind === 'deduktiv') uppgifter.push({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null, struktur: u.struktur ?? null })
   const besvarade: NivakollSession<DeduktivU>['besvarade'] = {}
   for (const [k, b] of Object.entries(vy.besvarade)) besvarade[k] = { valt: b.svar == null ? null : Number(b.svar), tid_s: b.tid_s }
   let facit: NivakollSession<DeduktivU>['facit'] = null
   if (vy.genomgang) {
     facit = {}
     for (const [k, g] of Object.entries(vy.genomgang))
-      facit[k] = { ratt: Number(g.ratt), correct: g.correct, regel: null, misstag: g.misstag, data: g.losning ?? null }
+      facit[k] = { ratt: Number(g.ratt), correct: g.correct, regel: null, misstag: g.misstag, data: g.losning ? { ...g.losning, ledNamn: g.ledNamn ?? null } : null }
   }
   return { id: vy.id, uppgifter, besvarade, facit, avslutad: vy.avslutad, harResultat: Boolean(vy.resultat), budgetPerUppgift: vy.budget_s }
 }

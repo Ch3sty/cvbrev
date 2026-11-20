@@ -42,10 +42,10 @@ export function lasDeduktivPass(vy: DeduktivPassVy): TranaSession<DeduktivU> {
   for (const [k, b] of Object.entries(vy.besvarade)) besvarade[k] = { valt: b.visat, tid_s: b.tid_s }
   const facit: TranaSession<DeduktivU>['facit'] = {}
   for (const [k, a] of Object.entries(vy.aterkoppling))
-    facit[k] = { ratt: a.rattVisat, correct: a.correct, regel: null, misstag: a.misstag, data: a.losning }
+    facit[k] = { ratt: a.rattVisat, correct: a.correct, regel: null, misstag: a.misstag, data: { ...a.losning, ledNamn: a.ledNamn ?? null } }
   return {
     id: vy.id,
-    uppgifter: vy.uppgifter.map((u) => ({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null })),
+    uppgifter: vy.uppgifter.map((u) => ({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null, struktur: u.struktur ?? null })),
     besvarade,
     facit,
     avslutad: vy.avslutad,
@@ -67,7 +67,7 @@ function tranaApi(a: DeduktivPassApi): TranaApi<DeduktivPassVy> {
       return {
         ok: true,
         klar: r.klar,
-        facit: { ratt: at.rattVisat, correct: at.correct, regel: null, misstag: at.misstag, data: at.losning },
+        facit: { ratt: at.rattVisat, correct: at.correct, regel: null, misstag: at.misstag, data: { ...at.losning, ledNamn: at.ledNamn ?? null } },
         niva: lasRamNiva(r),
       }
     },

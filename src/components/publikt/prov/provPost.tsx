@@ -115,7 +115,7 @@ export function franPublika(uppgifter: readonly PublikUppgift[], underlag: Recor
       ut.push({ ritare: FIGURSERIE, u: { nyckel: p.nyckel, form: d.form, rad: d.rad as V7Cell[], options: d.options as V7Cell[] }, varde: (i) => String(i) })
     } else if (p.kind === 'deduktiv') {
       const d = p.data as Extract<NivakollUppgift, { kind: 'deduktiv' }>
-      ut.push({ ritare: DEDUKTIV, u: { nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options }, varde: (i) => String(i) })
+      ut.push({ ritare: DEDUKTIV, u: { nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options, platser: d.platser ?? null, struktur: d.struktur ?? null }, varde: (i) => String(i) })
     } else if (p.kind === 'verbal' || p.kind === 'numerisk') {
       const u = vn.get(p.nyckel)
       if (u) ut.push({ ritare: vnRitare(p.kind), u, varde: (i) => u.alternativ[i]?.id ?? String(i) })
@@ -165,6 +165,8 @@ export function genomgangPoster(uppgifter: readonly GenomgangUppgift[], underlag
         regel: g.kind === 'figurserie' ? g.genomgang.forklaring : null,
         misstag: g.genomgang.misstag,
         detalj: g.kind === 'deduktiv' && g.genomgang.losning ? <Losningsgang losning={g.genomgang.losning} /> : null,
+        // Omgång 3 steg 2b: lösningen som typens data, så att villkorskortet fyller platserna och kedjan.
+        ...(g.kind === 'deduktiv' && g.genomgang.losning ? { data: { ...g.genomgang.losning, ledNamn: g.genomgang.ledNamn ?? null } } : {}),
       }
     }
     ut.push({ u: p.u, valt, facit, ritare: p.ritare })
