@@ -271,6 +271,14 @@ Skissen "Testerna, omgång 3: upplevelsen" (artefakten WsTzySXM8d4DyHpAwheJs8), 
   - `7f2da198` delar som skulle döljas syntes i fel bredd (klasser i globals.css utanför Tailwinds lager vinner över `hidden`): "3 rätt i rad" i huvudet på telefon tryckte ihop stapeln, periodvalet i Din utveckling ritades två gånger, "Texten fortsätter" och sidledspilen syntes på dator. Mätaren i Tre mått flödade ut ur panelen på 1440 med sidomenyn. Filtret Missarna och Alla 44 px.
   - `3b266b78` spärrens ark ritades bakom startarket (z 51 mot 50), med köpknappen skuren på dator och dold på telefon. Startarket har nu z 50.
   - `d8f7408f` räknevägen i domen och spärrens siffror var mörkt på mörkt i mörkt läge; tryckytan för "7 dagar kvar" och sidledspilen 44 px.
+- **Steg 4, sista rättningarna efter samordnarens granskning:**
+  - `bfab957f` genomgångens utfällda rad: talserier, spatial och ordförråd står med uppgiften över domen, så att fyra eller fem svar får hela bredden och etiketterna inte ligger över grannklossarna.
+  - `6b72e28e` övningsprovets mening: "Flest missar: <grupp>. De står i genomgången."
+  - `c86a8f87` raden "Nästa steg" på telefon säger mönstrets rubrik ("Öva på växande steg.") eller bara "Träna det du missade" (`nastaSteg.monster.ova`, `tranaMissatSteg({ typ })`).
+  - `af85c9a0` raden "Nästa steg" visar radens ikon (`RadIkon ?? Miniatyr`), inte en beskuren textbit.
+  - `e34b60d7` planens övningsprov i typens meny leder till typens eget prov (ord och text i SHL Verify till ord och text), med "I provets format, utan förklaringar." när formatet är en annan typs.
+  - `869ad6ce` och `b8962f54` tooltipen "Din första punkt" ritas över "i dag"-linjen och hålls inom grafen; "din nivå när du började" i målgångens kurva står där markörerna inte krockar, annars inte alls.
+  - `92eadb45` personlighetstestets påstående var mörk text på mörk yta: steg 2a och 2b hade gett två kort samma klass `.sess-pastaende`. Personlighetens kort heter nu `.sess-personlighet-kort`.
 
 ### Nya fält i API-svaren (alla valfria, inga namn ändrade)
 
@@ -292,15 +300,15 @@ Skissen "Testerna, omgång 3: upplevelsen" (artefakten WsTzySXM8d4DyHpAwheJs8), 
 
 ### Kvar efter slutkontrollen
 
-- Kosmetiskt: på 1024 kortas typens namn och undertiteln i sessionens huvud ("Deduktiv slutl..."); tooltipen "Din första punkt" i Din utveckling skärs någon pixel och provflaggan ligger nära den; etiketten "din nivå när du började" krockar med sista markören när alla uppgifter låg på samma nivå; "Något ser fel ut" och provsidans typval (omgång 2) har 32 och 40 px tryckyta; "Skicka igen" i e-postbannern 20 px (inte tester); "Du har gjort tre prov idag" (provsidans meddelande) skriver "idag".
+- Sista kontrollen i bygget (bilder `slut-*`): räknevägen i mörkt läge läsbar på 1440 och 412, personlighetstestet inloggat på 1440 och Pixel 7, I-provets mellanblad inloggat på 1440 och Pixel 7, Enter från domen till nästa uppgift (uppgift 2 till 3), den utfällda raden i talserier, ordförråd (fem svar), spatial (fyra) och siffror och tabeller på 1440 och 412. Hela vitest-sviten 277 filer och 3560 test, tsc rent, bygget grönt.
+- Kosmetiskt: på 1024 kortas typens namn och undertiteln i sessionens huvud ("Deduktiv slutl..."); "Något ser fel ut" och provsidans typval (omgång 2) har 32 och 40 px tryckyta; "Skicka igen" i e-postbannern 20 px (inte tester); "Du har gjort tre prov idag" (provsidans meddelande) skriver "idag".
 - Spärrens rader om provet (provets namn, dag, dagar kvar) är prövade i enhetstest och på premiumkontots plan i datan, men inte sedda i webbläsaren: inget gratiskonto har en plan.
 - Mönstertaggen per rad saknas i ord och text och siffror och tabeller (Träna och övningsprov) och i nivåtesten: mönstret per uppgift finns inte i deras data.
-- Övningsprovets plan-länk på Hem leder till planens prov (SHL Verify: numeriskt) också när dagens typ är ord och text.
 - QA-raderna från slutkontrollen ligger kvar (se nedan).
 
 ### QA-rader från slutkontrollen
 
-Premiumkontot `…+jobbcoach-qa-omg2-premium@gmail.com`: en plan i `test_planer` (SHL Verify, provdag 2026-11-27, ett test om dagen) lagd via gränssnittet, träningssessioner i alla åtta typer (flera återupptogs), sex nivåtestsessioner (tre avbrutna av testskriptet, tre avslutade), ett övningsprov i ord och text. Gratiskontot: inga nya sessioner (bara spärrarna). Utloggat: tre provsessioner i `anon_test_sessions` och en i `anon_personality_samples`. Inget raderat.
+Premiumkontot `…+jobbcoach-qa-omg2-premium@gmail.com`: en plan i `test_planer` (SHL Verify, provdag 2026-11-27, ett test om dagen) lagd via gränssnittet, träningssessioner i alla åtta typer (flera återupptogs), sex nivåtestsessioner (tre avbrutna av testskriptet, tre avslutade), ett övningsprov i ord och text. I den sista kontrollen dessutom: en personlighetssession (tio av femtio påståenden, inte avslutad), en I-provssession (öppnad till mellanbladet, inte startad), en ny träning i deduktivt (avslutad), en i siffror och tabeller (en uppgift, inte avslutad) och en i talserier som återupptogs. Gratiskontot: inga nya sessioner (bara spärrarna). Utloggat: tre provsessioner i `anon_test_sessions` och en i `anon_personality_samples`. Inget raderat.
 
 ### Backning
 
