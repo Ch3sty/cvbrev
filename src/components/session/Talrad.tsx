@@ -70,6 +70,8 @@ export interface TalradProps {
   efter?: ReactNode
   /** Mindre rutor (Uppgiftslistan, artikelns lösning): skalan 0,8. */
   liten?: boolean
+  /** Egen skala när raden ryms (brädet i talserierna, omgång 3: 1,5). Går före `liten`. */
+  skala?: number
   className?: string
   ariaLabel?: string
 }
@@ -87,12 +89,12 @@ export function talStorlek(tecken: number, n: number): number {
   return Math.min(bas, (TALRAD.BW - 6) / (Math.max(1, tecken) * 0.6))
 }
 
-export default function Talrad({ rutor, ovan = 0, under = 0, overlay, efter, liten = false, className = '', ariaLabel = 'Talraden' }: TalradProps) {
+export default function Talrad({ rutor, ovan = 0, under = 0, overlay, efter, liten = false, skala, className = '', ariaLabel = 'Talraden' }: TalradProps) {
   const n = rutor.length
   const g = geometri(n, ovan)
   const { BW, BH, GAP } = TALRAD
   const W = g.W
-  const s = liten ? 0.8 : 1
+  const s = skala ?? (liten ? 0.8 : 1)
   const m = (d: number) => matt(d, W, s)
   const H = ovan + BH + under
   return (
@@ -123,6 +125,7 @@ export default function Talrad({ rutor, ovan = 0, under = 0, overlay, efter, lit
                 className={`flex flex-shrink-0 items-center justify-center font-sess-display font-bold leading-none tabular-nums tracking-[-.02em] ${yta}`}
                 style={r.facit && r.fordrojning ? { ...stil, animationDelay: `${r.fordrojning}ms` } : stil}
                 data-lucka={r.lucka ? (tom ? 'tom' : 'fylld') : undefined}
+                data-ton={r.ton ? '' : undefined}
               >
                 {text}
               </span>
@@ -241,7 +244,7 @@ function StegBage({ g, b, hojd, upp, farg, fordrojning }: { g: TalradGeometri; b
   const c = 0.45 * (x1 - x0)
   const topp = upp ? y0 - 0.75 * hojd : y0 + 0.75 * hojd
   return (
-    <g data-bage={b.till}>
+    <g data-bage={b.till} data-serie={b.serie}>
       <path
         className="talrad-bage"
         pathLength={1}
@@ -347,7 +350,23 @@ export function hennesSteg(bagar: TalradBage[], visade: number[], svar: HennesSv
  * vänster om första felrutan och räknas ur talen: hennes tal mot källans
  * (de visade talen och hennes egna tidigare svar).
  */
-function HennesSteg({ g, bagar, visade, svar, fordrojning, under }: { g: TalradGeometri; bagar: TalradBage[]; visade: number[]; svar: HennesSvar; fordrojning: number; under: number }) {
+function HennesSteg({
+  g,
+  bagar,
+  visade,
+  svar,
+  fordrojning,
+  under,
+  etikett,
+}: {
+  g: TalradGeometri
+  bagar: TalradBage[]
+  visade: number[]
+  svar: HennesSvar
+  fordrojning: number
+  under: number
+  etikett?: (steg: { j: number; text: string }[], luckor: number) => string
+}) {
   const steg = hennesSteg(bagar, visade, svar)
   if (!steg.length) return null
   const hennes = [...visade, ...svar.tal]
@@ -375,7 +394,12 @@ function HennesSteg({ g, bagar, visade, svar, fordrojning, under }: { g: TalradG
         )
       })}
       <text x={r1(g.cx(forsta.j) - 34)} y={r1(boxTopp + 22)} textAnchor="end" fontSize={12} fontWeight={600} fill="var(--fel)" className="tabular-nums">
-        {`ditt svar: ${steg.map((s) => s.text).join(', ')}`}
+        {etikett
+          ? etikett(
+              steg.map((s) => ({ j: s.j - visade.length, text: s.text })),
+              svar.tal.length
+            )
+          : `ditt svar: ${steg.map((s) => s.text).join(', ')}`}
       </text>
     </g>
   )
@@ -390,10 +414,12 @@ export interface BagarProps {
   svar?: HennesSvar | null
   /** Platsen under raden (samma som Talrads `under`). */
   under?: number
+  /** Etiketten vid hennes steg (brädet, omgång 3). Utelämnad: "ditt svar: −8". */
+  etikett?: (steg: { j: number; text: string }[], luckor: number) => string
 }
 
 /** Bågarna och hennes steg, för Talrads `overlay`. */
-export function TalradBagar({ g, bagar, visade, svar = null, under = TALRAD_BAGAR.under }: BagarProps) {
+export function TalradBagar({ g, bagar, visade, svar = null, under = TALRAD_BAGAR.under, etikett }: BagarProps) {
   const varvad = bagar.some((b) => b.serie !== undefined)
   // Breda etiketter ("×(−2) −7") krockar med grannen: två höjder med större skillnad, oavsett antal.
   const bred = bagar.some((b) => pillBredd(b.text) > 60)
@@ -411,7 +437,7 @@ export function TalradBagar({ g, bagar, visade, svar = null, under = TALRAD_BAGA
         }
         return <StegBage key={k} g={g} b={bage} hojd={tva && k % 2 === 1 ? hog : lag} upp farg="var(--ink-2)" fordrojning={fordrojning} />
       })}
-      {svar ? <HennesSteg g={g} bagar={bagar} visade={visade} svar={svar} fordrojning={tid.fel} under={under} /> : null}
+      {svar ? <HennesSteg g={g} bagar={bagar} visade={visade} svar={svar} fordrojning={tid.fel} under={under} etikett={etikett} /> : null}
     </>
   )
 }

@@ -1,22 +1,19 @@
 'use client';
 
 /**
- * Skalan i personlighetstestet som Svarskort (plan-testflode-2026-11-20
- * avsnitt 2 och 3.1, etapp 4; omgång 2 steg B2, skissens Personlighet-1440
- * och Personlighet-412): fem lika breda kort i rad, 104 px höga på mobil
- * (siffran 18 px i en 34 px bricka, etiketten 11/14) och 112 px på dator
- * (22 px i 40 px, etiketten 13/17). Designsystemets färger, ingen gradient
- * och inget rörelsebibliotek. Brickan bär siffran (1 till 5) i stället för
- * en bokstav. Sedan omgång 3 är korten klossar (.sess-kloss) med
- * tangentbrickan, vald är indigo.
+ * Skalan i personlighetstestet (omgång 3 steg 2a, skissens Test-personlighet
+ * och Mobil-personlighet): fem ringar på en linje som går från indigo till
+ * koppar. Ytterlägena störst (68 px på telefonen, 98 på dator), mitten
+ * minst; etiketten under ringen. Vald ring fylls med en bock och etiketten
+ * blir fet, så att valet syns med mer än färg. Varje ring är en radioknapp
+ * hela kolumnen bred (tryckytan är minst 44 px).
  *
- * Samma kort i det publika personlighetsprovet (omgång 2 steg C): `etiketter`
+ * Samma skala i det publika personlighetsprovet (omgång 2 steg C): `etiketter`
  * ger provets egna ord för lägena och aria-propsen kopplar gruppen till
- * påståendet. Utelämnade: som förut.
+ * påståendet. Utelämnade: skissens ord.
  */
 
 import type { LikertValue } from '@/lib/personalityTest/types';
-import { KLOSS, Tangent } from '@/components/session/Svarskort';
 
 interface LikertScaleProps {
   value: LikertValue | null;
@@ -31,14 +28,22 @@ interface LikertScaleProps {
 const OPTIONS: { value: LikertValue; label: string }[] = [
   { value: 1, label: 'Stämmer inte alls' },
   { value: 2, label: 'Stämmer dåligt' },
-  { value: 3, label: 'Neutral' },
-  { value: 4, label: 'Stämmer bra' },
-  { value: 5, label: 'Stämmer perfekt' },
+  { value: 3, label: 'Varken eller' },
+  { value: 4, label: 'Stämmer delvis' },
+  { value: 5, label: 'Stämmer helt' },
 ];
+
+function Bock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-[42%] w-[42%]">
+      <path d="M4.5 12.5l5 5L19.5 7" />
+    </svg>
+  );
+}
 
 export default function LikertScale({ value, onChange, disabled, etiketter, ariaLabel, ariaDescribedBy }: LikertScaleProps) {
   return (
-    <div role="radiogroup" aria-label={ariaLabel ?? 'Hur väl stämmer påståendet?'} aria-describedby={ariaDescribedBy} className="grid grid-cols-5 gap-1.5 lg:gap-2" data-likert>
+    <div role="radiogroup" aria-label={ariaLabel ?? 'Hur väl stämmer påståendet?'} aria-describedby={ariaDescribedBy} className="sess-skala" data-likert>
       {OPTIONS.map((o) => {
         const vald = value === o.value;
         const label = etiketter?.[o.value - 1] ?? o.label;
@@ -53,9 +58,12 @@ export default function LikertScale({ value, onChange, disabled, etiketter, aria
             onClick={() => onChange(o.value)}
             data-tillstand={vald ? 'vald' : 'neutral'}
             data-svar={o.value}
-            className={`${KLOSS} flex h-[104px] min-w-0 w-full flex-col items-center justify-center gap-1.5 px-1 py-2 text-center text-[11px] font-semibold leading-[14px] lg:h-[112px] lg:gap-2.5 lg:px-2 lg:text-[13px] lg:leading-[17px]`}
+            data-steg={o.value}
+            className="sess-skala-val touch-manipulation disabled:cursor-default"
           >
-            <Tangent tecken={String(o.value)} tillstand={vald ? 'vald' : 'neutral'} stor />
+            <span className="sess-skala-hall" aria-hidden="true">
+              <i>{vald ? <Bock /> : null}</i>
+            </span>
             <span className="min-w-0 break-words">{label}</span>
           </button>
         );

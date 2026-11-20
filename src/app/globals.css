@@ -2424,6 +2424,349 @@ html {
   .sess-kloss, .sess-bit, .sess-tangent { transition: none !important; }
 }
 
+/* Omgång 3, steg 2a: brädets typer */
+/* =============================================================================
+   Brädets typer (skissens Test-matris, Test-figurbrickor, Test-figurserier,
+   Test-talserier, Test-spatial-*, Test-ordforrad, Test-personlighet och
+   mobilbrädena). Figurerna ritas i väggfärgen med tjock linje på brädets vita
+   brickor. På dator står brädet till vänster och svaren med domen i spalten
+   till höger (matris, spatial), eller i en bred kolumn (figurserier,
+   talserier). Spalterna byggs här med :has() på typens egna attribut
+   (data-brade-layout), så att ramen inte behöver veta om typen. Allt via
+   tokens; brädet är mörkt i båda lägena, brickorna ljusa.
+   ============================================================================= */
+:root {
+  --sess-figur-gra: #B9C0E6;
+  --sess-figur-ram: #9AA1C8;
+  --sess-fig-ink: #1B2246;
+  --sess-fig-gra: #B9C0E6;
+  --sess-fig-ram: #9AA1C8;
+  --sess-brade-ink-2: #AEB4DA;
+  --sess-brade-linje: #2B3470;
+  --sess-brade-pil: #6F78B0;
+  --sess-bage: #93A0EC;
+  --sess-bage-2: #F4B98A;
+  --sess-brade-fel: #F0A39A;
+  --sess-brade-fel-yta: #FBE6E3;
+  --sess-brade-fel-ink: #8A2A22;
+  --sess-brade-ratt-yta: #1F4A3A;
+  --sess-brade-ratt-ink: #8FD3A0;
+  --sess-skala-1: #3B4790;
+  --sess-skala-1-kant: #2B3470;
+  --sess-skala-2: #6D78C4;
+  --sess-skala-2-kant: #4F5AA6;
+  --sess-skala-3: #9AA1C8;
+  --sess-skala-3-kant: #7C84B0;
+  --sess-skala-4: #E07A2F;
+  --sess-skala-4-kant: #A8491A;
+  --sess-skala-vald-ink: #1A1206;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]) {
+    --sess-fig-ink: var(--ink-1); --sess-fig-gra: #4A5490; --sess-fig-ram: #7C84B8;
+  }
+}
+:root[data-theme="dark"]:has([data-rum]) {
+  --sess-fig-ink: var(--ink-1); --sess-fig-gra: #4A5490; --sess-fig-ram: #7C84B8;
+}
+
+/* Figurerna: på brickan alltid i väggfärg, i klossarna i figurens bläck
+   (väggfärg i ljust läge, ljust bläck i mörkt). Linjerna lyfts från 3 och
+   2,5 till 4 och 3,2 enheter (geometrifilens kontur i provarket). */
+.sess-fig-ruta { --m-ink: var(--sess-figur); --m-gra: var(--sess-figur-gra); --m-vit: var(--sess-ruta); --m-ram: var(--sess-figur-ram); }
+.sess-fig { --m-ink: var(--sess-fig-ink); --m-gra: var(--sess-fig-gra); --m-ram: var(--sess-fig-ram); }
+:is(.sess-fig-ruta, .sess-fig) svg [stroke-width="3"] { stroke-width: 4; }
+:is(.sess-fig-ruta, .sess-fig) svg [stroke-width="2.5"] { stroke-width: 3.2; }
+.sess-brade-ruta.sess-fig-ruta > svg { width: 88%; height: 88%; margin-top: -4px; }
+.sess-lucka { position: relative; }
+@media (min-width: 1024px) { .sess-lucka { font-size: 44px; } }
+
+/* Skylten på brädet (spatial): mörk bricka med ljus text, ikonen i koppar. */
+.sess-skylt {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 11px;
+  background: var(--sess-brade-2); color: var(--sess-brade-ink); font-size: 12px; line-height: 16px; font-weight: 600; white-space: nowrap;
+}
+.sess-skylt svg { color: var(--sess-bage-2); flex-shrink: 0; }
+.sess-skylt[data-ton="ratt"] { background: var(--sess-brade-ratt-yta); color: var(--sess-brade-ratt-ink); }
+.sess-skylt[data-ton="koppar"] { background: var(--sess-lucka); color: var(--sess-skala-vald-ink); }
+.sess-skylt[data-versal] { text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+@media (min-width: 1024px) { .sess-skylt { height: 36px; padding: 0 14px; border-radius: 12px; font-size: 13px; } }
+
+/* Spalterna på dator: brädet till vänster, svaren och domen till höger.
+   Brädet står absolut i uppgiftens kolumn, så att domen hamnar direkt under
+   svaren och allt ryms på 1440 × 900. */
+@media (min-width: 1024px) {
+  [data-ram-kolumn]:has([data-brade-layout="sida"]) { max-width: 1000px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="sida"]) { --sida-b: 420px; --sida-gap: 40px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="sida"]) > * { margin-left: calc(var(--sida-b) + var(--sida-gap)); margin-right: 0; width: auto; }
+  [data-ram-uppgift] > .serie-kolumn:has([data-brade-layout="sida"]) { position: relative; }
+  [data-ram-uppgift] [data-brade-layout="sida"] [data-brade-sida] {
+    position: absolute; top: 0; left: calc(-1 * (var(--sida-b) + var(--sida-gap))); width: var(--sida-b); max-width: none; margin: 0;
+  }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="sida"]) [data-ram-fot] footer > div { display: block; }
+
+  [data-ram-kolumn]:has([data-brade-layout="serie"]) { max-width: 932px; }
+  [data-ram-kolumn]:has([data-brade-layout="tal"]) { max-width: 812px; }
+  [data-ram-kolumn]:has([data-brade-layout="personlighet"]) { max-width: 892px; }
+
+  /* Ordförrådet: kortet och svaren till vänster, domen till höger. Före
+     domen står vänsterspalten i mitten (transform, CLS 0). */
+  [data-ram-kolumn]:has([data-brade-layout="ord"]) { max-width: 1000px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; align-items: start;
+  }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) > :is(.serie-kolumn, [data-ram-fot]) { grid-column: 1; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) > .sess-dom { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) > [data-ram-vakt] { grid-column: 1 / -1; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) :is([data-brade-layout="ord"], [data-ram-fot]) {
+    transition: transform 360ms cubic-bezier(.2, .8, .2, 1);
+  }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]):not(:has(> .sess-dom)) :is([data-brade-layout="ord"], [data-ram-fot]) {
+    transform: translateX(calc(50% + 20px));
+  }
+}
+@media (min-width: 1280px) {
+  [data-ram-kolumn]:has([data-brade-layout="sida"]) { max-width: 1080px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="sida"]) { --sida-b: 500px; --sida-gap: 48px; }
+  [data-ram-kolumn]:has([data-brade-layout="ord"]) { max-width: 1160px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]) { column-gap: 48px; }
+  [data-ram-uppgift]:has(> .serie-kolumn [data-brade-layout="ord"]):not(:has(> .sess-dom)) :is([data-brade-layout="ord"], [data-ram-fot]) {
+    transform: translateX(calc(50% + 24px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-brade-layout="ord"], [data-ram-fot] { transition: none !important; }
+}
+
+/* Den liggande domen i de breda kolumnerna (skissens Test-talserier och
+   Test-figurserier-bryter): ikonen, utfallet med regeln och Nästa på en rad,
+   raden om nästa uppgift under panelen. Samma innehåll, bara lagt i bredd,
+   så att brädet, svaren och domen ryms på 1440 × 900. */
+@media (min-width: 1024px) {
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom {
+    position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; column-gap: 14px; align-items: center;
+    grid-template-areas: "ikon titel knapp" "ikon kropp knapp" "ikon rapport knapp"; padding: 16px 20px 18px;
+  }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > :is([data-forklaring-rubrik], [data-dom-fot]) { display: contents; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-forklaring-rubrik] > :first-child { grid-area: ikon; align-self: center; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-forklaring-rubrik] > span:not([data-dom-tid]) { grid-area: titel; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom [data-dom-tid] { display: none; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-forklaring-kropp] { grid-area: kropp; margin-top: 2px; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom [data-regel] { font-weight: 500; font-size: 15px; line-height: 22px; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-forklaring-fotrad] { grid-area: rapport; align-items: flex-start; margin-top: 4px; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-dom-fot] > button { grid-area: knapp; margin-left: 12px; }
+  [data-ram-uppgift]:has(> .serie-kolumn :is([data-brade-layout="tal"], [data-brade-layout="serie"])) > .sess-dom > [data-dom-fot] > [data-nasta-rad] { position: absolute; left: 0; top: calc(100% + 14px); }
+}
+
+/* Figurer och mönster: brädet med vita brickor och luckan. */
+.sess-matrisbrade { display: grid; gap: 8px; padding: 14px; width: 100%; max-width: 420px; margin-inline: auto; }
+@media (min-width: 1024px) { .sess-matrisbrade { gap: 12px; padding: 26px; } }
+.sess-matrisbrade[data-kolumner="4"] { gap: 6px; }
+@media (min-width: 1024px) { .sess-matrisbrade[data-kolumner="4"] { gap: 10px; } }
+/* Figuren i klossen: bara figurens svg (inte märket), utan V7-luften. */
+.sess-alt-brade .sess-svar-ruta { aspect-ratio: auto; height: 86px; }
+.sess-alt-brade .sess-svar-ruta > span:last-child > svg { width: 56px; height: 56px; padding: 0 !important; }
+@media (min-width: 1024px) {
+  .sess-alt-brade .sess-svar-ruta { height: 112px; }
+  .sess-alt-brade .sess-svar-ruta > span:last-child > svg { width: 68px; height: 68px; }
+}
+
+/* Figurserier: brädet med numrerade brickor. Två rader på telefonen
+   (brickorna minst 72 px) med en böjd linje från radslut till radstart,
+   en rad om sex när kolumnen är bred nog. */
+.sess-seriebrade { padding: 14px 26px 12px; }
+.sess-serie-rad { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 14px; row-gap: 24px; }
+.sess-serie-plats { position: relative; display: flex; flex-direction: column; align-items: stretch; min-width: 0; }
+.sess-serie-nr { display: block; margin-top: 6px; text-align: center; font-size: 13px; line-height: 16px; font-weight: 700; color: var(--sess-brade-ink-2); }
+.sess-serie-nr[data-lucka] { color: var(--sess-lucka-ink); }
+.sess-serie-pil { position: absolute; top: 0; bottom: 0; right: -14px; width: 14px; display: flex; align-items: center; justify-content: center; color: var(--sess-brade-pil); pointer-events: none; }
+.sess-serie-orm { position: absolute; inset: 0; pointer-events: none; overflow: visible; color: var(--sess-brade-pil); }
+.sess-serie-rad[data-kolumner="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 10px; }
+.sess-serie-rad[data-kolumner="4"] .sess-serie-pil { right: -10px; width: 10px; }
+@container (min-width: 560px) {
+  .sess-seriebrade[data-serie-rad="anpassad"] { padding: 26px 26px 20px; }
+  .sess-seriebrade[data-serie-rad="anpassad"] .sess-serie-rad { grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: 12px; }
+  .sess-seriebrade[data-serie-rad="anpassad"] .sess-serie-nr { margin-top: 12px; }
+  .sess-seriebrade[data-serie-rad="anpassad"] :is(.sess-serie-orm, .sess-serie-pil) { display: none; }
+}
+.sess-serie-svar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(88px, 1fr); gap: 10px; }
+@container (min-width: 560px) {
+  .sess-serie-svar { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: auto; gap: 12px; flex: none; }
+}
+/* Telefonen: svaren fyller höjden ner till foten (skissens tvåradsvarianter). */
+@media (max-width: 1023.98px) {
+  /* Höjden räknas mot skärmen (huvudet 84, luften 8, foten 84 och lite marginal), inte mot
+     det som står under: när domen glider upp står svaren kvar (CLS 0). */
+  [data-ram-uppgift] > .serie-kolumn:has([data-fyll-hojd]) { flex: none; min-height: calc(100dvh - 180px - env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; }
+  [data-ram-uppgift] > .serie-kolumn:has([data-fyll-hojd]) > * { flex: 1 1 auto; }
+}
+.sess-serie-svar .sess-svar-ruta { aspect-ratio: auto; min-height: 88px; height: 100%; }
+.sess-serie-svar .sess-svar-ruta > span:last-child > svg { width: 64px; height: 64px; padding: 0 !important; }
+@container (min-width: 560px) {
+  .sess-serie-svar .sess-svar-ruta { aspect-ratio: 1; height: auto; }
+  .sess-serie-svar .sess-svar-ruta > span:last-child > svg { width: 58%; height: 58%; }
+}
+/* Bryter mönstret: brickorna på brädet är själva svaren. */
+.sess-bryter-ruta { position: relative; display: flex; width: 100%; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 14px; background: var(--sess-ruta); box-shadow: inset 0 -5px 0 var(--sess-ruta-kant); -webkit-tap-highlight-color: transparent; transition: box-shadow 120ms ease-out, background-color 160ms ease-out, opacity 160ms ease-out; }
+@media (min-width: 1024px) { .sess-bryter-ruta { border-radius: 18px; box-shadow: inset 0 -6px 0 var(--sess-ruta-kant); } }
+.sess-bryter-ruta > svg { width: 62%; height: 62%; margin-top: -4px; padding: 0 !important; }
+.sess-bryter-ruta:focus-visible { outline: 3px solid var(--sess-bage-2); outline-offset: 2px; }
+.sess-bryter-ruta[data-tillstand="vald"] { background: var(--sess-indigo-mjuk); box-shadow: inset 0 -5px 0 var(--sess-ruta-kant), 0 0 0 4px var(--sess-bage); }
+.sess-bryter-ruta[data-tillstand="ratt"] { background: var(--sess-ratt-yta); box-shadow: inset 0 -5px 0 var(--sess-ratt-kant), 0 0 0 4px var(--sess-ratt); }
+.sess-bryter-ruta[data-tillstand="fel"] { background: var(--sess-fel-yta); box-shadow: inset 0 -5px 0 var(--sess-fel-kant), 0 0 0 4px var(--sess-fel); }
+.sess-bryter-ruta[data-tillstand="dampad"] > svg { opacity: .55; }
+.sess-bryter-ruta[disabled] { cursor: default; }
+
+/* Talserier: brickorna med talen, bågarna och hennes steg på brädet. */
+.sess-talbrade { padding: 14px 12px 12px; }
+@media (min-width: 1024px) { .sess-talbrade { padding: 22px 34px 20px; } }
+.sess-talbrade [data-talrad] > span { border: 0; background: var(--sess-ruta); color: var(--sess-figur); box-shadow: inset 0 -5px 0 var(--sess-ruta-kant); font-weight: 800; }
+.sess-talbrade [data-talrad] > span[data-lucka="tom"] { background: var(--sess-brade-2); color: var(--sess-lucka-ink); box-shadow: none; outline: 2.5px dashed var(--sess-lucka); outline-offset: -2.5px; }
+.sess-talbrade [data-talrad] > span[data-lucka="fylld"] { background: var(--sess-ratt-yta); box-shadow: inset 0 -5px 0 var(--sess-ratt); }
+.sess-talbrade [data-talrad] > span[data-ton] { box-shadow: inset 0 -5px 0 var(--sess-bage); }
+.sess-talbrade[data-varvad] [data-talrad] > span:not([data-ton]):not([data-lucka]) { box-shadow: inset 0 -5px 0 var(--sess-bage-2); }
+.sess-talbrade path.talrad-bage { stroke: var(--sess-bage); stroke-width: 2.6; }
+.sess-talbrade path.talrad-etik { stroke: var(--sess-bage); stroke-width: 2.6; }
+.sess-talbrade g.talrad-etik > rect { fill: var(--sess-bage); stroke: none; }
+.sess-talbrade g.talrad-etik > text, .sess-talbrade text.talrad-etik { fill: var(--sess-figur); font-weight: 800; }
+.sess-talbrade [data-serie="1"] path.talrad-bage, .sess-talbrade [data-serie="1"] path.talrad-etik { stroke: var(--sess-bage-2); }
+.sess-talbrade [data-serie="1"] g.talrad-etik > rect { fill: var(--sess-bage-2); }
+.sess-talbrade [data-klammer] path { stroke: var(--sess-bage); }
+.sess-talbrade [data-klammer] text { fill: var(--sess-bage); }
+.sess-talbrade [data-hennes-steg] path { stroke: var(--sess-brade-fel); }
+.sess-talbrade [data-hennes-steg] rect { fill: var(--sess-brade-fel-yta); stroke: var(--sess-brade-fel); stroke-width: 2.5; }
+.sess-talbrade [data-hennes-steg] g text { fill: var(--sess-brade-fel-ink); font-weight: 800; }
+.sess-talbrade [data-hennes-steg] > text { fill: var(--sess-brade-fel); }
+.sess-tal-tva { display: none; }
+@media (max-width: 1023.98px) {
+  /* Två luckor på telefonen: två rader om fyra, brickorna minst 72 px. */
+  .sess-talbrade[data-tva] .sess-tal-en { display: none; }
+  .sess-talbrade[data-tva] .sess-tal-tva { display: block; }
+  .sess-talbrade[data-tva] { padding: 16px 23px 14px; }
+}
+.sess-talruta { display: flex; height: 82px; align-items: center; justify-content: center; border-radius: 13px; background: var(--sess-ruta); color: var(--sess-figur); box-shadow: inset 0 -6px 0 var(--sess-ruta-kant); font: 800 26px/1 var(--font-sess-display); letter-spacing: -.01em; }
+.sess-talruta[data-lucka="tom"] { background: var(--sess-brade-2); color: var(--sess-lucka-ink); box-shadow: none; outline: 2.5px dashed var(--sess-lucka); outline-offset: -2.5px; font-size: 30px; }
+.sess-talruta[data-lucka="fylld"] { background: var(--sess-ratt-yta); box-shadow: inset 0 -6px 0 var(--sess-ratt); }
+.sess-talruta[data-tecken="4"] { font-size: 22px; }
+.sess-talruta[data-tecken="5"] { font-size: 18px; }
+.sess-tal-svar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 1024px) { .sess-tal-svar { gap: 12px; } }
+.sess-tal-svar .sess-kloss b { font-weight: 800; }
+@media (max-width: 1023.98px) {
+  .sess-tal-svar .sess-pill { display: none; }
+  .sess-tal-svar[data-par] { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .sess-tal-svar[data-par] > .sess-kloss { flex-direction: row; align-items: center; gap: 14px; padding: 8px 16px; min-height: 56px; }
+  .sess-tal-svar[data-par] > .sess-kloss > .sess-topp { display: contents; }
+  .sess-tal-svar[data-par] > .sess-kloss > .sess-topp > .sess-pill { display: inline-flex; order: 3; margin-left: auto; }
+  .sess-tal-svar:not([data-par]) > .sess-kloss { padding: 7px 7px 10px; }
+}
+.sess-tal-och { font: 500 14px/20px var(--font-sess-text, inherit); color: var(--ink-3); margin: 0 4px; }
+@media (min-width: 1024px) { .sess-tal-och { font-size: 15px; } }
+
+/* Spatial förmåga: brädet med rutnät, figuren direkt på brädet. */
+.sess-spatialbrade {
+  overflow: hidden; width: 100%;
+  background-image: linear-gradient(var(--sess-brade-linje) 1.5px, transparent 1.5px), linear-gradient(90deg, var(--sess-brade-linje) 1.5px, transparent 1.5px);
+  background-size: 46px 46px; background-position: -1px -1px;
+}
+@keyframes sess-vrid-in { from { transform: rotate(var(--vrid-fran, 0deg)); } to { transform: none; } }
+.spatial-vrid-in { animation: sess-vrid-in 700ms cubic-bezier(.3, .7, .2, 1) 350ms both; }
+@media (prefers-reduced-motion: reduce) { .spatial-vrid-in { animation: none; } }
+/* Brickfiguren på brädet: rutorna vita med kant nedtill, axlarna i koppar. */
+.sess-spatialbrade [data-spatial-kind="brick"] [fill="#020617"] { fill: #FFFFFF; filter: drop-shadow(0 2.4px 0 var(--sess-figur-ram)); }
+.sess-spatialbrade [data-spatial-kind="brick"][data-ton="ratt"] [fill="#020617"] { fill: var(--sess-ratt-yta); filter: drop-shadow(0 2.4px 0 var(--sess-ratt)); }
+.sess-spatialbrade [data-spatial-kind="brick"] line[stroke="#64748B"] { stroke: var(--sess-bage-2); stroke-width: 2.2; }
+.sess-spatial-steg { position: relative; border-radius: 18px; background: var(--sess-brade-2); padding: 8px; display: flex; align-items: center; justify-content: center; }
+.sess-spatial-steg[data-ton="ratt"] { background: var(--sess-brade-ratt-yta); box-shadow: inset 0 0 0 3px var(--sess-ratt); }
+.sess-spatial-steg[data-ton="fel"] { box-shadow: inset 0 0 0 3px var(--sess-fel); }
+.sess-spatial-steg > .sess-steg-n {
+  position: absolute; left: 7px; top: 7px; z-index: 2; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 7px;
+  background: var(--sess-indigo); color: #FFFFFF; font: 800 12px/20px var(--font-sess-display); text-align: center; white-space: nowrap;
+}
+.sess-spatial-steg[data-ton="ratt"] > .sess-steg-n { background: var(--sess-ratt); }
+.sess-spatial-steg[data-ton="fel"] > .sess-steg-n { background: var(--sess-fel); }
+@media (min-width: 1024px) { .sess-spatial-steg > .sess-steg-n { left: 10px; top: 9px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 9px; font-size: 13px; line-height: 26px; } }
+.sess-spatial-ogon { font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sess-brade-ink-2); }
+.sess-spatial-ogon[data-ton="ratt"] { color: var(--sess-brade-ratt-ink); }
+@media (min-width: 1024px) { .sess-spatial-ogon { font-size: 12px; } }
+.sess-spatial-svar .sess-svar-ruta { aspect-ratio: auto; height: 132px; }
+@media (min-width: 1024px) { .sess-spatial-svar .sess-svar-ruta { height: 116px; } }
+@media (max-width: 1023.98px) {
+  /* Facit på telefonen: uppvikningen tar stegens plats, brädet behåller höjden. */
+  .sess-vik-facit { position: absolute; inset: 0; }
+  .sess-vik-uppgift[data-dold] { opacity: 0; }
+}
+@media (min-width: 1024px) { .sess-vik-uppgift[data-dold] { opacity: 1; } }
+
+/* Ordförrådet: ordkortet som en bunt papper. */
+.sess-ordkort { position: relative; margin: 0 6px; }
+.sess-ordkort > i { position: absolute; inset: 0; border-radius: 24px; }
+.sess-ordkort > i:nth-child(1) { background: var(--sess-kant); transform: rotate(-3.5deg); }
+.sess-ordkort > i:nth-child(2) { background: var(--sess-bit); transform: rotate(2.5deg); }
+.sess-ordkort > div { position: relative; border-radius: 24px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 5px 0 var(--sess-kant); padding: 22px 18px 26px; text-align: center; }
+@media (min-width: 1024px) {
+  .sess-ordkort { margin: 0 14px; }
+  .sess-ordkort > i, .sess-ordkort > div { border-radius: 28px; }
+  .sess-ordkort > div { box-shadow: 0 6px 0 var(--sess-kant); padding: 26px 32px 30px; }
+}
+.sess-ordchip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 10px; border-radius: 12px; font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.sess-ordchip[data-typ="synonym"] { background: var(--sess-brade); color: var(--sess-brade-ink); }
+.sess-ordchip[data-typ="antonym"] { background: var(--sess-lucka); color: var(--sess-skala-vald-ink); }
+.sess-ord-alt { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.sess-ord-alt > * { grid-column: span 2; }
+.sess-ord-alt > :last-child:nth-child(odd) { grid-column: 2 / span 2; }
+@media (min-width: 1024px) {
+  .sess-ord-alt { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+  .sess-ord-alt > :last-child:nth-child(odd) { grid-column: span 2; }
+  .sess-ord-alt > :nth-child(4):nth-last-child(2) { grid-column: 2 / span 2; }
+  .sess-ord-alt > :nth-child(4):last-child { grid-column: 3 / span 2; }
+  .sess-ord-alt > .sess-kloss { min-height: 64px; }
+}
+.sess-ordartikel { border-radius: 16px; background: var(--papper); padding: 14px 16px; }
+.sess-ordartikel + .sess-ordartikel { margin-top: 12px; }
+@media (min-width: 1024px) { .sess-ordartikel { padding: 16px 18px; } }
+
+/* Personlighet: påståendet på papper och skalan som fem ringar på en linje. */
+.sess-pastaende { background: var(--papper); border-radius: 24px; border: 2px solid var(--sess-kant); box-shadow: 0 5px 0 var(--sess-kant); padding: 26px 24px 30px; }
+@media (min-width: 1024px) { .sess-pastaende { border-radius: 28px; box-shadow: 0 6px 0 var(--sess-kant); padding: 36px 52px 44px; } }
+/* Ringarnas mått följer skalans bredd (cqw), så att skalan ryms i artikelns
+   provruta: 68, 56 och 46 px på telefonen, 98, 76 och 58 på dator. */
+.sess-skala { container-type: inline-size; --skala-hall: min(72px, 19cqw); position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; }
+.sess-skala::before { content: ""; position: absolute; left: 10%; right: 10%; top: calc(var(--skala-hall) / 2 - 3px); height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--sess-skala-1), var(--sess-kant) 50%, var(--sess-skala-4)); }
+.sess-skala-val { position: relative; display: flex; min-width: 0; flex-direction: column; align-items: center; gap: 10px; padding: 0 2px 4px; text-align: center; font-size: 13px; line-height: 17px; font-weight: 600; color: var(--ink-2); -webkit-tap-highlight-color: transparent; }
+.sess-skala-val > .sess-skala-hall { display: flex; height: var(--skala-hall); align-items: center; }
+.sess-skala-val i { display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--papper); border: 5px solid var(--skala-farg); box-shadow: 0 5px 0 var(--skala-kant); transition: transform 120ms ease-out; color: var(--sess-skala-vald-ink); }
+.sess-skala-val[data-steg="1"], .sess-skala-val[data-steg="5"] { --skala-d: min(68px, 18cqw); }
+.sess-skala-val[data-steg="2"], .sess-skala-val[data-steg="4"] { --skala-d: min(56px, 15cqw); }
+.sess-skala-val[data-steg="3"] { --skala-d: min(46px, 12cqw); }
+.sess-skala-val i { width: var(--skala-d); height: var(--skala-d); }
+.sess-skala-val[data-steg="1"] { --skala-farg: var(--sess-skala-1); --skala-kant: var(--sess-skala-1-kant); }
+.sess-skala-val[data-steg="2"] { --skala-farg: var(--sess-skala-2); --skala-kant: var(--sess-skala-2-kant); }
+.sess-skala-val[data-steg="3"] { --skala-farg: var(--sess-skala-3); --skala-kant: var(--sess-skala-3-kant); }
+.sess-skala-val:is([data-steg="4"], [data-steg="5"]) { --skala-farg: var(--sess-skala-4); --skala-kant: var(--sess-skala-4-kant); }
+.sess-skala-val[aria-checked="true"] { color: var(--ink-1); font-weight: 700; }
+.sess-skala-val[aria-checked="true"] i { background: var(--sess-skala-4); border-color: var(--skala-farg); animation: sess-skala-pop 300ms cubic-bezier(.2, .8, .2, 1) both; }
+.sess-skala-val:is([data-steg="1"], [data-steg="2"], [data-steg="3"])[aria-checked="true"] i { background: var(--skala-farg); color: var(--sess-brade-ink); }
+.sess-skala-val:active:not(:disabled) i { transform: translateY(2px); }
+.sess-skala-val:focus-visible { outline: none; }
+.sess-skala-val:focus-visible i { outline: 3px solid var(--fokus, var(--ink-1)); outline-offset: 3px; }
+@keyframes sess-skala-pop { from { transform: scale(.7); } to { transform: none; } }
+@media (min-width: 1024px) {
+  .sess-skala { --skala-hall: min(98px, 19cqw); }
+  .sess-skala-val { gap: 14px; font-size: 14px; line-height: 18px; }
+  .sess-skala-val[data-steg="1"], .sess-skala-val[data-steg="5"] { --skala-d: min(98px, 18cqw); }
+  .sess-skala-val[data-steg="2"], .sess-skala-val[data-steg="4"] { --skala-d: min(76px, 15cqw); }
+  .sess-skala-val[data-steg="3"] { --skala-d: min(58px, 12cqw); }
+}
+@media (max-width: 1023.98px) {
+  /* Telefonen: skalan nedtill ovanför foten, påståendet överst. */
+  [data-ram-uppgift] > .serie-kolumn:has([data-brade-layout="personlighet"]) { flex: 1 1 auto; display: flex; flex-direction: column; }
+  [data-brade-layout="personlighet"] { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sess-skala-val i, .sess-bryter-ruta { animation: none !important; transition: none !important; }
+}
+
 /* Rätt/fel-systemet (omgång 2 steg A): det ritade märket poppar in 240 ms,
    pillen glider in från höger 200 ms med 120 ms fördröjning. Rätt kort efter
    ett fel kommer 120 ms efter felet. prefers-reduced-motion stänger allt

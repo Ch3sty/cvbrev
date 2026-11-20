@@ -48,7 +48,8 @@ import Klocka from '@/components/session/Klocka'
 import Genomgang, { type GenomgangKalla, type GenomgangPost } from '@/components/session/lagen/Genomgang'
 import type { ListPost } from '@/components/session/Uppgiftslistan'
 import { Sparfelsrad, useLamnadSida } from '@/components/session/lagen/gemensamt'
-import { SESSION, antalOrd } from '@/components/session/copy'
+import { SESSION } from '@/components/session/copy'
+import IprovMellanblad from './IprovMellanblad'
 import { sessionHandelser, type SessionHandelseBas } from '@/components/session/handelser'
 import type { ArkCell } from '@/components/session/Uppgiftsarket'
 import type { TypRitare } from '@/components/session/typ'
@@ -469,39 +470,17 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
 
   /* ---------------- Mellanskärmen */
   if (!del.startad) {
-    const def = iprovDelar(vy.halvt).find((x) => x.nr === del.nr)!
-    const klara = vy.delar.filter((d) => d.avslutad).map((d) => d.namn.toLowerCase())
+    // Omgång 3 steg 2a: mellanbladet på väggen (skissens Test-iprov-mellanblad).
     return (
       <>
-        <Startskarm
+        <IprovMellanblad
           key={`mellan-${del.nr}`}
-          bas={B}
+          vy={vy}
+          delIndex={delIndex}
           onAvbryt={() => setFragarAvbryt(true)}
-          eyebrow={C.mellanEyebrow(delIndex + 1, antalDelar)}
-          rubrik={del.namn}
-          formatrad={C.mellanAntal(def.antal, Math.round(del.max_s / 60))}
-          scen={del.kind}
-          rita={delIndex === 0}
-          regler={[
-            { titel: 'Klockan startar när du trycker.', text: 'Ringen räknar ned. Deltestet lämnas in när tiden är ute.' },
-            { titel: 'Inom deltestet kan du gå tillbaka och ändra.', text: 'Räknaren uppe till höger visar alla uppgifter i deltestet.' },
-            {
-              titel: 'Ett avslutat deltest går inte att öppna igen.',
-              text: klara.length ? `${antalOrd(klara.length, true)} av ${antalOrd(antalDelar)} deltester är klara.` : null,
-            },
-          ]}
-          sparrad="none"
-          fortsattTillganglig={false}
-          knapp={{ text: C.startaDel, onClick: () => void delHandling('starta', del.nr), laddar: upptagen }}
-          kortRad={
-            fel ? (
-              <span role="alert" className="text-ink-1">
-                {fel}
-              </span>
-            ) : (
-              def.beskrivning
-            )
-          }
+          onStarta={() => void delHandling('starta', del.nr)}
+          laddar={upptagen}
+          fel={fel}
         />
         <RamDialog
           open={fragarAvbryt}

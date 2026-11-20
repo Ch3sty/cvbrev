@@ -41,6 +41,9 @@ export function genomgaOrd(q: OrdFraga, seed: string, blandade = true): Genomgan
     facit_betyder: q.facit_betyder,
     exempel: q.exempel,
     arMotsats: p.map((o) => q.typ === 'synonym' && q.typer[o] === 'antonym'),
+    // Källan till definitionen, bara i genomgången (efter svaret), aldrig i den visade uppgiften.
+    ...(q.facit_betyder_kalla ? { facit_betyder_kalla: q.facit_betyder_kalla } : {}),
+    ...(q.facit_betyder_kalla === 'belagg' ? { kalla_namn: q.kalla?.verifierad_mot ?? null } : {}),
   };
 }
 

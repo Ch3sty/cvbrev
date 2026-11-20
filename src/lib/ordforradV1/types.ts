@@ -76,4 +76,8 @@ export interface GenomgangOrd extends VisadOrd {
   exempel: string;
   /** Per visat alternativ: sant när distraktorn är motsatsen (raden "det är motsatsen", OF8). */
   arMotsats: boolean[];
+  /** Var definitionen kommer ifrån (omgång 3): 'egen' ger ingen källrad i domen. Utelämnad: SO:s definition. */
+  facit_betyder_kalla?: 'belagg' | 'egen';
+  /** Ordparets verifiering (kalla.verifierad_mot), källraden när definitionen är citerad ur belägget. */
+  kalla_namn?: string | null;
 }
