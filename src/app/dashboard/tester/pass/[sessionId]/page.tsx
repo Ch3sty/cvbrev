@@ -37,6 +37,9 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
   if (!UUID.test(sessionId)) notFound()
   const { userId, betalande } = await passSida()
   const admin = testSkrivKlient()
+  // Etapp 4: passet i talserier, spatial och ordförråd slås upp samtidigt med
+  // de andra, så att det inte väntar fyra rundturer innan det målas.
+  const s2Lofte = hamtaSteg2Pass(admin, userId, sessionId).catch(() => null)
   const rad = await hamtaSession(admin, userId, sessionId)
   const vy = rad ? sessionsvy(rad) : null
   if (!vy) {
@@ -95,7 +98,7 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Passen i testplanens steg 2 har samma adress.
     // Sessionsramen (plan-testflode-2026-11-20, etapp 4): inställningen läses
     // samtidigt, så att träningen inte väntar en rundtur till.
-    const [s2, s2Installningar] = await Promise.all([hamtaSteg2Pass(admin, userId, sessionId), lasTestInstallningar(admin, userId)])
+    const [s2, s2Installningar] = await Promise.all([s2Lofte, lasTestInstallningar(admin, userId)])
     const s2Vy = s2 ? steg2PassVy(s2) : null
     if (s2Vy) {
       const installningar = s2Installningar
