@@ -26,6 +26,12 @@ import { arGiltigDag, dagarMellan, dagSthlm } from '@/lib/traning/datum'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { passSida } from '../../pass/sida.server'
+import { deltesterForPlan, mittTestNamn, mittTestUrPlan, type Deltyp, type LagradPlan } from '@/lib/traning/mittTest'
+import type { Provtyp } from '@/lib/ovningsprov/format'
+import { provNamn } from '@/lib/tester/v4/sparrData'
+import { kortDatumV } from '@/lib/tester/v4/vagen'
+
+const PROVTYP_DELTYP: Record<Provtyp, Deltyp> = { logik: 'matris', figurer: 'figurserie', deduktiv: 'deduktiv', verbal: 'verbal', numerisk: 'numerisk' }
 
 export default async function OvningsprovStartSida({
   params,
@@ -67,6 +73,14 @@ export default async function OvningsprovStartSida({
   const provdatum = plan && arGiltigDag(plan.provdatum) ? plan.provdatum : null
   const dagarKvar = provdatum ? dagarMellan(idag, provdatum) : null
   const format = ovningsformat(typ, plan?.leverantor ?? null, plan?.variant ?? null)
+  // Omgång 3: provet i spärren, ur samma planrad (ingen ny läsning).
+  // Bara när provtypen ingår i planen, så att spärren aldrig säger att provet prövar en typ det saknar.
+  const mitt = mittTestUrPlan(plan as LagradPlan | null)
+  const iPlan = (deltesterForPlan(plan as LagradPlan) ?? []).includes(PROVTYP_DELTYP[typ])
+  const prov =
+    mitt && mitt !== 'personlighet' && iPlan
+      ? { namn: provNamn(mitt, mittTestNamn(mitt, (plan as { mitt_test_variant?: string | null } | null)?.mitt_test_variant ?? plan?.variant ?? null)), dag: provdatum && dagarKvar != null && dagarKvar >= 0 ? kortDatumV(provdatum) : null }
+      : null
 
   type Rad = { id: string; meta: unknown; created_at: string; started_at: string | null; completed_at: string | null }
   const rader = ((sessRes as { data: unknown }).data ?? []) as Rad[]
@@ -91,6 +105,7 @@ export default async function OvningsprovStartSida({
         gjortIdag={pagaende ? null : gjort?.id ?? null}
         tillbakaHref={TRANING_RUTT.alla}
         fran={fran}
+        prov={prov}
       />
     )
   }
@@ -107,6 +122,7 @@ export default async function OvningsprovStartSida({
         gjortIdag={pagaende ? null : gjort?.id ?? null}
         tillbakaHref={TRANING_RUTT.alla}
         fran={fran}
+        prov={prov}
       />
     )
   }
@@ -120,6 +136,7 @@ export default async function OvningsprovStartSida({
         gjortIdag={pagaende ? null : gjort?.id ?? null}
         tillbakaHref={TRANING_RUTT.alla}
         fran={fran}
+        prov={prov}
       />
     )
   }

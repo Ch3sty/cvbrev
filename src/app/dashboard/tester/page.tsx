@@ -26,6 +26,7 @@ import { TRANING_RUTT } from '@/lib/traning/rutter';
 import { hamtaTesterV4, hamtaUnderlagV4, ingangForst } from '@/lib/tester/v4/hamta.server';
 import HemVy from '@/components/tester-v4/hem/HemVy';
 import { Betalvagg } from '@/components/traning/HemKlient';
+import { sparrDataFor } from '@/lib/tester/v4/sparrData';
 import type { Scope } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
 
@@ -50,8 +51,9 @@ export default async function TraningHem({
 
   if (s?.nyPunkt) after(() => markeraTraningSedd(user.id));
 
+  const sparr = sparrDataFor(data, null);
   return (
-    <Betalvagg scope={data.paket.scope as Scope | null} track={data.paket.track as Scope | null} planKey={data.paket.planKey as PlanKey | null} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
+    <Betalvagg scope={data.paket.scope as Scope | null} track={data.paket.track as Scope | null} planKey={data.paket.planKey as PlanKey | null} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag} sparrData={sparr.data} dagarKvar={sparr.dagarKvar}>
       <HemVy data={data} />
     </Betalvagg>
   );

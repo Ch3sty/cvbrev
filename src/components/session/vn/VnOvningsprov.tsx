@@ -28,6 +28,7 @@ import Staplar from '@/components/traning/Staplar'
 import Ovningsprov from '../lagen/Ovningsprov'
 import Startskarm from '../Startskarm'
 import { OvningsprovBetalvagg } from '../delat/OvningsprovStart'
+import type { SparrProv } from '@/components/paywall/TestSparr'
 import Resultatskarm from '../Resultatskarm'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { SESSION } from '../copy'
@@ -55,6 +56,8 @@ export interface VnOvningsprovStartProps {
   gjortIdag: string | null
   tillbakaHref: string
   fran: string | null
+  /** Omgång 3: provet hon övar mot, för spärren. */
+  prov?: SparrProv
 }
 
 
@@ -108,7 +111,7 @@ export function VnOvningsprovStart(p: VnOvningsprovStartProps) {
       fortsattTillganglig={Boolean(p.pagaende)}
       sparr={
         p.last ? (
-          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
+          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} prov={p.prov} />
         ) : gjort ? (
           <section className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-gjort-idag>
             <p className="text-sm font-semibold text-ink-1">{START.gjortIdag}</p>

@@ -20,6 +20,7 @@ import type { PlanKey } from '@/lib/plans/plans'
 import { Betalvagg } from '@/components/traning/HemKlient'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
 import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
+import { sparrDataFor } from '@/lib/tester/v4/sparrData'
 
 const SCOPES: readonly string[] = ['cv', 'tester', 'allt']
 const PLANER: readonly string[] = ['cv_week', 'test_week', 'all_day', 'all_week', 'all_month', 'all_quarter']
@@ -41,8 +42,9 @@ export default async function AllaTesterPage({
   const data = await hamtaTesterV4(user.id)
   const typ = Array.isArray(sp.typ) ? sp.typ[0] : sp.typ
 
+  const sparr = sparrDataFor(data, null)
   return (
-    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
+    <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag} sparrData={sparr.data} dagarKvar={sparr.dagarKvar}>
       <TesterVy data={data} startTyp={arTestTypId(typ) ? typ : null} vagg={<Vaggen data={data} sida="tester" />} />
     </Betalvagg>
   )

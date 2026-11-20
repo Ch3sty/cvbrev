@@ -199,7 +199,7 @@ export default function TesterVy({
   const oppenMeny = oppen ? data.menyer[oppen] : null
 
   return (
-    <LasProvider paket={data.paket} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
+    <LasProvider paket={data.paket} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag} underlag={data}>
       <div className="flex flex-1 flex-col" data-tester-v4 data-plan={plan?.mittTest ?? 'ingen'} onClickCapture={fangaMenyLank}>
         {vagg}
         <div className="t3-golv" data-golv="tester">

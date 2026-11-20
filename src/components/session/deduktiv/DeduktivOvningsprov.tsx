@@ -25,6 +25,8 @@ import { SESSION } from '../copy'
 import type { GenomgangPost } from '../lagen/Genomgang'
 import { ovningsprovApi } from '../figurserie/api'
 import OvningsprovStart from '../delat/OvningsprovStart'
+import type { SparrProv } from '@/components/paywall/TestSparr'
+import { monsterPerUppgift } from '../resultat/monster'
 
 function bas(format: Ovningsformat) {
   return { test_kind: 'deduktiv', lage: 'ovningsprov' as const, niva: null, format: format.nyckel }
@@ -44,6 +46,8 @@ export interface DeduktivOvningsprovStartProps {
   gjortIdag: string | null
   tillbakaHref: string
   fran: string | null
+  /** Omgång 3: provet hon övar mot, för spärren. */
+  prov?: SparrProv
 }
 
 export function DeduktivOvningsprovStart(p: DeduktivOvningsprovStartProps) {
@@ -55,6 +59,7 @@ export function DeduktivOvningsprovStart(p: DeduktivOvningsprovStartProps) {
       scen="deduktiv"
       format={p.format}
       dagarKvar={p.dagarKvar}
+      prov={p.prov}
       last={p.last}
       pagaende={Boolean(p.pagaende)}
       gjortIdag={p.gjortIdag ? { href: ovningsprovSessionHref('deduktiv', p.gjortIdag) } : null}
@@ -144,6 +149,7 @@ export default function DeduktivOvningsprov({ vy, dagarKvar, datum, forra = null
             datum={datum}
             onStang={ctrl.stang}
             forra={forra ? { ...forra, namn: 'övningsprovet' } : null}
+            monster={monsterPerUppgift(v, alla.map((x) => x.u.nyckel))}
             igen={{ text: 'Gör ett nytt övningsprov', href: ovningsprovHref('deduktiv') }}
             ring={{ andel: vm.antal ? vm.ratt / vm.antal : 0, aria: SESSION.resultat.ringAria(vm.ratt, vm.antal) }}
             huvudtal={SESSION.resultat.rattAv(vm.ratt, vm.antal)}

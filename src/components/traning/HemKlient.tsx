@@ -22,6 +22,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import GraValSheet from '@/components/paywall/GraValSheet'
+import type { SparrData } from '@/components/paywall/TestSparr'
 import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
 import type { Scope } from '@/lib/access/features'
 import { SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
@@ -44,6 +45,8 @@ export function Betalvagg({
   track,
   planKey,
   grundKvarIdag = null,
+  sparrData = null,
+  dagarKvar = null,
 }: {
   children: ReactNode
   scope: Scope | null
@@ -51,6 +54,10 @@ export function Betalvagg({
   planKey: PlanKey | null
   /** Gratislage.grundKvarIdag: 0 ger väggen "I morgon" i stället för ett nytt grundtest. */
   grundKvarIdag?: number | null
+  /** Omgång 3: spärrens siffror ur sidans data (provet, formatet), sparrDataFor utan typ. */
+  sparrData?: SparrData | null
+  /** Dagar kvar till provdatum, för spärren och mätningen. */
+  dagarKvar?: number | null
 }) {
   const [last, setLast] = useState<{ feature: Feature; plats: BetalvaggPlats } | null>(null)
   const oppna = useCallback((feature: Feature, plats: BetalvaggPlats) => setLast({ feature, plats }), [])
@@ -69,6 +76,8 @@ export function Betalvagg({
           planKey={planKey}
           surface="/dashboard/tester"
           grundKvarIdag={grundKvarIdag}
+          dagarKvar={dagarKvar}
+          sparrData={sparrData}
         />
       ) : null}
     </Kontext.Provider>

@@ -36,6 +36,7 @@ import Staplar from '@/components/traning/Staplar'
 import SessionsRam from '../SessionsRam'
 import Klocka from '../Klocka'
 import Resultatskarm from '../Resultatskarm'
+import { monsterRad, monsterText, riktadHref } from '../resultat/monster'
 import Genomgang, { type GenomgangKalla, type GenomgangPost } from '../lagen/Genomgang'
 import { ForsokIgen, Meddelande, Sparfelsrad, useLamnadSida, useSekunderSedan } from '../lagen/gemensamt'
 import { SESSION } from '../copy'
@@ -43,6 +44,7 @@ import { sessionHandelser } from '../handelser'
 import type { ArkCell } from '../Uppgiftsarket'
 import { useSessionSparning } from '../useSessionSparning'
 import OvningsprovStart from '../delat/OvningsprovStart'
+import type { SparrProv } from '@/components/paywall/TestSparr'
 import { MATRIS, type MatrisU } from '../typer/Matris'
 import { MatrisMiniatyrer } from './delar'
 import { KurvKort } from './MatrisNivakoll'
@@ -66,6 +68,8 @@ export interface MatrisOvningsprovStartProps {
   tillbakaHref: string
   fran: string | null
   api?: PassApi
+  /** Omgång 3: provet hon övar mot, för spärren. */
+  prov?: SparrProv
 }
 
 export function MatrisOvningsprovStart({ api = fetchPassApi, ...p }: MatrisOvningsprovStartProps) {
@@ -77,6 +81,7 @@ export function MatrisOvningsprovStart({ api = fetchPassApi, ...p }: MatrisOvnin
       scen="matris"
       format={p.format}
       dagarKvar={p.dagarKvar}
+      prov={p.prov}
       last={p.last}
       pagaende={Boolean(p.pagaende)}
       gjortIdag={null}
@@ -484,6 +489,11 @@ export default function MatrisOvningsprov({ vy: forsta, api = fetchPassApi }: Ma
   )
 }
 
+/** Mönstrets namn ur namntabellen, aldrig ett id. */
+function famNamn(f: string | null | undefined): string {
+  return monsterText('matris', f) ?? familjNamn(f ?? null) ?? 'Blandat'
+}
+
 function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (fran?: number) => void; oppna: (i: number) => void; stang: () => void }) {
   const avslut = m.avslut!
   const vy = m.vy
@@ -508,16 +518,19 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
     niva_fore: avslut.niva_fore,
     niva_efter: avslut.niva_efter,
     uppgifter,
-    familjer: [...avslut.familjer.passet].sort((a, b) => a.andel - b.andel).map((x) => ({ namn: familjNamn(x.family) ?? x.family ?? '', ratt: x.ratt, antal: x.antal })),
+    familjer: [...avslut.familjer.passet].sort((a, b) => a.andel - b.andel).map((x) => ({ namn: famNamn(x.family), ratt: x.ratt, antal: x.antal })),
     imorgon: avslut.imorgon.text,
     datum,
   })
   const alla = poster(vy)
   const missar = alla.map((x, i) => ({ ...x, i })).filter((x) => !x.facit.correct)
+  // Mönstret per uppgift ur genomgången (familjen per fråga), taggen i genomgången.
+  const familjPerId = new Map((vy.genomgang ?? []).map((g) => [g.id, g.family] as const))
   return (
     <Resultatskarm
       lage="ovningsprov"
       titel={MATRIS.namn}
+      monsterRader={vy.fragor.map((q) => monsterRad('matris', familjPerId.get(q.id)))}
       undertitel={undertitel(of)}
       datum={datum}
       onStang={stang}
@@ -543,7 +556,7 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
           ? {
               titel: vm.tappade.titel,
               rader: vm.tappade.rader.map((r) => {
-                const fam = avslut.familjer.passet.find((x) => (familjNamn(x.family) ?? x.family ?? '') === r.namn)
+                const fam = avslut.familjer.passet.find((x) => famNamn(x.family) === r.namn)
                 return fam ? { ...r, ratt: fam.ratt, antal: fam.antal } : r
               }),
             }
@@ -552,7 +565,7 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
       tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
       tempoKort={null}
       nastaSteg={tranaMissatSteg({
-        monster: avslut.familjer.passet.map((x) => ({ namn: familjNamn(x.family) ?? x.family ?? 'Blandat', ratt: x.ratt, antal: x.antal, riktadHref: x.family ? passHref('riktat', { family: x.family }) : null })),
+        monster: avslut.familjer.passet.map((x) => ({ namn: famNamn(x.family), ratt: x.ratt, antal: x.antal, riktadHref: riktadHref('matris', x.family) })),
         typensHref: passHref('pass'),
         annars: { titel: 'Plan inför provet', text: vm.status, knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' } },
       })}

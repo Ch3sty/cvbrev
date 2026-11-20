@@ -23,7 +23,7 @@ import { antalTid, ordningText, type Ovningsformat, type Provtyp } from '@/lib/o
 import { versal } from '@/lib/traning/copy'
 import Startskarm from '../Startskarm'
 import type { ScenId } from '../scener'
-import { SparrVagg } from '@/components/paywall/TestSparr'
+import { SparrVagg, type SparrProv } from '@/components/paywall/TestSparr'
 import type { TestTyp } from '@/components/illustrations/TestGlyfer'
 import { testrumRubrik } from '@/components/paywall/paywall-copy'
 import { SESSION } from '../copy'
@@ -42,6 +42,7 @@ export function OvningsprovBetalvagg({
   tillbakaHref,
   del,
   nyttUtseende = true,
+  prov = null,
 }: {
   typ: Provtyp
   format: Ovningsformat
@@ -49,6 +50,8 @@ export function OvningsprovBetalvagg({
   fran: string | null
   tillbakaHref: string
   del?: 'kort' | 'fot'
+  /** Omgång 3 (steg 4): provet hon övar mot ur planen, läst på servern. Null: raden faller bort. */
+  prov?: SparrProv
   /** Omgång 3: spärren i testflödets nya utseende. false: det tidigare kortet. */
   nyttUtseende?: boolean
 }) {
@@ -90,7 +93,7 @@ export function OvningsprovBetalvagg({
         slag="premium"
         plats="provlage"
         testTyp={PROVTYP_TESTTYP[typ]}
-        data={{ format: { namn: format.namn, antal: format.antal, minuter: format.minuter, text: antalTid(format) } }}
+        data={{ format: { namn: format.namn, antal: format.antal, minuter: format.minuter, text: antalTid(format) }, prov: prov ?? null }}
         dagarKvar={dagarKvar}
         titel={testrumRubrik('generalrepetition') ?? B.eyebrow}
         body={B.text(format, dagarKvar)}
@@ -147,6 +150,8 @@ export interface OvningsprovStartProps {
   regel2Text: string
   /** Typens namn i eyebrow när det skiljer sig från provtypens (logik: Figurer och mönster). */
   typnamn?: string
+  /** Omgång 3: provet hon övar mot, för spärren. */
+  prov?: SparrProv
 }
 
 export default function OvningsprovStart(p: OvningsprovStartProps) {
@@ -183,7 +188,7 @@ export default function OvningsprovStart(p: OvningsprovStartProps) {
       fortsattTillganglig={p.pagaende}
       sparr={
         p.last ? (
-          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
+          <OvningsprovBetalvagg typ={p.typ} format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} prov={p.prov} />
         ) : gjort ? (
           <section className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-gjort-idag>
             <p className="text-sm font-semibold text-ink-1">{START.gjortIdag}</p>

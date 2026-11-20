@@ -14,7 +14,7 @@
 
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import type { Handling, TesttypKort, TypMeny } from '@/lib/tester/v4/typer'
+import type { Handling, TestTypId, TesttypKort, TypMeny } from '@/lib/tester/v4/typer'
 import { arSvagt } from '@/lib/tester/v4/monster'
 import { NIVA_TEST_ANTAL } from '@/lib/tester/v4/copy'
 import { nivakollOmfang } from '@/lib/nivakoll/omfang'
@@ -27,7 +27,7 @@ import { tal1 } from './matt'
 const ZON_KORT = { grund: 'Grund', avancerad: 'Avancerad', expert: 'Expert' } as const
 const ORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv']
 
-function Lage({ h, rubrik, text, ikon, forst, chip }: { h: Handling; rubrik: string; text: string; ikon: ReactNode; forst?: boolean; chip?: string | null }) {
+function Lage({ h, typ, rubrik, text, ikon, forst, chip }: { h: Handling; typ: TestTypId; rubrik: string; text: string; ikon: ReactNode; forst?: boolean; chip?: string | null }) {
   const oppnaLas = useOppnaLas()
   const inne = (
     <>
@@ -50,7 +50,7 @@ function Lage({ h, rubrik, text, ikon, forst, chip }: { h: Handling; rubrik: str
   )
   if (h.las) {
     return (
-      <button type="button" className="t3-lage" data-forst={forst ? '' : undefined} data-las={h.las.skal} onClick={() => oppnaLas(h)} aria-label={TESTER.meny.lasEtikett(rubrik, h.las.chip)}>
+      <button type="button" className="t3-lage" data-forst={forst ? '' : undefined} data-las={h.las.skal} onClick={() => oppnaLas(h, typ)} aria-label={TESTER.meny.lasEtikett(rubrik, h.las.chip)}>
         {inne}
       </button>
     )
@@ -62,12 +62,12 @@ function Lage({ h, rubrik, text, ikon, forst, chip }: { h: Handling; rubrik: str
   )
 }
 
-function Fast({ h }: { h: TypMeny['nivaer'][number] }) {
+function Fast({ h, typ }: { h: TypMeny['nivaer'][number]; typ: TestTypId }) {
   const oppnaLas = useOppnaLas()
   const namn = ZON_KORT[h.zon]
   if (h.las) {
     return (
-      <button type="button" className="t3-fast" data-las={h.las.skal} onClick={() => oppnaLas(h)} aria-label={TESTER.meny.lasEtikett(namn, h.las.chip)}>
+      <button type="button" className="t3-fast" data-las={h.las.skal} onClick={() => oppnaLas(h, typ)} aria-label={TESTER.meny.lasEtikett(namn, h.las.chip)}>
         <Las3 size={14} />
         {namn}
       </button>
@@ -89,10 +89,12 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
   const prov = meny.ovningsprov[0] ?? null
   const tranaArNivakoll = meny.trana.slag === 'nivakoll'
   const lagen: ReactNode[] = []
+  const typ = kort.id
 
   lagen.push(
     <Lage
       key="trana"
+      typ={typ}
       forst
       h={meny.trana}
       rubrik={tranaArNivakoll ? (kort.niva.status === 'paborjad' ? 'Gör klart Nivåkollen' : 'Nivåkollen först') : 'Träna'}
@@ -108,6 +110,7 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
     lagen.push(
       <Lage
         key="monster"
+        typ={typ}
         h={{ slag: 'trana', etikett: 'Träna', href: svag.href, las: meny.trana.las }}
         rubrik={svag.ova ?? `Öva på ${svag.namn.toLowerCase()}`}
         text={`Mönstret du tappar mest på, ${svag.ratt} av ${svag.antal} rätt.`}
@@ -119,6 +122,7 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
     lagen.push(
       <Lage
         key="nivakoll"
+        typ={typ}
         h={meny.nivakoll}
         rubrik="Nivåkollen"
         text={`Mät din nivå på ${omfang ? `${ORD[omfang.uppgifter] ?? omfang.uppgifter} uppgifter` : 'några uppgifter'}.${nk ? ` Senast ${kortDatumV(nk.dag)}: ${tal1(nk.niva)}.` : ''}`}
@@ -131,6 +135,7 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
     lagen.push(
       <Lage
         key="prov"
+        typ={typ}
         h={prov}
         rubrik={planNamn && kort.ingarIPlan ? prov.rubrik : 'Övningsprov mot klockan'}
         text={prov.text}
@@ -150,7 +155,7 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
         </span>
         <span className="t3-fast-knappar">
           {meny.nivaer.map((n) => (
-            <Fast key={n.zon} h={n} />
+            <Fast key={n.zon} h={n} typ={kort.id} />
           ))}
         </span>
       </div>

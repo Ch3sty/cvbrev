@@ -25,6 +25,8 @@ import Staplar from '@/components/traning/Staplar'
 import Ovningsprov from '../lagen/Ovningsprov'
 import Startskarm from '../Startskarm'
 import { OvningsprovBetalvagg } from '../delat/OvningsprovStart'
+import type { SparrProv } from '@/components/paywall/TestSparr'
+import { monsterPerUppgift } from '../resultat/monster'
 import Resultatskarm from '../Resultatskarm'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { SESSION } from '../copy'
@@ -52,6 +54,8 @@ export interface FigurserieOvningsprovStartProps {
   gjortIdag: string | null
   tillbakaHref: string
   fran: string | null
+  /** Omgång 3: provet hon övar mot, för spärren. */
+  prov?: SparrProv
 }
 
 
@@ -100,7 +104,7 @@ export function FigurserieOvningsprovStart(p: FigurserieOvningsprovStartProps) {
       fortsattTillganglig={Boolean(p.pagaende)}
       sparr={
         p.last ? (
-          <OvningsprovBetalvagg typ="figurer" format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} />
+          <OvningsprovBetalvagg typ="figurer" format={f} dagarKvar={p.dagarKvar} fran={p.fran} tillbakaHref={p.tillbakaHref} prov={p.prov} />
         ) : gjort ? (
           <section className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-gjort-idag>
             <p className="text-sm font-semibold text-ink-1">{START.gjortIdag}</p>
@@ -182,6 +186,7 @@ export default function FigurserieOvningsprov({ vy, dagarKvar, datum, forra = nu
             datum={datum}
             onStang={ctrl.stang}
             forra={forra ? { ...forra, namn: 'övningsprovet' } : null}
+            monster={monsterPerUppgift(v, alla.map((x) => x.u.nyckel))}
             igen={{ text: 'Gör ett nytt övningsprov', href: ovningsprovHref('figurer') }}
             ring={{ andel: vm.antal ? vm.ratt / vm.antal : 0, aria: SESSION.resultat.ringAria(vm.ratt, vm.antal) }}
             huvudtal={SESSION.resultat.rattAv(vm.ratt, vm.antal)}

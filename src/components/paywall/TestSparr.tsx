@@ -39,6 +39,9 @@ export interface SparrData {
   gaIgenomHref?: string | null
 }
 
+/** Provet i spärren, null när hon inte har ett. */
+export type SparrProv = SparrData['prov']
+
 /** Typerna med riktad träning i ett mönster (matris, ord och text, siffror och tabeller, talserier, spatial, ordförråd). */
 const RIKTAD: readonly TestTyp[] = ['matris', 'verbalt', 'numeriskt', 'talserier', 'spatial', 'ordforrad']
 /** Typerna med övningsprov mot klockan. */
