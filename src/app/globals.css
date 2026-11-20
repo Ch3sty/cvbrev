@@ -2868,6 +2868,12 @@ html {
 @media (min-width: 1280px) { .t3-stor:not(.t3-stor-bred) { height: 60px; padding: 0 28px; font-size: 18px; line-height: 24px; } }
 .t3-mobil-ogonrad { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 16px; }
 .t3-kortrad { font-weight: 700; font-size: 12px; line-height: 16px; color: var(--vagg-ink); white-space: nowrap; text-decoration: none; }
+/* Länken "7 dagar kvar" är 16 px hög i raden: tryckytan växer till 44 px utan att raden flyttar sig. */
+a.t3-kortrad { position: relative; }
+a.t3-kortrad::after { content: ''; position: absolute; inset: -14px -6px; }
+/* Sidledspilen i tabellen är 28 px: tryckytan 44 px. */
+.sess-mer-sidled > button { position: relative; }
+.sess-mer-sidled > button::after { content: ''; position: absolute; inset: -8px; }
 a.t3-kortrad { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--vagg-svag); }
 .t3-h1-mobil { margin: 6px 0 0; font-family: var(--font-display), Inter, system-ui, sans-serif; font-weight: 800; letter-spacing: -.02em; line-height: 28px; height: 28px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--vagg-ink); }
 .t3-h1-mobil { font-size: var(--t3-h1, 24px); }
@@ -3563,7 +3569,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 
 /* Räknevägen i domen: ett steg per bricka, uttrycket i displaysnittet, etiketten under. */
 .sess-steg { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; min-width: 0; max-width: 100%; }
-.sess-steg > b { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border-radius: 13px; background: var(--papper); font: 700 16px/20px var(--font-sess-display); color: var(--sess-brade); max-width: 100%; overflow-wrap: anywhere; }
+.sess-steg > b { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 12px; border-radius: 13px; background: var(--papper); font: 700 16px/20px var(--font-sess-display); color: var(--ink-1); max-width: 100%; overflow-wrap: anywhere; }
 .sess-steg > small { font-weight: 500; font-size: 12px; line-height: 16px; color: var(--sess-ink-3); padding-left: 4px; }
 .sess-steg[data-svar] > b { background: var(--sess-ratt-yta); color: var(--sess-ratt-ink); box-shadow: inset 0 0 0 2px var(--sess-ratt); }
 @media (min-width: 1024px) { .sess-steg > b { min-height: 44px; padding: 8px 16px; border-radius: 14px; font-size: 18px; line-height: 22px; } }
@@ -3845,7 +3851,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .sparr-sif { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-radius: 16px; background: var(--sess-indigo-mjuk); overflow: hidden; }
 .sparr-sif > div { padding: 10px 12px; border-left: 1.5px solid var(--sess-ruta-kant); min-width: 0; }
 .sparr-sif > div:first-child { border-left: 0; }
-.sparr-sif b { display: block; font: 800 22px/26px var(--font-sess-display); letter-spacing: -.02em; color: var(--sess-brade); }
+.sparr-sif b { display: block; font: 800 22px/26px var(--font-sess-display); letter-spacing: -.02em; color: var(--ink-1); }
 .sparr-sif span { display: block; font-size: 12px; line-height: 16px; color: var(--sess-tangent-ink); }
 @media (min-width: 1024px) { .sparr-sif > div { padding: 12px 14px; } .sparr-sif b { font-size: 26px; line-height: 30px; } }
 .sparr-ing { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 22px; color: var(--ink-1); }
