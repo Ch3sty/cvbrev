@@ -302,7 +302,9 @@ function TestResultat({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<
   const over = tider.filter((t) => t != null && budget != null && t > budget).length
   const forra = p.forra && p.forra.antal === poster.length ? forraText(ratt, p.forra) : null
   const forstaMiss = utfall.findIndex((u) => u !== 'ratt')
-  const Mini = forstaMiss >= 0 ? ((poster[forstaMiss] as { ritare?: typeof lista.ritare }).ritare ?? lista.ritare).Miniatyr : undefined
+  // Radens ikon före miniatyren, som i genomgången: ord och texts miniatyr är en textbit som beskärs i 32 px.
+  const missRitare = forstaMiss >= 0 ? ((poster[forstaMiss] as { ritare?: typeof lista.ritare }).ritare ?? lista.ritare) : null
+  const Mini = missRitare ? missRitare.RadIkon ?? missRitare.Miniatyr : undefined
   const mini = p.nastaSteg.monster && Mini && forstaMiss >= 0 ? <Mini u={poster[forstaMiss].u} /> : null
 
   const tidPanel = harTider ? (
