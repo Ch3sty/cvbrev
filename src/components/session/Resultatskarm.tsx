@@ -523,12 +523,15 @@ function Malgang({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<NonNu
                 </div>
               ) : null}
               <dl className="steg s2 mt-6 hidden lg:mt-11 lg:flex">
-                <div className="res-stat">
-                  <dd className="m-0 font-sess-display text-[30px] font-extrabold leading-[34px] tracking-[-.02em]">
-                    {ratt} av {antal}
-                  </dd>
-                  <dt className="text-[13px] leading-[18px] text-vagg-mjuk">rätt</dt>
-                </div>
+                {/* Rätt står bara som tal när rubriken är nivån; annars är rubriken redan "X av Y rätt". */}
+                {efter != null ? (
+                  <div className="res-stat">
+                    <dd className="m-0 font-sess-display text-[30px] font-extrabold leading-[34px] tracking-[-.02em]">
+                      {ratt} av {antal}
+                    </dd>
+                    <dt className="text-[13px] leading-[18px] text-vagg-mjuk">rätt</dt>
+                  </div>
+                ) : null}
                 {tid ? (
                   <div className="res-stat">
                     <dd className="m-0 font-sess-display text-[30px] font-extrabold leading-[34px] tracking-[-.02em]">{tid.varde}</dd>

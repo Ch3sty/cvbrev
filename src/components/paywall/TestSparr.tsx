@@ -95,6 +95,8 @@ export interface Lofte {
   ikon: ReactNode
   titel: string
   text: string
+  /** Raden på telefon: en rad, så att kortet ryms ovanför foten (steg 3b). */
+  mobil: string
   /** Den korta formen i arket: fetstilt början och resten. */
   kort: [string, string]
 }
@@ -120,6 +122,7 @@ export function sparrLoften(p: { testTyp?: TestTyp; data: SparrData; plats: Beta
     ),
     titel: niva != null ? `Träning från nivå ${nivaText(niva)} och uppåt` : 'Träning på din nivå',
     text: 'Uppgifterna följer dig mot provets nivå, så många omgångar du vill.',
+    mobil: 'Uppgifterna följer dig mot provets nivå.',
     kort: ['Träning på din nivå varje dag', ', så många omgångar du vill'],
   })
   if (!testTyp || RIKTAD.includes(testTyp)) {
@@ -135,6 +138,7 @@ export function sparrLoften(p: { testTyp?: TestTyp; data: SparrData; plats: Beta
       ),
       titel: data.monster ? `${data.monster}, mönstret du missade` : 'Ett mönster i taget',
       text: data.monster ? 'Riktad träning på det som föll i dag, med regeln efter varje svar.' : 'Riktad träning på det du tappar, med regeln efter varje svar.',
+      mobil: data.monster ? 'Riktad träning på det som föll i dag.' : 'Riktad träning på det du tappar.',
       kort: ['Riktad träning', ' på mönstret du tappar'],
     })
   }
@@ -150,6 +154,7 @@ export function sparrLoften(p: { testTyp?: TestTyp; data: SparrData; plats: Beta
       ),
       titel: f?.namn ? `Övningsprov i ${genitiv(f.namn)} format` : 'Övningsprov mot klockan',
       text: f ? `${f.text ?? `${f.antal} uppgifter på ${f.minuter} minuter`}, mot klockan.` : 'Ett om dagen, i provets tempo, med genomgången efteråt.',
+      mobil: f ? `${f.text ?? `${f.antal} uppgifter på ${f.minuter} minuter`}, mot klockan.` : 'Ett om dagen, i provets tempo.',
       kort: ['Övningsprov mot klockan', f?.namn ? `, ett om dagen, i samma format som ${f.namn}` : ', ett om dagen'],
     })
   }
@@ -163,6 +168,7 @@ export function sparrLoften(p: { testTyp?: TestTyp; data: SparrData; plats: Beta
     ),
     titel: 'Ny nivåkoll varje vecka',
     text: 'Och hela din kurva, med varje regel du tappar.',
+    mobil: 'Och hela din kurva.',
     kort: ['Ny nivåkoll varje vecka', ' och hela din kurva'],
   })
   return ut
@@ -174,7 +180,8 @@ function Trappa({ niva, prov, kort }: { niva: number | null; prov: SparrData['pr
   // Grund 1 till 4, avancerad 4 till 7, expert 7 till 10 (sidkortets gränser).
   const vanster = niva != null ? Math.min(0.97, Math.max(0.03, (niva - 1) / 9)) : null
   const pa = niva != null ? (niva < PROVETS_NIVA ? 'grund' : niva < 7 ? 'avancerad' : 'expert') : null
-  const hojd = { grund: '32%', avancerad: '53%', expert: '76%' } as const
+  // Lägst 52 px, så att namnet och raden alltid ryms i steget (telefonens lägre trappa).
+  const hojd = { grund: 'max(32%, 52px)', avancerad: 'max(53%, 70px)', expert: 'max(76%, 88px)' } as const
   const aria = [
     niva != null ? `Du ligger på ${nivaText(niva)}.` : null,
     'Grundnivån ingår gratis, ett test om dagen. Provet ligger på avancerad nivå, som ingår i Premium, liksom expertnivån.',
@@ -184,7 +191,7 @@ function Trappa({ niva, prov, kort }: { niva: number | null; prov: SparrData['pr
     .join(' ')
   return (
     <div data-sparr-trappa>
-      <div className="sparr-trappa h-[150px] lg:h-[216px]" role="img" aria-label={aria}>
+      <div className="sparr-trappa h-[104px] lg:h-[216px]" role="img" aria-label={aria}>
         <div className="sparr-steg" data-steg="grund" style={{ height: hojd.grund }}>
           <b>Grund</b>
           {kort ? <span>gratis</span> : <span><span className="lg:hidden">gratis</span><span className="hidden lg:inline">gratis, ett test om dagen</span></span>}
@@ -244,7 +251,10 @@ export interface SparrVyProps {
 }
 
 /** Rubriken på väggen: hennes resultat när det finns, annars variantens rubrik. */
-function vaggRubrik(p: SparrVyProps): { eyebrow: string; rubrik: ReactNode; text: string } {
+/** Ingressen på telefon, högst två rader: bankens långa brödtexter byts mot en kort och sann rad. */
+const KORT_INGRESS = 'Avancerad och expert i alla testtyper, träning utan tak och övningsprov mot klockan.'
+
+function vaggRubrik(p: SparrVyProps): { eyebrow: string; rubrik: ReactNode; text: string; mobil: string } {
   const prov = p.data.prov ?? null
   const provText = prov ? `${prov.namn}${prov.dag ? ` ${prov.dag}` : ''} prövar avancerad nivå. Den öppnar du med Premium, och du kan börja nu.` : null
   if (p.slag === 'kvot') {
@@ -261,9 +271,11 @@ function vaggRubrik(p: SparrVyProps): { eyebrow: string; rubrik: ReactNode; text
         'Ett nytt grundnivåtest öppnar i morgon.'
       ),
       text: provText ?? p.body,
+      mobil: prov ? `${prov.namn} prövar avancerad nivå. Den öppnar du med Premium.` : 'Avancerad nivå och träning utan tak öppnar du med Premium.',
     }
   }
-  return { eyebrow: p.titel, rubrik: arkRubrik(p.plats), text: provText ?? p.body }
+  const text = provText ?? p.body
+  return { eyebrow: p.titel, rubrik: arkRubrik(p.plats), text, mobil: text.length <= 90 ? text : KORT_INGRESS }
 }
 
 export function SparrVagg(p: SparrVyProps) {
@@ -271,7 +283,7 @@ export function SparrVagg(p: SparrVyProps) {
   const r = vaggRubrik(p)
   const kvar = p.slag === 'kvot'
   return (
-    <div className="flex flex-col gap-6 lg:gap-10" data-sparr-vagg={p.slag}>
+    <div className="flex flex-col gap-5 lg:gap-10" data-sparr-vagg={p.slag}>
       <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,590px)_480px] lg:gap-x-[50px]">
         <div className="min-w-0">
           <p className="res-ey" style={{ color: 'var(--sess-lucka-ink)' }} data-sparr-eyebrow>
@@ -280,8 +292,11 @@ export function SparrVagg(p: SparrVyProps) {
           <h1 className="res-h1 mt-2 lg:mt-3" data-langre="" data-sparr-rubrik>
             {r.rubrik}
           </h1>
-          <p className="mt-2.5 max-w-[500px] text-[15px] leading-[22px] text-vagg-mjuk lg:mt-4 lg:text-[18px] lg:leading-7">{r.text}</p>
-          <div className="mt-12 lg:mt-14">
+          <p className="mt-2.5 max-w-[500px] text-[15px] leading-[22px] text-vagg-mjuk lg:mt-4 lg:text-[18px] lg:leading-7">
+            <span className="hidden lg:inline">{r.text}</span>
+            <span className="lg:hidden">{r.mobil}</span>
+          </p>
+          <div className="mt-9 lg:mt-14">
             <Trappa niva={p.data.niva ?? null} prov={p.data.prov ?? null} />
           </div>
         </div>
@@ -302,7 +317,8 @@ export function SparrVagg(p: SparrVyProps) {
                   <span className="sparr-ik">{l.ikon}</span>
                   <div className="min-w-0">
                     <b>{l.titel}</b>
-                    <span>{l.text}</span>
+                    <span className="max-lg:!hidden">{l.text}</span>
+                    <span className="lg:!hidden">{l.mobil}</span>
                   </div>
                 </div>
               ))}
@@ -467,7 +483,7 @@ export function SparrArk(p: SparrArkProps) {
         <p className="res-ey relative hidden lg:block" style={{ color: 'var(--vagg-mjuk)' }}>
           {prov ? 'Så ser övningsprovet ut' : 'Nivåerna'}
         </p>
-        <div className="relative mt-3.5">{prov ? <ProvBild /> : <Trappa niva={niva} prov={p.data.prov ?? null} kort />}</div>
+        <div className={`relative mt-3.5 ${prov ? '' : 'lg:flex lg:flex-1 lg:flex-col lg:justify-center'}`}>{prov ? <ProvBild /> : <Trappa niva={niva} prov={p.data.prov ?? null} kort />}</div>
         {prov ? (
           <p className="relative mt-4 hidden text-[15px] leading-[22px] text-vagg-mjuk lg:block">
             {f ? `${f.text ?? `${f.antal} uppgifter på ${f.minuter} minuter`} och inga förklaringar under tiden.` : 'Mot klockan och inga förklaringar under tiden.'} Efteråt ser du var tiden gick och vilket mönster som föll.

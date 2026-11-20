@@ -62,9 +62,9 @@ export function cellText(v: string | number): string {
 
 const SUMMA = /^(totalt|total|summa)\b/i
 
-type Slag = 'tabell' | 'stapel' | 'cirkel' | 'linje' | 'text' | 'blandat'
+export type Slag = 'tabell' | 'stapel' | 'cirkel' | 'linje' | 'text' | 'blandat'
 
-function slagFor(ul: VnVisatUnderlag): Slag {
+export function slagFor(ul: VnVisatUnderlag): Slag {
   if (ul.tabell && ul.diagram) return 'blandat'
   if (ul.tabell) return 'tabell'
   const d = ul.diagram as { chartType?: string } | null | undefined
@@ -89,7 +89,7 @@ export function sifferOm(ul: VnVisatUnderlag): string {
   return s === 'tabell' ? 'tabellen' : s === 'text' ? 'texten' : s === 'blandat' ? 'underlaget' : 'diagrammet'
 }
 
-function SlagIkon({ slag }: { slag: Slag }) {
+export function SlagIkon({ slag }: { slag: Slag }) {
   const p = {
     width: 22,
     height: 22,

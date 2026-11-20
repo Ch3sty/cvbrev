@@ -77,6 +77,12 @@ export interface TypRitare<U extends RamUppgift> {
    * står utan miniatyr.
    */
   Miniatyr?: ComponentType<{ u: U }>
+  /**
+   * Resultatsidans genomgång (omgång 3 steg 3b): underlagets slag som ikonbricka
+   * (tabell, diagram, textuppgift, artikel, villkor) i stället för Miniatyr för
+   * typerna med underlag. Utelämnad: Miniatyr.
+   */
+  RadIkon?: ComponentType<{ u: U }>
   /** Svarets namn i Uppgiftslistan ("B, rätt C"). Utelämnad: bokstaven A till F. De tre fasta: "Sant", "Falskt". */
   svarEtikett?: (u: U, i: number) => string
   /**

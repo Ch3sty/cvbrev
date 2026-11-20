@@ -141,7 +141,8 @@ function SparrStart({ p, fotRef }: { p: StartskarmProps; fotRef: React.RefObject
             <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-4">{p.efter}</div>
           </div>
         ) : null}
-        <div className="h-[120px] lg:hidden" aria-hidden="true" />
+        {/* Bottenluft: fotens höjd med kvotraden, så att sista raden aldrig hamnar bakom foten. */}
+        <div className="h-[168px] lg:hidden" aria-hidden="true" />
         <div className="fixed inset-x-0 z-30 border-t border-kant bg-papper px-4 py-3 lg:hidden" style={{ bottom: 'var(--bottom-nav-h, 0px)' }} data-start-fot="vagg">
           {cloneElement(sparr, { del: 'fot' })}
         </div>

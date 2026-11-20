@@ -150,6 +150,23 @@ describe('målgången efter Träna', () => {
     expect(container.querySelector('[data-resultat-huvudtal]')!.textContent).toBe('2 av 4 rätt')
     expect(container.querySelector('[data-resultat-matare]')).toBeNull()
     expect(container.querySelector('[data-resultat-nivadiagram]')).toBeNull()
+    // Huvudtalet upprepas inte som nyckeltal.
+    expect([...container.querySelectorAll('.res-stat dt')].map((d) => d.textContent)).not.toContain('rätt')
+  })
+})
+
+describe('många missar och tider på noll', () => {
+  it('fem rader, sedan Visa alla; ingen tid på noll; ikonbrickan före miniatyren', () => {
+    const poster = Array.from({ length: 12 }, (_, i) => ({ ...post(i, false), tid_s: 0 }))
+    const ikonRitare = { ...RITARE, RadIkon: () => <span data-test-ikon /> } as unknown as TypRitare<U>
+    const p = bas('nivatest')
+    const { container } = render(<Resultatskarm {...p} genomgang={{ ...p.genomgang!, lista: { ritare: ikonRitare, lage: 'nivatest', poster } }} />)
+    expect(container.querySelectorAll('[data-lista-rad]').length).toBe(5)
+    expect(container.querySelectorAll('[data-test-ikon]').length).toBe(5)
+    expect(container.querySelector('[data-dom-tid]')).toBeNull()
+    expect([...container.querySelectorAll('.res-rad .res-tid')].every((e) => e.textContent === '')).toBe(true)
+    fireEvent.click(screen.getByText('Visa alla 12 missar'))
+    expect(container.querySelectorAll('[data-lista-rad]').length).toBe(12)
   })
 
   it('med nivån: rubriken, mätaren och uppgifternas linje', () => {

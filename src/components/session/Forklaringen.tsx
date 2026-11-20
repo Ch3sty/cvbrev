@@ -193,7 +193,8 @@ export default function Forklaringen({
   const etikett = utfall === 'ratt' ? C.ratt : utfall === 'fel' ? C.fel : utfall === 'obesvarad' ? C.obesvarad : C.vetInte
   const typens = innehall ?? detalj
   const harKropp = Boolean(regel || text || typens || misstag)
-  const hoger = utfall === 'vet_inte' ? C.duValdeVetInte : tid ? C.sekunder(tid.sekunder) : null
+  // En tid på 0 mättes inte (äldre sessioner): ingen tid (steg 3b).
+  const hoger = utfall === 'vet_inte' ? C.duValdeVetInte : tid && tid.sekunder > 0 ? C.sekunder(tid.sekunder) : null
   return (
     <section
       ref={ref}

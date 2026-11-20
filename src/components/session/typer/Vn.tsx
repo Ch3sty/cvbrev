@@ -29,7 +29,7 @@ import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import type { VnVisadUppgift, VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import { BOKSTAV, SvarRad, SvarTal, Pill, tillstandFor, type Tillstand } from '../Svarskort'
 import type { ForklaringInnehallProps, RamUppgift, TypRitare, UppgiftProps } from '../typ'
-import { delaRubrik, hardaMellanrum, lasVnData, Raknevag, SifferInnehall, sifferOm, type VnData } from './Siffror'
+import { delaRubrik, hardaMellanrum, lasVnData, Raknevag, SifferInnehall, sifferOm, SlagIkon, slagFor, type VnData } from './Siffror'
 import s from './vn.module.css'
 
 export { delaRubrik }
@@ -541,6 +541,19 @@ function VnMiniatyr({ u }: { u: VnU }) {
   )
 }
 
+/** Genomgångens ikonbricka: underlagets slag, samma ikon som papperets mörka huvud (steg 3b). */
+function VnRadIkon({ u }: { u: VnU }) {
+  return <span className="res-rad-ikon" data-mini-ikon={u.kind}>{u.kind === 'verbal' ? <ArtikelIkon /> : <SlagIkon slag={slagFor(u.underlag)} />}</span>
+}
+
+function ArtikelIkon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+      <path d="M5 5h14M5 9.5h14M5 14h14M5 18.5h8" />
+    </svg>
+  )
+}
+
 export const VERBAL: TypRitare<VnU> = {
   kind: 'verbal',
   namn: 'Ord och text',
@@ -550,6 +563,7 @@ export const VERBAL: TypRitare<VnU> = {
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   Miniatyr: VnMiniatyr,
+  RadIkon: VnRadIkon,
   arkGrupper: grupper,
 }
 
@@ -562,6 +576,7 @@ export const NUMERISK: TypRitare<VnU> = {
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   Miniatyr: VnMiniatyr,
+  RadIkon: VnRadIkon,
   arkGrupper: grupper,
   Forklaring: VnForklaring,
 }

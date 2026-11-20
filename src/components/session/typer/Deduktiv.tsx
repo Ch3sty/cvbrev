@@ -500,6 +500,18 @@ function DeduktivForklaring({ facit }: ForklaringInnehallProps<DeduktivU>) {
 }
 
 /** Uppgiftslistans miniatyr: villkorens brickor, och remsans tomma platser när den finns. */
+/** Genomgångens ikonbricka: villkoren (steg 3b). */
+function DeduktivRadIkon() {
+  return (
+    <span className="res-rad-ikon" data-mini-ikon="deduktiv">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+        <path d="M9 6h11M9 12h11M9 18h11" />
+        <path d="M4 5.5h1.5v1.5H4zM4 11.5h1.5V13H4zM4 17.5h1.5V19H4z" strokeWidth="1.6" />
+      </svg>
+    </span>
+  )
+}
+
 function DeduktivMiniatyr({ u }: { u: DeduktivU }) {
   const n = Math.min(u.villkor.length, 5)
   const p = u.platser && u.platser > 1 ? u.platser : 0
@@ -532,4 +544,5 @@ export const DEDUKTIV: TypRitare<DeduktivU> = {
   underlag: { nyckel: (u) => u.nyckel, Ritare: DeduktivUnderlag },
   Forklaring: DeduktivForklaring,
   Miniatyr: DeduktivMiniatyr,
+  RadIkon: DeduktivRadIkon,
 }

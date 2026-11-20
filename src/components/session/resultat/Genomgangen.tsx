@@ -48,6 +48,9 @@ export function genomgangRubrik(fel: number, obesvarade: number, lage: Lage): st
   return `${felOrd} och ${obes}`
 }
 
+/** Raderna som står framme innan resten visas på begäran: den utfällda och fyra till. */
+const FORSTA = 5
+
 function Chev() {
   return (
     <svg className="res-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -71,6 +74,8 @@ export default function Genomgangen<U extends RamUppgift>(p: GenomgangenProps<U>
   const forstaMiss = utfall.findIndex((x) => x !== 'ratt')
   const [visa, setVisa] = useState<'missar' | 'alla'>(missar > 0 ? 'missar' : 'alla')
   const [oppna, setOppna] = useState<Set<number>>(() => new Set(forstaMiss >= 0 ? [forstaMiss] : []))
+  // Många missar: de fem första raderna, resten på begäran (per flik).
+  const [heltVisad, setHeltVisad] = useState<{ missar: boolean; alla: boolean }>({ missar: false, alla: false })
   const bas = basFor(p.ritare.kind, p.lage, p.bas)
   const id = useId()
   const radRefs = useRef<(HTMLButtonElement | null)[]>([])
@@ -104,9 +109,14 @@ export default function Genomgangen<U extends RamUppgift>(p: GenomgangenProps<U>
 
   const grupper = p.grupper ?? []
   const rader: ReactNode[] = []
+  const iFliken = utfall.filter((x) => visa === 'alla' || x !== 'ratt').length
+  const kapa = !heltVisad[visa] && iFliken > FORSTA + 1
+  let visade = 0
   p.poster.forEach((post, i) => {
     const u = utfall[i]
     if (visa === 'missar' && u === 'ratt') return
+    if (kapa && visade >= FORSTA) return
+    visade++
     const g = visa === 'alla' ? grupper.find((x) => x.fran === i) : null
     if (g) {
       rader.push(
@@ -121,7 +131,8 @@ export default function Genomgangen<U extends RamUppgift>(p: GenomgangenProps<U>
     const nr = i + 1
     const oppen = oppna.has(i)
     const panelId = `${id}-p${i}`
-    const Mini = ritare.Miniatyr
+    // Underlagets typer: ikonbrickan för underlagets slag, aldrig en beskuren textbit (steg 3b).
+    const Mini = ritare.RadIkon ?? ritare.Miniatyr
     const huvud =
       u === 'ratt'
         ? `Rätt. Du svarade ${post.valt != null ? etikett(post.valt) : rattEt}`
@@ -235,6 +246,16 @@ export default function Genomgangen<U extends RamUppgift>(p: GenomgangenProps<U>
       </li>
     )
   })
+
+  if (kapa) {
+    rader.push(
+      <li key="fler" className="border-t-[1.5px] border-[color:var(--sess-res-radlinje)] px-4 py-2 sm:px-6">
+        <button type="button" className="res-lank text-ink-1" onClick={() => setHeltVisad((h) => ({ ...h, [visa]: true }))} data-lista-visa-alla>
+          {visa === 'missar' ? `Visa alla ${missar} missar` : `Visa alla ${antal} uppgifter`}
+        </button>
+      </li>
+    )
+  }
 
   if (visa === 'missar' && ratt > 0) {
     rader.push(
