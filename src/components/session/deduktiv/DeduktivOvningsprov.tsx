@@ -15,7 +15,8 @@ import { START } from '@/lib/ovningsprov/copy'
 import type { Ovningsformat } from '@/lib/ovningsprov/format'
 import { ovningsResultat } from '@/lib/ovningsprov/resultat'
 import type { DeduktivDel, Ovningsvy } from '@/lib/ovningsprov/typer'
-import { ovningsprovSessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { ovningsprovHref, ovningsprovSessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { provRad, tranaMissatSteg } from '../resultat/nasta'
 import Staplar from '@/components/traning/Staplar'
 import Ovningsprov from '../lagen/Ovningsprov'
 import Resultatskarm from '../Resultatskarm'
@@ -87,7 +88,7 @@ function uppgifterFor(vy: Ovningsvy): DeduktivU[] {
   const per = new Map((vy.delar as DeduktivDel[]).map((d) => [d.id, d]))
   return vy.punkter.flatMap((p) => {
     const d = per.get(p.del)
-    return d ? [{ nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options, platser: d.platser ?? null }] : []
+    return d ? [{ nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options, platser: d.platser ?? null, struktur: d.struktur ?? null }] : []
   })
 }
 
@@ -103,7 +104,7 @@ function poster(vy: Ovningsvy): GenomgangPost<DeduktivU>[] {
         correct: Boolean(g?.korrekt),
         regel: null,
         misstag: g?.misstag ?? null,
-        data: g?.losning ?? null,
+        data: g?.losning ? { ...g.losning, ledNamn: g.ledNamn ?? null } : null,
       },
       tid_s: g?.tid_s ?? null,
     }
@@ -114,9 +115,11 @@ export interface DeduktivOvningsprovProps {
   vy: Ovningsvy
   dagarKvar: number | null
   datum: string | null
+  /** Förra avslutade övningsprovet i typen (omgång 3), null när det saknas. */
+  forra?: { ratt: number; antal: number } | null
 }
 
-export default function DeduktivOvningsprov({ vy, dagarKvar, datum }: DeduktivOvningsprovProps) {
+export default function DeduktivOvningsprov({ vy, dagarKvar, datum, forra = null }: DeduktivOvningsprovProps) {
   return (
     <Ovningsprov<DeduktivU>
       ritare={DEDUKTIV}
@@ -140,6 +143,8 @@ export default function DeduktivOvningsprov({ vy, dagarKvar, datum }: DeduktivOv
             undertitel={undertitel(v.format)}
             datum={datum}
             onStang={ctrl.stang}
+            forra={forra ? { ...forra, namn: 'övningsprovet' } : null}
+            igen={{ text: 'Gör ett nytt övningsprov', href: ovningsprovHref('deduktiv') }}
             ring={{ andel: vm.antal ? vm.ratt / vm.antal : 0, aria: SESSION.resultat.ringAria(vm.ratt, vm.antal) }}
             huvudtal={SESSION.resultat.rattAv(vm.ratt, vm.antal)}
             tal={[
@@ -154,13 +159,14 @@ export default function DeduktivOvningsprov({ vy, dagarKvar, datum }: DeduktivOv
               onGaIgenom: () => ctrl.gaIgenom(missar[0]?.i ?? 0),
               onVisaAlla: missar.length && missar.length < alla.length ? () => ctrl.gaIgenom(0) : null,
             }}
-            tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader } : null}
+            tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader.map((r, i) => ({ ...r, ratt: v.resultat?.tappade[i]?.ratt, antal: v.resultat?.tappade[i]?.antal })) } : null}
             tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
-            nastaSteg={{
-              titel: 'Plan inför provet',
-              text: vm.status,
-              knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' },
-            }}
+            nastaSteg={tranaMissatSteg({
+              monster: v.resultat?.tappade ?? [],
+              typensHref: TRANING_RUTT.deduktivpass,
+              provRad: provRad(dagarKvar),
+              annars: { titel: 'Plan inför provet', text: vm.status, knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' } },
+            })}
             status={null}
             tillbakaHref={TRANING_RUTT.alla}
           />

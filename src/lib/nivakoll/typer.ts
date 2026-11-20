@@ -23,7 +23,7 @@ interface Bas {
 
 export type NivakollUppgift =
   | (Bas & { kind: 'figurserie'; form: SerieForm; rad: V7Cell[]; options: V7Cell[] })
-  | (Bas & { kind: 'deduktiv'; intro: string | null; villkor: string[]; fraga: string; options: string[]; premisser: boolean; platser?: number | null })
+  | (Bas & { kind: 'deduktiv'; intro: string | null; villkor: string[]; fraga: string; options: string[]; premisser: boolean; platser?: number | null; struktur?: import('@/lib/deduktivV1/struktur').DeduktivStruktur | null })
   | (Bas & { kind: 'verbal' | 'numerisk'; underlag: string; text: string; alternativ: { id: string; text: string }[] })
   /** Talserier, spatial förmåga och ordförråd (etapp 6): steg2-motorns visade uppgift, utan facit. */
   | (Bas & { kind: 'talserie' | 'spatial' | 'ordforrad'; v: Record<string, unknown> });
@@ -40,6 +40,8 @@ export interface NivakollGenomgang {
   misstag: string | null;
   /** Deduktivt: lösningsgången och remsan. */
   losning?: DeduktivLosning | null;
+  /** Deduktivt: kedjans namn på leden (omgång 3, steg 2b). */
+  ledNamn?: import('@/lib/deduktivV1/types').DeduktivLedNamn | null;
   /** Talserier, spatial förmåga och ordförråd: steg2-motorns genomgång (regeln och bågarna, uppvikningen, ordets betydelse). */
   data?: unknown;
 }

@@ -107,6 +107,8 @@ export interface VisadDeduktiv {
   options: string[];
   /** Antal platser när uppgiften har en remsa (D2, D3), annars null. Remsan ritas tom i uppgiften (omgång 2, B1). */
   platser?: number | null;
+  /** Villkorens form för bilderna och kladdytorna (omgång 3, steg 2b), utan alternativ och roller. Se struktur.ts. */
+  struktur?: import('./struktur').DeduktivStruktur | null;
 }
 
 /** Uppgiften i genomgången: visad ordning, rätt svar, etiketterna och lösningsgången. */
@@ -119,4 +121,6 @@ export interface GenomgangDeduktiv extends VisadDeduktiv {
   /** Misstaget per visat index, tomt för facit. */
   misstag: string[];
   losning: DeduktivLosning;
+  /** Kedjans namn på leden (omgång 3, steg 2b), bara med facit. */
+  ledNamn?: DeduktivLedNamn | null;
 }

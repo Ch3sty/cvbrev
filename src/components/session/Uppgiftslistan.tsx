@@ -226,7 +226,7 @@ export default function Uppgiftslistan<U extends RamUppgift>(p: UppgiftslistanPr
             <div className="mx-auto flex w-full max-w-[496px] flex-col">
               {UL ? (
                 <div className="mb-3" data-lista-underlag>
-                  <UL.Ritare u={post.u} genomgang />
+                  <UL.Ritare u={post.u} genomgang facitData={post.facit.data} />
                 </div>
               ) : null}
               <Uppgift

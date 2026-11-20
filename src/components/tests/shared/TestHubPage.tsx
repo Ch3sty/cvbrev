@@ -248,6 +248,12 @@ export default function TestHubPage({
   const bast = sessions.reduce<ForsokRad | null>((b, s) => (!b || andel(s) > andel(b) ? s : b), null)
   const bastPoang = bast?.score ?? 0
   const harForsok = sessions.length > 0
+  // Omgång 3: kvotspärrens siffror ur dagens avslutade försök i typen (resultatet
+  // och genomgången). Inget försök i dag i typen: raderna faller bort.
+  const dagens = sessions.find((s) => !!s.completed_at && dagSthlm(s.completed_at) === idag && typeof s.score === 'number') ?? null
+  const dagensSparr = dagens
+    ? { resultat: { ratt: dagens.score ?? 0, antal: totalForSession(config.slug, dagens.meta) || config.totalQuestions }, gaIgenomHref: testPaths.results(config.slug, dagens.id) }
+    : null
 
   const startText = isStarting
     ? TESTSIDA.startar
@@ -334,6 +340,7 @@ export default function TestHubPage({
                 track={track}
                 quota={{ feature: tak.feature, nextResetAt: tak.nextResetAt }}
                 matning={{ test_kind: config.kind, lage: 'nivatest' }}
+                sparrData={dagensSparr}
               />
             ) : null
           }
@@ -413,6 +420,8 @@ export default function TestHubPage({
         <div className="w-full max-w-3xl space-y-4">
           {tak && !isLocked ? (
             <PaywallCard
+              // Provlägets äldre sida står på golvet: kortet, inte väggen.
+              utseende="kort"
               variant="test-tak"
               testTyp={testTypForKind(config.kind)}
               scope={scope}

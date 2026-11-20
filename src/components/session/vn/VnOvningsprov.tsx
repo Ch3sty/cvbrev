@@ -21,7 +21,8 @@ import { antalTid, ordningText, type Ovningsformat } from '@/lib/ovningsprov/for
 import { ovningsResultat } from '@/lib/ovningsprov/resultat'
 import type { NumeriskDel, Ovningsvy, VerbalDel } from '@/lib/ovningsprov/typer'
 import { versal } from '@/lib/traning/copy'
-import { ovningsprovSessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { ovningsprovHref, ovningsprovSessionHref, TRANING_RUTT, vnPassHref } from '@/lib/traning/rutter'
+import { provRad, tranaMissatSteg } from '../resultat/nasta'
 import { VN_TRE, type VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import Staplar from '@/components/traning/Staplar'
 import Ovningsprov from '../lagen/Ovningsprov'
@@ -180,7 +181,7 @@ function poster(vy: Ovningsvy): GenomgangPost<VnU>[] {
   return vnOvningsUppgifter(vy).map((u) => {
     const g = per.get(u.nyckel)
     const valt = indexFor(u, g?.svar ?? null)
-    return { u, valt, facit: vnFacit(u, indexFor(u, g?.ratt) ?? -1, valt, g?.forklaring ?? null), tid_s: g?.tid_s ?? null }
+    return { u, valt, facit: vnFacit(u, indexFor(u, g?.ratt) ?? -1, valt, g?.forklaring ?? null, g?.vnFacit ?? null), tid_s: g?.tid_s ?? null }
   })
 }
 
@@ -188,9 +189,11 @@ export interface VnOvningsprovProps {
   vy: Ovningsvy
   dagarKvar: number | null
   datum: string | null
+  /** Förra avslutade övningsprovet i typen (omgång 3), null när det saknas. */
+  forra?: { ratt: number; antal: number } | null
 }
 
-export default function VnOvningsprov({ vy, dagarKvar, datum }: VnOvningsprovProps) {
+export default function VnOvningsprov({ vy, dagarKvar, datum, forra = null }: VnOvningsprovProps) {
   const kind = vy.typ as VnKind
   const ritare = vnRitare(kind)
   return (
@@ -217,6 +220,8 @@ export default function VnOvningsprov({ vy, dagarKvar, datum }: VnOvningsprovPro
             undertitel={undertitel(v.format)}
             datum={datum}
             onStang={ctrl.stang}
+            forra={forra ? { ...forra, namn: 'övningsprovet' } : null}
+            igen={{ text: 'Gör ett nytt övningsprov', href: ovningsprovHref(kind) }}
             ring={{ andel: vm.antal ? vm.ratt / vm.antal : 0, aria: SESSION.resultat.ringAria(vm.ratt, vm.antal) }}
             huvudtal={SESSION.resultat.rattAv(vm.ratt, vm.antal)}
             tal={[
@@ -232,13 +237,14 @@ export default function VnOvningsprov({ vy, dagarKvar, datum }: VnOvningsprovPro
               onGaIgenom: () => ctrl.gaIgenom(missar[0]?.i ?? 0),
               onVisaAlla: missar.length && missar.length < alla.length ? () => ctrl.gaIgenom(0) : null,
             }}
-            tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader } : null}
+            tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader.map((r, i) => ({ ...r, ratt: v.resultat?.tappade[i]?.ratt, antal: v.resultat?.tappade[i]?.antal })) } : null}
             tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
-            nastaSteg={{
-              titel: 'Plan inför provet',
-              text: vm.status,
-              knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' },
-            }}
+            nastaSteg={tranaMissatSteg({
+              monster: v.resultat?.tappade ?? [],
+              typensHref: vnPassHref(kind),
+              provRad: provRad(dagarKvar),
+              annars: { titel: 'Plan inför provet', text: vm.status, knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' } },
+            })}
             status={null}
             tillbakaHref={TRANING_RUTT.alla}
           />

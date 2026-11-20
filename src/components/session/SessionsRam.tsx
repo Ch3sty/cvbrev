@@ -494,6 +494,14 @@ export default function SessionsRam({
                 </span>
                 <b aria-hidden="true">{nivaText(niva.varde)}</b>
               </span>
+            ) : lage === 'trana' && klocka ? (
+              // Steg 3b, putsning: kapselns plats hålls från första uppgiften, så
+              // att huvudet inte flyttar sig när nivån kommer med första svaret (CLS 0).
+              <span className="sess-kapsel invisible" aria-hidden="true" data-niva-plats="">
+                <NivaPil riktning={null} />
+                <span className="hidden lg:inline">{SESSION.huvud.niva}</span>
+                <b>0,0</b>
+              </span>
             ) : null}
             {klocka ? <span className="flex flex-shrink-0 items-center">{klocka}</span> : null}
           </div>

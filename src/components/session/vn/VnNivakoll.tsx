@@ -18,6 +18,7 @@ import { fetchNivakollApi, type NivakollApi as KollApi } from '@/lib/tester/pass
 import { NIVAKOLL_COPY, nivaMening } from '@/lib/nivakoll/copy'
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import type { NivakollVy } from '@/lib/nivakoll/typer'
+import type { VnFacitData } from '@/lib/tester/pass-typer'
 import { nivaHeltal } from '@/lib/traning/pass-copy'
 import { sessionHref, TRANING_RUTT, vnPassHref } from '@/lib/traning/rutter'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
@@ -63,7 +64,7 @@ export function lasVnNivakoll(vy: NivakollVy): NivakollSession<VnU> {
     for (const u of uppgifter) {
       const g = vy.genomgang[u.nyckel]
       if (!g) continue
-      facit[u.nyckel] = vnFacit(u, indexFor(u, g.ratt) ?? -1, indexFor(u, g.valt), g.forklaring)
+      facit[u.nyckel] = vnFacit(u, indexFor(u, g.ratt) ?? -1, indexFor(u, g.valt), g.forklaring, (g.data as VnFacitData | null | undefined) ?? null)
     }
   }
   return { id: vy.id, uppgifter, besvarade, facit, avslutad: vy.avslutad, harResultat: Boolean(vy.resultat), budgetPerUppgift: vy.budget_s }

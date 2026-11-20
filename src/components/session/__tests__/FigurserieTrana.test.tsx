@@ -131,8 +131,9 @@ describe('Träna figurserier i ramen', () => {
     await screen.findByText('Träningen klar')
     expect(document.querySelector('[data-resultatskarm="trana"]')).toBeTruthy()
 
-    // Gå igenom öppnar genomgången i ramen.
-    fireEvent.click(document.querySelector('[data-ga-igenom]')!)
+    // Målgången (omgång 3): "Se uppgiften" vid det du missade öppnar genomgången i ramen.
+    expect(document.querySelector('[data-resultat-v3="malgang"]')).toBeTruthy()
+    fireEvent.click(document.querySelector('[data-resultat-se-uppgiften]')!)
     await waitFor(() => expect(document.querySelector('[data-genomgang-post]')).toBeTruthy())
     expect(screen.getByText('Träna, genomgång')).toBeTruthy()
   })

@@ -15,6 +15,7 @@ import { PROV_MERGED_BANK as VERBAL_ALLA } from '@/lib/verbalTestProv/selectProv
 import { PROV_MERGED_BANK as NUM_ALLA } from '@/lib/numericalTestProv/selectProv';
 import { alternativSeed, blandaAlternativ } from '@/lib/logicTestV7/blanda';
 import { visningstitel } from './titel';
+import type { NumeriskLosning } from '@/lib/numericalTest/types';
 import {
   VERBALA_SVAR,
   VN_FAMILJER,
@@ -22,6 +23,7 @@ import {
   type VnKind,
   type VnNiva,
   type VnPunkt,
+  type VnFacitData,
   type VnUnderlag,
 } from './pass-typer';
 
@@ -30,6 +32,9 @@ export interface VerbalPastaende {
   correctAnswer: string;
   explanation?: string;
   typ?: string;
+  /** Omgång 3: meningarna i texten som avgör påståendet, och den närmaste som inte räcker. */
+  stod?: string[];
+  narmast?: string;
 }
 export interface VerbalText {
   id: string;
@@ -50,6 +55,10 @@ export interface NumFraga {
   options: NumAlternativ[];
   correctAnswerId: string;
   explanation?: string;
+  /** Omgång 3: räknevägen och vad frågan använder i underlaget. */
+  losning?: NumeriskLosning;
+  /** Verbalt expert: meningarna som avgör svaret. */
+  stod?: string[];
 }
 export interface NumUnderlag {
   id: string;
@@ -184,6 +193,20 @@ export function nycklarFor(kind: VnKind, id: string): string[] {
 }
 
 /**
+ * Det strukturerade facit för en uppgift (omgång 3, steg 2b): bara fält som
+ * finns i banken, null när inget finns. Avslöjar svaret, så det får bara
+ * följa med rättningen.
+ */
+export function vnFacitData(q: { losning?: NumeriskLosning; stod?: string[]; narmast?: string } | null | undefined): VnFacitData | null {
+  if (!q) return null;
+  const ut: VnFacitData = {};
+  if (q.losning && Array.isArray(q.losning.steg)) ut.losning = q.losning;
+  if (Array.isArray(q.stod)) ut.stod = q.stod.filter((s) => typeof s === 'string');
+  if (typeof q.narmast === 'string' && q.narmast.trim()) ut.narmast = q.narmast;
+  return ut.losning || ut.stod?.length || ut.narmast ? ut : null;
+}
+
+/**
  * Rättningen av ett svar: rätt svar, förklaringen och originalindex (för
  * frågestatistiken). Null när nyckeln inte hör till underlaget eller svaret
  * inte är ett giltigt svar.
@@ -194,7 +217,7 @@ export function ratta(
   nyckel: string,
   svar: unknown,
   sessionId: string
-): { correct: boolean; ratt: string; forklaring: string | null; selected: number; visat: number } | null {
+): { correct: boolean; ratt: string; forklaring: string | null; vnFacit: VnFacitData | null; selected: number; visat: number } | null {
   if (typeof svar !== 'string') return null;
   if (kind === 'verbal') {
     const [id, i] = splitNyckel(nyckel);
@@ -202,7 +225,7 @@ export function ratta(
     const s = verbalText(id)?.statements[Number(i)];
     const idx = (VERBALA_SVAR as readonly string[]).indexOf(svar);
     if (!s || idx < 0) return null;
-    return { correct: svar === s.correctAnswer, ratt: s.correctAnswer, forklaring: s.explanation ?? null, selected: idx, visat: idx };
+    return { correct: svar === s.correctAnswer, ratt: s.correctAnswer, forklaring: s.explanation ?? null, vnFacit: vnFacitData(s), selected: idx, visat: idx };
   }
   const q = numUnderlag(underlagId)?.questions.find((x) => x.id === nyckel);
   if (!q) return null;
@@ -213,6 +236,7 @@ export function ratta(
     correct: svar === q.correctAnswerId,
     ratt: q.correctAnswerId,
     forklaring: q.explanation ?? null,
+    vnFacit: vnFacitData(q),
     selected,
     visat: permutation.indexOf(selected),
   };

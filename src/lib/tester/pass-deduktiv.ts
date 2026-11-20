@@ -11,7 +11,7 @@
 // bor i pass-deduktiv.server.ts.
 // =============================================================================
 
-import type { DeduktivFamilj, DeduktivLosning, VisadDeduktiv } from '@/lib/deduktivV1/types';
+import type { DeduktivFamilj, DeduktivLedNamn, DeduktivLosning, VisadDeduktiv } from '@/lib/deduktivV1/types';
 
 export const DEDUKTIVPASS_TEST_TYPE = 'deduktiv-pass';
 export const DEDUKTIV_ANTAL = 4;
@@ -38,6 +38,8 @@ export interface DeduktivAterkoppling {
   /** Hennes val (visat index), null för "Vet inte". */
   valtVisat: number | null;
   losning: DeduktivLosning;
+  /** Kedjans namn på leden (omgång 3, steg 2b). */
+  ledNamn?: DeduktivLedNamn | null;
   /** Misstaget för hennes val, null när rätt eller "Vet inte". */
   misstag: string | null;
   familj: DeduktivFamilj;

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     // Dagens pass är gjort: dagens schemalagda pass_dag2 ska inte gå (alla testtyper sedan 2026-11-10).
     void avbrytSchemalagtPassmejl(a.admin, a.userId);
     // niva_efter (tester v4): nivån efter träningen, null när den inte flyttades eller saknas.
-    return NextResponse.json({ session: r.vy, niva_efter: r.niva_efter ?? null });
+    return NextResponse.json({ session: r.vy, niva_efter: r.niva_efter ?? null, niva_fore: r.niva_fore ?? null });
   } catch (e) {
     return internt(e, 'figurpass/slutfor');
   }

@@ -17,7 +17,7 @@
 // - Alla skrivningar med service role, villkorade på user_id.
 // =============================================================================
 
-import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { uppdateraNivaMedFore } from '@/lib/tester/v4/nivapunkt.server';
 import { uppgiftsNivaForTyp } from '@/lib/tester/v4/uppgiftsniva.server';
 import type { UppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import 'server-only';
@@ -204,7 +204,7 @@ export function vnPassVy(rad: VnRad): VnPassVy | null {
   for (const s of svar) {
     besvarade[s.q_id] = { svar: s.svar, tid_s: s.time_spent };
     const r = ratta(meta.test_kind, meta.underlag_id, s.q_id, s.svar, rad.id);
-    if (r) aterkoppling[s.q_id] = { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring };
+    if (r) aterkoppling[s.q_id] = { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring, ...(r.vnFacit ? { vnFacit: r.vnFacit } : {}) };
   }
   return {
     id: rad.id,
@@ -346,7 +346,7 @@ export async function svaraVnPass(args: {
   return {
     ok: true,
     nyckel: args.nyckel,
-    aterkoppling: { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring },
+    aterkoppling: { correct: r.correct, ratt: r.ratt, forklaring: r.forklaring, ...(r.vnFacit ? { vnFacit: r.vnFacit } : {}) },
     besvarade,
     antal: meta.antal,
     klar: besvarade >= meta.antal,
@@ -357,7 +357,7 @@ export async function svaraVnPass(args: {
 
 /* ------------------------------- Avslutet ---------------------------- */
 
-export type SlutforVnPass = { ok: true; niva_efter?: number | null; vy: VnPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
+export type SlutforVnPass = { ok: true; niva_efter?: number | null; niva_fore?: number | null; vy: VnPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function slutforVnPass(args: { admin: Klient; userId: string; sessionId: string; idag?: Dag }): Promise<SlutforVnPass> {
   const idag = args.idag ?? dagSthlm();
@@ -401,9 +401,10 @@ export async function slutforVnPass(args: { admin: Klient; userId: string; sessi
   const res = (data ?? {}) as { slutford?: boolean };
   if (!res.slutford) return { ok: false, status: 409, fel: 'redan_avslutad' };
   // Tester v4 (A4): nivån efter träningen, för grafen. Upprepade underlag räknas inte.
-  const nivaEfter = meta.typ === 'pass'
-    ? await uppdateraNivaEfterTraning({ admin: args.admin, userId: args.userId, kind: meta.test_kind, sessionId: rad.id, svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })), idag })
+  const nivan = meta.typ === 'pass'
+    ? await uppdateraNivaMedFore({ admin: args.admin, userId: args.userId, kind: meta.test_kind, sessionId: rad.id, svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })), idag })
     : null;
+  const nivaEfter = nivan?.efter ?? null;
 
   void captureServer(meta.typ === 'riktat' ? 'riktat_klart' : 'pass_klart', args.userId, {
     test_kind: meta.test_kind,
@@ -424,7 +425,7 @@ export async function slutforVnPass(args: { admin: Klient; userId: string; sessi
 
   const efter = await hamtaVnPass(args.admin, args.userId, rad.id);
   const vy = efter ? vnPassVy(efter) : null;
-  return vy ? { ok: true, vy, niva_efter: nivaEfter } : { ok: false, status: 404, fel: 'session_saknas' };
+  return vy ? { ok: true, vy, niva_efter: nivaEfter, niva_fore: nivan?.fore ?? null } : { ok: false, status: 404, fel: 'session_saknas' };
 }
 
 /* ------------------------------- Hemvyn ------------------------------ */

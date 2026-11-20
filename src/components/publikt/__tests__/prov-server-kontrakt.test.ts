@@ -93,7 +93,7 @@ import { artikelUppgift, valjProv, genomgaProv, rattaSvar } from '@/lib/tests/pr
 import { SMAKPROV_PASTAENDEN } from '@/lib/personlighet/smakprov-pastaenden'
 import { registerIngang, smakprovUrParams } from '@/components/registrering/intent'
 
-const FACIT = /correctAnswer|correctAnswerId|"rattVisat"|"regel"|"rule"|"explanation"|"forklaring"|"losning"|"misstag"|"genomgang"|"correct"/
+const FACIT = /correctAnswer|correctAnswerId|"rattVisat"|"regel"|"rule"|"explanation"|"forklaring"|"losning"|"misstag"|"genomgang"|"correct"|"stod":|"narmast":|"slutsats":|"anvander":|"termnamn":|"atomnamn":|"ledNamn":|"vnFacit":|"roller":|"formell":/
 
 function req(body?: unknown) {
   return new Request('http://localhost/api', {

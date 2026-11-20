@@ -21,7 +21,7 @@
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 import type { GenomgangUppgift, ProvTyp, PublikUppgift } from '@/lib/tests/prov-typer'
-import type { VnUnderlag } from '@/lib/tester/pass-typer'
+import type { VnFacitData, VnUnderlag } from '@/lib/tester/pass-typer'
 import type { NivakollUppgift } from '@/lib/nivakoll/typer'
 import type { Rutnat } from '@/lib/tests/prova-lokalt'
 import { MATRIS, type MatrisU } from '@/components/session/typer/Matris'
@@ -115,7 +115,7 @@ export function franPublika(uppgifter: readonly PublikUppgift[], underlag: Recor
       ut.push({ ritare: FIGURSERIE, u: { nyckel: p.nyckel, form: d.form, rad: d.rad as V7Cell[], options: d.options as V7Cell[] }, varde: (i) => String(i) })
     } else if (p.kind === 'deduktiv') {
       const d = p.data as Extract<NivakollUppgift, { kind: 'deduktiv' }>
-      ut.push({ ritare: DEDUKTIV, u: { nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options }, varde: (i) => String(i) })
+      ut.push({ ritare: DEDUKTIV, u: { nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options, platser: d.platser ?? null, struktur: d.struktur ?? null }, varde: (i) => String(i) })
     } else if (p.kind === 'verbal' || p.kind === 'numerisk') {
       const u = vn.get(p.nyckel)
       if (u) ut.push({ ritare: vnRitare(p.kind), u, varde: (i) => u.alternativ[i]?.id ?? String(i) })
@@ -155,7 +155,7 @@ export function genomgangPoster(uppgifter: readonly GenomgangUppgift[], underlag
     } else if (g.kind === 'verbal' || g.kind === 'numerisk') {
       const u = p.u as VnU
       valt = indexFor(u, g.genomgang.valt)
-      facit = { ...vnFacit(u, indexFor(u, g.genomgang.ratt) ?? -1, valt, g.genomgang.forklaring), correct: g.genomgang.correct }
+      facit = { ...vnFacit(u, indexFor(u, g.genomgang.ratt) ?? -1, valt, g.genomgang.forklaring, (g.genomgang.data as VnFacitData | null | undefined) ?? null), correct: g.genomgang.correct }
     } else {
       valt = g.genomgang.valt == null ? null : Number(g.genomgang.valt)
       if (valt !== null && !Number.isFinite(valt)) valt = null
@@ -165,6 +165,8 @@ export function genomgangPoster(uppgifter: readonly GenomgangUppgift[], underlag
         regel: g.kind === 'figurserie' ? g.genomgang.forklaring : null,
         misstag: g.genomgang.misstag,
         detalj: g.kind === 'deduktiv' && g.genomgang.losning ? <Losningsgang losning={g.genomgang.losning} /> : null,
+        // Omgång 3 steg 2b: lösningen som typens data, så att villkorskortet fyller platserna och kedjan.
+        ...(g.kind === 'deduktiv' && g.genomgang.losning ? { data: { ...g.genomgang.losning, ledNamn: g.genomgang.ledNamn ?? null } } : {}),
       }
     }
     ut.push({ u: p.u, valt, facit, ritare: p.ritare })

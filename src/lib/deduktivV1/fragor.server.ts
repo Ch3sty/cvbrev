@@ -13,6 +13,7 @@
 import { arBlandad, BLANDAD_META, permutationForSession, tillOriginal, tillVisat } from '@/lib/logicTestV7/blanda';
 import { allaFragor, deduktivVersion, valjFragor, FRAGOR_PER_SESSION, DEDUKTIV_VERSION, TIDSGRANS_S } from './select';
 import type { DeduktivFraga, DeduktivNiva, GenomgangDeduktiv, VisadDeduktiv } from './types';
+import { deduktivLedNamn, deduktivStruktur } from './struktur';
 
 export const DEDUKTIV_TEST_TYPER = ['deduktiv-grund', 'deduktiv-avancerad', 'deduktiv-expert'] as const;
 export type DeduktivTestTyp = (typeof DEDUKTIV_TEST_TYPER)[number];
@@ -37,7 +38,7 @@ const perm = (q: DeduktivFraga, sessionId: string, blandade: boolean) => permuta
 
 export function visaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: boolean): VisadDeduktiv {
   const p = perm(q, sessionId, blandade);
-  return { id: q.id, difficulty: q.difficulty, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: p.map((o) => q.options[o]), platser: q.losning.schema?.namn.length ?? null };
+  return { id: q.id, difficulty: q.difficulty, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: p.map((o) => q.options[o]), platser: q.losning.schema?.namn.length ?? null, struktur: deduktivStruktur(q.formell) };
 }
 
 export function genomgaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: boolean): GenomgangDeduktiv {
@@ -50,6 +51,7 @@ export function genomgaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: b
     etiketter: p.map((o) => q.etiketter[o] ?? ''),
     misstag: p.map((o) => q.misstag[o] ?? ''),
     losning: q.losning,
+    ledNamn: deduktivLedNamn(q.formell),
   };
 }
 

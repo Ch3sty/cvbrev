@@ -20,7 +20,7 @@
 // - Alla skrivningar med service role, villkorade på user_id.
 // =============================================================================
 
-import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { uppdateraNivaMedFore } from '@/lib/tester/v4/nivapunkt.server';
 import { uppgiftsNivaForTyp } from '@/lib/tester/v4/uppgiftsniva.server';
 import type { UppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import 'server-only';
@@ -143,6 +143,7 @@ function aterkopplingFor(rad: DeduktivRad, s: DeduktivSvar): DeduktivAterkopplin
     rattVisat: g.rattVisat,
     valtVisat: s.visat,
     losning: g.losning,
+    ledNamn: g.ledNamn ?? null,
     misstag: !s.correct && s.visat !== null ? g.misstag[s.visat] || null : null,
     familj: q.family,
   };
@@ -271,7 +272,7 @@ export async function svaraDeduktivPass(args: {
 
 /* ------------------------------- Avslutet ---------------------------- */
 
-export type SlutforDeduktivPass = { ok: true; niva_efter?: number | null; vy: DeduktivPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
+export type SlutforDeduktivPass = { ok: true; niva_efter?: number | null; niva_fore?: number | null; vy: DeduktivPassVy } | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function slutforDeduktivPass(args: { admin: Klient; userId: string; sessionId: string; idag?: Dag }): Promise<SlutforDeduktivPass> {
   const idag = args.idag ?? dagSthlm();
@@ -308,9 +309,8 @@ export async function slutforDeduktivPass(args: { admin: Klient; userId: string;
   const res = (data ?? {}) as { slutford?: boolean };
   if (!res.slutford) return { ok: false, status: 409, fel: 'redan_avslutad' };
   // Tester v4 (A4): nivån efter träningen, för grafen. Upprepade underlag räknas inte.
-  const nivaEfter = true
-    ? await uppdateraNivaEfterTraning({ admin: args.admin, userId: args.userId, kind: 'deduktiv', sessionId: rad.id, svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })), idag })
-    : null;
+  const nivan = await uppdateraNivaMedFore({ admin: args.admin, userId: args.userId, kind: 'deduktiv', sessionId: rad.id, svar: svar.map((s) => ({ q_id: s.q_id, correct: s.correct, raknas: !meta.upprepad })), idag });
+  const nivaEfter = nivan.efter;
 
   void captureServer('pass_klart', args.userId, {
     test_kind: 'deduktiv',
@@ -331,5 +331,5 @@ export async function slutforDeduktivPass(args: { admin: Klient; userId: string;
 
   const efter = await hamtaDeduktivPass(args.admin, args.userId, rad.id);
   const vy = efter ? deduktivPassVy(efter) : null;
-  return vy ? { ok: true, vy, niva_efter: nivaEfter } : { ok: false, status: 404, fel: 'session_saknas' };
+  return vy ? { ok: true, vy, niva_efter: nivaEfter, niva_fore: nivan.fore } : { ok: false, status: 404, fel: 'session_saknas' };
 }

@@ -63,7 +63,8 @@ export interface TypRitare<U extends RamUppgift> {
    */
   underlag?: {
     nyckel: (u: U) => string
-    Ritare: ComponentType<{ u: U; genomgang?: boolean }>
+    /** `facitData`: RamFacit.data efter facit (omgång 3 steg 2b), för markeringar i underlaget. */
+    Ritare: ComponentType<{ u: U; genomgang?: boolean; facitData?: unknown }>
   }
   /** Uppgiftsarkets mellanrubriker, till exempel textens rubrik i verbalt. */
   arkGrupper?: (uppgifter: U[]) => { fran: number; rubrik: string }[]
@@ -76,6 +77,12 @@ export interface TypRitare<U extends RamUppgift> {
    * står utan miniatyr.
    */
   Miniatyr?: ComponentType<{ u: U }>
+  /**
+   * Resultatsidans genomgång (omgång 3 steg 3b): underlagets slag som ikonbricka
+   * (tabell, diagram, textuppgift, artikel, villkor) i stället för Miniatyr för
+   * typerna med underlag. Utelämnad: Miniatyr.
+   */
+  RadIkon?: ComponentType<{ u: U }>
   /** Svarets namn i Uppgiftslistan ("B, rätt C"). Utelämnad: bokstaven A till F. De tre fasta: "Sant", "Falskt". */
   svarEtikett?: (u: U, i: number) => string
   /**

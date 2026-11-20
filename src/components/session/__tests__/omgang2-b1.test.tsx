@@ -105,12 +105,13 @@ describe('ord och text: texten som dokument', () => {
   it('metaraden räknar stycken och lästid', () => {
     expect(lasMeta(['a b c', 'd', 'e'])).toBe('3 stycken, cirka 1 minut')
     expect(lasMeta([Array(500).fill('ord').join(' ')])).toBe('1 stycke, cirka 3 minuter')
+    // Omgång 3 steg 2b: lästiden står som bricka (skissen Test-ord).
     render(<VnUnderlag u={u} />)
-    expect(screen.getByText('3 stycken, cirka 1 minut')).toBeTruthy()
+    expect(screen.getByText('under 1 minut')).toBeTruthy()
   })
-  it('hjälpraden om den tredje knappen står under de tre', () => {
+  it('de tre svaren har förklaringen under ordet (omgång 3 steg 2b, skissen Test-ord)', () => {
     render(<VnUppgift u={u} nr={1} antal={4} vald={null} facit={null} last={false} onValj={() => {}} />)
-    expect(screen.getByText('Går inte att avgöra: texten säger varken det ena eller det andra.')).toBeTruthy()
+    expect(screen.getByText('Texten säger varken eller')).toBeTruthy()
   })
 })
 

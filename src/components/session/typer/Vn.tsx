@@ -2,33 +2,37 @@
 
 /**
  * Ord och text och Siffror och tabeller i ramen (plan-testflode-2026-11-20
- * avsnitt 3.5 och 3.6, etapp 2). Samma uppgift i alla lägen och nivåer.
+ * avsnitt 3.5 och 3.6; omgång 3 steg 2b, skissens Test-ord,
+ * Test-ord-argument, Mobil-ord, Mobil-ord-facit och Test-siffror*).
  *
- *   Underlaget  texten, argumentet eller tabellen och diagrammet. Ramen
- *               ritar det i egen spalt till vänster på dator (Bred, 560)
- *               och fäst överst på mobil, med egen rullning: 42 vh för
- *               text, 44 vh för siffror. Det står kvar medan uppgifterna
- *               i samma underlag byts.
- *   Uppgiften   eyebrow "PÅSTÅENDE 2 AV 4 OM TEXTEN", påståendet i display
- *               20/28 (frågan om siffror 24/30 från lg, 28/34 från xl), sedan svaren: tre
- *               lika breda knappar (Sant, Falskt, Går inte att avgöra) med
- *               hjälpraden om den tredje under, eller rader A till D.
- *
- * Omgång 2 B1 (skisserna Ord-uppgift, Ord-412, Siffror-tabell och
- * Siffror-diagram-facit): texten som dokument, datatabellen och diagrammen
- * med y-axel i VnDiagram, miniatyrerna i Uppgiftslistan. Svaren syns utan
- * att rulla i utgångsläget på dator 1440 × 900 och på Pixel 7.
+ *   Underlaget  papperet: artikeln (ämnet och lästiden som brickor, rubriken
+ *               med kopparstreck, brödtexten 18/30) eller argumentet, och
+ *               siffrornas papper med mörkt huvud (Siffror.tsx). Ramen
+ *               ritar det i egen spalt på dator och fäst överst på mobil,
+ *               med egen rullning: 42 vh för text, 44 vh för siffror.
+ *   Uppgiften   ord och text: påståendet i ett mörkt kort, de tre svaren
+ *               som klossar med ikon och förklaring ("Texten säger det"),
+ *               argumentets fyra svar som rader. Siffror: frågan i display,
+ *               svaren som sifferklossar två och två.
+ *   Facit       stödmeningarna (stod) markeras i texten med "Här står det";
+ *               vid "Går inte att avgöra" får den närmaste meningen
+ *               (narmast) en streckad linje och "Räcker inte". Siffrornas
+ *               underlag tänder det räkningen bygger på (anvander), och
+ *               räknevägen står i domen (TypRitare.Forklaring). Saknas
+ *               fälten står förklaringen ensam, som förut.
  */
 
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
 import { visningstitel } from '@/lib/tester/titel'
 import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import type { VnVisadUppgift, VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
-import { BOKSTAV, SvarRad, TreFasta, tillstandFor } from '../Svarskort'
-import type { RamUppgift, TypRitare, UppgiftProps } from '../typ'
-import VnDiagram from './VnDiagram'
+import { BOKSTAV, SvarRad, SvarTal, Pill, tillstandFor, type Tillstand } from '../Svarskort'
+import type { ForklaringInnehallProps, RamUppgift, TypRitare, UppgiftProps } from '../typ'
+import { delaRubrik, hardaMellanrum, lasVnData, Raknevag, SifferInnehall, sifferOm, SlagIkon, slagFor, type VnData } from './Siffror'
 import s from './vn.module.css'
+
+export { delaRubrik }
 
 export interface VnU extends RamUppgift {
   kind: 'verbal' | 'numerisk'
@@ -49,16 +53,24 @@ export function tillVnU(kind: 'verbal' | 'numerisk', u: VnVisadUppgift, underlag
 
 const VN_ORD = {
   pastaende: (n: number, av: number) => `Påstående ${n} av ${av} om texten`,
-  uppgiftText: (n: number, av: number) => `Uppgift ${n} av ${av} om texten`,
-  uppgiftUnderlag: (n: number, av: number) => `Uppgift ${n} av ${av} om underlaget`,
-  raknare: 'Räknare tillåten',
+  argument: (n: number, av: number) => `Fråga ${n} av ${av} om argumentet`,
+  uppgiftText: (n: number, av: number) => `Fråga ${n} av ${av} om texten`,
+  fraga: (n: number, av: number, om: string) => `Fråga ${n} av ${av} om ${om}`,
   svarAria: 'Ditt svar',
-  rullaText: 'Texten fortsätter, rulla i rutan.',
   fortsatter: 'Texten fortsätter',
-  gatInte: 'Går inte att avgöra: texten säger varken det ena eller det andra.',
+  harStarDet: 'Här står det',
+  rackerInte: 'Räcker inte',
+  argumentChip: 'Argument',
 }
 
-/** Bankernas äldre ämnen står på engelska; eyebrowen säger dem på svenska. */
+/** De tre svaren med skissens förklaring under ordet. */
+const TRE_UNDER: Record<string, string> = {
+  true: 'Texten säger det',
+  false: 'Texten säger emot',
+  cannot_say: 'Texten säger varken eller',
+}
+
+/** Bankernas äldre ämnen står på engelska; brickan säger dem på svenska. */
 const AMNE_SV: Record<string, string> = {
   'hr policy': 'Personalpolicy',
   'hr strategy': 'Personalstrategi',
@@ -79,7 +91,8 @@ export function amneText(amne: string | null | undefined): string | null {
 }
 
 function eyebrow(u: VnU): string {
-  if (u.kind === 'numerisk') return VN_ORD.uppgiftUnderlag(u.iDel, u.delAntal)
+  if (u.kind === 'numerisk') return VN_ORD.fraga(u.iDel, u.delAntal, sifferOm(u.underlag))
+  if (u.underlag.typ === 'argument') return VN_ORD.argument(u.iDel, u.delAntal)
   return u.form === 'tre' ? VN_ORD.pastaende(u.iDel, u.delAntal) : VN_ORD.uppgiftText(u.iDel, u.delAntal)
 }
 
@@ -102,16 +115,10 @@ function useMerUnder(ref: React.RefObject<HTMLElement | null>) {
   return mer
 }
 
-/** "Yta (kvm)" blir rubriken "Yta" med enheten "kvm" på egen rad. */
-export function delaRubrik(h: string): { namn: string; enhet: string | null } {
-  const m = /^(.*\S)\s*\(([^()]+)\)\s*$/.exec(h.trim())
-  return m ? { namn: m[1], enhet: m[2] } : { namn: h.trim(), enhet: null }
-}
-
 /**
  * Kontexten delad i inledning och sifferfakta (skissen Siffror-tabell): den
  * första meningen och meningarna utan siffror står över tabellen, meningarna
- * med siffror i raden under den. Ordagrant ur banken, ingenting skrivs om.
+ * med siffror under den som Bra att veta. Ordagrant ur banken.
  */
 export function delaKontext(kontext: string): { inledning: string[]; fakta: string | null } {
   const stycken = kontext
@@ -133,86 +140,6 @@ export function delaKontext(kontext: string): { inledning: string[]; fakta: stri
   return { inledning, fakta: fakta.length ? fakta.join(' ') : null }
 }
 
-/** Facits markering i tabellen (form, omgång 2 B1): raden uppgiften gäller och cellerna facit räknar på. */
-export interface TabellMarkering {
-  rad?: number | null
-  celler?: [number, number][]
-}
-
-/**
- * Datatabellen (skissen Siffror-tabell): rubrikraden på papper-2 med enheten
- * på egen rad, första kolumnen vänster i semibold, talen högerställda i
- * tabular-nums 15/22, rader 40 px, varannan rad svagt tonad och rad-hover
- * från 1024 px, summaraden med 2 px kant-stark. Mobil: tabellen rullar i
- * sidled och första kolumnen står kvar.
- */
-function Tabell({ t, visaRubrik, markering = null }: { t: NonNullable<VnVisatUnderlag['tabell']>; visaRubrik: boolean; markering?: TabellMarkering | null }) {
-  const cell = (ri: number, ci: number) => Boolean(markering?.celler?.some(([r, c]) => r === ri && c === ci))
-  const rubriker = t.headers.map(delaRubrik)
-  const enheter = rubriker.some((r) => r.enhet)
-  return (
-    <div className="overflow-x-auto" data-vn-tabell>
-      <table className={`${s.tabell} w-full border-collapse`}>
-        {t.caption ? (
-          <caption className={visaRubrik ? 'caption-top px-4 pb-2 text-left text-[13px] font-semibold leading-[18px] text-ink-1 lg:px-6' : 'sr-only'}>{t.caption}</caption>
-        ) : null}
-        <thead>
-          <tr>
-            {rubriker.map(({ namn, enhet }, i) => {
-              return (
-                <th
-                  key={i}
-                  scope="col"
-                  className={`px-2.5 py-2.5 align-bottom text-[12px] font-semibold leading-4 text-ink-1 first:pl-4 last:pr-4 lg:px-3.5 lg:text-[13px] lg:leading-[18px] lg:first:pl-6 lg:last:pr-6 ${
-                    i === 0 ? 'sticky left-0 z-[1] text-left' : 'text-right'
-                  }`}
-                >
-                  {namn}
-                  {enheter ? <span className="block text-[11px] font-medium leading-4 text-ink-3 lg:text-[12px]">{enhet ?? ' '}</span> : null}
-                </th>
-              )
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {t.rows.map((r, ri) => {
-            const summa = Boolean(t.highlightLastRow) && ri === t.rows.length - 1
-            return (
-              <tr
-                key={ri}
-                className={`h-10 ${summa ? 'border-t-2 border-kant-stark font-semibold' : ''}`}
-                data-summa={summa ? '' : undefined}
-                data-markerad={markering?.rad === ri ? '' : undefined}
-              >
-                {r.map((c, ci) =>
-                  ci === 0 ? (
-                    <th
-                      key={ci}
-                      scope="row"
-                      className="sticky left-0 z-[1] whitespace-nowrap px-2.5 pl-4 text-left text-sm font-semibold leading-5 text-ink-1 lg:px-3.5 lg:pl-6 lg:text-[15px] lg:leading-[22px]"
-                    >
-                      {c}
-                    </th>
-                  ) : (
-                    <td
-                      key={ci}
-                      className={`whitespace-nowrap px-2.5 text-right text-sm leading-5 tabular-nums text-ink-1 last:pr-4 lg:px-3.5 lg:text-[15px] lg:leading-[22px] lg:last:pr-6 ${summa ? 'font-semibold' : 'font-medium'} ${
-                        cell(ri, ci) ? 'rounded-md shadow-[inset_0_0_0_2px_var(--positiv)]' : ''
-                      }`}
-                    >
-                      {c}
-                    </td>
-                  )
-                )}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
 /** "3 stycken, cirka 1 minut": ordantalet vid 200 ord per minut. */
 export function lasMeta(stycken: string[]): string {
   const ord = stycken.join(' ').split(/\s+/).filter(Boolean).length
@@ -220,94 +147,196 @@ export function lasMeta(stycken: string[]): string {
   return `${stycken.length === 1 ? '1 stycke' : `${stycken.length} stycken`}, cirka ${min === 1 ? '1 minut' : `${min} minuter`}`
 }
 
+/** Lästiden i brickan: "under 1 minut" för korta texter, annars "cirka N minuter". */
+export function lastid(stycken: string[]): string {
+  const ord = stycken.join(' ').split(/\s+/).filter(Boolean).length
+  if (ord < 120) return 'under 1 minut'
+  const min = Math.max(1, Math.round(ord / 200))
+  return `cirka ${min === 1 ? '1 minut' : `${min} minuter`}`
+}
+
+/* -------------------------------------------------------- Stödmeningarna */
+
+const norm = (t: string) => t.replace(/\s+/g, ' ').trim()
+
+type Bit = { text: string; slag: null | 'stod' | 'narmast'; tagg?: boolean }
+
 /**
- * Underlaget. Texten som dokument (skissen Ord-uppgift): ämnet som eyebrow,
- * rubriken i display 22/28, metaraden, en hårlinje och brödtexten 18/30 med
- * högst 62 tecken per rad. Siffrorna (Siffror-tabell): eyebrow Tabell eller
- * Diagram, rubriken, inledningen, tabellen kant i kant och sifferfaktaraden.
- * Mobil: egen rullning i rutan med raden "Texten fortsätter" i skuggan.
+ * Styckena delade i bitar med stödmeningarna och den närmaste markerade.
+ * Matchningen tål radbrytningar och dubbla blanksteg, och prövar utan
+ * skiftläge när den exakta inte finns. Hittas en mening inte markeras den
+ * inte; ingenting kastas. Taggen står efter den sista markerade meningen.
  */
-export function VnUnderlag({ u, genomgang = false }: { u: VnU; genomgang?: boolean }) {
+export function markeraStycken(stycken: string[], stod: string[], narmast: string | null): Bit[][] {
+  const traff: { p: number; fran: number; till: number; slag: 'stod' | 'narmast' }[] = []
+  const sok = (mening: string, slag: 'stod' | 'narmast') => {
+    const m = norm(mening)
+    if (m.length < 3) return
+    for (let p = 0; p < stycken.length; p++) {
+      let i = stycken[p].indexOf(m)
+      if (i < 0) i = stycken[p].toLowerCase().indexOf(m.toLowerCase())
+      if (i >= 0) {
+        if (!traff.some((t) => t.p === p && i < t.till && i + m.length > t.fran)) traff.push({ p, fran: i, till: i + m.length, slag })
+        return
+      }
+    }
+  }
+  for (const m of stod) sok(m, 'stod')
+  if (narmast && !stod.length) sok(narmast, 'narmast')
+  traff.sort((a, b) => a.p - b.p || a.fran - b.fran)
+  const sista = traff[traff.length - 1]
+  return stycken.map((st, p) => {
+    const har = traff.filter((t) => t.p === p)
+    const bitar: Bit[] = []
+    let fran = 0
+    for (const t of har) {
+      if (t.fran > fran) bitar.push({ text: st.slice(fran, t.fran), slag: null })
+      bitar.push({ text: st.slice(t.fran, t.till), slag: t.slag, tagg: t === sista })
+      fran = t.till
+    }
+    if (fran < st.length) bitar.push({ text: st.slice(fran), slag: null })
+    return bitar
+  })
+}
+
+function KlockIkon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5.5l3.5 2" />
+    </svg>
+  )
+}
+
+function PratIkon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 5h16v11H9l-5 4z" />
+    </svg>
+  )
+}
+
+/* ------------------------------------------------------------- Underlaget */
+
+/**
+ * Underlaget. Artikeln (skissen Test-ord): ämnet och lästiden som brickor,
+ * rubriken i display med kopparstreck under, brödtexten. Argumentet med
+ * brickan "Argument". Siffrorna: papperet med mörkt huvud (Siffror.tsx).
+ * Mobil: egen rullning i rutan med "Texten fortsätter" nedtill.
+ */
+export function VnUnderlag({ u, genomgang = false, facitData }: { u: VnU; genomgang?: boolean; facitData?: unknown }) {
   const ul = u.underlag
   const ref = useRef<HTMLElement | null>(null)
   const mer = useMerUnder(ref)
   // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h3.
   const Titel = useRubrikTagg() === 'p' ? 'p' : 'h3'
   const text = ul.typ !== 'siffror'
-  // Mobil: 42 vh för text, 44 vh för siffror; dator: se .ruta i vn.module.css.
+  const data = lasVnData(facitData)
   const hojd = text ? 'max-h-[42vh]' : 'max-h-[44vh]'
   const titel = visningstitel(ul.titel)
-  const yta = `${s.ruta} ${hojd} overflow-y-auto overscroll-contain rounded-2xl border border-[color:var(--lyft-kant,var(--kant))] bg-papper shadow-[0_1px_2px_rgba(27,34,70,.05)] outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--fokus,var(--ink-1))]`
+  const yta = `sess-papper ${s.ruta} ${hojd} overflow-y-auto overscroll-contain outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--fokus,var(--ink-1))]`
+
+  const stycken = useMemo(() => (text ? splitIntoParagraphs(ul.text ?? '').map(norm) : []), [text, ul.text])
+  const stod = data?.stod ?? []
+  const narmast = data?.narmast ?? null
+  const bitar = useMemo(() => markeraStycken(stycken, stod, narmast), [stycken, stod, narmast])
+  const harMark = bitar.some((b) => b.some((x) => x.slag))
+
+  // Efter facit: rutan rullar fram till den markerade meningen när den rullar själv (mobil).
+  useEffect(() => {
+    const el = ref.current
+    if (!harMark || !el || el.scrollHeight <= el.clientHeight + 4) return
+    const mark = el.querySelector<HTMLElement>('[data-stod-mening]')
+    if (!mark) return
+    // Bara när meningen inte redan syns helt i rutan.
+    const topp = mark.offsetTop
+    const botten = topp + mark.offsetHeight
+    if (topp >= el.scrollTop && botten <= el.scrollTop + el.clientHeight - 40) return
+    const lugn = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    el.scrollTo({ top: Math.max(0, topp - 56), behavior: lugn ? 'auto' : 'smooth' })
+  }, [harMark])
+
   if (text) {
-    const stycken = splitIntoParagraphs(ul.text ?? '')
+    const argument = ul.typ === 'argument'
+    const amne = argument ? null : amneText(ul.amne)
     return (
       <div className="relative" data-vn-underlag={ul.typ}>
-        <article ref={ref} aria-label={titel} tabIndex={0} className={yta} data-genomgang={genomgang ? '' : undefined}>
-          <div className="px-[18px] pt-3.5 lg:px-9 lg:pt-7">
-            <p className="text-ey uppercase text-ink-3">{amneText(ul.amne) ?? 'Texten'}</p>
-            <Titel className="mt-1.5 font-sess-display text-[20px] font-bold leading-[26px] tracking-[-.01em] text-ink-1 lg:text-[22px] lg:leading-7">{titel}</Titel>
-            <p className="mt-1 text-[13px] leading-[18px] text-ink-3" data-vn-meta>
-              {lasMeta(stycken)}
-            </p>
-            <hr className="mt-3 border-0 border-t border-kant lg:mt-[18px]" />
-          </div>
-          <div className="space-y-3 px-[18px] pb-4 pt-3 text-base leading-[26px] text-ink-1 lg:space-y-3.5 lg:px-9 lg:pb-7 lg:pt-5 lg:text-[18px] lg:leading-[30px]">
-            {stycken.map((p, i) => (
-              <p key={i} className="max-w-[62ch]">
-                {p}
-              </p>
-            ))}
+        <article ref={ref} aria-label={titel} tabIndex={0} className={`${yta} relative`} data-genomgang={genomgang ? '' : undefined}>
+          <div className="px-[18px] pb-5 pt-4 lg:px-10 lg:pb-[34px] lg:pt-[30px]">
+            <div className="flex flex-wrap items-center gap-2">
+              {argument ? (
+                <span className="sess-chip">
+                  <PratIkon />
+                  {VN_ORD.argumentChip}
+                </span>
+              ) : amne ? (
+                <span className="sess-chip">{amne}</span>
+              ) : null}
+              <span className="sess-chip" data-vn-meta>
+                <KlockIkon />
+                {lastid(stycken)}
+              </span>
+            </div>
+            <Titel className="mt-3 font-sess-display text-[24px] font-extrabold leading-[30px] tracking-[-.02em] text-ink-1 lg:mt-3.5 lg:text-[34px] lg:leading-10">{titel}</Titel>
+            <div className="sess-artikel-streck mt-2.5 lg:mt-3.5" aria-hidden="true" />
+            <div className="mt-3 space-y-3 text-base leading-[28px] text-ink-1 lg:mt-3.5 lg:space-y-3.5 lg:text-[18px] lg:leading-[30px]">
+              {bitar.map((st, i) => (
+                <p key={i} className="m-0 max-w-[64ch]">
+                  {st.map((b, j) =>
+                    b.slag === 'stod' ? (
+                      <Fragment key={j}>
+                        <mark className="sess-stod" data-stod-mening="stod">
+                          {b.text}
+                        </mark>
+                        {b.tagg ? <span className="sess-har">{VN_ORD.harStarDet}</span> : null}
+                      </Fragment>
+                    ) : b.slag === 'narmast' ? (
+                      <Fragment key={j}>
+                        <span className="sess-narmast" data-stod-mening="narmast">
+                          {b.text}
+                        </span>
+                        {b.tagg ? (
+                          <span className="sess-har" data-narmast>
+                            {VN_ORD.rackerInte}
+                          </span>
+                        ) : null}
+                      </Fragment>
+                    ) : (
+                      <Fragment key={j}>{b.text}</Fragment>
+                    )
+                  )}
+                </p>
+              ))}
+            </div>
           </div>
         </article>
         {mer ? (
-          <div
-            className={`${s.skugga} pointer-events-none absolute inset-x-px bottom-px flex h-14 items-end justify-center rounded-b-2xl pb-2 text-[12px] leading-4 text-ink-3`}
-            aria-hidden="true"
-            data-vn-fortsatter
-          >
-            <span className="lg:hidden">{VN_ORD.fortsatter}</span>
+          <div className={`${s.skugga} pointer-events-none absolute inset-x-[2px] bottom-[7px] flex h-14 items-end justify-center rounded-b-[22px] pb-2.5`} aria-hidden="true" data-vn-fortsatter>
+            <span className="sess-fortsatter lg:hidden">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+              {VN_ORD.fortsatter}
+            </span>
           </div>
         ) : null}
       </div>
     )
   }
-  const { inledning, fakta } = ul.kontext && (ul.tabell || ul.diagram) ? delaKontext(ul.kontext) : { inledning: ul.kontext ? [ul.kontext] : [], fakta: null }
-  const slag = ul.tabell && ul.diagram ? 'Tabell och diagram' : ul.tabell ? 'Tabell' : ul.diagram ? 'Diagram' : 'Underlaget'
+  // Bra att veta (skissen Test-siffror) bär korta sifferfakta; långa meningar står kvar i inledningen.
+  const delad = ul.kontext && (ul.tabell || ul.diagram) ? delaKontext(ul.kontext) : null
+  const korta = delad?.fakta ? delad.fakta.split(/(?<=[.!?])s+/).every((f) => f.trim().length <= 48) : false
+  const { inledning, fakta } = delad && korta ? delad : { inledning: ul.kontext ? [ul.kontext] : [], fakta: null }
   return (
     <div className="relative" data-vn-underlag={ul.typ}>
       <section ref={ref} aria-label={titel} tabIndex={0} className={yta} data-genomgang={genomgang ? '' : undefined}>
-        <div className="flex items-baseline justify-between gap-3 px-4 pb-2 pt-3.5 lg:px-6 lg:pb-3 lg:pt-5">
-          <div className="min-w-0">
-            <p className="text-ey uppercase text-ink-3">{slag}</p>
-            <Titel className="mt-1 font-sess-display text-[18px] font-bold leading-6 tracking-[-.01em] text-ink-1 lg:text-[20px] lg:leading-[26px]">{titel}</Titel>
-          </div>
-          <span className="flex-shrink-0 text-[12px] leading-4 text-ink-3">{VN_ORD.raknare}</span>
-        </div>
-        {inledning.length ? (
-          <div className="space-y-2 px-4 pb-3 text-sm leading-[21px] text-ink-2 lg:px-6 lg:pb-3.5 lg:text-[15px] lg:leading-[22px]">
-            {inledning.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        ) : null}
-        {ul.tabell ? <Tabell t={ul.tabell} visaRubrik={Boolean(ul.tabell.caption && ul.tabell.caption.trim() !== titel.trim())} /> : null}
-        {ul.diagram ? (
-          <div className={`px-4 pb-2 lg:px-6 ${ul.tabell ? 'pt-4' : ''}`}>
-            <VnDiagram config={ul.diagram} />
-          </div>
-        ) : null}
-        {fakta ? (
-          <p className="m-0 border-t border-kant px-4 pb-4 pt-3 text-[13px] leading-[18px] text-ink-3 lg:px-6" data-vn-fakta>
-            {fakta}
-          </p>
-        ) : (
-          <div className="h-2 lg:h-3" aria-hidden="true" />
-        )}
+        <SifferInnehall ul={ul} reservTitel={titel} inledning={inledning} fakta={fakta} data={data} Titel={Titel} />
       </section>
-      {mer ? <div className={`${s.skugga} pointer-events-none absolute inset-x-px bottom-px h-10 rounded-b-2xl`} aria-hidden="true" /> : null}
     </div>
   )
 }
+
+/* -------------------------------------------------------------- Uppgiften */
 
 /** S, F och G för Sant, Falskt och Går inte att avgöra (avsnitt 1, Tangentbord). */
 function useSfg(aktiv: boolean, onValj?: (i: number) => void) {
@@ -330,45 +359,140 @@ function useSfg(aktiv: boolean, onValj?: (i: number) => void) {
   }, [aktiv])
 }
 
+function TreIkon({ id }: { id: string }) {
+  if (id === 'true')
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 12.5l5 5L20 6.5" />
+      </svg>
+    )
+  if (id === 'false')
+    return (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    )
+  return <span className="font-sess-display text-[17px] font-extrabold leading-none lg:text-[20px]">?</span>
+}
+
+/**
+ * De tre svaren (skissen Test-ord och Mobil-ord): klossar på var sin rad med
+ * ikonbrickan, ordet och förklaringen under, etiketten till höger efter facit.
+ */
+function TreRader({ u, vald, facit, efterFel, onValj, disabled }: { u: VnU; vald: number | null; facit: number | null; efterFel?: boolean; onValj?: (i: number) => void; disabled: boolean }) {
+  return (
+    <div role="radiogroup" aria-label={VN_ORD.svarAria} className="flex flex-col gap-2 lg:gap-2.5" data-vn-tre>
+      {u.alternativ.map((a, i) => {
+        const t: Tillstand = tillstandFor(i, vald, facit)
+        const ditt = facit != null && vald === i
+        return (
+          <button
+            key={a.id}
+            type="button"
+            role="radio"
+            aria-checked={t === 'vald' || t === 'fel' || (t === 'ratt' && ditt)}
+            disabled={disabled}
+            onClick={() => onValj?.(i)}
+            data-tillstand={t}
+            data-efter-fel={efterFel && t === 'ratt' ? '' : undefined}
+            data-svar={BOKSTAV(i)}
+            className="sess-kloss touch-manipulation isolate flex min-h-[52px] w-full items-center gap-3 px-3 py-2 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default lg:min-h-[66px] lg:gap-3.5 lg:px-4 lg:py-2.5"
+          >
+            <span aria-hidden="true" className="sess-tangent" data-ikon="" data-tangent={t === 'dampad' ? 'neutral' : t}>
+              <TreIkon id={a.id} />
+            </span>
+            <span className="flex min-w-0 flex-1 flex-col">
+              <b className="text-[15px] font-bold leading-5 lg:text-[17px] lg:leading-[22px]">{a.text}</b>
+              {TRE_UNDER[a.id] ? <small className="text-[12px] font-medium leading-4 text-[color:var(--sess-ink-2)] lg:text-[13px] lg:leading-[18px]">{TRE_UNDER[a.id]}</small> : null}
+            </span>
+            <Pill tillstand={t} ditt={ditt} />
+            {t === 'ratt' || t === 'fel' ? <span className="sr-only">{t === 'fel' ? ', ditt svar' : ditt ? ', rätt, ditt svar' : ', rätt svar'}</span> : null}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftProps<VnU>) {
   useSfg(u.form === 'tre' && !last && Boolean(onValj), onValj)
   // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
   const Rubrik = useRubrikTagg()
+  if (u.kind === 'verbal') {
+    return (
+      <div className="flex flex-col gap-3 lg:gap-[18px]" data-vn-uppgift={u.nyckel}>
+        <div className="sess-pastaende">
+          <p className="text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-[color:var(--sess-ogon-mork)] lg:text-[12px]">{eyebrow(u)}</p>
+          <Rubrik
+            tabIndex={-1}
+            data-uppgift-rubrik
+            className="mt-1 font-sess-display text-[18px] font-bold leading-6 outline-none [text-wrap:pretty] lg:mt-2 lg:text-[23px] lg:leading-[30px]"
+          >
+            {u.text}
+          </Rubrik>
+        </div>
+        {u.form === 'tre' ? (
+          <TreRader u={u} vald={vald} facit={facit} efterFel={efterFel} onValj={onValj} disabled={last} />
+        ) : (
+          <div role="radiogroup" aria-label={VN_ORD.svarAria} className="flex flex-col gap-2 lg:gap-2.5">
+            {u.alternativ.map((a, i) => (
+              <SvarRad key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
+                {a.text}
+              </SvarRad>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
   return (
-    <div className="flex flex-col gap-4" data-vn-uppgift={u.nyckel}>
+    <div className="flex flex-col gap-3 lg:gap-5" data-vn-uppgift={u.nyckel}>
       <div>
         <p className="text-ey uppercase text-ink-3">{eyebrow(u)}</p>
         <Rubrik
           tabIndex={-1}
           data-uppgift-rubrik
-          className={`mt-2 font-sess-display font-bold text-ink-1 outline-none [text-wrap:pretty] ${u.kind === 'numerisk' ? 'text-[20px] leading-[26px] lg:text-[24px] lg:leading-[30px] xl:text-[28px] xl:leading-[34px]' : 'text-[20px] leading-7'}`}
+          className="mt-1 font-sess-display text-[21px] font-extrabold leading-[26px] tracking-[-.01em] text-ink-1 outline-none [text-wrap:balance] lg:mt-2 lg:text-[24px] lg:leading-[30px] xl:text-[28px] xl:leading-[34px]"
         >
-          {u.text}
+          {hardaMellanrum(u.text)}
         </Rubrik>
       </div>
-      {u.form === 'tre' ? (
-        <div>
-          <TreFasta
-            etiketter={[u.alternativ[0]?.text ?? 'Sant', u.alternativ[1]?.text ?? 'Falskt', u.alternativ[2]?.text ?? 'Går inte att avgöra']}
-            vald={vald}
-            facit={facit}
-            onValj={onValj}
-            disabled={last}
-          />
-          <p className="mt-2.5 text-[13px] leading-[18px] text-ink-3" data-vn-hjalp>
-            {VN_ORD.gatInte}
-          </p>
-        </div>
-      ) : (
-        <div role="radiogroup" aria-label={VN_ORD.svarAria} className="flex flex-col gap-2">
-          {u.alternativ.map((a, i) => (
-            <SvarRad key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
-              <span className="tabular-nums">{a.text}</span>
-            </SvarRad>
-          ))}
-        </div>
-      )}
+      <div role="radiogroup" aria-label={VN_ORD.svarAria} className="grid grid-cols-2 gap-2.5 lg:gap-3">
+        {u.alternativ.map((a, i) => (
+          <SvarTal key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
+            {hardaMellanrum(a.text)}
+          </SvarTal>
+        ))}
+      </div>
     </div>
+  )
+}
+
+/**
+ * Domens innehåll: räknevägen när banken har den. Då ersätter den
+ * förklaringstexten (steg 3b), som står kvar bakom "Visa hela förklaringen"
+ * och fälls ut på plats. Utan räkneväg står förklaringen i domens löptext.
+ */
+function VnForklaring({ facit }: ForklaringInnehallProps<VnU>): ReactNode {
+  const d = lasVnData(facit.data)
+  const [hel, setHel] = useState(false)
+  if (!d?.losning) return null
+  const text = d.helForklaring ?? null
+  return (
+    <>
+      <Raknevag losning={d.losning} rattText={d.rattText ?? null} />
+      {text ? (
+        hel ? (
+          <p className="m-0 mt-3 text-[15px] leading-[22px]" data-hel-forklaring>
+            {text}
+          </p>
+        ) : (
+          <button type="button" onClick={() => setHel(true)} className="sess-dom-ton mt-2 inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-[3px]" aria-expanded={false} data-visa-hel-forklaring>
+            Visa hela förklaringen
+          </button>
+        )
+      ) : null}
+    </>
   )
 }
 
@@ -417,6 +541,19 @@ function VnMiniatyr({ u }: { u: VnU }) {
   )
 }
 
+/** Genomgångens ikonbricka: underlagets slag, samma ikon som papperets mörka huvud (steg 3b). */
+function VnRadIkon({ u }: { u: VnU }) {
+  return <span className="res-rad-ikon" data-mini-ikon={u.kind}>{u.kind === 'verbal' ? <ArtikelIkon /> : <SlagIkon slag={slagFor(u.underlag)} />}</span>
+}
+
+function ArtikelIkon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+      <path d="M5 5h14M5 9.5h14M5 14h14M5 18.5h8" />
+    </svg>
+  )
+}
+
 export const VERBAL: TypRitare<VnU> = {
   kind: 'verbal',
   namn: 'Ord och text',
@@ -426,6 +563,7 @@ export const VERBAL: TypRitare<VnU> = {
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   Miniatyr: VnMiniatyr,
+  RadIkon: VnRadIkon,
   arkGrupper: grupper,
 }
 
@@ -438,9 +576,13 @@ export const NUMERISK: TypRitare<VnU> = {
   Uppgift: VnUppgift,
   underlag: UNDERLAG,
   Miniatyr: VnMiniatyr,
+  RadIkon: VnRadIkon,
   arkGrupper: grupper,
+  Forklaring: VnForklaring,
 }
 
 export function vnRitare(kind: 'verbal' | 'numerisk'): TypRitare<VnU> {
   return kind === 'verbal' ? VERBAL : NUMERISK
 }
+
+export type { VnData }

@@ -44,7 +44,7 @@ export async function skrivNivapunkt(admin: Klient, p: NivapunktIn): Promise<boo
  * Utan nivå före (ingen Nivåkoll gjord) skrivs inget: en träning sätter
  * aldrig en första nivå. Returnerar nivån efter, eller null.
  */
-export async function uppdateraNivaEfterTraning(args: {
+type NivaEfterArgs = {
   admin: Klient;
   userId: string;
   kind: NivakollKind | Exclude<TestTypId, 'matris'>;
@@ -53,8 +53,20 @@ export async function uppdateraNivaEfterTraning(args: {
   foreReserv?: number | null;
   svar: readonly { q_id: string; correct: boolean; raknas: boolean }[];
   idag?: Dag;
-}): Promise<number | null> {
+};
+
+export async function uppdateraNivaEfterTraning(args: NivaEfterArgs): Promise<number | null> {
+  return (await uppdateraNivaMedFore(args)).efter;
+}
+
+/**
+ * Samma som uppdateraNivaEfterTraning, och nivån före (omgång 3, målgången:
+ * slutför-svarets niva_fore). Före är dagens start, den senaste nivåpunkten
+ * före i dag, samma tal som nivån efter räknas från; null när den saknas.
+ */
+export async function uppdateraNivaMedFore(args: NivaEfterArgs): Promise<{ fore: number | null; efter: number | null }> {
   const idag = args.idag ?? dagSthlm();
+  let foreUt: number | null = null;
   try {
     const { data, error } = await args.admin
       .from('test_nivapunkter')
@@ -67,15 +79,16 @@ export async function uppdateraNivaEfterTraning(args: {
     if (error) throw error;
     const rader = (data ?? []).map((r) => ({ dag: String(r.dag), niva: Number(r.niva) })).filter((r) => Number.isFinite(r.niva) && r.niva > 0);
     const fore = rader[0]?.niva ?? args.foreReserv ?? null;
+    foreUt = fore;
     const dagensStart = rader.find((r) => r.dag < idag)?.niva ?? fore;
     const p = pForTyp(args.kind) ?? ((id: string) => pFor(args.kind as NivakollKind, id));
     const svar: TraningsSvar[] = args.svar.map((s) => ({ p: p(s.q_id), correct: s.correct, raknas: s.raknas }));
     const ut = nivaEfterTraning({ fore, svar, dagensStart });
-    if (!ut) return null;
+    if (!ut) return { fore, efter: null };
     const ok = await skrivNivapunkt(args.admin, { userId: args.userId, testKind: args.kind, dag: idag, typ: 'pass', niva: ut.niva, sessionId: args.sessionId });
-    return ok ? ut.niva : null;
+    return { fore, efter: ok ? ut.niva : null };
   } catch (e) {
     console.error('[nivapunkt] nivån efter träningen gick inte att räkna', args.kind, e);
-    return null;
+    return { fore: foreUt, efter: null };
   }
 }

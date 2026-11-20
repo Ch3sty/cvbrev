@@ -23,6 +23,7 @@ import { useEffect, useRef } from 'react'
 import Sheet from '@/components/shell/Sheet'
 import PaywallCard from './PaywallCard'
 import type { PaywallVariant } from './paywall-copy'
+import type { SparrData } from './TestSparr'
 import type { Feature, Scope } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
@@ -49,6 +50,8 @@ export interface GraValSheetProps {
   mall?: { id: string; tier: 'free' | 'premium'; retur?: string | null } | null
   /** Grundnivåtest kvar i dag på gratisnivån. 0 ger "I morgon" i stället för ett nytt grundtest. */
   grundKvarIdag?: number | null
+  /** Omgång 3: hennes siffror i testernas spärr (nivån, provet). Saknas en faller raden bort. */
+  sparrData?: SparrData | null
 }
 
 export default function GraValSheet({
@@ -63,6 +66,7 @@ export default function GraValSheet({
   dagarKvar = null,
   mall = null,
   grundKvarIdag = null,
+  sparrData = null,
 }: GraValSheetProps) {
   // gray_option_tapped en gång per öppning.
   const mattRef = useRef(false)
@@ -75,6 +79,33 @@ export default function GraValSheet({
     mattRef.current = true
     capture('gray_option_tapped', { feature, scope, surface })
   }, [open, feature, scope, surface])
+
+  // Omgång 3 (steg 3b): testernas lås får spärrens nya ark (Sparr-test). CV,
+  // brev och mallar har andra varianter och ritas som förut.
+  const test = variant === 'testniva' || variant === 'test-tak'
+  if (test) {
+    return (
+      <Sheet open={open} onClose={onClose} bare className="sm:!max-w-[1020px] sm:!rounded-[28px] !border-0 sm:max-h-[94dvh]">
+        {open ? (
+          <PaywallCard
+            variant={variant}
+            feature={feature}
+            scope={scope === 'cv' || scope === 'tester' ? scope : null}
+            track={track}
+            onSecondary={onClose}
+            plats={plats}
+            dagarKvar={dagarKvar}
+            mall={mall}
+            grundKvarIdag={grundKvarIdag}
+            bare
+            utseende="test"
+            sparrData={sparrData}
+            onStang={onClose}
+          />
+        ) : null}
+      </Sheet>
+    )
+  }
 
   return (
     <Sheet open={open} onClose={onClose} bare>

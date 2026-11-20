@@ -714,7 +714,7 @@ function SpatialUppgift({ u, vald, facit, efterFel, onValj, last, facitData }: U
       <div role="radiogroup" aria-label="Svarsalternativ" className="matrisyta sess-fig sess-spatial-svar grid grid-cols-2 gap-2.5 lg:gap-3" data-steg2-alternativ>
         {v.options.map((o, i) => (
           <SvarRuta key={i} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
-            <span className="block h-full w-full px-2.5 pb-2.5 pt-6 lg:px-4 lg:pb-3 lg:pt-5">
+            <span className="block h-full w-full px-2.5 pb-3 pt-7 lg:px-4 lg:pb-4 lg:pt-4">
               <span className="relative mx-auto block aspect-square h-full max-w-full">
                 <Figur fig={o} />
                 {spegelVal && i === vald ? <Spegellinje /> : null}

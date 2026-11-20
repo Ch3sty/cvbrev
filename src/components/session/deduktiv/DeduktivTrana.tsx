@@ -21,8 +21,8 @@ import { nivakollHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { LANK } from '@/components/shell/knappar'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
-import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
-import Resultatskarm from '../Resultatskarm'
+import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
+import Resultatskarm, { type MalData } from '../Resultatskarm'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
@@ -42,10 +42,10 @@ export function lasDeduktivPass(vy: DeduktivPassVy): TranaSession<DeduktivU> {
   for (const [k, b] of Object.entries(vy.besvarade)) besvarade[k] = { valt: b.visat, tid_s: b.tid_s }
   const facit: TranaSession<DeduktivU>['facit'] = {}
   for (const [k, a] of Object.entries(vy.aterkoppling))
-    facit[k] = { ratt: a.rattVisat, correct: a.correct, regel: null, misstag: a.misstag, data: a.losning }
+    facit[k] = { ratt: a.rattVisat, correct: a.correct, regel: null, misstag: a.misstag, data: { ...a.losning, ledNamn: a.ledNamn ?? null } }
   return {
     id: vy.id,
-    uppgifter: vy.uppgifter.map((u) => ({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null })),
+    uppgifter: vy.uppgifter.map((u) => ({ nyckel: u.nyckel, intro: u.intro, villkor: u.villkor, fraga: u.fraga, options: u.options, platser: u.platser ?? null, struktur: u.struktur ?? null })),
     besvarade,
     facit,
     avslutad: vy.avslutad,
@@ -67,14 +67,14 @@ function tranaApi(a: DeduktivPassApi): TranaApi<DeduktivPassVy> {
       return {
         ok: true,
         klar: r.klar,
-        facit: { ratt: at.rattVisat, correct: at.correct, regel: null, misstag: at.misstag, data: at.losning },
+        facit: { ratt: at.rattVisat, correct: at.correct, regel: null, misstag: at.misstag, data: { ...at.losning, ledNamn: at.ledNamn ?? null } },
         niva: lasRamNiva(r),
       }
     },
     hamta: (id) => a.session(id),
     async slutfor(id) {
       const r = await a.slutfor(id)
-      return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
+      return r.ok ? { ok: true, vy: r.session, niva: lasSlutNiva(r) } : { ok: false, status: r.status }
     },
   }
 }
@@ -119,7 +119,7 @@ export default function DeduktivTrana({ start = null, vy = null, forklaringEfter
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} mal={ctrl.mal} />}
     />
   )
 }
@@ -131,6 +131,7 @@ function TranaResultat({
   gaIgenom,
   lista,
   stang,
+  mal,
 }: {
   vy: DeduktivPassVy
   datum: string | null
@@ -138,6 +139,7 @@ function TranaResultat({
   gaIgenom: (fran?: number) => void
   lista: ResultatListaVidare
   stang: () => void
+  mal: MalData | null
 }) {
   const r = vy.resultat!
   const s = lasDeduktivPass(vy)
@@ -153,6 +155,7 @@ function TranaResultat({
       undertitel={SESSION.undertitel('trana', vy.niva)}
       datum={datum}
       onStang={stang}
+      mal={mal}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -168,7 +171,7 @@ function TranaResultat({
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
       tappade={{
-        rader: r.tappade.map((t) => ({ namn: deduktivFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel })),
+        rader: r.tappade.map((t) => ({ namn: deduktivFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
       }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={
@@ -183,7 +186,7 @@ function TranaResultat({
                   </Link>
                 </p>
               ) : null,
-              knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+              knapp: { text: 'En omgång till', href: TRANING_RUTT.deduktivpass, data: 'en-omgang-till' },
             }
           : {
               titel: 'Mät din nivå i deduktiv slutledning',

@@ -26,8 +26,8 @@ import { nivakollHref, sessionHref, TRANING_RUTT, vnPassHref } from '@/lib/trani
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import { LANK } from '@/components/shell/knappar'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
-import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
-import Resultatskarm from '../Resultatskarm'
+import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
+import Resultatskarm, { type MalData } from '../Resultatskarm'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
@@ -57,7 +57,7 @@ export function lasVnPass(vy: VnPassVy): TranaSession<VnU> {
     const b = vy.besvarade[u.nyckel]
     if (b) besvarade[u.nyckel] = { valt: indexFor(u, b.svar), tid_s: b.tid_s }
     const a = vy.aterkoppling[u.nyckel]
-    if (a) facit[u.nyckel] = vnFacit(u, indexFor(u, a.ratt) ?? -1, indexFor(u, b?.svar), a.forklaring)
+    if (a) facit[u.nyckel] = vnFacit(u, indexFor(u, a.ratt) ?? -1, indexFor(u, b?.svar), a.forklaring, a.vnFacit ?? null)
   }
   return {
     id: vy.id,
@@ -93,7 +93,7 @@ function tranaApi(kind: VnKind, familj: string | null, a: VnPassApi): KopplatApi
       const r = await a.svara({ sessionId, nyckel, svar, tid })
       if (!r.ok) return { ok: false, status: r.status }
       const at = r.aterkoppling
-      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring), niva: lasRamNiva(r) }
+      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring, at.vnFacit ?? null), niva: lasRamNiva(r) }
     },
     hamta: async (id) => {
       const vy = await a.session(id)
@@ -101,7 +101,7 @@ function tranaApi(kind: VnKind, familj: string | null, a: VnPassApi): KopplatApi
     },
     async slutfor(id) {
       const r = await a.slutfor(id)
-      return r.ok ? { ok: true, vy: registrera(r.session) } : { ok: false, status: r.status }
+      return r.ok ? { ok: true, vy: registrera(r.session), niva: lasSlutNiva(r) } : { ok: false, status: r.status }
     },
   }
 }
@@ -152,7 +152,7 @@ export default function VnTrana({ kind, familj = null, start = null, vy = null, 
             }
           : null
       }
-      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} mal={ctrl.mal} />}
     />
   )
 }
@@ -164,6 +164,7 @@ function Resultat({
   gaIgenom,
   lista,
   stang,
+  mal,
 }: {
   vy: VnPassVy
   datum: string | null
@@ -171,6 +172,7 @@ function Resultat({
   gaIgenom: (fran?: number) => void
   lista: ResultatListaVidare
   stang: () => void
+  mal: MalData | null
 }) {
   const r = vy.resultat!
   const kind = vy.kind
@@ -190,6 +192,7 @@ function Resultat({
       undertitel={riktat ? `Träna, ${(vnFamiljNamn(vy.familj) ?? 'mönstret').toLowerCase()}` : SESSION.undertitel('trana', vy.niva)}
       datum={datum}
       onStang={stang}
+      mal={mal}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -205,7 +208,7 @@ function Resultat({
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
-      tappade={{ rader: r.tappade.map((t) => ({ namn: vnFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel })) }}
+      tappade={{ rader: r.tappade.map((t) => ({ namn: vnFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
       tempo={{ titel: R.tempo(r.tid_s, r.budget_s), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={
         harNivakoll
@@ -227,7 +230,7 @@ function Resultat({
                     ) : null}
                   </div>
                 ) : null,
-              knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+              knapp: { text: 'En omgång till', href: vnPassHref(kind, riktat ? vy.familj : null), data: 'en-omgang-till' },
             }
           : {
               titel: `Mät din nivå i ${GEMEN[kind]}`,
