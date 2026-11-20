@@ -110,7 +110,13 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "natt": "arbetar natt",
+    "tillagg": "får tillägg",
+    "tvadelar": "lönebesked i två delar",
+    "recep": "i receptionen"
+   }
   },
   "fran_version": 1
  },
@@ -226,7 +232,12 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "ledning": "i ledningsgruppen",
+    "budget": "har sett budgeten",
+    "konsult": "konsult"
+   }
   },
   "fran_version": 1
  },
@@ -341,7 +352,13 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "ny": "nyanställd",
+    "nyckel": "nyckel till arkivet",
+    "ekon": "i ekonomigruppen",
+    "konsult": "konsult"
+   }
   },
   "fran_version": 1
  },
@@ -463,7 +480,13 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "leder": "leder ett projekt",
+    "kurs": "går kursen i budget",
+    "deltid": "arbetar deltid",
+    "chef": "chef"
+   }
   },
   "fran_version": 1
  },
@@ -562,7 +585,12 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "lager": "på lagret",
+    "truck": "har truckkort",
+    "sakerhet": "gått säkerhetsutbildningen"
+   }
   },
   "fran_version": 1
  },
@@ -677,7 +705,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "fredag": "möte på fredagar",
+    "lang": "längre än en timme",
+    "styrelse": "styrelsemöte",
+    "kund": "kundmöte"
+   }
   },
   "fran_version": 1
  },
@@ -783,7 +817,12 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "skydd": "i skyddskommittén",
+    "miljo": "gått arbetsmiljökursen",
+    "verkstad": "arbetar i verkstaden"
+   }
   },
   "fran_version": 1
  },
@@ -890,7 +929,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "tillf": "tillfälliga kort",
+    "server": "öppnar serverrummet",
+    "reg": "registrerade kort"
+   }
   },
   "fran_version": 1
  },
@@ -1005,7 +1049,13 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "kund": "på kundtjänst",
+    "finska": "talar finska",
+    "finland": "tar samtalen från Finland",
+    "kvall": "arbetar kvällar"
+   }
   },
   "fran_version": 1
  },
@@ -1127,7 +1177,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "prakt": "praktikant",
+    "attest": "får attestera fakturor",
+    "pl": "projektledare",
+    "ekon": "på ekonomiavdelningen"
+   }
   },
   "fran_version": 1
  },
@@ -1242,7 +1298,13 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "plan3": "rum på plan tre",
+    "tavla": "har whiteboardtavla",
+    "stor": "fler än tolv",
+    "skarm": "har skärm"
+   }
   },
   "fran_version": 1
  },
@@ -1358,7 +1420,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "el": "elektriker",
+    "bevis": "har behörighetsbevis",
+    "malmo": "arbetar i Malmö"
+   }
   },
   "fran_version": 1
  },
@@ -1472,7 +1539,13 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "dyr": "över 50 000 kronor",
+    "utan": "utan chefens underskrift",
+    "dator": "datorbeställning",
+    "mobel": "möbelbeställning"
+   }
   },
   "fran_version": 1
  },
@@ -1584,7 +1657,12 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "bonus": "får bonus",
+    "mal": "har nått sitt mål",
+    "overtid": "har arbetat övertid"
+   }
   },
   "fran_version": 1
  },
@@ -1699,7 +1777,13 @@
     "obestamd",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "norr": "till Norrland",
+    "mandag": "sker på måndagar",
+    "kyl": "kylda leveranser",
+    "tung": "tunga"
+   }
   },
   "fran_version": 1
  },
@@ -1815,7 +1899,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "ny": "nyanställd",
+    "mentor": "får en mentor",
+    "traff": "träffar personalavdelningen"
+   }
   },
   "fran_version": 1
  },
@@ -1928,7 +2017,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "hemma": "arbetar hemma",
+    "park": "har parkeringstillstånd",
+    "salj": "i säljteamet",
+    "ledning": "i ledningen"
+   }
   },
   "fran_version": 1
  },
@@ -2044,7 +2139,12 @@
     "nodvandig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "avtal": "i mappen Avtal",
+    "sekretess": "sekretessmärkta",
+    "epost": "vanlig e-post"
+   }
   },
   "fran_version": 1
  },
@@ -2159,7 +2259,13 @@
     "obestamd",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "var": "vårens kurser",
+    "distans": "på distans",
+    "stor": "fler än tjugo deltagare",
+    "oblig": "obligatoriska kurser"
+   }
   },
   "fran_version": 1
  },
@@ -2258,7 +2364,12 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "styr": "i styrgruppen",
+    "chef": "chef",
+    "ledar": "gått ledarprogrammet"
+   }
   },
   "fran_version": 1
  },
@@ -2372,7 +2483,12 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "lon": "arbetar med lön",
+    "tyst": "har tystnadsplikt",
+    "ekon": "på ekonomiavdelningen"
+   }
   },
   "fran_version": 1
  },
@@ -2601,7 +2717,12 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "intro": "håller i introduktionen",
+    "tvaar": "minst två år",
+    "ombud": "skyddsombud"
+   }
   },
   "fran_version": 1
  },
@@ -2710,7 +2831,12 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "fredag": "pass på fredag",
+    "vikarie": "vikarie",
+    "lunch": "får lunchen betald"
+   }
   },
   "fran_version": 1
  },
@@ -2825,7 +2951,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "avd4": "på avdelning 4",
+    "hygien": "gått hygienutbildningen",
+    "isol": "arbeta i isoleringssalen",
+    "vikarie": "vikarie"
+   }
   },
   "fran_version": 3
  },
@@ -2947,7 +3079,13 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "mentor": "mentor",
+    "nov": "utvecklingssamtal i november",
+    "ledig": "föräldraledig",
+    "matte": "undervisar i matematik"
+   }
   },
   "fran_version": 3
  },
@@ -3046,7 +3184,12 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "snick": "snickare",
+    "lift": "har liftkort",
+    "fall": "kursen i fallskydd"
+   }
   },
   "fran_version": 3
  },
@@ -3161,7 +3304,13 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "disk": "arbetar i disken",
+    "lagar": "lagar mat till gästerna",
+    "kock": "kock",
+    "helg": "arbetar på helgen"
+   }
   },
   "fran_version": 3
  },
@@ -3277,7 +3426,12 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "linje4": "förare på linje 4",
+    "elbuss": "kör elbuss",
+    "ladd": "gått laddningsutbildningen"
+   }
   },
   "fran_version": 3
  },
@@ -3390,7 +3544,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "ref": "referensböcker",
+    "hem": "får lånas hem",
+    "hylla7": "på hylla 7",
+    "kod": "streckkod på baksidan"
+   }
   },
   "fran_version": 3
  },
@@ -3512,7 +3672,13 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "lon": "får ändra i lönesystemet",
+    "admin": "administratörsbehörighet",
+    "prakt": "går på praktik",
+    "support": "i supportgruppen"
+   }
   },
   "fran_version": 3
  },
@@ -3611,7 +3777,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "kassa": "arbetar i kassan",
+    "forsta": "kursen i första hjälpen",
+    "nyckel": "nyckel till personalrummet"
+   }
   },
   "fran_version": 3
  },
@@ -3726,7 +3897,13 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "oppna": "öppnar förskolan",
+    "larm": "egen larmkod",
+    "timme": "arbetar på timmar",
+    "ekorre": "avdelningen Ekorren"
+   }
   },
   "fran_version": 3
  },
@@ -3842,7 +4019,12 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "v5": "på femte våningen",
+    "balkong": "har balkong",
+    "tolv": "städas före tolv"
+   }
   },
   "fran_version": 3
  },
@@ -3950,7 +4132,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "ssk": "sjuksköterska",
+    "vacc": "arbetar med vaccinationer",
+    "telefon": "telefontid på förmiddagen",
+    "lak": "läkare"
+   }
   },
   "fran_version": 3
  },
@@ -4064,7 +4252,12 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "lab": "städar i laboratoriet",
+    "kemi": "gått kemikalieutbildningen",
+    "kvall": "i kvällsstädningen"
+   }
   },
   "fran_version": 3
  },
@@ -4163,7 +4356,12 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "bygglov": "ärenden om bygglov",
+    "tva": "två handläggare",
+    "fritid": "gäller fritidshus"
+   }
   },
   "fran_version": 3
  },
@@ -4395,7 +4593,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "utland": "från utlandet",
+    "euro": "betalas i euro",
+    "autogiro": "via autogiro",
+    "hyra": "fakturor för hyra"
+   }
   },
   "fran_version": 3
  },
@@ -4520,7 +4724,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "intervju": "går vidare till intervju",
+    "prov": "skickat in arbetsprov",
+    "sen": "efter sista ansökningsdag"
+   }
   },
   "fran_version": 3
  },
@@ -4635,7 +4844,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "hallB": "i hall B",
+    "natt": "körs på natten",
+    "kamera": "övervakas med kamera",
+    "ny": "nya maskiner"
+   }
   },
   "fran_version": 3
  },
@@ -4751,7 +4966,12 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "region": "regionaltåg",
+    "bergby": "stannar i Bergby",
+    "tidig": "avgår före sex"
+   }
   },
   "fran_version": 3
  },
@@ -4856,7 +5076,12 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "faktura": "gäller fakturor",
+    "dygn": "besvaras inom ett dygn",
+    "chatt": "från chatten"
+   }
   },
   "fran_version": 3
  },
@@ -4972,7 +5197,12 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "k3b": "i klass 3B",
+    "fys": "läser fysik 2",
+    "tis": "laboration på tisdagar"
+   }
   },
   "fran_version": 3
  },
@@ -5087,7 +5317,13 @@
     "obestamd",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "talare": "talare",
+    "forskare": "forskare",
+    "hotell": "bor på hotellet",
+    "park": "bokat parkering"
+   }
   },
   "fran_version": 3
  },
@@ -5317,7 +5553,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "barbar": "bärbara datorer",
+    "krypt": "krypterad disk",
+    "mote": "i mötesrummen",
+    "hem": "tas med hem"
+   }
   },
   "fran_version": 3
  },
@@ -5425,7 +5667,13 @@
     "omojlig",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "ung": "under 18 år",
+    "buss": "får köra minibussen",
+    "tranare": "tränare",
+    "domare": "domare"
+   }
   },
   "fran_version": 3
  },
@@ -5541,7 +5789,12 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "kampanj": "på kampanjhyllan",
+    "gul": "gul prislapp",
+    "retur": "lämnas tillbaka"
+   }
   },
   "fran_version": 3
  },
@@ -5656,7 +5909,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "natt": "nattpass i hemtjänsten",
+    "larm": "bär larmtelefon",
+    "samord": "samordnare",
+    "helg": "arbetar helger"
+   }
   },
   "fran_version": 3
  },
@@ -5881,7 +6140,13 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "tak": "arbetar på taket",
+    "sele": "bär sele",
+    "ensam": "arbetar ensam",
+    "el": "elektriker"
+   }
   },
   "fran_version": 3
  },
@@ -5980,7 +6245,12 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "tolk": "tolk på förmedlingen",
+    "aukt": "auktoriserade",
+    "domstol": "tolkar i domstol"
+   }
   },
   "fran_version": 3
  },
@@ -6212,7 +6482,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "platta": "ute på plattan",
+    "vast": "bär varselväst",
+    "genomg": "gått säkerhetsgenomgången",
+    "inch": "i incheckningen"
+   }
   },
   "fran_version": 4
  },
@@ -6444,7 +6720,13 @@
     "obestamd",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "utst": "i utställningen",
+    "fors": "försäkrade",
+    "lan": "lånas ut",
+    "tavla": "museets tavlor"
+   }
   },
   "fran_version": 4
  },
@@ -6543,7 +6825,12 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "skift": "i skiftlaget",
+    "tung": "körkort för tung lastbil",
+    "steg": "kör stegbilen"
+   }
   },
   "fran_version": 4
  },
@@ -6657,7 +6944,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "stor": "lån över en miljon",
+    "kom": "kreditkommittén",
+    "vard": "värdering av bostaden",
+    "var": "vårens lån"
+   }
   },
   "fran_version": 4
  },
@@ -6915,7 +7208,13 @@
     "omojlig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "kaj3": "vid kaj 3",
+    "last": "lastfartyg",
+    "tull": "tullklareras före lossningen",
+    "pass": "tar passagerare"
+   }
   },
   "fran_version": 4
  },
@@ -7028,7 +7327,13 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "spin": "leder pass i spinning",
+    "lic": "har instruktörslicens",
+    "ny": "nyanställda",
+    "boka": "boka salen själva"
+   }
   },
   "fran_version": 4
  },
@@ -7260,7 +7565,13 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "prov": "prover från vattenverket",
+    "morgon": "tas på morgonen",
+    "samma": "analyseras samma dag",
+    "extern": "externt laboratorium"
+   }
   },
   "fran_version": 4
  },
@@ -7476,7 +7787,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "sond": "klipper på söndagar",
+    "del": "delägare",
+    "hyr": "hyr stol"
+   }
   },
   "fran_version": 4
  },
@@ -7707,7 +8023,13 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "sol": "har solceller",
+    "tim": "timmätare",
+    "kontroll": "årlig kontroll",
+    "vastby": "i Västby"
+   }
   },
   "fran_version": 4
  },
@@ -7939,7 +8261,13 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "nyb": "i nybörjargruppen",
+    "ork": "spelar i orkestern",
+    "konsert": "spelar på vårkonserten",
+    "fiol": "fiolelever"
+   }
   },
   "fran_version": 4
  },
@@ -8055,7 +8383,12 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "sjo": "stugor vid sjön",
+    "dusch": "egen dusch",
+    "stad": "städas av personalen"
+   }
   },
   "fran_version": 4
  },
@@ -8170,7 +8503,13 @@
     "nodvandig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "cont": "containrar på terminalen",
+    "kyl": "kylcontainrar",
+    "el": "anslutna till el",
+    "flytt": "flyttas utan tillstånd"
+   }
   },
   "fran_version": 4
  },
@@ -8286,7 +8625,12 @@
     "obestamd",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "dec": "görs i december",
+    "rev": "granskas av revisor",
+    "prakt": "sköts av praktikant"
+   }
   },
   "fran_version": 4
  },
@@ -8400,7 +8744,13 @@
     "obestamd",
     "omojlig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "kvall": "öppna på kvällen",
+    "lys": "har belysning",
+    "pist2": "pistas två gånger",
+    "rod": "röda backar"
+   }
   },
   "fran_version": 4
  },
@@ -8633,7 +8983,12 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "rost": "röstmottagare",
+    "utb": "gått utbildningen",
+    "intyg": "fått intyg"
+   }
   },
   "fran_version": 4
  },
@@ -8732,7 +9087,12 @@
     "obestamd",
     "nodvandig",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "ledare": "ledare på fritidsgården",
+    "ung": "under 25 år",
+    "kafe": "arbetar i kaféet"
+   }
   },
   "fran_version": 4
  },
@@ -8964,7 +9324,13 @@
     "obestamd",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "kontor": "beställningar till kontor",
+    "fore": "levereras före lunch",
+    "cykel": "körs med cykelbud",
+    "frys": "frysvaror"
+   }
   },
   "fran_version": 4
  },
@@ -9063,7 +9429,12 @@
     "nodvandig",
     "obestamd",
     "omojlig"
-   ]
+   ],
+   "termnamn": {
+    "mand": "tränar på måndagar",
+    "bricka": "nyckelbricka",
+    "betalt": "betalt hallhyran"
+   }
   },
   "fran_version": 4
  },
@@ -9295,7 +9666,13 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "surdeg": "bröd med surdeg",
+    "natt": "jäser över natten",
+    "fem": "bakas klockan fem",
+    "lord": "lördagens bröd"
+   }
   },
   "fran_version": 4
  },
@@ -9534,7 +9911,13 @@
     "nodvandig",
     "omojlig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "simlar": "simlärare",
+    "livr": "livräddarutbildning",
+    "kassa": "arbetar i kassan",
+    "arskort": "säljer årskort"
+   }
   },
   "fran_version": 4
  },
@@ -13495,6 +13878,11 @@
     "omojlig",
     "omojlig",
     "omojlig"
+   ],
+   "atomnamn": [
+    "Anna jobbar lördag",
+    "Bo ledig måndag",
+    "Cilla öppnar butiken"
    ]
   },
   "fran_version": 5
@@ -13651,6 +14039,11 @@
     "omojlig",
     "omojlig",
     "omojlig"
+   ],
+   "atomnamn": [
+    "lagret får leveransen",
+    "Dan packar om hyllorna",
+    "inventeringen flyttas"
    ]
   },
   "fran_version": 5
@@ -13807,6 +14200,11 @@
     "nodvandig",
     "omojlig",
     "omojlig"
+   ],
+   "atomnamn": [
+    "mötet börjar klockan nio",
+    "Eva tar tåget",
+    "Eva jobbar hemifrån"
    ]
   },
   "fran_version": 5
@@ -13944,6 +14342,11 @@
     "obestamd",
     "nodvandig",
     "obestamd"
+   ],
+   "atomnamn": [
+    "det regnar på fredag",
+    "grillfesten flyttas inomhus",
+    "Gun hyr parasoller"
    ]
   },
   "fran_version": 5
@@ -14100,6 +14503,11 @@
     "omojlig",
     "omojlig",
     "nodvandig"
+   ],
+   "atomnamn": [
+    "kontoret stänger i juli",
+    "växeln öppen i juli",
+    "Ida tar semester"
    ]
   },
   "fran_version": 5
@@ -14237,6 +14645,11 @@
     "omojlig",
     "obestamd",
     "obestamd"
+   ],
+   "atomnamn": [
+    "Jonas får tjänsten",
+    "familjen flyttar till Umeå",
+    "Jonas säger upp sig"
    ]
   },
   "fran_version": 5
@@ -14374,6 +14787,11 @@
     "obestamd",
     "omojlig",
     "obestamd"
+   ],
+   "atomnamn": [
+    "Karin leder mötet",
+    "protokollet skickas ut",
+    "Leo påminner gruppen"
    ]
   },
   "fran_version": 5
@@ -14491,7 +14909,12 @@
     "omojlig",
     "obestamd",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "salj": "säljare",
+    "bil": "har tjänstebil",
+    "halka": "gått halkkursen"
+   }
   },
   "fran_version": 5
  },
@@ -14629,7 +15052,12 @@
     "nodvandig",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "kassa": "jobbar i kassan",
+    "kurs": "gått kassakursen",
+    "student": "student"
+   }
   },
   "fran_version": 5
  },
@@ -14763,7 +15191,12 @@
     "nodvandig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "jour": "har jour",
+    "larm": "bär larmtelefon",
+    "semester": "på semester"
+   }
   },
   "fran_version": 5
  },
@@ -14901,7 +15334,12 @@
     "nodvandig",
     "nodvandig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "kundtj": "i kundtjänst",
+    "helg": "arbetar på helger",
+    "flex": "har flextid"
+   }
   },
   "fran_version": 5
  },
@@ -15029,7 +15467,12 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "kurs": "deltagare i ledarkursen",
+    "bok": "fått kursboken",
+    "inlogg": "fått en inloggning"
+   }
   },
   "fran_version": 5
  },
