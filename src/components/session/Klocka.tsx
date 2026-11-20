@@ -14,6 +14,11 @@
  *             står full i ink-2 när provets tid är nådd. Aldrig koppar.
  *
  * role="timer" med aria-live av: en uppläsning per sekund vore en störning.
+ *
+ * Tiden räknas från serverns started_at med klientens klocka, så talet kan
+ * skilja en sekund mellan serverns HTML och första klientrenderingen (de sista
+ * två minuterna och tiden över visas i sekunder). suppressHydrationWarning på
+ * talet och etiketten: ringen tickar ändå om varje sekund (etapp 4).
  */
 
 import { SESSION, tidText } from './copy'
@@ -57,6 +62,7 @@ export default function Klocka(p: KlockaProps) {
       role="timer"
       aria-live="off"
       aria-label={aria}
+      suppressHydrationWarning
       className="relative h-9 w-9 flex-shrink-0 lg:h-10 lg:w-10"
       data-klocka={p.lage === 'referens' ? 'referens' : koppar ? 'sista' : 'lugn'}
     >
@@ -79,6 +85,7 @@ export default function Klocka(p: KlockaProps) {
       {text != null ? (
         <b
           aria-hidden="true"
+          suppressHydrationWarning
           className={`absolute inset-0 flex items-center justify-center font-sess-display font-bold tabular-nums tracking-[-.02em] transition-colors duration-300 ${
             koppar ? 'text-koppar-ink' : 'text-ink-1'
           } ${storlek}`}
