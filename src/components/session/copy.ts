@@ -112,6 +112,17 @@ export const SESSION = {
   },
   foregaende: 'Föregående uppgift',
   framstegAria: (nr: number, antal: number) => `Uppgift ${nr} av ${antal}`,
+  /** Huvudets kapslar och stapel (omgång 3). */
+  huvud: {
+    uppgift: (nr: number, antal: number) => `uppgift ${nr} av ${antal}`,
+    iRad: (n: number) => `${n} rätt i rad`,
+    niva: 'Nivå',
+    nivaAria: (niva: string, riktning: 'upp' | 'ner' | 'samma' | null) =>
+      `Uppgiftens nivå ${niva}${riktning === 'upp' ? ', svårare än den förra' : riktning === 'ner' ? ', lättare än den förra' : riktning === 'samma' ? ', samma som den förra' : ''}`,
+    bitarAria: (nr: number, antal: number, ratt: number, fel: number) =>
+      `Uppgift ${nr} av ${antal}.${ratt + fel > 0 ? ` ${ratt} rätt och ${fel} fel hittills.` : ''}`,
+    besvaradeAria: (nr: number, antal: number, besvarade: number) => `Uppgift ${nr} av ${antal}. ${besvarade} besvarade.`,
+  },
   ark: {
     rubrik: 'Uppgifter',
     rad: (besvarade: number, antal: number) => `${besvarade} av ${antal} besvarade`,
@@ -174,12 +185,17 @@ export const SESSION = {
   },
   forklaring: {
     eyebrow: 'Förklaringen',
-    ratt: 'Rätt',
+    ratt: 'Rätt!',
     fel: 'Inte den här',
     vetInte: 'Förklaringen',
     obesvarad: 'Obesvarad',
     misstag: 'Ditt misstag',
     tid: (sek: number, budget: number | null) => (budget ? `${Math.round(sek)} s, provets tid ${budget} s` : `${Math.round(sek)} s`),
+    /** Domens rad till höger (omgång 3): "24 sekunder". */
+    sekunder: (sek: number) => (Math.round(sek) === 1 ? '1 sekund' : `${Math.round(sek)} sekunder`),
+    duValdeVetInte: 'Du valde Vet inte',
+    /** Raden om nästa uppgift i domens fot (Träna, när motorn vet nivån). */
+    nastaRad: { svarare: 'Nästa blir lite svårare.', lattare: 'Nästa blir lite lättare.', samma: 'Samma nivå en gång till.' },
   },
   laddar: {
     session: 'Hämtar uppgifterna',

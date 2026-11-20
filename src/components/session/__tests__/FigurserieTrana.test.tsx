@@ -83,7 +83,7 @@ describe('Träna figurserier i ramen', () => {
     expect(f.api.skapa).not.toHaveBeenCalled()
 
     fireEvent.click(screen.getAllByText('Starta träningen')[0])
-    await screen.findByText('1 / 4')
+    await screen.findByText('Uppgift 1 av 4')
     expect(f.api.skapa).toHaveBeenCalledTimes(1)
 
     // Svara är inaktiv tills ett svar är markerat.
@@ -102,7 +102,7 @@ describe('Träna figurserier i ramen', () => {
     expect(screen.getByText('Inte den här')).toBeTruthy()
 
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)
-    await screen.findByText('2 / 4')
+    await screen.findByText('Uppgift 2 av 4')
     // Rätt svar.
     fireEvent.click(document.querySelectorAll('[data-serie-alt] button')[f.rattIndex(1)])
     await act(async () => {
@@ -110,7 +110,7 @@ describe('Träna figurserier i ramen', () => {
     })
     await waitFor(() => expect(document.querySelector('[data-forklaringen="ratt"]')).toBeTruthy())
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)
-    await screen.findByText('3 / 4')
+    await screen.findByText('Uppgift 3 av 4')
     // Vet inte, visa förklaringen.
     await act(async () => {
       fireEvent.click(screen.getByText('Vet inte, visa förklaringen'))
@@ -118,7 +118,7 @@ describe('Träna figurserier i ramen', () => {
     await waitFor(() => expect(document.querySelector('[data-forklaringen="vet_inte"]')).toBeTruthy())
     expect(f.svar[2].visat).toBe(null)
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)
-    await screen.findByText('4 / 4')
+    await screen.findByText('Uppgift 4 av 4')
     fireEvent.click(document.querySelectorAll('[data-serie-alt] button')[0])
     await act(async () => {
       fireEvent.click(svara())
@@ -143,7 +143,7 @@ describe('Träna figurserier i ramen', () => {
     fireEvent.click(screen.getByRole('checkbox', { name: /Förklaring efter varje svar/ }))
     expect(fetchSpion).toHaveBeenCalledWith('/api/traning/installningar', expect.objectContaining({ method: 'POST', body: JSON.stringify({ forklaring_efter_svar: false }) }))
     fireEvent.click(screen.getAllByText('Starta träningen')[0])
-    await screen.findByText('1 / 4')
+    await screen.findByText('Uppgift 1 av 4')
     expect(screen.getByText('Vet inte')).toBeTruthy()
     const nasta = () => document.querySelector('[data-primar="nasta"]') as HTMLButtonElement
     expect(nasta().disabled).toBe(true)
@@ -151,14 +151,14 @@ describe('Träna figurserier i ramen', () => {
     await act(async () => {
       fireEvent.click(nasta())
     })
-    await screen.findByText('2 / 4')
+    await screen.findByText('Uppgift 2 av 4')
     expect(document.querySelector('[data-forklaringen]')).toBeNull()
     expect(f.svar[0].visat).toBe(2)
     // Vet inte går vidare utan förklaring.
     await act(async () => {
       fireEvent.click(screen.getByText('Vet inte'))
     })
-    await screen.findByText('3 / 4')
+    await screen.findByText('Uppgift 3 av 4')
     expect(document.querySelector('[data-forklaringen]')).toBeNull()
   })
 

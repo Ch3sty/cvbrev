@@ -32,7 +32,7 @@ import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import { LANK } from '@/components/shell/knappar'
 import Startskarm from '../Startskarm'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
-import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
 import { antalOrd, SESSION } from '../copy'
@@ -91,7 +91,7 @@ function tranaApi(kind: Steg2PassKind, grupp: string | null, a: Steg2PassApi): T
       const r = await a.svara({ sessionId, nyckel, visat: valt, tid })
       if (!r.ok) return { ok: false, status: r.status }
       const at = r.aterkoppling
-      return { ok: true, klar: r.klar, facit: steg2Facit(kind, at.genomgang, at.valtVisat, at.correct) }
+      return { ok: true, klar: r.klar, facit: steg2Facit(kind, at.genomgang, at.valtVisat, at.correct), niva: lasRamNiva(r) }
     },
     hamta: (id) => a.session(id),
     async slutfor(id) {

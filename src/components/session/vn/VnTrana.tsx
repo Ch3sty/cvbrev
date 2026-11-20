@@ -26,7 +26,7 @@ import { nivakollHref, sessionHref, TRANING_RUTT, vnPassHref } from '@/lib/trani
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import { LANK } from '@/components/shell/knappar'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
-import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { antalOrd, SESSION } from '../copy'
@@ -93,7 +93,7 @@ function tranaApi(kind: VnKind, familj: string | null, a: VnPassApi): KopplatApi
       const r = await a.svara({ sessionId, nyckel, svar, tid })
       if (!r.ok) return { ok: false, status: r.status }
       const at = r.aterkoppling
-      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring) }
+      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring), niva: lasRamNiva(r) }
     },
     hamta: async (id) => {
       const vy = await a.session(id)

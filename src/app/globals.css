@@ -2234,6 +2234,196 @@ html {
 @keyframes sess-bricka { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 .sess-bricka-ikon { animation: sess-bricka 240ms cubic-bezier(.2, .8, .2, 1) both; }
 
+/* =============================================================================
+   Formspråket, omgång 3 (skissen "Testerna, omgång 3: upplevelsen"): kanten,
+   brädet, papperet, klossarna, tangentbrickan, domen i tre toner, stapelns
+   bitar och kapseln. Allt går genom --sess-*-tokens: ljusa värden på :root
+   (de publika proven och artikelprovet har inget rum), mörka där rummet är
+   mörkt (samma väljare som rummens mörka block). Komponenterna har inga
+   hårdkodade färger. Tillstånd via färg och box-shadow, aldrig border-width
+   (CLS 0). Rörelse bara transform och opacity.
+   ============================================================================= */
+:root {
+  --sess-kant: #C8CEEC;
+  --sess-bit: #D5D9EC;
+  --sess-tangent: #F4F5FB;
+  --sess-tangent-ink: #4A4F6A;
+  --sess-indigo: #3B4790;
+  --sess-indigo-ink: #FFFFFF;
+  --sess-indigo-mjuk: #EEF0FB;
+  --sess-ratt: #2F7D5B;
+  --sess-ratt-ink: #1F5C42;
+  --sess-ratt-yta: #DCEFE5;
+  --sess-ratt-kant: #A9D5BE;
+  --sess-fel: #B3382E;
+  --sess-fel-ink: #8A2A22;
+  --sess-fel-yta: #FBE6E3;
+  --sess-fel-kant: #EFBDB6;
+  --sess-fel-bit: #F6D3CE;
+  --sess-vet-yta: #E4E7F7;
+  --sess-vet-bit: #DFE3F6;
+  --sess-rad3-yta: #FBE3D0;
+  --sess-rad3-kant: #F0C29F;
+  --sess-rad3-ink: #8A3A12;
+  --sess-brade: #1B2246;
+  --sess-brade-2: #2B3470;
+  --sess-brade-kant: #0E1330;
+  --sess-brade-ink: #F5F6FC;
+  --sess-ruta: #FFFFFF;
+  --sess-ruta-kant: #D5D9EC;
+  --sess-figur: #1B2246;
+  --sess-lucka: #E07A2F;
+  --sess-lucka-ink: #F4B98A;
+  --sess-knapp-kant: #A8491A;
+  --sess-skugga: rgba(27, 34, 70, .14);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has([data-rum]) {
+    --sess-kant: #3B4470; --sess-bit: #293050; --sess-tangent: #1D2238; --sess-tangent-ink: #C7C6D0;
+    --sess-indigo: #93A0EC; --sess-indigo-ink: #0E1120; --sess-indigo-mjuk: #232B55;
+    --sess-ratt: #6CC79A; --sess-ratt-ink: #A7E3C3; --sess-ratt-yta: #1C3A2D; --sess-ratt-kant: #2F5E48;
+    --sess-fel: #E57F74; --sess-fel-ink: #F3B3AB; --sess-fel-yta: #3F1F1C; --sess-fel-kant: #5A2D29; --sess-fel-bit: #3F1F1C;
+    --sess-vet-yta: #1D2445; --sess-vet-bit: #232B55;
+    --sess-rad3-yta: rgba(224, 122, 47, .18); --sess-rad3-kant: #7A3E17; --sess-rad3-ink: #F2A368;
+    --sess-brade: #1B2246; --sess-brade-2: #2B3470; --sess-brade-kant: #070A18; --sess-brade-ink: #F5F6FC;
+    --sess-ruta: #EEF0F8; --sess-ruta-kant: #AEB4DA; --sess-figur: #1B2246;
+    --sess-knapp-kant: #8A3A12; --sess-skugga: rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"]:has([data-rum]) {
+  --sess-kant: #3B4470; --sess-bit: #293050; --sess-tangent: #1D2238; --sess-tangent-ink: #C7C6D0;
+  --sess-indigo: #93A0EC; --sess-indigo-ink: #0E1120; --sess-indigo-mjuk: #232B55;
+  --sess-ratt: #6CC79A; --sess-ratt-ink: #A7E3C3; --sess-ratt-yta: #1C3A2D; --sess-ratt-kant: #2F5E48;
+  --sess-fel: #E57F74; --sess-fel-ink: #F3B3AB; --sess-fel-yta: #3F1F1C; --sess-fel-kant: #5A2D29; --sess-fel-bit: #3F1F1C;
+  --sess-vet-yta: #1D2445; --sess-vet-bit: #232B55;
+  --sess-rad3-yta: rgba(224, 122, 47, .18); --sess-rad3-kant: #7A3E17; --sess-rad3-ink: #F2A368;
+  --sess-brade: #1B2246; --sess-brade-2: #2B3470; --sess-brade-kant: #070A18; --sess-brade-ink: #F5F6FC;
+  --sess-ruta: #EEF0F8; --sess-ruta-kant: #AEB4DA; --sess-figur: #1B2246;
+  --sess-knapp-kant: #8A3A12; --sess-skugga: rgba(0, 0, 0, .45);
+}
+
+/* Huvudet: krysset och kapslarna som små klossar på golvet. */
+.sess-kryss {
+  width: 44px; height: 44px; border-radius: 14px; background: var(--papper); color: var(--ink-1);
+  box-shadow: 0 3px 0 var(--sess-kant); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sess-kryss:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--sess-kant); }
+.sess-kapsel {
+  display: inline-flex; align-items: center; gap: 5px; height: 36px; padding: 0 10px; border-radius: 12px;
+  background: var(--papper); color: var(--ink-1); box-shadow: 0 3px 0 var(--sess-kant);
+  font: 700 14px/18px var(--font-sess-display); white-space: nowrap; flex-shrink: 0;
+}
+.sess-kapsel b { font: 700 14px/18px var(--font-sess-display); }
+.sess-kapsel[data-kapsel="rad3"] {
+  background: var(--sess-rad3-yta); box-shadow: 0 3px 0 var(--sess-rad3-kant); color: var(--sess-rad3-ink);
+  font-family: inherit; font-weight: 600; font-size: 13px; line-height: 16px; animation: sess-pop 320ms cubic-bezier(.2, .8, .2, 1) both;
+}
+.sess-kapsel[data-kapsel="varm"] { background: var(--sess-rad3-yta); box-shadow: 0 3px 0 var(--sess-rad3-kant); }
+.sess-kapsel-pil { color: var(--sess-indigo); }
+@media (min-width: 1024px) {
+  .sess-kapsel { gap: 6px; height: 40px; padding: 0 14px; border-radius: 14px; font-family: inherit; font-weight: 600; font-size: 13px; line-height: 16px; }
+  .sess-kapsel b { font: 700 16px/20px var(--font-sess-display); }
+}
+
+/* Stapeln i bitar: en bit per uppgift. */
+.sess-bitar { display: grid; gap: var(--bit-gap, 5px); min-width: 0; }
+.sess-bit { display: block; height: 12px; border-radius: 6px; background: var(--sess-bit); transition: background-color 200ms ease-out, box-shadow 200ms ease-out; }
+.sess-bit[data-bit="besvarad"] { background: var(--sess-indigo); }
+.sess-bit[data-bit="ratt"] { background: var(--sess-ratt); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+.sess-bit[data-bit="fel"] { background: var(--sess-fel-bit); box-shadow: inset 0 0 0 2.5px var(--sess-fel); }
+.sess-bit[data-bit="vet"] { background: var(--sess-vet-bit); box-shadow: inset 0 0 0 2.5px var(--sess-indigo); }
+.sess-bit[data-bit="aktuell"] { background: var(--papper); box-shadow: inset 0 0 0 3px var(--sess-lucka); }
+@media (min-width: 1024px) {
+  .sess-bitar { gap: var(--bit-gap-lg, 8px); }
+  .sess-bit { height: 14px; border-radius: 7px; }
+  .sess-bit[data-bit="aktuell"] { box-shadow: inset 0 0 0 2.5px var(--sess-lucka); }
+}
+@keyframes sess-bit-fyll { from { transform: scaleX(.1); opacity: .4; } to { transform: none; opacity: 1; } }
+.sess-bit[data-ny] { transform-origin: left center; animation: sess-bit-fyll 420ms cubic-bezier(.2, .8, .2, 1) both; }
+
+/* Brädet: mörk yta med vita brickor, luckan som streckad kopparruta. */
+.sess-brade { background: var(--sess-brade); color: var(--sess-brade-ink); border-radius: 24px; box-shadow: 0 5px 0 var(--sess-brade-kant); position: relative; }
+.sess-brade-ruta { background: var(--sess-ruta); color: var(--sess-figur); border-radius: 14px; box-shadow: inset 0 -5px 0 var(--sess-ruta-kant); display: flex; align-items: center; justify-content: center; aspect-ratio: 1; }
+.sess-brade-ruta[data-fylld] { background: var(--sess-ratt-yta); box-shadow: inset 0 -5px 0 var(--sess-ratt-kant), 0 0 0 4px var(--sess-ratt); animation: sess-pop 380ms cubic-bezier(.2, .8, .2, 1) 100ms both; }
+.sess-lucka { border-radius: 14px; background: var(--sess-brade-2); border: 3px dashed var(--sess-lucka); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font: 800 34px/1 var(--font-sess-display); color: var(--sess-lucka-ink); }
+@media (min-width: 1024px) {
+  .sess-brade { border-radius: 28px; box-shadow: 0 6px 0 var(--sess-brade-kant), 0 28px 48px rgba(27, 34, 70, .22); }
+  .sess-brade-ruta { border-radius: 18px; box-shadow: inset 0 -6px 0 var(--sess-ruta-kant); }
+  .sess-brade-ruta[data-fylld] { box-shadow: inset 0 -6px 0 var(--sess-ratt-kant), 0 0 0 4px var(--sess-ratt); }
+  .sess-lucka { border-radius: 18px; }
+}
+
+/* Underlaget: papper med 2 px kant och tjock kant nedtill, mörkt huvud för tabell och diagram. */
+.sess-papper { background: var(--papper); color: var(--ink-1); border-radius: 24px; border: 2px solid var(--sess-kant); box-shadow: 0 5px 0 var(--sess-kant); position: relative; overflow: hidden; }
+.sess-papper-huvud { background: var(--sess-brade); color: var(--sess-brade-ink); display: flex; align-items: center; gap: 14px; padding: 16px 20px; }
+
+/* Klossarna: svaren. 2 px kant, 4 px kant nedtill, tangentbrickan med bokstaven. */
+.sess-kloss {
+  background: var(--papper); color: var(--ink-1); border: 2px solid var(--sess-kant); border-radius: 16px;
+  box-shadow: 0 4px 0 var(--sess-kant); position: relative;
+  transition: border-color 120ms ease-out, box-shadow 120ms ease-out, background-color 160ms ease-out, opacity 160ms ease-out, transform 90ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.sess-kloss[data-tillstand="ratt"][data-efter-fel] { transition-delay: 120ms; }
+@media (min-width: 1024px) { .sess-kloss { border-radius: 18px; } }
+@media (hover: hover) {
+  .sess-kloss[data-tillstand="neutral"]:not(:disabled):hover { border-color: color-mix(in srgb, var(--sess-indigo) 45%, var(--sess-kant)); }
+}
+.sess-kloss:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 var(--sess-kant); }
+.sess-kloss[data-tillstand="vald"] { background: var(--sess-indigo-mjuk); border-color: var(--sess-indigo); box-shadow: 0 4px 0 var(--sess-indigo); }
+.sess-kloss[data-tillstand="ratt"] { background: var(--sess-ratt-yta); border-color: var(--sess-ratt); box-shadow: 0 4px 0 var(--sess-ratt); }
+.sess-kloss[data-tillstand="fel"] { background: var(--sess-fel-yta); border-color: var(--sess-fel); box-shadow: 0 4px 0 var(--sess-fel); }
+.sess-kloss[data-tillstand="dampad"] { opacity: .45; }
+.sess-tangent {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--sess-kant); background: var(--sess-tangent);
+  color: var(--sess-tangent-ink); font-family: inherit; font-weight: 700; font-size: 12px; line-height: 1;
+  transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out;
+}
+@media (min-width: 1024px) { .sess-tangent { width: 30px; height: 30px; border-radius: 9px; font-size: 13px; } }
+.sess-tangent[data-stor] { width: 34px; height: 34px; border-radius: 10px; font: 800 18px/1 var(--font-sess-display); }
+@media (min-width: 1024px) { .sess-tangent[data-stor] { width: 40px; height: 40px; border-radius: 12px; font-size: 22px; } }
+.sess-tangent[data-tangent="vald"] { background: var(--sess-indigo); border-color: var(--sess-indigo); color: var(--sess-indigo-ink); }
+.sess-tangent[data-tangent="ratt"] { background: var(--sess-ratt); border-color: var(--sess-ratt); color: var(--papper); }
+.sess-tangent[data-tangent="fel"] { background: var(--sess-fel); border-color: var(--sess-fel); color: var(--papper); }
+/* Etiketten "Ditt svar" och "Rätt svar": vit bricka med tillståndets färg. */
+.sess-etikett { background: var(--papper); border-radius: 999px; font-family: inherit; font-weight: 700; font-size: 10px; line-height: 14px; letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; white-space: nowrap; }
+@media (min-width: 1024px) { .sess-etikett { font-size: 11px; line-height: 16px; padding: 2px 9px; } }
+.sess-etikett[data-pill="ditt"] { color: var(--sess-fel-ink); box-shadow: 0 0 0 2px var(--sess-fel); }
+.sess-etikett[data-pill="ratt"], .sess-etikett[data-pill="ratt-ditt"] { color: var(--sess-ratt-ink); box-shadow: 0 0 0 2px var(--sess-ratt); }
+
+/* Domen: tonad panel efter svaret. Grön vid rätt, röd vid fel, indigo efter Vet inte. */
+.sess-dom { border-radius: 22px; border: 2px solid; padding: 18px 16px 16px; color: var(--ink-1); }
+@media (min-width: 1024px) { .sess-dom { padding: 18px 20px 20px; } }
+.sess-dom[data-dom="ratt"] { background: var(--sess-ratt-yta); border-color: var(--sess-ratt-kant); --dom-ink: var(--sess-ratt-ink); --dom-ikon: var(--sess-ratt); }
+.sess-dom[data-dom="fel"] { background: var(--sess-fel-yta); border-color: var(--sess-fel-kant); --dom-ink: var(--sess-fel-ink); --dom-ikon: var(--sess-fel); }
+.sess-dom[data-dom="vet_inte"], .sess-dom[data-dom="obesvarad"] { background: var(--sess-vet-yta); border-color: var(--sess-kant); --dom-ink: var(--sess-indigo); --dom-ikon: var(--sess-indigo); }
+.sess-dom-ikon { color: var(--dom-ikon); }
+.sess-dom-ton { color: var(--dom-ink); }
+@keyframes sess-dom-in { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+.sess-dom { animation: sess-dom-in 280ms cubic-bezier(.2, .8, .2, 1) 200ms both; }
+@keyframes sess-dom-upp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+/* Mobil: domen glider upp nedifrån som en panel och står fast nedtill (foten i tumgrepp). */
+@media (max-width: 1023.98px) {
+  .sess-dom[data-panel] {
+    border-width: 2px 0 0; border-radius: 26px 26px 0 0;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -10px 28px var(--sess-skugga);
+    animation: sess-dom-upp 300ms cubic-bezier(.2, .8, .2, 1) 200ms both;
+  }
+}
+.sess-nasta-ikon { width: 32px; height: 32px; border-radius: 11px; background: var(--papper); color: var(--ink-1); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Primärknappen i ramen och domen: koppar med tjock kant nedtill. */
+.knapp-primar.sess-knapp { height: 56px; border-radius: 16px; font-size: 17px; font-weight: 700; padding: 0 36px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 5px 0 var(--sess-knapp-kant); }
+.knapp-primar.sess-knapp:active:not(:disabled) { transform: translateY(3px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 0 var(--sess-knapp-kant); }
+@media (min-width: 1024px) { .knapp-primar.sess-knapp { padding: 0 40px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sess-dom, .sess-dom[data-panel], .sess-kapsel[data-kapsel="rad3"], .sess-bit[data-ny], .sess-brade-ruta[data-fylld] { animation: none !important; }
+  .sess-kloss, .sess-bit, .sess-tangent { transition: none !important; }
+}
+
 /* Rätt/fel-systemet (omgång 2 steg A): det ritade märket poppar in 240 ms,
    pillen glider in från höger 200 ms med 120 ms fördröjning. Rätt kort efter
    ett fel kommer 120 ms efter felet. prefers-reduced-motion stänger allt
@@ -2350,9 +2540,7 @@ html {
 .sess-remsa-in { animation: sess-remsa-in 240ms cubic-bezier(.2, .8, .2, 1) both; }
 @media (prefers-reduced-motion: reduce) { .sess-remsa-in { animation: none; } }
 
-/* Förklaringen: glider in under svaren 120 ms efter facit. */
-@keyframes sess-forklaring { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-.sess-forklaring { animation: sess-forklaring 280ms cubic-bezier(.2, .8, .2, 1) 120ms both; }
+/* Förklaringen är domen sedan omgång 3 (.sess-dom ovan). */
 
 /* Uppgiftsarket: ark nedifrån på mobil, popover under räknaren på dator. */
 @keyframes sess-ark-upp { from { transform: translateY(100%); } to { transform: none; } }

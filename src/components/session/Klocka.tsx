@@ -1,9 +1,9 @@
 'use client'
 
 /**
- * Klockan, sessionens enda klocka (omgång 2 steg A, artboarden Klockan i
- * skissen): en kapsel med ringen och talet bredvid varandra, så att fem
- * tecken ("+1:23") får samma luft som fyra.
+ * Klockan, sessionens enda klocka (omgång 2 steg A; omgång 3: kapseln i
+ * huvudet, .sess-kapsel, ringen i indigo): en kapsel med ringen och talet
+ * bredvid varandra, så att fem tecken ("+1:23") får samma luft som fyra.
  *
  *   Kapseln  36 px hög på dator (ringen 26, talet 14 px), 30 på mobil
  *            (ringen 22, talet 12 px), papper-2, radie full. Talets bredd
@@ -72,36 +72,33 @@ export default function Klocka(p: KlockaProps) {
       aria-live="off"
       aria-label={aria}
       suppressHydrationWarning
-      className={`inline-flex h-[30px] flex-shrink-0 items-center gap-1.5 rounded-full pl-1 pr-2.5 transition-colors duration-300 lg:h-9 lg:gap-2 lg:pl-1.5 lg:pr-3 ${
-        varm ? 'bg-koppar-mjuk' : 'bg-papper-2'
-      }`}
+      className="sess-kapsel transition-colors duration-300"
+      data-kapsel={varm ? 'varm' : undefined}
       data-klocka={ton}
     >
-      <svg viewBox="0 0 48 48" width="26" height="26" className="block h-[22px] w-[22px] flex-shrink-0 lg:h-[26px] lg:w-[26px]" aria-hidden="true">
-        <circle cx="24" cy="24" r={R} fill="none" stroke={varm ? 'color-mix(in srgb, var(--koppar) 28%, transparent)' : 'var(--kant)'} strokeWidth="5" />
+      <svg viewBox="0 0 48 48" width="22" height="22" className="block h-5 w-5 flex-shrink-0 lg:h-[22px] lg:w-[22px]" aria-hidden="true">
+        <circle cx="24" cy="24" r={R} fill="none" stroke={varm ? 'color-mix(in srgb, var(--koppar) 28%, transparent)' : 'var(--sess-bit)'} strokeWidth="6" />
         <circle
           cx="24"
           cy="24"
           r={R}
           fill="none"
-          stroke={varm ? 'var(--koppar)' : 'var(--ink-2)'}
-          strokeWidth="5"
+          stroke={varm ? 'var(--koppar)' : 'var(--sess-indigo)'}
+          strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={OMKRETS.toFixed(2)}
           strokeDashoffset={(OMKRETS * (1 - andel)).toFixed(2)}
           transform="rotate(-90 24 24)"
           className="sess-ring"
         />
-        <path d="M24 0v7" stroke="var(--ink-1)" strokeWidth="3" strokeLinecap="round" opacity=".55" />
       </svg>
       <b
         aria-hidden="true"
         suppressHydrationWarning
-        className={`block text-left font-sess-display text-[12px] leading-4 tabular-nums tracking-[-.01em] lg:text-[14px] ${
-          ton === 'referens' ? 'font-semibold text-ink-3' : varm ? 'font-bold text-koppar-ink' : 'font-bold text-ink-1'
-        }`}
-        // Fast bredd per teckenantal: kolonet är smalare än en siffra.
-        style={{ width: `${text.length - 0.45}ch` }}
+        className={`block text-left ${varm ? 'text-koppar-ink' : 'text-ink-1'}`}
+        // Fast bredd per teckenantal (displaysnittet har inga tabulära
+        // siffror): talet tickar inom sin ruta, inget runt omkring flyttar.
+        style={{ width: `${text.length * 0.62 + 0.1}em` }}
       >
         {text}
       </b>

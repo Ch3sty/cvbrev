@@ -33,7 +33,7 @@ import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { LANK } from '@/components/shell/knappar'
 import Staplar from '@/components/traning/Staplar'
 import { MilstolpeKortVy } from '@/components/traning/resultatDelar'
-import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Startskarm from '../Startskarm'
 import Resultatskarm from '../Resultatskarm'
 import { MATRIS, type MatrisU } from '../typer/Matris'
@@ -117,7 +117,7 @@ function tranaApi(api: PassApi, begard: 'pass' | 'riktat', family: string | null
         }
       }
       if (!at) return { ok: false, status: 0 }
-      return { ok: true, klar: r.klar, facit: { ratt: at.rattVisat, correct: at.correct, regel: at.regel || null, misstag: at.misstag } }
+      return { ok: true, klar: r.klar, facit: { ratt: at.rattVisat, correct: at.correct, regel: at.regel || null, misstag: at.misstag }, niva: lasRamNiva(r) }
     },
     async hamta(id) {
       const ny = await api.session(id)

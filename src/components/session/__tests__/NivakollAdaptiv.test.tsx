@@ -81,7 +81,7 @@ describe('adaptiv Nivåkoll', () => {
         resultat={() => <p data-testid="resultat">Resultatet</p>}
       />
     )
-    expect(screen.getByText('1 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 1 av 3')).toBeTruthy()
     const nasta = () => document.querySelector('[data-primar]') as HTMLButtonElement
     expect(nasta().disabled).toBe(true)
     fireEvent.click(document.querySelector('[data-alt="1"]')!)
@@ -94,14 +94,14 @@ describe('adaptiv Nivåkoll', () => {
     expect(skickat).toEqual([{ nyckel: 'q1', valt: 1 }])
     await act(async () => slapp!())
     await waitFor(() => expect(screen.getByText('Uppgift 2')).toBeTruthy())
-    expect(screen.getByText('2 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 2 av 3')).toBeTruthy()
     expect(nasta().disabled).toBe(true)
     // Andra och tredje svaret; det tredje avslutar.
     fireEvent.click(document.querySelector('[data-alt="2"]')!)
     fireEvent.click(nasta())
     await waitFor(() => expect(skickat.length).toBe(2))
     await act(async () => slapp!())
-    await waitFor(() => expect(screen.getByText('3 / 3')).toBeTruthy())
+    await waitFor(() => expect(screen.getByText('Uppgift 3 av 3')).toBeTruthy())
     expect(nasta().textContent).toContain('Visa resultatet')
     fireEvent.click(document.querySelector('[data-alt="0"]')!)
     fireEvent.click(nasta())

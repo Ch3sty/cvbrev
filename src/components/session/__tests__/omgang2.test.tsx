@@ -73,7 +73,7 @@ describe('klockan som kapsel', () => {
 })
 
 describe('rätt/fel-systemet', () => {
-  it('märket ersätter brickan och pillen säger vems svaret är', () => {
+  it('klossen behåller tangentbrickan och etiketten säger vems svaret är (omgång 3)', () => {
     const { container } = render(
       <>
         <SvarRad i={0} tillstand="fel">x</SvarRad>
@@ -83,8 +83,8 @@ describe('rätt/fel-systemet', () => {
         </SvarRad>
       </>
     )
-    expect(container.querySelectorAll('[data-marke="fel"]').length).toBe(1)
-    expect(container.querySelectorAll('[data-marke="ratt"]').length).toBe(2)
+    expect(container.querySelectorAll('.sess-kloss[data-tillstand="fel"] .sess-tangent[data-tangent="fel"]').length).toBe(1)
+    expect(container.querySelectorAll('.sess-kloss[data-tillstand="ratt"] .sess-tangent[data-tangent="ratt"]').length).toBe(2)
     expect(screen.getByText(SESSION.svar.ditt)).toBeTruthy()
     expect(screen.getByText(SESSION.svar.ratt)).toBeTruthy()
     expect(screen.getByText(SESSION.svar.rattDitt)).toBeTruthy()
@@ -104,7 +104,7 @@ describe('Förklaringen som kort', () => {
       <Forklaringen utfall="fel" tid={{ sekunder: 31, budget: 60 }} regel="Varje tal är 7 mindre." misstag="Du tog −8." innehall={<p data-typens>lösningsgången</p>} matning={{ bas, sessionId: 's', index: 2, plats: 'svar' }} />
     )
     expect(screen.getByText('Inte den här')).toBeTruthy()
-    expect(screen.getByText('31 s, provets tid 60 s')).toBeTruthy()
+    expect(screen.getByText('31 sekunder')).toBeTruthy()
     expect(container.querySelector('[data-forklaring-innehall] [data-typens]')).toBeTruthy()
     expect(screen.getByText('Ditt misstag')).toBeTruthy()
     unmount()

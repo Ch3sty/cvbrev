@@ -7,7 +7,8 @@
  * (siffran 18 px i en 34 px bricka, etiketten 11/14) och 112 px på dator
  * (22 px i 40 px, etiketten 13/17). Designsystemets färger, ingen gradient
  * och inget rörelsebibliotek. Brickan bär siffran (1 till 5) i stället för
- * en bokstav; vald är bläck.
+ * en bokstav. Sedan omgång 3 är korten klossar (.sess-kloss) med
+ * tangentbrickan, vald är indigo.
  *
  * Samma kort i det publika personlighetsprovet (omgång 2 steg C): `etiketter`
  * ger provets egna ord för lägena och aria-propsen kopplar gruppen till
@@ -15,6 +16,7 @@
  */
 
 import type { LikertValue } from '@/lib/personalityTest/types';
+import { KLOSS, Tangent } from '@/components/session/Svarskort';
 
 interface LikertScaleProps {
   value: LikertValue | null;
@@ -51,18 +53,9 @@ export default function LikertScale({ value, onChange, disabled, etiketter, aria
             onClick={() => onChange(o.value)}
             data-tillstand={vald ? 'vald' : 'neutral'}
             data-svar={o.value}
-            className={`sess-kort flex h-[104px] min-w-0 w-full touch-manipulation flex-col items-center justify-center gap-1.5 rounded-xl border px-1 py-2 text-center text-[11px] font-medium leading-[14px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default lg:h-[112px] lg:gap-2.5 lg:px-2 lg:text-[13px] lg:leading-[17px] ${
-              vald ? 'border-ink-1 bg-papper shadow-[inset_0_0_0_1px_var(--ink-1)]' : 'border-kant bg-papper hover:border-kant-stark'
-            }`}
+            className={`${KLOSS} flex h-[104px] min-w-0 w-full flex-col items-center justify-center gap-1.5 px-1 py-2 text-center text-[11px] font-semibold leading-[14px] lg:h-[112px] lg:gap-2.5 lg:px-2 lg:text-[13px] lg:leading-[17px]`}
           >
-            <span
-              aria-hidden="true"
-              className={`sess-bricka inline-flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center rounded-full font-sess-display text-[18px] font-extrabold leading-none lg:h-10 lg:w-10 lg:text-[22px] ${
-                vald ? 'bg-ink-1 text-papper' : 'bg-papper-2 text-ink-2'
-              }`}
-            >
-              {o.value}
-            </span>
+            <Tangent tecken={String(o.value)} tillstand={vald ? 'vald' : 'neutral'} stor />
             <span className="min-w-0 break-words">{label}</span>
           </button>
         );

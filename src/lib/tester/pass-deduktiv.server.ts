@@ -21,6 +21,8 @@
 // =============================================================================
 
 import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { uppgiftsNivaForTyp } from '@/lib/tester/v4/uppgiftsniva.server';
+import type { UppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
@@ -232,7 +234,7 @@ export async function skapaDeduktivPass(args: { supabase: Klient; admin: Klient;
 /* ------------------------------- Svaret ------------------------------ */
 
 export type SvarDeduktivPass =
-  | { ok: true; nyckel: string; aterkoppling: DeduktivAterkoppling; besvarade: number; antal: number; klar: boolean }
+  | ({ ok: true; nyckel: string; aterkoppling: DeduktivAterkoppling; besvarade: number; antal: number; klar: boolean } & UppgiftsNivaFalt)
   | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function svaraDeduktivPass(args: {
@@ -263,7 +265,8 @@ export async function svaraDeduktivPass(args: {
   const at = aterkopplingFor(rad, svar);
   if (!at) return { ok: false, status: 400, fel: 'ogiltigt_svar' };
   const besvarade = tidigare.length + 1;
-  return { ok: true, nyckel: q.id, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal };
+  // Omgång 3: uppgiftens nivå och nästa uppgifts, nya fält i svaret.
+  return { ok: true, nyckel: q.id, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal, ...uppgiftsNivaForTyp('deduktiv', meta.fragor, q.id) };
 }
 
 /* ------------------------------- Avslutet ---------------------------- */

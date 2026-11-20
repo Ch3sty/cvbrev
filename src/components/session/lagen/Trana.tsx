@@ -22,7 +22,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { useRouter } from 'next/navigation'
 import { arAppen, haptik } from '@/components/mobilapp/skal'
 import type { RapportTestKind } from '@/lib/traning/fragaRapport'
-import SessionsRam from '../SessionsRam'
+import SessionsRam, { type BitLage } from '../SessionsRam'
 import Startskarm, { type StartskarmProps } from '../Startskarm'
 import Klocka from '../Klocka'
 import Forklaringen from '../Forklaringen'
@@ -46,9 +46,57 @@ export interface TranaSession<U extends RamUppgift> {
 
 export type ApiFel = { ok: false; status: number }
 
+/** Uppgiftens nivå och nästa uppgifts ur motorns svar (omgång 3), 1 till 10. */
+export interface RamNiva {
+  uppgift: number | null
+  nasta: number | null
+}
+
+/** Läser motorns nya fält uppgift_niva och nasta_niva; utelämnade eller fel typ ger null. */
+export function lasRamNiva(svar: unknown): RamNiva | undefined {
+  if (!svar || typeof svar !== 'object') return undefined
+  const r = svar as { uppgift_niva?: unknown; nasta_niva?: unknown }
+  const tal = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+  const uppgift = tal(r.uppgift_niva)
+  const nasta = tal(r.nasta_niva)
+  return uppgift == null && nasta == null ? undefined : { uppgift, nasta }
+}
+
+/** Skillnaden som räknas som samma nivå (en tredjedels steg på skalan 1 till 10). */
+const SAMMA_NIVA = 0.3
+
+/** Riktningen mellan två nivåer, null när någon saknas. */
+export function nivaRiktning(fran: number | null | undefined, till: number | null | undefined): 'upp' | 'ner' | 'samma' | null {
+  if (fran == null || till == null) return null
+  if (till - fran > SAMMA_NIVA) return 'upp'
+  if (fran - till > SAMMA_NIVA) return 'ner'
+  return 'samma'
+}
+
+/** Stapelns bitar i Träna och rätt i rad (omgång 3). Utan direkt återkoppling: bara besvarad. */
+export function tranaBitar(
+  nycklar: readonly string[],
+  utfall: (nyckel: string) => 'ratt' | 'fel' | 'vet' | 'besvarad' | null,
+  aktuell: number,
+  direkt: boolean
+): { bitar: BitLage[]; iRad: number } {
+  const bitar: BitLage[] = nycklar.map((n, i) => {
+    const u = utfall(n)
+    if (u) return direkt ? u : 'besvarad'
+    return i === aktuell ? 'aktuell' : 'tom'
+  })
+  let iRad = 0
+  for (const b of bitar) {
+    if (b === 'ratt') iRad++
+    else if (b === 'fel' || b === 'vet') iRad = 0
+  }
+  return { bitar, iRad: direkt ? iRad : 0 }
+}
+
 export interface TranaApi<S> {
   skapa(): Promise<{ ok: true; vy: S } | ApiFel>
-  svara(inp: { sessionId: string; nyckel: string; valt: number | null; tid: number }): Promise<{ ok: true; facit: RamFacit; klar: boolean } | ApiFel>
+  /** niva: motorns uppgift_niva och nasta_niva (omgång 3), utelämnad när motorn inte vet. */
+  svara(inp: { sessionId: string; nyckel: string; valt: number | null; tid: number }): Promise<{ ok: true; facit: RamFacit; klar: boolean; niva?: RamNiva } | ApiFel>
   hamta(sessionId: string): Promise<S | null>
   slutfor(sessionId: string): Promise<{ ok: true; vy: S } | ApiFel>
 }
@@ -250,7 +298,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
 
   /* ------------------------------- Svaret ----------------------------- */
   // Svar i den här visningen, ovanpå motorns vy (som läses om först vid avslutet).
-  const [lokal, setLokal] = useState<Record<string, { valt: number | null; tid: number; facit: RamFacit }>>({})
+  const [lokal, setLokal] = useState<Record<string, { valt: number | null; tid: number; facit: RamFacit; niva?: RamNiva }>>({})
   const svara = useCallback(
     async (valt: number | null, tidIn?: number) => {
       if (!s) return
@@ -262,9 +310,11 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       const r = await api.svara({ sessionId: s.id, nyckel: u.nyckel, valt, tid })
       let facit: RamFacit | null = null
       let klar = false
+      let niva: RamNiva | undefined
       if (r.ok) {
         facit = r.facit
         klar = r.klar
+        niva = r.niva
       } else if (r.status === 409) {
         // Redan besvarad (dubbeltryck, två flikar): läs om sessionen.
         const ny = await api.hamta(s.id)
@@ -282,7 +332,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       sessionHandelser.besvarad(bas, { session_id: s.id, index: idx, elapsed_ms: elapsed, via: via.current, vet_inte: valt === null, ratt: facit.correct })
       if (arAppen() && valt !== null && direkt) haptik('latt')
       const f = facit
-      setLokal((l) => ({ ...l, [u.nyckel]: { valt, tid, facit: f } }))
+      setLokal((l) => ({ ...l, [u.nyckel]: { valt, tid, facit: f, niva } }))
       if (direkt) {
         setFas({ typ: 'facit', klar })
         return
@@ -468,9 +518,40 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
 
   const utfall = facit ? (valtVisat === null ? 'vet_inte' : facit.correct ? 'ratt' : 'fel') : null
   const tidPaUppgift = sparad?.tid ?? s.besvarade[u.nyckel]?.tid_s ?? Math.round(sekunder)
+
+  // Huvudet (omgång 3): bitarna, rätt i rad och uppgiftens nivå.
+  const nycklar = s.uppgifter.map((x) => x.nyckel)
+  const aktuellIdx = Math.min(idx, antal - 1)
+  const { bitar, iRad } = tranaBitar(
+    nycklar,
+    (n) => {
+      const l = lokal[n]
+      if (l) return l.valt === null ? 'vet' : l.facit.correct ? 'ratt' : 'fel'
+      const b = s.besvarade[n]
+      if (!b) return null
+      const f = s.facit[n]
+      if (b.valt === null) return 'vet'
+      return f ? (f.correct ? 'ratt' : 'fel') : 'besvarad'
+    },
+    aktuellIdx,
+    direkt
+  )
+  const forraNiva = aktuellIdx > 0 ? lokal[nycklar[aktuellIdx - 1]]?.niva : undefined
+  const forForra = aktuellIdx > 1 ? lokal[nycklar[aktuellIdx - 2]]?.niva : undefined
+  const uppgiftNiva = sparad?.niva?.uppgift ?? forraNiva?.nasta ?? null
+  const forraUppgiftNiva = forraNiva?.uppgift ?? forForra?.nasta ?? null
+  const nivaKapsel = uppgiftNiva != null ? { varde: uppgiftNiva, riktning: nivaRiktning(forraUppgiftNiva, uppgiftNiva) } : null
+  const nastaR = !sistaSvaret ? nivaRiktning(sparad?.niva?.uppgift, sparad?.niva?.nasta) : null
+  const nastaRiktning = nastaR === 'upp' ? 'svarare' : nastaR === 'ner' ? 'lattare' : nastaR === 'samma' ? 'samma' : null
+  // Domen står i fotens ställe med Nästa i sig, utom när typen ritar den i
+  // sin egen spalt (Bred utan underlag): där står Nästa kvar i foten.
+  const domIRam = !ritare.forklaringIUppgift
   const forklaringen =
     facit && utfall ? (
       <Forklaringen
+        nasta={domIRam && harSvarat ? primar : null}
+        nastaRiktning={nastaRiktning}
+        panel={domIRam}
         utfall={utfall}
         tid={{ sekunder: tidPaUppgift, budget: s.budgetPerUppgift }}
         regel={facit.regel}
@@ -495,6 +576,10 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       klocka={<Klocka lage="referens" sekunder={harSvarat ? tidPaUppgift : sekunder} budget={s.budgetPerUppgift} />}
       nyckel={u.nyckel}
       underlag={ramUnderlag(ritare, u)}
+      bitar={bitar}
+      iRad={iRad}
+      niva={nivaKapsel}
+      dom={domIRam ? forklaringen : null}
       bekraftaAvbryt
       onAvbryt={() => {
         avbrottVidLamning()
@@ -540,7 +625,6 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
           }}
           forklaring={ritare.forklaringIUppgift ? forklaringen : undefined}
         />
-        {ritare.forklaringIUppgift ? null : forklaringen}
       </div>
     </SessionsRam>
   )

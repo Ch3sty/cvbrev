@@ -20,6 +20,8 @@
 // =============================================================================
 
 import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { uppgiftsNivaForTyp } from '@/lib/tester/v4/uppgiftsniva.server';
+import type { UppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
@@ -235,7 +237,7 @@ export async function skapaFigurPass(args: { supabase: Klient; admin: Klient; us
 /* ------------------------------- Svaret ------------------------------ */
 
 export type SvarFigurPass =
-  | { ok: true; nyckel: string; aterkoppling: FigurAterkoppling; besvarade: number; antal: number; klar: boolean }
+  | ({ ok: true; nyckel: string; aterkoppling: FigurAterkoppling; besvarade: number; antal: number; klar: boolean } & UppgiftsNivaFalt)
   | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function svaraFigurPass(args: {
@@ -264,7 +266,8 @@ export async function svaraFigurPass(args: {
   const at = aterkopplingFor(rad, svar);
   if (!at) return { ok: false, status: 400, fel: 'ogiltigt_svar' };
   const besvarade = tidigare.length + 1;
-  return { ok: true, nyckel: q.id, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal };
+  // Omgång 3: uppgiftens nivå och nästa uppgifts, nya fält i svaret.
+  return { ok: true, nyckel: q.id, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal, ...uppgiftsNivaForTyp('figurserie', meta.fragor, q.id) };
 }
 
 /* ------------------------------- Avslutet ---------------------------- */

@@ -19,7 +19,7 @@ import type { FigurPassVy } from '@/lib/tester/pass-figur'
 import { serieFamiljNamn } from '@/lib/figurserierV1/familjer'
 import { nivakollHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { LANK } from '@/components/shell/knappar'
-import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { antalOrd, SESSION } from '../copy'
@@ -64,7 +64,7 @@ function tranaApi(a: FigurPassApi): TranaApi<FigurPassVy> {
       const r = await a.svara({ sessionId, nyckel, visat: valt, tid })
       if (!r.ok) return { ok: false, status: r.status }
       const at = r.aterkoppling
-      return { ok: true, klar: r.klar, facit: { ratt: at.rattVisat, correct: at.correct, regel: at.regel, misstag: at.misstag } }
+      return { ok: true, klar: r.klar, facit: { ratt: at.rattVisat, correct: at.correct, regel: at.regel, misstag: at.misstag }, niva: lasRamNiva(r) }
     },
     hamta: (id) => a.session(id),
     async slutfor(id) {

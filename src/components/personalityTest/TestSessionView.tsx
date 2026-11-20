@@ -20,7 +20,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import SessionsRam from '@/components/session/SessionsRam';
+import SessionsRam, { type BitLage } from '@/components/session/SessionsRam';
 import { SESSION } from '@/components/session/copy';
 import { sessionHandelser } from '@/components/session/handelser';
 import { useLamnadSida } from '@/components/session/lagen/gemensamt';
@@ -276,6 +276,7 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
         text: 'Alla påståenden är besvarade. Vi räknar fram din profil och du ser den direkt.',
       }}
       ark={{ celler, onValj: (i) => ga(i) }}
+      bitar={personlighetsBitar(svar)}
       tangent={last || lamnar ? null : { antal: 5, onValj: (i) => ((via.current = 'keyboard'), void valj(i)) }}
       rad={
         sparfel || lamnaFel ? (
@@ -330,4 +331,13 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
       </div>
     </SessionsRam>
   );
+}
+
+/** Stapelns bitar (omgång 3): tio bitar om fem påståenden, en bit är besvarad när alla fem är det. */
+export function personlighetsBitar(svar: readonly (unknown | null)[], perBit = 5): BitLage[] {
+  const antal = Math.max(1, Math.ceil(svar.length / perBit));
+  return Array.from({ length: antal }, (_, b) => {
+    const del = svar.slice(b * perBit, (b + 1) * perBit);
+    return del.length > 0 && del.every((v) => v !== null) ? 'besvarad' : 'tom';
+  });
 }

@@ -54,10 +54,10 @@ describe('nivåtestet i ramen', () => {
     )
     // Mjuk gräns: fem minuter över, testet går vidare och ringen säger tiden över.
     expect(document.querySelector('[data-klocka="over"]')?.textContent).toMatch(/^\+5:0\d$/)
-    expect(screen.getByText('1 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 1 av 3')).toBeTruthy()
     // Nästa utan val lämnar obesvarad.
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)
-    expect(screen.getByText('2 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 2 av 3')).toBeTruthy()
     expect(skicka).not.toHaveBeenCalled()
     // Markera och bekräfta.
     fireEvent.click(document.querySelectorAll('[data-serie-alt] button')[4])
@@ -65,13 +65,13 @@ describe('nivåtestet i ramen', () => {
     await waitFor(() => expect(skickat).toEqual([[uppgifter[1].nyckel, 4]]))
     // Tillbaka med ‹, ändra svaret.
     fireEvent.click(document.querySelector('[data-foregaende]')!)
-    expect(screen.getByText('2 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 2 av 3')).toBeTruthy()
     expect(document.querySelectorAll('[data-serie-alt] button')[4].getAttribute('data-tillstand')).toBe('vald')
     fireEvent.click(document.querySelectorAll('[data-serie-alt] button')[1])
     fireEvent.click(document.querySelector('[data-primar="nasta"]')!)
     await waitFor(() => expect(skickat[1]).toEqual([uppgifter[1].nyckel, 1]))
     // Sista uppgiften: Lämna in.
-    expect(screen.getByText('3 / 3')).toBeTruthy()
+    expect(screen.getByText('Uppgift 3 av 3')).toBeTruthy()
     fireEvent.click(document.querySelector('[data-primar="lamna-in"]')!)
     await screen.findByText('Lämna in?')
     expect(screen.getAllByText('2 uppgifter är obesvarade och räknas som fel.').length).toBeGreaterThan(0)

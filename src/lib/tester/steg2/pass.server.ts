@@ -19,6 +19,8 @@
 // =============================================================================
 
 import { uppdateraNivaEfterTraning } from '@/lib/tester/v4/nivapunkt.server';
+import { uppgiftsNivaForTyp } from '@/lib/tester/v4/uppgiftsniva.server';
+import type { UppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import { nivaUrNivatest } from '@/lib/tester/v4/steg2-niva.server';
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -274,7 +276,7 @@ export async function skapaSteg2Pass(args: {
 }
 
 export type SvarSteg2Pass =
-  | { ok: true; nyckel: string; aterkoppling: Steg2Aterkoppling; besvarade: number; antal: number; klar: boolean }
+  | ({ ok: true; nyckel: string; aterkoppling: Steg2Aterkoppling; besvarade: number; antal: number; klar: boolean } & UppgiftsNivaFalt)
   | { ok: false; status: 400 | 404 | 409; fel: string };
 
 export async function svaraSteg2Pass(args: { admin: Klient; userId: string; sessionId: string; nyckel: unknown; visat: unknown; tid: unknown }): Promise<SvarSteg2Pass> {
@@ -296,7 +298,8 @@ export async function svaraSteg2Pass(args: { admin: Klient; userId: string; sess
   const at = aterkopplingFor(m, rad, svar);
   if (!at) return { ok: false, status: 400, fel: 'ogiltigt_svar' };
   const besvarade = tidigare.length + 1;
-  return { ok: true, nyckel: args.nyckel, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal };
+  // Omgång 3: uppgiftens nivå och nästa uppgifts, nya fält i svaret.
+  return { ok: true, nyckel: args.nyckel, aterkoppling: at, besvarade, antal: meta.antal, klar: besvarade >= meta.antal, ...uppgiftsNivaForTyp(meta.test_kind as Steg2PassKind, meta.fragor, args.nyckel) };
 }
 
 export type SlutforSteg2Pass = { ok: true; niva_efter?: number | null; vy: Steg2PassVy } | { ok: false; status: 400 | 404 | 409; fel: string };

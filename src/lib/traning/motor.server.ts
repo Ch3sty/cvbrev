@@ -64,6 +64,7 @@ import {
   type MilstolpeNyckel,
   type Nivapunkt,
 } from './milstolpar';
+import { uppgiftsNivaFalt } from '@/lib/tester/v4/uppgiftsniva';
 import { foreslaSikte, matningsNiva, passUppdatering, STARTNIVA_UTAN_MATNING, STEG_UPP, type NivaSvar } from './niva';
 import { strackEllerGolv } from './strack';
 import { nivaTak } from './flaggor';
@@ -781,6 +782,9 @@ export type SvarResultat =
       besvarade: number;
       antal: number;
       klar: boolean;
+      /** Omgång 3: uppgiftens nivå och nästa uppgifts (pass och riktat pass, fast lista). Utelämnade annars. */
+      uppgift_niva?: number | null;
+      nasta_niva?: number | null;
     }
   | { ok: false; status: 400 | 404 | 409 | 410; fel: string };
 
@@ -888,7 +892,15 @@ export async function svaraTraning(args: {
     besvarade,
     antal: meta.antal,
     klar,
+    ...(!meta.adaptiv && meta.fragor && visarAterkopplingUnderTiden(meta.typ) ? uppgiftsNivaFalt(meta.fragor, q.id, (id) => bankensP().get(id)) : {}),
   };
+}
+
+/** Bankens p ur priorn (utan statistik), för uppgiftens nivå i Träna (omgång 3). */
+let bankensPMinne: Map<string, number> | null = null;
+function bankensP(): Map<string, number> {
+  if (!bankensPMinne) bankensPMinne = new Map(bankInfo().map((b) => [b.id, b.p]));
+  return bankensPMinne;
 }
 
 /* -------------------------------- Avslutet -------------------------------- */

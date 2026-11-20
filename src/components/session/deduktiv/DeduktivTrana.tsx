@@ -21,7 +21,7 @@ import { nivakollHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { LANK } from '@/components/shell/knappar'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
-import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
+import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm from '../Resultatskarm'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 import { antalOrd, SESSION } from '../copy'
@@ -68,6 +68,7 @@ function tranaApi(a: DeduktivPassApi): TranaApi<DeduktivPassVy> {
         ok: true,
         klar: r.klar,
         facit: { ratt: at.rattVisat, correct: at.correct, regel: null, misstag: at.misstag, data: at.losning },
+        niva: lasRamNiva(r),
       }
     },
     hamta: (id) => a.session(id),
