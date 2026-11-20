@@ -246,12 +246,12 @@ export default function MatrisTrana({
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat m={v} betalande={betalande} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} nivaer={ctrl.mal?.nivaer ?? []} />}
     />
   )
 }
 
-function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void }) {
+function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang, nivaer }: { m: MatrisVy; betalande: boolean; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void; nivaer: (number | null)[] }) {
   const avslut = m.avslut!
   const vm = passResultat(avslut, m.vy, m.status)
   const s = lasMatrisPass(m)
@@ -262,7 +262,7 @@ function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: Mat
     .filter((f) => f.antal > 0 && f.ratt < f.antal)
     .sort((a, b) => a.andel - b.andel)
     .slice(0, 4)
-    .map((f) => ({ namn: familjNamn(f.family) ?? f.family ?? 'Blandat', meta: `${f.ratt} av ${f.antal} rätt i träningen`, andel: f.andel }))
+    .map((f) => ({ namn: familjNamn(f.family) ?? f.family ?? 'Blandat', meta: `${f.ratt} av ${f.antal} rätt i träningen`, andel: f.andel, ratt: f.ratt, antal: f.antal }))
   const harNiva = avslut.niva_fore != null || avslut.niva_efter != null
   const riktat = avslut.typ === 'riktat'
   return (
@@ -272,6 +272,7 @@ function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: Mat
       undertitel={undertitelFor(m.vy, riktat ? 'riktat' : 'pass', m.vy.family)}
       datum={datum}
       onStang={stang}
+      mal={avslut.niva_efter != null || nivaer.some((n) => n != null) ? { fore: avslut.niva_fore ?? null, efter: avslut.niva_efter ?? null, nivaer } : null}
       ring={{ andel: antal ? avslut.ratt / antal : 0, aria: SESSION.resultat.ringAria(avslut.ratt, antal) }}
       huvudtal={SESSION.resultat.rattAv(avslut.ratt, antal)}
       tal={[vm.tal[1], vm.tal[2]]}
@@ -307,7 +308,7 @@ function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang }: { m: Mat
                   Träningen på din nivå ingår i Premium. <PremiumPrisradText />
                 </p>
               ),
-              knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+              knapp: { text: 'En omgång till', href: riktat && m.vy.family ? passHref('riktat', { family: m.vy.family }) : passHref('pass'), data: 'en-omgang-till' },
             }
           : {
               titel: 'Mät din nivå i figurer och mönster',

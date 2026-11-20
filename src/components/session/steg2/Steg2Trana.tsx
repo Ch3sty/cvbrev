@@ -32,8 +32,8 @@ import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import { LANK } from '@/components/shell/knappar'
 import Startskarm from '../Startskarm'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
-import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
-import Resultatskarm from '../Resultatskarm'
+import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
+import Resultatskarm, { type MalData } from '../Resultatskarm'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
 import { antalOrd, SESSION } from '../copy'
 import type { ResultatListaVidare } from '../lagen/gemensamt'
@@ -96,7 +96,7 @@ function tranaApi(kind: Steg2PassKind, grupp: string | null, a: Steg2PassApi): T
     hamta: (id) => a.session(id),
     async slutfor(id) {
       const r = await a.slutfor(id)
-      return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
+      return r.ok ? { ok: true, vy: r.session, niva: lasSlutNiva(r) } : { ok: false, status: r.status }
     },
   }
 }
@@ -191,12 +191,12 @@ export default function Steg2Trana({
             }
           : null
       }
-      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <Resultat vy={v} datum={datum} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} mal={ctrl.mal} />}
     />
   )
 }
 
-function Resultat({ vy, datum, gaIgenom, lista, stang }: { vy: Steg2PassVy; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void }) {
+function Resultat({ vy, datum, gaIgenom, lista, stang, mal }: { vy: Steg2PassVy; datum: string | null; gaIgenom: (fran?: number) => void; lista: ResultatListaVidare; stang: () => void; mal: MalData | null }) {
   const r = vy.resultat!
   const kind = vy.kind
   const ritare = steg2Ritare(kind)
@@ -217,6 +217,7 @@ function Resultat({ vy, datum, gaIgenom, lista, stang }: { vy: Steg2PassVy; datu
       undertitel={undertitelFor(kind, vy.grupp, vy.niva)}
       datum={datum}
       onStang={stang}
+      mal={mal}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -232,12 +233,12 @@ function Resultat({ vy, datum, gaIgenom, lista, stang }: { vy: Steg2PassVy; datu
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
-      tappade={{ rader: r.tappade.map((t) => ({ namn: t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel })) }}
+      tappade={{ rader: r.tappade.map((t) => ({ namn: t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={{
         titel: R.imorgon(svagast),
         text: null,
-        knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+        knapp: { text: 'En omgång till', href: steg2PassHref(kind, vy.grupp), data: 'en-omgang-till' },
       }}
       tillbakaHref={TRANING_RUTT.alla}
     />

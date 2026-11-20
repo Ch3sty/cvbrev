@@ -29,7 +29,8 @@ import type { VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import VnDiagram, { lika, SERIE, type DiagramMarkering, type VnDiagramConfig } from './VnDiagram'
 
 /** RamFacit.data för Ord och text och Siffror och tabeller: facit och rätt svars text. */
-export type VnData = VnFacitData & { rattText?: string | null }
+/** helForklaring (steg 3b): bankens förklaringstext när räknevägen ersätter den i domen. */
+export type VnData = VnFacitData & { rattText?: string | null; helForklaring?: string | null }
 
 /** facitData som VnData, null när den saknas eller har fel form. */
 export function lasVnData(d: unknown): VnData | null {
@@ -278,6 +279,14 @@ function SifferTabell({ t, markering }: { t: NonNullable<VnVisatUnderlag['tabell
 
 const TAL = /(\d{1,3}(?:[  ]\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?)(\s?(?:kr|%)(?![\p{L}]))?/gu
 
+/**
+ * Steg 3b, putsning: mellanrummen i ett tal ("1 000", "42 000 kr", "60 %")
+ * som hårda blanksteg, så att talet aldrig bryts mitt i. Annars ordagrant.
+ */
+export function hardaMellanrum(s: string): string {
+  return s.replace(/(\d) (?=\d{3}(?!\d))/g, '$1 ').replace(/(\d) (?=(?:kr|%)(?![\p{L}]))/gu, '$1 ')
+}
+
 /** Löptexten med talen som brickor ("80", "42 000 kr", "60 %"). Ordagrant ur banken. */
 export function medTalbrickor(text: string): ReactNode[] {
   const ut: ReactNode[] = []
@@ -363,7 +372,7 @@ export function SifferInnehall({ ul, reservTitel, inledning, fakta, data, Titel 
             <div className="space-y-2 px-3.5 pb-1 pt-3 text-[13px] leading-[19px] text-[color:var(--sess-ink-2)] lg:px-6 lg:pb-1.5 lg:pt-4 lg:text-[15px] lg:leading-[23px]">
               {inledning.map((p, i) => (
                 <p key={i} className="m-0">
-                  {p}
+                  {hardaMellanrum(p)}
                 </p>
               ))}
             </div>
@@ -380,7 +389,7 @@ export function SifferInnehall({ ul, reservTitel, inledning, fakta, data, Titel 
               <span className="mr-1 text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-[color:var(--sess-ink-3)] lg:text-[12px]">Bra att veta</span>
               {faktaLista.map((f, i) => (
                 <span key={i} className="sess-chip sess-fakta">
-                  {f}
+                  {hardaMellanrum(f)}
                 </span>
               ))}
             </div>

@@ -29,7 +29,7 @@ import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 import type { VnVisadUppgift, VnVisatUnderlag } from '@/lib/tester/vn-nivatest'
 import { BOKSTAV, SvarRad, SvarTal, Pill, tillstandFor, type Tillstand } from '../Svarskort'
 import type { ForklaringInnehallProps, RamUppgift, TypRitare, UppgiftProps } from '../typ'
-import { delaRubrik, lasVnData, Raknevag, SifferInnehall, sifferOm, type VnData } from './Siffror'
+import { delaRubrik, hardaMellanrum, lasVnData, Raknevag, SifferInnehall, sifferOm, type VnData } from './Siffror'
 import s from './vn.module.css'
 
 export { delaRubrik }
@@ -454,13 +454,13 @@ export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftPro
           data-uppgift-rubrik
           className="mt-1 font-sess-display text-[21px] font-extrabold leading-[26px] tracking-[-.01em] text-ink-1 outline-none [text-wrap:balance] lg:mt-2 lg:text-[24px] lg:leading-[30px] xl:text-[28px] xl:leading-[34px]"
         >
-          {u.text}
+          {hardaMellanrum(u.text)}
         </Rubrik>
       </div>
       <div role="radiogroup" aria-label={VN_ORD.svarAria} className="grid grid-cols-2 gap-2.5 lg:gap-3">
         {u.alternativ.map((a, i) => (
           <SvarTal key={a.id} i={i} tillstand={tillstandFor(i, vald, facit)} ditt={facit != null && vald === i} efterFel={efterFel} disabled={last} onValj={onValj}>
-            {a.text}
+            {hardaMellanrum(a.text)}
           </SvarTal>
         ))}
       </div>
@@ -468,11 +468,32 @@ export function VnUppgift({ u, vald, facit, efterFel, onValj, last }: UppgiftPro
   )
 }
 
-/** Domens innehåll: räknevägen när banken har den. Förklaringen står i domens löptext. */
+/**
+ * Domens innehåll: räknevägen när banken har den. Då ersätter den
+ * förklaringstexten (steg 3b), som står kvar bakom "Visa hela förklaringen"
+ * och fälls ut på plats. Utan räkneväg står förklaringen i domens löptext.
+ */
 function VnForklaring({ facit }: ForklaringInnehallProps<VnU>): ReactNode {
   const d = lasVnData(facit.data)
+  const [hel, setHel] = useState(false)
   if (!d?.losning) return null
-  return <Raknevag losning={d.losning} rattText={d.rattText ?? null} />
+  const text = d.helForklaring ?? null
+  return (
+    <>
+      <Raknevag losning={d.losning} rattText={d.rattText ?? null} />
+      {text ? (
+        hel ? (
+          <p className="m-0 mt-3 text-[15px] leading-[22px]" data-hel-forklaring>
+            {text}
+          </p>
+        ) : (
+          <button type="button" onClick={() => setHel(true)} className="sess-dom-ton mt-2 inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-[3px]" aria-expanded={false} data-visa-hel-forklaring>
+            Visa hela förklaringen
+          </button>
+        )
+      ) : null}
+    </>
+  )
 }
 
 /** Uppgiftslistans svar: de tre fasta med sina ord ("Sant", "Falskt"), raderna med bokstaven. */

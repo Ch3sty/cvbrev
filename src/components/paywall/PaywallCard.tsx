@@ -37,6 +37,8 @@ import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 import Bankbredd from '@/components/publikt/Bankbredd'
 import type { TestTyp } from '@/components/illustrations/TestGlyfer'
+import { PASS_COPY } from '@/lib/traning/pass-copy'
+import { SparrArk, SparrFot, SparrVagg, type SparrData } from './TestSparr'
 
 export { PRISER_HREF }
 
@@ -156,6 +158,25 @@ export interface PaywallCardProps {
    */
   del?: 'kort' | 'fot'
   className?: string
+  /**
+   * Omgång 3 (steg 3b): spärrarnas nya utseende i testflödet (Sparr-kvot på
+   * startskärmen, Sparr-test i arket). Utelämnat: testflödets väggar (med
+   * `matning`, eller variant test-tak) får det nya, alla andra (CV, brev,
+   * mallar) ritas som förut. 'kort' tvingar det tidigare kortet.
+   */
+  utseende?: 'kort' | 'test'
+  /** Hennes siffror i den nya spärren (dagens resultat, nivån, mönstret, provet). Saknas en faller raden bort. */
+  sparrData?: SparrData | null
+  /** Arkets kryss i det nya utseendet (GraValSheet). */
+  onStang?: (() => void) | null
+}
+
+/** Sant när väggen ritas i omgång 3:s utseende för testflödet. */
+export function arTestSparr(p: Pick<PaywallCardProps, 'utseende' | 'matning' | 'variant' | 'testTyp'>): boolean {
+  if (p.utseende === 'kort') return false
+  if (p.testTyp === 'personlighet') return false
+  if (p.utseende === 'test') return true
+  return p.matning != null || p.variant === 'test-tak'
 }
 
 function PaywallCard({
@@ -179,6 +200,9 @@ function PaywallCard({
   matning = null,
   del,
   className,
+  utseende,
+  sparrData = null,
+  onStang = null,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [copied, setCopied] = useState(false)
@@ -370,6 +394,60 @@ function PaywallCard({
     }
   })()
 
+  // Omgång 3: testflödets spärrar i det nya utseendet. Samma texter, pris,
+  // köp, länkar, påminnelse och mätning som kortet nedan; bara ritningen byts.
+  if (arTestSparr({ utseende, matning, variant, testTyp })) {
+    const slag: 'kvot' | 'premium' = variant === 'test-tak' || platsen === 'kvot' ? 'kvot' : 'premium'
+    const kanPaminna = Boolean(quota && quota.feature !== 'cv_bygg' && (variant === 'kvot' || variant === 'test-tak'))
+    const paminn = (fot: boolean) =>
+      !kanPaminna ? null : reminder === 'saved' ? (
+        <span className={`inline-flex min-h-11 items-center gap-1.5 text-sm font-medium ${fot ? 'text-positiv' : 'text-vagg-ink'}`} data-sparr-paminn="sparad">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6" /></svg>
+          Vi mejlar dig när den öppnar
+        </span>
+      ) : (
+        <button
+          type="button"
+          className={fot ? `${LANK} inline-flex min-h-11 items-center font-semibold` : 'res-tyst'}
+          onClick={() => {
+            ctaClicked('secondary')
+            void remind()
+          }}
+          disabled={reminder === 'saving'}
+          data-sparr-paminn=""
+        >
+          {reminder === 'saving' ? 'Sparar' : fot ? 'Påminn mig' : 'Påminn mig i morgon'}
+        </button>
+      )
+    const kopEl = (klass: string, fot = false) => (
+      <button type="button" onClick={primarHandling} className={`${KNAPP_PRIMAR} res-stor w-full ${klass}`} data-sparr-kop data-paywall-fot={fot ? '' : undefined}>
+        {copy.primary}
+      </button>
+    )
+    if (del === 'fot') return <SparrFot kop={kopEl('', true)} slag={slag} paminn={paminn(true)} />
+    // Delad på startskärmen: knappen står i foten på telefon, i arket från lg.
+    const kop = kopEl(del === 'kort' ? 'hidden lg:inline-flex' : '')
+    const felrad = reminder === 'error' ? <p className="mt-1 text-meta text-fel">Kunde inte spara påminnelsen. Försök igen.</p> : null
+    // Kvotspärren: påminnelsen står i remsan, länken till prissidan under knappen.
+    const sekundar = variant === 'test-tak' || variant === 'kvot' ? prisLank : secondary
+    const prisrad = copy.prisrad ? prisradPaTvaRader(copy.prisrad) : null
+    const vy = {
+      slag,
+      plats: platsen,
+      testTyp,
+      data: sparrData ?? {},
+      dagarKvar,
+      titel: copy.title,
+      body: copy.body,
+      prisrad,
+      kop,
+      sekundar,
+      felrad,
+    }
+    if (bare) return <div className={className}><SparrArk {...vy} onStang={onStang} fotrad={PASS_COPY.betalvagg.text} /></div>
+    return <div className={className}><SparrVagg {...vy} paminn={paminn(false)} del={del === 'kort' ? 'kort' : undefined} /></div>
+  }
+
   // Fotens knapp (startskärmen på mobil): samma knapp och handling, inget annat.
   if (del === 'fot') {
     return (
@@ -417,5 +495,7 @@ function PaywallCard({
 
 /** Startskärmen känner igen väggar som kan dela sig i kort och fot (Startskarm, del). */
 PaywallCard.fotDel = true as const
+/** Omgång 3: väggar som fyller startskärmens vägg i det nya utseendet (Startskarm). */
+PaywallCard.helVagg = (p: PaywallCardProps) => arTestSparr(p)
 
 export default PaywallCard

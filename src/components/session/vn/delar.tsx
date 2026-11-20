@@ -17,7 +17,17 @@ export function vnFacit(u: VnU, ratt: number, valt: number | null, forklaring: s
   const correct = valt != null && valt === ratt
   const rattText = ratt >= 0 ? u.alternativ[ratt]?.text ?? null : null
   // data (omgång 3 steg 2b): räknevägen och stödmeningarna, bara med facit.
-  return { ratt, correct, regel: !correct && rattText ? `Rätt svar: ${rattText}` : null, text: forklaring, misstag: null, ...(data ? { data: { ...data, rattText } } : {}) }
+  // Steg 3b: finns räknevägen ersätter den löptexten; texten följer med i data
+  // och står bakom "Visa hela förklaringen" (VnForklaring).
+  const raknevag = Boolean(data?.losning?.steg?.some((s) => s && typeof s.uttryck === 'string' && s.uttryck.trim()))
+  return {
+    ratt,
+    correct,
+    regel: !correct && rattText ? `Rätt svar: ${rattText}` : null,
+    text: raknevag ? null : forklaring,
+    misstag: null,
+    ...(data ? { data: { ...data, rattText, ...(raknevag && forklaring ? { helForklaring: forklaring } : {}) } } : {}),
+  }
 }
 
 /** Genomgångens poster: uppgiften, hennes svar, rätt svar och förklaringen. */

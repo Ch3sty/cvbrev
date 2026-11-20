@@ -23,6 +23,9 @@ import { antalTid, ordningText, type Ovningsformat, type Provtyp } from '@/lib/o
 import { versal } from '@/lib/traning/copy'
 import Startskarm from '../Startskarm'
 import type { ScenId } from '../scener'
+import { SparrVagg } from '@/components/paywall/TestSparr'
+import type { TestTyp } from '@/components/illustrations/TestGlyfer'
+import { testrumRubrik } from '@/components/paywall/paywall-copy'
 import { SESSION } from '../copy'
 
 /**
@@ -38,6 +41,7 @@ export function OvningsprovBetalvagg({
   fran,
   tillbakaHref,
   del,
+  nyttUtseende = true,
 }: {
   typ: Provtyp
   format: Ovningsformat
@@ -45,6 +49,8 @@ export function OvningsprovBetalvagg({
   fran: string | null
   tillbakaHref: string
   del?: 'kort' | 'fot'
+  /** Omgång 3: spärren i testflödets nya utseende. false: det tidigare kortet. */
+  nyttUtseende?: boolean
 }) {
   const kampanj = useKampanjPris()
   const visad = useRef(false)
@@ -75,7 +81,30 @@ export function OvningsprovBetalvagg({
       <PremiumKnappText />
     </Link>
   )
-  if (del === 'fot') return knapp('')
+  if (del === 'fot') return knapp('res-stor w-full')
+  // Omgång 3 (steg 3b): spärren på väggen i det nya utseendet (Sparr-test i
+  // startskärmens form). Samma text, pris, köp, länk och mätning som kortet.
+  if (nyttUtseende) {
+    return (
+      <SparrVagg
+        slag="premium"
+        plats="provlage"
+        testTyp={PROVTYP_TESTTYP[typ]}
+        data={{ format: { namn: format.namn, antal: format.antal, minuter: format.minuter, text: antalTid(format) } }}
+        dagarKvar={dagarKvar}
+        titel={testrumRubrik('generalrepetition') ?? B.eyebrow}
+        body={B.text(format, dagarKvar)}
+        prisrad={<PremiumPrisradText />}
+        kop={knapp(del === 'kort' ? 'res-stor w-full hidden lg:inline-flex' : 'res-stor w-full')}
+        sekundar={
+          <Link href={tillbakaHref} className={`${LANK} inline-flex min-h-11 items-center justify-center`}>
+            {B.lank}
+          </Link>
+        }
+        del={del === 'kort' ? 'kort' : undefined}
+      />
+    )
+  }
   return (
     <section aria-label={B.eyebrow} className="rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5" data-startark-betalvagg>
       <p className="text-ey uppercase text-koppar-ink">{B.eyebrow}</p>
@@ -93,6 +122,10 @@ export function OvningsprovBetalvagg({
   )
 }
 OvningsprovBetalvagg.fotDel = true as const
+/** Omgång 3: fyller startskärmens vägg i det nya utseendet (Startskarm). */
+OvningsprovBetalvagg.helVagg = (p: { nyttUtseende?: boolean }) => p.nyttUtseende !== false
+
+const PROVTYP_TESTTYP: Record<Provtyp, TestTyp> = { logik: 'matris', verbal: 'verbalt', numerisk: 'numeriskt', figurer: 'figurer', deduktiv: 'deduktiv' }
 
 export interface OvningsprovStartProps {
   typ: Provtyp

@@ -19,8 +19,8 @@ import type { FigurPassVy } from '@/lib/tester/pass-figur'
 import { serieFamiljNamn } from '@/lib/figurserierV1/familjer'
 import { nivakollHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { LANK } from '@/components/shell/knappar'
-import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
-import Resultatskarm from '../Resultatskarm'
+import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
+import Resultatskarm, { type MalData } from '../Resultatskarm'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { antalOrd, SESSION } from '../copy'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
@@ -69,7 +69,7 @@ function tranaApi(a: FigurPassApi): TranaApi<FigurPassVy> {
     hamta: (id) => a.session(id),
     async slutfor(id) {
       const r = await a.slutfor(id)
-      return r.ok ? { ok: true, vy: r.session } : { ok: false, status: r.status }
+      return r.ok ? { ok: true, vy: r.session, niva: lasSlutNiva(r) } : { ok: false, status: r.status }
     },
   }
 }
@@ -116,7 +116,7 @@ export default function FigurserieTrana({ start = null, vy = null, forklaringEft
             }
           : null
       }
-      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} />}
+      resultat={(v, ctrl) => <TranaResultat vy={v} datum={datum} harNivakoll={harNivakoll} gaIgenom={ctrl.gaIgenom} lista={ctrl.lista} stang={ctrl.stang} mal={ctrl.mal} />}
     />
   )
 }
@@ -128,6 +128,7 @@ function TranaResultat({
   gaIgenom,
   lista,
   stang,
+  mal,
 }: {
   vy: FigurPassVy
   datum: string | null
@@ -135,6 +136,7 @@ function TranaResultat({
   gaIgenom: (fran?: number) => void
   lista: ResultatListaVidare
   stang: () => void
+  mal: MalData | null
 }) {
   const r = vy.resultat!
   const s = lasFigurPass(vy)
@@ -152,6 +154,7 @@ function TranaResultat({
       undertitel={SESSION.undertitel('trana', vy.niva)}
       datum={datum}
       onStang={stang}
+      mal={mal}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -168,7 +171,7 @@ function TranaResultat({
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
       tappade={{
-        rader: r.tappade.map((t) => ({ namn: serieFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel })),
+        rader: r.tappade.map((t) => ({ namn: serieFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
       }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={
@@ -183,7 +186,7 @@ function TranaResultat({
                   </Link>
                 </p>
               ) : null,
-              knapp: { text: 'Alla tester', href: TRANING_RUTT.alla, data: 'alla-tester' },
+              knapp: { text: 'En omgång till', href: TRANING_RUTT.figurpass, data: 'en-omgang-till' },
             }
           : {
               titel: 'Mät din nivå i figurserier',

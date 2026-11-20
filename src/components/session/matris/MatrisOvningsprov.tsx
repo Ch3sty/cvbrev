@@ -29,7 +29,8 @@ import { ovningsformatUrNyckel, type Ovningsformat } from '@/lib/ovningsprov/for
 import { START } from '@/lib/ovningsprov/copy'
 import { PROVFORMAT, type FormatNyckel } from '@/lib/traning/tempo'
 import { kortDatum } from '@/lib/traning/rubrik'
-import { sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { ovningsprovHref, passHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
+import { tranaMissatSteg } from '../resultat/nasta'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import Staplar from '@/components/traning/Staplar'
 import SessionsRam from '../SessionsRam'
@@ -520,6 +521,8 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
       undertitel={undertitel(of)}
       datum={datum}
       onStang={stang}
+      niva={avslut.niva_efter ?? null}
+      igen={{ text: 'Gör ett nytt övningsprov', href: ovningsprovHref('logik') }}
       ring={{ andel: vm.antal ? vm.ratt / vm.antal : 0, aria: SESSION.resultat.ringAria(vm.ratt, vm.antal) }}
       huvudtal={SESSION.resultat.rattAv(vm.ratt, vm.antal)}
       tal={[
@@ -535,14 +538,24 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < alla.length ? () => gaIgenom(0) : null,
       }}
-      tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader } : null}
+      tappade={
+        vm.tappade
+          ? {
+              titel: vm.tappade.titel,
+              rader: vm.tappade.rader.map((r) => {
+                const fam = avslut.familjer.passet.find((x) => (familjNamn(x.family) ?? x.family ?? '') === r.namn)
+                return fam ? { ...r, ratt: fam.ratt, antal: fam.antal } : r
+              }),
+            }
+          : null
+      }
       tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
       tempoKort={null}
-      nastaSteg={{
-        titel: 'Plan inför provet',
-        text: vm.status,
-        knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' },
-      }}
+      nastaSteg={tranaMissatSteg({
+        monster: avslut.familjer.passet.map((x) => ({ namn: familjNamn(x.family) ?? x.family ?? 'Blandat', ratt: x.ratt, antal: x.antal, riktadHref: x.family ? passHref('riktat', { family: x.family }) : null })),
+        typensHref: passHref('pass'),
+        annars: { titel: 'Plan inför provet', text: vm.status, knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' } },
+      })}
       status={<KurvKort status={status} rubrik={PASS_COPY.ommatning.kurvaRubrik} idPrefix="ov" />}
       tillbakaHref={TRANING_RUTT.alla}
     />

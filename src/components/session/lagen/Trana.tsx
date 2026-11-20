@@ -31,6 +31,7 @@ import { lagesregler } from '../lagesregler'
 import { sessionHandelser, type SessionHandelseBas } from '../handelser'
 import { forklaringInnehall, type RamFacit, type RamUppgift, type TypRitare } from '../typ'
 import Genomgang, { type GenomgangKalla } from './Genomgang'
+import type { MalData } from '../Resultatskarm'
 import { ForsokIgen, Meddelande, ramUnderlag, useLamnadSida, type ResultatLista } from './gemensamt'
 
 /** Träningen i ramens form; typens wiring mappar motorns vy hit. */
@@ -98,7 +99,18 @@ export interface TranaApi<S> {
   /** niva: motorns uppgift_niva och nasta_niva (omgång 3), utelämnad när motorn inte vet. */
   svara(inp: { sessionId: string; nyckel: string; valt: number | null; tid: number }): Promise<{ ok: true; facit: RamFacit; klar: boolean; niva?: RamNiva } | ApiFel>
   hamta(sessionId: string): Promise<S | null>
-  slutfor(sessionId: string): Promise<{ ok: true; vy: S } | ApiFel>
+  /** niva: slutför-svarets niva_fore och niva_efter (omgång 3, målgången), utelämnad när motorn inte vet. */
+  slutfor(sessionId: string): Promise<{ ok: true; vy: S; niva?: { fore: number | null; efter: number | null } } | ApiFel>
+}
+
+/** Läser slutför-svarets niva_fore och niva_efter; utelämnade eller fel typ ger null. */
+export function lasSlutNiva(svar: unknown): { fore: number | null; efter: number | null } | undefined {
+  if (!svar || typeof svar !== 'object') return undefined
+  const r = svar as { niva_fore?: unknown; niva_efter?: unknown }
+  const tal = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) && v > 0 ? v : null)
+  const fore = tal(r.niva_fore)
+  const efter = tal(r.niva_efter)
+  return fore == null && efter == null ? undefined : { fore, efter }
 }
 
 export interface TranaStart extends Omit<StartskarmProps, 'bas' | 'knapp' | 'kryssruta' | 'regler' | 'sparrad' | 'fortsattTillganglig'> {
@@ -130,8 +142,11 @@ export interface TranaProps<U extends RamUppgift, S> {
   api: TranaApi<S>
   /** Kryssrutans sparade läge. */
   forklaringEfterSvar: boolean
-  /** ctrl.lista: Uppgiftslistan färdig för Resultatskarm (genomgang.lista), omgång 2. */
-  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; lista: ResultatLista<U> }) => ReactNode
+  /**
+   * ctrl.lista: Uppgiftslistan färdig för Resultatskarm (genomgang.lista), omgång 2.
+   * ctrl.mal: målgången (omgång 3), nivån före och efter och uppgifternas nivå; null när motorn inte gav någon.
+   */
+  resultat: (s: S, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void; lista: ResultatLista<U>; mal: MalData | null }) => ReactNode
   tillbakaHref: string
   /** Adressen byts till sessionens, så att en omladdning återupptar. */
   sessionAdress?: (id: string) => string
@@ -265,6 +280,9 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
   }
 
   /* ------------------------------ Avslutet ---------------------------- */
+  // Nivån före och efter ur slutför-svaret (omgång 3, målgången). Finns bara
+  // i den här visningen; en omladdning av resultatet visar det utan mätare.
+  const [slutNiva, setSlutNiva] = useState<{ fore: number | null; efter: number | null } | null>(null)
   const avsluta = useCallback(
     async (id: string) => {
       setFas({ typ: 'avslutar' })
@@ -274,6 +292,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
         return
       }
       senasteStart = null
+      if (r.niva) setSlutNiva(r.niva)
       const n = p.las(r.vy)
       sessionHandelser.klar(bas, {
         session_id: n.id,
@@ -442,7 +461,10 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       budgetPerUppgift: s.budgetPerUppgift,
       onOppna: (i) => setFas({ typ: 'genomgang', fran: i, kalla: 'rad' }),
     }
-    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran, kalla: 'ga_igenom' }), stang: tillbaka, lista })}</>
+    const nivaer = s.uppgifter.map((x) => lokal[x.nyckel]?.niva?.uppgift ?? null)
+    const mal: MalData | null =
+      slutNiva || nivaer.some((n) => n != null) ? { fore: slutNiva?.fore ?? null, efter: slutNiva?.efter ?? null, nivaer } : null
+    return <>{p.resultat(vy, { gaIgenom: (fran = 0) => setFas({ typ: 'genomgang', fran, kalla: 'ga_igenom' }), stang: tillbaka, lista, mal })}</>
   }
 
   if (fas.typ === 'genomgang') {

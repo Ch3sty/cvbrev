@@ -32,6 +32,7 @@ import { SESSION, LAGESNAMN } from './copy'
 import { sessionHandelser, type SessionHandelseBas } from './handelser'
 import { Snurra } from './SessionsRam'
 import { useRamLage } from './useRamLage'
+import { VaggFormer } from './resultat/delar'
 
 export interface StartRegel {
   titel: string
@@ -91,6 +92,85 @@ function delbar(sparr: ReactNode): sparr is DelbarVagg {
   if (!isValidElement(sparr)) return false
   const typ = sparr.type as { fotDel?: boolean } | string
   return typeof typ !== 'string' && Boolean(typ.fotDel)
+}
+
+/**
+ * Omgång 3 (steg 3b): spärren fyller väggen (Sparr-kvot). PaywallCard och
+ * övningsprovets vägg i testflödets nya utseende säger det med helVagg.
+ */
+function helVagg(sparr: ReactNode): sparr is DelbarVagg {
+  if (!delbar(sparr)) return false
+  const typ = sparr.type as unknown as { helVagg?: (p: unknown) => boolean }
+  return typeof typ.helVagg === 'function' && typ.helVagg(sparr.props)
+}
+
+/** Startskärmen med spärren på väggen: krysset, spärren och köpknappen i foten på telefon. */
+function SparrStart({ p, fotRef }: { p: StartskarmProps; fotRef: React.RefObject<HTMLElement | null> }) {
+  const sparr = p.sparr as DelbarVagg
+  const topp = (
+    <div className="flex h-14 items-center gap-3.5 lg:h-16">
+      {p.onAvbryt ? (
+        <button type="button" onClick={p.onAvbryt} aria-label={SESSION.avbryt.aria} className="res-x" data-kryss="">
+          <IkonX />
+        </button>
+      ) : p.inline ? null : (
+        <Link href={p.tillbakaHref ?? '/dashboard/tester'} aria-label={SESSION.start.tillbaka} className="res-x" data-kryss="">
+          <IkonX />
+        </Link>
+      )}
+      <span className="min-w-0 flex-1 truncate text-sm leading-5 text-vagg-mjuk">
+        {p.eyebrow}, {LAGESNAMN[p.bas.lage].toLowerCase()}
+      </span>
+    </div>
+  )
+  const vagg = (
+    <div className={`res-vagg px-4 pb-8 lg:px-10 lg:pb-10 ${p.inline || p.efter ? '' : 'min-h-full'}`} data-start-sparr={p.sparrad}>
+      <VaggFormer hojd={900} enkel={Boolean(p.inline)} />
+      <div className="relative mx-auto w-full max-w-[1120px]">
+        {p.inline ? p.topprad ?? null : topp}
+        <div className="mt-2 lg:mt-10">{cloneElement(sparr, { del: 'kort' })}</div>
+      </div>
+    </div>
+  )
+  if (p.inline) {
+    return (
+      <div data-sessionsram="start" data-startskarm={p.bas.lage} data-sparr-start>
+        {vagg}
+        {p.efter ? (
+          <div className="flex-1 px-4 pt-6 lg:px-10">
+            <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-4">{p.efter}</div>
+          </div>
+        ) : null}
+        <div className="h-[120px] lg:hidden" aria-hidden="true" />
+        <div className="fixed inset-x-0 z-30 border-t border-kant bg-papper px-4 py-3 lg:hidden" style={{ bottom: 'var(--bottom-nav-h, 0px)' }} data-start-fot="vagg">
+          {cloneElement(sparr, { del: 'fot' })}
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text" data-sessionsram="start" data-startskarm={p.bas.lage} data-sparr-start>
+      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        {vagg}
+        {p.efter ? (
+          <div className="px-4 pb-6 pt-6 lg:px-10">
+            <div className="mx-auto w-full max-w-[1120px]">{p.efter}</div>
+          </div>
+        ) : null}
+      </main>
+      <footer ref={fotRef} className="flex-shrink-0 border-t border-kant bg-papper lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+        <div className="mx-auto flex min-h-[72px] w-full max-w-[560px] items-center px-4 py-3" data-start-fot="vagg">
+          {cloneElement(sparr, { del: 'fot' })}
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+function SparrFast({ p }: { p: StartskarmProps }) {
+  const fotRef = useRef<HTMLElement | null>(null)
+  useRamLage(fotRef, true)
+  return <SparrStart p={p} fotRef={fotRef} />
 }
 
 function Kryssruta({ varde, onAndra }: { varde: boolean; onAndra: (v: boolean) => void }) {
@@ -188,6 +268,9 @@ export default function Startskarm(p: StartskarmProps) {
         {p.knapp.laddar ? SESSION.start.startar : p.knapp.text}
       </button>
     ) : null
+
+  // Omgång 3: spärren i testflödets nya utseende fyller väggen.
+  if (helVagg(p.sparr)) return p.inline ? <SparrStart p={p} fotRef={fotRef} /> : <SparrFast p={p} />
 
   // Väggens knapp får fotens plats på mobil: i den fasta startskärmen ramens
   // fot, på nivåtestets startsida (inline, i rummet) en fot som står kvar
