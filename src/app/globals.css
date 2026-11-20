@@ -3899,6 +3899,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-andra-kort { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 18px; box-shadow: 0 4px 0 var(--sess-kant); padding: 12px; display: grid; grid-template-columns: 36px 44px minmax(0, 1fr); column-gap: 12px; row-gap: 10px; align-items: center; }
 .prov3-andra-mini { width: 44px; height: 44px; border-radius: 10px; background: var(--sess-brade); color: var(--sess-brade-ink); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 3px; }
 .prov3-andra-mini:empty { display: none; }
+.prov3-andra-mini:has(.res-rad-ikon) { padding: 0; background: transparent; }
 .prov3-andra-kort:has(.prov3-andra-mini:empty) { grid-template-columns: 36px minmax(0, 1fr); }
 .prov3-andra-t { min-width: 0; }
 .prov3-andra-t > b { display: block; font: 700 15px/20px var(--font-sess-display); color: var(--ink-1); }
@@ -4018,8 +4019,8 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 }
 /* Startskärmens typval: korten med Nios glyfer (förlagan Publik-prov-start). */
 .prov3-typval { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-@media (min-width: 640px) { .prov3-typval { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .prov3-typval { grid-template-columns: repeat(9, minmax(0, 1fr)); } }
+/* Fem och fyra från 1024 px, tre gånger tre under: varje namn syns helt. */
+@media (min-width: 1024px) { .prov3-typval { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .prov3-typkort { display: flex; flex-direction: column; border-radius: 14px; overflow: hidden; background: var(--papper); box-shadow: inset 0 0 0 2px var(--sess-kant), 0 3px 0 var(--sess-kant); color: var(--ink-1); min-width: 0; transition: transform 120ms ease-out; }
 .prov3-typkort:hover { transform: translateY(-1px); }
 .prov3-typkort > i { display: flex; align-items: center; justify-content: center; height: 52px; background: var(--vagg); color: var(--vagg-ink); }
