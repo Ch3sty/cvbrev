@@ -52,8 +52,15 @@ export type NumeriskAnvander = {
   punkter?: string[];
 };
 
-/** Sista ledet i sista steget ger det rätta alternativets tal. */
-export type NumeriskLosning = { steg: NumeriskSteg[]; anvander?: NumeriskAnvander };
+/**
+ * Sista ledet i sista steget ger det rätta alternativets tal. När svaret
+ * inte är ett enda tal (en kategori, ett ja eller nej, två tal) bär
+ * `slutsats` en kort text som pekar ut svaret; stegen kontrolleras då var
+ * för sig, talen i det rätta alternativet ska komma ur stegen och slutsatsen
+ * ska skilja ut det rätta alternativet. Uttrycken kan också ha jämförelser
+ * (68,6 > 38,1), rötter (√12,64) och potenser med bråkexponent ((176 / 120)^(1 / 5)).
+ */
+export type NumeriskLosning = { steg: NumeriskSteg[]; anvander?: NumeriskAnvander; slutsats?: string };
 
 export type DataTable = {
   headers: string[];
