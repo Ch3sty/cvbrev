@@ -53,15 +53,19 @@ export function tappadeUrMeta(meta: unknown): { family: string; ratt: number; an
 /** Summerar familjerna och väljer den svagaste som klarar kraven, eller null. */
 export function svagasteMonster(
   sessioner: readonly { meta?: unknown }[],
-  namnFor: (family: string) => string = (f) => f
+  namnFor: (family: string) => string = (f) => f,
+  /** Id:t för en familj som sparats som id eller namn (monsterNamn.monsterId). Null: hoppas över, så att inget okänt id når användaren. */
+  nyckel: (family: string) => string | null = (f) => f
 ): MonsterSumma | null {
   const summa = new Map<string, { ratt: number; antal: number }>();
   for (const s of sessioner) {
     for (const t of tappadeUrMeta(s.meta)) {
-      const v = summa.get(t.family) ?? { ratt: 0, antal: 0 };
+      const id = nyckel(t.family);
+      if (!id) continue;
+      const v = summa.get(id) ?? { ratt: 0, antal: 0 };
       v.ratt += t.ratt;
       v.antal += t.antal;
-      summa.set(t.family, v);
+      summa.set(id, v);
     }
   }
   let bast: MonsterSumma | null = null;

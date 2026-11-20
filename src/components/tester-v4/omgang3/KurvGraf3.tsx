@@ -30,10 +30,10 @@ export function punktAria(p: UtvecklingsPunkt, namn: string): string {
   return [namn, slagOrd(p).toLowerCase(), kortDatumV(p.dag), v].filter(Boolean).join(', ')
 }
 
-function Etikett({ x, y, rad1, rad2, mobil }: { x: number; y: number; rad1: string; rad2: string; mobil: boolean }) {
+function Etikett({ x, y, rad1, rad2, mobil, W }: { x: number; y: number; rad1: string; rad2: string; mobil: boolean; W: number }) {
   const w = Math.max(rad1.length, rad2.length) * (mobil ? 6.8 : 7) + 28
   const h = mobil ? 40 : 48
-  const left = Math.max(4, Math.min(x - w / 2, (mobil ? 340 : 1064) - w - 4))
+  const left = Math.max(4, Math.min(x - w / 2, W - w - 4))
   const top = y - h - 16
   return (
     <g aria-hidden="true" className="t3-graf-etikett">
@@ -230,7 +230,7 @@ export default function KurvGraf3({
           <text x={k.idagX} y={Y(5.5) + 6} textAnchor="middle" className="t3-disp" fontSize="17" fontWeight="800" style={{ fill: 'var(--koppar-ink)' }}>
             ?
           </text>
-          <Etikett x={k.idagX + (mobil ? 40 : 90)} y={Y(5.5) - 4} rad1="Din första punkt" rad2={`Nivåkollen, cirka ${omfang ? ORD[omfang.minuter] ?? omfang.minuter : 'åtta'} minuter`} mobil={mobil} />
+          <Etikett x={k.idagX + (mobil ? 40 : 90)} y={Y(5.5) - 4} rad1="Din första punkt" rad2={`Nivåkollen, cirka ${omfang ? ORD[omfang.minuter] ?? omfang.minuter : 'åtta'} minuter`} mobil={mobil} W={matt.W} />
         </g>
       ) : null}
 
@@ -367,7 +367,7 @@ export default function KurvGraf3({
       </g>
 
       {vald && vald.p.slag !== 'ovningsprov' && vald.p.niva != null && !(k.lage === 'en' && mobil) ? (
-        <Etikett x={vald.x} y={vald.y} rad1={`${slagOrd(vald.p)} ${kortDatumV(vald.p.dag)}`} rad2={`${tal1(vald.p.niva)} · Se uppgifterna`} mobil={mobil} />
+        <Etikett x={vald.x} y={vald.y} rad1={`${slagOrd(vald.p)} ${kortDatumV(vald.p.dag)}`} rad2={`${tal1(vald.p.niva)} · Se uppgifterna`} mobil={mobil} W={matt.W} />
       ) : null}
     </svg>
   )

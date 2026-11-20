@@ -27,8 +27,9 @@ export interface Matt3 {
   yDatum: number
 }
 
-export const MATT3: Readonly<Record<'dator' | 'mobil', Matt3>> = {
+export const MATT3: Readonly<Record<'dator' | 'mellan' | 'mobil', Matt3>> = {
   dator: { W: 1064, H: 346, L: 56, R: 1024, T: 30, B: 300, yDatum: 326 },
+  mellan: { W: 760, H: 300, L: 44, R: 730, T: 30, B: 252, yDatum: 276 },
   mobil: { W: 340, H: 236, L: 30, R: 318, T: 16, B: 192, yDatum: 214 },
 }
 
@@ -42,7 +43,7 @@ export interface KurvIn {
   typ: TestTypId
   niva: NivaLage
   period: Period
-  bredd: 'dator' | 'mobil'
+  bredd: 'dator' | 'mellan' | 'mobil'
   /** Banans förslag om övningsprov, om det finns. */
   ovningsprovForslag: Dag | null
 }

@@ -76,7 +76,7 @@ export function TempoRing({ procent, storlek = 96 }: { procent: number | null; s
     <svg viewBox="0 0 100 100" width={storlek} height={storlek} role="img" aria-label={`${procent} procent av svaren inom provets tid`} className="shrink-0">
       <circle cx="50" cy="50" r="42" fill="none" style={{ stroke: 'var(--koppar)' }} strokeWidth="13" />
       <circle className="t3-ringen" cx="50" cy="50" r="42" fill="none" style={{ stroke: 'var(--sess-indigo)', ['--t3-ring' as string]: offset }} strokeWidth="13" strokeLinecap="round" strokeDasharray="264" strokeDashoffset={offset} transform="rotate(-90 50 50)" />
-      <text x="50" y={storlek < 90 ? 58 : 57} textAnchor="middle" className="t3-disp" fontSize={storlek < 90 ? 24 : 22} fontWeight="800" style={{ fill: 'var(--ink-1)' }}>
+      <text x="50" y={storlek < 90 ? 58 : 57} textAnchor="middle" className="t3-disp" fontSize={procent >= 100 ? 19 : storlek < 90 ? 24 : 22} fontWeight="800" style={{ fill: 'var(--ink-1)' }}>
         {`${procent} %`}
       </text>
     </svg>

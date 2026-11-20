@@ -14,6 +14,7 @@ import { veckodagNamn } from '@/lib/traning/datum'
 import { kortDatumV, kortVeckodag } from '@/lib/tester/v4/vagen'
 import { hintKlickad, type HintKontext } from '@/components/tester-v4/hem/HintSparning'
 import { Ikon3, Las3 } from './delar'
+import TypSymbol from '@/components/tester-v4/tester/TypSymbol'
 
 const versal = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
@@ -49,9 +50,15 @@ export default function Vagen({ vagen, idag, kontext, harPlan }: { vagen: VagDag
                   <span className="xl:hidden">{n.datumKort}</span>
                 </small>
               </span>
-              <span className="t3-dag-ik">
-                <Ikon3 ikon={v.ikon} size={22} />
-              </span>
+              {v.typ && v.slag !== 'prov' && v.slag !== 'valfritt' ? (
+                <span className="t3-dag-ik" data-typ={v.typ}>
+                  <TypSymbol typ={v.typ} size={30} />
+                </span>
+              ) : (
+                <span className="t3-dag-ik">
+                  <Ikon3 ikon={v.ikon} size={22} />
+                </span>
+              )}
               <span className="t3-dag-text">
                 <b>{v.rubrik}</b>
                 <span className="t3-dag-skal">{v.text}</span>

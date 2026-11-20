@@ -33,6 +33,7 @@ import { byggPunkter, klassa, PUNKT_TEST_TYPER, type NivapunktRad, type SessionR
 import { NIVAKOLL_FINNS } from './rutter';
 import { nivakollOmfang } from '@/lib/nivakoll/omfang';
 import { nivaUrNivatest, steg2NivatestTyp } from './steg2-niva.server';
+import { monsterId, monsterNamn } from './monsterNamn';
 import { TEST_TYP_ORDNING, arTestTypId, type MonsterLage, type PlanV4, type TestTypId, type TesterV4Data, type UtvecklingV4Data } from './typer';
 
 const KLASSISKA: Readonly<Record<TestTypId, readonly string[]>> = {
@@ -64,10 +65,15 @@ const FAMILJ_NAMN = new Map<string, string>(
   )
 );
 
+/** Mönstrets namn ur namntabellen (monsterNamn.ts). Aldrig ett id: okända familjer sorteras bort före. */
 function familjNamn(typ: TestTypId, family: string): string {
-  if (typ === 'matris') return FAMILJ_NAMN.get(family) ?? family;
-  const t = family.replace(/[-_]+/g, ' ').trim();
-  return t.charAt(0).toUpperCase() + t.slice(1);
+  return monsterNamn(typ, family) ?? 'Ett mönster';
+}
+
+/** Nyckeln för riktad träning: spatial förmåga har formen B även med klipp. */
+function monsterNyckel(typ: TestTypId, family: string): string | null {
+  const id = monsterId(typ, family);
+  return id === 'Bklipp' ? 'B' : id;
 }
 
 type Klient = ReturnType<typeof testSkrivKlient>;
@@ -222,7 +228,7 @@ export const hamtaUnderlagV4 = cache(async (userId: string): Promise<{ modell: M
             const f = status?.varDuTappar.svagaste.find((x) => x.antal >= 6 && x.andel < 0.6);
             return f ? { family: f.family, namn: familjNamn('matris', f.family), ratt: f.ratt, antal: f.antal } : null;
           })()
-        : svagasteMonster(svar.filter((s) => s.completed_at), (f) => familjNamn(typ, f));
+        : svagasteMonster(svar.filter((s) => s.completed_at), (f) => familjNamn(typ, f), (f) => monsterNyckel(typ, f));
     const budget =
       typ === 'matris' ? status?.format.budget_s ?? null : typ === 'figurserie' || typ === 'deduktiv' || typ === 'verbal' || typ === 'numerisk' ? NIVAKOLL_BUDGET_S[typ] : null;
     const antalKoll = nivakollAntal(typ);

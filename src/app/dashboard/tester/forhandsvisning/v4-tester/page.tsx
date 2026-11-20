@@ -12,8 +12,7 @@ import { notFound } from 'next/navigation'
 import { fixturTester, type FixturLage, type FixturNiva } from '@/lib/tester/v4/fixturer'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
-import Navigering from '@/components/tester-v4/hem/Navigering'
-import { navTexter } from '@/components/tester-v4/hem/hemData'
+import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,7 +33,7 @@ export default async function ForhandsvisningTesterV4({
     <TesterVy
       data={data}
       startTyp={arTestTypId(typ) ? typ : null}
-      nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
+      vagg={<Vaggen data={data} sida="tester" />}
     />
   )
 }

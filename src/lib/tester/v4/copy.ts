@@ -187,9 +187,10 @@ export const HINT = {
     skal: `${besvarade} av ${antal} svar. ${antalOrd(antal - besvarade)} till, så får du ett nivåtal.`,
     tips: 'Resultatet sparas mellan gångerna.',
   }),
-  svagtMonster: (typ: TestTypId, monster: string, ratt: number, antal: number) => ({
+  /** ova: rubriken ur monsterNamn.ts ("Öva på växande steg"); utan den mönstrets namn. */
+  svagtMonster: (typ: TestTypId, monster: string, ratt: number, antal: number, ova?: string | null) => ({
     eyebrow: 'Svagaste mönstret',
-    rubrik: `Träna på ${monster.toLowerCase()}`,
+    rubrik: ova ?? `Träna på ${monster.toLowerCase()}`,
     skal: `${ratt} av ${antal} rätt i ${typNamnSmall(typ)}. Här tappar du mest.`,
     tips: MONSTER_TIPS[typ],
   }),

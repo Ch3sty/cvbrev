@@ -35,9 +35,13 @@ export const FLIKAR: readonly { id: NavVal; href: string; namn: string; rad: str
 ]
 
 /** Rubrikens storlek ur längden, så att den alltid får plats på en rad (mobil) och två (dator). Ingen mätning i klienten. */
-export function rubrikStorlek(text: string): { mobil: number; dator: number } {
+export function rubrikStorlek(text: string): { mobil: number; mellan: number; dator: number } {
   const n = text.length
-  return { mobil: Math.max(18, Math.min(24, Math.floor(372 / (n * 0.56)))), dator: n > 34 ? 38 : n > 28 ? 42 : 46 }
+  return {
+    mobil: Math.max(18, Math.min(24, Math.floor(372 / (n * 0.56)))),
+    mellan: Math.max(24, Math.min(36, Math.floor(660 / (n * 0.56)))),
+    dator: n > 34 ? 38 : n > 28 ? 42 : 46,
+  }
 }
 
 function Flikar({ aktiv }: { aktiv: NavVal }) {
@@ -48,8 +52,8 @@ function Flikar({ aktiv }: { aktiv: NavVal }) {
         return (
           <Link key={f.id} href={f.href} className="t3-flik" data-nav={f.id} aria-current={ar ? 'page' : undefined} prefetch={ar ? false : undefined}>
             <b>{f.namn}</b>
-            <small className="hidden xl:block">{f.rad}</small>
-            <small className="xl:hidden">{f.radKort}</small>
+            <small className="hidden md:block">{f.rad}</small>
+            <small className="md:hidden">{f.radKort}</small>
           </Link>
         )
       })}
@@ -167,20 +171,25 @@ export default function Vaggen({ data, sida }: { data: TesterV4Data; sida: NavVa
           <p className="t3-ogon">{ogonKort}</p>
           {d.kortRad ? (
             data.plan ? (
-              <Link href={PLAN_HREF} className="t3-kortrad">
+              <Link href={PLAN_HREF} className="t3-kortrad md:hidden">
                 {d.kortRad}
               </Link>
             ) : (
-              <span className="t3-kortrad">{d.kortRad}</span>
+              <span className="t3-kortrad md:hidden">{d.kortRad}</span>
             )
           ) : null}
+          <span className="hidden md:block">
+            <Planrad data={data} />
+          </span>
         </div>
-        <h1 className="t3-h1-mobil" style={{ fontSize: storlek.mobil }}>
+        <h1 className="t3-h1-mobil" style={{ ['--t3-h1' as string]: `${storlek.mobil}px`, ['--t3-h1-md' as string]: `${storlek.mellan}px` }}>
           {d.rubrik}
         </h1>
+        <p className="t3-ingress-mellan hidden md:block">{d.text}</p>
         <VaggBanaMobil noder={data.vaggBana} mitt={d.forstaSteget ? 'sedan träning på din nivå' : null} />
         <div className="t3-mobil-knapp">
           <DagensKnapp knapp={d.knapp} hint={d.hint} kontext={kontext} typ={d.typ} bred />
+          {d.sidorad ? <span className="t3-sidorad hidden md:block">{d.sidorad}</span> : null}
         </div>
       </div>
     </section>

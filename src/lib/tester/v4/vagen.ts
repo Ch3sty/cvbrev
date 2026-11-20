@@ -146,8 +146,11 @@ function kortRad(inp: VagenIn, d: Pick<DagensTraning, 'slag' | 'typ' | 'forstaSt
 
 function serieRad(inp: VagenIn): string | null {
   const n = inp.dagsmal.dagarIRad;
-  const gjordIdag = inp.dagsmal.gjortIdag > 0;
-  if (gjordIdag) return n > 1 ? `Dagens test är gjort. ${versal(ord(n))} dagar i rad.` : 'Dagens test är gjort.';
+  const { gjortIdag, mal } = inp.dagsmal;
+  // Bredvid "Starta dagens träning" får raden inte låta som att dagen är slut.
+  if (gjortIdag > 0 && mal && gjortIdag >= mal) return 'Dagsmålet är klart. Fortsätt om du vill.';
+  if (gjortIdag > 0 && mal) return `${versal(ord(gjortIdag))} av ${ord(mal)} test i dag. ${versal(ord(mal - gjortIdag))} till når dagsmålet.`;
+  if (gjortIdag > 0) return n > 1 ? `Du har tränat i dag, ${ord(n)} dagar i rad. Fortsätt om du vill.` : 'Du har tränat i dag. Fortsätt om du vill.';
   if (n > 0) return `Tränar du i dag blir det ${ord(n + 1)} dagar i rad.`;
   return null;
 }
@@ -356,6 +359,7 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
     handling: dagens.knapp,
     href: dagens.knapp.href,
     hint: dagens.hint,
+    typ: dagens.typ,
   };
   ut.push(idagKort);
 
@@ -378,7 +382,7 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
         href: plan.ovningsprov.href,
         las: inp.gratis.premium ? null : { skal: 'premium', chip: LAS_CHIP.premiumKort },
       };
-      ut.push({ dag: d, slag: 'forslag', ikon: 'prov', rubrik: plan.ovningsprov.namn, text: `${plan.ovningsprov.meta}, som provet.`, handling: h, href: handlingHref(h, typ), hint: null });
+      ut.push({ dag: d, slag: 'forslag', ikon: 'prov', rubrik: plan.ovningsprov.namn, text: `${plan.ovningsprov.meta}, som provet.`, handling: h, href: handlingHref(h, typ), hint: null, typ });
       continue;
     }
     if (b?.forslag === 'nivakoll') {
@@ -395,6 +399,7 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
           handling: meny.nivakoll,
           href: handlingHref(meny.nivakoll, typ),
           hint: null,
+          typ,
         });
         // Hinten om samma Nivåkoll behövs inte en dag till.
         for (const h of hintar) if (h.typ === 'nivakoll_igen' && h.testtyp === typ) anvanda.add(h.id);
@@ -404,7 +409,7 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
     const h = hintar.find((x) => !anvanda.has(x.id));
     if (h) {
       anvanda.add(h.id);
-      ut.push({ dag: d, slag: 'forslag', ...hintKort(h), handling: h.knapp, href: hintHrefV(h), hint: hintRef(h) });
+      ut.push({ dag: d, slag: 'forslag', ...hintKort(h), handling: h.knapp, href: hintHrefV(h), hint: hintRef(h), typ: h.testtyp });
       continue;
     }
     if (tranaH) {
@@ -417,6 +422,7 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
         handling: tranaH,
         href: handlingHref(tranaH, tranaTyp),
         hint: null,
+        typ: tranaTyp,
       });
     }
   }
@@ -431,11 +437,12 @@ export function byggVagen(inp: VagenIn, dagens: DagensTraning): VagDag[] {
       handling: null,
       href: null,
       hint: null,
+      typ: null,
     });
   } else if (plan && !plan.provdatum) {
-    ut.push({ dag: null, slag: 'valfritt', ikon: 'flagga', rubrik: 'Lägg till provdatum', text: 'Datumet ger nedräkning och ett förslag per dag fram till provet.', handling: null, href: '/dashboard/tester/installningar?steg=3', hint: null });
+    ut.push({ dag: null, slag: 'valfritt', ikon: 'flagga', rubrik: 'Lägg till provdatum', text: 'Datumet ger nedräkning och ett förslag per dag fram till provet.', handling: null, href: '/dashboard/tester/installningar?steg=3', hint: null, typ: null });
   } else if (!plan) {
-    ut.push({ dag: null, slag: 'valfritt', ikon: 'flagga', rubrik: 'Vet du vilket test du ska göra?', text: 'Välj, så framhäver vi det och föreslår vad du övar fram till provdagen.', handling: null, href: '/dashboard/tester/installningar', hint: null });
+    ut.push({ dag: null, slag: 'valfritt', ikon: 'flagga', rubrik: 'Vet du vilket test du ska göra?', text: 'Välj, så framhäver vi det och föreslår vad du övar fram till provdagen.', handling: null, href: '/dashboard/tester/installningar', hint: null, typ: null });
   }
   return ut;
 }

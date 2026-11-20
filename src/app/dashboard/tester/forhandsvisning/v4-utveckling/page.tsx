@@ -12,8 +12,7 @@
  */
 import { notFound } from 'next/navigation'
 import { fixturTester, fixturUtveckling, type FixturLage, type FixturNiva } from '@/lib/tester/v4/fixturer'
-import Navigering from '@/components/tester-v4/hem/Navigering'
-import { navTexter } from '@/components/tester-v4/hem/hemData'
+import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import UtvecklingVy from '@/components/tester-v4/utveckling/UtvecklingVy'
 import { arPeriod } from '@/components/tester-v4/utveckling/geometri'
@@ -51,9 +50,10 @@ export default async function ForhandsvisningUtvecklingV4({
     const kandidater = data.punkter.filter((p) => !startTyp || p.typ === startTyp)
     punkt = kandidater.length ? kandidater[kandidater.length - 1].id : null
   }
+  const tester = fixturTester(lage, niva, { artikel: forst(sp.artikel) === '1' })
   return (
     <Betalvagg scope={null} track={null} planKey={null}>
-      <UtvecklingVy data={data} startTyp={startTyp} startPeriod={arPeriod(period) ? period : null} startPunkt={punkt} nav={<Navigering aktiv="utveckling" texter={navTexter(fixturTester(lage, niva, { artikel: forst(sp.artikel) === '1' }))} />} />
+      <UtvecklingVy data={data} startTyp={startTyp} startPeriod={arPeriod(period) ? period : null} startPunkt={punkt} standardTyp={tester.dagens.typ} ovningsprovForslag={tester.vaggBana.find((n) => n.forslag === 'ovningsprov')?.dag ?? null} vagg={<Vaggen data={tester} sida="utveckling" />} />
     </Betalvagg>
   )
 }

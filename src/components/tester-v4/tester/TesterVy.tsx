@@ -148,16 +148,12 @@ export default function TesterVy({
   data,
   startTyp = null,
   vagg,
-  nav,
 }: {
   data: TesterV4Data
   startTyp?: TestTypId | null
   /** Väggen (omgang3/Vaggen) med Tester aktiv; sidan bygger den på servern. */
   vagg?: ReactNode
-  /** Äldre prop, används inte längre (flikarna står på väggen). */
-  nav?: ReactNode
 }) {
-  void nav
   const [oppen, setOppen] = useState<TestTypId | null>(startTyp && arTestTypId(startTyp) ? startTyp : null)
 
   const oppna = useCallback((typ: TestTypId) => {

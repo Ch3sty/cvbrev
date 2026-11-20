@@ -131,7 +131,7 @@ export interface TypMeny {
   /** Tre senaste nivåkoller respektive två senaste prov. */
   senaste: { nivakoller: UtvecklingsPunkt[]; prov: UtvecklingsPunkt[] };
   /** "Öva på mönstret". Null när typen saknar mönsterdata. */
-  monster: { namn: string; ratt: number; antal: number; href: string }[] | null;
+  monster: { namn: string; ratt: number; antal: number; href: string; /** "Öva på växande steg" (monsterNamn.ts). */ ova?: string }[] | null;
 }
 
 export type PunktSlag = 'nivakoll' | 'trana' | 'ovningsprov';
@@ -315,6 +315,8 @@ export interface VagDag {
   /** Adressen kortet leder till (hintLank-regeln för hintar). */
   href: string | null;
   hint: Pick<Hint, 'id' | 'typ' | 'testtyp'> | null;
+  /** Typen dagen gäller, för kortets miniatyr. Null för provdagen och valfria kort. */
+  typ: TestTypId | null;
 }
 
 export type MonsterLage = 'omott' | 'mott' | 'saker' | 'snabb';

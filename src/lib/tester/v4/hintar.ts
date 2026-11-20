@@ -19,6 +19,7 @@ import { arSvagt, TEMPO_GRANS } from './monster';
 import { nivaTestHref, nivakollHrefV4, ovningsprovHrefV4, tranaHref, menyHref } from './rutter';
 import type { Handling, Hint, HintTyp, NivaLage, PlanV4, TestTypId } from './typer';
 import { NIVAKOLL_INTERVALL_DAGAR } from './bana';
+import { ovaPa } from './monsterNamn';
 
 export const MAX_HINTAR = 5;
 export const PROVET_NARA_DAGAR = 7;
@@ -107,7 +108,7 @@ export function byggHintar(inp: HintIn): Hint[] {
   // 2. Svagaste mönstret.
   for (const t of mina) {
     if (t.svagaste && arSvagt(t.svagaste)) {
-      ut.push(hint('svagt_monster', t.typ, HINT.svagtMonster(t.typ, t.svagaste.namn, t.svagaste.ratt, t.svagaste.antal), knappTrana(t, inp, t.svagaste.family)));
+      ut.push(hint('svagt_monster', t.typ, HINT.svagtMonster(t.typ, t.svagaste.namn, t.svagaste.ratt, t.svagaste.antal, ovaPa(t.typ, t.svagaste.family)), knappTrana(t, inp, t.svagaste.family)));
     }
   }
 

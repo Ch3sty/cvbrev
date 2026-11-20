@@ -240,7 +240,7 @@ export default function TreMatt({ data }: { data: TesterV4Data }) {
                   <span className="hidden xl:inline"> En dag räknas när du har slutfört ett test.</span>
                 </>
               ) : data.dagsmal.gjortIdag > 0 ? (
-                <b>I dag är gjord.</b>
+                <b>I dag räknas redan.</b>
               ) : (
                 <>
                   <b>Tränar du i dag blir det {ORD[n + 1] ?? n + 1}.</b>

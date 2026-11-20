@@ -11,6 +11,7 @@ import { ETIKETT, FORTSATT, KALLAS, MAT_DIG, TRANA, ZON_RUBRIK, ingarI, nivaRadT
 import { lasNivaTest, lasNivakoll, lasOvningsprov, lasTrana } from './gratis';
 import { byggHintar, type HintTypIn } from './hintar';
 import { byggDagens, byggVaggBana, byggVagen } from './vagen';
+import { ovaPa } from './monsterNamn';
 import { nivaLage } from './niva-lage';
 import { NIVAKOLL_FINNS, PERSONLIGHET_HREF, menyHref, nivaTestHref, nivakollHrefV4, ovningsprovHrefV4, tranaHref } from './rutter';
 import {
@@ -153,7 +154,7 @@ function byggMeny(typ: TestTypId, u: TypUnderlag, plan: PlanV4 | null, g: Gratis
     ovningsprov,
     senaste: { nivakoller, prov },
     monster: u.monster.length
-      ? u.monster.map((m) => ({ namn: m.namn, ratt: m.ratt, antal: m.antal, href: tranaHref(typ, m.family) }))
+      ? u.monster.map((m) => ({ namn: m.namn, ratt: m.ratt, antal: m.antal, href: tranaHref(typ, m.family), ova: ovaPa(typ, m.family) ?? undefined }))
       : null,
   };
 }

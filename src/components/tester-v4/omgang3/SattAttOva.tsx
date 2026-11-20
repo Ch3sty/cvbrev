@@ -109,7 +109,7 @@ export default function SattAttOva({ kort, meny, planNamn, rubrik = true }: { ko
       <Lage
         key="monster"
         h={{ slag: 'trana', etikett: 'Träna', href: svag.href, las: meny.trana.las }}
-        rubrik={`Öva på ${svag.namn.toLowerCase()}`}
+        rubrik={svag.ova ?? `Öva på ${svag.namn.toLowerCase()}`}
         text={`Mönstret du tappar mest på, ${svag.ratt} av ${svag.antal} rätt.`}
         ikon={<Ikon3 ikon="monster" size={24} />}
       />,

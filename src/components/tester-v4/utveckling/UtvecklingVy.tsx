@@ -49,8 +49,6 @@ export interface UtvecklingVyProps {
   standardTyp?: TestTypId | null
   /** Banans förslag om övningsprov (TesterV4Data.vaggBana). */
   ovningsprovForslag?: Dag | null
-  /** Äldre prop, används inte längre (flikarna står på väggen). */
-  nav?: ReactNode
 }
 
 const NAMN: Record<TestTypId, string> = Object.fromEntries(TEST_TYP_ORDNING.map((t) => [t, DELTYP_NAMN[t]])) as Record<TestTypId, string>
@@ -108,9 +106,10 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
   const lage = kort?.niva
   const punkter = useMemo(() => synligaPunkter(data.punkter, null, data.historikLast), [data.punkter, data.historikLast])
 
-  const bygg = (bredd: 'dator' | 'mobil') =>
+  const bygg = (bredd: 'dator' | 'mellan' | 'mobil') =>
     byggKurva3({ idag: data.idag, plan, provdag: data.provdag, punkter, typ, niva: lage, period, bredd, ovningsprovForslag })
   const dator = bygg('dator')
+  const mellan = bygg('mellan')
   const mobil = bygg('mobil')
 
   // Förvalt: den senaste Nivåkollen i typen visar sin etikett, som i skissen.
@@ -174,6 +173,14 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
   const monsterAntal = monster?.length ?? 0
   const allaOmott = !!monster && monster.every((m) => m.lage === 'omott')
   const faSvar = !!monster && !allaOmott && monster.every((m) => (m.antal ?? 0) < MONSTER_MIN_SVAR)
+  // "Här tappar du mest" bara på de svagaste: högst tre, bland dem med tillräckligt många svar.
+  const svagaste = new Set(
+    (monster ?? [])
+      .filter((m) => arSvagt({ ratt: m.ratt ?? 0, antal: m.antal ?? 0 }))
+      .sort((a, b) => (a.ratt ?? 0) / (a.antal || 1) - (b.ratt ?? 0) / (b.antal || 1) || (b.antal ?? 0) - (a.antal ?? 0))
+      .slice(0, 3)
+      .map((m) => m.family),
+  )
 
   const periodVal: { id: Period; text: string }[] = [
     { id: '4v', text: '4 veckor' },
@@ -219,7 +226,10 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
           <div className="hidden xl:block">
             <KurvGraf3 k={dator} typ={typ} namn={NAMN[typ]} niva={lage} valdId={valdPunkt} onValj={setValdId} idPrefix="dator" detaljId="utv-detalj" />
           </div>
-          <div className="xl:hidden">
+          <div className="hidden md:block xl:hidden">
+            <KurvGraf3 k={mellan} typ={typ} namn={NAMN[typ]} niva={lage} valdId={valdPunkt} onValj={setValdId} idPrefix="mellan" detaljId="utv-detalj" />
+          </div>
+          <div className="md:hidden">
             <KurvGraf3 k={mobil} typ={typ} namn={NAMN[typ]} niva={lage} valdId={valdPunkt} onValj={setValdId} idPrefix="mobil" detaljId="utv-detalj" />
           </div>
           <div className="t3-legend">
@@ -384,7 +394,7 @@ export default function UtvecklingVy({ data, startTyp = null, startPeriod = null
             ) : (
               <div className="t3-monster-rutnat">
                 {monster.map((m) => {
-                  const svag = arSvagt({ ratt: m.ratt ?? 0, antal: m.antal ?? 0 })
+                  const svag = svagaste.has(m.family)
                   const fa = (m.antal ?? 0) < MONSTER_MIN_SVAR && m.lage !== 'omott'
                   const rad =
                     m.lage === 'omott'
