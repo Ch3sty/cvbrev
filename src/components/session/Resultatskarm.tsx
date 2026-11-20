@@ -122,7 +122,7 @@ export interface ResultatskarmProps {
     knapp: { text: string; href?: string; onClick?: () => void; data?: string }
     extra?: ReactNode
     /** Mönstret nästa steg tränar ("Växande steg", "tre fel av fyra"). */
-    monster?: { namn: string; rad?: string | null } | null
+    monster?: { namn: string; rad?: string | null; /** "Öva på växande steg" (monsterNamn.ts), när mönstret har en rubrik. */ ova?: string | null } | null
   }
   status?: ReactNode
   tillbakaHref: string
@@ -278,7 +278,7 @@ function NastaFot({ p, mini }: { p: ResultatskarmProps; mini: ReactNode }) {
         <p className="m-0 flex items-center gap-2.5 text-[13px] leading-[18px] text-vagg-mjuk">
           {mini ? <span className="res-nasta-mini !h-8 !w-8 !rounded-lg" aria-hidden="true">{mini}</span> : null}
           <span className="min-w-0">
-            <b className="font-semibold text-vagg-ink">{SESSION.resultat.nastaSteg}:</b> {n.monster ? `${n.titel}, ${n.monster.namn.toLowerCase()}.` : n.titel}
+            <b className="font-semibold text-vagg-ink">{SESSION.resultat.nastaSteg}:</b> {n.monster?.ova ? `${n.monster.ova}.` : n.titel}
           </span>
         </p>
         <NastaKnapp knapp={n.knapp} className="!h-14" />

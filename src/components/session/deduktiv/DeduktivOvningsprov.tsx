@@ -168,6 +168,7 @@ export default function DeduktivOvningsprov({ vy, dagarKvar, datum, forra = null
             tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader.map((r, i) => ({ ...r, ratt: v.resultat?.tappade[i]?.ratt, antal: v.resultat?.tappade[i]?.antal })) } : null}
             tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
             nastaSteg={tranaMissatSteg({
+        typ: 'deduktiv',
               monster: v.resultat?.tappade ?? [],
               typensHref: TRANING_RUTT.deduktivpass,
               provRad: provRad(dagarKvar),

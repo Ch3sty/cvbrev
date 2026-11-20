@@ -565,6 +565,7 @@ function LogikResultat({ m, gaIgenom, oppna, stang }: { m: MatrisVy; gaIgenom: (
       tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
       tempoKort={null}
       nastaSteg={tranaMissatSteg({
+        typ: 'matris',
         monster: avslut.familjer.passet.map((x) => ({ namn: famNamn(x.family), ratt: x.ratt, antal: x.antal, riktadHref: riktadHref('matris', x.family) })),
         typensHref: passHref('pass'),
         annars: { titel: 'Plan inför provet', text: vm.status, knapp: { text: 'Öppna planen', href: TRANING_RUTT.installningar, data: 'plan' } },

@@ -243,6 +243,7 @@ export default function VnOvningsprov({ vy, dagarKvar, datum, forra = null }: Vn
             tappade={vm.tappade ? { titel: vm.tappade.titel, rader: vm.tappade.rader.map((r, i) => ({ ...r, ratt: v.resultat?.tappade[i]?.ratt, antal: v.resultat?.tappade[i]?.antal })) } : null}
             tempo={{ titel: vm.tempo.titel, text: vm.tempo.text, innehall: <Staplar data={vm.tempo.staplar} aria={vm.tempo.aria} axel={vm.tempo.axel} /> }}
             nastaSteg={tranaMissatSteg({
+        typ: kind,
               monster: v.resultat?.tappade ?? [],
               typensHref: vnPassHref(kind),
               provRad: provRad(dagarKvar),

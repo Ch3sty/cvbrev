@@ -6,6 +6,8 @@
 import type { ResultatskarmProps } from '../Resultatskarm'
 import { antalOrd } from '../copy'
 import { IkonFlaggaProv } from './delar'
+import { ovaPa } from '@/lib/tester/v4/monsterNamn'
+import type { TestTypId } from '@/lib/tester/v4/typer'
 
 export interface MissatMonster {
   namn: string
@@ -31,6 +33,8 @@ export function tranaMissatSteg(opt: {
   provRad?: string | null
   /** Steget när inget mönster föll. */
   annars: ResultatskarmProps['nastaSteg']
+  /** Typen, för rubriken att öva ur namntabellen ("Öva på växande steg"). Utan den: ingen rubrik. */
+  typ?: TestTypId | null
 }): ResultatskarmProps['nastaSteg'] {
   const svagast = [...opt.monster].filter((m) => m.antal > 0 && m.ratt < m.antal).sort((a, b) => a.ratt / a.antal - b.ratt / b.antal)[0]
   if (!svagast) return opt.annars
@@ -38,7 +42,7 @@ export function tranaMissatSteg(opt: {
   const riktad = svagast.riktadHref ?? null
   return {
     titel: 'Träna det du missade',
-    monster: { namn: svagast.namn, rad: `${antalOrd(fel)} fel av ${antalOrd(svagast.antal)}` },
+    monster: { namn: svagast.namn, rad: `${antalOrd(fel)} fel av ${antalOrd(svagast.antal)}`, ova: opt.typ ? ovaPa(opt.typ, svagast.namn) : null },
     text: riktad ? 'Uppgifter i just det mönstret, med regeln efter varje svar.' : 'Träningen följer din nivå, med regeln efter varje svar.',
     extra: opt.provRad ? (
       <p className="mt-5 flex items-center gap-2.5 border-t pt-3.5 text-sm leading-5 text-vagg-mjuk" style={{ borderColor: 'var(--sess-res-linje)' }} data-resultat-provrad>
