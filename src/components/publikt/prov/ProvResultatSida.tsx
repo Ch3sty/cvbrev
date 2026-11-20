@@ -157,7 +157,7 @@ export default function ProvResultatSida({
               <p className="m-0 min-w-0 flex-1 truncate text-sm leading-5 text-vagg-mjuk">{PROV_NAMN[typ]}, prova gratis</p>
               <p className="m-0 hidden text-sm leading-5 text-vagg-mjuk lg:block">
                 {PROV3.harKonto}{' '}
-                <Link href={loginHref} className="font-semibold text-vagg-ink underline underline-offset-[3px]">
+                <Link href={loginHref} className="inline-flex min-h-11 items-center font-semibold text-vagg-ink underline underline-offset-[3px]">
                   {PROV3.loggaIn}
                 </Link>
               </p>
