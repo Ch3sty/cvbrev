@@ -223,3 +223,31 @@ Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/f
 - Diagrammen har inget hovringslager (dataviz-färdighetens standard): uppgifterna kräver exakta tal, så varje värde står utskrivet och en tooltip skulle bara upprepa etiketten. Munkens fyra ljushetssteg är skissens; validatorn underkänner dem som kategorisk palett (ljushet och kroma), vilket är väntat för en ordnad ramp, och identiteten bärs av legenden med värden och värdena i ringen.
 - Enheter längre än två tecken ("MSEK", "kubikmeter") står en gång under diagrammet i stället för vid varje stapel, så att etiketterna inte krockar på 412 px.
 - Skissens "Visa som tabell" under diagrammet och stödmeningen i texten kräver bankdata eller ett eget beslut och är inte byggda.
+
+## Omgång 2, slutkontroll (2026-11-20)
+
+- Commit `c8a2ab0f`, "fix(tester): slutkontrollen omgång 2, etiketter utan CLS, fråga 28/34 från xl, snabbare provstart". Backning: `git revert c8a2ab0f` (ingen databasändring).
+- Omgång 2 avslutas här. Utseendet ersätts av omgång 3 (skissen WsTzySXM8d4DyHpAwheJs8), så jämförelsen mot skissen typ för typ gjordes inte klart. Layoutreglerna från omgång 2 gäller kvar.
+
+### Vad som gick live
+
+- **Etiketten i svarskorten (`Svarskort.tsx`, `globals.css`).** "Rätt svar" och "Ditt svar" sitter som en flik på kortets överkant, och märket i Sant och Falskt likaså. Svarets text flyttas inte längre efter facit: CLS var upp till 0,004 på mobil och är 0, mätt i deduktivt och i Ord och text på 1440 och Pixel 7. Etiketten täcker inte märket i små rutor.
+- **"Lämna in" i foten (`SessionsRam.tsx`).** Inget skifte på sista uppgiften. På resultatsidan på 1440 mättes 0,00004, som kommer från bannern "Skicka igen" och inte från foten.
+- **Frågan (`.text-fraga`).** 28/34 från xl. Svaren ryms utan rullning på 1440 × 900.
+- **Provsidans start (`api/public/test-session/route.ts`, `provPost.tsx`, `ProvaFlow.tsx`, `ArtikelProvKlient.tsx`).** Rutten skriver en insert i stället för en insert och en eller två uppdateringar, och provet värmer servern med en GET som svarar 204 utan databas. Kontrakten är oförändrade: svar utan facit, IP-gräns, token och händelser. `docs/qa/seo-diff/omgang2-publikt-README.md` säger att rutten inte ska röras; det här är ett medvetet undantag för svarstiden, och sessionerna som skapas är desamma som förut.
+- **Kontraktstestet för provservern.** `node:crypto` mockas så att `randomUUID` ger testets fasta token. Rutten väljer frågor med en slumpad token, och testet "uppgifterna utan facit" föll då ibland på ordförrådets ord "regel". Det var en falsk träff, inget facit läckte.
+
+### Prov och mätning
+
+- tsc rent. Berörda mappar 22 filer och 255 test, hela sviten 265 filer och 3451 test, allt grönt. `next build` grönt med egen distDir, tsconfig.json återställd.
+- SEO-diffen och provkontrollen för de publika sidorna: Fel: 0.
+- Första uppgiften på provsidan, Pixel 7 utan strypning, tre körningar: 299, 283 och 263 ms, varav POST 260, 248 och 225 ms. Inte jämförbart med de 1,7 till 2,7 s som mättes strypt före rättelsen.
+- Klicktest i Chrome mot bygget på 1440 × 900 och Pixel 7: Träna med facit i deduktivt och Ord och text, nivåtest till resultat, provsidan och ett artikelprov som utloggad.
+
+### Kvar, inte från den här ändringen
+
+- Personlighetstestet som utloggad har CLS 0,40 på 1440 och 0,86 på mobil när profilen växer fram. Finns i produktion sedan tidigare.
+- Artikelprovet har CLS 0,038 när start-anropet tar över 500 ms, eftersom rutans höjd ändras mellan uppgift 1 och 2. Finns i produktion sedan tidigare.
+- Siffror och tabeller på mobil, uppgift 3: sista svaret hamnade 14 px under foten i den stora matrisen.
+- Den stora matrisen på 2560 avbröts av belastning mot Supabase och kördes inte om. App-läget kontrollerades inte i den här omgången.
+- Testkontona i `qa-konton.json` ligger kvar.
