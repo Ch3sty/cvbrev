@@ -14,6 +14,7 @@ import { SESSION } from '../copy'
 import type { Lage } from '../lagesregler'
 import type { RamFacit, RamUppgift, TypRitare } from '../typ'
 import type { RapportTestKind } from '@/lib/traning/fragaRapport'
+import { ramUnderlag } from './gemensamt'
 
 export interface GenomgangPost<U extends RamUppgift> {
   u: U
@@ -51,6 +52,7 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
       raknare={{ nr: pos + 1, antal }}
       framsteg={(pos + 1) / antal}
       nyckel={`g-${p.u.nyckel}`}
+      underlag={ramUnderlag(ritare, p.u, true)}
       bekraftaAvbryt={false}
       onAvbryt={onStang}
       fot={{
@@ -68,6 +70,7 @@ export default function Genomgang<U extends RamUppgift>({ ritare, lage, titel, p
           utfall={utfall}
           tid={p.tid_s != null ? { sekunder: p.tid_s, budget: budgetPerUppgift } : null}
           regel={p.facit.regel}
+          text={p.facit.text}
           misstag={p.facit.misstag}
           rapport={{ qId: p.u.nyckel, sessionId, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
         />

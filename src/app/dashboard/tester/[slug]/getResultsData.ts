@@ -35,6 +35,8 @@ import { deduktivFamiljNamn } from '@/lib/deduktivV1/familjer'
 import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
 import { arSteg2Kind } from '../testConfig'
 import { steg2Motor } from '@/lib/tester/steg2/motor.server'
+import { vnGenomgang } from '@/lib/tester/vn-nivatest.server'
+import type { VnNivatestGenomgang } from '@/lib/tester/vn-nivatest'
 
 export interface ResultsSession {
   id: string
@@ -54,6 +56,8 @@ export interface ResultsSession {
   deduktiv?: GenomgangDeduktiv[] | null
   /** Steg 2: genomgången i visad ordning, med rätt svar och misstag. */
   steg2?: unknown[] | null
+  /** Ord och text, siffror och tabeller (sessionsramen, etapp 2): genomgången med underlagen. */
+  vn?: VnNivatestGenomgang | null
   /** Sessionens meta (antal, underlagsversion, bankversion). */
   meta?: unknown
 }
@@ -175,6 +179,7 @@ export async function getResultsData(
     const deduktiv = config.kind === 'deduktiv' ? deduktivInnehall(row).genomgang : null
     const motor = arSteg2Kind(config.kind) ? steg2Motor(config.kind) : null
     const steg2 = motor ? motor.innehall(row).genomgang : null
+    const vn = (config.kind === 'verbal' || config.kind === 'numerisk') && config.level !== 'prov' && row.completed_at ? vnGenomgang(config.slug, row.id, row.meta, row.answers) : null
 
     const session: ResultsSession = {
       id: row.id,
@@ -187,6 +192,7 @@ export async function getResultsData(
       serie,
       deduktiv,
       steg2,
+      vn,
       meta: row.meta,
     }
 

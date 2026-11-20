@@ -20,7 +20,7 @@ import { sessionHandelser, type SessionHandelseBas } from '../handelser'
 import type { RamFacit, RamUppgift, TypRitare } from '../typ'
 import { useSessionSparning } from '../useSessionSparning'
 import Genomgang from './Genomgang'
-import { ForsokIgen, Meddelande, Sparfelsrad, useLamnadSida } from './gemensamt'
+import { ForsokIgen, Meddelande, ramUnderlag, Sparfelsrad, useLamnadSida } from './gemensamt'
 import type { ApiFel } from './Trana'
 
 export interface NivakollSession<U extends RamUppgift> {
@@ -316,6 +316,7 @@ export default function Nivakoll<U extends RamUppgift, S>(p: NivakollProps<U, S>
       raknare={{ nr: Math.min(idx + 1, antal), antal }}
       framsteg={(Math.min(idx + 1, antal)) / antal}
       nyckel={u.nyckel}
+      underlag={ramUnderlag(ritare, u)}
       bekraftaAvbryt={!avslutar}
       onAvbryt={() => {
         avbrottVidLamning()

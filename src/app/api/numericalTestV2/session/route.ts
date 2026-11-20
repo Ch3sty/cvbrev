@@ -9,6 +9,7 @@ import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 // meta.antal: sessionens antal frågor, så att procenten räknas rätt när testet kortas (testConfig.totalForSession).
 import { TOTAL_QUESTIONS as ANTAL } from '@/lib/numericalTestV2/selectPassages';
+import { vnInnehall } from '@/lib/tester/vn-nivatest.server';
 
 const TEST_TYPE = 'numerical-reasoning-v2';
 const QUOTA_MESSAGE = TEST_KVOT_MEDDELANDE;
@@ -102,7 +103,9 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Session not found' }, { status: 404 });
       }
 
-      return NextResponse.json({ session });
+      // Sessionsramen (plan-testflode-2026-11-20 etapp 2): reservvägen får
+      // uppgifterna utan facit i samma svar, så att banken lämnar klienten.
+      return NextResponse.json({ session, vn: session.completed_at ? null : vnInnehall('numeriskt-test-v2', session.id, session.meta) });
     }
 
     // Get all numerical test v2 sessions for user

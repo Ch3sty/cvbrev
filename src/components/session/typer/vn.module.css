@@ -1,0 +1,32 @@
+/* Ord och text, siffror och tabeller i ramen (plan-testflode-2026-11-20
+   avsnitt 3.5 och 3.6). Diagrammen ritas i diagram-test i fyra
+   ljushetssteg, aldrig i hårdkodad orange. diagram-test är mörkblått i
+   ljust läge; i mörkt läge lyfts det så att det står mot papperet. */
+
+.diagram {
+  --sd: var(--diagram-test, #3B4790);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme='light'])) .diagram {
+    --sd: #A3AEF2;
+  }
+}
+
+:global(:root[data-theme='dark']) .diagram {
+  --sd: #A3AEF2;
+}
+
+/* Underlagets ruta: rullar själv, tonar ut nedtill när mer text finns. */
+.ruta {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kant-stark) transparent;
+}
+
+.skugga {
+  background: linear-gradient(to bottom, transparent, var(--papper));
+}
+
+.stapel {
+  transform-origin: bottom center;
+}

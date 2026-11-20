@@ -64,7 +64,7 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov' | 'dedSession' | 'dedResult' | 'deduktivpass' | 'deduktivprov' | 'nivakoll';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov' | 'dedSession' | 'dedResult' | 'deduktivpass' | 'deduktivprov' | 'nivakoll' | 'verbalSession' | 'numSession';
   /**
    * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
    * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
@@ -120,6 +120,12 @@ const ROUTES: RouteDef[] = [
   // Sessionsramen (plan-testflode-2026-11-20, etapp 1): startskärmarna för Träna och Nivåkollen i figurserier.
   { path: '/dashboard/tester/pass?typ=figurpass', namn: 'figurserier träna startskärm', budget: 'flode' },
   { path: '/dashboard/tester/pass?typ=nivakoll&kind=figurserie', namn: 'figurserier nivakoll startskärm', budget: 'flode' },
+  // Etapp 2: ord och text, siffror och tabeller i ramen. Uppgiften mäts med --epost <qa-konto> som har en pågående session.
+  { path: '/dashboard/tester/verbal-resonemang/test/ID', namn: 'verbalt uppgift', budget: 'flode', dynamisk: 'verbalSession' },
+  { path: '/dashboard/tester/numeriskt-test/test/ID', namn: 'numeriskt uppgift', budget: 'flode', dynamisk: 'numSession' },
+  { path: '/dashboard/tester/pass?typ=textpass', namn: 'ord och text träna startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass?typ=nivakoll&kind=numerisk', namn: 'siffror nivakoll startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/ovningsprov/numerisk', namn: 'tester/ovningsprov numeriskt', budget: 'flode' },
   // Deduktiv slutledning (omgång 3, B1): mät med --epost <qa-konto> som har deduktivsessioner.
   { path: '/dashboard/tester/deduktiv-grund', namn: 'deduktiv testsida', budget: 'lista' },
   // Testplanen steg 2: nivåtestens startsidor och I-prov-provets startark.
@@ -282,7 +288,13 @@ async function main() {
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-prov').limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).in('test_type', ['deduktiv-nivakoll', 'figurserie-nivakoll', 'verbal-nivakoll', 'numerisk-nivakoll']).limit(1),
   ]);
+  const [{ data: vSess }, { data: nSess }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'verbal-resonemang').is('completed_at', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'numerical-reasoning').is('completed_at', null).limit(1),
+  ]);
   const idPerTyp: Record<string, string | null> = {
+    verbalSession: vSess?.[0]?.id ?? null,
+    numSession: nSess?.[0]?.id ?? null,
     deduktivpass: dedPass?.[0]?.id ?? null,
     deduktivprov: dedProv?.[0]?.id ?? null,
     nivakoll: koll?.[0]?.id ?? null,

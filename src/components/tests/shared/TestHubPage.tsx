@@ -39,6 +39,7 @@ import type { Startlage } from '@/app/dashboard/tester/[slug]/getStartlage'
 import Startskarm from '@/components/session/Startskarm'
 import { SESSION } from '@/components/session/copy'
 import Topprad from '@/components/rum/Topprad'
+import { sessionRubrik } from '@/lib/traning/rubrik'
 import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluOrdforrad, IlluProvlage, IlluSpatial, IlluTalserie, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
@@ -95,6 +96,9 @@ const MATER: Record<Exclude<TestKind, 'personlighet'>, HjalpId> = {
   verbal: 'B3',
   numerisk: 'B5',
 }
+
+/** Typens namn i ramen (ordlistan, plan-testflode-2026-11-20 avsnitt 6). */
+const RAM_NAMN: Partial<Record<TestKind, string>> = { verbal: 'Ord och text', numerisk: 'Siffror och tabeller' }
 
 const HJALP_RUBRIK = {
   grund: 'Vad betyder grundnivån?',
@@ -251,7 +255,8 @@ export default function TestHubPage({
 
   // Sessionsramens startark (plan-testflode-2026-11-20 avsnitt 4.1, etapp 1):
   // figurserierna får startskärmen ovanför Ditt bästa och Dina försök.
-  if (config.kind === 'figurserie') {
+  // Etapp 2: ord och text, siffror och tabeller får samma startark.
+  if (config.kind === 'figurserie' || ((config.kind === 'verbal' || config.kind === 'numerisk') && !arProv)) {
     const last = startlage ? startlage.last : isLocked
     const pagaende = startlage?.pagaende ?? null
     const sparrad: 'none' | 'quota' | 'premium' = last ? 'premium' : tak && !pagaende ? 'quota' : 'none'
@@ -277,10 +282,10 @@ export default function TestHubPage({
         <Startskarm
           inline
           topprad={<Topprad />}
-          bas={{ test_kind: 'figurserie', lage: 'nivatest', niva: config.level, format: null }}
-          eyebrow={KIND_LABEL[config.kind]}
-          rubrik={config.title}
-          scen="figurserie"
+          bas={{ test_kind: config.kind, lage: 'nivatest', niva: config.level, format: null }}
+          eyebrow={RAM_NAMN[config.kind] ?? KIND_LABEL[config.kind]}
+          rubrik={RAM_NAMN[config.kind] ? sessionRubrik(config.kind as 'verbal' | 'numerisk', config.level as 'grund' | 'avancerad' | 'expert') : config.title}
+          scen={config.kind}
           rita={!pagaende && !last && sparrad === 'none'}
           regler={[
             {

@@ -31,7 +31,7 @@ import { lagesregler } from '../lagesregler'
 import { sessionHandelser, type SessionHandelseBas } from '../handelser'
 import type { RamFacit, RamUppgift, TypRitare } from '../typ'
 import Genomgang from './Genomgang'
-import { ForsokIgen, Meddelande, useLamnadSida } from './gemensamt'
+import { ForsokIgen, Meddelande, ramUnderlag, useLamnadSida } from './gemensamt'
 
 /** Träningen i ramens form; typens wiring mappar motorns vy hit. */
 export interface TranaSession<U extends RamUppgift> {
@@ -76,6 +76,8 @@ export interface TranaProps<U extends RamUppgift, S> {
   tillbakaHref: string
   /** Adressen byts till sessionens, så att en omladdning återupptar. */
   sessionAdress?: (id: string) => string
+  /** Falskt när typens rutt inte tar emot ett obesvarat svar (etapp 2: ord och text, siffror och tabeller). */
+  vetInte?: boolean
 }
 
 type Fas =
@@ -448,6 +450,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       framsteg={besvarade / antal}
       klocka={<Klocka lage="referens" sekunder={harSvarat ? tidPaUppgift : sekunder} budget={s.budgetPerUppgift} />}
       nyckel={u.nyckel}
+      underlag={ramUnderlag(ritare, u)}
       bekraftaAvbryt
       onAvbryt={() => {
         avbrottVidLamning()
@@ -464,7 +467,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       }
       fot={{
         vanster:
-          harSvarat || fas.typ === 'svarfel'
+          harSvarat || fas.typ === 'svarfel' || p.vetInte === false
             ? null
             : {
                 typ: 'vet_inte',
@@ -494,6 +497,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
             utfall={utfall}
             tid={{ sekunder: tidPaUppgift, budget: s.budgetPerUppgift }}
             regel={facit.regel}
+            text={facit.text}
             misstag={facit.misstag}
             rapport={{ qId: u.nyckel, sessionId: s.id, testKind: ritare.kind as RapportTestKind, bankVersion: null }}
             rullaFram

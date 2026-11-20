@@ -13,7 +13,9 @@
  */
 
 import PassFlode from '@/components/traning/PassFlode'
-import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
+import VnTrana from '@/components/session/vn/VnTrana'
+import VnNivakoll from '@/components/session/vn/VnNivakoll'
+import { vnNivakollStart, vnTranaStart } from './start-vn.server'
 import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
 import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
@@ -37,11 +39,24 @@ export default async function PassStartSida({
   const forsta = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? null
   const typ = forsta(sp.typ)
   // Textpasset och sifferpasset (beställning omgång 2, B3); med family ett riktat pass.
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 2): startskärmen först.
+  // VnPassFlode står kvar oanvänd till etapp 5.
   if (typ === 'textpass' || typ === 'sifferpass') {
-    await passSida()
+    const { userId, supabase } = await passSida()
     const kind = typ === 'textpass' ? 'verbal' : 'numerisk'
     const familj = forsta(sp.family)
-    return <VnPassFlode key={`${kind}|${familj ?? ''}`} start={{ kind, familj }} />
+    const st = await vnTranaStart(supabase, testSkrivKlient(), userId, kind, familj)
+    return (
+      <VnTrana
+        key={`${kind}|${familj ?? ''}`}
+        kind={kind}
+        familj={familj}
+        start={st.start}
+        forklaringEfterSvar={st.forklaringEfterSvar}
+        harNivakoll={st.harNivakoll}
+        datum={st.datum}
+      />
+    )
   }
   // Figurpasset (beställning omgång 3, A3).
   // Sessionsramen (plan-testflode-2026-11-20, etapp 1): startskärmen först,
@@ -68,6 +83,12 @@ export default async function PassStartSida({
       const st = await figurNivakollStart(supabase, testSkrivKlient(), userId)
       if (st.idagKlar) return <FigurserieNivakoll key="nivakoll|figurserie|klar" vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
       return <FigurserieNivakoll key="nivakoll|figurserie" start={st.start} betalande={betalande} datum={st.datum} />
+    }
+    // Etapp 2: ord och text, siffror och tabeller i ramen.
+    if (kind === 'verbal' || kind === 'numerisk') {
+      const st = await vnNivakollStart(supabase, testSkrivKlient(), userId, kind)
+      if (st.idagKlar) return <VnNivakoll key={`nivakoll|${kind}|klar`} kind={kind} vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
+      return <VnNivakoll key={`nivakoll|${kind}`} kind={kind} start={st.start} betalande={betalande} datum={st.datum} />
     }
     return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
   }

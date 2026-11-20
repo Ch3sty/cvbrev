@@ -24,7 +24,7 @@ import { sessionHandelser, type SessionHandelseBas } from '../handelser'
 import type { ArkCell } from '../Uppgiftsarket'
 import type { RamUppgift, TypRitare } from '../typ'
 import { useSessionSparning } from '../useSessionSparning'
-import { Sparfelsrad, useLamnadSida, useSekunderSedan } from './gemensamt'
+import { ramUnderlag, Sparfelsrad, useLamnadSida, useSekunderSedan } from './gemensamt'
 
 export interface NivatestProps<U extends RamUppgift> {
   ritare: TypRitare<U>
@@ -173,6 +173,7 @@ export default function Nivatest<U extends RamUppgift>(p: NivatestProps<U>) {
       framsteg={(idx + 1) / antal}
       klocka={<Klocka lage="grans" kvar={kvar} total={p.budgetS} mjuk />}
       nyckel={u.nyckel}
+      underlag={ramUnderlag(ritare, u)}
       bekraftaAvbryt
       onAvbryt={() => {
         avbrottVidLamning()
@@ -188,6 +189,7 @@ export default function Nivatest<U extends RamUppgift>(p: NivatestProps<U>) {
       }}
       ark={{
         celler,
+        grupper: ritare.arkGrupper?.(uppgifter),
         onValj: (i) => {
           const nya = bekrafta()
           ga(i, nya)

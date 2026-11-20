@@ -31,6 +31,8 @@ import { deduktivInnehall } from '@/lib/deduktivV1/fragor.server'
 import type { VisadDeduktiv } from '@/lib/deduktivV1/types'
 import { arSteg2Kind } from '../testConfig'
 import { steg2Motor } from '@/lib/tester/steg2/motor.server'
+import { vnInnehall } from '@/lib/tester/vn-nivatest.server'
+import type { VnNivatestInnehall } from '@/lib/tester/vn-nivatest'
 
 /**
  * Sessionsrader för matrislogik och proven ligger i logic_test_v4_sessions.
@@ -47,6 +49,14 @@ const TABLE_BY_API: Record<string, string> = {
   '/api/steg2/talserie': 'logic_test_v4_sessions',
   '/api/steg2/spatial': 'logic_test_v4_sessions',
   '/api/steg2/ordforrad': 'logic_test_v4_sessions',
+  // Sessionsramen (plan-testflode-2026-11-20 etapp 2): ord och text, siffror
+  // och tabeller ligger i samma tabell och får uppgifterna härifrån.
+  '/api/verbalTestV1': 'logic_test_v4_sessions',
+  '/api/verbalTestV2': 'logic_test_v4_sessions',
+  '/api/verbalTestExpert': 'logic_test_v4_sessions',
+  '/api/numericalTest': 'logic_test_v4_sessions',
+  '/api/numericalTestV2': 'logic_test_v4_sessions',
+  '/api/numericalTestExpert': 'logic_test_v4_sessions',
 }
 
 export interface SavedAnswer {
@@ -78,6 +88,8 @@ export interface RunSession {
   deduktiv?: VisadDeduktiv[]
   /** Steg 2 (talserier, spatial förmåga, ordförråd): uppgifterna i visad ordning, utan facit. */
   steg2?: unknown[]
+  /** Ord och text, siffror och tabeller: underlagen och uppgifterna, utan facit. */
+  vn?: VnNivatestInnehall | null
 }
 
 export interface RunData {
@@ -149,6 +161,7 @@ export async function getRunData(
         ...(config.kind === 'figurserie' ? { serie: serieInnehall(row).fragor } : {}),
         ...(config.kind === 'deduktiv' ? { deduktiv: deduktivInnehall(row).fragor } : {}),
         ...(arSteg2Kind(config.kind) ? { steg2: steg2Motor(config.kind)?.innehall(row).fragor ?? [] } : {}),
+        ...((config.kind === 'verbal' || config.kind === 'numerisk') && !row.completed_at ? { vn: vnInnehall(config.slug, row.id, row.meta) } : {}),
       },
       resolved: true,
     }

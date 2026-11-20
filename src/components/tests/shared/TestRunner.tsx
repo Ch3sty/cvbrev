@@ -21,17 +21,11 @@ import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
 import FigurserieNivatest from '@/components/session/figurserie/FigurserieNivatest'
 import { DeduktivTestSession } from '@/components/tests/deduktiv/DeduktivTestSession'
 import { Steg2TestSession } from '@/components/tests/steg2/Steg2TestSession'
-import { NumericalTestSession } from '@/components/tests/numerical/NumericalTestSession'
-import { VerbalTestSession } from '@/components/tests/verbal/VerbalTestSession'
-import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestSession'
-import type { Passage as NumericalPassage } from '@/lib/numericalTest/types'
-
-import { selectPassagesForSession as selectNumericalGrund } from '@/lib/numericalTest/selectPassages'
-import type { UnderlagVersion } from '@/lib/tester/underlagVersion'
-import { selectPassagesForSession as selectNumericalAvancerad } from '@/lib/numericalTestV2/selectPassages'
-import { selectPassagesForSession as selectNumericalExpert } from '@/lib/numericalTestExpert/selectPassages'
-import { selectPassagesForSession as selectVerbalGrund } from '@/lib/verbalTestV1/selectPassages.v1'
-import { selectPassagesForSession as selectVerbalAvancerad } from '@/lib/verbalTestV2/selectPassages.v2'
+// Sessionsramen (plan-testflode-2026-11-20, etapp 2): ord och text, siffror
+// och tabeller får uppgifterna från servern, så bankerna och urvalet lämnar
+// klientpaketet. VerbalTestSession, VerbalExpertSession och
+// NumericalTestSession står kvar oanvända till etapp 5.
+import VnNivatest from '@/components/session/vn/VnNivatest'
 
 import { arSteg2Kind, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { RunData } from '@/app/dashboard/tester/[slug]/getRunData'
@@ -55,10 +49,6 @@ const VerbalProvSession = dynamic(
   () => import('@/components/tests/prov/VerbalProvSession'),
   { loading: TestLoading }
 )
-const VerbalExpertSession = dynamic(
-  () => import('@/components/tests/verbal/VerbalExpertSession'),
-  { loading: TestLoading }
-)
 
 /*
   Modulskopade urvalsfunktioner: stabil referens för vyernas memo.
@@ -67,30 +57,6 @@ const VerbalExpertSession = dynamic(
   session-API:t) med blandade alternativ och utan facit, så frågebanken aldrig
   följer med i klientpaketet.
 */
-
-// V2- och expertpassager har samma fältstruktur som V1, så casten är säker.
-// version: sessionens underlagsversion (src/lib/tester/underlagVersion.ts).
-const numericalGrund = (id: string, version?: UnderlagVersion) => selectNumericalGrund(id, undefined, version)
-const numericalAvancerad = (id: string, version?: UnderlagVersion) =>
-  selectNumericalAvancerad(id, undefined, version) as unknown as NumericalPassage[]
-const numericalExpert = (id: string) =>
-  selectNumericalExpert(id) as unknown as NumericalPassage[]
-
-const NUMERICAL_SELECT: Record<string, (id: string, version?: UnderlagVersion) => NumericalPassage[]> = {
-  'numeriskt-test': numericalGrund,
-  'numeriskt-test-v2': numericalAvancerad,
-  'numeriskt-test-expert': numericalExpert,
-}
-
-const verbalGrund = (id: string, version?: UnderlagVersion) =>
-  selectVerbalGrund(id, undefined, version) as unknown as VerbalSessionPassage[]
-const verbalAvancerad = (id: string, version?: UnderlagVersion) =>
-  selectVerbalAvancerad(id, undefined, version) as unknown as VerbalSessionPassage[]
-
-const VERBAL_SELECT: Record<string, (id: string, version?: UnderlagVersion) => VerbalSessionPassage[]> = {
-  'verbal-resonemang': verbalGrund,
-  'verbal-resonemang-v2': verbalAvancerad,
-}
 
 export default function TestRunner({
   config,
@@ -125,9 +91,20 @@ export default function TestRunner({
     return <VerbalProvSession sessionId={sessionId} />
   }
 
-  // Verbal expert prövar argument, inte påståenden, och har en egen vy.
-  if (config.slug === 'verbal-resonemang-expert') {
-    return <VerbalExpertSession sessionId={sessionId} />
+  // Ord och text, siffror och tabeller, alla nivåer (expert inräknad) i ramen.
+  if (config.kind === 'verbal' || config.kind === 'numerisk') {
+    return (
+      <VnNivatest
+        kind={config.kind}
+        sessionId={sessionId}
+        slug={config.slug}
+        level={config.level as 'grund' | 'avancerad' | 'expert'}
+        minuter={config.examMinutes ?? config.minutes}
+        resultsPath={resultsPath}
+        initialRun={runData}
+        {...endpoints}
+      />
+    )
   }
 
   if (config.kind === 'matris') {
@@ -186,25 +163,6 @@ export default function TestRunner({
     )
   }
 
-  if (config.kind === 'numerisk') {
-    return (
-      <NumericalTestSession
-        sessionId={sessionId}
-        level={config.level as 'grund' | 'avancerad' | 'expert'}
-        selectPassages={NUMERICAL_SELECT[config.slug]}
-        resultsPath={resultsPath}
-        {...endpoints}
-      />
-    )
-  }
-
-  return (
-    <VerbalTestSession
-      sessionId={sessionId}
-      level={config.level as 'grund' | 'avancerad'}
-      selectPassages={VERBAL_SELECT[config.slug]}
-      resultsPath={resultsPath}
-      {...endpoints}
-    />
-  )
+  // Hit kommer ingen typ längre: ord och text, siffror och tabeller går i ramen ovan.
+  return null
 }

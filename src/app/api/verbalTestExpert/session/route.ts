@@ -7,6 +7,7 @@ import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
+import { vnInnehall } from '@/lib/tester/vn-nivatest.server';
 
 const TEST_TYPE = 'verbal-resonemang-expert';
 const QUOTA_MESSAGE = TEST_KVOT_MEDDELANDE;
@@ -86,7 +87,9 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Session not found' }, { status: 404 });
       }
 
-      return NextResponse.json({ session });
+      // Sessionsramen (plan-testflode-2026-11-20 etapp 2): reservvägen får
+      // uppgifterna utan facit i samma svar, så att banken lämnar klienten.
+      return NextResponse.json({ session, vn: session.completed_at ? null : vnInnehall('verbal-resonemang-expert', session.id, session.meta) });
     }
 
     const { data: sessions, error: fetchError } = await supabase

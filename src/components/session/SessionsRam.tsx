@@ -75,6 +75,12 @@ export interface SessionsRamProps {
   tangent?: { antal: number; onValj: (i: number) => void } | null
   /** Raden ovanför foten, till exempel "Ett svar sparades inte". */
   rad?: ReactNode
+  /**
+   * Underlaget (typens underlag, etapp 2): egen spalt till vänster på dator,
+   * fäst överst på mobil. Monteras om bara när nyckeln byts, så att texten
+   * står kvar (med sin rullning) medan påståendena byts.
+   */
+  underlag?: { nyckel: string; innehall: ReactNode } | null
   children: ReactNode
 }
 
@@ -113,6 +119,7 @@ export default function SessionsRam({
   ark = null,
   tangent = null,
   rad,
+  underlag = null,
   children,
 }: SessionsRamProps) {
   const fotRef = useRef<HTMLElement | null>(null)
@@ -265,9 +272,27 @@ export default function SessionsRam({
 
       <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div ref={innehallRef} className={`serie-kolumn mx-auto w-full px-4 pb-6 pt-4 lg:pb-10 lg:pt-10 ${kolumn}`}>
-          <div key={nyckel} className={nyckel ? 'sess-in' : undefined}>
-            {children}
-          </div>
+          {underlag ? (
+            <div className="lg:grid lg:grid-cols-[minmax(0,560px)_minmax(0,400px)] lg:items-start lg:gap-10" data-ram-bred>
+              <div
+                key={`u-${underlag.nyckel}`}
+                // Fäst överst på mobil medan hon svarar. När Förklaringen står
+                // under svaren (Träna, genomgången) rullar underlaget med, så
+                // att påståendet och rätt svar syns ovanför förklaringen.
+                className="sess-in sticky top-0 z-10 -mx-4 -mt-4 bg-golv px-4 pb-3 pt-4 max-lg:[&:has(~*_[data-forklaringen])]:static lg:top-0 lg:m-0 lg:bg-transparent lg:p-0"
+                data-ram-underlag
+              >
+                {underlag.innehall}
+              </div>
+              <div key={nyckel} className={nyckel ? 'sess-in' : undefined}>
+                {children}
+              </div>
+            </div>
+          ) : (
+            <div key={nyckel} className={nyckel ? 'sess-in' : undefined}>
+              {children}
+            </div>
+          )}
         </div>
       </main>
 

@@ -41,6 +41,18 @@ export interface TypRitare<U extends RamUppgift> {
   form: Innehallsform
   antalAlternativ: (u: U) => number
   Uppgift: ComponentType<UppgiftProps<U>>
+  /**
+   * Underlaget som står kvar medan uppgifterna byts (avsnitt 1 main och 3,
+   * Bred): texten, tabellen eller villkoren. Ramen ritar det i egen spalt på
+   * dator och fäst överst på mobil, och monterar om det bara när nyckeln byts
+   * (etapp 2). Utelämnat: uppgiften ritar allt själv.
+   */
+  underlag?: {
+    nyckel: (u: U) => string
+    Ritare: ComponentType<{ u: U; genomgang?: boolean }>
+  }
+  /** Uppgiftsarkets mellanrubriker, till exempel textens rubrik i verbalt. */
+  arkGrupper?: (uppgifter: U[]) => { fran: number; rubrik: string }[]
 }
 
 /** Facit och förklaring per uppgift, efter svaret (Träna) eller efteråt (genomgången). */
@@ -49,4 +61,6 @@ export interface RamFacit {
   correct: boolean
   regel: string | null
   misstag: string | null
+  /** Förklaringen som löptext (ord och text, siffror och tabeller), etapp 2. */
+  text?: string | null
 }

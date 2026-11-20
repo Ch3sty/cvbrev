@@ -26,7 +26,7 @@ import type { RamUppgift, TypRitare } from '../typ'
 import { useSessionSparning } from '../useSessionSparning'
 import { ovningsprovApi } from '../figurserie/api'
 import Genomgang, { type GenomgangPost } from './Genomgang'
-import { Sparfelsrad, useLamnadSida, useSekunderSedan } from './gemensamt'
+import { ramUnderlag, Sparfelsrad, useLamnadSida, useSekunderSedan } from './gemensamt'
 
 export interface OvningsprovProps<U extends RamUppgift> {
   ritare: TypRitare<U>
@@ -36,8 +36,9 @@ export interface OvningsprovProps<U extends RamUppgift> {
   /** En uppgift per punkt, i provets ordning. */
   uppgifter: (vy: Ovningsvy) => U[]
   /** Visat index till svarsvärdet som servern tar emot, och tillbaka. */
-  tillVarde: (i: number) => string
-  franVarde: (v: string) => number | null
+  /** Uppgiften följer med (etapp 2): numeriskt har egna alternativ-id per fråga. */
+  tillVarde: (i: number, u: U) => string
+  franVarde: (v: string, u: U) => number | null
   genomgangPoster: (vy: Ovningsvy) => GenomgangPost<U>[]
   resultat: (vy: Ovningsvy, ctrl: { gaIgenom: (fran?: number) => void; stang: () => void }) => ReactNode
   stangHref: string
@@ -58,7 +59,8 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
   const [svar, setSvar] = useState<Record<string, number>>(() => {
     const ut: Record<string, number> = {}
     for (const [k, v] of Object.entries(p.vy.svar)) {
-      const i = p.franVarde(v)
+      const uk = uppgifter.find((x) => x.nyckel === k)
+      const i = uk ? p.franVarde(v, uk) : null
       if (i != null) ut[k] = i
     }
     return ut
@@ -102,7 +104,7 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
     if (!u || markerad == null || markerad === svar[u.nyckel]) return svar
     const nya = { ...svar, [u.nyckel]: markerad }
     setSvar(nya)
-    sparning.spara(u.nyckel, { varde: p.tillVarde(markerad), tid })
+    sparning.spara(u.nyckel, { varde: p.tillVarde(markerad, u), tid })
     sessionHandelser.besvarad(bas, { session_id: vy.id, index: idx, elapsed_ms: tid * 1000, via: via.current, vet_inte: false })
     return nya
   }, [uppgifter, idx, lamnaUppgift, markerad, svar, sparning, p, bas, vy.id])
@@ -188,6 +190,7 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
       framsteg={(idx + 1) / antal}
       klocka={<Klocka lage="grans" kvar={kvar} total={vy.tidsgrans_s} />}
       nyckel={u.nyckel}
+      underlag={ramUnderlag(ritare, u)}
       bekraftaAvbryt={!lamnar}
       onAvbryt={() => {
         avbrottVidLamning()
@@ -204,6 +207,7 @@ export default function Ovningsprov<U extends RamUppgift>(p: OvningsprovProps<U>
         fri
           ? {
               celler,
+              grupper: ritare.arkGrupper?.(uppgifter),
               onValj: (i) => {
                 const nya = bekrafta()
                 ga(i, nya)

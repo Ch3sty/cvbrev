@@ -14,6 +14,7 @@
 import { notFound } from 'next/navigation'
 import Startark from '@/components/traning/ovningsprov/Startark'
 import { FigurserieOvningsprovStart } from '@/components/session/figurserie/FigurserieOvningsprov'
+import { VnOvningsprovStart } from '@/components/session/vn/VnOvningsprov'
 import { arProvtyp, ovningsformat } from '@/lib/ovningsprov/format'
 import { lasMeta, TIDSMARGINAL_MS } from '@/lib/ovningsprov/motor.server'
 import { OVNINGSPROV_TEST_TYPE } from '@/lib/ovningsprov/typer'
@@ -77,6 +78,22 @@ export default async function OvningsprovStartSida({
         last={!beh.harProvlage}
         pagaende={pagaende?.id ?? null}
         kvar={null}
+        gjortIdag={pagaende ? null : gjort?.id ?? null}
+        tillbakaHref={TRANING_RUTT.alla}
+        fran={fran}
+      />
+    )
+  }
+
+  // Etapp 2: ord och text, siffror och tabeller har ramens startskärm.
+  if (typ === 'verbal' || typ === 'numerisk') {
+    return (
+      <VnOvningsprovStart
+        typ={typ}
+        format={format}
+        dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
+        last={!beh.harProvlage}
+        pagaende={pagaende?.id ?? null}
         gjortIdag={pagaende ? null : gjort?.id ?? null}
         tillbakaHref={TRANING_RUTT.alla}
         fran={fran}

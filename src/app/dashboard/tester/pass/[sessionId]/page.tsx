@@ -9,7 +9,8 @@ import { notFound } from 'next/navigation'
 import PassFlode from '@/components/traning/PassFlode'
 import { hamtaSession, sessionsvy } from '@/lib/traning/motor.server'
 import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
-import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
+import VnTrana from '@/components/session/vn/VnTrana'
+import VnNivakoll from '@/components/session/vn/VnNivakoll'
 import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
 import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
 import { lasTestInstallningar } from '@/lib/tester/installningar.server'
@@ -39,7 +40,24 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Text- och sifferpassen har samma adress (beställning omgång 2, B3).
     const vn = await hamtaVnPass(admin, userId, sessionId)
     const vnVy = vn ? vnPassVy(vn) : null
-    if (vnVy) return <VnPassFlode vy={vnVy} />
+    if (vnVy) {
+      // Sessionsramen (plan-testflode-2026-11-20, etapp 2).
+      const [installningar, nivakoll] = await Promise.all([
+        lasTestInstallningar(admin, userId),
+        senasteNivakollNiva(admin, userId, vnVy.kind).catch(() => null),
+      ])
+      const dag = vn?.completed_at ? dagSthlm(vn.completed_at) : dagSthlm()
+      return (
+        <VnTrana
+          kind={vnVy.kind}
+          familj={vnVy.familj}
+          vy={vnVy}
+          forklaringEfterSvar={installningar.forklaring_efter_svar}
+          harNivakoll={nivakoll != null}
+          datum={kortDatum(dag)}
+        />
+      )
+    }
     // Figurpasset har samma adress (beställning omgång 3, A3).
     const figur = await hamtaFigurPass(admin, userId, sessionId)
     const figurVy = figur ? figurPassVy(figur) : null
@@ -74,6 +92,10 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     if (kollVy.kind === 'figurserie') {
       const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
       return <FigurserieNivakoll vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
+    }
+    if (kollVy.kind === 'verbal' || kollVy.kind === 'numerisk') {
+      const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
+      return <VnNivakoll kind={kollVy.kind} vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
     }
     return <NivakollFlode vy={kollVy} betalande={betalande} />
   }

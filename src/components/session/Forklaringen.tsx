@@ -28,6 +28,8 @@ export interface ForklaringenProps {
   /** Sekunder på uppgiften och provets tid per uppgift, för raden till höger. */
   tid?: { sekunder: number; budget: number | null } | null
   regel: string | null
+  /** Förklaringen som löptext där banken förklarar i stället för att ge en regel (ord och text, siffror och tabeller). */
+  text?: string | null
   misstag?: string | null
   rapport?: FragaRapportProps
   /** Rulla fram panelen när den monteras (efter ett svar, inte i genomgången). */
@@ -49,7 +51,7 @@ const RAD: Record<Utfall, string> = {
 
 const LUFT_OVER_FOTEN = 12
 
-export default function Forklaringen({ utfall, tid, regel, misstag, rapport, rullaFram = false }: ForklaringenProps) {
+export default function Forklaringen({ utfall, tid, regel, text = null, misstag, rapport, rullaFram = false }: ForklaringenProps) {
   const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -89,14 +91,21 @@ export default function Forklaringen({ utfall, tid, regel, misstag, rapport, rul
           <span className={`flex-1 text-[12px] font-semibold uppercase leading-4 tracking-[.06em] ${RAD[utfall]}`}>{etikett}</span>
           {tid ? <span className="text-[12px] leading-4 tabular-nums text-ink-3">{C.tid(tid.sekunder, tid.budget)}</span> : null}
         </p>
-        {regel ? (
+        {regel || text ? (
           <>
             {utfall !== 'vet_inte' && utfall !== 'obesvarad' ? (
               <p className="mt-2.5 text-[12px] font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">{C.eyebrow}</p>
             ) : null}
-            <p className="mt-1 font-sess-display text-lg font-bold leading-[23px] tracking-[-.01em] text-ink-1" data-regel>
-              {regel}
-            </p>
+            {regel ? (
+              <p className="mt-1 font-sess-display text-lg font-bold leading-[23px] tracking-[-.01em] text-ink-1" data-regel>
+                {regel}
+              </p>
+            ) : null}
+            {text ? (
+              <p className={`${regel ? 'mt-1.5' : 'mt-1'} text-sm leading-[21px] text-ink-1`} data-forklaring-text>
+                {text}
+              </p>
+            ) : null}
           </>
         ) : null}
         {misstag ? (

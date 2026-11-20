@@ -26,6 +26,15 @@ export interface Startlage {
 
 const DYGN_MS = 24 * 60 * 60 * 1000
 
+/** Svarets nyckel: q_id (figurserier), passage och påstående (verbalt), frågans id (numeriskt, verbalt expert). */
+type SvarRad = { q_id?: string; passageId?: string; statementIndex?: number; questionId?: string } | null
+function svarsNyckel(a: SvarRad): string | null {
+  if (!a) return null
+  if (a.q_id) return a.q_id
+  if (a.passageId && typeof a.statementIndex === 'number') return `${a.passageId}:${a.statementIndex}`
+  return a.questionId ?? null
+}
+
 export async function getStartlage(config: TestConfig): Promise<Startlage | null> {
   try {
     const testType = testTypeForSlug(config)
@@ -47,7 +56,7 @@ export async function getStartlage(config: TestConfig): Promise<Startlage | null
     ])
     const rad = (sessRes.data ?? [])[0] as { id: string; answers: unknown; meta: unknown } | undefined
     const antal = Number((rad?.meta as { antal?: unknown } | null)?.antal) || config.totalQuestions
-    const besvarade = Array.isArray(rad?.answers) ? new Set((rad!.answers as { q_id?: string }[]).map((a) => a?.q_id).filter(Boolean)).size : 0
+    const besvarade = Array.isArray(rad?.answers) ? new Set((rad!.answers as SvarRad[]).map(svarsNyckel).filter(Boolean)).size : 0
     const last = config.requiresFeature ? !scopeHasFeature(scope, config.requiresFeature) : false
     return {
       pagaende: rad && besvarade > 0 && besvarade < antal ? { id: rad.id, kvar: antal - besvarade } : rad && besvarade === 0 ? { id: rad.id, kvar: antal } : null,

@@ -174,7 +174,7 @@ export const SESSION = {
     startar: 'Startar',
     kvar: (n: number) => (n === 1 ? 'Du har en uppgift kvar.' : `Du har ${n} uppgifter kvar.`),
     kryssruta: 'Förklaring efter varje svar',
-    kryssrutaPa: 'Regeln och ditt misstag direkt efter svaret.',
+    kryssrutaPa: 'Rätt svar och förklaringen direkt efter svaret.',
     kryssrutaAv: 'Svara i provets tempo, facit i genomgången.',
   },
   resultat: {

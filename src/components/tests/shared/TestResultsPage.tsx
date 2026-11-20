@@ -55,6 +55,8 @@ import GenomgangKort from '@/components/tests/resultat/GenomgangKort'
 import TappadeKort from '@/components/tests/resultat/TappadeKort'
 import TempoKort from '@/components/tests/resultat/TempoKort'
 import FigurserieNivatestResultat from '@/components/session/figurserie/FigurserieNivatestResultat'
+import VnNivatestResultat from '@/components/session/vn/VnNivatestResultat'
+import type { VnNivatestGenomgang } from '@/lib/tester/vn-nivatest'
 import { KLART } from '@/components/session/copy'
 import { kortDatum } from '@/lib/traning/rubrik'
 import { dagSthlm } from '@/lib/traning/datum'
@@ -87,6 +89,8 @@ interface SessionData {
   deduktiv?: GenomgangDeduktiv[] | null
   /** Steg 2: genomgången, byggd på servern. */
   steg2?: unknown[] | null
+  /** Ord och text, siffror och tabeller: genomgången med underlagen, byggd på servern. */
+  vn?: VnNivatestGenomgang | null
 }
 
 
@@ -184,6 +188,7 @@ export default function TestResultsPage({
           serie: fromServer.session.serie ?? null,
           deduktiv: fromServer.session.deduktiv ?? null,
           steg2: fromServer.session.steg2 ?? null,
+          vn: fromServer.session.vn ?? null,
           meta: fromServer.session.meta,
         }
       : null
@@ -384,6 +389,69 @@ export default function TestResultsPage({
       ) : null}
     </div>
   )
+
+  // Ord och text, siffror och tabeller i sessionsramens resultatskärm
+  // (plan-testflode-2026-11-20, etapp 2). Allt ovan räknas som förut; bara
+  // ritningen byts. Utan serverns genomgång (reservvägen) står den gamla vyn kvar.
+  if ((config.kind === 'verbal' || config.kind === 'numerisk') && !prov && session.vn?.uppgifter.length) {
+    const minuter = config.examMinutes ?? config.minutes
+    const overSek = timeSpent - minuter * 60
+    const nasta = config.nextSlug ? TEST_CONFIGS.find((c) => c.slug === config.nextSlug) : undefined
+    const nastaOppen = !!nasta && (!nasta.requiresFeature || (scope !== undefined && scopeHasFeature(scope, nasta.requiresFeature)))
+    return (
+      <VnNivatestResultat
+        kind={config.kind}
+        niva={config.level as 'grund' | 'avancerad' | 'expert'}
+        hubHref={testPaths.hub(config.slug)}
+        datum={session.completed_at ? kortDatum(dagSthlm(session.completed_at)) : null}
+        eyebrow={nyss || !session.completed_at ? KLART.nivatest : datumText(session.completed_at)}
+        ratt={score}
+        totalt={total}
+        tal={[
+          { varde: minSek(timeSpent), etikett: `av ${minuter} min` },
+          overSek > 0
+            ? { varde: `${Math.max(1, Math.round(overSek / 60))} min`, etikett: 'över provets tid', koppar: true }
+            : { varde: tempoTal.tal, etikett: tempoTal.etikett },
+        ]}
+        mening={rad}
+        genomgang={session.vn}
+        genomgangText={lage === 'missar' ? [regel, samma].filter(Boolean).join(' ') : null}
+        tappadeKort={
+          harTappade ? (
+            <TappadeKort grupper={analys.grupper} svagast={analys.svagast} matris={figur} term={term} flera={sak.flera} />
+          ) : null
+        }
+        tempoKort={tempo ? <TempoKort tempo={tempo} sak={tempoOrd} /> : null}
+        status={
+          last ? (
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+              <span className="flex min-w-0 items-center gap-2.5">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
+                <span>{rytm}</span>
+              </span>
+              <StatusKop />
+            </div>
+          ) : utanCv ? (
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+              <span className="flex min-w-0 items-center gap-2.5">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
+                <span>{RESULTAT.status.cv}</span>
+              </span>
+              <Link href="/dashboard/profil/cv" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
+                {RESULTAT.status.lankCv}
+              </Link>
+            </div>
+          ) : null
+        }
+        nasta={
+          nastaOppen && nasta && pct >= SITTER_PROCENT
+            ? { titel: `Nästa nivå: ${nasta.title}`, text: RESULTAT.status.text, knapp: 'Till nästa nivå', href: testPaths.hub(nasta.slug) }
+            : { titel: last ? RESULTAT.status.text : rytm ?? RESULTAT.status.text, text: last ? null : RESULTAT.status.text, knapp: 'Alla tester', href: '/dashboard/tester/alla' }
+        }
+        motion={nyss}
+      />
+    )
+  }
 
   // Figurserier i sessionsramens resultatskärm (plan-testflode-2026-11-20,
   // etapp 1). Allt ovan räknas som förut; bara ritningen byts.

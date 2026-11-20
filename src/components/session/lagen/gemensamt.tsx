@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import { SESSION } from '../copy'
+import type { RamUppgift, TypRitare } from '../typ'
 
 /** "Ett svar sparades inte." med Försök igen, ovanför foten. Aldrig blockerande. */
 export function Sparfelsrad({ antal, onForsok }: { antal: number; onForsok: () => void }) {
@@ -44,6 +45,14 @@ export function ForsokIgen({ onClick, tillbakaHref, tillbaka }: { onClick: () =>
       ) : null}
     </div>
   )
+}
+
+/** Typens underlag till ramens plats (etapp 2), null när typen ritar allt själv. */
+export function ramUnderlag<U extends RamUppgift>(ritare: TypRitare<U>, u: U, genomgang = false): { nyckel: string; innehall: ReactNode } | null {
+  const ul = ritare.underlag
+  if (!ul) return null
+  const Ritare = ul.Ritare
+  return { nyckel: ul.nyckel(u), innehall: <Ritare u={u} genomgang={genomgang} /> }
 }
 
 /** Sekunder sedan en tidpunkt, uppdaterat varje sekund medan aktiv. */
