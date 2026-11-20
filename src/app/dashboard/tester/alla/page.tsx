@@ -19,8 +19,7 @@ import type { Scope } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { Betalvagg } from '@/components/traning/HemKlient'
 import TesterVy from '@/components/tester-v4/tester/TesterVy'
-import Navigering from '@/components/tester-v4/hem/Navigering'
-import { navTexter } from '@/components/tester-v4/hem/hemData'
+import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
 
 const SCOPES: readonly string[] = ['cv', 'tester', 'allt']
 const PLANER: readonly string[] = ['cv_week', 'test_week', 'all_day', 'all_week', 'all_month', 'all_quarter']
@@ -44,11 +43,7 @@ export default async function AllaTesterPage({
 
   return (
     <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
-      <TesterVy
-        data={data}
-        startTyp={arTestTypId(typ) ? typ : null}
-        nav={<Navigering aktiv="tester" texter={navTexter(data)} />}
-      />
+      <TesterVy data={data} startTyp={arTestTypId(typ) ? typ : null} vagg={<Vaggen data={data} sida="tester" />} />
     </Betalvagg>
   )
 }

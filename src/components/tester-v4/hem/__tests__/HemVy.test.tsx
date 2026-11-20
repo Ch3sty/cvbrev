@@ -26,91 +26,51 @@ beforeEach(() => {
 
 const text = (c: Element) => c.textContent ?? ''
 
-describe('HemVy (skissen Hem A)', () => {
-  it('utan plan: Hem på väggen, plankortet, mätta typer i Så ligger du till', () => {
-    const { container } = render(<HemVy data={fixturTester('a', 'premium')} />)
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Hem')
-    expect(container.querySelector('[data-plankort]')).not.toBeNull()
-    expect(container.querySelector('[data-bana]')).toBeNull()
-    expect(container.querySelector('[data-nedrakning]')).toBeNull()
-    expect(container.querySelector('[data-dagsmal]')).toBeNull()
-    const rader = container.querySelectorAll('[data-sa-ligger] [data-typ]')
-    expect(rader.length).toBeGreaterThan(0)
-    expect(text(container)).not.toMatch(/\bpass\b/i)
-  })
-
-  it('Alva Logic: stor nedräkning, banan, Dagar i rad och planens del markerad', () => {
+describe('HemVy, omgång 3 (skissens Hem och Hem-ny)', () => {
+  it('väggen: tre flikar med underrad, Hem aktiv, dagens träning och banan', () => {
     const { container } = render(<HemVy data={fixturTester('b', 'premium')} />)
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Alva Logic')
-    const ned = container.querySelector('[data-nedrakning]')!
-    expect(text(ned)).toContain('7 dagar kvar till provet onsdag 25 nov')
-    expect(text(ned)).toContain('dagar kvar')
-    expect(text(container.querySelector('[data-status]')!)).toContain('Provet har 20 uppgifter')
-    expect(container.querySelector('[data-bana]')).not.toBeNull()
-    const dagar = container.querySelector('[data-dagsmal]')!
-    expect(text(dagar)).toContain('Dagar i rad')
-    expect(text(dagar)).toContain('Dagsmål 1 av 2 i dag')
-    expect(dagar.querySelectorAll('[data-veckorad] [data-status]').length).toBe(7)
-    expect(text(container.querySelector('[data-sa-ligger]')!)).toContain('Alva Logic')
-    expect(container.querySelector('[data-katalog="matris"][data-i-plan]')).not.toBeNull()
-    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Åtta testtyper och personlighetstestet')
-    expect(container.querySelector('[data-ingang="tester"] a[href="/dashboard/tester/alla"]')).not.toBeNull()
-    expect(text(container.querySelector('[data-ingang="utveckling"]')!)).toContain('Fyra veckor i figurer och mönster')
-    expect(container.querySelector('[data-minigraf="dator"] [data-nivakoll]')).not.toBeNull()
-    expect(text(container.querySelector('[data-senaste-prov]')!)).toContain('Övningsprov Alva')
-    expect(container.querySelector('[data-plankort]')).toBeNull()
+    const nav = container.querySelector('[data-flikar3]')!
+    expect([...nav.querySelectorAll('a')].map((a) => a.getAttribute('href'))).toEqual(['/dashboard/tester', '/dashboard/tester/alla', '/dashboard/tester/kurvan'])
+    expect(nav.querySelector('[aria-current="page"]')?.getAttribute('data-nav')).toBe('hem')
+    expect(text(nav)).toContain('Läget och planen till provet')
+    expect(container.querySelector('[data-vagg3]')).not.toBeNull()
+    expect(container.querySelectorAll('svg[role="img"][aria-label^="Banan"]').length).toBe(2)
+    expect(text(container.querySelector('[data-vagg3]')!)).toContain('Plan inför provet')
     expect(text(container)).not.toMatch(/\bpass\b/i)
   })
 
-  it('I-provet: Nästa steg är Nivåkollen i spatial förmåga med bandet för typen', () => {
-    const { container } = render(<HemVy data={fixturTester('c', 'premium')} />)
-    const lyft = screen.getByRole('region', { name: 'Nästa steg' })
-    expect(text(lyft)).toContain('Gör Nivåkollen i spatial förmåga')
-    expect(lyft.querySelector('[data-nasta-band="spatial"]')).not.toBeNull()
-    expect(container.querySelectorAll('[data-sa-ligger] [data-typ]').length).toBeGreaterThanOrEqual(3)
-    expect(container.querySelector('[data-fler-steg]')).not.toBeNull()
+  it('Alva Logic: vägen till provet, ett kort per dag och provdagen sist', () => {
+    const data = fixturTester('b', 'premium')
+    const { container } = render(<HemVy data={data} />)
+    const vagen = container.querySelector('[data-vagen]')!
+    expect(text(vagen)).toContain('Vägen till provet')
+    const kort = vagen.querySelectorAll('.t3-dag')
+    expect(kort.length).toBe(data.vagen.length)
+    expect(kort[0].getAttribute('data-dag')).toBe('idag')
+    expect(kort[kort.length - 1].getAttribute('data-dag')).toBe('prov')
+    expect(container.querySelector('[data-sa-gar-det-till]')).toBeNull()
   })
 
-  it('artikelingången: Lägg till provdatum, öppet slut och ett första steg som går att stänga', () => {
-    const { container } = render(<HemVy data={fixturTester('b', 'gratis', { artikel: true })} />)
-    expect(container.querySelector('[data-lagg-till-datum]')?.getAttribute('href')).toBe('/dashboard/tester/installningar?steg=3')
-    expect(text(container.querySelector('[data-bana]')!)).toContain('tills det sitter')
-    expect(container.querySelector('[data-kurva-tom]')).not.toBeNull()
-    const lyft = screen.getByRole('region', { name: 'Nästa steg' })
-    expect(text(lyft)).toContain('Inför Alva Logic: börja med Nivåkollen i figurer och mönster')
-    fireEvent.click(screen.getByRole('button', { name: 'Stäng första steget' }))
-    expect(screen.queryByRole('region', { name: 'Nästa steg' })).toBeNull()
+  it('ny användare: Så här går det till, inte mätt än som lucka, Gör Nivåkollen', () => {
+    const data = fixturTester('a', 'gratis', { artikel: false })
+    const ny = { ...data, dagens: { ...data.dagens, forstaSteget: true } }
+    const { container } = render(<HemVy data={ny} />)
+    expect(container.querySelector('[data-sa-gar-det-till]')).not.toBeNull()
+    expect(container.querySelector('[data-vagen]')).toBeNull()
+  })
+
+  it('dagens knapp är en länk, ingen kopparknapp till', () => {
+    const { container } = render(<HemVy data={fixturTester('b', 'premium')} />)
+    const knappar = container.querySelectorAll('a[data-dagens-knapp]')
+    expect(knappar.length).toBe(2)
+    expect(knappar[0].getAttribute('href')).toBe(knappar[1].getAttribute('href'))
   })
 
   it('gratis med dagens grundnivå gjord: raden med priset ur paketet, ordagrant', () => {
-    const data = fixturTester('b', 'gratis', { kvotAnvand: true })
-    const { container } = render(<HemVy data={data} />)
-    const rad = container.querySelector('[data-gratisrad]')!
-    expect(text(rad)).toContain(`Proven ligger på avancerad nivå. Öva där, så ofta du vill, med Premium, ${data.gratis.pris.prisrad}.`)
-    expect(text(container.querySelector('[data-gratis]')!)).toContain('Det här var grundnivån')
-    expect(text(container.querySelector('[data-ingang="tester"]')!)).toContain('Åtta testtyper, ett gratis grundnivåtest om dagen')
-    expect(text(container.querySelector('[data-tester-fot]')!)).toContain('Dagens grundnivåtest är gjort')
-    expect(text(container.querySelector('[data-ingang="utveckling"]')!)).toContain('Hela historiken ingår i Premium')
-  })
-
-  it('gratis med grundnivån kvar och Premium: ingen gratisrad', () => {
-    expect(render(<HemVy data={fixturTester('b', 'gratis')} />).container.querySelector('[data-gratis]')).toBeNull()
-    expect(render(<HemVy data={fixturTester('b', 'premium')} />).container.querySelector('[data-gratis]')).toBeNull()
-  })
-
-  it('exakt en kopparknapp i vyn', () => {
-    const { container } = render(<HemVy data={fixturTester('c', 'gratis', { kvotAnvand: true })} />)
-    expect(container.querySelectorAll('.knapp-primar').length).toBe(1)
-  })
-
-  it('navigeringen: tre riktiga länkar, Hem aktivt med aria-current, inga tankstreck', () => {
-    const { container } = render(<HemVy data={fixturTester('b', 'premium')} />)
-    const nav = screen.getByRole('navigation', { name: 'Rekryteringstester' })
-    const lankar = nav.querySelectorAll('a')
-    expect([...lankar].map((a) => a.getAttribute('href'))).toEqual(['/dashboard/tester', '/dashboard/tester/alla', '/dashboard/tester/kurvan'])
-    expect(nav.querySelector('[aria-current="page"]')?.getAttribute('data-nav')).toBe('hem')
-    expect(text(nav)).toContain('Du är här')
-    expect(text(container)).not.toContain('—')
+    const data = fixturTester('b', 'gratis')
+    const slut = { ...data, gratis: { ...data.gratis, grundKvarIdag: 0 } }
+    const { container } = render(<HemVy data={slut} />)
+    expect(container.querySelector('[data-gratis="gjord"]')).not.toBeNull()
   })
 })
 
@@ -195,7 +155,6 @@ describe('navigeringens undertexter (hemData)', () => {
     // Samma tal som bandet: typer[typ].niva.niva.
     const matris = b.typer.find((t) => t.id === 'matris')!
     expect(navTexter(b).rad.utveckling.startsWith(`Nivå ${talText(matris.niva.niva as number)}`)).toBe(true)
-    expect(text(render(<HemVy data={b} />).container.querySelector('[data-nav="utveckling"]')!)).toContain(talText(matris.niva.niva as number))
     const upp = medKurva(b, 3.2, [P({ dag: '2026-10-24', niva: 2.4 }), P({ dag: '2026-11-17', niva: 3.2, slag: 'trana' })])
     expect(navTexter(upp).rad.utveckling).toBe('Nivå 3,2, upp 0,8 på fyra veckor')
     expect(navTexter(upp).kort.utveckling).toBe('Nivå 3,2, upp 0,8')

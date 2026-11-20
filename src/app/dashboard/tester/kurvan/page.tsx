@@ -8,8 +8,7 @@
 import { redirect } from 'next/navigation'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaTesterV4, hamtaUtvecklingV4 } from '@/lib/tester/v4/hamta.server'
-import Navigering from '@/components/tester-v4/hem/Navigering'
-import { navTexter } from '@/components/tester-v4/hem/hemData'
+import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
 import { arTestTypId } from '@/lib/tester/v4/typer'
 import UtvecklingVy from '@/components/tester-v4/utveckling/UtvecklingVy'
 import { Betalvagg } from '@/components/traning/HemKlient'
@@ -34,7 +33,13 @@ export default async function KurvanSida({
   const typ = Array.isArray(sp.typ) ? sp.typ[0] : sp.typ
   return (
     <Betalvagg scope={somScope(data.paket.scope)} track={somScope(data.paket.track)} planKey={somPlan(data.paket.planKey)} grundKvarIdag={tester.gratis.premium ? null : tester.gratis.grundKvarIdag}>
-      <UtvecklingVy data={data} startTyp={arTestTypId(typ) ? typ : null} nav={<Navigering aktiv="utveckling" texter={navTexter(tester)} />} />
+      <UtvecklingVy
+        data={data}
+        startTyp={arTestTypId(typ) ? typ : null}
+        standardTyp={tester.dagens.typ}
+        ovningsprovForslag={tester.vaggBana.find((n) => n.forslag === 'ovningsprov')?.dag ?? null}
+        vagg={<Vaggen data={tester} sida="utveckling" />}
+      />
     </Betalvagg>
   )
 }

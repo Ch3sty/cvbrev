@@ -1,68 +1,47 @@
 /**
- * Hem i Rekryteringstester (skissen Hem A, godkänd 2026-11-19; utkast v4
- * avsnitt 2): var du står och vad som är rimligt härnäst, räknat ur dina
- * resultat.
+ * Hem i Rekryteringstester, omgång 3 (skissens Hem, Hem-ny, Mobil-hem och
+ * Mobil-hem-ny): väggen med Dagens träning och banan mot provdagen, samma
+ * vägg som Tester och Din utveckling, och golvet med Så ligger du till,
+ * Vägen till provet och det som är påbörjat.
  *
- *   Väggen        PlanHuvud: provet, den stora nedräkningen och banan, eller
- *                 datumet och "Hem" utan plan
- *   Lyft kort     Nästa steg: första hinten med typens nivåband, vyns enda
- *                 kopparknapp
- *   Navigeringen  tre kort, Hem, Tester och Din utveckling (sticky på dator)
- *   Ingångarna    Tester (minikatalogen) och Din utveckling (minigrafen, Så
- *                 ligger du till, senaste övningsprovet)
- *   Gratisraden   när dagens grundnivåtest är gjort
- *   Nedersta      Fler steg, Dagar i rad (eller plankortet utan plan) och
- *                 Fortsätt där du slutade
+ *   Väggen   omgang3/Vaggen: flikarna, planraden, dagens träning, banan
+ *   Golvet   omgang3/HemGolv: tre mått, vägen, gratisraden, nederst
  *
- * Hintarna kommer färdiga i prioritetsordning ur datan (hintar.ts). Ordet
- * "pass" används inte. Server component; öarna (NastaSteg, FlerSteg,
- * GratisRad, PlanKort, HintVisad och mätningen i HemMatning) är klient.
+ * Allt kommer ur den serverrenderade datan (hamtaTesterV4); dagens träning
+ * och vägen räknas där (lib/tester/v4/vagen.ts). Mätningen är oförändrad:
+ * hem_visad en gång per besök, hint_visad för hintarna som syns (dagens
+ * knapp och vägens kort), hint_klickad och tester_nav_klickad.
+ * Server component; öarna är klient.
  */
 
-import Golv from '@/components/rum/Golv'
-import type { TesterV4Data } from '@/lib/tester/v4/typer'
-import PlanHuvud from './PlanHuvud'
-import NastaSteg from './NastaSteg'
-import FlerSteg from './FlerSteg'
-import Dagsmal from './Dagsmal'
-import GratisRad from './GratisRad'
-import FortsattDarDuSlutade from './FortsattDarDuSlutade'
-import PlanKort from './PlanKort'
-import Navigering from './Navigering'
-import TesterIngang from './TesterIngang'
-import UtvecklingIngang from './UtvecklingIngang'
-import { navTexter, nivaKalla } from './hemData'
+import type { Hint, TesterV4Data } from '@/lib/tester/v4/typer'
+import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
+import HemGolv from '@/components/tester-v4/omgang3/HemGolv'
 import { HintVisad, type HintKontext } from './HintSparning'
-import { HemVisad, IngangarMedMatning } from './HemMatning'
+import { HemVisad } from './HemMatning'
+
+/** Hintarna som syns på Hem: dagens knapp och vägens kort, i ordning, en gång var. */
+export function synligaHintar(data: Pick<TesterV4Data, 'dagens' | 'vagen'>): Pick<Hint, 'id' | 'typ' | 'testtyp'>[] {
+  const ut: Pick<Hint, 'id' | 'typ' | 'testtyp'>[] = []
+  const sedda = new Set<string>()
+  for (const h of [data.dagens.hint, ...data.vagen.map((v) => v.hint)]) {
+    if (h && !sedda.has(h.id)) {
+      sedda.add(h.id)
+      ut.push(h)
+    }
+  }
+  return ut
+}
 
 export default function HemVy({ data }: { data: TesterV4Data }) {
-  const { plan, hintar } = data
+  const { plan } = data
   const kontext: HintKontext = { planTest: plan?.mittTest ?? null, planTyper: plan?.typer ?? [] }
-  const forsta = hintar[0] ?? null
-  const fler = hintar.slice(1, 4)
-  const hintTyp = forsta?.testtyp ? (data.typer.find((t) => t.id === forsta.testtyp) ?? null) : null
-  // Nedersta raden: tre spalter på bred skärm, färre när en del saknas.
-  const antalNederst = (fler.length ? 1 : 0) + 1 + (data.fortsatt ? 1 : 0)
-  const nederstKolumner = antalNederst === 3 ? 'xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1fr)]' : antalNederst === 2 ? 'lg:grid-cols-2' : ''
   return (
     <div className="flex flex-1 flex-col" data-hem-v4 data-lage={plan ? (plan.franArtikel && !plan.provdatum ? 'artikel' : 'plan') : 'fritt'}>
-      <HintVisad hintar={hintar.slice(0, 4)} idag={data.idag} kontext={kontext} />
+      <HintVisad hintar={synligaHintar(data)} idag={data.idag} kontext={kontext} />
       <HemVisad plan={!!plan} premium={data.gratis.premium} matta={data.typer.filter((t) => t.synlig && t.niva.status === 'matt').length} />
-      <PlanHuvud plan={plan} idag={data.idag} typer={data.typer} bana={data.bana} />
-      <Golv lyft className="pb-10">
-        <NastaSteg hint={forsta} kontext={kontext} typ={hintTyp} planNamn={plan?.namn ?? null} nivaKalla={hintTyp ? nivaKalla(data.kurva, hintTyp.id) : null} />
-        <Navigering aktiv="hem" texter={navTexter(data)} />
-        <IngangarMedMatning className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2">
-          <TesterIngang data={data} />
-          <UtvecklingIngang data={data} />
-        </IngangarMedMatning>
-        <GratisRad gratis={data.gratis} planTest={plan?.mittTest ?? null} />
-        <div className={`grid grid-cols-1 items-stretch gap-4 ${nederstKolumner}`}>
-          {fler.length ? <FlerSteg hintar={fler} kontext={kontext} plan={plan} menyer={data.menyer} idag={data.idag} /> : null}
-          {plan ? <Dagsmal lage={data.dagsmal} idag={data.idag} aktivaDagar={data.aktivaDagar} /> : <PlanKort />}
-          <FortsattDarDuSlutade fortsatt={data.fortsatt} idag={data.idag} />
-        </div>
-      </Golv>
+      <Vaggen data={data} sida="hem" />
+      <HemGolv data={data} />
     </div>
   )
 }

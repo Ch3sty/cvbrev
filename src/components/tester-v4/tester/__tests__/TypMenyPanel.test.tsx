@@ -26,23 +26,15 @@ function rita(lage: 'a' | 'b' | 'c', niva: 'premium' | 'gratis', typ: 'matris' |
 }
 
 describe('TypMenyPanel', () => {
-  it('visar Träna, "eller", Testa dig med tre nivåer, Mät dig och senaste resultat', () => {
-    const { container } = rita('b', 'premium')
+  it('startarket: namnet, mätaren och Välj hur du vill öva med nivåtesten', () => {
+    rita('b', 'premium')
     const meny = document.querySelector('[data-meny="matris"]') as HTMLElement
     expect(within(meny).getByRole('heading', { name: 'Figurer och mönster' })).toBeTruthy()
-    expect(within(meny).getByText('Träning som följer din nivå')).toBeTruthy()
-    expect(meny.querySelector('[data-eller]')?.textContent).toBe('eller')
-    expect(within(meny).getByText('Du får resultat i procent. Flyttar inte din nivå.')).toBeTruthy()
-    for (const n of ['Grundnivå', 'Avancerad nivå', 'Expertnivå']) expect(within(meny).getByText(n)).toBeTruthy()
-    expect(within(meny).getByText('Nivåkollen, mät din nivå')).toBeTruthy()
-    expect(within(meny).getByText('Senaste resultat')).toBeTruthy()
-    expect(within(meny).getByRole('link', { name: 'Hela historiken i Din utveckling' }).getAttribute('href')).toBe(
-      '/dashboard/tester/kurvan?typ=matris',
-    )
-    // Nivåbandet i mellanstorlek.
-    expect(meny.querySelector('svg[data-nivaband="mellan"]')).not.toBeNull()
+    expect(within(meny).getByText('Välj hur du vill öva')).toBeTruthy()
+    for (const n of ['Grund', 'Avancerad', 'Expert']) expect(within(meny).getAllByText(n).length).toBeGreaterThan(0)
+    expect(meny.querySelector('.t3-matt')).not.toBeNull()
+    expect(meny.querySelector('[data-forst]')).not.toBeNull()
   })
-
   it('Esc stänger menyn', () => {
     const { onStang } = rita('a', 'premium')
     fireEvent.keyDown(document, { key: 'Escape' })
@@ -74,28 +66,20 @@ describe('TypMenyPanel', () => {
   })
 
   it('gratis: Träna låst och öppnar betalväggen, Avancerad och Expert låsta', () => {
-    const { container } = rita('a', 'gratis', 'matris')
+    rita('b', 'gratis', 'matris')
     const meny = document.querySelector('[data-meny]') as HTMLElement
-    const trana = meny.querySelector('[data-trana] button[data-las]') as HTMLElement
-    expect(trana.textContent).toContain('Träna')
-    expect(meny.querySelectorAll('[data-testa] [data-las="premium"]').length).toBe(2)
-    fireEvent.click(trana)
+    expect(meny.querySelectorAll('.t3-fast[data-las="premium"]').length).toBe(2)
+    const las = meny.querySelector('button.t3-lage[data-las]') as HTMLElement
+    expect(las).not.toBeNull()
+    fireEvent.click(las)
     expect(screen.getAllByRole('dialog').length).toBeGreaterThanOrEqual(2)
   })
 
-  it('alla tre val går att nå: Träna, en nivå och Nivåkollen är länkar för Premium', () => {
-    const { container } = rita('c', 'premium', 'talserie')
+  it('premium: sätten att öva och de tre nivåtesten är länkar', () => {
+    rita('c', 'premium', 'talserie')
     const meny = document.querySelector('[data-meny]') as HTMLElement
-    expect(meny.querySelector('[data-trana] a[href]')).not.toBeNull()
-    expect(meny.querySelectorAll('[data-testa] a[href]').length).toBe(3)
-  })
-
-  it('talserier: Nivåkollen mäter nivån sedan etapp 6, nivåtestet flyttar den inte', () => {
-    const { container } = rita('c', 'premium', 'talserie')
-    const meny = document.querySelector('[data-meny]') as HTMLElement
-    expect(within(meny).getByText('Du får resultat i procent. Flyttar inte din nivå.')).toBeTruthy()
-    expect(within(meny).queryByText('Du får resultat i procent, och nivåtestet mäter din nivå.')).toBeNull()
-    expect(within(meny).getByText('Nio uppgifter, cirka nio minuter. Högst en om dagen räknas.')).toBeTruthy()
-    void container
+    expect(meny.querySelector('a.t3-lage[data-forst]')).not.toBeNull()
+    expect(meny.querySelectorAll('a.t3-fast').length).toBe(3)
+    expect(meny.querySelector('[data-las]')).toBeNull()
   })
 })

@@ -13,90 +13,68 @@ vi.mock('@/components/traning/HemKlient', () => ({
 import UtvecklingVy from '../UtvecklingVy'
 import { PLAN_ALVA, data, punkt } from './testdata'
 
-const chips = (namn: string) => within(screen.getByRole('group', { name: namn }))
+const grupp = (namn: string) => within(screen.getAllByRole('group', { name: namn })[0])
 
-describe('UtvecklingVy', () => {
-  it('chips: Alla och typerna med data, planens först; period utan Planen när ingen plan finns', () => {
-    render(<UtvecklingVy data={data()} />)
-    const typ = chips('Testtyp i grafen')
-    expect(typ.getAllByRole('button').map((b) => b.textContent)).toEqual(['Alla', 'Figurer och mönster', 'Deduktiv slutledning'])
-    expect(chips('Period').getAllByRole('button').map((b) => b.textContent)).toEqual(['4 veckor', 'Allt'])
-    expect(chips('Period').getByRole('button', { name: 'Allt' }).getAttribute('aria-pressed')).toBe('true')
+describe('UtvecklingVy, omgång 3 (skissens Utveckling, -fa och -ny)', () => {
+  it('en testtyp i taget: alla typer som val, dagens typ förvald, rubriken från och till', () => {
+    const { container } = render(<UtvecklingVy data={data()} standardTyp="matris" />)
+    const typ = grupp('Testtyp')
+    expect(typ.getAllByRole('button').length).toBe(8)
+    expect(container.querySelector('[data-typ-val="matris"]')?.getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getByRole('heading', { level: 2, name: /Figurer och mönster: från/ })).toBeTruthy()
   })
 
-  it('med plan: Planen finns som period, Allt förvalt som i skissen', () => {
+  it('perioden: 4 veckor förvalt, Planen bara med plan', () => {
+    render(<UtvecklingVy data={data()} standardTyp="matris" />)
+    expect(grupp('Period').getAllByRole('button').map((b) => b.textContent)).toEqual(['4 veckor', 'Allt'])
+    expect(grupp('Period').getByRole('button', { name: '4 veckor' }).getAttribute('aria-pressed')).toBe('true')
+  })
+
+  it('med plan: Planen finns som period', () => {
     render(<UtvecklingVy data={data({ plan: PLAN_ALVA, provdag: '2026-11-25', typer: data().typer.map((t) => ({ ...t, ingarIPlan: t.id === 'matris' })) })} />)
-    expect(chips('Period').getByRole('button', { name: 'Planen' }).getAttribute('aria-pressed')).toBe('false')
-    expect(chips('Period').getByRole('button', { name: 'Allt' }).getAttribute('aria-pressed')).toBe('true')
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Alva Logic')
-    expect(screen.getAllByText('Ingår i Alva Logic').length).toBeGreaterThan(0)
+    expect(grupp('Period').getByRole('button', { name: 'Planen' })).toBeTruthy()
   })
 
-  it('en rad i Nivå per testtyp väljer typen i grafen och i resultaten', () => {
-    const { container } = render(<UtvecklingVy data={data()} />)
-    const resultat = () => container.querySelector('[data-sektion="resultat"]')!
-    // Alla: nivåkoller och prov, inga träningar.
-    expect(resultat().textContent).not.toContain('Träning')
-    const rad = container.querySelector('[data-sektion="niva-per-typ"] [data-typ="matris"]') as HTMLButtonElement
-    fireEvent.click(rad)
-    expect(rad.getAttribute('aria-pressed')).toBe('true')
-    expect(chips('Testtyp i grafen').getByRole('button', { name: 'Figurer och mönster' }).getAttribute('aria-pressed')).toBe('true')
-    // En typ: även träningarna, och bara den typen.
-    expect(resultat().textContent).toContain('Träning')
-    expect(resultat().querySelector('[data-grupp="deduktiv"]')).toBeNull()
-    // Ett tryck till går tillbaka till Alla.
-    fireEvent.click(rad)
-    expect(chips('Testtyp i grafen').getByRole('button', { name: 'Alla' }).getAttribute('aria-pressed')).toBe('true')
+  it('ett val av typ byter kurvan och sätter ?typ=', () => {
+    const spion = vi.spyOn(window.history, 'replaceState')
+    const { container } = render(<UtvecklingVy data={data()} standardTyp="matris" />)
+    fireEvent.click(container.querySelector('[data-typ-val="deduktiv"]')!)
+    expect(container.querySelector('[data-typ-val="deduktiv"]')?.getAttribute('aria-pressed')).toBe('true')
+    expect(String(spion.mock.calls.at(-1)?.[2])).toContain('typ=deduktiv')
+    spion.mockRestore()
   })
 
-  it('en resultatrad väljer punkten och visar detaljen', () => {
-    const { container } = render(<UtvecklingVy data={data()} />)
-    const forsta = container.querySelector('[data-sektion="resultat"] [data-rad]') as HTMLButtonElement
-    fireEvent.click(forsta)
-    const detalj = container.querySelector('#utv-detalj')!
-    expect(detalj.getAttribute('aria-live')).toBe('polite')
-    expect(detalj.querySelector('[data-detalj]')?.getAttribute('data-detalj')).toBe(forsta.getAttribute('data-rad'))
-    expect(within(detalj as HTMLElement).getByRole('link').textContent).toBe('Öppna')
+  it('en punkt i grafen väljer den och visar detaljen', () => {
+    const { container } = render(<UtvecklingVy data={data()} standardTyp="matris" />)
+    const p = container.querySelector('[data-graf="dator"] [data-punkt="matris-2026-11-17-trana"]')!
+    fireEvent.click(p)
+    expect(container.querySelector('[data-detalj="matris-2026-11-17-trana"]')).not.toBeNull()
   })
 
-  it('gratis: senaste punkten per typ, låsta rader för historiken', () => {
-    const { container } = render(<UtvecklingVy data={data({ historikLast: true, gratis: { ...data().gratis, premium: false } })} />)
-    expect(container.querySelectorAll('[data-laschip]').length).toBe(2)
-    expect(screen.getByText('Hela historiken ingår i Premium')).toBeTruthy()
-    expect(screen.getByText('Äldre resultat ingår i Premium')).toBeTruthy()
-    // En punkt per typ i grafen (dator och mobil ritas båda).
-    const dator = container.querySelector('[data-graf="dator"]')!
-    expect(dator.querySelectorAll('[data-punkt]').length).toBe(2)
+  it('historiken: nyast först, varje rad öppnar uppgifterna', () => {
+    const { container } = render(<UtvecklingVy data={data()} standardTyp="matris" />)
+    const rader = [...container.querySelectorAll('a[data-hist]')]
+    expect(rader[0].getAttribute('data-hist')).toBe('matris-2026-11-17-trana')
+    expect(rader[0].getAttribute('href')).toContain('/dashboard/tester/pass')
   })
 
-  it('tomt läge: grafens text och kortet Vad kurvan säger med första Nivåkollen', () => {
-    const { container } = render(<UtvecklingVy data={data({ punkter: [] })} />)
-    expect(screen.getByText('Gör Nivåkollen i en testtyp, så får grafen sin första linje.')).toBeTruthy()
-    expect(container.querySelector('[data-sidkort="utveckling"]')?.getAttribute('data-slag')).toBe('forsta')
-    expect(screen.getByRole('link', { name: /Mät din nivå/ }).getAttribute('href')).toBe('/dashboard/tester/pass?typ=matning')
-    // En enda kopparknapp: kortets.
-    expect(container.querySelectorAll('.knapp-primar').length).toBe(1)
+  it('gratis: låsraden för historiken', () => {
+    const { container } = render(<UtvecklingVy data={data({ historikLast: true })} standardTyp="matris" />)
+    expect(container.querySelector('[data-historik-las]')).not.toBeNull()
   })
 
-  it('väggen utan plan: datumet, "Din utveckling" och Välj prov, kortet med nivåpanelen', () => {
-    const { container } = render(<UtvecklingVy data={data()} />)
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Din utveckling')
-    expect(container.querySelector('[data-huvud="utveckling"] [data-valj-prov]')?.getAttribute('href')).toBe('/dashboard/tester/installningar')
-    expect(container.querySelector('[data-sidkort-panel="kurvan"] svg[data-nivaband]')).not.toBeNull()
-    expect(container.textContent ?? '').not.toContain('—')
+  it('ny användare: inte mätt än som lucka, exempelrader i historiken, Nivåkoll per typ', () => {
+    const { container } = render(<UtvecklingVy data={data({ punkter: [], typer: data().typer.map((t) => ({ ...t, niva: { status: 'omatt', niva: null, osakerhet: 0.6, tak: 7.5 } })) })} standardTyp="matris" />)
+    expect(screen.getByRole('heading', { level: 2, name: /här ritas din kurva/ })).toBeTruthy()
+    expect(container.querySelectorAll('.t3-lucka').length).toBeGreaterThan(0)
+    expect(container.textContent).toContain('Så ser en rad ut')
+    expect(container.textContent).toContain('börja här')
   })
 
-  it('väggen med plan: samma som Hem, provets namn och banan', () => {
-    const { container } = render(<UtvecklingVy data={data({ plan: PLAN_ALVA, provdag: '2026-11-25', bana: [{ dag: '2026-11-19', status: 'idag' }, { dag: '2026-11-25', status: 'prov' }] })} />)
-    expect(container.querySelector('[data-huvud="utveckling"]')).not.toBeNull()
-    expect(container.querySelector('[data-nedrakning]')).not.toBeNull()
-    expect(container.querySelector('[data-bana]')).not.toBeNull()
-    expect(container.querySelector('[data-sidkort-panel="kurvan"]')?.textContent).toContain('Mot provets nivå')
-  })
-
-  it('?typ= väljer typen vid start', () => {
-    render(<UtvecklingVy data={data()} startTyp="deduktiv" />)
-    expect(chips('Testtyp i grafen').getByRole('button', { name: 'Deduktiv slutledning' }).getAttribute('aria-pressed')).toBe('true')
+  it('en punkt: punkt två ger en riktning', () => {
+    const { container } = render(<UtvecklingVy data={data({ punkter: [punkt('matris', '2026-11-17', 'nivakoll', 2.6)] })} standardTyp="matris" />)
+    expect(container.textContent).toContain('vid första mätningen')
+    expect(container.textContent).toContain('punkt två ger en riktning')
   })
 
   it('inget synligt "pass" i vyn', () => {

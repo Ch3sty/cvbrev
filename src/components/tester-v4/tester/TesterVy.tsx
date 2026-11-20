@@ -1,47 +1,43 @@
 'use client'
 
 /**
- * Tester v4 (utkast v4 avsnitt 3 och 4, skissens webbvy "Tester"): samma
- * vägg som Hem (PlanHuvud; utan plan "Alla tester"), kortet Prova något nytt
- * med dagsmålet till höger (skissen 2026-11-19, lib/tester/v4/sidkort.ts),
- * navigeringen, rutnätet av testtyper och typens meny.
+ * Tester, omgång 3 (skissens Main och Mobil-tester): samma vägg som Hem och
+ * Din utveckling (sidan skickar den som `vagg`), och golvet:
  *
- * Med plan: provets delar och övningsprovet i en tonad grupp "Ingår i
- * <provet> · N delar", sedan "Används i andra rekryteringstest, inte i
- * <provet>" med övriga i samma kortstil och Personlighet sist. Utan plan:
- * "Alla testtyper".
+ *   Panelen      provets del överst med plan (Det här prövar <provet>),
+ *                annars dagens typ: brädet, nivån, mätaren och Välj hur du
+ *                vill öva (Träna, mönstret, Nivåkollen, övningsprovet och
+ *                nivåtesten)
+ *   Rutnätet     Fler testtyper (eller Alla testtyper) som kort med scen,
+ *                nivå och handling; ett tryck öppnar startarket
+ *   Gratisraden  som förut
  *
- * Komponenten äger den öppna menyn och ?typ= i adressen
- * (history.replaceState). Menyerna ligger i sidans data, så att öppna en
- * meny kostar inget nätverksanrop. Sidan beror inte på webbens sidomeny och
- * ritas likadant i appens ram (/app/tester/alla).
+ * Komponenten äger det öppna startarket och ?typ= i adressen
+ * (history.replaceState). Menyerna ligger i sidans data, så att öppna ett
+ * startark kostar inget nätverksanrop. Sidan ritas likadant i appens ram
+ * (/app/tester/alla).
  */
 
 import Link from 'next/link'
-import { useCallback, useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react'
-import Golv from '@/components/rum/Golv'
-import PlanHuvud from '@/components/tester-v4/hem/PlanHuvud'
-import Dagsmal from '@/components/tester-v4/hem/Dagsmal'
-import SidKort from '@/components/tester-v4/SidKort'
-import { testerKort } from '@/lib/tester/v4/sidkort'
+import { useCallback, useEffect, useState, type MouseEvent, type ReactNode } from 'react'
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { TESTER_HREF } from '@/lib/tester/v4/rutter'
-import type { Handling, PlanV4, TestTypId, TesterV4Data } from '@/lib/tester/v4/typer'
+import type { TestTypId, TesterV4Data } from '@/lib/tester/v4/typer'
 import { arTestTypId } from '@/lib/tester/v4/typer'
+import { kortDatumV } from '@/lib/tester/v4/vagen'
 import { LasProvider } from './LasKontext'
-import TesttypKort from './TesttypKort'
-import ProvGrupp from './ProvGrupp'
-import OvrigaRubrik from './OvrigaRubrik'
-import OvningsprovKort from './OvningsprovKort'
-import PersonlighetKort from './PersonlighetKort'
 import TypMenyPanel from './TypMenyPanel'
 import { TESTER } from './copy'
+import SattAttOva from '@/components/tester-v4/omgang3/SattAttOva'
+import TypKort3, { PersonlighetKort3 } from '@/components/tester-v4/omgang3/TypKort3'
+import { Lucka, Matare3, matareEtikett, TypBrade, VantarChip } from '@/components/tester-v4/omgang3/delar'
+import { kvarTillProvet, tal1, ZON_TEXT, zonFor } from '@/components/tester-v4/omgang3/matt'
 
-/** Rutnätet: ett kort på mobil, två från 640 px, tre från 1100 px (två när menyn står bredvid). */
-export function rutnatKlass(oppen: boolean): string {
-  return `grid grid-cols-1 gap-3 sm:grid-cols-2 ${oppen ? '' : 'min-[1100px]:grid-cols-3'}`
+/** Rutnätet: två kort på telefonen, fyra från 1280 px. */
+export function rutnatKlass(): string {
+  return 't3-typer'
 }
 
 function satt(typ: TestTypId | null) {
@@ -52,39 +48,98 @@ function satt(typ: TestTypId | null) {
     else url.searchParams.delete('typ')
     window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`)
   } catch {
-    // Adressen är en bekvämlighet; menyn fungerar utan den.
+    // Adressen är en bekvämlighet; arket fungerar utan den.
   }
-}
-
-/** Väggens statusrad utan plan (med plan står provet, nedräkningen och banan som på Hem). */
-function UtanPlanRad() {
-  return (
-    <>
-      {TESTER.vagg.utanPlan} <b className="font-semibold text-vagg-ink">{TESTER.vagg.utanPlanFraga}</b> {TESTER.vagg.utanPlanRest}
-    </>
-  )
 }
 
 function GratisRad({ gratis }: { gratis: TesterV4Data['gratis'] }) {
   if (gratis.premium) return null
   const kvar = gratis.grundKvarIdag > 0
   return (
-    <section
-      aria-label={kvar ? TESTER.gratis.rubrikKvar : TESTER.gratis.rubrikSlut}
-      data-gratisrad={kvar ? 'kvar' : 'slut'}
-      className="grid gap-1.5 rounded-2xl border border-kant bg-papper px-[18px] py-4"
-    >
-      <h2 className="font-display text-[17px] font-bold leading-[22px] text-ink-1">
-        {kvar ? TESTER.gratis.rubrikKvar : TESTER.gratis.rubrikSlut}
-      </h2>
-      <p className="text-sm leading-[21px] text-ink-2">
-        {TESTER.gratis.text(kvar, gratis.pris.prisrad, gratis.pris.namn)}
-      </p>
-      <div className="mt-1.5">
-        <Link href={kopstegHref(SALD_PLAN, 'testniva')} className={`${KNAPP_PRIMAR_SMAL} w-full sm:w-auto`}>
-          {gratis.pris.knapp || TESTER.gratis.knapp}
-        </Link>
+    <section aria-label={kvar ? TESTER.gratis.rubrikKvar : TESTER.gratis.rubrikSlut} data-gratisrad={kvar ? 'kvar' : 'slut'} className="t3-radk t3-gratis">
+      <span className="t3-radk-text">
+        <b>{kvar ? TESTER.gratis.rubrikKvar : TESTER.gratis.rubrikSlut}</b>
+        <small>{TESTER.gratis.text(kvar, gratis.pris.prisrad, gratis.pris.namn)}</small>
+      </span>
+      <Link href={kopstegHref(SALD_PLAN, 'testniva')} className={`${KNAPP_PRIMAR_SMAL} shrink-0`}>
+        {gratis.pris.knapp || TESTER.gratis.knapp}
+      </Link>
+    </section>
+  )
+}
+
+function Planpanel({ data, typ }: { data: TesterV4Data; typ: TestTypId }) {
+  const kort = data.typer.find((k) => k.id === typ)
+  const meny = data.menyer[typ]
+  if (!kort || !meny) return null
+  const plan = data.plan
+  const iPlan = !!plan && kort.ingarIPlan
+  const lage = kort.niva
+  const matt = lage.status === 'matt' && lage.niva != null
+  const v = matt ? (lage.niva as number) : null
+  const kvar = v != null ? kvarTillProvet(v) : null
+  const chip = iPlan && plan ? (plan.typer.length === 1 ? 'Enda delen i provet' : `En av ${plan.typer.length} delar i provet`) : null
+  const ogon = iPlan && plan ? `Det här prövar ${plan.namn}` : 'Dagens träning'
+  const fot = [
+    'Skalan går från 1 till 10.',
+    kort.senasteNivakoll ? `Senaste Nivåkollen ${kortDatumV(kort.senasteNivakoll)}` : null,
+    kort.antalTraningar ? `${kort.antalTraningar} ${kort.antalTraningar === 1 ? 'träning' : 'träningar'}` : null,
+  ]
+  const fotText = fot[1] || fot[2] ? `${fot[0]} ${[fot[1], fot[2]].filter(Boolean).join(', ')}.` : fot[0]
+
+  return (
+    <section className="t3-panel t3-planpanel" data-panel3 aria-labelledby="t3-planpanel-rubrik" data-planpanel={typ}>
+      <div className="t3-plan-vanster">
+        <div>
+          <p className="t3-ogon-golv">{ogon}</p>
+          <h2 id="t3-planpanel-rubrik" className="t3-h2">
+            {kort.namn}
+          </h2>
+        </div>
+        <div className="t3-plan-niva">
+          <span className="hidden xl:block">
+            <TypBrade typ={typ} storlek={132} />
+          </span>
+          <span className="xl:hidden">
+            <TypBrade typ={typ} storlek={92} />
+          </span>
+          <div className="flex min-w-0 flex-col items-start gap-1.5">
+            {chip ? <span className="t3-ingar">{chip}</span> : null}
+            {v != null ? (
+              <div className="flex items-end gap-2.5">
+                <span className="t3-stortal">{tal1(v)}</span>
+                <b className="pb-[3px] text-[15px] font-semibold leading-5">{ZON_TEXT[zonFor(v)]}</b>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Lucka bredd={72} hojd={52} etikett="Nivån är inte mätt än" />
+                <VantarChip>{lage.status === 'paborjad' ? 'påbörjad' : 'inte mätt än'}</VantarChip>
+              </div>
+            )}
+            <span className="t3-plan-kvar">
+              {v != null
+                ? kvar != null
+                  ? `${tal1(kvar)} kvar till ${iPlan ? 'provets nivå' : 'avancerad nivå'}`
+                  : iPlan
+                    ? 'På provets nivå'
+                    : 'På avancerad nivå eller högre'
+                : lage.status === 'paborjad' && lage.svar
+                  ? `${lage.svar.besvarade} av ${lage.svar.antal} svar i Nivåkollen`
+                  : 'Nivåkollen sätter din nivå'}
+            </span>
+          </div>
+        </div>
+        <div className="t3-plan-skala">
+          <Matare3 niva={v} etikett={matareEtikett(v)} />
+          <div className="t3-matt-etiketter">
+            <span>Grund</span>
+            <span data-prov>{iPlan ? 'Provets nivå' : 'Avancerad'}</span>
+            <span>Expert</span>
+          </div>
+          <span className="t3-plan-fot">{fotText}</span>
+        </div>
       </div>
+      <SattAttOva kort={kort} meny={meny} planNamn={plan?.namn ?? null} />
     </section>
   )
 }
@@ -92,13 +147,17 @@ function GratisRad({ gratis }: { gratis: TesterV4Data['gratis'] }) {
 export default function TesterVy({
   data,
   startTyp = null,
+  vagg,
   nav,
 }: {
   data: TesterV4Data
   startTyp?: TestTypId | null
-  /** Navigeringen (hem/Navigering) med Tester aktivt; sidan bygger den på servern. */
+  /** Väggen (omgang3/Vaggen) med Tester aktiv; sidan bygger den på servern. */
+  vagg?: ReactNode
+  /** Äldre prop, används inte längre (flikarna står på väggen). */
   nav?: ReactNode
 }) {
+  void nav
   const [oppen, setOppen] = useState<TestTypId | null>(startTyp && arTestTypId(startTyp) ? startTyp : null)
 
   const oppna = useCallback((typ: TestTypId) => {
@@ -113,115 +172,81 @@ export default function TesterVy({
     satt(null)
   }, [])
 
-  // En ny adress med ?typ= (till exempel tillbaka från ett test) öppnar den menyn.
   useEffect(() => {
     if (startTyp && arTestTypId(startTyp)) setOppen(startTyp)
   }, [startTyp])
 
-  // Kortet under väggen kan peka på /dashboard/tester/alla?typ=<id>. Här står vi redan på
-  // sidan, så länken öppnar menyn direkt utan att hämta sidan igen.
-  const fangaMenyLank = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
-      const a = (e.target as HTMLElement).closest?.('a')
-      if (!a) return
-      try {
-        const url = new URL(a.href, window.location.href)
-        const typ = url.searchParams.get('typ')
-        if (url.origin !== window.location.origin || url.pathname !== TESTER_HREF || !arTestTypId(typ)) return
-        e.preventDefault()
-        setOppen(typ)
-        satt(typ)
-      } catch {
-        // Länken får gå som vanligt.
-      }
-    },
-    [],
-  )
+  // Länkar till /dashboard/tester/alla?typ=<id> på sidan öppnar startarket direkt.
+  const fangaMenyLank = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    const a = (e.target as HTMLElement).closest?.('a')
+    if (!a) return
+    try {
+      const url = new URL(a.href, window.location.href)
+      const typ = url.searchParams.get('typ')
+      if (url.origin !== window.location.origin || url.pathname !== TESTER_HREF || !arTestTypId(typ)) return
+      e.preventDefault()
+      setOppen(typ)
+      satt(typ)
+    } catch {
+      // Länken får gå som vanligt.
+    }
+  }, [])
 
   const plan = data.plan
-  const sidkort = useMemo(() => testerKort(data), [data])
   const synliga = data.typer.filter((k) => k.synlig)
-  const iPlan = plan ? synliga.filter((k) => k.ingarIPlan) : []
-  const ovriga = plan ? synliga.filter((k) => !k.ingarIPlan) : synliga
-  const premium = data.gratis.premium
-  const rutnat = rutnatKlass(oppen != null)
-  const tonFor = (ingar: boolean) => (plan && !ingar ? 'neutral' : 'koppar')
-
+  const panelTyp: TestTypId = plan ? (plan.typer.includes(data.dagens.typ) ? data.dagens.typ : plan.typer[0] ?? data.dagens.typ) : data.dagens.typ
+  const ovriga = synliga.filter((k) => k.id !== panelTyp)
+  const iPlanOvriga = plan ? ovriga.filter((k) => k.ingarIPlan) : []
+  const utanforPlan = plan ? ovriga.filter((k) => !k.ingarIPlan) : ovriga
   const oppetKort = oppen ? synliga.find((k) => k.id === oppen) ?? data.typer.find((k) => k.id === oppen) : null
   const oppenMeny = oppen ? data.menyer[oppen] : null
 
-  const menyTypForProv = plan?.typer[0] ?? null
-  const provHandling: Handling | null =
-    plan?.ovningsprov && menyTypForProv
-      ? data.menyer[menyTypForProv]?.ovningsprov[0] ?? {
-          slag: 'ovningsprov',
-          etikett: TESTER.ovningsprov.knapp,
-          href: plan.ovningsprov.href,
-          las: premium ? null : { skal: 'premium', chip: TESTER.ovningsprov.las },
-        }
-      : null
-  const senasteProv = menyTypForProv ? data.menyer[menyTypForProv]?.senaste.prov.at(-1) ?? null : null
-
-  const kort = (k: (typeof synliga)[number]) => (
-    <TesttypKort
-      key={k.id}
-      kort={k}
-      planNamn={plan?.namn ?? null}
-      ton={tonFor(k.ingarIPlan)}
-      vald={oppen === k.id}
-      premium={premium}
-      onOppna={oppna}
-    />
-  )
-
   return (
     <LasProvider paket={data.paket} grundKvarIdag={data.gratis.premium ? null : data.gratis.grundKvarIdag}>
-      <div className="flex flex-1 flex-col" data-tester-v4 data-plan={plan?.mittTest ?? 'ingen'}>
-        <PlanHuvud
-          plan={plan}
-          idag={data.idag}
-          typer={data.typer}
-          bana={data.bana}
-          sida="tester"
-          utanPlan={{ rubrik: TESTER.vagg.rubrik, rad: <UtanPlanRad /> }}
-        />
-        <Golv lyft className="pb-10">
-          <div onClickCapture={fangaMenyLank}>
-            <SidKort
-              sida="tester"
-              kort={sidkort}
-              panel={<Dagsmal iPanel lage={data.dagsmal} idag={data.idag} aktivaDagar={data.aktivaDagar} />}
-            />
-          </div>
-          {nav}
-          <div className={`grid items-start gap-4 ${oppen ? 'min-[1100px]:grid-cols-[minmax(0,1fr)_380px]' : ''}`}>
-            <div className="grid min-w-0 gap-4">
-              {plan && iPlan.length ? (
-                <ProvGrupp namn={plan.namn} delar={plan.typer.length || iPlan.length} rutnat={rutnat}>
-                  {iPlan.map(kort)}
-                  {plan.ovningsprov && provHandling && menyTypForProv ? (
-                    <OvningsprovKort
-                      plan={plan as PlanV4 & { ovningsprov: NonNullable<PlanV4['ovningsprov']> }}
-                      handling={provHandling}
-                      senaste={senasteProv}
-                      menyTyp={menyTypForProv}
-                      vald={false}
-                      onOppna={oppna}
-                    />
-                  ) : null}
-                </ProvGrupp>
-              ) : null}
-              <OvrigaRubrik planNamn={plan && iPlan.length ? plan.namn : null} />
-              <div className={rutnat}>
-                {ovriga.map(kort)}
-                <PersonlighetKort gjord={data.personlighet.gjord} href={data.personlighet.href} />
+      <div className="flex flex-1 flex-col" data-tester-v4 data-plan={plan?.mittTest ?? 'ingen'} onClickCapture={fangaMenyLank}>
+        {vagg}
+        <div className="t3-golv" data-golv="tester">
+          <Planpanel data={data} typ={panelTyp} />
+          {iPlanOvriga.length && plan ? (
+            <section className="t3-sektion" aria-labelledby="t3-fler-plan">
+              <div className="t3-sektion-huvud">
+                <h2 id="t3-fler-plan" className="t3-h2">
+                  Fler delar i {plan.namn}
+                </h2>
               </div>
+              <div className="t3-typer">
+                {iPlanOvriga.map((k) => (
+                  <TypKort3 key={k.id} kort={k} planNamn={plan.namn} vald={oppen === k.id} onOppna={oppna} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+          <section className="t3-sektion" aria-labelledby="t3-fler">
+            <div className="t3-sektion-huvud t3-sektion-huvud-rad">
+              <div>
+                <h2 id="t3-fler" className="t3-h2">
+                  {plan ? 'Fler testtyper' : 'Alla testtyper'}
+                </h2>
+                <p className="t3-sektion-rad">
+                  {plan
+                    ? `De här ingår inte i ${plan.namn}, men förekommer i andra rekryteringstest. Tryck på ett test för att välja hur du vill öva.`
+                    : 'Tryck på ett test för att välja hur du vill öva.'}
+                  <span className="xl:hidden"> Det mörkare fältet i mätaren är provens nivå.</span>
+                </p>
+              </div>
+              <p className="t3-sektion-not hidden xl:block">Det mörkare fältet i mätaren är provens nivå.</p>
             </div>
-            {oppetKort && oppenMeny ? <TypMenyPanel key={oppetKort.id} kort={oppetKort} meny={oppenMeny} onStang={stang} /> : null}
-          </div>
+            <div className="t3-typer">
+              {utanforPlan.map((k) => (
+                <TypKort3 key={k.id} kort={k} planNamn={plan?.namn ?? null} vald={oppen === k.id} onOppna={oppna} />
+              ))}
+              <PersonlighetKort3 gjord={data.personlighet.gjord} href={data.personlighet.href} />
+            </div>
+          </section>
           <GratisRad gratis={data.gratis} />
-        </Golv>
+        </div>
+        {oppetKort && oppenMeny ? <TypMenyPanel key={oppetKort.id} kort={oppetKort} meny={oppenMeny} onStang={stang} planNamn={plan?.namn ?? null} /> : null}
       </div>
     </LasProvider>
   )

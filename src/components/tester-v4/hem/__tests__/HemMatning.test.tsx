@@ -105,9 +105,11 @@ describe('mätningen av nya Hem', () => {
       niva: 'gratis',
       matta_typer: data.typer.filter((t) => t.synlig && t.niva.status === 'matt').length,
     })
-    const knapp = container.querySelector('[data-ingang="utveckling"] a:last-of-type') as HTMLElement
-    fireEvent.click(container.querySelector('[data-ingang="tester"] [data-katalog]')!)
-    expect(capture).toHaveBeenLastCalledWith('hem_ingang_klickad', expect.objectContaining({ ingang: 'tester', kalla: 'typkort' }))
-    expect(knapp).toBeTruthy()
+    // Omgång 3: Hela utvecklingen i panelen är ingången till Din utveckling.
+    fireEvent.click(container.querySelector('a[data-ingang="utveckling"]')!)
+    expect(capture).toHaveBeenLastCalledWith('hem_ingang_klickad', expect.objectContaining({ ingang: 'utveckling', kalla: 'knapp' }))
+    // Flikarna på väggen skickar tester_nav_klickad.
+    fireEvent.click(container.querySelector('[data-flikar3] [data-nav="tester"]')!)
+    expect(capture).toHaveBeenLastCalledWith('tester_nav_klickad', { mal: 'tester', sida: 'hem', plattform: 'webb' })
   })
 })

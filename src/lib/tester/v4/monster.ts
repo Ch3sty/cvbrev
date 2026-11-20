@@ -96,6 +96,22 @@ export function tempoAndel(answers: readonly unknown[], budgetS: number): number
   return antal ? over / antal : null;
 }
 
+/** Samma räkning som tempoAndel, med antalen (omgång 3: "6 av 20 svar"). Null utan svar. */
+export function tempoRakning(sessioner: readonly { answers?: unknown }[], budgetS: number): { over: number; antal: number; budgetS: number } | null {
+  let antal = 0;
+  let over = 0;
+  for (const s of sessioner) {
+    if (!Array.isArray(s.answers)) continue;
+    for (const a of s.answers) {
+      const t = tal(obj(a)?.time_spent);
+      if (t == null) continue;
+      antal++;
+      if (t > budgetS) over++;
+    }
+  }
+  return antal ? { over, antal, budgetS } : null;
+}
+
 /** Tempot över flera sessioners svar. */
 export function tempoForSessioner(sessioner: readonly { answers?: unknown }[], budgetS: number): number | null {
   const alla: unknown[] = [];

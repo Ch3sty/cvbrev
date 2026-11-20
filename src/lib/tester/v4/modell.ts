@@ -10,6 +10,7 @@ import { byggBana } from './bana';
 import { ETIKETT, FORTSATT, KALLAS, MAT_DIG, TRANA, ZON_RUBRIK, ingarI, nivaRadText } from './copy';
 import { lasNivaTest, lasNivakoll, lasOvningsprov, lasTrana } from './gratis';
 import { byggHintar, type HintTypIn } from './hintar';
+import { byggDagens, byggVaggBana, byggVagen } from './vagen';
 import { nivaLage } from './niva-lage';
 import { NIVAKOLL_FINNS, PERSONLIGHET_HREF, menyHref, nivaTestHref, nivakollHrefV4, ovningsprovHrefV4, tranaHref } from './rutter';
 import {
@@ -39,6 +40,8 @@ export interface TypUnderlag {
   monster: { namn: string; family: string; ratt: number; antal: number }[];
   /** Andel svar över provets tid, 0 till 1. */
   tempo: number | null;
+  /** Samma tempo med antalen, för mätarna i omgång 3. */
+  tempoDetalj?: { over: number; antal: number; budgetS: number } | null;
   synlig: boolean;
   /** Någon slutförd session i typen, även nivåtest. */
   provad: boolean;
@@ -184,6 +187,7 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
       antalTraningar: u.punkter.filter((p) => p.slag === 'trana').length,
       primar: primar(typ, u, g, lage),
       synlig: u.synlig,
+      tempo: u.tempoDetalj ?? null,
     });
     menyer[typ] = byggMeny(typ, u, plan, g);
   }
@@ -209,13 +213,18 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     ? { punkt: senaste, rubrik: senaste.slag === 'trana' ? FORTSATT.trana(senaste.typ) : senaste.slag === 'nivakoll' ? FORTSATT.nivakoll(senaste.typ) : FORTSATT.ovningsprov(senaste.provNamn ?? 'Övningsprov') }
     : null;
 
+  const bana = banaFor(inp);
+  const hintar = byggHintar({ idag: inp.idag, plan, typer: hintIn, premium: g.premium, nivakollGjord: g.nivakollGjord, grundKvarIdag: g.grundKvarIdag });
+  const vagenIn = { idag: inp.idag, plan, bana, typer, menyer, hintar, gratis: g, dagsmal: inp.dagsmal, aktivaDagar: inp.aktivaDagar };
+  const dagens = byggDagens(vagenIn);
+
   return {
     idag: inp.idag,
     plan,
-    bana: banaFor(inp),
+    bana,
     typer,
     menyer,
-    hintar: byggHintar({ idag: inp.idag, plan, typer: hintIn, premium: g.premium, nivakollGjord: g.nivakollGjord, grundKvarIdag: g.grundKvarIdag }),
+    hintar,
     gratis: g,
     dagsmal: inp.dagsmal,
     fortsatt,
@@ -223,6 +232,9 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     paket: inp.paket,
     kurva: kurvaFor(inp),
     aktivaDagar: [...new Set(inp.aktivaDagar)].filter((d) => d >= laggTill(inp.idag, -13) && d <= inp.idag).sort(),
+    dagens,
+    vaggBana: byggVaggBana(vagenIn),
+    vagen: byggVagen(vagenIn, dagens),
   };
 }
 
@@ -263,6 +275,7 @@ export function byggUtvecklingV4(inp: ModellIn): UtvecklingV4Data {
     namn: DELTYP_NAMN[typ],
     ingarIPlan: !!plan && plan.typer.includes(typ),
     niva: nivaLage(inp.typer[typ].punkter, inp.typer[typ].paborjad),
+    tempo: inp.typer[typ].tempoDetalj ?? null,
   }));
   const punkter = TEST_TYP_ORDNING.flatMap((t) => synligaPunkter(inp.typer[t].punkter, last)).sort((a, b) =>
     a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : 0
@@ -278,6 +291,7 @@ export function byggUtvecklingV4(inp: ModellIn): UtvecklingV4Data {
     matrisMonster: inp.matrisMonster,
     gratis: g,
     paket: inp.paket,
+    aktivaDagar28: [...new Set(inp.aktivaDagar)].filter((d) => d >= laggTill(inp.idag, -27) && d <= inp.idag).sort(),
   };
 }
 

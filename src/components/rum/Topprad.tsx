@@ -40,6 +40,8 @@ export interface ToppradProps {
    * toppraden under lg (beslut-hemvy, tillägget 2026-10-11 punkt 1).
    */
   lagen?: ReactNode
+  /** Bara meddelanden, notiser och profilen (testernas vägg i omgång 3). */
+  bara?: 'atgarder'
 }
 
 /** Triggerns gamla platshållare räknas som saknat namn. */
@@ -49,7 +51,7 @@ function saknasNamn(value: string | null | undefined): boolean {
   return t === '' || t.toLowerCase() === 'ej angivet'
 }
 
-export default function Topprad({ brand, kontext, stang, pa = 'vagg', lagen }: ToppradProps) {
+export default function Topprad({ brand, kontext, stang, pa = 'vagg', lagen, bara }: ToppradProps) {
   const pathname = usePathname() ?? '/dashboard'
   const { user } = useRum()
   const { summary } = useDashboardData()
@@ -70,6 +72,17 @@ export default function Topprad({ brand, kontext, stang, pa = 'vagg', lagen }: T
 
   const pavagg = pa === 'vagg'
   const namnText = brand ?? RUM_NAMN[rumForPath(pathname)]
+
+  // Omgång 3: testernas vägg bär flikarna i raden, så bara knapparna till höger.
+  if (bara === 'atgarder') {
+    return (
+      <div data-topprad className="flex shrink-0 items-center text-vagg-ink">
+        <MessagesHeaderButton pa={pa} />
+        <NotificationBell pa={pa} />
+        <ProfileMenu name={namn} email={user?.email ?? ''} avatarUrl={avatarUrl} pa={pa} />
+      </div>
+    )
+  }
 
   return (
     <div

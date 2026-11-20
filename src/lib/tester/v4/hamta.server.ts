@@ -28,7 +28,7 @@ import { dagsmalLage } from './dagsmal';
 import { byggGratislage } from './gratis';
 import { planensOvningsprovHref } from './hintar';
 import { byggTesterV4, byggUtvecklingV4, type ModellIn, type TypUnderlag } from './modell';
-import { svagasteMonster, tempoForSessioner, MONSTER_DAGAR } from './monster';
+import { svagasteMonster, tempoForSessioner, tempoRakning, MONSTER_DAGAR } from './monster';
 import { byggPunkter, klassa, PUNKT_TEST_TYPER, type NivapunktRad, type SessionRad } from './punkter';
 import { NIVAKOLL_FINNS } from './rutter';
 import { nivakollOmfang } from '@/lib/nivakoll/omfang';
@@ -232,6 +232,7 @@ export const hamtaUnderlagV4 = cache(async (userId: string): Promise<{ modell: M
       svagaste: svag,
       monster: svag ? [svag] : [],
       tempo: budget ? tempoForSessioner(svar.filter((s) => s.completed_at), budget) : null,
+      tempoDetalj: budget ? tempoRakning(svar.filter((s) => s.completed_at), budget) : null,
       synlig: deltypSynlig(typ),
       provad: egna.length > 0 || slutforda.some((s) => KLASSISKA[typ].includes(s.test_type)),
       nivakollFinns: NIVAKOLL_FINNS[typ],
@@ -298,8 +299,9 @@ export async function hamtaUtvecklingV4(userId: string): Promise<UtvecklingV4Dat
     hamtaUnderlagV4(userId),
     sakert(hamtaMotordata(testSkrivKlient(), userId), null, 'motordata'),
   ]);
-  const familjer = motor?.familjer ?? null;
-  return byggUtvecklingV4({ ...modell, matrisMonster: familjer && familjer.length ? matrisMonsterUr(familjer) : null });
+  // Omgång 3: alla elva regler även utan svar, så att "inte mött" kan ritas för den nya.
+  const familjer = motor ? motor.familjer ?? [] : null;
+  return byggUtvecklingV4({ ...modell, matrisMonster: familjer ? matrisMonsterUr(familjer) : null });
 }
 
 /**

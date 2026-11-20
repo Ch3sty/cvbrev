@@ -107,6 +107,16 @@ export interface TesttypKort {
   primar: Handling;
   /** steg2Synlig/ordforradRedo */
   synlig: boolean;
+  /** Tempot ur svaren de senaste 30 dagarna (omgång 3). Null där typen saknar provets tid per uppgift eller svar. */
+  tempo?: TempoLage | null;
+}
+
+/** Tempot: svar över provets tid per uppgift, ur samma räkning som hintarna (monster.ts). */
+export interface TempoLage {
+  over: number;
+  antal: number;
+  /** Provets tid per uppgift i sekunder. */
+  budgetS: number;
 }
 
 export interface TypMeny {
@@ -254,6 +264,57 @@ export interface TesterV4Data {
   kurva: UtvecklingsPunkt[];
   /** Dagar med minst ett slutfört test de senaste 14 dagarna, för veckoraden. */
   aktivaDagar: Dag[];
+  /** Omgång 3: väggens "Dagens träning", räknad ur hintarna och menyerna (vagen.ts). */
+  dagens: DagensTraning;
+  /** Omgång 3: väggens bana, högst åtta noder (vagen.ts). */
+  vaggBana: VaggNod[];
+  /** Omgång 3: Vägen till provet, ett förslag per dag. Tom för den som inte har gjort något än. */
+  vagen: VagDag[];
+}
+
+/** Väggens rubrik och knapp (omgång 3, steg 3a). */
+export interface DagensTraning {
+  slag: 'trana' | 'nivakoll' | 'niva_test';
+  typ: TestTypId;
+  /** "Dagens träning" eller "Första steget · Nivåkollen". Datumet läggs till i vyn. */
+  eyebrow: string;
+  forstaSteget: boolean;
+  rubrik: string;
+  /** Ingressen under rubriken (bara dator). */
+  text: string;
+  /** Knappen: etiketten är knappens text, href går alltid till en befintlig adress. */
+  knapp: Handling;
+  /** Hinten knappen kommer ur, för hint_klickad. */
+  hint: Pick<Hint, 'id' | 'typ' | 'testtyp'> | null;
+  /** Raden bredvid knappen. */
+  sidorad: string | null;
+  chips: { text: string; bock?: boolean }[];
+  /** Det stora talet till höger: dagar kvar, dagar i rad eller minuter till första nivån. */
+  stort: { tal: number; rad1: string; rad2: string } | null;
+  /** Mobilens högra rad i eyebrow-raden ("5 dagar kvar", "12 uppgifter"). */
+  kortRad: string | null;
+}
+
+export interface VaggNod {
+  dag: Dag;
+  status: 'gjord' | 'missad' | 'idag' | 'kommande' | 'prov' | 'prov_okand';
+  forslag?: 'nivakoll' | 'ovningsprov';
+}
+
+export type VagIkon = 'spela' | 'klocka' | 'kurva' | 'prov' | 'monster' | 'flagga' | 'stjarna';
+
+export interface VagDag {
+  /** Null för det sista kortet utan provdag ("Har du ett prov?"). */
+  dag: Dag | null;
+  slag: 'idag' | 'forslag' | 'prov' | 'valfritt';
+  ikon: VagIkon;
+  rubrik: string;
+  text: string;
+  /** Null för provdagen. Låst handling leder till typens meny, som visar låset. */
+  handling: Handling | null;
+  /** Adressen kortet leder till (hintLank-regeln för hintar). */
+  href: string | null;
+  hint: Pick<Hint, 'id' | 'typ' | 'testtyp'> | null;
 }
 
 export type MonsterLage = 'omott' | 'mott' | 'saker' | 'snabb';
@@ -263,7 +324,9 @@ export interface UtvecklingV4Data {
   plan: PlanV4 | null;
   /** Väggens bana, samma som Hem och Tester. Tom utan plan. */
   bana: BanaDag[];
-  typer: { id: TestTypId; namn: string; ingarIPlan: boolean; niva: NivaLage }[];
+  typer: { id: TestTypId; namn: string; ingarIPlan: boolean; niva: NivaLage; tempo?: TempoLage | null }[];
+  /** Omgång 3: dagar med minst ett slutfört test de senaste 28 dagarna, för Träningsdagar. */
+  aktivaDagar28?: Dag[];
   /** Alla typer, tidsordning. */
   punkter: UtvecklingsPunkt[];
   historikLast: boolean;
