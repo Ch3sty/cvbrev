@@ -431,6 +431,11 @@ function NivaDiagram({ nivaer, utfall, fore }: { nivaer: (number | null)[]; utfa
   const punkter = nivaer.map((n, i) => (n != null ? { x: x(i), y: y(n), n, i } : null)).filter((v): v is { x: number; y: number; n: number; i: number } => v != null)
   const linje = punkter.map((pt, k) => `${k ? 'L' : 'M'}${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`).join('')
   const sista = punkter[punkter.length - 1]
+  // Etiketten under den streckade linjen får inte krocka med en markör (radie 15, etiketten 16 px under):
+  // till höger när markörerna där ligger fritt, annars till vänster, annars ingen etikett.
+  const ETIKETT_BREDD = 180
+  const fri = (fran: number, till: number) => fore == null || punkter.every((pt) => pt.x + 15 < fran || pt.x - 15 > till || Math.abs(pt.y - y(fore)) > 30)
+  const foreEtikett: 'hoger' | 'vanster' | null = fore == null ? null : fri(W - 10 - ETIKETT_BREDD, W - 10) ? 'hoger' : fri(10, 10 + ETIKETT_BREDD) ? 'vanster' : null
   const aria = `${antalOrd(nivaer.length, true)} uppgifter. Nivåerna ${kanda.map(nivaText).join(', ')}. ${utfall
     .map((u, i) => (u === 'ratt' ? null : `${u === 'fel' ? 'Fel' : 'Vet inte'} på uppgift ${i + 1}`))
     .filter(Boolean)
@@ -440,9 +445,11 @@ function NivaDiagram({ nivaer, utfall, fore }: { nivaer: (number | null)[]; utfa
       {fore != null ? (
         <>
           <path d={`M10 ${y(fore).toFixed(1)}H${W - 10}`} stroke="var(--vagg-svag)" strokeWidth="1.5" strokeDasharray="4 5" />
-          <text x={W - 10} y={y(fore) + 16} textAnchor="end" fontSize="11" fill="var(--vagg-mjuk)" style={{ fontFamily: 'inherit' }}>
-            din nivå när du började, {nivaText(fore)}
-          </text>
+          {foreEtikett ? (
+            <text x={foreEtikett === 'hoger' ? W - 10 : 10} y={y(fore) + 16} textAnchor={foreEtikett === 'hoger' ? 'end' : 'start'} fontSize="11" fill="var(--vagg-mjuk)" style={{ fontFamily: 'inherit' }}>
+              din nivå när du började, {nivaText(fore)}
+            </text>
+          ) : null}
         </>
       ) : null}
       <path d={linje} fill="none" stroke="var(--ljus)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
