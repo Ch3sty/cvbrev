@@ -399,6 +399,40 @@ den är vyns lyftkort. Ingen illustration, inget produktval. Reglerna:
   Premium-kortet `LyftKort` först på golvet, för den som har Premium står
   statusen på väggen och golvet börjar med Hantera.
 
+### Sessionsramen (testerna)
+
+Alla tester, lägen och typer går i en ram, `src/components/session/`
+(`docs/plan-testflode-2026-11-20.md` har måtten och skälen). Reglerna:
+
+- **Tre skärmar, en mall var.** `Startskarm` (eyebrow, rubrik, scenen, tre
+  regler i fast ordning: omfång, återkoppling, vad som sparas; det lyfta
+  kortet med en kopparknapp), `SessionsRam` (huvud 56 px med X, titel och
+  undertitel, räknaren och ringen; framstegsstapeln 6 px över hela bredden;
+  fot 72 px plus safe area med en knapp) och `Resultatskarm` (väggen med
+  ett huvudtal och högst två tal, golvet med korten i fast ordning).
+  Sessionen skapas bara från startskärmen. Personlighetstestet har samma
+  start och resultat; dess lyfta kort är profilen i stället för genomgången.
+- **Lagret.** `fixed inset-0 z-50`, `h-dvh`, sidomenyn, dörrarna och
+  bannrarna är borta under sessionen (`data-flow-active`). Sidan under
+  ramen får aldrig hoppa när ramen läggs över: det som ska undan döljs med
+  synligheten, inte genom att avmonteras (CLS 0 vid övergången).
+- **Gesten.** Tryck markerar, knappen bekräftar, i alla lägen utom
+  personlighetstestet (ett tryck går vidare efter 250 ms). Ingen uppgift går
+  vidare av sig själv.
+- **Färgerna.** Rätt `positiv`, fel `fel`, bara på det valda kortet och bara
+  efter facit (Träna och genomgången). Koppar är handlingen, stapeln och
+  ringen på slutet. Resultatväggen är aldrig röd.
+- **Ord.** Uppgift, inte fråga. Nästa, Svara, Lämna in, Visa resultatet.
+  Grundnivå, avancerad nivå, expertnivå. Aldrig "pass" i användartext.
+- **Ingen Premium-text inne i en session.** Betalväggen står på
+  startskärmen, resultatet och i Tester-menyn.
+- **Testklar.** Ramen vet inte om den står i appen: snitten via
+  `--font-sess-*`, appens kulörer mappas på roten, Android-tillbaka gör som
+  X (`data-kryss`), haptik bara i appen vid rätt och fel i Träna.
+
+De gamla skalen (`TestFlowShell`, `PassShell`, `ResultatSkal`, `Startark`
+och lägesflödena i `src/components/traning`) är raderade sedan etapp 5.
+
 ## 7. Illustrationer, ikoner och symboler
 
 Primitiverna i `src/components/illustrations/primitives.tsx`: konturer i
@@ -668,6 +702,8 @@ skapades och var det finns. Felet säger vad som gick fel och hur man går
 vidare. En rad har subjekt, verb och nästa steg.
 
 ## 14. Ändringslogg
+
+**Sessionsramen, 2026-11-20 (testflödet, etapp 5).** Avsnittet Sessionsramen under 6: en ram, tre mallar, gesten, färgerna, orden och Testklar. De gamla skalen och lägesflödena är raderade; personlighetstestets start och resultat går i ramens mallar.
 
 **v3, Rummen, 2026-10-11 (våg 5, granskning).** En anatomi för alla betalväggar (avsnitt 6): ett lyftkort som är en betalvägg är betalväggen, arket öppnas bara från ett låschip eller en låst rad och ritar `PaywallCard bare`, samma knapp aldrig två gånger i rad, ingen kopparkant (`PaketKort` utan `markerad`). `PaywallCard` i `text-kort-t`. Prenumerationssidan följer golvregeln: statusen är väggens rad, Premium-kortet är `LyftKort` för gratis och spårkund, Premium har Hantera först och "Allt i Premium" som rader. `FelSpar` och `UpgradeSheet` borta; en spårkund får den vanliga väggen och knappen går till prenumerationssidan. `/priser`: bockarna i bläck, inget rekommenderat kort, `cv`/`test` ur bruk. Övergångsregeln i avsnitt 11 gäller bara det gamla testflödets tre knappar.
 

@@ -1,40 +1,19 @@
-'use client';
+// Personlighetsprofilen i resultatskärmens mall (plan-testflode-2026-11-20
+// avsnitt 4.2, etapp 5). Sessionen läses på servern, så att profilen målas
+// ur första HTML; utan svar från servern hämtar vyn själv som förut.
 
-import { useEffect, useState } from 'react';
-import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
-import VaggLaddar from '@/components/rum/VaggLaddar';
-import Golv from '@/components/rum/Golv';
-import ResultsView from '@/components/personalityTest/ResultsView';
+import ResultsView from '@/components/personalityTest/ResultsView'
+import { lasPersonlighetResultat } from '@/lib/personalityTest/sparade.server'
 
-interface PageProps {
-  params: Promise<{ sessionId: string }>;
-}
-
-export default function PersonlighetAvanceradResultsPage({ params }: PageProps) {
-  const [sessionId, setSessionId] = useState<string | null>(null);
-
-  useEffect(() => {
-    params.then((p) => setSessionId(p.sessionId));
-  }, [params]);
-
-  if (!sessionId) {
-    return (
-      <>
-        <VaggLaddar label="Resultatet laddas" />
-        <Golv>
-          <div className="w-full max-w-3xl">
-            <LoadingSkeleton variant="card" label="Resultatet laddas" />
-          </div>
-        </Golv>
-      </>
-    );
-  }
-
+export default async function PersonlighetResultatSida({ params }: { params: Promise<{ sessionId: string }> }) {
+  const { sessionId } = await params
+  const session = await lasPersonlighetResultat(sessionId, 'personlighet-avancerad')
   return (
     <ResultsView
       sessionId={sessionId}
       testType="personlighet-avancerad"
       hubPath="/dashboard/tester/personlighet-avancerad"
+      initial={session}
     />
-  );
+  )
 }

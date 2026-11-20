@@ -1,13 +1,12 @@
 // src/lib/traning/fixturApi.ts
 // =============================================================================
-// Ett PassApi mot fixturer, för förhandsvisningen för utvecklare
-// (/dashboard/tester/forhandsvisning-pass, våg 3b). Frågorna är riktiga
+// Ett PassApi mot fixturer, för testerna (resultat.test.ts; förhandsvisningen
+// från våg 3b är borttagen i etapp 5 av testflödet). Frågorna är riktiga
 // V7-frågor ur banken, blandade och dömda på servern när sidan byggdes;
 // här finns bara det klienten behöver för att spela upp ett pass: var rätt
 // svar står (visat index), regeln och misstaget per visat alternativ.
 //
-// Används aldrig i produktionen: förhandsvisningen finns bara med
-// NODE_ENV=development eller TRANING_FORHANDSVISNING=1.
+// Används aldrig i produktionen.
 // =============================================================================
 
 import type { Aterkoppling, Avslut, PassApi, Sessionsvy, Traningsstatus } from './klient';

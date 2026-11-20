@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-const { byggForhandsdata } = await import('@/app/dashboard/tester/forhandsvisning-pass/fixturer.server')
+const { byggForhandsdata } = await import('./fixturer')
 import { fixturApi } from '../fixturApi'
 import { datumLista, deltaText, fragorText, mmss, nivaHeltal, nivaKort, nivaText, PASS_COPY, serieText } from '../pass-copy'
 import { andraRegelrad, kvitto, matningResultat, ommatningResultat, passResultat } from '../resultat'

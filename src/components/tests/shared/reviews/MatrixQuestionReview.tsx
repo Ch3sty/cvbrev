@@ -127,7 +127,7 @@ export default function MatrixQuestionReview({
         </h2>
         <p className="mt-2 text-sm leading-[22px] text-ink-2">
           Resultatet kommer från en tidigare version av frågebanken. Poängen
-          står kvar, men vi kan inte visa vilka frågor du fick. Gör om testet så
+          står kvar, men vi kan inte visa vilka uppgifter du fick. Gör om testet så
           får du full återkoppling.
         </p>
       </section>
@@ -171,8 +171,8 @@ export default function MatrixQuestionReview({
         </section>
       ) : null}
 
-      <section aria-label="Fråga för fråga">
-        <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Fråga för fråga</h2>
+      <section aria-label="Uppgift för uppgift">
+        <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Uppgift för uppgift</h2>
         <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
           {questions.map((q, i) => {
             const answer = answers.find((a) => a.q_id === q.id)

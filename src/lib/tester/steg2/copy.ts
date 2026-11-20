@@ -37,7 +37,7 @@ export function steg2PassCopy(kind: Steg2PassKind) {
       tillbaka: 'Tillbaka till Rekryteringstester',
       forsokIgen: 'Försök igen',
     },
-    vetInte: kind === 'talserie' ? 'Vet inte, visa regeln' : 'Vet inte, visa lösningen',
+    vetInte: 'Vet inte, visa förklaringen',
     fel: {
       hamta: 'Träningen gick inte att hämta.',
       hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',

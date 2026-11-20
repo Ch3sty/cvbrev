@@ -32,7 +32,7 @@ export default function ProfileSummaryCard({
 
       <div className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
         <p className="text-meta tabular-nums text-ink-3">
-          {new Date(lastCompletedAt).toLocaleDateString('sv-SE')} · {attempts} försök
+          {new Date(lastCompletedAt).toLocaleDateString('sv-SE')}, {attempts === 1 ? 'ett försök' : `${attempts} försök`}
         </p>
 
         <ul className="mt-4 space-y-3">

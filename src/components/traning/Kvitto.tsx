@@ -22,7 +22,7 @@ import { TRANING_HREF } from '@/lib/traning/klient'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { Kvitto as KvittoData } from '@/lib/traning/resultat'
 import Marke, { MARKE_FOR } from './Marke'
-import { useFlodeLage } from './PassShell'
+import { useFlodeLage } from './useFlodeLage'
 
 export interface KvittoProps {
   data: KvittoData

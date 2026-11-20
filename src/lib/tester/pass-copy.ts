@@ -117,7 +117,7 @@ export const FIGUR_PASS_COPY = {
     fel: 'Inte rätt',
     regel: 'Regeln',
     misstag: 'Ditt misstag',
-    vetInte: 'Vet inte, visa regeln',
+    vetInte: 'Vet inte, visa förklaringen',
     vetInteRad: 'Vet inte',
   },
   knapp: {
@@ -176,7 +176,7 @@ export const DEDUKTIV_PASS_COPY = {
     uppgift: (n: number, av: number) => `Uppgift ${n} av ${av}`,
   },
   aterkoppling: {
-    vetInte: 'Vet inte, visa lösningen',
+    vetInte: 'Vet inte, visa förklaringen',
   },
   knapp: {
     svara: 'Svara',

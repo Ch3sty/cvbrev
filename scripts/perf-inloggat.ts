@@ -174,14 +174,6 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/linkedin-optimizer?steg=2', namn: 'linkedin steg 2', budget: 'flode' },
   { path: '/dashboard/linkedin-optimizer?steg=3', namn: 'linkedin steg 3', budget: 'flode' },
   { path: '/dashboard/arbetsstil', namn: 'arbetsstil', budget: 'flode' },
-
-  // Våg 3b: passet och resultaten i förhandsvisningen. När testmotorns
-  // migreringar körts i prod mäts /dashboard/tester/pass/<id> på riktigt.
-  { path: '/dashboard/tester/forhandsvisning-pass?ram=P1', namn: '3b passets fråga', budget: 'flode', forhandsvisning: true },
-  { path: '/dashboard/tester/forhandsvisning-pass?ram=P4', namn: '3b resultatet P4', budget: 'flode', forhandsvisning: true },
-  { path: '/dashboard/tester/forhandsvisning-pass?ram=M1', namn: '3b mätningen M1', budget: 'flode', forhandsvisning: true },
-  { path: '/dashboard/tester/forhandsvisning-pass?ram=O1', namn: '3b ommätningen O1', budget: 'flode', forhandsvisning: true },
-  { path: '/dashboard/tester/forhandsvisning-pass?ram=uppvarmning', namn: '3b uppvärmningen', budget: 'flode', forhandsvisning: true },
 ];
 
 function arg(namn: string, fallback?: string): string | undefined {

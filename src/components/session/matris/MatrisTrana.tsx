@@ -4,8 +4,7 @@
  * Träna Figurer och mönster i ramen (plan-testflode-2026-11-20 etapp 3):
  * dagens träning (grundnivån gratis dag 0, din nivå i Premium, med
  * kalibreringsfrågan som motorn lägger in) och det riktade träningspasset i
- * ett mönster. Ersätter PassFlode för /pass?typ=pass, /pass?typ=riktat och
- * /pass/<id>; PassFlode står kvar oanvänd till etapp 5.
+ * ett mönster, för /pass?typ=pass, /pass?typ=riktat och /pass/<id>.
  *
  * Samma rutter och kroppar som förut (PassApi): skapa {typ, family?}, svar
  * {sessionId, questionId, selectedIndex, vetInte, tidenUte, timeSpent},
@@ -33,7 +32,7 @@ import { passHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { LANK } from '@/components/shell/knappar'
 import Staplar from '@/components/traning/Staplar'
-import { MilstolpeKortVy } from '@/components/traning/PassResultatVy'
+import { MilstolpeKortVy } from '@/components/traning/resultatDelar'
 import Trana, { type TranaApi, type TranaSession } from '../lagen/Trana'
 import Startskarm from '../Startskarm'
 import Resultatskarm from '../Resultatskarm'

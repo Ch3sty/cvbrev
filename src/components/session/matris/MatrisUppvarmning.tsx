@@ -5,9 +5,10 @@
  * tre uppgifter i Figurer och mönster, utan tid, utan nivå och utan
  * sparning. Samma gest som i Träna: tryck markerar, Svara bekräftar,
  * Förklaringen under svaren, Nästa. Servern väljer och dömer
- * (/api/traning/uppvarmning, samma kroppar som Uppvarmning). X stänger
- * direkt: inget sparas, så det finns inget att förlora. Uppvarmning står
- * kvar oanvänd till etapp 5.
+ * (/api/traning/uppvarmning, samma kroppar som förut, uppvarmningApi.ts).
+ * Ingen startskärm: planens tabell över startskärmar (avsnitt 4.1) har inget
+ * läge för uppvärmningen, och den startar ingen session. X stänger direkt
+ * utan dialog: inget sparas, så det finns inget att förlora.
  */
 
 import { useCallback, useEffect, useState } from 'react'
@@ -15,7 +16,7 @@ import { useRouter } from 'next/navigation'
 import type { VisadFraga } from '@/lib/logicTestV7/layered.v7'
 import { TRANING_HREF } from '@/lib/traning/klient'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
-import { fetchUppvarmningApi, type UppvarmningApi, type UppvarmningSvar } from '@/components/traning/Uppvarmning'
+import { fetchUppvarmningApi, type UppvarmningApi, type UppvarmningSvar } from './uppvarmningApi'
 import SessionsRam from '../SessionsRam'
 import Forklaringen from '../Forklaringen'
 import { ForsokIgen, Meddelande } from '../lagen/gemensamt'

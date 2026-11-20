@@ -12,15 +12,12 @@ const APP_DIR = path.join(ROT, 'src/app');
 
 /** Skalen vars kryss appen läser (Skalet.tsx och NivakollPass.tsx). */
 const SKAL = [
-  'src/components/traning/PassShell.tsx',
-  'src/components/traning/ResultatSkal.tsx',
   'src/components/traning/Kvitto.tsx',
-  'src/components/tests/shared/TestFlowShell.tsx',
-  // I-provet går i sessionsramen sedan etapp 4 (krysset bor i ramen och startskärmen).
+  // Alla tester, I-provet och Nivåkollen i onboardingen går i sessionsramen
+  // (krysset bor i ramen, startskärmen och resultatskärmen).
   'src/components/session/SessionsRam.tsx',
   'src/components/session/Startskarm.tsx',
   'src/components/session/Resultatskarm.tsx',
-  'src/components/traning/ovningsprov/OvningsprovFlode.tsx',
 ];
 
 function lasFil(rel: string): string {

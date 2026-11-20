@@ -155,7 +155,7 @@ export const PASS_COPY = {
     vald: 'ditt svar',
     ratt: 'rätt svar',
   },
-  vetInte: 'Vet inte, visa regeln',
+  vetInte: 'Vet inte, visa förklaringen',
   /** Regelpanelens rubriker (Testerna v2, skiss 4). Texterna under kommer ur banken. */
   regelpanel: {
     regeln: 'Regeln',
@@ -173,7 +173,7 @@ export const PASS_COPY = {
     strackFel: 'Den här var svårare än din nivå.',
   },
   knapp: {
-    nasta: 'Nästa fråga',
+    nasta: 'Nästa',
     visaResultat: 'Visa resultatet',
     sparar: 'Sparar svaret',
     raknar: 'Räknar fram resultatet',
@@ -390,7 +390,7 @@ export const PASS_COPY = {
   uppvarmning: {
     ratt: 'Rätt',
     fel: 'Inte den här',
-    nasta: 'Nästa fråga',
+    nasta: 'Nästa',
     klarKnapp: 'Klar',
     klar: 'Uppvärmningen är klar',
     klarText: 'Inget sparades, och inget mer behövs i dag. Stäng det här och öppna länken från rekryteraren när du är redo.',

@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { KROPP, figurserieNivatestApi, ovningsprovApi } from '../figurserie/api'
 import { fetchDeduktivPassApi, fetchFigurPassApi, fetchNivakollApi } from '@/lib/tester/pass-klient'
 import { fetchPassApi } from '@/lib/traning/klient'
-import { fetchUppvarmningApi } from '@/components/traning/Uppvarmning'
+import { fetchUppvarmningApi } from '../matris/uppvarmningApi'
 import { svarKropp } from '../matris/api'
 
 type Anrop = { url: string; metod: string; kropp: unknown }

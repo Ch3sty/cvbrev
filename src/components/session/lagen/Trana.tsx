@@ -482,13 +482,15 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       }
       fot={{
         vanster:
-          harSvarat || fas.typ === 'svarfel' || p.vetInte === false
+          p.vetInte === false
             ? null
             : {
                 typ: 'vet_inte',
                 text: direkt ? SESSION.knapp.vetInte : SESSION.knapp.vetInteKort,
                 onClick: () => void svara(null),
                 disabled: fas.typ !== 'fraga',
+                // Besvarad: platsen står kvar osynlig, så att Nästa inte flyttar (CLS 0).
+                dold: harSvarat || fas.typ === 'svarfel',
               },
         primar,
       }}

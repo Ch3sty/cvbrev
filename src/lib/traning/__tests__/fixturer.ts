@@ -1,6 +1,6 @@
-// Fixturerna för förhandsvisningen av våg 3b (bara utvecklare, se page.tsx).
-// Bara server: läser bankerna med facit. Importeras bara av page.tsx (och
-// testerna); klientdelen tar bara typerna.
+// Testfixturerna från förhandsvisningen av våg 3b (förhandsvisningen är
+// borttagen i etapp 5 av testflödet; resultat.test.ts läser fixturerna).
+// Läser bankerna med facit, så bara för tester.
 //
 // Riktiga V7-frågor ur banken, blandade med samma funktion som i passet
 // (permutationForSession) och vända till klientens form med motorns egen

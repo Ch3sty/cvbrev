@@ -151,8 +151,8 @@ function PassageReview({
   });
 
   return (
-    <section aria-label="Passage för passage">
-      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Passage för passage</h2>
+    <section aria-label="Text för text">
+      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Text för text</h2>
 
       <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {passages.map((p, i) => {

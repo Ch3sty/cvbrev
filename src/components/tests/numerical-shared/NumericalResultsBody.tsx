@@ -135,8 +135,8 @@ function AnswerKey({
   utanRubrik: boolean;
 }) {
   return (
-    <section aria-label="Fråga för fråga">
-      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Fråga för fråga</h2>
+    <section aria-label="Uppgift för uppgift">
+      <h2 className={utanRubrik ? 'sr-only' : 'mb-2 text-sm font-medium text-ink-3'}>Uppgift för uppgift</h2>
       <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel">
         {passages.map((passage) => {
           const passageAnswers = answers.filter((a) => a.passageId === passage.id);
@@ -192,7 +192,7 @@ function AnswerKeyRow({
             {question.questionText}
           </span>
           <span className="mt-0.5 block text-meta text-ink-3">
-            {passage.topic} · fråga {questionIndex + 1}
+            {passage.topic}, uppgift {questionIndex + 1}
           </span>
         </span>
 

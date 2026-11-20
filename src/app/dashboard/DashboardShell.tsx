@@ -150,6 +150,12 @@ export default function DashboardShell({
     FLOW_ROUTES.some((r) => pathname?.startsWith(r)) ||
     /^\/dashboard\/tester\/[^/]+\/test\/[^/]+\/?$/.test(pathname ?? '');
 
+  // E-postraden har stått på en sida i den här monteringen (se raden nedan).
+  const [epostradenVisad, setEpostradenVisad] = useState(!isFlowRoute);
+  useEffect(() => {
+    if (!isFlowRoute) setEpostradenVisad(true);
+  }, [isFlowRoute]);
+
   // Sidor som tar hela skärmen i ett flödesskal med egen fot. Står redan i
   // server-HTML:en, så cookie-samtycket vet från första bilden att det ska
   // vänta på foten i stället för att stå i botten och sedan flytta sig
@@ -294,16 +300,28 @@ export default function DashboardShell({
           <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
             {kampanjRad && !isFlowRoute && <KampanjRadInloggad kampanj={kampanjRad} />}
 
-            {visaEpostbanner && !kampanjRad && !isFlowRoute && (
-              <EmailVerificationBanner
-                userId={user.id}
-                email={user.email ?? ''}
-                fullName={
-                  typeof initialSummary?.profile?.full_name === 'string'
-                    ? initialSummary.profile.full_name
-                    : ''
-                }
-              />
+            {/* E-postraden ritas aldrig på ett flöde man landar direkt på. Har
+                den redan stått på sidan när ett flöde öppnas står den kvar
+                osynlig under ramen, så att sidan under inte hoppar upp när
+                ramen läggs över (CLS vid övergången, etapp 5). Kampanjraden
+                styrs som förut. */}
+            {visaEpostbanner && !kampanjRad && (!isFlowRoute || epostradenVisad) && (
+              <div
+                className={isFlowRoute ? 'invisible' : undefined}
+                aria-hidden={isFlowRoute || undefined}
+                inert={isFlowRoute || undefined}
+                data-epostrad
+              >
+                <EmailVerificationBanner
+                  userId={user.id}
+                  email={user.email ?? ''}
+                  fullName={
+                    typeof initialSummary?.profile?.full_name === 'string'
+                      ? initialSummary.profile.full_name
+                      : ''
+                  }
+                />
+              </div>
             )}
 
             {showPasswordPrompt && user && (

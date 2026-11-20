@@ -51,13 +51,21 @@ export interface ResultatskarmProps {
   nivaskala?: { nu: number; fran: number | null; aria: string } | null
   /** En rad på väggen, till exempel att Nivåkollen är gjord i dag. */
   rad?: string | null
+  /**
+   * Genomgången i det lyfta kortet. null bara i personlighetstestet, som
+   * saknar rätt svar: då står `lyft` i kortets plats.
+   */
   genomgang: {
     titel: string
     text?: string | null
     miniatyrer?: ReactNode
     onGaIgenom: () => void
     onVisaAlla?: (() => void) | null
-  }
+  } | null
+  /** Det lyfta kortets innehåll när genomgången saknas (personlighetsprofilen). */
+  lyft?: ReactNode
+  /** Kort mellan det lyfta kortet och Nästa steg (personlighetsprofilens dimensioner). */
+  innehall?: ReactNode
   tappade?: { titel?: string | null; rader: { namn: string; meta: string; andel: number }[] } | null
   tempo?: { titel: string; text?: string | null; innehall?: ReactNode } | null
   /** Färdiga kort i Var du tappades och Tempots plats (nivåtestets TappadeKort och TempoKort). */
@@ -163,26 +171,34 @@ export default function Resultatskarm(p: ResultatskarmProps) {
 
         <div className="px-4 pb-8 lg:px-10">
           <div className="mx-auto flex w-full max-w-[672px] flex-col gap-4">
-            <section
-              aria-label={R.genomgang}
-              className="steg s3 relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5"
-              data-resultat-genomgang
-            >
-              <p className="text-ey uppercase text-koppar-ink">{R.genomgang}</p>
-              <h2 className="mt-1 text-kort-t text-ink-1">{p.genomgang.titel}</h2>
-              {p.genomgang.text ? <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{p.genomgang.text}</p> : null}
-              {p.genomgang.miniatyrer ? <div className="mt-3.5">{p.genomgang.miniatyrer}</div> : null}
-              <div className="mt-3.5 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-5">
-                <button type="button" onClick={p.genomgang.onGaIgenom} className={`${KNAPP_SEKUNDAR} sm:w-auto sm:min-w-[160px]`} data-ga-igenom>
-                  {R.gaIgenom}
-                </button>
-                {p.genomgang.onVisaAlla ? (
-                  <button type="button" onClick={p.genomgang.onVisaAlla} className={`${LANK} inline-flex min-h-11 items-center justify-center`} data-visa-alla>
-                    {R.visaAlla}
+            {p.genomgang ? (
+              <section
+                aria-label={R.genomgang}
+                className="steg s3 relative z-[2] -mt-[30px] rounded-2xl border border-[color:var(--lyft-kant)] bg-papper p-4 shadow-lyft sm:p-5"
+                data-resultat-genomgang
+              >
+                <p className="text-ey uppercase text-koppar-ink">{R.genomgang}</p>
+                <h2 className="mt-1 text-kort-t text-ink-1">{p.genomgang.titel}</h2>
+                {p.genomgang.text ? <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{p.genomgang.text}</p> : null}
+                {p.genomgang.miniatyrer ? <div className="mt-3.5">{p.genomgang.miniatyrer}</div> : null}
+                <div className="mt-3.5 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-5">
+                  <button type="button" onClick={p.genomgang.onGaIgenom} className={`${KNAPP_SEKUNDAR} sm:w-auto sm:min-w-[160px]`} data-ga-igenom>
+                    {R.gaIgenom}
                   </button>
-                ) : null}
+                  {p.genomgang.onVisaAlla ? (
+                    <button type="button" onClick={p.genomgang.onVisaAlla} className={`${LANK} inline-flex min-h-11 items-center justify-center`} data-visa-alla>
+                      {R.visaAlla}
+                    </button>
+                  ) : null}
+                </div>
+              </section>
+            ) : p.lyft ? (
+              <div className="steg s3 relative z-[2] -mt-[30px]" data-resultat-lyft>
+                {p.lyft}
               </div>
-            </section>
+            ) : null}
+
+            {p.innehall ? <div className="steg s4 flex flex-col gap-4">{p.innehall}</div> : null}
 
             {p.tappadeKort ? <div className="steg s4">{p.tappadeKort}</div> : null}
             {!p.tappadeKort && p.tappade && p.tappade.rader.length ? (

@@ -12,7 +12,6 @@
  */
 
 import { notFound } from 'next/navigation'
-import Startark from '@/components/traning/ovningsprov/Startark'
 import { FigurserieOvningsprovStart } from '@/components/session/figurserie/FigurserieOvningsprov'
 import { VnOvningsprovStart } from '@/components/session/vn/VnOvningsprov'
 import { DeduktivOvningsprovStart } from '@/components/session/deduktiv/DeduktivOvningsprov'
@@ -80,8 +79,7 @@ export default async function OvningsprovStartSida({
   })
   const gjort = rader.find((r) => r.completed_at && dagSthlm(r.completed_at) === idag)
 
-  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): figurseriernas
-  // övningsprov har ramens startskärm. Startark står kvar för övriga typer.
+  // Sessionsramen (plan-testflode-2026-11-20): startskärmen i ramens mall.
   if (typ === 'figurer') {
     return (
       <FigurserieOvningsprovStart
@@ -112,7 +110,6 @@ export default async function OvningsprovStartSida({
       />
     )
   }
-  // Etapp 3: deduktivt och logiken har ramens startskärm.
   if (typ === 'deduktiv') {
     return (
       <DeduktivOvningsprovStart
@@ -126,27 +123,12 @@ export default async function OvningsprovStartSida({
       />
     )
   }
-  if (typ === 'logik') {
-    return (
-      <MatrisOvningsprovStart
-        format={format}
-        dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
-        last={!beh.harProvlage}
-        pagaende={pagaende?.id ?? null}
-        tillbakaHref={TRANING_RUTT.alla}
-        fran={fran}
-      />
-    )
-  }
-
   return (
-    <Startark
-      typ={typ}
+    <MatrisOvningsprovStart
       format={format}
       dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
       last={!beh.harProvlage}
       pagaende={pagaende?.id ?? null}
-      gjortIdag={pagaende ? null : gjort?.id ?? null}
       tillbakaHref={TRANING_RUTT.alla}
       fran={fran}
     />

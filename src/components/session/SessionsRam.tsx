@@ -46,7 +46,8 @@ export interface RamPrimar {
 
 export type RamVanster =
   | { typ: 'tillbaka'; onClick: () => void; disabled?: boolean }
-  | { typ: 'vet_inte'; text: string; onClick: () => void; disabled?: boolean }
+  /** dold: platsen står kvar osynlig när uppgiften är besvarad, så att knappen bredvid inte flyttar (CLS 0). */
+  | { typ: 'vet_inte'; text: string; onClick: () => void; disabled?: boolean; dold?: boolean }
 
 export interface SessionsRamProps {
   lage: Lage
@@ -341,9 +342,11 @@ export default function SessionsRam({
               <button
                 type="button"
                 onClick={vanster.onClick}
-                disabled={vanster.disabled}
-                className="inline-flex min-h-11 max-w-[46%] flex-shrink items-center px-1 text-left text-sm font-medium leading-[18px] text-ink-1 underline decoration-kant-stark underline-offset-4 disabled:opacity-40"
-                data-vet-inte
+                disabled={vanster.disabled || vanster.dold}
+                aria-hidden={vanster.dold || undefined}
+                tabIndex={vanster.dold ? -1 : undefined}
+                className={`inline-flex min-h-11 max-w-[46%] flex-shrink items-center px-1 text-left text-sm font-medium leading-[18px] text-ink-1 underline decoration-kant-stark underline-offset-4 ${vanster.dold ? 'invisible' : 'disabled:opacity-40'}`}
+                data-vet-inte={vanster.dold ? 'dold' : ''}
               >
                 {vanster.text}
               </button>

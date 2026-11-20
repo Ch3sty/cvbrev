@@ -102,21 +102,21 @@ describe('alla testvyer och complete-rutter ankrar tiden i started_at', () => {
   const ROT = path.resolve(__dirname, '../../../..')
   const las = (p: string) => fs.readFileSync(path.join(ROT, p), 'utf8')
 
+  // Sessionsramen (plan-testflode-2026-11-20): nivåtestens vyer i ramen. De
+  // gamla testvyerna är raderade i etapp 5.
   const VYER = [
-    'src/components/tests/steg2/Steg2TestSession.tsx',
-    'src/components/tests/deduktiv/DeduktivTestSession.tsx',
-    'src/components/tests/serie/FigurserieTestSession.tsx',
-    'src/components/tests/matrix/MatrixTestSession.tsx',
-    'src/components/tests/verbal/VerbalExpertSession.tsx',
-    'src/components/tests/verbal/VerbalTestSession.tsx',
-    'src/components/tests/numerical/NumericalTestSession.tsx',
+    'src/components/session/lagen/Nivatest.tsx',
+    'src/components/session/delat/KlassiskNivatest.tsx',
+    'src/components/session/figurserie/FigurserieNivatest.tsx',
+    'src/components/session/steg2/Steg2Nivatest.tsx',
+    'src/components/session/vn/VnNivatest.tsx',
   ]
 
   it.each(VYER)('%s startar inte klockan vid montering', (p) => {
     const text = las(p)
     expect(text).not.toMatch(/useState\(new Date\(\)\)/)
     expect(text).not.toMatch(/testStartTime/)
-    expect(text).toMatch(/started_at/)
+    expect(text).toMatch(/started_at|startedAt/)
   })
 
   const RUTTER = [

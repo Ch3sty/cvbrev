@@ -10,12 +10,13 @@
  * Ingenting här påverkar vilka frågor som visas eller i vilken ordning.
  */
 
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { figurserierSynliga } from '@/lib/figurserierV1/status'
 import { deduktivSynlig } from '@/lib/deduktivV1/status'
 import { steg2Synlig } from '@/lib/tester/steg2Status'
 import { arSteg2Kind } from '@/app/dashboard/tester/testConfig'
 import TestRunner from '@/components/tests/shared/TestRunner'
+import { ovningsprovHref } from '@/lib/traning/rutter'
 import { getTestConfig } from '../../../testConfig'
 import { getRunData } from '../../getRunData'
 
@@ -27,6 +28,9 @@ export default async function TestRunPage({
   const { slug, sessionId } = await params
   const config = getTestConfig(slug)
   if (!config || config.kind === 'personlighet') notFound()
+  // De gamla provsidorna (*-prov) är ersatta av övningsproven i ramen (etapp 0
+  // och 5): sidan svarar 301 i next.config, en gammal sessionslänk landar här.
+  if (config.level === 'prov') redirect(ovningsprovHref(config.kind === 'matris' ? 'logik' : config.kind === 'verbal' ? 'verbal' : 'numerisk'))
   // Figurserierna syns först när banken är befordrad (src/lib/figurserierV1/status.ts).
   if (config.kind === 'figurserie' && !figurserierSynliga()) notFound()
   // Deduktiv syns först när banken är befordrad (src/lib/deduktivV1/status.ts).

@@ -3,9 +3,9 @@
 /**
  * Nivåkollen i Figurer och mönster i ramen (plan-testflode-2026-11-20 etapp
  * 3): mätningen och ommätningen, adaptiv. Servern väljer nästa uppgift efter
- * varje svar, så Nästa väntar på servern med spinnern i knappen. Ersätter
- * PassFlode för /pass?typ=matning och /pass/<id>; PassFlode står kvar
- * oanvänd till etapp 5. Samma rutter och kroppar som förut (PassApi):
+ * varje svar, så Nästa väntar på servern med spinnern i knappen. Används för
+ * /pass?typ=matning, /pass/<id> och onboardingen i appen Testklar. Samma
+ * rutter och kroppar som förut (PassApi):
  * skapa {typ: 'matning'}, svar {sessionId, questionId, selectedIndex,
  * vetInte, tidenUte, timeSpent}, slutför {sessionId}. nivamatning_startad
  * och betalvagg_visad skjuts med samma egenskaper som förut. Kalibreringen
@@ -25,8 +25,7 @@ import { nivaHeltal, PASS_COPY } from '@/lib/traning/pass-copy'
 import { passHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import Kurva from '@/components/traning/Kurva'
-import { imorgonFranStatus } from '@/components/traning/MatningResultatVy'
-import { MilstolpeKortVy } from '@/components/traning/PassResultatVy'
+import { imorgonFranStatus, MilstolpeKortVy } from '@/components/traning/resultatDelar'
 import Nivakoll, { type NivakollApi, type NivakollSession } from '../lagen/Nivakoll'
 import Resultatskarm from '../Resultatskarm'
 import { MATRIS, type MatrisU } from '../typer/Matris'
@@ -41,6 +40,11 @@ export interface MatrisNivakollProps {
   betalande: boolean
   datum: string | null
   api?: PassApi
+  /**
+   * Adressen som visas när sessionen finns. null låter adressen stå
+   * (onboardingen i appen Testklar, där tillbaka går till onboardingens steg).
+   */
+  sessionAdress?: ((id: string) => string) | null
 }
 
 /** Antalet hon svarar på: smakprovets frågor räknas in men visas inte (spec 14.5). */
@@ -123,7 +127,7 @@ function kollApi(api: PassApi, pagaende: string | null, forsta: Sessionsvy | nul
 
 const BAS = { test_kind: 'matris', lage: 'nivakoll' as const, niva: null, format: null }
 
-export default function MatrisNivakoll({ start = null, vy = null, betalande, datum, api = fetchPassApi }: MatrisNivakollProps) {
+export default function MatrisNivakoll({ start = null, vy = null, betalande, datum, api = fetchPassApi, sessionAdress = sessionHref }: MatrisNivakollProps) {
   const { summary } = useDashboardData()
   const scope = (summary?.paket?.scope ?? null) as Scope | null
   const smakprov = vy?.vy.typ === 'matning' ? vy.vy.smakprov : 0
@@ -142,7 +146,7 @@ export default function MatrisNivakoll({ start = null, vy = null, betalande, dat
       las={lasMatrisKoll}
       api={kApi}
       tillbakaHref={TRANING_RUTT.alla}
-      sessionAdress={sessionHref}
+      sessionAdress={sessionAdress ?? undefined}
       onStartad={(v) => capture('nivamatning_startad', { ommatning: v.vy.typ === 'ommatning', smakprov: v.vy.smakprov })}
       start={
         start

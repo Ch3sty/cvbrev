@@ -3,7 +3,7 @@
  * tid, ingen nivå, inget sparas. Frågorna hämtas av klienten från
  * /api/traning/uppvarmning, som väljer och dömer på servern.
  * Sessionsramen (plan-testflode-2026-11-20, etapp 3): MatrisUppvarmning i
- * ramen. Uppvarmning står kvar oanvänd till etapp 5.
+ * ramen.
  */
 
 import { redirect } from 'next/navigation'
