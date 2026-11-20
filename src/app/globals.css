@@ -4099,6 +4099,12 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-utfall { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px 0 6px; border-radius: 10px; background: var(--papper); font-weight: 600; font-size: 13px; line-height: 16px; white-space: nowrap; }
 .prov3-utfall[data-utfall="ratt"] { color: var(--sess-ratt-ink); }
 .prov3-utfall[data-utfall="fel"] { color: var(--sess-fel-ink); }
+/* Fem sifferklossar på en rad i kortet (bredden är kortets, inte ramens): som på
+   telefon, märket i klossen och raden "Ditt svar / Rätt svar" under, ingen etikett
+   som går in i grannklossen. */
+.prov3-oppen .sess-tal-svar:not([data-par]) .sess-pill { display: none; }
+.prov3-oppen .sess-tal-svar:not([data-par]) span.lg\:hidden { display: block; }
+.prov3-oppen [data-steg2-alternativ]:not([data-par]) + p.lg\:hidden { display: flex; }
 
 .prov3-andra { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr); }
 .prov3-andra-kort { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 18px; box-shadow: 0 4px 0 var(--sess-kant); padding: 12px; display: grid; grid-template-columns: 36px 44px minmax(0, 1fr); column-gap: 12px; row-gap: 10px; align-items: center; }
