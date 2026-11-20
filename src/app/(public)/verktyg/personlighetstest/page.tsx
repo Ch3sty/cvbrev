@@ -5,11 +5,14 @@
  * map-test-personlighetstest, i heron där de andra verktygssidorna har sin
  * direkta handling. Sidans h1 är mallens; panelens rubrik förblir ett p.
  *
+ * Omgång 3 (beslut C): provets hjälte utan knapp och bild (provHjalte), så
+ * att provet ligger direkt under h1 och ingressen; talraden står under
+ * provet. Texterna, FAQ:n och schemat är oförändrade.
+ *
  * Inloggade skickas till hela testet med 50 påståenden: smakprovet visas
  * inte inloggat (spec avsnitt 6).
  */
 import VerktygsMall from '@/components/publikt/VerktygsMall'
-import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 // Direkt import, inte via mdx-klientens next/dynamic: den dynamiska
@@ -48,6 +51,9 @@ const FAKTORER = [
   { rubrik: 'Vänlighet', text: 'Samarbete, omtanke och hur rakt du säger ifrån. Väger tungt i vård, omsorg och team med mycket samarbete.' },
   { rubrik: 'Öppenhet', text: 'Nyfikenhet på nya arbetssätt och idéer. Väger tungt där verktyg och metoder byts ofta, som i IT.' },
 ]
+
+/** Faktorns "i arbetet"-text per namn, till tydligaste draget i resultatet. Samma text som avsnittet De fem faktorerna. */
+const I_ARBETET: Record<string, string> = Object.fromEntries(FAKTORER.map((f) => [f.rubrik, f.text]))
 
 const FAQ = [
   {
@@ -105,8 +111,8 @@ export default function PersonlighetstestSida() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <VerktygsMall
-        rum="brev"
-        telefon={<SkarmPersonlighet />}
+        rum="tran"
+        provHjalte
         stegTelefon={<SkarmIntervjufragor />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
@@ -117,17 +123,14 @@ export default function PersonlighetstestSida() {
         h1={SIDA.h1}
         ingress="Tjugo påståenden på samma modell som MAP och de flesta test i svensk rekrytering. Du får din profil direkt och en rad per faktor om hur en rekryterare läser den."
         fet="Inget konto, ungefär två minuter."
-        primar={{ text: 'Gör testet', href: '#provet', dataCta: 'personlighetstest-hero' }}
-        sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
+        talEfterHandling
         loften={[
           { tal: String(ANTAL_PASTAENDEN), text: 'påståenden' },
           { tal: '2 min', text: 'ungefär' },
           { tal: String(FAKTORER.length), text: 'faktorer i profilen' },
         ]}
         handling={
-          <div className="[&>aside]:my-0">
-            <Personlighetsprov slug="verktyg/personlighetstest" />
-          </div>
+          <Personlighetsprov slug="verktyg/personlighetstest" sida iArbetet={I_ARBETET} />
         }
         handlingId="provet"
         steg={{

@@ -16,6 +16,7 @@
 
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import Breadcrumb from '@/components/Breadcrumb'
 import Hjalte from './Hjalte'
 import TalRad from './TalRad'
 import Rum from './Rum'
@@ -39,7 +40,7 @@ export interface VerktygsRad {
 export interface VerktygsMallProps {
   rum: RumNamn
   /** Telefonen (eller telefon med svävande objekt) i hjälten. */
-  telefon: ReactNode
+  telefon?: ReactNode
   /** Valfri telefon bredvid Så fungerar det. */
   stegTelefon?: ReactNode
   brodsmulor: { name: string; href: string }[]
@@ -58,6 +59,12 @@ export interface VerktygsMallProps {
   talEfterHandling?: boolean
   handling?: ReactNode
   handlingId?: string
+  /**
+   * Provets hjälte (personlighetstestet, omgång 3): brödsmula, kick, h1 och
+   * ingressen på väggen utan knapp och bild, och handlingen som scen som
+   * överlappar väggens nederkant. Utan primar blir det ingen fast knapprad.
+   */
+  provHjalte?: boolean
   steg: { id?: string; rubrik: string; ingress?: string; rader: VerktygsRad[]; lank?: VerktygsLank }
   kontroll?: { id?: string; eyebrow?: string; rubrik: string; ingress?: string; rader: VerktygsRad[] }
   extra?: { id?: string; eyebrow?: string; rubrik: string; ingress?: ReactNode; rader: VerktygsRad[]; lank?: VerktygsLank }[]
@@ -122,26 +129,45 @@ export default function VerktygsMall(p: VerktygsMallProps) {
     <PubliktSida>
       <div id="innehall">
         {/* 1. Hjälten */}
-        <Hjalte
-          id="hjalte"
-          rum={p.rum}
-          yta="vagg"
-          vag="mark"
-          brodsmulor={p.brodsmulor}
-          kick={kick(p.eyebrow)}
-          h1={p.h1}
-          ingress={p.ingress}
-          fet={p.fet}
-          primar={p.primar ? { text: p.primar.text, href: p.primar.href, dataCta: p.primar.dataCta } : null}
-          sekundar={p.sekundar}
-          tal={p.talEfterHandling ? undefined : p.loften}
-          bildLag
-          bild={p.telefon}
-        />
+        {p.provHjalte ? (
+          <Rum rum={p.rum} yta="vagg" id="hjalte" className="pub-provhjalte">
+            <div className="pub-wrap pub-provhjalte-text">
+              <Breadcrumb items={p.brodsmulor} />
+              <p className="pub-kick">{kick(p.eyebrow)}</p>
+              <h1 className="pub-h1">{p.h1}</h1>
+              <p className="pub-ingress">
+                {p.ingress}
+                {p.fet ? (
+                  <>
+                    {' '}
+                    <b>{p.fet}</b>
+                  </>
+                ) : null}
+              </p>
+            </div>
+          </Rum>
+        ) : (
+          <Hjalte
+            id="hjalte"
+            rum={p.rum}
+            yta="vagg"
+            vag="mark"
+            brodsmulor={p.brodsmulor}
+            kick={kick(p.eyebrow)}
+            h1={p.h1}
+            ingress={p.ingress}
+            fet={p.fet}
+            primar={p.primar ? { text: p.primar.text, href: p.primar.href, dataCta: p.primar.dataCta } : null}
+            sekundar={p.sekundar}
+            tal={p.talEfterHandling ? undefined : p.loften}
+            bildLag
+            bild={p.telefon}
+          />
+        )}
 
         {/* 2. Handlingen, direkt under hjälten */}
         {p.handling ? (
-          <Rum yta="mark" storlek="tat" id={p.handlingId}>
+          <Rum yta="mark" storlek="tat" id={p.handlingId} className={p.provHjalte ? 'pub-provhandling' : undefined}>
             <div className="pub-wrap">
               {/* Handlingen bär sitt eget kort (CV-analysen, provet, demon). */}
               {p.handling}
