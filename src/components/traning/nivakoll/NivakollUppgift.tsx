@@ -90,6 +90,8 @@ export default function NivakollUppgift({ u, nr, antal, vald, onValj, genomgang 
       />
     )
   }
+  // Etapp 6: talserier, spatial och ordförråd ritas bara i ramen (Steg2Nivakoll).
+  if (u.kind !== 'verbal' && u.kind !== 'numerisk') return null
   const ul = underlag[u.underlag]
   return (
     <div className="flex flex-col gap-3.5" data-nivakoll-uppgift={u.kind}>

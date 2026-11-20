@@ -6,8 +6,9 @@
 //
 // - Servern dömer. Klienten får uppgifterna utan facit; genomgången kommer i
 //   svaret på varje svar.
-// - Nivå: grund tills bästa grundtestet är minst SITTER_PROCENT, sedan
-//   avancerad. Ingen Nivåkoll för de nya typerna än (briefen beslut 6).
+// - Nivå: Nivåkollen bestämmer när den finns (etapp 6, samma regel som
+//   figur-, deduktiv- och text- och sifferpassen: passNivaFor); annars grund
+//   tills bästa grundtestet är minst SITTER_PROCENT, sedan avancerad.
 // - Spatial förmåga: två uppgifter per form (A, B, C). Riktat pass: alla ur
 //   en grupp (regelfamilj eller form).
 // - Exponering: uppgifter sedda i nivåtest och pass de senaste 30 dagarna
@@ -28,6 +29,8 @@ import { harVnPass } from '../pass.server';
 import { passNiva, tappadeFamiljer } from '../pass-urval';
 import { blandaSeedat, valjFigurer } from '../pass-figur';
 import { steg2Motor, type Steg2Motor } from './motor.server';
+import { passNivaFor, senasteNivakollNiva } from '@/lib/nivakoll/las.server';
+import { NIVAKOLL_TEST_TYPE } from '@/lib/nivakoll/niva';
 import {
   STEG2_PASS_ANTAL,
   STEG2_PASS_TEST_TYPE,
@@ -110,24 +113,35 @@ function idsForRad(m: Steg2Motor, r: Rad): string[] {
 
 async function lasLage(admin: Klient, m: Steg2Motor, userId: string) {
   const kind = m.kind as Steg2PassKind;
-  const { data, error } = await admin
-    .from('logic_test_v4_sessions')
-    .select(KOLUMNER)
-    .eq('user_id', userId)
-    .in('test_type', [...NIVA_SLUGAR[kind], STEG2_PASS_TEST_TYPE[kind]])
-    .order('created_at', { ascending: false })
-    .limit(300);
+  // Nivåkollens uppgifter räknas som sedda, och dess nivå väljer passets nivå (etapp 6).
+  const [{ data, error }, nivakoll] = await Promise.all([
+    admin
+      .from('logic_test_v4_sessions')
+      .select(KOLUMNER)
+      .eq('user_id', userId)
+      .in('test_type', [...NIVA_SLUGAR[kind], STEG2_PASS_TEST_TYPE[kind], NIVAKOLL_TEST_TYPE[kind]])
+      .order('created_at', { ascending: false })
+      .limit(300),
+    senasteNivakollNiva(admin, userId, kind).catch((e) => {
+      console.error('[steg2pass] nivåkollens nivå', e);
+      return null;
+    }),
+  ]);
   if (error) throw error;
-  const rader = (data ?? []) as Rad[];
+  const alla = (data ?? []) as Rad[];
+  // Passens ackumulerade grupper och "senaste test" läser som förut bara nivåtest och pass.
+  const rader = alla.filter((r) => r.test_type !== NIVAKOLL_TEST_TYPE[kind]);
+  const harNivakoll = alla.some((r) => r.test_type === NIVAKOLL_TEST_TYPE[kind] && r.completed_at);
   const sedda = new Map<string, Dag>();
-  for (const r of rader) {
+  for (const r of alla) {
     const dag = dagSthlm(r.created_at);
     for (const id of idsForRad(m, r)) {
       const forra = sedda.get(id);
       if (!forra || forra < dag) sedda.set(id, dag);
     }
   }
-  const niva = passNiva(bastaGrundProcent(rader, GRUND_SLUG[kind])) as Steg2PassNiva;
+  const reserv = passNiva(bastaGrundProcent(rader, GRUND_SLUG[kind])) as Steg2PassNiva;
+  const niva = harNivakoll ? (passNivaFor(kind, nivakoll, reserv) as Steg2PassNiva) : reserv;
   return { rader, sedda, niva };
 }
 

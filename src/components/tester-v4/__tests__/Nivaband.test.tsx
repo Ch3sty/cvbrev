@@ -12,9 +12,9 @@ describe('Nivaband', () => {
     const { container } = render(<Nivaband namn="Spatial förmåga" typ="spatial" lage={omatt} storlek="liten" ton="koppar" />)
     const svg = container.querySelector('svg')!
     expect(svg.getAttribute('aria-label')).toBe('Spatial förmåga: inte mätt än')
-    // Spatial förmåga har ingen Nivåkoll: nivåtestet, aldrig "Nivåkoll, 8 min".
-    expect(svg.textContent).toContain('Nivåtest, 15 uppgifter')
-    expect(svg.textContent).not.toContain('Nivåkoll')
+    // Spatial förmåga har Nivåkollen sedan etapp 6: typens egen tid, aldrig matrisens "8 min".
+    expect(svg.textContent).toContain('Nivåkoll, 6 min')
+    expect(svg.textContent).not.toContain('Nivåtest')
     expect(container.querySelectorAll('line[stroke-dasharray]').length).toBe(3)
     expect(container.querySelector('circle')).toBeNull()
   })

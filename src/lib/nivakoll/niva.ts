@@ -21,8 +21,17 @@
 import { chansRatt } from '@/lib/traning/niva';
 import { SITTER_PROCENT } from '@/lib/tester/resultat';
 
-export type NivakollKind = 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk';
-export const NIVAKOLL_KINDS: readonly NivakollKind[] = ['figurserie', 'deduktiv', 'verbal', 'numerisk'];
+export type NivakollKind = 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad';
+export const NIVAKOLL_KINDS: readonly NivakollKind[] = ['figurserie', 'deduktiv', 'verbal', 'numerisk', 'talserie', 'spatial', 'ordforrad'];
+
+/**
+ * Talserier, spatial förmåga och ordförråd (plan-testflode-2026-11-20 avsnitt
+ * 10, etapp 6): uppgifterna kommer ur steg2-motorerna.
+ */
+export type Steg2NivakollKind = 'talserie' | 'spatial' | 'ordforrad';
+export function arSteg2NivakollKind(v: unknown): v is Steg2NivakollKind {
+  return v === 'talserie' || v === 'spatial' || v === 'ordforrad';
+}
 
 export function arNivakollKind(v: unknown): v is NivakollKind {
   return typeof v === 'string' && (NIVAKOLL_KINDS as readonly string[]).includes(v);
@@ -34,6 +43,9 @@ export const NIVAKOLL_TEST_TYPE: Readonly<Record<NivakollKind, string>> = {
   deduktiv: 'deduktiv-nivakoll',
   verbal: 'verbal-nivakoll',
   numerisk: 'numerisk-nivakoll',
+  talserie: 'talserie-nivakoll',
+  spatial: 'spatial-nivakoll',
+  ordforrad: 'ordforrad-nivakoll',
 };
 
 export const NIVAKOLL_TEST_TYPER = Object.values(NIVAKOLL_TEST_TYPE);

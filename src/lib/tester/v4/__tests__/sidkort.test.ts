@@ -50,15 +50,13 @@ describe('testerKort: Prova något nytt', () => {
     expect(k.skal).toContain('ingår i Alva Logic')
   })
 
-  it('typ utan Nivåkoll: grundnivåtestet', () => {
+  it('ordförråd har Nivåkollen sedan etapp 6: Nivåkollen, inte grundnivåtestet', () => {
     const d = fixturTester('c', 'premium')
-    // I-provet: ordförråd är planens första omätta del och saknar Nivåkoll.
-    const k = testerKort(d)
-    expect(k.slag === 'paborjad' || k.slag === 'grund').toBe(true)
+    // I-provet: ordförråd är planens första omätta del.
     const utan = testerKort({ ...d, typer: d.typer.map((t) => (t.id === 'ordforrad' ? { ...t, niva: { ...t.niva, status: 'omatt' as const, svar: undefined } } : t)) })
-    expect(utan.slag).toBe('grund')
-    expect(utan.knapp.href).toBe('/dashboard/tester/ordforrad-grund')
-    expect(utan.knapp.etikett).toBe('Testa grundnivån')
+    expect(utan.slag).toBe('nivakoll')
+    expect(utan.typ).toBe('ordforrad')
+    expect(utan.knapp.href).toBe('/dashboard/tester/pass?typ=nivakoll&kind=ordforrad')
   })
 
   it('gratis med kvoten slut men Nivåkollen kvar i en omätt typ: Nivåkollen', () => {
@@ -138,12 +136,13 @@ describe('kurvKort: Vad kurvan säger', () => {
     expect(k.panel.text).toBe('Inte mätt än. Provet ligger på avancerad nivå.')
   })
 
-  it('I-provet: planens första del saknar mätning och Nivåkoll, grundnivåtestet', () => {
+  it('I-provet: planens första del saknar mätning, Nivåkollen i ordförråd (etapp 6)', () => {
     const k = kurvKort(fixturUtveckling('c', 'premium'))
     expect(huvudTyp(fixturUtveckling('c', 'premium'))).toBe('ordforrad')
     expect(k.slag).toBe('forsta')
     expect(k.rubrik).toBe('Ingen kurva i ordförråd än')
-    expect(k.knapp.href).toBe('/dashboard/tester/ordforrad-grund')
+    expect(k.knapp.href).toBe('/dashboard/tester/pass?typ=nivakoll&kind=ordforrad')
+    expect(k.knapp.etikett).toBe('Mät din nivå')
   })
 
   it('stått still: senaste mätningen mer än 14 dagar gammal', () => {

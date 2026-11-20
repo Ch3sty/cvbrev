@@ -19,6 +19,9 @@ export const KIND_NAMN: Record<NivakollKind, string> = {
   deduktiv: 'Deduktivt',
   verbal: 'Verbalt',
   numerisk: 'Numeriskt',
+  talserie: 'Talserier',
+  spatial: 'Spatial förmåga',
+  ordforrad: 'Ordförråd',
 };
 
 const KIND_GEMEN: Record<NivakollKind, string> = {
@@ -26,6 +29,9 @@ const KIND_GEMEN: Record<NivakollKind, string> = {
   deduktiv: 'deduktivt',
   verbal: 'verbalt',
   numerisk: 'numeriskt',
+  talserie: 'talserier',
+  spatial: 'spatial förmåga',
+  ordforrad: 'ordförråd',
 };
 
 /** Vad varje banknivå gör, samma ord som Alla tester (NIVA_GOR). */
@@ -34,6 +40,9 @@ const NIVA_GOR: Record<NivakollKind, Partial<Record<BankNiva, string>>> = {
   deduktiv: { grund: 'tre villkor', avancerad: 'fem villkor', expert: 'villkor i rörelse' },
   verbal: { grund: 'svaret står i texten', avancerad: 'två ståndpunkter' },
   numerisk: { grund: 'läs av och räkna', avancerad: 'flera räknesteg', expert: 'prognos och marginal' },
+  talserie: { grund: 'en lucka', avancerad: 'två luckor', expert: 'blandade regler' },
+  spatial: { grund: 'en vikning', avancerad: 'två vikningar', expert: 'speglingar och klipp' },
+  ordforrad: { grund: 'vardagsord', avancerad: 'formella ord', expert: 'lånord' },
 };
 
 const NIVA_ORD: Record<BankNiva, string> = { grund: 'grundnivå', avancerad: 'avancerad nivå', expert: 'expertnivå' };
@@ -44,6 +53,9 @@ export const PASS_NAMN: Record<NivakollKind, string> = {
   deduktiv: 'Träning i deduktiv slutledning',
   verbal: 'Träning i ord och text',
   numerisk: 'Träning i siffror och tabeller',
+  talserie: 'Träning i talserier',
+  spatial: 'Träning i spatial förmåga',
+  ordforrad: 'Träning i ordförråd',
 };
 
 /** Cirka-tiden per typ på startraderna. */
@@ -52,6 +64,9 @@ export const MINUTER: Record<NivakollKind, number> = {
   deduktiv: NIVAKOLL_OMFANG.deduktiv.minuter,
   verbal: NIVAKOLL_OMFANG.verbal.minuter,
   numerisk: NIVAKOLL_OMFANG.numerisk.minuter,
+  talserie: NIVAKOLL_OMFANG.talserie.minuter,
+  spatial: NIVAKOLL_OMFANG.spatial.minuter,
+  ordforrad: NIVAKOLL_OMFANG.ordforrad.minuter,
 };
 
 function grad(andel: number): string {

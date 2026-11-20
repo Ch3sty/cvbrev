@@ -19,7 +19,7 @@ import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { nivaHeltal } from '@/lib/traning/pass-copy'
-import { TRANING_RUTT } from '@/lib/traning/rutter'
+import { steg2PassHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { NIVAKOLL_COPY, nivaMening } from '@/lib/nivakoll/copy'
 import type { NivakollKind } from '@/lib/nivakoll/niva'
 import type { NivakollVy } from '@/lib/nivakoll/typer'
@@ -34,6 +34,10 @@ const PASS_HREF: Record<NivakollKind, string> = {
   deduktiv: TRANING_RUTT.deduktivpass,
   verbal: TRANING_RUTT.textpass,
   numerisk: TRANING_RUTT.sifferpass,
+  // Etapp 6: de tre nya Nivåkollerna går i ramen (Steg2Nivakoll); den här vyn används inte för dem.
+  talserie: steg2PassHref('talserie'),
+  spatial: steg2PassHref('spatial'),
+  ordforrad: steg2PassHref('ordforrad'),
 }
 
 export default function NivakollResultatVy({

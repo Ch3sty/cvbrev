@@ -31,6 +31,7 @@ import { byggTesterV4, byggUtvecklingV4, type ModellIn, type TypUnderlag } from 
 import { svagasteMonster, tempoForSessioner, MONSTER_DAGAR } from './monster';
 import { byggPunkter, klassa, PUNKT_TEST_TYPER, type NivapunktRad, type SessionRad } from './punkter';
 import { NIVAKOLL_FINNS } from './rutter';
+import { nivakollOmfang } from '@/lib/nivakoll/omfang';
 import { nivaUrNivatest, steg2NivatestTyp } from './steg2-niva.server';
 import { TEST_TYP_ORDNING, arTestTypId, type MonsterLage, type PlanV4, type TestTypId, type TesterV4Data, type UtvecklingV4Data } from './typer';
 
@@ -175,7 +176,8 @@ export function planV4(status: Traningsstatus | null, idag: Dag): PlanV4 | null 
   };
 }
 
-const NIVAKOLL_ANTAL = 12;
+/** Antal uppgifter i en påbörjad Nivåkoll per typ (plan-testflode beslut 7): ur omfånget, matrisens tolv som reserv. */
+const nivakollAntal = (typ: TestTypId): number => nivakollOmfang(typ)?.uppgifter ?? 12;
 
 /** Underlaget för modellen ur databasen. Delas av Hem, Tester och Din utveckling inom en rendering. */
 export const hamtaUnderlagV4 = cache(async (userId: string): Promise<{ modell: ModellIn; valdeTester: boolean; status: Traningsstatus | null }> => {
@@ -223,9 +225,10 @@ export const hamtaUnderlagV4 = cache(async (userId: string): Promise<{ modell: M
         : svagasteMonster(svar.filter((s) => s.completed_at), (f) => familjNamn(typ, f));
     const budget =
       typ === 'matris' ? status?.format.budget_s ?? null : typ === 'figurserie' || typ === 'deduktiv' || typ === 'verbal' || typ === 'numerisk' ? NIVAKOLL_BUDGET_S[typ] : null;
+    const antalKoll = nivakollAntal(typ);
     typer[typ] = {
       punkter: egna,
-      paborjad: besvarade > 0 && besvarade < NIVAKOLL_ANTAL ? { besvarade, antal: NIVAKOLL_ANTAL } : null,
+      paborjad: besvarade > 0 && besvarade < antalKoll ? { besvarade, antal: antalKoll } : null,
       svagaste: svag,
       monster: svag ? [svag] : [],
       tempo: budget ? tempoForSessioner(svar.filter((s) => s.completed_at), budget) : null,

@@ -49,8 +49,8 @@ export function tranaHref(typ: TestTypId, familj?: string | null): string {
 }
 
 /**
- * Typerna där Nivåkollen finns i dag. Talserie, spatial och ordförråd får sin
- * i A7; till dess visar kortet omätt band och hinten pekar på grundnivån.
+ * Typerna där Nivåkollen finns. Sedan etapp 6 (plan-testflode-2026-11-20)
+ * alla åtta; tabellen står kvar så att en typ kan stängas på ett ställe.
  */
 export const NIVAKOLL_FINNS: Readonly<Record<TestTypId, boolean>> = {
   matris: true,
@@ -58,16 +58,15 @@ export const NIVAKOLL_FINNS: Readonly<Record<TestTypId, boolean>> = {
   deduktiv: true,
   verbal: true,
   numerisk: true,
-  talserie: false,
-  spatial: false,
-  ordforrad: false,
+  talserie: true,
+  spatial: true,
+  ordforrad: true,
 };
 
 /** Nivåkollen i typen. Null där den inte finns än. */
 export function nivakollHrefV4(typ: TestTypId): string | null {
   if (typ === 'matris') return passHref('matning');
-  if (typ === 'figurserie' || typ === 'deduktiv' || typ === 'verbal' || typ === 'numerisk') return nivakollHref(typ);
-  return NIVAKOLL_FINNS[typ] ? `/dashboard/tester/pass?typ=nivakoll&kind=${typ}` : null;
+  return NIVAKOLL_FINNS[typ] ? nivakollHref(typ) : null;
 }
 
 const SLUG_PREFIX: Readonly<Record<TestTypId, string>> = {
@@ -116,8 +115,7 @@ export function genomgangHref(sessionId: string): string {
 
 /**
  * Raden för en omätt testtyp: Nivåkollen där den finns, med typens egen tid
- * ("Nivåkoll, 7 min"), annars nivåtestet på grundnivå (talserier, spatial
- * förmåga, ordförråd har ingen Nivåkoll).
+ * ("Nivåkoll, 7 min"), annars nivåtestet på grundnivå.
  */
 export function omattMeta(typ: TestTypId): string {
   const o = NIVAKOLL_FINNS[typ] ? nivakollOmfang(typ) : null;

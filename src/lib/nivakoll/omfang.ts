@@ -13,7 +13,7 @@
 // Ren, inga beroenden, går att importera från klienten.
 // =============================================================================
 
-export type NivakollTypId = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk';
+export type NivakollTypId = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad';
 
 export interface NivakollOmfang {
   uppgifter: number;
@@ -27,9 +27,13 @@ export const NIVAKOLL_OMFANG: Readonly<Record<NivakollTypId, NivakollOmfang>> = 
   deduktiv: { uppgifter: 6, minuter: 8 },
   verbal: { uppgifter: 8, minuter: 5 },
   numerisk: { uppgifter: 8, minuter: 10 },
+  // Etapp 6: talserier 9 à 60 s, spatial 9 (tre former per nivå, 30 + 45 + 45 s), ordförråd 12 à 20 s.
+  talserie: { uppgifter: 9, minuter: 9 },
+  spatial: { uppgifter: 9, minuter: 6 },
+  ordforrad: { uppgifter: 12, minuter: 4 },
 };
 
-/** Omfånget för typen, null där Nivåkollen inte finns (talserier, spatial förmåga, ordförråd). */
+/** Omfånget för typen, null där Nivåkollen inte finns. */
 export function nivakollOmfang(typ: string): NivakollOmfang | null {
   return (NIVAKOLL_OMFANG as Record<string, NivakollOmfang>)[typ] ?? null;
 }

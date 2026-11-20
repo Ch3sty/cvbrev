@@ -24,7 +24,9 @@ interface Bas {
 export type NivakollUppgift =
   | (Bas & { kind: 'figurserie'; form: SerieForm; rad: V7Cell[]; options: V7Cell[] })
   | (Bas & { kind: 'deduktiv'; intro: string | null; villkor: string[]; fraga: string; options: string[]; premisser: boolean })
-  | (Bas & { kind: 'verbal' | 'numerisk'; underlag: string; text: string; alternativ: { id: string; text: string }[] });
+  | (Bas & { kind: 'verbal' | 'numerisk'; underlag: string; text: string; alternativ: { id: string; text: string }[] })
+  /** Talserier, spatial förmåga och ordförråd (etapp 6): steg2-motorns visade uppgift, utan facit. */
+  | (Bas & { kind: 'talserie' | 'spatial' | 'ordforrad'; v: Record<string, unknown> });
 
 /** En uppgift i genomgången efter avslutet. */
 export interface NivakollGenomgang {
@@ -38,6 +40,8 @@ export interface NivakollGenomgang {
   misstag: string | null;
   /** Deduktivt: lösningsgången och remsan. */
   losning?: DeduktivLosning | null;
+  /** Talserier, spatial förmåga och ordförråd: steg2-motorns genomgång (regeln och bågarna, uppvikningen, ordets betydelse). */
+  data?: unknown;
 }
 
 export interface NivakollPerNiva {

@@ -52,21 +52,30 @@ import {
 } from '@/lib/tester/sedda.server';
 import { settInomFonstret } from '@/lib/tester/pass-urval';
 import type { VnUnderlag } from '@/lib/tester/pass-typer';
-import { NIVAKOLL_TEST_TYPE, passNivaUrNiva, vantadAndel, type NivakollKind } from './niva';
+import { arSteg2NivakollKind, NIVAKOLL_TEST_TYPE, passNivaUrNiva, vantadAndel, type NivakollKind } from './niva';
+import { bedomSteg2, lasSeddaSteg2, steg2Budget, steg2Grupp, steg2Uppgift, STEG2_NIVAKOLL_URVAL, valjSteg2Nivakoll } from './steg2.server';
 import { pFor, pGrund, pNiva } from './las.server';
 import type { BankNiva, NivakollGenomgang, NivakollResultat, NivakollUppgift, NivakollVy } from './typer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = SupabaseClient<any, any, any>;
 
-/** Provets tid per uppgift: figurserier 45, deduktivt 75, en text 150 på fyra påståenden, ett underlag 300 på fyra frågor. */
-export const NIVAKOLL_BUDGET_S: Readonly<Record<NivakollKind, number>> = { figurserie: 45, deduktiv: 75, verbal: 37, numerisk: 75 };
+/**
+ * Provets tid per uppgift: figurserier 45, deduktivt 75, en text 150 på fyra
+ * påståenden, ett underlag 300 på fyra frågor, talserier 60, ordförråd 20.
+ * Spatial varierar per form (30 eller 45, snittet för urvalets former är 40);
+ * Nivåkollen sparar då tiden per uppgift i metan (budgetar).
+ */
+export const NIVAKOLL_BUDGET_S: Readonly<Record<NivakollKind, number>> = { figurserie: 45, deduktiv: 75, verbal: 37, numerisk: 75, talserie: 60, spatial: 40, ordforrad: 20 };
 
 /** Antal uppgifter per banknivå (figurserier, deduktivt) och antal underlag per nivå (verbalt, numeriskt). */
 export const NIVAKOLL_URVAL = {
   figurserie: { grund: 3, avancerad: 3, expert: 3 },
   deduktiv: { grund: 2, avancerad: 2, expert: 2 },
   underlag: { grund: 1, avancerad: 1 },
+  talserie: STEG2_NIVAKOLL_URVAL.talserie,
+  spatial: STEG2_NIVAKOLL_URVAL.spatial,
+  ordforrad: STEG2_NIVAKOLL_URVAL.ordforrad,
 } as const;
 
 export interface NivakollMeta {
@@ -86,6 +95,8 @@ export interface NivakollMeta {
   dag: Dag;
   antal: number;
   budget_s: number;
+  /** Spatial: provets tid per uppgift när formen varierar (etapp 6). */
+  budgetar?: Record<string, number>;
   deduktiv_version?: number;
   resultat?: NivakollResultat;
   /** Provet utan konto som räknas in (spec-prov-fler-typer avsnitt 5): token och antal svar. */
@@ -144,6 +155,7 @@ export function valjNivakoll(kind: NivakollKind, sedda: Sedda, idag: Dag, seed: 
   const nivaer: Record<string, BankNiva> = {};
   const fragor: string[] = [];
   const upprepade: string[] = [];
+  if (arSteg2NivakollKind(kind)) return valjSteg2Nivakoll(kind, sedda, idag, seed);
   if (kind === 'figurserie' || kind === 'deduktiv') {
     const antal = NIVAKOLL_URVAL[kind];
     for (const n of ['grund', 'avancerad', 'expert'] as const) {
@@ -173,6 +185,7 @@ export function valjNivakoll(kind: NivakollKind, sedda: Sedda, idag: Dag, seed: 
 
 async function lasSedda(admin: Klient, userId: string, kind: NivakollKind): Promise<Sedda> {
   if (kind === 'verbal' || kind === 'numerisk') return (await lasSeddaUnderlag(admin, userId, kind)).sedda;
+  if (arSteg2NivakollKind(kind)) return lasSeddaSteg2(admin, userId, kind);
   const typer = kind === 'figurserie' ? seddaFigurTestTyper() : seddaDeduktivTestTyper();
   const { data, error } = await admin
     .from('logic_test_v4_sessions')
@@ -189,6 +202,7 @@ async function lasSedda(admin: Klient, userId: string, kind: NivakollKind): Prom
 /* ------------------------------- Klientformen ------------------------------ */
 
 export function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, sessionId: string, delar: readonly string[]): NivakollUppgift | null {
+  if (arSteg2NivakollKind(kind)) return steg2Uppgift(kind, nyckel, niva, sessionId);
   if (kind === 'figurserie') {
     const q = hittaFigurFraga(nyckel);
     if (!q) return null;
@@ -211,6 +225,7 @@ export function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, s
 
 /** Rättningen av ett svar (null = "Vet inte"): selected i originalindex, och genomgången. */
 export function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | null, sessionId: string): { selected: number; correct: boolean; genomgang: NivakollGenomgang } | null {
+  if (arSteg2NivakollKind(kind)) return bedomSteg2(kind, u.nyckel, svar, sessionId);
   if (kind === 'figurserie') {
     const q = hittaFigurFraga(u.nyckel);
     if (!q) return null;
@@ -248,6 +263,7 @@ export function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | nul
 }
 
 function familjNamn(kind: NivakollKind, u: NivakollUppgift, svar: string | null): string | null {
+  if (arSteg2NivakollKind(kind)) return steg2Grupp(kind, u.nyckel);
   if (kind === 'figurserie') return serieFamiljNamn(hittaFigurFraga(u.nyckel)?.family) ?? null;
   if (kind === 'deduktiv') return deduktivFamiljNamn(hittaDeduktivFraga(u.nyckel)?.family) ?? null;
   return vnFamiljNamn(familjForSvar(kind, u.nyckel, svar ?? (kind === 'numerisk' ? null : 'true')));
@@ -364,6 +380,7 @@ export async function skapaNivakoll(args: { supabase: Klient; admin: Klient; use
     dag: idag,
     antal: val.fragor.length,
     budget_s: NIVAKOLL_BUDGET_S[args.kind],
+    ...(args.kind === 'spatial' ? { budgetar: Object.fromEntries(val.fragor.map((n) => [n, steg2Budget('spatial', n)])) } : {}),
     ...(args.kind === 'deduktiv' ? { deduktiv_version: DEDUKTIV_VERSION } : {}),
     ...(smak ? { smakprov: { token: smak.token, antal: smak.svar.length } } : {}),
   };
@@ -521,7 +538,10 @@ export function raknaNivakoll(args: {
    * resultatet men räknas inte i nivån. Är alla upprepade står nivån kvar.
    */
   upprepade?: ReadonlySet<string>;
+  /** Provets tid per uppgift när den varierar (spatial), annars budget_s för alla. */
+  budgetar?: Readonly<Record<string, number>>;
 }): NivakollResultat {
+  const budgetFor = (n: string) => args.budgetar?.[n] ?? args.budget_s;
   const per = new Map(args.svar.map((s) => [s.q_id, s]));
   const nivaSvar = args.uppgifter.map((u) => ({ p: args.p(u.nyckel), correct: per.get(u.nyckel)?.correct === true }));
   const upp = args.upprepade ?? new Set<string>();
@@ -545,8 +565,8 @@ export function raknaNivakoll(args: {
     ratt: nivaSvar.filter((x) => x.correct).length,
     antal: args.uppgifter.length,
     tid_s,
-    budget_s: args.budget_s * args.uppgifter.length,
-    over_tid: args.svar.filter((s) => s.time_spent > args.budget_s).length,
+    budget_s: args.uppgifter.reduce((s, u) => s + budgetFor(u.nyckel), 0),
+    over_tid: args.svar.filter((s) => s.time_spent > budgetFor(s.q_id)).length,
     perNiva,
     tappade,
     passNiva: passNivaUrNiva(niva, args.pGrund),
@@ -586,6 +606,7 @@ export async function slutforNivakoll(args: { admin: Klient; userId: string; ses
     pBank: { grund: pNiva(kind, 'grund'), avancerad: pNiva(kind, 'avancerad'), expert: kind === 'verbal' ? [] : pNiva(kind, 'expert') },
     pGrund: pGrund(kind),
     upprepade: new Set(meta.upprepade),
+    budgetar: meta.budgetar,
   });
 
   const upprepade = new Set(meta.upprepade);

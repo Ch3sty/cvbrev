@@ -300,7 +300,7 @@ async function main() {
   const [{ data: dedPass }, { data: dedProv }, { data: koll }] = await Promise.all([
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-pass').limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-prov').limit(1),
-    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).in('test_type', ['deduktiv-nivakoll', 'figurserie-nivakoll', 'verbal-nivakoll', 'numerisk-nivakoll']).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).in('test_type', ['deduktiv-nivakoll', 'figurserie-nivakoll', 'verbal-nivakoll', 'numerisk-nivakoll', 'talserie-nivakoll', 'spatial-nivakoll', 'ordforrad-nivakoll']).limit(1),
   ]);
   const [{ data: vSess }, { data: nSess }] = await Promise.all([
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'verbal-resonemang').is('completed_at', null).limit(1),

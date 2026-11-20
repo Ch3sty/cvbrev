@@ -36,10 +36,11 @@ describe('startFor: aldrig en betalvägg för gratis', () => {
     expect(startFor('verbal', g({ nivakollGjord: { verbal: true } }))).toBeNull();
     expect(startFor('verbal', g({ premium: true, nivakollGjord: { verbal: true } }))?.slag).toBe('nivakoll');
   });
-  it('talserier, spatial och ordförråd: grundnivåns nivåtest, bara med dagens gratistest kvar', () => {
-    expect(startFor('talserie', g())).toEqual({ slag: 'nivatest', href: '/dashboard/tester/talserier-grund' });
-    expect(startFor('spatial', g({ grundKvarIdag: 0 }))).toBeNull();
-    expect(startFor('ordforrad', g({ premium: true, grundKvarIdag: 0 }))?.slag).toBe('nivatest');
+  it('talserier, spatial och ordförråd: Nivåkollen sedan etapp 6, en gång gratis', () => {
+    expect(startFor('talserie', g())).toEqual({ slag: 'nivakoll', href: '/dashboard/tester/pass?typ=nivakoll&kind=talserie' });
+    expect(startFor('spatial', g({ grundKvarIdag: 0 }))?.slag).toBe('nivakoll');
+    expect(startFor('ordforrad', g({ nivakollGjord: { ordforrad: true } }))).toBeNull();
+    expect(startFor('ordforrad', g({ premium: true, grundKvarIdag: 0, nivakollGjord: { ordforrad: true } }))?.slag).toBe('nivakoll');
   });
 });
 
@@ -47,15 +48,15 @@ describe('tomläget (M3)', () => {
   it('utan plan: matrisens Nivåkoll', () => {
     expect(tomStart(tom('a'))).toMatchObject({ typ: 'matris', slag: 'nivakoll', href: '/dashboard/tester/pass?typ=matning' });
   });
-  it('I-provet: planens första typ, ordförråd, med grundnivåtestet', () => {
+  it('I-provet: planens första typ, ordförråd, med Nivåkollen (etapp 6)', () => {
     const ut = tomStart(tom('c'));
-    expect(ut).toMatchObject({ typ: 'ordforrad', slag: 'nivatest', href: '/dashboard/tester/ordforrad-grund' });
+    expect(ut).toMatchObject({ typ: 'ordforrad', slag: 'nivakoll', href: '/dashboard/tester/pass?typ=nivakoll&kind=ordforrad' });
   });
-  it('I-provet med dagens gratistest använt: nästa typ med fri Nivåkoll, aldrig betalväggen', () => {
+  it('I-provet med Nivåkollen i ordförråd gjord: nästa typ med fri Nivåkoll, aldrig betalväggen', () => {
     const d = tom('c');
-    const ut = tomStart({ ...d, gratis: { ...d.gratis, grundKvarIdag: 0 } });
+    const ut = tomStart({ ...d, gratis: { ...d.gratis, grundKvarIdag: 0, nivakollGjord: { ordforrad: true } } });
     expect(ut.slag).toBe('nivakoll');
-    expect(ut.typ).toBe('matris');
+    expect(ut.typ).not.toBe('ordforrad');
   });
   it('gamla Nivåkollen gjord i matrisen: nästa typ, inte betalväggen', () => {
     const d = tom('a');

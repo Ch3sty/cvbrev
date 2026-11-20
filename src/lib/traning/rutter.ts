@@ -26,11 +26,12 @@ export function vnPassHref(kind: 'verbal' | 'numerisk', familj?: string | null):
 }
 
 /**
- * Nivåkollen för figurserier, deduktivt, verbalt och numeriskt (testplanen
- * steg 1): /dashboard/tester/pass?typ=nivakoll&kind=deduktiv. Matrisens
- * Nivåkoll är passHref('matning').
+ * Nivåkollen för figurserier, deduktivt, verbalt, numeriskt (testplanen
+ * steg 1), talserier, spatial förmåga och ordförråd (etapp 6):
+ * /dashboard/tester/pass?typ=nivakoll&kind=deduktiv. Matrisens Nivåkoll är
+ * passHref('matning').
  */
-export function nivakollHref(kind: 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk'): string {
+export function nivakollHref(kind: 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad'): string {
   return `/dashboard/tester/pass?typ=nivakoll&kind=${kind}`;
 }
 

@@ -90,11 +90,12 @@ describe('TypMenyPanel', () => {
     expect(meny.querySelectorAll('[data-testa] a[href]').length).toBe(3)
   })
 
-  it('talserier: nivåtestet mäter nivån, texten säger det', () => {
+  it('talserier: Nivåkollen mäter nivån sedan etapp 6, nivåtestet flyttar den inte', () => {
     const { container } = rita('c', 'premium', 'talserie')
     const meny = document.querySelector('[data-meny]') as HTMLElement
-    expect(within(meny).getByText('Du får resultat i procent, och nivåtestet mäter din nivå.')).toBeTruthy()
-    expect(within(meny).queryByText('Du får resultat i procent. Flyttar inte din nivå.')).toBeNull()
+    expect(within(meny).getByText('Du får resultat i procent. Flyttar inte din nivå.')).toBeTruthy()
+    expect(within(meny).queryByText('Du får resultat i procent, och nivåtestet mäter din nivå.')).toBeNull()
+    expect(within(meny).getByText('Nio uppgifter, cirka nio minuter. Högst en om dagen räknas.')).toBeTruthy()
     void container
   })
 })

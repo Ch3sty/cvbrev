@@ -154,8 +154,9 @@ function kallasFor(t: Deltyp): string {
   return t === 'personlighet' ? TESTER.personlighet.text : KALLAS[t];
 }
 
-type NivakollTyp = 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk';
-const NIVAKOLL_TYPER: readonly Deltyp[] = ['figurserie', 'deduktiv', 'verbal', 'numerisk'];
+type NivakollTyp = 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad';
+// Etapp 6 (plan-testflode-2026-11-20): talserier, spatial förmåga och ordförråd har Nivåkollen som webben.
+const NIVAKOLL_TYPER: readonly Deltyp[] = ['figurserie', 'deduktiv', 'verbal', 'numerisk', 'talserie', 'spatial', 'ordforrad'];
 const STEG2_TYPER: readonly Deltyp[] = ['talserie', 'spatial', 'ordforrad'];
 
 /** Syns testtypen i appen? Samma regel som v4 (hamta.server.ts: deltypSynlig). */

@@ -9,7 +9,8 @@ import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { register } from '@/lib/fragor/register.server';
 import { pForFraga, svarighetPrior, type FragaStatistik } from '@/lib/traning/svarighet';
-import { passNivaUrNiva, type NivakollKind } from './niva';
+import { arSteg2NivakollKind, passNivaUrNiva, type NivakollKind } from './niva';
+import { pNivaSteg2, pSteg2Nivakoll } from './steg2.server';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = SupabaseClient<any, any, any>;
@@ -27,11 +28,14 @@ export function priorFor(kind: NivakollKind, id: string): number | null {
 
 /** p för en uppgift: uppmätt från 30 svar, annars bankens prior (svarighet.ts). */
 export function pFor(kind: NivakollKind, id: string, stat?: FragaStatistik | null): number {
+  // Talserier, spatial och ordförråd står inte i registret: bankens p_prior eller nivåns prior (etapp 6).
+  if (arSteg2NivakollKind(kind)) return pSteg2Nivakoll(kind, id, stat);
   return pForFraga(svarighetPrior(3), stat ?? null, priorFor(kind, id));
 }
 
 /** En banknivås andelar per typ (registret, de aktiva). */
 export function pNiva(kind: NivakollKind, niva: 'grund' | 'avancerad' | 'expert'): number[] {
+  if (arSteg2NivakollKind(kind)) return pNivaSteg2(kind, niva);
   return register()
     .filter((r) => r.test_kind === kind && r.niva === niva && !r.pensionerad)
     .map((r) => r.p_prior);

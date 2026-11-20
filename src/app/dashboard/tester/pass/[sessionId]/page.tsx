@@ -17,6 +17,7 @@ import VnTrana from '@/components/session/vn/VnTrana'
 import VnNivakoll from '@/components/session/vn/VnNivakoll'
 import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
 import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
+import Steg2Nivakoll from '@/components/session/steg2/Steg2Nivakoll'
 import { lasTestInstallningar } from '@/lib/tester/installningar.server'
 import { senasteNivakollNiva } from '@/lib/nivakoll/las.server'
 import { dagSthlm } from '@/lib/traning/datum'
@@ -120,6 +121,11 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     if (kollVy.kind === 'deduktiv') {
       const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
       return <DeduktivNivakoll vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
+    }
+    // Etapp 6: talserier, spatial förmåga och ordförråd.
+    if (kollVy.kind === 'talserie' || kollVy.kind === 'spatial' || kollVy.kind === 'ordforrad') {
+      const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
+      return <Steg2Nivakoll kind={kollVy.kind} vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
     }
     return <NivakollFlode vy={kollVy} betalande={betalande} />
   }

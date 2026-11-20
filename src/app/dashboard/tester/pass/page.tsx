@@ -30,7 +30,9 @@ import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
 import Steg2Trana from '@/components/session/steg2/Steg2Trana'
 import { steg2TranaStart } from './start-steg2.server'
 import { steg2Synlig } from '@/lib/tester/steg2Status'
-import { arNivakollKind } from '@/lib/nivakoll/niva'
+import { arNivakollKind, arSteg2NivakollKind } from '@/lib/nivakoll/niva'
+import Steg2Nivakoll from '@/components/session/steg2/Steg2Nivakoll'
+import { steg2NivakollStart } from './start-nivakoll-steg2.server'
 import type { Begard } from '@/lib/traning/tillgang'
 import { passSida } from './sida.server'
 
@@ -102,6 +104,13 @@ export default async function PassStartSida({
       const st = await deduktivNivakollStart(supabase, testSkrivKlient(), userId)
       if (st.idagKlar) return <DeduktivNivakoll key="nivakoll|deduktiv|klar" vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
       return <DeduktivNivakoll key="nivakoll|deduktiv" start={st.start} betalande={betalande} datum={st.datum} />
+    }
+    // Etapp 6: talserier, spatial förmåga och ordförråd i ramen.
+    if (arSteg2NivakollKind(kind)) {
+      if (!steg2Synlig(kind)) redirect(TRANING_RUTT.alla)
+      const st = await steg2NivakollStart(supabase, testSkrivKlient(), userId, kind)
+      if (st.idagKlar) return <Steg2Nivakoll key={`nivakoll|${kind}|klar`} kind={kind} vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
+      return <Steg2Nivakoll key={`nivakoll|${kind}`} kind={kind} start={st.start} betalande={betalande} datum={st.datum} />
     }
     return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
   }
