@@ -315,3 +315,55 @@ Premiumkontot `…+jobbcoach-qa-omg2-premium@gmail.com`: en plan i `test_planer`
 - Hela omgången: `git revert -m 1 <merge-commit på main>` om grenen slås ihop med en merge, annars `git revert --no-edit 4d7347dd..<sista commit>` i ett svep. Ingen databasändring finns att backa; planraden och sessionerna ovan är vanliga användardata.
 - Bara gränssnittet: revertera commits från `673093ce` och framåt utom bankinnehållets (`23d8ad41` till `0c167cb6`, `effc4cf3`). Bankfälten (`losning`, `stod`, `narmast`, `formell`, `ledNamn`) är valfria i typerna och läses bara av det nya gränssnittet, så bankerna kan stå kvar när gränssnittet backas. De rättade definitionerna och misstagstexterna är rättelser och bör stå kvar.
 - En enskild rättning i steg 4 backas med `git revert <hash>` (listan ovan); de är oberoende av varandra utom att `d0c33725` använder `session/resultat/monster.ts` från `2795629d`.
+
+## Publika proven, omgång 3 (2026-11-21)
+
+Provsidan (`/verktyg/rekryteringstester/prova`), provet i artiklarna, registreringens provpanel och personlighetsprovet i omgång 3:s formspråk. Ägarens beslut A till G i byggspecen för de publika proven. Gren `feat/publika-prov-omgang3`, inte pushad vid slutkontrollen.
+
+### Commits
+
+- `ac53488a` servern: ett öppet facit per prov, valt av servern; mätningens nya egenskaper och händelser; kontrakttester.
+- `a24fc818` provsidans resultat och spärren i tre varianter, Google-knappen med token, startskärmens typval.
+- `d059cdea` provet i artiklarna: resultatet utan rubriker, kontoraden på telefon, provtexten.
+- `3422f883` registreringens provpanel och det konkreta löftet.
+- `f367ff6c` (via merge `1e28bea7`) personlighetsprovet, byggt på egen gren.
+- Rättningar efter granskningen: `e3fc92d6` typvalet som rutnät, `6af7f44b` typens symbol i stället för beskurna miniatyrer, `9b1d0b56` typraden i personlighetsprovet en gång i DOM, `cb723874` och `054e4f3e` mörkt läge, `f7ea6e3f` artikelrutans höjd medan resultatet laddas (CLS 0), `6dee5590` tryckytan för Logga in.
+
+### Kontraktet: `oppet_facit`
+
+Rättningen i `POST /api/public/test-session` (`{ token, answers }`) svarar som förut med `{ score, total, fel, percentile }` och dessutom:
+
+- `variant`: `'noll' | 'en' | 'flera'` ur antal missar.
+- `antal_fel`: antal fel eller obesvarade.
+- `oppet_facit`: `{ index, correct, uppgift }` eller null. `index` är 0-baserat som `fel`. Regeln (`src/lib/tests/oppet-facit.ts`, `valjOppetFacit`): två eller fler missar ger första missen, en miss ger första uppgiften hon klarade, noll missar ger första uppgiften. `uppgift` är genomgångens form, samma som sidan efter kontot: typerna `GenomgangUppgift` ur `genomgaProv`, matrisen `{ kind: 'matris', nyckel, data: GenomgangsFraga, valt, correct, misstag }`.
+- Ett rättat prov rättas inte om: samma token ger samma svar, nya svar ignoreras. Startsvaret är oförändrat och bär inget facit.
+- Klienten sparar `oppet_facit` och uppgifterna (utan facit) i fliken (`jc_prova_resultat_v2`), så att resultatet efter Tillbaka från registreringen är detsamma.
+
+### Mätningen
+
+- `signup_gate_shown` får `antal_fel`, `variant` och `facit_oppet` (utöver `plats` och `test_kind`, som fanns).
+- Nya händelser: `gate_cta_clicked` med `position` (`ark`, `kort`, `google`) och `facit_viewed` (en gång per token när det öppna kortet syns). Hjälpare i `src/lib/analytics/sparren.ts`.
+- Kontrollerat i webbläsaren mot bygget med en fångare i stället för PostHog (inget skickades): alla tre egenskaperna i båda ytorna, `gate_cta_clicked` med `kort`, `ark` och `google`, `facit_viewed` en gång per prov.
+
+### Mätvärden (bygget, Pixel 7, 3x CPU, LTE, median av tre, `scripts/perf-publikt.ts`)
+
+| Sida | LCP bygget | LCP www | CLS bygget | CLS www |
+| --- | --- | --- | --- | --- |
+| /verktyg/rekryteringstester/prova | 476 ms | 736 ms | 0 | 0,018 |
+| /verktyg/personlighetstest | 580 ms | 640 ms | 0 | 0 |
+| /artiklar/numeriskt-test-guide | 492 ms | 524 ms | 0 | 0 |
+
+CLS när resultatet laddas in (Pixel 7, riktiga tryck, rättningen fördröjd 1,2 s, bara skiften utan nylig inmatning): provsidan 0 (matris, talserier), artikelrutan 0 (matrigma-test tre gånger, numeriskt-test-guide). Före `f7ea6e3f` var artikelrutan 0,24 till 0,28.
+
+### Kvar
+
+- Inloggningsvägen till kontot (Logga in från resultatet, provet hämtas på valkommen-sidan) är inte genomgången med ett riktigt konto: QA-gratiskontots lösenord är slumpat och fick inte sättas om i slutkontrollen. Länken leder till `/login?redirect=/dashboard/valkommen` och token står kvar i fliken (`jc_pending_test`), som hämtkedjan läser.
+- Startskärmen följer den delade `Startskarm` (knappen i kortet, inte i hjälten som i förlagan); matrisens öppna kort står i en kolumn; domen är `Forklaringen`, inte förlagans tvåspaltsruta.
+- Facittexter finns i fyra JS-filer som bara laddas av den inloggade resultatsidans genomgång (`TestResultsPage`, `NumericalReview` med flera, dynamiskt). Fanns före den här omgången och laddas inte av de publika proven.
+
+### Backning
+
+- Hela omgången: `git revert -m 1 <merge-commit på main>`, eller commitsarna ovan i omvänd ordning. Ingen databasändring finns.
+- Bara gränssnittet: revertera `a24fc818`, `d059cdea`, `3422f883` och rättningarna. Serverns fält är valfria och läses bara av det nya gränssnittet.
+- Stänga det öppna facit för en miss (saas-leads backningsregel): i `valjOppetFacit` i `src/lib/tests/oppet-facit.ts`, returnera `index: -1` när `variant === 'en'`. Servern skickar då `oppet_facit: null` för en miss, gränssnittet visar remsan, de låsta raderna och spärren utan öppet kort, och mätningen skickar `facit_oppet: false`. Varianten och rubriken ("Se regeln bakom uppgiften du missade") står kvar. Kontrakttestet `oppet-facit-kontrakt.test.ts` behöver då ändras för fallet en miss.
+- Stänga det öppna facit helt: samma ändring för alla varianter (`index: -1`).
