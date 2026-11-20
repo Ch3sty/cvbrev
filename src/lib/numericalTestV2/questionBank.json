@@ -130,7 +130,20 @@
         ],
         "correctAnswerId": "c",
         "explanation": "21.5 × (1.11)^6 = 21.5 × 1.870 ≈ 40.2 MSEK.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "21,5 × (1 + 11 / 100)⁶ ≈ 40,2",
+              "etikett": "omsättning i december"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jun"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p01-q04",
@@ -161,7 +174,28 @@
         ],
         "correctAnswerId": "c",
         "explanation": "H2: jul=21.5×1.11=23.9, aug=26.5, sep=29.4, okt=32.7, nov=36.3, dec=40.3. Summa H2 ≈ 189.1. Totalt: 100.9 + 189.1 = 290 MSEK. Bolaget slår årsprognosen 250 MSEK med god marginal.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 + 11 / 100 = 1,11",
+              "etikett": "tillväxtfaktor per månad"
+            },
+            {
+              "uttryck": "21,5 × (1,11 + 1,11² + 1,11³ + 1,11⁴ + 1,11⁵ + 1,11⁶) ≈ 188,8",
+              "etikett": "omsättning andra halvåret"
+            },
+            {
+              "uttryck": "100,9 + 188,8 = 289,7",
+              "etikett": "årsomsättning"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jun"
+            ]
+          }
+        }
       }
     ]
   },
@@ -230,7 +264,20 @@
         ],
         "correctAnswerId": "c",
         "explanation": "28% × 18.5 mdr = 0.28 × 18.5 = 5.18 mdr.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "28 / 100 × 18,5 = 5,18",
+              "etikett": "Alpha AB:s omsättning"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Alpha AB"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p02-q02",
@@ -261,7 +308,20 @@
         ],
         "correctAnswerId": "b",
         "explanation": "22% + 5 procentenheter = 27%.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "22 + 5 = 27 %",
+              "etikett": "Beta Corps nya andel"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Beta Corp"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p02-q03",
@@ -292,7 +352,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Förändring i procent = (27 − 22) / 22 × 100% = 5/22 × 100% ≈ 22.7% ≈ 23%. Skillnaden mellan procentenheter (5) och procent (23) är central.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "22 + 5 = 27",
+              "etikett": "Beta Corps nya andel"
+            },
+            {
+              "uttryck": "(27 − 22) / 22 × 100 ≈ 22,7 %",
+              "etikett": "relativ ökning"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Beta Corp"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p02-q04",
@@ -323,7 +400,24 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Ny marknad: 18.5 × 1.06 = 19.61 mdr. Beta Corp har 27%. Omsättning: 19.61 × 0.27 ≈ 5.30 mdr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "18,5 × (1 + 6 / 100) = 19,61",
+              "etikett": "marknaden 2025"
+            },
+            {
+              "uttryck": "(22 + 5) / 100 × 19,61 ≈ 5,29",
+              "etikett": "Beta Corps omsättning 2025"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Beta Corp"
+            ]
+          }
+        }
       }
     ]
   },
@@ -389,7 +483,25 @@
         ],
         "correctAnswerId": "b",
         "explanation": "(65 − 45) / 45 × 100% = 20/45 × 100% ≈ 44.4%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "65 − 45 = 20",
+              "etikett": "ökningen"
+            },
+            {
+              "uttryck": "20 / 45 × 100 ≈ 44,4 %",
+              "etikett": "ökningen i procent"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Q1",
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p03-q02",
@@ -420,7 +532,24 @@
         ],
         "correctAnswerId": "c",
         "explanation": "65 anställda × 45 000 kr = 2 925 000 kr = 2.93 MSEK per månad.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "65 × 45 000 = 2 925 000",
+              "etikett": "lönekostnad per månad"
+            },
+            {
+              "uttryck": "2 925 000 / 1 000 000 = 2,925",
+              "etikett": "i miljoner kronor"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p03-q03",
@@ -451,7 +580,25 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Total ökning: 65 − 45 = 20 personer över 3 kvartal. Snitt: 20/3 ≈ 6.67 ≈ 7 personer per kvartal.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "65 − 45 = 20",
+              "etikett": "total ökning"
+            },
+            {
+              "uttryck": "20 / 3 ≈ 6,7",
+              "etikett": "ökning per kvartal"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Q1",
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p03-q04",
@@ -482,7 +629,20 @@
         ],
         "correctAnswerId": "b",
         "explanation": "65 × (1.44)^2 = 65 × 2.0736 ≈ 134.8 ≈ 135 personer.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "65 × (1 + 44 / 100)² ≈ 134,8",
+              "etikett": "anställda efter två år till"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Q4"
+            ]
+          }
+        }
       }
     ]
   },
@@ -523,7 +683,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "100 000 × (1.12)^5 = 100 000 × 1.7623 ≈ 176 234 kr.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "100 000 × (1 + 12 / 100)⁵ ≈ 176 234",
+              "etikett": "fondens värde efter fem år"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p04-q02",
@@ -554,7 +722,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Fond efter 8 år: 100 000 × (1.12)^8 ≈ 247 600 kr. Sparkonto: 100 000 × (1.04)^8 ≈ 136 900 kr. Skillnad ≈ 110 700 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "100 000 × (1 + 12 / 100)⁸ ≈ 247 596",
+              "etikett": "fonden efter åtta år"
+            },
+            {
+              "uttryck": "100 000 × (1 + 4 / 100)⁸ ≈ 136 857",
+              "etikett": "sparkontot efter åtta år"
+            },
+            {
+              "uttryck": "247 596 − 136 857 = 110 739",
+              "etikett": "skillnaden"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p04-q03",
@@ -585,7 +769,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Real avkastning = (1 + nominell) / (1 + inflation) − 1 = 1.12 / 1.025 − 1 ≈ 0.0927 = 9.3%.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(1 + 12 / 100) / (1 + 2,5 / 100) × 100 − 100 ≈ 9,3 %",
+              "etikett": "real avkastning per år"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p04-q04",
@@ -657,7 +849,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Pris efter företagsrabatt: 4 000 × (1 − 0.15) = 3 400 kr. Efter 5% kampanj: 3 400 × (1 − 0.05) = 3 230 kr.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 000 × (1 − 15 / 100) = 3 400",
+              "etikett": "efter företagsrabatt"
+            },
+            {
+              "uttryck": "3 400 × (1 − 5 / 100) = 3 230",
+              "etikett": "efter kampanjrabatt"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p05-q02",
@@ -688,7 +892,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Pris inkl moms: 4 000 × 1.25 = 5 000 kr. Efter privatkund-rabatt 10%: 5 000 × 0.90 = 4 500 kr. Efter 5% kampanj: 4 500 × 0.95 = 4 275 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 000 × (1 + 25 / 100) = 5 000",
+              "etikett": "pris inklusive moms"
+            },
+            {
+              "uttryck": "5 000 × (1 − 10 / 100) = 4 500",
+              "etikett": "efter privatkundsrabatt"
+            },
+            {
+              "uttryck": "4 500 × (1 − 5 / 100) = 4 275",
+              "etikett": "efter kampanjrabatt"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p05-q03",
@@ -750,7 +970,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "(4 000 − 3 230) / 4 000 × 100% = 19.25%. Notera att 15% + 5% ≠ 20% när rabatter kedjas — de multipliceras: 1 − 0.85 × 0.95 = 1 − 0.8075 = 0.1925 = 19.25%.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 000 × (1 − 15 / 100) = 3 400",
+              "etikett": "efter företagsrabatt"
+            },
+            {
+              "uttryck": "3 400 × (1 − 5 / 100) = 3 230",
+              "etikett": "efter kampanjrabatt"
+            },
+            {
+              "uttryck": "(4 000 − 3 230) / 4 000 × 100 = 19,25 %",
+              "etikett": "sammanlagd minskning"
+            }
+          ]
+        }
       }
     ]
   },
@@ -791,7 +1027,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Kvadrater: 1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36, 7²=49.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "7² = 49",
+              "etikett": "nästa kvadrattal"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p06-q02",
@@ -822,7 +1066,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är ×2+1: 2×2+1=5, 5×2+1=11, 11×2+1=23, 23×2+1=47, 47×2+1=95.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "47 × 2 + 1 = 95",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p06-q03",
@@ -853,7 +1105,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Differenserna är +1, +2, +3, +4, +5, +6 — alltså +7 nästa. 22 + 7 = 29.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(22 − 16) + 1 = 7",
+              "etikett": "nästa differens"
+            },
+            {
+              "uttryck": "22 + 7 = 29",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p06-q04",
@@ -884,7 +1148,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är ×2+1: 3→7→15→31→63→127. Alternativt: 2^n − 1 (4, 8, 16, 32, 64, 128 minus 1).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "63 × 2 + 1 = 127",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       }
     ]
   },
@@ -949,7 +1221,25 @@
         ],
         "correctAnswerId": "b",
         "explanation": "(11800 − 8200) / 8200 × 100% = 3600 / 8200 × 100% ≈ 43,9% ≈ 44%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "11 800 − 8 200 = 3 600",
+              "etikett": "ökningen"
+            },
+            {
+              "uttryck": "3 600 / 8 200 × 100 ≈ 43,9 %",
+              "etikett": "ökningen i procent"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Q1",
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p07-q02",
@@ -980,7 +1270,28 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Total kostnad Q1 = 1 200 000 + 95 × 8200 = 1 200 000 + 779 000 = 1 979 000 kr. Per enhet: 1 979 000 / 8200 ≈ 241,3 kr. Distraktorn 146 kr är fasta kostnaden per enhet (1 200 000 / 8200 ≈ 146) utan rörlig kostnad.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1,2 × 1 000 000 = 1 200 000",
+              "etikett": "fast kostnad per kvartal i kronor"
+            },
+            {
+              "uttryck": "1 200 000 + 95 × 8 200 = 1 979 000",
+              "etikett": "total kostnad i Q1"
+            },
+            {
+              "uttryck": "1 979 000 / 8 200 ≈ 241,3",
+              "etikett": "styckkostnad i Q1"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Q1"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p07-q03",
@@ -1011,7 +1322,33 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Q4 total kostnad = 1 200 000 + 95 × 11800 = 1 200 000 + 1 121 000 = 2 321 000 kr. Per enhet: 2 321 000 / 11800 ≈ 196,7 kr. Skillnad mot Q1: 241,3 − 196,7 ≈ 44,6 kr ≈ 45 kr. Fasta kostnaden slås ut på fler enheter.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1,2 × 1 000 000 = 1 200 000",
+              "etikett": "fast kostnad per kvartal i kronor"
+            },
+            {
+              "uttryck": "(1 200 000 + 95 × 8 200) / 8 200 ≈ 241,3",
+              "etikett": "styckkostnad i Q1"
+            },
+            {
+              "uttryck": "(1 200 000 + 95 × 11 800) / 11 800 ≈ 196,7",
+              "etikett": "styckkostnad i Q4"
+            },
+            {
+              "uttryck": "241,3 − 196,7 = 44,6",
+              "etikett": "skillnaden"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Q1",
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p07-q04",
@@ -1042,7 +1379,35 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Total volym = 8200 + 9100 + 10400 + 11800 = 39 500 st. Total kostnad = 4 × 1 200 000 + 95 × 39 500 = 4 800 000 + 3 752 500 = 8 552 500 kr. Snittstyckkostnad: 8 552 500 / 39 500 ≈ 216,5 kr. Med 20% påslag: 216,5 × 1,20 ≈ 259,8 kr ≈ 260 kr. Distraktorn 236 kr räknar med fel påslag (cirka 9% istället för 20%: 216,5 × 1,09 ≈ 236). Distraktorn 217 kr är snittstyckkostnaden utan påslag.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "8 200 + 9 100 + 10 400 + 11 800 = 39 500",
+              "etikett": "årsvolym"
+            },
+            {
+              "uttryck": "4 × 1,2 × 1 000 000 + 95 × 39 500 = 8 552 500",
+              "etikett": "årets totala kostnad"
+            },
+            {
+              "uttryck": "8 552 500 / 39 500 ≈ 216,5",
+              "etikett": "genomsnittlig styckkostnad"
+            },
+            {
+              "uttryck": "216,5 × (1 + 20 / 100) = 259,8",
+              "etikett": "pris med påslag"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1113,7 +1478,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "3,8 miljoner USD × 10,60 = 40,28 MSEK. Distraktorn 47,9 är EUR-beloppet (4,2 × 11,40).",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "3,8 × 10,60 = 40,28",
+              "etikett": "USD-omsättning i miljoner kronor"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "USD"
+            ],
+            "kolumner": [
+              "Omsättning (lokal, miljoner)",
+              "Kurs mot SEK"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p08-q02",
@@ -1144,7 +1526,27 @@
         ],
         "correctAnswerId": "b",
         "explanation": "EUR: 4,2 × 11,40 = 47,88. USD: 3,8 × 10,60 = 40,28. GBP: 1,5 × 13,20 = 19,80. NOK: 8,0 × 0,98 = 7,84. Summa: 47,88 + 40,28 + 19,80 + 7,84 = 115,80 MSEK.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4,2 × 11,40 + 3,8 × 10,60 + 1,5 × 13,20 + 8,0 × 0,98 = 115,8",
+              "etikett": "total omsättning i miljoner kronor"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "EUR",
+              "USD",
+              "GBP",
+              "NOK"
+            ],
+            "kolumner": [
+              "Omsättning (lokal, miljoner)",
+              "Kurs mot SEK"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p08-q03",
@@ -1175,7 +1577,35 @@
         ],
         "correctAnswerId": "b",
         "explanation": "EUR i SEK: 47,88 MSEK. Andel: 47,88 / 115,80 × 100% ≈ 41,3%. Distraktorn 35% kommer av att felaktigt dela på en högre total.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4,2 × 11,40 + 3,8 × 10,60 + 1,5 × 13,20 + 8,0 × 0,98 = 115,8",
+              "etikett": "total omsättning i miljoner kronor"
+            },
+            {
+              "uttryck": "4,2 × 11,40 = 47,88",
+              "etikett": "EUR-omsättning i miljoner kronor"
+            },
+            {
+              "uttryck": "47,88 / 115,8 × 100 ≈ 41,3 %",
+              "etikett": "EUR-andelen"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "EUR",
+              "USD",
+              "GBP",
+              "NOK"
+            ],
+            "kolumner": [
+              "Omsättning (lokal, miljoner)",
+              "Kurs mot SEK"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p08-q04",
@@ -1206,7 +1636,35 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Ny EUR-omräkning: 4,2 × 12,00 = 50,40 MSEK, en ökning med 50,40 − 47,88 = 2,52 MSEK. Ny total: 115,80 + 2,52 = 118,32 MSEK. Förändring: 2,52 / 115,80 × 100% ≈ 2,2%. Distraktorn 5,3% är EUR-kursens egen ökning ((12,00 − 11,40)/11,40), inte effekten på totalen.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4,2 × 11,40 + 3,8 × 10,60 + 1,5 × 13,20 + 8,0 × 0,98 = 115,8",
+              "etikett": "total omsättning i miljoner kronor"
+            },
+            {
+              "uttryck": "4,2 × (12,00 − 11,40) = 2,52",
+              "etikett": "ökning av EUR-omsättningen"
+            },
+            {
+              "uttryck": "2,52 / 115,8 × 100 ≈ 2,2 %",
+              "etikett": "ökning av totalen i procent"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "EUR",
+              "USD",
+              "GBP",
+              "NOK"
+            ],
+            "kolumner": [
+              "Omsättning (lokal, miljoner)",
+              "Kurs mot SEK"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1247,7 +1705,27 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Team A: 12 × 950 × 130 = 1 482 000 kr. Team B: 8 × 1 250 × 130 = 1 300 000 kr. Totalt: 1 482 000 + 1 300 000 = 2 782 000 kr ≈ 2,78 MSEK.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "12 × 950 × 130 = 1 482 000",
+              "etikett": "fakturering team A"
+            },
+            {
+              "uttryck": "8 × 1 250 × 130 = 1 300 000",
+              "etikett": "fakturering team B"
+            },
+            {
+              "uttryck": "1 482 000 + 1 300 000 = 2 782 000",
+              "etikett": "total fakturering"
+            },
+            {
+              "uttryck": "2 782 000 / 1 000 000 = 2,782",
+              "etikett": "i miljoner kronor"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p09-q02",
@@ -1278,7 +1756,23 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Totala timmar: (12 + 8) × 130 = 2 600 timmar. Snittpris = total fakturering / timmar = 2 782 000 / 2 600 ≈ 1 070 kr. Distraktorn 1 100 kr är det enkla medelvärdet av 950 och 1 250 (som ignorerar att team A har fler konsulter).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "12 × 950 × 130 + 8 × 1 250 × 130 = 2 782 000",
+              "etikett": "total fakturering"
+            },
+            {
+              "uttryck": "(12 + 8) × 130 = 2 600",
+              "etikett": "fakturerade timmar"
+            },
+            {
+              "uttryck": "2 782 000 / 2 600 = 1 070",
+              "etikett": "snittpris per timme"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p09-q03",
@@ -1309,7 +1803,27 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Total kostnad: 20 konsulter × 62 000 = 1 240 000 kr. Vinst: 2 782 000 − 1 240 000 = 1 542 000 kr. Marginal: 1 542 000 / 2 782 000 × 100% ≈ 55,4%.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "12 × 950 × 130 + 8 × 1 250 × 130 = 2 782 000",
+              "etikett": "total fakturering"
+            },
+            {
+              "uttryck": "(12 + 8) × 62 000 = 1 240 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "2 782 000 − 1 240 000 = 1 542 000",
+              "etikett": "vinst"
+            },
+            {
+              "uttryck": "1 542 000 / 2 782 000 × 100 ≈ 55,4 %",
+              "etikett": "vinstmarginal"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p09-q04",
@@ -1340,7 +1854,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Faktureringen är proportionell mot beläggningen. Break-even kräver fakturering = kostnad. Beläggning = 1 240 000 / 2 782 000 × 100% ≈ 44,6% ≈ 45%. Distraktorn 55% förväxlar break-even-nivån med vinstmarginalen vid full beläggning.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "12 × 950 × 130 + 8 × 1 250 × 130 = 2 782 000",
+              "etikett": "fakturering vid full beläggning"
+            },
+            {
+              "uttryck": "(12 + 8) × 62 000 = 1 240 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "1 240 000 / 2 782 000 × 100 ≈ 44,6 %",
+              "etikett": "beläggning vid break-even"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1409,7 +1939,25 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Total procentuell tillväxt mäts mot startvärdet: (800 − 500) / 500 × 100% = 300 / 500 × 100% = 60,0%. Distraktorn 38% kommer av att felaktigt dela ökningen på slutvärdet (300 / 800 ≈ 37,5%) i stället för på startvärdet. Distraktorn 50% kommer av att dela ökningen på ett avrundat genomsnittsvärde, och 75% av att dela slutvärdet på startvärdet utan att subtrahera (800 / 500 − 1 ger visserligen 60%, men 75% fås om man räknar 300 / 400). Rätt bas är alltid startvärdet 500.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "800 − 500 = 300",
+              "etikett": "ökningen"
+            },
+            {
+              "uttryck": "300 / 500 × 100 = 60 %",
+              "etikett": "total tillväxt i procent"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "2020",
+              "2024"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p10-q02",
@@ -1471,7 +2019,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Med ränta-på-ränta multipliceras kapitalet med 1,05 ett år i taget i tre år: 200 000 × 1,05^3 = 200 000 × 1,157625 = 231 525 kr, alltså cirka 231 500 kr. Distraktorn 230 000 kr använder enkel ränta (200 000 × 0,05 × 3 = 30 000 kr i ränta, alltså 230 000) och missar att räntan själv förräntas. Distraktorn 215 000 kr räknar bara ett och ett halvt års ränta eller använder 2,5% per år. Distraktorn 243 100 kr räknar fyra år i stället för tre (200 000 × 1,05^4 = 243 101).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "200 000 × (1 + 5 / 100)³ = 231 525",
+              "etikett": "placeringens värde efter tre år"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p10-q04",
@@ -1567,7 +2123,31 @@
         ],
         "correctAnswerId": "a",
         "explanation": "USD i SEK: 150 000 × 10,60 = 1 590 000 kr. Total i SEK: EUR 1 368 000 + USD 1 590 000 + GBP 1 122 000 + PLN 1 272 000 = 5 352 000 kr. Andel: 1 590 000 / 5 352 000 × 100% ≈ 29,7%. Distraktorn 25,0% är andelen om man felaktigt antar att alla fyra poster är lika stora (1/4). 25,6% är USD-fakturans andel av summan i LOKALA belopp (150 000 / 585 000 = 25,6%), alltså utan omräkning till kronor. 37,5% är PLN-fakturans andel av summan i lokala belopp (480 000 / 585 000 ≈ 82% är fel; 37,5% fås om man tar USD-fakturan delad på PLN-fakturan, 150 000 / 400 000 — ett godtyckligt felval), och fungerar här som en hög distraktor för den som blandar ihop lokala och omräknade tal.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "150 000 × 10,60 = 1 590 000",
+              "etikett": "USD-fakturan i kronor"
+            },
+            {
+              "uttryck": "120 000 × 11,40 + 1 590 000 + 85 000 × 13,20 + 480 000 × 2,65 = 5 352 000",
+              "etikett": "total inköpskostnad i kronor"
+            },
+            {
+              "uttryck": "1 590 000 / 5 352 000 × 100 ≈ 29,7 %",
+              "etikett": "USD-fakturans andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Leverantör 1 (EUR)",
+              "Leverantör 2 (USD)",
+              "Leverantör 3 (GBP)",
+              "Leverantör 4 (PLN)"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p11-q02",
@@ -1598,7 +2178,27 @@
         ],
         "correctAnswerId": "b",
         "explanation": "EUR: 120 000 × 11,40 = 1 368 000. USD: 150 000 × 10,60 = 1 590 000. GBP: 85 000 × 13,20 = 1 122 000. PLN: 480 000 × 2,65 = 1 272 000. Summa: 1 368 000 + 1 590 000 + 1 122 000 + 1 272 000 = 5 352 000 kr ≈ 5,35 MSEK. Distraktorn 4,23 MSEK glömmer GBP-leverantören (5,352 − 1,122 = 4,230). 4,08 MSEK glömmer PLN-leverantören (5,352 − 1,272 = 4,080). 5,46 MSEK fås om man av misstag använder PLN-kursen 2,65 men adderar PLN-beloppet som 600 000 i stället för 480 000 (600 000 × 2,65 = 1 590 000, vilket ger 5 670 000) — en vanlig avläsningsfälla; alternativt om man räknar EUR med kurs 11,90 i stället för 11,40 (120 000 × 11,90 = 1 428 000, total 5 412 000) hamnar man nära 5,46 MSEK. Båda är typiska fel vid felaktig avläsning eller kursförväxling.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 000 × 11,40 + 150 000 × 10,60 + 85 000 × 13,20 + 480 000 × 2,65 = 5 352 000",
+              "etikett": "total inköpskostnad i kronor"
+            },
+            {
+              "uttryck": "5 352 000 / 1 000 000 = 5,352",
+              "etikett": "i miljoner kronor"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Leverantör 1 (EUR)",
+              "Leverantör 2 (USD)",
+              "Leverantör 3 (GBP)",
+              "Leverantör 4 (PLN)"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p11-q03",
@@ -1660,7 +2260,31 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ny PLN-kostnad: 480 000 × 2,50 = 1 200 000 kr, en minskning med 1 272 000 − 1 200 000 = 72 000 kr. Som andel av totalen: 72 000 / 5 352 000 × 100% ≈ 1,35% ≈ 1,3%. Distraktorn 5,7% är PLN-kursens egen procentuella förändring ((2,65 − 2,50)/2,65 ≈ 5,66%), inte effekten på hela inköpsbudgeten. 2,4% fås om man räknar minskningen mot enbart PLN-postens omräknade värde med fel bas (72 000 / 3 000 000, dvs mot ett antaget delbelopp) eller dubblar den korrekta basandelen — ett typiskt fel där man blandar ihop PLN-postens vikt (1 272 000 / 5 352 000 ≈ 23,8%) med kursförändringen och tar 23,8% × 10% ≈ 2,4%. 0,6% fås om man delar minskningen 72 000 på en felaktig total om 12 000 000 kr (72 000 / 12 000 000), alltså en dubblerad eller felräknad budgetbas.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 000 × 11,40 + 150 000 × 10,60 + 85 000 × 13,20 + 480 000 × 2,65 = 5 352 000",
+              "etikett": "total inköpskostnad i kronor"
+            },
+            {
+              "uttryck": "480 000 × (2,65 − 2,50) = 72 000",
+              "etikett": "minskning av PLN-fakturan"
+            },
+            {
+              "uttryck": "72 000 / 5 352 000 × 100 ≈ 1,3 %",
+              "etikett": "minskning av totalen i procent"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Leverantör 1 (EUR)",
+              "Leverantör 2 (USD)",
+              "Leverantör 3 (GBP)",
+              "Leverantör 4 (PLN)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1725,7 +2349,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Multiplikativt: 2000 × 0,80 × 0,90 = 1600 × 0,90 = 1440 kr. Distraktorn 1 400 kr är fällan att summera rabatterna till 30% och ta 2000 × 0,70, vilket ger ett för lågt pris eftersom andra rabatten räknas på ett redan sänkt belopp.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 000 × (1 − 20 / 100) = 1 600",
+              "etikett": "efter volymrabatt"
+            },
+            {
+              "uttryck": "1 600 × (1 − 10 / 100) = 1 440",
+              "etikett": "efter lojalitetsrabatt"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Produkt A"
+            ]
+          }
+        }
       },
       {
         "id": "numv2-p12-q02",
@@ -1756,7 +2397,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Kvar betalas 0,80 × 0,90 = 0,72, alltså 72% av listpriset. Effektiv rabatt = 1 − 0,72 = 0,28 = 28%. Distraktorn 30% är den felaktiga summeringen av de två rabattsatserna, som missar att andra rabatten verkar på ett mindre belopp.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(1 − 20 / 100) × (1 − 10 / 100) = 0,72",
+              "etikett": "andel av listpriset som betalas"
+            },
+            {
+              "uttryck": "(1 − 0,72) × 100 = 28 %",
+              "etikett": "effektiv rabatt"
+            }
+          ]
+        }
       },
       {
         "id": "numv2-p12-q03",
@@ -1818,7 +2471,31 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Summa listpris: 2000 + 3500 + 1200 + 5000 = 11 700 kr. Efter rabatt: 11 700 × 0,80 × 0,90 = 11 700 × 0,72 = 8 424 kr. Med 25% moms: 8 424 × 1,25 = 10 530 kr. Distraktorn 8 424 kr glömmer momsen och 10 238 kr använder den felaktiga summerade rabatten på 30% (11 700 × 0,70 × 1,25).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 000 + 3 500 + 1 200 + 5 000 = 11 700",
+              "etikett": "summa listpris"
+            },
+            {
+              "uttryck": "11 700 × (1 − 20 / 100) × (1 − 10 / 100) = 8 424",
+              "etikett": "efter båda rabatterna"
+            },
+            {
+              "uttryck": "8 424 × (1 + 25 / 100) = 10 530",
+              "etikett": "inklusive moms"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Produkt A",
+              "Produkt B",
+              "Produkt C",
+              "Produkt D"
+            ]
+          }
+        }
       }
     ]
   }

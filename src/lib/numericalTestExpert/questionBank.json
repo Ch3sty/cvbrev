@@ -61,7 +61,24 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nuvärde år 2 = 400 × 0,8264 = 330,56 tkr, alltså cirka 330,6 tkr. Alternativ b (363,6) är fel diskonteringsfaktor (0,9091 från år 1). Alternativ c är det odiskonterade beloppet. Alternativ d använder år 3-faktorn fel.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "400 × 0,8264 = 330,56",
+              "etikett": "nuvärde år 2"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "2"
+            ],
+            "kolumner": [
+              "Nettokassaflöde (tkr)",
+              "Diskonteringsfaktor"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p01-q02",
@@ -92,7 +109,26 @@
         ],
         "correctAnswerId": "a",
         "explanation": "PV1 = 300 × 0,9091 = 272,73. PV2 = 400 × 0,8264 = 330,56. PV3 = 500 × 0,7513 = 375,66. Summa = 272,73 + 330,56 + 375,66 = 978,95, alltså cirka 979 tkr. Alternativ b är summan av odiskonterade kassaflöden (300 + 400 + 500). Alternativ c är grundinvesteringen. Alternativ d diskonterar alla flöden med samma faktor (0,9091).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "300 × 0,9091 + 400 × 0,8264 + 500 × 0,7513 = 978,94",
+              "etikett": "totalt nuvärde"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "1",
+              "2",
+              "3"
+            ],
+            "kolumner": [
+              "Nettokassaflöde (tkr)",
+              "Diskonteringsfaktor"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p01-q03",
@@ -123,7 +159,30 @@
         ],
         "correctAnswerId": "a",
         "explanation": "NPV = totalt nuvärde − grundinvestering = 978,95 − 900 = 78,95, alltså cirka +79 tkr. Alternativ b använder odiskonterade flöden (1 200 − 900). Alternativ c subtraherar fel (900 − 879). Alternativ d är ett mellansteg utan att alla flöden diskonterats.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "300 × 0,9091 + 400 × 0,8264 + 500 × 0,7513 = 978,94",
+              "etikett": "totalt nuvärde"
+            },
+            {
+              "uttryck": "978,94 − 900 = 78,94",
+              "etikett": "nettonuvärde"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "1",
+              "2",
+              "3"
+            ],
+            "kolumner": [
+              "Nettokassaflöde (tkr)",
+              "Diskonteringsfaktor"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p01-q04",
@@ -154,7 +213,30 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nuvärdet av flödena är oförändrat 978,95 tkr. NPV = 978,95 − 1 000 = −21,05, alltså cirka −21 tkr. Negativt NPV betyder att projektet inte når avkastningskravet och bör avvisas. Alternativ b är NPV vid den gamla investeringen. Alternativ c och d stämmer inte med uträkningen.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "300 × 0,9091 + 400 × 0,8264 + 500 × 0,7513 = 978,94",
+              "etikett": "totalt nuvärde"
+            },
+            {
+              "uttryck": "978,94 − 1 000 = −21,06",
+              "etikett": "nettonuvärde vid högre investering"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "1",
+              "2",
+              "3"
+            ],
+            "kolumner": [
+              "Nettokassaflöde (tkr)",
+              "Diskonteringsfaktor"
+            ]
+          }
+        }
       }
     ]
   },
@@ -220,7 +302,29 @@
         ],
         "correctAnswerId": "a",
         "explanation": "TB per enhet = 260 − 152 = 108 kr. Nollpunkt = fasta kostnader ÷ TB = 486 000 ÷ 108 = 4 500 enheter. Alternativ b delar med rörlig kostnad i stället för TB (486 000 ÷ 152 = 3 197). Alternativ c delar med priset (486 000 ÷ 260 = 1 869). Alternativ d är nollpunkten vid det sänkta priset i fråga 3, inte vid 260 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "260 − 152 = 108",
+              "etikett": "täckningsbidrag per enhet"
+            },
+            {
+              "uttryck": "486 000 / 108 = 4 500",
+              "etikett": "nollpunkt i enheter"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Försäljningspris per enhet",
+              "Rörlig kostnad per enhet",
+              "Fasta kostnader per år"
+            ],
+            "kolumner": [
+              "Värde"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p02-q02",
@@ -251,7 +355,29 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Vid ett resultatkrav läggs vinsten till de fasta kostnaderna innan man dividerar med TB. Krävd volym = (fasta kostnader + vinstkrav) ÷ TB = (486 000 + 270 000) ÷ 108 = 756 000 ÷ 108 = 7 000 enheter. Alternativ b glömmer vinstkravet och ger bara nollpunkten (486 000 ÷ 108 = 4 500). Alternativ c räknar bara de enheter vinsten kräver men glömmer de fasta kostnaderna (270 000 ÷ 108 = 2 500). Alternativ d avrundar TB felaktigt till 100 (756 000 ÷ 100 = 7 560).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "260 − 152 = 108",
+              "etikett": "täckningsbidrag per enhet"
+            },
+            {
+              "uttryck": "(486 000 + 270 000) / 108 = 7 000",
+              "etikett": "volym för resultatkravet"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Försäljningspris per enhet",
+              "Rörlig kostnad per enhet",
+              "Fasta kostnader per år"
+            ],
+            "kolumner": [
+              "Värde"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p02-q03",
@@ -282,7 +408,28 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nytt TB = 233 − 152 = 81 kr. Nollpunkt = 486 000 ÷ 81 = 6 000 enheter. Alternativ b är den gamla nollpunkten vid 260 kr. Alternativ c drar av fel rörlig kostnad och får TB 91 (486 000 ÷ 91 ≈ 5 333). Alternativ d är produktionskapaciteten, inte nollpunkten.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "233 − 152 = 81",
+              "etikett": "nytt täckningsbidrag per enhet"
+            },
+            {
+              "uttryck": "486 000 / 81 = 6 000",
+              "etikett": "ny nollpunkt i enheter"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Rörlig kostnad per enhet",
+              "Fasta kostnader per år"
+            ],
+            "kolumner": [
+              "Värde"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p02-q04",
@@ -384,7 +531,15 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nuvärde år 1 = 400 ÷ 1,08 = 370,37 tkr, alltså cirka 370,4 tkr. Alternativ b multiplicerar i stället med 1,08. Alternativ c är det odiskonterade flödet. Alternativ d är år 2-nuvärdet.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "400 / (1 + 8 / 100) ≈ 370,37",
+              "etikett": "nuvärde år 1"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p03-q02",
@@ -415,7 +570,23 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ackumulerat nuvärde efter år 2 = 713,31 tkr. Återstår = 1 000 − 713,31 = 286,69 tkr, alltså cirka 286,7 tkr. Alternativ b utgår från odiskonterad payback (1 000 − 800). Alternativ c är år 3:s nuvärde. Alternativ d är återstoden efter år 1.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 000 − 713,31 = 286,69",
+              "etikett": "återstår efter år 2"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "2"
+            ],
+            "kolumner": [
+              "Ackumulerat nuvärde (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p03-q03",
@@ -446,7 +617,33 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Investeringen täcks under år 3. Efter år 2 återstår 286,69 tkr och år 3:s nuvärde är 317,53 tkr. Andel av år 3 = 286,69 ÷ 317,53 = 0,903. Payback = 2 + 0,90 = 2,90 år. Alternativ b är odiskonterad payback (1 000 ÷ 400). Alternativ c och d stämmer inte med ackumuleringen.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 000 − 713,31 = 286,69",
+              "etikett": "återstår efter år 2"
+            },
+            {
+              "uttryck": "286,69 / 317,53 ≈ 0,90",
+              "etikett": "andel av år 3"
+            },
+            {
+              "uttryck": "2 + 0,90 = 2,9",
+              "etikett": "diskonterad återbetalningstid"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "2",
+              "3"
+            ],
+            "kolumner": [
+              "Nuvärde av kassaflöde (tkr)",
+              "Ackumulerat nuvärde (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p03-q04",
@@ -477,7 +674,33 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Enkel payback = 1 000 ÷ 400 = 2,5 år. Diskonterad payback = 2,90 år. Skillnad = 2,90 − 2,5 = 0,40 år. Alternativ b förväxlar skillnaden med andelen av år 3 (0,90) som beräknades i fråga 3, i stället för differensen mot enkel payback. Alternativ c bortser från diskonteringseffekten. Alternativ d överskattar skillnaden.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 000 / 400 = 2,5",
+              "etikett": "enkel återbetalningstid"
+            },
+            {
+              "uttryck": "2 + (1 000 − 713,31) / 317,53 ≈ 2,90",
+              "etikett": "diskonterad återbetalningstid"
+            },
+            {
+              "uttryck": "2,90 − 2,5 = 0,4",
+              "etikett": "skillnaden"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "2",
+              "3"
+            ],
+            "kolumner": [
+              "Nuvärde av kassaflöde (tkr)",
+              "Ackumulerat nuvärde (tkr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -539,7 +762,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "PV = 600 ÷ 1,10 + 600 ÷ 1,21 = 545,45 + 495,87 = 1 041,32. NPV = 1 041,32 − 1 000 = 41,32, alltså cirka +41 tkr. Alternativ b är odiskonterat (1 200 − 1 000). Alternativ c diskonterar bara ett år. Alternativ d har fel tecken.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "600 / (1 + 10 / 100) + 600 / (1 + 10 / 100)² ≈ 1 041,32",
+              "etikett": "nuvärde av kassaflödena"
+            },
+            {
+              "uttryck": "1 041,32 − 1 000 = 41,32",
+              "etikett": "nettonuvärde vid 10 procent"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p04-q02",
@@ -601,7 +836,29 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Interpolation: IRR = 13 % + 0,9 ÷ (0,9 + 24,6) × (15 % − 13 %) = 13 % + 0,9 ÷ 25,5 × 2 = 13 % + 0,071 = 13,07 %, alltså cirka 13,1 procent. Alternativ b och d antar att noll ligger i mitten av intervallet, men NPV är mycket nära noll redan vid 13 procent. Alternativ c interpolerar åt fel håll.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "0,9 + 24,6 = 25,5",
+              "etikett": "NPV-fallet mellan 13 och 15 procent"
+            },
+            {
+              "uttryck": "13 + 0,9 / 25,5 × (15 − 13) ≈ 13,1 %",
+              "etikett": "uppskattad internränta"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "13 %",
+              "15 %"
+            ],
+            "kolumner": [
+              "Kalkylränta",
+              "NPV (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p04-q04",
@@ -673,7 +930,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Testa hörnen. Med Pro = 15 (efterfrågetaket) blir monteringen 4×15 = 60 h, kvar 36 h, vilket räcker till 36/3 = 12 Standard. Materialet blir 5×15 + 2×12 = 99 kg (≤ 100, ok). Mix S = 12, Pro = 15 ger 12×400 + 15×700 = 4 800 + 10 500 = 15 300 kr. Alternativet bara Standard (32 st) ger 12 800 kr. Distraktorn 15 500 kr antar S = 12,5, men monteringstiden räcker bara till hela enheter. Maximum = 15 300 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "96 − 4 × 15 = 36",
+              "etikett": "monteringstimmar kvar med 15 Pro"
+            },
+            {
+              "uttryck": "36 / 3 = 12",
+              "etikett": "antal Standard"
+            },
+            {
+              "uttryck": "12 × 400 + 15 × 700 = 15 300",
+              "etikett": "totalt täckningsbidrag"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p05-q02",
@@ -704,7 +977,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Materialåtgång = 2×12 + 5×15 = 24 + 75 = 99 kg. Tillgängligt = 100 kg. Oanvänt = 100 − 99 = 1 kg. Det är monteringstiden (96 h, helt utnyttjad) och efterfrågetaket på Pro som binder, inte materialet.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 × 12 + 5 × 15 = 99",
+              "etikett": "materialåtgång"
+            },
+            {
+              "uttryck": "100 − 99 = 1",
+              "etikett": "oanvänt material"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p05-q03",
@@ -735,7 +1020,27 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Här är fällan att låsa Pro = 15. Pröva att sänka Pro istället. Med fler timmar lönar det sig att frigöra både material och tid till Standard. Pro = 12 ger material 5×12 = 60 kg → kvar 40 kg → 40/2 = 20 Standard, och montering 4×12 = 48 h → kvar 60 h → 60/3 = 20 Standard. Båda bivillkoren räcker exakt till S = 20: material 2×20 + 5×12 = 100 kg (ok), montering 3×20 + 4×12 = 108 h (ok). Mix S = 20, Pro = 12 ger 20×400 + 12×700 = 8 000 + 8 400 = 16 400 kr. Det slår alla mixar med Pro = 15 (som fastnar på max 15 500 kr eftersom materialet då binder). Ökning = 16 400 − 15 300 = 1 100 kr. Distraktorn 200 kr kommer just från att felaktigt hålla Pro fast på 15.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(3 × 100 − 2 × 108) / (3 × 5 − 2 × 4) = 12",
+              "etikett": "antal Pro när material och montering binder"
+            },
+            {
+              "uttryck": "(100 − 5 × 12) / 2 = 20",
+              "etikett": "antal Standard"
+            },
+            {
+              "uttryck": "20 × 400 + 12 × 700 = 16 400",
+              "etikett": "nytt maximalt täckningsbidrag"
+            },
+            {
+              "uttryck": "16 400 − ((96 − 4 × 15) / 3 × 400 + 15 × 700) = 1 100",
+              "etikett": "ökning mot tidigare maximum"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p05-q04",
@@ -863,7 +1168,34 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Rörlig kostnad +10 % → 150×1,10 = 165. Nytt resultat = 10 000×(250 − 165) − 600 000 = 10 000×85 − 600 000 = 250 000 kr. Förändring = (250 000 − 400 000) / 400 000 = −150 000 / 400 000 = −37,5 %.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "150 × (1 + 10 / 100) = 165",
+              "etikett": "ny rörlig kostnad per enhet"
+            },
+            {
+              "uttryck": "10 000 × (250 − 165) − 600 000 = 250 000",
+              "etikett": "nytt rörelseresultat"
+            },
+            {
+              "uttryck": "(400 000 − 250 000) / 400 000 × 100 = 37,5 %",
+              "etikett": "minskning i procent"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Volym (enheter)",
+              "Pris per enhet",
+              "Rörlig kostnad per enhet",
+              "Fasta kostnader"
+            ],
+            "kolumner": [
+              "Basvärde"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p06-q03",
@@ -925,7 +1257,30 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nollresultat kräver 10 000×(pris − 150) − 600 000 = 0 → pris − 150 = 60 → pris = 210 kr. Fallet från 250 till 210 är 40 kr, alltså 40/250 = 16 %. Distraktorn 40 % förväxlar kronfallet (40 kr) med procentfallet.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "600 000 / 10 000 + 150 = 210",
+              "etikett": "pris vid nollresultat"
+            },
+            {
+              "uttryck": "(250 − 210) / 250 × 100 = 16 %",
+              "etikett": "största prisfall i procent"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Volym (enheter)",
+              "Pris per enhet",
+              "Rörlig kostnad per enhet",
+              "Fasta kostnader"
+            ],
+            "kolumner": [
+              "Basvärde"
+            ]
+          }
+        }
       }
     ]
   },
@@ -991,7 +1346,23 @@
         ],
         "correctAnswerId": "c",
         "explanation": "B har 40 av 80 anställda = 50 %. Andel av omkostnaderna = 40/80 × 1 800 000 = 0,5 × 1 800 000 = 900 000 kr. Distraktorn 225 000 kr är B:s andel efter maskintimmar (1 000/8 000 × 1 800 000), 540 000 kr är A:s andel efter anställda och 720 000 kr är ett felräknat 40 % av 1 800 000.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "40 / 80 × 1 800 000 = 900 000",
+              "etikett": "B:s omkostnader efter anställda"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "B"
+            ],
+            "kolumner": [
+              "Antal anställda"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p07-q02",
@@ -1053,7 +1424,32 @@
         ],
         "correctAnswerId": "a",
         "explanation": "A efter anställda = 24/80 × 1 800 000 = 0,30 × 1 800 000 = 540 000 kr, vilket ger 540 000 / 13 500 = 40 kr per enhet. A efter maskintimmar = 3 000/8 000 × 1 800 000 = 0,375 × 1 800 000 = 675 000 kr, vilket ger 675 000 / 13 500 = 50 kr per enhet. Ökningen = 50 − 40 = 10 kr per enhet. Distraktorn 50 kr är nivån efter maskintimmar utan att dra bort utgångsnivån, 40 kr är nivån efter anställda, och 5 kr halverar skillnaden felaktigt.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "24 / 80 × 1 800 000 = 540 000",
+              "etikett": "A efter anställda"
+            },
+            {
+              "uttryck": "3 000 / 8 000 × 1 800 000 = 675 000",
+              "etikett": "A efter maskintimmar"
+            },
+            {
+              "uttryck": "(675 000 − 540 000) / 13 500 = 10",
+              "etikett": "ökning per enhet"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "A"
+            ],
+            "kolumner": [
+              "Antal anställda",
+              "Maskintimmar"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p07-q04",
@@ -1084,7 +1480,32 @@
         ],
         "correctAnswerId": "a",
         "explanation": "A efter anställda = 540 000 kr, A efter maskintimmar = 675 000 kr. Den kombinerade nyckeln viktar 60 % på maskintimmar och 40 % på anställda: 0,60 × 675 000 + 0,40 × 540 000 = 405 000 + 216 000 = 621 000 kr. Distraktorn 607 500 kr är det raka medelvärdet (0,5 × 540 000 + 0,5 × 675 000), fällan för den som ignorerar 60/40-vikten. 594 000 kr kastar om vikterna (60 % på anställda, 40 % på maskintimmar: 0,60 × 540 000 + 0,40 × 675 000), och 675 000 kr är enbart maskintimsandelen utan viktning.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "24 / 80 × 1 800 000 = 540 000",
+              "etikett": "A efter anställda"
+            },
+            {
+              "uttryck": "3 000 / 8 000 × 1 800 000 = 675 000",
+              "etikett": "A efter maskintimmar"
+            },
+            {
+              "uttryck": "60 / 100 × 675 000 + 40 / 100 × 540 000 = 621 000",
+              "etikett": "A med kombinerad nyckel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "A"
+            ],
+            "kolumner": [
+              "Antal anställda",
+              "Maskintimmar"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1125,7 +1546,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Total kostnad = 480 000 + 80×8 000 = 480 000 + 640 000 = 1 120 000 kr. Marginalkravet: (R − 1 120 000)/R = 0,20 → 0,80R = 1 120 000 → R = 1 400 000 kr. Pris = 1 400 000 / 8 000 = 175 kr. Distraktorn 168 kr är ett 20 %-påslag på styckkostnaden 140 kr (markup, inte marginal).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "480 000 + 80 × 8 000 = 1 120 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "1 120 000 / (1 − 20 / 100) = 1 400 000",
+              "etikett": "omsättning som ger 20 procents marginal"
+            },
+            {
+              "uttryck": "1 400 000 / 8 000 = 175",
+              "etikett": "pris per enhet"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p08-q02",
@@ -1156,7 +1593,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Omsättning = 8 000 × 175 = 1 400 000 kr. Total kostnad = 1 120 000 kr. Resultat = 1 400 000 − 1 120 000 = 280 000 kr, vilket är 20 % av 1 400 000 som väntat.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "8 000 × 175 = 1 400 000",
+              "etikett": "omsättning"
+            },
+            {
+              "uttryck": "480 000 + 80 × 8 000 = 1 120 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "1 400 000 − 1 120 000 = 280 000",
+              "etikett": "resultat"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p08-q03",
@@ -1187,7 +1640,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Omsättning = 6 000 × 175 = 1 050 000 kr. Total kostnad = 480 000 + 80×6 000 = 480 000 + 480 000 = 960 000 kr. Resultat = 1 050 000 − 960 000 = 90 000 kr. Marginal = 90 000 / 1 050 000 ≈ 8,57 % ≈ 8,6 %. Fasta kostnader slår hårt när volymen sjunker.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6 000 × 175 = 1 050 000",
+              "etikett": "omsättning"
+            },
+            {
+              "uttryck": "480 000 + 80 × 6 000 = 960 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "(1 050 000 − 960 000) / 1 050 000 × 100 ≈ 8,6 %",
+              "etikett": "nettomarginal"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p08-q04",
@@ -1218,7 +1687,23 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Total kostnad vid 6 000 enheter = 480 000 + 80×6 000 = 960 000 kr. Marginalkravet: 0,80R = 960 000 → R = 1 200 000 kr. Pris = 1 200 000 / 6 000 = 200 kr. Lägre volym sprider ut de fasta kostnaderna på färre enheter, så priset måste höjas från 175 till 200 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "480 000 + 80 × 6 000 = 960 000",
+              "etikett": "total kostnad"
+            },
+            {
+              "uttryck": "960 000 / (1 − 20 / 100) = 1 200 000",
+              "etikett": "omsättning som ger 20 procents marginal"
+            },
+            {
+              "uttryck": "1 200 000 / 6 000 = 200",
+              "etikett": "pris per enhet"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1259,7 +1744,15 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Skatten dras från den nominella avkastningen: 9,0 % × (1 − 0,30) = 9,0 % × 0,70 = 6,3 %. Alternativ 5,5 % är inflationsjusterat utan skatt (9,0 − 3,5). 2,7 % är slutsvaret för real avkastning, inte efter-skatt-avkastningen som frågan vill ha. 6,8 % uppstår om skatten räknas på fel bas och dras som procentenheter: 9,0 − 0,30 × 7,5 = 9,0 − 2,25 = 6,75 ≈ 6,8 %, vilket inte är samma sak som att multiplicera hela avkastningen med 0,70.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9,0 × (1 − 30 / 100) = 6,3 %",
+              "etikett": "nominell avkastning efter skatt"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p09-q02",
@@ -1290,7 +1783,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Efter skatt: 6,3 %. Fisher exakt: (1 + 0,063) ÷ (1 + 0,035) − 1 = 1,063 ÷ 1,035 − 1 = 0,02705, alltså cirka 2,7 %. Alternativ 2,8 % är den förenklade subtraktionen (6,3 − 3,5) som överskattar något. 5,3 % glömmer skatten helt (1,09 ÷ 1,035 − 1 = 5,31 %). 3,9 % applicerar skatten i fel ordning: först inflation (9,0 − 3,5 = 5,5), sedan skatt (5,5 × 0,70 = 3,85 ≈ 3,9 %).",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9,0 × (1 − 30 / 100) = 6,3",
+              "etikett": "avkastning efter skatt i procent"
+            },
+            {
+              "uttryck": "(1 + 6,3 / 100) / (1 + 3,5 / 100) × 100 − 100 ≈ 2,7 %",
+              "etikett": "real avkastning enligt Fisher"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p09-q03",
@@ -1321,7 +1826,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Efter skatt: 7,5 % × 0,70 = 5,25 %. Fisher exakt: 1,0525 ÷ 1,02 − 1 = 0,03186, alltså cirka 3,2 %. Alternativ 5,25 % är bara efter-skatt-avkastningen utan inflationsjustering. 5,5 % glömmer skatt och justerar bara för inflation (7,5 − 2,0). 3,9 % applicerar stegen i fel ordning: först inflation (7,5 − 2,0 = 5,5), sedan skatt (5,5 × 0,70 = 3,85 ≈ 3,9 %), i stället för skatt först och sedan exakt Fisher.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "7,5 × (1 − 30 / 100) = 5,25",
+              "etikett": "avkastning efter skatt i procent"
+            },
+            {
+              "uttryck": "(1 + 5,25 / 100) / (1 + 2,0 / 100) × 100 − 100 ≈ 3,2 %",
+              "etikett": "real avkastning enligt Fisher"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p09-q04",
@@ -1352,7 +1869,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Baklänges: avkastning efter skatt som krävs = (1 + 0,04) × (1 + 0,03) − 1 = 1,04 × 1,03 − 1 = 0,0712 = 7,12 %. Detta är efter skatt, så brutto = 7,12 % ÷ 0,70 = 10,17 %, alltså cirka 10,2 %. Alternativ 7,1 % är efter-skatt-kravet utan att räkna upp för skatt. 7,0 % adderar bara 4 + 3. 9,1 % räknar upp 4 + 3 = 7 med skatt (7 ÷ 0,77 = 9,09 %) i stället för korrekt Fisher.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(1 + 4,0 / 100) × (1 + 3,0 / 100) × 100 − 100 = 7,12",
+              "etikett": "krävd avkastning efter skatt i procent"
+            },
+            {
+              "uttryck": "7,12 / (1 − 30 / 100) ≈ 10,2 %",
+              "etikett": "krävd nominell avkastning"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1418,7 +1947,26 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Viktat medel: 0,50 × 11 + 0,30 × 3 + 0,20 × 6 = 5,5 + 0,9 + 1,2 = 7,6 %. Alternativ 6,7 % är det enkla (oviktade) medelvärdet (11 + 3 + 6) ÷ 3 ≈ 6,67. 6,0 % är medianen av avkastningarna, eftersom sorterade värden {3, 6, 11} har 6 i mitten. 7,0 % är ett avrundningsfel.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "50 / 100 × 11 + 30 / 100 × 3 + 20 / 100 × 6 = 7,6 %",
+              "etikett": "viktad avkastning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Aktier",
+              "Räntor",
+              "Fastigheter"
+            ],
+            "kolumner": [
+              "Vikt",
+              "Avkastning"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p10-q02",
@@ -1480,7 +2028,25 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Nytt viktat medel: 0,60 × 11 + 0,25 × 3 + 0,15 × 6 = 6,6 + 0,75 + 0,9 = 8,25 %. Alternativ 7,60 % är den gamla (oförändrade) viktade avkastningen. 6,67 % är det oviktade medelvärdet (11 + 3 + 6) ÷ 3. 8,55 % uppstår om man av misstag byter plats på räntornas och fastigheternas avkastning under de nya vikterna: 0,60 × 11 + 0,25 × 6 + 0,15 × 3 = 6,6 + 1,5 + 0,45 = 8,55.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "60 / 100 × 11 + 25 / 100 × 3 + 15 / 100 × 6 = 8,25 %",
+              "etikett": "ny viktad avkastning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Aktier",
+              "Räntor",
+              "Fastigheter"
+            ],
+            "kolumner": [
+              "Avkastning"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p10-q04",
@@ -1511,7 +2077,29 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Låt aktievikten vara x (andel av hela kapitalet), då blir räntevikten 0,80 − x. Kravet: 11x + 3(0,80 − x) + 6 × 0,20 = 8,0. Det ger 11x + 2,4 − 3x + 1,2 = 8,0, alltså 8x + 3,6 = 8,0, så 8x = 4,4 och x = 0,55 = 55 %. Kontroll: 0,55 × 11 + 0,25 × 3 + 0,20 × 6 = 6,05 + 0,75 + 1,2 = 8,0. Alternativ 50 % är den ursprungliga vikten och ger 7,6 %, inte 8,0 %. 60 % ger 0,60 × 11 + 0,20 × 3 + 0,20 × 6 = 6,6 + 0,6 + 1,2 = 8,4 %, för högt. 44 % kommer från att felaktigt dela 3,6 ÷ 8 i stället för 4,4 ÷ 8.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "8,0 − 20 / 100 × 6 − 80 / 100 × 3 = 4,4",
+              "etikett": "avkastning som aktievikten ska ge utöver räntor"
+            },
+            {
+              "uttryck": "4,4 / (11 − 3) × 100 = 55 %",
+              "etikett": "aktievikt"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Aktier",
+              "Räntor",
+              "Fastigheter"
+            ],
+            "kolumner": [
+              "Avkastning"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1572,7 +2160,15 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Sammansatt ränta i tre år: 40 × 1,15^3 = 40 × 1,520875 = 60,835, alltså cirka 60,8 MSEK. Alternativ 58,0 räknar enkel ränta i stället för sammansatt: 40 × (1 + 0,15 × 3) = 40 × 1,45 = 58,0. Alternativ 70,0 räknar fyra år i stället för tre: 40 × 1,15^4 = 69,96 ≈ 70,0. Alternativ 52,9 räknar bara två år: 40 × 1,15^2 = 52,9.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "40 × (1 + 15 / 100)³ ≈ 60,8",
+              "etikett": "omsättning år 3"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p11-q02",
@@ -1603,7 +2199,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Bygg vidare på år 3 med sammansatt 6 procent i tre år: 60,835 × 1,06^3 = 60,835 × 1,191016 = 72,46 ≈ 72,5 MSEK. Alternativ 71,8 adderar 6 % × 3 = 18 % enkelt på år 3: 60,835 × 1,18 = 71,79 ≈ 71,8. Alternativ 64,5 lägger bara på 6 % ett enda år: 60,835 × 1,06 = 64,49 ≈ 64,5. Alternativ 68,4 räknar bara två av de tre slutåren: 60,835 × 1,06^2 = 68,35 ≈ 68,4.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "40 × (1 + 15 / 100)³ ≈ 60,835",
+              "etikett": "omsättning år 3"
+            },
+            {
+              "uttryck": "60,835 × (1 + 6 / 100)³ ≈ 72,5",
+              "etikett": "omsättning år 6"
+            }
+          ]
+        }
       },
       {
         "id": "numexp-p11-q03",
@@ -1665,7 +2273,19 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Total tillväxt = (72,46 ÷ 40) − 1 = 1,8114 − 1 = 0,8114, alltså cirka 81 %. Alternativ 52 % är bara tillväxten under de tre första åren: 60,835 ÷ 40 − 1 = 0,52. Alternativ 42 % tar bara de tre sista årens 6-procentsfas som om den gällt alla sex åren: 1,06^6 − 1 = 0,419 ≈ 42 %. Alternativ 63 % adderar de nominella takterna enkelt: 3 × 15 % + 3 × 6 % = 45 % + 18 % = 63 %, vilket missar ränta-på-ränta.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "40 × (1 + 15 / 100)³ × (1 + 6 / 100)³ ≈ 72,46",
+              "etikett": "omsättning år 6"
+            },
+            {
+              "uttryck": "(72,46 − 40) / 40 × 100 ≈ 81 %",
+              "etikett": "total tillväxt i procent"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1741,7 +2361,27 @@
         ],
         "correctAnswerId": "a",
         "explanation": "120 + 200 + 90 + 160 + 80 = 650. Alternativ 130 är genomsnittligt antal svarande per region (650 ÷ 5), inte totalen. 640 och 660 är additionsfel på ±10.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 + 200 + 90 + 160 + 80 = 650",
+              "etikett": "svarande totalt"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Nord",
+              "Syd",
+              "Öst",
+              "Väst",
+              "Mitt"
+            ],
+            "kolumner": [
+              "Antal svarande"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p12-q02",
@@ -1772,7 +2412,36 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Vägt medel = (7,8×120 + 8,4×200 + 7,2×90 + 8,0×160 + 7,6×80) ÷ 650 = (936 + 1680 + 648 + 1280 + 608) ÷ 650 = 5152 ÷ 650 = 7,9261…, alltså cirka 7,93. Distraktor 7,80 är det oviktade medelvärdet av de fem betygen ((7,8 + 8,4 + 7,2 + 8,0 + 7,6) ÷ 5 = 39,0 ÷ 5), som ignorerar urvalsstorleken. Distraktor 7,73 viktar tvärtom betygen mot fel summa (delar 5152 med totala antalet regioner gånger snittstorlek, 5152 ÷ 666 ≈ 7,73). Distraktor 7,92 är ett avrundningsfel: kvoten 7,9261 trunkeras till 7,92 i stället för att avrundas uppåt till 7,93. Medianen av de fem betygen är för övrigt 7,8 (mittvärdet i ordnad följd 7,2 | 7,6 | 7,8 | 8,0 | 8,4) och 8,0 är endast Västs enskilda betyg, inget av dem är svaret här.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 + 200 + 90 + 160 + 80 = 650",
+              "etikett": "svarande totalt"
+            },
+            {
+              "uttryck": "7,8 × 120 + 8,4 × 200 + 7,2 × 90 + 8,0 × 160 + 7,6 × 80 = 5 152",
+              "etikett": "summa betyg gånger svarande"
+            },
+            {
+              "uttryck": "5 152 / 650 ≈ 7,93",
+              "etikett": "vägt NKI"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Nord",
+              "Syd",
+              "Öst",
+              "Väst",
+              "Mitt"
+            ],
+            "kolumner": [
+              "NKI",
+              "Antal svarande"
+            ]
+          }
+        }
       },
       {
         "id": "numexp-p12-q03",

@@ -1,5 +1,8 @@
 // Numerical Reasoning Test V2 Types (with graphs)
 
+import type { NumeriskLosning } from '@/lib/numericalTest/types';
+export type { NumeriskLosning, NumeriskSteg, NumeriskAnvander } from '@/lib/numericalTest/types';
+
 export type QuestionType =
   | 'table'
   | 'graph'           // NEW: Graph/chart interpretation
@@ -26,6 +29,8 @@ export type Question = {
   correctAnswerId: string;
   explanation: string;
   difficulty: DifficultyLevel;
+  /** Strukturerat facit: räknevägen och vad frågan använder i underlaget (valfritt). */
+  losning?: NumeriskLosning;
 };
 
 export type DataTable = {

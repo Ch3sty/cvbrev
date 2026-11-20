@@ -125,7 +125,33 @@
           "visning": "37,3 mkr",
           "precision": 1
         },
-        "explanation": "Överskridande Barn och utbildning: 861 300 - 842 600 = 18 700. Överskridande Vård och omsorg: 712 800 - 694 200 = 18 600. Summa i mkr: (18 700 + 18 600) / 1 000 = 37,3. Svaret blir 37,3 mkr."
+        "explanation": "Överskridande Barn och utbildning: 861 300 - 842 600 = 18 700. Överskridande Vård och omsorg: 712 800 - 694 200 = 18 600. Summa i mkr: (18 700 + 18 600) / 1 000 = 37,3. Svaret blir 37,3 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "861 300 − 842 600 = 18 700",
+              "etikett": "överskridande Barn och utbildning"
+            },
+            {
+              "uttryck": "712 800 − 694 200 = 18 600",
+              "etikett": "överskridande Vård och omsorg"
+            },
+            {
+              "uttryck": "(18 700 + 18 600) / 1 000 = 37,3",
+              "etikett": "summa i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Barn och utbildning",
+              "Vård och omsorg"
+            ],
+            "kolumner": [
+              "Utfall 2025 (tkr)",
+              "Budget 2025 (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-01-q02",
@@ -187,7 +213,28 @@
           "visning": "5,0 %",
           "precision": 1
         },
-        "explanation": "Ökning i tkr: 124 300 - 118 400 = 5 900. Ökning i procent av budget 2025: 5 900 / 118 400 · 100 = 4,983. Svaret blir 5,0 %."
+        "explanation": "Ökning i tkr: 124 300 - 118 400 = 5 900. Ökning i procent av budget 2025: 5 900 / 118 400 · 100 = 4,983. Svaret blir 5,0 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "124 300 − 118 400 = 5 900",
+              "etikett": "ökning i tkr"
+            },
+            {
+              "uttryck": "5 900 / 118 400 × 100 ≈ 5,0 %",
+              "etikett": "ökning i procent av budget 2025"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Samhällsbyggnad"
+            ],
+            "kolumner": [
+              "Budget 2026 (tkr)",
+              "Budget 2025 (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-01-q03",
@@ -249,7 +296,27 @@
           "visning": "6,3 mkr",
           "precision": 1
         },
-        "explanation": "Budget 2026 i mkr: 75 600 / 1 000 = 75,6. Per månad: 75,6 / 12 = 6,3. Svaret blir 6,3 mkr."
+        "explanation": "Budget 2026 i mkr: 75 600 / 1 000 = 75,6. Per månad: 75,6 / 12 = 6,3. Svaret blir 6,3 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "75 600 / 1 000 = 75,6",
+              "etikett": "budget 2026 i mkr"
+            },
+            {
+              "uttryck": "75,6 / 12 = 6,3",
+              "etikett": "per månad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kommunledning"
+            ],
+            "kolumner": [
+              "Budget 2026 (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-01-q04",
@@ -311,7 +378,28 @@
           "visning": "45,2 %",
           "precision": 1
         },
-        "explanation": "Sammanlagd budget 2025: 842 600 + 694 200 = 1 536 800. Andel Vård och omsorg: 694 200 / 1 536 800 · 100 = 45,172. Svaret blir 45,2 %."
+        "explanation": "Sammanlagd budget 2025: 842 600 + 694 200 = 1 536 800. Andel Vård och omsorg: 694 200 / 1 536 800 · 100 = 45,172. Svaret blir 45,2 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "842 600 + 694 200 = 1 536 800",
+              "etikett": "sammanlagd budget 2025"
+            },
+            {
+              "uttryck": "694 200 / 1 536 800 × 100 ≈ 45,2 %",
+              "etikett": "andel Vård och omsorg"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Barn och utbildning",
+              "Vård och omsorg"
+            ],
+            "kolumner": [
+              "Budget 2025 (tkr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -446,7 +534,34 @@
           "visning": "3,4 %",
           "precision": 1
         },
-        "explanation": "Bokfört saldo: 2 150 + 4 800 - 5 230 = 1 720. Svinn i antal: 1 720 - 1 662 = 58. Svinn i procent av bokfört saldo: 58 / 1 720 · 100 = 3,372. Svaret blir 3,4 %."
+        "explanation": "Bokfört saldo: 2 150 + 4 800 - 5 230 = 1 720. Svinn i antal: 1 720 - 1 662 = 58. Svinn i procent av bokfört saldo: 58 / 1 720 · 100 = 3,372. Svaret blir 3,4 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 150 + 4 800 − 5 230 = 1 720",
+              "etikett": "bokfört saldo"
+            },
+            {
+              "uttryck": "1 720 − 1 662 = 58",
+              "etikett": "svinn i antal"
+            },
+            {
+              "uttryck": "58 / 1 720 × 100 ≈ 3,4 %",
+              "etikett": "svinn i procent av bokfört saldo"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lampa"
+            ],
+            "kolumner": [
+              "Ingående saldo (st)",
+              "Inleverans (st)",
+              "Utleverans (st)",
+              "Inventerat saldo (st)"
+            ]
+          }
+        }
       },
       {
         "id": "na-02-q02",
@@ -513,7 +628,23 @@
           "visning": "3,7 tkr",
           "precision": 1
         },
-        "explanation": "Bokfört saldo: 3 600 + 7 200 - 8 450 = 2 350. Svinn i antal: 2 350 - 2 268 = 82. Svinnets värde i tkr: 82 · 45 / 1 000 = 3,69. Svaret blir 3,7 tkr."
+        "explanation": "Bokfört saldo: 3 600 + 7 200 - 8 450 = 2 350. Svinn i antal: 2 350 - 2 268 = 82. Svinnets värde i tkr: 82 · 45 / 1 000 = 3,69. Svaret blir 3,7 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "3 600 + 7 200 − 8 450 = 2 350",
+              "etikett": "bokfört saldo"
+            },
+            {
+              "uttryck": "2 350 − 2 268 = 82",
+              "etikett": "svinn i antal"
+            },
+            {
+              "uttryck": "82 × 45 / 1 000 = 3,69 ≈ 3,7",
+              "etikett": "svinnets värde i tkr"
+            }
+          ]
+        }
       },
       {
         "id": "na-02-q03",
@@ -580,7 +711,34 @@
           "visning": "1,4 %",
           "precision": 1
         },
-        "explanation": "Bokfört saldo: 410 + 900 - 1 020 = 290. Svinn i antal: 290 - 276 = 14. Svinn i procent av utleveransen: 14 / 1 020 · 100 = 1,373. Svaret blir 1,4 %."
+        "explanation": "Bokfört saldo: 410 + 900 - 1 020 = 290. Svinn i antal: 290 - 276 = 14. Svinn i procent av utleveransen: 14 / 1 020 · 100 = 1,373. Svaret blir 1,4 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "410 + 900 − 1 020 = 290",
+              "etikett": "bokfört saldo"
+            },
+            {
+              "uttryck": "290 − 276 = 14",
+              "etikett": "svinn i antal"
+            },
+            {
+              "uttryck": "14 / 1 020 × 100 ≈ 1,4 %",
+              "etikett": "svinn i procent av utleveransen"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kabel, rulle"
+            ],
+            "kolumner": [
+              "Ingående saldo (st)",
+              "Inleverans (st)",
+              "Utleverans (st)",
+              "Inventerat saldo (st)"
+            ]
+          }
+        }
       },
       {
         "id": "na-02-q04",
@@ -647,7 +805,34 @@
           "visning": "34 st",
           "precision": 0
         },
-        "explanation": "Faktiskt svinn: 2 150 + 4 800 - 5 230 - 1 662 = 58. Normalt svinn: 4 800 · 0,5 / 100 = 24. Skillnad: 58 - 24 = 34. Svaret blir 34 st."
+        "explanation": "Faktiskt svinn: 2 150 + 4 800 - 5 230 - 1 662 = 58. Normalt svinn: 4 800 · 0,5 / 100 = 24. Skillnad: 58 - 24 = 34. Svaret blir 34 st.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 150 + 4 800 − 5 230 − 1 662 = 58",
+              "etikett": "faktiskt svinn"
+            },
+            {
+              "uttryck": "4 800 × 0,5 / 100 = 24",
+              "etikett": "normalt svinn"
+            },
+            {
+              "uttryck": "58 − 24 = 34",
+              "etikett": "skillnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lampa"
+            ],
+            "kolumner": [
+              "Ingående saldo (st)",
+              "Inleverans (st)",
+              "Utleverans (st)",
+              "Inventerat saldo (st)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -757,7 +942,29 @@
           "visning": "15 personer",
           "precision": 0
         },
-        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Skillnad: 25,9 - 10,54 = 15,36. Svaret blir 15 personer."
+        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Skillnad: 25,9 - 10,54 = 15,36. Svaret blir 15 personer.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "140 × 18,5 / 100 = 25,9",
+              "etikett": "slutade på kundtjänst"
+            },
+            {
+              "uttryck": "85 × 12,4 / 100 = 10,54",
+              "etikett": "slutade på lager"
+            },
+            {
+              "uttryck": "25,9 − 10,54 = 15,36 ≈ 15",
+              "etikett": "skillnad"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Kundtjänst",
+              "Lager"
+            ]
+          }
+        }
       },
       {
         "id": "na-03-q02",
@@ -824,7 +1031,29 @@
           "visning": "11 personer",
           "precision": 0
         },
-        "explanation": "Slutade på ekonomi: 25 · 6,4 / 100 = 1,6. Slutade på försäljning: 60 · 15,2 / 100 = 9,12. Summa: 1,6 + 9,12 = 10,72. Svaret blir 11 personer."
+        "explanation": "Slutade på ekonomi: 25 · 6,4 / 100 = 1,6. Slutade på försäljning: 60 · 15,2 / 100 = 9,12. Summa: 1,6 + 9,12 = 10,72. Svaret blir 11 personer.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "25 × 6,4 / 100 = 1,6",
+              "etikett": "slutade på ekonomi"
+            },
+            {
+              "uttryck": "60 × 15,2 / 100 = 9,12",
+              "etikett": "slutade på försäljning"
+            },
+            {
+              "uttryck": "1,6 + 9,12 = 10,72 ≈ 11",
+              "etikett": "summa"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Ekonomi",
+              "Försäljning"
+            ]
+          }
+        }
       },
       {
         "id": "na-03-q03",
@@ -891,7 +1120,29 @@
           "visning": "16,2 %",
           "precision": 1
         },
-        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Andel av alla anställda på båda avdelningarna: (25,9 + 10,54) / (140 + 85) · 100 = 16,196. Svaret blir 16,2 %."
+        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Andel av alla anställda på båda avdelningarna: (25,9 + 10,54) / (140 + 85) · 100 = 16,196. Svaret blir 16,2 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "140 × 18,5 / 100 = 25,9",
+              "etikett": "slutade på kundtjänst"
+            },
+            {
+              "uttryck": "85 × 12,4 / 100 = 10,54",
+              "etikett": "slutade på lager"
+            },
+            {
+              "uttryck": "(25,9 + 10,54) / (140 + 85) × 100 ≈ 16,2 %",
+              "etikett": "andel av alla anställda på båda avdelningarna"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Kundtjänst",
+              "Lager"
+            ]
+          }
+        }
       },
       {
         "id": "na-03-q04",
@@ -948,7 +1199,21 @@
           "visning": "12,1 procentenheter",
           "precision": 1
         },
-        "explanation": "Skillnad i procentenheter: 18,5 - 6,4 = 12,1. Svaret blir 12,1 procentenheter."
+        "explanation": "Skillnad i procentenheter: 18,5 - 6,4 = 12,1. Svaret blir 12,1 procentenheter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "18,5 − 6,4 = 12,1",
+              "etikett": "skillnad i procentenheter"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Kundtjänst",
+              "Ekonomi"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1066,7 +1331,27 @@
           "visning": "319 MWh",
           "precision": 0
         },
-        "explanation": "Förbrukning hela år 2025: 398 + 281 + 224 + 373 = 1 276. Genomsnitt per kvartal: 1 276 / 4 = 319. Svaret blir 319 MWh."
+        "explanation": "Förbrukning hela år 2025: 398 + 281 + 224 + 373 = 1 276. Genomsnitt per kvartal: 1 276 / 4 = 319. Svaret blir 319 MWh.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "398 + 281 + 224 + 373 = 1 276",
+              "etikett": "förbrukning hela år 2025"
+            },
+            {
+              "uttryck": "1 276 / 4 = 319",
+              "etikett": "genomsnitt per kvartal"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "K1 2025",
+              "K2 2025",
+              "K3 2025",
+              "K4 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-04-q02",
@@ -1128,7 +1413,25 @@
           "visning": "43,7 %",
           "precision": 1
         },
-        "explanation": "Minskning i MWh: 398 - 224 = 174. Minskning i procent av K1 2025: 174 / 398 · 100 = 43,719. Svaret blir 43,7 %."
+        "explanation": "Minskning i MWh: 398 - 224 = 174. Minskning i procent av K1 2025: 174 / 398 · 100 = 43,719. Svaret blir 43,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "398 − 224 = 174",
+              "etikett": "minskning i MWh"
+            },
+            {
+              "uttryck": "174 / 398 × 100 ≈ 43,7 %",
+              "etikett": "minskning i procent av K1 2025"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "K1 2025",
+              "K3 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-04-q03",
@@ -1190,7 +1493,24 @@
           "visning": "0,54 mkr",
           "precision": 2
         },
-        "explanation": "Förbrukning i kWh: 373 · 1 000 = 373 000. Kostnad i mkr: 373 000 · 1,45 / 1 000 / 1 000 = 0,5409. Svaret blir 0,54 mkr."
+        "explanation": "Förbrukning i kWh: 373 · 1 000 = 373 000. Kostnad i mkr: 373 000 · 1,45 / 1 000 / 1 000 = 0,5409. Svaret blir 0,54 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "373 × 1 000 = 373 000",
+              "etikett": "förbrukning i kWh"
+            },
+            {
+              "uttryck": "373 000 × 1,45 / 1 000 / 1 000 ≈ 0,54",
+              "etikett": "kostnad i mkr"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "K4 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-04-q04",
@@ -1257,7 +1577,31 @@
           "visning": "300 MWh",
           "precision": 0
         },
-        "explanation": "Förbrukning år 2025: 398 + 281 + 224 + 373 = 1 276. Mål för år 2026: 1 276 · (100 - 6) / 100 = 1 199,44. Per kvartal: 1 199,44 / 4 = 299,86. Svaret blir 300 MWh."
+        "explanation": "Förbrukning år 2025: 398 + 281 + 224 + 373 = 1 276. Mål för år 2026: 1 276 · (100 - 6) / 100 = 1 199,44. Per kvartal: 1 199,44 / 4 = 299,86. Svaret blir 300 MWh.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "398 + 281 + 224 + 373 = 1 276",
+              "etikett": "förbrukning år 2025"
+            },
+            {
+              "uttryck": "1 276 × (100 − 6) / 100 = 1 199,44",
+              "etikett": "mål för år 2026"
+            },
+            {
+              "uttryck": "1 199,44 / 4 = 299,86 ≈ 300",
+              "etikett": "per kvartal"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "K1 2025",
+              "K2 2025",
+              "K3 2025",
+              "K4 2025"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1376,7 +1720,24 @@
           "visning": "10,50 kr",
           "precision": 2
         },
-        "explanation": "Intäkt per resa (tkr delat med tusental resor ger kr): 10 080 / 960 = 10,5. Svaret blir 10,50 kr."
+        "explanation": "Intäkt per resa (tkr delat med tusental resor ger kr): 10 080 / 960 = 10,5. Svaret blir 10,50 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "10 080 / 960 = 10,5",
+              "etikett": "intäkt per resa (tkr delat med tusental resor ger kr)"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Linje 7"
+            ],
+            "kolumner": [
+              "Intäkt 2025 (tkr)",
+              "Resor 2025 (tusental)"
+            ]
+          }
+        }
       },
       {
         "id": "na-05-q02",
@@ -1438,7 +1799,29 @@
           "visning": "1,04 mkr",
           "precision": 2
         },
-        "explanation": "Ökning i tkr: (10 080 + 4 510) - (9 420 + 4 130) = 1 040. Ökning i mkr: 1 040 / 1 000 = 1,04. Svaret blir 1,04 mkr."
+        "explanation": "Ökning i tkr: (10 080 + 4 510) - (9 420 + 4 130) = 1 040. Ökning i mkr: 1 040 / 1 000 = 1,04. Svaret blir 1,04 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(10 080 + 4 510) − (9 420 + 4 130) = 1 040",
+              "etikett": "ökning i tkr"
+            },
+            {
+              "uttryck": "1 040 / 1 000 = 1,04",
+              "etikett": "ökning i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Linje 7",
+              "Linje 12"
+            ],
+            "kolumner": [
+              "Intäkt 2025 (tkr)",
+              "Intäkt 2024 (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-05-q03",
@@ -1500,7 +1883,28 @@
           "visning": "2,3 %",
           "precision": 1
         },
-        "explanation": "Minskning i tkr: 18 910 - 18 470 = 440. Minskning i procent av 2024: 440 / 18 910 · 100 = 2,327. Svaret blir 2,3 %."
+        "explanation": "Minskning i tkr: 18 910 - 18 470 = 440. Minskning i procent av 2024: 440 / 18 910 · 100 = 2,327. Svaret blir 2,3 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "18 910 − 18 470 = 440",
+              "etikett": "minskning i tkr"
+            },
+            {
+              "uttryck": "440 / 18 910 × 100 ≈ 2,3 %",
+              "etikett": "minskning i procent av 2024"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Linje 4"
+            ],
+            "kolumner": [
+              "Intäkt 2024 (tkr)",
+              "Intäkt 2025 (tkr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-05-q04",
@@ -1562,7 +1966,31 @@
           "visning": "40,5 %",
           "precision": 1
         },
-        "explanation": "Sammanlagd intäkt 2025: 31 240 + 18 470 + 10 080 + 4 510 + 12 880 = 77 180. Andel linje 1: 31 240 / 77 180 · 100 = 40,477. Svaret blir 40,5 %."
+        "explanation": "Sammanlagd intäkt 2025: 31 240 + 18 470 + 10 080 + 4 510 + 12 880 = 77 180. Andel linje 1: 31 240 / 77 180 · 100 = 40,477. Svaret blir 40,5 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "31 240 + 18 470 + 10 080 + 4 510 + 12 880 = 77 180",
+              "etikett": "sammanlagd intäkt 2025"
+            },
+            {
+              "uttryck": "31 240 / 77 180 × 100 ≈ 40,5 %",
+              "etikett": "andel linje 1"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Linje 1",
+              "Linje 4",
+              "Linje 7",
+              "Linje 12",
+              "Linje 15"
+            ],
+            "kolumner": [
+              "Intäkt 2025 (tkr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1691,7 +2119,23 @@
           "visning": "1,18 mkr",
           "precision": 2
         },
-        "explanation": "Budget för de fyra entreprenaderna: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Prognos för de fyra entreprenaderna: 5 120 + 13 240 + 8 820 + 5 050 = 32 230. Överskridande i mkr: (32 230 - 31 050) / 1 000 = 1,18. Svaret blir 1,18 mkr."
+        "explanation": "Budget för de fyra entreprenaderna: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Prognos för de fyra entreprenaderna: 5 120 + 13 240 + 8 820 + 5 050 = 32 230. Överskridande i mkr: (32 230 - 31 050) / 1 000 = 1,18. Svaret blir 1,18 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 850 + 12 600 + 8 400 + 5 200 = 31 050",
+              "etikett": "budget för de fyra entreprenaderna"
+            },
+            {
+              "uttryck": "5 120 + 13 240 + 8 820 + 5 050 = 32 230",
+              "etikett": "prognos för de fyra entreprenaderna"
+            },
+            {
+              "uttryck": "(32 230 − 31 050) / 1 000 = 1,18",
+              "etikett": "överskridande i mkr"
+            }
+          ]
+        }
       },
       {
         "id": "na-06-q02",
@@ -1753,7 +2197,19 @@
           "visning": "5,1 %",
           "precision": 1
         },
-        "explanation": "Överskridande i tkr: 13 240 - 12 600 = 640. I procent av budget: 640 / 12 600 · 100 = 5,079. Svaret blir 5,1 %."
+        "explanation": "Överskridande i tkr: 13 240 - 12 600 = 640. I procent av budget: 640 / 12 600 · 100 = 5,079. Svaret blir 5,1 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "13 240 − 12 600 = 640",
+              "etikett": "överskridande i tkr"
+            },
+            {
+              "uttryck": "640 / 12 600 × 100 ≈ 5,1 %",
+              "etikett": "i procent av budget"
+            }
+          ]
+        }
       },
       {
         "id": "na-06-q03",
@@ -1815,7 +2271,19 @@
           "visning": "13,4 mkr",
           "precision": 1
         },
-        "explanation": "Slutkostnad i tkr: 9 380 / 70 · 100 = 13 400. Slutkostnad i mkr: 13 400 / 1 000 = 13,4. Svaret blir 13,4 mkr."
+        "explanation": "Slutkostnad i tkr: 9 380 / 70 · 100 = 13 400. Slutkostnad i mkr: 13 400 / 1 000 = 13,4. Svaret blir 13,4 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9 380 / 70 × 100 = 13 400",
+              "etikett": "slutkostnad i tkr"
+            },
+            {
+              "uttryck": "13 400 / 1 000 = 13,4",
+              "etikett": "slutkostnad i mkr"
+            }
+          ]
+        }
       },
       {
         "id": "na-06-q04",
@@ -1882,7 +2350,23 @@
           "visning": "59,6 %",
           "precision": 1
         },
-        "explanation": "Utfall hittills för de fyra: 5 120 + 9 380 + 3 150 + 860 = 18 510. Budget för de fyra: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Förbrukad andel: 18 510 / 31 050 · 100 = 59,614. Svaret blir 59,6 %."
+        "explanation": "Utfall hittills för de fyra: 5 120 + 9 380 + 3 150 + 860 = 18 510. Budget för de fyra: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Förbrukad andel: 18 510 / 31 050 · 100 = 59,614. Svaret blir 59,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "5 120 + 9 380 + 3 150 + 860 = 18 510",
+              "etikett": "utfall hittills för de fyra"
+            },
+            {
+              "uttryck": "4 850 + 12 600 + 8 400 + 5 200 = 31 050",
+              "etikett": "budget för de fyra"
+            },
+            {
+              "uttryck": "18 510 / 31 050 × 100 ≈ 59,6 %",
+              "etikett": "förbrukad andel"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1991,7 +2475,24 @@
           "visning": "425 ton",
           "precision": 0
         },
-        "explanation": "Materialåtervunnen plast: 720 · 41 / 100 = 295,2. Plast som inte återvanns: 720 - 295,2 = 424,8. Svaret blir 425 ton."
+        "explanation": "Materialåtervunnen plast: 720 · 41 / 100 = 295,2. Plast som inte återvanns: 720 - 295,2 = 424,8. Svaret blir 425 ton.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "720 × 41 / 100 = 295,2",
+              "etikett": "materialåtervunnen plast"
+            },
+            {
+              "uttryck": "720 − 295,2 = 424,8 ≈ 425",
+              "etikett": "plast som inte återvanns"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Plast"
+            ]
+          }
+        }
       },
       {
         "id": "na-07-q02",
@@ -2058,7 +2559,28 @@
           "visning": "16,5 kg",
           "precision": 1
         },
-        "explanation": "Återvunnet glas i ton: 860 · 92 / 100 = 791,2. Återvunnet glas i kg: 791,2 · 1 000 = 791 200. Per invånare: 791 200 / 48 000 = 16,483. Svaret blir 16,5 kg."
+        "explanation": "Återvunnet glas i ton: 860 · 92 / 100 = 791,2. Återvunnet glas i kg: 791,2 · 1 000 = 791 200. Per invånare: 791 200 / 48 000 = 16,483. Svaret blir 16,5 kg.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "860 × 92 / 100 = 791,2",
+              "etikett": "återvunnet glas i ton"
+            },
+            {
+              "uttryck": "791,2 × 1 000 = 791 200",
+              "etikett": "återvunnet glas i kg"
+            },
+            {
+              "uttryck": "791 200 / 48 000 ≈ 16,5",
+              "etikett": "per invånare"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Glas"
+            ]
+          }
+        }
       },
       {
         "id": "na-07-q03",
@@ -2125,7 +2647,29 @@
           "visning": "71,4 %",
           "precision": 1
         },
-        "explanation": "Återvunnet papper i ton: 1 240 · 86 / 100 = 1 066,4. Återvunnet matavfall i ton: 2 150 · 63 / 100 = 1 354,5. Andel av den insamlade mängden: (1 066,4 + 1 354,5) / (1 240 + 2 150) · 100 = 71,413. Svaret blir 71,4 %."
+        "explanation": "Återvunnet papper i ton: 1 240 · 86 / 100 = 1 066,4. Återvunnet matavfall i ton: 2 150 · 63 / 100 = 1 354,5. Andel av den insamlade mängden: (1 066,4 + 1 354,5) / (1 240 + 2 150) · 100 = 71,413. Svaret blir 71,4 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 240 × 86 / 100 = 1 066,4",
+              "etikett": "återvunnet papper i ton"
+            },
+            {
+              "uttryck": "2 150 × 63 / 100 = 1 354,5",
+              "etikett": "återvunnet matavfall i ton"
+            },
+            {
+              "uttryck": "(1 066,4 + 1 354,5) / (1 240 + 2 150) × 100 ≈ 71,4 %",
+              "etikett": "andel av den insamlade mängden"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Papper",
+              "Matavfall"
+            ]
+          }
+        }
       },
       {
         "id": "na-07-q04",
@@ -2182,7 +2726,21 @@
           "visning": "37 procentenheter",
           "precision": 0
         },
-        "explanation": "Skillnad i procentenheter: 78 - 41 = 37. Svaret blir 37 procentenheter."
+        "explanation": "Skillnad i procentenheter: 78 - 41 = 37. Svaret blir 37 procentenheter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "78 − 41 = 37",
+              "etikett": "skillnad i procentenheter"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Metall",
+              "Plast"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2313,7 +2871,28 @@
           "visning": "370 dagar",
           "precision": 0
         },
-        "explanation": "Planerade arbetsdagar: 238 · 21 = 4 998. Förlorade dagar: 4 998 · 7,4 / 100 = 369,85. Svaret blir 370 dagar."
+        "explanation": "Planerade arbetsdagar: 238 · 21 = 4 998. Förlorade dagar: 4 998 · 7,4 / 100 = 369,85. Svaret blir 370 dagar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "238 × 21 = 4 998",
+              "etikett": "planerade arbetsdagar"
+            },
+            {
+              "uttryck": "4 998 × 7,4 / 100 = 369,852 ≈ 370",
+              "etikett": "förlorade dagar"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Februari"
+            ],
+            "kolumner": [
+              "Anställda",
+              "Sjukfrånvaro (%)"
+            ]
+          }
+        }
       },
       {
         "id": "na-08-q02",
@@ -2375,7 +2954,28 @@
           "visning": "51,0 %",
           "precision": 1
         },
-        "explanation": "Övrig frånvaro i procentenheter: 4,9 - 2,4 = 2,5. Andel av all sjukfrånvaro: 2,5 / 4,9 · 100 = 51,02. Svaret blir 51,0 %."
+        "explanation": "Övrig frånvaro i procentenheter: 4,9 - 2,4 = 2,5. Andel av all sjukfrånvaro: 2,5 / 4,9 · 100 = 51,02. Svaret blir 51,0 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4,9 − 2,4 = 2,5",
+              "etikett": "övrig frånvaro i procentenheter"
+            },
+            {
+              "uttryck": "2,5 / 4,9 × 100 ≈ 51,0 %",
+              "etikett": "andel av all sjukfrånvaro"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "April"
+            ],
+            "kolumner": [
+              "Sjukfrånvaro (%)",
+              "Varav korttid (%)"
+            ]
+          }
+        }
       },
       {
         "id": "na-08-q03",
@@ -2442,7 +3042,33 @@
           "visning": "38,1 %",
           "precision": 1
         },
-        "explanation": "Förlorade dagar i januari: 240 · 21 · 6,2 / 100 = 312,48. Förlorade dagar i juni: 256 · 21 · 3,6 / 100 = 193,536. Minskning i procent av januari: (312,48 - 193,536) / 312,48 · 100 = 38,065. Svaret blir 38,1 %."
+        "explanation": "Förlorade dagar i januari: 240 · 21 · 6,2 / 100 = 312,48. Förlorade dagar i juni: 256 · 21 · 3,6 / 100 = 193,536. Minskning i procent av januari: (312,48 - 193,536) / 312,48 · 100 = 38,065. Svaret blir 38,1 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "240 × 21 × 6,2 / 100 = 312,48",
+              "etikett": "förlorade dagar i januari"
+            },
+            {
+              "uttryck": "256 × 21 × 3,6 / 100 = 193,536",
+              "etikett": "förlorade dagar i juni"
+            },
+            {
+              "uttryck": "(312,48 − 193,536) / 312,48 × 100 ≈ 38,1 %",
+              "etikett": "minskning i procent av januari"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Januari",
+              "Juni"
+            ],
+            "kolumner": [
+              "Anställda",
+              "Sjukfrånvaro (%)"
+            ]
+          }
+        }
       },
       {
         "id": "na-08-q04",
@@ -2509,7 +3135,33 @@
           "visning": "6,2 personer",
           "precision": 1
         },
-        "explanation": "Korttidsfrånvarande i februari: 238 · 4,6 / 100 = 10,948. Korttidsfrånvarande i maj: 250 · 1,9 / 100 = 4,75. Skillnad: 10,948 - 4,75 = 6,198. Svaret blir 6,2 personer."
+        "explanation": "Korttidsfrånvarande i februari: 238 · 4,6 / 100 = 10,948. Korttidsfrånvarande i maj: 250 · 1,9 / 100 = 4,75. Skillnad: 10,948 - 4,75 = 6,198. Svaret blir 6,2 personer.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "238 × 4,6 / 100 = 10,948",
+              "etikett": "korttidsfrånvarande i februari"
+            },
+            {
+              "uttryck": "250 × 1,9 / 100 = 4,75",
+              "etikett": "korttidsfrånvarande i maj"
+            },
+            {
+              "uttryck": "10,948 − 4,75 = 6,198 ≈ 6,2",
+              "etikett": "skillnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Februari",
+              "Maj"
+            ],
+            "kolumner": [
+              "Anställda",
+              "Varav korttid (%)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2632,7 +3284,28 @@
           "visning": "20,0 mkr",
           "precision": 1
         },
-        "explanation": "Ambulanstimmar i Åstad: 4 380 · 96 / 60 = 7 008. Kostnad i mkr: 7 008 · 2 850 / 1 000 / 1 000 = 19,973. Svaret blir 20,0 mkr."
+        "explanation": "Ambulanstimmar i Åstad: 4 380 · 96 / 60 = 7 008. Kostnad i mkr: 7 008 · 2 850 / 1 000 / 1 000 = 19,973. Svaret blir 20,0 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 380 × 96 / 60 = 7 008",
+              "etikett": "ambulanstimmar i Åstad"
+            },
+            {
+              "uttryck": "7 008 × 2 850 / 1 000 / 1 000 = 19,9728 ≈ 20,0",
+              "etikett": "kostnad i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Åstad"
+            ],
+            "kolumner": [
+              "Uppdrag",
+              "Medeltid per uppdrag (min)"
+            ]
+          }
+        }
       },
       {
         "id": "na-17-q02",
@@ -2699,7 +3372,35 @@
           "visning": "30,0 %",
           "precision": 1
         },
-        "explanation": "Alla uppdrag: 6 240 + 4 380 + 2 910 + 9 860 = 23 390. Alla prio 1: 1 810 + 1 150 + 640 + 3 420 = 7 020. Andel prio 1: 7 020 / 23 390 · 100 = 30,013. Svaret blir 30,0 %."
+        "explanation": "Alla uppdrag: 6 240 + 4 380 + 2 910 + 9 860 = 23 390. Alla prio 1: 1 810 + 1 150 + 640 + 3 420 = 7 020. Andel prio 1: 7 020 / 23 390 · 100 = 30,013. Svaret blir 30,0 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6 240 + 4 380 + 2 910 + 9 860 = 23 390",
+              "etikett": "alla uppdrag"
+            },
+            {
+              "uttryck": "1 810 + 1 150 + 640 + 3 420 = 7 020",
+              "etikett": "alla prio 1"
+            },
+            {
+              "uttryck": "7 020 / 23 390 × 100 ≈ 30,0 %",
+              "etikett": "andel prio 1"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Norrby",
+              "Åstad",
+              "Kustvik",
+              "Centrala"
+            ],
+            "kolumner": [
+              "Uppdrag",
+              "Varav prio 1"
+            ]
+          }
+        }
       },
       {
         "id": "na-17-q03",
@@ -2761,7 +3462,19 @@
           "visning": "28,0 uppdrag",
           "precision": 1
         },
-        "explanation": "Uppdrag per ambulans under året: 2 910 / 2 = 1 455. Per vecka: 1 455 / 52 = 27,981. Svaret blir 28,0 uppdrag."
+        "explanation": "Uppdrag per ambulans under året: 2 910 / 2 = 1 455. Per vecka: 1 455 / 52 = 27,981. Svaret blir 28,0 uppdrag.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 910 / 2 = 1 455",
+              "etikett": "uppdrag per ambulans under året"
+            },
+            {
+              "uttryck": "1 455 / 52 ≈ 28,0",
+              "etikett": "per vecka"
+            }
+          ]
+        }
       },
       {
         "id": "na-17-q04",
@@ -2823,7 +3536,28 @@
           "visning": "107 %",
           "precision": 0
         },
-        "explanation": "Skillnad i minuter: 118 - 57 = 61. Skillnad i procent av Centrala: 61 / 57 · 100 = 107,018. Svaret blir 107 %."
+        "explanation": "Skillnad i minuter: 118 - 57 = 61. Skillnad i procent av Centrala: 61 / 57 · 100 = 107,018. Svaret blir 107 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "118 − 57 = 61",
+              "etikett": "skillnad i minuter"
+            },
+            {
+              "uttryck": "61 / 57 × 100 ≈ 107 %",
+              "etikett": "skillnad i procent av Centrala"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kustvik",
+              "Centrala"
+            ],
+            "kolumner": [
+              "Medeltid per uppdrag (min)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2946,7 +3680,28 @@
           "visning": "182 liter",
           "precision": 0
         },
-        "explanation": "Liter per invånare under året: 812 000 · 1 000 / 12 200 = 66 557,377. Per dag: 66 557,377 / 365 = 182,349. Svaret blir 182 liter."
+        "explanation": "Liter per invånare under året: 812 000 · 1 000 / 12 200 = 66 557,377. Per dag: 66 557,377 / 365 = 182,349. Svaret blir 182 liter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "812 000 × 1 000 / 12 200 ≈ 66 557,377",
+              "etikett": "liter per invånare under året"
+            },
+            {
+              "uttryck": "66 557,377 / 365 ≈ 182",
+              "etikett": "per dag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Bergsäng"
+            ],
+            "kolumner": [
+              "Förbrukning 2025 (kubikmeter)",
+              "Invånare"
+            ]
+          }
+        }
       },
       {
         "id": "na-18-q02",
@@ -3008,7 +3763,28 @@
           "visning": "9,4 %",
           "precision": 1
         },
-        "explanation": "Ökning i kubikmeter: 812 000 - 742 000 = 70 000. Ökning i procent av 2024: 70 000 / 742 000 · 100 = 9,434. Svaret blir 9,4 %."
+        "explanation": "Ökning i kubikmeter: 812 000 - 742 000 = 70 000. Ökning i procent av 2024: 70 000 / 742 000 · 100 = 9,434. Svaret blir 9,4 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "812 000 − 742 000 = 70 000",
+              "etikett": "ökning i kubikmeter"
+            },
+            {
+              "uttryck": "70 000 / 742 000 × 100 ≈ 9,4 %",
+              "etikett": "ökning i procent av 2024"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Bergsäng"
+            ],
+            "kolumner": [
+              "Förbrukning 2025 (kubikmeter)",
+              "Förbrukning 2024 (kubikmeter)"
+            ]
+          }
+        }
       },
       {
         "id": "na-18-q03",
@@ -3070,7 +3846,28 @@
           "visning": "17,7 mkr",
           "precision": 1
         },
-        "explanation": "Förbrukning i kubikmeter: 305 000 + 247 000 = 552 000. Intäkter i mkr: 552 000 · 32 / 1 000 / 1 000 = 17,664. Svaret blir 17,7 mkr."
+        "explanation": "Förbrukning i kubikmeter: 305 000 + 247 000 = 552 000. Intäkter i mkr: 552 000 · 32 / 1 000 / 1 000 = 17,664. Svaret blir 17,7 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "305 000 + 247 000 = 552 000",
+              "etikett": "förbrukning i kubikmeter"
+            },
+            {
+              "uttryck": "552 000 × 32 / 1 000 / 1 000 = 17,664 ≈ 17,7",
+              "etikett": "intäkter i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gamla stan",
+              "Mossen"
+            ],
+            "kolumner": [
+              "Förbrukning 2025 (kubikmeter)"
+            ]
+          }
+        }
       },
       {
         "id": "na-18-q04",
@@ -3132,7 +3929,28 @@
           "visning": "3 148 kr",
           "precision": 0
         },
-        "explanation": "Intäkter från Gamla stan i kr: 305 000 · 32 = 9 760 000. Per hushåll: 9 760 000 / 3 100 = 3 148,387. Svaret blir 3 148 kr."
+        "explanation": "Intäkter från Gamla stan i kr: 305 000 · 32 = 9 760 000. Per hushåll: 9 760 000 / 3 100 = 3 148,387. Svaret blir 3 148 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "305 000 × 32 = 9 760 000",
+              "etikett": "intäkter från Gamla stan i kr"
+            },
+            {
+              "uttryck": "9 760 000 / 3 100 ≈ 3 148",
+              "etikett": "per hushåll"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gamla stan"
+            ],
+            "kolumner": [
+              "Förbrukning 2025 (kubikmeter)",
+              "Hushåll"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3260,7 +4078,19 @@
           "visning": "101 personer",
           "precision": 0
         },
-        "explanation": "Godkända undersköterskor och barnskötare: 55 · 80 / 100 + 30 · 70 / 100 = 65. Plus lagerlogistik och elektriker: 65 + 25 · 76 / 100 + 20 · 85 / 100 = 101. Svaret blir 101 personer."
+        "explanation": "Godkända undersköterskor och barnskötare: 55 · 80 / 100 + 30 · 70 / 100 = 65. Plus lagerlogistik och elektriker: 65 + 25 · 76 / 100 + 20 · 85 / 100 = 101. Svaret blir 101 personer.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "55 × 80 / 100 + 30 × 70 / 100 = 65",
+              "etikett": "godkända undersköterskor och barnskötare"
+            },
+            {
+              "uttryck": "65 + 25 × 76 / 100 + 20 × 85 / 100 = 101",
+              "etikett": "plus lagerlogistik och elektriker"
+            }
+          ]
+        }
       },
       {
         "id": "na-19-q02",
@@ -3327,7 +4157,23 @@
           "visning": "8,1 mkr",
           "precision": 1
         },
-        "explanation": "Kostnad för undersköterskor i tkr: 60 · 86 = 5 160. Plus elektriker i tkr: 5 160 + 20 · 148 = 8 120. Omräknat till mkr: 8 120 / 1 000 = 8,12. Svaret blir 8,1 mkr."
+        "explanation": "Kostnad för undersköterskor i tkr: 60 · 86 = 5 160. Plus elektriker i tkr: 5 160 + 20 · 148 = 8 120. Omräknat till mkr: 8 120 / 1 000 = 8,12. Svaret blir 8,1 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "60 × 86 = 5 160",
+              "etikett": "kostnad för undersköterskor i tkr"
+            },
+            {
+              "uttryck": "5 160 + 20 × 148 = 8 120",
+              "etikett": "plus elektriker i tkr"
+            },
+            {
+              "uttryck": "8 120 / 1 000 = 8,12 ≈ 8,1",
+              "etikett": "omräknat till mkr"
+            }
+          ]
+        }
       },
       {
         "id": "na-19-q03",
@@ -3394,7 +4240,23 @@
           "visning": "97 %",
           "precision": 0
         },
-        "explanation": "Elektriker, sökande per plats: 118 / 20 = 5,9. Barnskötare, sökande per plats: 96 / 32 = 3. Skillnad i procent av barnskötarna: (5,9 - 3) / 3 · 100 = 96,667. Svaret blir 97 %."
+        "explanation": "Elektriker, sökande per plats: 118 / 20 = 5,9. Barnskötare, sökande per plats: 96 / 32 = 3. Skillnad i procent av barnskötarna: (5,9 - 3) / 3 · 100 = 96,667. Svaret blir 97 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "118 / 20 = 5,9",
+              "etikett": "elektriker, sökande per plats"
+            },
+            {
+              "uttryck": "96 / 32 = 3",
+              "etikett": "barnskötare, sökande per plats"
+            },
+            {
+              "uttryck": "(5,9 − 3) / 3 × 100 ≈ 97 %",
+              "etikett": "skillnad i procent av barnskötarna"
+            }
+          ]
+        }
       },
       {
         "id": "na-19-q04",
@@ -3461,7 +4323,23 @@
           "visning": "117 tkr",
           "precision": 0
         },
-        "explanation": "Kostnad för alla platser i tkr: 60 · 86 = 5 160. Antal godkända: 55 · 80 / 100 = 44. Kostnad per godkänd: 5 160 / 44 = 117,273. Svaret blir 117 tkr."
+        "explanation": "Kostnad för alla platser i tkr: 60 · 86 = 5 160. Antal godkända: 55 · 80 / 100 = 44. Kostnad per godkänd: 5 160 / 44 = 117,273. Svaret blir 117 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "60 × 86 = 5 160",
+              "etikett": "kostnad för alla platser i tkr"
+            },
+            {
+              "uttryck": "55 × 80 / 100 = 44",
+              "etikett": "antal godkända"
+            },
+            {
+              "uttryck": "5 160 / 44 ≈ 117",
+              "etikett": "kostnad per godkänd"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3571,7 +4449,24 @@
           "visning": "70,7 mkr",
           "precision": 1
         },
-        "explanation": "Antal containrar: 52 · 1 000 = 52 000. Avgifter i mkr: 52 000 · 1 360 / 1 000 / 1 000 = 70,72. Svaret blir 70,7 mkr."
+        "explanation": "Antal containrar: 52 · 1 000 = 52 000. Avgifter i mkr: 52 000 · 1 360 / 1 000 / 1 000 = 70,72. Svaret blir 70,7 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "52 × 1 000 = 52 000",
+              "etikett": "antal containrar"
+            },
+            {
+              "uttryck": "52 000 × 1 360 / 1 000 / 1 000 = 70,72 ≈ 70,7",
+              "etikett": "avgifter i mkr"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Norr 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-20-q02",
@@ -3633,7 +4528,25 @@
           "visning": "28,6 %",
           "precision": 1
         },
-        "explanation": "Ökning i tusental: 27 - 21 = 6. Ökning i procent av 2024: 6 / 21 · 100 = 28,571. Svaret blir 28,6 %."
+        "explanation": "Ökning i tusental: 27 - 21 = 6. Ökning i procent av 2024: 6 / 21 · 100 = 28,571. Svaret blir 28,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "27 − 21 = 6",
+              "etikett": "ökning i tusental"
+            },
+            {
+              "uttryck": "6 / 21 × 100 ≈ 28,6 %",
+              "etikett": "ökning i procent av 2024"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Väst 2025",
+              "Väst 2024"
+            ]
+          }
+        }
       },
       {
         "id": "na-20-q03",
@@ -3695,7 +4608,26 @@
           "visning": "317 containrar",
           "precision": 0
         },
-        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Per öppetdag: 114 · 1 000 / 360 = 316,667. Svaret blir 317 containrar."
+        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Per öppetdag: 114 · 1 000 / 360 = 316,667. Svaret blir 317 containrar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "52 + 35 + 27 = 114",
+              "etikett": "containrar 2025 i tusental"
+            },
+            {
+              "uttryck": "114 × 1 000 / 360 ≈ 317",
+              "etikett": "per öppetdag"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Norr 2025",
+              "Syd 2025",
+              "Väst 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-20-q04",
@@ -3757,7 +4689,26 @@
           "visning": "45,6 %",
           "precision": 1
         },
-        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Norrs andel: 52 / 114 · 100 = 45,614. Svaret blir 45,6 %."
+        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Norrs andel: 52 / 114 · 100 = 45,614. Svaret blir 45,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "52 + 35 + 27 = 114",
+              "etikett": "containrar 2025 i tusental"
+            },
+            {
+              "uttryck": "52 / 114 × 100 ≈ 45,6 %",
+              "etikett": "norrs andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Norr 2025",
+              "Syd 2025",
+              "Väst 2025"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3875,7 +4826,28 @@
           "visning": "4,0 %",
           "precision": 1
         },
-        "explanation": "Höjning i kr: 44 300 - 42 600 = 1 700. Höjning i procent av lönen före: 1 700 / 42 600 · 100 = 3,991. Svaret blir 4,0 %."
+        "explanation": "Höjning i kr: 44 300 - 42 600 = 1 700. Höjning i procent av lönen före: 1 700 / 42 600 · 100 = 3,991. Svaret blir 4,0 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "44 300 − 42 600 = 1 700",
+              "etikett": "höjning i kr"
+            },
+            {
+              "uttryck": "1 700 / 42 600 × 100 ≈ 4,0 %",
+              "etikett": "höjning i procent av lönen före"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Sjuksköterskor"
+            ],
+            "kolumner": [
+              "Medellön efter (kr)",
+              "Medellön före (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-21-q02",
@@ -3942,7 +4914,33 @@
           "visning": "7,3 mkr",
           "precision": 1
         },
-        "explanation": "Höjning per månad för hela gruppen i kr: (32 900 - 31 800) · 420 = 462 000. Per år i kr: 462 000 · 12 = 5 544 000. Med sociala avgifter i mkr: 5 544 000 · (1 + 31,42 / 100) / 1 000 / 1 000 = 7,286. Svaret blir 7,3 mkr."
+        "explanation": "Höjning per månad för hela gruppen i kr: (32 900 - 31 800) · 420 = 462 000. Per år i kr: 462 000 · 12 = 5 544 000. Med sociala avgifter i mkr: 5 544 000 · (1 + 31,42 / 100) / 1 000 / 1 000 = 7,286. Svaret blir 7,3 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(32 900 − 31 800) × 420 = 462 000",
+              "etikett": "höjning per månad för hela gruppen i kr"
+            },
+            {
+              "uttryck": "462 000 × 12 = 5 544 000",
+              "etikett": "per år i kr"
+            },
+            {
+              "uttryck": "5 544 000 × (1 + 31,42 / 100) / 1 000 / 1 000 ≈ 7,3",
+              "etikett": "med sociala avgifter i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Undersköterskor"
+            ],
+            "kolumner": [
+              "Medellön efter (kr)",
+              "Medellön före (kr)",
+              "Anställda"
+            ]
+          }
+        }
       },
       {
         "id": "na-21-q03",
@@ -4004,7 +5002,28 @@
           "visning": "146 %",
           "precision": 0
         },
-        "explanation": "Skillnad i kr: 80 900 - 32 900 = 48 000. Skillnad i procent av undersköterskornas lön: 48 000 / 32 900 · 100 = 145,897. Svaret blir 146 %."
+        "explanation": "Skillnad i kr: 80 900 - 32 900 = 48 000. Skillnad i procent av undersköterskornas lön: 48 000 / 32 900 · 100 = 145,897. Svaret blir 146 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "80 900 − 32 900 = 48 000",
+              "etikett": "skillnad i kr"
+            },
+            {
+              "uttryck": "48 000 / 32 900 × 100 ≈ 146 %",
+              "etikett": "skillnad i procent av undersköterskornas lön"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Läkare",
+              "Undersköterskor"
+            ],
+            "kolumner": [
+              "Medellön efter (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "na-21-q04",
@@ -4071,7 +5090,35 @@
           "visning": "40 931 kr",
           "precision": 0
         },
-        "explanation": "Lönesumma per månad efter revisionen: 420 · 32 900 + 260 · 44 300 + 85 · 80 900 + 140 · 34 500 = 37 042 500. Alla anställda: 420 + 260 + 85 + 140 = 905. Medellön: 37 042 500 / 905 = 40 930,939. Svaret blir 40 931 kr."
+        "explanation": "Lönesumma per månad efter revisionen: 420 · 32 900 + 260 · 44 300 + 85 · 80 900 + 140 · 34 500 = 37 042 500. Alla anställda: 420 + 260 + 85 + 140 = 905. Medellön: 37 042 500 / 905 = 40 930,939. Svaret blir 40 931 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "420 × 32 900 + 260 × 44 300 + 85 × 80 900 + 140 × 34 500 = 37 042 500",
+              "etikett": "lönesumma per månad efter revisionen"
+            },
+            {
+              "uttryck": "420 + 260 + 85 + 140 = 905",
+              "etikett": "alla anställda"
+            },
+            {
+              "uttryck": "37 042 500 / 905 ≈ 40 931",
+              "etikett": "medellön"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Undersköterskor",
+              "Sjuksköterskor",
+              "Läkare",
+              "Administratörer"
+            ],
+            "kolumner": [
+              "Anställda",
+              "Medellön efter (kr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -4196,7 +5243,31 @@
           "visning": "31,6 %",
           "precision": 1
         },
-        "explanation": "Vaccinationer under säsongen: 980 + 710 + 290 + 140 = 2 120. Varav 65 år eller äldre: 2 120 · 70 / 100 = 1 484. Andel av de listade: 1 484 / 4 700 · 100 = 31,575. Svaret blir 31,6 %."
+        "explanation": "Vaccinationer under säsongen: 980 + 710 + 290 + 140 = 2 120. Varav 65 år eller äldre: 2 120 · 70 / 100 = 1 484. Andel av de listade: 1 484 / 4 700 · 100 = 31,575. Svaret blir 31,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "980 + 710 + 290 + 140 = 2 120",
+              "etikett": "vaccinationer under säsongen"
+            },
+            {
+              "uttryck": "2 120 × 70 / 100 = 1 484",
+              "etikett": "varav 65 år eller äldre"
+            },
+            {
+              "uttryck": "1 484 / 4 700 × 100 ≈ 31,6 %",
+              "etikett": "andel av de listade"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Okt 2025",
+              "Nov 2025",
+              "Dec 2025",
+              "Jan 2026"
+            ]
+          }
+        }
       },
       {
         "id": "na-22-q02",
@@ -4258,7 +5329,25 @@
           "visning": "10,9 %",
           "precision": 1
         },
-        "explanation": "Skillnad i antal: 710 - 640 = 70. Skillnad i procent av november 2024: 70 / 640 · 100 = 10,938. Svaret blir 10,9 %."
+        "explanation": "Skillnad i antal: 710 - 640 = 70. Skillnad i procent av november 2024: 70 / 640 · 100 = 10,938. Svaret blir 10,9 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "710 − 640 = 70",
+              "etikett": "skillnad i antal"
+            },
+            {
+              "uttryck": "70 / 640 × 100 = 10,9375 ≈ 10,9 %",
+              "etikett": "skillnad i procent av november 2024"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Nov 2025",
+              "Nov 2024"
+            ]
+          }
+        }
       },
       {
         "id": "na-22-q03",
@@ -4320,7 +5409,24 @@
           "visning": "131 timmar",
           "precision": 0
         },
-        "explanation": "Tid i minuter: 980 · 8 = 7 840. Omräknat till timmar: 7 840 / 60 = 130,667. Svaret blir 131 timmar."
+        "explanation": "Tid i minuter: 980 · 8 = 7 840. Omräknat till timmar: 7 840 / 60 = 130,667. Svaret blir 131 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "980 × 8 = 7 840",
+              "etikett": "tid i minuter"
+            },
+            {
+              "uttryck": "7 840 / 60 ≈ 131",
+              "etikett": "omräknat till timmar"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Okt 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-22-q04",
@@ -4382,7 +5488,26 @@
           "visning": "585,9 tkr",
           "precision": 1
         },
-        "explanation": "Vaccinationer oktober till december 2024: 920 + 640 + 330 = 1 890. Ersättning i tkr: 1 890 · 310 / 1 000 = 585,9. Svaret blir 585,9 tkr."
+        "explanation": "Vaccinationer oktober till december 2024: 920 + 640 + 330 = 1 890. Ersättning i tkr: 1 890 · 310 / 1 000 = 585,9. Svaret blir 585,9 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "920 + 640 + 330 = 1 890",
+              "etikett": "vaccinationer oktober till december 2024"
+            },
+            {
+              "uttryck": "1 890 × 310 / 1 000 = 585,9",
+              "etikett": "ersättning i tkr"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Okt 2024",
+              "Nov 2024",
+              "Dec 2024"
+            ]
+          }
+        }
       }
     ]
   },
@@ -4500,7 +5625,24 @@
           "visning": "42,8 mkr",
           "precision": 1
         },
-        "explanation": "Ersättning i tkr: 910 · 47 = 42 770. Omräknat till mkr: 42 770 / 1 000 = 42,77. Svaret blir 42,8 mkr."
+        "explanation": "Ersättning i tkr: 910 · 47 = 42 770. Omräknat till mkr: 42 770 / 1 000 = 42,77. Svaret blir 42,8 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "910 × 47 = 42 770",
+              "etikett": "ersättning i tkr"
+            },
+            {
+              "uttryck": "42 770 / 1 000 = 42,77 ≈ 42,8",
+              "etikett": "omräknat till mkr"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Vattenskada 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-23-q02",
@@ -4562,7 +5704,27 @@
           "visning": "29,8 %",
           "precision": 1
         },
-        "explanation": "Samlad ersättning 2025 i tkr: 910 · 47 + 310 · 28 + 110 · 212 + 180 · 19 = 78 190. Brandens andel: 110 · 212 / 78 190 · 100 = 29,825. Svaret blir 29,8 %."
+        "explanation": "Samlad ersättning 2025 i tkr: 910 · 47 + 310 · 28 + 110 · 212 + 180 · 19 = 78 190. Brandens andel: 110 · 212 / 78 190 · 100 = 29,825. Svaret blir 29,8 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "910 × 47 + 310 × 28 + 110 × 212 + 180 × 19 = 78 190",
+              "etikett": "samlad ersättning 2025 i tkr"
+            },
+            {
+              "uttryck": "110 × 212 / 78 190 × 100 ≈ 29,8 %",
+              "etikett": "brandens andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Vattenskada 2025",
+              "Inbrott 2025",
+              "Brand 2025",
+              "Storm 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-23-q03",
@@ -4624,7 +5786,25 @@
           "visning": "13,9 %",
           "precision": 1
         },
-        "explanation": "Minskning i ärenden: 360 - 310 = 50. Minskning i procent av 2024: 50 / 360 · 100 = 13,889. Svaret blir 13,9 %."
+        "explanation": "Minskning i ärenden: 360 - 310 = 50. Minskning i procent av 2024: 50 / 360 · 100 = 13,889. Svaret blir 13,9 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "360 − 310 = 50",
+              "etikett": "minskning i ärenden"
+            },
+            {
+              "uttryck": "50 / 360 × 100 ≈ 13,9 %",
+              "etikett": "minskning i procent av 2024"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Inbrott 2024",
+              "Inbrott 2025"
+            ]
+          }
+        }
       },
       {
         "id": "na-23-q04",
@@ -4686,7 +5866,27 @@
           "visning": "9,4 heltidstjänster",
           "precision": 1
         },
-        "explanation": "Ärenden 2025: 910 + 310 + 110 + 180 = 1 510. Heltidstjänster: 1 510 / 160 = 9,438. Svaret blir 9,4 heltidstjänster."
+        "explanation": "Ärenden 2025: 910 + 310 + 110 + 180 = 1 510. Heltidstjänster: 1 510 / 160 = 9,438. Svaret blir 9,4 heltidstjänster.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "910 + 310 + 110 + 180 = 1 510",
+              "etikett": "ärenden 2025"
+            },
+            {
+              "uttryck": "1 510 / 160 = 9,4375 ≈ 9,4",
+              "etikett": "heltidstjänster"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Vattenskada 2025",
+              "Inbrott 2025",
+              "Brand 2025",
+              "Storm 2025"
+            ]
+          }
+        }
       }
     ]
   },
@@ -4809,7 +6009,29 @@
           "visning": "17,3 mkr",
           "precision": 1
         },
-        "explanation": "Yta i kvadratmeter: 6,4 · 1 000 · 9,5 = 60 800. Kostnad i mkr: 60 800 · 285 / 1 000 / 1 000 = 17,328. Svaret blir 17,3 mkr."
+        "explanation": "Yta i kvadratmeter: 6,4 · 1 000 · 9,5 = 60 800. Kostnad i mkr: 60 800 · 285 / 1 000 / 1 000 = 17,328. Svaret blir 17,3 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6,4 × 1 000 × 9,5 = 60 800",
+              "etikett": "yta i kvadratmeter"
+            },
+            {
+              "uttryck": "60 800 × 285 / 1 000 / 1 000 = 17,328 ≈ 17,3",
+              "etikett": "kostnad i mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Huvudgator"
+            ],
+            "kolumner": [
+              "Planerad beläggning (km)",
+              "Bredd (m)",
+              "Pris (kr per kvm)"
+            ]
+          }
+        }
       },
       {
         "id": "na-24-q02",
@@ -4866,7 +6088,24 @@
           "visning": "8,1 %",
           "precision": 1
         },
-        "explanation": "Planerad beläggning delat med gatunätet: 11,2 / 138 · 100 = 8,116. Svaret blir 8,1 %."
+        "explanation": "Planerad beläggning delat med gatunätet: 11,2 / 138 · 100 = 8,116. Svaret blir 8,1 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "11,2 / 138 × 100 ≈ 8,1 %",
+              "etikett": "planerad beläggning delat med gatunätet"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lokalgator"
+            ],
+            "kolumner": [
+              "Planerad beläggning (km)",
+              "Gatunät (km)"
+            ]
+          }
+        }
       },
       {
         "id": "na-24-q03",
@@ -4933,7 +6172,35 @@
           "visning": "37,9 %",
           "precision": 1
         },
-        "explanation": "Yta på lokalgator i kvadratmeter: 11,2 · 1 000 · 6,0 = 67 200. All ny yta i kvadratmeter: 6,4 · 1 000 · 9,5 + 11,2 · 1 000 · 6,0 + 8,5 · 1 000 · 3,5 + 2,6 · 1 000 · 7,5 = 177 250. Lokalgatornas andel: 67 200 / 177 250 · 100 = 37,913. Svaret blir 37,9 %."
+        "explanation": "Yta på lokalgator i kvadratmeter: 11,2 · 1 000 · 6,0 = 67 200. All ny yta i kvadratmeter: 6,4 · 1 000 · 9,5 + 11,2 · 1 000 · 6,0 + 8,5 · 1 000 · 3,5 + 2,6 · 1 000 · 7,5 = 177 250. Lokalgatornas andel: 67 200 / 177 250 · 100 = 37,913. Svaret blir 37,9 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "11,2 × 1 000 × 6,0 = 67 200",
+              "etikett": "yta på lokalgator i kvadratmeter"
+            },
+            {
+              "uttryck": "6,4 × 1 000 × 9,5 + 11,2 × 1 000 × 6,0 + 8,5 × 1 000 × 3,5 + 2,6 × 1 000 × 7,5 = 177 250",
+              "etikett": "all ny yta i kvadratmeter"
+            },
+            {
+              "uttryck": "67 200 / 177 250 × 100 ≈ 37,9 %",
+              "etikett": "lokalgatornas andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lokalgator",
+              "Huvudgator",
+              "Gång och cykel",
+              "Industrigator"
+            ],
+            "kolumner": [
+              "Planerad beläggning (km)",
+              "Bredd (m)"
+            ]
+          }
+        }
       },
       {
         "id": "na-24-q04",
@@ -4995,7 +6262,32 @@
           "visning": "45,3 mkr",
           "precision": 1
         },
-        "explanation": "Kostnad i kr: 6,4 · 1 000 · 9,5 · 285 + 11,2 · 1 000 · 6,0 · 240 + 8,5 · 1 000 · 3,5 · 195 + 2,6 · 1 000 · 7,5 · 310 = 45 302 250. Omräknat till mkr: 45 302 250 / 1 000 / 1 000 = 45,302. Svaret blir 45,3 mkr."
+        "explanation": "Kostnad i kr: 6,4 · 1 000 · 9,5 · 285 + 11,2 · 1 000 · 6,0 · 240 + 8,5 · 1 000 · 3,5 · 195 + 2,6 · 1 000 · 7,5 · 310 = 45 302 250. Omräknat till mkr: 45 302 250 / 1 000 / 1 000 = 45,302. Svaret blir 45,3 mkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6,4 × 1 000 × 9,5 × 285 + 11,2 × 1 000 × 6,0 × 240 + 8,5 × 1 000 × 3,5 × 195 + 2,6 × 1 000 × 7,5 × 310 = 45 302 250",
+              "etikett": "kostnad i kr"
+            },
+            {
+              "uttryck": "45 302 250 / 1 000 / 1 000 ≈ 45,3",
+              "etikett": "omräknat till mkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Huvudgator",
+              "Lokalgator",
+              "Gång och cykel",
+              "Industrigator"
+            ],
+            "kolumner": [
+              "Planerad beläggning (km)",
+              "Bredd (m)",
+              "Pris (kr per kvm)"
+            ]
+          }
+        }
       }
     ]
   }

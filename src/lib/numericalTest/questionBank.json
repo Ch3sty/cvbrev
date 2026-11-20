@@ -121,7 +121,28 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Tillväxt = (14.0 − 6.8) / 6.8 × 100% = 7.2 / 6.8 × 100% ≈ 105.9%. Närmast är 105%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "14,0 − 6,8 = 7,2",
+              "etikett": "ökningen"
+            },
+            {
+              "uttryck": "7,2 / 6,8 × 100 ≈ 105,9 %",
+              "etikett": "ökningen i procent"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kläder"
+            ],
+            "kolumner": [
+              "Q1",
+              "Q4"
+            ]
+          }
+        }
       },
       {
         "id": "num-p01-q03",
@@ -183,7 +204,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Sport: 26.0 MSEK av totalt 170.0 MSEK. Andel = 26.0 / 170.0 × 100% = 15.3% ≈ 15%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "26,0 / 170,0 × 100 ≈ 15,3 %",
+              "etikett": "Sports andel av årsförsäljningen"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Sport",
+              "Totalt"
+            ],
+            "kolumner": [
+              "Totalt"
+            ]
+          }
+        }
       }
     ]
   },
@@ -224,7 +262,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Deltidsanställda = totalt − heltid = 80 − 45 = 35 personer.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "80 − 45 = 35",
+              "etikett": "deltidsanställda"
+            }
+          ]
+        }
       },
       {
         "id": "num-p02-q02",
@@ -255,7 +301,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Deltidslön = 60% av heltidslön = 0.60 × 42 000 = 25 200 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "60 / 100 × 42 000 = 25 200",
+              "etikett": "deltidslön per månad"
+            }
+          ]
+        }
       },
       {
         "id": "num-p02-q03",
@@ -286,7 +340,27 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Heltid: 45 × 42 000 × 12 = 22 680 000 kr. Deltid: 35 × 25 200 × 12 = 10 584 000 kr. Totalt: 22 680 000 + 10 584 000 = 33 264 000 ≈ 33.3 miljoner kr.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "45 × 42 000 × 12 = 22 680 000",
+              "etikett": "heltidslöner per år"
+            },
+            {
+              "uttryck": "(80 − 45) × 60 / 100 × 42 000 × 12 = 10 584 000",
+              "etikett": "deltidslöner per år"
+            },
+            {
+              "uttryck": "22 680 000 + 10 584 000 = 33 264 000",
+              "etikett": "totala lönekostnader per år"
+            },
+            {
+              "uttryck": "33 264 000 / 1 000 000 = 33,264",
+              "etikett": "i miljoner kronor"
+            }
+          ]
+        }
       },
       {
         "id": "num-p02-q04",
@@ -317,7 +391,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "15% av 33.264 miljoner = 0.15 × 33.264 ≈ 4.99 miljoner ≈ 5.0 miljoner kr.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "45 × 42 000 × 12 + (80 − 45) × 60 / 100 × 42 000 × 12 = 33 264 000",
+              "etikett": "totala lönekostnader per år"
+            },
+            {
+              "uttryck": "15 / 100 × 33 264 000 = 4 989 600",
+              "etikett": "besparingen"
+            },
+            {
+              "uttryck": "4 989 600 / 1 000 000 = 4,9896",
+              "etikett": "i miljoner kronor"
+            }
+          ]
+        }
       }
     ]
   },
@@ -358,7 +448,23 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Mönstret är n × (n+1): 1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30, 6×7=42. Differenserna är också 4, 6, 8, 10, 12 (ökar med 2 varje gång).",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "30 − 20 = 10",
+              "etikett": "senaste differensen"
+            },
+            {
+              "uttryck": "10 + 2 = 12",
+              "etikett": "nästa differens"
+            },
+            {
+              "uttryck": "30 + 12 = 42",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       },
       {
         "id": "num-p03-q02",
@@ -389,7 +495,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Geometrisk serie där varje tal multipliceras med 3: 243 × 3 = 729.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "243 × 3 = 729",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       },
       {
         "id": "num-p03-q03",
@@ -420,7 +534,15 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Fibonacci: varje tal är summan av de två föregående. 8 + 13 = 21.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "8 + 13 = 21",
+              "etikett": "summan av de två senaste talen"
+            }
+          ]
+        }
       },
       {
         "id": "num-p03-q04",
@@ -451,7 +573,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Differenserna är −5, −10, −15, −20 (ökar med 5 i absolutbelopp). Nästa diff är −25, så 50 − 25 = 25.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "(70 − 50) + 5 = 25",
+              "etikett": "nästa minskning"
+            },
+            {
+              "uttryck": "50 − 25 = 25",
+              "etikett": "nästa tal"
+            }
+          ]
+        }
       }
     ]
   },
@@ -559,7 +693,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Täckningsbidragsmarginal = TB / intäkter = 30.4 / 62.8 × 100% ≈ 48.4%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "30,4 / 62,8 × 100 ≈ 48,4 %",
+              "etikett": "täckningsbidragsmarginal för Standard"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Standard"
+            ],
+            "kolumner": [
+              "Intäkter",
+              "Täckningsbidrag"
+            ]
+          }
+        }
       },
       {
         "id": "num-p04-q03",
@@ -621,7 +772,24 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Total TB / Total intäkter = 89.8 / 189.5 × 100% ≈ 47.4%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "89,8 / 189,5 × 100 ≈ 47,4 %",
+              "etikett": "genomsnittlig täckningsbidragsmarginal"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Totalt"
+            ],
+            "kolumner": [
+              "Intäkter",
+              "Täckningsbidrag"
+            ]
+          }
+        }
       }
     ]
   },
@@ -757,7 +925,20 @@
         ],
         "correctAnswerId": "c",
         "explanation": "176 × (1.08)^6 = 176 × 1.5869 ≈ 279.3 ≈ 280 kunder.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "176 × (1 + 8 / 100)⁶ ≈ 279,3",
+              "etikett": "kunder i december"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jun"
+            ]
+          }
+        }
       },
       {
         "id": "num-p05-q04",
@@ -788,7 +969,21 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Faktor = 176 / 120 ≈ 1.467 ≈ 1.47.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "176 / 120 ≈ 1,47",
+              "etikett": "tillväxtfaktor januari till juni"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jan",
+              "Jun"
+            ]
+          }
+        }
       }
     ]
   },
@@ -829,7 +1024,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Pris inkl moms = 800 × 1.25 = 1 000 kr. Eller: 800 + (800 × 0.25) = 800 + 200 = 1 000 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "800 × (1 + 25 / 100) = 1 000",
+              "etikett": "pris inklusive moms"
+            }
+          ]
+        }
       },
       {
         "id": "num-p06-q02",
@@ -860,7 +1063,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Pris exkl moms = 2 500 / 1.25 = 2 000 kr. Vanligt fel är att räkna 2 500 × 0.75 = 1 875 — men det blir bara rätt om momsen vore 25% av slutpriset, vilket den inte är.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 500 / (1 + 25 / 100) = 2 000",
+              "etikett": "pris exklusive moms"
+            }
+          ]
+        }
       },
       {
         "id": "num-p06-q03",
@@ -922,7 +1133,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "7.5 × 22 × 12 = 165 × 12 = 1 980 timmar per år.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "7,5 × 22 × 12 = 1 980",
+              "etikett": "arbetstimmar per år"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1036,7 +1255,24 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Malmö: 2 640 av 11 500 totalt. Andel = 2 640 / 11 500 × 100% ≈ 22.96% ≈ 23%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 640 / 11 500 × 100 ≈ 23,0 %",
+              "etikett": "Malmös andel av leveranserna"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Malmö",
+              "Totalt"
+            ],
+            "kolumner": [
+              "Antal leveranser"
+            ]
+          }
+        }
       },
       {
         "id": "num-p07-q03",
@@ -1067,7 +1303,28 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Malmö: 9.60 kr. Uppsala: 8.40 kr. Skillnad = (9.60 − 8.40) / 8.40 × 100% = 1.20 / 8.40 × 100% ≈ 14.3% ≈ 14%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9,60 − 8,40 = 1,20",
+              "etikett": "skillnad per leverans"
+            },
+            {
+              "uttryck": "1,20 / 8,40 × 100 ≈ 14,3 %",
+              "etikett": "skillnaden i procent av Uppsalas kostnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Malmö",
+              "Uppsala"
+            ],
+            "kolumner": [
+              "Kostnad per leverans (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "num-p07-q04",
@@ -1098,7 +1355,28 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Nya leveranser = 1 430 × 1.20 = 1 716. Total kostnad = 1 716 × 8.40 = 14 414.40 ≈ 14 414 kr. Alternativt: 12 012 × 1.20 = 14 414.40 kr.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 430 × (1 + 20 / 100) = 1 716",
+              "etikett": "nya antalet leveranser"
+            },
+            {
+              "uttryck": "1 716 × 8,40 = 14 414,4",
+              "etikett": "ny total kostnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Uppsala"
+            ],
+            "kolumner": [
+              "Antal leveranser",
+              "Kostnad per leverans (kr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1193,7 +1471,20 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Acme har 34% av totalt 2 400 GWh. 0.34 × 2 400 = 816 GWh.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "34 / 100 × 2 400 = 816",
+              "etikett": "Acmes försäljning"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Acme Energi"
+            ]
+          }
+        }
       },
       {
         "id": "num-p08-q03",
@@ -1224,7 +1515,21 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Acme: 34%. Svensk Energi: 22%. Skillnad = 34 − 22 = 12 procentenheter. (Notera: i procent är Acme cirka 55% större, men frågan gäller procentenheter.)",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "34 − 22 = 12",
+              "etikett": "skillnad i procentenheter"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Acme Energi",
+              "Svensk Energi"
+            ]
+          }
+        }
       },
       {
         "id": "num-p08-q04",
@@ -1255,7 +1560,25 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Acme 34% + Övriga 16% = 50% av 2 400 GWh = 0.50 × 2 400 = 1 200 GWh.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "34 + 16 = 50",
+              "etikett": "sammanlagd andel"
+            },
+            {
+              "uttryck": "50 / 100 × 2 400 = 1 200",
+              "etikett": "Acmes nya försäljning"
+            }
+          ],
+          "anvander": {
+            "sektorer": [
+              "Acme Energi",
+              "Övriga"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1296,7 +1619,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Daglig intäkt = 320 koppar × 35 kr = 11 200 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "320 × 35 = 11 200",
+              "etikett": "intäkt per dag"
+            }
+          ]
+        }
       },
       {
         "id": "num-p09-q02",
@@ -1327,7 +1658,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Täckningsbidrag per kopp = pris − råvarukostnad = 35 − 8 = 27 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "35 − 8 = 27",
+              "etikett": "täckningsbidrag per kopp"
+            }
+          ]
+        }
       },
       {
         "id": "num-p09-q03",
@@ -1358,7 +1697,23 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Täckningsbidrag per dag = 320 × 27 = 8 640 kr. Per månad = 8 640 × 26 = 224 640 kr. Resultat = 224 640 − 145 000 = 79 640 kr. Alternativ d (224 640) är täckningsbidraget innan de fasta kostnaderna dragits av.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "320 × (35 − 8) = 8 640",
+              "etikett": "täckningsbidrag per dag"
+            },
+            {
+              "uttryck": "8 640 × 26 = 224 640",
+              "etikett": "täckningsbidrag per månad"
+            },
+            {
+              "uttryck": "224 640 − 145 000 = 79 640",
+              "etikett": "månadsresultat"
+            }
+          ]
+        }
       },
       {
         "id": "num-p09-q04",
@@ -1389,7 +1744,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Fasta kostnader per dag = 145 000 / 26 ≈ 5 576.9 kr. Nödvändiga koppar = 5 576.9 / 27 ≈ 206.6 ≈ 207 koppar per dag.",
-        "difficulty": 3
+        "difficulty": 3,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "145 000 / 26 ≈ 5 576,9",
+              "etikett": "fasta kostnader per dag"
+            },
+            {
+              "uttryck": "5 576,9 / (35 − 8) ≈ 206,6",
+              "etikett": "koppar per dag för nollresultat"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1494,7 +1861,28 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Summa = 4200 + 3800 + 4500 + 5100 + 7200 + 9600 = 34 400 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 200 + 3 800 + 4 500 + 5 100 + 7 200 + 9 600 = 34 400",
+              "etikett": "veckans försäljning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Måndag",
+              "Tisdag",
+              "Onsdag",
+              "Torsdag",
+              "Fredag",
+              "Lördag"
+            ],
+            "kolumner": [
+              "Försäljning"
+            ]
+          }
+        }
       },
       {
         "id": "num-p10-q03",
@@ -1525,7 +1913,24 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Skillnad = 9600 − 4200 = 5400 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "9 600 − 4 200 = 5 400",
+              "etikett": "skillnad lördag mot måndag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Måndag",
+              "Lördag"
+            ],
+            "kolumner": [
+              "Försäljning"
+            ]
+          }
+        }
       },
       {
         "id": "num-p10-q04",
@@ -1556,7 +1961,32 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Andel = 7200 / 34 400 × 100% = 20.9% ≈ 21%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 200 + 3 800 + 4 500 + 5 100 + 7 200 + 9 600 = 34 400",
+              "etikett": "veckans försäljning"
+            },
+            {
+              "uttryck": "7 200 / 34 400 × 100 ≈ 20,9 %",
+              "etikett": "fredagens andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Måndag",
+              "Tisdag",
+              "Onsdag",
+              "Torsdag",
+              "Fredag",
+              "Lördag"
+            ],
+            "kolumner": [
+              "Försäljning"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1652,7 +2082,23 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Summa = 320 + 360 + 400 + 480 = 1560 kg.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "320 + 360 + 400 + 480 = 1 560",
+              "etikett": "insamlat totalt"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr"
+            ]
+          }
+        }
       },
       {
         "id": "num-p11-q03",
@@ -1683,7 +2129,25 @@
         ],
         "correctAnswerId": "c",
         "explanation": "Ökning = (480 − 320) / 320 × 100% = 160 / 320 × 100% = 50%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "480 − 320 = 160",
+              "etikett": "ökningen"
+            },
+            {
+              "uttryck": "160 / 320 × 100 = 50 %",
+              "etikett": "ökningen i procent"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jan",
+              "Apr"
+            ]
+          }
+        }
       },
       {
         "id": "num-p11-q04",
@@ -1714,7 +2178,27 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Andel = 480 / 1560 × 100% = 30.8% ≈ 31%.",
-        "difficulty": 2
+        "difficulty": 2,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "320 + 360 + 400 + 480 = 1 560",
+              "etikett": "insamlat totalt"
+            },
+            {
+              "uttryck": "480 / 1 560 × 100 ≈ 30,8 %",
+              "etikett": "aprils andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1755,7 +2239,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Pris inkl. moms = 800 × 1.25 = 1000 kr. Momsbeloppet är 800 × 0.25 = 200 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "800 × (1 + 25 / 100) = 1 000",
+              "etikett": "pris inklusive moms"
+            }
+          ]
+        }
       },
       {
         "id": "num-p12-q02",
@@ -1786,7 +2278,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "1 km = 1000 m, så 2.5 km = 2.5 × 1000 = 2500 m.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2,5 × 1 000 = 2 500",
+              "etikett": "sträckan i meter"
+            }
+          ]
+        }
       },
       {
         "id": "num-p12-q03",
@@ -1817,7 +2317,19 @@
         ],
         "correctAnswerId": "b",
         "explanation": "Rabatt = 250 × 0.30 = 75 kr. Pris efter rabatt = 250 − 75 = 175 kr. Alternativt: 250 × 0.70 = 175 kr.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "250 × 30 / 100 = 75",
+              "etikett": "rabatten"
+            },
+            {
+              "uttryck": "250 − 75 = 175",
+              "etikett": "pris efter rabatt"
+            }
+          ]
+        }
       },
       {
         "id": "num-p12-q04",
@@ -1848,7 +2360,15 @@
         ],
         "correctAnswerId": "b",
         "explanation": "3/4 av 60 = 60 / 4 × 3 = 15 × 3 = 45.",
-        "difficulty": 1
+        "difficulty": 1,
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "60 / 4 × 3 = 45",
+              "etikett": "tre fjärdedelar av 60"
+            }
+          ]
+        }
       }
     ]
   }
