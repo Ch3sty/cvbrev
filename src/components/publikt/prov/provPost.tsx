@@ -21,7 +21,7 @@
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 import type { GenomgangUppgift, ProvTyp, PublikUppgift } from '@/lib/tests/prov-typer'
-import type { VnUnderlag } from '@/lib/tester/pass-typer'
+import type { VnFacitData, VnUnderlag } from '@/lib/tester/pass-typer'
 import type { NivakollUppgift } from '@/lib/nivakoll/typer'
 import type { Rutnat } from '@/lib/tests/prova-lokalt'
 import { MATRIS, type MatrisU } from '@/components/session/typer/Matris'
@@ -155,7 +155,7 @@ export function genomgangPoster(uppgifter: readonly GenomgangUppgift[], underlag
     } else if (g.kind === 'verbal' || g.kind === 'numerisk') {
       const u = p.u as VnU
       valt = indexFor(u, g.genomgang.valt)
-      facit = { ...vnFacit(u, indexFor(u, g.genomgang.ratt) ?? -1, valt, g.genomgang.forklaring), correct: g.genomgang.correct }
+      facit = { ...vnFacit(u, indexFor(u, g.genomgang.ratt) ?? -1, valt, g.genomgang.forklaring, (g.genomgang.data as VnFacitData | null | undefined) ?? null), correct: g.genomgang.correct }
     } else {
       valt = g.genomgang.valt == null ? null : Number(g.genomgang.valt)
       if (valt !== null && !Number.isFinite(valt)) valt = null

@@ -575,7 +575,7 @@ export default function Trana<U extends RamUppgift, S>(p: TranaProps<U, S>) {
       framsteg={besvarade / antal}
       klocka={<Klocka lage="referens" sekunder={harSvarat ? tidPaUppgift : sekunder} budget={s.budgetPerUppgift} />}
       nyckel={u.nyckel}
-      underlag={ramUnderlag(ritare, u)}
+      underlag={ramUnderlag(ritare, u, false, facit?.data)}
       bitar={bitar}
       iRad={iRad}
       niva={nivaKapsel}

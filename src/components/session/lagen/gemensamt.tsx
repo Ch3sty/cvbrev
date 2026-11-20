@@ -49,11 +49,12 @@ export function ForsokIgen({ onClick, tillbakaHref, tillbaka }: { onClick: () =>
 }
 
 /** Typens underlag till ramens plats (etapp 2), null när typen ritar allt själv. */
-export function ramUnderlag<U extends RamUppgift>(ritare: TypRitare<U>, u: U, genomgang = false): { nyckel: string; innehall: ReactNode } | null {
+export function ramUnderlag<U extends RamUppgift>(ritare: TypRitare<U>, u: U, genomgang = false, facitData?: unknown): { nyckel: string; innehall: ReactNode } | null {
   const ul = ritare.underlag
   if (!ul) return null
   const Ritare = ul.Ritare
-  return { nyckel: ul.nyckel(u), innehall: <Ritare u={u} genomgang={genomgang} /> }
+  // facitData (omgång 3 steg 2b): underlaget markerar det facit räknar på.
+  return { nyckel: ul.nyckel(u), innehall: <Ritare u={u} genomgang={genomgang} facitData={facitData} /> }
 }
 
 /** Sekunder sedan en tidpunkt, uppdaterat varje sekund medan aktiv. */

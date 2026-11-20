@@ -180,7 +180,7 @@ function poster(vy: Ovningsvy): GenomgangPost<VnU>[] {
   return vnOvningsUppgifter(vy).map((u) => {
     const g = per.get(u.nyckel)
     const valt = indexFor(u, g?.svar ?? null)
-    return { u, valt, facit: vnFacit(u, indexFor(u, g?.ratt) ?? -1, valt, g?.forklaring ?? null), tid_s: g?.tid_s ?? null }
+    return { u, valt, facit: vnFacit(u, indexFor(u, g?.ratt) ?? -1, valt, g?.forklaring ?? null, g?.vnFacit ?? null), tid_s: g?.tid_s ?? null }
   })
 }
 

@@ -115,7 +115,7 @@ export default function Genomgang<U extends RamUppgift>({
       raknare={{ nr: pos + 1, antal }}
       framsteg={(pos + 1) / antal}
       nyckel={`g-${p.u.nyckel}`}
-      underlag={ramUnderlag(ritare, p.u, true)}
+      underlag={ramUnderlag(ritare, p.u, true, p.facit.data)}
       scen={ritare.kind}
       bekraftaAvbryt={false}
       onAvbryt={onStang}

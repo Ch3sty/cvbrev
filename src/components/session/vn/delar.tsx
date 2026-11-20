@@ -4,6 +4,7 @@
 // genomgången (plan-testflode-2026-11-20 etapp 2).
 
 import type { VnNivatestGenomgang } from '@/lib/tester/vn-nivatest'
+import type { VnFacitData } from '@/lib/tester/pass-typer'
 import type { GenomgangPost } from '../lagen/Genomgang'
 import type { RamFacit } from '../typ'
 import { tillVnU, type VnU } from '../typer/Vn'
@@ -12,10 +13,11 @@ import { tillVnU, type VnU } from '../typer/Vn'
  * Förklaringen för en uppgift: "Rätt svar: Falskt" som fet rad när hon inte
  * svarade rätt, bankens förklaring som löptext under.
  */
-export function vnFacit(u: VnU, ratt: number, valt: number | null, forklaring: string | null): RamFacit {
+export function vnFacit(u: VnU, ratt: number, valt: number | null, forklaring: string | null, data: VnFacitData | null = null): RamFacit {
   const correct = valt != null && valt === ratt
   const rattText = ratt >= 0 ? u.alternativ[ratt]?.text ?? null : null
-  return { ratt, correct, regel: !correct && rattText ? `Rätt svar: ${rattText}` : null, text: forklaring, misstag: null }
+  // data (omgång 3 steg 2b): räknevägen och stödmeningarna, bara med facit.
+  return { ratt, correct, regel: !correct && rattText ? `Rätt svar: ${rattText}` : null, text: forklaring, misstag: null, ...(data ? { data: { ...data, rattText } } : {}) }
 }
 
 /** Genomgångens poster: uppgiften, hennes svar, rätt svar och förklaringen. */
@@ -33,7 +35,7 @@ export function vnGenomgangPoster(kind: 'verbal' | 'numerisk', g: VnNivatestGeno
       {
         u,
         valt,
-        facit: vnFacit(u, ratt, valt, p?.forklaring ?? null),
+        facit: vnFacit(u, ratt, valt, p?.forklaring ?? null, p?.vnFacit ?? null),
         tid_s: p?.tid_s ?? null,
       },
     ]

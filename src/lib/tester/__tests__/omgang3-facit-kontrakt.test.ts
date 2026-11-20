@@ -98,7 +98,7 @@ describe('Nivåkollen', () => {
   for (const kind of ['verbal', 'numerisk', 'deduktiv'] as const) {
     it(`${kind}: uppgifterna utan facit, genomgången efter avslutet med det`, () => {
       const v = valjNivakoll(kind, new Map(), IDAG, `seed-${kind}`)
-      const uppgifter = v.fragor.map((n) => uppgiftFor(kind, n, v.nivaer[n] ?? 'grund', 'nk-1', v.delar)!)
+      const uppgifter = v.fragor.map((n) => uppgiftFor(kind, n, v.nivaer[n] ?? 'grund', 'nk-1', v.delar ?? [])!)
       expect(uppgifter.every(Boolean)).toBe(true)
       utan(uppgifter)
       const meta = { nivakoll: 1, test_kind: kind, typ: 'nivakoll', fragor: v.fragor, nivaer: v.nivaer, delar: v.delar }

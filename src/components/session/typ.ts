@@ -63,7 +63,8 @@ export interface TypRitare<U extends RamUppgift> {
    */
   underlag?: {
     nyckel: (u: U) => string
-    Ritare: ComponentType<{ u: U; genomgang?: boolean }>
+    /** `facitData`: RamFacit.data efter facit (omgång 3 steg 2b), för markeringar i underlaget. */
+    Ritare: ComponentType<{ u: U; genomgang?: boolean; facitData?: unknown }>
   }
   /** Uppgiftsarkets mellanrubriker, till exempel textens rubrik i verbalt. */
   arkGrupper?: (uppgifter: U[]) => { fran: number; rubrik: string }[]

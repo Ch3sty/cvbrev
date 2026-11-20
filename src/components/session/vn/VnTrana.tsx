@@ -57,7 +57,7 @@ export function lasVnPass(vy: VnPassVy): TranaSession<VnU> {
     const b = vy.besvarade[u.nyckel]
     if (b) besvarade[u.nyckel] = { valt: indexFor(u, b.svar), tid_s: b.tid_s }
     const a = vy.aterkoppling[u.nyckel]
-    if (a) facit[u.nyckel] = vnFacit(u, indexFor(u, a.ratt) ?? -1, indexFor(u, b?.svar), a.forklaring)
+    if (a) facit[u.nyckel] = vnFacit(u, indexFor(u, a.ratt) ?? -1, indexFor(u, b?.svar), a.forklaring, a.vnFacit ?? null)
   }
   return {
     id: vy.id,
@@ -93,7 +93,7 @@ function tranaApi(kind: VnKind, familj: string | null, a: VnPassApi): KopplatApi
       const r = await a.svara({ sessionId, nyckel, svar, tid })
       if (!r.ok) return { ok: false, status: r.status }
       const at = r.aterkoppling
-      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring), niva: lasRamNiva(r) }
+      return { ok: true, klar: r.klar, facit: vnFacit({ alternativ: alt } as VnU, indexFor({ alternativ: alt }, at.ratt) ?? -1, valt, at.forklaring, at.vnFacit ?? null), niva: lasRamNiva(r) }
     },
     hamta: async (id) => {
       const vy = await a.session(id)
