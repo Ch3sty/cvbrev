@@ -30,15 +30,9 @@ import { useTestHintMode } from '@/hooks/use-test-hint-mode';
 import type { VisadFraga } from '@/lib/logicTestV7/layered.v7';
 import { visatForSvar } from '@/lib/logicTestV7/blanda';
 import type { RunData, SavedAnswer } from '@/app/dashboard/tester/[slug]/getRunData';
+import { sessionRubrik } from '@/lib/traning/rubrik';
 
 export type MatrixTestLevel = 'grund' | 'avancerad' | 'expert';
-
-/** Testets namn i provskalets topprad. Speglar title i testConfig. */
-const TITLE_BY_LEVEL: Record<MatrixTestLevel, string> = {
-  grund: 'Logiktest, grundnivå',
-  avancerad: 'Logiktest, avancerad nivå',
-  expert: 'Logiktest, expertnivå',
-};
 
 interface MatrixTestSessionProps {
   sessionId: string;
@@ -476,7 +470,7 @@ export function MatrixTestSession({
 
   return (
     <TestFlowShell
-      title={TITLE_BY_LEVEL[level]}
+      title={sessionRubrik('matris', level)}
       onExit={() => {
         setFinishError(null);
         setShowFinishConfirm(true);

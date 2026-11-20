@@ -406,6 +406,7 @@ export default function FigurPassFlode({ api = fetchFigurPassApi, starta = false
       tid={{ sekunder: tidigare + nuTid, budget: vy.budget_s }}
       bred
       onAvsluta={tillbaka}
+      bekraftaAvbryt="traning"
       avslutaEtikett={C.topp.avsluta}
       nyckel={u.nyckel}
       banner={

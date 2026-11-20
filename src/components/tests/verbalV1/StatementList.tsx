@@ -13,7 +13,7 @@ interface StatementListProps {
 const answerOptions: { value: 'true' | 'false' | 'cannot_say'; label: string }[] = [
   { value: 'true', label: 'Sant' },
   { value: 'false', label: 'Falskt' },
-  { value: 'cannot_say', label: 'Kan ej avgöras' },
+  { value: 'cannot_say', label: 'Går inte att avgöra' },
 ];
 
 /**

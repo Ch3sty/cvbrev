@@ -8,6 +8,7 @@
 import { TRANING_RUTT, nivakollHref, ovningsprovHref, passHref, sessionHref, steg2PassHref, vnPassHref } from '@/lib/traning/rutter';
 import type { TestTypId, Zon } from './typer';
 import { NIVA_TEST_ANTAL } from './copy';
+import { nivakollKortRad, nivakollOmfang } from '@/lib/nivakoll/omfang';
 
 export const HEM_HREF = '/dashboard/tester';
 export const TESTER_HREF = '/dashboard/tester/alla';
@@ -114,9 +115,11 @@ export function genomgangHref(sessionId: string): string {
 }
 
 /**
- * Raden för en omätt testtyp: Nivåkollen där den finns, annars nivåtestet på
- * grundnivå (talserier, spatial förmåga, ordförråd har ingen Nivåkoll).
+ * Raden för en omätt testtyp: Nivåkollen där den finns, med typens egen tid
+ * ("Nivåkoll, 7 min"), annars nivåtestet på grundnivå (talserier, spatial
+ * förmåga, ordförråd har ingen Nivåkoll).
  */
 export function omattMeta(typ: TestTypId): string {
-  return NIVAKOLL_FINNS[typ] ? 'Nivåkoll, 8 min' : `Nivåtest, ${NIVA_TEST_ANTAL[typ].grund} uppgifter`;
+  const o = NIVAKOLL_FINNS[typ] ? nivakollOmfang(typ) : null;
+  return o ? nivakollKortRad(o) : `Nivåtest, ${NIVA_TEST_ANTAL[typ].grund} uppgifter`;
 }

@@ -23,6 +23,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { IkonX } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, LANK } from '@/components/shell/knappar'
+import ConfirmDialog from '@/components/shell/ConfirmDialog'
+import { AVBRYT, ENHET, LAMNA_IN } from '@/lib/tester/bekrafta'
 import NumericalTable from '@/components/tests/numerical-shared/NumericalTable'
 import NumericalChart, { type ChartConfig } from '@/components/tests/numerical-shared/NumericalChart'
 import { FRAGA, RESULTAT } from '@/lib/ovningsprov/copy'
@@ -58,6 +60,7 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
   const tider = useRef<Record<string, number>>({ ...start.tider })
   const osparade = useRef<Map<string, string>>(new Map())
   const [sparfel, setSparfel] = useState(false)
+  const [fraga, setFraga] = useState<'avbryt' | 'lamna_in' | null>(null)
   const [besokta, setBesokta] = useState<Set<number>>(() => new Set([0]))
   const forsta = Math.max(0, start.punkter.findIndex((p) => !start.svar[p.nyckel]))
   const [idx, setIdx] = useState<number>(start.avslutad ? 0 : forsta)
@@ -175,6 +178,9 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
   /* -------------------------------- Ritningen -------------------------- */
 
   const stang = () => router.push(TRANING_RUTT.alla)
+  // Krysset växlar frågan: i appen trycker Android-tillbaka på krysset, så ett
+  // andra tryck stänger frågan i stället för att lämna sessionen.
+  const trycktKryss = () => (fas === 'fraga' ? setFraga((f) => (f === 'avbryt' ? null : 'avbryt')) : stang())
 
   if (fas === 'resultat' && vy.resultat) {
     const vm = ovningsResultat(vy, { datum, dagarKvar })
@@ -202,7 +208,7 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-ovningsprov={vy.typ}>
       <header className="flex-shrink-0 border-b border-kant bg-papper">
         <div className="mx-auto flex h-[60px] w-full max-w-[640px] items-center gap-2 pl-1 pr-2">
-          <button type="button" onClick={stang} aria-label={FRAGA.avbryt} data-kryss="" className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 hover:bg-papper-2">
+          <button type="button" onClick={trycktKryss} aria-label={AVBRYT.aria} data-kryss="" className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 hover:bg-papper-2">
             <IkonX />
           </button>
           <p className="min-w-0 flex-1">
@@ -265,7 +271,7 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
               {FRAGA.foregaende}
             </button>
             {sista ? (
-              <button type="button" onClick={() => void lamnaIn()} className={`${KNAPP_PRIMAR} flex-1`} data-lamna-in>
+              <button type="button" onClick={() => setFraga('lamna_in')} className={`${KNAPP_PRIMAR} flex-1`} data-lamna-in>
                 {FRAGA.lamnaIn}
               </button>
             ) : (
@@ -276,6 +282,32 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
           </div>
         </footer>
       ) : null}
+
+      <ConfirmDialog
+        open={fraga === 'avbryt'}
+        onCancel={() => setFraga(null)}
+        onConfirm={() => {
+          setFraga(null)
+          stang()
+        }}
+        title={AVBRYT.titel('ovningsprov')}
+        description={AVBRYT.text('ovningsprov')}
+        confirmLabel={AVBRYT.bekrafta}
+        cancelLabel={AVBRYT.fortsatt}
+        destructive
+      />
+      <ConfirmDialog
+        open={fraga === 'lamna_in'}
+        onCancel={() => setFraga(null)}
+        onConfirm={() => {
+          setFraga(null)
+          void lamnaIn()
+        }}
+        title={LAMNA_IN.titel}
+        description={LAMNA_IN.text(vy.punkter.filter((x) => !svar[x.nyckel]).length, verbal ? ENHET.pastaende : ENHET.uppgift)}
+        confirmLabel={LAMNA_IN.bekrafta}
+        cancelLabel={LAMNA_IN.fortsatt}
+      />
     </div>
   )
 }

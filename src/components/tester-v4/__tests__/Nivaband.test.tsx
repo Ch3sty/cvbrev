@@ -8,13 +8,23 @@ const paborjad: NivaLage = { status: 'paborjad', niva: null, osakerhet: 0.6, tak
 const matt: NivaLage = { status: 'matt', niva: 5.3, osakerhet: 0.6, tak: 7.5 }
 
 describe('Nivaband', () => {
-  it('omätt: streckad skala med "Nivåkoll, 8 min", ingen knopp', () => {
-    const { container } = render(<Nivaband namn="Spatial förmåga" lage={omatt} storlek="liten" ton="koppar" />)
+  it('omätt: streckad skala med typens start, ingen knopp', () => {
+    const { container } = render(<Nivaband namn="Spatial förmåga" typ="spatial" lage={omatt} storlek="liten" ton="koppar" />)
     const svg = container.querySelector('svg')!
     expect(svg.getAttribute('aria-label')).toBe('Spatial förmåga: inte mätt än')
-    expect(svg.textContent).toContain('Nivåkoll, 8 min')
+    // Spatial förmåga har ingen Nivåkoll: nivåtestet, aldrig "Nivåkoll, 8 min".
+    expect(svg.textContent).toContain('Nivåtest, 15 uppgifter')
+    expect(svg.textContent).not.toContain('Nivåkoll')
     expect(container.querySelectorAll('line[stroke-dasharray]').length).toBe(3)
     expect(container.querySelector('circle')).toBeNull()
+  })
+
+  it('omätt med Nivåkoll: typens egen tid', () => {
+    const fig = render(<Nivaband namn="Figurserier" typ="figurserie" lage={omatt} storlek="liten" ton="koppar" />)
+    expect(fig.container.querySelector('svg')!.textContent).toContain('Nivåkoll, 7 min')
+    fig.unmount()
+    const mat = render(<Nivaband namn="Figurer och mönster" typ="matris" lage={omatt} storlek="liten" ton="koppar" />)
+    expect(mat.container.querySelector('svg')!.textContent).toContain('Nivåkoll, 8 min')
   })
 
   it('påbörjad: "8 av 12 svar" utan tal', () => {

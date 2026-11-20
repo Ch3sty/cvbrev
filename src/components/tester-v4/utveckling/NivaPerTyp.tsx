@@ -54,7 +54,7 @@ export default function NivaPerTyp({ typer, planNamn, typVal, onTyp }: NivaPerTy
                     ) : null}
                   </span>
                   <span className="mt-0.5 block max-w-[320px]">
-                    <Nivaband namn={t.namn} lage={t.niva} storlek="liten" ton={ton} />
+                    <Nivaband namn={t.namn} typ={t.id} lage={t.niva} storlek="liten" ton={ton} />
                   </span>
                 </span>
               </button>

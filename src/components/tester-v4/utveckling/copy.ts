@@ -75,7 +75,7 @@ export const UTV = {
       meta: 'Ingen mätning än',
       rubrik: 'Kurvan börjar med Nivåkollen',
       rubrikTyp: (typ: string) => `Ingen kurva i ${typ} än`,
-      skal: 'Åtta minuter i en testtyp, så får grafen sin första punkt. Varje mätning efter det visar om du rör dig.',
+      skal: 'Några minuter i en testtyp, så får grafen sin första punkt. Varje mätning efter det visar om du rör dig.',
       skalGrund: (typ: string) => `${typ} mäts med ett nivåtest på grundnivån. Det ger kurvan sin första punkt.`,
       tips: 'Gör den utvilad. Den väljer nivån för din träning.',
     },

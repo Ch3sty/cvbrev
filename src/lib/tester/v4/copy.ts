@@ -4,6 +4,7 @@
 // Ren, går att importera från klienten.
 
 import { DELTYP_NAMN } from '@/lib/traning/mittTest';
+import { nivakollAntalTid, nivakollOmfang } from '@/lib/nivakoll/omfang';
 import type { TestTypId, Zon } from './typer';
 
 export const ZON_NAMN: Readonly<Record<Zon, string>> = {
@@ -20,6 +21,14 @@ export const ZON_RUBRIK: Readonly<Record<Zon, string>> = {
 
 export function typNamn(typ: TestTypId): string {
   return DELTYP_NAMN[typ];
+}
+
+/** Nivåkollens tid i typen, med versal: "Sju minuter" (nivakoll/omfang). */
+export function nivakollMinuterOrd(typ: TestTypId): string {
+  const o = nivakollOmfang(typ);
+  if (!o) return 'Några minuter';
+  const ord = nivakollAntalTid(o).split('cirka ')[1] ?? '';
+  return ord ? ord[0].toUpperCase() + ord.slice(1) : 'Några minuter';
 }
 
 /** Gemener mitt i en mening: "Gör Nivåkollen i spatial förmåga". */
@@ -96,9 +105,14 @@ export const TESTA_DIG = {
 export const MAT_DIG = {
   eyebrow: 'Mät dig',
   nivakollRubrik: 'Nivåkollen, mät din nivå',
-  nivakollText: 'Tolv uppgifter, cirka åtta minuter. Högst en om dagen räknas.',
+  /** Typens eget omfång: "Nio uppgifter, cirka sju minuter. Högst en om dagen räknas." */
+  nivakollText: (typ: TestTypId): string => {
+    const o = nivakollOmfang(typ);
+    return o ? `${nivakollAntalTid(o)}. Högst en om dagen räknas.` : 'Högst en om dagen räknas.';
+  },
   ovningsprovMatris: 'Övningsprov mot klockan',
-  ovningsprovMatrisText: 'Välj format: Alva Logic eller Matrigma. Utan förklaringar.',
+  // Formatvalet finns inte på startarket än; formatet följer planen inför provet.
+  ovningsprovMatrisText: 'I samma format som Matrigma eller Alva Logic, enligt din plan inför provet. Utan förklaringar.',
   ovningsprovText: (meta: string) => `${meta}. Utan förklaringar.`,
   ovningsprovTyp: 'Övningsprov mot klockan',
   ovningsprovTypText: 'I provets format, utan förklaringar.',
@@ -114,7 +128,6 @@ export const LAS_CHIP = {
 export const META = {
   kvarIdag: '1 kvar i dag',
   gratisEnGang: 'Gratis en gång',
-  nivakollOmatt: 'Nivåkoll, 8 min',
   nivakollPaborjad: 'Nivåkoll påbörjad',
 } as const;
 
@@ -146,20 +159,20 @@ export const HINT = {
   forstaSteg: (provNamn: string, typ: TestTypId) => ({
     eyebrow: 'Första steget',
     rubrik: `Inför ${provNamn}: börja med Nivåkollen i ${typNamnSmall(typ)}`,
-    skal: 'Åtta minuter, och du vet var du ligger. Sedan tränar du på din nivå tills provdagen. Alla andra tester är öppna också.',
+    skal: `${nivakollMinuterOrd(typ)}, och du vet var du ligger. Sedan tränar du på din nivå tills provdagen. Alla andra tester är öppna också.`,
     tips: 'Gör den utvilad. Den väljer nivån för din träning.',
   }),
   forstaStegUtanPlan: (typ: TestTypId) => ({
     eyebrow: 'Första steget',
     rubrik: `Börja med Nivåkollen i ${typNamnSmall(typ)}`,
-    skal: `Åtta minuter, och du vet var du ligger. ${typNamn(typ)} är det som oftast ingår i rekryteringstest. Alla andra tester är öppna också.`,
+    skal: `${nivakollMinuterOrd(typ)}, och du vet var du ligger. ${typNamn(typ)} är det som oftast ingår i rekryteringstest. Alla andra tester är öppna också.`,
     tips: 'Gör den utvilad. Den väljer nivån för din träning.',
   }),
   nivakollSaknas: (provNamn: string, typ: TestTypId) => ({
     eyebrow: 'Nivåkoll saknas',
     rubrik: `Gör Nivåkollen i ${typNamnSmall(typ)}`,
     skal: `${typNamn(typ)} ingår i ${provNamn} och är inte mätt än.`,
-    tips: 'Åtta minuter. Den väljer nivån för din träning.',
+    tips: `${nivakollMinuterOrd(typ)}. Den väljer nivån för din träning.`,
   }),
   /** Typen saknar Nivåkoll än: grundnivån ger en första bild. */
   grundnivaSaknas: (provNamn: string, typ: TestTypId) => ({
@@ -201,7 +214,7 @@ export const HINT = {
   provaNytt: (typ: TestTypId) => ({
     eyebrow: 'Prova något nytt',
     rubrik: `Gör Nivåkollen i ${typNamnSmall(typ)}`,
-    skal: 'Du har inte mött den än. Åtta minuter, så får den sin linje i grafen.',
+    skal: `Du har inte mött den än. ${nivakollMinuterOrd(typ)}, så får den sin linje i grafen.`,
     tips: 'Gör den utvilad. Den väljer nivån för din träning.',
   }),
   provaNyttGrund: (typ: TestTypId) => ({
@@ -214,7 +227,7 @@ export const HINT = {
     eyebrow: 'Prova något nytt',
     rubrik: `Gör Nivåkollen i ${typNamnSmall(typ)}`,
     skal: 'Inget i din data pekar åt något håll just nu. En ny testtyp ger en ny linje i grafen.',
-    tips: 'Åtta minuter.',
+    tips: `${nivakollMinuterOrd(typ)}.`,
   }),
   ingetPekarTrana: (typ: TestTypId) => ({
     eyebrow: 'Fortsätt',

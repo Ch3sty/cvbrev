@@ -67,6 +67,8 @@ export interface NivaLage {
 /** Nivåbandets props, samma komponent i tre storlekar (B bygger, C och D använder). */
 export interface NivabandProps {
   namn: string;
+  /** Typen styr omätt-raden: "Nivåkoll, 7 min" eller "Nivåtest, 15 uppgifter" (rutter.omattMeta). */
+  typ?: TestTypId | null;
   lage: NivaLage;
   storlek: 'liten' | 'mellan' | 'stor';
   /** Koppar för provets delar och för alla utan plan, grått för övriga när en plan finns. */

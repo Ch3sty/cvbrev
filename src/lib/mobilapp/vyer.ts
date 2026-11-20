@@ -32,6 +32,7 @@ import { TEST_CONFIGS, testPaths } from '@/app/dashboard/tester/testConfig';
 import { iprovProvSynligt } from '@/lib/tester/steg2Status';
 import { GRATISRAD, KALLAS, LAS_CHIP, MAT_DIG, TESTA_DIG, ingarIDelar, inteI } from '@/lib/tester/v4/copy';
 import { NIVAKOLL_FINNS, PLAN_HREF, omattMeta, utvecklingHref } from '@/lib/tester/v4/rutter';
+import { NIVAKOLL_OMFANG, nivakollAntalTid, type NivakollTypId } from '@/lib/nivakoll/omfang';
 import {
   ZON_GRANSER,
   type Handling,
@@ -229,7 +230,7 @@ function kortFor(s: Traningsstatus, t: Deltyp): KatalogKort {
   if (t === 'matris' || NIVAKOLL_TYPER.includes(t)) {
     rader.push({
       titel: 'Nivåkollen',
-      meta: 'Tolv uppgifter, cirka åtta minuter',
+      meta: nivakollAntalTid(NIVAKOLL_OMFANG[t as NivakollTypId]),
       href: t === 'matris' ? TRANING_RUTT.matning : nivakollHref(t as NivakollTyp),
       chip: niva != null ? { text: `nivå ${nivaKort(niva)}`, ton: 'gjord' } : { text: 'Gratis', ton: 'fri' },
     });
@@ -262,8 +263,9 @@ function kortFor(s: Traningsstatus, t: Deltyp): KatalogKort {
   let meta: string;
   if (t === 'personlighet') meta = 'Femtio påståenden, en profil';
   else if (niva != null) meta = `Nivåkoll gjord, nivå ${nivaKort(niva)}`;
-  else if (STEG2_TYPER.includes(t)) meta = s.steg2Gjord?.[t as 'talserie' | 'spatial'] ? 'Nivåtest gjort' : 'Nivåtest, 15 uppgifter';
-  else meta = 'Nivåkoll, 8 min';
+  else if (STEG2_TYPER.includes(t) && s.steg2Gjord?.[t as 'talserie' | 'spatial']) meta = 'Nivåtest gjort';
+  // Samma rad som webbens kort: typens Nivåkoll-tid, eller nivåtestet där Nivåkollen saknas.
+  else meta = omattMeta(t as TestTypId);
 
   return {
     typ: t,
@@ -413,7 +415,7 @@ function arkFor(data: TesterV4Data, k: TesttypKort): KatalogArk {
   const nk = meny.nivakoll;
   const nivakollRad: ArkRad = {
     titel: MAT_DIG.nivakollRubrik,
-    meta: MAT_DIG.nivakollText,
+    meta: MAT_DIG.nivakollText(k.id),
     href: NIVAKOLL_FINNS[k.id] ? hrefFor(nk) : null,
     chip: nk.las || !nk.senaste ? chipFor(nk) : { text: `${kortDatum(nk.senaste.dag)} · ${nivaText(nk.senaste.niva)}`, ton: 'gjord' },
   };

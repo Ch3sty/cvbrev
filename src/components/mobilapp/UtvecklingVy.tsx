@@ -11,6 +11,7 @@
 import Link from 'next/link';
 import type { TestTypId, UtvecklingV4Data, MonsterLage } from '@/lib/tester/v4/typer';
 import { NIVA_TEST_ANTAL, typNamnSmall } from '@/lib/tester/v4/copy';
+import { nivakollOmfang } from '@/lib/nivakoll/omfang';
 import { slagEtikett } from '@/components/tester-v4/utveckling/copy';
 import { kortDatum } from '@/lib/traning/rubrik';
 import type { MilstolpeNyckel } from '@/lib/traning/milstolpar';
@@ -47,10 +48,11 @@ const talLitet = (n: number) => (n < TAL.length ? TAL[n].toLowerCase() : String(
 function startText(s: Start, typ: TestTypId, harPremium: boolean): { rubrik: string; text: string; knapp: string } {
   const gratisNivakoll = harPremium ? '' : ' Gratis.';
   const gratisNivatest = harPremium ? '' : ' Ett grundnivåtest om dagen är gratis.';
+  const o = s.slag === 'nivakoll' ? nivakollOmfang(typ) : null;
   if (s.slag === 'nivakoll')
     return {
       rubrik: 'Kurvan börjar med Nivåkollen',
-      text: `Tolv uppgifter i ${typNamnSmall(typ)}, cirka åtta minuter. Du får din nivå och första punkten på kurvan.${gratisNivakoll}`,
+      text: `${o ? `${tal(o.uppgifter)} uppgifter i ${typNamnSmall(typ)}, cirka ${talLitet(o.minuter)} minuter. ` : ''}Du får din nivå och första punkten på kurvan.${gratisNivakoll}`,
       knapp: 'Gör Nivåkollen',
     };
   if (s.slag === 'nivatest')

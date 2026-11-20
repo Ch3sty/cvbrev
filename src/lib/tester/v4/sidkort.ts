@@ -28,7 +28,7 @@ import { kopstegHref } from '@/lib/onboarding/steps';
 import { SALD_PLAN } from '@/lib/plans/plans';
 import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum';
 import { kortDatum } from '@/lib/traning/rubrik';
-import { ETIKETT, typNamn, typNamnSmall } from './copy';
+import { ETIKETT, nivakollMinuterOrd, typNamn, typNamnSmall } from './copy';
 import { NIVAKOLL_FINNS, menyHref, nivaTestHref, nivakollHrefV4, tranaHref } from './rutter';
 import type { NivaLage, TestTypId, TesterV4Data, UtvecklingV4Data, UtvecklingsPunkt } from './typer';
 
@@ -115,7 +115,7 @@ export function testerKort(data: TesterIn): TesterKort {
       if (val.niva.status === 'paborjad') {
         return { slag: 'paborjad', typ: val.id, vantar, etikett: P.etikett, meta, rubrik: P.paborjad.rubrik(namn), skal: P.paborjad.skal, tips: P.paborjad.tips, knapp: { etikett: ETIKETT.fortsatt, href, las: false } };
       }
-      const skal = data.plan && val.ingarIPlan ? P.nivakoll.skalPlan(typNamn(val.id), data.plan.namn) : P.nivakoll.skal(namn);
+      const skal = data.plan && val.ingarIPlan ? P.nivakoll.skalPlan(typNamn(val.id), data.plan.namn, nivakollMinuterOrd(val.id)) : P.nivakoll.skal(namn, nivakollMinuterOrd(val.id));
       return { slag: 'nivakoll', typ: val.id, vantar, etikett: P.etikett, meta, rubrik: P.nivakoll.rubrik(namn), skal, tips: P.nivakoll.tips, knapp: { etikett: ETIKETT.gorNivakollen, href, las: false } };
     }
     return {

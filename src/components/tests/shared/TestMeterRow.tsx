@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Mätraden i provskalets toppdel: klocka, fråga X av Y, besvarade.
+ * Mätraden i provskalets toppdel: klocka, uppgift X av Y, besvarade.
  *
  * En platt rad, inga piller, ingen egen kantlinje. Skalet äger ramen.
  * Klockan kan räkna både upp (övningstest) och ner (prov med tidsgräns).
@@ -16,13 +16,18 @@ export interface TestMeterRowProps {
   critical?: boolean
   /** Snart slut: klockan blir varning. */
   low?: boolean
-  /** Etikett för räknaren i mitten, "Fråga", "Uppgift" eller "Passage". */
+  /** Etikett för räknaren i mitten, "Fråga", "Uppgift" eller "Text". */
   counterLabel?: string
   /** Ettbaserat nummer. */
   current: number
   total: number
   /** Antal besvarade. Utelämnas när testet inte räknar det. */
   answered?: number
+  /**
+   * Vad besvarade räknas mot, när det är en annan enhet än räknaren i mitten
+   * (verbalt: texter i mitten, påståenden besvarade). Annars total.
+   */
+  answeredTotal?: number
 }
 
 export default function TestMeterRow({
@@ -33,6 +38,7 @@ export default function TestMeterRow({
   current,
   total,
   answered,
+  answeredTotal,
 }: TestMeterRowProps) {
   const timeTone = critical ? 'text-fel' : low ? 'text-varning' : 'text-ink-1'
 
@@ -62,26 +68,13 @@ export default function TestMeterRow({
       <p className="tabular-nums text-ink-3" aria-label={`${counterLabel} ${current} av ${total}`}>
         <span className="text-meta">{counterLabel} </span>
         <span className="font-medium text-ink-1">{current}</span>
-        <span> / {total}</span>
+        <span> av {total}</span>
       </p>
 
       {typeof answered === 'number' ? (
-        <span className="inline-flex min-w-[52px] items-center justify-end gap-1.5 font-medium tabular-nums text-positiv">
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M5 12.5l4.5 4.5L19 7.5" />
-          </svg>
-          {answered}
-          <span className="hidden sm:inline"> / {total}</span>
+        // Aldrig en bock: "✓ 0 / 15" lästes som antal rätt (plan-testflode etapp 0).
+        <span className="whitespace-nowrap text-right tabular-nums text-ink-3" data-besvarade>
+          <span className="font-medium text-ink-1">{answered}</span> av {answeredTotal ?? total} besvarade
         </span>
       ) : (
         <span className="w-[52px]" aria-hidden="true" />

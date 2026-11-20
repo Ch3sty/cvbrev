@@ -161,7 +161,7 @@ export default function TypMenyPanel({
         </div>
 
         <div className="mt-1">
-          <Nivaband namn={kort.namn} lage={kort.niva} storlek="mellan" ton="koppar" />
+          <Nivaband namn={kort.namn} typ={kort.id} lage={kort.niva} storlek="mellan" ton="koppar" />
         </div>
 
         <TranaKort trana={meny.trana} />
@@ -169,7 +169,7 @@ export default function TypMenyPanel({
           {TESTER.meny.eller}
         </div>
         <TestaDigKort nivaer={meny.nivaer} matNiva={!NIVAKOLL_FINNS[kort.id]} />
-        <MatDigRader nivakoll={meny.nivakoll} ovningsprov={meny.ovningsprov} senasteProv={senasteProv} />
+        <MatDigRader typ={kort.id} nivakoll={meny.nivakoll} ovningsprov={meny.ovningsprov} senasteProv={senasteProv} />
         <SenasteResultat typ={kort.id} senaste={meny.senaste} />
       </aside>
     </>

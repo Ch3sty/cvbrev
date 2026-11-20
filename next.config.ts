@@ -144,6 +144,13 @@ const nextConfig: NextConfig = {
       { source: '/trial-signup/:path*', destination: '/priser', permanent: true },
       { source: '/dashboard/gastinbjudningar', destination: '/priser', permanent: true },
       { source: '/dashboard/invite-friends', destination: '/priser', permanent: true },
+      // Testflödet etapp 0 (docs/plan-testflode-2026-11-20.md): de gamla
+      // provsidorna har ersatts av övningsproven. Bara startsidorna flyttas;
+      // gamla sessioner och resultat under /test/ står kvar. Appens tvilling
+      // använder samma adresser (proxyn skriver om), så den följer med.
+      { source: '/dashboard/tester/matrislogik-prov', destination: '/dashboard/tester/ovningsprov/logik', statusCode: 301 },
+      { source: '/dashboard/tester/verbal-resonemang-prov', destination: '/dashboard/tester/ovningsprov/verbal', statusCode: 301 },
+      { source: '/dashboard/tester/numeriskt-test-prov', destination: '/dashboard/tester/ovningsprov/numerisk', statusCode: 301 },
       // Mallsatsningen (plan-mallar avsnitt 5): den gamla mallstarten går till
       // provsidan, 308 med samma frågesträng (mall, typsnitt, yrke).
       { source: '/cv-mallar/start', destination: '/cv-mallar/prova', permanent: true },

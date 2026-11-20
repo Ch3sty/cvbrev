@@ -398,6 +398,7 @@ export default function DeduktivPassFlode({ api = fetchDeduktivPassApi, starta =
       tid={{ sekunder: tidigare + nuTid, budget: vy.budget_s }}
       deduktiv
       onAvsluta={tillbaka}
+      bekraftaAvbryt="traning"
       avslutaEtikett={C.topp.avsluta}
       nyckel={u.nyckel}
       banner={

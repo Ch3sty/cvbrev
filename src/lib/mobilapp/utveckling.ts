@@ -12,7 +12,7 @@
 
 import { dagAvPlan } from '@/lib/tester/v4/bana';
 import { NIVA_TEST_ANTAL, META } from '@/lib/tester/v4/copy';
-import { menyHref, nivaTestHref, nivakollHrefV4 } from '@/lib/tester/v4/rutter';
+import { menyHref, nivaTestHref, nivakollHrefV4, omattMeta } from '@/lib/tester/v4/rutter';
 import { TEST_TYP_ORDNING, arTestTypId, type Gratislage, type NivaLage, type PlanV4, type TestTypId, type UtvecklingV4Data, type UtvecklingsPunkt } from '@/lib/tester/v4/typer';
 import { byggGraf, paNivaaxeln, type GrafModell } from '@/components/tester-v4/utveckling/geometri';
 import type { MilstolpeNyckel } from '@/lib/traning/milstolpar';
@@ -138,7 +138,7 @@ export function typRader(data: Pick<UtvecklingV4Data, 'typer' | 'plan' | 'punkte
         href = nivakollHrefV4(t.id) ?? href;
       } else {
         const s = startFor(t.id, data.gratis);
-        text = s?.slag === 'nivakoll' ? META.nivakollOmatt : s?.slag === 'nivatest' ? `Nivåtest, ${NIVA_TEST_ANTAL[t.id].grund} uppgifter` : 'inte mätt än';
+        text = s?.slag === 'nivakoll' ? omattMeta(t.id) : s?.slag === 'nivatest' ? `Nivåtest, ${NIVA_TEST_ANTAL[t.id].grund} uppgifter` : 'inte mätt än';
         href = href ?? s?.href ?? null;
       }
       return { id: t.id, namn: t.namn, ingarIPlan: t.ingarIPlan, niva: t.niva, text, href, vald: t.id === vald };

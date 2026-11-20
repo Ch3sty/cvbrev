@@ -13,7 +13,7 @@ interface VerbalInfoCardProps {
 const ANSWERS = [
   { label: 'Sant', text: 'Påståendet följer logiskt av texten.' },
   { label: 'Falskt', text: 'Påståendet motsäger texten.' },
-  { label: 'Kan ej avgöras', text: 'Texten ger inte tillräckligt underlag.' },
+  { label: 'Går inte att avgöra', text: 'Texten ger inte tillräckligt underlag.' },
 ];
 
 export default function VerbalInfoCard({ variant }: VerbalInfoCardProps) {

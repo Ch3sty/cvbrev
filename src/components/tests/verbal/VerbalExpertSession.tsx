@@ -19,6 +19,9 @@ import type { Passage } from '@/lib/numericalTest/types';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import { AVBRYT, LAMNA_IN } from '@/lib/tester/bekrafta';
+import { sessionRubrik } from '@/lib/traning/rubrik';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay';
@@ -243,6 +246,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
     [postAnswer, updateFailedCount]
   );
 
+  const [fraga, setFraga] = useState<'avbryt' | 'lamna_in' | null>(null);
   const currentPassage = passages[currentPassageIndex];
   const currentQuestion = currentPassage?.questions[currentQuestionIndex];
   const totalQuestions = passages.reduce((sum, p) => sum + p.questions.length, 0);
@@ -329,9 +333,9 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
 
   return (
     <TestFlowShell
-      title="Verbalt resonemang, expertnivå"
-      onExit={() => router.push('/dashboard/tester')}
-      exitLabel="Lämna testet"
+      title={sessionRubrik('verbal', 'expert')}
+      onExit={() => setFraga('avbryt')}
+      exitLabel={AVBRYT.aria}
       progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
       meter={
         <TestMeterRow
@@ -342,7 +346,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
       }
       footer={
         <button
-          onClick={handleNextQuestion}
+          onClick={isLastQuestion ? () => setFraga('lamna_in') : handleNextQuestion}
           disabled={!selectedAnswer || isSubmitting}
           className={`${KNAPP_PRIMAR} touch-manipulation disabled:cursor-not-allowed`}
         >
@@ -370,7 +374,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
             <section className="space-y-3">
               <div>
                 <p className="mb-0.5 text-steg uppercase text-ink-3">
-                  Argument · {currentPassage.topic}
+                  Argument, {currentPassage.topic}
                 </p>
                 <h2 className="text-fraga text-ink-1">{visningstitel(currentPassage.title)}</h2>
               </div>
@@ -404,6 +408,32 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
           <UnsavedAnswerBanner message={finishError} />
         )}
       </div>
+
+      <ConfirmDialog
+        open={fraga === 'avbryt'}
+        onCancel={() => setFraga(null)}
+        onConfirm={() => {
+          setFraga(null);
+          router.push('/dashboard/tester');
+        }}
+        title={AVBRYT.titel('nivatest')}
+        description={AVBRYT.text('nivatest')}
+        confirmLabel={AVBRYT.bekrafta}
+        cancelLabel={AVBRYT.fortsatt}
+        destructive
+      />
+      <ConfirmDialog
+        open={fraga === 'lamna_in'}
+        onCancel={() => setFraga(null)}
+        onConfirm={() => {
+          setFraga(null);
+          void handleNextQuestion();
+        }}
+        title={LAMNA_IN.titel}
+        description={LAMNA_IN.text(0)}
+        confirmLabel={LAMNA_IN.bekrafta}
+        cancelLabel={LAMNA_IN.fortsatt}
+      />
     </TestFlowShell>
   );
 }

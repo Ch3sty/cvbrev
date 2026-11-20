@@ -28,9 +28,11 @@
  * fotens höjd som luft i botten, så regeln alltid går att rulla fram.
  */
 
-import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { IkonX } from '@/components/illustrations/RumSymboler'
+import ConfirmDialog from '@/components/shell/ConfirmDialog'
 import { PASS_COPY, mmss } from '@/lib/traning/pass-copy'
+import { AVBRYT, type AvbrytLage } from '@/lib/tester/bekrafta'
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
@@ -47,6 +49,11 @@ export interface PassShellProps {
   /** X lämnar passet (svaren är redan sparade). */
   onAvsluta: () => void
   avslutaEtikett?: string
+  /**
+   * Medan uppgifterna pågår: X frågar först ("Avbryta träningen?") och
+   * onAvsluta körs bara efter Avbryt. Utelämnas på resultat och genomgång.
+   */
+  bekraftaAvbryt?: AvbrytLage
   /** Foten: kopparknappen eller länken "Vet inte, visa regeln". */
   fot?: ReactNode
   banner?: ReactNode
@@ -134,6 +141,7 @@ export default function PassShell({
   tid,
   onAvsluta,
   avslutaEtikett = PASS_COPY.topp.avsluta,
+  bekraftaAvbryt,
   fot,
   banner,
   nyckel,
@@ -145,6 +153,10 @@ export default function PassShell({
 }: PassShellProps) {
   const footerRef = useRef<HTMLElement | null>(null)
   const mainRef = useRef<HTMLElement | null>(null)
+  const [fragarAvbryt, setFragarAvbryt] = useState(false)
+  // Krysset växlar frågan: i appen trycker Android-tillbaka på krysset, så ett
+  // andra tryck stänger frågan i stället för att lämna sessionen.
+  const trycktKryss = () => (bekraftaAvbryt ? setFragarAvbryt((v) => !v) : onAvsluta())
   useFlodeLage(footerRef, Boolean(fot))
   useEffect(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0
@@ -156,8 +168,8 @@ export default function PassShell({
         <div className="mx-auto flex h-14 w-full max-w-[560px] items-center gap-2 pl-1 pr-2">
           <button
             type="button"
-            onClick={onAvsluta}
-            aria-label={avslutaEtikett}
+            onClick={trycktKryss}
+            aria-label={bekraftaAvbryt ? AVBRYT.aria : avslutaEtikett}
             data-kryss=""
             className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-[10px] text-ink-1 transition-colors hover:bg-papper-2"
           >
@@ -197,6 +209,22 @@ export default function PassShell({
         >
           <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2 px-4 py-3">{fot}</div>
         </footer>
+      ) : null}
+
+      {bekraftaAvbryt ? (
+        <ConfirmDialog
+          open={fragarAvbryt}
+          onCancel={() => setFragarAvbryt(false)}
+          onConfirm={() => {
+            setFragarAvbryt(false)
+            onAvsluta()
+          }}
+          title={AVBRYT.titel(bekraftaAvbryt)}
+          description={AVBRYT.text(bekraftaAvbryt)}
+          confirmLabel={AVBRYT.bekrafta}
+          cancelLabel={AVBRYT.fortsatt}
+          destructive
+        />
       ) : null}
     </div>
   )

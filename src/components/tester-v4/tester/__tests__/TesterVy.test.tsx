@@ -28,10 +28,11 @@ describe('TesterVy', () => {
     expect(kort[0]).toBe('matris')
   })
 
-  it('omätt kort: "Nivåkoll, 8 min" står bara i nivåbandet', () => {
+  it('omätt kort: typens Nivåkoll-tid står bara i nivåbandet', () => {
     const { container } = render(<TesterVy data={fixturTester('a', 'premium')} />)
     const kort = container.querySelector('[data-testtyp="figurserie"]') as HTMLElement
-    expect(within(kort).queryAllByText('Nivåkoll, 8 min').length).toBe(1)
+    expect(within(kort).queryAllByText('Nivåkoll, 7 min').length).toBe(1)
+    expect(within(kort).queryAllByText('Nivåkoll, 8 min').length).toBe(0)
   })
 
   it('Alva Logic: tonad grupp "Ingår i Alva Logic · 1 del" med kortet och övningsprovet', () => {

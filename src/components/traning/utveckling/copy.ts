@@ -17,7 +17,7 @@ export const UTV = {
   legend: { pass: 'träning', matning: 'nivåkoll', general: 'övningsprov', sikte: 'mål', marke: 'märke' },
   utanKurva: {
     titel: 'Nivåkurvan börjar med din första nivåkoll.',
-    text: 'Tolv uppgifter i logiktestet, från lätta till svåra. Sedan en punkt per träning.',
+    text: 'Tolv uppgifter i figurer och mönster, från lätta till svåra. Sedan en punkt per träning.',
     knapp: 'Kolla min nivå, 8 min',
   },
   tomt: {

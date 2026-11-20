@@ -58,12 +58,20 @@ import OmmatningResultatVy from './OmmatningResultatVy'
 import PassFraga from './PassFraga'
 import PassResultatVy from './PassResultatVy'
 import PassShell from './PassShell'
+import type { AvbrytLage } from '@/lib/tester/bekrafta'
 import Regelpanel from './Regelpanel'
 import Kurva from './Kurva'
 import LogikProvFraga from './ovningsprov/LogikProvFraga'
 import OvningsResultatVy from './ovningsprov/OvningsResultatVy'
 import { logikResultat } from '@/lib/ovningsprov/resultat'
 import { kortDatum } from '@/lib/traning/rubrik'
+
+/** X:ets fråga per passtyp: Nivåkollen för mätningarna, träningen för passen. */
+function avbrytLageFor(typ: string): AvbrytLage {
+  if (typ === 'matning' || typ === 'ommatning') return 'nivakoll'
+  if (typ === 'general') return 'ovningsprov'
+  return 'traning'
+}
 
 /** Logikens övningsprov som resultatets vymodell (Testerna v2, skiss 3). */
 function logikOvningsResultat(avslut: Avslut, vy: Sessionsvy, status: Traningsstatus | null) {
@@ -711,6 +719,7 @@ export default function PassFlode({
       antal={visatAntal}
       tid={{ sekunder: tidVisas, budget: vy.budget_s }}
       onAvsluta={tillbaka}
+      bekraftaAvbryt={avbrytLageFor(vy.typ)}
       fot={fot}
       nyckel={q?.id}
       banner={

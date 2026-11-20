@@ -18,10 +18,11 @@
 //
 // Typen i rubriken: bara när exakt en kognitiv testtyp är vald. Två eller
 // fler (figurer och siffror) blir "provet", eftersom vi inte vet vilket som
-// kommer först. Ren, inga beroenden utom datum och tempo.
+// kommer först. Ren, inga beroenden utom datum, tempo och typnamnen.
 // =============================================================================
 
 import { veckodagNamn, type Dag } from './datum';
+import { DELTYP_NAMN, type Deltyp } from './mittTest';
 import { formatText, type Provformat } from './tempo';
 
 export type Testtyp = 'matris' | 'numerisk' | 'verbal' | 'personlighet';
@@ -40,6 +41,18 @@ export const TYP_I_KONTEXT: Record<Testtyp, string> = {
   verbal: 'Texttest',
   personlighet: 'Personlighet',
 };
+
+/** Nivåerna i löptext och undertitlar (plan-testflode avsnitt 6): alltid gemen. */
+export const NIVA_ORD = { grund: 'grundnivå', avancerad: 'avancerad nivå', expert: 'expertnivå' } as const;
+
+/**
+ * Nivåtestets rubrik i sessionens topprad: typens namn som i Tester och
+ * nivån i ord. "Figurer och mönster, grundnivå", aldrig "Logiktest" eller
+ * "Talserier, grund". En källa för alla nivåtest.
+ */
+export function sessionRubrik(typ: Exclude<Deltyp, 'personlighet'>, niva: keyof typeof NIVA_ORD): string {
+  return `${DELTYP_NAMN[typ]}, ${NIVA_ORD[niva]}`;
+}
 
 /** Rummets rubrik när datum saknas (ägarens beslut 17.1). */
 export const RUM_RUBRIK = 'Rekryteringstester';

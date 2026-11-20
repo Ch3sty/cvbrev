@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation'
 import { IkonTillbaka, IkonX } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import ConfirmDialog from '@/components/shell/ConfirmDialog'
+import { AVBRYT } from '@/lib/tester/bekrafta'
 import Dagsring from '@/components/rum/Dagsring'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN, kopKnapp, paketNamn, prisPeriod } from '@/lib/plans/plans'
@@ -57,6 +58,7 @@ function Skal({
   stapel,
   fot,
   onStang,
+  bekraftaAvbryt = false,
   vagg = false,
   children,
 }: {
@@ -66,16 +68,22 @@ function Skal({
   stapel?: React.ReactNode
   fot?: React.ReactNode
   onStang: () => void
+  /** Medan provet pågår: X frågar "Avbryta testet?" innan det stängs. */
+  bekraftaAvbryt?: boolean
   vagg?: boolean
   children: React.ReactNode
 }) {
   const fotRef = useRef<HTMLElement | null>(null)
   useFlodeLage(fotRef, !!fot)
+  const [fragarAvbryt, setFragarAvbryt] = useState(false)
+  // Krysset växlar frågan: i appen trycker Android-tillbaka på krysset, så ett
+  // andra tryck stänger frågan i stället för att lämna sessionen.
+  const trycktKryss = () => (bekraftaAvbryt ? setFragarAvbryt((v) => !v) : onStang())
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]" data-iprov>
       <header className={`flex-shrink-0 ${vagg ? 'bg-vagg text-vagg-ink' : 'border-b border-kant bg-papper'}`}>
         <div className="mx-auto flex h-14 w-full max-w-[560px] items-center gap-2 px-2">
-          <button type="button" onClick={onStang} aria-label="Stäng" data-kryss="" className={`inline-flex h-11 w-11 items-center justify-center rounded-[10px] ${vagg ? 'text-vagg-ink' : 'text-ink-1'}`}>
+          <button type="button" onClick={trycktKryss} aria-label={bekraftaAvbryt ? AVBRYT.aria : 'Stäng'} data-kryss="" className={`inline-flex h-11 w-11 items-center justify-center rounded-[10px] ${vagg ? 'text-vagg-ink' : 'text-ink-1'}`}>
             <IkonX />
           </button>
           <div className="min-w-0 flex-1">
@@ -93,6 +101,21 @@ function Skal({
         <footer ref={fotRef} className="flex-shrink-0 border-t border-kant bg-papper" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
           <div className="mx-auto w-full max-w-[560px] px-4 py-3">{fot}</div>
         </footer>
+      ) : null}
+      {bekraftaAvbryt ? (
+        <ConfirmDialog
+          open={fragarAvbryt}
+          onCancel={() => setFragarAvbryt(false)}
+          onConfirm={() => {
+            setFragarAvbryt(false)
+            onStang()
+          }}
+          title={AVBRYT.titel('test')}
+          description={AVBRYT.text('test')}
+          confirmLabel={AVBRYT.bekrafta}
+          cancelLabel={AVBRYT.fortsatt}
+          destructive
+        />
       ) : null}
     </div>
   )
@@ -457,6 +480,7 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
       <Skal
         titel={C.titel}
         onStang={stang}
+        bekraftaAvbryt
         vagg
         stapel={segment}
         fot={
@@ -495,6 +519,7 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
       titel={C.titel}
       rad={`Deltest ${nrIndex} av ${antalDelar}, ${del.namn.toLowerCase()}`}
       onStang={stang}
+      bekraftaAvbryt
       hoger={<Klocka kvar={kvar} total={del.max_s} />}
       stapel={<Segmentstapel lagen={lagen} aria={`Uppgift ${idx + 1} av ${del.uppgifter.length}`} onValj={(i) => setIdx(i)} etikett={(i) => `Uppgift ${i + 1}`} />}
       fot={

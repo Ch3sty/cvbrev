@@ -256,7 +256,7 @@ function StatementResult({
   const labelFor = (v: 'true' | 'false' | 'cannot_say' | null) => {
     if (v === 'true') return 'Sant';
     if (v === 'false') return 'Falskt';
-    if (v === 'cannot_say') return 'Kan ej avgöras';
+    if (v === 'cannot_say') return 'Går inte att avgöra';
     return 'Inget svar';
   };
 

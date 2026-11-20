@@ -14,21 +14,16 @@ interface QuestionDisplayProps {
   disabled?: boolean;
 }
 
-const DIFFICULTY_LABELS = ['Lätt', 'Medel', 'Svår'];
-
 /**
- * Frågan i det numeriska testet: metarad, frågetext i text-fraga och
- * svarsalternativen som valbara rader. Nivån visas som text, inte som piller.
+ * Frågan i det numeriska testet: frågetext i text-fraga och
+ * svarsalternativen som valbara rader. Numret står i huvudet, inte här.
  */
 export default function QuestionDisplay({
   question,
-  questionNumber,
-  totalQuestions,
   selectedId,
   onSelect,
   disabled,
 }: QuestionDisplayProps) {
-  const difficultyIdx = Math.min(2, Math.max(0, question.difficulty - 1));
   const ref = useRef<HTMLElement | null>(null);
   // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
   // på Pixel 7 täckte det alternativ B till D på första frågan).
@@ -36,13 +31,8 @@ export default function QuestionDisplay({
 
   return (
     <section ref={ref} key={question.id} className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
-      <p className="text-meta tabular-nums text-ink-3">
-        Fråga {questionNumber} av {totalQuestions}
-        <span aria-hidden="true"> · </span>
-        {DIFFICULTY_LABELS[difficultyIdx]}
-      </p>
-
-      <h2 className="mb-4 mt-1 text-fraga text-ink-1">{question.questionText}</h2>
+      {/* Ingen metarad: "Fråga 1 av 20, Lätt" upprepade huvudet (plan-testflode etapp 0). */}
+      <h2 className="mb-4 text-fraga text-ink-1">{question.questionText}</h2>
 
       <AnswerOptions
         options={question.options}

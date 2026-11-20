@@ -24,6 +24,8 @@ import { SIDKORT_KLASS } from '@/components/tester-v4/SidKort'
 import TypSymbol from '@/components/tester-v4/tester/TypSymbol'
 import { IngarChip } from '@/components/tester-v4/tester/TesttypKort'
 import { NIVAKOLL_FINNS } from '@/lib/tester/v4/rutter'
+import { nivakollOmfang } from '@/lib/nivakoll/omfang'
+import { talord } from '@/lib/traning/copy'
 import { kortDatum } from '@/lib/traning/rubrik'
 import type { Dag, Hint, TesttypKort } from '@/lib/tester/v4/typer'
 import { HEM_V4 } from './copy'
@@ -39,7 +41,10 @@ const TOM_KONTEXT: HintKontext = { planTest: null, planTyper: [] }
 export function bandForklaring(kort: Pick<TesttypKort, 'id' | 'niva' | 'senasteNivakoll' | 'ingarIPlan'>, kalla: NivaKalla | null = null): string {
   const B = HEM_V4.nastaBand
   if (kort.niva.status === 'paborjad') return B.paborjad
-  if (kort.niva.status !== 'matt') return NIVAKOLL_FINNS[kort.id] ? B.omatt : B.omattUtanNivakoll
+  if (kort.niva.status !== 'matt') {
+    const o = NIVAKOLL_FINNS[kort.id] ? nivakollOmfang(kort.id) : null
+    return o ? B.omatt(talord(o.minuter)) : B.omattUtanNivakoll
+  }
   const fran =
     kalla?.slag === 'trana'
       ? B.efterTraning(kortDatum(kalla.dag))
@@ -61,7 +66,7 @@ function TypBand({ kort, planNamn, kalla }: { kort: TesttypKort; planNamn: strin
           {planNamn && kort.ingarIPlan ? <IngarChip namn={planNamn} /> : null}
         </div>
       </div>
-      <Nivaband namn={kort.namn} lage={kort.niva} storlek="mellan" ton={!planNamn || kort.ingarIPlan ? 'koppar' : 'neutral'} />
+      <Nivaband namn={kort.namn} typ={kort.id} lage={kort.niva} storlek="mellan" ton={!planNamn || kort.ingarIPlan ? 'koppar' : 'neutral'} />
       <p className="text-[12.5px] leading-[17px] text-ink-3">{bandForklaring(kort, kalla)}</p>
     </div>
   )

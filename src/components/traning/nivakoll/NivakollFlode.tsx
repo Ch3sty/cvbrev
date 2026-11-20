@@ -324,6 +324,7 @@ export default function NivakollFlode({ api = fetchNivakollApi, kind, vy: initia
       tid={{ sekunder: tidigare + nuTid, budget: vy.budget_s * antal }}
       {...bredd}
       onAvsluta={tillbaka}
+      bekraftaAvbryt="nivakoll"
       avslutaEtikett={C.topp.avsluta}
       nyckel={u.nyckel}
       banner={

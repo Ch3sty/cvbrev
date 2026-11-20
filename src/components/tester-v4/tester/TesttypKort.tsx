@@ -107,8 +107,8 @@ export default function TesttypKort({
           {plan ? <IngarChip namn={planNamn} /> : null}
         </span>
       </span>
-      <Nivaband namn={kort.namn} lage={kort.niva} storlek="liten" ton={ton} />
-      {/* Omätt: nivåbandet säger redan "Nivåkoll, 8 min", raden upprepar det inte. */}
+      <Nivaband namn={kort.namn} typ={kort.id} lage={kort.niva} storlek="liten" ton={ton} />
+      {/* Omätt: nivåbandet säger redan "Nivåkoll, 7 min" eller "Nivåtest, 15 uppgifter", raden upprepar det inte. */}
       {kort.niva.status === 'omatt' ? null : <span className="text-meta text-ink-3">{kortStatus(kort)}</span>}
       <KortKnapp h={kort.primar} />
       {premium && kort.niva.status === 'matt' && kort.primar.slag === 'trana' ? (

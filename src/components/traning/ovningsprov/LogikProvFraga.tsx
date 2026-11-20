@@ -17,6 +17,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { KNAPP_PRIMAR, KNAPP_SEKUNDAR, LANK } from '@/components/shell/knappar'
+import ConfirmDialog from '@/components/shell/ConfirmDialog'
+import { LAMNA_IN } from '@/lib/tester/bekrafta'
 import { FRAGA } from '@/lib/ovningsprov/copy'
 import { ovningsformatUrNyckel } from '@/lib/ovningsprov/format'
 import type { PassApi, Sessionsvy } from '@/lib/traning/klient'
@@ -54,6 +56,7 @@ export default function LogikProvFraga({ vy: start, api, onKlar, onAvbryt, fastN
   const [valt, setValt] = useState<number | null>(null)
   const [sparar, setSparar] = useState(false)
   const [sparfel, setSparfel] = useState(false)
+  const [fragarLamnaIn, setFragarLamnaIn] = useState(false)
   const osparade = useRef<Map<string, number>>(new Map())
   const tider = useRef<Record<string, number>>(Object.fromEntries(start.besvarade.map((b) => [b.q_id, b.tid_s])))
   const ankom = useRef<number>(typeof performance !== 'undefined' ? performance.now() : 0)
@@ -187,7 +190,7 @@ export default function LogikProvFraga({ vy: start, api, onKlar, onAvbryt, fastN
         {FRAGA.foregaende}
       </button>
       {sista ? (
-        <button type="button" onClick={() => void lamnaIn()} className={`${KNAPP_PRIMAR} flex-1`} data-lamna-in>
+        <button type="button" onClick={() => setFragarLamnaIn(true)} className={`${KNAPP_PRIMAR} flex-1`} data-lamna-in>
           {FRAGA.lamnaIn}
         </button>
       ) : (
@@ -207,6 +210,7 @@ export default function LogikProvFraga({ vy: start, api, onKlar, onAvbryt, fastN
       tid={null}
       onAvsluta={onAvbryt}
       avslutaEtikett={FRAGA.avbryt}
+      bekraftaAvbryt="ovningsprov"
       hoger={perUppgift ? <Klocka kvar={kvarUppgift} total={format.budget_s} perUppgift /> : <Klocka kvar={kvarTotal} total={tidsgrans} />}
       underTopp={
         <div className="mx-auto w-full max-w-[560px] px-4 pt-2.5">
@@ -242,6 +246,18 @@ export default function LogikProvFraga({ vy: start, api, onKlar, onAvbryt, fastN
           onValj={(i) => (adaptiv ? setValt(i) : valjFast(i))}
         />
       ) : null}
+      <ConfirmDialog
+        open={fragarLamnaIn}
+        onCancel={() => setFragarLamnaIn(false)}
+        onConfirm={() => {
+          setFragarLamnaIn(false)
+          void lamnaIn()
+        }}
+        title={LAMNA_IN.titel}
+        description={LAMNA_IN.text(Math.max(0, antal - vy.fragor.filter((f) => svar[f.id] != null || besvarade.has(f.id)).length))}
+        confirmLabel={LAMNA_IN.bekrafta}
+        cancelLabel={LAMNA_IN.fortsatt}
+      />
     </PassShell>
   )
 }

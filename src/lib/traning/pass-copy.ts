@@ -15,6 +15,7 @@
 
 import { paketKort } from '@/lib/plans/plans';
 import { talord, versal } from './copy';
+import { NIVAKOLL_OMFANG } from '@/lib/nivakoll/omfang';
 
 /** Nivån med en decimal och komma: 5,6. */
 export function nivaText(niva: number): string {
@@ -130,11 +131,12 @@ export const PASS_COPY = {
     riktatRad: (heltal: number | null) => (heltal == null ? 'Träna på mönstret' : `Träna på mönstret, nivå ${heltal}`),
     blandat: 'Blandade mönster',
     matning: 'Nivåkollen',
-    matningRad: 'Tolv uppgifter som följer dina svar',
+    // Matrisens Nivåkoll (passflödet är bara matris); antalet ur nivakoll/omfang.
+    matningRad: `${versal(talord(NIVAKOLL_OMFANG.matris.uppgifter))} uppgifter som följer dina svar`,
     /** Spec 14.5: "fråga 1 av 7, fem räknas från smakprovet". */
     matningSmakprov: (n: number) => `${versal(talord(n, 'ett'))} svar från provet räknas in`,
     ommatning: 'Ny nivåkoll',
-    ommatningRad: 'Tolv uppgifter, som första gången',
+    ommatningRad: `${versal(talord(NIVAKOLL_OMFANG.matris.uppgifter))} uppgifter, som första gången`,
     general: 'Övningsprov',
     generalRad: (namn: string | null) => (namn ? `Samma format som ${namn}` : 'Vårt eget format'),
     uppvarmning: 'Uppvärmning',

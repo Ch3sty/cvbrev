@@ -363,6 +363,7 @@ export default function VnPassFlode({ api = fetchVnPassApi, start, vy: initialVy
       antal={antal}
       tid={{ sekunder: tidigare + nuTid, budget: vy.budget_s }}
       onAvsluta={tillbaka}
+      bekraftaAvbryt="traning"
       avslutaEtikett={C.topp.avsluta}
       nyckel={vy.kind === 'numerisk' ? p.nyckel : undefined}
       banner={

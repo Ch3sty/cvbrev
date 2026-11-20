@@ -25,7 +25,8 @@ import ConfirmDialog from '@/components/shell/ConfirmDialog';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
 import { visatForSvar } from '@/lib/logicTestV7/blanda';
-import { KIND_LABEL, LEVEL_LABEL, type Steg2Kind } from '@/app/dashboard/tester/testConfig';
+import type { Steg2Kind } from '@/app/dashboard/tester/testConfig';
+import { sessionRubrik } from '@/lib/traning/rubrik';
 type VisadSerie = { id: string };
 import type { RunData, SavedAnswer } from '@/app/dashboard/tester/[slug]/getRunData';
 
@@ -327,7 +328,7 @@ export function Steg2TestSession({ kind, sessionId, level, answerEndpoint, compl
 
   return (
     <TestFlowShell
-      title={`${KIND_LABEL[kind]}, ${LEVEL_LABEL[level].toLowerCase()}`}
+      title={sessionRubrik(kind, level)}
       onExit={oppnaAvsluta}
       progressPercent={(answeredQuestions.size / questions.length) * 100}
       meter={<TestMeterRow time={elapsed} counterLabel="Uppgift" current={currentQuestion + 1} total={questions.length} answered={answeredQuestions.size} />}

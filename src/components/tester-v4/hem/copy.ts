@@ -89,7 +89,8 @@ export const HEM_V4 = {
     utanDag: 'Det ljusa bandet är mätningens osäkerhet.',
     efterTraning: (dag: string) => `Nivån efter träningen ${dag}. Det ljusa bandet är mätningens osäkerhet.`,
     provetsNiva: ' Provet ligger på avancerad nivå.',
-    omatt: 'Inte mätt än. Nivåkollen ger din första nivå på cirka åtta minuter.',
+    /** Typens egen tid ur nivakoll/omfang ("cirka sju minuter"). */
+    omatt: (minuter: string) => `Inte mätt än. Nivåkollen ger din första nivå på cirka ${minuter} minuter.`,
     omattUtanNivakoll: 'Inte mätt än. Ett nivåtest på grundnivån ger en första nivå.',
     paborjad: 'Nivåkollen är påbörjad. Gör klart den, så får du nivån.',
   },

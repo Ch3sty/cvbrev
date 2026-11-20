@@ -11,6 +11,7 @@
 import { kopKnapp, paketKort, prisPeriod, SALD_PLAN } from '@/lib/plans/plans';
 import { nivaKort } from '@/lib/traning/pass-copy';
 import type { NivakollKind } from './niva';
+import { NIVAKOLL_OMFANG } from './omfang';
 import type { BankNiva, NivakollResultat } from './typer';
 
 export const KIND_NAMN: Record<NivakollKind, string> = {
@@ -46,7 +47,12 @@ export const PASS_NAMN: Record<NivakollKind, string> = {
 };
 
 /** Cirka-tiden per typ på startraderna. */
-export const MINUTER: Record<NivakollKind, number> = { figurserie: 7, deduktiv: 8, verbal: 5, numerisk: 10 };
+export const MINUTER: Record<NivakollKind, number> = {
+  figurserie: NIVAKOLL_OMFANG.figurserie.minuter,
+  deduktiv: NIVAKOLL_OMFANG.deduktiv.minuter,
+  verbal: NIVAKOLL_OMFANG.verbal.minuter,
+  numerisk: NIVAKOLL_OMFANG.numerisk.minuter,
+};
 
 function grad(andel: number): string {
   if (andel >= 0.85) return 'sitter';

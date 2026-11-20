@@ -40,7 +40,7 @@ export default function SaLiggerDuTill({ typer, plan }: { typer: TesttypKort[]; 
                   ) : null}
                 </span>
                 <span className="block max-w-[300px]">
-                  <Nivaband namn={t.namn} lage={t.niva} storlek="liten" ton={!plan || t.ingarIPlan ? 'koppar' : 'neutral'} />
+                  <Nivaband namn={t.namn} typ={t.id} lage={t.niva} storlek="liten" ton={!plan || t.ingarIPlan ? 'koppar' : 'neutral'} />
                 </span>
               </Link>
             </li>

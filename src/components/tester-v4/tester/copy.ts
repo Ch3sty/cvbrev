@@ -26,7 +26,6 @@ export const TESTER = {
   allaTyper: 'Alla testtyper',
   ingarI,
   kort: {
-    omatt: META.nivakollOmatt,
     paborjad: (b: number, a: number) => `${META.nivakollPaborjad}, ${b} av ${a} svar`,
     matt: (datum: string, n: number) => `Nivåkoll ${datum} · ${n} ${n === 1 ? 'träning' : 'träningar'}`,
     mattUtanDatum: (n: number) => `${n} ${n === 1 ? 'träning' : 'träningar'}`,
@@ -72,8 +71,9 @@ export const TESTER = {
     vantar: (n: number) => (n === 1 ? '1 testtyp väntar' : `${n} testtyper väntar`),
     nivakoll: {
       rubrik: (typ: string) => `Gör Nivåkollen i ${typ}`,
-      skal: (typ: string) => `Du har inte mött ${typ} än. Åtta minuter, så vet du var du ligger och får en ny linje i grafen.`,
-      skalPlan: (Typ: string, prov: string) => `${Typ} ingår i ${prov} och är inte mätt än. Åtta minuter, så vet du var du ligger.`,
+      /** tid: nivakollMinuterOrd(typ), "Sju minuter". */
+      skal: (typ: string, tid: string) => `Du har inte mött ${typ} än. ${tid}, så vet du var du ligger och får en ny linje i grafen.`,
+      skalPlan: (Typ: string, prov: string, tid: string) => `${Typ} ingår i ${prov} och är inte mätt än. ${tid}, så vet du var du ligger.`,
       tips: 'Gör den utvilad. Den väljer nivån för din träning.',
     },
     paborjad: {

@@ -92,7 +92,7 @@ describe('vald typ och rader (B1)', () => {
     const r = typRader(d, 'matris');
     expect(r.find((x) => x.id === 'matris')).toMatchObject({ text: '6,3', href: '?typ=matris', vald: true });
     expect(r.find((x) => x.id === 'ordforrad')?.text).toBe('8 av 12 svar');
-    expect(r.find((x) => x.id === 'figurserie')).toMatchObject({ text: 'Nivåkoll, 8 min', href: '/dashboard/tester/pass?typ=nivakoll&kind=figurserie' });
+    expect(r.find((x) => x.id === 'figurserie')).toMatchObject({ text: 'Nivåkoll, 7 min', href: '/dashboard/tester/pass?typ=nivakoll&kind=figurserie' });
   });
   it('med plan: planens typer först och övriga bara med något att visa', () => {
     const d = fixturUtveckling('b', 'premium');

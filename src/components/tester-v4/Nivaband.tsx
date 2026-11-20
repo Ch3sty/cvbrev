@@ -8,7 +8,8 @@
  *   - fyllning till nivån och en knopp med talet
  *   - ljusare band för mätningens osäkerhet (±0,6): 5,3 och 5,6 är samma sak
  *   - taket (7,5 tills banken är kalibrerad) bara i stor storlek
- *   - omätt: streckad skala med "Nivåkoll, 8 min"
+ *   - omätt: streckad skala med typens start, "Nivåkoll, 7 min" eller
+ *     "Nivåtest, 15 uppgifter" där Nivåkollen saknas (rutter.omattMeta)
  *   - påbörjad nivåkoll: "8 av 12 svar", inget tal
  *
  * Koppar för provets delar (och alla utan plan), grått för övriga när en plan
@@ -21,11 +22,13 @@
 
 import type { NivabandProps } from '@/lib/tester/v4/typer'
 import { ZON_GRANSER } from '@/lib/tester/v4/typer'
+import { omattMeta } from '@/lib/tester/v4/rutter'
 
 /** Bandets ord, ordagrant ur skissen. */
 export const NIVABAND = {
   zon: { grund: 'Grund', avancerad: 'Avancerad', expert: 'Expert' },
-  omatt: 'Nivåkoll, 8 min',
+  /** Utan typ: bara att nivån inte är mätt. Med typ: omattMeta(typ). */
+  omatt: 'Inte mätt än',
   paborjad: (b: number, a: number) => `${b} av ${a} svar`,
   paborjadUtanSvar: 'Nivåkoll påbörjad',
   tak: (t: string) => `tak i dag ${t}`,
@@ -69,7 +72,7 @@ export function nivabandEtikett({ namn, lage }: Pick<NivabandProps, 'namn' | 'la
   return NIVABAND.ariaMatt(namn, talText(lage.niva), NIVABAND.zon[zonFor(lage.niva)])
 }
 
-export default function Nivaband({ namn, lage, storlek, ton }: NivabandProps) {
+export default function Nivaband({ namn, typ, lage, storlek, ton }: NivabandProps) {
   const m = MATT[storlek]
   const x = skala(m.w)
   const liten = storlek === 'liten'
@@ -148,7 +151,7 @@ export default function Nivaband({ namn, lage, storlek, ton }: NivabandProps) {
           textAnchor="middle"
           style={{ fontSize: liten ? 10 : 11, fontWeight: 600, fill: 'var(--ink-3)' }}
         >
-          {NIVABAND.omatt}
+          {typ ? omattMeta(typ) : NIVABAND.omatt}
         </text>
       )}
 

@@ -335,6 +335,7 @@ export default function Steg2PassFlode({ api = fetchSteg2PassApi, starta = null,
       antal={antal}
       tid={{ sekunder: tidigare + nuTid, budget: vy.budget_s }}
       onAvsluta={tillbaka}
+      bekraftaAvbryt="traning"
       avslutaEtikett={C.topp.avsluta}
       nyckel={u.nyckel}
       banner={

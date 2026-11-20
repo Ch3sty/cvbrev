@@ -9,6 +9,8 @@ import { ChevronLeft, ChevronRight, Flag, AlertCircle } from '@/components/illus
 import LikertScale from './LikertScale';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
+import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import { AVBRYT } from '@/lib/tester/bekrafta';
 import type {
   LikertValue,
   PersonalityItem,
@@ -49,6 +51,7 @@ export default function TestSessionView({
   const [locked, setLocked] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+  const [fragarAvbryt, setFragarAvbryt] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -195,8 +198,8 @@ export default function TestSessionView({
   return (
     <TestFlowShell
       title={TITLE_BY_TYPE[testType]}
-      onExit={() => router.push('/dashboard/tester')}
-      exitLabel="Lämna testet"
+      onExit={() => setFragarAvbryt(true)}
+      exitLabel={AVBRYT.aria}
       progressPercent={(answeredCount / items.length) * 100}
       meter={
         <div className="flex items-center justify-between gap-3 text-xs sm:text-sm">
@@ -369,6 +372,19 @@ export default function TestSessionView({
           </motion.div>
         )}
       </AnimatePresence>
+      <ConfirmDialog
+        open={fragarAvbryt}
+        onCancel={() => setFragarAvbryt(false)}
+        onConfirm={() => {
+          setFragarAvbryt(false);
+          router.push('/dashboard/tester');
+        }}
+        title={AVBRYT.titel('test')}
+        description={AVBRYT.text('test')}
+        confirmLabel={AVBRYT.bekrafta}
+        cancelLabel={AVBRYT.fortsatt}
+        destructive
+      />
     </TestFlowShell>
   );
 }
@@ -387,7 +403,7 @@ function QuestionNavigationDots({
   return (
     <div className="bg-papper rounded-2xl border border-kant p-3 sm:p-4">
       <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-3 mb-2 text-center">
-        Översikt — klicka för att hoppa
+        Översikt, välj ett påstående för att hoppa dit
       </div>
       <div className="grid grid-cols-10 sm:grid-cols-15 gap-1">
         {Array.from({ length: total }).map((_, i) => {
@@ -397,7 +413,7 @@ function QuestionNavigationDots({
             <button
               key={i}
               onClick={() => onNavigate(i)}
-              className={`relative aspect-square rounded-md text-[9px] sm:text-[10px] font-bold tabular-nums transition-all touch-manipulation ${
+              className={`relative min-h-11 rounded-md text-[9px] sm:text-[10px] font-bold tabular-nums transition-all touch-manipulation ${
                 isCurrent
                   ? 'ring-2 ring-orange-500 ring-offset-1 text-white'
                   : isAnswered

@@ -5,9 +5,16 @@
 // Ren fil.
 // =============================================================================
 
+import { paketKort } from '@/lib/plans/plans';
 import type { Steg2PassKind } from './pass';
 
 const NAMN: Record<Steg2PassKind, string> = { talserie: 'Träna talserier', spatial: 'Träna spatial förmåga', ordforrad: 'Träna ordförråd' };
+/** Betalväggens rubrik, hel mening per typ: böjning byggs aldrig med interpolation. */
+const BETALVAGG: Record<Steg2PassKind, string> = {
+  talserie: 'Träna i talserier',
+  spatial: 'Träna i spatial förmåga',
+  ordforrad: 'Träna i ordförråd',
+};
 const TYP: Record<Steg2PassKind, string> = { talserie: 'Talserier', spatial: 'Spatial förmåga', ordforrad: 'Ordförråd' };
 
 export function steg2PassCopy(kind: Steg2PassKind) {
@@ -36,7 +43,8 @@ export function steg2PassCopy(kind: Steg2PassKind) {
       hamtaRad: 'Försök igen. Din träning är sparad, ingenting försvann.',
       svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
       avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
-      betalvagg: `${NAMN[kind]}et ingår i Premium.`,
+      // Priset står på raden under (PremiumPrisradText), som följer kampanjen.
+      betalvagg: `${BETALVAGG[kind]} ingår i ${paketKort()}.`,
       betalvaggRad:
         kind === 'spatial'
           ? 'Sex uppgifter varje dag, två vridna figurer, tre pappersvikningar och en tärning, med lösningen efter varje svar.'

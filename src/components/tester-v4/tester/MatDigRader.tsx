@@ -1,21 +1,23 @@
 /**
- * Mät dig i typens meny: Nivåkollen ("Tolv uppgifter, cirka åtta minuter.
- * Högst en om dagen räknas.", senaste datum och nivå som chip, "Gratis en
+ * Mät dig i typens meny: Nivåkollen (typens omfång, "Nio uppgifter, cirka sju
+ * minuter. Högst en om dagen räknas.", senaste datum och nivå som chip, "Gratis en
  * gång" eller "Igen med Premium" för gratis) och övningsproven i provets
  * format där de finns.
  */
 
 import { kortDatum } from '@/lib/traning/rubrik'
-import type { TypMeny, UtvecklingsPunkt } from '@/lib/tester/v4/typer'
+import type { TestTypId, TypMeny, UtvecklingsPunkt } from '@/lib/tester/v4/typer'
 import MenyRad, { MenyChip } from './MenyRad'
 import { TESTER, nivaText } from './copy'
 
 
 export default function MatDigRader({
+  typ,
   nivakoll,
   ovningsprov,
   senasteProv,
 }: {
+  typ: TestTypId
   nivakoll: TypMeny['nivakoll']
   ovningsprov: TypMeny['ovningsprov']
   senasteProv: UtvecklingsPunkt | null
@@ -28,7 +30,7 @@ export default function MatDigRader({
         <MenyRad
           h={nivakoll}
           rubrik={TESTER.meny.nivakollRubrik}
-          text={TESTER.meny.nivakollText}
+          text={TESTER.meny.nivakollText(typ)}
           hoger={
             nivakoll.las ? undefined : nk ? (
               <MenyChip ton="gjord">{`${kortDatum(nk.dag)} · ${nivaText(nk.niva)}`}</MenyChip>

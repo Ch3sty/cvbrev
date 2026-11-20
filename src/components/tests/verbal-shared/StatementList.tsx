@@ -18,7 +18,7 @@ interface StatementListProps {
 const OPTIONS: { value: AnswerValue; label: string }[] = [
   { value: 'true', label: 'Sant' },
   { value: 'false', label: 'Falskt' },
-  { value: 'cannot_say', label: 'Kan ej avgöras' },
+  { value: 'cannot_say', label: 'Går inte att avgöra' },
 ];
 
 /**
@@ -90,7 +90,7 @@ function StatementCard({
               aria-checked={selected}
               disabled={disabled}
               onClick={() => onAnswer(option.value)}
-              className={`h-11 flex-1 touch-manipulation rounded-lg border bg-panel px-2 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
+              className={`min-h-11 flex-1 touch-manipulation rounded-lg border bg-panel px-2 py-1 text-sm leading-[18px] text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-insunken disabled:cursor-not-allowed disabled:opacity-60 ${
                 selected ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
               }`}
             >

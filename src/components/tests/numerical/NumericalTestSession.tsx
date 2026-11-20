@@ -25,6 +25,8 @@ import type { Passage } from '@/lib/numericalTest/types';
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
 import TestMeterRow from '@/components/tests/shared/TestMeterRow';
 import ConfirmDialog from '@/components/shell/ConfirmDialog';
+import { AVBRYT } from '@/lib/tester/bekrafta';
+import { sessionRubrik } from '@/lib/traning/rubrik';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { useElapsedClock } from '@/hooks/use-elapsed-clock';
@@ -82,13 +84,6 @@ function savedSelectedId(a: SavedAnswerLike): string | null {
   return null;
 }
 
-/** Testets namn i provskalets topprad. Speglar title i testConfig. */
-const TITLE_BY_LEVEL: Record<'grund' | 'avancerad' | 'expert', string> = {
-  grund: 'Numeriskt test, grundnivå',
-  avancerad: 'Numeriskt test, avancerad nivå',
-  expert: 'Numeriskt test, expertnivå',
-};
-
 export function NumericalTestSession({
   sessionId,
   level,
@@ -131,6 +126,7 @@ export function NumericalTestSession({
   const [isNavigating, setIsNavigating] = useState(false);
   const [isHydrating, setIsHydrating] = useState(true);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+  const [fragarAvbryt, setFragarAvbryt] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
@@ -470,9 +466,9 @@ export function NumericalTestSession({
 
   return (
     <TestFlowShell
-      title={TITLE_BY_LEVEL[level]}
-      onExit={() => router.push('/dashboard/tester')}
-      exitLabel="Lämna testet"
+      title={sessionRubrik('numerisk', level)}
+      onExit={() => setFragarAvbryt(true)}
+      exitLabel={AVBRYT.aria}
       progressPercent={((currentQuestionNumber - 1) / totalQuestions) * 100}
       meter={
         <TestMeterRow
@@ -540,6 +536,19 @@ export function NumericalTestSession({
         }
         confirmLabel={isFinishing ? 'Avslutar…' : 'Avsluta och se resultat'}
         cancelLabel="Tillbaka"
+      />
+      <ConfirmDialog
+        open={fragarAvbryt}
+        onCancel={() => setFragarAvbryt(false)}
+        onConfirm={() => {
+          setFragarAvbryt(false);
+          router.push('/dashboard/tester');
+        }}
+        title={AVBRYT.titel('nivatest')}
+        description={AVBRYT.text('nivatest')}
+        confirmLabel={AVBRYT.bekrafta}
+        cancelLabel={AVBRYT.fortsatt}
+        destructive
       />
     </TestFlowShell>
   );

@@ -30,6 +30,8 @@ import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
 import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
 import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
+import { getTestConfig } from '@/app/dashboard/tester/testConfig';
+import { sessionRubrik } from '@/lib/traning/rubrik';
 
 export type VerbalTestLevel = 'grund' | 'avancerad';
 
@@ -61,7 +63,9 @@ interface VerbalTestSessionProps {
   resultsPath: (sessionId: string) => string;
 }
 
-const TOTAL_TIME = 25 * 60;
+/** Provets tid ur testConfig, samma källa som startsidan och resultatet. */
+const SLUG_BY_LEVEL: Record<VerbalTestLevel, string> = { grund: 'verbal-resonemang', avancerad: 'verbal-resonemang-v2' };
+const totalTime = (level: VerbalTestLevel) => (getTestConfig(SLUG_BY_LEVEL[level])?.minutes ?? 20) * 60;
 
 // Svar som ännu inte bekräftats sparat på servern. `failed` sätts först när
 // alla automatiska omförsök är förbrukade (det är då bannern visas).
@@ -80,12 +84,6 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const pendingKey = (passageId: string, statementIndex: number) =>
   `${passageId}::${statementIndex}`;
-
-/** Testets namn i provskalets topprad. Speglar title i testConfig. */
-const TITLE_BY_LEVEL: Record<VerbalTestLevel, string> = {
-  grund: 'Verbalt resonemang, grundnivå',
-  avancerad: 'Verbalt resonemang, avancerad nivå',
-};
 
 export function VerbalTestSession({
   sessionId,
@@ -115,6 +113,7 @@ export function VerbalTestSession({
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
   const [isFinishing, setIsFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
+  const TOTAL_TIME = totalTime(level);
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME);
   // Nedräkningen ankras i sessionens started_at (servertid), samma mönster
   // som VerbalProvSession. Null tills rehydreringen svarat.
@@ -389,7 +388,7 @@ export function VerbalTestSession({
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [handleFinishTest, isHydrating, startedAtMs]);
+  }, [handleFinishTest, isHydrating, startedAtMs, TOTAL_TIME]);
 
   /* ----------------------------- Interaktion ----------------------------- */
 
@@ -436,7 +435,7 @@ export function VerbalTestSession({
 
   return (
     <TestFlowShell
-      title={TITLE_BY_LEVEL[level]}
+      title={sessionRubrik('verbal', level)}
       onExit={() => {
         setFinishError(null);
         setShowFinishConfirm(true);
@@ -448,10 +447,11 @@ export function VerbalTestSession({
           time={formatClock(timeRemaining)}
           low={timeRemaining < 5 * 60}
           critical={timeRemaining < 60}
-          counterLabel="Passage"
+          counterLabel="Text"
           current={currentPassageIndex + 1}
           total={questions.length}
           answered={answeredCount}
+          answeredTotal={totalStatements}
         />
       }
       footer={
@@ -459,7 +459,7 @@ export function VerbalTestSession({
           <button
             onClick={handlePrev}
             disabled={currentPassageIndex === 0}
-            aria-label="Föregående passage"
+            aria-label="Föregående text"
             className="inline-flex h-11 w-11 flex-shrink-0 touch-manipulation items-center justify-center rounded-lg border border-kant-stark bg-panel text-ink-1 transition-colors hover:bg-insunken disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />

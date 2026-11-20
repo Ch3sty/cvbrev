@@ -27,7 +27,7 @@ export default function KurvPanel({ panel }: { panel: KurvPanelData }) {
           <b className="text-[15px] font-semibold leading-5 text-ink-1">{namn}</b>
         </div>
       ) : null}
-      <Nivaband namn={namn || panel.rubrik} lage={panel.niva ?? OMATT} storlek="mellan" ton={panel.plan ? 'koppar' : 'neutral'} />
+      <Nivaband namn={namn || panel.rubrik} typ={panel.typ} lage={panel.niva ?? OMATT} storlek="mellan" ton={panel.plan ? 'koppar' : 'neutral'} />
       <p className="text-[12.5px] leading-[17px] text-ink-3">{panel.text}</p>
     </SidKortPanel>
   )
