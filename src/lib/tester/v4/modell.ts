@@ -115,7 +115,12 @@ function byggMeny(typ: TestTypId, u: TypUnderlag, plan: PlanV4 | null, g: Gratis
 
   const ovningsprov: TypMeny['ovningsprov'] = [];
   if (iPlan && plan?.ovningsprov) {
-    ovningsprov.push({ slag: 'ovningsprov', etikett: ETIKETT.ovningsprov, href: plan.ovningsprov.href, las: lasOvningsprov(g), rubrik: plan.ovningsprov.namn, text: MAT_DIG.ovningsprovText(plan.ovningsprov.meta) });
+    // Typens eget övningsprov i provets format (ord och text i SHL Verify går till ord och text, inte till
+    // planens första typ). Planens adress och format gäller typen utan eget prov och I-provet.
+    const egen = plan.mittTest === 'iprov' ? null : ovningsprovHrefV4(typ);
+    const href = egen ?? plan.ovningsprov.href;
+    const text = egen && egen !== plan.ovningsprov.href ? MAT_DIG.ovningsprovTypText : MAT_DIG.ovningsprovText(plan.ovningsprov.meta);
+    ovningsprov.push({ slag: 'ovningsprov', etikett: ETIKETT.ovningsprov, href, las: lasOvningsprov(g), rubrik: plan.ovningsprov.namn, text });
   } else {
     const href = ovningsprovHrefV4(typ);
     if (href) {
