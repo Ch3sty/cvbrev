@@ -166,3 +166,31 @@ Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/f
 - Motsatsordens eyebrow och glyf står i motsatsfärgen (skissen: ton för båda), så att frågetypen fortfarande byter färg mellan blocken.
 - Talseriens fråga följer ramens `.text-fraga` (24/30 från lg) som figurserierna; skissens 28/34 får komma i ramens klass för alla typer.
 - Tärningen och kroppen (form C) har inte fått rätt svars figur bredvid referensen; de markerade sidorna står som förut.
+
+## Omgång 2, steg C: de publika testvyerna (2026-11-20)
+
+- Commit `cc39b6bc`, "feat(tester): de publika testvyerna i sessionsramen, omgång 2 steg C" (ombaserad på B2).
+- Backning: `git revert cc39b6bc` (ingen databasändring; undantagsfilen `scripts/seo-baslinje/omgang2-publikt-2026-11-20-undantag.json` följer med i reverten).
+
+### Vad som gick live
+
+- **Provsidan (`ProvaFlow`).** Startskärmen är ramens `Startskarm` (typens scen, h1 som förut, tre regler, det lyfta kortet med typvalet som länkar `?typ=` och knappen `data-cta="prova-start"`), ritad på servern. Uppgifterna går i `SessionsRam` med `lage="publikt"`: typens komponent ur `session/typer`, ett tryck markerar och Nästa (sista: Visa resultatet) bekräftar, avbryt frågar "Avbryta provet? Inget sparas.". Resultatet är ramens resultatbild: väggen med ringen och "3 av 5 rätt", `Uppgiftslistan` låst och spärren med `data-cta="prova-gate"` till `/register?test=<token>`, Gör om provet och Logga in. Sidan står i `data-rum="tran"`, så rummets tokens gäller som i de inloggade testerna. `storePendingTestSession`, typvalet, `/pedro` (utm i adressen) och alla händelser som förut; `plats: 'prova'` tillagd på `sample_completed` och `signup_gate_shown`.
+- **Artikelprovet (16 artiklar).** `ArtikelProvKlient` ritar en inbäddad provruta (ingen helskärm): bandet "Prova själv" med räknaren, uppgiften i typens komponent i kompakt läge (underlaget över uppgiften), foten med "Inget konto behövs." och Svara. Uppgift 1 serverrenderas med artikelns frö som förut, svarets värde är detsamma som de gamla vyerna skickade. Resultatet och spärren (`artikel-prov-gate`) står inne i rutan med låsta rader (`ProvBrickor`). Inga h1 till h6 i rutan: typernas rubriker läser nu `RubrikTagg` (Matris, Figurserie, Deduktiv, Steg2, Vn), rutan sätter `p`. `ArtikelProvRam` raderad.
+- **Personlighetsprovet** (verktygssidan och två artiklar): panelen ritas med `LikertScale` (B2:s kort, plus valfria `etiketter`, `ariaLabel` och `ariaDescribedBy`), profilen med fem faktorer och segmentraden och tre låsta block, spärren i ett lyft kort. Serverrenderas som förut (fem radioknappar i HTML:en).
+- **Registreringens panel** (`ProvPanel`, `ProvBrickor`): ramens resultatbild med ringen, huvudtalet, Nio-raden på väggen och Uppgiftslistans låsta rader (på mobil märkena i en rad), rubriken som `sr-only` h2 för skärmläsaren. Formuläret till vänster från 900 px.
+- **Genomgången efter kontot** (`ProvTypGenomgang`): `Uppgiftslistan` med rätt svar och Förklaringen, Gå igenom öppnar ramens `Genomgang`. `NivakollUppgift`, `VnUppgift`, `TypUppgiftVy` och `Steg2Uppgift` (i `tests/steg2/Uppgifter.tsx`) raderade efter grep.
+- **Provrummet utanför ramen:** `.prov-rum` i `publikt.css` sätter rummets tokens (testrummet, ljust och mörkt) på artikelrutan, personlighetspanelen och registreringens panel, eftersom publika sidor saknar `[data-rum]`.
+- Delade delar i `src/components/publikt/prov/`: `provPost.tsx` (publika uppgifter till ramens form och svarets värde), `ProvUppgiftVy.tsx`, `prov-copy.ts`.
+
+### Ändringar i ramen (minsta möjliga)
+
+- `Startskarm`: `StartKnapp.cta` ger `data-cta` på knappen (kontraktet `prova-start`).
+- Typernas rubriker (`h2`, och underlagets `h3` i Vn) ritas med `useRubrikTagg()`; standardvärdet är `h2`, så inloggat är oförändrat.
+
+### Prov och mätning
+
+- tsc rent; `npx vitest run --dir src` 262 filer gröna, 2 test i `register-flode.test.tsx` rättade genom panelens sr-only-rubrik (förväntningarna orörda); kontraktstesterna 146 av 146. I `prova-kontrakt` och `artikelprov-kontrakt` trycker hjälparen nu svaret och sedan ramens knapp (`svara()`), eftersom gesten är tryck plus bekräfta; förväntningarna är orörda.
+- SEO-diffen (21 sidor) och provkontrollen (19 sidor) mot produktionsbygget: Fel 0 båda, före och efter rebasen på B2. Undantaget: provsidans länk till `/` (loggan i flödesskalet) ersatt av `/verktyg/rekryteringstester`. Ord i main på de hårda sidorna högst 0,8 procent ned, personlighetstestet 617 till 621.
+- Klicktest i Chrome, utloggad, 1440×900 och Pixel 7 mot produktionsbygget: provsidan (talserier) till spärren och registreringens panel, artikelprovet i talserier till spärren och registreringen, personlighetsprovet till spärren och registreringen; inga konsolfel. Inloggad genomgång med det delade QA-kontot (gratis): deduktivt prov hämtat via claim, fem rader i listan, Gå igenom öppnar ramen.
+- `scripts/perf-publikt.ts` (Pixel 7, 3x CPU, LTE, tre körningar): provsidans startskärm 440 och 444 ms, artiklarna 664 och 748 ms (uppgift 1 ur första HTML), personlighetstestet 632 ms, CLS 0 överallt. Första uppgiften på provsidan efter Starta: klientens ritning 110 till 165 ms, men POST `/api/public/test-session` tog 1,7 till 2,7 s lokalt mot produktionsdatabasen (rutten är orörd och samma rundresa som förut), totalt median 2,2 s.
+- Ingen databasändring.
