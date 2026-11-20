@@ -477,7 +477,17 @@ export function kollaTarningMisstag(q) {
       if (o[sida].symbol !== x) fel.push(`${id}: ${mm[2]} visar ${o[sida].symbol}`);
       if (kravd(o, sida) === x) fel.push(`${id}: ${x} kan hamna där`);
     } else if (/^Spegelvänd\./.test(m) || /det är en spegelbild\.$/.test(m)) {
-      if (/Samma tre sidor|bytt plats/.test(m) && tre(o) !== tre(rf)) fel.push(`${id}: inte samma tre sidor som den första tärningen`);
+      const rattSvar = q.options[q.correctAnswer];
+      const byt = m.match(/(\S+) och (\S+) har bytt plats jämfört med rätt svar/);
+      if (byt) {
+        // Alternativet är rätt svar med de två namngivna sidorna utbytta, den tredje orörd.
+        const sidaFor = (v, s) => ['t', 'l', 'r'].find((k) => v[k].symbol === s);
+        const [a, b] = [symbolI(byt[1]), symbolI(byt[2])];
+        const [ra, rb] = [sidaFor(rattSvar, a), sidaFor(rattSvar, b)];
+        const tredje = ['t', 'l', 'r'].find((k) => k !== ra && k !== rb);
+        const ok = ra && rb && o[ra].symbol === b && o[rb].symbol === a && tredje && o[tredje].symbol === rattSvar[tredje].symbol && o[tredje].riktning === rattSvar[tredje].riktning;
+        if (!ok) fel.push(`${id}: är inte rätt svar med ${a} och ${b} utbytta`);
+      } else if (/Samma tre sidor|bytt plats/.test(m) && tre(o) !== tre(rf)) fel.push(`${id}: inte samma tre sidor som den första tärningen`);
       if (st !== 'spegel') fel.push(`${id}: kallas spegelvänd men placeringen är ${st}`);
     } else if ((mm = m.match(/^Rätt sidor, men (.+?) på (ovansidan|vänster sida|höger sida) pekar åt fel håll/))) {
       if (st !== 'ok') fel.push(`${id}: "rätt sidor" men placeringen är ${st}`);
