@@ -27,7 +27,7 @@
    "Försiktig betyder som (på goda grunder) undviker att ta risker.",
    "Noggrann betyder grundlig och omsorgsfull."
   ],
-  "facit_betyder": "som har förmåga till själslig verksamhet",
+  "facit_betyder": "avsiktlig",
   "exempel": "Polisen misstänkte att branden var avsiktlig och startades av någon.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -607,7 +607,7 @@
    "Repetera betyder bland annat utföra (något) om igen.",
    ""
   ],
-  "facit_betyder": "vara verksam",
+  "facit_betyder": "tillämpa, omsätta i handling",
   "exempel": "Det är lättare att lära sig teorin än att tillämpa den.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1382,7 +1382,7 @@
    "Vackla betyder befinna sig i ett osäkert jämviktsläge.",
    ""
   ],
-  "facit_betyder": "orsaka iakttagbara spår på",
+  "facit_betyder": "förnimma, uppmärksamma",
   "exempel": "Jag kunde förnimma en svag doft av rök i rummet.",
   "kalla": {
    "verifierad_mot": "SO och SAOL",
