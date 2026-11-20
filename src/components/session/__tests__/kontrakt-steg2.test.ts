@@ -71,7 +71,11 @@ describe('Träna i talserier, spatial och ordförråd', () => {
     const s = steg2Facit('spatial', { rattVisat: 2, forklaring: 'Vrid ett kvarts varv.', misstag: [] }, 2)
     expect(s).toMatchObject({ ratt: 2, correct: true, regel: null, text: 'Vrid ett kvarts varv.', misstag: null })
     const o = steg2Facit('ordforrad', { rattVisat: 0, options: ['glad', 'ledsen'], facit_betyder: 'på gott humör.', exempel: 'Hon var glad.', misstag: ['', 'x'], arMotsats: [false, true] }, 1)
-    expect(o).toMatchObject({ correct: false, text: 'Glad betyder på gott humör. Exempel: ”Hon var glad.”', misstag: 'Det är motsatsen.' })
+    // Steg B2: ordboksartikeln (TypRitare.Forklaring) bär betydelsen och hennes ord, så löptext och misstag står tomma.
+    expect(o).toMatchObject({ correct: false, text: null, misstag: null })
+    // Utan artikelns fält (äldre genomgång) står löptexten som förut.
+    const o2 = steg2Facit('ordforrad', { rattVisat: 0, options: ['glad', 'ledsen'], exempel: 'Hon var glad.', misstag: ['', 'x'], arMotsats: [false, true] }, 1)
+    expect(o2).toMatchObject({ correct: false, text: 'Glad. Exempel: ”Hon var glad.”', misstag: 'Det är motsatsen.' })
     expect(tillSteg2U('talserie', { id: 'ts-1', visade: [1, 2], luckor: 1, options: [[3]] }).nyckel).toBe('ts-1')
   })
 })

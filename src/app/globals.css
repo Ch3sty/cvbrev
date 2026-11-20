@@ -2251,8 +2251,22 @@ html {
    Under prefers-reduced-motion står allt direkt (blocket längst ned). */
 @keyframes talrad-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .talrad-in { animation: talrad-in 220ms cubic-bezier(.2, .8, .2, 1) both; }
-@keyframes talrad-rita { to { stroke-dashoffset: 0; } }
-.talrad-bage { stroke-dasharray: 220; stroke-dashoffset: 220; animation: talrad-rita 220ms ease-out forwards; }
+/* Steg B: bågarna har pathLength 1, så strecket är lika långt för alla
+   bågar; etiketterna och pilspetsarna tonar in, hennes röda steg sist. */
+@keyframes talrad-rita { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.talrad-bage { stroke-dasharray: 1; animation: talrad-rita 200ms ease-out both; }
+@keyframes talrad-tona { from { opacity: 0; } to { opacity: 1; } }
+.talrad-etik { animation: talrad-tona 160ms ease-out both; }
+.talrad-fel { animation: talrad-tona 200ms ease-out both; }
+
+/* Spatial förmåga, facit (steg B): referensfiguren vrids till rätt svars
+   läge (600 ms, en gång), vikningens steg kommer ett i taget. Bara transform
+   och opacity, kortet behåller sin höjd. */
+@keyframes spatial-vrid { from { transform: rotate(0deg); } to { transform: rotate(var(--vrid, 0deg)); } }
+.spatial-vrid { transform: rotate(var(--vrid, 0deg)); animation: spatial-vrid 600ms ease-out 200ms both; }
+@keyframes spatial-steg { from { opacity: 0; transform: translateY(4px) scale(.97); } to { opacity: 1; transform: none; } }
+.spatial-steg { animation: spatial-steg 300ms ease-out both; }
+.spatial-etikett { animation: talrad-tona 200ms ease-out both; }
 
 /* Scenen på golvet (ScenGolv, från 1440 px): typens scen i vagg-2-kontur på
    golvet, 16 % opacitet, tonas bort när kolumnen når ner. */
@@ -2335,12 +2349,16 @@ html {
   .sess-pill,
   .sess-scen-golv,
   .talrad-bage,
-  .talrad-in {
+  .talrad-etik,
+  .talrad-fel,
+  .talrad-in,
+  .spatial-vrid,
+  .spatial-steg,
+  .spatial-etikett {
     animation: none !important;
     transition: none !important;
   }
   [data-sessionsram] .sess-snurr { animation: sess-snurr 1400ms linear infinite !important; }
-  .talrad-bage { stroke-dashoffset: 0; }
 }
 
 /* Ramen ligger i dashboardens innehållslager (relative z-10) medan sidomenyn

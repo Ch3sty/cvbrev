@@ -302,17 +302,31 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
             },
       }}
     >
-      <div className="flex flex-col gap-4 lg:gap-5" data-personlighet>
-        <div className="rounded-xl border border-kant bg-papper px-4 py-5 lg:px-6 lg:py-7" data-pastaende>
-          <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">
+      {/* Omgång 2 steg B2 (skissens Personlighet-1440 och -412): påståendet
+          direkt på golvet i display 22/28 (26/32 på dator), skalan under och
+          en tyst rad om gesten och att inget är rätt eller fel. */}
+      <div className="flex flex-col" data-personlighet>
+        <div data-pastaende>
+          <p className="text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-ink-3">
             Påstående {idx + 1} av {items.length}
           </p>
-          <h2 tabIndex={-1} data-uppgift-rubrik className="text-fraga mt-1.5 text-ink-1 outline-none">
+          <h2
+            tabIndex={-1}
+            data-uppgift-rubrik
+            className="mt-2.5 font-sess-display text-[22px] font-bold leading-[28px] tracking-[-.015em] text-ink-1 outline-none [text-wrap:balance] lg:text-[26px] lg:leading-[32px]"
+          >
             {item.text}
           </h2>
-          <p className="mt-2 text-sm leading-5 text-ink-2">Välj det som stämmer bäst för dig. Det finns inga rätt eller fel.</p>
         </div>
-        <LikertScale value={svar[idx]} onChange={(v) => void valj(v - 1)} disabled={last} />
+        <div className="mt-5 lg:mt-6">
+          <LikertScale value={svar[idx]} onChange={(v) => void valj(v - 1)} disabled={last} />
+        </div>
+        <p className="mt-3 flex justify-between gap-3 text-[12px] leading-4 text-ink-3 lg:text-[13px] lg:leading-[18px]">
+          <span>
+            Ett tryck svarar<span className="hidden lg:inline"> och går vidare</span>.
+          </span>
+          <span>Inga rätt eller fel</span>
+        </p>
       </div>
     </SessionsRam>
   );

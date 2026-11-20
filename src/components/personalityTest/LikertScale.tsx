@@ -2,9 +2,12 @@
 
 /**
  * Skalan i personlighetstestet som Svarskort (plan-testflode-2026-11-20
- * avsnitt 2 och 3.1, etapp 4): fem rader på mobil, fem lika breda i rad på
- * dator. Designsystemets färger, ingen gradient och inget rörelsebibliotek.
- * Brickan bär siffran (1 till 5) i stället för en bokstav; vald är bläck.
+ * avsnitt 2 och 3.1, etapp 4; omgång 2 steg B2, skissens Personlighet-1440
+ * och Personlighet-412): fem lika breda kort i rad, 104 px höga på mobil
+ * (siffran 18 px i en 34 px bricka, etiketten 11/14) och 112 px på dator
+ * (22 px i 40 px, etiketten 13/17). Designsystemets färger, ingen gradient
+ * och inget rörelsebibliotek. Brickan bär siffran (1 till 5) i stället för
+ * en bokstav; vald är bläck.
  */
 
 import type { LikertValue } from '@/lib/personalityTest/types';
@@ -25,7 +28,7 @@ const OPTIONS: { value: LikertValue; label: string }[] = [
 
 export default function LikertScale({ value, onChange, disabled }: LikertScaleProps) {
   return (
-    <div role="radiogroup" aria-label="Hur väl stämmer påståendet?" className="flex flex-col gap-2 lg:grid lg:grid-cols-5" data-likert>
+    <div role="radiogroup" aria-label="Hur väl stämmer påståendet?" className="grid grid-cols-5 gap-1.5 lg:gap-2" data-likert>
       {OPTIONS.map((o) => {
         const vald = value === o.value;
         return (
@@ -39,19 +42,19 @@ export default function LikertScale({ value, onChange, disabled }: LikertScalePr
             onClick={() => onChange(o.value)}
             data-tillstand={vald ? 'vald' : 'neutral'}
             data-svar={o.value}
-            className={`sess-kort flex min-h-[52px] w-full touch-manipulation items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left text-base font-medium leading-[22px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default lg:min-h-[104px] lg:flex-col lg:justify-center lg:gap-2 lg:px-2 lg:text-center lg:text-sm lg:leading-[18px] ${
+            className={`sess-kort flex h-[104px] min-w-0 w-full touch-manipulation flex-col items-center justify-center gap-1.5 rounded-xl border px-1 py-2 text-center text-[11px] font-medium leading-[14px] text-ink-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--fokus,var(--ink-1))] disabled:cursor-default lg:h-[112px] lg:gap-2.5 lg:px-2 lg:text-[13px] lg:leading-[17px] ${
               vald ? 'border-ink-1 bg-papper shadow-[inset_0_0_0_1px_var(--ink-1)]' : 'border-kant bg-papper hover:border-kant-stark'
             }`}
           >
             <span
               aria-hidden="true"
-              className={`sess-bricka inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-bold leading-4 lg:h-8 lg:w-8 lg:text-[14px] ${
+              className={`sess-bricka inline-flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center rounded-full font-sess-display text-[18px] font-extrabold leading-none lg:h-10 lg:w-10 lg:text-[22px] ${
                 vald ? 'bg-ink-1 text-papper' : 'bg-papper-2 text-ink-2'
               }`}
             >
               {o.value}
             </span>
-            <span className="min-w-0 flex-1 lg:flex-none">{o.label}</span>
+            <span className="min-w-0 break-words">{o.label}</span>
           </button>
         );
       })}
