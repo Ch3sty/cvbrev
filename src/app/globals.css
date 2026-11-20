@@ -4003,7 +4003,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 [data-ton="ljus"] .prov3-loften > li > span > span { color: var(--ink-2); }
 [data-ton="ljus"] .prov3-loften > li > i { background: var(--vagg); }
 @media (min-width: 900px) {
-  .pub-konto-g > .prov3-regpanel { order: 0; }
+  .pub-konto-g > .pub-konto-provpanel.prov3-regpanel { order: 0; }
   .prov3-regpanel-vagg { padding: 40px 40px 36px; }
   .prov3-regpanel-topp { display: block; margin-top: 8px; }
   .prov3-regpanel-tal { font-size: 64px; line-height: 68px; }

@@ -87,7 +87,9 @@ describe('bar /register', () => {
         provResultat={{ ratt: 4, totalt: 5, fel: [2] }}
       />
     )
-    expect(screen.getByRole('heading', { level: 1, name: 'Se vad du missade' })).toBeTruthy()
+    // Omgång 3, beslut G (förlagan Publik-registrering): rubriken är "Skapa ditt konto", raden under säger vad som öppnas.
+    expect(screen.getByRole('heading', { level: 1, name: 'Skapa ditt konto' })).toBeTruthy()
+    expect(document.querySelector('[data-prov-sedan]')?.textContent).toContain('Sedan öppnas regeln bakom uppgift 3.')
     expect(screen.getByRole('heading', { level: 2, name: 'Kontot visar fråga 3 och regeln bakom' })).toBeTruthy()
     expect(screen.getByRole('img', { name: 'Fråga 3 fel, de andra rätt' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Skapa konto och se svaren' })).toBeTruthy()
