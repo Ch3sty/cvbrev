@@ -313,7 +313,7 @@ export default function TestSessionView({ sessionId, testType, items, resultsBas
           ringar under (på telefonen nedtill ovanför foten) och raden om
           gesten. */}
       <div className="flex flex-1 flex-col pt-1 lg:pt-0" data-personlighet data-brade-layout="personlighet">
-        <div className="sess-pastaende" data-pastaende>
+        <div className="sess-personlighet-kort" data-pastaende>
           <svg viewBox="0 0 56 44" aria-hidden="true" className="h-[34px] w-11 lg:h-11 lg:w-14">
             <path d="M0 44V26C0 11 8 2 22 0v9c-6 2-9 7-9 13h9v22H0Zm30 0V26C30 11 38 2 52 0v9c-6 2-9 7-9 13h9v22H30Z" fill="var(--sess-lucka)" />
           </svg>
