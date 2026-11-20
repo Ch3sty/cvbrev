@@ -2829,12 +2829,15 @@ html {
 .pp-typ small { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-3); }
 
 /* Provets huvud: på telefonen stapeln och kapseln, typen på raden under. */
-.pp-huvud-prov { display: flex; align-items: center; gap: 10px; }
-.pp-huvud-typ { display: none; }
+.pp-huvud-prov { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+/* Telefonen: samma element som på dator (en gång i DOM), på egen rad under stapeln, utan ikonen. */
+.pp-huvud-typ { display: flex; order: 3; flex-basis: 100%; margin-top: -2px; padding: 0 2px; }
+.pp-huvud-typ > .pp-ik { display: none; }
+.pp-huvud-typ .pp-typ { display: flex; align-items: baseline; justify-content: space-between; width: 100%; }
+.pp-huvud-typ .pp-typ > span { font-size: 13px; line-height: 16px; }
+.pp-huvud-typ .pp-typ small { font-weight: 600; }
 .pp-bitar { flex: 1 1 auto; --bit-gap: 4px; }
 .pp-raknare { min-width: 76px; justify-content: center; }
-.pp-rad2 { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 0; padding: 0 2px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-3); }
-.pp-rad2 b { font: 700 13px/16px var(--font-sess-display); color: var(--ink-1); }
 
 .sess-personlighet-kort.pp-kort { margin-top: 12px; padding: 22px 22px 26px; min-height: 202px; }
 .pp-citat { display: block; width: 44px; height: 34px; }
@@ -2853,10 +2856,13 @@ html {
   .pp-scen { border-radius: 32px; box-shadow: 0 6px 0 var(--sess-kant), 0 28px 48px var(--sess-skugga); padding: 20px 36px 24px; }
   .pp-scen-prov { overflow: visible; }
   .pp-huvud-prov { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px) minmax(0, 1fr); gap: 20px; }
-  .pp-huvud-typ { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .pp-huvud-typ { display: flex; order: 0; flex-basis: auto; margin-top: 0; padding: 0; align-items: center; gap: 12px; min-width: 0; }
+  .pp-huvud-typ > .pp-ik { display: flex; }
+  .pp-huvud-typ .pp-typ { display: block; width: auto; }
+  .pp-huvud-typ .pp-typ > span { font-size: 16px; line-height: 20px; }
+  .pp-huvud-typ .pp-typ small { font-weight: 500; }
   .pp-raknare { justify-self: end; min-width: 92px; }
   .pp-bitar { --bit-gap-lg: 8px; --bit-gap: 8px; }
-  .pp-rad2 { display: none; }
   .sess-personlighet-kort.pp-kort { margin-top: 18px; padding: 32px 44px 40px; min-height: 220px; }
   .pp-citat { width: 52px; height: 41px; }
   .pp-pastaende { margin-top: 16px; font-size: 36px; line-height: 44px; }

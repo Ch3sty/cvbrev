@@ -612,11 +612,6 @@ export default function Personlighetsprov({ slug, sida = false, iArbetet }: Pers
             {COPY.steg.raknare(n)}
           </span>
         </div>
-        {/* Telefonen: typen på egen rad under stapeln (huvudets typ döljs där). */}
-        <p className="pp-rad2">
-          <b>{COPY.typ}</b>
-          <span>{laddar || fel ? COPY.steg.klart : COPY.steg.hoger}</span>
-        </p>
 
         <div className="sess-personlighet-kort pp-kort">
           <Citat stor />
