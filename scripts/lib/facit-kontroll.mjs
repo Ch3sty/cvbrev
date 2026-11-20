@@ -412,3 +412,74 @@ export function kollaLedNamn(q) {
   }
   return fel;
 }
+
+// ---------------------------------------------------------------------------
+// D. Tärningarnas misstagstexter (spatial form C med kubdata)
+// ---------------------------------------------------------------------------
+
+const kors = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const sammaVektor = (a, b) => a.every((x, i) => x === b[i]);
+const SYMBOLNAMN = [['fyllda kvadrat', 'fkvadrat'], ['fylld kvadrat', 'fkvadrat'], ['dubbelring', 'dubbelring'], ['kvadrat', 'kvadrat'], ['prick', 'prick'], ['ring', 'ring'], ['kryss', 'kryss'], ['stjärn', 'stjarna'], ['triangel', 'triangel'], ['pil', 'pil']];
+const symbolI = (s) => { const t = String(s).toLowerCase(); for (const [k, v] of SYMBOLNAMN) if (t.includes(k)) return v; return null; };
+const SIDOR = { ovansidan: 't', 'vänster sida': 'l', 'höger sida': 'r' };
+
+/**
+ * Prövar misstagstexterna i en tärningsuppgift mot kubdatan (`kub`):
+ * placeringen läses som ovansida × vänster = höger med referensens
+ * handenhet. Påståenden som prövas: "måste <sida> visa en X", "X syns redan
+ * … kan inte hamna på <sida>", "Spegelvänd" och "bytt plats … spegelbild"
+ * (samma tre sidor som den första tärningen, spegelvänd placering), "Rätt
+ * sidor, men … pekar åt fel håll" (placeringen möjlig). Riktningen på
+ * symbolerna prövas inte. Returnerar feltexter.
+ */
+export function kollaTarningMisstag(q) {
+  if (q.form !== 'C' || q.referens?.kind !== 'kub' || !Array.isArray(q.kub)) return [];
+  const fel = [];
+  const N = (s) => q.kub.find((f) => f.symbol === s)?.n ?? null;
+  const symbolPa = (n) => q.kub.find((f) => sammaVektor(f.n, n))?.symbol;
+  const rf = q.referens;
+  const handenhet = (v) => {
+    const [t, l, r] = ['t', 'l', 'r'].map((k) => N(v[k].symbol));
+    if (!t || !l || !r) return 'framande';
+    const c = kors(t, l);
+    return sammaVektor(c, r) ? 'ok' : sammaVektor(c, r.map((x) => -x)) ? 'spegel' : 'omojlig';
+  };
+  if (handenhet(rf) !== 'ok') return [`${q.id}: referensen stämmer inte med kubdatan`];
+  const kravd = (v, sida) => {
+    const [a, b] = ['t', 'l', 'r'].filter((k) => k !== sida);
+    const na = N(v[a].symbol);
+    const nb = N(v[b].symbol);
+    if (!na || !nb) return null;
+    return symbolPa(sida === 'l' ? kors(nb, na) : kors(na, nb));
+  };
+  const tre = (v) => [v.t, v.l, v.r].map((x) => x.symbol).sort().join();
+  q.options.forEach((o, i) => {
+    const st = handenhet(o);
+    const id = `${q.id} alternativ ${'ABCD'[i]}`;
+    if (i === q.correctAnswer) { if (st !== 'ok') fel.push(`${id}: facit är ${st}`); return; }
+    const m = q.misstag[i];
+    let mm;
+    if ((mm = m.match(/måste (ovansidan|vänster sida|höger sida) visa en (.+?)(, inte en (.+?))?\./))) {
+      const sida = SIDOR[mm[1]];
+      const [a, b] = ['t', 'l', 'r'].filter((x) => x !== sida);
+      const med = m.match(/Med (.+?) och (.+?) placerade/);
+      if (!med || [symbolI(med[1]), symbolI(med[2])].sort().join() !== [o[a].symbol, o[b].symbol].sort().join()) fel.push(`${id}: texten nämner inte sidorna som alternativet visar`);
+      if (kravd(o, sida) !== symbolI(mm[2])) fel.push(`${id}: ${mm[1]} måste visa ${kravd(o, sida)}, texten säger ${symbolI(mm[2])}`);
+      if (mm[4] && symbolI(mm[4]) !== o[sida].symbol) fel.push(`${id}: "inte en ${mm[4]}" men alternativet visar ${o[sida].symbol}`);
+      if (st === 'ok') fel.push(`${id}: alternativet är möjligt`);
+    } else if ((mm = m.match(/^(.+?) syns redan på den första tärningen och kan inte hamna på (ovansidan|vänster sida|höger sida) när (.+?) och (.+?) står så här\./))) {
+      const x = symbolI(mm[1]);
+      const sida = SIDOR[mm[2]];
+      if (![rf.t, rf.l, rf.r].some((y) => y.symbol === x)) fel.push(`${id}: ${x} syns inte på den första tärningen`);
+      if (o[sida].symbol !== x) fel.push(`${id}: ${mm[2]} visar ${o[sida].symbol}`);
+      if (kravd(o, sida) === x) fel.push(`${id}: ${x} kan hamna där`);
+    } else if (/^Spegelvänd\./.test(m) || /det är en spegelbild\.$/.test(m)) {
+      if (/Samma tre sidor|bytt plats/.test(m) && tre(o) !== tre(rf)) fel.push(`${id}: inte samma tre sidor som den första tärningen`);
+      if (st !== 'spegel') fel.push(`${id}: kallas spegelvänd men placeringen är ${st}`);
+    } else if ((mm = m.match(/^Rätt sidor, men (.+?) på (ovansidan|vänster sida|höger sida) pekar åt fel håll/))) {
+      if (st !== 'ok') fel.push(`${id}: "rätt sidor" men placeringen är ${st}`);
+      if (symbolI(mm[1]) !== o[SIDOR[mm[2]]].symbol) fel.push(`${id}: ${mm[2]} visar ${o[SIDOR[mm[2]]].symbol}`);
+    } else fel.push(`${id}: misstagstexten går inte att pröva: ${m}`);
+  });
+  return fel;
+}
