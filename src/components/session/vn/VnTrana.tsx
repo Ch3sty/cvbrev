@@ -28,6 +28,7 @@ import { LANK } from '@/components/shell/knappar'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm, { type MalData } from '../Resultatskarm'
+import { monsterRad, monsterText } from '../resultat/monster'
 import { vnRitare, type VnU } from '../typer/Vn'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
@@ -208,7 +209,7 @@ function Resultat({
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
-      tappade={{ rader: r.tappade.map((t) => ({ namn: vnFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
+      tappade={{ rader: r.tappade.map((t) => ({ namn: monsterText(kind, t.familj) ?? vnFamiljNamn(t.familj) ?? 'Ett mönster', meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
       tempo={{ titel: R.tempo(r.tid_s, r.budget_s), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={
         harNivakoll
@@ -220,7 +221,7 @@ function Resultat({
                   <div className="mt-1.5 flex flex-col gap-1 text-sm leading-5 text-ink-2">
                     {svagast ? (
                       <Link href={vnPassHref(kind, svagast.familj)} className={`${LANK} inline-flex min-h-11 items-center`} data-ova-typen>
-                        {`Öva ${(vnFamiljNamn(svagast.familj) ?? svagast.familj).toLowerCase()}`}
+                        {monsterRad(kind, svagast.familj)?.ova ?? `Öva ${(vnFamiljNamn(svagast.familj) ?? 'mönstret').toLowerCase()}`}
                       </Link>
                     ) : null}
                     {vy.expertRad ? (

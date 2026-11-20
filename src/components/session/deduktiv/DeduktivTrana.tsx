@@ -23,6 +23,7 @@ import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import { NIVAKOLL_OMFANG, nivakollAntalTid } from '@/lib/nivakoll/omfang'
 import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm, { type MalData } from '../Resultatskarm'
+import { monsterRad, monsterText } from '../resultat/monster'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
 import { antalOrd, SESSION } from '../copy'
 import { TempoStapel } from '../figurserie/delar'
@@ -156,6 +157,7 @@ function TranaResultat({
       datum={datum}
       onStang={stang}
       mal={mal}
+      monsterRader={s.uppgifter.map((u) => monsterRad('deduktiv', vy.aterkoppling[u.nyckel]?.familj))}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -171,7 +173,7 @@ function TranaResultat({
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
       tappade={{
-        rader: r.tappade.map((t) => ({ namn: deduktivFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
+        rader: r.tappade.map((t) => ({ namn: monsterText('deduktiv', t.familj) ?? deduktivFamiljNamn(t.familj) ?? 'Ett mönster', meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
       }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={

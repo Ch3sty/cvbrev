@@ -113,6 +113,8 @@ export interface Genomgangspunkt {
   ledNamn?: import('@/lib/deduktivV1/types').DeduktivLedNamn | null;
   /** Ord och text, siffror och tabeller: räknevägen och stödmeningarna efter avslutet (omgång 3, steg 2b). */
   vnFacit?: import('@/lib/tester/pass-typer').VnFacitData | null;
+  /** Figurserier och deduktivt: mönstrets namn (familjen i klartext), taggen i genomgången (omgång 3, steg 4). */
+  monster?: string | null;
 }
 
 export interface Ovningsresultat {

@@ -36,6 +36,7 @@ import { MilstolpeKortVy } from '@/components/traning/resultatDelar'
 import Trana, { lasRamNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Startskarm from '../Startskarm'
 import Resultatskarm from '../Resultatskarm'
+import { monsterRad, monsterText } from '../resultat/monster'
 import { MATRIS, type MatrisU } from '../typer/Matris'
 import { antalOrd, SESSION } from '../copy'
 import type { RamFacit } from '../typ'
@@ -262,7 +263,9 @@ function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang, nivaer }: 
     .filter((f) => f.antal > 0 && f.ratt < f.antal)
     .sort((a, b) => a.andel - b.andel)
     .slice(0, 4)
-    .map((f) => ({ namn: familjNamn(f.family) ?? f.family ?? 'Blandat', meta: `${f.ratt} av ${f.antal} rätt i träningen`, andel: f.andel, ratt: f.ratt, antal: f.antal }))
+    .map((f) => ({ namn: monsterText('matris', f.family) ?? familjNamn(f.family) ?? 'Blandat', meta: `${f.ratt} av ${f.antal} rätt i träningen`, andel: f.andel, ratt: f.ratt, antal: f.antal }))
+  // Mönstret per uppgift ur genomgången efter avslutet (familjen per fråga).
+  const familjPerId = new Map((m.vy.genomgang ?? []).map((g) => [g.id, g.family] as const))
   const harNiva = avslut.niva_fore != null || avslut.niva_efter != null
   const riktat = avslut.typ === 'riktat'
   return (
@@ -273,6 +276,7 @@ function TranaResultat({ m, betalande, datum, gaIgenom, lista, stang, nivaer }: 
       datum={datum}
       onStang={stang}
       mal={avslut.niva_efter != null || nivaer.some((n) => n != null) ? { fore: avslut.niva_fore ?? null, efter: avslut.niva_efter ?? null, nivaer } : null}
+      monsterRader={s.uppgifter.map((u) => monsterRad('matris', familjPerId.get(u.nyckel)))}
       ring={{ andel: antal ? avslut.ratt / antal : 0, aria: SESSION.resultat.ringAria(avslut.ratt, antal) }}
       huvudtal={SESSION.resultat.rattAv(avslut.ratt, antal)}
       tal={[vm.tal[1], vm.tal[2]]}

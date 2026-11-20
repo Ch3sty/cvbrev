@@ -34,6 +34,7 @@ import Startskarm from '../Startskarm'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm, { type MalData } from '../Resultatskarm'
+import { monsterRad, monsterText } from '../resultat/monster'
 import { steg2Facit, steg2Ritare, Steg2Miniatyrer, tillSteg2U, type Steg2U } from '../typer/Steg2'
 import { antalOrd, SESSION } from '../copy'
 import type { ResultatListaVidare } from '../lagen/gemensamt'
@@ -209,7 +210,9 @@ function Resultat({ vy, datum, gaIgenom, lista, stang, mal }: { vy: Steg2PassVy;
   }).length
   const missar = s.uppgifter.map((u, i) => ({ u, i, f: s.facit[u.nyckel] })).filter((x) => !x.f?.correct)
   const R = steg2PassCopy(kind).resultat
-  const svagast = r.tappade.find((t) => t.ratt < t.antal)?.familj ?? null
+  // Namnet ur namntabellen; ett okänt mönster ger ingen rad (aldrig ett id).
+  const svagastF = r.tappade.find((t) => t.ratt < t.antal)?.familj ?? null
+  const svagast = svagastF ? monsterText(kind, svagastF) : null
   return (
     <Resultatskarm
       lage="trana"
@@ -233,7 +236,8 @@ function Resultat({ vy, datum, gaIgenom, lista, stang, mal }: { vy: Steg2PassVy;
         onGaIgenom: () => gaIgenom(missar[0]?.i ?? 0),
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
-      tappade={{ rader: r.tappade.map((t) => ({ namn: t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
+      monsterRader={s.uppgifter.map((u) => monsterRad(kind, vy.aterkoppling[u.nyckel]?.grupp))}
+      tappade={{ rader: r.tappade.map((t) => ({ namn: monsterText(kind, t.familj) ?? 'Ett mönster', meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })) }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={{
         titel: R.imorgon(svagast),

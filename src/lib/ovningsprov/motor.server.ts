@@ -382,6 +382,8 @@ export function raknaResultat(args: {
       ...(typ === 'figurer' || typ === 'deduktiv' ? { misstag } : {}),
       ...(dg ? { losning: dg.losning, ledNamn: dg.ledNamn ?? null } : {}),
       ...(f.vnFacit ? { vnFacit: f.vnFacit } : {}),
+      // Omgång 3 (steg 4): mönstrets namn per uppgift, aldrig ett id.
+      ...(dq ? { monster: deduktivFamiljNamn(dq.family) ?? null } : fq ? { monster: serieFamiljNamn(fq.family) ?? null } : {}),
     });
     const grupp =
       typ === 'deduktiv'

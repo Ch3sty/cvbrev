@@ -36,6 +36,7 @@ import { useRamLage } from './useRamLage'
 import Uppgiftslistan, { type UppgiftslistanProps } from './Uppgiftslistan'
 import type { GenomgangPost, RamUppgift } from './typ'
 import Genomgangen from './resultat/Genomgangen'
+import type { MonsterRad } from './resultat/monster'
 import {
   Bitar,
   brickAria,
@@ -134,11 +135,22 @@ export interface ResultatskarmProps {
   forra?: { ratt: number; antal: number; namn: string } | null
   /** Omgång 3: mönstret per uppgift, taggen i genomgången. */
   monster?: (string | null)[] | null
+  /**
+   * Omgång 3 (steg 4): mönstret per uppgift ur namntabellen, med rubriken och
+   * den riktade träningen (resultat/monster.ts). Ger taggen i genomgången när
+   * `monster` saknas, och länken under "Det du missade" i målgången.
+   */
+  monsterRader?: (MonsterRad | null)[] | null
   /** Omgång 3: länken "Gör ett nytt övningsprov" bredvid tillbaka. */
   igen?: { text: string; href: string } | null
 }
 
 /* ------------------------------------------------------------------ hjälp */
+
+/** Mönstrets namn per uppgift: `monster` när vyn skickar den, annars namnen i `monsterRader`. */
+function monsterNamnen(p: ResultatskarmProps): (string | null)[] | null {
+  return p.monster ?? p.monsterRader?.map((r) => r?.namn ?? null) ?? null
+}
 
 function utfallFor(p: GenomgangPost<RamUppgift>): BrickUtfall {
   if (p.facit.correct) return 'ratt'
@@ -359,7 +371,7 @@ function TestResultat({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<
       <div className="relative px-4 pb-40 lg:px-10 lg:pb-14">
         <div className="mx-auto -mt-11 grid w-full max-w-[1120px] grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,720px)_360px] lg:gap-x-10 lg:gap-y-5">
           <div className="steg s3 min-w-0" data-resultat-genomgang data-resultat-lista>
-            <Genomgangen {...lista} monster={p.monster ?? null} />
+            <Genomgangen {...lista} monster={monsterNamnen(p)} />
           </div>
           <div className="flex min-w-0 flex-col gap-4 lg:gap-5">
             <div className="steg s4 hidden lg:block">
@@ -497,7 +509,8 @@ function Malgang({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<NonNu
   const forstaMiss = utfall.findIndex((u) => u !== 'ratt')
   const miss = forstaMiss >= 0 ? poster[forstaMiss] : null
   const missRad = miss ? miss.facit.misstag ?? miss.facit.regel ?? miss.facit.text ?? null : null
-  const missMonster = forstaMiss >= 0 ? p.monster?.[forstaMiss] ?? null : null
+  const missMonster = forstaMiss >= 0 ? monsterNamnen(p)?.[forstaMiss] ?? null : null
+  const missRiktad = forstaMiss >= 0 ? p.monsterRader?.[forstaMiss] ?? null : null
   const tid = p.tal[0] ?? null
 
   return (
@@ -561,6 +574,11 @@ function Malgang({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<NonNu
                   <div className="min-w-0 flex-1">
                     <b className="block text-[15px] font-semibold leading-5">{missMonster ? `Det du missade: ${missMonster.toLowerCase()}` : 'Det du missade'}</b>
                     {missRad ? <span className="line-clamp-2 text-[13px] leading-[19px] text-vagg-mjuk">{missRad}</span> : null}
+                    {missRiktad?.href ? (
+                      <Link href={missRiktad.href} className="res-lank mt-1 inline-flex min-h-11 items-center text-sm text-vagg-ink" data-resultat-riktad>
+                        {missRiktad.ova}
+                      </Link>
+                    ) : null}
                   </div>
                   {lista.onOppna ? (
                     <button type="button" onClick={() => lista.onOppna?.(forstaMiss)} className="res-lank whitespace-nowrap text-sm text-vagg-ink" data-resultat-se-uppgiften>
@@ -598,7 +616,7 @@ function Malgang({ p, lista }: { p: ResultatskarmProps; lista: NonNullable<NonNu
       <div className="px-4 pb-10 pt-6 lg:px-10 lg:pt-10">
         <div className="mx-auto w-full max-w-[1120px]">
           <div className="max-w-[720px]" data-resultat-genomgang data-resultat-lista>
-            <Genomgangen {...lista} monster={p.monster ?? null} />
+            <Genomgangen {...lista} monster={monsterNamnen(p)} />
           </div>
           {p.status ? <div className="mt-4 max-w-[720px]">{p.status}</div> : null}
         </div>

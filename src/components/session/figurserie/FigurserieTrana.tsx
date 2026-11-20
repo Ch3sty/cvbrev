@@ -21,6 +21,7 @@ import { nivakollHref, sessionHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { LANK } from '@/components/shell/knappar'
 import Trana, { lasRamNiva, lasSlutNiva, type TranaApi, type TranaSession } from '../lagen/Trana'
 import Resultatskarm, { type MalData } from '../Resultatskarm'
+import { monsterRad, monsterText } from '../resultat/monster'
 import { FIGURSERIE, type FigurserieU } from '../typer/Figurserie'
 import { antalOrd, SESSION } from '../copy'
 import { testTypForKind } from '@/components/illustrations/TestGlyfer'
@@ -155,6 +156,7 @@ function TranaResultat({
       datum={datum}
       onStang={stang}
       mal={mal}
+      monsterRader={s.uppgifter.map((u) => monsterRad('figurserie', vy.aterkoppling[u.nyckel]?.familj))}
       ring={{ andel: r.antal ? r.ratt / r.antal : 0, aria: SESSION.resultat.ringAria(r.ratt, r.antal) }}
       huvudtal={SESSION.resultat.rattAv(r.ratt, r.antal)}
       tal={[
@@ -171,7 +173,7 @@ function TranaResultat({
         onVisaAlla: missar.length && missar.length < s.uppgifter.length ? () => gaIgenom(0) : null,
       }}
       tappade={{
-        rader: r.tappade.map((t) => ({ namn: serieFamiljNamn(t.familj) ?? t.familj, meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
+        rader: r.tappade.map((t) => ({ namn: monsterText('figurserie', t.familj) ?? serieFamiljNamn(t.familj) ?? 'Ett mönster', meta: R.tappadeMeta(t.ratt, t.antal), andel: t.andel, ratt: t.ratt, antal: t.antal })),
       }}
       tempo={{ titel: R.tempo(tidPer, budgetPer), innehall: <TempoStapel tidPer={tidPer} budgetPer={budgetPer} /> }}
       nastaSteg={
