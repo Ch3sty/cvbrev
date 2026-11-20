@@ -98,14 +98,14 @@ export default function Resultatskarm(p: ResultatskarmProps) {
 
   return (
     <div
-      className={`sess-tona fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text ${motion ? 'motion' : ''}`}
+      className={`fixed inset-0 z-50 flex h-dvh flex-col bg-golv font-sess-text ${motion ? 'motion' : ''}`}
       data-sessionsram="resultat"
       data-resultat
       data-resultatskarm={p.lage}
       role="region"
       aria-label={p.eyebrow ?? KLART[p.lage]}
     >
-      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <main className="sess-tona min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className="vagg px-4 pb-11 lg:px-10">
           <div className="mx-auto w-full max-w-[672px]">
             <div className="-mx-1 flex h-14 items-center gap-2 text-vagg-ink">
