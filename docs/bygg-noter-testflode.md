@@ -99,6 +99,9 @@ Planen: `docs/plan-testflode-2026-11-20.md`. En rad per push med vad som gick li
 
 ## Omgång 2, steg A: grunden i ramen (2026-11-20)
 
+- Commit `4337be3e`, "feat(tester): grunden i ramen, omgång 2 steg A", pushad 2026-11-20 före Black Weeks frysning.
+- Backning: `git revert 4337be3e` (ingen databasändring; de nya händelserna slutar bara komma).
+
 Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/feedback-testflode-ux-2026-11-21.md` och `docs/design/feedback-testflode-saas-lead-2026-11-21.md`. Allt i `src/components/session/`; inga rutter, POST-kroppar, kvoter, motorer, banker, priser eller kampanjfiler rörda. Ingen databasändring.
 
 ### Vad som gick live
@@ -112,6 +115,14 @@ Skissen (artefakten KtViRMpthysT8t34isdnPK, godkänd av ägaren), `docs/design/f
 - **Publikt läge.** `lagesregler('publikt')`: ingen klocka, linjär, inget hopp, `facit: false`; `Lagesregler` fick flaggan `facit`. Avbryt-dialogen "Avbryta provet? Inget sparas.", sista knappen Visa resultatet, `LAGESNAMN.publikt` "Prova gratis", `KLART.publikt` "Provet klart". Räknaren saknar chevron när ramen inte får `ark`.
 - **Mätningen (saas-leads prio 1).** Nya händelser i `handelser.ts` och `AnalyticsEvents`: `genomgang_oppnad` (`kalla` ga_igenom, rad eller direkt, `start_index`, `antal`, `fel`), `genomgang_rad_utfalld` (`index`, `utfall`, bara tryck), `genomgang_steg` (`index`, `riktning`, `tid_ms` på förra uppgiften), `genomgang_klar` (`sett`, `elapsed_ms`) och `forklaring_tid` (`tid_ms`, `utfall`, `plats` svar, genomgang eller lista). Alla bär `SessionHandelseBas`; i genomgången och listan utan egen bas är `niva` och `format` null. Inga gamla namn eller egenskaper ändrade; grep-testet täcker de nya.
 - **Talraden (`Talrad.tsx`).** Gemensam, ritas på servern, krymper likformigt med behållaren via `min(px, cqw)`. Används av talserierna i ramen (`typer/Steg2`) och av artiklarnas `TalserieUppgift`. Stegens etiketter under raden har nu sin plats reserverad från start (CLS 0 vid facit), utom de varvade seriernas andra rad.
+
+### Prov och mätning
+
+- tsc rent, `npx vitest run --dir src` 263 filer och 3431 test gröna (nya: `__tests__/omgang2.test.tsx`), `next build` grönt.
+- Klicktest i Chrome mot produktionsbygget och utvecklingsservern, 1440×900, 2560×1300 och Pixel 7: Träna (talserier, figurserier, deduktivt, ord och text), nivåtest (talserier, deduktivt, figurserier, personlighet), övningsprov (deduktivt, logik, figurer) och resultatsidan; app-UA ljust och mörkt på Pixel 7. Svaren syns utan rullning i alla vyer, knappen 24 px under sista svaret från lg, rubriken på samma y genom sessionen (102 px på 1440×900, 182 px på 2560×1300), ingen horisontell rullning. Talraden ryms i ramen på 412 px och i artikelrutan på 300 px.
+- `scripts/perf-inloggat.ts` (Pixel 7, 3x CPU, LTE, median av tre, `--samtycke`): uppgiftssidorna 264 till 624 ms, resultaten 340 och 424 ms, startskärmarna 460 till 752 ms (en körning av matrisens startskärm låg på 5,9 s och mättes om till 752 ms), CLS 0 överallt.
+- Produktion efter push: Träna deduktivt på Pixel 7 från start till resultat och Uppgiftslistan.
+- QA-kontot `qa-ram-a-1795176686116@jobbcoach-qa.test` raderat per id: 21 sessioner, 2 personlighetssessioner, 126 aktivitetsrader, 1 profil.
 
 ### Kontraktet för steg B (typerna)
 
