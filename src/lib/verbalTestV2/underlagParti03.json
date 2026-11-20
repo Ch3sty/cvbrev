@@ -10,25 +10,36 @@
         "text": "Enligt förvaltningen blev restiden kortare under schemaverktygets första år.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Texten säger att förvaltningen uppger att restiden minskade med ungefär en femtedel det första året. Påståendet säger samma sak med andra ord, så det är sant och varken falskt eller obestämt."
+        "explanation": "Texten säger att förvaltningen uppger att restiden minskade med ungefär en femtedel det första året. Påståendet säger samma sak med andra ord, så det är sant och varken falskt eller obestämt.",
+        "stod": [
+          "Förvaltningen i en mellanstor kommun uppger att restiden minskade med ungefär en femtedel det första året, och att pengarna som frigjordes kunde läggas på fler timmar hos brukarna."
+        ]
       },
       {
         "text": "Brukare får beskriva sina behov för fler personer eftersom verktyget inte styr mot att samma personal kommer tillbaka.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Två meningar avgör: det står att verktyget inte prioriterar att samma person återkommer, och att brukaren därför får berätta om sina behov för nya ansikten. Tillsammans ger de påståendet, så det följer säkert av texten."
+        "explanation": "Två meningar avgör: det står att verktyget inte prioriterar att samma person återkommer, och att brukaren därför får berätta om sina behov för nya ansikten. Tillsammans ger de påståendet, så det följer säkert av texten.",
+        "stod": [
+          "Flera undersköterskor beskriver också att de numera träffar fler olika brukare under en vecka än tidigare, eftersom verktyget inte prioriterar att samma person återkommer.",
+          "För brukaren kan det innebära att behöva berätta om sina behov för nya ansikten gång på gång."
+        ]
       },
       {
         "text": "Fackliga företrädare menar att schemaverktyget aldrig tar hänsyn till besök som tar längre tid än planerat.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Det står i texten att schemana sällan tar hänsyn till besök som drar ut på tiden. Sällan betyder att det ibland sker, så aldrig motsägs. Påståendet är därför falskt, inte obestämt."
+        "explanation": "Det står i texten att schemana sällan tar hänsyn till besök som drar ut på tiden. Sällan betyder att det ibland sker, så aldrig motsägs. Påståendet är därför falskt, inte obestämt.",
+        "stod": [
+          "De menar att scheman som byggs utifrån kartan sällan tar hänsyn till att vissa besök drar ut på tiden, till exempel när en äldre person är orolig eller har fallit."
+        ]
       },
       {
         "text": "Brukarna i kommunen är mer nöjda med hemtjänsten sedan schemaverktyget infördes.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten tar upp restid, stress och kontinuitet men säger inget om hur nöjda brukarna är. Därför går det inte att avgöra om påståendet stämmer."
+        "explanation": "Texten tar upp restid, stress och kontinuitet men säger inget om hur nöjda brukarna är. Därför går det inte att avgöra om påståendet stämmer.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -45,25 +56,35 @@
         "text": "Ett av syftena med offentlig upphandling är att företagen ska få likvärdig behandling.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att syftet är att skattepengar används effektivt och att företag behandlas lika. Påståendet återger den andra delen med andra ord och är därför sant, inte falskt eller obestämt."
+        "explanation": "Det står i texten att syftet är att skattepengar används effektivt och att företag behandlas lika. Påståendet återger den andra delen med andra ord och är därför sant, inte falskt eller obestämt.",
+        "stod": [
+          "Syftet är att skattepengar ska användas effektivt och att företag ska behandlas lika."
+        ]
       },
       {
         "text": "Kritikerna menar att hårdare krav i upphandlingen leder till att konkurrensen mellan anbudsgivarna ökar.",
         "correctAnswer": "false",
         "typ": "slutledning",
-        "explanation": "Enligt texten avstår mindre företag från att lämna anbud när kraven blir omfattande, och färre anbudsgivare ger sämre konkurrens. Kedjan pekar åt motsatt håll mot påståendet, som därför är falskt och inte obestämt."
+        "explanation": "Enligt texten avstår mindre företag från att lämna anbud när kraven blir omfattande, och färre anbudsgivare ger sämre konkurrens. Kedjan pekar åt motsatt håll mot påståendet, som därför är falskt och inte obestämt.",
+        "stod": [
+          "Mindre företag saknar ofta en egen avdelning som kan sätta sig in i underlagen, och de avstår därför från att lämna anbud.",
+          "Färre anbudsgivare innebär i sin tur sämre konkurrens, vilket kan driva upp priserna."
+        ]
       },
       {
         "text": "Samtliga kommuner som delat upp sina upphandlingar har lyckats locka tillbaka de mindre företagen.",
         "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Texten säger att det ännu är oklart om uppdelningen räcker för att locka tillbaka de mindre företagen. Resultatet varken bekräftas eller motsägs, så påståendet kan inte bedömas som sant eller falskt."
+        "explanation": "Texten säger att det ännu är oklart om uppdelningen räcker för att locka tillbaka de mindre företagen. Resultatet varken bekräftas eller motsägs, så påståendet kan inte bedömas som sant eller falskt.",
+        "stod": [],
+        "narmast": "Om det räcker för att locka tillbaka de mindre företagen är ännu oklart, och de utvärderingar som finns bygger på ett fåtal kommuner."
       },
       {
         "text": "Kommuner som väger in arbetsvillkor betalar i genomsnitt mer för sina inköp än andra kommuner.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten resonerar om att billiga anbud kan bli dyra i längden och att färre anbud kan höja priser, men jämför aldrig faktiska kostnader. Varken sant eller falskt kan väljas utifrån det som står."
+        "explanation": "Texten resonerar om att billiga anbud kan bli dyra i längden och att färre anbud kan höja priser, men jämför aldrig faktiska kostnader. Varken sant eller falskt kan väljas utifrån det som står.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -80,25 +101,36 @@
         "text": "På de myndigheter som mätts används oftast högst hälften av kontorsplatserna.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att beläggningen sällan når över hälften av platserna. Att den sällan når över hälften betyder att den oftast ligger på hälften eller under, så påståendet är sant och inte obestämt."
+        "explanation": "Det står i texten att beläggningen sällan når över hälften av platserna. Att den sällan når över hälften betyder att den oftast ligger på hälften eller under, så påståendet är sant och inte obestämt.",
+        "stod": [
+          "Mätningar på flera myndigheter visar att beläggningen sällan når över hälften av platserna, och på fredagar är den ofta betydligt lägre."
+        ]
       },
       {
         "text": "Den som har flexibel plats kan komma in en tisdag och upptäcka att det saknas lediga skrivbord.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att medarbetare med flexibla platser bokar en plats när de kommer in, och att platserna inte räcker till på tisdagar och onsdagar. Tillsammans ger meningarna påståendet, så falskt och obestämt utesluts."
+        "explanation": "Texten säger att medarbetare med flexibla platser bokar en plats när de kommer in, och att platserna inte räcker till på tisdagar och onsdagar. Tillsammans ger meningarna påståendet, så falskt och obestämt utesluts.",
+        "stod": [
+          "Flera organisationer har därför sagt upp delar av sina hyresavtal och infört flexibla platser, där medarbetarna inte har ett eget skrivbord utan bokar en plats de dagar de kommer in.",
+          "När platserna inte räcker till på tisdagar och onsdagar, som är de mest populära dagarna, uppstår trängsel och irritation."
+        ]
       },
       {
         "text": "Enligt mätningarna är beläggningen på fredagar alltid högre än under resten av veckan.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Det står i texten att beläggningen på fredagar ofta är betydligt lägre. Om den ofta är lägre kan den inte alltid vara högre, så påståendet motsägs och är falskt, inte obestämt."
+        "explanation": "Det står i texten att beläggningen på fredagar ofta är betydligt lägre. Om den ofta är lägre kan den inte alltid vara högre, så påståendet motsägs och är falskt, inte obestämt.",
+        "stod": [
+          "Mätningar på flera myndigheter visar att beläggningen sällan når över hälften av platserna, och på fredagar är den ofta betydligt lägre."
+        ]
       },
       {
         "text": "Organisationer som infört flexibla platser har fått fler sjukskrivningar bland sina medarbetare.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten nämner trängsel, irritation och svagare gemenskap men inget om sjukskrivningar. Påståendet kan låta rimligt men varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+        "explanation": "Texten nämner trängsel, irritation och svagare gemenskap men inget om sjukskrivningar. Påståendet kan låta rimligt men varken bekräftas eller motsägs, så sant och falskt går inte att välja.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -115,25 +147,36 @@
         "text": "Med enhetstaxa påverkas priset på en enkelbiljett inte av resans längd.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att en enkelbiljett med enhetstaxa kostar lika mycket oavsett hur långt resenären åker. Påståendet säger detsamma med andra ord och är därför sant, inte falskt eller obestämt."
+        "explanation": "Det står i texten att en enkelbiljett med enhetstaxa kostar lika mycket oavsett hur långt resenären åker. Påståendet säger detsamma med andra ord och är därför sant, inte falskt eller obestämt.",
+        "stod": [
+          "Flera regioner har gått från zonsystem till en enhetstaxa, där en enkelbiljett kostar lika mycket oavsett hur långt resenären åker."
+        ]
       },
       {
         "text": "Kritikerna anser att resenärer som gör korta resor förlorar på en övergång till enhetstaxa.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att enhetstaxan ersätter zonsystem och att kritikerna menar att den gör korta resor dyrare. Av de två meningarna följer att korta resor blir dyrare efter bytet, så påståendet är sant."
+        "explanation": "Texten säger att enhetstaxan ersätter zonsystem och att kritikerna menar att den gör korta resor dyrare. Av de två meningarna följer att korta resor blir dyrare efter bytet, så påståendet är sant.",
+        "stod": [
+          "Kritiker pekar däremot på att enhetstaxan gör korta resor dyrare."
+        ]
       },
       {
         "text": "I de flesta regioner betalas kollektivtrafiken enbart med biljettintäkter.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Enligt texten täcker biljettintäkterna ungefär hälften av kostnaderna i de flesta regioner, och resten betalas med skatt. Påståendet motsägs alltså direkt och är falskt, inte obestämt."
+        "explanation": "Enligt texten täcker biljettintäkterna ungefär hälften av kostnaderna i de flesta regioner, och resten betalas med skatt. Påståendet motsägs alltså direkt och är falskt, inte obestämt.",
+        "stod": [
+          "I de flesta regioner täcker de ungefär hälften, medan resten betalas med skatt."
+        ]
       },
       {
         "text": "Regioner med enhetstaxa har fått fler resenärer än regioner som behållit zonsystemet.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten återger förespråkarnas förhoppning om fler resenärer men redovisar inga jämförelser mellan regioner. En förhoppning är inget resultat, så påståendet går inte att avgöra."
+        "explanation": "Texten återger förespråkarnas förhoppning om fler resenärer men redovisar inga jämförelser mellan regioner. En förhoppning är inget resultat, så påståendet går inte att avgöra.",
+        "stod": [],
+        "narmast": "Förespråkarna menar att en enkel taxa sänker tröskeln för nya resenärer, som slipper sätta sig in i kartor över zoner innan de reser."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -150,25 +193,34 @@
         "text": "Att studera på kvällar och helger efter jobbet kan göra att kursen inte blir slutförd.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att den som läser på kvällar och helger efter en full arbetsdag orkar mindre och att risken är stor att utbildningen avbryts. Påståendet är därför sant, inte obestämt."
+        "explanation": "Det står i texten att den som läser på kvällar och helger efter en full arbetsdag orkar mindre och att risken är stor att utbildningen avbryts. Påståendet är därför sant, inte obestämt.",
+        "stod": [
+          "Den som läser en kurs på kvällar och helger efter en full arbetsdag orkar ofta mindre, och risken är stor att utbildningen avbryts."
+        ]
       },
       {
         "text": "Fackförbunden menar att medarbetare som fått växa genom utbildning brukar lämna arbetsgivaren snabbare än andra.",
         "correctAnswer": "false",
         "typ": "slutledning",
-        "explanation": "Texten säger att cheferna oroar sig för att utbildade medarbetare lämnar, och att fackförbunden svarar att risken är mindre än många tror och att sådana medarbetare stannar längre. Fackets hållning motsäger påståendet."
+        "explanation": "Texten säger att cheferna oroar sig för att utbildade medarbetare lämnar, och att fackförbunden svarar att risken är mindre än många tror och att sådana medarbetare stannar längre. Fackets hållning motsäger påståendet.",
+        "stod": [
+          "Fackförbunden svarar att den risken är mindre än många tror, och att medarbetare som får växa tenderar att stanna längre."
+        ]
       },
       {
         "text": "Samtliga fackförbund kräver att kompetensutveckling ska ske helt på arbetstid.",
         "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Texten återger bara fackförbundens svar om risken att medarbetare slutar, inte vilka krav de ställer på arbetstiden. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+        "explanation": "Texten återger bara fackförbundens svar om risken att medarbetare slutar, inte vilka krav de ställer på arbetstiden. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja.",
+        "stod": [],
+        "narmast": "Fackförbunden svarar att den risken är mindre än många tror, och att medarbetare som får växa tenderar att stanna längre."
       },
       {
         "text": "Medarbetare som gått en kurs betald av arbetsgivaren får i regel högre lön efteråt.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten handlar om orken, rekryteringen, vikariekostnaden och risken att personal slutar, men nämner inget om lön. Det som står räcker varken för sant eller falskt."
+        "explanation": "Texten handlar om orken, rekryteringen, vikariekostnaden och risken att personal slutar, men nämner inget om lön. Det som står räcker varken för sant eller falskt.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -185,25 +237,37 @@
         "text": "Produktionen av nytt stål och ny cement orsakar omfattande koldioxidutsläpp.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att tillverkningen av nya material, särskilt cement och stål, ger stora utsläpp av koldioxid. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt."
+        "explanation": "Det står i texten att tillverkningen av nya material, särskilt cement och stål, ger stora utsläpp av koldioxid. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt.",
+        "stod": [
+          "Förespråkarna lyfter fram att tillverkningen av nya material, särskilt cement och stål, ger stora utsläpp av koldioxid."
+        ]
       },
       {
         "text": "Bristande uppgifter om hur mycket begagnade bärande delar tål gör beställare tveksamma till dem.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att dokumentation om bjälklagens hållfasthet ofta saknas och att beställare av samma skäl är försiktiga. Tillsammans ger de två meningarna påståendet, så falskt och obestämt utesluts."
+        "explanation": "Texten säger att dokumentation om bjälklagens hållfasthet ofta saknas och att beställare av samma skäl är försiktiga. Tillsammans ger de två meningarna påståendet, så falskt och obestämt utesluts.",
+        "stod": [
+          "Det saknas ofta dokumentation om hur mycket ett begagnat bjälklag tål, och då kan konstruktören inte garantera att det klarar dagens krav.",
+          "Försäkringsbolag och beställare är av samma skäl försiktiga."
+        ]
       },
       {
         "text": "Återbrukat material blir alltid billigare än nytt eftersom råvaran inte kostar något.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Enligt texten kostar återbrukat material ibland mer än nytt, trots att råvaran är gratis. Därmed kan det inte alltid vara billigare, och påståendet är falskt snarare än obestämt."
+        "explanation": "Enligt texten kostar återbrukat material ibland mer än nytt, trots att råvaran är gratis. Därmed kan det inte alltid vara billigare, och påståendet är falskt snarare än obestämt.",
+        "stod": [
+          "Följden blir att återbrukat material ibland kostar mer än nytt, trots att själva råvaran är gratis."
+        ]
       },
       {
         "text": "Byggföretag som arbetar med återbruk har svårare att vinna kommunala upphandlingar.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten nämner att kommuner ställer krav på återbruk men säger inget om vilka företag som vinner upphandlingar. Svaret finns inte i texten."
+        "explanation": "Texten nämner att kommuner ställer krav på återbruk men säger inget om vilka företag som vinner upphandlingar. Svaret finns inte i texten.",
+        "stod": [],
+        "narmast": "Några kommuner har börjat ställa krav på återbruk i sina egna byggprojekt för att skapa efterfrågan."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -220,25 +284,37 @@
         "text": "Stöd som beräknas efter antalet medlemmar är enkelt för kommunen att hantera.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att modellen där stödet räknas ut efter medlemmar eller aktiviteter är lätt att administrera. Påståendet säger samma sak med andra ord och är därför sant, inte obestämt."
+        "explanation": "Det står i texten att modellen där stödet räknas ut efter medlemmar eller aktiviteter är lätt att administrera. Påståendet säger samma sak med andra ord och är därför sant, inte obestämt.",
+        "stod": [
+          "Vanligast är att stödet räknas ut efter antalet medlemmar eller antalet aktiviteter för barn och unga.",
+          "Modellen är lätt att administrera och uppfattas som rättvis, eftersom samma regler gäller oavsett förening."
+        ]
       },
       {
         "text": "De stora föreningarna ser projektstödet som ett sätt att göra sin ekonomi mer förutsägbar.",
         "correctAnswer": "false",
         "typ": "slutledning",
-        "explanation": "Texten säger att de stora föreningarna varnar för att projektstöd gör ekonomin osäker, och att pengarna kan utebli nästa år. Det är motsatsen till förutsägbarhet, så påståendet är falskt och inte obestämt."
+        "explanation": "Texten säger att de stora föreningarna varnar för att projektstöd gör ekonomin osäker, och att pengarna kan utebli nästa år. Det är motsatsen till förutsägbarhet, så påståendet är falskt och inte obestämt.",
+        "stod": [
+          "De stora föreningarna varnar för att projektstöd gör ekonomin osäker, eftersom det är svårt att planera verksamheten när pengarna kan utebli nästa år."
+        ]
       },
       {
         "text": "I samtliga kommuner räknas föreningsstödet ut efter antalet medlemmar.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Texten säger att det vanligast är att stödet räknas ut efter antalet medlemmar eller aktiviteter, och att vissa kommuner också har ett projektstöd som bedöms efter syfte och målgrupp. Vanligast betyder att det finns kommuner som gör på annat sätt, så påståendet motsägs och är falskt."
+        "explanation": "Texten säger att det vanligast är att stödet räknas ut efter antalet medlemmar eller aktiviteter, och att vissa kommuner också har ett projektstöd som bedöms efter syfte och målgrupp. Vanligast betyder att det finns kommuner som gör på annat sätt, så påståendet motsägs och är falskt.",
+        "stod": [
+          "Vanligast är att stödet räknas ut efter antalet medlemmar eller antalet aktiviteter för barn och unga."
+        ]
       },
       {
         "text": "Projektstödet har lett till att fler ungdomar i utsatta bostadsområden blivit medlemmar i en förening.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten beskriver syftet med projektstödet men redovisar inga resultat. Om fler ungdomar blivit medlemmar står inte, så påståendet kan varken bedömas som sant eller falskt."
+        "explanation": "Texten beskriver syftet med projektstödet men redovisar inga resultat. Om fler ungdomar blivit medlemmar står inte, så påståendet kan varken bedömas som sant eller falskt.",
+        "stod": [],
+        "narmast": "Vissa kommuner har därför infört ett särskilt stöd som föreningarna söker för avgränsade projekt, till exempel för att nå ungdomar i bostadsområden där få är med i någon förening."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",
@@ -255,25 +331,37 @@
         "text": "Remissen ska göra det möjligt för mottagningen att avgöra hur bråttom patientens fall är.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att remissen ska beskriva besvären så att mottagningen kan bedöma hur brådskande fallet är. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt."
+        "explanation": "Det står i texten att remissen ska beskriva besvären så att mottagningen kan bedöma hur brådskande fallet är. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt.",
+        "stod": [
+          "Remissen ska beskriva besvären och vad läkaren vill ha hjälp med, så att mottagningen kan bedöma hur brådskande fallet är."
+        ]
       },
       {
         "text": "En remiss där en uppgift fattas kan leda till att patienten får vänta längre på sitt besök.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att remisser skickas tillbaka när en uppgift saknas, att patienten då hamnar sist i kön och att väntetiden kan bli flera månader längre. Av meningarna följer påståendet säkert."
+        "explanation": "Texten säger att remisser skickas tillbaka när en uppgift saknas, att patienten då hamnar sist i kön och att väntetiden kan bli flera månader längre. Av meningarna följer påståendet säkert.",
+        "stod": [
+          "De beskriver hur remisser skickas tillbaka för att en uppgift saknas, och hur patienten då hamnar sist i kön på nytt.",
+          "Väntetiden kan på så sätt bli flera månader längre än vårdgarantin anger, utan att någon har fattat ett aktivt beslut om det."
+        ]
       },
       {
         "text": "Regionerna har slopat kravet på remiss för samtliga mottagningar inom specialistvården.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Enligt texten har några regioner tagit bort remisskravet för vissa mottagningar, till exempel hud och ögon. Det motsäger att kravet slopats överallt, så påståendet är falskt och inte obestämt."
+        "explanation": "Enligt texten har några regioner tagit bort remisskravet för vissa mottagningar, till exempel hud och ögon. Det motsäger att kravet slopats överallt, så påståendet är falskt och inte obestämt.",
+        "stod": [
+          "Några regioner har därför tagit bort kravet på remiss för vissa mottagningar, bland annat för hud och ögon."
+        ]
       },
       {
         "text": "Det är främst äldre patienter som får sina remisser återskickade från mottagningen.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten berättar att remisser skickas tillbaka men säger inget om vilka patienter det gäller. Om det gäller äldre eller yngre patienter framgår inte."
+        "explanation": "Texten berättar att remisser skickas tillbaka men säger inget om vilka patienter det gäller. Om det gäller äldre eller yngre patienter framgår inte.",
+        "stod": [],
+        "narmast": "De beskriver hur remisser skickas tillbaka för att en uppgift saknas, och hur patienten då hamnar sist i kön på nytt."
       }
     ],
     "kalla": "skriven 2026-10-11, parti 01",

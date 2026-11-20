@@ -10,25 +10,36 @@
         "text": "De inhyrda har bemanningsföretaget och inte kundföretaget som arbetsgivare.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Andra meningen avgör: de inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kunden. Påståendet säger samma sak, och varken falskt eller går inte att avgöra passar."
+        "explanation": "Andra meningen avgör: de inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kunden. Påståendet säger samma sak, och varken falskt eller går inte att avgöra passar.",
+        "stod": [
+          "De inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kundföretaget, som betalar ett timpris för deras tid."
+        ]
       },
       {
         "text": "Enligt fackförbunden kan inhyrda få svårare att påtala risker, eftersom de ofta saknas när skyddsfrågor diskuteras.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att inhyrda sällan deltar i arbetsplatsträffar där skyddsfrågor tas upp, och att det kan göra det svårare att säga ifrån om risker. Sätter man ihop de två leden får man påståendet."
+        "explanation": "Texten säger att inhyrda sällan deltar i arbetsplatsträffar där skyddsfrågor tas upp, och att det kan göra det svårare att säga ifrån om risker. Sätter man ihop de två leden får man påståendet.",
+        "stod": [
+          "Förbunden påpekar dessutom att inhyrda sällan deltar i de arbetsplatsträffar där skyddsfrågor tas upp, vilket kan göra det svårare att säga ifrån om risker."
+        ]
       },
       {
         "text": "Samtliga kollektivavtal har bestämmelser om att den inhyrde efter en tid ska få erbjudande om anställning hos kunden.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Det står att sådana regler finns i en del kollektivavtal men inte i alla. Det är ett direkt motexempel mot ordet samtliga, så påståendet är falskt och inte oavgörbart."
+        "explanation": "Det står att sådana regler finns i en del kollektivavtal men inte i alla. Det är ett direkt motexempel mot ordet samtliga, så påståendet är falskt och inte oavgörbart.",
+        "stod": [
+          "I en del kollektivavtal, men inte i alla, finns i dag regler om att inhyrda ska erbjudas anställning hos kunden efter en viss tid."
+        ]
       },
       {
         "text": "Kundföretaget betalar mer per timme för en inhyrd än vad en egen anställd skulle kosta.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten nämner att kunden betalar ett timpris, men jämför aldrig priset med kostnaden för en egen anställd. Underlaget räcker inte för att säga att påståendet stämmer, och inte heller för att avfärda det."
+        "explanation": "Texten nämner att kunden betalar ett timpris, men jämför aldrig priset med kostnaden för en egen anställd. Underlaget räcker inte för att säga att påståendet stämmer, och inte heller för att avfärda det.",
+        "stod": [],
+        "narmast": "De inhyrda är anställda av bemanningsföretaget och arbetar på uppdrag hos kundföretaget, som betalar ett timpris för deras tid."
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -45,25 +56,34 @@
         "text": "Arbetsgivarsidan ställer sig bakom förslaget om ett skriftligt besked mitt i prövotiden.",
         "correctAnswer": "false",
         "typ": "direkt",
-        "explanation": "Texten säger att arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till. De stöder alltså inte förslaget, och påståendet är falskt snarare än oavgörbart."
+        "explanation": "Texten säger att arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till. De stöder alltså inte förslaget, och påståendet är falskt snarare än oavgörbart.",
+        "stod": [
+          "Arbetsgivarsidan menar att ett sådant krav mest skulle bli en blankett till och att ett vanligt samtal fyller samma funktion."
+        ]
       },
       {
         "text": "En provanställd som inte har fått något besked när prövotiden löper ut har därefter en tillsvidareanställning.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Två uppgifter i texten hänger ihop här: prövotiden får vara högst sex månader, och utan besked övergår den automatiskt i en tillsvidareanställning. Av det följer påståendet, så det är sant."
+        "explanation": "Två uppgifter i texten hänger ihop här: prövotiden får vara högst sex månader, och utan besked övergår den automatiskt i en tillsvidareanställning. Av det följer påståendet, så det är sant.",
+        "stod": [
+          "Om ingen av parterna säger något övergår provanställningen automatiskt i en tillsvidareanställning."
+        ]
       },
       {
         "text": "Det är bara i undantagsfall som en provanställning avbryts innan den blir en fast anställning.",
         "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Sista meningen avgör: det finns ingen samlad statistik över hur vanligt det är att provanställningar avbryts. Texten ger alltså varken stöd eller motexempel, och frågan om undantagsfall lämnas öppen."
+        "explanation": "Sista meningen avgör: det finns ingen samlad statistik över hur vanligt det är att provanställningar avbryts. Texten ger alltså varken stöd eller motexempel, och frågan om undantagsfall lämnas öppen.",
+        "stod": [],
+        "narmast": "Hur vanligt det är att provanställningar avbryts finns det ingen samlad statistik över."
       },
       {
         "text": "Provanställda har lägre lön än tillsvidareanställda med samma arbetsuppgifter.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Lönen nämns inte någonstans i texten, som handlar om prövotid, besked och osäkerhet. Därför går påståendet varken att bekräfta eller att avfärda."
+        "explanation": "Lönen nämns inte någonstans i texten, som handlar om prövotid, besked och osäkerhet. Därför går påståendet varken att bekräfta eller att avfärda.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -80,25 +100,35 @@
         "text": "Myndigheten har flyttat inspektioner från bygg, transport och vård till andra branscher.",
         "correctAnswer": "false",
         "typ": "direkt",
-        "explanation": "Enligt texten läggs tvärtom en större del av inspektionerna på bygg, transport och vård. Påståendet beskriver den motsatta förändringen, och därför är falskt det enda rimliga svaret."
+        "explanation": "Enligt texten läggs tvärtom en större del av inspektionerna på bygg, transport och vård. Påståendet beskriver den motsatta förändringen, och därför är falskt det enda rimliga svaret.",
+        "stod": [
+          "Under senare år har myndigheten valt att lägga en större del av inspektionerna på branscher där olyckor och ohälsa är vanliga, som bygg, transport och vård."
+        ]
       },
       {
         "text": "En arbetsgivare som låter bli att åtgärda påtalade brister kan till slut behöva betala vite.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Två meningar räcker. Brister leder till ett inspektionsmeddelande, och åtgärdas de inte kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Påståendet följer av dem och är sant."
+        "explanation": "Två meningar räcker. Brister leder till ett inspektionsmeddelande, och åtgärdas de inte kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite. Påståendet följer av dem och är sant.",
+        "stod": [
+          "Hittar inspektören brister skrivs ett inspektionsmeddelande med krav på åtgärder.",
+          "Om arbetsgivaren inte rättar till bristerna kan myndigheten besluta om föreläggande eller förbud, ofta förenat med vite."
+        ]
       },
       {
         "text": "Små arbetsgivare tar aldrig del av den vägledning som myndigheten lägger ut på sin webbplats.",
         "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Det står i sista meningen att det ännu inte är utvärderat om små arbetsgivare tar del av vägledningen. Texten säger alltså ingenting om hur ofta det sker, varken åt det ena eller det andra hållet."
+        "explanation": "Det står i sista meningen att det ännu inte är utvärderat om små arbetsgivare tar del av vägledningen. Texten säger alltså ingenting om hur ofta det sker, varken åt det ena eller det andra hållet.",
+        "stod": [],
+        "narmast": "Om små arbetsgivare faktiskt tar del av den vägledningen har ännu inte utvärderats."
       },
       {
         "text": "Olyckorna i byggbranschen har blivit färre sedan inspektionerna där ökade.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten förklarar varför myndigheten valt att prioritera bygg, men den redovisar inga resultat av prioriteringen. Om olyckorna har minskat framgår inte, så sant och falskt faller båda bort."
+        "explanation": "Texten förklarar varför myndigheten valt att prioritera bygg, men den redovisar inga resultat av prioriteringen. Om olyckorna har minskat framgår inte, så sant och falskt faller båda bort.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -115,25 +145,37 @@
         "text": "Personalbristen i inlandskommunerna berör även industriföretag.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Texten säger att bristen inte bara gäller vården och skolan utan också industriföretag som behöver svetsare och elektriker. Påståendet stämmer därmed rakt av."
+        "explanation": "Texten säger att bristen inte bara gäller vården och skolan utan också industriföretag som behöver svetsare och elektriker. Påståendet stämmer därmed rakt av.",
+        "stod": [
+          "Det gäller inte bara vården och skolan utan också industriföretag som behöver svetsare, elektriker och underhållstekniker."
+        ]
       },
       {
         "text": "Kritikerna anser att lokala yrkesutbildningar gör de utbildade mindre sårbara när ortens största arbetsgivare minskar personalen.",
         "correctAnswer": "false",
         "typ": "slutledning",
-        "explanation": "Enligt texten riskerar korta lokala utbildningar att binda människor vid ett företag, och om den arbetsgivaren drar ner står de utbildade utan efterfrågade kunskaper. Kritikernas slutsats är den motsatta, så påståendet är falskt."
+        "explanation": "Enligt texten riskerar korta lokala utbildningar att binda människor vid ett företag, och om den arbetsgivaren drar ner står de utbildade utan efterfrågade kunskaper. Kritikernas slutsats är den motsatta, så påståendet är falskt.",
+        "stod": [
+          "Nationalekonomer har påpekat att korta lokala utbildningar riskerar att binda människor vid ett enda företag eller en enda bransch.",
+          "Om den stora arbetsgivaren på orten drar ner, står de som utbildats med kunskaper som ingen annan efterfrågar."
+        ]
       },
       {
         "text": "Regionerna anser att pendling alltid är ett realistiskt alternativ till lokala utbildningar.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Regionerna säger i texten att pendling sällan är realistisk där avstånden är långa och kollektivtrafiken gles. Det är ett tydligt undantag, och därmed faller ordet alltid."
+        "explanation": "Regionerna säger i texten att pendling sällan är realistisk där avstånden är långa och kollektivtrafiken gles. Det är ett tydligt undantag, och därmed faller ordet alltid.",
+        "stod": [
+          "Regionerna själva framhåller att båda vägarna behövs, men att pendling sällan är ett realistiskt alternativ där avstånden är långa och kollektivtrafiken gles."
+        ]
       },
       {
         "text": "De korta yrkesutbildningarna betalas till största delen av de lokala arbetsgivarna.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten beskriver vilka som tar fram utbildningarna, men inte vem som betalar dem. Finansieringen kan därför inte bedömas utifrån det som står."
+        "explanation": "Texten beskriver vilka som tar fram utbildningarna, men inte vem som betalar dem. Finansieringen kan därför inte bedömas utifrån det som står.",
+        "stod": [],
+        "narmast": "Regionerna har ett uppdrag att samordna kompetensförsörjningen, och ett vanligt grepp är att lokala arbetsgivare, kommunen och utbildningsanordnare tillsammans tar fram korta yrkesutbildningar för människor som redan bor på orten."
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -150,25 +192,36 @@
         "text": "I ett mottagningskök värms maten upp innan den serveras.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Första meningen beskriver hur maten körs ut till mottagningskök, där den värms och serveras. Påståendet återger just det och är sant."
+        "explanation": "Första meningen beskriver hur maten körs ut till mottagningskök, där den värms och serveras. Påståendet återger just det och är sant.",
+        "stod": [
+          "I många kommuner lagas maten till skolor och äldreboenden i ett centralt kök och körs sedan ut varm eller kyld till mottagningskök, där den värms och serveras."
+        ]
       },
       {
         "text": "I kommuner som har valt en blandning lagas skolmaten inte på skolan.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Texten säger att skolorna i de blandade lösningarna fortsätter att få mat från centralköket. Eftersom centralkökets mat lagas på ett annat ställe och körs ut, följer det att den inte lagas på skolan."
+        "explanation": "Texten säger att skolorna i de blandade lösningarna fortsätter att få mat från centralköket. Eftersom centralkökets mat lagas på ett annat ställe och körs ut, följer det att den inte lagas på skolan.",
+        "stod": [
+          "Flera kommuner har därför valt en blandning, där äldreboendena får tillagningskök medan skolorna fortsätter att få mat från centralköket."
+        ]
       },
       {
         "text": "Samtliga kommuner har byggt om sina mottagningskök till tillagningskök.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Det står att många kommuner lagar maten i ett centralt kök och att skolorna i flera kommuner får mat därifrån. Båda uppgifterna motsäger ordet samtliga, så påståendet är falskt."
+        "explanation": "Det står att många kommuner lagar maten i ett centralt kök och att skolorna i flera kommuner får mat därifrån. Båda uppgifterna motsäger ordet samtliga, så påståendet är falskt.",
+        "stod": [
+          "I många kommuner lagas maten till skolor och äldreboenden i ett centralt kök och körs sedan ut varm eller kyld till mottagningskök, där den värms och serveras."
+        ]
       },
       {
         "text": "Boende på äldreboenden med tillagningskök har gått upp i vikt.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten nämner att doften kan väcka aptiten, men redovisar inga mätningar av hur de boende mår eller väger. Om de har gått upp i vikt får läsaren inte veta."
+        "explanation": "Texten nämner att doften kan väcka aptiten, men redovisar inga mätningar av hur de boende mår eller väger. Om de har gått upp i vikt får läsaren inte veta.",
+        "stod": [],
+        "narmast": "På äldreboenden lyfts doften av mat som lagas i huset fram som något som väcker aptiten hos boende som annars äter dåligt."
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -185,25 +238,37 @@
         "text": "Lärare och skolledare beskriver handledarnas förutsättningar som likvärdiga mellan arbetsplatserna.",
         "correctAnswer": "false",
         "typ": "direkt",
-        "explanation": "Texten säger att handledarna har mycket olika förutsättningar och ger exempel på arbetsplatser med och utan avsatt tid. Påståendet säger motsatsen och kan inte vara sant."
+        "explanation": "Texten säger att handledarna har mycket olika förutsättningar och ger exempel på arbetsplatser med och utan avsatt tid. Påståendet säger motsatsen och kan inte vara sant.",
+        "stod": [
+          "Kvaliteten på utbildningen avgörs till stor del av handledaren, och handledarna har mycket olika förutsättningar."
+        ]
       },
       {
         "text": "En lärlingselev tillbringar högst hälften av sin utbildning på skolan.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Enligt texten förläggs minst hälften av utbildningen på en arbetsplats och resten på skolan. Då kan skoltiden vara högst hälften, och påståendet följer säkert."
+        "explanation": "Enligt texten förläggs minst hälften av utbildningen på en arbetsplats och resten på skolan. Då kan skoltiden vara högst hälften, och påståendet följer säkert.",
+        "stod": [
+          "Då förläggs minst hälften av utbildningen på en arbetsplats, där en handledare ansvarar för att eleven lär sig yrket i praktiken.",
+          "Resten av tiden läser eleven teori och gymnasiegemensamma ämnen på skolan."
+        ]
       },
       {
         "text": "På varje arbetsplats har handledaren fått tid avsatt för att handleda lärlingen.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Texten skiljer på arbetsplatser där handledaren får avsatt tid och andra där handledningen sker vid sidan av ordinarie arbete. De senare är motexempel, så påståendet om varje arbetsplats är falskt."
+        "explanation": "Texten skiljer på arbetsplatser där handledaren får avsatt tid och andra där handledningen sker vid sidan av ordinarie arbete. De senare är motexempel, så påståendet om varje arbetsplats är falskt.",
+        "stod": [
+          "På en del arbetsplatser får handledaren avsatt tid och utbildning för uppdraget, på andra ska handledningen ske vid sidan av ordinarie arbete."
+        ]
       },
       {
         "text": "Lärlingselever avbryter sin gymnasieutbildning mer sällan än andra elever på yrkesprogrammen.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Avbrott i utbildningen tas inte upp. Anhängarna talar om en ny chans att lyckas, men texten innehåller ingen jämförelse som skulle göra det möjligt att pröva påståendet."
+        "explanation": "Avbrott i utbildningen tas inte upp. Anhängarna talar om en ny chans att lyckas, men texten innehåller ingen jämförelse som skulle göra det möjligt att pröva påståendet.",
+        "stod": [],
+        "narmast": "Anhängare av lärlingsformen menar att elever som tröttnat på klassrummet får en ny chans att lyckas, och att de knyter kontakter som kan leda till ett jobb direkt efter studenten."
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -220,25 +285,34 @@
         "text": "Trafikplanerarna anser att känslan av trygghet styr om människor börjar cykla.",
         "correctAnswer": "true",
         "typ": "direkt",
-        "explanation": "Det står i texten att trafikplanerare menar att tryggheten avgör om människor väljer cykeln. Påståendet är samma tanke med andra ord och därmed sant."
+        "explanation": "Det står i texten att trafikplanerare menar att tryggheten avgör om människor väljer cykeln. Påståendet är samma tanke med andra ord och därmed sant.",
+        "stod": [
+          "Trafikplanerare menar att det är tryggheten som avgör om människor väljer cykeln."
+        ]
       },
       {
         "text": "Fler cyklister på de nya banorna har lett till färre bilresor i städerna.",
         "correctAnswer": "cannot_say",
         "typ": "slutledning",
-        "explanation": "Texten säger att antalet cyklister har ökat, men också att det är svårt att veta hur många som annars hade tagit bilen. Därför går det inte att sluta sig till att bilresorna blivit färre, och inte heller att de inte blivit det."
+        "explanation": "Texten säger att antalet cyklister har ökat, men också att det är svårt att veta hur många som annars hade tagit bilen. Därför går det inte att sluta sig till att bilresorna blivit färre, och inte heller att de inte blivit det.",
+        "stod": [],
+        "narmast": "På sträckor där sådana banor byggts har antalet cyklister också ökat, även om det är svårt att veta hur många som annars hade tagit bilen och hur många som tidigare gick eller åkte buss."
       },
       {
         "text": "I samtliga kommuner plogas cykelbanorna före bilvägarna.",
         "correctAnswer": "false",
         "typ": "kvantor",
-        "explanation": "Texten nämner flera kommuner där cykelbanorna plogas först efter bilvägarna. Det räcker som motexempel, och påståendet om samtliga kommuner är falskt."
+        "explanation": "Texten nämner flera kommuner där cykelbanorna plogas först efter bilvägarna. Det räcker som motexempel, och påståendet om samtliga kommuner är falskt.",
+        "stod": [
+          "I flera kommuner plogas cykelbanorna först efter bilvägarna, och då står cyklisterna utan framkomlig väg på morgonen."
+        ]
       },
       {
         "text": "Sopsaltning minskar antalet halkolyckor bland cyklister.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Om olyckor säger texten ingenting. Den beskriver metoden och vad den kostar, så påståendet om halkolyckor kan varken bekräftas eller motsägas."
+        "explanation": "Om olyckor säger texten ingenting. Den beskriver metoden och vad den kostar, så påståendet om halkolyckor kan varken bekräftas eller motsägas.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",
@@ -255,25 +329,35 @@
         "text": "Programmet signerar journalanteckningen på egen hand när samtalet är avslutat.",
         "correctAnswer": "false",
         "typ": "direkt",
-        "explanation": "Texten säger att programmet föreslår en anteckning som den ansvarige läser igenom och godkänner. Påståendet strider mot det, så det är falskt och inte en öppen fråga."
+        "explanation": "Texten säger att programmet föreslår en anteckning som den ansvarige läser igenom och godkänner. Påståendet strider mot det, så det är falskt och inte en öppen fråga.",
+        "stod": [
+          "Flera regioner prövar därför program som lyssnar på samtalet mellan vårdpersonal och patient och föreslår en journalanteckning, som den ansvarige sedan läser igenom och godkänner."
+        ]
       },
       {
         "text": "Om en godkänd anteckning innehåller något patienten aldrig sa, är det den signerande läkaren som bär ansvaret.",
         "correctAnswer": "true",
         "typ": "slutledning",
-        "explanation": "Det följer av två meningar: ansvaret ligger kvar hos den som signerar, och läkaren får stå för felet om programmet skriver något som inte sades. Påståendet sammanfattar det och är sant."
+        "explanation": "Det följer av två meningar: ansvaret ligger kvar hos den som signerar, och läkaren får stå för felet om programmet skriver något som inte sades. Påståendet sammanfattar det och är sant.",
+        "stod": [
+          "De pekar på att en journal är en rättslig handling, och att ansvaret för innehållet ligger kvar hos den som signerar.",
+          "Om programmet missar en nyans i det patienten berättar, eller skriver något som inte sades, är det läkaren som får stå för felet."
+        ]
       },
       {
         "text": "Programmets förslag innehåller alltid minst ett fel som läkaren måste rätta.",
         "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Sista meningen säger att inga större utvärderingar av hur ofta förslagen innehåller fel har publicerats. Utan sådana uppgifter finns inget i texten att pröva ordet alltid mot."
+        "explanation": "Sista meningen säger att inga större utvärderingar av hur ofta förslagen innehåller fel har publicerats. Utan sådana uppgifter finns inget i texten att pröva ordet alltid mot.",
+        "stod": [],
+        "narmast": "Några större utvärderingar av hur ofta förslagen innehåller fel har ännu inte publicerats."
       },
       {
         "text": "Patienterna föredrar besök där programmet används framför vanliga besök.",
         "correctAnswer": "cannot_say",
         "typ": "utanfor",
-        "explanation": "Texten återger läkarnas, juristernas och regionernas syn men inte patienternas. Vad patienterna föredrar står det inget om, och påståendet blir därför oavgörbart."
+        "explanation": "Texten återger läkarnas, juristernas och regionernas syn men inte patienternas. Vad patienterna föredrar står det inget om, och påståendet blir därför oavgörbart.",
+        "stod": []
       }
     ],
     "kalla": "skriven 2026-10-12, parti 02",

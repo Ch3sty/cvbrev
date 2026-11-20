@@ -36,7 +36,12 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Att försäljningen steg samtidigt som distansarbetet infördes visar bara ett samband i tid, inte att det ena orsakade det andra; flera andra faktorer (ny produktlinje, bortfallen konkurrent) kan förklara lyftet. Det är inte en halmgubbe, eftersom ingen motståndarposition förvrängs."
+        "explanation": "Att försäljningen steg samtidigt som distansarbetet infördes visar bara ett samband i tid, inte att det ena orsakade det andra; flera andra faktorer (ny produktlinje, bortfallen konkurrent) kan förklara lyftet. Det är inte en halmgubbe, eftersom ingen motståndarposition förvrängs.",
+        "stod": [
+          "HR-chefen drar slutsatsen att distansarbetet är orsaken till försäljningslyftet och föreslår att modellen permanentas.",
+          "Hon påpekar att uppgången sammanföll i tid med övergången och att medarbetarna uppger sig vara nöjdare.",
+          "Under samma period lanserade dock säljavdelningen en ny produktlinje och en stor konkurrent lämnade marknaden."
+        ]
       },
       {
         "id": "verbexp-p01-q02",
@@ -67,7 +72,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "För att distansarbetet ensamt ska kunna tillskrivas lyftet krävs att konkurrerande förklaringar är uteslutna. Att medarbetarna föredrar distans är irrelevant för orsakssambandet med försäljningen."
+        "explanation": "För att distansarbetet ensamt ska kunna tillskrivas lyftet krävs att konkurrerande förklaringar är uteslutna. Att medarbetarna föredrar distans är irrelevant för orsakssambandet med försäljningen.",
+        "stod": [
+          "HR-chefen drar slutsatsen att distansarbetet är orsaken till försäljningslyftet och föreslår att modellen permanentas.",
+          "Under samma period lanserade dock säljavdelningen en ny produktlinje och en stor konkurrent lämnade marknaden."
+        ]
       },
       {
         "id": "verbexp-p01-q03",
@@ -98,7 +107,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Om hela ökningen kan förklaras av produktlinjen försvinner grunden för att tillskriva distansarbetet effekten. De övriga alternativen påverkar inte orsaksanspråket nämnvärt."
+        "explanation": "Om hela ökningen kan förklaras av produktlinjen försvinner grunden för att tillskriva distansarbetet effekten. De övriga alternativen påverkar inte orsaksanspråket nämnvärt.",
+        "stod": [
+          "HR-chefen drar slutsatsen att distansarbetet är orsaken till försäljningslyftet och föreslår att modellen permanentas.",
+          "Under samma period lanserade dock säljavdelningen en ny produktlinje och en stor konkurrent lämnade marknaden."
+        ]
       },
       {
         "id": "verbexp-p01-q04",
@@ -129,7 +142,10 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Premisserna fastställer enbart ett samtidigt förlopp, vilket alternativ a uttrycker korrekt. Orsakspåståendena i b och d går utöver vad premisserna stöder."
+        "explanation": "Premisserna fastställer enbart ett samtidigt förlopp, vilket alternativ a uttrycker korrekt. Orsakspåståendena i b och d går utöver vad premisserna stöder.",
+        "stod": [
+          "Sedan företaget införde fullt distansarbete i januari har den totala försäljningen stigit med 14 procent."
+        ]
       }
     ]
   },
@@ -170,7 +186,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Finansdirektören ersätter förslaget om en tioprocentig justering med en överdriven version (att helt sluta synas) och bemöter sedan den. Det är inte ett falskt dilemma, eftersom han inte påstår att det bara finns två alternativ utan vränger om vad motparten faktiskt sa."
+        "explanation": "Finansdirektören ersätter förslaget om en tioprocentig justering med en överdriven version (att helt sluta synas) och bemöter sedan den. Det är inte ett falskt dilemma, eftersom han inte påstår att det bara finns två alternativ utan vränger om vad motparten faktiskt sa.",
+        "stod": [
+          "Han säger att den som vill minska marknadsföringen tydligen anser att företaget helt ska sluta synas och låta varumärket dö ut.",
+          "Förslagsställaren hade dock endast föreslagit en måttlig justering av en post, inte att marknadsföringen skulle avvecklas."
+        ]
       },
       {
         "id": "verbexp-p02-q02",
@@ -201,7 +221,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Felet ligger i att den bemötta ståndpunkten (avveckla marknadsföringen) inte är den föreslagna (justera med tio procent). Inget i resonemanget rör auktoriteter eller enstaka exempel."
+        "explanation": "Felet ligger i att den bemötta ståndpunkten (avveckla marknadsföringen) inte är den föreslagna (justera med tio procent). Inget i resonemanget rör auktoriteter eller enstaka exempel.",
+        "stod": [
+          "Han säger att den som vill minska marknadsföringen tydligen anser att företaget helt ska sluta synas och låta varumärket dö ut.",
+          "Förslagsställaren hade dock endast föreslagit en måttlig justering av en post, inte att marknadsföringen skulle avvecklas."
+        ]
       },
       {
         "id": "verbexp-p02-q03",
@@ -232,7 +256,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Eftersom felet är att förslaget förvrängts, blottläggs det genom att ställa hans beskrivning mot den verkliga formuleringen. Att granska hans intressen vore i stället att riskera ett ad hominem."
+        "explanation": "Eftersom felet är att förslaget förvrängts, blottläggs det genom att ställa hans beskrivning mot den verkliga formuleringen. Att granska hans intressen vore i stället att riskera ett ad hominem.",
+        "stod": [
+          "Han säger att den som vill minska marknadsföringen tydligen anser att företaget helt ska sluta synas och låta varumärket dö ut.",
+          "Förslagsställaren hade dock endast föreslagit en måttlig justering av en post, inte att marknadsföringen skulle avvecklas."
+        ]
       },
       {
         "id": "verbexp-p02-q04",
@@ -263,7 +291,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Inget i premisserna stöder att en måttlig justering skulle utplåna varumärket; det är finansdirektörens överdrift. De övriga påståendena anges direkt i texten."
+        "explanation": "Inget i premisserna stöder att en måttlig justering skulle utplåna varumärket; det är finansdirektörens överdrift. De övriga påståendena anges direkt i texten.",
+        "stod": [
+          "Han säger att den som vill minska marknadsföringen tydligen anser att företaget helt ska sluta synas och låta varumärket dö ut.",
+          "Förslagsställaren hade dock endast föreslagit en måttlig justering av en post, inte att marknadsföringen skulle avvecklas."
+        ]
       }
     ]
   },
@@ -304,7 +336,12 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Argumentet vilar enbart på en känd persons uttalande, och personen saknar dessutom relevant sakkunskap, vilket är ett auktoritetsargument. Det är inte en hastig generalisering, eftersom slutsatsen inte dras från ett urval enskilda fall utan från en persons utsaga."
+        "explanation": "Argumentet vilar enbart på en känd persons uttalande, och personen saknar dessutom relevant sakkunskap, vilket är ett auktoritetsargument. Det är inte en hastig generalisering, eftersom slutsatsen inte dras från ett urval enskilda fall utan från en persons utsaga.",
+        "stod": [
+          "Som stöd anför projektledaren att en välkänd managementprofil i en podcast sagt att detta system är framtiden.",
+          "Eftersom profilen är en av landets mest omtalade röster inom ledarskap, menar projektledaren att valet därmed är väl underbyggt.",
+          "Profilen har själv ingen dokumenterad bakgrund inom systemarkitektur eller upphandling."
+        ]
       },
       {
         "id": "verbexp-p03-q02",
@@ -335,7 +372,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Slutsatsen kräver att profilens ord faktiskt är en pålitlig indikator för just detta beslut, vilket är tveksamt givet bristen på sakkunskap. Lyssnarsiffror och betalningsförmåga rör inte huruvida valet är väl underbyggt."
+        "explanation": "Slutsatsen kräver att profilens ord faktiskt är en pålitlig indikator för just detta beslut, vilket är tveksamt givet bristen på sakkunskap. Lyssnarsiffror och betalningsförmåga rör inte huruvida valet är väl underbyggt.",
+        "stod": [
+          "Som stöd anför projektledaren att en välkänd managementprofil i en podcast sagt att detta system är framtiden.",
+          "Eftersom profilen är en av landets mest omtalade röster inom ledarskap, menar projektledaren att valet därmed är väl underbyggt."
+        ]
       },
       {
         "id": "verbexp-p03-q03",
@@ -366,7 +407,10 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "En saklig utvärdering mot de egna behoven ger oberoende stöd som ersätter den svaga auktoritetshänvisningen. Fler kändisuttalanden upprepar bara samma typ av otillräckligt stöd."
+        "explanation": "En saklig utvärdering mot de egna behoven ger oberoende stöd som ersätter den svaga auktoritetshänvisningen. Fler kändisuttalanden upprepar bara samma typ av otillräckligt stöd.",
+        "stod": [
+          "Någon teknisk utvärdering av systemets funktioner mot företagets behov har inte genomförts."
+        ]
       },
       {
         "id": "verbexp-p03-q04",
@@ -397,7 +441,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Premisserna fastställer endast att en känd men icke sakkunnig profil prisat systemet. Påståenden om teknisk lämplighet eller om det billigare alternativet saknar stöd i texten."
+        "explanation": "Premisserna fastställer endast att en känd men icke sakkunnig profil prisat systemet. Påståenden om teknisk lämplighet eller om det billigare alternativet saknar stöd i texten.",
+        "stod": [
+          "Som stöd anför projektledaren att en välkänd managementprofil i en podcast sagt att detta system är framtiden.",
+          "Profilen har själv ingen dokumenterad bakgrund inom systemarkitektur eller upphandling."
+        ]
       }
     ]
   },
@@ -438,7 +486,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Argumentet hävdar en kedja av allt allvarligare följder från ett första, måttligt steg utan att visa att varje led faktiskt leder till nästa, vilket är ett lutande plan. Det är inte ett falskt dilemma, eftersom felet ligger i den obevisade orsakskedjan, inte i att bara två alternativ ställs upp."
+        "explanation": "Argumentet hävdar en kedja av allt allvarligare följder från ett första, måttligt steg utan att visa att varje led faktiskt leder till nästa, vilket är ett lutande plan. Det är inte ett falskt dilemma, eftersom felet ligger i den obevisade orsakskedjan, inte i att bara två alternativ ställs upp.",
+        "stod": [
+          "Han resonerar att om vi tillåter flexibel start på morgonen kommer folk snart att vilja välja sina egna dagar, sedan sina egna veckor, och till slut kommer ingen att dyka upp alls och hela avdelningen faller samman.",
+          "Han presenterar inga belägg för att vart och ett av dessa steg faktiskt skulle följa av det föregående."
+        ]
       },
       {
         "id": "verbexp-p04-q02",
@@ -469,7 +521,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Hela argumentet faller om kedjan kan brytas, så slutsatsen kräver att varje led tvunget följer av det föregående. Medarbetarnas preferenser och administrationskostnader är inte nödvändiga för slutsatsen."
+        "explanation": "Hela argumentet faller om kedjan kan brytas, så slutsatsen kräver att varje led tvunget följer av det föregående. Medarbetarnas preferenser och administrationskostnader är inte nödvändiga för slutsatsen.",
+        "stod": [
+          "Han resonerar att om vi tillåter flexibel start på morgonen kommer folk snart att vilja välja sina egna dagar, sedan sina egna veckor, och till slut kommer ingen att dyka upp alls och hela avdelningen faller samman.",
+          "Han presenterar inga belägg för att vart och ett av dessa steg faktiskt skulle följa av det föregående."
+        ]
       },
       {
         "id": "verbexp-p04-q03",
@@ -500,7 +556,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Verkliga fall där det första steget togs utan att kedjan utlöstes underminerar antagandet om oundvikliga följder. Att medarbetarna vill ha flexibilitet säger inget om huruvida sammanbrottet skulle inträffa."
+        "explanation": "Verkliga fall där det första steget togs utan att kedjan utlöstes underminerar antagandet om oundvikliga följder. Att medarbetarna vill ha flexibilitet säger inget om huruvida sammanbrottet skulle inträffa.",
+        "stod": [
+          "Han resonerar att om vi tillåter flexibel start på morgonen kommer folk snart att vilja välja sina egna dagar, sedan sina egna veckor, och till slut kommer ingen att dyka upp alls och hela avdelningen faller samman.",
+          "Andra avdelningar i företaget har infört flexibel start utan att verksamheten brutit samman."
+        ]
       },
       {
         "id": "verbexp-p04-q04",
@@ -531,7 +591,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Den obevisade orsakskedjan ger inget stöd för att flexibel start tvunget slutar med total frånvaro. De övriga påståendena anges uttryckligen i texten."
+        "explanation": "Den obevisade orsakskedjan ger inget stöd för att flexibel start tvunget slutar med total frånvaro. De övriga påståendena anges uttryckligen i texten.",
+        "stod": [
+          "Han resonerar att om vi tillåter flexibel start på morgonen kommer folk snart att vilja välja sina egna dagar, sedan sina egna veckor, och till slut kommer ingen att dyka upp alls och hela avdelningen faller samman.",
+          "Han presenterar inga belägg för att vart och ett av dessa steg faktiskt skulle följa av det föregående."
+        ]
       }
     ]
   },
@@ -572,7 +636,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet antar att eftersom produktivitetsuppgången inträffade efter att närvarokravet infördes, så orsakades den av kravet, vilket är post hoc. Halmgubbe är fel eftersom ingen motståndares position citeras eller förvrängs.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Samma kvartal som närvarokravet trädde i kraft noterade vi alltså en tydlig uppgång i levererat arbete.",
+          "Vi drar därför slutsatsen att den fysiska närvaron på kontoret är det som driver upp produktiviteten."
+        ]
       },
       {
         "id": "verbexp-p05-q02",
@@ -603,7 +671,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Slutsatsen att närvaron driver produktiviteten håller bara om man kan utesluta konkurrerande orsaker som inföll samtidigt. Att anställda föredrar kontoret är irrelevant för om närvaron faktiskt orsakade ökningen.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Samma kvartal som närvarokravet trädde i kraft noterade vi alltså en tydlig uppgång i levererat arbete.",
+          "Vi drar därför slutsatsen att den fysiska närvaron på kontoret är det som driver upp produktiviteten."
+        ]
       },
       {
         "id": "verbexp-p05-q03",
@@ -634,7 +706,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "En alternativ orsak som inföll samma kvartal undergräver kopplingen mellan närvaro och produktivitet direkt. Att en konkurrent gjort samma sak säger inget om vad som orsakade just detta bolags ökning.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Samma kvartal som närvarokravet trädde i kraft noterade vi alltså en tydlig uppgång i levererat arbete.",
+          "Vi drar därför slutsatsen att den fysiska närvaron på kontoret är det som driver upp produktiviteten."
+        ]
       },
       {
         "id": "verbexp-p05-q04",
@@ -665,7 +741,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Att de två sakerna sammanföll i tid (b och c) framgår av texten, men att närvaron orsakade ökningen följer inte logiskt eftersom samtidighet inte bevisar orsak. Alternativ d är en ren återgivning av vad ledningen säger.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Vi drar därför slutsatsen att den fysiska närvaron på kontoret är det som driver upp produktiviteten."
+        ]
       }
     ]
   },
@@ -706,7 +785,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet betraktar saken som avgjord enbart för att en erkänd expert uttalat sig, utan att redovisa sakargumenten bakom, vilket är ett auktoritetsargument. Cirkelresonemang är fel eftersom slutsatsen inte upprepas som premiss.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Professor Ahlgren, en av landets mest meriterade nationalekonomer, har offentligt uttalat att en sänkning skulle stärka investeringsklimatet.",
+          "Eftersom Ahlgren är en erkänd auktoritet på området bör vi betrakta saken som avgjord."
+        ]
       },
       {
         "id": "verbexp-p06-q02",
@@ -737,7 +820,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet vilar på att en auktoritets ord i sig avgör frågan, utan att sakskälen behöver granskas. Att Ahlgren skulle vara den ende experten krävs inte och påstås heller inte.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Eftersom Ahlgren är en erkänd auktoritet på området bör vi betrakta saken som avgjord."
+        ]
       },
       {
         "id": "verbexp-p06-q03",
@@ -768,7 +854,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "En motsatt expertbedömning med data visar att en auktoritets ord inte avgör frågan och tvingar fram en granskning av sakskälen. Att Ahlgren saknar riksdagserfarenhet skulle vara ett ad hominem och berör inte sakargumentet.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Eftersom Ahlgren är en erkänd auktoritet på området bör vi betrakta saken som avgjord."
+        ]
       },
       {
         "id": "verbexp-p06-q04",
@@ -799,7 +888,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Det enda som faktiskt framgår är att Ahlgren har uttalat denna uppfattning, vilket följer direkt av premissen. Att sänkningen säkert stärker klimatet följer inte, eftersom ett expertuttalande inte är ett bevis.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Professor Ahlgren, en av landets mest meriterade nationalekonomer, har offentligt uttalat att en sänkning skulle stärka investeringsklimatet."
+        ]
       }
     ]
   },
@@ -840,7 +932,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Förslaget gällde att begränsa marknadsföring till barn, men företrädaren tillskriver motparten en mycket mer extrem position (förbjuda all försäljning till vuxna) och angriper den, vilket är en halmgubbe. Vädjan till okunskap är fel eftersom argumentet inte hänvisar till frånvaro av bevis.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En branschföreträdare bemöter ett förslag om att begränsa marknadsföring av energidrycker till barn.",
+          "Förslagsställarna vill uppenbarligen förbjuda all försäljning av energidrycker och behandla varje vuxen konsument som ett omyndigt barn."
+        ]
       },
       {
         "id": "verbexp-p07-q02",
@@ -871,7 +967,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Hela invändningen bygger på att likställa det faktiska förslaget med ett totalförbud riktat mot vuxna. Utan den likställningen faller resonemanget. Om barn skadas eller inte är irrelevant för själva felslutet.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En branschföreträdare bemöter ett förslag om att begränsa marknadsföring av energidrycker till barn.",
+          "Förslagsställarna vill uppenbarligen förbjuda all försäljning av energidrycker och behandla varje vuxen konsument som ett omyndigt barn."
+        ]
       },
       {
         "id": "verbexp-p07-q03",
@@ -902,7 +1002,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Att visa förslagets faktiska innehåll avslöjar att den position företrädaren attackerar är påhittad, vilket spräcker halmgubben. Att vuxna uppskattar dryckerna bemöter inte alls den förvrängning argumentet bygger på.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En branschföreträdare bemöter ett förslag om att begränsa marknadsföring av energidrycker till barn.",
+          "Förslagsställarna vill uppenbarligen förbjuda all försäljning av energidrycker och behandla varje vuxen konsument som ett omyndigt barn."
+        ]
       },
       {
         "id": "verbexp-p07-q04",
@@ -933,7 +1037,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ett förbud mot vuxnas inköp följer inte av ett förslag som enbart gäller marknadsföring riktad mot barn. De övriga alternativen är direkta konsekvenser av det faktiska förslaget.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En branschföreträdare bemöter ett förslag om att begränsa marknadsföring av energidrycker till barn.",
+          "Förslagsställarna vill uppenbarligen förbjuda all försäljning av energidrycker och behandla varje vuxen konsument som ett omyndigt barn."
+        ]
       }
     ]
   },
@@ -974,7 +1082,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet drar slutsatsen att tjänsten är osäker enbart för att dess säkerhet inte har bevisats, alltså behandlas frånvaron av bevis som ett bevis, vilket är vädjan till okunskap. Falskt dilemma är fel eftersom argumentet inte reducerar valet till två uteslutande alternativ.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Ingen i teamet har lyckats bevisa att tjänsten är fri från säkerhetshål.",
+          "Så länge ingen kan visa att den är fullständigt säker måste vi utgå från att den är osäker."
+        ]
       },
       {
         "id": "verbexp-p08-q02",
@@ -1005,7 +1117,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Slutsatsen står och faller med att obevisad säkerhet likställs med påvisad osäkerhet. Att teamet skulle vara inkompetent är varken påstått eller nödvändigt för resonemangets struktur.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Så länge ingen kan visa att den är fullständigt säker måste vi utgå från att den är osäker.",
+          "Att osäkerheten inte har motbevisats är i sig skäl nog att vänta."
+        ]
       },
       {
         "id": "verbexp-p08-q03",
@@ -1036,7 +1152,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "En oberoende revision som inte hittar hål ger positivt stöd för säkerheten och underminerar antagandet att obevisad säkerhet betyder osäkerhet. Att andra bolag haft problem säger inget om just denna tjänst.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Ingen i teamet har lyckats bevisa att tjänsten är fri från säkerhetshål.",
+          "Så länge ingen kan visa att den är fullständigt säker måste vi utgå från att den är osäker."
+        ]
       },
       {
         "id": "verbexp-p08-q04",
@@ -1067,7 +1187,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Det enda som faktiskt följer är att säkerheten inte har bevisats, vilket är vad premissen säger. Att tjänsten faktiskt innehåller hål följer inte, eftersom utebliven bevisning inte fastställer förekomsten av hål.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Ingen i teamet har lyckats bevisa att tjänsten är fri från säkerhetshål."
+        ]
       }
     ]
   },
@@ -1108,7 +1231,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet utgår från att två samvarierande händelser (kontorsnärvaro och högre omsättning) står i orsakssamband, utan att utesluta andra förklaringar som konjunktur eller nya uppdrag. Det är inte en halmgubbe, eftersom ingen motståndares position förvrängs, utan rent felaktig orsakstolkning av en korrelation.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Hon konstaterar att bolagets omsättning steg med tolv procent under det kvartal då personalen återvände till kontoret på heltid.",
+          "Vd:n drar slutsatsen att den fysiska närvaron på kontoret var orsaken till uppgången och att fortsatt kontorsnärvaro därför är nödvändig för lönsamheten."
+        ]
       },
       {
         "id": "verbexp-p09-q02",
@@ -1139,7 +1266,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Slutsatsen att närvaron orsakade uppgången förutsätter att inga andra faktorer låg bakom; finns en sådan faller orsakssambandet. Trivsel är varken nödvändigt eller tillräckligt för slutsatsen och är därför fel.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Hon konstaterar att bolagets omsättning steg med tolv procent under det kvartal då personalen återvände till kontoret på heltid.",
+          "Vd:n drar slutsatsen att den fysiska närvaron på kontoret var orsaken till uppgången och att fortsatt kontorsnärvaro därför är nödvändig för lönsamheten."
+        ]
       },
       {
         "id": "verbexp-p09-q03",
@@ -1170,7 +1301,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "En alternativ orsak som ensam förklarar uppgången bryter det påstådda sambandet mellan närvaro och lönsamhet och underminerar hela slutsatsen. Att vissa föredrar hemarbete säger inget om orsaken till omsättningen och försvagar inte logiken.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Vd:n drar slutsatsen att den fysiska närvaron på kontoret var orsaken till uppgången och att fortsatt kontorsnärvaro därför är nödvändig för lönsamheten."
+        ]
       },
       {
         "id": "verbexp-p09-q04",
@@ -1201,7 +1335,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Premisserna stöder enbart den beskrivande jämförelsen att omsättningen var högre under det ena kvartalet. Att närvaron är nödvändig för lönsamhet är just den orsaksslutsats premisserna inte kan bära och följer alltså inte logiskt.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Hon konstaterar att bolagets omsättning steg med tolv procent under det kvartal då personalen återvände till kontoret på heltid.",
+          "Tidigare, under perioden med hemarbete, hade omsättningen legat stilla."
+        ]
       }
     ]
   },
@@ -1242,7 +1380,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Argumentet ställer upp prissänkning och nedläggning som de enda två möjligheterna, trots att alternativ som marknadsföring, sortimentsbyte eller flytt finns. Det är inte en lutande planet, eftersom ingen kedja av eskalerande konsekvenser påstås, utan ett konstruerat tvåvalsläge.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han förklarar att kedjan står inför ett vägval: antingen sänker filialen sina priser kraftigt för att locka tillbaka kunderna, eller så måste butiken läggas ned.",
+          "Eftersom en nedläggning skulle innebära uppsägningar och dålig publicitet menar han att prissänkningen är det enda försvarbara alternativet."
+        ]
       },
       {
         "id": "verbexp-p10-q02",
@@ -1273,7 +1415,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Slutsatsen att prissänkning är det enda försvarbara håller bara om de två uppställda alternativen verkligen uttömmer möjligheterna. Att kunder alltid väljer billigast är ett separat och osäkert påstående som slutsatsen inte vilar på.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han förklarar att kedjan står inför ett vägval: antingen sänker filialen sina priser kraftigt för att locka tillbaka kunderna, eller så måste butiken läggas ned.",
+          "Eftersom en nedläggning skulle innebära uppsägningar och dålig publicitet menar han att prissänkningen är det enda försvarbara alternativet."
+        ]
       },
       {
         "id": "verbexp-p10-q03",
@@ -1304,7 +1450,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ett konkret exempel på en tredje framgångsrik väg visar att de två alternativen inte är uttömmande och rör därmed argumentets kärna. Att kunder uppskattar låga priser stöder snarare prissänkningen och försvagar inte resonemanget.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han förklarar att kedjan står inför ett vägval: antingen sänker filialen sina priser kraftigt för att locka tillbaka kunderna, eller så måste butiken läggas ned."
+        ]
       },
       {
         "id": "verbexp-p10-q04",
@@ -1335,7 +1484,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Att inga andra sätt finns är just det obevisade antagandet som argumentet vilar på och följer alltså inte av premisserna. De övriga påståendena framgår direkt av texten.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han förklarar att kedjan står inför ett vägval: antingen sänker filialen sina priser kraftigt för att locka tillbaka kunderna, eller så måste butiken läggas ned.",
+          "Eftersom en nedläggning skulle innebära uppsägningar och dålig publicitet menar han att prissänkningen är det enda försvarbara alternativet."
+        ]
       }
     ]
   },
@@ -1376,7 +1529,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ledamoten avvisar förslaget genom att rikta in sig på tjänstemannens personliga förhållanden i stället för på sakargumenten. Det är inte ett auktoritetsargument, eftersom hon inte åberopar någon auktoritet utan tvärtom angriper personen bakom förslaget.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En ledamot bemöter förslaget med att tjänstemannen saknar egna barn och därför omöjligt kan förstå vad ungdomar behöver.",
+          "Ledamoten menar att förslaget av den anledningen bör avvisas utan vidare prövning."
+        ]
       },
       {
         "id": "verbexp-p11-q02",
@@ -1407,7 +1564,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "För att personens barnlöshet ska diskvalificera förslaget måste det antas att egna barn är en förutsättning för att kunna bedöma frågan, ett antagande som inte är belagt. Att verksamheten alltid är effektiv är en separat fråga som inte krävs för ledamotens slutledning.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "En ledamot bemöter förslaget med att tjänstemannen saknar egna barn och därför omöjligt kan förstå vad ungdomar behöver.",
+          "Ledamoten menar att förslaget av den anledningen bör avvisas utan vidare prövning."
+        ]
       },
       {
         "id": "verbexp-p11-q03",
@@ -1469,7 +1630,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Texten anger uttryckligen att ledamoten inte går in på siffrorna utan avfärdar förslaget på personlig grund, vilket är vad alternativet beskriver. Att förslaget faktiskt är felaktigt följer inte, eftersom dess sakinnehåll aldrig prövats.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Ledamoten menar att förslaget av den anledningen bör avvisas utan vidare prövning.",
+          "Hon går inte in på de siffror eller den utvärdering som tjänstemannen lagt fram."
+        ]
       }
     ]
   },
@@ -1510,7 +1675,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Produktchefen drar en slutsats om alla framtida kunder utifrån ett enda positivt omdöme, vilket är en hastig generalisering. Det är inte korrelation tolkad som orsak, eftersom ingen samvariation mellan två storheter förväxlas med orsakssamband; felet ligger i ett otillräckligt urval.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han berättar att den första pilotkunden var mycket nöjd och beskrev systemet som intuitivt och snabbt.",
+          "Utifrån detta enda omdöme hävdar han att samtliga framtida kunder kommer att uppleva systemet som lättanvänt."
+        ]
       },
       {
         "id": "verbexp-p12-q02",
@@ -1541,7 +1710,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "För att ett enda omdöme ska kunna säga något om alla kunder måste pilotkunden vara representativ för helheten. Att supporten är dyr berör motiveringen till besparingen men inte själva slutledningen från ett fall till alla.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han berättar att den första pilotkunden var mycket nöjd och beskrev systemet som intuitivt och snabbt.",
+          "Utifrån detta enda omdöme hävdar han att samtliga framtida kunder kommer att uppleva systemet som lättanvänt."
+        ]
       },
       {
         "id": "verbexp-p12-q03",
@@ -1572,7 +1745,11 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Att pilotkunden skiljer sig systematiskt från de framtida kunderna visar att det enda fallet inte är representativt och underminerar generaliseringen. Ytterligare beröm från samma pilotkund stärker snarare än försvagar slutsatsen.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Han berättar att den första pilotkunden var mycket nöjd och beskrev systemet som intuitivt och snabbt.",
+          "Utifrån detta enda omdöme hävdar han att samtliga framtida kunder kommer att uppleva systemet som lättanvänt."
+        ]
       },
       {
         "id": "verbexp-p12-q04",
@@ -1603,7 +1780,10 @@
         ],
         "correctAnswerId": "a",
         "explanation": "Ett enda nöjt omdöme kan inte garantera hur samtliga framtida kunder kommer att uppleva systemet, så den slutsatsen följer inte av premisserna. De övriga påståendena står uttryckligen i texten.",
-        "difficulty": 3
+        "difficulty": 3,
+        "stod": [
+          "Utifrån detta enda omdöme hävdar han att samtliga framtida kunder kommer att uppleva systemet som lättanvänt."
+        ]
       }
     ]
   }

@@ -10,25 +10,34 @@
     "text": "Det kommunala bolaget har bestämt att fortsätta försöket under ytterligare ett år.",
     "correctAnswer": "true",
     "typ": "direkt",
-    "explanation": "Texten säger att bolaget har valt att förlänga försöket ett år till. Påståendet säger samma sak med andra ord och är därför sant."
+    "explanation": "Texten säger att bolaget har valt att förlänga försöket ett år till. Påståendet säger samma sak med andra ord och är därför sant.",
+    "stod": [
+     "Bolaget har valt att förlänga försöket ett år till men har inte bestämt om det ska bli permanent."
+    ]
    },
    {
     "text": "Bolaget klarade det kortare schemat utan att anställa fler.",
     "correctAnswer": "false",
     "typ": "direkt",
-    "explanation": "Det står att bolaget anställde två personer för att täcka de timmar som försvann. Påståendet går därför emot texten."
+    "explanation": "Det står att bolaget anställde två personer för att täcka de timmar som försvann. Påståendet går därför emot texten.",
+    "stod": [
+     "Bolaget anställde samtidigt två personer för att täcka de timmar som försvann."
+    ]
    },
    {
     "text": "Samtliga anställda på det kommunala bolaget har fått kortare arbetstid.",
     "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Texten säger att försöken ofta gäller dem som redan arbetar heltid, men inte vilka på just det här bolaget som ingår. Det går därför inte att avgöra."
+    "explanation": "Texten säger att försöken ofta gäller dem som redan arbetar heltid, men inte vilka på just det här bolaget som ingår. Det går därför inte att avgöra.",
+    "stod": [],
+    "narmast": "En facklig företrädare säger dessutom att deltidsanställda riskerar att halka efter, eftersom försöken ofta gäller dem som redan arbetar heltid."
    },
    {
     "text": "Anställda med fyradagarsvecka byter jobb mer sällan än andra.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten säger inget om personalomsättning. Påståendet är rimligt men går varken att bekräfta eller säga emot med det som står."
+    "explanation": "Texten säger inget om personalomsättning. Påståendet är rimligt men går varken att bekräfta eller säga emot med det som står.",
+    "stod": []
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -45,25 +54,35 @@
     "text": "Regionen sparar bilderna i en månad innan de raderas.",
     "correctAnswer": "false",
     "typ": "direkt",
-    "explanation": "Texten säger att bilderna raderas efter sju dagar om ingen har begärt ut dem. En månad stämmer alltså inte, och påståendet är falskt."
+    "explanation": "Texten säger att bilderna raderas efter sju dagar om ingen har begärt ut dem. En månad stämmer alltså inte, och påståendet är falskt.",
+    "stod": [
+     "Regionen svarar att den följer upp anmälningarna varje kvartal och att bilderna raderas efter sju dagar om ingen har begärt ut dem."
+    ]
    },
    {
     "text": "Integritetsmyndigheten har krävt att en kamera i en väntsal flyttades.",
     "correctAnswer": "true",
     "typ": "direkt",
-    "explanation": "Det står att myndigheten i ett fall krävde att en kamera som filmade in i en väntsal flyttades. Påståendet stämmer med texten."
+    "explanation": "Det står att myndigheten i ett fall krävde att en kamera som filmade in i en väntsal flyttades. Påståendet stämmer med texten.",
+    "stod": [
+     "Myndigheten har därför granskat flera regioner och i ett fall krävt att en kamera som filmade in i en väntsal flyttades."
+    ]
    },
    {
     "text": "Samtliga bussar i regionen har i dag kameror.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Texten säger att regionen har kameror i hälften av sina bussar. Samtliga stämmer därför inte, och påståendet är falskt."
+    "explanation": "Texten säger att regionen har kameror i hälften av sina bussar. Samtliga stämmer därför inte, och påståendet är falskt.",
+    "stod": [
+     "En region i Mellansverige, som har kameror i hälften av sina bussar, uppger att antalet anmälda hot mot förare har sjunkit sedan kamerorna kom."
+    ]
    },
    {
     "text": "Resenärerna i regionen känner sig tryggare med kamerorna.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten nämner förarna, facket och myndigheten men inget om vad resenärerna känner. Det går inte att avgöra."
+    "explanation": "Texten nämner förarna, facket och myndigheten men inget om vad resenärerna känner. Det går inte att avgöra.",
+    "stod": []
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -80,25 +99,37 @@
     "text": "En elev med diabetes kan få behålla telefonen under skoldagen enligt förslaget.",
     "correctAnswer": "true",
     "typ": "slutledning",
-    "explanation": "Texten säger att undantag ska kunna göras för elever som behöver telefonen av medicinska skäl, till exempel för att mäta blodsocker. Det gäller en elev med diabetes, så påståendet följer av texten."
+    "explanation": "Texten säger att undantag ska kunna göras för elever som behöver telefonen av medicinska skäl, till exempel för att mäta blodsocker. Det gäller en elev med diabetes, så påståendet följer av texten.",
+    "stod": [
+     "Undantag ska kunna göras för elever som behöver telefonen av medicinska skäl, till exempel för att mäta blodsocker."
+    ]
    },
    {
     "text": "Enligt förslaget ska eleverna använda sina egna telefoner när en lektion kräver att de söker information.",
     "correctAnswer": "false",
     "typ": "slutledning",
-    "explanation": "Det står att skolan i sådana fall ska låna ut egna datorer eller surfplattor. Elevernas telefoner är insamlade, så påståendet går emot förslaget."
+    "explanation": "Det står att skolan i sådana fall ska låna ut egna datorer eller surfplattor. Elevernas telefoner är insamlade, så påståendet går emot förslaget.",
+    "stod": [
+     "Elevorganisationer påpekar dessutom att telefonen används i undervisningen, till exempel för att söka information eller svara på frågor i en app.",
+     "Förslaget säger att skolan i sådana fall ska låna ut egna datorer eller surfplattor."
+    ]
    },
    {
     "text": "Alla skolor har redan infört insamling av telefoner.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Texten säger att flera skolor har infört insamling på egen hand, och förslaget gäller från nästa läsår. Alla skolor har alltså inte gjort det."
+    "explanation": "Texten säger att flera skolor har infört insamling på egen hand, och förslaget gäller från nästa läsår. Alla skolor har alltså inte gjort det.",
+    "stod": [
+     "Flera skolor har redan infört insamling på egen hand, och rektorerna där beskriver lugnare lektioner."
+    ]
    },
    {
     "text": "Elevernas betyg blir bättre på skolor som samlar in telefonerna.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten nämner lugnare lektioner men inget om betyg. Påståendet går därför varken att bekräfta eller säga emot."
+    "explanation": "Texten nämner lugnare lektioner men inget om betyg. Påståendet går därför varken att bekräfta eller säga emot.",
+    "stod": [],
+    "narmast": "Flera skolor har redan infört insamling på egen hand, och rektorerna där beskriver lugnare lektioner."
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -115,25 +146,36 @@
     "text": "Ett hus med fjärrvärme kan utan svårighet byta till en billigare leverantör.",
     "correctAnswer": "false",
     "typ": "slutledning",
-    "explanation": "Texten säger att ett anslutet hus sällan kan byta leverantör och att kunden i praktiken saknar val. Påståendet följer alltså inte, utan går emot texten."
+    "explanation": "Texten säger att ett anslutet hus sällan kan byta leverantör och att kunden i praktiken saknar val. Påståendet följer alltså inte, utan går emot texten.",
+    "stod": [
+     "Eftersom ett hus som är anslutet sällan kan byta leverantör, har kunden i praktiken inget val."
+    ]
    },
    {
     "text": "Ett bolag i prisrådet som höjer priset måste kunna visa vad som har blivit dyrare.",
     "correctAnswer": "true",
     "typ": "slutledning",
-    "explanation": "Det står att ett bolag i prisrådet måste förklara sina höjningar och visa hur kostnaderna har ändrats. Att visa kostnaderna är att visa vad som blivit dyrare, så påståendet följer."
+    "explanation": "Det står att ett bolag i prisrådet måste förklara sina höjningar och visa hur kostnaderna har ändrats. Att visa kostnaderna är att visa vad som blivit dyrare, så påståendet följer.",
+    "stod": [
+     "Ett bolag som är med i prisrådet måste förklara sina prishöjningar och visa hur kostnaderna har ändrats."
+    ]
    },
    {
     "text": "Samtliga fjärrvärmebolag är med i prisrådet.",
     "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Texten beskriver vad som gäller för ett bolag som är med i prisrådet, men inte hur många bolag som är det. Det går därför inte att avgöra."
+    "explanation": "Texten beskriver vad som gäller för ett bolag som är med i prisrådet, men inte hur många bolag som är det. Det går därför inte att avgöra.",
+    "stod": [],
+    "narmast": "Ett bolag som är med i prisrådet måste förklara sina prishöjningar och visa hur kostnaderna har ändrats."
    },
    {
     "text": "Konkurrensverket har inte föreslagit ett tak för priset.",
     "correctAnswer": "true",
     "typ": "direkt",
-    "explanation": "Texten säger att Konkurrensverket inte har föreslagit något pristak. Påståendet säger samma sak och är sant."
+    "explanation": "Texten säger att Konkurrensverket inte har föreslagit något pristak. Påståendet säger samma sak och är sant.",
+    "stod": [
+     "Konkurrensverket har föreslagit att kunderna ska få bättre insyn i hur priset räknas fram, men har inte föreslagit något pristak."
+    ]
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -150,25 +192,36 @@
     "text": "Alla arbetsgivare måste dokumentera sin lönekartläggning skriftligt.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Texten säger att alla arbetsgivare ska göra kartläggningen, men att kravet på skriftlig dokumentation gäller från tio anställda. Alla måste alltså inte dokumentera den, och påståendet är falskt."
+    "explanation": "Texten säger att alla arbetsgivare ska göra kartläggningen, men att kravet på skriftlig dokumentation gäller från tio anställda. Alla måste alltså inte dokumentera den, och påståendet är falskt.",
+    "stod": [
+     "Alla arbetsgivare ska varje år göra en lönekartläggning, och arbetsgivare med minst tio anställda ska dokumentera den skriftligt."
+    ]
    },
    {
     "text": "Diskrimineringsombudsmannen har aldrig begärt vite av en arbetsgivare.",
     "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Det står att ombudsmannen kan begära vite, men inte om det har hänt. Påståendet går därför varken att bekräfta eller säga emot."
+    "explanation": "Det står att ombudsmannen kan begära vite, men inte om det har hänt. Påståendet går därför varken att bekräfta eller säga emot.",
+    "stod": [],
+    "narmast": "Diskrimineringsombudsmannen granskar varje år ett urval av arbetsgivare och kan begära vite av den som inte gör kartläggningen."
    },
    {
     "text": "Kartläggningen ska göras tillsammans med facket.",
     "correctAnswer": "true",
     "typ": "direkt",
-    "explanation": "Texten säger att kartläggningen ska göras i samarbete med facket. Påståendet säger samma sak med andra ord."
+    "explanation": "Texten säger att kartläggningen ska göras i samarbete med facket. Påståendet säger samma sak med andra ord.",
+    "stod": [
+     "Kartläggningen ska göras i samarbete med facket."
+    ]
    },
    {
     "text": "En arbetsgivare med sex anställda kan få betala vite för att den inte dokumenterar sin lönekartläggning skriftligt.",
     "correctAnswer": "false",
     "typ": "slutledning",
-    "explanation": "Texten säger att kravet på skriftlig dokumentation gäller från tio anställda. En arbetsgivare med sex anställda har inget sådant krav och kan då inte få vite för att dokumentationen saknas."
+    "explanation": "Texten säger att kravet på skriftlig dokumentation gäller från tio anställda. En arbetsgivare med sex anställda har inget sådant krav och kan då inte få vite för att dokumentationen saknas.",
+    "stod": [
+     "Alla arbetsgivare ska varje år göra en lönekartläggning, och arbetsgivare med minst tio anställda ska dokumentera den skriftligt."
+    ]
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -185,25 +238,35 @@
     "text": "Ett digitalt besök kostar aldrig mer än ett besök på mottagningen.",
     "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Texten säger att besöken kostar lika mycket i de flesta regioner, men inget om vad som gäller i de andra. Det går därför inte att avgöra om det aldrig kostar mer."
+    "explanation": "Texten säger att besöken kostar lika mycket i de flesta regioner, men inget om vad som gäller i de andra. Det går därför inte att avgöra om det aldrig kostar mer.",
+    "stod": [],
+    "narmast": "Ett digitalt besök kostar patienten lika mycket som ett besök på plats i de flesta regioner."
    },
    {
     "text": "Alla undersökningar går att göra via videosamtal.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Det står att en del undersökningar kräver att patienten är på plats, som att lyssna på lungorna. Påståendet om alla undersökningar är därför falskt."
+    "explanation": "Det står att en del undersökningar kräver att patienten är på plats, som att lyssna på lungorna. Påståendet om alla undersökningar är därför falskt.",
+    "stod": [
+     "Läkare påpekar dock att en del undersökningar kräver att patienten är på plats, till exempel när man behöver lyssna på lungorna eller känna på en svullnad."
+    ]
    },
    {
     "text": "En patient vars lungor behöver avlyssnas får ett nytt besök på plats.",
     "correctAnswer": "true",
     "typ": "slutledning",
-    "explanation": "Texten säger att undersökningar som att lyssna på lungorna kräver att patienten är på plats, och att patienten då bokas om till ett fysiskt besök. Tillsammans ger det påståendet."
+    "explanation": "Texten säger att undersökningar som att lyssna på lungorna kräver att patienten är på plats, och att patienten då bokas om till ett fysiskt besök. Tillsammans ger det påståendet.",
+    "stod": [
+     "Läkare påpekar dock att en del undersökningar kräver att patienten är på plats, till exempel när man behöver lyssna på lungorna eller känna på en svullnad.",
+     "I sådana fall bokas patienten om till ett fysiskt besök, och då har vården i praktiken fått två besök i stället för ett."
+    ]
    },
    {
     "text": "Patienter som har fått vård digitalt är lika nöjda som andra.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten säger inget om hur nöjda patienterna är. Påståendet är rimligt men går inte att avgöra med det som står."
+    "explanation": "Texten säger inget om hur nöjda patienterna är. Påståendet är rimligt men går inte att avgöra med det som står.",
+    "stod": []
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -220,25 +283,34 @@
     "text": "Takodlingen i Malmö går med vinst.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten säger vad odlingen levererar men inget om dess ekonomi. Påståendet går därför varken att bekräfta eller säga emot."
+    "explanation": "Texten säger vad odlingen levererar men inget om dess ekonomi. Påståendet går därför varken att bekräfta eller säga emot.",
+    "stod": [],
+    "narmast": "En takodling i Malmö levererar sallad och örter till tre restauranger från maj till september."
    },
    {
     "text": "Fler stadsbor har börjat odla på sina balkonger.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten handlar om odling på tak och säger inget om balkonger. Påståendet är rimligt men går inte att avgöra."
+    "explanation": "Texten handlar om odling på tak och säger inget om balkonger. Påståendet är rimligt men går inte att avgöra.",
+    "stod": []
    },
    {
     "text": "Alla tak i städerna kan bära en odling.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Det står att många äldre hus inte klarar vikten av jord och vatten alls. Påståendet om alla tak är därför falskt."
+    "explanation": "Det står att många äldre hus inte klarar vikten av jord och vatten alls. Påståendet om alla tak är därför falskt.",
+    "stod": [
+     "Samtidigt är det dyrt att bygga om ett tak så att det tål vikten av jord och vatten, och många äldre hus klarar det inte alls."
+    ]
    },
    {
     "text": "Takodlingen i Malmö säljer sallad till restauranger.",
     "correctAnswer": "true",
     "typ": "direkt",
-    "explanation": "Texten säger att odlingen i Malmö levererar sallad och örter till tre restauranger. Påståendet stämmer med det som står."
+    "explanation": "Texten säger att odlingen i Malmö levererar sallad och örter till tre restauranger. Påståendet stämmer med det som står.",
+    "stod": [
+     "En takodling i Malmö levererar sallad och örter till tre restauranger från maj till september."
+    ]
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -255,25 +327,36 @@
     "text": "Fler barn har sökt sig till kulturskolan i kommunen som tog bort avgiften.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten säger att grannkommunen har tagit bort avgiften, men inget om hur många som har sökt sig dit. Det går därför inte att avgöra."
+    "explanation": "Texten säger att grannkommunen har tagit bort avgiften, men inget om hur många som har sökt sig dit. Det går därför inte att avgöra.",
+    "stod": [],
+    "narmast": "I en kommun kostar en termin med instrumentundervisning 900 kronor, medan grannkommunen har tagit bort avgiften helt."
    },
    {
     "text": "Lärarbristen är störst inom instrumentundervisningen.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten säger att kulturskolorna länge har haft svårt att rekrytera lärare, men inget om i vilka ämnen bristen är störst. Det går därför inte att avgöra."
+    "explanation": "Texten säger att kulturskolorna länge har haft svårt att rekrytera lärare, men inget om i vilka ämnen bristen är störst. Det går därför inte att avgöra.",
+    "stod": [],
+    "narmast": "Kulturskolorna har länge haft svårt att rekrytera lärare."
    },
    {
     "text": "Kulturskolan är obligatorisk i samtliga kommuner.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Det står att verksamheten är frivillig för kommunerna och att förslaget om lag inte har lett till något beslut. Påståendet är därför falskt."
+    "explanation": "Det står att verksamheten är frivillig för kommunerna och att förslaget om lag inte har lett till något beslut. Påståendet är därför falskt.",
+    "stod": [
+     "Verksamheten är frivillig för kommunerna, och avgiften bestäms av varje kommun själv."
+    ]
    },
    {
     "text": "En familj med försörjningsstöd betalar ingen avgift i den kommun som har kvar avgiften.",
     "correctAnswer": "true",
     "typ": "slutledning",
-    "explanation": "Texten säger att kommunen som har kvar avgiften låter familjer med försörjningsstöd slippa betala. Påståendet följer av det."
+    "explanation": "Texten säger att kommunen som har kvar avgiften låter familjer med försörjningsstöd slippa betala. Påståendet följer av det.",
+    "stod": [
+     "Kommunen som har kvar avgiften menar i stället att intäkterna behövs för att hålla nere köerna och att en kostnad gör att färre hoppar av efter några veckor.",
+     "Den ger också syskonrabatt och låter familjer med försörjningsstöd slippa betala."
+    ]
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",

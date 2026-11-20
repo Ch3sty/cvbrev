@@ -9,22 +9,33 @@
       {
         "text": "Det är möjligt för studenter att utföra den ordinarie personalens arbete när de är på semester.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att ordinarie personal ofta tar semester på sommaren och att företag då behöver extra personal. Att studenterna täcker upp det ordinarie arbetet följer logiskt av detta."
+        "explanation": "Texten säger att ordinarie personal ofta tar semester på sommaren och att företag då behöver extra personal. Att studenterna täcker upp det ordinarie arbetet följer logiskt av detta.",
+        "stod": [
+          "Den ordinarie personalen vill ofta ta ut semester under denna period.",
+          "Det är dessutom inte ovanligt att företag har toppar i sin arbetsbelastning under sommaren och därför behöver extra personal."
+        ]
       },
       {
         "text": "Studenter har samma rätt till betald semester som den ordinarie personalen när de sommarjobbar.",
         "correctAnswer": "false",
-        "explanation": "Texten slår fast att studenterna betalas efter en fast skala 'utan de vanliga rättigheterna, såsom betald semester och sjuklön'. Påståendet motsägs alltså direkt."
+        "explanation": "Texten slår fast att studenterna betalas efter en fast skala 'utan de vanliga rättigheterna, såsom betald semester och sjuklön'. Påståendet motsägs alltså direkt.",
+        "stod": [
+          "Företagen betalar studenterna utifrån en fast skala utan de vanliga rättigheterna, såsom betald semester och sjuklön."
+        ]
       },
       {
         "text": "Studenterna måste följa företagets ordinarie rutiner för disciplin- och klagomålsärenden.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner ingenting om disciplin- eller klagomålsärenden. Vi kan varken bekräfta eller motsäga detta utifrån det som står."
+        "explanation": "Texten nämner ingenting om disciplin- eller klagomålsärenden. Vi kan varken bekräfta eller motsäga detta utifrån det som står.",
+        "stod": []
       },
       {
         "text": "Vissa företag har större arbetsbelastning under sommaren när studenterna är lediga och kan sommarjobba.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att företag 'inte ovanligt' har toppar i arbetsbelastning under sommaren och därför behöver extra personal, vilket stödjer påståendet."
+        "explanation": "Texten säger att företag 'inte ovanligt' har toppar i arbetsbelastning under sommaren och därför behöver extra personal, vilket stödjer påståendet.",
+        "stod": [
+          "Det är dessutom inte ovanligt att företag har toppar i sin arbetsbelastning under sommaren och därför behöver extra personal."
+        ]
       }
     ]
   },
@@ -38,22 +49,33 @@
       {
         "text": "Distansarbete har lett till minskad produktivitet i de flesta företag.",
         "correctAnswer": "false",
-        "explanation": "Texten säger tvärtom att produktiviteten inte påverkats negativt, och i vissa fall till och med ökat. Påståendet om minskad produktivitet motsägs alltså."
+        "explanation": "Texten säger tvärtom att produktiviteten inte påverkats negativt, och i vissa fall till och med ökat. Påståendet om minskad produktivitet motsägs alltså.",
+        "stod": [
+          "Studier visar att produktiviteten inte har påverkats negativt av att anställda arbetar hemifrån, och i vissa fall har den till och med ökat."
+        ]
       },
       {
         "text": "Alla anställda föredrar att arbeta hemifrån framför att arbeta på kontoret.",
         "correctAnswer": "cannot_say",
-        "explanation": "Att vissa rapporterar högre arbetstillfredsställelse innebär inte att alla föredrar hemarbete. Texten säger inget om vad samtliga anställda föredrar, så det går inte att avgöra."
+        "explanation": "Att vissa rapporterar högre arbetstillfredsställelse innebär inte att alla föredrar hemarbete. Texten säger inget om vad samtliga anställda föredrar, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Anställda rapporterar högre arbetstillfredsställelse och bättre balans mellan arbete och privatliv."
       },
       {
         "text": "Företag kan minska kostnader genom att reducera kontorslokaler.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att företag kan spara betydande kostnader på kontorshyra och faciliteter. Påståendet följer direkt."
+        "explanation": "Texten säger uttryckligen att företag kan spara betydande kostnader på kontorshyra och faciliteter. Påståendet följer direkt.",
+        "stod": [
+          "Företag kan dessutom spara betydande kostnader på kontorshyra och faciliteter."
+        ]
       },
       {
         "text": "Hybridmodeller innebär att anställda arbetar på kontoret varje dag.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver hybridmodeller som arbete på kontoret 'två till tre dagar per vecka', inte varje dag. Påståendet motsägs."
+        "explanation": "Texten beskriver hybridmodeller som arbete på kontoret 'två till tre dagar per vecka', inte varje dag. Påståendet motsägs.",
+        "stod": [
+          "Många organisationer har därför infört hybridmodeller där anställda arbetar på kontoret två till tre dagar per vecka."
+        ]
       }
     ]
   },
@@ -67,22 +89,32 @@
       {
         "text": "Företaget har sparat 50 000 kronor per år genom energibesparande åtgärder.",
         "correctAnswer": "true",
-        "explanation": "Texten anger en årlig besparing på ungefär 50 000 kronor från de energibesparande åtgärderna, vilket stämmer med påståendet."
+        "explanation": "Texten anger en årlig besparing på ungefär 50 000 kronor från de energibesparande åtgärderna, vilket stämmer med påståendet.",
+        "stod": [
+          "Detta resulterade i en årlig besparing på ungefär 50 000 kronor."
+        ]
       },
       {
         "text": "Solpanelerna står för den största delen av energibesparingen.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner solpaneler och LED som delar av initiativet men säger inget om vilken åtgärd som står för störst andel av besparingen. Det går inte att avgöra."
+        "explanation": "Texten nämner solpaneler och LED som delar av initiativet men säger inget om vilken åtgärd som står för störst andel av besparingen. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Initiativet inkluderade installation av solpaneler på taket och uppgradering till LED-belysning i alla lokaler."
       },
       {
         "text": "Alla anställda är positiva till hållbarhetsinitiativet.",
         "correctAnswer": "false",
-        "explanation": "Enkäten visade att 85 procent är positiva, vilket betyder att inte alla är det. Påståendet motsägs av siffran."
+        "explanation": "Enkäten visade att 85 procent är positiva, vilket betyder att inte alla är det. Påståendet motsägs av siffran.",
+        "stod": [
+          "En medarbetarenkät visade att 85 procent av personalen är positiva till satsningen."
+        ]
       },
       {
         "text": "Företaget kommer att spara 200 000 kronor under de närmaste fyra åren.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten talar bara om besparingen för det senaste året och ger ingen prognos framåt. Att summan blir 200 000 på fyra år kan inte avgöras ur texten."
+        "explanation": "Texten talar bara om besparingen för det senaste året och ger ingen prognos framåt. Att summan blir 200 000 på fyra år kan inte avgöras ur texten.",
+        "stod": [],
+        "narmast": "Detta resulterade i en årlig besparing på ungefär 50 000 kronor."
       }
     ]
   },
@@ -96,22 +128,33 @@
       {
         "text": "Alternativa investeringar ger alltid bättre avkastning än traditionella investeringar.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att alternativa investeringar presterat bättre 'det senaste decenniet' men betonar att det inte finns någon garanti för framtida resultat. Ordet 'alltid' motsägs alltså."
+        "explanation": "Texten säger att alternativa investeringar presterat bättre 'det senaste decenniet' men betonar att det inte finns någon garanti för framtida resultat. Ordet 'alltid' motsägs alltså.",
+        "stod": [
+          "Trots högre avkastning det senaste decenniet finns ingen garanti för framtida resultat."
+        ]
       },
       {
         "text": "Finansiella rådgivare rekommenderar att majoriteten av portföljen består av alternativa tillgångar.",
         "correctAnswer": "false",
-        "explanation": "Rådgivare rekommenderar enligt texten 'högst 20 procent' i alternativa tillgångar, inte en majoritet. Påståendet motsägs direkt."
+        "explanation": "Rådgivare rekommenderar enligt texten 'högst 20 procent' i alternativa tillgångar, inte en majoritet. Påståendet motsägs direkt.",
+        "stod": [
+          "Finansiella rådgivare rekommenderar ofta att högst 20 procent av en portfölj allokeras till alternativa tillgångar."
+        ]
       },
       {
         "text": "Alternativa investeringar har presterat bättre än traditionella under det senaste decenniet.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att alternativa investeringar presterat bättre än traditionella med ungefär 60 procent under decenniet. Påståendet följer direkt."
+        "explanation": "Texten säger uttryckligen att alternativa investeringar presterat bättre än traditionella med ungefär 60 procent under decenniet. Påståendet följer direkt.",
+        "stod": [
+          "Under denna period har alternativa investeringar som konst och frimärken presterat bättre än traditionella investeringar med ungefär 60 procent."
+        ]
       },
       {
         "text": "Konst och frimärken kommer att fortsätta öka i värde nästa år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten gör inga förutsägelser om nästa års utveckling och påpekar att framtida resultat inte är garanterade. Det går inte att avgöra."
+        "explanation": "Texten gör inga förutsägelser om nästa års utveckling och påpekar att framtida resultat inte är garanterade. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Trots högre avkastning det senaste decenniet finns ingen garanti för framtida resultat."
       }
     ]
   },
@@ -125,22 +168,33 @@
       {
         "text": "Digitalisering har lett till snabbare ärendehantering i företag som implementerat det.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att företag som implementerat digitala lösningar rapporterar i genomsnitt 30 procent snabbare ärendehantering. Påståendet följer direkt."
+        "explanation": "Texten säger att företag som implementerat digitala lösningar rapporterar i genomsnitt 30 procent snabbare ärendehantering. Påståendet följer direkt.",
+        "stod": [
+          "Företag som har implementerat digitala lösningar rapporterar i genomsnitt 30 procent snabbare ärendehantering och 40 procent minskning av administrativa kostnader."
+        ]
       },
       {
         "text": "Alla digitala transformationsprojekt misslyckas på grund av tekniska problem.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att 70 procent av projekten misslyckas på grund av bristande förändringshantering snarare än tekniska problem. 'Alla' och 'tekniska problem' motsägs."
+        "explanation": "Texten säger att 70 procent av projekten misslyckas på grund av bristande förändringshantering snarare än tekniska problem. 'Alla' och 'tekniska problem' motsägs.",
+        "stod": [
+          "Forskning visar att 70 procent av digitala transformationsprojekt misslyckas på grund av bristande förändringshantering snarare än tekniska problem."
+        ]
       },
       {
         "text": "Medarbetarnas motstånd mot förändring är den största utmaningen i digital transformation.",
         "correctAnswer": "true",
-        "explanation": "Texten beskriver att den verkliga utmaningen ligger i att få medarbetare att ändra arbetssätt, och att bristande förändringshantering är vanligaste orsaken till misslyckande. Det stödjer påståendet."
+        "explanation": "Texten beskriver att den verkliga utmaningen ligger i att få medarbetare att ändra arbetssätt, och att bristande förändringshantering är vanligaste orsaken till misslyckande. Det stödjer påståendet.",
+        "stod": [
+          "Den verkliga utmaningen ligger i att få medarbetare att ändra sina arbetssätt och anamma nya system.",
+          "Forskning visar att 70 procent av digitala transformationsprojekt misslyckas på grund av bristande förändringshantering snarare än tekniska problem."
+        ]
       },
       {
         "text": "Företag som inte digitaliserar kommer att gå i konkurs inom fem år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger inget om vad som händer med företag som inte digitaliserar, än mindre om konkurs inom fem år. Det går inte att avgöra."
+        "explanation": "Texten säger inget om vad som händer med företag som inte digitaliserar, än mindre om konkurs inom fem år. Det går inte att avgöra.",
+        "stod": []
       }
     ]
   },
@@ -154,12 +208,19 @@
       {
         "text": "Det kostar mer att ersätta en medarbetare än deras årliga lön.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att kostnaden för att ersätta en medarbetare kan uppgå till 150 procent av årslönen, alltså mer än en årslön. Påståendet följer direkt."
+        "explanation": "Texten anger att kostnaden för att ersätta en medarbetare kan uppgå till 150 procent av årslönen, alltså mer än en årslön. Påståendet följer direkt.",
+        "stod": [
+          "Studier visar att kostnaden för att ersätta en medarbetare kan uppgå till 150 procent av den årliga lönen när man räknar in rekrytering, utbildning och produktivitetsförlust."
+        ]
       },
       {
         "text": "Högre lön är den mest effektiva metoden för att behålla personal.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att högre lön visat sig mindre effektivt än väntat och pekar istället på utveckling, meningsfullt arbete och ledarskap som avgörande. Påståendet motsägs."
+        "explanation": "Texten säger att högre lön visat sig mindre effektivt än väntat och pekar istället på utveckling, meningsfullt arbete och ledarskap som avgörande. Påståendet motsägs.",
+        "stod": [
+          "Traditionella åtgärder som högre lön har visat sig vara mindre effektiva än förväntat.",
+          "Istället pekar forskning på att utvecklingsmöjligheter, meningsfullt arbete och bra ledarskap är avgörande faktorer."
+        ]
       },
       {
         "text": "Alla medarbetare som känner sig förbisedda för befordran slutar inom två år.",
@@ -169,7 +230,9 @@
       {
         "text": "Företag med låg personalomsättning erbjuder alltid högre löner än konkurrenter.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att låg lön är en mindre vanlig orsak än dåligt ledarskap, men jämför inte lönenivåer mellan företag med olika omsättning. Det går inte att avgöra."
+        "explanation": "Texten säger att låg lön är en mindre vanlig orsak än dåligt ledarskap, men jämför inte lönenivåer mellan företag med olika omsättning. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Företag som erbjuder tydliga karriärvägar och regelbunden feedback har 40 procent lägre personalomsättning än genomsnittet."
       }
     ]
   },
@@ -183,22 +246,34 @@
       {
         "text": "Majoriteten av konsumenter använder flera kanaler när de handlar.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att 73 procent av konsumenter använder flera kanaler under köpresan, vilket är en majoritet. Påståendet följer direkt."
+        "explanation": "Texten säger att 73 procent av konsumenter använder flera kanaler under köpresan, vilket är en majoritet. Påståendet följer direkt.",
+        "stod": [
+          "Forskning visar att 73 procent av konsumenter använder flera kanaler under sin köpresa."
+        ]
       },
       {
         "text": "Fysiska butiker har blivit onödiga på grund av e-handel.",
         "correctAnswer": "false",
-        "explanation": "Texten slår fast att fysiska butiker inte blivit obsoleta som många förutspådde, utan fått en ny roll som upplevelsecenter. Påståendet motsägs."
+        "explanation": "Texten slår fast att fysiska butiker inte blivit obsoleta som många förutspådde, utan fått en ny roll som upplevelsecenter. Påståendet motsägs.",
+        "stod": [
+          "E-handeln fortsätter att växa, men fysiska butiker har inte blivit obsoleta som många förutspådde."
+        ]
       },
       {
         "text": "Företag med omnichannel-strategi har högre kundlojalitet.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att företag som lyckas med omnichannel rapporterar 30 procent högre kundlojalitet. Påståendet följer direkt."
+        "explanation": "Texten säger att företag som lyckas med omnichannel rapporterar 30 procent högre kundlojalitet. Påståendet följer direkt.",
+        "stod": [
+          "Företag som lyckas med detta rapporterar 30 procent högre kundlojalitet jämfört med de som endast fokuserar på en kanal."
+        ]
       },
       {
         "text": "Fler än hälften av alla returer från onlineköp sker i fysiska butiker.",
         "correctAnswer": "false",
-        "explanation": "Texten anger att 40 procent av returerna sker i fysisk butik, alltså mindre än hälften. 'Fler än hälften' motsägs av siffran."
+        "explanation": "Texten anger att 40 procent av returerna sker i fysisk butik, alltså mindre än hälften. 'Fler än hälften' motsägs av siffran.",
+        "stod": [
+          "Data visar att 40 procent av alla returer sker i fysiska butiker trots att köpet gjordes online."
+        ]
       }
     ]
   },
@@ -212,22 +287,34 @@
       {
         "text": "Majoriteten av företag som påstår sig ha innovationskultur uppfyller faktiskt kriterierna.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att endast 15 procent av företagen som påstår sig ha innovationskultur faktiskt uppfyller kriterierna, alltså en minoritet. 'Majoriteten' motsägs."
+        "explanation": "Texten säger att endast 15 procent av företagen som påstår sig ha innovationskultur faktiskt uppfyller kriterierna, alltså en minoritet. 'Majoriteten' motsägs.",
+        "stod": [
+          "Forskning från Harvard Business School visar att endast 15 procent av företag som påstår sig ha en innovationskultur faktiskt uppfyller kriterierna."
+        ]
       },
       {
         "text": "Psykologisk trygghet är viktig för innovation enligt forskning.",
         "correctAnswer": "true",
-        "explanation": "Texten kopplar psykologisk trygghet till innovation och hänvisar till Googles Project Aristotle där trygga team var mest innovativa. Påståendet följer direkt."
+        "explanation": "Texten kopplar psykologisk trygghet till innovation och hänvisar till Googles Project Aristotle där trygga team var mest innovativa. Påståendet följer direkt.",
+        "stod": [
+          "Det handlar om att skapa psykologisk trygghet där medarbetare vågar ta risker utan rädsla för negativa konsekvenser.",
+          "Google fann i sin Project Aristotle-studie att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna, utan de där medlemmarna kände sig trygga att dela idéer."
+        ]
       },
       {
         "text": "Googles mest innovativa team bestod alltid av de smartaste individerna.",
         "correctAnswer": "false",
-        "explanation": "Texten säger uttryckligen att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna. 'Alltid de smartaste' motsägs."
+        "explanation": "Texten säger uttryckligen att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna. 'Alltid de smartaste' motsägs.",
+        "stod": [
+          "Google fann i sin Project Aristotle-studie att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna, utan de där medlemmarna kände sig trygga att dela idéer."
+        ]
       },
       {
         "text": "Alla företag som använder \"fail fast\"-filosofi blir framgångsrika.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner att Amazon institutionaliserat 'fail fast' men säger inget om att alla företag som använder filosofin blir framgångsrika. Det går inte att avgöra."
+        "explanation": "Texten nämner att Amazon institutionaliserat 'fail fast' men säger inget om att alla företag som använder filosofin blir framgångsrika. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Amazon har institutionaliserat detta genom sin \"fail fast\"-filosofi."
       }
     ]
   },
@@ -241,22 +328,33 @@
       {
         "text": "Företag fokuserar mer på resiliens än på kostnadsoptimering idag.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att företag som tidigare optimerade för kostnad nu istället fokuserar på resiliens och flexibilitet. Påståendet följer direkt."
+        "explanation": "Texten säger att företag som tidigare optimerade för kostnad nu istället fokuserar på resiliens och flexibilitet. Påståendet följer direkt.",
+        "stod": [
+          "Företag som tidigare optimerade för kostnad och effektivitet fokuserar nu istället på resiliens och flexibilitet."
+        ]
       },
       {
         "text": "Regionaliserade leveranskedjor är alltid billigare än globala.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att regionalisering ofta är dyrare, inte billigare. Ordet 'alltid billigare' motsägs."
+        "explanation": "Texten säger att regionalisering ofta är dyrare, inte billigare. Ordet 'alltid billigare' motsägs.",
+        "stod": [
+          "Detta innebär att de etablerar produktion och lager närmare slutkunderna trots att det ofta är dyrare."
+        ]
       },
       {
         "text": "90 procent av företagsledare har redan diversifierat sina leveranskedjor.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att 90 procent av ledarna planerar att investera i mer diversifierade leveranskedjor de kommande tre åren, alltså inte att de redan gjort det. Påståendet motsägs."
+        "explanation": "Texten säger att 90 procent av ledarna planerar att investera i mer diversifierade leveranskedjor de kommande tre åren, alltså inte att de redan gjort det. Påståendet motsägs.",
+        "stod": [
+          "En undersökning från McKinsey visar att 90 procent av företagsledare planerar att investera i mer diversifierade leveranskedjor under de kommande tre åren."
+        ]
       },
       {
         "text": "Teknologi kan eliminera alla störningar i leveranskedjan.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att teknik ger bättre realtidsinsyn och snabbare identifiering av störningar, men inte att den kan eliminera alla störningar. Det går inte att avgöra."
+        "explanation": "Texten säger att teknik ger bättre realtidsinsyn och snabbare identifiering av störningar, men inte att den kan eliminera alla störningar. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Teknologi som AI och IoT gör det möjligt att få bättre realtidsinsynen i leveranskedjan och snabbt identifiera störningar."
       }
     ]
   },
@@ -270,7 +368,10 @@
       {
         "text": "Investeringar i medarbetarnas hälsa ger positiv ekonomisk avkastning.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att varje investerad krona ger tre till sex kronor tillbaka, alltså en positiv avkastning. Påståendet följer direkt."
+        "explanation": "Texten anger att varje investerad krona ger tre till sex kronor tillbaka, alltså en positiv avkastning. Påståendet följer direkt.",
+        "stod": [
+          "Forskning visar att varje krona som investeras i hälsofrämjande åtgärder ger en avkastning på tre till sex kronor genom minskad sjukfrånvaro och högre produktivitet."
+        ]
       },
       {
         "text": "Alla företag erbjuder tillgång till psykologer som anställningsförmån.",
@@ -280,12 +381,17 @@
       {
         "text": "Företag med hälsoprogram har lägre sjukfrånvaro än genomsnittet.",
         "correctAnswer": "true",
-        "explanation": "Texten hänvisar till en studie som visar 27 procent lägre sjukfrånvaro hos arbetsplatser med omfattande hälsoprogram. Påståendet följer direkt."
+        "explanation": "Texten hänvisar till en studie som visar 27 procent lägre sjukfrånvaro hos arbetsplatser med omfattande hälsoprogram. Påståendet följer direkt.",
+        "stod": [
+          "En studie från Karolinska Institutet visar att arbetsplatser med omfattande hälsoprogram har 27 procent lägre sjukfrånvaro än genomsnittet."
+        ]
       },
       {
         "text": "Hälsoprogram garanterar att ingen anställd blir sjuk.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten talar om lägre sjukfrånvaro men säger inget om en garanti att ingen blir sjuk. Det går inte att avgöra."
+        "explanation": "Texten talar om lägre sjukfrånvaro men säger inget om en garanti att ingen blir sjuk. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "En studie från Karolinska Institutet visar att arbetsplatser med omfattande hälsoprogram har 27 procent lägre sjukfrånvaro än genomsnittet."
       }
     ]
   },
@@ -299,22 +405,34 @@
       {
         "text": "GDPR-böter kan uppgå till fyra procent av ett företags globala årsomsättning.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att böterna kan uppgå till fyra procent av global årsomsättning. Påståendet följer direkt."
+        "explanation": "Texten säger uttryckligen att böterna kan uppgå till fyra procent av global årsomsättning. Påståendet följer direkt.",
+        "stod": [
+          "Företag som bryter mot reglerna riskerar böter på upp till fyra procent av global årsomsättning eller 20 miljoner euro, beroende på vilket belopp som är högst."
+        ]
       },
       {
         "text": "Majoriteten av konsumenter förstår sina rättigheter under GDPR.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att endast 40 procent av konsumenterna förstår sina rättigheter, alltså en minoritet. 'Majoriteten' motsägs av siffran."
+        "explanation": "Texten säger att endast 40 procent av konsumenterna förstår sina rättigheter, alltså en minoritet. 'Majoriteten' motsägs av siffran.",
+        "stod": [
+          "En undersökning visar dock att endast 40 procent av konsumenter faktiskt förstår sina rättigheter under GDPR."
+        ]
       },
       {
         "text": "Alla företag ser dataskydd som en konkurrensfördel.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att 'vissa' företag ser dataskydd som en konkurrensfördel, inte alla. Vad övriga företag tycker går inte att avgöra ur texten."
+        "explanation": "Texten säger att 'vissa' företag ser dataskydd som en konkurrensfördel, inte alla. Vad övriga företag tycker går inte att avgöra ur texten.",
+        "stod": [],
+        "narmast": "Vissa företag ser detta som en konkurrensfördel och marknadsför aktivt sin starka dataskyddspolicy."
       },
       {
         "text": "Privacy by design innebär att dataskydd integreras från början i systemutveckling.",
         "correctAnswer": "true",
-        "explanation": "Texten förklarar att privacy by design innebär att dataskydd integreras i utvecklingsprocessen från start istället för som efterhandskontroll. Påståendet följer direkt."
+        "explanation": "Texten förklarar att privacy by design innebär att dataskydd integreras i utvecklingsprocessen från start istället för som efterhandskontroll. Påståendet följer direkt.",
+        "stod": [
+          "Företag måste nu designa sina system med \"privacy by design\"-principer från start.",
+          "Detta innebär att dataskydd inte längre kan ses som en efterhandskontroll utan måste integreras i utvecklingsprocessen."
+        ]
       }
     ]
   },
@@ -328,22 +446,34 @@
       {
         "text": "Servant leadership ger högre teamprestation än command-and-control enligt forskning.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att ledare som utvecklar sina medarbetare uppnår 25 procent högre teamprestation än de med command-and-control-stilar. Påståendet följer direkt."
+        "explanation": "Texten säger att ledare som utvecklar sina medarbetare uppnår 25 procent högre teamprestation än de med command-and-control-stilar. Påståendet följer direkt.",
+        "stod": [
+          "Forskning från Center for Creative Leadership visar att ledare som fokuserar på att utveckla sina medarbetare uppnår 25 procent högre teamprestation än de med traditionella command-and-control-stilar."
+        ]
       },
       {
         "text": "Emotional intelligence har fem komponenter enligt Daniel Goleman.",
         "correctAnswer": "true",
-        "explanation": "Texten räknar upp Golemans fem komponenter: självmedvetenhet, självreglering, motivation, empati och social kompetens. Påståendet följer direkt."
+        "explanation": "Texten räknar upp Golemans fem komponenter: självmedvetenhet, självreglering, motivation, empati och social kompetens. Påståendet följer direkt.",
+        "stod": [
+          "Daniel Golemans forskning identifierade fem komponenter av emotional intelligence: självmedvetenhet, självreglering, motivation, empati och social kompetens."
+        ]
       },
       {
         "text": "Traditionellt ledarskap är alltid sämre än moderna ledarskapsmetoder.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att traditionellt ledarskap fortfarande kan vara effektivt i krissituationer och att ingen ledarstil är universellt bäst. 'Alltid sämre' motsägs."
+        "explanation": "Texten säger att traditionellt ledarskap fortfarande kan vara effektivt i krissituationer och att ingen ledarstil är universellt bäst. 'Alltid sämre' motsägs.",
+        "stod": [
+          "Samtidigt visar studier att traditionellt ledarskap fortfarande kan vara effektivt i krisituationer där snabba beslut krävs.",
+          "Det verkar inte finnas en universellt bästa ledarstil utan snarare en situationsanpassad approach."
+        ]
       },
       {
         "text": "Alla företag använder servant-leadership-modeller idag.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver ett skifte mot servant leadership men säger inget om att alla företag använder modellen idag. Det går inte att avgöra."
+        "explanation": "Texten beskriver ett skifte mot servant leadership men säger inget om att alla företag använder modellen idag. Det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Moderna ledarskapsmetoder har skiftat från hierarkiska, top-down-strukturer till mer kollaborativa och servant-leadership-modeller."
       }
     ]
   },
@@ -357,22 +487,33 @@
       {
         "text": "Verkstadsföretaget kortade ner upplärningstiden efter att ha infört en fadderfunktion.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att upplärningstiden förkortades från fyra månader till sex veckor 'efter att en fadderfunktion infördes'. Påståendet följer direkt."
+        "explanation": "Texten säger uttryckligen att upplärningstiden förkortades från fyra månader till sex veckor 'efter att en fadderfunktion infördes'. Påståendet följer direkt.",
+        "stod": [
+          "På ett verkstadsföretag i Mellansverige förkortades upplärningstiden från fyra månader till sex veckor efter att en fadderfunktion infördes."
+        ]
       },
       {
         "text": "Alla företag prioriterar en strukturerad introduktion av nyanställda.",
         "correctAnswer": "false",
-        "explanation": "Texten säger tvärtom att 'många företag underskattar' introduktionsperioden och låter nyanställda klara sig själva. Påståendet motsägs alltså."
+        "explanation": "Texten säger tvärtom att 'många företag underskattar' introduktionsperioden och låter nyanställda klara sig själva. Påståendet motsägs alltså.",
+        "stod": [
+          "Många företag underskattar dock denna första period och låter nya medarbetare klara sig på egen hand efter någon enstaka introduktionsdag."
+        ]
       },
       {
         "text": "Faddern på verkstadsföretaget hade själv arbetat på företaget i minst fem år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver faddern som en 'erfaren kollega' men säger ingenting om hur många år. Det går inte att avgöra utifrån informationen."
+        "explanation": "Texten beskriver faddern som en 'erfaren kollega' men säger ingenting om hur många år. Det går inte att avgöra utifrån informationen.",
+        "stod": [],
+        "narmast": "Varje nyanställd fick en erfaren kollega som följde upp arbetet veckovis under de första två månaderna."
       },
       {
         "text": "Personalavdelningen följer upp varje introduktion med ett samtal efter tre månader.",
         "correctAnswer": "true",
-        "explanation": "Det står ordagrant att personalavdelningen 'följer upp varje introduktion med ett samtal efter tre månader'. Påståendet stöds direkt av texten."
+        "explanation": "Det står ordagrant att personalavdelningen 'följer upp varje introduktion med ett samtal efter tre månader'. Påståendet stöds direkt av texten.",
+        "stod": [
+          "Personalavdelningen följer upp varje introduktion med ett samtal efter tre månader för att fånga upp eventuella problem tidigt."
+        ]
       }
     ]
   },
@@ -386,22 +527,32 @@
       {
         "text": "Värdebaserad prissättning utgår från tillverkningskostnaden plus en marginal.",
         "correctAnswer": "false",
-        "explanation": "Texten kopplar den beskrivningen till kostnadsbaserad prissättning. Värdebaserad prissättning utgår istället från vad kunden är villig att betala, så påståendet är felaktigt."
+        "explanation": "Texten kopplar den beskrivningen till kostnadsbaserad prissättning. Värdebaserad prissättning utgår istället från vad kunden är villig att betala, så påståendet är felaktigt.",
+        "stod": [
+          "Kostnadsbaserad prissättning utgår från tillverkningskostnaden plus en bestämd marginal, medan värdebaserad prissättning istället tar fasta på vad kunden är villig att betala."
+        ]
       },
       {
         "text": "Mjukvaruföretaget ökade intäkten per kund efter bytet av prisstrategi.",
         "correctAnswer": "true",
-        "explanation": "Det står att företaget 'ökade sin genomsnittliga intäkt per kund med 35 procent' efter övergången till värdebaserad prissättning. Påståendet följer direkt."
+        "explanation": "Det står att företaget 'ökade sin genomsnittliga intäkt per kund med 35 procent' efter övergången till värdebaserad prissättning. Påståendet följer direkt.",
+        "stod": [
+          "Ett mjukvaruföretag som gick över från kostnadsbaserad till värdebaserad prissättning ökade sin genomsnittliga intäkt per kund med 35 procent under det första året."
+        ]
       },
       {
         "text": "Mjukvaruföretaget tappade kunder i samband med prishöjningen.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner ingenting om att kunder försvann i samband med övergången. Det går varken att bekräfta eller motsäga."
+        "explanation": "Texten nämner ingenting om att kunder försvann i samband med övergången. Det går varken att bekräfta eller motsäga.",
+        "stod": []
       },
       {
         "text": "Större bolag värderade vissa funktioner högre än mindre kunder gjorde.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att företaget upptäckte att 'större bolag värderade vissa funktioner mycket högre än mindre kunder'. Påståendet stöds direkt."
+        "explanation": "Texten säger uttryckligen att företaget upptäckte att 'större bolag värderade vissa funktioner mycket högre än mindre kunder'. Påståendet stöds direkt.",
+        "stod": [
+          "Företaget upptäckte att större bolag värderade vissa funktioner mycket högre än mindre kunder och kunde därför införa differentierade prisnivåer."
+        ]
       }
     ]
   },
@@ -415,22 +566,32 @@
       {
         "text": "Förebyggande underhåll innebär att delar byts ut vid fasta intervall oavsett skick.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver fasta intervall som det traditionella schemat och säger att förebyggande underhåll skiljer sig från detta genom att utgå från sensordata. Påståendet blandar ihop de två och är fel."
+        "explanation": "Texten beskriver fasta intervall som det traditionella schemat och säger att förebyggande underhåll skiljer sig från detta genom att utgå från sensordata. Påståendet blandar ihop de två och är fel.",
+        "stod": [
+          "Detta kallas förebyggande underhåll och skiljer sig från det traditionella schemat där delar byts ut vid fasta intervall oavsett skick."
+        ]
       },
       {
         "text": "Pappersfabriken minskade antalet oplanerade stopp efter att sensorer installerats.",
         "correctAnswer": "true",
-        "explanation": "Det står att fabriken 'minskade antalet oplanerade stopp med ungefär hälften under två år' efter installationen. Påståendet följer direkt av texten."
+        "explanation": "Det står att fabriken 'minskade antalet oplanerade stopp med ungefär hälften under två år' efter installationen. Påståendet följer direkt av texten.",
+        "stod": [
+          "En pappersfabrik som installerade sensorer på sina kritiska maskiner minskade antalet oplanerade stopp med ungefär hälften under två år."
+        ]
       },
       {
         "text": "Att underhållspersonalen kan tolka data är en förutsättning för att systemet ska fungera väl.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att 'en förutsättning för att lyckas är att underhållspersonalen får utbildning i att tolka den data som systemet genererar'. Påståendet stöds direkt."
+        "explanation": "Texten säger att 'en förutsättning för att lyckas är att underhållspersonalen får utbildning i att tolka den data som systemet genererar'. Påståendet stöds direkt.",
+        "stod": [
+          "En förutsättning för att lyckas är att underhållspersonalen får utbildning i att tolka den data som systemet genererar."
+        ]
       },
       {
         "text": "Pappersfabriken sa upp delar av underhållspersonalen efter att sensorerna installerades.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner ingenting om uppsägningar av personal. Det går inte att avgöra utifrån informationen som ges."
+        "explanation": "Texten nämner ingenting om uppsägningar av personal. Det går inte att avgöra utifrån informationen som ges.",
+        "stod": []
       }
     ]
   },
@@ -444,22 +605,32 @@
       {
         "text": "Företag med rörlig ränta påverkas snabbare av en räntehöjning än de med bunden ränta.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att höjningen särskilt gäller företag med rörlig ränta, medan de med bunden ränta 'skyddas tills bindningstiden löper ut'. Det innebär att rörlig ränta slår igenom snabbare."
+        "explanation": "Texten säger att höjningen särskilt gäller företag med rörlig ränta, medan de med bunden ränta 'skyddas tills bindningstiden löper ut'. Det innebär att rörlig ränta slår igenom snabbare.",
+        "stod": [
+          "Detta gäller särskilt företag med rörlig ränta, medan de som bundit räntan på längre löptider skyddas tills bindningstiden löper ut."
+        ]
       },
       {
         "text": "Räntenivån är den enda faktor som avgör företagens investeringsvilja.",
         "correctAnswer": "false",
-        "explanation": "Texten säger uttryckligen att räntan 'bara är en av många faktorer' och listar bland annat efterfrågan och arbetskraft. Påståendet motsägs direkt."
+        "explanation": "Texten säger uttryckligen att räntan 'bara är en av många faktorer' och listar bland annat efterfrågan och arbetskraft. Påståendet motsägs direkt.",
+        "stod": [
+          "Räntenivån är dock bara en av många faktorer som påverkar investeringsviljan."
+        ]
       },
       {
         "text": "Skuldsatta bolag minskade i genomsnitt sina investeringar mer än bolag med låg skuldsättning under perioden.",
         "correctAnswer": "true",
-        "explanation": "Undersökningen i texten visade just att 'skuldsatta bolag i genomsnitt minskade sina investeringar mer än bolag med låg skuldsättning'. Påståendet stöds direkt."
+        "explanation": "Undersökningen i texten visade just att 'skuldsatta bolag i genomsnitt minskade sina investeringar mer än bolag med låg skuldsättning'. Påståendet stöds direkt.",
+        "stod": [
+          "En företagsekonomisk undersökning visade att skuldsatta bolag i genomsnitt minskade sina investeringar mer än bolag med låg skuldsättning under perioden."
+        ]
       },
       {
         "text": "Centralbanken kommer att sänka styrräntan inom det närmaste året.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger ingenting om framtida räntebeslut, bara om effekterna av tidigare höjningar. Påståendet går inte att avgöra utifrån texten."
+        "explanation": "Texten säger ingenting om framtida räntebeslut, bara om effekterna av tidigare höjningar. Påståendet går inte att avgöra utifrån texten.",
+        "stod": []
       }
     ]
   },
@@ -473,22 +644,32 @@
       {
         "text": "Försäkringsbolaget flyttade samtliga sina system till molnet.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att vissa system med särskilt höga krav 'behölls medvetet på egna servrar'. Alltså flyttades inte samtliga system, och påståendet är fel."
+        "explanation": "Texten säger att vissa system med särskilt höga krav 'behölls medvetet på egna servrar'. Alltså flyttades inte samtliga system, och påståendet är fel.",
+        "stod": [
+          "Säkerhetsavdelningen genomförde en grundlig granskning innan känsliga kunddata flyttades, och vissa system med särskilt höga krav behölls medvetet på egna servrar."
+        ]
       },
       {
         "text": "Bolagets IT-kostnader steg tillfälligt under övergången till molnet.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att kostnaderna under första halvåret 'steg tillfälligt eftersom de gamla systemen kördes parallellt med de nya'. Påståendet följer direkt."
+        "explanation": "Texten säger att kostnaderna under första halvåret 'steg tillfälligt eftersom de gamla systemen kördes parallellt med de nya'. Påståendet följer direkt.",
+        "stod": [
+          "Under det första halvåret steg kostnaderna tillfälligt eftersom de gamla systemen kördes parallellt med de nya under övergången."
+        ]
       },
       {
         "text": "Molnleverantörens datacenter låg i samma land som försäkringsbolaget.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger ingenting om var leverantörens datacenter är placerade. Det går inte att avgöra utifrån informationen."
+        "explanation": "Texten säger ingenting om var leverantörens datacenter är placerade. Det går inte att avgöra utifrån informationen.",
+        "stod": []
       },
       {
         "text": "Bolaget säkrade i avtalet en möjlighet att byta leverantör i framtiden.",
         "correctAnswer": "true",
-        "explanation": "Det står att bolaget 'förhandlade in villkor som gjorde det möjligt att flytta data till en annan leverantör'. Påståendet stöds direkt av texten."
+        "explanation": "Det står att bolaget 'förhandlade in villkor som gjorde det möjligt att flytta data till en annan leverantör'. Påståendet stöds direkt av texten.",
+        "stod": [
+          "Bolaget förhandlade därför in villkor som gjorde det möjligt att flytta data till en annan leverantör om samarbetet skulle avslutas."
+        ]
       }
     ]
   },
@@ -502,22 +683,32 @@
       {
         "text": "Konsultbolagets medarbetare upplevde målen som tydligare efter övergången till kontinuerlig feedback.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att bolaget rapporterade att 'medarbetarna upplevde målen som tydligare' efter att modellen infördes. Påståendet följer direkt."
+        "explanation": "Texten säger att bolaget rapporterade att 'medarbetarna upplevde målen som tydligare' efter att modellen infördes. Påståendet följer direkt.",
+        "stod": [
+          "Ett konsultbolag som införde denna modell rapporterade att medarbetarna upplevde målen som tydligare och att missförstånd kunde redas ut tidigare."
+        ]
       },
       {
         "text": "Samtliga chefer på konsultbolaget var positiva till de täta avstämningarna.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att 'en del chefer tyckte att de täta samtalen tog för mycket tid'. Att alla skulle varit positiva motsägs alltså."
+        "explanation": "Texten säger att 'en del chefer tyckte att de täta samtalen tog för mycket tid'. Att alla skulle varit positiva motsägs alltså.",
+        "stod": [
+          "Samtidigt visade en intern utvärdering att en del chefer tyckte att de täta samtalen tog för mycket tid från det operativa arbetet."
+        ]
       },
       {
         "text": "Enligt forskningen i texten betyder kvaliteten på återkopplingen ofta mer än hur ofta den ges.",
         "correctAnswer": "true",
-        "explanation": "Det står ordagrant att forskningen pekar på att 'kvaliteten i återkopplingen ofta betyder mer än hur ofta den ges'. Påståendet stöds direkt."
+        "explanation": "Det står ordagrant att forskningen pekar på att 'kvaliteten i återkopplingen ofta betyder mer än hur ofta den ges'. Påståendet stöds direkt.",
+        "stod": [
+          "Forskning på området pekar på att kvaliteten i återkopplingen ofta betyder mer än hur ofta den ges."
+        ]
       },
       {
         "text": "Konsultbolaget kommer att återgå till årliga utvecklingssamtal nästa år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver bara att bolaget infört och utvecklat den nya modellen, inget om framtida planer på att återgå. Påståendet går inte att avgöra."
+        "explanation": "Texten beskriver bara att bolaget infört och utvecklat den nya modellen, inget om framtida planer på att återgå. Påståendet går inte att avgöra.",
+        "stod": []
       }
     ]
   },
@@ -531,22 +722,33 @@
       {
         "text": "Produktiviteten i flera svenska bolag steg när pendlingstiden försvann.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att flera svenska bolag rapporterade att medarbetarna fick mer gjort när pendlingstiden försvann och avbrotten minskade."
+        "explanation": "Texten anger att flera svenska bolag rapporterade att medarbetarna fick mer gjort när pendlingstiden försvann och avbrotten minskade.",
+        "stod": [
+          "Tvärtom rapporterade flera svenska bolag att medarbetarna fick mer gjort när pendlingstiden försvann och avbrotten på kontoret minskade."
+        ]
       },
       {
         "text": "Nyanställda hade lättare än andra att komma in i gemenskapen vid distansarbete.",
         "correctAnswer": "false",
-        "explanation": "Texten säger tvärtom att nyanställda hade särskilt svårt att komma in i gemenskapen."
+        "explanation": "Texten säger tvärtom att nyanställda hade särskilt svårt att komma in i gemenskapen.",
+        "stod": [
+          "Nyanställda hade särskilt svårt att komma in i gemenskapen, eftersom de spontana samtalen i fikarummet aldrig ägde rum digitalt."
+        ]
       },
       {
         "text": "Hybridmodellen kommer att bli den dominerande arbetsformen i Sverige inom fem år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver att modellen infördes och att det återstår att se hur den fungerar, men säger inget om någon framtida dominans eller tidsram."
+        "explanation": "Texten beskriver att modellen infördes och att det återstår att se hur den fungerar, men säger inget om någon framtida dominans eller tidsram.",
+        "stod": [],
+        "narmast": "Hur väl modellen fungerar på lång sikt återstår dock att se, och flera personalchefer efterlyste tydligare riktlinjer från ledningen."
       },
       {
         "text": "Att leda en grupp på distans ställde enligt texten högre krav på tydlighet kring mål.",
         "correctAnswer": "true",
-        "explanation": "Texten skriver att leda en grupp man sällan ser kräver mer tydlighet kring mål och förväntningar samt fler avstämningar."
+        "explanation": "Texten skriver att leda en grupp man sällan ser kräver mer tydlighet kring mål och förväntningar samt fler avstämningar.",
+        "stod": [
+          "Att leda en grupp man sällan ser kräver mer tydlighet kring mål och förväntningar, och fler avstämningar än tidigare."
+        ]
       }
     ]
   },
@@ -560,22 +762,33 @@
       {
         "text": "De rörliga bolåneräntorna steg snabbt efter att styrräntan höjdes.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att de rörliga bolåneräntorna följde snabbt efter när centralbanken höjde styrräntan."
+        "explanation": "Texten anger att de rörliga bolåneräntorna följde snabbt efter när centralbanken höjde styrräntan.",
+        "stod": [
+          "När inflationen tog fart höjde centralbanken styrräntan i flera steg, och de rörliga bolåneräntorna följde snabbt efter."
+        ]
       },
       {
         "text": "Hushåll med bunden ränta drabbades omedelbart av höjningen.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att den som bundit räntan inte märkte något förrän bindningstiden löpte ut, alltså inte omedelbart."
+        "explanation": "Texten säger att den som bundit räntan inte märkte något förrän bindningstiden löpte ut, alltså inte omedelbart.",
+        "stod": [
+          "Den som bundit sin ränta på flera år märkte inget förrän bindningstiden löpte ut, medan den med rörlig ränta drabbades omedelbart."
+        ]
       },
       {
         "text": "Samtliga ekonomer var överens om att höjningarna borde fortsätta länge.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver att ekonomer var oeniga om hur länge de höga räntorna behövde ligga kvar."
+        "explanation": "Texten beskriver att ekonomer var oeniga om hur länge de höga räntorna behövde ligga kvar.",
+        "stod": [
+          "Ekonomer var oeniga om hur länge de höga räntorna behövde ligga kvar."
+        ]
       },
       {
         "text": "Inflationen kommer att nå centralbankens mål inom ett år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner att centralbanken ville pressa tillbaka inflationen mot målet men säger inget om när målet skulle nås."
+        "explanation": "Texten nämner att centralbanken ville pressa tillbaka inflationen mot målet men säger inget om när målet skulle nås.",
+        "stod": [],
+        "narmast": "Genom att minska efterfrågan i ekonomin ville centralbanken pressa tillbaka inflationen mot målet."
       }
     ]
   },
@@ -589,22 +802,33 @@
       {
         "text": "Antalet felplock minskade markant efter att lagersystemet införts.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att bolaget uppgav att antalet felplock minskade markant efter införandet."
+        "explanation": "Texten anger att bolaget uppgav att antalet felplock minskade markant efter införandet.",
+        "stod": [
+          "Bolaget uppgav att antalet felplock minskade markant efter införandet, eftersom systemet läste av varje artikel med en streckkod innan den lämnade lagret."
+        ]
       },
       {
         "text": "Bolaget sade upp personal i samband med att robotarna infördes.",
         "correctAnswer": "false",
-        "explanation": "Texten säger uttryckligen att inga uppsägningar genomfördes i samband med införandet."
+        "explanation": "Texten säger uttryckligen att inga uppsägningar genomfördes i samband med införandet.",
+        "stod": [
+          "Inga uppsägningar genomfördes i samband med införandet."
+        ]
       },
       {
         "text": "Robotarna fungerade helt felfritt redan från första dagen.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver att robotarna stod stilla flera gånger på grund av mjukvarufel under de första månaderna."
+        "explanation": "Texten beskriver att robotarna stod stilla flera gånger på grund av mjukvarufel under de första månaderna.",
+        "stod": [
+          "Under de första månaderna stod robotarna stilla flera gånger på grund av mjukvarufel, vilket ledde till förseningar."
+        ]
       },
       {
         "text": "Investeringen kommer att bli lönsam inom två år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att lönsamheten berodde på hur volymerna växte men ger ingen uppgift om tidsram eller utfall."
+        "explanation": "Texten säger att lönsamheten berodde på hur volymerna växte men ger ingen uppgift om tidsram eller utfall.",
+        "stod": [],
+        "narmast": "Hur lönsam investeringen skulle bli på sikt berodde enligt ledningen på hur snabbt volymerna fortsatte att växa."
       }
     ]
   },
@@ -618,22 +842,33 @@
       {
         "text": "Vissa företag har ersatt det personliga brevet med arbetsprov.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att vissa företag infört arbetsprov där sökande får lösa en uppgift som liknar det dagliga arbetet."
+        "explanation": "Texten anger att vissa företag infört arbetsprov där sökande får lösa en uppgift som liknar det dagliga arbetet.",
+        "stod": [
+          "Istället har vissa företag infört arbetsprov, där sökande får lösa en uppgift som liknar det dagliga arbetet."
+        ]
       },
       {
         "text": "Arbetsprov tar mindre tid för rekryterarna än det personliga brevet.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att arbetsprov kräver mer tid av både kandidater och rekryterare."
+        "explanation": "Texten säger att arbetsprov kräver mer tid av både kandidater och rekryterare.",
+        "stod": [
+          "Samtidigt kräver arbetsprov mer tid av både kandidater och rekryterare, vilket kan avskräcka sökande som redan har ett jobb."
+        ]
       },
       {
         "text": "Hos personalchefens företag ökade antalet ansökningar efter bytet av metod.",
         "correctAnswer": "false",
-        "explanation": "Texten anger att antalet ansökningar minskade men att kvaliteten upplevdes som högre."
+        "explanation": "Texten anger att antalet ansökningar minskade men att kvaliteten upplevdes som högre.",
+        "stod": [
+          "En personalchef som bytt metod berättade att antalet ansökningar minskade, men att kvaliteten på dem som faktiskt sökte upplevdes som högre."
+        ]
       },
       {
         "text": "Nyanställda som rekryterades via arbetsprov stannade längre på företaget.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att företaget ännu inte mätt detta utan bara planerade att följa upp det."
+        "explanation": "Texten säger att företaget ännu inte mätt detta utan bara planerade att följa upp det.",
+        "stod": [],
+        "narmast": "Företaget hade ännu inte mätt om de nyanställda stannade längre än tidigare, men planerade att följa upp detta."
       }
     ]
   },
@@ -647,22 +882,33 @@
       {
         "text": "Ett lönsamt företag kan ändå hamna i kris om kunderna betalar sent.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att ett företag kan vara lönsamt på pappret men ändå hamna i kris om kunderna betalar sent och leverantörerna kräver förskott."
+        "explanation": "Texten anger att ett företag kan vara lönsamt på pappret men ändå hamna i kris om kunderna betalar sent och leverantörerna kräver förskott.",
+        "stod": [
+          "Ett företag kan vara lönsamt på pappret men ändå hamna i kris om kunderna betalar sent och leverantörerna kräver betalning i förskott."
+        ]
       },
       {
         "text": "Factoring innebär att företaget får vänta längre på sina pengar.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver factoring som att en bank köper fakturorna och betalar ut pengarna direkt mot en avgift, alltså snabbare."
+        "explanation": "Texten beskriver factoring som att en bank köper fakturorna och betalar ut pengarna direkt mot en avgift, alltså snabbare.",
+        "stod": [
+          "Andra använder factoring, där en bank köper fakturorna och betalar ut pengarna direkt mot en avgift."
+        ]
       },
       {
         "text": "Det finns en generell bufferstorlek som passar alla branscher.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att hur stor buffert som är lagom varierar mellan branscher och att något generellt svar inte går att ge."
+        "explanation": "Texten säger att hur stor buffert som är lagom varierar mellan branscher och att något generellt svar inte går att ge.",
+        "stod": [
+          "Hur stor buffert som är lagom varierar mellan branscher, och något generellt svar går inte att ge."
+        ]
       },
       {
         "text": "Factoring är den mest använda metoden bland svenska småföretag.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner factoring som en metod men säger inget om hur vanlig den är jämfört med andra."
+        "explanation": "Texten nämner factoring som en metod men säger inget om hur vanlig den är jämfört med andra.",
+        "stod": [],
+        "narmast": "Andra använder factoring, där en bank köper fakturorna och betalar ut pengarna direkt mot en avgift."
       }
     ]
   },
@@ -676,22 +922,33 @@
       {
         "text": "De stora molnleverantörerna investerar mer i säkerhet än ett enskilt medelstort företag har råd med.",
         "correctAnswer": "true",
-        "explanation": "Texten anger uttryckligen att de stora molnleverantörerna investerar betydligt mer i säkerhet än vad ett enskilt medelstort företag har råd med."
+        "explanation": "Texten anger uttryckligen att de stora molnleverantörerna investerar betydligt mer i säkerhet än vad ett enskilt medelstort företag har råd med.",
+        "stod": [
+          "De stora molnleverantörerna investerar betydligt mer i säkerhet än vad ett enskilt medelstort företag har råd med, och deras anläggningar bevakas dygnet runt."
+        ]
       },
       {
         "text": "De flesta intrång beror på brister hos molnleverantören själv.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att de flesta intrång inte beror på brister hos leverantören utan på felkonfigurationer från kundens sida."
+        "explanation": "Texten säger att de flesta intrång inte beror på brister hos leverantören utan på felkonfigurationer från kundens sida.",
+        "stod": [
+          "De flesta intrång beror inte på brister hos leverantören utan på felkonfigurationer från kundens sida."
+        ]
       },
       {
         "text": "Att behålla känsliga system lokalt är alltid säkrare än att använda molnet.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att om den strategin är klokare beror på den enskilda verksamhetens behov och tar inte ställning generellt."
+        "explanation": "Texten säger att om den strategin är klokare beror på den enskilda verksamhetens behov och tar inte ställning generellt.",
+        "stod": [],
+        "narmast": "Om den strategin är klokare än molnet beror på den enskilda verksamhetens behov."
       },
       {
         "text": "Kunden ansvarar enligt texten för hur molntjänsterna ställs in och vem som får tillgång.",
         "correctAnswer": "true",
-        "explanation": "Texten skriver att ansvaret är delat och att kunden ansvarar för hur tjänsterna ställs in och vem som får tillgång."
+        "explanation": "Texten skriver att ansvaret är delat och att kunden ansvarar för hur tjänsterna ställs in och vem som får tillgång.",
+        "stod": [
+          "Leverantören säkrar grundinfrastrukturen, men kunden ansvarar för hur tjänsterna ställs in och vem som får tillgång."
+        ]
       }
     ]
   }
