@@ -4083,9 +4083,9 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-remsa > li { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
 .prov3-mini-ruta { position: relative; width: 100%; aspect-ratio: 1; max-width: 92px; border-radius: 14px; background: var(--sess-brade); box-shadow: 0 3px 0 var(--sess-brade-kant); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--sess-brade-ink); padding: 6px; }
 .prov3-mini-ruta > b { font: 700 18px/1 var(--font-sess-display); }
-.prov3-mini-ruta > i { position: absolute; right: 4px; bottom: 4px; width: 20px; height: 20px; border-radius: 7px; background: var(--koppar-ljus, #F4B98A); color: var(--koppar-text, #1A1206); display: flex; align-items: center; justify-content: center; }
+.prov3-mini-ruta > i { position: absolute; right: 4px; bottom: 4px; width: 20px; height: 20px; border-radius: 7px; background: var(--koppar-ljus); color: var(--koppar-text); display: flex; align-items: center; justify-content: center; }
 .prov3-mini-ruta .pub-bricka-g { width: 100%; height: 100%; }
-.prov3-remsa > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant, #F0C7C2), 0 3px 0 var(--sess-brade-kant); }
+.prov3-remsa > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant), 0 3px 0 var(--sess-brade-kant); }
 .prov3-remsa > li[data-oppen] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--koppar), 0 3px 0 var(--sess-brade-kant); }
 .prov3-remsa small { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; line-height: 18px; color: var(--vagg-mjuk); }
 .prov3-remsa small > b { font: 700 14px/18px var(--font-sess-display); color: var(--vagg-ink); }
@@ -4152,13 +4152,13 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-niva-ord > span:first-child, .prov3-niva-ord > span:last-child { font-weight: 600; color: var(--vagg-ink); }
 .prov3-niva-band { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; height: 12px; margin: 8px 0 6px; }
 .prov3-niva-band > i { border-radius: 6px; background: var(--vagg-2); }
-.prov3-niva-band > i[data-prov] { background: var(--koppar-djup, #C4621F); }
-.prov3-niva-band > u { position: absolute; right: 12%; top: -12px; width: 34px; height: 34px; border-radius: 9px; border: 2px dashed var(--koppar); background: var(--vagg); color: var(--koppar-ljus, #F4B98A); font: 800 16px/30px var(--font-sess-display); text-align: center; text-decoration: none; }
+.prov3-niva-band > i[data-prov] { background: var(--koppar-djup); }
+.prov3-niva-band > u { position: absolute; right: 12%; top: -12px; width: 34px; height: 34px; border-radius: 9px; border: 2px dashed var(--koppar); background: var(--vagg); color: var(--koppar-ljus); font: 800 16px/30px var(--font-sess-display); text-align: center; text-decoration: none; }
 
 .prov3-ark { transition: transform 240ms ease-out, opacity 240ms ease-out; }
 .prov3-ark[data-dold] { transform: translateY(110%); opacity: 0; pointer-events: none; }
 .prov3-ark-handtag { align-self: center; width: 40px; height: 4px; border-radius: 2px; background: var(--vagg-svag); }
-.prov3-ark-las { width: 40px; height: 40px; border-radius: 12px; background: var(--vagg-2); color: var(--koppar-ljus, #F4B98A); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.prov3-ark-las { width: 40px; height: 40px; border-radius: 12px; background: var(--vagg-2); color: var(--koppar-ljus); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
 /* Artikelns provruta: resultatet utan rubriker. */
 .prov3-art { background: var(--golv); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); padding: 16px; display: flex; flex-direction: column; gap: 14px; font-family: var(--font-sess-text); }
@@ -4183,10 +4183,10 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-panel-rad { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(var(--kol, 5), minmax(0, 1fr)); gap: 10px; }
 .prov3-panel-rad > li { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
 .prov3-chip { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 9px; border-radius: 9px; font-weight: 600; font-size: 12px; line-height: 14px; white-space: nowrap; background: var(--vagg-2); color: var(--vagg-ink); }
-.prov3-chip[data-chip="oppnas"] { color: var(--koppar-ljus, #F4B98A); }
-.prov3-panel-rad > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant, #F0C7C2), 0 3px 0 var(--sess-brade-kant); }
+.prov3-chip[data-chip="oppnas"] { color: var(--koppar-ljus); }
+.prov3-panel-rad > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant), 0 3px 0 var(--sess-brade-kant); }
 .prov3-rutnat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; width: 100%; height: 100%; }
-.prov3-rutnat > i { background: var(--sess-ruta, #FFFFFF); border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0; overflow: hidden; color: var(--sess-figur, #1B2246); }
+.prov3-rutnat > i { background: var(--sess-ruta); border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0; overflow: hidden; color: var(--sess-figur); }
 .prov3-rutnat > i[data-lucka] { background: var(--vagg-2); }
 .prov3-rutnat svg { width: 100%; height: 100%; padding: 8%; }
 .prov3-typmini { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 8px; background: var(--papper); color: var(--ink-1); overflow: hidden; }
@@ -4201,7 +4201,7 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-regpanel .prov3-panel-rad .prov3-mini-ruta { display: none; }
 .prov3-regpanel .prov3-chip { width: 34px; height: 34px; padding: 0; justify-content: center; border-radius: 10px; }
 .prov3-regpanel .prov3-chip-text { display: none; }
-.prov3-regpanel li[data-utfall="fel"] .prov3-chip { box-shadow: inset 0 0 0 2px var(--sess-fel-kant, #F0C7C2); }
+.prov3-regpanel li[data-utfall="fel"] .prov3-chip { box-shadow: inset 0 0 0 2px var(--sess-fel-kant); }
 .prov3-regpanel-under, .prov3-regpanel-loften { display: none; }
 .prov3-reg-efter { margin-top: 18px; }
 .prov3-reg-efter .prov3-loften { margin-top: 10px; }
@@ -4231,5 +4231,5 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-typkort > i { display: flex; align-items: center; justify-content: center; height: 52px; background: var(--vagg); color: var(--vagg-ink); }
 .prov3-typkort > i svg { width: 34px; height: 34px; }
 .prov3-typkort > span { padding: 8px 10px 10px; font-weight: 600; font-size: 13px; line-height: 16px; min-height: 44px; display: flex; align-items: center; }
-.prov3-typkort[aria-current="page"] { background: var(--koppar-mjuk, #FBE3D0); box-shadow: inset 0 0 0 2px var(--koppar), 0 3px 0 var(--koppar-djup, #C4621F); }
+.prov3-typkort[aria-current="page"] { background: var(--koppar-mjuk); box-shadow: inset 0 0 0 2px var(--koppar), 0 3px 0 var(--koppar-djup); }
 @media (prefers-reduced-motion: reduce) { .prov3-ark { transition: none; } .prov3-typkort { transition: none; } }

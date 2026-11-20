@@ -89,7 +89,7 @@ export function LoftesIkon({ id }: { id: 'forklaringar' | 'niva' | 'grund' }) {
         <path d="M13.5 9.5l3.5 6h-7z" fill="none" stroke="var(--ink-1)" strokeWidth="1.6" strokeLinejoin="round" />
         <circle cx="28" cy="12.5" r="3.2" fill="none" stroke="var(--ink-1)" strokeWidth="1.6" />
         <rect x="39.5" y="9.5" width="6" height="6" rx="1" fill="var(--sess-ratt-yta)" stroke="var(--sess-ratt)" strokeWidth="1.6" />
-        <rect x="8" y="24" width="40" height="4" rx="2" fill="var(--sess-indigo-mjuk, #b9c0ef)" />
+        <rect x="8" y="24" width="40" height="4" rx="2" fill="var(--sess-indigo-mjuk)" />
         <rect x="8" y="32" width="26" height="4" rx="2" fill="var(--vagg-mjuk)" opacity=".7" />
       </svg>
     )
