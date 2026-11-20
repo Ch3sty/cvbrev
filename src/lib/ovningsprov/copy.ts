@@ -134,7 +134,7 @@ export const RESULTAT = {
         : 'Både tiden och några av svaren drog ned. Genomgången visar vilka, och tempot under den var tiden tog slut.';
     }
     return svagast
-      ? `Det som skiljer nu är ${svagast.toLowerCase()}. Missarna står i genomgången.`
+      ? `Flest missar: ${svagast.toLowerCase()}. De står i genomgången.`
       : 'Alla rätt inom tiden. Nästa steg är ett nytt övningsprov i morgon, på kortare tid.';
   },
   genomgang: {
