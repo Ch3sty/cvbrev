@@ -9,22 +9,33 @@
       {
         "text": "Elever som använder digitala verktyg presterar bättre på test än de som inte gör det.",
         "correctAnswer": "true",
-        "explanation": "Texten slår fast att elever som använder digitala verktyg i genomsnitt presterar 15 procent bättre på standardiserade test jämfört med traditionella metoder, vilket direkt stöder påståendet."
+        "explanation": "Texten slår fast att elever som använder digitala verktyg i genomsnitt presterar 15 procent bättre på standardiserade test jämfört med traditionella metoder, vilket direkt stöder påståendet.",
+        "stod": [
+          "Studier visar att elever som använder digitala verktyg i genomsnitt presterar 15 procent bättre på standardiserade test jämfört med traditionella metoder."
+        ]
       },
       {
         "text": "Alla elever har tillgång till datorer hemma.",
         "correctAnswer": "false",
-        "explanation": "Påståendet motsägs av texten, som uttryckligen säger att inte alla elever har tillgång till datorer eller stabil internetuppkoppling hemma."
+        "explanation": "Påståendet motsägs av texten, som uttryckligen säger att inte alla elever har tillgång till datorer eller stabil internetuppkoppling hemma.",
+        "stod": [
+          "Inte alla elever har tillgång till datorer eller stabil internetuppkoppling hemma, vilket skapar en digital klyfta."
+        ]
       },
       {
         "text": "Digitalt lärande kommer att helt ersätta traditionell undervisning inom fem år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner inget om att digitalt lärande skulle ersätta traditionell undervisning, och beskriver tvärtom en hybridmodell. Tidsramen och totalersättningen går inte att avgöra ur texten."
+        "explanation": "Texten nämner inget om att digitalt lärande skulle ersätta traditionell undervisning, och beskriver tvärtom en hybridmodell. Tidsramen och totalersättningen går inte att avgöra ur texten.",
+        "stod": [],
+        "narmast": "Många skolor har därför börjat använda en hybridmodell som kombinerar digitala och fysiska inslag."
       },
       {
         "text": "Hybridmodeller kombinerar digitala och fysiska inslag i undervisningen.",
         "correctAnswer": "true",
-        "explanation": "Texten beskriver direkt att många skolor använder en hybridmodell som kombinerar digitala och fysiska inslag, så påståendet följer av texten."
+        "explanation": "Texten beskriver direkt att många skolor använder en hybridmodell som kombinerar digitala och fysiska inslag, så påståendet följer av texten.",
+        "stod": [
+          "Många skolor har därför börjat använda en hybridmodell som kombinerar digitala och fysiska inslag."
+        ]
       }
     ]
   },
@@ -38,17 +49,25 @@
       {
         "text": "Sjukskrivningar för psykisk ohälsa har ökat de senaste tio åren.",
         "correctAnswer": "true",
-        "explanation": "Enligt texten har antalet sjukskrivningar för psykisk ohälsa ökat med 70 procent de senaste tio åren, vilket bekräftar påståendet."
+        "explanation": "Enligt texten har antalet sjukskrivningar för psykisk ohälsa ökat med 70 procent de senaste tio åren, vilket bekräftar påståendet.",
+        "stod": [
+          "Enligt Folkhälsomyndigheten har antalet sjukskrivningar för psykisk ohälsa ökat med 70 procent de senaste tio åren."
+        ]
       },
       {
         "text": "Alla företag erbjuder tillgång till samtalsterapi för sina anställda.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner samtalsterapi som en möjlig åtgärd men säger inget om att alla företag faktiskt erbjuder det, så det går inte att avgöra."
+        "explanation": "Texten nämner samtalsterapi som en möjlig åtgärd men säger inget om att alla företag faktiskt erbjuder det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Åtgärder kan inkludera tillgång till samtalsterapi, stresshanteringskurser och flexibla arbetstider."
       },
       {
         "text": "Företag som investerar i mental hälsa har lägre sjukfrånvaro.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att företag som investerar i mental hälsa i genomsnitt ser 30 procent lägre sjukfrånvaro, vilket direkt stöder påståendet."
+        "explanation": "Texten anger att företag som investerar i mental hälsa i genomsnitt ser 30 procent lägre sjukfrånvaro, vilket direkt stöder påståendet.",
+        "stod": [
+          "Företag som investerar i mental hälsa ser i genomsnitt 30 procent lägre sjukfrånvaro och högre medarbetarnöjdhet."
+        ]
       },
       {
         "text": "Majoriteten av anställda känner sig bekväma att prata om mental ohälsa utan att chefen tar upp det först.",
@@ -67,22 +86,34 @@
       {
         "text": "Parisavtalet har som mål att begränsa uppvärmningen till under två grader.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att Parisavtalet satte som mål att begränsa uppvärmningen till under två grader Celsius, precis som påståendet säger."
+        "explanation": "Texten anger att Parisavtalet satte som mål att begränsa uppvärmningen till under två grader Celsius, precis som påståendet säger.",
+        "stod": [
+          "Parisavtalet från 2015 satte som mål att begränsa den globala uppvärmningen till under två grader Celsius jämfört med förindustriell nivå."
+        ]
       },
       {
         "text": "Transportsektorn står för mer än hälften av de globala utsläppen.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att transportsektorn står för ungefär 25 procent av utsläppen, alltså en fjärdedel och inte mer än hälften, så påståendet motsägs."
+        "explanation": "Texten säger att transportsektorn står för ungefär 25 procent av utsläppen, alltså en fjärdedel och inte mer än hälften, så påståendet motsägs.",
+        "stod": [
+          "Transportsektorn står för ungefär 25 procent av de globala koldioxidutsläppen."
+        ]
       },
       {
         "text": "Sverige har redan uppnått nettonollutsläpp.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver nettonollutsläpp som ett mål till år 2045, inte något Sverige redan uppnått, vilket motsäger påståendet."
+        "explanation": "Texten beskriver nettonollutsläpp som ett mål till år 2045, inte något Sverige redan uppnått, vilket motsäger påståendet.",
+        "stod": [
+          "Sverige har som mål att nå nettonollutsläpp till år 2045."
+        ]
       },
       {
         "text": "Förnybar energi är ofta billigare än fossila bränslen idag.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att förnybar energi nu ofta är billigare än fossila bränslen i många regioner, vilket direkt stöder påståendet."
+        "explanation": "Texten säger att förnybar energi nu ofta är billigare än fossila bränslen i många regioner, vilket direkt stöder påståendet.",
+        "stod": [
+          "Förnybar energi som sol- och vindkraft expanderar snabbt och är nu ofta billigare än fossila bränslen i många regioner."
+        ]
       }
     ]
   },
@@ -96,22 +127,33 @@
       {
         "text": "Mer än hälften av världens befolkning bor i städer idag.",
         "correctAnswer": "true",
-        "explanation": "Texten inleder med att över hälften av världens befolkning nu bor i städer, vilket bekräftar påståendet."
+        "explanation": "Texten inleder med att över hälften av världens befolkning nu bor i städer, vilket bekräftar påståendet.",
+        "stod": [
+          "Över hälften av världens befolkning bor nu i städer, och andelen förväntas öka till 68 procent till år 2050 enligt FN."
+        ]
       },
       {
         "text": "Städer täcker mer än tio procent av jordens yta.",
         "correctAnswer": "false",
-        "explanation": "Texten anger att städer täcker mindre än två procent av jordens yta, alltså inte mer än tio procent, så påståendet motsägs."
+        "explanation": "Texten anger att städer täcker mindre än två procent av jordens yta, alltså inte mer än tio procent, så påståendet motsägs.",
+        "stod": [
+          "Städer genererar över 80 procent av global BNP trots att de täcker mindre än två procent av jordens yta."
+        ]
       },
       {
         "text": "Alla växande städer har problem med luftföroreningar.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner luftföroreningar som ett vanligt problem i växande städer, men säger inget om att samtliga drabbas, så generaliseringen går inte att avgöra."
+        "explanation": "Texten nämner luftföroreningar som ett vanligt problem i växande städer, men säger inget om att samtliga drabbas, så generaliseringen går inte att avgöra.",
+        "stod": [],
+        "narmast": "Bostadsbrist, trafikstockningar och luftföroreningar är vanliga problem i växande städer."
       },
       {
         "text": "Singapore anses vara ett exempel på hållbar stadsutveckling.",
         "correctAnswer": "true",
-        "explanation": "Texten pekar ut Singapore och Köpenhamn som ledande exempel på hållbar stadsutveckling, vilket stöder påståendet."
+        "explanation": "Texten pekar ut Singapore och Köpenhamn som ledande exempel på hållbar stadsutveckling, vilket stöder påståendet.",
+        "stod": [
+          "Singapore och Köpenhamn anses vara ledande exempel på hållbar stadsutveckling."
+        ]
       }
     ]
   },
@@ -125,22 +167,35 @@
       {
         "text": "AI-system kan identifiera vissa sjukdomar lika bra som erfarna läkare.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att AI-system inom diagnostik kan identifiera vissa sjukdomar lika bra som erfarna läkare, precis som påståendet."
+        "explanation": "Texten säger att AI-system inom diagnostik kan identifiera vissa sjukdomar lika bra som erfarna läkare, precis som påståendet.",
+        "stod": [
+          "Inom diagnostik kan AI-system identifiera vissa sjukdomar lika bra som erfarna läkare genom att analysera medicinska bilder."
+        ]
       },
       {
         "text": "Alla experter är överens om att AI kommer leda till massarbetslöshet.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver delade uppfattningar: vissa varnar för massarbetslöshet medan andra menar att ny teknik historiskt skapat nya jobb, så enighet motsägs."
+        "explanation": "Texten beskriver delade uppfattningar: vissa varnar för massarbetslöshet medan andra menar att ny teknik historiskt skapat nya jobb, så enighet motsägs.",
+        "stod": [
+          "Vissa experter varnar för att AI kan leda till massarbetslöshet när automatisering ersätter mänskligt arbete.",
+          "Andra menar att ny teknik historiskt alltid skapat nya arbetstyper."
+        ]
       },
       {
         "text": "EU har redan implementerat fullständig lagstiftning för AI.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att EU arbetar med lagstiftning, inte att den redan är fullt implementerad, vilket motsäger påståendet."
+        "explanation": "Texten säger att EU arbetar med lagstiftning, inte att den redan är fullt implementerad, vilket motsäger påståendet.",
+        "stod": [
+          "EU arbetar med lagstiftning för att reglera AI-användning och säkerställa transparens."
+        ]
       },
       {
         "text": "Algoritmer kan förstärka samhälleliga fördomar.",
         "correctAnswer": "true",
-        "explanation": "Texten anger uttryckligen att algoritmer kan förstärka samhälleliga fördomar om träningsdata innehåller bias, vilket stöder påståendet."
+        "explanation": "Texten anger uttryckligen att algoritmer kan förstärka samhälleliga fördomar om träningsdata innehåller bias, vilket stöder påståendet.",
+        "stod": [
+          "Algoritmer kan förstärka samhälleliga fördomar om träningsdata innehåller bias."
+        ]
       }
     ]
   },
@@ -154,22 +209,34 @@
       {
         "text": "Streamingtjänster har över en miljard användare globalt.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att plattformar som Netflix och Spotify har över en miljard användare globalt, vilket bekräftar påståendet."
+        "explanation": "Texten säger att plattformar som Netflix och Spotify har över en miljard användare globalt, vilket bekräftar påståendet.",
+        "stod": [
+          "Netflix, Spotify och liknande plattformar har över en miljard användare globalt."
+        ]
       },
       {
         "text": "Traditionell TV har ökat i popularitet bland unga.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att traditionell linjär TV tappat tittare dramatiskt, särskilt bland yngre, vilket är motsatsen till påståendet."
+        "explanation": "Texten säger att traditionell linjär TV tappat tittare dramatiskt, särskilt bland yngre, vilket är motsatsen till påståendet.",
+        "stod": [
+          "Traditionell linjär TV har tappat tittare dramatiskt, särskilt bland yngre åldersgrupper."
+        ]
       },
       {
         "text": "Alla musikartister är nöjda med Spotifys ersättningsmodell.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att musikartister ofta kritiserar Spotifys låga ersättningar, vilket motsäger att alla skulle vara nöjda."
+        "explanation": "Texten säger att musikartister ofta kritiserar Spotifys låga ersättningar, vilket motsäger att alla skulle vara nöjda.",
+        "stod": [
+          "Musikartister kritiserar ofta de låga ersättningar som Spotify betalar per stream."
+        ]
       },
       {
         "text": "Filter bubbles kan begränsa exponering för nytt innehåll.",
         "correctAnswer": "true",
-        "explanation": "Texten förklarar att filter bubbles gör att människor främst exponeras för innehåll som bekräftar befintliga preferenser, vilket stöder att exponeringen för nytt innehåll begränsas."
+        "explanation": "Texten förklarar att filter bubbles gör att människor främst exponeras för innehåll som bekräftar befintliga preferenser, vilket stöder att exponeringen för nytt innehåll begränsas.",
+        "stod": [
+          "Detta har lett till fenomenet filter bubbles där människor främst exponeras för innehåll som bekräftar deras befintliga preferenser."
+        ]
       }
     ]
   },
@@ -183,22 +250,33 @@
       {
         "text": "Aktivt lärande är mer effektivt än passiv kunskapsöverföring enligt forskning.",
         "correctAnswer": "true",
-        "explanation": "Texten inleder med att pedagogisk forskning visar att aktivt lärande är mer effektivt än passiv kunskapsöverföring, precis som påståendet."
+        "explanation": "Texten inleder med att pedagogisk forskning visar att aktivt lärande är mer effektivt än passiv kunskapsöverföring, precis som påståendet.",
+        "stod": [
+          "Pedagogisk forskning visar att aktivt lärande är mer effektivt än passiv kunskapsöverföring."
+        ]
       },
       {
         "text": "Flipped classroom innebär att lektionstid ägnas åt teori och hemarbete åt tillämpning.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver flipped classroom tvärtom: teori studeras hemma och lektionstiden ägnas åt tillämpning, vilket motsäger påståendet."
+        "explanation": "Texten beskriver flipped classroom tvärtom: teori studeras hemma och lektionstiden ägnas åt tillämpning, vilket motsäger påståendet.",
+        "stod": [
+          "I flipped classroom-modellen studerar elever teori hemma via videolektioner medan lektionstiden ägnas åt tillämpning och diskussion."
+        ]
       },
       {
         "text": "Socioekonomisk bakgrund påverkar inte längre skolresultat.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att socioekonomisk bakgrund fortfarande påverkar skolresultat mer än pedagogisk metod, vilket motsäger påståendet."
+        "explanation": "Texten säger att socioekonomisk bakgrund fortfarande påverkar skolresultat mer än pedagogisk metod, vilket motsäger påståendet.",
+        "stod": [
+          "Socioekonomisk bakgrund påverkar dock fortfarande skolresultat mer än pedagogisk metod."
+        ]
       },
       {
         "text": "Alla länder har råd med små klasser i sina skolsystem.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten konstaterar att små klasser är kostsamt för skolsystem men säger inget om vilka länder som har råd, så det går inte att avgöra."
+        "explanation": "Texten konstaterar att små klasser är kostsamt för skolsystem men säger inget om vilka länder som har råd, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Små klasser ger mer tid för individuell återkoppling men är kostsamt för skolsystem."
       }
     ]
   },
@@ -212,22 +290,34 @@
       {
         "text": "Prevention sparar mer i framtida sjukvårdskostnader än det kostar.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att varje krona i prevention sparar tre till fyra kronor i framtida sjukvårdskostnader, vilket stöder påståendet."
+        "explanation": "Texten säger att varje krona i prevention sparar tre till fyra kronor i framtida sjukvårdskostnader, vilket stöder påståendet.",
+        "stod": [
+          "Studier visar att varje krona som investeras i prevention sparar tre till fyra kronor i framtida sjukvårdskostnader."
+        ]
       },
       {
         "text": "Genetik har större påverkan på långsiktig hälsa än livsstilsfaktorer för de flesta sjukdomar.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att livsstilsfaktorer har större påverkan än genetik för de flesta sjukdomar, alltså tvärtom mot påståendet."
+        "explanation": "Texten säger att livsstilsfaktorer har större påverkan än genetik för de flesta sjukdomar, alltså tvärtom mot påståendet.",
+        "stod": [
+          "Livsstilsfaktorer som kost, motion och sömnkvalitet har större påverkan på långsiktig hälsa än genetik för de flesta sjukdomar."
+        ]
       },
       {
         "text": "Majoriteten av sjukvårdsbudgetar går till preventiva insatser.",
         "correctAnswer": "false",
-        "explanation": "Texten anger att endast omkring fem procent av budgetarna går till prevention, vilket motsäger att majoriteten gör det."
+        "explanation": "Texten anger att endast omkring fem procent av budgetarna går till prevention, vilket motsäger att majoriteten gör det.",
+        "stod": [
+          "Trots detta är endast fem procent av sjukvårdsbudgetar i genomsnitt avsatta för preventiva insatser."
+        ]
       },
       {
         "text": "Alla länder subventionerar gym som en del av sjukförsäkringen.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har börjat subventionera gym, inte att alla gör det, vilket motsäger påståendet."
+        "explanation": "Texten säger att vissa länder har börjat subventionera gym, inte att alla gör det, vilket motsäger påståendet.",
+        "stod": [
+          "Vissa länder har börjat subventionera gym och hälsoaktiviteter som en del av sjukförsäkringen."
+        ]
       }
     ]
   },
@@ -241,7 +331,10 @@
       {
         "text": "Cirkulär ekonomi kan enligt uppskattningar generera biljoner dollar i ekonomiska fördelar.",
         "correctAnswer": "true",
-        "explanation": "Texten anger uppskattningen att övergången kan generera 4,5 biljoner dollar i ekonomiska fördelar, vilket stöder påståendet."
+        "explanation": "Texten anger uppskattningen att övergången kan generera 4,5 biljoner dollar i ekonomiska fördelar, vilket stöder påståendet.",
+        "stod": [
+          "Ellen MacArthur Foundation uppskattar att övergången till cirkulär ekonomi kan generera 4,5 biljoner dollar i ekonomiska fördelar globalt till 2030."
+        ]
       },
       {
         "text": "Alla företag som säger sig arbeta med cirkulär ekonomi gör verkliga förändringar.",
@@ -251,12 +344,18 @@
       {
         "text": "EU har infört lagstiftning som kräver att produkter ska vara mer reparerbara.",
         "correctAnswer": "true",
-        "explanation": "Texten nämner EU:s rätt-till-reparation-direktiv som tvingar tillverkare att göra produkter mer reparerbara, vilket stöder påståendet."
+        "explanation": "Texten nämner EU:s rätt-till-reparation-direktiv som tvingar tillverkare att göra produkter mer reparerbara, vilket stöder påståendet.",
+        "stod": [
+          "Lagstiftning som EU:s rätt-till-reparation-direktiv tvingar tillverkare att göra produkter mer reparerbara."
+        ]
       },
       {
         "text": "Det finns inga tekniska utmaningar kring återvinning av elektronikprodukter.",
         "correctAnswer": "false",
-        "explanation": "Texten avslutar med att tekniska utmaningar kvarstår kring återvinning av komplex elektronik, vilket motsäger att inga utmaningar finns."
+        "explanation": "Texten avslutar med att tekniska utmaningar kvarstår kring återvinning av komplex elektronik, vilket motsäger att inga utmaningar finns.",
+        "stod": [
+          "Tekniska utmaningar kvarstår kring återvinning av komplexa elektronikprodukter som innehåller många olika material."
+        ]
       }
     ]
   },
@@ -270,22 +369,33 @@
       {
         "text": "Över en fjärdedel av Japans befolkning är över 65 år.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att över 28 procent av Japans befolkning är över 65 år, vilket är mer än en fjärdedel och stöder påståendet."
+        "explanation": "Texten anger att över 28 procent av Japans befolkning är över 65 år, vilket är mer än en fjärdedel och stöder påståendet.",
+        "stod": [
+          "I Japan är över 28 procent av befolkningen över 65 år, och andelen förväntas öka ytterligare."
+        ]
       },
       {
         "text": "Alla länder har höjt pensionsåldern som svar på demografiska utmaningar.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har höjt pensionsåldern, inte alla, vilket motsäger påståendet."
+        "explanation": "Texten säger att vissa länder har höjt pensionsåldern, inte alla, vilket motsäger påståendet.",
+        "stod": [
+          "Vissa länder har höjt pensionsåldern för att hantera situationen."
+        ]
       },
       {
         "text": "Teknologi kan helt eliminera behovet av mänsklig vårdpersonal.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att teknik kan avlasta vårdpersonal men varnar samtidigt för social isolering, och tar aldrig ställning till om mänsklig personal helt kan ersättas, så det går inte att avgöra."
+        "explanation": "Texten säger att teknik kan avlasta vårdpersonal men varnar samtidigt för social isolering, och tar aldrig ställning till om mänsklig personal helt kan ersättas, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Teknologi som robotar och AI kan avlasta vårdpersonal i framtidens äldreomsorg."
       },
       {
         "text": "Vissa forskare förespråkar fokus på healthspan över lifespan.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att vissa forskare argumenterar för fokus på healthspan snarare än lifespan, vilket direkt stöder påståendet."
+        "explanation": "Texten säger att vissa forskare argumenterar för fokus på healthspan snarare än lifespan, vilket direkt stöder påståendet.",
+        "stod": [
+          "Vissa forskare argumenterar för att fokus bör ligga på healthspan snarare än lifespan, alltså att öka antalet friska levnadsår snarare än bara att förlänga livet."
+        ]
       }
     ]
   },
@@ -299,22 +409,34 @@
       {
         "text": "CRISPR-Cas9 belönades med Nobelpriset i kemi.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att CRISPR-Cas9 belönades med Nobelpriset i kemi 2020, vilket bekräftar påståendet."
+        "explanation": "Texten anger att CRISPR-Cas9 belönades med Nobelpriset i kemi 2020, vilket bekräftar påståendet.",
+        "stod": [
+          "Tekniken upptäcktes 2012 och belönades med Nobelpriset i kemi 2020."
+        ]
       },
       {
         "text": "Alla länder tillåter germline editing.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att de flesta länder har förbud mot germline editing, vilket motsäger att alla länder tillåter det."
+        "explanation": "Texten säger att de flesta länder har förbud mot germline editing, vilket motsäger att alla länder tillåter det.",
+        "stod": [
+          "De flesta länder har förbud mot germline editing som påverkar kommande generationer."
+        ]
       },
       {
         "text": "Vetenskapssamhället var positivt till de kinesiska genmodifierade bebisarna 2018.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att vetenskapssamhället var enigt kritiskt till de kinesiska genmodifierade bebisarna, alltså motsatsen till positivt."
+        "explanation": "Texten säger att vetenskapssamhället var enigt kritiskt till de kinesiska genmodifierade bebisarna, alltså motsatsen till positivt.",
+        "stod": [
+          "Kina har varit mer tillåtande vilket ledde till kontroverser 2018 när en forskare påstod sig ha skapat världens första genmodifierade bebisar.",
+          "Vetenskapssamhället var enigt kritiskt."
+        ]
       },
       {
         "text": "CRISPR kan användas för att skapa botemedel för alla genetiska sjukdomar.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner CRISPR som potentiellt botemedel för vissa genetiska sjukdomar men säger inget om alla sådana sjukdomar, så generaliseringen går inte att avgöra."
+        "explanation": "Texten nämner CRISPR som potentiellt botemedel för vissa genetiska sjukdomar men säger inget om alla sådana sjukdomar, så generaliseringen går inte att avgöra.",
+        "stod": [],
+        "narmast": "Potentiella tillämpningar inkluderar botemedel för genetiska sjukdomar som sicklecellanemi och cystisk fibros."
       }
     ]
   },
@@ -328,7 +450,10 @@
       {
         "text": "Sociala medier har över fyra miljarder användare globalt.",
         "correctAnswer": "true",
-        "explanation": "Texten inleder med att sociala medier har över fyra miljarder användare världen över, vilket bekräftar påståendet."
+        "explanation": "Texten inleder med att sociala medier har över fyra miljarder användare världen över, vilket bekräftar påståendet.",
+        "stod": [
+          "Sociala medier har blivit en central del av många människors vardag med över fyra miljarder användare världen över."
+        ]
       },
       {
         "text": "All användning av sociala medier leder till ångest och depression.",
@@ -338,12 +463,18 @@
       {
         "text": "Algoritmer på sociala medier tenderar att främja kontroversiellt innehåll.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att algoritmer designade för engagemang tenderar att främja kontroversiellt och känsloladdat innehåll, vilket stöder påståendet."
+        "explanation": "Texten säger att algoritmer designade för engagemang tenderar att främja kontroversiellt och känsloladdat innehåll, vilket stöder påståendet.",
+        "stod": [
+          "Algoritmer designade för att maximera engagemang tenderar att främja kontroversiellt och känsloladdat innehåll."
+        ]
       },
       {
         "text": "Alla länder har infört lagstiftning mot desinformation på sociala medier.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har infört lagstiftning, inte alla, vilket motsäger påståendet."
+        "explanation": "Texten säger att vissa länder har infört lagstiftning, inte alla, vilket motsäger påståendet.",
+        "stod": [
+          "Vissa länder har infört lagstiftning som tvingar plattformar att ta ansvar för innehåll."
+        ]
       }
     ]
   },
@@ -357,22 +488,33 @@
       {
         "text": "Yrkeshögskolans utbildningar tas fram i samarbete med arbetsgivare.",
         "correctAnswer": "true",
-        "explanation": "Texten säger uttryckligen att yrkeshögskolan erbjuder utbildningar 'som tas fram i nära samarbete med arbetsgivare'."
+        "explanation": "Texten säger uttryckligen att yrkeshögskolan erbjuder utbildningar 'som tas fram i nära samarbete med arbetsgivare'.",
+        "stod": [
+          "I Sverige erbjuder yrkeshögskolan utbildningar som tas fram i nära samarbete med arbetsgivare, vilket ger hög anställningsbarhet efter examen."
+        ]
       },
       {
         "text": "Lågutbildade fortbildar sig oftare än de som redan har god utbildning.",
         "correctAnswer": "false",
-        "explanation": "Texten beskriver tvärtom ett deltagandegap där de som redan har god utbildning fortbildar sig oftare än lågutbildade."
+        "explanation": "Texten beskriver tvärtom ett deltagandegap där de som redan har god utbildning fortbildar sig oftare än lågutbildade.",
+        "stod": [
+          "De som redan har god utbildning fortbildar sig oftare än lågutbildade, vilket riskerar att förstärka befintliga klyftor snarare än att minska dem."
+        ]
       },
       {
         "text": "De flesta arbetsgivare bekostar kompetensutveckling för sin personal.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner bara att 'vissa arbetsgivare' bekostar fortbildning, men säger ingenting om hur stor andel det rör sig om."
+        "explanation": "Texten nämner bara att 'vissa arbetsgivare' bekostar fortbildning, men säger ingenting om hur stor andel det rör sig om.",
+        "stod": [],
+        "narmast": "Vissa arbetsgivare bekostar kompetensutveckling eftersom det lönar sig att behålla erfaren personal."
       },
       {
         "text": "Att en kurs är lättillgänglig garanterar inte att deltagarna slutför den.",
         "correctAnswer": "true",
-        "explanation": "Trots att digitala plattformar sänkt tröskeln konstaterar texten att slutförandegraden för fristående onlinekurser ofta är låg."
+        "explanation": "Trots att digitala plattformar sänkt tröskeln konstaterar texten att slutförandegraden för fristående onlinekurser ofta är låg.",
+        "stod": [
+          "Trots tillgängligheten är slutförandegraden för fristående onlinekurser ofta låg."
+        ]
       }
     ]
   },
@@ -386,22 +528,34 @@
       {
         "text": "Hjärnan är aktiv under sömnen och bearbetar bland annat minnen.",
         "correctAnswer": "true",
-        "explanation": "Texten slår fast att hjärnan är högst aktiv under natten och att minnen befästs under djupsömnen."
+        "explanation": "Texten slår fast att hjärnan är högst aktiv under natten och att minnen befästs under djupsömnen.",
+        "stod": [
+          "Sömn betraktades länge som en passiv vilofas, men modern forskning visar att hjärnan är högst aktiv under natten.",
+          "Under djupsömnen befästs minnen och hjärnan rensar bort restprodukter som ansamlats under dagen."
+        ]
       },
       {
         "text": "Alla vuxna behöver exakt åtta timmars sömn per natt.",
         "correctAnswer": "false",
-        "explanation": "Texten anger ett intervall på sju till nio timmar och tillägger att det individuella behovet varierar, så ett exakt antal för alla motsägs."
+        "explanation": "Texten anger ett intervall på sju till nio timmar och tillägger att det individuella behovet varierar, så ett exakt antal för alla motsägs.",
+        "stod": [
+          "Vuxna rekommenderas i regel mellan sju och nio timmars sömn per natt, även om det individuella behovet varierar."
+        ]
       },
       {
         "text": "Att sova ut på helgen väger fullt ut upp för sömnbrist under veckan.",
         "correctAnswer": "false",
-        "explanation": "Enligt texten kompenserar helgsömn enligt forskare inte fullt ut för förlorad sömn under veckan."
+        "explanation": "Enligt texten kompenserar helgsömn enligt forskare inte fullt ut för förlorad sömn under veckan.",
+        "stod": [
+          "Att sova ut på helgen kompenserar enligt forskare inte fullt ut för förlorad sömn under veckan."
+        ]
       },
       {
         "text": "Beteendeterapi är mer effektivt än läkemedel mot sömnproblem.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att beteendeterapi används allt oftare, men gör ingen jämförelse av effektiviteten mellan metoderna."
+        "explanation": "Texten säger att beteendeterapi används allt oftare, men gör ingen jämförelse av effektiviteten mellan metoderna.",
+        "stod": [],
+        "narmast": "Sömnproblem behandlas i dag allt oftare med beteendeterapi snarare än enbart läkemedel."
       }
     ]
   },
@@ -415,22 +569,33 @@
       {
         "text": "Pollinering av grödor är en av de tjänster som biologisk mångfald bidrar med.",
         "correctAnswer": "true",
-        "explanation": "Texten räknar uttryckligen upp pollinering av grödor bland de tjänster som människan är beroende av."
+        "explanation": "Texten räknar uttryckligen upp pollinering av grödor bland de tjänster som människan är beroende av.",
+        "stod": [
+          "Denna mångfald utgör grunden för tjänster som människan är helt beroende av, exempelvis pollinering av grödor, rening av vatten och reglering av klimatet."
+        ]
       },
       {
         "text": "Arter försvinner nu i samma takt som den naturliga bakgrundsnivån.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att arter försvinner i en takt som vida överstiger den naturliga bakgrundsnivån, inte i samma takt."
+        "explanation": "Texten säger att arter försvinner i en takt som vida överstiger den naturliga bakgrundsnivån, inte i samma takt.",
+        "stod": [
+          "Forskare talar nu om en pågående massutdöende där arter försvinner i en takt som vida överstiger den naturliga bakgrundsnivån."
+        ]
       },
       {
         "text": "Att enbart avgränsa skyddade områden är tillräckligt för att bevara mångfalden.",
         "correctAnswer": "false",
-        "explanation": "Texten påpekar att enbart avgränsning sällan räcker om områdena inte förvaltas aktivt."
+        "explanation": "Texten påpekar att enbart avgränsning sällan räcker om områdena inte förvaltas aktivt.",
+        "stod": [
+          "Skyddade områden är ett viktigt verktyg, men enbart avgränsning räcker sällan om områdena inte förvaltas aktivt."
+        ]
       },
       {
         "text": "De internationella avtalens mål kommer att uppnås inom tio år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner att avtal satt upp mål, men säger ingenting om huruvida eller när målen kommer att uppnås."
+        "explanation": "Texten nämner att avtal satt upp mål, men säger ingenting om huruvida eller när målen kommer att uppnås.",
+        "stod": [],
+        "narmast": "Internationella avtal har satt upp mål för att skydda en större andel av land- och havsytan."
       }
     ]
   },
@@ -444,22 +609,33 @@
       {
         "text": "Plattformsföretag klassar ofta sina utförare som egenföretagare.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att plattformsföretagen ofta klassar sina utförare som egenföretagare snarare än anställda."
+        "explanation": "Texten anger att plattformsföretagen ofta klassar sina utförare som egenföretagare snarare än anställda.",
+        "stod": [
+          "Plattformsföretagen klassar ofta sina utförare som egenföretagare snarare än anställda, vilket innebär att utförarna sällan omfattas av sjuklön, semester eller pensionsavsättningar."
+        ]
       },
       {
         "text": "Alla rättsfall har slagit fast att plattformsarbetare är anställda.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att utfallen i rättsfallen gått åt olika håll beroende på lagstiftning och organisering, alltså inte alla på samma sätt."
+        "explanation": "Texten säger att utfallen i rättsfallen gått åt olika håll beroende på lagstiftning och organisering, alltså inte alla på samma sätt.",
+        "stod": [
+          "Flera rättsfall i olika länder har prövat om plattformsarbetare i praktiken bör betraktas som anställda.",
+          "Utfallen har gått åt olika håll beroende på lagstiftning och hur arbetet är organiserat."
+        ]
       },
       {
         "text": "De flesta gigarbetare föredrar fast anställning framför fristående uppdrag.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver för- och nackdelar men säger inget om vad flertalet gigarbetare själva föredrar."
+        "explanation": "Texten beskriver för- och nackdelar men säger inget om vad flertalet gigarbetare själva föredrar.",
+        "stod": []
       },
       {
         "text": "Gigarbetare omfattas vanligen inte av sjuklön och pensionsavsättningar.",
         "correctAnswer": "true",
-        "explanation": "Eftersom utförarna ofta klassas som egenföretagare omfattas de enligt texten sällan av sjuklön, semester eller pensionsavsättningar."
+        "explanation": "Eftersom utförarna ofta klassas som egenföretagare omfattas de enligt texten sällan av sjuklön, semester eller pensionsavsättningar.",
+        "stod": [
+          "Plattformsföretagen klassar ofta sina utförare som egenföretagare snarare än anställda, vilket innebär att utförarna sällan omfattas av sjuklön, semester eller pensionsavsättningar."
+        ]
       }
     ]
   },
@@ -473,22 +649,33 @@
       {
         "text": "En kvantbit kan befinna sig i en kombination av två tillstånd samtidigt.",
         "correctAnswer": "true",
-        "explanation": "Texten förklarar att en kvantbit, till skillnad från en vanlig bit, kan befinna sig i en kombination av båda tillstånden samtidigt."
+        "explanation": "Texten förklarar att en kvantbit, till skillnad från en vanlig bit, kan befinna sig i en kombination av båda tillstånden samtidigt.",
+        "stod": [
+          "Medan en vanlig dator hanterar bitar som antingen är ett eller noll, kan en kvantbit befinna sig i en kombination av båda tillstånden samtidigt."
+        ]
       },
       {
         "text": "Kvantdatorer förväntas helt ersätta vanliga datorer för vardagsuppgifter.",
         "correctAnswer": "false",
-        "explanation": "Texten säger uttryckligen att kvantdatorer inte kommer att ersätta vanliga datorer för vardagsuppgifter utan snarare komplettera dem."
+        "explanation": "Texten säger uttryckligen att kvantdatorer inte kommer att ersätta vanliga datorer för vardagsuppgifter utan snarare komplettera dem.",
+        "stod": [
+          "Forskare betonar att kvantdatorer inte kommer att ersätta vanliga datorer för vardagsuppgifter, utan snarare komplettera dem för specifika problem."
+        ]
       },
       {
         "text": "Praktiskt användbara kvantdatorer kommer att finnas inom fem år.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten anger att experter är oense om när praktiskt användbara maskiner blir verklighet, så någon tidpunkt går inte att fastställa."
+        "explanation": "Texten anger att experter är oense om när praktiskt användbara maskiner blir verklighet, så någon tidpunkt går inte att fastställa.",
+        "stod": [],
+        "narmast": "Stora teknikföretag och flera stater investerar betydande resurser i området, men experter är oense om när praktiskt användbara maskiner blir verklighet."
       },
       {
         "text": "Dagens kvantsystem är känsliga för störningar som kan ge beräkningsfel.",
         "correctAnswer": "true",
-        "explanation": "Texten konstaterar att dagens system är känsliga för störningar, vilket leder till beräkningsfel."
+        "explanation": "Texten konstaterar att dagens system är känsliga för störningar, vilket leder till beräkningsfel.",
+        "stod": [
+          "Tekniken är fortfarande på ett tidigt stadium och dagens system är känsliga för störningar, vilket leder till beräkningsfel."
+        ]
       }
     ]
   },
@@ -502,22 +689,33 @@
       {
         "text": "Folkbiblioteken erbjuder tillgång till information oavsett besökarens inkomst.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att biblioteken erbjuder fri tillgång till kunskap och information oavsett besökarens bakgrund eller inkomst."
+        "explanation": "Texten anger att biblioteken erbjuder fri tillgång till kunskap och information oavsett besökarens bakgrund eller inkomst.",
+        "stod": [
+          "De erbjuder fri tillgång till kunskap, litteratur och information oavsett besökarens bakgrund eller inkomst."
+        ]
       },
       {
         "text": "Bibliotekens uppdrag är begränsat till utlåning av böcker.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att uppdraget breddats långt bortom utlåning av böcker, med mötesplatser, digital delaktighet och källkritik."
+        "explanation": "Texten säger att uppdraget breddats långt bortom utlåning av böcker, med mötesplatser, digital delaktighet och källkritik.",
+        "stod": [
+          "På senare år har bibliotekens uppdrag breddats långt bortom utlåning av böcker."
+        ]
       },
       {
         "text": "Besöksantalet har minskat på alla bibliotek i landet.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att besöksantalet gått ned 'på sina håll', vilket inte ger underlag för att avgöra om det gäller samtliga bibliotek."
+        "explanation": "Texten säger att besöksantalet gått ned 'på sina håll', vilket inte ger underlag för att avgöra om det gäller samtliga bibliotek.",
+        "stod": [],
+        "narmast": "Besöksantalet har på sina håll gått ned, samtidigt som efterfrågan på bibliotekens digitala tjänster ökat."
       },
       {
         "text": "Meröppna bibliotek låter besökare komma in även utan personal på plats.",
         "correctAnswer": "true",
-        "explanation": "Texten beskriver meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats."
+        "explanation": "Texten beskriver meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats.",
+        "stod": [
+          "Vissa kommuner har svarat med meröppna bibliotek där besökare kommer in med lånekort även utan personal på plats."
+        ]
       }
     ]
   },
@@ -531,22 +729,33 @@
       {
         "text": "Sverige hör till de länder i Europa där antibiotikaresistensen är lägst.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att Sverige länge haft en restriktiv förskrivning och hör till de länder i Europa där resistensen är lägst, vilket direkt stöder påståendet."
+        "explanation": "Texten säger att Sverige länge haft en restriktiv förskrivning och hör till de länder i Europa där resistensen är lägst, vilket direkt stöder påståendet.",
+        "stod": [
+          "Sverige har länge haft en restriktiv förskrivning och hör till de länder i Europa där resistensen är lägst."
+        ]
       },
       {
         "text": "Utvecklingen av nya antibiotika går i dag snabbare än tidigare.",
         "correctAnswer": "false",
-        "explanation": "Texten säger tvärtom att utvecklingen av nya antibiotika nästan har avstannat, vilket motsäger påståendet."
+        "explanation": "Texten säger tvärtom att utvecklingen av nya antibiotika nästan har avstannat, vilket motsäger påståendet.",
+        "stod": [
+          "Samtidigt har utvecklingen av nya antibiotika nästan avstannat, eftersom läkemedelsbolagen tjänar mer på mediciner som tas under lång tid än på kurer som bara används i några dagar."
+        ]
       },
       {
         "text": "Antibiotika är receptbelagt i samtliga länder.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att antibiotika i vissa länder säljs receptfritt, vilket motsäger att det skulle vara receptbelagt överallt."
+        "explanation": "Texten säger att antibiotika i vissa länder säljs receptfritt, vilket motsäger att det skulle vara receptbelagt överallt.",
+        "stod": [
+          "I vissa länder säljs antibiotika receptfritt, vilket ytterligare försvårar kontrollen."
+        ]
       },
       {
         "text": "Bakteriofager kommer att ersätta antibiotika inom det närmaste decenniet.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner att bakteriofager undersöks men ännu inte är etablerade i bred klinisk användning, och säger inget om någon tidsram för att de ska ersätta antibiotika."
+        "explanation": "Texten nämner att bakteriofager undersöks men ännu inte är etablerade i bred klinisk användning, och säger inget om någon tidsram för att de ska ersätta antibiotika.",
+        "stod": [],
+        "narmast": "Vissa forskare undersöker alternativ som bakteriofager, virus som angriper bakterier, men dessa metoder är ännu inte etablerade i bred klinisk användning."
       }
     ]
   },
@@ -560,22 +769,32 @@
       {
         "text": "Inom EU finns regler som förbjuder vilseledande gränssnitt.",
         "correctAnswer": "true",
-        "explanation": "Texten anger uttryckligen att det inom EU finns regler som förbjuder vilseledande gränssnitt, vilket bekräftar påståendet."
+        "explanation": "Texten anger uttryckligen att det inom EU finns regler som förbjuder vilseledande gränssnitt, vilket bekräftar påståendet.",
+        "stod": [
+          "och inom EU finns regler som förbjuder vilseledande gränssnitt."
+        ]
       },
       {
         "text": "Gränsen mellan smart marknadsföring och otillåten manipulation är alltid tydlig.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att gränsen mellan smart marknadsföring och otillåten manipulation inte alltid är tydlig, vilket motsäger påståendet."
+        "explanation": "Texten säger att gränsen mellan smart marknadsföring och otillåten manipulation inte alltid är tydlig, vilket motsäger påståendet.",
+        "stod": [
+          "Samtidigt är gränsen mellan smart marknadsföring och otillåten manipulation inte alltid tydlig."
+        ]
       },
       {
         "text": "Vissa webbläsartillägg försöker varna användare om mörka mönster.",
         "correctAnswer": "true",
-        "explanation": "Texten avslutar med att vissa webbläsartillägg försöker varna användare när sådana mönster dyker upp, vilket stöder påståendet."
+        "explanation": "Texten avslutar med att vissa webbläsartillägg försöker varna användare när sådana mönster dyker upp, vilket stöder påståendet.",
+        "stod": [
+          "Vissa webbläsartillägg försöker varna användare när sådana mönster dyker upp."
+        ]
       },
       {
         "text": "De flesta stora e-handelsföretag använder mörka mönster i sina gränssnitt.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver fenomenet och ger exempel, men säger inget om hur stor andel av e-handelsföretagen som faktiskt använder mörka mönster, så det går inte att avgöra."
+        "explanation": "Texten beskriver fenomenet och ger exempel, men säger inget om hur stor andel av e-handelsföretagen som faktiskt använder mörka mönster, så det går inte att avgöra.",
+        "stod": []
       }
     ]
   },
@@ -589,22 +808,32 @@
       {
         "text": "Elinor Ostrom belönades med ekonomipriset till Alfred Nobels minne.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att statsvetaren Elinor Ostrom belönades med ekonomipriset till Alfred Nobels minne, vilket bekräftar påståendet."
+        "explanation": "Texten anger att statsvetaren Elinor Ostrom belönades med ekonomipriset till Alfred Nobels minne, vilket bekräftar påståendet.",
+        "stod": [
+          "Statsvetaren Elinor Ostrom, som belönades med ekonomipriset till Alfred Nobels minne, visade att lokalsamhällen i många fall själva lyckats förvalta gemensamma tillgångar hållbart genom egna regler och förtroende."
+        ]
       },
       {
         "text": "Enligt Ostroms forskning är möjligheten att övervaka varandra avgörande för hållbar förvaltning av en gemensam resurs.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att det är avgörande att användarna kan kommunicera, övervaka varandra och bestraffa den som fuskar, vilket stöder påståendet."
+        "explanation": "Texten säger att det är avgörande att användarna kan kommunicera, övervaka varandra och bestraffa den som fuskar, vilket stöder påståendet.",
+        "stod": [
+          "Avgörande är att de som använder resursen kan kommunicera, övervaka varandra och bestraffa den som fuskar."
+        ]
       },
       {
         "text": "Hardin menade att lokalsamhällen själva alltid kan förvalta gemensamma resurser hållbart.",
         "correctAnswer": "false",
-        "explanation": "Enligt texten drog Hardin slutsatsen att enbart privat ägande eller statlig styrning kunde rädda resurserna; det var Ostrom som visade att lokalsamhällen kan klara det själva, så påståendet motsäger texten."
+        "explanation": "Enligt texten drog Hardin slutsatsen att enbart privat ägande eller statlig styrning kunde rädda resurserna; det var Ostrom som visade att lokalsamhällen kan klara det själva, så påståendet motsäger texten.",
+        "stod": [
+          "Den amerikanske ekologen Garrett Hardin populariserade idén i en uppmärksammad artikel 1968, och slutsatsen drogs ofta att enbart privat ägande eller statlig styrning kunde rädda gemensamma resurser."
+        ]
       },
       {
         "text": "Ostroms slutsatser har fått större genomslag än Hardins.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten redogör för båda forskarnas bidrag men jämför aldrig hur stort genomslag deras slutsatser fått, så det går inte att avgöra."
+        "explanation": "Texten redogör för båda forskarnas bidrag men jämför aldrig hur stort genomslag deras slutsatser fått, så det går inte att avgöra.",
+        "stod": []
       }
     ]
   },
@@ -618,22 +847,33 @@
       {
         "text": "Forskarna bedömde att flera av de nio gränserna redan har överskridits.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att forskarna identifierade nio gränser och bedömde att flera av dem redan har överskridits, vilket direkt stöder påståendet."
+        "explanation": "Texten säger att forskarna identifierade nio gränser och bedömde att flera av dem redan har överskridits, vilket direkt stöder påståendet.",
+        "stod": [
+          "Forskarna identifierade nio sådana gränser och bedömde att flera av dem redan har överskridits."
+        ]
       },
       {
         "text": "Påverkan på en planetär gräns kan förstärka trycket på en annan.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att gränserna hänger samman och att påverkan på en gräns kan förstärka trycket på en annan, vilket bekräftar påståendet."
+        "explanation": "Texten anger att gränserna hänger samman och att påverkan på en gräns kan förstärka trycket på en annan, vilket bekräftar påståendet.",
+        "stod": [
+          "Påverkan på en gräns kan förstärka trycket på en annan, vilket gör systemet svårt att överblicka."
+        ]
       },
       {
         "text": "Ramverket anger hur ansvaret för att hålla sig innanför gränserna bör fördelas mellan länder.",
         "correctAnswer": "false",
-        "explanation": "Texten säger att ramverket inte i sig anger hur ansvaret bör fördelas och att frågan lämnas åt politiken, vilket motsäger påståendet."
+        "explanation": "Texten säger att ramverket inte i sig anger hur ansvaret bör fördelas och att frågan lämnas åt politiken, vilket motsäger påståendet.",
+        "stod": [
+          "Ramverket säger däremot inte i sig hur ett samhälle bör fördela ansvaret för att hålla sig innanför gränserna."
+        ]
       },
       {
         "text": "Samtliga nio gränser kommer att överskridas inom de närmaste åren.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten säger att flera gränser redan överskridits men ger ingen prognos om att alla nio kommer att överskridas eller inom vilken tid, så det går inte att avgöra."
+        "explanation": "Texten säger att flera gränser redan överskridits men ger ingen prognos om att alla nio kommer att överskridas eller inom vilken tid, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Forskarna identifierade nio sådana gränser och bedömde att flera av dem redan har överskridits."
       }
     ]
   },
@@ -647,22 +887,33 @@
       {
         "text": "Internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet.",
         "correctAnswer": "true",
-        "explanation": "Texten anger att internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet och vara möjliga att ta bort, vilket stöder påståendet."
+        "explanation": "Texten anger att internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet och vara möjliga att ta bort, vilket stöder påståendet.",
+        "stod": [
+          "Internationella riktlinjer betonar att tillägg helst ska kunna skiljas från originalet och vara möjliga att ta bort."
+        ]
       },
       {
         "text": "Den konserverande linjen vill återskapa byggnadens tidigare utseende.",
         "correctAnswer": "false",
-        "explanation": "Enligt texten vill den konserverande linjen bevara byggnaden i befintligt skick och endast hejda förfall; det är den andra linjen som vill återskapa ett tidigare utseende, så påståendet motsägs."
+        "explanation": "Enligt texten vill den konserverande linjen bevara byggnaden i befintligt skick och endast hejda förfall; det är den andra linjen som vill återskapa ett tidigare utseende, så påståendet motsägs.",
+        "stod": [
+          "En linje, ofta kallad konserverande, vill bevara byggnaden i befintligt skick och endast hejda fortsatt förfall, så att spåren av tidens gång förblir synliga."
+        ]
       },
       {
         "text": "Numera dokumenteras varje restaureringsåtgärd noggrant.",
         "correctAnswer": "true",
-        "explanation": "Texten avslutar med att varje åtgärd numera dokumenteras noggrant, vilket bekräftar påståendet."
+        "explanation": "Texten avslutar med att varje åtgärd numera dokumenteras noggrant, vilket bekräftar påståendet.",
+        "stod": [
+          "Därför dokumenteras numera varje åtgärd noggrant."
+        ]
       },
       {
         "text": "Den konserverande linjen är den vanligaste vid restaureringar i dag.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten beskriver båda linjerna och säger att resultatet ofta blir en kompromiss, men anger inte vilken linje som är vanligast, så det går inte att avgöra."
+        "explanation": "Texten beskriver båda linjerna och säger att resultatet ofta blir en kompromiss, men anger inte vilken linje som är vanligast, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "I praktiken blir det ofta en kompromiss anpassad efter varje objekt."
       }
     ]
   },
@@ -676,22 +927,33 @@
       {
         "text": "Nya läkemedel jämförs i kliniska studier mot placebo.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att nya läkemedel jämförs mot placebo i kliniska studier för att skilja preparatets verkliga effekt från förväntans effekt, vilket stöder påståendet."
+        "explanation": "Texten säger att nya läkemedel jämförs mot placebo i kliniska studier för att skilja preparatets verkliga effekt från förväntans effekt, vilket stöder påståendet.",
+        "stod": [
+          "Just därför jämförs nya läkemedel i kliniska studier mot placebo, för att skilja en verklig effekt av preparatet från den förbättring som förväntan ensam kan ge."
+        ]
       },
       {
         "text": "Placebo botar underliggande infektioner och tumörer.",
         "correctAnswer": "false",
-        "explanation": "Texten betonar att placebo inte botar underliggande sjukdomar som infektioner eller tumörer utan främst påverkar hur symtom upplevs, vilket motsäger påståendet."
+        "explanation": "Texten betonar att placebo inte botar underliggande sjukdomar som infektioner eller tumörer utan främst påverkar hur symtom upplevs, vilket motsäger påståendet.",
+        "stod": [
+          "Viktigt att betona är att placebo inte botar underliggande sjukdomar som infektioner eller tumörer, utan främst påverkar hur symtom upplevs."
+        ]
       },
       {
         "text": "Vissa studier antyder att en placeboeffekt kan kvarstå även när patienten vet att preparatet saknar verksam substans.",
         "correctAnswer": "true",
-        "explanation": "Texten säger att vissa studier antyder att en effekt kan kvarstå även när patienten vet att preparatet saknar verksam substans, vilket bekräftar påståendet."
+        "explanation": "Texten säger att vissa studier antyder att en effekt kan kvarstå även när patienten vet att preparatet saknar verksam substans, vilket bekräftar påståendet.",
+        "stod": [
+          "Vissa studier antyder att en effekt kan kvarstå även när patienten vet att preparatet saknar verksam substans, något som utmanar gängse antaganden."
+        ]
       },
       {
         "text": "Noceboeffekten är vanligare än placeboeffekten.",
         "correctAnswer": "cannot_say",
-        "explanation": "Texten nämner noceboeffekten som en motsvarighet men jämför aldrig hur vanliga de två effekterna är, så det går inte att avgöra."
+        "explanation": "Texten nämner noceboeffekten som en motsvarighet men jämför aldrig hur vanliga de två effekterna är, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "En mindre känd motsvarighet är noceboeffekten, där negativa förväntningar i stället kan framkalla eller förvärra besvär."
       }
     ]
   }

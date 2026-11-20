@@ -24,7 +24,43 @@ export type Question = {
   correctAnswerId: string;
   explanation: string;
   difficulty: DifficultyLevel;
+  /** Strukturerat facit: räknevägen och vad frågan använder i underlaget (valfritt). */
+  losning?: NumeriskLosning;
+  /** Verbalt expert (samma typ): meningarna i contextText som avgör svaret, ordagrant (valfritt). */
+  stod?: string[];
 };
+
+/**
+ * Ett steg i räknevägen. `uttryck` i svensk form med = och ≈, till exempel
+ * "(14,0 − 6,8) / 6,8 × 100 ≈ 105,9 %": decimalkomma, mellanslag som
+ * tusentalsavgränsare, minustecken U+2212, × och /; % är en enhet sist i ett
+ * led. Kontrolleras av scripts/lib/facit-kontroll.mjs.
+ */
+export type NumeriskSteg = { uttryck: string; etikett?: string };
+
+/** Posterna i underlaget som frågan använder, exakt som de står där. */
+export type NumeriskAnvander = {
+  /** Tabellradernas första cell. */
+  rader?: string[];
+  /** Tabellens kolumnrubriker. */
+  kolumner?: string[];
+  /** Stapeldiagrammets etiketter. */
+  staplar?: string[];
+  /** Cirkeldiagrammets etiketter. */
+  sektorer?: string[];
+  /** Linjediagrammets x-värden som text. */
+  punkter?: string[];
+};
+
+/**
+ * Sista ledet i sista steget ger det rätta alternativets tal. När svaret
+ * inte är ett enda tal (en kategori, ett ja eller nej, två tal) bär
+ * `slutsats` en kort text som pekar ut svaret; stegen kontrolleras då var
+ * för sig, talen i det rätta alternativet ska komma ur stegen och slutsatsen
+ * ska skilja ut det rätta alternativet. Uttrycken kan också ha jämförelser
+ * (68,6 > 38,1), rötter (√12,64) och potenser med bråkexponent ((176 / 120)^(1 / 5)).
+ */
+export type NumeriskLosning = { steg: NumeriskSteg[]; anvander?: NumeriskAnvander; slutsats?: string };
 
 export type DataTable = {
   headers: string[];

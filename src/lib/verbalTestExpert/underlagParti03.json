@@ -39,7 +39,12 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Det är den sista meningen som avgör. Bolaget har i många år nästan bara anställt ekonomer, så 80 procent i toppgruppen kan vara precis samma andel som bland alla säljare. Alternativ b lockar eftersom säljarna själva lyfter fram utbildningen, men det är ett stödjande inslag och inte det som bär förslaget."
+        "explanation": "Det är den sista meningen som avgör. Bolaget har i många år nästan bara anställt ekonomer, så 80 procent i toppgruppen kan vara precis samma andel som bland alla säljare. Alternativ b lockar eftersom säljarna själva lyfter fram utbildningen, men det är ett stödjande inslag och inte det som bär förslaget.",
+        "stod": [
+          "Sexton av dem, alltså 80 procent, har en ekonomexamen.",
+          "I analysen ingår inga uppgifter om de säljare som inte hör till toppgruppen.",
+          "Av personalregistret framgår dock att bolaget i många år har rekryterat nästan uteslutande från ekonomprogrammen på två lärosäten."
+        ]
       },
       {
         "id": "verbexp-p13-q02",
@@ -71,7 +76,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Förslaget vilar på påståendet att examen ger något som andra vägar saknar. Det kräver att ekonomer är överrepresenterade bland de bästa jämfört med resten av säljkåren. Den som väljer b fastnar i en detalj: slutsatsen faller inte för att anställningstiden skiljer sig mellan säljarna."
+        "explanation": "Förslaget vilar på påståendet att examen ger något som andra vägar saknar. Det kräver att ekonomer är överrepresenterade bland de bästa jämfört med resten av säljkåren. Den som väljer b fastnar i en detalj: slutsatsen faller inte för att anställningstiden skiljer sig mellan säljarna.",
+        "stod": [
+          "Hon menar att examen uppenbarligen ger något som andra vägar in i yrket saknar, och att kravet därför kommer att höja säljkårens resultat.",
+          "I analysen ingår inga uppgifter om de säljare som inte hör till toppgruppen."
+        ]
       },
       {
         "id": "verbexp-p13-q03",
@@ -103,7 +112,11 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Uppgiften om medarbetarsamtalen är ett stödjande inslag. Att de sexton själva lyfter fram sin utbildning säger inget om hur säljare utan examen presterar, så det huvudsakliga beviset är fortfarande jämförelsen med övriga säljare, och den saknas i analysen. Alternativ a lockar eftersom samtalen är det enda i texten som låter som ett belägg från verkligheten."
+        "explanation": "Uppgiften om medarbetarsamtalen är ett stödjande inslag. Att de sexton själva lyfter fram sin utbildning säger inget om hur säljare utan examen presterar, så det huvudsakliga beviset är fortfarande jämförelsen med övriga säljare, och den saknas i analysen. Alternativ a lockar eftersom samtalen är det enda i texten som låter som ett belägg från verkligheten.",
+        "stod": [
+          "Hon påpekar också att flera av de sexton själva lyfter fram utbildningen som avgörande i sina medarbetarsamtal.",
+          "I analysen ingår inga uppgifter om de säljare som inte hör till toppgruppen."
+        ]
       },
       {
         "id": "verbexp-p13-q04",
@@ -135,7 +148,11 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Om nio av tio säljare har ekonomexamen är 80 procent i toppgruppen till och med lägre än väntat, och mönstret försvinner. Det knyter an till meningen om rekryteringen från ekonomprogrammen. Att konkurrenterna ställer samma krav, som i alternativ c, säger ingenting om vad examen faktiskt betyder för resultaten."
+        "explanation": "Om nio av tio säljare har ekonomexamen är 80 procent i toppgruppen till och med lägre än väntat, och mönstret försvinner. Det knyter an till meningen om rekryteringen från ekonomprogrammen. Att konkurrenterna ställer samma krav, som i alternativ c, säger ingenting om vad examen faktiskt betyder för resultaten.",
+        "stod": [
+          "Sexton av dem, alltså 80 procent, har en ekonomexamen.",
+          "Av personalregistret framgår dock att bolaget i många år har rekryterat nästan uteslutande från ekonomprogrammen på två lärosäten."
+        ]
       }
     ]
   },
@@ -179,7 +196,11 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Steget från 78 procent av de svarande till en majoritet av invånarna kräver att de svarande speglar befolkningen. Meningen om att länken spreds via cykelföreningen gör just det tveksamt. Alternativ d låter rimligt, men oavsett om enkäten låg ute i tre veckor eller sex ändras inte vilka som nåddes av länken."
+        "explanation": "Steget från 78 procent av de svarande till en majoritet av invånarna kräver att de svarande speglar befolkningen. Meningen om att länken spreds via cykelföreningen gör just det tveksamt. Alternativ d låter rimligt, men oavsett om enkäten låg ute i tre veckor eller sex ändras inte vilka som nåddes av länken.",
+        "stod": [
+          "Länken spreds framför allt via den lokala cykelföreningens nyhetsbrev och dess sida i sociala medier.",
+          "Nämndens ordförande skriver i sin skrivelse att en klar majoritet av kommunens invånare därmed står bakom ombyggnaden."
+        ]
       },
       {
         "id": "verbexp-p14-q02",
@@ -211,7 +232,11 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Om de flesta svaren kom via cykelföreningen består urvalet till stor del av människor som redan cyklar, och då säger 78 procent lite om kommunen som helhet. Det frestande svaret är a, som ser ut att handla om tillförlitlighet, men fler svar rättar inte till ett snett urval."
+        "explanation": "Om de flesta svaren kom via cykelföreningen består urvalet till stor del av människor som redan cyklar, och då säger 78 procent lite om kommunen som helhet. Det frestande svaret är a, som ser ut att handla om tillförlitlighet, men fler svar rättar inte till ett snett urval.",
+        "stod": [
+          "Länken spreds framför allt via den lokala cykelföreningens nyhetsbrev och dess sida i sociala medier.",
+          "Nämndens ordförande skriver i sin skrivelse att en klar majoritet av kommunens invånare därmed står bakom ombyggnaden."
+        ]
       },
       {
         "id": "verbexp-p14-q03",
@@ -243,7 +268,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Avgörande är meningen om att antalet svar är rekordhögt och att resultatet därför är särskilt tillförlitligt. Många svar från fel grupp blir inte mer representativa för att de är många. Alternativ b kan locka eftersom texten nämner en tidsperiod, men ordföranden drar ingen slutsats om orsak och verkan."
+        "explanation": "Avgörande är meningen om att antalet svar är rekordhögt och att resultatet därför är särskilt tillförlitligt. Många svar från fel grupp blir inte mer representativa för att de är många. Alternativ b kan locka eftersom texten nämner en tidsperiod, men ordföranden drar ingen slutsats om orsak och verkan.",
+        "stod": [
+          "Länken spreds framför allt via den lokala cykelföreningens nyhetsbrev och dess sida i sociala medier.",
+          "Hon framhåller att antalet svar är det högsta kommunen någonsin har fått i en enkät, och att resultatet därför är särskilt tillförlitligt."
+        ]
       },
       {
         "id": "verbexp-p14-q04",
@@ -275,7 +304,10 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Det enda texten slår fast är att 78 procent av de 2 400 som svarade var positiva. Svar d ligger nära till hands, men texten säger bara hur länken spreds, inte vilka som faktiskt svarade. Alternativ a är just det steg i ordförandens resonemang som inte håller."
+        "explanation": "Det enda texten slår fast är att 78 procent av de 2 400 som svarade var positiva. Svar d ligger nära till hands, men texten säger bara hur länken spreds, inte vilka som faktiskt svarade. Alternativ a är just det steg i ordförandens resonemang som inte håller.",
+        "stod": [
+          "Totalt svarade 2 400 personer, och 78 procent av dem var positiva till förslaget."
+        ]
       }
     ]
   },
@@ -319,7 +351,11 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Nyckeln är meningen i bilagan om att resultaten brukar variera kraftigt mellan åren. Skolor som väljs ut för att de låg allra lägst ett visst år tenderar att närma sig mitten året efter, med eller utan insats. Alternativ c lockar, men jämförelsen med äldre insatser är inte det som gör slutsatsen osäker."
+        "explanation": "Nyckeln är meningen i bilagan om att resultaten brukar variera kraftigt mellan åren. Skolor som väljs ut för att de låg allra lägst ett visst år tenderar att närma sig mitten året efter, med eller utan insats. Alternativ c lockar, men jämförelsen med äldre insatser är inte det som gör slutsatsen osäker.",
+        "stod": [
+          "Efter förra årets nationella prov valde utbildningsförvaltningen ut de tio skolor i länet som hade lägst resultat i matematik.",
+          "I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa."
+        ]
       },
       {
         "id": "verbexp-p15-q02",
@@ -351,7 +387,11 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "En jämförelsegrupp av lika svaga skolor utan stöd visar hur mycket de hade stigit ändå. Står de still blir handledningen den rimliga förklaringen till de sju procentenheterna. Den som väljer a tar fel på vad som mäts: att lärarna uppskattade handledaren säger inget om elevernas resultat."
+        "explanation": "En jämförelsegrupp av lika svaga skolor utan stöd visar hur mycket de hade stigit ändå. Står de still blir handledningen den rimliga förklaringen till de sju procentenheterna. Den som väljer a tar fel på vad som mäts: att lärarna uppskattade handledaren säger inget om elevernas resultat.",
+        "stod": [
+          "Efter förra årets nationella prov valde utbildningsförvaltningen ut de tio skolor i länet som hade lägst resultat i matematik.",
+          "I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa."
+        ]
       },
       {
         "id": "verbexp-p15-q03",
@@ -383,7 +423,11 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Påståendet att handledningen fungerar kräver att de sju procentenheterna inte hade kommit ändå, och meningen om den kraftiga variationen mellan åren gör just det osäkert. Alternativ a gäller förslaget att ge alla skolor stöd, inte frågan om handledningen faktiskt gav lyftet."
+        "explanation": "Påståendet att handledningen fungerar kräver att de sju procentenheterna inte hade kommit ändå, och meningen om den kraftiga variationen mellan åren gör just det osäkert. Alternativ a gäller förslaget att ge alla skolor stöd, inte frågan om handledningen faktiskt gav lyftet.",
+        "stod": [
+          "I årets prov förbättrades de tio skolornas genomsnitt med sju procentenheter, medan länet som helhet låg kvar på samma nivå.",
+          "I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa."
+        ]
       },
       {
         "id": "verbexp-p15-q04",
@@ -415,7 +459,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Lottas skolorna mellan stöd och inget stöd drabbas båda grupperna lika av den variation som bilagan beskriver, och skillnaden mellan dem visar effekten. Svaret d kan verka grundligt, men en längre väntan utan jämförelsegrupp löser inte problemet att svaga skolor ofta stiger ändå."
+        "explanation": "Lottas skolorna mellan stöd och inget stöd drabbas båda grupperna lika av den variation som bilagan beskriver, och skillnaden mellan dem visar effekten. Svaret d kan verka grundligt, men en längre väntan utan jämförelsegrupp löser inte problemet att svaga skolor ofta stiger ändå.",
+        "stod": [
+          "Efter förra årets nationella prov valde utbildningsförvaltningen ut de tio skolor i länet som hade lägst resultat i matematik.",
+          "I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa."
+        ]
       }
     ]
   },
@@ -459,7 +507,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Kalkylen säger 9 miljoner till för att bli klar, och hyran är 2 miljoner om året, alltså 6 miljoner på tre år. Alternativ c ligger nära eftersom texten säger att projektet är försenat, men den nämner ingen budget som har överskridits."
+        "explanation": "Kalkylen säger 9 miljoner till för att bli klar, och hyran är 2 miljoner om året, alltså 6 miljoner på tre år. Alternativ c ligger nära eftersom texten säger att projektet är försenat, men den nämner ingen budget som har överskridits.",
+        "stod": [
+          "En ny kalkyl visar att det behövs ytterligare 9 miljoner för att göra verktyget klart.",
+          "En färdig tjänst med motsvarande funktioner går att hyra för 2 miljoner kronor om året, och avtalet kan sägas upp med kort varsel."
+        ]
       },
       {
         "id": "verbexp-p16-q02",
@@ -491,7 +543,10 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Meningen om att det vore slöseri att kasta bort de 14 miljonerna avgör. De pengarna är borta vad ledningen än väljer, så de bör inte påverka beslutet framåt. Den som väljer d tänker på att han är projektägare, men han åberopar aldrig sin ställning som skäl."
+        "explanation": "Meningen om att det vore slöseri att kasta bort de 14 miljonerna avgör. De pengarna är borta vad ledningen än väljer, så de bör inte påverka beslutet framåt. Den som väljer d tänker på att han är projektägare, men han åberopar aldrig sin ställning som skäl.",
+        "stod": [
+          "Han skriver till ledningen att det vore ett slöseri att kasta bort de 14 miljoner som redan har satsats, och att personalen har lagt ner för mycket arbete för att ge upp nu."
+        ]
       },
       {
         "id": "verbexp-p16-q03",
@@ -523,7 +578,10 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Det enda skälet i texten som pekar framåt är den sista meningen om kontroll över data. Ger den hyrda tjänsten samma tillgång faller också det skälet. Alternativ a kan se ut som ett argument i frågan, men personalens vilja stöder snarast projektägaren och kan inte försvaga honom."
+        "explanation": "Det enda skälet i texten som pekar framåt är den sista meningen om kontroll över data. Ger den hyrda tjänsten samma tillgång faller också det skälet. Alternativ a kan se ut som ett argument i frågan, men personalens vilja stöder snarast projektägaren och kan inte försvaga honom.",
+        "stod": [
+          "Han lägger till att ett eget verktyg ger företaget kontroll över sina data."
+        ]
       },
       {
         "id": "verbexp-p16-q04",
@@ -555,7 +613,12 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Eftersom uppgifterna visar att det är billigare att hyra måste det egna verktyget ge något som täcker mellanskillnaden, till exempel den kontroll över data som nämns sist. Svar b lockar, men ett gott arbete hittills gör inte de återstående 9 miljonerna mer lönsamma."
+        "explanation": "Eftersom uppgifterna visar att det är billigare att hyra måste det egna verktyget ge något som täcker mellanskillnaden, till exempel den kontroll över data som nämns sist. Svar b lockar, men ett gott arbete hittills gör inte de återstående 9 miljonerna mer lönsamma.",
+        "stod": [
+          "En ny kalkyl visar att det behövs ytterligare 9 miljoner för att göra verktyget klart.",
+          "En färdig tjänst med motsvarande funktioner går att hyra för 2 miljoner kronor om året, och avtalet kan sägas upp med kort varsel.",
+          "Han lägger till att ett eget verktyg ger företaget kontroll över sina data."
+        ]
       }
     ]
   },
@@ -599,7 +662,11 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "De två meningarna i mitten avgör: höga poäng visar vilka som presterar bäst, och att de presterar bäst visas av de höga poängen. Mallen får alltså intyga sig själv. Alternativ a lockar eftersom facket nämns, men samrådet används inte som skäl för att mallen är rättvis."
+        "explanation": "De två meningarna i mitten avgör: höga poäng visar vilka som presterar bäst, och att de presterar bäst visas av de höga poängen. Mallen får alltså intyga sig själv. Alternativ a lockar eftersom facket nämns, men samrådet används inte som skäl för att mallen är rättvis.",
+        "stod": [
+          "De medarbetare som får höga poäng enligt mallen är de som presterar bäst, skriver hon.",
+          "Och att det är just de som presterar bäst framgår av att de får höga poäng när mallen används."
+        ]
       },
       {
         "id": "verbexp-p17-q02",
@@ -631,7 +698,11 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Hela förslaget förutsätter att poängen mäter hur bra någon faktiskt presterar, och den sista meningen visar att ingen har prövat det. Svar b kan verka underförstått, men personalchefen behöver inte anse att den gamla blanketten var orättvis för att påstå att den nya är rättvis."
+        "explanation": "Hela förslaget förutsätter att poängen mäter hur bra någon faktiskt presterar, och den sista meningen visar att ingen har prövat det. Svar b kan verka underförstått, men personalchefen behöver inte anse att den gamla blanketten var orättvis för att påstå att den nya är rättvis.",
+        "stod": [
+          "De medarbetare som får höga poäng enligt mallen är de som presterar bäst, skriver hon.",
+          "Någon jämförelse med andra mått på prestation, som försäljning eller kundomdömen, redovisas inte."
+        ]
       },
       {
         "id": "verbexp-p17-q03",
@@ -663,7 +734,10 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Den sista meningen pekar ut bristen: inget annat mått på prestation redovisas. Stämmer poängen med försäljning och kundomdömen får mallen stöd utifrån i stället för från sig själv. Den som väljer a får bara mer av samma slags stöd, alltså nöjda chefer, som redan finns."
+        "explanation": "Den sista meningen pekar ut bristen: inget annat mått på prestation redovisas. Stämmer poängen med försäljning och kundomdömen får mallen stöd utifrån i stället för från sig själv. Den som väljer a får bara mer av samma slags stöd, alltså nöjda chefer, som redan finns.",
+        "stod": [
+          "Någon jämförelse med andra mått på prestation, som försäljning eller kundomdömen, redovisas inte."
+        ]
       },
       {
         "id": "verbexp-p17-q04",
@@ -695,7 +769,12 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Argumentet för rättvisan går runt i en cirkel, och enligt den sista meningen finns ingen jämförelse med andra mått, så frågan är öppen. Alternativ b går för långt åt andra hållet: att något inte är bevisat betyder inte att motsatsen är sann."
+        "explanation": "Argumentet för rättvisan går runt i en cirkel, och enligt den sista meningen finns ingen jämförelse med andra mått, så frågan är öppen. Alternativ b går för långt åt andra hållet: att något inte är bevisat betyder inte att motsatsen är sann.",
+        "stod": [
+          "De medarbetare som får höga poäng enligt mallen är de som presterar bäst, skriver hon.",
+          "Och att det är just de som presterar bäst framgår av att de får höga poäng när mallen används.",
+          "Någon jämförelse med andra mått på prestation, som försäljning eller kundomdömen, redovisas inte."
+        ]
       }
     ]
   },
@@ -739,7 +818,12 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "I jämförelsen betyder effektiv låg kostnad per ärende, men i meningen om bästa möjliga service betyder samma ord något helt annat. Slutsatsen bygger på att de två betydelserna blandas ihop. Alternativ c lockar eftersom en jämförelse åberopas, men den används för kostnaden och inte som en auktoritet."
+        "explanation": "I jämförelsen betyder effektiv låg kostnad per ärende, men i meningen om bästa möjliga service betyder samma ord något helt annat. Slutsatsen bygger på att de två betydelserna blandas ihop. Alternativ c lockar eftersom en jämförelse åberopas, men den används för kostnaden och inte som en auktoritet.",
+        "stod": [
+          "Jämförelsen mäter effektivitet som kostnad per avgjort ärende, och enheten hamnade på första plats med lägst kostnad.",
+          "En effektiv handläggning är en handläggning som ger de sökande bästa möjliga service.",
+          "Alltså är det hos oss som de sökande får bäst service i hela regionen."
+        ]
       },
       {
         "id": "verbexp-p18-q02",
@@ -771,7 +855,12 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "För att kliva från lägst kostnad till bäst service måste låg kostnad i sig leda till bättre service, och det säger texten ingenting om. Svar c kan låta viktigt, men även en helt oberoende jämförelse mätte bara kostnad och inte service."
+        "explanation": "För att kliva från lägst kostnad till bäst service måste låg kostnad i sig leda till bättre service, och det säger texten ingenting om. Svar c kan låta viktigt, men även en helt oberoende jämförelse mätte bara kostnad och inte service.",
+        "stod": [
+          "Jämförelsen mäter effektivitet som kostnad per avgjort ärende, och enheten hamnade på första plats med lägst kostnad.",
+          "En effektiv handläggning är en handläggning som ger de sökande bästa möjliga service.",
+          "Alltså är det hos oss som de sökande får bäst service i hela regionen."
+        ]
       },
       {
         "id": "verbexp-p18-q03",
@@ -803,7 +892,10 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Jämförelsen mäter bara kostnad per avgjort ärende, och där kom enheten först, så det är vad uppgifterna bär. Den som väljer c läser in något i svarstiderna, men texten säger ingenting om bemanningen och svarstiden kan ha andra orsaker."
+        "explanation": "Jämförelsen mäter bara kostnad per avgjort ärende, och där kom enheten först, så det är vad uppgifterna bär. Den som väljer c läser in något i svarstiderna, men texten säger ingenting om bemanningen och svarstiden kan ha andra orsaker.",
+        "stod": [
+          "Jämförelsen mäter effektivitet som kostnad per avgjort ärende, och enheten hamnade på första plats med lägst kostnad."
+        ]
       },
       {
         "id": "verbexp-p18-q04",
@@ -835,7 +927,11 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Den sista meningen avgör: regionens högsta andel överklagade beslut och längst svarstid talar emot att de sökande får bäst service. Alternativ b kan verka som en invändning, men chefen påstår bara att enheten är bäst i regionen, så avgränsningen motsäger henne inte."
+        "explanation": "Den sista meningen avgör: regionens högsta andel överklagade beslut och längst svarstid talar emot att de sökande får bäst service. Alternativ b kan verka som en invändning, men chefen påstår bara att enheten är bäst i regionen, så avgränsningen motsäger henne inte.",
+        "stod": [
+          "Alltså är det hos oss som de sökande får bäst service i hela regionen.",
+          "I samma jämförelse redovisas också att enheten har regionens högsta andel överklagade beslut och den längsta svarstiden i telefon."
+        ]
       }
     ]
   },
@@ -879,7 +975,10 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Ordet därför i den tredje meningen visar steget: eftersom var och en är bäst blir helheten bäst. Det håller bara om goda individer också fungerar bra tillsammans. Alternativ a kan låta rimligt för ett stort uppdrag, men förslaget kräver inte att banken ställer något sådant krav."
+        "explanation": "Ordet därför i den tredje meningen visar steget: eftersom var och en är bäst blir helheten bäst. Det håller bara om goda individer också fungerar bra tillsammans. Alternativ a kan låta rimligt för ett stort uppdrag, men förslaget kräver inte att banken ställer något sådant krav.",
+        "stod": [
+          "Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp."
+        ]
       },
       {
         "id": "verbexp-p19-q02",
@@ -911,7 +1010,10 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Hon går från att varje person är bäst i sin roll till att teamet blir bäst, alltså från delarna till helheten. Svar d lockar eftersom ett kundomdöme nämns, men det är en uppgift som talar emot henne och inget hon själv bygger på."
+        "explanation": "Hon går från att varje person är bäst i sin roll till att teamet blir bäst, alltså från delarna till helheten. Svar d lockar eftersom ett kundomdöme nämns, men det är en uppgift som talar emot henne och inget hon själv bygger på.",
+        "stod": [
+          "Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp."
+        ]
       },
       {
         "id": "verbexp-p19-q03",
@@ -943,7 +1045,11 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Meningen om att den individuella utvärderingen inte mäter samarbete slår mot själva grunden, eftersom betygen inte säger något om hur de fem fungerar ihop. Alternativ c är också en varningsflagga, men att två är vana att bestämma själva är en möjlig friktion och inget som rubbar hela underlaget."
+        "explanation": "Meningen om att den individuella utvärderingen inte mäter samarbete slår mot själva grunden, eftersom betygen inte säger något om hur de fem fungerar ihop. Alternativ c är också en varningsflagga, men att två är vana att bestämma själva är en möjlig friktion och inget som rubbar hela underlaget.",
+        "stod": [
+          "Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp.",
+          "Den individuella utvärderingen mäter hur väl konsulten löser sina egna uppgifter, men inte hur väl konsulten samarbetar."
+        ]
       },
       {
         "id": "verbexp-p19-q04",
@@ -975,7 +1081,11 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Förslagets svaga punkt är steget från goda individer till ett gott team, och en uppgift om att högt betygsatta konsulter oftast samarbetar väl fyller just den luckan. Den som väljer b får en önskan från banken, men den säger inget om hur teamet kommer att fungera."
+        "explanation": "Förslagets svaga punkt är steget från goda individer till ett gott team, och en uppgift om att högt betygsatta konsulter oftast samarbetar väl fyller just den luckan. Den som väljer b får en önskan från banken, men den säger inget om hur teamet kommer att fungera.",
+        "stod": [
+          "Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp.",
+          "Den individuella utvärderingen mäter hur väl konsulten löser sina egna uppgifter, men inte hur väl konsulten samarbetar."
+        ]
       }
     ]
   },
@@ -1019,7 +1129,12 @@
           }
         ],
         "correctAnswerId": "a",
-        "explanation": "Regeln i texten säger att kris leder till förseningar. Hon ser förseningar och sluter sig till kris, alltså går hon baklänges från följden till en av flera möjliga orsaker. Alternativ b lockar eftersom det låter som noggrann analys, men hon prövar aldrig någon annan förklaring."
+        "explanation": "Regeln i texten säger att kris leder till förseningar. Hon ser förseningar och sluter sig till kris, alltså går hon baklänges från följden till en av flera möjliga orsaker. Alternativ b lockar eftersom det låter som noggrann analys, men hon prövar aldrig någon annan förklaring.",
+        "stod": [
+          "Leverantörer som hamnar i ekonomisk kris börjar nästan alltid försena sina leveranser, eftersom de inte längre har råd att hålla lager.",
+          "Vår leverantör har försenat tre leveranser under det senaste kvartalet.",
+          "Alltså är leverantören på väg in i en ekonomisk kris, och vi bör byta innan den går i konkurs."
+        ]
       },
       {
         "id": "verbexp-p20-q02",
@@ -1051,7 +1166,11 @@
           }
         ],
         "correctAnswerId": "c",
-        "explanation": "Meningen om att leverantörer i kris nästan alltid försenar sina leveranser gör förseningar till ett möjligt tecken, inget mer. Svar b är hennes egen slutsats och lockar därför, men förseningar kan ha andra orsaker och då följer krisen inte."
+        "explanation": "Meningen om att leverantörer i kris nästan alltid försenar sina leveranser gör förseningar till ett möjligt tecken, inget mer. Svar b är hennes egen slutsats och lockar därför, men förseningar kan ha andra orsaker och då följer krisen inte.",
+        "stod": [
+          "Leverantörer som hamnar i ekonomisk kris börjar nästan alltid försena sina leveranser, eftersom de inte längre har råd att hålla lager.",
+          "Vår leverantör har försenat tre leveranser under det senaste kvartalet."
+        ]
       },
       {
         "id": "verbexp-p20-q03",
@@ -1083,7 +1202,11 @@
           }
         ],
         "correctAnswerId": "b",
-        "explanation": "Den sista meningen nämner strejken i hamnen men inte när förseningarna inträffade. Föll alla tre inom de två veckorna finns en annan förklaring som räcker, och då saknar krisen stöd. Alternativ d kan väcka misstankar, men ett vd-byte säger ingenting om varför leveranserna blev sena."
+        "explanation": "Den sista meningen nämner strejken i hamnen men inte när förseningarna inträffade. Föll alla tre inom de två veckorna finns en annan förklaring som räcker, och då saknar krisen stöd. Alternativ d kan väcka misstankar, men ett vd-byte säger ingenting om varför leveranserna blev sena.",
+        "stod": [
+          "Vår leverantör har försenat tre leveranser under det senaste kvartalet.",
+          "Hon nämner inte att hamnen där leverantören tar emot sitt stål var stängd i två veckor under kvartalet på grund av en strejk."
+        ]
       },
       {
         "id": "verbexp-p20-q04",
@@ -1115,7 +1238,11 @@
           }
         ],
         "correctAnswerId": "d",
-        "explanation": "Eftersom förseningar kan ha många orsaker krävs att inget annat, som strejken i hamnen, förklarar dem. Den som väljer b blandar ihop två saker: det antagandet gäller rådet att byta leverantör och inte frågan om leverantören är på väg in i en kris."
+        "explanation": "Eftersom förseningar kan ha många orsaker krävs att inget annat, som strejken i hamnen, förklarar dem. Den som väljer b blandar ihop två saker: det antagandet gäller rådet att byta leverantör och inte frågan om leverantören är på väg in i en kris.",
+        "stod": [
+          "Alltså är leverantören på väg in i en ekonomisk kris, och vi bör byta innan den går i konkurs.",
+          "Hon nämner inte att hamnen där leverantören tar emot sitt stål var stängd i två veckor under kvartalet på grund av en strejk."
+        ]
       }
     ]
   }

@@ -52,7 +52,10 @@ export interface DeduktivFraga {
   misstag: string[];
   /** Lösningsgången och remsan ur lösaren (DD5, DV1). */
   losning: DeduktivLosning;
-  /** Lösarens form (visas aldrig). */
+  /**
+   * Lösarens form (visas aldrig). Från omgång 3 kan den bära korta namn på
+   * leden för gränssnittet, se DeduktivLedNamn.
+   */
   formell?: unknown;
   fran_version: 1 | 2 | 3 | 4 | 5;
   /** Bankversionen uppgiften pensioneras från (DD7, DD8); gamla sessioner läser den ändå. */
@@ -61,6 +64,17 @@ export interface DeduktivFraga {
   losning_granskad?: true;
   /** Den pensionerade uppgift som den här lagade kopian ersätter. */
   ersatter?: string;
+}
+
+/**
+ * Valfria namn på leden i premisskedjor, i `formell` (omgång 3): `termnamn`
+ * per term-id i `formell.termer` (D1 och D4 kvantor), `atomnamn` per atom i
+ * `formell.atomer` (D4 om_sa), i jakande form. Högst fyra ord, orden står i
+ * premisserna (böjning tillåten). Kontrolleras av scripts/lib/facit-kontroll.mjs.
+ */
+export interface DeduktivLedNamn {
+  termnamn?: Record<string, string>;
+  atomnamn?: string[];
 }
 
 /** Ett steg i lösningsgången: villkorens nummer i märket ('Om' för antagandet), villkoren ordagrant och följden. */

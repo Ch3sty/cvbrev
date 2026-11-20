@@ -268,7 +268,7 @@
    "Belöning betyder pengar eller utmärkelse som delas ut som ersättning.",
    "Ramverk betyder konstruktion bestående av en eller flera ramar."
   ],
-  "facit_betyder": "flyktigt omnämnande eller flyktig behandling",
+  "facit_betyder": "tecken som tyder på något",
   "exempel": "Det finns ingen indikation på att priserna kommer att falla.",
   "kalla": {
    "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
@@ -287,7 +287,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-07",
@@ -1336,7 +1337,7 @@
    "Problem betyder bland annat svårighet som det krävs ansträngning att komma till rätta med.",
    ""
   ],
-  "facit_betyder": "mängd gods som transporteras på en gång",
+  "facit_betyder": "något tungt eller betungande som någon måste bära",
   "exempel": "Den tunga ekonomiska bördan blev till slut för mycket för den lilla familjen.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1354,7 +1355,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 0
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-29",
@@ -1675,7 +1677,7 @@
    "Oväsentlig betyder som inte har stor betydelse.",
    "Prominent betyder bland annat framstående."
   ],
-  "facit_betyder": "inackorderad",
+  "facit_betyder": "som finns i själva saken och hör till dess natur",
   "exempel": "Kritiken byggde på en analys av systemets immanenta logik.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -1693,7 +1695,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 4
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-36",
@@ -2014,7 +2017,7 @@
    "Nervös betyder bland annat som har orolig läggning.",
    "Likgiltig betyder bland annat helt ointresserad."
   ],
-  "facit_betyder": "delad genom klyvning",
+  "facit_betyder": "ambivalent",
   "exempel": "Hon var ambivalent till erbjudandet.",
   "kalla": {
    "verifierad_mot": "SO och SAOL",
@@ -2034,7 +2037,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-e-s-43",
@@ -2354,7 +2358,7 @@
    "Tillräcklig betyder som har en omfattning som svarar mot behovet.",
    "Det är motsatsen. Offentlig betyder bland annat öppen eller tillgänglig för alla människor."
   ],
-  "facit_betyder": "vänskapligt öppen och tillitsfull",
+  "facit_betyder": "som ska hållas hemlig och bara delas i förtroende",
   "exempel": "Uppgifterna i rapporten är konfidentiella.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -2372,7 +2376,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-50",
@@ -2402,7 +2407,7 @@
    "Slutsats betyder omdöme som man kommit fram till genom slutledning.",
    "Början betyder allra första del."
   ],
-  "facit_betyder": "(hölje för) frö i nöt, frukt, bär eller dylikt",
+  "facit_betyder": "det mest väsentliga i något",
   "exempel": "Det är kvintessensen av hela resonemanget.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -2420,7 +2425,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-51",
@@ -3762,7 +3768,7 @@
    "",
    "Pratsam betyder som (gärna) pratar mycket."
   ],
-  "facit_betyder": "som gör ett oordentligt intryck",
+  "facit_betyder": "som bryter mot god ton och gott uppförande",
   "exempel": "Han använde ett vulgärt språk.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -3780,7 +3786,8 @@
    "kandidat_fran": "handskrivet 2026-11-19",
    "ifyllda_distraktorer": 0
   },
-  "fran_version": 2
+  "fran_version": 2,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-e-s-72",

@@ -221,7 +221,7 @@
    "Äkta betyder bland annat som verkligen är vad det tycks vara.",
    "Känd betyder bland annat som många känner till."
   ],
-  "facit_betyder": "som befinner sig nära (geografisk) mittpunkt",
+  "facit_betyder": "som är mycket viktig för helheten",
   "exempel": "Det är en viktig fråga för hela organisationen.",
   "kalla": {
    "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
@@ -240,7 +240,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-s-06",
@@ -270,7 +271,7 @@
    "Följa betyder bland annat förflytta sig längs den väg eller bana som just tagits av.",
    "Klaga betyder bland annat framföra sitt missnöje."
   ],
-  "facit_betyder": "låta kropp(sdel) vila",
+  "facit_betyder": "hjälpa någon genom att ge kraft eller uppbackning",
   "exempel": "Kan du hjälpa mig att flytta bordet?",
   "kalla": {
    "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
@@ -289,7 +290,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-s-07",
@@ -709,7 +711,7 @@
    "Jämn betyder bland annat fri från (mer markanta) upphöjningar eller fördjupningar.",
    ""
   ],
-  "facit_betyder": "som har liten vikt",
+  "facit_betyder": "enkel, inte svår",
   "exempel": "Maten var enkel att laga för alla i familjen.",
   "kalla": {
    "verifierad_mot": "SAOL",
@@ -728,7 +730,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-g-s-16",
@@ -1342,7 +1345,7 @@
    "Lugn betyder bland annat som kännetecknas av sparsam rörelse.",
    "Fri betyder bland annat som inte är fysiskt instängd eller hindrad."
   ],
-  "facit_betyder": "som har (ett överskott av) de nödvändiga egenskaperna",
+  "facit_betyder": "vänlig och omtänksam mot andra",
   "exempel": "Han är alltid mycket snäll mot sina arbetskamrater.",
   "kalla": {
    "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
@@ -1361,7 +1364,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-s-29",
@@ -1442,7 +1446,7 @@
    "Moln betyder bland annat synlig, avgränsad förtätning i atmosfären.",
    "Kärlek betyder mycket stark, positiv känsla (för någon) som kännetecknas av ömhet och ibland sexuell åtrå."
   ],
-  "facit_betyder": "mansröst i det djupaste stämläget",
+  "facit_betyder": "grund, grundval",
   "exempel": "Föreningslivet står på en stadig grund i kommunen.",
   "kalla": {
    "verifierad_mot": "SAOL och SO",
@@ -1462,7 +1466,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 3
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-g-s-31",
@@ -1687,7 +1692,7 @@
    "",
    "Klok betyder bland annat som har gott förstånd och omdöme."
   ],
-  "facit_betyder": "som har beständig form och volym",
+  "facit_betyder": "som inte ger efter för tryck",
   "exempel": "Marken var helt hård efter frosten.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -1705,7 +1710,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 4
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-s-36",
@@ -1976,7 +1982,7 @@
    "",
    "Skynda betyder arbeta eller utföra (något) hastigt."
   ],
-  "facit_betyder": "utföra prov på",
+  "facit_betyder": "ge sig i kast med något för att se om det lyckas",
   "exempel": "Hon ville försöka igen nästa år.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -1994,7 +2000,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-s-42",
@@ -3202,7 +3209,7 @@
    "Begripa betyder förstå.",
    "Bära betyder bland annat förflytta (något) genom att hålla det ovanför underlaget och själv vanligen röra sig."
   ],
-  "facit_betyder": "upphäva bindande eller spärrande verkan av",
+  "facit_betyder": "ta av last från ett fordon eller fartyg",
   "exempel": "Arbetarna börjar lasta varorna på lastbilen nu.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -3221,7 +3228,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-m-19",
@@ -3251,7 +3259,7 @@
    "Start betyder igångsättning (av någon/något) för förflyttning.",
    "Vinst betyder ungefär detsamma som seger, inte motsatsen."
   ],
-  "facit_betyder": "ofrivilligt slut på förfogande över något (värdefullt)",
+  "facit_betyder": "nederlag",
   "exempel": "Laget firade sin seger med hela publiken.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -3270,7 +3278,8 @@
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "belagg"
  },
  {
   "id": "of-g-m-20",
@@ -4034,7 +4043,7 @@
    "Lång betyder bland annat som har stor utsträckning i en rumsdimension.",
    "Blöt betyder helt genomdränkt av eller överdragen med vatten."
   ],
-  "facit_betyder": "som strider mot verkliga förhållanden",
+  "facit_betyder": "som medvetet ger en osann eller vilseledande bild",
   "exempel": "Hon gav ett ärligt svar på en svår fråga.",
   "kalla": {
    "verifierad_mot": "SO",
@@ -4052,7 +4061,8 @@
    "kandidat_fran": "handskrivet 2026-11-09",
    "ifyllda_distraktorer": 2
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "facit_betyder_kalla": "egen"
  },
  {
   "id": "of-g-m-36",

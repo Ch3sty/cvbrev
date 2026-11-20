@@ -17438,6 +17438,12 @@
     "omojlig",
     "omojlig",
     "omojlig"
+   ],
+   "atomnamn": [
+    "Nora vinner upphandlingen",
+    "teamet anställer två konsulter",
+    "budgeten räcker till utbildningen",
+    "styrelsen godkänner utbildningen"
    ]
   },
   "fran_version": 5
@@ -17615,6 +17621,11 @@
     "obestamd",
     "obestamd",
     "obestamd"
+   ],
+   "atomnamn": [
+    "Olle byter avdelning",
+    "Olle får nytt passerkort",
+    "it-avdelningen skickar mejl"
    ]
   },
   "fran_version": 5
@@ -17792,6 +17803,11 @@
     "nodvandig",
     "obestamd",
     "obestamd"
+   ],
+   "atomnamn": [
+    "projektet förlängs",
+    "Pia stannar i gruppen",
+    "Pia får nytt avtal"
    ]
   },
   "fran_version": 5
@@ -17993,6 +18009,12 @@
     "obestamd",
     "omojlig",
     "obestamd"
+   ],
+   "atomnamn": [
+    "Rut åker på mässan",
+    "Rasmus håller i styrgruppen",
+    "Rasmus visar kunden runt",
+    "kunden besöker kontoret"
    ]
   },
   "fran_version": 5
@@ -18130,7 +18152,13 @@
     "nodvandig",
     "nodvandig",
     "obestamd"
-   ]
+   ],
+   "termnamn": {
+    "salj": "säljare",
+    "tyska": "talar tyska",
+    "koln": "mässan i Köln",
+    "test": "gjort språktestet"
+   }
   },
   "fran_version": 5
  },
@@ -18258,7 +18286,13 @@
     "obestamd",
     "obestamd",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "tim": "timanställda",
+    "brand": "gått brandutbildningen",
+    "ombud": "skyddsombud",
+    "kommitte": "i skyddskommittén"
+   }
   },
   "fran_version": 5
  },
@@ -18391,7 +18425,13 @@
     "nodvandig",
     "nodvandig",
     "nodvandig"
-   ]
+   ],
+   "termnamn": {
+    "vikarie": "sommarvikarier",
+    "kassa": "jobbar i kassan",
+    "retur": "hanterar returer",
+    "intro": "gått introduktionen"
+   }
   },
   "fran_version": 5
  },

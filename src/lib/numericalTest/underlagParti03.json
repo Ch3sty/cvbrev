@@ -100,7 +100,24 @@
           "visning": "1 053 besök",
           "precision": 0
         },
-        "explanation": "Besök i Norr och Söder: 455 + 598 = 1 053. Svaret blir 1 053 besök."
+        "explanation": "Besök i Norr och Söder: 455 + 598 = 1 053. Svaret blir 1 053 besök.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "455 + 598 = 1 053",
+              "etikett": "besök i Norr och Söder"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Norr",
+              "Söder"
+            ],
+            "kolumner": [
+              "Besök per vecka"
+            ]
+          }
+        }
       },
       {
         "id": "ng-17-q02",
@@ -157,7 +174,24 @@
           "visning": "12,0 besök",
           "precision": 1
         },
-        "explanation": "Besök per brukare i Centrum: 612 / 51 = 12. Svaret blir 12,0 besök."
+        "explanation": "Besök per brukare i Centrum: 612 / 51 = 12. Svaret blir 12,0 besök.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "612 / 51 = 12",
+              "etikett": "besök per brukare i Centrum"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Centrum"
+            ],
+            "kolumner": [
+              "Besök per vecka",
+              "Brukare"
+            ]
+          }
+        }
       },
       {
         "id": "ng-17-q03",
@@ -219,7 +253,27 @@
           "visning": "145 timmar",
           "precision": 0
         },
-        "explanation": "Besökstid i minuter: 348 · 25 = 8 700. Omräknat till timmar: 8 700 / 60 = 145. Svaret blir 145 timmar."
+        "explanation": "Besökstid i minuter: 348 · 25 = 8 700. Omräknat till timmar: 8 700 / 60 = 145. Svaret blir 145 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "348 × 25 = 8 700",
+              "etikett": "besökstid i minuter"
+            },
+            {
+              "uttryck": "8 700 / 60 = 145",
+              "etikett": "omräknat till timmar"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Väster"
+            ],
+            "kolumner": [
+              "Besök per vecka"
+            ]
+          }
+        }
       },
       {
         "id": "ng-17-q04",
@@ -281,7 +335,30 @@
           "visning": "29,7 %",
           "precision": 1
         },
-        "explanation": "Alla besök under veckan: 612 + 455 + 598 + 348 = 2 013. Söders andel: 598 / 2 013 · 100 = 29,707. Svaret blir 29,7 %."
+        "explanation": "Alla besök under veckan: 612 + 455 + 598 + 348 = 2 013. Söders andel: 598 / 2 013 · 100 = 29,707. Svaret blir 29,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "612 + 455 + 598 + 348 = 2 013",
+              "etikett": "alla besök under veckan"
+            },
+            {
+              "uttryck": "598 / 2 013 × 100 ≈ 29,7 %",
+              "etikett": "söders andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Centrum",
+              "Norr",
+              "Söder",
+              "Väster"
+            ],
+            "kolumner": [
+              "Besök per vecka"
+            ]
+          }
+        }
       }
     ]
   },
@@ -386,7 +463,24 @@
           "visning": "23 pallar",
           "precision": 0
         },
-        "explanation": "Pallar per leverans: 276 / 12 = 23. Svaret blir 23 pallar."
+        "explanation": "Pallar per leverans: 276 / 12 = 23. Svaret blir 23 pallar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "276 / 12 = 23",
+              "etikett": "pallar per leverans"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kustlast"
+            ],
+            "kolumner": [
+              "Leveranser",
+              "Pallar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-18-q02",
@@ -443,7 +537,24 @@
           "visning": "25 %",
           "precision": 0
         },
-        "explanation": "Försenade delat med alla leveranser: 6 / 24 · 100 = 25. Svaret blir 25 %."
+        "explanation": "Försenade delat med alla leveranser: 6 / 24 · 100 = 25. Svaret blir 25 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6 / 24 × 100 = 25 %",
+              "etikett": "försenade delat med alla leveranser"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Bergs Frukt"
+            ],
+            "kolumner": [
+              "Försenade leveranser",
+              "Leveranser"
+            ]
+          }
+        }
       },
       {
         "id": "ng-18-q03",
@@ -505,7 +616,27 @@
           "visning": "144 ton",
           "precision": 0
         },
-        "explanation": "Vikt i kg: 342 · 420 = 143 640. Omräknat till ton: 143 640 / 1 000 = 143,64. Svaret blir 144 ton."
+        "explanation": "Vikt i kg: 342 · 420 = 143 640. Omräknat till ton: 143 640 / 1 000 = 143,64. Svaret blir 144 ton.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "342 × 420 = 143 640",
+              "etikett": "vikt i kg"
+            },
+            {
+              "uttryck": "143 640 / 1 000 = 143,64 ≈ 144",
+              "etikett": "omräknat till ton"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Nordgods"
+            ],
+            "kolumner": [
+              "Pallar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-18-q04",
@@ -567,7 +698,30 @@
           "visning": "19,9 %",
           "precision": 1
         },
-        "explanation": "Alla pallar i oktober: 342 + 408 + 276 + 255 = 1 281. Mellanfrakts andel: 255 / 1 281 · 100 = 19,906. Svaret blir 19,9 %."
+        "explanation": "Alla pallar i oktober: 342 + 408 + 276 + 255 = 1 281. Mellanfrakts andel: 255 / 1 281 · 100 = 19,906. Svaret blir 19,9 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "342 + 408 + 276 + 255 = 1 281",
+              "etikett": "alla pallar i oktober"
+            },
+            {
+              "uttryck": "255 / 1 281 × 100 ≈ 19,9 %",
+              "etikett": "mellanfrakts andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Nordgods",
+              "Bergs Frukt",
+              "Kustlast",
+              "Mellanfrakt"
+            ],
+            "kolumner": [
+              "Pallar"
+            ]
+          }
+        }
       }
     ]
   },
@@ -672,7 +826,24 @@
           "visning": "207 dagar",
           "precision": 0
         },
-        "explanation": "Frånvaro i 7A och 7B: 86 + 121 = 207. Svaret blir 207 dagar."
+        "explanation": "Frånvaro i 7A och 7B: 86 + 121 = 207. Svaret blir 207 dagar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "86 + 121 = 207",
+              "etikett": "frånvaro i 7A och 7B"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "7A",
+              "7B"
+            ],
+            "kolumner": [
+              "Frånvarodagar totalt"
+            ]
+          }
+        }
       },
       {
         "id": "ng-19-q02",
@@ -734,7 +905,28 @@
           "visning": "11,6 %",
           "precision": 1
         },
-        "explanation": "Elevdagar i 7B: 26 · 40 = 1 040. Frånvaro i procent: 121 / 1 040 · 100 = 11,635. Svaret blir 11,6 %."
+        "explanation": "Elevdagar i 7B: 26 · 40 = 1 040. Frånvaro i procent: 121 / 1 040 · 100 = 11,635. Svaret blir 11,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "26 × 40 = 1 040",
+              "etikett": "elevdagar i 7B"
+            },
+            {
+              "uttryck": "121 / 1 040 × 100 ≈ 11,6 %",
+              "etikett": "frånvaro i procent"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "7B"
+            ],
+            "kolumner": [
+              "Elever",
+              "Frånvarodagar totalt"
+            ]
+          }
+        }
       },
       {
         "id": "ng-19-q03",
@@ -796,7 +988,29 @@
           "visning": "204 dagar",
           "precision": 0
         },
-        "explanation": "Frånvaro i 8A och 8B: 96 + 138 = 234. Minus den ogiltiga frånvaron: 234 - 9 - 21 = 204. Svaret blir 204 dagar."
+        "explanation": "Frånvaro i 8A och 8B: 96 + 138 = 234. Minus den ogiltiga frånvaron: 234 - 9 - 21 = 204. Svaret blir 204 dagar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "96 + 138 = 234",
+              "etikett": "frånvaro i 8A och 8B"
+            },
+            {
+              "uttryck": "234 − 9 − 21 = 204",
+              "etikett": "minus den ogiltiga frånvaron"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "8A",
+              "8B"
+            ],
+            "kolumner": [
+              "Frånvarodagar totalt",
+              "Varav ogiltig frånvaro"
+            ]
+          }
+        }
       },
       {
         "id": "ng-19-q04",
@@ -853,7 +1067,23 @@
           "visning": "516 lektioner",
           "precision": 0
         },
-        "explanation": "Frånvarodagar gånger lektioner per dag: 86 · 6 = 516. Svaret blir 516 lektioner."
+        "explanation": "Frånvarodagar gånger lektioner per dag: 86 · 6 = 516. Svaret blir 516 lektioner.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "86 × 6 = 516",
+              "etikett": "frånvarodagar gånger lektioner per dag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "7A"
+            ],
+            "kolumner": [
+              "Frånvarodagar totalt"
+            ]
+          }
+        }
       }
     ]
   },
@@ -957,7 +1187,21 @@
           "visning": "180 resor",
           "precision": 0
         },
-        "explanation": "Maj minus januari: 820 - 640 = 180. Svaret blir 180 resor."
+        "explanation": "Maj minus januari: 820 - 640 = 180. Svaret blir 180 resor.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "820 − 640 = 180",
+              "etikett": "maj minus januari"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Maj",
+              "Jan"
+            ]
+          }
+        }
       },
       {
         "id": "ng-20-q02",
@@ -1019,7 +1263,25 @@
           "visning": "29 %",
           "precision": 0
         },
-        "explanation": "Ökning i antal resor: 760 - 590 = 170. Ökning i procent av februari: 170 / 590 · 100 = 28,814. Svaret blir 29 %."
+        "explanation": "Ökning i antal resor: 760 - 590 = 170. Ökning i procent av februari: 170 / 590 · 100 = 28,814. Svaret blir 29 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "760 − 590 = 170",
+              "etikett": "ökning i antal resor"
+            },
+            {
+              "uttryck": "170 / 590 × 100 ≈ 29 %",
+              "etikett": "ökning i procent av februari"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Apr",
+              "Feb"
+            ]
+          }
+        }
       },
       {
         "id": "ng-20-q03",
@@ -1081,7 +1343,24 @@
           "visning": "197,2 tkr",
           "precision": 1
         },
-        "explanation": "Kostnad i kr: 680 · 290 = 197 200. Omräknat till tkr: 197 200 / 1 000 = 197,2. Svaret blir 197,2 tkr."
+        "explanation": "Kostnad i kr: 680 · 290 = 197 200. Omräknat till tkr: 197 200 / 1 000 = 197,2. Svaret blir 197,2 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "680 × 290 = 197 200",
+              "etikett": "kostnad i kr"
+            },
+            {
+              "uttryck": "197 200 / 1 000 = 197,2",
+              "etikett": "omräknat till tkr"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jun"
+            ]
+          }
+        }
       },
       {
         "id": "ng-20-q04",
@@ -1143,7 +1422,29 @@
           "visning": "700 resor",
           "precision": 0
         },
-        "explanation": "Alla resor under halvåret: 640 + 590 + 710 + 760 + 820 + 680 = 4 200. Genomsnitt per månad: 4 200 / 6 = 700. Svaret blir 700 resor."
+        "explanation": "Alla resor under halvåret: 640 + 590 + 710 + 760 + 820 + 680 = 4 200. Genomsnitt per månad: 4 200 / 6 = 700. Svaret blir 700 resor.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "640 + 590 + 710 + 760 + 820 + 680 = 4 200",
+              "etikett": "alla resor under halvåret"
+            },
+            {
+              "uttryck": "4 200 / 6 = 700",
+              "etikett": "genomsnitt per månad"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "Maj",
+              "Jun"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1253,7 +1554,27 @@
           "visning": "266,8 tkr",
           "precision": 1
         },
-        "explanation": "Kostnad i kr: 232 · 1 150 = 266 800. Omräknat till tkr: 266 800 / 1 000 = 266,8. Svaret blir 266,8 tkr."
+        "explanation": "Kostnad i kr: 232 · 1 150 = 266 800. Omräknat till tkr: 266 800 / 1 000 = 266,8. Svaret blir 266,8 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "232 × 1 150 = 266 800",
+              "etikett": "kostnad i kr"
+            },
+            {
+              "uttryck": "266 800 / 1 000 = 266,8",
+              "etikett": "omräknat till tkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Öster"
+            ],
+            "kolumner": [
+              "Maskintimmar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-21-q02",
@@ -1310,7 +1631,24 @@
           "visning": "45 timmar",
           "precision": 0
         },
-        "explanation": "Maskintimmar per utryckning: 315 / 7 = 45. Svaret blir 45 timmar."
+        "explanation": "Maskintimmar per utryckning: 315 / 7 = 45. Svaret blir 45 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "315 / 7 = 45",
+              "etikett": "maskintimmar per utryckning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Landsbygd"
+            ],
+            "kolumner": [
+              "Maskintimmar",
+              "Utryckningar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-21-q03",
@@ -1372,7 +1710,30 @@
           "visning": "34,7 %",
           "precision": 1
         },
-        "explanation": "Alla maskintimmar: 186 + 232 + 174 + 315 = 907. Landsbygdens andel: 315 / 907 · 100 = 34,73. Svaret blir 34,7 %."
+        "explanation": "Alla maskintimmar: 186 + 232 + 174 + 315 = 907. Landsbygdens andel: 315 / 907 · 100 = 34,73. Svaret blir 34,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "186 + 232 + 174 + 315 = 907",
+              "etikett": "alla maskintimmar"
+            },
+            {
+              "uttryck": "315 / 907 × 100 ≈ 34,7 %",
+              "etikett": "landsbygdens andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Centrum",
+              "Öster",
+              "Väster",
+              "Landsbygd"
+            ],
+            "kolumner": [
+              "Maskintimmar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-21-q04",
@@ -1434,7 +1795,27 @@
           "visning": "216,1 tkr",
           "precision": 1
         },
-        "explanation": "Nytt pris per maskintimme: 1 150 · (1 + 8 / 100) = 1 242. Kostnad i Väster i tkr: 174 · 1 242 / 1 000 = 216,108. Svaret blir 216,1 tkr."
+        "explanation": "Nytt pris per maskintimme: 1 150 · (1 + 8 / 100) = 1 242. Kostnad i Väster i tkr: 174 · 1 242 / 1 000 = 216,108. Svaret blir 216,1 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 150 × (1 + 8 / 100) = 1 242",
+              "etikett": "nytt pris per maskintimme"
+            },
+            {
+              "uttryck": "174 × 1 242 / 1 000 = 216,108 ≈ 216,1",
+              "etikett": "kostnad i Väster i tkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Väster"
+            ],
+            "kolumner": [
+              "Maskintimmar"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1541,7 +1922,24 @@
           "visning": "207 kg",
           "precision": 0
         },
-        "explanation": "Mjöl i gram: 460 · 450 = 207 000. Omräknat till kg: 207 000 / 1 000 = 207. Svaret blir 207 kg."
+        "explanation": "Mjöl i gram: 460 · 450 = 207 000. Omräknat till kg: 207 000 / 1 000 = 207. Svaret blir 207 kg.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "460 × 450 = 207 000",
+              "etikett": "mjöl i gram"
+            },
+            {
+              "uttryck": "207 000 / 1 000 = 207",
+              "etikett": "omräknat till kg"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Fredag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-22-q02",
@@ -1603,7 +2001,25 @@
           "visning": "53 %",
           "precision": 0
         },
-        "explanation": "Skillnad i limpor: 520 - 340 = 180. Skillnad i procent av torsdagen: 180 / 340 · 100 = 52,941. Svaret blir 53 %."
+        "explanation": "Skillnad i limpor: 520 - 340 = 180. Skillnad i procent av torsdagen: 180 / 340 · 100 = 52,941. Svaret blir 53 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "520 − 340 = 180",
+              "etikett": "skillnad i limpor"
+            },
+            {
+              "uttryck": "180 / 340 × 100 ≈ 53 %",
+              "etikett": "skillnad i procent av torsdagen"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Lördag",
+              "Torsdag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-22-q03",
@@ -1665,7 +2081,25 @@
           "visning": "9 600 kr",
           "precision": 0
         },
-        "explanation": "Skillnad i limpor: 520 - 320 = 200. Skillnad i kr: 200 · 48 = 9 600. Svaret blir 9 600 kr."
+        "explanation": "Skillnad i limpor: 520 - 320 = 200. Skillnad i kr: 200 · 48 = 9 600. Svaret blir 9 600 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "520 − 320 = 200",
+              "etikett": "skillnad i limpor"
+            },
+            {
+              "uttryck": "200 × 48 = 9 600",
+              "etikett": "skillnad i kr"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Lördag",
+              "Måndag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-22-q04",
@@ -1727,7 +2161,29 @@
           "visning": "370 limpor",
           "precision": 0
         },
-        "explanation": "Alla limpor under veckan: 320 + 280 + 300 + 340 + 460 + 520 = 2 220. Genomsnitt per öppetdag: 2 220 / 6 = 370. Svaret blir 370 limpor."
+        "explanation": "Alla limpor under veckan: 320 + 280 + 300 + 340 + 460 + 520 = 2 220. Genomsnitt per öppetdag: 2 220 / 6 = 370. Svaret blir 370 limpor.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "320 + 280 + 300 + 340 + 460 + 520 = 2 220",
+              "etikett": "alla limpor under veckan"
+            },
+            {
+              "uttryck": "2 220 / 6 = 370",
+              "etikett": "genomsnitt per öppetdag"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Måndag",
+              "Tisdag",
+              "Onsdag",
+              "Torsdag",
+              "Fredag",
+              "Lördag"
+            ]
+          }
+        }
       }
     ]
   },
@@ -1832,7 +2288,24 @@
           "visning": "138 kg",
           "precision": 0
         },
-        "explanation": "Tvätt per vårdplats: 5 520 / 40 = 138. Svaret blir 138 kg."
+        "explanation": "Tvätt per vårdplats: 5 520 / 40 = 138. Svaret blir 138 kg.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "5 520 / 40 = 138",
+              "etikett": "tvätt per vårdplats"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Medicin"
+            ],
+            "kolumner": [
+              "Tvätt (kg)",
+              "Vårdplatser"
+            ]
+          }
+        }
       },
       {
         "id": "ng-23-q02",
@@ -1894,7 +2367,28 @@
           "visning": "5,7 %",
           "precision": 1
         },
-        "explanation": "Ökning i kg: 3 150 - 2 980 = 170. Ökning i procent av föregående månad: 170 / 2 980 · 100 = 5,705. Svaret blir 5,7 %."
+        "explanation": "Ökning i kg: 3 150 - 2 980 = 170. Ökning i procent av föregående månad: 170 / 2 980 · 100 = 5,705. Svaret blir 5,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "3 150 − 2 980 = 170",
+              "etikett": "ökning i kg"
+            },
+            {
+              "uttryck": "170 / 2 980 × 100 ≈ 5,7 %",
+              "etikett": "ökning i procent av föregående månad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Ortopedi"
+            ],
+            "kolumner": [
+              "Tvätt (kg)",
+              "Tvätt föregående månad (kg)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-23-q03",
@@ -1956,7 +2450,29 @@
           "visning": "87,5 tkr",
           "precision": 1
         },
-        "explanation": "Kostnad i kr: 4 860 · 18 = 87 480. Omräknat till tkr: 87 480 / 1 000 = 87,48. Svaret blir 87,5 tkr."
+        "explanation": "Kostnad i kr: 4 860 · 18 = 87 480. Omräknat till tkr: 87 480 / 1 000 = 87,48. Svaret blir 87,5 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 860 × 18 = 87 480",
+              "etikett": "kostnad i kr"
+            },
+            {
+              "uttryck": "87 480 / 1 000 = 87,48 ≈ 87,5",
+              "etikett": "omräknat till tkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kirurgi",
+              "Barn"
+            ],
+            "kolumner": [
+              "Tvätt (kg)",
+              "Vårdplatser"
+            ]
+          }
+        }
       },
       {
         "id": "ng-23-q04",
@@ -2018,7 +2534,30 @@
           "visning": "517 kg",
           "precision": 0
         },
-        "explanation": "All tvätt under månaden: 4 860 + 5 520 + 3 150 + 1 980 = 15 510. Genomsnitt per dag: 15 510 / 30 = 517. Svaret blir 517 kg."
+        "explanation": "All tvätt under månaden: 4 860 + 5 520 + 3 150 + 1 980 = 15 510. Genomsnitt per dag: 15 510 / 30 = 517. Svaret blir 517 kg.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 860 + 5 520 + 3 150 + 1 980 = 15 510",
+              "etikett": "all tvätt under månaden"
+            },
+            {
+              "uttryck": "15 510 / 30 = 517",
+              "etikett": "genomsnitt per dag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kirurgi",
+              "Medicin",
+              "Ortopedi",
+              "Barn"
+            ],
+            "kolumner": [
+              "Tvätt (kg)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2121,7 +2660,24 @@
           "visning": "38 timmar",
           "precision": 0
         },
-        "explanation": "Samtalstid i minuter: 380 · 6 = 2 280. Omräknat till timmar: 2 280 / 60 = 38. Svaret blir 38 timmar."
+        "explanation": "Samtalstid i minuter: 380 · 6 = 2 280. Omräknat till timmar: 2 280 / 60 = 38. Svaret blir 38 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "380 × 6 = 2 280",
+              "etikett": "samtalstid i minuter"
+            },
+            {
+              "uttryck": "2 280 / 60 = 38",
+              "etikett": "omräknat till timmar"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Måndag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-24-q02",
@@ -2183,7 +2739,28 @@
           "visning": "26,4 %",
           "precision": 1
         },
-        "explanation": "Veckans samtal: 380 + 290 + 260 + 270 + 240 = 1 440. Måndagens andel: 380 / 1 440 · 100 = 26,389. Svaret blir 26,4 %."
+        "explanation": "Veckans samtal: 380 + 290 + 260 + 270 + 240 = 1 440. Måndagens andel: 380 / 1 440 · 100 = 26,389. Svaret blir 26,4 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "380 + 290 + 260 + 270 + 240 = 1 440",
+              "etikett": "veckans samtal"
+            },
+            {
+              "uttryck": "380 / 1 440 × 100 ≈ 26,4 %",
+              "etikett": "måndagens andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Måndag",
+              "Tisdag",
+              "Onsdag",
+              "Torsdag",
+              "Fredag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-24-q03",
@@ -2240,7 +2817,21 @@
           "visning": "50 samtal",
           "precision": 0
         },
-        "explanation": "Tisdag minus fredag: 290 - 240 = 50. Svaret blir 50 samtal."
+        "explanation": "Tisdag minus fredag: 290 - 240 = 50. Svaret blir 50 samtal.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "290 − 240 = 50",
+              "etikett": "tisdag minus fredag"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Tisdag",
+              "Fredag"
+            ]
+          }
+        }
       },
       {
         "id": "ng-24-q04",
@@ -2302,7 +2893,24 @@
           "visning": "312 minuter",
           "precision": 0
         },
-        "explanation": "Samtalstid i minuter: 260 · 6 = 1 560. Per sjuksköterska: 1 560 / 5 = 312. Svaret blir 312 minuter."
+        "explanation": "Samtalstid i minuter: 260 · 6 = 1 560. Per sjuksköterska: 1 560 / 5 = 312. Svaret blir 312 minuter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "260 × 6 = 1 560",
+              "etikett": "samtalstid i minuter"
+            },
+            {
+              "uttryck": "1 560 / 5 = 312",
+              "etikett": "per sjuksköterska"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Onsdag"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2414,7 +3022,24 @@
           "visning": "56 960 kr",
           "precision": 0
         },
-        "explanation": "Antal gånger pris: 640 · 89 = 56 960. Svaret blir 56 960 kr."
+        "explanation": "Antal gånger pris: 640 · 89 = 56 960. Svaret blir 56 960 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "640 × 89 = 56 960",
+              "etikett": "antal gånger pris"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gipsskivor"
+            ],
+            "kolumner": [
+              "Beställt antal",
+              "Pris per enhet (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-25-q02",
@@ -2471,7 +3096,24 @@
           "visning": "67 %",
           "precision": 0
         },
-        "explanation": "Levererat delat med beställt: 120 / 180 · 100 = 66,667. Svaret blir 67 %."
+        "explanation": "Levererat delat med beställt: 120 / 180 · 100 = 66,667. Svaret blir 67 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "120 / 180 × 100 ≈ 67 %",
+              "etikett": "levererat delat med beställt"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Isolering"
+            ],
+            "kolumner": [
+              "Levererat hittills",
+              "Beställt antal"
+            ]
+          }
+        }
       },
       {
         "id": "ng-25-q03",
@@ -2533,7 +3175,28 @@
           "visning": "91 000 kr",
           "precision": 0
         },
-        "explanation": "Pris utan moms: 5 200 · 14 = 72 800. Med 25 % moms: 72 800 · (1 + 25 / 100) = 91 000. Svaret blir 91 000 kr."
+        "explanation": "Pris utan moms: 5 200 · 14 = 72 800. Med 25 % moms: 72 800 · (1 + 25 / 100) = 91 000. Svaret blir 91 000 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "5 200 × 14 = 72 800",
+              "etikett": "pris utan moms"
+            },
+            {
+              "uttryck": "72 800 × (1 + 25 / 100) = 91 000",
+              "etikett": "med 25 % moms"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Takpannor"
+            ],
+            "kolumner": [
+              "Beställt antal",
+              "Pris per enhet (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-25-q04",
@@ -2595,7 +3258,29 @@
           "visning": "14 240 kr",
           "precision": 0
         },
-        "explanation": "Skivor som återstår: 640 - 480 = 160. Kostnad: 160 · 89 = 14 240. Svaret blir 14 240 kr."
+        "explanation": "Skivor som återstår: 640 - 480 = 160. Kostnad: 160 · 89 = 14 240. Svaret blir 14 240 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "640 − 480 = 160",
+              "etikett": "skivor som återstår"
+            },
+            {
+              "uttryck": "160 × 89 = 14 240",
+              "etikett": "kostnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gipsskivor"
+            ],
+            "kolumner": [
+              "Beställt antal",
+              "Levererat hittills",
+              "Pris per enhet (kr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -2711,7 +3396,25 @@
           "visning": "42 %",
           "precision": 0
         },
-        "explanation": "Ökning i paket: 610 - 430 = 180. Ökning i procent av maj: 180 / 430 · 100 = 41,861. Svaret blir 42 %."
+        "explanation": "Ökning i paket: 610 - 430 = 180. Ökning i procent av maj: 180 / 430 · 100 = 41,861. Svaret blir 42 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "610 − 430 = 180",
+              "etikett": "ökning i paket"
+            },
+            {
+              "uttryck": "180 / 430 × 100 ≈ 42 %",
+              "etikett": "ökning i procent av maj"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Aug",
+              "Maj"
+            ]
+          }
+        }
       },
       {
         "id": "ng-26-q02",
@@ -2773,7 +3476,25 @@
           "visning": "9 720 kr",
           "precision": 0
         },
-        "explanation": "Paket juni och juli: 520 + 560 = 1 080. Ersättning: 1 080 · 9 = 9 720. Svaret blir 9 720 kr."
+        "explanation": "Paket juni och juli: 520 + 560 = 1 080. Ersättning: 1 080 · 9 = 9 720. Svaret blir 9 720 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "520 + 560 = 1 080",
+              "etikett": "paket juni och juli"
+            },
+            {
+              "uttryck": "1 080 × 9 = 9 720",
+              "etikett": "ersättning"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jun",
+              "Jul"
+            ]
+          }
+        }
       },
       {
         "id": "ng-26-q03",
@@ -2835,7 +3556,27 @@
           "visning": "430 paket",
           "precision": 0
         },
-        "explanation": "Paket januari till april: 410 + 390 + 450 + 470 = 1 720. Genomsnitt per månad: 1 720 / 4 = 430. Svaret blir 430 paket."
+        "explanation": "Paket januari till april: 410 + 390 + 450 + 470 = 1 720. Genomsnitt per månad: 1 720 / 4 = 430. Svaret blir 430 paket.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "410 + 390 + 450 + 470 = 1 720",
+              "etikett": "paket januari till april"
+            },
+            {
+              "uttryck": "1 720 / 4 = 430",
+              "etikett": "genomsnitt per månad"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr"
+            ]
+          }
+        }
       },
       {
         "id": "ng-26-q04",
@@ -2892,7 +3633,21 @@
           "visning": "200 paket",
           "precision": 0
         },
-        "explanation": "Augusti minus januari: 610 - 410 = 200. Svaret blir 200 paket."
+        "explanation": "Augusti minus januari: 610 - 410 = 200. Svaret blir 200 paket.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "610 − 410 = 200",
+              "etikett": "augusti minus januari"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Aug",
+              "Jan"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3007,7 +3762,28 @@
           "visning": "84,7 %",
           "precision": 1
         },
-        "explanation": "Möjliga rumsnätter i juni: 85 · 30 = 2 550. Beläggning: 2 160 / 2 550 · 100 = 84,706. Svaret blir 84,7 %."
+        "explanation": "Möjliga rumsnätter i juni: 85 · 30 = 2 550. Beläggning: 2 160 / 2 550 · 100 = 84,706. Svaret blir 84,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "85 × 30 = 2 550",
+              "etikett": "möjliga rumsnätter i juni"
+            },
+            {
+              "uttryck": "2 160 / 2 550 × 100 ≈ 84,7 %",
+              "etikett": "beläggning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Juni"
+            ],
+            "kolumner": [
+              "Dagar",
+              "Uthyrda rumsnätter"
+            ]
+          }
+        }
       },
       {
         "id": "ng-27-q02",
@@ -3069,7 +3845,28 @@
           "visning": "3 213 tkr",
           "precision": 0
         },
-        "explanation": "Intäkter i kr: 2 380 · 1 350 = 3 213 000. Omräknat till tkr: 3 213 000 / 1 000 = 3 213. Svaret blir 3 213 tkr."
+        "explanation": "Intäkter i kr: 2 380 · 1 350 = 3 213 000. Omräknat till tkr: 3 213 000 / 1 000 = 3 213. Svaret blir 3 213 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "2 380 × 1 350 = 3 213 000",
+              "etikett": "intäkter i kr"
+            },
+            {
+              "uttryck": "3 213 000 / 1 000 = 3 213",
+              "etikett": "omräknat till tkr"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Juli"
+            ],
+            "kolumner": [
+              "Uthyrda rumsnätter",
+              "Snittpris (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-27-q03",
@@ -3131,7 +3928,28 @@
           "visning": "12,6 %",
           "precision": 1
         },
-        "explanation": "Sänkning i kr: 1 350 - 1 180 = 170. Sänkning i procent av juli: 170 / 1 350 · 100 = 12,593. Svaret blir 12,6 %."
+        "explanation": "Sänkning i kr: 1 350 - 1 180 = 170. Sänkning i procent av juli: 170 / 1 350 · 100 = 12,593. Svaret blir 12,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 350 − 1 180 = 170",
+              "etikett": "sänkning i kr"
+            },
+            {
+              "uttryck": "170 / 1 350 × 100 ≈ 12,6 %",
+              "etikett": "sänkning i procent av juli"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Juli",
+              "Augusti"
+            ],
+            "kolumner": [
+              "Snittpris (kr)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-27-q04",
@@ -3188,7 +4006,24 @@
           "visning": "60 rumsnätter",
           "precision": 0
         },
-        "explanation": "Rumsnätter per dag: 1 870 / 31 = 60,323. Svaret blir 60 rumsnätter."
+        "explanation": "Rumsnätter per dag: 1 870 / 31 = 60,323. Svaret blir 60 rumsnätter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "1 870 / 31 ≈ 60",
+              "etikett": "rumsnätter per dag"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Maj"
+            ],
+            "kolumner": [
+              "Dagar",
+              "Uthyrda rumsnätter"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3282,7 +4117,20 @@
           "visning": "320 patienter",
           "precision": 0
         },
-        "explanation": "Patienter per månad: 960 / 3 = 320. Svaret blir 320 patienter."
+        "explanation": "Patienter per månad: 960 / 3 = 320. Svaret blir 320 patienter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "960 / 3 = 320",
+              "etikett": "patienter per månad"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Strand"
+            ]
+          }
+        }
       },
       {
         "id": "ng-28-q02",
@@ -3344,7 +4192,25 @@
           "visning": "21,7 %",
           "precision": 1
         },
-        "explanation": "Skillnad i patienter: 840 - 690 = 150. Skillnad i procent av Hagaby: 150 / 690 · 100 = 21,739. Svaret blir 21,7 %."
+        "explanation": "Skillnad i patienter: 840 - 690 = 150. Skillnad i procent av Hagaby: 150 / 690 · 100 = 21,739. Svaret blir 21,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "840 − 690 = 150",
+              "etikett": "skillnad i patienter"
+            },
+            {
+              "uttryck": "150 / 690 × 100 ≈ 21,7 %",
+              "etikett": "skillnad i procent av Hagaby"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Ekbacken",
+              "Hagaby"
+            ]
+          }
+        }
       },
       {
         "id": "ng-28-q03",
@@ -3406,7 +4272,27 @@
           "visning": "17,0 %",
           "precision": 1
         },
-        "explanation": "Alla patienter: 840 + 690 + 960 + 510 = 3 000. Åsens andel: 510 / 3 000 · 100 = 17. Svaret blir 17,0 %."
+        "explanation": "Alla patienter: 840 + 690 + 960 + 510 = 3 000. Åsens andel: 510 / 3 000 · 100 = 17. Svaret blir 17,0 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "840 + 690 + 960 + 510 = 3 000",
+              "etikett": "alla patienter"
+            },
+            {
+              "uttryck": "510 / 3 000 × 100 = 17 %",
+              "etikett": "åsens andel"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Ekbacken",
+              "Hagaby",
+              "Strand",
+              "Åsen"
+            ]
+          }
+        }
       },
       {
         "id": "ng-28-q04",
@@ -3468,7 +4354,24 @@
           "visning": "773 patienter",
           "precision": 0
         },
-        "explanation": "Ökning i patienter: 690 · 12 / 100 = 82,8. Nytt antal: 690 + 82,8 = 772,8. Svaret blir 773 patienter."
+        "explanation": "Ökning i patienter: 690 · 12 / 100 = 82,8. Nytt antal: 690 + 82,8 = 772,8. Svaret blir 773 patienter.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "690 × 12 / 100 = 82,8",
+              "etikett": "ökning i patienter"
+            },
+            {
+              "uttryck": "690 + 82,8 = 772,8 ≈ 773",
+              "etikett": "nytt antal"
+            }
+          ],
+          "anvander": {
+            "staplar": [
+              "Hagaby"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3582,7 +4485,28 @@
           "visning": "16 660 kr",
           "precision": 0
         },
-        "explanation": "Arbetade timmar: 4 · 7 = 28. Kostnad: 28 · 595 = 16 660. Svaret blir 16 660 kr."
+        "explanation": "Arbetade timmar: 4 · 7 = 28. Kostnad: 28 · 595 = 16 660. Svaret blir 16 660 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "4 × 7 = 28",
+              "etikett": "arbetade timmar"
+            },
+            {
+              "uttryck": "28 × 595 = 16 660",
+              "etikett": "kostnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Villa Ängby"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Timmar på plats"
+            ]
+          }
+        }
       },
       {
         "id": "ng-29-q02",
@@ -3639,7 +4563,24 @@
           "visning": "35 kartonger",
           "precision": 0
         },
-        "explanation": "Kartonger per flyttare: 210 / 6 = 35. Svaret blir 35 kartonger."
+        "explanation": "Kartonger per flyttare: 210 / 6 = 35. Svaret blir 35 kartonger.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "210 / 6 = 35",
+              "etikett": "kartonger per flyttare"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Kontor Hamnen"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Kartonger"
+            ]
+          }
+        }
       },
       {
         "id": "ng-29-q03",
@@ -3701,7 +4642,30 @@
           "visning": "48 %",
           "precision": 0
         },
-        "explanation": "Veckans körsträcka: 18 + 42 + 12 + 66 = 138. Radhus Bergas andel: 66 / 138 · 100 = 47,826. Svaret blir 48 %."
+        "explanation": "Veckans körsträcka: 18 + 42 + 12 + 66 = 138. Radhus Bergas andel: 66 / 138 · 100 = 47,826. Svaret blir 48 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "18 + 42 + 12 + 66 = 138",
+              "etikett": "veckans körsträcka"
+            },
+            {
+              "uttryck": "66 / 138 × 100 ≈ 48 %",
+              "etikett": "radhus Bergas andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lägenhet Söder",
+              "Villa Ängby",
+              "Kontor Hamnen",
+              "Radhus Berga"
+            ],
+            "kolumner": [
+              "Körsträcka (km)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-29-q04",
@@ -3758,7 +4722,27 @@
           "visning": "103 timmar",
           "precision": 0
         },
-        "explanation": "Flyttare gånger timmar, summerat: 3 · 5 + 4 · 7 + 6 · 6 + 3 · 8 = 103. Svaret blir 103 timmar."
+        "explanation": "Flyttare gånger timmar, summerat: 3 · 5 + 4 · 7 + 6 · 6 + 3 · 8 = 103. Svaret blir 103 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "3 × 5 + 4 × 7 + 6 × 6 + 3 × 8 = 103",
+              "etikett": "flyttare gånger timmar, summerat"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Lägenhet Söder",
+              "Villa Ängby",
+              "Kontor Hamnen",
+              "Radhus Berga"
+            ],
+            "kolumner": [
+              "Flyttare",
+              "Timmar på plats"
+            ]
+          }
+        }
       }
     ]
   },
@@ -3868,7 +4852,27 @@
           "visning": "8 100 kr",
           "precision": 0
         },
-        "explanation": "Körda mil: 3 240 / 10 = 324. Milersättning: 324 · 25 = 8 100. Svaret blir 8 100 kr."
+        "explanation": "Körda mil: 3 240 / 10 = 324. Milersättning: 324 · 25 = 8 100. Svaret blir 8 100 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "3 240 / 10 = 324",
+              "etikett": "körda mil"
+            },
+            {
+              "uttryck": "324 × 25 = 8 100",
+              "etikett": "milersättning"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Fastighet"
+            ],
+            "kolumner": [
+              "Körda km"
+            ]
+          }
+        }
       },
       {
         "id": "ng-30-q02",
@@ -3925,7 +4929,24 @@
           "visning": "119 km",
           "precision": 0
         },
-        "explanation": "Km per resa: 6 180 / 52 = 118,846. Svaret blir 119 km."
+        "explanation": "Km per resa: 6 180 / 52 = 118,846. Svaret blir 119 km.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6 180 / 52 ≈ 119",
+              "etikett": "km per resa"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Försäljning"
+            ],
+            "kolumner": [
+              "Körda km",
+              "Resor"
+            ]
+          }
+        }
       },
       {
         "id": "ng-30-q03",
@@ -3987,7 +5008,30 @@
           "visning": "57,8 %",
           "precision": 1
         },
-        "explanation": "Alla körda km: 860 + 3 240 + 6 180 + 410 = 10 690. Försäljnings andel: 6 180 / 10 690 · 100 = 57,811. Svaret blir 57,8 %."
+        "explanation": "Alla körda km: 860 + 3 240 + 6 180 + 410 = 10 690. Försäljnings andel: 6 180 / 10 690 · 100 = 57,811. Svaret blir 57,8 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "860 + 3 240 + 6 180 + 410 = 10 690",
+              "etikett": "alla körda km"
+            },
+            {
+              "uttryck": "6 180 / 10 690 × 100 ≈ 57,8 %",
+              "etikett": "försäljnings andel"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Ekonomi",
+              "Fastighet",
+              "Försäljning",
+              "IT"
+            ],
+            "kolumner": [
+              "Körda km"
+            ]
+          }
+        }
       },
       {
         "id": "ng-30-q04",
@@ -4049,7 +5093,28 @@
           "visning": "1 405 kr",
           "precision": 0
         },
-        "explanation": "Milersättning: 410 / 10 · 25 = 1 025. Med parkeringsavgifter: 1 025 + 380 = 1 405. Svaret blir 1 405 kr."
+        "explanation": "Milersättning: 410 / 10 · 25 = 1 025. Med parkeringsavgifter: 1 025 + 380 = 1 405. Svaret blir 1 405 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "410 / 10 × 25 = 1 025",
+              "etikett": "milersättning"
+            },
+            {
+              "uttryck": "1 025 + 380 = 1 405",
+              "etikett": "med parkeringsavgifter"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "IT"
+            ],
+            "kolumner": [
+              "Körda km",
+              "Parkeringsavgifter (kr)"
+            ]
+          }
+        }
       }
     ]
   },
@@ -4153,7 +5218,20 @@
           "visning": "90 %",
           "precision": 0
         },
-        "explanation": "Inskrivna delat med platser: 108 / 120 · 100 = 90. Svaret blir 90 %."
+        "explanation": "Inskrivna delat med platser: 108 / 120 · 100 = 90. Svaret blir 90 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "108 / 120 × 100 = 90 %",
+              "etikett": "inskrivna delat med platser"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Apr"
+            ]
+          }
+        }
       },
       {
         "id": "ng-31-q02",
@@ -4215,7 +5293,25 @@
           "visning": "16,7 %",
           "precision": 1
         },
-        "explanation": "Ökning i antal barn: 112 - 96 = 16. Ökning i procent av januari: 16 / 96 · 100 = 16,667. Svaret blir 16,7 %."
+        "explanation": "Ökning i antal barn: 112 - 96 = 16. Ökning i procent av januari: 16 / 96 · 100 = 16,667. Svaret blir 16,7 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "112 − 96 = 16",
+              "etikett": "ökning i antal barn"
+            },
+            {
+              "uttryck": "16 / 96 × 100 ≈ 16,7 %",
+              "etikett": "ökning i procent av januari"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Maj",
+              "Jan"
+            ]
+          }
+        }
       },
       {
         "id": "ng-31-q03",
@@ -4277,7 +5373,24 @@
           "visning": "1 174,2 tkr",
           "precision": 1
         },
-        "explanation": "Ersättning i kr: 103 · 11 400 = 1 174 200. Omräknat till tkr: 1 174 200 / 1 000 = 1 174,2. Svaret blir 1 174,2 tkr."
+        "explanation": "Ersättning i kr: 103 · 11 400 = 1 174 200. Omräknat till tkr: 1 174 200 / 1 000 = 1 174,2. Svaret blir 1 174,2 tkr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "103 × 11 400 = 1 174 200",
+              "etikett": "ersättning i kr"
+            },
+            {
+              "uttryck": "1 174 200 / 1 000 = 1 174,2",
+              "etikett": "omräknat till tkr"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Mar"
+            ]
+          }
+        }
       },
       {
         "id": "ng-31-q04",
@@ -4339,7 +5452,26 @@
           "visning": "99 barn",
           "precision": 0
         },
-        "explanation": "Januari till mars: 96 + 98 + 103 = 297. Genomsnitt per månad: 297 / 3 = 99. Svaret blir 99 barn."
+        "explanation": "Januari till mars: 96 + 98 + 103 = 297. Genomsnitt per månad: 297 / 3 = 99. Svaret blir 99 barn.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "96 + 98 + 103 = 297",
+              "etikett": "januari till mars"
+            },
+            {
+              "uttryck": "297 / 3 = 99",
+              "etikett": "genomsnitt per månad"
+            }
+          ],
+          "anvander": {
+            "punkter": [
+              "Jan",
+              "Feb",
+              "Mar"
+            ]
+          }
+        }
       }
     ]
   },
@@ -4449,7 +5581,28 @@
           "visning": "21 timmar",
           "precision": 0
         },
-        "explanation": "Städtid i minuter: 7 · 180 = 1 260. Omräknat till timmar: 1 260 / 60 = 21. Svaret blir 21 timmar."
+        "explanation": "Städtid i minuter: 7 · 180 = 1 260. Omräknat till timmar: 1 260 / 60 = 21. Svaret blir 21 timmar.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "7 × 180 = 1 260",
+              "etikett": "städtid i minuter"
+            },
+            {
+              "uttryck": "1 260 / 60 = 21",
+              "etikett": "omräknat till timmar"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gymmet"
+            ],
+            "kolumner": [
+              "Städtillfällen per vecka",
+              "Minuter per tillfälle"
+            ]
+          }
+        }
       },
       {
         "id": "ng-32-q02",
@@ -4511,7 +5664,28 @@
           "visning": "4 608 kr",
           "precision": 0
         },
-        "explanation": "Städtimmar per vecka: 6 · 96 / 60 = 9,6. Kostnad: 9,6 · 480 = 4 608. Svaret blir 4 608 kr."
+        "explanation": "Städtimmar per vecka: 6 · 96 / 60 = 9,6. Kostnad: 9,6 · 480 = 4 608. Svaret blir 4 608 kr.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "6 × 96 / 60 = 9,6",
+              "etikett": "städtimmar per vecka"
+            },
+            {
+              "uttryck": "9,6 × 480 = 4 608",
+              "etikett": "kostnad"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Butiken"
+            ],
+            "kolumner": [
+              "Städtillfällen per vecka",
+              "Minuter per tillfälle"
+            ]
+          }
+        }
       },
       {
         "id": "ng-32-q03",
@@ -4573,7 +5747,28 @@
           "visning": "40,6 %",
           "precision": 1
         },
-        "explanation": "Skillnad i kvm: 900 - 640 = 260. Skillnad i procent av Kontoret: 260 / 640 · 100 = 40,625. Svaret blir 40,6 %."
+        "explanation": "Skillnad i kvm: 900 - 640 = 260. Skillnad i procent av Kontoret: 260 / 640 · 100 = 40,625. Svaret blir 40,6 %.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "900 − 640 = 260",
+              "etikett": "skillnad i kvm"
+            },
+            {
+              "uttryck": "260 / 640 × 100 = 40,625 ≈ 40,6 %",
+              "etikett": "skillnad i procent av Kontoret"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Gymmet",
+              "Kontoret"
+            ],
+            "kolumner": [
+              "Yta (kvm)"
+            ]
+          }
+        }
       },
       {
         "id": "ng-32-q04",
@@ -4630,7 +5825,25 @@
           "visning": "3 380 kvm",
           "precision": 0
         },
-        "explanation": "Yta gånger städtillfällen, summerat: 220 · 5 + 380 · 6 = 3 380. Svaret blir 3 380 kvm."
+        "explanation": "Yta gånger städtillfällen, summerat: 220 · 5 + 380 · 6 = 3 380. Svaret blir 3 380 kvm.",
+        "losning": {
+          "steg": [
+            {
+              "uttryck": "220 × 5 + 380 × 6 = 3 380",
+              "etikett": "yta gånger städtillfällen, summerat"
+            }
+          ],
+          "anvander": {
+            "rader": [
+              "Tandläkaren",
+              "Butiken"
+            ],
+            "kolumner": [
+              "Yta (kvm)",
+              "Städtillfällen per vecka"
+            ]
+          }
+        }
       }
     ]
   }

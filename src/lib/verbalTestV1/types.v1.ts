@@ -8,6 +8,13 @@ export type Statement = {
   correctAnswer: 'true' | 'false' | 'cannot_say';
   /** Kort motivering till facit, visas i resultatvyn (togglas fram). */
   explanation?: string;
+  /**
+   * Meningarna i texten som avgör facit, ordagrant och en mening per sträng
+   * (valfritt). Tom för 'cannot_say'. Kontrolleras av scripts/lib/facit-kontroll.mjs.
+   */
+  stod?: string[];
+  /** Bara för 'cannot_say': meningen som ligger närmast utan att avgöra (valfritt). */
+  narmast?: string;
 };
 
 /**

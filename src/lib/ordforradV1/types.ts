@@ -39,8 +39,15 @@ export interface OrdFraga {
   typer: OrdDistraktor[];
   /** Misstagstext per alternativ (SO:s definition av distraktorn), tom för facit. */
   misstag: string[];
-  /** SO:s definition av facit, till genomgången. */
+  /** SO:s definition av facit, till genomgången (se facit_betyder_kalla). */
   facit_betyder: string;
+  /**
+   * Var definitionen kommer ifrån när den inte är SO:s (omgång 3): 'belagg'
+   * citerad ordagrant ur kalla.belagg, 'egen' vår egen formulering av den
+   * betydelse ordparet prövar. `kalla` gäller verifieringen av ordparet,
+   * aldrig en egen definition.
+   */
+  facit_betyder_kalla?: 'belagg' | 'egen';
   /** En mening med uppslagsordet, till genomgången. */
   exempel: string;
   kalla: OrdKalla;
