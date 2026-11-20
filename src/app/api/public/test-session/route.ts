@@ -12,8 +12,10 @@
  *
  * Vad som lämnar servern före registrering: antal rätt, vilka positioner
  * (0 till 4) som blev fel och, när underlaget räcker, andelen som löser
- * flest (prova-percentil.ts). Facit, vilket alternativ som var rätt och
- * reglerna gör det aldrig (ägarens beslut 2026-11-09).
+ * flest (prova-percentil.ts). Sedan omgång 3 (beslut A) också facit för
+ * exakt en uppgift, vald av servern (oppet-facit.ts), med `variant` och
+ * `antal_fel`. Facit för övriga uppgifter gör det aldrig, och startsvaret
+ * bär inget facit alls. Ett rättat prov rättas inte om.
  */
 
 import { randomUUID } from 'node:crypto'
@@ -38,7 +40,8 @@ import { andelSomLoserFlest } from '@/lib/tests/prova-percentil'
 import { hamtaProvUtfall } from '@/lib/tests/prova-percentil.server'
 import { sparaProvUtfallTyp } from '@/lib/tests/prov-utfall.server'
 import { arNyProvTyp, provTypUrAdress, type NyProvTyp } from '@/lib/tests/prov-typer'
-import { artikelSeed, felPositioner, lasRefs, publikUppgift, rattaSvar, underlagFor, valjProv } from '@/lib/tests/prov-typer.server'
+import { artikelSeed, felPositioner, lasRefs, lasSvar, publikUppgift, rattaSvar, underlagFor, valjProv, type ProvSvar } from '@/lib/tests/prov-typer.server'
+import { oppetFacitMatris, oppetFacitTyp } from '@/lib/tests/oppet-facit.server'
 
 const SLUG = /^[a-z0-9-]{1,100}$/
 
@@ -80,6 +83,12 @@ export async function POST(request: Request) {
       )
     }
 
+    // Ett rättat prov rättas inte om (omgång 3, beslut A): svaret byggs ur de
+    // sparade svaren och de nya ignoreras. Annars kunde nya svar på samma
+    // token öppna facit för en uppgift i taget. En omladdning eller ett nytt
+    // försök efter ett nätfel får alltså samma resultat och samma öppna facit.
+    const redanRattad = Array.isArray(session.answers) && session.score !== null
+
     // Typerna utöver matrisen: uppgifterna står som referenser i raden.
     const testKind = (session as { test_kind?: unknown }).test_kind
     if (arNyProvTyp(testKind)) {
@@ -87,17 +96,25 @@ export async function POST(request: Request) {
       if (!refs) {
         return NextResponse.json({ error: 'Sessionen finns inte längre eller har gått ut.' }, { status: 404 })
       }
-      const givna = (body.answers as unknown[]).slice(0, refs.length)
-      const svar = refs.map((r, i) => rattaSvar(r, givna[i]))
+      let svar: ProvSvar[]
+      if (redanRattad) svar = refs.map((_, i) => lasSvar(session.answers)[i] ?? { svar: null, selected: -1, correct: false })
+      else {
+        const givna = (body.answers as unknown[]).slice(0, refs.length)
+        svar = refs.map((r, i) => rattaSvar(r, givna[i]))
+      }
       const score = svar.filter((x) => x.correct).length
-      await admin.from('anon_test_sessions').update({ answers: svar, score }).eq('token', token).is('claimed_by', null)
-      await sparaProvUtfallTyp(admin, token, testKind)
+      if (!redanRattad) {
+        await admin.from('anon_test_sessions').update({ answers: svar, score }).eq('token', token).is('claimed_by', null)
+        await sparaProvUtfallTyp(admin, token, testKind)
+      }
       const utfall = await hamtaProvUtfall(admin, testKind, refs.length)
       return NextResponse.json({
         score,
         total: refs.length,
         fel: felPositioner(svar, refs.length),
         percentile: utfall ? andelSomLoserFlest(score, utfall) : null,
+        // Exakt en uppgift med facit, vald av regeln A (oppet-facit.ts).
+        ...oppetFacitTyp(refs, svar),
       })
     }
 
@@ -105,36 +122,43 @@ export async function POST(request: Request) {
     const questions = questionsForToken(seed, bankVersion(session.meta))
     // Klienten skickar positionerna hon klickade på. Servern räknar om till
     // originalindex med provets permutation; det är dem som lagras och rättas.
-    const answers = tillOriginalSvar(
-      questions,
-      seed,
-      arBlandad(session.meta),
-      (body.answers as unknown[]).slice(0, questions.length)
-    )
+    const answers: number[] = redanRattad
+      ? questions.map((_, i) => {
+          const a = (session.answers as unknown[])[i]
+          return typeof a === 'number' && Number.isInteger(a) ? a : -1
+        })
+      : tillOriginalSvar(questions, seed, arBlandad(session.meta), (body.answers as unknown[]).slice(0, questions.length))
 
     let score = 0
     questions.forEach((q, i) => {
       if (answers[i] === q.correctAnswer) score += 1
     })
 
-    await admin
-      .from('anon_test_sessions')
-      .update({ answers, score })
-      .eq('token', token)
-      .is('claimed_by', null)
+    let utfall: Awaited<ReturnType<typeof hamtaProvUtfall>>
+    if (redanRattad) utfall = await hamtaProvUtfall(admin)
+    else {
+      await admin
+        .from('anon_test_sessions')
+        .update({ answers, score })
+        .eq('token', token)
+        .is('claimed_by', null)
 
-    // Utfallet sparas anonymt i prov_utfall, en gång per prov (ägarens
-    // beslut 2026-11-09). Databasfunktionen undantar ägaren och testkontona.
-    // Utfallen läses samtidigt; det egna provet räknas in vid nästa cache.
-    const [, utfall] = await Promise.all([sparaProvUtfall(admin, token), hamtaProvUtfall(admin)])
+      // Utfallet sparas anonymt i prov_utfall, en gång per prov (ägarens
+      // beslut 2026-11-09). Databasfunktionen undantar ägaren och testkontona.
+      // Utfallen läses samtidigt; det egna provet räknas in vid nästa cache.
+      const [, lasta] = await Promise.all([sparaProvUtfall(admin, token), hamtaProvUtfall(admin)])
+      utfall = lasta
+    }
 
     return NextResponse.json({
       score,
       total: questions.length,
-      // Positionerna som blev fel, aldrig rätt alternativ eller regeln.
+      // Positionerna som blev fel. Rätt alternativ och regeln bara för den
+      // enda öppna uppgiften nedan.
       fel: felIndex(questions, answers),
       // Null tills minst 200 avslutade prov finns: raden döljs då.
       percentile: utfall ? andelSomLoserFlest(score, utfall) : null,
+      ...oppetFacitMatris(questions, answers, seed, arBlandad(session.meta)),
     })
   }
 

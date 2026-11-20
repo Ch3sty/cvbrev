@@ -5,8 +5,9 @@
  *
  *  - POST /api/public/test-session: starten ger uppgifterna utan facit,
  *    { typ, artikel } ger artikelns uppgift 1 först (samma som i HTML:en),
- *    rättningen svarar bara { score, total, fel, percentile }, ett hämtat
- *    prov rättas inte om, och gränsen ger 429 med registerHref.
+ *    rättningen svarar { score, total, fel, percentile } och sedan omgång 3
+ *    { variant, antal_fel, oppet_facit } (en uppgift, oppet-facit-kontrakt),
+ *    ett hämtat prov rättas inte om, och gränsen ger 429 med registerHref.
  *  - hamtaProvResultat (registreringens panel): bara { ratt, totalt, fel, typ }.
  *  - POST /api/public/personlighetsprov: profilen utan råpoäng och
  *    kravprofiler, href bara för inloggad.
@@ -156,8 +157,13 @@ describe('POST /api/public/test-session, starten', () => {
   })
 })
 
+// Omgång 3, beslut A: rättningen bär sedan dess också variant, antal_fel och
+// oppet_facit (exakt en uppgift). Regeln prövas för alla typer och varianter i
+// oppet-facit-kontrakt.test.ts; här låses bara nycklarna.
+const RATTNINGENS_NYCKLAR = ['antal_fel', 'fel', 'oppet_facit', 'percentile', 'score', 'total', 'variant']
+
 describe('POST /api/public/test-session, rättningen', () => {
-  it('typerna: bara score, total, fel och percentile', async () => {
+  it('typerna: score, total, fel, percentile och ett öppet facit', async () => {
     const refs = valjProv('talserie', TOKEN, TOKEN)
     db.anonSession = { token: TOKEN, test_kind: 'talserie', questions: refs, answers: null, score: null, claimed_by: null, meta: {} }
     const facit = genomgaProv(refs, refs.map(() => ({ svar: null, selected: -1, correct: false })))
@@ -166,15 +172,17 @@ describe('POST /api/public/test-session, rättningen', () => {
     expect(rattaSvar(refs[2], ratt[2]).correct).toBe(false)
     const res = await testSession(req({ token: TOKEN, answers: ratt }))
     const data = await res.json()
-    expect(Object.keys(data).sort()).toEqual(['fel', 'percentile', 'score', 'total'])
-    expect(data).toEqual({ score: 4, total: 5, fel: [2], percentile: null })
+    expect(Object.keys(data).sort()).toEqual(RATTNINGENS_NYCKLAR)
+    expect(data).toMatchObject({ score: 4, total: 5, fel: [2], percentile: null, variant: 'en', antal_fel: 1 })
+    // En miss: facit öppnas på första uppgiften hon klarade, missen förblir låst.
+    expect(data.oppet_facit.index).toBe(0)
   })
 
-  it('matrisen: bara score, total, fel och percentile', async () => {
+  it('matrisen: score, total, fel, percentile och ett öppet facit', async () => {
     db.anonSession = { token: TOKEN, questions: [], answers: null, score: null, claimed_by: null, meta: { alternativ_blandade: true, bank_version: 2 } }
     const res = await testSession(req({ token: TOKEN, answers: [0, 0, 0, 0, 0] }))
     const data = await res.json()
-    expect(Object.keys(data).sort()).toEqual(['fel', 'percentile', 'score', 'total'])
+    expect(Object.keys(data).sort()).toEqual(RATTNINGENS_NYCKLAR)
     expect(data.total).toBe(5)
   })
 

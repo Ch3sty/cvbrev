@@ -15,6 +15,7 @@ import type { PlanKey, PlanLength } from '@/lib/plans/plans'
 import type { KampanjNyckel } from '@/lib/kampanj/kampanj'
 import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
 import type { SignupEntry, SignupIntent } from '@/components/registrering/intent'
+import type { OppetFacitVariant } from '@/lib/tests/oppet-facit'
 import { lasKontokallaKlient } from '@/lib/analytics/provkalla'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
@@ -87,6 +88,30 @@ interface SampleIntervju {
 }
 
 /**
+ * Spärrens nya egenskaper efter provet (omgång 3, publika proven). Läggs till
+ * på signup_gate_shown; befintliga egenskaper och namn är orörda.
+ */
+export interface SparrEgenskaper {
+  /** Antal missar (fel eller obesvarade) i provet. */
+  antal_fel: number
+  /** Spärrens variant ur antal missar: noll, en, flera. */
+  variant: OppetFacitVariant
+  /** Servern lämnade ett öppet facit i rättningens svar. */
+  facit_oppet: boolean
+}
+
+/** Det gate_cta_clicked och facit_viewed bär: provets typ, platsen och spärrens läge. */
+export interface SparrKontext extends SparrEgenskaper {
+  kind: 'test'
+  cluster: 'test'
+  /** Provets testtyp: matris, figurserie, verbal, numerisk, deduktiv, spatial, talserie, ordforrad, iprov. */
+  test_kind: string
+  plats: 'prova' | 'artikel'
+  /** Artikelns slug när plats är artikel. */
+  slug?: string
+}
+
+/**
  * Eventnamn till egenskaper. Lägg till nya event här, inte som fria strängar
  * i komponenterna, så att namnen förblir sökbara.
  */
@@ -147,7 +172,21 @@ export interface AnalyticsEvents {
       level?: number
     }
   signup_gate_shown: ClusterContext &
-    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality' }
+    SampleIntervju &
+    Partial<SparrEgenskaper> & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality' }
+  /**
+   * Spärrens knappar efter provet (omgång 3, publika proven): arket på
+   * telefon, kortet i resultatet eller Google-knappen. Skickas via
+   * gateCtaKlick i src/lib/analytics/sparren.ts.
+   */
+  gate_cta_clicked: SparrKontext & { position: 'ark' | 'kort' | 'google' }
+  /** Det öppna facit visades (beslut A). Skickas via facitVisat i sparren.ts. */
+  facit_viewed: SparrKontext & {
+    /** Den öppna uppgiftens position i provet, 0-baserad. */
+    index: number
+    /** Hon klarade den öppna uppgiften. */
+    correct: boolean
+  }
   signup_started: ClusterContext & {
     method?: 'password' | 'google'
     source_page?: string
