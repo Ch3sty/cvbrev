@@ -50,6 +50,18 @@ export function sparrLage(result: ProvaResultat) {
   return { variant, antalFel, oppenIndex, lasta, felSet }
 }
 
+/**
+ * Radens bild bland "De andra uppgifterna": matrisens rutnät, annars typens
+ * symbol (RadIkon, som i de inloggade testernas genomgång). Aldrig en
+ * beskuren bit av uppgiften; utan symbol står bara nummerbrickan.
+ */
+function RadBild({ post }: { post: ProvPost | null | undefined }) {
+  if (!post) return null
+  if (harRutnat(post)) return <Mini post={post} />
+  const R = post.ritare.RadIkon
+  return R ? <R u={post.u} /> : null
+}
+
 export function harRutnat(post: ProvPost | null | undefined): boolean {
   return !!post && post.ritare.kind === 'matris' && Array.isArray((post.u as { grid?: unknown }).grid)
 }
@@ -229,7 +241,7 @@ export default function ProvResultatSida({
                         {i + 1}
                       </span>
                       <span className="prov3-andra-mini" aria-hidden="true">
-                        <Mini post={poster[i]} />
+                        <RadBild post={poster[i]} />
                       </span>
                       <span className="prov3-andra-t">
                         <b>{PROV3.kortUppgift(i + 1)}</b>
