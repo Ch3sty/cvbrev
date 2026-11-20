@@ -10,7 +10,12 @@ import PassFlode from '@/components/traning/PassFlode'
 import { hamtaSession, sessionsvy } from '@/lib/traning/motor.server'
 import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
-import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
+import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
+import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
+import { lasTestInstallningar } from '@/lib/tester/installningar.server'
+import { senasteNivakollNiva } from '@/lib/nivakoll/las.server'
+import { dagSthlm } from '@/lib/traning/datum'
+import { kortDatum } from '@/lib/traning/rubrik'
 import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
 import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import { deduktivPassVy, hamtaDeduktivPass } from '@/lib/tester/pass-deduktiv.server'
@@ -38,7 +43,22 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Figurpasset har samma adress (beställning omgång 3, A3).
     const figur = await hamtaFigurPass(admin, userId, sessionId)
     const figurVy = figur ? figurPassVy(figur) : null
-    if (figurVy) return <FigurPassFlode vy={figurVy} />
+    if (figurVy) {
+      // Sessionsramen (plan-testflode-2026-11-20, etapp 1).
+      const [installningar, nivakoll] = await Promise.all([
+        lasTestInstallningar(admin, userId),
+        senasteNivakollNiva(admin, userId, 'figurserie').catch(() => null),
+      ])
+      const dag = figur?.completed_at ? dagSthlm(figur.completed_at) : dagSthlm()
+      return (
+        <FigurserieTrana
+          vy={figurVy}
+          forklaringEfterSvar={installningar.forklaring_efter_svar}
+          harNivakoll={nivakoll != null}
+          datum={kortDatum(dag)}
+        />
+      )
+    }
     // Deduktivpasset har samma adress (testplanen steg 1).
     const dedu = await hamtaDeduktivPass(admin, userId, sessionId)
     const deduVy = dedu ? deduktivPassVy(dedu) : null
@@ -51,6 +71,10 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     const koll = await hamtaNivakoll(admin, userId, sessionId)
     const kollVy = koll ? nivakollVy(koll) : null
     if (!kollVy) notFound()
+    if (kollVy.kind === 'figurserie') {
+      const dag = koll?.completed_at ? dagSthlm(koll.completed_at) : dagSthlm()
+      return <FigurserieNivakoll vy={kollVy} betalande={betalande} datum={kortDatum(dag)} />
+    }
     return <NivakollFlode vy={kollVy} betalande={betalande} />
   }
   return <PassFlode vy={vy} betalande={betalande} />

@@ -7,6 +7,7 @@
 
 import { notFound, redirect } from 'next/navigation'
 import OvningsprovFlode from '@/components/traning/ovningsprov/OvningsprovFlode'
+import FigurserieOvningsprov from '@/components/session/figurserie/FigurserieOvningsprov'
 import { hamtaOvningsprov, ovningsvy } from '@/lib/ovningsprov/motor.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { arGiltigDag, dagarMellan, dagSthlm } from '@/lib/traning/datum'
@@ -33,5 +34,7 @@ export default async function OvningsprovSessionSida({ params }: { params: Promi
   const provdatum = (planRes.data as { provdatum?: unknown } | null)?.provdatum
   const dagarKvar = arGiltigDag(provdatum) ? dagarMellan(idag, provdatum) : null
   const datum = rad?.completed_at ? kortDatum(dagSthlm(rad.completed_at)) : kortDatum(idag)
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): figurserierna i ramen.
+  if (vy.typ === 'figurer') return <FigurserieOvningsprov vy={vy} dagarKvar={dagarKvar} datum={datum} />
   return <OvningsprovFlode vy={vy} dagarKvar={dagarKvar} datum={datum} />
 }

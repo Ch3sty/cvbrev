@@ -16,7 +16,8 @@ describe('admin Frågor', () => {
   it('registret har frågor från alla fem testtyper, deduktivens bank inräknad', () => {
     const reg = register()
     for (const k of TEST_KINDS) expect(reg.some((r) => r.test_kind === k), k).toBe(true)
-    expect(reg.filter((r) => r.test_kind === 'deduktiv').length).toBe(80)
+    // Banken växer per omgång (v5: 394 med pensionerade); golvet är den första bankens 80.
+    expect(reg.filter((r) => r.test_kind === 'deduktiv').length).toBeGreaterThanOrEqual(80)
     expect(reg.some((r) => r.test_kind === 'verbal' && r.id === 'va-17-fyradagarsvecka:0')).toBe(true)
     expect(kindForId('dd-e-d3-05')).toBe('deduktiv')
     expect(kindForId('fs-g-vrid-01')).toBe('figurserie')
@@ -31,7 +32,8 @@ describe('admin Frågor', () => {
   })
 
   it('fixturdata: prior 0,40 och uppmätt 0,70 flaggas först, 0,60 inte; okalibrerade sorteras på antal svar', () => {
-    const reg = register().filter((r) => r.test_kind === 'deduktiv' && r.niva === 'expert').slice(0, 4)
+    // Bara aktiva frågor: slaIhop hoppar över pensionerade.
+    const reg = register().filter((r) => r.test_kind === 'deduktiv' && r.niva === 'expert' && !r.pensionerad && r.p_prior === 0.4).slice(0, 4)
     expect(reg.every((r) => r.p_prior === 0.4)).toBe(true)
     const vy = new Map([
       [reg[0].id, { svar: 40, konton: 25, ratt: 24, p: 0.6, tid_median_s: 70 }],

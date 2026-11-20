@@ -13,6 +13,7 @@
 
 import { notFound } from 'next/navigation'
 import Startark from '@/components/traning/ovningsprov/Startark'
+import { FigurserieOvningsprovStart } from '@/components/session/figurserie/FigurserieOvningsprov'
 import { arProvtyp, ovningsformat } from '@/lib/ovningsprov/format'
 import { lasMeta, TIDSMARGINAL_MS } from '@/lib/ovningsprov/motor.server'
 import { OVNINGSPROV_TEST_TYPE } from '@/lib/ovningsprov/typer'
@@ -65,6 +66,23 @@ export default async function OvningsprovStartSida({
     return nu <= new Date(r.started_at ?? r.created_at).getTime() + m.tidsgrans_s * 1000 + TIDSMARGINAL_MS
   })
   const gjort = rader.find((r) => r.completed_at && dagSthlm(r.completed_at) === idag)
+
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): figurseriernas
+  // övningsprov har ramens startskärm. Startark står kvar för övriga typer.
+  if (typ === 'figurer') {
+    return (
+      <FigurserieOvningsprovStart
+        format={format}
+        dagarKvar={dagarKvar != null && dagarKvar >= 0 ? dagarKvar : null}
+        last={!beh.harProvlage}
+        pagaende={pagaende?.id ?? null}
+        kvar={null}
+        gjortIdag={pagaende ? null : gjort?.id ?? null}
+        tillbakaHref={TRANING_RUTT.alla}
+        fran={fran}
+      />
+    )
+  }
 
   return (
     <Startark

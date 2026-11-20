@@ -2159,3 +2159,115 @@ html {
   --bb-mark: var(--koppar-ljus); --bb-mark-ink: var(--vagg-ink);
 }
 .bb-vagg .bb-staplar[data-nagon-markerad] li:not([data-markerad]) { opacity: .8; }
+
+/* =============================================================================
+   Sessionsramen (docs/plan-testflode-2026-11-20.md avsnitt 1, 3 och 7).
+   [data-sessionsram] står på ramen, startskärmen och resultatskärmen och är
+   väljaren för typskalan och rörelsereglerna där. Rörelse bara på transform
+   och opacity; tillstånd via box-shadow och färg, aldrig border-width (CLS 0).
+   ============================================================================= */
+:root {
+  --font-sess-display: var(--font-display), Inter, system-ui, sans-serif;
+}
+
+/* Uppgiftens fråga: 20/26 700 på mobil, 24/30 på dator. Bara i ramen; utanför
+   gäller Tailwinds text-fraga som förut. */
+[data-sessionsram] .text-fraga {
+  font-family: var(--font-sess-display);
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+@media (min-width: 1024px) {
+  [data-sessionsram] .text-fraga { font-size: 24px; line-height: 30px; }
+}
+
+/* Framstegsstapeln och ringen. */
+.sess-framsteg { transform-origin: left center; transition: transform 240ms ease-out; }
+.sess-ring { transition: stroke-dashoffset 1000ms linear, stroke 300ms ease-out; }
+
+/* Nästa uppgift, in: opacitet och 16 px från höger, 200 ms. */
+@keyframes sess-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+.sess-in { animation: sess-in 200ms ease-out both; }
+@keyframes sess-tona { from { opacity: 0; } to { opacity: 1; } }
+.sess-tona { animation: sess-tona 240ms ease-out both; }
+
+/* Svarskort (3.1, 7.2, 7.5). */
+.sess-kort {
+  transition: border-color 120ms ease-out, box-shadow 120ms ease-out, background-color 160ms ease-out, opacity 160ms ease-out, transform 140ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.sess-kort:active:not(:disabled) { transform: scale(.985); transition-duration: 90ms; }
+.sess-kort[data-tillstand='ratt'][data-efter-fel] { transition-delay: 120ms; }
+.sess-bricka { transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out; }
+@keyframes sess-bricka { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+.sess-bricka-ikon { animation: sess-bricka 240ms cubic-bezier(.2, .8, .2, 1) both; }
+
+/* Figurrutornas mått: 121×96 i tre kolumner på mobil, kvadrater sex i rad
+   när kolumnen är remsans 672 (container query på .serie-kolumn). */
+.sess-alt { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.sess-ruta { aspect-ratio: 5 / 4; }
+@container (min-width: 600px) {
+  .sess-alt { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .sess-ruta { aspect-ratio: 1; }
+}
+
+/* Remsan när figurerna själva är svaren (bryter mönstret). */
+.serie > .ruta.sess-val {
+  cursor: pointer;
+  transition: box-shadow 120ms ease-out, background-color 160ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.serie > .ruta.sess-val > .sess-fig { transition: opacity 160ms ease-out; }
+.serie > .ruta.sess-val:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--fokus, var(--ink-1)); }
+.serie > .ruta.sess-val[data-tillstand='vald'] { box-shadow: inset 0 0 0 2px var(--ink-1); }
+.serie > .ruta.sess-val[data-tillstand='ratt'] { box-shadow: inset 0 0 0 2px var(--positiv); background: var(--positiv-mjuk); }
+.serie > .ruta.sess-val[data-tillstand='fel'] { box-shadow: inset 0 0 0 2px var(--fel); background: var(--fel-mjuk); }
+.serie > .ruta.sess-val[data-tillstand='dampad'] > .sess-fig { opacity: .38; }
+.serie > .ruta.sess-val[disabled] { cursor: default; }
+
+/* Luckan efter facit i Träna och genomgången: figuren i bläck, 2 px positiv. */
+.serie > .ruta.sess-lucka-fylld { box-shadow: inset 0 0 0 2px var(--positiv); background: var(--papper); animation: sess-tona 160ms ease-out both; }
+
+/* Förklaringen: glider in under svaren 120 ms efter facit. */
+@keyframes sess-forklaring { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.sess-forklaring { animation: sess-forklaring 280ms cubic-bezier(.2, .8, .2, 1) 120ms both; }
+
+/* Uppgiftsarket: ark nedifrån på mobil, popover under räknaren på dator. */
+@keyframes sess-ark-upp { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes sess-ark-ner { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
+.sess-ark { animation: sess-ark-upp 240ms cubic-bezier(.2, .8, .2, 1) both; }
+@media (min-width: 1024px) { .sess-ark { animation: sess-ark-ner 160ms ease-out both; } }
+
+/* Spinnern i knappen. */
+@keyframes sess-snurr { to { transform: rotate(360deg); } }
+.sess-snurr { animation: sess-snurr 700ms linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sessionsram] *,
+  [data-sessionsram] *::before,
+  [data-sessionsram] *::after,
+  .sess-ark {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-sessionsram] .sess-snurr { animation: sess-snurr 1400ms linear infinite !important; }
+}
+
+/* Ramen ligger i dashboardens innehållslager (relative z-10) medan sidomenyn
+   står i z-20. Under en session, en startskärm eller ett resultat lyfts
+   innehållslagret över sidomenyn, så att ramen är fixed inset-0 på riktigt
+   (avsnitt 1: sidomenyn är borta under sessionen, också på dator). :has()
+   gäller redan i serverns HTML, utan blink. */
+div:has(> main.dashboard-main-content [data-sessionsram]) {
+  z-index: 30;
+}
+/* html reserverar scrollbarens plats (scrollbar-gutter: stable), också med
+   overflow hidden, och fixed-lager ritas aldrig i den remsan. Under ramen
+   släpps reserveringen, så att ramen tar hela fönstrets bredd. :has() gäller
+   från första målningen; ingenting synligt flyttar sig. */
+html:has([data-sessionsram].fixed) {
+  scrollbar-gutter: auto;
+}

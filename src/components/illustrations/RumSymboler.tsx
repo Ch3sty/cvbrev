@@ -183,6 +183,41 @@ export function IkonTillbaka(p: IkonProps24) {
   )
 }
 
+/*
+ * Sessionsramens tre (plan-testflode-2026-11-20 avsnitt 7.4): krysset på
+ * fel svar, klockan i startskärmens regel om omfånget och flaggan i regeln
+ * om vad som sparas. Samma familj som övriga, stroke 1,75.
+ */
+
+/** Kryss för fel svar (bricka och Förklaringen). Mindre än IkonX, som stänger. */
+export function IkonKryss(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <path d="M7.5 7.5l9 9M16.5 7.5l-9 9" />
+    </Ikon24>
+  )
+}
+
+/** Klockan: provets tid och omfånget. */
+export function IkonKlocka(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <circle cx="12" cy="13" r="7.5" />
+      <path d="M12 9.5V13l2.5 1.75M9.5 3.5h5" />
+    </Ikon24>
+  )
+}
+
+/** Flaggan: det som räknas och sparas. */
+export function IkonFlagga(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <path d="M6 21V4" />
+      <path d="M6 4.5h10.5l-2 3.75 2 3.75H6" />
+    </Ikon24>
+  )
+}
+
 /** Penna (#i-penna). */
 export function IkonPenna(p: IkonProps24) {
   return (

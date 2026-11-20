@@ -612,6 +612,36 @@ export interface AnalyticsEvents {
   /** mal: vart knappen leder, till exempel '/register' eller '/verktyg/rekryteringstester'. */
   jobbkartan_cta_clicked: { mal: string }
   jobbkartan_delning: { typ: 'badd' | 'csv' }
+  /* ---------------------------------------------- Sessionsramen
+     plan-testflode-2026-11-20 avsnitt 8.2. Skjuts av ramen
+     (src/components/session/handelser.ts), aldrig av typerna. Aldrig
+     correct i mätlägen: facit finns inte i klienten. */
+  test_start_viewed: SessionHandelseBas & {
+    fortsatt_tillganglig: boolean
+    sparrad: 'none' | 'quota' | 'premium'
+  }
+  test_session_started: SessionHandelseBas & { session_id: string; antal: number; tid_budget_s: number | null; resumed: boolean }
+  test_question_answered: SessionHandelseBas & {
+    session_id: string
+    index: number
+    elapsed_ms: number
+    via: 'tap' | 'keyboard'
+    vet_inte: boolean
+    /** Bara Träna, där servern rättat. */
+    ratt?: boolean
+  }
+  test_session_abandoned: SessionHandelseBas & { session_id: string; index: number; besvarade: number; elapsed_ms: number }
+  test_session_completed: SessionHandelseBas & { session_id: string; besvarade: number; elapsed_ms: number; over_tid: boolean }
+  test_submit_blocked: SessionHandelseBas & { session_id: string; obesvarade: number }
+  traning_installning_andrad: { forklaring_efter_svar: boolean }
+}
+
+/** Det varje händelse från sessionsramen bär (avsnitt 8.2). */
+export interface SessionHandelseBas {
+  test_kind: string
+  lage: 'nivakoll' | 'nivatest' | 'trana' | 'ovningsprov' | 'iprov' | 'personlighet'
+  niva: string | null
+  format: string | null
 }
 
 /** 16:9 eller 9:16. */

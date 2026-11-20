@@ -117,6 +117,9 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/figurserier-grund/test/ID/results', namn: 'figurserier resultat', budget: 'flode', dynamisk: 'serieResult' },
   // Omgång 3: figurpasset (pågående: frågesidan), övningsprovets startark och provet.
   { path: '/dashboard/tester/pass/ID', namn: 'figurpass uppgift', budget: 'flode', dynamisk: 'figurpass' },
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): startskärmarna för Träna och Nivåkollen i figurserier.
+  { path: '/dashboard/tester/pass?typ=figurpass', namn: 'figurserier träna startskärm', budget: 'flode' },
+  { path: '/dashboard/tester/pass?typ=nivakoll&kind=figurserie', namn: 'figurserier nivakoll startskärm', budget: 'flode' },
   // Deduktiv slutledning (omgång 3, B1): mät med --epost <qa-konto> som har deduktivsessioner.
   { path: '/dashboard/tester/deduktiv-grund', namn: 'deduktiv testsida', budget: 'lista' },
   // Testplanen steg 2: nivåtestens startsidor och I-prov-provets startark.

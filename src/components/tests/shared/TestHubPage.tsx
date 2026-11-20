@@ -34,7 +34,11 @@ import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
-import { testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
+import type { Startlage } from '@/app/dashboard/tester/[slug]/getStartlage'
+import Startskarm from '@/components/session/Startskarm'
+import { SESSION } from '@/components/session/copy'
+import Topprad from '@/components/rum/Topprad'
 import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluOrdforrad, IlluProvlage, IlluSpatial, IlluTalserie, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
@@ -112,11 +116,14 @@ export default function TestHubPage({
   config,
   forsok,
   grundKvot,
+  startlage = null,
 }: {
   config: TestConfig
   forsok?: ForsokRad[] | null
   /** Tester v4: grundnivåkvoten över alla testtyper, läst på servern. Utelämnad: sidans egen kontroll. */
   grundKvot?: { kvar: number; nextResetAt: string } | null
+  /** Sessionsramen (figurserier, etapp 1): påbörjad session och nivåns spärr, lästa på servern. */
+  startlage?: Startlage | null
 }) {
   const router = useRouter()
   const { loading: profileLoading } = useProfile()
@@ -241,6 +248,90 @@ export default function TestHubPage({
       : arProv
         ? TESTSIDA.startProv
         : TESTSIDA.start
+
+  // Sessionsramens startark (plan-testflode-2026-11-20 avsnitt 4.1, etapp 1):
+  // figurserierna får startskärmen ovanför Ditt bästa och Dina försök.
+  if (config.kind === 'figurserie') {
+    const last = startlage ? startlage.last : isLocked
+    const pagaende = startlage?.pagaende ?? null
+    const sparrad: 'none' | 'quota' | 'premium' = last ? 'premium' : tak && !pagaende ? 'quota' : 'none'
+    const gratisGrund = !last && grundKvot && grundKvot.kvar > 0
+    const golv = (
+      <div className="w-full max-w-3xl space-y-4">
+        {sessionsLoading ? (
+          <div className="grid gap-4 sm:grid-cols-2" aria-hidden="true">
+            <div className="h-[172px] rounded-2xl border border-kant bg-papper" />
+            <div className="h-[172px] rounded-2xl border border-kant bg-papper" />
+          </div>
+        ) : harForsok && bast && !last ? (
+          <div className="grid items-start gap-4 sm:grid-cols-2" data-testsida-resultat>
+            <BastaKort ratt={bastPoang} totalt={totalForSession(config.slug, bast.meta)} href={testPaths.results(config.slug, bast.id)} />
+            <ForsokKort slug={config.slug} forsok={sessions} totalt={config.totalQuestions} />
+          </div>
+        ) : null}
+        <HjalpRad ids={HJALP[kind]} rubrik={HJALP_RUBRIK[config.level]} />
+      </div>
+    )
+    return (
+      <HjalpProvider dold={null} forsta={!harForsok && !sessionsLoading}>
+        <Startskarm
+          inline
+          topprad={<Topprad />}
+          bas={{ test_kind: 'figurserie', lage: 'nivatest', niva: config.level, format: null }}
+          eyebrow={KIND_LABEL[config.kind]}
+          rubrik={config.title}
+          scen="figurserie"
+          rita={!pagaende && !last && sparrad === 'none'}
+          regler={[
+            {
+              titel: `${config.totalQuestions} uppgifter. Provets tid är ${minuter} minuter, klockan stoppar dig inte.`,
+              text: 'Tiden över syns i resultatet.',
+            },
+            { titel: 'Rätt svar efteråt, med genomgång.', text: 'Du kan gå tillbaka och ändra svar tills du lämnar in.' },
+            { titel: 'Resultatet syns i Din utveckling.', text: gratisGrund ? GRUND_GRATISRAD : null },
+          ]}
+          sparrad={sparrad}
+          fortsattTillganglig={Boolean(pagaende)}
+          sparr={
+            pagaende ? null : last ? (
+              <PaywallCard
+                variant="testniva"
+                testTyp={testTypForKind(config.kind)}
+                feature={requiredFeature ?? undefined}
+                scope={scope}
+                track={track}
+                plats="testniva"
+              />
+            ) : tak ? (
+              <PaywallCard
+                variant="test-tak"
+                testTyp={testTypForKind(config.kind)}
+                scope={scope}
+                track={track}
+                quota={{ feature: tak.feature, nextResetAt: tak.nextResetAt }}
+              />
+            ) : null
+          }
+          knapp={{
+            text: pagaende ? SESSION.start.fortsatt.nivatest : harForsok ? SESSION.start.gorOm : SESSION.start.starta.nivatest,
+            onClick: pagaende ? () => router.push(testPaths.run(config.slug, pagaende.id)) : () => void handleStart(),
+            laddar: isStarting,
+          }}
+          kortRad={
+            startError ? (
+              <span role="alert" className="text-ink-1">
+                {startError}
+              </span>
+            ) : pagaende ? (
+              SESSION.start.kvar(pagaende.kvar)
+            ) : null
+          }
+          fotnot="Avbryter du sparas svaren, och du fortsätter där du var."
+          efter={golv}
+        />
+      </HjalpProvider>
+    )
+  }
 
   return (
     <HjalpProvider dold={null} forsta={!harForsok && !sessionsLoading}>

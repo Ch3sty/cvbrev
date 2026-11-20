@@ -18,7 +18,7 @@ import dynamic from 'next/dynamic'
 import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
 // Statisk import, som matrisen: en dynamisk import la uppgiften bakom en
 // Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
-import { FigurserieTestSession } from '@/components/tests/serie/FigurserieTestSession'
+import FigurserieNivatest from '@/components/session/figurserie/FigurserieNivatest'
 import { DeduktivTestSession } from '@/components/tests/deduktiv/DeduktivTestSession'
 import { Steg2TestSession } from '@/components/tests/steg2/Steg2TestSession'
 import { NumericalTestSession } from '@/components/tests/numerical/NumericalTestSession'
@@ -143,11 +143,15 @@ export default function TestRunner({
   }
 
   // Figurserier (beställningen omgång 2, A6 punkt 5): egen vy, egna pooler.
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1). FigurserieTestSession
+  // står kvar oanvänd till etapp 5, så att en revert aldrig saknar kod.
   if (config.kind === 'figurserie') {
     return (
-      <FigurserieTestSession
+      <FigurserieNivatest
         sessionId={sessionId}
+        slug={config.slug}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
+        minuter={config.examMinutes ?? config.minutes}
         resultsPath={resultsPath}
         initialRun={runData}
         {...endpoints}

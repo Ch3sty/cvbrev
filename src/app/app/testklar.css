@@ -854,3 +854,11 @@
 [data-mobilapp] .tk-tkort .t > span.tk-nivaer {
   display: flex;
 }
+
+/* Sessionsramen (docs/plan-testflode-2026-11-20.md avsnitt 1, Testklar):
+   ramen vet inte om den står i appen. Snitten byts här; färgerna är webbens
+   tokens, som i passen, så att ljust och mörkt läge följer rummet. */
+[data-mobilapp] {
+  --font-sess-display: var(--tk-disp);
+  --font-sess-text: var(--tk-text);
+}

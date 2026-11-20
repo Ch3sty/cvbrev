@@ -14,7 +14,10 @@
 
 import PassFlode from '@/components/traning/PassFlode'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
-import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
+import FigurserieTrana from '@/components/session/figurserie/FigurserieTrana'
+import FigurserieNivakoll from '@/components/session/figurserie/FigurserieNivakoll'
+import { testSkrivKlient } from '@/lib/tests/skrivKlient'
+import { figurNivakollStart, figurTranaStart } from './start.server'
 import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
 import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
@@ -41,15 +44,31 @@ export default async function PassStartSida({
     return <VnPassFlode key={`${kind}|${familj ?? ''}`} start={{ kind, familj }} />
   }
   // Figurpasset (beställning omgång 3, A3).
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): startskärmen först,
+  // sessionen skapas när Starta trycks. FigurPassFlode står kvar oanvänd.
   if (typ === 'figurpass') {
-    await passSida()
-    return <FigurPassFlode key="figurpass" starta />
+    const { userId, supabase } = await passSida()
+    const st = await figurTranaStart(supabase, testSkrivKlient(), userId)
+    return (
+      <FigurserieTrana
+        key="figurpass"
+        start={st.start}
+        forklaringEfterSvar={st.forklaringEfterSvar}
+        harNivakoll={st.harNivakoll}
+        datum={st.datum}
+      />
+    )
   }
   // Nivåkollen för figurserier, deduktivt, verbalt och numeriskt (testplanen steg 1).
   if (typ === 'nivakoll') {
     const kind = forsta(sp.kind)
-    const { betalande } = await passSida()
+    const { betalande, userId, supabase } = await passSida()
     if (!arNivakollKind(kind)) return <PassFlode key="matning" start={{ typ: 'matning', family: null, format: null }} betalande={betalande} />
+    if (kind === 'figurserie') {
+      const st = await figurNivakollStart(supabase, testSkrivKlient(), userId)
+      if (st.idagKlar) return <FigurserieNivakoll key="nivakoll|figurserie|klar" vy={st.idagKlar} gjordIdag betalande={betalande} datum={st.datum} />
+      return <FigurserieNivakoll key="nivakoll|figurserie" start={st.start} betalande={betalande} datum={st.datum} />
+    }
     return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
   }
   // Passen i testplanens steg 2 (talserier, spatial förmåga).

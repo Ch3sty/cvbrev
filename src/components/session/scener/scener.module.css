@@ -1,0 +1,66 @@
+/*
+ * Scenerna i sessionsramen (docs/plan-testflode-2026-11-20.md 4.1 och 7.5).
+ *
+ * .scen   svg-roten, fasta mått 160 × 120 via attribut så att CLS är 0.
+ * .rita   sätts av Startskarm när scenen ska ritas in: konturen ritas 600 ms
+ *         med kurvan .2,.8,.2,1 (planens "något kommer fram"), ytorna tonar in
+ *         efteråt. Utan .rita står bilden stilla, som på testkortet.
+ * .yta    element utan kontur (kopparn, prickar, mjuka ytor): tonar in.
+ * .streck streckade konturer (luckan): tonar in, så att strecken behålls.
+ * .sen    grupp som kommer 120 ms efter bladet (innehållet och svaren).
+ *
+ * stroke-dasharray 560 täcker den längsta konturen (bladet, cirka 490), så
+ * att inget blir prickigt när animationen stått klar. prefers-reduced-motion
+ * stänger allt: bilden står på plats direkt.
+ */
+
+.scen {
+  display: block;
+}
+
+.rita :is(path, rect, circle, ellipse):not(.yta):not(.streck) {
+  stroke-dasharray: 560;
+  stroke-dashoffset: 560;
+  opacity: 0;
+  animation:
+    rita 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+    tona 240ms ease-out forwards;
+}
+
+.rita .yta,
+.rita .streck {
+  opacity: 0;
+  animation: tona 320ms ease-out 280ms forwards;
+}
+
+.rita .sen :is(path, rect, circle, ellipse):not(.yta):not(.streck) {
+  animation-delay: 120ms;
+}
+
+.rita .sen .yta,
+.rita .sen .streck {
+  animation-delay: 400ms;
+}
+
+@keyframes rita {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes tona {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rita :is(path, rect, circle, ellipse):not(.yta):not(.streck) {
+    stroke-dasharray: none;
+  }
+  .rita :is(path, rect, circle, ellipse) {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}

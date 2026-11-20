@@ -17,6 +17,7 @@ import TestHubPage from '@/components/tests/shared/TestHubPage'
 import { getTestConfig } from '../testConfig'
 import { getForsok } from './getForsok'
 import { getGrundKvot } from './getGrundKvot'
+import { getStartlage } from './getStartlage'
 
 export default async function TestSlugPage({
   params,
@@ -34,7 +35,13 @@ export default async function TestSlugPage({
   if (arSteg2Kind(config.kind) && !steg2Synlig(config.kind)) notFound()
 
   // Gratisraden (tester v4): ett grundnivåtest om dagen över alla testtyper.
-  const [forsok, grundKvot] = await Promise.all([getForsok(config), getGrundKvot(config)])
+  // Sessionsramen (plan-testflode-2026-11-20, etapp 1): figurseriernas startark
+  // läser en påbörjad session och nivåns spärr på servern.
+  const [forsok, grundKvot, startlage] = await Promise.all([
+    getForsok(config),
+    getGrundKvot(config),
+    config.kind === 'figurserie' ? getStartlage(config) : Promise.resolve(null),
+  ])
 
-  return <TestHubPage config={config} forsok={forsok} grundKvot={grundKvot} />
+  return <TestHubPage config={config} forsok={forsok} grundKvot={grundKvot} startlage={startlage} />
 }

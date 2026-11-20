@@ -134,6 +134,13 @@ module.exports = {
       // tillbaka på Inter.
       fontFamily: {
         display: ['var(--font-display)', 'Inter', 'system-ui', 'sans-serif'],
+        // Sessionsramen (plan-testflode 7.1): webben Schibsted Grotesk och
+        // Inter, appen Testklar Bricolage Grotesque och Figtree via
+        // [data-mobilapp] i testklar.css.
+        // Variablerna sätts i globals.css; utan --font-sess-text ärver texten
+        // sidans Inter.
+        'sess-display': ['var(--font-sess-display)'],
+        'sess-text': ['var(--font-sess-text)'],
       },
       fontSize: {
         fraga: ['22px', { lineHeight: '28px', letterSpacing: '-0.02em', fontWeight: '600' }],
