@@ -37,7 +37,7 @@ const perm = (q: DeduktivFraga, sessionId: string, blandade: boolean) => permuta
 
 export function visaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: boolean): VisadDeduktiv {
   const p = perm(q, sessionId, blandade);
-  return { id: q.id, difficulty: q.difficulty, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: p.map((o) => q.options[o]) };
+  return { id: q.id, difficulty: q.difficulty, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: p.map((o) => q.options[o]), platser: q.losning.schema?.namn.length ?? null };
 }
 
 export function genomgaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: boolean): GenomgangDeduktiv {

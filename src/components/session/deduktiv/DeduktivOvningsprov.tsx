@@ -24,7 +24,6 @@ import { SESSION } from '../copy'
 import type { GenomgangPost } from '../lagen/Genomgang'
 import { ovningsprovApi } from '../figurserie/api'
 import OvningsprovStart from '../delat/OvningsprovStart'
-import Losningsgang from './Losningsgang'
 
 function bas(format: Ovningsformat) {
   return { test_kind: 'deduktiv', lage: 'ovningsprov' as const, niva: null, format: format.nyckel }
@@ -88,7 +87,7 @@ function uppgifterFor(vy: Ovningsvy): DeduktivU[] {
   const per = new Map((vy.delar as DeduktivDel[]).map((d) => [d.id, d]))
   return vy.punkter.flatMap((p) => {
     const d = per.get(p.del)
-    return d ? [{ nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options }] : []
+    return d ? [{ nyckel: p.nyckel, intro: d.intro, villkor: d.villkor, fraga: d.fraga, options: d.options, platser: d.platser ?? null }] : []
   })
 }
 
@@ -104,7 +103,7 @@ function poster(vy: Ovningsvy): GenomgangPost<DeduktivU>[] {
         correct: Boolean(g?.korrekt),
         regel: null,
         misstag: g?.misstag ?? null,
-        detalj: g?.losning ? <Losningsgang losning={g.losning} /> : null,
+        data: g?.losning ?? null,
       },
       tid_s: g?.tid_s ?? null,
     }

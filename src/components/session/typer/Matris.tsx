@@ -6,8 +6,9 @@
  *
  *   Mobil   matrisen 264 × 264 centrerad, frågan under, sex rutor 3 × 2 à
  *           121 × 96. Cirka 510 px, svaren syns utan att rulla på Pixel 7.
- *   Dator   innehållsformen Smal (432): matrisen 336 × 336, sex rutor 3 × 2
- *           à 133 × 104. Cirka 600 px av 766.
+ *   Dator   innehållsformen Smal (464): matrisen 336 × 336, sex rutor 3 × 2
+ *           à 133 × 104. Cirka 600 px av 766. Från xl (Smal 496) matrisen
+ *           400 × 400 och rutorna 158 × 120 (omgång 2 B1).
  *
  * Efter facit (Träna och genomgången) fylls luckan med rätt figur i bläck och
  * 2 px positiv ram. Ingen svårighetsrad och inget reglage för förklarande
@@ -65,7 +66,7 @@ export function MatrisUppgift({ u, vald, facit, efterFel, onValj, last }: Uppgif
   // p i artiklarnas provruta (RubrikTagg, omgång 2 steg C), annars h2.
   const Rubrik = useRubrikTagg()
   return (
-    <div className="flex flex-col gap-3.5 lg:gap-4" data-matris-uppgift>
+    <div className="flex flex-col gap-3.5 lg:gap-4 xl:gap-3" data-matris-uppgift>
       <Matrisen grid={u.grid} fylld={fylld} />
       <Rubrik tabIndex={-1} data-uppgift-rubrik className="text-fraga text-center text-ink-1 outline-none">
         {MATRIS_FRAGA}
@@ -90,10 +91,35 @@ export function MatrisUppgift({ u, vald, facit, efterFel, onValj, last }: Uppgif
   )
 }
 
+/**
+ * Uppgiftslistans miniatyr (omgång 2 B1): matrisens rad med luckan i
+ * remsans 24 px-rutor (samma .minifig som figurserierna), så att raden
+ * känns igen utan att figurerna blir för små att läsa.
+ */
+function MatrisMiniatyr({ u }: { u: MatrisU }) {
+  const rad = u.grid.find((r) => r.some((c) => c == null)) ?? u.grid[u.grid.length - 1] ?? []
+  return (
+    <span className="matrisyta minifig" style={{ gridTemplateColumns: `repeat(${rad.length}, 24px)` }} aria-hidden="true" data-mini="matris">
+      {rad.map((c, i) =>
+        c ? (
+          <i key={i}>
+            <FigurV7 cell={c} />
+          </i>
+        ) : (
+          <i key={i} className="lucka">
+            <LuckaV7 />
+          </i>
+        )
+      )}
+    </span>
+  )
+}
+
 export const MATRIS: TypRitare<MatrisU> = {
   kind: 'matris',
   namn: 'Figurer och mönster',
   form: 'smal',
   antalAlternativ: (u) => u.options.length,
   Uppgift: MatrisUppgift,
+  Miniatyr: MatrisMiniatyr,
 }

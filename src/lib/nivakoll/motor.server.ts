@@ -213,7 +213,7 @@ export function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, s
     const q = hittaDeduktivFraga(nyckel);
     if (!q) return null;
     const v = visaDeduktiv(q, sessionId, true);
-    return { kind, nyckel, niva, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1' };
+    return { kind, nyckel, niva, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null };
   }
   const underlag = kind === 'verbal' ? underlagFor(kind, nyckel) : delar.find((d) => nycklarFor(kind, d).includes(nyckel));
   if (!underlag) return null;

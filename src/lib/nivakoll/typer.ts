@@ -23,7 +23,7 @@ interface Bas {
 
 export type NivakollUppgift =
   | (Bas & { kind: 'figurserie'; form: SerieForm; rad: V7Cell[]; options: V7Cell[] })
-  | (Bas & { kind: 'deduktiv'; intro: string | null; villkor: string[]; fraga: string; options: string[]; premisser: boolean })
+  | (Bas & { kind: 'deduktiv'; intro: string | null; villkor: string[]; fraga: string; options: string[]; premisser: boolean; platser?: number | null })
   | (Bas & { kind: 'verbal' | 'numerisk'; underlag: string; text: string; alternativ: { id: string; text: string }[] })
   /** Talserier, spatial förmåga och ordförråd (etapp 6): steg2-motorns visade uppgift, utan facit. */
   | (Bas & { kind: 'talserie' | 'spatial' | 'ordforrad'; v: Record<string, unknown> });

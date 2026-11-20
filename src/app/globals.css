@@ -2291,6 +2291,13 @@ html {
   .sess-ruta { aspect-ratio: 1; }
 }
 
+/* Matrisens och figurseriernas rutor (omgång 2 B1): "Rätt, ditt svar" är för
+   lång för en ruta under 150 px och lägger sig över märket; märket och den
+   gröna ringen bär svaret där, skärmläsaren får det i aria-label. */
+@container (max-width: 149px) {
+  .sess-alt .sess-svar-ruta > .sess-pill[data-pill="ratt-ditt"] { display: none; }
+}
+
 /* Remsan när figurerna själva är svaren (bryter mönstret). */
 .serie > .ruta.sess-val {
   cursor: pointer;
@@ -2313,6 +2320,12 @@ html {
    facit: rätt figur i bläck med 2 px positiv ram. */
 .sess-matris { width: 264px; height: 264px; max-width: 100%; }
 @media (min-width: 1024px) { .sess-matris { width: 336px; height: 336px; } }
+/* Omgång 2 B1: matrisen 400 från xl (skissen Matris-1440). */
+@media (min-width: 1280px) {
+  .sess-matris { width: 400px; height: 400px; }
+  /* Rutorna 158 × 120, så att matrisen, frågan och sex svar ryms på 900 hög skärm. */
+  .sess-alt-matris .sess-ruta { aspect-ratio: 158 / 120; }
+}
 .sess-lucka-matris { box-shadow: inset 0 0 0 2px var(--positiv); animation: sess-tona 160ms ease-out both; }
 
 /* Deduktiv slutledning (3.4), innehållsformen Bred: villkoren i egen spalt
@@ -2325,6 +2338,11 @@ html {
   /* Samma toppluft som kolumnen (omgång 2): villkoren står kvar där rubriken började. */
   .sess-villkor, .sess-villkor[data-fem] { top: clamp(40px, calc((100dvh - 920px) / 2), 120px); max-height: none; overflow: visible; }
 }
+/* Remsan i villkorskortet fylls i lösningsgångens ordning (omgång 2 B1):
+   240 ms per namn, fördröjningen sätts per cell. Bara transform och opacitet. */
+@keyframes sess-remsa-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.sess-remsa-in { animation: sess-remsa-in 240ms cubic-bezier(.2, .8, .2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .sess-remsa-in { animation: none; } }
 
 /* Förklaringen: glider in under svaren 120 ms efter facit. */
 @keyframes sess-forklaring { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }

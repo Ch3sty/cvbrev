@@ -243,7 +243,7 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
       .filter((q): q is NonNullable<typeof q> => !!q)
       .map((q) => {
         const v = visaDeduktiv(q, seed, true);
-        return { id: q.id, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1' };
+        return { id: q.id, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1', platser: v.platser ?? null };
       });
   }
   if (typ === 'figurer') {

@@ -78,6 +78,8 @@ export interface DeduktivDel {
   options: string[];
   /** D1 har premisser, D2 och D3 villkor. */
   premisser: boolean;
+  /** Antal platser när uppgiften har en remsa, annars null (omgång 2, B1). */
+  platser?: number | null;
 }
 
 /** En uppgift i provet, i ordning: del (text eller underlag) och punkt i delen. */

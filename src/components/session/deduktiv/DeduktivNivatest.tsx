@@ -11,10 +11,9 @@ import { visatForSvar } from '@/lib/logicTestV7/blanda'
 import KlassiskNivatest, { type KlassiskNivatestProps } from '../delat/KlassiskNivatest'
 import type { GenomgangPost } from '../lagen/Genomgang'
 import { DEDUKTIV, type DeduktivU } from '../typer/Deduktiv'
-import Losningsgang from './Losningsgang'
 
 export function tillDeduktivU(q: VisadDeduktiv): DeduktivU {
-  return { nyckel: q.id, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: q.options }
+  return { nyckel: q.id, intro: q.intro, villkor: q.villkor, fraga: q.fraga, options: q.options, platser: q.platser ?? null }
 }
 
 interface Svar {
@@ -37,7 +36,7 @@ export function deduktivPoster(genomgang: GenomgangDeduktiv[], answers: unknown)
         correct: valt === q.rattVisat,
         regel: null,
         misstag: valt != null && valt !== q.rattVisat ? q.misstag[valt] || null : null,
-        detalj: <Losningsgang losning={q.losning} />,
+        data: q.losning,
       },
       tid_s: typeof a?.time_spent === 'number' ? a.time_spent : null,
     }

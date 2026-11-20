@@ -15,7 +15,7 @@ function Markor({ m }: { m: number | 'Om' | 'Kvar' }) {
   return (
     <span
       className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-[7px] px-1 text-[12px] font-semibold leading-4 tabular-nums ${
-        m === 'Om' ? 'bg-ink-1 text-papper' : 'bg-papper text-ink-2'
+        m === 'Om' ? 'bg-ink-1 text-papper' : 'bg-papper-2 text-ink-2'
       }`}
       aria-hidden="true"
     >
@@ -32,8 +32,9 @@ function markorAria(markor: (number | 'Om' | 'Kvar')[]): string {
   return nr.length === 1 ? `Villkor ${nr[0]}. ` : `Villkor ${nr.slice(0, -1).join(', ')} och ${nr[nr.length - 1]}. `
 }
 
-export default function Losningsgang({ losning }: { losning: DeduktivLosning }) {
-  const schema = losning.schema
+/** `utanRemsa`: remsan står i villkorskortet (ramen, omgång 2 B1); bara stegen här. */
+export default function Losningsgang({ losning, utanRemsa = false }: { losning: DeduktivLosning; utanRemsa?: boolean }) {
+  const schema = utanRemsa ? null : losning.schema
   const oppen = schema ? schema.namn.some((n) => n.length > 1) : false
   return (
     <div data-losningsgang>

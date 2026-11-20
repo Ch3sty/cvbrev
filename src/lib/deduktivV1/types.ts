@@ -91,6 +91,8 @@ export interface VisadDeduktiv {
   villkor: string[];
   fraga: string;
   options: string[];
+  /** Antal platser när uppgiften har en remsa (D2, D3), annars null. Remsan ritas tom i uppgiften (omgång 2, B1). */
+  platser?: number | null;
 }
 
 /** Uppgiften i genomgången: visad ordning, rätt svar, etiketterna och lösningsgången. */
