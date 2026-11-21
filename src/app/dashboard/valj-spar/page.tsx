@@ -22,6 +22,7 @@ import { HOPPAT_PARAM } from '@/components/registrering/intent'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { kampanjNu, visning } from '@/lib/kampanj/kampanj'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
+import { arKopRetur } from '@/lib/stripe/kopRetur'
 
 export const metadata = { title: paketNamn(SALD_PLAN) }
 
@@ -30,9 +31,9 @@ function lasPlats(v: unknown): string | null {
   return typeof v === 'string' && /^[a-z0-9_-]{1,40}$/.test(v) ? v : null
 }
 
-/** Köpreturen ur mallflödet: bara galleriet, aldrig en annan adress. */
+/** Köpreturen: CV-mallarna eller brevrummet (kopRetur.ts), aldrig en annan adress. */
 function lasRetur(v: unknown): string | null {
-  return typeof v === 'string' && v.startsWith('/dashboard/cv-mallar?') && v.length < 300 && !/[\s<>"]/.test(v) ? v : null
+  return arKopRetur(v) ? v : null
 }
 
 export default async function ValjSparPage({

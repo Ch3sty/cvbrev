@@ -1,6 +1,6 @@
 // src/hooks/use-letters.ts
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useLetterStore, Letter } from '@/store/letter-store';
+import { useLetterStore, Letter, BrevFel, type BrevAndringParams } from '@/store/letter-store';
 
 interface GenerateLetterParams {
   cv_id: string;
@@ -8,6 +8,10 @@ interface GenerateLetterParams {
   tonality: string;
   language?: string; // Ny parameter för språkval
   template_id?: string; // Ny parameter för mallval
+  /** Brevrummet: CV-mallens id. Utan den får brevet CV:ts mall eller Linne. */
+  mall_id?: string;
+  /** Brevrummet: typsnittets id, utan den mallens eget. */
+  font_id?: string | null;
   save?: boolean; // Parameter för att ange om brevet ska sparas direkt
 }
 
@@ -89,6 +93,12 @@ export const useLetters = (options: UseLettersOptions = {}) => {
     isLoading,
     isGenerating,
     error,
+    kvot,
+    harBetalt,
+    sparaBrev,
+    skrivOmBrev,
+    markeraForberett,
+    laggTillKravMening,
     fetchLetters: storeFetchLetters,
     fetchLetter: storeFetchLetter,
     generateLetter: storeGenerateLetter,
@@ -208,7 +218,9 @@ export const useLetters = (options: UseLettersOptions = {}) => {
             job_description: params.job_description,
             tonality: params.tonality,
             language: params.language || 'sv', // Skicka med språket
-            template_id: params.template_id || 'classic' // Skicka med vald mall
+            template_id: params.template_id || 'classic', // Skicka med vald mall
+            ...(params.mall_id ? { mall_id: params.mall_id } : {}),
+            ...(params.font_id ? { font_id: params.font_id } : {}),
           }),
         });
         
@@ -230,6 +242,11 @@ export const useLetters = (options: UseLettersOptions = {}) => {
         const result = data.data;
         if (data.remainingLetters !== undefined) {
           result.remainingLetters = data.remainingLetters;
+        }
+        // Kvoten efter brevet (BrevKvot): nastaGratisbrev för "Nästa gratisbrev fredag 27 nov".
+        if (data.kvot) {
+          result.kvot = data.kvot;
+          useLetterStore.setState({ kvot: data.kvot });
         }
         
         return result;
@@ -432,6 +449,9 @@ export const useLetters = (options: UseLettersOptions = {}) => {
     isDeleting,
     isGenerating,
     error,
+    /** Veckokvoten (BrevKvot) från senaste hämtning, generering eller omskrivning. */
+    kvot,
+    harBetalt,
 
     // Funktioner
     fetchLetters: memoizedFetchLetters,
@@ -441,6 +461,90 @@ export const useLetters = (options: UseLettersOptions = {}) => {
     getLetter: memoizedGetLetter,
     editLetter,
     removeLetter,
-    refreshLetters
+    refreshLetters,
+
+    // Brevrummet (kastar BrevFel med code: letter_locked, premium_required, quota_exceeded ...)
+    sparaBrev,
+    skrivOmBrev,
+    markeraForberett,
+    laggTillKravMening,
   };
 };
+
+export type AutosparStatus = 'sparat' | 'vantar' | 'sparar' | 'fel';
+
+/**
+ * Autospar i arbetsläget (BYGGSPEC avsnitt 4): ändringar samlas och skickas
+ * cirka en sekund efter senaste ändringen. status är 'sparat' först när
+ * servern svarat; ett fel visas som 'fel' med felet, aldrig som sparat.
+ * Väntande ändringar skickas när komponenten lämnas och när sidan döljs.
+ */
+export function useBrevAutospar(id: string | null, opts: { fordrojningMs?: number; onSparat?: (brev: Letter) => void } = {}) {
+  const fordrojning = opts.fordrojningMs ?? 1000;
+  const sparaBrev = useLetterStore((s) => s.sparaBrev);
+  const [status, setStatus] = useState<AutosparStatus>('sparat');
+  const [fel, setFel] = useState<BrevFel | null>(null);
+  const vantande = useRef<BrevAndringParams>({});
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pagaende = useRef<Promise<void> | null>(null);
+  const onSparat = useRef(opts.onSparat);
+  onSparat.current = opts.onSparat;
+
+  const skicka = useCallback(async () => {
+    if (!id) return;
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
+    // En sparning i taget, i ordning.
+    if (pagaende.current) await pagaende.current;
+    const andring = vantande.current;
+    if (Object.keys(andring).length === 0) return;
+    vantande.current = {};
+    setStatus('sparar');
+    const jobb = (async () => {
+      try {
+        const brev = await sparaBrev(id, andring);
+        setFel(null);
+        if (Object.keys(vantande.current).length === 0) setStatus('sparat');
+        onSparat.current?.(brev);
+      } catch (e: any) {
+        // Ändringen ligger kvar och skickas med nästa gång.
+        vantande.current = { ...andring, ...vantande.current };
+        setFel(e instanceof BrevFel ? e : new BrevFel(e?.message ?? 'Kunde inte spara', 'error', null));
+        setStatus('fel');
+      }
+    })();
+    pagaende.current = jobb;
+    await jobb;
+    pagaende.current = null;
+  }, [id, sparaBrev]);
+
+  const spara = useCallback(
+    (andring: BrevAndringParams) => {
+      vantande.current = { ...vantande.current, ...andring };
+      setStatus('vantar');
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        void skicka();
+      }, fordrojning);
+    },
+    [skicka, fordrojning]
+  );
+
+  /** Skicka väntande ändringar nu (t.ex. före nedladdning eller "Klar"). */
+  const sparaNu = useCallback(() => skicka(), [skicka]);
+
+  useEffect(() => {
+    const vidDold = () => {
+      if (document.visibilityState === 'hidden') void skicka();
+    };
+    document.addEventListener('visibilitychange', vidDold);
+    return () => {
+      document.removeEventListener('visibilitychange', vidDold);
+      void skicka();
+    };
+  }, [skicka]);
+
+  return { spara, sparaNu, status, fel };
+}

@@ -84,8 +84,9 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/sokta-tjanster', namn: 'sokta-tjanster', budget: 'lista' },
   { path: '/dashboard/sokta-tjanster/ID', namn: 'sokta-tjanster/[id]', budget: 'lista', dynamisk: 'application' },
   { path: '/dashboard/mina-brev', namn: 'mina-brev', budget: 'lista' },
-  { path: '/dashboard/mina-brev/ID', namn: 'mina-brev/[id]', budget: 'lista', dynamisk: 'letter' },
-  { path: '/dashboard/mina-brev/ID/edit', namn: 'mina-brev/[id]/edit', budget: 'lista', dynamisk: 'letter' },
+  { path: '/dashboard/mina-brev/mallar', namn: 'mina-brev/mallar', budget: 'flode' },
+  // Brevet är arbetsläget (brevrummet 2026-11-21): flödesbudgeten, 2,0 s.
+  { path: '/dashboard/mina-brev/ID', namn: 'mina-brev/[id]', budget: 'flode', dynamisk: 'letter' },
   { path: '/dashboard/cv-mallar', namn: 'cv-mallar', budget: 'lista' },
   { path: '/dashboard/cv-mallar?mall=modern', namn: 'cv-mallar (vald mall)', budget: 'lista' },
   // Rekryteringstesters hemvy är en hemvy från våg 2 (spec 1.3: under 1,0 s).
@@ -157,11 +158,6 @@ const ROUTES: RouteDef[] = [
 
   // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
-  { path: '/dashboard/skapa-brev?steg=2', namn: 'skapa-brev steg 2', budget: 'flode' },
-  { path: '/dashboard/skapa-brev?steg=3', namn: 'skapa-brev steg 3', budget: 'flode' },
-  { path: '/dashboard/skapa-brev?steg=4', namn: 'skapa-brev steg 4', budget: 'flode' },
-  { path: '/dashboard/skapa-brev?steg=5', namn: 'skapa-brev steg 5', budget: 'flode' },
-  { path: '/dashboard/skapa-brev?steg=6', namn: 'skapa-brev steg 6', budget: 'flode' },
   { path: '/dashboard/skapa-cv', namn: 'skapa-cv', budget: 'flode' },
   // CV-byggaren 'Direkt på arket' (2026-11-16): startbladet över arket, och en annan mall ur ?mall=.
   { path: '/dashboard/skapa-cv?mall=bjork', namn: 'skapa-cv mall', budget: 'flode' },

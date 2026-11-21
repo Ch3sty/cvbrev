@@ -13,6 +13,12 @@ import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templat
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { Packer } from 'docx';
 import { getFontFamilyForHTML, getFontNameForDocx } from '@/lib/documents/typsnitt';
+import { renderBrevHtml, byggBrevDocx, brevMallDef, BREV_DOCX_MIME } from '@/lib/letters/brevmall';
+import { harWord } from '@/lib/cv/mallar/katalog';
+import { baddaInTypsnitt } from '@/lib/cv/mallar/typsnitt-inbaddning';
+import { brevDataFranBrev } from '@/lib/letters/brevData';
+import { hamtaBrevProfil, markeraForberett } from '@/lib/letters/server';
+import type { Letter } from '@/store/letter-store';
 
 /**
  * Genererar PDF med Puppeteer från redan genererad HTML
@@ -199,6 +205,109 @@ async function createProfessionalDocx(
 }
 
 
+/** Filnamnet ur titeln, utan å, ä, ö och specialtecken (som den gamla vägen). */
+function filnamn(titel: string): string {
+  return (titel || 'Ansokningsbrev')
+    .replace(/å/g, 'a').replace(/Å/g, 'A')
+    .replace(/ä/g, 'a').replace(/Ä/g, 'A')
+    .replace(/ö/g, 'o').replace(/Ö/g, 'O')
+    .replace(/[^a-zA-Z0-9\s]/g, '')
+    .replace(/\s+/g, '_') || 'Ansokningsbrev';
+}
+
+/** PDF av brevmallens HTML: typsnitten inbäddade, krympsteget valt i sidan innan utskrift. */
+async function brevmallPdf(html: string): Promise<Buffer> {
+  const puppeteer = await import('puppeteer');
+  const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+  const launchOptions: any = { headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--no-zygote'] };
+  if (isServerless) {
+    const chromium = await import('@sparticuz/chromium');
+    const chromiumModule = chromium.default || chromium;
+    launchOptions.executablePath = await chromiumModule.executablePath();
+    launchOptions.args = chromiumModule.args;
+    launchOptions.headless = 'shell';
+  }
+  const browser = await puppeteer.default.launch(launchOptions);
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 794, height: 1123 });
+    await page.setContent(baddaInTypsnitt(html), { waitUntil: 'load', timeout: 30000 });
+    // Skriptet i dokumentet väljer krympsteget igen när typsnitten är laddade.
+    await page.evaluate(() => document.fonts.ready.then(() => new Promise((r) => setTimeout(r, 30))));
+    const pdf = await page.pdf({ format: 'A4', printBackground: true, margin: { top: '0', right: '0', bottom: '0', left: '0' }, preferCSSPageSize: true });
+    return Buffer.from(pdf);
+  } finally {
+    await browser.close();
+  }
+}
+
+/**
+ * Den nya vägen: brevet läses på servern med id och ägare. Returnerar null
+ * för ett brev utan mall_id (den gamla vägen tar det). Behörigheten
+ * (inloggning och letter_download) är redan kontrollerad av POST.
+ */
+async function nyttBrevSomFil(
+  supabase: ReturnType<typeof createServerClient>,
+  user: { id: string; email?: string | null },
+  brevId: string,
+  format: unknown
+): Promise<NextResponse | null> {
+  // Motorns kolumner finns inte i database.types.ts än: raden läses otypad.
+  const { data: rad, error } = await (supabase.from('letters') as any)
+    .select('*')
+    .eq('id', brevId)
+    .eq('user_id', user.id)
+    .maybeSingle();
+  if (error) {
+    console.error('Brevet kunde inte läsas för nedladdning:', error);
+    return NextResponse.json({ error: 'Serverfel vid hämtning av brevet' }, { status: 500 });
+  }
+  if (!rad) return NextResponse.json({ error: 'Brevet kunde inte hittas' }, { status: 404 });
+  const brev = rad as Letter;
+  if (!brev.mall_id) return null;
+  if (format !== 'pdf' && format !== 'docx') return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
+
+  const { data: profileData } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  if (!profileData?.full_name || !profileData.full_name.trim()) {
+    return NextResponse.json({ error: 'name_required' }, { status: 422 });
+  }
+  // Samma data som vyerna ritar arket av: avsändaren ur profilen, yrkestiteln ur brevets CV.
+  const { profil } = await hamtaBrevProfil(supabase as any, user.id, brev.cv_id ?? null);
+  const data = brevDataFranBrev(brev, profil ?? (profileData as any), user);
+  const val = { typsnitt: brev.font_id ?? null };
+  const namn = filnamn(brev.title || brev.job_title || 'Ansökningsbrev');
+
+  let fil: Buffer;
+  let typ: string;
+  let ut: string;
+  if (format === 'docx') {
+    if (!harWord(brevMallDef(brev.mall_id).id)) {
+      return NextResponse.json({ error: 'Mallen finns inte som Word-fil' }, { status: 400 });
+    }
+    fil = await byggBrevDocx(brev.mall_id, data, val);
+    typ = BREV_DOCX_MIME;
+    ut = `${namn}.docx`;
+  } else {
+    fil = await brevmallPdf(renderBrevHtml(brev.mall_id, data, val));
+    typ = 'application/pdf';
+    ut = `${namn}.pdf`;
+  }
+
+  logPremiumUsage(user.id, 'letter_download', { format });
+
+  // Brevets väg: första nedladdningen märker brevet som förberett. Ett fel här får aldrig stoppa filen.
+  try {
+    await markeraForberett(supabase as any, user.id, brevId, 'nedladdat');
+  } catch (e) {
+    console.error('Brevet kunde inte märkas som nedladdat:', e);
+  }
+
+  const svar = new NextResponse(new Uint8Array(fil));
+  svar.headers.set('Content-Type', typ);
+  svar.headers.set('Content-Disposition', `attachment; filename="${ut}"`);
+  return svar;
+}
+
 export async function POST(request: Request) {
   try {
     // Verifiera autentisering och hantera PDF/DOCX generering
@@ -245,6 +354,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltig JSON i begäran' }, { status: 400 });
     }
     
+    // Brevrummet (2026-11-21): ett brev i den nya brevmallen laddas ner med
+    // sitt id. Servern läser raden och ritar filen ur brevets data, mall och
+    // typsnitt. Brev utan mall_id går den gamla vägen nedan, oförändrad.
+    if (typeof parsedBody?.id === 'string' && parsedBody.id) {
+      const ny = await nyttBrevSomFil(supabase, user, parsedBody.id, parsedBody.format);
+      if (ny) return ny;
+      // Gammalt brev: den gamla vägen, med radens innehåll om anropet inte skickade något.
+      if (!parsedBody.content) {
+        const { data: rad } = await supabase.from('letters').select('content').eq('id', parsedBody.id).eq('user_id', user.id).maybeSingle();
+        if (rad?.content) parsedBody.content = rad.content;
+      }
+    }
+
     // Accept flat primitive values instead of nested metadata object
     const { content, format, title, company, position, template, font } = parsedBody;
 

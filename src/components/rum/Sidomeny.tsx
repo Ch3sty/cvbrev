@@ -172,7 +172,7 @@ export default function Sidomeny() {
       { href: '/dashboard/linkedin-optimizer', etikett: UNDERSIDA.linkedin, last: lasFor('linkedin') },
     ],
     brev: [
-      { href: '/dashboard/mina-brev', etikett: UNDERSIDA.minaBrev, chip: antalChip(brevAntal) },
+      { href: '/dashboard/mina-brev', etikett: UNDERSIDA.dinaBrev, chip: antalChip(brevAntal) },
       { href: '/dashboard/skapa-brev', etikett: UNDERSIDA.skrivNyttBrev },
     ],
     jobb: [

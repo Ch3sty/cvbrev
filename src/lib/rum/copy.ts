@@ -74,7 +74,8 @@ export const UNDERSIDA = {
   mallar: 'Mallar',
   analys: 'Analys',
   linkedin: 'LinkedIn-profilen',
-  minaBrev: 'Mina brev',
+  /** Brevrummet (BYGGSPEC brevrummet avsnitt 7): "Dina brev" ersätter "Mina brev". */
+  dinaBrev: 'Dina brev',
   skrivNyttBrev: 'Skriv nytt brev',
   oversikt: 'Översikt',
   soktaTjanster: 'Sökta tjänster',
@@ -159,7 +160,7 @@ export const KONTORAD = {
  */
 export const RUBRIK = {
   minaCv: UNDERSIDA.minaCv,
-  minaBrev: UNDERSIDA.minaBrev,
+  dinaBrev: UNDERSIDA.dinaBrev,
   soktaTjanster: UNDERSIDA.soktaTjanster,
   matchadeJobb: UNDERSIDA.matchadeJobb,
   analyseraCv: UNDERSIDA.analyseraCv,
@@ -216,12 +217,6 @@ export const LYFT = {
     titel: 'Ladda upp ett CV',
     text: 'PDF eller Word. Vi använder det i brev, analys och mallar.',
     handling: 'Ladda upp CV',
-  },
-  minaBrev: {
-    eyebrow: 'Nytt brev',
-    titel: 'Skriv ett brev mot en annons',
-    text: 'Klistra in annonsen, så skriver vi utifrån ditt CV.',
-    handling: 'Skapa nytt brev',
   },
   soktaTjanster: {
     eyebrow: 'Nytt',

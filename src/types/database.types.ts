@@ -194,6 +194,21 @@ export interface Database {
           cv_id: string | null
           created_at: string | null
           updated_at: string | null
+          language: string | null
+          template_id: string | null
+          ai_model: string | null
+          ai_tokens: number | null
+          ai_cost: number | null
+          generation_time_ms: number | null
+          /** Brevrummet (20261121130000_brev_rummet.sql). */
+          body_stycken: Json | null
+          halsning: string | null
+          mottagare_person: string | null
+          mall_id: string | null
+          font_id: string | null
+          krav: Json | null
+          forberett_at: string | null
+          forberett_som: string | null
         }
         Insert: {
           id?: string
@@ -210,6 +225,21 @@ export interface Database {
           cv_id?: string | null
           created_at?: string | null
           updated_at?: string | null
+          language?: string | null
+          template_id?: string | null
+          ai_model?: string | null
+          ai_tokens?: number | null
+          ai_cost?: number | null
+          generation_time_ms?: number | null
+          /** Brevrummet (20261121130000_brev_rummet.sql). */
+          body_stycken?: Json | null
+          halsning?: string | null
+          mottagare_person?: string | null
+          mall_id?: string | null
+          font_id?: string | null
+          krav?: Json | null
+          forberett_at?: string | null
+          forberett_som?: string | null
         }
         Update: {
           id?: string
@@ -226,6 +256,21 @@ export interface Database {
           cv_id?: string | null
           created_at?: string | null
           updated_at?: string | null
+          language?: string | null
+          template_id?: string | null
+          ai_model?: string | null
+          ai_tokens?: number | null
+          ai_cost?: number | null
+          generation_time_ms?: number | null
+          /** Brevrummet (20261121130000_brev_rummet.sql). */
+          body_stycken?: Json | null
+          halsning?: string | null
+          mottagare_person?: string | null
+          mall_id?: string | null
+          font_id?: string | null
+          krav?: Json | null
+          forberett_at?: string | null
+          forberett_som?: string | null
         }
          Relationships: []
       }

@@ -212,7 +212,7 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
         jobAdUrl: t.url ?? undefined,
       })
     }
-    router.push('/dashboard/skapa-brev')
+    router.push(cvId ? `/dashboard/skapa-brev?cv=${encodeURIComponent(cvId)}` : '/dashboard/skapa-brev')
   }
   const tillDittCv = () => {
     capture('nasta_steg_klickad', { target: 'mina_cv', template: mall.id, surface })

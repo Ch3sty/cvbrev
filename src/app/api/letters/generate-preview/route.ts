@@ -1,24 +1,23 @@
 import { cookies } from 'next/headers';
-import { dokumentEpost } from '@/lib/profile/dokumentEpost';
-import { arPlatshallareNamn, kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
+import { arPlatshallareNamn } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
-import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
-import { guardCvTextForModel } from '@/lib/privacy/guard';
-import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
-import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
-import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
-import { paketKort } from '@/lib/plans/plans';
-// Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
+import { extractJobInfo } from '@/lib/openai/api';
+import { markFirstMilestone } from '@/lib/activation-tracking';
+import { DAILY_LIMIT_LETTERS } from '@/lib/quota/quotaService';
+import { arBrevTypsnitt, arTon, brevMallId, premiumSparr } from '@/lib/letters/brevRegler';
+import { brevKvotEfterSkrivning } from '@/lib/letters/brevKvot';
+import { kravMedTraffar } from '@/lib/letters/krav';
+import { titelUrStrukturerad } from '@/lib/letters/brevData';
+import { hamtaBrevProfil, ritaRad, startmallForCv } from '@/lib/letters/server';
 import {
-  resolveDailyLetterCounter,
-  letterResetAtFromNow,
-  brevSparrMeddelande,
-  DAILY_LIMIT_LETTERS,
-  quotaExceededBody,
-} from '@/lib/quota/quotaService';
+  kvotArSlut,
+  kvotLage,
+  kvotSlutSvar,
+  raknaBrevMotKvot,
+  skrivBrevtext,
+} from '@/lib/letters/skrivBrev';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -74,37 +73,29 @@ export async function POST(request: Request) {
     const harBetalt = await userHasAccess(supabase, user.id, 'any');
 
     // Brevkvoten: första brevet gratis, sedan ett per rullande sju dygn.
-    // Samma räknarkolumner som /api/letters/generate så båda flödena delar kvot.
+    // Samma räknarkolumner som omskrivningen (/api/letters/[id]/skriv-om),
+    // så att båda delar kvot (src/lib/letters/skrivBrev.ts).
     const now = new Date();
-    const { effectiveCount, windowIsStale } = resolveDailyLetterCounter(
-      profile.weekly_letter_count,
-      profile.weekly_letter_first_used_at,
-      now
-    );
-    const nextResetDate = letterResetAtFromNow(profile.weekly_letter_first_used_at, now);
-    const newCount = effectiveCount + 1;
+    const kvot = kvotLage(profile, now);
+    const nextResetDate = kvot.nextResetDate;
+    const newCount = kvot.effectiveCount + 1;
 
-    // Kontrollera om användaren har nått sin dagsgräns (endast för gratisanvändare)
-    if (!harBetalt && effectiveCount >= DAILY_LIMIT_LETTERS) {
-      return NextResponse.json(
-        quotaExceededBody(
-          'letter_generation',
-          {
-            allowed: false,
-            isPremium: false,
-            used: effectiveCount,
-            limit: DAILY_LIMIT_LETTERS,
-            nextResetAt: nextResetDate.toISOString(),
-          },
-          brevSparrMeddelande(nextResetDate, paketKort())
-        ),
-        { status: 429 }
-      );
+    // Kontrollera om användaren har nått sin gräns (endast för gratisanvändare)
+    if (!harBetalt && kvotArSlut(kvot)) {
+      return NextResponse.json(kvotSlutSvar(kvot), { status: 429 });
     }
 
     // Hämta begäransdata (CV-ID, jobbannons, tonalitet, språk och mall)
-    const { cv_id, job_description, tonality, language = 'sv', template_id = 'classic' } = await request.json();
-    
+    const {
+      cv_id,
+      job_description,
+      tonality,
+      language = 'sv',
+      template_id = 'classic',
+      mall_id: mallIn,
+      font_id: fontIn,
+    } = await request.json();
+
     if (!cv_id || !job_description) {
       return NextResponse.json(
         { error: 'CV-ID och jobbannons krävs' }, 
@@ -119,10 +110,28 @@ export async function POST(request: Request) {
     if (arPlatshallareNamn(profile.full_name)) {
       return NextResponse.json({ error: 'name_required', code: 'name_required' }, { status: 422 });
     }
+
+    // Mall, typsnitt och ton valideras och Premium kontrolleras på servern
+    // (BYGGSPEC avsnitt 4), före modellanropet och utan att kvoten räknas.
+    const valdMall = mallIn === undefined || mallIn === null ? null : brevMallId(mallIn);
+    if (mallIn !== undefined && mallIn !== null && !valdMall) {
+      return NextResponse.json({ error: 'Okänd mall', code: 'invalid_mall' }, { status: 400 });
+    }
+    const valtTypsnitt: string | null = fontIn === undefined || fontIn === null || fontIn === '' ? null : fontIn;
+    if (valtTypsnitt !== null && !arBrevTypsnitt(valtTypsnitt)) {
+      return NextResponse.json({ error: 'Okänt typsnitt', code: 'invalid_font' }, { status: 400 });
+    }
+    if (tonality && !arTon(tonality)) {
+      return NextResponse.json({ error: 'Okänd ton', code: 'invalid_tone' }, { status: 400 });
+    }
+    const sparr = premiumSparr({ mallId: valdMall, fontId: valtTypsnitt, ton: tonality }, harBetalt);
+    if (sparr) {
+      return NextResponse.json({ error: 'premium_required', code: 'premium_required', sparr }, { status: 402 });
+    }
     
     // Skapa en unik nyckel för denna specifika kombination
     // Inkludera språket och mallen i nyckeln för att hålla isär genereringar på olika språk och mallar
-    const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}:${template_id}`;
+    const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}:${template_id}:${valdMall ?? ''}:${valtTypsnitt ?? ''}`;
     
     // Kontrollera om en generering redan pågår för denna kombination
     if (activeGenerations.has(requestKey)) {
@@ -149,8 +158,6 @@ export async function POST(request: Request) {
     
     // Skapa generaringslöfte
     const generationPromise = (async () => {
-      const startTime = Date.now(); // Tidtagning för generering
-      
       // Hämta CV-text från databasen
       const { data: cvData, error: cvError } = await supabase
         .from('cv_texts')
@@ -164,147 +171,100 @@ export async function POST(request: Request) {
         throw new Error('Kunde inte hitta CV');
       }
 
-      // Använd AI för att extrahera jobbinformation från jobbannonsen
-      const jobInfo = await extractJobInfo(job_description, language);
+      const sprak: 'sv' | 'en' = language === 'en' ? 'en' : 'sv';
 
-      // *** SÄKERHET: samma maskering som letters/generate ***
-      // Rutten hade tidigare en egen, svagare regexsvit som tog bort mejl,
-      // telefon och postnummer men INTE namnet. Förhandsvisningen är den väg
-      // de flesta möter först, så den var i praktiken ett motexempel till
-      // löftet på profilsidan. Nu går båda brevvägarna genom samma spärr.
-      console.log('🔒 SÄKERHET (Preview): Maskerar personuppgifter i CV-data...');
+      // Jobbinformationen och brevtexten parallellt: extractJobInfo får bara
+      // annonsen. Brevtexten går genom samma maskering som förut
+      // (guardCvTextForModel i skrivBrevtext): profilens och CV:ts namn och
+      // telefon tas bort innan något skickas till modellen. Kraven läses ur
+      // annonsen mot modellens egna stycken, utan personuppgifter.
+      const [jobInfo, skriven] = await Promise.all([
+        extractJobInfo(job_description, sprak),
+        skrivBrevtext({
+          supabase,
+          userId: user.id,
+          cvText: cvData.cv_text,
+          cvStrukturerad: cvData.structured_data,
+          profil: profile,
+          annons: job_description,
+          ton: tonality || 'professional',
+          sprak,
+          flode: 'letter_preview',
+        }),
+      ]);
 
-      const guarded = await guardCvTextForModel(
-        cvData.cv_text,
-        'letter_preview',
-        user.id,
-        // Profilens och CV:ts namn och telefon (src/lib/profile/dokumentKontakt.ts).
-        kandaUppgifterForMaskning(profile, cvData.structured_data)
-      );
-      const cleanedCV = guarded.text;
+      // Avsändaren ur profilen, efter modellanropen.
+      const { profil: brevProfil } = await hamtaBrevProfil(supabase, user.id, null);
+      if (!brevProfil) throw new Error('Kunde inte hämta användarens profildata');
+      const avsandare = { ...brevProfil, titel: titelUrStrukturerad(cvData.structured_data) };
 
-      console.log('📋 Original CV-längd:', cvData.cv_text.length, 'tecken');
-      console.log('📋 Maskerad CV-längd:', cleanedCV.length, 'tecken');
+      // Brevets mall från start: vald mall om den är tillåten (kontrollerad
+      // ovan), annars CV:ts mall om användaren får spara den, annars Linne.
+      const mallId = valdMall ?? startmallForCv(cvData.structured_data, harBetalt);
 
-      // Generera personligt brev med OpenAI, skicka CV UTAN PII
-      console.log('🚀 SÄKERHET (Preview): Skickar CV utan PII till OpenAI...');
-      const coverLetterResult = await generateCoverLetter(
-        cleanedCV, // ✅ CV-text med PII borttaget
-        job_description,
-        tonality || 'professional',
-        language || 'sv'
-      );
-
-      // Extrahera innehållet från returvärdet (AI-genererad brevkropp)
-      const aiGeneratedBody = coverLetterResult.content;
-      console.log('✅ SÄKERHET (Preview): OpenAI returnerade brevkropp (INGEN PII skickades)');
-      const generationTimeMs = Date.now() - startTime; // Beräkna total tidsåtgång
-
-      // Beräkna faktisk kostnad från databas (med fallback till baseline)
-      const actualCost = await calculateCostFromDatabase(
-        supabase,
-        coverLetterResult.model,
-        coverLetterResult.tokens?.prompt || 0,
-        coverLetterResult.tokens?.completion || 0
-      );
-
-      // Hämta användarens profildata för att inkludera i brevet
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('full_name, email, contact_email, phone, location, include_phone_in_letters, include_location_in_letters')
-        .eq('id', user.id)
-        .single();
-
-      if (profileError || !profileData) {
-        console.error('Kunde inte hämta profildata:', profileError);
-        throw new Error('Kunde inte hämta användarens profildata');
-      }
-
-      // Bygg profilobjekt för template
-      const profileForLetter: ProfileDataForLetter = {
-        // Profilens namn finns: anropet stoppas ovan med name_required annars.
-        full_name: (profileData.full_name ?? '').trim(),
-        // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
-        email: dokumentEpost(profileData, user),
-        phone: profileData.phone || undefined,
-        location: profileData.location || undefined,
-        include_phone_in_letters: profileData.include_phone_in_letters || false,
-        include_location_in_letters: profileData.include_location_in_letters || false
+      const rad = {
+        user_id: user.id,
+        title: jobInfo.title || (sprak === 'en' ? 'Job Application' : 'Ansökningsbrev'),
+        company: jobInfo.company ?? null,
+        job_title: jobInfo.position ?? null,
+        tonality: tonality || 'professional',
+        language: sprak,
+        // Gamla mallens id står kvar för äldre kod; brevet ritas i mall_id.
+        template_id: template_id,
+        job_description: job_description,
+        cv_text: cvData.cv_text,
+        cv_id: cv_id,
+        // Alla skrivna brev sparas av sig själva (BYGGSPEC avsnitt 2).
+        is_saved: true,
+        cv_path: cvData.original_file_path,
+        body_stycken: skriven.stycken,
+        halsning: null,
+        mottagare_person: null,
+        mall_id: mallId,
+        font_id: valtTypsnitt,
+        krav: skriven.krav,
+        ai_model: skriven.ai_model,
+        ai_tokens: skriven.ai_tokens,
+        ai_cost: skriven.ai_cost,
+        generation_time_ms: skriven.generation_time_ms,
+        created_at: now.toISOString(),
+        updated_at: now.toISOString(),
       };
 
-      // Hämta vald DOCX-template (använder samma template för både PDF och DOCX)
-      const selectedTemplate = getDocxTemplate(template_id as DocxTemplateId);
+      // content: färdig HTML i vald mall, för äldre kod, mejl och utkastvägen.
+      const content = ritaRad(rad, avsandare, user);
 
-      // Säkerställ att jobInfo har required fields för JobInfo-typen
-      const jobInfoForTemplate: JobInfo = {
-        title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
-        company: jobInfo.company || 'Företag',
-        position: jobInfo.position || jobInfo.title || 'Position',
-        recipient: (jobInfo as any).recipient // recipient är optional i extractJobInfo
-      };
-
-      // Generera komplett HTML med DOCX-template (som används för både förhandsvisning och PDF)
-      console.log(`Genererar komplett brev med DOCX-template: ${selectedTemplate.name}`);
-      const completeLetterHTML = selectedTemplate.generateHTML(
-        profileForLetter,
-        jobInfoForTemplate,
-        aiGeneratedBody // AI-genererad brevkropp
-      );
-
-      // Spara preview i databasen med is_saved = false
       const { data: previewData, error: insertError } = await supabase
         .from('letters')
-        .insert({
-          user_id: user.id,
-          title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
-          company: jobInfo.company,
-          job_title: jobInfo.position,
-          content: completeLetterHTML, // ✅ Använd komplett HTML med mall
-          tonality: tonality || 'professional',
-          language: language || 'sv',
-          template_id: template_id, // ✅ Spara mall-ID
-          job_description: job_description,
-          cv_text: cvData.cv_text,
-          is_saved: false, // ✅ Preview-status
-          cv_path: cvData.original_file_path,
-          ai_model: coverLetterResult.model,
-          ai_tokens: coverLetterResult.tokens?.total || null,
-          ai_cost: actualCost,
-          generation_time_ms: generationTimeMs
-        })
+        .insert({ ...rad, content })
         .select()
         .single();
 
       if (insertError) {
-        console.error('Fel vid skapande av preview:', insertError);
-        throw new Error('Kunde inte spara preview');
+        console.error('Fel vid skapande av brev:', insertError);
+        throw new Error('Kunde inte spara brevet');
       }
 
-      // Returnera preview-data med ID
+      // Första brevet: samma milstolpar som när brevet sparades för hand.
+      await markFirstMilestone(user.id, 'first_letter_created_at');
+      const { error: onboardingError } = await supabase.rpc('update_onboarding_progress', {
+        user_id: user.id,
+        step_name: 'create_letter',
+      });
+      if (onboardingError) {
+        console.error('Failed to update onboarding progress:', onboardingError.message);
+      }
+
       return {
-        id: previewData.id, // ✅ Lägg till ID för exakt matchning vid sparning
-        title: previewData.title,
-        company: previewData.company,
-        job_title: previewData.job_title,
-        content: previewData.content,
-        tonality: previewData.tonality,
-        language: previewData.language,
-        template_id: previewData.template_id, // ✅ Inkludera mall-ID
-        job_description: previewData.job_description,
-        cv_text: previewData.cv_text,
-        is_saved: false,
-        cv_path: previewData.cv_path,
+        ...previewData,
         cv_id: cv_id,
-        user_id: previewData.user_id,
-        ai_model: previewData.ai_model,
-        ai_tokens: previewData.ai_tokens,
-        ai_cost: previewData.ai_cost,
-        generation_time_ms: previewData.generation_time_ms,
-        created_at: previewData.created_at,
+        is_saved: true,
+        isLocked: false,
+        kravTraffar: kravMedTraffar(skriven.krav, skriven.stycken),
         // Behåll även det gamla ai_metadata för kompatibilitet
         ai_metadata: {
           model: previewData.ai_model,
-          tokens: coverLetterResult.tokens,
+          tokens: skriven.ai_tokens,
           cost: previewData.ai_cost
         }
       };
@@ -316,29 +276,11 @@ export async function POST(request: Request) {
       promise: generationPromise
     });
     
-    // Öka dagsräknaren vid förbrukning. Om fönstret är gammalt (windowIsStale)
-    // startas ett nytt dagsfönster: count=1, first_used_at=nu, reset=nästa midnatt.
+    // Räkna brevet mot kvoten vid förbrukning, som förut före genereringen
+    // så att två snabba anrop inte båda hinner igenom. Ett gammalt fönster
+    // startar ett nytt: count=1, first_used_at=nu.
     if (!harBetalt) {
-      // Kvotkolumnerna är spärrade för användarens session: admin-klienten skriver.
-      const { error: updateError } = await (getSupabaseAdmin() as any)
-        .from('profiles')
-        .update(
-          windowIsStale
-            ? {
-                weekly_letter_count: 1,
-                weekly_letter_first_used_at: now.toISOString(),
-                weekly_letter_reset_at: nextResetDate.toISOString(),
-              }
-            : {
-                weekly_letter_count: newCount,
-                weekly_letter_reset_at: nextResetDate.toISOString(),
-              }
-        )
-        .eq('id', user.id);
-
-      if (updateError) {
-        console.error('Fel vid uppdatering av brevräknare:', updateError);
-      }
+      await raknaBrevMotKvot(user.id, kvot, now);
     }
     
     // Vänta på att genereringen slutförs
@@ -347,8 +289,14 @@ export async function POST(request: Request) {
       
       // Ta bort från aktiva genereringar när den är klar
       activeGenerations.delete(requestKey);
+
+      // Kvoten efter brevet: vyerna skriver "Nästa gratisbrev fredag 27 nov"
+      // ur kvot.nastaGratisbrev (src/lib/letters/brevKvot.ts).
+      const kvotEfter = harBetalt
+        ? { harBetalt: true, grans: DAILY_LIMIT_LETTERS, anvant: 0, kvar: null, nastaGratisbrev: null }
+        : brevKvotEfterSkrivning(profile, now);
       
-      // För gratisanvändare, returnera också antalet återstående brev idag
+      // För gratisanvändare, returnera också antalet återstående brev
       if (!harBetalt) {
         const remainingLetters = Math.max(0, DAILY_LIMIT_LETTERS - newCount);
         return NextResponse.json({
@@ -356,14 +304,16 @@ export async function POST(request: Request) {
           data: letterData,
           remainingLetters: remainingLetters,
           limit: DAILY_LIMIT_LETTERS,
-          nextResetDate: nextResetDate.toISOString()
+          nextResetDate: nextResetDate.toISOString(),
+          kvot: kvotEfter,
         });
       }
       
       return NextResponse.json({ 
         success: true, 
         data: letterData,
-        nextResetDate: nextResetDate.toISOString()
+        nextResetDate: nextResetDate.toISOString(),
+        kvot: kvotEfter,
       });
     } catch (error: any) {
       // Ta bort från aktiva genereringar vid fel

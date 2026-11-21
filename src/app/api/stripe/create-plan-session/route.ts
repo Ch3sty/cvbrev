@@ -23,11 +23,10 @@ import { KOPSTEG, samtyckeVidKop } from '@/components/pricing/paket-copy'
 import { kopKallaMetadata } from '@/lib/stripe/kopKalla.server'
 import { isKampanjNyckel, kampanjNu, visning } from '@/lib/kampanj/kampanj'
 import { kampanjForKop } from '@/lib/kampanj/kampanj.server'
+import { arKopRetur } from '@/lib/stripe/kopRetur'
 
-/** Köpreturen ur mallflödet: bara galleriet, kort och utan konstiga tecken. */
-function arMallRetur(v: unknown): v is string {
-  return typeof v === 'string' && v.startsWith('/dashboard/cv-mallar?') && v.length < 300 && !/[\s<>"\\]/.test(v)
-}
+/** Köpreturen: CV-mallarna eller brevrummet, kort och utan konstiga tecken (kopRetur.ts). */
+const arMallRetur = arKopRetur
 
 export async function POST(request: NextRequest) {
   try {
@@ -207,7 +206,8 @@ export async function POST(request: NextRequest) {
       // det första steget i paketet ligger.
       // Köpet ur mallflödet går tillbaka till filen (affärsgranskningen B2):
       // galleriet med CV och mall valda, ?ladda=1 startar nedladdningen.
-      // Bara /dashboard/cv-mallar? godtas; allt annat ger den vanliga returen.
+      // Bara CV-mallarna och brevrummets Mallar och Brevet godtas (kopRetur.ts);
+      // allt annat ger den vanliga returen.
       success_url: arMallRetur(retur)
         ? `${baseUrl}${retur}&ladda=1&premium_activated=true`
         : `${baseUrl}${VECKA_START_PATH}?premium_activated=true&plan=${selected.key}`,

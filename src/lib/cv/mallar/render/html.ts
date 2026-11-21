@@ -1002,3 +1002,7 @@ export function renderMallHtml(cv: CVMetadata, mallId: string, val: MallVal = {}
   const def = getMallMedAlias(mallId) ?? getMall(losMallIdEllerForval(mallId))!
   return renderDefHtml(cv, def, val, opt)
 }
+
+/* Brevmallen (src/lib/letters/brevmall/render.ts) ritar brevets huvud med samma delar. Bara exporter, inget ändrat. */
+export { css as mallCss, huvud as mallHuvud }
+export type { Ctx as MallCtx }
