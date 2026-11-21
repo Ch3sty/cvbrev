@@ -33,9 +33,9 @@ export const FONTS: FontOption[] = [
   { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
   { id: 'lora', name: 'Lora', family: "'Lora', Georgia, serif", category: 'Formella', tier: 'free' },
-
-  // Premium
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' },
+  // Alla typsnitt är gratis (byggspecen avsnitt 8, fynd 3): Helvetica var
+  // märkt premium fast typsnittsarket säger att alla ingår.
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'ATS-Säkra', tier: 'free' },
 ];
 
 export const DEFAULT_FONT_ID = 'calibri';

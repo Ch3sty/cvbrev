@@ -24,9 +24,9 @@ import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import type { Aterupptagning } from '../aterupptagning';
-import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
-import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
-import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
+import { flikHref } from '@/components/cv/rum3/flikar'
+import { useRouter } from 'next/navigation'
+import type { SaveChoice } from './save/SaveActionSegments'
 import {
   byggForbattratCv,
   poangMedVal,
@@ -34,29 +34,6 @@ import {
   type Redigeringar,
   type Val,
 } from '@/lib/cv/poang'
-
-/** Hämtar CV:ts PDF och laddar ned den. Kastar NamnKravsError vid 422 name_required. */
-async function laddaNerCvPdf(requestBody: Record<string, unknown>, pdfFileName: string): Promise<void> {
-  const pdfResponse = await fetch('/api/cv/generate-formatted', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(requestBody),
-  });
-  await kastaOmNamnKravs(pdfResponse);
-  if (!pdfResponse.ok) {
-    const errorData = await pdfResponse.json().catch(() => ({}));
-    throw new Error(errorData.error || 'Kunde inte generera PDF');
-  }
-  const blob = await pdfResponse.blob();
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = pdfFileName;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -80,6 +57,8 @@ interface CVAnalysisWizardProps {
    * ingen ny rad i cv_analysis_jobs.
    */
   aterupptagning?: Aterupptagning | null;
+  /** CV:t är redan valt (Analys-sidans knapp): flödet börjar i analysen. */
+  startCvId?: string | null;
 }
 
 const STEP_META: Record<
@@ -107,8 +86,8 @@ const STEP_META: Record<
     description: 'Jämför före och efter. Vill du ändra? Gå tillbaka.',
   },
   5: {
-    title: 'Mall och spara',
-    description: 'Välj en mall som passar dig och bestäm vad som ska hända.',
+    title: 'Spara ditt CV',
+    description: 'Spara som nytt CV eller ersätt det du analyserade. Sedan väljer du mall.',
   },
   6: {
     title: 'Klart',
@@ -134,7 +113,9 @@ export default function CVAnalysisWizard({
   onPollJob,
   onComplete,
   aterupptagning = null,
+  startCvId = null,
 }: CVAnalysisWizardProps) {
+  const router = useRouter();
   const ater = aterupptagning;
   const supabase = createClient();
   const { successWithMascotAndActivity } = useNotification();
@@ -150,7 +131,7 @@ export default function CVAnalysisWizard({
   const [analysKlar, setAnalysKlar] = useState(false);
   const flow = useFlowStep({
     totalSteps: ANALYSIS_STEPS.length,
-    initialStep: ater?.steg ?? 1,
+    initialStep: ater?.steg ?? (startCvId ? 2 : 1),
     klart: analysKlar,
   });
   useEffect(() => {
@@ -166,7 +147,7 @@ export default function CVAnalysisWizard({
     [flow]
   );
 
-  const [selectedCV, setSelectedCV] = useState<string | null>(ater?.cvId ?? null);
+  const [selectedCV, setSelectedCV] = useState<string | null>(ater?.cvId ?? startCvId ?? null);
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [progress, setProgress] = useState(ater ? 100 : 0);
@@ -201,15 +182,11 @@ export default function CVAnalysisWizard({
   const [improvedCV, setImprovedCV] = useState('');
 
   const [isSaving, setIsSaving] = useState(false);
-  // 422 name_required från PDF-exporten: anropet sparas och görs om när
-  // namnet är sparat (src/lib/cv/namnKravs.ts).
-  const [namnPdf, setNamnPdf] = useState<{ requestBody: Record<string, unknown>; pdfFileName: string } | null>(null);
   const [savedCvId, setSavedCvId] = useState<string | undefined>();
   const [quotaError, setQuotaError] = useState<string | null>(null);
   const [savedFileName, setSavedFileName] = useState('');
 
-  const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(FORVALD_MALL_ID);
+  const [saveChoice, setSaveChoice] = useState<SaveChoice | null>(null);
   const [customCVName, setCustomCVName] = useState('');
 
   const [showSaveProgress, setShowSaveProgress] = useState(false);
@@ -570,10 +547,11 @@ export default function CVAnalysisWizard({
     if (currentStep === 0) nyAnalysBegard.current = true;
     // Steg 5: spara/ladda ned
     if (currentStep === 5) {
-      if (!saveChoice || !selectedTemplate) {
-        alert('Välj ett alternativ och en CV-mall');
-        return;
-      }
+      // Slutsteget (CV-rummet steg 4): analysen sparar det förbättrade CV:t,
+      // som nytt eller på det analyserade CV:ts plats, och skickar sedan till
+      // Mallar, där mallval, nedladdning, spärrar och målgång finns. Ingen
+      // egen mallväljare och ingen egen nedladdning här längre.
+      if (!saveChoice) return;
 
       setShowSaveProgress(true);
       setSaveProgress(0);
@@ -583,195 +561,89 @@ export default function CVAnalysisWizard({
         setSaveProgress((prev) => Math.min(95, prev + 5));
       }, 300);
 
-      const fileName = customCVName || generateCVNameSuggestions()[0];
+      const ersatt = saveChoice === 'ersatt';
+      const fileName = ersatt
+        ? cvs.find((c) => c.id === selectedCV)?.file_name || generateCVNameSuggestions()[0]
+        : customCVName || generateCVNameSuggestions()[0];
       setSavedFileName(fileName);
 
       try {
         // Det förbättrade CV:t byggs med samma funktion som räknade
         // potentialen (byggForbattratCv, med städade kompetenser och de
         // redigerade texterna). Därför får det sparade CV:t exakt den poäng
-        // väljsteget lovade.
-        let improvedStructuredCV: any = null;
-        if (structuredCV && analysisResult) {
-          improvedStructuredCV = byggForbattratCv(analysisResult, valNu(), redigeringarNu());
+        // väljsteget lovade, i båda sätten att spara.
+        const improvedStructuredCV = structuredCV && analysisResult ? byggForbattratCv(analysisResult, valNu(), redigeringarNu()) : null;
+        if (!improvedStructuredCV || !selectedCV) throw new Error('Kunde inte bygga det förbättrade CV:t');
+        const text = generatePreviewFromStructured(improvedStructuredCV);
+
+        const response = await fetch('/api/cv/save-improved', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(
+            ersatt
+              ? { lage: 'ersatt', cvId: selectedCV, fileName, improvedText: text, structuredData: improvedStructuredCV }
+              : { fileName, improvedText: text, structuredData: improvedStructuredCV, originalCvId: selectedCV }
+          ),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          const err = new Error(
+            errorData.message || errorData.error || 'Kunde inte spara CV'
+          ) as Error & { quotaExceeded?: boolean; status?: number };
+          err.quotaExceeded = !ersatt && (errorData.quota_exceeded === true || response.status === 403);
+          err.status = response.status;
+          throw err;
         }
 
-        const shouldSave = saveChoice === 'save-and-download' || saveChoice === 'save';
+        const { cvId: sparatId } = (await response.json()) as { cvId: string };
+        setSavedCvId(sparatId);
 
-        if (shouldSave) {
-          const response = await fetch('/api/cv/save-improved', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName,
-              improvedText: improvedCV,
-              structuredData: improvedStructuredCV,
-              originalCvId: selectedCV,
-            }),
-          });
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            const err = new Error(
-              errorData.message || errorData.error || 'Kunde inte spara CV'
-            ) as Error & { quotaExceeded?: boolean; status?: number };
-            err.quotaExceeded =
-              errorData.quota_exceeded === true || response.status === 403;
-            err.status = response.status;
-            throw err;
+        // Analysraden för det sparade CV:t. Servern bygger den ur den
+        // ursprungliga analysen och poängsätter det sparade CV:t; inget tal
+        // skickas härifrån.
+        if (analysisResult && sparatId) {
+          try {
+            await fetch('/api/cv/save-improved-analysis', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                originalAnalysisId: analysisResult.id,
+                improvedResult: {
+                  ...analysisResult,
+                  selectedImprovements: {
+                    profile: selectedProfile,
+                    roles: Array.from(selectedRoles),
+                    skills: Array.from(selectedSkills),
+                    general: Array.from(selectedGeneral),
+                  },
+                },
+                displayName: fileName,
+                cvId: sparatId,
+                satt: ersatt ? 'ersatt' : 'nytt',
+              }),
+            });
+          } catch (analysisError) {
+            console.error('Failed to save improved analysis:', analysisError);
           }
-
-          const { cvId: newCvId } = await response.json();
-          setSavedCvId(newCvId);
-
-          if (currentAnalysisId) {
-            try {
-              await supabase
-                .from('cv_analysis_jobs')
-                .update({ display_name: fileName })
-                .eq('id', currentAnalysisId);
-            } catch (updateError) {
-              console.error('Failed to update analysis display name:', updateError);
-            }
-          }
-
-          if (analysisResult && newCvId) {
-            // Ingen poäng skickas med: servern poängsätter det sparade CV:t
-            // (save-improved-analysis) med poängmodellen.
-            const improvedAnalysisResult = {
-              ...analysisResult,
-              profileSummary:
-                selectedProfile && analysisResult.profileSummary
-                  ? {
-                      ...analysisResult.profileSummary,
-                      currentText:
-                        editedProfileText || analysisResult.profileSummary.improvedText,
-                    }
-                  : analysisResult.profileSummary,
-              roleBasedImprovements: analysisResult.roleBasedImprovements?.map(
-                (role: any, i: number) =>
-                  selectedRoles.has(i)
-                    ? {
-                        ...role,
-                        currentText: editedRoleTexts.get(i) || role.suggestedText,
-                      }
-                    : role
-              ),
-              implementedSkills: Array.from(selectedSkills).map(
-                (i) => analysisResult.skillSuggestions[i]
-              ),
-              selectedImprovements: {
-                profile: selectedProfile,
-                roles: Array.from(selectedRoles),
-                skills: Array.from(selectedSkills),
-                general: Array.from(selectedGeneral),
-              },
-            };
-
-            try {
-              await fetch('/api/cv/save-improved-analysis', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  originalAnalysisId: analysisResult.id,
-                  improvedResult: improvedAnalysisResult,
-                  displayName: fileName,
-                  cvId: newCvId,
-                }),
-              });
-            } catch (analysisError) {
-              console.error('Failed to save improved analysis:', analysisError);
-            }
-          }
-        }
-
-        let pdfFailed = false;
-        const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
-        const requestBody: any = {
-          template: selectedTemplate,
-          format: 'pdf',
-          templateOptions: {},
-        };
-
-        if (improvedStructuredCV) requestBody.structuredData = improvedStructuredCV;
-        else if (structuredCV) requestBody.structuredData = sanitizeStructuredCV(structuredCV);
-        else {
-          const fixedCVText = improvedCV
-            .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
-            .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
-            .replace(/([a-zåäö])([0-9])/g, '$1 $2');
-          requestBody.cvText = fixedCVText;
-        }
-
-        try {
-          await laddaNerCvPdf(requestBody, pdfFileName);
-        } catch (pdfError: any) {
-          if (arNamnKravs(pdfError)) {
-            // Varken CV:t eller profilen har ett namn. Rutan frågar efter
-            // det, och PDF:en laddas ned när det är sparat.
-            clearInterval(progressInterval);
-            setNamnPdf({ requestBody, pdfFileName });
-            setIsSaving(false);
-            setShowSaveProgress(false);
-            setSaveProgress(0);
-            return;
-          }
-          console.error('PDF generation error:', pdfError);
-          pdfFailed = true;
         }
 
         clearInterval(progressInterval);
         setSaveProgress(100);
-
-        if (pdfFailed && shouldSave) {
-          successWithMascotAndActivity(
-            'Vi har sparat ditt CV. PDF-nedladdningen misslyckades, men du kan ladda ner det senare från ditt CV-bibliotek.',
-            'cv-analyzed',
-            'cv_analysis_completed',
-            'slutförde en CV-analys',
-            {
-              cv_id: selectedCV,
-              improvements_selected:
-                selectedRoles.size +
-                selectedSkills.size +
-                selectedGeneral.size +
-                (selectedProfile ? 1 : 0),
-            },
-            7000
-          );
-        } else if (pdfFailed && !shouldSave) {
-          alert('Kunde inte generera PDF. Försök igen senare.');
-          setIsSaving(false);
-          setShowSaveProgress(false);
-          setSaveProgress(0);
-          return;
-        } else {
-          successWithMascotAndActivity(
-            'Vi är klara med din analys. Dina förbättringar väntar.',
-            'cv-analyzed',
-            'cv_analysis_completed',
-            'slutförde en CV-analys',
-            {
-              cv_id: selectedCV,
-              improvements_selected:
-                selectedRoles.size +
-                selectedSkills.size +
-                selectedGeneral.size +
-                (selectedProfile ? 1 : 0),
-            },
-            5000
-          );
-        }
-
-        setTimeout(() => {
-          setIsSaving(false);
-          setShowSaveProgress(false);
-          setSaveProgress(0);
-          if (!completedSteps.includes(currentStep)) {
-            setCompletedSteps([...completedSteps, currentStep]);
-          }
-          setCurrentStep(currentStep + 1);
-        }, 1000);
+        successWithMascotAndActivity(
+          ersatt ? 'Ditt CV är uppdaterat. Välj mall och ladda ner.' : 'Ditt nya CV är sparat. Välj mall och ladda ner.',
+          'cv-analyzed',
+          'cv_analysis_completed',
+          'slutförde en CV-analys',
+          {
+            cv_id: selectedCV,
+            improvements_selected:
+              selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0),
+          },
+          5000
+        );
+        // Vidare till Mallar med det sparade CV:t.
+        router.push(flikHref('mallar', sparatId));
       } catch (error: any) {
         console.error('Save error:', error);
         clearInterval(progressInterval);
@@ -894,7 +766,7 @@ export default function CVAnalysisWizard({
        minst en förbättring möter användaren som en fråga på sista fliken. */
     if (currentStep === 3) return true;
     if (currentStep === 5) {
-      return saveChoice !== null && selectedTemplate !== null;
+      return saveChoice !== null;
     }
     return true;
   };
@@ -1143,11 +1015,9 @@ export default function CVAnalysisWizard({
         }
         return (
           <SaveAndTemplateStep
-            improvedCV={improvedCV}
             saveChoice={saveChoice}
             onChoiceChange={setSaveChoice}
-            selectedTemplate={selectedTemplate}
-            onTemplateChange={setSelectedTemplate}
+            cvNamn={cvs.find((c) => c.id === selectedCV)?.file_name ?? null}
             customName={customCVName}
             onNameChange={setCustomCVName}
             isSaving={isSaving}
@@ -1160,7 +1030,8 @@ export default function CVAnalysisWizard({
             savedCvId={savedCvId}
             fileName={savedFileName}
             onAnalyzeAnother={() => {
-              if (onComplete) onComplete();
+              // Till analysens start (byggspecen avsnitt 8, fynd 4), inte /dashboard.
+              router.push('/dashboard/cv-analys');
             }}
           />
         );
@@ -1180,7 +1051,7 @@ export default function CVAnalysisWizard({
     ? currentStep === 0
       ? 'Välj ett CV för att gå vidare.'
       : currentStep === 5
-        ? 'Välj vad som ska hända och vilken mall du vill ha.'
+        ? 'Välj hur du vill spara CV:t.'
         : undefined
     : undefined;
 
@@ -1267,29 +1138,6 @@ export default function CVAnalysisWizard({
 
           <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
 
-          {namnPdf ? (
-            <NameRequiredNotice
-              className="mt-4"
-              onSaved={async () => {
-                const { requestBody, pdfFileName } = namnPdf;
-                setNamnPdf(null);
-                try {
-                  await laddaNerCvPdf(requestBody, pdfFileName);
-                } catch (err) {
-                  if (arNamnKravs(err)) {
-                    setNamnPdf({ requestBody, pdfFileName });
-                    return;
-                  }
-                  alert('Kunde inte generera PDF. Försök igen senare.');
-                  return;
-                }
-                if (!completedSteps.includes(currentStep)) {
-                  setCompletedSteps([...completedSteps, currentStep]);
-                }
-                setCurrentStep(currentStep + 1);
-              }}
-            />
-          ) : null}
       </AnalysisFlowLayout>
 
       {/* Tomt val på sista kategorin: en fråga, inte en spärrad knapp. */}

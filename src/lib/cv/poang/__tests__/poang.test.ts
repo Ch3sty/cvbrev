@@ -312,8 +312,11 @@ describe('förslagen: plus som stämmer', () => {
     )!
     expect(truck.plus).toBe(0)
     expect(truck.atsImpact).toBe(0)
+    // Ett förslag som redan står i CV:t (samma profiltext, samma rolltext)
+    // är inget kvar att göra och tas bort.
     const starkt = analysFor(FIXTURER.find((x) => x.namn === 'starkt')!)
-    expect((starkt.profileSummary as { atsImpact: number }).atsImpact).toBe(0)
+    expect(starkt.profileSummary).toBeUndefined()
+    expect(starkt.roleBasedImprovements).toEqual([])
     for (const g of (tunt.generalImprovements as Array<{ atsImpact: number }>) ?? []) expect(g.atsImpact).toBe(0)
   })
 

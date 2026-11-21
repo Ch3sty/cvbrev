@@ -1,9 +1,15 @@
 'use client';
 
 import ChoiceCard from '@/components/shell/ChoiceCard';
-import { IkonLaddaNer, IkonCv } from '@/components/illustrations/Ikoner';
+import { IkonCv } from '@/components/illustrations/Ikoner';
 
-export type SaveChoice = 'save-and-download' | 'download' | 'save';
+/**
+ * Hur det förbättrade CV:t sparas (CV-rummet steg 4). Nedladdningen sker
+ * sedan i Mallar, så analysen har ingen egen nedladdning längre.
+ *  - nytt: ett nytt CV bredvid det analyserade, kräver ledig plats.
+ *  - ersatt: det analyserade CV:t uppdateras på plats, kräver ingen plats.
+ */
+export type SaveChoice = 'nytt' | 'ersatt';
 
 interface SaveActionSegmentsProps {
   value: SaveChoice | null;
@@ -12,6 +18,8 @@ interface SaveActionSegmentsProps {
   cvCount: number;
   maxCvs: number;
   disabled?: boolean;
+  /** Det analyserade CV:ts namn, i texten om att ersätta. */
+  cvNamn?: string | null;
 }
 
 const CHOICES: Array<{
@@ -21,22 +29,16 @@ const CHOICES: Array<{
   needsQuota: boolean;
 }> = [
   {
-    id: 'save-and-download',
-    label: 'Spara och ladda ner',
-    description: 'Vi sparar under Mina CV och laddar ner PDF:en samtidigt.',
+    id: 'nytt',
+    label: 'Spara som nytt CV',
+    description: 'Det analyserade CV:t står kvar som det är. Sedan väljer du mall och laddar ner.',
     needsQuota: true,
   },
   {
-    id: 'download',
-    label: 'Ladda ner',
-    description: 'Vi laddar ner en PDF utan att spara. Du kan ladda upp senare.',
+    id: 'ersatt',
+    label: 'Ersätt mitt nuvarande CV',
+    description: 'Förbättringarna skrivs in i CV:t du analyserade. Ingen ny plats behövs. Sedan väljer du mall och laddar ner.',
     needsQuota: false,
-  },
-  {
-    id: 'save',
-    label: 'Spara på Jobbcoach',
-    description: 'Vi sparar under Mina CV utan nedladdning.',
-    needsQuota: true,
   },
 ];
 
@@ -54,12 +56,13 @@ export default function SaveActionSegments({
   cvCount,
   maxCvs,
   disabled = false,
+  cvNamn = null,
 }: SaveActionSegmentsProps) {
   return (
     <section className="space-y-3">
       <div>
         <p className="text-steg uppercase text-ink-3">Sista steget</p>
-        <h4 className="mt-1.5 text-kort text-ink-1">Vad vill du göra med ditt CV?</h4>
+        <h4 className="mt-1.5 text-kort text-ink-1">Hur vill du spara ditt CV?</h4>
       </div>
 
       <div className="space-y-3">
@@ -73,17 +76,19 @@ export default function SaveActionSegments({
               onSelect={() => {
                 if (!isDisabled) onChange(choice.id);
               }}
-              leading={choice.id === 'download' ? <IkonLaddaNer /> : <IkonCv />}
+              leading={<IkonCv />}
               title={choice.label}
               description={
                 isDisabled && choice.needsQuota
-                  ? `${choice.description} Biblioteket är fullt, ${cvCount} av ${maxCvs} platser använda.`
+                  ? `Biblioteket är fullt, ${cvCount} av ${maxCvs} platser använda. Ersätt ditt nuvarande CV i stället, det kräver ingen ny plats.`
                   : choice.description
               }
               meta={
-                choice.needsQuota && !isDisabled
-                  ? `${cvCount} av ${maxCvs} platser använda`
-                  : undefined
+                choice.id === 'ersatt' && cvNamn
+                  ? cvNamn
+                  : choice.needsQuota && !isDisabled
+                    ? `${cvCount} av ${maxCvs} platser använda`
+                    : undefined
               }
             />
           );

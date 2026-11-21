@@ -346,6 +346,10 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
 
   // Profilen
   let profil: Obj | null | undefined = result.profileSummary as Obj | null | undefined
+  // Redan införd profiltext: inget kvar att göra.
+  if (arObj(profil) && falt(profil.improvedText) && profilText(String(profil.improvedText)) === profilText(bas.summary ?? '')) {
+    profil = undefined
+  }
   if (arObj(profil)) {
     const g = granska(typeof profil.improvedText === 'string' ? profil.improvedText : '')
     const text = falt(g.text)
@@ -372,6 +376,9 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
       const text = g.text
       if (rollIndex === null || !text.trim()) return []
       const e = bas.experience[rollIndex]
+      // Redan infört (CV:t sparat eller ersatt med förslaget): inget kvar att göra.
+      const nu = (Array.isArray(e?.description) ? e.description : []).map((l) => String(l).trim().replace(/\s+/g, ' ')).filter(Boolean)
+      if (nu.join('\n') === rollRader(text).join('\n')) return []
       const plus = plusFor(
         { roleBasedImprovements: [{ suggestedText: text, rollIndex }] },
         { profil: false, roller: [0], kompetenser: [] }
