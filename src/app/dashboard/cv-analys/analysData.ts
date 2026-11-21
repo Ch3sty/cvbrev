@@ -9,6 +9,7 @@
  * plus, utan text. Klientsäker data, ingen funktion i resultatet.
  */
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
+import { arbetslageHref } from '@/components/cv/rum3/flikar'
 import {
   analysForKlient,
   byggForbattratCv,
@@ -54,6 +55,12 @@ export interface AnalysFynd {
   rader?: number
   /** Rollens titel och arbetsgivare, för markeringen på arket. */
   roll?: { titel: string; foretag: string }
+  /**
+   * Postens plats i CV:ts lista (erfarenhet eller utbildning): rollen ett
+   * rollförslag gäller, eller där den första [antal] står. Arbetsläget öppnar
+   * just den posten (&post=).
+   */
+  post?: number
   /** Åtgärden syns (Premium, eller det gratisnivån får). */
   oppen: boolean
   /** Bara när oppen: texterna. */
@@ -66,7 +73,9 @@ export interface AnalysFynd {
 }
 
 export interface AnalysVyData {
-  jobbId: string
+  /** Analysjobbet förslagen kommer ur. null: genomgången utan hämtade förslag (byggGenomgangVy). */
+  jobbId: string | null
+  /** När förslagen skrevs. null utan hämtade förslag. */
   klar: string | null
   poang: PoangSammanfattning
   fynd: AnalysFynd[]
@@ -185,6 +194,7 @@ export function byggAnalysVy(
       plus,
       sektion: 'erfarenhet',
       roll: { titel, foretag },
+      ...(typeof r.rollIndex === 'number' ? { post: r.rollIndex } : {}),
       oppen,
       ...(oppen
         ? {
@@ -246,6 +256,9 @@ export function byggAnalysVy(
       plus,
       sektion: forsta.avsnitt,
       ...(e ? { roll: { titel: text(e.position), foretag: text(e.company) } } : {}),
+      ...((forsta.avsnitt === 'erfarenhet' || forsta.avsnitt === 'utbildning') && forsta.index !== undefined
+        ? { post: forsta.index }
+        : {}),
       rader: kvar.length,
       oppen: true,
     })
@@ -282,6 +295,82 @@ export function byggAnalysVy(
   }
 
   return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, delar, delarTackta, harFull }
+}
+
+/**
+ * Genomgången för ett CV utan hämtade förslag (beslutet 2026-11-21): poängen,
+ * de sju delarna och siffrorna som står kvar, räknade utan modell ur CV:ts
+ * sparade struktur. Inga förslag, ingen kvot, inget analysjobb. Samma
+ * funktion som med förslag (byggAnalysVy med ett tomt resultat), så att talet
+ * och delarna är desamma före och efter hämtningen. null när CV:t saknar
+ * struktur: sidan visar då läget utan struktur.
+ */
+export function byggGenomgangVy(cvRad: CvRad | null, harFull: boolean): AnalysVyData | null {
+  const vy = byggAnalysVy({ id: '', completed_at: null, result: {} }, cvRad, harFull)
+  return vy ? { ...vy, jobbId: null, klar: null } : null
+}
+
+/**
+ * Delarna i den ordning mallen ritar avsnitten uppifrån och ned, med nya
+ * nummer 1 till 7, så att numren på arket stiger nedåt och är desamma i
+ * listan. Kontaktuppgifterna står i huvudet (först), datum, ordning och
+ * längd har ingen plats på arket (sist). `ordning` är mallens avsnitt i
+ * huvudspalten följda av sidospaltens; delar som inte står där behåller sin
+ * inbördes ordning efter dem. Poängen och innehållet rörs inte.
+ */
+export function ordnaDelarEfterArket(delar: readonly GenomgangDel[], ordning: readonly string[]): GenomgangDel[] {
+  const plats = (d: GenomgangDel): number => {
+    if (d.id === 'kontakt') return -1
+    if (d.id === 'format') return 1000
+    const i = ordning.indexOf(d.id)
+    return i >= 0 ? i : 500 + delar.indexOf(d)
+  }
+  return [...delar]
+    .map((d, i) => ({ d, i }))
+    .sort((a, b) => plats(a.d) - plats(b.d) || a.i - b.i)
+    .map(({ d }, i) => ({ ...d, nr: i + 1 }))
+}
+
+/**
+ * Arbetsläget för ett förslag eller siffrorna ("Ändra texten", "Fyll i
+ * siffrorna"): avsnittet och, för en roll eller utbildning, just den posten.
+ */
+export function fyndHref(cvId: string, f: Pick<AnalysFynd, 'sektion' | 'post'>, mall: string): string {
+  return arbetslageHref(cvId, 'analys', { avsnitt: f.sektion, post: f.post, mall })
+}
+
+/** Genomgångens tre lägen inom resultat (AnalysVy). */
+export type GenomgangLage = 'hamtade' | 'utan-forslag' | 'forbrukad'
+
+/**
+ * Vilket av genomgångens tre lägen som gäller. Förslag hämtade för CV:t
+ * (ett analysjobb, jobbId) går först; annars avgör kvoten, samma tal som
+ * POST /api/cv/analyze spärrar på (checkCvAnalysisQuota, läst på servern).
+ *   hamtade       förslagen finns: som förut
+ *   utan-forslag  Premium, eller gratis med hämtningen kvar: "Hämta Jobbcoachens förslag"
+ *   forbrukad     gratis, hämtningen använd: Öppna CV:t och betalväggen
+ */
+export function genomgangLageFor(
+  jobbId: string | null | undefined,
+  isPremium: boolean,
+  remainingAnalyses: number | null
+): GenomgangLage {
+  if (jobbId) return 'hamtade'
+  if (isPremium || remainingAnalyses === null || remainingAnalyses > 0) return 'utan-forslag'
+  return 'forbrukad'
+}
+
+/**
+ * Raden "Vi räknar poängen noggrannare sedan 21 november" (beslutet
+ * 2026-11-21): bara för CV skapade före 21 november 2026 och bara till och
+ * med 31 januari 2027, så att den försvinner av sig själv.
+ */
+export const POANG_ANDRAD_FRAN = Date.parse('2026-11-21T00:00:00+01:00')
+export const POANG_ANDRAD_TILL = Date.parse('2027-02-01T00:00:00+01:00')
+export function visaPoangAndrad(skapad: string | null | undefined, nu: number = Date.now()): boolean {
+  if (!skapad || nu >= POANG_ANDRAD_TILL) return false
+  const t = Date.parse(skapad)
+  return Number.isFinite(t) && t < POANG_ANDRAD_FRAN
 }
 
 /** Kategorierna med plus, i modellens ordning, för "Så räknas poängen". */

@@ -195,6 +195,8 @@ export interface ByggareProps {
   fran: Fran | null
   /** Avsnittet i adressen (?avsnitt=). */
   startAvsnitt: AvsnittParam | null
+  /** Posten i avsnittet (?post=, jobbets eller utbildningens plats i listan). */
+  startPost?: number | null
   /** Jobbcoachens kvot när sidan öppnades. */
   coachKvot: CoachKvot
 }
@@ -240,7 +242,7 @@ export default function ByggareClient(p: ByggareProps) {
 
   // Från en annan flik utan avsnitt (brickan "Ändra texten"): första avsnittet, Kontakt.
   const forstaAvsnitt = p.startAvsnitt ?? (p.fran && p.lage === 'redigera' ? 'kontakt' : null)
-  const [ark, setArk] = useState<ArkVal>(() => (forstaAvsnitt ? arkForParam(p.initialCv, forstaAvsnitt) : startArk(p.initialCv, p.lage)))
+  const [ark, setArk] = useState<ArkVal>(() => (forstaAvsnitt ? arkForParam(p.initialCv, forstaAvsnitt, p.startPost) : startArk(p.initialCv, p.lage)))
   const [bladNyckel, setBladNyckel] = useState(0)
   const [utkast, setUtkastState] = useState<ByggCv | null>(null)
   const utkastRef = useRef<ByggCv | null>(null)
@@ -277,6 +279,8 @@ export default function ByggareClient(p: ByggareProps) {
         q.delete('titel')
         q.delete('borja')
         q.delete('ark')
+        // Posten är bara startvalet; bladet byts sedan fritt.
+        q.delete('post')
         if (q.get('fran') === 'mina_cv') q.set('fran', 'ditt-cv')
         if (cvIdRef.current) q.set('cv', cvIdRef.current)
         if (!start) q.set('avsnitt', paramForArk(ark))
@@ -477,14 +481,27 @@ export default function ByggareClient(p: ByggareProps) {
     (el: HTMLElement | null) => {
       const rot = rotRef.current
       if (!el || !rot) return
-      const r = el.getBoundingClientRect()
+      // Markeringens mål, inte dess ruta just nu: den glider till nytt läge
+      // (transition på top, 200 ms). När den flyttade från avsnittet till
+      // posten i &post= lästes det gamla läget och rollen hamnade bakom
+      // bladet på telefonen.
+      const nu = el.getBoundingClientRect()
+      const ark = el.parentElement?.getBoundingClientRect()
+      const malTop = parseFloat(el.style.top)
+      const malHojd = parseFloat(el.style.height)
+      const r =
+        ark && Number.isFinite(malTop) && Number.isFinite(malHojd)
+          ? { top: ark.top + malTop, bottom: ark.top + malTop + malHojd, height: malHojd }
+          : nu
       const beteende: ScrollBehavior = minsRorelse() ? 'auto' : 'smooth'
+      // Målet räknas absolut (scrollTo, inte scrollBy), så att en ny
+      // rullning mitt i en pågående mjuk rullning hamnar rätt.
       if (!dator) {
         // Telefonen: markeringen strax under huvudet, ovanför bladet.
-        if (!fallt) rot.scrollBy({ top: r.top - 84, behavior: beteende })
+        if (!fallt) rot.scrollTo({ top: rot.scrollTop + r.top - 84, behavior: beteende })
         return
       }
-      if (r.top < 96 || r.bottom > window.innerHeight - 24) rot.scrollBy({ top: r.top - Math.max(96, (window.innerHeight - r.height) / 2), behavior: beteende })
+      if (r.top < 96 || r.bottom > window.innerHeight - 24) rot.scrollTo({ top: rot.scrollTop + r.top - Math.max(96, (window.innerHeight - r.height) / 2), behavior: beteende })
     },
     [dator, fallt]
   )
@@ -508,7 +525,8 @@ export default function ByggareClient(p: ByggareProps) {
   const platshallare = useMemo(() => platshallareKvar(ren), [ren])
   const siffror = useSiffrorKvar(
     platshallare,
-    platshallare[0] ? { onClick: () => gaTill(arkForParam(cvRef.current, platshallare[0].avsnitt)) } : null
+    // Rollen eller utbildningen där den första [antal] står, inte den översta.
+    platshallare[0] ? { onClick: () => gaTill(arkForParam(cvRef.current, platshallare[0].avsnitt, platshallare[0].index)) } : null
   )
 
   const laddaNer = async (m: MallKort = mall, f: Format = format) => {
@@ -590,7 +608,8 @@ export default function ByggareClient(p: ByggareProps) {
           {BYGG.forsokIgen}
         </button>
       </span>
-    ) : cvId || spar === 'sparat' ? (
+    ) : (cvId || spar === 'sparat') && !utkast ? (
+      // Osparade ändringar i bladet (utkast): märket säger inte Sparat förrän de är sparade.
       <span className={s.sparat} aria-live="polite" data-sparat={spar === 'sparat' ? '' : undefined}>
         <IkonBock size={15} strokeWidth={3} style={{ color: '#7FCFCA' }} />
         {BYGG.sparat}

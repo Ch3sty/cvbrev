@@ -37,7 +37,7 @@ import { rubrikerFor, valFor, type Entry } from '@/lib/cv/bygg/kalla'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
 import { checkCvByggAiQuota, FREE_CV_BYGG_AI_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import ByggareClient from './ByggareClient'
-import { arkKalla, lageFor, tolkaAvsnitt, tolkaFran } from './arbetslage'
+import { arkKalla, lageFor, tolkaAvsnitt, tolkaFran, tolkaPost } from './arbetslage'
 import type { CoachKvot } from './blad/Jobbcoach'
 
 type Rad = { id: string; structured_data: unknown; cv_text: string | null; section_titles: Partial<Record<Sektion, string>> | null }
@@ -233,6 +233,7 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       lage={lage}
       fran={tolkaFran(franRa)}
       startAvsnitt={tolkaAvsnitt(forsta(params.avsnitt)) ?? (forsta(params.andra) === 'sprak' ? 'sprak' : null)}
+      startPost={tolkaPost(forsta(params.post))}
       coachKvot={coachKvot}
     />
   )

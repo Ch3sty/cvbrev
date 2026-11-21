@@ -892,7 +892,10 @@ export const useProfile = () => {
             ? `Som gratisanvändare kan du spara ${formatLimit(limit)} CV. Fler CV ingår i ${paketKort()}.`
             : `Du har nått maxgränsen på ${formatLimit(limit)} CV.`);
         }
-        throw new Error(errorPayload.message || errorPayload.error || 'Okänt serverfel vid uppladdning');
+        // Koden följer med felet, så att vyn kan visa vägarna vidare (bild-PDF: IMAGE_BASED_PDF).
+        throw Object.assign(new Error(errorPayload.message || errorPayload.error || 'Okänt serverfel vid uppladdning'), {
+          code: errorPayload.code,
+        });
       }
 
       if (completePayload?.success) {

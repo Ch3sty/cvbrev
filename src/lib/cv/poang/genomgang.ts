@@ -74,6 +74,8 @@ export interface GenomgangDel {
   poang: number
   /** Avsnittet "Öppna i CV:t" går till: första bristens, annars delens eget. */
   avsnitt: GenomgangAvsnitt
+  /** Posten "Öppna i CV:t" öppnar, när första bristen gäller en roll eller utbildning. */
+  post?: number
   kontroller: GenomgangKontroll[]
   /** En upplysning som inte är en brist ("De fem första rollerna räknas."). */
   not?: string
@@ -359,6 +361,8 @@ export function genomgang(cv: CVMetadata, ark?: ArkKontakt | null): GenomgangDel
       }
     })
     const forsta = kontroller.find((k) => k.brister.length > 0)?.brister[0]
+    const post =
+      forsta?.avsnitt === 'erfarenhet' ? forsta.rollIndex : forsta?.avsnitt === 'utbildning' ? forsta.utbildningIndex : undefined
     return {
       id: kat.id,
       nr: i + 1,
@@ -366,6 +370,7 @@ export function genomgang(cv: CVMetadata, ark?: ArkKontakt | null): GenomgangDel
       max: kat.max,
       poang: kat.poang,
       avsnitt: forsta?.avsnitt ?? EGET_AVSNITT[kat.id],
+      ...(typeof post === 'number' ? { post } : {}),
       kontroller,
       ...(kat.id === 'erfarenhet' && m.roller.length > ROLLER_SOM_RAKNAS ? { not: 'De fem första rollerna räknas.' } : {}),
     }

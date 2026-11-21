@@ -93,13 +93,19 @@ export const VAGG = {
 
 export const NASTA = {
   ny: { ogon: 'Börja här', rubrik: 'Två sätt att börja' },
+  /**
+   * Inga hämtade förslag (lägena analysera och analysera-sparr). Sedan
+   * 2026-11-21 är genomgången öppen för alla CV och poängen följer CV:t
+   * direkt; det som kostar är att hämta Jobbcoachens förslag.
+   */
   analysera: {
-    ogon: 'Nästa steg · under en minut',
+    ogon: 'Nästa steg',
     rubrik: 'Se ditt CV som rekryteraren ser det',
-    text: 'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant och visar vad som drar ner.',
-    knapp: 'Analysera mitt CV',
-    sidorad: 'En analys ingår gratis. Poängen får du direkt.',
-    sidoradPremium: 'Poängen får du direkt, och du kör om när du vill.',
+    text: 'Rekryterare letar först efter senaste rollen och vad du uppnådde. Genomgången visar vad som drar ner, del för del.',
+    knapp: 'Se genomgången',
+    sidorad: 'Jobbcoachens förslag ingår en gång gratis.',
+    sidoradPremium: 'Jobbcoachens förslag ingår, så ofta du vill.',
+    sidoradSparr: 'Poängen räknas om när du sparar.',
   },
   atgarda: {
     ogon: (plus: number) => `Åtgärda först · ger ${plus} poäng`,
@@ -133,7 +139,7 @@ export const NASTA = {
 export const PANEL = {
   ogon: 'Så ligger ditt CV till',
   rubrik: 'Tre mått på ditt CV',
-  helaAnalysen: 'Hela analysen',
+  helaAnalysen: 'Hela genomgången',
   lasbarhet: 'Läsbarheten',
   attHamta: (n: number) => `${n} poäng att hämta`,
   inteMatt: 'inte mätt än',
@@ -151,7 +157,8 @@ export const PANEL = {
   /** Poängen är under 100 och inget förslag återstår: genomgången visar resten (2026-11-21). */
   kvar: (n: number) => `${n} poäng kvar.`,
   seGenomgangen: 'Se genomgången.',
-  matsIAnalysen: 'Mäts i analysen.',
+  /** Bara när CV:t saknar inlästa avsnitt: annars står poängen där (2026-11-21). */
+  matsIAnalysen: 'Mäts när avsnitten är inlästa.',
   matsIAnalysenRad: 'De flesta arbetsgivare låter ett rekryteringssystem sortera ansökningarna först.',
   innehall: 'Innehållet',
   avAvsnitt: (n: number) => `av ${n} avsnitt`,
@@ -229,7 +236,7 @@ export const NY = {
   poang: 'Läsbarhetspoäng',
   poangAv: 'av 100',
   poangRad: 'Så väl läser ett rekryteringssystem ditt CV.',
-  poangRad2: 'Under en minut, och en analys ingår gratis.',
+  poangRad2: 'Du får den direkt, för varje CV.',
   mallar: 'Mallar',
   mallarRad: `Ditt CV i ${ANTAL} mallar.`,
   mallarRad2: `${stor(talSomOrd(FREE_TEMPLATE_COUNT))} är gratis, och du ser alla med ditt eget innehåll innan du väljer.`,

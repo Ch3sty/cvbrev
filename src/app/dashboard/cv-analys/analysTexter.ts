@@ -5,6 +5,7 @@
  * Inga tankstreck, ordet AI används inte (Jobbcoachen).
  */
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 
 const TALORD = ['Inga', 'En', 'Två', 'Tre', 'Fyra', 'Fem', 'Sex', 'Sju', 'Åtta', 'Nio', 'Tio']
 const talord = (n: number) => TALORD[n] ?? String(n)
@@ -36,6 +37,18 @@ export const ANALYS = {
   oppnaCvSidorad: 'Poängen räknas om när du sparar.',
   laddaNer: 'Välj mall och ladda ner',
   laddaNerSidorad: `Samma CV i ${TEMPLATE_COUNT} mallar.`,
+
+  /* Jobbcoachens förslag (beslutet 2026-11-21): genomgången är öppen för
+     alla CV, förslagstexterna hämtas, gratis en gång per konto. */
+  hamtaForslag: 'Hämta Jobbcoachens förslag',
+  hamtaSidorad: 'En gång ingår gratis. Tar under en minut.',
+  hamtaSidoradPremium: 'Ingår. Hämta så ofta du vill.',
+  inteSkrivitForslag: 'Jobbcoachen har inte skrivit förslag än.',
+  /** Tidsbegränsad rad (visaPoangAndrad i analysData.ts), till och med 31 januari 2027. */
+  poangAndrad: 'Vi räknar poängen noggrannare sedan 21 november, så talet kan ha ändrats. Ditt CV är detsamma.',
+  premOgonForslag: `Förslagen ingår i ${PAKETRADER.bricka}`,
+  premRubrikForslag: 'Låt Jobbcoachen skriva texterna',
+  kvotHamtaSlut: `Att hämta nya förslag ingår i ${PAKETRADER.bricka}.`,
 
   /* ------------------------------------------------ golvet, genomgången */
   genomgangOgon: 'Genomgången, del för del',
@@ -94,14 +107,7 @@ export const ANALYS = {
 
   arkAlt: (delar: string) => (delar ? `Ditt CV med markeringar för delarna: ${delar}.` : 'Ditt CV i sin mall.'),
 
-  /* ------------------------------------------------------------ introt */
-  introOgon: 'CV-analys',
-  introRubrik: 'Se ditt CV som rekryteraren ser det',
-  introIngress: (namn: string | null) =>
-    `Vi går igenom ${namn ? `”${namn}”` : 'CV:t'} del för del, från kontaktuppgifter till språk, och räknar en poäng av 100. Det tar under en minut.`,
-  introKnapp: 'Analysera det här CV:t',
-  introSidorad: 'En analys ingår gratis. Poängen får du direkt.',
-  introSidoradPremium: 'Analysen ingår. Kör den så ofta du vill.',
+  /* ------------------------------------- panelen i läget utan struktur */
   introPanelOgon: 'Så går det till',
   introPanelRubrik: 'Hela CV:t, del för del',
   introSteg: [
@@ -115,8 +121,8 @@ export const ANALYS = {
       text: 'Jobbcoachen skriver förslag på texterna. Resten fyller du i själv, och poängen räknas om när du sparar.',
     },
   ],
-  introBytCv: 'Vill du analysera ett annat CV väljer du det under Byt CV.',
-  kvotLabel: 'Analyser kvar',
+  introBytCv: 'Vill du se ett annat CV väljer du det under Byt CV.',
+  kvotLabel: 'Jobbcoachens förslag',
 
   // Utan struktur.
   strukturRubrik: 'Vi kunde inte läsa avsnitten i ditt CV',

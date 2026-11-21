@@ -4,7 +4,8 @@
  * inte "Inget drar ner just nu" utan fyndet Dina siffror, med sant plus.
  */
 import { describe, expect, it } from 'vitest'
-import { byggAnalysVy } from '../analysData'
+import { byggAnalysVy, fyndHref } from '../analysData'
+import { arkForParam, tolkaPost } from '@/app/dashboard/skapa-cv/arbetslage'
 import { kanonisktCv, medSiffror, plusForSiffror, raknaPoang } from '@/lib/cv/poang'
 import { underlagUrRad } from '@/lib/cv/analys/cvAnalys'
 import { medForslagUrAnalys, poangUrAnalys } from '@/lib/rum/cvRum'
@@ -67,6 +68,50 @@ describe('samma "med"-tal på Ditt CV, Mallar och Analys', () => {
     expect(vy.poang.siffrorPlus).toBeGreaterThan(0)
     expect(vy.poang.medAllt).toBeGreaterThanOrEqual(vy.poang.medAlla)
     expect(medForslagUrAnalys(u)).toBe(vy.poang.medAllt)
+  })
+})
+
+describe('länkarna till arbetsläget öppnar rätt roll', () => {
+  // [antal] står bara i den tredje rollen (plats 2 i listan), som i klicktestet 2026-11-21.
+  const tre = {
+    ...CV,
+    experience: [
+      { position: 'Butikschef', company: 'Coop', startDate: '2024', endDate: 'pågående', description: ['Ledde ett lag på tolv personer', 'Ansvarade för schema och bemanning'] },
+      { position: 'Kassaansvarig', company: 'Hemköp', startDate: '2022', endDate: '2024', description: ['Ansvarade för kassan', 'Utbildade nya kollegor'] },
+      { position: 'Butikssäljare', company: 'ICA Kvantum', startDate: '2019', endDate: '2022', description: ['Hjälpte kunder', 'Ansvarade för kassan med [antal] kunder per pass'] },
+    ],
+  }
+
+  it('Fyll i siffrorna: rollen där [antal] står, inte den första', () => {
+    const vy = byggAnalysVy({ ...JOBB, result: {} }, { structured_data: tre }, false)!
+    const f = vy.fynd.find((x) => x.typ === 'siffror')!
+    expect(f.post).toBe(2)
+    expect(f.roll).toEqual({ titel: 'Butikssäljare', foretag: 'ICA Kvantum' })
+    expect(fyndHref('cv-1', f, 'linne')).toBe('/dashboard/skapa-cv?cv=cv-1&avsnitt=erfarenhet&post=2&mall=linne&fran=analys')
+    // Arbetsläget tolkar adressen till just den posten.
+    expect(arkForParam(tre as never, 'erfarenhet', tolkaPost('2'))).toEqual({ typ: 'post', sektion: 'erfarenhet', index: 2 })
+  })
+
+  it('Ändra texten på ett rollförslag: förslagets roll', () => {
+    const jobb = {
+      ...JOBB,
+      result: {
+        roleBasedImprovements: [
+          { roleTitle: 'Kassaansvarig', company: 'Hemköp', currentText: 'Ansvarade för kassan', suggestedText: 'Ansvarade för kassan och dagskassan för tre kassor\nUtbildade fem nya kollegor i kassasystemet\nHöll ordning på växelkassan', atsImpact: 5 },
+        ],
+        skillSuggestions: [],
+        generalImprovements: [],
+      } as Record<string, unknown>,
+    }
+    const vy = byggAnalysVy(jobb, { structured_data: tre }, true)!
+    const f = vy.fynd.find((x) => x.typ === 'roll')
+    expect(f).toBeDefined()
+    expect(f!.post).toBe(1)
+    expect(fyndHref('cv-1', f!, 'linne')).toContain('&post=1&')
+  })
+
+  it('profil och kompetenser bär ingen post', () => {
+    expect(fyndHref('cv-1', { sektion: 'profil' }, 'linne')).toBe('/dashboard/skapa-cv?cv=cv-1&avsnitt=profil&mall=linne&fran=analys')
   })
 })
 

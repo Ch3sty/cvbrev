@@ -108,11 +108,11 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
     analysKvar = scopeHasFeature(scope, 'cv_analysis_full') ? null : Math.max(0, GRATIS_ANALYSER - (kvotRes.count ?? 0));
 
     // Analysen per CV: den senaste av varje (listan är sorterad), och när ett
-    // förbättrat CV sparades. Poängen räknas ur CV-raden med poängmodellen.
+    // förbättrat CV sparades. Poängen räknas ur CV-raden med poängmodellen,
+    // för alla CV med struktur, med eller utan hämtade förslag (2026-11-21).
     analysRader = (poangRes.data ?? []) as typeof analysRader;
     jobbPerCv = analysPerCv(analysRader);
     for (const cv of cvRows) {
-      if (!jobbPerCv[cv.id]) continue;
       const p = poangForRad({ ...(cv as CvRad), kontakt });
       if (p !== null) poangPerCv[cv.id] = p;
     }

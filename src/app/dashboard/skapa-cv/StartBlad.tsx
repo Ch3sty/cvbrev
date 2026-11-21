@@ -114,7 +114,15 @@ export default function StartBlad({
 
             {ladda ? (
               <div className="grid gap-2">
-                <CVUploadZone onUpload={laddaUpp} maxSizeMB={5} />
+                <CVUploadZone
+                  onUpload={laddaUpp}
+                  maxSizeMB={5}
+                  // En inskannad PDF som avvisas: samma väg som knappen Skriv från början.
+                  onSkriv={() => {
+                    capture('cv_start_val', { val: 'skriv', titel: Boolean(titel.trim()) })
+                    onSkriv()
+                  }}
+                />
                 <button type="button" onClick={() => setLadda(false)} className={`${LANK} inline-flex min-h-11 items-center justify-center`}>
                   {START.stangUppladdning}
                 </button>

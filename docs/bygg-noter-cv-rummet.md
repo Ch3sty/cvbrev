@@ -476,3 +476,73 @@ Efter genomgången:
 | (denna) | Reservtexten i `role-based-improvements.ts` citerar rollens första mening när punkterna är hela meningar, och fogar bara ihop nyckelord | `git revert` av commiten |
 
 Läget när sessionen rundades av (2026-11-21): grenen `samlad/cv-genomgang-2026-11-21` är inte pushad. Typkontroll, hela vitest (4105 gröna) och produktionsbygget är godkända på `b34ff03c`. Inte gjort: prestandamätning, klicktest av de åtta sista commitsen, en riktig inläsning med den nya instruktionen, push, driftsättning av de tre funktionerna, migreringen `20261121120000_cv_analysis_jobs_serverlas.sql` och verifieringsskriptet. Ordningen vid släpp: webbappen, funktionerna, en provanalys, migreringen, `node scripts/verifiera-analysjobb-sparr.mjs`.
+
+## Släppet av låset och svepet efteråt (2026-11-21, eftermiddag)
+
+Gjort av sessionen som tog över efter `docs/overlamning-cv-genomgang-2026-11-21.md`. Beslut i öppna frågor togs av saas-lead, SEO och UX tillsammans (ägarens besked samma dag).
+
+### Körningar i produktion (projekt mnlrpfidyzuaxxlftruf)
+
+| Tid (UTC) | Vad | Utfall |
+|---|---|---|
+| 14:00 | `analyze-cv-background`, `optimize-linkedin`, `parse-cv-for-matching` driftsatta | Analysfunktionen nekade även servicenyckeln (403). Backad till förra versionen inom en minut. |
+| 14:01 | `analyze-cv-background` rättad och driftsatt igen (`afea77f7`) | Servicenyckel 404 på påhittat jobb (släpps igenom), publik nyckel 403, förfalskad nyckel 401 |
+| 14:04 | Riktig analys genom www.jobbcoach.ai med QA-konto | Klar på 27 s |
+| 14:05 | LinkedIn-optimeringen och matchningens CV-inläsning | Egen inloggning 200, annans id 403, publik nyckel 401 |
+| 14:06 | Migreringen `20261121120000_cv_analysis_jobs_serverlas` via Management API (MCP nekade) | `scripts/verifiera-analysjobb-sparr.mjs`: kod 0, 13 kontroller OK |
+| 14:13–14:20 | `match-jobs`: användaren ur JWT:n. Första försöket hade ett trasigt mönster för bäraren och svarade 401 på allt, backat inom en minut, rättat och driftsatt igen | Annans id 403, publik nyckel 401, egen inloggning 200 |
+| 14:22 | Migreringen `20261121150000_job_matchings_cache_skrivsparr` via Management API | Användaren: läsning av egna rader ja, insert/update/delete 42501. Servern kan uppdatera en befintlig rad igen. |
+| 14:25 | `ingest-document` och `Kompetensutveckling` svarar "pausad" (410) | Kontrollerat med anrop |
+| 14:26 | `match-jobs-ALL-MUNICIPALITIES` borttagen ur produktion | Källkoden i `supabase/arkiv/` |
+
+Varför analysfunktionen nekade: Supabase ger funktionsmiljön en egen `SUPABASE_SERVICE_ROLE_KEY` vid varje driftsättning (digesten i `supabase secrets list` byts), så en strängjämförelse mot serverns nyckel kan aldrig stämma. `arServicenyckel` prövar rollen i JWT:n och sedan nyckeln mot auth-tjänstens adminyta.
+
+Backa: funktionerna driftsätts om från föregående commit av respektive mapp. Migreringarna har avsnittet "Backa" i filen.
+
+### Kända fel från överlämningen (avsnitt 3)
+
+| Nr | Fel | Läge |
+|---|---|---|
+| 1 | Ort utan postnummer lästes inte in | Rättat. `ortUtanPostnummer` i `extractContact.ts` godtar en kommun (listan i `src/lib/privacy/kommunnamn.ts`) i kontaktblockets tio översta rader. OCR-strecket före en länk delas (`skiljOrdFranLank` i `ocr.ts`). Redan inlästa CV har kvar tom ort. Orter som inte är kommuner (Kista, Visby) läses inte. |
+| 2 | Arket "Ett CV till" för brett i 412 | Rättat (`space-y-5` i stället för grid i `NyttCvArk.tsx`), mätt: innehållet slutar på 396 av 412 |
+| 3 | Rollfynd öppnade avsnittet, inte rollen | Rättat. `&post=n` genom `arbetslageHref`, `arkForParam`, `startPost`. Gäller också "Fyll i siffrorna", rollkortens "Ändra texten" och arbetslägets platshållarrad. Rullningen på telefon räknas på markeringens mål. |
+| 4 | Samma läcka på andra tabeller | `job_matchings_cache`: skrivrätten borta. `logic_test_v4_sessions`: lämnad med avsikt, den är redan skrivskyddad och visar bara rätt eller fel på frågor användaren redan besvarat (beslut: det ska gratis få se). |
+| 5 | DELETE på `/api/cv/analysis/[id]` | Rutten borttagen, ingen anropare fanns |
+| 6 | "goda kunskaper" blir "Konversation" | Inte ändrat: det är produktens skala (`sprak.ts`, B1–B2). Ett nytt steg i skalan är ett eget beslut. |
+| 6 | Kalksten "Sida 1 av 2" | Rättat i `render/html.ts` (millimetern mäts på arket). Sett: "Sida 1 av 1", PDF en sida. |
+| 6 | Länken "Se genomgången." 34 px | 44 px träffyta, samma radhöjd |
+| 7 | Omaskad död kod | Spärr "pausad" i `kompetensutveckling`, `process-competence-analysis`, `ingest-document` |
+
+Kvar ur punkt 6: `cv_text` efter Ersätt ligger omaskad i databasen (maskas före varje modellanrop), och `.wasm.js`-filerna följer med upload-funktionens bygge.
+
+### Nya fel som hittades och rättades
+
+- OCR läste procenttecken som "24" ("med 35 24"). `lagaProcent` i `ocr.ts`, snäv regel med test för det som ska stå kvar.
+- Uppladdningen körde bildläsningen (cirka 20 s) innan den kontrollerade e-postverifiering och CV-gräns. `kvotSparr()` körs nu före tolkningen och en gång till före sparandet.
+- Startbladets uppladdningszon sprack i 412 under bildläsning (fastexten låg i knappen). Fastexten är en egen rad under knappen.
+- Numren på arket i genomgången följer mallens avsnittsordning (`ordnaDelarEfterArket`), och ramarna skär inte rubriker.
+- Märket "Sparat" i arbetsläget visades med osparat utkast.
+- Kortet Läsbarheten på Ditt CV hade tom yta utan förslagsrad. Uppladdade utkast visade "?" i stället för talet.
+- Utlösaren på `job_matchings_cache` skrev i kolumnen `updated_at` som inte fanns, så varje uppdatering av en befintlig cacherad föll tyst. Kolumnen är tillagd.
+
+### Genomgången för alla CV (beslut 2026-11-21)
+
+Poäng och vad som saknas visas för varje CV utan att något startas och utan kvot (`byggGenomgangVy`, `genomgangLageFor` i `cv-analys/analysData.ts`). Det som räknas en gång per konto för gratis är "Hämta Jobbcoachens förslag" (samma kvot som förut, `checkCvAnalysisQuota`, ingen databasändring). Tre lägen: utan förslag, med förslag, förbrukad. Raden "Vi räknar poängen noggrannare sedan 21 november ..." visas för CV skapade före 2026-11-21 till och med 2027-01-31 (`visaPoangAndrad`). Nya händelser: `cv_review_viewed`, `cv_suggestions_fetched`, och betalväggens händelser med surface "genomgang".
+
+Backa: `git revert` av commiten "feat(cv-analys): genomgången visas för alla CV". Kvoten och databasen är orörda, så en backning ger tillbaka knappen "Analysera det här CV:t".
+
+### Kontroller
+
+- tsc rent, hela vitest 4220 gröna (13 överhoppade), `next build` grönt.
+- Klicktest i produktion före ändringarna (löftet 90 utlovat gav 90, 92 med ifyllda siffror gav 92, skrivandet i arbetsläget 0 long tasks på Pixel 7 med strypt processor) och på lokalt produktionsbygge efter (1440 och Pixel 7, tre lägen, uppladdningarna, Kalksten, mäthändelserna).
+- Prestanda lokalt mot produktionsdatabasen: Ditt CV 3012–4820 ms, Analys 2520–3644 ms, CLS 0. Mätningen var störd av en annan sessions webbläsare och server, och tiden låg i serverns svar.
+
+### Kända brister efter svepet
+
+- Sidoraden "En gång ingår gratis. Tar under en minut." döljs under 768 px (`.cv3-mobil-sidorad`), så telefonen ser inte att hämtningen är gratis en gång förrän efteråt.
+- Vägen på Ditt CV kallar fortfarande steget "analysera".
+- Stora cacheskrivningar i `match-jobs` (600 jobb) går ibland i databasens tidsgräns, och funktionen kontrollerar inte felet från upsert.
+- `pre-enrich-occupations` och `aggregate-metrics` går att anropa med vilken giltig nyckel som helst (ingen kontroll av anroparen). Inte ändrat: vem som anropar dem i dag är inte utrett.
+- Den publika mini-analysen svarar "Försök igen om en stund" på en inskannad PDF.
+- En PDF som redan är uppladdad landar tyst på det befintliga CV:t.
+- Publika sidor och mejl beskriver den gamla analysen: `docs/rapporter/publika-sidor-avvikelser-2026-11-21.md`.

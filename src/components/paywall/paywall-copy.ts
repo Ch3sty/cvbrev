@@ -154,8 +154,8 @@ export function kvotCopy(quotaFeature: string | undefined, plan?: PlanKey | null
   switch (quotaFeature) {
     case 'cv_analysis':
       return {
-        title: 'Du har använt din analys',
-        body: `Du har sett det tyngsta fyndet och din läsbarhetspoäng. ${PREMIUM} öppnar åtgärden bakom varje rubrik och låter dig köra om analysen när du rättat.`,
+        title: 'Du har hämtat dina gratisförslag',
+        body: `Poängen och genomgången är fortsatt öppna för alla dina CV. ${PREMIUM} öppnar förslaget bakom varje rubrik och hämtar nya förslag när du rättat.`,
         primary: skaffaKnapp(p),
         plan: p,
       }
@@ -314,11 +314,20 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
 
     // PW3, alternativ B. Den kvitterar vad användaren redan fått innan den
     // säger vad som kostar, och namnger omkörningen, som är uttaget.
+    // Sedan 2026-11-21 är poängen och genomgången öppna för alla CV, och
+    // poängen följer CV:t direkt. Det som kostar är Jobbcoachens förslag:
+    // de låsta förslagstexterna (analys) och att hämta nya (analys-omkorning).
     case 'analys':
-    case 'analys-omkorning':
       return {
         title: `Åtgärderna ingår i ${PREMIUM}`,
-        body: `Du har sett det tyngsta fyndet och din läsbarhetspoäng. ${PREMIUM} öppnar åtgärden bakom varje rubrik och låter dig köra om analysen när du rättat.`,
+        body: `Du har sett det tyngsta fyndet och din läsbarhetspoäng. ${PREMIUM} öppnar förslaget bakom varje rubrik och hämtar nya förslag när du rättat.`,
+        primary: knapp,
+        secondary: 'Se vad som ingår',
+      }
+    case 'analys-omkorning':
+      return {
+        title: `Jobbcoachens förslag ingår i ${PREMIUM}`,
+        body: `Din gratishämtning är använd. Poängen och genomgången är fortsatt öppna för alla dina CV. Med ${PREMIUM} skriver Jobbcoachen förslag till varje CV, så ofta du vill.`,
         primary: knapp,
         secondary: 'Se vad som ingår',
       }

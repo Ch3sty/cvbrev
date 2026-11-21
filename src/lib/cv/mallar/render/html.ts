@@ -932,8 +932,13 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
       // huvudspalten flödar bredvid och tar full bredd under spalten. Skriptet ger
       // spalten minsta höjd till bottenmarginalen på sida 1 (samma mått i skärm och
       // utskrift: avståndet från arkets överkant); utan skript slutar den med innehållet.
+      // Millimetern mäts på arket (.cv är 210 mm brett), inte som 96/25,4 px:
+      // i förhandsvisningen skalas iframen med zoom (matning.ts), och då
+      // redovisar webbläsaren lägena skalade. Med fast 96/25,4 blev avståndet
+      // till huvudet för kort, spalten för hög och arket räknades som två sidor
+      // (Kalksten, "Sida 1 av 2"). Utan zoom (PDF:en) är talet detsamma som förut.
       const botten = matt(def, val).sida.botten
-      const skript = `<script>(function(){var s=document.querySelector('.spalter-flyt>.spalt-sido'),cv=document.querySelector('.cv');if(!s||!cv)return;function satt(){s.style.minHeight='';var mm=96/25.4,av=(s.getBoundingClientRect().top-cv.getBoundingClientRect().top)/mm;s.style.minHeight=Math.max(0,297-${botten}-av-1.5).toFixed(2)+'mm'}satt();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(satt)})()</script>`
+      const skript = `<script>(function(){var s=document.querySelector('.spalter-flyt>.spalt-sido'),cv=document.querySelector('.cv');if(!s||!cv)return;function satt(){s.style.minHeight='';var mm=cv.getBoundingClientRect().width/210||96/25.4,av=(s.getBoundingClientRect().top-cv.getBoundingClientRect().top)/mm;s.style.minHeight=Math.max(0,297-${botten}-av-1.5).toFixed(2)+'mm'}satt();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(satt)})()</script>`
       kropp = `${huvud(dok, c)}${axel}<div class="spalter-flyt"><aside class="spalt spalt-sido">${sido}</aside><main class="spalt spalt-huvud cv-kropp">${huvudspalt}</main></div>${skript}`
     } else {
     const celler = `<td class="spalt spalt-sido">${sido}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td>`

@@ -294,7 +294,7 @@ export default function CvMallarClient(p: {
   const forstaMedSiffra = platshallare[0]?.avsnitt
   const siffror = useSiffrorKvar(
     platshallare,
-    cv && forstaMedSiffra ? { href: arbetslageHref(cv.id, 'mallar', { avsnitt: forstaMedSiffra, mall: mallId, val }) } : null
+    cv && forstaMedSiffra ? { href: arbetslageHref(cv.id, 'mallar', { avsnitt: forstaMedSiffra, post: platshallare[0].index, mall: mallId, val }) } : null
   )
 
   const skapaFil = useCallback(

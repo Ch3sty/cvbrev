@@ -8,7 +8,7 @@
  * spinnern under uppladdningen.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   Upload,
   X,
@@ -32,7 +32,15 @@ interface CVUploadZoneProps {
   disabled?: boolean;
   maxSizeMB?: number;
   className?: string;
+  /**
+   * "Skriv från början" när en inskannad PDF avvisas (felkoden
+   * IMAGE_BASED_PDF). Utelämnad: bara vägen med Word-filen visas.
+   */
+  onSkriv?: () => void;
 }
+
+/** Word-filen som väg vidare när en bild-PDF avvisas. */
+const WORD_ACCEPT = '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
 const PHASE_LABELS: Record<UploadPhase, string> = {
   uploading: 'Laddar upp och tolkar...',
@@ -47,9 +55,13 @@ export default function CVUploadZone({
   disabled = false,
   maxSizeMB = 10,
   className = '',
+  onSkriv,
 }: CVUploadZoneProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  // Serverns felkod: IMAGE_BASED_PDF visar vägarna vidare under beskedet.
+  const [felKod, setFelKod] = useState<string | null>(null);
+  const wordRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [phase, setPhase] = useState<UploadPhase>('uploading');
@@ -77,6 +89,7 @@ export default function CVUploadZone({
     setIsUploading(true);
     setPhase('uploading');
     setUploadError(null);
+    setFelKod(null);
 
     try {
       await onUpload(selectedFile, (newPhase) => {
@@ -91,6 +104,8 @@ export default function CVUploadZone({
           ? error.message
           : 'Kunde inte ladda upp CV. Försök igen.'
       );
+      const kod = (error as { code?: unknown } | null)?.code;
+      setFelKod(typeof kod === 'string' ? kod : null);
     } finally {
       setIsUploading(false);
       setPhase('uploading');
@@ -100,6 +115,7 @@ export default function CVUploadZone({
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setUploadError(null);
+    setFelKod(null);
     setGdprAccepted(false);
     handleGdprChange(false);
   };
@@ -231,18 +247,27 @@ export default function CVUploadZone({
           type="button"
           onClick={handleUploadClick}
           disabled={!gdprAccepted || isUploading}
-          className={`${KNAPP_PRIMAR} mt-3 h-auto min-h-12 py-3 text-center disabled:cursor-not-allowed`}
+          className={`${KNAPP_PRIMAR} mt-3 disabled:cursor-not-allowed`}
         >
           {isUploading ? (
             <>
               <Loader2 className="h-5 w-5 shrink-0 animate-spin" />
-              <span className="leading-tight">{PHASE_LABELS[phase]}</span>
+              <span>{PHASE_LABELS.uploading}</span>
             </>
           ) : (
             <span>Ladda upp CV</span>
           )}
         </button>
       )}
+
+      {/* Bildläsningens fastext står under knappen, aldrig i den: knappen
+          bryts inte (whitespace-nowrap) och den långa texten sprängde bladet
+          i 412 px. Samma mönster som arket Ett CV till (InlineCVUpload). */}
+      {selectedFile && isUploading && phase === 'vision' ? (
+        <p role="status" className="mt-2 text-sm leading-[21px] text-ink-2">
+          {PHASE_LABELS.vision}
+        </p>
+      ) : null}
 
       {selectedFile && !gdprAccepted && !isUploading && (
         <p className="mt-2 text-center text-meta text-ink-3">Kryssa i GDPR-rutan för att fortsätta</p>
@@ -255,6 +280,42 @@ export default function CVUploadZone({
           <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold">Uppladdningen misslyckades</p>
             <p className="mt-0.5 whitespace-pre-line text-sm leading-[21px] text-fel-morker">{uploadError}</p>
+            {felKod === 'IMAGE_BASED_PDF' ? (
+              <div className="mt-3 flex flex-wrap gap-2">
+                <input
+                  ref={wordRef}
+                  type="file"
+                  accept={WORD_ACCEPT}
+                  className="sr-only"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  onChange={(e) => {
+                    const fil = e.target.files?.[0] ?? null;
+                    e.target.value = '';
+                    if (!fil) return;
+                    setSelectedFile(fil);
+                    setUploadError(null);
+                    setFelKod(null);
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => wordRef.current?.click()}
+                  className="inline-flex min-h-11 items-center rounded-lg border border-kant-stark bg-papper px-3 text-sm font-semibold text-ink-1 hover:border-ink-1"
+                >
+                  Ladda upp som Word-fil
+                </button>
+                {onSkriv ? (
+                  <button
+                    type="button"
+                    onClick={onSkriv}
+                    className="inline-flex min-h-11 items-center rounded-lg border border-kant-stark bg-papper px-3 text-sm font-semibold text-ink-1 hover:border-ink-1"
+                  >
+                    Skriv från början
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
       )}
