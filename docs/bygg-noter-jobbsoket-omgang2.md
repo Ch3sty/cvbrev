@@ -278,3 +278,10 @@ Kräver att migreringen är körd. Konto: gratis, en slutförd Nivåkoll, dagens
 - `src/lib/notifications/__tests__/followUp.test.ts`: 20 gröna (2 nya). `src/lib/email/lifecycle/__tests__/weekly-digest.test.ts`: 15 gröna (1 nytt). `src/components/jobb3/oversikt/__tests__/oversikt.test.ts`: 23 gröna (2 nya).
 - Körda utan ändring: `HemMatning.test.tsx` 7, `motor.test.ts` 43, `intervjulagen.test.ts` 36, alla gröna.
 - `npx tsc --noEmit` (6,2 GB ledigt): inga fel på grenen.
+
+## Samordnarens noter
+
+- **Datum.** Hela omgång 2 byggdes 2026-11-21 (kväll). Några commit-meddelanden på grenen och migreringens filnamn (`20261122120000_kallad_till_test.sql`) säger 22 november. Det är fel dag, skrivet av samordnaren av misstag. Migreringen kördes i produktion 2026-11-21 cirka 23.00 svensk tid, med ägarens ja. Filnamnet ändras inte, eftersom det bara styr ordningen.
+- **Slutkontrollen avbröts 2026-11-21 cirka 23.05.** Produktionens Supabase-gateway slutade svara 22.35. Loggen visade att två sessioner samtidigt körde testflöden genom lokala servrar mot produktionsdatabasen; den här sessionens klicktest gjorde en Nivåkoll för att få fram kortet på testernas Hem och stod för 915 läsningar av `profiles` på tio minuter. Server och webbläsare stängdes direkt. Regeln framåt står i minnet: inga provflöden i klicktest mot produktion.
+- **Det slutkontrollen hann med:** hela testsviten (360 filer gröna, 3 överhoppade; 4 589 test gröna, 13 överhoppade), bygget med webpack (första försöket föll på minnet, det andra gick igenom), kortet på testernas Hem i 412 och 1440, ljust och mörkt, i hopfällt, utfällt och felläge, och brickan i Kom igång på plats två för ett konto utan val. Bilderna ligger utanför git.
+- **Inte prövat i webbläsare:** arket på testvägen och kvittensen, statusen Kallad till test i listan och på tjänstens sida, "När är intervjun?", intervjulägena med det nya utkastet (aldrig kört mot modellen), annonsens fot på telefon, träffantalet efter sökning och omladdning, och prestandan med CLS på testernas Hem och i hubben.

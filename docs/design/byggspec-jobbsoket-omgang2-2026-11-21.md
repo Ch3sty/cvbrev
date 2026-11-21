@@ -583,7 +583,7 @@ Språket väljs som i dag: engelska när det kopplade brevet är på engelska, a
 
 ### 2.7 Notisen och veckobrevet
 
-**Överens med saas-lead 2026-11-22.** Ägaren har lagt beslutet hos saas-lead och UX (`docs/beslut-jobbsoket-2026-11-21.md`, "Beslut i omgång 2", beslut 1). Texterna nedan går med i pushen och kräver inget eget ja. De går ut av sig själva till användare, så ordalydelsen ändras inte av en byggare.
+**Överens med saas-lead 2026-11-21.** Ägaren har lagt beslutet hos saas-lead och UX (`docs/beslut-jobbsoket-2026-11-21.md`, "Beslut i omgång 2", beslut 1). Texterna nedan går med i pushen och kräver inget eget ja. De går ut av sig själva till användare, så ordalydelsen ändras inte av en byggare.
 
 "Har inte hört av sig" står aldrig om en tjänst i intervjusteget. En kallelse till intervju, med eller utan tid, ger aldrig en notis och nämns aldrig i veckobrevets ruta. Detsamma gäller en tjänst som står som kallad till test (9 B): aldrig en notis, aldrig en rad i rutan.
 
@@ -916,7 +916,7 @@ Lämnas till samordnaren. Inget av det byggs i den här omgången.
 
 ## 9. Ändring A: vägen in från Inför intervjun och från testerna (beslut 20, och beslut 2 och 3 i omgång 2)
 
-Skriven 2026-11-22. Underlag: skissen `docs/design/skiss-jobbsoket-testvag-2026-11-21.html`, saas-leads beslut ("Beslut i omgång 2" i `docs/beslut-jobbsoket-2026-11-21.md`), art directors och testansvarigs granskning. Skissen ritas inte om. Där specen och skissen skiljer sig gäller specen, och skillnaderna står i 9.0.
+Skriven 2026-11-21. Underlag: skissen `docs/design/skiss-jobbsoket-testvag-2026-11-21.html`, saas-leads beslut ("Beslut i omgång 2" i `docs/beslut-jobbsoket-2026-11-21.md`), art directors och testansvarigs granskning. Skissen ritas inte om. Där specen och skissen skiljer sig gäller specen, och skillnaderna står i 9.0.
 
 Två delar som byggs och pushas var för sig, båda av byggare D:
 - **9 A**, "När är intervjun?" i hubben Inför intervjun. Ingen migrering. Byggs nu och går med i omgångens push.
@@ -1311,7 +1311,7 @@ Varianten: `utan_plan` när `data.plan` är null (`fran` `test-hem`), `plan_pass
 
 **Inget flyttar sig.** `HemGolv` ritar klientön `<TjanstFraga fraga={...} />` bara när serverns grind ger ett kort. Ön ritar ingenting på servern och ingenting i första klientritningen. Kortet visas först när `localStorage` är läst. Under Vägen till provet ska kortet ligga nedanför första skärmen i 412 x 915 och i 1440 x 900, så att det som står under inte flyttas i bild. Det är inte mätt, bara läst ur skissen, och kontrolleras med mätningen i 9.18. Visar mätningen ett skifte används samma lösning som i hubben (9.3): kortet ritas i serverns HTML och ett skript döljer det före första ritningen när nyckeln stämmer.
 
-**Kortet ligger kvar längst ned. Ägarens beslut 2026-11-22:** "de som köper tillgång till testerna vill använda testerna ostört, fel ställe att börja sälja in annat. Så vi låter det ligga längst ned." Saas-leads regel om att flytta upp kortet den 5 december gäller alltså inte, och stycket nedan står bara kvar som bakgrund. Ingen flytt förbereds.
+**Kortet ligger kvar längst ned. Ägarens beslut 2026-11-21:** "de som köper tillgång till testerna vill använda testerna ostört, fel ställe att börja sälja in annat. Så vi låter det ligga längst ned." Saas-leads regel om att flytta upp kortet den 5 december gäller alltså inte, och stycket nedan står bara kvar som bakgrund. Ingen flytt förbereds.
 
 **Utgår (bakgrund).** Saas-leads regel var: har färre än 10 konton sett kortet den 5 december flyttas det upp under "Så ligger du till" i en egen push. Då ligger kortet i första skärmen, och en ö som fylls i efter laddningen skulle flytta det som står under. Flytten kräver därför att servern känner till Hoppa över, så att kortet ritas rätt i serverns HTML: antingen en kaka som sätts vid Hoppa över och Fortsätt och läses i `TesterHemSida`, eller en kolumn på profilen (en migrering). En ny kaka kan kräva en rad i kaktexterna, som bara ägaren ändrar. Flytten behöver alltså ägarens besked om kakan, en ändring av `TjanstFraga` från ö till serverritat kort, och en ny mätning av CLS.
 
