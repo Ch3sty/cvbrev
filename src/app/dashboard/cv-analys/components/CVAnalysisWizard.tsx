@@ -803,7 +803,10 @@ export default function CVAnalysisWizard({
         // med poängmodellen (analysisResult.poang), aldrig uppskattat här.
         const currentAtsScore = poangIdag;
         const potentialAtsScore: number = analysisResult.poang?.medAlla ?? currentAtsScore;
-        const totalImprovements =
+        // Alla fynd, öppna och låsta, som Analys-sidan räknar dem (servern,
+        // analysForKlient). Reserven för äldre svar utan talet: listorna.
+        const totalImprovements: number =
+          typeof analysisResult.fyndAntal === 'number' ? analysisResult.fyndAntal :
           (analysisResult.profileSummary ? 1 : 0) +
           (analysisResult.roleBasedImprovements?.length || 0) +
           (analysisResult.skillSuggestions?.length || 0) +

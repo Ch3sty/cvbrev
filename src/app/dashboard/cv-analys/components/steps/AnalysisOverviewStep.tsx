@@ -147,10 +147,7 @@ export default function AnalysisOverviewStep({
         {/* Resultat-summering */}
         <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
           <p className="text-steg uppercase text-ink-3">Resultat</p>
-          <p className="mt-1.5 text-kort text-ink-1">
-            Vi hittade {totalImprovements}{' '}
-            {totalImprovements === 1 ? 'förbättring' : 'förbättringar'} i ditt CV
-          </p>
+          <p className="mt-1.5 text-kort text-ink-1">{hittade(totalImprovements)}</p>
           {quickWins.length > 0 && (
             <>
               <p className="mt-4 text-sm font-medium text-ink-3">
@@ -265,6 +262,13 @@ export default function AnalysisOverviewStep({
       </div>
     </TooltipProvider>
   );
+}
+
+const TALORD = ['inga', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv'];
+
+/** "Vi hittade tre förbättringar i ditt CV": alla fynd, öppna och låsta, som på Analys-sidan. */
+export function hittade(n: number): string {
+  return `Vi hittade ${TALORD[n] ?? n} ${n === 1 ? 'förbättring' : 'förbättringar'} i ditt CV`;
 }
 
 function PointRow({ label, idag, max, plus }: { label: string; idag: number; max: number; plus: number }) {

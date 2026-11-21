@@ -14,12 +14,19 @@
  */
 import { gateAnalysisResult } from '../gateAnalysisResult'
 import { poangsattAnalys, type CvRad } from './forslag'
+import { antalFynd } from './fynd'
 
 type Obj = Record<string, unknown>
 
+/**
+ * fyndAntal: alla fynd, öppna och låsta, räknade som Analys-sidan räknar dem
+ * (fynd.ts). Ett tal, ingen åtgärd: flödets "Vi hittade ..." säger samma sak
+ * som sidan också för gratisnivån.
+ */
 export function analysForKlient(result: Obj, cvRad: CvRad | null | undefined, harFullAnalys: boolean): Obj {
   const poangsatt = poangsattAnalys(result, cvRad)
-  if (harFullAnalys) return poangsatt
+  const fyndAntal = antalFynd(poangsatt)
+  if (harFullAnalys) return { ...poangsatt, fyndAntal }
   // gateAnalysisResult släpper igenom poang (hela analysens tal).
-  return gateAnalysisResult(poangsatt, false) as Obj
+  return { ...(gateAnalysisResult(poangsatt, false) as Obj), fyndAntal }
 }
