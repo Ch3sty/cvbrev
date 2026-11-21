@@ -64,24 +64,35 @@ export default function MallVisning({ typ, mallar, typsnitt, fotrad, lank }: Mal
               capture('mallvisning_mall_bytt', { slug: slug(), template: e.target.value, typ })
             }}
           >
-            <optgroup label="Gratis">
-              {mallar
-                .filter((m) => m.tier === 'free')
-                .map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.name}
-                  </option>
-                ))}
-            </optgroup>
-            <optgroup label={`I ${paketKort()}`}>
-              {mallar
-                .filter((m) => m.tier === 'premium')
-                .map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.name}
-                  </option>
-                ))}
-            </optgroup>
+            {typ === 'brev' ? (
+              // Brevets gamla uppställningar utan nivå (våg 1, 2026-11-21): de är exempel, inte produktens mallar.
+              mallar.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
+              ))
+            ) : (
+              <>
+                <optgroup label="Gratis">
+                  {mallar
+                    .filter((m) => m.tier === 'free')
+                    .map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label={`I ${paketKort()}`}>
+                  {mallar
+                    .filter((m) => m.tier === 'premium')
+                    .map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
+                </optgroup>
+              </>
+            )}
           </select>
         </label>
         <label className="block">
