@@ -436,3 +436,26 @@ Varje rättelse är en egen commit (tabellen ovan) och går att backa med `git r
 Kontroll: tsc rent, vitest 313 filer, 4032 gröna, 13 överhoppade; `test:ats` grön. Verifierat i Chrome mot lokal server (två testkonton, raderade): Ditt CV, Analys och Mallar med två rader `[antal]` (91 i dag, +3), arbetsläget via Fyll i siffrorna två gånger (profil, sedan erfarenhet), därefter 94 på Analys och inga påminnelser på någon flik utan omladdning. "2017 till 2019" ritas 2017 – 2019 på arket.
 
 Medvetet orört: Ditt CV:s mätare Läsbarheten säger fortfarande "Inget drar ner just nu" när bara siffrorna återstår (uppdraget: övriga delar av sidan lämnas som de är).
+
+
+## Genomgången del för del och poängmodellen version 2 (2026-11-21)
+
+Ägarens fråga: poängen stod på 80, "Inget drar ner just nu" och "Ingen ökning med förslagen", och det gick inte att se vad som fattades till 100. Orsaken var att sidan bara visade fynd med ett förslag, och att kontaktuppgifterna lästes ur strukturen fast arket fyller dem ur profilen.
+
+| Commit | Ändring | Backas |
+|---|---|---|
+| `26014dca` | Poängmodellen version 2 (`POANG_VERSION = 2`): kontaktuppgifterna som arket visar dem (`poang/kontakt.ts`, `kontaktPaArket` delas med `forberedInloggatCv`), på Ditt CV, Mallar, Analys, analysjobbets svar, sparandet, snabbpoängen och `server.ts`. Personbeskrivning lagom från 30 ord, CV:t från 150, datumformat per grupp, titlar med bindestreck och korta titlar, samtidiga roller, "sex" och tio verb. Ny ren funktion `genomgang()` med tester (`version2.test.ts`) | `git revert 26014dca` (kräver att de två nedan backas först) |
+| `67407c9d` | Analys: väggen ("{kvar} poäng kvar till 100", en knapp per läge), genomgången med sju delar som fälls ut, förslagen i sin del (låsta för gratis som förut), arket med markeringarna 1 till 6, kortet Vägen till 100, introt i tre steg, en ny analys landar i genomgången (`onAnalysisDone`, nyckel på `AnalysVy`). Ditt CV pekar på genomgången under 100; målgångens rubrik säger inte längre att CV:t är klart | `git revert 67407c9d` |
+| `54fbf59b` | Rättat efter skärmdumparna: CV:ts namn inom citattecken, statusradens "Och en till.", raden Våra förslag döljs vid noll, förslagshuvudet på telefon | `git revert 54fbf59b` |
+| (denna) | Dokumentation: `docs/poangmodell-cv-analys.md` version 2 och de här noterna | `git revert` av docs-commiten |
+
+Backa allt: `git revert 54fbf59b 67407c9d 26014dca` (i den ordningen). Inga migreringar, ingen edge-funktion ändrad.
+
+Ägarens CV (ff9f12e1): version 1 gav 80, version 2 ger 92 (kontakt 10, personbeskrivning 15, erfarenhet 33, kompetenser 12, utbildning 8, språk 0, datum och längd 14).
+
+Kontroll: tsc rent; vitest `src/lib/cv src/lib/profile src/lib/rum src/app/dashboard` 40 filer, 898 gröna (därav `src/lib/cv/poang` och `src/app/dashboard/cv-analys` 11 filer, 141 gröna). Chrome mot lokal server med fyra egna testkonton (raderade efteråt, räknat per user_id): Analys med förslag (Premium), gratis med låsta förslag, utan förslag under 100, Språk utfälld, introt, Ditt CV med poäng kvar, 1440 och 412, inga sidledsrullningar, inga tryckytor under 44 px. En riktig analys från introt landade i genomgången efter 28 s.
+
+Kända brister:
+- Arbetsläget kan inte öppnas på en viss roll; "Öppna i CV:t" går till avsnittet.
+- Ditt CV:s mätare Innehållet säger "Alla avsnitt finns" för ett CV utan språknyckel (CV-byggaren), medan genomgången räknar Språk som saknat. Oförändrat i den här omgången.
+- Hydreringsvarningen om cookie-bannern (`jc-samtycke`) syns i utvecklingsläget på alla inloggade sidor, som förut.
