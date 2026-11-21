@@ -11,7 +11,7 @@
 // Språkdatan kommer ur npm-paketet @tesseract.js-data/swe och läses
 // från disk, aldrig från ett CDN. Wasm-kärnan ligger i tesseract.js-core.
 // Båda tas med i Vercels funktionspaket via outputFileTracingIncludes i
-// next.config.ts. Själva läsningen sker i en egen arbetstråd (ocr-trad.mjs),
+// next.config.ts. Själva läsningen sker i en egen arbetstråd (ocr-trad.cjs),
 // så att en krasch där aldrig fäller processen. Saknas något i paketet blir
 // det ett utfall med skälet 'tekniskt_fel', och användaren får samma besked
 // som för en oläslig fil.
@@ -202,7 +202,7 @@ async function renderaSidor(pdfData: Uint8Array, skala: number): Promise<Buffer[
 
 /** Arbetstråden som kör tesseract.js (se filens egen kommentar). */
 function tradfil(): string {
-  return path.join(process.cwd(), 'src', 'lib', 'cv-parser', 'ocr-trad.mjs');
+  return path.join(process.cwd(), 'src', 'lib', 'cv-parser', 'ocr-trad.cjs');
 }
 
 interface SidSvar {

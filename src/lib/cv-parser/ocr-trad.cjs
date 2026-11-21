@@ -1,4 +1,4 @@
-// src/lib/cv-parser/ocr-trad.mjs
+// src/lib/cv-parser/ocr-trad.cjs
 //
 // Arbetstråden för OCR-läsningen (ocr.ts). tesseract.js körs här och inte i
 // serverfunktionens huvudtråd, av två skäl:
@@ -19,10 +19,12 @@
 // In (workerData): { bilder: Uint8Array[], sprakmapp: string, sprak: string[] }
 // Ut (postMessage): { sidor: [{ text, konfidens, glesOrd }] } eller { fel }
 
-import { parentPort, workerData } from 'node:worker_threads';
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
+// Turbopack följer sökvägen i ocr.ts hit och spårar filens beroenden, och
+// bygget kraschar på varje modulnamn den inte kan göra till en fil
+// ("NftJsonAsset: cannot handle filepath node:worker_threads", sedan
+// "tesseract.js"). Därför require med turbopackIgnore på båda; filerna
+// kommer ändå med via outputFileTracingIncludes och serverExternalPackages.
+const { parentPort, workerData } = require(/* turbopackIgnore: true */ 'worker_threads');
 
 function raknaOrd(text) {
   return (text.match(/\p{L}{2,}/gu) ?? []).length;
@@ -30,7 +32,7 @@ function raknaOrd(text) {
 
 async function kor() {
   const { bilder, sprakmapp, sprak } = workerData;
-  const tesseract = require('tesseract.js');
+  const tesseract = require(/* turbopackIgnore: true */ 'tesseract.js');
   const worker = await tesseract.createWorker(sprak, tesseract.OEM.LSTM_ONLY, {
     langPath: sprakmapp,
     gzip: true,

@@ -54,7 +54,7 @@ const nextConfig: NextConfig = {
     '/api/jobbcoachen/upload': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
     '/api/public/quick-score': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
     // Bild-PDF:er läses med OCR i funktionen (src/lib/cv-parser/ocr.ts).
-    // Vår arbetstråd (ocr-trad.mjs) och tesseract.js egen arbetstråd startas
+    // Vår arbetstråd (ocr-trad.cjs) och tesseract.js egen arbetstråd startas
     // ur filsökvägar, och kärnan läser sin .wasm från disk, så spårningen ser
     // dem inte. Med här: trådskripten och deras beroenden, kärnorna (med och
     // utan simd; tesseract.js 7 väljer i praktiken varianten utan -lstm, men
@@ -64,7 +64,7 @@ const nextConfig: NextConfig = {
     '/api/cv/upload': [
       './node_modules/@napi-rs/canvas/**/*',
       './node_modules/pdfjs-dist/legacy/build/**/*',
-      './src/lib/cv-parser/ocr-trad.mjs',
+      './src/lib/cv-parser/ocr-trad.cjs',
       './node_modules/tesseract.js/package.json',
       './node_modules/tesseract.js/src/**/*',
       './node_modules/tesseract.js/node_modules/regenerator-runtime/**/*',
