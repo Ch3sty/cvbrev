@@ -14,9 +14,8 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import RumHuvud from '@/components/rum/RumHuvud'
-import Golv from '@/components/rum/Golv'
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import Topprad from '@/components/rum/Topprad'
+import { Golv, JobbVagg, TextLank, VaggText } from '@/components/jobb3/kit'
 import { IlluProfilPentagon } from '@/components/illustrations/TestIllustrations'
 import Segmentrad from '@/components/artiklar/personlighetsprov/Segmentrad'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
@@ -39,7 +38,7 @@ export const metadata = { title: 'Din profil, hela tolkningen' }
 export const dynamic = 'force-dynamic'
 
 const PENTAGON: readonly Faktor[] = ['conscientiousness', 'extraversion', 'stability', 'agreeableness', 'openness']
-const PANEL = 'rounded-xl border border-kant bg-papper p-4 sm:p-6'
+const PANEL = 'j3-kort luft'
 const LASTEXT = 'text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]'
 
 function svensktDatum(iso: string): string {
@@ -65,9 +64,13 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
 
   return (
     <>
-    <RumHuvud title={PROFILSIDA.titel} description={PROFILSIDA.beskrivning} />
+    <JobbVagg hojd={330} hojdMobil={280} flik={false} tillbaka={{ href: INFOR_INTERVJUN_HREF, text: PROFILSIDA.eyebrow }} atgarder={<Topprad bara="atgarder" />}>
+      <div className="mt-6 xl:mt-[30px]">
+        <VaggText rubrik={PROFILSIDA.titel} ingress={PROFILSIDA.beskrivning} bredIngress />
+      </div>
+    </JobbVagg>
     <Golv>
-    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
+    <div className="w-full max-w-3xl space-y-4 xl:space-y-6">
 
       {/* 1. Profilen, som i provets resultat. */}
       <section className={PANEL} aria-labelledby="profil-rubrik">
@@ -172,20 +175,12 @@ export default async function ProfilTolkningPage({ params }: { params: Promise<{
       </section>
 
       {/* 5. Vidare. */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-        <Link
-          href={GRUNDTEST_HREF}
-          data-cta="personlighetsprov-hela-testet"
-          className={`${KNAPP_PRIMAR} sm:w-auto`}
-        >
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:gap-6">
+        {/* Kitets primärknapp som länk, så att data-cta står kvar för mätningen. */}
+        <Link href={GRUNDTEST_HREF} data-cta="personlighetsprov-hela-testet" className="j3-stor golv mellan">
           {PROFILSIDA.knapp}
         </Link>
-        <Link
-          href={INFOR_INTERVJUN_HREF}
-          className="inline-flex min-h-11 items-center justify-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-        >
-          {PROFILSIDA.lank}
-        </Link>
+        <TextLank href={INFOR_INTERVJUN_HREF}>{PROFILSIDA.lank}</TextLank>
       </div>
     </div>
     </Golv>

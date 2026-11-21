@@ -1,53 +1,49 @@
 /**
- * Jobbcoachen är en server component.
+ * Jobbcoachen (Jobbsöket omgång 1, skissen Jobbcoachen). Server component.
  *
- * Chatten är klientens, men välkomstvyns dokumentkort hänger på hur många CV
- * och brev användaren har. De räknades i en effekt som först gjorde
- * auth.getUser() över nätet och sedan två count-frågor i tur och ordning.
- * Sedan Tråden flyttade välkomstvyn upp från pt-[8%] är kortet vyns
- * LCP-element, så hela den kedjan hamnade på den kritiska vägen.
- *
- * Nu läses sessionen här och de två räknarna körs parallellt, i samma omgång
- * som sidan renderas. Frågorna är identiska med effektens, filtret på
- * user_id och is_saved ligger kvar.
+ * I en parallell omgång: dokumentantalen (samma två frågor som förut, de
+ * styr kortet Dela ditt CV eller brev), frågorna utifrån läget (motorns
+ * hamtaCoachForslag, F9) och gratisnivåns kvot (checkChatQuota, samma
+ * räkning som chattrutten gör). Vyn ligger i src/components/jobb3/coach.
  */
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import JobbcoachenClient from './JobbcoachenClient';
-import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { createServerClient } from '@/lib/supabase/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { checkChatQuota } from '@/lib/quota/quotaService'
+import { hamtaCoachForslag } from '@/lib/jobbsok/server'
+import { FASTA_FORSLAG, type CoachForslagLista } from '@/lib/jobbsok'
+import CoachVy from '@/components/jobb3/coach/CoachVy'
+
+export const metadata = { title: 'Jobbcoachen' }
+
+const FASTA: CoachForslagLista = { lage: 'fasta', forslag: FASTA_FORSLAG.map((fraga) => ({ typ: 'fast', fraga, bokstaver: null, ansokanId: null })) }
 
 export default async function JobbcoachenPage() {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
+  const supabase = createServerClient({ cookies: await cookies() })
+  const user = await hamtaVerifieradAnvandare()
+  if (!user) redirect('/login')
 
-  const user = await hamtaVerifieradAnvandare();
+  const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
+  const [cvRes, brevRes, forslag, kvot] = await Promise.all([
+    supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+    supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('is_saved', true),
+    hamtaCoachForslag(user.id).catch((e) => {
+      console.error('[jobbcoachen] Kunde inte räkna fram förslagen:', e)
+      return FASTA
+    }),
+    // Samma klient som chattrutten (service role), annars ser räkningen inga rader.
+    checkChatQuota(admin, user.id).catch(() => null),
+  ])
 
-  if (!user) redirect('/login');
-
-  let cvCount = 0;
-  let letterCount = 0;
-
-  try {
-    const [cvRes, letterRes] = await Promise.all([
-      supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id),
-      supabase
-        .from('letters')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-        .eq('is_saved', true),
-    ]);
-
-    cvCount = cvRes.count ?? 0;
-    letterCount = letterRes.count ?? 0;
-  } catch (error) {
-    // Räknarna är text i ett kort, inte funktion. Går de fel öppnas chatten
-    // ändå, med formuleringen för noll dokument.
-    console.error('Fel vid server-räkning av dokument:', error);
-  }
-
-  return <JobbcoachenClient initialCvCount={cvCount} initialLetterCount={letterCount} />;
+  return (
+    <CoachVy
+      cvAntal={cvRes.count ?? 0}
+      brevAntal={brevRes.count ?? 0}
+      forslag={forslag}
+      kvot={kvot && !kvot.isPremium ? { kvar: Math.max(0, kvot.limit - kvot.used), av: kvot.limit } : null}
+    />
+  )
 }

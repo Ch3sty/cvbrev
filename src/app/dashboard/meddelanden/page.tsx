@@ -1,62 +1,37 @@
 /**
- * Meddelanden är en server component.
+ * Meddelanden (Jobbsöket omgång 1, skissen Meddelanden). Server component.
  *
- * Förut var sidan 'use client' och kedjan såg ut så här: hydrera, fråga
- * Supabase Auth vem användaren var över nätet, måla ett skelett, montera
- * MessageHub, fetcha /api/candidate/interests, och där inne körde routen
- * auth.getUser() och sedan intressena, rekryterarprofilerna och
- * trådstatistiken. Fjorton rundturer innan första meddelandet syntes, nästan
- * alla seriella.
- *
- * Nu läses sessionen och hela intresselistan här på servern via den delade
- * getCandidateInterests, inte genom att fetcha vår egen HTTP-route. Första
- * HTML innehåller listan.
- *
- * ?interest= läses också här i stället för med useSearchParams på klienten,
- * så sidan inte behöver någon Suspense-gräns.
+ * Sessionen och hela intresselistan läses här via den delade
+ * getCandidateInterests, och ?interest= läses här, så första HTML innehåller
+ * listan och vald förfrågan. Vyn ligger i src/components/jobb3/meddelanden.
  */
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import { getCandidateInterests } from '@/lib/interests/getCandidateInterests';
-import type { CandidateInterest } from '@/components/interests/hubTypes';
-import MessageHub from '@/components/interests/MessageHub';
-import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createServerClient } from '@/lib/supabase/server'
+import { getCandidateInterests } from '@/lib/interests/getCandidateInterests'
+import type { CandidateInterest } from '@/components/interests/hubTypes'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import MeddelandenVy from '@/components/jobb3/meddelanden/MeddelandenVy'
 
-export default async function MeddelandenPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ interest?: string | string[] }>;
-}) {
-  const params = await searchParams;
-  const raw = params?.interest;
-  const deepLinkId = Array.isArray(raw) ? (raw[0] ?? null) : (raw ?? null);
+export const metadata = { title: 'Meddelanden' }
 
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
+export default async function MeddelandenPage({ searchParams }: { searchParams: Promise<{ interest?: string | string[] }> }) {
+  const params = await searchParams
+  const raw = params?.interest
+  const djuplank = Array.isArray(raw) ? (raw[0] ?? null) : (raw ?? null)
 
-  const user = await hamtaVerifieradAnvandare();
+  const supabase = createServerClient({ cookies: await cookies() })
+  const user = await hamtaVerifieradAnvandare()
+  if (!user) redirect('/login')
 
-  if (!user) {
-    redirect('/login');
-  }
-
-  let initialInterests: CandidateInterest[] = [];
-  let loadFailed = false;
-
+  let start: CandidateInterest[] = []
+  let laddfel = false
   try {
-    initialInterests = await getCandidateInterests(supabase, user.id);
+    start = await getCandidateInterests(supabase, user.id)
   } catch (error) {
-    console.error('Fel vid server-hämtning av intresseanmälningar:', error);
-    loadFailed = true;
+    console.error('Fel vid server-hämtning av intresseanmälningar:', error)
+    laddfel = true
   }
 
-  return (
-    <MessageHub
-      userId={user.id}
-      deepLinkId={deepLinkId}
-      initialInterests={initialInterests}
-      initialLoadFailed={loadFailed}
-    />
-  );
+  return <MeddelandenVy djuplank={djuplank} start={start} laddfel={laddfel} />
 }

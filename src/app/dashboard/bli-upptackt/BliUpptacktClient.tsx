@@ -1,26 +1,37 @@
 'use client';
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
-import RumHuvud from '@/components/rum/RumHuvud'
-import Golv from '@/components/rum/Golv'
-import { BLI_UPPTACKT } from '@/lib/rum/copy'
 import { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Topprad from '@/components/rum/Topprad';
+import { BLI_UPPTACKT } from '@/lib/rum/copy';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import {
+  GlasKnapp,
+  Golv,
+  IkonBock,
+  IkonLas,
+  IkonOga,
+  IkonPil,
+  JobbVagg,
+  LyftPanel,
+  PanelHuvud,
+  Punkter,
+  Spalter,
+  StorKnapp,
+  Strombrytare,
+  TILLBAKA_JOBBSOKET,
+  TonYta,
+  VaggHero,
+  VaggText,
+} from '@/components/jobb3/kit';
 
-import MasterHeader from './components/MasterHeader';
 import CvPickerCard from './components/CvPickerCard';
 import VisibilityModeCard from './components/VisibilityModeCard';
-import SectionCard from './components/SectionCard';
-import PendingInterestAlert from './components/PendingInterestAlert';
-import MessagesShortcut from './components/MessagesShortcut';
+import SectionCard, { StegKontext } from './components/SectionCard';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
-import { IlluBliUpptackt } from '@/components/illustrations/BliUpptacktIllustrations';
+import { HIDDEN_ITEMS, SHOWN_ITEMS } from './components/delas';
 import type { CollapseProps } from './components/SectionCard';
-import {
-  type CandidateProfileState,
-  type SummaryData,
-} from './components/types';
+import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type SummaryData } from './components/types';
 import type { BliUpptacktData } from './getPageData';
 
 /**
@@ -30,70 +41,64 @@ import type { BliUpptacktData } from './getPageData';
  */
 const ConsentModal = dynamic(() => import('./components/ConsentModal'));
 
-// Ligger under vecket i vänsterkolumnen, efter CV-val och synlighetsläge.
 const PitchCard = dynamic(() => import('./components/PitchCard'), {
-  loading: () => <div className="min-h-[180px]" aria-hidden="true" />,
+  loading: () => <div className="min-h-[120px]" aria-hidden="true" />,
 });
 const ContextTagsCard = dynamic(() => import('./components/ContextTagsCard'), {
-  loading: () => <div className="min-h-[140px]" aria-hidden="true" />,
+  loading: () => <div className="min-h-[100px]" aria-hidden="true" />,
 });
-
-/**
- * De fyra tyngsta korten ligger längst ned i sidan och syns aldrig utan att
- * kandidaten scrollar, men de importerades statiskt och hydrerades med
- * resten. Tillsammans är de över tusen rader, vilket syntes som fem långa
- * uppgifter på huvudtråden och sköt LCP till nära tre sekunder. Höjden
- * reserveras så att ingenting hoppar när de kommer in.
- */
 const TermsCard = dynamic(() => import('./components/TermsCard'), {
-  loading: () => <div className="min-h-[260px]" aria-hidden="true" />,
+  loading: () => <div className="min-h-[160px]" aria-hidden="true" />,
 });
 const VerifiedResultsCard = dynamic(() => import('./components/VerifiedResultsCard'), {
-  loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+  loading: () => <div className="min-h-[200px]" aria-hidden="true" />,
 });
 const RecruiterPreviewCard = dynamic(() => import('./components/RecruiterPreviewCard'), {
   loading: () => <div className="min-h-[280px]" aria-hidden="true" />,
 });
 const ProfileStrengthCard = dynamic(() => import('./components/ProfileStrengthCard'), {
-  loading: () => <div className="min-h-[240px]" aria-hidden="true" />,
+  loading: () => <div className="min-h-[200px]" aria-hidden="true" />,
+});
+const LockedWorkStylePreview = dynamic(() => import('./components/LockedWorkStylePreview'), {
+  loading: () => <div className="min-h-[220px]" aria-hidden="true" />,
 });
 
-/**
- * Den låsta förhandsvisningen ligger längst ned i vänsterkolumnen, under
- * flera kort, och syns aldrig utan att kandidaten scrollar. Höjden reserveras
- * nedan så inget hoppar när den landar.
- */
-const LockedWorkStylePreview = dynamic(
-  () => import('./components/LockedWorkStylePreview'),
-  { loading: () => <div className="min-h-[220px]" aria-hidden="true" /> }
-);
-
-// Fält vi läser/skriver i candidate_profiles. consent_version skrivs bara
-// tillsammans med consent_given_at och behöver inte ligga i UI-staten.
 type ProfilePatch = Partial<CandidateProfileState & { consent_version: string }>;
 
+const TILLBAKA = { ...TILLBAKA_JOBBSOKET, ton: 'koppar' as const };
+
+/** Talet i ord för panelens rubrik ("Fem av sex steg klara"). */
+const ORD = ['Inga', 'Ett', 'Två', 'Tre', 'Fyra', 'Fem', 'Sex', 'Sju'];
+const ORD_SMA = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju'];
+
+/** Strecken bredvid panelens rubrik: ett per steg, ifyllt när det är klart. */
+function Streck({ klara, av }: { klara: number; av: number }) {
+  return (
+    <span className="flex gap-1.5" role="img" aria-label={`${klara} av ${av} steg klara`}>
+      {Array.from({ length: av }, (_, i) => (
+        <i
+          key={i}
+          className="block h-3 w-[26px] rounded-md"
+          style={i < klara ? { background: 'var(--j3-bock)' } : { boxShadow: 'inset 0 0 0 2px var(--koppar)' }}
+        />
+      ))}
+    </span>
+  );
+}
+
 /**
- * Bli upptäckt: kandidatprofil-sidan i dashboarden. Användaren väljer vilket
- * CV som driver profilen, styr synlighet och anonymitet, anger villkor,
- * samlar verifierade testresultat och förhandsgranskar exakt vad rekryterare
- * ser. Sidan är alltid redigerbar, även när mastern är av kan användaren
- * förbereda profilen inför aktivering.
+ * Bli upptäckt (Jobbsöket omgång 1, skissen Upptackt och Upptackt-fore).
+ * Kandidaten väljer CV, styr synlighet och anonymitet, anger villkor,
+ * samlar verifierade resultat och ser exakt vad rekryterare ser.
  *
- * All startdata kommer som props från page.tsx, som läste den på servern.
- * Sidan hämtar bara om underlaget när kandidaten byter CV, och det är ett
- * medvetet klick, inte något som blockerar första vyn.
+ * Logiken är dagens: startdata från servern, sparning direkt i
+ * candidate_profiles (RLS släpper bara egna rader), samtycket i dagens
+ * dialog med dagens texter. Bara formen runt dem är rummets: väggen med
+ * strömbrytaren, panelen med stegen och spegeln bredvid.
  */
-export default function BliUpptacktClient({
-  initialData,
-  userId,
-}: {
-  initialData: BliUpptacktData;
-  userId: string;
-}) {
+export default function BliUpptacktClient({ initialData, userId }: { initialData: BliUpptacktData; userId: string }) {
   const supabase = getSupabaseClient();
   const { isCollapsed, toggle } = useCollapsedSections(initialData.collapsedSections);
-
-  // Hjälpare: bygg collapse-propsen för ett hopfällbart kort ur dess nyckel.
   const collapseFor = (key: string): CollapseProps => ({
     collapsible: true,
     collapsed: isCollapsed(key),
@@ -104,39 +109,28 @@ export default function BliUpptacktClient({
   const [summary, setSummary] = useState<SummaryData | null>(initialData.summary);
   const [saving, setSaving] = useState(false);
   const [consentOpen, setConsentOpen] = useState(false);
-  // Dialogen laddas först vid första öppningen och förblir sedan monterad, så
-  // att dess egen AnimatePresence får spela ut stängningen som förut.
   const [consentEverOpened, setConsentEverOpened] = useState(false);
   const openConsent = () => {
     setConsentEverOpened(true);
     setConsentOpen(true);
   };
-  // Senaste synliga läget, så mastern kan toggla tillbaka till rätt läge.
   const [lastMode, setLastMode] = useState<'anonymous' | 'open'>(
-    initialData.profile.visibility !== 'off'
-      ? (initialData.profile.visibility as 'anonymous' | 'open')
-      : 'anonymous'
+    initialData.profile.visibility !== 'off' ? (initialData.profile.visibility as 'anonymous' | 'open') : 'anonymous'
   );
 
   const { fullName, cvs, interests, views } = initialData;
 
-  // Byter kandidaten CV ändras underlaget, och då hämtar vi om det. Det är
-  // enda kvarvarande klienthämtningen, och den sker efter ett klick.
   const fetchSummary = useCallback(async (cvId: string | null) => {
     try {
-      const url = cvId
-        ? `/api/candidate/summary?cv_id=${encodeURIComponent(cvId)}`
-        : '/api/candidate/summary';
+      const url = cvId ? `/api/candidate/summary?cv_id=${encodeURIComponent(cvId)}` : '/api/candidate/summary';
       const res = await fetch(url);
       if (!res.ok) return;
-      const data = (await res.json()) as SummaryData;
-      setSummary(data);
+      setSummary((await res.json()) as SummaryData);
     } catch (error) {
       console.error('Bli upptäckt: kunde inte hämta summary', error);
     }
   }, []);
 
-  // Upsert: skriv patchen direkt (RLS släpper bara igenom egna rader).
   const saveProfile = useCallback(
     async (patch: ProfilePatch) => {
       setProfile((prev) => ({ ...prev, ...patch }));
@@ -146,10 +140,7 @@ export default function BliUpptacktClient({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { error } = await (supabase as any)
           .from('candidate_profiles')
-          .upsert(
-            { user_id: userId, ...patch, updated_at: new Date().toISOString() },
-            { onConflict: 'user_id' }
-          );
+          .upsert({ user_id: userId, ...patch, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
         if (error) console.error('Bli upptäckt: kunde inte spara', error);
       } finally {
         setSaving(false);
@@ -160,12 +151,8 @@ export default function BliUpptacktClient({
 
   const handleMasterToggle = () => {
     if (profile.visibility === 'off') {
-      // Första aktiveringen kräver samtycke, därefter räcker en vanlig toggle.
-      if (!profile.consent_given_at) {
-        openConsent();
-      } else {
-        saveProfile({ visibility: lastMode });
-      }
+      if (!profile.consent_given_at) openConsent();
+      else saveProfile({ visibility: lastMode });
     } else {
       setLastMode(profile.visibility as 'anonymous' | 'open');
       saveProfile({ visibility: 'off' });
@@ -176,7 +163,6 @@ export default function BliUpptacktClient({
     await saveProfile({
       visibility: 'anonymous',
       show_personality: showPersonality,
-      // Nivå 2 utan nivå 1 är meningslöst, bind dem även vid skrivning.
       show_full_workstyle: showPersonality && showFullWorkstyle,
       consent_given_at: new Date().toISOString(),
       consent_version: 'v1',
@@ -196,188 +182,210 @@ export default function BliUpptacktClient({
     saveProfile({ visibility: mode });
   };
 
-  // Tomt tillstånd (plan avsnitt 5): den som aldrig aktiverat profilen mötte
-  // tidigare hela redigeringsvyn på en gång, alltså ett tjugotal "Inte gjort",
-  // "Ej synlig", hänglås och en nolla i procent innan hon ens sagt ja till
-  // något. Nu: en illustration, en mening, en knapp. Resten av sidan finns
-  // kvar och öppnas i samma ögonblick som samtycket är givet.
+  const samtycke = consentEverOpened ? (
+    <ConsentModal
+      open={consentOpen}
+      saving={saving}
+      hasAdvancedTest={Boolean(summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport)}
+      onConfirm={handleConsentConfirm}
+      onCancel={() => setConsentOpen(false)}
+    />
+  ) : null;
+
+  /* ------------------------------------------------ före samtycket */
   if (!profile.consent_given_at) {
+    const steg = [
+      { rubrik: 'Du väljer vad som visas', under: 'CV, villkor och en kort pitch.' },
+      { rubrik: 'Rekryterare hittar profilen', under: 'De ser din bakgrund, inte vem du är.' },
+      { rubrik: 'Du godkänner varje kontakt', under: 'Först då visas ditt namn.' },
+    ];
     return (
       <>
-      <RumHuvud title={BLI_UPPTACKT.rubrik} description={BLI_UPPTACKT.radFore} />
-      <Golv>
-      <div className="w-full max-w-3xl">
-        <section className="rounded-2xl border border-kant bg-papper p-6 text-center sm:p-8">
-          <span className="tomt-symbol inline-block" aria-hidden="true">
-            <IlluBliUpptackt size={96} />
-          </span>
-          <button
-            type="button"
-            onClick={handleMasterToggle}
-            disabled={saving}
-            className={`${KNAPP_PRIMAR} mt-6 sm:w-auto`}
+        <JobbVagg hojd={420} hojdMobil={420} flik={null} tillbaka={TILLBAKA} atgarder={<Topprad bara="atgarder" />}>
+          <VaggHero
+            spalt={480}
+            glapp={40}
+            topp={8}
+            bild={
+              <ol className="j3c-trestag" aria-label="Så fungerar Bli upptäckt">
+                {steg.map((s, i) => (
+                  <li key={s.rubrik}>
+                    <div>
+                      <span aria-hidden="true">{i + 1}</span>
+                      <b>{s.rubrik}</b>
+                      <small>{s.under}</small>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            }
           >
-            Kom igång
-          </button>
-          <p className="mt-3 text-meta text-ink-3">
-            Nästa steg är att läsa igenom vad som delas. Inget syns förrän du
-            godkänt det.
-          </p>
-        </section>
-
-        {consentEverOpened && (
-          <ConsentModal
-            open={consentOpen}
-            saving={saving}
-            hasAdvancedTest={Boolean(
-              summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport
-            )}
-            onConfirm={handleConsentConfirm}
-            onCancel={() => setConsentOpen(false)}
-          />
-        )}
-      </div>
-      </Golv>
+            <VaggText rubrik={BLI_UPPTACKT.rubrik} ingress={BLI_UPPTACKT.radFore} />
+          </VaggHero>
+        </JobbVagg>
+        <Golv>
+          <LyftPanel rubrikId="fore-rubrik" luft="24px 28px 28px">
+            <PanelHuvud
+              ogon="Innan du säger ja"
+              rubrik="Bli synlig för rekryterare"
+              rubrikId="fore-rubrik"
+              hoger={<span className="j3-text">Du kan slå av synligheten när du vill.</span>}
+            />
+            <div className="mt-5 grid gap-3.5 xl:grid-cols-2">
+              <TonYta>
+                <div className="flex items-center gap-2.5 text-[var(--j3-bock)]">
+                  <IkonOga size={22} />
+                  <b className="j3c-kortrubrik">Det här visas</b>
+                </div>
+                <Punkter punkter={SHOWN_ITEMS.map((s) => ({ ikon: <IkonBock size={16} />, text: s }))} />
+              </TonYta>
+              <TonYta>
+                <div className="flex items-center gap-2.5 text-[var(--j3-ink)]">
+                  <IkonLas size={20} />
+                  <b className="j3c-kortrubrik">Det här visas aldrig</b>
+                </div>
+                <Punkter punkter={HIDDEN_ITEMS.map((s) => ({ ikon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true"><path d="M6 12h12" /></svg>, text: s }))} />
+              </TonYta>
+            </div>
+            <div className="mt-6 flex flex-col gap-4 border-t-2 border-[var(--j3-linje)] pt-6 xl:flex-row xl:items-center xl:justify-between">
+              <p className="j3-text">
+                Nästa steg är att läsa igenom vad som delas. <b>Inget syns förrän du godkänt det.</b>
+              </p>
+              <StorKnapp golv storlek="mellan" onClick={handleMasterToggle} disabled={saving}>
+                Kom igång
+                <IkonPil />
+              </StorKnapp>
+            </div>
+          </LyftPanel>
+          {samtycke}
+        </Golv>
       </>
     );
   }
 
+  /* ------------------------------------------------ efter samtycket */
+  const synlig = profile.visibility !== 'off';
+  const bryterRubrik = !synlig ? 'Inte sökbar' : profile.visibility === 'anonymous' ? 'Sökbar för rekryterare, anonym' : 'Sökbar för rekryterare, öppen';
+  const harTaggar = (summary?.personality?.contextTagOptions?.length ?? 0) > 0;
+  const termsDone = !!profile.availability && profile.regions.length > 0 && profile.workplace.length > 0;
+  const resultatKlart =
+    !!summary &&
+    ((Object.keys(FAMILY_LABELS) as FamilyKey[]).some((k) => summary.results[k]?.done) || summary.personality.done);
+  const stegLista: { nyckel: string; klar: boolean }[] = [
+    { nyckel: 'cv', klar: !!profile.cv_id },
+    { nyckel: 'synlighet', klar: synlig },
+    { nyckel: 'villkor', klar: termsDone },
+    { nyckel: 'pitch', klar: (profile.pitch ?? '').trim().length > 0 },
+    ...(harTaggar ? [{ nyckel: 'kontexttaggar', klar: profile.context_tags.length > 0 }] : []),
+    { nyckel: 'resultat', klar: resultatKlart },
+  ];
+  const nr = (nyckel: string) => stegLista.findIndex((s) => s.nyckel === nyckel) + 1;
+  const klar = (nyckel: string) => stegLista.find((s) => s.nyckel === nyckel)?.klar ?? false;
+  const antalKlara = stegLista.filter((s) => s.klar).length;
+  const stegRubrik = antalKlara === stegLista.length ? 'Profilen är klar' : `${ORD[antalKlara] ?? antalKlara} av ${ORD_SMA[stegLista.length]} steg klara`;
+  // En funktion, inte en komponent: en komponent definierad här skulle
+  // monteras om vid varje sparning och tappa kortens egen state.
+  const steg = (nyckel: string, kort: React.ReactNode, id?: string) => (
+    <div key={nyckel} id={id} className="j3c-stegwrap scroll-mt-24">
+      <StegKontext.Provider value={{ nr: nr(nyckel), klar: klar(nyckel) }}>{kort}</StegKontext.Provider>
+    </div>
+  );
+  const tittat = synlig && views && views.total > 0 ? views.total : null;
+
   return (
     <>
-    <RumHuvud
-      title={BLI_UPPTACKT.rubrik}
-      description={
-        profile.visibility !== 'off'
-          ? [BLI_UPPTACKT.radEfter, views && views.total > 0 ? BLI_UPPTACKT.tittat(views.total) : null]
-              .filter(Boolean)
-              .join(' ')
-          : undefined
-      }
-    />
-    <Golv>
-    <div className="w-full max-w-6xl">
-      {/* Full bredd överst: master, larm, genväg till meddelanden */}
-      <div className="space-y-4 sm:space-y-5">
-        <MasterHeader
-          visibility={profile.visibility}
-          saving={saving}
-          onToggle={handleMasterToggle}
-        />
-
-        {/* Prioriterat larm: obesvarade intressen syns direkt, längst upp. */}
-        <PendingInterestAlert pending={interests.pending} />
-
-        {/* Meddelanden ligger högt upp, det är målet med hela sidan. */}
-        <MessagesShortcut
-          pending={interests.pending}
-          unread={interests.unread}
-          total={interests.total}
-        />
-      </div>
-
-      {/* Tvåkolumns: bygg profilen till vänster, se hur du syns till höger */}
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_372px] gap-6 items-start">
-        {/* VÄNSTER: redigering */}
-        <div className="flex flex-col gap-4">
-          <ZoneLabel>Bygg din profil</ZoneLabel>
-
-          <CvPickerCard
-            cvs={cvs}
-            selectedId={profile.cv_id}
-            onSelect={handleSelectCv}
-            collapse={collapseFor('cv')}
+      <JobbVagg
+        hojd={472}
+        hojdMobil={420}
+        flik={null}
+        tillbaka={TILLBAKA}
+        handling={interests.total > 0 ? <GlasKnapp href="/dashboard/meddelanden">{interests.unread + interests.pending > 0 ? `Dina meddelanden (${interests.unread + interests.pending})` : 'Dina meddelanden'}</GlasKnapp> : undefined}
+        atgarder={<Topprad bara="atgarder" />}
+      >
+        <VaggHero
+          spalt={500}
+          glapp={40}
+          topp={8}
+          bild={
+            tittat || interests.pending > 0 ? (
+              <div className="w-full xl:w-[580px]">
+                {tittat ? (
+                  <div className="j3c-tittat">
+                    <span className="j3c-tittat-tal">{tittat}</span>
+                    <span className="j3c-tittat-text">
+                      rekryterare har
+                      <b>sett profilen</b>
+                    </span>
+                  </div>
+                ) : null}
+                {interests.pending > 0 ? (
+                  <div className="j3c-forfragan">
+                    <div>
+                      <p className="j3-ogon-golv">Väntar på ditt svar</p>
+                      <b>{interests.pending === 1 ? 'En rekryterare vill komma i kontakt' : `${interests.pending} rekryterare vill komma i kontakt`}</b>
+                    </div>
+                    <StorKnapp storlek="lag" href="/dashboard/meddelanden">
+                      Öppna förfrågan
+                      <IkonPil size={18} />
+                    </StorKnapp>
+                  </div>
+                ) : null}
+              </div>
+            ) : undefined
+          }
+        >
+          <VaggText
+            rubrik={BLI_UPPTACKT.rubrik}
+            ingress={synlig ? [BLI_UPPTACKT.radEfter, views && views.total > 0 ? BLI_UPPTACKT.tittat(views.total) : null].filter(Boolean).join(' ') : BLI_UPPTACKT.radFore}
           />
-
-          <VisibilityModeCard
-            visibility={profile.visibility}
-            lastMode={lastMode}
-            onChange={handleModeChange}
-            collapse={collapseFor('synlighet')}
-          />
-
-          <div id="villkor" className="scroll-mt-24">
-            <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />
-          </div>
-
-          <div id="pitch" className="scroll-mt-24">
-            <PitchCard
-              pitch={profile.pitch}
-              onSave={(pitch) => saveProfile({ pitch })}
-              collapse={collapseFor('pitch')}
+          <div className="mt-6 xl:mt-7">
+            <Strombrytare
+              pa={synlig}
+              rubrik={bryterRubrik}
+              text={synlig ? 'Slå av när du vill. Då syns du inte alls.' : 'Slå på för att synas i kandidatpoolen igen.'}
+              onClick={handleMasterToggle}
+              disabled={saving}
             />
           </div>
+        </VaggHero>
+      </JobbVagg>
 
-          {/* Kontexttaggar: bara när kandidaten har kvalificerade förslag */}
-          {(summary?.personality?.contextTagOptions?.length ?? 0) > 0 && (
-            <div id="kontexttaggar" className="scroll-mt-24">
-              <ContextTagsCard
-                options={summary!.personality.contextTagOptions}
-                selected={profile.context_tags}
-                onChange={(context_tags) => saveProfile({ context_tags })}
-              />
-            </div>
-          )}
+      <Golv>
+        <Spalter sido={420} tat>
+          <div>
+            <LyftPanel rubrikId="bygg-rubrik" luft="22px 28px 28px">
+              <PanelHuvud ogon="Bygg din profil" rubrik={stegRubrik} rubrikId="bygg-rubrik" hoger={<Streck klara={antalKlara} av={stegLista.length} />} hogerAlltid mitt />
+              <div className="mt-3">
+                {steg('cv', <CvPickerCard cvs={cvs} selectedId={profile.cv_id} onSelect={handleSelectCv} collapse={collapseFor('cv')} />)}
+                {steg('synlighet', <VisibilityModeCard visibility={profile.visibility} lastMode={lastMode} onChange={handleModeChange} collapse={collapseFor('synlighet')} />)}
+                {steg('villkor', <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />, 'villkor')}
+                {steg('pitch', <PitchCard pitch={profile.pitch} onSave={(pitch) => saveProfile({ pitch })} collapse={collapseFor('pitch')} />, 'pitch')}
+                {harTaggar
+                  ? steg('kontexttaggar', <ContextTagsCard options={summary!.personality.contextTagOptions} selected={profile.context_tags} onChange={(context_tags) => saveProfile({ context_tags })} />, 'kontexttaggar')
+                  : null}
+                {steg('resultat', <VerifiedResultsCard summary={summary} profile={profile} onPatch={saveProfile} collapse={collapseFor('arbetsstil')} />, 'arbetsstilsrapport')}
+              </div>
+            </LyftPanel>
 
-          <div id="arbetsstilsrapport" className="scroll-mt-24">
-            <VerifiedResultsCard
-              summary={summary}
-              profile={profile}
-              onPatch={saveProfile}
-              collapse={collapseFor('arbetsstil')}
-            />
+            {summary && !summary.personality.hasAdvancedTest ? (
+              <div className="mt-[30px] xl:mt-10">
+                <SectionCard
+                  title="Din arbetsstilsrapport väntar"
+                  sub="Det fördjupade testet bygger en rapport i ord om hur du arbetar, samarbetar och drivs. Du väljer själv om rekryterare får se den."
+                >
+                  <LockedWorkStylePreview />
+                </SectionCard>
+              </div>
+            ) : null}
           </div>
 
-          {/* Grundtestare: låst förhandsvisning av rapporten som konverteringsyta */}
-          {summary && !summary.personality.hasAdvancedTest && (
-            <SectionCard
-              title="Din arbetsstilsrapport väntar"
-              sub="Det fördjupade testet bygger en rapport i ord om hur du arbetar, samarbetar och drivs. Du väljer själv om rekryterare får se den."
-              delay={0.22}
-            >
-              <LockedWorkStylePreview />
-            </SectionCard>
-          )}
-        </div>
-
-        {/* HÖGER: spegel som följer med när du scrollar */}
-        <div className="flex flex-col gap-4 lg:sticky lg:top-6 self-start">
-          <ZoneLabel>Så syns du</ZoneLabel>
-
-          <RecruiterPreviewCard
-            profile={profile}
-            summary={summary}
-            cvs={cvs}
-            fullName={fullName}
-            lastMode={lastMode}
-          />
-
-          <ProfileStrengthCard profile={profile} summary={summary} views={views} />
-        </div>
-      </div>
-
-      {consentEverOpened && (
-        <ConsentModal
-          open={consentOpen}
-          saving={saving}
-          hasAdvancedTest={Boolean(
-            summary?.personality?.hasAdvancedTest && summary.personality.workStyleReport
-          )}
-          onConfirm={handleConsentConfirm}
-          onCancel={() => setConsentOpen(false)}
-        />
-      )}
-    </div>
-    </Golv>
+          <aside className="mt-[30px] flex flex-col gap-6 self-start xl:sticky xl:top-6 xl:mt-[52px]" aria-label="Så syns du">
+            <RecruiterPreviewCard profile={profile} summary={summary} cvs={cvs} fullName={fullName} lastMode={lastMode} />
+            <ProfileStrengthCard profile={profile} summary={summary} views={views} />
+          </aside>
+        </Spalter>
+        {samtycke}
+      </Golv>
     </>
-  );
-}
-
-/** Tunn zonrubrik som delar sidan i begripliga delar. */
-function ZoneLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 px-0.5 pt-1">
-      <h2 className="text-sm font-medium text-ink-3">{children}</h2>
-      <span className="h-px flex-1 bg-kant" aria-hidden="true" />
-    </div>
   );
 }

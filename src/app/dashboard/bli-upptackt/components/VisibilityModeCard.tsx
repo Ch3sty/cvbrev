@@ -55,7 +55,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
       </div>
       {!isOn && (
         <p className="mt-2.5 text-meta text-ink-3">
-          Slå på synligheten uppe till höger för att välja läge.
+          Slå på synligheten överst på sidan för att välja läge.
         </p>
       )}
     </SectionCard>

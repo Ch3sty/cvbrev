@@ -1,6 +1,7 @@
 /**
  * Intervjusvaret, bedömt (docs/design/intervjuprov-spec-2026-09-23.md,
- * avsnitt 5, ägarens beslut 1).
+ * avsnitt 5, ägarens beslut 1), i rummets form sedan Jobbsöket omgång 1
+ * (skissen Intervju-bedomt, vyn i src/components/jobb3/intervju/BedomtVy).
  *
  * Landningen efter claim, och det enda stället där hela återkopplingen och
  * det omskrivna svaret visas. Serverrenderad: raden läses med
@@ -11,52 +12,19 @@
  * Ingen betalvägg: allt här är redan betalt med kontot.
  */
 
-import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import RumHuvud from '@/components/rum/RumHuvud'
-import Golv from '@/components/rum/Golv'
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
-import StatusRow from '@/components/shell/StatusRow'
-import { INFOR_INTERVJUN_HREF, nyttProvHref } from '@/lib/intervju/lankar'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprak } from '@/lib/intervju/rad'
-import { klippNiva } from '@/lib/intervju/validering'
-import { FRAGOR } from '@/components/artiklar/intervjuprov/fragor'
-import { COPY, NIVA_ETIKETTER } from '@/components/artiklar/intervjuprov/intervjuprov-copy'
+import { hamtaProv } from '@/lib/intervju/data'
+import { hamtaIntervjuerPaGang } from '@/lib/jobbsok/server'
+import BedomtVy from '@/components/jobb3/intervju/BedomtVy'
 
 export const metadata = { title: 'Ditt intervjusvar' }
 export const dynamic = 'force-dynamic'
 
-const S = COPY.sida
-
-function svensktDatum(iso: string): string {
-  return new Intl.DateTimeFormat('sv-SE', {
-    day: 'numeric',
-    month: 'long',
-    timeZone: 'Europe/Stockholm',
-  }).format(new Date(iso))
-}
-
-/** Hakparenteserna i det omskrivna svaret markeras så att de syns. */
-function medPlatshallare(text: string) {
-  return text.split(/(\[[^\]]{1,80}\])/g).map((del, i) =>
-    /^\[[^\]]+\]$/.test(del) ? (
-      <mark key={i} className="rounded bg-papper px-0.5 text-ink-1 outline outline-1 outline-kant-stark">
-        {del}
-      </mark>
-    ) : (
-      <span key={i}>{del}</span>
-    )
-  )
-}
-
-export default async function IntervjuSvarPage({
-  params,
-}: {
-  params: Promise<{ token: string }>
-}) {
+export default async function IntervjuSvarPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params
   const user = await hamtaVerifieradAnvandare()
   if (!user) redirect('/login')
@@ -65,111 +33,10 @@ export default async function IntervjuSvarPage({
   const rad = await hamtaEllerGorAnsprak(admin, token, user.id)
   if (!rad) notFound()
 
-  const fraga = FRAGOR[rad.question]
-  const niva = klippNiva(rad.level)
-  const punkter = rad.full?.points ?? []
+  const [prov, intervjuer] = await Promise.all([
+    hamtaProv(admin, user.id, 200),
+    hamtaIntervjuerPaGang(user.id).catch(() => []),
+  ])
 
-  return (
-    <>
-    <RumHuvud title={S.titel} description={S.beskrivning} />
-    <Golv>
-    <div className="w-full max-w-3xl space-y-4 sm:space-y-6">
-
-      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
-        <blockquote className="border-l-[3px] border-koppar py-0.5 pl-3 font-display text-lg font-semibold leading-6 tracking-[-0.01em] text-ink-1 sm:text-xl sm:leading-[26px]">
-          {COPY.fraga(fraga.text)}
-        </blockquote>
-
-        <h2 className="mt-4 text-sm font-medium text-ink-2">{S.dittSvar}</h2>
-        <p className="mt-1 whitespace-pre-line rounded-lg border border-kant bg-papper-2 p-3 text-base leading-6 text-ink-1 ">
-          {rad.answer}
-        </p>
-
-        <p className="mt-6 text-steg uppercase text-ink-3">{COPY.resultat.eyebrow}</p>
-        <div className="mt-2 flex items-baseline gap-2.5">
-          <span className="text-tal-display text-ink-1">{niva}</span>
-          <span className="text-sm text-ink-3">{COPY.resultat.av}</span>
-        </div>
-        <div className="mt-2.5 grid grid-cols-5 gap-1" aria-hidden="true">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <span key={n} className={`h-1.5 rounded-[3px] ${n <= niva ? 'bg-ink-1' : 'bg-papper-2'}`} />
-          ))}
-        </div>
-        <p className="mt-2.5 text-varde text-ink-1">
-          {NIVA_ETIKETTER[niva]}. {rad.summary}
-        </p>
-
-        <ul className="mt-4 grid gap-3 border-t border-kant pt-4">
-          <li className="grid grid-cols-[10px_1fr] items-start gap-2.5">
-            <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-positiv" aria-hidden="true" />
-            <div>
-              <p className="text-sm font-semibold text-ink-1">{COPY.punkt.fungerar}</p>
-              <p className="text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]">{rad.works}</p>
-            </div>
-          </li>
-          <li className="grid grid-cols-[10px_1fr] items-start gap-2.5">
-            <span className="mt-1.5 h-2.5 w-2.5 rounded-full bg-varning" aria-hidden="true" />
-            <div>
-              <p className="text-sm font-semibold text-ink-1">{COPY.punkt.saknas}</p>
-              <p className="text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]">{rad.missing}</p>
-            </div>
-          </li>
-        </ul>
-      </section>
-
-      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
-        <h2 className="text-kort text-ink-1">{fraga.starChips ? S.aterkopplingStar : S.aterkoppling}</h2>
-        <ol className="mt-3 grid gap-4">
-          {punkter.map((p, i) => (
-            <li key={i} className="grid grid-cols-[24px_1fr] items-start gap-2">
-              <span className="text-sm font-semibold tabular-nums text-ink-3">{i + 1}.</span>
-              <div>
-                <p className="text-sm font-semibold text-ink-1">{p.title}</p>
-                <p className="mt-0.5 text-sm leading-[22px] text-ink-2 sm:text-[15px] sm:leading-[23px]">{p.text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="rounded-xl border border-kant bg-papper p-4 sm:p-6">
-        <h2 className="text-kort text-ink-1">{S.omskrivet}</h2>
-        {rad.improved_why ? <p className="mt-1 text-sm leading-[22px] text-ink-2">{rad.improved_why}</p> : null}
-        <p className="mt-3 whitespace-pre-line rounded-lg border border-kant bg-papper-2 p-3 text-base leading-6 text-ink-1 ">
-          {medPlatshallare(rad.improved_answer)}
-        </p>
-        <p className="mt-2 text-meta text-ink-3">
-          {S.platshallare}
-          {rad.expires_at ? ` ${S.sparasTill(svensktDatum(rad.expires_at))}` : null}
-        </p>
-
-        <Link
-          href={nyttProvHref()}
-          data-cta="intervjuprov-nasta-fraga"
-          className={`mt-4 ${KNAPP_PRIMAR} sm:w-auto`}
-        >
-          {S.knapp}
-        </Link>
-      </section>
-
-      {/* Sist: var provet ligger (docs/design/rod-trad-prov-spec-2026-09-24.md, beslut 4). */}
-      <StatusRow
-        tone="positive"
-        showDot
-        wrap
-        action={
-          <Link
-            href={INFOR_INTERVJUN_HREF}
-            className="inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
-          >
-            {S.radLank}
-          </Link>
-        }
-      >
-        {S.rad}
-      </StatusRow>
-    </div>
-    </Golv>
-    </>
-  )
+  return <BedomtVy rad={rad} prov={prov} intervjuer={intervjuer} />
 }
