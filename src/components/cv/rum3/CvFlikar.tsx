@@ -27,7 +27,8 @@ export default function CvFlikar({ aktiv, cvId }: CvFlikarProps) {
             className="t3-flik"
             data-flik={f.id}
             aria-current={ar ? 'page' : undefined}
-            prefetch={ar ? false : undefined}
+            // Ingen förhämtning: flikarna visar alltid färska tal (forhamtaCvSida i flikar.ts).
+            prefetch={false}
           >
             <b>{f.namn}</b>
             <small className="hidden md:block">{f.rad}</small>

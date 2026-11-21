@@ -40,6 +40,7 @@ import { DORR_IKON } from './Dorrnav'
 import { useRum } from './RumKontext'
 import { markeraRumYta } from './rumMatning'
 import { KURVAN_HREF } from '@/lib/traning/rutter'
+import { forhamtaCvSida } from '@/components/cv/rum3/flikar'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
@@ -233,7 +234,7 @@ export default function Sidomeny() {
             <Link
               key={d.rum}
               href={d.href}
-              prefetch
+              prefetch={forhamtaCvSida(d.href)}
               onClick={() => markeraRumYta('sidomeny')}
               aria-current={pa && aktiv?.href === d.href ? 'page' : undefined}
               className={`flex h-12 items-center gap-3 rounded-xl px-3 text-[15px] font-semibold ${
@@ -283,7 +284,7 @@ export default function Sidomeny() {
             <Link
               key={u.href}
               href={u.href}
-              prefetch
+              prefetch={forhamtaCvSida(u.href)}
               onClick={() => markeraRumYta('sidomeny')}
               aria-current={pa ? 'page' : undefined}
               className={`flex h-10 items-center justify-between gap-2 px-3 text-sm ${

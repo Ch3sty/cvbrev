@@ -22,6 +22,18 @@ export const CV_FLIKAR: readonly { id: CvFlik; href: string; namn: string; rad: 
   { id: 'analys', href: ANALYS_HREF, namn: 'Analys', rad: 'Poängen och vad som drar ner', radKort: 'Vad som drar ner' },
 ]
 
+/**
+ * Förhämtas länken? CV-rummets tre sidor förhämtas inte (false): en
+ * förhämtad sida ligger kvar i routerns minne i minuter, och efter en
+ * nedladdning, en sparning i arbetsläget eller en analys visade Ditt CV,
+ * Mallar och Analys då gamla tal och "Inte nedladdat än" tills sidan
+ * laddades om. Övriga länkar förhämtas som förut (true).
+ */
+export function forhamtaCvSida(href: string): boolean {
+  const vag = href.split('?')[0]
+  return vag !== DITT_CV_HREF && vag !== MALLAR_HREF && vag !== ANALYS_HREF
+}
+
 /** Fliken med CV:t i adressen. Utan id: fliken som den är (senaste aktiva CV:t). */
 export function flikHref(flik: CvFlik, cvId?: string | null, extra?: Record<string, string>): string {
   const href = CV_FLIKAR.find((f) => f.id === flik)!.href
