@@ -11,6 +11,7 @@
 import type { BrevData } from './brevmall/typer'
 import { getDocxTemplate, DOCX_TEMPLATES, type DocxTemplateId } from './docx-templates'
 import { getFontFamilyForHTML } from '@/lib/documents/typsnitt'
+import { renderBrevHtml } from './brevmall'
 
 export interface BrevValForRitning {
   /** CV-mallens id. Null = gammalt brev i en av de sex gamla mallarna. */
@@ -67,14 +68,10 @@ function ritaIGammalMall(val: BrevValForRitning, data: BrevData): string {
 /**
  * Brevet som fristående HTML-dokument.
  *
- * SAMMANSLAGNING (arket, src/lib/letters/brevmall/index.ts): byt raden
- * märkt BREVMALL nedan mot
- *   if (val.mall_id) return renderBrevHtml(val.mall_id, data, { typsnitt: val.font_id ?? null })
- * och lägg till importen `import { renderBrevHtml } from './brevmall'`.
- * Brev utan mall_id ritas i sin gamla mall som förut.
+ * Brev med mall_id ritas av brevmallen (src/lib/letters/brevmall), som läser
+ * CV-mallens definition. Brev utan mall_id ritas i sin gamla mall som förut.
  */
 export function ritaBrevHtml(val: BrevValForRitning, data: BrevData): string {
-  // BREVMALL: tills brevmallen är sammanslagen ritas även nya brev i den gamla mallen.
-  if (val.mall_id) return ritaIGammalMall({ ...val, template_id: 'classic' }, data)
+  if (val.mall_id) return renderBrevHtml(val.mall_id, data, { typsnitt: val.font_id ?? null })
   return ritaIGammalMall(val, data)
 }

@@ -16,8 +16,9 @@ import { getFontFamilyForHTML, getFontNameForDocx } from '@/lib/documents/typsni
 import { renderBrevHtml, byggBrevDocx, brevMallDef, BREV_DOCX_MIME } from '@/lib/letters/brevmall';
 import { harWord } from '@/lib/cv/mallar/katalog';
 import { baddaInTypsnitt } from '@/lib/cv/mallar/typsnitt-inbaddning';
-// TODO(motorn): ersätts av motorns brevDataFranBrev(letter, profil) i src/lib/letters/ vid sammanslagningen.
-import { brevDataFranBrev, type BrevRad } from './brev-data';
+import { brevDataFranBrev } from '@/lib/letters/brevData';
+import { hamtaBrevProfil, markeraForberett } from '@/lib/letters/server';
+import type { Letter } from '@/store/letter-store';
 
 /**
  * Genererar PDF med Puppeteer från redan genererad HTML
@@ -262,7 +263,7 @@ async function nyttBrevSomFil(
     return NextResponse.json({ error: 'Serverfel vid hämtning av brevet' }, { status: 500 });
   }
   if (!rad) return NextResponse.json({ error: 'Brevet kunde inte hittas' }, { status: 404 });
-  const brev = rad as BrevRad;
+  const brev = rad as Letter;
   if (!brev.mall_id) return null;
   if (format !== 'pdf' && format !== 'docx') return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
 
@@ -270,9 +271,9 @@ async function nyttBrevSomFil(
   if (!profileData?.full_name || !profileData.full_name.trim()) {
     return NextResponse.json({ error: 'name_required' }, { status: 422 });
   }
-  const kontakt = kontaktIBrev(profileData, user as Parameters<typeof kontaktIBrev>[1]);
-  // TODO(motorn): byt importen mot motorns brevDataFranBrev i src/lib/letters/ vid sammanslagningen.
-  const data = brevDataFranBrev(brev, { namn: kontakt.namn, epost: kontakt.epost, telefon: kontakt.telefon, ort: kontakt.ort });
+  // Samma data som vyerna ritar arket av: avsändaren ur profilen, yrkestiteln ur brevets CV.
+  const { profil } = await hamtaBrevProfil(supabase as any, user.id, brev.cv_id ?? null);
+  const data = brevDataFranBrev(brev, profil ?? (profileData as any), user);
   const val = { typsnitt: brev.font_id ?? null };
   const namn = filnamn(brev.title || brev.job_title || 'Ansökningsbrev');
 
@@ -294,16 +295,11 @@ async function nyttBrevSomFil(
 
   logPremiumUsage(user.id, 'letter_download', { format });
 
-  // Brevets väg: första nedladdningen sätter forberett_at (byggspecen avsnitt 3).
-  // Kolumnen är motorns; ett fel här får aldrig stoppa filen.
+  // Brevets väg: första nedladdningen märker brevet som förberett. Ett fel här får aldrig stoppa filen.
   try {
-    await (supabase.from('letters') as any)
-      .update({ forberett_at: new Date().toISOString() })
-      .eq('id', brevId)
-      .eq('user_id', user.id)
-      .is('forberett_at', null);
+    await markeraForberett(supabase as any, user.id, brevId, 'nedladdat');
   } catch (e) {
-    console.error('forberett_at kunde inte sättas:', e);
+    console.error('Brevet kunde inte märkas som nedladdat:', e);
   }
 
   const svar = new NextResponse(new Uint8Array(fil));
