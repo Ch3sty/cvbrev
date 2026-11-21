@@ -499,22 +499,25 @@ describe('gamla analyser och gratisnivån', () => {
     const f = FIXTURER.find((x) => x.namn === 'normalt')!
     const a = analysFor(f)
     const gated = medSammanfattning(gateAnalysisResult(a, false) as Record<string, unknown>)
+    const profilSynlig = gated.profileSummary ? 1 : 0
     const synliga =
+      profilSynlig +
       (gated.roleBasedImprovements as unknown[]).length +
       (gated.skillSuggestions as unknown[]).length +
       (gated.generalImprovements as unknown[]).length
+    // Exakt ett fynd med åtgärd: profilförslaget räknas som ett fynd.
     expect(synliga).toBe(1)
-    const meta = gated.gated as { findingsTotal: number; lockedFindings: unknown[] }
-    expect(meta.findingsTotal).toBe(9)
-    expect(meta.lockedFindings).toHaveLength(8)
-    // Profilen är gratis, som förut.
-    expect(gated.profileSummary).toBeTruthy()
-    // Det synliga fyndet är det med störst plus bland roller och kompetenser.
+    const meta = gated.gated as { findingsTotal: number; lockedFindings: Array<{ id: string; title: string }> }
+    expect(meta.findingsTotal).toBe(10)
+    expect(meta.lockedFindings).toHaveLength(9)
+    // Det synliga fyndet är det med störst plus bland profil, roller och kompetenser.
     const allaPlus = [
+      a.profileSummary as { atsImpact: number },
       ...(a.roleBasedImprovements as Array<{ atsImpact: number }>),
       ...(a.skillSuggestions as Array<{ atsImpact: number }>),
     ].map((x) => x.atsImpact)
     const synlig = [
+      ...(gated.profileSummary ? [gated.profileSummary as { atsImpact: number }] : []),
       ...(gated.roleBasedImprovements as Array<{ atsImpact: number }>),
       ...(gated.skillSuggestions as Array<{ atsImpact: number }>),
     ][0]

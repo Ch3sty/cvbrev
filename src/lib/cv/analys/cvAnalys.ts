@@ -18,15 +18,15 @@ import type { AnalysUnderlag } from '@/lib/rum/cvRum'
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult'
 
 /**
- * Fynden gratisnivån får med åtgärd: profilen och det gateAnalysisResult
- * släpper, som fyndens nycklar (profil, roll-<i>, kompetenser). Samma regel
- * som Analys-sidan och analysflödet, så Ditt CV aldrig lovar en annan.
+ * Fynden gratisnivån får med åtgärd: det gateAnalysisResult släpper (det
+ * tyngsta fyndet), som fyndens nycklar (profil, roll-<i>, kompetenser).
+ * Samma regel som Analys-sidan och analysflödet, så Ditt CV aldrig lovar en
+ * annan.
  */
 export function friaNycklarFor(analys: Record<string, unknown>): string[] {
   const ut: string[] = []
-  const p = analys.profileSummary as { plus?: unknown } | null | undefined
-  if (p && typeof p === 'object') ut.push('profil')
   const g = gateAnalysisResult(analys, false) as Record<string, unknown>
+  if (g.profileSummary && typeof g.profileSummary === 'object') ut.push('profil')
   const roller = Array.isArray(analys.roleBasedImprovements) ? (analys.roleBasedImprovements as Array<Record<string, unknown>>) : []
   for (const r of (Array.isArray(g.roleBasedImprovements) ? g.roleBasedImprovements : []) as Array<Record<string, unknown>>) {
     const i = roller.findIndex((x) => x.rollIndex === r.rollIndex)

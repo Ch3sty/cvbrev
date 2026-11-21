@@ -4,8 +4,8 @@
  * Byggs på servern ur analysraden och CV-raden. Alla tal kommer ur
  * poängmodellen (src/lib/cv/poang): poängen i dag, "med våra förslag",
  * varje fynds verkliga plus och uppdelningen per kategori. Gratisnivån får
- * åtgärdstexten bara för det som servern redan släpper (profilförslaget och
- * det tyngsta fyndet, gateAnalysisResult); övriga fynd går ut som rubrik och
+ * åtgärdstexten bara för det som servern redan släpper (det tyngsta fyndet,
+ * gateAnalysisResult, också när det är profilförslaget); övriga fynd går ut som rubrik och
  * plus, utan text. Klientsäker data, ingen funktion i resultatet.
  */
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
@@ -118,11 +118,13 @@ export function byggAnalysVy(
   const fynd: AnalysFynd[] = []
   const bygg = (val: Val) => byggForbattratCv(full, val)
 
-  // Sammanfattningen: profilförslaget är gratis för alla.
+  // Sammanfattningen: öppen för gratis bara när servern släpper den (det
+  // tyngsta fyndet), som rollerna och kompetenserna.
   const profil = arObj(full.profileSummary) ? full.profileSummary : null
   const profilPlus = typeof profil?.plus === 'number' ? profil.plus : 0
   if (profil && profilPlus > 0) {
     const val: Val = { profil: true, roller: [], kompetenser: [] }
+    const oppen = harFull || arObj(synligt.profileSummary)
     fynd.push({
       nyckel: 'profil',
       typ: 'profil',
@@ -130,11 +132,15 @@ export function byggAnalysVy(
       meta: `Personbeskrivning. ${paverkan(profilPlus)}`,
       plus: profilPlus,
       sektion: 'profil',
-      oppen: true,
-      nuvarande: text(bas.summary),
-      forslag: text(profil.improvedText),
-      andrat: andringar(bas, bygg(val)),
-      fyllI: harPlatshallare(profil.improvedText),
+      oppen,
+      ...(oppen
+        ? {
+            nuvarande: text(bas.summary),
+            forslag: text(profil.improvedText),
+            andrat: andringar(bas, bygg(val)),
+            fyllI: harPlatshallare(profil.improvedText),
+          }
+        : {}),
     })
   }
 

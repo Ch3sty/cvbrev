@@ -1,7 +1,11 @@
-// Gratisnivån ser läsbarhetspoängen, sammanfattningen och det tyngsta fyndet
-// i klartext med åtgärd (docs/plan-paket-och-onboarding.md, ägarens beslut 2,
+// Gratisnivån ser läsbarhetspoängen, antalet fynd och det tyngsta fyndet i
+// klartext med åtgärd (docs/plan-paket-och-onboarding.md, ägarens beslut 2,
 // 2026-09-22). Övriga fynd skickas som rubrik utan åtgärdstext, alltså
 // { id, category, severity, title, locked: true }.
+//
+// Profilförslaget (personbeskrivningen) är ett fynd som de andra sedan
+// CV-rummets slutkontroll 2026-11-21: det är öppet bara när det är det
+// tyngsta. Förut följde det alltid med, så gratisnivån fick två åtgärder.
 //
 // Filtreringen är serverside och deterministisk. Servern skickar aldrig full
 // text som klienten sedan döljer: att blurra riktig text med CSS vore ingen
@@ -39,6 +43,8 @@ export interface GatedAnalysisMeta {
  */
 function lockedTitle(item: unknown, list: Candidate['list'], category: string): string {
   const o = (item ?? {}) as Record<string, unknown>
+
+  if (list === 'profile') return 'Sammanfattningen'
 
   if (list === 'roles') {
     const roll = typeof o.roleTitle === 'string' ? o.roleTitle.trim() : ''
@@ -102,21 +108,21 @@ interface Candidate {
   severity: 'high' | 'medium' | 'low'
   impact: number
   /** Vilken lista fyndet kom ur, och var i listan */
-  list: 'roles' | 'skills' | 'general'
+  list: 'profile' | 'roles' | 'skills' | 'general'
   index: number
 }
 
 const SEVERITY_ORDER: Record<'high' | 'medium' | 'low', number> = { high: 0, medium: 1, low: 2 }
 
 /**
- * Fälten gratisnivån får ur analysresultatet utöver de filtrerade listorna:
- * hennes eget CV, poängen och profilförslaget (som är gratis).
+ * Fälten gratisnivån får ur analysresultatet utöver de filtrerade listorna
+ * och profilförslaget (bara när det är det tyngsta fyndet): hennes eget CV
+ * och poängen.
  */
 const SAKRA_FALT = [
   'id',
   'display_name',
   'analysisType',
-  'profileSummary',
   'structuredCV',
   'formattedPreview',
   'parsedRoles',
@@ -147,6 +153,19 @@ export function gateAnalysisResult(
   const general = Array.isArray(r.generalImprovements) ? r.generalImprovements : []
 
   const candidates: Candidate[] = []
+
+  const profil = r.profileSummary && typeof r.profileSummary === 'object' ? (r.profileSummary as Record<string, unknown>) : null
+  if (profil) {
+    const impact = typeof profil.atsImpact === 'number' ? profil.atsImpact : 0
+    candidates.push({
+      id: 'profile',
+      category: 'Personbeskrivning',
+      severity: severityFromImpact(impact),
+      impact,
+      list: 'profile',
+      index: 0,
+    })
+  }
 
   roles.forEach((item, index) => {
     const o = (item ?? {}) as Record<string, unknown>
@@ -209,8 +228,16 @@ export function gateAnalysisResult(
   const keepSkills = keep('skills')
   const keepGeneral = keep('general')
 
+  const visaProfil = visible.some((c) => c.list === 'profile')
+
   const kallaFor = (c: Candidate): unknown =>
-    c.list === 'roles' ? roles[c.index] : c.list === 'skills' ? skills[c.index] : general[c.index]
+    c.list === 'profile'
+      ? profil
+      : c.list === 'roles'
+        ? roles[c.index]
+        : c.list === 'skills'
+          ? skills[c.index]
+          : general[c.index]
 
   const meta: GatedAnalysisMeta = {
     findingsTotal: candidates.length,
@@ -241,7 +268,8 @@ export function gateAnalysisResult(
     roleBasedImprovements: roles.filter((_, i) => keepRoles.has(i)),
     skillSuggestions: skills.filter((_, i) => keepSkills.has(i)),
     generalImprovements: general.filter((_, i) => keepGeneral.has(i)),
-    // Profilsammanfattningen är gratis enligt planen, den rörs inte.
+    // Profilförslaget bara när det är det tyngsta fyndet.
+    ...(visaProfil ? { profileSummary: r.profileSummary } : {}),
     gated: meta,
   }
 }

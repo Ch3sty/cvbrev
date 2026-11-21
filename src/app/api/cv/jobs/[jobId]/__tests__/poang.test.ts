@@ -101,10 +101,14 @@ describe('GET /api/cv/jobs/[jobId]: poängen', () => {
     const premium = (await hamta()).result
     harAtkomst.mockReturnValue(false)
     const { result } = await hamta()
+    // Exakt ett fynd med åtgärd, profilförslaget räknat som ett fynd.
     const synliga =
-      result.roleBasedImprovements.length + result.skillSuggestions.length + result.generalImprovements.length
+      (result.profileSummary ? 1 : 0) +
+      result.roleBasedImprovements.length +
+      result.skillSuggestions.length +
+      result.generalImprovements.length
     expect(synliga).toBe(1)
-    expect(result.gated.findingsTotal).toBe(9)
+    expect(result.gated.findingsTotal).toBe(10)
     // Talen är desamma för alla; texten bakom de låsta fynden skickas inte.
     expect(result.poang).toEqual(premium.poang)
   })

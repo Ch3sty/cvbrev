@@ -29,7 +29,9 @@ describe('analysForKlient', () => {
     const synligaRoller = gratis.roleBasedImprovements as Array<{ suggestedText: string }>
     const synligaKomp = gratis.skillSuggestions as Array<{ skill: string }>
     const synligaAllm = gratis.generalImprovements as Array<{ description: string }>
-    expect(synligaRoller.length + synligaKomp.length + synligaAllm.length).toBe(1)
+    // Exakt ett fynd med åtgärd; i fixturen är profilförslaget (+8) det tyngsta.
+    expect(gratis.profileSummary).toBeTruthy()
+    expect(synligaRoller.length + synligaKomp.length + synligaAllm.length).toBe(0)
 
     // Varje låst fynds åtgärd (rolltext, motivering, rådets beskrivning).
     const lasta = [
@@ -52,10 +54,9 @@ describe('analysForKlient', () => {
     }
     expect(gratis.selectedImprovements).toBeUndefined()
 
-    // Det hon får: poängen, profilförslaget och rubrikerna på de låsta.
+    // Det hon får: poängen, det tyngsta fyndet och rubrikerna på de låsta.
     expect((gratis.atsFriendliness as { score: number }).score).toBe((full.atsFriendliness as { score: number }).score)
-    expect(gratis.profileSummary).toBeTruthy()
-    expect((gratis.gated as { lockedFindings: unknown[] }).lockedFindings).toHaveLength(8)
+    expect((gratis.gated as { lockedFindings: unknown[] }).lockedFindings).toHaveLength(9)
   })
 
   it('premium får allt, med modellens tal', () => {
