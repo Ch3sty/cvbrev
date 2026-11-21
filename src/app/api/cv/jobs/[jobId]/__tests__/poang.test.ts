@@ -8,7 +8,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { FIXTURER } from '@/lib/cv/poang/__tests__/fixturer'
-import { poangForRad, poangMedVal, forvaltVal } from '@/lib/cv/poang'
+import { poangForRad, poangMedVal, forvaltVal, POANG_VERSION } from '@/lib/cv/poang'
 
 const ANVANDARE = { id: 'user-1' }
 const NORMALT = FIXTURER.find((f) => f.namn === 'normalt')!
@@ -81,7 +81,7 @@ describe('GET /api/cv/jobs/[jobId]: poängen', () => {
     expect(result.atsFriendliness.score).toBe(ratt)
     expect(result.atsFriendliness.score).not.toBe(62)
     expect(result.poang.idag).toBe(ratt)
-    expect(result.poangVersion).toBe(1)
+    expect(result.poangVersion).toBe(POANG_VERSION)
     // Varje plus är skillnaden, inte AI:ns atsImpact.
     result.roleBasedImprovements.forEach((r: { plus: number }, i: number) => {
       expect(poangMedVal(result, { profil: false, roller: [i], kompetenser: [] })!.total - ratt).toBe(r.plus)
