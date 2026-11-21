@@ -434,3 +434,34 @@ Arbetsläget: Skriv brev, Brevet och Målgången, satta ihop av kitet (`ArbetsYt
 ### Hur man backar
 
 `git revert` på arbetets commits på grenen. Den gamla stegkoden och vyerna kommer då tillbaka.
+
+## Etapp 3 (sammankoppling, rättningar och slutkontroll), arbetskopia `brev-a`, 2026-11-21
+
+Slutkontrollens resultat står i `docs/qa/brev-rummet-slutkontroll-2026-11-21.md`.
+
+### Vad som ändrades
+
+- **Mallväljaren i Skriv brev**: kapselns "Byt mall" öppnar `MallValjare` (laddas dynamiskt). Valet syns i kapseln och på arket före skrivandet och skickas som `mall_id` till `generate-preview` (servern prövar Premium som förut). Gratis som trycker på en Premiummall får raden `PAKETRADER.mallIngar` med länken "Se vad som ingår" (`/priser`) överst i väljaren; mallen väljs inte. Under skrivandet ligger mallen fast. I Brevet går "Byt mall" till Mallar som förut.
+- **En typsnittslista**: `src/lib/letters/typsnitt.ts` har nu `modern` och `typsnittFontFace()`. `src/components/brev3/arbete/typsnitt.ts` är borttagen; Brevets typsnittsflik läser biblioteket och sätter namnet med CSS-stacken (första namnet är det `@font-face` deklarerar).
+- **Köpreturen till Brevet**: `/dashboard/mina-brev/<id>?ladda=1&format=pdf|docx` (kassan lägger till `ladda=1`) städar adressen och laddar ner filen en gång för den som nu har tillgång. Nedladdningsspärren skickar med `?format=` för det format som öppnade den; köpknappen i låsta brevets rad går tillbaka till `?flik=texten` (en giltig köpretur, utan nedladdning).
+- **CV-väljaren** flyttad till `src/components/brev3/cv/CvPickerGrid.tsx` (Skriv och Dina brev pekar dit). `scripts/rumikoner-baslinje.json` har den nya sökvägen.
+- **Ingångarna**: alla länkar till `/dashboard/skapa-brev` och `/dashboard/mina-brev` i `src` gicks igenom. En ändring: CV-byggarens slutark (`src/components/cv/Dokument/Final.tsx`) skickar `?cv=<id>` när CV:t är känt (en rad). Övriga landar rätt som de är (matchningarna och Dina brev förifyller via `cover-letter-store`). Kvar med "Mina brev": en admintext om mätning, en testsida och en kodkommentar, ingen synlig text i produkten.
+- **Död kod bort**: `mina-brev/components/LetterActions.tsx`, `getLetterForUser.ts`, `scopeLetterHtml.ts`, `lib/letters/kravIAnnonsen.ts` och dess test, texten `SKRIV.avbryt`. `src/components/letters/download-button.tsx` är oanvänd men var det redan på main; orörd.
+- **Dina brev, dator**: första raden är de tre senaste breven plus "Skriv nytt brev"; resten fälls ut i hela rader under "Visa alla brev". Telefonen som förut (remsan med högst sju).
+- **Dina brev, telefon**: "Byt" bredvid "Öppna CV:t" i radkortet (samma CV-väljare som väggens "Byt CV").
+- **Mallar, telefon**: den fasta raden ligger mot bottennavet (`bottom: var(--bottom-nav-h)`, rullytans luft nollas och läggs under raden, CV-mallarnas `FastRad`-mönster). Flikarna tar sin textbredd (`flex: 1 1 auto`) så att "Läget och nästa steg" står hel.
+- **BrevArk**: platsen för ett saknat krav blir en egen rad (padding under stycket) när styckets sista rad är full. Sista raden mäts som den synliga nedersta raden (inte sista rutan ur `getClientRects`). Allt mäts i arkets egna koordinater: en förälder som skalas (inglidningen på telefon) gav siffror och plats på fel rad, se slutkontrollen. Arket mäter också om när ett typsnitt har laddats.
+- **Skriv brev**: "Avbryt" borta under väntan (foten visar bara kvotraden). Underraden visar tjänst och företag så fort de är kända (förifyllningen, sedan svaret). Skrivbrickans läge mäts i arkets egna koordinater.
+- **Brevet, Titel och företag**: `KontaktuppgifterRad` (dokument `brev`) under fälten; när uppgifterna sparas ritas arket om med den nya avsändaren. Filen läser profilen på servern och följer med.
+- **Laddvyer**: ny `mina-brev/mallar/loading.tsx` (samma klasser som sidan). Dina brev väljer form med eller utan brev ur skalets delade data (`HemLaddar`, sidomenyns antal). Arbetslägets laddvy ritar Brevets riktiga flikrad.
+- **Perf-skriptet**: `scripts/perf-inloggat.ts` mäter `/dashboard/mina-brev/mallar` och Brevet med flödesbudgeten (2,0 s); de borttagna rutterna (`?steg=2..6`, `/edit`) är strukna ur listan.
+
+### Beslut
+
+- Laddvyn för Dina brev läser formen ur skalets data i klienten i stället för att fråga databasen: laddvyn ska komma direkt.
+- B9 (strecket före "Hej" i Folio och Kolumn): inte ett verkligt fel. Båda mallarna ritade i full skala och miniatyren förstorad: inget streck. Troligen nedskalningen i den förra skärmdumpen.
+
+### Hur man backar
+
+- Bara etapp 3: `git revert` på etapp 3:s commits (från `5fde4de8` och framåt på grenen).
+- Hela brevrummet: `git revert -m 1` på sammanslagningen till main, eller återställ `src/app/dashboard/mina-brev`, `src/app/dashboard/skapa-brev`, `src/components/brev3`, `src/lib/letters`, `src/app/api/letters`, `src/app/brev3.css` (och importen i `src/app/dashboard/layout.tsx`) till läget före grenen. Migreringen är bara tillägg; kolumnerna kan ligga kvar (se "Körningar mot produktion"). Köpreturen (`src/lib/stripe/kopRetur.ts`) och exporterna i `src/lib/cv/**` backas med samma revert.

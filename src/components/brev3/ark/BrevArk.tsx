@@ -67,6 +67,11 @@ const SKUGGA = {
  * så "sista i listan" kunde vara en rad högre upp och platsen för ett saknat
  * krav hamnade över text.
  */
+/** Samma värde som förut behålls, så att en ny mätning utan ändring inte ritar om. */
+function lika<T>(forra: T, ny: T): T {
+  return JSON.stringify(forra) === JSON.stringify(ny) ? forra : ny
+}
+
 function sistaRaden(el: HTMLElement): DOMRect | null {
   const rng = document.createRange()
   rng.selectNodeContents(el)
@@ -144,6 +149,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     }
 
     const cv = rot.querySelector<HTMLElement>('.cv.brev')
+    cv?.setAttribute('data-b3-matt', '')
     if (cv) setHojdPx(Math.max(ARK_HOJD_PX, cv.offsetHeight))
 
     const lista: Siffra[] = []
@@ -157,7 +163,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     lista.sort((x, y) => x.top - y.top)
     // Två krav på samma rad: siffrorna staplas i stället för att krocka.
     for (let i = 1; i < lista.length; i++) if (lista[i].top < lista[i - 1].top + SIFFRA_HOJD + 1) lista[i].top = lista[i - 1].top + SIFFRA_HOJD + 1
-    setSiffror(lista)
+    setSiffror((f) => lika(f, lista))
 
     if (saknatKrav) {
       const st = saknatSt
@@ -172,20 +178,44 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
           left = x(sr.left)
           top = y(sista.bottom) + 2
         }
-        setPlats({ top, left, bredd: Math.max(30, Math.min(134 * (b! / 480), hoger - left)), hojd, nrTop: top + hojd / 2 - SIFFRA_HOJD / 2, nrLeft: Math.max(2, x(sr.left) - 30) })
+        const ny = { top, left, bredd: Math.max(30, Math.min(134 * (b! / 480), hoger - left)), hojd, nrTop: top + hojd / 2 - SIFFRA_HOJD / 2, nrLeft: Math.max(2, x(sr.left) - 30) }
+        setPlats((f) => lika(f, ny))
       } else setPlats(null)
     } else setPlats(null)
 
     const a = rot.querySelector<HTMLElement>('[data-aktivt]')
     if (a) {
       const r = a.getBoundingClientRect()
-      setAktiv({ top: y(r.top), left: ut.offsetWidth - 30 })
+      const ny = { top: y(r.top), left: ut.offsetWidth - 30 }
+      setAktiv((f) => lika(f, ny))
     } else setAktiv(null)
   }, [skala, saknatKrav, b])
 
   useLayoutEffect(() => {
     mat()
   }, [mat, kropp])
+
+  // React kan sätta arkets innerHTML på nytt vid en omritning utan att
+  // strängen ändrats (klicktestet 2026-11-21: Brevet på telefon). Då försvann
+  // krympsteget och luften som mätningen satt i DOM:en, och siffrorna och
+  // platsen för saknat krav stod kvar från det krympta läget, på fel rad.
+  // Ett nytt innehåll mäts därför alltid om.
+  useEffect(() => {
+    const rot = inre.current
+    if (!rot || typeof MutationObserver === 'undefined') return
+    let ram = 0
+    const mo = new MutationObserver(() => {
+      // Redan mätt (markeringen sitter kvar): innehållet är inte utbytt.
+      if (rot.querySelector('.cv.brev[data-b3-matt]')) return
+      cancelAnimationFrame(ram)
+      ram = requestAnimationFrame(() => mat())
+    })
+    mo.observe(rot, { childList: true })
+    return () => {
+      cancelAnimationFrame(ram)
+      mo.disconnect()
+    }
+  }, [mat, b])
 
   // Typsnitten laddas efter första målningen: mät igen när de är klara.
   // fonts.ready kan lösas innan arkets typsnitt ens har begärts (de laddas
