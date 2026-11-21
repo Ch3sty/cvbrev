@@ -17,7 +17,7 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad betyder ATS-poängen?',
-    a: 'ATS-poängen är ett mått från 0 till 100 på hur väl ditt CV fungerar med Applicant Tracking Systems, de rekryteringssystem svenska arbetsgivare använder för att sålla bland ansökningar. Poängen är vår samlade bedömning av struktur, läsbarhet, nyckelord och formatering. Bredvid den ser du vad poängen kan bli om du följer förslagen, så du vet hur mycket det finns att hämta.',
+    a: 'ATS-poängen är ett mått från 0 till 100 på hur väl ditt CV fungerar med Applicant Tracking Systems, de rekryteringssystem svenska arbetsgivare använder för att sålla bland ansökningar. Poängen räknas fram ur det som står i CV:t, som struktur, läsbarhet, kompetenser och formatering, och samma CV ger alltid samma poäng. Bredvid den ser du vad poängen kan bli om du följer förslagen, så du vet hur mycket det finns att hämta.',
   },
   {
     q: 'Vilka förbättringsförslag får jag?',

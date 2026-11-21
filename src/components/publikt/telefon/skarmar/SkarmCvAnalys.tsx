@@ -2,7 +2,7 @@
  * CV-analysens resultat: poängringen 74 (räknar upp i CSS, talet står i
  * HTML från start), antal förslag per del och det tyngsta fyndet. Delarna
  * är desamma som i analysens resultat: personbeskrivning, roller,
- * kompetenser och automatiska förbättringar. Mätaren visar andelen av alla
+ * kompetenser och allmänna råd. Mätaren visar andelen av alla
  * förslag som ligger i delen.
  */
 
@@ -16,7 +16,7 @@ const DELAR = [
   { namn: 'Personbeskrivning', antal: 1 },
   { namn: 'Roller', antal: 3 },
   { namn: 'Kompetenser', antal: 2 },
-  { namn: 'Automatiska förbättringar', antal: 4 },
+  { namn: 'Allmänna råd', antal: 4 },
 ]
 const ANTAL_FORSLAG = DELAR.reduce((summa, d) => summa + d.antal, 0)
 
