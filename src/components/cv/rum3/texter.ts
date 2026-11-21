@@ -119,6 +119,8 @@ export const NASTA = {
     text: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
     knapp: 'Skriv brev',
     sidorad: 'CV:t är nedladdat och klart att skicka.',
+    /** Under 100: aldrig klart, pekar på genomgången. */
+    sidoradKvar: 'CV:t är nedladdat.',
   },
   utkast: {
     ogon: 'Utkast',
@@ -145,6 +147,9 @@ export const PANEL = {
     n === 0 ? 'Inget drar ner just nu.' : n === 1 ? 'En sak drar ner, och den går att åtgärda på en kväll.' : `${talord(n).charAt(0).toUpperCase()}${talord(n).slice(1)} saker drar ner, alla går att åtgärda på en kväll.`,
   drarNerKort: (n: number) => (n === 0 ? 'Inget drar ner.' : n === 1 ? 'En sak drar ner.' : `${talord(n).charAt(0).toUpperCase()}${talord(n).slice(1)} saker drar ner.`),
   luckaText: 'av 100, så väl ett rekryteringssystem läser ditt CV',
+  /** Poängen är under 100 och inget förslag återstår: genomgången visar resten (2026-11-21). */
+  kvar: (n: number) => `${n} poäng kvar.`,
+  seGenomgangen: 'Se genomgången.',
   matsIAnalysen: 'Mäts i analysen.',
   matsIAnalysenRad: 'De flesta arbetsgivare låter ett rekryteringssystem sortera ansökningarna först.',
   innehall: 'Innehållet',

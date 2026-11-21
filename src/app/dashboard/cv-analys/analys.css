@@ -163,6 +163,61 @@
 .cv4-sekundar { display: inline-flex; align-items: center; min-height: 44px; color: var(--vagg-ink); font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .cv4-fel { margin: 12px 0 0; font-size: 14px; line-height: 20px; color: var(--koppar-ljus); }
 
+/* Genomgången, del för del (2026-11-21): sju rader som fälls ut. */
+.cv4-genomgang-rad { display: flex; flex-wrap: wrap; align-items: center; column-gap: 6px; }
+.cv4-nya { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; border: 0; background: none; font: 600 14px/21px Inter, system-ui, sans-serif; color: var(--ink-1); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cv4-nya:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; border-radius: 6px; }
+.cv4-gdelar { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cv4-gdel { border-radius: 18px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 4px 0 var(--sess-kant); }
+.cv4-gdel[data-oppen] { border-color: var(--vagg); box-shadow: 0 4px 0 var(--cv3-mork-kant); }
+.cv4-gdel-h { margin: 0; font: inherit; }
+.cv4-gdel-knapp { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 12px 14px; border: 0; background: none; text-align: left; font-family: inherit; color: var(--ink-1); cursor: pointer; border-radius: 16px; }
+.cv4-gdel-knapp:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+.cv4-gdel-text { min-width: 0; flex: 1; }
+.cv4-gdel-text b { font: 700 15px/20px Inter, system-ui, sans-serif; display: block; }
+.cv4-gdel-text small { font-size: 13px; line-height: 18px; color: var(--cv3-ink-2); display: block; }
+.cv4-gdel-ok { display: inline-flex; align-items: center; gap: 6px; color: var(--sess-ratt-ink); font-weight: 600; }
+.cv4-gdel-matt { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; width: 76px; }
+.cv4-matare { display: block; width: 100%; height: 8px; border-radius: 4px; background: var(--t3-matare); overflow: hidden; box-shadow: inset 0 0 0 1.5px var(--sess-kant); }
+.cv4-matare i { display: block; height: 100%; border-radius: 4px; background: var(--koppar); }
+.cv4-gdel[data-klar] .cv4-matare i { background: var(--sess-ratt-ink); }
+.cv4-gdel-tal { font: 700 13px/16px Inter, system-ui, sans-serif; color: var(--ink-1); white-space: nowrap; }
+.cv4-gdel-pil { display: flex; color: var(--cv3-ink-3); flex-shrink: 0; transition: transform 160ms ease-out; }
+.cv4-gdel[data-oppen] .cv4-gdel-pil { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .cv4-gdel-pil { transition: none; } }
+.cv4-gdel-inne { padding: 0 14px 16px; }
+.cv4-gdel-inne[hidden] { display: none; }
+.cv4-kontroller, .cv4-steg { list-style: none; margin: 0; padding: 0; }
+.cv4-kontroller li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-top: 1.5px solid var(--t3-linje); }
+.cv4-kontroller li:first-child { border-top: 0; }
+.cv4-kstatus { width: 26px; height: 26px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cv4-kontroller li[data-status="saknas"] .cv4-kstatus { background: var(--sess-rad3-yta); color: var(--sess-rad3-ink); }
+.cv4-kontroller li[data-status="delvis"] .cv4-kstatus { background: var(--t3-matare); color: var(--koppar-ink); }
+.cv4-kontroller li[data-status="klar"] .cv4-kstatus { background: var(--cv3-ikon-yta); color: var(--cv3-ikon); }
+.cv4-kontroller li[data-status="klar"] .cv4-ktext b { font-weight: 600; color: var(--cv3-ink-2); }
+.cv4-ktext { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 2px; padding-top: 2px; }
+.cv4-ktext b { font: 700 14px/20px Inter, system-ui, sans-serif; color: var(--ink-1); }
+.cv4-ktext span { font-size: 14px; line-height: 20px; color: var(--cv3-ink-2); overflow-wrap: anywhere; }
+.cv4-gdel-not { margin: 8px 0 0; font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
+.cv4-gdel-forslag { margin-top: 14px; }
+.cv4-gdel-forslag > .cv4-last { margin-top: 10px; }
+.cv4-gdel-forslag > .cv4-papper:first-of-type { margin-top: 10px; }
+.cv4-gdel-fot { display: flex; margin-top: 14px; }
+@media (max-width: 767.98px) {
+  .cv4-gdel-knapp { gap: 10px; padding: 12px 12px; }
+  .cv4-gdel-matt { width: 58px; }
+  .cv4-gdel-inne { padding: 0 12px 14px; }
+  .cv4-gdel-fot .cv4-kn { flex: 1; }
+}
+.cv4-steg { margin-top: 14px; }
+.cv4-steg li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-top: 1.5px solid var(--t3-linje); }
+.cv4-steg li:first-child { border-top: 0; }
+.cv4-byt { margin-top: 12px; }
+.cv4-stapel-sjalv { background: repeating-linear-gradient(135deg, var(--sess-kant) 0 3px, var(--papper) 3px 7px); }
+.cv4-del i.cv4-stapel-sjalv { box-shadow: inset 0 0 0 1.5px var(--sess-kant); }
+.cv4-ruta[data-klar] { box-shadow: 0 0 0 1.5px rgba(17, 53, 56, .18); }
+.cv4-nal[data-klar] { background: #DDE7E6; color: #5C7473; border-color: #F1F8F7; box-shadow: 0 2px 5px rgba(0, 0, 0, .18); }
+
 /* Poängkortet: i högerspalten på dator, efter fynden på telefon och mellanbredd. */
 .cv4-bara-mobil { display: block; }
 .cv4-bara-dator { display: none; }

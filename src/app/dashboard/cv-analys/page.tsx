@@ -202,8 +202,10 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
     track,
   };
 
+  // Nyckeln byts när en ny analys landar (eller CV:t byts): vyn monteras om
+  // i läget resultat i stället för att stå kvar i flödet.
   return (
-    <AnalysVy data={sidaData} cvRad={cvRadEl}>
+    <AnalysVy key={`${aktivt?.id ?? 'inget'}:${vy?.jobbId ?? sida}`} data={sidaData} cvRad={cvRadEl}>
       <CvAnalysClient data={sidansData} startCvId={aktivt?.id ?? null} />
     </AnalysVy>
   );

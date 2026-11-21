@@ -303,7 +303,15 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     </>
   );
 
-  const nasta: { ogon: string; rubrik: string; text: string; textKort: string; knapp: ReactNode; knappBred: ReactNode; sidorad: string | null } | null = (() => {
+  // Poäng kvar till 100: ingen yta säger att CV:t är klart under 100 (genomgången på Analys, 2026-11-21).
+  const kvarTill100 = poang !== null ? Math.max(0, 100 - poang) : 0;
+  const genomgangLank = aktivt ? (
+    <Link href={flikHref('analys', aktivt.id)} className="underline underline-offset-[3px]" data-se-genomgangen>
+      {PANEL.seGenomgangen}
+    </Link>
+  ) : null;
+
+  const nasta: { ogon: string; rubrik: string; text: string; textKort: string; knapp: ReactNode; knappBred: ReactNode; sidorad: ReactNode } | null = (() => {
     if (!aktivt) return null;
     const lank = (href: string, text: string, bred = false) => (
       <Link href={href} className={`${knappKlass}${bred ? ' t3-stor-bred' : ''}`} data-nasta-knapp>
@@ -385,7 +393,14 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           textKort: NASTA.brev.text,
           knapp: lank('/dashboard/skapa-brev', NASTA.brev.knapp),
           knappBred: lank('/dashboard/skapa-brev', NASTA.brev.knapp, true),
-          sidorad: NASTA.brev.sidorad,
+          sidorad:
+            kvarTill100 > 0 ? (
+              <>
+                {NASTA.brev.sidoradKvar} {PANEL.kvar(kvarTill100)} {genomgangLank}
+              </>
+            ) : (
+              NASTA.brev.sidorad
+            ),
         };
     }
   })();
@@ -600,8 +615,16 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             <span>{PANEL.siffrorSaknas(platshallare.length)}</span>
           ) : (
             <>
-              <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
-              <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+              {fynd.length === 0 && kvarTill100 > 0 ? (
+                <span>
+                  {PANEL.kvar(kvarTill100)} {genomgangLank}
+                </span>
+              ) : (
+                <>
+                  <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
+                  <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+                </>
+              )}
             </>
           )}
         </p>

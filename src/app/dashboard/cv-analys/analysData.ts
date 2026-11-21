@@ -20,7 +20,11 @@ import {
   harPlatshallare,
   platshallareKvar,
   plusForSiffror,
+  genomgang,
+  type ArkKontakt,
   type CvRad,
+  type GenomgangDel,
+  type KategoriId,
   type SiffrorAvsnitt,
   type PoangKategori,
   type PoangSammanfattning,
@@ -30,6 +34,8 @@ import {
 export type FyndTyp = 'profil' | 'roll' | 'kompetenser' | 'siffror'
 
 export interface AnalysFynd {
+  /** Delen i genomgången förslaget hör till (profil, erfarenhet, kompetenser; siffrorna där de står). */
+  del: KategoriId
   /**
    * profil, roll-<index i resultatets rollista>, kompetenser eller siffror.
    * Väljer förslaget i flödet (?valj=); siffror går till arbetsläget.
@@ -63,6 +69,8 @@ export interface AnalysVyData {
   klar: string | null
   poang: PoangSammanfattning
   fynd: AnalysFynd[]
+  /** Genomgången: de sju delarna med kontroller och brister (poängmodellen version 2). Öppen för alla. */
+  delar: GenomgangDel[]
   harFull: boolean
 }
 
@@ -136,6 +144,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: 'profil',
       typ: 'profil',
+      del: 'profil',
       titel: 'Sammanfattningen',
       meta: `Personbeskrivning. ${paverkan(profilPlus)}`,
       plus: profilPlus,
@@ -167,6 +176,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: `roll-${i}`,
       typ: 'roll',
+      del: 'erfarenhet',
       titel: foretag ? `${titel}, ${foretag}` : titel || 'En roll i ditt CV',
       meta: `Rollbeskrivning. ${paverkan(plus)}`,
       plus,
@@ -198,6 +208,7 @@ export function byggAnalysVy(
       fynd.push({
         nyckel: 'kompetenser',
         typ: 'kompetenser',
+        del: 'kompetenser',
         titel: 'Kompetenser mot kravprofilen',
         meta: `Kompetenser. ${paverkan(plus)}`,
         plus,
@@ -226,6 +237,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: 'siffror',
       typ: 'siffror',
+      del: forsta.avsnitt === 'fler' ? 'erfarenhet' : forsta.avsnitt,
       titel: 'Dina siffror',
       meta: plus > 0 ? `Dina egna tal. ${paverkan(plus)}` : 'Dina egna tal.',
       plus,
@@ -244,7 +256,10 @@ export function byggAnalysVy(
     if (i > 0) fynd.unshift(...fynd.splice(i, 1))
   }
 
-  return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, harFull }
+  // Genomgången räknas på samma CV och samma kontaktuppgifter som poängen.
+  const delar = genomgang(bas, (full.arkKontakt as ArkKontakt | null | undefined) ?? null)
+
+  return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, delar, harFull }
 }
 
 /** Kategorierna med plus, i modellens ordning, för "Så räknas poängen". */

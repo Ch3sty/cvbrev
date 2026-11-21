@@ -59,6 +59,11 @@ interface CVAnalysisWizardProps {
   aterupptagning?: Aterupptagning | null;
   /** CV:t är redan valt (Analys-sidans knapp): flödet börjar i analysen. */
   startCvId?: string | null;
+  /**
+   * En ny analys är klar: sidan tar henne till genomgången för CV:t (Analys
+   * i läget resultat) i stället för flödets äldre översiktssteg.
+   */
+  onAnalysisDone?: (cvId: string) => void;
 }
 
 const STEP_META: Record<
@@ -114,6 +119,7 @@ export default function CVAnalysisWizard({
   onComplete,
   aterupptagning = null,
   startCvId = null,
+  onAnalysisDone,
 }: CVAnalysisWizardProps) {
   const router = useRouter();
   const ater = aterupptagning;
@@ -450,7 +456,14 @@ export default function CVAnalysisWizard({
       setProgress(100);
       setEstimatedTimeRemaining(0);
 
-      setTimeout(() => handleNext(), 1500);
+      // Klart: till genomgången för CV:t (Analys i läget resultat). Stegen
+      // välj, granska och spara nås därifrån som förut.
+      if (onAnalysisDone && selectedCV) {
+        const cvId = selectedCV;
+        setTimeout(() => onAnalysisDone(cvId), 600);
+      } else {
+        setTimeout(() => handleNext(), 1500);
+      }
     } catch (error) {
       clearInterval(progressInterval);
       clearTimeout(watchdog);
