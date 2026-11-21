@@ -61,14 +61,15 @@ describe('köpreturen i brevrummet', () => {
     expect(lagen).toEqual(['vantar', 'klar'])
   })
 
-  it('aldrig tillgång: sex omhämtningar, ingen nedladdning, raden visas, adressen städad', () => {
+  it('aldrig tillgång: sex omhämtningar, ingen nedladdning, raden visas, adressen står kvar för omladdningen', () => {
     const { ut, k, lagen } = upplagg()
     k.uppdatera(retur())
     vi.advanceTimersByTime(KOPRETUR_INTERVALL_MS * 20)
     expect(ut.refresh).toHaveBeenCalledTimes(KOPRETUR_MAX_FORSOK)
     expect(KOPRETUR_MAX_FORSOK).toBe(6)
     expect(ut.laddaNer).not.toHaveBeenCalled()
-    expect(ut.stadaAdress).toHaveBeenCalledTimes(1)
+    // Raden ber användaren ladda om sidan: parametrarna måste stå kvar, annars hämtas ingen fil då.
+    expect(ut.stadaAdress).not.toHaveBeenCalled()
     expect(lagen).toEqual(['vantar', 'ej-registrerat'])
 
     // Kommer tillgången senare i samma vy laddas inget ner av sig själv.

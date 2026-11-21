@@ -6,7 +6,9 @@
  * tillbaka, så sidan kan serverrenderas som gratis. Då behålls parametrarna
  * i adressen och serverns data hämtas om (router.refresh) var 2,5:e sekund,
  * högst sex gånger, tills tillgången syns. Samma mönster som översikten
- * (OversiktKlient). Utan premium_activated (en gammal länk med bara ladda=1)
+ * (OversiktKlient). Tar försöken slut visas en rad som ber användaren ladda
+ * om sidan, och parametrarna står kvar så att omladdningen hämtar filen.
+ * Utan premium_activated (en gammal länk med bara ladda=1)
  * väntar vi inte: adressen städas och inget mer händer.
  *
  * Logiken ligger i en ren styrning (skapaKopretur) som testas med falska
@@ -51,11 +53,14 @@ export function skapaKopretur(ut: KopreturUt): Kopretur {
   let forsok = 0
   let timer: ReturnType<typeof setTimeout> | null = null
 
+  // När försöken tar slut står parametrarna kvar i adressen: raden ber
+  // användaren ladda om sidan, och omladdningen ska då gå in i köpreturen
+  // igen och hämta filen. I alla andra slut städas adressen.
   const avsluta = (lage: KopreturLage) => {
     klar = true
     if (timer) clearTimeout(timer)
     timer = null
-    ut.stadaAdress()
+    if (lage !== 'ej-registrerat') ut.stadaAdress()
     ut.nyttLage(lage)
   }
 
