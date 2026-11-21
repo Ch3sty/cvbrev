@@ -446,7 +446,7 @@ export interface AnalyticsEvents {
   export_blockerad: { reason: 'kvot' | 'mall' | 'word' | 'brev'; template?: string }
   /* Fas 0 på dagens mallytor (baslinje före Black Week). surface: galleri,
      byggare, artikel. */
-  mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep'; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
+  mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep' | 'pil'; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
   typsnitt_bytt: { font: string; surface: string; template?: string; tier?: 'free' | 'premium' }
   nedladdning_klickad: { template: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
   mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' }

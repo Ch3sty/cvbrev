@@ -27,3 +27,20 @@ export function flikHref(flik: CvFlik, cvId?: string | null, extra?: Record<stri
   const s = q.toString()
   return s ? `${href}?${s}` : href
 }
+
+/** Avsnitten arbetsläget öppnar (byggspecen 10b). */
+export type ArbetsAvsnitt = 'kontakt' | 'profil' | 'erfarenhet' | 'utbildning' | 'kompetenser' | 'sprak' | 'fler'
+
+/**
+ * Arbetsläget (steg 3) på sin enda adress, kontraktet i byggspecen 10b:
+ * /dashboard/skapa-cv?cv=&avsnitt=&mall=&fran=. "Klar" och tillbaka går till
+ * sidan i `fran` med samma cv och mall. Utan avsnitt öppnar arbetsläget
+ * sitt första.
+ */
+export function arbetslageHref(cvId: string, fran: 'mallar' | 'ditt-cv' | 'analys', opts?: { avsnitt?: ArbetsAvsnitt; mall?: string }): string {
+  const q = new URLSearchParams({ cv: cvId })
+  if (opts?.avsnitt) q.set('avsnitt', opts.avsnitt)
+  if (opts?.mall) q.set('mall', opts.mall)
+  q.set('fran', fran)
+  return `/dashboard/skapa-cv?${q.toString()}`
+}

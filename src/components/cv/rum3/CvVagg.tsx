@@ -8,13 +8,15 @@
  *
  *   Toppen   flikarna, CV-raden (CvRad) och toppåtgärderna (klocka, profil)
  *   Dator    `vanster` (rubrik, knapp, chips) och `hoger` (talet, banan, arket)
- *   Mobil    `mobil`, under flikarna, under 1280 px
+ *   Mobil    `mobil`, under flikarna, under 1280 px; med fler än ett CV
+ *            först raden "CV: <namn>" som öppnar Byt CV (CvRadMobil)
  *
  * Server component; CvRad och Topprad är klientöar.
  */
 import type { ReactNode } from 'react'
 import Topprad from '@/components/rum/Topprad'
 import CvFlikar from './CvFlikar'
+import CvRadMobil, { cvRadData } from './CvRadMobil'
 import type { CvFlik } from './flikar'
 
 export interface CvVaggProps {
@@ -30,13 +32,19 @@ export interface CvVaggProps {
   etikett: string
   /** Lägets namn för skärmdumpar och tester. */
   lage?: string
+  /** Extra dekor bakom innehållet (Mallars kullar). */
+  dekor?: ReactNode
 }
 
-export default function CvVagg({ aktiv, cvId, cvRad, vanster, hoger, mobil, etikett, lage }: CvVaggProps) {
+export default function CvVagg({ aktiv, cvId, cvRad, vanster, hoger, mobil, etikett, lage, dekor }: CvVaggProps) {
+  // Telefonen: "CV: <namn>" under flikarna när det finns fler än ett CV.
+  const rad = cvRadData(cvRad)
+  const mobilRad = rad && rad.cvs.length > 1 ? <CvRadMobil {...rad} /> : null
   return (
-    <section className="t3-vagg cv3-vagg" data-cv-vagg data-sida={aktiv} data-lage={lage} aria-label={etikett}>
+    <section className="t3-vagg cv3-vagg" data-cv-vagg data-har-cv-rad-mobil={mobilRad ? '' : undefined} data-sida={aktiv} data-lage={lage} aria-label={etikett}>
       <div className="t3-vagg-dekor" aria-hidden="true">
         <span className="t3-vagg-cirkel" />
+        {dekor}
       </div>
 
       <div className="t3-vagg-dator hidden xl:block">
@@ -60,6 +68,7 @@ export default function CvVagg({ aktiv, cvId, cvRad, vanster, hoger, mobil, etik
           </div>
           <Topprad bara="atgarder" />
         </div>
+        {mobilRad}
         {mobil}
       </div>
     </section>

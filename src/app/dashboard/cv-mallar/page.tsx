@@ -1,6 +1,6 @@
 /**
- * CV-mallar inloggat (plan-mallar 3.2, skissen yta 4): samma dokument som
- * mallsidan, inte tre steg. Serverkomponent: sessionen, CV-listan,
+ * Mallar i CV-rummet (omgång 1, steg 2): samma CV i alla mallar, i
+ * testernas formspråk (CvMallarClient, MallarVy). Tidigare: plan-mallar 3.2. Serverkomponent: sessionen, CV-listan,
  * behörigheten, priset och valet ur adressen (?cv=&mall=&format=&kop=)
  * läses här i en parallell omgång och skickas som props, så att första HTML
  * har det valda CV:t, mallen och knappen på plats (LCP under 1,5 s, CLS 0,
@@ -23,10 +23,15 @@ import { getActiveCvIds } from '@/lib/cv/cv-quota'
 import { MALL_KATALOG, losMallId } from '@/lib/cv/mallval/katalog'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
-import CvFlikRemsa from '@/components/cv/rum3/CvFlikRemsa'
-import CvRad from '@/components/cv/rum3/CvRad'
-import { cvListaUr } from '@/components/cv/rum3/cvLista'
+import { valtCvId } from '@/components/cv/rum3/cvLista'
+import { arbetslageHref } from '@/components/cv/rum3/flikar'
 import { CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess'
+import { potentialPoang } from '@/lib/cv/analys/potential'
+import { poangUrAnalys, potentialUnderlag, type AnalysUnderlag } from '@/lib/rum/cvRum'
+
+/** Analysens fält för plus i spärren (samma uträkning som Ditt CV och analysens översikt). */
+const ANALYS_FALT =
+  'id, cv_id, completed_at, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
 
 type Sok = {
   cv?: string | string[]
@@ -35,6 +40,8 @@ type Sok = {
   kop?: string | string[]
   ladda?: string | string[]
   foto?: string | string[]
+  /** Länken "Lägg till språken" från Ditt CV (steg 1): går vidare till arbetsläget. */
+  andra?: string | string[]
 }
 const forsta = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? null
 
@@ -105,25 +112,85 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     console.error('Fel vid server-hämtning av CV-mallar:', error)
   }
 
-  const initialSelectedCvId =
-    (cvIdFromUrl && cvRows.some((cv) => cv.id === cvIdFromUrl) ? cvIdFromUrl : null) ?? cvRows[0]?.id ?? null
-  const mall = losMallId(forsta(params.mall)) ?? MALL_KATALOG[0].id
-
-  // CV-rummets flikar överst (omgång 1, steg 1). Mallarnas vägg byggs om i steg 2.
+  // Samma CV på alla tre flikarna: ?cv= om det inte är låst, annars senaste aktiva.
   const aktivaSet = new Set(aktiva)
-  const lasta = new Set(cvRows.filter((c) => !aktivaSet.has(c.id)).map((c) => c.id))
+  const lastaIds = cvRows.filter((c) => !aktivaSet.has(c.id)).map((c) => c.id)
+  const initialSelectedCvId = valtCvId(cvRows, new Set(lastaIds), cvIdFromUrl)
+  const mall = losMallId(forsta(params.mall)) ?? MALL_KATALOG[0].id
   const fullt = maxCvs === CV_GRANS_GRATIS && cvRows.length >= CV_GRANS_GRATIS
+
+  // Ditt CV:s "Lägg till språken" (steg 1) pekar hit: vidare till arbetsläget.
+  if (forsta(params.andra) === 'sprak' && initialSelectedCvId) {
+    redirect(arbetslageHref(initialSelectedCvId, 'ditt-cv', { avsnitt: 'sprak', mall }))
+  }
+
+  // Analysen av valt CV: plus i spärrens talruta och dokumentets väg i målgången.
+  const plusPerCv: Record<string, number> = {}
+  // Poängen per CV för Byt CV-arket (som Ditt CV), och analysen av valt CV.
+  const poangPerCv: Record<string, number> = {}
+  const jobbPerCv: Record<string, string> = {}
+  try {
+    const { data } = await supabase
+      .from('cv_analysis_jobs')
+      .select('id, cv_id, poang:result->atsFriendliness->score')
+      .eq('user_id', user.id)
+      .eq('status', 'completed')
+      .order('completed_at', { ascending: false, nullsFirst: false })
+      .limit(100)
+    for (const rad of (data ?? []) as Array<{ id: string; cv_id: string | null; poang: unknown }>) {
+      if (!rad.cv_id || rad.cv_id in jobbPerCv) continue
+      jobbPerCv[rad.cv_id] = rad.id
+      const p = Number(rad.poang)
+      if (Number.isFinite(p)) poangPerCv[rad.cv_id] = Math.max(0, Math.min(100, Math.round(p)))
+    }
+  } catch (error) {
+    console.error('Fel vid hämtning av analyserna för Mallar:', error)
+  }
+  const vagPerCv: Record<string, { uppladdat: 'uppladdat' | 'utkast'; analyserat: boolean; atgardat: boolean }> = {}
+  const valt = cvRows.find((c) => c.id === initialSelectedCvId)
+  if (valt) {
+    const original = valt.original_file_path?.endsWith('-improved')
+      ? cvRows.find((c) => c.original_file_path === valt.original_file_path.replace(/-improved$/, '')) ?? null
+      : null
+    const atgardat = Boolean(original) || cvRows.some((c) => c.original_file_path === `${valt.original_file_path}-improved`)
+    const jobbId = jobbPerCv[valt.id] ?? (original ? jobbPerCv[original.id] : undefined)
+    let analyserat = false
+    try {
+      const { data } = jobbId
+        ? await supabase.from('cv_analysis_jobs').select(ANALYS_FALT).eq('id', jobbId).eq('user_id', user.id).maybeSingle()
+        : { data: null }
+      const rad = data as Record<string, unknown> | null
+      if (rad) {
+        analyserat = true
+        const underlag: AnalysUnderlag = {
+          jobbId: (rad.id as string) ?? null,
+          cvId: (rad.cv_id as string) ?? null,
+          klar: (rad.completed_at as string) ?? null,
+          namn: valt.file_name,
+          poang: rad.poang === null || rad.poang === undefined ? null : Number(rad.poang),
+          profil: (rad.profil as AnalysUnderlag['profil']) ?? null,
+          roller: Array.isArray(rad.roller) ? (rad.roller as AnalysUnderlag['roller']) : null,
+          kompetenser: Array.isArray(rad.kompetenser) ? (rad.kompetenser as AnalysUnderlag['kompetenser']) : null,
+          allmant: Array.isArray(rad.allmant) ? (rad.allmant as AnalysUnderlag['allmant']) : null,
+        }
+        const poang = poangUrAnalys(underlag)
+        if (poang !== null) {
+          const plus = potentialPoang(poang, potentialUnderlag(underlag)) - poang
+          if (plus > 0) plusPerCv[valt.id] = plus
+        }
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av analysen för Mallar:', error)
+    }
+    const bygge = (valt.structured_data as { bygge?: unknown } | null)?.bygge
+    vagPerCv[valt.id] = { uppladdat: bygge ? 'utkast' : 'uppladdat', analyserat, atgardat }
+  }
+
   return (
-    <>
-    <CvFlikRemsa
-      aktiv="mallar"
-      cvId={initialSelectedCvId}
-      cvRad={<CvRad cvs={cvListaUr(cvRows, lasta)} aktivtId={initialSelectedCvId} sida="mallar" fullt={fullt} />}
-    />
     <CvMallarClient
       key={initialSelectedCvId ?? 'exempel'}
       initialCvs={cvRows}
-      aktivaCvIds={aktiva}
+      lastaIds={lastaIds}
       initialIsPremium={isPremium}
       initialSelectedCvId={initialSelectedCvId}
       initialMall={mall}
@@ -141,7 +208,10 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       kampanj={kampanj}
       ladda={forsta(params.ladda) === '1'}
       foto={forsta(params.foto) === '1'}
+      fullt={fullt}
+      plusPerCv={plusPerCv}
+      vagPerCv={vagPerCv}
+      poangPerCv={poangPerCv}
     />
-    </>
   )
 }

@@ -79,6 +79,12 @@ export interface DokumentProps {
   helskarmRemsa?: ReactNode
   /** Visa raden under arket ("Klicka på arket för att läsa i helskärm"). */
   visaHjalprad?: boolean
+  /**
+   * Arket på CV-rummets vägg (Mallar, byggspecen avsnitt 5): utan tipsraden
+   * ovanför och bandet under (väggen har egna), och avsnittet under pekaren
+   * markeras med kopparram och penna. Utelämnat: som förut (publikt, byggaren).
+   */
+  vagg?: boolean
   className?: string
 }
 
@@ -121,6 +127,7 @@ export default function Dokument({
   onMatt,
   helskarmRemsa,
   visaHjalprad,
+  vagg = false,
   className = '',
 }: DokumentProps) {
   const ramRef = useRef<HTMLDivElement>(null)
@@ -263,7 +270,7 @@ export default function Dokument({
     <div className={`mx-auto w-full ${BREDD[storlek]} ${className}`.trim()}>
       {/* Första besöket: raden ovanför arket, i ett spår med reserverad höjd
           (CLS 0), så att den aldrig täcker namnet. */}
-      {interaktiv ? (
+      {interaktiv && !vagg ? (
         <div className="mb-1.5 h-9" aria-live="polite" data-tips-spar>
           {tips ? (
             <p className="flex h-9 items-center gap-2 rounded-xl bg-ton px-3 text-[13px] font-medium text-ton-ink">
@@ -365,7 +372,7 @@ export default function Dokument({
                         onClick={() => onAvsnitt(r.sektion)}
                         className={`absolute rounded-[4px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar ${
                           ram ? '' : 'hover:bg-koppar/5'
-                        }`}
+                        }${vagg ? ' dok-avsnitt-vagg' : ''}`}
                         style={{
                           left: px(r.avsnitt.x) - 6,
                           top: avsTopp,
@@ -380,6 +387,11 @@ export default function Dokument({
                             rorelse ? 'transition-opacity duration-300' : ''
                           } ${ram ? 'opacity-100' : 'opacity-0'}`}
                         />
+                        {vagg && !spok ? (
+                          <span aria-hidden className="dok-avsnitt-penna">
+                            <IkonPenna size={16} />
+                          </span>
+                        ) : null}
                         {valt ? (
                           <span className="absolute -top-[22px] left-[-2px] whitespace-nowrap rounded-full bg-koppar px-2 py-0.5 text-[10px] font-bold text-koppar-text">
                             {r.text}
@@ -583,7 +595,7 @@ export default function Dokument({
 
       {/* Bandet under arket, alltid reserverat (CLS 0): fliken till vänster,
           raden om var hon är högerställd (granskningen B3; på mobil med svep). */}
-      <div className={`flex min-h-7 items-start justify-end pt-1 ${sidor > 1 ? 'pl-[136px]' : ''}`} data-band>
+      {vagg ? null : <div className={`flex min-h-7 items-start justify-end pt-1 ${sidor > 1 ? 'pl-[136px]' : ''}`} data-band>
         {interaktiv && mall && ordning && index >= 0 ? (
           <p className="min-w-0 truncate text-[13px] text-ink-3">
             <span className="min-[900px]:hidden">{DOK.radMobil(mall.namn, index + 1, ordning.length)}</span>
@@ -592,7 +604,7 @@ export default function Dokument({
         ) : visaHjalprad ? (
           <p className="min-w-0 truncate text-meta text-ink-3">{DOK.klickaHelskarm}</p>
         ) : null}
-      </div>
+      </div>}
 
       {/* "+ Fler avsnitt" när arket är fullt: under arket i stället. */}
       {fler && interaktiv && matning && !(sidor === 1 && matning.botten !== undefined && px(matning.botten) + 64 < forstaSidan) ? (

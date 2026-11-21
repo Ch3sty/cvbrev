@@ -11,6 +11,11 @@
 //                 och ett låst; gratisanalysen använd
 //   premium       Premium, två CV: ett analyserat med språk och ett utkast
 //                 ur CV-byggaren
+//   nedladdat     gratis, ett analyserat CV, gratisnedladdningen använd
+//                 (Mallar: merförsäljningen i stället för filen)
+//
+// QA_TAGG=<tagg> ger egna adresser (qa-cv-rummet-<namn><tagg>-...), så att
+// två agenter kan ha egna konton samtidigt.
 //
 // Id:n skrivs till $SCRATCH/qa-cv-rummet-konton.json direkt efter varje
 // rad. Raderingen tar bara rader med de egna kontonas user_id, räknar före
@@ -122,7 +127,8 @@ const RESULTAT = {
   generalImprovements: [],
 }
 
-const KONTON = ['ny', 'oanalyserat', 'gratis', 'premium']
+const KONTON = ['ny', 'oanalyserat', 'gratis', 'premium', 'nedladdat']
+const TAGG = process.env.QA_TAGG ?? ''
 
 function spara(data) {
   fs.writeFileSync(FIL, JSON.stringify(data, null, 2))
@@ -140,7 +146,7 @@ async function skapa() {
   const ut = fs.existsSync(FIL) ? JSON.parse(fs.readFileSync(FIL, 'utf8')) : {}
   for (const namn of KONTON) {
     if (ut[namn]) continue
-    const email = `qa-cv-rummet-${namn}-${DAG}@jobbcoach-qa.test`
+    const email = `qa-cv-rummet-${namn}${TAGG}-${DAG}@jobbcoach-qa.test`
     const fullName = 'Erik Lindberg'
     const { data, error } = await admin.auth.admin.createUser({
       email,
@@ -164,7 +170,7 @@ async function skapa() {
         email_verified_at: new Date().toISOString(),
         onboarding_track: 'cv',
         onboarding_track_asked_at: new Date().toISOString(),
-        free_cv_exports_used: 0,
+        free_cv_exports_used: namn === 'nedladdat' ? 1 : 0,
         weekly_competence_analysis_count: namn === 'gratis' ? 1 : 0,
         subscription_tier: premium ? 'premium' : 'free',
         premium_scope: premium ? 'allt' : null,
@@ -180,6 +186,17 @@ async function skapa() {
         cv_text: CV_TEXT(fullName),
         structured_data: cvData(fullName, email, []),
         created_at: sekunderSedan(3600),
+      })
+      spara(ut)
+    }
+
+    if (namn === 'nedladdat') {
+      ut[namn].cv.analyserat = await nyttCv(userId, {
+        file_name: 'Erik Lindberg, projektledare',
+        original_file_path: `qa/${userId}/erik.pdf`,
+        cv_text: CV_TEXT(fullName),
+        structured_data: cvData(fullName, email, []),
+        created_at: sekunderSedan(2 * 86400),
       })
       spara(ut)
     }

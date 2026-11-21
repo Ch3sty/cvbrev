@@ -34,6 +34,13 @@ export interface VerktygsradProps {
   forvaldUppsattning?: string
   /** Innan ett ark utan dimma öppnas: ytan lägger dokumentet i vyn (V1). */
   onOppnaArk?: () => void
+  /**
+   * CV-rummets brickor (Mallar, skissen Mallar och Mobil-mallar): samma val
+   * och samma ark, ritade som vita brickor med en underrad. `forst` står
+   * först i raden (Ändra texten). Utelämnat: chippen som förut (publikt).
+   */
+  brickor?: boolean
+  forst?: React.ReactNode
 }
 
 const GRUPPER: { namn: string; ids: readonly string[] }[] = [
@@ -64,7 +71,7 @@ function Radio({ vald, onClick, children, stil }: { vald: boolean; onClick: () =
   )
 }
 
-export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, forvaldUppsattning, onOppnaArk }: VerktygsradProps) {
+export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, forvaldUppsattning, onOppnaArk, brickor, forst }: VerktygsradProps) {
   const [ark, setArkState] = useState<'typsnitt' | 'ordning' | 'uppsattning' | null>(null)
   const setArk = (a: 'typsnitt' | 'ordning' | 'uppsattning' | null) => {
     if (a && !ark) onOppnaArk?.()
@@ -74,9 +81,62 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
   const farg = val.farg ?? 0
   const ordning = val.ordning ?? 'standard'
 
+  const rad = brickor ? (
+    <div className="cv3m-verktyg" role="group" aria-label={VERKTYG.anpassa}>
+      {forst}
+      <button type="button" className="cv3m-bricka" onClick={() => setArk('typsnitt')} disabled={last} aria-haspopup="dialog">
+        <span className="cv3m-aa" aria-hidden="true" style={{ fontFamily: font.family }}>
+          Aa
+        </span>
+        <span>
+          <span className="block" style={{ fontFamily: font.family }}>{font.name}</span>
+          <small>{VERKTYG.typsnitt}</small>
+        </span>
+      </button>
+      <div className="cv3m-bricka cv3m-farger" role="radiogroup" aria-label={VERKTYG.farg}>
+        {mall.accenter.map((c, i) => (
+          <button
+            key={`${c}-${i}`}
+            type="button"
+            role="radio"
+            aria-checked={farg === i}
+            aria-label={`${VERKTYG.farg} ${i + 1}`}
+            disabled={last}
+            onClick={() => onVal({ ...val, farg: i }, { typ: 'farg', farg: i })}
+          >
+            <span style={{ background: c }} data-vald={farg === i ? '' : undefined} />
+          </button>
+        ))}
+      </div>
+      <button
+        type="button"
+        className="cv3m-bricka"
+        onClick={() => setArk('ordning')}
+        disabled={last}
+        aria-haspopup="dialog"
+        aria-label={`${VAL_ARK.rubrik}: ${VERKTYG.ordning[ordning]}`}
+      >
+        <IkonOrdning size={20} />
+        <span>
+          <span className="block">{VERKTYG.ordning[ordning]}</span>
+          <small>{VERKTYG.ordningKort}</small>
+        </span>
+      </button>
+      {mall.foto && onFoto ? (
+        <button type="button" className="cv3m-bricka" onClick={onFoto} disabled={last} aria-haspopup="dialog">
+          <IkonFoto size={20} />
+          <span>
+            <span className="block">{fotoPa ? VERKTYG.fotoPa : VERKTYG.laggTill}</span>
+            <small>{VERKTYG.foto}</small>
+          </span>
+        </button>
+      ) : null}
+    </div>
+  ) : null
+
   return (
     <>
-      <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 py-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {rad ?? <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 py-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <button type="button" className={CHIP} onClick={() => setArk('typsnitt')} disabled={last} aria-haspopup="dialog">
           <span className="text-[15px] font-bold leading-none" style={{ fontFamily: font.family }}>
             Aa
@@ -136,7 +196,7 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
             {fotoPa ? VERKTYG.fotoPa : VERKTYG.foto}
           </button>
         ) : null}
-      </div>
+      </div>}
 
       <Ark open={ark === 'typsnitt'} onClose={() => setArk(null)} rubrik={VERKTYG.typsnitt} under={VERKTYG.typsnittUnder} utanDimma>
         <div role="radiogroup" aria-label={VERKTYG.typsnitt}>

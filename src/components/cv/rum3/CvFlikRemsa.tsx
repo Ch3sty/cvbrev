@@ -8,6 +8,7 @@
 import type { ReactNode } from 'react'
 import Topprad from '@/components/rum/Topprad'
 import CvFlikar from './CvFlikar'
+import CvRadMobil, { cvRadData } from './CvRadMobil'
 import type { CvFlik } from './flikar'
 
 export interface CvFlikRemsaProps {
@@ -19,6 +20,7 @@ export interface CvFlikRemsaProps {
 }
 
 export default function CvFlikRemsa({ aktiv, cvId, cvRad, utanAtgarder }: CvFlikRemsaProps) {
+  const rad = cvRadData(cvRad)
   return (
     <div className="cv3-remsa" data-cv-remsa data-sida={aktiv}>
       <div className="cv3-remsa-inre">
@@ -30,6 +32,11 @@ export default function CvFlikRemsa({ aktiv, cvId, cvRad, utanAtgarder }: CvFlik
           {utanAtgarder ? null : <Topprad bara="atgarder" />}
         </div>
       </div>
+      {rad && rad.cvs.length > 1 ? (
+        <div className="xl:hidden">
+          <CvRadMobil {...rad} />
+        </div>
+      ) : null}
     </div>
   )
 }
