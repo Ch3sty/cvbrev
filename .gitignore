@@ -54,6 +54,10 @@ supabase/.temp/
 # Lokal Claude-inställning (innehåller dev-overrides som NODE_TLS_REJECT_UNAUTHORIZED)
 .claude/settings.json
 
+# Arbetskopior som verktygen lägger inuti repot. Ignorerade så att sökningar inte
+# går igenom en hel kopia av projektet (2026-11-21: varje träff kom två gånger).
+/.claude/worktrees/
+
 # QA-konton som skripten skapar och raderar själva
 scripts/.qa-*-konton.json
 
