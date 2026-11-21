@@ -15,7 +15,7 @@
  */
 import type { CVMetadata } from '../cv-metadata'
 import { kanonisktCv } from './kanon'
-import { falt, kompetenserIcv, stadaKompetenser } from './matt'
+import { ersattPahittadeTal, falt, harPlatshallare, kompetenserIcv, stadaKompetenser, talIText } from './matt'
 import { KATEGORIER, POANG_VERSION, raknaPoang, type KategoriId, type Poang } from './modell'
 
 type Obj = Record<string, unknown>
@@ -282,12 +282,32 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
   const grund: AnalysForPoang = { structuredCV: bas }
   const plusFor = (analys: AnalysForPoang, val: Val) => (poangMedVal({ ...grund, ...analys }, val)?.total ?? idag) - idag
 
+  // Förslag får aldrig hitta på fakta. Talen i CV:t (utom kontaktuppgifterna)
+  // är de enda tal ett förslag får använda; andra byts mot [antal] och
+  // förslaget märks fyllI så att gränssnittet ber om hennes egen siffra.
+  const { personalInfo: _pi, ...innehall } = bas
+  const kanda = new Set(talIText(JSON.stringify(innehall)))
+  const granska = (text: string) => {
+    const { text: ren, ersatta } = ersattPahittadeTal(text, kanda)
+    return { text: ren, ersatta, fyllI: harPlatshallare(ren) }
+  }
+
   // Profilen
   let profil: Obj | null | undefined = result.profileSummary as Obj | null | undefined
   if (arObj(profil)) {
-    const text = falt(profil.improvedText)
+    const g = granska(typeof profil.improvedText === 'string' ? profil.improvedText : '')
+    const text = falt(g.text)
     const plus = text ? plusFor({ profileSummary: { improvedText: text } }, { profil: true, roller: [], kompetenser: [] }) : 0
-    profil = { ...profil, currentText: bas.summary ?? '', atsImpact: Math.max(0, plus), plus }
+    profil = {
+      ...profil,
+      improvedText: g.text,
+      currentText: bas.summary ?? '',
+      atsImpact: Math.max(0, plus),
+      plus,
+      fyllI: g.fyllI,
+      // Summan över omräkningarna: en andra granskning hittar inget nytt.
+      ersattaTal: (typeof profil.ersattaTal === 'number' ? profil.ersattaTal : 0) + g.ersatta,
+    }
   }
 
   // Rollerna
@@ -296,7 +316,8 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
   const roller = sorteraEfterPlus(
     rollerIn.flatMap((r, ursprung) => {
       const rollIndex = traffar[ursprung]
-      const text = typeof r.suggestedText === 'string' ? r.suggestedText : ''
+      const g = granska(typeof r.suggestedText === 'string' ? r.suggestedText : '')
+      const text = g.text
       if (rollIndex === null || !text.trim()) return []
       const e = bas.experience[rollIndex]
       const plus = plusFor(
@@ -306,6 +327,9 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
       return [
         {
           ...r,
+          suggestedText: text,
+          fyllI: g.fyllI,
+          ersattaTal: (typeof r.ersattaTal === 'number' ? r.ersattaTal : 0) + g.ersatta,
           rollIndex,
           roleTitle: falt(e?.position) || r.roleTitle,
           company: falt(e?.company) || r.company,

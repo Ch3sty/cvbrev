@@ -273,7 +273,8 @@ Deno.serve(async (req) => {
       const PROFILREGLER = `- Skriv i JAG-FORM (första person), aldrig tredje person eller personens namn
 - 40 till 90 ord
 - Säg vilken roll personen har eller söker, med yrkestiteln ur CV:t
-- Ta med något konkret (antal år, ansvar, resultat) BARA om det står i CV:t. Hitta aldrig på siffror.`;
+- Använd BARA fakta som står i CV:t: arbetsgivare, titlar, kompetenser, tal och resultat. Hitta aldrig på något.
+- Ta med något konkret (antal år, ansvar, resultat) BARA om det står i CV:t. Saknas talet: skriv platshållaren [antal] där personen själv fyller i det, aldrig ett påhittat tal.`;
 
       const rollerForProfil = (modellCV.experience || []).slice(0, 3).map((e: any) => ({
         position: e.position, company: e.company, description: e.description,
@@ -400,7 +401,7 @@ VIKTIGT:
 - ALLA termer på SVENSKA (svenska arbetsmarknaden!)
 - Tänk: "Vad söker ATS efter i jobbannonser för detta yrke?"
 - source: Exakt "position på company" från input
-- reasoning: Kort (1 mening) varför denna term är ATS-viktig`,
+- reasoning: Kort (1 mening) varför denna term är ATS-viktig. Påstå ALDRIG att personen har kompetensen: den är ett förslag att lägga till om den stämmer (skriv t.ex. "Efterfrågas ofta för rollen" i stället för "Du har erfarenhet av").`,
       });
 
       const skillSuggestions = skillsResult.data.skillSuggestions || [];
@@ -466,7 +467,8 @@ KRITISKA REGLER FÖR suggestedText:
 ❌ HITTA ALDRIG PÅ SIFFROR (10%, 15%, 95% etc.) - detta skadar trovärdigheten!
 ✅ Fokusera på: specifika ansvarsområden, action verbs, konkreta arbetsuppgifter
 ✅ OM användaren redan nämner resultat → förtydliga dem och BEHÅLL alla siffror som står i originalet
-✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet
+✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet, och skriv platshållaren [antal] där personen kan fylla i en egen siffra (högst en per punkt), t.ex. "Besvarade [antal] kundärenden per dag". Skriv ALDRIG ett tal som inte står i originaltexten.
+✅ Använd BARA arbetsgivare, titlar, verktyg och kompetenser som står i CV:t. Lägg aldrig till system, certifikat eller ansvar som inte nämns.
 ✅ FORM: 3 till 6 punkter, VARJE punkt på EGEN RAD (radbrytning \\n mellan punkterna), utan punkttecken
 ✅ Varje punkt börjar med ett verb (Ledde, Ansvarade, Byggde, Sålde, Planerar) och är högst 25 ord
 

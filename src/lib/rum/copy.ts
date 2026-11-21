@@ -448,7 +448,7 @@ export const CV_RUM = {
     rollMeta: 'Vårt förslag beskriver rollen med resultat och nyckelord, inte bara ansvar.',
     kompetenser: 'Kompetenser mot kravprofilen',
     kompetenserMeta: (namn: string[]) =>
-      namn.length ? `Saknas i CV:t: ${namn.slice(0, 3).join(', ')}${namn.length > 3 ? ' med flera' : ''}.` : 'Kompetenser ur kravprofilen som inte står i CV:t.',
+      namn.length ? `Saknas i CV:t: ${namn.slice(0, 3).join(', ')}${namn.length > 3 ? ' med flera' : ''}. Lägg till dem som stämmer.` : 'Kompetenser ur kravprofilen som inte står i CV:t.',
   },
   minaCvRubrik: UNDERSIDA.minaCv,
   /** Listan på Mina CV (21.2 fråga 1): samma ord som väggens "4 sparade CV". */

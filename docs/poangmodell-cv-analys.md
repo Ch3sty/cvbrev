@@ -113,6 +113,16 @@ Ett tomt slut betyder pågående (så sparar CV-formatet nuvarande jobb). Poäng
 | Kompetens | läggs i "Kompletterande färdigheter" om den inte redan står | ja |
 | Allmänt råd | förs inte in | aldrig |
 
+### Förslag hittar aldrig på fakta
+
+Kontrollen "Resultat i siffror" får aldrig bli ett skäl att lägga in tal som inte står i CV:t.
+
+1. Ett förslag får bara använda tal, resultat, arbetsgivare, titlar och kompetenser som finns i användarens CV. Det står i prompterna (edge-funktionen `analyze-cv-background`).
+2. Saknar en roll siffror skriver förslaget platshållaren `[antal]` där hennes egen siffra ska in, till exempel "Besvarade [antal] kundärenden per dag".
+3. Poängmodellen räknar aldrig en platshållare som ett tal (`harTal` tar bort allt inom hakparentes först). Ett förslag med `[antal]` ger alltså inget plus för siffror förrän hon fyllt i sin siffra, och då räknas det hon skrivit.
+4. Koden kontrollerar efter genereringen (`poangsattAnalys`, även för sparade analyser): varje tal i ett roll- eller profilförslag som inte står någonstans i CV:t (kontaktuppgifterna undantagna) byts mot `[antal]`. Förslaget får `fyllI: true` och `ersattaTal`, och korten i väljsteget skriver "Fyll i din egen siffra där det står [antal]".
+5. Kompetensförslag står inte i CV:t och är förslag att lägga till om de stämmer. Korten säger "Föreslås utifrån" och "Lägg bara till den om den stämmer för dig", aldrig att hon har kompetensen.
+
 Rollförslag matchas mot CV:ts roller: först rollens plats (`experienceIndex`, från analysversionen som arbetar på lagrad struktur) om titeln stämmer, sedan titel och arbetsgivare, sedan bara titel. Ett förslag som inte går att matcha tas bort ur resultatet. Förslag sorteras efter verkligt plus.
 
 Ett förslag kan ge noll eller till och med sänka poängen (en omskrivning med elva punkter). Då visas inget plus, men förslaget finns kvar. Potentialen räknar med det som det är.

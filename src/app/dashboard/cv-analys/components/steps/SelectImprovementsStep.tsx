@@ -132,7 +132,7 @@ const CATEGORY_META: Record<
   skills: {
     title: 'Vi föreslår nya färdigheter',
     description:
-      'Vi har hittat färdigheter som rekryterare letar efter och som passar din erfarenhet. Välj vilka som ska läggas till.',
+      'Färdigheter som rekryterare letar efter i roller som dina och som inte står i ditt CV. Lägg bara till dem du faktiskt har.',
   },
   auto: {
     title: 'Allmänna förbättringar',

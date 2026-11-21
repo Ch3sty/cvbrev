@@ -12,7 +12,10 @@ import {
   stadaKompetenser,
   KATEGORIER,
   POANG_VERSION,
+  harTal,
+  ersattPahittadeTal,
 } from '@/lib/cv/poang'
+import { talIText } from '@/lib/cv/poang/matt'
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { FIXTURER, type Fixtur } from './fixturer'
@@ -329,6 +332,67 @@ describe('förslagen: plus som stämmer', () => {
   it('rollförslag som inte matchar någon roll i CV:t tas bort', () => {
     const a = analysFor(FIXTURER.find((x) => x.namn === 'utan-struktur')!)
     expect(a.roleBasedImprovements).toEqual([])
+  })
+})
+
+describe('förslagen hittar aldrig på fakta', () => {
+  it('en platshållare räknas aldrig som ett tal', () => {
+    expect(harTal('Besvarade [antal] kundärenden per dag')).toBe(false)
+    expect(harTal('Ökade försäljningen med [X %]')).toBe(false)
+    expect(harTal('Besvarade 60 kundärenden per dag')).toBe(true)
+    const roll = (d: string[]) =>
+      cvAv({ experience: [{ position: 'Säljare', company: 'Bolag', startDate: '2020', description: d }] })
+    const tal = (cv: CVMetadata) =>
+      raknaPoang(cv).kategorier.find((k) => k.id === 'erfarenhet')!.kontroller.find((x) => x.id === 'tal')!.poang
+    expect(tal(roll(['Sålde [antal] abonnemang i månaden', 'Ledde kampanjer i butiken']))).toBe(0)
+    expect(tal(roll(['Sålde 40 abonnemang i månaden', 'Ledde kampanjer i butiken']))).toBe(6)
+  })
+
+  it('tal som inte står i CV:t byts mot [antal] och förslaget märks fyllI', () => {
+    const f = FIXTURER.find((x) => x.namn === 'normalt')!
+    const a = analysFor(f)
+    const kanda = new Set(talIText(JSON.stringify({ ...(f.structured_data as object), personalInfo: undefined })))
+    const roller = a.roleBasedImprovements as Array<{ roleTitle: string; suggestedText: string; fyllI: boolean; ersattaTal: number }>
+    for (const r of roller) {
+      for (const t of talIText(r.suggestedText)) expect(kanda.has(t)).toBe(true)
+    }
+    const telia = roller.find((r) => r.roleTitle === 'Kundtjänstmedarbetare')!
+    expect(telia.suggestedText).toContain('[antal] kundärenden')
+    expect(telia.suggestedText).not.toMatch(/\b60\b|8 av 10/)
+    expect(telia.fyllI).toBe(true)
+    expect(telia.ersattaTal).toBeGreaterThan(0)
+    // Profilen granskas likadant: "60 kunder" står inte i CV:t.
+    const profil = a.profileSummary as { improvedText: string; fyllI: boolean }
+    expect(profil.improvedText).not.toMatch(/\b60\b/)
+    expect(profil.fyllI).toBe(true)
+  })
+
+  it('tal som står i CV:t får förslaget behålla', () => {
+    const a = analysFor(FIXTURER.find((x) => x.namn === 'langt')!)
+    const chef = (a.roleBasedImprovements as Array<{ roleTitle: string; suggestedText: string; fyllI: boolean }>).find(
+      (r) => r.roleTitle === 'Ekonomichef'
+    )!
+    expect(chef.suggestedText).toContain('450 anställda')
+    expect(chef.fyllI).toBe(false)
+  })
+
+  it('granskningen är idempotent och kontaktuppgifternas siffror räknas inte som kända tal', () => {
+    const f = FIXTURER.find((x) => x.namn === 'normalt')!
+    const en = analysFor(f)
+    const tva = poangsattAnalys(en, { structured_data: f.structured_data, cv_text: f.cv_text })
+    expect(tva.roleBasedImprovements).toEqual(en.roleBasedImprovements)
+    // 070-555 12 34 i kontaktuppgifterna gör inte "555 kunder" till ett känt tal.
+    const pa = poangsattAnalys(
+      { ...f.analys, roleBasedImprovements: [{ roleTitle: 'Butikssäljare', company: 'Lindex', suggestedText: 'Sålde till 555 kunder i veckan' }] },
+      { structured_data: f.structured_data, cv_text: f.cv_text }
+    )
+    expect((pa.roleBasedImprovements as Array<{ suggestedText: string }>)[0].suggestedText).toBe('Sålde till [antal] kunder i veckan')
+  })
+
+  it('ersattPahittadeTal lämnar platshållare och kända tal orörda', () => {
+    const r = ersattPahittadeTal('Ledde 12 personer, [antal] projekt och 3,5 MSEK', new Set(['12']))
+    expect(r.text).toBe('Ledde 12 personer, [antal] projekt och [antal] MSEK')
+    expect(r.ersatta).toBe(1)
   })
 })
 

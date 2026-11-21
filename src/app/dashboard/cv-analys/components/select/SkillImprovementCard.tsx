@@ -62,13 +62,19 @@ export default function SkillImprovementCard({
             </div>
 
             {/* Källa + motivering */}
+            {/* Kompetensen står inte i CV:t. Den föreslås utifrån en roll,
+                och läggs bara till om den stämmer: texten får aldrig påstå
+                att hon har den. */}
             <div className="rounded-lg border border-kant bg-papper-2 p-3 ">
-              <p className="text-steg uppercase text-ink-3">Från ditt CV</p>
+              <p className="text-steg uppercase text-ink-3">Föreslås utifrån</p>
               <p className="mt-0.5 text-meta text-ink-2">
                 {suggestion.source || 'Din tidigare erfarenhet'}
               </p>
               <p className="mt-2 text-meta leading-relaxed text-ink-3">
                 {suggestion.reasoning}
+              </p>
+              <p className="mt-2 text-meta leading-relaxed text-ink-2">
+                Lägg bara till den om den stämmer för dig.
               </p>
             </div>
           </div>

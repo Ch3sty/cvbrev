@@ -57,6 +57,46 @@ export function pastaenden(rader: readonly unknown[]): string[] {
   return ut
 }
 
+/**
+ * Platshållaren som förslagen använder där användaren ska fylla i ett eget
+ * tal. Förslag hittar aldrig på siffror (docs/poangmodell-cv-analys.md).
+ */
+export const PLATSHALLARE_TAL = '[antal]'
+
+const PLATSHALLARE_RE = /\[[^\]\n]{1,30}\]/g
+
+/** Texten utan platshållare inom hakparentes. */
+export function utanPlatshallare(text: string): string {
+  return text.replace(PLATSHALLARE_RE, ' ')
+}
+
+/** Har texten en platshållare som användaren ska fylla i? */
+export function harPlatshallare(text: unknown): boolean {
+  return typeof text === 'string' && /\[[^\]\n]{1,30}\]/.test(text)
+}
+
+/** Talen i en text, normaliserade ("35,5" och "35.5" blir samma). */
+export function talIText(text: string): string[] {
+  return (utanPlatshallare(text).match(/\d+(?:[.,]\d+)?/g) ?? []).map((t) => String(Number(t.replace(',', '.'))))
+}
+
+/**
+ * Byter varje tal i ett förslag som inte står någonstans i CV:t mot
+ * platshållaren. Ett förslag får aldrig hitta på fakta: siffror som inte
+ * finns i rollens text eller i resten av CV:t blir [antal], så att
+ * användaren fyller i sin egen siffra.
+ */
+export function ersattPahittadeTal(text: string, kanda: ReadonlySet<string>): { text: string; ersatta: number } {
+  let ersatta = 0
+  const ut = text.replace(/(\[[^\]\n]{1,30}\])|\d+(?:[.,]\d+)?/g, (m, platshallare) => {
+    if (platshallare) return m
+    if (kanda.has(String(Number(m.replace(',', '.'))))) return m
+    ersatta++
+    return PLATSHALLARE_TAL
+  })
+  return { text: ut, ersatta }
+}
+
 const TALORD =
   /\b(två|tre|fyra|fem|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|procent|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
 
@@ -66,7 +106,8 @@ const TALORD =
  */
 export function harTal(text: string): boolean {
   if (!text) return false
-  const utanAr = text.replace(/\b(19[5-9]\d|20\d{2})\b/g, ' ')
+  // En platshållare som [antal] är inget tal: den räknas aldrig.
+  const utanAr = utanPlatshallare(text).replace(/\b(19[5-9]\d|20\d{2})\b/g, ' ')
   if (/\d/.test(utanAr)) return true
   return TALORD.test(utanAr)
 }

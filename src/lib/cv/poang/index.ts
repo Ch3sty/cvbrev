@@ -31,4 +31,12 @@ export {
   type PoangKategori,
   type CvRad,
 } from './forslag'
-export { delaKompetens, stadaKompetenser, kompetenserIcv } from './matt'
+export {
+  delaKompetens,
+  stadaKompetenser,
+  kompetenserIcv,
+  PLATSHALLARE_TAL,
+  harPlatshallare,
+  ersattPahittadeTal,
+  harTal,
+} from './matt'
