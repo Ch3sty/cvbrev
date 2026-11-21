@@ -12,6 +12,8 @@ import { backfillProfileContact } from '@/lib/profile/backfillContact';
 import { extractContactLocally, type ExtractedContact } from '@/lib/privacy/extractContact';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { paketKort } from '@/lib/plans/plans';
+import { maskaLagradCvText } from '@/lib/privacy/lagradCvText';
+import { hittaSammaCv, nastaLedigaNamn, raderMedSammaFilnamn, sammaFilinnehall, unikSokvag, type EgenCvRad } from '@/lib/cv/dubblett';
 export const runtime = 'nodejs';
 // Bild-PDF:er läses med OCR på servern (upp till fem sidor, två pass per
 // sida). OCR-delen har en egen tidsbudget (OCR_TIDSBUDGET_MS, 40 s), och
@@ -33,16 +35,6 @@ function escapeDatabasePlaceholder(text: string): string {
   return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
 }
 
-function stripPii(text: string): string {
-  return text
-    .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '[EMAIL]')
-    .replace(/(\+46|0046|0)[\s-]?7[\s-]?\d{1}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '[TEL]')
-    .replace(/\+\d{1,3}[\s-]?\d{6,14}/g, '[TEL]')
-    .replace(/\b[A-ZÅÄÖ][a-zåäö]+(?:gatan|vägen|stigen|gränden|torget|platsen)\s+\d+[A-Za-z]?\b/g, '[ADRESS]')
-    .replace(/\b\d{3}\s?\d{2}\b/g, '[POSTNR]')
-    .replace(/\b\d{6}[-\s]?\d{4}\b/g, '[PERSNR]')
-    .replace(/https?:\/\/[^\s]+/g, '[URL]');
-}
 
 // 'vision' är fasens gamla namn och läses av klienten. I dag betyder den OCR
 // på vår egen server, aldrig ett bildanrop till modellen.
@@ -185,9 +177,10 @@ async function runUpload(request: Request, emitter: SseEmitter) {
 
     // Kvoten och e-postverifieringen beror inte på filens innehåll och prövas
     // därför före tolkningen: annars väntade hon på avläsningen (upp till en
-    // minut för en bild-PDF) för att sedan få nej. En fil som redan är sparad
-    // (samma sökväg, en återanslutning) prövas inte här, precis som förut, och
-    // samma kontroll görs igen före sparandet nedan.
+    // minut för en bild-PDF) för att sedan få nej. En fil med samma sökväg
+    // prövas inte här: först efter inläsningen vet vi om innehållet är
+    // detsamma (då öppnas det befintliga) eller nytt (då prövas kvoten där).
+    // Samma kontroll görs igen före sparandet nedan.
     const { data: redanSparad } = await supabase
       .from('cv_texts')
       .select('id')
@@ -319,7 +312,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
     let kontaktUrFilen: ExtractedContact | null = null;
     if (extractedText && !textExtractionFailed) {
       kontaktUrFilen = extractContactLocally(extractedText);
-      extractedText = stripPii(extractedText);
+      extractedText = maskaLagradCvText(extractedText);
       // OCR läser ibland fel i just namnet eller adressen ("eriklindberd"),
       // och då känner mönstren inte igen dem. Ord som liknar profilens eller
       // CV:ts namn maskas därför också, i det som sparas och i det som går
@@ -335,6 +328,68 @@ async function runUpload(request: Request, emitter: SseEmitter) {
     let textToSave = extractedText;
     if (placeholderUsed) {
       textToSave = escapeDatabasePlaceholder(extractedText);
+    }
+
+    // Dubbletten jämförs på innehåll, inte på filnamn (src/lib/cv/dubblett.ts).
+    // Samma filnamn och samma maskade text (en uppladdning som görs om, eller
+    // en avbruten som återansluter): det befintliga CV:t öppnas, utan ny
+    // strukturering och utan att filen i lagringen skrivs över. Samma filnamn
+    // men annat innehåll: ett nytt CV med egen lagringsväg och eget namn.
+    let sparSokvag = storageFilePath;
+    let sparNamn = title || originalFileName;
+    {
+      const { data: egna } = await supabase
+        .from('cv_texts')
+        .select('*')
+        .eq('user_id', user.id);
+      const rader = (Array.isArray(egna) ? egna : []) as unknown as (EgenCvRad & Record<string, unknown>)[];
+      let samma = hittaSammaCv(rader, storageFilePath, textToSave);
+      // Texten kan ha skrivits om sedan uppladdningen (byggaren och
+      // arbetsläget sparar cv_text ur strukturen). Då jämförs filen med den
+      // som ligger i lagringen, som aldrig skrivs om: samma fil byte för byte
+      // är samma CV.
+      if (!samma) {
+        const kandidater = raderMedSammaFilnamn(rader, storageFilePath);
+        if (kandidater.length > 0) {
+          const nya = new Uint8Array(await file.arrayBuffer());
+          for (const r of kandidater) {
+            try {
+              const { data: lagrad } = await supabase.storage.from('cvs').download(String(r.original_file_path));
+              if (lagrad && sammaFilinnehall(new Uint8Array(await lagrad.arrayBuffer()), nya)) {
+                samma = r;
+                break;
+              }
+            } catch (lasFel) {
+              console.warn('[upload] kunde inte läsa den sparade filen för jämförelsen:', lasFel);
+            }
+          }
+        }
+      }
+      if (samma) {
+        let sammaUrl: string | null = null;
+        try {
+          sammaUrl = supabase.storage.from('cvs').getPublicUrl(String(samma.original_file_path)).data?.publicUrl ?? null;
+        } catch {
+          // ingen länk, CV:t öppnas ändå
+        }
+        emitter.complete({ ...samma, publicUrl: sammaUrl, textExtractionFailed, usedVisionFallback, fannsRedan: true });
+        return emitter.close();
+      }
+      if (rader.some((r) => r.original_file_path === storageFilePath)) {
+        sparSokvag = unikSokvag(storageFilePath);
+      }
+      sparNamn = nastaLedigaNamn(sparNamn, rader.map((r) => r.file_name));
+    }
+
+    // Kvoten prövades inte före tolkningen när en rad med samma sökväg fanns.
+    // Nu vet vi att det är ett nytt CV, så gränsen och e-postverifieringen
+    // gäller som för vilket nytt CV som helst, före struktureringen.
+    if (redanSparad && sparSokvag !== storageFilePath) {
+      const sparr = await kvotSparr();
+      if (sparr) {
+        emitter.error(sparr);
+        return emitter.close();
+      }
     }
 
     // Strukturera CV:t med AI for vacker presentation pa /profil/cv-sidan.
@@ -382,7 +437,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
 
     const { error: uploadError } = await supabase.storage
       .from('cvs')
-      .upload(storageFilePath, file, { upsert: true });
+      .upload(sparSokvag, file, { upsert: true });
 
     if (uploadError) {
       console.error(`❌ Storage upload error:`, uploadError);
@@ -397,7 +452,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
 
     let publicUrl: string | null = null;
     try {
-      const { data: urlData } = supabase.storage.from('cvs').getPublicUrl(storageFilePath);
+      const { data: urlData } = supabase.storage.from('cvs').getPublicUrl(sparSokvag);
       if (urlData?.publicUrl) {
         publicUrl = urlData.publicUrl;
       }
@@ -411,7 +466,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       .from('cv_texts')
       .select()
       .eq('user_id', user.id)
-      .eq('original_file_path', storageFilePath)
+      .eq('original_file_path', sparSokvag)
       .maybeSingle();
 
     if (existingCv) {
@@ -432,8 +487,8 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       .from('cv_texts')
       .insert({
         user_id: user.id,
-        file_name: title || originalFileName,
-        original_file_path: storageFilePath,
+        file_name: sparNamn,
+        original_file_path: sparSokvag,
         cv_text: textToSave,
         text_extraction_failed: textExtractionFailed,
         structured_data: structuredData as any,

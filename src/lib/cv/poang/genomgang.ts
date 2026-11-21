@@ -19,7 +19,7 @@
  * Klientsäker, rena funktioner.
  */
 import type { CVMetadata } from '../cv-metadata'
-import { tolkaNiva } from '../sprak'
+import { harNiva } from '../sprak'
 import type { ArkKontakt } from './kontakt'
 import { ord } from './matt'
 import {
@@ -275,7 +275,7 @@ function brister(id: KategoriId, kontroll: string, m: Mattad): Brist[] {
     case 'sprak.niva':
       if (m.sprakLage !== 'finns' || m.sprak.length === 0) return []
       return m.sprak
-        .filter((l) => tolkaNiva(l.proficiency) === '')
+        .filter((l) => !harNiva(l.proficiency))
         .map((l) => ({ text: `${l.language.trim()} saknar nivå.`, avsnitt: 'sprak' as const }))
 
     case 'format.datum': {

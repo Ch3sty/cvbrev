@@ -709,7 +709,7 @@ function ProfilBlad({ cv, onSpara }: BladProps) {
 
 /* ------------------------------------------------------------------ språk */
 
-const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Konversation', 'Nybörjare', 'Tvåspråkig']
+const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Goda kunskaper', 'Konversation', 'Nybörjare', 'Tvåspråkig']
 
 function SprakBlad({ cv, onSpara }: BladProps) {
   const { lage } = useArbete()
@@ -732,6 +732,8 @@ function SprakBlad({ cv, onSpara }: BladProps) {
           </Falt>
           <Falt id={`n-${i}`} etikett={SPRAK.niva}>
             <select id={`n-${i}`} className={s.faltVal} value={l.proficiency ?? ''} onChange={(e) => satt(i, { proficiency: e.target.value as CVLanguage['proficiency'] })}>
+              {/* Personens egen formulering ur CV:t står först, så att den inte byts bort. */}
+              {l.proficiency && !NIVAER.includes(l.proficiency) ? <option value={l.proficiency}>{l.proficiency}</option> : null}
               {NIVAER.map((n) => (
                 <option key={n}>{n}</option>
               ))}

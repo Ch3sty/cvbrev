@@ -18,7 +18,7 @@
  * väljsteget kan räkna om potentialen vid varje val.
  */
 import type { CVMetadata } from '../cv-metadata'
-import { sprakLage, tolkaNiva } from '../sprak'
+import { harNiva, sprakLage } from '../sprak'
 import { kanonisktCv } from './kanon'
 import type { ArkKontakt } from './kontakt'
 import {
@@ -294,7 +294,8 @@ function utbildning(m: Mattad) {
 
 function sprak(m: Mattad) {
   const finns = m.sprakLage === 'finns' && m.sprak.length > 0
-  const nivaer = finns && m.sprak.every((l) => tolkaNiva(l.proficiency) !== '')
+  // En nivå finns: ett steg eller personens egen formulering (sprak.ts, harNiva).
+  const nivaer = finns && m.sprak.every((l) => harNiva(l.proficiency))
   return [
     k('finns', 'Språk står med', 3, finns ? 3 : 0),
     k('niva', 'Nivå på varje språk', 2, nivaer ? 2 : 0),

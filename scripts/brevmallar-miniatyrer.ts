@@ -1,6 +1,7 @@
 /**
  * Brevets miniatyrer för de publika sidorna (byggspecen våg 1, avsnitt 1 och
- * 2): säljsidans mallsektion. Varje mall ritas av
+ * 2): säljsidans mallsektion, och mallvisarens fem (våg 2: miniatyrerna och de
+ * kikande arken). Varje mall ritas av
  * brevmotorn (renderBrevHtml) med exempelBrev('kort'), i full A4 med
  * typsnitten inbäddade som i PDF-kedjan, och sparas som webp under
  * public/mallar/brev/<id>.webp i måtten ur src/components/publikt/brevmallar.ts.
@@ -22,6 +23,7 @@ import { baddaInTypsnitt } from '../src/lib/cv/mallar/typsnitt-inbaddning'
 import { renderBrevHtml } from '../src/lib/letters/brevmall'
 import { exempelBrev } from '../src/lib/letters/brevmall/exempel'
 import { MINIATYR_BREDD, MINIATYR_HOJD, SALJ_MALL_IDS, brevMiniatyrSrc } from '../src/components/publikt/brevmallar'
+import { VISARE_MALL_IDS } from '../src/components/publikt/brevvisare/visare-data'
 
 const arg = (namn: string) => {
   const i = process.argv.indexOf(namn)
@@ -33,7 +35,8 @@ const A4_BREDD = 794
 const A4_HOJD = 1123
 
 async function main() {
-  const alla: string[] = [...SALJ_MALL_IDS]
+  // Säljsidans sju och mallvisarens fem (våg 2), varje mall en gång.
+  const alla: string[] = [...new Set<string>([...SALJ_MALL_IDS, ...VISARE_MALL_IDS])]
   const bara = arg('--bara')?.split(',')
   // --prov ritar mallar utanför urvalet till en egen mapp (--ut), för granskning.
   const prov = arg('--prov')?.split(',')

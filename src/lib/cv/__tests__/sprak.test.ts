@@ -46,8 +46,9 @@ describe('tolkaNiva', () => {
     expect(tolkaNiva('flytande')).toBe('Flytande')
     expect(tolkaNiva('Mycket god')).toBe('Flytande')
     expect(tolkaNiva('C1')).toBe('Flytande')
-    expect(tolkaNiva('god')).toBe('Konversation')
-    expect(tolkaNiva('B2')).toBe('Konversation')
+    // Sedan 2026-11-21: god, goda, good och B1/B2 är ett eget steg.
+    expect(tolkaNiva('god')).toBe('Goda kunskaper')
+    expect(tolkaNiva('B2')).toBe('Goda kunskaper')
     expect(tolkaNiva('Grundläggande')).toBe('Nybörjare')
     expect(tolkaNiva('native')).toBe('Modersmål')
     expect(tolkaNiva('bilingual')).toBe('Tvåspråkig')

@@ -59,7 +59,7 @@ const RUBRIKER = [
 ];
 
 export default function PrivacyPolicyPage() {
-  const lastUpdatedDate = "2026-11-15"; // *** UPPDATERA detta datum när policyn ändras ***
+  const lastUpdatedDate = "2026-11-21"; // *** UPPDATERA detta datum när policyn ändras ***
 
   return (
     <PubliktSida>
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
               <strong>För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi <strong>textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att skapa personliga brev, analysera CV:t och matcha jobb via Google (Gemini API).</strong>
             </li>
             <li>
-              <strong>Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. När du låter oss skriva om CV:t, matcha jobb, optimera LinkedIn-profilen eller bifogar CV:t till Jobbcoachen skickas texten utan den maskeringen, och en inskannad PDF utan textlager läses av med samma tjänst innan något kan maskas. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det <strong>avgörande att du följer vår uppmaning och tar bort sådana uppgifter innan du laddar upp.</strong> Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
+              <strong>Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). Innan text ur ditt CV skickas byter vi ut namn, e-postadress, telefonnummer, personnummer, födelsedatum, gatuadress, postnummer och länkar (till exempel till din LinkedIn-profil) mot platshållare, så att de uppgifterna inte följer med. Det gäller personliga brev, inläsningen av ditt CV, CV-analysen, förslagen i CV-byggaren, LinkedIn-optimeringen, jobbmatchningen och dokument du bifogar till Jobbcoachen. Där det färdiga dokumentet behöver uppgifterna sätter vi tillbaka dem hos oss efteråt. En inskannad PDF utan textlager läser vi av själva, på vår egen server i EU (Irland). Sidbilderna skickas aldrig till Google eller någon annan. Maskningen är automatisk: ort maskas inte, och uppgifter som är skrivna på ett ovanligt sätt kan följa med. Det du själv skriver i fritext, till exempel till Jobbcoachen eller i intervjuövningen, skickas som du skrev det. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det <strong>avgörande att du följer vår uppmaning och tar bort sådana uppgifter innan du laddar upp.</strong> Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
             </li>
             <li>För att hantera ditt konto och din eventuella prenumeration (baserat på information från Stripe).</li>
             <li>För att förbättra och optimera Tjänsten (genom analys av t.ex. användningsdata).</li>
@@ -148,13 +148,13 @@ export default function PrivacyPolicyPage() {
                     <strong>Supabase:</strong> Vår databas och fillagring, där din kontoinformation, CV-filer (original och text), sparade brev, testresultat och annan nödvändig data lagras. Servrarna ligger i EU.
                   </li>
                   <li>
-                    <strong>Vercel:</strong> Driften av själva webbplatsen och webbappen.
+                    <strong>Vercel:</strong> Driften av själva webbplatsen och webbappen. Våra serverfunktioner körs i EU (Irland). Det är där inskannade PDF:er läses av.
                   </li>
                   <li>
                     <strong>Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för {PREMIUM}. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
                   </li>
                   <li>
-                    <strong>Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen. Före personliga brev och CV-analysen byts namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer ut mot platshållare.
+                    <strong>Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen. Innan text ur ditt CV skickas byts namn, e-postadress, telefonnummer, personnummer, födelsedatum, gatuadress, postnummer och länkar ut mot platshållare. Inskannade PDF:er läser vi av själva, och sidbilderna skickas inte till Google.
                   </li>
                   <li>
                     <strong>Resend:</strong> Skickar våra mejl, till exempel kvitton, påminnelser och svar från supporten. Resend får din e-postadress och mejlets innehåll.

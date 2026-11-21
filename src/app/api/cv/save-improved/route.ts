@@ -10,6 +10,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
+import { maskaLagradCvText } from '@/lib/privacy/lagradCvText';
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,9 +41,12 @@ export async function POST(request: NextRequest) {
       if (improvedText.length > 100000) {
         return NextResponse.json({ error: 'Text too long', message: 'CV-texten är för lång (max 100 000 tecken)' }, { status: 400 });
       }
+      // cv_text maskas med samma funktion som uppladdningen, så att kolumnen
+      // har samma form oavsett väg. Arket och nedladdningen läser kontakten
+      // ur structured_data, som sparas omaskad som förut.
       const { data: uppdaterad, error: updError } = await supabase
         .from('cv_texts')
-        .update({ cv_text: improvedText, structured_data: structuredData, updated_at: new Date().toISOString() })
+        .update({ cv_text: maskaLagradCvText(String(improvedText)), structured_data: structuredData, updated_at: new Date().toISOString() })
         .eq('id', cvId)
         .eq('user_id', user.id)
         .select('id')

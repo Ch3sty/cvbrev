@@ -140,6 +140,15 @@ export async function sparaVal(brevId: string, andring: { mall_id?: string; font
 export type Filformat = 'pdf' | 'docx'
 
 /**
+ * Köpreturen från spärren i Mallar: tillbaka hit med brevet, mallen och
+ * formatet från knappen som öppnade spärren (PDF eller Word), som Brevet
+ * gör. Med ?ladda=1 laddas just den filen ner efter köpet.
+ */
+export function mallarKopretur(brevId: string, mall: string, format: Filformat): string {
+  return `/dashboard/mina-brev/mallar?${new URLSearchParams({ brev: brevId, mall, format }).toString()}`
+}
+
+/**
  * Laddar ner brevet i sin sparade mall och sitt typsnitt (servern läser
  * raden). Kastar MallarFel: 402 utan nedladdning, 422 name_required.
  */

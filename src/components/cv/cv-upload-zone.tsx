@@ -20,14 +20,16 @@ import {
 } from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
 import { KNAPP_PRIMAR } from '@/components/shell/knappar';
+import { FANNS_REDAN_TEXT } from '@/lib/cv/dubblett';
 
 type UploadPhase = 'uploading' | 'vision';
 
 interface CVUploadZoneProps {
+  /** Svarar { fannsRedan: true } när samma CV redan fanns och öppnas. */
   onUpload: (
     file: File,
     onPhaseChange?: (phase: UploadPhase, label: string) => void,
-  ) => Promise<void>;
+  ) => Promise<void | { fannsRedan?: boolean }>;
   onGdprChange?: (accepted: boolean) => void;
   disabled?: boolean;
   maxSizeMB?: number;
@@ -65,6 +67,8 @@ export default function CVUploadZone({
   const [isUploading, setIsUploading] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [phase, setPhase] = useState<UploadPhase>('uploading');
+  // Samma CV fanns redan: raden står på fastextens plats tills det öppnas.
+  const [fannsRedan, setFannsRedan] = useState(false);
 
   const handleGdprChange = useCallback(
     (accepted: boolean) => {
@@ -90,11 +94,17 @@ export default function CVUploadZone({
     setPhase('uploading');
     setUploadError(null);
     setFelKod(null);
+    setFannsRedan(false);
 
     try {
-      await onUpload(selectedFile, (newPhase) => {
+      const svar = await onUpload(selectedFile, (newPhase) => {
         setPhase(newPhase);
       });
+      if (svar && svar.fannsRedan) {
+        // Filen står kvar med raden under; föräldern öppnar CV:t strax.
+        setFannsRedan(true);
+        return;
+      }
       setSelectedFile(null);
       setGdprAccepted(false);
       handleGdprChange(false);
@@ -114,6 +124,7 @@ export default function CVUploadZone({
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
+    setFannsRedan(false);
     setUploadError(null);
     setFelKod(null);
     setGdprAccepted(false);
@@ -246,7 +257,7 @@ export default function CVUploadZone({
         <button
           type="button"
           onClick={handleUploadClick}
-          disabled={!gdprAccepted || isUploading}
+          disabled={!gdprAccepted || isUploading || fannsRedan}
           className={`${KNAPP_PRIMAR} mt-3 disabled:cursor-not-allowed`}
         >
           {isUploading ? (
@@ -263,7 +274,11 @@ export default function CVUploadZone({
       {/* Bildläsningens fastext står under knappen, aldrig i den: knappen
           bryts inte (whitespace-nowrap) och den långa texten sprängde bladet
           i 412 px. Samma mönster som arket Ett CV till (InlineCVUpload). */}
-      {selectedFile && isUploading && phase === 'vision' ? (
+      {selectedFile && fannsRedan ? (
+        <p role="status" data-fanns-redan className="mt-2 text-sm leading-[21px] text-ink-2">
+          {FANNS_REDAN_TEXT}
+        </p>
+      ) : selectedFile && isUploading && phase === 'vision' ? (
         <p role="status" className="mt-2 text-sm leading-[21px] text-ink-2">
           {PHASE_LABELS.vision}
         </p>

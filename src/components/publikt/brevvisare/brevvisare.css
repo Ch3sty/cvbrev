@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Mallvisaren för personliga brev, "Bunten" (byggspecen våg 2 och skissen
+   skiss-mallvisare.html, 2026-11-21). Allt under .mv. Smalt läge är
+   grundläget; brett läge (.mv-hall från 700 px behållarbredd) lägger
+   remsan bredvid arket. Mellanbredderna (440 till 700) är smalt läge,
+   centrerat. Rörelse: tre och inga fler (intoningen, miniatyrens lyft,
+   laddlinjen), bara transform och opacity, allt av vid reduced motion.
+   ========================================================================== */
+
+.mv-hall { container: mv / inline-size; margin: 28px 0; }
+.mv {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--kant);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--lyft);
+  color: var(--ink-1);
+  font-family: var(--body, Inter, system-ui, sans-serif);
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: left;
+  scroll-margin-top: 88px;
+}
+.mv *, .mv *::before, .mv *::after { box-sizing: border-box; }
+.mv p { margin: 0; }
+
+/* Scenen: brevrummets vägg, samma toning i ljust och mörkt läge. Kopparn är
+   publikt v2:s även i artiklarna. */
+.mv-scen {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 16px 18px;
+  --koppar: #E07A2F;
+  color: #F5F6FC;
+  background: radial-gradient(120% 90% at 85% 0%, #56284A 0%, #3A1930 60%);
+}
+.mv-topp { display: flex; align-items: center; justify-content: space-between; min-height: 44px; margin-bottom: 8px; }
+.mv-kick { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E29DCB; }
+.mv-tillbaka {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 16px 0 12px; margin-left: -4px;
+  border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .07);
+  color: #fff; font: inherit; font-weight: 600; font-size: 15px; cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.mv-tillbaka:hover { transform: translateY(-1px); background: rgba(255, 255, 255, .12); }
+.mv-tillbaka:active { transform: translateY(0); }
+.mv-tillbaka svg { width: 18px; height: 18px; flex: none; }
+
+/* Bunten: arket överst, grannmallarna kikar fram bakom. På en liten telefon
+   begränsas arket också av höjden, så att toppraden, arket och miniatyrraden
+   ryms under sidhuvudet efter rullningen till scenen (scroll-margin 88 px):
+   88 + toppraden 60 + miniatyrraden 125 + scenens nederkant 18 + luft 5 = 296.
+   Golv 220 px. */
+.mv-bunt {
+  position: relative;
+  width: max(220px, min(100% - 36px, 340px, (100svh - 296px) * .707));
+  margin: 0 auto;
+  touch-action: pan-y;
+}
+.mv-ark {
+  position: relative; z-index: 2;
+  aspect-ratio: 794 / 1123;
+  background: #fff; border-radius: 3px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .10), 0 2px 4px rgba(0, 0, 0, .28), 0 28px 44px -22px rgba(0, 0, 0, .75);
+}
+.mv-ark iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #fff; pointer-events: none; }
+.mv-ark iframe.mv-ny { opacity: 0; }
+.mv-ark iframe.mv-tona { animation: mv-in .18s ease-out both; }
+@keyframes mv-in { from { opacity: 0; } to { opacity: 1; } }
+.mv[aria-busy='true'] .mv-ark iframe.mv-gammal { opacity: .32; }
+.mv-kik {
+  position: absolute; z-index: 1; top: 0; left: 0; width: 100%; aspect-ratio: 794 / 1123;
+  padding: 0; border: 0; border-radius: 3px; overflow: hidden; background: #fff; cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 14px 24px -14px rgba(0, 0, 0, .7);
+  -webkit-tap-highlight-color: transparent;
+}
+/* Flikarna visar brevet men inget namn går att läsa: en lätt oskärpa. */
+.mv-kik img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(.86) saturate(.95) blur(1.2px); }
+.mv-kik-v { transform: translateX(-23px) rotate(-2.6deg) scale(.95); transform-origin: 50% 70%; }
+.mv-kik-h { transform: translateX(23px) rotate(2.6deg) scale(.95); transform-origin: 50% 70%; }
+
+/* Medan en mall laddas: en kopparlinje löper i arkets överkant. */
+.mv-laddar { position: absolute; z-index: 3; left: 0; top: 0; height: 3px; width: 42%; background: var(--koppar); border-radius: 0 3px 3px 0; animation: mv-lopp .9s ease-in-out infinite; }
+@keyframes mv-lopp { from { transform: translateX(-100%); } to { transform: translateX(240%); } }
+
+/* Miniatyrerna: fem i rad på telefon, aldrig rullning. */
+.mv-rad { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 24px auto 0; max-width: 420px; }
+.mv-mini {
+  appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit;
+  /* Spalten låst till cellens bredd: ett långt namn (Terrakotta) får sticka ut åt sidorna,
+     men får inte vidga spalten och därmed göra just den miniatyren större än de andra. */
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; justify-items: center; min-width: 0; cursor: pointer; border-radius: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+.mv-mini-bild {
+  position: relative; display: block; width: 100%; aspect-ratio: 480 / 679;
+  border-radius: 3px; overflow: hidden; background: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .12), 0 8px 14px -8px rgba(0, 0, 0, .65);
+  transition: transform .16s ease;
+}
+.mv-mini-bild img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.mv-mini-namn { font-size: 12px; font-weight: 600; line-height: 1.2; color: rgba(255, 255, 255, .78); white-space: nowrap; }
+@media (hover: hover) { .mv-mini:hover .mv-mini-bild { transform: translateY(-2px); } }
+.mv-mini:active .mv-mini-bild { transform: translateY(0); }
+.mv-mini[aria-pressed='true'] .mv-mini-bild { transform: translateY(-5px); outline: 2.5px solid var(--koppar); outline-offset: 3px; }
+.mv-mini[aria-pressed='true'] .mv-mini-namn { color: #fff; font-weight: 700; }
+/* Tangentbordsfokus: vit ring runt hela knappen, aldrig koppar (vald är koppar). */
+.mv .mv-mini:focus-visible { outline: 3px solid #fff; outline-offset: 5px; border-radius: 6px; }
+.mv .mv-mini:focus:not(:focus-visible) { outline: none; }
+
+/* Sockeln: mallens namn och nivå, handlingen, fotraden. Följer sidans tokens. */
+.mv-sockel { display: grid; gap: 10px; padding: 16px 16px 18px; }
+.mv-namnrad { display: grid; gap: 1px; min-height: 50px; align-content: start; }
+.mv-namnrad b { font-family: var(--display, var(--font-display), Inter, system-ui, sans-serif); font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -.015em; color: var(--ink-1); }
+.mv-namnrad span { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.mv-fot { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+.mv-sockel .pub-knapp { width: 100%; margin: 4px 0 2px; }
+.mv-lank {
+  justify-self: start; display: inline-flex; align-items: center; min-height: 44px;
+  font-weight: 600; font-size: 16px; color: var(--ink-1);
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; text-decoration-color: var(--kant-stark);
+}
+.mv-lank:hover { text-decoration-color: var(--ink-1); }
+.mv-lank svg { width: 18px; height: 18px; margin-left: 6px; flex: none; }
+
+/* Brevet som text (förhandsvisningen i artiklarna), utan JavaScript. */
+.mv-text { border-top: 1px solid var(--kant); margin: 2px -16px -18px; }
+.mv-text summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 52px; padding: 0 16px; font-weight: 600; font-size: 15.5px; color: var(--ink-1);
+}
+.mv-text summary::-webkit-details-marker { display: none; }
+.mv-text-ikon { flex: none; width: 28px; height: 28px; display: block; }
+.mv-text-ikon circle { stroke: var(--kant-stark); }
+.mv-text-ikon path { stroke: var(--ink-2); }
+.mv-text[open] .mv-text-ikon { transform: rotate(45deg); }
+.mv-text summary:focus-visible { outline: 3px solid var(--koppar); outline-offset: -3px; border-radius: 4px; }
+.mv-text-brev { padding: 4px 16px 20px; display: grid; gap: 12px; max-width: 68ch; }
+.mv-text-brev p { font-size: 15.5px; line-height: 1.65; color: var(--ink-1); }
+.mv-text-brev .mv-text-huvud { font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+.mv-text-brev .mv-text-huvud b { color: var(--ink-1); font-weight: 600; }
+
+/* Brett läge, från 700 px behållarbredd: arket till vänster, remsan till höger. */
+@container mv (min-width: 700px) {
+  .mv-scen { padding: 12px 28px 34px; }
+  .mv-topp { margin-bottom: 12px; }
+  .mv-bord { display: flex; justify-content: center; align-items: flex-start; gap: 52px; }
+  .mv-bunt { width: 452px; margin: 0; flex: none; }
+  .mv-kik-v { transform: translateX(-31px) rotate(-2.3deg) scale(.96); }
+  .mv-kik-h { transform: translateX(31px) rotate(2.3deg) scale(.96); }
+  .mv-rad { display: flex; flex-direction: column; justify-content: space-between; gap: 0; width: 72px; height: 639px; margin: 0; flex: none; padding-top: 4px; }
+  .mv-mini { gap: 6px; }
+  .mv-mini-namn { font-size: 12.5px; }
+  .mv-mini[aria-pressed='true'] .mv-mini-bild { transform: translateX(-6px); }
+  @media (hover: hover) {
+    .mv-mini:hover .mv-mini-bild { transform: translateX(-3px); }
+    .mv-mini[aria-pressed='true']:hover .mv-mini-bild { transform: translateX(-6px); }
+  }
+  .mv-sockel { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 36px; padding: 18px 28px 22px; }
+  .mv-namnrad { display: block; min-height: 0; grid-column: 1; grid-row: 1; }
+  .mv-namnrad b { font-size: 24px; margin-right: 6px; }
+  .mv-namnrad span { font-size: 16.5px; }
+  .mv-fot { grid-column: 1 / -1; grid-row: 2; font-size: 14.5px; }
+  .mv-sockel .pub-knapp, .mv-sockel .mv-lank { grid-column: 2; grid-row: 1; width: auto; justify-self: end; margin: 0; }
+  .mv-text { grid-column: 1 / -1; grid-row: 3; margin: 14px -28px -22px; }
+  .mv-text summary { padding: 0 28px; }
+  .mv-text-brev { padding: 4px 28px 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-mini-bild, .mv-tillbaka { transition: none; }
+  .mv-ark iframe.mv-tona { animation: none; }
+  .mv-laddar { animation: none; transform: translateX(70%); }
+}

@@ -21,6 +21,7 @@ import { SALD_PLAN, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { FREE_CV_EXPORTS } from '@/lib/cv/template-antal'
 import { getActiveCvIds } from '@/lib/cv/cv-quota'
+import { radMedHarleddSprakniva } from '@/lib/cv/sprak'
 import { MALL_KATALOG, losMallId } from '@/lib/cv/mallval/katalog'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
@@ -93,7 +94,8 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     ])
     nedladdadMall = (nedRes.data as { template_id?: string | null } | null)?.template_id ?? null
     if (cvRes.error) console.error('Fel vid server-hämtning av CV-listan:', cvRes.error)
-    cvRows = (cvRes.data ?? []) as InitialCv[]
+    // Nivån "Goda kunskaper" härleds för CV inlästa före 2026-11-21 (sprak.ts), bara vid läsning.
+    cvRows = ((cvRes.data ?? []) as InitialCv[]).map(radMedHarleddSprakniva)
     maxCvs = grans.maxCvs
     aktiva = [...getActiveCvIds(cvRows, grans.maxCvs)]
     const profile = profileRes.data as {

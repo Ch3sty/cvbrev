@@ -4189,6 +4189,12 @@ a.cv3-ark:focus-visible { outline: 3px solid var(--koppar-ljus); outline-offset:
 .cv3-tumme-tal[data-lucka] { background: var(--cv3-vagg-yta); color: var(--koppar-ljus); border-style: dashed; border-width: 3px; }
 .cv3-mobil-knapp { position: relative; margin-top: 12px; }
 .cv3-mobil-sidorad { display: none; }
+/* Genomgången: raden om vad knappen kostar ska synas även på telefon, under knappen. */
+@media (max-width: 767.98px) {
+  .cv4-sidorad-telefon { display: block; margin-top: 10px; font-size: 14px; line-height: 20px; color: var(--vagg-mjuk); text-align: center; }
+  /* Väggen har fast höjd på telefon och arket lägger sig över dess nederkant: väggen växer med raden så att arket inte täcker den. */
+  .cv3-vagg:has(.cv4-sidorad-telefon) { height: 460px; }
+}
 @media (min-width: 768px) and (max-width: 1279.98px) {
   .cv3-mobil-hero { grid-template-columns: minmax(0, 1fr) 124px; margin-top: 20px; }
   .cv3-h1-mobil { font-size: 36px; line-height: 42px; }

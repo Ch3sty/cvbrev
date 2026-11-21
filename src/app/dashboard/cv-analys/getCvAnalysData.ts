@@ -21,6 +21,7 @@
  * analyssvaret, och rörs inte av den här filen.
  */
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
+import { radMedHarleddSprakniva } from '@/lib/cv/sprak';
 import { checkCvAnalysisQuota } from '@/lib/quota/quotaService';
 
 /** Gratisnivåns analyskvot, samma värde som SUBSCRIPTION_LIMITS i useProfile. */
@@ -104,7 +105,8 @@ export async function getCvAnalysData(
     console.error('CV-analys: kunde inte läsa profilen', profileRes.error);
   }
 
-  const cvs = (cvRes.data ?? []) as CvAnalysRow[];
+  // Nivån "Goda kunskaper" härleds för CV inlästa före 2026-11-21 (sprak.ts), bara vid läsning.
+  const cvs = ((cvRes.data ?? []) as CvAnalysRow[]).map(radMedHarleddSprakniva);
 
   const row = profileRes.data as {
     subscription_tier?: string | null;

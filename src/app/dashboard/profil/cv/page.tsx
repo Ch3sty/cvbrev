@@ -24,6 +24,7 @@ import { CV_ANALYSIS_LIMIT } from '@/lib/quota/quotaService';
 import type { AnalysUnderlag } from '@/lib/rum/cvRum';
 import { ANALYS_FALT, analysPerCv, atgardadAtFor, underlagForCv } from '@/lib/cv/analys/cvAnalys';
 import { poangForRad, PROFIL_KONTAKT_FALT, type CvRad, type KontaktKalla } from '@/lib/cv/poang';
+import { radMedHarleddSprakniva } from '@/lib/cv/sprak';
 import DittCvClient, { type DittCvData, type InitialCv } from './DittCvClient';
 
 /** Gratisnivåns analyskvot, samma tal som /api/cv/analyze spärrar på. */
@@ -97,7 +98,8 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
         .eq('usage_counted', true),
     ]);
     if (cvRes.error) console.error('Fel vid server-hämtning av CV-listan:', cvRes.error);
-    cvRows = (cvRes.data ?? []) as InitialCv[];
+    // Nivån "Goda kunskaper" härleds för CV inlästa före 2026-11-21 (sprak.ts), bara vid läsning.
+    cvRows = ((cvRes.data ?? []) as InitialCv[]).map(radMedHarleddSprakniva);
     scope = scopeRes;
     const profil = profilRes.data as ({ onboarding_track?: string | null; profile_photo_url?: string | null } & NonNullable<KontaktKalla['profil']>) | null;
     // Kontaktuppgifterna som arket visar dem (poängmodellen version 2).
