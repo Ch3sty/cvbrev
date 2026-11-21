@@ -22,7 +22,7 @@ import { losMallId } from '@/lib/cv/mallval/katalog';
 import { CV_ANALYSIS_LIMIT } from '@/lib/quota/quotaService';
 import type { AnalysUnderlag } from '@/lib/rum/cvRum';
 import { ANALYS_FALT, analysPerCv, atgardadAtFor, underlagForCv } from '@/lib/cv/analys/cvAnalys';
-import { poangForRad, type CvRad } from '@/lib/cv/poang';
+import { poangForRad, PROFIL_KONTAKT_FALT, type CvRad, type KontaktKalla } from '@/lib/cv/poang';
 import DittCvClient, { type DittCvData, type InitialCv } from './DittCvClient';
 
 /** Gratisnivåns analyskvot, samma tal som /api/cv/analyze spärrar på. */
@@ -49,6 +49,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   let senaste: Record<string, unknown> | null = null;
   let analysRader: Array<{ id: string; cv_id: string | null; completed_at: string | null; forbattrad?: unknown; valda?: unknown }> = [];
   let nedladdning = null as { downloaded_at?: string | null; template_id?: string | null } | null;
+  let kontakt: KontaktKalla | null = null;
 
   try {
     const [cvRes, scopeRes, profilRes, poangRes, senasteRes, nedladdRes, kvotRes] = await Promise.all([
@@ -57,7 +58,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
       getUserScope(supabase, user.id),
       supabase
         .from('profiles')
-        .select('onboarding_track, profile_photo_url')
+        .select(`onboarding_track, profile_photo_url, ${PROFIL_KONTAKT_FALT}`)
         .eq('id', user.id)
         .maybeSingle(),
       supabase
@@ -92,7 +93,9 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
     if (cvRes.error) console.error('Fel vid server-hämtning av CV-listan:', cvRes.error);
     cvRows = (cvRes.data ?? []) as InitialCv[];
     scope = scopeRes;
-    const profil = profilRes.data as { onboarding_track?: string | null; profile_photo_url?: string | null } | null;
+    const profil = profilRes.data as ({ onboarding_track?: string | null; profile_photo_url?: string | null } & NonNullable<KontaktKalla['profil']>) | null;
+    // Kontaktuppgifterna som arket visar dem (poängmodellen version 2).
+    kontakt = { profil, anvandare: user };
     const t = profil?.onboarding_track;
     track = t === 'cv' || t === 'tester' || t === 'allt' ? t : null;
     fotoUrl = profil?.profile_photo_url ?? null;
@@ -104,7 +107,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
     jobbPerCv = analysPerCv(analysRader);
     for (const cv of cvRows) {
       if (!jobbPerCv[cv.id]) continue;
-      const p = poangForRad(cv as CvRad);
+      const p = poangForRad({ ...(cv as CvRad), kontakt });
       if (p !== null) poangPerCv[cv.id] = p;
     }
     senaste = (senasteRes.data as Record<string, unknown> | null) ?? null;
@@ -132,7 +135,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   let atgardadAt: string | null = null;
   if (aktivt) {
     atgardadAt = atgardadAtFor(aktivt, cvRows, analysRader);
-    underlag = await underlagForCv(supabase, user.id, aktivt, cvRows, jobbPerCv, senaste, {
+    underlag = await underlagForCv(supabase, user.id, { ...aktivt, kontakt }, cvRows, jobbPerCv, senaste, {
       harFull: scopeHasFeature(scope, 'cv_analysis_full'),
     });
   }

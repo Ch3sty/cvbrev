@@ -101,7 +101,7 @@ export function ersattPahittadeTal(text: string, kanda: ReadonlySet<string>): { 
 }
 
 const TALORD =
-  /\b(två|tre|fyra|fem|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|procent|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
+  /\b(två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|procent|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
 
 /**
  * Har påståendet ett tal som säger något: antal, belopp, procent eller tid.
@@ -149,6 +149,8 @@ const VERB = new Set(
   åtgärdar åtgärdade åtgärdat felsöker felsökte felsökt övervakar övervakade övervakat
   uppdaterar uppdaterade uppdaterat underhåller vidareutvecklar vidareutvecklade vidareutvecklat
   digitaliserar digitaliserade digitaliserat automatiserar automatiserade automatiserat
+  löser löste löst bemöter bemötte bemött möter mötte mött ställer ställde ställt ringer ringde ringt
+  skriver skrev skrivit når nådde nått vinner vann vunnit sätter satte satt väljer valde valt
   `
     .split(/\s+/)
     .filter(Boolean)

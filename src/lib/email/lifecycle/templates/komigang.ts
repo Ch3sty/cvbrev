@@ -334,7 +334,8 @@ async function veckansTal(ctx: LifecycleContext, sedan: string | null) {
   // och efter jämför samma sorts tal (docs/poangmodell-cv-analys.md).
   const poang = await poangForAnalyser(
     admin,
-    ((analyser?.data ?? []) as Array<{ cv_id: string | null }>).map((r) => ({ cv_id: r.cv_id }))
+    ((analyser?.data ?? []) as Array<{ cv_id: string | null }>).map((r) => ({ cv_id: r.cv_id })),
+    ctx.userId
   ).catch(() => [] as number[]);
   return {
     brev: brev?.count ?? 0,

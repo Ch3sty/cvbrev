@@ -32,7 +32,7 @@ import CvAnalysClient from './CvAnalysClient';
 import AnalysVy, { type AnalysSidaData } from './AnalysVy';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import type { AterupptagenAnalys, Oppna } from './aterupptagning';
-import { analysForKlient, poangForRad, type CvRad as CvRadData } from '@/lib/cv/poang';
+import { analysForKlient, poangForRad, PROFIL_KONTAKT_FALT, type CvRad as CvRadData, type KontaktKalla } from '@/lib/cv/poang';
 import { analysIdFor, analysPerCv, type AnalysRad } from '@/lib/cv/analys/cvAnalys';
 import { byggAnalysVy } from './analysData';
 import { losMallId } from '@/lib/cv/mallval/katalog';
@@ -66,6 +66,7 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
   let scope: Scope | null = null;
   let track: Scope | null = null;
   let nedladdadMall: string | null = null;
+  let kontakt: KontaktKalla | null = null;
   try {
     const [d, analysRes, full, sc, profilRes, nedRes] = await Promise.all([
       getCvAnalysData(supabase, user.id),
@@ -78,7 +79,7 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
         .limit(100),
       userHasAccess(supabase, user.id, 'cv_analysis_full').catch(() => false),
       getUserScope(supabase, user.id).catch(() => null),
-      supabase.from('profiles').select('onboarding_track').eq('id', user.id).maybeSingle(),
+      supabase.from('profiles').select(`onboarding_track, ${PROFIL_KONTAKT_FALT}`).eq('id', user.id).maybeSingle(),
       supabase
         .from('formatted_cv_downloads')
         .select('template_id')
@@ -94,6 +95,8 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
     const t = (profilRes.data as { onboarding_track?: string | null } | null)?.onboarding_track;
     track = t === 'cv' || t === 'tester' || t === 'allt' ? t : null;
     nedladdadMall = (nedRes.data as { template_id?: string | null } | null)?.template_id ?? null;
+    // Kontaktuppgifterna som arket visar dem (poängmodellen version 2).
+    kontakt = { profil: (profilRes.data as KontaktKalla['profil']) ?? null, anvandare: user };
   } catch (error) {
     console.error('CV-analys: kunde inte hämta sidans data', error);
   }
@@ -130,7 +133,7 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
         id: rad.id as string,
         cvId: cvRad?.id ?? (rad.cv_id as string | null) ?? null,
         displayName: (rad.display_name as string | null) ?? null,
-        result: analysForKlient(rad.result as Record<string, unknown>, cvRad, harFull),
+        result: analysForKlient(rad.result as Record<string, unknown>, cvRad ? { ...cvRad, kontakt } : { kontakt }, harFull),
         oppna: oppnaUr(sok),
       };
       if (aterupptagen.cvId && sidansData.cvs.some((c) => c.id === aterupptagen!.cvId)) valt = aterupptagen.cvId;
@@ -140,7 +143,7 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
   const poangPerCv: Record<string, number> = {};
   for (const cv of sidansData.cvs) {
     if (!jobbPerCv[cv.id]) continue;
-    const p = poangForRad(cv as CvRadData);
+    const p = poangForRad({ ...(cv as CvRadData), kontakt });
     if (p !== null) poangPerCv[cv.id] = p;
   }
   // Nyckeln: elementet skapas här på servern och ritas som syskon i väggens
@@ -170,7 +173,7 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
       .maybeSingle();
     const r = rad as { id: string; completed_at: string | null; result: unknown } | null;
     if (r && r.result && typeof r.result === 'object') {
-      vy = byggAnalysVy({ id: r.id, completed_at: r.completed_at, result: r.result as Record<string, unknown> }, aktivt, harFull);
+      vy = byggAnalysVy({ id: r.id, completed_at: r.completed_at, result: r.result as Record<string, unknown> }, { ...aktivt, kontakt }, harFull);
       sida = vy ? 'resultat' : 'utan-struktur';
     }
   }

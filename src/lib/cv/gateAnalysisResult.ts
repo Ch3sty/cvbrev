@@ -129,6 +129,9 @@ const SAKRA_FALT = [
   'keywords',
   'poang',
   'poangVersion',
+  // Kontaktuppgifterna som arket visar dem (poängmodellen version 2): hennes
+  // egna, ingen åtgärd, och väljsteget räknar poängen med dem.
+  'arkKontakt',
 ] as const
 
 /**

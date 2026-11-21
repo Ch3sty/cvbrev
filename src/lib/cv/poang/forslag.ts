@@ -19,6 +19,7 @@ import { utanPiiPlatshallare, rensaDjupt } from '@/lib/privacy/cvForModel'
 import { ersattPahittadeTal, falt, harPlatshallare, kompetenserIcv, stadaKompetenser, talIText } from './matt'
 import { KATEGORIER, POANG_VERSION, raknaPoang, type KategoriId, type Poang } from './modell'
 import { medSiffror, platshallareKvar, plusForSiffror } from './siffror'
+import { arkKontakt as lasArkKontakt, type ArkKontakt, type KontaktKalla } from './kontakt'
 
 type Obj = Record<string, unknown>
 const arObj = (v: unknown): v is Obj => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -42,6 +43,8 @@ export interface Redigeringar {
 /** Det ur analysresultatet som behövs för att införa förslagen. */
 export interface AnalysForPoang {
   structuredCV?: unknown
+  /** Kontaktuppgifterna som arket visar dem (kontakt.ts), när de är kända. */
+  arkKontakt?: ArkKontakt | null
   profileSummary?: { improvedText?: unknown } | null
   roleBasedImprovements?: ReadonlyArray<{ suggestedText?: unknown; rollIndex?: unknown } | null> | null
   skillSuggestions?: ReadonlyArray<{ skill?: unknown } | null> | null
@@ -165,7 +168,7 @@ export function byggForbattratCv(
 /** Poängen med de valda förslagen. null utan strukturerat CV. */
 export function poangMedVal(analys: AnalysForPoang, val: Val, red?: Redigeringar): Poang | null {
   const cv = byggForbattratCv(analys, val, red)
-  return cv ? raknaPoang(cv) : null
+  return cv ? raknaPoang(cv, analys.arkKontakt) : null
 }
 
 /** Alla förslag i resultatet valda. */
@@ -190,7 +193,7 @@ export function forvaltVal(analys: AnalysForPoang): Val {
   const cv = kanonisktCv(analys.structuredCV)
   if (!cv) return tomt
   const total = (val: Val) => poangMedVal(analys, val)?.total ?? 0
-  const idag = raknaPoang(cv).total
+  const idag = raknaPoang(cv, analys.arkKontakt).total
   const alla = allaVal(analys)
   type Kandidat = { typ: 0 | 1 | 2; i: number; plus: number }
   const med = (val: Val, k: Kandidat): Val =>
@@ -228,7 +231,7 @@ export function forvaltVal(analys: AnalysForPoang): Val {
 export function poangSammanfattning(analys: AnalysForPoang, forval?: Val): PoangSammanfattning | null {
   const cv = kanonisktCv(analys.structuredCV)
   if (!cv) return null
-  const idag = raknaPoang(cv)
+  const idag = raknaPoang(cv, analys.arkKontakt)
   const val = forval ?? forvaltVal(analys)
   const alla = poangMedVal(analys, val) ?? idag
   // Siffrorna ifyllda i CV:t först, sedan förslagen ovanpå: det CV hon har
@@ -308,6 +311,18 @@ export function matchaRoller(
 export interface CvRad {
   structured_data?: unknown
   cv_text?: string | null
+  /**
+   * Profilen som arket fyller kontaktuppgifterna ur (kontakt.ts). Med den
+   * räknas kontaktuppgifterna som arket visar dem; utan läses CV:ts egna fält
+   * (den publika snabbpoängen, där det inte finns något ark).
+   */
+  kontakt?: KontaktKalla | null
+}
+
+/** Arkets kontaktuppgifter för CV-raden (eller reservstrukturen), null utan profil. */
+function arkFor(cvRad: CvRad | null | undefined, reservStruktur?: unknown): ArkKontakt | null {
+  if (!cvRad?.kontakt) return null
+  return lasArkKontakt(kanonisktCv(cvRad.structured_data, cvRad.cv_text) ? cvRad.structured_data : reservStruktur, cvRad.kontakt)
 }
 
 /** Behåller ordningen vid lika plus: stabil sortering på ursprungsindex. */
@@ -352,13 +367,17 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
         : result.skillSuggestions,
       profileSummary: arObj(result.profileSummary) ? { ...result.profileSummary, atsImpact: 0, plus: 0 } : result.profileSummary,
       atsFriendliness: { ...ats, score: null, feedback: '' },
+      arkKontakt: null,
       poang: null,
       poangVersion: POANG_VERSION,
     }
   }
 
-  const idag = raknaPoang(bas).total
-  const grund: AnalysForPoang = { structuredCV: bas }
+  // Kontaktuppgifterna som arket visar dem, när profilen är känd. Följer med
+  // i resultatet (arkKontakt) så att väljsteget räknar likadant på klienten.
+  const ark = arkFor(cvRad, result.structuredCV)
+  const idag = raknaPoang(bas, ark).total
+  const grund: AnalysForPoang = { structuredCV: bas, arkKontakt: ark }
   const plusFor = (analys: AnalysForPoang, val: Val) => (poangMedVal({ ...grund, ...analys }, val)?.total ?? idag) - idag
 
   // Förslag får aldrig hitta på fakta. Talen i CV:t (utom kontaktuppgifterna)
@@ -461,6 +480,7 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
   const ut: Obj = {
     ...result,
     structuredCV: bas,
+    arkKontakt: ark,
     profileSummary: profil,
     roleBasedImprovements: roller.map(utan),
     skillSuggestions: kompetenser.map(utan),
@@ -502,5 +522,5 @@ export function medSammanfattning(result: Obj): Obj {
 /** Ett CV:ts poäng ur CV-raden, med analysens sparade struktur som reserv. */
 export function poangForRad(cvRad: CvRad | null | undefined, reservStruktur?: unknown): number | null {
   const cv = kanonisktCv(cvRad?.structured_data, cvRad?.cv_text) ?? kanonisktCv(reservStruktur, cvRad?.cv_text ?? null)
-  return cv ? raknaPoang(cv).total : null
+  return cv ? raknaPoang(cv, arkFor(cvRad, reservStruktur)).total : null
 }
