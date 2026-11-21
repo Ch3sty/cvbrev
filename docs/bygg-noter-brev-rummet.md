@@ -165,3 +165,9 @@ Rutterna och biblioteken: `git revert` på motorns commits. Migreringen är bara
 - `returTill` skickas oförändrad till `kopstegHref`; kassan godtar i dag bara vissa returadresser, mallar-byggaren behöver stämma av det.
 
 **Backa.** Ta bort importen i `src/app/dashboard/layout.tsx`, `src/app/brev3.css`, `src/components/brev3/kit/` och `src/app/brev3-kit/`. Inget annat rörs.
+
+
+## Körningar mot produktion
+
+- **2026-11-21, migreringen `20261121130000_brev_rummet.sql`** kördes av art director med Supabase-MCP (`apply_migration`, namn `brev_rummet`) inom ägarens beställning av bygget samma dag. Bara tillägg: nio nullbara kolumner på `letters` (`body_stycken`, `halsning`, `mottagare_person`, `mall_id`, `font_id`, `krav`, `forberett_at`, `forberett_som`, `cv_id`), en check på `forberett_som` och indexet `idx_letters_user_updated`. Kontrollerad direkt efteråt mot `information_schema.columns`: alla nio finns och är nullbara. Inga rader ändrade.
+- **Backa:** `alter table public.letters drop column ...` för de nio kolumnerna och `drop index idx_letters_user_updated`. Koden före brevrummet läser inga av kolumnerna, så de kan också ligga kvar.
