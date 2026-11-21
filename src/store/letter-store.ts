@@ -1,5 +1,6 @@
 // src/store/letter-store.ts
 import { create } from 'zustand';
+import type { BrevKrav } from '@/lib/letters/brevmall/typer';
 
 // Konstanter för cachning och prestanda
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minuter
@@ -51,9 +52,31 @@ export interface Letter {
   cv_path: string | null;
   created_at: string | null;
   updated_at: string | null;
-  /** Sätts av GET /api/letters: gratisanvändare har bara de 2 senast
-   *  sparade breven aktiva — resten är låsta tills Premium eller borttag. */
+  language?: string | null;
+  cv_id?: string | null;
+  /** Brevrummet (migreringen 20261121130000_brev_rummet.sql). Källan för brevet:
+   *  styckena som ren text. Null på gamla brev tills första ändringen. */
+  body_stycken?: string[] | null;
+  /** Hälsningsraden, null = mallens förval. */
+  halsning?: string | null;
+  mottagare_person?: string | null;
+  /** CV-mallens id. Null = gammalt brev i en av de sex gamla mallarna (template_id). */
+  mall_id?: string | null;
+  /** Typsnittets id, null = mallens eget. */
+  font_id?: string | null;
+  /** Sparade krav (BrevKrav[]). Null = inte läst, [] = inget kravmått. Citaten
+   *  kan ha fallit bort ur texten: använd kravTraffar/kravForBrev för träffarna. */
+  krav?: BrevKrav[] | null;
+  forberett_at?: string | null;
+  forberett_som?: 'kopierat' | 'nedladdat' | null;
+  /** Sätts av listan och brevets rutter: de två senast uppdaterade breven är
+   *  öppna på gratisnivån, övriga låsta (src/lib/letters/lista.ts). */
   isLocked?: boolean;
+  /** Kraven med träffar omräknade mot texten (sätts av rutterna). */
+  kravTraffar?: BrevKrav[] | null;
+  /** Datum då brevet markerades som sökt (sätts av listan och GET [id]). */
+  soktDatum?: string | null;
+  ansokanId?: string | null;
 }
 
 interface LetterGenerationParams {
