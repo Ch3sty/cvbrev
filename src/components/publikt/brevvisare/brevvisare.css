@@ -89,7 +89,9 @@
 .mv-rad { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 24px auto 0; max-width: 420px; }
 .mv-mini {
   appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit;
-  display: grid; gap: 8px; justify-items: center; min-width: 0; cursor: pointer; border-radius: 6px;
+  /* Spalten låst till cellens bredd: ett långt namn (Terrakotta) får sticka ut åt sidorna,
+     men får inte vidga spalten och därmed göra just den miniatyren större än de andra. */
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; justify-items: center; min-width: 0; cursor: pointer; border-radius: 6px;
   -webkit-tap-highlight-color: transparent;
 }
 .mv-mini-bild {

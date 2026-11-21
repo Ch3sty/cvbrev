@@ -1,7 +1,7 @@
 # SEO-diff
 
 Före: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/bp/seo-fore.json  
-Efter: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/vag2/seo-efter3.json  
+Efter: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/vag2/seo-efter-qa.json  
 Sidor: 122  
 Fel: 0
 
