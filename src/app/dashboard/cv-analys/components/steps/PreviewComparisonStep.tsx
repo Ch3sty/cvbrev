@@ -163,7 +163,7 @@ export default function PreviewComparisonStep({
       {/* Info-bottom */}
       <p className="rounded-xl border border-kant bg-papper px-4 py-3 text-center text-sm text-ink-2">
         Vill du justera något? Gå tillbaka. Ser allt bra ut? Gå vidare för att
-        välja mall och spara.
+        spara, sedan väljer du mall.
       </p>
     </div>
   );

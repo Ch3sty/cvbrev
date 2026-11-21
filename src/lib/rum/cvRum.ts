@@ -41,6 +41,11 @@ export interface AnalysUnderlag {
    * poängmodellen, aldrig här. Ersätter steg 1:s potentialuträkning.
    */
   medForslag?: number | null
+  /**
+   * Fynden gratisnivån får med åtgärd (profilen och det servern släpper,
+   * gateAnalysisResult), som fyndens nycklar. Null för Premium.
+   */
+  friaNycklar?: string[] | null
 }
 
 /**

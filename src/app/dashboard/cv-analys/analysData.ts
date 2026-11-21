@@ -66,6 +66,23 @@ function paverkan(plus: number): string {
   return plus >= 6 ? 'Hög påverkan.' : plus >= 3 ? 'Medel.' : 'Låg påverkan.'
 }
 
+/** Hur en förbättrad kontroll läses i "Vad vi har ändrat". */
+const ANDRING: Record<string, string> = {
+  'profil.finns': 'det finns en personbeskrivning',
+  'profil.langd': 'personbeskrivningen har lagom längd',
+  'profil.roll': 'rollen står i personbeskrivningen',
+  'profil.konkret': 'något konkret står med',
+  'erfarenhet.beskrivning': 'rollen beskriver vad du gjorde',
+  'erfarenhet.antal': 'lagom många punkter',
+  'erfarenhet.tal': 'ett resultat med siffra',
+  'erfarenhet.verb': 'punkterna börjar med vad du gjorde',
+  'kompetenser.finns': 'ett avsnitt med kompetenser',
+  'kompetenser.antal': 'lagom många kompetenser',
+  'kompetenser.korta': 'korta, sökbara termer',
+  'format.langd': 'lagom långt CV',
+  'format.punkter': 'inga överlånga punkter',
+}
+
 /** Kontrollerna i poängmodellen som förslaget förbättrar, i klartext. */
 function andringar(fore: CVMetadata, efter: CVMetadata | null): string[] {
   if (!efter) return []
@@ -76,7 +93,7 @@ function andringar(fore: CVMetadata, efter: CVMetadata | null): string[] {
     const forra = a.kategorier.find((k) => k.id === kat.id)
     for (const k of kat.kontroller) {
       const f = forra?.kontroller.find((x) => x.id === k.id)
-      if (f && k.poang > f.poang) ut.push(k.text.charAt(0).toLowerCase() + k.text.slice(1))
+      if (f && k.poang > f.poang) ut.push(ANDRING[`${kat.id}.${k.id}`] ?? k.text.charAt(0).toLowerCase() + k.text.slice(1))
     }
   }
   return ut
@@ -184,8 +201,13 @@ export function byggAnalysVy(
     }
   }
 
-  // Störst effekt först; lika plus behåller ordningen ovan.
+  // Störst effekt först; lika plus behåller ordningen ovan. Gratis: det första
+  // öppna fyndet (det hon får med åtgärd) står först, som på Ditt CV.
   fynd.sort((a, b) => b.plus - a.plus)
+  if (!harFull) {
+    const i = fynd.findIndex((f) => f.oppen)
+    if (i > 0) fynd.unshift(...fynd.splice(i, 1))
+  }
 
   return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, harFull }
 }

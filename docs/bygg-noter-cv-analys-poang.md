@@ -19,7 +19,7 @@ Allt finns i analysresultatet som `GET /api/cv/jobs/[jobId]` och den återupptag
 | `forvald` (profil, roller, kompetenser) | förvalt: sänker inte poängen, ensamt eller tillsammans med de andra förvalda. Förväl bara dessa. |
 | `fyllI`, `ersattaTal` (profil, roller) | texten har platshållaren `[antal]` där hon ska fylla i en egen siffra; `ersattaTal` är hur många påhittade tal som byttes ut |
 
-Gratisnivån: servern filtrerar som förut (`gateAnalysisResult`) och räknar sedan om `poang` på de förslag hon faktiskt får, så "med våra förslag" aldrig lovar något hon inte ser.
+Gratisnivån: servern filtrerar som förut (`gateAnalysisResult`, nu med en lista över säkra fält). `poang` är hela analysens tal, samma som Premium ser (steg 4: skissen Analys och Ditt CV visar potentialen med de låsta fynden); texten bakom de låsta fynden skickas aldrig.
 
 ### Typerna
 

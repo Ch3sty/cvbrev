@@ -454,9 +454,9 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     ) : null;
 
   const delar = p ? p.kategorier.filter((k) => k.plus > 0) : [];
-  const sasRaknas = p ? (
-    <section className="cv4-kortet" aria-labelledby="sa-raknas">
-      <p id="sa-raknas" className="cv4-ogon">
+  const sasRaknas = (rid: string) => p ? (
+    <section className="cv4-kortet" aria-labelledby={rid}>
+      <p id={rid} className="cv4-ogon">
         {ANALYS.sasOgon}
       </p>
       <div className="cv4-mojliga">
@@ -528,7 +528,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       <p className="cv4-mallrad">
         <b>{ANALYS.mallen(mall.namn)}</b> <Link href={mallarHref}>{ANALYS.seMallar}</Link>
       </p>
-      {sasRaknas}
+      <div className="cv4-bara-dator">{sasRaknas('sa-raknas')}</div>
     </div>
   );
 
@@ -548,6 +548,8 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         <div className="cv4-golv">
           {resultatPanel ?? introPanel}
           {hoger}
+          {/* Telefon och mellanbredd: poängkortet efter fynden. */}
+          <div className="cv4-bara-mobil">{sasRaknas('sa-raknas-mobil')}</div>
         </div>
       </div>
       {sparr ? (

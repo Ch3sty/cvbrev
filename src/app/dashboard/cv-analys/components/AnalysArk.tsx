@@ -40,7 +40,10 @@ function rollensTopp(doc: Document, titel: string, fran: number, till: number, e
   if (t.length < 2) return null;
   const rr = doc.documentElement.getBoundingClientRect();
   const bredd = rr.width || 1;
-  let bast: number | null = null;
+  // Bäst: ett element som börjar med titeln ("Projektledare" ska inte träffa
+  // "Senior Projektledare"). Annars ett som innehåller den.
+  let borjar: number | null = null;
+  let innehaller: number | null = null;
   for (const el of Array.from(doc.body?.querySelectorAll<HTMLElement>('*') ?? [])) {
     if (el.children.length > 3) continue;
     const txt = (el.textContent ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
@@ -49,9 +52,13 @@ function rollensTopp(doc: Document, titel: string, fran: number, till: number, e
     if (r.height === 0) continue;
     const y = (r.top - rr.top) / bredd;
     if (y < fran - 0.005 || y > till || y <= efter) continue;
-    if (bast === null || y < bast) bast = y;
+    if (txt.startsWith(t)) {
+      if (borjar === null || y < borjar) borjar = y;
+    } else if (innehaller === null || y < innehaller) {
+      innehaller = y;
+    }
   }
-  return bast;
+  return borjar ?? innehaller;
 }
 
 function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[] {
@@ -89,7 +96,7 @@ function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[]
       const y = toppar.get(x.nr)!;
       const nasta = allaToppar.find((t) => t > y + 0.005);
       const slut = nasta ?? a.avsnitt.y + a.avsnitt.h;
-      box = { x: a.avsnitt.x, y: y - 0.006, b: Math.max(a.b, a.avsnitt.b), h: Math.max(0.03, slut - y) };
+      box = { x: a.avsnitt.x, y: y - 0.006, b: Math.max(a.b, a.avsnitt.b), h: Math.max(0.03, slut - y - 0.012) };
     }
     if (box.y >= A4_KVOT - 0.02) continue;
     box.h = Math.min(box.h, A4_KVOT - box.y - 0.01);

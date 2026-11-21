@@ -108,8 +108,8 @@
 .cv4-arkplats { position: relative; z-index: 3; width: 100%; max-width: 400px; margin: 0 auto; }
 @media (min-width: 1280px) { .cv4-arkplats { margin-top: -454px; } }
 /* Telefon och mellanbredd: arket först (det lyfts upp i väggen), panelen under. */
-@media (max-width: 1279.98px) { .cv4-hoger { order: -1; } .cv4-golv > .cv4-hoger { margin-top: -28px; } .cv4-golv > .cv4-panel { margin-top: 0; } }
-@media (min-width: 768px) and (max-width: 1279.98px) { .cv4-golv > .cv4-hoger { margin-top: -40px; } }
+@media (max-width: 1279.98px) { .cv4-hoger { order: -1; } .cv4-golv > .cv4-hoger { margin-top: -96px; } .cv4-golv > .cv4-panel { margin-top: 0; } }
+@media (min-width: 768px) and (max-width: 1279.98px) { .cv4-golv > .cv4-hoger { margin-top: -120px; } }
 @media (max-width: 767.98px) { .cv4-arkplats { max-width: 300px; } }
 .cv4-ark { position: relative; width: 100%; aspect-ratio: 210 / 297; border-radius: 8px; background: #FFFFFF; box-shadow: 0 5px 0 var(--cv3-mork-kant), 0 30px 60px rgba(0, 0, 0, .4); overflow: hidden; }
 .cv4-ark > img, .cv4-ark > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
@@ -162,3 +162,9 @@
 .cv4-fordel p { margin: 4px 0 0; font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
 .cv4-sekundar { display: inline-flex; align-items: center; min-height: 44px; color: var(--vagg-ink); font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .cv4-fel { margin: 12px 0 0; font-size: 14px; line-height: 20px; color: var(--koppar-ljus); }
+
+/* Poängkortet: i högerspalten på dator, efter fynden på telefon och mellanbredd. */
+.cv4-bara-mobil { display: block; }
+.cv4-bara-dator { display: none; }
+@media (min-width: 1280px) { .cv4-bara-mobil { display: none; } .cv4-bara-dator { display: block; } }
+.cv4-prem-fot > p { flex: 1 1 220px; min-width: 0; }

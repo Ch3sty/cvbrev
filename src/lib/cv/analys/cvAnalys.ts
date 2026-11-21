@@ -15,6 +15,26 @@
  */
 import { poangsattAnalys, poangMedVal, type CvRad, type PoangSammanfattning } from '@/lib/cv/poang'
 import type { AnalysUnderlag } from '@/lib/rum/cvRum'
+import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult'
+
+/**
+ * Fynden gratisnivån får med åtgärd: profilen och det gateAnalysisResult
+ * släpper, som fyndens nycklar (profil, roll-<i>, kompetenser). Samma regel
+ * som Analys-sidan och analysflödet, så Ditt CV aldrig lovar en annan.
+ */
+export function friaNycklarFor(analys: Record<string, unknown>): string[] {
+  const ut: string[] = []
+  const p = analys.profileSummary as { plus?: unknown } | null | undefined
+  if (p && typeof p === 'object') ut.push('profil')
+  const g = gateAnalysisResult(analys, false) as Record<string, unknown>
+  const roller = Array.isArray(analys.roleBasedImprovements) ? (analys.roleBasedImprovements as Array<Record<string, unknown>>) : []
+  for (const r of (Array.isArray(g.roleBasedImprovements) ? g.roleBasedImprovements : []) as Array<Record<string, unknown>>) {
+    const i = roller.findIndex((x) => x.rollIndex === r.rollIndex)
+    if (i >= 0) ut.push(`roll-${i}`)
+  }
+  if (Array.isArray(g.skillSuggestions) && g.skillSuggestions.length > 0) ut.push('kompetenser')
+  return ut
+}
 
 /** Fälten Ditt CV läser ur analysraden. */
 export const ANALYS_FALT =
@@ -125,6 +145,7 @@ export function underlagUrRad(
       : null,
     kompetenserPlus: s && medKomp ? medKomp.total - s.idag : null,
     medForslag: s ? s.medAlla : null,
+    friaNycklar: harFull ? null : friaNycklarFor(analys),
   }
 }
 

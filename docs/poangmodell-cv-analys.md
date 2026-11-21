@@ -141,7 +141,7 @@ Varje förslag i resultatet bär `forvald: true/false`. En återupptagen analys 
 
 | Yta | Hur |
 |---|---|
-| Analysjobbets svar, `GET /api/cv/jobs/[jobId]` | `poangsattAnalys(result, cv-raden)`, sedan gratisfiltreringen, sedan `medSammanfattning` så att potentialen bara räknar förslag hon ser |
+| Analysjobbets svar, `GET /api/cv/jobs/[jobId]`, den återupptagna analysen och Analys-sidan | `analysForKlient`: `poangsattAnalys(result, cv-raden)`, sedan gratisfiltreringen. Poängen och med våra förslag är desamma för gratis och Premium (tal, inte åtgärder); texten bakom låsta fynd skickas inte |
 | Återupptagen analys, `/dashboard/cv-analys?job=` | `poangsattAnalys` med CV-raden ur listan |
 | Väljsteget och granskningen | `poangMedVal` och `byggForbattratCv` på klienten, samma funktion |
 | Sparat förbättrat CV, `POST /api/cv/save-improved-analysis` | servern poängsätter det sparade CV:t och versionsmärker raden |

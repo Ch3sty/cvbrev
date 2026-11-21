@@ -45,7 +45,7 @@ Fälla: våra klasser ligger efter Tailwinds verktyg, så en `.cv3-*` som sätte
 `page.tsx` läser allt parallellt (CV, behörighet, profil, poäng per CV, senaste analysen, senaste nedladdningen, analyskvoten räknad som `checkCvAnalysisQuota`). En andra fråga bara när senaste analysen inte gäller CV:t som visas. Lägen (`data-lage` på roten): `ny`, `utkast`, `analysera`, `analysera-sparr`, `atgarda`, `ladda-ner`, `brev`.
 
 - Mallen på arket: senast nedladdade mallen (`formatted_cv_downloads.template_id`), annars `structured_data.bygge.mall`, annars katalogens första.
-- Potentialen: analysöversiktens uträkning är flyttad till `src/lib/cv/analys/potential.ts` och används av både wizarden och Ditt CV.
+- Potentialen: analysöversiktens uträkning var flyttad till `src/lib/cv/analys/potential.ts`. Ersatt i steg 4 av poängmodellen (se steg 4 nedan); filen är borttagen.
 - Innehållet: `innehallUrCv` i `cvRum.ts`; språk via `sprakLage`, 'inte_inlast' räknar fyra avsnitt och säger inget om språk.
 - Analysera-knappen: med kvot kvar länk till Analys med `?cv=`; utan kvot öppnar den dagens betalvägg för omkörning (GraValSheet "analys-omkorning"), sidoraden är `kvotCopy('cv_analysis').title`.
 - Låsta fyndkort öppnar GraValSheet "analys". Köpraden: `PremiumPrisradText` och `PremiumKnappText` (kampanjpriset följer med), knappen mäter `paywall_cta_clicked` och går till köpsteget med platsen "analys".
@@ -88,3 +88,57 @@ Sidomenyn i CV-rummet: Ditt CV, Mallar, Analys, Skapa nytt CV, LinkedIn-profilen
 ### Backning per commit
 
 Varje commit går att backa för sig i omvänd ordning. Flikremsan på Mallar och Analys tas bort genom att backa sidornas ändringar; `RumHuvud.utanTopprad` är valfri och påverkar inget annat.
+
+## Steg 4 (Analys-sidan, ovanpå poängmodellen)
+
+Gren `feat/cv-analys-poang`. Poängmodellen: `docs/poangmodell-cv-analys.md`, typerna: `docs/bygg-noter-cv-analys-poang.md`.
+
+### Sammanslagningen med steg 1
+
+`git merge d0d7f505` (bara den commiten). Krockar i `cvRum.ts`, Ditt CV:s `page.tsx` och wizarden; båda sidorna behölls. Steg 1:s `src/lib/cv/analys/potential.ts` (summerade AI:ns plus) är borttagen. I stället:
+
+- `src/lib/cv/analys/cvAnalys.ts`: vilken analys som hör till ett CV (egen rad, annars originalets för ett "-improved"), `underlagUrRad` (poängsätter analysen på CV:t som visas med `poangsattAnalys`), `atgardadAtFor` (dokumentets väg) och `friaNycklarFor` (vilka fynd gratisnivån får med åtgärd).
+- `AnalysUnderlag` (cvRum.ts) fick `medForslag` (poängmodellens med våra förslag) och `friaNycklar`; `medForslagUrAnalys(a)` ersätter `potentialPoang`. Ditt CV:s stora tal, "Med våra förslag", "N poäng att hämta", fyndkortens plus, målkortet och mätaren Läsbarheten kommer därifrån.
+- Ditt CV:s utseende är oförändrat. En sak ändrades i logiken: "Ingår gratis" och de öppna korten följer nu `friaNycklar` (profilen och det fynd servern släpper), inte "första kortet". Förut kunde Ditt CV kalla ett kort gratis som analysen sedan låste.
+
+### Analys-sidan
+
+`page.tsx` läser allt parallellt och väljer CV med `valtCvId` (aldrig ett låst). Lägen (`data-lage`): `resultat`, `utan-struktur`, `intro`, `sparr`. `?job=<id>` öppnar dagens steg (wizarden) som förut; `&steg=4|5&valj=profil|roll-<i>|kompetenser|forvalda` kommer från sidans knappar.
+
+| Fil | Vad |
+|---|---|
+| `src/app/dashboard/cv-analys/analysData.ts` | `byggAnalysVy`: fynden (profil, roller, kompetenserna tillsammans) med verkligt plus, texterna bara för de öppna, "Vad vi har ändrat" ur modellens kontroller |
+| `src/app/dashboard/cv-analys/AnalysVy.tsx` | väggen (CvVagg), golvet, introt och spärren; "Analysera mitt CV" monterar dagens flöde med CV:t valt |
+| `src/app/dashboard/cv-analys/components/AnalysArk.tsx` | arket med markeringar: avsnittsmätningen (`matDokument`), rollen letas upp på titeln i erfarenhetsavsnittet, annars markeras avsnittet; markeringar under sida ett ritas inte |
+| `src/app/dashboard/cv-analys/analys.css` | egna `.cv4-*` (egen fil, så globals.css inte krockar med steg 2 och 3) |
+| `src/app/dashboard/cv-analys/analysTexter.ts` | texterna; introts och spärrens är dagens |
+
+Kvoten: `getCvAnalysData` räknar nu med `checkCvAnalysisQuota` (jobb med usage_counted), samma som Ditt CV och spärren i `/api/cv/analyze`. Kvoten i sig är oförändrad.
+
+Gratisnivån: talen (i dag, med våra förslag, plus per fynd och kategori) är desamma som för Premium. Åtgärdstexten finns bara för profilen och det servern släpper (`analysForKlient`, `gateAnalysisResult` med en lista över säkra fält).
+
+### Flödet efter resultatet
+
+- "Åtgärda i CV:t" landar i väljsteget med de förvalda förslagen; "Ändra texten" i väljsteget med fyndet valt; "Använd förslaget" i granskningen med bara det förslaget.
+- Slutsteget sparar och går till Mallar (`/dashboard/cv-mallar?cv=<id>`). Ingen egen mallväljare eller nedladdning (rättar fynd 1 och 2). "Spara som nytt CV" kräver ledig plats, "Ersätt mitt nuvarande CV" uppdaterar det analyserade CV:t på plats (`POST /api/cv/save-improved` med `lage: 'ersatt'`, bara egna CV, ingen kvotkontroll). Båda bygger CV:t med `byggForbattratCv`, så poängen blir den utlovade.
+- Analysraden för det sparade CV:t byggs på servern ur den ursprungliga analysen (`save-improved-analysis`) och märks `result.forbattradSparad = { at, satt: 'nytt' | 'ersatt' }`. Ditt CV:s väg läser det som åtgärdat (också vid ersättning, där filvägen inte ändras). Förslag som redan står i CV:t (samma profiltext, samma rolltext) tas bort när raden läses, så de visas aldrig som kvar att göra; poängen räknas alltid på det som står i CV:t.
+- Fynd 4: "Analysera ett annat CV" går till `/dashboard/cv-analys`, klart till Ditt CV.
+- Fynd 3: Helvetica är inte längre märkt premium (`src/lib/cv/preview-utils.ts`). Kvar för steg 2: texten "Elva typsnitt i tre grupper" i `src/components/cv/Dokument/texter.ts` rad 96 ska bli "Fjorton typsnitt i tre grupper" (14 typsnitt; Helvetica ligger nu i gruppen ATS-säkra, så grupperna är tre).
+
+Klicktest: `scripts/klicktest-cv-analys-spara.mjs` (premiumkontot: granska, Ersätt, Spara, Mallar, Ditt CV, Analys). Utfall: 81 i dag, profilförslaget +2, sparat CV 83, profilen inte kvar som fynd, Ditt CV visar åtgärdat.
+
+### Personuppgifter (punkt D)
+
+`/api/linkedin/optimize` och edge-funktionerna `optimize-linkedin` (den LinkedIn-optimeraren anropar) och `parse-cv-for-matching` (jobbmatchningens tolkning av CV:t) maskar med samma mekanism (`maskaCvForModel`/`maskeraSektioner`, `_shared/pii.ts`) och tar bort platshållarna ur svaren. `match-jobs` skickar bara annonser och yrkestermer till Arbetsförmedlingens tjänster, inga CV-uppgifter; där ändrades inget. Test: `src/lib/privacy/__tests__/linkedin-matchning-ai.test.ts`.
+
+### Testkonton och skärmdumpar
+
+`scripts/qa-cv-analys-konton.mjs skapa|radera` (fem konton med prefixet `qa-cv-analys4-`, analysrader som testdata utan AI-anrop), `scripts/skarm-cv-analys.mjs` (`--morkt`, `--mellan`).
+
+### Avvikelser mot skissen
+
+- Förslagets text markeras inte med gröna `<mark>` per ändrad fras (det kräver en ordvis jämförelse vi inte har); `[antal]` markeras.
+- Gratis: det utfällda fyndet är det första ÖPPNA (profilen eller det servern släpper), inte alltid nummer ett; numreringen följer verkligt plus.
+- "Så räknas poängen" visar modellens kategorier (Personbeskrivning, Erfarenhet, ...) i stället för skissens fyndnamn, plus förklaringen och "Alla sju delar".
+- Två kopparknappar i resultatläget för gratis (väggens "Åtgärda i CV:t" och köpknappen), som skissen och Ditt CV i steg 1.
+- Telefon: arket först (lyft in i väggen), sedan fynden, sedan "Så räknas poängen".
