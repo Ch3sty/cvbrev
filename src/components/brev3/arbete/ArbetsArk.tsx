@@ -28,7 +28,9 @@ const ArbetsArk = forwardRef<HTMLDivElement, Props>(function ArbetsArk({ html, a
         {overlay}
       </div>
       {telefon ? (
-        <div className="xl:hidden">
+        // Etiketterna som hänger ut över arkets kant ryms inte på telefonen
+        // (skissen Mobil-brevet har dem inte); platsen och siffrorna står kvar.
+        <div className="xl:hidden [&_.b3-etikett]:!hidden">
           <BrevArk html={html} lage="arbete" saknatKrav={saknatKrav} onStycke={onStycke} ariaLabel={ariaLabel} />
         </div>
       ) : null}

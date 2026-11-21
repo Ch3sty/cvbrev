@@ -280,3 +280,69 @@ Kopierat i stället för exporterat: kontaktavsnittets markup i spalten (fem rad
 ### Hur man backar
 
 Ta bort `src/lib/letters/brevmall/` utom `typer.ts`, `src/components/brev3/ark/`, `brev-data.ts` och den nya vägen i `download/route.ts` (blocket efter JSON-tolkningen och funktionerna `filnamn`, `brevmallPdf`, `nyttBrevSomFil`), och de två exportraderna sist i `html.ts` och `bygg.ts`. Sidofält: återställ `.sidebar`-reglerna och e-postradens grad i `docx-templates.ts`.
+
+
+## Arbete (etapp 2, gren `feat/brev-rummet-b`, arbetskopia `brev-b`)
+
+### Vad som byggdes
+
+Arbetsläget: Skriv brev, Brevet och Målgången, satta ihop av kitet (`ArbetsYta`, `ArbetsHuvud`, `MallKapsel`, `Blad`, `BrevSparrLaddare`) och arket (`BrevArk`, `BrevMiniatyr`).
+
+- **Skriv brev** (`/dashboard/skapa-brev`): en skärm i stället för sex steg. Före skrivandet, väntan, uppspelning stycke för stycke (700 ms, kraven bockas av när deras citat syns, allt direkt under `prefers-reduced-motion`), sedan `router.replace` till `/dashboard/mina-brev/<id>?klart=1`. Sidan är en serverkomponent som läser CV:na (mall och titel ur `structured_data` med JSON-sökväg), låsen, behörigheten, profilen, kvoten och tonen, och ritar arket före skrivandet (brevhuvudet i startmallen, "Arbetsgivaren" och "Ansökan: tjänsten du söker" dämpat). Utan CV skickas man till `/dashboard/profil/cv?reason=cv-required` redan på servern.
+- **Brevet** (`/dashboard/mina-brev/[id]`): serverkomponent som läser brevet, låset (`arBrevLastForAnvandare`), sökt (`hamtaSokta`), behörigheterna `any` och `letter_download`, profilen och kvoten, och ritar arket med kravens markeringar. Klienten `BrevetVy` har de fem flikarna (egen flikrad med kitets klass `b3-avsn` och knappar, så att `?flik=` byts med `history.replaceState` utan att sidan hämtas om från servern), autosparet (`useBrevAutospar`), Kopiera text, Word och PDF (`POST /api/letters/download { id, format }`), spärrarna, Markera som sökt och Ta bort.
+- **Arket följer texten**: brevmallens renderare (`render.ts`) laddas dynamiskt i klienten (`src/components/brev3/arbete/ritare.ts`, förladdas när webbläsaren har tid över) och arket ritas om lokalt vid varje ändring, med markeringarna och det aktiva stycket. Servern räknar om `content` vid sparningen; arket behåller klientens ritning (samma funktion, plus markeringar), så inget blinkar. Gamla brev utan `mall_id` visar sin sparade HTML tills första sparningen har flyttat dem; då tas `mall_id` ur svaret och arket ritas lokalt.
+- **Målgången** (`/dashboard/mina-brev/[id]/skickat`): serverkomponent. Talet är sökta tjänster sedan månadens början, plupparna skickade av användarens brev (högst sju), tredje kortet det senaste matchade jobbet utan brev ur `job_matchings_cache` (`jobs->0..9`, jämfört med brevens företag och tjänst), annars "Skriv nästa brev". Ett brev som inte är sökt skickas till brevet.
+- **Gamla redigeringsrutten** `/dashboard/mina-brev/[id]/edit` skickar vidare till `?flik=texten`.
+- **Laddvyer** (`loading.tsx` för Skriv och Brevet) i arbetslägets yta med samma blad och ark (`ArbetsLaddar`).
+
+### Nya filer
+
+`src/components/brev3/arbete/`: `texter.ts` (alla nya texter, `arFlik`), `typsnitt.ts` (typsnittslistan, se nedan), `ArbetsRam.tsx`, `ArbetsArk.tsx`, `ArbetsLaddar.tsx`, `SkrivBrev.tsx`, `CvVal.tsx`, `TonVal.tsx`, `BrevetVy.tsx`, `BrevetFlikar.tsx`, `BrevSaknas.tsx`, `Malgang.tsx`, `NastaJobb.tsx`, `ritare.ts`, `arkHjalp.ts`, `ladda.ts`. Rutten `src/app/dashboard/mina-brev/[id]/skickat/page.tsx`.
+
+### Borttaget
+
+`skapa-brev/CreateLetterClient.tsx`, `components/steps/*`, `LetterFlowLayout`, `LetterFlowSummary`, `PrefillBadgeCard`, `FontSelector`; `mina-brev/[id]/ViewLetterClient.tsx`, `edit/EditLetterClient.tsx`, `edit/loading.tsx`. `CvPickerGrid` står kvar (Skriv och Dina brev använder den).
+
+### Typsnittslistan flyttad
+
+`FONTS` i `FontSelector.tsx` lästes inte av någon rutt (nedladdningen läser `src/lib/documents/typsnitt.ts`). Listan som Brevet och Mallar visar finns nu i `src/components/brev3/arbete/typsnitt.ts`: `BREV_TYPSNITT` (id, namn, CSS-familj, premium, modern), `brevTypsnitt(id)` och `typsnittFontFace()` (@font-face ur CV-mallarnas egna filer, så att varje namn står i sitt eget typsnitt). Byggaren mallar kan importera samma.
+
+### Beslut
+
+1. **Sidomenyn** göms från 1280 px medan arbetsläget är öppet (en `<style>` i `ArbetsRam`, gäller bara medan ramen finns), så att arbetsläget står i full bredd som i skissen. Sidomenyn ligger i skalet ovanför innehållet (z-20 mot z-10), så ramen kan inte täcka den, och bredvid menyn klipptes etiketterna "Här hamnar meningen" och "Du ändrar här" vid 1440. Mellan 1024 och 1280 står menyn kvar och ramen börjar efter den, som FlowShell.
+2. **Avbryt** i Skriv avbryter väntan i klienten och lämnar annonsen kvar. Servern skriver ändå klart brevet, sparar det och räknar kvoten (rutten kan inte avbrytas). Brevet syns då under Dina brev.
+3. **Utkastet** återställs tyst (annons, CV, ton, språk) i stället för dagens val "Fortsätt där du var / Börja om". "Byt annons" tömmer fältet och utkastet. Utkastet har version 2, så gamla utkast kastas.
+4. **Gratis utan kvot**: "Skriv brevet" öppnar veckospärren direkt, utan anrop (kvoten är känd från servern). 429 från servern ger samma spärr.
+5. **Mallen i Skriv** är den servern ger brevet (`startmallForBrev` på CV:ts mall). Skriv skickar ingen `mall_id`; mallväljaren i etapp 3 behöver skicka den med genereringen.
+6. **Ton och språk** väljs i fliken och skrivs om först på "Skriv om brevet" (`skrivOmBrev`, drar kvoten för gratis). Gratis utan kvot: knappen öppnar veckospärren.
+7. **Telefon, Brevet**: foten följer Mobil-brevet (Ladda ner PDF överst, Kopiera text och Markera som sökt under, raden om gratis sist). Word finns på telefon som en bred knapp under för den som får ladda ner. Raden "Har du skickat ansökan?" visas bara på dator. Foten ligger sist på sidan som i skissen, inte fast i botten.
+8. **Låst brev**: fälten avstängda, autosparet avstängt, kopiera och nedladdning (spärren) fungerar, raden med köpknappen överst i bladet (`kopstegHref(SALD_PLAN, 'kvot', { retur })`).
+9. **Mallkapselns miniatyr** är CV-mallens bild (`/mallar/v2/<id>-liten.webp`), inte en ritad brevminiatyr.
+10. **Etiketterna på telefonens ark** ("Här hamnar meningen", "Du ändrar här") döljs; de hänger ut över kanten och klipptes. Platsen och siffrorna står kvar.
+
+### Det dagens flöde gjorde som inte längre görs
+
+- Valet "Fortsätt där du var / Börja om" för utkastet (beslut 3).
+- `OnboardingNextStep` ("Brev skapat, nästa: Analysera ditt CV") i första steget. Ingen plats i den nya skärmen; genereringen sätter fortfarande onboarding-steget på servern.
+- Toasten med maskoten när brevet var skrivet. Ersatt av uppspelningen och brickan "Brevet klart"; aktiviteten loggas fortfarande (`logActivity('letter_created')`).
+- Kontaktraden (`KontaktuppgifterRad`) under brevet och i steg 6: telefon och ort i brevhuvudet ändras inte längre här.
+- "Ångra" efter Markera som sökt. Nu går man direkt till målgången.
+- Mallbyte som skrev om brevet med AI (fynd 3), dialogen "Lämna utan att spara?" och knappen "Spara brevet" (allt sparas av sig självt).
+
+### Ändringar utanför mina filer
+
+- `src/lib/__tests__/namn-valfritt.test.ts`: testet läser `components/brev3/arbete/SkrivBrev.tsx` i stället för den borttagna `CreateLetterClient.tsx` (en rad).
+- Inga ändringar i motorn, kitet eller arket.
+
+### Fel jag såg men inte rättade (arket)
+
+- `BrevArk`: när sista raden i stycket är full läggs platsen för ett saknat krav på nästa rad, ovanpå nästa stycke (syns på telefon).
+
+### Det som återstår (etapp 3)
+
+- Mallväljaren i Skriv: knappen i kapseln är märkt `// MALLVÄLJARE: kopplas in i etapp 3` och gör inget.
+- Jobbkortet i veckospärren i Skriv visas bara när annonsen kom från matchningen.
+
+### Hur man backar
+
+`git revert` på arbetets commits på grenen. Den gamla stegkoden och vyerna kommer då tillbaka.
