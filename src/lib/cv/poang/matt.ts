@@ -224,18 +224,63 @@ export function tolkaPeriod(start: unknown, slut: unknown): Period {
   return { tolkbar, startAr, slutAr, pagar, format }
 }
 
-/** Delar en periodsträng som "2014 - pågående" i start och slut. */
+/**
+ * Skiljetecknen mellan start och slut i en period: bindestreck med
+ * mellanslag, tankstreck med eller utan mellanslag, och orden "till",
+ * "till och med", "t.o.m." och engelska "to"/"until" ("2017 till 2019",
+ * "mars 2017 t.o.m. juni 2019", "2019 till nu"). Orden kräver mellanslag
+ * runt sig, så att de aldrig delar ett ord.
+ */
+const PERIOD_SKILJE = /\s+(?:till\s+och\s+med|till|t\.\s?o\.\s?m\.?|to|until)\s+|\s+[-–—]\s+|\s*[–—]\s*/i
+
+/** Ett slut som betyder att perioden pågår ("nu", "pågående", "present"). */
+export const PAGAENDE_SLUT = /^(pågående|pagaende|nuvarande|nu|idag|i dag|tills vidare|present|current|ongoing|now)$/i
+
+/** Delar en periodsträng som "2014 - pågående" eller "2017 till 2019" i start och slut. */
 export function delaPeriod(period: unknown): { start: string; slut: string } {
   const p = falt(period)
   if (!p) return { start: '', slut: '' }
-  const delar = p.split(/\s+[-–—]\s+|\s*[–—]\s*/)
-  if (delar.length > 1) {
+  const delar = p.split(PERIOD_SKILJE)
+  if (delar.length > 1 && delar[0].trim()) {
     return { start: delar[0].trim(), slut: delar.slice(1).join(' ').trim() }
   }
   // "2014-2016" och "2014-pågående", men inte "2019-03" (år och månad).
   const m = p.match(/^(.*?\d{4})\s*-\s*((?:19|20)\d{2}\b.*|\p{L}.*)$/u)
   if (m) return { start: m[1].trim(), slut: m[2].trim() }
   return { start: p, slut: '' }
+}
+
+/**
+ * Start och slut för en post i CVMetadata, där hela perioden kan stå i
+ * startdatumet ("2017 till 2019" och inget slut, så som en del inläsningar
+ * och äldre sparningar lagt den). Utan slut delas startdatumet med
+ * delaPeriod; ett slut som säger att perioden pågår blir tomt (pågående).
+ * Står slutet redan för sig ändras ingenting. Ett avslutat jobb blir
+ * därmed aldrig pågående bara för att perioden skrivits med "till".
+ */
+export function startOchSlut(startDate: unknown, endDate: unknown): { start: string; slut: string } | null {
+  const s = typeof startDate === 'string' ? startDate.trim() : ''
+  const e = typeof endDate === 'string' ? endDate.trim() : ''
+  if (!s || e) return null
+  const { start, slut } = delaPeriod(s)
+  if (!slut || start === s) return null
+  return { start, slut: PAGAENDE_SLUT.test(slut) ? '' : slut }
+}
+
+/**
+ * En post (jobb eller utbildning) vars hela period står i startdatumet får
+ * start och slut var för sig (startOchSlut). Används av kanonisktCv och
+ * normalizeStructuredData, så att arket och poängen läser perioden lika.
+ */
+export function medDeladPeriod<T>(post: T): T {
+  if (!post || typeof post !== 'object' || Array.isArray(post)) return post
+  const o = post as Record<string, unknown>
+  const delad = startOchSlut(o.startDate, o.endDate)
+  if (!delad) return post
+  const ut: Record<string, unknown> = { ...o, startDate: delad.start }
+  if (delad.slut) ut.endDate = delad.slut
+  else delete ut.endDate
+  return ut as T
 }
 
 /* ----------------------------------------------------------- kompetenser */

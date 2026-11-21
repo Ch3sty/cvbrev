@@ -22,7 +22,7 @@
 import type { CVExperience, CVEducation, CVLanguage, CVMetadata } from '../cv-metadata'
 import { extractContactLocally } from '@/lib/privacy/extractContact'
 import { tolkaNiva } from '../sprak'
-import { delaPeriod, falt } from './matt'
+import { delaPeriod, falt, medDeladPeriod, PAGAENDE_SLUT } from './matt'
 
 type Obj = Record<string, unknown>
 
@@ -105,7 +105,7 @@ function rollTillErfarenhet(r: Obj): CVExperience {
     startDate: start,
     description: rader,
   }
-  if (slut && !/^(pågående|pagaende|nuvarande|present)$/i.test(slut)) ut.endDate = slut
+  if (slut && !PAGAENDE_SLUT.test(slut)) ut.endDate = slut
   return ut
 }
 
@@ -139,8 +139,8 @@ export function kanonisktCv(structuredData: unknown, cvText?: string | null): CV
       fullName: typeof pi.fullName === 'string' ? pi.fullName : '',
       email: typeof pi.email === 'string' ? pi.email : '',
     } as CVMetadata['personalInfo']
-    k.experience = Array.isArray(k.experience) ? k.experience : []
-    k.education = Array.isArray(k.education) ? k.education : []
+    k.experience = (Array.isArray(k.experience) ? k.experience : []).map(medDeladPeriod)
+    k.education = (Array.isArray(k.education) ? k.education : []).map(medDeladPeriod)
     k.skills = Array.isArray(k.skills) ? k.skills : []
     return k
   }

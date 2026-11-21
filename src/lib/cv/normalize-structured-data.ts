@@ -17,6 +17,7 @@
 
 import type { CVMetadata } from './cv-metadata';
 import type { ParsedCV } from './cv-parser';
+import { delaPeriod, medDeladPeriod, PAGAENDE_SLUT } from './poang/matt';
 
 /**
  * Returnerar giltig CVMetadata eller null om input inte gar att normalisera.
@@ -71,8 +72,10 @@ function ensureValidCVMetadata(data: CVMetadata): CVMetadata | null {
       profilePhotoUrl: data.personalInfo.profilePhotoUrl,
     },
     summary: data.summary,
-    experience: Array.isArray(data.experience) ? data.experience : [],
-    education: Array.isArray(data.education) ? data.education : [],
+    // Hela perioden i startdatumet ("2017 till 2019", inget slut) delas,
+    // annars ritas jobbet som pågående (medDeladPeriod, samma som poängen).
+    experience: Array.isArray(data.experience) ? data.experience.map(medDeladPeriod) : [],
+    education: Array.isArray(data.education) ? data.education.map(medDeladPeriod) : [],
     skills: Array.isArray(data.skills) ? data.skills : [],
     projects: Array.isArray(data.projects) ? data.projects : undefined,
     certifications: Array.isArray(data.certifications) ? data.certifications : undefined,
@@ -100,18 +103,16 @@ function parsedCVToCVMetadata(parsed: ParsedCV): CVMetadata | null {
     (Array.isArray(parsed.roles) && parsed.roles.length > 0) || Boolean((parsed.profile || '').trim());
   if (!fullName && !harInnehall) return null;
 
-  // Period-strang till start/end. Hanterar bade "-" och "–" + "Pagaende"/"Nuvarande"
+  // Period-sträng till start och slut med poängmodellens delaPeriod, så att
+  // arket och poängen läser perioden lika: bindestreck, tankstreck och
+  // "till"/"t.o.m." ("2017 till 2019"). Förut delades bara på bindestreck,
+  // och "2017 till 2019" blev ett pågående jobb. "Pågående", "nu" och
+  // liknande blir inget slut.
   const splitPeriod = (period: string): { start: string; end?: string } => {
     if (!period) return { start: '' };
-    const parts = period.split(/\s*[-–]\s*/);
-    const start = parts[0]?.trim() || '';
-    const rawEnd = parts[1]?.trim();
-    if (!rawEnd) return { start };
-    const lower = rawEnd.toLowerCase();
-    if (lower === 'pagaende' || lower === 'pågående' || lower === 'nuvarande' || lower === 'present') {
-      return { start, end: undefined };
-    }
-    return { start, end: rawEnd };
+    const { start, slut } = delaPeriod(period);
+    if (!slut || PAGAENDE_SLUT.test(slut)) return { start };
+    return { start, end: slut };
   };
 
   return {
