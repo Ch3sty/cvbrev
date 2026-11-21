@@ -103,17 +103,17 @@ function Banan({ html, stampel }: { html: string; stampel: string }) {
           </text>
         </g>
       </svg>
-      <div className="absolute left-[27%] top-[2%] w-[45%] -rotate-[5deg] xl:left-[150px] xl:top-[10px] xl:w-[250px]">
+      <div className="absolute left-[25%] top-0 w-[36%] -rotate-[5deg] xl:left-[150px] xl:top-[10px] xl:w-[250px]">
         <div className="overflow-hidden rounded-md bg-white shadow-[0_4px_0_#1C0A18,0_26px_50px_rgba(0,0,0,.45)]">
           <span className="block xl:hidden">
-            <BrevMiniatyr html={html} bredd={170} />
+            <BrevMiniatyr html={html} bredd={137} />
           </span>
           <span className="hidden xl:block">
             <BrevMiniatyr html={html} bredd={250} />
           </span>
         </div>
       </div>
-      <span className="absolute left-[50%] top-[50%] inline-flex h-10 -rotate-12 items-center gap-2 rounded-[14px] border-[3px] border-[#2F7D5B] bg-white px-3.5 font-[family-name:var(--font-display)] text-[17px] font-extrabold leading-6 text-[#1F5C42] shadow-[0_4px_0_rgba(0,0,0,.25)] xl:left-[286px] xl:top-[250px] xl:h-12 xl:px-4 xl:text-[20px]">
+      <span className="absolute left-[36%] top-[40%] inline-flex h-10 -rotate-12 items-center gap-2 rounded-[14px] border-[3px] border-[#2F7D5B] bg-white px-3.5 font-[family-name:var(--font-display)] text-[17px] font-extrabold leading-6 text-[#1F5C42] shadow-[0_4px_0_rgba(0,0,0,.25)] xl:left-[286px] xl:top-[250px] xl:h-12 xl:px-4 xl:text-[20px]">
         <IkonBock size={20} strokeWidth={3.4} />
         {stampel}
       </span>
