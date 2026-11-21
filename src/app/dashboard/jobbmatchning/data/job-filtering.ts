@@ -59,6 +59,10 @@ export function avstandKm(job: Job, cvOrt: string | null | undefined): number | 
   const a = kommunKoord(cvOrt);
   const b = kommunKoord(job.workplace_address?.municipality);
   if (!a || !b) return null;
+  return km(a, b);
+}
+
+function km(a: { lat: number; lon: number }, b: { lat: number; lon: number }): number {
   const rad = (x: number) => (x * Math.PI) / 180;
   const dLat = rad(b.lat - a.lat);
   const dLon = rad(b.lon - a.lon);
@@ -66,10 +70,31 @@ export function avstandKm(job: Job, cvOrt: string | null | undefined): number | 
   return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
 }
 
-/** Längre bort än 100 km från CV:ts ort (och inte på distans enligt annonsen). */
-export function arLangtBort(job: Job, cvOrt: string | null | undefined): boolean {
+/**
+ * Längre bort än 100 km från både CV:ts ort och sökprofilens orter (och
+ * inte på distans enligt annonsen).
+ *
+ * En ort som användaren själv lagt i sökprofilen räknas som nära (Jobbsöket
+ * omgång 2): den som lägger till Stockholm vill se jobb i Stockholm.
+ * Rättningen 2026-11-21 gäller annonser långt bort som hon inte bett om, och
+ * utan orter i sökprofilen är regeln densamma som förut. En annons är nära
+ * om den ligger inom 100 km från CV:ts ort, inom 100 km från en ort i
+ * sökprofilen som går att placera (kommunlistan), eller i en ort som
+ * sökprofilen nämner enligt samma namnjämförelse som applyPreferences. Det
+ * sista gör att ett län eller en ort som inte finns i kommunlistan inte
+ * gallras bort av avståndet, men lyfter inte gränsen för grannorterna.
+ */
+export function arLangtBort(job: Job, cvOrt: string | null | undefined, onskadeOrter: string[] = []): boolean {
   const d = avstandKm(job, cvOrt);
-  return d !== null && d > 100;
+  if (d === null || d <= 100) return false;
+  if (onskadeOrter.length === 0) return true;
+  if (iOnskadOrt(job, onskadeOrter)) return false;
+  const b = kommunKoord(job.workplace_address?.municipality);
+  if (!b) return true;
+  return !onskadeOrter.some((o) => {
+    const a = kommunKoord(o);
+    return a !== null && km(a, b) <= 100;
+  });
 }
 
 /**
@@ -83,13 +108,15 @@ export function applyClientFilters(
   filters: JobFilters,
   showDistantJobs: boolean,
   /** CV:ts ort, för avståndet när annonsen saknar det (se avstandKm). */
-  cvOrt?: string | null
+  cvOrt?: string | null,
+  /** Sökprofilens orter: räknas som nära (se arLangtBort). */
+  onskadeOrter: string[] = []
 ): Job[] {
   let result = jobs;
 
   // Distans: dölj jobb >100 km om inte användaren bett om att se dem.
   if (!showDistantJobs) {
-    result = result.filter((j) => !arLangtBort(j, cvOrt));
+    result = result.filter((j) => !arLangtBort(j, cvOrt, onskadeOrter));
   }
 
   if (filters.worktimeExtent) {
@@ -163,21 +190,28 @@ function looksRemote(job: Job): boolean {
   return /\bdistans\b|\bremote\b|hemifr[åa]n/.test(rubrik);
 }
 
+/**
+ * Ligger annonsen i en ort som sökprofilen nämner? Kommunen eller länet,
+ * jämförda på namnet åt båda håll. Samma jämförelse i ortskravet
+ * (applyPreferences) och i avståndet (arLangtBort).
+ */
+export function iOnskadOrt(job: Job, onskadeOrter: string[]): boolean {
+  const onskade = onskadeOrter.map(normOrt).filter((o) => o !== '');
+  if (onskade.length === 0) return false;
+  const addr = job.workplace_address || {};
+  const kandidater = [addr.municipality, addr.region]
+    .filter(Boolean)
+    .map((v: string) => normOrt(v));
+  return kandidater.some((k) => onskade.some((o) => k.includes(o) || o.includes(k)));
+}
+
 export function applyPreferences(jobs: Job[], prefs: JobPreferenceFilter): Job[] {
   let result = jobs;
 
   if (prefs.locations.length > 0) {
-    const onskade = prefs.locations.map(normOrt);
     result = result.filter((j) => {
-      const addr = j.workplace_address || {};
-      const kandidater = [addr.municipality, addr.region]
-        .filter(Boolean)
-        .map((v: string) => normOrt(v));
-      const ortTraff = kandidater.some((k) =>
-        onskade.some((o) => k.includes(o) || o.includes(k))
-      );
       // Distans ok lyfter ortskravet för de annonser som går på distans.
-      return ortTraff || (prefs.remote && looksRemote(j));
+      return iOnskadOrt(j, prefs.locations) || (prefs.remote && looksRemote(j));
     });
   }
 

@@ -61,16 +61,15 @@ import { JOBB_HREF, brickBokstaver, dagFor, idagSv, jobbHref, narText, ordtal, s
 import { capture } from '@/lib/analytics/events'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route'
-import { applyClientFilters, applyPreferences, arLangtBort, rankGlobalJobs } from '@/app/dashboard/jobbmatchning/data/job-filtering'
+import { arLangtBort, rankGlobalJobs } from '@/app/dashboard/jobbmatchning/data/job-filtering'
 import { DEFAULT_FILTERS, countActiveFilters, type JobFilters } from '@/app/dashboard/jobbmatchning/data/filter-standard'
 import { SWEDISH_MUNICIPALITIES } from '@/app/dashboard/jobbmatchning/data/swedish-municipalities'
 import { buildMatchReasons, senastSoktLabel } from '@/app/dashboard/jobbmatchning/data/match-reasons'
-import { rankMatches, TOP_N } from '@/app/dashboard/jobbmatchning/data/match-ranking'
 import type { ActiveCVData, JobbmatchningData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import type { SenasteKorning } from '@/app/dashboard/jobbmatchning/senasteKorning'
 import { toJobPreferences, type JobPreferences } from '@/types/user.types'
 import { arNy, arbetsgivareOrt, brevUnderlag, passarSkal, skalKort } from './annons'
-import { lattRad, type LattRad } from '@/lib/jobmatching/basta'
+import { bastaTraffar, lattRad, poolUrval, sammanfattningsJobb, type LattRad } from '@/lib/jobmatching/basta'
 import { AnnonsFotMobil, AnnonsKortMobil, AnnonsPanel, AnnonsInnehall, Betalvagg, DoldPanel, DoldPassar, type SoktLage, type SparLage } from './AnnonsVy'
 import { ByttCvArk, FilterArk, PrefsArk, RattaArk } from './MatchArk'
 
@@ -301,11 +300,19 @@ export default function MatchadeJobb({
   const usingGlobalPool = filters.noExperience || filters.remote
 
   const cvOrt = activeCV?.extracted_location ?? null
-  const filteredJobs = useMemo(() => applyClientFilters(applyPreferences(baseJobs, prefs), filters, showDistantJobs, cvOrt), [baseJobs, prefs, filters, showDistantJobs, cvOrt])
 
   /* ------------------------------------------------------------ matchgraden */
 
-  const { ranked } = useMemo(() => rankMatches(filteredJobs, activeCV, prefs.locations, TOP_N), [filteredJobs, activeCV, prefs.locations])
+  // Samma funktion som servern (bastaTraffar i basta.ts), med filtren och
+  // "längre bort" som tillval. I grundläget ger den exakt serverns lista, så
+  // att antalet efter en sökning och efter en omladdning är detsamma.
+  const ranked = useMemo(
+    () => bastaTraffar(baseJobs, activeCV, prefs, { filters, visaLangtBort: showDistantJobs }),
+    [baseJobs, activeCV, prefs, filters, showDistantJobs]
+  )
+
+  /** Den färska sökningens bästa i grundläget: det servern visar efter en omladdning. */
+  const sammanfattning = useMemo(() => (jobs.length > 0 ? sammanfattningsJobb(jobs, activeCV, prefs) : []), [jobs, activeCV, prefs])
 
   const scoreById = useMemo(() => {
     const m = new Map<string, (typeof ranked)[number]['score']>()
@@ -313,15 +320,14 @@ export default function MatchadeJobb({
     return m
   }, [ranked])
 
+  // Lokalt sparas samma urval som poolen: de bästa i grundläget först (så att
+  // en återställd lista är serverns), sedan närmare och längre bort. Förut
+  // sparades listan med de filter som råkade vara valda.
   useEffect(() => {
-    if (!hasSearched || loadingJobs || ranked.length === 0) return
+    if (!hasSearched || loadingJobs || sammanfattning.length === 0) return
     if (restoredAt !== null) return
-    saveSearch(
-      ranked.map((r) => r.job),
-      adsRead,
-      hasMore
-    )
-  }, [hasSearched, loadingJobs, ranked, restoredAt, adsRead, hasMore, saveSearch])
+    saveSearch(poolUrval(jobs, activeCV, prefs, SAVED_SEARCH_MAX_JOBS), adsRead, hasMore)
+  }, [hasSearched, loadingJobs, sammanfattning, jobs, activeCV, prefs, restoredAt, adsRead, hasMore, saveSearch])
 
   // Efter en färsk sökning som gav träffar: de bästa till servern, så att
   // Översikt, sidomenyn och nästa sidladdning har dem även när match-jobs inte
@@ -330,19 +336,23 @@ export default function MatchadeJobb({
   // hasMore blev falskt; laddades sidan om innan påfyllningen var klar (den
   // kan ta lika lång tid som sökningen) skickades ingen alls (slutkontrollen
   // 2026-11-21).
+  //
+  // Det som skickas är räknat med serverns regel (sammanfattningsJobb). Förut
+  // skickades de 60 bästa utan avståndsgräns; servern gallrade bort dem
+  // längre bort än 100 km och fick färre träffar än webbläsaren (Jobbsöket
+  // omgång 2, "7 jobb passar dig" blev "2" efter omladdning).
   const sammanfattadTopp = useRef<string | null>(null)
   useEffect(() => {
-    if (restoredAt !== null || loadingJobs || jobs.length === 0 || !activeCVId) return
-    const basta = rankMatches(jobs, activeCV, [], SAVED_SEARCH_MAX_JOBS).ranked.map((x) => x.job)
-    const topp = basta.map((j) => String(j.id ?? '')).join(',')
+    if (restoredAt !== null || loadingJobs || sammanfattning.length === 0 || !activeCVId) return
+    const topp = sammanfattning.map((j) => String(j.id ?? '')).join(',')
     if (sammanfattadTopp.current === topp) return
     sammanfattadTopp.current = topp
     void fetch('/api/jobbmatchning/sammanfattning', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ jobs: basta, adsRead }),
+      body: JSON.stringify({ jobs: sammanfattning, adsRead }),
     }).catch(() => {})
-  }, [restoredAt, loadingJobs, jobs, activeCVId, activeCV, adsRead])
+  }, [restoredAt, loadingJobs, sammanfattning, activeCVId, adsRead])
 
   /** Hämtar poolen (filter, längre bort, ändrad sökprofil). Sidan har annars bara listans rader. */
   const laddaPool = useCallback(async () => {
@@ -793,7 +803,7 @@ export default function MatchadeJobb({
   const oppnaRader = sortera(rader, filters.sort as Sortering)
   const totalt = redaction ? redaction.visibleIds.length + redaction.hiddenCount : antalTraffar
   const gratis = redaction ? !redaction.isPremium : false
-  const distantCount = poolLaddad ? baseJobs.filter((j) => arLangtBort(j, cvOrt)).length : 0
+  const distantCount = poolLaddad ? baseJobs.filter((j) => arLangtBort(j, cvOrt, prefs.locations)).length : 0
   const nyaAntal = oppnaRader.filter((r) => arNy(r.lat, initialData.seddaAt)).length
   const idag = idagSv()
   const senastDag = restoredAt ? dagFor(new Date(restoredAt)) : idag
