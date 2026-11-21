@@ -8,7 +8,8 @@
  * Ett låst brev (gratis, äldre än de två senaste) öppnas som låst och går
  * att läsa och kopiera, aldrig som "Brevet kunde inte hittas" (fynd 5).
  * ?flik= väljer fliken, ?klart=1 kommer från Skriv brev, ?ladda=1&format=pdf|docx
- * kommer från kassan efter köpet och laddar ner filen en gång.
+ * kommer från kassan efter köpet och laddar ner filen en gång. Med
+ * &premium_activated=true väntar vyn in tillgången om webhooken ligger efter.
  */
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -33,10 +34,10 @@ export default async function BrevetSida({
   searchParams,
 }: {
   params: Promise<{ id: string }>
-  searchParams: Promise<{ klart?: string; flik?: string; ladda?: string; format?: string }>
+  searchParams: Promise<{ klart?: string; flik?: string; ladda?: string; format?: string; premium_activated?: string }>
 }) {
   const { id } = await params
-  const { klart, flik, ladda, format } = await searchParams
+  const { klart, flik, ladda, format, premium_activated } = await searchParams
   const user = await hamtaVerifieradAnvandare()
   if (!user) redirect('/login')
   const supabase = createServerClient({ cookies: await cookies() })
@@ -92,6 +93,7 @@ export default async function BrevetSida({
       kvot={{ kvar: kvot.kvar, nastaNu: kvot.nastaGratisbrev }}
       klart={klart === '1'}
       ladda={ladda === '1' && (format === 'pdf' || format === 'docx') ? format : null}
+      kopRetur={premium_activated === 'true'}
       flik={arFlik(flik) ? flik : null}
     />
   )

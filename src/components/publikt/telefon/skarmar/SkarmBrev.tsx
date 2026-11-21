@@ -12,7 +12,7 @@ export default function SkarmBrev({ glid, className }: { glid?: boolean; classNa
       <SkarmVagg
         kick="Personligt brev"
         rubrik="Projektledare, Sweco Göteborg"
-        sub="Skrivet på annonsen, utifrån ditt CV. Ton: saklig."
+        sub="Skrivet mot annonsen, utifrån ditt CV. Ton: Professionell."
       />
       <SkarmGolv>
         <div className="s-papper">
@@ -27,11 +27,11 @@ export default function SkarmBrev({ glid, className }: { glid?: boolean; classNa
           <span className="s-markor" />
         </div>
         <div className="s-rad s-dim" style={{ fontSize: 11, padding: '0 4px' }}>
-          <span>Krav i annonsen: 6 av 7 täckta</span>
-          <span className="s-pill s-gron">Redigerbart</span>
+          <span>6 av 7 krav har fått svar</span>
+          <span className="s-pill s-gron">Sparat</span>
         </div>
       </SkarmGolv>
-      <SkarmFot knapp="Ladda ner som PDF" />
+      <SkarmFot knapp="Ladda ner PDF" />
     </Telefon>
   )
 }

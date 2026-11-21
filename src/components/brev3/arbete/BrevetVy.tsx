@@ -54,6 +54,7 @@ import { KravFlik, TextFlik, TonFlik, TypsnittFlik, InfoFlik } from './BrevetFli
 import { BREVET, type FlikId, type TonId } from './texter'
 import { forladdaRitare, ritaBrev } from './ritare'
 import { laddaNerBrev } from './ladda'
+import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
 
 const ConfirmDialog = dynamic(() => import('@/components/shell/ConfirmDialog'), { ssr: false })
 
@@ -92,6 +93,8 @@ export interface BrevetVyProps {
   klart: boolean
   /** Tillbaka från kassan (?ladda=1&format=): filen laddas ner en gång, av sig själv. */
   ladda?: 'pdf' | 'docx' | null
+  /** ?premium_activated=true: direkt från ett köp, så tillgången väntas in om webhooken ligger efter. */
+  kopRetur?: boolean
   flik: FlikId | null
 }
 
@@ -395,18 +398,21 @@ export default function BrevetVy(props: BrevetVyProps) {
     }
   }
 
-  // Tillbaka från kassan (?ladda=1&format=): adressen städas och filen
-  // laddas ner en gång för den som nu har tillgång, som Mallar gör.
-  const laddaStartad = useRef(false)
-  useEffect(() => {
-    if (!props.ladda || laddaStartad.current) return
-    laddaStartad.current = true
-    const url = new URL(window.location.href)
-    for (const k of ['ladda', 'format', 'premium_activated']) url.searchParams.delete(k)
-    window.history.replaceState(window.history.state, '', url.toString())
-    if (kanLaddaNer && (props.ladda === 'pdf' || !mallId || !!brevMallKort(mallId)?.word)) void laddaNer(props.ladda)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.ladda, kanLaddaNer])
+  // Tillbaka från kassan (?ladda=1&format=&premium_activated=true): filen
+  // laddas ner en gång. Hinner webhooken inte före returen väntar vi in
+  // tillgången med router.refresh (kit/kopretur), som Mallar gör.
+  const kop = useKopretur(
+    {
+      begart: props.ladda ?? null,
+      kopRetur: !!props.kopRetur,
+      kanLaddaNer,
+      formatFinns: props.ladda === 'pdf' || !mallId || !!brevMallKort(mallId)?.word,
+    },
+    { refresh: () => router.refresh(), laddaNer: (f) => void laddaNer(f), stadaAdress: stadaKopreturAdress },
+  )
+  // Under väntan visar knappen samma upptagna läge som en vanlig nedladdning.
+  const upptagen = laddar ?? (kop.vantar && props.ladda ? props.ladda : null)
+  const filFelText = filFel ? BREVET.filFel : kop.ejRegistrerat ? BREVET.kopEjRegistrerat : null
 
   /* ------------------------------------------------------------ sökt */
 
@@ -570,9 +576,9 @@ export default function BrevetVy(props: BrevetVyProps) {
   const fot = (
     <div className="flex w-full flex-col gap-2.5 xl:flex-row xl:items-center xl:gap-3">
       <span className="contents">
-        <StorKnapp lag platt className="xl:order-last xl:ml-auto" onClick={() => laddaNer('pdf')} disabled={laddar !== null}>
+        <StorKnapp lag platt className="xl:order-last xl:ml-auto" onClick={() => laddaNer('pdf')} disabled={upptagen !== null}>
           <IkonLaddaNer />
-          {laddar === 'pdf' ? BREVET.skaparFil : BREVET.pdf}
+          {upptagen === 'pdf' ? BREVET.skaparFil : BREVET.pdf}
         </StorKnapp>
       </span>
       <div className="grid grid-cols-2 gap-2.5 xl:contents">
@@ -582,8 +588,8 @@ export default function BrevetVy(props: BrevetVyProps) {
         </LitenKnapp>
         <span className="hidden xl:contents">
           {harWord ? (
-            <LitenKnapp onClick={() => laddaNer('docx')} disabled={laddar !== null}>
-              {laddar === 'docx' ? BREVET.skaparFil : BREVET.word}
+            <LitenKnapp onClick={() => laddaNer('docx')} disabled={upptagen !== null}>
+              {upptagen === 'docx' ? BREVET.skaparFil : BREVET.word}
             </LitenKnapp>
           ) : (
             <span className="text-[13px] leading-[18px] text-[color:var(--b3-ink-2)]">{BREVET.barePdf}</span>
@@ -602,14 +608,14 @@ export default function BrevetVy(props: BrevetVyProps) {
       </div>
       {harWord && kanLaddaNer ? (
         <span className="xl:hidden">
-          <LitenKnapp bred onClick={() => laddaNer('docx')} disabled={laddar !== null}>
-            {laddar === 'docx' ? BREVET.skaparFil : `${BREVET.word}, .docx`}
+          <LitenKnapp bred onClick={() => laddaNer('docx')} disabled={upptagen !== null}>
+            {upptagen === 'docx' ? BREVET.skaparFil : `${BREVET.word}, .docx`}
           </LitenKnapp>
         </span>
       ) : null}
-      {kopierat === 'fel' || filFel || soktFel ? (
+      {kopierat === 'fel' || filFelText || soktFel ? (
         <p className="m-0 text-[13px] leading-[18px] text-[color:var(--fel)] xl:hidden" role="alert">
-          {kopierat === 'fel' ? BREVET.kopieraFel : filFel ? BREVET.filFel : BREVET.soktFel}
+          {kopierat === 'fel' ? BREVET.kopieraFel : (filFelText ?? BREVET.soktFel)}
         </p>
       ) : null}
     </div>
@@ -677,9 +683,9 @@ export default function BrevetVy(props: BrevetVyProps) {
             }}
           />
         ) : null}
-        {kopierat === 'fel' || filFel ? (
+        {kopierat === 'fel' || filFelText ? (
           <p className="m-0 my-2 hidden text-[13px] leading-[18px] text-[color:var(--fel)] xl:block" role="alert">
-            {kopierat === 'fel' ? BREVET.kopieraFel : BREVET.filFel}
+            {kopierat === 'fel' ? BREVET.kopieraFel : filFelText}
           </p>
         ) : null}
         {taBortFel ? (

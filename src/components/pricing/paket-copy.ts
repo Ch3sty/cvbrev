@@ -211,7 +211,7 @@ export const FUNKTIONER = {
       text: 'Ett personligt brev som faktiskt svarar på annonsen är det som skiljer din ansökan från de tjugo som skickade samma mall. Klistra in annonsen, så skriver vi brevet utifrån ditt CV och det annonsen frågar efter, i den ton du väljer. Redigera, ladda ner som PDF, skicka.',
       steg: [
         'Klistra in annonsen, eller välj ett matchat jobb.',
-        'Välj ton: saklig, personlig eller vi väljer åt dig.',
+        `Välj ton, från professionell till kreativ. I ${PREMIUM} väljer vi åt dig efter annonsen.`,
         'Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.',
         'Redigera, ladda ner som PDF, skicka.',
       ],

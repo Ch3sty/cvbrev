@@ -163,6 +163,7 @@ export const BREVET = {
   gratisRadSlut: 'PDF och Word.',
   gratisRadMobil: (premium: string) => `Läs och kopiera ingår gratis. PDF och Word ingår i ${premium}.`,
   filFel: 'Filen kunde inte skapas. Försök igen om en stund.',
+  kopEjRegistrerat: 'Vi väntar på bekräftelsen av ditt köp. Ladda om sidan om en liten stund, så hämtas filen.',
   // Sökt
   harDuSkickat: 'Har du skickat ansökan?',
   harDuSkickatRad: 'Brevet, annonsen och datumet hamnar i Sökta tjänster.',

@@ -21,6 +21,7 @@ import ExempelKlient from '@/components/exempel-shared/ExempelKlient'
 import { YRKESMALL_PUBLIKA } from '@/app/(public)/cv-mallar/yrkesmall-data'
 import { FORVALD_MALL_ID, GRATIS_MALL_IDS, getMallKort } from '@/lib/cv/mallar/katalog'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { BREV_MALL_ANTAL } from '@/components/publikt/brevmallar'
 import { MallMiniatyr } from '@/components/cv/MallMiniatyr'
 import { ARTIKEL } from '@/components/cv/Dokument/texter'
 import { pilotInnehall } from './pilot'
@@ -111,7 +112,7 @@ export default function ExempelMall({
         yrke={yrke}
         intro={intro}
         primar={{ text: 'Använd som mall', href: primarHref }}
-        bevis={cv ? ['ATS-optimerat', 'Branschspecifika nyckelord', 'Kvantifierade resultat'] : ['Komplett brev', 'Sju mallar', 'Kopiera direkt']}
+        bevis={cv ? ['ATS-optimerat', 'Branschspecifika nyckelord', 'Kvantifierade resultat'] : ['Komplett brev', `${BREV_MALL_ANTAL} mallar`, 'Kopiera direkt']}
         utdrag={cv ? <CvUtdrag cv={data.exempelCV} /> : <BrevUtdrag brev={data.exempelBrev} />}
         lappar={lappar}
       />
@@ -134,7 +135,8 @@ export default function ExempelMall({
                 {cv ? <CvPapper cv={data.exempelCV} nummer={nummer} /> : <BrevPapper brev={data.exempelBrev} nummer={nummer} />}
               </div>
               <div className="ib-byt-mall">
-                <MallValjare typ={typ} yrke={yrke} data={cv ? data.exempelCV : { ...data.exempelBrev, adress: brev!.adress, arbetsgivare: brev!.arbetsgivare }} papperId={papperId} />
+                {/* Brevets gamla mallväljare visas inte (våg 1, 2026-11-21): den hade sex mallar som produkten inte har. CV:ts väljare är orörd. */}
+                {cv ? <MallValjare typ={typ} yrke={yrke} data={data.exempelCV} papperId={papperId} /> : null}
                 <p className="ib-ark-fot">
                   {cv ? (
                     <>
@@ -144,7 +146,7 @@ export default function ExempelMall({
                     </>
                   ) : (
                     <>
-                      <span>Mallen Klassisk</span>
+                      <span>Exempelbrev</span>
                       <span>En A4</span>
                       <span>Cirka {Math.round(antalOrd(brevStycken(brev!.brevText).stycken.join(' ')) / 10) * 10} ord</span>
                     </>
