@@ -46,6 +46,16 @@ export type ServerEventName =
   /** Nedladdningsrutterna (plan-mallar avsnitt 8, fas 0). */
   | 'export_blockerad'
   | 'cv_nedladdad'
+  /** Jobbsöket omgång 1: rutterna under /api/jobbsok och händelserutterna. */
+  | 'ska_sokas_sparad'
+  | 'ska_sokas_markerad_sokt'
+  | 'uppfoljning_utkast_oppnat'
+  | 'uppfoljning_sparr'
+  | 'uppfoljning_kortare'
+  | 'uppfoljning_loggad'
+  | 'intervjutid_satt'
+  | 'intervju_utfall'
+  | 'veckans_mal_andrat'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
   /** Fria tilläggsfält, till exempel scope och amount_sek på betalningen. */

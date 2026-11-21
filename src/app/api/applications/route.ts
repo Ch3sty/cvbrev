@@ -7,8 +7,26 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { skapaSoktTjanst } from '@/lib/applications/skapa';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-const VALID_CHANNELS = ['ad', 'unsolicited', 'network'];
+/** Sätter application_id på Ska sökas-raden för samma annons. Tyst om tabellen saknas. */
+async function kopplaSparadTillSokt(userId: string, afAdId: string, applicationId: string) {
+  if (!afAdId || afAdId.length > 100) return;
+  try {
+    const { error } = await (getSupabaseAdmin() as any)
+      .from('job_saved_ads')
+      .update({ application_id: applicationId })
+      .eq('user_id', userId)
+      .eq('af_ad_id', afAdId)
+      .is('application_id', null);
+    if (error && !['PGRST205', '42P01'].includes(error.code)) {
+      console.error('Ska sökas-raden kunde inte kopplas:', error);
+    }
+  } catch (err) {
+    console.error('Ska sökas-raden kunde inte kopplas:', err);
+  }
+}
 
 export async function GET() {
   try {
@@ -56,85 +74,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
 
-    const jobTitle = typeof body.job_title === 'string' ? body.job_title.trim() : '';
-    const company = typeof body.company === 'string' ? body.company.trim() : '';
-    if (!jobTitle || jobTitle.length > 200) {
-      return NextResponse.json({ error: 'Tjänstetitel krävs (max 200 tecken)' }, { status: 400 });
+    // Valideringen och skrivningen bor i skapaSoktTjanst (samma väg som
+    // "Markera som sökt" under Ska sökas). Svaren är desamma som förut.
+    const svar = await skapaSoktTjanst(supabase, user.id, body);
+    if (!svar.ok) {
+      return NextResponse.json({ error: svar.error }, { status: svar.status });
     }
-    if (!company || company.length > 200) {
-      return NextResponse.json({ error: 'Arbetsgivare krävs (max 200 tecken)' }, { status: 400 });
+    if (svar.alreadyExists) {
+      return NextResponse.json({ success: true, data: svar.data, alreadyExists: true });
     }
-
-    const channel = typeof body.application_channel === 'string' && VALID_CHANNELS.includes(body.application_channel)
-      ? body.application_channel
-      : 'ad';
-    const location = typeof body.location === 'string' ? body.location.trim().slice(0, 200) || null : null;
-    const jobAdUrl = typeof body.job_ad_url === 'string' ? body.job_ad_url.trim().slice(0, 2048) || null : null;
-    const notes = typeof body.notes === 'string' ? body.notes.trim().slice(0, 4000) || null : null;
-    const letterId = typeof body.letter_id === 'string' && body.letter_id ? body.letter_id : null;
-    const cvId = typeof body.cv_id === 'string' && body.cv_id ? body.cv_id : null;
-
-    // Datum: YYYY-MM-DD, förvalt idag. Framtida datum tillåts inte.
-    let appliedAt = new Date().toISOString().slice(0, 10);
-    if (typeof body.applied_at === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.applied_at)) {
-      if (body.applied_at <= appliedAt) appliedAt = body.applied_at;
+    // Jobbsöket F3: "Markera som sökt" på en träff som också ligger under Ska
+    // sökas döljer den sparade raden. Valfritt fält, gamla klienter skickar det inte.
+    if (typeof body.af_ad_id === 'string' || typeof body.af_ad_id === 'number') {
+      await kopplaSparadTillSokt(user.id, String(body.af_ad_id), svar.data.id);
     }
-
-    if (letterId) {
-      // Idempotens: finns redan en ansökan för det här brevet, returnera den.
-      const { data: existing } = await supabase
-        .from('job_applications')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('letter_id', letterId)
-        .maybeSingle();
-      if (existing) {
-        return NextResponse.json({ success: true, data: existing, alreadyExists: true });
-      }
-
-      // Brevet måste tillhöra användaren.
-      const { data: letter } = await supabase
-        .from('letters')
-        .select('id')
-        .eq('id', letterId)
-        .eq('user_id', user.id)
-        .maybeSingle();
-      if (!letter) {
-        return NextResponse.json({ error: 'Brevet hittades inte' }, { status: 404 });
-      }
-    }
-
-    const { data: created, error: insertError } = await supabase
-      .from('job_applications')
-      .insert({
-        user_id: user.id,
-        job_title: jobTitle,
-        company,
-        location,
-        application_channel: channel,
-        job_ad_url: jobAdUrl,
-        letter_id: letterId,
-        cv_id: cvId,
-        notes,
-        applied_at: appliedAt,
-      })
-      .select()
-      .single();
-
-    if (insertError || !created) {
-      console.error('Fel vid skapande av ansökan:', insertError);
-      return NextResponse.json({ error: insertError?.message || 'Kunde inte spara den sökta tjänsten' }, { status: 500 });
-    }
-
-    // Första händelsen i tidslinjen; triggern sätter current_status = 'applied'.
-    const { error: eventError } = await supabase
-      .from('job_application_events')
-      .insert({ application_id: created.id, event_type: 'applied', occurred_at: appliedAt });
-    if (eventError) {
-      console.error('Fel vid skapande av ansökt-händelse:', eventError);
-    }
-
-    return NextResponse.json({ success: true, data: { ...created, current_status: 'applied' } });
+    return NextResponse.json({ success: true, data: svar.data });
   } catch (error) {
     console.error('Ansökningsskapande error:', error);
     return NextResponse.json({ error: 'Serverfel när den sökta tjänsten skulle sparas' }, { status: 500 });

@@ -5,6 +5,9 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { valideraIntervjutid } from '@/lib/jobbsok/validering';
+import { arSchemaFel } from '@/lib/jobbsok/schema';
+import { matIntervjutid } from '@/lib/jobbsok/intervjuServer';
 
 async function requireOwnedApplication(
   supabase: ReturnType<typeof createServerClient>,
@@ -51,9 +54,23 @@ export async function PUT(
     if (body.note !== undefined) {
       updates.note = typeof body.note === 'string' ? body.note.trim().slice(0, 2000) || null : null;
     }
+    // Jobbsöket F6: tid och plats på en kallelse ({ intervju: { datum | null, tid?, plats? } }).
+    let intervjuAndrad = false;
+    if (body.intervju && typeof body.intervju === 'object') {
+      const tolkad = valideraIntervjutid(body.intervju);
+      if ('fel' in tolkad) {
+        return NextResponse.json({ error: 'Kontrollera tiden för intervjun', code: 'invalid_field', falt: tolkad.fel }, { status: 400 });
+      }
+      Object.assign(updates, tolkad);
+      intervjuAndrad = Object.keys(tolkad).length > 0;
+    }
     if (Object.keys(updates).length === 0) {
       return NextResponse.json({ error: 'Inget att uppdatera' }, { status: 400 });
     }
+
+    const fore = intervjuAndrad
+      ? (await supabase.from('job_application_events').select('interview_at').eq('id', eventId).eq('application_id', id).maybeSingle()).data
+      : null;
 
     const { data, error } = await supabase
       .from('job_application_events')
@@ -62,6 +79,13 @@ export async function PUT(
       .eq('application_id', id)
       .select()
       .single();
+
+    if (error && intervjuAndrad && arSchemaFel(error)) {
+      return NextResponse.json({ error: 'Tiden för intervjun går inte att spara än', code: 'migrering_saknas' }, { status: 503 });
+    }
+    if (!error && data && intervjuAndrad) {
+      matIntervjutid(user.id, fore as { interview_at?: string | null } | null, data, 'andra_tid');
+    }
 
     if (error || !data) {
       console.error('Fel vid uppdatering av händelse:', error);

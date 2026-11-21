@@ -696,6 +696,27 @@ export interface AnalyticsEvents {
   genomgang_klar: SessionHandelseBas & { session_id: string | null; antal: number; sett: number; elapsed_ms: number }
   /** Tiden Förklaringen stod framme, en gång per visning. plats: efter svaret (Träna), i genomgången eller i en utfälld rad. */
   forklaring_tid: SessionHandelseBas & { session_id: string | null; index: number; utfall: 'ratt' | 'fel' | 'vet_inte' | 'obesvarad'; tid_ms: number; plats: 'svar' | 'genomgang' | 'lista' }
+  /* Jobbsöket omgång 1 (BYGGSPEC avsnitt 6, Mätning). Skjuts av rutterna
+     under /api/jobbsok och händelserutterna, efter att skrivningen lyckats.
+     Inga personuppgifter, inga arbetsgivarnamn. */
+  /** F3: en rad sparad till Ska sökas. */
+  ska_sokas_sparad: { kalla: 'match' | 'egen'; har_sista_dag: boolean; dagar_kvar: number | null; match_score: number | null; redan_sparad: boolean }
+  /** F3: "Markera som sökt" (eller "Sökt ändå") på en Ska sökas-rad. */
+  ska_sokas_markerad_sokt: { kalla: 'match' | 'egen'; sista_dag_passerad: boolean }
+  /** F5: utkastet öppnat. kalla: sparat (fanns redan), ai, mall (reserv), ateranvant (gratis, samma tjänst igen). */
+  uppfoljning_utkast_oppnat: { kalla: 'sparat' | 'ai' | 'mall' | 'ateranvant'; premium: boolean; orsak?: string | null; ms?: number }
+  /** F5: spärren stoppade ett nytt utkast. */
+  uppfoljning_sparr: { lage: 'premium_required' | 'dygnstak' }
+  /** F5: "Skriv om kortare". */
+  uppfoljning_kortare: { omskrivning: number; lyckades: boolean }
+  /** F5: Följde upp loggad. med_utkast false = "Jag har redan skickat det". */
+  uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null }
+  /** F6: intervjuns tid satt, ändrad eller borttagen. */
+  intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' }
+  /** F6: svaret på "Hur gick intervjun?". */
+  intervju_utfall: { svar: 'genomford' | 'flyttad' | 'installd' }
+  /** F4: veckans mål ändrat. */
+  veckans_mal_andrat: { mal: number; forut: number; forval: boolean }
 }
 
 /** Det varje händelse från sessionsramen bär (avsnitt 8.2). */

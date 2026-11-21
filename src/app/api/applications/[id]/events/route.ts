@@ -5,6 +5,9 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { valideraIntervjutid, type Intervjutid } from '@/lib/jobbsok/validering';
+import { arSchemaFel } from '@/lib/jobbsok/schema';
+import { matIntervjutid } from '@/lib/jobbsok/intervjuServer';
 
 const VALID_EVENT_TYPES = [
   'applied', 'no_response', 'rejected', 'interview_invited', 'interview_completed',
@@ -71,17 +74,40 @@ export async function POST(
       }
     }
 
-    const { data: created, error } = await supabase
+    // Jobbsöket F6: arket frågar efter tid och plats när kallelsen loggas.
+    // { intervju: { datum: 'YYYY-MM-DD', tid?: 'HH:mm', plats? } }, bara på interview_invited.
+    let intervju: Partial<Intervjutid> = {};
+    if (eventType === 'interview_invited' && body.intervju && typeof body.intervju === 'object') {
+      const tolkad = valideraIntervjutid(body.intervju);
+      if ('fel' in tolkad) {
+        return NextResponse.json({ error: 'Kontrollera tiden för intervjun', code: 'invalid_field', falt: tolkad.fel }, { status: 400 });
+      }
+      intervju = tolkad;
+    }
+
+    const rad = {
+      application_id: id,
+      event_type: eventType,
+      interview_round: interviewRound,
+      note,
+      occurred_at: occurredAt,
+    };
+    let { data: created, error } = await supabase
       .from('job_application_events')
-      .insert({
-        application_id: id,
-        event_type: eventType,
-        interview_round: interviewRound,
-        note,
-        occurred_at: occurredAt,
-      })
+      .insert({ ...rad, ...intervju })
       .select()
       .single();
+    // Kolumnerna kommer med migreringen 20261121180000. Saknas de sparas
+    // händelsen ändå, utan tiden, så att loggningen aldrig går sönder.
+    let intervjuSparad = Object.keys(intervju).length > 0;
+    if (error && intervjuSparad && arSchemaFel(error)) {
+      ({ data: created, error } = await supabase.from('job_application_events').insert(rad).select().single());
+      intervjuSparad = false;
+    }
+
+    if (!error && created && intervjuSparad && created.interview_at) {
+      matIntervjutid(user.id, null, created, 'kallelse');
+    }
 
     if (error || !created) {
       console.error('Fel vid skapande av händelse:', error);
