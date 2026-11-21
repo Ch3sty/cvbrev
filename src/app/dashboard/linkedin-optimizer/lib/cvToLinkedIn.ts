@@ -1,4 +1,5 @@
 import type { ParsedCV } from '@/lib/cv/cv-parser'
+import { arNyckelord, rollensRader } from '@/lib/cv/poang/matt'
 
 export interface LinkedInSectionsFromCV {
   headline: string
@@ -67,15 +68,20 @@ export function cvToLinkedIn(
         .map((s) => safeStr(s).trim())
         .filter(Boolean)
         .join(' · ')
-      const descLine = safeStr(r.description).trim()
-      const responsibilities = Array.isArray(r.responsibilities)
-        ? r.responsibilities
-        : []
-      const bulletLines = responsibilities
+      // Samma rader som arket och poängen (rollensRader). Beskrivningen står
+      // bara med som stycke när raderna är korta nyckelord; annars är raderna
+      // redan rollens text och stycket vore en upprepning.
+      const punkter = (Array.isArray(r.responsibilities) ? r.responsibilities : [])
         .map((b) => safeStr(b).trim())
         .filter(Boolean)
-        .map((b) => `• ${b}`)
-        .join('\n')
+      const rader = rollensRader(punkter, safeStr(r.description))
+      const radernaArPunkterna =
+        rader.length === punkter.length && rader.every((rad, i) => rad === punkter[i])
+      const descLine =
+        punkter.length > 0 && radernaArPunkterna && arNyckelord(punkter)
+          ? safeStr(r.description).trim()
+          : ''
+      const bulletLines = rader.map((b) => `• ${b}`).join('\n')
 
       return [titleLine, metaLine, descLine, bulletLines]
         .filter(Boolean)

@@ -22,7 +22,7 @@
 import type { CVExperience, CVEducation, CVLanguage, CVMetadata } from '../cv-metadata'
 import { extractContactLocally } from '@/lib/privacy/extractContact'
 import { tolkaNiva } from '../sprak'
-import { delaPeriod, falt, medDeladPeriod, PAGAENDE_SLUT } from './matt'
+import { delaPeriod, falt, medDeladPeriod, PAGAENDE_SLUT, rollensRader } from './matt'
 
 type Obj = Record<string, unknown>
 
@@ -85,20 +85,10 @@ export function sprakUrText(cvText: string | null | undefined): CVLanguage[] | n
 
 function rollTillErfarenhet(r: Obj): CVExperience {
   const { start, slut } = delaPeriod(r.period)
-  // Samma ordning som normalizeStructuredData (det arket och mallarna ritar):
-  // punkterna i responsibilities först, annars beskrivningen delad på rader
-  // och punkttecken. Förut togs beskrivningen först, och då räknades och
-  // sparades (Ersätt mitt nuvarande CV) punkterna som en enda rad.
-  let rader = Array.isArray(r.responsibilities)
-    ? r.responsibilities.filter((s): s is string => typeof s === 'string' && s.trim().length > 0).map((s) => s.trim())
-    : []
-  if (rader.length === 0) {
-    const beskrivning = typeof r.description === 'string' ? r.description : ''
-    rader = beskrivning
-      .split(/[\n•·]/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-  }
+  // Samma rader som normalizeStructuredData (det arket och mallarna ritar),
+  // valda av rollensRader: punkterna, utom när de bara är nyckelord och
+  // personens egna meningar står i beskrivningen.
+  const rader = rollensRader(r.responsibilities, r.description)
   const ut: CVExperience = {
     position: falt(r.title),
     company: falt(r.company),

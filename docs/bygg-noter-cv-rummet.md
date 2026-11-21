@@ -457,5 +457,12 @@ Kontroll: tsc rent; vitest `src/lib/cv src/lib/profile src/lib/rum src/app/dashb
 
 Kända brister:
 - Arbetsläget kan inte öppnas på en viss roll; "Öppna i CV:t" går till avsnittet.
-- Ditt CV:s mätare Innehållet säger "Alla avsnitt finns" för ett CV utan språknyckel (CV-byggaren), medan genomgången räknar Språk som saknat. Oförändrat i den här omgången.
+- Ditt CV:s mätare Innehållet sa "Alla avsnitt finns" för ett CV utan språknyckel (CV-byggaren), medan genomgången räknade Språk som saknat. Rättat i `acc5a690`: Innehållet räknar språk som genomgången.
 - Hydreringsvarningen om cookie-bannern (`jc-samtycke`) syns i utvecklingsläget på alla inloggade sidor, som förut.
+
+Efter genomgången:
+
+| Commit | Ändring | Backas |
+|---|---|---|
+| `acc5a690` | Ditt CV utan bubbla vid samma tal, Innehållet räknar språk som genomgången, markören på nedladdning, ingen dubbel Öppna i CV:t | `git revert acc5a690` |
+| (denna) | Inlästa roller ritas och räknas på personens egna meningar: `rollensRader` i `poang/matt.ts` används av `normalizeStructuredData`, `kanonisktCv` och LinkedIn-autofyllet; nyckelord vinner inte längre över en rik beskrivning. Inläsningens prompt ber om rollens punkter eller meningar ordagrant i `responsibilities`, svarsgränsen höjd från 2600 till 4000 token så att längre svar inte kapas. Regeln i `docs/poangmodell-cv-analys.md`, tester i `rollens-rader.test.ts` | `git revert` av commiten |

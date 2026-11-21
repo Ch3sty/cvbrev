@@ -17,7 +17,7 @@
 
 import type { CVMetadata } from './cv-metadata';
 import type { ParsedCV } from './cv-parser';
-import { delaPeriod, medDeladPeriod, PAGAENDE_SLUT } from './poang/matt';
+import { delaPeriod, medDeladPeriod, PAGAENDE_SLUT, rollensRader } from './poang/matt';
 
 /**
  * Returnerar giltig CVMetadata eller null om input inte gar att normalisera.
@@ -125,17 +125,9 @@ function parsedCVToCVMetadata(parsed: ParsedCV): CVMetadata | null {
     summary: parsed.profile,
     experience: (parsed.roles || []).map(role => {
       const { start, end } = splitPeriod(role.period || '');
-      // Foredra responsibilities[] som description; faller tillbaka till
-      // description-stangen split pa nyrad om responsibilities ar tom
-      let description: string[] = [];
-      if (Array.isArray(role.responsibilities) && role.responsibilities.length > 0) {
-        description = role.responsibilities.filter(r => r && r.trim());
-      } else if (typeof role.description === 'string' && role.description.trim()) {
-        description = role.description
-          .split(/[\n•·]/)
-          .map(s => s.trim())
-          .filter(Boolean);
-      }
+      // Samma rader som poängen räknas på (kanonisktCv): punkterna, utom när
+      // de bara är nyckelord och personens egna meningar står i beskrivningen.
+      const description = rollensRader(role.responsibilities, role.description);
       return {
         position: role.title || '',
         company: role.company || '',

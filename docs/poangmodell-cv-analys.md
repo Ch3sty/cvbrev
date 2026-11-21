@@ -46,7 +46,13 @@ Utan profil (den publika snabbpoängen, där det inte finns något ark) läses C
 
 Räknas på de fem första rollerna i CV:ts ordning. Äldre roller väger inte in (förslag för dem kan fortfarande föras in men ger inget plus).
 
-I roles-formatet (inläsningens) läses rollens punkter ur `responsibilities` och annars ur beskrivningen delad på rader och punkttecken, samma ordning som `normalizeStructuredData` och mallarna (rättat 2026-11-21: förut togs beskrivningen först, och då räknades och sparades punkterna som en rad).
+I roles-formatet (inläsningens) väljer `rollensRader` i `poang/matt.ts` vilka rader en roll räknas på, och samma funktion väljer vad arket ritar (`normalizeStructuredData`, mallarna, PDF och Word), så att poängen och arket aldrig läser olika rader:
+
+- Saknas punkter i `responsibilities`: beskrivningen delad på radbrytning och punkttecken.
+- Är punkterna bara nyckelord (färre än hälften har minst tre ord, som "Plocka order", "Packa order") och har beskrivningen minst åtta ord och fler ord än punkterna tillsammans: beskrivningen, delad på samma sätt. Det är personens egna meningar.
+- Annars: punkterna.
+
+Bakgrund (rättat 2026-11-21): äldre inläsningar bad modellen korta rollen till nyckelord, och de vann över beskrivningen. Ett CV med hela meningar om varje roll ritades då med nyckelord, och genomgången sa "ingen beskrivning" eftersom nyckelord med ett eller två ord inte är påståenden. Sedan samma dag ber inläsningen om rollens punkter eller meningar ordagrant i `responsibilities`, en per post. Före det, också 2026-11-21, togs beskrivningen först, och då räknades och sparades punkterna som en rad.
 
 Ett *påstående* är en rad, punkt eller mening med minst tre ord. Fyra meningar i ett stycke är fyra påståenden, precis som fyra punkter, så formatet i inläsningen spelar ingen roll.
 
