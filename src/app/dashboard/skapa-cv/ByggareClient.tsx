@@ -236,7 +236,9 @@ export default function ByggareClient(p: ByggareProps) {
   const [merforsaljning, setMerforsaljning] = useState(false)
   const { framsteg, ladda } = useNedladdning()
 
-  const [ark, setArk] = useState<ArkVal>(() => (p.startAvsnitt ? arkForParam(p.initialCv, p.startAvsnitt) : startArk(p.initialCv, p.lage)))
+  // Från en annan flik utan avsnitt (brickan "Ändra texten"): första avsnittet, Kontakt.
+  const forstaAvsnitt = p.startAvsnitt ?? (p.fran && p.lage === 'redigera' ? 'kontakt' : null)
+  const [ark, setArk] = useState<ArkVal>(() => (forstaAvsnitt ? arkForParam(p.initialCv, forstaAvsnitt) : startArk(p.initialCv, p.lage)))
   const [bladNyckel, setBladNyckel] = useState(0)
   const [utkast, setUtkastState] = useState<ByggCv | null>(null)
   const utkastRef = useRef<ByggCv | null>(null)

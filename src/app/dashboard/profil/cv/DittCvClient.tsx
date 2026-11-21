@@ -52,7 +52,7 @@ import CvRad, { oppnaBytCv, oppnaNyttCv } from '@/components/cv/rum3/CvRad';
 import type { CvListRad } from '@/components/cv/rum3/BytCvArk';
 import { DokumentBanaDator, DokumentBanaMobil, type BanaSteg } from '@/components/cv/rum3/DokumentBana';
 import SkrivFranBorjan from '@/components/cv/rum3/SkrivFranBorjan';
-import { flikHref } from '@/components/cv/rum3/flikar';
+import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
 import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, VAGG } from '@/components/cv/rum3/texter';
 
 // Syns aldrig i första vyn: snabbpoängen bara direkt efter första
@@ -553,7 +553,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
 
   const sparkSaknas = innehall?.avsnitt.find((a) => !a.finns) ?? null;
   const finnsAntal = innehall?.avsnitt.filter((a) => a.finns).length ?? 0;
-  const sprakHref = aktivt ? `/dashboard/skapa-cv?${new URLSearchParams({ cv: aktivt.id, avsnitt: 'sprak', fran: 'ditt-cv', mall: mall.id }).toString()}` : '#';
+  const sprakHref = aktivt ? arbetslageHref(aktivt.id, 'ditt-cv', { avsnitt: 'sprak', mall: mall.id }) : '#';
 
   const matare1 =
     poang !== null && potential !== null && lage !== 'utkast' ? (

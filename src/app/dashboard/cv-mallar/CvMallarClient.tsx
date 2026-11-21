@@ -404,7 +404,7 @@ export default function CvMallarClient(p: {
   const verktyg = (forst: boolean) => (
     <Verktygsrad
       brickor
-      forst={forst && cv ? <AndraBricka href={arbetslage()!} /> : null}
+      forst={forst && cv ? <AndraBricka href={arbetslage('kontakt')!} /> : null}
       mall={mall}
       val={valMedRubriker}
       onVal={onVal}

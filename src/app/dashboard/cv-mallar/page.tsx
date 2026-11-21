@@ -43,7 +43,7 @@ type Sok = Record<string, string | string[] | undefined> & {
   kop?: string | string[]
   ladda?: string | string[]
   foto?: string | string[]
-  /** Länken "Lägg till språken" från Ditt CV (steg 1): går vidare till arbetsläget. */
+  /** Reserv: äldre länkar "Lägg till språken" med ?andra=sprak går vidare till arbetsläget. */
   andra?: string | string[]
 }
 const forsta = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? null
@@ -122,7 +122,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   const mall = losMallId(forsta(params.mall)) ?? MALL_KATALOG[0].id
   const fullt = maxCvs === CV_GRANS_GRATIS && cvRows.length >= CV_GRANS_GRATIS
 
-  // Ditt CV:s "Lägg till språken" (steg 1) pekar hit: vidare till arbetsläget.
+  // Reserv för äldre länkar med ?andra=sprak (Ditt CV pekar nu direkt på arbetsläget).
   if (forsta(params.andra) === 'sprak' && initialSelectedCvId) {
     redirect(arbetslageHref(initialSelectedCvId, 'ditt-cv', { avsnitt: 'sprak', mall }))
   }
