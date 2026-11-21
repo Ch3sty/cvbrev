@@ -1,348 +1,263 @@
-// Källan hämtades ur produktion 2026-11-21 (funktionen fanns bara driftsatt,
-// inte i repot). Det enda som är tillagt är kontrollen av x-cron-secret.
+// Påminnelser till konton som inte har bekräftat sin e-postadress.
+//
+// Körs en gång om dygnet av pg_cron (send-verification-reminders-daily).
+// Ett konto får högst två påminnelser: en dygnet efter registreringen och en
+// tre dygn efter. Bara gratiskonton, och bara så länge adressen är obekräftad.
+//
+// Historik: källan fanns bara i drift fram till 2026-11-21. Den versionen
+// skickade nästan aldrig något (fönstren var en timme breda men jobbet körs
+// en gång om dygnet), länken i mejlet var samma som i registreringsmejlet och
+// hade redan gått ut, och texten lovade saker produkten inte har. Omskriven
+// 2026-11-22.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { Resend } from 'npm:resend@4.0.0';
-const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 const resend = new Resend(RESEND_API_KEY);
-Deno.serve(async (req)=>{
+
+const SAJT = 'https://www.jobbcoach.ai';
+const TIMME = 60 * 60 * 1000;
+/** Länken i påminnelsen gäller så här länge. Texten i mejlet säger "tre dygn". */
+const LANK_GILTIG_TIMMAR = 72;
+/** Har kontot fått ett bekräftelsemejl de senaste timmarna skickas inget nytt. */
+const VILA_TIMMAR = 20;
+
+type Paminnelse = 'forsta' | 'andra';
+
+/**
+ * Vilken påminnelse ett konto ska ha, efter hur gammalt det är. Fönstren är
+ * ett dygn breda eftersom jobbet körs en gång om dygnet: varje konto hamnar i
+ * varje fönster exakt en gång.
+ */
+function paminnelseFor(timmarSedanSkapat: number): Paminnelse | null {
+  if (timmarSedanSkapat >= 24 && timmarSedanSkapat < 48) return 'forsta';
+  if (timmarSedanSkapat >= 72 && timmarSedanSkapat < 96) return 'andra';
+  return null;
+}
+
+const json = (kropp: unknown, status = 200) =>
+  new Response(JSON.stringify(kropp), { status, headers: { 'Content-Type': 'application/json' } });
+
+Deno.serve(async (req) => {
   // SÄKERHET (2026-11-21): bara vår schemalagda körning får anropa funktionen.
-  // Gatewayen släpper igenom vilken giltig nyckel som helst, också den publika,
-  // och funktionen har ingen egen spärr mot dubbla utskick: den som anropade
-  // den flera gånger under ett påminnelsefönster kunde få samma mejl skickat
-  // om och om igen till våra användare. Anroparen skickar hemligheten i
-  // rubriken x-cron-secret (pg_cron-jobbet läser den ur vault, samma värde
-  // som CRON_SECRET).
+  // Gatewayen släpper igenom vilken giltig nyckel som helst, också den publika.
+  // Anroparen skickar hemligheten i rubriken x-cron-secret (pg_cron-jobbet
+  // läser den ur vault, samma värde som CRON_SECRET).
   const cronHemlighet = Deno.env.get('CRON_SECRET');
   if (!cronHemlighet || req.headers.get('x-cron-secret') !== cronHemlighet) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return json({ error: 'Unauthorized' }, 401);
   }
+
   try {
-    console.log('🔔 Starting verification reminder job...');
-    const now = new Date();
-    const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    const seventyTwoHoursAgo = new Date(now.getTime() - 72 * 60 * 60 * 1000);
-    // Find users who:
-    // 1. Are not verified (email_verified_at IS NULL)
-    // 2. Created account 24h or 72h ago
-    // 3. Are free tier (premium users don't need reminders)
-    const { data: unverifiedUsers, error: fetchError } = await supabase.from('profiles').select('id, email, full_name, created_at, email_verified_at').eq('subscription_tier', 'free').is('email_verified_at', null).or(`created_at.gte.${twentyFourHoursAgo.toISOString()},created_at.gte.${seventyTwoHoursAgo.toISOString()}`);
-    if (fetchError) {
-      console.error('❌ Error fetching unverified users:', fetchError);
-      return new Response(JSON.stringify({
-        error: 'Failed to fetch users',
-        details: fetchError
-      }), {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+    // provkorning: räknar vilka som skulle få mejl, skickar inget och skriver inget.
+    const kropp = await req.json().catch(() => ({}));
+    const provkorning = kropp?.provkorning === true;
+
+    const nu = new Date();
+    const { data: konton, error: hamtFel } = await supabase
+      .from('profiles')
+      .select('id, email, full_name, created_at')
+      .eq('subscription_tier', 'free')
+      .is('email_verified_at', null)
+      .gt('created_at', new Date(nu.getTime() - 96 * TIMME).toISOString())
+      .lte('created_at', new Date(nu.getTime() - 24 * TIMME).toISOString());
+
+    if (hamtFel) {
+      console.error('[paminnelse] kunde inte läsa konton:', hamtFel.message);
+      return json({ error: 'Failed to fetch users' }, 500);
     }
-    if (!unverifiedUsers || unverifiedUsers.length === 0) {
-      console.log('✅ No unverified users found - all good!');
-      return new Response(JSON.stringify({
-        success: true,
-        message: 'No reminders to send',
-        count: 0
-      }), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+
+    const utfall = { forsta: 0, andra: 0, hoppade: 0, nyligenMejlade: 0, misslyckade: 0 };
+    // Testkonton ligger på toppdomänen .test, som aldrig går att leverera till.
+    // Ett mejl dit studsar och skadar avsändarens rykte.
+    const aktuella = (konton ?? []).filter((k) => k.email && !/\.test$/i.test(k.email.trim()));
+
+    // Senaste bekräftelsemejlet per konto: har ett gått i dag (en tidigare
+    // körning, eller att användaren själv bad om ett nytt) skickas inget till.
+    const senasteMejl = new Map<string, number>();
+    if (aktuella.length > 0) {
+      const { data: rader } = await supabase
+        .from('email_confirmations')
+        .select('user_id, created_at')
+        .in('user_id', aktuella.map((k) => k.id));
+      for (const r of rader ?? []) {
+        if (r.created_at) senasteMejl.set(r.user_id, new Date(r.created_at).getTime());
+      }
     }
-    console.log(`📧 Found ${unverifiedUsers.length} unverified users`);
-    const results = {
-      sent24h: 0,
-      sent72h: 0,
-      failed: 0,
-      skipped: 0
-    };
-    for (const user of unverifiedUsers){
-      const createdAt = new Date(user.created_at);
-      const hoursSinceCreation = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
-      // Skip if already sent a reminder recently (check if we sent one in the last hour)
-      // This prevents duplicate sends on multiple function invocations
-      if (hoursSinceCreation < 24 - 1 || hoursSinceCreation > 24 + 1 && hoursSinceCreation < 72 - 1) {
-        results.skipped++;
+
+    for (const konto of aktuella) {
+      const timmar = (nu.getTime() - new Date(konto.created_at).getTime()) / TIMME;
+      const typ = paminnelseFor(timmar);
+      if (!typ) {
+        utfall.hoppade++;
         continue;
       }
-      // Determine which reminder to send
-      let reminderType = null;
-      if (hoursSinceCreation >= 24 && hoursSinceCreation < 25) {
-        reminderType = '24h';
-      } else if (hoursSinceCreation >= 72 && hoursSinceCreation < 73) {
-        reminderType = '72h';
-      }
-      if (!reminderType) {
-        results.skipped++;
+      const senast = senasteMejl.get(konto.id);
+      if (senast && nu.getTime() - senast < VILA_TIMMAR * TIMME) {
+        utfall.nyligenMejlade++;
         continue;
       }
-      // Get or create verification token
-      let { data: existingToken } = await supabase.from('email_confirmations').select('token').eq('user_id', user.id).single();
-      let verificationToken;
-      if (existingToken) {
-        verificationToken = existingToken.token;
-      } else {
-        // Create new token
-        const newToken = crypto.randomUUID();
-        const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24h from now
-        const { error: insertError } = await supabase.from('email_confirmations').insert({
-          user_id: user.id,
-          email: user.email,
-          token: newToken,
-          expires_at: expiresAt.toISOString(),
-          is_invitation: false
-        });
-        if (insertError) {
-          console.error(`❌ Failed to create token for ${user.email}:`, insertError);
-          results.failed++;
-          continue;
-        }
-        verificationToken = newToken;
+      if (provkorning) {
+        utfall[typ]++;
+        continue;
       }
-      const verificationLink = `https://www.jobbcoach.ai/api/auth/confirm-email?token=${verificationToken}`;
-      // Generate email content based on reminder type
-      const emailContent = reminderType === '24h' ? generate24hReminderEmail(user.full_name || 'där', verificationLink) : generate72hReminderEmail(user.full_name || 'där', verificationLink);
-      // Send email via Resend
-      try {
-        await resend.emails.send({
-          from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
-          to: user.email,
-          subject: emailContent.subject,
-          html: emailContent.html
-        });
-        if (reminderType === '24h') {
-          results.sent24h++;
-        } else {
-          results.sent72h++;
-        }
-        console.log(`✅ Sent ${reminderType} reminder to ${user.email}`);
-      } catch (emailError) {
-        console.error(`❌ Failed to send email to ${user.email}:`, emailError);
-        results.failed++;
+
+      // En ny länk för varje påminnelse. Länken från registreringen gäller ett
+      // dygn och har gått ut när påminnelsen skickas.
+      const token = crypto.randomUUID();
+      const { error: tokenFel } = await supabase.from('email_confirmations').upsert(
+        {
+          user_id: konto.id,
+          email: konto.email,
+          token,
+          expires_at: new Date(nu.getTime() + LANK_GILTIG_TIMMAR * TIMME).toISOString(),
+          created_at: nu.toISOString(),
+        },
+        { onConflict: 'user_id' }
+      );
+      if (tokenFel) {
+        console.error('[paminnelse] kunde inte skapa länk för ' + konto.id.slice(0, 8) + ':', tokenFel.message);
+        utfall.misslyckade++;
+        continue;
       }
+
+      const mejl = paminnelseMejl(typ, konto.full_name, SAJT + '/api/auth/confirm-email?token=' + token);
+      const { error: mejlFel } = await resend.emails.send({
+        from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
+        to: konto.email,
+        subject: mejl.subject,
+        html: mejl.html,
+      });
+      if (mejlFel) {
+        console.error('[paminnelse] mejlet gick inte iväg till ' + konto.id.slice(0, 8) + ':', mejlFel.message);
+        utfall.misslyckade++;
+        continue;
+      }
+      utfall[typ]++;
     }
-    console.log('📊 Reminder job completed:', results);
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Reminder job completed',
-      results,
-      total_users: unverifiedUsers.length
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  } catch (error) {
-    console.error('❌ Unexpected error in reminder function:', error);
-    return new Response(JSON.stringify({
-      error: 'Internal server error',
-      details: error.message
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+
+    console.log('[paminnelse] klar' + (provkorning ? ' (provkörning)' : '') + ':', JSON.stringify(utfall));
+    return json({ success: true, provkorning, konton: aktuella.length, utfall });
+  } catch (fel) {
+    console.error('[paminnelse] oväntat fel:', fel);
+    return json({ error: 'Internal server error' }, 500);
   }
 });
-function generate24hReminderEmail(name, verificationLink) {
-  return {
-    subject: 'Verifiera din e-post för full tillgång - Jobbcoach.ai',
-    html: `
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verifiera din e-post</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
-  <table role="presentation" style="width: 100%; border-collapse: collapse; min-height: 100vh;">
-    <tr>
-      <td align="center" style="padding: 40px 20px;">
-        <table role="presentation" style="max-width: 600px; width: 100%; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;">
-          <!-- Header med gradient -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="margin: 0; color: white; font-size: 28px; font-weight: 700;">🔔 Påminnelse</h1>
-            </td>
-          </tr>
-          
-          <!-- Main Content -->
-          <tr>
-            <td style="padding: 40px 30px;">
-              <h2 style="margin: 0 0 20px; color: #1a1a1a; font-size: 24px; font-weight: 600;">Hej ${name}!</h2>
-              
-              <p style="margin: 0 0 16px; color: #4a5568; font-size: 16px; line-height: 1.6;">
-                Du registrerade dig på <strong>Jobbcoach.ai</strong> för 24 timmar sedan, men har ännu inte verifierat din e-postadress.
-              </p>
-              
-              <p style="margin: 0 0 16px; color: #4a5568; font-size: 16px; line-height: 1.6;">
-                För närvarande är du begränsad till:
-              </p>
-              
-              <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 20px 0; border-radius: 8px;">
-                <p style="margin: 0 0 8px; color: #92400e; font-size: 15px; font-weight: 600;">⚠️ Begränsningar:</p>
-                <ul style="margin: 8px 0 0; padding-left: 20px; color: #92400e;">
-                  <li style="margin-bottom: 4px;">Endast 1 CV uppladdat</li>
-                  <li style="margin-bottom: 4px;">Endast 1 personligt brev skapat</li>
-                </ul>
-              </div>
-              
-              <p style="margin: 20px 0 16px; color: #4a5568; font-size: 16px; line-height: 1.6;">
-                <strong>Verifiera din e-post nu</strong> för att låsa upp:
-              </p>
-              
-              <div style="background: #d1fae5; border-left: 4px solid #10b981; padding: 16px; margin: 20px 0; border-radius: 8px;">
-                <p style="margin: 0 0 8px; color: #065f46; font-size: 15px; font-weight: 600;">✓ Full tillgång:</p>
-                <ul style="margin: 8px 0 0; padding-left: 20px; color: #065f46;">
-                  <li style="margin-bottom: 4px;">Obegränsat antal CV:n</li>
-                  <li style="margin-bottom: 4px;">7 personliga brev per vecka</li>
-                  <li style="margin-bottom: 4px;">Alla gratisfunktioner</li>
-                </ul>
-              </div>
-              
-              <!-- CTA Button -->
-              <table role="presentation" style="margin: 30px 0; width: 100%;">
-                <tr>
-                  <td align="center">
-                    <a href="${verificationLink}" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.3s;">
-                      Verifiera min e-post →
-                    </a>
-                  </td>
-                </tr>
-              </table>
-              
-              <p style="margin: 20px 0 0; color: #718096; font-size: 14px; line-height: 1.6;">
-                Länken är giltig i 24 timmar. Om du har problem med knappen, kopiera och klistra in denna länk i din webbläsare:
-              </p>
-              
-              <p style="margin: 8px 0 0; padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; word-break: break-all; font-size: 13px; color: #4a5568;">
-                ${verificationLink}
-              </p>
-            </td>
-          </tr>
-          
-          <!-- Footer -->
-          <tr>
-            <td style="background: #f7fafc; padding: 30px; text-align: center; border-top: 1px solid #e2e8f0;">
-              <p style="margin: 0 0 8px; color: #718096; font-size: 14px;">
-                <strong>Jobbcoach.ai</strong> - Din partner för en framgångsrik karriär
-              </p>
-              <p style="margin: 0; color: #a0aec0; font-size: 12px;">
-                © 2024 Jobbcoach.ai | <a href="https://jobbcoach.ai" style="color: #667eea; text-decoration: none;">jobbcoach.ai</a>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-    `
-  };
+
+// ---------------------------------------------------------------------------
+// Mejlen
+// ---------------------------------------------------------------------------
+
+function esc(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
-function generate72hReminderEmail(name, verificationLink) {
-  return {
-    subject: '⏰ Sista chansen - Verifiera din e-post på Jobbcoach.ai',
-    html: `
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sista chansen att verifiera</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); min-height: 100vh;">
-  <table role="presentation" style="width: 100%; border-collapse: collapse; min-height: 100vh;">
-    <tr>
-      <td align="center" style="padding: 40px 20px;">
-        <table role="presentation" style="max-width: 600px; width: 100%; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;">
-          <!-- Header med gradient -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="margin: 0; color: white; font-size: 28px; font-weight: 700;">⏰ Sista chansen!</h1>
-            </td>
-          </tr>
-          
-          <!-- Main Content -->
-          <tr>
-            <td style="padding: 40px 30px;">
-              <h2 style="margin: 0 0 20px; color: #1a1a1a; font-size: 24px; font-weight: 600;">Hej ${name},</h2>
-              
-              <p style="margin: 0 0 16px; color: #4a5568; font-size: 16px; line-height: 1.6;">
-                Det har nu gått <strong>3 dagar</strong> sedan du registrerade dig på Jobbcoach.ai, och din e-post är fortfarande inte verifierad.
-              </p>
-              
-              <div style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 16px; margin: 20px 0; border-radius: 8px;">
-                <p style="margin: 0 0 8px; color: #991b1b; font-size: 15px; font-weight: 600;">⚠️ Du missar:</p>
-                <ul style="margin: 8px 0 0; padding-left: 20px; color: #991b1b;">
-                  <li style="margin-bottom: 4px;">Obegränsat antal CV:n</li>
-                  <li style="margin-bottom: 4px;">Skapa upp till 7 brev per vecka</li>
-                  <li style="margin-bottom: 4px;">Full tillgång till alla verktyg</li>
-                </ul>
-              </div>
-              
-              <p style="margin: 20px 0 16px; color: #4a5568; font-size: 16px; line-height: 1.6;">
-                <strong>Det tar bara 5 sekunder att verifiera!</strong> Klicka på knappen nedan:
-              </p>
-              
-              <!-- CTA Button med puls-effekt -->
-              <table role="presentation" style="margin: 30px 0; width: 100%;">
-                <tr>
-                  <td align="center">
-                    <a href="${verificationLink}" style="display: inline-block; padding: 18px 45px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 18px; box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4); transition: all 0.3s;">
-                      ✓ Verifiera nu (5 sekunder!)
-                    </a>
-                  </td>
-                </tr>
-              </table>
-              
-              <div style="background: #dbeafe; border: 2px solid #3b82f6; padding: 20px; margin: 30px 0; border-radius: 12px; text-align: center;">
-                <p style="margin: 0 0 8px; color: #1e40af; font-size: 16px; font-weight: 600;">💡 Visste du att?</p>
-                <p style="margin: 0; color: #1e3a8a; font-size: 14px; line-height: 1.6;">
-                  95% av våra användare som verifierar sin e-post får sitt drömjobb inom 3 månader!
-                </p>
-              </div>
-              
-              <p style="margin: 20px 0 0; color: #718096; font-size: 14px; line-height: 1.6;">
-                Länken är giltig i 24 timmar. Om knappen inte fungerar, kopiera denna länk:
-              </p>
-              
-              <p style="margin: 8px 0 0; padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; word-break: break-all; font-size: 13px; color: #4a5568;">
-                ${verificationLink}
-              </p>
-            </td>
-          </tr>
-          
-          <!-- Footer -->
-          <tr>
-            <td style="background: #f7fafc; padding: 30px; text-align: center; border-top: 1px solid #e2e8f0;">
-              <p style="margin: 0 0 8px; color: #718096; font-size: 14px;">
-                <strong>Jobbcoach.ai</strong> - Din partner för en framgångsrik karriär
-              </p>
-              <p style="margin: 0; color: #a0aec0; font-size: 12px;">
-                © 2024 Jobbcoach.ai | <a href="https://jobbcoach.ai" style="color: #f5576c; text-decoration: none;">jobbcoach.ai</a>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-    `
-  };
+
+/** "Hej Anna!" med förnamnet, eller "Hej!" när namnet saknas. */
+function halsning(namn: string | null | undefined): string {
+  const fornamn = (namn ?? '').trim().split(/\s+/)[0] ?? '';
+  return fornamn ? 'Hej ' + esc(fornamn) + '!' : 'Hej!';
+}
+
+const TEXTER: Record<Paminnelse, { subject: string; forrad: string; rubrik: string; ingress: string }> = {
+  forsta: {
+    subject: 'Bekräfta din e-postadress',
+    forrad: 'Ett klick, sedan är kontot klart.',
+    rubrik: 'En sak kvar: bekräfta din e-post',
+    ingress: 'Du skapade nyligen ett konto hos oss, men e-postadressen är inte bekräftad än. Det tar ett klick.',
+  },
+  andra: {
+    subject: 'Din e-postadress är inte bekräftad än',
+    forrad: 'Vi påminner en gång till, sedan låter vi dig vara.',
+    rubrik: 'Din e-post väntar fortfarande',
+    ingress:
+      'Det har gått några dagar sedan du skapade ditt konto, och e-postadressen är fortfarande inte bekräftad. Vi påminner den här gången, sedan låter vi dig vara.',
+  },
+};
+
+/**
+ * Samma skal som livscykelmejlen i webbappen (src/lib/email/lifecycle/
+ * templates/layout.ts): tabellayout och inline-CSS, så att det ritas lika i
+ * Gmail, Outlook och Apple Mail. Det som står om vad bekräftelsen ger är det
+ * appen faktiskt spärrar för obekräftade gratiskonton: ett andra CV
+ * (src/app/api/cv/upload/route.ts) och fler sparade brev
+ * (src/app/api/letters/route.ts). Ändras spärrarna ska texten ändras.
+ */
+function paminnelseMejl(typ: Paminnelse, namn: string | null | undefined, lank: string): { subject: string; html: string } {
+  const t = TEXTER[typ];
+  const stycke =
+    'margin:0 0 14px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#475569;';
+  const litet = 'font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;';
+  const html = [
+    '<!doctype html>',
+    '<html lang="sv" xmlns="http://www.w3.org/1999/xhtml">',
+    '<head>',
+    '  <meta charset="utf-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+    '  <meta http-equiv="X-UA-Compatible" content="IE=edge">',
+    '  <title>' + esc(t.subject) + '</title>',
+    '</head>',
+    '<body style="margin:0;padding:0;background-color:#F8FAFC;-webkit-text-size-adjust:100%;">',
+    '  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">' + esc(t.forrad) + '</div>',
+    '  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8FAFC;">',
+    '    <tr>',
+    '      <td align="center" style="padding:24px 16px 40px 16px;">',
+    '        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;border:1px solid #E2E8F0;overflow:hidden;">',
+    '          <tr>',
+    '            <td style="padding:0;font-size:0;line-height:0;">',
+    '              <a href="' + SAJT + '/" target="_blank"><img src="' + SAJT + '/email/email-header-jobbcoach.png" width="560" alt="Jobbcoach.ai" style="display:block;width:100%;max-width:560px;height:auto;border:0;"></a>',
+    '            </td>',
+    '          </tr>',
+    '          <tr>',
+    '            <td style="padding:32px 32px 4px 32px;">',
+    '              <h1 style="margin:0 0 16px 0;font-family:Arial,Helvetica,sans-serif;font-size:24px;line-height:1.3;font-weight:700;color:#0F172A;">' + esc(t.rubrik) + '</h1>',
+    '              <p style="' + stycke + '">' + halsning(namn) + ' ' + esc(t.ingress) + '</p>',
+    '            </td>',
+    '          </tr>',
+    '          <tr>',
+    '            <td style="padding:10px 32px 6px 32px;">',
+    '              <table role="presentation" cellpadding="0" cellspacing="0" border="0">',
+    '                <tr>',
+    '                  <td style="background-color:#EA580C;border-radius:8px;">',
+    '                    <a href="' + lank + '" target="_blank" style="display:inline-block;padding:14px 28px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;">Bekräfta min e-post</a>',
+    '                  </td>',
+    '                </tr>',
+    '              </table>',
+    '            </td>',
+    '          </tr>',
+    '          <tr>',
+    '            <td style="padding:22px 32px 0 32px;">',
+    '              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF7ED;border:1px solid #FFEDD5;border-radius:8px;">',
+    '                <tr><td style="padding:16px 18px;">',
+    '                  <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#475569;">Med bekräftad adress kan du ladda upp ett CV till och spara fler personliga brev. Tills dess har kontot plats för ett CV och ett sparat brev.</p>',
+    '                </td></tr>',
+    '              </table>',
+    '            </td>',
+    '          </tr>',
+    '          <tr>',
+    '            <td style="padding:18px 32px 0 32px;">',
+    '              <p style="margin:0 0 10px 0;' + litet + 'color:#94A3B8;">Länken gäller i tre dygn. Fungerar inte knappen? Kopiera adressen och klistra in den i webbläsaren:</p>',
+    '              <p style="margin:0 0 14px 0;' + litet + 'color:#64748B;word-break:break-all;">' + esc(lank) + '</p>',
+    '              <p style="margin:0;' + litet + 'color:#94A3B8;">Var det inte du som skapade kontot? Då behöver du inte göra något.</p>',
+    '            </td>',
+    '          </tr>',
+    '          <tr><td style="height:32px;font-size:0;line-height:0;">&nbsp;</td></tr>',
+    '        </table>',
+    '        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">',
+    '          <tr>',
+    '            <td align="center" style="padding:20px 16px 0 16px;">',
+    '              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#94A3B8;">Det här mejlet rör ditt konto på jobbcoach.ai.</p>',
+    '            </td>',
+    '          </tr>',
+    '        </table>',
+    '      </td>',
+    '    </tr>',
+    '  </table>',
+    '</body>',
+    '</html>',
+  ].join('\n');
+  return { subject: t.subject, html };
 }
