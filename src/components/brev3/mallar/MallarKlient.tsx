@@ -11,7 +11,9 @@
  *  - Gratis: Linne och Björk sparas, övriga provas ("Du provar mallen
  *    Koppar", "Tillbaka till Linne"). Låst brev: allt provas, inget sparas.
  *  - Nedladdning kräver letter_download. Utan: BrevSparr variant nedladdning,
- *    köpet går tillbaka hit med mall och format, och ?ladda=1 laddar ner
+ *    både från PDF- och Word-knappen (Word syns för gratis på mallar med
+ *    Word, saas-leads beslut 2026-11-21). Köpet går tillbaka hit med mall
+ *    och formatet från knappen som öppnade spärren, och ?ladda=1 laddar ner
  *    filen av sig själv.
  *  - Utan brev: exempelbrevet med användarens namn och "Skriv brevet".
  */
@@ -49,7 +51,7 @@ import { getFontFamilyForHTML } from '@/lib/documents/typsnitt'
 import type { Scope } from '@/lib/access/features'
 import { MALL_FILTER, passarFilter, type MallarKort, type MallFilter } from './filter'
 import { MallKort } from './MallKort'
-import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, markeraKopierat, sparaVal, type Filformat } from './klient'
+import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, mallarKopretur, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
 
@@ -122,6 +124,8 @@ export default function MallarKlient(p: MallarKlientProps) {
   const [kvitto, setKvitto] = useState<string | null>(null)
   const [fel, setFel] = useState<string | null>(null)
   const [sparr, setSparr] = useState(false)
+  // Formatet från knappen som öppnade spärren: köpreturen bär det (som Brevet).
+  const [sparrFormat, setSparrFormat] = useState<Filformat>('pdf')
   const [laddar, setLaddar] = useState<Filformat | null>(null)
   const [namnKravs, setNamnKravs] = useState<Filformat | null>(null)
   const [bytBrev, setBytBrev] = useState(false)
@@ -249,12 +253,13 @@ export default function MallarKlient(p: MallarKlientProps) {
   }, [synligaNyckel, brevId])
 
   /* ---------------------------------------------------------------- nedladdning */
-  const returTill = brev ? `/dashboard/mina-brev/mallar?${new URLSearchParams({ brev: brev.id, mall: visad, format: 'pdf' }).toString()}` : null
+  const returTill = brev ? mallarKopretur(brev.id, visad, sparrFormat) : null
 
   const laddaNer = useCallback(
     async (format: Filformat) => {
       if (!brev || laddar) return
       if (!p.kanLaddaNer) {
+        setSparrFormat(format)
         setSparr(true)
         return
       }
@@ -270,7 +275,10 @@ export default function MallarKlient(p: MallarKlientProps) {
         }
         await laddaNerBrev(brev.id, format, brev.filnamn)
       } catch (e) {
-        if (e instanceof MallarFel && e.status === 402) setSparr(true)
+        if (e instanceof MallarFel && e.status === 402) {
+          setSparrFormat(format)
+          setSparr(true)
+        }
         else if (e instanceof MallarFel && e.status === 422) setNamnKravs(format)
         else setFel(T.fel.ladda)
       } finally {
@@ -292,9 +300,8 @@ export default function MallarKlient(p: MallarKlientProps) {
     },
     { refresh: () => router.refresh(), laddaNer: (f) => void laddaNer(f), stadaAdress: stadaKopreturAdress },
   )
-  // Under väntan visar knappen samma upptagna läge som en vanlig nedladdning.
-  // Word-knappen syns först med tillgång, så väntan visas på huvudknappen.
-  const upptagen = laddar ?? (kop.vantar ? 'pdf' : null)
+  // Under väntan visar knappen för det köpta formatet samma upptagna läge som en vanlig nedladdning.
+  const upptagen = laddar ?? (kop.vantar ? p.laddaFormat : null)
   const felText = fel ?? (kop.ejRegistrerat ? T.fel.kopEjRegistrerat : null)
 
   const kopiera = async () => {
@@ -333,8 +340,9 @@ export default function MallarKlient(p: MallarKlientProps) {
       {T.skrivBrevet}
     </StorKnapp>
   )
+  // Word syns för alla på mallar med Word; utan tillgång öppnar den samma spärr som PDF.
   const wordKnapp =
-    brev && p.kanLaddaNer && visadKort.word ? (
+    brev && visadKort.word ? (
       <Bricka onClick={() => void laddaNer('docx')} disabled={upptagen !== null}>
         <IkonLaddaNer size={18} />
         {upptagen === 'docx' ? T.laddarNer : T.word}
