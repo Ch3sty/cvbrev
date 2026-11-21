@@ -1,84 +1,53 @@
 /**
- * Ansökningar: en server component enligt samma mönster som dashboard-layouten.
+ * Sökta tjänster (Jobbsöket omgång 1, etapp 2B). Serverkomponent: sessionen,
+ * tjänsterna, Ska sökas, veckans mål, statistiken och rapporten läses i ett
+ * varv av hamtaSoktaTjanster och skickas ner färdiga. Vy och filter står i
+ * adressen (F8) och läses av vyn.
  *
- * Förut var hela sidan 'use client'. Den monterade, körde useApplications som
- * fetchade /api/applications, som i sin tur gjorde auth.getUser() innan den
- * ens fick fråga efter raderna. Ovanpå det låg BackfillBanner-sonden mot
- * /api/applications/backfill med sin egen auth.getUser() och två queries.
- * Före första riktiga innehållet blev det nio rundturer och 2,24 sekunder på
- * Pixel 7 över LTE, varav det mesta seriellt: HTML, hydrering, fetch, auth,
- * query.
- *
- * Nu läses sessionen och ansökningslistan här på servern, i samma omgång som
- * backfill-kandidaterna, och skickas ner som props. Första HTML innehåller
- * hela listan. Klienten behöver inte fetcha någonting för att måla sidan.
- *
- * Aggregaten (väntar svar, intervju, svar) räknas fram ur samma lista på
- * klienten, precis som förut. Att i stället läsa summary.applications hade
- * blivit fel: summaryn räknar över alla ansökningar medan statusraden ska
- * spegla listan sidan faktiskt visar, och listan behövs ändå i sin helhet för
- * grupperna, statistiken och rapporten.
+ * Förifyllt ark från en träff: ?logga=1 (eller ?logga=ska-soka) med
+ * tjanst, arbetsgivare, ort, lank, sista (YYYY-MM-DD), af (annons-id) och
+ * matchning (0 till 100). Se docs/bygg-noter-jobbsoket-b.md.
  */
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import type { JobApplication } from '@/lib/applications/status';
-import SoktaTjansterClient, {
-  type BackfillCandidate,
-} from './SoktaTjansterClient';
-import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { redirect } from 'next/navigation'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { hamtaSoktaTjanster } from '@/lib/jobbsok/server'
+import { tolkaSoktaAdress } from '@/lib/jobbsok'
+import SoktaVy from '@/components/jobb3/sokta/SoktaVy'
+import type { LoggaForifyllt } from '@/components/jobb3/sokta/LoggaArk'
 
-export default async function SoktaTjansterPage() {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
+type Sok = Record<string, string | string[] | undefined>
 
-  const user = await hamtaVerifieradAnvandare();
+function text(v: string | string[] | undefined, max: number): string | undefined {
+  const s = Array.isArray(v) ? v[0] : v
+  const t = s?.trim()
+  return t ? t.slice(0, max) : undefined
+}
 
-  if (!user) {
-    redirect('/login');
+function forifylltUr(p: Sok): LoggaForifyllt | null {
+  const job_title = text(p.tjanst, 200)
+  const company = text(p.arbetsgivare, 200)
+  if (!job_title && !company) return null
+  const sista = text(p.sista, 10)
+  const lank = text(p.lank, 2048)
+  const match = Number(text(p.matchning, 3))
+  return {
+    job_title,
+    company,
+    location: text(p.ort, 200) ?? null,
+    job_ad_url: lank && /^https?:\/\//.test(lank) ? lank : null,
+    last_application_date: sista && /^\d{4}-\d{2}-\d{2}$/.test(sista) ? sista : null,
+    af_ad_id: text(p.af, 100) ?? null,
+    match_score: Number.isFinite(match) && match >= 0 && match <= 100 ? Math.round(match) : null,
   }
+}
 
-  // Två parallella frågor, inte tre seriella HTTP-anrop. Backfill-kandidaterna
-  // kräver både breven och de redan kopplade ansökningarna, men vi har redan
-  // hela ansökningslistan nedan och kan filtrera på den i stället för att
-  // fråga en gång till.
-  const [applicationsRes, lettersRes] = await Promise.all([
-    supabase
-      .from('job_applications')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('applied_at', { ascending: false })
-      .order('created_at', { ascending: false }),
-    supabase
-      .from('letters')
-      .select('id, title, company, job_title, created_at')
-      .eq('user_id', user.id)
-      .eq('is_saved', true)
-      .order('created_at', { ascending: false }),
-  ]);
+export default async function SoktaTjansterPage({ searchParams }: { searchParams: Promise<Sok> }) {
+  const user = await hamtaVerifieradAnvandare()
+  if (!user) redirect('/login')
 
-  if (applicationsRes.error) {
-    console.error('Fel vid server-hämtning av ansökningar:', applicationsRes.error);
-  }
-  if (lettersRes.error) {
-    console.error('Fel vid server-hämtning av brev för backfill:', lettersRes.error);
-  }
+  const p = await searchParams
+  const adress = tolkaSoktaAdress(p)
+  const data = await hamtaSoktaTjanster(user.id, { manad: adress.manad })
 
-  const initialApplications = (applicationsRes.data ?? []) as JobApplication[];
-
-  // Samma filtrering som GET /api/applications/backfill: sparade brev som
-  // ännu inte är kopplade till en ansökan.
-  const linkedLetterIds = new Set(
-    initialApplications.map((application) => application.letter_id).filter(Boolean)
-  );
-  const initialBackfillCandidates = ((lettersRes.data ?? []) as BackfillCandidate[]).filter(
-    (letter) => !linkedLetterIds.has(letter.id)
-  );
-
-  return (
-    <SoktaTjansterClient
-      initialApplications={initialApplications}
-      initialBackfillCandidates={initialBackfillCandidates}
-    />
-  );
+  return <SoktaVy data={data} forifyllt={forifylltUr(p)} />
 }

@@ -565,6 +565,9 @@ a.j3-vb:hover { color: var(--vagg); transform: translateY(-2px); }
 .j3-rad-pill { display: none; }
 .j3-rad-handling { position: relative; z-index: 1; grid-column: 1 / -1; margin-top: 10px; display: flex; }
 .j3-rad-handling > * { flex: 1; }
+/* handlingMobil={false}: knappen bara på dator (rättat i etapp 2B, Tailwinds hidden förlorade mot display:flex). */
+.j3-rad-handling.hidden { display: none; }
+@media (min-width: 1280px) { .j3-rad-handling.hidden { display: flex; } }
 .j3-rad-hoger { align-self: center; }
 .j3-rad.stor .j3-rad-text b { font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 16px; line-height: 20px; font-weight: 800; letter-spacing: -.01em; }
 .j3-strack { color: inherit; text-decoration: none; outline: none; }
