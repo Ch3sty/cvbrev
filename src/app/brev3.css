@@ -875,8 +875,9 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 .b3-valjare-kort:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
 .b3-valjare-bild { display: flex; justify-content: center; height: 132px; padding: 10px 10px 0; overflow: hidden; background: #EADBE4; }
 .b3-valjare-bild > img { width: 132px; height: 150px; object-fit: cover; object-position: top; border-radius: 3px 3px 0 0; box-shadow: 0 0 0 1px rgba(58, 25, 48, .08), 0 6px 14px rgba(58, 25, 48, .2); }
-.b3-valjare-text { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 44px; padding: 8px 10px; }
-.b3-valjare-text b { font-size: 15px; line-height: 20px; font-weight: 800; }
+/* Namnet överst, taggen under: ingen av dem klipps i smala kort (dator och telefon). */
+.b3-valjare-text { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 44px; padding: 8px 10px 10px; }
+.b3-valjare-text b { font-size: 15px; line-height: 20px; font-weight: 800; overflow-wrap: anywhere; }
 @media (min-width: 640px) { .b3-valjare { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 @media (prefers-reduced-motion: reduce) {
