@@ -2771,6 +2771,211 @@ html {
   .sess-skala-val i, .sess-bryter-ruta { animation: none !important; transition: none !important; }
 }
 
+/* Omgång 3, publika personlighetsprovet
+   =============================================================================
+   Skissens Publik-personlighet och Publik-personlighet-resultat (beslut C).
+   Personlighetsprov.tsx ritar en scen på golvet med samma kort och skala som
+   det inloggade testet (.sess-personlighet-kort, .sess-skala, .sess-bitar,
+   .sess-kapsel). Layouten följer provets egen bredd (container pp), så att
+   samma komponent ryms i artikelns spalt och på verktygssidan: huvudet och
+   skalan i dator­form från 720 px, resultatet och spärren i två kolumner
+   från 960 px. Verktygssidans hjälte (VerktygsMall provHjalte) har ingen
+   knapp och ingen bild; scenen överlappar väggens nederkant. Allt via
+   tokens: provrummets (.prov-rum) och sess-tokens, med mörka värden nedan.
+   Rörelse bara transform och opacity.
+   ============================================================================= */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prov-rum {
+    --sess-kant: #3B4470; --sess-bit: #293050; --sess-tangent: #1D2238; --sess-tangent-ink: #C7C6D0;
+    --sess-indigo: #93A0EC; --sess-indigo-ink: #0E1120; --sess-indigo-mjuk: #232B55;
+    --sess-ratt: #6CC79A; --sess-rad3-yta: rgba(224, 122, 47, .18); --sess-rad3-kant: #7A3E17; --sess-rad3-ink: #F2A368;
+    --sess-ruta: #EEF0F8; --sess-ruta-kant: #AEB4DA; --sess-brade-kant: #070A18;
+    --sess-knapp-kant: #8A3A12; --sess-skugga: rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"] .prov-rum {
+  --sess-kant: #3B4470; --sess-bit: #293050; --sess-tangent: #1D2238; --sess-tangent-ink: #C7C6D0;
+  --sess-indigo: #93A0EC; --sess-indigo-ink: #0E1120; --sess-indigo-mjuk: #232B55;
+  --sess-ratt: #6CC79A; --sess-rad3-yta: rgba(224, 122, 47, .18); --sess-rad3-kant: #7A3E17; --sess-rad3-ink: #F2A368;
+  --sess-ruta: #EEF0F8; --sess-ruta-kant: #AEB4DA; --sess-brade-kant: #070A18;
+  --sess-knapp-kant: #8A3A12; --sess-skugga: rgba(0, 0, 0, .45);
+}
+
+/* Verktygssidans hjälte: brödsmula, kick, h1 och ingressen på väggen, scenen överlappar. */
+.pub-provhjalte, .pub-provhandling { --pp-overlapp: 56px; }
+@media (min-width: 1024px) { .pub-provhjalte, .pub-provhandling { --pp-overlapp: 80px; } }
+.pub-sek.pub-provhjalte { padding: 16px 0 calc(var(--pp-overlapp) + 28px); }
+@media (min-width: 1024px) { .pub-sek.pub-provhjalte { padding: 20px 0 calc(var(--pp-overlapp) + 40px); } }
+.pp-ram .pp-pastaende:focus-visible, .pp-ram .pp-typ:focus-visible { outline: none; }
+.pub-provhjalte nav[aria-label='Breadcrumb'] { margin-bottom: 8px; }
+.pub-provhjalte .pub-kick { margin-bottom: 6px; }
+.pub-provhjalte .pub-h1 { font-size: clamp(28px, 2.6vw + 17px, 44px); line-height: 1.1; letter-spacing: -.025em; }
+.pub-provhjalte .pub-ingress { margin-top: 8px; max-width: 880px; font-size: 14px; line-height: 20px; }
+@media (min-width: 1024px) {
+  .pub-provhjalte .pub-ingress { margin-top: 12px; font-size: 17px; line-height: 26px; }
+}
+.pub-sek-tat.pub-provhandling { padding-top: 0; }
+.pub-provhandling > .pub-wrap { position: relative; z-index: 1; margin-top: calc(-1 * var(--pp-overlapp)); }
+@media (max-width: 639.98px) { .pub-provhandling > .pub-wrap { width: calc(100% - 20px); } }
+
+/* Scenen */
+.pp-ram { container: pp / inline-size; }
+.pp-sida .pp-scen-prov, .pp-sida .pp-fotnot { max-width: 920px; margin-inline: auto; }
+.pp-scen { position: relative; background: var(--golv); border: 2px solid var(--sess-kant); border-radius: 26px; box-shadow: 0 5px 0 var(--sess-kant), 0 20px 36px var(--sess-skugga); padding: 12px 12px 12px; color: var(--ink-1); }
+.pp-scen-prov { padding-bottom: 0; overflow: hidden; }
+.pp-ik { width: 44px; height: 44px; border-radius: 14px; background: var(--papper); box-shadow: 0 3px 0 var(--sess-kant); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pp-typ { margin: 0; color: var(--ink-1); }
+.pp-typ > span { display: block; font: 700 16px/20px var(--font-sess-display); }
+.pp-typ small { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-3); }
+
+/* Provets huvud: på telefonen stapeln och kapseln, typen på raden under. */
+.pp-huvud-prov { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+/* Telefonen: samma element som på dator (en gång i DOM), på egen rad under stapeln, utan ikonen. */
+.pp-huvud-typ { display: flex; order: 3; flex-basis: 100%; margin-top: -2px; padding: 0 2px; }
+.pp-huvud-typ > .pp-ik { display: none; }
+.pp-huvud-typ .pp-typ { display: flex; align-items: baseline; justify-content: space-between; width: 100%; }
+.pp-huvud-typ .pp-typ > span { font-size: 13px; line-height: 16px; }
+.pp-huvud-typ .pp-typ small { font-weight: 600; }
+.pp-bitar { flex: 1 1 auto; --bit-gap: 4px; }
+.pp-raknare { min-width: 76px; justify-content: center; }
+
+.sess-personlighet-kort.pp-kort { margin-top: 12px; padding: 22px 22px 26px; min-height: 202px; }
+.pp-citat { display: block; width: 44px; height: 34px; }
+.pp-pastaende { margin: 14px 0 0; font: 800 28px/34px var(--font-sess-display); letter-spacing: -.02em; color: var(--ink-1); text-wrap: balance; }
+.pp-laddar-ram { position: relative; }
+.pp-laddar { position: absolute; left: 0; right: 0; top: 14px; }
+.pp-fraga { margin: 26px 0 16px; text-align: center; font: 700 17px/22px var(--font-sess-display); color: var(--ink-1); }
+.pp-skala { margin-top: 0; }
+.pp-fel { margin-top: 20px; }
+.pp-fotrad { display: flex; align-items: center; gap: 12px; margin: 26px -12px 0; padding: 12px 16px 14px; min-height: 74px; background: var(--papper); border-top: 2px solid var(--sess-kant); font-size: 14px; line-height: 20px; color: var(--ink-2); }
+.pp-fotrad p { margin: 0; }
+.pp-fotrad .pp-tillbaka { background: var(--sess-tangent); }
+.pp-fotnot { margin: 20px 28px 0; text-align: center; font-size: 13px; line-height: 18px; color: var(--ink-3); }
+
+@container pp (min-width: 720px) {
+  .pp-scen { border-radius: 32px; box-shadow: 0 6px 0 var(--sess-kant), 0 28px 48px var(--sess-skugga); padding: 20px 36px 24px; }
+  .pp-scen-prov { overflow: visible; }
+  .pp-huvud-prov { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px) minmax(0, 1fr); gap: 20px; }
+  .pp-huvud-typ { display: flex; order: 0; flex-basis: auto; margin-top: 0; padding: 0; align-items: center; gap: 12px; min-width: 0; }
+  .pp-huvud-typ > .pp-ik { display: flex; }
+  .pp-huvud-typ .pp-typ { display: block; width: auto; }
+  .pp-huvud-typ .pp-typ > span { font-size: 16px; line-height: 20px; }
+  .pp-huvud-typ .pp-typ small { font-weight: 500; }
+  .pp-raknare { justify-self: end; min-width: 92px; }
+  .pp-bitar { --bit-gap-lg: 8px; --bit-gap: 8px; }
+  .sess-personlighet-kort.pp-kort { margin-top: 18px; padding: 32px 44px 40px; min-height: 220px; }
+  .pp-citat { width: 52px; height: 41px; }
+  .pp-pastaende { margin-top: 16px; font-size: 36px; line-height: 44px; }
+  .pp-fraga { display: none; }
+  .pp-skala { margin-top: 28px; }
+  .pp-fotrad { margin: 24px 0 0; padding: 0; min-height: 0; background: none; border-top: 0; gap: 14px; }
+  .pp-fotrad .pp-tillbaka { background: var(--papper); }
+  .pp-fotnot { margin: 14px auto 0; }
+}
+
+/* Resultatet: profilen till vänster, spärren till höger från 960 px. */
+.pp-huvud { display: flex; align-items: center; gap: 12px; }
+.pp-klar { margin-left: auto; gap: 6px; }
+.pp-mening { margin: 12px 4px 0; font-size: 15px; line-height: 22px; color: var(--ink-2); }
+.sess-personlighet-kort.pp-drag { margin-top: 12px; padding: 20px 18px 22px; }
+.pp-dragtopp { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-top: 6px; }
+.pp-dragnamn { margin: 0; min-width: 0; overflow-wrap: anywhere; font: 800 30px/34px var(--font-sess-display); letter-spacing: -.025em; color: var(--ink-1); }
+.pp-band { display: inline-flex; align-items: center; flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 11px; white-space: nowrap; font: 800 15px/20px var(--font-sess-display); background: var(--sess-indigo-mjuk); color: var(--ton-ink); box-shadow: 0 3px 0 var(--sess-kant); }
+.pp-band[data-ton="hog"] { background: var(--sess-rad3-yta); color: var(--sess-rad3-ink); box-shadow: 0 3px 0 var(--sess-rad3-kant); }
+.pp-band.pp-band-liten { height: 26px; padding: 0 10px; border-radius: 9px; font-family: inherit; font-size: 12px; line-height: 26px; font-weight: 700; box-shadow: none; }
+.pp-matare { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 18px; }
+.pp-matare i, .pp-mini i { display: block; background: var(--sess-bit); }
+.pp-matare i { height: 22px; border-radius: 8px; }
+.pp-matare i[data-fylld] { background: var(--sess-indigo); box-shadow: inset 0 -5px 0 rgba(0, 0, 0, .2); transform-origin: left center; animation: pp-vax 420ms cubic-bezier(.2, .8, .2, 1) both; }
+.pp-matare i:nth-child(2) { animation-delay: 90ms; }
+.pp-matare i:nth-child(3) { animation-delay: 180ms; }
+.pp-matare i:nth-child(4) { animation-delay: 270ms; }
+.pp-matare i:nth-child(5) { animation-delay: 360ms; }
+@keyframes pp-vax { from { transform: scaleX(.2); opacity: .3; } to { transform: none; opacity: 1; } }
+.pp-andar { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-3); }
+.pp-brunnar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 18px; }
+.pp-brunn { border-radius: 20px; background: var(--sess-tangent); padding: 16px 18px 18px; }
+.pp-brunn-rubrik { display: flex; align-items: center; gap: 10px; margin: 0; font: 700 15px/20px var(--font-sess-display); color: var(--ink-1); }
+.pp-brunn-rubrik > span { width: 36px; height: 36px; border-radius: 12px; background: var(--papper); box-shadow: 0 2px 0 var(--sess-kant); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pp-brunn-text { margin: 10px 0 0; font-size: 15px; line-height: 23px; color: var(--ink-1); }
+.pp-fyra { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 24px 0 0; padding: 0 4px; }
+.pp-fyra b { font: 800 18px/24px var(--font-sess-display); color: var(--ink-1); }
+.pp-fyra span { font-size: 13px; line-height: 18px; color: var(--ink-3); }
+.pp-rader { display: grid; gap: 10px; margin: 12px 0 0; padding: 0; list-style: none; }
+.pp-rad { border-radius: 20px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 4px 0 var(--sess-kant); padding: 14px 16px 16px; }
+.pp-rad-topp { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pp-rad-namn { font: 700 17px/22px var(--font-sess-display); color: var(--ink-1); }
+.pp-mini { display: inline-flex; gap: 3px; margin-left: auto; }
+.pp-mini i { width: 14px; height: 8px; border-radius: 4px; }
+.pp-mini i[data-fylld] { background: var(--sess-indigo); }
+.pp-rad-text { margin: 6px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-1); }
+
+/* Spärren: väggens mörka kort, i båda lägena. */
+.pp-sparr {
+  --pp-las-ljus: #6D78C4; --pp-las-spar: #3B4590;
+  position: relative; overflow: hidden; margin-top: 16px; border-radius: 26px; background: var(--vagg); color: var(--vagg-ink);
+  box-shadow: 0 6px 0 var(--sess-brade-kant); padding: 24px 20px 22px;
+}
+.pp-sparr::before { content: ""; position: absolute; right: -90px; top: -120px; width: 260px; height: 260px; border-radius: 50%; background: var(--vagg-2); opacity: .6; pointer-events: none; }
+.pp-sparr > * { position: relative; }
+.pp-sparr-kick { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--koppar-ljus); }
+.pp-sparr-rubrik { margin: 8px 0 0; font: 800 26px/31px var(--font-sess-display); letter-spacing: -.02em; text-wrap: balance; }
+.pp-sparr-text { margin: 8px 0 0; font-size: 15px; line-height: 23px; color: var(--vagg-mjuk); }
+.pp-knappar { padding-top: 20px; }
+.pp-knappar .sess-knapp, .pp-ark .sess-knapp { width: 100%; }
+.pp-under { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.pp-villkor { margin: 0; font-size: 13px; line-height: 18px; color: var(--vagg-mjuk); }
+.pp-om { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--vagg-ink); text-decoration: underline; text-decoration-color: var(--vagg-svag); text-underline-offset: 3px; }
+.pp-om:hover { text-decoration-color: var(--vagg-ink); }
+.pp-lasta { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+.pp-lasta li { display: flex; align-items: center; gap: 14px; padding: 10px 14px 10px 10px; border-radius: 20px; background: var(--vagg-2); border: 1px solid var(--vagg-kant); }
+.pp-lasbild { position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 104px; height: 64px; border-radius: 14px; background: var(--vagg); }
+.pp-lassvg { width: 88px; height: 44px; }
+.pp-lasikon { position: absolute; right: -6px; bottom: -6px; width: 26px; height: 26px; border-radius: 8px; background: var(--vagg); box-shadow: 0 0 0 2px var(--vagg-2); color: var(--koppar-ljus); display: flex; align-items: center; justify-content: center; }
+.pp-lastext { min-width: 0; }
+.pp-lastext b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; }
+.pp-lastext span { display: block; margin-top: 3px; font-size: 13px; line-height: 19px; color: var(--vagg-mjuk); }
+
+@container pp (min-width: 720px) {
+  .pp-scen-res { padding: 22px 24px 26px; }
+  .pp-mening { margin-top: 14px; }
+  .sess-personlighet-kort.pp-drag { margin-top: 16px; padding: 26px 30px 26px; }
+  .pp-dragnamn { font-size: 52px; line-height: 56px; }
+  .pp-band { height: 44px; padding: 0 18px; border-radius: 15px; font-size: 20px; line-height: 24px; margin-bottom: 4px; }
+  .pp-matare { gap: 8px; margin-top: 26px; }
+  .pp-matare i { height: 32px; border-radius: 11px; }
+  .pp-brunnar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+  .pp-brunnar.pp-brunnar-en { grid-template-columns: minmax(0, 1fr); }
+  .pp-brunn { padding: 18px 20px 20px; }
+  .pp-fyra { margin-top: 30px; }
+  .pp-fyra b { font-size: 20px; }
+  .pp-rad { padding: 14px 20px 16px; }
+  .pp-sparr { padding: 26px 24px 24px; }
+  .pp-sparr-rubrik { font-size: 30px; line-height: 36px; }
+  .pp-lasbild { width: 136px; height: 76px; }
+  .pp-lassvg { width: 116px; height: 58px; }
+}
+@container pp (min-width: 960px) {
+  .pp-scen-res { display: grid; grid-template-columns: minmax(0, 1fr) 416px; column-gap: 24px; align-items: start; }
+  .pp-sparr { margin-top: 0; }
+}
+
+/* Det fasta arket på telefonen: kontoknappen i tumgrepp på resultatet. Viker
+   undan (transform) när spärrkortets egna knappar syns. */
+.pp-ark {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--vagg); border-radius: 22px 22px 0 0; box-shadow: 0 -10px 28px rgba(14, 19, 48, .28);
+  transition: transform 240ms cubic-bezier(.2, .8, .2, 1), opacity 200ms ease-out; animation: pp-ark-in 320ms cubic-bezier(.2, .8, .2, 1) both;
+}
+.pp-ark[data-dold] { transform: translateY(110%); opacity: 0; pointer-events: none; }
+@keyframes pp-ark-in { from { transform: translateY(100%); } to { transform: none; } }
+@media (min-width: 1024px) { .pp-ark { display: none; } }
+@media (max-width: 1023.98px) { :root:has(.pp-ark) body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-matare i[data-fylld], .pp-ark { animation: none !important; transition: none !important; }
+}
+
 /* Omgång 3, steg 3a: sidorna */
 /* =============================================================================
    Hem, Tester och Din utveckling (skissens Hem, Main, Utveckling, *-ny,
@@ -4489,3 +4694,251 @@ html[data-flow-active='true'] .cv3-remsa { display: none; }
   .cv3f-ark, .cv3f-vantar, .cv3m-arkplats[data-laddar]::before { animation: none !important; }
   .cv3m-stor, .cv3m-fri, .cv3s-stor, .cv3f-jobb { transition: none; }
 }
+
+/* =============================================================================
+   Omgång 3, de publika proven: resultatet med ett öppet facit, spärren i tre
+   varianter, artikelns provruta och registreringens provpanel (förlagorna i
+   omgang3-publikt/project). Bygger på res-* och sess-* ovan; bara tokens,
+   tillstånd via färg och box-shadow, rörelse bara transform och opacity.
+   ============================================================================= */
+.prov3-remsa-panel { padding: 18px 20px 16px; }
+.prov3-remsa { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--kol, 5), minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 1024px) { .prov3-remsa { margin-top: 14px; gap: 12px; } }
+.prov3-remsa > li { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+.prov3-mini-ruta { position: relative; width: 100%; aspect-ratio: 1; max-width: 92px; border-radius: 14px; background: var(--sess-brade); box-shadow: 0 3px 0 var(--sess-brade-kant); display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--sess-brade-ink); padding: 6px; }
+.prov3-mini-ruta > b { font: 700 18px/1 var(--font-sess-display); }
+.prov3-mini-ruta > i { position: absolute; right: 4px; bottom: 4px; width: 20px; height: 20px; border-radius: 7px; background: var(--koppar-ljus); color: var(--koppar-text); display: flex; align-items: center; justify-content: center; }
+.prov3-mini-ruta .pub-bricka-g { width: 100%; height: 100%; }
+.prov3-remsa > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant), 0 3px 0 var(--sess-brade-kant); }
+.prov3-remsa > li[data-oppen] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--koppar), 0 3px 0 var(--sess-brade-kant); }
+.prov3-remsa small { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; line-height: 18px; color: var(--vagg-mjuk); }
+.prov3-remsa small > b { font: 700 14px/18px var(--font-sess-display); color: var(--vagg-ink); }
+
+.prov3-oppen { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); overflow: hidden; }
+.prov3-oppen-huvud { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--sess-ratt-yta); border-bottom: 1.5px solid var(--sess-kant); }
+.prov3-oppen[data-utfall="fel"] .prov3-oppen-huvud { background: var(--sess-fel-yta); }
+.prov3-oppen-kropp { padding: 18px 16px 20px; }
+@media (min-width: 640px) { .prov3-oppen-huvud { padding: 14px 20px; } .prov3-oppen-kropp { padding: 22px 22px 24px; } }
+.prov3-piller { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: 10px; background: var(--papper); color: var(--ink-1); font-weight: 600; font-size: 13px; line-height: 16px; white-space: nowrap; }
+.prov3-utfall { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px 0 6px; border-radius: 10px; background: var(--papper); font-weight: 600; font-size: 13px; line-height: 16px; white-space: nowrap; }
+.prov3-utfall[data-utfall="ratt"] { color: var(--sess-ratt-ink); }
+.prov3-utfall[data-utfall="fel"] { color: var(--sess-fel-ink); }
+/* Fem sifferklossar på en rad i kortet (bredden är kortets, inte ramens): som på
+   telefon, märket i klossen och raden "Ditt svar / Rätt svar" under, ingen etikett
+   som går in i grannklossen. */
+.prov3-oppen .sess-tal-svar:not([data-par]) .sess-pill { display: none; }
+.prov3-oppen .sess-tal-svar:not([data-par]) span.lg\:hidden { display: block; }
+.prov3-oppen [data-steg2-alternativ]:not([data-par]) + p.lg\:hidden { display: flex; }
+
+.prov3-andra { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr); }
+.prov3-andra-kort { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 18px; box-shadow: 0 4px 0 var(--sess-kant); padding: 12px; display: grid; grid-template-columns: 36px 44px minmax(0, 1fr); column-gap: 12px; row-gap: 10px; align-items: center; }
+.prov3-andra-mini { width: 44px; height: 44px; border-radius: 10px; background: var(--sess-brade); color: var(--sess-brade-ink); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 3px; }
+.prov3-andra-mini:empty { display: none; }
+.prov3-andra-mini:has(.res-rad-ikon) { padding: 0; background: transparent; }
+.prov3-andra-kort:has(.prov3-andra-mini:empty) { grid-template-columns: 36px minmax(0, 1fr); }
+.prov3-andra-t { min-width: 0; }
+.prov3-andra-t > b { display: block; font: 700 15px/20px var(--font-sess-display); color: var(--ink-1); }
+.prov3-andra-t > span { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+.prov3-andra-las, .prov3-andra-ratt { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; border-radius: 12px; font-weight: 600; font-size: 14px; line-height: 18px; text-align: center; padding: 6px 12px; }
+.prov3-andra-ratt { background: var(--sess-ratt-yta); color: var(--sess-ratt-ink); }
+.prov3-andra-las { border: 2px dashed var(--sess-kant); color: var(--ink-1); background: var(--sess-tangent); }
+.prov3-andra-las > i { width: 26px; height: 26px; border-radius: 8px; background: var(--vagg); color: var(--vagg-ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (max-width: 1023px) {
+  .prov3-andra-las, .prov3-andra-ratt { grid-column: 3 / -1; justify-content: flex-start; min-height: 32px; padding: 4px 10px; font-size: 13px; }
+  .prov3-andra-kort:has(.prov3-andra-mini:empty) .prov3-andra-las, .prov3-andra-kort:has(.prov3-andra-mini:empty) .prov3-andra-ratt { grid-column: 2 / -1; }
+  .prov3-andra-las > i { width: 22px; height: 22px; }
+}
+@media (min-width: 1024px) { .prov3-andra { grid-template-columns: repeat(var(--kol, 4), minmax(0, 1fr)); gap: 16px; } }
+.prov3-gorom { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 14px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 3px 0 var(--sess-kant); font-weight: 600; font-size: 15px; color: var(--ink-1); }
+
+.prov3-sparr { padding: 22px; }
+@media (min-width: 1024px) { .prov3-sparr { padding: 24px 26px 22px; } }
+.prov3-sparr-rubrik { margin: 8px 0 0; font: 800 26px/30px var(--font-sess-display); letter-spacing: -.02em; color: var(--vagg-ink); text-wrap: balance; }
+@media (min-width: 1024px) { .prov3-sparr-rubrik { font-size: 30px; line-height: 33px; } }
+.prov3-vantar { display: flex; align-items: center; gap: 14px; }
+.prov3-vantar-mini { display: flex; gap: 8px; }
+.prov3-vantar-mini .prov3-mini-ruta { width: 48px; height: 48px; padding: 3px; border-radius: 10px; background: var(--vagg-2); box-shadow: 0 3px 0 var(--sess-brade-kant); }
+.prov3-vantar-mini .prov3-mini-ruta > b { font-size: 16px; }
+.prov3-google > button { height: 52px; border-radius: 14px; border: 1.5px solid rgba(255, 255, 255, .28); background: transparent; color: var(--vagg-ink); font-size: 16px; font-weight: 600; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.prov3-google > button:hover:not(:disabled) { background: rgba(255, 255, 255, .08); }
+.prov3-google > p { color: var(--sess-lucka-ink); }
+.prov3-google-ljus > button { background: var(--papper); color: var(--ink-1); border-color: transparent; box-shadow: 0 3px 0 var(--sess-brade-kant); }
+.prov3-google-ljus > button:hover:not(:disabled) { background: var(--papper-2); }
+.prov3-villkor { margin: 0; font-size: 12px; line-height: 17px; color: var(--vagg-mjuk); }
+.prov3-villkor a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.prov3-loften { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.prov3-loften > li { display: flex; align-items: center; gap: 14px; }
+.prov3-loften > li > i { width: 72px; height: 54px; border-radius: 14px; background: var(--vagg-2); box-shadow: 0 3px 0 var(--sess-brade-kant); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.prov3-loften > li > span > b { display: block; font: 700 15px/20px var(--font-sess-display); color: var(--vagg-ink); }
+.prov3-loften > li > span > span { display: block; font-size: 13px; line-height: 19px; color: var(--vagg-mjuk); }
+.prov3-loften[data-layout="brickor"] { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (min-width: 640px) {
+  .prov3-loften[data-layout="brickor"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prov3-loften[data-layout="brickor"] > li { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px; border-radius: 16px; background: rgba(255, 255, 255, .06); border: 1px solid var(--sess-res-panel-kant); }
+  .prov3-loften[data-layout="brickor"] > li > i { width: 100%; height: 72px; }
+}
+.prov3-niva-ord, .prov3-niva-tal { display: flex; justify-content: space-between; font-size: 11px; line-height: 14px; color: var(--vagg-mjuk); }
+.prov3-niva-ord > [data-prov] { color: var(--koppar); font-weight: 700; }
+.prov3-niva-ord > span:first-child, .prov3-niva-ord > span:last-child { font-weight: 600; color: var(--vagg-ink); }
+.prov3-niva-band { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; height: 12px; margin: 8px 0 6px; }
+.prov3-niva-band > i { border-radius: 6px; background: var(--vagg-2); }
+.prov3-niva-band > i[data-prov] { background: var(--koppar-djup); }
+.prov3-niva-band > u { position: absolute; right: 12%; top: -12px; width: 34px; height: 34px; border-radius: 9px; border: 2px dashed var(--koppar); background: var(--vagg); color: var(--koppar-ljus); font: 800 16px/30px var(--font-sess-display); text-align: center; text-decoration: none; }
+
+.prov3-ark { transition: transform 240ms ease-out, opacity 240ms ease-out; }
+.prov3-ark[data-dold] { transform: translateY(110%); opacity: 0; pointer-events: none; }
+.prov3-ark-handtag { align-self: center; width: 40px; height: 4px; border-radius: 2px; background: var(--vagg-svag); }
+.prov3-ark-las { width: 40px; height: 40px; border-radius: 12px; background: var(--vagg-2); color: var(--koppar-ljus); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Artikelns provruta: resultatet utan rubriker. */
+.prov3-art { background: var(--golv); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); padding: 16px; display: flex; flex-direction: column; gap: 14px; font-family: var(--font-sess-text); }
+@media (min-width: 640px) { .prov3-art { padding: 20px 22px 22px; } }
+.prov3-art-topp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: center; }
+@media (min-width: 640px) { .prov3-art-topp { grid-template-columns: minmax(0, 1fr) auto; } }
+.prov3-art-tal { margin: 4px 0 0; font: 800 40px/44px var(--font-sess-display); letter-spacing: -.03em; color: var(--ink-1); }
+.prov3-art-brickor { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--kol, 5), minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 640px) { .prov3-art-brickor { grid-template-columns: repeat(var(--kol, 5), 56px); } }
+.prov3-art-brickor > li { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; font-weight: 600; font-size: 12px; line-height: 14px; background: var(--sess-ratt-yta); color: var(--sess-ratt-ink); box-shadow: inset 0 0 0 2px var(--sess-ratt), 0 3px 0 var(--sess-ratt); }
+.prov3-art-brickor > li[data-utfall="fel"] { background: var(--sess-fel-yta); color: var(--sess-fel-ink); box-shadow: inset 0 0 0 2px var(--sess-fel), 0 3px 0 var(--sess-fel); }
+.prov3-art-brickor > li > b { font: 700 13px/16px var(--font-sess-display); color: var(--ink-1); }
+.prov3-art-kontorad { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: var(--vagg); color: var(--vagg-ink); }
+@media (min-width: 1024px) { .prov3-art-kontorad { display: none; } }
+.prov3-art-miss { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 4px 0 var(--sess-kant); flex-wrap: wrap; }
+.prov3-art-lank { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border-radius: 12px; background: var(--vagg); color: var(--vagg-ink); border: 2px dashed var(--koppar); font-weight: 600; font-size: 13px; line-height: 16px; }
+@media (max-width: 639px) { .prov3-art-lank { width: 100%; justify-content: space-between; } }
+.prov3-art-sparr { border-radius: 22px; padding: 18px; }
+.prov3-art-vantar { min-height: max(560px, 100svh); }
+@media (min-width: 640px) { .prov3-art-sparr { padding: 22px 24px; } }
+
+/* Registreringens provpanel (beslut G). */
+.prov3-panel-rad { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(var(--kol, 5), minmax(0, 1fr)); gap: 10px; }
+.prov3-panel-rad > li { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+.prov3-chip { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 9px; border-radius: 9px; font-weight: 600; font-size: 12px; line-height: 14px; white-space: nowrap; background: var(--vagg-2); color: var(--vagg-ink); }
+.prov3-chip[data-chip="oppnas"] { color: var(--koppar-ljus); }
+.prov3-panel-rad > li[data-utfall="fel"] .prov3-mini-ruta { box-shadow: 0 0 0 3px var(--sess-fel-kant), 0 3px 0 var(--sess-brade-kant); }
+.prov3-rutnat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; width: 100%; height: 100%; }
+/* Figurerna som på brädet: mörka på ljus ruta i båda lägena. */
+.prov3-rutnat { --m-ink: var(--sess-figur); --m-gra: var(--sess-figur-gra); --m-vit: var(--sess-ruta); --m-ram: var(--sess-figur-ram); }
+.prov3-rutnat > i { background: var(--sess-ruta); border-radius: 4px; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0; overflow: hidden; color: var(--sess-figur); }
+.prov3-rutnat > i[data-lucka] { background: var(--vagg-2); }
+.prov3-rutnat svg { width: 100%; height: 100%; padding: 8%; }
+.prov3-typmini { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 8px; background: var(--papper); color: var(--ink-1); overflow: hidden; }
+.prov3-typmini > * { max-width: 100%; transform-origin: center; }
+.res-nr[data-utfall="neutral"] { background: var(--papper); box-shadow: inset 0 0 0 2px var(--sess-kant); color: var(--ink-1); }
+.prov3-sparr .prov3-villkor { margin-top: 18px; }
+.prov3-regpanel { border-radius: 24px; overflow: hidden; }
+.prov3-regpanel-vagg { padding: 14px 16px 16px; height: 100%; }
+.prov3-regpanel-topp { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+.prov3-regpanel-tal { margin: 0; font: 800 34px/38px var(--font-sess-display); letter-spacing: -.03em; color: var(--vagg-ink); white-space: nowrap; }
+.prov3-regpanel .prov3-panel-rad { margin: 0; grid-template-columns: repeat(var(--kol, 5), 34px); gap: 6px; }
+.prov3-regpanel .prov3-panel-rad .prov3-mini-ruta { display: none; }
+.prov3-regpanel .prov3-chip { width: 34px; height: 34px; padding: 0; justify-content: center; border-radius: 10px; }
+.prov3-regpanel .prov3-chip-text { display: none; }
+.prov3-regpanel li[data-utfall="fel"] .prov3-chip { box-shadow: inset 0 0 0 2px var(--sess-fel-kant); }
+.prov3-regpanel-under, .prov3-regpanel-loften { display: none; }
+.prov3-reg-efter { margin-top: 18px; }
+.prov3-reg-efter .prov3-loften { margin-top: 10px; }
+[data-ton="ljus"] .prov3-loften > li > span > b { color: var(--ink-1); }
+[data-ton="ljus"] .prov3-loften > li > span > span { color: var(--ink-2); }
+[data-ton="ljus"] .prov3-loften > li > i { background: var(--vagg); }
+@media (min-width: 900px) {
+  .pub-konto-g > .pub-konto-provpanel.prov3-regpanel { order: 0; }
+  .prov3-regpanel-vagg { padding: 40px 40px 36px; }
+  .prov3-regpanel-topp { display: block; margin-top: 8px; }
+  .prov3-regpanel-tal { font-size: 64px; line-height: 68px; }
+  .prov3-regpanel .prov3-panel-rad { margin-top: 26px; grid-template-columns: repeat(var(--kol, 5), minmax(0, 76px)); gap: 12px; }
+  .prov3-regpanel .prov3-panel-rad .prov3-mini-ruta { display: flex; }
+  .prov3-regpanel .prov3-chip { width: auto; height: auto; padding: 0 9px; border-radius: 9px; }
+  .prov3-regpanel .prov3-chip-text { display: inline; }
+  .prov3-regpanel li[data-utfall="fel"] .prov3-chip { box-shadow: none; }
+  .prov3-regpanel-under { display: block; margin: 12px 0 0; font-size: 17px; line-height: 26px; color: var(--vagg-mjuk); }
+  .prov3-regpanel-loften { display: block; margin-top: 28px; padding-top: 26px; border-top: 1px solid var(--sess-res-panel-kant); }
+  .prov3-reg-efter { display: none; }
+}
+/* Startskärmens typval: korten med Nios glyfer (förlagan Publik-prov-start). */
+.prov3-typval { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+/* Fem och fyra från 1024 px, tre gånger tre under: varje namn syns helt. */
+@media (min-width: 1024px) { .prov3-typval { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.prov3-typkort { display: flex; flex-direction: column; border-radius: 14px; overflow: hidden; background: var(--papper); box-shadow: inset 0 0 0 2px var(--sess-kant), 0 3px 0 var(--sess-kant); color: var(--ink-1); min-width: 0; transition: transform 120ms ease-out; }
+.prov3-typkort:hover { transform: translateY(-1px); }
+.prov3-typkort > i { display: flex; align-items: center; justify-content: center; height: 52px; background: var(--vagg); color: var(--vagg-ink); }
+.prov3-typkort > i svg { width: 34px; height: 34px; }
+.prov3-typkort > span { padding: 8px 10px 10px; font-weight: 600; font-size: 13px; line-height: 16px; min-height: 44px; display: flex; align-items: center; }
+.prov3-typkort[aria-current="page"] { background: var(--koppar-mjuk); box-shadow: inset 0 0 0 2px var(--koppar), 0 3px 0 var(--koppar-djup); }
+@media (prefers-reduced-motion: reduce) { .prov3-ark { transition: none; } .prov3-typkort { transition: none; } }
+
+/* Provsidans startskärm enligt skissen (Publik-prov-start-1440 och -412). */
+.prov3-start { min-height: 100dvh; }
+.prov3-start-vagg { border-radius: 0 0 32px 32px; }
+.prov3-start-bild { position: relative; width: 168px; flex-shrink: 0; }
+.prov3-start-brade .sess-matrisbrade { max-width: none; padding: 10px; gap: 6px; border-radius: 18px; }
+.prov3-start-klossar { display: none; }
+.prov3-start-scen { width: 168px; flex-shrink: 0; }
+.prov3-start-faktaikon { width: 34px; height: 34px; border-radius: 10px; background: var(--vagg-2); color: var(--koppar-ljus); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (min-width: 1024px) {
+  .prov3-start-bild { width: 470px; height: 340px; }
+  .prov3-start-brade { position: absolute; right: 0; top: 0; width: 320px; transform: rotate(2deg); }
+  .prov3-start-brade .sess-matrisbrade { padding: 14px; gap: 8px; border-radius: 26px; box-shadow: 0 6px 0 var(--sess-brade-kant), 0 28px 48px rgba(0, 0, 0, .28); }
+  .prov3-start-klossar { display: flex; flex-direction: column; gap: 16px; position: absolute; left: 0; top: 24px; z-index: 1; }
+  .prov3-start-kloss { position: relative; display: block; width: 108px; height: 96px; }
+  .prov3-start-kloss:nth-child(2) { margin-left: -24px; }
+  .prov3-start-scen { width: 400px; }
+}
+.prov3-start-panel { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant), 0 20px 40px var(--sess-skugga); padding: 18px 16px 18px; }
+@media (min-width: 1024px) { .prov3-start-panel { padding: 22px 26px 24px; } }
+@media (min-width: 1280px) { .prov3-start-panel .prov3-typval { grid-template-columns: repeat(9, minmax(0, 1fr)); } }
+.prov3-start-punkter { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.prov3-start-punkter > li { display: flex; align-items: center; gap: 14px; }
+.prov3-start-punkter > li:not([data-sista]) { display: none; }
+.prov3-start-punkter > li > span:last-child > b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; color: var(--ink-1); }
+.prov3-start-punkter > li > span:last-child > span { display: block; font-size: 13px; line-height: 19px; color: var(--ink-2); }
+.prov3-start-punktikon { width: 48px; height: 48px; border-radius: 14px; background: var(--papper); box-shadow: inset 0 0 0 2px var(--sess-kant), 0 3px 0 var(--sess-kant); color: var(--ink-1); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (min-width: 1024px) {
+  .prov3-start-punkter { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; gap: 24px; }
+  .prov3-start-punkter > li:not([data-sista]) { display: flex; }
+}
+.prov3-start-fot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; flex-direction: column; gap: 8px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--golv); border-top: 1px solid var(--sess-kant); }
+.prov3-start-kloss svg { width: 52px; height: 52px; }
+.prov3-start-kloss > span.matrisyta { padding: 20px 10px 10px; }
+
+/* Resultatets öppna kort enligt skissen (Publik-prov-resultat-1440): matrisen i två
+   kolumner på dator och domen som tvåspaltsruta. */
+@media (min-width: 1024px) {
+  .prov3-oppen [data-matris-uppgift] { display: grid; grid-template-columns: minmax(0, 290px) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 24px; row-gap: 16px; align-items: start; }
+  .prov3-oppen [data-matris-uppgift] > [data-matris] { grid-row: 1 / span 2; max-width: none; }
+  .prov3-oppen [data-matris-uppgift] > [data-uppgift-rubrik] { grid-column: 2; padding-top: 0; }
+  .prov3-oppen [data-matris-uppgift] > [data-matris-alt] { grid-column: 2; }
+}
+.prov3-dom-kolumner { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 14px; }
+@media (min-width: 640px) { .prov3-dom-kolumner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }
+.prov3-dom-ey { margin: 0; font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.prov3-dom-figurer { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; padding: 8px 12px; border-radius: 14px; background: var(--papper); }
+.prov3-dom-fig { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; line-height: 16px; }
+.prov3-dom-fig > i { width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: var(--sess-ruta); box-shadow: inset 0 0 0 2px var(--sess-fel); --m-ink: var(--sess-figur); --m-gra: var(--sess-figur-gra); --m-vit: var(--sess-ruta); --m-ram: var(--sess-figur-ram); }
+.prov3-dom-fig[data-fig="ratt"] > i { box-shadow: inset 0 0 0 2px var(--sess-ratt); }
+.prov3-dom-fig > i svg { width: 30px; height: 30px; }
+.prov3-dom-fig > b { font-weight: 600; color: var(--ink-1); }
+
+/* Registreringen med provresultat enligt skissen (Publik-registrering-1440 och -412):
+   mörk vänsterhalva i full höjd, formuläret i ett vitt kort till höger. */
+.prov3-reg { min-height: 100dvh; background: var(--golv); color: var(--ink-1); }
+.prov3-reg .prov3-regpanel { border-radius: 0 0 24px 24px; }
+.prov3-reg .prov3-regpanel-vagg { padding: 10px 16px 16px; }
+.prov3-reg-topp { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.prov3-reg-hoger { padding: 16px 16px 40px; }
+.prov3-reg-logga-in { display: none; }
+.prov3-reg-kort { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); padding: 20px 18px 18px; }
+.prov3-reg .prov3-reg-efter { margin-top: 24px; }
+@media (min-width: 900px) {
+  .prov3-reg { display: grid; grid-template-columns: minmax(0, 47%) minmax(0, 1fr); }
+  .prov3-reg .prov3-regpanel { border-radius: 0; min-height: 100dvh; }
+  .prov3-reg .prov3-regpanel-vagg { padding: 24px 9% 48px 11%; min-height: 100dvh; }
+  .prov3-reg-topp { margin-bottom: 64px; }
+  .prov3-reg-hoger { padding: 24px 8% 48px; display: flex; flex-direction: column; }
+  .prov3-reg-logga-in { display: block; text-align: right; margin: 0 0 40px; font-size: 14px; line-height: 20px; color: var(--ink-2); }
+  .prov3-reg-kort { width: 100%; max-width: 460px; margin: 0 auto; padding: 30px 30px 26px; box-shadow: 0 6px 0 var(--sess-kant), 0 24px 48px var(--sess-skugga); }
+}
+/* Registreringen med provresultat: provsidans golv (provrummets --golv), inte sidans beige. */
+.prov3-reg { --prov3-golv: #EBEDF6; background: var(--prov3-golv); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .prov3-reg { --prov3-golv: #0E1120; } }
+:root[data-theme="dark"] .prov3-reg { --prov3-golv: #0E1120; }

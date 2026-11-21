@@ -21,6 +21,7 @@
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 import type { GenomgangUppgift, ProvTyp, PublikUppgift } from '@/lib/tests/prov-typer'
+import type { MatrisOppenUppgift, OppetFacit } from '@/lib/tests/oppet-facit'
 import type { VnFacitData, VnUnderlag } from '@/lib/tester/pass-typer'
 import type { NivakollUppgift } from '@/lib/nivakoll/typer'
 import type { Rutnat } from '@/lib/tests/prova-lokalt'
@@ -172,6 +173,28 @@ export function genomgangPoster(uppgifter: readonly GenomgangUppgift[], underlag
     ut.push({ u: p.u, valt, facit, ritare: p.ritare })
   }
   return ut
+}
+
+/**
+ * Det enda öppna facit före kontot (omgång 3, beslut A) i ramens form: typerna
+ * genom genomgangPoster, samma som sidan efter kontot, matrisen som de
+ * inloggade matristesterna (rattVisat, regeln och misstaget). Null när
+ * uppgiften inte går att rita.
+ */
+export function oppenPost(of: OppetFacit | null | undefined, underlag: Record<string, VnUnderlag>): ListPost<ProvU> | null {
+  if (!of) return null
+  const u = of.uppgift
+  if (u.kind === 'matris') {
+    const m = u as MatrisOppenUppgift
+    const p = franMatris({ id: m.nyckel, grid: m.data.grid, options: m.data.options })
+    return {
+      u: p.u,
+      valt: m.valt,
+      facit: { ratt: m.data.rattVisat, correct: m.correct, regel: m.data.rule || null, misstag: m.misstag },
+      ritare: p.ritare,
+    }
+  }
+  return genomgangPoster([u as GenomgangUppgift], underlag)[0] ?? null
 }
 
 /** En ritare för genomgångens ram när typerna blandas (I-provet): steg 2:s Uppgift väljer själv per uppgift. */

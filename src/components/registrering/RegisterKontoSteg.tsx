@@ -36,10 +36,15 @@ import {
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
 import StatusRow from '@/components/shell/StatusRow'
-import ProvBrickor, { ProvRing } from '@/components/publikt/ProvBrickor'
-import { PROV_NAMN, PROV_RAM, forklaringOrd } from '@/components/publikt/prov/prov-copy'
+import { PROV3, PROV_NAMN, PROV_RAM } from '@/components/publikt/prov/prov-copy'
 import { arNyProvTyp, type ProvTyp } from '@/lib/tests/prov-typer'
 import { lasSparatProv, type Rutnat } from '@/lib/tests/prova-lokalt'
+import { valjOppetFacit } from '@/lib/tests/oppet-facit'
+import Marke, { Las } from '@/components/session/Marke'
+import { IkonTillbaka } from '@/components/illustrations/RumSymboler'
+import { Loften } from '@/components/publikt/prov/ProvSparr'
+import { harRutnat, Mini } from '@/components/publikt/prov/ProvResultatSida'
+import { franMatris, type MatrisFraga, type ProvPost } from '@/components/publikt/prov/provPost'
 import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import { VALKOMMEN_PATH, TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 import type { PlanKey } from '@/lib/plans/plans'
@@ -47,6 +52,7 @@ import PubliktFlodesskal, { TEXTLANK } from './PubliktFlodesskal'
 import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import IntentIkon from './IntentIkon'
 import {
+  giltigtSmakprov,
   skrivSignupCookie,
   type RegisterLage,
   type SignupEntry,
@@ -61,6 +67,7 @@ import {
   SMAKPROV,
   SMAKPROV_UNDER,
   STEG2,
+  brickorText,
 } from './registrering-copy'
 
 const MIN_LOSEN = 8
@@ -121,7 +128,11 @@ export function loggaInHref(p: {
   redirect?: string | null
 }): string {
   const q = new URLSearchParams()
-  if (p.smakprov) q.set('redirect', VALKOMMEN_PATH)
+  // Smakprovet följer med i adressen (/dashboard/valkommen?test=<token>), så att
+  // valkommen-sidan hämtar hem det också för ett befintligt konto, som inte har
+  // cookien jc_signup (2026-11-21: utan token skickades kontot till /dashboard
+  // och provet blev ohämtat). Bara den fasta sökvägen och en token i rätt format.
+  if (p.smakprov) q.set('redirect', giltigtSmakprov(p.smakprov.typ, p.smakprov.token) ? `${VALKOMMEN_PATH}?${p.smakprov.typ}=${encodeURIComponent(p.smakprov.token)}` : VALKOMMEN_PATH)
   else if (p.redirect) q.set('redirect', p.redirect)
   else if (p.paket) q.set('redirect', `${TRACK_CHOICE_PATH}?paket=${p.paket}&steg=kop`)
   else if (p.intent) q.set('borja', p.intent)
@@ -296,8 +307,8 @@ export default function RegisterKontoSteg({
 
   const eyebrow = arTest ? null : smak ? smak.eyebrow : visaSteg ? STEG2.steg : null
   const rubrik =
-    arTest && provResultat && provResultat.fel.length === 0
-      ? STEG2.rubrikAllaRatt
+    arTest && provResultat
+      ? STEG2.rubrik
       : smak
         ? smak.rubrik
         : STEG2.rubrik
@@ -306,10 +317,18 @@ export default function RegisterKontoSteg({
 
   // Brickornas figurer: rutnäten besökaren redan sett, ur fliken.
   const [rutnat, setRutnat] = useState<Rutnat[]>([])
+  const [provPoster, setProvPoster] = useState<ProvPost[]>([])
   useEffect(() => {
     if (!arTest || !smakprov) return
-    setRutnat(lasSparatProv(smakprov.token)?.rutnat ?? [])
+    const sparat = lasSparatProv(smakprov.token)
+    setRutnat(sparat?.rutnat ?? [])
+    // Matrisens rutnät som hon redan sett, för panelens miniatyrer (inget facit).
+    if (sparat && (!sparat.typ || sparat.typ === 'matris')) {
+      const fragor = (sparat.uppgifter as MatrisFraga[] | undefined) ?? sparat.rutnat.map((g, i) => ({ id: `r${i}`, grid: g, options: [] }))
+      setProvPoster(fragor.map(franMatris))
+    }
   }, [arTest, smakprov])
+  const provMedResultat = arTest && Boolean(provResultat)
 
   // Panelen står i första bilden (resultatet kommer från servern), så den är
   // renderad när effekten körs.
@@ -329,6 +348,173 @@ export default function RegisterKontoSteg({
     />
   )
 
+  const formular = (
+    <div className="pub-konto-form">
+      {eyebrow ? <p className="pub-konto-eyebrow">{eyebrow}</p> : null}
+      <h1>{rubrik}</h1>
+      {fel ? null : provMedResultat && provResultat ? (
+        <p className="pub-konto-under" data-prov-sedan>
+          {PROV3.panel.sedan(
+            provResultat.typ && arNyProvTyp(provResultat.typ) ? provResultat.typ : 'matris',
+            valjOppetFacit(provResultat.fel, provResultat.totalt).variant,
+            lastaFor(provResultat),
+            provResultat.totalt
+          )}
+          <br />
+          <b>{PROV3.panel.gratis}</b>
+        </p>
+      ) : (
+        <p className="pub-konto-under">
+          {underFet ? (
+            <>
+              <b>{underFet}</b>
+              {under.slice(underFet.length)}
+            </>
+          ) : (
+            under
+          )}
+        </p>
+      )}
+
+      {fel ? (
+        <div role="alert" className="pub-konto-fel">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7.5v5.5M12 16.5v.01" />
+          </svg>
+          <div className="min-w-0">
+            <p className="pub-konto-fel-rubrik">{fel.rubrik}</p>
+            {fel.text ? <p>{fel.text}</p> : null}
+            {fel.loggaIn ? (
+              <Link href={loginHref} className="pub-lank inline-flex min-h-11 items-center">
+                {STEG2.fel.finnsLank}
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
+      {smak && !arTest && !fel ? (
+        <StatusRow tone="positive" showDot>
+          {smak.status}
+        </StatusRow>
+      ) : null}
+
+      {intent && !smak && !fel && (lage === 'tratt' || lage === 'konto') ? (
+        <div className="flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 py-2">
+          <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink-1">
+            <IntentIkon intent={intent} size={20} className="shrink-0 text-ink-2" />
+            <span>{STEG2.valrad[intent]}</span>
+          </span>
+          {onAndraVal ? (
+            <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0 text-ink-2`}>
+              {STEG2.andra}
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {!fel ? (
+        <>
+          {google}
+          <p className="pub-konto-eller" aria-hidden="true">
+            {STEG2.eller}
+          </p>
+        </>
+      ) : null}
+
+      <form id={formId} onSubmit={skicka} noValidate className="pub-konto-falt-g">
+        <Falt
+          label={STEG2.epost}
+          id={`${formId}-epost`}
+          type="email"
+          inputMode="email"
+          value={epost}
+          onChange={setEpost}
+          placeholder={STEG2.epostPlats}
+          autoComplete="email"
+          enterKeyHint="next"
+          autoCapitalize="none"
+          invalid={fel?.falt === 'epost'}
+        />
+        <Falt
+          label={STEG2.losen}
+          id={`${formId}-losen`}
+          type="password"
+          value={losen}
+          onChange={setLosen}
+          placeholder={STEG2.losenPlats}
+          autoComplete="new-password"
+          enterKeyHint="done"
+          invalid={fel?.falt === 'losen'}
+        />
+        <TurnstileWidget onToken={setTurnstileToken} />
+        {/* Mejlvalet: frivilligt och oikryssat, före knappen så att valet
+            syns innan kontot skapas. Följer med genom Google i jc_signup. */}
+        <label className="pub-konto-villkor" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer', minHeight: 44, fontSize: 13 }}>
+          <input
+            type="checkbox"
+            checked={erbjudanden}
+            onChange={(e) => setErbjudanden(e.target.checked)}
+            style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: 'var(--ink-1)', cursor: 'pointer' }}
+          />
+          <span>{STEG2.erbjudanden}</span>
+        </label>
+        <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="pub-knapp pub-konto-knapp">
+          {busy ? STEG2.busy : smak ? smak.knapp : STEG2.primar}
+        </button>
+      </form>
+
+      {fel ? google : null}
+
+      <p className="pub-konto-villkor">
+        {STEG2.villkorFore}
+        <Link href="/anvandarvillkor">{STEG2.villkorLank}</Link>
+        {STEG2.villkorMitt}
+        <Link href="/integritetspolicy">{STEG2.integritetLank}</Link>
+        {STEG2.villkorEfter}
+      </p>
+    </div>
+  )
+
+  // Efter provet (beslut G, förlagan Publik-registrering-1440 och -412): mörk vänsterhalva i
+  // full höjd med provresultatet och löftena, formuläret i ett vitt kort till höger. Den
+  // vanliga registreringen utan prov är som förut.
+  if (provMedResultat && provResultat) {
+    return (
+      <div className="prov3-reg" data-prov-registrering>
+        <ProvPanel
+          resultat={provResultat}
+          rutnat={rutnat}
+          poster={provPoster}
+          topp={
+            <div className="prov3-reg-topp">
+              <button type="button" onClick={() => router.back()} aria-label="Tillbaka till provet" className="res-x">
+                <IkonTillbaka />
+              </button>
+              <Link href="/" className="inline-flex min-h-11 items-center font-sess-display text-[19px] font-extrabold tracking-[-.01em] text-vagg-ink">
+                jobbcoach.ai
+              </Link>
+              <Link href={loginHref} className="ml-auto inline-flex min-h-11 items-center text-sm font-semibold text-vagg-ink underline underline-offset-[3px] min-[900px]:hidden">
+                {SKAL.loggaIn}
+              </Link>
+            </div>
+          }
+        />
+        <div className="prov3-reg-hoger">
+          <p className="prov3-reg-logga-in">
+            {SKAL.harKonto}{' '}
+            <Link href={loginHref} className="inline-flex min-h-11 items-center font-semibold text-ink-1 underline underline-offset-[3px]">
+              {SKAL.loggaIn}
+            </Link>
+          </p>
+          <div className="prov3-reg-kort">{formular}</div>
+          <ProvLoftenEfter resultat={provResultat} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <PubliktFlodesskal
       steg={medPil ? { nu: 2, av: 3 } : undefined}
@@ -338,124 +524,10 @@ export default function RegisterKontoSteg({
     >
       <div className={`pub-konto${panel ? ' pub-konto-med-panel' : ''}`}>
         <div className="pub-konto-g">
-          {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} nio={nio?.prov} /> : null}
+          {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} nio={nio?.prov} poster={provPoster} /> : null}
           {panel === 'gratis' ? <GratisPanel nio={nio?.gratis} /> : null}
 
-          <div className="pub-konto-form">
-            {eyebrow ? <p className="pub-konto-eyebrow">{eyebrow}</p> : null}
-            <h1>{rubrik}</h1>
-            {fel ? null : (
-              <p className="pub-konto-under">
-                {underFet ? (
-                  <>
-                    <b>{underFet}</b>
-                    {under.slice(underFet.length)}
-                  </>
-                ) : (
-                  under
-                )}
-              </p>
-            )}
-
-            {fel ? (
-              <div role="alert" className="pub-konto-fel">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7.5v5.5M12 16.5v.01" />
-                </svg>
-                <div className="min-w-0">
-                  <p className="pub-konto-fel-rubrik">{fel.rubrik}</p>
-                  {fel.text ? <p>{fel.text}</p> : null}
-                  {fel.loggaIn ? (
-                    <Link href={loginHref} className="pub-lank inline-flex min-h-11 items-center">
-                      {STEG2.fel.finnsLank}
-                    </Link>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-
-            {smak && !arTest && !fel ? (
-              <StatusRow tone="positive" showDot>
-                {smak.status}
-              </StatusRow>
-            ) : null}
-
-            {intent && !smak && !fel && (lage === 'tratt' || lage === 'konto') ? (
-              <div className="flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 py-2">
-                <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink-1">
-                  <IntentIkon intent={intent} size={20} className="shrink-0 text-ink-2" />
-                  <span>{STEG2.valrad[intent]}</span>
-                </span>
-                {onAndraVal ? (
-                  <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0 text-ink-2`}>
-                    {STEG2.andra}
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
-
-            {!fel ? (
-              <>
-                {google}
-                <p className="pub-konto-eller" aria-hidden="true">
-                  {STEG2.eller}
-                </p>
-              </>
-            ) : null}
-
-            <form id={formId} onSubmit={skicka} noValidate className="pub-konto-falt-g">
-              <Falt
-                label={STEG2.epost}
-                id={`${formId}-epost`}
-                type="email"
-                inputMode="email"
-                value={epost}
-                onChange={setEpost}
-                placeholder={STEG2.epostPlats}
-                autoComplete="email"
-                enterKeyHint="next"
-                autoCapitalize="none"
-                invalid={fel?.falt === 'epost'}
-              />
-              <Falt
-                label={STEG2.losen}
-                id={`${formId}-losen`}
-                type="password"
-                value={losen}
-                onChange={setLosen}
-                placeholder={STEG2.losenPlats}
-                autoComplete="new-password"
-                enterKeyHint="done"
-                invalid={fel?.falt === 'losen'}
-              />
-              <TurnstileWidget onToken={setTurnstileToken} />
-              {/* Mejlvalet: frivilligt och oikryssat, före knappen så att valet
-                  syns innan kontot skapas. Följer med genom Google i jc_signup. */}
-              <label className="pub-konto-villkor" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer', minHeight: 44, fontSize: 13 }}>
-                <input
-                  type="checkbox"
-                  checked={erbjudanden}
-                  onChange={(e) => setErbjudanden(e.target.checked)}
-                  style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: 'var(--ink-1)', cursor: 'pointer' }}
-                />
-                <span>{STEG2.erbjudanden}</span>
-              </label>
-              <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="pub-knapp pub-konto-knapp">
-                {busy ? STEG2.busy : smak ? smak.knapp : STEG2.primar}
-              </button>
-            </form>
-
-            {fel ? google : null}
-
-            <p className="pub-konto-villkor">
-              {STEG2.villkorFore}
-              <Link href="/anvandarvillkor">{STEG2.villkorLank}</Link>
-              {STEG2.villkorMitt}
-              <Link href="/integritetspolicy">{STEG2.integritetLank}</Link>
-              {STEG2.villkorEfter}
-            </p>
-          </div>
+          {formular}
         </div>
       </div>
     </PubliktFlodesskal>
@@ -483,39 +555,92 @@ function PremiumRad({ text }: { text: string }) {
  * resultat (provet hämtat, utgånget eller över gränsen) samma löfte utan
  * tal, aldrig ett påhittat resultat.
  */
-function ProvPanel({ resultat, rutnat, nio }: { resultat: ProvResultat | null; rutnat: Rutnat[]; nio?: ReactNode }) {
+function ProvPanel({ resultat, rutnat, nio, poster, topp }: { resultat: ProvResultat | null; rutnat: Rutnat[]; nio?: ReactNode; poster: ProvPost[]; topp?: ReactNode }) {
   const typ: ProvTyp = resultat?.typ && arNyProvTyp(resultat.typ) ? resultat.typ : 'matris'
   // Rutnäten är matrisens; typerna utöver matrisen har inga i fliken.
   if (typ !== 'matris') rutnat = []
   const P = PROV_RAM.panel
   const eyebrow = !resultat ? KONTO_PANEL.kick : typ === 'iprov' ? P.eyebrowIprov : P.eyebrow(PROV_NAMN[typ])
+  if (resultat) return <ProvPanel3 resultat={resultat} typ={typ} eyebrow={eyebrow} poster={poster} topp={topp} />
   return (
     <aside className="prov-rum pub-konto-provpanel self-start overflow-hidden rounded-[18px] border border-kant bg-papper shadow-lyft" data-prov-panel>
       <div className="vagg px-5 py-5 sm:px-6 sm:py-6">
-        <div className="flex items-center gap-4">
-          {resultat ? <ProvRing andel={resultat.totalt ? resultat.ratt / resultat.totalt : 0} storlek={52} yta="vagg" /> : null}
-          <div className="min-w-0">
-            <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.08em] text-koppar-ljus">{eyebrow}</p>
-            {resultat ? (
-              <p className="mt-1 font-sess-display text-[28px] font-extrabold leading-8 tracking-[-.02em] text-vagg-ink sm:text-[32px] sm:leading-9">
-                {P.huvudtal(resultat.ratt, resultat.totalt)}
-              </p>
-            ) : (
-              <h2 className="mt-1 font-sess-display text-[20px] font-bold leading-[26px] text-vagg-ink">{KONTO_PANEL.rubrikUtan}</h2>
-            )}
-            {/* Panelens rubrik för skärmläsaren: vad kontot visar (bilden bär utfallet). */}
-            {resultat ? (
-              <h2 className="sr-only">
-                {typ === 'matris' ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : PROV_TYP_PANEL.rubrik(typ, resultat.fel, resultat.totalt)}
-              </h2>
-            ) : null}
-          </div>
-        </div>
+        <p className="text-[12px] font-semibold uppercase leading-4 tracking-[.08em] text-koppar-ljus">{eyebrow}</p>
+        <h2 className="mt-1 font-sess-display text-[20px] font-bold leading-[26px] text-vagg-ink">{KONTO_PANEL.rubrikUtan}</h2>
         {nio ? <div className="mt-4">{nio}</div> : null}
       </div>
-      {resultat ? <ProvBrickor totalt={resultat.totalt} fel={resultat.fel} rutnat={rutnat} mobil="brickor" lasText={`Rätt svar och ${forklaringOrd(typ)}`} /> : null}
       <p className="border-t border-kant px-5 py-3.5 text-sm leading-5 text-ink-2 sm:px-6">{P.fot(typ)}</p>
     </aside>
+  )
+}
+
+/**
+ * Omgång 3 (beslut G, förlagan Publik-registrering): provresultatet och det
+ * konkreta löftet. Huvudtalet, uppgifterna med Rätt, Öppet (den som var
+ * öppen efter provet) och Öppnas (det som väntar bakom kontot) och löftena
+ * för gratiskontot. Varianten och den öppna uppgiften räknas med samma regel
+ * som servern (valjOppetFacit). Telefonen: en kompakt rad överst, löftena
+ * efter formuläret (ProvLoftenEfter).
+ */
+function ProvPanel3({ resultat, typ, eyebrow, poster, topp }: { resultat: ProvResultat; typ: ProvTyp; eyebrow: string; poster: ProvPost[]; topp?: ReactNode }) {
+  const { index: oppen, variant } = valjOppetFacit(resultat.fel, resultat.totalt)
+  const fel = new Set(resultat.fel)
+  const lasta = lastaFor(resultat)
+  return (
+    <aside className="prov-rum pub-konto-provpanel prov3-regpanel" data-prov-panel data-variant={variant}>
+      <div className="res-vagg prov3-regpanel-vagg">
+        {topp}
+        <p className="res-ey" style={{ color: 'var(--sess-lucka-ink)' }}>
+          {eyebrow}
+        </p>
+        <h2 className="sr-only">{typ === 'matris' ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : PROV_TYP_PANEL.rubrik(typ, resultat.fel, resultat.totalt)}</h2>
+        <div className="prov3-regpanel-topp">
+          <p className="prov3-regpanel-tal">{PROV_RAM.panel.huvudtal(resultat.ratt, resultat.totalt)}</p>
+          <ol className="prov3-panel-rad" style={{ ['--kol' as string]: resultat.totalt }} role="img" aria-label={brickorText(resultat.fel, resultat.totalt)}>
+            {Array.from({ length: resultat.totalt }, (_, i) => {
+              const ratt = !fel.has(i)
+              const chip = i === oppen ? 'oppet' : !ratt ? 'oppnas' : 'ratt'
+              return (
+                <li key={i} data-utfall={ratt ? 'ratt' : 'fel'} data-chip-lage={chip}>
+                  <span className="prov3-mini-ruta">{harRutnat(poster[i]) ? <Mini post={poster[i]} /> : <b>{i + 1}</b>}</span>
+                  <span className="prov3-chip" data-chip={chip}>
+                    {chip === 'oppnas' ? <Las storlek={11} /> : <Marke typ={ratt ? 'ratt' : 'fel'} storlek={14} fylld />}
+                    <span className="prov3-chip-text">{chip === 'oppet' ? PROV3.panel.chipOppet : chip === 'oppnas' ? PROV3.panel.chipOppnas : PROV3.panel.chipRatt}</span>
+                  </span>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+        <p className="prov3-regpanel-under">{PROV3.panel.under}</p>
+        <div className="prov3-regpanel-loften">
+          <p className="res-ey" style={{ color: 'var(--sess-lucka-ink)' }}>
+            {PROV3.panel.oppnas}
+          </p>
+          <Loften typ={typ} variant={variant} ratt={resultat.ratt} antal={resultat.totalt} lasta={lasta} />
+        </div>
+      </div>
+    </aside>
+  )
+}
+
+function lastaFor(resultat: ProvResultat): number[] {
+  const { index, variant } = valjOppetFacit(resultat.fel, resultat.totalt)
+  const fel = new Set(resultat.fel)
+  return Array.from({ length: resultat.totalt }, (_, i) => i).filter((i) => i !== index && (variant === 'noll' || fel.has(i)))
+}
+
+/** Telefonen: löftena efter formuläret, på ljus botten. */
+function ProvLoftenEfter({ resultat }: { resultat: ProvResultat }) {
+  const typ: ProvTyp = resultat.typ && arNyProvTyp(resultat.typ) ? resultat.typ : 'matris'
+  const { variant } = valjOppetFacit(resultat.fel, resultat.totalt)
+  return (
+    <div className="prov-rum prov3-reg-efter" data-prov-loften-efter>
+      <p className="res-ey text-ink-3">{PROV3.panel.oppnas}</p>
+      <div data-ton="ljus">
+        <Loften typ={typ} variant={variant} ratt={resultat.ratt} antal={resultat.totalt} lasta={lastaFor(resultat)} />
+      </div>
+    </div>
   )
 }
 

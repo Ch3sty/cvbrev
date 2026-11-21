@@ -222,7 +222,8 @@ describe.each<[string, ProvTyp]>([
 
     const props = { kind: 'test', cluster: 'test', test_kind: typ, plats: 'artikel', slug }
     expect(handelse('sample_completed')[0]).toEqual(props)
-    expect(handelse('signup_gate_shown')).toEqual([props])
+    // Omgång 3: signup_gate_shown får spärrens egenskaper (antal_fel, variant, facit_oppet); de befintliga står kvar.
+    expect(handelse('signup_gate_shown')).toEqual([{ ...props, antal_fel: 1, variant: 'en', facit_oppet: false }])
     expect(sessionStorage.getItem('jc_pending_test')).toBe(TOKEN)
 
     // Spärren: länken bär token, ligger i rutan och skickar signup_started.

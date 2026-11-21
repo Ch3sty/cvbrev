@@ -22,11 +22,11 @@ import { arProvTyp, type ProvTyp } from '@/lib/tests/prov-typer'
 import { artikelUppgift } from '@/lib/tests/prov-typer.server'
 import { MatrisProv, TypProv } from './ArtikelProvKlient'
 
+// Omgång 3 (beslut A): ett öppet facit efter provet, resten med kontot.
 const TEXT: Partial<Record<ProvTyp, string>> = {
-  matris: 'Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och regeln bakom visas när provet är hämtat till ett gratiskonto.',
-  iprov: 'En uppgift ur vart och ett av I-provets sex deltester, i provets ordning. Svara här, så fortsätter provet. Rätt svar och tekniken visas med ett gratiskonto.',
+  iprov: 'En uppgift ur vart och ett av I-provets sex deltester, i provets ordning. Svara här, så fortsätter provet. Efteråt ser du vilka du hade rätt och fel på, och hela förklaringen till en av uppgifterna.',
 }
-const TEXT_ANNARS = 'Svara på uppgiften här, så fortsätter provet med fyra till. Rätt svar och förklaringen visas när provet är hämtat till ett gratiskonto.'
+const TEXT_ANNARS = 'Svara på uppgiften här, så fortsätter provet med fyra till. Efteråt ser du vilka du hade rätt och fel på, och hela förklaringen till en av uppgifterna.'
 
 export default function ArtikelProv({ typ, slug, cluster }: { typ: string; slug: string; cluster?: CtaCluster }) {
   if (!arProvTyp(typ)) return null

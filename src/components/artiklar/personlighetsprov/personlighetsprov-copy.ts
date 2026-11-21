@@ -30,7 +30,18 @@ export const COPY = {
   sparas: 'Svar sparas i panelen',
   fotnot: 'Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.',
   laddar: { rubrik: 'Vi räknar ihop din profil', meta: 'Tar en sekund.' },
-  resultat: { eyebrow: 'Din profil', titel: 'Fem faktorer, 1 till 5' },
+  resultat: {
+    eyebrow: 'Din profil',
+    titel: 'Fem faktorer, 1 till 5',
+    tydligast: 'Ditt tydligaste drag',
+    iArbetet: 'I arbetet',
+    lasning: 'Det rekryteraren läser ut',
+    andra: (n: string) => `Dina ${n} andra drag`,
+    enRad: 'En rad per faktor',
+  },
+  /** Omgång 3: provets huvud och raden ovanför skalan på telefonen (samma som i det inloggade testet). */
+  typ: 'Personlighet',
+  fraga: 'Hur väl stämmer det på dig?',
   segment: (n: number) => `${n} av 5`,
   last: {
     kravprofiler: 'Så läses din profil mot sex vanliga kravprofiler',
@@ -40,9 +51,19 @@ export const COPY = {
   },
   sparr: {
     eyebrow: 'Hela tolkningen',
-    rubrik: 'Spara profilen och se hela tolkningen',
-    text: 'Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.',
+    rubrik: 'Se vad rekryteraren läser ut av hela profilen',
+    text: 'Med ett gratiskonto sparar vi profilen inför intervjun, och hela testet med 50 påståenden ingår.',
     knapp: 'Skapa konto gratis',
+    /**
+     * De låsta raderna (omgång 3). Sanna mot /dashboard/intervju/profil/[token]
+     * efter claim: kravtabellen (KRAVPROFILER), intervjupunkterna (en per
+     * faktor) och de tio omvända påståendena med konsekvensen.
+     */
+    lasta: {
+      krav: { titel: (n: string) => `Profilen mot ${n} kravprofiler`, text: 'Hur dina drag möter kraven i ekonomi, sälj, vård, IT, ledarskap och lager.' },
+      intervju: { titel: 'Vad du kan säga på intervjun', text: 'Ett råd per drag, med exemplet rekryteraren lyssnar efter.' },
+      omvanda: { titel: 'Dina omvända påståenden', text: 'Vilka tio som var omvända och hur konsekvent du svarade.' },
+    },
     villkor: 'Inget kreditkort. Avsluta när du vill.',
     igen: 'Gör om provet',
   },

@@ -301,12 +301,11 @@
       },
       {
         "text": "I samtliga kommuner räknas föreningsstödet ut efter antalet medlemmar.",
-        "correctAnswer": "false",
+        "correctAnswer": "cannot_say",
         "typ": "kvantor",
-        "explanation": "Texten säger att det vanligast är att stödet räknas ut efter antalet medlemmar eller aktiviteter, och att vissa kommuner också har ett projektstöd som bedöms efter syfte och målgrupp. Vanligast betyder att det finns kommuner som gör på annat sätt, så påståendet motsägs och är falskt.",
-        "stod": [
-          "Vanligast är att stödet räknas ut efter antalet medlemmar eller antalet aktiviteter för barn och unga."
-        ]
+        "explanation": "Att det vanligaste är medlemmar eller aktiviteter säger inte att någon kommun räknar på annat sätt, och projektstödet kommer i tillägg, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Vanligast är att stödet räknas ut efter antalet medlemmar eller antalet aktiviteter för barn och unga."
       },
       {
         "text": "Projektstödet har lett till att fler ungdomar i utsatta bostadsområden blivit medlemmar i en förening.",

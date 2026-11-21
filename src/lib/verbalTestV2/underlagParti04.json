@@ -116,12 +116,11 @@
    },
    {
     "text": "Alla skolor har redan infört insamling av telefoner.",
-    "correctAnswer": "false",
+    "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Texten säger att flera skolor har infört insamling på egen hand, och förslaget gäller från nästa läsår. Alla skolor har alltså inte gjort det.",
-    "stod": [
-     "Flera skolor har redan infört insamling på egen hand, och rektorerna där beskriver lugnare lektioner."
-    ]
+    "explanation": "Att flera skolor redan samlar in telefonerna motsäger inte att alla gör det, och ingen mening i texten säger att någon skola saknar insamling, så det går inte att avgöra.",
+    "stod": [],
+    "narmast": "Flera skolor har redan infört insamling på egen hand, och rektorerna där beskriver lugnare lektioner."
    },
    {
     "text": "Elevernas betyg blir bättre på skolor som samlar in telefonerna.",

@@ -12,7 +12,8 @@ import { useCallback, useRef, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { mittTestForArtikel, sparaProvkalla } from '@/lib/analytics/provkalla'
 import { storePendingTestSession } from '@/lib/letters/claim-draft-client'
-import { sparaProv, type ProvaResultat, type Rutnat } from '@/lib/tests/prova-lokalt'
+import { lasRattning, sparaProv, type ProvaResultat, type Rutnat } from '@/lib/tests/prova-lokalt'
+import { sparrEgenskaper } from '@/lib/analytics/sparren'
 import { PROV_MITT_TEST, type ProvTyp } from '@/lib/tests/prov-typer'
 
 export type ArtikelProvFas = 'forsta' | 'pagar' | 'resultat'
@@ -70,16 +71,16 @@ export function useArtikelProv<U>({
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.error ?? 'Kunde inte rätta provet.')
-        const r: ProvaResultat = {
-          score: data.score,
-          total: data.total,
-          fel: Array.isArray(data.fel) ? data.fel : [],
-          percentile: typeof data.percentile === 'number' ? data.percentile : null,
-        }
+        const r: ProvaResultat = lasRattning(data)
         storePendingTestSession(token)
-        sparaProv(token, r, rutnatFor ? uppgifter.map(rutnatFor) : [], typ)
+        // Uppgifterna (utan facit) och underlaget följer med, så att registreringens panel ritar miniatyrerna.
+        const start = extra.current
+        sparaProv(token, r, rutnatFor ? uppgifter.map(rutnatFor) : [], typ, {
+          uppgifter,
+          underlag: (start.underlag as Record<string, unknown> | undefined) ?? {},
+        })
         capture('sample_completed', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'artikel', slug })
-        capture('signup_gate_shown', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'artikel', slug })
+        capture('signup_gate_shown', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'artikel', slug, ...sparrEgenskaper(r) })
         setLage((l) => ({ ...l, fas: 'resultat', resultat: r, laddar: false }))
       } catch (e) {
         setLage((l) => ({ ...l, laddar: false, fel: e instanceof Error ? e.message : 'Kunde inte rätta provet.' }))

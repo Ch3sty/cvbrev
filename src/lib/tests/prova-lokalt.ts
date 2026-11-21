@@ -15,6 +15,7 @@
  */
 
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
+import type { OppetFacit, OppetFacitVariant } from './oppet-facit'
 
 export const PROVA_RESULTAT_KEY = 'jc_prova_resultat_v2'
 const MAX_MS = 24 * 60 * 60 * 1000
@@ -28,6 +29,10 @@ export interface ProvaResultat {
   fel: number[]
   /** Null tills underlaget räcker (prova-percentil.ts). */
   percentile: number | null
+  /** Omgång 3 (beslut A): spärrens variant, antal missar och det enda öppna facit. Saknas i äldre sparade prov. */
+  variant?: OppetFacitVariant
+  antal_fel?: number
+  oppet_facit?: OppetFacit | null
 }
 
 export interface SparatProv {
@@ -36,6 +41,28 @@ export interface SparatProv {
   rutnat: Rutnat[]
   /** Provets typ (prov-typer.ts); saknas för matrisens äldre sparade prov. */
   typ?: string
+  /**
+   * Uppgifterna som de visades (startsvarets questions eller uppgifter, utan
+   * facit) och underlaget, så att resultatet ritas likadant efter Tillbaka
+   * från registreringen. Saknas i äldre sparade prov.
+   */
+  uppgifter?: unknown[]
+  underlag?: Record<string, unknown>
+}
+
+/** Rättningens svar från /api/public/test-session till resultatet i klienten. */
+export function lasRattning(data: Record<string, unknown>): ProvaResultat {
+  const of = data.oppet_facit as OppetFacit | null | undefined
+  const variant = data.variant
+  return {
+    score: Number(data.score) || 0,
+    total: Number(data.total) || 0,
+    fel: Array.isArray(data.fel) ? (data.fel as number[]) : [],
+    percentile: typeof data.percentile === 'number' ? data.percentile : null,
+    ...(variant === 'noll' || variant === 'en' || variant === 'flera' ? { variant } : {}),
+    ...(typeof data.antal_fel === 'number' ? { antal_fel: data.antal_fel } : {}),
+    ...(of && typeof of === 'object' && typeof of.index === 'number' && of.uppgift ? { oppet_facit: of } : {}),
+  }
 }
 
 export function arProvaResultat(r: unknown): r is ProvaResultat {
@@ -50,9 +77,18 @@ export function arProvaResultat(r: unknown): r is ProvaResultat {
   )
 }
 
-export function sparaProv(token: string, result: ProvaResultat, rutnat: Rutnat[], typ?: string): void {
+export function sparaProv(
+  token: string,
+  result: ProvaResultat,
+  rutnat: Rutnat[],
+  typ?: string,
+  visning?: { uppgifter: unknown[]; underlag?: Record<string, unknown> }
+): void {
   try {
-    sessionStorage.setItem(PROVA_RESULTAT_KEY, JSON.stringify({ token, result, rutnat, t: Date.now(), ...(typ ? { typ } : {}) }))
+    sessionStorage.setItem(
+      PROVA_RESULTAT_KEY,
+      JSON.stringify({ token, result, rutnat, t: Date.now(), ...(typ ? { typ } : {}), ...(visning ? { uppgifter: visning.uppgifter, underlag: visning.underlag ?? {} } : {}) })
+    )
   } catch {
     /* privat läge: provet fungerar ändå, bara utan återställning */
   }
@@ -64,7 +100,7 @@ export function lasSparatProv(token: string | null): SparatProv | null {
   try {
     const raw = sessionStorage.getItem(PROVA_RESULTAT_KEY)
     if (!raw) return null
-    const d = JSON.parse(raw) as { token?: unknown; result?: unknown; rutnat?: unknown; t?: unknown; typ?: unknown }
+    const d = JSON.parse(raw) as { token?: unknown; result?: unknown; rutnat?: unknown; t?: unknown; typ?: unknown; uppgifter?: unknown; underlag?: unknown }
     if (
       d.token !== token ||
       typeof d.t !== 'number' ||
@@ -74,7 +110,14 @@ export function lasSparatProv(token: string | null): SparatProv | null {
       return null
     }
     const rutnat = Array.isArray(d.rutnat) ? (d.rutnat as Rutnat[]) : []
-    return { token, result: d.result, rutnat, ...(typeof d.typ === 'string' ? { typ: d.typ } : {}) }
+    return {
+      token,
+      result: d.result,
+      rutnat,
+      ...(typeof d.typ === 'string' ? { typ: d.typ } : {}),
+      ...(Array.isArray(d.uppgifter) ? { uppgifter: d.uppgifter } : {}),
+      ...(d.underlag && typeof d.underlag === 'object' ? { underlag: d.underlag as Record<string, unknown> } : {}),
+    }
   } catch {
     return null
   }

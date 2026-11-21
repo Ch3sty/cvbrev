@@ -1,0 +1,10 @@
+{
+  "_om": "Omgång 3, de publika proven (byggspecen för de publika proven, beslut A till G). Läses av scripts/seo-diff-artiklar.ts.",
+  "BASLINJE_OMTAGEN": [
+    {
+      "path": "/verktyg/personlighetstest",
+      "datum": "2026-11-21",
+      "skal": "Omgång 3, publika proven (skissen godkänd av ägaren 2026-11-20, SEO-godkänd 2026-11-21): personlighetsprovet står direkt under h1 och ingressen. Hjältens knappar Gör testet och Så fungerar det, telefonbildens exempelprofil och provpanelens eget huvud, en andra ingress som upprepade sidans, är borta. Redaktionell text 592 till 589 ord. Title, description, canonical, h1, rubrikträd, JSON-LD, ingress, steg, De fem faktorerna, slutkortet och FAQ:n oförändrade. Panelens huvud står kvar i artiklarna map-test-personlighetstest och personlighetstest-jobb-guide. Undantaget gäller bara ordantalet i main och ankarlänkarna till #provet och #sa-funkar-det."
+    }
+  ]
+}
