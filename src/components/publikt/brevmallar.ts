@@ -1,9 +1,9 @@
 /**
  * Brevmallarna på de publika sidorna (byggspecen våg 1, 2026-11-21): talen
  * och namnen läses ur brevets katalog (samma 40 mallar som CV:t), aldrig
- * skrivna för hand. Säljsidans mallsektion och dekoren på /funktioner visar
- * brevets egna miniatyrer: statiska webp ritade av brevmotorn med
- * scripts/brevmallar-miniatyrer.ts ur exempelBrev('kort').
+ * skrivna för hand. Säljsidans mallsektion visar brevets egna miniatyrer:
+ * statiska webp ritade av brevmotorn med scripts/brevmallar-miniatyrer.ts
+ * ur exempelBrev('kort').
  *
  * Klientsäker: ren data.
  */
@@ -27,10 +27,7 @@ export const BREV_GRATIS_NAMN = namnLista(KATALOG.filter((k) => k.niva === 'grat
 export const BREV_FORVALD_NAMN = brevMallKort(BREV_FORVALD_MALL)?.namn ?? BREV_FORVALD_MALL
 
 /** Säljsidans sju mallar, i den här ordningen (UX:s urval). */
-export const SALJ_MALL_IDS = ['linne', 'bjork', 'koppar', 'kalksten', 'granit', 'kolumn', 'terrakotta'] as const
-
-/** Dekoren på /funktioner: tre av säljsidans miniatyrer. */
-export const FUNKTIONER_MALL_IDS = ['linne', 'bjork', 'koppar'] as const
+export const SALJ_MALL_IDS = ['linne', 'bjork', 'koppar', 'kalksten', 'granit', 'fasad', 'terrakotta'] as const
 
 /** Miniatyrens mått i px (A4:ans proportioner). Samma i filen och i HTML, så att CLS är 0. */
 export const MINIATYR_BREDD = 480

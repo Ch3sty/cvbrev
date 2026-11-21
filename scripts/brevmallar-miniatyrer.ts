@@ -1,6 +1,6 @@
 /**
  * Brevets miniatyrer för de publika sidorna (byggspecen våg 1, avsnitt 1 och
- * 2): säljsidans mallsektion och dekoren på /funktioner. Varje mall ritas av
+ * 2): säljsidans mallsektion. Varje mall ritas av
  * brevmotorn (renderBrevHtml) med exempelBrev('kort'), i full A4 med
  * typsnitten inbäddade som i PDF-kedjan, och sparas som webp under
  * public/mallar/brev/<id>.webp i måtten ur src/components/publikt/brevmallar.ts.
@@ -12,6 +12,7 @@
  * Ingen server, ingen databas.
  *
  *   npx tsx scripts/brevmallar-miniatyrer.ts [--bara linne,koppar]
+ *   npx tsx scripts/brevmallar-miniatyrer.ts --prov ramverk --ut <mapp>   (mall utanför urvalet, för granskning)
  */
 import fs from 'fs'
 import path from 'path'
@@ -20,7 +21,7 @@ import puppeteer from 'puppeteer'
 import { baddaInTypsnitt } from '../src/lib/cv/mallar/typsnitt-inbaddning'
 import { renderBrevHtml } from '../src/lib/letters/brevmall'
 import { exempelBrev } from '../src/lib/letters/brevmall/exempel'
-import { MINIATYR_BREDD, MINIATYR_HOJD, SALJ_MALL_IDS, FUNKTIONER_MALL_IDS, brevMiniatyrSrc } from '../src/components/publikt/brevmallar'
+import { MINIATYR_BREDD, MINIATYR_HOJD, SALJ_MALL_IDS, brevMiniatyrSrc } from '../src/components/publikt/brevmallar'
 
 const arg = (namn: string) => {
   const i = process.argv.indexOf(namn)
@@ -32,9 +33,13 @@ const A4_BREDD = 794
 const A4_HOJD = 1123
 
 async function main() {
-  const alla = [...new Set<string>([...SALJ_MALL_IDS, ...FUNKTIONER_MALL_IDS])]
+  const alla: string[] = [...SALJ_MALL_IDS]
   const bara = arg('--bara')?.split(',')
-  const ids = bara ? alla.filter((id) => bara.includes(id)) : alla
+  // --prov ritar mallar utanför urvalet till en egen mapp (--ut), för granskning.
+  const prov = arg('--prov')?.split(',')
+  const utMapp = arg('--ut')
+  if (prov && !utMapp) throw new Error('--prov kräver --ut <mapp>')
+  const ids = prov ?? (bara ? alla.filter((id) => bara.includes(id)) : alla)
   const browser = await puppeteer.launch({ headless: true })
   try {
     const page = await browser.newPage()
@@ -46,7 +51,7 @@ async function main() {
       await page.evaluate(() => document.fonts.ready)
       await new Promise((r) => setTimeout(r, 80))
       const png = Buffer.from(await page.screenshot({ clip: { x: 0, y: 0, width: A4_BREDD, height: A4_HOJD }, type: 'png' }))
-      const ut = path.join('public', brevMiniatyrSrc(id))
+      const ut = prov ? path.join(utMapp!, `${id}.webp`) : path.join('public', brevMiniatyrSrc(id))
       fs.mkdirSync(path.dirname(ut), { recursive: true })
       await sharp(png)
         .resize(MINIATYR_BREDD, MINIATYR_HOJD, { fit: 'fill', kernel: 'lanczos3' })

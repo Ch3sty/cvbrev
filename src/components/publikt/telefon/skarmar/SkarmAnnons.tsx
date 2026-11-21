@@ -22,9 +22,9 @@ export default function SkarmAnnons({ glid, className }: { glid?: boolean; class
         <div className="s-kort">
           <div className="s-rad" style={{ marginBottom: 6 }}>
             <div className="s-kick2" style={{ marginBottom: 0 }}>
-              Krav ur annonsen
+              Kraven
             </div>
-            <span className="s-dim" style={{ fontSize: 10.5, fontWeight: 600 }}>
+            <span className="s-dim" style={{ fontSize: 10.5, fontWeight: 600, whiteSpace: 'nowrap' }}>
               6 av 7 har fått svar
             </span>
           </div>
@@ -55,9 +55,6 @@ export default function SkarmAnnons({ glid, className }: { glid?: boolean; class
             <span>Språk</span>
             <b>Svenska</b>
           </div>
-          <p className="s-dim" style={{ marginTop: 8 }}>
-            Du provar andra mallar när brevet är klart.
-          </p>
         </div>
       </SkarmGolv>
       <SkarmFot>
