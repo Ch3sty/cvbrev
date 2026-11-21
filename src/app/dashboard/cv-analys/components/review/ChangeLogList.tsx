@@ -2,6 +2,32 @@
 
 import ChangeLogItem from './ChangeLogItem';
 import { antal } from '@/lib/rum/antal';
+import { harPlatshallare } from '@/lib/cv/poang';
+import { rollHarTal } from '@/lib/cv/poang/modell';
+
+/**
+ * Siffrorna i en roll efter förslaget, med poängmodellens regler.
+ *
+ *   kvantifierat      Rollen saknade siffror och har nu minst ett riktigt tal
+ *                     (rollHarTal) i en rad utan platshållare. Rader med
+ *                     [antal] räknas inte: "[antal] procent" har ordet
+ *                     procent, som poängmodellen godtar som tal, men talet
+ *                     är ännu inte hennes.
+ *   platshallareKvar  Förslaget har [antal] som hon ska fylla i själv.
+ */
+export function siffrorIRoll(
+  text: string,
+  behovdeSiffror: boolean
+): { kvantifierat: boolean; platshallareKvar: boolean } {
+  const pastaenden = text
+    .split('\n')
+    .map((r) => r.replace(/^[-•*·]\s*/, '').trim())
+    .filter((r) => r && !harPlatshallare(r));
+  return {
+    kvantifierat: behovdeSiffror && rollHarTal({ pastaenden }),
+    platshallareKvar: harPlatshallare(text),
+  };
+}
 
 export interface ChangeLogData {
   /** Personbeskrivning ändrad */
@@ -20,7 +46,10 @@ export interface ChangeLogData {
     currentText: string;
     improvedText: string;
     keywordsAdded: number;
+    /** Ett riktigt tal efter förslaget, där rollen saknade siffror (siffrorIRoll). */
     quantified: boolean;
+    /** [antal] står kvar i förslaget och väntar på hennes siffra. */
+    platshallareKvar: boolean;
     atsImpact: number;
   }>;
   /** Tillagda färdigheter */
@@ -102,6 +131,9 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
         }
         if (role.quantified) {
           tags.push({ label: 'Kvantifierat', tone: 'emerald' });
+        }
+        if (role.platshallareKvar) {
+          tags.push({ label: 'Har [antal] kvar', tone: 'orange' });
         }
 
         return (
