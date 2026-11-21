@@ -167,7 +167,7 @@ function VaggMedBrev({ d, skrivHref, mallarHref }: { d: DinaBrevData; skrivHref:
             <BrevBana form="dator" steg={banSteg} klara={klara} />
             {fokusArk ? (
               <ArkBunt
-                style={{ left: 316, top: 0 }}
+                style={{ left: 290, top: 0 }}
                 overst={<Miniatyr ark={fokusArk} mobil={206} />}
                 bakom={[d.ark['bakom-1'], d.ark['bakom-2']].filter(Boolean).map((a, i) => <Miniatyr key={i} ark={a!} mobil={206} />)}
                 alt={`Ditt brev till ${fokus ? foretagFor(fokus) : ''} i mallen ${mallNamn}`}
@@ -259,10 +259,10 @@ function VaggUtanBrev({ d, skrivHref, mallarHref }: { d: DinaBrevData; skrivHref
             {handling}
           </div>
           <div className="b3-hero-hoger xl:!h-[440px]">
-            <BrevBana form="dator" steg="annonsen" klara={[]} className="xl:!bottom-[60px]" />
+            <BrevBana form="dator" steg="annonsen" klara={[]} className="xl:!bottom-[60px] xl:translate-x-[40px]" />
             {d.ark.exempel ? (
               <ArkBunt
-                style={{ left: 330, top: 10 }}
+                style={{ left: 304, top: 10 }}
                 overst={<Miniatyr ark={d.ark.exempel} mobil={206} />}
                 bakom={d.ark['bakom-1'] ? [<Miniatyr key="b" ark={d.ark['bakom-1']} mobil={206} />] : []}
                 alt="Exempel på ett färdigt brev"
@@ -508,7 +508,7 @@ export default function DinaBrevVy({ d }: { d: DinaBrevData }) {
       <MiniatyrStilar ark={Object.values(d.ark)} />
       <KvotMatning aktiv={harLast} />
 
-      <BrevVagg etikett="Nästa steg" hojd={utanBrev ? 664 : 558} hojdMobil={utanBrev ? (d.steg.lage === 'forsta-brevet' ? 600 : 360) : 438}>
+      <BrevVagg etikett="Nästa steg" hojd={utanBrev ? 664 : 558} hojdMobil={utanBrev ? (d.steg.lage === 'forsta-brevet' ? 570 : 360) : 438}>
         {utanBrev ? <VaggUtanBrev d={d} skrivHref={skrivHref} mallarHref={mallarHref} /> : <VaggMedBrev d={d} skrivHref={skrivHref} mallarHref={mallarHref} />}
       </BrevVagg>
 

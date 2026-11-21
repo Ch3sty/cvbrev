@@ -280,3 +280,36 @@ Kopierat i stället för exporterat: kontaktavsnittets markup i spalten (fem rad
 ### Hur man backar
 
 Ta bort `src/lib/letters/brevmall/` utom `typer.ts`, `src/components/brev3/ark/`, `brev-data.ts` och den nya vägen i `download/route.ts` (blocket efter JSON-tolkningen och funktionerna `filnamn`, `brevmallPdf`, `nyttBrevSomFil`), och de två exportraderna sist i `html.ts` och `bygg.ts`. Sidofält: återställ `.sidebar`-reglerna och e-postradens grad i `docx-templates.ts`.
+
+
+## Hem (etapp 2, gren `feat/brev-rummet-omgang1`, arbetskopia `brev-a`), 2026-11-21
+
+### Vad som byggdes
+
+- **QA-kontona** (`scripts/qa-brev-konton.mjs`, körs med `SCRATCH=<mapp> npx tsx scripts/qa-brev-konton.mjs skapa|radera`): `gratis-ny`, `gratis-brev`, `premium` under `@jobbcoach-qa.test`, Erik Lindberg i Stockholm, onboarding klar (`onboarding_track` + `_asked_at`), CV i `cv_texts` med `structured_data` (`bygge.mall` linne respektive koppar). Breven är rader utan AI-anrop, `content` ritad med motorns `ritaRad`. Premium via `premium_grants` (7 dygn). Varje konto har också fyra påhittade jobb i `job_matchings_cache` så att "Jobb att skriva till" syns. E-post, lösenord och id står bara i `UNDERLAG\qa\qa-konton.json`. Raderingen tar bara rader med kontonas egna `user_id` (och ansökningarnas id) och räknar före varje delete.
+- **De två kända felen**: `stycken.ts` läser tillbaka stycken ur brevmallens HTML (`p[data-stycke]`, entiteter avkodade, markeringar och skrivmarkör bortrensade) före den gamla vägen (`div.body-content`). Testet prövar båda vägarna. Nedladdningstestets låtsasdatabas svarar på `hamtaBrevProfil` och kedjan i `markeraForberett`.
+- **Dina brev** (`src/app/dashboard/mina-brev/page.tsx`, `loading.tsx`, `src/components/brev3/hem/`): serverkomponent, all första data i en parallell omgång (`hem/data.ts`: `hamtaBrevlista`, `hamtaBrevProfil`, CV:na med `bygge` och `personalInfo` som json-sökvägar, antal sökta tjänster, de tolv första jobben ur senaste `job_matchings_cache` som json-sökvägar i stället för hela listan, aktivt CV och orterna för skälen). Alla lägen i motorns `nastaSteg` ritas: första brevet (annonsfältet i väggen), CV saknas (Öppna CV), krav saknas, läs igenom, skicka, alla skickade.
+- Miniatyrerna (`hem/Miniatyr.tsx`) delar CSS per brev (en `<style>` per brev för hela sidan) och skalas med CSS-variabler per brytpunkt, ingen mätning i klienten. Bunten bakom brevet visar samma brev i Koppar och Kalksten (eller Björk), ritade på servern.
+- Längden: ordantal ur styckena, fyllnaden ur brevmallens egen `uppskattadHojd` mot `brevGransMm` (samma uppskattning som Word-filen väljer steg med). Över en sida när brevet inte ryms ens i krympsteg 2.
+- Klientöar (`hem/Klient.tsx`, `hem/CvRad.tsx`): annonsfältet och jobbens "Skriv brev" skriver `coverLetterPrefill` och går till Skriv; Byt CV öppnar `CvPickerGrid` (importerad ur `skapa-brev/components`) i `Sheet`, valet blir `?cv=<id>` och följer med i alla länkar till Skriv; listan fäller ut efter sju kort med sökfält först när breven är fler än sju; `useBetalvaggVisad('kvot')` när låsta kort finns, som förut.
+- Texterna: `UNDERSIDA.dinaBrev` och `RUBRIK.dinaBrev` ("Dina brev") ersätter `minaBrev`, sidomenyn och Kom igång-raden läser det nya. `LYFT.minaBrev` borttagen.
+- Borttaget: `MinaBrevClient.tsx`, `components/LetterCard*.tsx`, `ViewToggle.tsx`, `illustrations/LetterIcons.tsx`. `scopeLetterHtml.ts` och `getLetterForUser.ts` står kvar (brevvyn och PreviewStep använder dem).
+
+### Beslut jag tog
+
+1. Toppradens konto (Topprad `bara="atgarder"`) står till höger om väggens rad på dator och bredvid flikarna på telefonen, som i testernas vägg. Skissen ritar ingen topprad, men kontomenyn behövs.
+2. Jobbens tagg är publiceringsdagen ("I dag", "I går", "I tisdags", "12 nov"), inte "Ny i natt": matchningscachen säger inte när en träff kom. Skälraden kräver ett aktivt CV för matchning; QA-kontona har inget, så raden syns inte där.
+3. Annonsfältet skickar annonsen med tom titel och tomt företag. Skriv får läsa ut dem (arbetes sak); står "Annonsen kom från jobbmatchningen" för en inklistrad annons behöver Skriv skilja på dem.
+4. "Sökt 14 nov"-kortets länk till den sökta tjänsten är sidotexten "I Sökta tjänster" (`/dashboard/sokta-tjanster/<id>`).
+5. Bunten står 26 px längre till vänster än i skissen (sidomenyn gör golvet smalare än skissens 1440, och tredje arket klipptes annars av väggens kant). På Hem-ny står banan 40 px längre åt höger så att den inte går in under annonsfältet.
+6. Telefonens vägg för Hem-ny är 570 px (inte ritad), annonsfältets knapp slutar på 448 px.
+
+### Det som återstår
+
+- "Byt CV" finns inte på telefon (Mobil-hem ritar ingen väggrad).
+- `loading.tsx` har måtten för läget med brev (558/438); för en ny användare blir väggen högre när sidan kommer.
+- Länkarna till Mallar, Brevet och Skriv pekar på vyer som andra byggare gör.
+
+### Hur man backar
+
+`git revert` på hem-commitarna. Den gamla listan återställs med `git checkout <före> -- src/app/dashboard/mina-brev`. QA-kontona: `SCRATCH=<mapp> npx tsx scripts/qa-brev-konton.mjs radera`.

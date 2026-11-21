@@ -46,11 +46,14 @@ export function Miniatyr({ ark, mobil, dator, className }: { ark: ArkKalla; mobi
   } as CSSProperties
   return (
     <span className={`b3-hem-mini relative block w-full overflow-hidden bg-white ${className ?? ''}`} style={stil} aria-hidden="true">
+      {/* Skalningen och brevets rot är två element: gamla mallar sätter
+          body { max-width: 100% }, som annars räknas mot bildens lilla bredd. */}
       <span
-        className={`${ark.scope} absolute left-0 top-0 block origin-top-left [transform:scale(var(--mini-s))] xl:[transform:scale(var(--mini-s-xl))]`}
+        className="absolute left-0 top-0 block origin-top-left [transform:scale(var(--mini-s))] xl:[transform:scale(var(--mini-s-xl))]"
         style={{ width: ARK_BREDD_PX, pointerEvents: 'none' }}
-        dangerouslySetInnerHTML={{ __html: ark.kropp }}
-      />
+      >
+        <div className={ark.scope} dangerouslySetInnerHTML={{ __html: ark.kropp }} />
+      </span>
     </span>
   )
 }
