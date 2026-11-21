@@ -95,7 +95,31 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     const rot = inre.current
     const ut = yttre.current
     if (!rot || !ut || !skala) return
+    // Luften för ett saknat krav från förra mätningen tas bort först.
+    rot.querySelectorAll<HTMLElement>('[data-b3-luft]').forEach((e) => {
+      e.style.paddingBottom = ''
+      e.removeAttribute('data-b3-luft')
+    })
     passaBrevet(rot)
+
+    // Saknat krav vars stycke slutar med en full rad: platsen blir en egen
+    // rad efter stycket. Luften läggs i dokumentet (padding under stycket),
+    // så att nästa stycke flyttas ner och platsen aldrig täcker text.
+    const saknatSt = saknatKrav ? (rot.querySelector<HTMLElement>(`[data-stycke="${saknatKrav.stycke}"]`) ?? [...rot.querySelectorAll<HTMLElement>('[data-stycke]')].pop() ?? null) : null
+    let egenRad = false
+    if (saknatSt) {
+      const rng = document.createRange()
+      rng.selectNodeContents(saknatSt)
+      const rader = rng.getClientRects()
+      const sista = rader[rader.length - 1]
+      const sr = saknatSt.getBoundingClientRect()
+      if (sista && sr.right - sista.right - 6 < 40) {
+        egenRad = true
+        saknatSt.setAttribute('data-b3-luft', '')
+        saknatSt.style.paddingBottom = `${(sista.height + 4) / skala}px`
+      }
+    }
+
     const cv = rot.querySelector<HTMLElement>('.cv.brev')
     if (cv) setHojdPx(Math.max(ARK_HOJD_PX, cv.offsetHeight))
     const bas = ut.getBoundingClientRect()
@@ -114,7 +138,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     setSiffror(lista)
 
     if (saknatKrav) {
-      const st = rot.querySelector<HTMLElement>(`[data-stycke="${saknatKrav.stycke}"]`) ?? [...rot.querySelectorAll<HTMLElement>('[data-stycke]')].pop()
+      const st = saknatSt
       if (st) {
         const rng = document.createRange()
         rng.selectNodeContents(st)
@@ -125,7 +149,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
         let left = sista.right - bas.left + 6
         let top = sista.top - bas.top
         const hoger = sr.right - bas.left
-        if (hoger - left < 40) {
+        if (egenRad) {
           left = sr.left - bas.left
           top = sista.bottom - bas.top + 2
         }

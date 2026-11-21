@@ -55,7 +55,7 @@ import { kortDatum } from '@/lib/rum/copy'
 import type { BrevSteg } from '@/lib/letters/brevmall/typer'
 import type { DinaBrevData, HemMatt } from './data'
 import { Miniatyr, MiniatyrStilar } from './Miniatyr'
-import CvRad from './CvRad'
+import CvRad, { BytCvKnapp } from './CvRad'
 import { AnnonsFalt, BrevListaKlient, KvotMatning, SkrivBrevKnapp, type ListPost } from './Klient'
 import { ingressMobil, kravEtikett, langdOrd, narRelativt, overradMobil, rollKort, skrivetRad, soktaOgon, stortTalRader } from './text'
 
@@ -581,7 +581,14 @@ export default function DinaBrevVy({ d }: { d: DinaBrevData }) {
                 rubrik={d.valtCv.namn}
                 text="Ändrar du i CV:t skrivs nästa brev efter det nya."
                 textBaraDator
-                handling={<LitenKnapp href={CV_HREF}>Öppna CV:t</LitenKnapp>}
+                handling={
+                  <span className="flex items-center gap-2">
+                    <span className="contents xl:hidden">
+                      <BytCvKnapp cvs={d.cvs} lastaCvIds={d.lastaCvIds} valtCvId={d.valtCv.id} />
+                    </span>
+                    <LitenKnapp href={CV_HREF}>Öppna CV:t</LitenKnapp>
+                  </span>
+                }
               />
             ) : null}
             <Radkort

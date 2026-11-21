@@ -121,7 +121,9 @@
 
 /* Flikarna i väggen */
 .b3-flikar { display: flex; gap: 3px; padding: 4px; border-radius: 16px; background: rgba(255, 255, 255, .07); }
-.b3-flik { flex: 1; min-width: 0; height: 52px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-decoration: none; color: var(--vagg-mjuk); }
+/* Flikarna tar sin textbredd först (flex-basis auto): med basis 0 delades en
+   krympt rad lika och vänstra flikens underrad kapades ("Läget och nästa st…"). */
+.b3-flik { flex: 1 1 auto; min-width: 0; height: 52px; padding: 0 10px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-decoration: none; color: var(--vagg-mjuk); }
 .b3-flik b { font-size: 13px; line-height: 17px; font-weight: 700; color: var(--vagg-ink); white-space: nowrap; }
 .b3-flik small { font-size: 11px; line-height: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .b3-flik[aria-current="page"] { background: var(--vagg-ink); color: var(--b3-flik-ink); }
@@ -852,10 +854,11 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 @media (min-width: 1280px) { .b3-ml-prem { margin-top: 44px; } }
 
 /* Telefonen: nedladdningen i en fast rad längst ner, ovanför dörrnavet */
-.b3-ml-fast { position: sticky; bottom: 0; z-index: 30; display: flex; gap: 8px; padding: 10px 16px 12px; background: var(--golv); border-top: 1.5px solid var(--b3-kant); }
+.b3-ml-fast { position: sticky; bottom: var(--bottom-nav-h, 0px); z-index: 30; display: flex; gap: 8px; padding: 10px 16px 12px; background: var(--golv); border-top: 1.5px solid var(--b3-kant); }
+.b3-ml-fast-luft { height: var(--bottom-nav-h, 0px); }
 .b3-ml-fast > .b3-stor { flex: 1; min-width: 0; height: 52px; font-size: 16px; }
 .b3-ml-fast > .b3-bricka { height: 52px; background: var(--b3-papper); color: var(--b3-ink); box-shadow: 0 3px 0 var(--b3-kant); border: 2px solid var(--b3-kant); }
-@media (min-width: 1280px) { .b3-ml-fast { display: none; } }
+@media (min-width: 1280px) { .b3-ml-fast, .b3-ml-fast-luft { display: none; } }
 
 /* Byt brev */
 .b3-ml-bytlista { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }

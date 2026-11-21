@@ -98,9 +98,13 @@ export interface ListPost {
   kort: ReactNode
 }
 
+/** Dator: så många brev står före "Skriv nytt brev" på första raden. */
+const DATOR_FORSTA_RADEN = 3
+
 /**
- * Remsan med breven: högst sju kort plus "Skriv nytt brev", resten under
- * "Visa alla brev". Sökfältet visas bara när breven är fler än sju.
+ * Remsan med breven. Telefon: högst sju kort, resten under "Visa alla brev".
+ * Dator: de tre senaste plus "Skriv nytt brev", resten under "Visa alla
+ * brev" i hela rader. Sökfältet visas bara när breven är fler än sju.
  */
 export function BrevListaKlient({ poster, nytt, max = 7 }: { poster: readonly ListPost[]; nytt: ReactNode; max?: number }) {
   const [alla, setAlla] = useState(false)
@@ -111,7 +115,13 @@ export function BrevListaKlient({ poster, nytt, max = 7 }: { poster: readonly Li
     const s = sok.trim().toLowerCase()
     return s ? poster.filter((p) => p.sok.toLowerCase().includes(s)) : poster
   }, [poster, sok])
-  const synliga = alla || sok.trim() ? traffar : traffar.slice(0, max)
+  const fritt = alla || !!sok.trim()
+  const synliga = fritt ? traffar : traffar.slice(0, max)
+  // Dator: första raden är de tre senaste breven plus "Skriv nytt brev"
+  // (fyra spalter, som skissen Main); resten fälls ut i hela rader under
+  // "Visa alla brev". Telefon: remsan med högst sju, kortet under remsan.
+  const forsta = synliga.slice(0, DATOR_FORSTA_RADEN)
+  const ovriga = synliga.slice(DATOR_FORSTA_RADEN)
   return (
     <>
       {visaSok ? (
@@ -130,14 +140,26 @@ export function BrevListaKlient({ poster, nytt, max = 7 }: { poster: readonly Li
         </div>
       ) : null}
       <div className="b3-remsa">
-        {synliga.map((p) => (
+        {forsta.map((p) => (
           <Fragment key={p.id}>{p.kort}</Fragment>
         ))}
         <div className="hidden xl:contents">{nytt}</div>
+        {ovriga.length ? (
+          <div className={fritt ? 'contents' : 'contents xl:hidden'}>
+            {ovriga.map((p) => (
+              <Fragment key={p.id}>{p.kort}</Fragment>
+            ))}
+          </div>
+        ) : null}
       </div>
       {sok.trim() && traffar.length === 0 ? <p className="b3-under mt-3">Inget brev matchar sökningen.</p> : null}
-      {!alla && !sok.trim() && traffar.length > max ? (
-        <div className="mt-4">
+      {!fritt && traffar.length > max ? (
+        <div className="mt-4 xl:hidden">
+          <LitenKnapp onClick={() => setAlla(true)}>{`Visa alla brev (${traffar.length})`}</LitenKnapp>
+        </div>
+      ) : null}
+      {!fritt && traffar.length > DATOR_FORSTA_RADEN ? (
+        <div className="mt-4 hidden xl:block">
           <LitenKnapp onClick={() => setAlla(true)}>{`Visa alla brev (${traffar.length})`}</LitenKnapp>
         </div>
       ) : null}

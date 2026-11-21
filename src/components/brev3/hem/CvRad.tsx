@@ -12,6 +12,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { LitenKnapp } from '@/components/brev3/kit'
 import type { HemCv } from './data'
 
 const Sheet = dynamic(() => import('@/components/shell/Sheet'), { ssr: false })
@@ -44,6 +45,20 @@ export function CvValjare({ cvs, lastaCvIds, valtCvId, children }: CvValProps & 
         </Sheet>
       ) : null}
     </>
+  )
+}
+
+/** "Byt" i radkortet "CV:t som breven bygger på" (telefonen har ingen väggrad). */
+export function BytCvKnapp(props: CvValProps) {
+  if (props.cvs.length === 0) return null
+  return (
+    <CvValjare {...props}>
+      {(oppna) => (
+        <LitenKnapp onClick={oppna} aria-label="Byt CV för nästa brev">
+          Byt
+        </LitenKnapp>
+      )}
+    </CvValjare>
   )
 }
 

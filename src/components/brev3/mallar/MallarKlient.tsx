@@ -493,11 +493,20 @@ export default function MallarKlient(p: MallarKlientProps) {
         ) : null}
       </Golv>
 
-      {/* Telefonen: nedladdningen i en fast rad längst ner. */}
-      <div className="b3-ml-fast">
-        {laddaKnapp}
-        {wordKnapp}
-      </div>
+      {/* Telefonen: nedladdningen i en fast rad direkt ovanför bottennavet,
+          samma mönster som CV-mallarnas FastRad: rullytans luft för navet
+          nollas och läggs under raden i stället, så att inget glapp med
+          innehåll syns mellan raden och navet. */}
+      {laddaKnapp ? (
+        <>
+          <style>{'@media (max-width:1279.98px){main.dashboard-main-content{padding-bottom:0!important}}'}</style>
+          <div className="b3-ml-fast">
+            {laddaKnapp}
+            {wordKnapp}
+          </div>
+          <div aria-hidden className="b3-ml-fast-luft" />
+        </>
+      ) : null}
 
       {kvitto === T.kopieratKvitto ? (
         <p className="sr-only" role="status">
