@@ -250,7 +250,13 @@ export function delaPeriod(period: unknown): { start: string; slut: string } {
 export function delaKompetens(raw: unknown): string[] {
   if (!raw || typeof raw !== 'string') return []
   return raw
-    .split(/\s*[-–‑•|/;,]\s*|\s+(?:och|samt)\s+/i)
+    .split(/\s*[-–‑•|/;,]\s*/)
+    // "och" och "samt" delar bara när båda leden är egna termer: "Truckkort
+    // A och B" är en kompetens (B ensamt försvann förut i filtret nedan).
+    .flatMap((s) => {
+      const leden = s.split(/\s+(?:och|samt)\s+/i)
+      return leden.length > 1 && leden.every((l) => l.trim().length >= 3) ? leden : [s]
+    })
     .map((s) => s.trim())
     .map((s) => s.replace(/\s*\d+\/\d+(\s*\d+\/\d+)*\s*$/g, '').trim())
     .map((s) => s.replace(/^\(.*\)|\(.*\)$/g, '').trim())

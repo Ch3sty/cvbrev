@@ -44,6 +44,8 @@ I roles-formatet (inläsningens format, saknar kontaktfält) läses uppgifterna 
 
 Räknas på de fem första rollerna i CV:ts ordning. Äldre roller väger inte in (förslag för dem kan fortfarande föras in men ger inget plus).
 
+I roles-formatet (inläsningens) läses rollens punkter ur `responsibilities` och annars ur beskrivningen delad på rader och punkttecken, samma ordning som `normalizeStructuredData` och mallarna (rättat 2026-11-21: förut togs beskrivningen först, och då räknades och sparades punkterna som en rad).
+
 Ett *påstående* är en rad, punkt eller mening med minst tre ord. Fyra meningar i ett stycke är fyra påståenden, precis som fyra punkter, så formatet i inläsningen spelar ingen roll.
 
 | Kontroll | Poäng | Regel |
@@ -59,7 +61,7 @@ Handlingsverb: en lista med vanliga svenska verb i presens, preteritum och supin
 
 ### 4. Kompetenser, 12
 
-Kompetenserna delas på vanliga avgränsare och dubbletter tas bort (skiftlägesokänsligt), samma regel som analysflödet städar listan med när det sparar.
+Kompetenserna delas på vanliga avgränsare och dubbletter tas bort (skiftlägesokänsligt), samma regel som analysflödet städar listan med när det sparar. "och" och "samt" delar bara när båda leden har minst tre tecken ("Excel och Word" blir två, "Truckkort A och B" förblir en; rättat 2026-11-21, förut försvann "B").
 
 | Kontroll | Poäng | Regel |
 |---|---|---|

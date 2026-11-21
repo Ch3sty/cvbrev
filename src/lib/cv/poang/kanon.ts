@@ -85,13 +85,19 @@ export function sprakUrText(cvText: string | null | undefined): CVLanguage[] | n
 
 function rollTillErfarenhet(r: Obj): CVExperience {
   const { start, slut } = delaPeriod(r.period)
-  const beskrivning = typeof r.description === 'string' ? r.description : ''
-  let rader = beskrivning
-    .split(/\n+/)
-    .map((s) => s.trim())
-    .filter(Boolean)
-  if (rader.length === 0 && Array.isArray(r.responsibilities)) {
-    rader = r.responsibilities.filter((s): s is string => typeof s === 'string' && s.trim().length > 0).map((s) => s.trim())
+  // Samma ordning som normalizeStructuredData (det arket och mallarna ritar):
+  // punkterna i responsibilities först, annars beskrivningen delad på rader
+  // och punkttecken. Förut togs beskrivningen först, och då räknades och
+  // sparades (Ersätt mitt nuvarande CV) punkterna som en enda rad.
+  let rader = Array.isArray(r.responsibilities)
+    ? r.responsibilities.filter((s): s is string => typeof s === 'string' && s.trim().length > 0).map((s) => s.trim())
+    : []
+  if (rader.length === 0) {
+    const beskrivning = typeof r.description === 'string' ? r.description : ''
+    rader = beskrivning
+      .split(/[\n•·]/)
+      .map((s) => s.trim())
+      .filter(Boolean)
   }
   const ut: CVExperience = {
     position: falt(r.title),
