@@ -58,7 +58,7 @@ export function banaAria(steg: readonly BanaSteg[]): string {
   const kvar = steg.filter((s) => s.status === 'kvar').map((s) => s.etikett)
   const delar: string[] = []
   if (gjorda.length) delar.push(`${gjorda.join(' och ')} är klart`)
-  if (nu) delar.push(`nästa steg är att ${nu.etikett}`)
+  if (nu) delar.push(`nästa steg: ${nu.etikett}`)
   if (kvar.length) delar.push(`sedan ${kvar.join(' och ')}`)
   return `Dokumentets väg: ${delar.join('. ') || 'allt är klart'}.`
 }

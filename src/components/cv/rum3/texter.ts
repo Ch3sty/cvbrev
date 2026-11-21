@@ -75,8 +75,8 @@ export const NYTT_ARK = {
 
 export const VAGG = {
   /** Dokumentets väg: gjort i perfekt particip, nästa och kommande som verb. */
-  gjord: { uppladdat: 'uppladdat', utkast: 'utkast', analyserat: 'analyserat', atgardat: 'åtgärdat', nedladdat: 'nedladdat' },
-  kommer: { borja: 'börja', analysera: 'analysera', atgarda: 'åtgärda', laddaNer: 'ladda ner' },
+  gjord: { uppladdat: 'uppladdat', utkast: 'utkast', analyserat: 'förslag klara', atgardat: 'åtgärdat', nedladdat: 'nedladdat' },
+  kommer: { borja: 'börja', analysera: 'förslag', atgarda: 'åtgärda', laddaNer: 'ladda ner' },
   lasbarhet: ['av 100 i', 'läsbarhet'] as const,
   inteMatt: ['läsbarheten,', 'inte mätt än'] as const,
   steg: ['steg till ett CV', 'du kan skicka'] as const,
