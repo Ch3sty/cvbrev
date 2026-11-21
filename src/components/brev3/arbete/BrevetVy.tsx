@@ -56,6 +56,7 @@ import { BREVET, type FlikId, type TonId } from './texter'
 import { forladdaRitare, ritaBrev } from './ritare'
 import { laddaNerBrev } from './ladda'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
+import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk } from '../kit/sidmatt'
 
 const ConfirmDialog = dynamic(() => import('@/components/shell/ConfirmDialog'), { ssr: false })
 
@@ -472,14 +473,11 @@ export default function BrevetVy(props: BrevetVyProps) {
   const [andel, setAndel] = useState(0.6)
   useEffect(() => {
     const t = setTimeout(() => {
-      const ark = [...document.querySelectorAll<HTMLElement>('[data-arbetsram] .cv.brev')].find((e) => e.getBoundingClientRect().width > 0)
-      const slut = ark?.querySelector<HTMLElement>('.brev-slut')
-      if (!ark || !slut) return
-      const r = ark.getBoundingClientRect()
-      const skala = r.width / (ark.offsetWidth || 1)
-      const gransPx = (Number(ark.getAttribute('data-grans')) || 279) * (96 / 25.4) * skala
-      setAndel((slut.getBoundingClientRect().top - r.top) / gransPx)
-    }, 120)
+      const ark = synligtArk(document, '[data-arbetsram] .cv.brev')
+      const a = ark ? matBrevAndel(ark) : null
+      if (a === null) return
+      setAndel(a)
+    }, BREV_MATT_FORDROJNING_MS)
     return () => clearTimeout(t)
   }, [html])
 

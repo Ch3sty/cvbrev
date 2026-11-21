@@ -20,6 +20,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import BrevArk from '@/components/brev3/ark/BrevArk'
 import {
@@ -54,6 +55,7 @@ import { MallKort } from './MallKort'
 import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, mallarKopretur, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
+import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk, visaTvaSidor, type BrevMatt } from '../kit/sidmatt'
 
 const BytBrevArk = dynamic(() => import('./BytBrevArk'), { ssr: false })
 
@@ -241,6 +243,32 @@ export default function MallarKlient(p: MallarKlientProps) {
 
   const ark = arkHtml[nyckel(visad, font)] ?? kortHtml[visad] ?? null
 
+  /* ---------------------------------------------------------------- två sidor */
+  // Samma mätning som Brevet (kit/sidmatt), på arket i den valda mallen och
+  // typsnittet. Kortets HTML som reserv medan arket hämtas mäts inte, och en
+  // mätning gäller bara den HTML den gjordes på: inget gammalt värde visas
+  // medan nytt ark laddas.
+  const brevRef = useRef<HTMLDivElement>(null)
+  const valtArk = arkHtml[nyckel(visad, font)] ?? null
+  const [sidmatt, setSidmatt] = useState<BrevMatt | null>(null)
+  useEffect(() => {
+    if (!brev || !valtArk) return
+    let aktiv = true
+    const mat = () => {
+      const el = aktiv && brevRef.current ? synligtArk(brevRef.current) : null
+      const andel = el ? matBrevAndel(el) : null
+      if (andel !== null) setSidmatt({ html: valtArk, andel })
+    }
+    const t = setTimeout(mat, BREV_MATT_FORDROJNING_MS)
+    // Ett nytt typsnitt laddas först när det används: mät igen när filerna är klara.
+    void document.fonts?.ready.then(() => setTimeout(mat, 0))
+    return () => {
+      aktiv = false
+      clearTimeout(t)
+    }
+  }, [brev, valtArk])
+  const tvaSidor = visaTvaSidor({ egetBrev: !!brev, html: valtArk, matt: sidmatt })
+
   /* ---------------------------------------------------------------- rutnätet */
   const filtrerade = useMemo(() => katalog.filter((k) => passarFilter(k, filter)), [katalog, filter])
   const synliga = utfalld ? filtrerade : filtrerade.slice(0, p.forstaAntal)
@@ -405,6 +433,19 @@ export default function MallarKlient(p: MallarKlientProps) {
                 </span>
               ) : null}
             </p>
+            {/* Brevet blir två sidor i den här mallen: en lugn rad i väggens stil (som
+                brevraden b3-cvrad), med Ändra texten intill. Spärrar ingenting. Tom ruta utan
+                signal, så att inget flyttar sig för den som inte har den. */}
+            {brev ? (
+              <div role="status" className={tvaSidor ? 'b3-cvrad b3-ml-sidor' : undefined}>
+                {tvaSidor ? (
+                  <>
+                    <span>{T.tvaSidor(visadKort.namn)}</span>
+                    <Link href={`/dashboard/mina-brev/${brev.id}?flik=texten`}>{T.andraTexten}</Link>
+                  </>
+                ) : null}
+              </div>
+            ) : null}
             <h1 className="b3-h1">{T.rubrik}</h1>
             <p className="b3-ingress">
               {brev ? (
@@ -422,7 +463,7 @@ export default function MallarKlient(p: MallarKlientProps) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="b3-ml-cv" src={`/mallar/v2/${visad}-stor.webp`} alt="" width={222} height={314} />
             <span className="b3-chip glas b3-ml-cv-etikett">{T.dittCv}</span>
-            <div className="b3-ml-brev" aria-busy={!arkHtml[nyckel(visad, font)]}>
+            <div className="b3-ml-brev" ref={brevRef} aria-busy={!arkHtml[nyckel(visad, font)]}>
               {ark ? <BrevArk html={ark} lage="golv" /> : null}
             </div>
             <span className="b3-ml-brev-etikett">{T.dittBrev}</span>
