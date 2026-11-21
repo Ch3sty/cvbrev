@@ -69,6 +69,8 @@ const STEG = [
   { id: 'linne', namn: 'Linne', typ: 'varm, visad förut' },
   { id: 'kalksten', namn: 'Kalksten', typ: 'varm, visad förut' },
   { id: 'affisch', namn: 'Affisch', typ: 'kall, längst ner i listan' },
+  { id: 'fasad', namn: 'Fasad', typ: 'kall, pekaren 400 ms före', peka: 400 },
+  { id: 'tusch', namn: 'Tusch', typ: 'kall, klick utan pekare' },
 ]
 
 const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true, args: ['--no-sandbox'] })
@@ -84,7 +86,7 @@ try {
   await new Promise((r) => setTimeout(r, 4000))
   for (const s of STEG) {
     const ms = await page.evaluate(
-      async ({ id, namn }) => {
+      async ({ id, namn, peka }) => {
         const synlig = (el) => el && el.offsetParent !== null
         let el = [...document.querySelectorAll(`[data-mall-ruta="${id}"]`)].find(synlig)
         if (!el) {
@@ -99,6 +101,13 @@ try {
           }
         }
         if (!el) return -1
+        if (peka) {
+          // Pekaren över rutan först, som en människa som siktar (Mallar hämtar då i förväg).
+          el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true }))
+          el.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false }))
+          el.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))
+          await new Promise((r) => setTimeout(r, peka))
+        }
         const iframe = () => document.querySelector('.dok-ark-yta iframe, [data-ark-stor] iframe')
         const fore = iframe()?.getAttribute('srcdoc') ?? iframe()?.getAttribute('src') ?? ''
         return await new Promise((klar) => {
@@ -124,7 +133,7 @@ try {
           el.click()
         })
       },
-      { id: s.id, namn: s.namn }
+      { id: s.id, namn: s.namn, peka: s.peka ?? 0 }
     )
     resultat.push({ ...s, ms })
     console.log(`${s.namn.padEnd(10)} ${s.typ.padEnd(28)} ${ms} ms`)
