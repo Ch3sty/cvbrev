@@ -57,9 +57,23 @@ export function valtBrev(sp: URLSearchParams, datum: string): BrevData | null {
   return exempelBrev('normal')
 }
 
+/**
+ * Mallar vars brödtypsnitt är bredare än uppskattningens 0,5 em per tecken
+ * (Verdana i Raster och Betong, Poppins i Mörkrum): uppskattningen räknar
+ * med textbredden gånger faktorn, så att visaren aldrig väljer glesare steg
+ * än produktens mätning (mätningen av 89 brev i 40 mallar 2026-11-21: 10
+ * ritningar föll med uppskattningen rakt av, 0 med 0,92).
+ */
+export const SMALARE_TEXT: Readonly<Record<string, number>> = Object.freeze({ raster: 0.92, betong: 0.92, morkrum: 0.92 })
+
 /** Steget som låses i arket. */
 export function lastSteg(mall: string, data: BrevData): BrevSteg {
-  return uppskattatSteg(brevMallDef(mall), data)
+  const def = brevMallDef(mall)
+  const f = Object.prototype.hasOwnProperty.call(SMALARE_TEXT, def.id) ? SMALARE_TEXT[def.id] : undefined
+  if (!f) return uppskattatSteg(def, data)
+  // Smalare text: högermarginalen ökas så att textbredden blir f gånger. Gränsen (nedre marginalen) är densamma.
+  const bredd = 210 - def.sida.vanster - def.sida.hoger
+  return uppskattatSteg({ ...def, sida: { ...def.sida, hoger: def.sida.hoger + bredd * (1 - f) } }, data)
 }
 
 /**

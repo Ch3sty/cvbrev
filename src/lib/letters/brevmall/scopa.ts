@@ -73,10 +73,13 @@ export function scopaBrevHtml(html: string, scope: string): { css: string; kropp
   return { css: scopaCss(stilar, `.${scope}`), kropp }
 }
 
+/** Antalet krympsteg (0 till 3); samma som BREV_STEGEN i render.ts, testet håller dem lika. */
+export const BREV_ANTAL_STEG = 4
+
 /**
  * Krympsteget i klienten, samma regel som skriptet i dokumentet: brevets
  * sista rad ska stå ovanför bottenmarginalen (data-grans, mm från arkets
- * överkant). Provar steg 0, 1 och 2. Fungerar i ett skalat ark.
+ * överkant). Provar steg 0 till 3. Fungerar i ett skalat ark.
  * Returnerar steget, eller null när arket saknas eller steget är låst.
  */
 export function passaBrevet(rot: HTMLElement): number | null {
@@ -86,9 +89,9 @@ export function passaBrevet(rot: HTMLElement): number | null {
   const grans = Number(cv.getAttribute('data-grans')) || 279
   const skala = cv.offsetWidth ? cv.getBoundingClientRect().width / cv.offsetWidth : 1
   const hojdMm = () => ((slut.getBoundingClientRect().top - cv.getBoundingClientRect().top) / (skala || 1)) * (25.4 / 96)
-  for (let s = 0; s < 3; s++) {
+  for (let s = 0; s < BREV_ANTAL_STEG; s++) {
     cv.setAttribute('data-steg', String(s))
     if (hojdMm() <= grans) return s
   }
-  return 2
+  return BREV_ANTAL_STEG - 1
 }

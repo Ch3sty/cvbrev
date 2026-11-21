@@ -16,8 +16,9 @@
  *
  * Sidan: A4, 210 mm bred. Topp- och bottenmarginalen är tabellrader som
  * Chrome upprepar på varje sida, så att ett brev som ändå går över en sida
- * får marginaler på sida två. Innan dess krymper texten i två steg
- * (data-steg 1 och 2: grad och radavstånd); ett litet skript i dokumentet
+ * får marginaler på sida två. Innan dess krymper texten i tre steg
+ * (data-steg 1 till 3: grad, radavstånd och styckeluft; steg 3 bara för
+ * långa brev, värdena i BREV_STEG3); ett litet skript i dokumentet
  * väljer steget efter att typsnitten laddats, BrevArk gör samma mätning.
  *
  * Inga Node-moduler: renderaren kan laddas dynamiskt i klienten.
@@ -35,8 +36,23 @@ import type { BrevData, BrevRenderVal, BrevVal } from './typer'
 import { kontrast } from './kontrast'
 import { brevPuts, laggPaPuts, morkTillKontrast, namnIRuta } from './puts'
 
-/** Steget i krympningen: 0 ingen, 1 och 2 mindre grad och radavstånd. */
-export type BrevSteg = 0 | 1 | 2
+/**
+ * Steget i krympningen: 0 ingen, 1 och 2 mindre grad och radavstånd, 3 det
+ * tätaste för långa brev (bara när 2 inte räcker).
+ */
+export type BrevSteg = 0 | 1 | 2 | 3
+
+/** Alla steg i den ordning de provas. */
+export const BREV_STEGEN: readonly BrevSteg[] = [0, 1, 2, 3]
+
+/**
+ * Steg 3, långa brev (2026-11-21): från mallens grad i steg 0 dras
+ * `gradMinus`, aldrig under `gradGolv`; från radavståndet dras `radMinus`,
+ * aldrig under `radGolv`; styckeluften blir `luft` mm. Golven är de minsta
+ * värden som någon brevmall redan har på steg 2 (9,5 pt, radavstånd 1,30).
+ * Ändra värdena här, ingen annanstans.
+ */
+export const BREV_STEG3 = Object.freeze({ gradMinus: 1.5, gradGolv: 9.5, radMinus: 0.26, radGolv: 1.3, luft: 2 })
 
 /** Internt tillägg till BrevRenderVal: tvinga ett krympsteg (kontaktark, tester). */
 export type BrevRenderValUtokad = BrevRenderVal & { steg?: BrevSteg }
@@ -148,6 +164,15 @@ export function brevMatt(def: MallDef, steg: BrevSteg): { grad: number; rad: num
   const rad = Math.min(1.6, Math.max(1.45, def.radavstand + 0.22))
   if (steg === 1) return { grad: grad - 0.5, rad: rad - 0.1, luft: 3.2 }
   if (steg === 2) return { grad: Math.max(9, grad - 1), rad: Math.max(1.3, rad - 0.2), luft: 2.6 }
+  if (steg === 3) {
+    const s3 = BREV_STEG3
+    // Avrundat till tiondelar (graden) och hundradelar (radavståndet), så att CSS:en blir ren.
+    return {
+      grad: Math.round(Math.max(s3.gradGolv, grad - s3.gradMinus) * 10) / 10,
+      rad: Math.round(Math.max(s3.radGolv, rad - s3.radMinus) * 100) / 100,
+      luft: s3.luft,
+    }
+  }
   return { grad, rad, luft: 3.8 }
 }
 
@@ -191,9 +216,9 @@ export function uppskattadHojd(defIn: MallDef, data: BrevData, steg: BrevSteg, v
 
 /** Steget som uppskattningen säger räcker för en sida (Word). */
 export function uppskattatSteg(def: MallDef, data: BrevData, val?: BrevVal): BrevSteg {
-  const grans = 297 - def.sida.botten
-  for (const s of [0, 1, 2] as const) if (uppskattadHojd(def, data, s, val) <= grans) return s
-  return 2
+  const grans = brevGransMm(def)
+  for (const s of BREV_STEGEN) if (uppskattadHojd(def, data, s, val) <= grans) return s
+  return 3
 }
 
 /* ------------------------------------------------------------ brevets CSS */
@@ -223,7 +248,7 @@ function brevCss(def: MallDef, c: MallCtx, namnPt?: number): string {
     bakgrund = `linear-gradient(to right,${f(def.sidoremsa.farg, p.accent)} ${def.sidoremsa.mm}mm,${sida} ${def.sidoremsa.mm}mm)`
   }
 
-  const steg = ([0, 1, 2] as const).map((s) => {
+  const steg = BREV_STEGEN.map((s) => {
     const bm = brevMatt(def, s)
     return `.cv.brev${s ? `[data-steg="${s}"]` : ''}{--brev-grad:${bm.grad}pt;--brev-rad:${bm.rad};--brev-luft:${bm.luft}mm}`
   })
@@ -365,11 +390,11 @@ function brevText(data: BrevData, opt: BrevRenderVal): string {
 
 /**
  * Skriptet som väljer krympsteget: mäter var brevet slutar och provar steg 1
- * och 2 tills det ryms ovanför bottenmarginalen. Körs igen när typsnitten
+ * till 3 tills det ryms ovanför bottenmarginalen. Körs igen när typsnitten
  * laddats. BrevArk gör samma mätning i klienten (passa.ts).
  */
 function passaSkript(granMm: number): string {
-  return `<script>(function(){var b=document.querySelector('.cv.brev');if(!b||b.hasAttribute('data-last'))return;function h(){var s=b.querySelector('.brev-slut');return(s.getBoundingClientRect().top-b.getBoundingClientRect().top)*25.4/96}function p(){for(var i=0;i<3;i++){b.setAttribute('data-steg',String(i));if(h()<=${granMm})return}}p();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(p)})()</script>`
+  return `<script>(function(){var b=document.querySelector('.cv.brev');if(!b||b.hasAttribute('data-last'))return;function h(){var s=b.querySelector('.brev-slut');return(s.getBoundingClientRect().top-b.getBoundingClientRect().top)*25.4/96}function p(){for(var i=0;i<${BREV_STEGEN.length};i++){b.setAttribute('data-steg',String(i));if(h()<=${granMm})return}}p();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(p)})()</script>`
 }
 
 /** Gränsen i mm från arkets överkant som brevets sista rad ska stå ovanför. */

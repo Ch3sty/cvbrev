@@ -125,8 +125,9 @@ function langdAndel(brev: BrevIListan, profil: BrevProfil | null): { ord: number
   const ord = data.stycken.reduce((n, s) => n + s.split(/\s+/).filter((o) => /[\p{L}\p{N}]/u.test(o)).length, 0)
   const def = brevMallDef(brev.mall_id ?? BREV_FORVALD_MALL)
   const grans = brevGransMm(def)
-  const ryms = uppskattadHojd(def, data, 2) <= grans
-  const andel = ryms ? Math.min(1, uppskattadHojd(def, data, 0) / grans) : uppskattadHojd(def, data, 2) / grans
+  // Ryms brevet i det tätaste steget (3) står det på en sida; annars går det över till sida två.
+  const ryms = uppskattadHojd(def, data, 3) <= grans
+  const andel = ryms ? Math.min(1, uppskattadHojd(def, data, 0) / grans) : uppskattadHojd(def, data, 3) / grans
   return { ord, andel }
 }
 
