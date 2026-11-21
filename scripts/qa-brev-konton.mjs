@@ -363,6 +363,58 @@ async function skapa() {
     spara(ut)
     console.log('skapad', namn, userId)
   }
+  await matchningar(ut)
+}
+
+/**
+ * Tre påhittade jobb i matchningarnas cache (job_matchings_cache), så att
+ * avsnittet "Jobb att skriva till" går att se. Samma form som edge-funktionen
+ * match-jobs sparar (JobTech-annonser). Ett jobb till Nordanvind med en
+ * annan tjänst än brevet, så att avdubbleringen mot breven syns.
+ */
+function qaJobb() {
+  const dag = (d) => new Date(Date.now() - d * 86400000).toISOString()
+  const jobb = (id, headline, employer, ort, pub, deadline, text) => ({
+    id: `qa-brev-${id}`,
+    headline,
+    employer: { name: employer },
+    workplace_address: { municipality: ort, region: ort },
+    publication_date: dag(pub),
+    application_deadline: deadline,
+    description: { text },
+    webpage_url: null,
+    relevance: 80 - id,
+    occupation: { label: 'IT-projektledare' },
+    must_have: { skills: [] },
+  })
+  return [
+    jobb(1, 'Projektledare, systembyte', 'Tallbacka Logistik', 'Göteborg', 0, '2026-12-06T23:59:00Z', 'Vi byter affärssystem och söker en projektledare med erfarenhet av införandeprojekt och leverantörsstyrning.'),
+    jobb(2, 'Agil projektledare', 'Hamnstadens Bostäder', 'Malmö', 1, '2026-12-09T23:59:00Z', 'Du leder ett team på tolv personer med agilt arbetssätt.'),
+    jobb(3, 'Programledare, digitalisering', 'Nordanvind Energi', 'Sundsvall', 4, '2026-11-30T23:59:00Z', 'Programledning med budget på 15 miljoner och rapportering till styrgrupp.'),
+    jobb(4, 'IT-projektledare till kundplattformen', 'Nordanvind Energi', 'Sundsvall', 5, '2026-11-30T23:59:00Z', 'Samma annons som brevet.'),
+  ]
+}
+
+async function matchningar(ut) {
+  for (const namn of Object.keys(KONTON)) {
+    const k = ut[namn]
+    if (!k?.userId || k.matchningar) continue
+    const { error } = await admin.from('job_matchings_cache').insert({
+      user_id: k.userId,
+      cv_id: k.cvId,
+      jobs: qaJobb(),
+      search_params: { qa: 'brevrummet' },
+      total_jobs_found: 4,
+      expires_at: new Date(Date.now() + 3600000).toISOString(),
+    })
+    if (error) {
+      console.error('matchningar', namn, error.message)
+      continue
+    }
+    k.matchningar = true
+    spara(ut)
+    console.log('matchningar', namn)
+  }
 }
 
 // ---------------------------------------------------------------- radera
@@ -372,6 +424,7 @@ const TABELLER = [
   'job_application_events',
   'job_applications',
   'letters',
+  'job_matchings_cache',
   'cv_texts',
   'user_activities',
   'onboarding_progress',

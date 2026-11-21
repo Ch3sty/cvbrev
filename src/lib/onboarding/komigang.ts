@@ -272,7 +272,7 @@ export function brickaText(
         key,
         titel: 'Personligt brev på en annons',
         text: 'Klistra in annonsen, vi skriver',
-        klarText: 'Skrivet, finns under Mina brev',
+        klarText: 'Skrivet, finns under Dina brev',
         kort: 'skriv brevet',
         href: '/dashboard/skapa-brev',
         knapp: 'Skriv brevet',
