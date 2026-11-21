@@ -89,6 +89,9 @@ export function tolkaBrevAndring(body: unknown): TolkatResultat {
   return { ok: true, andring }
 }
 
+/** Raden efter ändringen: radens fält, med ändringens fält ovanpå (kan vara null från databasen). */
+export type Sammanslagen<T> = Omit<T, keyof BrevAndring> & { [K in keyof BrevAndring]?: BrevAndring[K] | null }
+
 export interface BrevRadForAndring {
   body_stycken?: unknown
   content?: string | null
@@ -122,8 +125,8 @@ export function slaIhopAndring<T extends BrevRadForAndring>(
   rad: T,
   andring: BrevAndring,
   startmall: string
-): { rad: T & BrevAndring; ritaOm: boolean } {
-  const ny: T & BrevAndring = { ...rad, ...andring }
+): { rad: Sammanslagen<T>; ritaOm: boolean } {
+  const ny = { ...rad, ...andring } as Sammanslagen<T>
   const nyttFormat = !!rad.mall_id || andrarArket(andring)
 
   if (andring.content !== undefined && andring.body_stycken === undefined) {

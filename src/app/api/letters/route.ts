@@ -3,58 +3,30 @@ import { NextResponse } from 'next/server';
 import { markFirstMilestone } from '@/lib/activation-tracking';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
-import { getActiveLetterIds, FREE_ACTIVE_LETTER_LIMIT } from '@/lib/letters/letter-quota';
+import { hamtaBrevlista } from '@/lib/letters/server';
+import { styckenFranContent } from '@/lib/letters/stycken';
 
-// Hämta alla brev för inloggad användare
-export async function GET(request: Request) {
+/**
+ * Hämta användarens brev: listan Dina brev (BYGGSPEC avsnitt 4).
+ *
+ * Alla brev, senast uppdaterade först, avdubblade (bland osparade rader med
+ * samma annons visas bara den senaste), med isLocked (gratis: de två senast
+ * uppdaterade är öppna), soktDatum, ansokanId och kravTraffar per brev, och
+ * kvoten. Filtret på is_saved är borttaget: ?saved=true tas emot men
+ * ignoreras, så äldre klienter fungerar.
+ */
+export async function GET() {
   try {
-    // Hämta cookies korrekt med Next.js 15.2 pattern
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
 
-    // Verifiera att användaren är autentiserad
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
-    const url = new URL(request.url);
-    const isSaved = url.searchParams.get('saved') === 'true';
-
-    // Filtrera efter sparade brev om parametern finns
-    let query = supabase
-      .from('letters')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false });
-
-    if (isSaved !== null) {
-      query = query.eq('is_saved', isSaved);
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-      console.error('Fel vid hämtning av brev:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    // Lås-flagga per brev: gratisanvändare har bara de 2 senast sparade
-    // breven AKTIVA (updated_at DESC, fallback created_at). Resten är låsta.
-    // Betald behörighet (prenumeration, engångsköp, admin): allt är aktivt.
-    const letters = Array.isArray(data) ? data : [];
-    let payload = letters.map((letter) => ({ ...letter, isLocked: false }));
-
-    if (!(await userHasAccess(supabase, user.id, 'any'))) {
-      const savedLetters = letters.filter((l) => l.is_saved === true);
-      const activeIds = getActiveLetterIds(savedLetters, FREE_ACTIVE_LETTER_LIMIT);
-      payload = letters.map((letter) => ({
-        ...letter,
-        isLocked: letter.is_saved === true && !activeIds.has(letter.id),
-      }));
-    }
-
-    return NextResponse.json({ success: true, data: payload });
+    const { brev, harBetalt, kvot } = await hamtaBrevlista(supabase, user.id);
+    return NextResponse.json({ success: true, data: brev, harBetalt, kvot });
   } catch (error: any) {
     console.error('Brevhämtning error:', error);
     return NextResponse.json(
@@ -174,12 +146,20 @@ export async function POST(request: Request) {
       // Uppdatera befintlig preview till sparad
       console.log(`Uppdaterar befintlig preview ${existingPreview.id} till is_saved=true`);
 
+      // Brev i nya formatet: content som ändrats i den äldre förhandsvisningen
+      // läses tillbaka till styckena, så att källan och content håller ihop.
+      const nyaStycken =
+        existingPreview.mall_id && letterData.content && letterData.content !== existingPreview.content
+          ? { body_stycken: styckenFranContent(letterData.content) }
+          : {};
+
       const { data: updatedData, error: updateError } = await supabase
         .from('letters')
         .update({
           is_saved: true,
           // Uppdatera content om det har ändrats (t.ex. användare redigerade)
           content: letterData.content,
+          ...nyaStycken,
           // Uppdatera övriga fält om de finns
           title: letterData.title || existingPreview.title,
           company: letterData.company || existingPreview.company,
