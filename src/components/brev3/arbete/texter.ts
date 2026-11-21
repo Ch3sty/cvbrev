@@ -196,3 +196,9 @@ export const SKICKAT = {
   nastaGratis: (dag: string) => `Nästa gratisbrev ${dag}.`,
   arkEtikett: 'Brevets väg är klar: annonsen, brevet, genomläsningen och skickat.',
 }
+
+export type FlikId = (typeof BREVET.avsnitt)[number]['id']
+const FLIKAR: readonly string[] = BREVET.avsnitt.map((a) => a.id)
+export function arFlik(v: unknown): v is FlikId {
+  return typeof v === 'string' && FLIKAR.includes(v)
+}

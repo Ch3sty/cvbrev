@@ -148,6 +148,10 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
 
   /* ------------------------------------------------------------ utkastet */
 
+  // Förifyllningens minnescache släpps när sidan lämnas, så att nästa
+  // "Skriv brev" från matchningarna läser den nya annonsen.
+  useEffect(() => () => coverLetterPrefill.reset(), [])
+
   const utkastLast = useRef(false)
   useEffect(() => {
     if (utkastLast.current) return
@@ -570,7 +574,7 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
         }
         telefonArkSida={telefonSida}
         blad={
-          <div className="flex flex-1 flex-col pb-[calc(var(--skriv-fot,140px))] xl:pb-0 max-xl:[&_.b3-blad-fot]:fixed max-xl:[&_.b3-blad-fot]:inset-x-0 max-xl:[&_.b3-blad-fot]:bottom-0 max-xl:[&_.b3-blad-fot]:z-20 max-xl:[&_.b3-blad-fot]:m-0 max-xl:[&_.b3-blad-fot]:pb-[max(16px,env(safe-area-inset-bottom))] max-xl:[&_.b3-blad-fot]:shadow-[0_-6px_18px_rgba(0,0,0,.12)]">
+          <div className="flex flex-1 flex-col max-xl:[&_.b3-blad-kropp]:pb-[150px] max-xl:[&>section]:flex-1 max-xl:[&_.b3-blad-fot]:fixed max-xl:[&_.b3-blad-fot]:inset-x-0 max-xl:[&_.b3-blad-fot]:bottom-0 max-xl:[&_.b3-blad-fot]:z-20 max-xl:[&_.b3-blad-fot]:m-0 max-xl:[&_.b3-blad-fot]:pb-[max(16px,env(safe-area-inset-bottom))] max-xl:[&_.b3-blad-fot]:shadow-[0_-6px_18px_rgba(0,0,0,.12)]">
             {blad}
           </div>
         }
