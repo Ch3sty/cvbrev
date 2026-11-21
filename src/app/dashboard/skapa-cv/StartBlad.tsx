@@ -23,6 +23,7 @@ import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { IkonUppladdning } from '@/components/illustrations/MallIkoner'
 import { START } from './texter'
+import { FANNS_REDAN_VANTAN } from '@/lib/cv/dubblett'
 
 const CVUploadZone = dynamic(() => import('@/components/cv/cv-upload-zone'), { ssr: false })
 
@@ -56,9 +57,11 @@ export default function StartBlad({
     capture('cv_start_val', { val: 'upp', titel: Boolean(titel.trim()) })
     capture('cv_eget_start', { method: metod, surface: 'byggare' })
     let nyttId: string | null = null
+    let fannsRedan = false
     try {
       await uploadCV(fil, fil.name.split('.').slice(0, -1).join('.') || fil.name, fas, (cv) => {
         nyttId = cv.id
+        fannsRedan = cv.fannsRedan === true
       })
     } catch (e) {
       capture('cv_eget_misslyckad', { method: metod, reason: 'fel', surface: 'byggare' })
@@ -69,7 +72,13 @@ export default function StartBlad({
     const q = new URLSearchParams({ cv: nyttId, upp: '1', mall })
     if (titel.trim()) q.set('titel', titel.trim().slice(0, 80))
     // Full laddning: servern läser det tolkade CV:t och ritar arket.
-    window.location.assign(`/dashboard/skapa-cv?${q.toString()}`)
+    const url = `/dashboard/skapa-cv?${q.toString()}`
+    if (fannsRedan) {
+      // Samma CV fanns redan: zonen visar raden en stund innan det öppnas.
+      window.setTimeout(() => window.location.assign(url), FANNS_REDAN_VANTAN)
+      return { fannsRedan: true }
+    }
+    window.location.assign(url)
   }
 
   return (

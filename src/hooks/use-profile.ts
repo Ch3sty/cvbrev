@@ -807,7 +807,8 @@ export const useProfile = () => {
     file: File,
     title?: string,
     onPhaseChange?: (phase: 'uploading' | 'vision', label: string) => void,
-    onComplete?: (cv: { id: string }) => void,
+    // fannsRedan: samma CV (samma filnamn och innehåll) fanns redan och öppnades.
+    onComplete?: (cv: { id: string; fannsRedan?: boolean }) => void,
   ): Promise<boolean> => {
     if (calculateCvLimitReached(subscriptionTier, cvCount)) {
        const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
@@ -902,7 +903,7 @@ export const useProfile = () => {
         // completePayload.data är hela cv_texts-raden (se /api/cv/upload).
         const uploadedCv = completePayload.data;
         if (uploadedCv?.id && onComplete) {
-          onComplete({ id: uploadedCv.id });
+          onComplete({ id: uploadedCv.id, fannsRedan: uploadedCv.fannsRedan === true });
         }
         // Uppdatera den delade datan i stället för två egna anrop.
         if (hasProvider) {

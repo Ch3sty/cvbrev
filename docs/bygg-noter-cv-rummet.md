@@ -565,3 +565,16 @@ Prestanda, ostörd mätning på lokalt produktionsbygge (Pixel 7, `--samtycke`, 
 Analys håller budgeten. Ditt CV ligger 0,1 till 0,3 s över. Servern svarar på cirka 0,2 s när den är varm och texten målas vid 0,65 till 0,9 s; det som blir LCP är mallbilden `/mallar/v2/linne-stor.webp`, som kommer efter första målningen. Före dagens ändringar mättes Ditt CV till 1008 ms. Nästa steg är att ge den bilden förtur (förladdning eller hög prioritet) och mäta om.
 
 Kvar av samma slag, inte rört: `send-verification-reminders` anropas av pg_cron med den publika nyckeln och finns inte i repot. Den skickar mejl till riktiga användare, så spärren bör läggas med någon som kan följa nästa morgonkörning.
+
+### Fyra småpunkter efter svepet (2026-11-21, sent)
+
+Beslutade gemensamt av saas-lead och UX på ägarens uppdrag.
+
+- **Språknivån gäller som personen skrev den.** Inläsningen ber om nivån ordagrant (regel 4 i `cv-parser.ts`), och `egenEllerTolkadNiva` i `sprak.ts` behåller en nivå på högst 30 tecken som står i CV-texten. "Goda kunskaper" är ett eget steg mellan Flytande och Konversation (god, goda, good, B1/B2). Väljaren i byggaren visar en egen formulering som första alternativ. Redan inlästa CV som fått "Konversation" visas som "Goda kunskaper" när språkets rad i `cv_text` säger god, goda eller bra (`harledSprakniva`, härlett vid läsning, ingen skrivning). Poängen räknar en nivå som finns när strängen inte är tom.
+- **Den publika mini-analysen** svarar 422 med koden `IMAGE_BASED_PDF` på en inskannad PDF, i stället för "Försök igen om en stund". Beskedet leder till `/register?borja=cv` ("Skapa gratiskonto"), med Word som utväg. Ingen bildläsning utan konto. Efter kontot landar man på byggarens startblad, ett tryck från uppladdningen.
+- **Dubbletter jämförs på innehåll, inte filnamn** (`src/lib/cv/dubblett.ts`, upload-rutten). Samma innehåll öppnar det befintliga CV:t med raden "Du har redan laddat upp det här CV:t, så vi öppnade det." Annat innehåll under samma filnamn sparas som nytt CV med namnet "… (2)" och egen lagringsväg (`__v<tid>`), så den gamla filen inte skrivs över. Stämmer inte texten jämförs filen byte för byte mot lagringen, eftersom byggaren skriver om `cv_text` vid varje sparning.
+- **`cv_text` efter Ersätt sparas maskad** med samma funktion som uppladdningen (`maskaLagradCvText` i `src/lib/privacy/lagradCvText.ts`).
+
+Inte gjort, och känt: `cv_text` skrivs fortfarande omaskad av `/api/cv/strukturerad` (varje sparning i byggaren och arbetsläget) och av save-improved när man väljer "nytt". Lagringen är alltså inte enhetlig än. Ingen läcka: allt maskas när det skickas till modellen.
+
+Kontroll: tsc rent, hela vitest 4409 gröna, `next build` grönt, klicktest på lokalt produktionsbygge i 412 och 1440 (språknivåerna på ark, i väljaren, i Kalkstens smala spalt och i Word-filen; dubbletten i zonen och i arket; mini-analysens besked och knapp). Ersätt-vägen är bara kontrollerad med test, eftersom den kräver hämtade förslag.

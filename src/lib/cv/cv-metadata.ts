@@ -68,16 +68,18 @@ export interface CVCertification {
   credentialId?: string;
 }
 
-/** De fem språknivåerna. */
-export type Sprakniva = 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig';
+/** Språknivåerna i väljaren (Goda kunskaper sedan 2026-11-21). */
+export type Sprakniva = 'Nybörjare' | 'Konversation' | 'Goda kunskaper' | 'Flytande' | 'Modersmål' | 'Tvåspråkig';
 
 export interface CVLanguage {
   language: string;
   /**
    * Tom sträng när CV:t inte anger någon nivå (inläsningen gissar aldrig,
-   * src/lib/cv/sprak.ts). Mallarna skriver då bara språket.
+   * src/lib/cv/sprak.ts). Mallarna skriver då bara språket. Sedan
+   * 2026-11-21 kan nivån också vara personens egen formulering ur CV:t
+   * (högst 30 tecken), som då skrivs ordagrant.
    */
-  proficiency: Sprakniva | '';
+  proficiency: Sprakniva | '' | (string & {});
 }
 
 export interface CVMetadata {

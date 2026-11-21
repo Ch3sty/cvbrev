@@ -5,10 +5,11 @@ import { useState, useCallback, useRef, type ReactNode } from 'react';
 import { Upload, FileText, X } from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
+import { FANNS_REDAN_TEXT, FANNS_REDAN_VANTAN } from '@/lib/cv/dubblett';
 
 interface InlineCVUploadProps {
   /** Anropas med det uppladdade CV:t så fort servern bekräftat det. */
-  onComplete: (cv: { id: string }) => void;
+  onComplete: (cv: { id: string; fannsRedan?: boolean }) => void;
   onCancel?: () => void;
   showCancel?: boolean;
   /** Dölj kortets egen rubrik när föräldern redan satt en. */
@@ -46,6 +47,8 @@ export default function InlineCVUpload({
   const [selectedFile, setSelectedFile] = useState<File | null>(startFil);
   // Serverns fas under uppladdningen: bildbaserad PDF läses med OCR och tar längre tid.
   const [fasText, setFasText] = useState<string | null>(null);
+  // Samma CV fanns redan: raden står på fastextens plats, sedan öppnas det.
+  const [fannsRedan, setFannsRedan] = useState(false);
 
   const { uploadCV, subscriptionTier } = useProfile();
 
@@ -95,6 +98,13 @@ export default function InlineCVUpload({
         title,
         (fas, label) => setFasText(fas === 'vision' ? label : null),
         (cv) => {
+          if (cv.fannsRedan) {
+            // Raden ska hinna läsas innan arket stängs och CV:t öppnas.
+            setFasText(null);
+            setFannsRedan(true);
+            window.setTimeout(() => onComplete(cv), FANNS_REDAN_VANTAN);
+            return;
+          }
           setSuccess(true);
           onComplete(cv);
         }
@@ -234,7 +244,11 @@ export default function InlineCVUpload({
                 </div>
               )}
 
-              {uploading && fasText ? (
+              {fannsRedan ? (
+                <p role="status" data-fanns-redan className="text-sm text-ink-2">
+                  {FANNS_REDAN_TEXT}
+                </p>
+              ) : uploading && fasText ? (
                 <p role="status" className="text-sm text-ink-2">
                   {fasText}
                 </p>
@@ -245,7 +259,7 @@ export default function InlineCVUpload({
                 disabled={!gdprAccepted || uploading}
                 className={KNAPP_PRIMAR}
               >
-                {uploading ? 'Laddar upp...' : 'Ladda upp CV'}
+                {uploading && !fannsRedan ? 'Laddar upp...' : 'Ladda upp CV'}
               </button>
 
               {subscriptionTier === 'free' && (

@@ -56,7 +56,7 @@ const lista = (t: string) =>
     .map((r) => r.trim())
     .filter(Boolean)
 
-const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Konversation', 'Nybörjare', 'Tvåspråkig']
+const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Goda kunskaper', 'Konversation', 'Nybörjare', 'Tvåspråkig']
 
 export default function AvsnittArk({ sektion, fokus, rubrik, cv, onSpara, onClose }: AvsnittArkProps) {
   const [utkast, setUtkast] = useState<CVMetadata>(cv)
@@ -268,6 +268,8 @@ export default function AvsnittArk({ sektion, fokus, rubrik, cv, onSpara, onClos
               </Falt>
               <Falt etikett="Nivå">
                 <select className={FALT} value={x.proficiency ?? ''} onChange={(e) => satt((c) => void (c.languages![i].proficiency = e.target.value as CVLanguage['proficiency']))}>
+                  {/* Personens egen formulering ur CV:t står först, så att den inte byts bort. */}
+                  {x.proficiency && !NIVAER.includes(x.proficiency) ? <option value={x.proficiency}>{x.proficiency}</option> : null}
                   {NIVAER.map((n) => (
                     <option key={n}>{n}</option>
                   ))}

@@ -13,7 +13,7 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { checkDailyBudget, checkIpRateLimit, getClientIp } from '@/lib/rate-limit/ip'
-import { parseCV, cleanExtractedText } from '@/lib/cv-parser'
+import { parseCV, cleanExtractedText, ImageBasedPdfError } from '@/lib/cv-parser'
 import { analyzeCvBasic } from '@/lib/openai/cv-analysis'
 import { parseCV as parseCVStructure } from '@/lib/cv/cv-parser'
 import { poangForRad } from '@/lib/cv/poang'
@@ -30,6 +30,21 @@ const MAX_FILE_BYTES = 5 * 1024 * 1024
 const MIN_TEXT_LENGTH = 200
 
 const ALLOWED_EXTENSIONS = ['pdf', 'docx', 'txt']
+
+/** Felkoden när PDF:en är sparad som bild (samma kod som uppladdningen i kontot). */
+const BILD_PDF_KOD = 'IMAGE_BASED_PDF'
+/** Registreringen med valet CV, som efter kontot landar i CV-starten med uppladdningen. */
+const BILD_PDF_REGISTER = '/register?borja=cv'
+const BILD_PDF_TEXT =
+  'Ditt CV är sparat som bild, så vi kan inte läsa texten här. Skapa ett gratiskonto så läser vi av den, det tar ungefär en halv minut. Har du CV:t som Word-fil kan du ladda upp den här i stället.'
+
+/** 422 för en inskannad PDF: kontot läser av bilden, publikt gör vi det inte. */
+function bildPdfSvar() {
+  return NextResponse.json(
+    { error: BILD_PDF_KOD, code: BILD_PDF_KOD, message: BILD_PDF_TEXT, registerHref: BILD_PDF_REGISTER },
+    { status: 422 }
+  )
+}
 
 export async function POST(request: Request) {
   let file: File | null = null
@@ -94,8 +109,18 @@ export async function POST(request: Request) {
   try {
     // Texten lever bara i den här funktionens scope. Den skrivs aldrig till
     // disk, databas eller logg.
-    const rawText = await parseCV(file)
+    let rawText: string
+    try {
+      rawText = await parseCV(file)
+    } catch (err) {
+      // En inskannad PDF läses inte här (ingen bildläsning publikt). Förut
+      // blev den ett 500 och ett nytt försök lyckades aldrig.
+      if (err instanceof ImageBasedPdfError) return bildPdfSvar()
+      throw err
+    }
     const cvText = cleanExtractedText(rawText)
+
+    if (extension === 'pdf' && (!cvText || cvText.length < MIN_TEXT_LENGTH)) return bildPdfSvar()
 
     if (!cvText || cvText.length < MIN_TEXT_LENGTH) {
       return NextResponse.json(

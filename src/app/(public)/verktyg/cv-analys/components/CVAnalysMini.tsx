@@ -159,6 +159,8 @@ export default function CVAnalysMini() {
           className="sr-only"
           onChange={(e) => {
             const file = e.target.files?.[0]
+            // Tömt efter valet, så att samma eller en ny fil kan väljas direkt efter ett besked.
+            e.target.value = ''
             if (file) void handleFile(file)
           }}
         />
@@ -184,17 +186,30 @@ export default function CVAnalysMini() {
           <p className="mt-3 text-xs text-ink-3">{fileName}</p>
         ) : null}
 
-        {error ? (
+        {error && registerHref ? (
+          // Ett besked med en väg vidare (inskannad PDF, dygnsgränsen,
+          // budgettaket): ingen röd text, knappen i uppladdningsknappens mått
+          // med kantlinje. Full bredd under texten i mobil, vänsterställd på
+          // dator. Uppladdningsknappen ovanför står kvar för en Word-fil.
+          <div role="alert" data-mini-besked className="mt-4 rounded-lg border border-kant p-4">
+            <p className="text-sm leading-relaxed text-ink-2">{error}</p>
+            <Link
+              href={registerHref}
+              data-cta="mini-analys-besked"
+              onClick={() =>
+                capture('signup_started', {
+                  cluster: 'cv',
+                  source_page: '/verktyg/cv-analys',
+                })
+              }
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-ink-1 bg-transparent px-4 text-sm font-medium text-ink-1 transition-opacity hover:opacity-80 sm:w-auto"
+            >
+              Skapa gratiskonto
+            </Link>
+          </div>
+        ) : error ? (
           <div className="mt-4 rounded-lg border border-kant p-4">
             <p className="text-sm text-red-700">{error}</p>
-            {registerHref ? (
-              <Link
-                href={registerHref}
-                className="mt-2 inline-block text-sm font-medium text-ink-2 underline underline-offset-4 hover:text-ink-1"
-              >
-                Skapa ett gratiskonto
-              </Link>
-            ) : null}
           </div>
         ) : null}
 

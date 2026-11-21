@@ -132,7 +132,7 @@ REGLER FÖR SPRÅK (languages):
 1. Ta BARA med språk som uttryckligen står i CV-texten: i ett avsnitt som "Språk", "Språkkunskaper" eller "Languages", eller i löptext som "flytande engelska" eller "talar arabiska".
 2. Gissa ALDRIG språk utifrån vilket språk CV:t är skrivet på, personens namn, ursprung eller arbetsplatser. Ett svenskt CV utan språkavsnitt ger INTE "Svenska".
 3. Skriv språkets namn som det står i CV:t, utan nivån (t.ex. "Engelska", inte "Flytande engelska").
-4. proficiency: nivån så som CV:t anger den, översatt till en av "Modersmål", "Tvåspråkig", "Flytande", "Konversation", "Nybörjare" (mycket god eller C1/C2 = Flytande, god eller B1/B2 = Konversation, grundläggande eller A1/A2 = Nybörjare). Anger CV:t ingen nivå: tom sträng "".
+4. proficiency: nivån ORDAGRANT som den står i CV:t, med samma ord och utan språknamnet (t.ex. "goda kunskaper", "grundläggande", "C1", "flytande i tal och skrift"). Översätt, förkorta eller byt den ALDRIG mot en annan nivå. Anger CV:t ingen nivå: tom sträng "".
 5. Står inga språk i CV:t: "languages": [].
 
 VANLIGA FEL ATT UNDVIKA:

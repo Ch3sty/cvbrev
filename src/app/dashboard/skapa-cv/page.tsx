@@ -28,6 +28,7 @@ import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
 import { dokumentEpost } from '@/lib/profile/dokumentEpost'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
+import { radMedHarleddSprakniva } from '@/lib/cv/sprak'
 import { forberedInloggatCv } from '@/lib/cv/forbered-inloggat-cv'
 import { medSpok } from '@/lib/cv/bygg/spok'
 import { renderaMallHtml } from '@/lib/cv/rendera-mall-html'
@@ -116,7 +117,8 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
     antal = lista.length
     maxCvs = grans.maxCvs
     senasteTitel = (lista.find((c) => (c.titel ?? '').trim())?.titel ?? '').trim()
-    rad = (radRes.data as Rad | null) ?? null
+    // Nivån "Goda kunskaper" härleds för CV inlästa före 2026-11-21 (sprak.ts), bara vid läsning.
+    rad = radRes.data ? radMedHarleddSprakniva(radRes.data as Rad) : null
     profil = (profilRes.data as Record<string, string | null> | null) ?? null
     scope = scopeRes
     isPremium = scopeHasFeature(scope, 'cv_templates_all')
