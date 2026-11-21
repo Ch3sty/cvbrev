@@ -398,7 +398,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
     }
 
     .sidebar {
-      width: 23%;
+      width: auto;
+      min-width: 23%;
+      max-width: 36%;
       flex-shrink: 0;
       flex-grow: 0;
       border-right: 2px solid #666666;
@@ -406,11 +408,14 @@ export const sidebarDocxTemplate: DocxTemplate = {
       margin-right: 2rem;
     }
 
+    /* Fynd 7 (2026-11-21): break-all bröt e-postadressen mitt i ordet. Spalten
+       växer nu med en lång adress (högst 36 %), och bara en adress som inte
+       ryms ens då bryts. */
     .sidebar p {
       margin-bottom: 0.75rem;
       font-size: 10pt;
-      word-break: break-all;
-      overflow-wrap: break-word;
+      word-break: normal;
+      overflow-wrap: anywhere;
       hyphens: none;
     }
 
@@ -533,7 +538,8 @@ export const sidebarDocxTemplate: DocxTemplate = {
         ? [{ text: profile.phone, bold: false }]
         : []
       ),
-      { text: profile.email, bold: false },
+      // Fynd 7: en lång e-postadress får mindre grad (lägst 8 pt) i stället för att brytas mitt i ordet.
+      { text: profile.email, bold: false, size: Math.max(16, Math.min(20, Math.floor((2 * 116) / Math.max(1, profile.email.length * 0.55)))) },
       ...(profile.include_location_in_letters && profile.location
         ? [{ text: profile.location, bold: false }]
         : []
@@ -588,7 +594,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                         children: [
                           new TextRun({
                             text: item.text,
-                            size: item.bold ? 22 : 20,
+                            size: 'size' in item && item.size ? item.size : item.bold ? 22 : 20,
                             bold: item.bold,
                             font: font
                           })

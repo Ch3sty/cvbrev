@@ -1571,3 +1571,7 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
     ],
   })
 }
+
+/* Brevmallen (src/lib/letters/brevmall/word.ts) bygger brevets huvud med samma delar. Bara exporter, inget ändrat. */
+export { huvudInnehall, huvudStycken, bandCell, remsaTabell, stilar, wordTypsnitt, skapaLinjer, linjerSomBehovs, rubrik2, iSpaltcell, stycke, tabell, tabellCell }
+export type { B as WordSammanhang, Ruta as WordRuta }
