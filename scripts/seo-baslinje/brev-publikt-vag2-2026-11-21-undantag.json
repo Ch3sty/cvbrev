@@ -1,0 +1,17 @@
+{
+  "_om": "Våg 2 för brevets publika ytor (byggspecen våg 2, 2026-11-21, beslutad av saas-lead, SEO och UX): den gemensamma mallvisaren på exempelsidorna och i 22 artiklar. Väntat och avsiktligt, utan undantag i skriptet eftersom det redovisas som ok: i de 19 artiklarna med PersonligtBrevPreview syns summary \"Läs brevet som text\" som ny FAQ-fråga och ordantalet i main stiger med brevets text. Två artiklar får nya lydelser (löftet om typsnittsval försvinner), vilket ändrar BlogPostings wordCount med några ord; posterna nedan tillåter just det. Exempelsidornas avtryck är oförändrat mot våg 1 (rubriker, FAQ, JSON-LD, metadata, länkar), och inga nya rubriker någonstans. Läses av scripts/seo-diff-artiklar.ts.",
+  "LD_UNDANTAG": [
+    {
+      "path": "/artiklar/personligt-brev-mall-gratis",
+      "datum": "2026-11-21",
+      "skal": "Våg 2: meningen före mallvisaren lovade typsnittsval. Ny lydelse: \"Innan du läser vidare: så här kan en mall för personligt brev se ut, byggd för svenska rekryterare. Byt mellan fem mallar och se hur samma brev ändrar ton:\". Bara BlogPostings wordCount ändras.",
+      "andrade": ["BlogPosting"]
+    },
+    {
+      "path": "/artiklar/hur-skriver-man-ett-personligt-brev",
+      "datum": "2026-11-21",
+      "skal": "Våg 2: meningen före förhandsvisningen lovade typsnitt och layouter. Ny lydelse: \"Det hjälper också att se ett färdigt brev i en mall. Här är ett exempel för säljare som du kan se i fem olika mallar:\". Bara BlogPostings wordCount ändras.",
+      "andrade": ["BlogPosting"]
+    }
+  ]
+}
