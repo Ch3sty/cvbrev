@@ -12,6 +12,7 @@ import type { Suggestion } from '@/components/cv/SuggestionSelector';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 import { logUserActivity } from '@/lib/activity-logger';
+import { maskaMedAterstallning, maskaDjupt } from '@/lib/privacy/aterstall';
 
 // Helper function to get original CV filename
 async function getOriginalFilename(supabase: any, userId: string, cvId: string): Promise<string | null> {
@@ -75,11 +76,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Inga personuppgifter till modellen (ägarens regel 2026-11-21): CV-texten,
+    // förslagen och analysen maskas med profilens namn och nummer som kända
+    // värden. Modellen skriver om CV:t med platshållare, och hennes riktiga
+    // uppgifter sätts tillbaka här efter svaret (lib/privacy/aterstall.ts).
+    const { data: agare } = await supabase
+      .from('profiles')
+      .select('full_name, phone')
+      .eq('id', user.id)
+      .maybeSingle();
+    const maskning = maskaMedAterstallning(originalContent, {
+      fullName: (agare as { full_name?: string | null } | null)?.full_name ?? null,
+      phone: (agare as { phone?: string | null } | null)?.phone ?? null,
+    });
+
     // Create improvement context with all available information
     const improvementContext: ImprovementContext = {
-      originalContent,
-      selectedSuggestions,
-      analysisDetails: analysisDetails || {}
+      originalContent: maskning.text,
+      selectedSuggestions: maskaDjupt(selectedSuggestions, maskning.maska),
+      analysisDetails: maskaDjupt(analysisDetails || {}, maskning.maska)
     };
 
     // Generate sophisticated prompt using the new system
@@ -97,7 +112,8 @@ export async function POST(request: NextRequest) {
       thinkingBudget: 1024,
     });
 
-    const improvedContent = completion.text;
+    // Hennes namn och kontaktuppgifter tillbaka i det omskrivna CV:t.
+    const improvedContent = maskning.aterstall(completion.text);
 
     // Validate the improved CV
     const validation = validateImprovedCV(originalContent, improvedContent);

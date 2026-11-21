@@ -5,7 +5,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import { markFirstMilestone } from '@/lib/activation-tracking';
 import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
-import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
+import { lasPdfMedOcr, maskaOcrRester } from '@/lib/cv-parser/ocr';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
 import { backfillProfileContact } from '@/lib/profile/backfillContact';
@@ -13,7 +13,21 @@ import { extractContactLocally, type ExtractedContact } from '@/lib/privacy/extr
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { paketKort } from '@/lib/plans/plans';
 export const runtime = 'nodejs';
-export const maxDuration = 60;
+// Bild-PDF:er läses med OCR på servern (upp till fem sidor, två pass per
+// sida). OCR-delen har en egen tidsbudget (OCR_TIDSBUDGET_MS, 40 s), och
+// strukturen, lagringen och databasen behöver marginal efter den.
+export const maxDuration = 120;
+
+/** Beskedet när en bildbaserad PDF inte gick att läsa säkert. */
+const BILD_PDF_BESKED = `Vi kunde inte läsa texten i PDF-filen. Den verkar vara skannad eller sparad som bild.
+
+Så här gör du:
+1. Öppna ditt CV i Word, Pages eller Google Docs.
+2. Spara det som PDF (Arkiv och sedan Exportera eller Spara som).
+3. Kontrollera att du kan markera texten med musen.
+4. Ladda upp den nya filen.
+
+Du kan också ladda upp CV:t som Word-fil (.docx).`;
 
 function escapeDatabasePlaceholder(text: string): string {
   return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
@@ -30,6 +44,8 @@ function stripPii(text: string): string {
     .replace(/https?:\/\/[^\s]+/g, '[URL]');
 }
 
+// 'vision' är fasens gamla namn och läses av klienten. I dag betyder den OCR
+// på vår egen server, aldrig ett bildanrop till modellen.
 type SsePhase = 'uploading' | 'vision';
 
 interface SseEmitter {
@@ -164,9 +180,9 @@ async function runUpload(request: Request, emitter: SseEmitter) {
         placeholderUsed = true;
       } else if (isPdf && (matchesPdfError || tooShort)) {
         // PDF där pdf-parse strular eller returnerar för lite text →
-        // försök vision-fallback i alla fall
+        // försök OCR i alla fall
         console.warn(
-          `⚠️ parseCV gav otillräcklig output för ${originalFileName} (${extractedText.length} tecken). Försöker vision-fallback.`
+          `⚠️ parseCV gav otillräcklig output för ${originalFileName} (${extractedText.length} tecken). Försöker OCR.`
         );
         needsVisionFallback = true;
       } else if (tooShort) {
@@ -176,7 +192,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
     } catch (parseError) {
       if (parseError instanceof ImageBasedPdfError) {
         console.info(
-          `[upload] image-based PDF detected (${parseError.extractedLength} chars). Försöker vision-fallback.`
+          `[upload] image-based PDF detected (${parseError.extractedLength} chars). Försöker OCR.`
         );
         needsVisionFallback = true;
       } else {
@@ -191,35 +207,37 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       }
     }
 
-    // Vision-fallback (FAS 2)
+    // Bildbaserad PDF (FAS 2): sidorna läses med OCR här på servern.
+    // Sidbilderna lämnar aldrig servern och modellen är aldrig reserv för
+    // bilder (ägarens regel 2026-11-21). Texten går sedan samma väg som all
+    // annan CV-text: kontakten läses lokalt, texten maskas, och bara den
+    // maskade texten struktureras. Läsningen avvisas hellre än att ett
+    // halvläst CV sparas (för lite text, låg konfidens, saknade block).
     if (needsVisionFallback) {
-      emitter.phase(
-        'vision',
-        'Datan ligger bakom grafik. Vi läser igenom det — tar några sekunder till...'
-      );
+      emitter.phase('vision', 'Texten i ditt CV ligger som bild. Vi läser av den, det kan ta upp till en minut.');
 
       const pdfData = new Uint8Array(await file.arrayBuffer());
-      const visionText = await extractTextWithVision(pdfData);
+      const ocr = await lasPdfMedOcr(pdfData);
 
-      if (visionText && visionText.length >= 50) {
-        extractedText = visionText;
+      if (ocr.ok) {
+        extractedText = ocr.text;
         textExtractionFailed = false;
         placeholderUsed = false;
         usedVisionFallback = true;
-        console.info(`[upload] vision-fallback lyckades: ${visionText.length} tecken`);
+        console.info(
+          `[upload] ocr ok: ${ocr.text.length} tecken, ${ocr.sidor} sidor, konfidens ${Math.round(ocr.konfidens)}, täckning ${ocr.tackning.toFixed(2)}, ${ocr.ms} ms`
+        );
       } else {
+        // Loggraden visar skälet. tekniskt_fel betyder att wasm-kärnan eller
+        // språkdatan saknas i funktionspaketet (fel= säger vilken fil).
+        // Användaren får samma besked oavsett skäl.
+        console.warn(
+          `[upload] ocr avvisad: skäl=${ocr.skal} konfidens=${ocr.konfidens != null ? Math.round(ocr.konfidens) : '-'} täckning=${ocr.tackning != null ? ocr.tackning.toFixed(2) : '-'} tecken=${ocr.tecken ?? '-'} sidor=${ocr.sidor ?? '-'} ms=${ocr.ms}${ocr.fel ? ` fel=${ocr.fel}` : ''}`
+        );
         emitter.error({
           error: 'IMAGE_BASED_PDF',
           code: 'IMAGE_BASED_PDF',
-          message: `PDF-filen verkar vara skannad eller bildbaserad och vi lyckades inte läsa innehållet.
-
-Lösning:
-1. Öppna ditt CV i Word/Pages/Google Docs
-2. Välj: Arkiv → Exportera → PDF
-3. Kontrollera att texten ÄR selekterbar (testa att markera text med musen)
-4. Ladda upp den nya PDF:en
-
-Alternativt: Ladda upp som .DOCX istället.`,
+          message: BILD_PDF_BESKED,
           status: 400,
         });
         return emitter.close();
@@ -231,15 +249,7 @@ Alternativt: Ladda upp som .DOCX istället.`,
       emitter.error({
         error: 'INSUFFICIENT_TEXT',
         code: 'IMAGE_BASED_PDF',
-        message: `Vi kunde inte extrahera tillräckligt med text från filen.
-
-Lösning:
-1. Öppna ditt CV i Word/Pages/Google Docs
-2. Välj: Arkiv → Exportera → PDF
-3. Kontrollera att texten ÄR selekterbar
-4. Ladda upp den nya PDF:en
-
-Alternativt: Ladda upp som .DOCX istället.`,
+        message: BILD_PDF_BESKED,
         status: 400,
       });
       return emitter.close();
@@ -253,6 +263,16 @@ Alternativt: Ladda upp som .DOCX istället.`,
     if (extractedText && !textExtractionFailed) {
       kontaktUrFilen = extractContactLocally(extractedText);
       extractedText = stripPii(extractedText);
+      // OCR läser ibland fel i just namnet eller adressen ("eriklindberd"),
+      // och då känner mönstren inte igen dem. Ord som liknar profilens eller
+      // CV:ts namn maskas därför också, i det som sparas och i det som går
+      // till strukturen.
+      if (usedVisionFallback) {
+        extractedText = maskaOcrRester(extractedText, [
+          (profile as { full_name?: string | null }).full_name,
+          kontaktUrFilen.fullName,
+        ]);
+      }
     }
 
     let textToSave = extractedText;

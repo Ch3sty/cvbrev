@@ -16,7 +16,6 @@ export {
   type GenerateTextResult,
   type GenerateJSONResult,
 } from './generate';
-export { generateFromImages, type VisionOptions } from './vision';
 export {
   embedTexts,
   embedQuery,
