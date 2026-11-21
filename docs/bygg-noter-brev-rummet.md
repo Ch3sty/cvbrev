@@ -9,7 +9,7 @@ Spec: BYGGSPEC (art director, 2026-11-21). Ett avsnitt per uppdrag.
 Datamodellen, reglerna och rutterna för brevrummet. Inga vyer, ingen CSS.
 
 - Migreringen `supabase/migrations/20261121130000_brev_rummet.sql`: nya nullbara kolumner på `letters` (bara tillägg, går att köra flera gånger). **Inte körd.** Art director kör den.
-- Rena, testade funktioner i `src/lib/letters/` (test: `src/lib/letters/__tests__/brevrummet-motor.test.ts`, 43 fall).
+- Rena, testade funktioner i `src/lib/letters/` (test: `src/lib/letters/__tests__/brevrummet-motor.test.ts`, 43 fall; autosparet i `src/hooks/__tests__/use-brev-autospar.test.tsx`, 2 fall).
 - Rutterna i `src/app/api/letters/` (utom `download/`).
 - Kravanropet i AI-lagret: `src/lib/openai/brevKrav.ts`.
 - Storen och hooken: `src/store/letter-store.ts`, `src/hooks/use-letters.ts`.
