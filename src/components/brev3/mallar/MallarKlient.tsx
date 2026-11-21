@@ -18,6 +18,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import BrevArk from '@/components/brev3/ark/BrevArk'
 import {
   Bricka,
@@ -50,6 +51,7 @@ import { MALL_FILTER, passarFilter, type MallarKort, type MallFilter } from './f
 import { MallKort } from './MallKort'
 import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
+import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
 
 const BytBrevArk = dynamic(() => import('./BytBrevArk'), { ssr: false })
 
@@ -92,6 +94,8 @@ export interface MallarKlientProps {
   /** Tillbaka från kassan: ladda ner av sig själv. */
   ladda: boolean
   laddaFormat: Filformat
+  /** ?premium_activated=true: direkt från ett köp, så tillgången väntas in om webhooken ligger efter. */
+  kopRetur: boolean
 }
 
 const nyckel = (mall: string, font: string | null) => `${mall}|${font ?? ''}`
@@ -102,6 +106,7 @@ const TYPSNITT_CSS = fontFace([...BREV_TYPSNITT.map((t) => t.id), 'montserrat', 
 export default function MallarKlient(p: MallarKlientProps) {
   const { brev, katalog } = p
   const kampanj = useKampanjPris()
+  const router = useRouter()
   const brevId = brev?.id ?? EXEMPEL_ID
 
   const [visad, setVisad] = useState(p.initialMall)
@@ -136,10 +141,15 @@ export default function MallarKlient(p: MallarKlientProps) {
     const q = new URLSearchParams(window.location.search)
     if (brev) q.set('brev', brev.id)
     q.set('mall', visad)
-    q.delete('ladda')
-    q.delete('format')
-    q.delete('premium_activated')
+    // Köpreturens parametrar står kvar medan tillgången väntas in (router.refresh
+    // läser dem); kit/kopretur städar dem när returen är klar.
+    if (!(p.ladda && p.kopRetur && !p.kanLaddaNer)) {
+      q.delete('ladda')
+      q.delete('format')
+      q.delete('premium_activated')
+    }
     window.history.replaceState(window.history.state, '', `${window.location.pathname}?${q.toString()}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visad, brev])
 
   /* ---------------------------------------------------------------- arket */
@@ -271,13 +281,21 @@ export default function MallarKlient(p: MallarKlientProps) {
   )
 
   // Tillbaka från kassan (?ladda=1): filen laddas ner en gång, av sig själv.
-  const laddaStartad = useRef(false)
-  useEffect(() => {
-    if (!p.ladda || laddaStartad.current || !brev || !p.kanLaddaNer) return
-    laddaStartad.current = true
-    void laddaNer(p.laddaFormat)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // Hinner webhooken inte före returen väntar vi in tillgången med
+  // router.refresh (kit/kopretur), som Brevet gör.
+  const kop = useKopretur(
+    {
+      begart: p.ladda ? p.laddaFormat : null,
+      kopRetur: p.kopRetur,
+      kanLaddaNer: p.kanLaddaNer,
+      formatFinns: !!brev && (p.laddaFormat === 'pdf' || visadKort.word),
+    },
+    { refresh: () => router.refresh(), laddaNer: (f) => void laddaNer(f), stadaAdress: stadaKopreturAdress },
+  )
+  // Under väntan visar knappen samma upptagna läge som en vanlig nedladdning.
+  // Word-knappen syns först med tillgång, så väntan visas på huvudknappen.
+  const upptagen = laddar ?? (kop.vantar ? 'pdf' : null)
+  const felText = fel ?? (kop.ejRegistrerat ? T.fel.kopEjRegistrerat : null)
 
   const kopiera = async () => {
     if (!p.kopieraText || !brev) return
@@ -305,9 +323,9 @@ export default function MallarKlient(p: MallarKlientProps) {
   const kopHref = kopstegHref(SALD_PLAN, 'mall', { retur: returTill, mall: visad })
 
   const laddaKnapp = brev ? (
-    <StorKnapp onClick={() => void laddaNer('pdf')} disabled={laddar !== null}>
+    <StorKnapp onClick={() => void laddaNer('pdf')} disabled={upptagen !== null}>
       <IkonLaddaNer size={20} />
-      {laddar === 'pdf' ? T.laddarNer : T.laddaNer(visadKort.namn)}
+      {upptagen === 'pdf' ? T.laddarNer : T.laddaNer(visadKort.namn)}
     </StorKnapp>
   ) : (
     <StorKnapp href="/dashboard/skapa-brev">
@@ -317,9 +335,9 @@ export default function MallarKlient(p: MallarKlientProps) {
   )
   const wordKnapp =
     brev && p.kanLaddaNer && visadKort.word ? (
-      <Bricka onClick={() => void laddaNer('docx')} disabled={laddar !== null}>
+      <Bricka onClick={() => void laddaNer('docx')} disabled={upptagen !== null}>
         <IkonLaddaNer size={18} />
-        {laddar === 'docx' ? T.laddarNer : T.word}
+        {upptagen === 'docx' ? T.laddarNer : T.word}
       </Bricka>
     ) : null
   const sidorad = !brev ? null : p.kanLaddaNer ? T.sidoradPremium(visadKort.word) : T.sidoradGratis(visadKort.word, pris)
@@ -416,9 +434,9 @@ export default function MallarKlient(p: MallarKlientProps) {
           {namnKravs ? (
             <NameRequiredNotice className="mb-4" rubrik={T.namnRubrik} text={T.namnText} onSaved={() => void laddaNer(namnKravs)} />
           ) : null}
-          {fel ? (
+          {felText ? (
             <p className="b3-ml-fel" role="alert">
-              {fel}
+              {felText}
             </p>
           ) : null}
           <div className="b3-ml-panelhuvud">

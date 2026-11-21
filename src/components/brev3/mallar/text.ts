@@ -51,6 +51,7 @@ export const MALLAR_TEXT = {
     forhandsvisa: 'Mallen kunde inte visas. Försök igen.',
     ladda: 'Filen kunde inte skapas. Försök igen.',
     last: 'Brevet är låst på gratisnivån, så mallen sparades inte.',
+    kopEjRegistrerat: 'Köpet är inte registrerat än. Ladda om sidan om en liten stund, så laddas filen ner.',
   },
   namnRubrik: 'Vi behöver ditt namn först',
   namnText: 'Det står överst i brevet.',
