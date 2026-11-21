@@ -145,6 +145,63 @@ async function runUpload(request: Request, emitter: SseEmitter) {
 
     console.log(`ℹ️ Original filename: ${originalFileName}`);
 
+    // Kvotkontrollen. Behörigheten läses via premiumAccess, så att engångsköp
+    // i premium_grants och admin räknas, inte bara profiles.subscription_tier.
+    // Ger beskedet som ska skickas, eller null när uppladdningen får fortsätta.
+    const kvotSparr = async (): Promise<{ error: string; code: string; status: number } | null> => {
+      const { harBetalt, maxCvs: cvGrans } = await getCvGrans(supabase, user.id);
+
+      if (!harBetalt && !profile.email_verified_at) {
+        const { count: cvCount } = await supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (cvCount !== null && cvCount >= 1) {
+          return {
+            error: 'Du måste verifiera din e-post för att ladda upp fler CV:n. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
+            code: 'EMAIL_NOT_VERIFIED',
+            status: 403,
+          };
+        }
+      }
+
+      if (!harBetalt) {
+        const { count } = await supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (count !== null && count >= cvGrans) {
+          return {
+            error: `Som gratisanvändare kan du spara ${cvGrans} CV. Fler CV ingår i ${paketKort()}.`,
+            code: 'CV_LIMIT_REACHED',
+            status: 403,
+          };
+        }
+      }
+      return null;
+    };
+
+    // Kvoten och e-postverifieringen beror inte på filens innehåll och prövas
+    // därför före tolkningen: annars väntade hon på avläsningen (upp till en
+    // minut för en bild-PDF) för att sedan få nej. En fil som redan är sparad
+    // (samma sökväg, en återanslutning) prövas inte här, precis som förut, och
+    // samma kontroll görs igen före sparandet nedan.
+    const { data: redanSparad } = await supabase
+      .from('cv_texts')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('original_file_path', storageFilePath)
+      .maybeSingle();
+    if (!redanSparad) {
+      const sparr = await kvotSparr();
+      if (sparr) {
+        emitter.error(sparr);
+        return emitter.close();
+      }
+    }
+
     // FAS 1: ladda upp + tolka text
     emitter.phase('uploading', 'Laddar upp och tolkar...');
 
@@ -362,42 +419,13 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       return emitter.close();
     }
 
-    // Kvotkontroll sker här, efter storage upload och idempotency-check,
-    // så att en reconnect för en redan sparad fil aldrig blockeras av kvoten.
-    // Behörigheten läses via premiumAccess, så att engångsköp i premium_grants
-    // och admin räknas, inte bara profiles.subscription_tier.
-    const { harBetalt, maxCvs: cvGrans } = await getCvGrans(supabase, user.id);
-
-    if (!harBetalt && !profile.email_verified_at) {
-      const { count: cvCount } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      if (cvCount !== null && cvCount >= 1) {
-        emitter.error({
-          error: 'Du måste verifiera din e-post för att ladda upp fler CV:n. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
-          code: 'EMAIL_NOT_VERIFIED',
-          status: 403,
-        });
-        return emitter.close();
-      }
-    }
-
-    if (!harBetalt) {
-      const { count } = await supabase
-        .from('cv_texts')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id);
-
-      if (count !== null && count >= cvGrans) {
-        emitter.error({
-          error: `Som gratisanvändare kan du spara ${cvGrans} CV. Fler CV ingår i ${paketKort()}.`,
-          code: 'CV_LIMIT_REACHED',
-          status: 403,
-        });
-        return emitter.close();
-      }
+    // Kvotkontrollen igen, efter storage upload och idempotency-check, så att
+    // en reconnect för en redan sparad fil aldrig blockeras av kvoten och så
+    // att ett CV som sparats under tolkningen räknas.
+    const sparr = await kvotSparr();
+    if (sparr) {
+      emitter.error(sparr);
+      return emitter.close();
     }
 
     const { data: cvData, error: cvError } = await supabase

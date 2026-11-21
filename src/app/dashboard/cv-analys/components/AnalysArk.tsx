@@ -39,6 +39,8 @@ interface Ruta {
   y: number;
   b: number;
   h: number;
+  /** Nästa avsnittsrubrik under rutan i samma spalt (i bredder): rutan når aldrig ned i den. */
+  golv?: number;
 }
 
 /** Rollens övre kant (i bredder) i erfarenhetsavsnittet, eller null. */
@@ -71,6 +73,14 @@ function rollensTopp(doc: Document, titel: string, fran: number, till: number, e
 function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[] {
   const ut: Ruta[] = [];
   const avsnitt = (s: ArkMarkering['sektion']) => m.rubriker.find((r) => (r.sektion as string) === s) ?? null;
+  // Nästa rubrik under y i samma spalt (alla rubriker, också avsnitt utan markering som Referenser).
+  const golvUnder = (y: number, x: number): number | undefined => {
+    let golv: number | undefined;
+    for (const r of m.rubriker) {
+      if (r.y > y + 0.005 && Math.abs(r.x - x) < 0.06 && (golv === undefined || r.y < golv)) golv = r.y;
+    }
+    return golv;
+  };
 
   // Rollerna: i ordning nedåt i avsnittet, var och en till nästa roll.
   const erf = avsnitt('erfarenhet');
@@ -100,7 +110,7 @@ function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[]
     if (x.sektion === 'kontakt') {
       const f = m.falt.find((r) => r.falt === 'kontakt') ?? m.falt.find((r) => r.falt === 'namn');
       if (!f || f.y >= A4_KVOT - 0.02) continue;
-      ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), x: f.x, y: f.y, b: f.b, h: Math.max(0.02, f.h) });
+      ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), x: f.x, y: f.y, b: f.b, h: Math.max(0.02, f.h), golv: golvUnder(f.y, m.rubriker[0]?.x ?? f.x) });
       continue;
     }
     const a = avsnitt(x.sektion);
@@ -114,9 +124,25 @@ function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[]
     }
     if (box.y >= A4_KVOT - 0.02) continue;
     box.h = Math.min(box.h, A4_KVOT - box.y - 0.01);
-    ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), ...box });
+    ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), ...box, golv: golvUnder(box.y, a.x) });
   }
   return ut;
+}
+
+/** Luft runt innehållet i px; ramen (2 px skugga) ritas utanför. */
+const LUFT_OVER = 3;
+const LUFT_UNDER = 4;
+
+/**
+ * Rutans läge i px. Nederkanten stannar ovanför nästa rubrik med plats för
+ * båda ramarna, så att ingen ram skär en rubrik (Yrkeserfarenhet,
+ * Utbildning, Språk och Referenser i Linne, 2026-11-21).
+ */
+function rutansStil(r: Ruta, bredd: number) {
+  const top = r.y * bredd - LUFT_OVER;
+  let bottom = (r.y + r.h) * bredd + LUFT_UNDER;
+  if (r.golv !== undefined) bottom = Math.min(bottom, r.golv * bredd - LUFT_OVER - 5);
+  return { left: r.x * bredd - 6, top, width: r.b * bredd + 12, height: Math.max(10, bottom - top) };
 }
 
 export default function AnalysArk({
@@ -190,7 +216,7 @@ export default function AnalysArk({
                 data-nu={r.nu ? '' : undefined}
                 data-klar={r.klar ? '' : undefined}
                 aria-hidden="true"
-                style={{ left: r.x * bredd - 6, top: r.y * bredd - 4, width: r.b * bredd + 12, height: r.h * bredd + 8 }}
+                style={rutansStil(r, bredd)}
               />
             ))
           : null}

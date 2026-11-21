@@ -1,7 +1,7 @@
 'use client';
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, type ReactNode } from 'react';
 import { Upload, FileText, X } from '@/components/illustrations/RumIkoner';
 import { useDropzone } from 'react-dropzone';
 import { useProfile } from '@/hooks/use-profile';
@@ -18,7 +18,15 @@ interface InlineCVUploadProps {
    * Samtycket och knappen visas sedan som vanligt.
    */
   startFil?: File | null;
+  /**
+   * Vägen "Skriv från början" när en inskannad PDF avvisas, om den inte
+   * redan står i samma vy (arket med en fil vald från väggen).
+   */
+  skrivVag?: ReactNode;
 }
+
+/** Word-filen som andra väg när en bild-PDF avvisas. */
+const WORD_ACCEPT = '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
 export default function InlineCVUpload({
   onComplete,
@@ -26,9 +34,13 @@ export default function InlineCVUpload({
   showCancel = true,
   hideHeader = false,
   startFil = null,
+  skrivVag = null,
 }: InlineCVUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Serverns kod för felet: IMAGE_BASED_PDF visar vägarna vidare (Word eller skriv från början).
+  const [felKod, setFelKod] = useState<string | null>(null);
+  const wordRef = useRef<HTMLInputElement>(null);
   const [success, setSuccess] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(startFil);
@@ -42,6 +54,7 @@ export default function InlineCVUpload({
       const file = acceptedFiles[0];
       setSelectedFile(file);
       setError(null);
+      setFelKod(null);
     }
   }, []);
 
@@ -70,6 +83,7 @@ export default function InlineCVUpload({
 
     setUploading(true);
     setError(null);
+    setFelKod(null);
     setFasText(null);
 
     try {
@@ -87,6 +101,7 @@ export default function InlineCVUpload({
       );
     } catch (err: any) {
       setError(err.message || 'Ett oväntat fel uppstod vid uppladdning');
+      setFelKod(typeof err?.code === 'string' ? err.code : null);
       setFasText(null);
       setUploading(false);
     }
@@ -186,8 +201,36 @@ export default function InlineCVUpload({
               </label>
 
               {error && (
-                <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3">
+                <div role="alert" className="rounded-lg border border-fel-kant bg-fel-mjuk p-3">
                   <p className="whitespace-pre-line text-sm text-fel">{error}</p>
+                  {felKod === 'IMAGE_BASED_PDF' ? (
+                    <div className="mt-3 space-y-3">
+                      <input
+                        ref={wordRef}
+                        type="file"
+                        accept={WORD_ACCEPT}
+                        className="sr-only"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        onChange={(e) => {
+                          const fil = e.target.files?.[0] ?? null;
+                          e.target.value = '';
+                          if (!fil) return;
+                          setSelectedFile(fil);
+                          setError(null);
+                          setFelKod(null);
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => wordRef.current?.click()}
+                        className="inline-flex min-h-11 items-center rounded-lg border border-kant-stark bg-papper px-3 text-sm font-semibold text-ink-1 hover:border-ink-1"
+                      >
+                        Ladda upp som Word-fil
+                      </button>
+                      {skrivVag}
+                    </div>
+                  ) : null}
                 </div>
               )}
 

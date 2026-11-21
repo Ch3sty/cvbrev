@@ -13,15 +13,22 @@
  *            gratisnivån, med betalväggen) och Öppna i CV:t. Till höger arket
  *            med markeringarna 1 till 6 och "Vägen till 100".
  *
- * Lägen: resultat, utan-struktur, intro och sparr (dagens spärr för
- * omkörning). "Analysera det här CV:t" och "Be om nya förslag" startar dagens
- * flöde (children: CvAnalysClient) med CV:t redan valt.
+ * Lägen: resultat och utan-struktur. Genomgången visas för alla CV med
+ * struktur, utan kvot (beslutet 2026-11-21). Inom resultat avgör
+ * `genomgangLage` väggens knapp och raden under rubriken:
+ *   hamtade       förslagen är hämtade (vy.jobbId): som förut, "Be om nya
+ *                 förslag" startar dagens flöde eller spärren
+ *   utan-forslag  inga hämtade förslag och hämtningen är öppen (Premium,
+ *                 eller gratis med kvoten kvar): "Hämta Jobbcoachens förslag"
+ *                 startar dagens flöde (children: CvAnalysClient)
+ *   forbrukad     gratis, kvoten använd, inga förslag för CV:t: Öppna CV:t,
+ *                 länken öppnar betalväggen, köprutan sist
  *
  * Alla tal kommer ur poängmodellen via servern (analysData.ts). Kontrollerna
  * och delarnas poäng är öppna för alla; ingen förslagstext för låsta förslag
  * finns i datan.
  */
-import { useMemo, useState, useTransition, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -32,21 +39,21 @@ import type { EgetCv } from '@/components/cv/Dokument/egnaMallar';
 import { MALL_KATALOG } from '@/lib/cv/mallval/katalog';
 import CvVagg from '@/components/cv/rum3/CvVagg';
 import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
-import { getPaywallCopy, kvotCopy, PAKETRADER } from '@/components/paywall/paywall-copy';
+import { getPaywallCopy } from '@/components/paywall/paywall-copy';
 import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
 import { capture } from '@/lib/analytics/events';
 import { kopstegHref } from '@/lib/onboarding/steps';
 import { SALD_PLAN } from '@/lib/plans/plans';
 import { AlertCircle, ArrowRight, Check, ChevronDown, Lock, XCircle } from '@/components/illustrations/RumIkoner';
 import { PLATSHALLARE_TAL, type GenomgangDel, type KategoriId } from '@/lib/cv/poang';
-import type { AnalysFynd, AnalysVyData } from './analysData';
+import { fyndHref, genomgangLageFor, type AnalysFynd, type AnalysVyData } from './analysData';
 import AnalysArk, { type ArkMarkering } from './components/AnalysArk';
 import { ANALYS } from './analysTexter';
 
 const GraValSheet = dynamic(() => import('@/components/paywall/GraValSheet'), { ssr: false });
 
 export interface AnalysSidaData {
-  lage: 'resultat' | 'utan-struktur' | 'intro' | 'sparr';
+  lage: 'resultat' | 'utan-struktur';
   vy: AnalysVyData | null;
   cvId: string | null;
   cvNamn: string | null;
@@ -56,6 +63,8 @@ export interface AnalysSidaData {
   isPremium: boolean;
   scope: Scope | null;
   track: Scope | null;
+  /** Raden om den noggrannare poängen (visaPoangAndrad, tidsbegränsad). */
+  poangAndrad: boolean;
 }
 
 /** Delarna som har en plats på arket (Datum, ordning och längd har ingen). */
@@ -127,18 +136,51 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   const [oppna, setOppna] = useState<ReadonlySet<KategoriId>>(() => new Set(startDel ? [startDel] : []));
   const p = vy?.poang ?? null;
   const kvar = p ? Math.max(0, 100 - p.idag) : 0;
+  // Genomgångens läge (analysData.genomgangLageFor): hämtade förslag, utan förslag eller förbrukad gratishämtning.
+  const glage = genomgangLageFor(vy?.jobbId, data.isPremium, data.remainingAnalyses);
+  const hamtade = glage === 'hamtade';
+  const tier = data.isPremium ? 'premium' : 'free';
+  const paywallVariant = glage === 'forbrukad' ? 'analys-omkorning' : 'analys';
   const harForslag = fynd.some((f) => f.typ !== 'siffror');
   const delarKvar = delar.filter((d) => d.poang < d.max);
   const lastaFinns = fynd.some((f) => !f.oppen);
   const cvQ = data.cvId ? `&cv=${encodeURIComponent(data.cvId)}` : '';
   const jobbHref = (steg: 4 | 5, valj: string) =>
-    vy ? `/dashboard/cv-analys?job=${encodeURIComponent(vy.jobbId)}${cvQ}&steg=${steg}&valj=${encodeURIComponent(valj)}` : '#';
+    vy?.jobbId ? `/dashboard/cv-analys?job=${encodeURIComponent(vy.jobbId)}${cvQ}&steg=${steg}&valj=${encodeURIComponent(valj)}` : '#';
   const mallarHref = flikHref('mallar', data.cvId, { mall: mall.id });
-  const delHref = (d: GenomgangDel) => (data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: d.avsnitt, mall: mall.id }) : mallarHref);
+  const delHref = (d: GenomgangDel) => (data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: d.avsnitt, post: d.post, mall: mall.id }) : mallarHref);
   const siffror = fynd.find((f) => f.typ === 'siffror') ?? null;
-  const siffrorHref = siffror && data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: siffror.sektion, mall: mall.id }) : null;
-  const paywall = getPaywallCopy('analys');
+  // "Fyll i siffrorna" öppnar rollen där den första [antal] står (siffror.post).
+  const siffrorHref = siffror && data.cvId ? fyndHref(data.cvId, siffror, mall.id) : null;
+  const paywall = getPaywallCopy(paywallVariant);
   const cvNamn = data.cvNamn?.trim() || null;
+  // Köprutan: låsta förslag, eller läge 3 (gratishämtningen använd) så länge poäng återstår.
+  const visaPremRuta = Boolean(vy && !vy.harFull && (lastaFinns || (glage === 'forbrukad' && kvar > 0)));
+
+  /* ------------------------------------------------------------ mätning */
+
+  // cv_review_viewed en gång per montering (nyckeln i page.tsx byts med CV:t och förslagen).
+  const visadRef = useRef(false);
+  useEffect(() => {
+    if (visadRef.current || data.lage !== 'resultat' || !data.cvId) return;
+    visadRef.current = true;
+    capture('cv_review_viewed', { tier, cv_id: data.cvId, har_forslag: hamtade });
+  }, [data.lage, data.cvId, tier, hamtade]);
+
+  // Köprutan i genomgången är en betalvägg: paywall_shown med surface genomgang, en gång per montering.
+  const premVisadRef = useRef(false);
+  useEffect(() => {
+    if (premVisadRef.current || !visaPremRuta || data.lage !== 'resultat') return;
+    premVisadRef.current = true;
+    capture('paywall_shown', {
+      variant: paywallVariant,
+      surface: 'genomgang',
+      feature: 'cv_analysis_full',
+      suggestedPlan: SALD_PLAN,
+      price_shown: true,
+      kampanj: kampanj?.nyckel ?? null,
+    });
+  }, [visaPremRuta, data.lage, paywallVariant, kampanj?.nyckel]);
 
   const markeringar: ArkMarkering[] = useMemo(
     () =>
@@ -155,8 +197,8 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   const kop = () => {
     capture('paywall_cta_clicked', {
-      variant: 'analys',
-      surface: '/dashboard/cv-analys',
+      variant: paywallVariant,
+      surface: 'genomgang',
       cta: 'primary',
       plan: SALD_PLAN,
       plats: 'analys',
@@ -165,7 +207,11 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     window.location.href = kopstegHref(SALD_PLAN, 'analys');
   };
 
-  /** Be om nya förslag: dagens flöde med CV:t valt, eller dagens spärr för omkörning. */
+  /**
+   * Be om nya förslag (hämtade) eller Hämta Jobbcoachens förslag: dagens
+   * flöde med CV:t valt, eller betalväggen när gratishämtningen är använd.
+   * Servern prövar kvoten igen (POST /api/cv/analyze).
+   */
   const nyaForslag = () => {
     if (!data.isPremium && data.remainingAnalyses !== null && data.remainingAnalyses <= 0) {
       setSparr('analys-omkorning');
@@ -208,9 +254,10 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   /* ------------------------------------------------------------- väggen */
 
   // "Med"-talet är förslagen och siffrorna tillsammans (medAllt), samma tal som Ditt CV och Mallar.
+  // Utan hämtade förslag står bara talet "av 100 i dag" (UX-specen 2026-11-21).
   const medSiffrorNu = (p?.siffrorPlus ?? 0) > 0;
   const senare =
-    p && p.plusAllt > 0
+    p && hamtade && p.plusAllt > 0
       ? { tal: p.medAllt, text: medSiffrorNu ? (p.plus > 0 ? ANALYS.medForslagOchSiffror : ANALYS.medSiffror) : ANALYS.medForslag }
       : null;
   const talRad = p ? (
@@ -237,7 +284,6 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     </div>
   ) : null;
 
-  const introSidorad = data.isPremium ? ANALYS.introSidoradPremium : ANALYS.introSidorad;
   const forstaKvar = delarKvar[0] ?? null;
 
   const vagg: { ogon: string; rubrik: string; ingress: string; ingressKort: string; knapp: (bred: boolean) => ReactNode; sidorad: ReactNode; tal: ReactNode } = (() => {
@@ -277,6 +323,24 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
             tal: talRad,
           };
         }
+        if (glage === 'utan-forslag') {
+          // Läge 1: inga förslag hämtade, hämtningen är öppen.
+          return {
+            ogon: ANALYS.ogon(null),
+            rubrik: ANALYS.rubrik(kvar),
+            ingress: ANALYS.ingressEget(Math.max(1, delarKvar.length)),
+            ingressKort: ANALYS.ingressEgetKort(Math.max(1, delarKvar.length)),
+            knapp: (bred) => (
+              <button type="button" className={klass(bred)} onClick={nyaForslag} data-hamta-forslag>
+                {ANALYS.hamtaForslag}
+                <Pil />
+              </button>
+            ),
+            sidorad: data.isPremium ? ANALYS.hamtaSidoradPremium : ANALYS.hamtaSidorad,
+            tal: talRad,
+          };
+        }
+        // Hämtade förslag utan något kvar att införa, eller läge 3 (gratishämtningen använd).
         return {
           ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
           rubrik: ANALYS.rubrik(kvar),
@@ -292,7 +356,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
           tal: talRad,
         };
       }
-      case 'utan-struktur':
+      default:
         return {
           ogon: ANALYS.ogon(null),
           rubrik: ANALYS.strukturRubrik,
@@ -305,37 +369,6 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
             </button>
           ),
           sidorad: struktureraFel ? <span role="alert">{ANALYS.strukturFel}</span> : null,
-          tal: null,
-        };
-      case 'sparr': {
-        const k = getPaywallCopy('analys-omkorning');
-        return {
-          ogon: ANALYS.introOgon,
-          rubrik: kvotCopy('cv_analysis').title,
-          ingress: k.body,
-          ingressKort: k.body,
-          knapp: (bred) => (
-            <button type="button" className={`t3-stor${bred ? ' t3-stor-bred' : ''}`} onClick={kop}>
-              <PremiumKnappText />
-            </button>
-          ),
-          sidorad: <PremiumPrisradText />,
-          tal: null,
-        };
-      }
-      default:
-        return {
-          ogon: ANALYS.introOgon,
-          rubrik: ANALYS.introRubrik,
-          ingress: ANALYS.introIngress(cvNamn),
-          ingressKort: ANALYS.introIngress(cvNamn),
-          knapp: (bred) => (
-            <button type="button" className={`t3-stor${bred ? ' t3-stor-bred' : ''}`} onClick={() => setStartad(true)}>
-              {ANALYS.introKnapp}
-              <Pil />
-            </button>
-          ),
-          sidorad: introSidorad,
           tal: null,
         };
     }
@@ -418,7 +451,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
           <b>{ANALYS.andrat}</b> {ANALYS.andratLista(f.andrat ?? [])}
         </p>
         <Link
-          href={data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: f.sektion, mall: mall.id }) : jobbHref(4, f.nyckel)}
+          href={data.cvId ? fyndHref(data.cvId, f, mall.id) : jobbHref(4, f.nyckel)}
           className="cv4-kn"
           data-ton="ljus"
           data-andra-texten
@@ -464,11 +497,11 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     </div>
   );
 
-  const premRuta =
-    vy && !vy.harFull && lastaFinns ? (
+  // Läge 3 (gratishämtningen använd): köprutan sist, för förslagen. Annars för de låsta förslagen.
+  const premRuta = visaPremRuta ? (
       <div className="cv4-prem" data-kopruta>
-        <p className="cv4-ogon">{ANALYS.premOgon}</p>
-        <h3>{paywall.title}</h3>
+        <p className="cv4-ogon">{glage === 'forbrukad' ? ANALYS.premOgonForslag : ANALYS.premOgon}</p>
+        <h3>{glage === 'forbrukad' ? ANALYS.premRubrikForslag : paywall.title}</h3>
         <p>{paywall.body}</p>
         <div className="cv4-prem-fot">
           <p>
@@ -594,31 +627,40 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
           {ANALYS.genomgangRubrik(delarKvar.length)}
         </h2>
         <p className="cv4-rad cv4-genomgang-rad">
-          {ANALYS.genomgangAv(cvNamn)}
-          {datum ? ` ${ANALYS.forslagSkrevs(datum)}` : null}
-          {datum ? (
+          {glage === 'utan-forslag' ? (
+            ANALYS.inteSkrivitForslag
+          ) : (
+            <>
+              {ANALYS.genomgangAv(cvNamn)}
+              {hamtade && datum ? ` ${ANALYS.forslagSkrevs(datum)}` : null}
+            </>
+          )}
+          {hamtade && datum ? (
             <button type="button" className="cv4-nya" onClick={nyaForslag}>
               {ANALYS.nyaForslag}
             </button>
           ) : null}
+          {glage === 'forbrukad' ? (
+            <button type="button" className="cv4-nya" onClick={() => setSparr('analys-omkorning')} aria-haspopup="dialog">
+              {ANALYS.hamtaForslag}
+            </button>
+          ) : null}
         </p>
+        {data.poangAndrad ? <p className="cv4-rad">{ANALYS.poangAndrad}</p> : null}
         <ol className="cv4-gdelar">{delar.map(delRad)}</ol>
         {premRuta}
       </section>
     ) : null;
 
-  const kvotRad =
-    data.remainingAnalyses !== null || data.isPremium ? (
-      <p className="cv4-kvot">
-        <b>{ANALYS.kvotLabel}. </b>
-        {data.isPremium
-          ? PAKETRADER.analysUtanTak
-          : `${data.remainingAnalyses} ${data.remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar. En analys ingår gratis per konto. Att köra om efter en rättning ingår i ${PAKETRADER.bricka}.`}
-      </p>
-    ) : null;
+  const kvotRad = (
+    <p className="cv4-kvot">
+      <b>{ANALYS.kvotLabel}. </b>
+      {data.isPremium ? ANALYS.hamtaSidoradPremium : glage === 'forbrukad' ? ANALYS.kvotHamtaSlut : ANALYS.hamtaSidorad}
+    </p>
+  );
 
   const introPanel =
-    data.lage === 'intro' || data.lage === 'sparr' || data.lage === 'utan-struktur' ? (
+    data.lage === 'utan-struktur' ? (
       <section className="cv4-panel" aria-labelledby="analys-panel">
         <p className="cv4-ogon" data-ton="koppar">
           {ANALYS.introPanelOgon}
@@ -637,16 +679,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
             </li>
           ))}
         </ol>
-        {data.lage === 'sparr' ? (
-          <p className="cv4-kvot">
-            <b>{getPaywallCopy('analys-omkorning').title}. </b>
-            <Link href="/priser" className="underline underline-offset-[3px]">
-              {getPaywallCopy('analys-omkorning').secondary}
-            </Link>
-          </p>
-        ) : (
-          kvotRad
-        )}
+        {kvotRad}
         <p className="cv4-rad cv4-byt">{ANALYS.introBytCv}</p>
       </section>
     ) : null;
@@ -654,7 +687,8 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   // Vägen till 100: i dag, våra förslag (förslag och siffror, samma tal som väggen) och resten.
   const vagen = (rid: string) => {
     if (!p || data.lage !== 'resultat') return null;
-    const forslag = Math.max(0, p.plusAllt);
+    // Utan hämtade förslag: bara I dag och Du själv.
+    const forslag = hamtade ? Math.max(0, p.plusAllt) : 0;
     const sjalv = Math.max(0, 100 - p.idag - forslag);
     return (
       <section className="cv4-kortet" aria-labelledby={rid}>
@@ -747,6 +781,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
           track={data.track}
           surface="/dashboard/cv-analys"
           plats="analys"
+          matYta="genomgang"
         />
       ) : null}
     </div>

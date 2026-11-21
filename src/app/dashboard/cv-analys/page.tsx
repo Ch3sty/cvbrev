@@ -3,13 +3,12 @@
  * server component. Allt läses här i en parallell omgång vid request-tid.
  *
  * Lägen för CV:t som visas (?cv=, samma regel som Ditt CV, aldrig ett låst):
- *   resultat        en analys finns: väggen med de två talen, arket med
- *                   markeringarna, fynden och "Så räknas poängen"
- *   utan-struktur   en analys finns men CV:t går inte att läsa i avsnitt
- *   intro           ingen analys än: dagens texter och kvotrad, knappen
- *                   startar dagens flöde med CV:t redan valt
- *   sparr           gratisanalysen är använd och CV:t saknar analys: dagens
- *                   spärr för omkörning
+ *   resultat        genomgången, för alla CV med struktur (beslutet
+ *                   2026-11-21). Med ett analysjobb bär den Jobbcoachens
+ *                   förslag (byggAnalysVy), utan jobb räknas poängen och
+ *                   delarna utan modell ur CV:ts struktur (byggGenomgangVy).
+ *                   AnalysVy väljer vägg och knapp ur vy.jobbId och kvoten.
+ *   utan-struktur   CV:t går inte att läsa i avsnitt
  *
  * ?job=<id> öppnar den sparade analysen i dagens steg (välj förbättringar,
  * granska, spara), med &steg=4|5 och &valj=<fynd> från sidans knappar.
@@ -35,8 +34,9 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import type { AterupptagenAnalys, Oppna } from './aterupptagning';
 import { analysForKlient, poangForRad, PROFIL_KONTAKT_FALT, type CvRad as CvRadData, type KontaktKalla } from '@/lib/cv/poang';
 import { analysIdFor, analysPerCv, type AnalysRad } from '@/lib/cv/analys/cvAnalys';
-import { byggAnalysVy } from './analysData';
-import { losMallId } from '@/lib/cv/mallval/katalog';
+import { byggAnalysVy, byggGenomgangVy, ordnaDelarEfterArket, visaPoangAndrad } from './analysData';
+import { losMallId, MALL_KATALOG } from '@/lib/cv/mallval/katalog';
+import { getMall } from '@/lib/cv/mallar/register';
 import type { Scope } from '@/lib/access/features';
 
 type Sok = Record<string, string | string[] | undefined>;
@@ -144,9 +144,10 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
     }
   }
 
+  // Poängen för varje CV, med eller utan hämtade förslag: samma tal som Ditt
+  // CV och Mallar (beslutet 2026-11-21, genomgången för alla CV).
   const poangPerCv: Record<string, number> = {};
   for (const cv of sidansData.cvs) {
-    if (!jobbPerCv[cv.id]) continue;
     const p = poangForRad({ ...(cv as CvRadData), kontakt });
     if (p !== null) poangPerCv[cv.id] = p;
   }
@@ -166,7 +167,6 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
   // Läget för CV:t som visas.
   const aktivt = sidansData.cvs.find((c) => c.id === valt) ?? null;
   const jobbId = aktivt ? analysIdFor(aktivt, sidansData.cvs, jobbPerCv) : null;
-  let sida: AnalysSidaData['lage'] = 'intro';
   let vy: AnalysSidaData['vy'] = null;
   if (aktivt && jobbId) {
     // result med service role och user_id i villkoret; byggAnalysVy filtrerar.
@@ -180,14 +180,25 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
     const r = rad as { id: string; completed_at: string | null; result: unknown } | null;
     if (r && r.result && typeof r.result === 'object') {
       vy = byggAnalysVy({ id: r.id, completed_at: r.completed_at, result: r.result as Record<string, unknown> }, { ...aktivt, kontakt }, harFull);
-      sida = vy ? 'resultat' : 'utan-struktur';
     }
   }
-  if (sida === 'intro' && !sidansData.isPremium && sidansData.remainingAnalyses !== null && sidansData.remainingAnalyses <= 0) {
-    sida = 'sparr';
-  }
+  // Utan hämtade förslag: genomgången ändå, räknad utan modell ur CV:ts
+  // struktur (ingen kvot, ingen ny rundtur). Saknar CV:t struktur blir läget
+  // utan-struktur.
+  if (aktivt && !vy) vy = byggGenomgangVy({ ...aktivt, kontakt }, harFull);
+  const sida: AnalysSidaData['lage'] = vy ? 'resultat' : 'utan-struktur';
 
   const bygge = (aktivt?.structured_data as { bygge?: { mall?: string } } | null)?.bygge;
+  const mallId = losMallId(nedladdadMall) ?? losMallId(bygge?.mall ?? null) ?? null;
+  // Numren på arket stiger uppifrån och ned och är desamma i listan: delarna
+  // i mallens avsnittsordning (huvudspalten, sedan sidospalten). Utan mall
+  // ritar AnalysVy katalogens första, Linne.
+  if (vy) {
+    const def = getMall(mallId ?? MALL_KATALOG[0].id);
+    const spalt = (def?.layout as { spalt?: { sektioner?: unknown } } | undefined)?.spalt?.sektioner;
+    const ordning = [...(def?.ordning ?? []), ...(Array.isArray(spalt) ? (spalt as string[]) : [])];
+    vy = { ...vy, delar: ordnaDelarEfterArket(vy.delar, ordning) };
+  }
   const sidaData: AnalysSidaData = {
     lage: sida,
     vy,
@@ -201,18 +212,23 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
           val: { rubriker: { ...((aktivt as { section_titles?: Record<string, string> | null }).section_titles ?? {}) } },
         }
       : null,
-    mallId: losMallId(nedladdadMall) ?? losMallId(bygge?.mall ?? null) ?? null,
+    mallId,
     remainingAnalyses: sidansData.remainingAnalyses,
     isPremium: sidansData.isPremium,
     scope,
     track,
+    poangAndrad: visaPoangAndrad(aktivt?.created_at),
   };
 
-  // Nyckeln byts när en ny analys landar (eller CV:t byts): vyn monteras om
+  // Nyckeln byts när nya förslag landar (eller CV:t byts): vyn monteras om
   // i läget resultat i stället för att stå kvar i flödet.
   return (
     <AnalysVy key={`${aktivt?.id ?? 'inget'}:${vy?.jobbId ?? sida}`} data={sidaData} cvRad={cvRadEl}>
-      <CvAnalysClient data={sidansData} startCvId={aktivt?.id ?? null} />
+      <CvAnalysClient
+        data={sidansData}
+        startCvId={aktivt?.id ?? null}
+        hamtning={{ kalla: 'genomgang', forstaGangen: rader.length === 0 }}
+      />
     </AnalysVy>
   );
 }

@@ -720,6 +720,12 @@ export interface AnalyticsEvents {
   intervju_utfall: { svar: 'genomford' | 'flyttad' | 'installd' }
   /** F4: veckans mål ändrat. */
   veckans_mal_andrat: { mal: number; forut: number; forval: boolean }
+  /* CV-rummets genomgång för alla CV (beslutet 2026-11-21): poängen och de
+     sju delarna utan kvot, Jobbcoachens förslag en gång gratis per konto. */
+  /** Genomgången på Analys visades, en gång per montering. har_forslag: Jobbcoachens förslag är hämtade för CV:t. */
+  cv_review_viewed: { tier: 'free' | 'premium'; cv_id: string; har_forslag: boolean }
+  /** Hämtningen av Jobbcoachens förslag startade (servern tog emot den). forsta_gangen: kontot hade inga hämtade förslag förut. */
+  cv_suggestions_fetched: { tier: 'free' | 'premium'; cv_id: string; forsta_gangen: boolean; kalla: 'genomgang' | 'ditt_cv' }
 }
 
 /** Det varje händelse från sessionsramen bär (avsnitt 8.2). */

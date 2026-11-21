@@ -60,6 +60,8 @@ export interface GraValSheetProps {
   cvSparr?: CvSparrData | null
   /** Variantens sekundära handling (gratisvägen i varianten mall). Utelämnat: arket stängs. */
   onSecondary?: () => void
+  /** surface i kortets paywall_shown och paywall_cta_clicked (PaywallCard matYta). Utelämnad: sidans adress. */
+  matYta?: string
 }
 
 export default function GraValSheet({
@@ -77,6 +79,7 @@ export default function GraValSheet({
   sparrData = null,
   cvSparr = null,
   onSecondary,
+  matYta,
 }: GraValSheetProps) {
   // gray_option_tapped en gång per öppning.
   const mattRef = useRef(false)
@@ -104,6 +107,7 @@ export default function GraValSheet({
             track={track}
             onSecondary={onClose}
             plats={plats}
+            matYta={matYta}
             dagarKvar={dagarKvar}
             mall={mall}
             grundKvarIdag={grundKvarIdag}
@@ -128,6 +132,7 @@ export default function GraValSheet({
             track={track}
             onSecondary={onSecondary ?? onClose}
             plats={plats}
+            matYta={matYta}
             dagarKvar={dagarKvar}
             mall={mall}
             bare
@@ -151,6 +156,7 @@ export default function GraValSheet({
             track={track}
             onSecondary={onClose}
             plats={plats}
+            matYta={matYta}
             dagarKvar={dagarKvar}
             mall={mall}
             grundKvarIdag={grundKvarIdag}

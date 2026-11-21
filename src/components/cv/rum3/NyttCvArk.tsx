@@ -33,7 +33,21 @@ export default function NyttCvArk({ open, onClose, fullt, onOppnaByt, onUppladda
   if (startFil) {
     return (
       <Ark open={open} onClose={onClose} rubrik={NYTT_ARK.uppladdningRubrik} under={NYTT_ARK.laddaText}>
-        <InlineCVUpload key={startFil.name + startFil.size} startFil={startFil} hideHeader showCancel={false} onComplete={(cv) => onUppladdat(cv.id)} />
+        <InlineCVUpload
+          key={startFil.name + startFil.size}
+          startFil={startFil}
+          hideHeader
+          showCancel={false}
+          onComplete={(cv) => onUppladdat(cv.id)}
+          // En inskannad PDF som avvisas: skriv från början står i samma vy
+          // (i arket utan vald fil står den redan under uppladdningen).
+          skrivVag={
+            <div>
+              <p className="mb-2 text-[13px] font-bold leading-[18px] text-ink-1">{NYTT_ARK.skriv}</p>
+              <SkrivFranBorjan ton="golv" />
+            </div>
+          }
+        />
       </Ark>
     )
   }
@@ -42,7 +56,11 @@ export default function NyttCvArk({ open, onClose, fullt, onOppnaByt, onUppladda
       {fullt ? (
         <PaywallCard variant="cv-antal" isPremium={false} onSecondary={onOppnaByt} bare />
       ) : (
-        <div className="grid gap-5 pb-2" data-nytt-cv>
+        // Block, inte grid: i en grid växer kolumnen till fältets och
+        // knappens minsta bredd (fältets inbyggda bredd plus Börja skriva)
+        // och arket klipptes i 412 px. Samma blockflöde som väggens
+        // .cv3-skriv på Ditt CV, där samma formulär ryms.
+        <div className="space-y-5 pb-2" data-nytt-cv>
           <section>
             <h3 className="text-[15px] font-bold leading-5 text-ink-1">{NYTT_ARK.ladda}</h3>
             <p className="mb-3 mt-0.5 text-[13px] leading-[18px] text-[color:var(--cv3-ink-2)]">{NYTT_ARK.laddaText}</p>

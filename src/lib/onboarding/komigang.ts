@@ -238,8 +238,9 @@ export function brickaText(
       return {
         key,
         titel: 'Uppdatera CV:t efter fynden',
-        text: 'Rätta de två tyngsta, kör om',
-        klarText: 'Uppdaterat och omkört',
+        // Poängen följer CV:t direkt sedan 2026-11-21: ingen omkörning.
+        text: 'Rätta de två tyngsta och spara',
+        klarText: 'Uppdaterat',
         kort: 'uppdatera CV:t',
         href: '/dashboard/cv-analys',
         knapp: 'Öppna fynden',

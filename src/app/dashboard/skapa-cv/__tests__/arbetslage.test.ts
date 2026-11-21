@@ -15,7 +15,9 @@ import {
   tillbakaHref,
   tolkaAvsnitt,
   tolkaFran,
+  tolkaPost,
 } from '../arbetslage'
+import { arbetslageHref } from '@/components/cv/rum3/flikar'
 
 const uppladdat: CVMetadata = {
   personalInfo: { fullName: 'Erik Lindberg', email: 'erik@exempel.se' },
@@ -65,6 +67,28 @@ describe('arbetsläget: adressen', () => {
       expect(paramForArk(arkForParam(uppladdat, p))).toBe(p)
     }
     expect(paramForArk({ typ: 'avsnitt', sektion: 'intyg' })).toBe('fler')
+  })
+  it('post i adressen öppnar just den rollen eller utbildningen', () => {
+    expect(tolkaPost('2')).toBe(2)
+    expect(tolkaPost('0')).toBe(0)
+    expect(tolkaPost('-1')).toBeNull()
+    expect(tolkaPost('x')).toBeNull()
+    expect(tolkaPost(null)).toBeNull()
+    // Klarna står på plats 0 i listan men inte överst på arket.
+    expect(arkForParam(uppladdat, 'erfarenhet', 0)).toEqual({ typ: 'post', sektion: 'erfarenhet', index: 0 })
+    expect(arkForParam(uppladdat, 'erfarenhet', 2)).toEqual({ typ: 'post', sektion: 'erfarenhet', index: 2 })
+    expect(arkForParam(uppladdat, 'utbildning', 0)).toEqual({ typ: 'post', sektion: 'utbildning', index: 0 })
+    // Utan post, eller med en post som inte finns: översta på arket som förut.
+    expect(arkForParam(uppladdat, 'erfarenhet', 9)).toEqual(arkForParam(uppladdat, 'erfarenhet'))
+    expect(arkForParam(uppladdat, 'erfarenhet', null)).toEqual({ typ: 'post', sektion: 'erfarenhet', index: 1 })
+    // Post gäller bara jobb och utbildning.
+    expect(arkForParam(uppladdat, 'profil', 0)).toEqual(arkForParam(uppladdat, 'profil'))
+  })
+  it('Öppna i CV:t bär posten i adressen', () => {
+    expect(arbetslageHref('abc', 'analys', { avsnitt: 'erfarenhet', post: 2, mall: 'linne' })).toBe(
+      '/dashboard/skapa-cv?cv=abc&avsnitt=erfarenhet&post=2&mall=linne&fran=analys'
+    )
+    expect(arbetslageHref('abc', 'analys', { avsnitt: 'profil', mall: 'linne' })).toBe('/dashboard/skapa-cv?cv=abc&avsnitt=profil&mall=linne&fran=analys')
   })
 })
 

@@ -5,6 +5,9 @@
  *
  *   /dashboard/skapa-cv?cv=<id>&avsnitt=<kontakt|profil|erfarenhet|utbildning|kompetenser|sprak|fler>&mall=<mallid>&fran=<mallar|ditt-cv|analys>
  *
+ * post=<n> (valfri, med avsnitt erfarenhet eller utbildning) öppnar posten på
+ * plats n i CV:ts lista, till exempel rollen ett fynd i genomgången gäller.
+ *
  * Utan cv är det byggaren från början. "Klar" och tillbaka går till sidan i
  * fran med samma cv och mall. Valen från Mallar (typsnitt, farg, ordning,
  * ensida, uppsattning) står i samma adress och följer med tillbaka.
@@ -137,8 +140,22 @@ export function arkFor(cv: CVMetadata, s: Sektion | 'huvud' | 'fler'): ArkVal {
   return { typ: 'avsnitt', sektion: s }
 }
 
-export function arkForParam(cv: CVMetadata, p: AvsnittParam): ArkVal {
+/**
+ * Bladet för avsnittet i adressen. Med post (jobbets eller utbildningens
+ * plats i CV:ts lista, &post= från genomgångens "Öppna i CV:t") öppnas just
+ * den posten, om den finns; annars den översta på arket som förut.
+ */
+export function arkForParam(cv: CVMetadata, p: AvsnittParam, post?: number | null): ArkVal {
+  if ((p === 'erfarenhet' || p === 'utbildning') && typeof post === 'number') {
+    const lista = p === 'erfarenhet' ? cv.experience : cv.education
+    if (Array.isArray(lista) && post >= 0 && post < lista.length && lista[post]) return { typ: 'post', sektion: p, index: post }
+  }
   return arkFor(cv, p === 'kontakt' ? 'huvud' : p)
+}
+
+/** post ur adressen: ett heltal från 0, annars null. */
+export function tolkaPost(v: string | null | undefined): number | null {
+  return v && /^\d{1,3}$/.test(v) ? Number(v) : null
 }
 
 /**

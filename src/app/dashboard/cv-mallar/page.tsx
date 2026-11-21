@@ -162,8 +162,8 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       .limit(100)
     analysRader = (data ?? []) as AnalysRad[]
     jobbPerCv = analysPerCv(analysRader)
+    // Poängen för alla CV med struktur, med eller utan hämtade förslag (2026-11-21).
     for (const cv of cvRows) {
-      if (!jobbPerCv[cv.id]) continue
       const p = poangForRad({ ...(cv as unknown as CvRad), kontakt })
       if (p !== null) poangPerCv[cv.id] = p
     }

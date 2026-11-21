@@ -102,12 +102,12 @@ export default function CVAnalysisIntro({
     <div className="w-full max-w-3xl space-y-6">
 
       {visaKvot && (
-        <StatusRow label="Analyser kvar">
+        <StatusRow label="Jobbcoachens förslag">
           {isPremium
-            ? PAKETRADER.analysUtanTak
-            : `${remainingAnalyses} ${
-                remainingAnalyses === 1 ? 'analys' : 'analyser'
-              } kvar. En analys ingår gratis per konto. Att köra om efter en rättning ingår i ${PAKETRADER.bricka}.`}
+            ? 'Ingår. Hämta så ofta du vill.'
+            : remainingAnalyses !== null && remainingAnalyses > 0
+              ? 'En gång ingår gratis. Tar under en minut.'
+              : `Att hämta nya förslag ingår i ${PAKETRADER.bricka}.`}
         </StatusRow>
       )}
 
