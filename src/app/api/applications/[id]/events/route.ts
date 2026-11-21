@@ -5,7 +5,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { valideraIntervjutid, type Intervjutid } from '@/lib/jobbsok/validering';
+import { handelseForeSokt, valideraIntervjutid, type Intervjutid } from '@/lib/jobbsok/validering';
 import { arSchemaFel } from '@/lib/jobbsok/schema';
 import { matIntervjutid } from '@/lib/jobbsok/intervjuServer';
 
@@ -31,7 +31,7 @@ export async function POST(
     // Ansökan måste tillhöra användaren.
     const { data: application } = await supabase
       .from('job_applications')
-      .select('id')
+      .select('id, applied_at')
       .eq('id', id)
       .eq('user_id', user.id)
       .maybeSingle();
@@ -56,6 +56,13 @@ export async function POST(
     let occurredAt = new Date().toISOString().slice(0, 10);
     if (typeof body.occurred_at === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.occurred_at)) {
       occurredAt = body.occurred_at;
+    }
+
+    // Ingen händelse före dagen tjänsten söktes: databastriggern räknar statusen
+    // efter datumen, och en kallelse före sökdagen syntes inte (klicktestet 2026-11-21).
+    const foreSokt = handelseForeSokt(eventType, occurredAt, application.applied_at as string | null);
+    if (foreSokt) {
+      return NextResponse.json({ error: foreSokt, code: 'invalid_field', falt: 'occurred_at' }, { status: 400 });
     }
 
     // Intervjuomgång: numreras automatiskt om den inte skickas med, så

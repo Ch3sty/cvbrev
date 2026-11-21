@@ -1,4 +1,11 @@
 // src/lib/email/campaign-sokta-tjanster.ts
+//
+// PENSIONERAT 2026-11-21 (beslut 6 i docs/beslut-jobbsoket-2026-11-21.md).
+// Texten stämmer inte längre med produkten: flödesdiagrammet finns inte kvar,
+// utskriften av rapporten är Premium och "Helt gratis, för alla konton" är
+// inte sant. Adminrutten svarar 410 och skickar inget. Filen ligger kvar för
+// typen i email_log och statistiken; skicka den aldrig igen.
+//
 // Kampanjmail "Ny funktion: Sökta tjänster". Samma visuella språk som
 // quota-back (orange/röd gradient, J-logotyp, varm bakgrund), tabellayout
 // och inline-CSS för Gmail/Outlook/Apple Mail. Avregistreringslänken är

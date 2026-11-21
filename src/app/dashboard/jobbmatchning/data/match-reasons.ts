@@ -17,6 +17,7 @@
  */
 
 import { scoreJob, type MatchScore } from './match-score';
+import { tidpunkt } from '@/lib/jobbsok/datum';
 import type { ActiveCVData } from '../getJobbmatchningData';
 
 export interface MatchReasons {
@@ -43,10 +44,11 @@ export function relativDatum(
   nu: number = Date.now()
 ): string | null {
   if (!iso) return null;
-  const d = new Date(String(iso));
-  if (Number.isNaN(d.getTime())) return null;
+  // En tid utan zon är svensk lokal tid, oavsett maskinens zon (datum.ts).
+  const t = tidpunkt(String(iso));
+  if (t === null || !Number.isFinite(t)) return null;
 
-  const dagar = Math.floor((nu - d.getTime()) / 86_400_000);
+  const dagar = Math.floor((nu - t) / 86_400_000);
   if (dagar <= 0) return 'i dag';
   if (dagar === 1) return 'i går';
   if (dagar <= 13) return `för ${dagar} dagar sedan`;

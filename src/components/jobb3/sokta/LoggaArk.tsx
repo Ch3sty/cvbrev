@@ -9,7 +9,9 @@
  *     sökas (POST /api/jobbsok/ska-sokas).
  *   - från en Ska sökas-rad (`forifyllt.sparadId`): "Markera som sökt" och
  *     "Sökt ändå" skapar tjänsten ur raden (POST .../ska-sokas/[id]/sokt).
- *   - redigera (`redigera`): samma fält, PUT /api/applications/[id].
+ *   - redigera (`redigera`): samma fält, PUT /api/applications/[id]. Ett
+ *     ändrat sökdatum får inte ligga efter tjänstens tidigaste händelse
+ *     (`handelser`), samma kontroll och text som rutten.
  *
  * Förifyllt från en träff: `forifyllt` med tjänst, arbetsgivare, länk,
  * sista dag och af_ad_id (adressen ?logga=1&tjanst=...&arbetsgivare=..., se
@@ -33,7 +35,7 @@ import {
   IkonPersoner,
   IkonPlan,
 } from '@/components/jobb3/kit'
-import { idagSv, type ApplicationChannel, type JobApplication } from '@/lib/jobbsok'
+import { idagSv, soktEfterHandelse, tidigasteHandelse, type ApplicationChannel, type Handelse, type JobApplication } from '@/lib/jobbsok'
 
 export interface LoggaForifyllt {
   lage?: 'sokt' | 'ska-soka'
@@ -76,12 +78,15 @@ export default function LoggaArk({
   onKlar,
   forifyllt,
   redigera,
+  handelser,
 }: {
   open: boolean
   onClose: () => void
   onKlar: (r: LoggaResultat) => void
   forifyllt?: LoggaForifyllt | null
   redigera?: JobApplication | null
+  /** Tjänstens händelser i läget redigera. */
+  handelser?: readonly Handelse[]
 }) {
   const idag = idagSv()
   const franSparad = !!forifyllt?.sparadId
@@ -136,11 +141,21 @@ export default function LoggaArk({
   }, [open, cver])
 
   const skaSoka = lage === 'ska-soka'
+  // Redigera: sökdatumet kan inte ligga efter den tidigaste händelsen.
+  const tidigast = redigera ? tidigasteHandelse(handelser ?? []) : null
+  const senastSokt = tidigast && tidigast < idag ? tidigast : idag
   const kanSpara = titel.trim().length > 0 && foretag.trim().length > 0 && !sparar
 
   const spara = async (e?: FormEvent) => {
     e?.preventDefault()
     if (!kanSpara) return
+    if (redigera && !skaSoka && datum && datum !== redigera.applied_at) {
+      const efter = soktEfterHandelse(datum, handelser ?? [])
+      if (efter) {
+        setFel(efter)
+        return
+      }
+    }
     setSparar(true)
     setFel(null)
     try {
@@ -235,7 +250,7 @@ export default function LoggaArk({
           </>
         ) : (
           <>
-            <Falt etikett="Datum sökt" typ="datum" value={datum} max={idag} onChange={(e) => setDatum(e.target.value)} />
+            <Falt etikett="Datum sökt" typ="datum" value={datum} max={senastSokt} onChange={(e) => setDatum(e.target.value)} />
             <GruppEtikett>Hur sökte du?</GruppEtikett>
             <ValRad etikett="Hur sökte du?">
               {KANALER.map((k) => (

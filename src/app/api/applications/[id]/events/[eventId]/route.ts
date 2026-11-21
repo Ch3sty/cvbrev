@@ -5,7 +5,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { valideraIntervjutid } from '@/lib/jobbsok/validering';
+import { handelseForeSokt, valideraIntervjutid } from '@/lib/jobbsok/validering';
 import { arSchemaFel } from '@/lib/jobbsok/schema';
 import { matIntervjutid } from '@/lib/jobbsok/intervjuServer';
 
@@ -16,11 +16,11 @@ async function requireOwnedApplication(
 ) {
   const { data } = await supabase
     .from('job_applications')
-    .select('id')
+    .select('id, applied_at')
     .eq('id', applicationId)
     .eq('user_id', userId)
     .maybeSingle();
-  return Boolean(data);
+  return data as { id: string; applied_at: string | null } | null;
 }
 
 export async function PUT(
@@ -36,7 +36,8 @@ export async function PUT(
     if (!user) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
-    if (!(await requireOwnedApplication(supabase, id, user.id))) {
+    const ansokan = await requireOwnedApplication(supabase, id, user.id);
+    if (!ansokan) {
       return NextResponse.json({ error: 'Den sökta tjänsten hittades inte' }, { status: 404 });
     }
 
@@ -66,6 +67,20 @@ export async function PUT(
     }
     if (Object.keys(updates).length === 0) {
       return NextResponse.json({ error: 'Inget att uppdatera' }, { status: 400 });
+    }
+
+    // Ingen händelse före dagen tjänsten söktes (som POST). "Sökt" själv följer sökdatumet.
+    if (typeof updates.occurred_at === 'string') {
+      const { data: handelse } = await supabase
+        .from('job_application_events')
+        .select('event_type')
+        .eq('id', eventId)
+        .eq('application_id', id)
+        .maybeSingle();
+      const foreSokt = handelse ? handelseForeSokt(String(handelse.event_type), updates.occurred_at, ansokan.applied_at) : null;
+      if (foreSokt) {
+        return NextResponse.json({ error: foreSokt, code: 'invalid_field', falt: 'occurred_at' }, { status: 400 });
+      }
     }
 
     const fore = intervjuAndrad

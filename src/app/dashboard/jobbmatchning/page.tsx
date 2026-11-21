@@ -64,13 +64,15 @@ export default async function JobbmatchningPage({
     return EMPTY_JOBBMATCHNING_DATA;
   });
 
-  // Senaste körningen ur job_matchings_cache, så att träffarna står i första
-  // HTML (omgång 1, F7). Går den fel öppnas sidan som förut, utan träffar.
-  const korning = data.loadFailed
-    ? null
+  // Senaste körningen (sammanfattningen, annars hela körningen högst en gång),
+  // så att träffarna står i första HTML (omgång 1, F7). Går läsningen fel och
+  // det inte finns någon sammanfattning att visa säger sidan att det gick fel,
+  // inte "Vi har inte letat än" (rättningen efter slutkontrollen 2026-11-21).
+  const { korning, lasfel } = data.loadFailed
+    ? { korning: null, lasfel: false }
     : await hamtaSenasteKorning(supabase, user.id, data.activeCV, data.jobPreferences, annonsId).catch((error) => {
         console.error('Jobbmatchning: kunde inte läsa senaste körningen', error);
-        return null;
+        return { korning: null, lasfel: true };
       });
 
   // "N nya" på Jobbsökets hem räknar från när sidan senast visades (spec
@@ -79,5 +81,5 @@ export default async function JobbmatchningPage({
 
   // userId går vidare så klienten kan nyckla den lokalt sparade sökningen på
   // rätt konto. Två konton i samma webbläsare ska aldrig se varandras träffar.
-  return <MatchadeJobb initialData={data} korning={korning} userId={user.id} />;
+  return <MatchadeJobb initialData={data} korning={korning} lasfel={lasfel} userId={user.id} />;
 }

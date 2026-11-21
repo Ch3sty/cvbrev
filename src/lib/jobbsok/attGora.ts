@@ -195,7 +195,10 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
       ikon: 'dokument',
       overrad: versaler(`Senast ${kortDag(datum)}`),
       rubrik: `Rapporten för ${manadEtikett(forra).toLocaleLowerCase('sv-SE')}`,
-      text: `${ind.sokteForraManaden} sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.`,
+      text:
+        ind.sokteForraManaden === 1
+          ? '1 sökt jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i det åt dig.'
+          : `${ind.sokteForraManaden} sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.`,
       knapp: { text: 'Öppna rapporten', href: soktaHref({ vy: 'rapport', manad: forra }) },
     })
   }
@@ -233,6 +236,9 @@ export function sorteraHandlingar(h: readonly AttGoraHandling[]): AttGoraHandlin
 function sokEnTill(ind: AttGoraIndata, idag: Dag): AttGoraHandling {
   const m = ind.veckansMal
   const t = ind.bastaTraff
+  // Inga sökta tjänster och inget under Ska sökas: den första, inte "till"
+  // (beslut 22, docs/beslut-jobbsoket-2026-11-21.md).
+  const forsta = ind.tjanster.length === 0 && ind.skaSokas.length === 0
   return {
     typ: 'sok_en_till',
     nyckel: `sok_en_till:${m.start}`,
@@ -240,10 +246,12 @@ function sokEnTill(ind: AttGoraIndata, idag: Dag): AttGoraHandling {
     passerad: false,
     ikon: 'flagga',
     overrad: versaler(`Veckans mål ${m.sokta} av ${m.mal}`),
-    rubrik: m.kvar === 1 ? 'Sök en tjänst till' : `Sök ${ordtal(m.kvar)} tjänster till`,
+    rubrik: forsta ? 'Sök din första tjänst' : m.kvar === 1 ? 'Sök en tjänst till' : `Sök ${ordtal(m.kvar)} tjänster till`,
     text: t
       ? `${t.jobTitle} hos ${t.company} passar dig till ${t.score} %.`
-      : `${stor(ordtal(m.kvar))} kvar till veckans mål. Matchade jobb har annonser som passar ditt CV.`,
+      : forsta
+        ? 'Matchade jobb har annonser som passar ditt CV. Har du redan sökt en tjänst loggar du den med företag, tjänst och datum.'
+        : `${stor(ordtal(m.kvar))} kvar till veckans mål. Matchade jobb har annonser som passar ditt CV.`,
     knapp: { text: t ? 'Se annonsen' : 'Till Matchade jobb', href: jobbHref(t?.id ?? null) },
   }
 }

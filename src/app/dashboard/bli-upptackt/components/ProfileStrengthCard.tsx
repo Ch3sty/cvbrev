@@ -182,11 +182,12 @@ function ViewsRow({ views }: { views: ViewStats | null }) {
 
   // Veckan först när det hänt något den här veckan, annars totalen. Vi vill
   // aldrig skriva "0 den här veckan" till någon som faktiskt har visningar.
-  // "Rekryterare" böjs inte i plural, så ingen räkneordslogik behövs.
+  // Talet räknar visningar (per rekryterare och dygn), inte unika rekryterare.
+  const ganger = (n: number) => (n === 1 ? 'en gång' : `${n} gånger`);
   const label =
     views.lastWeek > 0
-      ? `${views.lastWeek} rekryterare har sett din profil den här veckan`
-      : `${views.total} rekryterare har sett din profil`;
+      ? `Din profil har visats ${ganger(views.lastWeek)} den här veckan`
+      : `Din profil har visats ${ganger(views.total)}`;
 
   return (
     <div className="flex items-start gap-3 rounded-lg border border-kant p-4">

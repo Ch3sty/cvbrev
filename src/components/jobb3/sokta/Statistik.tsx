@@ -18,7 +18,6 @@ import {
   Spalter,
   SektionsHuvud,
   Kort,
-  Tratt,
   Veckostaplar,
   Kanaler,
   Vaxel,
@@ -32,6 +31,7 @@ import { cvComparisonMissingText } from '@/lib/applications/cvComparison'
 import { langDag, ordtal, type Bricka } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
 import { KANAL_NAMN, Ordtal, trattTon, uppraknat } from './text'
+import { TrattBild } from './TrattBild'
 
 const brickor = (b: Bricka[]) => b.map((x) => ({ kod: x.bokstaver, ton: trattTon(x.ton) }))
 
@@ -119,7 +119,6 @@ export function StatistikGolv({ data, vaxel, onAndraMal, onLogga }: { data: Sokt
     )
   }
 
-  const etikett = `${Ordtal(t.sokta.antal)} sökta. ${t.svar.antal} har svarat. ${t.intervju.antal} har lett till intervju. ${t.erbjudande.antal ? `${t.erbjudande.antal} erbjudande.` : 'Inget erbjudande än.'}`
   const skaSokas = data.lista.ska_sokas.filter((r) => !r.passerad).length
 
   const staplar =
@@ -127,7 +126,7 @@ export function StatistikGolv({ data, vaxel, onAndraMal, onLogga }: { data: Sokt
       ? s.veckostaplar.map((v) => ({ etikett: `v. ${v.vecka}`, nu: v.arNu, brickor: brickor(v.brickor) }))
       : s.manadsstaplar.map((m) => ({ etikett: m.etikett.replace(', nu', '').slice(0, 3).toLowerCase(), nu: m.arNu, brickor: brickor(m.brickor) }))
   const aktiva = s.veckostaplar.filter((v) => v.brickor.length > 0).length
-  const underVecka = `${Ordtal(t.sokta.antal)} sökta tjänster på ${s.veckostaplar.length} ${s.veckostaplar.length === 1 ? 'vecka' : 'veckor'}${aktiva < s.veckostaplar.length ? `, ${ordtal(aktiva)} av dem med minst en` : ''}.`
+  const underVecka = `${Ordtal(t.sokta.antal)} ${t.sokta.antal === 1 ? 'sökt tjänst' : 'sökta tjänster'} på ${s.veckostaplar.length} ${s.veckostaplar.length === 1 ? 'vecka' : 'veckor'}${aktiva < s.veckostaplar.length ? `, ${ordtal(aktiva)} av dem med minst en` : ''}.`
 
   return (
     <Golv>
@@ -140,16 +139,7 @@ export function StatistikGolv({ data, vaxel, onAndraMal, onLogga }: { data: Sokt
           <PanelHuvud rubrik="Från sökt till erbjudande" rubrikId="tratt-rubrik" under="Varje bricka är en sökt tjänst. Följ dem från vänster till höger." />
         </div>
         <div style={{ marginTop: 22 }}>
-          <Tratt
-            etikett={etikett}
-            mellan={[`${t.svar.antal} av ${t.sokta.antal}`, `${t.intervju.antal} av ${t.svar.antal}`, t.erbjudande.antal ? `${t.erbjudande.antal} av ${t.intervju.antal}` : 'väntar']}
-            led={[
-              { tal: t.sokta.antal, namn: 'Sökta', under: t.sokta.sedan ? `Sedan ${langDag(t.sokta.sedan)}` : undefined, brickor: brickor(t.sokta.brickor) },
-              { tal: t.svar.antal, namn: 'Fått svar', under: svarUnder(t.svar.kallelser, t.svar.avslag), brickor: brickor(t.svar.brickor) },
-              { tal: t.intervju.antal, namn: 'Intervju', under: intervjuUnder(t.intervju.genomforda, t.intervju.bokade, t.intervju.antal), brickor: brickor(t.intervju.brickor) },
-              { tal: t.erbjudande.antal, namn: 'Erbjudande', under: t.erbjudande.antal ? undefined : 'Inget än', brickor: brickor(t.erbjudande.brickor), mal: true },
-            ]}
-          />
+          <TrattBild tratt={t} />
         </div>
       </LyftPanel>
 
@@ -192,21 +182,6 @@ export function StatistikGolv({ data, vaxel, onAndraMal, onLogga }: { data: Sokt
       </Spalter>
     </Golv>
   )
-}
-
-function svarUnder(kallelser: number, avslag: number): string {
-  const d: string[] = []
-  if (kallelser) d.push(kallelser === 1 ? '1 kallelse' : `${kallelser} kallelser`)
-  if (avslag) d.push(`${avslag} avslag`)
-  return d.length ? d.join(', ') : 'Inget svar än'
-}
-
-function intervjuUnder(genomforda: number, bokade: number, antal: number): string {
-  if (!antal) return 'Ingen än'
-  const d: string[] = []
-  if (genomforda) d.push(`${genomforda} genomförd${genomforda === 1 ? '' : 'a'}`)
-  if (bokade) d.push(`${bokade} bokad${bokade === 1 ? '' : 'e'}`)
-  return d.length ? d.join(', ') : `${antal} kallad${antal === 1 ? '' : 'e'}`
 }
 
 /** Svar per CV (dagens CV-jämförelse) med sitt tomma läge. */

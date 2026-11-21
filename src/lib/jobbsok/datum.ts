@@ -49,13 +49,50 @@ export function idagSv(nu: Date = new Date()): Dag {
   return DAG_FORMAT.format(nu)
 }
 
-/** Kalenderdagen för en tidpunkt (svensk tid). En ren dag returneras som den är. */
+/**
+ * En tid utan tidszon, som Arbetsförmedlingens annonser skickar den
+ * ("2026-11-30T23:59:59"). Den är svensk lokal tid. `new Date()` skulle läsa
+ * den i maskinens zon: på servern (UTC) blir 23.59 den 30 november då 00.59
+ * den 1 december i Stockholm, i webbläsaren 30 november.
+ */
+const UTAN_ZON_RE = /^(\d{4}-\d{2}-\d{2})[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?$/
+
+/**
+ * Kalenderdagen för en tidpunkt (svensk tid). En ren dag returneras som den
+ * är, och en tid utan zon är svensk lokal tid (dagen är då datumdelen). En tid
+ * med `Z` eller förskjutning räknas om till svensk tid.
+ */
 export function dagFor(v: string | Date | null | undefined): Dag | null {
   if (!v) return null
-  if (typeof v === 'string' && DAG_RE.test(v)) return v
+  if (typeof v === 'string') {
+    if (DAG_RE.test(v)) return v
+    const m = UTAN_ZON_RE.exec(v.trim())
+    if (m) return arDag(m[1]) ? m[1] : null
+  }
   const d = typeof v === 'string' ? new Date(v) : v
   if (Number.isNaN(d.getTime())) return null
   return DAG_FORMAT.format(d)
+}
+
+/**
+ * Tidpunkten i millisekunder, samma på servern och i webbläsaren: en tid utan
+ * zon är svensk lokal tid, en ren dag är midnatt svensk tid, en tid med `Z`
+ * eller förskjutning läses som den står. Null när den inte går att läsa.
+ */
+export function tidpunkt(v: string | null | undefined): number | null {
+  if (!v) return null
+  const s = v.trim()
+  if (DAG_RE.test(s)) return arDag(s) ? stockholmTillMs(s, 0, 0, 0) : null
+  const m = UTAN_ZON_RE.exec(s)
+  if (m) {
+    const tim = Number(m[2])
+    const min = Number(m[3])
+    const sek = Number(m[4] ?? 0)
+    if (!arDag(m[1]) || tim > 23 || min > 59 || sek > 59) return null
+    return stockholmTillMs(m[1], tim, min, sek)
+  }
+  const t = Date.parse(s)
+  return Number.isNaN(t) ? null : t
 }
 
 function tillUtc(dag: Dag): number {
@@ -120,14 +157,19 @@ export function franStockholm(dag: Dag, klockslag?: string | null): string | nul
     min = Number(m[2])
     if (tim > 23 || min > 59) return null
   }
-  const onskad = tillUtc(dag) + (tim * 60 + min) * 60_000
+  return new Date(stockholmTillMs(dag, tim, min, 0)).toISOString()
+}
+
+/** En dag och en tid på Stockholms väggklocka som millisekunder (UTC). */
+function stockholmTillMs(dag: Dag, tim: number, min: number, sek: number): number {
+  const onskad = tillUtc(dag) + ((tim * 60 + min) * 60 + sek) * 1000
   // Två varv räcker även vid sommartidsbytet.
   let gissning = onskad
   for (let i = 0; i < 2; i++) {
     const vagg = vaggklocka(gissning)
     gissning += onskad - vagg.ms
   }
-  return new Date(gissning).toISOString()
+  return gissning
 }
 
 /** "10.00", eller null när tiden är 00:00 svensk tid (bara datum satt). */
@@ -181,6 +223,30 @@ export function narText(dag: Dag, idag: Dag): string {
   if (d === -1) return 'i går'
   if (d > 1 && d <= 6) return `på ${veckodagNamn(dag)}`
   return `den ${langDag(dag)}`
+}
+
+/**
+ * När något hände, bakåt i tiden: "i dag", "i går", "i tisdags" (två till
+ * sex dagar sedan), annars "den 12 november". En dag efter `idag` (klockor
+ * som går olika) läses som i dag.
+ */
+export function sedanText(dag: Dag, idag: Dag): string {
+  const d = dagarMellan(dag, idag)
+  if (d <= 0) return 'i dag'
+  if (d === 1) return 'i går'
+  if (d <= 6) return `i ${veckodagNamn(dag)}s`
+  return `den ${langDag(dag)}`
+}
+
+/**
+ * Raden över de nya träffarna: "Sedan du tittade i tisdags". `seddaAt` är
+ * när Matchade jobb senast visades (profiles.matchningar_sedda_at, läst
+ * innan sidan markerar den som sedd igen). Null utan tidpunkt.
+ */
+export function sedanDuTittade(seddaAt: string | null | undefined, idag: Dag): string | null {
+  const dag = dagFor(seddaAt)
+  if (!dag) return null
+  return `Sedan du tittade ${sedanText(dag, idag)}`
 }
 
 /** "Oktober" ur 'YYYY-MM'. */

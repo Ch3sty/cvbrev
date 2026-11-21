@@ -8,7 +8,9 @@
  * bana med uppföljningarna insorterade, snabbvalen, och Om tjänsten.
  *
  * Datan kommer från hamtaSoktTjanst på servern; efter en ändring hämtas den
- * om med router.refresh().
+ * om med router.refresh(). Det som användaren själv just gjort (svarat på
+ * Hur gick intervjun?, loggat en uppföljning) syns direkt ur lokalt läge,
+ * innan serverdatan är tillbaka (klicktestet 2026-11-21).
  */
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
@@ -55,6 +57,7 @@ import { STATUS_META } from '@/lib/applications/status'
 import { INFOR_INTERVJUN_HREF, nyttProvHref } from '@/lib/intervju/lankar'
 import {
   dagarMellan,
+  foljdeUppRad,
   handelseEtikett,
   idagSv,
   klockslag,
@@ -66,7 +69,9 @@ import {
   veckodagNamn,
   veckodagOchDag,
   type ApplicationEventType,
+  type HandelseListRad,
   type TjanstFokus,
+  type Uppfoljning as UppfoljningRad,
 } from '@/lib/jobbsok'
 import type { SoktTjanstData } from '@/lib/jobbsok/server'
 import LoggaArk from './LoggaArk'
@@ -92,25 +97,46 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
   const [taBortRad, setTaBortRad] = useState<{ typ: 'handelse' | 'foljde_upp'; id: string; rubrik: string } | null>(null)
   const [ratta, setRatta] = useState(false)
   const panel = useRef<HTMLDivElement>(null)
+  // Uppföljningen som just loggades, tills serverdatan har den (fel 4 i klicktestet).
+  const [lokalUppf, setLokalUppf] = useState<UppfoljningRad | null>(null)
+  // Intervjutiden som "Hur gick intervjun?" just besvarades för.
+  const [hurGickSvarat, setHurGickSvarat] = useState<string | null>(null)
+  const serverHarLokal = !!lokalUppf && data.handelselista.some((r) => r.typ === 'foljde_upp' && r.radId === lokalUppf.id)
+  useEffect(() => {
+    if (serverHarLokal) setLokalUppf(null)
+  }, [serverHarLokal])
+  const tyst = t.tyst && !lokalUppf
+  const uppfoljdIdag = !t.avslutad && (u.senastSkickad?.sent_at === idag || lokalUppf?.sent_at === idag)
+  const hurGickBesvarad = !!i && i.lage === 'hur_gick' && hurGickSvarat !== null && hurGickSvarat === (i.tid ?? '')
 
-  // Vilket block panelen visar. Följ upp står kvar när den väl har visats,
-  // så att bekräftelsen och Ångra syns efter att tjänsten lämnat Följ upp.
+  // Vilket block panelen visar, räknat ur dagens data vid varje ritning. Bara
+  // Följ upp står kvar när den väl har visats, så att bekräftelsen och Ångra
+  // syns efter att tjänsten lämnat Följ upp. "Hur gick intervjun?" står
+  // aldrig kvar när frågan är besvarad (klicktestet 2026-11-21).
+  // Följ upp visas när tjänsten är tyst, har ett utkast eller följdes upp i
+  // dag (så att "Följde upp i dag" och Ångra står kvar efter en omladdning).
   const grund: Block = t.avslutad
     ? null
-    : i?.lage === 'hur_gick'
+    : i?.lage === 'hur_gick' && !hurGickBesvarad
       ? 'hur-gick'
       : i && (i.lage === 'bokad' || i.lage === 'utan_tid')
         ? 'forbered'
-        : t.tyst || u.utkast
+        : tyst || u.utkast || uppfoljdIdag
           ? 'folj-upp'
           : null
   const onskat: Block =
-    fokus === 'folj-upp' && !t.avslutad ? 'folj-upp' : fokus === 'forbered' && t.station === 'intervju' ? 'forbered' : fokus === 'hur-gick' && i?.lage === 'hur_gick' ? 'hur-gick' : null
-  const [fastBlock, setFastBlock] = useState<Block>(onskat ?? grund)
-  const block: Block = fastBlock === 'folj-upp' ? 'folj-upp' : grund ?? fastBlock
+    fokus === 'folj-upp' && !t.avslutad
+      ? 'folj-upp'
+      : fokus === 'forbered' && t.station === 'intervju'
+        ? 'forbered'
+        : fokus === 'hur-gick' && i?.lage === 'hur_gick' && !hurGickBesvarad
+          ? 'hur-gick'
+          : null
+  const [foljUppVisad, setFoljUppVisad] = useState((onskat ?? grund) === 'folj-upp')
+  const block: Block = foljUppVisad ? 'folj-upp' : grund ?? onskat
   useEffect(() => {
-    if (grund === 'folj-upp') setFastBlock('folj-upp')
-  }, [grund])
+    if (block === 'folj-upp') setFoljUppVisad(true)
+  }, [block])
 
   useEffect(() => {
     if (fokus && fokus !== 'andra-tid' && panel.current) panel.current.scrollIntoView({ block: 'start' })
@@ -132,7 +158,7 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
 
   const ogon = t.avslutad
     ? STATUS_META[t.status ?? 'rejected'].label
-    : t.tyst
+    : tyst
       ? `Tyst i ${t.dagarTyst} dagar`
       : i?.lage === 'vantar_besked'
         ? 'Intervju genomförd'
@@ -159,7 +185,7 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
     i?.dag ? <DatumBricka manad={MANAD_KORT[Number(i.dag.slice(5, 7)) - 1]} dag={Number(i.dag.slice(8, 10))} pa={pa} /> : null
 
   const visaDatumRuta = !!(i && (i.lage === 'bokad' || i.lage === 'hur_gick') && i.dag)
-  const ingressVagg = t.tyst
+  const ingressVagg = tyst
     ? `Du sökte ${veckodagNamn(t.appliedAt)} ${langDag(t.appliedAt)} och har inte hört något. Efter två veckor är det helt i sin ordning att fråga.`
     : i?.lage === 'utan_tid'
       ? 'Du är kallad till intervju. Sätt tiden när du vet den, så påminner vi och frågar hur det gick.'
@@ -167,7 +193,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
 
   /* -------------------------------------------------------- händelserna */
 
-  const rader: BanHandelse[] = data.handelselista.map((r) => {
+  // Uppföljningen som just loggades står med direkt; en som just ångrats tas bort.
+  const lista: HandelseListRad[] = [...data.handelselista]
+  const lokalRad = lokalUppf && !serverHarLokal ? foljdeUppRad(lokalUppf) : null
+  if (lokalRad) {
+    const kommande = lista.findIndex((r) => r.typ === 'kommande_intervju')
+    lista.splice(kommande < 0 ? lista.length : kommande, 0, lokalRad)
+  }
+  const rader: BanHandelse[] = lista.map((r) => {
     const kanTas = ratta && r.typ !== 'kommande_intervju'
     const text: ReactNode = (
       <>
@@ -194,7 +227,7 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
       ikon: r.typ === 'foljde_upp' ? <IkonMejl size={18} /> : r.eventType === 'rejected' || r.eventType === 'declined' ? <IkonAvslag size={18} /> : undefined,
     }
   })
-  if (t.tyst && !t.avslutad) {
+  if (tyst && !t.avslutad) {
     rader.push({
       rubrik: 'Följde upp',
       datum: 'läggs till när du har skickat',
@@ -267,7 +300,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
           under={i.dag ? `Intervjun var ${veckodagNamn(i.dag)} ${langDag(i.dag)}. Svara med ett tryck, så hamnar det rätt bland händelserna.` : 'Svara med ett tryck, så hamnar det rätt bland händelserna.'}
         />
         <div className="mt-[18px]">
-          <HurGickSvar ansokanId={a.id} onKlar={uppdatera} onFlyttad={() => setTidArk('flyttad')} />
+          <HurGickSvar
+            ansokanId={a.id}
+            onKlar={() => {
+              setHurGickSvarat(i.tid ?? '')
+              uppdatera()
+            }}
+            onFlyttad={() => setTidArk('flyttad')}
+          />
         </div>
       </>
     )
@@ -326,7 +366,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
           stor
           under="Ett kort mejl brukar ge besked. Utkastet är skrivet utifrån din ansökan. Ändra det du vill direkt i texten."
         />
-        <Uppfoljning ansokanId={a.id} start={u} jobAdUrl={a.job_ad_url} onAndrat={uppdatera} />
+        <Uppfoljning
+          ansokanId={a.id}
+          start={u}
+          jobAdUrl={a.job_ad_url}
+          onAndrat={uppdatera}
+          onSkickad={(rad) => setLokalUppf(rad)}
+          onAngrad={(id) => setLokalUppf((l) => (l?.id === id ? null : l))}
+        />
       </>
     )
   }
@@ -360,14 +407,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
             <TjanstBana
               steg={aktuell}
               kod={t.bokstaver}
-              tyst={t.tyst ? `tyst ${t.dagarTyst} dagar` : undefined}
+              tyst={tyst ? `tyst ${t.dagarTyst} dagar` : undefined}
               datum={datum}
               datumMobil={datumMobil}
               etikett={banEtikett}
             />
           }
         >
-          <TjanstHuvud kod={t.bokstaver} tyst={t.tyst} ogon={ogon} titel={t.jobTitle} arbetsgivare={varRad(t)} />
+          <TjanstHuvud kod={t.bokstaver} tyst={tyst} ogon={ogon} titel={t.jobTitle} arbetsgivare={varRad(t)} />
           {visaDatumRuta && intervjuRubrik ? (
             <div className="hidden xl:block" style={{ marginTop: 30 }}>
               <DatumRuta bricka={datumBricka('vagg')} rubrik={intervjuRubrik} rad={<>{omText} {tidLank(true)}</>} />
@@ -444,13 +491,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
         </Spalter>
       </Golv>
 
-      <LoggaArk open={redigera} onClose={() => setRedigera(false)} redigera={a} onKlar={() => { success('Sparat.', 2500); uppdatera() }} />
+      <LoggaArk open={redigera} onClose={() => setRedigera(false)} redigera={a} handelser={data.handelser} onKlar={() => { success('Sparat.', 2500); uppdatera() }} />
       <HandelseArk
         open={handelse.open}
         onClose={() => setHandelse({ open: false, typ: null })}
         ansokanId={a.id}
         typ={handelse.typ}
         genomforda={genomforda}
+        sokt={t.appliedAt}
         onSparat={(typ) => {
           successWithActivity('Händelsen är sparad.', 'application_event_added', `Ny händelse: ${STATUS_META[typ].label}`, { applicationId: a.id, eventType: typ }, 2500)
           uppdatera()
@@ -487,6 +535,7 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
           if (!taBortRad) return
           if (taBortRad.typ === 'foljde_upp') await anropa(`/api/jobbsok/uppfoljning/${a.id}/skickad?uppfoljning=${taBortRad.id}`, 'DELETE')
           else await anropa(`/api/applications/${a.id}/events/${taBortRad.id}`, 'DELETE')
+          if (taBortRad.typ === 'foljde_upp' && lokalUppf?.id === taBortRad.id) setLokalUppf(null)
           success(taBortRad.typ === 'foljde_upp' ? 'Uppföljningen är ångrad.' : 'Händelsen är borttagen.', 2500)
           uppdatera()
         }}

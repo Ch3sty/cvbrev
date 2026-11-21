@@ -1,8 +1,9 @@
 /**
  * "Skriv brevet" från en rad under Ska sökas (Att göra nu: Sök före sista
- * dag). En sparad träff (af_ad_id) som fortfarande finns bland de bästa går
- * till Matchade jobb med ?skriv=1, där hela annonstexten finns. Annars (en
- * egen rad, eller en träff som fallit ur listan) fylls Skriv brev i med det
+ * dag). En sparad träff (af_ad_id) som fortfarande finns bland de bästa och
+ * är öppen för kontot (gratis: de tre första) går till Matchade jobb med
+ * ?skriv=1, där hela annonstexten finns. Annars (en egen rad, en träff som
+ * fallit ur listan eller en dold träff) fylls Skriv brev i med det
  * som finns (tjänst, arbetsgivare, ort, länk), genom samma förifyllning som
  * Matchade jobb använder (coverLetterPrefill).
  *
@@ -15,9 +16,7 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { SKRIV_BREV_HREF } from '@/lib/letters/lage'
 import { jobbHref, SOKTA_HREF } from '@/lib/jobbsok'
 import TillSkrivBrev from '@/components/jobb3/sokta/TillSkrivBrev'
-import { hamtaBasta } from '@/lib/jobmatching/sammanfattning.server'
-import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
-import { toJobPreferences } from '@/types/user.types'
+import { hamtaOppnaTraffar } from '@/lib/jobmatching/oppna.server'
 
 export const dynamic = 'force-dynamic'
 
@@ -36,19 +35,12 @@ export default async function SkrivBrevFranSparad({ searchParams }: { searchPara
     .maybeSingle()
   const rad = data as { job_title: string; company: string; location: string | null; job_ad_url: string | null; af_ad_id: string | null } | null
   if (!rad) redirect(SOKTA_HREF)
-  // En sparad träff som fortfarande finns bland de bästa: Matchade jobb har hela annonstexten.
+  // En sparad träff som fortfarande finns bland de träffar kontot får se
+  // (gratis: de tre öppna): Matchade jobb har hela annonstexten. Bara
+  // sammanfattningen (läget 'liten'), aldrig hela körningen.
   if (rad.af_ad_id) {
-    const [cvRes, profilRes] = await Promise.all([
-      supabase.from('active_cv_for_matching').select('*').eq('user_id', user.id).maybeSingle(),
-      supabase.from('profiles').select('job_preferences').eq('id', user.id).maybeSingle(),
-    ])
-    const basta = await hamtaBasta(
-      supabase as never,
-      user.id,
-      (cvRes.data ?? null) as ActiveCVData | null,
-      toJobPreferences((profilRes.data as { job_preferences?: unknown } | null)?.job_preferences)
-    ).catch(() => null)
-    if (basta?.ranked.some((r) => String(r.job.id ?? '') === rad.af_ad_id)) redirect(`${jobbHref(rad.af_ad_id)}&skriv=1`)
+    const oppna = await hamtaOppnaTraffar(supabase, user.id)
+    if (oppna?.traffar.some((r) => String(r.job.id ?? '') === rad.af_ad_id)) redirect(`${jobbHref(rad.af_ad_id)}&skriv=1`)
   }
 
   const delar = [rad.job_title, `Arbetsgivare: ${rad.company}`]

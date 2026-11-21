@@ -8,8 +8,8 @@
  * komponent som äger skalet, så den bor i en egen hook i stället för att
  * dupliceras på fyra ställen.
  *
- * Klockan räknas från sessionens started_at, alltså serverns tid, samma
- * mönster som useExamDeadline i provläget. Förut startade varje vy sin egen
+ * Klockan räknas från sessionens started_at, alltså serverns tid, så att
+ * en omladdning aldrig ändrar tiden. Förut startade varje vy sin egen
  * klocka vid mount, så en omladdning mitt i testet nollade tiden
  * (röktestet 2026-11-19, talserier grund).
  */

@@ -1,13 +1,14 @@
 /**
  * "Nya jobb som passar dig" på Översikt (Main). Egen serverkomponent i en
- * egen Suspense-gräns: hamtaToppTraffar läser hela senaste körningen (upp
- * till 600 annonser), så väggen och Att göra nu väntar aldrig på den.
+ * egen Suspense-gräns: hamtaToppTraffar läser sammanfattningen av senaste
+ * körningen (aldrig hela körningen), så väggen och Att göra nu väntar aldrig
+ * på den.
  * Gratisnivån får aldrig fler än de tre som visas i klartext (laddaren).
  */
 import { hamtaToppTraffar } from '@/lib/jobbsok/server'
 import { JOBB_HREF, SISTA_DAG_INOM_DAGAR, jobbHref, plusDagar } from '@/lib/jobbsok'
 import { Avsnitt, LitenKnapp, SektionsHuvud, Skel, TomtLage, TraffKort, Traffar, IkonSok } from '@/components/jobb3/kit'
-import { traffUnder } from './oversikt'
+import { traffUnderMedSedan } from './oversikt'
 import { traffRubrikNya } from '@/lib/rum/nyaTraffar'
 
 export async function NyaTraffar({ userId, idag }: { userId: string; idag: string }) {
@@ -39,8 +40,8 @@ export async function NyaTraffar({ userId, idag }: { userId: string; idag: strin
       <SektionsHuvud
         rubrikId="nya-rubrik"
         rubrik={traffRubrikNya({ basta: t.basta, nya: t.nya })}
-        under={traffUnder(t.lasta, t.kordAt, idag)}
-        lank={{ href: JOBB_HREF, text: `Alla ${t.basta} träffar`, textMobil: `Alla ${t.basta}` }}
+        under={traffUnderMedSedan(t.lasta, t.kordAt, idag, t.nya, t.seddaAt)}
+        lank={{ href: JOBB_HREF, text: t.basta === 1 ? '1 träff' : `Alla ${t.basta} träffar`, textMobil: t.basta === 1 ? '1 träff' : `Alla ${t.basta}` }}
       />
       <Traffar>
         {t.traffar.map((x) => {

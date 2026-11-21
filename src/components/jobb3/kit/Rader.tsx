@@ -209,12 +209,17 @@ export interface SparadKortProps {
   passerad?: boolean
   /** Primära valet i kortet ("Skriv brev"), en LitenKnapp. */
   handling?: ReactNode
-  /** Textlänken bredvid ("Markera som sökt", eller "Ta bort" när passerad). Bara på dator, och på telefon när passerad. */
+  /** Textlänken bredvid ("Markera som sökt", eller "Ta bort" när passerad). I alla bredder, 44 px tryckyta; egen rad om bredden inte räcker. */
   lank?: ReactNode
+  /**
+   * Lågmäld textknapp efter de andra ("Ta bort" på en aktiv rad), på egen rad
+   * under foten i alla bredder, så att foten aldrig blir trängre (klicktestet 2026-11-21).
+   */
+  bort?: ReactNode
 }
 
 /** Det sparade kortet under Ska sökas (BYGGSPEC F3): tom streckad bricka, ringen och sista dag. */
-export function SparadKort({ kod, titel, arbetsgivare, matchgrad, dag, snart, passerad, handling, lank }: SparadKortProps) {
+export function SparadKort({ kod, titel, arbetsgivare, matchgrad, dag, snart, passerad, handling, lank, bort }: SparadKortProps) {
   return (
     <article className={passerad ? 'j3-spar passerad' : 'j3-spar'}>
       <div className="j3-spar-topp">
@@ -232,6 +237,7 @@ export function SparadKort({ kod, titel, arbetsgivare, matchgrad, dag, snart, pa
           {handling}
         </span>
       </div>
+      {bort ? <div className="j3-spar-bort">{bort}</div> : null}
     </article>
   )
 }

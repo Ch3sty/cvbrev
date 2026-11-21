@@ -45,7 +45,7 @@ import { FRAGA_ORDNING, FRAGOR, type FragaId } from '@/components/artiklar/inter
 import { archetypeFor } from '@/lib/recruiter/workStyle'
 import { faktorUtfall, profilRubrik } from '@/lib/personlighet/smakprov-tolkning'
 import { FORDJUPAT_HREF, GRUNDTEST_HREF, nyttProvHref, profilHref, provHref } from '@/lib/intervju/lankar'
-import { dagEtikett, nar, rekommenderadFraga, saknadesFras, type HubbHandling, type ProvSammanfattning } from '@/lib/intervju/nasta'
+import { dagEtikett, nar, rekommenderadFraga, saknadesFras, saknadesI, type HubbHandling, type ProvSammanfattning } from '@/lib/intervju/nasta'
 import { idagSv, intervjuEtikett, klockslag, langDag, narText, senastePerFraga, tjanstHref, veckodagNamn } from '@/lib/jobbsok'
 import type { IntervjuPaGang } from '@/lib/jobbsok/intervju'
 import { PRISER_HREF } from '@/lib/onboarding/steps'
@@ -64,9 +64,9 @@ function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, n
     case 'forstaGang':
       return { ogon: NASTA.forstaGang.eyebrow, rubrik: NASTA.forstaGang.rubrik, text: NASTA.forstaGangText(kvotKvar, utanTak), knapp: NASTA.forstaGang.knapp, href: nyttProvHref('beratta'), fraga: 'beratta' as FragaId }
     case 'omskrivning':
-      return { ogon: 'Nästa fråga', rubrik: NASTA.omskrivning.rubrik(h.prov.question), text: NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), h.prov.missingKind, h.prov.question), knapp: NASTA.omskrivning.knapp, href: nyttProvHref(h.prov.question), fraga: h.prov.question }
+      return { ogon: 'Nästa fråga', rubrik: NASTA.omskrivning.rubrik(h.prov.question), text: NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), saknadesI(h.prov), h.prov.question), knapp: NASTA.omskrivning.knapp, href: nyttProvHref(h.prov.question), fraga: h.prov.question }
     case 'lasIgen':
-      return { ogon: 'Nästa fråga', rubrik: NASTA.omskrivning.rubrik(h.prov.question), text: `${NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), h.prov.missingKind, h.prov.question)} ${NASTA.lasIgen.tillagg}`, knapp: NASTA.lasIgen.knapp, href: provHref(h.prov.token), fraga: h.prov.question }
+      return { ogon: 'Nästa fråga', rubrik: NASTA.omskrivning.rubrik(h.prov.question), text: `${NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), saknadesI(h.prov), h.prov.question)} ${NASTA.lasIgen.tillagg}`, knapp: NASTA.lasIgen.knapp, href: provHref(h.prov.token), fraga: h.prov.question }
     case 'nyFraga':
       return { ogon: 'Nästa fråga', rubrik: NASTA.nyFraga.rubrik(h.fraga), text: NASTA.nyFraga.text(h.fraga), knapp: NASTA.nyFraga.knapp, href: nyttProvHref(h.fraga), fraga: h.fraga }
     case 'helaTestet':
@@ -77,8 +77,9 @@ function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, n
 /** Raden bredvid primärknappen: frågan och det som saknades. */
 function knappRad(h: HubbHandling): string | null {
   if (h.kind === 'omskrivning' || h.kind === 'lasIgen') {
-    const f = saknadesFras(h.prov.missingKind, h.prov.question)
-    return `${FRAGOR[h.prov.question].kort}. Förra gången saknades ${f}.`
+    const saknas = saknadesI(h.prov)
+    if (!saknas) return FRAGOR[h.prov.question].kort
+    return `${FRAGOR[h.prov.question].kort}. Förra gången saknades ${saknadesFras(saknas, h.prov.question)}.`
   }
   if (h.kind === 'nyFraga') return FRAGOR[h.fraga].kort
   return null
@@ -108,7 +109,8 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
   const fragor: Fraga[] = FRAGA_ORDNING.map((f, i) => {
     const p = senaste.get(f)
     const arNasta = f === nastaFraga
-    const saknas = p && p.level < 5 && p.missingKind ? saknadesFras(p.missingKind, f) : null
+    const saknasKind = saknadesI(p)
+    const saknas = saknasKind ? saknadesFras(saknasKind, f) : null
     return {
       nr: i + 1,
       rubrik: FRAGOR[f].kort,
@@ -185,9 +187,11 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
                   </span>
                 </div>
                 {FRAGOR[forra.question].starChips ? (
-                  <StarBrickor delar={starUtfall(saknadDel(forra.missingKind))} />
+                  <StarBrickor delar={starUtfall(saknadDel(saknadesI(forra)))} />
+                ) : saknadesI(forra) ? (
+                  <p className="j3-text">{`${storBokstav(saknadesFras(saknadesI(forra) ?? '', forra.question))} saknades ${nar(forra.createdAt, now)}.`}</p>
                 ) : (
-                  <p className="j3-text">{`${storBokstav(saknadesFras(forra.missingKind, forra.question))} saknades ${nar(forra.createdAt, now)}.`}</p>
+                  <p className="j3-text">{`Alla delarna fanns med ${nar(forra.createdAt, now)}.`}</p>
                 )}
               </TonYta>
             ) : null}
@@ -244,7 +248,7 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
                         key={p.token}
                         figur={<Prickar antal={Math.min(5, Math.max(1, Math.round(p.level)))} etikett={LISTA.sr(Math.min(5, Math.max(1, Math.round(p.level))))} />}
                         rubrik={FRAGOR[p.question].kort}
-                        text={`${nivaOrd(p.level)}, ${dagEtikett(p.createdAt, now).toLocaleLowerCase('sv-SE')}.${p.level < 5 && p.missingKind ? ` ${storBokstav(saknadesFras(p.missingKind, p.question))} saknades.` : ''}`}
+                        text={`${nivaOrd(p.level)}, ${dagEtikett(p.createdAt, now).toLocaleLowerCase('sv-SE')}.${saknadesI(p) ? ` ${storBokstav(saknadesFras(saknadesI(p) ?? '', p.question))} saknades.` : ''}`}
                         href={provHref(p.token)}
                         hoger={<span className="hidden xl:inline"><span className="j3-lank">{LISTA.oppna}</span></span>}
                       />

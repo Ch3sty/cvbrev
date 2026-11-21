@@ -236,11 +236,32 @@ describe('tjänstens läge', () => {
     expect(tjanstLage(t, new Date('2026-12-01T09:00:00Z')).tyst).toBe(true)
   })
 
-  it('en kallelse med tid blir aldrig tyst; utan tid kan den bli det', () => {
+  it('en tjänst i intervjusteget blir aldrig tyst (spärren till omgång 2)', () => {
     const ue = tjanstLage(elin()[0], new Date('2026-12-20T09:00:00Z'))
     expect(ue.tyst).toBe(false)
-    const utanTid = tjanst('x', 'X', 'Y', '2026-10-01', 'interview_invited', [handelse('x', 'interview_invited', '2026-10-02')])
-    expect(tjanstLage(utanTid, NU).tyst).toBe(true)
+    // Kallad utan tid för 20 dagar sedan: står kvar som kallelse, inte under Följ upp.
+    const utanTid = tjanst('x', 'X', 'Y', '2026-10-25', 'interview_invited', [handelse('x', 'interview_invited', '2026-11-01')])
+    const ut = tjanstLage(utanTid, NU)
+    expect(ut.dagarTyst).toBe(20)
+    expect(ut.tyst).toBe(false)
+    expect(ut.ton).toBe('intervju')
+    expect(ut.intervju?.lage).toBe('utan_tid')
+    // Genomförd intervju för 20 dagar sedan: väntar besked, inte tyst.
+    const genomford = tjanst('y', 'Y', 'Z', '2026-10-20', 'interview_completed', [
+      handelse('y', 'interview_invited', '2026-10-25'),
+      handelse('y', 'interview_completed', '2026-11-01'),
+    ])
+    const g = tjanstLage(genomford, NU)
+    expect(g.dagarTyst).toBe(20)
+    expect(g.tyst).toBe(false)
+    expect(g.intervju?.lage).toBe('vantar_besked')
+    // Genomfört provjobb likaså.
+    const provjobb = tjanst('z', 'Z', 'Q', '2026-10-20', 'trial_work_completed', [handelse('z', 'trial_work_completed', '2026-11-01')])
+    expect(tjanstLage(provjobb, NU).tyst).toBe(false)
+    // Ingen av dem hamnar under Följ upp i listan.
+    const lista = soktaLista([utanTid, genomford, provjobb].map((t) => tjanstLage(t, NU)), [])
+    expect(lista.antal['folj-upp']).toBe(0)
+    expect(lista.antal.intervju).toBe(3)
   })
 
   it('läser intervjuns läge: bokad, hur gick, väntar besked', () => {
@@ -370,10 +391,27 @@ describe('Att göra nu', () => {
   })
 
   it('lägger till "Sök en tjänst till" när målet inte är nått och det finns plats', () => {
-    const a = attGoraNu({ ...ind(), tjanster: [], skaSokas: [], bastaTraff: { id: '123', jobTitle: 'Ekonomiassistent', company: 'Ålö AB', score: 92 } })
+    // En sökt tjänst som inte ger någon handling (Region Västerbotten, fyra dagar).
+    const a = attGoraNu({ ...ind(), tjanster: [tjanstLage(elin()[4], NU)], skaSokas: [], bastaTraff: { id: '123', jobTitle: 'Ekonomiassistent', company: 'Ålö AB', score: 92 } })
     expect(a.handlingar).toHaveLength(1)
     expect(a.handlingar[0]).toMatchObject({ typ: 'sok_en_till', rubrik: 'Sök en tjänst till' })
     expect(a.handlingar[0].knapp.href).toBe('/dashboard/jobbmatchning?annons=123')
+  })
+
+  it('med CV och utan rader är första handlingen "Sök din första tjänst"', () => {
+    const a = attGoraNu({ ...ind(), harCv: true, tjanster: [], skaSokas: [], bastaTraff: null })
+    expect(a.lage).toBe('handlingar')
+    expect(a.handlingar[0]).toMatchObject({
+      typ: 'sok_en_till',
+      rubrik: 'Sök din första tjänst',
+      text: 'Matchade jobb har annonser som passar ditt CV. Har du redan sökt en tjänst loggar du den med företag, tjänst och datum.',
+      knapp: { text: 'Till Matchade jobb', href: '/dashboard/jobbmatchning' },
+    })
+    expect(a.vagg.rubrik).toBe('Sök din första tjänst')
+    // Med bästa träff: rubriken är den första, texten och knappen som förut.
+    const b = attGoraNu({ ...ind(), harCv: true, tjanster: [], skaSokas: [], bastaTraff: { id: '123', jobTitle: 'Ekonomiassistent', company: 'Ålö AB', score: 92 } })
+    expect(b.handlingar[0]).toMatchObject({ rubrik: 'Sök din första tjänst', text: 'Ekonomiassistent hos Ålö AB passar dig till 92 %.' })
+    expect(b.handlingar[0].knapp).toEqual({ text: 'Se annonsen', href: '/dashboard/jobbmatchning?annons=123' })
   })
 
   it('tar med rapporten den 1 till 14 när något söktes förra månaden', () => {
@@ -383,6 +421,13 @@ describe('Att göra nu', () => {
     expect(r).toMatchObject({ datum: '2026-12-14', rubrik: 'Rapporten för november' })
     expect(r?.knapp.href).toBe('/dashboard/sokta-tjanster?vy=rapport&manad=2026-11')
     expect(attGoraNu({ ...ind(), tjanster: [], skaSokas: [], sokteForraManaden: 5, nu: new Date('2026-12-15T09:00:00Z') }).handlingar.some((h) => h.typ === 'af_rapport')).toBe(false)
+  })
+
+  it('rapportens text i rätt form vid ett sökt jobb', () => {
+    const nu = new Date('2026-12-03T09:00:00Z')
+    const text = (n: number) => attGoraNu({ ...ind(), tjanster: [], skaSokas: [], sokteForraManaden: n, nu }).handlingar.find((h) => h.typ === 'af_rapport')?.text
+    expect(text(1)).toBe('1 sökt jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i det åt dig.')
+    expect(text(5)).toBe('5 sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.')
   })
 
   it('visar inte en passerad sista dag', () => {
@@ -614,6 +659,10 @@ describe('adressen', () => {
     expect(tolkaSoktaAdress({ logga: 'ska-soka', manad: '2026-10' })).toMatchObject({ logga: 'ska-soka', manad: '2026-10' })
     expect(soktaHref({ vy: 'rapport' })).toBe('/dashboard/sokta-tjanster?vy=rapport')
     expect(soktaHref({ filter: 'folj-upp' })).toBe('/dashboard/sokta-tjanster?filter=folj-upp')
+    // fran märker källan i sidvisningen och stör inte tolkningen.
+    const medFran = soktaHref({ logga: 'sokt', fran: 'oversikt-ny' })
+    expect(medFran).toBe('/dashboard/sokta-tjanster?logga=1&fran=oversikt-ny')
+    expect(tolkaSoktaAdress(new URLSearchParams(medFran.split('?')[1]))).toEqual({ vy: 'lista', filter: 'alla', logga: 'sokt', manad: null })
     expect(tjanstHref('abc', 'forbered')).toBe('/dashboard/sokta-tjanster/abc?steg=forbered')
     expect(tolkaTjanstAdress({ steg: 'hur-gick' })).toBe('hur-gick')
     expect(tolkaTjanstAdress({ steg: 'x' })).toBeNull()

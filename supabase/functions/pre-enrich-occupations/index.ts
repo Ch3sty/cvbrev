@@ -21,6 +21,17 @@ Deno.serve(async (req) => {
     return new Response('ok', { headers: corsHeaders });
   }
 
+  // SÄKERHET (2026-11-21): bara vår schemalagda körning får anropa funktionen.
+  // Gatewayen släpper igenom vilken giltig nyckel som helst, också den publika,
+  // så hemligheten prövas här. Anroparen skickar den i rubriken x-cron-secret
+  // (pg_cron-jobbet läser den ur vault, samma värde som CRON_SECRET).
+  const cronHemlighet = Deno.env.get('CRON_SECRET');
+  if (!cronHemlighet || req.headers.get('x-cron-secret') !== cronHemlighet) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;

@@ -4,6 +4,7 @@
  * rader och brickor som kitet tar emot.
  */
 import {
+  antalText,
   dagarMellan,
   intervjuEtikett,
   kortDag,
@@ -31,6 +32,14 @@ export const stor = (s: string) => s.charAt(0).toLocaleUpperCase('sv-SE') + s.sl
 
 /** "Fem", "Två": ordtal med stor bokstav. */
 export const Ordtal = (n: number) => stor(ordtal(n))
+
+/**
+ * Rapportens sista rad i "Kopiera som text", med rätt form vid ett:
+ * "Totalt: 10 sökta jobb (9 annonserade, 1 spontan), 1 intervju."
+ */
+export function rapportTotalt(t: { applications: number; advertised: number; unsolicited: number; interviews: number }): string {
+  return `Totalt: ${antalText(t.applications, 'sökt jobb', 'sökta jobb')} (${antalText(t.advertised, 'annonserad', 'annonserade')}, ${antalText(t.unsolicited, 'spontan', 'spontana')}), ${antalText(t.interviews, 'intervju', 'intervjuer')}.`
+}
 
 /** "Sökt 6 nov, svar på annons, med personligt brev". */
 export function soktRad(t: TjanstLage): string {

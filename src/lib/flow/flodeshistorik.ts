@@ -124,6 +124,7 @@ export function taVantande(): number | null {
 
 interface Router {
   replace: (href: string, opts?: { scroll?: boolean }) => void
+  refresh?: () => void
 }
 
 /**
@@ -156,14 +157,23 @@ function tillbakaTillForsta(steg: number, sedan: () => void) {
  * Flödet är klart: historiken krymper till en post och den ersätts med
  * `mal`. Utan mål stannar man där man står (bekräftelsen), men nästa
  * bakåtgest lämnar flödet.
+ *
+ * `laddaOm`: flödet har skrivit något som rummet bakom visar. Efter bytet
+ * körs router.refresh(), som tömmer routerns klientcache, så att rummet
+ * visar det nya direkt när man går tillbaka dit (samma mönster som
+ * TjanstVy: replace och sedan refresh).
  */
-export function avslutaFlodet(router: Router, mal?: string) {
+export function avslutaFlodet(router: Router, mal?: string, opts?: { laddaOm?: boolean }) {
   const djup = lasDjup() ?? 0
   const har = `${window.location.pathname}${window.location.search}`
   const dit = mal ?? har
+  const ladda = () => {
+    if (opts?.laddaOm) router.refresh?.()
+  }
   if (djup === 0) {
     if (mal) router.replace(mal, { scroll: false })
     // Står vi redan på flödets första post finns inget att städa.
+    ladda()
     return
   }
   tillbakaTillForsta(djup, () => {
@@ -171,6 +181,7 @@ export function avslutaFlodet(router: Router, mal?: string) {
     // när adressen landat.
     forbered(0)
     router.replace(dit, { scroll: false })
+    ladda()
   })
 }
 

@@ -120,6 +120,19 @@ export function hemIntervjuSteg(
 
 /* ------------------------------------------------------ formuleringar */
 
+/**
+ * Det som saknades i ett prov, eller null när provet fick högsta betyg.
+ * Samma regel som det bedömda svaret (BedomtVy): vid 5 av 5 är alla delar
+ * med, även om raden har ett missing_kind kvar. Hubben läser bara härifrån,
+ * så att hubben och bedömningen aldrig säger olika saker om samma prov.
+ */
+export function saknadesI(p: Pick<ProvSammanfattning, 'level' | 'missingKind'> | null | undefined): string | null {
+  if (!p) return null
+  const n = Number(p.level)
+  const niva = Number.isFinite(n) ? Math.min(5, Math.max(1, Math.round(n))) : 1
+  return niva < 5 && p.missingKind ? p.missingKind : null
+}
+
 /** Det som saknades, i den form meningen behöver: "planen för svagheten". */
 export function saknadesFras(missingKind: string, fraga: FragaId): string {
   switch (missingKind) {

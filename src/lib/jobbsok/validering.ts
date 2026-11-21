@@ -2,7 +2,7 @@
  * Validering av indata till Jobbsökets rutter. Klientsäker och ren, så att
  * arken kan visa samma fel som servern ger.
  */
-import { arDag, franStockholm } from './datum'
+import { arDag, franStockholm, langDag } from './datum'
 import { tolkaVeckansMal } from './veckansMal'
 import { INTERVJU_PLATS_MAX, type Dag, type SparadKalla } from './typer'
 
@@ -149,4 +149,43 @@ export function valideraVeckansMal(raw: unknown): { mal: number | null } | Fel<'
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 export function arUuid(v: unknown): v is string {
   return typeof v === 'string' && UUID_RE.test(v)
+}
+
+/* ------------------------------------------- händelsernas dag mot sökdagen */
+
+/**
+ * Statusen räknas av en databastrigger efter händelsernas datum. En händelse
+ * före sökdagen räknas då bort, och en kallelse "syns inte" (klicktestet
+ * 2026-11-21). Därför får ingen händelse utom "Sökt" ligga före dagen
+ * tjänsten söktes. Samma text i arket och från rutterna.
+ */
+export function handelseForeSoktText(sokt: Dag): string {
+  return `Dagen kan inte ligga före dagen du sökte tjänsten, ${langDag(sokt)}. Ändra sökdatumet först om det är fel.`
+}
+
+export function soktEfterHandelseText(handelse: Dag): string {
+  return `Du har en händelse den ${langDag(handelse)}. Sökdatumet kan inte ligga efter den.`
+}
+
+/** Felet för en händelse vars dag ligger före sökdagen, annars null. "Sökt" själv kontrolleras inte. */
+export function handelseForeSokt(typ: string, dag: string | null | undefined, sokt: string | null | undefined): string | null {
+  if (typ === 'applied' || !arDag(dag) || !arDag(sokt)) return null
+  return dag < sokt ? handelseForeSoktText(sokt) : null
+}
+
+/** Tidigaste dagen bland händelserna utom "Sökt", eller null. */
+export function tidigasteHandelse(handelser: readonly { event_type: string; occurred_at: string | null }[]): Dag | null {
+  let ut: Dag | null = null
+  for (const h of handelser) {
+    if (h.event_type === 'applied' || !arDag(h.occurred_at)) continue
+    if (!ut || h.occurred_at < ut) ut = h.occurred_at
+  }
+  return ut
+}
+
+/** Felet när ett nytt sökdatum ligger efter en händelse, annars null. */
+export function soktEfterHandelse(sokt: string | null | undefined, handelser: readonly { event_type: string; occurred_at: string | null }[]): string | null {
+  if (!arDag(sokt)) return null
+  const tidigast = tidigasteHandelse(handelser)
+  return tidigast && sokt > tidigast ? soktEfterHandelseText(tidigast) : null
 }

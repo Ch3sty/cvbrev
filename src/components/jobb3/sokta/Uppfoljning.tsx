@@ -7,8 +7,17 @@
  * skickat det", "Vad som händer sedan" och ångra.
  *
  * Klientflödet följer motorns kontrakt: finns ett sparat utkast visas det
- * direkt, annars POST /api/jobbsok/uppfoljning/[id] (hämtar eller skapar).
+ * direkt. Är tjänsten uppföljd inom påminnelsetiden (senastSkickad och
+ * nastaPaminnelse i läget från servern) visas "Följde upp" med Ångra, och
+ * inget utkast skrivs. Annars POST /api/jobbsok/uppfoljning/[id] (hämtar
+ * eller skapar), en gång när blocket monteras. Blocket visas bara när
+ * tjänsten är tyst, har ett utkast, följdes upp i dag eller när adressen ber
+ * om det (?steg=folj-upp), se TjanstVy.
  * 402 ger betalväggen i SparrRam med "Jag har redan skickat det" kvar.
+ *
+ * Rättat efter klicktestet 2026-11-21: hämtningen körde om när
+ * router.refresh() efter "Ja, det är skickat" gav start.utkast = null, och
+ * skrev då ett nytt AI-utkast. Nu körs den bara vid monteringen.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -34,9 +43,11 @@ import PaywallCard from '@/components/paywall/PaywallCard'
 import {
   idagSv,
   kortDag,
+  sedanText,
   langDag,
   mailtoHref,
   nastaPaminnelse,
+  nyligenUppfoljd,
   plusDagar,
   raknaOrdITexten,
   veckodagNamn,
@@ -50,6 +61,8 @@ import { stor } from './text'
 
 type Lage = 'laddar' | 'utkast' | 'sparr' | 'tak' | 'fel' | 'skickad'
 
+type Skickad = { id: string; nasta: string; dag: string }
+
 const KORTARE_FEL = 'Det gick inte att skriva om just nu. Din text är kvar.'
 
 export default function Uppfoljning({
@@ -57,31 +70,44 @@ export default function Uppfoljning({
   start,
   jobAdUrl,
   onAndrat,
+  onSkickad,
+  onAngrad,
 }: {
   ansokanId: string
   start: UppfoljningLage
   jobAdUrl: string | null
   onAndrat: () => void
+  /** Uppföljningen är loggad; vyn visar raden direkt, innan serverdatan är tillbaka. */
+  onSkickad?: (rad: UppfoljningRad) => void
+  /** Uppföljningen är ångrad. */
+  onAngrad?: (id: string) => void
 }) {
   const idag = idagSv()
-  const [lage, setLage] = useState<Lage>(start.utkast ? 'utkast' : 'laddar')
+  const [forsta] = useState(() => nyligenUppfoljd(start, idag))
+  const [lage, setLage] = useState<Lage>(start.utkast ? 'utkast' : forsta ? 'skickad' : 'laddar')
   const [utkast, setUtkast] = useState<UppfoljningRad | null>(start.utkast)
   const [text, setText] = useState(start.utkast?.body ?? '')
   const [kvar, setKvar] = useState(start.omskrivningarKvar)
   const [kortar, setKortar] = useState(false)
   const [meddelande, setMeddelande] = useState<string | null>(null)
   const [fraga, setFraga] = useState<UppfoljningVia | null>(null)
-  const [skickad, setSkickad] = useState<{ id: string; nasta: string } | null>(null)
+  const [skickad, setSkickad] = useState<Skickad | null>(forsta)
   const [arbetar, setArbetar] = useState(false)
   const [kopierad, setKopierad] = useState(false)
   const sparat = useRef(start.utkast?.body ?? '')
   const startad = useRef(false)
+  /** Läget före "Följde upp", dit Ångra går tillbaka utan nytt anrop. */
+  const fore = useRef<Lage | null>(null)
+  const lageNu = useRef(lage)
+  lageNu.current = lage
 
   const hamta = useCallback(async () => {
     setLage('laddar')
     setMeddelande(null)
     try {
       const json = await anropa(`/api/jobbsok/uppfoljning/${ansokanId}`, 'POST')
+      // "Jag har redan skickat det" medan utkastet skrevs: bekräftelsen står kvar.
+      if (lageNu.current === 'skickad') return
       const u = json.data as UppfoljningRad
       setUtkast(u)
       setText(u.body ?? '')
@@ -89,6 +115,7 @@ export default function Uppfoljning({
       setKvar(Math.max(0, UPPFOLJNING_MAX_OMSKRIVNINGAR - (u.rewrites ?? 0)))
       setLage('utkast')
     } catch (e) {
+      if (lageNu.current === 'skickad') return
       const status = (e as { status?: number }).status
       if (status === 402) setLage('sparr')
       else if (status === 429) setLage('tak')
@@ -96,11 +123,34 @@ export default function Uppfoljning({
     }
   }, [ansokanId])
 
+  // Bara vid monteringen. `start` byts vid varje router.refresh(); att läsa
+  // den här igen var det som skrev ett nytt utkast direkt efter "Ja".
+  const startLage = useRef(lage)
   useEffect(() => {
-    if (startad.current || start.utkast) return
+    if (startad.current) return
     startad.current = true
-    hamta()
-  }, [hamta, start.utkast])
+    if (startLage.current === 'laddar') hamta()
+  }, [hamta])
+
+  /** Efter Ångra utan sparat läge: läs läget (GET) och skapa bara när inget utkast finns och spärren tillåter. */
+  const lasOm = useCallback(async () => {
+    setLage('laddar')
+    try {
+      const json = await anropa(`/api/jobbsok/uppfoljning/${ansokanId}`, 'GET')
+      const d = json.data as UppfoljningLage
+      if (d.utkast?.body) {
+        setUtkast(d.utkast)
+        setText(d.utkast.body)
+        sparat.current = d.utkast.body
+        setKvar(d.omskrivningarKvar)
+        setLage('utkast')
+      } else if (d.sparr?.lage === 'premium_required') setLage('sparr')
+      else if (d.sparr?.lage === 'dygnstak') setLage('tak')
+      else hamta()
+    } catch {
+      setLage('fel')
+    }
+  }, [ansokanId, hamta])
 
   const spara = useCallback(async () => {
     if (!utkast || text === sparat.current || !text.trim()) return
@@ -142,9 +192,12 @@ export default function Uppfoljning({
     try {
       if (via) await spara()
       const json = await anropa(`/api/jobbsok/uppfoljning/${ansokanId}/skickad`, 'POST', via ? { via } : {})
-      setSkickad({ id: (json.data as UppfoljningRad).id, nasta: json.nastaPaminnelse ?? nastaPaminnelse(idag) })
+      const rad = json.data as UppfoljningRad
+      fore.current = lage
+      setSkickad({ id: rad.id, nasta: json.nastaPaminnelse ?? nastaPaminnelse(idag), dag: rad.sent_at ?? idag })
       setFraga(null)
       setLage('skickad')
+      onSkickad?.(rad)
       onAndrat()
     } catch {
       setMeddelande('Det gick inte att logga uppföljningen just nu. Försök igen.')
@@ -158,14 +211,15 @@ export default function Uppfoljning({
     setArbetar(true)
     try {
       await anropa(`/api/jobbsok/uppfoljning/${ansokanId}/skickad?uppfoljning=${skickad.id}`, 'DELETE')
+      const id = skickad.id
+      const forra = fore.current
       setSkickad(null)
+      fore.current = null
+      onAngrad?.(id)
       onAndrat()
-      if (utkast?.body) {
-        setLage('utkast')
-      } else {
-        setLage('laddar')
-        hamta()
-      }
+      if (forra === 'utkast' && utkast?.body) setLage('utkast')
+      else if (forra === 'sparr' || forra === 'tak') setLage(forra)
+      else lasOm()
     } catch {
       setMeddelande('Det gick inte att ångra just nu. Försök igen.')
     } finally {
@@ -226,7 +280,7 @@ export default function Uppfoljning({
               <IkonBock size={18} />
             </span>
             <div>
-              <p className="j3-h3">Följde upp i dag</p>
+              <p className="j3-h3">Följde upp {sedanText(skickad.dag, idag)}</p>
               <p className="j3-text" style={{ marginTop: 4 }}>
                 Tjänsten lämnar Följ upp. Är det fortfarande tyst {langDag(skickad.nasta)} säger vi till igen.
               </p>

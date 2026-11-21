@@ -4,8 +4,10 @@
  *
  * Vad datan faktiskt innehåller (lästa i koden 2026-11-21):
  *   - Annonsen kommer från Arbetsförmedlingen via edge-funktionen match-jobs.
- *     `application_deadline` är en ISO-tidpunkt (JobDetailModal och
- *     job-filtering läser den), `id` är annons-id:t, `employer.name`,
+ *     `application_deadline` är en tid utan tidszon i svensk lokal tid
+ *     ("2026-11-30T23:59:59"); `dagFor` läser den som svensk tid, aldrig med
+ *     `new Date()` (rättat efter klicktestet 2026-11-21: servern i UTC skrev
+ *     en dag för sent). `id` är annons-id:t, `employer.name`,
  *     `headline`, `workplace_address.municipality` och
  *     `application_details.url` / `application_url` / `webpage_url`.
  *   - Kravprofilen är `must_have.skills` och `must_have.work_experiences`,

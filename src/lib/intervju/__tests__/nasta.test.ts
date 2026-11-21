@@ -11,9 +11,12 @@ import {
   hemIntervjuSteg,
   rekommenderadFraga,
   saknadesFras,
+  saknadesI,
   valjHubbHandling,
   type ProvSammanfattning,
 } from '../nasta'
+import { NASTA } from '@/app/dashboard/intervju/infor-intervjun-copy'
+import { saknadDel, starUtfall } from '@/components/jobb3/intervju/text'
 
 const NU = new Date('2026-09-24T12:00:00+02:00')
 
@@ -126,7 +129,39 @@ describe('formuleringarna', () => {
     expect(saknadesFras('kopplingen', 'varfor_vi')).toBe('kopplingen till rollen')
   })
 
-  it('dagen i svensk tid', () => {
+})
+
+describe('det som saknades, samma regel i hubben och bedömningen (klicktestet 2026-11-21)', () => {
+  const nasta = (p: ProvSammanfattning) => NASTA.omskrivning.text(p.level, 'i dag', saknadesI(p), p.question)
+
+  it('alla fyra med (5 av 5): inget saknades, även med missing_kind kvar på raden', () => {
+    const p = { ...prov('star', 5), missingKind: 'resultatet' }
+    expect(saknadesI(p)).toBeNull()
+    expect(starUtfall(saknadDel(saknadesI(p))).map((d) => d.under)).toEqual(['Fanns med', 'Fanns med', 'Fanns med', 'Fanns med'])
+    expect(nasta(p)).toBe('Du fick 5 av 5 i dag, med alla fyra delarna på plats.')
+    expect(nasta(p)).not.toContain('saknades')
+  })
+
+  it('en del saknas (3 av 5): resultatet pekas ut, brickan R säger Saknades', () => {
+    const p = { ...prov('star', 3), missingKind: 'resultatet' }
+    expect(saknadesI(p)).toBe('resultatet')
+    expect(starUtfall(saknadDel(saknadesI(p))).find((d) => d.bokstav === 'R')?.under).toBe('Saknades')
+    expect(nasta(p)).toBe('Du fick 3 av 5 i dag, och det var resultatet som saknades. Skriv om med resultatet, så ser du om nivån lyfter.')
+  })
+
+  it('fråga utan STAR på 5 av 5: alla delarna, inte fyra', () => {
+    expect(nasta({ ...prov('styrkor', 5), missingKind: 'planen' })).toBe('Du fick 5 av 5 i dag, med alla delarna på plats.')
+  })
+
+  it('inget prov: inget saknades', () => {
+    expect(saknadesI(null)).toBeNull()
+    expect(saknadesI(undefined)).toBeNull()
+    expect(starUtfall(saknadDel(saknadesI(null))).every((d) => !d.saknas)).toBe(true)
+  })
+})
+
+describe('dagen', () => {
+  it('i svensk tid', () => {
     expect(dagEtikett(NU.toISOString(), NU)).toBe('I dag')
     expect(dagEtikett(new Date(NU.getTime() - 86400000).toISOString(), NU)).toBe('I går')
     expect(dagEtikett('2026-09-20T10:00:00Z', NU)).toBe('20 september')

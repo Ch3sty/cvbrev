@@ -462,25 +462,21 @@ export function ListaGolv({
               matchgrad={r.matchScore}
               dag={r.sistaDagText ?? 'Ingen sista dag satt'}
               snart={r.dagarKvar != null && r.dagarKvar <= 7}
-              lank={
-                <>
-                  <TextLank onClick={() => sokt(r)}>Markera som sökt</TextLank>
-                </>
-              }
+              lank={<TextLank onClick={() => sokt(r)}>Markera som sökt</TextLank>}
               handling={
                 <LitenKnapp storlek={48} onClick={() => skrivBrev(r)}>
                   Skriv brev
                 </LitenKnapp>
               }
+              bort={
+                <TextLank liten onClick={() => setTaBort(r)}>
+                  Ta bort
+                </TextLank>
+              }
             />
           ),
         )}
       </SparadLista>
-      {g.ska_sokas.some((r) => !r.passerad) ? (
-        <div className="mt-3 xl:hidden">
-          <p className="j3-text">Har du sökt någon av dem? Tryck på kortet och välj Markera som sökt.</p>
-        </div>
-      ) : null}
     </Avsnitt>
   ) : null
 

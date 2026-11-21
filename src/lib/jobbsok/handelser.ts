@@ -8,7 +8,7 @@ import { dagFor, dagarMellan, idagSv, kortDag, narText } from './datum'
 import { intervjuEtikett } from './bana'
 import { hurGickFran } from './intervju'
 import { sorteraHandelser } from './lage'
-import type { HandelseListRad, TjanstLage, TjanstMedHistorik, UppfoljningVia } from './typer'
+import type { HandelseListRad, TjanstLage, TjanstMedHistorik, Uppfoljning, UppfoljningVia } from './typer'
 
 const VIA_TEXT: Record<UppfoljningVia, string> = {
   epost: 'Uppföljningsmejlet skickat från din e-post.',
@@ -53,16 +53,8 @@ export function handelselista(t: TjanstMedHistorik, lage: TjanstLage, nu: Date =
   }
 
   for (const u of t.uppfoljningar) {
-    if (!u.sent_at) continue
-    rader.push({
-      typ: 'foljde_upp',
-      id: `uppfoljning-${u.id}`,
-      radId: u.id,
-      datum: u.sent_at,
-      rubrik: 'Följde upp',
-      text: u.sent_via ? VIA_TEXT[u.sent_via] : null,
-      _ordning: `${u.sent_at}|1|${u.created_at}`,
-    })
+    const rad = foljdeUppRad(u)
+    if (rad) rader.push({ ...rad, _ordning: `${rad.datum}|1|${u.created_at}` })
   }
 
   rader.sort((x, y) => (x._ordning < y._ordning ? -1 : x._ordning > y._ordning ? 1 : 0))
@@ -84,6 +76,23 @@ export function handelselista(t: TjanstMedHistorik, lage: TjanstLage, nu: Date =
   }
 
   return rader.map(({ _ordning: _, ...r }) => r)
+}
+
+/**
+ * Raden "Följde upp" för en skickad uppföljning, eller null när den inte är
+ * skickad. Vyn använder den också direkt efter "Ja, det är skickat", innan
+ * serverdatan hunnit komma tillbaka.
+ */
+export function foljdeUppRad(u: Pick<Uppfoljning, 'id' | 'sent_at' | 'sent_via'>): HandelseListRad | null {
+  if (!u.sent_at) return null
+  return {
+    typ: 'foljde_upp',
+    id: `uppfoljning-${u.id}`,
+    radId: u.id,
+    datum: u.sent_at,
+    rubrik: 'Följde upp',
+    text: u.sent_via ? VIA_TEXT[u.sent_via] : null,
+  }
 }
 
 function stor(s: string): string {

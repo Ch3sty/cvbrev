@@ -139,12 +139,18 @@ export function senasteAktivitet(t: TjanstMedHistorik): Dag {
 
 /**
  * Kan tjänsten bli tyst? Öppna tjänster som väntar på arbetsgivaren. Inte
- * avslutade, inte erbjudanden och inte en kallelse med satt tid (där tar
- * intervjun över).
+ * avslutade, inte erbjudanden och aldrig en tjänst i intervjusteget
+ * (kallad, med eller utan tid, genomförd intervju eller genomfört provjobb).
+ *
+ * Spärren för intervjusteget (beslut 14, docs/beslut-jobbsoket-2026-11-21.md)
+ * gäller tills intervjulägena har egna texter och eget utkast (Jobbsöket
+ * omgång 2). I dag skulle "har inte hört något" och utkastet för en obesvarad
+ * ansökan gå till en arbetsgivare som redan har kallat eller intervjuat.
+ * `intervju` står kvar i signaturen för omgång 2.
  */
-export function kanBliTyst(status: ApplicationEventType | null, intervju: IntervjuInfo | null): boolean {
+export function kanBliTyst(status: ApplicationEventType | null, _intervju: IntervjuInfo | null): boolean {
   if (arAvslutad(status) || status === 'offer_received' || status === 'accepted') return false
-  if (status === 'interview_invited' && intervju?.tid) return false
+  if (status && INTERVJU_STATUS.includes(status)) return false
   return true
 }
 

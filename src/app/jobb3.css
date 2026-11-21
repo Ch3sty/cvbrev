@@ -232,6 +232,9 @@
 .j3-chip.liten { height: 32px; border-radius: 16px; background: rgba(255, 255, 255, .1); }
 a.j3-chip:hover { color: var(--vagg-ink); background: rgba(255, 255, 255, .13); }
 .j3-chips > .j3-lank-vagg { display: inline-flex; align-items: center; min-height: 44px; }
+/* Textlänkar under varandra i väggen (nolläget på Översikt), alla bredder. */
+.j3-chips.stapel { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; gap: 0; }
+.j3-chips.stapel > .j3-lank-vagg { white-space: normal; }
 .j3-malpips { display: inline-flex; gap: 4px; flex-shrink: 0; }
 .j3-malpips i { display: block; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 2px var(--vagg-svag); }
 .j3-malpips i[data-fylld] { background: var(--koppar); box-shadow: none; }
@@ -619,18 +622,23 @@ a.j3-sido:hover, .j3-sido.lank:hover { color: var(--j3-ink); background: var(--j
 .j3-spar-fot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
 .j3-spar-dag { font-size: 13px; line-height: 18px; color: var(--j3-ink-2); }
 .j3-spar-dag.snart { color: var(--j3-tyst-ink); font-weight: 600; }
-.j3-spar-handling { display: flex; align-items: center; gap: 16px; }
-.j3-spar-handling .j3-lank { display: none; }
+/* Textlänken ("Markera som sökt", "Ta bort" när passerad) syns i alla bredder med 44 px tryckyta.
+   Räcker inte bredden (360 px) bryts den till en egen rad, knappen ligger kvar till höger. */
+.j3-spar-handling { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 4px 16px; margin-left: auto; }
+.j3-spar-handling .j3-lank { display: inline-flex; align-items: center; min-height: 44px; }
 .j3-spar.passerad { background: var(--j3-slut); border-color: var(--j3-slut-kant); }
 .j3-spar.passerad h3, .j3-spar.passerad .arb { color: var(--j3-ink-3); }
-.j3-spar.passerad .j3-spar-handling .j3-lank { display: inline; }
 .j3-sparlista { display: flex; flex-direction: column; gap: 12px; }
+/* "Ta bort" på en aktiv rad: egen rad under foten, 44 px tryckyta på telefon. */
+.j3-spar-bort { display: flex; justify-content: flex-end; margin-top: -6px; }
+.j3-spar-bort .j3-lank { display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px; font-weight: 500; color: var(--j3-ink-2); }
 @media (min-width: 1280px) {
+  .j3-spar-bort { margin-top: -8px; }
+  .j3-spar-bort .j3-lank { min-height: 32px; }
   .j3-spar { gap: 14px; padding: 18px; border-radius: 22px; }
   .j3-spar h3 { font-size: 18px; line-height: 23px; }
   .j3-spar .arb { font-size: 14px; line-height: 20px; }
   .j3-spar-fot { padding-top: 14px; border-top: 2px solid var(--j3-linje); }
-  .j3-spar-handling .j3-lank { display: inline; }
   .j3-sparlista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 }
 

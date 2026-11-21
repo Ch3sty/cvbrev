@@ -49,7 +49,7 @@ export function ByttCvArk({
               <span className="flex min-w-0 flex-col text-left">
                 <span className="truncate">{cv.file_name}</span>
                 <small className="j3-fin">
-                  {last ? 'Låst av CV-kvoten' : activatingCVId === cv.id ? 'Läser CV:t' : new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                  {last ? 'Låst av CV-kvoten' : activatingCVId === cv.id ? 'Läser CV:t' : new Date(cv.created_at).toLocaleDateString('sv-SE', { timeZone: 'Europe/Stockholm' })}
                 </small>
               </span>
             </ValKnapp>

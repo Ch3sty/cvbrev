@@ -215,13 +215,13 @@ export async function hamtaDinaBrev(supabase: Klient, userId: string, valtCvId: 
     }
   }
 
-  // Jobben: de bästa träffarna (samma väg som Översikt och Matchade jobb:
-  // sammanfattningen, annars hela körningen, med ort och avstånd) som
-  // användaren inte har skrivit brev till.
+  // Jobben: de bästa träffarna ur sammanfattningen (samma som Översikt, med
+  // ort och avstånd) som användaren inte har skrivit brev till. Läget
+  // 'liten': hela körningen läses aldrig här; utan sammanfattning inga jobb.
   const jobb: HemJobb[] = []
   const aktivtCv = (aktivtCvRes.data ?? null) as ActiveCVData | null
   const prefs = toJobPreferences((prefRes.data as { job_preferences?: unknown } | null)?.job_preferences)
-  const basta = await hamtaBasta(supabase, userId, aktivtCv, prefs).catch((err) => {
+  const basta = await hamtaBasta(supabase, userId, aktivtCv, prefs, 'liten').catch((err) => {
     console.error('[brev] Kunde inte läsa de bästa träffarna:', err)
     return null
   })

@@ -4,6 +4,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { soktEfterHandelse } from '@/lib/jobbsok/validering';
 
 const VALID_CHANNELS = ['ad', 'unsolicited', 'network'];
 
@@ -115,6 +116,21 @@ export async function PUT(
 
     if (Object.keys(updates).length === 0) {
       return NextResponse.json({ error: 'Inget att uppdatera' }, { status: 400 });
+    }
+
+    // Sökdatumet får inte ligga efter någon händelse (utom "Sökt" själv, som följer med nedan).
+    // Arket skickar alltid datumet; kontrollen gäller bara när det ändras, så att
+    // äldre rader med en händelse före sökdagen fortfarande går att redigera.
+    if (typeof updates.applied_at === 'string') {
+      const [{ data: nu }, { data: handelser }] = await Promise.all([
+        supabase.from('job_applications').select('applied_at').eq('id', id).eq('user_id', user.id).maybeSingle(),
+        supabase.from('job_application_events').select('event_type, occurred_at').eq('application_id', id),
+      ]);
+      const andrat = !nu || nu.applied_at !== updates.applied_at;
+      const efter = andrat ? soktEfterHandelse(updates.applied_at, (handelser ?? []) as { event_type: string; occurred_at: string | null }[]) : null;
+      if (efter) {
+        return NextResponse.json({ error: efter, code: 'invalid_field', falt: 'applied_at' }, { status: 400 });
+      }
     }
 
     const { data, error } = await supabase
