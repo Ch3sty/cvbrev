@@ -60,6 +60,23 @@ const SKUGGA = {
   golv: '0 3px 0 rgba(28,10,24,.28), 0 14px 32px rgba(28,10,24,.18)',
 }
 
+/**
+ * Styckets sista rad som den syns: rektangeln längst ner, och på den raden
+ * den som slutar längst till höger. Range.getClientRects() ger inte raderna i
+ * synlig ordning när stycket har <mark> (elementets egna rutor kommer med),
+ * så "sista i listan" kunde vara en rad högre upp och platsen för ett saknat
+ * krav hamnade över text.
+ */
+function sistaRaden(el: HTMLElement): DOMRect | null {
+  const rng = document.createRange()
+  rng.selectNodeContents(el)
+  const rader = [...rng.getClientRects()].filter((r) => r.width > 0 && r.height > 0)
+  if (!rader.length) return null
+  const botten = Math.max(...rader.map((r) => r.bottom))
+  const pa = rader.filter((r) => botten - r.bottom < Math.max(2, r.height / 2))
+  return pa.reduce((x, y) => (y.right > x.right ? y : x))
+}
+
 export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: saknatProp = null, onStycke, ariaLabel, className }: BrevArkProps) {
   const saknatNr = saknatProp?.nr
   const saknatStycke = saknatProp?.stycke
@@ -108,10 +125,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     const saknatSt = saknatKrav ? (rot.querySelector<HTMLElement>(`[data-stycke="${saknatKrav.stycke}"]`) ?? [...rot.querySelectorAll<HTMLElement>('[data-stycke]')].pop() ?? null) : null
     let egenRad = false
     if (saknatSt) {
-      const rng = document.createRange()
-      rng.selectNodeContents(saknatSt)
-      const rader = rng.getClientRects()
-      const sista = rader[rader.length - 1]
+      const sista = sistaRaden(saknatSt)
       const sr = saknatSt.getBoundingClientRect()
       if (sista && sr.right - sista.right - 6 < 40) {
         egenRad = true
@@ -140,10 +154,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     if (saknatKrav) {
       const st = saknatSt
       if (st) {
-        const rng = document.createRange()
-        rng.selectNodeContents(st)
-        const rader = rng.getClientRects()
-        const sista = rader[rader.length - 1] ?? st.getBoundingClientRect()
+        const sista = sistaRaden(st) ?? st.getBoundingClientRect()
         const sr = st.getBoundingClientRect()
         const hojd = Math.max(8, sista.height)
         let left = sista.right - bas.left + 6
