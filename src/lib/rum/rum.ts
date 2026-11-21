@@ -82,6 +82,20 @@ export const DORRAR: readonly Dorr[] = [
  * är exakta, annars längsta prefix. Används av sidomenyn så att bara en
  * rad bär kopparlinjen.
  */
+/**
+ * Sidan menyn markerar. Arbetsläget (/dashboard/skapa-cv) med ett befintligt
+ * CV (?cv=) är en del av fliken hon kom från (fran: mallar, ditt-cv, analys;
+ * utan fran Ditt CV). "Skapa nytt CV" är bara aktiv när CV:t byggs från början.
+ */
+export function menyPath(pathname: string, sok: { get(k: string): string | null } | null | undefined): string {
+  const p = pathname.replace(/\/+$/, '')
+  if (p !== '/dashboard/skapa-cv' || !sok?.get('cv')) return pathname
+  const fran = sok.get('fran')
+  if (fran === 'mallar') return '/dashboard/cv-mallar'
+  if (fran === 'analys') return '/dashboard/cv-analys'
+  return '/dashboard/profil/cv'
+}
+
 export function aktivUndersida<T extends { href: string; exact?: boolean }>(
   pathname: string,
   undersidor: readonly T[],

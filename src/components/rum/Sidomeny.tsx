@@ -16,7 +16,7 @@
  */
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
@@ -32,7 +32,7 @@ import SidebarFooter from '@/components/dashboard/sidebar/SidebarFooter'
 import { Avatar, initialer } from '@/components/dashboard/ProfileMenu'
 import { useCandidateInterests } from '@/hooks/useCandidateInterests'
 import { TEST_GROUPS } from '@/app/dashboard/tester/components/testCatalog'
-import { aktivUndersida, DORRAR, rumForPath, type Rum } from '@/lib/rum/rum'
+import { aktivUndersida, DORRAR, menyPath, rumForPath, type Rum } from '@/lib/rum/rum'
 import { CHIP, GRUPP_RUBRIK, KONTORAD, NAV, UNDERSIDA } from '@/lib/rum/copy'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 import Chip from './Chip'
@@ -94,6 +94,8 @@ function prenumerationsEtikett(profil: Record<string, unknown> | null, paket: Pa
 
 export default function Sidomeny() {
   const pathname = usePathname() ?? '/dashboard'
+  // Arbetsläget med ett befintligt CV markerar fliken hon kom från (menyPath).
+  const sok = useSearchParams()
   const rum: Rum = rumForPath(pathname)
   const { user } = useRum()
   const { summary, refresh } = useDashboardData()
@@ -205,7 +207,7 @@ export default function Sidomeny() {
   }
 
   const rader = undersidor[rum]
-  const aktiv = aktivUndersida(pathname, rader)
+  const aktiv = aktivUndersida(menyPath(pathname, sok), rader)
   const fot = menyFot(paket)
 
   const metaNamn = (user?.user_metadata?.full_name ?? user?.user_metadata?.name) as string | undefined

@@ -97,3 +97,19 @@ describe('sidomenyn i Rekryteringstester (tester v4, planen 3.3)', () => {
     }
   })
 })
+
+describe('menyPath (arbetsläget i CV-rummet)', () => {
+  const q = (s: string) => new URLSearchParams(s)
+  it('markerar fliken hon kom från när ett befintligt CV redigeras', async () => {
+    const { menyPath } = await import('../rum')
+    expect(menyPath('/dashboard/skapa-cv', q('cv=a&fran=mallar'))).toBe('/dashboard/cv-mallar')
+    expect(menyPath('/dashboard/skapa-cv', q('cv=a&fran=analys'))).toBe('/dashboard/cv-analys')
+    expect(menyPath('/dashboard/skapa-cv', q('cv=a&fran=ditt-cv'))).toBe('/dashboard/profil/cv')
+    expect(menyPath('/dashboard/skapa-cv', q('cv=a'))).toBe('/dashboard/profil/cv')
+  })
+  it('Skapa nytt CV bara när CV:t byggs från början', async () => {
+    const { menyPath } = await import('../rum')
+    expect(menyPath('/dashboard/skapa-cv', q('fran=mina_cv&titel=x'))).toBe('/dashboard/skapa-cv')
+    expect(menyPath('/dashboard/cv-mallar', q('cv=a'))).toBe('/dashboard/cv-mallar')
+  })
+})
