@@ -90,8 +90,15 @@ function ensureValidCVMetadata(data: CVMetadata): CVMetadata | null {
  * Konverterar gamla ParsedCV (roles[]) till nya CVMetadata (experience[]).
  */
 function parsedCVToCVMetadata(parsed: ParsedCV): CVMetadata | null {
+  // Namnet läses sedan 2026-11-21 lokalt ur CV-texten eller profilen, aldrig
+  // av modellen (inga personuppgifter till AI:n). Hittas det inte är det tomt;
+  // namnet är valfritt i CV:t (NameRequiredNotice frågar vid nedladdning), så
+  // roller och profil ska ändå med. Förut gav ett tomt namn null, och då
+  // kastades hela inläsningen för reserven utan erfarenhet.
   const fullName = (parsed.name || '').trim();
-  if (!fullName) return null;
+  const harInnehall =
+    (Array.isArray(parsed.roles) && parsed.roles.length > 0) || Boolean((parsed.profile || '').trim());
+  if (!fullName && !harInnehall) return null;
 
   // Period-strang till start/end. Hanterar bade "-" och "–" + "Pagaende"/"Nuvarande"
   const splitPeriod = (period: string): { start: string; end?: string } => {
