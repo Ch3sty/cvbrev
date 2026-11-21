@@ -9,6 +9,7 @@ import { checkCvAnalysisQuota, quotaExceededBody } from '@/lib/quota/quotaServic
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { paketKort } from '@/lib/plans/plans';
+import { sakerstallStruktur } from '@/lib/cv/poang/server';
 
 // Vercel maxDuration configuration
 export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
@@ -174,7 +175,18 @@ export async function POST(request: NextRequest) {
         }
 
         // --- 4. Fetch CV Text ---
-        const cvText = await getCvText(supabase, userId, cvId);
+        await getCvText(supabase, userId, cvId);
+
+        // --- 4b. Strukturen poängen räknas på ---
+        // Läsbarhetspoängen räknas ur cv_texts.structured_data, aldrig ur en ny
+        // AI-tolkning per analys (docs/poangmodell-cv-analys.md). Saknar CV:t
+        // struktur läses det in en gång här och sparas, före jobbet, så att
+        // analysfunktionen och poängen arbetar på samma sparade struktur.
+        try {
+            await sakerstallStruktur(supabase, cvId);
+        } catch (strukturFel) {
+            console.error('API analyzeCv: kunde inte strukturera CV:t', strukturFel);
+        }
 
         // --- 5. Create Background Job for AI Analysis (100% Async) ---
         console.log(`API analyzeCv: User ${userId} (${quota.isPremium ? 'premium' : 'free'}): Creating background job for CV ${cvId}...`);

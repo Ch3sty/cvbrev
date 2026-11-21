@@ -2,6 +2,7 @@
 
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
+import { harPlatshallare, PLATSHALLARE_TAL } from '@/lib/cv/poang';
 import { Check, Edit3, X, Eye, EyeOff, Briefcase, BarChart3, Key, Type } from '@/components/illustrations/RumIkoner';
 
 interface Improvements {
@@ -222,8 +223,22 @@ export default function ImprovementCard({
             </div>
           </div>
         )}
+        {harPlatshallare(editedText) && <FyllISiffra />}
       </div>
     </div>
+  );
+}
+
+/**
+ * Förslagen hittar aldrig på tal. Saknar CV:t en siffra står [antal] där
+ * hennes egen ska in (docs/poangmodell-cv-analys.md, Förslagen).
+ */
+export function FyllISiffra() {
+  return (
+    <p className="mt-2.5 text-meta leading-relaxed text-ink-2">
+      Fyll i din egen siffra där det står {PLATSHALLARE_TAL}. Vi hittar aldrig på tal åt dig,
+      och en siffra räknas först när du skrivit in den.
+    </p>
   );
 }
 

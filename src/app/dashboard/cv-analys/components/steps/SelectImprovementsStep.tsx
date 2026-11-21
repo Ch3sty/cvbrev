@@ -132,12 +132,12 @@ const CATEGORY_META: Record<
   skills: {
     title: 'Vi föreslår nya färdigheter',
     description:
-      'Vi har hittat färdigheter som rekryterare letar efter och som passar din erfarenhet. Välj vilka som ska läggas till.',
+      'Färdigheter som rekryterare letar efter i roller som dina och som inte står i ditt CV. Lägg bara till dem du faktiskt har.',
   },
   auto: {
     title: 'Allmänna förbättringar',
     description:
-      'Ändringar vi alltid gör: stavning, format och struktur. Strukturella och formaterings-relaterade justeringar som lyfter helhetsintrycket.',
+      'Råd om struktur och format som du gör själv i CV:t. Vi för inte in dem åt dig, så de ingår inte i potentialen.',
   },
 };
 
@@ -253,7 +253,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         ? [
             {
               id: 'auto' as SelectCategory,
-              label: 'Automatiskt',
+              label: 'Råd',
               selectedCount: safeData.general.length,
               totalCount: safeData.general.length,
               isAuto: true,

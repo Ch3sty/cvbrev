@@ -20,7 +20,7 @@ describe('nextCategoryLabel', () => {
   it('pekar mot nästa kategori med antal förslag', () => {
     expect(nextCategoryLabel(ALLA, 'profile')).toBe('Nästa: Roller (3)');
     expect(nextCategoryLabel(ALLA, 'roles')).toBe('Nästa: Kompetenser (12)');
-    expect(nextCategoryLabel(ALLA, 'skills')).toBe('Nästa: Automatiskt (5)');
+    expect(nextCategoryLabel(ALLA, 'skills')).toBe('Nästa: Råd (5)');
   });
 
   it('säger Fortsätt på sista fliken', () => {

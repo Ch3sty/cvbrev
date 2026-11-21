@@ -1,6 +1,24 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
+import { maskForModel } from '../_shared/pii.ts';
+
+/** Maskeringens platshållare bort ur svaret. Speglar src/lib/privacy/cvForModel.ts. */
+const PII_PLATSHALLARE = /\[(?:NAMN|E-POST|EMAIL|TELEFON|TEL|ADRESS|POSTNUMMER|POSTNR|PERSONNUMMER|PERSNR|FÖDELSEDATUM|LÄNK|URL)\]/gi;
+function rensaPii(v: any): any {
+  if (typeof v === 'string') {
+    if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(v)) return v;
+    return v.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '').split('\n')
+      .map((r: string) => r.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '')).join('\n').trim();
+  }
+  if (Array.isArray(v)) return v.map(rensaPii);
+  if (v && typeof v === 'object') {
+    const ut: any = {};
+    for (const [k, x] of Object.entries(v)) ut[k] = rensaPii(x);
+    return ut;
+  }
+  return v;
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -736,14 +754,29 @@ Deno.serve(async (req) => {
     console.log('[LinkedIn Optimizer] Starting optimization...');
     console.log('[LinkedIn Optimizer] Education input:', sections.education ? `"${sections.education.substring(0, 100)}..."` : 'NONE');
 
+    // Inga personuppgifter till AI:n (ägarens beslut 2026-11-21): namn, e-post,
+    // telefon, adress, personnummer, födelsedatum och webbadresser i avsnitten
+    // maskas (samma maskering som CV-analysen, _shared/pii.ts), med profilens
+    // namn och nummer som kända värden. Platshållarna tas bort ur svaret.
+    const { data: agare } = await supabase.from('profiles').select('full_name, phone').eq('id', user_id).maybeSingle();
+    const mask = (t: string | undefined) =>
+      typeof t === 'string' ? maskForModel(t, { fullName: agare?.full_name ?? null, knownPhones: [agare?.phone], maskUrls: true }).text : t;
+    const s = {
+      headline: mask(sections.headline),
+      about: mask(sections.about) as string,
+      experience: mask(sections.experience) as string,
+      education: mask(sections.education),
+      skills: mask(sections.skills),
+    };
+
     // Optimize each section in parallel
-    const [headlineResult, aboutResult, experienceResult, educationResult, skillsResult] = await Promise.all([
-      optimizeHeadline(sections.headline, sections.about, sections.experience, mode, target_role, language),
-      optimizeAbout(sections.about, sections.experience, mode, target_role, language),
-      optimizeExperience(sections.experience, sections.about, mode, target_role, language),
-      sections.education ? optimizeEducation(sections.education, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null),
-      sections.skills ? optimizeSkills(sections.skills, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null)
-    ]);
+    const [headlineResult, aboutResult, experienceResult, educationResult, skillsResult] = (await Promise.all([
+      optimizeHeadline(s.headline, s.about, s.experience, mode, target_role, language),
+      optimizeAbout(s.about, s.experience, mode, target_role, language),
+      optimizeExperience(s.experience, s.about, mode, target_role, language),
+      s.education ? optimizeEducation(s.education, s.experience, s.about, mode, target_role, language) : Promise.resolve(null),
+      s.skills ? optimizeSkills(s.skills, s.experience, s.about, mode, target_role, language) : Promise.resolve(null)
+    ])).map((r) => rensaPii(r)) as any[];
 
     console.log('[LinkedIn Optimizer] Education result:', educationResult ? 'SUCCESS' : 'NULL');
 

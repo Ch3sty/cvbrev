@@ -18,6 +18,6 @@ export const ANALYSIS_STEPS: AnalysisStep[] = [
   { id: 2, label: 'Översikt', shortLabel: 'Översikt' },
   { id: 3, label: 'Förbättringar', shortLabel: 'Välj' },
   { id: 4, label: 'Granska', shortLabel: 'Granska' },
-  { id: 5, label: 'Mall och spara', shortLabel: 'Mall' },
+  { id: 5, label: 'Spara', shortLabel: 'Spara' },
   { id: 6, label: 'Klar', shortLabel: 'Klar' },
 ]

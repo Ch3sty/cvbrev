@@ -3,7 +3,8 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Edit3, X, Eye, EyeOff, User, Check } from '@/components/illustrations/RumIkoner';
-import { RoundCheckbox, HighlightedText } from './ImprovementCard';
+import { RoundCheckbox, HighlightedText, FyllISiffra } from './ImprovementCard';
+import { harPlatshallare } from '@/lib/cv/poang';
 
 interface ProfileImprovementCardProps {
   currentText: string;
@@ -183,6 +184,7 @@ export default function ProfileImprovementCard({
             </div>
           </div>
         )}
+        {harPlatshallare(editedText) && <FyllISiffra />}
       </div>
     </div>
   );

@@ -28,7 +28,32 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const body = await request.json();
-    const { fileName, improvedText, structuredData, originalCvId } = body;
+    const { fileName, improvedText, structuredData, originalCvId, lage, cvId } = body;
+
+    // "Ersätt mitt nuvarande CV" (CV-rummet steg 4): det analyserade CV:t
+    // uppdateras på plats. Ingen ny plats behövs, så kvoten kontrolleras inte;
+    // vid fullt bibliotek finns alltid en väg utan köp. Bara egna CV.
+    if (lage === 'ersatt') {
+      if (typeof cvId !== 'string' || !improvedText || !structuredData) {
+        return NextResponse.json({ error: 'Missing required fields', message: 'CV och text krävs' }, { status: 400 });
+      }
+      if (improvedText.length > 100000) {
+        return NextResponse.json({ error: 'Text too long', message: 'CV-texten är för lång (max 100 000 tecken)' }, { status: 400 });
+      }
+      const { data: uppdaterad, error: updError } = await supabase
+        .from('cv_texts')
+        .update({ cv_text: improvedText, structured_data: structuredData, updated_at: new Date().toISOString() })
+        .eq('id', cvId)
+        .eq('user_id', user.id)
+        .select('id')
+        .maybeSingle();
+      if (updError || !uppdaterad) {
+        console.error('Error replacing CV:', updError);
+        return NextResponse.json({ error: 'Database error', message: 'Kunde inte ersätta CV:t' }, { status: updError ? 500 : 404 });
+      }
+      void markeraBricka(user.id, 'uppdatera_cv');
+      return NextResponse.json({ success: true, cvId, ersatt: true });
+    }
 
     if (!fileName || !improvedText) {
       return NextResponse.json(

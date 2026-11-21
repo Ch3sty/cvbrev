@@ -1,6 +1,24 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { geminiGenerateJSON, GEMINI_MODELS } from '../_shared/gemini.ts';
+import { maskForModel } from '../_shared/pii.ts';
+
+/** Maskeringens platshållare bort ur svaret. Speglar src/lib/privacy/cvForModel.ts. */
+const PII_PLATSHALLARE = /\[(?:NAMN|E-POST|EMAIL|TELEFON|TEL|ADRESS|POSTNUMMER|POSTNR|PERSONNUMMER|PERSNR|FÖDELSEDATUM|LÄNK|URL)\]/gi;
+function rensaPii(v: any): any {
+  if (typeof v === 'string') {
+    if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(v)) return v;
+    return v.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '').split('\n')
+      .map((r: string) => r.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '')).join('\n').trim();
+  }
+  if (Array.isArray(v)) return v.map(rensaPii);
+  if (v && typeof v === 'object') {
+    const ut: any = {};
+    for (const [k, x] of Object.entries(v)) ut[k] = rensaPii(x);
+    return ut;
+  }
+  return v;
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -273,6 +291,14 @@ Deno.serve(async (req) => {
 
     console.log(`[Parse CV] Cache miss or expired, running AI parsing...`);
 
+    // Inga personuppgifter till AI:n (ägarens beslut 2026-11-21): namn, e-post,
+    // telefon, gatuadress, postnummer, personnummer, födelsedatum och
+    // webbadresser maskas (samma maskering som CV-analysen, _shared/pii.ts),
+    // med profilens namn och nummer som kända värden. Orten efter postnumret
+    // står kvar: matchningen behöver den.
+    const { data: agare } = await supabase.from('profiles').select('full_name, phone').eq('id', userId).maybeSingle();
+    const maskadText = maskForModel(cvText, { fullName: agare?.full_name ?? null, knownPhones: [agare?.phone], maskUrls: true }).text;
+
     // AI Parsing with Gemini
     const aiResult = await geminiGenerateJSON({
       model: GEMINI_MODELS.fast,
@@ -303,7 +329,7 @@ EXEMPEL skills (specifika, svenska):
 Returnera ENDAST JSON, ingen annan text.`,
       prompt: `Parsa detta CV för jobbmatchning:
 
-${cvText}
+${maskadText}
 
 Returnera JSON:
 {
@@ -319,7 +345,9 @@ Returnera JSON:
 }`,
     });
 
-    const parsed = aiResult.data;
+    // Platshållare från maskeringen följer aldrig med in i matchningen.
+    const parsed = rensaPii(aiResult.data);
+    if (typeof parsed.location === 'string' && !parsed.location.trim()) parsed.location = null;
 
     console.log(`[Parse CV] AI extracted:`, {
       occupations: parsed.occupations?.length || 0,

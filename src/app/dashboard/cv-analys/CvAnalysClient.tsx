@@ -29,6 +29,7 @@ import { RUBRIK } from '@/lib/rum/copy';
 import { logUserActivity } from '@/lib/activity-logger';
 import { lockedCvIds, type CvAnalysData } from './getCvAnalysData';
 import { aterupptagning, type AterupptagenAnalys } from './aterupptagning';
+import { flikHref } from '@/components/cv/rum3/flikar';
 
 /**
  * Wizarden syns aldrig i första vyn: sidan öppnar alltid på introt, och
@@ -45,17 +46,23 @@ const API_ANALYZE_ROUTE = '/api/cv/analyze';
 export default function CvAnalysClient({
   data,
   aterupptagen = null,
+  startCvId = null,
 }: {
   data: CvAnalysData;
   /** Sparad analys ur ?job=<id>: öppnas i granskningen, ingen kvot dras. */
   aterupptagen?: AterupptagenAnalys | null;
+  /**
+   * Analys-sidans "Analysera mitt CV" (steg 4): CV:t är redan valt, så
+   * flödet börjar direkt i analysen. Introt och spärren ritas av AnalysVy.
+   */
+  startCvId?: string | null;
 }) {
   const router = useRouter();
   const ater = useMemo(() => (aterupptagen ? aterupptagning(aterupptagen) : null), [aterupptagen]);
 
   // En återupptagen analys hoppar över introt och spärrvyn: den kostar ingen
   // kvot. Startar hon en ny analys därifrån gäller kvoten som vanligt.
-  const [showIntro, setShowIntro] = useState(!ater);
+  const [showIntro, setShowIntro] = useState(!ater && !startCvId);
   const [kvotSlut, setKvotSlut] = useState(false);
 
   /* Kvotläget. Startvärdena är serverns, och uppdateras av analyssvaret precis
@@ -158,9 +165,10 @@ export default function CvAnalysClient({
     [data.cvs, data.userId]
   );
 
+  // Klart: tillbaka till Ditt CV (byggspecen avsnitt 8, fynd 4).
   const handleWizardComplete = useCallback(() => {
-    router.push('/dashboard');
-  }, [router]);
+    router.push(flikHref('cv', ater?.cvId ?? startCvId ?? null));
+  }, [router, ater?.cvId, startCvId]);
 
   // Spärrvyn. Samma villkor som förut: gratisnivå och antingen ett 429 från
   // servern eller en räknare som gått i noll.
@@ -214,6 +222,7 @@ export default function CvAnalysClient({
         onPollJob={pollForJobResult}
         onComplete={handleWizardComplete}
         aterupptagning={ater}
+        startCvId={startCvId}
       />
     </div>
   );

@@ -21,27 +21,12 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { losMallId } from '@/lib/cv/mallval/katalog';
 import { CV_ANALYSIS_LIMIT } from '@/lib/quota/quotaService';
 import type { AnalysUnderlag } from '@/lib/rum/cvRum';
+import { ANALYS_FALT, analysPerCv, atgardadAtFor, underlagForCv } from '@/lib/cv/analys/cvAnalys';
+import { poangForRad, type CvRad } from '@/lib/cv/poang';
 import DittCvClient, { type DittCvData, type InitialCv } from './DittCvClient';
 
 /** Gratisnivåns analyskvot, samma tal som /api/cv/analyze spärrar på. */
 const GRATIS_ANALYSER = CV_ANALYSIS_LIMIT;
-
-const ANALYS_FALT =
-  'id, cv_id, completed_at, display_name, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements';
-
-function underlagUr(rad: Record<string, unknown>, namn: string | null): AnalysUnderlag {
-  return {
-    jobbId: (rad.id as string) ?? null,
-    cvId: (rad.cv_id as string) ?? null,
-    klar: (rad.completed_at as string) ?? null,
-    namn: (rad.display_name as string) || namn,
-    poang: rad.poang === null || rad.poang === undefined ? null : Number(rad.poang),
-    profil: (rad.profil as AnalysUnderlag['profil']) ?? null,
-    roller: Array.isArray(rad.roller) ? (rad.roller as AnalysUnderlag['roller']) : null,
-    kompetenser: Array.isArray(rad.kompetenser) ? (rad.kompetenser as AnalysUnderlag['kompetenser']) : null,
-    allmant: Array.isArray(rad.allmant) ? (rad.allmant as AnalysUnderlag['allmant']) : null,
-  };
-}
 
 type Sok = { cv?: string | string[]; reason?: string | string[] };
 
@@ -62,6 +47,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   let poangPerCv: Record<string, number> = {};
   let jobbPerCv: Record<string, string> = {};
   let senaste: Record<string, unknown> | null = null;
+  let analysRader: Array<{ id: string; cv_id: string | null; completed_at: string | null; forbattrad?: unknown; valda?: unknown }> = [];
   let nedladdning = null as { downloaded_at?: string | null; template_id?: string | null } | null;
 
   try {
@@ -76,7 +62,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
         .maybeSingle(),
       supabase
         .from('cv_analysis_jobs')
-        .select('id, cv_id, completed_at, poang:result->atsFriendliness->score')
+        .select('id, cv_id, completed_at, forbattrad:result->forbattradSparad, valda:result->selectedImprovements')
         .eq('user_id', user.id)
         .eq('status', 'completed')
         .order('completed_at', { ascending: false, nullsFirst: false })
@@ -112,12 +98,14 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
     fotoUrl = profil?.profile_photo_url ?? null;
     analysKvar = scopeHasFeature(scope, 'cv_analysis_full') ? null : Math.max(0, GRATIS_ANALYSER - (kvotRes.count ?? 0));
 
-    // Poängen och analysen per CV: den senaste av varje (listan är sorterad).
-    for (const rad of (poangRes.data ?? []) as Array<{ id: string; cv_id: string | null; poang: unknown }>) {
-      if (!rad.cv_id || rad.cv_id in jobbPerCv) continue;
-      jobbPerCv[rad.cv_id] = rad.id;
-      const p = Number(rad.poang);
-      if (Number.isFinite(p)) poangPerCv[rad.cv_id] = Math.max(0, Math.min(100, Math.round(p)));
+    // Analysen per CV: den senaste av varje (listan är sorterad), och när ett
+    // förbättrat CV sparades. Poängen räknas ur CV-raden med poängmodellen.
+    analysRader = (poangRes.data ?? []) as typeof analysRader;
+    jobbPerCv = analysPerCv(analysRader);
+    for (const cv of cvRows) {
+      if (!jobbPerCv[cv.id]) continue;
+      const p = poangForRad(cv as CvRad);
+      if (p !== null) poangPerCv[cv.id] = p;
     }
     senaste = (senasteRes.data as Record<string, unknown> | null) ?? null;
     nedladdning = (nedladdRes.data as typeof nedladdning) ?? null;
@@ -137,27 +125,16 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   const aktivt =
     (cvParam ? cvRows.find((c) => c.id === cvParam && aktiva.has(c.id)) : null) ?? cvRows.find((c) => aktiva.has(c.id)) ?? null;
 
-  // Analysen av det CV:t. Det förbättrade CV:t (sparat av analysen som
-  // "-improved") räknas med originalets analys.
+  // Analysen av det CV:t, poängsatt med poängmodellen på det CV som visas.
+  // Det förbättrade CV:t (sparat som nytt, "-improved") räknas med
+  // originalets analys; ett CV som ersatts på plats har en egen analysrad.
   let underlag: AnalysUnderlag | null = null;
   let atgardadAt: string | null = null;
   if (aktivt) {
-    const original = aktivt.original_file_path?.endsWith('-improved')
-      ? cvRows.find((c) => c.original_file_path === aktivt.original_file_path.replace(/-improved$/, '')) ?? null
-      : null;
-    const analyseratId = jobbPerCv[aktivt.id] ? aktivt.id : original && jobbPerCv[original.id] ? original.id : null;
-    atgardadAt = original
-      ? aktivt.created_at
-      : cvRows.find((c) => c.original_file_path === `${aktivt.original_file_path}-improved`)?.created_at ?? null;
-    if (analyseratId) {
-      const jobbId = jobbPerCv[analyseratId];
-      let rad = senaste && senaste.id === jobbId ? senaste : null;
-      if (!rad) {
-        const { data } = await supabase.from('cv_analysis_jobs').select(ANALYS_FALT).eq('id', jobbId).eq('user_id', user.id).maybeSingle();
-        rad = (data as Record<string, unknown> | null) ?? null;
-      }
-      if (rad) underlag = underlagUr(rad, aktivt.file_name);
-    }
+    atgardadAt = atgardadAtFor(aktivt, cvRows, analysRader);
+    underlag = await underlagForCv(supabase, user.id, aktivt, cvRows, jobbPerCv, senaste, {
+      harFull: scopeHasFeature(scope, 'cv_analysis_full'),
+    });
   }
 
   const bygge = (aktivt?.structured_data as { bygge?: { mall?: string } } | null)?.bygge;

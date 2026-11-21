@@ -1,0 +1,170 @@
+/* =============================================================================
+   Analys (CV-rummet steg 4, byggspecen avsnitt 8, skissen Analys).
+   Egen fil så att globals.css (steg 2 och 3) inte krockar. Mått ur skissens
+   CSS, färger ur CV-rummets rumsmedvetna tokens (globals.css, blocket
+   "CV-rummet, omgång 1"), så mörkt läge följer rummet: golv, papper och kant
+   byts, aldrig väggen.
+   ============================================================================= */
+
+/* Talen på väggen: i dag och med våra förslag. */
+.cv4-tal-rad { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
+.cv4-tal { display: flex; flex-direction: column; justify-content: center; height: 92px; padding: 0 20px 5px; border-radius: 18px; min-width: 150px; }
+.cv4-tal b { font: 800 48px/46px var(--font-display), Inter, system-ui, sans-serif; letter-spacing: -.03em; }
+.cv4-tal span { font: 600 13px/17px Inter, system-ui, sans-serif; }
+.cv4-tal[data-nu] { background: #FFFFFF; color: #113538; box-shadow: inset 0 -5px 0 #C2D6D4; }
+.cv4-tal[data-nu] span { color: #3F5352; }
+.cv4-tal[data-sen] { border: 3px dashed var(--koppar); background: var(--cv3-vagg-yta); color: var(--koppar-ljus); padding-bottom: 0; }
+.cv4-tal-pil { flex-shrink: 0; color: #5C918F; }
+.cv4-ingress { margin: 12px 0 0; max-width: 460px; font-size: 17px; line-height: 26px; color: var(--vagg-mjuk); }
+
+/* Telefon och mellanbredd: talen mindre, samma ordning. */
+.cv4-mobil { margin-top: 14px; }
+.cv4-mobil .cv4-tal-rad { margin-top: 14px; gap: 10px; }
+.cv4-mobil .cv4-tal { height: 72px; min-width: 0; flex: 1; padding: 0 14px 5px; border-radius: 16px; }
+.cv4-mobil .cv4-tal b { font-size: 36px; line-height: 36px; }
+.cv4-mobil .cv4-tal span { font-size: 12px; line-height: 15px; }
+.cv4-mobil .cv4-tal[data-sen] { padding-bottom: 0; }
+.cv4-mobil-text { margin: 6px 0 0; font-size: 14px; line-height: 20px; color: var(--vagg-mjuk); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cv4-mobil-knapp { margin-top: 14px; }
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .cv4-mobil { margin-top: 24px; }
+  .cv4-mobil .cv4-tal { flex: 0 0 auto; min-width: 150px; height: 86px; }
+  .cv4-mobil .cv4-tal b { font-size: 44px; line-height: 44px; }
+  .cv4-mobil-text { font-size: 16px; line-height: 24px; max-width: 560px; }
+  .cv4-mobil-knapp { display: flex; align-items: center; gap: 20px; margin-top: 20px; }
+  .cv4-mobil-knapp .t3-stor-bred { width: auto; padding: 0 28px; }
+}
+
+/* Golvet: panelen till vänster, arket och "Så räknas poängen" till höger. */
+.cv4-golv { display: flex; flex-direction: column; gap: 20px; }
+.cv4-golv > .cv4-panel { margin-top: -28px; }
+@media (min-width: 768px) and (max-width: 1279.98px) { .cv4-golv > .cv4-panel { margin-top: -40px; } }
+@media (min-width: 1280px) {
+  .cv4-golv { display: grid; grid-template-columns: minmax(0, 1fr) 400px; column-gap: 40px; align-items: start; }
+  .cv4-golv > .cv4-panel { margin-top: -60px; }
+}
+.cv4-panel { position: relative; background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 5px 0 var(--sess-kant), 0 18px 36px var(--sess-skugga); padding: 18px 16px 20px; }
+@media (min-width: 1280px) { .cv4-panel { border-radius: 26px; box-shadow: 0 6px 0 var(--sess-kant), 0 26px 48px var(--sess-skugga); padding: 22px 26px 26px; } }
+.cv4-ogon { margin: 0; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--cv3-ink-3); }
+.cv4-ogon[data-ton="koppar"] { color: var(--koppar-ink); }
+.cv4-h2 { margin: 4px 0 0; font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 20px; line-height: 26px; font-weight: 800; letter-spacing: -.01em; color: var(--ink-1); }
+@media (min-width: 1280px) { .cv4-h2 { font-size: 24px; line-height: 30px; } }
+.cv4-rad { margin: 4px 0 0; font-size: 14px; line-height: 21px; color: var(--cv3-ink-2); }
+
+/* Första fyndet, utfällt: papper med mörkt huvud. */
+.cv4-papper { border: 2px solid var(--vagg); border-radius: 22px; box-shadow: 0 5px 0 var(--cv3-mork-kant); overflow: hidden; background: var(--papper); margin-top: 18px; }
+.cv4-papper-hu { background: var(--vagg); color: var(--vagg-ink); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.cv4-papper-hu b { font: 800 18px/22px var(--font-display), Inter, system-ui, sans-serif; min-width: 0; }
+.cv4-nr { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font: 800 19px/1 var(--font-display), Inter, system-ui, sans-serif; flex-shrink: 0; background: var(--cv3-ikon-yta); color: var(--cv3-ikon); }
+.cv4-nr[data-nu] { background: var(--koppar); color: var(--koppar-text, #1A1206); }
+.cv4-pluspill { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 13px; background: var(--sess-ratt-yta); color: var(--sess-ratt-ink); font: 700 13px/16px Inter, system-ui, sans-serif; white-space: nowrap; flex-shrink: 0; }
+.cv4-papper-hu .cv4-pluspill { margin-left: auto; }
+.cv4-spalter { display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .cv4-spalter { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cv4-spalt { padding: 16px 16px 18px; min-width: 0; }
+.cv4-spalt p:not(.cv4-ogon) { margin: 8px 0 0; font-size: 14px; line-height: 22px; color: var(--ink-1); white-space: pre-line; overflow-wrap: anywhere; }
+.cv4-spalt[data-gammal] p:not(.cv4-ogon) { color: var(--cv3-ink-2); }
+.cv4-spalt[data-ny] { background: var(--sess-ratt-yta); border-top: 2px solid var(--sess-kant); }
+.cv4-spalt[data-ny] .cv4-ogon { color: var(--sess-ratt-ink); }
+@media (min-width: 768px) { .cv4-spalt[data-ny] { border-top: 0; border-left: 2px solid var(--sess-kant); } }
+.cv4-platshallare { background: var(--sess-rad3-yta); color: var(--sess-rad3-ink); border-radius: 4px; padding: 1px 3px; font-weight: 700; }
+.cv4-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px 16px; border-top: 2px solid var(--t3-linje); }
+.cv4-fot-text { margin: 0; font-size: 13px; line-height: 18px; color: var(--cv3-ink-2); flex: 1 1 220px; }
+.cv4-fot-text b { color: var(--ink-1); }
+.cv4-fyll { margin: 0; padding: 0 16px 14px; font-size: 13px; line-height: 18px; color: var(--cv3-ink-2); }
+.cv4-kn { display: inline-flex; align-items: center; justify-content: center; height: 48px; border-radius: 14px; padding: 0 18px; font: 700 15px/20px Inter, system-ui, sans-serif; white-space: nowrap; text-decoration: none; cursor: pointer; }
+.cv4-kn[data-ton="ljus"] { border: 2px solid var(--sess-kant); background: var(--papper); color: var(--ink-1); box-shadow: 0 3px 0 var(--sess-kant); }
+.cv4-kn[data-ton="mork"] { border: 0; background: var(--vagg); color: var(--vagg-ink) !important; box-shadow: 0 4px 0 var(--cv3-mork-kant); }
+.cv4-kn:active { transform: translateY(2px); }
+.cv4-kn:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+@media (max-width: 767.98px) { .cv4-fot .cv4-kn { flex: 1 1 140px; } }
+
+/* Övriga fynd som rader. */
+.cv4-rader { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cv4-last { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 4px 0 var(--sess-kant); min-height: 72px; width: 100%; text-align: left; font-family: inherit; color: var(--ink-1); cursor: pointer; text-decoration: none; }
+.cv4-last:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--sess-kant); }
+.cv4-last:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+.cv4-last-text { min-width: 0; flex: 1; }
+.cv4-last b { font: 700 15px/20px Inter, system-ui, sans-serif; display: block; }
+.cv4-last small { font-size: 13px; line-height: 18px; color: var(--cv3-ink-2); display: block; }
+.cv4-las { width: 34px; height: 34px; border-radius: 11px; background: var(--sess-rad3-yta); color: var(--sess-rad3-ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (max-width: 767.98px) { .cv4-last .cv4-pluspill { height: 24px; padding: 0 8px; font-size: 12px; } }
+
+/* Premium: åtgärderna bakom de låsta raderna. */
+.cv4-prem { background: var(--sess-rad3-yta); border: 2px solid var(--sess-rad3-kant); border-radius: 22px; box-shadow: 0 4px 0 var(--sess-rad3-kant); padding: 18px 18px 20px; margin-top: 18px; }
+.cv4-prem .cv4-ogon { color: var(--sess-rad3-ink); }
+.cv4-prem h3 { margin: 6px 0 0; font: 800 22px/27px var(--font-display), Inter, system-ui, sans-serif; letter-spacing: -.01em; color: var(--ink-1); }
+.cv4-prem p { margin: 8px 0 0; font-size: 14px; line-height: 21px; color: var(--t3-prov-ink, var(--ink-2)); }
+.cv4-prem-fot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; }
+.cv4-prem-fot p { margin: 0; }
+.cv4-prem-fot a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cv4-kop { height: 56px; border-radius: 15px; border: 0; padding: 0 24px; background: linear-gradient(180deg, #F0914A, var(--koppar)); box-shadow: 0 4px 0 var(--sess-knapp-kant, #A8491A); font: 700 16px/22px Inter, system-ui, sans-serif; color: var(--koppar-text, #1A1206); cursor: pointer; white-space: nowrap; }
+.cv4-kop:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--sess-knapp-kant, #A8491A); }
+.cv4-kop:focus-visible { outline: 3px solid var(--ink-1); outline-offset: 2px; }
+@media (max-width: 767.98px) { .cv4-kop { width: 100%; } }
+
+/* Höger spalt: arket (som når upp i väggen på dator) och poängkortet. */
+.cv4-hoger { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.cv4-arkplats { position: relative; z-index: 3; width: 100%; max-width: 400px; margin: 0 auto; }
+@media (min-width: 1280px) { .cv4-arkplats { margin-top: -454px; } }
+/* Telefon och mellanbredd: arket först (det lyfts upp i väggen), panelen under. */
+@media (max-width: 1279.98px) { .cv4-hoger { order: -1; } .cv4-golv > .cv4-hoger { margin-top: -96px; } .cv4-golv > .cv4-panel { margin-top: 0; } }
+@media (min-width: 768px) and (max-width: 1279.98px) { .cv4-golv > .cv4-hoger { margin-top: -120px; } }
+@media (max-width: 767.98px) { .cv4-arkplats { max-width: 300px; } }
+.cv4-ark { position: relative; width: 100%; aspect-ratio: 210 / 297; border-radius: 8px; background: #FFFFFF; box-shadow: 0 5px 0 var(--cv3-mork-kant), 0 30px 60px rgba(0, 0, 0, .4); overflow: hidden; }
+.cv4-ark > img, .cv4-ark > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.cv4-ark > img { object-fit: cover; object-position: top; }
+.cv4-ark > iframe { pointer-events: none; opacity: 0; transition: opacity 160ms ease-out; background: #FFFFFF; }
+.cv4-ark[data-egen] > iframe { opacity: 1; }
+.cv4-ruta { position: absolute; border-radius: 6px; box-shadow: 0 0 0 2px rgba(17, 53, 56, .35); pointer-events: none; }
+.cv4-ruta[data-nu] { background: rgba(224, 122, 47, .2); box-shadow: 0 0 0 2px var(--koppar); }
+.cv4-nal { position: absolute; z-index: 2; width: 36px; height: 36px; margin-left: -20px; border-radius: 50%; background: #113538; color: #F1F8F7; border: 3px solid #F1F8F7; box-shadow: 0 3px 8px rgba(0, 0, 0, .35); display: flex; align-items: center; justify-content: center; font: 800 16px/1 var(--font-display), Inter, system-ui, sans-serif; }
+.cv4-nal[data-nu] { background: var(--koppar); color: #1A1206; }
+.cv4-halo { position: absolute; inset: -3px; border-radius: 50%; background: var(--koppar); animation: cv4-puls 1.8s ease-out infinite; z-index: -1; }
+@keyframes cv4-puls { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cv4-halo { animation: none; } .cv4-ark > iframe { transition: none; } }
+@media (max-width: 767.98px) { .cv4-nal { width: 30px; height: 30px; margin-left: -16px; font-size: 14px; } }
+.cv4-mallrad { margin: 0; text-align: center; font-size: 13px; line-height: 18px; color: var(--cv3-ink-2); }
+.cv4-mallrad b { color: var(--ink-1); }
+.cv4-mallrad a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cv4-mallrad a, .cv4-prem-fot a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Så räknas poängen. */
+.cv4-kortet { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 22px; box-shadow: 0 4px 0 var(--sess-kant); padding: 18px 20px 20px; }
+.cv4-mojliga { display: flex; align-items: flex-end; gap: 10px; margin-top: 8px; }
+.cv4-mojliga b { font: 800 44px/44px var(--font-display), Inter, system-ui, sans-serif; letter-spacing: -.03em; color: var(--ink-1); }
+.cv4-mojliga span { font-size: 15px; line-height: 21px; font-weight: 600; padding-bottom: 4px; color: var(--ink-1); }
+.cv4-stapel { display: flex; height: 22px; border-radius: 11px; overflow: hidden; margin-top: 14px; box-shadow: inset 0 0 0 2px var(--sess-kant); }
+.cv4-stapel span { display: block; height: 100%; }
+.cv4-delar { margin-top: 14px; }
+.cv4-del { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1.5px solid var(--t3-linje); font-size: 14px; line-height: 20px; color: var(--ink-1); }
+.cv4-del:first-child { border-top: 0; }
+.cv4-del > span { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.cv4-del i { width: 12px; height: 12px; border-radius: 4px; display: block; flex-shrink: 0; }
+.cv4-forklaring { margin: 12px 0 0; font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
+.cv4-alla { margin-top: 10px; font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
+.cv4-alla summary { cursor: pointer; font-weight: 600; color: var(--ink-1); min-height: 44px; display: flex; align-items: center; }
+.cv4-alla summary:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; border-radius: 6px; }
+.cv4-alla ul { list-style: none; margin: 0; padding: 0; }
+.cv4-alla li { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; }
+
+/* Introt och spärren. */
+.cv4-lista { list-style: none; margin: 14px 0 0; padding: 0; }
+.cv4-lista li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1.5px solid var(--t3-linje); font-size: 14px; line-height: 20px; color: var(--ink-1); }
+.cv4-lista li:first-child { border-top: 0; }
+.cv4-bock { width: 26px; height: 26px; border-radius: 9px; background: var(--cv3-ikon-yta); color: var(--cv3-ikon); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cv4-kvot { margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--t3-matare); font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
+.cv4-kvot b { color: var(--ink-1); }
+.cv4-fordelar { display: grid; gap: 10px; margin-top: 18px; }
+@media (min-width: 768px) { .cv4-fordelar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cv4-fordel { border-radius: 18px; background: var(--t3-matare); padding: 14px 16px 16px; }
+.cv4-fordel b { display: block; margin-top: 8px; font: 700 15px/20px Inter, system-ui, sans-serif; color: var(--ink-1); }
+.cv4-fordel p { margin: 4px 0 0; font-size: 13px; line-height: 19px; color: var(--cv3-ink-2); }
+.cv4-sekundar { display: inline-flex; align-items: center; min-height: 44px; color: var(--vagg-ink); font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cv4-fel { margin: 12px 0 0; font-size: 14px; line-height: 20px; color: var(--koppar-ljus); }
+
+/* Poängkortet: i högerspalten på dator, efter fynden på telefon och mellanbredd. */
+.cv4-bara-mobil { display: block; }
+.cv4-bara-dator { display: none; }
+@media (min-width: 1280px) { .cv4-bara-mobil { display: none; } .cv4-bara-dator { display: block; } }
+.cv4-prem-fot > p { flex: 1 1 220px; min-width: 0; }

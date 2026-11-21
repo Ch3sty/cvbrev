@@ -4,8 +4,8 @@
  * delade minne (samma CV och mall ger samma nyckel oavsett valens ordning).
  */
 import { describe, expect, it } from 'vitest'
-import { innehallUrCv } from '../cvRum'
-import { raknaPotential, potentialPoang } from '@/lib/cv/analys/potential'
+import { innehallUrCv, medForslagUrAnalys } from '../cvRum'
+
 import { flikHref } from '@/components/cv/rum3/flikar'
 import { nyckelFor } from '@/components/cv/Dokument/hooks'
 
@@ -35,22 +35,16 @@ describe('innehallUrCv', () => {
   })
 })
 
-describe('potentialen', () => {
-  it('följer analysöversiktens uträkning', () => {
-    const r = {
-      profileSummary: { atsImpact: 8 },
-      roleBasedImprovements: [{ atsImpact: 6 }, { atsImpact: 3 }],
-      skillSuggestions: [{ relevance: 'high' }, { relevance: 'medium' }],
-      generalImprovements: [{ category: 'Nyckelord' }],
-    }
-    const p = raknaPotential(r)
-    expect(p.roles).toBe(18)
-    expect(p.total).toBe(Math.round(8 + 18 + 1.5 + 2))
-    expect(potentialPoang(62, r)).toBe(92)
-    expect(potentialPoang(95, r)).toBe(100)
+describe('med våra förslag', () => {
+  it('är poängmodellens tal ur underlaget, aldrig en summa av plus och aldrig under poängen i dag', () => {
+    const bas = { cvId: 'c', klar: null, namn: null, profil: { atsImpact: 8 }, roller: [{ atsImpact: 6 }], kompetenser: null, allmant: null }
+    expect(medForslagUrAnalys({ ...bas, poang: 62, medForslag: 84 })).toBe(84)
+    // Utan modellens tal (äldre underlag) lovas ingenting utöver i dag.
+    expect(medForslagUrAnalys({ ...bas, poang: 62 })).toBe(62)
+    expect(medForslagUrAnalys({ ...bas, poang: 62, medForslag: 50 })).toBe(62)
+    expect(medForslagUrAnalys(null)).toBeNull()
   })
 })
-
 describe('flikarna', () => {
   it('bär CV:t i ?cv=', () => {
     expect(flikHref('mallar', 'abc', { mall: 'linne' })).toBe('/dashboard/cv-mallar?cv=abc&mall=linne')

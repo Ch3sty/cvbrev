@@ -109,6 +109,23 @@ interface Candidate {
 const SEVERITY_ORDER: Record<'high' | 'medium' | 'low', number> = { high: 0, medium: 1, low: 2 }
 
 /**
+ * Fälten gratisnivån får ur analysresultatet utöver de filtrerade listorna:
+ * hennes eget CV, poängen och profilförslaget (som är gratis).
+ */
+const SAKRA_FALT = [
+  'id',
+  'display_name',
+  'analysisType',
+  'profileSummary',
+  'structuredCV',
+  'formattedPreview',
+  'parsedRoles',
+  'keywords',
+  'poang',
+  'poangVersion',
+] as const
+
+/**
  * Filtrerar ett analysresultat för ett konto utan premium.
  *
  * Vi tar bort element ur arrayerna i stället för att nolla fält: klientens
@@ -206,8 +223,21 @@ export function gateAnalysisResult(
     })),
   }
 
+  // Bara fält som är kända och säkra följer med. Allt annat i resultatet
+  // (implementedSkills och selectedImprovements från ett sparat förbättrat
+  // CV, missingKeywords, äldre analysers detailedImprovements och
+  // quantificationSuggestions) kan bära åtgärder för låsta fynd och skickas
+  // inte till gratisnivån.
+  const ats = r.atsFriendliness && typeof r.atsFriendliness === 'object'
+    ? (r.atsFriendliness as Record<string, unknown>)
+    : null
+  const sakra: Record<string, unknown> = {}
+  for (const nyckel of SAKRA_FALT) {
+    if (nyckel in r) sakra[nyckel] = r[nyckel]
+  }
   return {
-    ...r,
+    ...sakra,
+    ...(ats ? { atsFriendliness: { score: ats.score ?? null, feedback: ats.feedback ?? '' } } : {}),
     roleBasedImprovements: roles.filter((_, i) => keepRoles.has(i)),
     skillSuggestions: skills.filter((_, i) => keepSkills.has(i)),
     generalImprovements: general.filter((_, i) => keepGeneral.has(i)),

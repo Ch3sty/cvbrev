@@ -19,6 +19,7 @@ import { isPlanKey, PLAN_BY_KEY } from '@/lib/plans/plans'
 import type { Scope } from '@/lib/access/features'
 import ValkommenClient from './VeckaStartClient'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { senasteAnalysPoang } from '@/lib/cv/poang/server'
 
 export const metadata = { title: 'Välkommen' }
 
@@ -49,7 +50,7 @@ export default async function ValkommenPage({
   let poang: number | null = null
 
   try {
-    const [scopeRes, cvRes, analysRes] = await Promise.all([
+    const [scopeRes, cvRes, poangRes] = await Promise.all([
       getUserScope(supabase as any, user.id),
       supabase
         .from('cv_texts')
@@ -58,22 +59,15 @@ export default async function ValkommenPage({
         .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle(),
-      supabase
-        .from('cv_analysis_jobs')
-        .select('result->atsFriendliness->>score')
-        .eq('user_id', user.id)
-        .eq('status', 'completed')
-        .order('completed_at', { ascending: false, nullsFirst: false })
-        .limit(1)
-        .maybeSingle(),
+      // Läsbarhetspoängen ur senaste analysens CV-rad, med poängmodellen
+      // (docs/poangmodell-cv-analys.md), aldrig talet som sparades i analysen.
+      senasteAnalysPoang(supabase, user.id).catch(() => null),
     ])
     scope = scopeRes
     const cv = cvRes.data as { file_name?: string | null; created_at?: string | null } | null
     cvNamn = cv?.file_name ?? null
     cvUppladdat = svensktDatum(cv?.created_at)
-    const raw = (analysRes.data as Record<string, unknown> | null)?.score
-    const n = raw === null || raw === undefined ? NaN : Number(raw)
-    poang = Number.isFinite(n) ? Math.round(n) : null
+    poang = poangRes
   } catch {
     /* en saknad rad ska inte ge en vit sida efter ett lyckat köp */
   }

@@ -22,6 +22,7 @@ import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, firstName, escapeHtml } from './layout';
 import { isPayingNow } from './helpers';
 import { hamtaProvadeUnderlag, harledProvade } from '@/lib/onboarding/komigang-server';
+import { senasteAnalysPoang, poangForAnalyser } from '@/lib/cv/poang/server';
 import {
   brickaText,
   komIgangLage,
@@ -90,16 +91,9 @@ function talOrd(n: number, hankon = false): string {
 
 /** Senaste analysens poäng, för ämnesraden "Ditt CV fick 74". */
 async function senastePoang(ctx: LifecycleContext): Promise<number | null> {
-  const { data } = await (ctx.admin as any)
-    .from('cv_analysis_jobs')
-    .select('result->atsFriendliness->>score')
-    .eq('user_id', ctx.userId)
-    .eq('status', 'completed')
-    .order('completed_at', { ascending: false, nullsFirst: false })
-    .limit(1)
-    .maybeSingle();
-  const n = Number((data as { score?: unknown } | null)?.score);
-  return Number.isFinite(n) ? Math.round(n) : null;
+  // Räknas ur CV-raden med poängmodellen (docs/poangmodell-cv-analys.md),
+  // aldrig ur talet som sparades med analysen.
+  return senasteAnalysPoang(ctx.admin, ctx.userId).catch(() => null);
 }
 
 /** Läget för mottagaren, räknat vid sändning. */
@@ -331,14 +325,17 @@ async function veckansTal(ctx: LifecycleContext, sedan: string | null) {
       .gte('created_at', fran),
     admin
       .from('cv_analysis_jobs')
-      .select('result->atsFriendliness->>score, completed_at')
+      .select('cv_id, completed_at')
       .eq('user_id', ctx.userId)
       .eq('status', 'completed')
       .order('completed_at', { ascending: true }),
   ]);
-  const poang = ((analyser?.data ?? []) as Array<{ score: unknown }>)
-    .map((r) => Number(r.score))
-    .filter((n) => Number.isFinite(n));
+  // Varje analys poäng räknas ur dess CV-rad med poängmodellen, så att före
+  // och efter jämför samma sorts tal (docs/poangmodell-cv-analys.md).
+  const poang = await poangForAnalyser(
+    admin,
+    ((analyser?.data ?? []) as Array<{ cv_id: string | null }>).map((r) => ({ cv_id: r.cv_id }))
+  ).catch(() => [] as number[]);
   return {
     brev: brev?.count ?? 0,
     mallar: mallar?.count ?? 0,

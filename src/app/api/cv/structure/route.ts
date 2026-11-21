@@ -55,7 +55,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const structured = await parseCVStructure(cvRow.cv_text);
+    // Profilens namn och nummer maskas ordagrant före modellen.
+    const { data: profil } = await supabase
+      .from('profiles')
+      .select('full_name, phone')
+      .eq('id', user.id)
+      .maybeSingle();
+    const p = profil as { full_name?: string | null; phone?: string | null } | null;
+    const structured = await parseCVStructure(cvRow.cv_text, {
+      fullName: p?.full_name ?? null,
+      phone: p?.phone ?? null,
+    });
 
     const { error: updateError } = await supabase
       .from('cv_texts')

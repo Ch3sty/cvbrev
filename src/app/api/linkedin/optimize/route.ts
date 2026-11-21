@@ -11,6 +11,7 @@ import { markeraBricka } from '@/lib/onboarding/komigang-server'
 import { userHasAccess } from '@/lib/supabase/premiumAccess'
 import { suggestPlan, type Scope } from '@/lib/access/features'
 import { featureRequiredBody } from '@/lib/quota/quotaService'
+import { maskeraSektioner, rensaDjupt } from '@/lib/privacy/cvForModel'
 
 // Quota limits
 const WEEKLY_LINKEDIN_LIMIT_FREE = 1
@@ -996,19 +997,30 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Inga personuppgifter till AI:n (ägarens beslut 2026-11-21): namn, e-post,
+    // telefon, adress, personnummer, födelsedatum och webbadresser i profilens
+    // avsnitt maskas med samma mekanism som CV-flödena (cvForModel.ts), med
+    // profilens namn och nummer som kända värden. Optimeringen behöver dem
+    // inte; platshållarna tas bort ur svaret.
+    const { data: agare } = await supabase.from('profiles').select('full_name, phone').eq('id', user.id).maybeSingle()
+    const s = maskeraSektioner(sections, {
+      fullName: (agare as { full_name?: string | null } | null)?.full_name ?? null,
+      knownPhones: [(agare as { phone?: string | null } | null)?.phone],
+    })
+
     // Optimize each section in parallel
-    const [headlineResult, aboutResult, experienceResult, educationResult, skillsResult] = await Promise.all([
+    const [headlineResult, aboutResult, experienceResult, educationResult, skillsResult] = (await Promise.all([
       // Headline optimization (always run, even if no current headline provided)
-      optimizeHeadline(sections.headline, sections.about, sections.experience, mode, target_role, language),
+      optimizeHeadline(s.headline, s.about, s.experience, mode, target_role, language),
       // About with experience context for storytelling
-      optimizeAbout(sections.about, sections.experience, mode, target_role, language),
+      optimizeAbout(s.about, s.experience, mode, target_role, language),
       // Experience with about context for red thread
-      optimizeExperience(sections.experience, sections.about, mode, target_role, language),
+      optimizeExperience(s.experience, s.about, mode, target_role, language),
       // Education with full context for level-appropriate detail
-      sections.education ? optimizeEducation(sections.education, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null),
+      s.education ? optimizeEducation(s.education, s.experience, s.about, mode, target_role, language) : Promise.resolve(null),
       // Skills with full context for level-appropriate categorization
-      sections.skills ? optimizeSkills(sections.skills, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null)
-    ])
+      s.skills ? optimizeSkills(s.skills, s.experience, s.about, mode, target_role, language) : Promise.resolve(null)
+    ])).map((r) => rensaDjupt(r)) as [any, any, any, any, any]
 
     // Track AI usage and costs
     try {

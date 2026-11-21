@@ -193,7 +193,7 @@ export const FUNKTIONER = {
       scenAlt: 'CV-analysens rapport',
       rubrik: 'CV-analysen',
       sub: ingarGratis('poängen och det tyngsta fyndet.'),
-      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du en läsbarhetspoäng från 0 till 100, vad den kan bli när du följt förslagen, och förslagen i fyra delar: personbeskrivning, roller, kompetenser och automatiska förbättringar av struktur, formatering, innehåll och nyckelord. Varje fynd har en åtgärd.',
+      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du en läsbarhetspoäng från 0 till 100, vad den kan bli när du följt förslagen, och förslagen i fyra delar: personbeskrivning, roller, kompetenser och allmänna råd om struktur, formatering, innehåll och nyckelord. Varje fynd har en åtgärd.',
       steg: [
         'Ladda upp, vi läser som en rekryterare gör på sex sekunder.',
         'Poängen i dag, poängen med förslagen och de fynd som drar ned mest.',

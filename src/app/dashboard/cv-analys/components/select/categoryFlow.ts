@@ -5,7 +5,8 @@ export const CATEGORY_LABEL: Record<SelectCategory, string> = {
   profile: 'Profil',
   roles: 'Roller',
   skills: 'Kompetenser',
-  auto: 'Automatiskt',
+  // Råd, inte "Automatiskt": de allmänna förbättringarna förs inte in åt henne.
+  auto: 'Råd',
 };
 
 export interface CategoryFlowStep {

@@ -15,6 +15,8 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { checkDailyBudget, checkIpRateLimit, getClientIp } from '@/lib/rate-limit/ip'
 import { parseCV, cleanExtractedText } from '@/lib/cv-parser'
 import { analyzeCvBasic } from '@/lib/openai/cv-analysis'
+import { parseCV as parseCVStructure } from '@/lib/cv/cv-parser'
+import { poangForRad } from '@/lib/cv/poang'
 
 export const maxDuration = 30
 
@@ -105,13 +107,21 @@ export async function POST(request: Request) {
       )
     }
 
-    const analysis = await analyzeCvBasic(cvText)
-
-    // Samma härledning av 0-100 som i /api/cv/quick-score, så siffran
-    // besökaren ser matchar den de får i produkten.
-    const clarity = analysis.scores?.clarityAndStructure?.rating ?? 0
-    const verbs = analysis.scores?.strongVerbs?.rating ?? 0
-    const score = Math.round(((clarity + verbs) / 2 / 5) * 100)
+    // Poängen räknas med samma funktion som CV-analysen och den inloggade
+    // snabbpoängen (docs/poangmodell-cv-analys.md), på CV:t strukturerat med
+    // samma inläsning som uppladdningen. Texterna (sammanfattning och det
+    // viktigaste att fixa) kommer från basanalysen; inga tal tas därifrån.
+    // Strukturen lever bara i den här funktionen, precis som texten.
+    // parseCV maskar själv (namn, kontakt, adresser, länkar) och läser
+    // kontaktuppgifterna lokalt ur originalet, som poängen räknas på.
+    const [analysis, struktur] = await Promise.all([analyzeCvBasic(cvText), parseCVStructure(cvText)])
+    const score = poangForRad({ structured_data: struktur, cv_text: cvText })
+    if (score === null) {
+      return NextResponse.json(
+        { error: 'Vi kunde inte läsa ut avsnitten ur filen. Prova en textbaserad PDF eller en Word-fil.' },
+        { status: 422 }
+      )
+    }
 
     const improvements = (analysis.improvementAreas || []).slice(0, 3)
 

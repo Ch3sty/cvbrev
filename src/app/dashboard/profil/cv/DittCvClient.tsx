@@ -27,13 +27,12 @@ import type { Scope } from '@/lib/access/features';
 import { MALL_KATALOG } from '@/lib/cv/mallval/katalog';
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal';
 import { sprakLage } from '@/lib/cv/sprak';
-import { potentialPoang } from '@/lib/cv/analys/potential';
 import {
   dokumentVag,
   fyndUrAnalys,
   innehallUrCv,
   poangUrAnalys,
-  potentialUnderlag,
+  medForslagUrAnalys,
   type AnalysUnderlag,
   type Fynd,
 } from '@/lib/rum/cvRum';
@@ -164,8 +163,17 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
   const utkast = bygge?.utkast === true;
   const underlag = data.underlag;
   const poang = poangUrAnalys(underlag);
-  const fynd = fyndUrAnalys(underlag);
-  const potential = poang !== null ? potentialPoang(poang, potentialUnderlag(underlag)) : null;
+  // Gratis: fyndet servern släpper med åtgärd står först (samma ordning som
+  // Analys-sidan), övriga efter verkligt plus. Premium: efter plus.
+  const fynd = (() => {
+    const alla = fyndUrAnalys(underlag);
+    const fria = underlag?.friaNycklar;
+    if (data.analysFull || !fria) return alla;
+    const forsta = alla.find((f) => fria.includes(f.nyckel));
+    return forsta ? [forsta, ...alla.filter((f) => f !== forsta)] : alla;
+  })();
+  // Med våra förslag: poängmodellens tal (src/lib/cv/poang), aldrig en summa av plus.
+  const potential = medForslagUrAnalys(underlag);
   const attHamta = poang !== null && potential !== null ? Math.max(0, potential - poang) : 0;
   const atgardaHref = underlag?.jobbId ? `/dashboard/cv-analys?job=${encodeURIComponent(underlag.jobbId)}` : null;
   const vag = aktivt
@@ -761,6 +769,10 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     );
 
   const visadeFynd = fynd.slice(0, 4);
+  // Gratis: de fynd servern släpper med åtgärd (profilen och det tyngsta,
+  // gateAnalysisResult), samma som på Analys-sidan. Äldre underlag: det första.
+  const fri = (f: Fynd, i: number) => (underlag?.friaNycklar ? underlag.friaNycklar.includes(f.nyckel) : i === 0);
+  const lastaAntal = data.analysFull ? 0 : fynd.filter((f, i) => !fri(f, i)).length;
   const drarNer =
     aktivt && underlag && poang !== null && potential !== null && visadeFynd.length > 0 && lage !== 'utkast' ? (
       <section aria-labelledby="drar-ner">
@@ -781,8 +793,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
         </div>
         <ol className="cv3-fynd">
           {visadeFynd.map((f, i) => {
-            const oppen = data.analysFull || i === 0;
-            const tagg = data.analysFull ? null : i === 0 ? (
+            const oppen = data.analysFull || fri(f, i);
+            const tagg = data.analysFull ? null : fri(f, i) ? (
               <span className="cv3-tagg" data-ton="gratis">{DRAR_NER.gratis}</span>
             ) : (
               <span className="cv3-tagg">
@@ -845,13 +857,13 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             </div>
           </li>
         </ol>
-        {!data.analysFull && fynd.length > 1 ? (
+        {!data.analysFull && lastaAntal > 0 ? (
           <div className="cv3-kop" data-kopruta>
             <span className="cv3-kop-ik" aria-hidden="true">
               <Lock size={22} strokeWidth={2.4} />
             </span>
             <span>
-              <b>{DRAR_NER.kopRubrik(fynd.length - 1)}</b>
+              <b>{DRAR_NER.kopRubrik(lastaAntal)}</b>
               <small>
                 <PremiumPrisradText />
               </small>

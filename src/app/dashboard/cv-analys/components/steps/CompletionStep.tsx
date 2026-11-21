@@ -62,7 +62,7 @@ export default function CompletionStep({
             </button>
           )}
           {savedCvId && (
-            <Link href="/dashboard/profil/cv" className={SEKUNDAR}>
+            <Link href={`/dashboard/profil/cv?cv=${encodeURIComponent(savedCvId)}`} className={SEKUNDAR}>
               Visa i Ditt CV
             </Link>
           )}

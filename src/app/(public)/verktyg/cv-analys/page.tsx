@@ -49,7 +49,7 @@ export default function CVAnalysSida() {
       description: '1 CV-analys gratis per konto, ingen kortuppgift',
     },
     featureList:
-      'ATS-poäng 0-100, poängen du kan nå med förslagen, förslag i fyra delar (personbeskrivning, roller, kompetenser, automatiska förbättringar), före och efter-text, byggd för svenska CV',
+      'ATS-poäng 0-100, poängen du kan nå med förslagen, förslag i fyra delar (personbeskrivning, roller, kompetenser, allmänna råd), före och efter-text, byggd för svenska CV',
   }
 
   const howToSchema = {

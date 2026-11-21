@@ -111,7 +111,7 @@ async function runUpload(request: Request, emitter: SseEmitter) {
 
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, email_verified_at')
+      .select('subscription_tier, email_verified_at, full_name, phone')
       .eq('id', user.id)
       .single();
 
@@ -259,7 +259,11 @@ Alternativt: Ladda upp som .DOCX istället.`,
     let structuredData: ParsedCV | null = null;
     if (!textExtractionFailed) {
       try {
-        structuredData = await parseCVStructure(textToSave);
+        // Profilens namn och nummer maskas ordagrant före modellen.
+        structuredData = await parseCVStructure(textToSave, {
+          fullName: (profile as { full_name?: string | null }).full_name ?? null,
+          phone: (profile as { phone?: string | null }).phone ?? null,
+        });
         console.info(
           `[upload] structured CV parsing OK: ${structuredData.roles.length} roles, ${structuredData.skills.length} skills`
         );

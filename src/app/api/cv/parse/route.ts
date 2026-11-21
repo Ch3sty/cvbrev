@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
-import { maskForModel } from '@/lib/privacy/pii';
+import { maskaCvForModel, rensaDjupt, lankarLokalt } from '@/lib/privacy/cvForModel';
 import { extractContactLocally } from '@/lib/privacy/extractContact';
 import type { CVMetadata } from '@/lib/cv/cv-metadata';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
@@ -143,10 +143,10 @@ export async function parseCVWithAIServerSide(
 
   // Texten som skickas vidare maskeras med samma modul som brev och analys.
   // Namnet från den lokala extraktionen gör maskeringen exakt.
-  const maskedCv = maskForModel(cvText, {
-    fullName: localContact.fullName || null,
-    maskUrls: false, // LinkedIn och portfolio är yrkesinformation, inte PII.
-  }).text;
+  // Webbadresser maskas också (ägarens beslut 2026-11-21): LinkedIn, GitHub
+  // och portfolio läses lokalt och sätts in efter svaret.
+  const maskedCv = maskaCvForModel(cvText, { extraNames: [localContact.fullName] });
+  const lankar = lankarLokalt(cvText);
 
   // Begränsa input för att hålla kostnader nere
   const truncatedCV = maskedCv.substring(0, 8000);
@@ -159,9 +159,6 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
 
 {
   "personalInfo": {
-    "linkedIn": "LinkedIn URL om den finns",
-    "website": "Personlig webbsida om den finns",
-    "github": "GitHub URL om den finns",
     "title": "Professionell titel/roll (t.ex. 'Senior Utvecklare', 'Projektledare')"
   },
   "summary": "En kort professionell sammanfattning skriven i FÖRSTA PERSON (jag/min/mitt) baserat på CV:t (2-3 meningar). Undvik tredje person som 'Christian är...' - skriv istället 'Jag är...' eller liknande",
@@ -254,7 +251,8 @@ VIKTIGA INSTRUKTIONER:
       thinkingBudget: 0, // Ren extraktion - ingen thinking behövs
     });
 
-    const parsedData = result_ai.data;
+    // Platshållarna från maskeringen följer aldrig med in i CV:t.
+    const parsedData = rensaDjupt(result_ai.data);
 
     // Extrahera usage och beräkna kostnad
     const usage = result_ai.usage;
@@ -325,9 +323,9 @@ VIKTIGA INSTRUKTIONER:
         address: [localContact.address, localContact.postalCode, localContact.city]
           .filter(Boolean)
           .join(', '),
-        linkedIn: parsedData.personalInfo?.linkedIn || localContact.linkedIn || '',
-        website: parsedData.personalInfo?.website || '',
-        github: parsedData.personalInfo?.github || '',
+        linkedIn: lankar.linkedIn || localContact.linkedIn || '',
+        website: lankar.website,
+        github: lankar.github,
         title: parsedData.personalInfo?.title || '',
       },
       summary: parsedData.summary || '',

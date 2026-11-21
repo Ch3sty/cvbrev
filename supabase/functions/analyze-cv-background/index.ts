@@ -47,8 +47,100 @@ function sanitizeRoleImprovement(role: any): any {
       atsOptimization: role?.improvements?.atsOptimization ?? false
     },
     matchKeywords: validateMatchKeywords(role?.matchKeywords),
-    atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0
+    // Rollens plats i structuredCV.experience, så att förslaget kan föras
+    // in i rätt roll. Inga tal från modellen: läsbarhetspoängen och varje
+    // förslags plus räknas i webbappen (docs/poangmodell-cv-analys.md).
+    experienceIndex: typeof role?.experienceIndex === 'number' ? role.experienceIndex : null,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Den lagrade strukturen (cv_texts.structured_data) som CVMetadata.
+//
+// Poängen räknas i webbappen ur samma lagrade struktur (src/lib/cv/poang/
+// kanon.ts). När funktionen arbetar på den, och inte på en ny AI-tolkning per
+// analys, pekar förslagen på samma roller som poängen räknas på. Speglar
+// kanon.ts i förenklad form; webbappen matchar ändå rollerna själv.
+// ---------------------------------------------------------------------------
+const PLATSHALLARE = new Set(['okänd titel', 'okänt företag', 'okänd roll', 'period ej angiven', 'okänd utbildning', 'okänd institution', 'ej specificerad', 'yrkesroll', 'arbetsgivare']);
+function falt(v: unknown): string {
+  if (typeof v !== 'string') return '';
+  const t = v.replace(/\s+/g, ' ').trim();
+  return PLATSHALLARE.has(t.toLowerCase()) ? '' : t;
+}
+function delaPeriod(period: unknown): { start: string; slut: string } {
+  const p = falt(period);
+  if (!p) return { start: '', slut: '' };
+  const delar = p.split(/\s+[-–—]\s+|\s*[–—]\s*/);
+  if (delar.length > 1) return { start: delar[0].trim(), slut: delar.slice(1).join(' ').trim() };
+  const m = p.match(/^(.*?\d{4})\s*-\s*((?:19|20)\d{2}\b.*|\p{L}.*)$/u);
+  if (m) return { start: m[1].trim(), slut: m[2].trim() };
+  return { start: p, slut: '' };
+}
+function strukturUrLagrad(sd: any): any | null {
+  if (!sd || typeof sd !== 'object' || Array.isArray(sd)) return null;
+  if ((sd.personalInfo && typeof sd.personalInfo === 'object') || (Array.isArray(sd.experience) && !Array.isArray(sd.roles))) {
+    const k = JSON.parse(JSON.stringify(sd));
+    k.experience = Array.isArray(k.experience) ? k.experience : [];
+    k.education = Array.isArray(k.education) ? k.education : [];
+    k.skills = Array.isArray(k.skills) ? k.skills : [];
+    return k;
+  }
+  if (Array.isArray(sd.roles)) {
+    return {
+      personalInfo: {},
+      summary: typeof sd.profile === 'string' && sd.profile.trim() ? sd.profile.trim() : undefined,
+      experience: sd.roles.filter((r: any) => r && typeof r === 'object').map((r: any) => {
+        const { start, slut } = delaPeriod(r.period);
+        let rader = (typeof r.description === 'string' ? r.description : '').split(/\n+/).map((s: string) => s.trim()).filter(Boolean);
+        if (rader.length === 0 && Array.isArray(r.responsibilities)) rader = r.responsibilities.filter((s: any) => typeof s === 'string' && s.trim());
+        return { position: falt(r.title), company: falt(r.company), startDate: start, endDate: slut && !/^(pågående|nuvarande|present)$/i.test(slut) ? slut : null, description: rader };
+      }),
+      education: (Array.isArray(sd.education) ? sd.education : []).filter((e: any) => e && typeof e === 'object').map((e: any) => {
+        const { start, slut } = delaPeriod(e.period);
+        return { degree: falt(e.degree), institution: falt(e.institution), startDate: start, endDate: slut, graduationYear: slut || start };
+      }),
+      skills: Array.isArray(sd.skills) ? [{ category: '', skills: sd.skills.filter((s: any) => typeof s === 'string') }] : [],
+      ...(Array.isArray(sd.languages) ? { languages: sd.languages } : {}),
+    };
+  }
+  return null;
+}
+
+/**
+ * Maskeringens platshållare bort ur allt modellen svarar, så att de aldrig
+ * hamnar i sparad struktur eller i förslag hon ser. [antal] i förslagen är
+ * inte en av dem. Speglar src/lib/privacy/cvForModel.ts.
+ */
+const PII_PLATSHALLARE = /\[(?:NAMN|E-POST|EMAIL|TELEFON|TEL|ADRESS|POSTNUMMER|POSTNR|PERSONNUMMER|PERSNR|FÖDELSEDATUM|LÄNK|URL)\]/gi;
+function rensaPii(v: any): any {
+  if (typeof v === 'string') {
+    if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(v)) return v;
+    return v.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '').split('\n')
+      .map((r: string) => r.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '')).join('\n').trim();
+  }
+  if (Array.isArray(v)) return v.map(rensaPii);
+  if (v && typeof v === 'object') {
+    const ut: any = {};
+    for (const [k, x] of Object.entries(v)) ut[k] = rensaPii(x);
+    return ut;
+  }
+  return v;
+}
+
+/** Strängarna i ett objekt maskade, för allt som går till modellen. */
+function maskeraDjupt(v: any, fullName: string | null): any {
+  if (typeof v === 'string') return maskForModel(v, { fullName, maskUrls: true }).text;
+  if (Array.isArray(v)) return v.map((x) => maskeraDjupt(x, fullName));
+  if (v && typeof v === 'object') {
+    const ut: any = {};
+    for (const [k, x] of Object.entries(v)) {
+      if (k === 'personalInfo' || k === 'bygge' || k === 'sectionTitles') continue;
+      ut[k] = maskeraDjupt(x, fullName);
+    }
+    return ut;
+  }
+  return v;
 }
 
 Deno.serve(async (req) => {
@@ -75,7 +167,7 @@ Deno.serve(async (req) => {
     // Fetch CV text from cv_texts table
     const { data: cv, error: cvError } = await supabase
       .from('cv_texts')
-      .select('cv_text, user_id')
+      .select('cv_text, user_id, structured_data')
       .eq('id', cvId)
       .single();
 
@@ -104,16 +196,16 @@ Deno.serve(async (req) => {
     // -------------------------------------------------------------------
     const { data: ownerProfile } = await supabase
       .from('profiles')
-      .select('full_name')
+      .select('full_name, phone')
       .eq('id', cv.user_id)
       .maybeSingle();
 
     const localContact = extractContactLocally(cvText);
     const knownName = ownerProfile?.full_name || localContact.fullName || null;
 
-    // maskUrls: false, LinkedIn och portfolio är yrkesinformation som
-    // ATS-bedömningen ska kunna se.
-    const maskedCv = maskForModel(cvText, { fullName: knownName, maskUrls: false });
+    // Inga personuppgifter till modellen (ägarens beslut 2026-11-21), inte
+    // heller webbadresser: LinkedIn läses lokalt och sätts in efteråt.
+    const maskedCv = maskForModel(cvText, { fullName: knownName, maskUrls: true, knownPhones: [ownerProfile?.phone] });
     const safeCvText = maskedCv.text;
 
     if (maskedCv.warnings.length > 0) {
@@ -133,7 +225,16 @@ Deno.serve(async (req) => {
     // Premium-användare får andra förmåner (fler analyser/vecka, fler mallar, etc)
     const useFullAnalysis = true;
 
-    // 1. Parse CV into structured CVMetadata format (ONLY parsing needed)
+    // 1. Strukturen. Den lagrade (cv_texts.structured_data) används när den
+    // finns: webbappen strukturerar CV:t en gång och sparar det innan jobbet
+    // startar, och poängen räknas på samma struktur. Bara när den saknas
+    // tolkar vi CV:t med AI här, som förut.
+    const lagrad = strukturUrLagrad((cv as any).structured_data);
+    let structuredCV: any;
+    if (lagrad) {
+      console.log(`[Job ${jobId}] Step 1/5: Using stored structure (${lagrad.experience?.length || 0} roles)`);
+      structuredCV = lagrad;
+    } else {
     console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${safeCvText.length} chars, maskerat)...`);
     const structuredParsingResult = await geminiGenerateJSON({
       model: GEMINI_MODELS.fast,
@@ -144,9 +245,12 @@ Deno.serve(async (req) => {
       thinkingBudget: 0,
     });
 
-    const structuredCV = structuredParsingResult.data;
+    // Platshållare från maskeringen följer aldrig med in i strukturen.
+    structuredCV = rensaPii(structuredParsingResult.data);
 
-    // FIX: Sortera experience i OMVÄND KRONOLOGI (senaste först, äldsta sist)
+    // FIX: Sortera experience i OMVÄND KRONOLOGI (senaste först, äldsta sist).
+    // Bara för den egna tolkningen: den lagrade strukturen behåller CV:ts
+    // ordning, så att rollernas plats stämmer med det poängen räknas på.
     if (structuredCV.experience && Array.isArray(structuredCV.experience)) {
       structuredCV.experience.sort((a: any, b: any) => {
         // Nuvarande jobb (endDate = null eller tom) ska alltid vara först
@@ -173,6 +277,11 @@ Deno.serve(async (req) => {
     }
 
     console.log(`[Job ${jobId}] Structured CV parsed and sorted: ${structuredCV.experience?.length || 0} experiences, ${structuredCV.education?.length || 0} educations`);
+    }
+
+    // Allt som går till modellen nedan maskas: den lagrade strukturen är
+    // omaskerad (rollbeskrivningar kan innehålla referenser och nummer).
+    const modellCV = maskeraDjupt(structuredCV, knownName);
 
     let analysisResult: any;
 
@@ -181,11 +290,23 @@ Deno.serve(async (req) => {
       console.log(`[Job ${jobId}] Step 2/5: Analyzing profile summary...`);
       let profileSummaryImprovement = null;
 
+      // Regler för texten som modellen skriver. Talen (poäng och plus) räknas
+      // i webbappen; reglerna här är vad poängmodellen mäter, i ord.
+      const PROFILREGLER = `- Skriv i JAG-FORM (första person), aldrig tredje person eller personens namn
+- 40 till 90 ord
+- Säg vilken roll personen har eller söker, med yrkestiteln ur CV:t
+- Använd BARA fakta som står i CV:t: arbetsgivare, titlar, kompetenser, tal och resultat. Hitta aldrig på något.
+- Ta med något konkret (antal år, ansvar, resultat) BARA om det står i CV:t. Saknas talet: skriv platshållaren [antal] där personen själv fyller i det, aldrig ett påhittat tal.`;
+
+      const rollerForProfil = (modellCV.experience || []).slice(0, 3).map((e: any) => ({
+        position: e.position, company: e.company, description: e.description,
+      }));
+
       if (structuredCV.summary) {
         const profileResult = await geminiGenerateJSON({
           model: GEMINI_MODELS.quality,
           systemInstruction: 'Du är en CV-expert. Förbättra personbeskrivningen med kraftfulla nyckelord och tydligt värde. Skriv ALLTID i JAG-FORM (första person).',
-          prompt: `Förbättra denna personbeskrivning:\n\n"${structuredCV.summary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`,
+          prompt: `Förbättra denna personbeskrivning:\n\n"${modellCV.summary}"\n\nRollerna i CV:t, för sammanhang:\n${JSON.stringify(rollerForProfil)}\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version), "improvements": string[] }\n\nVIKTIGT för suggestedText:\n${PROFILREGLER}`,
           temperature: 0.6,
           maxOutputTokens: 1600,
           thinkingBudget: 0,
@@ -197,9 +318,25 @@ Deno.serve(async (req) => {
           currentText: structuredCV.summary, // ENDAST från structured CV
           improvedText: rawProfileData.suggestedText,
           changes: rawProfileData.improvements || [],
-          atsImpact: 10
         };
         console.log(`[Job ${jobId}] Profile summary improvement generated`);
+      } else if (rollerForProfil.length > 0) {
+        // Ingen personbeskrivning: föreslå en ur rollerna. Förr fick ett CV
+        // utan profil inget profilförslag alls.
+        const profileResult = await geminiGenerateJSON({
+          model: GEMINI_MODELS.quality,
+          systemInstruction: 'Du är en CV-expert. Skriv en personbeskrivning till ett svenskt CV utifrån rollerna. Skriv ALLTID i JAG-FORM (första person).',
+          prompt: `CV:t saknar personbeskrivning. Skriv en utifrån rollerna:\n${JSON.stringify(rollerForProfil)}\n\nReturnera JSON med format: { "suggestedText": string, "improvements": string[] }\n\nVIKTIGT för suggestedText:\n${PROFILREGLER}`,
+          temperature: 0.6,
+          maxOutputTokens: 1600,
+          thinkingBudget: 0,
+        });
+        profileSummaryImprovement = {
+          currentText: '',
+          improvedText: profileResult.data.suggestedText,
+          changes: profileResult.data.improvements || [],
+        };
+        console.log(`[Job ${jobId}] New profile summary generated`);
       }
 
       // 3. Extrahera färdigheter från roller (Premium)
@@ -224,9 +361,8 @@ Deno.serve(async (req) => {
                   relevance: { type: 'string', enum: ['high', 'medium', 'low'] },
                   source: { type: 'string' },
                   reasoning: { type: 'string' },
-                  atsImpact: { type: 'number' },
                 },
-                required: ['skill', 'relevance', 'source', 'reasoning', 'atsImpact'],
+                required: ['skill', 'relevance', 'source', 'reasoning'],
               },
             },
           },
@@ -235,14 +371,15 @@ Deno.serve(async (req) => {
         systemInstruction: 'Du är en ATS-optimeringskonsult för svenska arbetsmarknaden. Extrahera EXAKTA kompetenser som svenska jobbannonser söker efter för det här yrket.',
         prompt: `Analysera dessa yrkesroller och extrahera kompetenser som EXAKT matchar termer i svenska jobbannonser.
 
-Input: ${JSON.stringify(structuredCV.experience)}
+Input: ${JSON.stringify(modellCV.experience)}
+
+Kompetenser som redan står i CV:t (föreslå INTE dessa igen): ${JSON.stringify(modellCV.skills)}
 
 Returnera JSON: { "skillSuggestions": [{
   "skill": string (1-3 ord, EXAKT term från jobbannonser),
   "relevance": string ("high", "medium", "low"),
   "source": string ("position på company"),
-  "reasoning": string (KORT förklaring),
-  "atsImpact": number (1-5)
+  "reasoning": string (KORT förklaring)
 }] }
 
 KRITISKA REGLER FÖR "skill":
@@ -286,8 +423,7 @@ VIKTIGT:
 - ALLA termer på SVENSKA (svenska arbetsmarknaden!)
 - Tänk: "Vad söker ATS efter i jobbannonser för detta yrke?"
 - source: Exakt "position på company" från input
-- reasoning: Kort (1 mening) varför denna term är ATS-viktig
-- atsImpact: 5 = kritisk term, 1 = nice-to-have`,
+- reasoning: Kort (1 mening) varför denna term är ATS-viktig. Påstå ALDRIG att personen har kompetensen: den är ett förslag att lägga till om den stämmer (skriv t.ex. "Efterfrågas ofta för rollen" i stället för "Du har erfarenhet av").`,
       });
 
       const skillSuggestions = skillsResult.data.skillSuggestions || [];
@@ -298,11 +434,13 @@ VIKTIGT:
       const ROLES_PER_BATCH = 3;
       const allRoleImprovements: any[] = [];
       const experiences = structuredCV.experience || [];
+      // Samma roller maskade, för prompten. Index är desamma.
+      const modellExperiences = modellCV.experience || [];
 
       // Skapa batches med currentDescription från structuredCV
       const batches = [];
-      for (let i = 0; i < experiences.length; i += ROLES_PER_BATCH) {
-        const batch = experiences.slice(i, i + ROLES_PER_BATCH).map(exp => ({
+      for (let i = 0; i < modellExperiences.length; i += ROLES_PER_BATCH) {
+        const batch = modellExperiences.slice(i, i + ROLES_PER_BATCH).map((exp: any) => ({
           title: exp.position,
           company: exp.company,
           period: `${exp.startDate} - ${exp.endDate || 'Nuvarande'}`,
@@ -344,15 +482,17 @@ Returnera JSON: { "roleBasedImprovements": [{
     "tools": string[],
     "responsibilities": string[],
     "industryTerms": string[]
-  },
-  "atsImpact": number (1-5)
+  }
 }] }
 
 KRITISKA REGLER FÖR suggestedText:
 ❌ HITTA ALDRIG PÅ SIFFROR (10%, 15%, 95% etc.) - detta skadar trovärdigheten!
 ✅ Fokusera på: specifika ansvarsområden, action verbs, konkreta arbetsuppgifter
-✅ OM användaren redan nämner resultat → förtydliga dem
-✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet
+✅ OM användaren redan nämner resultat → förtydliga dem och BEHÅLL alla siffror som står i originalet
+✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet, och skriv platshållaren [antal] där personen kan fylla i en egen siffra (högst en per punkt), t.ex. "Besvarade [antal] kundärenden per dag". Skriv ALDRIG ett tal som inte står i originaltexten.
+✅ Använd BARA arbetsgivare, titlar, verktyg och kompetenser som står i CV:t. Lägg aldrig till system, certifikat eller ansvar som inte nämns.
+✅ FORM: 3 till 6 punkter, VARJE punkt på EGEN RAD (radbrytning \\n mellan punkterna), utan punkttecken
+✅ Varje punkt börjar med ett verb (Ledde, Ansvarade, Byggde, Sålde, Planerar) och är högst 25 ord
 
 Exempel KORREKT förbättring:
 Original: "Hjälpte butikschefen med olika uppgifter"
@@ -400,13 +540,7 @@ VIKTIGT för matchKeywords:
 - För industryTerms: Lägg ALLTID till branschakronymer (VVS, IT, HR) och alternativa yrkestitlar
 - Basera på faktisk text OCH yrkeskontext (infoga branschkunskap)
 - Totalt 15-25 matchKeywords per roll (fördelat över kategorierna, med fokus på industryTerms)
-- matchKeywords används för jobbmatchning, INTE synligt för användaren
-
-atsImpact (1-5):
-1-2: Grammatik/formatering
-3: Action verbs, konkreta ansvarsområden, tydlig struktur
-4: Branschspecifika keywords, verktyg/teknologier, många matchKeywords
-5: ÄKTA kvantifiering (baserad på originaltext) + rika matchKeywords + struktur`,
+- matchKeywords används för jobbmatchning, INTE synligt för användaren`,
         });
 
         const batchResult = batchResult2.data;
@@ -429,7 +563,7 @@ atsImpact (1-5):
             suggestedText: role.suggestedText,
             improvements: role.improvements,
             matchKeywords: role.matchKeywords,
-            atsImpact: role.atsImpact
+            experienceIndex: exp ? batchIndex : null,
           });
         });
 
@@ -443,7 +577,9 @@ atsImpact (1-5):
       const generalResponse = await geminiGenerateJSON({
         model: GEMINI_MODELS.quality,
         systemInstruction: 'Du är en CV-expert. Ge konkreta allmänna förbättringsförslag för struktur, formatering, certifieringar och språk. Var ALLTID specifik och ge minst 3-5 förbättringsförslag.',
-        prompt: `Ge allmänna förbättringsförslag för detta CV:\n\n${safeCvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`,
+        // Inga poäng och inga plus från modellen: de räknas i webbappen ur
+        // CV:ts struktur (docs/poangmodell-cv-analys.md).
+        prompt: `Ge allmänna förbättringsförslag för detta CV:\n\n${safeCvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord") }], "keywords": string[] }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements, viktigast först. Ge inga poäng, betyg eller procentsatser.`,
         temperature: 0.6,
         maxOutputTokens: 3000,
         thinkingBudget: 0,
@@ -454,27 +590,31 @@ atsImpact (1-5):
       // Ensure generalImprovements is never empty
       if (!generalResult.generalImprovements || generalResult.generalImprovements.length === 0) {
         generalResult.generalImprovements = [
-          { title: 'Lägg till nyckelord', description: 'Inkludera branschspecifika nyckelord för att öka ATS-träffsäkerhet', category: 'Nyckelord', atsImpact: 4 },
-          { title: 'Kvantifiera prestationer', description: 'Lägg till mätbara resultat och siffror i dina arbetsbeskrivningar', category: 'Innehåll', atsImpact: 3 },
-          { title: 'Förbättra struktur', description: 'Organisera ditt CV i tydliga sektioner med konsekvent formatering', category: 'Struktur', atsImpact: 2 }
+          { title: 'Lägg till nyckelord', description: 'Inkludera branschspecifika nyckelord för att öka ATS-träffsäkerhet', category: 'Nyckelord' },
+          { title: 'Kvantifiera prestationer', description: 'Lägg till mätbara resultat och siffror i dina arbetsbeskrivningar', category: 'Innehåll' },
+          { title: 'Förbättra struktur', description: 'Organisera ditt CV i tydliga sektioner med konsekvent formatering', category: 'Struktur' }
         ];
       }
+      // Skulle modellen ändå skicka tal tas de bort.
+      generalResult.generalImprovements = generalResult.generalImprovements.map((g: any) => {
+        const { atsImpact: _a, ...rest } = g || {};
+        return rest;
+      });
 
-      analysisResult = {
+      // Platshållare från maskeringen bort ur allt hon ser.
+      analysisResult = rensaPii({
         analysisType: 'full', // Ändrat från 'premium' till 'full' - alla får samma
         profileSummary: profileSummaryImprovement,
         skillSuggestions: skillSuggestions,
         roleBasedImprovements: allRoleImprovements,
         generalImprovements: generalResult.generalImprovements,
         keywords: generalResult.keywords || [],
-        atsFriendliness: {
-          score: generalResult.atsScore || 0,
-          feedback: `Ditt CV har en ATS-poäng på ${generalResult.atsScore || 0}/100`,
-          missingKeywords: []
-        },
+        // Läsbarhetspoängen räknas i webbappen när resultatet läses
+        // (src/lib/cv/poang), aldrig här och aldrig av modellen.
+        atsFriendliness: { score: null, feedback: '', missingKeywords: [] },
         model: GEMINI_MODELS.quality,
         tokens: { total: 0 }
-      };
+      });
     }
 
     // Lägg till parsed roles från structuredCV
@@ -491,7 +631,7 @@ atsImpact (1-5):
     const previewResult = await geminiGenerate({
       model: GEMINI_MODELS.fast,
       systemInstruction: 'Du formaterar CV-data till läsbar text med tydliga sektioner och styckeindelningar.',
-      prompt: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- VIKTIGT: Erfarenheter i OMVÄND KRONOLOGI (senaste/nuvarande först, äldsta sist)\n- VIKTIGT: Behåll EXAKT ordningen från experience-arrayen\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`,
+      prompt: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(modellCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- VIKTIGT: Erfarenheter i OMVÄND KRONOLOGI (senaste/nuvarande först, äldsta sist)\n- VIKTIGT: Behåll EXAKT ordningen från experience-arrayen\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`,
       temperature: 0.3,
       maxOutputTokens: 4000,
       thinkingBudget: 0,
@@ -506,13 +646,15 @@ atsImpact (1-5):
       .filter(Boolean)
       .join(", ");
 
+    // Den lagrade strukturens egna uppgifter går före det som läses ur texten.
+    const pi = structuredCV.personalInfo || {};
     structuredCV.personalInfo = {
-      ...(structuredCV.personalInfo || {}),
-      fullName: knownName || localContact.fullName,
-      email: localContact.email,
-      phone: localContact.phone,
-      address: localAddress,
-      linkedin: structuredCV.personalInfo?.linkedin || localContact.linkedIn || "",
+      ...pi,
+      fullName: pi.fullName || knownName || localContact.fullName,
+      email: pi.email || localContact.email,
+      phone: pi.phone || localContact.phone,
+      address: pi.address || localAddress,
+      linkedin: pi.linkedin || pi.linkedIn || localContact.linkedIn || "",
     };
     analysisResult.structuredCV = structuredCV;
 
@@ -522,7 +664,7 @@ atsImpact (1-5):
       phone: localContact.phone,
       address: localAddress,
     });
-    analysisResult.formattedPreview = formattedPreview;
+    analysisResult.formattedPreview = rensaPii(formattedPreview);
     console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
 
     console.log(`[Job ${jobId}] Saving results (with structured CV data + preview)...`);
