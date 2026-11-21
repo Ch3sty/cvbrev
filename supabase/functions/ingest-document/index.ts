@@ -27,6 +27,18 @@ interface DocumentChunk {
 }
 
 serve(async (req) => {
+  // PAUSAD (2026-11-21). Dokumentinläsningen skickar texten omaskad till inbäddningsmodellen.
+  // Funktionen har ingen anropare i webbappen. Spärren står först i hanteraren
+  // så att ingen text når en modell härifrån av misstag. Ta bort den först när
+  // texten maskas (supabase/functions/_shared/pii.ts, maskForModel) och
+  // användaren tas ur JWT:n i stället för ur anropets innehåll.
+  const PAUSAD = true;
+  if (PAUSAD) {
+    return new Response(JSON.stringify({ error: 'Funktionen är pausad.' }), {
+      status: 410,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
   // Handle CORS
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });

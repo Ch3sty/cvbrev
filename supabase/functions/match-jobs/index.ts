@@ -73,21 +73,38 @@ Deno.serve(async (req) => {
   const ENRICHMENT_DEADLINE = FUNCTION_START + 120000;
 
   try {
-    const { userId, customQuery, skipCache, offset, limit, filters } = await req.json();
-    // Normalisera filter till ett stabilt objekt så cache-hashen blir deterministisk.
-    const activeFilters = normalizeFilters(filters);
-    const filterHash = await hashFilters(activeFilters);
+    const supabase = getSupabaseClient();
 
-    if (!userId) {
-      return new Response(JSON.stringify({
-        error: 'Missing userId'
-      }), {
-        status: 400,
+    // SÄKERHET (2026-11-21): användaren tas ur JWT:n, aldrig ur kroppen.
+    // Förr gick userId att sätta fritt, så vem som helst med en giltig nyckel
+    // kunde hämta en annan användares matchningar, skriva i hennes cache och
+    // starta dyra körningar i hennes namn. Kroppens userId godtas bara om det
+    // är samma konto som JWT:n. Driftsätt aldrig med --no-verify-jwt.
+    const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
+    const { data: authData, error: authError } = token
+      ? await supabase.auth.getUser(token)
+      : { data: { user: null }, error: null };
+    const authUser = authData?.user ?? null;
+    if (authError || !authUser) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
         headers: corsHeaders
       });
     }
 
-    const supabase = getSupabaseClient();
+    const body = await req.json();
+    const { customQuery, skipCache, offset, limit, filters } = body ?? {};
+    if (body?.userId && body.userId !== authUser.id) {
+      return new Response(JSON.stringify({ error: 'Forbidden' }), {
+        status: 403,
+        headers: corsHeaders
+      });
+    }
+    const userId = authUser.id;
+
+    // Normalisera filter till ett stabilt objekt så cache-hashen blir deterministisk.
+    const activeFilters = normalizeFilters(filters);
+    const filterHash = await hashFilters(activeFilters);
     console.log(`[Match-Jobs-V2] Starting for user ${userId}`);
 
     // ============================================================================

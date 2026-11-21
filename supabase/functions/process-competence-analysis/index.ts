@@ -389,6 +389,18 @@ Returnera ENDAST denna JSON-struktur (inget annat):
 console.log('[STARTUP] Functions defined, registering Deno.serve...');
 
 Deno.serve(async (req) => {
+  // PAUSAD (2026-11-21). Hör till den pausade kompetensutvecklingen; CV-text skickas omaskad.
+  // Funktionen har ingen anropare i webbappen. Spärren står först i hanteraren
+  // så att ingen text når en modell härifrån av misstag. Ta bort den först när
+  // texten maskas (supabase/functions/_shared/pii.ts, maskForModel) och
+  // användaren tas ur JWT:n i stället för ur anropets innehåll.
+  const PAUSAD = true;
+  if (PAUSAD) {
+    return new Response(JSON.stringify({ error: 'Funktionen är pausad.' }), {
+      status: 410,
+      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+    });
+  }
   console.log('='.repeat(60));
   console.log(`Request received: ${req.method} ${req.url}`);
   console.log('='.repeat(60));
