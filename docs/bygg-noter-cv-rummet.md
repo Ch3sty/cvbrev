@@ -272,7 +272,7 @@ Kontrollerat mot databasen: ett uppladdat CV som ändrats i Erfarenhet och Språ
 
 ### Till slutsteget
 
-- Mallyta importerar fortfarande AvsnittArk; när steg 2 länkar hit kan AvsnittArk tas bort.
+- Mallyta importerar fortfarande AvsnittArk. Uppföljningen: AvsnittArk lever kvar, för provsidan utan konto (ProvaArbetsyta skickar avsnitt till Mallyta). Det som bevisligen var dött togs bort: Mallytas byggarprops (bygg, lucka, utanKnapp, ovanRad, kolumn, utanSvep), som bara den gamla byggaren använde. /cv-mallar och /cv-mallar/prova pixeljämförda efteråt: 0 olika pixlar.
 - Mallar bär bara `mall` till arbetsläget. Har hon valt typsnitt eller färg på Mallar för ett uppladdat CV syns arket här i mallens standardval; ska arket vara exakt detsamma behöver kontraktet en `val`-parameter.
 - Kör hela klicktestet en gång (`skapa`, `klicka`, `radera`).
 
