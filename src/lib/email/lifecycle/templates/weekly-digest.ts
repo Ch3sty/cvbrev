@@ -17,6 +17,11 @@
 // tjänst som användaren har följt upp nämns alltså inte förrän nästa
 // påminnelse (nastaPaminnelse). Saknas uppföljningstabellen faller läsningen
 // tillbaka till status_updated_at som förut.
+//
+// Intervjulägena (Jobbsöket omgång 2, byggspec 2.7): en genomförd intervju
+// eller ett genomfört provjobb utan besked på sju dagar nämns i ett eget
+// stycke ("Här väntar du på besked:"). En kallelse, med eller utan tid, nämns
+// aldrig i rutan, och shouldSend ändras inte av besked-raderna.
 
 import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, escapeHtml, firstName } from './layout';
@@ -29,6 +34,8 @@ import {
   type ApplicationEventType,
 } from '@/lib/applications/status';
 import { tjanstHref } from '@/lib/jobbsok/adress';
+import { langDag } from '@/lib/jobbsok/datum';
+import type { Dag } from '@/lib/jobbsok/typer';
 import { arSchemaFel } from '@/lib/jobbsok/schema';
 import { HISTORIK_SELECT, harHistorik, tystnadFor, type RadMedHistorik } from '@/lib/jobbsok/tystnad';
 
@@ -36,6 +43,8 @@ export const WEEKLY_DIGEST_TYPE = 'weekly_digest';
 
 /** Hur många tysta ansökningar vi nämner vid namn. Fler blir en lista, inte ett råd. */
 const MAX_FOLLOW_UPS = 2;
+/** Hur många tjänster som väntar besked efter intervju eller provjobb vi nämner vid namn. */
+const MAX_BESKED = 2;
 
 export interface DigestApplication extends RadMedHistorik {
   id?: string;
@@ -58,6 +67,12 @@ export interface WeeklyDigestData {
   repliesThisWeek: number;
   /** Tysta i NO_RESPONSE_NUDGE_DAYS dagar, de vi föreslår uppföljning på. */
   followUps: Array<{ id?: string; title: string; company: string; days: number }>;
+  /**
+   * Genomförd intervju eller provjobb utan besked i sju dagar (motorn säger
+   * tyst och sorten är intervju eller provjobb), längst väntan först, högst
+   * två. `dag` är intervjudagen eller provjobbsdagen, 'YYYY-MM-DD'.
+   */
+  besked: Array<{ id?: string; title: string; company: string; dag: Dag; moment: 'intervju' | 'provjobb' }>;
   /** Totalt antal ansökningar i loggen. */
   total: number;
 }
@@ -95,10 +110,12 @@ export function summarize(
     interviews: 0,
     repliesThisWeek: 0,
     followUps: [],
+    besked: [],
     total: apps.length,
   };
 
   const candidates: WeeklyDigestData['followUps'] = [];
+  const beskedKandidater: Array<WeeklyDigestData['besked'][number] & { days: number }> = [];
 
   for (const app of apps) {
     const applied = new Date(app.applied_at).getTime();
@@ -116,6 +133,15 @@ export function summarize(
     if (responded && app.status_updated_at) {
       const changed = new Date(app.status_updated_at).getTime();
       if (!Number.isNaN(changed) && changed >= weekAgo) data.repliesThisWeek += 1;
+    }
+
+    // Väntar besked efter intervju eller provjobb: bara med historiken, och
+    // bara när motorn säger tyst med den sorten. En kallelse blir aldrig tyst.
+    if (!closed && harHistorik(app) && (app.current_status === 'interview_completed' || app.current_status === 'trial_work_completed')) {
+      const t = tystnadFor(app, now);
+      if (t.tyst && (t.typ === 'intervju' || t.typ === 'provjobb') && t.momentDag) {
+        beskedKandidater.push({ id: app.id, title: app.job_title, company: app.company, dag: t.momentDag, moment: t.typ, days: t.dagarTyst });
+      }
     }
 
     // Uppföljningskandidat: bara de som väntar på första svaret (som förut),
@@ -141,6 +167,8 @@ export function summarize(
   // Längst tystnad först: den som väntat mest är den som brådskar mest.
   candidates.sort((a, b) => b.days - a.days);
   data.followUps = candidates.slice(0, MAX_FOLLOW_UPS);
+  beskedKandidater.sort((a, b) => b.days - a.days);
+  data.besked = beskedKandidater.slice(0, MAX_BESKED).map(({ days: _days, ...rest }) => rest);
 
   return data;
 }
@@ -218,7 +246,8 @@ function weekSentence(data: WeeklyDigestData, greeting: string): string {
  * uppföljningen på den sökta tjänsten (utkastet), med samma utm som knappen.
  */
 export function followUpNote(data: WeeklyDigestData): string | undefined {
-  if (data.followUps.length === 0) return undefined;
+  const besked = beskedNote(data);
+  if (data.followUps.length === 0) return besked;
 
   const rows = data.followUps
     .map((item) => {
@@ -237,7 +266,38 @@ export function followUpNote(data: WeeklyDigestData): string | undefined {
       ? 'Den här har det varit tyst om ett tag:'
       : 'De här har det varit tyst om ett tag:';
 
-  return `<p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;font-weight:600;color:#0F172A;">${intro}</p>${rows}<p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#64748B;">Ett kort mejl som frågar hur processen ligger till räcker. Det är inte påträngande, det är att visa intresse.</p>`;
+  const tyst = `<p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;font-weight:600;color:#0F172A;">${intro}</p>${rows}<p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#64748B;">Ett kort mejl som frågar hur processen ligger till räcker. Det är inte påträngande, det är att visa intresse.</p>`;
+  return besked ? `${besked}<div style="height:18px;line-height:18px;">&nbsp;</div>${tyst}` : tyst;
+}
+
+/** Titeln länkad till uppföljningen på den sökta tjänsten, med samma utm som knappen. */
+function titelLank(item: { id?: string; title: string }): string {
+  const titel = `<strong style="color:#0F172A;">${escapeHtml(item.title)}</strong>`;
+  return item.id
+    ? `<a href="${escapeHtml(withUtm(tjanstHref(item.id, 'folj-upp'), WEEKLY_DIGEST_TYPE))}" target="_blank" style="color:#0F172A;text-decoration:underline;">${titel}</a>`
+    : titel;
+}
+
+/** Stycket om tjänster som väntar besked efter intervju eller provjobb, eller undefined. */
+export function beskedNote(data: Pick<WeeklyDigestData, 'besked'>): string | undefined {
+  if (!data.besked || data.besked.length === 0) return undefined;
+  const rows = data.besked
+    .map((item) => {
+      const moment = item.moment === 'intervju' ? 'intervjun' : 'provjobbet';
+      return `<p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#475569;">
+           ${titelLank(item)} hos ${escapeHtml(item.company)}, ${moment} var den ${escapeHtml(langDag(item.dag))}
+         </p>`;
+    })
+    .join('');
+  return `<p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;font-weight:600;color:#0F172A;">Här väntar du på besked:</p>${rows}<p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#64748B;">Fråga när du kan vänta besked. Ett kort mejl räcker.</p>`;
+}
+
+/** Preheadern: om besked när någon tjänst väntar besked, annars som förut. */
+export function digestPreheader(data: WeeklyDigestData): string {
+  if (data.besked.length > 0) return 'Dags att fråga om besked.';
+  return data.followUps.length > 0
+    ? `${count(data.followUps.length, 'ansökan', 'ansökningar')} som är värd en påminnelse.`
+    : `${count(data.waiting, 'ansökan', 'ansökningar')} väntar fortfarande på svar.`;
 }
 
 export const weeklyDigest: LifecycleEmail = {
@@ -270,10 +330,7 @@ export const weeklyDigest: LifecycleEmail = {
         ? `Din vecka: ${count(data.appliedThisWeek, 'sökt jobb', 'sökta jobb')}`
         : 'Din vecka i jobbsökandet';
 
-    const preheader =
-      data.followUps.length > 0
-        ? `${count(data.followUps.length, 'ansökan', 'ansökningar')} som är värd en påminnelse.`
-        : `${count(data.waiting, 'ansökan', 'ansökningar')} väntar fortfarande på svar.`;
+    const preheader = digestPreheader(data);
 
     return {
       subject,

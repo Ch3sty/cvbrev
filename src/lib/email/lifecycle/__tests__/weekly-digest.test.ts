@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { followUpNote, summarize, type DigestApplication } from '../templates/weekly-digest'
+import { digestPreheader, followUpNote, summarize, weeklyDigest, type DigestApplication } from '../templates/weekly-digest'
 
 // Lördag 21 november 2026, 11.00 svensk tid.
 const NU = new Date('2026-11-21T10:00:00Z')
@@ -63,10 +63,124 @@ describe('uppföljningsrutan', () => {
       repliesThisWeek: 0,
       total: 1,
       followUps: [{ id: 'abc-123', title: 'Ekonomiassistent', company: 'Norrmejerier', days: 20 }],
+      besked: [],
     })!
     expect(html).toMatch(
       /<a href="https:\/\/[^"]+\/dashboard\/sokta-tjanster\/abc-123\?steg=folj-upp&amp;utm_source=lifecycle&amp;utm_medium=email&amp;utm_campaign=weekly_digest"/
     )
     expect(html).toContain('<strong style="color:#0F172A;">Ekonomiassistent</strong></a> hos Norrmejerier, tyst i 20 dagar')
+  })
+})
+
+/** Genomförd intervju (eller provjobb) på dagen `dag`. */
+function genomford(id: string, dag: string, prov = false, over: Partial<DigestApplication> = {}): DigestApplication {
+  const typ = prov ? 'trial_work_completed' : 'interview_completed'
+  return app({
+    id,
+    current_status: typ,
+    status_updated_at: `${dag}T08:00:00Z`,
+    job_application_events: [
+      { id: `h1-${id}`, event_type: 'applied', occurred_at: '2026-10-20', created_at: '2026-10-20T08:00:00Z' },
+      { id: `h2-${id}`, event_type: 'interview_invited', occurred_at: '2026-10-25', created_at: '2026-10-25T08:00:00Z' },
+      { id: `h3-${id}`, event_type: typ, occurred_at: dag, created_at: `${dag}T08:00:00Z` },
+    ],
+    ...over,
+  })
+}
+
+describe('besked efter intervju eller provjobb (byggspec 2.7)', () => {
+  it('besked fylls för genomförd intervju och provjobb, längst väntan först, högst 2', () => {
+    const d = summarize(
+      [
+        genomford('i1', '2026-11-12'),
+        genomford('p1', '2026-11-05', true, { company: 'Umeå Energi', job_title: 'Redovisningsekonom' }),
+        genomford('i2', '2026-11-10'),
+        genomford('farsk', '2026-11-16'),
+      ],
+      NU
+    )
+    expect(d.besked).toEqual([
+      { id: 'p1', title: 'Redovisningsekonom', company: 'Umeå Energi', dag: '2026-11-05', moment: 'provjobb' },
+      { id: 'i2', title: 'Ekonomiassistent', company: 'Norrmejerier', dag: '2026-11-10', moment: 'intervju' },
+    ])
+    expect(d.followUps).toEqual([])
+  })
+
+  it('en kallelse, med eller utan tid, står aldrig i rutan', () => {
+    const utanTid = app({
+      id: 'k1',
+      current_status: 'interview_invited',
+      job_application_events: [
+        { id: 'k1a', event_type: 'applied', occurred_at: '2026-09-01', created_at: '2026-09-01T08:00:00Z' },
+        { id: 'k1b', event_type: 'interview_invited', occurred_at: '2026-09-10', created_at: '2026-09-10T08:00:00Z' },
+      ],
+    })
+    const medTid = app({
+      id: 'k2',
+      current_status: 'interview_invited',
+      job_application_events: [
+        { id: 'k2a', event_type: 'applied', occurred_at: '2026-09-01', created_at: '2026-09-01T08:00:00Z' },
+        { id: 'k2b', event_type: 'interview_invited', occurred_at: '2026-09-10', created_at: '2026-09-10T08:00:00Z', interview_at: '2026-09-20T08:00:00Z' },
+      ],
+    })
+    const d = summarize([utanTid, medTid], NU)
+    expect(d.besked).toEqual([])
+    expect(d.followUps).toEqual([])
+    expect(followUpNote(d)).toBeUndefined()
+  })
+
+  it('rutans rader och avslutning, före det oförändrade stycket om tysta ansökningar', () => {
+    const html = followUpNote({
+      appliedThisWeek: 0,
+      waiting: 1,
+      interviews: 2,
+      repliesThisWeek: 0,
+      total: 3,
+      followUps: [{ id: 'abc-123', title: 'Ekonomiassistent', company: 'Norrmejerier', days: 20 }],
+      besked: [
+        { id: 'i-1', title: 'Redovisningsekonom', company: 'Umeå Energi', dag: '2026-11-12', moment: 'intervju' },
+        { id: 'p-1', title: 'Lagerarbetare', company: 'Komatsu Forest', dag: '2026-11-10', moment: 'provjobb' },
+      ],
+    })!
+    expect(html).toContain('Här väntar du på besked:')
+    expect(html).toContain('<strong style="color:#0F172A;">Redovisningsekonom</strong></a> hos Umeå Energi, intervjun var den 12 november')
+    expect(html).toContain('<strong style="color:#0F172A;">Lagerarbetare</strong></a> hos Komatsu Forest, provjobbet var den 10 november')
+    expect(html).toContain('/dashboard/sokta-tjanster/i-1?steg=folj-upp&amp;utm_source=lifecycle&amp;utm_medium=email&amp;utm_campaign=weekly_digest"')
+    expect(html).toContain('Fråga när du kan vänta besked. Ett kort mejl räcker.')
+    // Det befintliga stycket står kvar ordagrant, efter besked-stycket.
+    expect(html).toContain('Den här har det varit tyst om ett tag:')
+    expect(html).toContain('Ett kort mejl som frågar hur processen ligger till räcker. Det är inte påträngande, det är att visa intresse.')
+    expect(html.indexOf('Här väntar du på besked:')).toBeLessThan(html.indexOf('Den här har det varit tyst om ett tag:'))
+    expect(html).not.toMatch(/har inte hört/)
+  })
+
+  it('bara besked: bara besked-stycket', () => {
+    const html = followUpNote({ appliedThisWeek: 0, waiting: 0, interviews: 1, repliesThisWeek: 0, total: 1, followUps: [], besked: [{ title: 'X', company: 'Y', dag: '2026-11-12', moment: 'intervju' }] })!
+    expect(html).toContain('Här väntar du på besked:')
+    expect(html).toContain('<strong style="color:#0F172A;">X</strong> hos Y, intervjun var den 12 november')
+    expect(html).not.toContain('tyst om ett tag')
+  })
+
+  it('preheadern', () => {
+    const bas = { appliedThisWeek: 0, waiting: 2, interviews: 1, repliesThisWeek: 0, total: 3 }
+    expect(digestPreheader({ ...bas, followUps: [], besked: [{ title: 'X', company: 'Y', dag: '2026-11-12', moment: 'intervju' }] })).toBe('Dags att fråga om besked.')
+    expect(digestPreheader({ ...bas, followUps: [{ title: 'X', company: 'Y', days: 20 }], besked: [] })).toBe('1 ansökan som är värd en påminnelse.')
+    expect(digestPreheader({ ...bas, followUps: [], besked: [] })).toBe('2 ansökningar väntar fortfarande på svar.')
+  })
+
+  it('shouldSend är oförändrad: bara en tjänst som väntar besked ger inget brev', async () => {
+    const rader = [genomford('i1', '2026-11-05')]
+    const ctx = {
+      userId: 'u1',
+      profile: { weekly_digest_opt_out: false },
+      admin: {
+        from: () => {
+          const b: any = { select: () => b, eq: () => b, then: (r: (v: unknown) => unknown) => Promise.resolve({ data: rader, error: null }).then(r) }
+          return b
+        },
+      },
+    }
+    expect(summarize(rader, NU).besked).toHaveLength(1)
+    expect(await weeklyDigest.shouldSend(ctx as any)).toBe(false)
   })
 })
