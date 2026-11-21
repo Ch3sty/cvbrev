@@ -28,6 +28,7 @@ import type { Scope } from '@/lib/access/features'
 import { scopeHasFeature } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { harPaket } from '@/lib/plans/harPaket'
+import { senasteAnalysPoang } from '@/lib/cv/poang/server'
 import {
   DAILY_LIMIT_LETTERS,
   FREE_CHAT_MESSAGES_PER_ACCOUNT,
@@ -421,8 +422,18 @@ export async function getDashboardSummary(
   // Våg 4: korsreferensen och "N nya" i samma omgång, aldrig efter mount.
   const traningLas = hamtaTraningKors(userId)
   const nyaLas = hamtaMatchningarNya(supabase)
+  // Läsbarhetspoängen räknas ur senaste analysens CV-rad med poängmodellen
+  // (docs/poangmodell-cv-analys.md), i samma omgång. Talet som sparats i
+  // analysen (och som dashboard_summering() returnerar) används inte längre:
+  // det kan vara AI:ns påhittade tal från en äldre analys.
+  const poangLas = senasteAnalysPoang(supabase, userId).catch(() => null)
   const rader = (await hamtaViaRpc(supabase)) ?? (await hamtaParallellt(supabase, userId))
-  const [intervjuRader, traningKors, matchningarNya] = await Promise.all([intervjuLas, traningLas, nyaLas])
+  const [intervjuRader, traningKors, matchningarNya, senastePoang] = await Promise.all([
+    intervjuLas,
+    traningLas,
+    nyaLas,
+    poangLas,
+  ])
   const {
     lettersRes,
     cvRes,
@@ -632,11 +643,9 @@ export async function getDashboardSummary(
   const matrisBasta = testRader
     .filter((r) => (r.test_type ?? 'matrislogik') === 'matrislogik')
     .reduce<number | null>((b, r) => (typeof r.score === 'number' && (b === null || r.score > b) ? r.score : b), null)
-  const poangRaw = (senasteAnalysRes?.data as Record<string, unknown> | null)?.score
-  const poang = poangRaw === null || poangRaw === undefined ? null : Number(poangRaw)
   const fakta: BrickaFakta = {
     cvNamn: activeName,
-    poang: poang !== null && Number.isFinite(poang) ? Math.round(poang) : null,
+    poang: senastePoang,
     matrisRatt: matrisBasta,
     matrisAv: getTestConfig('matrislogik-grund')?.totalQuestions ?? null,
   }

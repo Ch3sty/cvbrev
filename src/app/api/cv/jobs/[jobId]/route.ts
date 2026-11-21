@@ -9,6 +9,8 @@ import { suggestPlan, type Scope } from '@/lib/access/features';
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
+import { poangsattAnalys, medSammanfattning } from '@/lib/cv/poang';
+import { hamtaCvRad } from '@/lib/cv/poang/server';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -179,7 +181,21 @@ export async function GET(
     // åtgärdstext, och filtreringen sker här, aldrig på klienten.
     // CV-spåret, Allt och admin passerar och får allt.
     const hasFullAnalysis = await userHasAccess(supabase, user.id, 'cv_analysis_full');
-    const gatedResult = gateAnalysisResult(job.result, hasFullAnalysis);
+
+    // Läsbarhetspoängen räknas här, ur CV-raden, aldrig ur talen analysjobbet
+    // sparade (docs/poangmodell-cv-analys.md). Förslagens plus räknas före
+    // filtreringen så att det tyngsta fyndet är det med störst verkligt plus,
+    // och potentialen räknas om efteråt på de förslag hon faktiskt ser.
+    let poangsatt: unknown = job.result;
+    if (job.status === 'completed' && job.result && typeof job.result === 'object') {
+      const cvRad = await hamtaCvRad(supabase, job.cv_id);
+      poangsatt = poangsattAnalys(job.result as Record<string, unknown>, cvRad);
+    }
+    const filtrerat = gateAnalysisResult(poangsatt, hasFullAnalysis);
+    const gatedResult =
+      !hasFullAnalysis && filtrerat && typeof filtrerat === 'object' && job.status === 'completed'
+        ? medSammanfattning(filtrerat as Record<string, unknown>)
+        : filtrerat;
 
     // Full analys är betald användning och loggas som sådan.
     if (hasFullAnalysis && job.status === 'completed') {

@@ -1,11 +1,11 @@
 // src/lib/rum/cvRum.ts
 //
 // CV-rummet (spec-rummen våg 4, konceptets C1): poängringen, vad som drar
-// ner och dokumentets väg. Allt räknas ur den senaste slutförda analysens
-// sparade resultat (cv_analysis_jobs.result). Plustalen per fynd är
-// analysens egna atsImpact, samma tal som analysflödet visar som
-// "+N läsbarhet" på varje förslag; de räknas aldrig om här och uppskattas
-// aldrig. Klientsäker.
+// ner och dokumentets väg. Underlaget är den senaste slutförda analysen,
+// poängsatt med poängmodellen (src/lib/cv/poang, docs/poangmodell-cv-analys.md)
+// innan det når hit: poang är CV:ts läsbarhetspoäng och atsImpact varje
+// förslags verkliga plus, samma tal som analysflödet visar som "+N läsbarhet".
+// De räknas aldrig om här och uppskattas aldrig. Klientsäker.
 
 import type { VeckoCell } from '@/components/rum/Veckorad'
 import { CV_RUM } from './copy'
@@ -23,12 +23,18 @@ export interface AnalysUnderlag {
   klar: string | null
   /** Analysens namn på CV:t (display_name), annars filnamnet. */
   namn: string | null
-  /** result.atsFriendliness.score, 0 till 100. */
+  /** Läsbarhetspoängen enligt poängmodellen, 0 till 100. */
   poang: number | null
   profil: { atsImpact?: unknown } | null
   roller: Array<{ roleTitle?: unknown; company?: unknown; atsImpact?: unknown }> | null
   kompetenser: Array<{ skill?: unknown; atsImpact?: unknown }> | null
   allmant: Array<{ title?: unknown; description?: unknown; atsImpact?: unknown }> | null
+  /**
+   * Plus för alla kompetensförslag införda tillsammans. Plus kan inte
+   * summeras när förslag överlappar, så när talet finns används det i
+   * stället för summan av förslagens atsImpact.
+   */
+  kompetenserPlus?: number | null
 }
 
 export interface Fynd {
@@ -50,8 +56,8 @@ function text(v: unknown): string {
 
 /**
  * Fynden i den ordning de drar ner mest. Kompetensförslagen räknas som ett
- * fynd med summan av sina atsImpact, så som analysflödet räknar dem när de
- * väljs tillsammans. Fynd utan positiv effekt visas inte.
+ * fynd med plus för alla införda tillsammans (kompetenserPlus), annars
+ * summan av sina atsImpact. Fynd utan positiv effekt visas inte.
  */
 export function fyndUrAnalys(a: AnalysUnderlag | null): Fynd[] {
   if (!a) return []
@@ -72,8 +78,13 @@ export function fyndUrAnalys(a: AnalysUnderlag | null): Fynd[] {
       })
     }
   })
-  const komp = (a.kompetenser ?? []).filter((k) => (tal(k?.atsImpact) ?? 0) > 0)
-  const kompSumma = komp.reduce((s, k) => s + (tal(k?.atsImpact) ?? 0), 0)
+  // Med kompetenserPlus gäller plus alla förslag tillsammans: en enskild
+  // kompetens kan ge noll men tre tillsammans ett lyft, så alla nämns.
+  const komp =
+    tal(a.kompetenserPlus) !== null
+      ? (a.kompetenser ?? []).filter((k) => text(k?.skill))
+      : (a.kompetenser ?? []).filter((k) => (tal(k?.atsImpact) ?? 0) > 0)
+  const kompSumma = tal(a.kompetenserPlus) ?? komp.reduce((s, k) => s + (tal(k?.atsImpact) ?? 0), 0)
   if (kompSumma > 0) {
     ut.push({
       nyckel: 'kompetenser',

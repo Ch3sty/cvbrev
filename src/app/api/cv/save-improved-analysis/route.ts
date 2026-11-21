@@ -1,6 +1,8 @@
 import { createServerClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { poangsattAnalys } from '@/lib/cv/poang';
+import { hamtaCvRad } from '@/lib/cv/poang/server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,6 +24,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Poängen räknas på det sparade CV:t, aldrig på talet klienten skickar
+    // (docs/poangmodell-cv-analys.md). Förr skrevs potentialen in här som
+    // poäng; nu poängsätts det nya CV:t på riktigt och raden versionsmärks.
+    const cvRad = await hamtaCvRad(supabase, typeof cvId === 'string' ? cvId : null);
+    const resultat =
+      improvedResult && typeof improvedResult === 'object'
+        ? poangsattAnalys(improvedResult as Record<string, unknown>, cvRad)
+        : improvedResult;
+
     // Create new analysis job with improved data
     const { data: newAnalysis, error: insertError } = await supabase
       .from('cv_analysis_jobs')
@@ -29,7 +40,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         cv_id: cvId,
         status: 'completed',
-        result: improvedResult,
+        result: resultat,
         display_name: displayName,
         completed_at: new Date().toISOString()
       })

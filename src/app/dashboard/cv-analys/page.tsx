@@ -35,6 +35,7 @@ import { getCvAnalysData, emptyCvAnalysData } from './getCvAnalysData';
 import CvAnalysClient from './CvAnalysClient';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import type { AterupptagenAnalys } from './aterupptagning';
+import { poangsattAnalys } from '@/lib/cv/poang';
 
 export default async function CVAnalysisPage({
   searchParams,
@@ -78,11 +79,14 @@ export default async function CVAnalysisPage({
       .maybeSingle();
     if (error) console.error('CV-analys: kunde inte läsa den sparade analysen', error);
     if (rad && rad.status === 'completed' && rad.result && typeof rad.result === 'object') {
+      // Poängen och förslagens plus räknas om ur CV-raden (redan hämtad med
+      // listan), aldrig ur talen som sparades med analysen.
+      const cvRad = data?.cvs.find((cv) => cv.id === rad.cv_id) ?? null;
       aterupptagen = {
         id: rad.id as string,
         cvId: (rad.cv_id as string | null) ?? null,
         displayName: (rad.display_name as string | null) ?? null,
-        result: rad.result as Record<string, unknown>,
+        result: poangsattAnalys(rad.result as Record<string, unknown>, cvRad),
       };
     }
   }

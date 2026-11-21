@@ -1,13 +1,17 @@
 // src/app/api/cv/quick-score/route.ts
 // Snabb CV-poäng direkt efter uppladdning (aha-moment i onboarding).
-// Synkront svar via analyzeCvBasic (Gemini fast-modell) - INTE bakgrundsjobb.
-// Detta är en lättviktig försmak; den fullständiga analysen ligger kvar på /api/cv/analyze.
+// Synkront svar - INTE bakgrundsjobb. Poängen räknas med läsbarhetsmodellen
+// (src/lib/cv/poang), samma som CV-analysen; texterna kommer från
+// analyzeCvBasic (Gemini fast-modell). Den fullständiga analysen ligger kvar
+// på /api/cv/analyze.
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { analyzeCvBasic } from '@/lib/openai/cv-analysis';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 import { markFirstMilestone } from '@/lib/activation-tracking';
+import { poangForRad } from '@/lib/cv/poang';
+import { sakerstallStruktur } from '@/lib/cv/poang/server';
 
 export const maxDuration = 30;
 
@@ -50,15 +54,16 @@ export async function POST(request: NextRequest) {
       .eq('id', user.id)
       .single();
 
-    // Snabb basanalys (synkron, Gemini fast). Personuppgifter maskas inuti
-    // analyzeCvBasic, så ingen route kan råka skicka rå CV-text.
-    const analysis = await analyzeCvBasic(cv.cv_text, { fullName: nameRow?.full_name ?? null });
-
-    // Härled en 0-100-poäng från de två 1-5-betygen.
-    const clarity = analysis.scores?.clarityAndStructure?.rating ?? 0;
-    const verbs = analysis.scores?.strongVerbs?.rating ?? 0;
-    const avgRating = (clarity + verbs) / 2; // 0-5
-    const score = Math.round((avgRating / 5) * 100);
+    // Snabb basanalys (synkron, Gemini fast) för texterna: sammanfattning,
+    // styrkor och vad att fixa. Personuppgifter maskas inuti analyzeCvBasic.
+    // Poängen kommer INTE därifrån: den räknas med samma funktion som
+    // CV-analysen, ur CV:ts sparade struktur (docs/poangmodell-cv-analys.md),
+    // så att snabbpoängen och analysen aldrig säger emot varandra.
+    const [analysis, cvRad] = await Promise.all([
+      analyzeCvBasic(cv.cv_text, { fullName: nameRow?.full_name ?? null }),
+      sakerstallStruktur(supabase, cvId),
+    ]);
+    const score = poangForRad(cvRad);
 
     // Spåra kostnad (icke-blockerande)
     if (analysis.tokens) {
@@ -78,6 +83,12 @@ export async function POST(request: NextRequest) {
       } catch (trackErr) {
         console.error('[quick-score] Kostnadsspårning misslyckades:', trackErr);
       }
+    }
+
+    // Utan struktur finns inget att räkna på. Hellre ingen poäng än en gissad:
+    // klienten visar då "Ditt CV är inläst" utan siffra.
+    if (score === null) {
+      return NextResponse.json({ error: 'Kunde inte läsa CV:ts struktur.' }, { status: 422 });
     }
 
     // B7: första analysen. Först vinner, så en senare fullanalys skriver inte över.

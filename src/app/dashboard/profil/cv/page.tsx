@@ -20,6 +20,7 @@ import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import MinaCvClient, { type InitialCv, type CvRumData } from './MinaCvClient';
 import type { AnalysUnderlag } from '@/lib/rum/cvRum';
+import { poangForRad, poangsattAnalys, poangMedVal, type CvRad, type PoangSammanfattning } from '@/lib/cv/poang';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 const FREE_MAX_CVS = 2;
@@ -53,7 +54,7 @@ export default async function MinaCVPage() {
       getCvGrans(supabase, user.id),
       supabase
         .from('cv_analysis_jobs')
-        .select('cv_id, completed_at, poang:result->atsFriendliness->score')
+        .select('cv_id, completed_at')
         .eq('user_id', user.id)
         .eq('status', 'completed')
         .order('completed_at', { ascending: false, nullsFirst: false })
@@ -61,7 +62,7 @@ export default async function MinaCVPage() {
       supabase
         .from('cv_analysis_jobs')
         .select(
-          'id, cv_id, completed_at, display_name, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
+          'id, cv_id, completed_at, display_name, struktur:result->structuredCV, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
         )
         .eq('user_id', user.id)
         .eq('status', 'completed')
@@ -84,27 +85,49 @@ export default async function MinaCVPage() {
     cvRows = (cvRes.data ?? []) as InitialCv[];
     isPremium = grans.harBetalt;
 
-    // Poängen per CV: den senaste analysen av varje CV (listan är sorterad).
-    for (const rad of (poangRes.data ?? []) as Array<{ cv_id: string | null; poang: unknown }>) {
-      const p = Number(rad.poang);
-      if (rad.cv_id && !(rad.cv_id in cvRum.poangPerCv) && Number.isFinite(p)) {
-        cvRum.poangPerCv[rad.cv_id] = Math.max(0, Math.min(100, Math.round(p)));
-      }
-    }
+    // Poängen per analyserat CV räknas ur CV-raden med poängmodellen
+    // (docs/poangmodell-cv-analys.md), aldrig ur talet analysen sparade.
     const senaste = senasteRes.data as Record<string, unknown> | null;
+    const analyserade = new Set(
+      ((poangRes.data ?? []) as Array<{ cv_id: string | null }>).map((r) => r.cv_id).filter(Boolean) as string[]
+    );
+    for (const cv of cvRows) {
+      if (!analyserade.has(cv.id)) continue;
+      const reserv = senaste && senaste.cv_id === cv.id ? senaste.struktur : undefined;
+      const p = poangForRad(cv as CvRad, reserv);
+      if (p !== null) cvRum.poangPerCv[cv.id] = p;
+    }
     // Bara analyser av ett CV som fortfarande finns räknas.
     if (senaste && cvRows.some((cv) => cv.id === senaste.cv_id)) {
       const cv = cvRows.find((c) => c.id === senaste.cv_id);
+      // Förslagens plus räknas med samma funktion som analysflödet.
+      const analys = poangsattAnalys(
+        {
+          structuredCV: senaste.struktur,
+          profileSummary: senaste.profil,
+          roleBasedImprovements: senaste.roller,
+          skillSuggestions: senaste.kompetenser,
+          generalImprovements: senaste.allmant,
+        },
+        cv as CvRad
+      );
+      const sammanfattning = analys.poang as PoangSammanfattning | null;
+      const kompetenser = Array.isArray(analys.skillSuggestions) ? analys.skillSuggestions : null;
+      const medKompetenser =
+        sammanfattning && kompetenser && kompetenser.length > 0
+          ? poangMedVal(analys, { profil: false, roller: [], kompetenser: kompetenser.map((_, i) => i) })
+          : null;
       cvRum.underlag = {
         jobbId: (senaste.id as string) ?? null,
         cvId: (senaste.cv_id as string) ?? null,
         klar: (senaste.completed_at as string) ?? null,
         namn: (senaste.display_name as string) || cv?.file_name || null,
-        poang: senaste.poang === null || senaste.poang === undefined ? null : Number(senaste.poang),
-        profil: (senaste.profil as AnalysUnderlag['profil']) ?? null,
-        roller: Array.isArray(senaste.roller) ? (senaste.roller as AnalysUnderlag['roller']) : null,
-        kompetenser: Array.isArray(senaste.kompetenser) ? (senaste.kompetenser as AnalysUnderlag['kompetenser']) : null,
-        allmant: Array.isArray(senaste.allmant) ? (senaste.allmant as AnalysUnderlag['allmant']) : null,
+        poang: sammanfattning ? sammanfattning.idag : null,
+        profil: (analys.profileSummary as AnalysUnderlag['profil']) ?? null,
+        roller: Array.isArray(analys.roleBasedImprovements) ? (analys.roleBasedImprovements as AnalysUnderlag['roller']) : null,
+        kompetenser: kompetenser as AnalysUnderlag['kompetenser'],
+        allmant: Array.isArray(analys.generalImprovements) ? (analys.generalImprovements as AnalysUnderlag['allmant']) : null,
+        kompetenserPlus: sammanfattning && medKompetenser ? medKompetenser.total - sammanfattning.idag : null,
       };
     }
     cvRum.nedladdatAt = ((nedladdRes.data as { downloaded_at?: string } | null)?.downloaded_at as string) ?? null;

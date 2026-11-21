@@ -36,6 +36,20 @@ describe('fynden', () => {
     ).toEqual([])
   })
 
+  it('kompetenserna får plus för alla tillsammans när det finns, inte summan', () => {
+    const f = fyndUrAnalys({
+      ...bas,
+      kompetenser: [
+        { skill: 'SAP', atsImpact: 0 },
+        { skill: 'Agil projektledning', atsImpact: 0 },
+      ],
+      kompetenserPlus: 3,
+    })
+    const k = f.find((x) => x.nyckel === 'kompetenser')!
+    expect(k.plus).toBe(3)
+    expect(k.meta).toContain('SAP')
+  })
+
   it('poängen hålls mellan 0 och 100', () => {
     expect(poangUrAnalys(bas)).toBe(72)
     expect(poangUrAnalys({ ...bas, poang: 140 })).toBe(100)
