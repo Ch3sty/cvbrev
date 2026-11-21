@@ -309,8 +309,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           rubrik: NASTA.utkast.rubrik,
           text: NASTA.utkast.text,
           textKort: forstaMeningen(NASTA.utkast.text),
-          knapp: lank(`/dashboard/skapa-cv?cv=${aktivt.id}`, 'Fortsätt bygga'),
-          knappBred: lank(`/dashboard/skapa-cv?cv=${aktivt.id}`, 'Fortsätt bygga', true),
+          knapp: lank(arbetslageHref(aktivt.id, 'ditt-cv', { mall: mall.id }), 'Fortsätt bygga'),
+          knappBred: lank(arbetslageHref(aktivt.id, 'ditt-cv', { mall: mall.id }), 'Fortsätt bygga', true),
           sidorad: NASTA.utkast.sidorad,
         };
       case 'analysera':
@@ -984,7 +984,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             <b>{RADER.bygg}</b>
             <small>{RADER.byggText}</small>
           </span>
-          <Link href={`/dashboard/skapa-cv?cv=${aktivt.id}`} className="t3-liten">
+          <Link href={arbetslageHref(aktivt.id, 'ditt-cv', { mall: mall.id })} className="t3-liten">
             Redigera i byggaren
           </Link>
         </div>

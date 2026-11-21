@@ -27,7 +27,7 @@ import type { Scope } from '@/lib/access/features';
 import type { EgetCv } from '@/components/cv/Dokument/egnaMallar';
 import { MALL_KATALOG } from '@/lib/cv/mallval/katalog';
 import CvVagg from '@/components/cv/rum3/CvVagg';
-import { flikHref } from '@/components/cv/rum3/flikar';
+import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
 import { getPaywallCopy, kvotCopy, PAKETRADER } from '@/components/paywall/paywall-copy';
 import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
 import { capture } from '@/lib/analytics/events';
@@ -337,7 +337,12 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         <p className="cv4-fot-text">
           <b>{ANALYS.andrat}</b> {ANALYS.andratLista(f.andrat ?? [])}
         </p>
-        <Link href={jobbHref(4, f.nyckel)} className="cv4-kn" data-ton="ljus">
+        <Link
+          href={data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: f.sektion, mall: mall.id }) : jobbHref(4, f.nyckel)}
+          className="cv4-kn"
+          data-ton="ljus"
+          data-andra-texten
+        >
           {ANALYS.andraTexten}
         </Link>
         <Link href={jobbHref(5, f.nyckel)} className="cv4-kn" data-ton="mork">
