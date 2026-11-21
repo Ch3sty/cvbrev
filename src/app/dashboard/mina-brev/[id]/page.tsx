@@ -1,39 +1,96 @@
 /**
- * Brevets egen sida är en server component.
+ * Brevet (/dashboard/mina-brev/[id]): läs, ändra och skicka. Serverkomponent.
  *
- * Brevet är sidans LCP-element. Hämtades det på klienten låg hela kedjan
- * hydrera, fetcha, rita på den kritiska vägen. Nu står brevet i första HTML
- * och klientdelen tar bara över interaktionen.
+ * Brevet, låset, sökt-kopplingen, behörigheten, profilen som avsändare och
+ * kvoten läses här, och arket ritas här med kravens markeringar, så att
+ * första HTML:en är det färdiga arbetsläget utan rundtur i klienten.
  *
- * Våg 4 (B1): sidan läser också om brevet redan ligger som sökt tjänst, så
- * att raden "Spara som sökt tjänst" säger sanningen från första målningen.
- * ?klart=1 kommer från brevflödets sista steg och visar bekräftelsen
- * "Brevet klart" på väggen.
+ * Ett låst brev (gratis, äldre än de två senaste) öppnas som låst och går
+ * att läsa och kopiera, aldrig som "Brevet kunde inte hittas" (fynd 5).
+ * ?flik= väljer fliken, ?klart=1 kommer från Skriv brev.
  */
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import { getLetterForUser } from '../getLetterForUser';
-import ViewLetterClient from './ViewLetterClient';
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createServerClient } from '@/lib/supabase/server'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { userHasAccess } from '@/lib/supabase/premiumAccess'
+import { arBrevLastForAnvandare, hamtaBrevProfil, hamtaSokta } from '@/lib/letters/server'
+import { brevDataFranBrev, brevSprak } from '@/lib/letters/brevData'
+import { brevKvot } from '@/lib/letters/brevKvot'
+import { kravForBrev } from '@/lib/letters/lage'
+import { lasSparadeKrav } from '@/lib/letters/krav'
+import { styckenForBrev } from '@/lib/letters/stycken'
+import { renderBrevHtml } from '@/lib/letters/brevmall'
+import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates'
+import type { Letter } from '@/store/letter-store'
+import BrevetVy from '@/components/brev3/arbete/BrevetVy'
+import BrevSaknas from '@/components/brev3/arbete/BrevSaknas'
+import { arFlik } from '@/components/brev3/arbete/texter'
 
-export default async function ViewLetterPage({
+export default async function BrevetSida({
   params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ klart?: string }>;
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ klart?: string; flik?: string }>
 }) {
-  const { id } = await params;
-  const { klart } = await searchParams;
-  const supabase = createServerClient({ cookies: await cookies() });
-  const [{ user, letter }, soktRes] = await Promise.all([
-    getLetterForUser(id),
-    supabase.from('job_applications').select('id').eq('letter_id', id).limit(1).maybeSingle(),
-  ]);
+  const { id } = await params
+  const { klart, flik } = await searchParams
+  const user = await hamtaVerifieradAnvandare()
+  if (!user) redirect('/login')
+  const supabase = createServerClient({ cookies: await cookies() })
 
-  if (!user) redirect('/login');
+  const [radRes, harBetalt, kanLaddaNer, sokta] = await Promise.all([
+    supabase.from('letters').select('*').eq('id', id).eq('user_id', user.id).maybeSingle(),
+    userHasAccess(supabase, user.id, 'any'),
+    userHasAccess(supabase, user.id, 'letter_download'),
+    hamtaSokta(supabase, user.id, [id]),
+  ])
+  const rad = (radRes.data ?? null) as Letter | null
+  if (!rad) return <BrevSaknas />
 
-  const soktId = (soktRes?.data as { id?: string } | null)?.id ?? null;
+  const [isLocked, { profil }] = await Promise.all([
+    harBetalt ? Promise.resolve(false) : arBrevLastForAnvandare(supabase, user.id, id, false),
+    hamtaBrevProfil(supabase, user.id, rad.cv_id ?? null),
+  ])
 
-  return <ViewLetterClient id={id} initialLetter={letter} soktId={soktId} klart={klart === '1'} />;
+  const data = brevDataFranBrev(rad, profil, { email: user.email ?? null })
+  const kravTraffar = kravForBrev(rad)
+  const html = rad.mall_id
+    ? renderBrevHtml(rad.mall_id, data, { typsnitt: rad.font_id ?? null }, { markeringar: kravTraffar ?? undefined })
+    : rad.content || ''
+  const gammal = rad.template_id && rad.template_id in DOCX_TEMPLATES ? DOCX_TEMPLATES[rad.template_id as keyof typeof DOCX_TEMPLATES].name : null
+  const s = sokta.get(id) ?? null
+  const kvot = brevKvot(profil, harBetalt)
+
+  return (
+    <BrevetVy
+      brev={{
+        id: rad.id,
+        title: rad.title,
+        company: rad.company,
+        job_title: rad.job_title,
+        mottagare_person: rad.mottagare_person ?? null,
+        halsning: rad.halsning ?? null,
+        stycken: styckenForBrev(rad),
+        krav: lasSparadeKrav(rad.krav),
+        mall_id: rad.mall_id ?? null,
+        font_id: rad.font_id ?? null,
+        language: brevSprak(rad.language),
+        tonality: rad.tonality,
+        cv_id: rad.cv_id ?? null,
+        forberett_at: rad.forberett_at ?? null,
+      }}
+      data={data}
+      html={html}
+      gammalMallNamn={rad.mall_id ? null : (gammal ?? 'Klassisk')}
+      isLocked={isLocked}
+      harBetalt={harBetalt}
+      kanLaddaNer={kanLaddaNer}
+      sokt={s ? { id: s.id, datum: s.applied_at } : null}
+      kvot={{ kvar: kvot.kvar, nastaNu: kvot.nastaGratisbrev }}
+      klart={klart === '1'}
+      flik={arFlik(flik) ? flik : null}
+    />
+  )
 }

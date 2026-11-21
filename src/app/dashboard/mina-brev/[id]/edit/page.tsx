@@ -1,21 +1,9 @@
 /**
- * Redigeringssidan är en server component, av samma skäl som brevets egen
- * sida: brevet är LCP-elementet och hämtades förut på klienten, efter
- * hydrering. Nu står det i första HTML.
+ * Den gamla redigeringsrutten. Texten ändras numera i Brevet, fliken Texten.
  */
-import { redirect } from 'next/navigation';
-import { getLetterForUser } from '../../getLetterForUser';
-import EditLetterClient from './EditLetterClient';
+import { redirect } from 'next/navigation'
 
-export default async function EditLetterPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const { user, letter } = await getLetterForUser(id);
-
-  if (!user) redirect('/login');
-
-  return <EditLetterClient id={id} initialLetter={letter} />;
+export default async function GammalRedigering({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  redirect(`/dashboard/mina-brev/${id}?flik=texten`)
 }

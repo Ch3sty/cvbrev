@@ -1,77 +1,126 @@
 /**
- * Skapa brev är en server component.
+ * Skriv brev (/dashboard/skapa-brev), en server component.
  *
- * Förut var hela sidan 'use client'. Innan steg 1 kunde visa något riktigt
- * behövde webbläsaren först hydrera, sedan fråga Supabase vem användaren var,
- * sedan hämta CV-listan, och parallellt med det körde CvPickerGrid en egen
- * useCvQuota som gjorde getUser, profilfråga och ännu en CV-fråga i tur och
- * ordning. Tre separata kedjor, alla seriella, alla efter att JS laddat.
+ * Sessionen, CV-listan med låsen, behörigheten, profilen som avsändare och
+ * kvoten läses här, i samma omgång som sidan renderas. Arket före
+ * skrivandet (brevhuvudet i den mall brevet kommer att få) ritas också här,
+ * så att första HTML:en redan visar det. Utan CV skickas man till
+ * CV-sidan direkt, innan något ritas (förut gjordes det i klienten).
  *
- * Nu läses sessionen och CV-listan här på servern, i samma omgång som
- * layouten redan gör sitt arbete. Första HTML som når mobilen innehåller
- * därför riktiga CV-kort i stället för en snurra.
- *
- * Premiumgraden hämtas också här, men enbart för att räkna ut vilka CV som är
- * låsta (samma getActiveCvIds som useCvQuota använde). Kvoter, brevgränser och
- * betalväggar ligger kvar där de låg: i useProfile och på servern bakom
- * generering och nedladdning. Ingen affärslogik har flyttat hit.
+ * ?cv=<id> från CV-rummet väljer CV:t brevet bygger på.
  */
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createServerClient } from '@/lib/supabase/server';
-import { getActiveCvIds } from '@/lib/cv/cv-quota';
-import { getCvGrans } from '@/lib/supabase/premiumAccess';
-import CreateLetterClient, { type InitialCv } from './CreateLetterClient';
-import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createServerClient } from '@/lib/supabase/server'
+import { getActiveCvIds } from '@/lib/cv/cv-quota'
+import { getCvGrans } from '@/lib/supabase/premiumAccess'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { BREVPROFIL_KOLUMNER } from '@/lib/letters/server'
+import { brevDataFranBrev, titelUrStrukturerad, type BrevProfil } from '@/lib/letters/brevData'
+import { brevKvot, brevKvotEfterSkrivning } from '@/lib/letters/brevKvot'
+import { startmallForBrev } from '@/lib/letters/brevRegler'
+import { renderBrevHtml } from '@/lib/letters/brevmall'
+import SkrivBrev, { type SkrivCv } from '@/components/brev3/arbete/SkrivBrev'
+import { tomtArk } from '@/components/brev3/arbete/arkHjalp'
+import { SKRIV, TONER, type TonId } from '@/components/brev3/arbete/texter'
 
-export default async function CreateLetterPage() {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
+interface CvRad {
+  id: string
+  file_name: string | null
+  created_at: string
+  mall: string | null
+  titel: string | null
+}
 
-  const user = await hamtaVerifieradAnvandare();
+export default async function SkrivBrevSida({ searchParams }: { searchParams: Promise<{ cv?: string }> }) {
+  const { cv: cvParam } = await searchParams
+  const user = await hamtaVerifieradAnvandare()
+  if (!user) redirect('/login')
 
-  if (!user) {
-    redirect('/login');
-  }
+  const supabase = createServerClient({ cookies: await cookies() })
 
-  // Två parallella frågor. CV-listan är det steg 1 faktiskt renderar,
-  // prenumerationsgraden behövs bara för låsmarkeringen på korten.
-  let cvRows: InitialCv[] = [];
-  let tier: 'free' | 'premium' = 'free';
+  // Tre frågor parallellt. Inte select('*') på CV:na: cv_text är hela CV:ts
+  // brödtext; mallen och titeln läses ur structured_data med JSON-sökväg.
+  const [cvRes, grans, profilRes] = await Promise.all([
+    supabase
+      .from('cv_texts')
+      .select('id, file_name, created_at, mall:structured_data->bygge->>mall, titel:structured_data->personalInfo->>title')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false }),
+    getCvGrans(supabase, user.id),
+    supabase.from('profiles').select(`${BREVPROFIL_KOLUMNER}, preferred_tonality`).eq('id', user.id).maybeSingle(),
+  ])
 
-  try {
-    const [cvRes, grans] = await Promise.all([
-      supabase
-        .from('cv_texts')
-        // Inte select('*'): cv_text är hela CV:ts brödtext och skickades förut
-        // med i svaret trots att väljaren bara visar filnamn och datum.
-        .select('id, file_name, created_at')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false }),
-      // Behörigheten via premiumAccess: engångsköp i premium_grants och admin
-      // räknas, inte bara profiles.subscription_tier.
-      getCvGrans(supabase, user.id),
-    ]);
+  const rader = ((cvRes.data ?? []) as unknown as CvRad[]).filter((r) => r && r.id)
+  if (rader.length === 0) redirect('/dashboard/profil/cv?reason=cv-required')
 
-    cvRows = (cvRes.data ?? []) as InitialCv[];
+  const harBetalt = grans.harBetalt
+  // Gratis: de två senaste CV:na är aktiva, resten låsta (samma regel som förut).
+  const aktiva = getActiveCvIds(
+    rader.map((r) => ({ id: r.id, created_at: r.created_at })),
+    grans.maxCvs
+  )
+  const cvs: SkrivCv[] = rader.map((r) => ({
+    id: r.id,
+    namn: (r.file_name ?? 'CV').replace(/\.[^.]+$/, ''),
+    datum: r.created_at,
+    mall: typeof r.mall === 'string' && r.mall ? r.mall : null,
+    titel: titelUrStrukturerad({ personalInfo: { title: r.titel } }),
+    last: !aktiva.has(r.id),
+  }))
+  const startCv = cvs.find((c) => c.id === cvParam && !c.last) ?? cvs.find((c) => !c.last) ?? cvs[0]
 
-    tier = grans.harBetalt ? 'premium' : 'free';
-  } catch (error) {
-    // Går hämtningen fel ska flödet ändå gå att öppna. Klienten hämtar om.
-    console.error('Fel vid server-hämtning av CV-listan:', error);
-  }
+  const profilRad = (profilRes.data ?? null) as (BrevProfil & {
+    weekly_letter_count?: number | null
+    weekly_letter_first_used_at?: string | null
+    preferred_tonality?: string | null
+  }) | null
+  const nu = new Date()
+  const kvotNu = brevKvot(profilRad, harBetalt, nu)
+  const kvotEfter = harBetalt ? null : brevKvotEfterSkrivning(profilRad, nu)
 
-  // Free: de två senaste CV:na är aktiva, resten låsta. Identisk regel som
-  // useCvQuota körde på klienten, bara flyttad hit.
-  const maxCvs = tier === 'premium' ? 50 : 2;
-  const activeIds = getActiveCvIds(cvRows, maxCvs);
-  const lockedCvIds = cvRows.filter((cv) => !activeIds.has(cv.id)).map((cv) => cv.id);
+  // Förvald ton ur profilen, som förut. Auto bara för betalande.
+  const tonIds: string[] = TONER.map((t) => t.id)
+  const pref = profilRad?.preferred_tonality ?? null
+  const startTon: TonId = pref && (tonIds.includes(pref) || (pref === 'auto' && harBetalt)) ? (pref as TonId) : 'balanced'
+
+  const profil: BrevProfil | null = profilRad
+    ? {
+        full_name: profilRad.full_name,
+        email: profilRad.email,
+        contact_email: profilRad.contact_email,
+        phone: profilRad.phone,
+        location: profilRad.location,
+        include_phone_in_letters: profilRad.include_phone_in_letters,
+        include_location_in_letters: profilRad.include_location_in_letters,
+        titel: startCv.titel,
+      }
+    : null
+
+  const idag = nu.toISOString()
+  const mallId = startmallForBrev(startCv.mall, harBetalt)
+  const data = brevDataFranBrev(
+    { company: SKRIV.arbetsgivaren, job_title: SKRIV.tjanstenDuSoker, language: 'sv', body_stycken: [], created_at: idag },
+    profil,
+    { email: user.email ?? null }
+  )
+  const tomtArkHtml = tomtArk(renderBrevHtml(mallId, data), true)
 
   return (
-    <CreateLetterClient
-      initialCvs={cvRows}
-      initialLockedCvIds={lockedCvIds}
-      initialIsPremium={tier === 'premium'}
+    <SkrivBrev
+      cvs={cvs}
+      startCvId={startCv.id}
+      harBetalt={harBetalt}
+      kvot={{
+        kvar: kvotNu.kvar,
+        nastaOmSkrivet: kvotEfter?.nastaGratisbrev ?? null,
+        nastaNu: kvotNu.nastaGratisbrev,
+      }}
+      startTon={startTon}
+      profil={profil}
+      epost={user.email ?? null}
+      tomtArkHtml={tomtArkHtml}
+      idag={idag}
     />
-  );
+  )
 }
