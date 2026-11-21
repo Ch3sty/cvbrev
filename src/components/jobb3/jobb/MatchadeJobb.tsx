@@ -25,6 +25,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } fr
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useNotification } from '@/context/notificationcontext'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
 import Topprad from '@/components/rum/Topprad'
 import {
   JobbVagg,
@@ -122,6 +123,7 @@ export default function MatchadeJobb({
   const searchParams = useSearchParams()
   const supabase = createClient()
   const { successWithMascotAndActivity } = useNotification()
+  const { refresh: refreshSummering } = useDashboardData()
 
   const lockedCvIds = useMemo(() => new Set(initialData.lockedCvIds), [initialData.lockedCvIds])
 
@@ -670,6 +672,8 @@ export default function MatchadeJobb({
       }
       if (!res.ok || !json.success) throw new Error(json.error)
       setSparLagen((p) => ({ ...p, [id]: 'sparad' }))
+      // Kom igång-brickan "Logga en tjänst du har sökt" bockas av utan omladdning.
+      void refreshSummering()
     } catch (err) {
       console.error('Kunde inte spara till Ska sökas:', err)
       setSparLagen((p) => ({ ...p, [id]: 'fel' }))
@@ -699,6 +703,7 @@ export default function MatchadeJobb({
       if (!res.ok || !json.success) throw new Error(json.error)
       setSoktLagen((p) => ({ ...p, [id]: 'sokt' }))
       capture('match_applied', { job_id: id })
+      void refreshSummering()
     } catch (err) {
       console.error('Kunde inte markera som sökt:', err)
       setSoktLagen((p) => ({ ...p, [id]: 'fel' }))
@@ -1159,7 +1164,7 @@ export default function MatchadeJobb({
                   </p>
                 ) : null}
                 <div className="mt-6">
-                  <FastFot>
+                  <FastFot rader>
                     <AnnonsFotMobil job={a} handlingar={handlingarFor(a, s.score.score)} />
                   </FastFot>
                 </div>

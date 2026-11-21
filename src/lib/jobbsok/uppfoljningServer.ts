@@ -12,7 +12,7 @@ import { skrivUppfoljningsmejl, type AiMejlResultat } from '@/lib/openai/uppfolj
 import { dagFor, idagSv } from './datum'
 import { mallAmne, sattIhop, uppfoljningsmall, valjKompetenser, type Mejl, type UppfoljningUnderlag } from './uppfoljning'
 import type { Klient } from './server'
-import type { JobApplication, Uppfoljning } from './typer'
+import type { Dag, JobApplication, Uppfoljning, UppfoljningsTyp } from './typer'
 
 export interface UnderlagOchNamn {
   underlag: UppfoljningUnderlag
@@ -22,8 +22,18 @@ export interface UnderlagOchNamn {
   kanda: { namn: string | null; telefon: string | null; epost: string | null }
 }
 
-/** Läser det mejlet byggs av: brevets språk och krav, CV:ts kompetenser och roller, namnet. */
-export async function lasUnderlag(supabase: Klient, userId: string, a: JobApplication, epost?: string | null): Promise<UnderlagOchNamn> {
+/**
+ * Läser det mejlet byggs av: brevets språk och krav, CV:ts kompetenser och
+ * roller, namnet. `moment` är sorten och intervjudagen (omgång 2); utan den
+ * blir underlaget för en obesvarad ansökan, som "Skriv om kortare" läser det.
+ */
+export async function lasUnderlag(
+  supabase: Klient,
+  userId: string,
+  a: JobApplication,
+  epost?: string | null,
+  moment: { typ: UppfoljningsTyp; momentDag: Dag | null } = { typ: 'ansokan', momentDag: null }
+): Promise<UnderlagOchNamn> {
   const [brevRes, cvRes, profilRes] = await Promise.all([
     a.letter_id
       ? supabase.from('letters').select('language, krav, body_stycken, content').eq('id', a.letter_id).eq('user_id', userId).maybeSingle()
@@ -51,6 +61,8 @@ export async function lasUnderlag(supabase: Klient, userId: string, a: JobApplic
       kompetenser: valjKompetenser(skills, roller, krav.map((k) => k.krav)),
       krav: krav.map((k) => k.krav),
       sprak: brev?.language === 'en' ? 'en' : 'sv',
+      typ: moment.typ,
+      momentDag: moment.typ === 'ansokan' ? null : moment.momentDag,
     },
     namn,
     kanda: { namn, telefon: profil?.phone ?? null, epost: epost ?? null },
@@ -69,6 +81,7 @@ export async function skrivUtkast(u: UnderlagOchNamn): Promise<Utkast> {
   if (ai.mejl) {
     // Ämnesraden är alltid mallens ("Min ansökan till tjänsten som ...", rökprovet 2026-11-21):
     // AI:ns egna ämnesrader blev rubrikaktiga ("Uppföljning av ansökan Ekonomiassistent").
+    // mallAmne läser sorten ur underlaget, så utkastTyp känner igen raden (omgång 2).
     return { mejl: { subject: mallAmne(u.underlag), body: sattIhop(ai.mejl.stycken, u.underlag.sprak, u.namn) }, kalla: 'ai', ai }
   }
   return { mejl: uppfoljningsmall(u.underlag, u.namn), kalla: 'mall', ai }

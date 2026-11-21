@@ -22,7 +22,6 @@ import {
   FastFot,
   StorKnapp,
   LitenKnapp,
-  IkonKnapp,
   GlasKnapp,
   TextLank,
   Chip,
@@ -138,6 +137,7 @@ import {
   IkonDokument,
 } from '@/components/jobb3/kit'
 import { ArkDemo, BrytDemo, TemaVal, VaxelDemo } from './KitKlient'
+import { AnnonsFotDemo } from './AnnonsFotDemo'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Jobbsökets kit', robots: { index: false, follow: false } }
@@ -327,11 +327,10 @@ export default function Jobb3KitSida() {
             <LitenKnapp ikon={<IkonBock />}>Intervju genomförd</LitenKnapp>
             <LitenKnapp variant="streckad">Annat</LitenKnapp>
             <LitenKnapp variant="kop">Köpvariant (bara betalväggar)</LitenKnapp>
-            <IkonKnapp etikett="Spara till Ska sökas">
-              <IkonBokmark size={22} />
-            </IkonKnapp>
             <TextLank href="#x">Markera som sökt</TextLank>
           </Rad>
+          {/* Annonsens fot på telefon i fem lägen (Jobbsöket omgång 2), ersätter ikonknappen. Döljs från 1280 px. */}
+          <AnnonsFotDemo />
           <Rad>
             <div style={{ width: 340 }}>
               <LitenKnapp storlek={52} bred ikon={<IkonPlus size={20} />}>

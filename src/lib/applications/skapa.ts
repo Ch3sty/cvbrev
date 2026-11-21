@@ -8,6 +8,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { JobApplication } from './status';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 const VALID_CHANNELS = ['ad', 'unsolicited', 'network'];
 
@@ -108,6 +109,10 @@ export async function skapaSoktTjanst(
   if (eventError) {
     console.error('Fel vid skapande av ansökt-händelse:', eventError);
   }
+
+  // Kom igång-brickan "Logga en tjänst du har sökt" (Jobbsöket omgång 2).
+  // Mäter onboarding_step_completed första gången och kastar aldrig.
+  void markeraBricka(userId, 'sokt_tjanst');
 
   return { ok: true, data: { ...(created as JobApplication), current_status: 'applied' }, alreadyExists: false };
 }

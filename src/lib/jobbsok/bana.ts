@@ -157,7 +157,12 @@ export function bana(tjanster: readonly TjanstLage[], skaSokas: readonly SkaSoka
       brickor: intervjuOrdning.map((t) => ({
         ...brickaFor(t),
         tyst: t.tyst,
-        etikett: t.intervju?.lage === 'bokad' ? intervjuEtikettKort(t.intervju.tid) : null,
+        // En tyst intervju eller ett tyst provjobb får samma etikett som vid Sökt.
+        etikett: t.tyst
+          ? `tyst ${t.dagarTyst} dagar`
+          : t.intervju?.lage === 'bokad'
+            ? intervjuEtikettKort(t.intervju.tid)
+            : null,
       })),
       undertext: intervjuDelar.length ? intervjuDelar.join(', ') : 'Ingen just nu',
     },

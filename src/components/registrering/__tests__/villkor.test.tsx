@@ -162,28 +162,29 @@ describe('kriterium 15: menyn är identisk oavsett val', () => {
 /* ------------------------------------------------------------ 16 och bredden */
 
 describe('kriterium 16: Kom igång per val för gratiskonton', () => {
+  // Loggningen av en sökt tjänst tillkom i Jobbsöket omgång 2 (byggspecen 1.3).
   it('listorna per val enligt specen', () => {
     expect(KOM_IGANG_LISTA_GRATIS).toEqual({
-      tester: ['matris_grund', 'personlighet', 'intervjuprov', 'analys_gratis', 'brev', 'jobbmatchning'],
-      intervju: ['intervjuprov', 'personlighet', 'matris_grund', 'analys_gratis', 'brev', 'jobbmatchning'],
-      cv: ['analys_gratis', 'mall', 'brev', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
-      brev: ['brev', 'analys_gratis', 'mall', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
-      jobb: ['jobbmatchning', 'analys_gratis', 'brev', 'mall', 'matris_grund', 'intervjuprov'],
+      tester: ['matris_grund', 'personlighet', 'intervjuprov', 'sokt_tjanst', 'analys_gratis', 'brev', 'jobbmatchning'],
+      intervju: ['intervjuprov', 'personlighet', 'matris_grund', 'sokt_tjanst', 'analys_gratis', 'brev', 'jobbmatchning'],
+      cv: ['analys_gratis', 'mall', 'brev', 'sokt_tjanst', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+      brev: ['brev', 'analys_gratis', 'mall', 'sokt_tjanst', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+      jobb: ['jobbmatchning', 'sokt_tjanst', 'analys_gratis', 'brev', 'mall', 'matris_grund', 'intervjuprov'],
     })
   })
 
-  it('cv_upp och profil står aldrig i en gratislista per val, och varje lista har sex brickor', () => {
+  it('cv_upp och profil står aldrig i en gratislista per val, och varje lista har sju brickor', () => {
     for (const intent of INTENT_ORDNING) {
       const lista = KOM_IGANG_LISTA_GRATIS[intent]
       expect(lista).not.toContain('cv_upp')
       expect(lista).not.toContain('profil')
-      expect(lista).toHaveLength(6)
-      expect(new Set(lista).size).toBe(6)
+      expect(lista).toHaveLength(7)
+      expect(new Set(lista).size).toBe(7)
     }
   })
 
   it('valet ändrar bara gratislistan; betalande och konton utan val har dagens listor', () => {
-    expect(listaFor(null, null)).toEqual(['profil', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'])
+    expect(listaFor(null, null)).toEqual(['profil', 'sokt_tjanst', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'])
     expect(listaFor('tester', 'cv')[0]).toBe('profil')
     expect(listaFor(null, 'tester')[0]).toBe('matris_grund')
   })
@@ -195,12 +196,13 @@ describe('kriterium 16: Kom igång per val för gratiskonton', () => {
       'Nivåkollen',
       'Personlighetstestet',
       'Intervjuprovet',
+      'Logga en tjänst du har sökt',
       'Analysera ditt CV',
       'Skriv ett personligt brev',
       'Se tre matchade jobb',
     ])
     expect(lage.nasta).toBe('matris_grund')
-    expect(komIgangRadText(lage)).toBe('0 av 6 provade, allt ingår gratis')
+    expect(komIgangRadText(lage)).toBe('0 av 7 provade, allt ingår gratis')
   })
 
   it('undertexterna säger vad som ingår gratis', () => {
@@ -215,6 +217,8 @@ describe('kriterium 16: Kom igång per val för gratiskonton', () => {
     expect(utanforIntent('personlighet', 'tester')).toBe(false)
     expect(utanforIntent('matris_grund', 'cv')).toBe(true)
     expect(utanforIntent('mall', null)).toBe(false)
+    expect(utanforIntent('sokt_tjanst', 'tester')).toBe(true)
+    expect(utanforIntent('sokt_tjanst', 'jobb')).toBe(false)
   })
 })
 

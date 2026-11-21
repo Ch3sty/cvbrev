@@ -12,6 +12,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Topprad from '@/components/rum/Topprad'
 import { useNotification } from '@/context/notificationcontext'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
 import {
   JobbVagg,
   GlasKnapp,
@@ -32,6 +33,7 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   const sok = useSearchParams()
   const adress = tolkaSoktaAdress(new URLSearchParams(sok.toString()))
   const { successWithActivity, success } = useNotification()
+  const { refresh: refreshSummering } = useDashboardData()
 
   const [loggaOppen, setLoggaOppen] = useState(false)
   const [loggaForifyllt, setLoggaForifyllt] = useState<LoggaForifyllt | null>(null)
@@ -76,6 +78,9 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
       success('Sparad under Ska sökas.', 3000)
     }
     router.refresh()
+    // Kom igång-brickan "Logga en tjänst du har sökt": summeringen ligger i
+    // klientens DashboardDataContext och läses inte om av router.refresh().
+    void refreshSummering()
   }
 
   const vy = adress.vy

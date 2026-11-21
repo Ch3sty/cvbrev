@@ -278,6 +278,23 @@ export function IlluBrickaOga({ className, title }: ScenProps) {
   )
 }
 
+/** Lista med tre rader, den översta avbockad. */
+export function IlluBrickaSokt({ className, title }: ScenProps) {
+  return (
+    <Scen w={240} h={200} className={className} title={title}>
+      <g stroke="currentColor" strokeWidth={4}>
+        <rect x="36" y="26" width="168" height="148" rx="14" fill={ILLU.fill} />
+        <path d="M96 66h84M96 102h84M96 138h52" />
+        <circle cx="68" cy="102" r="10" />
+        <circle cx="68" cy="138" r="10" />
+      </g>
+      <g stroke={ILLU.accent} strokeWidth={6}>
+        <path d="M58 66l8 8 14-16" />
+      </g>
+    </Scen>
+  )
+}
+
 /* Håller lintern nöjd med de roller som inte används i alla scener. */
 void INK_2
 void ACCENT_INK

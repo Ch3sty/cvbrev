@@ -5,9 +5,14 @@
  */
 import {
   antalText,
+  beskedText,
   dagarMellan,
   intervjuText,
   klockslag,
+  kortDag,
+  langDag,
+  momentDag,
+  momentOrd,
   narText,
   ordtal,
   sedanDuTittade,
@@ -86,8 +91,20 @@ export function goraMobil(h: AttGoraHandling, tjanster: readonly TjanstLage[]): 
       const forsta = h.text.split('. ')[0].replace(/\.$/, '')
       return { rubrik: 'Förbered intervjun', text: `${t?.company ?? ''}. ${forsta}.`.replace(/^\. /, '') }
     }
-    case 'folj_upp':
-      return { text: t?.harUtkast ? 'Utkastet till mejlet är skrivet.' : 'Ett kort mejl brukar ge besked.' }
+    case 'folj_upp': {
+      if (t?.harUtkast) return { text: 'Utkastet till mejlet är skrivet.' }
+      // Efter intervju eller provjobb (byggspec 2.3, läge 1): "Intervjun var den 20 november."
+      if (t && (t.foljUppTyp === 'intervju' || t.foljUppTyp === 'provjobb')) {
+        return { text: `${momentOrd(t).stor} var den ${langDag(momentDag(t))}.` }
+      }
+      return { text: 'Ett kort mejl brukar ge besked.' }
+    }
+    case 'satt_intervjutid': {
+      // Kallelse utan tid, två dagar efter kallelsen (byggspec 2.3, läge 2).
+      const kallad = t?.intervju?.kalladDag
+      const text = t ? `${t.company}.${kallad ? ` Kallad ${kortDag(kallad)}.` : ''}` : undefined
+      return { rubrik: 'Sätt tiden för intervjun', text }
+    }
     default:
       return {}
   }
@@ -145,6 +162,16 @@ export function tjanstRad(t: TjanstLage, idag: Dag): TjanstRadData {
     if (i.lage === 'utan_tid') {
       const rad = 'Kallad till intervju. Sätt tiden när du vet den.'
       return { ...bas, text: rad, textMobil: mobil('Kallad till intervju.'), steg: { steg: 3 }, status: { status: 'intervju', text: 'Kallad' } }
+    }
+    // Genomförd intervju eller provjobb utan besked på sju dagar (byggspec 2.3, läge 1).
+    if (t.tyst) {
+      return {
+        ...bas,
+        text: beskedText(t),
+        textMobil: mobil(`${momentOrd(t).stor} var den ${langDag(momentDag(t))}.`),
+        steg: { steg: 3, tyst: true },
+        status: { status: 'folj-upp' },
+      }
     }
     const rad = intervjuText(t, idag)
     return { ...bas, text: rad, textMobil: mobil(rad.split('. ')[0] + '.'), steg: { steg: 3 }, status: { status: 'vantar-besked' } }

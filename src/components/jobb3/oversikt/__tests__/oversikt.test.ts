@@ -20,6 +20,8 @@ function tjanst(p: Partial<TjanstLage>): TjanstLage {
     station: 'sokt',
     avslutad: false,
     senasteAktivitet: '2026-11-06',
+    foljUppTyp: 'ansokan',
+    tystGrans: 12,
     tyst: false,
     dagarTyst: 15,
     tystSedan: '2026-11-18',
@@ -32,6 +34,37 @@ function tjanst(p: Partial<TjanstLage>): TjanstLage {
     ton: 'vantar',
     ...p,
   } as TjanstLage
+}
+
+/** Genomförd intervju eller provjobb den 10 november, tyst i elva dagar. */
+function genomford(status: 'interview_completed' | 'trial_work_completed', typ: 'intervju' | 'provjobb', p: Partial<TjanstLage> = {}): TjanstLage {
+  return tjanst({
+    status,
+    station: 'intervju',
+    senasteAktivitet: '2026-11-10',
+    foljUppTyp: typ,
+    tystGrans: 7,
+    tyst: true,
+    dagarTyst: 11,
+    tystSedan: '2026-11-17',
+    ton: 'intervju',
+    intervju: { lage: 'vantar_besked', tid: '2026-11-10T09:00:00Z', harKlockslag: true, plats: null, handelseId: 'h', dag: '2026-11-10', kalladDag: '2026-11-05' },
+    ...p,
+  })
+}
+
+/** Kallad den 12 november utan tid. */
+function kalladUtanTid(): TjanstLage {
+  return tjanst({
+    status: 'interview_invited',
+    station: 'intervju',
+    company: 'Umeå Energi',
+    senasteAktivitet: '2026-11-12',
+    foljUppTyp: null,
+    tystGrans: 12,
+    ton: 'intervju',
+    intervju: { lage: 'utan_tid', tid: null, harKlockslag: false, plats: null, handelseId: 'h', dag: null, kalladDag: '2026-11-12' },
+  })
 }
 
 describe('tjanstRad', () => {
@@ -49,13 +82,36 @@ describe('tjanstRad', () => {
     const r = tjanstRad(
       tjanst({
         station: 'intervju',
-        intervju: { lage: 'bokad', tid: '2026-11-24T09:00:00Z', harKlockslag: true, plats: null, handelseId: 'h', dag: '2026-11-24' },
+        intervju: { lage: 'bokad', tid: '2026-11-24T09:00:00Z', harKlockslag: true, plats: null, handelseId: 'h', dag: '2026-11-24', kalladDag: null },
       }),
       IDAG
     )
     expect(r.text).toBe('Intervjun är på tisdag 10.00.')
     expect(r.status).toEqual({ status: 'intervju', text: 'Intervju bokad' })
     expect(r.steg?.steg).toBe(3)
+  })
+
+  it('genomförd intervju utan besked på sju dagar: Följ upp, tyst steg och länk till uppföljningen (omgång 2)', () => {
+    const r = tjanstRad(genomford('interview_completed', 'intervju'), IDAG)
+    expect(r.text).toBe('Intervjun var den 10 november. Fråga när du kan vänta besked.')
+    expect(r.textMobil).toBe('Ekonomiassistent. Intervjun var den 10 november.')
+    expect(r.steg).toEqual({ steg: 3, tyst: true })
+    expect(r.status).toEqual({ status: 'folj-upp' })
+    expect(r.href).toContain('steg=folj-upp')
+    expect(r.text).not.toMatch(/har inte hört/)
+  })
+
+  it('genomfört provjobb utan besked: ordet provjobbet', () => {
+    const r = tjanstRad(genomford('trial_work_completed', 'provjobb'), IDAG)
+    expect(r.text).toBe('Provjobbet var den 10 november. Fråga när du kan vänta besked.')
+    expect(r.textMobil).toBe('Ekonomiassistent. Provjobbet var den 10 november.')
+  })
+
+  it('genomförd intervju före sju dagar: som förut, väntar besked', () => {
+    const r = tjanstRad(genomford('interview_completed', 'intervju', { tyst: false, dagarTyst: 3 }), IDAG)
+    expect(r.text).toBe('Intervju genomförd 10 november. Väntar på besked.')
+    expect(r.status).toEqual({ status: 'vantar-besked' })
+    expect(r.steg).toEqual({ steg: 3 })
   })
 
   it('nyss sökt: i dag och i går i stället för noll och en dag', () => {
@@ -139,6 +195,15 @@ describe('Att göra nu', () => {
   it('telefonens korta rader', () => {
     expect(goraMobil(h('forbered_intervju'), [tjanst({ company: 'Umeå Energi' })])).toEqual({ rubrik: 'Förbered intervjun', text: 'Umeå Energi. Tre av sju frågor övade.' })
     expect(goraMobil(h('folj_upp'), [tjanst({ harUtkast: true })]).text).toBe('Utkastet till mejlet är skrivet.')
+    expect(goraMobil(h('folj_upp'), [tjanst({})]).text).toBe('Ett kort mejl brukar ge besked.')
+  })
+  it('telefonens rad för Fråga om besked efter intervju och provjobb, med och utan utkast (omgång 2)', () => {
+    expect(goraMobil(h('folj_upp'), [genomford('interview_completed', 'intervju')])).toEqual({ text: 'Intervjun var den 10 november.' })
+    expect(goraMobil(h('folj_upp'), [genomford('trial_work_completed', 'provjobb')])).toEqual({ text: 'Provjobbet var den 10 november.' })
+    expect(goraMobil(h('folj_upp'), [genomford('interview_completed', 'intervju', { harUtkast: true })])).toEqual({ text: 'Utkastet till mejlet är skrivet.' })
+  })
+  it('telefonens kort för Sätt tiden efter en kallelse utan tid (omgång 2)', () => {
+    expect(goraMobil(h('satt_intervjutid'), [kalladUtanTid()])).toEqual({ rubrik: 'Sätt tiden för intervjun', text: 'Umeå Energi. Kallad 12 nov.' })
   })
 })
 

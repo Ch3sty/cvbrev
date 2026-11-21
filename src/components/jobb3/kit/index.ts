@@ -10,7 +10,6 @@ export { JOBB_FLIKAR, TILLBAKA_JOBBSOKET, jobbFlikForPath, type JobbFlik, type J
 export {
   StorKnapp,
   LitenKnapp,
-  IkonKnapp,
   GlasKnapp,
   TextLank,
   Chip,

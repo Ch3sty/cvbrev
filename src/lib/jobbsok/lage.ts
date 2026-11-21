@@ -4,15 +4,19 @@
  */
 import { NO_RESPONSE_NUDGE_DAYS, statusHasResponse, type ApplicationEventType } from '@/lib/applications/status'
 import { dagFor, dagarMellan, idagSv, klockslag, plusDagar } from './datum'
-import type {
-  BrickTon,
-  Dag,
-  Handelse,
-  IntervjuInfo,
-  Station,
-  TjanstLage,
-  TjanstMedHistorik,
-  Uppfoljning,
+import { utkastGaller } from './utkastTyp'
+import {
+  INTERVJU_BESKED_DAGAR,
+  KALLELSE_UTAN_TID_DAGAR,
+  type BrickTon,
+  type Dag,
+  type Handelse,
+  type IntervjuInfo,
+  type Station,
+  type TjanstLage,
+  type TjanstMedHistorik,
+  type Uppfoljning,
+  type UppfoljningsTyp,
 } from './typer'
 
 /* ------------------------------------------------------------- brickan */
@@ -103,6 +107,7 @@ export function intervjuInfo(
     harKlockslag: klockslag(tid) !== null,
     plats: kallelse?.interview_place ?? null,
     handelseId: kallelse?.id ?? null,
+    kalladDag: kallelse?.occurred_at ?? null,
   }
   if (status === 'interview_invited') {
     if (!tid || !tidDag) return { ...bas, lage: 'utan_tid', dag: null }
@@ -138,20 +143,40 @@ export function senasteAktivitet(t: TjanstMedHistorik): Dag {
 }
 
 /**
- * Kan tjänsten bli tyst? Öppna tjänster som väntar på arbetsgivaren. Inte
- * avslutade, inte erbjudanden och aldrig en tjänst i intervjusteget
- * (kallad, med eller utan tid, genomförd intervju eller genomfört provjobb).
- *
- * Spärren för intervjusteget (beslut 14, docs/beslut-jobbsoket-2026-11-21.md)
- * gäller tills intervjulägena har egna texter och eget utkast (Jobbsöket
- * omgång 2). I dag skulle "har inte hört något" och utkastet för en obesvarad
- * ansökan gå till en arbetsgivare som redan har kallat eller intervjuat.
- * `intervju` står kvar i signaturen för omgång 2.
+ * Sorten uppföljning som passar tjänsten nu (Jobbsöket omgång 2, beslut 9
+ * och 14). Avslutade och erbjudanden: ingen. I intervjusteget bara efter en
+ * genomförd intervju eller ett genomfört provjobb (läget vantar_besked);
+ * kallad, med eller utan tid, eller med tiden passerad: ingen. Allt annat
+ * (ingen status, sökt, inget svar): en obesvarad ansökan.
  */
-export function kanBliTyst(status: ApplicationEventType | null, _intervju: IntervjuInfo | null): boolean {
-  if (arAvslutad(status) || status === 'offer_received' || status === 'accepted') return false
-  if (status && INTERVJU_STATUS.includes(status)) return false
-  return true
+export function foljUppTyp(status: ApplicationEventType | null, intervju: IntervjuInfo | null): UppfoljningsTyp | null {
+  if (arAvslutad(status) || status === 'offer_received' || status === 'accepted') return null
+  if (status && INTERVJU_STATUS.includes(status)) {
+    if (intervju?.lage !== 'vantar_besked') return null
+    return status === 'trial_work_completed' ? 'provjobb' : 'intervju'
+  }
+  return 'ansokan'
+}
+
+/** Gränsen för tystnad: tolv dagar för en ansökan (och utan sort), sju efter intervju eller provjobb. */
+export function tystGransFor(typ: UppfoljningsTyp | null): number {
+  return typ === 'intervju' || typ === 'provjobb' ? INTERVJU_BESKED_DAGAR : NO_RESPONSE_NUDGE_DAYS
+}
+
+/**
+ * Kan tjänsten bli tyst? När det finns något att följa upp (foljUppTyp).
+ * Spärren som höll hela intervjusteget borta från tystnaden (omgång 1) är
+ * ersatt av intervjulägena: en genomförd intervju eller ett provjobb kan bli
+ * tyst efter sju dagar, en kallelse aldrig.
+ */
+export function kanBliTyst(status: ApplicationEventType | null, intervju: IntervjuInfo | null): boolean {
+  return foljUppTyp(status, intervju) !== null
+}
+
+/** Ska "Sätt tiden" tas upp? Läget utan_tid och kalladDag + KALLELSE_UTAN_TID_DAGAR <= idag. */
+export function skaSattaTiden(i: IntervjuInfo | null, idag: Dag): boolean {
+  if (!i || i.lage !== 'utan_tid' || !i.kalladDag) return false
+  return plusDagar(i.kalladDag, KALLELSE_UTAN_TID_DAGAR) <= idag
 }
 
 /* ------------------------------------------------------------ helheten */
@@ -172,7 +197,9 @@ export function tjanstLage(t: TjanstMedHistorik, nu: Date = new Date()): TjanstL
   const intervju = intervjuInfo(status, handelser, nu)
   const aktivitet = senasteAktivitet(t)
   const dagarTyst = Math.max(0, dagarMellan(aktivitet, idag))
-  const tyst = kanBliTyst(status, intervju) && dagarTyst >= NO_RESPONSE_NUDGE_DAYS
+  const typ = foljUppTyp(status, intervju)
+  const tystGrans = tystGransFor(typ)
+  const tyst = typ !== null && dagarTyst >= tystGrans
   const station = stationFor(status)
   const avslutad = arAvslutad(status)
   const lage: TjanstLage = {
@@ -187,11 +214,13 @@ export function tjanstLage(t: TjanstMedHistorik, nu: Date = new Date()): TjanstL
     station,
     avslutad,
     senasteAktivitet: aktivitet,
+    foljUppTyp: typ,
+    tystGrans,
     tyst,
     dagarTyst,
-    tystSedan: plusDagar(aktivitet, NO_RESPONSE_NUDGE_DAYS),
+    tystSedan: plusDagar(aktivitet, tystGrans),
     intervju,
-    harUtkast: t.uppfoljningar.some((u) => !u.sent_at && !!u.body),
+    harUtkast: t.uppfoljningar.some((u) => utkastGaller(u, typ)),
     senastUppfoljd: senastUppfoljd(t.uppfoljningar),
     harBrev: !!a.letter_id,
     letterId: a.letter_id,
@@ -208,7 +237,7 @@ export function harFattSvar(t: TjanstMedHistorik): boolean {
   return t.handelser.some((h) => h.event_type !== 'applied' && h.event_type !== 'no_response')
 }
 
-/** Nästa påminnelse efter en skickad uppföljning: tolv dagar senare (F5). */
-export function nastaPaminnelse(skickad: Dag): Dag {
-  return plusDagar(skickad, NO_RESPONSE_NUDGE_DAYS)
+/** Nästa påminnelse efter en skickad uppföljning: tolv dagar senare efter en ansökan, sju efter intervju eller provjobb. */
+export function nastaPaminnelse(skickad: Dag, typ: UppfoljningsTyp | null = 'ansokan'): Dag {
+  return plusDagar(skickad, tystGransFor(typ))
 }

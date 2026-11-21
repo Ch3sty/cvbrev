@@ -84,15 +84,6 @@ export function LitenKnapp({ storlek = 44, variant = 'vit', bred, ikon, children
   )
 }
 
-/** Ikonknappen i annonsens fot på telefon (Spara, Markera som sökt): 56 x 56. */
-export function IkonKnapp({ children, etikett, ...p }: Omit<KnappBas, 'aria-label'> & { etikett: string }) {
-  return (
-    <Knapp klass="j3-liten ikon" aria-label={etikett} {...p}>
-      {children}
-    </Knapp>
-  )
-}
-
 /** Glasknappen i väggen ("Logga sökt tjänst", "Redigera"). */
 export function GlasKnapp({ ikon, children, ...p }: KnappBas & { ikon?: ReactNode }) {
   return (

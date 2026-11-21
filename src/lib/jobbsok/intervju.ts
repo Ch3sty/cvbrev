@@ -7,6 +7,7 @@ import { NIVA_ETIKETTER } from '@/components/artiklar/intervjuprov/intervjuprov-
 import { saknadesFras, type ProvSammanfattning } from '@/lib/intervju/nasta'
 import type { BrevKrav } from '@/lib/letters/brevmall/typer'
 import { dagFor, dagarMellan, idagSv, klockslag, langDag, plusDagar, veckodagNamn } from './datum'
+import { skaSattaTiden } from './lage'
 import type { Dag, FragaLage, Forberedelse, IntervjuLage, TjanstLage } from './typer'
 
 /* --------------------------------------------------- intervjuer på gång */
@@ -42,7 +43,7 @@ function omDagar(n: number): string {
   return `om ${n} dagar`
 }
 
-/** Texten under namnet i "Intervjuer på gång" och listan. */
+/** Texten under namnet i "Intervjuer på gång" och listan. Beror aldrig på `tyst`. */
 export function intervjuText(t: TjanstLage, idag: Dag): string {
   const i = t.intervju
   if (!i) return ''
@@ -54,10 +55,38 @@ export function intervjuText(t: TjanstLage, idag: Dag): string {
     case 'hur_gick':
       return `Intervjun var ${veckodagNamn(i.dag as Dag)} ${langDag(i.dag as Dag)}. Hur gick den?`
     case 'utan_tid':
-      return 'Kallad till intervju. Sätt tiden när du vet den.'
+      return skaSattaTiden(i, idag) && i.kalladDag
+        ? `Kallad till intervju den ${langDag(i.kalladDag)}. Sätt tiden, så påminner vi före intervjun.`
+        : 'Kallad till intervju. Sätt tiden när du vet den.'
     case 'vantar_besked':
+      if (t.status === 'trial_work_completed') {
+        return i.dag ? `Provjobb genomfört ${langDag(i.dag)}. Väntar på besked.` : 'Provjobb genomfört. Väntar på besked.'
+      }
       return i.dag ? `Intervju genomförd ${langDag(i.dag)}. Väntar på besked.` : 'Intervju genomförd. Väntar på besked.'
   }
+}
+
+/** Är momentet ett provjobb (sorten, annars statusen)? */
+function arProvjobb(t: Pick<TjanstLage, 'foljUppTyp' | 'status'>): boolean {
+  return t.foljUppTyp === 'provjobb' || (t.foljUppTyp === null && t.status === 'trial_work_completed')
+}
+
+/**
+ * Ordet för momentet i rummets texter (byggspec 2.3): `stor` "Intervjun" eller
+ * "Provjobbet", `liten` "intervjun" eller "provjobbet".
+ */
+export function momentOrd(t: Pick<TjanstLage, 'foljUppTyp' | 'status'>): { stor: string; liten: string } {
+  return arProvjobb(t) ? { stor: 'Provjobbet', liten: 'provjobbet' } : { stor: 'Intervjun', liten: 'intervjun' }
+}
+
+/** Dagen för momentet: intervjudagen, och senaste aktivitet om den saknas (ska inte hända). */
+export function momentDag(t: Pick<TjanstLage, 'intervju' | 'senasteAktivitet'>): Dag {
+  return t.intervju?.dag ?? t.senasteAktivitet
+}
+
+/** Raden för en tyst tjänst efter intervju eller provjobb: "Intervjun var den 20 november. Fråga när du kan vänta besked." */
+export function beskedText(t: TjanstLage): string {
+  return `${momentOrd(t).stor} var den ${langDag(momentDag(t))}. Fråga när du kan vänta besked.`
 }
 
 /**

@@ -706,13 +706,13 @@ export interface AnalyticsEvents {
   /** F3: "Markera som sökt" (eller "Sökt ändå") på en Ska sökas-rad. */
   ska_sokas_markerad_sokt: { kalla: 'match' | 'egen'; sista_dag_passerad: boolean }
   /** F5: utkastet öppnat. kalla: sparat (fanns redan), ai, mall (reserv), ateranvant (gratis, samma tjänst igen). */
-  uppfoljning_utkast_oppnat: { kalla: 'sparat' | 'ai' | 'mall' | 'ateranvant'; premium: boolean; orsak?: string | null; ms?: number }
+  uppfoljning_utkast_oppnat: { kalla: 'sparat' | 'ai' | 'mall' | 'ateranvant'; premium: boolean; orsak?: string | null; ms?: number; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F5: spärren stoppade ett nytt utkast. */
-  uppfoljning_sparr: { lage: 'premium_required' | 'dygnstak' }
+  uppfoljning_sparr: { lage: 'premium_required' | 'dygnstak'; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F5: "Skriv om kortare". */
   uppfoljning_kortare: { omskrivning: number; lyckades: boolean }
   /** F5: Följde upp loggad. med_utkast false = "Jag har redan skickat det". */
-  uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null }
+  uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F6: intervjuns tid satt, ändrad eller borttagen. */
   intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' }
   /** F6: svaret på "Hur gick intervjun?". */

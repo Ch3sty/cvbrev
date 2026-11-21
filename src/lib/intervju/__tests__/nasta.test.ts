@@ -7,8 +7,10 @@
 import { describe, expect, it } from 'vitest'
 import { FRAGA_ORDNING, PUBLIKA_FRAGOR, arFragaId, arPublikFraga } from '@/components/artiklar/intervjuprov/fragor'
 import {
+  arHogstaBetyg,
   dagEtikett,
   hemIntervjuSteg,
+  imorgonFraga,
   rekommenderadFraga,
   saknadesFras,
   saknadesI,
@@ -89,6 +91,36 @@ describe('hubbens rangordning', () => {
   it('rekommendationen: första ogjorda, annars lägst bästa nivå', () => {
     expect(rekommenderadFraga([])).toBe('beratta')
     expect(rekommenderadFraga([prov('beratta', 5)])).toBe('styrkor')
+  })
+})
+
+describe('högsta betyg och kvoten slut (Jobbsöket omgång 2, byggspecen 4.4)', () => {
+  it('arHogstaBetyg: sant för lasIgen med 5 av 5, också med missingKind kvar på raden', () => {
+    expect(arHogstaBetyg({ kind: 'lasIgen', prov: prov('star', 5) })).toBe(true)
+    expect(arHogstaBetyg({ kind: 'lasIgen', prov: { ...prov('star', 5), missingKind: '' } })).toBe(true)
+  })
+
+  it('arHogstaBetyg: falskt för lasIgen med 3 och 4, och för omskrivning', () => {
+    expect(arHogstaBetyg({ kind: 'lasIgen', prov: prov('star', 3) })).toBe(false)
+    expect(arHogstaBetyg({ kind: 'lasIgen', prov: prov('star', 4) })).toBe(false)
+    expect(arHogstaBetyg({ kind: 'omskrivning', prov: prov('star', 5) })).toBe(false)
+    expect(arHogstaBetyg({ kind: 'omskrivning', prov: prov('star', 3) })).toBe(false)
+  })
+
+  it('imorgonFraga: första ogjorda frågan', () => {
+    expect(imorgonFraga({ prov: [prov('beratta', 5)], kvotKvar: false, harSmakprov: false, harProfil: false })).toBe('styrkor')
+    expect(imorgonFraga({ prov: [prov('star', 5), prov('beratta', 4, 30)], kvotKvar: false, harSmakprov: false, harProfil: false })).toBe('styrkor')
+  })
+
+  const allaGjorda = (lagst: ProvSammanfattning['question']) =>
+    FRAGA_ORDNING.map((f, i) => prov(f, f === lagst ? 4 : 5, i + 1))
+
+  it('imorgonFraga: null när nästa handling är helaTestet', () => {
+    expect(imorgonFraga({ prov: allaGjorda('konflikt'), kvotKvar: false, harSmakprov: true, harProfil: false })).toBeNull()
+  })
+
+  it('imorgonFraga: lägst bästa nivå när alla är gjorda', () => {
+    expect(imorgonFraga({ prov: allaGjorda('konflikt'), kvotKvar: false, harSmakprov: false, harProfil: false })).toBe('konflikt')
   })
 })
 

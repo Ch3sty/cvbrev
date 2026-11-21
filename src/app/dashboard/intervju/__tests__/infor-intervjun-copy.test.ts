@@ -19,3 +19,20 @@ describe('kvottext på Inför intervjun', () => {
     expect(TOM.textFor(true)).not.toMatch(/prov om dagen|gratis/)
   })
 })
+
+describe('högsta betyg och kvoten slut (Jobbsöket omgång 2, byggspecen 4.4)', () => {
+  it('rubriken och morgondagens fråga ordagrant', () => {
+    expect(NASTA.lasIgen.ogonHogst).toBe('Klart för i dag')
+    expect(NASTA.lasIgen.rubrikHogst('star')).toBe('Högsta betyg på frågan om ett problem du löste')
+    expect(NASTA.lasIgen.rubrikHogst('beratta')).toBe('Högsta betyg på frågan om dig själv')
+    expect(NASTA.lasIgen.imorgon('konflikt')).toBe('Då föreslår vi frågan om en konflikt med en kollega.')
+  })
+
+  it('ingen av texterna säger "Skriv om", och inga talstreck', () => {
+    const texter = [NASTA.lasIgen.ogonHogst, NASTA.lasIgen.rubrikHogst('star'), NASTA.lasIgen.rubrikHogst('beratta'), NASTA.lasIgen.imorgon('konflikt')]
+    for (const t of texter) {
+      expect(t).not.toMatch(/Skriv om/i)
+      expect(t).not.toMatch(/[—–]/)
+    }
+  })
+})

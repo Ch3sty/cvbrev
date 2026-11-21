@@ -41,6 +41,8 @@ import {
   Ark as ArkHurGick,
 } from '@/components/jobb3/kit'
 import {
+  beskedText,
+  foljUppText,
   intervjuEtikettKort,
   intervjuText,
   kortDag,
@@ -98,7 +100,14 @@ export function ListaVagg({ data, onAndraMal }: { data: SoktaTjansterData; onAnd
               namn: 'Intervju',
               antal: st.intervju?.antal ?? 0,
               under: st.intervju?.undertext,
-              brickor: (st.intervju?.brickor ?? []).map((b) => ({ kod: b.bokstaver, ton: 'vit' as const, tagg: b.etikett ?? undefined, href: tjanstHref(b.id), etikett: b.company })),
+              // En tyst bricka efter intervju eller provjobb ritas som vid Sökt (omgång 2).
+              brickor: (st.intervju?.brickor ?? []).map((b) => ({
+                kod: b.bokstaver,
+                ton: b.tyst ? ('tyst' as const) : ('vit' as const),
+                tagg: b.tyst ? b.etikett?.replace('tyst ', '') ?? undefined : b.etikett ?? undefined,
+                href: tjanstHref(b.id),
+                etikett: b.company,
+              })),
             },
             {
               namn: 'Erbjudande',
@@ -233,6 +242,8 @@ export function ListaGolv({
     const bricka = { kod: t.bokstaver, ton: golvTon(t.ton) }
     const href = tjanstHref(t.id)
     if (grupp === 'folj_upp') {
+      // Efter intervju eller provjobb: fråga om besked (byggspec 2.3, läge 1).
+      const besked = t.foljUppTyp === 'intervju' || t.foljUppTyp === 'provjobb'
       return (
         <TjanstRad
           key={t.id}
@@ -240,7 +251,7 @@ export function ListaGolv({
           bricka={bricka}
           rubrik={t.jobTitle}
           arbetsgivare={varRad(t)}
-          text={soktRad(t)}
+          text={besked ? beskedText(t) : soktRad(t)}
           steg={steg}
           status={{ status: 'folj-upp', text: `Tyst i ${t.dagarTyst} dagar`, vit: true }}
           hogerMobil={<StatusPiller status="folj-upp" vit>{`Tyst ${t.dagarTyst} dagar`}</StatusPiller>}
@@ -248,13 +259,13 @@ export function ListaGolv({
             <>
               <span className="hidden xl:inline-flex">
                 <StorKnapp storlek="lag" golv href={tjanstHref(t.id, 'folj-upp')} className="lag-alltid">
-                  Följ upp
+                  {besked ? 'Fråga om besked' : 'Följ upp'}
                   <IkonPil size={18} />
                 </StorKnapp>
               </span>
               <span className="w-full xl:hidden">
                 <StorKnapp storlek="lag" golv bred href={tjanstHref(t.id, 'folj-upp')}>
-                  Följ upp med ett kort mejl
+                  {besked ? 'Fråga om besked med ett kort mejl' : 'Följ upp med ett kort mejl'}
                 </StorKnapp>
               </span>
             </>
@@ -279,7 +290,7 @@ export function ListaGolv({
           </LitenKnapp>
         ) : i?.lage === 'utan_tid' ? (
           <LitenKnapp storlek={48} href={tjanstHref(t.id, 'andra-tid')}>
-            Sätt tid
+            Sätt tiden
           </LitenKnapp>
         ) : (
           <LitenKnapp storlek={48} href={href}>
@@ -377,7 +388,7 @@ export function ListaGolv({
     ) : null
 
   const iPanelen = [
-    grupp('g-folj-upp', 'Följ upp', g.folj_upp, 'folj_upp', 'Tyst i minst tolv dagar. Ett kort mejl brukar ge besked.', 'tyst', true),
+    grupp('g-folj-upp', 'Följ upp', g.folj_upp, 'folj_upp', foljUppText(g.folj_upp), 'tyst', true),
     grupp('g-intervju', 'Intervju på gång', g.intervju, 'intervju', 'Förbered dig här. Frågorna hör ihop med tjänsten.', 'ton'),
     grupp('g-erbjudande', 'Erbjudande', g.erbjudande, 'erbjudande', 'Grattis. Logga ditt svar när du har bestämt dig.', 'ton'),
   ].filter(Boolean)

@@ -12,7 +12,9 @@
  * Kandidaterna:
  *   1. hur_gick_intervjun   intervjutiden passerad, ingen "Intervju genomförd"; datum = dagen efter
  *   2. forbered_intervju    intervjutid inom 14 dagar; datum = intervjudagen
- *   3. folj_upp             tyst i minst 12 dagar (efter senaste händelse eller uppföljning); datum = dagen tystnaden inträffade
+ *   -  satt_intervjutid     kallad utan tid, två dagar efter kallelsen (skaSattaTiden); datum = kallelsen plus två dagar
+ *   3. folj_upp             tyst (12 dagar efter en ansökan, 7 efter intervju eller provjobb, räknat från
+ *                           senaste händelse eller uppföljning); datum = dagen tystnaden inträffade
  *   4. sok_fore_sista_dag   Ska sökas med sista dag inom 7 dagar; datum = sista dagen
  *   5. af_rapport           dagens regel: den 1 till 14 och något sökt förra månaden; datum = den 14:e
  *   6. sok_en_till          veckans mål inte nått och färre än tre handlingar; datum = veckans söndag
@@ -33,9 +35,12 @@ import {
   veckodagOchDag,
 } from './datum'
 import { jobbHref, soktaHref, tjanstHref, SOKTA_HREF } from './adress'
+import { skaSattaTiden } from './lage'
+import { momentDag, momentOrd } from './intervju'
 import {
   ATT_GORA_MAX,
   FORBERED_INOM_DAGAR,
+  KALLELSE_UTAN_TID_DAGAR,
   SISTA_DAG_INOM_DAGAR,
   type AttGoraHandling,
   type AttGoraNu,
@@ -68,10 +73,16 @@ export interface AttGoraIndata {
 const PRIORITET: Record<AttGoraTyp, number> = {
   hur_gick_intervjun: 0,
   forbered_intervju: 1,
-  folj_upp: 2,
-  sok_fore_sista_dag: 3,
-  af_rapport: 4,
-  sok_en_till: 5,
+  satt_intervjutid: 2,
+  folj_upp: 3,
+  sok_fore_sista_dag: 4,
+  af_rapport: 5,
+  sok_en_till: 6,
+}
+
+/** Uppföljning efter intervju eller provjobb (inte efter en obesvarad ansökan)? */
+function efterMoment(t: TjanstLage): boolean {
+  return t.foljUppTyp === 'intervju' || t.foljUppTyp === 'provjobb'
 }
 
 const ORDTAL = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
@@ -144,8 +155,42 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
         })
       }
     }
-    // 3. Följ upp.
-    if (t.tyst) {
+    // Sätt tiden: kallad utan tid, två dagar efter kallelsen.
+    if (i && i.kalladDag && skaSattaTiden(i, idag)) {
+      const datum = plusDagar(i.kalladDag, KALLELSE_UTAN_TID_DAGAR)
+      ut.push({
+        typ: 'satt_intervjutid',
+        nyckel: `satt_intervjutid:${t.id}`,
+        datum,
+        passerad: datum < idag,
+        ikon: 'kalender',
+        overrad: versaler(`Kallad ${kortDag(i.kalladDag)}`),
+        rubrik: `Sätt tiden för intervjun på ${t.company}`,
+        text: `${t.jobTitle}. Med tiden satt påminner vi före intervjun och frågar hur det gick.`,
+        knapp: { text: 'Sätt tiden', href: tjanstHref(t.id, 'andra-tid') },
+        ansokanId: t.id,
+        bokstaver: t.bokstaver,
+      })
+    }
+    // 3. Följ upp efter intervju eller provjobb: fråga om besked.
+    if (t.tyst && efterMoment(t)) {
+      const m = momentOrd(t)
+      const dag = langDag(momentDag(t))
+      ut.push({
+        typ: 'folj_upp',
+        nyckel: `folj_upp:${t.id}:${t.tystSedan}`,
+        datum: t.tystSedan,
+        passerad: t.tystSedan < idag,
+        ikon: 'kuvert',
+        overrad: versaler(`Inget besked på ${t.dagarTyst} dagar`),
+        rubrik: `Fråga ${t.company} om besked`,
+        text: `${t.jobTitle}. ${m.stor} var den ${dag}. ${t.harUtkast ? 'Utkastet till mejlet är skrivet.' : 'Fråga när du kan vänta besked.'}`,
+        knapp: { text: t.harUtkast ? 'Öppna utkastet' : 'Fråga om besked', href: tjanstHref(t.id, 'folj-upp') },
+        ansokanId: t.id,
+        bokstaver: t.bokstaver,
+      })
+    } else if (t.tyst) {
+      // 3. Följ upp en obesvarad ansökan.
       ut.push({
         typ: 'folj_upp',
         nyckel: `folj_upp:${t.id}:${t.tystSedan}`,
@@ -282,7 +327,24 @@ export function vaggForHandling(h: AttGoraHandling, ind: AttGoraIndata, idag: Da
     }
     case 'hur_gick_intervjun':
       return { overrad, rubrik: h.rubrik, text: `${t?.jobTitle ?? ''}. Den är genomförd, flyttad eller inställd? Ett tryck räcker.`, knapp: h.knapp }
+    case 'satt_intervjutid':
+      return {
+        overrad,
+        rubrik: h.rubrik,
+        text: t?.intervju?.kalladDag
+          ? `${t.jobTitle}. Du blev kallad den ${langDag(t.intervju.kalladDag)}. Med tiden satt påminner vi före intervjun och frågar hur det gick.`
+          : h.text,
+        knapp: h.knapp,
+      }
     case 'folj_upp':
+      if (t && efterMoment(t)) {
+        return {
+          overrad,
+          rubrik: h.rubrik,
+          text: `${momentOrd(t).stor} för tjänsten som ${titelILopText(t.jobTitle)} var den ${langDag(momentDag(t))}, och du har inte fått besked. Ett kort mejl som frågar när du kan vänta det räcker.`,
+          knapp: h.knapp,
+        }
+      }
       return {
         overrad,
         rubrik: h.rubrik,

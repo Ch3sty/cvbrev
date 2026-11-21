@@ -635,6 +635,9 @@ export async function getDashboardSummary(
     testTypes: testRader.map((r) => r.test_type),
     personalityCompleted: personalityRes.count ?? 0,
     intervjuprovCount: intervjuRader.prov.length,
+    // Brickan "Logga en tjänst du har sökt" (Jobbsöket omgång 2). Raderna är
+    // redan lästa ovan; sparade annonser räknas inte här (byggspecen 1.7).
+    applicationCount: apps.length,
   })
 
   const matrisBasta = testRader

@@ -45,7 +45,7 @@ import { FRAGA_ORDNING, FRAGOR, type FragaId } from '@/components/artiklar/inter
 import { archetypeFor } from '@/lib/recruiter/workStyle'
 import { faktorUtfall, profilRubrik } from '@/lib/personlighet/smakprov-tolkning'
 import { FORDJUPAT_HREF, GRUNDTEST_HREF, nyttProvHref, profilHref, provHref } from '@/lib/intervju/lankar'
-import { dagEtikett, nar, rekommenderadFraga, saknadesFras, saknadesI, type HubbHandling, type ProvSammanfattning } from '@/lib/intervju/nasta'
+import { arHogstaBetyg, dagEtikett, imorgonFraga, nar, rekommenderadFraga, saknadesFras, saknadesI, type HubbHandling, type ProvSammanfattning } from '@/lib/intervju/nasta'
 import { idagSv, intervjuEtikett, klockslag, langDag, narText, senastePerFraga, tjanstHref, veckodagNamn } from '@/lib/jobbsok'
 import type { IntervjuPaGang } from '@/lib/jobbsok/intervju'
 import { PRISER_HREF } from '@/lib/onboarding/steps'
@@ -58,8 +58,18 @@ function datum(iso: string | null): string {
   return new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short', timeZone: 'Europe/Stockholm' }).format(new Date(iso)).replace('.', '')
 }
 
-/** Dagens Nästa handling, ordagrant som förut. */
-function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date) {
+/**
+ * Dagens Nästa handling, ordagrant som förut. Undantaget är lasIgen efter
+ * högsta betyg (Jobbsöket omgång 2): inget att skriva om, så ögonbrynet och
+ * rubriken säger att dagen är klar, och texten slutar med morgondagens fråga
+ * när den är en annan än dagens.
+ */
+function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date, imorgon: FragaId | null) {
+  if (h.kind === 'lasIgen' && arHogstaBetyg(h)) {
+    const delar = [NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), null, h.prov.question), NASTA.lasIgen.tillagg]
+    if (imorgon && imorgon !== h.prov.question) delar.push(NASTA.lasIgen.imorgon(imorgon))
+    return { ogon: NASTA.lasIgen.ogonHogst, rubrik: NASTA.lasIgen.rubrikHogst(h.prov.question), text: delar.join(' '), knapp: NASTA.lasIgen.knapp, href: provHref(h.prov.token), fraga: h.prov.question }
+  }
   switch (h.kind) {
     case 'forstaGang':
       return { ogon: NASTA.forstaGang.eyebrow, rubrik: NASTA.forstaGang.rubrik, text: NASTA.forstaGangText(kvotKvar, utanTak), knapp: NASTA.forstaGang.knapp, href: nyttProvHref('beratta'), fraga: 'beratta' as FragaId }
@@ -88,16 +98,24 @@ function knappRad(h: HubbHandling): string | null {
 function intervjuKnapp(i: IntervjuPaGang) {
   if (i.lage === 'bokad') return { text: 'Förbered intervjun', href: tjanstHref(i.id, 'forbered') }
   if (i.lage === 'hur_gick') return { text: 'Hur gick det?', href: tjanstHref(i.id, 'hur-gick') }
-  if (i.lage === 'utan_tid') return { text: 'Sätt tid', href: tjanstHref(i.id, 'andra-tid') }
+  if (i.lage === 'utan_tid') return { text: 'Sätt tiden', href: tjanstHref(i.id, 'andra-tid') }
   // vantar_besked: intervjun är loggad som genomförd och väntar besked. "Hur gick det?" bara när tiden passerat utan genomförd intervju (hur_gick).
   return { text: 'Uppdatera', href: tjanstHref(i.id) }
 }
 
 export default function IntervjuHubb({ data, intervjuer, now }: { data: InforIntervjunData; intervjuer: IntervjuPaGang[]; now: Date }) {
-  const c = handlingensCopy(data.handling, data.kvotKvar, data.utanTak, now)
+  // Högsta betyg och kvoten slut: banan markerar ingen fråga som nästa, och
+  // rutan visar dagens prov (byggspecen 4.2).
+  const hogst = arHogstaBetyg(data.handling)
+  const imorgon = hogst
+    ? imorgonFraga({ prov: data.prov, kvotKvar: data.kvotKvar, harSmakprov: Boolean(data.smakprov), harProfil: Boolean(data.profil) })
+    : null
+  const c = handlingensCopy(data.handling, data.kvotKvar, data.utanTak, now, imorgon)
   const senaste = senastePerFraga(data.prov)
   const ovade = senaste.size
   const nastaFraga: FragaId | null = c.fraga ?? (data.prov.length ? rekommenderadFraga(data.prov) : null)
+  /** Frågan banan markerar som nästa. */
+  const banansNasta: FragaId | null = hogst ? null : nastaFraga
   const kvotSlut = !data.utanTak && !data.kvotKvar
 
   // Intervjun som väggen handlar om: den närmaste bokade.
@@ -108,7 +126,7 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
 
   const fragor: Fraga[] = FRAGA_ORDNING.map((f, i) => {
     const p = senaste.get(f)
-    const arNasta = f === nastaFraga
+    const arNasta = f === banansNasta
     const saknasKind = saknadesI(p)
     const saknas = saknasKind ? saknadesFras(saknasKind, f) : null
     return {
@@ -136,8 +154,9 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
       : SIDA.beskrivning
   const ingressMobil = narMening ?? undefined
 
-  // Förra svaret på nästa fråga, del för del (bara det som är lagrat).
-  const forra = nastaFraga ? senaste.get(nastaFraga) ?? null : null
+  // Förra svaret på nästa fråga, del för del (bara det som är lagrat). Efter
+  // högsta betyg är det dagens prov.
+  const forra = data.handling.kind === 'lasIgen' && hogst ? data.handling.prov : nastaFraga ? senaste.get(nastaFraga) ?? null : null
   const visaForra = forra && (data.handling.kind === 'omskrivning' || data.handling.kind === 'lasIgen')
 
   return (
@@ -180,7 +199,7 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
             {visaForra && forra ? (
               <TonYta>
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <b className="text-[13px] leading-[18px]">{HUBB.forraDelar}</b>
+                  <b className="text-[13px] leading-[18px]">{hogst ? HUBB.dagensDelar : HUBB.forraDelar}</b>
                   <span className="flex items-center gap-2 text-[13px] font-semibold leading-[18px] text-[var(--j3-ink-2)]">
                     <Prickar antal={forra.level} etikett={`${forra.level} av 5`} />
                     {nivaOrd(forra.level)}

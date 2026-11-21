@@ -105,5 +105,7 @@ export const HUBB = {
   ovade: (n: number) => `${n} av 7 frågor övade`,
   ovadeKort: (n: number) => `${n} av 7 övade`,
   forraDelar: 'Förra svaret, del för del',
+  /** Rutans rubrik när dagens prov fick högsta betyg (Jobbsöket omgång 2). */
+  dagensDelar: 'Dagens svar, del för del',
   inteGjord: 'Inte gjord än',
 } as const
