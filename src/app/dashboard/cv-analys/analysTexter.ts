@@ -42,7 +42,9 @@ export const ANALYS = {
   siffrorSidorad: (rader: number) =>
     rader === 1 ? 'En rad väntar på din siffra.' : `${TALORD[rader] ?? rader} rader väntar på dina siffror.`,
   medSiffror: 'med dina siffror',
-  siffrorTalAria: (idag: number, med: number) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} med dina siffror.`,
+  medForslagOchSiffror: 'med förslag och siffror',
+  mojligaMedSiffror: 'poäng möjliga med förslag och siffror',
+  talAriaMed: (idag: number, med: number, text: string) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} ${text}.`,
   borjaMedSiffror: 'Börja med dina siffror',
   siffrorRubrik: 'Dina siffror',
   siffrorText: 'Vi skriver aldrig tal åt dig. Där det står [antal] fyller du i ditt eget, till exempel hur många kunder, order eller kronor.',

@@ -592,12 +592,18 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
         </div>
         <div className="t3-matare-mitt">
           <span className="t3-stortal">{poang}</span>
-          <PotentialStapel nu={poang} med={potential} />
+          <PotentialStapel nu={poang} med={potential} etikett={lage === 'siffror' ? PANEL.medSiffror(potential) : undefined} />
         </div>
         <p className="t3-matare-rad">
           {attHamta > 0 ? <b>{PANEL.finnsAttHamta(attHamta)} </b> : null}
-          <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
-          <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+          {lage === 'siffror' ? (
+            <span>{PANEL.siffrorSaknas(platshallare.length)}</span>
+          ) : (
+            <>
+              <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
+              <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+            </>
+          )}
         </p>
       </div>
     ) : (
@@ -1048,7 +1054,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
 }
 
 /** Läsbarheten i dag och med våra förslag (skissen Main, mätaren). */
-function PotentialStapel({ nu, med }: { nu: number; med: number }) {
+function PotentialStapel({ nu, med, etikett }: { nu: number; med: number; etikett?: string }) {
   const B = 264;
   const x0 = 3;
   const nuX = x0 + (B * nu) / 100;
@@ -1057,7 +1063,7 @@ function PotentialStapel({ nu, med }: { nu: number; med: number }) {
     <svg viewBox="0 0 270 98" className="block min-w-0 flex-1" style={{ maxWidth: 300 }} role="img" aria-label={PANEL.potentialAria(nu, med)}>
       <rect x="0" y="0" width="270" height="26" rx="8" style={{ fill: 'var(--sess-rad3-yta)' }} />
       <text x="10" y="17" fontSize="11" fontWeight="700" style={{ fill: 'var(--sess-rad3-ink)' }}>
-        {PANEL.medForslag(med)}
+        {etikett ?? PANEL.medForslag(med)}
       </text>
       <path d={`M${medX} 30V52`} style={{ stroke: 'var(--t3-streck)' }} strokeWidth="2" strokeDasharray="3 4" strokeLinecap="round" />
       <rect x="1" y="54" width="268" height="22" rx="11" style={{ fill: 'var(--papper)', stroke: 'var(--sess-kant)' }} strokeWidth="2" />

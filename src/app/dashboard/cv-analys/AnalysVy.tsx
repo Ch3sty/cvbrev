@@ -160,10 +160,18 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   /* ------------------------------------------------------------- väggen */
 
   // Bara siffrorna kvar: andra talet är poängen med hennes siffror (inget plus, inget andra tal).
-  const senare = baraSiffror ? (siffror!.plus > 0 ? { tal: p ? p.idag + siffror!.plus : 0, text: ANALYS.medSiffror } : null) : p ? { tal: p.medAlla, text: ANALYS.medForslag } : null;
+  // "Med"-talet är förslagen och siffrorna tillsammans (medAllt), samma tal som Ditt CV och Mallar.
+  const medSiffrorNu = (p?.siffrorPlus ?? 0) > 0;
+  const senare =
+    !p || (baraSiffror && p.plusAllt <= 0)
+      ? null
+      : {
+          tal: p.medAllt,
+          text: medSiffrorNu ? (p.plus > 0 ? ANALYS.medForslagOchSiffror : ANALYS.medSiffror) : ANALYS.medForslag,
+        };
   const talRad =
     p && senare ? (
-      <div className="cv4-tal-rad" role="img" aria-label={baraSiffror ? ANALYS.siffrorTalAria(p.idag, senare.tal) : ANALYS.talAria(p.idag, p.medAlla)}>
+      <div className="cv4-tal-rad" role="img" aria-label={ANALYS.talAriaMed(p.idag, senare.tal, senare.text)}>
         <div className="cv4-tal" data-nu>
           <b>{p.idag}</b>
           <span>{ANALYS.idag}</span>
@@ -528,17 +536,18 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       </section>
     ) : null;
 
-  const delar = p ? p.kategorier.filter((k) => k.plus > 0) : [];
+  // Förslagen och siffrorna tillsammans (plusAllt), samma tal som väggen.
+  const delar = p ? p.kategorier.filter((k) => k.plusAllt > 0).map((k) => ({ ...k, plus: k.plusAllt })) : [];
   const sasRaknas = (rid: string) => p ? (
     <section className="cv4-kortet" aria-labelledby={rid}>
       <p id={rid} className="cv4-ogon">
         {ANALYS.sasOgon}
       </p>
       <div className="cv4-mojliga">
-        {p.plus > 0 ? (
+        {p.plusAllt > 0 ? (
           <>
-            <b>+{p.plus}</b>
-            <span>{ANALYS.mojliga}</span>
+            <b>+{p.plusAllt}</b>
+            <span>{medSiffrorNu ? (p.plus > 0 ? ANALYS.mojligaMedSiffror : ANALYS.medSiffror) : ANALYS.mojliga}</span>
           </>
         ) : (
           <span>{ANALYS.ingenOkning}</span>
@@ -581,7 +590,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
               <span>{k.namn}</span>
               <span>
                 {ANALYS.delAv(k.idag, k.max)}
-                {k.plus > 0 ? ` (+${k.plus})` : ''}
+                {k.plusAllt > 0 ? ` (+${k.plusAllt})` : ''}
               </span>
             </li>
           ))}

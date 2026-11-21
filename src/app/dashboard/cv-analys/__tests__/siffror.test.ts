@@ -6,6 +6,8 @@
 import { describe, expect, it } from 'vitest'
 import { byggAnalysVy } from '../analysData'
 import { kanonisktCv, medSiffror, plusForSiffror, raknaPoang } from '@/lib/cv/poang'
+import { underlagUrRad } from '@/lib/cv/analys/cvAnalys'
+import { medForslagUrAnalys, poangUrAnalys } from '@/lib/rum/cvRum'
 
 const CV = {
   personalInfo: { fullName: 'Sara Lind', email: 'sara.lind@exempel.se', phone: '070-555 12 34', address: 'Uppsala', title: 'Butikssäljare' },
@@ -37,6 +39,36 @@ const JOBB = {
     generalImprovements: [],
   } as Record<string, unknown>,
 }
+
+describe('samma "med"-tal på Ditt CV, Mallar och Analys', () => {
+  const cvRad = { id: 'cv-1', structured_data: CV, cv_text: null, original_file_path: 'x', created_at: null }
+  const rad = (r: Record<string, unknown>) => ({
+    id: 'jobb', cv_id: 'cv-1', completed_at: null, display_name: null,
+    struktur: r.structuredCV, profil: r.profileSummary, roller: r.roleBasedImprovements, kompetenser: r.skillSuggestions, allmant: r.generalImprovements,
+  })
+
+  it('bara siffrorna: med = i dag + siffrornas plus, överallt', () => {
+    const vy = byggAnalysVy(JOBB, { structured_data: CV }, true)!
+    const u = underlagUrRad(rad(JOBB.result), cvRad as never, true)
+    expect(vy.poang.siffrorPlus).toBe(vy.fynd[0].plus)
+    expect(vy.poang.medAllt).toBe(vy.poang.idag + vy.poang.siffrorPlus)
+    expect(vy.poang.kategorier.reduce((s, k) => s + k.plusAllt, 0)).toBe(vy.poang.plusAllt)
+    // Ditt CV och Mallar läser medForslagUrAnalys(underlag).
+    expect(medForslagUrAnalys(u)).toBe(vy.poang.medAllt)
+    expect(medForslagUrAnalys(u)! - poangUrAnalys(u)!).toBe(vy.poang.siffrorPlus)
+  })
+
+  it('förslag och siffror: summan räknas på CV:t och är densamma på båda sidorna', () => {
+    const result = { ...JOBB.result, skillSuggestions: [{ skill: 'Butiksdata' }, { skill: 'Varuexponering' }, { skill: 'Kassahantering' }] }
+    const cv = { ...CV, skills: [{ category: 'Färdigheter', skills: ['Kassa'] }] }
+    const vy = byggAnalysVy({ ...JOBB, result }, { structured_data: cv }, true)!
+    const u = underlagUrRad(rad(result), { ...cvRad, structured_data: cv } as never, true)
+    expect(vy.poang.plus).toBeGreaterThan(0)
+    expect(vy.poang.siffrorPlus).toBeGreaterThan(0)
+    expect(vy.poang.medAllt).toBeGreaterThanOrEqual(vy.poang.medAlla)
+    expect(medForslagUrAnalys(u)).toBe(vy.poang.medAllt)
+  })
+})
 
 describe('fyndet Dina siffror', () => {
   for (const full of [false, true]) {

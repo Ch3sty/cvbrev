@@ -144,7 +144,8 @@ export function underlagUrRad(
         }))
       : null,
     kompetenserPlus: s && medKomp ? medKomp.total - s.idag : null,
-    medForslag: s ? s.medAlla : null,
+    // Med förslagen och hennes siffror: samma "med"-tal som Analys och Mallar.
+    medForslag: s ? s.medAllt : null,
     friaNycklar: harFull ? null : friaNycklarFor(analys),
   }
 }

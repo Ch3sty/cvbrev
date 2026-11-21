@@ -18,6 +18,7 @@ import { kanonisktCv } from './kanon'
 import { utanPiiPlatshallare, rensaDjupt } from '@/lib/privacy/cvForModel'
 import { ersattPahittadeTal, falt, harPlatshallare, kompetenserIcv, stadaKompetenser, talIText } from './matt'
 import { KATEGORIER, POANG_VERSION, raknaPoang, type KategoriId, type Poang } from './modell'
+import { medSiffror, platshallareKvar, plusForSiffror } from './siffror'
 
 type Obj = Record<string, unknown>
 const arObj = (v: unknown): v is Obj => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -56,6 +57,10 @@ export interface PoangKategori {
   medAlla: number
   /** medAlla minus idag. Kan vara noll. */
   plus: number
+  /** Kategorins poäng med förslagen och hennes siffror (medAllt). */
+  medAllt: number
+  /** medAllt minus idag. */
+  plusAllt: number
 }
 
 /** Det den nya Analys-sidan och rutan "Så räknas poängen" läser. */
@@ -70,6 +75,20 @@ export interface PoangSammanfattning {
   medAlla: number
   /** medAlla minus idag. */
   plus: number
+  /**
+   * Plus för hennes siffror ([antal] som står kvar i CV:t ifyllda,
+   * plusForSiffror). Noll när inget står kvar.
+   */
+  siffrorPlus: number
+  /**
+   * Poängen med de förvalda förslagen OCH siffrorna ifyllda: talet som Ditt
+   * CV, Mallar och Analys visar som "med"-tal. Lika med medAlla när inga
+   * siffror står kvar. Räknat på CV:t, aldrig som en summa av plus.
+   * Analysflödet (väljsteget) använder medAlla: där lovas bara förslagen.
+   */
+  medAllt: number
+  /** medAllt minus idag. */
+  plusAllt: number
   kategorier: PoangKategori[]
 }
 
@@ -210,16 +229,25 @@ export function poangSammanfattning(analys: AnalysForPoang, forval?: Val): Poang
   const cv = kanonisktCv(analys.structuredCV)
   if (!cv) return null
   const idag = raknaPoang(cv)
-  const alla = poangMedVal(analys, forval ?? forvaltVal(analys)) ?? idag
+  const val = forval ?? forvaltVal(analys)
+  const alla = poangMedVal(analys, val) ?? idag
+  // Siffrorna ifyllda i CV:t först, sedan förslagen ovanpå: det CV hon har
+  // när båda är gjorda. Platshållare i förslagens egna texter fylls inte.
+  const harSiffror = platshallareKvar(cv).length > 0
+  const allt = harSiffror ? (poangMedVal({ ...analys, structuredCV: medSiffror(cv) }, val) ?? alla) : alla
   return {
     version: POANG_VERSION,
     idag: idag.total,
     medAlla: alla.total,
     plus: alla.total - idag.total,
+    siffrorPlus: harSiffror ? plusForSiffror(cv) : 0,
+    medAllt: allt.total,
+    plusAllt: allt.total - idag.total,
     kategorier: KATEGORIER.map(({ id, namn, max }) => {
       const a = idag.kategorier.find((x) => x.id === id)?.poang ?? 0
       const b = alla.kategorier.find((x) => x.id === id)?.poang ?? 0
-      return { id, namn, max, idag: a, medAlla: b, plus: b - a }
+      const c = allt.kategorier.find((x) => x.id === id)?.poang ?? 0
+      return { id, namn, max, idag: a, medAlla: b, plus: b - a, medAllt: c, plusAllt: c - a }
     }),
   }
 }
