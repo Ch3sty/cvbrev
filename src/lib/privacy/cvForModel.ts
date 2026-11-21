@@ -76,3 +76,10 @@ export function lankarLokalt(text: string): { linkedIn: string; github: string; 
   );
   return { linkedIn, github, website: ovriga[0] ?? '' };
 }
+
+/** Flera textfält maskade för modellen (LinkedIn-profilens avsnitt). */
+export function maskeraSektioner<T extends Record<string, string | undefined>>(sektioner: T, opts: CvMaskning = {}): T {
+  const ut: Record<string, string | undefined> = {};
+  for (const [k, v] of Object.entries(sektioner)) ut[k] = typeof v === 'string' ? maskaCvForModel(v, opts) : v;
+  return ut as T;
+}
