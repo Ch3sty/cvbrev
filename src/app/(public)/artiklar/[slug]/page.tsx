@@ -42,7 +42,6 @@ import {
   PersonligtBrevExampleStadare,
   PersonligtBrevExampleHandlaggare,
   PersonligtBrevExampleUtbildning,
-  PersonligtBrevPreview,
   Intervjuprov,
   Personlighetsprov,
 } from '@/components/artiklar/mdx-klient';
@@ -73,7 +72,10 @@ import { MatrisUppgift, MatrisFacit } from '@/components/artiklar/MatrisUppgift'
 import { TalserieUppgift, SpatialUppgift, SpatialFacit, OrdUppgift } from '@/components/artiklar/Steg2Uppgift';
 import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
-import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
+import { CvMallVisning } from '@/components/artiklar/MallVisningar';
+// Brevets mallvisare (byggspecen våg 2, 2026-11-21): serverrenderad, första vyn utan JavaScript.
+import { BrevMallVisning } from '@/components/publikt/brevvisare/BrevVisareArtikel';
+import PersonligtBrevPreview from '@/components/mdx/PersonligtBrevPreview';
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA';
 import {
     getCtaVariantForTags,
