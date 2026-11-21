@@ -27,6 +27,7 @@ import type { Aterupptagning } from '../aterupptagning';
 import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
 import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
+import { raknaPotential } from '@/lib/cv/analys/potential'
 
 /** Hämtar CV:ts PDF och laddar ned den. Kastar NamnKravsError vid 422 name_required. */
 async function laddaNerCvPdf(requestBody: Record<string, unknown>, pdfFileName: string): Promise<void> {
@@ -1110,61 +1111,8 @@ export default function CVAnalysisWizard({
         if (!analysisResult) return null;
         const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
 
-        const calculateTruePotential = () => {
-          let totalImpact = 0;
-          const breakdown = { profile: 0, roles: 0, skills: 0, general: 0, total: 0 };
-
-          if (analysisResult.profileSummary?.atsImpact) {
-            breakdown.profile = analysisResult.profileSummary.atsImpact;
-            totalImpact += breakdown.profile;
-          }
-
-          if (
-            analysisResult.roleBasedImprovements &&
-            analysisResult.roleBasedImprovements.length > 0
-          ) {
-            const sortedRoles = [...analysisResult.roleBasedImprovements].sort(
-              (a: any, b: any) => (b.atsImpact || 0) - (a.atsImpact || 0)
-            );
-            const topRoles = sortedRoles.slice(0, Math.min(5, sortedRoles.length));
-            const avgImpact =
-              topRoles.reduce(
-                (sum: number, role: any) => sum + (role.atsImpact || 0),
-                0
-              ) / topRoles.length;
-            breakdown.roles = Math.round(avgImpact * 4);
-            totalImpact += breakdown.roles;
-          }
-
-          if (analysisResult.skillSuggestions) {
-            breakdown.skills = analysisResult.skillSuggestions.reduce(
-              (sum: number, skill: any) => {
-                if (skill.relevance === 'high') return sum + 1;
-                if (skill.relevance === 'medium') return sum + 0.5;
-                return sum + 0.3;
-              },
-              0
-            );
-            totalImpact += breakdown.skills;
-          }
-
-          if (analysisResult.generalImprovements) {
-            breakdown.general = analysisResult.generalImprovements.reduce(
-              (sum: number, imp: any) => {
-                if (imp.category === 'Nyckelord') return sum + 2;
-                if (imp.category === 'Innehåll') return sum + 1;
-                return sum + 0.5;
-              },
-              0
-            );
-            totalImpact += breakdown.general;
-          }
-
-          breakdown.total = Math.round(totalImpact);
-          return breakdown;
-        };
-
-        const impactBreakdown = calculateTruePotential();
+        // Samma uträkning som Ditt CV visar (src/lib/cv/analys/potential.ts).
+        const impactBreakdown = raknaPotential(analysisResult);
         const potentialAtsScore = Math.min(100, currentAtsScore + impactBreakdown.total);
         const totalImprovements =
           (analysisResult.profileSummary ? 1 : 0) +
