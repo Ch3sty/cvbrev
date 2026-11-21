@@ -279,3 +279,55 @@ Det här kräver ditt ja. Mitt förslag står efter varje punkt.
 6. **Senare, inte nu:** fältet "Sa de när du får besked?" och händelsetypen "kallad till test" kräver var sin migrering. De kommer med skiss och förslag när omgång 2 visat att vägarna in används.
 
 Ingen ändring föreslås i samtyckestexten i Bli upptäckt, i priserna eller i texter om datalagring och villkor.
+
+## Beslut i omgång 2 (2026-11-22)
+
+Fattade av saas-lead efter byggspecen (`docs/design/byggspec-jobbsoket-omgang2-2026-11-21.md`), skissen för ändring A (`docs/design/skiss-jobbsoket-testvag-2026-11-21.html`) och egen läsning av `src/lib/applications/status.ts`, `src/lib/jobbsok/lage.ts`, `src/lib/notifications/followUp.ts`, veckobrevets mall och migreringen `20260729_sokta_tjanster_tracker.sql`. Ägaren har i dag lagt besluten hos saas-lead och UX: det vi är överens om går med i pushen.
+
+### Beslut 1. Notisen och veckobrevet (byggspecen 2.7)
+
+**Beslut:** Överens om notisens två texter, om reglerna och om att de går ut, med två ändringar i veckobrevets ruta.
+
+Skäl: texterna säger bara det användaren själv har loggat (intervjun eller provjobbet var den dagen, inget besked är inlagt), "har inte hört av sig" står aldrig om en tjänst i intervjusteget, en kallelse kommer aldrig med, ingen rad bär mer än ett tal och orden är "tjänsten" och "besked". Ingen ny mottagargrupp tillkommer, eftersom `shouldSend` är orörd.
+
+Ändringarna, exakt:
+1. **Högst tre rader i rutan.** Raderna under "Här väntar du på besked:" går först, högst två. Tysta ansökningar fyller upp till tre rader totalt (i dag högst två, alltså en eller två när besked har rader). Skäl: rutan är brevets enda råd, och med fyra rader, två inledningar och två avslutningar blir den längre än resten av brevet.
+2. **En avslutning om mejlet, inte två.** När båda styckena visas slutar beskedsstycket med bara "Fråga när du kan vänta besked." Meningen "Ett kort mejl räcker." står då inte där, eftersom nästa stycke slutar med sin egen mening om mejlet. Visas bara beskedsstycket gäller specens avslutning ordagrant.
+
+Tillägg till regeln i 2.7: den nya händelsen kallad till test (beslut 3) ger aldrig en notis och nämns aldrig i veckobrevets ruta. Det följer av motorn, men ska stå som eget test i `followUp.test.ts`, eftersom notisen efter 2.7 inte längre hoppar över tjänster som har fått svar.
+
+Omprövas 19 december: om ett konto vars enda öppna tjänst väntar besked efter intervju ska få veckobrevet. I dag får det inte brevet, och det står kvar så.
+
+### Beslut 2. Skissen för ändring A mot villkoren i beslut 20
+
+**Beslut:** Skissen uppfyller villkoren, och kortet ligger under Vägen till provet, där UX har lagt det.
+
+Villkoren, ett i taget: frivillig (ögonbrynet Valfritt, Hoppa över bredvid knappen), aldrig före Nivåkollen (kräver en mätt nivå, aldrig i ingången `?forsta=1`), aldrig primär handling (kopparknappen är fortfarande Starta dagens test, kortets knappar är vita och mörka), ingen migrering för själva frågan (Hoppa över ligger i webbläsaren). Låsen "Ingår i Premium" på dagskorten räknar jag inte som betalvägg: de är etiketter utan pris och utan köpknapp. Betalväggen på Hem är Gratisraden och väggens knapp när den säger "Ingår i Premium", och då visas kortet inte.
+
+En skärpning av regeln, exakt: kortet visas aldrig när väggens knapp är en köpknapp, oavsett om Gratisraden ritas eller inte. Sammanfaller de två alltid i koden ändras inget, men regeln ska stå i testet för Hem.
+
+Platsen: under Vägen till provet. Skäl: testerna är kärnan och vägen till köp, Black Week börjar 23 november, och direkt under Så ligger du till skulle kortet skjuta ned planen med de låsta dagarna, som är det som säljer på den sida 70 personer besöker. En första rad i Jobbsöket ger ingen intäkt den veckan. Synligheten mäts i stället för att gissas: `tjanstfraga_visad` skickas först när kortet har synts i bild. Regel för avläsningen 5 december: har färre än 10 konton sett kortet på testernas Hem flyttas det upp under Så ligger du till i en egen liten push. Då är kampanjen över.
+
+Hubben Inför intervjun: uppfyller villkoren. Öva på nästa fråga är fortfarande enda kopparknappen, kvotraden är en upplysning och ingen betalvägg, och arket skapar tjänsten och kallelsen med två anrop som redan finns.
+
+### Beslut 3. En tjänst loggad från testerna
+
+**Beslut:** Alternativ (a) i sin minsta form: händelsen kallad till test (`test_invited`) läggs till nu, och kortet på testernas Hem byggs bara tillsammans med den. Utan ägarens ja till migreringen gäller (d) för testvägen: kortet byggs inte, och allt annat i omgång 2 går ut ändå.
+
+Här ändrar jag mitt eget beslut 20 och punkt 6 i avsnitt 6, där händelsen skulle vänta. Skälet är nytt: skissen visade att versionen utan migrering säger något osant på den första rad vi lockar någon att skapa. Med rätt sökdatum står tjänsten genast under Följ upp som tyst, och utkastet skriver till en arbetsgivare som har kallat henne till test att hon inte har hört något. Varken (b) eller (c) löser det. (b) flyttar bara felet tolv dagar framåt och tar samtidigt bort den omedelbara nyttan för alla som loggar i efterhand, och det är just dem brickan i Kom igång och mejlet 2 december riktar sig till: för dem är "tyst i 21 dagar" sant och det är där utkastet och betalväggen kommer. (c) ger fel datum i månadsrapporten till Arbetsförmedlingen. Bygget är mindre än jag räknade med i går, eftersom modellen redan räknar allt utom sökt och inget svar som svar (`statusHasResponse`, `harFattSvar`, statistikens `got_response`), och utlösaren som sätter aktuell status tar senaste händelsen oavsett typ.
+
+**Byggs:**
+1. **Migreringen** (bara tillägg): de två villkoren som listar tillåtna värden, `job_application_events.event_type` och `job_applications.current_status`, får ett tionde värde, `test_invited`. Ingen kolumn, ingen ändrad funktion, ingen data rörs. Statistikfunktionen lämnas: tjänsten räknas som svar, och utfallet står som väntar.
+2. **Statusmodellen** (`status.ts`): typen, en rad i `STATUS_META` med etiketten "Kallad till test", och typen bland dem som går att logga för hand, så att den som redan har tjänsten inlagd kan lägga till kallelsen på tjänstens sida. Listorna i `SmaArk.tsx` och `TjanstVy.tsx` och den tillåtna listan i `api/applications/[id]/events/route.ts` får samma värde. `SVAR_TYPER` i `bana.ts` likaså.
+3. **Motorn** (`lage.ts`): `foljUppTyp` ger null för `test_invited`. Tjänsten blir alltså aldrig tyst, står aldrig under Följ upp, får inget utkast, ingen notis och ingen rad i veckobrevet. Den står kvar vid stationen Sökt, i gruppen Väntar svar, med etiketten Kallad till test. Tester i `motor.test.ts`: sökt för 30 dagar sedan och kallad till test i dag är inte tyst, och inte heller 40 dagar efter kallelsen.
+4. **Skapandet:** `skapaSoktTjanst` tar emot `kallad_till_test: true` och skriver händelsen `test_invited` med dagens datum direkt efter `applied`, i samma anrop på servern. Fältet skickas bara när arket öppnades med `fran=test-hem` eller `fran=test-hem-plan`. En rad från testvägen ska aldrig finnas utan händelsen.
+5. **Datumet:** arket föreslår dagens datum som i dag, och på testvägen visas hjälpraden från intervjuarket under Datum sökt: "Ändra om du sökte en annan dag. Datumet står i din månadsrapport."
+6. **Tre texter som blir osanna och ska skrivas om av UX**, eftersom vi inte längre säger till om tystnad för den här tjänsten: skälet i kortet på Hem ("så säger vi till om arbetsgivaren blir tyst"), raden under arkets knapp på testvägen ("Vi säger till om det är tyst efter tolv dagar") och kvittensen i bild 04. Fakta att skriva utifrån: tjänsten står under Sökta tjänster som kallad till test, vi påminner inte om den, hon lägger själv till beskedet eller intervjun när det kommer, och sökdatumet står i månadsrapporten. Radens text i listan, på Översikt och på tjänstens sida för statusen kallad till test skrivs i samma vända.
+
+**Byggs inte nu, väntar på avläsningen 19 december:** händelsen genomfört test, påminnelse och eget utkast efter testet, koppling mellan planens provdatum och tjänsten, och frågan på Hem för den som redan har en sökt tjänst.
+
+**Ordningen:** testvägen ligger i egna commits. Migreringen körs före pushen av dem. Är den inte körd när resten av omgång 2 är klar pushas resten, också "När är intervjun?" i hubben, och testvägen följer i en egen push. Efter att en rad med `test_invited` finns går koden inte att backa till en version som saknar etiketten utan att sidan med den tjänsten faller, så backning sker framåt.
+
+**Kräver ägarens ja:**
+1. Migreringen ovan mot produktionsdatabasen. Den byter ut två villkor och behöver därför köras i manuellt läge. Utan ja: inget kort på testernas Hem i den här pushen.
+2. Inget mer. Notisens och veckobrevets texter (beslut 1) och pushen går på dagens besked från ägaren, när UX har tagit de två ändringarna i beslut 1 och texterna i punkt 6 ovan.
