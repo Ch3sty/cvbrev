@@ -37,12 +37,70 @@ export function exempelSrc(mall: string, val: MallVal, yrke?: string): string {
   return `/api/public/exempel/cv?${q.toString()}`
 }
 
+/**
+ * Flikens minne för förhandsvisningarna. Ett inloggat CV i en mall har
+ * samma nyckel oavsett vem som hämtade det (arket, miniatyrerna på Ditt CV,
+ * merförsäljningen), så att en mall som redan ritats som miniatyr visas
+ * direkt som ark (CV-rummet, byggspecen avsnitt 6 punkt 3). Taket rymmer
+ * alla 40 mallar för ett CV med marginal.
+ */
 const CACHE = new Map<string, string>()
-const CACHE_TAK = 24
+const CACHE_TAK = 48
 
 function minns(nyckel: string, html: string) {
+  CACHE.delete(nyckel)
   CACHE.set(nyckel, html)
   if (CACHE.size > CACHE_TAK) CACHE.delete(CACHE.keys().next().value as string)
+}
+
+/** JSON med sorterade nycklar, utan tomma värden: samma val ger samma text. */
+function stabil(v: unknown): string {
+  if (v === null || typeof v !== 'object') return JSON.stringify(v) ?? ''
+  if (Array.isArray(v)) return `[${v.map(stabil).join(',')}]`
+  const o = v as Record<string, unknown>
+  const delar = Object.keys(o)
+    .filter((k) => {
+      const x = o[k]
+      if (x === undefined || x === null) return false
+      if (typeof x === 'object' && !Array.isArray(x) && Object.keys(x as object).length === 0) return false
+      return true
+    })
+    .sort()
+    .map((k) => `${JSON.stringify(k)}:${stabil(o[k])}`)
+  return `{${delar.join(',')}}`
+}
+
+/** FNV-1a, 32 bitar: kort fingeravtryck av CV-datan i nyckeln. */
+function avtryck(s: string): string {
+  let h = 0x811c9dc5
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = Math.imul(h, 0x01000193)
+  }
+  return (h >>> 0).toString(36) + s.length.toString(36)
+}
+
+/**
+ * Minnets nyckel för en källa. Inloggat: CV:t, mallen, valen (stabilt
+ * ordnade) och ett avtryck av datan, så att en ändring i CV:t ger en ny
+ * nyckel och det gamla arket aldrig visas för det ändrade CV:t.
+ */
+export function nyckelFor(k: Kalla): string {
+  if (k.typ !== 'inloggad') return JSON.stringify(k)
+  return [
+    'i',
+    k.cvId ?? '',
+    k.mall,
+    stabil(k.val ?? {}),
+    k.spok ? '1' : '0',
+    avtryck(JSON.stringify(k.structuredData ?? null)),
+    avtryck(k.cvText ?? ''),
+  ].join('|')
+}
+
+/** HTML:en i minnet för källan, eller null. */
+export function lasForhandsvisning(k: Kalla): string | null {
+  return CACHE.get(nyckelFor(k)) ?? null
 }
 
 async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal): Promise<string> {
@@ -80,7 +138,7 @@ async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal)
  * så att arket står klart utan en rundtur efter hydreringen.
  */
 export function minnsForhandsvisning(k: Kalla, html: string): void {
-  minns(JSON.stringify(k), html)
+  minns(nyckelFor(k), html)
 }
 
 export interface Forhandsvisning {
@@ -93,7 +151,7 @@ export interface Forhandsvisning {
 }
 
 export function useForhandsvisning(kalla: Kalla | null): Forhandsvisning {
-  const nyckel = kalla ? JSON.stringify(kalla) : ''
+  const nyckel = kalla ? nyckelFor(kalla) : ''
   const [html, setHtml] = useState<string | null>(() => (nyckel && CACHE.get(nyckel)) || null)
   const [laddar, setLaddar] = useState(false)
   const [fel, setFel] = useState(false)
@@ -231,7 +289,7 @@ export function forhamtaSidbilder(k: Kalla): void {
 
 /** Förhandsvisning utan hook, för merförsäljningens bilder. */
 export async function forhandsvisningHtml(k: Exclude<Kalla, { typ: 'exempel' }>): Promise<string | null> {
-  const nyckel = JSON.stringify(k)
+  const nyckel = nyckelFor(k)
   const c = CACHE.get(nyckel)
   if (c) return c
   try {
