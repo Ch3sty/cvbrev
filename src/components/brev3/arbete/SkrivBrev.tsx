@@ -530,7 +530,7 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
         <span className="b3-lop vagg" style={{ marginTop: 12 }}>
           <i />
         </span>
-        <p className="m-0 mt-2.5 text-[13px] leading-[19px] text-[color:var(--vagg-mjuk)]">{SKRIV.vantar}</p>
+        <p className="m-0 mt-2.5 text-[13px] leading-[19px] text-[color:var(--vagg-mjuk)]">{lage === 'spelar' ? SKRIV.spelar : SKRIV.vantar}</p>
       </>
     )
 
@@ -541,7 +541,7 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
         <span className="b3-lop">
           <i />
         </span>
-        <span className="text-[13px] leading-[19px] text-[#4A3F46]">{SKRIV.vantar}</span>
+        <span className="text-[13px] leading-[19px] text-[#4A3F46]">{lage === 'spelar' ? SKRIV.spelar : SKRIV.vantar}</span>
       </div>
     ) : null
 

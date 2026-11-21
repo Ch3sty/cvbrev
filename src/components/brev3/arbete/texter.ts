@@ -48,6 +48,8 @@ export const SKRIV = {
   valjCv: 'Välj CV',
   skrivBrevet: 'Skriv brevet',
   vantar: 'Läser annonsens krav mot ditt CV. Tar 10 till 15 sekunder.',
+  /** Raden under mätaren medan brevet spelas upp stycke för stycke. */
+  spelar: 'Brevet skrivs mot kraven i annonsen.',
   skriverBrevet: 'Skriver brevet',
   skriverStycke: (n: number, av: number) => `Skriver stycke ${n} av ${av}`,
   arkRadSamma: (mall: string) => `${mall}, samma mall som ditt CV.`,
