@@ -67,9 +67,10 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let pris = prisPeriod(SALD_PLAN)
   let prisLang = pris
   let kampanj: { pris: string; ordinarie: string } | null = null
+  let nedladdadMall: string | null = null
 
   try {
-    const [cvRes, profileRes, scopeRes, grans, kamp] = await Promise.all([
+    const [cvRes, profileRes, scopeRes, grans, kamp, nedRes] = await Promise.all([
       supabase.from('cv_texts').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
       supabase
         .from('profiles')
@@ -79,7 +80,16 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       getUserScope(supabase, user.id),
       getCvGrans(supabase, user.id),
       kampanjForVisning(user.id, kampanjNu()),
+      // Mallen utan ?mall=: senast nedladdade, som Ditt CV och Analys.
+      supabase
+        .from('formatted_cv_downloads')
+        .select('template_id')
+        .eq('user_id', user.id)
+        .order('downloaded_at', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
     ])
+    nedladdadMall = (nedRes.data as { template_id?: string | null } | null)?.template_id ?? null
     if (cvRes.error) console.error('Fel vid server-hämtning av CV-listan:', cvRes.error)
     cvRows = (cvRes.data ?? []) as InitialCv[]
     maxCvs = grans.maxCvs
@@ -116,7 +126,11 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   const aktivaSet = new Set(aktiva)
   const lastaIds = cvRows.filter((c) => !aktivaSet.has(c.id)).map((c) => c.id)
   const initialSelectedCvId = valtCvId(cvRows, new Set(lastaIds), cvIdFromUrl)
-  const mall = losMallId(forsta(params.mall)) ?? MALL_KATALOG[0].id
+  // Mallen: adressen, annars som Ditt CV och Analys (senast nedladdade, mallen
+  // sparad på CV:t, katalogens första), så att fliken visar samma ark.
+  const valtBygge = (cvRows.find((c) => c.id === initialSelectedCvId)?.structured_data as { bygge?: { mall?: string } } | null)?.bygge
+  const mall =
+    losMallId(forsta(params.mall)) ?? losMallId(nedladdadMall) ?? losMallId(valtBygge?.mall ?? null) ?? MALL_KATALOG[0].id
   const fullt = maxCvs === CV_GRANS_GRATIS && cvRows.length >= CV_GRANS_GRATIS
 
   // Reserv för äldre länkar med ?andra=sprak (Ditt CV pekar nu direkt på arbetsläget).
