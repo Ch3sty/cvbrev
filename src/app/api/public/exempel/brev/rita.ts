@@ -61,9 +61,24 @@ export function lastSteg(mall: string, data: BrevData): BrevSteg {
   return uppskattatSteg(brevMallDef(mall), data)
 }
 
-/** Arket som HTML, skalat till iframens bredd. */
+/**
+ * Skalningen utan JavaScript: iframen ärver att skript är av, så SKALA_SKRIPT
+ * körs inte. Då skalar en trappa av mediafrågor arket till iframens bredd i
+ * steg om 4 px (högst 4 px vitt till höger). Med JavaScript gäller skriptets
+ * exakta zoom, och noscript-stilen läses inte.
+ */
+export const SKALA_UTAN_JS = (() => {
+  const regler: string[] = []
+  for (let b = 160; b < 794; b += 4) regler.push(`@media (min-width:${b}px){html{zoom:${(b / 794).toFixed(4)}}}`)
+  regler.push('@media (min-width:794px){html{zoom:1}}')
+  return `<noscript><style>${regler.join('')}</style></noscript>`
+})()
+
+/** Arket som HTML, skalat till iframens bredd (med skript exakt, utan skript i steg). */
 export function ritaArk(mall: string, data: BrevData): string {
-  return renderBrevHtml(mall, data, {}, { steg: lastSteg(mall, data) }).replace('</body>', `${SKALA_SKRIPT}</body>`)
+  return renderBrevHtml(mall, data, {}, { steg: lastSteg(mall, data) })
+    .replace('</head>', `${SKALA_UTAN_JS}</head>`)
+    .replace('</body>', `${SKALA_SKRIPT}</body>`)
 }
 
 /** Hela valet: 404 för okänd mall, slug eller nyckel, annars arket. */

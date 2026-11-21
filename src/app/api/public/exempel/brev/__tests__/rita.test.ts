@@ -79,6 +79,10 @@ describe('arket', () => {
       expect(html).toContain(`data-steg="${lastSteg(mall, d)}"`)
       expect(html).toContain('data-last=""')
       expect(html).toMatch(/zoom=String\(z\)[^]*<\/script><\/body>/)
+      // Utan JavaScript: trappan av mediafrågor i head skalar arket.
+      expect(html).toContain('<noscript><style>@media (min-width:160px){html{zoom:0.2015}}')
+      expect(html).toContain('@media (min-width:272px){html{zoom:0.3426}}')
+      expect(html).toMatch(/<\/style><\/noscript><\/head>/)
     }
   })
 
