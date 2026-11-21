@@ -31,7 +31,7 @@ import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
 import { forberedInloggatCv } from '@/lib/cv/forbered-inloggat-cv'
 import { medSpok } from '@/lib/cv/bygg/spok'
 import { renderaMallHtml } from '@/lib/cv/rendera-mall-html'
-import { tolkaVal } from '@/lib/cv/mallar/val'
+import { tolkaVal, valUrAdress } from '@/lib/cv/mallar/val'
 import { nyttCv, type ByggCv } from '@/lib/cv/bygg/modell'
 import { rubrikerFor, valFor, type Entry } from '@/lib/cv/bygg/kalla'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
@@ -170,7 +170,13 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
   const cvId = sparat && rad ? rad.id : null
   const mallUrl = losMallId(forsta(params.mall))
   const mall = mallUrl ?? losMallId(cv.bygge?.mall ?? null) ?? MALL_KATALOG[0].id
-  const val = valFor(cv)
+  // Valen från Mallar i adressen (samma ark som där), annars de sparade på ett byggt CV.
+  const sok = new URLSearchParams()
+  for (const [k, v] of Object.entries(params)) {
+    const f = forsta(v)
+    if (f !== null) sok.set(k, f)
+  }
+  const val = valUrAdress(sok) ?? valFor(cv)
   const rubriker = rubrikerFor(rad?.section_titles ?? null)
   // Arbetsläget: bygg (nytt eller utkast) eller redigera (uppladdat eller klart).
   const lage = lageFor(cvId, cv)
@@ -204,6 +210,7 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       initialCv={cv}
       initialCvId={cvId}
       initialMall={mall}
+      initialVal={val}
       initialRubriker={rubriker}
       initialHtml={initialHtml}
       uppladdad={forsta(params.upp) === '1'}

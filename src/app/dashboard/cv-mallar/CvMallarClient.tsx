@@ -52,6 +52,7 @@ import { scheduleIdle } from '@/lib/scheduleIdle'
 import CvRad from '@/components/cv/rum3/CvRad'
 import { cvListaUr } from '@/components/cv/rum3/cvLista'
 import { arbetslageHref, type ArbetsAvsnitt } from '@/components/cv/rum3/flikar'
+import { valTillQuery } from '@/lib/cv/mallar/val'
 import MallarVy, { AndraBricka, type Byte } from '@/components/cv/rum3/mallar/MallarVy'
 import type { CvSparrData } from '@/components/cv/rum3/sparr/CvSparr'
 
@@ -93,6 +94,8 @@ export default function CvMallarClient(p: {
   initialIsPremium: boolean
   initialSelectedCvId: string | null
   initialMall: string
+  /** Valen ur adressen (eller sparade på ett byggt CV); följer med till arbetsläget och tillbaka. */
+  initialVal: MallVal
   initialFormat: Format
   kop: boolean
   katalog: readonly MallKort[]
@@ -127,7 +130,7 @@ export default function CvMallarClient(p: {
   const [mallId, setMallId] = useState(p.initialMall)
   const [fordrojning, setFordrojning] = useState(0)
   const [format, setFormat] = useState<Format>(p.initialFormat)
-  const [val, setVal] = useState<MallVal>({})
+  const [val, setVal] = useState<MallVal>(p.initialVal)
   const [sparr, setSparr] = useState<Sparr | null>(null)
   const [matning, setMatning] = useState<Matning | null>(null)
   const [fel, setFel] = useState<string | null>(null)
@@ -176,8 +179,10 @@ export default function CvMallarClient(p: {
     q.delete('premium_activated')
     if (format === 'docx') q.set('format', 'docx')
     else q.delete('format')
+    q.delete('andra')
+    valTillQuery(val, q)
     window.history.replaceState(window.history.state, '', `${window.location.pathname}?${q.toString()}`)
-  }, [cvId, mallId, format])
+  }, [cvId, mallId, format, val])
 
   /** Köpreturen: galleriet med CV, mall och format, dit kassan skickar tillbaka. */
   const returFor = (mallId: string, f: Format = format) =>
@@ -366,7 +371,7 @@ export default function CvMallarClient(p: {
     router.refresh()
   }
 
-  const arbetslage = (avsnitt?: ArbetsAvsnitt) => (cv ? arbetslageHref(cv.id, 'mallar', { avsnitt, mall: mall.id }) : null)
+  const arbetslage = (avsnitt?: ArbetsAvsnitt) => (cv ? arbetslageHref(cv.id, 'mallar', { avsnitt, mall: mall.id, val }) : null)
   const tillArbetslaget = (avsnitt: ArbetsAvsnitt) => {
     const href = arbetslage(avsnitt)
     if (href) router.push(href)

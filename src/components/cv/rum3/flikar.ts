@@ -7,6 +7,8 @@
  */
 
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import type { MallVal } from '@/lib/cv/mallar/kontrakt'
+import { valTillQuery } from '@/lib/cv/mallar/val'
 
 export type CvFlik = 'cv' | 'mallar' | 'analys'
 
@@ -35,12 +37,15 @@ export type ArbetsAvsnitt = 'kontakt' | 'profil' | 'erfarenhet' | 'utbildning' |
  * Arbetsläget (steg 3) på sin enda adress, kontraktet i byggspecen 10b:
  * /dashboard/skapa-cv?cv=&avsnitt=&mall=&fran=. "Klar" och tillbaka går till
  * sidan i `fran` med samma cv och mall. Utan avsnitt öppnar arbetsläget
- * sitt första.
+ * sitt första. Valen (typsnitt, färg, ordning) står i adressen med samma
+ * namn som exempel-API:t och följer med tillbaka.
  */
-export function arbetslageHref(cvId: string, fran: 'mallar' | 'ditt-cv' | 'analys', opts?: { avsnitt?: ArbetsAvsnitt; mall?: string }): string {
+export function arbetslageHref(cvId: string, fran: 'mallar' | 'ditt-cv' | 'analys', opts?: { avsnitt?: ArbetsAvsnitt; mall?: string; val?: MallVal }): string {
   const q = new URLSearchParams({ cv: cvId })
   if (opts?.avsnitt) q.set('avsnitt', opts.avsnitt)
   if (opts?.mall) q.set('mall', opts.mall)
+  // Valen från Mallar (typsnitt, färg, ordning) följer med, så att arket är detsamma.
+  if (opts?.val) valTillQuery(opts.val, q)
   q.set('fran', fran)
   return `/dashboard/skapa-cv?${q.toString()}`
 }

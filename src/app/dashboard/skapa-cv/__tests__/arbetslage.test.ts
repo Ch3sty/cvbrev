@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { valTillQuery, valUrAdress } from '@/lib/cv/mallar/val'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { nyttCv } from '@/lib/cv/bygg/modell'
 import {
@@ -47,6 +48,15 @@ describe('arbetsläget: adressen', () => {
     expect(tillbakaHref('ditt-cv', 'abc', 'koppar')).toBe('/dashboard/profil/cv?cv=abc')
     expect(tillbakaHref('analys', 'abc', null)).toBe('/dashboard/cv-analys?cv=abc')
     expect(tillbakaHref(null, null, null)).toBe('/dashboard/profil/cv')
+    // Valen från Mallar följer med tillbaka dit, men inte till de andra flikarna.
+    expect(tillbakaHref('mallar', 'abc', 'koppar', { typsnitt: 'georgia', farg: 2, ordning: 'standard' })).toBe(
+      '/dashboard/cv-mallar?cv=abc&mall=koppar&typsnitt=georgia&farg=2'
+    )
+    expect(tillbakaHref('ditt-cv', 'abc', 'koppar', { typsnitt: 'georgia' })).toBe('/dashboard/profil/cv?cv=abc')
+    const q = valTillQuery({ typsnitt: 'lato', farg: 1, ordning: 'intyg', enSida: true, rubriker: { profil: 'Om mig' } }, new URLSearchParams('cv=x'))
+    expect(q.toString()).toBe('cv=x&typsnitt=lato&farg=1&ordning=intyg&ensida=1')
+    expect(valUrAdress(q)).toEqual({ typsnitt: 'lato', farg: 1, ordning: 'intyg', enSida: true })
+    expect(valUrAdress(new URLSearchParams('cv=x&mall=linne'))).toBeNull()
   })
   it('avsnittet i adressen och tillbaka', () => {
     expect(tolkaAvsnitt('sprak')).toBe('sprak')

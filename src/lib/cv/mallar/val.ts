@@ -95,3 +95,27 @@ export function typsnittIdForFamilj(familj: unknown): TypsnittId | undefined {
   const id = forsta === 'times new roman' ? 'times' : forsta.replace(/\s+/g, '-')
   return arTypsnitt(id) ? id : undefined
 }
+
+/**
+ * Valen i en adress (CV-rummet: Mallar och arbetsläget, byggspecen 10b). Samma
+ * namn som exempel-API:ts query, så att tolkaValUrQuery läser dem. Rubrikerna
+ * följer inte med: de sparas på CV:t (section_titles). Tomma val skrivs inte.
+ */
+export function valTillQuery(val: MallVal, q: URLSearchParams): URLSearchParams {
+  for (const k of ['typsnitt', 'farg', 'ordning', 'ensida', 'uppsattning', 'foto']) q.delete(k)
+  if (val.typsnitt) q.set('typsnitt', val.typsnitt)
+  if (typeof val.farg === 'number' && val.farg > 0) q.set('farg', String(val.farg))
+  if (val.ordning && val.ordning !== 'standard') q.set('ordning', val.ordning)
+  if (val.enSida) q.set('ensida', '1')
+  if (val.uppsattning) q.set('uppsattning', val.uppsattning)
+  if (val.foto === false) q.set('foto', '0')
+  return q
+}
+
+/** Valen ur en adress, utan rubriker; null när adressen inte bär några val. */
+export function valUrAdress(q: URLSearchParams): MallVal | null {
+  if (!['typsnitt', 'farg', 'ordning', 'ensida', 'uppsattning', 'foto'].some((k) => q.has(k))) return null
+  const v = tolkaValUrQuery(new URLSearchParams([...q].filter(([k]) => k !== 'rubriker')))
+  delete v.rubriker
+  return v
+}

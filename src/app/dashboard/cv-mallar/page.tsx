@@ -27,13 +27,16 @@ import { valtCvId } from '@/components/cv/rum3/cvLista'
 import { arbetslageHref } from '@/components/cv/rum3/flikar'
 import { CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess'
 import { potentialPoang } from '@/lib/cv/analys/potential'
+import { valUrAdress } from '@/lib/cv/mallar/val'
+import { valFor } from '@/lib/cv/bygg/kalla'
+import type { ByggCv } from '@/lib/cv/bygg/modell'
 import { poangUrAnalys, potentialUnderlag, type AnalysUnderlag } from '@/lib/rum/cvRum'
 
 /** Analysens fält för plus i spärren (samma uträkning som Ditt CV och analysens översikt). */
 const ANALYS_FALT =
   'id, cv_id, completed_at, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
 
-type Sok = {
+type Sok = Record<string, string | string[] | undefined> & {
   cv?: string | string[]
   mall?: string | string[]
   format?: string | string[]
@@ -186,6 +189,15 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     vagPerCv[valt.id] = { uppladdat: bygge ? 'utkast' : 'uppladdat', analyserat, atgardat }
   }
 
+  // Valen (typsnitt, färg, ordning): adressen (också tillbaka från arbetsläget),
+  // annars de sparade på ett byggt CV.
+  const sok = new URLSearchParams()
+  for (const [k, v] of Object.entries(params)) {
+    const f = forsta(v)
+    if (f !== null) sok.set(k, f)
+  }
+  const initialVal = valUrAdress(sok) ?? (valt ? valFor((valt.structured_data ?? {}) as ByggCv) : {})
+
   return (
     <CvMallarClient
       key={initialSelectedCvId ?? 'exempel'}
@@ -194,6 +206,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       initialIsPremium={isPremium}
       initialSelectedCvId={initialSelectedCvId}
       initialMall={mall}
+      initialVal={initialVal}
       initialFormat={forsta(params.format) === 'docx' ? 'docx' : 'pdf'}
       kop={forsta(params.kop) === '1'}
       katalog={MALL_KATALOG}

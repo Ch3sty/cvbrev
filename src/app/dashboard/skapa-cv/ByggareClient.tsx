@@ -33,7 +33,6 @@ import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import { IkonBugg } from '@/components/illustrations/Ikoner'
 import { IkonBock, IkonStang, IkonTillbaka } from '@/components/illustrations/MallIkoner'
 import { IkonPil } from '@/components/illustrations/RumSymboler'
-import { flikHref } from '@/components/cv/rum3/flikar'
 import { useNotification } from '@/context/notificationcontext'
 import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
 import type { Feature, Scope } from '@/lib/access/features'
@@ -165,6 +164,8 @@ export interface ByggareProps {
   initialCv: ByggCv
   initialCvId: string | null
   initialMall: string
+  /** Valen (typsnitt, färg, ordning): från Mallar i adressen, annars de sparade på ett byggt CV. */
+  initialVal: MallVal
   initialRubriker: Partial<Record<Sektion, string>>
   initialHtml: string | null
   uppladdad: boolean
@@ -215,7 +216,7 @@ export default function ByggareClient(p: ByggareProps) {
   const [titel, setTitel] = useState(p.initialCv.personalInfo.title ?? '')
   const [mallId, setMallId] = useState(p.initialMall)
   const val = useMemo<MallVal>(() => {
-    const v = { ...(p.initialCv.bygge?.val ?? {}) }
+    const v = { ...p.initialVal }
     delete v.rubriker
     return v
     // Valen görs på Mallar; här står de stilla.
@@ -431,7 +432,7 @@ export default function ByggareClient(p: ByggareProps) {
     await ko.current.catch(() => undefined)
     if (dit) return lamnaFlodet(router, dit)
     if (!p.fran && !cvIdRef.current) return lamnaFlodet(router)
-    lamnaFlodet(router, tillbakaHref(p.fran, cvIdRef.current, mallId))
+    lamnaFlodet(router, tillbakaHref(p.fran, cvIdRef.current, mallId, val))
   }
 
   /* ------------------------------------------------------------- arket */
@@ -608,7 +609,7 @@ export default function ByggareClient(p: ByggareProps) {
             <button
               type="button"
               className={s.kapsel}
-              onClick={() => void lamna(flikHref('mallar', cvIdRef.current, { mall: mall.id }))}
+              onClick={() => void lamna(tillbakaHref('mallar', cvIdRef.current, mall.id, val))}
               aria-label={ARBETE.mallBricka(mall.namn)}
               data-byt-mall
             >

@@ -6,7 +6,8 @@
  *   /dashboard/skapa-cv?cv=<id>&avsnitt=<kontakt|profil|erfarenhet|utbildning|kompetenser|sprak|fler>&mall=<mallid>&fran=<mallar|ditt-cv|analys>
  *
  * Utan cv är det byggaren från början. "Klar" och tillbaka går till sidan i
- * fran med samma cv och mall.
+ * fran med samma cv och mall. Valen från Mallar (typsnitt, farg, ordning,
+ * ensida, uppsattning) står i samma adress och följer med tillbaka.
  *
  * Här bor de rena delarna: adressen, vilket blad ett avsnitt öppnar, jobbens
  * ordning på arket och källan till förhandsvisningen. Klientsäker, ren data.
@@ -15,6 +16,7 @@ import type { CVEducation, CVExperience, CVMetadata } from '@/lib/cv/cv-metadata
 import type { MallVal, Sektion } from '@/lib/cv/mallar/kontrakt'
 import type { ArkVal, PostSektion } from '@/lib/cv/bygg/ark'
 import { byggKalla } from '@/lib/cv/bygg/kalla'
+import { valTillQuery } from '@/lib/cv/mallar/val'
 import { harInnehall, miniminiva, nastaLucka, type ByggCv, type GuidatAvsnitt } from '@/lib/cv/bygg/modell'
 import { tolkaDatum, arPagaende } from '@/lib/cv/bygg/datum'
 
@@ -44,12 +46,13 @@ const SIDA: Record<Fran, string> = {
   analys: '/dashboard/cv-analys',
 }
 
-/** Klar och tillbaka: sidan i fran med samma cv och mall. Utan fran: Ditt CV. */
-export function tillbakaHref(fran: Fran | null, cvId: string | null, mall: string | null): string {
+/** Klar och tillbaka: sidan i fran med samma cv och mall (och valen till Mallar). Utan fran: Ditt CV. */
+export function tillbakaHref(fran: Fran | null, cvId: string | null, mall: string | null, val?: MallVal | null): string {
   const f = fran ?? 'ditt-cv'
   const q = new URLSearchParams()
   if (cvId) q.set('cv', cvId)
   if (mall && f === 'mallar') q.set('mall', mall)
+  if (val && f === 'mallar') valTillQuery(val, q)
   const s = q.toString()
   return s ? `${SIDA[f]}?${s}` : SIDA[f]
 }
