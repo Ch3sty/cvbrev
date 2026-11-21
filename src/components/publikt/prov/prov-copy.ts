@@ -33,6 +33,14 @@ const ORDNING = ['första', 'andra', 'tredje', 'fjärde', 'femte', 'sjätte']
  */
 export const PROV3 = {
   eyebrow: 'Provet klart',
+  /** Tvåspaltsdomen i det öppna kortet (skissen Publik-prov-resultat-1440). */
+  dom: {
+    regeln: 'Regeln',
+    duValde: (valt: string, ratt: string) => `Du valde ${valt}. Rätt svar är ${ratt}.`,
+    duValdeRatt: (valt: string) => `Du valde ${valt}.`,
+    duValdeKort: 'Du valde',
+    rattKort: 'Rätt',
+  },
   /** Väggens mening under huvudtalet. */
   mening: (typ: ProvTyp, variant: 'noll' | 'en' | 'flera', fel: readonly number[]): string => {
     const ord = forklaringOrd(typ)
