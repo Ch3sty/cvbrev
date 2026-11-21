@@ -1,0 +1,387 @@
+/**
+ * Analysens förslag, införda mekaniskt och poängsatta med samma funktion som
+ * CV:t (docs/poangmodell-cv-analys.md, avsnittet "Plus som stämmer").
+ *
+ *  - Ett förslags plus är poäng(CV med förslaget infört) minus poäng(CV i dag).
+ *  - "Med våra förslag" är poäng(CV med alla förslag införda), inte summan
+ *    av plusen: förslag kan överlappa.
+ *  - "Potential med dina val" är poäng(CV med de valda införda), med de
+ *    redigerade texterna om hon ändrat något.
+ *  - byggForbattratCv är också det analysflödet sparar, så det sparade CV:t
+ *    får exakt den poäng som utlovades.
+ *
+ * AI:n skriver texterna i förslagen, aldrig talen. Talen räknas här.
+ * Klientsäker.
+ */
+import type { CVMetadata } from '../cv-metadata'
+import { kanonisktCv } from './kanon'
+import { falt, kompetenserIcv, stadaKompetenser } from './matt'
+import { KATEGORIER, POANG_VERSION, raknaPoang, type KategoriId, type Poang } from './modell'
+
+type Obj = Record<string, unknown>
+const arObj = (v: unknown): v is Obj => !!v && typeof v === 'object' && !Array.isArray(v)
+
+/** Kategorin som nya kompetenser hamnar i, samma som analysflödet alltid använt. */
+export const KOMPLETTERANDE = 'Kompletterande färdigheter'
+
+/** Vilka förslag som är valda. Index pekar in i analysens listor. */
+export interface Val {
+  profil: boolean
+  roller: readonly number[]
+  kompetenser: readonly number[]
+}
+
+/** Texter hon redigerat i väljsteget. Det som sparas är det som räknas. */
+export interface Redigeringar {
+  profil?: string | null
+  roller?: ReadonlyMap<number, string> | Readonly<Record<number, string>>
+}
+
+/** Det ur analysresultatet som behövs för att införa förslagen. */
+export interface AnalysForPoang {
+  structuredCV?: unknown
+  profileSummary?: { improvedText?: unknown } | null
+  roleBasedImprovements?: ReadonlyArray<{ suggestedText?: unknown; rollIndex?: unknown } | null> | null
+  skillSuggestions?: ReadonlyArray<{ skill?: unknown } | null> | null
+}
+
+export interface PoangKategori {
+  id: KategoriId
+  namn: string
+  max: number
+  /** Kategorins poäng i dag. */
+  idag: number
+  /** Kategorins poäng med alla förslag införda. */
+  medAlla: number
+  /** medAlla minus idag. Kan vara noll. */
+  plus: number
+}
+
+/** Det den nya Analys-sidan och rutan "Så räknas poängen" läser. */
+export interface PoangSammanfattning {
+  version: typeof POANG_VERSION
+  /** Poäng i dag, 0 till 100. */
+  idag: number
+  /** Poäng med alla förslag i resultatet införda. */
+  medAlla: number
+  /** medAlla minus idag. */
+  plus: number
+  kategorier: PoangKategori[]
+}
+
+const profilText = (s: string) => s.trim().replace(/\s+/g, ' ')
+const rollRader = (s: string) =>
+  s
+    .split(/\n+/)
+    .map((l) => l.trim().replace(/\s+/g, ' '))
+    .filter((l) => l.length > 0)
+
+function redigerad(red: Redigeringar | undefined, i: number): string | undefined {
+  const r = red?.roller
+  if (!r) return undefined
+  const v = r instanceof Map ? r.get(i) : (r as Readonly<Record<number, string>>)[i]
+  return typeof v === 'string' && v.trim() ? v : undefined
+}
+
+/**
+ * CV:t med de valda förslagen införda, i den form det sparas. Profilen byts
+ * mot förslagets text, en rolls beskrivning mot förslagets rader och nya
+ * kompetenser läggs i "Kompletterande färdigheter" om de inte redan finns.
+ * Kompetenslistan städas som vid sparandet (poängen påverkas inte av det).
+ */
+export function byggForbattratCv(
+  analys: AnalysForPoang,
+  val: Val,
+  red?: Redigeringar
+): CVMetadata | null {
+  const cv = kanonisktCv(analys.structuredCV)
+  if (!cv) return null
+
+  if (val.profil) {
+    const text = (typeof red?.profil === 'string' && red.profil.trim() ? red.profil : null) ?? falt(analys.profileSummary?.improvedText)
+    if (text) cv.summary = profilText(text)
+  }
+
+  const roller = analys.roleBasedImprovements ?? []
+  for (const i of [...val.roller].sort((a, b) => a - b)) {
+    const f = roller[i]
+    const ri = f?.rollIndex
+    if (typeof ri !== 'number' || !cv.experience[ri]) continue
+    const text = redigerad(red, i) ?? (typeof f?.suggestedText === 'string' ? f.suggestedText : '')
+    const rader = rollRader(text)
+    if (rader.length === 0) continue
+    cv.experience[ri] = { ...cv.experience[ri], description: rader }
+  }
+
+  const kompetenser = analys.skillSuggestions ?? []
+  const nya: string[] = []
+  for (const i of [...val.kompetenser].sort((a, b) => a - b)) {
+    const namn = falt(kompetenser[i]?.skill)
+    if (namn) nya.push(namn)
+  }
+  if (nya.length > 0) {
+    const finns = new Set(kompetenserIcv(cv.skills).map((s) => s.toLowerCase()))
+    const skills = Array.isArray(cv.skills) ? cv.skills : []
+    let grupp = skills.find((g) => g && typeof g === 'object' && g.category === KOMPLETTERANDE)
+    for (const namn of nya) {
+      if (finns.has(namn.toLowerCase())) continue
+      finns.add(namn.toLowerCase())
+      if (!grupp) {
+        grupp = { category: KOMPLETTERANDE, skills: [] }
+        skills.push(grupp)
+      }
+      grupp.skills = [...(Array.isArray(grupp.skills) ? grupp.skills : []), namn]
+    }
+    cv.skills = skills
+  }
+
+  cv.skills = stadaKompetenser(cv.skills)
+  return cv
+}
+
+/** Poängen med de valda förslagen. null utan strukturerat CV. */
+export function poangMedVal(analys: AnalysForPoang, val: Val, red?: Redigeringar): Poang | null {
+  const cv = byggForbattratCv(analys, val, red)
+  return cv ? raknaPoang(cv) : null
+}
+
+/** Alla förslag i resultatet valda. */
+export function allaVal(analys: AnalysForPoang): Val {
+  return {
+    profil: Boolean(falt(analys.profileSummary?.improvedText)),
+    roller: (analys.roleBasedImprovements ?? []).flatMap((f, i) => (typeof f?.rollIndex === 'number' ? [i] : [])),
+    kompetenser: (analys.skillSuggestions ?? []).flatMap((f, i) => (falt(f?.skill) ? [i] : [])),
+  }
+}
+
+/** Poäng i dag, med alla förslag och per kategori, för analysens resultat. */
+export function poangSammanfattning(analys: AnalysForPoang): PoangSammanfattning | null {
+  const cv = kanonisktCv(analys.structuredCV)
+  if (!cv) return null
+  const idag = raknaPoang(cv)
+  const alla = poangMedVal(analys, allaVal(analys)) ?? idag
+  return {
+    version: POANG_VERSION,
+    idag: idag.total,
+    medAlla: alla.total,
+    plus: alla.total - idag.total,
+    kategorier: KATEGORIER.map(({ id, namn, max }) => {
+      const a = idag.kategorier.find((x) => x.id === id)?.poang ?? 0
+      const b = alla.kategorier.find((x) => x.id === id)?.poang ?? 0
+      return { id, namn, max, idag: a, medAlla: b, plus: b - a }
+    }),
+  }
+}
+
+/* --------------------------------------------------------- rollmatchning */
+
+const norm = (v: unknown) =>
+  falt(v)
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim()
+
+/**
+ * Vilken roll i CV:t varje rollförslag gäller. Förslaget bär rollens titel
+ * och arbetsgivare (och, från analysversionen med lagrad struktur, rollens
+ * plats i CV:t). Vi matchar i den ordningen: plats som stämmer med titel,
+ * titel och arbetsgivare, bara titel. Varje roll används högst en gång.
+ * Ett förslag utan träff kan inte införas och tas bort ur resultatet.
+ */
+export function matchaRoller(
+  cv: CVMetadata,
+  forslag: ReadonlyArray<Obj>
+): Array<number | null> {
+  const E = cv.experience ?? []
+  const tagna = new Set<number>()
+  const titel = E.map((e) => norm(e?.position))
+  const bolag = E.map((e) => norm(e?.company))
+  return forslag.map((f) => {
+    const t = norm(f.roleTitle)
+    const b = norm(f.company)
+    const hint = typeof f.rollIndex === 'number' ? f.rollIndex : typeof f.experienceIndex === 'number' ? f.experienceIndex : null
+    const valj = (i: number) => {
+      tagna.add(i)
+      return i
+    }
+    if (hint !== null && E[hint] && !tagna.has(hint) && (!t || titel[hint] === t || (b && bolag[hint] === b))) {
+      return valj(hint)
+    }
+    if (t) {
+      const ok = E.findIndex((_, i) => !tagna.has(i) && titel[i] === t && (!b || !bolag[i] || bolag[i] === b))
+      if (ok >= 0) return valj(ok)
+    }
+    if (t) {
+      const ok = E.findIndex((_, i) => !tagna.has(i) && titel[i] === t)
+      if (ok >= 0) return valj(ok)
+    }
+    if (b) {
+      const ok = E.findIndex((_, i) => !tagna.has(i) && bolag[i] === b && !titel[i])
+      if (ok >= 0) return valj(ok)
+    }
+    return null
+  })
+}
+
+/* ------------------------------------------------------ analysens resultat */
+
+/** CV-raden poängen räknas på. */
+export interface CvRad {
+  structured_data?: unknown
+  cv_text?: string | null
+}
+
+/** Behåller ordningen vid lika plus: stabil sortering på ursprungsindex. */
+function sorteraEfterPlus<T extends { plus: number; ursprung: number }>(lista: T[]): T[] {
+  return [...lista].sort((a, b) => b.plus - a.plus || a.ursprung - b.ursprung)
+}
+
+/**
+ * Analysens resultat med riktiga tal. Alla tal i resultatet räknas om här,
+ * så att sparade analyser (med AI:ns påhittade tal) visas enligt modellen:
+ *
+ *  - structuredCV blir CV:t i dag i kanonisk form, ur CV-raden. Saknar raden
+ *    struktur används analysens egen sparade struktur.
+ *  - Varje förslag får plus (verkligt, kan vara negativt) och atsImpact
+ *    (plus, men aldrig under noll) och rollförslag rollIndex. Förslag som
+ *    inte går att införa tas bort.
+ *  - Roll- och kompetensförslag sorteras efter verkligt plus. Sparade val
+ *    (selectedImprovements) följer med i den nya ordningen.
+ *  - Allmänna råd får plus 0: de införs inte, så de lovar inga poäng.
+ *  - atsFriendliness.score blir poängen i dag, poang sammanfattningen och
+ *    poangVersion modellens version.
+ */
+export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
+  const bas =
+    kanonisktCv(cvRad?.structured_data, cvRad?.cv_text) ?? kanonisktCv(result.structuredCV, cvRad?.cv_text ?? null)
+
+  const ats = arObj(result.atsFriendliness) ? result.atsFriendliness : {}
+  const allmant = Array.isArray(result.generalImprovements)
+    ? result.generalImprovements.map((g) => (arObj(g) ? { ...g, atsImpact: 0, plus: 0 } : g))
+    : result.generalImprovements
+
+  if (!bas) {
+    // Inget att räkna på: inga tal alls, hellre än påhittade.
+    return {
+      ...result,
+      generalImprovements: allmant,
+      roleBasedImprovements: Array.isArray(result.roleBasedImprovements)
+        ? result.roleBasedImprovements.map((r) => (arObj(r) ? { ...r, atsImpact: 0, plus: 0 } : r))
+        : result.roleBasedImprovements,
+      skillSuggestions: Array.isArray(result.skillSuggestions)
+        ? result.skillSuggestions.map((s) => (arObj(s) ? { ...s, atsImpact: 0, plus: 0 } : s))
+        : result.skillSuggestions,
+      profileSummary: arObj(result.profileSummary) ? { ...result.profileSummary, atsImpact: 0, plus: 0 } : result.profileSummary,
+      atsFriendliness: { ...ats, score: null, feedback: '' },
+      poang: null,
+      poangVersion: POANG_VERSION,
+    }
+  }
+
+  const idag = raknaPoang(bas).total
+  const grund: AnalysForPoang = { structuredCV: bas }
+  const plusFor = (analys: AnalysForPoang, val: Val) => (poangMedVal({ ...grund, ...analys }, val)?.total ?? idag) - idag
+
+  // Profilen
+  let profil: Obj | null | undefined = result.profileSummary as Obj | null | undefined
+  if (arObj(profil)) {
+    const text = falt(profil.improvedText)
+    const plus = text ? plusFor({ profileSummary: { improvedText: text } }, { profil: true, roller: [], kompetenser: [] }) : 0
+    profil = { ...profil, currentText: bas.summary ?? '', atsImpact: Math.max(0, plus), plus }
+  }
+
+  // Rollerna
+  const rollerIn = (Array.isArray(result.roleBasedImprovements) ? result.roleBasedImprovements : []).filter(arObj)
+  const traffar = matchaRoller(bas, rollerIn)
+  const roller = sorteraEfterPlus(
+    rollerIn.flatMap((r, ursprung) => {
+      const rollIndex = traffar[ursprung]
+      const text = typeof r.suggestedText === 'string' ? r.suggestedText : ''
+      if (rollIndex === null || !text.trim()) return []
+      const e = bas.experience[rollIndex]
+      const plus = plusFor(
+        { roleBasedImprovements: [{ suggestedText: text, rollIndex }] },
+        { profil: false, roller: [0], kompetenser: [] }
+      )
+      return [
+        {
+          ...r,
+          rollIndex,
+          roleTitle: falt(e?.position) || r.roleTitle,
+          company: falt(e?.company) || r.company,
+          currentText: Array.isArray(e?.description) ? e.description.join('\n') : '',
+          atsImpact: Math.max(0, plus),
+          plus,
+          ursprung,
+        },
+      ]
+    })
+  )
+
+  // Kompetenserna
+  const kompIn = (Array.isArray(result.skillSuggestions) ? result.skillSuggestions : []).filter(arObj)
+  const kompetenser = sorteraEfterPlus(
+    kompIn.flatMap((s, ursprung) => {
+      const namn = falt(s.skill)
+      if (!namn) return []
+      const plus = plusFor({ skillSuggestions: [{ skill: namn }] }, { profil: false, roller: [], kompetenser: [0] })
+      return [{ ...s, skill: namn, atsImpact: Math.max(0, plus), plus, ursprung }]
+    })
+  )
+
+  // Sparade val följer förslagen till deras nya plats.
+  let valt = result.selectedImprovements
+  if (arObj(valt)) {
+    const flytta = (gamla: unknown, lista: Array<{ ursprung: number }>) =>
+      Array.isArray(gamla)
+        ? gamla.flatMap((g) => {
+            const ny = lista.findIndex((x) => x.ursprung === g)
+            return ny >= 0 ? [ny] : []
+          })
+        : gamla
+    valt = { ...valt, roles: flytta(valt.roles, roller), skills: flytta(valt.skills, kompetenser) }
+  }
+
+  const utan = <T extends { ursprung: number }>(x: T) => {
+    const { ursprung: _u, ...rest } = x
+    return rest
+  }
+
+  const ut: Obj = {
+    ...result,
+    structuredCV: bas,
+    profileSummary: profil,
+    roleBasedImprovements: roller.map(utan),
+    skillSuggestions: kompetenser.map(utan),
+    generalImprovements: allmant,
+    ...(valt !== undefined ? { selectedImprovements: valt } : {}),
+    poangVersion: POANG_VERSION,
+  }
+  return medSammanfattning(ut)
+}
+
+/**
+ * Sätter poang och atsFriendliness.score ur de förslag resultatet bär. Körs
+ * igen efter gratisfiltreringen, så att "med våra förslag" bara räknar de
+ * förslag hon faktiskt ser.
+ */
+export function medSammanfattning(result: Obj): Obj {
+  const s = poangSammanfattning(result as AnalysForPoang)
+  const ats = arObj(result.atsFriendliness) ? result.atsFriendliness : {}
+  return {
+    ...result,
+    atsFriendliness: {
+      ...ats,
+      score: s ? s.idag : null,
+      feedback: s ? `Läsbarhetspoäng ${s.idag} av 100` : '',
+    },
+    poang: s,
+    poangVersion: POANG_VERSION,
+  }
+}
+
+/** Ett CV:ts poäng ur CV-raden, med analysens sparade struktur som reserv. */
+export function poangForRad(cvRad: CvRad | null | undefined, reservStruktur?: unknown): number | null {
+  const cv = kanonisktCv(cvRad?.structured_data, cvRad?.cv_text) ?? kanonisktCv(reservStruktur, cvRad?.cv_text ?? null)
+  return cv ? raknaPoang(cv).total : null
+}
