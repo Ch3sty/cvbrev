@@ -48,7 +48,7 @@ import { getFontFamilyForHTML } from '@/lib/documents/typsnitt'
 import type { Scope } from '@/lib/access/features'
 import { MALL_FILTER, passarFilter, type MallarKort, type MallFilter } from './filter'
 import { MallKort } from './MallKort'
-import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaFlera, laddaNerBrev, markeraKopierat, sparaVal, type Filformat } from './klient'
+import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
 
 const BytBrevArk = dynamic(() => import('./BytBrevArk'), { ssr: false })
@@ -212,23 +212,31 @@ export default function MallarKlient(p: MallarKlientProps) {
   const filtrerade = useMemo(() => katalog.filter((k) => passarFilter(k, filter)), [katalog, filter])
   const synliga = utfalld ? filtrerade : filtrerade.slice(0, p.forstaAntal)
   const ovriga = Math.max(0, filtrerade.length - p.forstaAntal)
-  const saknas = synliga.filter((k) => !kortHtml[k.id]).map((k) => k.id)
-  const saknasNyckel = saknas.join(',')
+  const synligaNyckel = synliga.map((k) => k.id).join(',')
+  // Korten som redan har brevet läses ur en ref, så att en färdig omgång inte startar om hämtningen.
+  const kortHtmlRef = useRef(kortHtml)
+  kortHtmlRef.current = kortHtml
 
   useEffect(() => {
-    if (!saknasNyckel) return
+    const saknas = synligaNyckel.split(',').filter((id) => id && !kortHtmlRef.current[id])
+    if (!saknas.length) return
     const ctrl = new AbortController()
     setHamtar(true)
-    forhandsvisaFlera(brevId, saknasNyckel.split(','), font, ctrl.signal)
-      .then((ut) => setKortHtml((a) => ({ ...ut, ...a })))
+    // I omgångar med nytt försök vid fel (klient.ts): ett anrop för alla övriga kunde svara 504 och lämna korten med katalogens CV-bilder.
+    forhandsvisaIOmgangar(brevId, saknas, font, (ut) => setKortHtml((a) => ({ ...ut, ...a })), { signal: ctrl.signal })
+      .then((misslyckade) => {
+        if (misslyckade.length) setFel(T.fel.forhandsvisa)
+      })
       .catch((e) => {
         if ((e as Error)?.name !== 'AbortError') setFel(T.fel.forhandsvisa)
       })
-      .finally(() => setHamtar(false))
+      .finally(() => {
+        if (!ctrl.signal.aborted) setHamtar(false)
+      })
     return () => ctrl.abort()
     // Hämtas med typsnittet som gäller när korten visas; byte av typsnitt ritar bara arket om.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [saknasNyckel, brevId])
+  }, [synligaNyckel, brevId])
 
   /* ---------------------------------------------------------------- nedladdning */
   const returTill = brev ? `/dashboard/mina-brev/mallar?${new URLSearchParams({ brev: brev.id, mall: visad, format: 'pdf' }).toString()}` : null
