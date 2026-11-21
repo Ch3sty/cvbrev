@@ -73,12 +73,12 @@ describe('brev utan namn', () => {
 })
 
 describe('CV-exporten utan namn', () => {
-  it.each([
-    'app/dashboard/cv-analys/components/CVAnalysisWizard.tsx',
-  ])('%s frågar efter namnet vid 422 name_required', (rel) => {
-    const klient = las(rel)
-    expect(klient).toMatch(/kastaOmNamnKravs\(/)
-    expect(klient).toMatch(/<NameRequiredNotice/)
+  it('analysflödet laddar inte ner själv: det sparar och går till Mallar, som frågar efter namnet', () => {
+    // CV-rummet steg 4: slutsteget sparar och skickar till /dashboard/cv-mallar,
+    // där nedladdningen och NameRequiredNotice finns (testet nedan).
+    const klient = las('app/dashboard/cv-analys/components/CVAnalysisWizard.tsx')
+    expect(klient).not.toMatch(/generate-formatted/)
+    expect(klient).toMatch(/flikHref\('mallar'/)
   })
 
   it('CV-byggaren frågar efter namnet vid 422 name_required (dokumentets nedladdning)', () => {
