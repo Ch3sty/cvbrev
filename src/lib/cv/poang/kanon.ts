@@ -111,6 +111,8 @@ function utbildningUrRoll(e: Obj): CVEducation {
   }
   if (start) ut.startDate = start
   if (slut) ut.endDate = slut
+  // Som normalizeStructuredData: mallarna och förhandsvisningen läser året här.
+  if (slut || start) ut.graduationYear = slut || start
   if (typeof e.description === 'string' && e.description.trim()) ut.description = e.description.trim()
   return ut
 }
