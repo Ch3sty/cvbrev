@@ -490,7 +490,8 @@ export interface AnalyticsEvents {
   mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep' | 'pil'; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
   typsnitt_bytt: { font: string; surface: string; template?: string; tier?: 'free' | 'premium' }
   nedladdning_klickad: { template: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
-  mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' }
+  /** hur: brevets mallvisare (våg 2) skiljer på miniatyr, svep och kikande kant. */
+  mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev'; hur?: 'miniatyr' | 'svep' | 'kant' }
   mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' }
   /* Mallsatsningen fas 2 (plan-mallar avsnitt 8, utbudets avsnitt 6): de nya
      ytorna. template och tier på alla händelser per mall. surface: mallsida,
@@ -521,7 +522,7 @@ export interface AnalyticsEvents {
   merforsaljning_klick: { template: string; position: number; val: 'kort' | 'kop' | 'nej'; surface: string }
   namn_ifyllt: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; falt: 'namn' | 'titel' }
   fortsatt_klickad: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; template: string }
-  mallvisning_visad: { slug: string; template: string }
+  mallvisning_visad: { slug: string; template: string; typ?: 'cv' | 'brev' }
   mallvisning_uppladdning_klick: { slug: string }
   cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean; entry?: string | null; foto_pa?: boolean; sidor?: number | null }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
