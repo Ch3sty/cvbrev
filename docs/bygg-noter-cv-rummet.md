@@ -174,9 +174,9 @@ Var mallsidans funktioner hamnade: byta mall (rutorna, pilarna, svep, piltangent
 
 ### Inte gjort i steg 2
 
-- Typsnittsarkets antal och Helvetica-märkningen (avsnitt 8 punkt 3) ligger i steg 4.
-- Klicktestet för mallkomponenterna (`klicktest-mallar-komponenter.ts`) är inte kört: dess inloggade del letar efter den gamla ytan, och det gör riktiga nedladdningar och skapar konton mot produktionen. Slutsteget uppdaterar och kör det.
-- Ditt CV:s länk "Lägg till språken" går fortfarande till Mallar (`?andra=sprak`), som nu skickar vidare till arbetsläget (`fran=ditt-cv`). Slutsteget kan peka länken direkt dit.
+- Typsnittsarkets antal och Helvetica-märkningen (avsnitt 8 punkt 3): gjort i integrationen.
+- Klicktestet för mallkomponenterna: uppdaterat i integrationen (växeln --skarpt), körs i slutsteget.
+- Ditt CV:s länk "Lägg till språken" pekar sedan steg 3 och integrationen direkt på arbetsläget; `?andra=sprak` är reserv.
 
 ### Testkonton och skärmdumpar
 
@@ -273,9 +273,36 @@ Kontrollerat mot databasen: ett uppladdat CV som ändrats i Erfarenhet och Språ
 ### Till slutsteget
 
 - Mallyta importerar fortfarande AvsnittArk. Uppföljningen: AvsnittArk lever kvar, för provsidan utan konto (ProvaArbetsyta skickar avsnitt till Mallyta). Det som bevisligen var dött togs bort: Mallytas byggarprops (bygg, lucka, utanKnapp, ovanRad, kolumn, utanSvep), som bara den gamla byggaren använde. /cv-mallar och /cv-mallar/prova pixeljämförda efteråt: 0 olika pixlar.
-- Mallar bär bara `mall` till arbetsläget. Har hon valt typsnitt eller färg på Mallar för ett uppladdat CV syns arket här i mallens standardval; ska arket vara exakt detsamma behöver kontraktet en `val`-parameter.
+- Mallar bär bara `mall` till arbetsläget. Löst i integrationen: valen står i adressen (se nedan).
 - Kör hela klicktestet en gång (`skapa`, `klicka`, `radera`).
 
 ### Backning
 
 Commit 1 (arbetsläget) går att backa för sig; den ändrar bara `src/app/dashboard/skapa-cv/**` och raden `sprakHref` i Ditt CV. Commit 2 (klicktestet och de här noterna) påverkar ingen kod som körs.
+
+## Integrationen Mallar och arbetsläget (efter sammanslagningen av steg 3)
+
+- **Sammanslagningen:** tsc rent; vitest för `src/components/cv`, `src/components/paywall`, `src/lib/cv`, `src/lib/rum` och `src/app/dashboard/skapa-cv` 681 av 681 efter en rättelse: en kommentar i `egnaMallar.ts` ("... 8). Rutorna ber om sina mallar") fällde mallantalstestet.
+- **Valen följer med:** valen sparas inte på uppladdade CV (bara byggda har `bygge.val`), så kontraktet bär dem i adressen med exempel-API:ts namn: `typsnitt`, `farg`, `ordning`, `ensida`, `uppsattning` (`valTillQuery` och `valUrAdress` i `src/lib/cv/mallar/val.ts`). Mallar skriver dem i sin adress, länkarna till arbetsläget (`arbetslageHref(..., { val })`) bär dem, arbetsläget ritar arket med dem (`initialVal`, annars de sparade på ett byggt CV), och Klar, tillbaka och Byt mall (`tillbakaHref(..., val)`) lämnar dem tillbaka till Mallar. Håller vid omladdning; ett byggt CV som sparas i arbetsläget får valen i `bygge.val` som förut. Rubrikerna följer inte med i adressen: de sparas på CV:t.
+- **Rätt avsnitt:** brickan Ändra texten skickar `avsnitt=kontakt`, och arbetsläget öppnar Kontakt när det kommer från en flik (`fran`) utan avsnitt i ett befintligt CV. Ditt CV:s "Lägg till språken du kan" byggs med `arbetslageHref(id, 'ditt-cv', { avsnitt: 'sprak', mall })`; `?andra=sprak` finns kvar som reserv på Mallar (vidare till arbetsläget) och i arbetsläget.
+- **Sidomenyn:** `menyPath` i `src/lib/rum/rum.ts`: på `/dashboard/skapa-cv` med `?cv=` markeras fliken i `fran` (mallar, analys; annars Ditt CV). Skapa nytt CV är aktiv bara när CV:t byggs från början. Sidomenyn läser adressen med `useSearchParams` (dashboard-layouten är dynamisk, så ingen Suspense behövs).
+- **Typsnittsarket:** texten räknas ur arkets lista ("14 typsnitt i tre grupper"), Helvetica är gratis och står bland de ATS-säkra i `FONTS`. Det gäller också brevens typsnittsval (`skapa-brev/components/FontSelector.tsx` låste Helvetica för gratis) och exempelsidornas typsnittslista, som läser samma `FONTS`. `/cv-mallar` och `/cv-mallar/prova` pixeljämförda efteråt: 0 olika pixlar vid laddning (arket med texten öppnas först vid tryck).
+- **Städningen:** AvsnittArk lever kvar (provsidan utan konto). Mallytas byggarprops togs bort (se ovan under Steg 3, Till slutsteget).
+
+### Klicktesterna inför slutsteget
+
+`scripts/klicktest-cv-yta.ts` samlar väljarna för den inloggade mallytan (`YTA`), `klickaSynlig`/`synlig` (synlig = har en ruta, också fasta lager som målgången) och växeln `--skarpt`. Utan växeln besvaras `/api/cv/generate-formatted` i webbläsaren med en liten PDF eller Word-fil, och kontroller som kräver servern hoppas över med en OK-rad som säger det.
+
+| Skript | Ändrat |
+|---|---|
+| `klicktest-mallar-komponenter.ts` | Inloggat: fasta raden mot navet på telefonen, vald mall i kolumnen på datorn, rubrikarket, spärren mall och köpsteget, första nedladdningen och målgången, köpreturen `?ladda=1`, Word. Merförsäljningen och provsidans kontoskapande bara med `--skarpt` |
+| `klicktest-nedladdning.ts` | Nedladdningsknappen i nya ytan, målgången; andra försöket (merförsäljningen), 402, Word och brevet bara med `--skarpt` |
+| `klicktest-cv-word.ts` | Formatvalet i nya ytan: Word öppet i gratismall, låst i Premiummall (spärren cv-export-word), avstängt i mall utan Word, nedladdning och målgång; använd gratisnedladdning ger merförsäljningen |
+| `klicktest-helskarm-dator.ts` | Inloggat: galleriet (alla 40 i grupper, klick byter arket), format och nedladdning nåbara, titeln öppnar arbetsläget i Kontakt; titeln i PDF och Word bara med `--skarpt` |
+| `klicktest-helskarm-sidor.ts` | Inloggat: helskärmen på Mallar; jämförelsen med filens sidor bara med `--skarpt`; byggarens gamla steg 7 borttaget (arbetsläget har klicktest-cv-byggare) |
+
+Körda nu: `npx tsx scripts/klicktest-cv-yta.ts prova --konton <qa-json>` mot lokal server, 22 av 22 (gratis 1280: väggen, knappen, formatet, arket, förstoringsglaset, Ändra texten, rutorna, panelen, pilarna, gratisvägen, Premiumkortet, spärren mall; Premium 412: samma plus den fasta raden och målgången efter en påhittad nedladdning). Skripten typkontrollerade (bara de sedan tidigare kända `link!.properties`-varningarna). Testerna i sin helhet är inte körda.
+
+### Flödet Mallar, arbetsläget och tillbaka
+
+Skärmdumpar i scratchpad `cv/bygge/steg23/flode/` (1440 och 412): Koppar med Georgia och tredje färgen, Ändra texten, titeln ändrad, Klar (telefonen: tillbaka-pilen), tillbaka på Mallar. 9 av 9 kontroller: valen i adressen på Mallar, arbetsläget i Kontakt med valen och `fran=mallar`, sidomenyn markerar Mallar, tillbaka med samma mall och val, brickan visar Georgia och arket den nya titeln.
