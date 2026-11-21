@@ -6,6 +6,10 @@
  * skrivs om ur den, så att analysen och dokumentet säger samma sak. Gamla
  * format (ParsedCV) konverteras vid första sparningen. Bara eget CV.
  *
+ * cv_text maskas med samma funktion som uppladdningen (maskaLagradCvText),
+ * så att kolumnen har samma form oavsett väg. structured_data sparas omaskad:
+ * arket, PDF:en, Word-filen och poängen läser kontakten därifrån.
+ *
  * Body: { cvId, cv: CVMetadata }. Svar: { ok: true }.
  */
 import { cookies } from 'next/headers'
@@ -13,6 +17,7 @@ import { NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
 import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
+import { maskaLagradCvText } from '@/lib/privacy/lagradCvText'
 
 export async function PUT(request: Request) {
   const raw = await request.text().catch(() => '')
@@ -34,7 +39,7 @@ export async function PUT(request: Request) {
 
   const { data, error } = await supabase
     .from('cv_texts')
-    .update({ structured_data: cv, cv_text: formatCVMetadataAsText(cv) })
+    .update({ structured_data: cv, cv_text: maskaLagradCvText(formatCVMetadataAsText(cv)) })
     .eq('id', body.cvId)
     .eq('user_id', user.id)
     .select('id')

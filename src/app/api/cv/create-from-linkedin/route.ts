@@ -5,6 +5,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getCvGrans } from '@/lib/supabase/premiumAccess'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
+import { maskaLagradCvText } from '@/lib/privacy/lagradCvText'
 import { arPlatshallareNamn, arPlatshallareTelefon, arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
 import { arTomEllerPlatshallare } from '@/lib/profile/dokumentEpost'
 
@@ -74,7 +75,8 @@ export async function POST(req: NextRequest) {
         user_id: userId,
         file_name: `LinkedIn CV ${formattedDate}`,
         original_file_path: `linkedin/${userId}/${timestamp}.json`,
-        cv_text: formatCVMetadataAsText(cvData),
+        // Maskad som vid uppladdningen; kontakten står omaskad i structured_data.
+        cv_text: maskaLagradCvText(formatCVMetadataAsText(cvData)),
         structured_data: cvData,
         text_extraction_failed: false
       })

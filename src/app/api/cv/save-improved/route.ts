@@ -132,12 +132,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Save improved CV with structured data
+    // Save improved CV with structured data. cv_text maskas som i Ersätt och
+    // uppladdningen; byggarens första sparning och "spara som nytt" efter
+    // förslagen går hit, och båda skickar strukturen med kontakten omaskad.
     const insertData: any = {
       user_id: user.id,
       file_name: fileName,
       original_file_path: originalFilePath,
-      cv_text: improvedText
+      cv_text: maskaLagradCvText(String(improvedText))
     };
 
     // Add structured data if provided

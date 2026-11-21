@@ -13,6 +13,7 @@
 
 import Link from 'next/link'
 import type { CSSProperties, ReactNode } from 'react'
+import AvsiktsLank from '@/components/rum/AvsiktsLank'
 
 export interface BrevVaggProps {
   children: ReactNode
@@ -61,11 +62,12 @@ export function BrevFlikar({ aktiv, hrefDinaBrev, hrefMallar }: { aktiv: BrevFli
       {flikar.map((f) => {
         const ar = f.id === aktiv
         return (
-          <Link key={f.id} href={f.href} className="b3-flik" aria-current={ar ? 'page' : undefined} prefetch={ar ? false : undefined}>
+          // Förladdas bara på avsikt, inte när flikraden syns (AvsiktsLank).
+          <AvsiktsLank key={f.id} href={f.href} className="b3-flik" aria-current={ar ? 'page' : undefined}>
             <b>{f.namn}</b>
             <small className="hidden xl:block">{f.rad}</small>
             <small className="xl:hidden">{f.radKort}</small>
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </nav>

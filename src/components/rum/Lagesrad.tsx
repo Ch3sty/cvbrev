@@ -16,7 +16,7 @@
  * nästa visning vet hur man kom dit.
  */
 
-import Link from 'next/link'
+import AvsiktsLank from './AvsiktsLank'
 import { LAGESRAD } from '@/lib/rum/copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { markeraRumYta } from './rumMatning'
@@ -46,12 +46,11 @@ export default function Lagesrad({ aktiv, plats = 'vagg' }: { aktiv: Lage; plats
       {lagen.map((l) => {
         const ar = l.id === aktiv
         return (
-          <Link
+          // Ingen förladdning när raden syns, bara på avsikt (AvsiktsLank).
+          <AvsiktsLank
             key={l.id}
             href={l.href}
             aria-current={ar ? 'page' : undefined}
-            // Sidan man står på förhämtas aldrig (tillägget 2026-10-11, hemvyns LCP).
-            prefetch={ar ? false : undefined}
             onClick={ar ? undefined : () => markeraRumYta('lagesrad')}
             className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-display text-[15px] font-semibold tracking-[-.01em] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-koppar-ljus ${
               topp ? 'flex-1 px-3' : 'min-w-[172px] px-5'
@@ -59,7 +58,7 @@ export default function Lagesrad({ aktiv, plats = 'vagg' }: { aktiv: Lage; plats
           >
             <l.Ikon size={20} />
             {l.text}
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </nav>

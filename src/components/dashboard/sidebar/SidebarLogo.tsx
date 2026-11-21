@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+// Förladdas bara på avsikt, inte när märket syns (AvsiktsLank).
+import Link from '@/components/rum/AvsiktsLank';
 
 /**
  * Ordmärket överst i sidomenyn (spec-rummen 4.3): display 18/800 i ink-1,

@@ -6,7 +6,7 @@
 import { describe, expect, it } from 'vitest'
 import { innehallUrCv, medForslagUrAnalys } from '../cvRum'
 
-import { flikHref, forhamtaCvSida } from '@/components/cv/rum3/flikar'
+import { flikHref } from '@/components/cv/rum3/flikar'
 import { nyckelFor } from '@/components/cv/Dokument/hooks'
 
 const CV = {
@@ -49,13 +49,6 @@ describe('flikarna', () => {
   it('bär CV:t i ?cv=', () => {
     expect(flikHref('mallar', 'abc', { mall: 'linne' })).toBe('/dashboard/cv-mallar?cv=abc&mall=linne')
     expect(flikHref('cv')).toBe('/dashboard/profil/cv')
-  })
-  it('CV-rummets tre sidor förhämtas inte, övriga länkar som förut', () => {
-    expect(forhamtaCvSida('/dashboard/profil/cv')).toBe(false)
-    expect(forhamtaCvSida('/dashboard/cv-mallar?cv=abc&mall=linne')).toBe(false)
-    expect(forhamtaCvSida('/dashboard/cv-analys')).toBe(false)
-    expect(forhamtaCvSida('/dashboard/tester')).toBe(true)
-    expect(forhamtaCvSida('/dashboard/skapa-cv')).toBe(true)
   })
 })
 

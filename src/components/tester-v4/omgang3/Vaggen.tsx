@@ -18,6 +18,7 @@
  */
 
 import Link from 'next/link'
+import AvsiktsLank from '@/components/rum/AvsiktsLank'
 import Topprad from '@/components/rum/Topprad'
 import { veckodagNamn } from '@/lib/traning/datum'
 import { HEM_HREF, PLAN_HREF, PROVDATUM_HREF, TESTER_HREF, UTVECKLING_HREF } from '@/lib/tester/v4/rutter'
@@ -50,11 +51,12 @@ function Flikar({ aktiv }: { aktiv: NavVal }) {
       {FLIKAR.map((f) => {
         const ar = f.id === aktiv
         return (
-          <Link key={f.id} href={f.href} className="t3-flik" data-nav={f.id} aria-current={ar ? 'page' : undefined} prefetch={ar ? false : undefined}>
+          // Förladdas bara på avsikt, inte när flikraden syns (AvsiktsLank).
+          <AvsiktsLank key={f.id} href={f.href} className="t3-flik" data-nav={f.id} aria-current={ar ? 'page' : undefined}>
             <b>{f.namn}</b>
             <small className="hidden md:block">{f.rad}</small>
             <small className="md:hidden">{f.radKort}</small>
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </NavMedMatning>
