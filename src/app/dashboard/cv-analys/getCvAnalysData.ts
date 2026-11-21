@@ -21,6 +21,7 @@
  * analyssvaret, och rörs inte av den här filen.
  */
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
+import { checkCvAnalysisQuota } from '@/lib/quota/quotaService';
 
 /** Gratisnivåns analyskvot, samma värde som SUBSCRIPTION_LIMITS i useProfile. */
 const FREE_ANALYSIS_LIMIT = 1;
@@ -69,17 +70,7 @@ export function emptyCvAnalysData(userId: string): CvAnalysData {
   };
 }
 
-/**
- * Nästa återställning för kompetensanalysens veckofönster. Speglar
- * calculateNextResetDate i useProfile: sju dygn efter senaste nollställningen,
- * och utan tidigare nollställning finns ingen spärrtid att visa.
- */
-function nextResetFrom(lastReset: string | null): string | null {
-  if (!lastReset) return null;
-  const next = new Date(lastReset);
-  next.setDate(next.getDate() + 7);
-  return next.toISOString();
-}
+
 
 /**
  * supabase: en klient från createServerClient, redan bunden till användarens
@@ -139,8 +130,14 @@ export async function getCvAnalysData(
     };
   }
 
-  const used = row?.weekly_competence_analysis_count ?? 0;
-  const remaining = Math.max(0, FREE_ANALYSIS_LIMIT - used);
+  // Analyskvoten räknas med samma funktion som spärren i POST /api/cv/analyze
+  // och som Ditt CV (checkCvAnalysisQuota: jobb med usage_counted). Förut
+  // räknades den här på en profilräknare, så sidorna kunde säga olika.
+  const kvot = await checkCvAnalysisQuota(supabase, userId);
+  if (kvot.isPremium) {
+    return { userId, cvs, cvCount: cvs.length, isPremium: true, remainingAnalyses: null, nextResetAt: null };
+  }
+  const remaining = Math.max(0, kvot.limit - kvot.used);
 
   return {
     userId,
@@ -148,10 +145,8 @@ export async function getCvAnalysData(
     cvCount: cvs.length,
     isPremium: false,
     remainingAnalyses: remaining,
-    nextResetAt:
-      remaining <= 0
-        ? nextResetFrom(row?.last_competence_analysis_reset ?? null)
-        : null,
+    // Kontokvot: den öppnar inte igen av sig själv, ingen återkomsttid.
+    nextResetAt: null,
   };
 }
 

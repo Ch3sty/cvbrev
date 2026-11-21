@@ -96,13 +96,16 @@ describe('GET /api/cv/jobs/[jobId]: poängen', () => {
     expect(b.result.poang).toEqual(a.result.poang)
   })
 
-  it('gratisnivån får ett fynd och potentialen räknas på det hon ser', async () => {
+  it('gratisnivån får ett fynd, och samma poäng och potential som Premium', async () => {
+    harAtkomst.mockReturnValue(true)
+    const premium = (await hamta()).result
     harAtkomst.mockReturnValue(false)
     const { result } = await hamta()
     const synliga =
       result.roleBasedImprovements.length + result.skillSuggestions.length + result.generalImprovements.length
     expect(synliga).toBe(1)
     expect(result.gated.findingsTotal).toBe(9)
-    expect(result.poang.medAlla).toBe(poangMedVal(result, forvaltVal(result))!.total)
+    // Talen är desamma för alla; texten bakom de låsta fynden skickas inte.
+    expect(result.poang).toEqual(premium.poang)
   })
 })
