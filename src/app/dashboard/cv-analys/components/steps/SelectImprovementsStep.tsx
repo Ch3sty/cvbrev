@@ -137,7 +137,7 @@ const CATEGORY_META: Record<
   auto: {
     title: 'Allmänna förbättringar',
     description:
-      'Ändringar vi alltid gör: stavning, format och struktur. Strukturella och formaterings-relaterade justeringar som lyfter helhetsintrycket.',
+      'Råd om struktur och format som du gör själv i CV:t. Vi för inte in dem åt dig, så de ingår inte i potentialen.',
   },
 };
 
@@ -253,7 +253,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         ? [
             {
               id: 'auto' as SelectCategory,
-              label: 'Automatiskt',
+              label: 'Råd',
               selectedCount: safeData.general.length,
               totalCount: safeData.general.length,
               isAuto: true,

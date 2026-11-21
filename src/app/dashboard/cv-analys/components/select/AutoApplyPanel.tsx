@@ -14,17 +14,18 @@ interface AutoApplyPanelProps {
 }
 
 /**
- * De allmänna förbättringarna, som tillämpas utan att man väljer dem.
+ * De allmänna förbättringarna: råd om struktur och format. De förs inte in i
+ * CV:t av analysen (det gjorde de aldrig) och lovar därför inga poäng.
  * Bort: gröna bockar på varje rad och gröna kanter. En panel, en lista.
  */
 export default function AutoApplyPanel({ improvements }: AutoApplyPanelProps) {
   return (
     <div className="space-y-3">
       <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
-        <h4 className="text-kort text-ink-1">Vi tar hand om resten åt dig</h4>
+        <h4 className="text-kort text-ink-1">Råd att göra själv</h4>
         <p className="mt-1 text-sm leading-relaxed text-ink-2">
-          De här förbättringarna är allmänna och tillämpas automatiskt när du
-          går vidare. Du behöver inte välja något här.
+          Det här ändrar vi inte åt dig. Gör du det i CV:t räknas det in i
+          poängen nästa gång. Du behöver inte välja något här.
         </p>
       </section>
 

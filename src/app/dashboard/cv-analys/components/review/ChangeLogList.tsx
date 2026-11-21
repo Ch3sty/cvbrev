@@ -68,7 +68,10 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
           title="Personbeskrivning"
           subtitle="Vi har omformulerat din inledning för starkare första intryck."
           tags={[
-            { label: `+${data.profile.atsImpact} läsbarhet`, tone: 'emerald' },
+            // Plus visas bara när förändringen faktiskt höjer poängen.
+            ...(data.profile.atsImpact > 0
+              ? [{ label: `+${data.profile.atsImpact} läsbarhet`, tone: 'emerald' as const }]
+              : []),
             ...(data.profile.changes.length > 0
               ? [
                   {
@@ -138,8 +141,8 @@ export default function ChangeLogList({ data }: ChangeLogListProps) {
         <ChangeLogItem
           type="auto"
           id="auto"
-          title="Automatiska förbättringar"
-          subtitle="Strukturella justeringar som lyfter helhetsintrycket."
+          title="Råd att göra själv"
+          subtitle="Det här ändrar vi inte åt dig. När det står i CV:t räknas det in i poängen."
           bullets={data.general.bullets}
         />
       )}

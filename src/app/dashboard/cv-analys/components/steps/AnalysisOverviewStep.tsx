@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { antal } from '@/lib/rum/antal';
+import type { PoangKategori } from '@/lib/cv/poang';
 import {
   Target,
   Briefcase,
@@ -26,13 +27,11 @@ interface AnalysisOverviewStepProps {
   profileImproved: boolean;
   atsScore: number;
   potentialScore: number;
-  totalImpactBreakdown?: {
-    profile: number;
-    roles: number;
-    skills: number;
-    general: number;
-    total: number;
-  };
+  /**
+   * Poängmodellens kategorier (src/lib/cv/poang, PoangSammanfattning):
+   * maxpoäng, poäng i dag och plus med alla förslag införda.
+   */
+  kategorier?: PoangKategori[];
 }
 
 /**
@@ -40,7 +39,8 @@ interface AnalysisOverviewStepProps {
  *
  * Bort: gradbetyg i färgade ringar, gröna och gula rutor bakom text, orange
  * "Prioritet"-pillar och stora tal i orange. Poängen står som stora tal i en
- * panel, fynden som en lista. Uträkningen är oförändrad.
+ * panel, fynden som en lista. Talen räknas av poängmodellen
+ * (docs/poangmodell-cv-analys.md), aldrig av AI:n.
  */
 export default function AnalysisOverviewStep({
   totalImprovements,
@@ -50,9 +50,8 @@ export default function AnalysisOverviewStep({
   profileImproved,
   atsScore,
   potentialScore,
-  totalImpactBreakdown,
+  kategorier,
 }: AnalysisOverviewStepProps) {
-  const improvement = potentialScore - atsScore;
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   const categories = [
@@ -86,10 +85,10 @@ export default function AnalysisOverviewStep({
     {
       id: 'general',
       icon: Target,
-      title: 'Automatiska förbättringar',
+      title: 'Råd om struktur och format',
       count: generalCount,
-      description: 'Strukturella justeringar som lyfter helhetsintrycket.',
-      detail: `${antal(generalCount, 'förbättring', 'förbättringar')} för läsbarhet, formatering och flöde.`,
+      description: 'Sådant du ändrar själv. Det räknas in i poängen när det står i CV:t.',
+      detail: `${antal(generalCount, 'råd', 'råd')} om läsbarhet, formatering och flöde.`,
       priority: 'medium',
     },
   ];
@@ -113,8 +112,10 @@ export default function AnalysisOverviewStep({
                     <p className="text-sm">
                       De flesta arbetsgivare låter ett rekryteringssystem (ATS)
                       läsa och sortera ansökningarna innan en människa gör det.
-                      Poängen går från 0 till 100 och mäter hur väl systemet
-                      tolkar ditt CV.
+                      Poängen går från 0 till 100 och räknas ur det som står i
+                      CV:t: kontaktuppgifter, personbeskrivning, roller,
+                      kompetenser, utbildning, språk, datum och längd. Samma CV
+                      ger alltid samma poäng.
                     </p>
                   </TooltipContent>
                 </Tooltip>
@@ -137,9 +138,9 @@ export default function AnalysisOverviewStep({
           </div>
 
           <p className="mt-4 border-t border-kant pt-4 text-sm leading-relaxed text-ink-2">
-            Tillämpar du förslagen lyfter poängen {improvement} steg. Det är
-            skillnaden mellan CV:t som det ser ut nu och hur det kan läsas av
-            urvalssystemen när fynden är rättade.
+            {potentialScore > atsScore
+              ? `Inför du alla förslag blir poängen ${potentialScore}. Talet är uträknat på ditt CV med förslagen på plats, inte uppskattat.`
+              : 'Förslagen höjer inte poängen, men kan ändå göra texten tydligare för den som läser.'}
           </p>
         </section>
 
@@ -234,30 +235,30 @@ export default function AnalysisOverviewStep({
         </section>
 
         {/* Poängfördelning */}
-        {totalImpactBreakdown && (
+        {kategorier && kategorier.length > 0 && (
           <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
-            <h3 className="text-kort text-ink-1">Så beräknar vi din potential</h3>
+            <h3 className="text-kort text-ink-1">Så räknas poängen</h3>
             <p className="mt-0.5 text-meta text-ink-3">
-              Vi viktar dina fem starkaste roller för rättvis poängsättning.
+              Sju delar som tillsammans ger 100. Plus är vad alla förslag
+              ger i varje del när de är införda.
             </p>
 
             <div className="mt-4 space-y-2.5 text-sm">
-              <PointRow label="Personbeskrivning" value={Math.round(totalImpactBreakdown.profile)} />
-              <PointRow label="Rollförbättringar (topp 5)" value={Math.round(totalImpactBreakdown.roles)} />
-              <PointRow label="Kompetenser" value={Math.round(totalImpactBreakdown.skills)} />
-              <PointRow label="Allmänna förbättringar" value={Math.round(totalImpactBreakdown.general)} />
+              {kategorier.map((k) => (
+                <PointRow key={k.id} label={k.namn} idag={k.idag} max={k.max} plus={k.plus} />
+              ))}
             </div>
 
             <div className="mt-4 flex items-center justify-between border-t border-kant pt-4">
-              <span className="text-kort text-ink-1">Total möjlig ökning</span>
+              <span className="text-kort text-ink-1">Med alla förslag</span>
               <span className="text-kort tabular-nums text-ink-1">
-                +{totalImpactBreakdown.total} poäng
+                {potentialScore > atsScore ? `+${potentialScore - atsScore} poäng` : 'Ingen ändring'}
               </span>
             </div>
 
             <p className="mt-3 text-meta text-ink-3">
-              Ditt faktiska resultat beror på vilka förbättringar du väljer i
-              nästa steg.
+              Ditt resultat beror på vilka förbättringar du väljer i nästa
+              steg. Redigerar du en text räknar vi på det du sparar.
             </p>
           </section>
         )}
@@ -266,11 +267,15 @@ export default function AnalysisOverviewStep({
   );
 }
 
-function PointRow({ label, value }: { label: string; value: number }) {
+function PointRow({ label, idag, max, plus }: { label: string; idag: number; max: number; plus: number }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-3">
       <span className="text-ink-2">{label}</span>
-      <span className="font-medium tabular-nums text-ink-1">+{value} poäng</span>
+      <span className="tabular-nums text-ink-1">
+        <span className="font-medium">{idag}</span>
+        <span className="text-ink-3"> av {max}</span>
+        {plus > 0 ? <span className="ml-2 font-medium">+{plus}</span> : null}
+      </span>
     </div>
   );
 }

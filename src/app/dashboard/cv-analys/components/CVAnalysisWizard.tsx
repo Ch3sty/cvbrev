@@ -27,6 +27,13 @@ import type { Aterupptagning } from '../aterupptagning';
 import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
 import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
+import {
+  byggForbattratCv,
+  poangMedVal,
+  stadaKompetenser,
+  type Redigeringar,
+  type Val,
+} from '@/lib/cv/poang'
 
 /** Hämtar CV:ts PDF och laddar ned den. Kastar NamnKravsError vid 422 name_required. */
 async function laddaNerCvPdf(requestBody: Record<string, unknown>, pdfFileName: string): Promise<void> {
@@ -241,59 +248,37 @@ export default function CVAnalysisWizard({
   }, [cvs, selectedCV]);
 
   /**
-   * Splittar en skill-sträng på vanliga separatorer och städar varje del.
-   * Exempel: "Kunskaper-Säljteknik-Mötesbokning" → ["Kunskaper", "Säljteknik", "Mötesbokning"]
-   * Exempel: "Ledarskap 3/5 4/5 5/5" → ["Ledarskap"]
-   */
-  const splitSkillString = (raw: string): string[] => {
-    if (!raw || typeof raw !== 'string') return [];
-    // Splitta på separatorer som ofta klumpar ihop skills i CV:n
-    const parts = raw
-      .split(/\s*[-–-•|/;,]\s*|\s+(?:och|samt)\s+/i)
-      .map((s) => s.trim())
-      // Ta bort betygs-suffix typ "3/5", "4/5 5/5", "(grund)"
-      .map((s) => s.replace(/\s*\d+\/\d+(\s*\d+\/\d+)*\s*$/g, '').trim())
-      .map((s) => s.replace(/^\(.*\)|\(.*\)$/g, '').trim())
-      .filter((s) => s.length >= 2 && s.length <= 60);
-    return parts;
-  };
-
-  /**
-   * Normaliserar skills-listan i strukturerad CV-data: splittar bindestreckade skills,
-   * tar bort dubbletter och tomma värden. Returnerar en kopia.
+   * Normaliserar skills-listan i strukturerad CV-data: splittar bindestreckade
+   * skills, tar bort dubbletter och tomma värden. Returnerar en kopia. Regeln
+   * ligger i poängmodellen (stadaKompetenser), som räknar likadant före och
+   * efter städningen.
    */
   const sanitizeStructuredCV = (structured: any): any => {
     if (!structured) return structured;
     const copy = JSON.parse(JSON.stringify(structured));
-    if (Array.isArray(copy.skills)) {
-      copy.skills = copy.skills
-        .map((category: any) => {
-          if (
-            category &&
-            typeof category === 'object' &&
-            Array.isArray(category.skills)
-          ) {
-            const flat = category.skills.flatMap((s: any) =>
-              typeof s === 'string' ? splitSkillString(s) : []
-            );
-            // Dedupe case-insensitive
-            const seen = new Set<string>();
-            const unique = flat.filter((s: string) => {
-              const k = s.toLowerCase();
-              if (seen.has(k)) return false;
-              seen.add(k);
-              return true;
-            });
-            return { ...category, skills: unique };
-          }
-          if (typeof category === 'string') {
-            return { category: 'Färdigheter', skills: splitSkillString(category) };
-          }
-          return category;
-        })
-        .filter((c: any) => c && Array.isArray(c.skills) && c.skills.length > 0);
-    }
+    copy.skills = stadaKompetenser(copy.skills);
     return copy;
+  };
+
+  /* Läsbarhetspoängen (docs/poangmodell-cv-analys.md). Alla tal räknas med
+     samma funktion som servern: i dag, med valen och för varje förändring.
+     AI:n har aldrig skrivit något av dem. */
+  const valNu = (): Val => ({
+    profil: selectedProfile,
+    roller: Array.from(selectedRoles),
+    kompetenser: Array.from(selectedSkills),
+  });
+  const redigeringarNu = (): Redigeringar => ({
+    profil: editedProfileText,
+    roller: editedRoleTexts,
+  });
+  const poangIdag: number =
+    analysisResult?.poang?.idag ?? analysisResult?.atsFriendliness?.score ?? 0;
+  /** Plus för ett urval förslag med de texter som faktiskt sparas. */
+  const plusFor = (val: Val): number => {
+    if (!analysisResult) return 0;
+    const p = poangMedVal(analysisResult, val, redigeringarNu());
+    return p ? p.total - poangIdag : 0;
   };
 
   const generatePreviewFromStructured = (structured: any) => {
@@ -537,140 +522,32 @@ export default function CVAnalysisWizard({
     analysisAbortRef.current?.abort();
   }, []);
 
-  const calculateSelectedImpact = () => {
-    if (!analysisResult) return 0;
-
-    const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
-    let impact = 0;
-
-    if (selectedProfile && analysisResult.profileSummary?.atsImpact) {
-      impact += analysisResult.profileSummary.atsImpact;
-    }
-
-    if (analysisResult.roleBasedImprovements && selectedRoles.size > 0) {
-      Array.from(selectedRoles).forEach((index) => {
-        const roleImpact = analysisResult.roleBasedImprovements[index]?.atsImpact || 0;
-        impact += roleImpact;
-      });
-    }
-
-    if (analysisResult.skillSuggestions) {
-      Array.from(selectedSkills).forEach((index) => {
-        const skill = analysisResult.skillSuggestions[index];
-        if (skill?.atsImpact) impact += skill.atsImpact;
-        else if (skill?.relevance === 'high') impact += 3;
-        else if (skill?.relevance === 'medium') impact += 2;
-        else impact += 1;
-      });
-    }
-
-    if (analysisResult.generalImprovements) {
-      Array.from(selectedGeneral).forEach((index) => {
-        const imp = analysisResult.generalImprovements[index];
-        if (imp?.atsImpact) impact += imp.atsImpact;
-        else if (imp?.category === 'Nyckelord') impact += 4;
-        else if (imp?.category === 'Innehåll') impact += 3;
-        else impact += 2;
-      });
-    }
-
-    return Math.min(100, currentAtsScore + impact);
-  };
-
+  /* Potential med dina val: poängen för CV:t med de valda förslagen införda,
+     med de texter hon redigerat. Samma funktion som räknar det sparade CV:t,
+     så talet håller hela vägen till Mina CV. Allmänna råd införs inte och
+     påverkar därför inte talet. */
   useEffect(() => {
     if (analysisResult) {
-      setDynamicPotentialScore(calculateSelectedImpact());
+      const p = poangMedVal(analysisResult, valNu(), redigeringarNu());
+      setDynamicPotentialScore(p ? p.total : poangIdag);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedProfile, selectedRoles, selectedSkills, selectedGeneral, analysisResult]);
+  }, [selectedProfile, selectedRoles, selectedSkills, editedProfileText, editedRoleTexts, analysisResult]);
 
+  /* CV:t med de valda förslagen, i exakt den form det sparas
+     (byggForbattratCv). Förr skrevs potentialen dessutom in som analysens
+     poäng här; det är borttaget. Poängen räknas alltid på det sparade CV:t. */
   const generateImprovedCV = () => {
     if (!analysisResult || !structuredCV) return null;
 
-    const improvedStructured = JSON.parse(JSON.stringify(structuredCV));
-
-    if (selectedProfile && analysisResult.profileSummary) {
-      improvedStructured.summary = analysisResult.profileSummary.improvedText;
-    }
-
-    if (
-      analysisResult.roleBasedImprovements &&
-      improvedStructured.experience &&
-      selectedRoles.size > 0
-    ) {
-      Array.from(selectedRoles).forEach((roleIndex) => {
-        const improvement = analysisResult.roleBasedImprovements[roleIndex];
-        if (improvement && roleIndex < improvedStructured.experience.length) {
-          const newDescription = improvement.suggestedText;
-          improvedStructured.experience[roleIndex].description = newDescription
-            .split(/\n+/)
-            .filter((line: string) => line.trim().length > 0);
-        }
-      });
-    }
-
-    if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
-      const skillsToAdd: string[] = [];
-      Array.from(selectedSkills).forEach((skillIndex) => {
-        const suggestion = analysisResult.skillSuggestions[skillIndex];
-        if (suggestion?.skill) skillsToAdd.push(suggestion.skill);
-      });
-      if (skillsToAdd.length > 0) {
-        if (!improvedStructured.skills) improvedStructured.skills = [];
-
-        let supplementaryCategory = improvedStructured.skills.find(
-          (cat: any) => cat.category === 'Kompletterande färdigheter'
-        );
-
-        if (!supplementaryCategory) {
-          supplementaryCategory = { category: 'Kompletterande färdigheter', skills: [] };
-          improvedStructured.skills.push(supplementaryCategory);
-        }
-
-        skillsToAdd.forEach((skill) => {
-          if (!supplementaryCategory.skills.includes(skill)) {
-            supplementaryCategory.skills.push(skill);
-          }
-        });
-      }
-    }
-
-    if (analysisResult.generalImprovements && selectedGeneral.size > 0) {
-      Array.from(selectedGeneral).forEach((genIndex) => {
-        const improvement = analysisResult.generalImprovements[genIndex];
-        console.log('General improvement to apply:', improvement);
-      });
-    }
+    const improvedStructured = byggForbattratCv(analysisResult, valNu(), redigeringarNu());
+    if (!improvedStructured) return null;
 
     const improved = generatePreviewFromStructured(improvedStructured);
     setImprovedCV(improved);
     setImprovedStructuredCV(improvedStructured);
 
     return improvedStructured;
-  };
-
-  const updateAnalysisWithImprovements = async (improvedStructured: any) => {
-    if (!analysisResult || !currentAnalysisId || !improvedStructured) return;
-
-    try {
-      const improvedResult = {
-        ...analysisResult,
-        atsFriendliness: {
-          ...analysisResult.atsFriendliness,
-          score: dynamicPotentialScore,
-        },
-        structuredCV: improvedStructured,
-      };
-
-      const { error } = await supabase
-        .from('cv_analysis_jobs')
-        .update({ result: improvedResult })
-        .eq('id', currentAnalysisId);
-
-      if (error) throw error;
-    } catch (err) {
-      console.error('Failed to update analysis:', err);
-    }
   };
 
   /* Återupptagen analys: före- och efterbilden ur det sparade resultatet med
@@ -710,66 +587,13 @@ export default function CVAnalysisWizard({
       setSavedFileName(fileName);
 
       try {
+        // Det förbättrade CV:t byggs med samma funktion som räknade
+        // potentialen (byggForbattratCv, med städade kompetenser och de
+        // redigerade texterna). Därför får det sparade CV:t exakt den poäng
+        // väljsteget lovade.
         let improvedStructuredCV: any = null;
         if (structuredCV && analysisResult) {
-          improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
-
-          if (selectedProfile && analysisResult.profileSummary) {
-            const profileText = editedProfileText || analysisResult.profileSummary.improvedText;
-            improvedStructuredCV.summary = profileText.trim().replace(/\s+/g, ' ');
-          }
-
-          if (
-            analysisResult.roleBasedImprovements &&
-            improvedStructuredCV.experience &&
-            selectedRoles.size > 0
-          ) {
-            Array.from(selectedRoles).forEach((roleIndex) => {
-              const improvement = analysisResult.roleBasedImprovements[roleIndex];
-              if (improvement && roleIndex < improvedStructuredCV.experience.length) {
-                const newDescription =
-                  editedRoleTexts.get(roleIndex) || improvement.suggestedText;
-                improvedStructuredCV.experience[roleIndex].description = newDescription
-                  .split(/\n+/)
-                  .map((line: string) => line.trim().replace(/\s+/g, ' '))
-                  .filter((line: string) => line.length > 0);
-              }
-            });
-          }
-
-          if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
-            const skillsToAdd: string[] = [];
-            Array.from(selectedSkills).forEach((skillIndex) => {
-              const suggestion = analysisResult.skillSuggestions[skillIndex];
-              if (suggestion?.skill) skillsToAdd.push(suggestion.skill);
-            });
-            if (skillsToAdd.length > 0) {
-              if (!improvedStructuredCV.skills) improvedStructuredCV.skills = [];
-
-              let supplementaryCategory = improvedStructuredCV.skills.find(
-                (cat: any) => cat.category === 'Kompletterande färdigheter'
-              );
-
-              if (!supplementaryCategory) {
-                supplementaryCategory = {
-                  category: 'Kompletterande färdigheter',
-                  skills: [],
-                };
-                improvedStructuredCV.skills.push(supplementaryCategory);
-              }
-
-              skillsToAdd.forEach((skill) => {
-                if (!supplementaryCategory.skills.includes(skill)) {
-                  supplementaryCategory.skills.push(skill);
-                }
-              });
-            }
-          }
-
-          // Splitta bindestreckade skills och dedupe innan vi skickar till backend.
-          // CV-parsern lamnar ibland kvar klumpar som "Kunskaper-Saljteknik-Motesbokning..."
-          // som vi maste plocka isar for att mallarna ska kunna rendera dem som chips.
-          improvedStructuredCV = sanitizeStructuredCV(improvedStructuredCV);
+          improvedStructuredCV = byggForbattratCv(analysisResult, valNu(), redigeringarNu());
         }
 
         const shouldSave = saveChoice === 'save-and-download' || saveChoice === 'save';
@@ -812,12 +636,10 @@ export default function CVAnalysisWizard({
           }
 
           if (analysisResult && newCvId) {
+            // Ingen poäng skickas med: servern poängsätter det sparade CV:t
+            // (save-improved-analysis) med poängmodellen.
             const improvedAnalysisResult = {
               ...analysisResult,
-              atsFriendliness: {
-                ...analysisResult.atsFriendliness,
-                score: Math.round(dynamicPotentialScore),
-              },
               profileSummary:
                 selectedProfile && analysisResult.profileSummary
                   ? {
@@ -975,10 +797,7 @@ export default function CVAnalysisWizard({
     }
 
     if (currentStep === 3) {
-      const improvedStructured = generateImprovedCV();
-      if (improvedStructured) {
-        await updateAnalysisWithImprovements(improvedStructured);
-      }
+      generateImprovedCV();
     }
 
     if (currentStep < ANALYSIS_STEPS.length - 1) {
@@ -1108,64 +927,10 @@ export default function CVAnalysisWizard({
 
       case 2: {
         if (!analysisResult) return null;
-        const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
-
-        const calculateTruePotential = () => {
-          let totalImpact = 0;
-          const breakdown = { profile: 0, roles: 0, skills: 0, general: 0, total: 0 };
-
-          if (analysisResult.profileSummary?.atsImpact) {
-            breakdown.profile = analysisResult.profileSummary.atsImpact;
-            totalImpact += breakdown.profile;
-          }
-
-          if (
-            analysisResult.roleBasedImprovements &&
-            analysisResult.roleBasedImprovements.length > 0
-          ) {
-            const sortedRoles = [...analysisResult.roleBasedImprovements].sort(
-              (a: any, b: any) => (b.atsImpact || 0) - (a.atsImpact || 0)
-            );
-            const topRoles = sortedRoles.slice(0, Math.min(5, sortedRoles.length));
-            const avgImpact =
-              topRoles.reduce(
-                (sum: number, role: any) => sum + (role.atsImpact || 0),
-                0
-              ) / topRoles.length;
-            breakdown.roles = Math.round(avgImpact * 4);
-            totalImpact += breakdown.roles;
-          }
-
-          if (analysisResult.skillSuggestions) {
-            breakdown.skills = analysisResult.skillSuggestions.reduce(
-              (sum: number, skill: any) => {
-                if (skill.relevance === 'high') return sum + 1;
-                if (skill.relevance === 'medium') return sum + 0.5;
-                return sum + 0.3;
-              },
-              0
-            );
-            totalImpact += breakdown.skills;
-          }
-
-          if (analysisResult.generalImprovements) {
-            breakdown.general = analysisResult.generalImprovements.reduce(
-              (sum: number, imp: any) => {
-                if (imp.category === 'Nyckelord') return sum + 2;
-                if (imp.category === 'Innehåll') return sum + 1;
-                return sum + 0.5;
-              },
-              0
-            );
-            totalImpact += breakdown.general;
-          }
-
-          breakdown.total = Math.round(totalImpact);
-          return breakdown;
-        };
-
-        const impactBreakdown = calculateTruePotential();
-        const potentialAtsScore = Math.min(100, currentAtsScore + impactBreakdown.total);
+        // Poäng i dag, med alla förslag och per kategori: uträknat av servern
+        // med poängmodellen (analysisResult.poang), aldrig uppskattat här.
+        const currentAtsScore = poangIdag;
+        const potentialAtsScore: number = analysisResult.poang?.medAlla ?? currentAtsScore;
         const totalImprovements =
           (analysisResult.profileSummary ? 1 : 0) +
           (analysisResult.roleBasedImprovements?.length || 0) +
@@ -1181,7 +946,7 @@ export default function CVAnalysisWizard({
             profileImproved={!!analysisResult.profileSummary}
             atsScore={currentAtsScore}
             potentialScore={potentialAtsScore}
-            totalImpactBreakdown={impactBreakdown}
+            kategorier={analysisResult.poang?.kategorier}
           />
         );
       }
@@ -1199,7 +964,7 @@ export default function CVAnalysisWizard({
             selectedRoles={selectedRoles}
             selectedSkills={selectedSkills}
             selectedGeneral={selectedGeneral}
-            currentAtsScore={analysisResult.atsFriendliness?.score || 0}
+            currentAtsScore={poangIdag}
             dynamicPotentialScore={dynamicPotentialScore}
             onToggleProfile={() => setSelectedProfile(!selectedProfile)}
             onToggleRole={(index) => {
@@ -1285,8 +1050,10 @@ export default function CVAnalysisWizard({
                         editedProfileText ||
                         analysisResult.profileSummary.improvedText ||
                         '',
-                      atsImpact:
-                        analysisResult.profileSummary.atsImpact || 0,
+                      atsImpact: Math.max(
+                        0,
+                        plusFor({ profil: true, roller: [], kompetenser: [] })
+                      ),
                       changes: Array.isArray(
                         analysisResult.profileSummary.changes
                       )
@@ -1312,7 +1079,10 @@ export default function CVAnalysisWizard({
                             ? r.improvements.keywords.length
                             : 0,
                           quantified: !r?.improvements?.hasQuantification,
-                          atsImpact: r?.atsImpact || 0,
+                          atsImpact: Math.max(
+                            0,
+                            plusFor({ profil: false, roller: [idx], kompetenser: [] })
+                          ),
                         };
                       })
                   : [],
@@ -1330,15 +1100,11 @@ export default function CVAnalysisWizard({
                           };
                         })
                         .filter((s) => s.skill),
-                      atsImpact: Array.from(selectedSkills).reduce(
-                        (sum: number, idx: number) => {
-                          const s = analysisResult.skillSuggestions[idx];
-                          if (s?.atsImpact) return sum + s.atsImpact;
-                          if (s?.relevance === 'high') return sum + 3;
-                          if (s?.relevance === 'medium') return sum + 2;
-                          return sum + 1;
-                        },
-                        0
+                      // Alla valda kompetenser tillsammans: plus kan inte
+                      // summeras när förslagen överlappar.
+                      atsImpact: Math.max(
+                        0,
+                        plusFor({ profil: false, roller: [], kompetenser: Array.from(selectedSkills) })
                       ),
                     }
                   : undefined,
@@ -1364,7 +1130,7 @@ export default function CVAnalysisWizard({
             originalCV={originalCV}
             improvedCV={improvedCV}
             improvementsCount={selectedImprovementsCount}
-            atsImprovement={Math.round(dynamicPotentialScore - (analysisResult?.atsFriendliness?.score || 0))}
+            atsImprovement={Math.round(dynamicPotentialScore - poangIdag)}
             changeLog={changeLog}
             thumbnailSeed={currentAnalysisId || selectedCV || 'cv'}
           />

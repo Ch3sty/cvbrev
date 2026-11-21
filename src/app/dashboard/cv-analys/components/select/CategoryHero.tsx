@@ -37,7 +37,7 @@ export default function CategoryHero({
   return (
     <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       <p className="text-steg uppercase text-ink-3">
-        {autoMode ? 'Tillämpas automatiskt' : 'Du väljer'}
+        {autoMode ? 'Råd att göra själv' : 'Du väljer'}
       </p>
       <h3 className="mt-1.5 text-kort text-ink-1">{title}</h3>
       <p className="mt-1.5 text-sm leading-relaxed text-ink-2">{description}</p>
