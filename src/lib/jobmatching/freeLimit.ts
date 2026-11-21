@@ -15,3 +15,12 @@ export const FREE_TIER_JOB_LIMIT = 3
  * ytor talet härifrån (spec-publikt-v2 del A avsnitt 6, ägarens beslut 5).
  */
 export const JOB_MATCHES_PER_RUN = 25
+
+/**
+ * Hur många suddade rader gratisnivån ser efter de öppna, innan betalväggen.
+ * Fem räcker för att visa att listan fortsätter, och det är inte fler än att
+ * tummen når betalväggen utan att skrolla en gång till. Låg förut i
+ * /api/jobs/redact; flyttad hit så att routen bara exporterar sina metoder
+ * och sidans laddare kan använda samma tal.
+ */
+export const REDACTED_PREVIEW_COUNT = 5

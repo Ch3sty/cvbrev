@@ -8,6 +8,7 @@
 // OBS: `remote` (distansjobb) och `noExperience` hanteras INTE här, de finns
 // inte som tillförlitliga fält på jobben utan kommer från den globala cachen.
 import type { JobFilters } from './filter-standard';
+import { SWEDISH_MUNICIPALITIES } from './swedish-municipalities';
 
 // Jobb-formen är löst typad (any från edge-svaret); vi plockar bara fälten vi behöver.
 type Job = Record<string, any>;
@@ -33,6 +34,44 @@ function matchesMunicipality(job: Job, codes: string[]): boolean {
   return codes.includes(code);
 }
 
+/** Kommunens koordinater ur namnet ("Umeå", "Umeå kommun"), eller null. */
+function kommunKoord(namn: unknown): { lat: number; lon: number } | null {
+  if (typeof namn !== 'string') return null;
+  const n = namn.toLowerCase().replace(/\s+kommun$/, '').trim();
+  if (n === '') return null;
+  const m = SWEDISH_MUNICIPALITIES.find((k) => k.name.toLowerCase() === n);
+  return m ? { lat: m.lat, lon: m.lon } : null;
+}
+
+/**
+ * Avståndet i km från CV:ts ort till annonsens kommun.
+ *
+ * Edge-funktionen sätter `distance` bara när annonstexten inte nämner
+ * distans någonstans; en annons i Stockholm som säger "två dagar på distans"
+ * fick därför inget avstånd och slank förbi 100 km-gränsen (rättningsrundan
+ * 2026-11-21). Saknas fältet räknas avståndet här ur samma koordinater, utom
+ * för annonser som själva säger att jobbet är på distans (flaggan eller
+ * rubriken, samma regel som preferenserna).
+ */
+export function avstandKm(job: Job, cvOrt: string | null | undefined): number | null {
+  if (typeof job.distance === 'number' && Number.isFinite(job.distance)) return job.distance;
+  if (!cvOrt || looksRemote(job)) return null;
+  const a = kommunKoord(cvOrt);
+  const b = kommunKoord(job.workplace_address?.municipality);
+  if (!a || !b) return null;
+  const rad = (x: number) => (x * Math.PI) / 180;
+  const dLat = rad(b.lat - a.lat);
+  const dLon = rad(b.lon - a.lon);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLon / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+/** Längre bort än 100 km från CV:ts ort (och inte på distans enligt annonsen). */
+export function arLangtBort(job: Job, cvOrt: string | null | undefined): boolean {
+  const d = avstandKm(job, cvOrt);
+  return d !== null && d > 100;
+}
+
 /**
  * Filtrera + sortera jobb klientsidigt enligt valda filter.
  * `showDistantJobs` styr om jobb >100 km bort tas med (separat toggle i UI:t).
@@ -42,13 +81,15 @@ function matchesMunicipality(job: Job, codes: string[]): boolean {
 export function applyClientFilters(
   jobs: Job[],
   filters: JobFilters,
-  showDistantJobs: boolean
+  showDistantJobs: boolean,
+  /** CV:ts ort, för avståndet när annonsen saknar det (se avstandKm). */
+  cvOrt?: string | null
 ): Job[] {
   let result = jobs;
 
   // Distans: dölj jobb >100 km om inte användaren bett om att se dem.
   if (!showDistantJobs) {
-    result = result.filter((j) => !j.distance || j.distance <= 100);
+    result = result.filter((j) => !arLangtBort(j, cvOrt));
   }
 
   if (filters.worktimeExtent) {

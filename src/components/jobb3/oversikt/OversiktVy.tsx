@@ -237,7 +237,7 @@ function MainVy({ data, userId, klient, premium }: { data: JobbsokOversikt; user
 
         {data.harCv ? (
           <Suspense fallback={<NyaTraffarSkelett />}>
-            <NyaTraffar userId={userId} nya={data.nyaTraffar} idag={idag} />
+            <NyaTraffar userId={userId} idag={idag} />
           </Suspense>
         ) : null}
 

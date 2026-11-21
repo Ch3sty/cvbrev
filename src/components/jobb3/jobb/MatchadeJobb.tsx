@@ -61,7 +61,7 @@ import { JOBB_HREF, brickBokstaver, dagFor, idagSv, jobbHref, narText, ordtal, s
 import { capture } from '@/lib/analytics/events'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route'
-import { applyClientFilters, applyPreferences, rankGlobalJobs } from '@/app/dashboard/jobbmatchning/data/job-filtering'
+import { applyClientFilters, applyPreferences, arLangtBort, rankGlobalJobs } from '@/app/dashboard/jobbmatchning/data/job-filtering'
 import { DEFAULT_FILTERS, countActiveFilters, type JobFilters } from '@/app/dashboard/jobbmatchning/data/filter-standard'
 import { SWEDISH_MUNICIPALITIES } from '@/app/dashboard/jobbmatchning/data/swedish-municipalities'
 import { buildMatchReasons, senastSoktLabel } from '@/app/dashboard/jobbmatchning/data/match-reasons'
@@ -70,6 +70,7 @@ import type { ActiveCVData, JobbmatchningData } from '@/app/dashboard/jobbmatchn
 import type { SenasteKorning } from '@/app/dashboard/jobbmatchning/senasteKorning'
 import { toJobPreferences, type JobPreferences } from '@/types/user.types'
 import { arNy, arbetsgivareOrt, brevUnderlag, passarSkal, skalKort } from './annons'
+import { lattRad, type LattRad } from '@/lib/jobmatching/basta'
 import { AnnonsFotMobil, AnnonsKortMobil, AnnonsPanel, AnnonsInnehall, Betalvagg, DoldPanel, DoldPassar, type SoktLage, type SparLage } from './AnnonsVy'
 import { ByttCvArk, FilterArk, PrefsArk, RattaArk } from './MatchArk'
 
@@ -143,7 +144,15 @@ export default function MatchadeJobb({
 
   // Senaste körningen från servern står i listan direkt (omgång 1).
   const franServern = korning && korning.cvId === (initialData.activeCV?.cv_id ?? null) ? korning : null
-  const [jobs, setJobs] = useState<any[]>(franServern?.jobs ?? [])
+  // Sidan skickar bara listans rader och den valda annonsen (rättningsrundan):
+  // hela poolen hämtas först när användaren filtrerar, vill se längre bort
+  // eller ändrar sökprofilen. Fram till dess är listan serverns rader.
+  const [jobs, setJobs] = useState<any[]>([])
+  const [poolLaddad, setPoolLaddad] = useState(false)
+  const [poolLaddar, setPoolLaddar] = useState(false)
+  const [annonser, setAnnonser] = useState<Record<string, Record<string, any>>>(() =>
+    franServern?.vald ? { [String(franServern.vald.id)]: franServern.vald } : {}
+  )
   const [showDistantJobs, setShowDistantJobs] = useState(false)
   const [hasSearched, setHasSearched] = useState(Boolean(franServern))
   const [hasMore, setHasMore] = useState(false)
@@ -230,6 +239,7 @@ export default function MatchadeJobb({
       setAdsRead(saved.adsRead ?? saved.jobs.length)
       setHasSearched(true)
       setRestoredAt(saved.savedAt)
+      setPoolLaddad(true)
       setLastRedaktion(false)
     } catch {
       /* trasig eller otillgänglig sessionStorage: sidan fungerar utan den */
@@ -280,7 +290,8 @@ export default function MatchadeJobb({
   const baseJobs: any[] = filters.noExperience ? globalNoExp || [] : filters.remote ? globalRemote || [] : jobs
   const usingGlobalPool = filters.noExperience || filters.remote
 
-  const filteredJobs = useMemo(() => applyClientFilters(applyPreferences(baseJobs, prefs), filters, showDistantJobs), [baseJobs, prefs, filters, showDistantJobs])
+  const cvOrt = activeCV?.extracted_location ?? null
+  const filteredJobs = useMemo(() => applyClientFilters(applyPreferences(baseJobs, prefs), filters, showDistantJobs, cvOrt), [baseJobs, prefs, filters, showDistantJobs, cvOrt])
 
   /* ------------------------------------------------------------ matchgraden */
 
@@ -302,16 +313,57 @@ export default function MatchadeJobb({
     )
   }, [hasSearched, loadingJobs, ranked, restoredAt, adsRead, hasMore, saveSearch])
 
+  // Efter en färsk sökning som gav träffar: de bästa till servern, så att
+  // Översikt, sidomenyn och nästa sidladdning har dem även när match-jobs inte
+  // hann spara körningen. En gång per sökning, när påfyllningen är klar.
+  const sammanfattadFor = useRef<number | null>(null)
+  useEffect(() => {
+    if (restoredAt !== null || loadingJobs || loadingMore || hasMore || jobs.length === 0 || !activeCVId) return
+    if (sammanfattadFor.current === jobs.length) return
+    sammanfattadFor.current = jobs.length
+    const basta = rankMatches(jobs, activeCV, [], SAVED_SEARCH_MAX_JOBS).ranked.map((x) => x.job)
+    void fetch('/api/jobbmatchning/sammanfattning', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jobs: basta, adsRead }),
+    }).catch(() => {})
+  }, [restoredAt, loadingJobs, loadingMore, hasMore, jobs, activeCVId, activeCV, adsRead])
+
+  /** Hämtar poolen (filter, längre bort, ändrad sökprofil). Sidan har annars bara listans rader. */
+  const laddaPool = useCallback(async () => {
+    if (poolLaddad || poolLaddar || !franServern) return
+    setPoolLaddar(true)
+    try {
+      const res = await fetch('/api/jobbmatchning/pool')
+      const json = await res.json().catch(() => null)
+      if (!res.ok || !json?.success || !Array.isArray(json.jobs)) throw new Error(json?.error ?? String(res.status))
+      setJobs(json.jobs)
+      if (typeof json.adsRead === 'number') setAdsRead(json.adsRead)
+      setPoolLaddad(true)
+      setLastRedaktion(false)
+    } catch (err) {
+      console.error('Kunde inte hämta träffarna:', err)
+      setError('Vi kunde inte hämta alla träffar just nu. Försök igen.')
+    } finally {
+      setPoolLaddar(false)
+    }
+  }, [poolLaddad, poolLaddar, franServern])
+
+  // Filter och "längre bort" behöver poolen; sorteringen gör det inte.
+  useEffect(() => {
+    if (showDistantJobs || countActiveFilters({ ...filters, sort: '' }) > 0) void laddaPool()
+  }, [filters, showDistantJobs, laddaPool])
+
   /* ------------------------------------------------------------ suddningen */
 
   const [redaction, setRedaction] = useState<JobRedactionResult | null>(franServern?.redaction ?? null)
   const [redactionAsked, setRedactionAsked] = useState(Boolean(franServern))
   /**
-   * Gratisnivån från servern har bara de tre öppna annonserna. Suddningen är
-   * då redan uträknad där och får inte räknas om på de tre (betalväggen
-   * skulle försvinna). Låset släpper vid en ny sökning.
+   * Serverns rader har suddningen redan uträknad (gratisnivån får bara de
+   * tre öppna). Den räknas om först när poolen hämtats eller en ny sökning
+   * körts.
    */
-  const [lastRedaktion, setLastRedaktion] = useState(Boolean(franServern?.trimmad))
+  const [lastRedaktion, setLastRedaktion] = useState(Boolean(franServern))
 
   useEffect(() => {
     if (lastRedaktion) return
@@ -433,6 +485,7 @@ export default function MatchadeJobb({
       if (data.success) {
         const funna = data.jobs || []
         setLastRedaktion(false)
+        setPoolLaddad(true)
         setJobs(funna)
         setHasMore(data.hasMore || false)
         void fetch('/api/rum/matchningar-sedda', { method: 'POST' }).catch(() => {})
@@ -515,6 +568,8 @@ export default function MatchadeJobb({
       if (err) throw err
       setPrefs(prefsDraft)
       setPrefsOpen(false)
+      // En ny sökprofil gallrar poolen, inte serverns rader.
+      void laddaPool()
       capture('match_preferences_saved', {
         source: 'matchningar',
         locations: prefsDraft.locations.length,
@@ -623,8 +678,8 @@ export default function MatchadeJobb({
     window.history.pushState(null, '', jobbHref(id))
     if (!window.matchMedia('(min-width: 1280px)').matches) window.scrollTo(0, 0)
     if (!id.startsWith('dold-')) {
-      const job = jobs.find((j) => String(j.id) === id)
-      if (job) capture('match_viewed', { job_id: id, relevance: typeof job.relevance === 'number' ? Math.round(job.relevance) : undefined })
+      const job = jobs.find((j) => String(j.id) === id) ?? annonser[id]
+      capture('match_viewed', { job_id: id, relevance: typeof job?.relevance === 'number' ? Math.round(job.relevance) : undefined })
     }
   }
 
@@ -633,11 +688,11 @@ export default function MatchadeJobb({
   useEffect(() => {
     if (skrivKord.current || searchParams.get('skriv') !== '1') return
     const id = searchParams.get('annons')
-    const job = id ? jobs.find((j) => String(j.id) === id) : null
+    const job = id ? jobs.find((j) => String(j.id) === id) ?? annonser[id] : null
     if (!job) return
     skrivKord.current = true
     void handleWriteLetter(job)
-  }, [searchParams, jobs, handleWriteLetter])
+  }, [searchParams, jobs, annonser, handleWriteLetter])
 
   /* ------------------------------------------------------------------- vy */
 
@@ -695,32 +750,35 @@ export default function MatchadeJobb({
   }
 
   const isLoading = loadingJobs || (usingGlobalPool && loadingGlobal)
+  const iSammanfattning = !poolLaddad && !!franServern && jobs.length === 0
 
   const visibleIds = redaction ? new Set(redaction.visibleIds) : null
   const displayedJobs = redaction?.isPremium ? ranked : visibleIds ? ranked.filter((r) => visibleIds.has(String(r.job.id))) : []
   const redactedJobs = redaction?.redacted ?? []
   const hiddenCount = redaction?.hiddenCount ?? 0
-  const waitingForRedaction = ranked.length > 0 && !redactionAsked
+  const waitingForRedaction = !iSammanfattning && ranked.length > 0 && !redactionAsked
   const fallbackJobs = redactionAsked && !redaction ? ranked.slice(0, FREE_TIER_FALLBACK_LIMIT) : []
-  const oppnaRader = sortera(displayedJobs.length > 0 ? displayedJobs : fallbackJobs, filters.sort as Sortering)
-  const totalt = redaction ? redaction.visibleIds.length + redaction.hiddenCount : ranked.length
+  // Listans rader: serverns (sammanfattningen) eller poolens.
+  const rader: Rad[] = iSammanfattning
+    ? franServern!.rader.map((l) => ({ id: l.id, lat: l, job: annonser[l.id] ?? null }))
+    : (displayedJobs.length > 0 ? displayedJobs : fallbackJobs).map((r) => ({ id: String(r.job.id), lat: lattRad(r, activeCV, prefs.locations), job: r.job }))
+  const antalTraffar = iSammanfattning ? franServern!.rader.length : ranked.length
+  const oppnaRader = sortera(rader, filters.sort as Sortering)
+  const totalt = redaction ? redaction.visibleIds.length + redaction.hiddenCount : antalTraffar
   const gratis = redaction ? !redaction.isPremium : false
-  const distantCount = baseJobs.filter((j) => j.distance && j.distance > 100).length
-  const nyaAntal = oppnaRader.filter((r) => arNy(r.job, initialData.seddaAt)).length
+  const distantCount = poolLaddad ? baseJobs.filter((j) => arLangtBort(j, cvOrt)).length : 0
+  const nyaAntal = oppnaRader.filter((r) => arNy(r.lat, initialData.seddaAt)).length
   const idag = idagSv()
   const senastDag = restoredAt ? dagFor(new Date(restoredAt)) : idag
   const senastSokt = senastSoktLabel(restoredAt)
 
   // Den valda annonsen: adressens, annars den första på dator.
   const valdDold = annonsId?.startsWith('dold-') ? redactedJobs.find((r) => r.placeholderId === annonsId) ?? null : null
-  const valdRad = annonsId && !valdDold ? oppnaRader.find((r) => String(r.job.id) === annonsId) ?? null : null
+  const valdRad = annonsId && !valdDold ? oppnaRader.find((r) => r.id === annonsId) ?? null : null
   const datorVal = valdRad ?? (valdDold ? null : oppnaRader[0] ?? null)
   const mobilAnnons = Boolean(annonsId) && !isLoading
 
-  const skalFor = (job: Record<string, any>) => {
-    const score = scoreById.get(String(job.id)) ?? buildMatchReasons(job, activeCV, prefs.locations).score
-    return { score, ...passarSkal(job, activeCV, prefs.locations, score) }
-  }
+  const skalFor = (rad: Rad, job: Record<string, any>) => ({ score: rad.lat.score, ...passarSkal(job, activeCV, prefs.locations, rad.lat.score) })
   const handlingarFor = (job: Record<string, any>, score: number) => {
     const id = String(job.id ?? '')
     return {
@@ -731,10 +789,13 @@ export default function MatchadeJobb({
       sokt: soktLagen[id] ?? 'idle',
     }
   }
+  /** Den valda annonsens hela text, eller en laddare som hämtar den. */
+  const helAnnons = (rad: Rad) => rad.job ?? annonser[rad.id] ?? null
+  const hamta = (rad: Rad) => <HamtaAnnons id={rad.id} onKlar={(job) => setAnnonser((p) => ({ ...p, [rad.id]: job }))} />
 
   /* ----- väggen */
 
-  const harTraffar = hasSearched && !isLoading && ranked.length > 0
+  const harTraffar = hasSearched && !isLoading && antalTraffar > 0
   const rubrik = isLoading
     ? 'Vi läser annonserna åt dig'
     : harTraffar
@@ -849,7 +910,7 @@ export default function MatchadeJobb({
     <section aria-labelledby="traffar-rubrik" className="px-4 py-5 xl:py-5 xl:pl-5 xl:pr-[14px]">
       <div className="flex items-center justify-between gap-3">
         <h2 id="traffar-rubrik" className="j3-h2 xl:!text-[20px] xl:!leading-[26px]">
-          {totalt} bästa träffarna
+          {totalt === 1 ? 'Den bästa träffen' : `${totalt} bästa träffarna`}
         </h2>
         <TextLank liten onClick={() => setFilterSheetOpen(true)}>
           {countActiveFilters({ ...filters, sort: '' }) > 0 ? `Filter (${countActiveFilters({ ...filters, sort: '' })})` : 'Filter'}
@@ -872,31 +933,30 @@ export default function MatchadeJobb({
           </TextLank>
         </p>
       ) : null}
-      {distantCount > 0 ? (
+      {distantCount > 0 || !poolLaddad ? (
         <div className="mb-2">
           <Kryss checked={showDistantJobs} onChange={(e) => setShowDistantJobs(e.target.checked)}>
-            Visa {distantCount} jobb längre bort än 100 km
+            {poolLaddad ? `Visa ${distantCount} jobb längre bort än 100 km` : 'Visa jobb längre bort än 100 km'}
           </Kryss>
         </div>
       ) : null}
-      {waitingForRedaction ? (
+      {waitingForRedaction || poolLaddar ? (
         <RadSkelett rader={3} />
       ) : (
         <TraffLista>
           {raderAttVisa.map((r) => {
-            const id = String(r.job.id)
-            const sista = sistaAnsokningsdag(r.job)
-            const { reasons } = buildMatchReasons(r.job, activeCV, prefs.locations, scoreById.get(id) ?? r.score)
+            const id = r.id
+            const sista = sistaAnsokningsdag(r.lat)
             return (
               <TraffRad
                 key={id}
-                procent={r.score.score}
-                titel={String(r.job.headline ?? '')}
-                var={arbetsgivareOrt(r.job, r.score.isRemote)}
-                skal={skalKort(reasons)}
+                procent={r.lat.score.score}
+                titel={r.lat.headline}
+                var={[r.lat.employer || 'Okänd arbetsgivare', r.lat.score.isRemote ? 'distans' : r.lat.municipality].filter(Boolean).join(', ')}
+                skal={skalKort(r.lat.reasons)}
                 dag={sista && !sista.passerad ? sista.text.replace(/^Sista dag [a-zåäö]+ /, 'Sista dag ') : undefined}
                 snart={!!sista && !sista.passerad && sista.dagarKvar <= 7}
-                ny={arNy(r.job, initialData.seddaAt)}
+                ny={arNy(r.lat, initialData.seddaAt)}
                 href={jobbHref(id)}
                 vald={datorVal === r}
                 onClick={valj(id)}
@@ -941,8 +1001,10 @@ export default function MatchadeJobb({
     <DoldPanel procent={valdDold.relevance ?? 0} hiddenCount={hiddenCount} />
   ) : datorVal ? (
     (() => {
-      const s = skalFor(datorVal.job)
-      return <AnnonsPanel job={datorVal.job} procent={s.score.score} skal={s.skal} sista={sistaAnsokningsdag(datorVal.job)} handlingar={handlingarFor(datorVal.job, s.score.score)} />
+      const job = helAnnons(datorVal)
+      if (!job) return hamta(datorVal)
+      const s = skalFor(datorVal, job)
+      return <AnnonsPanel job={job} procent={s.score.score} skal={s.skal} sista={sistaAnsokningsdag(job)} handlingar={handlingarFor(job, s.score.score)} />
     })()
   ) : null
 
@@ -1011,20 +1073,35 @@ export default function MatchadeJobb({
         </>
       ) : mobilVald ? (
         (() => {
-          const s = skalFor(mobilVald.job)
-          const sista = sistaAnsokningsdag(mobilVald.job)
-          const a = mobilVald.job
+          const a = helAnnons(mobilVald)
+          const l = mobilVald.lat
+          // Väggen ritas ur listans rad, så den står kvar medan annonsen hämtas.
+          const sista = sistaAnsokningsdag(l)
+          const vagg = (
+            <JobbVagg hojd={0} hojdMobil={230} flik={false} tillbaka={{ href: JOBB_HREF, text: 'Matchade jobb' }} atgarder={atgarder}>
+              <TjanstHuvud kod={brickBokstaver(l.employer)} titel={l.headline} arbetsgivare={[l.employer, l.score.isRemote ? 'distans' : l.municipality].filter(Boolean).join(', ')} />
+              {sista && !sista.passerad ? (
+                <div className="mt-3">
+                  <StatusPiller status={sista.dagarKvar <= 7 ? 'folj-upp' : 'vantar'}>{sista.text}</StatusPiller>
+                </div>
+              ) : null}
+            </JobbVagg>
+          )
+          if (!a) {
+            return (
+              <>
+                {vagg}
+                <Golv>
+                  <LyftPanel>{hamta(mobilVald)}</LyftPanel>
+                </Golv>
+              </>
+            )
+          }
+          const s = skalFor(mobilVald, a)
           const url = a.application_details?.url || a.application_url || a.webpage_url
           return (
             <>
-              <JobbVagg hojd={0} hojdMobil={230} flik={false} tillbaka={{ href: JOBB_HREF, text: 'Matchade jobb' }} atgarder={atgarder}>
-                <TjanstHuvud kod={brickBokstaver(String(a.employer?.name ?? ''))} titel={String(a.headline ?? '')} arbetsgivare={arbetsgivareOrt(a)} />
-                {sista && !sista.passerad ? (
-                  <div className="mt-3">
-                    <StatusPiller status={sista.dagarKvar <= 7 ? 'folj-upp' : 'vantar'}>{sista.text}</StatusPiller>
-                  </div>
-                ) : null}
-              </JobbVagg>
+              {vagg}
               <Golv>
                 <LyftPanel>
                   <AnnonsKortMobil job={a} procent={s.score.score} skal={s.skal} />
@@ -1120,8 +1197,56 @@ export default function MatchadeJobb({
 }
 
 /** Listans ordning: matchgraden (grund), nyast publicerad, eller närmast sista dag. */
-function sortera<T extends { job: Record<string, any> }>(rader: T[], sort: Sortering): T[] {
-  if (sort === 'pubdate-desc') return [...rader].sort((a, b) => (Date.parse(b.job.publication_date) || 0) - (Date.parse(a.job.publication_date) || 0))
-  if (sort === 'applydate-asc') return [...rader].sort((a, b) => (Date.parse(a.job.application_deadline) || Infinity) - (Date.parse(b.job.application_deadline) || Infinity))
+function sortera(rader: Rad[], sort: Sortering): Rad[] {
+  const t = (v: string | null) => (v ? Date.parse(v) : NaN)
+  if (sort === 'pubdate-desc') return [...rader].sort((a, b) => (t(b.lat.publication_date) || 0) - (t(a.lat.publication_date) || 0))
+  if (sort === 'applydate-asc') return [...rader].sort((a, b) => (t(a.lat.application_deadline) || Infinity) - (t(b.lat.application_deadline) || Infinity))
   return rader
+}
+
+/** En rad i listan: det listan ritar, och hela annonsen när den finns. */
+interface Rad {
+  id: string
+  lat: LattRad
+  job: Record<string, any> | null
+}
+
+/** Hämtar en annons som inte följde med sidan, och visar panelens skelett så länge. */
+function HamtaAnnons({ id, onKlar }: { id: string; onKlar: (job: Record<string, any>) => void }) {
+  const [fel, setFel] = useState(false)
+  const [forsok, setForsok] = useState(0)
+  useEffect(() => {
+    let avbruten = false
+    setFel(false)
+    fetch(`/api/jobbmatchning/annons?id=${encodeURIComponent(id)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (avbruten) return
+        if (j?.job) onKlar(j.job)
+        else setFel(true)
+      })
+      .catch(() => {
+        if (!avbruten) setFel(true)
+      })
+    return () => {
+      avbruten = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, forsok])
+  return (
+    <div className="px-4 py-5 xl:px-[30px] xl:pb-[30px] xl:pt-[26px]" aria-busy={!fel}>
+      {fel ? (
+        <Felruta text="Vi kunde inte hämta annonsen just nu." onForsok={() => setForsok((n) => n + 1)} />
+      ) : (
+        <div className="flex flex-col gap-3" aria-hidden="true">
+          <Skel b="60%" h={30} />
+          <Skel b="35%" h={16} />
+          <Skel h={180} stil={{ borderRadius: 20, marginTop: 12 }} />
+          <Skel b="90%" h={12} stil={{ marginTop: 12 }} />
+          <Skel b="95%" h={12} />
+          <Skel b="70%" h={12} />
+        </div>
+      )}
+    </div>
+  )
 }

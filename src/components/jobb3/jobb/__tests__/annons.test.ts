@@ -11,7 +11,7 @@ const score = (p: Partial<MatchScore>): MatchScore => ({
   hasStatedSkills: false,
   locationLabel: 'Umeå',
   isRemote: false,
-  parts: { roles: 0, skills: 0, location: 0, freshness: 0 },
+  parts: { roles: 0, skills: 0, location: 1, freshness: 0 },
   ...p,
 })
 
@@ -73,5 +73,19 @@ describe('raden och annonsen', () => {
   })
   it('ansökan via Arbetsförmedlingen', () => {
     expect(ansokan(annons)).toEqual({ url: 'https://example.se/ansok', text: 'Ansök via Arbetsförmedlingen' })
+  })
+})
+
+describe('orten (rättningsrundan)', () => {
+  it('en ort som inte är användarens står aldrig som skäl', () => {
+    const { skal } = passarSkal(annons, null, [], score({ locationLabel: 'Stockholm', parts: { roles: 0, skills: 0, location: 0.3, freshness: 0 } }))
+    expect(skal.some((s) => s.rubrik === 'Stockholm')).toBe(false)
+  })
+})
+
+describe('skälen kort med ort', () => {
+  it('ortnamn behåller stor bokstav, en kompetens i singular', () => {
+    expect(skalKort(['1 av dina 3 roller', 'Umeå'])).toBe('1 av dina 3 roller, Umeå')
+    expect(skalKort(['1 av dina kompetenser nämns i annonsen', 'Umeå'])).toBe('1 kompetens nämns, Umeå')
   })
 })

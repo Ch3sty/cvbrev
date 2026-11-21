@@ -7,9 +7,10 @@
 import { hamtaToppTraffar } from '@/lib/jobbsok/server'
 import { JOBB_HREF, SISTA_DAG_INOM_DAGAR, jobbHref, plusDagar } from '@/lib/jobbsok'
 import { Avsnitt, LitenKnapp, SektionsHuvud, Skel, TomtLage, TraffKort, Traffar, IkonSok } from '@/components/jobb3/kit'
-import { traffRubrik, traffUnder } from './oversikt'
+import { traffUnder } from './oversikt'
+import { traffRubrikNya } from '@/lib/rum/nyaTraffar'
 
-export async function NyaTraffar({ userId, nya, idag }: { userId: string; nya: number | null; idag: string }) {
+export async function NyaTraffar({ userId, idag }: { userId: string; idag: string }) {
   const t = await hamtaToppTraffar(userId, 3).catch((err) => {
     console.error('[oversikt] Toppträffarna kunde inte läsas:', err)
     return null
@@ -37,9 +38,9 @@ export async function NyaTraffar({ userId, nya, idag }: { userId: string; nya: n
     <Avsnitt rubrikId="nya-rubrik">
       <SektionsHuvud
         rubrikId="nya-rubrik"
-        rubrik={traffRubrik(nya)}
+        rubrik={traffRubrikNya({ basta: t.basta, nya: t.nya })}
         under={traffUnder(t.lasta, t.kordAt, idag)}
-        lank={{ href: JOBB_HREF, text: 'Alla träffar', textMobil: 'Alla' }}
+        lank={{ href: JOBB_HREF, text: `Alla ${t.basta} träffar`, textMobil: `Alla ${t.basta}` }}
       />
       <Traffar>
         {t.traffar.map((x) => {

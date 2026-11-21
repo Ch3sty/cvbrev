@@ -68,7 +68,8 @@ export function passarSkal(
   }
 
   if (score.isRemote) skal.push({ rubrik: 'Distans', text: 'Jobbet går att göra hemifrån.' })
-  else if (score.locationLabel) skal.push({ rubrik: score.locationLabel, text: ortText(score.locationLabel, onskadeOrter, cv?.extracted_location) })
+  // Orten är bara ett skäl när den är användarens (samma kommun eller en vald ort).
+  else if (score.locationLabel && score.parts.location >= 1) skal.push({ rubrik: score.locationLabel, text: ortText(score.locationLabel, onskadeOrter, cv?.extracted_location) })
 
   if (skal.length === 0) skal.push({ rubrik: 'Liknar din bakgrund' })
   return { skal, kompetenser: k }
@@ -80,9 +81,10 @@ export function skalKort(reasons: readonly string[]): string {
     let s = r
       .replace(/^Din roll matchar$/, 'Din roll')
       .replace(/ kompetenser i kravprofilen$/, ' kompetenser')
-      .replace(/ av dina kompetenser nämns i annonsen$/, ' kompetenser nämns')
       .replace(/^1 av dina kompetenser nämns i annonsen$/, '1 kompetens nämns')
-    if (i > 0) s = s.charAt(0).toLocaleLowerCase('sv-SE') + s.slice(1)
+      .replace(/ av dina kompetenser nämns i annonsen$/, ' kompetenser nämns')
+    // Bara de vanliga orden får liten bokstav mitt i raden; ortnamn behåller sin.
+    if (i > 0 && /^(Distans|Din roll|Liknar)/.test(s)) s = s.charAt(0).toLocaleLowerCase('sv-SE') + s.slice(1)
     return s
   })
   return korta.join(', ')

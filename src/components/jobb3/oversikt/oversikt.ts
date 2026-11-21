@@ -167,11 +167,6 @@ export function tjanstRad(t: TjanstLage, idag: Dag): TjanstRadData {
 
 /* -------------------------------------------------------- nya träffar */
 
-/** Rubriken över träffarna: "4 nya jobb som passar dig" eller "Jobb som passar dig". */
-export function traffRubrik(nya: number | null | undefined): string {
-  return nya && nya > 0 ? `${nya} ${nya === 1 ? 'nytt jobb' : 'nya jobb'} som passar dig` : 'Jobb som passar dig'
-}
-
 /** Raden under: hur många annonser senaste körningen läste. */
 export function traffUnder(lasta: number, kordAt: string | null, idag: Dag): string {
   const kord = kordAt ? new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(new Date(kordAt)) : null

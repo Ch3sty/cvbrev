@@ -26,10 +26,10 @@ import { hamtaAfRapport, rapportManad, type AfRapport } from '@/lib/applications
 import { kravForBrev } from '@/lib/letters/lage'
 import { arPlatshallareNamn } from '@/lib/profile/dokumentKontakt'
 import { toJobPreferences } from '@/types/user.types'
-import { rankMatches } from '@/app/dashboard/jobbmatchning/data/match-ranking'
 import { buildMatchReasons } from '@/app/dashboard/jobbmatchning/data/match-reasons'
-import { applyClientFilters, applyPreferences } from '@/app/dashboard/jobbmatchning/data/job-filtering'
-import { DEFAULT_FILTERS } from '@/app/dashboard/jobbmatchning/data/filter-standard'
+import { hamtaBasta } from '@/lib/jobmatching/sammanfattning.server'
+import { publicerade as publiceradeTider } from '@/lib/jobmatching/basta'
+import { nyaBlandBasta } from '@/lib/rum/nyaTraffar'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { idagSv } from './datum'
@@ -280,6 +280,10 @@ export interface ToppTraffar {
   lasta: number
   /** När körningen gjordes (ISO), null utan körning. */
   kordAt: string | null
+  /** De bästa träffarna i körningen (högst 25), som listan visar. */
+  basta: number
+  /** Nya bland de bästa sedan Matchade jobb senast visades; null = säg inte "nya" (första gången eller alla nya). */
+  nya: number | null
 }
 
 /**
@@ -290,36 +294,30 @@ export interface ToppTraffar {
  */
 export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Date } = {}): Promise<ToppTraffar> {
   const supabase = await sessionsKlient()
-  const [cacheRes, cvRes, profilRes, harBetalt] = await Promise.all([
-    supabase
-      .from('job_matchings_cache')
-      .select('jobs, created_at')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle(),
+  const [cvRes, profilRes, harBetalt] = await Promise.all([
     supabase.from('active_cv_for_matching').select('*').eq('user_id', userId).maybeSingle(),
     supabase.from('profiles').select('job_preferences, matchningar_sedda_at').eq('id', userId).maybeSingle(),
     userHasPremiumAccess(supabase, userId).catch(() => false),
   ])
-  const rad = cacheRes.data as { jobs?: unknown; created_at?: string } | null
-  const jobs = Array.isArray(rad?.jobs) ? (rad!.jobs as Array<Record<string, any>>) : []
-  if (jobs.length === 0) return { traffar: [], lasta: 0, kordAt: rad?.created_at ?? null }
-
   const cv = (cvRes.data ?? null) as ActiveCVData | null
   const profil = profilRes.data as { job_preferences?: unknown; matchningar_sedda_at?: string | null } | null
   const prefs = toJobPreferences(profil?.job_preferences)
+  // De bästa träffarna ur sammanfattningen, med hela körningen som reserv
+  // (rättningsrundan 2026-11-21): samma kedja och samma 25 som Matchade jobb.
+  const basta = await hamtaBasta(supabase, userId, cv, prefs)
+  if (!basta || basta.ranked.length === 0) return { traffar: [], lasta: basta?.adsRead ?? 0, kordAt: basta ? new Date(basta.korningAt).toISOString() : null, basta: 0, nya: null }
+
   const orter = prefs.locations
   const sedda = profil?.matchningar_sedda_at ? Date.parse(profil.matchningar_sedda_at) : null
   const tak = harBetalt ? antal : Math.min(antal, FREE_TIER_JOB_LIMIT)
-  // Samma kedja som Matchade jobb (preferenserna och grundfiltren, bland dem
-  // gränsen 100 km), så att Översikt aldrig visar träffar som listan gallrar bort.
-  const { ranked } = rankMatches(applyClientFilters(applyPreferences(jobs, prefs), DEFAULT_FILTERS, false), cv, orter, tak)
+  const nyaLage = nyaBlandBasta(publiceradeTider(basta.ranked), profil?.matchningar_sedda_at ?? null)
   const nu = opt.nu ?? new Date()
   return {
-    lasta: jobs.length,
-    kordAt: rad?.created_at ?? null,
-    traffar: ranked.map(({ job, score }) => {
+    lasta: basta.adsRead,
+    kordAt: new Date(basta.korningAt).toISOString(),
+    basta: nyaLage.basta,
+    nya: nyaLage.nya,
+    traffar: basta.ranked.slice(0, tak).map(({ job, score }) => {
       const sista = sistaAnsokningsdag(job, nu)
       const publ = Date.parse(String(job.publication_date ?? ''))
       return {

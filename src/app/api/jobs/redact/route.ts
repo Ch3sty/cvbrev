@@ -17,35 +17,15 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
-import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit';
+import { FREE_TIER_JOB_LIMIT, REDACTED_PREVIEW_COUNT } from '@/lib/jobmatching/freeLimit';
 
-/**
- * Hur många träffar gratisnivån ser i klartext.
- *
- * Sänkt från tio till tre i och med Dina matchningar
- * (docs/plan-jobbmatchning.md, avsnitt 2 punkt 5). Träffen är inte längre ett
- * kort i ett rutnät utan en rad med matchgrad och utskrivna skäl, och det är
- * förklaringen som är varan. Tre fullständigt förklarade träffar visar vad
- * Premium ger bättre än tio oförklarade.
- */
-export { FREE_TIER_JOB_LIMIT };
 
 /** Max antal jobb vi tar emot i ett anrop, så en klient inte kan be om hur mycket som helst. */
 const MAX_JOBS = 600;
 
-/**
- * Hur många suddade rader som ritas innan betalväggen.
- *
- * Runda 2: förut skickade servern en platshållare per dold träff, alla 390.
- * Klienten ritade åtta av dem och betalväggen hamnade ändå långt ned. Nu
- * skär servern listan: fem suddade rader efter de tre fulla, och sedan
- * betalväggen. Fem räcker för att visa att listan fortsätter, och det är
- * inte fler än att tummen når betalväggen utan att skrolla en gång till.
- *
- * Det verkliga antalet dolda skickas separat, så betalväggens rubrik
- * fortfarande kan säga hur många träffar som ligger bakom den.
- */
-export const REDACTED_PREVIEW_COUNT = 5;
+// Taket (FREE_TIER_JOB_LIMIT, tre) och de suddade raderna (REDACTED_PREVIEW_COUNT,
+// fem) bor i src/lib/jobmatching/freeLimit.ts, så att routen bara exporterar
+// sina metoder och sidans laddare räknar med samma tal.
 
 export interface RedactedJob {
   /** Platshållar-id, aldrig jobbets riktiga id. */

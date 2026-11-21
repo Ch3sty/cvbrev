@@ -15,6 +15,7 @@
  * talen levande öppnas först när sidan är ledig, aldrig i kritisk väg.
  */
 
+import { nyaMarke } from '@/lib/rum/nyaTraffar'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useState, type ReactNode } from 'react'
@@ -109,9 +110,9 @@ export default function Sidomeny() {
   const cvAntal = summary?.sidomeny?.cv ?? summary?.cv.count ?? null
   const brevAntal = summary?.sidomeny?.brev ?? null
   const ansokningar = summary?.sidomeny?.ansokningar ?? null
-  // "N nya" på Matchade jobb (spec 16.2 fråga 3): bara när funktionen
-  // matchningar_nya() finns och svarar mer än noll.
-  const nyaMatchningar = summary?.jobbsok?.matchningarNya ?? null
+  // "N nya" på Matchade jobb (spec 16.2 fråga 3): nya bland de bästa
+  // träffarna, aldrig fler än de (rättningsrundan 2026-11-21, nyaTraffar.ts).
+  const nyaMatchningar = nyaMarke(summary?.jobbsok?.matchningarNya ?? null)
 
   // Talen hålls levande: ändras CV, brev eller ansökningar i en annan flik
   // eller i ett flöde hämtas summeringen om, en gång per skur. Kanalerna
@@ -176,17 +177,19 @@ export default function Sidomeny() {
       { href: '/dashboard/skapa-brev', etikett: UNDERSIDA.skrivNyttBrev },
     ],
     jobb: [
+      // Samma ordning som Jobbsökets flikar (omgång 1, F1): Översikt, Matchade
+      // jobb, Sökta tjänster, Inför intervjun, sedan sidorna utan flik.
       { href: '/dashboard', etikett: UNDERSIDA.oversikt, exact: true },
+      {
+        href: '/dashboard/jobbmatchning',
+        etikett: UNDERSIDA.matchadeJobb,
+        chip: nyaMatchningar !== null ? <Chip liten ton>{CHIP.nya(nyaMatchningar)}</Chip> : undefined,
+      },
       { href: '/dashboard/sokta-tjanster', etikett: UNDERSIDA.soktaTjanster, chip: antalChip(ansokningar) },
       {
         href: '/dashboard/intervju',
         etikett: UNDERSIDA.inforIntervjun,
         chip: Date.now() < NYHET_INFOR_INTERVJUN_TILL ? <Chip liten ton>{CHIP.nyhet}</Chip> : undefined,
-      },
-      {
-        href: '/dashboard/jobbmatchning',
-        etikett: UNDERSIDA.matchadeJobb,
-        chip: nyaMatchningar !== null && nyaMatchningar > 0 ? <Chip liten ton>{CHIP.nya(nyaMatchningar)}</Chip> : undefined,
       },
       { href: '/dashboard/jobbcoachen', etikett: UNDERSIDA.jobbcoachen },
       {

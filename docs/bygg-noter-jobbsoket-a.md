@@ -79,3 +79,41 @@ Påhittat CV ("Sara Testsson", ekonomiassistent i Umeå) uppladdat via `/api/cv/
 ## Hur man backar
 
 `git revert` på etappens commit. Översikten går tillbaka till `DashboardHem` och Matchade jobb till `JobbmatchningClient`; ingen migrering hör till etappen. Testdatan (två CV och två körningar) kan stå kvar eller raderas per id ovan.
+
+## Rättningsrundan (art director, 2026-11-21)
+
+### 1. "600 nya" var antalet lästa annonser
+`matchningar_nya()` räknar alla annonser i nya körningar. "Nya" räknas nu bara bland de bästa träffarna (högst 25) i `src/lib/rum/nyaTraffar.ts`: `nyaBlandBasta` (null första gången och när alla bästa är nya), `traffRubrikNya` ("4 nya jobb som passar dig", annars "25 jobb som passar dig") och `nyaMarke` (sidomenyns märke, aldrig fler än 25). `getSummary.hamtaMatchningarNya` läser i första hand sammanfattningen (liten kolumn `publicerade`), med `matchningar_nya()` och taket 25 som reserv. `hamtaToppTraffar` ger nu `basta` och `nya`.
+
+### 2. Orten
+Det var ett befintligt fel, inte ombyggnadens. Data- och poängfilerna (`job-filtering.ts`, `match-score.ts`, `match-reasons.ts`) var orörda mot main, och edge-funktionen är orörd.
+- **Avståndet:** edge-funktionen `match-jobs` (`scoring-engine-v3.ts`, faktor 4) sätter `distance` bara när annonstexten inte nämner distans någonstans. En annons i Stockholm med "två dagar på distans" fick därför inget avstånd, och klientens 100 km-filter (`!j.distance || j.distance <= 100`) släppte igenom den.
+- **Skälet:** `buildMatchReasons` lade annonsens kommun som skäl oavsett om den var användarens. Rättat:
+  - `avstandKm`/`arLangtBort` i `job-filtering.ts` räknar avståndet ur kommunernas koordinater när fältet saknas (utom när flaggan eller rubriken säger distans). `applyClientFilters` tar CV:ts ort.
+  - Orten är skäl bara när ortens del är 1,0 (samma kommun eller en vald ort), både i `buildMatchReasons` och i annonsens "Därför passar du".
+  - Testet i `match-score.test.ts` säger nu minst ett skäl (förut fyllde en främmande ort ut till två).
+
+### 3. Hela körningen
+- **Mätt** (dev, Premium, tre laddningar plus en uppvärmning): läsningen av `job_matchings_cache.jobs` tog 1,5–6,6 s per anrop. Under klickprovet föll den också på statement timeout. `/dashboard/jobbmatchning` var 948 kB HTML och 779 kB RSC. `/dashboard` var 477 kB HTML och 352 kB RSC; Översiktens del är bara de tre träffkorten, resten är skalet.
+- **Nu:**
+  - Matchade jobb skickar listans rader (`LattRad`: titel, arbetsgivare, ort, datum, matchgrad, skäl) och bara den valda annonsen. Det gav 227 kB HTML och 138 kB RSC.
+  - Andra annonser hämtas när de öppnas (`GET /api/jobbmatchning/annons?id=`, gratis bara de öppna). Poolen, de 120 bästa, hämtas först vid filter, "längre bort" eller ändrad sökprofil (`GET /api/jobbmatchning/pool`).
+- **Sammanfattningen:** tabellen `job_matching_summaries` (migreringen `20261121200000_jobbmatchning_sammanfattning.sql`, **inte körd**) har de bästa träffarna, deras publiceringstider och nyckeln (cv_id, filter_hash, `prefs_nyckel`, `korning_at`).
+  - `hamtaBasta` (`src/lib/jobmatching/sammanfattning.server.ts`) läser den i första hand. Hela körningen är reserv, och då skrivs en ny sammanfattning efter svaret.
+  - En sammanfattning äldre än körningen i cachen (expires_at minus en timme) används aldrig.
+  - Klienten skickar de bästa till `POST /api/jobbmatchning/sammanfattning` direkt efter en sökning som gav träffar, så att sidan och Översikt har dem även när `match-jobs` inte hann spara.
+  - Utan tabellen fungerar allt som förut, med hela körningen som källa.
+- **De gemensamma funktionerna** ligger i `src/lib/jobmatching/basta.ts` (`bastaTraffar`, `prefsNyckel`, `lattRad`).
+
+### 4–6
+- `REDACTED_PREVIEW_COUNT` ligger nu i `src/lib/jobmatching/freeLimit.ts`, så routen exporterar bara sina metoder och typer.
+- Profilkompletteringen är klädd i kitets `Kort`, `Falt`, `LitenKnapp` och `TextLank`; funktionen är oförändrad.
+- Sidomenyn (`src/components/rum/Sidomeny.tsx`) har ordningen Översikt, Matchade jobb, Sökta tjänster, Inför intervjun, Jobbcoachen, Bli upptäckt.
+
+### 7. Klickprov (Premium, 1440 och 412)
+Klickat och kontrollerat: Spara till Ska sökas (banan gick från 2 till 3 sparade), Markera som sökt (raden flyttar till Sökt, tjänsten syns under Sökta tjänster), Skriv brev (skapa-brev öppnas med annonsen ifylld), Byt CV, Rätta (en roll bort), Så söker vi åt dig (Distans ja, sparat, tillbaka till nej) och Filter (Heltid gallrade listan via poolen). Raderna är borttagna per id (se `scratchpad/jobbsok/bygg/a/testdata.json`). Sökprofilen på Premium-kontot är nu `{locations: ['Umeå']}` i stället för tom.
+
+### Inte prövat
+- Sammanfattningsvägen mot databasen (tabellen finns inte förrän migreringen körts); den är skriven och typad, och reserven är prövad.
+- Gratisnivån efter rättningarna i webbläsaren (koden för redaktionen är densamma).
+- Utvecklingsrutans "1 Issue" syns också på skapa-brev, alltså inte bara i Jobbsöket. Den gick inte att läsa ut: Puppeteer fångade "A tree hydrated but some attributes … didn't match" i konsolen men aldrig vilket attribut.

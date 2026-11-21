@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { AttGoraHandling, Bana, TjanstLage } from '@/lib/jobbsok'
-import { banaProps, goraMobil, goraTon, tjanstRad, traffRubrik, traffUnder } from '../oversikt'
+import { banaProps, goraMobil, goraTon, tjanstRad, traffUnder } from '../oversikt'
+import { nyaBlandBasta, nyaMarke, traffRubrikNya } from '@/lib/rum/nyaTraffar'
 import { startvy } from '@/app/dashboard/(oversikt)/startvy'
 
 const IDAG = '2026-11-21'
@@ -114,11 +115,21 @@ describe('Att göra nu', () => {
 })
 
 describe('träffarna', () => {
-  it('rubriken', () => {
-    expect(traffRubrik(4)).toBe('4 nya jobb som passar dig')
-    expect(traffRubrik(1)).toBe('1 nytt jobb som passar dig')
-    expect(traffRubrik(0)).toBe('Jobb som passar dig')
-    expect(traffRubrik(null)).toBe('Jobb som passar dig')
+  it('rubriken räknar nya bara bland de bästa', () => {
+    const publ = ['2026-11-20T08:00:00Z', '2026-11-20T09:00:00Z', '2026-11-10T08:00:00Z', '2026-11-01T08:00:00Z']
+    expect(traffRubrikNya(nyaBlandBasta(publ, '2026-11-15T00:00:00Z'))).toBe('2 nya jobb som passar dig')
+    // Första gången: inget "nya", antalet bästa.
+    expect(traffRubrikNya(nyaBlandBasta(publ, null))).toBe('4 jobb som passar dig')
+    // Allt är nytt: antalet bästa utan "nya".
+    expect(traffRubrikNya(nyaBlandBasta(publ, '2026-10-01T00:00:00Z'))).toBe('4 jobb som passar dig')
+    expect(traffRubrikNya(nyaBlandBasta(['2026-11-20T08:00:00Z', '2026-11-01T08:00:00Z'], '2026-11-15T00:00:00Z'))).toBe('1 nytt jobb som passar dig')
+    expect(traffRubrikNya(null)).toBe('Jobb som passar dig')
+  })
+  it('sidomenyns märke aldrig över de bästa', () => {
+    expect(nyaMarke(600)).toBe(25)
+    expect(nyaMarke(4)).toBe(4)
+    expect(nyaMarke(0)).toBe(null)
+    expect(nyaMarke(null)).toBe(null)
   })
   it('raden under', () => {
     expect(traffUnder(600, '2026-11-21T08:00:00Z', IDAG)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV, senast i dag.')

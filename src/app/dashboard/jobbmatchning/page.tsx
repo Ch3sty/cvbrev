@@ -39,7 +39,13 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
  */
 export const dynamic = 'force-dynamic';
 
-export default async function JobbmatchningPage() {
+export default async function JobbmatchningPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sok = await searchParams;
+  const annonsId = typeof sok.annons === 'string' && sok.annons.length <= 100 ? sok.annons : null;
   const cookieStore = await cookies();
   const supabase = createServerClient({ cookies: cookieStore });
 
@@ -62,7 +68,7 @@ export default async function JobbmatchningPage() {
   // HTML (omgång 1, F7). Går den fel öppnas sidan som förut, utan träffar.
   const korning = data.loadFailed
     ? null
-    : await hamtaSenasteKorning(supabase, user.id, data.activeCV, data.jobPreferences).catch((error) => {
+    : await hamtaSenasteKorning(supabase, user.id, data.activeCV, data.jobPreferences, annonsId).catch((error) => {
         console.error('Jobbmatchning: kunde inte läsa senaste körningen', error);
         return null;
       });

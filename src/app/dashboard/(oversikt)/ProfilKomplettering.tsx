@@ -5,14 +5,14 @@
  *
  * Visas i tillstånd B och C, bara när något saknas. Max tre fält,
  * inline-redigering, ingen egen sida och ingen modal. "Inte nu" döljer
- * kortet i sju dagar. Panel med insunkna fält och en ink-knapp.
+ * kortet i sju dagar. I Jobbsökets kort och fält (omgång 1, rättningsrundan
+ * 2026-11-21); funktionen är oförändrad.
  *
  * Principen: fråga aldrig innan vi levererat något. Telefon och ort fylls
  * från uppladdat CV, så det här kortet fångar bara det parsern missade.
  */
 
-import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
-import Link from 'next/link'
+import { Falt, Kort, LitenKnapp, TextLank } from '@/components/jobb3/kit'
 import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useAuth } from '@/contexts/AuthContext'
@@ -51,9 +51,6 @@ function isMissing(value: unknown): boolean {
   return trimmed === '' || trimmed.toLowerCase() === 'ej angivet'
 }
 
-const INPUT =
-  'h-11 w-full min-w-0 flex-1 rounded-lg border border-kant bg-papper-2 px-3 text-base text-ink-1  placeholder:text-ink-3 transition-colors focus:border-kant-stark focus:bg-papper focus:outline-none focus-visible:ring-2 focus-visible:ring-koppar-ink/40'
-const LINK = 'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1'
 
 interface ProfilKompletteringProps {
   className?: string
@@ -187,51 +184,43 @@ export default function ProfilKomplettering({ className }: ProfilKompletteringPr
         : 'Tre uppgifter saknas i brevhuvudet'
 
   return (
-    <section className={`rounded-xl border border-kant bg-papper p-4 sm:p-5 ${className ?? ''}`} aria-label={heading}>
-      <h2 className="text-kort text-ink-1">{heading}</h2>
-      <p className="mt-1 text-sm leading-[22px] text-ink-2">
+    <Kort luft etikett={heading} className={className}>
+      <h2 className="j3-h2">{heading}</h2>
+      <p className="j3-under">
         Brev och CV ser mer genomarbetade ut med fullständiga kontaktuppgifter. Rekryterare ska
         kunna nå dig utan att leta.
       </p>
 
-      <div className="mt-4 space-y-3">
+      <div className="mt-4 grid gap-3 xl:grid-cols-3">
         {FIELDS.filter((f) => missing.includes(f.key)).map((field) => (
-          <div key={field.key} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-            <label htmlFor={`profil-${field.key}`} className="shrink-0 text-sm text-ink-2 sm:w-20">
-              {field.label}
-            </label>
-            <input
+          // Egen ruta per fält: kitets fält får annars luft ovanför sig när de står i följd.
+          <div key={field.key}>
+            <Falt
               id={`profil-${field.key}`}
-              type="text"
+              etikett={field.label}
               inputMode={field.inputMode}
               autoComplete={field.autoComplete}
               placeholder={field.placeholder}
               value={values[field.key] ?? ''}
               onChange={(e) => setValues((prev) => ({ ...prev, [field.key]: e.target.value }))}
-              className={INPUT}
             />
           </div>
         ))}
       </div>
 
-      {error ? <p className="mt-3 text-meta text-fel">{error}</p> : null}
+      {error ? (
+        <p className="j3-falt-fel mt-3" role="alert">
+          {error}
+        </p>
+      ) : null}
 
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
-        <button
-          type="button"
-          onClick={save}
-          disabled={saving}
-          className={`${KNAPP_SEKUNDAR} sm:w-auto`}
-        >
+      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <LitenKnapp storlek={48} onClick={save} disabled={saving}>
           {saving ? 'Sparar' : 'Spara'}
-        </button>
-        <button type="button" onClick={snooze} className={LINK}>
-          Inte nu
-        </button>
-        <Link href="/dashboard/profil#cv" className={LINK}>
-          Se hela profilen
-        </Link>
+        </LitenKnapp>
+        <TextLank onClick={snooze}>Inte nu</TextLank>
+        <TextLank href="/dashboard/profil#cv">Se hela profilen</TextLank>
       </div>
-    </section>
+    </Kort>
   )
 }

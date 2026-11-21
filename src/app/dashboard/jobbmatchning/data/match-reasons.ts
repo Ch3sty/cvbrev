@@ -8,7 +8,8 @@
  * Stockholm", en annan bara "Stockholm", och en rad stod helt utan skäl.
  * Två saker ändrades. Skälen räknas nu ur samma uträkning som matchgraden
  * (match-score.ts) i stället för ur en egen parallell logik, så att talet och
- * texten aldrig kan säga emot varandra. Och det finns alltid minst två skäl,
+ * texten aldrig kan säga emot varandra. Och det finns nästan alltid två skäl (en
+ * annan ort än användarens räknas inte som skäl sedan 2026-11-21),
  * så en tom rad är alltid ett beräkningsfel, aldrig ett faktum om annonsen.
  *
  * Ordningen är bestämd: roller, kompetenser, ort. Det starkaste argumentet
@@ -142,8 +143,12 @@ export function buildMatchReasons(
 
   // 3. Ort. Distans går före kommunnamnet: kan jobbet göras hemifrån är det
   //    den upplysningen som betyder något, inte var kontoret råkar ligga.
+  //    Orten är bara ett skäl när den är användarens: samma kommun som CV:t
+  //    eller en vald ort (ortens del 1,0). En annan ort får aldrig stå med
+  //    bock som skäl (rättningsrundan 2026-11-21).
+  const egenOrt = score.parts.location >= 1 ? score.locationLabel : null;
   if (score.isRemote) reasons.push('Distans');
-  else if (score.locationLabel) reasons.push(score.locationLabel);
+  else if (egenOrt) reasons.push(egenOrt);
 
   // Färskheten hör hemma i metaraden ovanför och står där redan. Att upprepa
   // den här gjorde raden längre utan att säga användaren något nytt.
@@ -151,8 +156,8 @@ export function buildMatchReasons(
   // Har allt ovan ändå fallerat (annons utan ort och utan krav) säger vi det
   // som faktiskt gäller i stället för att lämna raden tom.
   if (reasons.length < 2) {
-    if (score.locationLabel && !reasons.includes(score.locationLabel)) {
-      reasons.push(score.locationLabel);
+    if (egenOrt && !reasons.includes(egenOrt)) {
+      reasons.push(egenOrt);
     }
   }
   if (reasons.length < 2) reasons.push('Liknar din bakgrund');

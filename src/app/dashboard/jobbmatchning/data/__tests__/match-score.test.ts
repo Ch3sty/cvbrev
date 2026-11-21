@@ -320,10 +320,13 @@ describe('annonser utan strukturerad kravprofil', () => {
 });
 
 describe('skälen', () => {
-  it('ger alltid minst två skäl, aldrig en tom rad', () => {
+  // Förut fyllde annonsens ort ut till två skäl även när orten inte var
+  // användarens. Sedan rättningsrundan 2026-11-21 står en annan ort aldrig som
+  // skäl, så kravet är minst ett skäl och aldrig en tom rad.
+  it('ger alltid minst ett skäl, aldrig en tom rad', () => {
     for (const job of annonser) {
       const { reasons } = buildMatchReasons(job, cv, ['Stockholm']);
-      expect(reasons.length).toBeGreaterThanOrEqual(2);
+      expect(reasons.length).toBeGreaterThanOrEqual(1);
       expect(reasons.every((r) => r.trim() !== '')).toBe(true);
     }
   });

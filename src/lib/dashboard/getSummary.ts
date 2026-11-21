@@ -18,6 +18,7 @@
  *   - själva loopen          speglar useApplicationsSummary.ts rad 111 till 166
  * Ändras logiken i hooken ska den ändras här också.
  */
+import { nyaBlandBasta, nyaMarke } from '@/lib/rum/nyaTraffar'
 import {
   statusIsClosed,
   statusHasResponse,
@@ -421,7 +422,7 @@ export async function getDashboardSummary(
   const intervjuLas = hamtaIntervjuRader(userId)
   // Våg 4: korsreferensen och "N nya" i samma omgång, aldrig efter mount.
   const traningLas = hamtaTraningKors(userId)
-  const nyaLas = hamtaMatchningarNya(supabase)
+  const nyaLas = hamtaMatchningarNya(supabase, userId)
   // Läsbarhetspoängen räknas ur senaste analysens CV-rad med poängmodellen
   // (docs/poangmodell-cv-analys.md), i samma omgång. Talet som sparats i
   // analysen (och som dashboard_summering() returnerar) används inte längre:
@@ -768,12 +769,32 @@ async function hamtaTraningKors(userId: string): Promise<TraningKors | null> {
 }
 
 /**
- * Nya träffar sedan Matchade jobb senast visades (spec 16.2 fråga 3).
- * Funktionen matchningar_nya() kommer med våg 4:s migrering; saknas den
- * blir svaret null och chipet visas inte.
+ * Nya träffar sedan Matchade jobb senast visades (spec 16.2 fråga 3), räknade
+ * bland de bästa träffarna, de som listan visar (högst 25). Förut räknade
+ * matchningar_nya() alla annonser i nya körningar, och sidomenyn sa "600 nya"
+ * när 600 annonser hade lästs (rättningsrundan 2026-11-21).
+ *
+ * Läser i första hand sammanfattningen (job_matching_summaries, liten), och
+ * annars matchningar_nya() med taket 25 (antalet bästa träffar). Null när det
+ * inte går att säga eller när alla bästa är nya: då står inget märke.
  */
 let matchningarNyaSaknas = false
-async function hamtaMatchningarNya(supabase: any): Promise<number | null> {
+let sammanfattningSaknas = false
+async function hamtaMatchningarNya(supabase: any, userId: string): Promise<number | null> {
+  if (!sammanfattningSaknas) {
+    try {
+      const [samm, profil] = await Promise.all([
+        supabase.from('job_matching_summaries').select('publicerade').eq('user_id', userId).maybeSingle(),
+        supabase.from('profiles').select('matchningar_sedda_at').eq('id', userId).maybeSingle(),
+      ])
+      if (samm.error && ['42P01', 'PGRST205', '42703'].includes(samm.error.code)) sammanfattningSaknas = true
+      else if (!samm.error && samm.data && Array.isArray(samm.data.publicerade)) {
+        return nyaBlandBasta(samm.data.publicerade, profil.data?.matchningar_sedda_at ?? null).nya
+      }
+    } catch {
+      /* reserven nedan */
+    }
+  }
   if (matchningarNyaSaknas) return null
   try {
     const { data, error } = await supabase.rpc('matchningar_nya')
@@ -782,7 +803,7 @@ async function hamtaMatchningarNya(supabase: any): Promise<number | null> {
       return null
     }
     const n = typeof data === 'number' ? data : Number(data)
-    return data !== null && Number.isFinite(n) && n >= 0 ? n : null
+    return data !== null && Number.isFinite(n) && n >= 0 ? nyaMarke(n) : null
   } catch {
     return null
   }
