@@ -183,6 +183,30 @@ export function narText(dag: Dag, idag: Dag): string {
   return `den ${langDag(dag)}`
 }
 
+/**
+ * När något hände, bakåt i tiden: "i dag", "i går", "i tisdags" (två till
+ * sex dagar sedan), annars "den 12 november". En dag efter `idag` (klockor
+ * som går olika) läses som i dag.
+ */
+export function sedanText(dag: Dag, idag: Dag): string {
+  const d = dagarMellan(dag, idag)
+  if (d <= 0) return 'i dag'
+  if (d === 1) return 'i går'
+  if (d <= 6) return `i ${veckodagNamn(dag)}s`
+  return `den ${langDag(dag)}`
+}
+
+/**
+ * Raden över de nya träffarna: "Sedan du tittade i tisdags". `seddaAt` är
+ * när Matchade jobb senast visades (profiles.matchningar_sedda_at, läst
+ * innan sidan markerar den som sedd igen). Null utan tidpunkt.
+ */
+export function sedanDuTittade(seddaAt: string | null | undefined, idag: Dag): string | null {
+  const dag = dagFor(seddaAt)
+  if (!dag) return null
+  return `Sedan du tittade ${sedanText(dag, idag)}`
+}
+
 /** "Oktober" ur 'YYYY-MM'. */
 export function manadEtikett(manad: string): string {
   const m = Number(manad.slice(5, 7))

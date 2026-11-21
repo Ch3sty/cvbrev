@@ -313,8 +313,8 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
                   <div className="j3c-tittat">
                     <span className="j3c-tittat-tal">{tittat}</span>
                     <span className="j3c-tittat-text">
-                      rekryterare har
-                      <b>sett profilen</b>
+                      {tittat === 1 ? 'visning' : 'visningar'}
+                      <b>av profilen</b>
                     </span>
                   </div>
                 ) : null}

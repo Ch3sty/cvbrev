@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { userHasPremiumAccess } from '@/lib/supabase/premiumAccess';
 import {
   generateApplicationShareToken,
   applicationShareExpiry,
@@ -57,7 +58,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const user = await getAuthedUser();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
@@ -69,8 +72,15 @@ export async function POST(request: NextRequest) {
       // Tom body är ok: standardflaggor används.
     }
 
+    // Listan med företag, tjänst och datum är Premium (beslut 17,
+    // docs/beslut-jobbsoket-2026-11-21.md): den ger samma rader som rapportens
+    // låsta radlistor. Samma kontroll som /api/applications/report. Gratis-
+    // konton får en länk med antalen även när anropet ber om listan.
+    const vill = body.show_company_names === true;
+    const showCompanyNames = vill ? await userHasPremiumAccess(supabase, user.id) : false;
+
     const flags = {
-      show_company_names: body.show_company_names !== false,
+      show_company_names: showCompanyNames,
       show_channel_breakdown: body.show_channel_breakdown !== false,
       show_monthly_trend: body.show_monthly_trend !== false,
       // Anteckningar kan innehålla känsligt innehåll: kräver aktivt val.
@@ -114,6 +124,7 @@ export async function POST(request: NextRequest) {
       url: `${origin}/dela/sokta-tjanster/${token}`,
       token,
       expiresAt,
+      showCompanyNames,
     });
   } catch (error) {
     console.error('Delningslänksskapande error:', error);

@@ -232,8 +232,9 @@ export function Knapprad({ children, rad }: { children: ReactNode; rad?: ReactNo
 }
 
 /** Raden med brickor under hjälten (veckans mål, avslutade). Med dator: bara på dator (telefonen har målet i ögonbrynsraden). */
-export function Chips({ children, dator }: { children: ReactNode; dator?: boolean }) {
-  return <div className={dator ? 'j3-chips dator' : 'j3-chips'}>{children}</div>
+export function Chips({ children, dator, stapel }: { children: ReactNode; dator?: boolean; stapel?: boolean }) {
+  const k = ['j3-chips', dator ? 'dator' : '', stapel ? 'stapel' : ''].filter(Boolean).join(' ')
+  return <div className={k}>{children}</div>
 }
 
 /** Golvet: sidans ljusa yta under väggen, med 1120 px innehåll på dator. */

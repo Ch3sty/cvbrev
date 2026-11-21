@@ -58,13 +58,18 @@ export function tolkaSoktaAdress(p: Parametrar): SoktaAdress {
   return { vy, filter, logga, manad }
 }
 
-/** Länk till Sökta tjänster i en vy eller med ett filter. */
-export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; manad?: string } = {}): string {
+/**
+ * Länk till Sökta tjänster i en vy eller med ett filter. `fran` märker
+ * varifrån länken kom (t.ex. 'oversikt-ny') så att sidvisningen i PostHog
+ * visar källan; tolkaSoktaAdress läser den inte och sidan låter den stå kvar.
+ */
+export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; manad?: string; fran?: string } = {}): string {
   const q = new URLSearchParams()
   if (a.vy && a.vy !== 'lista') q.set('vy', a.vy)
   if (a.filter && a.filter !== 'alla') q.set('filter', a.filter)
   if (a.logga) q.set('logga', a.logga === 'sokt' ? '1' : 'ska-soka')
   if (a.manad) q.set('manad', a.manad)
+  if (a.fran) q.set('fran', a.fran)
   const s = q.toString()
   return s ? `${SOKTA_HREF}?${s}` : SOKTA_HREF
 }

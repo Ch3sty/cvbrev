@@ -7,7 +7,7 @@
 import { hamtaToppTraffar } from '@/lib/jobbsok/server'
 import { JOBB_HREF, SISTA_DAG_INOM_DAGAR, jobbHref, plusDagar } from '@/lib/jobbsok'
 import { Avsnitt, LitenKnapp, SektionsHuvud, Skel, TomtLage, TraffKort, Traffar, IkonSok } from '@/components/jobb3/kit'
-import { traffUnder } from './oversikt'
+import { traffUnderMedSedan } from './oversikt'
 import { traffRubrikNya } from '@/lib/rum/nyaTraffar'
 
 export async function NyaTraffar({ userId, idag }: { userId: string; idag: string }) {
@@ -39,7 +39,7 @@ export async function NyaTraffar({ userId, idag }: { userId: string; idag: strin
       <SektionsHuvud
         rubrikId="nya-rubrik"
         rubrik={traffRubrikNya({ basta: t.basta, nya: t.nya })}
-        under={traffUnder(t.lasta, t.kordAt, idag)}
+        under={traffUnderMedSedan(t.lasta, t.kordAt, idag, t.nya, t.seddaAt)}
         lank={{ href: JOBB_HREF, text: `Alla ${t.basta} träffar`, textMobil: `Alla ${t.basta}` }}
       />
       <Traffar>

@@ -59,6 +59,7 @@ import {
   IkonRutnat,
   IkonPerson,
   IkonVaska,
+  StatusPiller,
 } from '@/components/jobb3/kit'
 import {
   SOKTA_HREF,
@@ -72,7 +73,7 @@ import {
 } from '@/lib/jobbsok'
 import type { JobbsokOversikt } from '@/lib/jobbsok/server'
 import { korsreferens } from '@/lib/rum/jobbsok'
-import { KORS, MER } from '@/lib/rum/copy'
+import { CHIP, KORS, MER } from '@/lib/rum/copy'
 import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import { traningsHandling } from '@/lib/intervju/nasta'
 import { dagensDatum, halsning } from '@/app/dashboard/(oversikt)/HemHuvud'
@@ -80,7 +81,7 @@ import { startvy } from '@/app/dashboard/(oversikt)/startvy'
 import OversiktKlient from '@/app/dashboard/(oversikt)/OversiktKlient'
 import QuotaNudgeRow from '@/app/dashboard/(oversikt)/QuotaNudgeRow'
 import ProfilKomplettering from '@/app/dashboard/(oversikt)/ProfilKomplettering'
-import { banaProps, goraMobil, goraTon, stor, tjanstRad } from './oversikt'
+import { banaProps, bliUpptacktRad, goraMobil, goraTon, stor, tjanstRad } from './oversikt'
 import { traningsKopia } from './traning'
 import VeckansMalAndra from './VeckansMalAndra'
 import TraningsKnapp from './TraningsKnapp'
@@ -88,6 +89,9 @@ import KorsKlick from './KorsKlick'
 import { NyaTraffar, NyaTraffarSkelett } from './NyaTraffar'
 
 const LOGGA_HREF = soktaHref({ logga: 'sokt' })
+// Nolläget (beslut 22): länken i väggen, märkt med varifrån den kom.
+const LOGGA_FORSTA_NY_HREF = soktaHref({ logga: 'sokt', fran: 'oversikt-ny' })
+const LOGGA_FORSTA_HREF = soktaHref({ logga: 'sokt', fran: 'oversikt-forsta' })
 const KORS_LANK_HREF = '/dashboard/tester'
 
 const IKON: Record<AttGoraIkon, ReactNode> = {
@@ -161,6 +165,8 @@ function MainVy({ data, userId, klient, premium }: { data: JobbsokOversikt; user
   const forsta: AttGoraHandling | undefined = attGora.handlingar[0]
   const ogonMobil = `${veckodagKort(idag)} ${kortDag(idag)} · vecka ${isoVecka(idag)}`
   const oppnaAntal = data.tjanster.filter((t) => !t.avslutad).length
+  // Nolläget: inga sökta tjänster och inget under Ska sökas (och inget läsfel).
+  const utanRader = !data.lasfel && data.tjanster.length === 0 && data.skaSokas.length === 0
 
   return (
     <>
@@ -179,6 +185,13 @@ function MainVy({ data, userId, klient, premium }: { data: JobbsokOversikt; user
               <IkonPil />
             </StorKnapp>
           </Knapprad>
+          {utanRader ? (
+            <Chips stapel>
+              <TextLank vagg href={LOGGA_FORSTA_HREF}>
+                Har du redan sökt en tjänst? Logga den
+              </TextLank>
+            </Chips>
+          ) : null}
           <Chips dator>
             <VeckansMalAndra antal={mal.sokta} mal={mal.mal} forval={mal.forval} />
           </Chips>
@@ -307,6 +320,7 @@ function MerIJobbsoket({ data, utanUpptackt }: { data: JobbsokOversikt; utanUppt
   const kors = korsreferens(data.summering?.jobbsok?.traning ?? null, data.idag)
   const intervju = data.summering?.intervju
   const visaArbetsstil = Boolean(intervju?.harProfil)
+  const upptackt = bliUpptacktRad({ synlig: data.bliUpptacktSynlig, ...data.bliUpptacktTal }, MER.bliUpptackt)
   return (
     <KorsKlick variant={kors.variant === 'niva' ? 'niva' : 'aldrig_matt'}>
       <Kort lista>
@@ -314,8 +328,9 @@ function MerIJobbsoket({ data, utanUpptackt }: { data: JobbsokOversikt; utanUppt
           <SidoRad
             ikon={<IkonOga />}
             rubrik={MER.bliUpptackt.titel}
-            text={data.bliUpptacktSynlig ? MER.bliUpptackt.metaPa : MER.bliUpptackt.metaAv}
+            text={upptackt.text}
             href="/dashboard/bli-upptackt"
+            hoger={upptackt.vantar ? <StatusPiller status="folj-upp">{CHIP.vantar(upptackt.vantar)}</StatusPiller> : undefined}
           />
         )}
         <SidoRad ikon={<IkonPrat />} rubrik={MER.jobbcoachen.titel} text={MER.jobbcoachen.meta} href="/dashboard/jobbcoachen" />
@@ -358,9 +373,12 @@ function NyVy({ data, klient }: { data: JobbsokOversikt; klient: ReactNode }) {
               <IkonPil />
             </StorKnapp>
           </Knapprad>
-          <Chips>
+          <Chips stapel>
             <TextLank vagg href="/dashboard/skapa-cv">
               Har du inget CV? Bygg ett här
+            </TextLank>
+            <TextLank vagg href={LOGGA_FORSTA_NY_HREF}>
+              Har du redan sökt en tjänst? Logga den
             </TextLank>
           </Chips>
         </VaggHero>

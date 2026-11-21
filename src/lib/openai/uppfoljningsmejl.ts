@@ -14,6 +14,7 @@ import {
   valideraAiMejl,
   type UppfoljningUnderlag,
 } from '@/lib/jobbsok/uppfoljning'
+import { valideraMejlMedMarken, type Mark } from '@/lib/jobbsok/uppfoljningMarken'
 import { UPPFOLJNING_MAX_ORD } from '@/lib/jobbsok/typer'
 
 export interface AiMejlResultat {
@@ -58,13 +59,25 @@ Skriv sakligt och vardagligt. Undvik fraser som "ser fram emot", "bidra till ert
 Ingen hälsning, inget avslut, inget namn, inga platshållare som [NAMN]. Hitta inte på något. Inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["...","...","..."]}`
 }
 
-function systemKortare(sprak: 'sv' | 'en'): string {
-  return sprak === 'en'
-    ? 'Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. No greeting, no sign-off, no name, no dashes, no placeholders. Reply only with JSON: {"amne":"...","stycken":["..."]}'
+function systemKortare(sprak: 'sv' | 'en', medMarken: boolean): string {
+  if (sprak === 'en') {
+    return medMarken
+      ? 'Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. Markers in square brackets, like [PHONE 1] or [TELEFON 1], are the sender\'s own details: keep every marker exactly as written, at least once, and do not add any other square brackets. No greeting, no sign-off, no name, no dashes. Reply only with JSON: {"amne":"...","stycken":["..."]}'
+      : 'Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. No greeting, no sign-off, no name, no dashes, no placeholders. Reply only with JSON: {"amne":"...","stycken":["..."]}'
+  }
+  return medMarken
+    ? 'Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. Märken inom hakparentes, som [TELEFON 1] eller [E-POST 1], är avsändarens egna uppgifter: skriv varje märke exakt som det står, minst en gång, och lägg inte till några andra hakparenteser. Ingen hälsning, inget avslut, inget namn, inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["..."]}'
     : 'Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. Ingen hälsning, inget avslut, inget namn, inga tankstreck, inga platshållare. Svara bara med JSON: {"amne":"...","stycken":["..."]}'
 }
 
-async function anropa(systemInstruction: string, prompt: string, maxOrd: number): Promise<AiMejlResultat> {
+type Validering = (raw: unknown, maxOrd: number) => { subject: string; stycken: string[] } | null
+
+async function anropa(
+  systemInstruction: string,
+  prompt: string,
+  maxOrd: number,
+  validera: Validering = valideraAiMejl
+): Promise<AiMejlResultat> {
   const model = GEMINI_MODELS.fast
   const start = Date.now()
   let timer: ReturnType<typeof setTimeout> | null = null
@@ -84,7 +97,7 @@ async function anropa(systemInstruction: string, prompt: string, maxOrd: number)
       }),
     ])
     const tokens = svar.usage ? { prompt: svar.usage.prompt, completion: svar.usage.completion, total: svar.usage.total } : null
-    const mejl = valideraAiMejl(svar.data, maxOrd)
+    const mejl = validera(svar.data, maxOrd)
     return { mejl, model, tokens, cost: svar.cost, ms: Date.now() - start, orsak: mejl ? null : 'ogiltigt' }
   } catch (error: any) {
     const tid = error?.message === 'tidsgrans'
@@ -103,11 +116,28 @@ export async function skrivUppfoljningsmejl(u: UppfoljningUnderlag): Promise<AiM
 
 /**
  * "Skriv om kortare". `stycken` är mejlets brödtext utan hälsning, avslut och
- * namn, och redan maskad av rutten (maskForModel) eftersom användaren kan ha
+ * namn, och redan maskad av rutten (maskaMedMarken) eftersom användaren kan ha
  * skrivit in egna uppgifter. Svaret måste bli kortare än förut.
+ *
+ * `marken` är märkena i styckena ([TELEFON 1] och så vidare) med användarens
+ * uppgifter. Bara märkena går till AI:n; uppgifterna sätts tillbaka i det
+ * godkända svaret (valideraMejlMedMarken), så `mejl.stycken` är färdig text.
+ * Utan märken valideras svaret som förut.
  */
-export async function skrivKortare(amne: string, stycken: readonly string[], sprak: 'sv' | 'en', ordForut: number): Promise<AiMejlResultat> {
-  const prompt = `Mejlet (JSON):\n${JSON.stringify({ amne: amne.slice(0, 200), stycken: stycken.slice(0, 6).map((s) => s.slice(0, 1200)) })}\nNu ${ordForut} ord. Sikta på högst ${Math.max(25, Math.round(ordForut * 0.75))}.`
+export async function skrivKortare(
+  amne: string,
+  stycken: readonly string[],
+  sprak: 'sv' | 'en',
+  ordForut: number,
+  marken: readonly Mark[] = []
+): Promise<AiMejlResultat> {
+  const ut = stycken.slice(0, 6).map((s) => s.slice(0, 1200))
+  // Ett avklippt stycke kan ha tappat ett märke: då går det inte att återställa.
+  if (marken.length > 0 && (stycken.length > 6 || stycken.some((s) => s.length > 1200))) {
+    return { mejl: null, model: GEMINI_MODELS.fast, tokens: null, cost: null, ms: 0, orsak: 'ogiltigt' }
+  }
+  const prompt = `Mejlet (JSON):\n${JSON.stringify({ amne: amne.slice(0, 200), stycken: ut })}\nNu ${ordForut} ord. Sikta på högst ${Math.max(25, Math.round(ordForut * 0.75))}.`
   const maxOrd = Math.max(20, ordForut - 1)
-  return anropa(systemKortare(sprak), prompt, maxOrd)
+  if (marken.length === 0) return anropa(systemKortare(sprak, false), prompt, maxOrd)
+  return anropa(systemKortare(sprak, true), prompt, maxOrd, (raw, max) => valideraMejlMedMarken(raw, max, marken))
 }

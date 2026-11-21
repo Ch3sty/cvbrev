@@ -1,16 +1,43 @@
 // Publik delningsvy för sökstatistiken: /dela/sokta-tjanster/[token].
 // Server component utan auth. getSharedApplicationData verifierar token,
 // TTL och återkallning, och returnerar bara det ägaren valt att exponera.
-// Ren läsvy: inga åtgärder, ingen navigering in i appen.
+// Ren läsvy: inga åtgärder, ingen navigering in i appen utöver logotypen och
+// fotens länk.
+//
+// Samma form som Statistik i Jobbsöket: väggen, den lyfta panelen med
+// tratten (TrattBild, samma som i rummet) och listan som kitets rader. Sidan
+// ligger utanför /dashboard, så den läser själv in Jobbsökets CSS och sätter
+// data-rum="jobb" (rummets tokens, ljust och mörkt läge via globals.css).
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock } from 'lucide-react';
+import type { ReactNode } from 'react';
+import '../../../jobb3.css';
+import '../../../jobb3-b.css';
+import '../../../jobb3-c.css';
 import Logo from '@/components/Logo';
-import { getSharedApplicationData } from '@/lib/applications/shareLinks';
-import { STATUS_META, CHANNEL_META, type ApplicationChannel, type ApplicationEventType } from '@/lib/applications/status';
-import FunnelBars from '@/app/dashboard/sokta-tjanster/components/FunnelBars';
-import SankeyChart from '@/app/dashboard/sokta-tjanster/components/SankeyChart';
+import {
+  JobbVagg,
+  VaggHero,
+  VaggText,
+  Golv,
+  LyftPanel,
+  PanelHuvud,
+  Avsnitt,
+  SektionsHuvud,
+  Kort,
+  TjanstRad,
+  TomtLage,
+  IkonDokument,
+  type BrickTon as KitTon,
+  type FyrSteg,
+  type Status,
+} from '@/components/jobb3/kit';
+import { TrattBild, type TrattBildBricka, type TrattBildData } from '@/components/jobb3/sokta/TrattBild';
+import { KANAL_TEXT } from '@/components/jobb3/sokta/text';
+import { getSharedApplicationData, type DeladeToner, type DeladTratt, type SharedApplicationRow } from '@/lib/applications/shareLinks';
+import { STATUS_META, type ApplicationEventType } from '@/lib/applications/status';
+import { brickBokstaver, dagFor, idagSv, langDagMedAr, type BrickTon } from '@/lib/jobbsok';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,21 +46,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-function Shell({ children }: { children: React.ReactNode }) {
+function Sida({ children }: { children: ReactNode }) {
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: 'linear-gradient(180deg, #FFF7ED 0%, #FFFBF5 40%, #FFFFFF 100%)' }}
-    >
-      <header className="px-4 sm:px-6 py-4">
-        <Link href="/" aria-label="Jobbcoach.ai">
-          <Logo />
-        </Link>
-      </header>
+    <div data-rum="jobb" className="j3-sida flex min-h-screen flex-col">
       {children}
-      <footer className="px-4 py-6 text-center text-[12px] text-slate-400">
+      <footer className="j3-fin px-4 pb-8 pt-2 text-center">
         Översikten är delad via{' '}
-        <Link href="/" className="text-orange-600 hover:text-orange-700 font-semibold">
+        <Link href="/" className="font-semibold underline underline-offset-2" style={{ color: 'var(--j3-ink-2)' }}>
           jobbcoach.ai
         </Link>
       </footer>
@@ -41,10 +60,69 @@ function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function formatDate(iso: string): string {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return '';
-  return new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+function Vagg({ children, hojd, hojdMobil }: { children: ReactNode; hojd: number; hojdMobil: number }) {
+  return (
+    <JobbVagg hojd={hojd} hojdMobil={hojdMobil} flik={false} etikett="Sökta tjänster">
+      <Link href="/" aria-label="Jobbcoach.ai" className="inline-flex">
+        <Logo variant="on-dark" height={32} />
+      </Link>
+      <VaggHero spalt={640}>{children}</VaggHero>
+    </JobbVagg>
+  );
+}
+
+/** Tonerna i den ordning brickorna läggs i lådorna. */
+const TON_ORDNING: BrickTon[] = ['erbjudande', 'intervju', 'vantar', 'tyst', 'avslag'];
+
+/** Delningens aggregat blir brickor utan bokstäver, en per sökt tjänst. */
+function brickorAv(toner: DeladeToner): TrattBildBricka[] {
+  return TON_ORDNING.flatMap((ton) => Array.from({ length: toner[ton] ?? 0 }, () => ({ bokstaver: '', ton })));
+}
+
+function trattData(t: DeladTratt): TrattBildData {
+  return {
+    sokta: { ...t.sokta, brickor: brickorAv(t.sokta.toner) },
+    svar: { ...t.svar, brickor: brickorAv(t.svar.toner) },
+    intervju: { ...t.intervju, brickor: brickorAv(t.intervju.toner) },
+    erbjudande: { ...t.erbjudande, brickor: brickorAv(t.erbjudande.toner) },
+  };
+}
+
+/** Radens läge ur current_status, som listan visade förut. */
+function radLage(status: ApplicationEventType | null): { ton: KitTon; steg: { steg: FyrSteg; avslutad?: boolean }; pill: Status } {
+  switch (status) {
+    case 'interview_invited':
+      return { ton: 'int', steg: { steg: 3 }, pill: 'intervju' };
+    case 'interview_completed':
+    case 'trial_work_completed':
+      return { ton: 'int', steg: { steg: 3 }, pill: 'vantar-besked' };
+    case 'offer_received':
+    case 'accepted':
+      return { ton: 'int', steg: { steg: 4 }, pill: 'erbjudande' };
+    case 'rejected':
+    case 'declined':
+      return { ton: 'slut', steg: { steg: 2, avslutad: true }, pill: 'avslutad' };
+    default:
+      return { ton: 'standard', steg: { steg: 1 }, pill: 'vantar' };
+  }
+}
+
+function Rad({ row }: { row: SharedApplicationRow }) {
+  const lage = radLage(row.current_status);
+  const company = row.company ?? '';
+  const dag = dagFor(row.applied_at);
+  const kanal = KANAL_TEXT[row.application_channel] ?? '';
+  return (
+    <TjanstRad
+      storlek="stor"
+      bricka={{ kod: company ? brickBokstaver(company) : '', ton: lage.ton }}
+      rubrik={row.job_title}
+      arbetsgivare={company ? (row.location ? `${company}, ${row.location}` : company) : undefined}
+      text={[dag ? `Sökt ${langDagMedAr(dag)}` : 'Sökt', kanal].filter(Boolean).join(', ')}
+      steg={lage.steg}
+      status={{ status: lage.pill, text: row.current_status ? STATUS_META[row.current_status]?.label : 'Sökt' }}
+    />
+  );
 }
 
 export default async function DeladSoktaTjansterPage({
@@ -57,121 +135,50 @@ export default async function DeladSoktaTjansterPage({
 
   if (!shared) {
     return (
-      <Shell>
-        <div className="flex-1 flex items-center justify-center px-4 py-10">
-          <div
-            className="relative w-full max-w-md bg-white rounded-3xl border border-orange-100 p-6 sm:p-8 text-center overflow-hidden"
-            style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.15)' }}
-          >
-            <div
-              className="absolute top-0 inset-x-0 h-0.5"
-              style={{ background: 'linear-gradient(90deg, #FB923C, #DC2626)' }}
-              aria-hidden="true"
-            />
-            <div className="mx-auto mb-4 w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center">
-              <Clock className="w-6 h-6 text-orange-600" aria-hidden="true" />
-            </div>
-            <h1 className="text-lg font-bold text-slate-900 mb-2">Länken har upphört</h1>
-            <p className="text-[13.5px] text-slate-500 leading-relaxed">
-              Delningslänkar gäller i 30 dagar och kan återkallas när som helst av den som delade
-              den. Be personen om en ny länk.
-            </p>
-          </div>
-        </div>
-      </Shell>
+      <Sida>
+        <Vagg hojd={360} hojdMobil={280}>
+          <VaggText
+            ogon="Sökta tjänster"
+            rubrik="Länken har upphört"
+            ingress="Delningslänkar gäller i 30 dagar och kan återkallas när som helst av den som delade den. Be personen om en ny länk."
+          />
+        </Vagg>
+        <div className="flex-1" />
+      </Sida>
     );
   }
 
-  const { stats, applications, ownerName } = shared;
+  const { tratt, applications, ownerName } = shared;
 
   return (
-    <Shell>
-      <main className="flex-1 px-4 sm:px-6 py-6">
-        <div className="max-w-3xl mx-auto space-y-4">
-          {/* Rubrik */}
-          <div
-            className="bg-white rounded-3xl border border-orange-200/50 p-5 sm:p-7"
-            style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}
-          >
-            <div className="text-[11px] font-semibold uppercase tracking-[0.15em] text-orange-600">
-              Jobbsökningsöversikt
-            </div>
-            <h1 className="mt-1 text-xl sm:text-2xl font-bold text-slate-900">
-              {ownerName || 'Delad översikt'}
-            </h1>
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-slate-600">
-              <span>
-                <span className="font-bold text-slate-900 tabular-nums">{stats.totalApplications}</span>{' '}
-                sökta jobb
-              </span>
-              <span className="text-slate-300">·</span>
-              <span>
-                <span className="font-bold text-slate-900 tabular-nums">{stats.interviewedCount}</span>{' '}
-                intervjuprocesser
-              </span>
-              <span className="text-slate-300">·</span>
-              <span>
-                <span className="font-bold text-slate-900 tabular-nums">{stats.offerCount}</span>{' '}
-                erbjudanden
-              </span>
-            </div>
+    <Sida>
+      <Vagg hojd={360} hojdMobil={260}>
+        <VaggText ogon="Sökta tjänster" rubrik={ownerName || 'Delad översikt'} ingress={`Läget den ${langDagMedAr(idagSv())}.`} />
+      </Vagg>
+
+      <Golv className="flex-1">
+        <LyftPanel lyftMobil={28} luft="20px 28px 28px" rubrikId="tratt-rubrik">
+          <PanelHuvud rubrik="Från sökt till erbjudande" rubrikId="tratt-rubrik" under="Varje bricka är en sökt tjänst. Följ dem från vänster till höger." />
+          <div style={{ marginTop: 22 }}>
+            {tratt.sokta.antal > 0 ? (
+              <TrattBild tratt={trattData(tratt)} />
+            ) : (
+              <TomtLage ikon={<IkonDokument />} rubrik="Inga sökta tjänster än" text="Här syns vägen från sökt till erbjudande när den första sökta tjänsten är loggad." />
+            )}
           </div>
+        </LyftPanel>
 
-          {/* Tratt */}
-          {stats.totalApplications > 0 && (
-            <div className="bg-white rounded-2xl border border-orange-200/50 p-5 sm:p-6">
-              <h2 className="text-[14.5px] font-bold text-slate-900 mb-3">Processen i siffror</h2>
-              <FunnelBars stats={stats} />
-            </div>
-          )}
-
-          {/* Sankey på större skärmar */}
-          {stats.totalApplications > 2 && (
-            <div className="hidden md:block bg-white rounded-2xl border border-orange-200/50 p-6">
-              <h2 className="text-[14.5px] font-bold text-slate-900 mb-4">Flödesdiagram</h2>
-              <SankeyChart stats={stats} />
-            </div>
-          )}
-
-          {/* Ansökningslista (om ägaren valt att visa den) */}
-          {applications && applications.length > 0 && (
-            <div className="bg-white rounded-2xl border border-orange-200/50 p-5 sm:p-6 overflow-x-auto">
-              <h2 className="text-[14.5px] font-bold text-slate-900 mb-3">Sökta tjänster</h2>
-              <table className="w-full text-[12.5px] min-w-[480px]">
-                <thead>
-                  <tr className="text-left text-slate-400 border-b border-slate-200">
-                    <th className="py-2 pr-3 font-semibold">Datum</th>
-                    <th className="py-2 pr-3 font-semibold">Tjänst</th>
-                    <th className="py-2 pr-3 font-semibold">Arbetsgivare</th>
-                    <th className="py-2 pr-3 font-semibold">Sätt</th>
-                    <th className="py-2 font-semibold">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applications.map((row, i) => (
-                    <tr key={i} className="border-b border-slate-100 last:border-0">
-                      <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">{formatDate(row.applied_at)}</td>
-                      <td className="py-2 pr-3 text-slate-800 font-medium">{row.job_title}</td>
-                      <td className="py-2 pr-3 text-slate-600">
-                        {row.company}
-                        {row.location ? `, ${row.location}` : ''}
-                      </td>
-                      <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">
-                        {CHANNEL_META[row.application_channel as ApplicationChannel]?.short ?? ''}
-                      </td>
-                      <td className="py-2 text-slate-600 whitespace-nowrap">
-                        {row.current_status
-                          ? STATUS_META[row.current_status as ApplicationEventType]?.label
-                          : 'Sökt'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      </main>
-    </Shell>
+        {applications && applications.length > 0 ? (
+          <Avsnitt topp={48} rubrikId="lista-rubrik">
+            <SektionsHuvud rubrikId="lista-rubrik" rubrik="Sökta tjänster" />
+            <Kort lista>
+              {applications.map((row, i) => (
+                <Rad key={i} row={row} />
+              ))}
+            </Kort>
+          </Avsnitt>
+        ) : null}
+      </Golv>
+    </Sida>
   );
 }

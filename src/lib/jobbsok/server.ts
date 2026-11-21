@@ -196,6 +196,8 @@ export interface JobbsokOversikt {
   nyaTraffar: number | null
   /** Bli upptäckt-raden i "Mer i Jobbsöket". */
   bliUpptacktSynlig: boolean
+  /** Bli upptäckt-raden: antal visningar och obesvarade förfrågningar, aldrig vilka. */
+  bliUpptacktTal: BliUpptacktTal
   /** Summeringen (skalet delar den via cache()), för det vyerna redan läser därifrån. */
   summering: DashboardSummaryData | null
   /** Migreringen 20261121180000 är inte körd. */
@@ -204,10 +206,37 @@ export interface JobbsokOversikt {
   lasfel: boolean
 }
 
+export interface BliUpptacktTal {
+  /** Visningar av profilen (candidate_profile_views, en per rekryterare och dygn); null vid fel. */
+  sett: number | null
+  /** Förfrågningar från rekryterare som väntar på svar (candidate_interests, status pending); null vid fel. */
+  vantar: number | null
+}
+
+/**
+ * Talen på Bli upptäckt-raden, räknade i databasen (head, inga rader). Samma
+ * källor som sidan Bli upptäckt (getProfileViewStats, total) och sidomenyns
+ * märke (useCandidateInterests, pending). Båda läses med användarens
+ * session: RLS släpper bara igenom kandidatens egna rader, och inget om vem
+ * rekryteraren är lämnar databasen.
+ */
+export async function lasBliUpptacktTal(supabase: Klient, userId: string): Promise<BliUpptacktTal> {
+  const [settRes, vantarRes] = await Promise.all([
+    supabase.from('candidate_profile_views').select('id', { count: 'exact', head: true }).eq('candidate_user_id', userId),
+    supabase.from('candidate_interests').select('id', { count: 'exact', head: true }).eq('candidate_user_id', userId).eq('status', 'pending'),
+  ])
+  if (settRes.error && !arSchemaFel(settRes.error)) console.error('[jobbsok] Kunde inte räkna profilvisningar:', settRes.error.message)
+  if (vantarRes.error && !arSchemaFel(vantarRes.error)) console.error('[jobbsok] Kunde inte räkna förfrågningar:', vantarRes.error.message)
+  return {
+    sett: settRes.error ? null : settRes.count ?? 0,
+    vantar: vantarRes.error ? null : vantarRes.count ?? 0,
+  }
+}
+
 export async function hamtaJobbsokOversikt(userId: string, opt: { nu?: Date; avfardade?: ReadonlySet<string> } = {}): Promise<JobbsokOversikt> {
   const nu = opt.nu ?? new Date()
   const supabase = await sessionsKlient()
-  const [summering, ansokningar, uppfoljningar, sparade, mal, prov] = await Promise.all([
+  const [summering, ansokningar, uppfoljningar, sparade, mal, prov, bliUpptacktTal] = await Promise.all([
     hamtaSummaryForRequest(userId).catch((err) => {
       console.error('[jobbsok] Summeringen gick fel:', err)
       return null
@@ -217,6 +246,10 @@ export async function hamtaJobbsokOversikt(userId: string, opt: { nu?: Date; avf
     lasSparade(supabase, userId),
     lasVeckansMal(supabase, userId),
     lasProv(userId),
+    lasBliUpptacktTal(supabase, userId).catch((err): BliUpptacktTal => {
+      console.error('[jobbsok] Bli upptäckt-talen gick fel:', err)
+      return { sett: null, vantar: null }
+    }),
   ])
 
   const historik = sattIhopHistorik(ansokningar.rader, uppfoljningar.rader)
@@ -251,6 +284,7 @@ export async function hamtaJobbsokOversikt(userId: string, opt: { nu?: Date; avf
     intervjuerPaGang: intervjuerPaGang(tjanster, nu),
     nyaTraffar: summering?.jobbsok?.matchningarNya ?? null,
     bliUpptacktSynlig: summering?.jobbsok?.bliUpptacktSynlig ?? false,
+    bliUpptacktTal,
     summering,
     migreringSaknas: uppfoljningar.saknas || sparade.saknas || mal.saknas,
     lasfel: ansokningar.fel,
@@ -284,6 +318,8 @@ export interface ToppTraffar {
   basta: number
   /** Nya bland de bästa sedan Matchade jobb senast visades; null = säg inte "nya" (första gången eller alla nya). */
   nya: number | null
+  /** När Matchade jobb senast visades (profiles.matchningar_sedda_at), för "Sedan du tittade i tisdags". */
+  seddaAt: string | null
 }
 
 /**
@@ -305,18 +341,20 @@ export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Da
   // De bästa träffarna ur sammanfattningen, med hela körningen som reserv
   // (rättningsrundan 2026-11-21): samma kedja och samma 25 som Matchade jobb.
   const basta = await hamtaBasta(supabase, userId, cv, prefs)
-  if (!basta || basta.ranked.length === 0) return { traffar: [], lasta: basta?.adsRead ?? 0, kordAt: basta ? new Date(basta.korningAt).toISOString() : null, basta: 0, nya: null }
+  const seddaAt = profil?.matchningar_sedda_at ?? null
+  if (!basta || basta.ranked.length === 0) return { traffar: [], lasta: basta?.adsRead ?? 0, kordAt: basta ? new Date(basta.korningAt).toISOString() : null, basta: 0, nya: null, seddaAt }
 
   const orter = prefs.locations
-  const sedda = profil?.matchningar_sedda_at ? Date.parse(profil.matchningar_sedda_at) : null
+  const sedda = seddaAt ? Date.parse(seddaAt) : null
   const tak = harBetalt ? antal : Math.min(antal, FREE_TIER_JOB_LIMIT)
-  const nyaLage = nyaBlandBasta(publiceradeTider(basta.ranked), profil?.matchningar_sedda_at ?? null)
+  const nyaLage = nyaBlandBasta(publiceradeTider(basta.ranked), seddaAt)
   const nu = opt.nu ?? new Date()
   return {
     lasta: basta.adsRead,
     kordAt: new Date(basta.korningAt).toISOString(),
     basta: nyaLage.basta,
     nya: nyaLage.nya,
+    seddaAt,
     traffar: basta.ranked.slice(0, tak).map(({ job, score }) => {
       const sista = sistaAnsokningsdag(job, nu)
       const publ = Date.parse(String(job.publication_date ?? ''))

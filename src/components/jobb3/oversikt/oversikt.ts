@@ -9,6 +9,7 @@ import {
   klockslag,
   narText,
   ordtal,
+  sedanDuTittade,
   tjanstHref,
   type AttGoraHandling,
   type Bana,
@@ -172,6 +173,42 @@ export function traffUnder(lasta: number, kordAt: string | null, idag: Dag): str
   const kord = kordAt ? new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm' }).format(new Date(kordAt)) : null
   const nar = kord && kord <= idag ? narText(kord, idag) : null
   return `Vi har läst ${lasta} annonser hos Arbetsförmedlingen mot ditt CV${nar ? `, senast ${nar}` : ''}.`
+}
+
+/**
+ * Raden under rubriken med "Sedan du tittade i tisdags." först när det finns
+ * nya träffar (nya > 0) och vi vet när Matchade jobb senast visades.
+ */
+export function traffUnderMedSedan(lasta: number, kordAt: string | null, idag: Dag, nya: number | null, seddaAt: string | null): string {
+  const under = traffUnder(lasta, kordAt, idag)
+  const sedan = nya && nya > 0 ? sedanDuTittade(seddaAt, idag) : null
+  return sedan ? `${sedan}. ${under}` : under
+}
+
+/* -------------------------------------------------------- Bli upptäckt */
+
+export interface BliUpptacktRad {
+  text: string
+  /** Obesvarade förfrågningar från rekryterare; null = inget märke. */
+  vantar: number | null
+}
+
+/**
+ * Bli upptäckt-raden i Mer i Jobbsöket: antal visningar när profilen är
+ * synlig och har setts, och märket "1 väntar" när en förfrågan väntar på
+ * svar. Bara antal, aldrig vilka rekryterare.
+ */
+export function bliUpptacktRad(l: { synlig: boolean; sett: number | null; vantar: number | null }, texter: { metaPa: string; metaAv: string }): BliUpptacktRad {
+  const sett = l.synlig && l.sett && l.sett > 0 ? l.sett : null
+  // Talet räknar visningar (per rekryterare och dygn), inte unika rekryterare.
+  const text = sett
+    ? sett === 1
+      ? 'Din profil har visats en gång.'
+      : `Din profil har visats ${sett} gånger.`
+    : l.synlig
+      ? texter.metaPa
+      : texter.metaAv
+  return { text, vantar: l.vantar && l.vantar > 0 ? l.vantar : null }
 }
 
 export { stor }

@@ -276,7 +276,7 @@ export default function Jobb3KitSida() {
             <aside aria-labelledby="mer-rubrik">
               <SektionsHuvud rubrikId="mer-rubrik" rubrik="Mer i Jobbsöket" />
               <Kort lista>
-                <SidoRad ikon={<IkonOga />} rubrik="Bli upptäckt" text="12 rekryterare har sett din anonyma profil." href="#upptackt" hoger={<StatusPiller status="folj-upp">1 väntar</StatusPiller>} />
+                <SidoRad ikon={<IkonOga />} rubrik="Bli upptäckt" text="Din profil har visats 12 gånger." href="#upptackt" hoger={<StatusPiller status="folj-upp">1 väntar</StatusPiller>} />
                 <SidoRad ikon={<IkonPrat />} rubrik="Jobbcoachen" text="Fråga om lön, uppsägningstid eller hur du svarar en arbetsgivare." href="#coach" />
                 <SidoRad ikon={<IkonRutnat />} ikonTon="test" rubrik="Har du ett rekryteringstest på gång?" text="Kolla din nivå, 8 minuter. Till Rekryteringstester." href="#tester" />
               </Kort>

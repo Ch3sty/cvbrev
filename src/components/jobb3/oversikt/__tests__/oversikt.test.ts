@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { AttGoraHandling, Bana, TjanstLage } from '@/lib/jobbsok'
-import { banaProps, goraMobil, goraTon, tjanstRad, traffUnder } from '../oversikt'
+import { banaProps, bliUpptacktRad, goraMobil, goraTon, tjanstRad, traffUnder, traffUnderMedSedan } from '../oversikt'
 import { nyaBlandBasta, nyaMarke, traffRubrikNya } from '@/lib/rum/nyaTraffar'
 import { startvy } from '@/app/dashboard/(oversikt)/startvy'
 
@@ -134,6 +134,28 @@ describe('träffarna', () => {
   it('raden under', () => {
     expect(traffUnder(600, '2026-11-21T08:00:00Z', IDAG)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV, senast i dag.')
     expect(traffUnder(600, null, IDAG)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV.')
+  })
+  it('"Sedan du tittade" bara när det finns nya träffar', () => {
+    const sedda = '2026-11-17T09:00:00Z' // tisdag
+    expect(traffUnderMedSedan(600, null, IDAG, 4, sedda)).toBe('Sedan du tittade i tisdags. Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV.')
+    expect(traffUnderMedSedan(600, null, IDAG, null, sedda)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV.')
+    expect(traffUnderMedSedan(600, null, IDAG, 0, sedda)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV.')
+    expect(traffUnderMedSedan(600, null, IDAG, 4, null)).toBe('Vi har läst 600 annonser hos Arbetsförmedlingen mot ditt CV.')
+  })
+})
+
+describe('Bli upptäckt-raden', () => {
+  const T = { metaPa: 'PÅ', metaAv: 'AV' }
+  it('visningar bara när profilen är synlig och har setts', () => {
+    expect(bliUpptacktRad({ synlig: true, sett: 12, vantar: 0 }, T)).toEqual({ text: 'Din profil har visats 12 gånger.', vantar: null })
+    expect(bliUpptacktRad({ synlig: true, sett: 1, vantar: 0 }, T).text).toBe('Din profil har visats en gång.')
+    expect(bliUpptacktRad({ synlig: true, sett: 0, vantar: 0 }, T).text).toBe('PÅ')
+    expect(bliUpptacktRad({ synlig: false, sett: 12, vantar: 0 }, T).text).toBe('AV')
+    expect(bliUpptacktRad({ synlig: true, sett: null, vantar: null }, T)).toEqual({ text: 'PÅ', vantar: null })
+  })
+  it('märket när en förfrågan väntar, också med dold profil', () => {
+    expect(bliUpptacktRad({ synlig: true, sett: 12, vantar: 1 }, T)).toEqual({ text: 'Din profil har visats 12 gånger.', vantar: 1 })
+    expect(bliUpptacktRad({ synlig: false, sett: 0, vantar: 2 }, T)).toEqual({ text: 'AV', vantar: 2 })
   })
 })
 

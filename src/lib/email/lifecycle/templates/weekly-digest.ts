@@ -7,13 +7,20 @@
 // läser som en säljmaskin mot en målgrupp som ofta är arbetslös. Därför finns
 // här ingen prissida-CTA, ingen uppgraderingsrad och ingen förlustsummering.
 //
-// Innehållet kommer uteslutande ur job_applications och job_application_events,
-// alltså ur användarens eget arbete. Statusreglerna delas med appen
-// (src/lib/applications/status.ts) så mailet och Sökta tjänster aldrig kan
-// säga olika saker om samma ansökan.
+// Innehållet kommer uteslutande ur job_applications, job_application_events och
+// job_application_followups, alltså ur användarens eget arbete. Statusreglerna
+// delas med appen (src/lib/applications/status.ts) så mailet och Sökta
+// tjänster aldrig kan säga olika saker om samma ansökan.
+//
+// Tystnaden räknas med Jobbsökets motor (src/lib/jobbsok/tystnad.ts): senaste
+// händelsen eller senast loggade uppföljningen, inte status_updated_at. En
+// tjänst som användaren har följt upp nämns alltså inte förrän nästa
+// påminnelse (nastaPaminnelse). Saknas uppföljningstabellen faller läsningen
+// tillbaka till status_updated_at som förut.
 
 import type { LifecycleEmail, LifecycleContext } from '../types';
 import { renderLayout, heading, paragraph, escapeHtml, firstName } from './layout';
+import { withUtm } from '../schedule';
 import { unsubscribeDigestUrl } from '../../unsubscribe';
 import {
   statusIsClosed,
@@ -21,13 +28,17 @@ import {
   NO_RESPONSE_NUDGE_DAYS,
   type ApplicationEventType,
 } from '@/lib/applications/status';
+import { tjanstHref } from '@/lib/jobbsok/adress';
+import { arSchemaFel } from '@/lib/jobbsok/schema';
+import { HISTORIK_SELECT, harHistorik, tystnadFor, type RadMedHistorik } from '@/lib/jobbsok/tystnad';
 
 export const WEEKLY_DIGEST_TYPE = 'weekly_digest';
 
 /** Hur många tysta ansökningar vi nämner vid namn. Fler blir en lista, inte ett råd. */
 const MAX_FOLLOW_UPS = 2;
 
-interface DigestApplication {
+export interface DigestApplication extends RadMedHistorik {
+  id?: string;
   job_title: string;
   company: string;
   applied_at: string;
@@ -46,7 +57,7 @@ export interface WeeklyDigestData {
   /** Svar som kommit in de senaste sju dygnen. */
   repliesThisWeek: number;
   /** Tysta i NO_RESPONSE_NUDGE_DAYS dagar, de vi föreslår uppföljning på. */
-  followUps: Array<{ title: string; company: string; days: number }>;
+  followUps: Array<{ id?: string; title: string; company: string; days: number }>;
   /** Totalt antal ansökningar i loggen. */
   total: number;
 }
@@ -87,7 +98,7 @@ export function summarize(
     total: apps.length,
   };
 
-  const candidates: Array<{ title: string; company: string; days: number }> = [];
+  const candidates: WeeklyDigestData['followUps'] = [];
 
   for (const app of apps) {
     const applied = new Date(app.applied_at).getTime();
@@ -107,15 +118,22 @@ export function summarize(
       if (!Number.isNaN(changed) && changed >= weekAgo) data.repliesThisWeek += 1;
     }
 
-    // Uppföljningskandidat: samma regel som nudgen i appen.
+    // Uppföljningskandidat: bara de som väntar på första svaret (som förut),
+    // tystnaden med motorns regler när historiken är inläst.
     if (!closed && !responded && app.current_status !== 'offer_received') {
-      const silent = now.getTime() - lastActivity(app);
-      if (silent >= nudgeMs) {
-        candidates.push({
-          title: app.job_title,
-          company: app.company,
-          days: Math.floor(silent / DAY_MS),
-        });
+      if (harHistorik(app)) {
+        const t = tystnadFor(app, now);
+        if (t.tyst) candidates.push({ id: app.id, title: app.job_title, company: app.company, days: t.dagarTyst });
+      } else {
+        const silent = now.getTime() - lastActivity(app);
+        if (silent >= nudgeMs) {
+          candidates.push({
+            id: app.id,
+            title: app.job_title,
+            company: app.company,
+            days: Math.floor(silent / DAY_MS),
+          });
+        }
       }
     }
   }
@@ -127,11 +145,21 @@ export function summarize(
   return data;
 }
 
+const DIGEST_COLUMNS = 'id, job_title, company, applied_at, current_status, status_updated_at, created_at';
+
 async function loadApplications(ctx: LifecycleContext): Promise<DigestApplication[]> {
-  const { data, error } = await (ctx.admin as any)
+  // Händelserna och uppföljningarna bäddas in i samma fråga. Saknas
+  // tabellen eller kolumnen läses raderna som förut, utan historik.
+  let { data, error } = await (ctx.admin as any)
     .from('job_applications')
-    .select('job_title, company, applied_at, current_status, status_updated_at, created_at')
+    .select(`${DIGEST_COLUMNS}, ${HISTORIK_SELECT}`)
     .eq('user_id', ctx.userId);
+  if (error && arSchemaFel(error)) {
+    ({ data, error } = await (ctx.admin as any)
+      .from('job_applications')
+      .select(DIGEST_COLUMNS)
+      .eq('user_id', ctx.userId));
+  }
 
   if (error) {
     console.error('[weekly_digest] kunde inte läsa ansökningar:', error.message);
@@ -185,17 +213,23 @@ function weekSentence(data: WeeklyDigestData, greeting: string): string {
   return `${greeting} lugn vecka i loggen. Dina ${count(data.waiting, 'ansökan', 'ansökningar')} ligger kvar och väntar.`;
 }
 
-/** Uppföljningsrutan, det enda råd mailet ger. */
-function followUpNote(data: WeeklyDigestData): string | undefined {
+/**
+ * Uppföljningsrutan, det enda råd mailet ger. Tjänstetiteln länkar till
+ * uppföljningen på den sökta tjänsten (utkastet), med samma utm som knappen.
+ */
+export function followUpNote(data: WeeklyDigestData): string | undefined {
   if (data.followUps.length === 0) return undefined;
 
   const rows = data.followUps
-    .map(
-      (item) =>
-        `<p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#475569;">
-           <strong style="color:#0F172A;">${escapeHtml(item.title)}</strong> hos ${escapeHtml(item.company)}, tyst i ${item.days} dagar
-         </p>`
-    )
+    .map((item) => {
+      const titel = `<strong style="color:#0F172A;">${escapeHtml(item.title)}</strong>`;
+      const lank = item.id
+        ? `<a href="${escapeHtml(withUtm(tjanstHref(item.id, 'folj-upp'), WEEKLY_DIGEST_TYPE))}" target="_blank" style="color:#0F172A;text-decoration:underline;">${titel}</a>`
+        : titel;
+      return `<p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#475569;">
+           ${lank} hos ${escapeHtml(item.company)}, tyst i ${item.days} dagar
+         </p>`;
+    })
     .join('');
 
   const intro =

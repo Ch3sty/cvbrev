@@ -57,7 +57,7 @@ import {
   IkonPil,
 } from '@/components/jobb3/kit'
 import { CV_HREF } from '@/lib/letters/lage'
-import { JOBB_HREF, brickBokstaver, dagFor, idagSv, jobbHref, narText, ordtal, soktaHref, sistaAnsokningsdag, sparadFranAnnons } from '@/lib/jobbsok'
+import { JOBB_HREF, brickBokstaver, dagFor, idagSv, jobbHref, narText, ordtal, sedanDuTittade, soktaHref, sistaAnsokningsdag, sparadFranAnnons } from '@/lib/jobbsok'
 import { capture } from '@/lib/analytics/events'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { JobRedactionResult } from '@/app/api/jobs/redact/route'
@@ -771,6 +771,8 @@ export default function MatchadeJobb({
   const idag = idagSv()
   const senastDag = restoredAt ? dagFor(new Date(restoredAt)) : idag
   const senastSokt = senastSoktLabel(restoredAt)
+  // "Sedan du tittade i tisdags" över listan, bara när det finns nya träffar.
+  const sedanTittade = nyaAntal > 0 ? sedanDuTittade(initialData.seddaAt, idag) : null
 
   // Den valda annonsen: adressens, annars den första på dator.
   const valdDold = annonsId?.startsWith('dold-') ? redactedJobs.find((r) => r.placeholderId === annonsId) ?? null : null
@@ -925,6 +927,7 @@ export default function MatchadeJobb({
           onVal={(id) => setFilters((f) => ({ ...f, sort: SORT_VAL.find((s) => s.id === id)?.varde ?? '' }))}
         />
       </div>
+      {sedanTittade ? <p className="j3-fin mb-2">{sedanTittade}.</p> : null}
       {senastSokt ? (
         <p className="j3-fin mb-2" suppressHydrationWarning>
           Senast sökt {senastSokt}.{' '}

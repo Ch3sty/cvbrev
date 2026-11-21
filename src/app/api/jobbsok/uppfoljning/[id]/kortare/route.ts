@@ -3,8 +3,9 @@
  *
  * Skriver om det oskickade utkastet kortare, en gång per tryck, högst tre
  * gånger per utkast. Till AI:n går bara brödtexten utan hälsning, avslut och
- * namn, maskad med maskForModel (användaren kan ha skrivit in egna
- * uppgifter). Namnet sätts tillbaka av servern. Kostnaden loggas.
+ * namn, maskad med maskForModel och med numrerade märken för det användaren
+ * själv har skrivit in (maskaMedMarken); uppgifterna sätts tillbaka ordagrant
+ * i svaret. Namnet sätts tillbaka av servern. Kostnaden loggas.
  *
  * Kropp: inget.
  * Svar: { success, data: Uppfoljning, omskrivningarKvar }
@@ -16,6 +17,7 @@ import { captureServer } from '@/lib/analytics/server'
 import { maskForModel } from '@/lib/privacy/pii'
 import { skrivKortare } from '@/lib/openai/uppfoljningsmejl'
 import { ordIMejlet, sattIhop, styckenUrMejl } from '@/lib/jobbsok/uppfoljning'
+import { amneMedMarken, maskaMedMarken } from '@/lib/jobbsok/uppfoljningMarken'
 import { MIGRERING_SAKNAS, admin, agdTjanst, arSchemaFel, felSvar, krav } from '@/lib/jobbsok/rutt'
 import { lasTjanstensUppfoljningar, lasUnderlag, loggaKostnad, oskickat } from '@/lib/jobbsok/uppfoljningServer'
 import { UPPFOLJNING_MAX_OMSKRIVNINGAR } from '@/lib/jobbsok/typer'
@@ -55,16 +57,14 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   let nyText: string
   try {
     const { underlag, namn, kanda } = await lasUnderlag(s.supabase, s.user.id, tjanst, s.user.email)
-    const mask = (t: string) =>
-      maskForModel(t, {
-        detectNameHeuristically: false,
-        fullName: kanda.namn,
-        knownPhones: [kanda.telefon],
-      }).text
-    const stycken = styckenUrMejl(utkast.body).map(mask)
-    if (stycken.length === 0) return orort()
+    const maskning = { detectNameHeuristically: false, fullName: kanda.namn, knownPhones: [kanda.telefon] }
+    // Användarens egna uppgifter blir numrerade märken ([TELEFON 1]) som
+    // sätts tillbaka ordagrant i svaret. Går det inte entydigt: orört utkast.
+    const markt = maskaMedMarken(styckenUrMejl(utkast.body), maskning)
+    if (!markt || markt.stycken.length === 0) return orort()
     const ordForut = ordIMejlet(utkast.body)
-    const ai = await skrivKortare(mask(utkast.subject), stycken, underlag.sprak, ordForut)
+    const amne = markt.marken.length > 0 ? amneMedMarken(utkast.subject, maskning) : maskForModel(utkast.subject, maskning).text
+    const ai = await skrivKortare(amne, markt.stycken, underlag.sprak, ordForut, markt.marken)
     await loggaKostnad(s.supabase, s.user.id, ai, 'uppfoljning_kortare', '/api/jobbsok/uppfoljning/[id]/kortare').catch(() => {})
     if (!ai.mejl) return orort()
     // Ämnesraden står kvar som användaren har den; bara brödtexten kortas.

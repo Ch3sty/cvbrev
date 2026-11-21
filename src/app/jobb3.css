@@ -232,6 +232,9 @@
 .j3-chip.liten { height: 32px; border-radius: 16px; background: rgba(255, 255, 255, .1); }
 a.j3-chip:hover { color: var(--vagg-ink); background: rgba(255, 255, 255, .13); }
 .j3-chips > .j3-lank-vagg { display: inline-flex; align-items: center; min-height: 44px; }
+/* Textlänkar under varandra i väggen (nolläget på Översikt), alla bredder. */
+.j3-chips.stapel { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; gap: 0; }
+.j3-chips.stapel > .j3-lank-vagg { white-space: normal; }
 .j3-malpips { display: inline-flex; gap: 4px; flex-shrink: 0; }
 .j3-malpips i { display: block; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 2px var(--vagg-svag); }
 .j3-malpips i[data-fylld] { background: var(--koppar); box-shadow: none; }

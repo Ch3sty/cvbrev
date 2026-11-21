@@ -37,7 +37,7 @@ import { useNotification } from '@/context/notificationcontext'
 import { useProfile } from '@/hooks/use-profile'
 import { afReportStatusText } from '@/lib/applications/afReport'
 import type { AfRapport } from '@/lib/applications/afRapportData'
-import { dagFor, idagSv, kortDag, manadEtikett, type Dag } from '@/lib/jobbsok'
+import { dagFor, idagSv, kortDag, langDagMedAr, manadEtikett, type Dag } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
 
 const MANAD_KORT = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
@@ -275,15 +275,18 @@ export function RapportGolv({ data, vaxel, onLogga }: { data: SoktaTjansterData;
 
   const skapaLank = async () => {
     setDelar(true)
+    // Servern avgör till sist (Premium krävs för listan); här skickas aldrig
+    // listan från ett låst konto.
+    const medLista = visaForetag && !last
     try {
       const res = await fetch('/api/applications/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ show_company_names: visaForetag, show_notes: false }),
+        body: JSON.stringify({ show_company_names: medLista, show_notes: false }),
       })
       const json = await res.json()
       if (!res.ok || !json.success) throw new Error(json.error || 'Kunde inte skapa länken')
-      setDelning({ token: json.token, show_company_names: visaForetag, show_notes: false, expires_at: json.expiresAt })
+      setDelning({ token: json.token, show_company_names: json.showCompanyNames ?? medLista, show_notes: false, expires_at: json.expiresAt })
       await navigator.clipboard.writeText(json.url).catch(() => undefined)
       successWithActivity('Delningslänken är skapad och kopierad.', 'application_shared', 'Skapade delningslänk för sökstatistiken', {}, 3500)
       if (navigator.share) navigator.share({ title: 'Min jobbsökning', url: json.url }).catch(() => undefined)
@@ -395,7 +398,7 @@ export function RapportGolv({ data, vaxel, onLogga }: { data: SoktaTjansterData;
             <TonYta className="mt-3">
               <p className="j3-h3">Dela med en länk</p>
               <p className="j3-text" style={{ marginTop: 6 }}>
-                Den som får länken ser din statistik utan att logga in. Länken gäller i 30 dagar.
+                Den som får länken ser hur många tjänster du har sökt och hur långt de har kommit, utan att logga in. Länken gäller i 30 dagar.
               </p>
               {lankUrl ? (
                 <div className="mt-3 flex flex-col gap-2">
@@ -416,9 +419,14 @@ export function RapportGolv({ data, vaxel, onLogga }: { data: SoktaTjansterData;
                 </div>
               ) : (
                 <div className="mt-3 flex flex-col items-start gap-3">
-                  <Kryss checked={visaForetag} onChange={(e) => setVisaForetag(e.target.checked)}>
-                    Visa lista med företag och tjänster. Annars visas bara siffror.
-                  </Kryss>
+                  {last ? (
+                    // Listan i länken är Premium (beslut 17): gratiskonton delar antalen.
+                    <p className="j3-text">Listan med företag, tjänst och datum ingår i Premium. Länken visar antalen.</p>
+                  ) : (
+                    <Kryss checked={visaForetag} onChange={(e) => setVisaForetag(e.target.checked)}>
+                      Visa också listan med företag, tjänst och datum. Annars visas bara antalen.
+                    </Kryss>
+                  )}
                   <LitenKnapp onClick={skapaLank} disabled={delar} ikon={<IkonLank />}>
                     {delar ? 'Skapar' : 'Skapa delningslänk'}
                   </LitenKnapp>
@@ -443,7 +451,7 @@ export function RapportGolv({ data, vaxel, onLogga }: { data: SoktaTjansterData;
                     { tal: t.intervju.antal, text: 'Intervjuer' },
                     { tal: t.erbjudande.antal, text: 'Erbjudanden' },
                   ]}
-                  fot={`Genererad via jobbcoach.ai · ${new Intl.DateTimeFormat('sv-SE', { dateStyle: 'long' }).format(new Date())}`}
+                  fot={`Genererad via jobbcoach.ai · ${langDagMedAr(idagSv())}`}
                   under={under}
                 />
               </div>
