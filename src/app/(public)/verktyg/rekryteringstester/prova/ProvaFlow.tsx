@@ -37,12 +37,11 @@ import { PROVA } from '@/components/registrering/registrering-copy'
 import { PROV_COPY, PROV_MITT_TEST, PROV_TYPER, arNyProvTyp, type ProvStart, type ProvTyp, type PublikUppgift } from '@/lib/tests/prov-typer'
 import type { VnUnderlag } from '@/lib/tester/pass-typer'
 import SessionsRam from '@/components/session/SessionsRam'
-import Startskarm from '@/components/session/Startskarm'
+import ProvStartSkarm from '@/components/publikt/prov/ProvStart'
 import { SESSION } from '@/components/session/copy'
 import { ramUnderlag } from '@/components/session/lagen/gemensamt'
 import { LANK } from '@/components/shell/knappar'
 import ProvUppgiftVy from '@/components/publikt/prov/ProvUppgiftVy'
-import { TESTGLYFER, type TestTyp } from '@/components/illustrations/TestGlyfer'
 import { PROV_NAMN, franMatris, franPublika, provForm, varmProvet, type MatrisFraga, type ProvPost } from '@/components/publikt/prov/provPost'
 import { PROV_RAM } from '@/components/publikt/prov/prov-copy'
 
@@ -286,39 +285,10 @@ export default function ProvaFlow({ typ: typProp = 'matris' }: { typ?: ProvTyp; 
     )
   }
 
-  return <ProvStartskarm typ={typ} loading={loading} error={error} registerHref={registerHref} onStart={start} onStang={() => router.push(TILLBAKA)} />
+  return <ProvStartskarm typ={typ} loading={loading} error={error} registerHref={registerHref} onStart={start} />
 }
 
 /* ------------------------------------------------------------ startskärmen */
-
-/** Typvalets kort: testelementet Nios glyf per typ, I-provet som sex deltester. */
-const GLYF: Partial<Record<ProvTyp, TestTyp>> = {
-  matris: 'matris',
-  figurserie: 'figurer',
-  talserie: 'talserier',
-  numerisk: 'numeriskt',
-  verbal: 'verbalt',
-  deduktiv: 'deduktiv',
-  spatial: 'spatial',
-  ordforrad: 'ordforrad',
-}
-
-function TypGlyf({ typ }: { typ: ProvTyp }) {
-  const g = GLYF[typ]
-  if (g) {
-    const Glyf = TESTGLYFER[g]
-    return <Glyf />
-  }
-  return (
-    <svg viewBox="0 0 48 48" width="48" height="48" focusable="false">
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <g key={i}>
-          <rect x={6 + (i % 3) * 13} y={12 + Math.floor(i / 3) * 13} width="10" height="10" rx="2.5" fill={i === 4 ? 'var(--koppar)' : 'none'} stroke="currentColor" strokeWidth="2" />
-        </g>
-      ))}
-    </svg>
-  )
-}
 
 function ProvStartskarm({
   typ,
@@ -326,90 +296,35 @@ function ProvStartskarm({
   error,
   registerHref,
   onStart,
-  onStang,
 }: {
   typ: ProvTyp
   loading: boolean
   error: string | null
   registerHref: string | null
   onStart: () => void
-  onStang: () => void
 }) {
   const c = arNyProvTyp(typ) ? PROV_COPY[typ] : null
-  const h1 = c ? c.h1 : PROVA.intro.h1
-  const ingress = c ? c.ingressFet : PROVA.intro.ingressFet
-  const regler = PROV_RAM.start.regler(typ)
-  const loginHref = loggaInHref({ intent: null, smakprov: null })
   return (
-    <Startskarm
-      bas={{ test_kind: typ, lage: 'publikt', niva: null, format: null }}
-      // Krysset stänger provet till verktygssidan. onAvbryt i stället för
-      // tillbaka-länken: startskärmen skjuter då ingen test_start_viewed,
-      // som hör till de inloggade testerna.
-      onAvbryt={onStang}
-      eyebrow={PROV_NAMN[typ]}
-      rubrik={h1}
-      formatrad={ingress}
-      scen={typ}
-      rita
-      regler={regler}
-      knapp={{ text: PROV_RAM.start.knapp, onClick: onStart, laddar: loading, cta: 'prova-start' }}
-      kortRad={
-        <>
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="text-[11px] font-semibold uppercase leading-4 tracking-[.08em] text-koppar-ink">{PROV_RAM.start.valjTyp}</p>
-            <p className="text-[13px] leading-[18px] text-ink-2">{PROV_RAM.start.valjTypRad}</p>
+    <ProvStartSkarm
+      typ={typ}
+      eyebrow={PROV_RAM.start.eyebrow(typ)}
+      rubrik={c ? c.h1 : PROVA.intro.h1}
+      ingressFet={c ? c.ingressFet : PROVA.intro.ingressFet}
+      ingress={c ? c.ingress : PROV_RAM.start.ingressMatris}
+      loading={loading}
+      loginHref={loggaInHref({ intent: null, smakprov: null })}
+      onStart={onStart}
+      fel={
+        error ? (
+          <div role="alert" className="mt-3.5 rounded-xl border border-kant bg-papper-2 px-3.5 py-2.5 text-sm leading-5 text-ink-1">
+            <p>{error}</p>
+            {registerHref ? (
+              <Link href={registerHref} className={`${LANK} mt-1 inline-flex min-h-9 items-center`}>
+                {PROVA.intro.skapaKonto}
+              </Link>
+            ) : null}
           </div>
-          <nav aria-label={PROV_RAM.start.valjTypAria} className="prov3-typval mt-3" data-prova-typval>
-            {TYPVAL.filter((t) => (PROV_TYPER as readonly string[]).includes(t)).map((t) => {
-              const aktiv = t === typ
-              return (
-                <Link
-                  key={t}
-                  href={t === 'matris' ? PROVA_PATH : `${PROVA_PATH}?typ=${t}`}
-                  replace
-                  scroll={false}
-                  aria-current={aktiv ? 'page' : undefined}
-                  className="prov3-typkort"
-                >
-                  <i aria-hidden="true">
-                    <TypGlyf typ={t} />
-                  </i>
-                  <span>{PROV_NAMN[t]}</span>
-                </Link>
-              )
-            })}
-          </nav>
-          {error ? (
-            <div role="alert" className="mt-3.5 rounded-xl border border-kant bg-papper-2 px-3.5 py-2.5 text-sm leading-5 text-ink-1">
-              <p>{error}</p>
-              {registerHref ? (
-                <Link href={registerHref} className={`${LANK} mt-1 inline-flex min-h-9 items-center`}>
-                  {PROVA.intro.skapaKonto}
-                </Link>
-              ) : null}
-            </div>
-          ) : null}
-        </>
-      }
-      fotnot={PROV_RAM.start.fotnot}
-      sparrad="none"
-      fortsattTillganglig={false}
-      efter={
-        <div className="mt-5 flex flex-col gap-1 text-sm leading-5 text-ink-2">
-          <p>
-            {PROVA.intro.merFore}{' '}
-            <Link href={TILLBAKA} className={LANK}>
-              {PROVA.intro.merLank}
-            </Link>
-          </p>
-          <p>
-            Har du redan ett konto?{' '}
-            <Link href={loginHref} className={LANK}>
-              Logga in
-            </Link>
-          </p>
-        </div>
+        ) : null
       }
     />
   )
