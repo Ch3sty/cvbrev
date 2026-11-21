@@ -50,10 +50,12 @@
 
 /* Bunten: arket överst, grannmallarna kikar fram bakom. På en liten telefon
    begränsas arket också av höjden, så att toppraden, arket och miniatyrraden
-   ryms under sidhuvudet (64 px). Golv 220 px. */
+   ryms under sidhuvudet efter rullningen till scenen (scroll-margin 88 px):
+   88 + toppraden 60 + miniatyrraden 125 + scenens nederkant 18 + luft 5 = 296.
+   Golv 220 px. */
 .mv-bunt {
   position: relative;
-  width: max(220px, min(100% - 36px, 340px, (100svh - 64px - 214px) * .707));
+  width: max(220px, min(100% - 36px, 340px, (100svh - 296px) * .707));
   margin: 0 auto;
   touch-action: pan-y;
 }

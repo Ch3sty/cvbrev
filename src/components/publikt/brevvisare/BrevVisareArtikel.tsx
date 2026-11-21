@@ -18,9 +18,11 @@ import { VISARE_TEXT as T } from './texter'
 import { brevDataFranFalt, brevTextDelar, idagISverige, visarFot, visarMallar } from './visare-data'
 import { ARTIKEL_BREV, arArtikelBrevNyckel, type ArtikelBrevNyckel } from '@/components/mdx/personligt-brev-preview-data'
 
-/** Utan JavaScript: Linne i hela scenens bredd, namnraden och länken. */
+/** Utan JavaScript: Linne i hela scenens bredd (brett läge: 452 px, centrerat), namnraden och länken. */
 const UTAN_JS =
-  '<style>.mv-rad,.mv-kik{display:none!important}.mv-bord{display:block!important}.mv-bunt{width:100%!important}</style>'
+  '<style>.mv-rad,.mv-kik{display:none!important}.mv-bord{display:block!important}.mv-bunt{width:100%!important}' +
+  // Brett läge: arket behåller sina 452 px, centrerat.
+  '@container mv (min-width:700px){.mv-bunt{width:452px!important;margin:0 auto!important}}</style>'
 
 function Ram({ brev, yrke, children }: { brev: string; yrke?: string; children?: ReactNode }) {
   return (
