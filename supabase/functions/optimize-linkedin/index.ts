@@ -5,11 +5,39 @@ import { maskForModel } from '../_shared/pii.ts';
 
 /** Maskeringens platshållare bort ur svaret. Speglar src/lib/privacy/cvForModel.ts. */
 const PII_PLATSHALLARE = /\[(?:NAMN|E-POST|EMAIL|TELEFON|TEL|ADRESS|POSTNUMMER|POSTNR|PERSONNUMMER|PERSNR|FÖDELSEDATUM|LÄNK|URL)\]/gi;
+/** Etikett som blir ensam kvar när kontaktuppgiften efter den är borttagen. */
+const KONTAKTETIKETT = /^(?:kontakt(?:uppgifter)?|kontakta mig|telefon|tel|mobil|e-?post|e-?mail|mejl|adress|linkedin|webb(?:plats)?|hemsida|länk)\s*:?$/i;
+
+/**
+ * En rad utan platshållare. Rader som hade en platshållare städas hårdare:
+ * tomma led mellan | och · tas bort, och en rad där bara etiketten blev kvar
+ * ("Kontakt: |", "Telefon:") stryks helt (null). Speglar cvForModel.ts.
+ */
+function rensaRad(rad: string): string | null {
+  const stada = (s: string) =>
+    s.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '');
+  if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(rad)) return stada(rad);
+  const utan = rad.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '');
+  const skilje = utan.match(/[|·]/)?.[0] ?? null;
+  const delar = (skilje ? utan.split(skilje) : [utan]).map(stada).filter((d) => d && !KONTAKTETIKETT.test(d));
+  if (delar.length === 0) return null;
+  return delar.join(skilje ? ` ${skilje} ` : '');
+}
+
+function rensaText(text: string): string {
+  return text
+    .split('\n')
+    .map(rensaRad)
+    .filter((r): r is string => r !== null)
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function rensaPii(v: any): any {
   if (typeof v === 'string') {
     if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(v)) return v;
-    return v.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '').split('\n')
-      .map((r: string) => r.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '')).join('\n').trim();
+    return rensaText(v);
   }
   if (Array.isArray(v)) return v.map(rensaPii);
   if (v && typeof v === 'object') {

@@ -43,14 +43,34 @@ export function harPiiPlatshallare(text: unknown): boolean {
 }
 
 /** Texten utan maskeringens platshållare och utan tomma rester. */
+/** Etikett som blir ensam kvar när kontaktuppgiften efter den är borttagen. */
+const KONTAKTETIKETT = /^(?:kontakt(?:uppgifter)?|kontakta mig|telefon|tel|mobil|e-?post|e-?mail|mejl|adress|linkedin|webb(?:plats)?|hemsida|länk)\s*:?$/i;
+
+/**
+ * En rad utan platshållare. Rader som hade en platshållare städas hårdare:
+ * tomma led mellan | och · tas bort, och en rad där bara etiketten blev kvar
+ * ("Kontakt: |", "Telefon:") stryks helt (null). Edge-funktionerna
+ * optimize-linkedin och analyze-cv-background har en kopia av samma kod.
+ */
+function rensaRad(rad: string): string | null {
+  const stada = (s: string) =>
+    s.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '');
+  if (!harPiiPlatshallare(rad)) return stada(rad);
+  const utan = rad.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '');
+  const skilje = utan.match(/[|·]/)?.[0] ?? null;
+  const delar = (skilje ? utan.split(skilje) : [utan]).map(stada).filter((d) => d && !KONTAKTETIKETT.test(d));
+  if (delar.length === 0) return null;
+  return delar.join(skilje ? ` ${skilje} ` : '');
+}
+
 export function utanPiiPlatshallare(text: string): string {
   if (!text || !harPiiPlatshallare(text)) return text;
   return text
-    .replace(PII_PLATSHALLARE, '')
-    .replace(/\(\s*[,;]?\s*\)/g, '')
     .split('\n')
-    .map((rad) => rad.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, ''))
+    .map(rensaRad)
+    .filter((r): r is string => r !== null)
     .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 

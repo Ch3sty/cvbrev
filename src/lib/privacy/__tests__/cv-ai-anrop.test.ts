@@ -173,4 +173,17 @@ describe('inga personuppgifter till AI:n', () => {
     expect(utanPiiPlatshallare('Ring [TELEFON] eller mejla [E-POST].')).toBe('Ring eller mejla.')
     expect(utanPiiPlatshallare('Besvarade [antal] ärenden')).toBe('Besvarade [antal] ärenden')
   })
+
+  it('en kontaktrad som bara bestod av platshållare stryks helt, inga lösa skiljetecken blir kvar', () => {
+    // Så skrev modellen i LinkedIn-optimeringen: kvar blev "Kontakt: |".
+    expect(utanPiiPlatshallare('Jag trivs i högt tempo.\n\nKontakt: [TELEFON] | [E-POST]')).toBe('Jag trivs i högt tempo.')
+    expect(utanPiiPlatshallare('Telefon: [TELEFON]\nLagerarbetare i Uppsala')).toBe('Lagerarbetare i Uppsala')
+    // Led med innehåll står kvar, tomma led försvinner.
+    expect(utanPiiPlatshallare('Lagerarbetare | [TELEFON] | Uppsala')).toBe('Lagerarbetare | Uppsala')
+    expect(utanPiiPlatshallare('Lagerarbetare · [E-POST] · Uppsala')).toBe('Lagerarbetare · Uppsala')
+    // Rader utan platshållare rörs inte, och punktlistor behåller sin form.
+    expect(utanPiiPlatshallare('Kontakt: reception\n- Ring [TELEFON]\n- Plockade order | truck')).toBe(
+      'Kontakt: reception\n- Ring\n- Plockade order | truck'
+    )
+  })
 })
