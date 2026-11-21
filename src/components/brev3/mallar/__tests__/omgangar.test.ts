@@ -12,7 +12,7 @@ const svar = (mallar: readonly string[]) => Object.fromEntries(mallar.map((m) =>
 describe('forhandsvisaIOmgangar', () => {
   it('delar 32 mallar i omgångar om högst åtta, en i taget, och lämnar varje omgång direkt', async () => {
     const anrop: string[][] = []
-    const hamta = vi.fn(async (_b: string, mallar: readonly string[]) => {
+    const hamta = vi.fn(async (_b: string, mallar: readonly string[], _font?: string | null) => {
       anrop.push([...mallar])
       return svar(mallar)
     })
