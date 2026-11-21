@@ -187,7 +187,7 @@ export default function InlineCVUpload({
 
               {error && (
                 <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3">
-                  <p className="text-sm text-fel">{error}</p>
+                  <p className="whitespace-pre-line text-sm text-fel">{error}</p>
                 </div>
               )}
 

@@ -254,7 +254,7 @@ export default function CVUploadZone({
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
           <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold">Uppladdningen misslyckades</p>
-            <p className="mt-0.5 text-sm leading-[21px] text-fel-morker">{uploadError}</p>
+            <p className="mt-0.5 whitespace-pre-line text-sm leading-[21px] text-fel-morker">{uploadError}</p>
           </div>
         </div>
       )}
