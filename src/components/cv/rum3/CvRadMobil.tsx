@@ -24,11 +24,3 @@ export default function CvRadMobil({ cvs, aktivtId }: Pick<CvRadProps, 'cvs' | '
     </button>
   )
 }
-
-/** CvRad-propsen ur väggens cvRad, om det är en CvRad. */
-export function cvRadData(nod: unknown): Pick<CvRadProps, 'cvs' | 'aktivtId'> | null {
-  if (!nod || typeof nod !== 'object' || !('props' in nod)) return null
-  const p = (nod as { props: Partial<CvRadProps> }).props
-  if (!p || !Array.isArray(p.cvs) || p.utanRad) return null
-  return { cvs: p.cvs, aktivtId: p.aktivtId ?? null }
-}

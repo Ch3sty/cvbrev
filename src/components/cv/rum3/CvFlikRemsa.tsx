@@ -8,7 +8,8 @@
 import type { ReactNode } from 'react'
 import Topprad from '@/components/rum/Topprad'
 import CvFlikar from './CvFlikar'
-import CvRadMobil, { cvRadData } from './CvRadMobil'
+import CvRadMobil from './CvRadMobil'
+import { cvRadData } from './cvRadData'
 import type { CvFlik } from './flikar'
 
 export interface CvFlikRemsaProps {
