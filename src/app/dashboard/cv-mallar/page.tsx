@@ -12,6 +12,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import CvMallarClient, { type InitialCv } from './CvMallarClient'
 import { getUserScope, getCvGrans } from '@/lib/supabase/premiumAccess'
 import { scopeHasFeature, type Scope } from '@/lib/access/features'
@@ -148,7 +149,8 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let jobbPerCv: Record<string, string> = {}
   let analysRader: AnalysRad[] = []
   try {
-    const { data } = await supabase
+    // Fält ur result: service role, bara hennes egna rader (2026-11-21).
+    const { data } = await getSupabaseAdmin()
       .from('cv_analysis_jobs')
       .select('id, cv_id, completed_at, forbattrad:result->forbattradSparad, valda:result->selectedImprovements')
       .eq('user_id', user.id)
@@ -173,7 +175,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     const atgardat = atgardadAtFor(valtRad, alla, analysRader) !== null
     let analyserat = false
     try {
-      const underlag = await underlagForCv(supabase, user.id, valtRad, alla, jobbPerCv, null, {
+      const underlag = await underlagForCv(getSupabaseAdmin(), user.id, valtRad, alla, jobbPerCv, null, {
         harFull: scopeHasFeature(scope, 'cv_analysis_full'),
       })
       const poang = poangUrAnalys(underlag)

@@ -23,6 +23,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { getCvAnalysData, emptyCvAnalysData, lockedCvIds } from './getCvAnalysData';
 import CvFlikRemsa from '@/components/cv/rum3/CvFlikRemsa';
 import { CV_GRANS_GRATIS, userHasAccess, getUserScope } from '@/lib/supabase/premiumAccess';
@@ -110,7 +111,10 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
   let aterupptagen: AterupptagenAnalys | null = null;
   let valt = valtCvId(sidansData.cvs, lasta, cvParam);
   if (jobbParam) {
-    const { data: rad, error } = await supabase
+    // result läses med service role, bara hennes egen rad, och filtreras här
+    // (analysForKlient) innan något når webbläsaren.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: rad, error } = await (getSupabaseAdmin() as any)
       .from('cv_analysis_jobs')
       .select('id, cv_id, display_name, status, result')
       .eq('id', jobbParam)
@@ -162,7 +166,9 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
   let sida: AnalysSidaData['lage'] = 'intro';
   let vy: AnalysSidaData['vy'] = null;
   if (aktivt && jobbId) {
-    const { data: rad } = await supabase
+    // result med service role och user_id i villkoret; byggAnalysVy filtrerar.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: rad } = await (getSupabaseAdmin() as any)
       .from('cv_analysis_jobs')
       .select('id, completed_at, result')
       .eq('id', jobbId)

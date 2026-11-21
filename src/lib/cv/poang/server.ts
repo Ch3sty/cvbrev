@@ -12,6 +12,7 @@
  * struktur, samma skrivning som /api/cv/structure gör.
  */
 import 'server-only'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { kanonisktCv } from './kanon'
 import { poangForRad, type CvRad } from './forslag'
 
@@ -67,7 +68,10 @@ export async function sakerstallStruktur(supabase: Klient, cvId: string): Promis
  * ingen struktur används analysens egen sparade struktur. null utan analys.
  */
 export async function senasteAnalysPoang(supabase: Klient, userId: string): Promise<number | null> {
-  const { data, error } = await supabase
+  // Analysraden läses med service role och userId i villkoret: result går
+  // inte att läsa med användarens JWT (2026-11-21). Bara strukturen används,
+  // och ut går bara ett tal. CV-raden läses med anroparens klient.
+  const { data, error } = await getSupabaseAdmin()
     .from('cv_analysis_jobs')
     .select('cv_id, struktur:result->structuredCV')
     .eq('user_id', userId)

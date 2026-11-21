@@ -153,6 +153,11 @@ export function underlagUrRad(
 /**
  * Underlaget för CV:t som visas. Läser analysraden (senaste raden återanvänds
  * om den är rätt) och poängsätter den på CV:t.
+ *
+ * supabase ska vara service role-klienten (getSupabaseAdmin): fälten ur
+ * cv_analysis_jobs.result går inte att läsa med användarens JWT sedan
+ * 2026-11-21. Raden läses alltid med userId i villkoret och filtreras för
+ * gratisnivån (underlagUrRad) innan något lämnar servern.
  */
 export async function underlagForCv(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

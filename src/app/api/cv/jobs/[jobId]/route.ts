@@ -35,8 +35,9 @@ export async function GET(
       return NextResponse.json({ message: 'Job ID saknas.' }, { status: 400 });
     }
 
-    // Hämta job status
-    const job = await getJobStatus(jobId);
+    // Hämta job status: med service role och bara användarens egen rad
+    // (result går inte att läsa med hennes JWT, se background-jobs.ts).
+    const job = await getJobStatus(jobId, user.id);
     if (!job) {
       return NextResponse.json({ message: 'Job hittades inte.' }, { status: 404 });
     }
@@ -74,15 +75,10 @@ export async function GET(
         }
       }
 
-      // Markera job som usage_counted
-      const { error: jobUpdateError } = await supabase
-        .from('cv_analysis_jobs')
-        .update({ usage_counted: true })
-        .eq('id', jobId);
-
-      if (jobUpdateError) {
-        console.error('Failed to mark job as usage_counted:', jobUpdateError);
-      }
+      // Här stod en uppdatering av usage_counted med användarens klient. Den
+      // träffade aldrig någon rad (RLS: UPDATE bara för service_role) och
+      // efter 2026-11-21 har användaren ingen skrivrätt alls i tabellen.
+      // Den är borttagen utan att beteendet ändras: kvoten räknar som förut.
     }
 
     // B7: aktiveringsmätningen. Denna gren låg tidigare inuti kvotgrenen ovan,
@@ -102,6 +98,7 @@ export async function GET(
         .from('cv_analysis_jobs')
         .update({ completion_handled: true })
         .eq('id', jobId)
+        .eq('user_id', user.id)
         .eq('completion_handled', false)
         .select('id')
         .maybeSingle();
@@ -148,6 +145,7 @@ export async function GET(
         .from('cv_analysis_jobs')
         .update({ usage_counted: false })
         .eq('id', jobId)
+        .eq('user_id', user.id)
         .eq('usage_counted', true)
         .select('id')
         .single();

@@ -194,6 +194,21 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // SÄKERHET (2026-11-21): bara vår server får starta en analys. Servern
+    // anropar med servicenyckeln som bärare (src/lib/cv/background-jobs.ts),
+    // efter kvotkontrollen och med jobbraden redan skapad. En inloggad
+    // användares JWT räcker inte längre: förr kunde vem som helst anropa
+    // funktionen direkt med valfritt jobId och cvId, förbi kvoten och med
+    // någon annans CV. Driftsätt aldrig med --no-verify-jwt.
+    const barare = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
+    if (!supabaseServiceKey || barare !== supabaseServiceKey) {
+      console.error('[analyze-cv-background] nekat: anropet kom inte med servicenyckeln');
+      return new Response(
+        JSON.stringify({ error: 'Forbidden' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const requestData = await req.json();
     jobId = requestData.jobId;
     const { cvId } = requestData;
@@ -219,6 +234,22 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ error: `Failed to fetch CV: ${cvError?.message || 'CV not found'}` }),
         { status: 404, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // SÄKERHET (2026-11-21): jobbet och CV:t ska höra ihop och tillhöra samma
+    // konto, och jobbet ska vara nytt. Annars skrivs ingenting, inte heller
+    // "failed" på jobbet (det kan vara någon annans).
+    const { data: jobbRad, error: jobbFel } = await supabase
+      .from('cv_analysis_jobs')
+      .select('user_id, cv_id, status')
+      .eq('id', jobId)
+      .maybeSingle();
+    if (jobbFel || !jobbRad || jobbRad.user_id !== cv.user_id || jobbRad.cv_id !== cvId || jobbRad.status !== 'pending') {
+      console.error(`[Job ${jobId}] nekat: jobbet saknas, är inte nytt eller hör inte till CV:t`);
+      return new Response(
+        JSON.stringify({ error: 'Forbidden' }),
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
       );
     }
 

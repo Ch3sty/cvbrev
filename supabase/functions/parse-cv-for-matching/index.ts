@@ -197,7 +197,32 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { cvId, userId } = await req.json();
+    // SÄKERHET (2026-11-21): användaren tas ur JWT:n, aldrig ur kroppen.
+    // Förr gick userId att sätta fritt, så vem som helst kunde läsa ut och
+    // skriva över en annan användares matchningsunderlag och kringgå kvoten.
+    // Kroppens userId godtas bara om det är samma konto som JWT:n.
+    // Driftsätt aldrig med --no-verify-jwt.
+    const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
+    const { data: authData, error: authError } = token
+      ? await supabase.auth.getUser(token)
+      : { data: { user: null }, error: null };
+    const authUser = authData?.user ?? null;
+    if (authError || !authUser) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    const body = await req.json();
+    const cvId = body?.cvId;
+    if (body?.userId && body.userId !== authUser.id) {
+      return new Response(JSON.stringify({ error: 'Forbidden' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+    const userId = authUser.id;
 
     if (!cvId || !userId) {
       return new Response(JSON.stringify({ error: 'Missing cvId or userId' }), {

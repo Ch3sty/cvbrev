@@ -14,6 +14,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import { getUserScope, CV_GRANS_BETALT, CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Scope } from '@/lib/access/features';
@@ -50,6 +51,11 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   let analysRader: Array<{ id: string; cv_id: string | null; completed_at: string | null; forbattrad?: unknown; valda?: unknown }> = [];
   let nedladdning = null as { downloaded_at?: string | null; template_id?: string | null } | null;
 
+  // Fält ur cv_analysis_jobs.result läses med service role och alltid med
+  // hennes user_id (2026-11-21): kolumnen går inte att läsa med hennes JWT.
+  // underlagForCv filtrerar för gratisnivån innan något når webbläsaren.
+  const admin = getSupabaseAdmin();
+
   try {
     const [cvRes, scopeRes, profilRes, poangRes, senasteRes, nedladdRes, kvotRes] = await Promise.all([
       supabase.from('cv_texts').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
@@ -60,14 +66,14 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
         .select('onboarding_track, profile_photo_url')
         .eq('id', user.id)
         .maybeSingle(),
-      supabase
+      admin
         .from('cv_analysis_jobs')
         .select('id, cv_id, completed_at, forbattrad:result->forbattradSparad, valda:result->selectedImprovements')
         .eq('user_id', user.id)
         .eq('status', 'completed')
         .order('completed_at', { ascending: false, nullsFirst: false })
         .limit(100),
-      supabase
+      admin
         .from('cv_analysis_jobs')
         .select(ANALYS_FALT)
         .eq('user_id', user.id)
@@ -132,7 +138,7 @@ export default async function DittCvPage({ searchParams }: { searchParams: Promi
   let atgardadAt: string | null = null;
   if (aktivt) {
     atgardadAt = atgardadAtFor(aktivt, cvRows, analysRader);
-    underlag = await underlagForCv(supabase, user.id, aktivt, cvRows, jobbPerCv, senaste, {
+    underlag = await underlagForCv(admin, user.id, aktivt, cvRows, jobbPerCv, senaste, {
       harFull: scopeHasFeature(scope, 'cv_analysis_full'),
     });
   }
