@@ -617,3 +617,13 @@ Backa: `git revert 5adfc7a1`.
 **`send-verification-reminders` (`35a831c1`).** Funktionen fanns bara i drift, inte i repot. Källan ligger nu i `supabase/functions/send-verification-reminders/`, oförändrad utöver kravet på rubriken `x-cron-secret`. Morgonjobbet `send-verification-reminders-daily` skickar den ur vault (migrering `20261121230000`). Funktionen har ingen egen spärr mot dubbla utskick, så den som anropade den flera gånger under ett påminnelsefönster kunde få samma mejl skickat om och om igen. Kontrollerat: utan eller med fel hemlighet 401; morgonjobbets eget kommando 200 med 0 skickade och 16 överhoppade, kört när ingen användare låg i ett fönster.
 
 Att ta ställning till (ägarens, utskick): påminnelsemejlet innehåller rutan "95% av våra användare som verifierar sin e-post får sitt drömjobb inom 3 månader!", ett påstående utan belägg, och sidfoten säger 2024. Jobbet körs en gång om dygnet men skickar bara till den som registrerade sig för 24 till 25 eller 72 till 73 timmar sedan, alltså nästan ingen.
+
+### Påminnelsemejlet om obekräftad e-post omskrivet (2026-11-22, `773701e8`)
+
+Ägaren: "meddelandet överlag är helt efterblivet, det kan vi ju inte skicka." Utöver det påhittade talet var tre saker fel i `send-verification-reminders`: texten lovade obegränsat antal CV och sju brev i veckan, länken var registreringens och hade gått ut när påminnelsen skickades (`/api/auth/confirm-email` kastar utgångna länkar), och fönstren var en timme breda fast jobbet körs en gång om dygnet.
+
+Nu: två korta mejl i livscykelmejlens skal (`paminnelseMejl`), med det bekräftelsen faktiskt låser upp (ett CV till, fler sparade brev). En ny länk per påminnelse, giltig i tre dygn (`email_confirmations`, upsert på `user_id`). Fönstren är 24 till 48 och 72 till 96 timmar efter registreringen. Inget mejl om kontot fått ett bekräftelsemejl de senaste 20 timmarna, och aldrig till adresser på `.test`. Kroppen `{"provkorning": true}` räknar utan att skicka eller skriva.
+
+Följd att känna till: jobbet skickar nu på riktigt, varje dag 09:00 UTC. Provkörningen natten till 2026-11-22 gav 17 konton i spannet, 7 första och 4 andra påminnelser. Stänga av: `select cron.alter_job((select jobid from cron.job where jobname = 'send-verification-reminders-daily'), active := false);`
+
+Inte gjort: mejlen är inte sedda i en riktig mejlklient och inget provmejl är skickat. De är ritade till HTML och lämnade till ägaren som förhandsvisning.
