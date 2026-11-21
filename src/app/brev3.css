@@ -730,3 +730,154 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
   .b3-stor:hover, .b3-vit:hover, .b3-bricka:hover, .b3-liten:hover, .b3-brevk:hover, .b3-kryss:hover, .b3-kapsel:hover { transform: none; }
   .b3-sparr, .b3-sparr-dimma { animation: none; }
 }
+
+/* =============================================================================
+   Mallar (etapp 2, byggaren mallar): fliken Mallar och mallväljaren.
+   Skissen Mallar.dc.html; telefonen enligt specen (inte ritad) i Mobil-hems
+   formspråk. Klasser b3-ml-*, b3-mallk*, b3-filter, b3-typ, b3-valjare*.
+   ============================================================================= */
+
+/* Väggen: fast höjd på dator (558), växer med innehållet på telefonen. */
+@media (max-width: 1279.98px) { .b3-ml-vagg { height: auto; padding-bottom: 52px; } }
+.b3-ml-cvrad { display: none; }
+.b3-ml-lankknapp { border: 0; background: none; padding: 0; font: inherit; color: var(--vagg-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; white-space: nowrap; }
+@media (min-width: 1280px) { .b3-ml-cvrad { display: flex; } }
+
+/* Hjälten: text, arken och knapparna. Telefon: i en spalt, arket mellan rubriken och knapparna. */
+.b3-ml-hjalte { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "par" "knappar"; margin-top: 18px; }
+.b3-ml-text { grid-area: text; min-width: 0; }
+.b3-ml-par { grid-area: par; }
+.b3-ml-knappar { grid-area: knappar; min-width: 0; }
+.b3-ml-ogon { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; min-height: 22px; }
+.b3-ml-prm { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 11px; background: #FBE3D0; color: #8A3A12; font-size: 11px; line-height: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; white-space: nowrap; }
+.b3-ml-brickor { display: flex; gap: 8px; margin: 22px -16px 0; padding: 0 16px 6px; overflow-x: auto; scrollbar-width: none; }
+.b3-ml-brickor::-webkit-scrollbar { display: none; }
+.b3-ml-brickor > * { flex-shrink: 0; }
+.b3-ml-aa { font: 600 18px/1 Georgia, serif; }
+.b3-ml-ladda { display: none; }
+.b3-ml-sidorad { max-width: 220px; }
+@media (min-width: 640px) { .b3-ml-brickor { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 1280px) {
+  .b3-ml-hjalte { grid-template-columns: 520px minmax(0, 1fr); grid-template-rows: auto 1fr; grid-template-areas: "text par" "knappar par"; column-gap: 40px; margin-top: 30px; }
+  .b3-ml-brickor { flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; overflow: visible; }
+  .b3-ml-ladda { display: flex; align-items: center; gap: 18px; margin-top: 22px; }
+  .b3-ml-ladda > .b3-bricka { height: 60px; }
+}
+
+/* CV:t och brevet sida vid sida */
+.b3-ml-par { position: relative; width: 60%; max-width: 300px; margin: 22px auto 0; }
+.b3-ml-cv { position: absolute; left: -38%; top: 9%; width: 74%; height: auto; aspect-ratio: 222 / 314; border-radius: 5px; background: #FFFFFF; box-shadow: 0 3px 0 var(--b3-djupast), 0 16px 30px rgba(0, 0, 0, .4); transform: rotate(-5deg); object-fit: cover; object-position: top; }
+.b3-ml-cv-etikett { position: absolute; left: -40%; top: -6px; z-index: 1; height: 26px; padding: 0 10px; font-size: 12px; }
+.b3-ml-brev { position: relative; z-index: 1; width: 100%; aspect-ratio: 210 / 297; border-radius: 6px; overflow: hidden; background: #FFFFFF; box-shadow: 0 4px 0 var(--b3-djupast), 0 22px 40px rgba(0, 0, 0, .42); }
+.b3-ml-brev .b3-ark-papper { border-radius: 0 !important; box-shadow: none !important; }
+.b3-ml-brev-etikett { position: absolute; right: -14px; top: 30%; z-index: 2; display: inline-flex; align-items: center; height: 30px; padding: 0 10px; border-radius: 10px; background: var(--koppar); color: var(--koppar-text); font-size: 12px; line-height: 16px; font-weight: 700; box-shadow: 0 3px 0 var(--b3-koppar-kant); white-space: nowrap; }
+@media (min-width: 1280px) {
+  .b3-ml-par { width: auto; max-width: none; height: 470px; margin: 0; }
+  .b3-ml-cv { left: 70px; top: 50px; width: 222px; height: 314px; border-radius: 6px; box-shadow: 0 4px 0 var(--b3-djupast), 0 24px 44px rgba(0, 0, 0, .4); }
+  .b3-ml-cv-etikett { left: 66px; top: 10px; height: 30px; padding: 0 12px; font-size: 13px; }
+  .b3-ml-brev { position: absolute; left: 250px; top: 0; width: 280px; height: 396px; aspect-ratio: auto; box-shadow: 0 5px 0 var(--b3-djupast), 0 30px 56px rgba(0, 0, 0, .45); }
+  .b3-ml-brev-etikett { left: 478px; right: auto; top: 140px; height: 34px; padding: 0 12px; border-radius: 11px; font-size: 13px; }
+}
+
+/* Panelens huvud med filtren */
+.b3-ml-panelhuvud { display: flex; flex-direction: column; gap: 12px; }
+.b3-ml-h2 { margin-top: 2px; }
+.b3-filter { display: flex; gap: 6px; margin: 0 -16px; padding: 0 16px 6px; overflow-x: auto; scrollbar-width: none; }
+.b3-filter::-webkit-scrollbar { display: none; }
+.b3-filter button { flex: 0 0 auto; height: 44px; padding: 0 14px; border-radius: 13px; border: 2px solid var(--b3-kant); background: var(--b3-papper); font-family: inherit; font-size: 14px; line-height: 18px; font-weight: 600; color: var(--b3-ink); cursor: pointer; white-space: nowrap; }
+.b3-filter button:hover { border-color: var(--b3-streck); }
+.b3-filter button[aria-pressed="true"] { background: var(--b3-valt); border-color: var(--b3-valt); color: var(--b3-papper); box-shadow: 0 3px 0 var(--b3-valt-kant); }
+.b3-filter button:focus-visible, .b3-typ button:focus-visible, .b3-mallk:focus-visible, .b3-mallk-fler:focus-visible, .b3-ml-lank:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+@media (min-width: 1280px) {
+  .b3-ml-panelhuvud { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  .b3-ml-h2 { margin-top: 4px; }
+  .b3-filter { flex-wrap: wrap; margin: 0; padding: 0; overflow: visible; }
+  .b3-filter button { height: 40px; }
+}
+
+/* Mallkorten: remsa i sidled på telefonen (160 px), fyra spalter på dator */
+.b3-mallrutnat { display: flex; gap: 12px; margin: 14px -16px 0; padding: 0 16px 8px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: 16px; }
+.b3-mallrutnat::-webkit-scrollbar { display: none; }
+.b3-mallrutnat > * { scroll-snap-align: start; }
+.b3-mallk { position: relative; flex: 0 0 160px; display: flex; flex-direction: column; padding: 0; border-radius: 18px; background: var(--b3-papper); border: 2px solid var(--b3-kant); box-shadow: 0 4px 0 var(--b3-kant); overflow: hidden; color: var(--b3-ink); font-family: inherit; text-align: left; cursor: pointer; transition: transform 120ms ease-out, box-shadow 120ms ease-out; }
+.b3-mallk:hover { transform: translateY(2px); box-shadow: 0 2px 0 var(--b3-kant); }
+.b3-mallk[aria-pressed="true"] { border-color: var(--koppar); box-shadow: 0 4px 0 var(--b3-koppar-kant); }
+.b3-mallk[aria-pressed="true"] .b3-mallk-text { border-top-color: var(--koppar); }
+.b3-mallk-bild { position: relative; display: block; height: 150px; background: var(--b3-bild); padding: 12px 16px 0; overflow: hidden; }
+.b3-mallk-mini { display: block; width: 197px; transform: scale(.6497); transform-origin: 0 0; }
+.b3-mallk-mini > img { display: block; width: 197px; height: 250px; object-fit: cover; object-position: top; border-radius: 4px 4px 0 0; box-shadow: 0 0 0 1px var(--b3-bild-kant), 0 10px 24px var(--b3-skugga-kort); }
+.b3-mallk-provar { position: absolute; left: 8px; bottom: 8px; display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 12px; background: var(--koppar); color: var(--koppar-text); font-size: 12px; line-height: 16px; font-weight: 700; box-shadow: 0 2px 0 var(--b3-koppar-kant); }
+.b3-mallk-text { flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 10px 12px 12px; border-top: 2px solid var(--b3-kant); }
+.b3-mallk-topp { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.b3-mallk-topp b { font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 16px; line-height: 20px; font-weight: 800; }
+.b3-mallk-text small { display: none; font-size: 13px; line-height: 18px; color: var(--b3-ink-2); }
+.b3-mallk-fm { display: flex; margin-top: 2px; }
+.b3-mallk-fler { flex: 0 0 140px; display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 18px; border: 2px dashed var(--b3-streck); background: var(--b3-ljus); color: var(--b3-ink); font-family: inherit; font-size: 14px; line-height: 19px; font-weight: 700; text-align: center; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (min-width: 640px) { .b3-mallrutnat { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 1280px) {
+  .b3-mallrutnat { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 18px 0 0; padding: 0; overflow: visible; }
+  .b3-mallk { border-radius: 20px; }
+  .b3-mallk-bild { height: 268px; padding: 18px 26px 0; }
+  .b3-mallk-mini { width: 100%; transform: none; }
+  .b3-mallk-mini > div, .b3-mallk-mini > img { width: 100% !important; }
+  .b3-mallk-provar { left: 12px; bottom: 12px; height: 26px; padding: 0 10px; border-radius: 13px; }
+  .b3-mallk-text { gap: 6px; padding: 14px 16px 16px; }
+  .b3-mallk-topp { gap: 8px; }
+  .b3-mallk-topp b { font-size: 18px; line-height: 22px; }
+  .b3-mallk-text small { display: block; }
+  .b3-mallk-fler { display: none; }
+}
+.b3-ml-ovriga { margin: 12px 0 0; font-size: 13px; line-height: 19px; color: var(--b3-ink-2); }
+.b3-ml-ovriga-lank { display: none; }
+.b3-ml-lank { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--b3-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.b3-ml-lank:hover { color: var(--koppar-ink); }
+.b3-ml-fel { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: var(--b3-saknas); border: 2px solid var(--b3-saknas-kant); font-size: 14px; line-height: 20px; color: var(--b3-ink); }
+@media (min-width: 1280px) {
+  .b3-ml-ovriga { margin-top: 16px; font-size: 14px; line-height: 21px; }
+  .b3-ml-ovriga-lank { display: inline; }
+}
+
+/* Typsnitten: svepbar rad på telefonen, rader som bryts på dator */
+.b3-typ { display: flex; gap: 8px; margin: 0 -16px; padding: 0 16px 6px; overflow-x: auto; scrollbar-width: none; }
+.b3-typ::-webkit-scrollbar { display: none; }
+.b3-typ button { flex: 0 0 auto; height: 48px; padding: 0 16px; border-radius: 14px; border: 2px solid var(--b3-kant); background: var(--b3-papper); box-shadow: 0 3px 0 var(--b3-kant); font-size: 16px; line-height: 20px; color: var(--b3-ink); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.b3-typ button:hover { border-color: var(--b3-streck); }
+.b3-typ button[aria-pressed="true"] { border-color: var(--b3-valt); box-shadow: 0 3px 0 var(--b3-valt-kant); font-weight: 700; }
+.b3-typ button[data-las] { cursor: not-allowed; color: var(--b3-ink-2); }
+@media (min-width: 640px) { .b3-typ { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 1280px) { .b3-typ { flex-wrap: wrap; margin: 0; padding: 0; overflow: visible; } }
+
+/* Premiumkortet under typsnitten */
+.b3-ml-prem { margin-top: 28px; }
+@media (min-width: 1280px) { .b3-ml-prem { margin-top: 44px; } }
+
+/* Telefonen: nedladdningen i en fast rad längst ner, ovanför dörrnavet */
+.b3-ml-fast { position: sticky; bottom: var(--bottom-nav-h, 0px); z-index: 30; display: flex; gap: 8px; padding: 10px 16px 12px; background: var(--golv); border-top: 1.5px solid var(--b3-kant); }
+.b3-ml-fast > .b3-stor { flex: 1; min-width: 0; height: 52px; font-size: 16px; }
+.b3-ml-fast > .b3-bricka { height: 52px; background: var(--b3-papper); color: var(--b3-ink); box-shadow: 0 3px 0 var(--b3-kant); border: 2px solid var(--b3-kant); }
+@media (min-width: 1024px) { .b3-ml-fast { bottom: 0; } }
+@media (min-width: 1280px) { .b3-ml-fast { display: none; } }
+
+/* Byt brev */
+.b3-ml-bytlista { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.b3-ml-bytlista a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 14px; border: 2px solid var(--kant, #DCC8D4); text-decoration: none; color: inherit; }
+.b3-ml-bytlista a[aria-current="true"] { border-color: var(--koppar); }
+.b3-ml-bytlista b { display: block; font-size: 15px; line-height: 20px; }
+.b3-ml-bytlista small { display: block; font-size: 13px; line-height: 18px; opacity: .8; }
+
+/* Mallväljaren (Sheet): rutnät med miniatyr, namn och nivå */
+.b3-valjare { margin: 0; padding: 0 0 8px; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.b3-valjare-kort { width: 100%; display: flex; flex-direction: column; padding: 0; border-radius: 16px; border: 2px solid var(--kant, #DCC8D4); background: var(--papper, #FFFFFF); overflow: hidden; font-family: inherit; text-align: left; color: inherit; cursor: pointer; }
+.b3-valjare-kort[aria-pressed="true"] { border-color: var(--koppar); box-shadow: 0 3px 0 var(--koppar-ink); }
+.b3-valjare-kort[aria-disabled="true"] { cursor: not-allowed; opacity: .7; }
+.b3-valjare-kort:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+.b3-valjare-bild { display: flex; justify-content: center; height: 132px; padding: 10px 10px 0; overflow: hidden; background: #EADBE4; }
+.b3-valjare-bild > img { width: 132px; height: 150px; object-fit: cover; object-position: top; border-radius: 3px 3px 0 0; box-shadow: 0 0 0 1px rgba(58, 25, 48, .08), 0 6px 14px rgba(58, 25, 48, .2); }
+.b3-valjare-text { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 44px; padding: 8px 10px; }
+.b3-valjare-text b { font-size: 15px; line-height: 20px; font-weight: 800; }
+@media (min-width: 640px) { .b3-valjare { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .b3-mallk { transition: none; }
+  .b3-mallk:hover { transform: none; }
+}

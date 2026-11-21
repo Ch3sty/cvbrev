@@ -44,7 +44,7 @@ export function mallarKatalog(): MallarKort[] {
     const m = stil.get(k.id)!
     const farg = FARG.test(m.stil)
     const sidospalt = m.familj === 'sidospalt' || SPALT.test(m.stil)
-    return { ...k, typsnitt: m.typsnitt, farg, sidospalt, enkel: m.familj === 'en-spalt' && !farg && !sidospalt }
+    return { ...k, typsnitt: m.typsnitt ?? 'calibri', farg, sidospalt, enkel: m.familj === 'en-spalt' && !farg && !sidospalt }
   })
 }
 
