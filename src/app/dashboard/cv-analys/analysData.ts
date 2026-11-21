@@ -20,7 +20,12 @@ import {
   harPlatshallare,
   platshallareKvar,
   plusForSiffror,
+  medSiffror,
+  genomgang,
+  type ArkKontakt,
   type CvRad,
+  type GenomgangDel,
+  type KategoriId,
   type SiffrorAvsnitt,
   type PoangKategori,
   type PoangSammanfattning,
@@ -30,6 +35,8 @@ import {
 export type FyndTyp = 'profil' | 'roll' | 'kompetenser' | 'siffror'
 
 export interface AnalysFynd {
+  /** Delen i genomgången förslaget hör till (profil, erfarenhet, kompetenser; siffrorna där de står). */
+  del: KategoriId
   /**
    * profil, roll-<index i resultatets rollista>, kompetenser eller siffror.
    * Väljer förslaget i flödet (?valj=); siffror går till arbetsläget.
@@ -63,6 +70,10 @@ export interface AnalysVyData {
   klar: string | null
   poang: PoangSammanfattning
   fynd: AnalysFynd[]
+  /** Genomgången: de sju delarna med kontroller och brister (poängmodellen version 2). Öppen för alla. */
+  delar: GenomgangDel[]
+  /** Delar där de öppna förslagen täcker allt som saknas: ingen egen Öppna i CV:t-knapp. */
+  delarTackta: KategoriId[]
   harFull: boolean
 }
 
@@ -136,6 +147,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: 'profil',
       typ: 'profil',
+      del: 'profil',
       titel: 'Sammanfattningen',
       meta: `Personbeskrivning. ${paverkan(profilPlus)}`,
       plus: profilPlus,
@@ -167,6 +179,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: `roll-${i}`,
       typ: 'roll',
+      del: 'erfarenhet',
       titel: foretag ? `${titel}, ${foretag}` : titel || 'En roll i ditt CV',
       meta: `Rollbeskrivning. ${paverkan(plus)}`,
       plus,
@@ -198,6 +211,7 @@ export function byggAnalysVy(
       fynd.push({
         nyckel: 'kompetenser',
         typ: 'kompetenser',
+        del: 'kompetenser',
         titel: 'Kompetenser mot kravprofilen',
         meta: `Kompetenser. ${paverkan(plus)}`,
         plus,
@@ -226,6 +240,7 @@ export function byggAnalysVy(
     fynd.push({
       nyckel: 'siffror',
       typ: 'siffror',
+      del: forsta.avsnitt === 'fler' ? 'erfarenhet' : forsta.avsnitt,
       titel: 'Dina siffror',
       meta: plus > 0 ? `Dina egna tal. ${paverkan(plus)}` : 'Dina egna tal.',
       plus,
@@ -244,7 +259,29 @@ export function byggAnalysVy(
     if (i > 0) fynd.unshift(...fynd.splice(i, 1))
   }
 
-  return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, harFull }
+  // Genomgången räknas på samma CV och samma kontaktuppgifter som poängen.
+  const ark = (full.arkKontakt as ArkKontakt | null | undefined) ?? null
+  const delar = genomgang(bas, ark)
+
+  // Delar där de öppna förslagen täcker allt som saknas (med hennes siffror
+  // ifyllda där förslaget har [antal]): där är "Öppna i CV:t" en dubblett av
+  // förslagets "Ändra texten". Låsta förslag räknas inte: de rättar inget åt henne.
+  const delarTackta: KategoriId[] = []
+  for (const d of delar) {
+    if (d.poang >= d.max) continue
+    const oppna = fynd.filter((f) => f.del === d.id && f.oppen && f.typ !== 'siffror')
+    if (oppna.length === 0 || fynd.some((f) => f.del === d.id && !f.oppen)) continue
+    const val: Val = {
+      profil: oppna.some((f) => f.typ === 'profil'),
+      roller: oppna.filter((f) => f.typ === 'roll').map((f) => Number(f.nyckel.slice(5))),
+      kompetenser: oppna.some((f) => f.typ === 'kompetenser') ? forvalda : [],
+    }
+    const efter = bygg(val)
+    const delEfter = efter ? genomgang(medSiffror(efter), ark).find((x) => x.id === d.id) : null
+    if (delEfter && delEfter.poang >= delEfter.max) delarTackta.push(d.id)
+  }
+
+  return { jobbId: jobb.id, klar: jobb.completed_at, poang, fynd, delar, delarTackta, harFull }
 }
 
 /** Kategorierna med plus, i modellens ordning, för "Så räknas poängen". */

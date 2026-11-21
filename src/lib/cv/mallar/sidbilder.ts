@@ -42,7 +42,7 @@ export async function renderaSidbilder(cv: CVMetadata, mallId: string, val: Mall
   return { sidor: resultat.sidor, bilder, kvot, steg: resultat.steg }
 }
 
-/** PDF:ens sidor som webp, med pdf.js och @napi-rs/canvas (samma väg som vision-fallback). */
+/** PDF:ens sidor som webp, med pdf.js och @napi-rs/canvas (samma väg som OCR-läsningen i cv-parser/ocr.ts). */
 export async function ritaSidor(pdf: Buffer | Uint8Array, bredd = SIDBILD_BREDD): Promise<{ bilder: string[]; kvot: number }> {
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')
   const { createCanvas } = await import('@napi-rs/canvas')

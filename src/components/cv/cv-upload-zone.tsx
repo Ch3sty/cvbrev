@@ -36,8 +36,9 @@ interface CVUploadZoneProps {
 
 const PHASE_LABELS: Record<UploadPhase, string> = {
   uploading: 'Laddar upp och tolkar...',
-  vision:
-    'Datan ligger bakom grafik. Vi läser igenom det, tar några sekunder till...',
+  // Fasen heter vision av historiska skäl. I dag läses bilden på vår egen
+  // server (OCR), och det tar längre tid än en vanlig PDF.
+  vision: 'Texten i ditt CV ligger som bild. Vi läser av den, det kan ta upp till en minut.',
 };
 
 export default function CVUploadZone({
@@ -253,7 +254,7 @@ export default function CVUploadZone({
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
           <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold">Uppladdningen misslyckades</p>
-            <p className="mt-0.5 text-sm leading-[21px] text-fel-morker">{uploadError}</p>
+            <p className="mt-0.5 whitespace-pre-line text-sm leading-[21px] text-fel-morker">{uploadError}</p>
           </div>
         </div>
       )}

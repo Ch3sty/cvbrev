@@ -1,8 +1,8 @@
-# Poängmodellen i CV-analysen, version 1
+# Poängmodellen i CV-analysen, version 2
 
 Läsbarhetspoängen (0 till 100) säger hur väl ett rekryteringssystem och en rekryterare kan läsa ett CV. Från och med version 1 är den en ren funktion av CV:ts innehåll, skriven i kod: `src/lib/cv/poang/modell.ts`. AI:n skriver förslagen (texterna), aldrig talen.
 
-Gäller från 2026-11-21. Versionen står i `POANG_VERSION` och följer med varje uträknat resultat som `poangVersion`, så att tal från olika versioner aldrig blandas.
+Version 2 gäller från 2026-11-21 (version 1 gällde samma dag, se Ändringar i version 2). Versionen står i `POANG_VERSION` och följer med varje uträknat resultat som `poangVersion`, så att tal från olika versioner aldrig blandas.
 
 ## Varför
 
@@ -10,7 +10,7 @@ Förut bad analysen modellen själv skriva `atsFriendliness.score` (0 till 100) 
 
 ## Principer
 
-1. **Samma CV ger alltid samma poäng.** Poängen räknas ur lagrad data: `cv_texts.structured_data` (och `cv_text` för kontaktuppgifter i det äldre roles-formatet). Saknar CV:t struktur läses det in en gång med samma inläsning som uppladdningen och sparas. Inget i modellen beror på slump, datum, klockslag eller AI-svar.
+1. **Samma CV ger alltid samma poäng.** Poängen räknas ur lagrad data: `cv_texts.structured_data`, och kontaktuppgifterna som arket visar dem (strukturen och profilen, se Kontaktuppgifter). Saknar CV:t struktur läses det in en gång med samma inläsning som uppladdningen och sparas. Inget i modellen beror på slump, datum, klockslag eller AI-svar.
 2. **Varje delpoäng är något man kan peka på i CV:t.** Sju kategorier, maxpoäng som summerar till 100.
 3. **Fler ord ger aldrig fler poäng.** För lång profil, för många punkter, för många kompetenser, överlånga punkter och för långt CV drar ner.
 4. **Plus som stämmer.** Ett förslags plus är `poäng(CV med förslaget infört) − poäng(CV i dag)`. Potentialen ("med våra förslag") är poängen med de förvalda förslagen införda, inte summan av plusen. Förvalda är alla förslag som inte sänker poängen (se Förslagen).
@@ -29,22 +29,30 @@ Poängen per kategori avrundas till heltal och summeras, så att uppdelningen al
 | Telefonnummer | 3 | minst sju siffror |
 | Ort eller adress | 2 | något står |
 
-I roles-formatet (inläsningens format, saknar kontaktfält) läses uppgifterna lokalt ur CV-texten med samma regex som maskeringen (`src/lib/privacy/extractContact.ts`).
+**Det som står på arket är det som poängsätts** (version 2). Arket (förhandsvisningen `POST /api/cv/preview-html`, arbetslägets första HTML och PDF:en) läser CV:t med `normalizeStructuredData` och fyller tomma fält och platshållare ur profilen med `kontaktForCv` (`forberedInloggatCv`). Poängen använder samma uppslag, `kontaktPaArket` och `arkKontakt` i `src/lib/cv/poang/kontakt.ts`, på alla ytor där poäng räknas för en inloggad: Ditt CV, Mallar, Analys, analysjobbets svar, den återupptagna analysen, det sparade förbättrade CV:t, snabbpoängen, hemskärmen och Kom igång-mejlen. Profilen bärs bredvid CV:t (`CvRad.kontakt`, `arkKontakt` i analysens resultat) och förs aldrig in i det sparade CV:t; `arkKontakt` sparas inte i analysraden. Testet `version2.test.ts` låser regeln mot `forberedInloggatCv`.
+
+Utan profil (den publika snabbpoängen, där det inte finns något ark) läses CV:ts egna fält, och i roles-formatet uppgifterna lokalt ur CV-texten med samma regex som maskeringen (`src/lib/privacy/extractContact.ts`).
 
 ### 2. Personbeskrivning, 15
 
 | Kontroll | Poäng | Regel |
 |---|---|---|
 | Det finns en personbeskrivning | 5 | minst 15 ord ger 5, 5 till 14 ord ger 2 |
-| Lagom lång | 4 | 35 till 110 ord ger 4, 20 till 34 eller 111 till 150 ord ger 2, annars 0 |
-| Säger vilken roll du har eller söker | 3 | ett ord (minst fem bokstäver) ur titeln, målrollen eller någon av de tre första rolltitlarna står i texten |
-| Något konkret | 3 | ett tal som inte är ett årtal, eller ett räkneord (två, tre, tio, hundra, procent och så vidare) |
+| Lagom lång | 4 | 30 till 110 ord ger 4, 20 till 29 eller 111 till 150 ord ger 2, annars 0 |
+| Säger vilken roll du har eller söker | 3 | ett ord ur titeln, målrollen eller någon av de tre första rolltitlarna står i texten. Bindestreck och skiljetecken räknas bort på båda sidor (`IT-konsult`, `HR-chef`), delarna av ett ord med bindestreck prövas också. Ord på minst fem bokstäver får stå i ett sammansatt ord, tre och fyra bokstäver i början av ett ord (`Kock`), två bokstäver som eget ord (`VD`) |
+| Något konkret | 3 | ett tal som inte är ett årtal, eller ett räkneord (två, tre, sex, tio, hundra, procent och så vidare) |
 
 ### 3. Erfarenhet, 35
 
 Räknas på de fem första rollerna i CV:ts ordning. Äldre roller väger inte in (förslag för dem kan fortfarande föras in men ger inget plus).
 
-I roles-formatet (inläsningens) läses rollens punkter ur `responsibilities` och annars ur beskrivningen delad på rader och punkttecken, samma ordning som `normalizeStructuredData` och mallarna (rättat 2026-11-21: förut togs beskrivningen först, och då räknades och sparades punkterna som en rad).
+I roles-formatet (inläsningens) väljer `rollensRader` i `poang/matt.ts` vilka rader en roll räknas på, och samma funktion väljer vad arket ritar (`normalizeStructuredData`, mallarna, PDF och Word), så att poängen och arket aldrig läser olika rader:
+
+- Saknas punkter i `responsibilities`: beskrivningen delad på radbrytning och punkttecken.
+- Är punkterna bara nyckelord (färre än hälften har minst tre ord, som "Plocka order", "Packa order") och har beskrivningen minst åtta ord och fler ord än punkterna tillsammans: beskrivningen, delad på samma sätt. Det är personens egna meningar.
+- Annars: punkterna.
+
+Bakgrund (rättat 2026-11-21): äldre inläsningar bad modellen korta rollen till nyckelord, och de vann över beskrivningen. Ett CV med hela meningar om varje roll ritades då med nyckelord, och genomgången sa "ingen beskrivning" eftersom nyckelord med ett eller två ord inte är påståenden. Sedan samma dag ber inläsningen om rollens punkter eller meningar ordagrant i `responsibilities`, en per post. Före det, också 2026-11-21, togs beskrivningen först, och då räknades och sparades punkterna som en rad.
 
 Ett *påstående* är en rad, punkt eller mening med minst tre ord. Fyra meningar i ett stycke är fyra påståenden, precis som fyra punkter, så formatet i inläsningen spelar ingen roll.
 
@@ -93,9 +101,9 @@ Saknar roles-formatet språknyckeln (CV inlästa före 2026-11-21) letar vi efte
 | Kontroll | Poäng | Regel |
 |---|---|---|
 | Alla perioder går att tolka | 4 | 4 × andelen perioder (roller och utbildningar) med startår och ett slut som är ett år eller "pågående" |
-| Samma datumformat | 2 | alla tolkbara perioder bara år, eller alla med månad |
-| Senaste rollen först | 3 | rollerna med tolkbar period står i fallande ordning (pågående först) |
-| Lagom långt | 3 | 200 till 1100 ord ger 3, 120 till 199 eller 1101 till 1500 ord ger 1,5 |
+| Samma datumformat | 2 | rollerna jämförs för sig och utbildningarna för sig: inom varje grupp bara år, eller månad och år. Roller med månad och år plus utbildningar med bara examensår är enhetligt |
+| Senaste rollen först | 3 | rollerna med tolkbar period står i fallande ordning efter slutår (pågående först). Roller som slutar samma år eller pågår samtidigt får stå i valfri ordning |
+| Lagom långt | 3 | 150 till 1100 ord ger 3, 100 till 149 eller 1101 till 1500 ord ger 1,5 |
 | Inga överlånga punkter | 3 | minst 90 % av påståendena har högst 35 ord ger 3, annars 3 × andelen |
 
 Orden räknas i personbeskrivning, roller, utbildningar, kompetenser, språk, projekt och certifikat. Kontaktuppgifterna räknas inte.
@@ -104,7 +112,31 @@ Ett tomt slut betyder pågående (så sparar CV-formatet nuvarande jobb). Poäng
 
 ## Förklaringen till användaren
 
-> Poängen räknas ur det som står i ditt CV: kontaktuppgifter, personbeskrivning, roller, kompetenser, utbildning, språk, datum och längd. Varje del har en högsta poäng och tillsammans blir det 100. Samma CV ger alltid samma poäng, och plus på ett förslag är exakt vad poängen blir med förslaget infört.
+> Poängen räknas ur det som står i ditt CV, del för del. Samma CV ger alltid samma poäng, och plus på ett förslag är exakt vad poängen blir med förslaget infört. Allt som saknas står i genomgången.
+
+## Genomgången
+
+`genomgang(cv, ark)` i `src/lib/cv/poang/genomgang.ts` bygger de sju delarna i dokumentets ordning: id, nummer (samma som markeringen på arket), namn, max, poäng och kontrollerna med status (`klar`, `delvis`, `saknas`), en kort rubrik och för ouppfyllda en konkret text med pekare (avsnitt för arbetsläget, `rollIndex` eller `utbildningIndex` när bristen gäller en viss post). Mätningen är modellens egen (`raknaDetalj` och `matt` i `modell.ts`), aldrig en egen uträkning.
+
+- En del med tappad poäng har minst en ouppfylld kontroll med text. En del med full poäng har inga ouppfyllda kontroller: tappar en kontroll mindre än en halv poäng avrundas delen upp till full poäng, och då visas kontrollen som klar.
+- Kontroller visar status och text, inga egna poängtal (delpoängen är bråktal och avrundas per del).
+- Analys-sidan visar genomgången för alla. Gratisnivån får som förut bara det tyngsta förslaget med text; förklaringen till poängen låses aldrig.
+
+## Ändringar i version 2 (2026-11-21)
+
+1. Kontaktuppgifterna läses som arket ritar dem (`kontakt.ts`). Ett CV där e-post, telefon och ort kommer ur profilen fick 2 av 10 fast arket visade allt.
+2. Personbeskrivningen är lagom från 30 ord (förut 35).
+3. Datumformatet jämförs för rollerna och för utbildningarna var för sig. Förut drog ett vanligt CV med roller i månad och år och utbildningar med bara examensår ner.
+4. CV:t är lagom långt från 150 ord, halv poäng från 100 (förut 200 och 120).
+5. Rollen i personbeskrivningen: titlar med bindestreck jämfördes med bindestrecket bortplockat i titeln men inte i texten och kunde aldrig matcha. Korta titlar (`Kock`, `Chef`, `VD`) kunde aldrig matcha eftersom bara ord på minst fem bokstäver prövades.
+6. Granskningen av varje kontroll (finns ett vanligt, korrekt CV som inte kan nå full poäng?) gav tre rättelser till:
+   - Senaste rollen först: roller som pågår samtidigt (ett extrajobb bredvid huvudjobbet) eller slutar samma år jämfördes på startår, så ett korrekt CV med huvudjobbet först kunde aldrig få full poäng. Nu avgör bara slutåret.
+   - Räkneordet "sex" ("sex års erfarenhet") räknades inte som något konkret.
+   - Några vanliga handlingsverb saknades: löser, bemöter, möter, ställer, ringer, skriver, når, vinner, sätter och väljer (presens, preteritum och supinum).
+
+   Inga andra trösklar ändrades. Övriga kontroller går att uppfylla med ett vanligt CV (fixturen `VANLIGT` i `version2.test.ts` når 100).
+
+Prompterna i `analyze-cv-background` nämner inga av de gamla trösklarna (personbeskrivningen 40 till 90 ord och punkterna högst 25 ord ligger inom de nya gränserna) och är orörda.
 
 ## Förslagen
 
@@ -167,10 +199,12 @@ Fixturerna ligger i `src/lib/cv/poang/__tests__/fixturer.ts` (inga användares C
 | Tunt (en roll utan beskrivning) | 55 | 36 | 55 | 5 | 0 | 13 (+16) | 9 | 0 | 0 | 9 (+3) |
 | Normalt | 62 | 69 | 89 | 10 | 7 (+8) | 22 (+7) | 9 (+3) | 8 | 3 | 10 (+2) |
 | Starkt (Erik Lindberg) | 71 | 100 | 100 | 10 | 15 | 35 | 12 | 8 | 5 | 15 |
-| Studentens | 48 | 71 | 91 | 10 | 5 (+7) | 24 (+8) | 7 (+5) | 8 | 5 | 12 |
+| Studentens | 48 | 71 | 93 | 10 | 5 (+7) | 24 (+8) | 7 (+5) | 8 | 5 | 12 (+2) |
 | Långt yrkesliv | 80 | 99 | 99 | 10 | 15 | 34 | 12 | 8 | 5 | 15 |
 | Utan struktur (reservinläsning) | 40 | 26 | 33 | 8 | 0 | 15 | 0 (+7) | 0 | 0 | 3 |
 | Kort men välskrivet | 66 | 92 | 92 | 10 | 13 | 32 | 12 | 8 | 5 | 12 |
+
+Omkörd för version 2 (2026-11-21): bara Studentens ändrades (med våra förslag 91 till 93, längden från 150 ord). Fixturerna har sina kontaktuppgifter i strukturen, så arkets uppslag ändrar inget här; ett riktigt CV med kontaktuppgifterna i profilen gick från 80 till 92 (kontakt 2 till 10, personbeskrivning 13 till 15, datum och längd 12 till 14).
 
 "Med våra förslag" räknas efter att påhittade tal bytts mot `[antal]` (som inte ger poäng förrän hon fyllt i sin siffra) och bara med förvalda förslag.
 

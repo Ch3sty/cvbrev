@@ -5,7 +5,7 @@ import { cleanExtractedText } from './text-utils';
  * Typiskt fall: skannad PDF, "Skriv ut till PDF" från macOS, PDF där text
  * är inbäddade som outlines/bilder.
  *
- * Upload-routen fångar detta och kör vision-fallback istället för att
+ * Upload-routen fångar detta och läser sidorna med OCR (ocr.ts) istället för att
  * blockera direkt.
  */
 export class ImageBasedPdfError extends Error {
@@ -56,7 +56,7 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
   );
 
   // Om vi fick för lite text - PDF:en är troligen bildbaserad.
-  // Kasta typed error så upload-routen kan trigga vision-fallback.
+  // Kasta typed error så upload-routen kan läsa sidorna med OCR.
   if (!result.text || result.text.trim().length < 50) {
     throw new ImageBasedPdfError(result.text?.length || 0);
   }

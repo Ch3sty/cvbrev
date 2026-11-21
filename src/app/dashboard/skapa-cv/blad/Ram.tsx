@@ -12,7 +12,7 @@
  * spärren för antal CV), Nästa-raden och foten. Bladen ger rubriken,
  * innehållet och sin sparknapp.
  */
-import { createContext, useContext, useEffect, useId, useRef, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useId, useLayoutEffect, useRef, type ReactNode } from 'react'
 import type { ByggCv } from '@/lib/cv/bygg/modell'
 import type { Lage } from '../arbetslage'
 import { ARBETE } from '../texter'
@@ -46,11 +46,20 @@ export function useArbete(): Arbete {
  * Bladets utkast till arket: CV:t som det skulle se ut om hon sparade nu.
  * Jämförs med bladets första version, så att ett blad som bara öppnats
  * aldrig räknas som ändrat (ett uppladdat CV:s datum skrivs inte om av sig självt).
+ *
+ * Utkastet lämnas i en layouteffekt, i samma commit som tangenttrycket.
+ * Med en vanlig useEffect kom uppdateringen hos arbetsläget efter commiten,
+ * i default-lane, och fick vänta medan nästa tangenttryck renderades. Vid
+ * snabb inmatning låg det då väntande arbete efter varje commit, React
+ * räknade femtio i rad och kastade "Maximum update depth exceeded" (#185,
+ * slutkontrollen 2026-11-21, [antal] i Erfarenhet). I layouteffekten
+ * renderas arbetsläget om direkt, före målningen, och nästa commit har
+ * inget kvar att göra.
  */
 export function useUtkast(bygg: () => ByggCv | null, deps: readonly unknown[]) {
   const { onUtkast } = useArbete()
   const forsta = useRef<string | null>(null)
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ny = bygg()
     const sn = JSON.stringify(ny)
     if (forsta.current === null) {

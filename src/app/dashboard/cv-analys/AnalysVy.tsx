@@ -1,21 +1,25 @@
 'use client';
 
 /**
- * Analys (CV-rummet steg 4, byggspecen avsnitt 8, skissen Analys).
+ * Analys (CV-rummet steg 4). Sedan 2026-11-21 en genomgång av hela CV:t,
+ * del för del (poängmodellen version 2, src/lib/cv/poang/genomgang.ts).
  *
- *   Väggen   CvVagg: flikarna, CV-raden, rubriken som räknar fynden, de två
- *            talen (i dag och med våra förslag) och "Åtgärda i CV:t"
- *   Golvet   Vad som drar ner: första öppna fyndet utfällt som papper med
- *            mörkt huvud, övriga som rader (låsta för gratisnivån, med
- *            betalväggen). Till höger arket med numrerade markeringar och
- *            "Så räknas poängen".
+ *   Väggen   CvVagg: flikarna, CV-raden, poängen som är kvar till 100, de
+ *            två talen (i dag och med våra förslag) och en knapp: Åtgärda i
+ *            CV:t (förslag finns), Öppna CV:t (bara eget arbete kvar) eller
+ *            Välj mall och ladda ner (100).
+ *   Golvet   Genomgången: de sju delarna som rader som fälls ut, med
+ *            kontrollerna, Jobbcoachens förslag för delen (låsta för
+ *            gratisnivån, med betalväggen) och Öppna i CV:t. Till höger arket
+ *            med markeringarna 1 till 6 och "Vägen till 100".
  *
- * Lägen: resultat, utan-struktur, intro (dagens texter och kvotrad) och
- * sparr (dagens spärr för omkörning). "Analysera mitt CV" startar dagens
+ * Lägen: resultat, utan-struktur, intro och sparr (dagens spärr för
+ * omkörning). "Analysera det här CV:t" och "Be om nya förslag" startar dagens
  * flöde (children: CvAnalysClient) med CV:t redan valt.
  *
- * Alla tal kommer ur poängmodellen via servern (analysData.ts). Ingen
- * åtgärdstext för låsta fynd finns i datan.
+ * Alla tal kommer ur poängmodellen via servern (analysData.ts). Kontrollerna
+ * och delarnas poäng är öppna för alla; ingen förslagstext för låsta förslag
+ * finns i datan.
  */
 import { useMemo, useState, useTransition, type ReactNode } from 'react';
 import Link from 'next/link';
@@ -33,8 +37,8 @@ import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/componen
 import { capture } from '@/lib/analytics/events';
 import { kopstegHref } from '@/lib/onboarding/steps';
 import { SALD_PLAN } from '@/lib/plans/plans';
-import { ArrowRight, Check, Lock, Target, FileSearch, Zap } from '@/components/illustrations/RumIkoner';
-import { PLATSHALLARE_TAL } from '@/lib/cv/poang';
+import { AlertCircle, ArrowRight, Check, ChevronDown, Lock, XCircle } from '@/components/illustrations/RumIkoner';
+import { PLATSHALLARE_TAL, type GenomgangDel, type KategoriId } from '@/lib/cv/poang';
 import type { AnalysFynd, AnalysVyData } from './analysData';
 import AnalysArk, { type ArkMarkering } from './components/AnalysArk';
 import { ANALYS } from './analysTexter';
@@ -54,13 +58,28 @@ export interface AnalysSidaData {
   track: Scope | null;
 }
 
-const FARGER = ['#1E5F5F', '#4C9A96', '#9CCFCB', '#2F7D5B', '#7FB8A4', '#3E7775', '#A9D5BE'];
+/** Delarna som har en plats på arket (Datum, ordning och längd har ingen). */
+const ARKETS_AVSNITT: Partial<Record<KategoriId, ArkMarkering['sektion']>> = {
+  kontakt: 'kontakt',
+  profil: 'profil',
+  erfarenhet: 'erfarenhet',
+  kompetenser: 'kompetenser',
+  utbildning: 'utbildning',
+  sprak: 'sprak',
+};
 
 function datumKort(iso: string | null): string | null {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
   return new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short', timeZone: 'Europe/Stockholm' }).format(d).replace('.', '');
+}
+
+function datumLang(iso: string | null): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' }).format(d);
 }
 
 /** Texten med [antal] markerad, så att hon ser var hennes siffra ska in. */
@@ -82,6 +101,15 @@ function Pil({ size = 20 }: { size?: number }) {
   return <ArrowRight size={size} strokeWidth={2.4} />;
 }
 
+/** Delen som är utfälld från start: tyngsta öppna förslagets, annars den med flest poäng kvar. */
+function forvaldDel(delar: readonly GenomgangDel[], fynd: readonly AnalysFynd[]): KategoriId | null {
+  const forslag = fynd.find((f) => f.oppen && f.typ !== 'siffror');
+  if (forslag) return forslag.del;
+  const kvar = delar.filter((d) => d.poang < d.max);
+  if (kvar.length === 0) return null;
+  return [...kvar].sort((a, b) => b.max - b.poang - (a.max - a.poang) || a.nr - b.nr)[0].id;
+}
+
 export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaData; cvRad: ReactNode; children: ReactNode }) {
   const router = useRouter();
   const kampanj = useKampanjPris();
@@ -93,31 +121,34 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   const vy = data.vy;
   const mall = MALL_KATALOG.find((m) => m.id === data.mallId) ?? MALL_KATALOG[0];
-  const fynd = vy?.fynd ?? [];
-  // Siffrorna ([antal] kvar i CV:t) är ett fynd bland de andra men inget
-  // förslag: de fälls ut först när inget förslag är öppet.
-  const siffror = fynd.find((f) => f.typ === 'siffror') ?? null;
-  const baraSiffror = siffror !== null && fynd.length === 1;
-  const forsta = fynd.find((f) => f.oppen && f.typ !== 'siffror') ?? siffror;
-  const lastaFinns = fynd.some((f) => !f.oppen);
+  const fynd = useMemo(() => vy?.fynd ?? [], [vy]);
+  const delar = useMemo(() => vy?.delar ?? [], [vy]);
+  const startDel = useMemo(() => forvaldDel(delar, fynd), [delar, fynd]);
+  const [oppna, setOppna] = useState<ReadonlySet<KategoriId>>(() => new Set(startDel ? [startDel] : []));
   const p = vy?.poang ?? null;
+  const kvar = p ? Math.max(0, 100 - p.idag) : 0;
+  const harForslag = fynd.some((f) => f.typ !== 'siffror');
+  const delarKvar = delar.filter((d) => d.poang < d.max);
+  const lastaFinns = fynd.some((f) => !f.oppen);
   const cvQ = data.cvId ? `&cv=${encodeURIComponent(data.cvId)}` : '';
   const jobbHref = (steg: 4 | 5, valj: string) =>
     vy ? `/dashboard/cv-analys?job=${encodeURIComponent(vy.jobbId)}${cvQ}&steg=${steg}&valj=${encodeURIComponent(valj)}` : '#';
   const mallarHref = flikHref('mallar', data.cvId, { mall: mall.id });
+  const delHref = (d: GenomgangDel) => (data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: d.avsnitt, mall: mall.id }) : mallarHref);
+  const siffror = fynd.find((f) => f.typ === 'siffror') ?? null;
   const siffrorHref = siffror && data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: siffror.sektion, mall: mall.id }) : null;
   const paywall = getPaywallCopy('analys');
+  const cvNamn = data.cvNamn?.trim() || null;
 
   const markeringar: ArkMarkering[] = useMemo(
     () =>
-      fynd.map((f, i) => ({
-        nr: i + 1,
-        sektion: f.sektion,
-        roll: f.roll,
-        nu: forsta ? f.nyckel === forsta.nyckel : i === 0,
-      })),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [vy]
+      delar.flatMap((d) => {
+        const sektion = ARKETS_AVSNITT[d.id];
+        if (!sektion) return [];
+        const harKvar = d.poang < d.max;
+        return [{ nr: d.nr, sektion, nu: harKvar, klar: !harKvar, puls: d.id === startDel }];
+      }),
+    [delar, startDel]
   );
 
   /* ---------------------------------------------------------- handlingar */
@@ -133,6 +164,23 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     });
     window.location.href = kopstegHref(SALD_PLAN, 'analys');
   };
+
+  /** Be om nya förslag: dagens flöde med CV:t valt, eller dagens spärr för omkörning. */
+  const nyaForslag = () => {
+    if (!data.isPremium && data.remainingAnalyses !== null && data.remainingAnalyses <= 0) {
+      setSparr('analys-omkorning');
+      return;
+    }
+    setStartad(true);
+  };
+
+  const vaxla = (id: KategoriId) =>
+    setOppna((nu) => {
+      const ny = new Set(nu);
+      if (ny.has(id)) ny.delete(id);
+      else ny.add(id);
+      return ny;
+    });
 
   const strukturera = async () => {
     if (!data.cvId) return;
@@ -159,73 +207,88 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   /* ------------------------------------------------------------- väggen */
 
-  // Bara siffrorna kvar: andra talet är poängen med hennes siffror (inget plus, inget andra tal).
   // "Med"-talet är förslagen och siffrorna tillsammans (medAllt), samma tal som Ditt CV och Mallar.
   const medSiffrorNu = (p?.siffrorPlus ?? 0) > 0;
   const senare =
-    !p || (baraSiffror && p.plusAllt <= 0)
-      ? null
-      : {
-          tal: p.medAllt,
-          text: medSiffrorNu ? (p.plus > 0 ? ANALYS.medForslagOchSiffror : ANALYS.medSiffror) : ANALYS.medForslag,
-        };
-  const talRad =
-    p && senare ? (
-      <div className="cv4-tal-rad" role="img" aria-label={ANALYS.talAriaMed(p.idag, senare.tal, senare.text)}>
-        <div className="cv4-tal" data-nu>
-          <b>{p.idag}</b>
-          <span>{ANALYS.idag}</span>
-        </div>
-        <svg className="cv4-tal-pil" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M2 12h28M22 4l8 8-8 8" />
-        </svg>
-        <div className="cv4-tal" data-sen>
-          <b>{senare.tal}</b>
-          <span>{senare.text}</span>
-        </div>
+    p && p.plusAllt > 0
+      ? { tal: p.medAllt, text: medSiffrorNu ? (p.plus > 0 ? ANALYS.medForslagOchSiffror : ANALYS.medSiffror) : ANALYS.medForslag }
+      : null;
+  const talRad = p ? (
+    <div
+      className="cv4-tal-rad"
+      role="img"
+      aria-label={senare ? ANALYS.talAriaMed(p.idag, senare.tal, senare.text) : ANALYS.talAria(p.idag)}
+    >
+      <div className="cv4-tal" data-nu>
+        <b>{p.idag}</b>
+        <span>{ANALYS.idag}</span>
       </div>
-    ) : null;
+      {senare ? (
+        <>
+          <svg className="cv4-tal-pil" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M2 12h28M22 4l8 8-8 8" />
+          </svg>
+          <div className="cv4-tal" data-sen>
+            <b>{senare.tal}</b>
+            <span>{senare.text}</span>
+          </div>
+        </>
+      ) : null}
+    </div>
+  ) : null;
 
   const introSidorad = data.isPremium ? ANALYS.introSidoradPremium : ANALYS.introSidorad;
+  const forstaKvar = delarKvar[0] ?? null;
 
   const vagg: { ogon: string; rubrik: string; ingress: string; ingressKort: string; knapp: (bred: boolean) => ReactNode; sidorad: ReactNode; tal: ReactNode } = (() => {
     switch (data.lage) {
       case 'resultat': {
-        const n = fynd.length;
-        if (baraSiffror && siffrorHref) {
+        const klass = (bred: boolean) => `t3-stor${bred ? ' t3-stor-bred' : ''}`;
+        if (kvar <= 0) {
           return {
             ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
-            rubrik: ANALYS.rubrikAterstar(1),
-            ingress: ANALYS.siffrorIngress,
-            ingressKort: ANALYS.siffrorIngressKort,
+            rubrik: ANALYS.rubrik(0),
+            ingress: ANALYS.ingressKlar,
+            ingressKort: ANALYS.ingressKlar,
             knapp: (bred) => (
-              <Link href={siffrorHref} className={`t3-stor${bred ? ' t3-stor-bred' : ''}`} data-fyll-siffror>
-                {ANALYS.siffrorKnapp}
+              <Link href={mallarHref} className={klass(bred)}>
+                {ANALYS.laddaNer}
                 <Pil />
               </Link>
             ),
-            sidorad: ANALYS.siffrorSidorad(siffror!.rader ?? 1),
+            sidorad: ANALYS.laddaNerSidorad,
+            tal: talRad,
+          };
+        }
+        if (harForslag) {
+          const med = p?.medAllt ?? 0;
+          return {
+            ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
+            rubrik: ANALYS.rubrik(kvar),
+            ingress: ANALYS.ingressMedForslag(med),
+            ingressKort: ANALYS.ingressMedForslagKort(med),
+            knapp: (bred) => (
+              <Link href={jobbHref(4, 'forvalda')} className={klass(bred)}>
+                {ANALYS.atgarda}
+                <Pil />
+              </Link>
+            ),
+            sidorad: ANALYS.atgardaSidorad,
             tal: talRad,
           };
         }
         return {
           ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
-          rubrik: siffror ? ANALYS.rubrikAterstar(n) : ANALYS.rubrik(n),
-          ingress: ANALYS.ingress(n),
-          ingressKort: ANALYS.ingressKort(n),
-          knapp: (bred) =>
-            n > 0 ? (
-              <Link href={jobbHref(4, 'forvalda')} className={`t3-stor${bred ? ' t3-stor-bred' : ''}`}>
-                {ANALYS.atgarda}
-                <Pil />
-              </Link>
-            ) : (
-              <Link href={mallarHref} className={`t3-stor${bred ? ' t3-stor-bred' : ''}`}>
-                {ANALYS.laddaNer}
-                <Pil />
-              </Link>
-            ),
-          sidorad: n > 0 ? ANALYS.atgardaSidorad : ANALYS.laddaNerSidorad,
+          rubrik: ANALYS.rubrik(kvar),
+          ingress: ANALYS.ingressEget(Math.max(1, delarKvar.length)),
+          ingressKort: ANALYS.ingressEgetKort(Math.max(1, delarKvar.length)),
+          knapp: (bred) => (
+            <Link href={forstaKvar ? delHref(forstaKvar) : mallarHref} className={klass(bred)} data-oppna-cv>
+              {ANALYS.oppnaCv}
+              <Pil />
+            </Link>
+          ),
+          sidorad: ANALYS.oppnaCvSidorad,
           tal: talRad,
         };
       }
@@ -264,8 +327,8 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         return {
           ogon: ANALYS.introOgon,
           rubrik: ANALYS.introRubrik,
-          ingress: ANALYS.introIngress,
-          ingressKort: ANALYS.introIngress,
+          ingress: ANALYS.introIngress(cvNamn),
+          ingressKort: ANALYS.introIngress(cvNamn),
           knapp: (bred) => (
             <button type="button" className={`t3-stor${bred ? ' t3-stor-bred' : ''}`} onClick={() => setStartad(true)}>
               {ANALYS.introKnapp}
@@ -297,7 +360,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     <div className="cv4-mobil">
       <p className="t3-ogon">{vagg.ogon}</p>
       <h1 className="cv3-h1-mobil">{vagg.rubrik}</h1>
-      {vagg.tal ? null : <p className="cv4-mobil-text">{vagg.ingressKort}</p>}
+      <p className="cv4-mobil-text">{vagg.ingressKort}</p>
       {vagg.tal}
       <div className="cv4-mobil-knapp">
         {vagg.knapp(true)}
@@ -308,48 +371,26 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   /* ------------------------------------------------------------- golvet */
 
-  const fyndRad = (f: AnalysFynd, nr: number) => {
-    const arSiffror = f.typ === 'siffror';
-    const innehall = (
-      <>
-        <span className="cv4-nr">{nr}</span>
-        <span className="cv4-last-text">
-          <b>{f.titel}</b>
-          <small>{arSiffror ? ANALYS.siffrorKort : f.meta}</small>
+  /** Ett låst förslag: rubrik, plus och lås. Öppnar dagens betalvägg. */
+  const lastRad = (f: AnalysFynd) => (
+    <button key={f.nyckel} type="button" className="cv4-last" onClick={() => setSparr('analys')} aria-haspopup="dialog" aria-label={ANALYS.lastAria(f.titel)}>
+      <span className="cv4-last-text">
+        <b>{f.titel}</b>
+        <small>{f.meta}</small>
+      </span>
+      {f.plus > 0 ? (
+        <span className="cv4-pluspill" aria-hidden="true">
+          {ANALYS.plus(f.plus)}
         </span>
-        {f.plus > 0 ? (
-          <span className="cv4-pluspill" aria-label={ANALYS.plusAria(f.plus)}>
-            {ANALYS.plus(f.plus)}
-          </span>
-        ) : null}
-        {f.oppen ? null : (
-          <span className="cv4-las" aria-hidden="true">
-            <Lock size={16} strokeWidth={2.6} />
-          </span>
-        )}
-      </>
-    );
-    return (
-      <li key={f.nyckel}>
-        {arSiffror && siffrorHref ? (
-          <Link href={siffrorHref} className="cv4-last" data-fyll-siffror>
-            {innehall}
-          </Link>
-        ) : f.oppen ? (
-          <Link href={jobbHref(4, f.nyckel)} className="cv4-last">
-            {innehall}
-          </Link>
-        ) : (
-          <button type="button" className="cv4-last" onClick={() => setSparr('analys')} aria-haspopup="dialog" aria-label={ANALYS.lastAria(f.titel)}>
-            {innehall}
-          </button>
-        )}
-      </li>
-    );
-  };
+      ) : null}
+      <span className="cv4-las" aria-hidden="true">
+        <Lock size={16} strokeWidth={2.6} />
+      </span>
+    </button>
+  );
 
   const papper = (f: AnalysFynd, nr: number) => (
-    <div className="cv4-papper" data-papper>
+    <div key={f.nyckel} className="cv4-papper" data-papper>
       <div className="cv4-papper-hu">
         <span className="cv4-nr" data-nu>
           {nr}
@@ -391,9 +432,9 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     </div>
   );
 
-  /** Siffrorna utfällda: samma papper som förslagen, men hennes egen uppgift och ingen förslagstext. */
+  /** Siffrorna: hennes egen uppgift, ingen förslagstext. */
   const siffrorKort = (f: AnalysFynd, nr: number) => (
-    <div className="cv4-papper" data-papper data-siffror>
+    <div key={f.nyckel} className="cv4-papper" data-papper data-siffror>
       <div className="cv4-papper-hu">
         <span className="cv4-nr" data-nu>
           {nr}
@@ -444,36 +485,124 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       </div>
     ) : null;
 
+  const delRad = (d: GenomgangDel) => {
+    const oppen = oppna.has(d.id);
+    const harKvar = d.poang < d.max;
+    const ouppfyllda = d.kontroller.filter((k) => k.status !== 'klar');
+    const uppfyllda = d.kontroller.filter((k) => k.status === 'klar');
+    // Statusraden: första bristen och hur många till. Kontroller utan egen
+    // text (en annan kontroll säger redan samma sak) räknas inte.
+    const texter = ouppfyllda.flatMap((k) => k.brister.map((b) => b.text));
+    const rader = texter.length > 0 ? texter : ouppfyllda.map((k) => k.rubrik);
+    const forstaText = rader[0] ?? '';
+    const fler = Math.max(0, rader.length - 1);
+    const delensForslag = fynd.filter((f) => f.del === d.id && f.typ !== 'siffror');
+    const delensSiffror = fynd.filter((f) => f.del === d.id && f.typ === 'siffror');
+    const inneId = `analys-del-${d.id}`;
+    return (
+      <li key={d.id} className="cv4-gdel" data-oppen={oppen ? '' : undefined} data-klar={harKvar ? undefined : ''} data-del={d.id}>
+        <h3 className="cv4-gdel-h">
+          <button type="button" className="cv4-gdel-knapp" aria-expanded={oppen} aria-controls={inneId} onClick={() => vaxla(d.id)}>
+            <span className="cv4-nr" data-nu={harKvar ? '' : undefined}>
+              {d.nr}
+            </span>
+            <span className="cv4-gdel-text">
+              <b>{d.namn}</b>
+              <small>
+                {harKvar ? (
+                  <>
+                    {forstaText}
+                    {fler > 0 ? ANALYS.ochFler(fler) : null}
+                  </>
+                ) : (
+                  <span className="cv4-gdel-ok">
+                    <Check size={14} strokeWidth={3} aria-hidden="true" />
+                    {ANALYS.allt}
+                  </span>
+                )}
+              </small>
+            </span>
+            <span className="cv4-gdel-matt" role="img" aria-label={ANALYS.delAria(d.namn, d.poang, d.max)}>
+              <span className="cv4-matare" aria-hidden="true">
+                <i style={{ width: `${Math.round((d.poang / d.max) * 100)}%` }} />
+              </span>
+              <span className="cv4-gdel-tal" aria-hidden="true">
+                {ANALYS.delAv(d.poang, d.max)}
+              </span>
+            </span>
+            <span className="cv4-gdel-pil" aria-hidden="true">
+              <ChevronDown size={20} strokeWidth={2.4} />
+            </span>
+          </button>
+        </h3>
+        <div id={inneId} className="cv4-gdel-inne" hidden={!oppen}>
+          <ul className="cv4-kontroller">
+            {ouppfyllda.map((k) => (
+              <li key={k.id} data-status={k.status}>
+                <span className="cv4-kstatus" aria-label={k.status === 'saknas' ? ANALYS.saknas : ANALYS.delvis} role="img">
+                  {k.status === 'saknas' ? <XCircle size={18} strokeWidth={2.4} /> : <AlertCircle size={18} strokeWidth={2.4} />}
+                </span>
+                <span className="cv4-ktext">
+                  <b>{k.rubrik}</b>
+                  {k.brister.map((b, i) => (
+                    <span key={i}>{b.text}</span>
+                  ))}
+                </span>
+              </li>
+            ))}
+            {uppfyllda.map((k) => (
+              <li key={k.id} data-status="klar">
+                <span className="cv4-kstatus" aria-label={ANALYS.klar} role="img">
+                  <Check size={16} strokeWidth={3} />
+                </span>
+                <span className="cv4-ktext">
+                  <b>{k.rubrik}</b>
+                </span>
+              </li>
+            ))}
+          </ul>
+          {d.not ? <p className="cv4-gdel-not">{d.not}</p> : null}
+          {delensForslag.length > 0 ? (
+            <div className="cv4-gdel-forslag">
+              <p className="cv4-ogon" data-ton="koppar">
+                {ANALYS.jobbcoachensForslag}
+              </p>
+              {delensForslag.map((f) => (f.oppen ? papper(f, d.nr) : lastRad(f)))}
+            </div>
+          ) : null}
+          {delensSiffror.map((f) => siffrorKort(f, d.nr))}
+          {data.cvId && harKvar && !vy?.delarTackta.includes(d.id) ? (
+            <div className="cv4-gdel-fot">
+              <Link href={delHref(d)} className="cv4-kn" data-ton="ljus" data-oppna-i-cv>
+                {ANALYS.oppnaICv}
+              </Link>
+            </div>
+          ) : null}
+        </div>
+      </li>
+    );
+  };
+
+  const datum = datumLang(vy?.klar ?? null);
   const resultatPanel =
     data.lage === 'resultat' && vy ? (
       <section className="cv4-panel" aria-labelledby="analys-panel">
         <p className="cv4-ogon" data-ton="koppar">
-          {ANALYS.drarNerOgon}
+          {ANALYS.genomgangOgon}
         </p>
-        {forsta && forsta.typ === 'siffror' ? (
-          <>
-            <h2 id="analys-panel" className="cv4-h2">
-              {ANALYS.borjaMedSiffror}
-            </h2>
-            {siffrorKort(forsta, fynd.indexOf(forsta) + 1)}
-          </>
-        ) : forsta && forsta.typ !== 'siffror' ? (
-          <>
-            <h2 id="analys-panel" className="cv4-h2">
-              {ANALYS.borjaMed(forsta.typ, forsta.roll?.foretag)}
-            </h2>
-            <p className="cv4-rad">{ANALYS.borjaMedRad(forsta.typ)}</p>
-            {papper(forsta, fynd.indexOf(forsta) + 1)}
-          </>
-        ) : (
-          <>
-            <h2 id="analys-panel" className="cv4-h2">
-              {fynd.length ? ANALYS.rubrik(fynd.length) : ANALYS.inget}
-            </h2>
-            <p className="cv4-rad">{fynd.length ? paywall.body : ANALYS.ingetRad}</p>
-          </>
-        )}
-        {fynd.some((f) => f !== forsta) ? <ol className="cv4-rader">{fynd.map((f, i) => (f === forsta ? null : fyndRad(f, i + 1)))}</ol> : null}
+        <h2 id="analys-panel" className="cv4-h2">
+          {ANALYS.genomgangRubrik(delarKvar.length)}
+        </h2>
+        <p className="cv4-rad cv4-genomgang-rad">
+          {ANALYS.genomgangAv(cvNamn)}
+          {datum ? ` ${ANALYS.forslagSkrevs(datum)}` : null}
+          {datum ? (
+            <button type="button" className="cv4-nya" onClick={nyaForslag}>
+              {ANALYS.nyaForslag}
+            </button>
+          ) : null}
+        </p>
+        <ol className="cv4-gdelar">{delar.map(delRad)}</ol>
         {premRuta}
       </section>
     ) : null;
@@ -488,27 +617,26 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       </p>
     ) : null;
 
-  const ikoner = [Target, FileSearch, Zap];
   const introPanel =
     data.lage === 'intro' || data.lage === 'sparr' || data.lage === 'utan-struktur' ? (
       <section className="cv4-panel" aria-labelledby="analys-panel">
         <p className="cv4-ogon" data-ton="koppar">
-          {ANALYS.introOgon}
+          {ANALYS.introPanelOgon}
         </p>
         <h2 id="analys-panel" className="cv4-h2">
           {ANALYS.introPanelRubrik}
         </h2>
-        <p className="cv4-rad">{ANALYS.introPanelRad}</p>
-        <ul className="cv4-lista">
-          {ANALYS.introInnehall.map((t) => (
-            <li key={t}>
-              <span className="cv4-bock" aria-hidden="true">
-                <Check size={14} strokeWidth={3.2} />
+        <ol className="cv4-steg">
+          {ANALYS.introSteg.map((s, i) => (
+            <li key={s.titel}>
+              <span className="cv4-nr">{i + 1}</span>
+              <span className="cv4-ktext">
+                <b>{s.titel}</b>
+                <span>{s.text}</span>
               </span>
-              {t}
             </li>
           ))}
-        </ul>
+        </ol>
         {data.lage === 'sparr' ? (
           <p className="cv4-kvot">
             <b>{getPaywallCopy('analys-omkorning').title}. </b>
@@ -519,89 +647,62 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         ) : (
           kvotRad
         )}
-        <div className="cv4-fordelar">
-          {ANALYS.fordelar.map((f, i) => {
-            const Ikon = ikoner[i];
-            return (
-              <div key={f.titel} className="cv4-fordel">
-                <span className="cv4-bock" aria-hidden="true">
-                  <Ikon size={16} strokeWidth={2.2} />
-                </span>
-                <b>{f.titel}</b>
-                <p>{f.text}</p>
-              </div>
-            );
-          })}
-        </div>
+        <p className="cv4-rad cv4-byt">{ANALYS.introBytCv}</p>
       </section>
     ) : null;
 
-  // Förslagen och siffrorna tillsammans (plusAllt), samma tal som väggen.
-  const delar = p ? p.kategorier.filter((k) => k.plusAllt > 0).map((k) => ({ ...k, plus: k.plusAllt })) : [];
-  const sasRaknas = (rid: string) => p ? (
-    <section className="cv4-kortet" aria-labelledby={rid}>
-      <p id={rid} className="cv4-ogon">
-        {ANALYS.sasOgon}
-      </p>
-      <div className="cv4-mojliga">
-        {p.plusAllt > 0 ? (
-          <>
-            <b>+{p.plusAllt}</b>
-            <span>{medSiffrorNu ? (p.plus > 0 ? ANALYS.mojligaMedSiffror : ANALYS.medSiffror) : ANALYS.mojliga}</span>
-          </>
-        ) : (
-          <span>{ANALYS.ingenOkning}</span>
-        )}
-      </div>
-      <div
-        className="cv4-stapel"
-        role="img"
-        aria-label={ANALYS.stapelAria(p.idag, delar.map((k) => `${k.namn} ger ${k.plus} till.`).join(' '))}
-      >
-        <span style={{ width: `${p.idag}%`, background: 'var(--koppar)' }} />
-        {delar.map((k, i) => (
-          <span key={k.id} style={{ width: `${k.plus}%`, background: FARGER[i % FARGER.length] }} />
-        ))}
-      </div>
-      <div className="cv4-delar">
-        <div className="cv4-del">
-          <span>
-            <i style={{ background: 'var(--koppar)' }} />
-            {ANALYS.idagRad}
-          </span>
-          <b>{p.idag}</b>
+  // Vägen till 100: i dag, våra förslag (förslag och siffror, samma tal som väggen) och resten.
+  const vagen = (rid: string) => {
+    if (!p || data.lage !== 'resultat') return null;
+    const forslag = Math.max(0, p.plusAllt);
+    const sjalv = Math.max(0, 100 - p.idag - forslag);
+    return (
+      <section className="cv4-kortet" aria-labelledby={rid}>
+        <p id={rid} className="cv4-ogon">
+          {ANALYS.vagenOgon}
+        </p>
+        <div className="cv4-stapel" role="img" aria-label={ANALYS.vagenAria(p.idag, forslag, sjalv)}>
+          <span style={{ width: `${p.idag}%`, background: 'var(--koppar)' }} />
+          {forslag > 0 ? <span style={{ width: `${forslag}%`, background: 'var(--cv3-ikon)' }} /> : null}
+          {sjalv > 0 ? <span className="cv4-stapel-sjalv" style={{ width: `${sjalv}%` }} /> : null}
         </div>
-        {delar.map((k, i) => (
-          <div key={k.id} className="cv4-del">
+        <div className="cv4-delar">
+          <div className="cv4-del">
             <span>
-              <i style={{ background: FARGER[i % FARGER.length] }} />
-              {k.namn}
+              <i style={{ background: 'var(--koppar)' }} />
+              {ANALYS.vagenIdag}
             </span>
-            <b>+{k.plus}</b>
+            <b>{p.idag}</b>
           </div>
-        ))}
-      </div>
-      <p className="cv4-forklaring">{ANALYS.forklaring}</p>
-      <details className="cv4-alla">
-        <summary>{ANALYS.allaDelar}</summary>
-        <ul>
-          {p.kategorier.map((k) => (
-            <li key={k.id}>
-              <span>{k.namn}</span>
+          {forslag > 0 ? (
+            <div className="cv4-del">
               <span>
-                {ANALYS.delAv(k.idag, k.max)}
-                {k.plusAllt > 0 ? ` (+${k.plusAllt})` : ''}
+                <i style={{ background: 'var(--cv3-ikon)' }} />
+                {ANALYS.vagenForslag}
               </span>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </section>
-  ) : null;
+              <b>+{forslag}</b>
+            </div>
+          ) : null}
+          <div className="cv4-del">
+            <span>
+              <i className="cv4-stapel-sjalv" />
+              {ANALYS.vagenSjalv}
+            </span>
+            <b>+{sjalv}</b>
+          </div>
+        </div>
+        <p className="cv4-forklaring">{ANALYS.forklaring}</p>
+      </section>
+    );
+  };
 
   const arkAlt = ANALYS.arkAlt(
-    data.lage === 'resultat' ? fynd.length : 0,
-    fynd.map((f) => (f.typ === 'roll' ? f.titel : f.typ === 'profil' ? 'sammanfattningen' : f.typ === 'siffror' ? ANALYS.siffrorAlt : 'kompetenserna')).join(', ')
+    data.lage === 'resultat'
+      ? delar
+          .filter((d) => ARKETS_AVSNITT[d.id])
+          .map((d) => `${d.nr} ${d.namn.toLowerCase()}`)
+          .join(', ')
+      : ''
   );
 
   const hoger = (
@@ -612,7 +713,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       <p className="cv4-mallrad">
         <b>{ANALYS.mallen(mall.namn)}</b> <Link href={mallarHref}>{ANALYS.seMallar}</Link>
       </p>
-      <div className="cv4-bara-dator">{sasRaknas('sa-raknas')}</div>
+      <div className="cv4-bara-dator">{vagen('vagen-till-100')}</div>
     </div>
   );
 
@@ -632,8 +733,8 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         <div className="cv4-golv">
           {resultatPanel ?? introPanel}
           {hoger}
-          {/* Telefon och mellanbredd: poängkortet efter fynden. */}
-          <div className="cv4-bara-mobil">{sasRaknas('sa-raknas-mobil')}</div>
+          {/* Telefon och mellanbredd: Vägen till 100 efter genomgången. */}
+          <div className="cv4-bara-mobil">{vagen('vagen-till-100-mobil')}</div>
         </div>
       </div>
       {sparr ? (

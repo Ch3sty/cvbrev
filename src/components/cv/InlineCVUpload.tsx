@@ -32,6 +32,8 @@ export default function InlineCVUpload({
   const [success, setSuccess] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(startFil);
+  // Serverns fas under uppladdningen: bildbaserad PDF läses med OCR och tar längre tid.
+  const [fasText, setFasText] = useState<string | null>(null);
 
   const { uploadCV, subscriptionTier } = useProfile();
 
@@ -68,17 +70,24 @@ export default function InlineCVUpload({
 
     setUploading(true);
     setError(null);
+    setFasText(null);
 
     try {
       // onComplete-callbacken ger oss raden direkt från uppladdningen, så vi
       // slipper gissa vilket CV som är det nyss uppladdade.
       const title = selectedFile.name.split('.').slice(0, -1).join('.');
-      await uploadCV(selectedFile, title, undefined, (cv) => {
-        setSuccess(true);
-        onComplete(cv);
-      });
+      await uploadCV(
+        selectedFile,
+        title,
+        (fas, label) => setFasText(fas === 'vision' ? label : null),
+        (cv) => {
+          setSuccess(true);
+          onComplete(cv);
+        }
+      );
     } catch (err: any) {
       setError(err.message || 'Ett oväntat fel uppstod vid uppladdning');
+      setFasText(null);
       setUploading(false);
     }
   }
@@ -178,9 +187,15 @@ export default function InlineCVUpload({
 
               {error && (
                 <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3">
-                  <p className="text-sm text-fel">{error}</p>
+                  <p className="whitespace-pre-line text-sm text-fel">{error}</p>
                 </div>
               )}
+
+              {uploading && fasText ? (
+                <p role="status" className="text-sm text-ink-2">
+                  {fasText}
+                </p>
+              ) : null}
 
               <button
                 onClick={handleUpload}

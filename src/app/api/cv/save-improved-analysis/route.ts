@@ -2,7 +2,8 @@ import { createServerClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { poangsattAnalys } from '@/lib/cv/poang';
-import { hamtaCvRad } from '@/lib/cv/poang/server';
+import { hamtaCvRad, hamtaKontaktKalla } from '@/lib/cv/poang/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,7 +37,26 @@ export async function POST(request: NextRequest) {
     //
     // forbattradSparad märker att ett förbättrat CV sparats, som nytt eller
     // på plats ("ersatt"): Ditt CV:s dokumentväg läser det som åtgärdat.
-    const { data: original } = await supabase
+    //
+    // Analysjobben läses och skrivs bara med service role (2026-11-21):
+    // användarens JWT når inte result och får inte skriva i tabellen.
+    // Villkoret på user_id gäller alltid, och CV:t måste vara hennes.
+    if (typeof cvId !== 'string' || !cvId) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+    const { data: egetCv } = await supabase
+      .from('cv_texts')
+      .select('id')
+      .eq('id', cvId)
+      .eq('user_id', user.id)
+      .maybeSingle();
+    if (!egetCv) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+    // cv_analysis_jobs saknas i de genererade typerna.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const admin = getSupabaseAdmin() as any;
+    const { data: original } = await admin
       .from('cv_analysis_jobs')
       .select('result')
       .eq('id', originalAnalysisId)
@@ -52,14 +72,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing analysis' }, { status: 400 });
     }
     const { selectedImprovements: _valt, gated: _g, ...utanVal } = grund as Record<string, unknown>;
-    const cvRad = await hamtaCvRad(supabase, typeof cvId === 'string' ? cvId : null);
-    const resultat = poangsattAnalys(
+    const [cvRad, kontakt] = await Promise.all([
+      hamtaCvRad(supabase, typeof cvId === 'string' ? cvId : null),
+      hamtaKontaktKalla(supabase, user.id, user),
+    ]);
+    // arkKontakt (profilens kontaktuppgifter så som arket visar dem) räknas
+    // vid varje läsning och sparas aldrig i analysraden.
+    const { arkKontakt: _ark, ...resultat } = poangsattAnalys(
       { ...utanVal, forbattradSparad: { at: new Date().toISOString(), satt: satt === 'ersatt' ? 'ersatt' : 'nytt' } },
-      cvRad
+      cvRad ? { ...cvRad, kontakt } : { kontakt }
     );
 
     // Create new analysis job with improved data
-    const { data: newAnalysis, error: insertError } = await supabase
+    const { data: newAnalysis, error: insertError } = await admin
       .from('cv_analysis_jobs')
       .insert({
         user_id: user.id,
@@ -69,7 +94,7 @@ export async function POST(request: NextRequest) {
         display_name: displayName,
         completed_at: new Date().toISOString()
       })
-      .select()
+      .select('id')
       .single();
 
     if (insertError) {

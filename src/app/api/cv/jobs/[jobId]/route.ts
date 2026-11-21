@@ -10,7 +10,7 @@ import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { analysForKlient } from '@/lib/cv/poang';
-import { hamtaCvRad } from '@/lib/cv/poang/server';
+import { hamtaCvRad, hamtaKontaktKalla } from '@/lib/cv/poang/server';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -35,8 +35,9 @@ export async function GET(
       return NextResponse.json({ message: 'Job ID saknas.' }, { status: 400 });
     }
 
-    // Hämta job status
-    const job = await getJobStatus(jobId);
+    // Hämta job status: med service role och bara användarens egen rad
+    // (result går inte att läsa med hennes JWT, se background-jobs.ts).
+    const job = await getJobStatus(jobId, user.id);
     if (!job) {
       return NextResponse.json({ message: 'Job hittades inte.' }, { status: 404 });
     }
@@ -74,15 +75,10 @@ export async function GET(
         }
       }
 
-      // Markera job som usage_counted
-      const { error: jobUpdateError } = await supabase
-        .from('cv_analysis_jobs')
-        .update({ usage_counted: true })
-        .eq('id', jobId);
-
-      if (jobUpdateError) {
-        console.error('Failed to mark job as usage_counted:', jobUpdateError);
-      }
+      // Här stod en uppdatering av usage_counted med användarens klient. Den
+      // träffade aldrig någon rad (RLS: UPDATE bara för service_role) och
+      // efter 2026-11-21 har användaren ingen skrivrätt alls i tabellen.
+      // Den är borttagen utan att beteendet ändras: kvoten räknar som förut.
     }
 
     // B7: aktiveringsmätningen. Denna gren låg tidigare inuti kvotgrenen ovan,
@@ -102,6 +98,7 @@ export async function GET(
         .from('cv_analysis_jobs')
         .update({ completion_handled: true })
         .eq('id', jobId)
+        .eq('user_id', user.id)
         .eq('completion_handled', false)
         .select('id')
         .maybeSingle();
@@ -148,6 +145,7 @@ export async function GET(
         .from('cv_analysis_jobs')
         .update({ usage_counted: false })
         .eq('id', jobId)
+        .eq('user_id', user.id)
         .eq('usage_counted', true)
         .select('id')
         .single();
@@ -190,8 +188,9 @@ export async function GET(
     // (analysForKlient), så att gratisnivån ser samma sak oavsett väg.
     let gatedResult: unknown;
     if (job.status === 'completed' && job.result && typeof job.result === 'object') {
-      const cvRad = await hamtaCvRad(supabase, job.cv_id);
-      gatedResult = analysForKlient(job.result as Record<string, unknown>, cvRad, hasFullAnalysis);
+      // Kontaktuppgifterna räknas som arket visar dem (poängmodellen version 2).
+      const [cvRad, kontakt] = await Promise.all([hamtaCvRad(supabase, job.cv_id), hamtaKontaktKalla(supabase, user.id, user)]);
+      gatedResult = analysForKlient(job.result as Record<string, unknown>, cvRad ? { ...cvRad, kontakt } : { kontakt }, hasFullAnalysis);
     } else {
       gatedResult = gateAnalysisResult(job.result, hasFullAnalysis);
     }

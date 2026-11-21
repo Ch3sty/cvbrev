@@ -5,7 +5,8 @@
  * preview-html/route.ts 2026-11-16 utan ändringar i beteendet.
  */
 import type { SupabaseClient, User } from '@supabase/supabase-js'
-import { arPlatshallareTitel, kontaktForCv } from '@/lib/profile/dokumentKontakt'
+import { arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
+import { kontaktPaArket } from '@/lib/cv/poang/kontakt'
 import { lasSparadeRubriker } from '@/lib/cv/mallar/sparade-rubriker'
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
@@ -64,8 +65,9 @@ export async function forberedInloggatCv(
       }
     }
     // Samma regel som PDF:en i generate-formatted: det användaren skrivit i
-    // CV:t vinner, profilen fyller tomma fält och platshållare.
-    const kontakt = kontaktForCv(cvData.personalInfo, userProfile, user, kontaktKalla)
+    // CV:t vinner, profilen fyller tomma fält och platshållare. Poängen läser
+    // kontaktuppgifterna med samma funktion (src/lib/cv/poang/kontakt.ts).
+    const kontakt = kontaktPaArket(cvData.personalInfo, userProfile, user, kontaktKalla)
     cvData.personalInfo.fullName = kontakt.fullName
     cvData.personalInfo.email = kontakt.email
     cvData.personalInfo.phone = kontakt.phone

@@ -50,10 +50,31 @@ const nextConfig: NextConfig = {
     // så att lambdan ger samma PDF som lokalt och aldrig hämtar typsnitt över nätet.
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*'],
     // pdf.js laddar sin arbetsfil (pdf.worker.mjs) med en dynamisk import som
-    // spårningen inte ser; utan den faller sidbilderna och vision-reserven.
+    // spårningen inte ser; utan den faller sidbilderna.
     '/api/jobbcoachen/upload': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
     '/api/public/quick-score': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
-    '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
+    // Bild-PDF:er läses med OCR i funktionen (src/lib/cv-parser/ocr.ts).
+    // Vår arbetstråd (ocr-trad.cjs) och tesseract.js egen arbetstråd startas
+    // ur filsökvägar, och kärnan läser sin .wasm från disk, så spårningen ser
+    // dem inte. Med här: trådskripten och deras beroenden, kärnorna (med och
+    // utan simd; tesseract.js 7 väljer i praktiken varianten utan -lstm, men
+    // båda tas med) och den svenska språkdatan. Inte .wasm.js-filerna, de är
+    // webbläsarens variant. Saknas något blir det beskedet för bildbaserad
+    // PDF, aldrig ett bildanrop till modellen.
+    '/api/cv/upload': [
+      './node_modules/@napi-rs/canvas/**/*',
+      './node_modules/pdfjs-dist/legacy/build/**/*',
+      './src/lib/cv-parser/ocr-trad.cjs',
+      './node_modules/tesseract.js/package.json',
+      './node_modules/tesseract.js/src/**/*',
+      './node_modules/tesseract.js/node_modules/regenerator-runtime/**/*',
+      './node_modules/tesseract.js-core/package.json',
+      './node_modules/tesseract.js-core/tesseract-core{,-simd,-relaxedsimd}{,-lstm}.{js,wasm}',
+      './node_modules/wasm-feature-detect/**/*',
+      './node_modules/is-url/**/*',
+      './node_modules/bmp-js/**/*',
+      './node_modules/@tesseract.js-data/swe/4.0.0_best_int/swe.traineddata.gz',
+    ],
     // Helskärmens sidor (src/lib/cv/mallar/sidbilder.ts): nedladdningens PDF-kedja
     // och pdf.js med @napi-rs/canvas som ritar sidorna.
     '/api/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
@@ -66,7 +87,8 @@ const nextConfig: NextConfig = {
 
   // Markera dessa paket som externa för serverside bundling
   // (native bindings i .node-filer kan inte bundlas av Turbopack)
-  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core', '@napi-rs/canvas', 'pdfjs-dist'],
+  // tesseract.js: arbetstråden hittas via __dirname, så paketet får inte buntas.
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core', '@napi-rs/canvas', 'pdfjs-dist', 'tesseract.js', 'tesseract.js-core'],
 
   // Tillåt TypeScript errors i builds (om det behövs)
   typescript: {
@@ -78,7 +100,7 @@ const nextConfig: NextConfig = {
     // Specifik hantering för PDF.js och pdf-parse
     if (isServer) {
       // @ts-ignore - config.externals kan vara undefined
-      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth', 'canvas', 'pdf-parse', '@napi-rs/canvas'];
+      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth', 'canvas', 'pdf-parse', '@napi-rs/canvas', 'tesseract.js'];
     }
     
     // Lägg till node-polyfills

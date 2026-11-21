@@ -15,6 +15,16 @@ export {
 } from './modell'
 export { kanonisktCv, sprakUrText } from './kanon'
 export {
+  genomgang,
+  delarMedPoangKvar,
+  type GenomgangDel,
+  type GenomgangKontroll,
+  type GenomgangAvsnitt,
+  type KontrollStatus,
+  type Brist,
+} from './genomgang'
+export { arkKontakt, kontaktPaArket, PROFIL_KONTAKT_FALT, type ArkKontakt, type KontaktKalla } from './kontakt'
+export {
   KOMPLETTERANDE,
   byggForbattratCv,
   poangMedVal,

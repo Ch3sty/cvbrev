@@ -58,6 +58,48 @@ export function pastaenden(rader: readonly unknown[]): string[] {
 }
 
 /**
+ * Är punkterna bara nyckelord? Ja när färre än hälften av dem har minst tre
+ * ord ("inköp", "drift", "personal"). Tom lista räknas inte som nyckelord.
+ */
+export function arNyckelord(punkter: readonly string[]): boolean {
+  if (punkter.length === 0) return false
+  const hela = punkter.filter((p) => ord(p).length >= 3).length
+  return hela * 2 < punkter.length
+}
+
+/**
+ * Raderna en inläst roll (roles-formatet) ritas och poängsätts på. Arket
+ * (normalizeStructuredData) och poängen (kanonisktCv) läser båda härifrån, så
+ * att det som står i personens CV är det som ritas och räknas.
+ *
+ *  - Inga punkter: beskrivningen delad på radbrytning och punkttecken.
+ *  - Punkterna är nyckelord och beskrivningen har minst åtta ord och fler ord
+ *    än punkterna tillsammans: beskrivningen. Äldre inläsningar bad modellen
+ *    korta rollen till nyckelord, och då låg personens egna meningar bara i
+ *    beskrivningen.
+ *  - Annars: punkterna.
+ *
+ * Ren och idempotent, beror aldrig på datum, slump eller modell. Klientsäker.
+ */
+export function rollensRader(responsibilities: unknown, description: unknown): string[] {
+  const punkter = Array.isArray(responsibilities)
+    ? responsibilities.filter((s): s is string => typeof s === 'string' && s.trim().length > 0).map((s) => s.trim())
+    : []
+  const beskrivning = typeof description === 'string' ? description : ''
+  const text = beskrivning
+    .split(/[\n•·]/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+  if (punkter.length === 0) return text
+  if (arNyckelord(punkter)) {
+    const beskrivningsOrd = ord(beskrivning).length
+    const punktOrd = punkter.reduce((n, p) => n + ord(p).length, 0)
+    if (beskrivningsOrd >= 8 && beskrivningsOrd > punktOrd) return text
+  }
+  return punkter
+}
+
+/**
  * Platshållaren som förslagen använder där användaren ska fylla i ett eget
  * tal. Förslag hittar aldrig på siffror (docs/poangmodell-cv-analys.md).
  */
@@ -101,11 +143,13 @@ export function ersattPahittadeTal(text: string, kanda: ReadonlySet<string>): { 
 }
 
 const TALORD =
-  /\b(två|tre|fyra|fem|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|procent|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
+  /\b(två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
 
 /**
  * Har påståendet ett tal som säger något: antal, belopp, procent eller tid.
  * Årtal (1950 till 2099) räknas inte, de är datum och inte resultat.
+ * Ordet "procent" ensamt är inget tal: "[antal] procent" räknas först när
+ * talet är ifyllt.
  */
 export function harTal(text: string): boolean {
   if (!text) return false
@@ -149,6 +193,8 @@ const VERB = new Set(
   åtgärdar åtgärdade åtgärdat felsöker felsökte felsökt övervakar övervakade övervakat
   uppdaterar uppdaterade uppdaterat underhåller vidareutvecklar vidareutvecklade vidareutvecklat
   digitaliserar digitaliserade digitaliserat automatiserar automatiserade automatiserat
+  löser löste löst bemöter bemötte bemött möter mötte mött ställer ställde ställt ringer ringde ringt
+  skriver skrev skrivit når nådde nått vinner vann vunnit sätter satte satt väljer valde valt
   `
     .split(/\s+/)
     .filter(Boolean)

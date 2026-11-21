@@ -11,7 +11,7 @@ import { analyzeCvBasic } from '@/lib/openai/cv-analysis';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 import { markFirstMilestone } from '@/lib/activation-tracking';
 import { poangForRad } from '@/lib/cv/poang';
-import { sakerstallStruktur } from '@/lib/cv/poang/server';
+import { hamtaKontaktKalla, sakerstallStruktur } from '@/lib/cv/poang/server';
 
 export const maxDuration = 30;
 
@@ -59,11 +59,13 @@ export async function POST(request: NextRequest) {
     // Poängen kommer INTE därifrån: den räknas med samma funktion som
     // CV-analysen, ur CV:ts sparade struktur (docs/poangmodell-cv-analys.md),
     // så att snabbpoängen och analysen aldrig säger emot varandra.
-    const [analysis, cvRad] = await Promise.all([
+    const [analysis, cvRad, kontakt] = await Promise.all([
       analyzeCvBasic(cv.cv_text, { fullName: nameRow?.full_name ?? null }),
       sakerstallStruktur(supabase, cvId),
+      hamtaKontaktKalla(supabase, user.id, user),
     ]);
-    const score = poangForRad(cvRad);
+    // Kontaktuppgifterna som arket visar dem (poängmodellen version 2).
+    const score = poangForRad(cvRad ? { ...cvRad, kontakt } : null);
 
     // Spåra kostnad (icke-blockerande)
     if (analysis.tokens) {

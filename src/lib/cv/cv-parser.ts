@@ -14,7 +14,13 @@ export interface ParsedRole {
   company: string;        // e.g., "Fitnessworld Skärholmen"
   period: string;         // e.g., "2014 - pågående"
   description: string;    // Full text from CV
-  responsibilities: string[]; // ["inköp", "drift", "personal"]
+  /**
+   * Rollens punkter eller meningar ordagrant som de står i CV:t, en per post.
+   * Äldre inläsningar (före 2026-11-21) har korta nyckelord här
+   * (["inköp", "drift", "personal"]); rollensRader i poang/matt.ts väljer då
+   * beskrivningen i stället.
+   */
+  responsibilities: string[];
   originalText: string;   // Exact text from CV for this role
 }
 
@@ -95,7 +101,7 @@ Returnera en JSON-struktur med följande format:
       "company": "Företagsnamn",
       "period": "Tidsperiod (t.ex. '2014 - pågående')",
       "description": "Full beskrivning av rollen från CV:t",
-      "responsibilities": ["ansvar1", "ansvar2"],
+      "responsibilities": ["Rollens första punkt eller mening ordagrant från CV:t", "Nästa punkt eller mening ordagrant"],
       "originalText": "Exakt text från CV:t för denna roll"
     }
   ],
@@ -120,6 +126,7 @@ KRITISKA REGLER FÖR SVENSKA CV:n:
 4. Om någon "agerade projektledare" inom annan roll, behåll originaltiteln (t.ex. "Målare")
 5. Extrahera EXAKT företagsnamn efter kommatecken i rollbeskrivningar
 6. Vid sammmanhängande text, identifiera var varje ny roll börjar
+7. responsibilities är rollens punkter eller meningar ORDAGRANT som de står i CV:t, en per post. Skriv inte om dem och korta dem ALDRIG till nyckelord. Står rollen som löpande text: en post per mening.
 
 REGLER FÖR SPRÅK (languages):
 1. Ta BARA med språk som uttryckligen står i CV-texten: i ett avsnitt som "Språk", "Språkkunskaper" eller "Languages", eller i löptext som "flytande engelska" eller "talar arabiska".
@@ -139,7 +146,7 @@ Exempel på KORREKT rollextraktion:
   "company": "Fitnessworld Skärholmen",  // INTE "ansvarig"!
   "period": "2014 - pågående",
   "description": "Platschef för Fitnessworlds största anläggning, administrativt arbete med influenser av HR och personalansvar. Är i dagsäget ansvarig för inköp, drift, personal...",
-  "responsibilities": ["inköp", "drift", "personal", "webbsidan", "medlemssystem", "statistik"],
+  "responsibilities": ["Platschef för Fitnessworlds största anläggning, administrativt arbete med influenser av HR och personalansvar.", "Är i dagsäget ansvarig för inköp, drift, personal..."],
   "originalText": "Platschef, Fitnessworld Skärholmen Stockholm, 2014-pågående. Platschef för Fitnessworlds största anläggning... Är i dagsäget ansvarig för inköp..."
 }
 
@@ -148,7 +155,7 @@ Exempel på KORREKT rollextraktion:
   "company": "Lingfjords Fasadtvätt AB",
   "period": "2014",
   "description": "Utförde renovering av taket på Vårbergsskolan, eget ansvar över 5.000kvm. Agerade projektledare...",
-  "responsibilities": ["renovering", "projektledning", "tid- och kostnadsplanering", "besiktning"],
+  "responsibilities": ["Utförde renovering av taket på Vårbergsskolan, eget ansvar över 5.000kvm.", "Agerade projektledare..."],
   "originalText": "Målare, Lingfjords Fasadtvätt AB Stockholm, Vårberg — 2014-2014..."
 }`;
 
@@ -157,9 +164,10 @@ Exempel på KORREKT rollextraktion:
       systemInstruction: 'Du är en expert på att analysera och strukturera CV-information. Svara alltid med giltig JSON.',
       prompt,
       temperature: 0.1, // Låg temperatur för konsekvent parsning
-      // 2600 sedan språken kom med (2026-11-21): ett kapat svar blir
+      // 2600 sedan språken kom med (2026-11-21), 4000 sedan rollens meningar
+      // skrivs ordagrant i responsibilities (samma dag): ett kapat svar blir
       // ogiltig JSON och faller till reserven.
-      maxOutputTokens: 2600,
+      maxOutputTokens: 4000,
       thinkingBudget: 0,
     });
 

@@ -27,6 +27,7 @@ import type { Aterupptagning } from '../aterupptagning';
 import { flikHref } from '@/components/cv/rum3/flikar'
 import { useRouter } from 'next/navigation'
 import type { SaveChoice } from './save/SaveActionSegments'
+import { siffrorIRoll } from './review/ChangeLogList'
 import {
   byggForbattratCv,
   poangMedVal,
@@ -59,6 +60,11 @@ interface CVAnalysisWizardProps {
   aterupptagning?: Aterupptagning | null;
   /** CV:t är redan valt (Analys-sidans knapp): flödet börjar i analysen. */
   startCvId?: string | null;
+  /**
+   * En ny analys är klar: sidan tar henne till genomgången för CV:t (Analys
+   * i läget resultat) i stället för flödets äldre översiktssteg.
+   */
+  onAnalysisDone?: (cvId: string) => void;
 }
 
 const STEP_META: Record<
@@ -114,6 +120,7 @@ export default function CVAnalysisWizard({
   onComplete,
   aterupptagning = null,
   startCvId = null,
+  onAnalysisDone,
 }: CVAnalysisWizardProps) {
   const router = useRouter();
   const ater = aterupptagning;
@@ -450,7 +457,14 @@ export default function CVAnalysisWizard({
       setProgress(100);
       setEstimatedTimeRemaining(0);
 
-      setTimeout(() => handleNext(), 1500);
+      // Klart: till genomgången för CV:t (Analys i läget resultat). Stegen
+      // välj, granska och spara nås därifrån som förut.
+      if (onAnalysisDone && selectedCV) {
+        const cvId = selectedCV;
+        setTimeout(() => onAnalysisDone(cvId), 600);
+      } else {
+        setTimeout(() => handleNext(), 1500);
+      }
     } catch (error) {
       clearInterval(progressInterval);
       clearTimeout(watchdog);
@@ -942,18 +956,26 @@ export default function CVAnalysisWizard({
                       .sort((a, b) => a - b)
                       .map((idx: number) => {
                         const r = analysisResult.roleBasedImprovements[idx];
+                        const improvedText =
+                          editedRoleTexts.get(idx) || r?.suggestedText || '';
+                        // Etiketterna ska vara sanna: Kvantifierat bara med ett
+                        // riktigt tal, [antal] som står kvar får en egen etikett.
+                        const siffror = siffrorIRoll(
+                          improvedText,
+                          !r?.improvements?.hasQuantification
+                        );
                         return {
                           index: idx,
                           roleTitle: r?.roleTitle || `Roll ${idx + 1}`,
                           company: r?.company || '',
                           period: r?.period || '',
                           currentText: r?.currentText || '',
-                          improvedText:
-                            editedRoleTexts.get(idx) || r?.suggestedText || '',
+                          improvedText,
                           keywordsAdded: Array.isArray(r?.improvements?.keywords)
                             ? r.improvements.keywords.length
                             : 0,
-                          quantified: !r?.improvements?.hasQuantification,
+                          quantified: siffror.kvantifierat,
+                          platshallareKvar: siffror.platshallareKvar,
                           atsImpact: Math.max(
                             0,
                             plusFor({ profil: false, roller: [idx], kompetenser: [] })

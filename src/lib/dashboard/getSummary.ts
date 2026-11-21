@@ -348,14 +348,10 @@ async function hamtaParallellt(supabase: any, userId: string): Promise<Rader> {
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
       .not('completed_at', 'is', null),
-    supabase
-      .from('cv_analysis_jobs')
-      .select('result->atsFriendliness->>score')
-      .eq('user_id', userId)
-      .eq('status', 'completed')
-      .order('completed_at', { ascending: false, nullsFirst: false })
-      .limit(1)
-      .maybeSingle(),
+    // Det sparade talet i result läses inte längre (poängen räknas i
+    // senasteAnalysPoang), och result går inte att läsa med användarens JWT
+    // sedan 2026-11-21. Platsen står kvar så att raderna har samma form.
+    Promise.resolve({ data: null }),
     // Sidomenyns adminlänk. Menyn frågade själv efter mount.
     supabase
       .from('admin_users')

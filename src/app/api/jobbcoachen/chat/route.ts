@@ -6,6 +6,7 @@ import { suggestPlan, type Scope } from '@/lib/access/features';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { paketKort } from '@/lib/plans/plans';
+import { maskeraBilagor, type Agare } from '@/lib/jobbcoachen/bilagor';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -49,7 +50,8 @@ VAD DU INTE GÖR:
 - Hälsa BARA i första svaret i en konversation. Om historik finns: hoppa rakt in i svaret utan "Hej!" eller "Hej igen!".`;
 
 function historyToOpenAIMessages(
-  history: Array<{ role: string; content: any }>
+  history: Array<{ role: string; content: any }>,
+  agare: Agare | null
 ): Array<{ role: 'user' | 'assistant'; content: string }> {
   return history
     .filter((m) => m.role === 'user' || m.role === 'assistant')
@@ -58,7 +60,9 @@ function historyToOpenAIMessages(
       const text = typeof c === 'string' ? c : (c.text || '');
 
       if (m.role === 'user' && Array.isArray(c.attachments) && c.attachments.length > 0) {
-        const attachmentBlock = c.attachments
+        // Tidigare bifogade dokument maskas på nytt varje gång de skickas med
+        // som historik; i databasen ligger de som hon laddade upp dem.
+        const attachmentBlock = maskeraBilagor(c.attachments, agare)
           .map((att: any, idx: number) =>
             `[Dokument ${idx + 1}] ${att.file_name} (${(att.file_type || '').toUpperCase()}):\n${att.extracted_text || ''}`
           )
@@ -187,12 +191,16 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Get user profile for context
+    // Get user profile for context. Namn och nummer läses bara för
+    // maskeringen av bifogade dokument och går aldrig till modellen.
     const { data: profile } = await supabase
       .from('profiles')
-      .select('location, goal_role, industry')
+      .select('location, goal_role, industry, full_name, phone')
       .eq('id', user.id)
       .single();
+    const agare: Agare | null = profile
+      ? { full_name: (profile as Agare).full_name ?? null, phone: (profile as Agare).phone ?? null }
+      : null;
 
     // Create embedding for user query + perform RAG search
     // (hoppas över om meddelandet är tomt, t.ex. enbart bifogade dokument)
@@ -235,18 +243,19 @@ Stad: ${profile.location || 'Ej angivet'}
 Bransch: ${profile.industry || 'Ej angivet'}`
       : 'Ingen profilinformation tillgänglig';
 
-    // Build attachment context if present
+    // Build attachment context if present. Bifogade dokument maskas före
+    // modellen (lib/jobbcoachen/bilagor.ts); frågan hon skriver gör det inte.
     let attachmentContext = '';
     if (attachments && attachments.length > 0) {
       attachmentContext = '\n\nBIFOGADE DOKUMENT:\n';
-      attachments.forEach((att: any, idx: number) => {
+      maskeraBilagor(attachments, agare).forEach((att: any, idx: number) => {
         attachmentContext += `\n[Dokument ${idx + 1}] ${att.file_name} (${att.file_type.toUpperCase()}):\n${att.extracted_text}\n---\n`;
       });
     }
 
     // Prepare conversation contents for Gemini (system prompt går via systemInstruction)
     const contents = chatContents([
-      ...historyToOpenAIMessages(history),
+      ...historyToOpenAIMessages(history, agare),
       {
         role: 'user',
         content: `ANVÄNDARPROFIL:

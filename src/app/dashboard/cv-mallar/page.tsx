@@ -12,6 +12,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import CvMallarClient, { type InitialCv } from './CvMallarClient'
 import { getUserScope, getCvGrans } from '@/lib/supabase/premiumAccess'
 import { scopeHasFeature, type Scope } from '@/lib/access/features'
@@ -31,7 +32,7 @@ import { valFor } from '@/lib/cv/bygg/kalla'
 import type { ByggCv } from '@/lib/cv/bygg/modell'
 import { poangUrAnalys, medForslagUrAnalys } from '@/lib/rum/cvRum'
 import { analysPerCv, atgardadAtFor, underlagForCv, type AnalysRad, type CvRadMedFil } from '@/lib/cv/analys/cvAnalys'
-import { poangForRad, type CvRad } from '@/lib/cv/poang'
+import { poangForRad, PROFIL_KONTAKT_FALT, type CvRad, type KontaktKalla } from '@/lib/cv/poang'
 
 type Sok = Record<string, string | string[] | undefined> & {
   cv?: string | string[]
@@ -68,13 +69,14 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let prisLang = pris
   let kampanj: { pris: string; ordinarie: string } | null = null
   let nedladdadMall: string | null = null
+  let kontakt: KontaktKalla | null = null
 
   try {
     const [cvRes, profileRes, scopeRes, grans, kamp, nedRes] = await Promise.all([
       supabase.from('cv_texts').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
       supabase
         .from('profiles')
-        .select('premium_until, onboarding_track, price_id, subscription_status, free_cv_exports_used, profile_photo_url')
+        .select(`premium_until, onboarding_track, price_id, subscription_status, free_cv_exports_used, profile_photo_url, ${PROFIL_KONTAKT_FALT}`)
         .eq('id', user.id)
         .maybeSingle(),
       getUserScope(supabase, user.id),
@@ -102,6 +104,8 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       free_cv_exports_used?: number | null
       profile_photo_url?: string | null
     } | null
+    // Kontaktuppgifterna som arket visar dem (poängmodellen version 2).
+    kontakt = { profil: (profileRes.data as KontaktKalla['profil']) ?? null, anvandare: user }
     scope = scopeRes
     isPremium = scopeHasFeature(scope, 'cv_templates_all')
     harWord = scopeHasFeature(scope, 'cv_export_word')
@@ -148,7 +152,8 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let jobbPerCv: Record<string, string> = {}
   let analysRader: AnalysRad[] = []
   try {
-    const { data } = await supabase
+    // Fält ur result: service role, bara hennes egna rader (2026-11-21).
+    const { data } = await getSupabaseAdmin()
       .from('cv_analysis_jobs')
       .select('id, cv_id, completed_at, forbattrad:result->forbattradSparad, valda:result->selectedImprovements')
       .eq('user_id', user.id)
@@ -159,7 +164,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     jobbPerCv = analysPerCv(analysRader)
     for (const cv of cvRows) {
       if (!jobbPerCv[cv.id]) continue
-      const p = poangForRad(cv as unknown as CvRad)
+      const p = poangForRad({ ...(cv as unknown as CvRad), kontakt })
       if (p !== null) poangPerCv[cv.id] = p
     }
   } catch (error) {
@@ -168,12 +173,12 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   const vagPerCv: Record<string, { uppladdat: 'uppladdat' | 'utkast'; analyserat: boolean; atgardat: boolean }> = {}
   const valt = cvRows.find((c) => c.id === initialSelectedCvId)
   if (valt) {
-    const valtRad = valt as unknown as CvRadMedFil
+    const valtRad = { ...(valt as unknown as CvRadMedFil), kontakt }
     const alla = cvRows as unknown as CvRadMedFil[]
     const atgardat = atgardadAtFor(valtRad, alla, analysRader) !== null
     let analyserat = false
     try {
-      const underlag = await underlagForCv(supabase, user.id, valtRad, alla, jobbPerCv, null, {
+      const underlag = await underlagForCv(getSupabaseAdmin(), user.id, valtRad, alla, jobbPerCv, null, {
         harFull: scopeHasFeature(scope, 'cv_analysis_full'),
       })
       const poang = poangUrAnalys(underlag)

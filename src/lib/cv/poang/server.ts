@@ -12,11 +12,28 @@
  * struktur, samma skrivning som /api/cv/structure gör.
  */
 import 'server-only'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { kanonisktCv } from './kanon'
 import { poangForRad, type CvRad } from './forslag'
+import { PROFIL_KONTAKT_FALT, type KontaktKalla } from './kontakt'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = any
+
+/**
+ * Profilen som arket fyller kontaktuppgifterna ur (poängmodellen version 2,
+ * kontakt.ts). Samma kolumner som förhandsvisningen läser. Utan profilrad
+ * (eller vid fel) räknar poängen på CV:ts egna fält, som arket då visar.
+ */
+export async function hamtaKontaktKalla(
+  supabase: Klient,
+  userId: string,
+  anvandare?: { email?: string | null } | null
+): Promise<KontaktKalla> {
+  const { data, error } = await supabase.from('profiles').select(PROFIL_KONTAKT_FALT).eq('id', userId).maybeSingle()
+  if (error) console.error('[poang] kunde inte läsa profilens kontaktuppgifter', error.message)
+  return { profil: (data as KontaktKalla['profil']) ?? null, anvandare: anvandare ?? null }
+}
 
 /** CV-raden (structured_data och cv_text), eller null. */
 export async function hamtaCvRad(supabase: Klient, cvId: string | null | undefined): Promise<CvRad | null> {
@@ -67,7 +84,10 @@ export async function sakerstallStruktur(supabase: Klient, cvId: string): Promis
  * ingen struktur används analysens egen sparade struktur. null utan analys.
  */
 export async function senasteAnalysPoang(supabase: Klient, userId: string): Promise<number | null> {
-  const { data, error } = await supabase
+  // Analysraden läses med service role och userId i villkoret: result går
+  // inte att läsa med användarens JWT (2026-11-21). Bara strukturen används,
+  // och ut går bara ett tal. CV-raden läses med anroparens klient.
+  const { data, error } = await getSupabaseAdmin()
     .from('cv_analysis_jobs')
     .select('cv_id, struktur:result->structuredCV')
     .eq('user_id', userId)
@@ -77,8 +97,8 @@ export async function senasteAnalysPoang(supabase: Klient, userId: string): Prom
     .maybeSingle()
   if (error || !data) return null
   const rad = data as { cv_id: string | null; struktur: unknown }
-  const cv = await hamtaCvRad(supabase, rad.cv_id)
-  return poangForRad(cv, rad.struktur)
+  const [cv, kontakt] = await Promise.all([hamtaCvRad(supabase, rad.cv_id), hamtaKontaktKalla(supabase, userId)])
+  return poangForRad(cv ? { ...cv, kontakt } : { kontakt }, rad.struktur)
 }
 
 /**
@@ -87,16 +107,19 @@ export async function senasteAnalysPoang(supabase: Klient, userId: string): Prom
  */
 export async function poangForAnalyser(
   supabase: Klient,
-  analyser: ReadonlyArray<{ cv_id: string | null; struktur?: unknown }>
+  analyser: ReadonlyArray<{ cv_id: string | null; struktur?: unknown }>,
+  userId?: string | null
 ): Promise<number[]> {
   const ids = [...new Set(analyser.map((a) => a.cv_id).filter((x): x is string => Boolean(x)))]
   const rader = new Map<string, CvRad>()
+  const kontakt = userId ? await hamtaKontaktKalla(supabase, userId) : null
   if (ids.length > 0) {
     const { data } = await supabase.from('cv_texts').select('id, structured_data, cv_text').in('id', ids)
     for (const r of (data ?? []) as Array<CvRad & { id: string }>) rader.set(r.id, r)
   }
   return analyser.flatMap((a) => {
-    const p = poangForRad(a.cv_id ? rader.get(a.cv_id) ?? null : null, a.struktur)
+    const rad = a.cv_id ? rader.get(a.cv_id) ?? null : null
+    const p = poangForRad(rad ? { ...rad, kontakt } : { kontakt }, a.struktur)
     return p === null ? [] : [p]
   })
 }

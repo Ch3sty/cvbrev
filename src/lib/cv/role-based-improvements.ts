@@ -6,6 +6,7 @@
 
 import { generateJSON, generateText, GEMINI_MODELS } from '@/lib/gemini';
 import { ParsedRole } from './cv-parser';
+import { arNyckelord } from './poang/matt';
 
 export interface RoleBasedImprovement {
   id: string;
@@ -760,6 +761,11 @@ function extractRelevantText(role: ParsedRole, context: any): string {
 
   // Default to responsibilities if available
   if (role.responsibilities && role.responsibilities.length > 0) {
+    // Sedan 2026-11-21 är punkterna personens egna meningar. Då citeras den
+    // första som den står. Äldre inläsningar har nyckelord ("inköp", "drift"),
+    // och de fogas ihop som förut.
+    const punkter = role.responsibilities.filter((p) => typeof p === 'string' && p.trim());
+    if (punkter.length > 0 && !arNyckelord(punkter)) return punkter[0].trim().substring(0, 100);
     return `Ansvarig för ${role.responsibilities.slice(0, 3).join(', ')}`.substring(0, 100);
   }
 

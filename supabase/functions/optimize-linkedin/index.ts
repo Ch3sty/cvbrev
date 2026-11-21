@@ -718,8 +718,32 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // SÄKERHET (2026-11-21): användaren tas ur JWT:n, aldrig ur kroppen.
+    // Förr styrde kroppens user_id både kvoten och vems rad som skrevs, så ett
+    // påhittat eller främmande id gav obegränsade optimeringar. Kroppens
+    // user_id godtas bara om det är samma konto som JWT:n.
+    // Driftsätt aldrig med --no-verify-jwt.
+    const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
+    const { data: authData, error: authError } = token
+      ? await supabase.auth.getUser(token)
+      : { data: { user: null }, error: null };
+    const authUser = authData?.user ?? null;
+    if (authError || !authUser) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const body: OptimizationRequest = await req.json();
-    const { sections, mode, target_role, language = 'sv', user_id } = body;
+    const { sections, mode, target_role, language = 'sv' } = body;
+    if (body.user_id && body.user_id !== authUser.id) {
+      return new Response(
+        JSON.stringify({ error: 'Forbidden' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    const user_id = authUser.id;
 
     // Validation
     if (!sections.about?.trim()) {
