@@ -26,6 +26,7 @@ function tjanst(p: Partial<TjanstLage>): TjanstLage {
     dagarTyst: 15,
     tystSedan: '2026-11-18',
     intervju: null,
+    kalladTillTest: null,
     harUtkast: false,
     senastUppfoljd: null,
     harBrev: false,
@@ -68,6 +69,15 @@ function kalladUtanTid(): TjanstLage {
 }
 
 describe('tjanstRad', () => {
+  it('kallad till test (9 B): texten, telefonraden, steg 2 och statusens text', () => {
+    const r = tjanstRad(tjanst({ status: 'test_invited', foljUppTyp: null, kalladTillTest: '2026-11-19' }), IDAG)
+    expect(r.text).toBe('Kallad till test 19 nov. Lägg till intervjun eller beskedet när det kommer.')
+    expect(r.textMobil).toBe('Ekonomiassistent. Kallad till test 19 nov.')
+    expect(r.steg).toEqual({ steg: 2 })
+    expect(r.status).toEqual({ status: 'vantar', text: 'Kallad till test' })
+    expect(r.href).not.toContain('folj-upp')
+  })
+
   it('tyst tjänst: Följ upp, kopparbricka och länk till uppföljningen', () => {
     const r = tjanstRad(tjanst({ tyst: true }), IDAG)
     expect(r.status.status).toBe('folj-upp')
@@ -186,6 +196,10 @@ describe('Att göra nu', () => {
     text: 'Tre av sju frågor övade. Börja med Ett problem du löste.',
     knapp: { text: 'K', href: '/x' },
     ansokanId: 't1',
+  })
+  it('telefonens kort för uppdatera_test (9 B)', () => {
+    const t = tjanst({ status: 'test_invited', foljUppTyp: null, kalladTillTest: '2026-11-07' })
+    expect(goraMobil(h('uppdatera_test'), [t])).toEqual({ rubrik: 'Vad hände efter testet?', text: 'Norrmejerier. Kallad till test 7 nov.' })
   })
   it('första kortet i väggens färg, uppföljning tyst', () => {
     expect(goraTon(h('folj_upp'), 0)).toBe('nu')

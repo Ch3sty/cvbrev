@@ -63,11 +63,14 @@ export function tolkaSoktaAdress(p: Parametrar): SoktaAdress {
  * varifrån länken kom (t.ex. 'oversikt-ny') så att sidvisningen i PostHog
  * visar källan; tolkaSoktaAdress läser den inte och sidan låter den stå kvar.
  */
-export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; manad?: string; fran?: string } = {}): string {
+export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; tjanst?: string; arbetsgivare?: string; manad?: string; fran?: string } = {}): string {
   const q = new URLSearchParams()
   if (a.vy && a.vy !== 'lista') q.set('vy', a.vy)
   if (a.filter && a.filter !== 'alla') q.set('filter', a.filter)
   if (a.logga) q.set('logga', a.logga === 'sokt' ? '1' : 'ska-soka')
+  // Arket Logga sökt tjänst förifyllt (9.15): sidan läser dem i forifylltUr.
+  if (a.tjanst) q.set('tjanst', a.tjanst)
+  if (a.arbetsgivare) q.set('arbetsgivare', a.arbetsgivare)
   if (a.manad) q.set('manad', a.manad)
   if (a.fran) q.set('fran', a.fran)
   const s = q.toString()
@@ -76,10 +79,16 @@ export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt
 
 const FOKUS: readonly Exclude<TjanstFokus, null>[] = ['forbered', 'folj-upp', 'hur-gick', 'andra-tid']
 
-/** Länk till en sökt tjänst, med det block sidan ska öppna i (?steg=). */
-export function tjanstHref(id: string, fokus: TjanstFokus = null): string {
-  const bas = `${SOKTA_HREF}/${encodeURIComponent(id)}`
-  return fokus ? `${bas}?steg=${fokus}` : bas
+/**
+ * Länk till en sökt tjänst, med det block sidan ska öppna i (?steg=). `fran`
+ * märker källan (t.ex. 'intervju-hubb', byggspec 9.6); tolkaTjanstAdress läser den inte.
+ */
+export function tjanstHref(id: string, fokus: TjanstFokus = null, fran?: string): string {
+  const q = new URLSearchParams()
+  if (fokus) q.set('steg', fokus)
+  if (fran) q.set('fran', fran)
+  const s = q.toString()
+  return `${SOKTA_HREF}/${encodeURIComponent(id)}${s ? `?${s}` : ''}`
 }
 
 /** Vilket block tjänstens sida ska öppna i. */

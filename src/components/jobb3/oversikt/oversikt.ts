@@ -16,6 +16,7 @@ import {
   narText,
   ordtal,
   sedanDuTittade,
+  testRadText,
   tjanstHref,
   type AttGoraHandling,
   type Bana,
@@ -105,6 +106,12 @@ export function goraMobil(h: AttGoraHandling, tjanster: readonly TjanstLage[]): 
       const text = t ? `${t.company}.${kallad ? ` Kallad ${kortDag(kallad)}.` : ''}` : undefined
       return { rubrik: 'Sätt tiden för intervjun', text }
     }
+    case 'uppdatera_test': {
+      // Kallad till test, fjorton dagar efter kallelsen (9 B).
+      const kallad = t?.kalladTillTest
+      const text = t ? `${t.company}.${kallad ? ` Kallad till test ${kortDag(kallad)}.` : ''}` : undefined
+      return { rubrik: 'Vad hände efter testet?', text }
+    }
     default:
       return {}
   }
@@ -175,6 +182,17 @@ export function tjanstRad(t: TjanstLage, idag: Dag): TjanstRadData {
     }
     const rad = intervjuText(t, idag)
     return { ...bas, text: rad, textMobil: mobil(rad.split('. ')[0] + '.'), steg: { steg: 3 }, status: { status: 'vantar-besked' } }
+  }
+  // Kallad till test (9 B): aldrig tyst, steg 2 (Svar).
+  if (t.status === 'test_invited') {
+    const kallad = t.kalladTillTest ? ` ${kortDag(t.kalladTillTest)}` : ''
+    return {
+      ...bas,
+      text: testRadText(t),
+      textMobil: mobil(`Kallad till test${kallad}.`),
+      steg: { steg: 2 },
+      status: { status: 'vantar', text: 'Kallad till test' },
+    }
   }
   if (t.tyst) {
     return {

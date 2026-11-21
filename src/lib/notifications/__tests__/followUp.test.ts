@@ -65,6 +65,32 @@ describe('followUpCandidates', () => {
   })
 })
 
+describe('kallad till test (Jobbsöket omgång 2, byggspec 9.19)', () => {
+  /** Sökt för 30 dagar sedan, kallad till test för 20 dagar sedan. */
+  const test = () =>
+    rad({
+      id: 't',
+      applied_at: '2026-10-22',
+      current_status: 'test_invited',
+      status_updated_at: '2026-11-01T08:00:00Z',
+      job_application_events: [
+        { id: 't1', event_type: 'applied', occurred_at: '2026-10-22', created_at: '2026-10-22T08:00:00Z' },
+        { id: 't2', event_type: 'test_invited', occurred_at: '2026-11-01', created_at: '2026-11-01T08:00:00Z' },
+      ],
+    })
+
+  it('med historik: ingen kandidat', () => {
+    expect(followUpCandidates([test()], NU)).toEqual([])
+  })
+
+  it('i reservläget utan historik: ingen kandidat', () => {
+    const gammal = test()
+    delete gammal.job_application_events
+    delete gammal.job_application_followups
+    expect(followUpCandidates([gammal], NU)).toEqual([])
+  })
+})
+
 /** Genomförd intervju (eller provjobb) den 12 november, nio dagar före NU. */
 function genomford(id: string, prov = false, over: Partial<ApplicationRow> = {}): ApplicationRow {
   const typ = prov ? 'trial_work_completed' : 'interview_completed'

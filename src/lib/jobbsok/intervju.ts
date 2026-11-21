@@ -123,6 +123,27 @@ export function intervjuerPaGang(tjanster: readonly TjanstLage[], nu: Date = new
     })
 }
 
+/** En tjänst att välja i arket "När är intervjun?" (byggspec 9.6). */
+export interface ValbarForIntervju {
+  id: string
+  company: string
+  jobTitle: string
+  bokstaver: string
+  appliedAt: Dag
+}
+
+/**
+ * Tjänsterna arket "När är intervjun?" erbjuder: öppna tjänster vid stationen
+ * Sökt (sökta och obesvarade), senast sökt först. Kallade, genomförda,
+ * erbjudanden och avslutade är inte med.
+ */
+export function valbaraForIntervju(tjanster: readonly TjanstLage[]): ValbarForIntervju[] {
+  return tjanster
+    .filter((t) => !t.avslutad && t.station === 'sokt')
+    .map((t) => ({ id: t.id, company: t.company, jobTitle: t.jobTitle, bokstaver: t.bokstaver, appliedAt: t.appliedAt }))
+    .sort((a, b) => b.appliedAt.localeCompare(a.appliedAt))
+}
+
 /**
  * Dagen "Intervju genomförd" loggas på när användaren svarar "Den är
  * genomförd": intervjudagen, aldrig i framtiden.

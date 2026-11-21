@@ -23,7 +23,7 @@ export async function lasKallelse(supabase: Klient, applicationId: string): Prom
   return { kallelse: senasteKallelse((data ?? []) as Handelse[]), error }
 }
 
-export type IntervjuKalla = 'kallelse' | 'andra_tid' | 'flyttad'
+export type IntervjuKalla = 'kallelse' | 'andra_tid' | 'flyttad' | 'intervju-hubb'
 
 /**
  * Skriver tid och plats på en kallelse. Returnerar den uppdaterade raden,

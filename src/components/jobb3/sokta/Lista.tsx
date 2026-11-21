@@ -48,6 +48,8 @@ import {
   kortDag,
   langDag,
   tjanstHref,
+  testRadText,
+  vantarSvarText,
   veckodagNamn,
   dagarMellan,
   type SkaSokasRad,
@@ -180,6 +182,7 @@ export function ListaGolv({
   data,
   filter,
   vaxel,
+  kvittens,
   onFilter,
   onLogga,
   onRefresh,
@@ -187,6 +190,8 @@ export function ListaGolv({
   data: SoktaTjansterData
   filter: SoktaFilter
   vaxel: ReactNode
+  /** Kvittensen efter testvägen (9.16), överst i panelen före växeln. */
+  kvittens?: ReactNode
   onFilter: (f: SoktaFilter) => void
   onLogga: (f?: LoggaForifyllt | null) => void
   onRefresh: () => void
@@ -353,7 +358,30 @@ export function ListaGolv({
         />
       )
     }
-    // Väntar svar
+    // Väntar svar. Kallad till test (9 B): egen text och bricka, steg 2.
+    if (t.status === 'test_invited') {
+      return (
+        <TjanstRad
+          key={t.id}
+          storlek="stor"
+          bricka={bricka}
+          rubrik={t.jobTitle}
+          arbetsgivare={varRad(t)}
+          text={testRadText(t)}
+          textMobil={testRadText(t, true)}
+          steg={steg}
+          status={{ status: 'vantar', text: 'Kallad till test' }}
+          hogerMobil={<StatusPiller status="vantar">Kallad till test</StatusPiller>}
+          handling={
+            <LitenKnapp storlek={48} href={href}>
+              Uppdatera
+            </LitenKnapp>
+          }
+          handlingMobil={false}
+          href={href}
+        />
+      )
+    }
     return (
       <TjanstRad
         key={t.id}
@@ -396,10 +424,10 @@ export function ListaGolv({
 
   const vantarGrupp = g.vantar_svar.length ? (
     vantarIPanelen ? (
-      grupp('g-vantar', 'Väntar svar', g.vantar_svar, 'vantar_svar', 'Svar brukar dröja en till två veckor. Vi säger till när det är dags att följa upp.', 'vit')
+      grupp('g-vantar', 'Väntar svar', g.vantar_svar, 'vantar_svar', vantarSvarText(g.vantar_svar), 'vit')
     ) : (
       <Avsnitt topp={48} rubrikId="g-vantar">
-        <GruppHuvud id="g-vantar" rubrik="Väntar svar" antal={g.vantar_svar.length} text="Svar brukar dröja en till två veckor. Vi säger till när det är dags att följa upp." />
+        <GruppHuvud id="g-vantar" rubrik="Väntar svar" antal={g.vantar_svar.length} text={vantarSvarText(g.vantar_svar)} />
         <Kort lista>{g.vantar_svar.map((t) => rad(t, 'vantar_svar'))}</Kort>
       </Avsnitt>
     )
@@ -497,6 +525,7 @@ export function ListaGolv({
     return (
       <Golv>
         <LyftPanel lyftMobil={28} luft="20px 28px 28px">
+          {kvittens ? <div style={{ marginBottom: 18 }}>{kvittens}</div> : null}
           {vaxel}
           <div style={{ marginTop: 18 }}>
             {data.lasfel ? (
@@ -524,6 +553,7 @@ export function ListaGolv({
   return (
     <Golv>
       <LyftPanel lyftMobil={28} luft="20px 28px 28px">
+        {kvittens ? <div style={{ marginBottom: 18 }}>{kvittens}</div> : null}
         <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           {vaxel}
           <div className="hidden xl:block xl:w-[300px]">

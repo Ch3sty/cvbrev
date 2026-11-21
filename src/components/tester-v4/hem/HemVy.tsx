@@ -19,6 +19,7 @@ import Vaggen from '@/components/tester-v4/omgang3/Vaggen'
 import HemGolv from '@/components/tester-v4/omgang3/HemGolv'
 import { HintVisad, type HintKontext } from './HintSparning'
 import { HemVisad } from './HemMatning'
+import { tjanstfraga } from '@/lib/tester/v4/tjanstfraga'
 
 /** Hintarna som syns på Hem: dagens knapp och vägens kort, i ordning, en gång var. */
 export function synligaHintar(data: Pick<TesterV4Data, 'dagens' | 'vagen'>): Pick<Hint, 'id' | 'typ' | 'testtyp'>[] {
@@ -33,15 +34,25 @@ export function synligaHintar(data: Pick<TesterV4Data, 'dagens' | 'vagen'>): Pic
   return ut
 }
 
-export default function HemVy({ data }: { data: TesterV4Data }) {
+/**
+ * `iAppen` (Jobbsöket omgång 2, 9.14): sant när sidan ritas i appen Testklar
+ * (/app/tester). Kortet "Vilken tjänst gäller provet?" ritas då aldrig.
+ */
+export default function HemVy({ data, iAppen = false }: { data: TesterV4Data; iAppen?: boolean }) {
   const { plan } = data
   const kontext: HintKontext = { planTest: plan?.mittTest ?? null, planTyper: plan?.typer ?? [] }
+  const fraga = tjanstfraga(data, iAppen)
   return (
     <div className="flex flex-1 flex-col" data-hem-v4 data-lage={plan ? (plan.franArtikel && !plan.provdatum ? 'artikel' : 'plan') : 'fritt'}>
       <HintVisad hintar={synligaHintar(data)} idag={data.idag} kontext={kontext} />
-      <HemVisad plan={!!plan} premium={data.gratis.premium} matta={data.typer.filter((t) => t.synlig && t.niva.status === 'matt').length} />
+      <HemVisad
+        plan={!!plan}
+        premium={data.gratis.premium}
+        matta={data.typer.filter((t) => t.synlig && t.niva.status === 'matt').length}
+        tjanstfragaNyckel={fraga?.nyckel ?? null}
+      />
       <Vaggen data={data} sida="hem" />
-      <HemGolv data={data} />
+      <HemGolv data={data} iAppen={iAppen} />
     </div>
   )
 }

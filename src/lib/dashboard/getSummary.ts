@@ -496,6 +496,8 @@ export async function getDashboardSummary(
     const silent =
       !closed &&
       app.current_status !== 'offer_received' &&
+      // Kallad till test (9 B) blir aldrig tyst.
+      app.current_status !== 'test_invited' &&
       !Number.isNaN(last) &&
       now.getTime() - last >= nudgeMs
     if (silent) followUpCount++

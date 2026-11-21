@@ -23,7 +23,17 @@
 
 import { useEffect, useRef, type ComponentPropsWithoutRef, type MouseEvent } from 'react'
 import { capture } from '@/lib/analytics/events'
+import { arHoppad, TJANSTFRAGA_NYCKEL } from '@/lib/tester/v4/tjanstfraga'
 import type { NavVal } from './hemData'
+
+/** Den sparade nyckeln för Hoppa över, eller null (saknas eller blockerad lagring). */
+export function lasTjanstfraga(): string | null {
+  try {
+    return window.localStorage.getItem(TJANSTFRAGA_NYCKEL)
+  } catch {
+    return null
+  }
+}
 
 const VISAD_NYCKEL = 'v4_hem_visad'
 
@@ -37,16 +47,22 @@ function redanVisadIBesoket(): boolean {
   return false
 }
 
-/** hem_visad en gång per besök. Ritar inget. */
-export function HemVisad({ plan, premium, matta }: { plan: boolean; premium: boolean; matta: number }) {
+/**
+ * hem_visad en gång per besök. Ritar inget. `tjanstfragaNyckel` (Jobbsöket
+ * omgång 2, 9.17) är kortets nyckel, eller null när serverns grind säger nej:
+ * tjanstfraga är sann när nyckeln finns och frågan inte är hoppad på enheten.
+ * Utelämnad nyckel ger ingen egenskap.
+ */
+export function HemVisad({ plan, premium, matta, tjanstfragaNyckel }: { plan: boolean; premium: boolean; matta: number; tjanstfragaNyckel?: string | null }) {
   const skickad = useRef(false)
   useEffect(() => {
     if (skickad.current) return
     skickad.current = true
     if (redanVisadIBesoket()) return
     const niva = premium ? 'premium' : 'gratis'
-    capture('hem_visad', { plan, niva, matta_typer: matta, plattform: 'webb' })
-  }, [plan, premium, matta])
+    const fraga = tjanstfragaNyckel === undefined ? {} : { tjanstfraga: tjanstfragaNyckel !== null && !arHoppad(lasTjanstfraga(), tjanstfragaNyckel) }
+    capture('hem_visad', { plan, niva, matta_typer: matta, plattform: 'webb', ...fraga })
+  }, [plan, premium, matta, tjanstfragaNyckel])
   return null
 }
 

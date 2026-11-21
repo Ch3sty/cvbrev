@@ -12,6 +12,7 @@ import { matIntervjutid } from '@/lib/jobbsok/intervjuServer';
 const VALID_EVENT_TYPES = [
   'applied', 'no_response', 'rejected', 'interview_invited', 'interview_completed',
   'trial_work_completed', 'offer_received', 'accepted', 'declined',
+  'test_invited',
 ];
 
 export async function POST(
@@ -113,7 +114,9 @@ export async function POST(
     }
 
     if (!error && created && intervjuSparad && created.interview_at) {
-      matIntervjutid(user.id, null, created, 'kallelse');
+      // Byggspec 9.6: "När är intervjun?" i Inför intervjun skickar fran: 'intervju-hubb'.
+      const kalla = body.fran === 'intervju-hubb' ? 'intervju-hubb' : 'kallelse';
+      matIntervjutid(user.id, null, created, kalla);
     }
 
     if (error || !created) {

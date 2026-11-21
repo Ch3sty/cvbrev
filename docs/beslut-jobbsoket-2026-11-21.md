@@ -308,6 +308,8 @@ En skärpning av regeln, exakt: kortet visas aldrig när väggens knapp är en k
 
 Platsen: under Vägen till provet. Skäl: testerna är kärnan och vägen till köp, Black Week börjar 23 november, och direkt under Så ligger du till skulle kortet skjuta ned planen med de låsta dagarna, som är det som säljer på den sida 70 personer besöker. En första rad i Jobbsöket ger ingen intäkt den veckan. Synligheten mäts i stället för att gissas: `tjanstfraga_visad` skickas först när kortet har synts i bild. Regel för avläsningen 5 december: har färre än 10 konton sett kortet på testernas Hem flyttas det upp under Så ligger du till i en egen liten push. Då är kampanjen över.
 
+**Ändrat av ägaren 2026-11-22: regeln om att flytta upp kortet utgår.** Ägaren: "Jag är okej med att den är där permanent, de som köper tillgång till testerna vill använda testerna ostört, fel ställe att börja sälja in annat. Så vi låter det ligga längst ned." Kortet ligger kvar under Vägen till provet. Avläsningen 5 december läser fortfarande hur många som såg och använde kortet, men talet flyttar inte kortet.
+
 Hubben Inför intervjun: uppfyller villkoren. Öva på nästa fråga är fortfarande enda kopparknappen, kvotraden är en upplysning och ingen betalvägg, och arket skapar tjänsten och kallelsen med två anrop som redan finns.
 
 ### Beslut 3. En tjänst loggad från testerna

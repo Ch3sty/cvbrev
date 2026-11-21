@@ -7,6 +7,8 @@
  *   Nederst             påbörjad Nivåkoll och senaste träningen, eller raden
  *                       med alla testtyper för den nya
  *   Gratisraden         som förut, när dagens grundnivåtest är gjort
+ *   Tjänstfrågan        "Vilken tjänst gäller provet?" under Vägen, före
+ *                       gratisraden (Jobbsöket omgång 2, 9.14), aldrig i appen
  *
  * Server component; Vägen och gratisraden är klientöar.
  */
@@ -19,6 +21,8 @@ import { typNamnSmall } from '@/lib/tester/v4/copy'
 import TypSymbol from '@/components/tester-v4/tester/TypSymbol'
 import GratisRad from '@/components/tester-v4/hem/GratisRad'
 import { IngangarMedMatning } from '@/components/tester-v4/hem/HemMatning'
+import TjanstFraga from '@/components/tester-v4/hem/TjanstFraga'
+import { tjanstfraga } from '@/lib/tester/v4/tjanstfraga'
 import TreMatt from './TreMatt'
 import Vagen from './Vagen'
 import { Ikon3, Pips } from './delar'
@@ -210,13 +214,16 @@ function Nederst({ data }: { data: TesterV4Data }) {
   )
 }
 
-export default function HemGolv({ data }: { data: TesterV4Data }) {
+export default function HemGolv({ data, iAppen = false }: { data: TesterV4Data; iAppen?: boolean }) {
   const kontext = { planTest: data.plan?.mittTest ?? null, planTyper: data.plan?.typer ?? [] }
   const ny = data.dagens.forstaSteget
+  // Jobbsöket omgång 2 (9.14): kortet bara när serverns grind ger ett, aldrig i grenen ny.
+  const fraga = ny ? null : tjanstfraga(data, iAppen)
   return (
     <IngangarMedMatning className="t3-golv" data-golv="hem">
       <TreMatt data={data} />
       {ny ? <SaHarGarDetTill data={data} /> : <Vagen vagen={data.vagen} idag={data.idag} kontext={kontext} harPlan={!!data.plan} />}
+      {fraga ? <TjanstFraga fraga={fraga} /> : null}
       <GratisRad gratis={data.gratis} planTest={data.plan?.mittTest ?? null} />
       {ny ? <AllaTyperRad data={data} /> : <Nederst data={data} />}
     </IngangarMedMatning>

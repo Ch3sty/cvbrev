@@ -25,6 +25,8 @@ export type UppfoljningsTyp = 'ansokan' | 'intervju' | 'provjobb'
 export const INTERVJU_BESKED_DAGAR = 7
 /** Dagar efter kallelsens datum innan "Sätt tiden" tas upp i Att göra nu. */
 export const KALLELSE_UTAN_TID_DAGAR = 2
+/** Dagar efter "Kallad till test" innan Att göra nu frågar vad som hände (9 B). */
+export const TEST_UPPDATERA_DAGAR = 14
 
 /* ------------------------------------------------------------- tabellerna */
 
@@ -154,6 +156,8 @@ export interface TjanstLage {
   /** Senaste aktivitet plus tystGrans. */
   tystSedan: Dag
   intervju: IntervjuInfo | null
+  /** Dagen (occurred_at) för senaste "Kallad till test" när statusen är test_invited, annars null (9 B). */
+  kalladTillTest: Dag | null
   /** Har tjänsten ett oskickat utkast av rätt sort (utkastGaller)? */
   harUtkast: boolean
   /** Senaste skickade uppföljning. */
@@ -170,6 +174,7 @@ export type AttGoraTyp =
   | 'hur_gick_intervjun'
   | 'forbered_intervju'
   | 'satt_intervjutid'
+  | 'uppdatera_test'
   | 'folj_upp'
   | 'sok_fore_sista_dag'
   | 'af_rapport'

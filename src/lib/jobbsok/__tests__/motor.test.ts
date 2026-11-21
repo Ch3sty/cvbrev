@@ -670,6 +670,10 @@ describe('adressen', () => {
     expect(medFran).toBe('/dashboard/sokta-tjanster?logga=1&fran=oversikt-ny')
     expect(tolkaSoktaAdress(new URLSearchParams(medFran.split('?')[1]))).toEqual({ vy: 'lista', filter: 'alla', logga: 'sokt', manad: null })
     expect(tjanstHref('abc', 'forbered')).toBe('/dashboard/sokta-tjanster/abc?steg=forbered')
+    // Byggspec 9.9: källan efter steget, och tolkningen läser den inte.
+    expect(tjanstHref('x', 'forbered', 'intervju-hubb')).toBe('/dashboard/sokta-tjanster/x?steg=forbered&fran=intervju-hubb')
+    expect(tjanstHref('x')).toBe('/dashboard/sokta-tjanster/x')
+    expect(tolkaTjanstAdress({ steg: 'forbered', fran: 'intervju-hubb' })).toBe('forbered')
     expect(tolkaTjanstAdress({ steg: 'hur-gick' })).toBe('hur-gick')
     expect(tolkaTjanstAdress({ steg: 'x' })).toBeNull()
   })

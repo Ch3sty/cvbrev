@@ -5,8 +5,9 @@
  *   väggen   intervjun på gång (eller rummets namn), de sju frågorna som bana
  *            och vyns enda primärknapp (dagens Nästa handling)
  *   panelen  nästa fråga med förra svaret del för del, vit knapp
- *   golvet   Intervjuer på gång, Dina intervjuprov, personlighetsprofilen
- *            och gratisnivåns kvotrad
+ *   golvet   Intervjuer på gång (alltid, med frågan "När är intervjun?" när
+ *            listan är tom, byggspec 9 A), Dina intervjuprov,
+ *            personlighetsprofilen och gratisnivåns kvotrad
  *
  * Gratisgränsen (ett prov per dygn) och mätningen är dagens; texten ur
  * infor-intervjun-copy.ts.
@@ -47,11 +48,12 @@ import { faktorUtfall, profilRubrik } from '@/lib/personlighet/smakprov-tolkning
 import { FORDJUPAT_HREF, GRUNDTEST_HREF, nyttProvHref, profilHref, provHref } from '@/lib/intervju/lankar'
 import { arHogstaBetyg, dagEtikett, imorgonFraga, nar, rekommenderadFraga, saknadesFras, saknadesI, type HubbHandling, type ProvSammanfattning } from '@/lib/intervju/nasta'
 import { idagSv, intervjuEtikett, klockslag, langDag, narText, senastePerFraga, tjanstHref, veckodagNamn } from '@/lib/jobbsok'
-import type { IntervjuPaGang } from '@/lib/jobbsok/intervju'
+import type { IntervjuPaGang, ValbarForIntervju } from '@/lib/jobbsok/intervju'
 import { PRISER_HREF } from '@/lib/onboarding/steps'
 import type { InforIntervjunData } from '@/app/dashboard/intervju/getInforIntervjunData'
 import { KVOT, LISTA, NASTA, PROFIL, SIDA, TOM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import { HUBB, nivaOrd, saknadDel, starUtfall, storBokstav, talOrd } from './text'
+import IntervjuFraga from './IntervjuFraga'
 
 function datum(iso: string | null): string {
   if (!iso) return ''
@@ -103,7 +105,13 @@ function intervjuKnapp(i: IntervjuPaGang) {
   return { text: 'Uppdatera', href: tjanstHref(i.id) }
 }
 
-export default function IntervjuHubb({ data, intervjuer, now }: { data: InforIntervjunData; intervjuer: IntervjuPaGang[]; now: Date }) {
+/**
+ * Sätter data-intervjufraga="ihop" på <html> före första ritningen när hon
+ * har valt "Ingen intervju bokad än" (byggspec 9.3, som temat i layout.tsx).
+ */
+const IHOP_SKRIPT = "try{if(localStorage.getItem('intervjufraga_ihop')==='1')document.documentElement.setAttribute('data-intervjufraga','ihop')}catch(e){}"
+
+export default function IntervjuHubb({ data, intervjuer, valbara = [], now }: { data: InforIntervjunData; intervjuer: IntervjuPaGang[]; valbara?: ValbarForIntervju[]; now: Date }) {
   // Högsta betyg och kvoten slut: banan markerar ingen fråga som nästa, och
   // rutan visar dagens prov (byggspecen 4.2).
   const hogst = arHogstaBetyg(data.handling)
@@ -222,9 +230,13 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
 
         <Spalter sido={400}>
           <div>
-            {intervjuer.length > 0 ? (
-              <section aria-labelledby="pagang-rubrik">
-                <SektionsHuvud rubrik={HUBB.pagang} rubrikId="pagang-rubrik" under={HUBB.pagangUnder} />
+            {/* Byggspec 9.3: "Ingen intervju bokad än" väljs före första ritningen, så att inget flyttar sig. */}
+            {intervjuer.length === 0 ? <script dangerouslySetInnerHTML={{ __html: IHOP_SKRIPT }} /> : null}
+            <section aria-labelledby="pagang-rubrik">
+              <SektionsHuvud rubrik={HUBB.pagang} rubrikId="pagang-rubrik" under={intervjuer.length > 0 ? HUBB.pagangUnder : undefined} />
+              {/* Ön står kvar på samma plats när listan fylls, så att kvittensen överlever router.refresh(). */}
+              <IntervjuFraga tom={intervjuer.length === 0} valbara={valbara} />
+              {intervjuer.length > 0 ? (
                 <div className="mt-[18px]">
                   <Kort lista>
                     {intervjuer.map((i) => {
@@ -254,10 +266,10 @@ export default function IntervjuHubb({ data, intervjuer, now }: { data: InforInt
                     })}
                   </Kort>
                 </div>
-              </section>
-            ) : null}
+              ) : null}
+            </section>
 
-            <section aria-labelledby="prov-rubrik" className={intervjuer.length > 0 ? 'mt-[30px] xl:mt-11' : ''}>
+            <section aria-labelledby="prov-rubrik" className="mt-[30px] xl:mt-11">
               <SektionsHuvud rubrik={LISTA.etikett} rubrikId="prov-rubrik" hoger={<span className="hidden xl:inline"><span className="j3-text">{HUBB.utanTak}</span></span>} />
               <div className="mt-[18px]">
                 {data.prov.length > 0 ? (

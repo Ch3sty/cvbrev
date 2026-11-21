@@ -39,6 +39,7 @@ import { bana, skaSokasLista, tjanstensSteg } from './bana'
 import { veckansMal } from './veckansMal'
 import { attGoraNu } from './attGora'
 import { forberedelse, intervjuerPaGang, type IntervjuPaGang } from './intervju'
+import { valbaraForIntervju, type ValbarForIntervju } from './intervju'
 import { handelselista } from './handelser'
 import { kanaler, manadsstaplar, tratt, veckostaplar } from './statistik'
 import { avslutadeText, soktaLista, soktaVagg } from './lista'
@@ -602,6 +603,18 @@ export async function hamtaIntervjuerPaGang(userId: string, opt: { nu?: Date } =
   // Uppföljningar behövs inte: intervjusteget räknar inte tystnad på bokade.
   const tjanster = sattIhopHistorik(ansokningar.rader, []).map((t) => tjanstLage(t, nu))
   return intervjuerPaGang(tjanster, nu)
+}
+
+/**
+ * Inför intervjun (byggspec 9.6): intervjuerna på gång och tjänsterna arket
+ * "När är intervjun?" erbjuder, ur samma läsning som hamtaIntervjuerPaGang.
+ */
+export async function hamtaIntervjuHubb(userId: string, opt: { nu?: Date } = {}): Promise<{ intervjuer: IntervjuPaGang[]; valbara: ValbarForIntervju[] }> {
+  const nu = opt.nu ?? new Date()
+  const supabase = await sessionsKlient()
+  const ansokningar = await lasAnsokningar(supabase, userId)
+  const tjanster = sattIhopHistorik(ansokningar.rader, []).map((t) => tjanstLage(t, nu))
+  return { intervjuer: intervjuerPaGang(tjanster, nu), valbara: valbaraForIntervju(tjanster) }
 }
 
 /** "Frågor utifrån ditt läge" för Jobbcoachen (F9), utan AI. */

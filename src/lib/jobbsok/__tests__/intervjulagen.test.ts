@@ -40,6 +40,7 @@ import {
   type VeckansMal,
 } from '../index'
 import { forberedKortning } from '../uppfoljningMarken'
+import { valbaraForIntervju } from '../intervju'
 import type { ApplicationEventType, JobApplication } from '@/lib/applications/status'
 
 /* Lördag 21 november 2026 klockan 10 svensk tid. */
@@ -585,5 +586,28 @@ describe('instruktionen till AI:n efter intervju eller provjobb', () => {
     expect(instruktionFor({ sprak: 'sv', typ: 'intervju' })).toBe(systemEfterMoment('sv', 'intervju'))
     expect(instruktionFor({ sprak: 'en', typ: 'provjobb' })).toBe(systemEfterMoment('en', 'provjobb'))
     expect(instruktionFor({ sprak: 'sv', typ: 'ansokan' })).toContain('uppföljningsmejl')
+  })
+})
+
+/* ------------------------------------- "När är intervjun?" (byggspec 9.6) */
+
+describe('valbaraForIntervju', () => {
+  it('tar med sökta och obesvarade, inte kallade, genomförda, erbjudanden eller avslutade, senast sökt först', () => {
+    const rader = [
+      tjanst('sokt-gammal', 'applied', [], [], { applied_at: '2026-10-01', company: 'Norrmejerier' }),
+      tjanst('sokt-ny', 'applied', [], [], { applied_at: '2026-11-10', company: 'Umeå Energi' }),
+      tjanst('obesvarad', 'no_response', [handelse('obesvarad', 'no_response', '2026-11-05')], [], { applied_at: '2026-10-15' }),
+      kalladUtanTid('kallad', 3),
+      genomford('genomford', 3),
+      tjanst('erbjudande', 'offer_received', [handelse('erbjudande', 'offer_received', '2026-11-12')]),
+      tjanst('avslag', 'rejected', [handelse('avslag', 'rejected', '2026-11-12')]),
+    ].map((t) => tjanstLage(t, NU))
+    const val = valbaraForIntervju(rader)
+    expect(val.map((v) => v.id)).toEqual(['sokt-ny', 'obesvarad', 'sokt-gammal'])
+    expect(val[0]).toEqual({ id: 'sokt-ny', company: 'Umeå Energi', jobTitle: 'Ekonomiassistent', bokstaver: expect.any(String), appliedAt: '2026-11-10' })
+  })
+
+  it('ger en tom lista utan sökta tjänster', () => {
+    expect(valbaraForIntervju([])).toEqual([])
   })
 })

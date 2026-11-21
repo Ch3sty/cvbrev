@@ -155,6 +155,8 @@ export function foljUppTyp(status: ApplicationEventType | null, intervju: Interv
     if (intervju?.lage !== 'vantar_besked') return null
     return status === 'trial_work_completed' ? 'provjobb' : 'intervju'
   }
+  // Kallad till test (9 B): arbetsgivaren har hört av sig, tjänsten blir aldrig tyst.
+  if (status === 'test_invited') return null
   return 'ansokan'
 }
 
@@ -177,6 +179,21 @@ export function kanBliTyst(status: ApplicationEventType | null, intervju: Interv
 export function skaSattaTiden(i: IntervjuInfo | null, idag: Dag): boolean {
   if (!i || i.lage !== 'utan_tid' || !i.kalladDag) return false
   return plusDagar(i.kalladDag, KALLELSE_UTAN_TID_DAGAR) <= idag
+}
+
+/**
+ * Dagen för senaste "Kallad till test" när statusen är test_invited, annars
+ * null (9 B). Utan händelser (en lista utan historik) gäller dagen ur
+ * status_updated_at, som databasen satte när kallelsen loggades.
+ */
+export function kalladTillTestDag(
+  status: ApplicationEventType | null,
+  handelser: readonly Handelse[],
+  statusDag: Dag | null = null
+): Dag | null {
+  if (status !== 'test_invited') return null
+  const k = sorteraHandelser(handelser).filter((h) => h.event_type === 'test_invited')
+  return k.length ? k[k.length - 1].occurred_at : statusDag
 }
 
 /* ------------------------------------------------------------ helheten */
@@ -220,6 +237,7 @@ export function tjanstLage(t: TjanstMedHistorik, nu: Date = new Date()): TjanstL
     dagarTyst,
     tystSedan: plusDagar(aktivitet, tystGrans),
     intervju,
+    kalladTillTest: kalladTillTestDag(status, handelser, dagFor(a.status_updated_at)),
     harUtkast: t.uppfoljningar.some((u) => utkastGaller(u, typ)),
     senastUppfoljd: senastUppfoljd(t.uppfoljningar),
     harBrev: !!a.letter_id,

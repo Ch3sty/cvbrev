@@ -17,10 +17,13 @@ import {
   JobbVagg,
   GlasKnapp,
   LitenKnapp,
+  Notis,
+  TextLank,
   Vaxel,
+  IkonBock,
   IkonPlus,
 } from '@/components/jobb3/kit'
-import { soktaHref, tolkaSoktaAdress, type SoktaFilter, type SoktaVy as Vy } from '@/lib/jobbsok'
+import { soktaHref, tjanstHref, tolkaSoktaAdress, type SoktaFilter, type SoktaVy as Vy } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
 import LoggaArk, { type LoggaForifyllt, type LoggaResultat } from './LoggaArk'
 import { MalArk } from './SmaArk'
@@ -32,8 +35,13 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   const router = useRouter()
   const sok = useSearchParams()
   const adress = tolkaSoktaAdress(new URLSearchParams(sok.toString()))
-  const { successWithActivity, success } = useNotification()
+  const { successWithActivity, success, logActivity } = useNotification()
   const { refresh: refreshSummering } = useDashboardData()
+
+  // Varifrån sidan öppnades (?fran=), läst en gång vid montering: arket rensar adressen när det stängs (9.16).
+  const [fran] = useState<string | null>(() => sok.get('fran')?.trim().slice(0, 40) || null)
+  // Kvittensen efter testvägen (9.16), bara i samma besök.
+  const [kvittens, setKvittens] = useState<TestKvittens | null>(null)
 
   const [loggaOppen, setLoggaOppen] = useState(false)
   const [loggaForifyllt, setLoggaForifyllt] = useState<LoggaForifyllt | null>(null)
@@ -66,12 +74,20 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   }
 
   const loggad = (r: LoggaResultat) => {
-    if (r.typ === 'sokt') {
+    if (r.typ === 'sokt' && fran?.startsWith('test-hem')) {
+      // Testvägen: kvittensen överst i panelen i stället för toasten.
+      void logActivity('application_logged', `Loggade en sökt tjänst: ${r.data.job_title} hos ${r.data.company}`, {
+        applicationId: r.data.id,
+        channel: r.data.application_channel,
+        fran,
+      })
+      setKvittens({ id: r.data.id, company: r.data.company, kallad: r.data.current_status === 'test_invited' })
+    } else if (r.typ === 'sokt') {
       successWithActivity(
         'Sparad i Sökta tjänster.',
         'application_logged',
         `Loggade en sökt tjänst: ${r.data.job_title} hos ${r.data.company}`,
-        { applicationId: r.data.id, channel: r.data.application_channel },
+        { applicationId: r.data.id, channel: r.data.application_channel, ...(fran ? { fran } : {}) },
         3000
       )
     } else if (r.typ === 'sparad') {
@@ -115,7 +131,15 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
       </JobbVagg>
 
       {vy === 'lista' ? (
-        <ListaGolv data={data} filter={adress.filter} vaxel={vaxel} onFilter={(f) => ga({ filter: f })} onLogga={oppnaLogga} onRefresh={() => router.refresh()} />
+        <ListaGolv
+          data={data}
+          filter={adress.filter}
+          vaxel={vaxel}
+          kvittens={kvittens ? <TestvagKvittens k={kvittens} /> : null}
+          onFilter={(f) => ga({ filter: f })}
+          onLogga={oppnaLogga}
+          onRefresh={() => router.refresh()}
+        />
       ) : vy === 'statistik' ? (
         <StatistikGolv data={data} vaxel={vaxel} onAndraMal={() => setMalOppen(true)} onLogga={() => oppnaLogga()} />
       ) : (
@@ -132,6 +156,49 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
       <LoggaArk open={loggaOppen} onClose={stangLogga} onKlar={loggad} forifyllt={loggaForifyllt} />
       <MalArk open={malOppen} onClose={() => setMalOppen(false)} mal={data.veckansMal.mal} onSparat={() => router.refresh()} />
     </>
+  )
+}
+
+export interface TestKvittens {
+  id: string
+  company: string
+  /** Servern skrev "Kallad till test" (svaret bar current_status test_invited). */
+  kallad: boolean
+}
+
+/** Kvittensens texter (9.16). */
+export function testvagKvittensText(k: Pick<TestKvittens, 'company' | 'kallad'>): { rubrik: string; text: string } {
+  return k.kallad
+    ? {
+        rubrik: `${k.company} står nu som kallad till test`,
+        text: 'Arbetsgivaren har hört av sig, så vi föreslår ingen uppföljning. Lägg till intervjun eller beskedet när det kommer. Datumet du sökte står i din månadsrapport.',
+      }
+    : {
+        rubrik: `${k.company} ligger nu under Sökt`,
+        text: 'Vi säger till om det är tyst efter tolv dagar. Datumet du sökte står i din månadsrapport.',
+      }
+}
+
+/** Vägen tillbaka till testernas Hem; sidvisningen bär fran=sokta-loggad (9.17). */
+export const TILLBAKA_TILL_TESTERNA = '/dashboard/tester?fran=sokta-loggad'
+
+/** Kvittensen efter testvägen, överst i panelen. Försvinner när sidan laddas om. */
+export function TestvagKvittens({ k }: { k: TestKvittens }) {
+  const { rubrik, text } = testvagKvittensText(k)
+  return (
+    <Notis
+      ton="ton"
+      role="status"
+      ikon={<IkonBock />}
+      rubrik={rubrik}
+      text={text}
+      handling={
+        <>
+          <LitenKnapp href={TILLBAKA_TILL_TESTERNA}>Tillbaka till testerna</LitenKnapp>
+          <TextLank href={tjanstHref(k.id)}>Öppna tjänsten</TextLank>
+        </>
+      }
+    />
   )
 }
 

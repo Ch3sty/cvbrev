@@ -152,3 +152,129 @@ Inget. `momentOrd` och `momentDag` täckte `M`, `m` och `D`. `UppfoljningLage.ty
 - Gammalt utkast av fel sort (d): inget Följ upp-block på tjänstens sida, med och utan `?steg=folj-upp`; panelen visar blocket "Sätt tiden" och Förbered intervjun.
 - Gratiskonto med använt utkast på en ansökan, tjänst (a): betalväggen med "Ditt gratis utkast är använt. Med Premium skriver vi ett utkast varje gång ...", och "Jag har redan skickat det" syns och går att trycka på.
 - En obesvarad ansökan (tolv dagar) ser ut och låter som före bygget, på alla tre ytorna.
+
+## Byggare D1 (9 A, När är intervjun?)
+
+Del 9 A ur byggspecen: frågan "När är intervjun?" i sektionen Intervjuer på gång i Inför intervjun. Inget committat. Inga anrop mot databasen, inga migreringar, inga AI-anrop.
+
+### Vad som byggdes
+
+- `src/components/jobb3/intervju/IntervjuFraga.tsx` (ny klientö): det öppna kortet (`TomtLage` med `IkonKalender`, `LitenKnapp` "Lägg in intervjun" och `TextLank` "Ingen intervju bokad än" i `.j3c-tomt-tva`) och raden (`Kort` med `.j3c-ihop`, ikonen i `j3-sido-ik`, "Lägg in"), båda alltid i HTML:en i `.j3c-fraga-oppen` och `.j3c-fraga-ihop`. Arket (`Ark bredd={520}`): Dag och Tid i bredd (`.j3c-tva`), Plats, gruppetiketten "Vilken tjänst gäller intervjun?", sedan valen (`ValKnapp form="rad"` med brickan, sist "En annan tjänst", inget förvalt, fem först och "Visa alla") eller Tjänst, Arbetsgivare och Datum sökt (tomt, obligatoriskt, `max` i dag, hjälptexten ur 9.4). Felraderna i 9.4 ordagrant via `fel` på `Falt` (koppar), felraden för valet under valen; fokus till första fältet med fel. Spara enligt 9.5: anrop 1 bara för ny tjänst, id:t hålls i öns läge tills arket stängs, anrop 2 med `fran: 'intervju-hubb'`; efter båda: arket stängs, `router.refresh()`, `refresh()` ur `useDashboardData()`, nyckeln och attributet bort, aktiviteten för en ny tjänst, kvittensen `p.j3-under[role=status]` med länken "Öppna tjänsten" (`tjanstHref(id, 'forbered', 'intervju-hubb')`). `tjanstfraga_val` med `oppnad` när arket öppnas och `hoppad` vid "Ingen intervju bokad än". Den rena valideringen är exporterad (`valideraIntervjuFraga`).
+- `src/components/jobb3/intervju/IntervjuHubb.tsx`: sektionen ritas alltid; underraden bara när listan har rader; ön direkt under `SektionsHuvud`; skriptet ur 9.3 (`IHOP_SKRIPT`) direkt före sektionen när listan är tom; ny valfri prop `valbara`. "Dina intervjuprov" har alltid avståndet uppåt.
+- `src/components/jobb3/intervju/text.ts`: `HUBB.fraga` med alla strängar ur 9.2, 9.4 och 9.5.
+- `src/app/jobb3-c.css`: `.j3c-tomt-tva`, `.j3c-ihop`, `.j3c-ihop-text`, `.j3c-tva` med skissens värden, de tre reglerna för `data-intervjufraga` ur 9.3, och `.j3c-visa-alla` (44 px för "Visa alla").
+- `src/lib/jobbsok/intervju.ts`: `valbaraForIntervju` och typen `ValbarForIntervju`. `src/lib/jobbsok/server.ts`: `hamtaIntervjuHubb` (en läsning, `lasAnsokningar`); `hamtaIntervjuerPaGang` orörd.
+- `src/app/dashboard/intervju/page.tsx`: `hamtaIntervjuHubb` i samma `Promise.all`, `valbara` till hubben, `intervjufraga` till `InforIntervjunClient`, som skickar den på `interview_hub_viewed`.
+- `src/app/api/applications/[id]/events/route.ts`: `fran === 'intervju-hubb'` ger källan `'intervju-hubb'` till `matIntervjutid`. `src/lib/jobbsok/intervjuServer.ts`: `IntervjuKalla` har `'intervju-hubb'`.
+- `src/lib/jobbsok/adress.ts`: `tjanstHref(id, fokus, fran?)`.
+- `src/lib/analytics/events.ts`: `interview_hub_viewed.intervjufraga?`, `intervjutid_satt.kalla` med `'intervju-hubb'`, och `tjanstfraga_val` med båda platserna (`'test-hem' | 'intervju-hubb'`), så att D2 använder samma rad.
+
+### Egna beslut och avvikelser
+
+1. Aktiviteten: specen säger `logActivity` ur `@/lib/activity-logger`, men den filen har bara `logUserActivity(userId, ...)`. Ön använder `logActivity` ur `useNotification()` (samma funktion utan toast, användaren läses ur kontexten), med `{ applicationId, channel: 'ad', fran: 'intervju-hubb' }` och samma beskrivning som Sökta tjänster.
+2. Faller anrop 1 visas alltid "Det gick inte att spara just nu. Försök igen.", inte serverns text (som vid 500 kan vara databasens engelska meddelande).
+3. Stängs arket efter att anrop 1 lyckats och anrop 2 fallit körs `router.refresh()`, så att den skapade tjänsten syns bland valen nästa gång i stället för att skapas igen.
+4. `TomtLage` tar ingen klass för handlingen, så `.j3c-tomt-tva` ligger på en `div` inuti `.j3-tomt-handling`. Att handlingen inte krymper på dator sätts med `.j3-tomt-handling:has(> .j3c-tomt-tva)`. Kitet är orört.
+5. Fokus efter "Ingen intervju bokad än" hittas via en `span` runt knappen (kitets knappar tar ingen ref).
+6. Ön sätter eller tar bort attributet vid varje montering, också när listan har rader (ofarligt, korten ritas inte då).
+7. `.j3c-visa-alla` är en klass utöver de fyra i 9.2, bara för 44 px tryckyta på "Visa alla".
+
+### Tester
+
+- `src/components/jobb3/intervju/__tests__/IntervjuFraga.test.tsx` (ny): 16 gröna (kortet och raden med texterna, Hoppa över med nyckel, attribut och fokus, monteringen, fältordningen utan och med valbara, "Visa alla", foten och att "räknar ner hit" inte finns, varje felrad ordagrant utan anrop, två anrop i ordning med `fran`, ett anrop för vald tjänst, anrop 2 faller och nästa tryck gör bara anrop 2, anrop 1 faller).
+- `src/lib/jobbsok/__tests__/intervjulagen.test.ts`: `valbaraForIntervju`, 36 gröna.
+- `src/lib/jobbsok/__tests__/motor.test.ts`: `tjanstHref('x', 'forbered', 'intervju-hubb')`, 43 gröna.
+- `npx tsc --noEmit` (efter två minneskontroller under 3 GB, sedan 4,9 GB ledigt): inga fel alls på grenen vid körningen, D2:s pågående arbete inräknat.
+
+### Ses i webbläsare (inte prövat), 412 x 915 och 1440, ljust och mörkt, konto utan intervju på gång
+
+- Sektionen "Intervjuer på gång" ovanför "Dina intervjuprov", utan underrad, med kortet "När är intervjun?". Enda kopparknappen är väggens. 1440: knappen över länken till höger i kortet (skissens 16). 412: knappen och länken i rad under texten (skissens 11).
+- "Ingen intervju bokad än" ger raden (skissens 15) och fokus på "Lägg in". Ladda om: raden direkt, kortet blinkar inte fram, inget under flyttar sig; CLS 0 i `scripts/perf-inloggat.ts` med och utan nyckeln. Klientnavigering till sidan och tillbaka: samma läge.
+- Arket utan sökta tjänster (skissens 12, men Datum sökt tomt med den nya hjälptexten och foten "Vi räknar ner till intervjun ..."): Dag, Tid, Plats, gruppetiketten, Tjänst, Arbetsgivare, Datum sökt. Med sökta tjänster (skissens 14, men Dag, Tid, Plats först): valen med brickor, inget valt; "En annan tjänst" fäller ut de tre fälten. Inget tangentbord fälls upp när arket öppnas på telefon.
+- Spara med tomt Datum sökt: felraden i koppar, fokus till fältet, inget i nätverksfliken.
+- Spara ny tjänst: två POST i nätverksfliken, väggen räknar ner, raden med "Förbered intervjun", kvittensen under rubriken (skissens 13), "Öppna tjänsten" öppnar tjänsten på Förbered med `fran=intervju-hubb`, tjänsten under Sökta tjänster som kallad med rätt sökdatum; Kom igång-brickan avbockad utan omladdning. Vald befintlig tjänst: en POST, ingen ny rad i `job_applications`.
+- 360 px: ingen text klipps i kortet, raden eller arket (Dag och Tid i bredd). Tryckytor minst 44 px ("Ingen intervju bokad än" och "Visa alla"). Esc och krysset stänger arket, fokus tillbaka till knappen som öppnade det.
+
+## Byggare D2 (9 B, kortet på testernas Hem och Kallad till test)
+
+Inget committat. Inga anrop mot databasen, migreringen är bara en fil och är **inte körd**. Inga AI-anrop.
+
+### Migreringen
+
+`supabase/migrations/20261122120000_kallad_till_test.sql`, ordagrant enligt 9.11. Den byter, i en transaktion, de två villkoren `job_application_events_event_type_check` och `job_applications_current_status_check` (drop if exists, add) mot samma listor med `'test_invited'` som tionde värde, mellan `rejected` och `interview_invited`. Ingen kolumn, funktion eller rad ändras; filen går att köra flera gånger. Backas med rollbacken överst i filen (samma två villkor utan `test_invited`), först när ingen rad har `test_invited` och koden som skriver typen är backad.
+
+**Före migreringen** nekar villkoret varje insert med `test_invited`:
+- Testvägen: `skapaSoktTjanst` gör ett försök till, loggar felet en gång ("Fel vid skapande av händelsen kallad till test") och svarar med `current_status: 'applied'`. Tjänsten sparas som sökt och kvittensen visar varianten "`Företaget` ligger nu under Sökt". Ingen trasig sida, men kryssrutan blir utan verkan.
+- "Kallad till test" för hand (snabbvalen och Annat): rutten svarar 500 och arket visar "Kunde inte spara händelsen" i sin felrad. Arket står kvar.
+- Allt annat (läsning, listor, kortet på Hem) fungerar likadant före och efter migreringen.
+
+### Händelsetypen i koden (9.12)
+
+- `src/lib/applications/status.ts`: `ApplicationEventType` (mellan `rejected` och `interview_invited`), `STATUS_META.test_invited` ("Kallad till test", samma klasser som `interview_invited`), först i `LOGGABLE_EVENT_TYPES`.
+- `src/app/api/applications/[id]/events/route.ts`: `VALID_EVENT_TYPES`, på en egen rad sist i listan. Ingen omgång, ingen tid; kontrollen mot sökdagen gäller som för andra typer.
+- `src/components/jobb3/sokta/SmaArk.tsx`: `VAL` får `test_invited` först med `IkonRutnat`; datumfältet heter "Dagen du blev kallad" också för typen.
+- `src/components/jobb3/sokta/TjanstVy.tsx`: snabbvalen vid Sökt är "Kallad till test", "Kallad till intervju", "Fick avslag", och "Kallad till test" döljs när tjänsten redan står så. Ögonbrynet "Kallad till test", väggens ingress (dator) ordagrant ur 9.13, den väntande raden "Besked efter testet". Följ upp visas aldrig eftersom `foljUppTyp` är null (befintlig spärr, också med `?steg=folj-upp`).
+- `src/lib/jobbsok/bana.ts`: `SVAR_TYPER`.
+- `src/lib/jobbsok/lage.ts`: `foljUppTyp` ger null för `test_invited` före raden som ger `'ansokan'`; ny `kalladTillTestDag` och fältet `kalladTillTest` i `tjanstLage`.
+- `src/lib/jobbsok/typer.ts`: `TjanstLage.kalladTillTest`, `TEST_UPPDATERA_DAGAR = 14`, `AttGoraTyp` `uppdatera_test`.
+- `src/lib/jobbsok/attGora.ts`: kandidaten `uppdatera_test`, `PRIORITET` efter `satt_intervjutid`, väggen när den står först, `vaggUtanHandling` när alla vid Sökt är kallade till test.
+- `src/lib/jobbsok/lista.ts`: `testRadText(t, mobil?)`, `vantarSvarText(rader)` och konstanterna `VANTAR_SVAR_TEXT`, `VANTAR_TEST_TEXT`.
+- `src/components/jobb3/sokta/Lista.tsx`: egen rad i Väntar svar (text, telefonrad, brickan "Kallad till test", knappen Uppdatera), gruppens underrad ur `vantarSvarText`.
+- `src/components/jobb3/sokta/text.ts`: `fyrsteg` ger steg 2.
+- `src/components/jobb3/oversikt/oversikt.ts`: `tjanstRad` och `goraMobil` för `uppdatera_test`.
+- `src/app/dela/sokta-tjanster/[token]/page.tsx`: `radLage` får fallet ur 9.12.
+- `src/lib/dashboard/getSummary.ts`: `silent` är falskt för `test_invited`.
+- Orörda enligt tabellen: `statistik.ts`, `handelser.ts`, `coach.ts`, `tystnad.ts`, `intervju.ts`, rapporten, `followUp.ts`, `weekly-digest.ts`, `useApplicationsSummary.ts`, `rum/jobbsok.ts`.
+
+### Kortet, arket, servern och kvittensen (9.14 till 9.17)
+
+- `src/lib/tester/v4/tjanstfraga.ts` (ny): `tjanstfraga`, `tjanstfragaNyckel`, `arHoppad`, `TJANSTFRAGA_NYCKEL`. Grinden i 9.14:s ordning, appen först.
+- `src/lib/tester/v4/typer.ts`, `modell.ts`, `hamta.server.ts`: `tjanstfraga?: { harNivakoll, harSoktTjanst }` ur `nivapunkter` och `summering.sidomeny.ansokningar`, båda redan lästa i samma `Promise.all`. Ingen ny fråga mot databasen.
+- `src/app/dashboard/tester/HemSida.tsx` (ny, `TesterHemSida`); `src/app/dashboard/tester/page.tsx` ritar den, `src/app/app/tester/page.tsx` ritar den med `iAppen`. `HemVy` och `HemGolv` tar `iAppen`.
+- `src/components/tester-v4/hem/TjanstFraga.tsx` (ny klientö): ritar ingenting förrän `localStorage` är läst. Hopfällt och utfällt läge med texterna i 9.15, fokus till rubriken vid utfällning, fel i koppar med `aria-invalid`, Fortsätt skriver nyckeln och går till `soktaHref({ logga: 'sokt', tjanst, arbetsgivare, fran })`, Hoppa över skriver nyckeln och flyttar fokus till nästa element. Ett första datum på samma prov skriver om den sparade nyckeln.
+- `src/components/tester-v4/omgang3/HemGolv.tsx`: kortet efter `<Vagen>`, före `<GratisRad>`, aldrig i grenen `ny`.
+- `src/app/globals.css`: klasserna ur skissens avsnitt 4, sist i avsnittet Golvet (före "Tester: planpanelen"). `.t3-fraga-ik` i `var(--ton)` och `var(--ton-ink)`, ingen `.t3-fraga-not`. Tillägg: `.t3-fraga-text h2:focus { outline: none; }`, eftersom rubriken får fokus programmatiskt.
+- `src/lib/jobbsok/adress.ts`: `soktaHref` får `tjanst` och `arbetsgivare` efter `logga`, före `manad` och `fran`.
+- `src/app/dashboard/sokta-tjanster/page.tsx`: `forifylltUr` läser `fran` (högst 40 tecken); `LoggaForifyllt.fran`.
+- `src/components/jobb3/sokta/LoggaArk.tsx`: testvägen (`fran` är `test-hem` eller `test-hem-plan`, inte redigering, inte från Ska sökas), i läget "Jag har sökt": Datum sökt tomt och obligatoriskt med hjälptexten och felraden ur 9.4 (samordnarens beslut 2), kryssrutan "Arbetsgivaren har kallat mig till test" med förval efter `fran` (samordnarens beslut 1), raden under knappen efter rutan. Anropet bär `fran` och, när rutan är kryssad, `kallad_till_test: true`.
+- `src/lib/applications/skapa.ts`: `arKalladTillTest` och, efter `applied`, en egen insert av `test_invited` (dagens svenska datum) med ett försök till. Svaret bär `test_invited` eller `applied`. Skrivs inte om `applied` föll.
+- `src/components/jobb3/sokta/SoktaVy.tsx`: läser `fran` en gång vid montering. På testvägen ingen toast, men `logActivity('application_logged', ..., { applicationId, channel, fran })` och kvittensen (`TestvagKvittens`, kitets `Notis` med `role="status"`) överst i panelen. Utanför testvägen toasten som förut, med `fran` i aktivitetens uppgifter när adressen bar en.
+- `src/components/jobb3/kit/Data.tsx`: `Notis` får `handling` (under texten) och `role`.
+- `src/components/jobb3/sokta/Lista.tsx`: `ListaGolv` tar `kvittens` och ritar den överst i panelen, före växeln.
+- `src/lib/analytics/events.ts`: `hem_visad.tjanstfraga?` (D1 hade redan lagt in `tjanstfraga_val`). `src/components/tester-v4/hem/HemMatning.tsx`: `HemVisad` tar `tjanstfragaNyckel` och räknar `tjanstfraga` i sin effekt; utelämnad nyckel ger ingen egenskap, så att de gamla testerna står.
+
+### Egna beslut och avvikelser
+
+1. Datum sökt på testvägen är tomt och obligatoriskt (samordnarens beslut 2) i stället för 9.16:s förifyllda datum och hjälprad. Text och fel som i 9.4.
+2. Motorns tester ligger i en ny fil, `src/lib/jobbsok/__tests__/kalladTillTest.test.ts`, inte i `intervjulagen.test.ts` och `motor.test.ts` som D1 ändrar samtidigt. Samma fall som 9.19 räknar upp, plus `soktaHref`.
+3. `testRadText(t, mobil = false)`: telefonens rad ("Kallad till test `d`") ur samma funktion med en flagga.
+4. `kalladTillTest` faller tillbaka på dagen i `status_updated_at` när tjänsten läses utan händelser (`sattIhopHistorik(..., [])` i två laddare). Annars null.
+5. `TestvagKvittens`, `testvagKvittensText` och `TILLBAKA_TILL_TESTERNA` är exporterade ur `SoktaVy.tsx` för testet.
+6. Felraderna i kortet står utanför `<label>`, kopplade med `aria-describedby`, så att fältens namn bara är "Tjänst" och "Arbetsgivare" (skissen hade raden inne i etiketten).
+7. Vid fel i båda fälten får det första fältet fokus. Specen säger bara att fältet markeras.
+
+### Ses i webbläsare (inte prövat), per läge i 9.18
+
+Kräver att migreringen är körd. Konto: gratis, en slutförd Nivåkoll, dagens grundnivåtest kvar, ingen sökt tjänst.
+- Hopfällt, 412 x 915 och 1440, ljust och mörkt i 412: kortet under Vägen till provet, före Nederst; "Starta dagens test" sidans enda kopparknapp; ikonen i rummets ton (indigo i ljust), inte grönt. Kortet ska ligga nedanför första skärmen i båda bredderna. Mät Hem med `scripts/perf-inloggat.ts` med kortet synligt: CLS 0, LCP inom budgeten. Visar mätningen ett skifte gäller lösningen i 9.3.
+- Utan plan: "Vilken tjänst övar du inför?"; passerat provdatum: "Vilken tjänst gällde provet?".
+- Inget kort: före första Nivåkollen, med påbörjad Nivåkoll utan nivå, med Gratisraden på sidan, med lås på väggens knapp, med en sökt tjänst, efter Hoppa över (också efter omladdning), och aldrig på `/app/tester`.
+- Utfällt (412 ljust och mörkt, 1440): "Lägg in tjänsten" fäller ut två fält, inget tangentbord fälls upp på telefonen, fälten 52 px, Fortsätt mörk. 1440: fälten i bredd med Fortsätt och Avbryt.
+- Felläge (412 ljust och mörkt): Fortsätt med tom tjänst ger felraden i koppar och kopparkant, aldrig rött.
+- Byt prov i planen: kortet tillbaka. Lägg in ett första datum på samma prov: inte tillbaka.
+- Vägen: Fortsätt öppnar `/dashboard/sokta-tjanster?logga=1&tjanst=Ekonomiassistent&arbetsgivare=Norrmejerier&fran=test-hem-plan` med arket öppet, fälten ifyllda, Datum sökt tomt med hjälptexten, kryssrutan ikryssad (tom med `fran=test-hem`). Logga utan datum: felraden. Med datum och ruta: kvittensen "Norrmejerier står nu som kallad till test" överst i panelen, tjänsten under Väntar svar med brickan "Kallad till test", aldrig under Följ upp (också med ett sökdatum 30 dagar bakåt). "Tillbaka till testerna" går till Hem, där kortet är borta.
+- Tjänstens sida: ögonbrynet "Kallad till test", banan på Svar, inget Följ upp-block, inte heller med `?steg=folj-upp`; ingressen på 1440.
+- "Kallad till test" för hand på en befintlig tjänst, från snabbvalen och från Annat. Delningssidan visar "Kallad till test"; rapporten listar tjänsten bland sökta jobb.
+- Översikt dag 14 efter kallelsen: kortet "Vad hände efter testet hos ...?" (telefon "Vad hände efter testet?").
+
+### Vitest
+
+- `src/lib/tester/v4/__tests__/tjanstfraga.test.ts` (ny): 18 gröna.
+- `src/components/tester-v4/hem/__tests__/HemVy.test.tsx`: 36 gröna (14 nya).
+- `src/app/app/tester/__tests__/page.test.tsx` (ny): 1 grön.
+- `src/lib/applications/__tests__/skapa.test.ts` (ny): 6 gröna.
+- `src/components/jobb3/sokta/__tests__/testvag.test.tsx` (ny): 11 gröna.
+- `src/lib/jobbsok/__tests__/kalladTillTest.test.ts` (ny): 17 gröna.
+- `src/lib/notifications/__tests__/followUp.test.ts`: 20 gröna (2 nya). `src/lib/email/lifecycle/__tests__/weekly-digest.test.ts`: 15 gröna (1 nytt). `src/components/jobb3/oversikt/__tests__/oversikt.test.ts`: 23 gröna (2 nya).
+- Körda utan ändring: `HemMatning.test.tsx` 7, `motor.test.ts` 43, `intervjulagen.test.ts` 36, alla gröna.
+- `npx tsc --noEmit` (6,2 GB ledigt): inga fel på grenen.

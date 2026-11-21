@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 vi.mock('@/lib/analytics/events', () => ({ capture: vi.fn() }))
 vi.mock('@/components/rum/Topprad', () => ({ default: () => <div data-topprad /> }))
+const push = vi.fn()
+vi.mock('next/navigation', async (orig) => ({ ...(await orig<typeof import('next/navigation')>()), useRouter: () => ({ push }) }))
 
 import HemVy from '../HemVy'
 import { bandForklaring, hintHref, hintEtikett } from '../NastaSteg'
@@ -15,6 +17,8 @@ import { talText } from '@/components/tester-v4/Nivaband'
 import { fortsattMeta } from '../FortsattDarDuSlutade'
 import { fixturTester } from '@/lib/tester/v4/fixturer'
 import type { Hint, TesterV4Data, UtvecklingsPunkt } from '@/lib/tester/v4/typer'
+import { capture } from '@/lib/analytics/events'
+import { tjanstfragaNyckel } from '@/lib/tester/v4/tjanstfraga'
 
 beforeEach(() => {
   try {
@@ -238,5 +242,162 @@ describe('Hems härledda tal', () => {
     expect(bandForklaring(matris)).toMatch(/^Nivån från Nivåkollen \d+ \w+\. Det ljusa bandet är mätningens osäkerhet\. Provet ligger på avancerad nivå\.$/)
     expect(bandForklaring(matris, nivaKalla(b.kurva, 'matris'))).toBe('Nivån efter träningen 17 nov. Det ljusa bandet är mätningens osäkerhet. Provet ligger på avancerad nivå.')
     expect(delarText(['Ordförråd', 'Spatial förmåga', 'Talserier'])).toBe('Ordförråd, spatial förmåga och talserier')
+  })
+})
+
+/* ------------------------------------------- Jobbsöket omgång 2, 9 B */
+
+/** Gratis, slutförd Nivåkoll, dagens grundnivå kvar, ingen sökt tjänst, plan. */
+function medFraga(over: Partial<TesterV4Data> = {}): TesterV4Data {
+  const d = fixturTester('b', 'gratis')
+  return {
+    ...d,
+    dagens: { ...d.dagens, forstaSteget: false, knapp: { ...d.dagens.knapp, las: null } },
+    gratis: { ...d.gratis, premium: false, grundKvarIdag: 1 },
+    tjanstfraga: { harNivakoll: true, harSoktTjanst: false },
+    ...over,
+  }
+}
+
+const kortet = (c: Element) => c.querySelector('section.t3-fraga')
+const hemVisad = () => vi.mocked(capture).mock.calls.find((c) => c[0] === 'hem_visad')?.[1]
+
+describe('kortet Vilken tjänst gäller provet? (byggspec 9.14 till 9.17)', () => {
+  beforeEach(() => {
+    vi.mocked(capture).mockClear()
+    push.mockClear()
+    try {
+      window.sessionStorage.clear()
+    } catch {
+      /* jsdom */
+    }
+  })
+
+  it('ritas efter montering under Vägen till provet, före Nederst, med texterna i 9.15', () => {
+    const { container } = render(<HemVy data={medFraga()} />)
+    const k = kortet(container)!
+    expect(k).not.toBeNull()
+    const vagen = container.querySelector('[data-vagen]')!
+    expect(vagen.compareDocumentPosition(k) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    const nederst = container.querySelector('.t3-nederst')
+    if (nederst) expect(k.compareDocumentPosition(nederst) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(text(k)).toContain('Valfritt')
+    expect(k.querySelector('h2')?.textContent).toBe('Vilken tjänst gäller provet?')
+    expect(text(k)).toContain('Lägg in den i Sökta tjänster, så har du ansökan, provet och beskedet på ett ställe.')
+    expect(screen.getByRole('button', { name: 'Lägg in tjänsten' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Hoppa över' })).toBeTruthy()
+    expect(text(k)).not.toMatch(/blir tyst/)
+  })
+
+  it('utan plan: Vilken tjänst övar du inför? och testet i skälet', () => {
+    const { container } = render(<HemVy data={medFraga({ plan: null })} />)
+    const k = kortet(container)!
+    expect(k.querySelector('h2')?.textContent).toBe('Vilken tjänst övar du inför?')
+    expect(text(k)).toContain('Lägg in den i Sökta tjänster, så har du ansökan, testet och beskedet på ett ställe.')
+  })
+
+  it('med localStorage.tjanstfraga_test satt till kortets nyckel ritas inget kort', () => {
+    const data = medFraga()
+    window.localStorage.setItem('tjanstfraga_test', tjanstfragaNyckel(data.plan))
+    const { container } = render(<HemVy data={data} />)
+    expect(kortet(container)).toBeNull()
+  })
+
+  it('med iAppen ritas inget kort', () => {
+    const { container } = render(<HemVy data={medFraga()} iAppen />)
+    expect(kortet(container)).toBeNull()
+  })
+
+  it('väggens knapp med lås: inget kort', () => {
+    const d = medFraga()
+    const las = { ...d, dagens: { ...d.dagens, knapp: { ...d.dagens.knapp, las: { skal: 'premium' as const, chip: 'Ingår i Premium' } } } }
+    const { container } = render(<HemVy data={las} />)
+    expect(kortet(container)).toBeNull()
+  })
+
+  it('Gratisraden på sidan: inget kort', () => {
+    const d = medFraga()
+    const { container } = render(<HemVy data={{ ...d, gratis: { ...d.gratis, grundKvarIdag: 0 } }} />)
+    expect(kortet(container)).toBeNull()
+  })
+
+  it('Hoppa över tar bort kortet, skriver nyckeln och skickar tjanstfraga_val med hoppad', () => {
+    const data = medFraga()
+    const { container } = render(<HemVy data={data} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Hoppa över' }))
+    expect(kortet(container)).toBeNull()
+    expect(window.localStorage.getItem('tjanstfraga_test')).toBe(tjanstfragaNyckel(data.plan))
+    expect(capture).toHaveBeenCalledWith('tjanstfraga_val', { plats: 'test-hem', val: 'hoppad' })
+  })
+
+  it('Lägg in tjänsten fäller ut två fält, fokus på rubriken, oppnad mäts', () => {
+    const { container } = render(<HemVy data={medFraga()} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Lägg in tjänsten' }))
+    const k = kortet(container)!
+    expect(k.getAttribute('data-lage')).toBe('utfalld')
+    expect(text(k)).toContain('Fyll i två fält. Du sparar i nästa steg, i Sökta tjänster.')
+    expect(k.querySelectorAll('input').length).toBe(2)
+    expect(document.activeElement).toBe(k.querySelector('h2'))
+    expect(capture).toHaveBeenCalledWith('tjanstfraga_val', { plats: 'test-hem', val: 'oppnad' })
+    expect(screen.getByPlaceholderText('Till exempel ekonomiassistent')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Till exempel Volvo Cars')).toBeTruthy()
+  })
+
+  it('Fortsätt med tomma fält visar felraderna, ingen navigering', () => {
+    const { container } = render(<HemVy data={medFraga()} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Lägg in tjänsten' }))
+    fireEvent.click(screen.getByRole('button', { name: /Fortsätt/ }))
+    expect(text(kortet(container)!)).toContain('Skriv tjänsten också, så hittar du den igen.')
+    expect(text(kortet(container)!)).toContain('Skriv arbetsgivaren också, så hittar du tjänsten igen.')
+    expect(screen.getByLabelText('Tjänst').getAttribute('aria-invalid')).toBe('true')
+    expect(push).not.toHaveBeenCalled()
+    expect(window.localStorage.getItem('tjanstfraga_test')).toBeNull()
+  })
+
+  it('Fortsätt med båda fälten: nyckeln skrivs och adressen bär bara tjanst, arbetsgivare och fran', () => {
+    const data = medFraga()
+    render(<HemVy data={data} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Lägg in tjänsten' }))
+    fireEvent.change(screen.getByLabelText('Tjänst'), { target: { value: 'Ekonomiassistent' } })
+    fireEvent.change(screen.getByLabelText('Arbetsgivare'), { target: { value: 'Norrmejerier' } })
+    fireEvent.click(screen.getByRole('button', { name: /Fortsätt/ }))
+    expect(push).toHaveBeenCalledWith('/dashboard/sokta-tjanster?logga=1&tjanst=Ekonomiassistent&arbetsgivare=Norrmejerier&fran=test-hem-plan')
+    expect(window.localStorage.getItem('tjanstfraga_test')).toBe(tjanstfragaNyckel(data.plan))
+    // Fortsätt mäts inte.
+    expect(vi.mocked(capture).mock.calls.filter((c) => c[0] === 'tjanstfraga_val').map((c) => (c[1] as { val: string }).val)).toEqual(['oppnad'])
+  })
+
+  it('Avbryt fäller ihop utan att spara', () => {
+    const { container } = render(<HemVy data={medFraga()} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Lägg in tjänsten' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Avbryt' }))
+    expect(kortet(container)!.getAttribute('data-lage')).toBe('hopfalld')
+    expect(window.localStorage.getItem('tjanstfraga_test')).toBeNull()
+  })
+
+  it('hem_visad skickas med tjanstfraga true när kortet visas och false annars', () => {
+    const { unmount } = render(<HemVy data={medFraga()} />)
+    expect(hemVisad()).toMatchObject({ tjanstfraga: true })
+    unmount()
+    vi.mocked(capture).mockClear()
+    window.sessionStorage.clear()
+    render(<HemVy data={medFraga({ tjanstfraga: { harNivakoll: true, harSoktTjanst: true } })} />)
+    expect(hemVisad()).toMatchObject({ tjanstfraga: false })
+  })
+
+  it('hem_visad: false när frågan är hoppad på enheten', () => {
+    const data = medFraga()
+    window.localStorage.setItem('tjanstfraga_test', tjanstfragaNyckel(data.plan))
+    render(<HemVy data={data} />)
+    expect(hemVisad()).toMatchObject({ tjanstfraga: false })
+  })
+
+  it('ett första datum på samma prov: kortet kommer inte tillbaka och nyckeln skrivs om', () => {
+    const data = medFraga()
+    const plan = { ...data.plan!, provdatum: '2026-11-26', dagarKvar: 5 }
+    window.localStorage.setItem('tjanstfraga_test', `${plan.mittTest}|`)
+    const { container } = render(<HemVy data={{ ...data, plan }} />)
+    expect(kortet(container)).toBeNull()
+    expect(window.localStorage.getItem('tjanstfraga_test')).toBe(`${plan.mittTest}|2026-11-26`)
   })
 })

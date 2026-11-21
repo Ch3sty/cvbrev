@@ -45,6 +45,8 @@ export const WEEKLY_DIGEST_TYPE = 'weekly_digest';
 const MAX_FOLLOW_UPS = 2;
 /** Hur många tjänster som väntar besked efter intervju eller provjobb vi nämner vid namn. */
 const MAX_BESKED = 2;
+/** Högst tre rader i rutan totalt: besked först, tysta ansökningar fyller upp. */
+const MAX_RADER = 3;
 
 export interface DigestApplication extends RadMedHistorik {
   id?: string;
@@ -165,10 +167,11 @@ export function summarize(
   }
 
   // Längst tystnad först: den som väntat mest är den som brådskar mest.
-  candidates.sort((a, b) => b.days - a.days);
-  data.followUps = candidates.slice(0, MAX_FOLLOW_UPS);
+  // Besked räknas först; tysta ansökningar fyller upp till MAX_RADER.
   beskedKandidater.sort((a, b) => b.days - a.days);
   data.besked = beskedKandidater.slice(0, MAX_BESKED).map(({ days: _days, ...rest }) => rest);
+  candidates.sort((a, b) => b.days - a.days);
+  data.followUps = candidates.slice(0, Math.min(MAX_FOLLOW_UPS, MAX_RADER - data.besked.length));
 
   return data;
 }
@@ -246,7 +249,7 @@ function weekSentence(data: WeeklyDigestData, greeting: string): string {
  * uppföljningen på den sökta tjänsten (utkastet), med samma utm som knappen.
  */
 export function followUpNote(data: WeeklyDigestData): string | undefined {
-  const besked = beskedNote(data);
+  const besked = beskedNote(data, data.followUps.length > 0);
   if (data.followUps.length === 0) return besked;
 
   const rows = data.followUps
@@ -278,8 +281,12 @@ function titelLank(item: { id?: string; title: string }): string {
     : titel;
 }
 
-/** Stycket om tjänster som väntar besked efter intervju eller provjobb, eller undefined. */
-export function beskedNote(data: Pick<WeeklyDigestData, 'besked'>): string | undefined {
+/**
+ * Stycket om tjänster som väntar besked efter intervju eller provjobb, eller
+ * undefined. `medTysta`: stycket om tysta ansökningar visas också, och då står
+ * meningen om mejlet bara i dess avslutning.
+ */
+export function beskedNote(data: Pick<WeeklyDigestData, 'besked'>, medTysta = false): string | undefined {
   if (!data.besked || data.besked.length === 0) return undefined;
   const rows = data.besked
     .map((item) => {
@@ -289,7 +296,7 @@ export function beskedNote(data: Pick<WeeklyDigestData, 'besked'>): string | und
          </p>`;
     })
     .join('');
-  return `<p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;font-weight:600;color:#0F172A;">Här väntar du på besked:</p>${rows}<p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#64748B;">Fråga när du kan vänta besked. Ett kort mejl räcker.</p>`;
+  return `<p style="margin:0 0 10px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;font-weight:600;color:#0F172A;">Här väntar du på besked:</p>${rows}<p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#64748B;">${medTysta ? 'Fråga när du kan vänta besked.' : 'Fråga när du kan vänta besked. Ett kort mejl räcker.'}</p>`;
 }
 
 /** Preheadern: om besked när någon tjänst väntar besked, annars som förut. */

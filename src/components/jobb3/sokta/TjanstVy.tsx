@@ -51,6 +51,7 @@ import {
   IkonPenna,
   IkonBock,
   IkonVaska,
+  IkonRutnat,
   IkonFlagga,
   IkonAvslag,
   IkonKalender,
@@ -183,7 +184,9 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
             ? 'Kallad till intervju'
             : t.station === 'erbjudande'
               ? STATUS_META[t.status ?? 'offer_received'].label
-              : 'Väntar svar'
+              : t.status === 'test_invited'
+                ? 'Kallad till test'
+                : 'Väntar svar'
 
   const intervjuRubrik = i?.dag
     ? `Intervju ${veckodagNamn(i.dag)} ${langDag(i.dag)}${klockslag(i.tid) ? `, ${klockslag(i.tid)}` : ''}`
@@ -218,7 +221,9 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
         ? kalladEfterTva
           ? `Du blev kallad till intervju den ${langDag(kalladEfterTva)}. Sätt tiden, så påminner vi före intervjun och frågar hur det gick.`
           : 'Du är kallad till intervju. Sätt tiden när du vet den, så påminner vi och frågar hur det gick.'
-        : null
+        : t.status === 'test_invited' && t.kalladTillTest
+          ? `Du blev kallad till test ${veckodagNamn(t.kalladTillTest)} ${langDag(t.kalladTillTest)}. Arbetsgivaren har hört av sig, så vi föreslår ingen uppföljning. Lägg till intervjun eller beskedet här när det kommer.`
+          : null
 
   /* -------------------------------------------------------- händelserna */
 
@@ -269,7 +274,7 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
     })
   }
   if (!t.avslutad && t.status !== 'accepted') {
-    if (t.station === 'sokt') rader.push({ rubrik: 'Svar', lage: 'sen', ikon: <IkonPrat size={20} /> })
+    if (t.station === 'sokt') rader.push({ rubrik: t.status === 'test_invited' ? 'Besked efter testet' : 'Svar', lage: 'sen', ikon: <IkonPrat size={20} /> })
     else if (t.station === 'intervju') rader.push({ rubrik: 'Erbjudande', lage: 'sen', ikon: <IkonFlagga size={20} /> })
   }
 
@@ -288,6 +293,8 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
             { typ: 'rejected', ikon: <IkonAvslag /> },
           ]
         : [
+            // Kallad till test (9 B) först, utom när tjänsten redan står som kallad till test.
+            ...(t.status === 'test_invited' ? [] : [{ typ: 'test_invited' as const, ikon: <IkonRutnat /> }]),
             { typ: 'interview_invited', ikon: <IkonKalender /> },
             { typ: 'rejected', ikon: <IkonAvslag /> },
           ]

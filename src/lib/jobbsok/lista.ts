@@ -4,7 +4,7 @@
  * väggens rad. Klientsäker och ren.
  */
 import { ordtal } from './attGora'
-import { langDag } from './datum'
+import { kortDag, langDag } from './datum'
 import type { SkaSokasRad, SoktaFilter, SoktaLista, TjanstLage } from './typer'
 
 const stor = (s: string) => s.charAt(0).toLocaleUpperCase('sv-SE') + s.slice(1)
@@ -84,6 +84,26 @@ export function foljUppText(rader: readonly TjanstLage[]): string {
   if (efterMoment > 0 && efterMoment === rader.length) return 'Minst sju dagar utan besked. Ett kort mejl som frågar brukar räcka.'
   if (efterMoment > 0) return 'Tyst länge nog för att fråga. Ett kort mejl brukar ge besked.'
   return 'Tyst i minst tolv dagar. Ett kort mejl brukar ge besked.'
+}
+
+/** Väntar svar: dagens underrad. */
+export const VANTAR_SVAR_TEXT = 'Svar brukar dröja en till två veckor. Vi säger till när det är dags att följa upp.'
+/** Väntar svar när alla rader är kallade till test (9 B). */
+export const VANTAR_TEST_TEXT = 'Kallad till test. Lägg till intervjun eller beskedet när det kommer.'
+
+/**
+ * Radens text för en tjänst som är kallad till test (9 B): "Kallad till test
+ * 21 nov. Lägg till intervjun eller beskedet när det kommer.", på telefon bara
+ * "Kallad till test 21 nov". Utan känd dag faller dagen bort.
+ */
+export function testRadText(t: Pick<TjanstLage, 'kalladTillTest'>, mobil = false): string {
+  const dag = t.kalladTillTest ? ` ${kortDag(t.kalladTillTest)}` : ''
+  return mobil ? `Kallad till test${dag}` : `Kallad till test${dag}. Lägg till intervjun eller beskedet när det kommer.`
+}
+
+/** Underraden i gruppen Väntar svar: testets rad när alla rader är kallade till test, annars dagens. */
+export function vantarSvarText(rader: readonly Pick<TjanstLage, 'status'>[]): string {
+  return rader.length > 0 && rader.every((t) => t.status === 'test_invited') ? VANTAR_TEST_TEXT : VANTAR_SVAR_TEXT
 }
 
 /** Raden i Avslutade: "Tre avslag, det senaste 12 nov." */

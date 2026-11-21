@@ -13,6 +13,7 @@
  *   1. hur_gick_intervjun   intervjutiden passerad, ingen "Intervju genomförd"; datum = dagen efter
  *   2. forbered_intervju    intervjutid inom 14 dagar; datum = intervjudagen
  *   -  satt_intervjutid     kallad utan tid, två dagar efter kallelsen (skaSattaTiden); datum = kallelsen plus två dagar
+ *   -  uppdatera_test       kallad till test, fjorton dagar efter kallelsen (9 B); datum = kallelsen plus fjorton dagar
  *   3. folj_upp             tyst (12 dagar efter en ansökan, 7 efter intervju eller provjobb, räknat från
  *                           senaste händelse eller uppföljning); datum = dagen tystnaden inträffade
  *   4. sok_fore_sista_dag   Ska sökas med sista dag inom 7 dagar; datum = sista dagen
@@ -42,6 +43,7 @@ import {
   FORBERED_INOM_DAGAR,
   KALLELSE_UTAN_TID_DAGAR,
   SISTA_DAG_INOM_DAGAR,
+  TEST_UPPDATERA_DAGAR,
   type AttGoraHandling,
   type AttGoraNu,
   type AttGoraTyp,
@@ -74,10 +76,11 @@ const PRIORITET: Record<AttGoraTyp, number> = {
   hur_gick_intervjun: 0,
   forbered_intervju: 1,
   satt_intervjutid: 2,
-  folj_upp: 3,
-  sok_fore_sista_dag: 4,
-  af_rapport: 5,
-  sok_en_till: 6,
+  uppdatera_test: 3,
+  folj_upp: 4,
+  sok_fore_sista_dag: 5,
+  af_rapport: 6,
+  sok_en_till: 7,
 }
 
 /** Uppföljning efter intervju eller provjobb (inte efter en obesvarad ansökan)? */
@@ -168,6 +171,23 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
         rubrik: `Sätt tiden för intervjun på ${t.company}`,
         text: `${t.jobTitle}. Med tiden satt påminner vi före intervjun och frågar hur det gick.`,
         knapp: { text: 'Sätt tiden', href: tjanstHref(t.id, 'andra-tid') },
+        ansokanId: t.id,
+        bokstaver: t.bokstaver,
+      })
+    }
+    // Kallad till test (9 B): fjorton dagar efter kallelsen frågar vi en gång vad som hände.
+    if (t.status === 'test_invited' && t.kalladTillTest && plusDagar(t.kalladTillTest, TEST_UPPDATERA_DAGAR) <= idag) {
+      const datum = plusDagar(t.kalladTillTest, TEST_UPPDATERA_DAGAR)
+      ut.push({
+        typ: 'uppdatera_test',
+        nyckel: `uppdatera_test:${t.id}`,
+        datum,
+        passerad: datum < idag,
+        ikon: 'fraga',
+        overrad: versaler(`Kallad till test ${kortDag(t.kalladTillTest)}`),
+        rubrik: `Vad hände efter testet hos ${t.company}?`,
+        text: `${t.jobTitle}. Lägg till intervjun eller beskedet, så stämmer listan.`,
+        knapp: { text: 'Uppdatera tjänsten', href: tjanstHref(t.id) },
         ansokanId: t.id,
         bokstaver: t.bokstaver,
       })
@@ -336,6 +356,15 @@ export function vaggForHandling(h: AttGoraHandling, ind: AttGoraIndata, idag: Da
           : h.text,
         knapp: h.knapp,
       }
+    case 'uppdatera_test':
+      return {
+        overrad,
+        rubrik: h.rubrik,
+        text: t?.kalladTillTest
+          ? `${t.jobTitle}. Du blev kallad till test den ${langDag(t.kalladTillTest)}. Lägg till intervjun eller beskedet, så stämmer listan.`
+          : h.text,
+        knapp: h.knapp,
+      }
     case 'folj_upp':
       if (t && efterMoment(t)) {
         return {
@@ -379,6 +408,16 @@ export function vaggUtanHandling(ind: AttGoraIndata, idag: Dag): Vagg {
       overrad,
       rubrik: 'Dags att söka',
       text: 'Matchade jobb har annonser som passar ditt CV. Logga det du söker, så håller vi koll på svaren.',
+      knapp,
+    }
+  }
+  // Alla vid stationen Sökt är kallade till test (9 B). Blandat gäller dagens text.
+  const testRader = oppna.filter((t) => t.station === 'sokt' && t.status === 'test_invited')
+  if (vantar > 0 && testRader.length === vantar) {
+    return {
+      overrad,
+      rubrik: vantar === 1 ? `Kallad till test hos ${testRader[0].company}` : `${stor(ordtal(vantar))} tjänster med test på gång`,
+      text: 'Inget att göra just nu. Lägg till intervjun eller beskedet på tjänsten när det kommer.',
       knapp,
     }
   }

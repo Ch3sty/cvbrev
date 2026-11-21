@@ -179,7 +179,7 @@ export function bana(tjanster: readonly TjanstLage[], skaSokas: readonly SkaSoka
 
 /* ------------------------------------------------- tjänstens fyra steg */
 
-const SVAR_TYPER = new Set(['rejected', 'interview_invited', 'interview_completed', 'trial_work_completed', 'offer_received', 'accepted', 'declined'])
+const SVAR_TYPER = new Set(['rejected', 'test_invited', 'interview_invited', 'interview_completed', 'trial_work_completed', 'offer_received', 'accepted', 'declined'])
 const INTERVJU_TYPER = new Set(['interview_invited', 'interview_completed', 'trial_work_completed'])
 const ERBJUDANDE_TYPER = new Set(['offer_received', 'accepted', 'declined'])
 

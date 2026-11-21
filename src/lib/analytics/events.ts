@@ -451,6 +451,8 @@ export interface AnalyticsEvents {
     has_profile: 'none' | 'sample' | 'full'
     scope: string | null
     next_action: string
+    /** Byggspec 9.7: sektionen Intervjuer på gång bär frågan "När är intervjun?" (listan är tom). */
+    intervjufraga?: boolean
   }
   interview_practice_started: { question: FragaId; surface: 'dashboard' }
   interview_practice_completed: { question: FragaId; level: number; surface: 'dashboard' }
@@ -567,7 +569,7 @@ export interface AnalyticsEvents {
   nivakoll_gjord: TesterV4Kontext & { testtyp: string; niva: number | null; raknas?: boolean }
   kvot_slut_visad: TesterV4Kontext & { surface: string; testtyp?: string | null }
   /** Nya Hem (2026-11-19): en gång per besök. Inga personuppgifter. */
-  hem_visad: { plan: boolean; niva: 'gratis' | 'premium'; matta_typer: number; plattform: 'webb' | 'app' }
+  hem_visad: { plan: boolean; niva: 'gratis' | 'premium'; matta_typer: number; plattform: 'webb' | 'app'; tjanstfraga?: boolean }
   /** Tryck i navigeringen Hem, Tester, Din utveckling; sida är den man stod på. */
   tester_nav_klickad: {
     mal: 'hem' | 'tester' | 'utveckling'
@@ -714,7 +716,9 @@ export interface AnalyticsEvents {
   /** F5: Följde upp loggad. med_utkast false = "Jag har redan skickat det". */
   uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F6: intervjuns tid satt, ändrad eller borttagen. */
-  intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' }
+  intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' | 'intervju-hubb' }
+  /** Byggspec 9.7: frågan om tjänsten (testernas Hem, Inför intervjun). Den enda nya händelsen i omgång 2. */
+  tjanstfraga_val: { plats: 'test-hem' | 'intervju-hubb'; val: 'oppnad' | 'hoppad' }
   /** F6: svaret på "Hur gick intervjun?". */
   intervju_utfall: { svar: 'genomford' | 'flyttad' | 'installd' }
   /** F4: veckans mål ändrat. */

@@ -104,6 +104,27 @@ describe('besked efter intervju eller provjobb (byggspec 2.7)', () => {
       { id: 'i2', title: 'Ekonomiassistent', company: 'Norrmejerier', dag: '2026-11-10', moment: 'intervju' },
     ])
     expect(d.followUps).toEqual([])
+
+    // Tysta ansökningar fyller upp till tre rader.
+    const tysta = [app({ id: 't1' }), app({ id: 't2' }), app({ id: 't3' })]
+    const tvaBesked = summarize([genomford('b1', '2026-11-05'), genomford('b2', '2026-11-06'), ...tysta], NU)
+    expect(tvaBesked.besked).toHaveLength(2)
+    expect(tvaBesked.followUps).toHaveLength(1)
+    const ettBesked = summarize([genomford('b1', '2026-11-05'), ...tysta], NU)
+    expect(ettBesked.besked).toHaveLength(1)
+    expect(ettBesked.followUps).toHaveLength(2)
+    const ingetBesked = summarize(tysta, NU)
+    expect(ingetBesked.besked).toHaveLength(0)
+    expect(ingetBesked.followUps).toHaveLength(2)
+  })
+
+  it('högst tre rader i rutan, med fem kandidater av varje sort', () => {
+    const rader = [
+      ...['2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05'].map((dag, i) => genomford(`b${i}`, dag, i % 2 === 1)),
+      ...[0, 1, 2, 3, 4].map((i) => app({ id: `t${i}` })),
+    ]
+    const d = summarize(rader, NU)
+    expect(d.besked.length + d.followUps.length).toBeLessThanOrEqual(3)
   })
 
   it('en kallelse, med eller utan tid, står aldrig i rutan', () => {
@@ -146,7 +167,11 @@ describe('besked efter intervju eller provjobb (byggspec 2.7)', () => {
     expect(html).toContain('<strong style="color:#0F172A;">Redovisningsekonom</strong></a> hos Umeå Energi, intervjun var den 12 november')
     expect(html).toContain('<strong style="color:#0F172A;">Lagerarbetare</strong></a> hos Komatsu Forest, provjobbet var den 10 november')
     expect(html).toContain('/dashboard/sokta-tjanster/i-1?steg=folj-upp&amp;utm_source=lifecycle&amp;utm_medium=email&amp;utm_campaign=weekly_digest"')
-    expect(html).toContain('Fråga när du kan vänta besked. Ett kort mejl räcker.')
+    // Med stycket om tysta ansökningar står meningen om mejlet bara en gång, i dess avslutning.
+    const beskedStycke = html.slice(0, html.indexOf('Den här har det varit tyst om ett tag:'))
+    expect(beskedStycke).toContain('Fråga när du kan vänta besked.')
+    expect(beskedStycke).not.toContain('Ett kort mejl räcker.')
+    expect(html.split('Ett kort mejl som frågar hur processen ligger till räcker.')).toHaveLength(2)
     // Det befintliga stycket står kvar ordagrant, efter besked-stycket.
     expect(html).toContain('Den här har det varit tyst om ett tag:')
     expect(html).toContain('Ett kort mejl som frågar hur processen ligger till räcker. Det är inte påträngande, det är att visa intresse.')
@@ -159,6 +184,7 @@ describe('besked efter intervju eller provjobb (byggspec 2.7)', () => {
     expect(html).toContain('Här väntar du på besked:')
     expect(html).toContain('<strong style="color:#0F172A;">X</strong> hos Y, intervjun var den 12 november')
     expect(html).not.toContain('tyst om ett tag')
+    expect(html.endsWith('Fråga när du kan vänta besked. Ett kort mejl räcker.</p>')).toBe(true)
   })
 
   it('preheadern', () => {
@@ -182,5 +208,29 @@ describe('besked efter intervju eller provjobb (byggspec 2.7)', () => {
     }
     expect(summarize(rader, NU).besked).toHaveLength(1)
     expect(await weeklyDigest.shouldSend(ctx as any)).toBe(false)
+  })
+})
+
+describe('kallad till test (Jobbsöket omgång 2, byggspec 9.19)', () => {
+  it('sökt för 30 dagar sedan och kallad till test: varken i followUps eller i besked, och rutan nämner den inte', () => {
+    const test = app({
+      id: 'test-1',
+      company: 'Testbolaget',
+      applied_at: '2026-10-22',
+      current_status: 'test_invited',
+      status_updated_at: '2026-11-01T08:00:00Z',
+      job_application_events: [
+        { id: 'ta', event_type: 'applied', occurred_at: '2026-10-22', created_at: '2026-10-22T08:00:00Z' },
+        { id: 'tb', event_type: 'test_invited', occurred_at: '2026-11-01', created_at: '2026-11-01T08:00:00Z' },
+      ],
+    })
+    const d = summarize([test], NU)
+    expect(d.followUps).toEqual([])
+    expect(d.besked).toEqual([])
+    expect(followUpNote(d)).toBeUndefined()
+    // Med en tyst ansökan bredvid står bara den i rutan.
+    const blandat = summarize([test, app({ id: 'tyst' })], NU)
+    expect(blandat.followUps.map((f) => f.id)).toEqual(['tyst'])
+    expect(followUpNote(blandat)).not.toContain('Testbolaget')
   })
 })

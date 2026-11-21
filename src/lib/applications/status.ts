@@ -10,6 +10,7 @@ export type ApplicationEventType =
   | 'applied'
   | 'no_response'
   | 'rejected'
+  | 'test_invited'
   | 'interview_invited'
   | 'interview_completed'
   | 'trial_work_completed'
@@ -81,6 +82,12 @@ export const STATUS_META: Record<ApplicationEventType, StatusMeta> = {
     pillClass: 'bg-slate-100 text-slate-600 border border-slate-200',
     dotClass: 'bg-slate-400',
   },
+  test_invited: {
+    label: 'Kallad till test',
+    timelineLabel: 'Kallad till test',
+    pillClass: 'bg-blue-50 text-blue-700 border border-blue-200',
+    dotClass: 'bg-blue-500',
+  },
   interview_invited: {
     label: 'Kallad till intervju',
     timelineLabel: 'Kallad till intervju',
@@ -127,6 +134,7 @@ export const CHANNEL_META: Record<ApplicationChannel, { label: string; short: st
 
 /** Händelsetyper användaren kan logga manuellt ("Ej svar" är beräknat, inte loggat). */
 export const LOGGABLE_EVENT_TYPES: ApplicationEventType[] = [
+  'test_invited',
   'interview_invited',
   'interview_completed',
   'trial_work_completed',
