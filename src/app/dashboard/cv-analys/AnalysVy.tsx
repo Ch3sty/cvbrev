@@ -397,7 +397,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
       {vagg.tal}
       <div className="cv4-mobil-knapp">
         {vagg.knapp(true)}
-        {vagg.sidorad ? <span className="cv3-mobil-sidorad">{vagg.sidorad}</span> : null}
+        {vagg.sidorad ? <span className="cv3-mobil-sidorad cv4-sidorad-telefon">{vagg.sidorad}</span> : null}
       </div>
     </div>
   );

@@ -77,7 +77,7 @@ const RUBRIKER = [
 ];
 
 export default function TermsOfServicePage() {
-  const lastUpdatedDate = "2026-11-19"; // *** UPPDATERA detta datum när villkoren ändras ***
+  const lastUpdatedDate = "2026-11-21"; // *** UPPDATERA detta datum när villkoren ändras ***
 
   return (
     <PubliktSida>
@@ -135,7 +135,7 @@ export default function TermsOfServicePage() {
             Du är ensam ansvarig för all information, text (inklusive CV-innehåll och jobbannonser) och filer som du laddar upp, klistrar in, genererar, sparar eller på annat sätt gör tillgänglig via Tjänsten ("Användarinnehåll").
           </p>
            <p>
-            <strong>Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy använder Tjänsten Google (Gemini API) för att skapa personliga brev, analysera CV:n och matcha jobb. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, <strong>ber vi dig att, innan du laddar upp ditt CV, noggrant granska och ta bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Vid uppladdningen godkänner du behandlingen med en kryssruta.</strong> Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till Google (Gemini API). Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
+            <strong>Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy använder Tjänsten Google (Gemini API) för att skapa personliga brev, analysera CV:n och matcha jobb. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till Google (Gemini API). Innan text ur ditt CV skickas byter vi först ut namn, e-postadress, telefonnummer, personnummer, födelsedatum, gatuadress, postnummer och länkar mot platshållare. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, <strong>ber vi dig att, innan du laddar upp ditt CV, noggrant granska och ta bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Vid uppladdningen godkänner du behandlingen med en kryssruta.</strong> Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till Google (Gemini API). Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
           </p>
           <p>
             Genom att tillhandahålla Användarinnehåll ger du oss en begränsad, global, icke-exklusiv, royaltyfri licens att använda, lagra, reproducera och bearbeta ditt Användarinnehåll (inklusive att skicka det till AI-tjänster som Googles Gemini API) <strong>uteslutande i syfte att tillhandahålla och förbättra Tjänsten åt dig.</strong> Du behåller äganderätten till ditt ursprungliga CV och de brev som genereras baserat på din input.

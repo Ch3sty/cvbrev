@@ -546,3 +546,22 @@ Backa: `git revert` av commiten "feat(cv-analys): genomgången visas för alla C
 - Den publika mini-analysen svarar "Försök igen om en stund" på en inskannad PDF.
 - En PDF som redan är uppladdad landar tyst på det befintliga CV:t.
 - Publika sidor och mejl beskriver den gamla analysen: `docs/rapporter/publika-sidor-avvikelser-2026-11-21.md`.
+
+### Kvällens tillägg (2026-11-21, efter ägarens besked)
+
+- **Integritetspolicyn och användarvillkoren** (ägarens ja i sessionen): maskningen beskrivs som den är (alla CV-flöden, även födelsedatum och länkar), och det framgår att inskannade PDF:er läses av på vår egen server i EU (Irland) och att sidbilderna inte skickas till Google. Belägg: `vercel.json` har `regions: ["dub1"]`, uppladdningsrutten kör `runtime = 'nodejs'`, databasen ligger på Irland. `lastUpdatedDate` 2026-11-21 i båda.
+- **Raden "En gång ingår gratis. Tar under en minut."** syns nu under knappen på telefon i genomgången (`.cv4-sidorad-telefon`, och väggen är 460 px hög när raden finns så att arket inte täcker den).
+- **Vägen på Ditt CV:** steget heter "förslag" och "förslag klara" (förut "analysera" och "analyserat"). De längre "hämta förslag" och "förslag hämtade" krockade med "uppladdat" i 1440. Skärmläsarens mening säger "nästa steg: förslag".
+- **`aggregate-metrics` och `pre-enrich-occupations`** kräver rubriken `x-cron-secret` (samma värde som `CRON_SECRET`). Nattjobbet `aggregate-daily-metrics` skickar den ur vault (migrering `20261121170000`, körd före driftsättningen). Kontrollerat: utan eller med fel hemlighet 401, nattjobbets eget kommando släpps igenom. I drift ligger funktionernas tidigare driftsatta källor med spärren tillagd, eftersom de skilde sig från repot i formatering och uppdelning.
+- **`match-jobs` och cacheskrivningen** rättades av Jobbsökets session (`308aee1c`: de 300 bästa sparas, felet kontrolleras), ovanpå inloggningsrättningen. Inget mer gjordes här.
+
+Prestanda, ostörd mätning på lokalt produktionsbygge (Pixel 7, `--samtycke`, uppvärmning och tre körningar):
+
+| Sida (budget) | LCP körning 1–3 | CLS | Första byte ×3 |
+|---|---|---|---|
+| Ditt CV (1,0 s) | 1088, 1208, 1288 ms | 0 | 963, 187, 173 ms |
+| Analys (1,5 s) | 1132, 1044, 1068 ms | 0 | 173, 197, 278 ms |
+
+Analys håller budgeten. Ditt CV ligger 0,1 till 0,3 s över. Servern svarar på cirka 0,2 s när den är varm och texten målas vid 0,65 till 0,9 s; det som blir LCP är mallbilden `/mallar/v2/linne-stor.webp`, som kommer efter första målningen. Före dagens ändringar mättes Ditt CV till 1008 ms. Nästa steg är att ge den bilden förtur (förladdning eller hög prioritet) och mäta om.
+
+Kvar av samma slag, inte rört: `send-verification-reminders` anropas av pg_cron med den publika nyckeln och finns inte i repot. Den skickar mejl till riktiga användare, så spärren bör läggas med någon som kan följa nästa morgonkörning.
