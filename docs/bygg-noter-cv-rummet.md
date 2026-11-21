@@ -359,3 +359,67 @@ Klicktest: `scripts/klicktest-cv-analys-spara.mjs` (premiumkontot: granska, Ers�
 - "Så räknas poängen" visar modellens kategorier (Personbeskrivning, Erfarenhet, ...) i stället för skissens fyndnamn, plus förklaringen och "Alla sju delar".
 - Två kopparknappar i resultatläget för gratis (väggens "Åtgärda i CV:t" och köpknappen), som skissen och Ditt CV i steg 1.
 - Telefon: arket först (lyft in i väggen), sedan fynden, sedan "Så räknas poängen".
+
+## Steg 5 (slutkontrollen)
+
+Grenen innehåller origin/main till och med `1c1dda8c` (två sammanslagningar: `073be47f` med d922e403, en krock i `globals.css` där båda sidor lagt ett block sist, båda behållna; `04ac57c0` med 1c1dda8c, inga krockar, fyra delade filer lästa: Sidomeny, Final, copy.ts, namn-valfritt.test.ts).
+
+### Rättelser
+
+| Commit | Vad | Backas |
+|---|---|---|
+| `c89712e5` | Mallar räknade plus och poäng per CV själv (steg 1:s borttagna `potential.ts`, AI:ns sparade tal). Nu `analysPerCv`, `underlagForCv`, `medForslagUrAnalys`, `poangForRad`, `atgardadAtFor` som Ditt CV | `git revert` (tsc blir då rött) |
+| `7cbed8a0` | Gratisanalysen släppte profilförslaget utöver det tyngsta fyndet (två åtgärder). Profilen är nu ett fynd bland de andra i `gateAnalysisResult`; öppet bara när det är tyngst. Ändrar gratisnivåns utlämning också i analysflödet | revert, tester följer med |
+| `4dcba502` | React-varningen om listnycklar på Analys: CvRad skapad i serverkomponenten fick en nyckel | revert |
+| `3d0da6ee` | "Ändra texten" på Analys går till arbetsläget (`fran=analys`, fyndets avsnitt); Ditt CV:s Fortsätt bygga och Redigera i byggaren med `arbetslageHref` | revert |
+| `6f1f1275` | Mallar utan `?mall=` visar samma mall som Ditt CV och Analys (senast nedladdade, CV:ts sparade, katalogens första) | revert |
+| `53d0116a`, `3d9ff4c0`, `64f32153` | Testerna: namnkravet prövas på Mallar; byggarens klicktest följer arbetsläget och Ditt CV; Word-testets regex hade tappat sina bakstreck; analystestet läser `BAS` | revert, påverkar ingen kod |
+| `3a7ca731` | Inläsningen (`parseCV` frågar inte modellen om namnet) gav tomt namn, och `normalizeStructuredData` kastade då hela ParsedCV:t: den publika tolkningen fick ingen erfarenhet. Normaliseras nu med tomt namn när roller eller profil finns | revert |
+| `feefe161` | "Alla 40" i Mallars helskärm gjorde ingenting; öppnar nu AllaArk | revert |
+| `dd902c75` | Den återupptagna analysen (`?job=`) kraschade i produktionsbygget: CvFlikRemsa (server) anropade `cvRadData` ur en klientmodul. Flyttad till `rum3/cvRadData.ts` | revert (då kraschar Åtgärda i CV:t igen) |
+| `9262b92b` | Gratisanvändarens enda analys: svaret räknade kvoten till 0 och spärren ersatte flödet som väntade på resultatet. Spärren gäller nu bara innan en analys startats i visningen | revert |
+| `5635ddab` | Poängmodellens läsning av roles-formatet: punkterna ur `responsibilities` först (som arket), och "och"/"samt" delar bara när båda leden har minst tre tecken ("Truckkort A och B" tappade B). Det som räknas och sparas vid Ersätt är det arket visar. Kalibreringen oförändrad | revert |
+| `ef567c5b` | Förhämtade sidor låg kvar i routerns minne: efter nedladdning, sparning i arbetsläget eller analys visade flikarna och sidomenyn gamla tal. CV-rummets tre sidor förhämtas inte (`forhamtaCvSida`) | revert |
+
+### Kontrollerna
+
+| Kontroll | Kommando | Utfall |
+|---|---|---|
+| tsc | `npx tsc --noEmit -p .` | Rent i `src`. Efter ett webpack-bygge tar tsc med `.next/types/app/api/jobs/redact/route.ts`, som klagar på main:s export av `FREE_TIER_JOB_LIMIT` ur en route (finns likadant på main, syns bara med webpack) |
+| vitest | `npx vitest run` | 309 filer, 3974 gröna, 13 överhoppade (3 filer med flit), 0 röda på slutläget. Första körningen: 1 röd (`namn-valfritt`, föråldrad av steg 4), grön på origin/main |
+| Bygge | se nedan | Turbopack kan inte följa junctionen (`Symlink node_modules is invalid`). Webpack (`next build --webpack`) går igenom utan typsteget; med typsteget stoppar det på main:s route-export ovan. Slutbygget på slutläget (med 1c1dda8c): Turbopack med `turbopack.root`/`outputFileTracingRoot` tillfälligt på `C:/Users/chris/cvbrev` och `@` på arbetskopians `src` (inte committat), grönt med typkontroll, 799 sidor; grenens kod kontrollerad i bygget. Klicktesterna, SEO-diffen, pixel och perf kördes mot webpack-byggen av grenen före den sista sammanslagningen (som bara rörde brevrummet) |
+| ATS | `npm run test:ats` | 330 av 330 (testet har vuxit sedan specens 160). Första körningen fick tidsgräns medan bygget gick |
+| Mall, Word, byggare | i vitest | gröna (`src/lib/cv`, `src/components/cv`, `src/app/dashboard/skapa-cv`, `src/lib/cv/word`) |
+| SEO-diff | `seo-diff-artiklar.ts ta/jamfor`, före mot main-bygget (d922e403), efter mot grenen | 48 sidor: Fel 2, båda `ogImage` på `/verktyg/personlighetstest` och `/verktyg/bli-upptackt` ("" blev verktygens opengraph-bild). Sidorna är orörda; produktionen (Turbopack) ger "" som main, webpack-bygget ärver bilden. 11 mallsidor och `/verktyg/cv-analys`: Fel 0 |
+| Avsiktliga publika ändringar | | `/verktyg/cv-analys`: FAQ-svaret om poängen ("räknas fram ur det som står i CV:t ... samma CV ger alltid samma poäng"), FAQ-svaret om förslagen ("Allmänna råd" i stället för "Automatiska förbättringar") och WebApplication `featureList` ("allmänna råd"). Ord i main 949 till 968. Typsnittsarkets antal syns först när arket öppnas och finns inte i serverns HTML |
+| Pixel | `pixel.mjs` (scratchpad), 1440 och 412, ljust och mörkt | `/cv-mallar`, `/cv-mallar/prova`, `/dashboard/tester` mot main-bygget: 0 olika pixlar på alla 12 (bruset mot samma server: 0) |
+| Klicktest byggaren | `klicktest-cv-byggare.ts` alla flöden | 56 OK, 2 FEL (föråldrade kontroller), rättade; gratisflödet omkört grönt |
+| Mallkomponenterna | `--skarpt` | 115 OK, 0 FEL |
+| Nedladdning | `--skarpt` | 39 OK, 0 FEL |
+| Word | `--skarpt` | 82 OK, 0 FEL efter rättat test (först 66/16, alla testfel) |
+| Helskärm dator | `--skarpt` | 552 OK, 52 FEL; efter `3a7ca731` och `feefe161`: `--snabb --skarpt` 303 OK, 0 FEL |
+| Helskärm sidor | `--skarpt` | 108 OK, 8 FEL: "arken åtskilda (-763 px)" och ett klickfel efteråt, utloggat och inloggat. Main:s version mot main ger samma utloggade fel (testet förutsätter ark under varandra). Inte rättat |
+| Analysens sparning | `klicktest-cv-analys-spara.mjs` | Först sidfel (se `dd902c75`); sedan 81, profil +2, efter Ersätt 83, profilen inte kvar som fynd |
+| Perf | `perf-inloggat.ts --samtycke` (Pixel 7, 3x CPU, LTE) | Ditt CV LCP 1008 och 1044 ms, Mallar 1336, Analys 1188, CLS 0. `/dashboard/tester` (orörd) mäter 1120 i samma miljö |
+| Black Week | `KAMPANJ_NU=2026-11-24` lokalt | 99 kr första månaden på Ditt CV:s köprad, Analys betalvägg, Mallars Premiumkort, knapp och spärr; Jobbcoach-kortet ritar samma PaywallCard (`PaywallCard.kampanj.test.tsx`) |
+| Texter om samtycke, GDPR, villkor | `git diff origin/main` | Orörda. Samtycket står ordagrant i InlineCVUpload; den gamla MinaCvClient är borttagen |
+
+### Genomgången som ny användare
+
+Bilder i scratchpad `cv/bygge/steg5/ny-anvandare-1440/` (och `bygg/`) och `ny-anvandare-412/`. Två riktiga analyser (gamla edge-funktionen). 1440: snabbpoäng 71, analys 71 till 85, löftet 75, efter Ersätt 75 på Analys och Ditt CV, spärren "+10", nedladdning och målgång, titeln ändrad i arbetsläget. 412: 68 till 83, löftet 76, efter Ersätt 76 överallt, efter titeln 79 överallt (Analys två gånger, Ditt CV, Mallar). Byggflödet: titel från Ditt CV, ett jobb med Jobbcoachens tre punkter, miniminivån, PDF.
+
+### Kända brister
+
+- Perioder som "2019 till 2024" delas inte (bara bindestreck), så jobbet visas som pågående och datumpoängen blir lägre. Samma normalisering som på main.
+- Uppladdningen sparar texten med `[EMAIL]` och `[TEL]` (som main), så CV:ts egna e-post och telefon ersätts av profilens.
+- Ett rollfynd på Analys öppnar arbetsläget i Erfarenhet på första jobbet, inte på rollen (adressen har inget jobbindex).
+- `klicktest-helskarm-sidor.ts`: kontrollen "arken åtskilda" är röd också på main.
+- Hydreringsvarningen på `<html>` (rotlayouten) syns på alla inloggade sidor, också testernas.
+
+### Att driftsätta utöver webbappen
+
+Inga migreringar. Edge-funktionerna som grenen ändrat (alla tar med `_shared/pii.ts`), efter att webbappen är ute (den klarar både gamla och nya analysen): 1. `analyze-cv-background` (lagrad struktur, `[antal]`, inga tal, maskering), 2. `optimize-linkedin` och 3. `parse-cv-for-matching` (maskeringen). Provkörning och loggar: `docs/bygg-noter-cv-analys-poang.md`.
+
+### Hur steg 5 backas
+
+Varje rättelse är en egen commit (tabellen ovan) och går att backa med `git revert`. Sammanslagningarna med main backas med `git revert -m 1 073be47f` respektive `04ac57c0`.
