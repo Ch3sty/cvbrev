@@ -72,8 +72,9 @@ export function hittaSammaCv<T extends EgenCvRad>(
 /**
  * Samma fil byte för byte? Reserven när texten inte går att jämföra: byggaren
  * och arbetsläget skriver om cv_text ur strukturen vid varje sparning
- * (api/cv/strukturerad), så efter en redigering liknar raden inte längre
- * filens text. Filen i lagringen skrivs aldrig om, så den jämförs i stället.
+ * (api/cv/strukturerad, maskad sedan 2026-11-21 men fortfarande i strukturens
+ * form), så efter en redigering liknar raden inte längre filens text. Filen i
+ * lagringen skrivs aldrig om, så den jämförs i stället.
  */
 export function sammaFilinnehall(a: Uint8Array | null | undefined, b: Uint8Array | null | undefined): boolean {
   if (!a || !b || a.length === 0 || a.length !== b.length) return false

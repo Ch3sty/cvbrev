@@ -53,6 +53,7 @@ import SkrivFranBorjan from '@/components/cv/rum3/SkrivFranBorjan';
 import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
 import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, SIFFROR, VAGG } from '@/components/cv/rum3/texter';
 import { platshallareIRad } from '@/lib/cv/poang';
+import { cvTextForVisning } from '@/lib/cv/visningsText';
 
 // Syns aldrig i första vyn: snabbpoängen bara direkt efter första
 // uppladdningen, betalväggen bara när ett låst fynd trycks.
@@ -154,7 +155,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
         last: lasta.has(c.id),
         utkast: (c.structured_data as { bygge?: { utkast?: boolean } } | null)?.bygge?.utkast === true,
         poang: data.poangPerCv[c.id] ?? null,
-        cvText: c.cv_text,
+        // Råtext: kontaktuppgifterna ur strukturen, inte den maskade texten.
+        cvText: cvTextForVisning(c.cv_text, c.structured_data),
       })),
     [data.cvs, data.poangPerCv, lasta]
   );

@@ -9,6 +9,7 @@ import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { IlluTomMapp } from '@/components/illustrations/TradenScener';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { extractEditableContent } from '@/lib/letters/extract-editable-content';
+import { cvTextForVisning } from '@/lib/cv/visningsText';
 
 interface Document {
   id: string;
@@ -16,6 +17,8 @@ interface Document {
   cv_text: string;
   created_at: string;
   type: 'cv' | 'letter';
+  /** Förhandsraden i listan. För CV skrivs den ur strukturen (cvTextForVisning), inte ur den maskade texten. */
+  forhand?: string;
 }
 
 interface DocumentSelectorProps {
@@ -48,7 +51,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
       // Load CVs
       const { data: cvData } = await supabase
         .from('cv_texts')
-        .select('id, file_name, cv_text, created_at')
+        .select('id, file_name, cv_text, created_at, structured_data')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
@@ -60,7 +63,13 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
         .eq('is_saved', true)
         .order('created_at', { ascending: false });
 
-      setCvs((cvData || []).map(cv => ({ ...cv, type: 'cv' as const })));
+      // Det som bifogas är den lagrade (maskade) texten; bara förhandsraden
+      // skrivs ur strukturen, så att hon ser sina egna uppgifter som förut.
+      setCvs((cvData || []).map(({ structured_data, ...cv }) => ({
+        ...cv,
+        type: 'cv' as const,
+        forhand: cvTextForVisning(cv.cv_text, structured_data) ?? cv.cv_text,
+      })));
       setLetters((letterData || []).map(letter => ({
         id: letter.id,
         file_name: letter.job_title || 'Utan titel',
@@ -151,7 +160,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
                       {new Date(doc.created_at).toLocaleDateString('sv-SE')}
                     </p>
                     <p className="mt-1.5 line-clamp-2 text-meta text-ink-2">
-                      {extractEditableContent(doc.cv_text).substring(0, 120)}
+                      {extractEditableContent(doc.forhand ?? doc.cv_text).substring(0, 120)}
                     </p>
                   </button>
                 </li>

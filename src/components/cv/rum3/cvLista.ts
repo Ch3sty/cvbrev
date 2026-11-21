@@ -3,6 +3,7 @@
  * cv_texts-raderna som flikarnas sidor redan har. Klientsäker.
  */
 import type { CvListRad } from './BytCvArk'
+import { cvTextForVisning } from '@/lib/cv/visningsText'
 
 export interface CvRadData {
   id: string
@@ -22,7 +23,8 @@ export function cvListaUr(rader: readonly CvRadData[], lasta: ReadonlySet<string
     last: lasta.has(c.id),
     utkast: (c.structured_data as { bygge?: { utkast?: boolean } } | null)?.bygge?.utkast === true,
     poang: poang[c.id] ?? null,
-    cvText: c.cv_text ?? null,
+    // Råtext: kontaktuppgifterna ur strukturen, inte den maskade texten.
+    cvText: cvTextForVisning(c.cv_text, c.structured_data),
   }))
 }
 
