@@ -59,5 +59,6 @@ export const MALLAR_TEXT = {
   valjareRubrik: 'Välj mall',
   valjareUnder: 'Samma mallar som för ditt CV. Texten följer med.',
   vald: 'Vald',
+  seVadSomIngar: 'Se vad som ingår',
   ingarPremium: PAKETRADER.ingar,
 } as const

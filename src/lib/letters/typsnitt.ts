@@ -11,6 +11,7 @@
  * Klientsäker: ren data.
  */
 import { getFontFamilyForHTML } from '@/lib/documents/typsnitt'
+import { fontFace } from '@/lib/cv/mallar/typsnitt-filer'
 import { BREV_TYPSNITT_IDS, PREMIUM_TYPSNITT_IDS, type BrevTypsnittId } from './brevRegler'
 
 export type BrevTypsnittGrupp = 'klassiker' | 'moderna' | 'formella' | 'premium'
@@ -18,9 +19,12 @@ export type BrevTypsnittGrupp = 'klassiker' | 'moderna' | 'formella' | 'premium'
 export interface BrevTypsnitt {
   id: BrevTypsnittId
   namn: string
+  /** CSS-stacken; första namnet är det som typsnittFontFace() deklarerar. */
   familj: string
   grupp: BrevTypsnittGrupp
   premium: boolean
+  /** Moderna typsnitt: syns i PDF, i Word bara om de finns på datorn. */
+  modern: boolean
 }
 
 const NAMN: Record<BrevTypsnittId, string> = {
@@ -58,7 +62,16 @@ export const BREV_TYPSNITT: readonly BrevTypsnitt[] = BREV_TYPSNITT_IDS.map((id)
   familj: getFontFamilyForHTML(id),
   grupp: GRUPP[id],
   premium: PREMIUM_TYPSNITT_IDS.includes(id),
+  modern: GRUPP[id] === 'moderna',
 }))
+
+/**
+ * @font-face för alla elva ur CV-mallarnas egna filer (public/fonts/cv), för
+ * listorna där varje namn står i sitt eget typsnitt.
+ */
+export function typsnittFontFace(): string {
+  return fontFace(BREV_TYPSNITT_IDS)
+}
 
 /** Raden för brevets eget typsnitt (font_id null). */
 export const MALLENS_EGET = 'Mallens eget'

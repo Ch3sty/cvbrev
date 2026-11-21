@@ -14,7 +14,9 @@ import { forvaltStycke } from '@/lib/letters/krav'
 import { forvaldHalsning } from '@/lib/letters/stycken'
 import { BREVET, ordningstal, type TonId } from './texter'
 import { SprakVal, TonKnappar } from './TonVal'
-import { BREV_TYPSNITT, typsnittFontFace } from './typsnitt'
+import { BREV_TYPSNITT, typsnittFontFace } from '@/lib/letters/typsnitt'
+import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad'
+import type { KontaktIBrev } from '@/lib/profile/dokumentKontakt'
 
 const FALT =
   'block w-full rounded-[12px] border-2 border-[color:var(--b3-kant)] bg-[color:var(--b3-papper)] px-3 text-[15px] leading-[21px] text-[color:var(--b3-ink)] placeholder:text-[color:var(--b3-ink-3)] focus:border-[color:var(--koppar)] focus:outline-none focus:ring-[3px] focus:ring-[rgba(224,122,47,.18)] disabled:opacity-60'
@@ -359,7 +361,7 @@ export function TypsnittFlik({
           {valt ? <span className="h-2.5 w-2.5 rounded-full bg-[color:var(--b3-valt)]" /> : null}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[19px] leading-[26px] text-[color:var(--b3-ink)]" style={familj ? { fontFamily: `'${familj}'` } : undefined}>
+          <span className="block truncate text-[19px] leading-[26px] text-[color:var(--b3-ink)]" style={familj ? { fontFamily: familj } : undefined}>
             {namn}
           </span>
           {under ? <span className="block truncate text-[12px] leading-4 text-[color:var(--b3-ink-2)]">{under}</span> : null}
@@ -391,6 +393,7 @@ export function InfoFlik({
   mottagare,
   last,
   onAndra,
+  onKontakt,
   onTaBort,
 }: {
   titel: string
@@ -399,6 +402,8 @@ export function InfoFlik({
   mottagare: string
   last: boolean
   onAndra: (falt: 'title' | 'company' | 'job_title' | 'mottagare_person', v: string) => void
+  /** Kontaktuppgifterna i brevhuvudet är sparade i profilen: arket ritas om. */
+  onKontakt?: (k: KontaktIBrev) => void
   onTaBort: () => void
 }) {
   return (
@@ -434,6 +439,7 @@ export function InfoFlik({
           {BREVET.mottagareHjalp}
         </span>
       </div>
+      {last ? null : <KontaktuppgifterRad dokument="brev" onSparad={(r) => onKontakt?.(r.efter)} />}
       <button type="button" className="inline-flex min-h-[44px] items-center self-start text-[14px] font-semibold leading-5 text-[color:var(--fel)] underline underline-offset-[3px]" onClick={onTaBort}>
         {BREVET.taBort}
       </button>

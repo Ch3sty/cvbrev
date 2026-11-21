@@ -90,6 +90,8 @@ export interface BrevetVyProps {
   sokt: { id: string; datum: string | null } | null
   kvot: { kvar: number | null; nastaNu: string | null }
   klart: boolean
+  /** Tillbaka från kassan (?ladda=1&format=): filen laddas ner en gång, av sig själv. */
+  ladda?: 'pdf' | 'docx' | null
   flik: FlikId | null
 }
 
@@ -199,17 +201,25 @@ export default function BrevetVy(props: BrevetVyProps) {
     if (!last) forladdaRitare()
   }, [last])
 
+  // Avsändaren ur profilen; byts när kontaktuppgifterna sparas i fliken
+  // Titel och företag (filen läser profilen på servern, så den följer med).
+  const [avsandare, setAvsandare] = useState(props.data.avsandare)
   const data = useMemo<BrevData>(
     () => ({
       ...props.data,
+      avsandare,
       mottagare: { foretag: foretag.trim() || null, person: mottagare.trim() || null },
       tjanst: tjanst.trim() || null,
       halsning: halsning.trim() || null,
       stycken,
       sprak,
     }),
-    [props.data, foretag, mottagare, tjanst, halsning, stycken, sprak]
+    [props.data, avsandare, foretag, mottagare, tjanst, halsning, stycken, sprak]
   )
+  const andraKontakt = useCallback((k: { namn: string; epost: string; telefon: string; ort: string }) => {
+    setAvsandare((a) => ({ ...a, namn: k.namn || a.namn, epost: k.epost, telefon: k.telefon || null, ort: k.ort || null }))
+    setRort(true)
+  }, [])
 
   const visaAktivt = flik === 'texten' ? aktivt : null
   useEffect(() => {
@@ -348,9 +358,11 @@ export default function BrevetVy(props: BrevetVyProps) {
   const [kopierat, setKopierat] = useState<'ja' | 'fel' | null>(null)
   const [laddar, setLaddar] = useState<'pdf' | 'docx' | null>(null)
   const [filFel, setFilFel] = useState(false)
+  // Formatet som öppnade nedladdningsspärren följer med köpet tillbaka hit.
+  const [sparrFormat, setSparrFormat] = useState<'pdf' | 'docx'>('pdf')
 
   const kopiera = async () => {
-    const text = brevSomText({ halsning: halsning.trim() || null, stycken: stycken.filter((s) => s.trim()), sprak, avsandare: { namn: props.data.avsandare.namn } })
+    const text = brevSomText({ halsning: halsning.trim() || null, stycken: stycken.filter((s) => s.trim()), sprak, avsandare: { namn: avsandare.namn } })
     try {
       await navigator.clipboard.writeText(text)
       setKopierat('ja')
@@ -363,6 +375,7 @@ export default function BrevetVy(props: BrevetVyProps) {
 
   const laddaNer = async (format: 'pdf' | 'docx') => {
     if (!kanLaddaNer) {
+      setSparrFormat(format)
       setSparr('nedladdning')
       return
     }
@@ -372,13 +385,28 @@ export default function BrevetVy(props: BrevetVyProps) {
     try {
       await sparaNu()
       const utfall = await laddaNerBrev(id, format)
-      if (utfall === 'sparr') setSparr('nedladdning')
-      else if (utfall === 'namn') setNamnKravs(true)
+      if (utfall === 'sparr') {
+        setSparrFormat(format)
+        setSparr('nedladdning')
+      } else if (utfall === 'namn') setNamnKravs(true)
       else if (utfall === 'fel') setFilFel(true)
     } finally {
       setLaddar(null)
     }
   }
+
+  // Tillbaka från kassan (?ladda=1&format=): adressen städas och filen
+  // laddas ner en gång för den som nu har tillgång, som Mallar gör.
+  const laddaStartad = useRef(false)
+  useEffect(() => {
+    if (!props.ladda || laddaStartad.current) return
+    laddaStartad.current = true
+    const url = new URL(window.location.href)
+    for (const k of ['ladda', 'format', 'premium_activated']) url.searchParams.delete(k)
+    window.history.replaceState(window.history.state, '', url.toString())
+    if (kanLaddaNer && (props.ladda === 'pdf' || !mallId || !!brevMallKort(mallId)?.word)) void laddaNer(props.ladda)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.ladda, kanLaddaNer])
 
   /* ------------------------------------------------------------ sökt */
 
@@ -526,7 +554,7 @@ export default function BrevetVy(props: BrevetVyProps) {
       case 'typsnitt':
         return <TypsnittFlik fontId={fontId} mallNamn={mallNamn} harBetalt={harBetalt} last={last} onVal={valjTypsnitt} />
       case 'info':
-        return <InfoFlik titel={titel} foretag={foretag} tjanst={tjanst} mottagare={mottagare} last={last} onAndra={andraInfo} onTaBort={() => setTaBort(true)} />
+        return <InfoFlik titel={titel} foretag={foretag} tjanst={tjanst} mottagare={mottagare} last={last} onAndra={andraInfo} onKontakt={andraKontakt} onTaBort={() => setTaBort(true)} />
     }
   })()
 
@@ -625,7 +653,7 @@ export default function BrevetVy(props: BrevetVyProps) {
         {last ? (
           <div className="my-2 flex flex-col gap-2.5 rounded-[16px] border-2 border-[color:var(--b3-prem-kant)] bg-[color:var(--b3-prem)] p-3.5 xl:flex-row xl:items-center">
             <p className="m-0 flex-1 text-[14px] leading-[20px] text-[color:var(--b3-prem-text)]">{BREVET.lastRad}</p>
-            <LitenKnapp kop href={kopstegHref(SALD_PLAN, 'kvot', { retur: `/dashboard/mina-brev/${id}` })}>
+            <LitenKnapp kop href={kopstegHref(SALD_PLAN, 'kvot', { retur: `/dashboard/mina-brev/${id}?flik=texten` })}>
               {PAKETRADER.kopCv}
             </LitenKnapp>
           </div>
@@ -749,7 +777,7 @@ export default function BrevetVy(props: BrevetVyProps) {
         scope={summary?.paket?.scope ?? null}
         track={summary?.paket?.track ?? null}
         isPremium={kanLaddaNer}
-        returTill={`/dashboard/mina-brev/${id}`}
+        returTill={`/dashboard/mina-brev/${id}?format=${sparrFormat}`}
         mall={mallId ? { id: mallId, tier: mallKort?.niva === 'premium' ? 'premium' : 'free' } : null}
       >
         <BrevMiniatyr html={html} bredd={datorSparr ? 292 : 150} />

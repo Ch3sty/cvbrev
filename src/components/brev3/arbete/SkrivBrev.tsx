@@ -55,6 +55,7 @@ import { forladdaRitare, ritaBrev } from './ritare'
 import { tomtArk } from './arkHjalp'
 
 const CvVal = dynamic(() => import('./CvVal'), { ssr: false })
+const MallValjare = dynamic(() => import('@/components/brev3/mallar/MallValjare'), { ssr: false })
 
 /** Utkastet: annonsen, CV:t, tonen och språket (som förut, nu i version 2). */
 const UTKAST = 'skapa-brev'
@@ -133,14 +134,16 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
   const [namnKravs, setNamnKravs] = useState(false)
   const [sparr, setSparr] = useState<{ nasta: string | null } | null>(null)
   const [visaCvVal, setVisaCvVal] = useState(false)
+  const [visaMallVal, setVisaMallVal] = useState(false)
+  // Mallen användaren valde i mallväljaren; null = CV:ts mall (startmallen).
+  const [valdMall, setValdMall] = useState<string | null>(null)
   const [brev, setBrev] = useState<SkrivetBrev | null>(null)
   const [visade, setVisade] = useState(0)
   const [arkHtml, setArkHtml] = useState(tomtArkHtml)
-  const avbryt = useRef<AbortController | null>(null)
   const annonsRef = useRef<HTMLTextAreaElement>(null)
 
   const cv = cvs.find((c) => c.id === cvId) ?? cvs[0]
-  const mallId = brev?.mallId ?? startmallForBrev(cv?.mall ?? null, harBetalt)
+  const mallId = brev?.mallId ?? valdMall ?? startmallForBrev(cv?.mall ?? null, harBetalt)
   const mall = brevMallKort(mallId)
   const mallNamn = mall?.namn ?? 'Linne'
   const sammaSomCv = !!cv?.mall && cv.mall === mallId
@@ -227,17 +230,15 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
     setFel(null)
     setNamnKravs(false)
     setLage('vantar')
-    const ctrl = new AbortController()
-    avbryt.current = ctrl
     try {
+      // Mallen som visas i kapseln och på arket följer med, så att brevet
+      // skrivs i den (servern kontrollerar att användaren får ha den).
       const svar = await fetch('/api/letters/generate-preview', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        signal: ctrl.signal,
-        body: JSON.stringify({ cv_id: cvId, job_description: annons, tonality: ton, language: sprak, template_id: 'classic' }),
+        body: JSON.stringify({ cv_id: cvId, job_description: annons, tonality: ton, language: sprak, template_id: 'classic', mall_id: mallId }),
       })
       const json = await svar.json().catch(() => ({}))
-      if (ctrl.signal.aborted) return
       if (!svar.ok) {
         const kod = json?.code ?? json?.error
         setLage('fore')
@@ -277,19 +278,10 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
       setVisade(forReducedMotion() ? stycken.length : 0)
       setLage('spelar')
     } catch (e: unknown) {
-      if (ctrl.signal.aborted) return
       setLage('fore')
       setFel(e instanceof TypeError ? SKRIV.natverksfel : SKRIV.felRad)
-    } finally {
-      if (avbryt.current === ctrl) avbryt.current = null
     }
   }, [lage, annons, harBetalt, kvot.kvar, kvot.nastaNu, cvId, ton, sprak, mallId, logActivity])
-
-  const avbrytSkrivandet = () => {
-    avbryt.current?.abort()
-    avbryt.current = null
-    setLage('fore')
-  }
 
   /* ------------------------------------------------------------ uppspelningen */
 
@@ -376,7 +368,10 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
 
   /* ------------------------------------------------------------ bladet */
 
-  const fot = (
+  // Under väntan finns ingen knapp i foten: servern skriver klart brevet och
+  // räknar kvoten även om sidan lämnas, så "Avbryt" skulle lova något den
+  // inte gör. Pilen tillbaka finns kvar; brevet ligger då under Dina brev.
+  const fot = upptagen && !kvotrad ? null : (
     <div className="flex w-full flex-col gap-3 xl:flex-row xl:items-center xl:gap-3">
       {kvotrad ? (
         <span className="flex items-center gap-3 text-[13px] leading-[18px] text-[color:var(--b3-ink-2)]">
@@ -391,11 +386,7 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
           </span>
         </span>
       ) : null}
-      {upptagen ? (
-        <LitenKnapp className="xl:ml-auto" onClick={avbrytSkrivandet} disabled={lage === 'spelar'}>
-          {SKRIV.avbryt}
-        </LitenKnapp>
-      ) : (
+      {upptagen ? null : (
         <StorKnapp lag platt className="xl:ml-auto" onClick={skriv} disabled={!kanSkriva}>
           <IkonPenna size={18} />
           {SKRIV.skrivBrevet}
@@ -565,9 +556,9 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
               <MallKapsel
                 namn={mallNamn}
                 miniatyr={<img src={`/mallar/v2/${mallId}-liten.webp`} alt="" width={18} height={25} />}
-                // MALLVÄLJARE: kopplas in i etapp 3. Brevet finns inte än, så
-                // mallväljaren öppnas som ett ark här (byggaren mallar äger den).
-                onClick={() => {}}
+                // Mallväljaren: brevet finns inte än, så miniatyrerna är
+                // katalogens bilder. Under skrivandet ligger mallen fast.
+                onClick={upptagen ? undefined : () => setVisaMallVal(true)}
               />
             }
           />
@@ -594,6 +585,18 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
             setVisaCvVal(false)
           }}
           onClose={() => setVisaCvVal(false)}
+        />
+      ) : null}
+      {visaMallVal ? (
+        <MallValjare
+          open
+          onClose={() => setVisaMallVal(false)}
+          vald={mallId}
+          harBetalt={harBetalt}
+          onValj={(id) => {
+            setValdMall(id)
+            setVisaMallVal(false)
+          }}
         />
       ) : null}
       <BrevSparrLaddare
