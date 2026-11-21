@@ -29,7 +29,8 @@ import { CV_GALLERI, BREV_GALLERI } from '@/app/(public)/exempel/components/gall
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 import ExempelHjalte from './ExempelHjalte'
 import { CvPapper, BrevPapper, CvUtdrag, BrevUtdrag } from './Papper'
-import MallValjare from './MallValjare'
+import MallValjare, { type BrevValjarData } from './MallValjare'
+import { visarFot, visarMallar } from '@/components/publikt/brevvisare/visare-data'
 import VarforLista from './VarforLista'
 import TipsKort from './TipsKort'
 import YrkesKort, { MiniPapper } from './YrkesKort'
@@ -104,6 +105,18 @@ export default function ExempelMall({
 
   const brev = cv ? null : brevFalt(data.exempelBrev)
   const papperId = 'exempel-papper'
+  // Brevets mallvisare (våg 2): namn, nivå och fotrad ur katalogen, räknade här på servern.
+  const brevValjare: BrevValjarData | undefined = cv
+    ? undefined
+    : {
+        slug,
+        yrke: yrkeLitet,
+        mallar: visarMallar(),
+        fot: visarFot(),
+        href: primarHref,
+        ctaKnappId: 'exempel-cta-knapp',
+        ctaPlatsId: 'exempel-cta-plats',
+      }
 
   return (
     <PubliktSida>
@@ -135,8 +148,15 @@ export default function ExempelMall({
                 {cv ? <CvPapper cv={data.exempelCV} nummer={nummer} /> : <BrevPapper brev={data.exempelBrev} nummer={nummer} />}
               </div>
               <div className="ib-byt-mall">
-                {/* Brevets gamla mallväljare visas inte (våg 1, 2026-11-21): den hade sex mallar som produkten inte har. CV:ts väljare är orörd. */}
-                {cv ? <MallValjare typ={typ} yrke={yrke} data={data.exempelCV} papperId={papperId} /> : null}
+                {/* Brevets mallvisare (våg 2, 2026-11-21) laddas först vid klick. Utan JavaScript göms knappen (noscript). CV:ts väljare är orörd. */}
+                {cv ? (
+                  <MallValjare typ={typ} yrke={yrke} data={data.exempelCV} papperId={papperId} />
+                ) : (
+                  <>
+                    <noscript dangerouslySetInnerHTML={{ __html: '<style>.ib-byt-brev{display:none!important}</style>' }} />
+                    <MallValjare typ={typ} yrke={yrke} papperId={papperId} brev={brevValjare} />
+                  </>
+                )}
                 <p className="ib-ark-fot">
                   {cv ? (
                     <>
@@ -172,9 +192,11 @@ export default function ExempelMall({
                     ? 'Börja från exemplet och byt ut innehållet mot ditt eget.'
                     : 'Klistra in annonsen, så skriver vi ett utkast utifrån ditt CV.'}
                 </p>
-                <Link className="pub-knapp" href={primarHref}>
+                <Link className="pub-knapp" href={primarHref} id={cv ? undefined : 'exempel-cta-knapp'}>
                   Använd som mall
                 </Link>
+                {/* Medan brevets mallvisare är öppen: textlänken "Skriv brevet på din annons" ritas här (MallValjare). */}
+                {cv ? null : <span id="exempel-cta-plats" />}
               </div>
             </aside>
           </div>

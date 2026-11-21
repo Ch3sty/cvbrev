@@ -359,3 +359,46 @@
   .ib-pilot-mallar { gap: 8px; }
   .ib-pilot-knapp { min-height: 44px; font-size: 13px; padding: 0 6px; }
 }
+
+/* ---------------------------------------------------------------------------
+   Brevets mallvisare på exempelsidan (byggspecen våg 2, 2026-11-21).
+   Knappen Byt mall i brevrummets ton med fem små ark (skissen, blad A1),
+   kommentarskortets textlänk medan visaren är öppen, och telefonens fasta
+   knapprad som göms så länge visaren är öppen.
+   --------------------------------------------------------------------------- */
+.ib-papper { scroll-margin-top: 88px; }
+.ib-valjare .mv-hall { margin: 0; }
+.ib-byt-mall .ib-byt-brev {
+  display: inline-flex; align-items: center; gap: 14px;
+  min-height: 56px; padding: 0 24px 0 16px; border-radius: 999px;
+  border: 0; background: var(--rum-ton); color: var(--rum-ink);
+  font: inherit; font-weight: 700; font-size: 16px; cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.ib-byt-mall .ib-byt-brev[hidden] { display: none; }
+.ib-byt-mall .ib-byt-brev:hover { transform: translateY(-1px); box-shadow: 0 8px 18px -10px rgba(58, 25, 48, .55); }
+.ib-byt-mall .ib-byt-brev:active { transform: translateY(0); box-shadow: none; }
+.ib-byt-bunt { display: flex; align-items: center; padding-left: 5px; flex: none; }
+.ib-byt-bunt i { position: relative; width: 21px; height: 29px; margin-left: -5px; border-radius: 2px; background: #fff; overflow: hidden; box-shadow: 0 0 0 1px rgba(110, 43, 89, .22), 0 4px 6px -3px rgba(58, 25, 48, .45); }
+.ib-byt-bunt i::before { content: ''; position: absolute; }
+.ib-byt-bunt i::after { content: ''; position: absolute; left: 4px; right: 4px; top: 12px; height: 11px; background: repeating-linear-gradient(180deg, #CFC8BC 0 1.5px, transparent 1.5px 4px); }
+.ib-byt-bunt .m1 { transform: rotate(-7deg) translateY(1px); }
+.ib-byt-bunt .m1::before { left: 4px; top: 5px; width: 9px; height: 2.5px; background: #1C1917; border-radius: 1px; }
+.ib-byt-bunt .m2 { transform: rotate(-3.5deg); }
+.ib-byt-bunt .m2::before { left: 6px; top: 5px; width: 9px; height: 2.5px; background: #1C1917; border-radius: 1px; }
+.ib-byt-bunt .m3 { z-index: 1; transform: translateY(-1px); }
+.ib-byt-bunt .m3::before { left: 0; right: 0; top: 0; height: 8px; background: #8A4B2A; }
+.ib-byt-bunt .m4 { transform: rotate(3.5deg); }
+.ib-byt-bunt .m4::before { left: 0; top: 0; bottom: 0; width: 6px; background: #E1E4E8; }
+.ib-byt-bunt .m4::after { left: 9px; top: 6px; height: 17px; }
+.ib-byt-bunt .m5 { transform: rotate(7deg) translateY(1px); }
+.ib-byt-bunt .m5::before { right: 0; top: 0; bottom: 0; width: 6px; background: #2B2F38; }
+.ib-byt-bunt .m5::after { right: 9px; top: 6px; height: 17px; }
+.ib-cta-lank {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px;
+  color: #fff; font-weight: 600; font-size: 15.5px;
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; text-decoration-color: rgba(255, 255, 255, .45);
+}
+.ib-cta-lank:hover { text-decoration-color: #fff; }
+html[data-brevvisare-oppen] [data-sticky-mobil] { display: none; }
+@media (prefers-reduced-motion: reduce) { .ib-byt-mall .ib-byt-brev { transition: none; } }
