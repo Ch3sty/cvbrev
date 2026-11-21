@@ -8,6 +8,10 @@
  * förhandsvisningen (besökarens eget CV utan konto) eller preview-html
  * (inloggat). Byten väntar 250 ms så att en egen rubrik inte renderas per
  * tangent, och svaren cachas i fliken så att svep tillbaka är omedelbara.
+ * Mallar i CV-rummet (byggspecen avsnitt 6 punkt 5) väljer fördröjningen per
+ * byte: ingen vid klick, 250 ms vid svep och piltangent. Kommer samma HTML
+ * in från en annan hämtning medan arket väntar (miniatyrernas rad) visas den
+ * direkt och arkets egen fråga avbryts.
  *
  * useNedladdning skapar filen via generate-formatted och fyller knappen i
  * takt med förloppet: uppskattat fram till första byten, sedan verkligt
@@ -45,12 +49,32 @@ export function exempelSrc(mall: string, val: MallVal, yrke?: string): string {
  * alla 40 mallar för ett CV med marginal.
  */
 const CACHE = new Map<string, string>()
-const CACHE_TAK = 48
+/** Alla 40 mallar för aktuellt CV, plus ett andra val (typsnitt, färg) av de mallar hon tittat på. */
+const CACHE_TAK = 64
+
+/** Ark som väntar på en nyckel: får HTML:en så fort den finns, oavsett vem som hämtade den. */
+const VANTAR = new Map<string, Set<(html: string) => void>>()
 
 function minns(nyckel: string, html: string) {
   CACHE.delete(nyckel)
   CACHE.set(nyckel, html)
   if (CACHE.size > CACHE_TAK) CACHE.delete(CACHE.keys().next().value as string)
+  VANTAR.get(nyckel)?.forEach((f) => f(html))
+}
+
+/**
+ * Glömmer förhandsvisningarna av andra CV:n och av äldre versioner av det
+ * här (byggspecen avsnitt 6 punkt 6): bara nycklar med samma CV och samma
+ * avtryck av datan står kvar. Exempel och publika källor rörs inte.
+ */
+export function rensaForhandsvisningar(behall: Kalla): void {
+  if (behall.typ !== 'inloggad') return
+  const delar = nyckelFor(behall).split('|')
+  for (const n of [...CACHE.keys()]) {
+    if (!n.startsWith('i|')) continue
+    const d = n.split('|')
+    if (d[1] !== delar[1] || d[d.length - 2] !== delar[delar.length - 2] || d[d.length - 1] !== delar[delar.length - 1]) CACHE.delete(n)
+  }
 }
 
 /** JSON med sorterade nycklar, utan tomma värden: samma val ger samma text. */
@@ -150,7 +174,7 @@ export interface Forhandsvisning {
   kalla: Kalla | null
 }
 
-export function useForhandsvisning(kalla: Kalla | null): Forhandsvisning {
+export function useForhandsvisning(kalla: Kalla | null, opts?: { fordrojning?: number }): Forhandsvisning {
   const nyckel = kalla ? nyckelFor(kalla) : ''
   const [html, setHtml] = useState<string | null>(() => (nyckel && CACHE.get(nyckel)) || null)
   const [laddar, setLaddar] = useState(false)
@@ -166,6 +190,17 @@ export function useForhandsvisning(kalla: Kalla | null): Forhandsvisning {
     }
     const ac = new AbortController()
     setLaddar(true)
+    // Samma HTML från en annan hämtning (miniatyrernas rad): visa den direkt.
+    const tagen = (h: string) => {
+      ac.abort()
+      window.clearTimeout(t)
+      setHtml(h)
+      setFel(false)
+      setLaddar(false)
+    }
+    let vantar = VANTAR.get(nyckel)
+    if (!vantar) VANTAR.set(nyckel, (vantar = new Set()))
+    vantar.add(tagen)
     const t = window.setTimeout(() => {
       hamta(kalla, ac.signal)
         .then((h) => {
@@ -179,12 +214,14 @@ export function useForhandsvisning(kalla: Kalla | null): Forhandsvisning {
           setFel(true)
           setLaddar(false)
         })
-    }, 250)
+    }, opts?.fordrojning ?? 250)
     return () => {
       window.clearTimeout(t)
       ac.abort()
+      vantar?.delete(tagen)
+      if (vantar && !vantar.size) VANTAR.delete(nyckel)
     }
-    // nyckel bär hela källan.
+    // nyckel bär hela källan; fördröjningen läses när källan byts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nyckel])
 

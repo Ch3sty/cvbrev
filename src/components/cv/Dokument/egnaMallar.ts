@@ -95,8 +95,12 @@ async function tomKon() {
   }
 }
 
-/** Ber om mallarna för CV:t. Redan hämtade, pågående och misslyckade hoppas över. */
-export function begarEgnaMallar(cv: EgetCv, mallar: readonly string[]): void {
+/**
+ * Ber om mallarna för CV:t. Redan hämtade, pågående och misslyckade hoppas
+ * över. `nu`: kön töms direkt i stället för när sidan är ledig (mallen under
+ * pekaren, byggspecen avsnitt 6 punkt 4); fortfarande en fråga åt gången.
+ */
+export function begarEgnaMallar(cv: EgetCv, mallar: readonly string[], nu = false): void {
   if (typeof window === 'undefined') return
   const nyckel = cvNyckel(cv)
   let post = ko.get(nyckel)
@@ -110,7 +114,16 @@ export function begarEgnaMallar(cv: EgetCv, mallar: readonly string[]): void {
     }
     post.mallar.add(m)
   }
-  if (!post || schemalagd) return
+  if (!post) return
+  if (nu) {
+    // Mallen under pekaren först i raden, så att den kommer med i nästa fråga.
+    const forst = mallar.filter((m) => post!.mallar.has(m))
+    const ovriga = [...post.mallar].filter((m) => !forst.includes(m))
+    post.mallar = new Set([...forst, ...ovriga])
+    void tomKon()
+    return
+  }
+  if (schemalagd) return
   schemalagd = true
   scheduleIdle(() => {
     schemalagd = false
