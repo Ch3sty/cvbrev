@@ -46,7 +46,7 @@ import {
   type WordRuta,
   type WordSammanhang,
 } from '@/lib/cv/word/bygg'
-import { brevDef, brevMallDef, brevMatt, harKontaktspalt, kontrast, mallValFor, uppskattatSteg } from './render'
+import { brevArendeFarg, brevDef, brevMallDef, brevMatt, harKontaktspalt, mallValFor, uppskattatSteg } from './render'
 import { arendeRad, avslutsRad, datumRad, halsningsRad, rensadeStycken } from './text'
 import type { BrevData, BrevVal } from './typer'
 
@@ -116,15 +116,13 @@ export async function byggBrevDokument(mallId: string, data: BrevData, val: Brev
   const sprak = { value: data.sprak === 'en' ? 'en-GB' : 'sv-SE' }
 
   // Brödtexten: brevets grad och radavstånd i det steg som uppskattningen säger räcker.
-  const bm = brevMatt(def, uppskattatSteg(original, data))
+  const bm = brevMatt(def, uppskattatSteg(original, data, val))
   const grad = bm.grad
   const rad = { line: pt(grad * bm.rad), lineRule: 'atLeast' as const }
   const text = ord(p.text)
   const dampad = ord(p.dampad)
   const run = (t: string, extra: Record<string, unknown> = {}) => new TextRun({ text: t, font: b.brod, size: hp(grad), color: text, language: sprak, ...extra })
-  const sidaFarg = def.farger.sida ?? '#ffffff'
-  const rubrikFarg = los(def.rubrik.farg, p, p.accent)
-  const arendeFarg = ord(kontrast(rubrikFarg, sidaFarg) >= 4.5 ? rubrikFarg : p.text)
+  const arendeFarg = ord(brevArendeFarg(def, p))
 
   // Skiljet under huvudet, som i HTML:en.
   const egenGrans = Boolean(h.linjeUnder || h.ram || band || h.form === 'tidningshuvud' || h.form === 'block-vanster')
