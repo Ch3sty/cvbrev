@@ -181,7 +181,9 @@ export function uppskattadHojd(defIn: MallDef, data: BrevData, steg: BrevSteg, v
   const h = def.huvud
   const band = h.form === 'band' && h.band ? Math.max(h.band.minHojd ?? 0, h.band.luft.topp + h.band.luft.botten + def.grad.namn * 1.2 * PT + 10) : 0
   // Namnrutan (Kvadrat): rutans sida, eller texten bredvid om den är högre.
-  const block = h.form === 'block-vanster' && h.block ? def.sida.topp + Math.max(h.block.storlek, def.grad.titel * 1.4 * PT + 3 * def.grad.kontakt * 1.5 * PT + h.luftKontakt) : 0
+  const pb = brevPuts(def.id)?.block
+  const ruta = h.block ? (pb ? namnIRuta(data.avsandare.namn ?? '', pb).rutaMm : h.block.storlek) : 0
+  const block = h.form === 'block-vanster' && h.block ? def.sida.topp + Math.max(ruta, def.grad.titel * 1.4 * PT + 3 * def.grad.kontakt * 1.5 * PT + h.luftKontakt) : 0
   const huvud = (band || block || def.sida.topp + def.grad.namn * 1.2 * PT + def.grad.titel * 1.4 * PT + (harKontaktspalt(def) ? 0 : 6)) + 14
   const fasta = 4 * radMm + 6.5 + 7.5 + 5 + radMm * 3 + 7
   return huvud + fasta + rader * radMm + stycken.length * m.luft
@@ -302,10 +304,13 @@ mark[data-krav]:nth-of-type(even){background:rgba(47,125,91,.32)}
   // Namnrutan (putsningen, Kvadrat): kvadratisk, minst rutans sida, växer med namnet så att det aldrig klipps.
   const pb = brevPuts(def.id)?.block
   if (pb && h.form === 'block-vanster') {
+    const np = namnPt ?? pb.maxNamnPt
     ut.push(`.brev .namnruta{width:auto;height:auto;min-width:${pb.storlek}mm;aspect-ratio:1/1}
-.brev .namnruta .namn{font-size:${namnPt ?? pb.maxNamnPt}pt;line-height:1.12;overflow-wrap:normal}
+.brev .namnruta .namn{font-size:${np}pt;line-height:1.12;overflow-wrap:normal}
 .brev .namnruta .namnrad{display:block;white-space:nowrap}
 .brev .huvud-block{gap:6mm}`)
+    // Namnet är huvudets största text: titeln bredvid aldrig större än namnet i rutan.
+    if (def.grad.titel > np) ut.push(`.brev .huvud-block .titel{font-size:${np}pt}`)
   }
   const egenCss = brevPuts(def.id)?.css
   if (egenCss) ut.push(egenCss)

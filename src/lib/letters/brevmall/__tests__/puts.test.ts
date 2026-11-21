@@ -44,12 +44,12 @@ describe('putsningen av brevmallarna (2026-11-21)', () => {
     expect(Object.isFrozen(BREV_PUTS.not.sida)).toBe(true)
   })
 
-  it('måtten: Not 40 mm marginaler och 11 pt, Panorama 11 pt, Kvadrat ruta 26 mm, Mörkrum band 40 mm', () => {
+  it('måtten: Not 40 mm marginaler och 11 pt, Panorama 11 pt, Kvadrat ruta 32 mm, Mörkrum band 40 mm', () => {
     const not = brevMallDef('not')
     expect(textbreddMm(brevDef(not))).toBe(130)
     expect(brevMatt(brevDef(not), 0).grad).toBe(11)
     expect(brevMatt(brevDef(brevMallDef('panorama')), 0).grad).toBe(11)
-    expect(brevDef(brevMallDef('kvadrat')).huvud.block!.storlek).toBe(26)
+    expect(brevDef(brevMallDef('kvadrat')).huvud.block!.storlek).toBe(32)
     expect(brevDef(brevMallDef('morkrum')).huvud.band!.minHojd).toBe(40)
   })
 
@@ -79,12 +79,16 @@ describe('putsningen av brevmallarna (2026-11-21)', () => {
   it('Kvadrat: namnet på två rader i rutan, också ett långt namn', () => {
     const block = BREV_PUTS.kvadrat.block!
     expect(namnIRuta('Erik Lindberg', block).rader).toEqual(['Erik', 'Lindberg'])
+    expect(namnIRuta('Erik Lindberg', block).pt).toBe(14)
+    expect(renderBrevHtml('kvadrat', exempelBrev('kort'))).not.toContain('.huvud-block .titel{font-size')
     const langt = namnIRuta('Anna-Karin Bergströmsson-Lind', block)
     expect(langt.rader).toEqual(['Anna-Karin', 'Bergströmsson-Lind'])
     expect(langt.pt).toBe(block.minNamnPt)
     const html = renderBrevHtml('kvadrat', exempelBrev('kort', { ...EXEMPEL_AVSANDARE, namn: 'Anna-Karin Bergströmsson-Lind' }))
     expect(html).toContain('<h1 class="namn" data-falt="namn"><span class="namnrad">Anna-Karin</span> <span class="namnrad">Bergströmsson-Lind</span></h1>')
     expect(html).toContain('aspect-ratio:1/1')
+    // Titeln (13 pt) sänks till namnets grad när namnet blir mindre.
+    expect(html).toContain(`.huvud-block .titel{font-size:${block.minNamnPt}pt}`)
   })
 
   it('Word (Not): marginalerna 40 mm och 11 pt i det korta brevet', async () => {

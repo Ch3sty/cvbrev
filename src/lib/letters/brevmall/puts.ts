@@ -48,8 +48,8 @@ const PUTS: Record<string, BrevPuts> = {
   },
   // Bandet 52 till omkring 40 mm (namnet i samma grad), ärenderaden i mörkad accent.
   morkrum: { band: { luft: { topp: 8, botten: 5 }, minHojd: 40 }, luftTitel: 1, luftKontakt: 2.5, arendeAccent: true },
-  // Rutan 56 till 26 mm, namnet på två rader i rutan.
-  kvadrat: { block: { storlek: 26, luft: 3, minNamnPt: 8, maxNamnPt: 13 } },
+  // Rutan 56 till 32 mm, namnet på två rader i rutan (14 pt för Erik Lindberg) och alltid huvudets största text.
+  kvadrat: { block: { storlek: 32, luft: 3.5, minNamnPt: 9, maxNamnPt: 15 } },
   // Ärenderaden i accenten (som titeln i bandet), 11 pt; bandets luft 12/10 till 10/8 mm så att långa brevet ryms i steg 1.
   panorama: { brod: 11, arendeAccent: true, css: `.brev .huvud-band{padding-top:10mm;padding-bottom:8mm}` },
 }
@@ -104,9 +104,10 @@ export function morkTillKontrast(farg: string, mot: string, krav = 4.5): string 
  * Namnet i Kvadrats ruta: delat på två rader där den längsta raden blir
  * kortast (vid mellanslag, annars efter bindestreck), och graden som får den
  * längsta raden att rymmas i rutan. Poppins 600 ungefär 0,62 em per tecken.
- * Rutan växer i CSS (kvadratisk) om ett namn ändå inte ryms vid minsta graden.
+ * Rutan växer i CSS (kvadratisk) om ett namn ändå inte ryms vid minsta graden;
+ * `rutaMm` är den uppskattade sidan (för uppskattadHojd).
  */
-export function namnIRuta(namn: string, block: NonNullable<BrevPuts['block']>): { rader: string[]; pt: number } {
+export function namnIRuta(namn: string, block: NonNullable<BrevPuts['block']>): { rader: string[]; pt: number; rutaMm: number } {
   const n = namn.trim().replace(/\s+/g, ' ')
   const brott: number[] = []
   for (let i = 1; i < n.length; i++) if (n[i] === ' ' || n[i - 1] === '-') brott.push(i)
@@ -125,5 +126,6 @@ export function namnIRuta(namn: string, block: NonNullable<BrevPuts['block']>): 
   const inre = block.storlek - 2 * block.luft
   const langd = Math.max(1, ...rader.map((r) => r.length))
   const pt = Math.floor((inre / (langd * 0.62 * 0.3528)) * 2) / 2
-  return { rader, pt: Math.max(block.minNamnPt, Math.min(block.maxNamnPt, pt)) }
+  const grad = Math.max(block.minNamnPt, Math.min(block.maxNamnPt, pt))
+  return { rader, pt: grad, rutaMm: Math.max(block.storlek, langd * 0.62 * grad * 0.3528 + 2 * block.luft) }
 }
