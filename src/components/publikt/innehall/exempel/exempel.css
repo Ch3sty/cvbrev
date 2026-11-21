@@ -394,6 +394,9 @@
 .ib-byt-bunt .m5 { transform: rotate(7deg) translateY(1px); }
 .ib-byt-bunt .m5::before { right: 0; top: 0; bottom: 0; width: 6px; background: #2B2F38; }
 .ib-byt-bunt .m5::after { right: 9px; top: 6px; height: 17px; }
+/* Medan visaren är öppen göms kortets fyllda knapp med hidden; .pub-knapp sätter
+   display, så hidden måste skrivas ut här för att gälla. */
+.ib-not-cta .pub-knapp[hidden] { display: none; }
 .ib-cta-lank {
   display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px;
   color: #fff; font-weight: 600; font-size: 15.5px;
