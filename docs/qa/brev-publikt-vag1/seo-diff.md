@@ -1,7 +1,7 @@
 # SEO-diff
 
 Före: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/bp/seo-fore.json  
-Efter: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/bp/seo-efter.json  
+Efter: C:/Users/chris/AppData/Local/Temp/claude/dceaf5763afec129/8bb027ad-1450-4910-a975-93a77d4523a4/scratchpad/bp/seo-efter2.json  
 Sidor: 122  
 Fel: 0
 
@@ -15,10 +15,10 @@ Fel: 0
 - ok: rubrik bytt (2026-11-21): "h3 Kompakt" → "h3 Koppar". Mallkorten, se Klassisk.
 - ok: rubrik bytt (2026-11-21): "h3 Modern" → "h3 Kalksten". Mallkorten, se Klassisk.
 - ok: rubrik bytt (2026-11-21): "h3 Executive" → "h3 Granit". Mallkorten, se Klassisk.
-- ok: rubrik bytt (2026-11-21): "h3 Kreativ" → "h3 Kolumn". Mallkorten, se Klassisk.
+- ok: rubrik bytt (2026-11-21): "h3 Kreativ" → "h3 Fasad". Mallkorten, se Klassisk.
 - ok: rubrik bytt (2026-11-21): "h3 Traditionell" → "h3 Terrakotta". Mallkorten, se Klassisk.
-- ok: nya rubriker: ["h3 Kopiera eller ladda ner brevet","h2 40 mallar för personliga brev","h3 Linne","h3 Björk","h3 Koppar","h3 Kalksten","h3 Granit","h3 Kolumn","h3 Terrakotta"]
-- ok: ord i main 1121 → 1199 (+7.0 %)
+- ok: nya rubriker: ["h3 Kopiera eller ladda ner brevet","h2 40 mallar för personliga brev","h3 Linne","h3 Björk","h3 Koppar","h3 Kalksten","h3 Granit","h3 Fasad","h3 Terrakotta"]
+- ok: ord i main 1121 → 1198 (+6.9 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar"]
 - ok: JSON-LD ändrad i tillåten typ (2026-10-12): FAQPage, HowTo, WebApplication
 
@@ -461,7 +461,7 @@ Fel: 0
 - ok: artikelbilden syns med imageAlt: /images/artiklar/personligt-brev-mall-gratis-v2.webp
 
 ### /artiklar/personligt-brev-mall-word
-- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15 och 2026-11-21: 2026-11-21: Listan om online-verktyg: 40 brevmallar, Word i 26 av dem. BlogPostings wordCount följer texten. 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.
+- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.
 - ok: ord i main 3138 → 3146 (+0.3 %)
 - ok: BlogPosting wordCount 2865 → 2873 (alt-texten i första CustomImage)
 - ok: artikelbilden syns med imageAlt: /images/artiklar/personligt-brev-mall-word-v2.webp
@@ -507,7 +507,7 @@ Fel: 0
 - ok: artikelbilden syns med imageAlt: /images/artiklar/vad-ska-finnas-med-i-personligt-brev-v2.webp
 
 ### /artiklar/jobbcoach-online
-- tillåten JSON-LD-skillnad 2026-11-15 och 2026-11-19 och 2026-11-21: 2026-11-21: Brödtexten om brevverktyget: 40 mallar, Linne och Björk gratis, 38 i Premium. BlogPostings wordCount följer texten. 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. 2026-11-19: Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.
+- tillåten JSON-LD-skillnad 2026-11-15 och 2026-11-19: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. 2026-11-19: Textdäcket 2026-11-19 (T4, T5, T10): brödtext ändrad, BlogPostings wordCount följer.
 - ok: ny rubrik (2026-11-15): "h2#fem-skal-att-valja-en-jobbcoach-online Fem skäl att välja en jobbcoach online". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md.
 - ok: ny rubrik (2026-11-15): "h3#2-kostnad-timpris-mot-0-eller-149-kr-i-manaden 2. Kostnad: timpris mot 0 eller 149 kr i månaden". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md.
 - ok: ny rubrik (2026-11-15): "h3#3-snabbhet-en-minut-i-stallet-for-en-bokad-tid 3. Snabbhet: en minut i stället för en bokad tid". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md.
