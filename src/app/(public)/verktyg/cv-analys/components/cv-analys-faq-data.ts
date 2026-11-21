@@ -21,7 +21,7 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vilka förbättringsförslag får jag?',
-    a: 'Förslagen kommer i fyra delar. Personbeskrivning: din öppning, omskriven så att den säger vad du kan. Roller: varje erfarenhet med resultat och siffror i stället för bara ansvar. Kompetenser: det som saknas eller borde stå tydligare. Automatiska förbättringar: struktur, formatering, innehåll och nyckelord som rekryteringssystemen letar efter. För varje förslag ser du den nuvarande texten och en föreslagen omskrivning, och de tyngsta fynden står först.',
+    a: 'Förslagen kommer i fyra delar. Personbeskrivning: din öppning, omskriven så att den säger vad du kan. Roller: varje erfarenhet med resultat och siffror i stället för bara ansvar. Kompetenser: det som saknas eller borde stå tydligare. Allmänna råd: struktur, formatering, innehåll och nyckelord som rekryteringssystemen letar efter, sådant du ändrar själv. För varje förslag på personbeskrivning och roller ser du den nuvarande texten och en föreslagen omskrivning, och de tyngsta fynden står först.',
   },
   {
     q: 'Behöver jag ha CV:t på svenska?',
