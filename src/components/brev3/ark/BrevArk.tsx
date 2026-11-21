@@ -180,11 +180,17 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
   }, [mat, kropp])
 
   // Typsnitten laddas efter första målningen: mät igen när de är klara.
+  // fonts.ready kan lösas innan arkets typsnitt ens har begärts (de laddas
+  // först när texten ritas), och då bryts raderna om efter mätningen: mät
+  // också om varje gång ett typsnitt har laddats klart.
   useEffect(() => {
     let levande = true
-    document.fonts?.ready.then(() => levande && mat())
+    const igen = () => levande && mat()
+    document.fonts?.ready.then(igen)
+    document.fonts?.addEventListener?.('loadingdone', igen)
     return () => {
       levande = false
+      document.fonts?.removeEventListener?.('loadingdone', igen)
     }
   }, [mat, kropp])
 

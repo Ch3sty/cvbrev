@@ -48,9 +48,10 @@ export default function MallarLaddar() {
           <span className={`${golvBit} block h-[18px] w-40`} />
           <span className={`${golvBit} mt-3 block h-[34px] w-3/4`} />
           <span className={`${golvBit} mt-5 block h-11 w-full xl:w-2/3`} />
-          <div className="mt-5 grid grid-cols-2 gap-3 xl:grid-cols-4 xl:gap-4">
+          {/* Telefon: mallarna som remsa i sidled (160 px breda kort), dator: rutnät. */}
+          <div className="mt-5 flex gap-3 overflow-hidden xl:grid xl:grid-cols-4 xl:gap-4">
             {Array.from({ length: 8 }, (_, i) => (
-              <span key={i} className={`${golvBit} block h-[230px] xl:h-[300px]`} />
+              <span key={i} className={`${golvBit} block h-[230px] w-[160px] shrink-0 xl:h-[300px] xl:w-auto ${i > 3 ? 'max-xl:hidden' : ''}`} />
             ))}
           </div>
         </LyftPanel>

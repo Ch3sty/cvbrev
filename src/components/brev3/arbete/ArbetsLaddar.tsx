@@ -5,6 +5,7 @@
  */
 import { ArbetsYta, Blad } from '@/components/brev3/kit'
 import ArbetsRam from './ArbetsRam'
+import { BREVET } from './texter'
 
 export default function ArbetsLaddar({ rubrik, bladRubrik, hojd, flikar = false }: { rubrik: string; bladRubrik: string; hojd: number; flikar?: boolean }) {
   return (
@@ -21,7 +22,19 @@ export default function ArbetsLaddar({ rubrik, bladRubrik, hojd, flikar = false 
               </div>
             </header>
           }
-          avsnitt={flikar ? <div className="b3-avsn" aria-hidden="true" style={{ height: 44 }} /> : undefined}
+          avsnitt={
+            flikar ? (
+              // Samma flikrad som Brevet ritar (inte en tom ruta), så att
+              // bladet och arket står på exakt samma höjd när sidan kommer.
+              <nav className="b3-avsn" aria-hidden="true">
+                {BREVET.avsnitt.map((a, i) => (
+                  <button key={a.id} type="button" tabIndex={-1} aria-current={i === 0 ? 'true' : undefined}>
+                    {a.namn}
+                  </button>
+                ))}
+              </nav>
+            ) : undefined
+          }
           blad={
             <Blad rubrik={bladRubrik} hojd={hojd}>
               <div className="loading-thread mt-2 h-[120px] rounded-[14px] bg-[color:var(--b3-mjuk)]" aria-hidden="true" />
