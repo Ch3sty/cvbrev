@@ -46,7 +46,9 @@ export const NASTA = {
   sekundar: 'Välj en annan fråga',
   omskrivning: {
     rubrik: (fraga: FragaId) => `Skriv om svaret om ${FRAGOR[fraga].bestamd}`,
-    text: (level: number, nar: string, missingKind: string, fraga: FragaId) => {
+    /** missingKind null: inget saknades (högsta betyg, se saknadesI). */
+    text: (level: number, nar: string, missingKind: string | null, fraga: FragaId) => {
+      if (!missingKind) return `Du fick ${level} av 5 ${nar}, med ${FRAGOR[fraga].starChips ? 'alla fyra delarna' : 'alla delarna'} på plats.`
       const fras = saknadesFras(missingKind, fraga)
       return `Du fick ${level} av 5 ${nar}, och det var ${fras} som saknades. Skriv om med ${fras}, så ser du om nivån lyfter.`
     },

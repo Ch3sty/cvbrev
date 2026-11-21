@@ -195,7 +195,10 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
       ikon: 'dokument',
       overrad: versaler(`Senast ${kortDag(datum)}`),
       rubrik: `Rapporten för ${manadEtikett(forra).toLocaleLowerCase('sv-SE')}`,
-      text: `${ind.sokteForraManaden} sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.`,
+      text:
+        ind.sokteForraManaden === 1
+          ? '1 sökt jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i det åt dig.'
+          : `${ind.sokteForraManaden} sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.`,
       knapp: { text: 'Öppna rapporten', href: soktaHref({ vy: 'rapport', manad: forra }) },
     })
   }

@@ -41,7 +41,7 @@ export async function NyaTraffar({ userId, idag }: { userId: string; idag: strin
         rubrikId="nya-rubrik"
         rubrik={traffRubrikNya({ basta: t.basta, nya: t.nya })}
         under={traffUnderMedSedan(t.lasta, t.kordAt, idag, t.nya, t.seddaAt)}
-        lank={{ href: JOBB_HREF, text: `Alla ${t.basta} träffar`, textMobil: `Alla ${t.basta}` }}
+        lank={{ href: JOBB_HREF, text: t.basta === 1 ? '1 träff' : `Alla ${t.basta} träffar`, textMobil: t.basta === 1 ? '1 träff' : `Alla ${t.basta}` }}
       />
       <Traffar>
         {t.traffar.map((x) => {

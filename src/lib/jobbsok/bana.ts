@@ -90,7 +90,8 @@ export function skaSokasLista(rader: readonly SparadAnnons[], idag: Dag): SkaSok
 
 /* ------------------------------------------------------------ banan */
 
-const antalText = (n: number, en: string, flera: string) => (n === 1 ? `1 ${en}` : `${n} ${flera}`)
+/** Talet och ordet i rätt form: "1 sparad", "3 sparade". Gemensam för Jobbsökets räkneord. */
+export const antalText = (n: number, en: string, flera: string) => (n === 1 ? `1 ${en}` : `${n} ${flera}`)
 
 /**
  * Banans fyra stationer för Översikt och Sökta tjänster: Ska sökas, Sökt,

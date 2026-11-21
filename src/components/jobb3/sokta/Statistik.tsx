@@ -126,7 +126,7 @@ export function StatistikGolv({ data, vaxel, onAndraMal, onLogga }: { data: Sokt
       ? s.veckostaplar.map((v) => ({ etikett: `v. ${v.vecka}`, nu: v.arNu, brickor: brickor(v.brickor) }))
       : s.manadsstaplar.map((m) => ({ etikett: m.etikett.replace(', nu', '').slice(0, 3).toLowerCase(), nu: m.arNu, brickor: brickor(m.brickor) }))
   const aktiva = s.veckostaplar.filter((v) => v.brickor.length > 0).length
-  const underVecka = `${Ordtal(t.sokta.antal)} sökta tjänster på ${s.veckostaplar.length} ${s.veckostaplar.length === 1 ? 'vecka' : 'veckor'}${aktiva < s.veckostaplar.length ? `, ${ordtal(aktiva)} av dem med minst en` : ''}.`
+  const underVecka = `${Ordtal(t.sokta.antal)} ${t.sokta.antal === 1 ? 'sökt tjänst' : 'sökta tjänster'} på ${s.veckostaplar.length} ${s.veckostaplar.length === 1 ? 'vecka' : 'veckor'}${aktiva < s.veckostaplar.length ? `, ${ordtal(aktiva)} av dem med minst en` : ''}.`
 
   return (
     <Golv>

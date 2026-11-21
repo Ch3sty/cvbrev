@@ -343,6 +343,16 @@ Inget commitat, ingen databas, inget bygge, ingen webbläsare.
 
 Delat: `src/lib/jobmatching/oppna.ts` (`oppnaTraffar`, ren) och `src/lib/jobmatching/oppna.server.ts` (`hamtaOppnaTraffar`: aktivt CV, sökprofil, `job_matches_all` och `hamtaBasta` i läget `liten`). Test: `src/lib/jobmatching/__tests__/oppna.test.ts`. Matchade jobb och annonsrutten har kvar sin egen `slice(0, FREE_TIER_JOB_LIMIT)`, samma regel.
 
+### Efter klicktestets andra pass
+
+Underlag: punkt 7, 8 och 12 i "Pass 2" i `docs/qa/jobbsoket-slutkontroll-2026-11-21.md`. Inget commitat, ingen databas, inget bygge, ingen webbläsare. Typkontrollen gick igenom.
+
+1. **Hubben sa att resultatet saknades i ett svar med 5 av 5.** Orsak: när dagens prov är gjort på gratisnivån väljer hubben `lasIgen` med det senaste provet, oavsett betyg, och texten (`NASTA.omskrivning.text`), raden vid knappen och STAR-brickorna läste radens `missing_kind` rakt av. Modellen lämnar ett `missing_kind` även vid 5 av 5; bedömningen (`BedomtVy`) räknade bara med det under 5, hubben inte. Ändrat: ny ren `saknadesI(prov)` i `src/lib/intervju/nasta.ts` (null vid högsta betyg eller utan prov), som hubben, bedömningen och svarsflödet nu alla läser (`IntervjuHubb.tsx`, `BedomtVy.tsx`, `SvarFlode.tsx`). Utan saknad del säger texten "Du fick 5 av 5 i dag, med alla fyra delarna på plats." (frågor utan STAR: "alla delarna"), raden vid knappen bara frågans namn, och alla brickor "Fanns med" (`src/app/dashboard/intervju/infor-intervjun-copy.ts`). Test: `src/lib/intervju/__tests__/nasta.test.ts`. Kvar: rubriken i `lasIgen` är fortfarande "Skriv om svaret om ..." även vid 5 av 5 (rangordningen är specens, inte rörd).
+2. **Hubben visade det gamla provet efter tillbakalänken.** Orsak: routerns klientcache höll hubben från före provet. Ändrat som i de andra rummen (`TjanstVy`: replace och sedan `router.refresh()`): `avslutaFlodet` i `src/lib/flow/flodeshistorik.ts` tar `{ laddaOm: true }` och kör `router.refresh()` efter bytet till målet; `SvarFlode.tsx` använder det efter en lyckad bedömning. Test: `src/lib/flow/__tests__/flodeshistorik.test.ts`.
+3. **Pluralfel.** `antalText` i `src/lib/jobbsok/bana.ts` är nu exporterad och används för räkneorden. Rapportens text att kopiera: ny `rapportTotalt` i `src/components/jobb3/sokta/text.ts` ("1 sökt jobb", "1 annonserad", "1 spontan", "1 intervju"), använd i `Rapport.tsx`. Översikt: `banaProps` och `banaEtikett` i `src/components/jobb3/oversikt/oversikt.ts` ("1 sparad", "1 sparad att söka", "1 sökt som väntar svar"). Därtill: Att göra nu-kortet för rapporten ("1 sökt jobb ... fyllt i det", `attGora.ts`), trattens skärmläsartext ("En sökt.", "2 erbjudanden.", `TrattBild.tsx`), Statistikens rad ("En sökt tjänst på", `Statistik.tsx`) och länken "1 träff" i stället för "Alla 1 träffar" (`NyaTraffar.tsx`). Test: `oversikt.test.ts`, `motor.test.ts`.
+
+Se i webbläsaren: gratiskontot efter dagens prov med 5 av 5 på "Ett problem du löste": hubben säger "med alla fyra delarna på plats" och alla fyra brickor "Fanns med"; Premium: nytt bedömt svar, tryck på "Inför intervjun": det nya provet står överst utan omladdning; Översikt i 412 med en sparad: "1 sparad"; Kopiera som text med en spontan: "1 spontan".
+
 ## Migreringar
 
 - `20261121180000_jobbsoket_omgang1.sql`: körd i produktion 2026-11-21 med ägarens ja.

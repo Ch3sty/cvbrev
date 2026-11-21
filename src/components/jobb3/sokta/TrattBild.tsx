@@ -8,7 +8,7 @@
  */
 
 import { Tratt } from '@/components/jobb3/kit'
-import { langDag, type BrickTon } from '@/lib/jobbsok'
+import { antalText, langDag, type BrickTon } from '@/lib/jobbsok'
 import { Ordtal, trattTon } from './text'
 
 /** En bricka i tratten: företagets två bokstäver (tomt när namnen inte delas) och tonen. */
@@ -28,7 +28,7 @@ export interface TrattBildData {
 const brickor = (b: TrattBildBricka[]) => b.map((x) => ({ kod: x.bokstaver, ton: trattTon(x.ton) }))
 
 export function TrattBild({ tratt: t }: { tratt: TrattBildData }) {
-  const etikett = `${Ordtal(t.sokta.antal)} sökta. ${t.svar.antal} har svarat. ${t.intervju.antal} har lett till intervju. ${t.erbjudande.antal ? `${t.erbjudande.antal} erbjudande.` : 'Inget erbjudande än.'}`
+  const etikett = `${Ordtal(t.sokta.antal)} ${t.sokta.antal === 1 ? 'sökt' : 'sökta'}.${t.svar.antal} har svarat. ${t.intervju.antal} har lett till intervju. ${t.erbjudande.antal ? `${antalText(t.erbjudande.antal, 'erbjudande', 'erbjudanden')}.` : 'Inget erbjudande än.'}`
   return (
     <Tratt
       etikett={etikett}

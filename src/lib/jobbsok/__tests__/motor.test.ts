@@ -423,6 +423,13 @@ describe('Att göra nu', () => {
     expect(attGoraNu({ ...ind(), tjanster: [], skaSokas: [], sokteForraManaden: 5, nu: new Date('2026-12-15T09:00:00Z') }).handlingar.some((h) => h.typ === 'af_rapport')).toBe(false)
   })
 
+  it('rapportens text i rätt form vid ett sökt jobb', () => {
+    const nu = new Date('2026-12-03T09:00:00Z')
+    const text = (n: number) => attGoraNu({ ...ind(), tjanster: [], skaSokas: [], sokteForraManaden: n, nu }).handlingar.find((h) => h.typ === 'af_rapport')?.text
+    expect(text(1)).toBe('1 sökt jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i det åt dig.')
+    expect(text(5)).toBe('5 sökta jobb att rapportera till Arbetsförmedlingen. Vi har redan fyllt i dem åt dig.')
+  })
+
   it('visar inte en passerad sista dag', () => {
     const a = attGoraNu({ ...ind(), tjanster: [], skaSokas: skaSokasLista([sparad('x', 'X', 'Y', '2026-11-20')], '2026-11-21') })
     expect(a.handlingar.some((h) => h.typ === 'sok_fore_sista_dag')).toBe(false)

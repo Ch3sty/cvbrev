@@ -54,6 +54,24 @@ describe('flodeshistorik', () => {
     expect(r.replace).toHaveBeenCalledWith('/dashboard/mina-brev', { scroll: false })
   })
 
+  it('laddaOm kör router.refresh efter bytet, annars inte', () => {
+    stampla(3)
+    const r = { replace: vi.fn(), refresh: vi.fn() }
+    avslutaFlodet(r, '/dashboard/intervju/abc', { laddaOm: true })
+    expect(r.replace).toHaveBeenCalledWith('/dashboard/intervju/abc', { scroll: false })
+    expect(r.refresh).toHaveBeenCalledTimes(1)
+    expect(r.replace.mock.invocationCallOrder[0]).toBeLessThan(r.refresh.mock.invocationCallOrder[0])
+
+    stampla(0)
+    const r0 = { replace: vi.fn(), refresh: vi.fn() }
+    avslutaFlodet(r0, '/dashboard/intervju/abc', { laddaOm: true })
+    expect(r0.refresh).toHaveBeenCalledTimes(1)
+
+    const utan = { replace: vi.fn(), refresh: vi.fn() }
+    avslutaFlodet(utan, '/dashboard/mina-brev')
+    expect(utan.refresh).not.toHaveBeenCalled()
+  })
+
   it('krysset går till rummets egen post när flödet startades därifrån', () => {
     minnsRum('/dashboard/brev')
     stampla(2, '/dashboard/brev')

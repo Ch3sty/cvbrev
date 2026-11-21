@@ -46,7 +46,7 @@ import { avslutaFlodet } from '@/lib/flow/flodeshistorik'
 import { useFlodeshistorik } from '@/lib/flow/useFlodeshistorik'
 import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad'
 import { INFOR_INTERVJUN_HREF } from '@/lib/intervju/lankar'
-import { dagEtikett, saknadesFras } from '@/lib/intervju/nasta'
+import { dagEtikett, saknadesFras, saknadesI } from '@/lib/intervju/nasta'
 import { NY } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import { DELAR, STARKT_STAR, SVAR, VAL, fragaNr, nivaOrd, saknadDel, starForklaring, storBokstav } from './text'
 
@@ -199,7 +199,7 @@ function SvarSteg({ fraga, forra, intervju, onByt }: { fraga: FragaId; forra: Fo
   useBetalvaggVisad('intervjuprov', Boolean(kvot?.upgradeHref))
 
   const langd = text.trim().length
-  const saknas = forra && forra.level < 5 ? saknadDel(forra.missingKind) : null
+  const saknas = saknadDel(saknadesI(forra))
 
   useEffect(() => {
     if (!laddar) {
@@ -245,7 +245,9 @@ function SvarSteg({ fraga, forra, intervju, onByt }: { fraga: FragaId; forra: Fo
       const data = await res.json().catch(() => ({}))
       if (res.ok && typeof data.href === 'string') {
         capture('interview_practice_completed', { question: fraga, level: data.level, surface: 'dashboard' })
-        avslutaFlodet(router, data.href)
+        // laddaOm: hubben Inför intervjun ska visa det nya provet när man går
+        // tillbaka dit, inte routerns cachade kopia (klicktestet 2026-11-21).
+        avslutaFlodet(router, data.href, { laddaOm: true })
         return
       }
       setLaddar(false)

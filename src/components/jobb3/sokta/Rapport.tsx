@@ -39,6 +39,7 @@ import { afReportStatusText } from '@/lib/applications/afReport'
 import type { AfRapport } from '@/lib/applications/afRapportData'
 import { dagFor, idagSv, kortDag, langDagMedAr, manadEtikett, type Dag } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
+import { rapportTotalt } from './text'
 
 const MANAD_KORT = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
 
@@ -250,9 +251,7 @@ export function RapportGolv({ data, vaxel, onLogga }: { data: SoktaTjansterData;
       }
       lines.push('')
     }
-    lines.push(
-      `Totalt: ${rapport.totals.applications} sökta jobb (${rapport.totals.advertised} annonserade, ${rapport.totals.unsolicited} spontana), ${rapport.totals.interviews} intervjuer.`
-    )
+    lines.push(rapportTotalt(rapport.totals))
     return lines.join('\n')
   }, [rapport])
 

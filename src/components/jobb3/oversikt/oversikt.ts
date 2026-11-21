@@ -4,6 +4,7 @@
  * __tests__/oversikt.test.ts.
  */
 import {
+  antalText,
   dagarMellan,
   intervjuText,
   klockslag,
@@ -46,8 +47,8 @@ export function banaEtikett(b: Bana): string {
   const intervju = s('intervju')?.antal ?? 0
   const erbj = s('erbjudande')?.antal ?? 0
   const delar = [
-    ska ? `${ska} sparade att söka` : 'inga sparade att söka',
-    sokt?.antal ? `${sokt.antal} sökta som väntar svar${tysta ? `, varav ${tysta} tyst${tysta === 1 ? '' : 'a'}` : ''}` : 'inga som väntar svar',
+    ska ? `${antalText(ska, 'sparad', 'sparade')} att söka` : 'inga sparade att söka',
+    sokt?.antal ? `${antalText(sokt.antal, 'sökt', 'sökta')} som väntar svar${tysta ? `, varav ${tysta} tyst${tysta === 1 ? '' : 'a'}` : ''}` : 'inga som väntar svar',
     intervju ? `${intervju} i intervjusteget` : 'ingen i intervjusteget',
     erbj ? `${erbj} med erbjudande` : 'inget erbjudande än',
   ]
@@ -61,7 +62,7 @@ export function banaProps(b: Bana): JobbsokBanaProps {
   const tysta = sokt?.brickor.filter((x) => x.tyst).length ?? 0
   const intervju = s('intervju')
   return {
-    skaSokas: station(s('ska_sokas'), s('ska_sokas')?.antal ? `${s('ska_sokas')!.antal} sparade` : undefined),
+    skaSokas: station(s('ska_sokas'), s('ska_sokas')?.antal ? antalText(s('ska_sokas')!.antal, 'sparad', 'sparade') : undefined),
     sokt: station(sokt, sokt?.antal ? (tysta ? `${sokt.antal}, ${tysta === 1 ? 'en' : ordtal(tysta)} tyst${tysta === 1 ? '' : 'a'}` : `${sokt.antal} väntar svar`) : undefined),
     intervju: station(intervju, intervju?.antal ? `${intervju.antal} på gång` : undefined),
     erbjudande: station(s('erbjudande')),

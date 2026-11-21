@@ -43,7 +43,7 @@ import { COPY } from '@/components/artiklar/intervjuprov/intervjuprov-copy'
 import type { IntervjuRad } from '@/lib/intervju/rad'
 import { klippNiva } from '@/lib/intervju/validering'
 import { INFOR_INTERVJUN_HREF, nyttProvHref } from '@/lib/intervju/lankar'
-import { rekommenderadFraga, type ProvSammanfattning } from '@/lib/intervju/nasta'
+import { rekommenderadFraga, saknadesI, type ProvSammanfattning } from '@/lib/intervju/nasta'
 import { klockslag, senastePerFraga, tjanstHref, veckodagNamn } from '@/lib/jobbsok'
 import type { IntervjuPaGang } from '@/lib/jobbsok/intervju'
 import { BEDOMT, nivaOrd, saknadDel, starUtfall } from './text'
@@ -75,7 +75,7 @@ export default function BedomtVy({ rad, prov, intervjuer }: { rad: IntervjuRad; 
   const bokad = intervjuer.find((i) => i.lage === 'bokad') ?? null
   const infor = bokad?.dag ? veckodagNamn(bokad.dag) : null
   const kl = bokad ? klockslag(bokad.tid) : null
-  const saknas = niva < 5 ? saknadDel(rad.missing_kind) : null
+  const saknas = saknadDel(saknadesI({ level: rad.level, missingKind: rad.missing_kind }))
 
   const hordes = (
     <div className="w-full xl:w-[520px]">

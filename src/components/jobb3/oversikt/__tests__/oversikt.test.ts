@@ -3,6 +3,7 @@ import type { AttGoraHandling, Bana, TjanstLage } from '@/lib/jobbsok'
 import { banaProps, bliUpptacktRad, goraMobil, goraTon, tjanstRad, traffUnder, traffUnderMedSedan } from '../oversikt'
 import { nyaBlandBasta, nyaMarke, traffRubrikNya } from '@/lib/rum/nyaTraffar'
 import { startvy } from '@/app/dashboard/(oversikt)/startvy'
+import { rapportTotalt } from '@/components/jobb3/sokta/text'
 
 const IDAG = '2026-11-21'
 
@@ -87,6 +88,33 @@ describe('banaProps', () => {
     expect(p.intervju.underMobil).toBe('2 på gång')
     expect(p.sokt.brickor[0]).toMatchObject({ kod: 'NO', tyst: true, tagg: 'tyst 15 dagar', taggTon: 'koppar' })
     expect(p.etikett).toContain('varav 1 tyst')
+  })
+
+  it('ett av varje: "1 sparad" och "1 sökt", aldrig "1 sparade" (klicktestets andra pass)', () => {
+    const b: Bana = {
+      stationer: [
+        { station: 'ska_sokas', antal: 1, brickor: [], undertext: '1 sparad' },
+        { station: 'sokt', antal: 1, brickor: [{ id: '1', bokstaver: 'NO', company: 'Norrmejerier', ton: 'vantar', tyst: false, etikett: null }], undertext: '1 väntar svar' },
+        { station: 'intervju', antal: 0, brickor: [], undertext: 'Ingen just nu' },
+        { station: 'erbjudande', antal: 0, brickor: [], undertext: 'Hit ska en bricka' },
+      ],
+      avslutade: [],
+    }
+    const p = banaProps(b)
+    expect(p.skaSokas.underMobil).toBe('1 sparad')
+    expect(p.etikett).toContain('1 sparad att söka')
+    expect(p.etikett).toContain('1 sökt som väntar svar')
+    expect(p.etikett).not.toMatch(/\b1 (sparade|sökta)\b/)
+    const tva = banaProps({ ...b, stationer: b.stationer.map((s) => (s.station === 'ska_sokas' ? { ...s, antal: 2 } : s)) })
+    expect(tva.skaSokas.underMobil).toBe('2 sparade')
+  })
+})
+
+describe('rapportens text att kopiera', () => {
+  it('rätt form vid ett: "1 spontan", "1 intervju", "1 sökt jobb", "1 annonserad"', () => {
+    expect(rapportTotalt({ applications: 10, advertised: 9, unsolicited: 1, interviews: 2 })).toBe('Totalt: 10 sökta jobb (9 annonserade, 1 spontan), 2 intervjuer.')
+    expect(rapportTotalt({ applications: 1, advertised: 1, unsolicited: 0, interviews: 1 })).toBe('Totalt: 1 sökt jobb (1 annonserad, 0 spontana), 1 intervju.')
+    expect(rapportTotalt({ applications: 4, advertised: 2, unsolicited: 2, interviews: 0 })).toBe('Totalt: 4 sökta jobb (2 annonserade, 2 spontana), 0 intervjuer.')
   })
 })
 
