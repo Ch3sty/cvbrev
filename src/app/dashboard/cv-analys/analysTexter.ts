@@ -41,11 +41,11 @@ export const ANALYS = {
   genomgangOgon: 'Genomgången, del för del',
   genomgangRubrik: (kvar: number) =>
     kvar === 0 ? 'Sju delar. Alla är på plats.' : `Sju delar. ${talord(kvar)} har poäng kvar.`,
-  genomgangAv: (namn: string) => `Genomgång av ${namn}.`,
+  genomgangAv: (namn: string | null) => (namn ? `Genomgång av ”${namn}”.` : 'Genomgång av CV:t.'),
   forslagSkrevs: (datum: string) => `Förslagen skrevs ${datum}.`,
   nyaForslag: 'Be om nya förslag',
   allt: 'Allt på plats',
-  ochFler: (n: number) => ` och ${n} till`,
+  ochFler: (n: number) => ` Och ${sma(talord(n))} till.`,
   delAria: (namn: string, poang: number, max: number) => `${namn}, ${poang} av ${max} poäng`,
   delAv: (poang: number, max: number) => `${poang} av ${max}`,
   saknas: 'Saknas',
@@ -97,8 +97,8 @@ export const ANALYS = {
   /* ------------------------------------------------------------ introt */
   introOgon: 'CV-analys',
   introRubrik: 'Se ditt CV som rekryteraren ser det',
-  introIngress: (namn: string) =>
-    `Vi går igenom ${namn} del för del, från kontaktuppgifter till språk, och räknar en poäng av 100. Det tar under en minut.`,
+  introIngress: (namn: string | null) =>
+    `Vi går igenom ${namn ? `”${namn}”` : 'CV:t'} del för del, från kontaktuppgifter till språk, och räknar en poäng av 100. Det tar under en minut.`,
   introKnapp: 'Analysera det här CV:t',
   introSidorad: 'En analys ingår gratis. Poängen får du direkt.',
   introSidoradPremium: 'Analysen ingår. Kör den så ofta du vill.',
@@ -116,7 +116,6 @@ export const ANALYS = {
     },
   ],
   introBytCv: 'Vill du analysera ett annat CV väljer du det under Byt CV.',
-  dittCv: 'ditt CV',
   kvotLabel: 'Analyser kvar',
 
   // Utan struktur.

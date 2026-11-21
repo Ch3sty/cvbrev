@@ -138,7 +138,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   const siffror = fynd.find((f) => f.typ === 'siffror') ?? null;
   const siffrorHref = siffror && data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: siffror.sektion, mall: mall.id }) : null;
   const paywall = getPaywallCopy('analys');
-  const cvNamn = data.cvNamn?.trim() || ANALYS.dittCv;
+  const cvNamn = data.cvNamn?.trim() || null;
 
   const markeringar: ArkMarkering[] = useMemo(
     () =>
@@ -674,13 +674,15 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
             </span>
             <b>{p.idag}</b>
           </div>
-          <div className="cv4-del">
-            <span>
-              <i style={{ background: 'var(--cv3-ikon)' }} />
-              {ANALYS.vagenForslag}
-            </span>
-            <b>+{forslag}</b>
-          </div>
+          {forslag > 0 ? (
+            <div className="cv4-del">
+              <span>
+                <i style={{ background: 'var(--cv3-ikon)' }} />
+                {ANALYS.vagenForslag}
+              </span>
+              <b>+{forslag}</b>
+            </div>
+          ) : null}
           <div className="cv4-del">
             <span>
               <i className="cv4-stapel-sjalv" />

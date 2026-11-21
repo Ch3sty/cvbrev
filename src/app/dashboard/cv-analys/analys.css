@@ -209,6 +209,8 @@
   .cv4-gdel-inne { padding: 0 12px 14px; }
   .cv4-gdel-fot .cv4-kn { flex: 1; }
 }
+.cv4-gdel .cv4-papper-hu b { flex: 1; overflow-wrap: break-word; }
+@media (max-width: 767.98px) { .cv4-gdel .cv4-papper-hu .cv4-nr { display: none; } .cv4-gdel .cv4-papper-hu { padding: 12px 14px; gap: 10px; } .cv4-gdel .cv4-papper-hu b { font-size: 16px; line-height: 20px; } }
 .cv4-steg { margin-top: 14px; }
 .cv4-steg li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-top: 1.5px solid var(--t3-linje); }
 .cv4-steg li:first-child { border-top: 0; }
