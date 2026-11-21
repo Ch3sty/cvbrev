@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import { extractOriginalTextWithAI, generateContextSpecificSuggestion, validateExtractionQuality, type ExtractionContext, type TextExtractionResult } from '@/lib/cv/cv-text-extraction';
+import { maskaMedAterstallning, aterstallDjupt } from '@/lib/privacy/aterstall';
 
 export interface ExtractTextRequest {
   cvContent: string;
@@ -53,6 +54,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Inga personuppgifter till modellen (ägarens regel 2026-11-21): CV-texten
+    // och förslagen maskas med profilens namn och nummer som kända värden, och
+    // hennes uppgifter sätts tillbaka i citaten innan svaret går ut.
+    const { data: agare } = await supabase
+      .from('profiles')
+      .select('full_name, phone')
+      .eq('id', user.id)
+      .maybeSingle();
+    const maskning = maskaMedAterstallning(body.cvContent, {
+      fullName: (agare as { full_name?: string | null } | null)?.full_name ?? null,
+      phone: (agare as { phone?: string | null } | null)?.phone ?? null,
+    });
+
     // Processar varje förbättring för textextraktion
     const extractions: ExtractTextResponse['extractions'] = [];
     const processed = new Set<string>(); // Förhindra duplicering
@@ -66,10 +80,10 @@ export async function POST(request: NextRequest) {
       try {
         // Skapa kontext för AI-extraktion
         const context: ExtractionContext = {
-          cvContent: body.cvContent,
-          improvementSuggestion: improvement.suggestion,
+          cvContent: maskning.text,
+          improvementSuggestion: maskning.maska(improvement.suggestion),
           improvementArea: improvement.area,
-          improvementExample: improvement.example
+          improvementExample: improvement.example ? maskning.maska(improvement.example) : improvement.example
         };
 
         // Extrahera originaltext med AI
@@ -125,7 +139,7 @@ export async function POST(request: NextRequest) {
     // Returnera resultat
     return NextResponse.json({
       success: true,
-      extractions: extractions
+      extractions: aterstallDjupt(extractions, maskning.aterstall)
     });
 
   } catch (error) {

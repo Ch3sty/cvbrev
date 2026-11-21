@@ -12,6 +12,7 @@ import {
 import { validateAIResponse } from '@/lib/cv/role-based-improvements';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
+import { maskaMedAterstallning, maskaDjupt, aterstallDjupt } from '@/lib/privacy/aterstall';
 
 // Global usage tracker for this request
 interface UsageTracker {
@@ -59,7 +60,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { improvements, cvText, detailedAnalysis, parsedRoles, isInitialLoad } = await request.json();
+    const indata = await request.json();
+    const { isInitialLoad } = indata;
+
+    // Inga personuppgifter till modellen (ägarens regel 2026-11-21): CV-texten,
+    // förslagen, analysen och rollerna maskas med profilens namn och nummer
+    // som kända värden, och hennes uppgifter sätts tillbaka i svaret.
+    const { data: agare } = await supabase
+      .from('profiles')
+      .select('full_name, phone')
+      .eq('id', user.id)
+      .maybeSingle();
+    const maskning = maskaMedAterstallning(typeof indata.cvText === 'string' ? indata.cvText : '', {
+      fullName: (agare as { full_name?: string | null } | null)?.full_name ?? null,
+      phone: (agare as { phone?: string | null } | null)?.phone ?? null,
+    });
+    const cvText: string = typeof indata.cvText === 'string' ? maskning.text : indata.cvText;
+    const improvements = maskaDjupt(indata.improvements, maskning.maska);
+    const detailedAnalysis = maskaDjupt(indata.detailedAnalysis, maskning.maska);
+    const parsedRoles = maskaDjupt(indata.parsedRoles, maskning.maska);
     const detailedImprovements = detailedAnalysis?.detailedImprovements || [];
 
     if (!improvements || !Array.isArray(improvements) || improvements.length === 0) {
@@ -203,8 +222,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       roleBasedImprovements: [], // Now handled by /api/cv/analyze
-      generalImprovements,
-      groups: enhancedGroups, // Keep for backward compatibility
+      generalImprovements: aterstallDjupt(generalImprovements, maskning.aterstall),
+      groups: aterstallDjupt(enhancedGroups, maskning.aterstall), // Keep for backward compatibility
       stats: {
         originalCount: improvementsToProcess.length,
         filteredCount: contentImprovements.length,
