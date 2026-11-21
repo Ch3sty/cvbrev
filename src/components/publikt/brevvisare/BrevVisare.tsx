@@ -175,7 +175,7 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
         </div>
         <div className="mv-sockel">
           <p className="mv-namnrad" aria-live="polite">
-            <b>{m.namn}.</b> <span>{m.rad}</span>
+            <b>{`${m.namn}.`}</b> <span>{m.rad}</span>
           </p>
           {kontext === 'exempel' ? (
             <a

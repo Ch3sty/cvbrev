@@ -127,7 +127,7 @@
 .ib-ark-fot { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; font-size: 13px; color: var(--ink-3); }
 .ib-ark-fot .pub-lank { font-size: 14px; }
 .ib-byt-mall { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.ib-byt-mall button {
+.ib-byt-mall button:not(.mv button, .ib-byt-brev) {
   font: inherit;
   font-weight: 600;
   font-size: 15px;
@@ -139,8 +139,8 @@
   color: var(--ink-1);
   cursor: pointer;
 }
-.ib-byt-mall button:hover { border-color: var(--ink-2); }
-.ib-byt-mall button:focus-visible { outline: var(--fokus); outline-offset: 2px; }
+.ib-byt-mall button:not(.mv button, .ib-byt-brev):hover { border-color: var(--ink-2); }
+.ib-byt-mall button:not(.mv button, .ib-byt-brev):focus-visible { outline: var(--fokus); outline-offset: 2px; }
 .ib-valjare { margin-top: 20px; color: initial; }
 
 /* Marginalnoterna */
