@@ -40,14 +40,14 @@ export function Radkort({ rubrik, ogon, text, textBaraDator, ikon, handling, var
   return (
     <div className={cls}>
       {ikon ? (
-        <span className={ogon && variant === 'vanlig' ? 'b3-radk-ik hidden xl:flex' : 'b3-radk-ik'} aria-hidden="true">
+        <span className="b3-radk-ik" data-bara-dator={ogon && variant === 'vanlig' ? '' : undefined} aria-hidden="true">
           {ikon}
         </span>
       ) : null}
       <span className="b3-radk-text">
         {ogon ? <span className="b3-eyebrow block">{ogon}</span> : null}
         <b>{rubrik}</b>
-        {text ? <small className={textBaraDator ? 'hidden xl:block' : undefined}>{text}</small> : null}
+        {text ? <small data-bara-dator={textBaraDator ? '' : undefined}>{text}</small> : null}
       </span>
       {handling ? <span className="b3-radk-handling">{handling}</span> : null}
     </div>

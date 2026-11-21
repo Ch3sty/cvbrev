@@ -365,6 +365,8 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 .b3-radk-text small { display: block; font-size: 12px; line-height: 16px; color: var(--b3-ink-2); }
 .b3-radk-ik { width: 44px; height: 44px; border-radius: 14px; background: var(--b3-ton); color: var(--b3-ton-ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .b3-radk-handling { margin-left: auto; flex-shrink: 0; display: flex; }
+.b3-radk-ik[data-bara-dator], .b3-radk-text small[data-bara-dator] { display: none; }
+@media (min-width: 1280px) { .b3-radk-ik[data-bara-dator] { display: flex; } .b3-radk-text small[data-bara-dator] { display: block; } }
 .b3-radk.streckad { border-style: dashed; border-color: var(--b3-streck); box-shadow: none; background: var(--b3-ljus); }
 .b3-radk.streckad .b3-radk-ik { background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 3px 0 var(--b3-djup); }
 .b3-radk.prem { display: block; background: var(--b3-prem); border-color: var(--b3-prem-kant); box-shadow: 0 4px 0 var(--b3-prem-kant); border-radius: 20px; padding: 14px 14px 16px; }
@@ -415,7 +417,7 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 @media (max-width: 1279.98px) { .b3-jobb-topp .b3-tg { display: none; } }
 
 /* Dina brev: remsan och korten */
-.b3-remsa { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 8px; scrollbar-width: none; scroll-snap-type: x proximity; }
+.b3-remsa { display: flex; gap: 12px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 8px; scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: 16px; }
 .b3-remsa::-webkit-scrollbar { display: none; }
 .b3-remsa > * { scroll-snap-align: start; }
 @media (min-width: 640px) { .b3-remsa { margin: 0 -24px; padding: 0 24px 8px; } }
@@ -521,13 +523,13 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 /* Arbetslägets huvud */
 .b3-huvud { position: relative; display: flex; align-items: center; gap: 10px; padding: 12px 16px; }
 .b3-huvud-titel { min-width: 0; flex: 1; }
-.b3-huvud-titel b { display: block; font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 18px; line-height: 22px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.b3-huvud-titel span { display: block; font-size: 12px; line-height: 16px; color: var(--vagg-mjuk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.b3-huvud-titel > b { display: block; font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 18px; line-height: 22px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.b3-huvud-titel > span { display: block; font-size: 12px; line-height: 16px; color: var(--vagg-mjuk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .b3-huvud .b3-sparat, .b3-huvud-klar { display: none; }
 @media (min-width: 1280px) {
   .b3-huvud { gap: 14px; padding: 16px 40px 0; }
-  .b3-huvud-titel b { font-size: 20px; line-height: 24px; }
-  .b3-huvud-titel span { font-size: 13px; line-height: 18px; }
+  .b3-huvud-titel > b { font-size: 20px; line-height: 24px; }
+  .b3-huvud-titel > span { font-size: 13px; line-height: 18px; }
   .b3-huvud .b3-sparat { display: inline-flex; }
   .b3-huvud-klar { display: inline-flex; }
 }
@@ -565,12 +567,77 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
   .b3-blad-botten { margin: 0; padding: 10px 20px 14px; }
 }
 
+/* Bladets innehåll som Skriv och Brevet delar (skissens .kr, .saknas,
+   .annons, .krav, .ton, .seg och skrivbrickan). Bara klasser; vyerna
+   bygger markupen. Valda knappar markeras med aria-pressed="true". */
+[data-rum="brev"], :root:has([data-rum="brev"]) { --b3-valt: #3A1930; --b3-valt-kant: #280F22; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) [data-rum="brev"], :root:not([data-theme="light"]):has([data-rum="brev"]) { --b3-valt: #E29DCB; --b3-valt-kant: #8A4F78; } }
+:root[data-theme="dark"] [data-rum="brev"], :root[data-theme="dark"]:has([data-rum="brev"]) { --b3-valt: #E29DCB; --b3-valt-kant: #8A4F78; }
+.b3-kr { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 0; border-bottom: 1.5px solid var(--b3-linje-2); }
+.b3-kr:last-child, .b3-kr:has(+ :not(.b3-kr)) { border-bottom: 0; }
+.b3-kr-nr { width: 30px; height: 30px; border-radius: 10px; background: var(--b3-bock); color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font: 800 15px/1 var(--font-display), Inter, system-ui, sans-serif; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+.b3-kr-text { min-width: 0; }
+.b3-kr-text b { display: block; font-size: 14px; line-height: 19px; font-weight: 700; }
+.b3-kr-text small { display: none; font-size: 13px; line-height: 17px; color: var(--b3-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.b3-saknas { margin-top: 12px; border-radius: 18px; background: var(--b3-saknas); border: 2px dashed var(--koppar); padding: 14px; }
+.b3-saknas-topp { display: flex; align-items: center; gap: 12px; }
+.b3-saknas .b3-kr-nr { background: var(--b3-papper); color: var(--koppar-ink); border: 2.5px dashed var(--koppar); box-shadow: none; }
+.b3-saknas-topp b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; }
+.b3-saknas-topp span span, .b3-saknas-rad { display: block; font-size: 13px; line-height: 18px; color: var(--b3-prem-text); }
+.b3-saknas textarea { display: block; width: 100%; height: 68px; margin-top: 10px; border-radius: 12px; border: 2px solid var(--koppar); background: var(--b3-papper); padding: 9px 12px; font: 500 15px/21px Inter, system-ui, sans-serif; color: var(--b3-ink); resize: none; }
+.b3-saknas textarea::placeholder, .b3-annons::placeholder { color: var(--b3-ink-3); opacity: 1; }
+.b3-saknas textarea:focus { outline: none; box-shadow: 0 0 0 3px rgba(224, 122, 47, .3); }
+.b3-saknas-fot { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.b3-annons { display: block; width: 100%; height: 104px; border-radius: 14px; border: 2px solid var(--b3-kant); background: var(--b3-ljus); padding: 10px 12px; font: 500 14px/20px Inter, system-ui, sans-serif; color: var(--b3-ink); resize: none; }
+.b3-annons:focus { outline: none; border-color: var(--koppar); box-shadow: 0 0 0 3px rgba(224, 122, 47, .18); }
+.b3-kravchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.b3-kravchips > span { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px 0 7px; border-radius: 11px; font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; background: var(--b3-papper); color: var(--b3-ink-2); box-shadow: inset 0 0 0 2px var(--b3-kant); }
+.b3-kravchips > span > i { width: 18px; height: 18px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--b3-papper); box-shadow: inset 0 0 0 2px var(--b3-streck); }
+.b3-kravchips > span[data-ok] { background: var(--b3-gron); color: var(--b3-gron-ink); box-shadow: none; }
+.b3-kravchips > span[data-ok] > i { background: var(--b3-bock); box-shadow: none; color: #FFFFFF; }
+.b3-ton { display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 5px; scrollbar-width: none; }
+.b3-ton::-webkit-scrollbar { display: none; }
+.b3-ton button { flex: 0 0 auto; height: 48px; border-radius: 14px; border: 2px solid var(--b3-kant); background: var(--b3-papper); box-shadow: 0 3px 0 var(--b3-kant); padding: 0 14px; font-family: inherit; font-size: 14px; line-height: 18px; font-weight: 700; color: var(--b3-ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; text-align: left; cursor: pointer; }
+.b3-ton button small { display: none; }
+.b3-ton button[aria-pressed="true"] { border-color: var(--b3-valt); box-shadow: 0 3px 0 var(--b3-valt-kant); background: var(--b3-mjuk); }
+.b3-ton button[data-las] { background: var(--b3-prem); border-color: var(--b3-prem-kant); box-shadow: 0 3px 0 var(--b3-prem-kant); color: var(--b3-prem-text); }
+.b3-seg { display: inline-flex; padding: 3px; border-radius: 13px; background: var(--b3-ton); gap: 3px; }
+.b3-seg button { height: 38px; padding: 0 14px; border-radius: 10px; border: 0; background: transparent; font-family: inherit; font-size: 14px; line-height: 18px; font-weight: 600; color: var(--b3-ink-2); cursor: pointer; }
+.b3-seg button[aria-pressed="true"] { background: var(--b3-papper); color: var(--b3-ink); font-weight: 700; box-shadow: 0 2px 0 var(--b3-kant); }
+.b3-skrivbricka { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px 0 9px; border-radius: 12px; background: var(--koppar); color: var(--koppar-text); font-size: 13px; line-height: 16px; font-weight: 700; box-shadow: 0 3px 0 var(--b3-koppar-kant); white-space: nowrap; }
+.b3-lop { display: block; height: 8px; border-radius: 4px; overflow: hidden; background: var(--b3-ton); }
+.b3-lop.vagg { background: rgba(255, 255, 255, .14); }
+.b3-lop > i { display: block; width: 30%; height: 100%; border-radius: 4px; background: var(--b3-fyll); animation: b3-vandra 1.6s ease-in-out infinite; }
+.b3-lop.vagg > i { background: var(--ljus); }
+@keyframes b3-vandra { 0% { transform: translateX(-100%); } 100% { transform: translateX(320%); } }
+.b3-sokt-ik { width: 38px; height: 38px; border-radius: 12px; background: var(--vagg); color: var(--koppar-ljus); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.b3-premium-rad { display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 10px; background: var(--b3-prem); color: var(--b3-prem-ink); font-size: 11px; line-height: 14px; font-weight: 700; white-space: nowrap; vertical-align: middle; }
+@media (min-width: 1280px) {
+  .b3-kr { min-height: 46px; padding: 5px 0; }
+  .b3-kr-text b { line-height: 18px; }
+  .b3-kr-text small { display: block; }
+  .b3-saknas { padding: 14px 16px; }
+  .b3-saknas textarea { height: 60px; font-size: 14px; box-shadow: 0 0 0 3px rgba(224, 122, 47, .18); }
+  .b3-saknas-fot { flex-direction: row; align-items: center; gap: 12px; }
+  .b3-saknas-fot .b3-saknas-rad { flex: 1; }
+  .b3-annons { height: 132px; padding: 12px 14px; line-height: 21px; }
+  .b3-kravchips { gap: 7px; }
+  .b3-kravchips > span { padding: 0 11px 0 8px; }
+  .b3-ton { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin: 0; padding: 0; }
+  .b3-ton button { height: 56px; padding: 0 12px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; }
+  .b3-ton button small { display: block; max-width: 100%; font-size: 12px; line-height: 15px; font-weight: 400; color: var(--b3-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .b3-ton button[data-las] small { color: var(--b3-prem-ink); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+  .b3-skrivbricka { gap: 10px; height: 40px; padding: 0 14px 0 10px; border-radius: 13px; font-size: 14px; line-height: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .b3-lop > i { animation: none; } }
+
 /* ---------------------------------------------------------------- spärren */
 .b3-sparr-rot { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; }
 .b3-sparr-dimma { position: absolute; inset: 0; border: 0; padding: 0; margin: 0; background: var(--b3-dimma); cursor: pointer; animation: b3-tona 200ms ease-out; }
 @keyframes b3-tona { from { opacity: 0; } to { opacity: 1; } }
 @keyframes b3-upp { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 .b3-sparr { position: relative; width: 100%; max-height: 94dvh; overflow-y: auto; border-radius: 26px 26px 0 0; box-shadow: 0 -8px 40px rgba(0, 0, 0, .45); outline: none; animation: b3-upp 240ms ease-out; color: var(--b3-ink); }
+.b3-sparr:focus { outline: none; }
 .b3-sparr :focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
 .b3-sparr-vagg :focus-visible { outline-color: var(--koppar-ljus); }
 .b3-sparr-vagg { position: relative; overflow: hidden; background: var(--vagg); color: var(--vagg-ink); }

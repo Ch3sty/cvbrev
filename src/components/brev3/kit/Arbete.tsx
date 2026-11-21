@@ -114,19 +114,21 @@ export function ArbetsHuvud({ tillbakaHref, tillbakaEtikett = 'Tillbaka till din
         <IkonTillbaka />
       </Link>
       <div className="b3-huvud-titel">
-        {rubrikMobil ? (
-          <>
-            <b className="b3-disp hidden xl:block">{rubrik}</b>
-            <b className="b3-disp xl:hidden">{rubrikMobil}</b>
-          </>
-        ) : (
-          <b className="b3-disp">{rubrik}</b>
-        )}
+        <b className="b3-disp">
+          {rubrikMobil ? (
+            <>
+              <span className="hidden xl:inline">{rubrik}</span>
+              <span className="xl:hidden">{rubrikMobil}</span>
+            </>
+          ) : (
+            rubrik
+          )}
+        </b>
         {underradMobil ? (
-          <>
-            {underrad ? <span className="hidden xl:block">{underrad}</span> : null}
+          <span>
+            {underrad ? <span className="hidden xl:inline">{underrad}</span> : null}
             <span className="xl:hidden">{underradMobil}</span>
-          </>
+          </span>
         ) : underrad ? (
           <span>{underrad}</span>
         ) : null}
