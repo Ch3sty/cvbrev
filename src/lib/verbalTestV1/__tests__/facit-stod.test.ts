@@ -35,10 +35,10 @@ describe('verbalt facit, stod', () => {
       }
   })
 
-  it('442 av 448 påståenden och frågor har stod (sex hoppade: fem med tveksamt facit, en utan avgörande mening)', () => {
+  it('447 av 448 påståenden och frågor har stod eller narmast (en hoppad: utan avgörande mening)', () => {
     let n = 0
     for (const b of banker) for (const p of b) for (const x of [...(p.statements ?? []), ...(p.questions ?? [])]) if (x.stod) n++
-    expect(n).toBe(442)
+    expect(n).toBe(447)
   })
 
   it('en mening som inte står ordagrant, två meningar i en sträng och ett halvt citat fälls', () => {

@@ -114,9 +114,9 @@ describe('rättning, klientform och behörighet', () => {
     expect(JSON.stringify(v)).not.toMatch(/correctAnswer|explanation/)
   })
   it('rättar mot banken och ger originalindex', () => {
-    const r = ratta('verbal', 'va-07-foreningsstod', 'va-07-foreningsstod:2', 'false', 's')!
+    const r = ratta('verbal', 'va-07-foreningsstod', 'va-07-foreningsstod:2', 'cannot_say', 's')!
     expect(r.correct).toBe(true)
-    expect(r.selected).toBe(1)
+    expect(r.selected).toBe(2)
     expect(ratta('verbal', 'va-07-foreningsstod', 'va-01-hemtjanstens-schema:0', 'true', 's')).toBeNull()
     expect(ratta('verbal', 'va-07-foreningsstod', 'va-07-foreningsstod:2', 'kanske', 's')).toBeNull()
   })

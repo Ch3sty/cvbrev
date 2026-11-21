@@ -85,8 +85,8 @@ describe('underlagsversion 3', () => {
   })
 
   it('rättningen hittar parti 01 i bank, prov och sammanslagna banker', () => {
-    expect(vaRatta('va-07-foreningsstod', 2, 'false').isCorrect).toBe(true)
-    expect(vpRatta('va-07-foreningsstod', 2, 'false').isCorrect).toBe(true)
+    expect(vaRatta('va-07-foreningsstod', 2, 'cannot_say').isCorrect).toBe(true)
+    expect(vpRatta('va-07-foreningsstod', 2, 'cannot_say').isCorrect).toBe(true)
     expect(VP_ALLA.some((p) => p.id === 'va-01-hemtjanstens-schema')).toBe(true)
     expect(NP_ALLA.some((p) => p.id === 'na-04-elforbrukning')).toBe(true)
   })
