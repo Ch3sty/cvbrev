@@ -68,21 +68,36 @@ function falt(v: unknown): string {
   const t = v.replace(/\s+/g, ' ').trim();
   return PLATSHALLARE.has(t.toLowerCase()) ? '' : t;
 }
+// Speglar PERIOD_SKILJE, PAGAENDE_SLUT, delaPeriod och startOchSlut i
+// src/lib/cv/poang/matt.ts: "2017 till 2019" delas, så att ett avslutat jobb
+// aldrig kallas nuvarande i förslagen.
+const PERIOD_SKILJE = /\s+(?:till\s+och\s+med|till|t\.\s?o\.\s?m\.?|to|until)\s+|\s+[-–—]\s+|\s*[–—]\s*/i;
+const PAGAENDE_SLUT = /^(pågående|pagaende|nuvarande|nu|idag|i dag|tills vidare|present|current|ongoing|now)$/i;
 function delaPeriod(period: unknown): { start: string; slut: string } {
   const p = falt(period);
   if (!p) return { start: '', slut: '' };
-  const delar = p.split(/\s+[-–—]\s+|\s*[–—]\s*/);
-  if (delar.length > 1) return { start: delar[0].trim(), slut: delar.slice(1).join(' ').trim() };
+  const delar = p.split(PERIOD_SKILJE);
+  if (delar.length > 1 && delar[0].trim()) return { start: delar[0].trim(), slut: delar.slice(1).join(' ').trim() };
   const m = p.match(/^(.*?\d{4})\s*-\s*((?:19|20)\d{2}\b.*|\p{L}.*)$/u);
   if (m) return { start: m[1].trim(), slut: m[2].trim() };
   return { start: p, slut: '' };
+}
+/** Hela perioden i startdatumet utan slut ("2017 till 2019") delas; annars orört. */
+function medDeladPeriod(e: any): any {
+  if (!e || typeof e !== 'object') return e;
+  const s = typeof e.startDate === 'string' ? e.startDate.trim() : '';
+  const slutNu = typeof e.endDate === 'string' ? e.endDate.trim() : '';
+  if (!s || slutNu) return e;
+  const { start, slut } = delaPeriod(s);
+  if (!slut || start === s) return e;
+  return { ...e, startDate: start, endDate: PAGAENDE_SLUT.test(slut) ? null : slut };
 }
 function strukturUrLagrad(sd: any): any | null {
   if (!sd || typeof sd !== 'object' || Array.isArray(sd)) return null;
   if ((sd.personalInfo && typeof sd.personalInfo === 'object') || (Array.isArray(sd.experience) && !Array.isArray(sd.roles))) {
     const k = JSON.parse(JSON.stringify(sd));
-    k.experience = Array.isArray(k.experience) ? k.experience : [];
-    k.education = Array.isArray(k.education) ? k.education : [];
+    k.experience = Array.isArray(k.experience) ? k.experience.map(medDeladPeriod) : [];
+    k.education = Array.isArray(k.education) ? k.education.map(medDeladPeriod) : [];
     k.skills = Array.isArray(k.skills) ? k.skills : [];
     return k;
   }
@@ -94,7 +109,7 @@ function strukturUrLagrad(sd: any): any | null {
         const { start, slut } = delaPeriod(r.period);
         let rader = (typeof r.description === 'string' ? r.description : '').split(/\n+/).map((s: string) => s.trim()).filter(Boolean);
         if (rader.length === 0 && Array.isArray(r.responsibilities)) rader = r.responsibilities.filter((s: any) => typeof s === 'string' && s.trim());
-        return { position: falt(r.title), company: falt(r.company), startDate: start, endDate: slut && !/^(pågående|nuvarande|present)$/i.test(slut) ? slut : null, description: rader };
+        return { position: falt(r.title), company: falt(r.company), startDate: start, endDate: slut && !PAGAENDE_SLUT.test(slut) ? slut : null, description: rader };
       }),
       education: (Array.isArray(sd.education) ? sd.education : []).filter((e: any) => e && typeof e === 'object').map((e: any) => {
         const { start, slut } = delaPeriod(e.period);
