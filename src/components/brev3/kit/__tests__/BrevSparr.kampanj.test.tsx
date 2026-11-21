@@ -25,7 +25,7 @@ vi.mock('@/lib/analytics/events', () => ({ capture: vi.fn(), identifyUser: vi.fn
 vi.mock('next/navigation', () => ({ usePathname: () => '/dashboard/mina-brev/mallar' }))
 
 import BrevSparr, { type BrevSparrVariant } from '../BrevSparr'
-import { KampanjPrisProvider } from '@/components/kampanj/KampanjPrisKontext'
+import { KampanjPrisProvider, PremiumKnappText } from '@/components/kampanj/KampanjPrisKontext'
 import { kampanjNu, visning } from '@/lib/kampanj/kampanj'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { getPaywallCopy } from '@/components/paywall/paywall-copy'
@@ -111,6 +111,24 @@ describe('brevrummets spärr under Black Week och Cyber Monday', () => {
       </KampanjPrisProvider>,
     )
     expect(document.body.querySelector('[data-sparr-kop]')?.textContent).toBe('Köp Premium, 99 kr första månaden')
+  })
+
+  it.each([
+    ['23 nov, aldrig Premium', '2026-11-23T08:00:00+01:00', ALDRIG_PREMIUM, 'Köp Premium, 99 kr första månaden'],
+    ['30 nov, aldrig Premium', '2026-11-30T08:00:00+01:00', ALDRIG_PREMIUM, 'Köp Premium, 49 kr första månaden'],
+    ['1 dec, aldrig Premium', '2026-12-01T08:00:00+01:00', ALDRIG_PREMIUM, 'Köp Premium, 149 kr i månaden'],
+    ['25 nov, haft Premium', '2026-11-25T08:00:00+01:00', HAFT_PREMIUM, 'Köp Premium, 149 kr i månaden'],
+  ])('knappen i Brevets rad för låst brev (PremiumKnappText), %s', async (_n, datum, konto, text) => {
+    vi.setSystemTime(new Date(datum))
+    profil = konto
+    nr += 1
+    const { kampanj, behorig } = await kampanjForVisning(`konto-${nr}`, kampanjNu())
+    const { container } = render(
+      <KampanjPrisProvider kampanj={kampanj && behorig ? visning(kampanj) : null}>
+        <PremiumKnappText />
+      </KampanjPrisProvider>,
+    )
+    expect(container.textContent).toBe(text)
   })
 
   it('köpknappen leder till planen som kampanjen gäller (köpsteget och kassan prövar själva)', () => {

@@ -41,6 +41,7 @@ import { useNotification } from '@/context/notificationcontext'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { capture } from '@/lib/analytics/events'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { PremiumKnappText } from '@/components/kampanj/KampanjPrisKontext'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import type { BrevData, BrevKrav } from '@/lib/letters/brevmall/typer'
@@ -660,7 +661,8 @@ export default function BrevetVy(props: BrevetVyProps) {
           <div className="my-2 flex flex-col gap-2.5 rounded-[16px] border-2 border-[color:var(--b3-prem-kant)] bg-[color:var(--b3-prem)] p-3.5 xl:flex-row xl:items-center">
             <p className="m-0 flex-1 text-[14px] leading-[20px] text-[color:var(--b3-prem-text)]">{BREVET.lastRad}</p>
             <LitenKnapp kop href={kopstegHref(SALD_PLAN, 'kvot', { retur: `/dashboard/mina-brev/${id}?flik=texten` })}>
-              {PAKETRADER.kopCv}
+              {/* Kampanjens knapptext för konton som kan få den, samma ord som köpsteget och kassan. */}
+              <PremiumKnappText />
             </LitenKnapp>
           </div>
         ) : null}
