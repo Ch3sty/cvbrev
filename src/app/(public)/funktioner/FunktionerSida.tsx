@@ -28,7 +28,7 @@ import LankLista, { type LankRad } from '@/components/publikt/LankLista'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import { PremiumOrd } from '@/components/publikt/PremiumBlock'
-import MallMiniatyr from '@/components/publikt/MallMiniatyr'
+import { FUNKTIONER_MALL_IDS, MINIATYR_BREDD, MINIATYR_HOJD, brevMiniatyrSrc } from '@/components/publikt/brevmallar'
 import { TESTTAL, PROV_MINUTER } from '@/components/publikt/testtal'
 import { storForst, talOrd } from '@/components/publikt/talord'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
@@ -220,16 +220,29 @@ export default function FunktionerSida() {
               </div>
             </div>
             <div className="pub-mitt" aria-hidden="true">
+              {/* Brevets egna miniatyrer ur brevmotorn, samma bilder som säljsidans mallsektion. */}
               <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', filter: 'drop-shadow(0 18px 28px rgba(20,16,10,.18))' }}>
-                <div style={{ transform: 'rotate(-6deg)', width: 110 }}>
-                  <MallMiniatyr id="executive" />
-                </div>
-                <div style={{ width: 130, position: 'relative', zIndex: 1 }}>
-                  <MallMiniatyr id="modern" />
-                </div>
-                <div style={{ transform: 'rotate(6deg)', width: 110 }}>
-                  <MallMiniatyr id="classic" />
-                </div>
+                {FUNKTIONER_MALL_IDS.map((id, i) => (
+                  <div
+                    key={id}
+                    style={
+                      i === 1
+                        ? { width: 130, position: 'relative', zIndex: 1 }
+                        : { transform: `rotate(${i === 0 ? -6 : 6}deg)`, width: 110 }
+                    }
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={brevMiniatyrSrc(id)}
+                      alt=""
+                      width={MINIATYR_BREDD}
+                      height={MINIATYR_HOJD}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ display: 'block', width: '100%', height: 'auto', background: '#fff', borderRadius: 3 }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

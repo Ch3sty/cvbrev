@@ -1137,6 +1137,20 @@
 }
 .pub-mall .pub-mall-bild { background: var(--rum-ton); border-radius: 12px; padding: 14px 22px; }
 .pub-mall .pub-mall-bild svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 10px rgba(20, 16, 10, 0.14)); }
+/* Brevets miniatyr (webp ur brevmotorn): vitt papper med skugga, måtten i HTML ger CLS 0. */
+.pub-mall .pub-mall-bild img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 480 / 679;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(20, 16, 10, 0.06), 0 6px 14px rgba(20, 16, 10, 0.16);
+}
+.pub-mall-rad { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 2px; }
+.pub-mall-rad .pub-tagg { margin-top: 0; }
+.pub-mall-format { font-size: 12px; font-weight: 600; color: var(--ink-3); white-space: nowrap; }
+.pub-mallar-fot { margin-top: 24px; }
 .pub-mall h3 { font-size: 17px; letter-spacing: -0.01em; margin-top: 6px; }
 .pub-mall p { font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
 .pub-tagg {
