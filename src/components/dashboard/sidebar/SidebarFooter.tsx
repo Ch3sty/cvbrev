@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+// Förladdas bara på avsikt, inte när raden syns (AvsiktsLank).
+import Link from '@/components/rum/AvsiktsLank';
 import { IkonBugg, IkonHjalp, IkonSkold } from '@/components/illustrations/Ikoner';
 
 interface SidebarFooterProps {

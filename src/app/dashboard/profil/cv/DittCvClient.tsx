@@ -423,16 +423,17 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     <div className="cv3-arkstapel">
       {(aktivt ? bakom : exempelBakom).map((m, i) => (
         <span key={m.id} className="cv3-ark" data-plats={i + 1} aria-hidden="true">
-          <EgenMiniatyr mall={m} cv={egetCv} direkt />
+          {/* Arken bakom är dekor: de får vänta på det främre (LCP på dator). */}
+          <EgenMiniatyr mall={m} cv={egetCv} direkt fortur="lag" />
         </span>
       ))}
       {aktivt ? (
         <Link href={mallarHref(mall.id)} className="cv3-ark" data-plats="0" aria-label={VAGG.arkAlt(mall.namn)}>
-          <EgenMiniatyr mall={mall} cv={egetCv} direkt />
+          <EgenMiniatyr mall={mall} cv={egetCv} direkt fortur="hog" />
         </Link>
       ) : (
         <span className="cv3-ark" data-plats="0">
-          <EgenMiniatyr mall={mall} cv={null} alt={VAGG.exempelAlt(mall.namn)} direkt />
+          <EgenMiniatyr mall={mall} cv={null} alt={VAGG.exempelAlt(mall.namn)} direkt fortur="hog" />
         </span>
       )}
       {aktivt ? (
@@ -586,7 +587,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             className="cv3-tumme"
             aria-label={poang !== null && talISteget ? VAGG.poangAria(mall.namn, poang) : VAGG.arkAlt(mall.namn)}
           >
-            <EgenMiniatyr mall={mall} cv={egetCv} direkt />
+            {/* Telefonens ark: samma bild som väggens främre ark, LCP på telefon. */}
+            <EgenMiniatyr mall={mall} cv={egetCv} direkt fortur="hog" />
             {poang !== null && talISteget ? (
               <span className="cv3-tumme-tal" aria-hidden="true">{poang}</span>
             ) : (

@@ -28,11 +28,17 @@ export interface EgenMiniatyrProps {
   bild?: 'liten' | 'stor'
   /** Text för skärmläsare; utelämnad är rutan dekor. */
   alt?: string
+  /**
+   * Katalogbildens förtur. 'hog' för bilden som blir sidans största element
+   * (Ditt CV:s ark på väggen, LCP), 'lag' för arken bakom den, så att de inte
+   * tävlar med den om bandbredden. Utelämnad gör webbläsaren som vanligt.
+   */
+  fortur?: 'hog' | 'lag'
   className?: string
   style?: CSSProperties
 }
 
-export default function EgenMiniatyr({ mall, cv, direkt = false, bild = 'stor', alt, className, style }: EgenMiniatyrProps) {
+export default function EgenMiniatyr({ mall, cv, direkt = false, bild = 'stor', alt, fortur, className, style }: EgenMiniatyrProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const [synlig, setSynlig] = useState(direkt)
 
@@ -71,7 +77,15 @@ export default function EgenMiniatyr({ mall, cv, direkt = false, bild = 'stor', 
       data-egen={html && laddad ? '' : undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={bild === 'stor' ? mall.bild.stor : mall.bild.liten} alt="" decoding="async" loading={direkt ? undefined : 'lazy'} />
+      <img
+        src={bild === 'stor' ? mall.bild.stor : mall.bild.liten}
+        alt=""
+        // Bilden med förtur målas i samma bild som den avkodats, inte en bild senare.
+        decoding={fortur === 'hog' ? undefined : 'async'}
+        // Förtur gäller bara en bild som laddas direkt; en lat bild med hög förtur vore en motsägelse.
+        loading={direkt || fortur === 'hog' ? undefined : 'lazy'}
+        fetchPriority={fortur === 'hog' ? 'high' : fortur === 'lag' ? 'low' : undefined}
+      />
       {html ? (
         <iframe
           srcDoc={medSkala(html)}

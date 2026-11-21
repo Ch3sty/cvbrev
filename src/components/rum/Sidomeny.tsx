@@ -16,7 +16,6 @@
  */
 
 import { nyaMarke } from '@/lib/rum/nyaTraffar'
-import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
@@ -41,7 +40,9 @@ import { DORR_IKON } from './Dorrnav'
 import { useRum } from './RumKontext'
 import { markeraRumYta } from './rumMatning'
 import { KURVAN_HREF } from '@/lib/traning/rutter'
-import { forhamtaCvSida } from '@/components/cv/rum3/flikar'
+// Menyns länkar förladdas bara på avsikt (pekaren, fokus, touch), aldrig för
+// att de syns: varje förladdning är en serverrendering med databasanrop.
+import AvsiktsLank from './AvsiktsLank'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
@@ -234,10 +235,9 @@ export default function Sidomeny() {
           const pa = d.rum === rum
           const Ikon = DORR_IKON[d.rum]
           return (
-            <Link
+            <AvsiktsLank
               key={d.rum}
               href={d.href}
-              prefetch={forhamtaCvSida(d.href)}
               onClick={() => markeraRumYta('sidomeny')}
               aria-current={pa && aktiv?.href === d.href ? 'page' : undefined}
               className={`flex h-12 items-center gap-3 rounded-xl px-3 text-[15px] font-semibold ${
@@ -252,7 +252,7 @@ export default function Sidomeny() {
                 <Ikon size={20} />
               </span>
               {d.etikettDator}
-            </Link>
+            </AvsiktsLank>
           )
         })}
 
@@ -284,10 +284,9 @@ export default function Sidomeny() {
           }
           const pa = aktiv?.href === u.href
           return (
-            <Link
+            <AvsiktsLank
               key={u.href}
               href={u.href}
-              prefetch={forhamtaCvSida(u.href)}
               onClick={() => markeraRumYta('sidomeny')}
               aria-current={pa ? 'page' : undefined}
               className={`flex h-10 items-center justify-between gap-2 px-3 text-sm ${
@@ -299,7 +298,7 @@ export default function Sidomeny() {
               {/* Etiketten står alltid hel; chipet får ge vika. */}
               <span className={u.chip ? 'shrink-0' : 'truncate'}>{u.etikett}</span>
               {u.chip ? <span className="flex min-w-0 justify-end overflow-hidden">{u.chip}</span> : null}
-            </Link>
+            </AvsiktsLank>
           )
         })}
         {fot ? <p className="px-3 pt-3 text-xs leading-4 text-ink-3">{fot}</p> : null}
@@ -309,7 +308,7 @@ export default function Sidomeny() {
         <KomIgangRad variant="sidomeny" />
       </div>
 
-      <Link
+      <AvsiktsLank
         href="/dashboard/profil"
         className="mt-auto flex min-h-11 items-center gap-2.5 rounded-[10px] px-3 py-2 hover:bg-papper-2"
       >
@@ -318,7 +317,7 @@ export default function Sidomeny() {
           <span className="break-words text-[13px] font-medium leading-[18px] text-ink-1">{namn}</span>
           <span className="text-xs leading-4 text-ink-3">{paketText}</span>
         </span>
-      </Link>
+      </AvsiktsLank>
 
       <SidebarFooter isAdmin={isAdmin} />
 

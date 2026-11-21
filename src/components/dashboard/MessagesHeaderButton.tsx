@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+// Toppradens länk förladdas bara på avsikt (AvsiktsLank).
+import Link from '@/components/rum/AvsiktsLank';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
 import { useUiFlag } from '@/hooks/useUiFlag';
 import { IkonMeddelanden } from '@/components/illustrations/Ikoner';

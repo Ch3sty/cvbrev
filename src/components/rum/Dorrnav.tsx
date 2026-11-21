@@ -13,13 +13,13 @@
  * Ersätter MobileBottomNav: Skapa försvinner som egen plats.
  */
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ComponentType } from 'react'
 import { DORRAR, rumForPath, type Rum } from '@/lib/rum/rum'
 import { NAV } from '@/lib/rum/copy'
 import { DorrBrev, DorrCv, DorrJobb, DorrTran, type IkonProps24 } from '@/components/illustrations/RumSymboler'
 import { markeraRumYta } from './rumMatning'
+import AvsiktsLank from './AvsiktsLank'
 
 export const DORR_IKON: Record<Exclude<Rum, 'neutral'>, ComponentType<IkonProps24>> = {
   tran: DorrTran,
@@ -41,10 +41,10 @@ export default function Dorrnav() {
         const aktiv = d.rum === aktivt
         const Ikon = DORR_IKON[d.rum]
         return (
-          <Link
+          // Förladdas på touchstart, inte när dörren syns (AvsiktsLank).
+          <AvsiktsLank
             key={d.rum}
             href={d.href}
-            prefetch
             onClick={() => markeraRumYta('dorr')}
             aria-current={aktiv ? 'page' : undefined}
             className={`flex min-h-12 touch-manipulation flex-col items-center justify-start gap-[3px] rounded-xl px-0.5 text-center text-[11px] leading-[13px] [text-wrap:balance] ${
@@ -59,7 +59,7 @@ export default function Dorrnav() {
               <Ikon size={22} />
             </span>
             {d.etikett}
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </nav>
