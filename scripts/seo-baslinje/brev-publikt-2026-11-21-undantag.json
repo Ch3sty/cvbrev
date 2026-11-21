@@ -1,0 +1,60 @@
+{
+  "_om": "Våg 1 för brevets publika ytor (byggspecen 2026-11-21, beslutad av saas-lead, SEO och UX). Säljsidan /verktyg/personligt-brev rättar faktafelen om mallarna (sju gamla mallar blir brevets 40, samma som CV:t). Tre artiklar får nya lydelser om mallar, Word och gratisnivån. Läses av scripts/seo-diff-artiklar.ts. Exempelsidor, kontrollsidor och övriga artiklar har inga undantag.",
+  "META_BYTT": [
+    {
+      "path": "/verktyg/personligt-brev",
+      "falt": "description",
+      "datum": "2026-11-21",
+      "skal": "Faktafel: \"Sju mallar\" och \"export som PDF eller Word\". Nu 40 mallar, samma som till CV:t, och fem toner (talet ur brevets katalog)."
+    }
+  ],
+  "RUBRIK_BYTT": [
+    {
+      "path": "/verktyg/personligt-brev",
+      "fore": "h2 7 mallar för personliga brev",
+      "efter": "h2 40 mallar för personliga brev",
+      "datum": "2026-11-21",
+      "skal": "Faktafel: brevet skrivs i samma 40 mallar som CV:t. Rubriken bär fortfarande sökordet."
+    },
+    {
+      "path": "/verktyg/personligt-brev",
+      "fore": "h3 Ladda ner som PDF eller Word",
+      "efter": "h3 Kopiera eller ladda ner brevet",
+      "datum": "2026-11-21",
+      "skal": "HowTo steg 4: brevet sparas av sig självt, kopieras gratis och laddas ner med Premium (Word i 26 av mallarna)."
+    },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Klassisk", "efter": "h3 Linne", "datum": "2026-11-21", "skal": "Mallkorten: de gamla sju mallarna (LETTER_TEMPLATES) finns inte i produkten. UX:s sju ur brevets katalog i samma ordning." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Minimalist", "efter": "h3 Björk", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Kompakt", "efter": "h3 Koppar", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Modern", "efter": "h3 Kalksten", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Executive", "efter": "h3 Granit", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Kreativ", "efter": "h3 Kolumn", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." },
+    { "path": "/verktyg/personligt-brev", "fore": "h3 Traditionell", "efter": "h3 Terrakotta", "datum": "2026-11-21", "skal": "Mallkorten, se Klassisk." }
+  ],
+  "LD_UNDANTAG": [
+    {
+      "path": "/verktyg/personligt-brev",
+      "datum": "2026-11-21",
+      "skal": "WebApplication (description, featureList), HowTo (description, steg 3 och 4) och FAQPage (svaren om tid, Word, mallval och branscher) följer produkten: 40 mallar, Word i 26, brev som sparas av sig själva. Frågorna och offers oförändrade.",
+      "andrade": ["WebApplication", "HowTo", "FAQPage"]
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "datum": "2026-11-21",
+      "skal": "Brödtexten om brevverktyget: 40 mallar, Linne och Björk gratis, 38 i Premium. BlogPostings wordCount följer texten.",
+      "andrade": ["BlogPosting"]
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "datum": "2026-11-21",
+      "skal": "Listan om online-verktyg: 40 brevmallar, Word i 26 av dem. BlogPostings wordCount följer texten.",
+      "andrade": ["BlogPosting"]
+    },
+    {
+      "path": "/artiklar/fardiga-personliga-brev",
+      "datum": "2026-11-21",
+      "skal": "Löftet \"läsa, redigera och kopiera gratis\" stämde inte: gratis ändrar de två senaste breven, äldre läses och kopieras. FAQ-svaret i frontmatter och brödtexten ändrade, frågan oförändrad.",
+      "andrade": ["BlogPosting", "FAQPage"]
+    }
+  ]
+}
