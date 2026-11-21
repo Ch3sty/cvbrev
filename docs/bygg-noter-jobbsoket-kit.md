@@ -90,7 +90,7 @@ Importera allt från `@/components/jobb3/kit`. Knappar och länkar: `href` ger `
 - `GoraKort`: `ton` 'nu'\|'tyst'\|'vanlig', `ikon`, `nar`, `rubrik`, `rubrikMobil`, `text`, `textMobil`, `href`, `knapp`. Dator: kort med vit knapp. Telefon: hela raden är länken. I `GoraLista`.
 - `TjanstRad`: `bricka` {kod,ton}, `rubrik`, `rubrikMobil`, `arbetsgivare`, `text`/`textMobil` (ReactNode), `steg` {steg,tyst,avslutad}, `status` {status,text,vit}, `href` (hela raden tryckbar), `handling`, `handlingMobil` (grund ja), `hogerMobil`, `storlek` 'kompakt'(Main)\|'stor'(Sökta). Utan steg och status blir rutnätet enkelt (bricka, text, knapp).
 - `SidoRad` (Mer i Jobbsöket, provlistan, samtal): `ikon`, `ikonTon` 'mjuk'\|'test'\|'tyst'\|'ton', `figur`, `rubrik`, `text`, `href`, `hoger`, `vald`.
-- `SparadKort` (Ska sökas): `kod`, `titel`, `arbetsgivare`, `matchgrad`, `dag`, `snart`, `passerad` (grått, "Sista dag har passerat"), `handling`, `lank`. I `SparadLista`.
+- `SparadKort` (Ska sökas): `kod`, `titel`, `arbetsgivare`, `matchgrad`, `dag`, `snart`, `passerad` (grått, "Sista dag har passerat"), `handling`, `lank` (syns i alla bredder med 44 px tryckyta, egen rad om bredden inte räcker), `bort` ("Ta bort" på en aktiv rad, egen rad sist). I `SparadLista`.
 - `TraffKort` (Main): `procent`, `titel`, `var`, `ny`, `skal` (högst två), `dag`, `snart`, `href`, `knapp`. I `Traffar` (tre i rad på dator, en lista i ett kort på telefon).
 - `TraffRad` (Matchade jobb): `procent`, `titel`/`var` (utelämnade = dold träff), `skal` (telefon), `dag`, `snart`, `ny`, `href` (lägg vald annons i adressen), `vald`, `onClick`. I `TraffLista`.
 - `FilterRad`: `val` [{id,text,antal,href?}], `valt`, `onVal`, `sort`, `etikett`. Länkar när `href` finns (F8: adressen bär filtret).

@@ -1,7 +1,8 @@
 /**
  * "Nya jobb som passar dig" på Översikt (Main). Egen serverkomponent i en
- * egen Suspense-gräns: hamtaToppTraffar läser hela senaste körningen (upp
- * till 600 annonser), så väggen och Att göra nu väntar aldrig på den.
+ * egen Suspense-gräns: hamtaToppTraffar läser sammanfattningen av senaste
+ * körningen (aldrig hela körningen), så väggen och Att göra nu väntar aldrig
+ * på den.
  * Gratisnivån får aldrig fler än de tre som visas i klartext (laddaren).
  */
 import { hamtaToppTraffar } from '@/lib/jobbsok/server'

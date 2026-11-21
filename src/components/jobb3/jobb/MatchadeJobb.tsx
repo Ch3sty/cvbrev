@@ -110,10 +110,13 @@ const LOGGA_HREF = soktaHref({ logga: 'sokt' })
 export default function MatchadeJobb({
   initialData,
   korning,
+  lasfel = false,
   userId,
 }: {
   initialData: JobbmatchningData
   korning: SenasteKorning | null
+  /** Servern kunde inte läsa körningen och hade ingen sammanfattning att visa. */
+  lasfel?: boolean
   userId: string
 }) {
   const router = useRouter()
@@ -204,13 +207,16 @@ export default function MatchadeJobb({
 
   const autoActivated = useRef(false)
 
+  /** När den senaste färska sökningen gav svar. Det är dess tid som sparas lokalt, inte tiden för sparningen. */
+  const sokAt = useRef<number | null>(null)
+
   /* ----------------------------------------------- senaste sökningen lokalt */
 
   const saveSearch = useCallback(
     (nyaJobs: any[], lasta: number, mer: boolean) => {
       if (!activeCVId || nyaJobs.length === 0) return
       try {
-        const payload: SavedSearch = { jobs: nyaJobs.slice(0, SAVED_SEARCH_MAX_JOBS), adsRead: lasta, hasMore: mer, savedAt: Date.now(), cvId: activeCVId }
+        const payload: SavedSearch = { jobs: nyaJobs.slice(0, SAVED_SEARCH_MAX_JOBS), adsRead: lasta, hasMore: mer, savedAt: sokAt.current ?? Date.now(), cvId: activeCVId }
         sessionStorage.setItem(savedSearchKey(userId, activeCVId), JSON.stringify(payload))
       } catch {
         /* full eller avstängd lagring: sökningen fungerar ändå */
@@ -235,12 +241,16 @@ export default function MatchadeJobb({
         return
       }
       if (franServern && franServern.savedAt >= saved.savedAt) return
+      // Listan, tiden och suddningen byts tillsammans: serverns suddning hör
+      // till serverns rader och får inte stå kvar över de återställda.
       setJobs(saved.jobs)
       setAdsRead(saved.adsRead ?? saved.jobs.length)
       setHasSearched(true)
       setRestoredAt(saved.savedAt)
       setPoolLaddad(true)
       setLastRedaktion(false)
+      setRedaction(null)
+      setRedactionAsked(false)
     } catch {
       /* trasig eller otillgänglig sessionStorage: sidan fungerar utan den */
     }
@@ -315,19 +325,24 @@ export default function MatchadeJobb({
 
   // Efter en färsk sökning som gav träffar: de bästa till servern, så att
   // Översikt, sidomenyn och nästa sidladdning har dem även när match-jobs inte
-  // hann spara körningen. En gång per sökning, när påfyllningen är klar.
-  const sammanfattadFor = useRef<number | null>(null)
+  // hann spara körningen. Första gången så fort första omgången är rankad,
+  // och en gång till när påfyllningen ändrat toppen. Förut väntade den på att
+  // hasMore blev falskt; laddades sidan om innan påfyllningen var klar (den
+  // kan ta lika lång tid som sökningen) skickades ingen alls (slutkontrollen
+  // 2026-11-21).
+  const sammanfattadTopp = useRef<string | null>(null)
   useEffect(() => {
-    if (restoredAt !== null || loadingJobs || loadingMore || hasMore || jobs.length === 0 || !activeCVId) return
-    if (sammanfattadFor.current === jobs.length) return
-    sammanfattadFor.current = jobs.length
+    if (restoredAt !== null || loadingJobs || jobs.length === 0 || !activeCVId) return
     const basta = rankMatches(jobs, activeCV, [], SAVED_SEARCH_MAX_JOBS).ranked.map((x) => x.job)
+    const topp = basta.map((j) => String(j.id ?? '')).join(',')
+    if (sammanfattadTopp.current === topp) return
+    sammanfattadTopp.current = topp
     void fetch('/api/jobbmatchning/sammanfattning', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jobs: basta, adsRead }),
     }).catch(() => {})
-  }, [restoredAt, loadingJobs, loadingMore, hasMore, jobs, activeCVId, activeCV, adsRead])
+  }, [restoredAt, loadingJobs, jobs, activeCVId, activeCV, adsRead])
 
   /** Hämtar poolen (filter, längre bort, ändrad sökprofil). Sidan har annars bara listans rader. */
   const laddaPool = useCallback(async () => {
@@ -337,10 +352,15 @@ export default function MatchadeJobb({
       const res = await fetch('/api/jobbmatchning/pool')
       const json = await res.json().catch(() => null)
       if (!res.ok || !json?.success || !Array.isArray(json.jobs)) throw new Error(json?.error ?? String(res.status))
+      // Listan räknas nu ur poolen: tiden är poolens körning, och serverns
+      // suddning (gjord för serverns rader) räknas om.
       setJobs(json.jobs)
       if (typeof json.adsRead === 'number') setAdsRead(json.adsRead)
+      if (typeof json.korningAt === 'number' && Number.isFinite(json.korningAt)) setRestoredAt(json.korningAt)
       setPoolLaddad(true)
       setLastRedaktion(false)
+      setRedaction(null)
+      setRedactionAsked(false)
     } catch (err) {
       console.error('Kunde inte hämta träffarna:', err)
       setError('Vi kunde inte hämta alla träffar just nu. Försök igen.')
@@ -484,10 +504,17 @@ export default function MatchadeJobb({
       const data = await response.json()
       if (data.success) {
         const funna = data.jobs || []
+        sokAt.current = Date.now()
+        sammanfattadTopp.current = null
         setLastRedaktion(false)
+        setRedaction(null)
+        setRedactionAsked(false)
         setPoolLaddad(true)
         setJobs(funna)
-        setHasMore(data.hasMore || false)
+        // sparad: false betyder att match-jobs inte kunde spara körningen.
+        // Påfyllningen läser den sparade körningen och skulle annars göra om
+        // hela sökningen; då nöjer vi oss med första omgången.
+        setHasMore(data.sparad === false ? false : data.hasMore || false)
         void fetch('/api/rum/matchningar-sedda', { method: 'POST' }).catch(() => {})
         const lasta = data.totalScanned ?? data.totalAvailable ?? data.totalResults ?? funna.length
         setAdsRead(lasta)
@@ -1025,6 +1052,10 @@ export default function MatchadeJobb({
     </div>
   ) : error ? (
     <Felruta text={error} onForsok={fetchJobs} />
+  ) : lasfel && !hasSearched ? (
+    // Servern kunde inte läsa körningen (tidsgränsen). Kontot kan ha en
+    // körning, så "Vi har inte letat än" vore fel; ett nytt försök läser om sidan.
+    <Felruta text="Vi kunde inte hämta alla träffar just nu. Försök igen." onForsok={() => router.refresh()} />
   ) : hasSearched ? (
     <TomtLage
       inbaddad
@@ -1214,6 +1245,26 @@ interface Rad {
   job: Record<string, any> | null
 }
 
+/**
+ * Pågående hämtningar per annons. På telefonen står samma annons både i
+ * telefonvyn och i den dolda datorpanelen; båda ska dela en förfrågan, inte
+ * ställa två (var och en kan läsa hela körningen på servern).
+ */
+const annonsHamtningar = new Map<string, Promise<Record<string, any> | null>>()
+
+function hamtaAnnonsEnGang(id: string, nytt: boolean): Promise<Record<string, any> | null> {
+  const pagar = nytt ? undefined : annonsHamtningar.get(id)
+  if (pagar) return pagar
+  const lofte = fetch(`/api/jobbmatchning/annons?id=${encodeURIComponent(id)}`)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((j) => (j?.job ? (j.job as Record<string, any>) : null))
+    .finally(() => {
+      if (annonsHamtningar.get(id) === lofte) annonsHamtningar.delete(id)
+    })
+  annonsHamtningar.set(id, lofte)
+  return lofte
+}
+
 /** Hämtar en annons som inte följde med sidan, och visar panelens skelett så länge. */
 function HamtaAnnons({ id, onKlar }: { id: string; onKlar: (job: Record<string, any>) => void }) {
   const [fel, setFel] = useState(false)
@@ -1221,11 +1272,10 @@ function HamtaAnnons({ id, onKlar }: { id: string; onKlar: (job: Record<string, 
   useEffect(() => {
     let avbruten = false
     setFel(false)
-    fetch(`/api/jobbmatchning/annons?id=${encodeURIComponent(id)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => {
+    hamtaAnnonsEnGang(id, forsok > 0)
+      .then((job) => {
         if (avbruten) return
-        if (j?.job) onKlar(j.job)
+        if (job) onKlar(job)
         else setFel(true)
       })
       .catch(() => {

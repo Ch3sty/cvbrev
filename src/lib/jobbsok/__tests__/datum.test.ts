@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { idagSv, langDagMedAr, sedanDuTittade, sedanText } from '../datum'
+import { dagFor, franStockholm, idagSv, klockslag, langDagMedAr, sedanDuTittade, sedanText, tidpunkt } from '../datum'
+import { sistaAnsokningsdag } from '../matchning'
 
 // Lördag 21 november 2026.
 const IDAG = '2026-11-21'
@@ -60,5 +61,59 @@ describe('sedanDuTittade', () => {
     expect(sedanDuTittade(null, IDAG)).toBeNull()
     expect(sedanDuTittade(undefined, IDAG)).toBeNull()
     expect(sedanDuTittade('inte ett datum', IDAG)).toBeNull()
+  })
+})
+
+// Klicktestet 2026-11-21: annonsens sista ansökningsdag kommer utan tidszon
+// ("2026-11-30T23:59:59") och är svensk lokal tid. Servern (UTC) skrev 1 dec.
+describe('dagFor och tidpunkt: tid utan zon är svensk tid', () => {
+  const zoner = ['UTC', 'Europe/Stockholm', 'America/Los_Angeles', 'Asia/Tokyo']
+  const forra = process.env.TZ
+
+  for (const zon of zoner) {
+    it(`samma dag oavsett maskinens zon (${zon})`, () => {
+      process.env.TZ = zon
+      try {
+        expect(dagFor('2026-11-30T23:59:59')).toBe('2026-11-30')
+        expect(dagFor('2026-11-30T23:59:59Z')).toBe('2026-12-01')
+        expect(dagFor('2026-11-30')).toBe('2026-11-30')
+        expect(dagFor('2026-06-30T23:30:00')).toBe('2026-06-30')
+        expect(dagFor('2026-11-30T23:59:59+01:00')).toBe('2026-11-30')
+        expect(dagFor('2026-11-30 08:00')).toBe('2026-11-30')
+        expect(tidpunkt('2026-11-30T23:59:59')).toBe(Date.parse('2026-11-30T22:59:59Z'))
+        expect(tidpunkt('2026-06-30T23:30:00')).toBe(Date.parse('2026-06-30T21:30:00Z'))
+        expect(tidpunkt('2026-11-30T23:59:59Z')).toBe(Date.parse('2026-11-30T23:59:59Z'))
+        expect(tidpunkt('2026-11-30')).toBe(Date.parse('2026-11-29T23:00:00Z'))
+      } finally {
+        if (forra === undefined) delete process.env.TZ
+        else process.env.TZ = forra
+      }
+    })
+  }
+
+  it('sista ansökningsdag ur annonsen', () => {
+    const nu = new Date('2026-11-21T14:00:00Z')
+    const s = sistaAnsokningsdag({ application_deadline: '2026-11-30T23:59:59' }, nu)
+    expect(s?.dag).toBe('2026-11-30')
+    expect(s?.dagarKvar).toBe(9)
+  })
+
+  it('det som inte går att läsa ger null', () => {
+    expect(dagFor('2026-02-30T10:00:00')).toBeNull()
+    expect(tidpunkt('i morgon')).toBeNull()
+    expect(tidpunkt(null)).toBeNull()
+  })
+
+  it('andra datum flyttas inte: date-kolumner, timestamptz och intervjutiden', () => {
+    // applied_at, occurred_at, sent_at (date)
+    expect(dagFor('2026-11-21')).toBe('2026-11-21')
+    // created_at, status_updated_at (timestamptz med förskjutning)
+    expect(dagFor('2026-11-20T23:30:00+00:00')).toBe('2026-11-21')
+    expect(dagFor('2026-11-20T22:30:00.123456+00:00')).toBe('2026-11-20')
+    // interview_at: 26 nov 13.30 svensk tid sparas som 12.30Z
+    expect(dagFor('2026-11-26T12:30:00+00:00')).toBe('2026-11-26')
+    expect(klockslag('2026-11-26T12:30:00+00:00')).toBe('13.30')
+    expect(franStockholm('2026-11-26', '13:30')).toBe('2026-11-26T12:30:00.000Z')
+    expect(franStockholm('2026-06-30', '23:30')).toBe('2026-06-30T21:30:00.000Z')
   })
 })

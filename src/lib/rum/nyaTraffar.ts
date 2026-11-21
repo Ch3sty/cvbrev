@@ -6,8 +6,10 @@
  *   - Innan Matchade jobb har visats en gång finns inget "nya" (null).
  *   - När alla de bästa är nya säger vi antalet bästa träffar utan "nya".
  *
- * Klientsäker och ren.
+ * Klientsäker och ren. Publiceringstiden saknar zon (svensk tid) och läses
+ * med `tidpunkt`, så att servern (UTC) och webbläsaren räknar lika.
  */
+import { tidpunkt } from '@/lib/jobbsok/datum'
 
 export interface NyaLage {
   /** Antal bästa träffar (högst 25). */
@@ -19,11 +21,11 @@ export interface NyaLage {
 export function nyaBlandBasta(publiceringar: readonly (string | null)[], seddaAt: string | null | undefined): NyaLage {
   const basta = publiceringar.length
   if (!seddaAt) return { basta, nya: null }
-  const sedd = Date.parse(seddaAt)
-  if (!Number.isFinite(sedd)) return { basta, nya: null }
+  const sedd = tidpunkt(seddaAt)
+  if (sedd === null) return { basta, nya: null }
   const nya = publiceringar.filter((p) => {
-    const t = p ? Date.parse(p) : NaN
-    return Number.isFinite(t) && t > sedd
+    const t = tidpunkt(p)
+    return t !== null && t > sedd
   }).length
   if (nya === 0 || nya >= basta) return { basta, nya: null }
   return { basta, nya }

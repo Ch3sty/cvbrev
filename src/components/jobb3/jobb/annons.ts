@@ -3,7 +3,7 @@
  * kraven och texten till brevet. Rena funktioner ur annonsens fält, klientsäkra.
  * Testas i __tests__/annons.test.ts.
  */
-import { kompetenserEnOchEn, langDag, dagFor, ordtal, type Kompetenser } from '@/lib/jobbsok'
+import { kompetenserEnOchEn, langDag, dagFor, ordtal, tidpunkt, type Kompetenser } from '@/lib/jobbsok'
 import { relativDatum } from '@/app/dashboard/jobbmatchning/data/match-reasons'
 import type { MatchScore } from '@/app/dashboard/jobbmatchning/data/match-score'
 
@@ -110,7 +110,9 @@ export function faktaRutor(annons: Annons, nu = Date.now()): { varde: string; et
   if (form) ut.push({ varde: forsta(String(form).toLocaleLowerCase('sv-SE')), etikett: 'Anställningsform' })
   const publ = dagFor(typeof annons.publication_date === 'string' ? annons.publication_date : null)
   if (publ) {
-    const rel = relativDatum(annons.publication_date, nu)
+    // relativDatum gör new Date() på tiden; ge den en tid med zon så att servern och webbläsaren räknar lika.
+    const publMs = tidpunkt(annons.publication_date)
+    const rel = relativDatum(publMs !== null ? new Date(publMs).toISOString() : annons.publication_date, nu)
     ut.push({ varde: langDag(publ), etikett: rel && rel !== 'i dag' && rel !== 'i går' ? `Publicerad, ${rel}` : `Publicerad${rel ? ` ${rel}` : ''}` })
   }
   if (typeof annons.salary_description === 'string' && annons.salary_description.trim()) {
@@ -150,9 +152,10 @@ export function kravOchMeriterande(annons: Annons): { krav: string[]; meriterand
 /** Är annonsen publicerad efter att Matchade jobb senast visades? */
 export function arNy(annons: Annons, seddaAt: string | null): boolean {
   if (!seddaAt) return false
-  const publ = Date.parse(String(annons.publication_date ?? ''))
-  const sedd = Date.parse(seddaAt)
-  return Number.isFinite(publ) && Number.isFinite(sedd) && publ > sedd
+  // Publiceringstiden saknar zon (svensk tid); tidpunkt() läser den lika på servern och i webbläsaren.
+  const publ = tidpunkt(typeof annons.publication_date === 'string' ? annons.publication_date : null)
+  const sedd = tidpunkt(seddaAt)
+  return publ !== null && sedd !== null && publ > sedd
 }
 
 /**
@@ -167,7 +170,8 @@ export function brevUnderlag(job: Annons): string {
   const plats = [job.workplace_address?.municipality, job.workplace_address?.region, job.workplace_address?.country].filter(Boolean)
   if (plats.length > 0) parts.push(`Plats: ${plats.join(', ')}`)
   if (job.employment_type?.label) parts.push(`Anställningsform: ${job.employment_type.label}`)
-  if (job.application_deadline) parts.push(`Sista ansökningsdag: ${new Date(job.application_deadline).toLocaleDateString('sv-SE')}`)
+  const sista = dagFor(typeof job.application_deadline === 'string' ? job.application_deadline : null)
+  if (sista) parts.push(`Sista ansökningsdag: ${sista}`)
 
   if (job.must_have) {
     const mh: string[] = []

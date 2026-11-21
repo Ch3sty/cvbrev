@@ -11,6 +11,8 @@ import { hamtaBrevProfil, hamtaSokta } from '@/lib/letters/server'
 import { brevDataFranBrev } from '@/lib/letters/brevData'
 import { brevKvot, formatGratisbrevDag } from '@/lib/letters/brevKvot'
 import { renderBrevHtml } from '@/lib/letters/brevmall'
+import { hamtaOppnaTraffar } from '@/lib/jobmatching/oppna.server'
+import { dagFor, kortDag } from '@/lib/jobbsok/datum'
 import type { Letter } from '@/store/letter-store'
 import Malgang from '@/components/brev3/arbete/Malgang'
 
@@ -52,13 +54,11 @@ export default async function SkickatSida({ params }: { params: Promise<{ id: st
     supabase.from('job_applications').select('id', { count: 'exact', head: true }).eq('user_id', user.id).gte('applied_at', manadensBorjan(nu)),
     supabase.from('letters').select('id, company, job_title').eq('user_id', user.id),
     userHasAccess(supabase, user.id, 'any'),
-    supabase
-      .from('job_matchings_cache')
-      .select(['cv_id', ...Array.from({ length: JOBB_ATT_LASA }, (_, i) => `j${i}:jobs->${i}`)].join(', '))
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle(),
+    // Sammanfattningen (högst 25 annonser), inte körningen: jobs->i i
+    // job_matchings_cache packar upp hela kolumnen (upp till 3,7 MB) för att
+    // ta ut tio annonser (rättningen efter slutkontrollen 2026-11-21).
+    // Gratiskonton får bara de öppna träffarna, som i Matchade jobb.
+    hamtaOppnaTraffar(supabase, user.id),
   ])
   const rad = (radRes.data ?? null) as Letter | null
   if (!rad) redirect('/dashboard/mina-brev')
@@ -82,18 +82,22 @@ export default async function SkickatSida({ params }: { params: Promise<{ id: st
   const kvot = harBetalt ? null : brevKvot(profil, false, nu)
   const nastaGratis = kvot?.nastaGratisbrev ? formatGratisbrevDag(kvot.nastaGratisbrev) : null
 
-  // Det senaste matchade jobbet som inget brev är skrivet till.
-  const match = (matchRes.data ?? null) as Record<string, unknown> | null
+  // Det bästa matchade jobbet som inget brev är skrivet till, bland dem
+  // kontot får se (gratis: de tre öppna). Inget sådant: inget förslag.
+  const match = matchRes
   const skrivna = new Set(allaBrev.map((b) => `${rensa(b.company)}|${rensa(b.job_title)}`))
   let jobb: React.ComponentProps<typeof Malgang>['jobb'] = null
   if (match) {
-    for (let i = 0; i < JOBB_ATT_LASA; i++) {
-      const j = match[`j${i}`] as Jobb | null
+    const annonser = match.traffar
+    for (let i = 0; i < JOBB_ATT_LASA && i < annonser.length; i++) {
+      const j = (annonser[i]?.job ?? null) as Jobb | null
       if (!j?.headline) continue
       if (skrivna.has(`${rensa(j.employer?.name)}|${rensa(j.headline)}`)) continue
-      const sista = j.application_deadline ? new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short', timeZone: TZ }).format(new Date(j.application_deadline)).replace('.', '') : null
+      // Arbetsförmedlingens tid saknar zon och är svensk lokal tid (dagFor).
+      const sistaDag = dagFor(j.application_deadline ?? null)
+      const sista = sistaDag ? kortDag(sistaDag) : null
       jobb = {
-        cvId: (match.cv_id as string) ?? rad.cv_id ?? '',
+        cvId: match.cvId ?? rad.cv_id ?? '',
         titel: j.headline,
         foretag: j.employer?.name ?? '',
         ort: j.workplace_address?.municipality ?? null,

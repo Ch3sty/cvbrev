@@ -32,7 +32,7 @@ import { publicerade as publiceradeTider } from '@/lib/jobmatching/basta'
 import { nyaBlandBasta } from '@/lib/rum/nyaTraffar'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
-import { idagSv } from './datum'
+import { idagSv, tidpunkt } from './datum'
 import { arSchemaFel } from './schema'
 import { tjanstLage } from './lage'
 import { bana, skaSokasLista, tjanstensSteg } from './bana'
@@ -323,10 +323,12 @@ export interface ToppTraffar {
 }
 
 /**
- * De bästa träffarna ur senaste matchningskörningen (job_matchings_cache),
- * poängsatta som Matchade jobb gör det. Läser hela körningens annonser (upp
- * till 600), så vyn ska hämta den i en egen Suspense-gräns, inte i väggens
- * kritiska väg. Gratisnivån får aldrig fler än de tre som visas i klartext.
+ * De bästa träffarna ur sammanfattningen av senaste matchningskörningen
+ * (job_matching_summaries), poängsatta som Matchade jobb gör det. Läser
+ * aldrig hela körningen (läget 'liten', rättningen efter slutkontrollen
+ * 2026-11-21): utan sammanfattning blir det samma tomma läge som förut.
+ * Vyn hämtar den ändå i en egen Suspense-gräns. Gratisnivån får aldrig
+ * fler än de tre som visas i klartext.
  */
 export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Date } = {}): Promise<ToppTraffar> {
   const supabase = await sessionsKlient()
@@ -338,9 +340,9 @@ export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Da
   const cv = (cvRes.data ?? null) as ActiveCVData | null
   const profil = profilRes.data as { job_preferences?: unknown; matchningar_sedda_at?: string | null } | null
   const prefs = toJobPreferences(profil?.job_preferences)
-  // De bästa träffarna ur sammanfattningen, med hela körningen som reserv
-  // (rättningsrundan 2026-11-21): samma kedja och samma 25 som Matchade jobb.
-  const basta = await hamtaBasta(supabase, userId, cv, prefs)
+  // De bästa träffarna ur sammanfattningen (samma kedja och samma 25 som
+  // Matchade jobb), aldrig ur hela körningen.
+  const basta = await hamtaBasta(supabase, userId, cv, prefs, 'liten')
   const seddaAt = profil?.matchningar_sedda_at ?? null
   if (!basta || basta.ranked.length === 0) return { traffar: [], lasta: basta?.adsRead ?? 0, kordAt: basta ? new Date(basta.korningAt).toISOString() : null, basta: 0, nya: null, seddaAt }
 
@@ -357,7 +359,8 @@ export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Da
     seddaAt,
     traffar: basta.ranked.slice(0, tak).map(({ job, score }) => {
       const sista = sistaAnsokningsdag(job, nu)
-      const publ = Date.parse(String(job.publication_date ?? ''))
+      // Tid utan zon tolkas som svensk tid, som i webbläsaren (datum.ts).
+      const publ = tidpunkt(typeof job.publication_date === 'string' ? job.publication_date : null) ?? NaN
       return {
         id: String(job.id ?? ''),
         jobTitle: String(job.headline ?? ''),

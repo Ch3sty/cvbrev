@@ -20,7 +20,10 @@ export async function GET(request: Request) {
   const id = new URL(request.url).searchParams.get('id')
   if (!id || id.length > 100) return NextResponse.json({ error: 'Annonsen saknas', code: 'invalid_field' }, { status: 400 })
   const [basta, premium] = await Promise.all([
-    hamtaBasta(u.supabase, u.user.id, u.cv, u.prefs),
+    // Samma källa som sidan (läget 'hel'), så att de öppna annonserna är
+    // desamma som listan visar. Sidan har skrivit sammanfattningen efter sitt
+    // svar, så hela körningen läses här bara när den skrivningen föll.
+    hamtaBasta(u.supabase, u.user.id, u.cv, u.prefs, 'hel'),
     userHasAccess(u.supabase, u.user.id, 'job_matches_all').catch(() => false),
   ])
   const tillatna = premium ? basta?.ranked ?? [] : (basta?.ranked ?? []).slice(0, FREE_TIER_JOB_LIMIT)

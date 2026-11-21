@@ -24,7 +24,7 @@ import {
   IkonPersoner,
 } from '@/components/jobb3/kit'
 import { STATUS_META } from '@/lib/applications/status'
-import { dagFor, idagSv, klockslag, VECKANS_MAL_MAX, VECKANS_MAL_MIN, type ApplicationEventType } from '@/lib/jobbsok'
+import { dagFor, handelseForeSokt, idagSv, klockslag, VECKANS_MAL_MAX, VECKANS_MAL_MIN, type ApplicationEventType, type Dag } from '@/lib/jobbsok'
 
 export async function anropa(url: string, method: string, body?: unknown): Promise<any> {
   const res = await fetch(url, {
@@ -122,7 +122,8 @@ export function handelseNamn(typ: ApplicationEventType, genomforda = 0): string 
 /**
  * Lägg till händelse. `typ` förvalt från snabbvalen; utan typ väljer hon i
  * arket ("Annat"). "Kallad till intervju" frågar efter intervjuns dag, tid
- * och plats (F6), alla valfria.
+ * och plats (F6), alla valfria. Dagen kan inte ligga före dagen tjänsten
+ * söktes (`sokt`): samma kontroll och text som rutten (klicktestet 2026-11-21).
  */
 export function HandelseArk({
   open,
@@ -130,6 +131,7 @@ export function HandelseArk({
   ansokanId,
   typ: forval,
   genomforda,
+  sokt,
   onSparat,
 }: {
   open: boolean
@@ -137,6 +139,8 @@ export function HandelseArk({
   ansokanId: string
   typ: ApplicationEventType | null
   genomforda: number
+  /** Dagen tjänsten söktes; ingen händelse får ligga före den. */
+  sokt: Dag
   onSparat: (typ: ApplicationEventType) => void
 }) {
   const idag = idagSv()
@@ -162,6 +166,11 @@ export function HandelseArk({
 
   const spara = async () => {
     if (!typ) return
+    const foreSokt = handelseForeSokt(typ, datum || idag, sokt)
+    if (foreSokt) {
+      setFel(foreSokt)
+      return
+    }
     setSparar(true)
     setFel(null)
     try {
@@ -200,7 +209,7 @@ export function HandelseArk({
           ))}
         </ValRad>
       ) : null}
-      <Falt etikett={typ === 'interview_invited' ? 'Dagen du blev kallad' : 'Datum'} typ="datum" value={datum} max={idag} onChange={(e) => setDatum(e.target.value)} />
+      <Falt etikett={typ === 'interview_invited' ? 'Dagen du blev kallad' : 'Datum'} typ="datum" value={datum} min={typ === 'applied' ? undefined : sokt} max={idag} onChange={(e) => setDatum(e.target.value)} />
       {typ === 'interview_invited' ? (
         <>
           <Falt etikett="Intervjuns dag" tillagg="valfritt" typ="datum" value={intDag} min={idag} onChange={(e) => setIntDag(e.target.value)} />

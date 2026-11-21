@@ -13,6 +13,7 @@ import {
   UPPFOLJNING_MAX_ORD,
   UPPFOLJNING_PREMIUM_PER_DYGN,
   type Dag,
+  type Uppfoljning,
   type UppfoljningVia,
 } from './typer'
 
@@ -250,6 +251,20 @@ export function uppfoljningSparr(ind: {
 /** Kan användaren få ett utkast för tjänsten utan att mötas av betalväggen? (för vyn) */
 export function farUtkast(s: SparrSvar): boolean {
   return s.lage === 'ny' || s.lage === 'ateranvand'
+}
+
+/**
+ * Uppföljd inom påminnelsetiden och inget oskickat utkast: blocket visar
+ * "Följde upp" med Ångra och skriver inget nytt utkast (klicktestet
+ * 2026-11-21). `nastaPaminnelse` är dagen tjänsten kan bli tyst igen.
+ */
+export function nyligenUppfoljd(
+  lage: { utkast: Uppfoljning | null; senastSkickad: Uppfoljning | null; nastaPaminnelse: string | null },
+  idag: Dag
+): { id: string; dag: Dag; nasta: Dag } | null {
+  const s = lage.senastSkickad
+  if (lage.utkast || !s?.sent_at || !lage.nastaPaminnelse || lage.nastaPaminnelse <= idag) return null
+  return { id: s.id, dag: s.sent_at, nasta: lage.nastaPaminnelse }
 }
 
 /* ----------------------------------------------------- skickad */

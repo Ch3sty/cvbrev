@@ -727,7 +727,7 @@ export default function Jobb3KitSida() {
           <Avsnitt topp={52}>
             <GruppHuvud rubrik="Ska sökas" antal={2} text="Sparade annonser med sista ansökningsdag. De räknas inte förrän du har sökt." />
             <SparadLista>
-              <SparadKort kod="ÅL" titel="Ekonomiassistent" arbetsgivare="Ålö AB, Umeå" matchgrad={92} dag="Sista dag tors 26 nov, 5 dagar kvar" snart lank={<TextLank href="#x">Markera som sökt</TextLank>} handling={<LitenKnapp storlek={48}>Skriv brev</LitenKnapp>} />
+              <SparadKort kod="ÅL" titel="Ekonomiassistent" arbetsgivare="Ålö AB, Umeå" matchgrad={92} dag="Sista dag tors 26 nov, 5 dagar kvar" snart lank={<TextLank href="#x">Markera som sökt</TextLank>} handling={<LitenKnapp storlek={48}>Skriv brev</LitenKnapp>} bort={<TextLank liten href="#x">Ta bort</TextLank>} />
               <SparadKort kod="VO" titel="Redovisningsassistent" arbetsgivare="Volvo Lastvagnar, Umeå" passerad lank={<TextLank href="#x">Ta bort</TextLank>} handling={<LitenKnapp storlek={48}>Sökt ändå</LitenKnapp>} />
             </SparadLista>
           </Avsnitt>
