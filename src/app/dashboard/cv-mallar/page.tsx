@@ -26,15 +26,12 @@ import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
 import { valtCvId } from '@/components/cv/rum3/cvLista'
 import { arbetslageHref } from '@/components/cv/rum3/flikar'
 import { CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess'
-import { potentialPoang } from '@/lib/cv/analys/potential'
 import { valUrAdress } from '@/lib/cv/mallar/val'
 import { valFor } from '@/lib/cv/bygg/kalla'
 import type { ByggCv } from '@/lib/cv/bygg/modell'
-import { poangUrAnalys, potentialUnderlag, type AnalysUnderlag } from '@/lib/rum/cvRum'
-
-/** Analysens fält för plus i spärren (samma uträkning som Ditt CV och analysens översikt). */
-const ANALYS_FALT =
-  'id, cv_id, completed_at, poang:result->atsFriendliness->score, profil:result->profileSummary, roller:result->roleBasedImprovements, kompetenser:result->skillSuggestions, allmant:result->generalImprovements'
+import { poangUrAnalys, medForslagUrAnalys } from '@/lib/rum/cvRum'
+import { analysPerCv, atgardadAtFor, underlagForCv, type AnalysRad, type CvRadMedFil } from '@/lib/cv/analys/cvAnalys'
+import { poangForRad, type CvRad } from '@/lib/cv/poang'
 
 type Sok = Record<string, string | string[] | undefined> & {
   cv?: string | string[]
@@ -128,23 +125,28 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   }
 
   // Analysen av valt CV: plus i spärrens talruta och dokumentets väg i målgången.
+  // Samma funktioner som Ditt CV och Analys (src/lib/cv/analys/cvAnalys.ts):
+  // poängen räknas ur CV-raden med poängmodellen, plus = med våra förslag
+  // minus poängen i dag, aldrig AI:ns sparade tal.
   const plusPerCv: Record<string, number> = {}
-  // Poängen per CV för Byt CV-arket (som Ditt CV), och analysen av valt CV.
+  // Poängen per CV för Byt CV-arket (som Ditt CV och Analys).
   const poangPerCv: Record<string, number> = {}
-  const jobbPerCv: Record<string, string> = {}
+  let jobbPerCv: Record<string, string> = {}
+  let analysRader: AnalysRad[] = []
   try {
     const { data } = await supabase
       .from('cv_analysis_jobs')
-      .select('id, cv_id, poang:result->atsFriendliness->score')
+      .select('id, cv_id, completed_at, forbattrad:result->forbattradSparad, valda:result->selectedImprovements')
       .eq('user_id', user.id)
       .eq('status', 'completed')
       .order('completed_at', { ascending: false, nullsFirst: false })
       .limit(100)
-    for (const rad of (data ?? []) as Array<{ id: string; cv_id: string | null; poang: unknown }>) {
-      if (!rad.cv_id || rad.cv_id in jobbPerCv) continue
-      jobbPerCv[rad.cv_id] = rad.id
-      const p = Number(rad.poang)
-      if (Number.isFinite(p)) poangPerCv[rad.cv_id] = Math.max(0, Math.min(100, Math.round(p)))
+    analysRader = (data ?? []) as AnalysRad[]
+    jobbPerCv = analysPerCv(analysRader)
+    for (const cv of cvRows) {
+      if (!jobbPerCv[cv.id]) continue
+      const p = poangForRad(cv as unknown as CvRad)
+      if (p !== null) poangPerCv[cv.id] = p
     }
   } catch (error) {
     console.error('Fel vid hämtning av analyserna för Mallar:', error)
@@ -152,35 +154,19 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   const vagPerCv: Record<string, { uppladdat: 'uppladdat' | 'utkast'; analyserat: boolean; atgardat: boolean }> = {}
   const valt = cvRows.find((c) => c.id === initialSelectedCvId)
   if (valt) {
-    const original = valt.original_file_path?.endsWith('-improved')
-      ? cvRows.find((c) => c.original_file_path === valt.original_file_path.replace(/-improved$/, '')) ?? null
-      : null
-    const atgardat = Boolean(original) || cvRows.some((c) => c.original_file_path === `${valt.original_file_path}-improved`)
-    const jobbId = jobbPerCv[valt.id] ?? (original ? jobbPerCv[original.id] : undefined)
+    const valtRad = valt as unknown as CvRadMedFil
+    const alla = cvRows as unknown as CvRadMedFil[]
+    const atgardat = atgardadAtFor(valtRad, alla, analysRader) !== null
     let analyserat = false
     try {
-      const { data } = jobbId
-        ? await supabase.from('cv_analysis_jobs').select(ANALYS_FALT).eq('id', jobbId).eq('user_id', user.id).maybeSingle()
-        : { data: null }
-      const rad = data as Record<string, unknown> | null
-      if (rad) {
+      const underlag = await underlagForCv(supabase, user.id, valtRad, alla, jobbPerCv, null, {
+        harFull: scopeHasFeature(scope, 'cv_analysis_full'),
+      })
+      const poang = poangUrAnalys(underlag)
+      if (underlag && poang !== null) {
         analyserat = true
-        const underlag: AnalysUnderlag = {
-          jobbId: (rad.id as string) ?? null,
-          cvId: (rad.cv_id as string) ?? null,
-          klar: (rad.completed_at as string) ?? null,
-          namn: valt.file_name,
-          poang: rad.poang === null || rad.poang === undefined ? null : Number(rad.poang),
-          profil: (rad.profil as AnalysUnderlag['profil']) ?? null,
-          roller: Array.isArray(rad.roller) ? (rad.roller as AnalysUnderlag['roller']) : null,
-          kompetenser: Array.isArray(rad.kompetenser) ? (rad.kompetenser as AnalysUnderlag['kompetenser']) : null,
-          allmant: Array.isArray(rad.allmant) ? (rad.allmant as AnalysUnderlag['allmant']) : null,
-        }
-        const poang = poangUrAnalys(underlag)
-        if (poang !== null) {
-          const plus = potentialPoang(poang, potentialUnderlag(underlag)) - poang
-          if (plus > 0) plusPerCv[valt.id] = plus
-        }
+        const plus = (medForslagUrAnalys(underlag) ?? poang) - poang
+        if (plus > 0) plusPerCv[valt.id] = plus
       }
     } catch (error) {
       console.error('Fel vid hämtning av analysen för Mallar:', error)
