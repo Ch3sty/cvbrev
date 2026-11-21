@@ -41,13 +41,21 @@ export interface CvKopreturLage extends CvTillgangIn {
   mallHarWord: boolean
 }
 
-/** Styrningens in-data. Utan mätt dokument och CV begärs ingenting ännu. */
+/**
+ * Styrningens in-data. Utan mätt dokument och CV begärs ingenting ännu.
+ *
+ * En gammal länk med bara ladda=1 (utan premium_activated) beter sig som
+ * före köpreturen: laddaNer anropas en gång om inte premiummallen saknar
+ * Premium, och laddaNer öppnar själv Word-spärren eller merförsäljningen.
+ * Styrningen kör då ingen väntan och anropar laddaNer högst en gång.
+ */
 export function cvKopreturIn(l: CvKopreturLage): KopreturIn {
+  const gammalLank = !l.kopRetur
   return {
     begart: l.ladda && l.redo ? l.format : null,
     kopRetur: l.kopRetur,
-    kanLaddaNer: cvHarTillgang(l),
-    formatFinns: l.format === 'pdf' || l.mallHarWord,
+    kanLaddaNer: gammalLank ? !(l.premiumMall && !l.isPremium) : cvHarTillgang(l),
+    formatFinns: gammalLank || l.format === 'pdf' || l.mallHarWord,
   }
 }
 

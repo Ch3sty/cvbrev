@@ -101,6 +101,42 @@ describe('köpreturen i CV-rummets Mallar', () => {
     expect(ut.refresh).not.toHaveBeenCalled()
   })
 
+  it('gammal länk, gratismall och använd gratisnedladdning: laddaNer en gång (öppnar merförsäljningen som förut)', () => {
+    const { ut, k } = upplagg()
+    const gammal = lage({ kopRetur: false, premiumMall: false, gratisAnvand: true })
+    k.uppdatera(cvKopreturIn(gammal))
+    k.uppdatera(cvKopreturIn(gammal))
+    vi.advanceTimersByTime(KOPRETUR_INTERVALL_MS * 10)
+    expect(ut.laddaNer).toHaveBeenCalledTimes(1)
+    expect(ut.refresh).not.toHaveBeenCalled()
+    expect(behallKopreturParametrar(gammal)).toBe(false)
+  })
+
+  it('gammal länk, Word i premiummall med Premium men utan harWord: laddaNer en gång (öppnar Word-spärren som förut)', () => {
+    const { ut, k } = upplagg()
+    const gammal = lage({ kopRetur: false, format: 'docx', isPremium: true, harWord: false })
+    k.uppdatera(cvKopreturIn(gammal))
+    k.uppdatera(cvKopreturIn(gammal))
+    expect(ut.laddaNer).toHaveBeenCalledTimes(1)
+    expect(ut.laddaNer).toHaveBeenCalledWith('docx')
+    expect(ut.refresh).not.toHaveBeenCalled()
+  })
+
+  it('gammal länk väntar på mätningen och CV:t som förut', () => {
+    const { ut, k } = upplagg()
+    k.uppdatera(cvKopreturIn(lage({ kopRetur: false, premiumMall: false, redo: false })))
+    expect(ut.laddaNer).not.toHaveBeenCalled()
+    k.uppdatera(cvKopreturIn(lage({ kopRetur: false, premiumMall: false })))
+    expect(ut.laddaNer).toHaveBeenCalledTimes(1)
+  })
+
+  it('riktig köpretur med använd gratisnedladdning väntar på Premium i stället för att öppna merförsäljningen', () => {
+    const { ut, k, lagen } = upplagg()
+    k.uppdatera(cvKopreturIn(lage({ premiumMall: false, gratisAnvand: true })))
+    expect(ut.laddaNer).not.toHaveBeenCalled()
+    expect(lagen).toEqual(['vantar'])
+  })
+
   it('Word i premiummall väntar på harWord, inte bara på mallen', () => {
     const { ut, k, lagen } = upplagg()
     k.uppdatera(cvKopreturIn(lage({ format: 'docx', isPremium: true, harWord: false })))
