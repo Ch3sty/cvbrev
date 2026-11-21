@@ -317,10 +317,13 @@ export default function SkrivBrev({ cvs, startCvId, harBetalt, kvot, startTon, p
     const rot = arkRef.current
     if (!rot || lage === 'fore') return
     const bas = rot.getBoundingClientRect()
+    // Arkets egna koordinater: föräldrarnas transform (inglidningen) räknas bort.
+    const k = rot.offsetWidth ? bas.width / rot.offsetWidth || 1 : 1
     const mal = rot.querySelector('.brev-markor') ?? rot.querySelector('.brev-arende') ?? rot.querySelector('.brev-datum')
     const r = mal?.getBoundingClientRect()
-    const top = r ? r.bottom - bas.top + 28 : bas.height * 0.45
-    setBrickaTop(Math.min(top, bas.height - 130))
+    const hojd = bas.height / k
+    const top = r ? (r.bottom - bas.top) / k + 28 : hojd * 0.45
+    setBrickaTop(Math.min(top, hojd - 130))
   }, [arkHtml, lage])
 
   /* ------------------------------------------------------------ texterna */

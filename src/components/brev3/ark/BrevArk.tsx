@@ -119,6 +119,15 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     })
     passaBrevet(rot)
 
+    // Allt mäts i arkets egna koordinater. getBoundingClientRect räknar med
+    // föräldrarnas transform (t.ex. en inglidning som skalar ytan), och en
+    // mätning mitt i en sådan gav siffror och plats på fel rad (klicktestet
+    // 2026-11-21, telefonen). Skalan k tas ut ur mätningen.
+    const bas = ut.getBoundingClientRect()
+    const k = ut.offsetWidth ? bas.width / ut.offsetWidth || 1 : 1
+    const x = (v: number) => (v - bas.left) / k
+    const y = (v: number) => (v - bas.top) / k
+
     // Saknat krav vars stycke slutar med en full rad: platsen blir en egen
     // rad efter stycket. Luften läggs i dokumentet (padding under stycket),
     // så att nästa stycke flyttas ner och platsen aldrig täcker text.
@@ -127,24 +136,23 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
     if (saknatSt) {
       const sista = sistaRaden(saknatSt)
       const sr = saknatSt.getBoundingClientRect()
-      if (sista && sr.right - sista.right - 6 < 40) {
+      if (sista && (sr.right - sista.right) / k - 6 < 40) {
         egenRad = true
         saknatSt.setAttribute('data-b3-luft', '')
-        saknatSt.style.paddingBottom = `${(sista.height + 4) / skala}px`
+        saknatSt.style.paddingBottom = `${(sista.height / k + 4) / skala}px`
       }
     }
 
     const cv = rot.querySelector<HTMLElement>('.cv.brev')
     if (cv) setHojdPx(Math.max(ARK_HOJD_PX, cv.offsetHeight))
-    const bas = ut.getBoundingClientRect()
 
     const lista: Siffra[] = []
     rot.querySelectorAll<HTMLElement>('mark[data-krav]').forEach((m) => {
       const r = m.getClientRects()[0]
       const stycke = m.closest<HTMLElement>('[data-stycke]') ?? m.parentElement
       if (!r || !stycke) return
-      const textVanster = stycke.getBoundingClientRect().left - bas.left
-      lista.push({ nr: Number(m.dataset.krav), top: r.top - bas.top + r.height / 2 - SIFFRA_HOJD / 2, left: Math.max(2, textVanster - 30) })
+      const textVanster = x(stycke.getBoundingClientRect().left)
+      lista.push({ nr: Number(m.dataset.krav), top: y(r.top) + r.height / k / 2 - SIFFRA_HOJD / 2, left: Math.max(2, textVanster - 30) })
     })
     lista.sort((x, y) => x.top - y.top)
     // Två krav på samma rad: siffrorna staplas i stället för att krocka.
@@ -156,22 +164,22 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
       if (st) {
         const sista = sistaRaden(st) ?? st.getBoundingClientRect()
         const sr = st.getBoundingClientRect()
-        const hojd = Math.max(8, sista.height)
-        let left = sista.right - bas.left + 6
-        let top = sista.top - bas.top
-        const hoger = sr.right - bas.left
+        const hojd = Math.max(8, sista.height / k)
+        let left = x(sista.right) + 6
+        let top = y(sista.top)
+        const hoger = x(sr.right)
         if (egenRad) {
-          left = sr.left - bas.left
-          top = sista.bottom - bas.top + 2
+          left = x(sr.left)
+          top = y(sista.bottom) + 2
         }
-        setPlats({ top, left, bredd: Math.max(30, Math.min(134 * (b! / 480), hoger - left)), hojd, nrTop: top + hojd / 2 - SIFFRA_HOJD / 2, nrLeft: Math.max(2, sr.left - bas.left - 30) })
+        setPlats({ top, left, bredd: Math.max(30, Math.min(134 * (b! / 480), hoger - left)), hojd, nrTop: top + hojd / 2 - SIFFRA_HOJD / 2, nrLeft: Math.max(2, x(sr.left) - 30) })
       } else setPlats(null)
     } else setPlats(null)
 
     const a = rot.querySelector<HTMLElement>('[data-aktivt]')
     if (a) {
       const r = a.getBoundingClientRect()
-      setAktiv({ top: r.top - bas.top, left: bas.width - 30 })
+      setAktiv({ top: y(r.top), left: ut.offsetWidth - 30 })
     } else setAktiv(null)
   }, [skala, saknatKrav, b])
 
