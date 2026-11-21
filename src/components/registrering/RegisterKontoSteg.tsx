@@ -51,6 +51,7 @@ import PubliktFlodesskal, { TEXTLANK } from './PubliktFlodesskal'
 import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import IntentIkon from './IntentIkon'
 import {
+  giltigtSmakprov,
   skrivSignupCookie,
   type RegisterLage,
   type SignupEntry,
@@ -126,7 +127,11 @@ export function loggaInHref(p: {
   redirect?: string | null
 }): string {
   const q = new URLSearchParams()
-  if (p.smakprov) q.set('redirect', VALKOMMEN_PATH)
+  // Smakprovet följer med i adressen (/dashboard/valkommen?test=<token>), så att
+  // valkommen-sidan hämtar hem det också för ett befintligt konto, som inte har
+  // cookien jc_signup (2026-11-21: utan token skickades kontot till /dashboard
+  // och provet blev ohämtat). Bara den fasta sökvägen och en token i rätt format.
+  if (p.smakprov) q.set('redirect', giltigtSmakprov(p.smakprov.typ, p.smakprov.token) ? `${VALKOMMEN_PATH}?${p.smakprov.typ}=${encodeURIComponent(p.smakprov.token)}` : VALKOMMEN_PATH)
   else if (p.redirect) q.set('redirect', p.redirect)
   else if (p.paket) q.set('redirect', `${TRACK_CHOICE_PATH}?paket=${p.paket}&steg=kop`)
   else if (p.intent) q.set('borja', p.intent)
