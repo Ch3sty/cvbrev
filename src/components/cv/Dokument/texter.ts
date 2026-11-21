@@ -352,7 +352,8 @@ export const FINAL = {
   forstaJobbet: 'Första jobbet som matchar ditt CV',
   flerJobb: 'Se fler jobb som matchar',
   brevTillAnnons: 'Skriv personligt brev till annonsen',
-  brevRubrik: 'Ditt CV är klart. Nu brevet.',
+  // Säger aldrig att CV:t är klart: poängen kan ha mer att hämta (genomgången på Analys).
+  brevRubrik: 'Nu det personliga brevet.',
   brevRad: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
   brevKnapp: 'Skriv ett personligt brev',
   /** CV-byggarens nästa steg (skissen 2026-11-16, yta 5): analysen först, sedan brevet. */

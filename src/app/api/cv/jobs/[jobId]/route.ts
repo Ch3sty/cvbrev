@@ -10,7 +10,7 @@ import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { analysForKlient } from '@/lib/cv/poang';
-import { hamtaCvRad } from '@/lib/cv/poang/server';
+import { hamtaCvRad, hamtaKontaktKalla } from '@/lib/cv/poang/server';
 
 /**
  * GET /api/cv/jobs/[jobId]
@@ -188,8 +188,9 @@ export async function GET(
     // (analysForKlient), så att gratisnivån ser samma sak oavsett väg.
     let gatedResult: unknown;
     if (job.status === 'completed' && job.result && typeof job.result === 'object') {
-      const cvRad = await hamtaCvRad(supabase, job.cv_id);
-      gatedResult = analysForKlient(job.result as Record<string, unknown>, cvRad, hasFullAnalysis);
+      // Kontaktuppgifterna räknas som arket visar dem (poängmodellen version 2).
+      const [cvRad, kontakt] = await Promise.all([hamtaCvRad(supabase, job.cv_id), hamtaKontaktKalla(supabase, user.id, user)]);
+      gatedResult = analysForKlient(job.result as Record<string, unknown>, cvRad ? { ...cvRad, kontakt } : { kontakt }, hasFullAnalysis);
     } else {
       gatedResult = gateAnalysisResult(job.result, hasFullAnalysis);
     }

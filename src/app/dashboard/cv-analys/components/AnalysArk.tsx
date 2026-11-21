@@ -19,16 +19,22 @@ import { useEgenMall, type EgetCv } from '@/components/cv/Dokument/egnaMallar';
 
 export interface ArkMarkering {
   nr: number;
-  /** Avsnittet; "fler" (projekt, certifikat) markeras inte. */
-  sektion: 'profil' | 'erfarenhet' | 'kompetenser' | 'utbildning' | 'fler';
+  /** Avsnittet; "fler" (projekt, certifikat) markeras inte. "kontakt" är huvudets kontaktrad. */
+  sektion: 'kontakt' | 'profil' | 'erfarenhet' | 'kompetenser' | 'utbildning' | 'sprak' | 'fler';
   roll?: { titel: string; foretag: string };
-  /** Första fyndet: koppar och puls. */
+  /** Delen har poäng kvar: koppar. */
   nu?: boolean;
+  /** Delen är klar: dämpad. */
+  klar?: boolean;
+  /** Delen som är utfälld när sidan öppnas: puls. */
+  puls?: boolean;
 }
 
 interface Ruta {
   nr: number;
   nu: boolean;
+  klar: boolean;
+  puls: boolean;
   x: number;
   y: number;
   b: number;
@@ -90,6 +96,13 @@ function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[]
   const allaToppar = [...toppar.values()].sort((a, b) => a - b);
 
   for (const x of markeringar) {
+    // Kontaktuppgifterna: huvudets kontaktrad (data-falt), annars namnet.
+    if (x.sektion === 'kontakt') {
+      const f = m.falt.find((r) => r.falt === 'kontakt') ?? m.falt.find((r) => r.falt === 'namn');
+      if (!f || f.y >= A4_KVOT - 0.02) continue;
+      ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), x: f.x, y: f.y, b: f.b, h: Math.max(0.02, f.h) });
+      continue;
+    }
     const a = avsnitt(x.sektion);
     if (!a) continue;
     let box = { x: a.x, y: a.y, b: Math.max(a.b, a.avsnitt.b), h: a.avsnitt.y + a.avsnitt.h - a.y };
@@ -101,7 +114,7 @@ function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[]
     }
     if (box.y >= A4_KVOT - 0.02) continue;
     box.h = Math.min(box.h, A4_KVOT - box.y - 0.01);
-    ut.push({ nr: x.nr, nu: Boolean(x.nu), ...box });
+    ut.push({ nr: x.nr, nu: Boolean(x.nu), klar: Boolean(x.klar), puls: Boolean(x.puls), ...box });
   }
   return ut;
 }
@@ -175,6 +188,7 @@ export default function AnalysArk({
                 key={`r${r.nr}`}
                 className="cv4-ruta"
                 data-nu={r.nu ? '' : undefined}
+                data-klar={r.klar ? '' : undefined}
                 aria-hidden="true"
                 style={{ left: r.x * bredd - 6, top: r.y * bredd - 4, width: r.b * bredd + 12, height: r.h * bredd + 8 }}
               />
@@ -187,10 +201,11 @@ export default function AnalysArk({
               key={`n${r.nr}`}
               className="cv4-nal"
               data-nu={r.nu ? '' : undefined}
+              data-klar={r.klar ? '' : undefined}
               aria-hidden="true"
               style={{ left: 0, top: r.y * bredd + Math.min(18, (r.h * bredd) / 2) - 14 }}
             >
-              {r.nu ? <span className="cv4-halo" /> : null}
+              {r.puls ? <span className="cv4-halo" /> : null}
               {r.nr}
             </span>
           ))

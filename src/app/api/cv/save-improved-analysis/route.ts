@@ -2,7 +2,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { poangsattAnalys } from '@/lib/cv/poang';
-import { hamtaCvRad } from '@/lib/cv/poang/server';
+import { hamtaCvRad, hamtaKontaktKalla } from '@/lib/cv/poang/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
 export async function POST(request: NextRequest) {
@@ -72,10 +72,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing analysis' }, { status: 400 });
     }
     const { selectedImprovements: _valt, gated: _g, ...utanVal } = grund as Record<string, unknown>;
-    const cvRad = await hamtaCvRad(supabase, typeof cvId === 'string' ? cvId : null);
-    const resultat = poangsattAnalys(
+    const [cvRad, kontakt] = await Promise.all([
+      hamtaCvRad(supabase, typeof cvId === 'string' ? cvId : null),
+      hamtaKontaktKalla(supabase, user.id, user),
+    ]);
+    // arkKontakt (profilens kontaktuppgifter så som arket visar dem) räknas
+    // vid varje läsning och sparas aldrig i analysraden.
+    const { arkKontakt: _ark, ...resultat } = poangsattAnalys(
       { ...utanVal, forbattradSparad: { at: new Date().toISOString(), satt: satt === 'ersatt' ? 'ersatt' : 'nytt' } },
-      cvRad
+      cvRad ? { ...cvRad, kontakt } : { kontakt }
     );
 
     // Create new analysis job with improved data

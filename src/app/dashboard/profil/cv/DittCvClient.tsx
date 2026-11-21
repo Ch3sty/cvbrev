@@ -26,11 +26,11 @@ import type { MallKort, Sektion } from '@/lib/cv/mallar/kontrakt';
 import type { Scope } from '@/lib/access/features';
 import { MALL_KATALOG } from '@/lib/cv/mallval/katalog';
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal';
-import { sprakLage } from '@/lib/cv/sprak';
 import {
   dokumentVag,
   fyndUrAnalys,
   innehallUrCv,
+  sprakSomGenomgangen,
   poangUrAnalys,
   medForslagUrAnalys,
   type AnalysUnderlag,
@@ -220,9 +220,10 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     [aktivt]
   );
 
-  // Innehållet: språk bara när vi har letat (sprakLage), aldrig "saknas" annars.
+  // Innehållet: språket som genomgången ser det, så att kortet och Analys
+  // aldrig säger emot varandra (poängmodellen version 2).
   const innehall = useMemo(
-    () => (aktivt ? innehallUrCv(aktivt.structured_data, sprakLage(aktivt.structured_data)) : null),
+    () => (aktivt ? innehallUrCv(aktivt.structured_data, sprakSomGenomgangen(aktivt.structured_data, aktivt.cv_text)) : null),
     [aktivt]
   );
 
@@ -288,11 +289,14 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     const gjordaEtiketter = [bygge ? VAGG.gjord.utkast : VAGG.gjord.uppladdat, VAGG.gjord.analyserat, VAGG.gjord.atgardat, VAGG.gjord.nedladdat];
     const kommande = [VAGG.kommer.borja, VAGG.kommer.analysera, VAGG.kommer.atgarda, VAGG.kommer.laddaNer];
     const ikoner = ['upp', 'spela', 'penna', 'ner'] as const;
-    return vag.map((c, i) => ({
-      etikett: c.status === 'gjord' ? gjordaEtiketter[i] : kommande[i],
-      status: c.status === 'gjord' ? 'gjord' : c.status === 'nu' ? 'nu' : 'kvar',
-      ikon: ikoner[i],
-    }));
+    // Ladda ner utan förslag kvar: markören står på nedladdningen, steget
+    // rubriken gäller, också när inget förbättrat CV sparats (åtgärda står kvar).
+    const nuIndex = lage === 'ladda-ner' && vag[2]?.status === 'nu' ? 3 : -1;
+    return vag.map((c, i) => {
+      const status: BanaSteg['status'] =
+        c.status === 'gjord' ? 'gjord' : nuIndex >= 0 ? (i === nuIndex ? 'nu' : 'kvar') : c.status === 'nu' ? 'nu' : 'kvar';
+      return { etikett: c.status === 'gjord' ? gjordaEtiketter[i] : kommande[i], status, ikon: ikoner[i] };
+    });
   })();
 
   const knappKlass = quickScoreCvId ? 'cv3-glas cv3-glas-stor' : 't3-stor';
@@ -303,7 +307,15 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     </>
   );
 
-  const nasta: { ogon: string; rubrik: string; text: string; textKort: string; knapp: ReactNode; knappBred: ReactNode; sidorad: string | null } | null = (() => {
+  // Poäng kvar till 100: ingen yta säger att CV:t är klart under 100 (genomgången på Analys, 2026-11-21).
+  const kvarTill100 = poang !== null ? Math.max(0, 100 - poang) : 0;
+  const genomgangLank = aktivt ? (
+    <Link href={flikHref('analys', aktivt.id)} className="underline underline-offset-[3px]" data-se-genomgangen>
+      {PANEL.seGenomgangen}
+    </Link>
+  ) : null;
+
+  const nasta: { ogon: string; rubrik: string; text: string; textKort: string; knapp: ReactNode; knappBred: ReactNode; sidorad: ReactNode } | null = (() => {
     if (!aktivt) return null;
     const lank = (href: string, text: string, bred = false) => (
       <Link href={href} className={`${knappKlass}${bred ? ' t3-stor-bred' : ''}`} data-nasta-knapp>
@@ -385,7 +397,14 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           textKort: NASTA.brev.text,
           knapp: lank('/dashboard/skapa-brev', NASTA.brev.knapp),
           knappBred: lank('/dashboard/skapa-brev', NASTA.brev.knapp, true),
-          sidorad: NASTA.brev.sidorad,
+          sidorad:
+            kvarTill100 > 0 ? (
+              <>
+                {NASTA.brev.sidoradKvar} {PANEL.kvar(kvarTill100)} {genomgangLank}
+              </>
+            ) : (
+              NASTA.brev.sidorad
+            ),
         };
     }
   })();
@@ -600,8 +619,16 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             <span>{PANEL.siffrorSaknas(platshallare.length)}</span>
           ) : (
             <>
-              <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
-              <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+              {fynd.length === 0 && kvarTill100 > 0 ? (
+                <span>
+                  {PANEL.kvar(kvarTill100)} {genomgangLank}
+                </span>
+              ) : (
+                <>
+                  <span className="hidden xl:inline">{PANEL.drarNer(fynd.length)}</span>
+                  <span className="xl:hidden">{PANEL.drarNerKort(fynd.length)}</span>
+                </>
+              )}
             </>
           )}
         </p>
@@ -1060,12 +1087,17 @@ function PotentialStapel({ nu, med, etikett }: { nu: number; med: number; etiket
   const nuX = x0 + (B * nu) / 100;
   const medX = x0 + (B * med) / 100;
   return (
-    <svg viewBox="0 0 270 98" className="block min-w-0 flex-1" style={{ maxWidth: 300 }} role="img" aria-label={PANEL.potentialAria(nu, med)}>
-      <rect x="0" y="0" width="270" height="26" rx="8" style={{ fill: 'var(--sess-rad3-yta)' }} />
-      <text x="10" y="17" fontSize="11" fontWeight="700" style={{ fill: 'var(--sess-rad3-ink)' }}>
-        {etikett ?? PANEL.medForslag(med)}
-      </text>
-      <path d={`M${medX} 30V52`} style={{ stroke: 'var(--t3-streck)' }} strokeWidth="2" strokeDasharray="3 4" strokeLinecap="round" />
+    <svg viewBox="0 0 270 98" className="block min-w-0 flex-1" style={{ maxWidth: 300 }} role="img" aria-label={med > nu ? PANEL.potentialAria(nu, med) : PANEL.idagAria(nu)}>
+      {/* Bubblan bara när "med"-talet är högre än i dag (samma regel på telefon). */}
+      {med > nu ? (
+        <>
+          <rect x="0" y="0" width="270" height="26" rx="8" style={{ fill: 'var(--sess-rad3-yta)' }} />
+          <text x="10" y="17" fontSize="11" fontWeight="700" style={{ fill: 'var(--sess-rad3-ink)' }}>
+            {etikett ?? PANEL.medForslag(med)}
+          </text>
+          <path d={`M${medX} 30V52`} style={{ stroke: 'var(--t3-streck)' }} strokeWidth="2" strokeDasharray="3 4" strokeLinecap="round" />
+        </>
+      ) : null}
       <rect x="1" y="54" width="268" height="22" rx="11" style={{ fill: 'var(--papper)', stroke: 'var(--sess-kant)' }} strokeWidth="2" />
       <rect x={x0} y="56" width={Math.max(18, medX - x0)} height="18" rx="9" style={{ fill: 'var(--sess-rad3-yta)' }} />
       <rect className="cv3-stapel-nu" x={x0} y="56" width={Math.max(18, nuX - x0)} height="18" rx="9" style={{ fill: 'var(--koppar)' }} />

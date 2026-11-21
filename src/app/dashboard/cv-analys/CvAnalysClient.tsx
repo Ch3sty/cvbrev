@@ -171,6 +171,16 @@ export default function CvAnalysClient({
     [data.cvs, data.userId]
   );
 
+  // En ny analys är klar: till genomgången för det CV:t (Analys i läget
+  // resultat). Adressen byts, så sidan läses om på servern och AnalysVy
+  // monteras om med den nya analysen (nyckeln i page.tsx).
+  const handleAnalysisDone = useCallback(
+    (cvId: string) => {
+      router.replace(flikHref('analys', cvId));
+    },
+    [router]
+  );
+
   // Klart: tillbaka till Ditt CV (byggspecen avsnitt 8, fynd 4).
   const handleWizardComplete = useCallback(() => {
     router.push(flikHref('cv', ater?.cvId ?? startCvId ?? null));
@@ -230,6 +240,7 @@ export default function CvAnalysClient({
         onAnalysisStart={handleAnalysisStart}
         onPollJob={pollForJobResult}
         onComplete={handleWizardComplete}
+        onAnalysisDone={handleAnalysisDone}
         aterupptagning={ater}
         startCvId={startCvId}
       />

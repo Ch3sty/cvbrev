@@ -1,58 +1,62 @@
 /**
- * Analys-sidans texter (CV-rummet steg 4, skissen Analys). Introts och
- * spärrens texter är dagens (CVAnalysisIntro, paywall-copy); betalväggens
- * rubrik, brödtext, prisrad och knapp kommer alltid ur hjälparna.
- * Inga tankstreck, ordet AI används inte.
+ * Analys-sidans texter (CV-rummet steg 4, genomgången del för del sedan
+ * 2026-11-21). Betalväggens rubrik, brödtext, prisrad och knapp kommer
+ * alltid ur hjälparna (paywall-copy, KampanjPrisKontext).
+ * Inga tankstreck, ordet AI används inte (Jobbcoachen).
  */
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
-const TALORD = ['Inget', 'En', 'Två', 'Tre', 'Fyra', 'Fem', 'Sex', 'Sju', 'Åtta', 'Nio', 'Tio']
+const TALORD = ['Inga', 'En', 'Två', 'Tre', 'Fyra', 'Fem', 'Sex', 'Sju', 'Åtta', 'Nio', 'Tio']
+const talord = (n: number) => TALORD[n] ?? String(n)
+const sma = (s: string) => s.charAt(0).toLowerCase() + s.slice(1)
 
 export const ANALYS = {
   ogon: (datum: string | null) => (datum ? `Läsbarhetspoäng · analyserat ${datum}` : 'Läsbarhetspoäng'),
-  rubrik: (n: number) => (n === 0 ? 'Inget drar ner just nu' : n === 1 ? 'En sak drar ner' : `${TALORD[n] ?? n} saker drar ner`),
-  ingress: (n: number) =>
-    n === 0
-      ? 'Förslagen höjer inte poängen just nu. Välj en mall och ladda ner.'
-      : n === 1
-        ? 'Den går att åtgärda på en kväll. Siffran på arket visar var den sitter.'
-        : 'Alla går att åtgärda på en kväll. Siffrorna på arket visar var de sitter.',
-  ingressKort: (n: number) => (n === 0 ? 'Förslagen höjer inte poängen just nu.' : 'Siffrorna på arket visar var de sitter.'),
+
+  /* ---------------------------------------------------- väggen, resultat */
+  rubrik: (kvar: number) => (kvar <= 0 ? '100 av 100' : `${kvar} poäng kvar till 100`),
+  ingressMedForslag: (med: number) =>
+    med >= 100 ? 'Våra förslag tar dig hela vägen till 100.' : `Våra förslag tar dig till ${med}. Resten gör du själv, del för del här nedanför.`,
+  ingressMedForslagKort: (med: number) => (med >= 100 ? 'Våra förslag tar dig hela vägen till 100.' : `Våra förslag tar dig till ${med}.`),
+  ingressEget: (delar: number) =>
+    delar === 1
+      ? 'De sitter i en del. Genomgången visar vad som saknas och var du fyller i det.'
+      : `De sitter i ${sma(talord(delar))} delar. Genomgången visar vad som saknas och var du fyller i det.`,
+  ingressEgetKort: (delar: number) => (delar === 1 ? 'De sitter i en del.' : `De sitter i ${sma(talord(delar))} delar.`),
+  ingressKlar: 'Varje del är på plats. Välj en mall och ladda ner.',
   idag: 'av 100 i dag',
   medForslag: 'med våra förslag',
-  talAria: (idag: number, med: number) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} med våra förslag.`,
+  medSiffror: 'med dina siffror',
+  medForslagOchSiffror: 'med förslag och siffror',
+  talAria: (idag: number) => `Läsbarhetspoängen är ${idag} av 100 i dag.`,
+  talAriaMed: (idag: number, med: number, text: string) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} ${text}.`,
   atgarda: 'Åtgärda i CV:t',
-  atgardaSidorad: 'Du väljer vilka förslag som följer med till CV:t.',
+  atgardaSidorad: 'Du väljer vilka förslag som följer med.',
+  oppnaCv: 'Öppna CV:t',
+  oppnaCvSidorad: 'Poängen räknas om när du sparar.',
   laddaNer: 'Välj mall och ladda ner',
   laddaNerSidorad: `Samma CV i ${TEMPLATE_COUNT} mallar.`,
 
-  drarNerOgon: 'Vad som drar ner, i ordning',
-  borjaMed: (typ: 'profil' | 'roll' | 'kompetenser', foretag?: string) =>
-    typ === 'profil' ? 'Börja med sammanfattningen' : typ === 'kompetenser' ? 'Börja med kompetenserna' : foretag ? `Börja med rollen på ${foretag}` : 'Börja med rollen',
-  borjaMedRad: (typ: 'profil' | 'roll' | 'kompetenser') =>
-    typ === 'profil'
-      ? 'Det första rekryteraren läser. Vårt förslag säger tydligare vilken roll du har och vad du kan.'
-      : typ === 'kompetenser'
-        ? 'Kompetenser som rekryterare letar efter i roller som dina. Lägg bara till dem du faktiskt har.'
-        : 'Vårt förslag beskriver vad du gjorde, rad för rad, med verb först.',
-  // Siffrorna som står kvar i CV:t (efterrättning A 2026-11-21).
-  rubrikAterstar: (n: number) => (n === 1 ? 'En sak återstår' : `${TALORD[n] ?? n} saker återstår`),
-  siffrorIngress: 'Där det står [antal] skriver du ditt eget tal. Markeringen på arket visar var.',
-  siffrorIngressKort: 'Där det står [antal] skriver du ditt eget tal.',
-  siffrorSidorad: (rader: number) =>
-    rader === 1 ? 'En rad väntar på din siffra.' : `${TALORD[rader] ?? rader} rader väntar på dina siffror.`,
-  medSiffror: 'med dina siffror',
-  medForslagOchSiffror: 'med förslag och siffror',
-  mojligaMedSiffror: 'poäng möjliga med förslag och siffror',
-  talAriaMed: (idag: number, med: number, text: string) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} ${text}.`,
-  borjaMedSiffror: 'Börja med dina siffror',
-  siffrorRubrik: 'Dina siffror',
-  siffrorText: 'Vi skriver aldrig tal åt dig. Där det står [antal] fyller du i ditt eget, till exempel hur många kunder, order eller kronor.',
-  siffrorKort: 'Där det står [antal] fyller du i ditt eget tal.',
-  siffrorKnapp: 'Fyll i siffrorna',
-  siffrorAlt: 'dina siffror',
-  inget: 'Inget drar ner just nu',
-  ingetRad: 'Förslagen höjer inte poängen. Ditt CV är redo för en mall.',
+  /* ------------------------------------------------ golvet, genomgången */
+  genomgangOgon: 'Genomgången, del för del',
+  genomgangRubrik: (kvar: number) =>
+    kvar === 0 ? 'Sju delar. Alla är på plats.' : `Sju delar. ${talord(kvar)} har poäng kvar.`,
+  genomgangAv: (namn: string | null) => (namn ? `Genomgång av ”${namn}”.` : 'Genomgång av CV:t.'),
+  forslagSkrevs: (datum: string) => `Förslagen skrevs ${datum}.`,
+  nyaForslag: 'Be om nya förslag',
+  allt: 'Allt på plats',
+  ochFler: (n: number) => ` Och ${sma(talord(n))} till.`,
+  delAria: (namn: string, poang: number, max: number) => `${namn}, ${poang} av ${max} poäng`,
+  delAv: (poang: number, max: number) => `${poang} av ${max}`,
+  saknas: 'Saknas',
+  delvis: 'Delvis',
+  klar: 'Klar',
+  oppnaICv: 'Öppna i CV:t',
+  jobbcoachensForslag: 'Jobbcoachens förslag',
+  laststForslag: (titel: string) => titel,
+  lastAria: (titel: string) => `${titel}. Förslaget ingår i Premium.`,
+
+  /* Förslaget utfällt (dagens papper). */
   nuvarande: 'Nuvarande text',
   forslag: 'Vårt förslag',
   forslagKompetenser: 'Lägg till om de stämmer',
@@ -64,51 +68,54 @@ export const ANALYS = {
   fyllI: 'Fyll i din egen siffra där det står [antal]. Vi hittar aldrig på tal åt dig, och en siffra räknas först när du skrivit in den.',
   plus: (n: number) => `+${n} poäng`,
   plusAria: (n: number) => `Ger ${n} poäng`,
-  lastAria: (titel: string) => `${titel}. Åtgärden ingår i Premium.`,
 
-  premOgon: 'Poängen och det tyngsta fyndet ingår',
+  // Siffrorna som står kvar i CV:t (efterrättning A 2026-11-21).
+  siffrorSidorad: (rader: number) =>
+    rader === 1 ? 'En rad väntar på din siffra.' : `${talord(rader)} rader väntar på dina siffror.`,
+  siffrorRubrik: 'Dina siffror',
+  siffrorText: 'Vi skriver aldrig tal åt dig. Där det står [antal] fyller du i ditt eget, till exempel hur många kunder, order eller kronor.',
+  siffrorKnapp: 'Fyll i siffrorna',
+
+  premOgon: 'Poängen och det tyngsta förslaget ingår',
   seVadSomIngar: 'Se vad som ingår',
 
   mallen: (namn: string) => `Mallen ${namn}.`,
   seMallar: `Se det i ${TEMPLATE_COUNT} mallar`,
 
-  sasOgon: 'Så räknas poängen',
-  mojliga: 'poäng möjliga',
-  ingenOkning: 'Ingen ökning med förslagen',
-  idagRad: 'I dag',
-  stapelAria: (idag: number, delar: string) => `${idag} poäng i dag.${delar ? ` ${delar}` : ''}`,
+  /* ------------------------------------------------- Vägen till 100 */
+  vagenOgon: 'Vägen till 100',
+  vagenIdag: 'I dag',
+  vagenForslag: 'Våra förslag',
+  vagenSjalv: 'Du själv',
+  vagenAria: (idag: number, forslag: number, sjalv: number) =>
+    `${idag} poäng i dag. Våra förslag ger ${forslag} till. Du själv kan hämta ${sjalv} till.`,
   forklaring:
-    'Poängen räknas ur det som står i ditt CV: kontaktuppgifter, personbeskrivning, roller, kompetenser, utbildning, språk, datum och längd. Varje del har en högsta poäng och tillsammans blir det 100. Samma CV ger alltid samma poäng, och plus på ett förslag är exakt vad poängen blir med förslaget infört.',
-  allaDelar: 'Alla sju delar',
-  delAv: (idag: number, max: number) => `${idag} av ${max}`,
+    'Poängen räknas ur det som står i ditt CV, del för del. Samma CV ger alltid samma poäng, och plus på ett förslag är exakt vad poängen blir med förslaget infört. Allt som saknas står i genomgången.',
 
-  arkAlt: (n: number, delar: string) => (n ? `Ditt CV med ${n} ${n === 1 ? 'markering' : 'markeringar'}: ${delar}.` : 'Ditt CV i sin mall.'),
+  arkAlt: (delar: string) => (delar ? `Ditt CV med markeringar för delarna: ${delar}.` : 'Ditt CV i sin mall.'),
 
-  // Introt: dagens texter (CVAnalysisIntro).
+  /* ------------------------------------------------------------ introt */
   introOgon: 'CV-analys',
   introRubrik: 'Se ditt CV som rekryteraren ser det',
-  introIngress: 'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på under en minut.',
-  introKnapp: 'Analysera mitt CV',
+  introIngress: (namn: string | null) =>
+    `Vi går igenom ${namn ? `”${namn}”` : 'CV:t'} del för del, från kontaktuppgifter till språk, och räknar en poäng av 100. Det tar under en minut.`,
+  introKnapp: 'Analysera det här CV:t',
   introSidorad: 'En analys ingår gratis. Poängen får du direkt.',
   introSidoradPremium: 'Analysen ingår. Kör den så ofta du vill.',
-  introPanelRubrik: 'En komplett bild av ditt CV',
-  introPanelRad: 'Vi går igenom struktur, nyckelord och formuleringar, och visar vad som håller dig tillbaka.',
-  introInnehall: [
-    'Poäng för hur väl rekryteringssystem läser ditt CV',
-    'Analys av dina kompetenser och nyckelord',
-    'Granskning av personlig beskrivning',
-    'Konkreta förbättringar för varje sektion',
-    'Jämförelse av före och efter',
-    'Möjlighet att exportera till PDF',
-  ],
-  fordelar: [
+  introPanelOgon: 'Så går det till',
+  introPanelRubrik: 'Hela CV:t, del för del',
+  introSteg: [
     {
-      titel: 'Läsbar i rekryteringssystem',
-      text: 'De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna först. Vi visar om ditt CV klarar det.',
+      titel: 'Vi läser CV:t',
+      text: 'Sju delar: kontaktuppgifter, personbeskrivning, erfarenhet, kompetenser, utbildning, språk och helheten med datum och längd.',
     },
-    { titel: 'Genomgång per avsnitt', text: 'Färdiga formuleringar för varje del av CV:t, från profiltext till kompetenser.' },
-    { titel: 'Snabbt resultat', text: 'Fullständig analys på under en minut. Inga onödiga väntetider.' },
+    { titel: 'Du får poängen', text: 'En poäng av 100 och vad som saknas i varje del. Samma CV ger alltid samma poäng.' },
+    {
+      titel: 'Du rättar, vi skriver',
+      text: 'Jobbcoachen skriver förslag på texterna. Resten fyller du i själv, och poängen räknas om när du sparar.',
+    },
   ],
+  introBytCv: 'Vill du analysera ett annat CV väljer du det under Byt CV.',
   kvotLabel: 'Analyser kvar',
 
   // Utan struktur.

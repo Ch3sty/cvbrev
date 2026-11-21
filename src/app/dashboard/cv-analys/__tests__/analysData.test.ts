@@ -46,6 +46,56 @@ describe('Analys-sidan, gratisnivån: poängen och exakt ett fynd med åtgärd',
     })
   }
 
+  it('genomgången: sju delar öppna för alla, förslagen i sin del, ingen låst text', () => {
+    for (const f of MED_FORSLAG) {
+      const rad = { structured_data: f.structured_data, cv_text: f.cv_text }
+      const jobb = { id: 'jobb-' + f.namn, completed_at: null, result: f.analys as Record<string, unknown> }
+      const gratis = byggAnalysVy(jobb, rad, false)!
+      const full = byggAnalysVy(jobb, rad, true)!
+      expect(gratis.delar).toHaveLength(7)
+      // Kontrollerna och delarnas poäng är desamma för gratis och Premium.
+      expect(gratis.delar).toEqual(full.delar)
+      expect(gratis.delar.reduce((s, d) => s + d.poang, 0)).toBe(gratis.poang.idag)
+      for (const x of gratis.fynd) {
+        const del = x.typ === 'profil' ? 'profil' : x.typ === 'roll' ? 'erfarenhet' : x.typ === 'kompetenser' ? 'kompetenser' : x.del
+        expect(x.del).toBe(del)
+      }
+      // Ingen förslagstext för de låsta någonstans i datan.
+      const lasta = full.fynd.filter((x) => gratis.fynd.find((g) => g.nyckel === x.nyckel && !g.oppen) && x.forslag)
+      const json = JSON.stringify(gratis)
+      for (const l of lasta) expect(json).not.toContain(l.forslag!)
+    }
+  })
+
+  it('Öppna i CV:t döljs bara där öppna förslag täcker allt som saknas', () => {
+    let tackta = 0
+    for (const f of MED_FORSLAG) {
+      const rad = { structured_data: f.structured_data, cv_text: f.cv_text }
+      const jobb = { id: 'jobb-' + f.namn, completed_at: null, result: f.analys as Record<string, unknown> }
+      for (const harFull of [true, false]) {
+        const vy = byggAnalysVy(jobb, rad, harFull)!
+        tackta += vy.delarTackta.length
+        for (const id of vy.delarTackta) {
+          const delensFynd = vy.fynd.filter((x) => x.del === id && x.typ !== 'siffror')
+          expect(delensFynd.length).toBeGreaterThan(0)
+          // Ett låst förslag i delen: knappen står kvar.
+          expect(delensFynd.every((x) => x.oppen)).toBe(true)
+        }
+      }
+    }
+    expect(tackta).toBeGreaterThan(0)
+  })
+
+  it('väggen säger aldrig att inget återstår under 100', async () => {
+    const { ANALYS } = await import('../analysTexter')
+    for (let kvar = 1; kvar <= 100; kvar++) {
+      expect(ANALYS.rubrik(kvar)).toBe(`${kvar} poäng kvar till 100`)
+    }
+    expect(ANALYS.rubrik(0)).toBe('100 av 100')
+    const allaTexter = JSON.stringify(ANALYS)
+    expect(allaTexter).not.toMatch(/Inget drar ner|höjer inte poängen|Ingen ökning/)
+  })
+
   it('ett låst profilförslag blir en rubrik utan text', () => {
     const result = {
       profileSummary: { atsImpact: 1, improvedText: 'Hemlig ny profiltext.' },
