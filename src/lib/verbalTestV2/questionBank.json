@@ -71,8 +71,10 @@
       },
       {
         "text": "Majoriteten av anställda känner sig bekväma att prata om mental ohälsa utan att chefen tar upp det först.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att 65 procent skulle känna sig mer bekväma om chefen tog upp ämnet först, vilket motsäger att majoriteten redan känner sig bekväma utan det."
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger bara att 65 procent skulle bli mer bekväma om chefen tog upp ämnet först, inte hur bekväma de är i dag, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "En undersökning visade att 65 procent av medarbetare skulle känna sig mer bekväma att prata om mental ohälsa om deras chef tog upp ämnet först."
       }
     ]
   },
@@ -313,11 +315,10 @@
       },
       {
         "text": "Alla länder subventionerar gym som en del av sjukförsäkringen.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har börjat subventionera gym, inte att alla gör det, vilket motsäger påståendet.",
-        "stod": [
-          "Vissa länder har börjat subventionera gym och hälsoaktiviteter som en del av sjukförsäkringen."
-        ]
+        "correctAnswer": "cannot_say",
+        "explanation": "Att vissa länder har gjort det motsäger inte att alla har det, och ingen mening i texten utesluter det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Vissa länder har börjat subventionera gym och hälsoaktiviteter som en del av sjukförsäkringen."
       }
     ]
   },
@@ -338,8 +339,10 @@
       },
       {
         "text": "Alla företag som säger sig arbeta med cirkulär ekonomi gör verkliga förändringar.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att kritiker menar att begreppet används för greenwashing av företag som i praktiken inte förändrar sina affärsmodeller, vilket motsäger påståendet om verkliga förändringar."
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger bara att kritiker menar att begreppet används för greenwashing. Det är en åsikt och inget konstaterat faktum om något företag, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Kritiker menar dock att begreppet används för greenwashing av företag som i praktiken inte förändrar sina affärsmodeller fundamentalt."
       },
       {
         "text": "EU har infört lagstiftning som kräver att produkter ska vara mer reparerbara.",
@@ -376,11 +379,10 @@
       },
       {
         "text": "Alla länder har höjt pensionsåldern som svar på demografiska utmaningar.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har höjt pensionsåldern, inte alla, vilket motsäger påståendet.",
-        "stod": [
-          "Vissa länder har höjt pensionsåldern för att hantera situationen."
-        ]
+        "correctAnswer": "cannot_say",
+        "explanation": "Att vissa länder har gjort det motsäger inte att alla har det, och ingen mening i texten utesluter det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Vissa länder har höjt pensionsåldern för att hantera situationen."
       },
       {
         "text": "Teknologi kan helt eliminera behovet av mänsklig vårdpersonal.",
@@ -457,8 +459,10 @@
       },
       {
         "text": "All användning av sociala medier leder till ångest och depression.",
-        "correctAnswer": "false",
-        "explanation": "Texten kopplar överdriven användning till ångest och depression, inte all användning, vilket motsäger den absoluta generaliseringen."
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten kopplar överdriven användning till ångest och depression men säger ingenting om annan användning, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Samtidigt har forskning kopplat överdriven användning till ökad ångest och depression, särskilt bland tonåringar."
       },
       {
         "text": "Algoritmer på sociala medier tenderar att främja kontroversiellt innehåll.",
@@ -470,11 +474,10 @@
       },
       {
         "text": "Alla länder har infört lagstiftning mot desinformation på sociala medier.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att vissa länder har infört lagstiftning, inte alla, vilket motsäger påståendet.",
-        "stod": [
-          "Vissa länder har infört lagstiftning som tvingar plattformar att ta ansvar för innehåll."
-        ]
+        "correctAnswer": "cannot_say",
+        "explanation": "Att vissa länder har gjort det motsäger inte att alla har det, och ingen mening i texten utesluter det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Vissa länder har infört lagstiftning som tvingar plattformar att ta ansvar för innehåll."
       }
     ]
   },

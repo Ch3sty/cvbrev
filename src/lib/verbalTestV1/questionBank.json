@@ -127,11 +127,10 @@
     "statements": [
       {
         "text": "Alternativa investeringar ger alltid bättre avkastning än traditionella investeringar.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att alternativa investeringar presterat bättre 'det senaste decenniet' men betonar att det inte finns någon garanti för framtida resultat. Ordet 'alltid' motsägs alltså.",
-        "stod": [
-          "Trots högre avkastning det senaste decenniet finns ingen garanti för framtida resultat."
-        ]
+        "correctAnswer": "cannot_say",
+        "explanation": "Att det inte finns någon garanti betyder inte att avkastningen någon gång har varit sämre, och ingen mening i texten säger det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Trots högre avkastning det senaste decenniet finns ingen garanti för framtida resultat."
       },
       {
         "text": "Finansiella rådgivare rekommenderar att majoriteten av portföljen består av alternativa tillgångar.",
@@ -224,8 +223,10 @@
       },
       {
         "text": "Alla medarbetare som känner sig förbisedda för befordran slutar inom två år.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att 65 procent av dem som slutar gör det inom två år efter att ha känt sig förbisedda, inte alla. Ordet 'alla' motsägs av siffran."
+        "correctAnswer": "cannot_say",
+        "explanation": "Texten säger hur stor andel av dem som slutar som har känt sig förbisedda, inte hur många av de förbisedda som slutar, så en andel motsäger inte \"alla\" och det går inte att avgöra.",
+        "stod": [],
+        "narmast": "En nyligen genomförd undersökning visade att 65 procent av medarbetare som slutar gör det inom två år efter att de känt sig förbisedda för befordran."
       },
       {
         "text": "Företag med låg personalomsättning erbjuder alltid högre löner än konkurrenter.",
@@ -375,8 +376,10 @@
       },
       {
         "text": "Alla företag erbjuder tillgång till psykologer som anställningsförmån.",
-        "correctAnswer": "false",
-        "explanation": "Texten säger att 'många' företag erbjuder tillgång till psykologer, inte alla. Ordet 'alla' motsägs."
+        "correctAnswer": "cannot_say",
+        "explanation": "Att många företag erbjuder psykologer motsäger inte att alla gör det, och ingen mening i texten utesluter det, så det går inte att avgöra.",
+        "stod": [],
+        "narmast": "Många företag erbjuder nu tillgång till psykologer och coaches som en del av anställningsförmånerna."
       },
       {
         "text": "Företag med hälsoprogram har lägre sjukfrånvaro än genomsnittet.",

@@ -73,12 +73,11 @@
    },
    {
     "text": "Semesterdagar som inte tas ut kan alltid sparas till ett senare år.",
-    "correctAnswer": "false",
+    "correctAnswer": "cannot_say",
     "typ": "kvantor",
-    "explanation": "Texten säger att dagarna kan sparas i vissa fall, inte i alla. Ordet alltid gör påståendet falskt.",
-    "stod": [
-     "Dagar som inte tas ut kan i vissa fall sparas till ett senare år."
-    ]
+    "explanation": "Att dagarna kan sparas i vissa fall motsäger inte att de alltid kan sparas, och ingen mening i texten utesluter det, så det går inte att avgöra.",
+    "stod": [],
+    "narmast": "Dagar som inte tas ut kan i vissa fall sparas till ett senare år."
    },
    {
     "text": "De flesta anställda tar ut sin semester i juli.",
