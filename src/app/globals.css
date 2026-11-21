@@ -4242,3 +4242,37 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-typkort > span { padding: 8px 10px 10px; font-weight: 600; font-size: 13px; line-height: 16px; min-height: 44px; display: flex; align-items: center; }
 .prov3-typkort[aria-current="page"] { background: var(--koppar-mjuk); box-shadow: inset 0 0 0 2px var(--koppar), 0 3px 0 var(--koppar-djup); }
 @media (prefers-reduced-motion: reduce) { .prov3-ark { transition: none; } .prov3-typkort { transition: none; } }
+
+/* Provsidans startskärm enligt skissen (Publik-prov-start-1440 och -412). */
+.prov3-start { min-height: 100dvh; }
+.prov3-start-vagg { border-radius: 0 0 32px 32px; }
+.prov3-start-bild { position: relative; width: 168px; flex-shrink: 0; }
+.prov3-start-brade .sess-matrisbrade { max-width: none; padding: 10px; gap: 6px; border-radius: 18px; }
+.prov3-start-klossar { display: none; }
+.prov3-start-scen { width: 168px; flex-shrink: 0; }
+.prov3-start-faktaikon { width: 34px; height: 34px; border-radius: 10px; background: var(--vagg-2); color: var(--koppar-ljus); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (min-width: 1024px) {
+  .prov3-start-bild { width: 470px; height: 340px; }
+  .prov3-start-brade { position: absolute; right: 0; top: 0; width: 320px; transform: rotate(2deg); }
+  .prov3-start-brade .sess-matrisbrade { padding: 14px; gap: 8px; border-radius: 26px; box-shadow: 0 6px 0 var(--sess-brade-kant), 0 28px 48px rgba(0, 0, 0, .28); }
+  .prov3-start-klossar { display: flex; flex-direction: column; gap: 16px; position: absolute; left: 0; top: 24px; z-index: 1; }
+  .prov3-start-kloss { position: relative; display: block; width: 108px; height: 96px; }
+  .prov3-start-kloss:nth-child(2) { margin-left: -24px; }
+  .prov3-start-scen { width: 400px; }
+}
+.prov3-start-panel { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant), 0 20px 40px var(--sess-skugga); padding: 18px 16px 18px; }
+@media (min-width: 1024px) { .prov3-start-panel { padding: 22px 26px 24px; } }
+@media (min-width: 1280px) { .prov3-start-panel .prov3-typval { grid-template-columns: repeat(9, minmax(0, 1fr)); } }
+.prov3-start-punkter { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.prov3-start-punkter > li { display: flex; align-items: center; gap: 14px; }
+.prov3-start-punkter > li:not([data-sista]) { display: none; }
+.prov3-start-punkter > li > span:last-child > b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; color: var(--ink-1); }
+.prov3-start-punkter > li > span:last-child > span { display: block; font-size: 13px; line-height: 19px; color: var(--ink-2); }
+.prov3-start-punktikon { width: 48px; height: 48px; border-radius: 14px; background: var(--papper); box-shadow: inset 0 0 0 2px var(--sess-kant), 0 3px 0 var(--sess-kant); color: var(--ink-1); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (min-width: 1024px) {
+  .prov3-start-punkter { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; gap: 24px; }
+  .prov3-start-punkter > li:not([data-sista]) { display: flex; }
+}
+.prov3-start-fot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; flex-direction: column; gap: 8px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--golv); border-top: 1px solid var(--sess-kant); }
+.prov3-start-kloss svg { width: 52px; height: 52px; }
+.prov3-start-kloss > span.matrisyta { padding: 20px 10px 10px; }

@@ -216,6 +216,15 @@ export const PROV_RAM = {
     fotnot: 'Inget konto behövs för att prova.',
     valjTyp: 'Välj typ',
     valjTypRad: 'Fem uppgifter i varje prov, sex i I-provet.',
+    valjTypRubrik: 'Vilket test vill du prova?',
+    /** Matrisens ingress efter den fetstilta meningen (skissen). */
+    ingressMatris: ' Fem uppgifter, inget konto, ingen tidtagning. Resultatet får du direkt.',
+    /** Väggens eyebrow: "Figurer och mönster, fem uppgifter". */
+    eyebrow: (typ: ProvTyp) => `${PROV_NAMN[typ]}, ${antalOrd(provAntal(typ))} uppgifter`,
+    /** Telefonens tre fakta bredvid brädet. */
+    fakta: (typ: ProvTyp): [string, string, string] => [`${antalOrd(provAntal(typ), true)} uppgifter`, `Cirka ${antalOrd(MINUTER[typ])} minuter`, 'Inget konto'],
+    merFore: 'Vill du veta mer om hur testerna fungerar?',
+    merLank: 'Läs om rekryteringstester',
     valjTypAria: 'Välj typ av prov',
   },
   resultat: {
