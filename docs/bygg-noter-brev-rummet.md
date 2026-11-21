@@ -456,6 +456,8 @@ Slutkontrollens resultat står i `docs/qa/brev-rummet-slutkontroll-2026-11-21.md
 - **Laddvyer**: ny `mina-brev/mallar/loading.tsx` (samma klasser som sidan). Dina brev väljer form med eller utan brev ur skalets delade data (`HemLaddar`, sidomenyns antal). Arbetslägets laddvy ritar Brevets riktiga flikrad.
 - **Perf-skriptet**: `scripts/perf-inloggat.ts` mäter `/dashboard/mina-brev/mallar` och Brevet med flödesbudgeten (2,0 s); de borttagna rutterna (`?steg=2..6`, `/edit`) är strukna ur listan.
 
+- **Granskningens rättningar (efter slutkontrollen)**: mallväljarens tagg står under namnet (inget klipps); platsen för saknat krav pulserar med fyllnad inom sin rad (ram 2 px inuti, inget sken utanför); det saknade kravets siffra räknas med när siffrorna flyttas isär; Skriv säger "Brevet skrivs mot kraven i annonsen." under uppspelningen (`SKRIV.spelar`); Målgången på telefon har arket mindre och högre så att alla fyra punkterna syns (datorn orörd). Turbopack-bygget (`next build`) är grönt med typkontroll när `turbopack.root` och `outputFileTracingRoot` tillfälligt pekar på `C:/Users/chris/cvbrev` (länkade node_modules), inte commitat.
+
 ### Beslut
 
 - Laddvyn för Dina brev läser formen ur skalets data i klienten i stället för att fråga databasen: laddvyn ska komma direkt.
