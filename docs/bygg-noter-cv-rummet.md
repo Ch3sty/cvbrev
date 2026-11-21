@@ -410,7 +410,7 @@ Bilder i scratchpad `cv/bygge/steg5/ny-anvandare-1440/` (och `bygg/`) och `ny-an
 
 ### Kända brister
 
-- Perioder som "2019 till 2024" delas inte (bara bindestreck), så jobbet visas som pågående och datumpoängen blir lägre. Samma normalisering som på main.
+- Perioder som "2019 till 2024" delades inte (bara bindestreck). Rättat i efterrättning B (`eaf406f9`), se nedan.
 - Uppladdningen sparar texten med `[EMAIL]` och `[TEL]` (som main), så CV:ts egna e-post och telefon ersätts av profilens.
 - Ett rollfynd på Analys öppnar arbetsläget i Erfarenhet på första jobbet, inte på rollen (adressen har inget jobbindex).
 - `klicktest-helskarm-sidor.ts`: kontrollen "arken åtskilda" är röd också på main.
@@ -423,3 +423,16 @@ Inga migreringar. Edge-funktionerna som grenen ändrat (alla tar med `_shared/pi
 ### Hur steg 5 backas
 
 Varje rättelse är en egen commit (tabellen ovan) och går att backa med `git revert`. Sammanslagningarna med main backas med `git revert -m 1 073be47f` respektive `04ac57c0`.
+
+## Efterrättningar 2026-11-21
+
+| Commit | Rättning | Backas |
+|---|---|---|
+| `eaf406f9` | B: perioder med "till", "till och med", "t.o.m.", "to"/"until" och tankstreck delas (`delaPeriod`, `startOchSlut`, `medDeladPeriod` i `poang/matt.ts`), i `normalizeStructuredData` (arket, PDF, Word) och `kanonisktCv` (poängen). Hela perioden i startdatumet utan slut delas också. Kalibreringens tal oförändrade, `POANG_VERSION` 1 | `git revert eaf406f9` |
+| `60591d3d` | C: prompttext i `analyze-cv-background` (tal som finns byts aldrig mot `[antal]`, svenska facktermer, stavning). Inte driftsatt | `git revert 60591d3d` (och driftsätt den gamla) |
+| `1aa7071d` | A: `[antal]` kvar i CV:t. `poang/siffror.ts` (`platshallareKvar`, `plusForSiffror`), Ditt CV:s läge `siffror`, Analys-fyndet Dina siffror, raden och arket vid nedladdning (`rum3/SiffrorKvar.tsx`) på Mallar och i arbetsläget | `git revert deb83978 1aa7071d` (D använder siffror.ts) |
+| `deb83978` | D: `antalFynd` (`poang/fynd.ts`) och `fyndAntal` i `analysForKlient`; flödets "Vi hittade ..." räknar alla fynd som sidan | `git revert deb83978` |
+
+Kontroll: tsc rent, vitest 313 filer, 4032 gröna, 13 överhoppade; `test:ats` grön. Verifierat i Chrome mot lokal server (två testkonton, raderade): Ditt CV, Analys och Mallar med två rader `[antal]` (91 i dag, +3), arbetsläget via Fyll i siffrorna två gånger (profil, sedan erfarenhet), därefter 94 på Analys och inga påminnelser på någon flik utan omladdning. "2017 till 2019" ritas 2017 – 2019 på arket.
+
+Medvetet orört: Ditt CV:s mätare Läsbarheten säger fortfarande "Inget drar ner just nu" när bara siffrorna återstår (uppdraget: övriga delar av sidan lämnas som de är).
