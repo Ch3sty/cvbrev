@@ -34,6 +34,7 @@ import '../brev3.css';
 // Jobbsökets klasser (j3-*), bara i inloggat (src/components/jobb3).
 import '../jobb3.css';
 import '../jobb3-b.css';
+import '../jobb3-c.css';
 
 /** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
 async function rumForRequest(): Promise<Rum> {

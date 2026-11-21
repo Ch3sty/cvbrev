@@ -4,10 +4,10 @@
  * status 404 från rewriten, men ritas inuti dashboardens skal.
  */
 
-import SaknasVy from '../components/SaknasVy'
+import IntervjuSaknas from '@/components/jobb3/intervju/IntervjuSaknas'
 
 export const metadata = { title: 'Provet finns inte', robots: { index: false, follow: false } }
 
 export default function IntervjuSaknasPage() {
-  return <SaknasVy />
+  return <IntervjuSaknas />
 }

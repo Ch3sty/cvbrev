@@ -1,5 +1,5 @@
-import SaknasVy from './components/SaknasVy'
+import IntervjuSaknas from '@/components/jobb3/intervju/IntervjuSaknas'
 
 export default function InforIntervjunNotFound() {
-  return <SaknasVy />
+  return <IntervjuSaknas />
 }
