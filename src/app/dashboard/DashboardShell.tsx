@@ -52,8 +52,8 @@ const FLOW_ROUTES = [
   '/dashboard/linkedin-optimizer',
   // Välkomstskärmen efter köpet äger också hela skärmen (sektion 1).
   '/dashboard/vecka/start',
-  // Nytt intervjuprov (docs/design/rod-trad-prov-spec-2026-09-24.md).
-  '/dashboard/intervju/ny',
+  // Nytt intervjuprov står sedan Jobbsöket omgång 1 i rummet (väggen med
+  // tillbakalänk, skissen Intervju-svar), inte längre i FlowShell.
 ];
 
 // Visas bara för konton som saknar lösenord, alltså en minoritet, och först

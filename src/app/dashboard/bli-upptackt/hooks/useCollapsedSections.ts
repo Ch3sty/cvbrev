@@ -9,9 +9,10 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 // { sections: string[] }) med ägar-RLS, så valet överlever ut- och inloggning
 // och följer med mellan enheter.
 //
-// Noll flimmer: localStorage läses SYNKRONT vid mount så korten renderas i
-// rätt läge direkt. DB-läget synkas i bakgrunden och tar över på ny enhet.
-// Skrivningar går till både localStorage (direkt) och DB (best effort).
+// Första render använder DB-läget som servern läst (samma på server och
+// klient, ingen hydreringsvarning). Finns ingen DB-rad läses localStorage
+// efter monteringen. Skrivningar går till både localStorage (direkt) och DB
+// (best effort).
 
 const PREF_KEY = 'bli_upptackt_collapsed';
 const LS_KEY = 'jobbcoach_bli_upptackt_collapsed';
@@ -55,18 +56,24 @@ export interface CollapsedSectionsApi {
 export function useCollapsedSections(
   initialSections: string[] | null = null
 ): CollapsedSectionsApi {
-  // DB vinner om den finns, annars det synkront lästa localStorage. Båda
-  // avgörs före första render, så ingenting hoppar.
-  const [collapsed, setCollapsed] = useState<Set<string>>(
-    () => new Set(initialSections ?? readLocal())
-  );
+  // DB-läget (från servern) gäller från första render, på servern och i
+  // klienten. localStorage läses INTE i första render: servern ser det inte,
+  // och ett lokalt läge som skiljer sig gav en hydreringsvarning (aria-expanded
+  // och fällningens stil på stegen). Saknas DB-raden läses det lokala läget
+  // efter monteringen i stället.
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => new Set(initialSections ?? []));
   const supabase = getSupabaseClient();
   const userIdRef = useRef<string | null>(null);
 
   // Serverläget skrivs till localStorage så nästa besök renderar likadant
-  // även innan serverdatan hunnit fram.
+  // även innan serverdatan hunnit fram. Utan serverläge tas det lokala in.
   useEffect(() => {
-    if (initialSections) writeLocal(initialSections);
+    if (initialSections) {
+      writeLocal(initialSections);
+      return;
+    }
+    const lokalt = readLocal();
+    if (lokalt.length) setCollapsed(new Set(lokalt));
   }, [initialSections]);
 
   // Skrivningarna behöver användarens id. Det hämtas en gång, men blockerar

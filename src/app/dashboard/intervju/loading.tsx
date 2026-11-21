@@ -1,17 +1,17 @@
-import LoadingSkeleton from '@/components/shell/LoadingSkeleton'
-import VaggLaddar from '@/components/rum/VaggLaddar'
-import Golv from '@/components/rum/Golv'
+import { Golv, JobbVagg, LyftPanel, PanelSkelett, VaggSkelett } from '@/components/jobb3/kit'
 
-/** Skelett för Inför intervjun: väggen och det lyfta kortet, samma minsta höjd som sidan. */
+/** Skelett för Inför intervjun: väggen och panelen i samma höjd som sidan. */
 export default function Loading() {
   return (
-    <>
-      <VaggLaddar label="Laddar Inför intervjun" />
+    <div aria-busy="true" aria-label="Laddar Inför intervjun">
+      <JobbVagg hojd={612} hojdMobil={432} flik={false}>
+        <VaggSkelett />
+      </JobbVagg>
       <Golv>
-        <div className="min-h-[520px] w-full max-w-3xl space-y-6 sm:space-y-8" aria-busy="true">
-          <LoadingSkeleton variant="card" label="Laddar Inför intervjun" />
-        </div>
+        <LyftPanel etikett="Laddar">
+          <PanelSkelett kort={2} />
+        </LyftPanel>
       </Golv>
-    </>
+    </div>
   )
 }

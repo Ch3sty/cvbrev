@@ -15,7 +15,7 @@ type Parametrar = URLSearchParams | Record<string, string | string[] | undefined
 
 function las(p: Parametrar, nyckel: string): string | null {
   if (!p) return null
-  if (p instanceof URLSearchParams) return p.get(nyckel)
+  if (p instanceof URLSearchParams || typeof (p as { get?: unknown }).get === 'function') return (p as URLSearchParams).get(nyckel)
   const v = p[nyckel]
   if (Array.isArray(v)) return v[0] ?? null
   return v ?? null

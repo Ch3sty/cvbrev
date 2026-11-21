@@ -4,6 +4,7 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Check } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
+import { HIDDEN_ITEMS, SHOWN_ITEMS } from './delas';
 
 interface ConsentModalProps {
   open: boolean;
@@ -16,22 +17,6 @@ interface ConsentModalProps {
   onConfirm: (showPersonality: boolean, showFullWorkstyle: boolean) => void;
   onCancel: () => void;
 }
-
-const SHOWN_ITEMS = [
-  'Yrkesroll och erfarenhetsnivå',
-  'Kompetenser från ditt CV',
-  'Verifierade testresultat med percentiler',
-  'Personlighetsstyrkor och arbetsstil (valfritt)',
-  'Region och tillgänglighet',
-];
-
-const HIDDEN_ITEMS = [
-  'Ditt rå-CV eller personnummer',
-  'Nuvarande arbetsgivare',
-  'Kontaktuppgifter',
-  'Personlighetstestets råpoäng eller fullständiga profil',
-  'Brev, analyser och chatthistorik',
-];
 
 /**
  * Samtycket som öppnas första gången synligheten slås på (consent_given_at

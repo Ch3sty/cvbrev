@@ -1,9 +1,7 @@
 'use client';
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
-import RumHuvud from '@/components/rum/RumHuvud'
-import Golv from '@/components/rum/Golv'
-import LyftKort from '@/components/rum/LyftKort'
+import Topprad from '@/components/rum/Topprad'
+import { Golv, JobbVagg, LyftPanel, PanelHuvud, StorKnapp, TILLBAKA_JOBBSOKET, VaggText } from '@/components/jobb3/kit'
 import { ARBETSSTIL, RUBRIK } from '@/lib/rum/copy'
 import { getTestConfig } from '@/app/dashboard/tester/testConfig'
 
@@ -44,29 +42,32 @@ export default function ArbetsstilClient({ data }: { data: ArbetsstilData }) {
     <>
     {/* h1 är undersidans namn (spec 18.4 punkt 1). Arketypen står i raden;
         utan test lyfts vyns enda handling i ett kort. */}
-    <RumHuvud
-      title={RUBRIK.arbetsstil}
-      description={ownReport ? ownReport.archetype.title : ARBETSSTIL.rad}
-      tat={done}
-    />
-    <Golv lyft={!done}>
+    <JobbVagg hojd={316} hojdMobil={260} flik={null} tillbaka={{ ...TILLBAKA_JOBBSOKET, ton: 'koppar' }} atgarder={<Topprad bara="atgarder" />} luft={96}>
+      <div className="mt-1">
+        <VaggText rubrik={RUBRIK.arbetsstil} ingress={ownReport ? ownReport.archetype.title : ARBETSSTIL.rad} bredIngress />
+      </div>
+    </JobbVagg>
+    <Golv>
     {!done ? (
-      <LyftKort
-        label={ARBETSSTIL.forstTitel}
-        titel={ARBETSSTIL.forstTitel}
-        text={ARBETSSTIL.forstText(
-          { antal: GRUND?.totalQuestions ?? 50, minuter: GRUND?.minutes ?? 10 },
-          FORDJUPAT?.totalQuestions ?? 120
-        )}
-        className="w-full max-w-3xl"
-        handling={
-          <Link href="/dashboard/tester/personlighet-grund" className={`${KNAPP_PRIMAR} sm:w-auto`}>
-            {ARBETSSTIL.forstKnapp}
-          </Link>
-        }
-      />
+      <div className="mb-6">
+        <LyftPanel rubrikId="arbetsstil-forst">
+          <PanelHuvud
+            rubrik={ARBETSSTIL.forstTitel}
+            rubrikId="arbetsstil-forst"
+            under={ARBETSSTIL.forstText(
+              { antal: GRUND?.totalQuestions ?? 50, minuter: GRUND?.minutes ?? 10 },
+              FORDJUPAT?.totalQuestions ?? 120
+            )}
+          />
+          <div className="mt-5">
+            <StorKnapp golv storlek="mellan" href="/dashboard/tester/personlighet-grund">
+              {ARBETSSTIL.forstKnapp}
+            </StorKnapp>
+          </div>
+        </LyftPanel>
+      </div>
     ) : null}
-    <div className="w-full max-w-3xl">
+    <div className={done ? 'j3-panel j3-panel-luft' : 'w-full'} style={done ? ({ ['--j3-panel-luft' as string]: '24px 28px 28px' } as React.CSSProperties) : undefined}>
       <div className="space-y-5 sm:space-y-6">
         {ownReport ? (
           <p className="text-sm leading-[22px] text-ink-2">{ownReport.archetype.description}</p>

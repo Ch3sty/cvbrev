@@ -50,6 +50,8 @@ export type PaywallVariant =
   | 'nedgraderad'
   | 'cv-antal'
   | 'af-rapport'
+  /** Uppföljningsmejlet på en sökt tjänst: första utkastet per konto är gratis (Jobbsöket omgång 1, F5). */
+  | 'uppfoljning'
 
 export interface PaywallCopy {
   title: string
@@ -421,6 +423,16 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
         body: `Vi har räknat ihop månaden i Arbetsförmedlingens format. Att logga dina sökta tjänster ingår i gratisnivån. Att hämta ut den färdiga rapporten ingår i ${PREMIUM}.`,
         primary: knapp,
         secondary: 'Se priset',
+      }
+
+    // F5: första utkastet per konto är gratis, samma tjänsts utkast går alltid
+    // att öppna igen. "Jag har redan skickat det" står kvar bredvid väggen.
+    case 'uppfoljning':
+      return {
+        title: `Fler uppföljningsmejl ingår i ${PREMIUM}`,
+        body: `Ditt gratis utkast är använt på en annan tjänst. Med ${PREMIUM} skriver vi ett utkast till varje tjänst du vill följa upp. Du kan också skriva mejlet själv och logga det här.`,
+        primary: knapp,
+        secondary: 'Se vad som ingår',
       }
 
     case 'nedgraderad':

@@ -1,0 +1,138 @@
+/*
+ * Jobbsöket omgång 1, byggare C: delar som kitet saknar för Inför intervjun,
+ * Jobbcoachen, Bli upptäckt och Meddelanden. Prefix j3c-, bara rummets
+ * tokens (src/app/jobb3.css), mörkt läge följer dem.
+ */
+
+/* ---------------------------------------------------------- stegraden i väggen */
+.j3c-steg { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--vagg-mjuk); }
+.j3c-steg i { width: 26px; height: 26px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 13px; font-weight: 800; }
+.j3c-steg i.klar { background: var(--j3-bock); color: #FFFFFF; }
+.j3c-steg i.nu { background: var(--vagg-ink); color: var(--vagg); }
+.j3c-steg b { color: var(--vagg-ink); font-weight: 700; }
+.j3c-steg svg { display: block; }
+
+/* STAR-brickorna som förklaring (Intervju-svar): utan bock, bara märket på det som saknades sist */
+.j3c-utan-bock .j3-sb-bock { display: none; }
+
+/* ---------------------------------------------------------- räknaren under svaret */
+.j3c-raknare { flex: 1; min-width: 0; max-width: 380px; }
+.j3c-raknare-bar { position: relative; height: 14px; }
+.j3c-raknare-bar::before { content: ''; position: absolute; left: 0; right: 0; top: 3px; height: 8px; border-radius: 4px; background: var(--j3-linje); }
+.j3c-raknare-fyll { position: absolute; left: 0; top: 3px; height: 8px; border-radius: 4px; background: var(--j3-bock); max-width: 100%; }
+.j3c-raknare-min { position: absolute; top: 0; width: 3px; height: 14px; border-radius: 1.5px; background: var(--j3-ink); }
+.j3c-raknare p { margin: 6px 0 0; font-size: 13px; line-height: 18px; color: var(--j3-ink-2); }
+.j3c-raknare p b { color: var(--j3-ink); }
+.j3c-raknare p.fel { color: var(--koppar-ink); font-weight: 600; }
+
+/* ---------------------------------------------------------- frågevalet */
+.j3c-val { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px; align-items: start; width: 100%; padding: 14px 16px; border: 0; background: transparent; color: var(--j3-ink); font-family: inherit; text-align: left; cursor: pointer; }
+.j3c-val + .j3c-val { border-top: 2px solid var(--j3-linje); }
+.j3c-val:hover { background: var(--j3-hover); }
+.j3c-val:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: -3px; }
+.j3c-val-nr { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: var(--j3-ton); color: var(--j3-ton-ink); font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 14px; font-weight: 800; }
+.j3c-val[aria-checked="true"] { background: var(--j3-mjuk); box-shadow: inset 5px 0 0 var(--koppar); }
+.j3c-val[aria-checked="true"] .j3c-val-nr { background: var(--koppar); color: var(--koppar-text, #1A1206); }
+.j3c-val b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; }
+.j3c-val small { display: block; margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--j3-ink-2); }
+.j3c-val-meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--j3-ink-3); }
+.j3c-val-rek { display: inline-block; height: 20px; padding: 0 8px; border-radius: 10px; background: var(--j3-tyst); color: var(--j3-tyst-ink); font-size: 11px; line-height: 20px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+@media (min-width: 1280px) { .j3c-val { padding: 16px 20px; } }
+
+/* ---------------------------------------------------------- numrerade tips */
+.j3c-tips { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.j3c-tips li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 21px; color: var(--j3-ink-2); }
+.j3c-tips li > i { width: 26px; height: 26px; border-radius: 9px; background: var(--j3-ton); color: var(--j3-ton-ink); font: 800 13px/26px var(--font-display), Inter, system-ui, sans-serif; font-style: normal; text-align: center; flex-shrink: 0; }
+.j3c-kortrubrik { display: block; margin: 0; font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 17px; line-height: 22px; font-weight: 800; letter-spacing: -.01em; color: var(--j3-ink); }
+
+/* ---------------------------------------------------------- hopfällda rader (details) */
+.j3c-fall { border-top: 2px solid var(--j3-linje); }
+.j3c-fall:first-child { border-top: 0; }
+.j3c-fall > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 0 20px; list-style: none; cursor: pointer; font-size: 15px; line-height: 20px; font-weight: 700; color: var(--j3-ink); }
+.j3c-fall > summary::-webkit-details-marker { display: none; }
+.j3c-fall > summary:hover { background: var(--j3-hover); }
+.j3c-fall > summary:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: -3px; }
+.j3c-fall > summary svg { flex-shrink: 0; transition: transform 160ms ease-out; }
+.j3c-fall[open] > summary svg { transform: rotate(180deg); }
+.j3c-fall-inre { padding: 4px 20px 20px; font-size: 15px; line-height: 23px; color: var(--j3-ink-2); }
+.j3c-fall-inre ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.j3c-fall-inre b { display: block; color: var(--j3-ink); }
+.j3c-fall-inre p { margin: 2px 0 0; white-space: pre-line; }
+.j3c-forra > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; list-style: none; cursor: pointer; }
+.j3c-forra > summary::-webkit-details-marker { display: none; }
+.j3c-forra > summary svg { flex-shrink: 0; transition: transform 160ms ease-out; }
+.j3c-forra[open] > summary svg { transform: rotate(180deg); }
+.j3c-forra-text { margin: 10px 0 0; padding-top: 12px; border-top: 2px solid var(--j3-linje); font-size: 14px; line-height: 21px; color: var(--j3-ink-2); }
+
+/* ---------------------------------------------------------- nästa fråga, mörkt kort */
+.j3c-nasta { background: var(--vagg); color: var(--vagg-ink); border-radius: 22px; box-shadow: 0 5px 0 var(--j3-djup); padding: 20px 20px 24px; }
+.j3c-nasta .j3-ogon { color: var(--koppar-ljus); }
+.j3c-nasta b.rubrik { display: block; margin-top: 4px; font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 24px; line-height: 29px; font-weight: 800; letter-spacing: -.01em; }
+.j3c-nasta p { margin: 8px 0 0; font-size: 14px; line-height: 21px; color: var(--vagg-mjuk); }
+.j3c-nasta p.stark { color: var(--vagg-ink); font-weight: 600; }
+
+/* ---------------------------------------------------------- hakparentesen i förklaringen */
+.j3c-hakrad { display: flex; gap: 10px; align-items: flex-start; margin: 14px 4px 0; font-size: 14px; line-height: 21px; color: var(--j3-ink-2); }
+.j3c-hakrad .j3-hak { font-size: 12px; line-height: 18px; flex-shrink: 0; }
+
+/* ---------------------------------------------------------- Bli upptäckt: stegen i panelen */
+.j3c-stegrad { display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; padding: 18px 0; }
+.j3c-stegwrap + .j3c-stegwrap { border-top: 2px solid var(--j3-linje); }
+.j3c-stegwrap:first-child .j3c-stegrad { padding-top: 6px; }
+.j3c-stegwrap:last-child .j3c-stegrad { padding-bottom: 0; }
+.j3c-stegmark { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--j3-bock); color: #FFFFFF; box-shadow: 0 3px 0 var(--j3-bock-kant); font: 800 14px/1 var(--font-display), Inter, system-ui, sans-serif; }
+.j3c-stegmark.tom { background: var(--j3-papper); color: var(--koppar-ink); border: 2px dashed var(--koppar); box-shadow: none; }
+.j3c-steghuvud { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; min-height: 32px; }
+.j3c-steghuvud h3 { margin: 4px 0 0; font-size: 16px; line-height: 22px; font-weight: 700; color: var(--j3-ink); }
+.j3c-stegsub { margin: 4px 0 0; font-size: 14px; line-height: 21px; color: var(--j3-ink-2); }
+.j3c-steginnehall { margin-top: 12px; }
+.j3c-stegknapp { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin: -8px -10px 0 0; border: 0; border-radius: 12px; background: transparent; color: var(--j3-ink-2); cursor: pointer; }
+.j3c-stegknapp:hover { background: var(--j3-hover); color: var(--j3-ink); }
+.j3c-stegknapp svg { transition: transform 160ms ease-out; }
+.j3c-stegknapp[aria-expanded="true"] svg { transform: rotate(180deg); }
+.j3c-steg-fall { display: grid; transition: grid-template-rows 200ms ease-out; }
+.j3c-steg-fall > div { overflow: hidden; }
+
+/* stegrader på väggen före samtycket */
+.j3c-trestag { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; position: relative; }
+.j3c-trestag li { list-style: none; }
+.j3c-trestag div { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.j3c-trestag span { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 5px 0 var(--j3-vb-kant); font: 800 22px/1 var(--font-display), Inter, system-ui, sans-serif; }
+.j3c-trestag b { display: block; font-size: 14px; line-height: 18px; font-weight: 700; color: var(--vagg-ink); max-width: 160px; }
+.j3c-trestag small { display: block; font-size: 13px; line-height: 18px; color: var(--vagg-mjuk); max-width: 170px; }
+@media (min-width: 1280px) { .j3c-trestag { gap: 24px; width: 560px; } .j3c-trestag span { width: 60px; height: 60px; font-size: 24px; } }
+
+/* rekryterarnas tittar på väggen */
+.j3c-tittat { display: flex; align-items: center; gap: 16px; }
+.j3c-tittat-tal { font-family: var(--font-display), Inter, system-ui, sans-serif; font-size: 64px; line-height: 1; font-weight: 800; letter-spacing: -.03em; color: var(--vagg-ink); }
+.j3c-tittat-text { font-size: 15px; line-height: 21px; color: var(--vagg-mjuk); }
+.j3c-tittat-text b { display: block; color: var(--vagg-ink); }
+@media (min-width: 1280px) { .j3c-tittat-tal { font-size: 92px; } .j3c-tittat-text { font-size: 17px; line-height: 23px; } }
+
+/* förfrågan som väntar, vitt kort på väggen */
+.j3c-forfragan { display: flex; flex-direction: column; gap: 14px; padding: 16px; border-radius: 22px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 5px 0 var(--j3-vb-kant); margin-top: 20px; }
+.j3c-forfragan .j3-ogon-golv { color: var(--koppar-ink); }
+.j3c-forfragan b { display: block; margin-top: 2px; font-size: 16px; line-height: 21px; font-weight: 700; color: #1A1A1F; }
+@media (min-width: 1280px) { .j3c-forfragan { flex-direction: row; align-items: center; justify-content: space-between; padding: 14px 16px 14px 20px; } }
+
+/* ---------------------------------------------------------- Bli upptäckt: korten inuti panelen */
+.j3c-upptackt [data-j3c-kort] { border: 0; background: transparent; padding: 0; border-radius: 0; }
+
+/* ---------------------------------------------------------- Meddelanden */
+.j3c-hub { display: flex; min-height: 420px; }
+.j3c-hub-lista { display: flex; flex-direction: column; width: 100%; }
+.j3c-hub-trad { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.j3c-hub[data-mobil="lista"] .j3c-hub-trad { display: none; }
+.j3c-hub[data-mobil="trad"] .j3c-hub-lista { display: none; }
+@media (min-width: 1280px) {
+  .j3c-hub { height: 640px; }
+  .j3c-hub[data-mobil] .j3c-hub-lista { display: flex; width: 388px; flex-shrink: 0; border-right: 2px solid var(--j3-linje); }
+  .j3c-hub[data-mobil] .j3c-hub-trad { display: flex; overflow-y: auto; }
+}
+.j3c-rad { width: 100%; border: 0; border-top: 2px solid var(--j3-linje); background: transparent; font-family: inherit; text-align: left; cursor: pointer; align-items: flex-start; }
+.j3c-rad:hover { background: var(--j3-hover); }
+.j3c-rad:focus-visible { outline: 3px solid var(--koppar-ink); outline-offset: -3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .j3c-fall > summary svg, .j3c-forra > summary svg, .j3c-stegknapp svg, .j3c-steg-fall { transition: none; }
+}

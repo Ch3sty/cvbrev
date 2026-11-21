@@ -61,6 +61,7 @@ export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {
   nedgraderad: 'nedgraderad',
   'cv-antal': 'cv_antal',
   'af-rapport': 'af_rapport',
+  uppfoljning: 'uppfoljning',
 }
 
 /**

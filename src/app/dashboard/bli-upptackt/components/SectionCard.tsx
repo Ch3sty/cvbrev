@@ -1,7 +1,7 @@
 'use client';
 
-import { Check, ChevronDown } from '@/components/illustrations/RumIkoner';
-import type { ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
+import { IkonBock, IkonNed } from '@/components/jobb3/kit';
 
 /**
  * Genväg för korten som vill vara hopfällbara: sprids rakt på SectionCard,
@@ -13,43 +13,36 @@ export interface CollapseProps {
   onToggleCollapse: () => void;
 }
 
+/**
+ * Formen kortet ritas i (Jobbsöket omgång 1, skissen Upptackt). Utan
+ * kontext: rummets kort med etikett ovanför (Arbetsstil, sidokolumnen). Inom
+ * en <StegKontext.Provider>: en rad i panelen "Bygg din profil", med bock när
+ * steget är klart och numret annars. Innehåll och texter är desamma i båda.
+ */
+export const StegKontext = createContext<{ nr: number; klar: boolean } | null>(null);
+
 interface SectionCardProps {
   title: string;
   sub?: string;
-  /** Behålls för anropskompatibilitet. Tråden har ingen fördröjd intoning. */
+  /** Behålls för anropskompatibilitet. Rummet har ingen fördröjd intoning. */
   delay?: number;
   headerExtra?: ReactNode;
   children: ReactNode;
   /** Ankar-id så notiser/mail kan djuplänka hit (t.ex. #intressen). */
   id?: string;
-  /** Gör kortet hopfällbart: en chevron i huvudet fäller ihop innehållet. */
   collapsible?: boolean;
-  /** Kontrollerat läge (från useCollapsedSections), krävs när collapsible. */
   collapsed?: boolean;
   onToggleCollapse?: () => void;
-  /** Behålls för anropskompatibilitet. Panelen ser likadan ut i båda lägena. */
+  /** Behålls för anropskompatibilitet. */
   variant?: 'default' | 'subtle';
-  /**
-   * Kompakt sammanfattning som visas i stället för undertexten NÄR kortet är
-   * ihopfällt och ifyllt (t.ex. "Stockholm · Hybrid · Heltid"). Ger en bock
-   * och "gjort"-känsla i stället för bara en rubrik.
-   */
+  /** Kort sammanfattning i stället för undertexten när kortet är ihopfällt. */
   summary?: string;
-  /**
-   * Aktiv sektion: den där kandidaten ska göra något härnäst. Panelen får
-   * tråden längs huvudet (thread-head). Högst en per vy.
-   */
+  /** Behålls för anropskompatibilitet. */
   active?: boolean;
-  /** Marginalplattan (MarginPlate). Sätts bara på den aktiva sektionen. */
+  /** Behålls för anropskompatibilitet. */
   plate?: ReactNode;
 }
 
-/**
- * Sektion i Tråden: sektionsetikett (14/500 ink-3) ovanför en panel i
- * papper. Huvudet inne i panelen bär undertext, sammanfattning, extra och
- * hopfällningsknappen. Den aktiva sektionen får en 3 px orange linje längs
- * huvudet, val markeras aldrig så.
- */
 export default function SectionCard({
   title,
   sub,
@@ -60,73 +53,83 @@ export default function SectionCard({
   collapsed = false,
   onToggleCollapse,
   summary,
-  active = false,
-  plate,
 }: SectionCardProps) {
+  const steg = useContext(StegKontext);
   const isCollapsed = collapsible && collapsed;
-  // Sammanfattningsläge: ihopfällt kort med en ifylld sammanfattning att visa.
   const showSummary = isCollapsed && !!summary;
-  const hasHead = Boolean(sub || summary || headerExtra || collapsible || plate || active);
+
+  const fallKnapp = collapsible ? (
+    <button
+      type="button"
+      onClick={onToggleCollapse}
+      aria-expanded={!isCollapsed}
+      aria-label={isCollapsed ? `Visa ${title}` : `Dölj ${title}`}
+      className="j3c-stegknapp"
+    >
+      <IkonNed size={20} />
+    </button>
+  ) : null;
+
+  const innehall = collapsible ? (
+    <div className="j3c-steg-fall" style={{ gridTemplateRows: isCollapsed ? '0fr' : '1fr', visibility: isCollapsed ? 'hidden' : undefined }}>
+      <div>
+        <div className="j3c-steginnehall">{children}</div>
+      </div>
+    </div>
+  ) : (
+    <div className="j3c-steginnehall">{children}</div>
+  );
+
+  const underrad = showSummary ? (
+    <p className="j3c-stegsub">{summary}</p>
+  ) : sub ? (
+    <p className="j3c-stegsub">{sub}</p>
+  ) : null;
+
+  if (steg) {
+    return (
+      <div id={id} className="j3c-stegrad scroll-mt-24">
+        <span className={steg.klar ? 'j3c-stegmark' : 'j3c-stegmark tom'} aria-hidden="true">
+          {steg.klar ? <IkonBock size={16} bredd={2.8} /> : steg.nr}
+        </span>
+        <div className="min-w-0">
+          <div className="j3c-steghuvud">
+            <h3>
+              {title}
+              <span className="sr-only">{steg.klar ? ', klart' : ''}</span>
+            </h3>
+            {headerExtra || fallKnapp ? (
+              <div className="flex shrink-0 items-center gap-2">
+                {headerExtra}
+                {fallKnapp}
+              </div>
+            ) : null}
+          </div>
+          {underrad}
+          {innehall}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id={id} className="scroll-mt-24">
-      <h2 className="mb-2 text-sm font-medium text-ink-3">{title}</h2>
-
-      <section
-        className={`rounded-xl border border-kant bg-papper p-4 sm:p-5`}
-      >
-        {hasHead && (
-          <div className={`flex items-start justify-between gap-3`}>
-            <div className="flex min-w-0 items-start gap-3">
-              {plate}
-              {showSummary ? (
-                <div className="flex min-w-0 items-center gap-2">
-                  <Check
-                    className="h-5 w-5 shrink-0 text-positiv"
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                  />
-                  <p className="truncate text-sm text-ink-2">{summary}</p>
-                </div>
-              ) : sub ? (
-                <p className="text-sm leading-[22px] text-ink-2">{sub}</p>
-              ) : null}
-            </div>
-            <div className="flex shrink-0 items-center gap-2">
-              {headerExtra}
-              {collapsible && (
-                <button
-                  type="button"
-                  onClick={onToggleCollapse}
-                  aria-expanded={!isCollapsed}
-                  aria-label={isCollapsed ? `Visa ${title}` : `Dölj ${title}`}
-                  title={isCollapsed ? 'Visa' : 'Dölj'}
-                  className="-mr-2 -mt-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
-                >
-                  <ChevronDown
-                    className={`h-5 w-5 transition-transform duration-200 ${isCollapsed ? '' : 'rotate-180'}`}
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                  />
-                </button>
-              )}
-            </div>
+      <h2 className="j3-h2" style={{ marginBottom: 12 }}>
+        {title}
+      </h2>
+      <section className="j3-kort luft">
+        {underrad || headerExtra || fallKnapp ? (
+          <div className="j3c-steghuvud">
+            <div className="min-w-0">{underrad}</div>
+            {headerExtra || fallKnapp ? (
+              <div className="flex shrink-0 items-center gap-2">
+                {headerExtra}
+                {fallKnapp}
+              </div>
+            ) : null}
           </div>
-        )}
-
-        {collapsible ? (
-          <div
-            className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
-              isCollapsed ? 'grid-rows-[0fr] opacity-0' : 'grid-rows-[1fr] opacity-100'
-            }`}
-          >
-            <div className="overflow-hidden">
-              <div className={hasHead ? 'mt-4' : ''}>{children}</div>
-            </div>
-          </div>
-        ) : (
-          <div className={hasHead ? 'mt-4' : ''}>{children}</div>
-        )}
+        ) : null}
+        {innehall}
       </section>
     </div>
   );

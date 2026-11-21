@@ -1,0 +1,61 @@
+/*
+ * Sökta tjänster (etapp 2B): de få delar som kitet inte har. Prefix j3-b-,
+ * rummets tokens (--j3-*, --vagg-*, --koppar), ljust och mörkt följer
+ * tokens. Importerad i src/app/dashboard/layout.tsx direkt efter jobb3.css.
+ */
+
+/* Avslutade, hopfällt kort: brickor, namnen, raden och Visa. */
+.j3-b-avslutade { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 76px; padding: 14px 16px; border: 0; background: transparent; color: var(--j3-ink); text-align: left; cursor: pointer; border-radius: inherit; }
+.j3-b-avslutade:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.j3-b-avslutade .j3-brickrad { display: flex; gap: 6px; flex-shrink: 0; }
+.j3-b-avslutade-text { min-width: 0; flex: 1; }
+.j3-b-avslutade-text b { display: block; font-size: 15px; line-height: 20px; font-weight: 700; }
+.j3-b-avslutade-text small { display: block; margin-top: 2px; font-size: 13px; line-height: 18px; color: var(--j3-ink-2); }
+.j3-b-avslutade-visa { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; flex-shrink: 0; }
+@media (min-width: 1280px) {
+  .j3-b-avslutade { padding: 16px 22px; gap: 16px; }
+}
+
+/* Månadsstaplarna har ingen mållinje (veckans mål gäller veckor). */
+.j3-b-utan-mal .j3-veckor-mal, .j3-b-utan-mal .j3-veckor-maltagg { display: none; }
+.j3-b-stapelfot { margin-top: 18px; padding-top: 16px; border-top: 2px solid var(--j3-linje); }
+
+/* Svar per CV: tomt läge (ett CV och ett frågetecken) och staplarna. */
+.j3-b-cvtom { display: flex; gap: 10px; }
+.j3-b-cvtom-ark { display: flex; flex-direction: column; gap: 5px; width: 52px; height: 66px; padding: 12px 8px; border: 2px solid var(--j3-kant); border-radius: 8px; background: var(--j3-papper); box-shadow: 0 3px 0 var(--j3-kant); }
+.j3-b-cvtom-ark i { display: block; height: 3px; border-radius: 2px; background: var(--j3-kant); }
+.j3-b-cvtom-ark i:first-child { width: 60%; background: var(--j3-ink); }
+.j3-b-cvtom-fraga { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 66px; border: 2px dashed var(--j3-kant); border-radius: 8px; font-size: 20px; font-weight: 700; color: var(--j3-ink-2); }
+.j3-b-cv { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.j3-b-cv-topp { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; line-height: 20px; }
+.j3-b-cv-topp b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.j3-b-cv-topp span { font-weight: 700; font-variant-numeric: tabular-nums; }
+.j3-b-cv-spar { height: 10px; margin-top: 6px; border-radius: 6px; background: var(--j3-mjuk); overflow: hidden; }
+.j3-b-cv-spar i { display: block; height: 100%; border-radius: 6px; background: var(--j3-kant); }
+.j3-b-cv-spar i.basta { background: var(--j3-gron); }
+.j3-b-cv li small { display: block; margin-top: 4px; font-size: 13px; color: var(--j3-ink-3); font-variant-numeric: tabular-nums; }
+
+/* Rapportens nedräkning i väggen: stora talet och tidslinjen. */
+.j3-b-nedrakning { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.j3-b-nedrakning-svg { display: block; overflow: visible; max-width: 100%; height: auto; }
+@media (min-width: 1280px) {
+  .j3-b-nedrakning { flex-direction: row; align-items: flex-start; justify-content: flex-end; gap: 22px; margin-top: 8px; }
+}
+
+/* Delningslänken: adressen på en rad. */
+.j3-b-lank { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 10px 12px; border: 2px solid var(--j3-kant); border-radius: 12px; background: var(--j3-papper); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--j3-ink-2); }
+
+/* Uppföljningen: bocken i bekräftelsen, laddningens ämnesrad, fokus i mejlet. */
+.j3-b-bock { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; background: var(--j3-gron); color: #FFFFFF; }
+.j3-b-skrivs { color: var(--j3-ink-3); font-weight: 600; }
+.j3-mejl:focus-within { box-shadow: 0 0 0 3px var(--koppar); }
+.j3-b-mejltext { min-height: 300px; }
+
+/* Snabbvalen under händelserna och foten i Om tjänsten. */
+.j3-b-snabb { margin-top: 22px; padding-top: 20px; border-top: 2px solid var(--j3-linje); }
+.j3-b-snabb-rubrik { margin: 0 0 12px; font-size: 15px; line-height: 20px; font-weight: 700; color: var(--j3-ink); }
+.j3-b-om-fot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 2px solid var(--j3-linje); }
+
+@media (prefers-reduced-motion: reduce) {
+  .j3-b-avslutade, .j3-b-cv-spar i { transition: none; }
+}

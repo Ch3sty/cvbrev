@@ -232,3 +232,32 @@ Rättat efter rökprovet: ämnesraden (beslut 11) och promptens ordval. Testdata
 ### Hur man backar
 
 Koden: `git revert` på motorns commit. Rutten för rapporten och POST /api/applications går tillbaka till sin inbyggda logik. Migreringen är bara tillägg och kan stå kvar; vill man ta bort den står rollback-SQL:en överst i filen (först när koden som läser den är backad).
+
+## Sammankopplingen, del 1 (etapp 3, gren `feat/jobbsoket-b`, arbetskopia `jobb-b`)
+
+2026-11-21. `feat/jobbsoket-c` sammanslagen i `feat/jobbsoket-b` (merge-commit 7e1a5e3f), sedan rättningarna efter art directors bildgranskning. Ingen dev-server och ingen webbläsare i den här delen: bara kod, tsc och vitest.
+
+### Sammanslagningen
+
+- Enda krocken: importraderna i `src/app/dashboard/layout.tsx`. Båda behålls, i ordningen `jobb3.css`, `jobb3-b.css`, `jobb3-c.css` (prefixen `j3-b-` och `j3c-` krockar inte).
+- `src/lib/jobbsok/adress.ts` krockade inte: bara B hade ändrat den (`las()` läser allt med `get`).
+
+### Rättningar
+
+1. **Kallad till intervju visar dagen kallelsen kom.** `handelseEtikett` (motorn, `handelser.ts`) gav intervjutiden för varje rad med `tid`, och raden Kallad till intervju bär `interview_at`. Nu används tiden bara på raden för den kommande intervjun; TjanstVy använder `handelseEtikett` för alla rader. Samma kod på dator och telefon (Handelsebana har ingen brytpunkt). Test i `motor.test.ts`.
+2. **Intervjuer på gång:** en tjänst som väntar besked (genomförd intervju loggad) får "Uppdatera" till tjänstens sida. "Hur gick det?" står bara i läget `hur_gick` (tiden passerad, ingen genomförd).
+3. **Egen betalvägg för uppföljningsmejlet:** variant `uppfoljning` i `paywall-copy.ts` (rubrik och text ur B:s vy), plats `uppfoljning` i `PLATS_FOR_VARIANT` och `BetalvaggPlats`. Vyn ritar `<PaywallCard variant="uppfoljning" bare />` i SparrRam. Visning (`paywall_shown`, `betalvagg_visad`) och klick (`paywall_cta_clicked`) mäts som de andra, köpknappen och köpsteget bär platsen `uppfoljning`, så ett köp därifrån räknas inte längre som Jobbcoachens. Ingen feature (ingen `feature_blocked`): uppföljningen har ingen nyckel i `features.ts`, och den rördes inte. Priser, kampanjlogik och kampanjkod oförändrade. Serverns `uppfoljning_sparr` står kvar. Test i `paywall-copy.render.test.tsx` och `PaywallCard.analytics.test.tsx`.
+4. **Hydreringsvarningen på Bli upptäckt:** `useCollapsedSections` läste localStorage i första render när DB-raden saknades. Servern ritade alla steg öppna, klienten de lokalt hopfällda, och `aria-expanded` och fällningens stil skilde. Varningen kom och gick eftersom den bara syns så länge DB-raden saknas (en tidig fällning sparas bara lokalt innan användarens id hämtats). Nu gäller DB-läget (eller inget) i första render och det lokala läses efter monteringen. Dessutom skriver `CvPickerCard` och `VerifiedResultsCard` datum med `timeZone: 'Europe/Stockholm'` (servern kör UTC).
+5. **Förifyllt ark (`?logga=1`):** öppnas Fler detaljer när adressen bär ort eller länk, så att det som följer med syns.
+6. **Borttaget:** `src/components/illustrations/ApplicationIllustrations.tsx` och `src/hooks/use-applications.ts` (bara de gamla Sökta tjänster-vyerna använde dem).
+
+### Kontrollerat i koden, inget att rätta
+
+- B:s länkar till intervjufrågorna går genom `nyttProvHref(fraga)` (`/dashboard/intervju/ny?fraga=<FragaId>`), med id ur `FRAGA_ORDNING`. C:s sida läser `fraga` med `arFragaId` och öppnar svaret direkt.
+- C:s "Förbered intervjun" (Intervjuer på gång) och "Till förberedelsen" (bedömt svar) pekar på `tjanstHref(id, 'forbered')`, som B:s sida läser med `tolkaTjanstAdress`.
+- `?logga=1|ska-soka` med `tjanst`, `arbetsgivare`, `ort`, `lank`, `sista`, `af`, `matchning` läses i `sokta-tjanster/page.tsx` och öppnar arket förifyllt; `af` följer med till `POST /api/applications` och `/api/jobbsok/ska-sokas`.
+
+### Inte rättat, väntar på webbläsaren (del 2)
+
+- **Strecket i korten** (mörkt frågekort på tjänstens sida, STAR-brickorna S och T på det bedömda svaret, bara i 1440). Ingen regel i kitet eller vyerna ritar en kant, linje eller kontur där, och kitsidans bilder av samma komponenter saknar strecket. Mätt i bilderna: en pixel bred, en rektangel 6 px innanför kortets sidor och 7 px över dess nederkant, bara nedre delen ritad och på T streckad; färgen är kortets egen blandad med ungefär 40 % av ytan bakom kortet (ljusare på det mörka kortet över vit panel, mörkare på de ljusa brickorna över mörk vägg); identisk i ljust och mörkt läge, borta i 412. Det pekar på en rastersöm i ett eget kompositlager (delvis omritad textyta i 1x) snarare än ett ritat element. På det bedömda svaret ligger den vågräta linjen exakt där kullarnas svg börjar (y 275). Prövas i del 2: skärmbild med deviceScaleFactor 1 och 2, och DevTools lager och omritningar.
+- Hydreringsvarningen på Inför intervjun (gratis): hubben ritas på servern, och dess klientdelar (Topprad, JobbFlikar, InforIntervjunClient) läser inget datum, ingen slump och inget lagrat i första render (useTema, NotificationBell och MessagesHeaderButton börjar likadant på servern). Orsaken är inte hittad; prövas i del 2.
