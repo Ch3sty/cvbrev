@@ -4294,3 +4294,23 @@ html:has([data-sessionsram].fixed) [data-installrad] {
 .prov3-dom-fig[data-fig="ratt"] > i { box-shadow: inset 0 0 0 2px var(--sess-ratt); }
 .prov3-dom-fig > i svg { width: 30px; height: 30px; }
 .prov3-dom-fig > b { font-weight: 600; color: var(--ink-1); }
+
+/* Registreringen med provresultat enligt skissen (Publik-registrering-1440 och -412):
+   mörk vänsterhalva i full höjd, formuläret i ett vitt kort till höger. */
+.prov3-reg { min-height: 100dvh; background: var(--golv); color: var(--ink-1); }
+.prov3-reg .prov3-regpanel { border-radius: 0 0 24px 24px; }
+.prov3-reg .prov3-regpanel-vagg { padding: 10px 16px 16px; }
+.prov3-reg-topp { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.prov3-reg-hoger { padding: 16px 16px 40px; }
+.prov3-reg-logga-in { display: none; }
+.prov3-reg-kort { background: var(--papper); border: 2px solid var(--sess-kant); border-radius: 24px; box-shadow: 0 6px 0 var(--sess-kant); padding: 20px 18px 18px; }
+.prov3-reg .prov3-reg-efter { margin-top: 24px; }
+@media (min-width: 900px) {
+  .prov3-reg { display: grid; grid-template-columns: minmax(0, 47%) minmax(0, 1fr); }
+  .prov3-reg .prov3-regpanel { border-radius: 0; min-height: 100dvh; }
+  .prov3-reg .prov3-regpanel-vagg { padding: 24px 9% 48px 11%; min-height: 100dvh; }
+  .prov3-reg-topp { margin-bottom: 64px; }
+  .prov3-reg-hoger { padding: 24px 8% 48px; display: flex; flex-direction: column; }
+  .prov3-reg-logga-in { display: block; text-align: right; margin: 0 0 40px; font-size: 14px; line-height: 20px; color: var(--ink-2); }
+  .prov3-reg-kort { width: 100%; max-width: 460px; margin: 0 auto; padding: 30px 30px 26px; box-shadow: 0 6px 0 var(--sess-kant), 0 24px 48px var(--sess-skugga); }
+}
