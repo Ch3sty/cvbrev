@@ -141,6 +141,7 @@ export const PANEL = {
   medSiffror: (p: number) => `Med dina siffror: ${p} av 100`,
   siffrorSaknas: (n: number) => (n === 1 ? 'Siffran saknas i en rad.' : `Siffrorna saknas i ${talord(n)} rader.`),
   idag: 'i dag',
+  idagAria: (nu: number) => `Läsbarhetspoängen är ${nu} av 100 i dag.`,
   potentialAria: (nu: number, med: number) => `Läsbarhetspoängen är ${nu} av 100 i dag och ${med} med våra förslag.`,
   finnsAttHamta: (n: number) => `${n} poäng finns att hämta.`,
   drarNer: (n: number) =>

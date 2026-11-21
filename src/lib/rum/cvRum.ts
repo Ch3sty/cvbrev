@@ -9,6 +9,8 @@
 
 import type { VeckoCell } from '@/components/rum/Veckorad'
 import { CV_RUM } from './copy'
+import { kanonisktCv } from '@/lib/cv/poang/kanon'
+import { sprakLage } from '@/lib/cv/sprak'
 
 /** Det ur analysresultatet som CV-rummet läser (JSON-fälten i result). */
 export interface AnalysUnderlag {
@@ -101,6 +103,19 @@ export function innehallUrCv(sd: unknown, sprak: 'finns' | 'saknas' | 'inte_inla
   ]
   if (sprak !== 'inte_inlast') avsnitt.push({ nyckel: 'sprak', finns: sprak === 'finns' })
   return { strukturerat, avsnitt }
+}
+
+/**
+ * Språkläget som genomgången ser det (poängmodellen version 2): språk finns
+ * bara när det kanoniska CV:t har minst ett språk, annars saknas de. Så säger
+ * Ditt CV:s Innehållet aldrig "Alla avsnitt finns" när genomgången säger
+ * "Språk saknas". Utan läsbar struktur: sprakLage som förut.
+ */
+export function sprakSomGenomgangen(sd: unknown, cvText?: string | null): 'finns' | 'saknas' | 'inte_inlast' {
+  const cv = kanonisktCv(sd, cvText ?? null)
+  if (!cv) return sprakLage(sd)
+  const sprak = Array.isArray(cv.languages) ? cv.languages.filter((l) => l && typeof l.language === 'string' && l.language.trim()) : []
+  return sprakLage(cv) === 'finns' && sprak.length > 0 ? 'finns' : 'saknas'
 }
 
 export interface Fynd {

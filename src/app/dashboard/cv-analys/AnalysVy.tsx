@@ -571,7 +571,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
             </div>
           ) : null}
           {delensSiffror.map((f) => siffrorKort(f, d.nr))}
-          {data.cvId && harKvar ? (
+          {data.cvId && harKvar && !vy?.delarTackta.includes(d.id) ? (
             <div className="cv4-gdel-fot">
               <Link href={delHref(d)} className="cv4-kn" data-ton="ljus" data-oppna-i-cv>
                 {ANALYS.oppnaICv}

@@ -67,6 +67,25 @@ describe('Analys-sidan, gratisnivån: poängen och exakt ett fynd med åtgärd',
     }
   })
 
+  it('Öppna i CV:t döljs bara där öppna förslag täcker allt som saknas', () => {
+    let tackta = 0
+    for (const f of MED_FORSLAG) {
+      const rad = { structured_data: f.structured_data, cv_text: f.cv_text }
+      const jobb = { id: 'jobb-' + f.namn, completed_at: null, result: f.analys as Record<string, unknown> }
+      for (const harFull of [true, false]) {
+        const vy = byggAnalysVy(jobb, rad, harFull)!
+        tackta += vy.delarTackta.length
+        for (const id of vy.delarTackta) {
+          const delensFynd = vy.fynd.filter((x) => x.del === id && x.typ !== 'siffror')
+          expect(delensFynd.length).toBeGreaterThan(0)
+          // Ett låst förslag i delen: knappen står kvar.
+          expect(delensFynd.every((x) => x.oppen)).toBe(true)
+        }
+      }
+    }
+    expect(tackta).toBeGreaterThan(0)
+  })
+
   it('väggen säger aldrig att inget återstår under 100', async () => {
     const { ANALYS } = await import('../analysTexter')
     for (let kvar = 1; kvar <= 100; kvar++) {
