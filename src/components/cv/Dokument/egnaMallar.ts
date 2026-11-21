@@ -1,8 +1,8 @@
 'use client'
 
 /**
- * Hennes eget CV i flera mallar (CV-rummet, byggspecen avsnitt 6 punkt 1 till
- * 3 och 8). Rutorna ber om sina mallar; begärandena samlas per CV och
+ * Hennes eget CV i flera mallar (CV-rummet, byggspecen avsnitt 6, punkterna ett till tre och åtta).
+ * Varje ruta ber om sin mall; begärandena samlas per CV och
  * skickas som en fråga per åtta mallar till /api/cv/preview-html/flera, en
  * fråga åt gången och först när sidan är ledig. Svaren hamnar i samma minne
  * som arkets förhandsvisning (hooks.ts), så en mall som ritats som miniatyr
