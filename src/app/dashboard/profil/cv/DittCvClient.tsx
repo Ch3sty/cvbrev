@@ -388,7 +388,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           <Pil size={15} />
         </Link>
       ) : (
-        <span className="t3-chip cv3-chip-ark">{VAGG.exempelMallar}</span>
+        <span className="t3-chip cv3-chip-ark">{VAGG.exempelMallar(exempelBakom.length + 1)}</span>
       )}
     </div>
   );
@@ -872,7 +872,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             {ANNAN_MALL.rubrik}
           </h2>
           <p className="t3-sektion-rad">
-            <span className="hidden xl:inline">{ANNAN_MALL.rad(mall.namn)}</span>
+            <span className="hidden xl:inline">{ANNAN_MALL.rad(mall.namn, urval.length)}</span>
             <span className="xl:hidden">{ANNAN_MALL.radKort}</span>
           </p>
         </div>

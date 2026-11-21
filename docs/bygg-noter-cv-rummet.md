@@ -88,3 +88,90 @@ Sidomenyn i CV-rummet: Ditt CV, Mallar, Analys, Skapa nytt CV, LinkedIn-profilen
 ### Backning per commit
 
 Varje commit går att backa för sig i omvänd ordning. Flikremsan på Mallar och Analys tas bort genom att backa sidornas ändringar; `RumHuvud.utanTopprad` är valfri och påverkar inget annat.
+
+## Steg 2 (Mallar, mallbytet, spärrarna, merförsäljningen, målgången)
+
+### Struktur och hur publikt och inloggat hålls isär
+
+| Fil | Vad |
+|---|---|
+| `src/app/dashboard/cv-mallar/page.tsx` | Valt CV med `valtCvId` (aldrig låst, aldrig `cvRows[0]`), poängen per CV till Byt CV, plus i analysen och dokumentets väg för valt CV (en fråga för analyserna, en för valt CV:s analys). `?andra=sprak` från Ditt CV går vidare till arbetsläget. Flikremsan borttagen: väggen ritas av sidan. |
+| `src/app/dashboard/cv-mallar/CvMallarClient.tsx` | Datan, valen, spärrordningen, nedladdningen och mätningen (flyttad hit från Mallyta, samma händelser) |
+| `src/components/cv/rum3/mallar/MallarVy.tsx` | Ytan: väggen (CvVagg), arket, golvet, kolumnen som följer med, den fasta raden på telefonen. `AndraBricka` |
+| `src/components/cv/rum3/mallar/MallGalleri.tsx` | Panelen: filter med antal ur katalogen, sökning, alla grupper (grupperaMallar), rutor med EgenMiniatyr |
+| `src/components/cv/rum3/sparr/CvSparr.tsx` | Spärrens bild (vänster eller överst) runt PaywallCards texter |
+| `src/components/cv/rum3/CvRadMobil.tsx` | "CV: namn" under flikarna på telefonen med fler än ett CV |
+| `src/components/cv/rum3/flikar.ts` | `arbetslageHref(cvId, fran, { avsnitt, mall })`, kontraktet i 10b |
+
+Publikt (`/cv-mallar`, `/cv-mallar/prova`, artiklarna) använder fortfarande `Mallyta`, `Remsa`, `AllaArk`, `FastRad` och `Miniatyr`, och de är orörda. Delade komponenter fick bara valfria tillägg som är av som standard:
+
+- `Dokument` `vagg`: utan tipsraden och bandet, markering och penna på avsnittet under pekaren.
+- `Verktygsrad` `brickor` och `forst`: samma val och ark, ritade som brickor.
+- `useForhandsvisning(kalla, { fordrojning })`: utelämnat 250 ms som förut.
+- `PaywallCard` `utseende: 'cv'` och `cvSparr`, `GraValSheet` `cvSparr` och `onSecondary`: utelämnat som förut.
+- `Final` och `Merforsaljning` har det nya utseendet (galleriet och byggaren, inloggat). Provsidan importerar de gamla bladen, flyttade oförändrade till `FinalArk.tsx` och `MerforsaljningArk.tsx`. Byggarens filer rördes inte; Final läser där arket som står på sidan (iframen) i stället för minnet.
+
+Kontroll: `/cv-mallar` och `/cv-mallar/prova` fotograferade före och efter i 1440 och 412 och pixeljämförda: 0 olika pixlar (en första körning skilde i arkets iframe och förslagen, laddningstiming; omkörd: 0). Serverns HTML för `/cv-mallar`, `/cv-mallar/prova`, `/cv-mallar/underskoterska`, `/artiklar/bra-cv-guide` och `/verktyg/cv-mallar` jämförd före (steg 1:s commit) och efter: identisk.
+
+SEO-diffen (`scripts/seo-diff-artiklar.ts ta`) går inte att köra lokalt just nu: `/artiklar/logiska-tester` svarar 500 i utvecklingsläget ("failed to pipe response") redan på steg 1:s commit, och skriptet avbryts där. Inte orsakat av steg 2; slutsteget bör köra den mot ett bygge.
+
+### Mallbytet (avsnitt 6 punkt 4 till 8)
+
+- Ingen fördröjning vid klick, 250 ms vid svep och pil (pilknapparna och piltangenterna). Det gamla arket står skarpt tills det nya är klart; en tunn kopparlinje överst på arket visar att det ritas.
+- Arket tar HTML:en direkt om miniatyrernas rad hämtar samma mall medan arket väntar (`VANTAR` i hooks.ts), och avbryter då sin egen fråga.
+- Förhämtning: de föreslagna och grannarna till vald mall när sidan är ledig (egnaMallar, en fråga per åtta), mallen under pekaren eller i fokus direkt. Miniatyrerna hämtas rad för rad när de kommer nära bild. Inget hämtas för den som inte öppnar Mallar.
+- Minnet rymmer 64 (alla 40 plus ett andra val) och glömmer andra CV:n och äldre versioner av samma CV när CV:t byts eller ändras (`rensaForhandsvisningar`).
+- Miniatyrerna ritas med samma val som arket (typsnitt, färg, ordning, rubriker), så att minnet delas; ett nytt typsnitt hämtar om raderna i bild.
+
+Mätning (`scripts/mat-mallbyte.mjs`, lokal utvecklingsserver, 1440, gratiskontot, tid från klick till att arkets iframe laddat ny HTML; en uppvärmning, sedan en eller två körningar):
+
+| Fall | Före (steg 1) | Efter |
+|---|---|---|
+| Kall, föreslagen mall vars ruta syns | 606 till 758 ms | 141 till 162 ms (förhämtad) |
+| Kall, mall längst ner (Affisch, granne till Linne) | 647 ms | 82 till 100 ms (förhämtad som granne) |
+| Kall, pekaren 400 ms över rutan före klick | som kall | 123 ms |
+| Kall, klick utan pekare, ingen förhämtning | 606 till 758 ms | 418 till 1038 ms (Skylt, Tusch) |
+| Varm, visad förut | 86 till 112 ms | 105 till 140 ms |
+
+Det kalla klicket utan förhämtning slipper 250 ms fördröjning men konkurrerar på utvecklingsservern med miniatyrernas rader som hämtas samtidigt; spridningen är stor. Varm är oförändrad inom bruset (iframen laddas om i båda). Siffrorna är utvecklingsläge; LCP mäts i slutsteget med `scripts/perf-inloggat.ts`.
+
+### Mallar: lägen
+
+`data-lage` på väggen: `gratismall`, `premiummall`, `exempel`. Utan CV: exempel-CV:t, ingen nedladdning, "Ladda upp ditt CV" (arket Ett CV till via `oppnaNyttCv`) och "Skriv från början" (byggaren) på väggen och i den fasta raden. Gratisnedladdningen använd: knappen öppnar merförsäljningen (eller cv-export-spärren när urvalet är tomt). Mall utan Word: Word-knappen avstängd, skärmläsartexten "Word finns inte i den här mallen".
+
+Var mallsidans funktioner hamnade: byta mall (rutorna, pilarna, svep, piltangenter, helskärmens remsa), typsnitt, färg, ordning med en sida och rubriker efter yrke, foto (brickorna, samma ark), rubrikbyte (tryck på rubriken på arket, RubrikArk som förut), redigera avsnitt (tryck på avsnittet, namnet eller kontakten, och brickan Ändra texten: länk till arbetsläget), helskärm (förstoringsglaset, tryck på arket, "Läs i helskärm"), PDF/Word och knappen (väggen, kolumnen som följer med, den fasta raden), Byt CV (CV-raden och arket ur steg 1 med låsta och Ta bort; bytet sker utan omladdning), fotoraden efter kontot (`?foto=1`, överst på väggen), köpreturen `?ladda=1` och `?kop=1` som förut.
+
+### Spärrarna, merförsäljningen och målgången
+
+- Spärrarna (mall, cv-export-word, cv-export) ritas av PaywallCard med `utseende="cv"`: eyebrow = dagens rubrik, ny rubrik per variant (mall: "Skicka CV:t precis som det ser ut här"; cv-export-word: "Ändra CV:t själv, i Word"; cv-export: "Ladda ner igen, i vilken mall du vill"), dagens brödtext, talrutor (antal mallar och antal med Word ur katalogen, plus i analysen bara när valt CV har en analys), tre punkter, prisraden och knappen ur paywall-copy (kampanjpriset följer med), "Se vad som ingår". Gratisvägen "Välj bland de 2 fria" mäts som sekundär och väljer gratismallen. Mätning och köpsteg oförändrade (test: `PaywallCard.cvsparr.test.tsx`).
+- Merförsäljningen: samma ram, hennes CV i vald mall till vänster, korten som val till höger, dagens texter, knapp, kampanjrad och "Nej tack". Korten hämtas i en fråga.
+- Målgången: hel vägg, arket landar med bocken, filraden, Öppna, Dela (bara när webbläsaren kan dela filer), dokumentets väg, och papperet med nästa steg. Galleriet: första jobbet som matchar (titel och ort ur CV:t), "Skriv personligt brev till annonsen", "Se fler jobb som matchar", "Tillbaka till Ditt CV"; utan träff reserven med brevet; byggaren analysen som nästa steg. Vägen visar det som är gjort (analyserat och åtgärdat bara när det är sant), nedladdat klart. Skissens etikett "Samma titel och ort som i ditt CV" är utelämnad: träffen söks på titel och ort men behöver inte ha samma titel.
+
+### Beslut från projektledaren
+
+- Alla tre flikarna visar samma CV (`valtCvId`); Mallar tar inte längre `cvRows[0]`.
+- "CV: namn" under flikarna på telefonen med fler än ett CV: `CvVagg` och `CvFlikRemsa` läser den ur `cvRad` (CvRad-propsen), så Ditt CV, Mallar och Analys får den utan ändring på sidorna. Väggens telefonhöjd växer med raden (462 och 536 px).
+- Räkneord: "+36" och "alla N åtgärder" räknades redan; "i tre andra" (Samma CV, annan mall) och "Exempel-CV i tre av" räknas nu ur urvalet.
+
+### Avvikelser mot skissen
+
+- Med sidomenyn är golvet smalare än skissens 1120 px: arkets kolumn är `clamp(300px, 36%, 400px)` och pilarna sitter över arkets kanter (−24 px) i stället för utanför, så att högerpilen inte hamnar utanför skärmen.
+- Tipsraden "Tryck på ett avsnitt för att ändra texten" står nere på arket första besöket, inte till vänster om det: där täckte den väggens text med sidomenyn.
+- Mallens rad på väggen är `mall.stil` (katalogens stil, ofta längre än skissens kortbeskrivning) följt av texten om att den följer med.
+- Telefonens verktygsrad har Ändra texten först (skissen saknar den); föreslagna-gruppen är det riktiga urvalet för CV:t.
+- Gratisvägen och Premiumkortet står på telefonen överst i panelen respektive under den (skissen visar dem inte på telefonen).
+- Merförsäljningen och spärren cv-export har ingen egen skiss; de följer Sparr-mall.
+
+### Inte gjort i steg 2
+
+- Typsnittsarkets antal och Helvetica-märkningen (avsnitt 8 punkt 3) ligger i steg 4.
+- Klicktestet för mallkomponenterna (`klicktest-mallar-komponenter.ts`) är inte kört: dess inloggade del letar efter den gamla ytan, och det gör riktiga nedladdningar och skapar konton mot produktionen. Slutsteget uppdaterar och kör det.
+- Ditt CV:s länk "Lägg till språken" går fortfarande till Mallar (`?andra=sprak`), som nu skickar vidare till arbetsläget (`fran=ditt-cv`). Slutsteget kan peka länken direkt dit.
+
+### Testkonton och skärmdumpar
+
+`QA_TAGG=-s2 node scripts/qa-cv-rummet-konton.mjs skapa|radera` (taggen ger egna adresser när två agenter kör samtidigt; nytt konto `nedladdat` med gratisnedladdningen använd). `scripts/skarm-mallar.mjs` fotograferar alla lägen, spärrar och målgången utan riktiga nedladdningar (generate-formatted och forsta-traff besvaras i webbläsaren); `--vy` för bara första vyn.
+
+### Backning
+
+`dd4c9140` (mallbytet) går att backa för sig. `059ab821` (spärrar, merförsäljning, målgång) och `2f80e10c` (Mallar-sidan och CSS:en för båda) hör ihop: backa i omvänd ordning, med rättelserna efter dem först.

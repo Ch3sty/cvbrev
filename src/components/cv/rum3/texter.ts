@@ -61,7 +61,7 @@ export const VAGG = {
   inteMatt: ['läsbarheten,', 'inte mätt än'] as const,
   steg: ['steg till ett CV', 'du kan skicka'] as const,
   seMallar: `Se det i ${ANTAL} mallar`,
-  exempelMallar: `Exempel-CV i tre av ${ANTAL} mallar`,
+  exempelMallar: (n: number) => `Exempel-CV i ${talord(n)} av ${ANTAL} mallar`,
   mallChip: (namn: string) => `Mallen ${namn}`,
   inteNedladdat: 'Inte nedladdat än',
   nedladdat: 'Nedladdat',
@@ -168,7 +168,7 @@ export const DRAR_NER = {
 
 export const ANNAN_MALL = {
   rubrik: 'Samma CV, annan mall',
-  rad: (mall: string) => `Du har ${mall}. Så här ser ditt CV ut i tre andra. Du provar fritt och betalar först när du laddar ner.`,
+  rad: (mall: string, n: number) => `Du har ${mall}. Så här ser ditt CV ut i ${talord(n)} ${n === 1 ? 'annan' : 'andra'}. Du provar fritt och betalar först när du laddar ner.`,
   radKort: 'Du provar fritt och betalar först när du laddar ner.',
   alla: `Alla ${ANTAL} mallar`,
   allaKort: `Alla ${ANTAL}`,
