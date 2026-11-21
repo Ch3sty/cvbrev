@@ -1,32 +1,26 @@
 /**
- * CV-byggaren laddar in i FlowShell, inte i den vanliga dashboard-sidan.
- *
- * Skelettet har byggarens form (skissen 2026-11-16): topprad 56 px, linjen
- * under, och det vita A4-arket i dokumentets bredd (380 px på mobil, 600 px
- * på dator), så att arket inte hoppar när sidan kommer. Ingen fot: den fasta
- * raden ligger i ytan. Bara linjen rör sig.
+ * Arbetsläget laddar in på väggen (skisserna Redigera-1440 och Bygg-1440):
+ * huvudet, bladet till vänster och det vita A4-arket till höger (telefonen:
+ * arket överst), så att inget hoppar när sidan kommer. Bara linjen rör sig.
  */
 export default function SkapaCvLoading() {
   return (
-    <div className="flex h-[100dvh] flex-col bg-golv" role="status" aria-busy="true" aria-label="Laddar Bygg ditt CV">
-      <div className="flex-shrink-0 border-b border-kant bg-papper">
-        <div className="mx-auto flex h-14 w-full max-w-[1180px] items-center gap-1 px-2">
-          <span className="h-11 w-11 flex-shrink-0" aria-hidden="true" />
-          <div aria-hidden="true" className="h-4 w-40 rounded bg-papper-2" />
-        </div>
-        <div className="h-[3px] w-full bg-papper-2" aria-hidden="true" />
+    <div
+      className="fixed inset-0 z-50 overflow-hidden bg-[#113538] lg:left-[248px]"
+      role="status"
+      aria-busy="true"
+      aria-label="Laddar ditt CV"
+    >
+      <div className="flex h-[72px] items-center gap-3.5 px-4 min-[900px]:h-[76px] min-[900px]:px-10">
+        <span aria-hidden className="h-11 w-11 rounded-[14px] bg-white/90" />
+        <span aria-hidden className="h-5 w-40 rounded bg-white/15" />
       </div>
-      <div className="min-h-0 flex-1 overflow-hidden">
-        <div className="mx-auto w-full max-w-[1180px] px-3.5 pt-3 lg:px-6">
-          <div className="grid gap-4 min-[900px]:grid-cols-[minmax(0,1fr)_296px] min-[900px]:gap-6 xl:grid-cols-[minmax(0,744px)_336px] xl:justify-center">
-            <div className="min-w-0">
-              <div className="mx-auto w-full max-w-[600px] min-[900px]:max-w-[520px] xl:max-w-[600px]">
-                <div aria-hidden="true" className="mb-1.5 h-9" />
-                <div aria-hidden="true" className="loading-thread aspect-[794/1123] w-full rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]" />
-              </div>
-            </div>
-          </div>
+      <div className="px-4 pt-3 min-[900px]:ml-10 min-[900px]:grid min-[900px]:max-w-[1040px] min-[900px]:grid-cols-[minmax(0,560px)_minmax(360px,440px)] min-[900px]:gap-10 min-[900px]:px-0">
+        <div aria-hidden className="hidden min-[900px]:block">
+          <div className="h-10 w-[460px] max-w-full rounded-[13px] bg-white/10" />
+          <div className="mt-3 h-[560px] rounded-3xl bg-white/90" />
         </div>
+        <div aria-hidden className="loading-thread mx-auto aspect-[794/1123] w-full max-w-[380px] rounded-md bg-white min-[900px]:max-w-none" />
       </div>
     </div>
   )

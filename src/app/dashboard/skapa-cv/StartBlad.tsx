@@ -73,8 +73,8 @@ export default function StartBlad({
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 top-[59px] z-[60] flex items-end justify-center lg:left-[248px] sm:items-center sm:p-6">
-      <div aria-hidden className="absolute inset-0 bg-[rgba(10,12,30,.45)]" />
+    <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-6" data-rum="cv">
+      <div aria-hidden className="absolute inset-0 bg-[rgba(7,26,28,.55)]" />
       <div
         ref={ref}
         role="dialog"

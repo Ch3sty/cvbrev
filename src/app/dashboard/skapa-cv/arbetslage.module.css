@@ -1,0 +1,944 @@
+/*
+ * Arbetsläget (skisserna Redigera-1440, Bygg-1440, Mobil-redigera): väggen
+ * i CV-rummets petrol, bladet som papper med mörkt huvud till vänster och
+ * arket till höger. Mått ur skissens CSS. En CSS-modul i stället för
+ * globals.css, så att steg 2 och steg 3 inte skriver i samma fil.
+ *
+ * Mörkt läge byter papper, fält och kant, aldrig väggen (byggspecen 2).
+ */
+
+.rot {
+  --cv3a-falt: #F7FAFA;
+  --cv3a-falt-kant: #C2D6D4;
+  --cv3a-etikett: #3F5352;
+  --cv3a-text-2: #3C4747;
+  --cv3a-linje: #DCE8E7;
+  --cv3a-kort: #E3F0EE;
+  --cv3a-pip: #113538;
+  --cv3a-pip-av: #9DB9B6;
+  --cv3a-mjuk: #F1F6F5;
+  --cv3a-ikon: #1E5F5F;
+  --cv3a-dom: #DCEFE5;
+  --cv3a-dom-kant: #A9D5BE;
+  --cv3a-dom-ink: #1F5C42;
+  --cv3a-fel: #B3382E;
+  --cv3a-mork-kant: #071A1C;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--vagg);
+  color: var(--vagg-ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Som flödena (FlowShell): sidomenyn står kvar till vänster på datorn. */
+@media (min-width: 1024px) {
+  .rot { left: 248px; }
+}
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .rot {
+    --cv3a-falt: #182827;
+    --cv3a-falt-kant: #2F4A48;
+    --cv3a-etikett: #C7C6D0;
+    --cv3a-text-2: #C7C6D0;
+    --cv3a-linje: #223634;
+    --cv3a-kort: #163A3A;
+    --cv3a-pip: #7FCFCA;
+    --cv3a-pip-av: #3E5F5D;
+    --cv3a-mjuk: #182827;
+    --cv3a-ikon: #A9DAD6;
+    --cv3a-dom: #1C3A2D;
+    --cv3a-dom-kant: #2F5E48;
+    --cv3a-dom-ink: #A7E3C3;
+    --cv3a-fel: #E57F74;
+  }
+}
+:global(:root[data-theme="dark"]) .rot {
+  --cv3a-falt: #182827;
+  --cv3a-falt-kant: #2F4A48;
+  --cv3a-etikett: #C7C6D0;
+  --cv3a-text-2: #C7C6D0;
+  --cv3a-linje: #223634;
+  --cv3a-kort: #163A3A;
+  --cv3a-pip: #7FCFCA;
+  --cv3a-pip-av: #3E5F5D;
+  --cv3a-mjuk: #182827;
+  --cv3a-ikon: #A9DAD6;
+  --cv3a-dom: #1C3A2D;
+  --cv3a-dom-kant: #2F5E48;
+  --cv3a-dom-ink: #A7E3C3;
+  --cv3a-fel: #E57F74;
+}
+
+.bakgrund {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.bakgrund svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------------ huvudet */
+
+.huvud {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 76px;
+  padding: 16px 40px 16px;
+  background: var(--vagg);
+}
+.kryss {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 0;
+  background: #FFFFFF;
+  color: #113538;
+  box-shadow: 0 3px 0 var(--vagg-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.kryss:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--vagg-3); }
+.kryss:focus-visible, .kapsel:focus-visible, .avsn button:focus-visible { outline: 3px solid var(--koppar-ljus); outline-offset: 2px; }
+.titel {
+  min-width: 0;
+}
+.titel h1 {
+  margin: 0;
+  font-family: var(--font-display), 'Schibsted Grotesk', Inter, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.titel span {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--vagg-mjuk);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 360px;
+}
+.stapelRad {
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.stapel {
+  display: flex;
+  gap: 8px;
+  width: 300px;
+}
+.stapel i {
+  flex: 1;
+  height: 14px;
+  border-radius: 7px;
+  background: #2B5E60;
+  display: block;
+}
+.stapel i[data-bit="klar"] { background: var(--koppar); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+.stapel i[data-bit="nu"] { background: #FFFFFF; box-shadow: inset 0 0 0 3px var(--koppar); }
+.stapelText { font-size: 13px; line-height: 18px; color: var(--vagg-mjuk); white-space: nowrap; }
+.hogerHuvud {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sparat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .08);
+  font: 600 13px/16px Inter, system-ui, sans-serif;
+  color: var(--vagg-ink);
+  white-space: nowrap;
+}
+.sparat button {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 32px;
+  cursor: pointer;
+  padding: 0;
+}
+.kapsel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 14px;
+  border: 0;
+  background: #FFFFFF;
+  color: #113538;
+  box-shadow: 0 3px 0 var(--vagg-3);
+  font: 700 14px/18px Inter, system-ui, sans-serif;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+.kapsel:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--vagg-3); }
+.kapsel img {
+  display: block;
+  width: 18px;
+  height: 25px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #C2D6D4;
+  object-fit: cover;
+  object-position: top;
+}
+.kapsel u {
+  font-weight: 600;
+  color: #3F5352;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------- ytan */
+
+.yta {
+  position: relative;
+  z-index: 1;
+  max-width: calc(100% - 64px);
+  margin: 10px 0 0 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(360px, 440px);
+  column-gap: 40px;
+  justify-content: start;
+  align-items: start;
+  padding-bottom: 24px;
+}
+@media (max-width: 1279.98px) {
+  .yta { grid-template-columns: minmax(0, 1fr) 400px; column-gap: 32px; margin-left: 24px; max-width: calc(100% - 48px); }
+  .huvud { padding-left: 24px; padding-right: 24px; }
+  .stapelRad { margin-left: 16px; }
+  .stapel { width: 200px; }
+}
+@media (max-width: 1099.98px) {
+  .stapelText { display: none; }
+  .yta { grid-template-columns: minmax(0, 1fr) 360px; }
+}
+
+.vanster {
+  position: sticky;
+  top: 86px;
+  min-width: 0;
+}
+
+.avsn {
+  display: flex;
+  gap: 5px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.avsn::-webkit-scrollbar { display: none; }
+.avsn button {
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 13px;
+  border: 0;
+  background: rgba(255, 255, 255, .08);
+  color: var(--vagg-ink);
+  font: 600 13px/18px Inter, system-ui, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.avsn button:hover { background: rgba(255, 255, 255, .14); }
+.avsn button[aria-current="true"] {
+  background: #F1F8F7;
+  color: #113538;
+  font-weight: 700;
+  box-shadow: 0 3px 0 var(--vagg-3);
+}
+/* På papperet (telefonens blad). */
+.mobilAvsn .avsn button { background: var(--cv3a-mjuk); color: var(--ink-1); }
+.mobilAvsn .avsn button[aria-current="true"] { background: #113538; color: #F1F8F7; box-shadow: 0 3px 0 var(--cv3a-mork-kant); }
+.mobilAvsn .avsn button:focus-visible { outline-color: var(--koppar); }
+.mobilAvsn .avsn { padding-bottom: 4px; }
+
+/* ----------------------------------------------------------------- bladet */
+
+.blad {
+  margin-top: 12px;
+  background: var(--papper);
+  color: var(--ink-1);
+  border-radius: 24px;
+  box-shadow: 0 6px 0 var(--cv3a-mork-kant), 0 28px 48px rgba(0, 0, 0, .3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 162px);
+  outline: none;
+}
+.bladHu {
+  background: var(--vagg-3);
+  color: var(--vagg-ink);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.bladHu h2 {
+  margin: 0;
+  font: 800 18px/22px var(--font-display), 'Schibsted Grotesk', Inter, sans-serif;
+  min-width: 0;
+}
+.bladHu > span {
+  margin-left: auto;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--vagg-mjuk);
+  text-align: right;
+}
+.bladKropp {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fot {
+  flex-shrink: 0;
+  padding: 14px 20px 16px;
+  border-top: 2px solid var(--cv3a-linje);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fotText {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--cv3a-text-2);
+}
+.spara {
+  height: 52px;
+  border-radius: 15px;
+  border: 0;
+  padding: 0 28px;
+  background: linear-gradient(180deg, #F0914A, #E07A2F);
+  box-shadow: 0 4px 0 #A8491A;
+  font: 700 16px/22px Inter, system-ui, sans-serif;
+  color: #1A1206;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.spara:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px 0 #A8491A; }
+.spara:disabled { opacity: .55; cursor: not-allowed; }
+.spara:focus-visible, .avbryt:focus-visible, .jc:focus-visible, .jobb:focus-visible, .lank:focus-visible, .nasta button:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.avbryt {
+  height: 52px;
+  border-radius: 15px;
+  border: 2px solid var(--cv3a-falt-kant);
+  background: var(--papper);
+  padding: 0 20px;
+  font: 700 15px/20px Inter, system-ui, sans-serif;
+  color: var(--ink-1);
+  box-shadow: 0 3px 0 var(--cv3a-falt-kant);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Fälten. */
+.etikett {
+  display: block;
+  font: 600 12px/16px Inter, system-ui, sans-serif;
+  color: var(--cv3a-etikett);
+}
+.falt, .faltYta, .faltVal {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 12px;
+  border: 2px solid var(--cv3a-falt-kant);
+  background: var(--cv3a-falt);
+  color: var(--ink-1);
+  padding: 0 12px;
+  font: 500 15px/20px Inter, system-ui, sans-serif;
+  outline: none;
+}
+.falt, .faltVal { height: 46px; }
+.faltYta { padding: 10px 12px; line-height: 22px; resize: vertical; min-height: 112px; }
+.falt:focus, .faltYta:focus, .faltVal:focus {
+  border-color: var(--koppar);
+  background: var(--papper);
+  box-shadow: 0 0 0 3px rgba(224, 122, 47, .2);
+}
+.falt:disabled, .faltVal:disabled { opacity: .6; }
+.falt[aria-invalid="true"] { border-color: var(--cv3a-fel); }
+.falt::placeholder, .faltYta::placeholder { color: var(--ink-3); opacity: 1; }
+.hint { margin: 4px 0 0; font-size: 12px; line-height: 16px; color: var(--cv3a-text-2); }
+.felRad { margin: 4px 0 0; font-size: 13px; line-height: 18px; color: var(--cv3a-fel); }
+.kryssruta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  font: 600 14px/18px Inter, system-ui, sans-serif;
+  color: var(--ink-1);
+  cursor: pointer;
+}
+.kryssruta input { width: 20px; height: 20px; accent-color: #113538; }
+
+/* Jobbcoach-kortet. */
+.jck {
+  background: var(--cv3a-kort);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.jckRad { display: flex; align-items: center; gap: 12px; }
+.ik {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #113538;
+  color: var(--koppar-ljus);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.jck b.jckRubrik { display: block; font: 700 15px/20px Inter, system-ui, sans-serif; color: var(--ink-1); }
+.jck small { display: block; font-size: 13px; line-height: 18px; color: var(--cv3a-text-2); }
+.jc {
+  min-height: 44px;
+  border-radius: 13px;
+  border: 2px solid var(--cv3a-falt-kant);
+  background: var(--papper);
+  padding: 0 14px;
+  font: 700 14px/18px Inter, system-ui, sans-serif;
+  color: var(--ink-1);
+  box-shadow: 0 3px 0 var(--cv3a-falt-kant);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.jc:disabled { cursor: not-allowed; opacity: .6; }
+.jc:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--cv3a-falt-kant); }
+.jcFyll { position: absolute; inset: 0 auto 0 0; background: var(--cv3a-kort); transition: width 200ms ease-out; }
+.jcText { position: relative; display: inline-flex; align-items: center; gap: 8px; }
+.kvot {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1.5px solid var(--cv3a-falt-kant);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--cv3a-text-2);
+}
+.kvot b { font: 700 13px/18px Inter, system-ui, sans-serif; color: var(--ink-1); }
+.pips { display: inline-flex; gap: 4px; padding-top: 3px; flex-shrink: 0; }
+.pips i { width: 12px; height: 12px; border-radius: 4px; display: block; background: var(--cv3a-pip); }
+.pips i[data-av] { background: var(--papper); box-shadow: inset 0 0 0 2px var(--cv3a-pip-av); }
+.prm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 10px;
+  background: #FBE3D0;
+  color: #8A3A12;
+  font: 700 11px/14px Inter, system-ui, sans-serif;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.coachInfo { margin: 8px 0 0; font-size: 13px; line-height: 18px; color: var(--cv3a-text-2); }
+.coachFel { margin: 8px 0 0; font-size: 13px; line-height: 18px; color: var(--cv3a-fel); }
+
+/* Resultatraden. */
+.dom {
+  background: var(--cv3a-dom);
+  border: 2px solid var(--cv3a-dom-kant);
+  border-radius: 16px;
+  padding: 0 12px 0 14px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--cv3a-dom-ink);
+}
+.dom button {
+  margin-left: auto;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 700 14px/20px Inter, system-ui, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 44px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+/* Jobben som rader. */
+.rader { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.jobb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: var(--papper);
+  border: 2px solid var(--cv3a-falt-kant);
+  box-shadow: 0 3px 0 var(--cv3a-falt-kant);
+  min-height: 60px;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink-1);
+  cursor: pointer;
+}
+.jobb b { font: 700 15px/20px Inter, system-ui, sans-serif; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jobb small { font-size: 13px; line-height: 18px; color: var(--cv3a-text-2); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jobb > span { min-width: 0; }
+.jobb > svg { margin-left: auto; flex-shrink: 0; }
+.jobbNy {
+  border-style: dashed;
+  border-color: var(--koppar);
+  box-shadow: none;
+  color: var(--koppar-ink);
+  min-height: 48px;
+}
+.jobbNy b { color: var(--koppar-ink); }
+.lank {
+  font: 600 14px/20px Inter, system-ui, sans-serif;
+  color: var(--cv3a-fel);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 48px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: right;
+}
+.angraRad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  background: #113538;
+  color: #F1F8F7;
+  padding: 0 12px;
+  min-height: 48px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.angraRad button {
+  margin-left: auto;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 700 14px/20px Inter, system-ui, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* Nästa-raden. */
+.nasta {
+  margin: 0 20px 0;
+  padding: 10px 14px 10px 16px;
+  border-radius: 18px;
+  background: var(--cv3a-mjuk);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.nasta > button:first-child {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: none;
+  padding: 2px 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  min-height: 48px;
+  border-radius: 12px;
+}
+.nastaIk {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: var(--cv3a-kort);
+  color: var(--cv3a-ikon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nastaText { font-size: 14px; line-height: 20px; color: var(--cv3a-text-2); }
+.nastaText b { display: block; color: var(--ink-1); font-size: 11px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.hoppa {
+  border: 0;
+  background: none;
+  color: var(--cv3a-text-2);
+  font: 600 13px/18px Inter, system-ui, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 44px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Kompetenschips. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  padding: 0 4px 0 14px;
+  border-radius: 22px;
+  border: 2px solid var(--cv3a-falt-kant);
+  background: var(--papper);
+  font: 600 14px/18px Inter, system-ui, sans-serif;
+  color: var(--ink-1);
+}
+.chip button {
+  width: 34px;
+  height: 34px;
+  border-radius: 17px;
+  border: 0;
+  background: none;
+  color: var(--cv3a-text-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.forslagChip {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 22px;
+  border: 2px dashed var(--cv3a-falt-kant);
+  background: none;
+  font: 600 14px/18px Inter, system-ui, sans-serif;
+  color: var(--cv3a-text-2);
+  cursor: pointer;
+}
+.forslagChip:hover { border-color: var(--ink-1); color: var(--ink-1); }
+.streckad {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  width: 100%;
+  border-radius: 16px;
+  border: 2px dashed var(--koppar);
+  background: none;
+  font: 700 15px/20px Inter, system-ui, sans-serif;
+  color: var(--koppar-ink);
+  cursor: pointer;
+}
+.listRad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 2px solid var(--cv3a-falt-kant);
+  box-shadow: 0 3px 0 var(--cv3a-falt-kant);
+  background: var(--papper);
+  text-align: left;
+  font: inherit;
+  color: var(--ink-1);
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------- arket */
+
+.hoger {
+  min-width: 0;
+  position: relative;
+}
+.ark {
+  position: relative;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 5px 0 var(--cv3a-mork-kant), 0 30px 60px rgba(0, 0, 0, .4);
+}
+.arkKlipp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.arkKlipp iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border: 0;
+  display: block;
+  background: #FFFFFF;
+  pointer-events: none;
+}
+.arkKlipp iframe[data-dold] { visibility: hidden; }
+.traff {
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.traff:hover { background: rgba(224, 122, 47, .06); }
+.traff:focus-visible { outline: 2px solid var(--koppar); outline-offset: 1px; }
+.har {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 7px;
+  background: rgba(224, 122, 47, .12);
+  box-shadow: 0 0 0 2.5px var(--koppar);
+  animation: blink 2.2s ease-in-out infinite;
+  transition: top 200ms ease-out, height 200ms ease-out;
+}
+@keyframes blink {
+  0%, 100% { box-shadow: 0 0 0 2.5px var(--koppar); }
+  50% { box-shadow: 0 0 0 2.5px var(--koppar), 0 0 0 8px rgba(224, 122, 47, .22); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .har { animation: none; transition: none; }
+  .jcFyll { transition: none; }
+}
+.etikettChip {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 11px;
+  background: var(--koppar);
+  color: #1A1206;
+  font: 700 13px/16px Inter, system-ui, sans-serif;
+  box-shadow: 0 3px 0 #A8491A;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.etikettChip svg { position: absolute; left: -9px; top: 10px; }
+.etikettChip[data-inne] svg { display: none; }
+.till {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 9px;
+  border: 1.5px dashed var(--koppar);
+  background: #FFF7F0;
+  color: #A8491A;
+  font: 700 11px/14px Inter, system-ui, sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.brytlinje {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1.5px dashed var(--koppar);
+  pointer-events: none;
+}
+.underArk {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--vagg-mjuk);
+}
+.underArk b { color: var(--vagg-ink); }
+
+/* Nedladdningen under arket (från början, efter miniminivån). */
+.ladda {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--papper);
+  color: var(--ink-1);
+  box-shadow: 0 4px 0 var(--cv3a-mork-kant);
+}
+.laddaKnapp {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+  border-radius: 14px;
+  border: 0;
+  background: #113538;
+  color: #F1F8F7;
+  font: 700 15px/20px Inter, system-ui, sans-serif;
+  box-shadow: 0 3px 0 var(--cv3a-mork-kant);
+  cursor: pointer;
+  padding: 4px 14px;
+}
+.laddaKnapp small { display: block; font: 600 12px/16px Inter, system-ui, sans-serif; color: var(--koppar-ljus); }
+.laddaKnapp:disabled { cursor: progress; }
+.laddaKnapp:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.laddaFyll { position: absolute; inset: 0 auto 0 0; background: #1E5F5F; transition: width 200ms ease-out; }
+.laddaText { position: relative; }
+.adminRad {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+.adminRad button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--vagg-mjuk);
+  font: 500 13px/18px Inter, system-ui, sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.barDator { display: flex; align-items: center; gap: 14px; }
+.avsnDator { display: block; }
+
+/* ---------------------------------------------------------------- telefonen */
+
+.mobilAvsn { margin: 0 -16px; padding: 0 16px 2px; }
+
+@media (max-width: 899.98px) {
+  .huvud {
+    min-height: 72px;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .titel h1 { font-size: 18px; line-height: 22px; }
+  .titel span { display: none; }
+  .stapelRad { margin-left: 0; gap: 8px; }
+  .stapel { width: 84px; gap: 4px; }
+  .stapel i { height: 10px; border-radius: 5px; }
+  .hogerHuvud { gap: 8px; }
+  .yta {
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 12px 16px var(--cv3a-blad-h, 720px);
+  }
+  .hoger { max-width: 380px; margin: 0 auto; }
+  .ark { border-radius: 6px; box-shadow: 0 16px 32px rgba(0, 0, 0, .4); }
+  .arkKlipp { border-radius: 6px; }
+  .blad {
+    position: fixed;
+    z-index: 40;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 196px;
+    margin: 0;
+    max-height: none;
+    border-radius: 26px 26px 0 0;
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, .35);
+  }
+  .blad[data-fallt] { top: auto; }
+  .blad[data-fallt] .bladKropp, .blad[data-fallt] .nasta, .blad[data-fallt] .fot { display: none; }
+  .bladHu {
+    position: relative;
+    padding: 18px 16px 14px;
+    border: 0;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+  .handtag {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 40px;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .3);
+    transform: translateX(-50%);
+  }
+  .bladKropp { padding: 12px 16px 16px; gap: 11px; }
+  .falt, .faltVal { height: 48px; font-size: 16px; }
+  .faltYta { font-size: 16px; min-height: 90px; }
+  .fot { padding: 12px 16px max(16px, env(safe-area-inset-bottom)); }
+  .fot .spara { flex: 1; height: 54px; }
+  .fot .avbryt { height: 54px; }
+  .nasta { margin: 0 16px 10px; }
+  .rader { grid-template-columns: minmax(0, 1fr); }
+  .ladda { margin-top: 12px; }
+  .barDator, .avsnDator { display: none; }
+  .vanster { position: static; }
+}
+@media (min-width: 900px) {
+  .handtag { display: none; }
+  .bladHu { pointer-events: none; }
+}
