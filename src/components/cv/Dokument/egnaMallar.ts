@@ -14,7 +14,7 @@
 import { useEffect, useSyncExternalStore } from 'react'
 import type { MallVal } from '@/lib/cv/mallar/kontrakt'
 import { scheduleIdle } from '@/lib/scheduleIdle'
-import { lasForhandsvisning, minnsForhandsvisning, nyckelFor, type Kalla } from './hooks'
+import { harFortur, lasForhandsvisning, lyssnaPaFortur, minnsForhandsvisning, nyckelFor, type Kalla } from './hooks'
 
 /** CV:t som ska ritas: samma fält som arket på Mallar skickar. */
 export interface EgetCv {
@@ -47,12 +47,45 @@ let kor = false
 
 const cvNyckel = (cv: EgetCv) => nyckelFor(kallaForMall(cv, ''))
 
+/** Raden som är i luften (högst en), så att arkets förtur kan avbryta den. */
+let iLuften: { ac: AbortController; pausad: boolean } | null = null
+let vantare: (() => void) | null = null
+if (typeof window !== 'undefined') {
+  lyssnaPaFortur((pa) => {
+    if (pa && iLuften) {
+      iLuften.pausad = true
+      iLuften.ac.abort()
+    }
+    if (!pa && vantare) {
+      const v = vantare
+      vantare = null
+      v()
+    }
+  })
+}
+
+/** Lägger tillbaka mallar först i CV:ts kö (efter en paus för arkets förtur). */
+function tillbakaIKon(cv: EgetCv, mallar: string[]) {
+  const nyckel = cvNyckel(cv)
+  const post = ko.get(nyckel)
+  const resten = post ? [...post.mallar].filter((m) => !mallar.includes(m)) : []
+  ko.delete(nyckel)
+  // Först i kön: Map behåller ordningen, så raden läggs in före de andra CV:na.
+  const ovriga = [...ko.entries()]
+  ko.clear()
+  ko.set(nyckel, { cv, mallar: new Set([...mallar, ...resten]) })
+  for (const [k, v] of ovriga) ko.set(k, v)
+}
+
 async function hamtaRad(cv: EgetCv, mallar: string[]) {
   const nycklar = mallar.map((m) => nyckelFor(kallaForMall(cv, m)))
   nycklar.forEach((n) => pagaende.add(n))
+  const luft = { ac: new AbortController(), pausad: false }
+  iLuften = luft
   try {
     const res = await fetch('/api/cv/preview-html/flera', {
       method: 'POST',
+      signal: luft.ac.signal,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         mallar,
@@ -70,9 +103,12 @@ async function hamtaRad(cv: EgetCv, mallar: string[]) {
       else misslyckade.add(nyckelFor(kallaForMall(cv, m)))
     }
   } catch {
-    // Katalogbilden står kvar; ingen ny fråga för samma ruta under besöket.
-    nycklar.forEach((n) => misslyckade.add(n))
+    // Pausad för arkets förtur: tillbaka i kön. Annars står katalogbilden
+    // kvar och samma ruta frågas inte igen under besöket.
+    if (luft.pausad) tillbakaIKon(cv, mallar.filter((m) => !lasForhandsvisning(kallaForMall(cv, m))))
+    else nycklar.forEach((n) => misslyckade.add(n))
   } finally {
+    if (iLuften === luft) iLuften = null
     nycklar.forEach((n) => pagaende.delete(n))
     meddela()
   }
@@ -83,6 +119,9 @@ async function tomKon() {
   kor = true
   try {
     while (ko.size) {
+      // Arket hämtar mallen hon klickade på: vänta tills det är klart.
+      if (harFortur()) await new Promise<void>((r) => (vantare = r))
+      if (!ko.size) break
       const [nyckel, post] = ko.entries().next().value as [string, { cv: EgetCv; mallar: Set<string> }]
       const mallar = [...post.mallar].slice(0, PER_FRAGA)
       mallar.forEach((m) => post.mallar.delete(m))

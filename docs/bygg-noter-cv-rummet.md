@@ -133,7 +133,17 @@ Mätning (`scripts/mat-mallbyte.mjs`, lokal utvecklingsserver, 1440, gratiskonto
 | Kall, klick utan pekare, ingen förhämtning | 606 till 758 ms | 418 till 1038 ms (Skylt, Tusch) |
 | Varm, visad förut | 86 till 112 ms | 105 till 140 ms |
 
-Det kalla klicket utan förhämtning slipper 250 ms fördröjning men konkurrerar på utvecklingsservern med miniatyrernas rader som hämtas samtidigt; spridningen är stor. Varm är oförändrad inom bruset (iframen laddas om i båda). Siffrorna är utvecklingsläge; LCP mäts i slutsteget med `scripts/perf-inloggat.ts`.
+Det kalla klicket utan förhämtning slipper 250 ms fördröjning men konkurrerade på utvecklingsservern med miniatyrernas rader som hämtades samtidigt (värsta fallet 1038 ms). Rättat i uppföljningen, se "Arkets förtur" nedan.
+
+**Arkets förtur (uppföljningen efter steg 3).** När arket hämtar mallen hon klickade på (`useForhandsvisning`, inloggat) tar det förtur (`lyssnaPaFortur`, `harFortur` i hooks.ts): miniatyrernas rad som är i luften avbryts och läggs först i kön igen, och ingen ny rad startar förrän arket har sitt svar. Miniatyrerna har som förut högst en fråga i luften. Mätt igen (tre körningar efter en uppvärmning, samma miljö):
+
+| Fall | Före (steg 1) | Steg 2 | Med förtur |
+|---|---|---|---|
+| Kall, föreslagen mall vars ruta syns | 606 till 758 ms | 141 till 162 ms | 116 ms |
+| Kall, granne till vald mall | 647 ms | 82 till 100 ms | 84 till 109 ms |
+| Kall, pekaren 400 ms före klick | som kall | 123 ms | 75 till 87 ms |
+| Kall, klick utan pekare, ingen förhämtning | 606 till 758 ms | 418 till 1038 ms | 337 till 416 ms |
+| Varm, visad förut | 86 till 112 ms | 105 till 140 ms | 81 till 179 ms | Varm är oförändrad inom bruset (iframen laddas om i båda). Siffrorna är utvecklingsläge; LCP mäts i slutsteget med `scripts/perf-inloggat.ts`.
 
 ### Mallar: lägen
 

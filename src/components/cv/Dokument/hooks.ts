@@ -63,6 +63,35 @@ function minns(nyckel: string, html: string) {
 }
 
 /**
+ * Arkets förtur (byggspecen avsnitt 6, steg 2:s uppföljning): medan arket
+ * hämtar mallen hon klickade på pausar miniatyrernas hämtning (egnaMallar),
+ * och en rad som redan är på väg avbryts och läggs tillbaka i kön. När arket
+ * har sitt svar fortsätter miniatyrerna.
+ */
+let fortur = 0
+const FORTUR = new Set<(pa: boolean) => void>()
+export function lyssnaPaFortur(f: (pa: boolean) => void): () => void {
+  FORTUR.add(f)
+  return () => {
+    FORTUR.delete(f)
+  }
+}
+export function harFortur(): boolean {
+  return fortur > 0
+}
+function forturStart(): () => void {
+  fortur++
+  if (fortur === 1) FORTUR.forEach((f) => f(true))
+  let slut = false
+  return () => {
+    if (slut) return
+    slut = true
+    fortur = Math.max(0, fortur - 1)
+    if (fortur === 0) FORTUR.forEach((f) => f(false))
+  }
+}
+
+/**
  * Glömmer förhandsvisningarna av andra CV:n och av äldre versioner av det
  * här (byggspecen avsnitt 6 punkt 6): bara nycklar med samma CV och samma
  * avtryck av datan står kvar. Exempel och publika källor rörs inte.
@@ -190,9 +219,11 @@ export function useForhandsvisning(kalla: Kalla | null, opts?: { fordrojning?: n
     }
     const ac = new AbortController()
     setLaddar(true)
+    let slappFortur: (() => void) | null = null
     // Samma HTML från en annan hämtning (miniatyrernas rad): visa den direkt.
     const tagen = (h: string) => {
       ac.abort()
+      slappFortur?.()
       window.clearTimeout(t)
       setHtml(h)
       setFel(false)
@@ -202,7 +233,10 @@ export function useForhandsvisning(kalla: Kalla | null, opts?: { fordrojning?: n
     if (!vantar) VANTAR.set(nyckel, (vantar = new Set()))
     vantar.add(tagen)
     const t = window.setTimeout(() => {
+      // Mallen hon valde går före miniatyrerna.
+      slappFortur = forturStart()
       hamta(kalla, ac.signal)
+        .finally(() => slappFortur?.())
         .then((h) => {
           minns(nyckel, h)
           setHtml(h)
@@ -218,6 +252,7 @@ export function useForhandsvisning(kalla: Kalla | null, opts?: { fordrojning?: n
     return () => {
       window.clearTimeout(t)
       ac.abort()
+      slappFortur?.()
       vantar?.delete(tagen)
       if (vantar && !vantar.size) VANTAR.delete(nyckel)
     }
