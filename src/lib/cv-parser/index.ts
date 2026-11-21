@@ -9,7 +9,7 @@ export { cleanExtractedText, extractTextFromPdf, extractTextFromDocx, ImageBased
  * With improved error handling and fallback mechanisms.
  *
  * Kastar `ImageBasedPdfError` om PDF:en innehåller för lite text för att
- * vara användbar — upload-routen fångar detta och triggar vision-fallback.
+ * vara användbar — upload-routen fångar detta och läser sidorna med OCR (cv-parser/ocr.ts).
  */
 export async function parseCV(file: File): Promise<string> {
   const fileName = file.name.toLowerCase();

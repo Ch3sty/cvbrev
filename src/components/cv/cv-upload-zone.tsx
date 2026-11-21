@@ -36,8 +36,9 @@ interface CVUploadZoneProps {
 
 const PHASE_LABELS: Record<UploadPhase, string> = {
   uploading: 'Laddar upp och tolkar...',
-  vision:
-    'Datan ligger bakom grafik. Vi läser igenom det, tar några sekunder till...',
+  // Fasen heter vision av historiska skäl. I dag läses bilden på vår egen
+  // server (OCR), och det tar längre tid än en vanlig PDF.
+  vision: 'Texten i ditt CV ligger som bild. Vi läser av den, det kan ta upp till en minut.',
 };
 
 export default function CVUploadZone({
