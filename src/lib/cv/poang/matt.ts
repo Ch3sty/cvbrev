@@ -143,11 +143,13 @@ export function ersattPahittadeTal(text: string, kanda: ReadonlySet<string>): { 
 }
 
 const TALORD =
-  /\b(två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|procent|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
+  /\b(två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv|tretton|fjorton|femton|sexton|sjutton|arton|nitton|tjugo|trettio|fyrtio|femtio|sextio|hundra|tusen|miljon|miljoner|miljard|miljarder|dubbel|dubbla|dubblade|fördubblade|halverade|halva)\b/i
 
 /**
  * Har påståendet ett tal som säger något: antal, belopp, procent eller tid.
  * Årtal (1950 till 2099) räknas inte, de är datum och inte resultat.
+ * Ordet "procent" ensamt är inget tal: "[antal] procent" räknas först när
+ * talet är ifyllt.
  */
 export function harTal(text: string): boolean {
   if (!text) return false
