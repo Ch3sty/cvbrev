@@ -41,6 +41,7 @@ import Final from '@/components/cv/Dokument/Final'
 import Merforsaljning, { merforsaljningsUrval } from '@/components/cv/Dokument/Merforsaljning'
 import RubrikArk from '@/components/cv/Dokument/RubrikArk'
 import Remsa from '@/components/cv/Dokument/Remsa'
+import AllaArk from '@/components/cv/Dokument/AllaArk'
 import Verktygsrad, { type Valhandelse } from '@/components/cv/Dokument/Verktygsrad'
 import { FotoArkInloggad, useFotoInloggad } from '@/components/cv/Dokument/FotoArk'
 import { rensaForhandsvisningar, useForhandsvisning, useNedladdning, type Kalla } from '@/components/cv/Dokument/hooks'
@@ -139,6 +140,7 @@ export default function CvMallarClient(p: {
   const [merforsaljning, setMerforsaljning] = useState(false)
   const [fotoUrl, setFotoUrl] = useState(p.fotoUrl)
   const [fotoArk, setFotoArk] = useState(false)
+  const [allaArk, setAllaArk] = useState(false)
   const [fotoRad, setFotoRad] = useState(p.foto)
   const [rubrik, setRubrik] = useState<{ sektion: Sektion; text: string } | null>(null)
   const { framsteg, ladda } = useNedladdning()
@@ -472,7 +474,7 @@ export default function CvMallarClient(p: {
       lyft={framsteg !== null}
       topp={fotoTopp}
       helskarmRemsa={
-        <Remsa katalog={p.katalog} vald={mall.id} foreslagna={forslag.ids} onValj={(id) => valjMall(id, 'tryck')} onAlla={() => undefined} last={framsteg !== null} kompakt />
+        <Remsa katalog={p.katalog} vald={mall.id} foreslagna={forslag.ids} onValj={(id) => valjMall(id, 'tryck')} onAlla={() => setAllaArk(true)} last={framsteg !== null} kompakt />
       }
       fel={
         fel ? (
@@ -491,6 +493,16 @@ export default function CvMallarClient(p: {
     >
       {foto.filInput}
       <FotoArkInloggad open={fotoArk} onClose={() => setFotoArk(false)} fotoUrl={fotoUrl} onByt={foto.valj} onTaBort={() => void foto.taBort()} fel={foto.fel} />
+
+      {/* "Alla 40" i helskärmens remsa: samma ark som den publika ytan, ovanpå helskärmen. */}
+      <AllaArk
+        open={allaArk}
+        onClose={() => setAllaArk(false)}
+        katalog={p.katalog}
+        vald={mall.id}
+        foreslagna={forslag.ids}
+        onValj={(id) => valjMall(id, 'lista')}
+      />
 
       {cv && rubrik ? (
         <RubrikArk
