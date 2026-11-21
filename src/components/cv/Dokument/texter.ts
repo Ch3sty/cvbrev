@@ -93,7 +93,9 @@ export const SKAL: Record<ForslagSkal, string> = {
 export const VERKTYG = {
   typsnitt: 'Typsnitt',
   typsnittUnder: 'Byts direkt i dokumentet bakom. Alla är gratis.',
-  typsnittFot: 'Elva typsnitt i tre grupper. I Word-filen används de som finns i Word.',
+  /** Antalet räknas ur arkets lista (Verktygsrad), aldrig hårdkodat. */
+  typsnittFot: (typsnitt: number, grupper: number) =>
+    `${antalOrd(typsnitt, true)} typsnitt i ${antalOrd(grupper)} grupper. I Word-filen används de som finns i Word.`,
   typsnittAts: 'läses av alla system',
   farg: 'Färg',
   foto: 'Foto',

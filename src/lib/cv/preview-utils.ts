@@ -19,6 +19,8 @@ export const FONTS: FontOption[] = [
   { id: 'calibri', name: 'Calibri', family: 'Calibri, Arial, sans-serif', category: 'ATS-Säkra', tier: 'free' },
   { id: 'arial', name: 'Arial', family: 'Arial, Helvetica, sans-serif', category: 'ATS-Säkra', tier: 'free' },
   { id: 'verdana', name: 'Verdana', family: 'Verdana, Geneva, sans-serif', category: 'ATS-Säkra', tier: 'free' },
+  // Alla typsnitt är gratis (byggspecen avsnitt 8 punkt 3); Helvetica var märkt premium.
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'ATS-Säkra', tier: 'free' },
 
   // Moderna (sans-serif med karaktar)
   { id: 'lato', name: 'Lato', family: "'Lato', Arial, sans-serif", category: 'Moderna', tier: 'free' },
@@ -34,8 +36,6 @@ export const FONTS: FontOption[] = [
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
   { id: 'lora', name: 'Lora', family: "'Lora', Georgia, serif", category: 'Formella', tier: 'free' },
 
-  // Premium
-  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' },
 ];
 
 export const DEFAULT_FONT_ID = 'calibri';

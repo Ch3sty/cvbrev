@@ -222,7 +222,12 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
               })}
             </div>
           ))}
-          <p className="mt-3 text-meta text-ink-3">{VERKTYG.typsnittFot}</p>
+          <p className="mt-3 text-meta text-ink-3">
+            {VERKTYG.typsnittFot(
+              GRUPPER.reduce((n, g) => n + g.ids.filter((id) => FONTS.some((f) => f.id === id)).length, 0),
+              GRUPPER.length
+            )}
+          </p>
         </div>
       </Ark>
 
