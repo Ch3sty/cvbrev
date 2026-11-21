@@ -65,10 +65,14 @@ export const UNDERSIDA = {
   tester: 'Tester',
   dinUtveckling: 'Din utveckling',
   planInforProvet: 'Plan inför provet',
-  minaCv: 'Mina CV',
+  /** CV-rummets första flik (CV-rummet omgång 1, byggspecen 1.2). */
+  minaCv: 'Ditt CV',
   skapaNyttCv: 'Skapa nytt CV',
   analyseraCv: 'Analysera CV',
   cvMallar: 'CV-mallar',
+  /** CV-rummets flikar Mallar och Analys i sidomenyn. */
+  mallar: 'Mallar',
+  analys: 'Analys',
   linkedin: 'LinkedIn-profilen',
   minaBrev: 'Mina brev',
   skrivNyttBrev: 'Skriv nytt brev',

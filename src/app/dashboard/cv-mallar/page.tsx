@@ -23,6 +23,10 @@ import { getActiveCvIds } from '@/lib/cv/cv-quota'
 import { MALL_KATALOG, losMallId } from '@/lib/cv/mallval/katalog'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
+import CvFlikRemsa from '@/components/cv/rum3/CvFlikRemsa'
+import CvRad from '@/components/cv/rum3/CvRad'
+import { cvListaUr } from '@/components/cv/rum3/cvLista'
+import { CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess'
 
 type Sok = {
   cv?: string | string[]
@@ -52,6 +56,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let planKey: PlanKey | null = null
   let fotoUrl: string | null = null
   let aktiva: string[] = []
+  let maxCvs = CV_GRANS_GRATIS
   let pris = prisPeriod(SALD_PLAN)
   let prisLang = pris
   let kampanj: { pris: string; ordinarie: string } | null = null
@@ -70,6 +75,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     ])
     if (cvRes.error) console.error('Fel vid server-hämtning av CV-listan:', cvRes.error)
     cvRows = (cvRes.data ?? []) as InitialCv[]
+    maxCvs = grans.maxCvs
     aktiva = [...getActiveCvIds(cvRows, grans.maxCvs)]
     const profile = profileRes.data as {
       premium_until?: string | null
@@ -103,8 +109,19 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     (cvIdFromUrl && cvRows.some((cv) => cv.id === cvIdFromUrl) ? cvIdFromUrl : null) ?? cvRows[0]?.id ?? null
   const mall = losMallId(forsta(params.mall)) ?? MALL_KATALOG[0].id
 
+  // CV-rummets flikar överst (omgång 1, steg 1). Mallarnas vägg byggs om i steg 2.
+  const aktivaSet = new Set(aktiva)
+  const lasta = new Set(cvRows.filter((c) => !aktivaSet.has(c.id)).map((c) => c.id))
+  const fullt = maxCvs === CV_GRANS_GRATIS && cvRows.length >= CV_GRANS_GRATIS
   return (
+    <>
+    <CvFlikRemsa
+      aktiv="mallar"
+      cvId={initialSelectedCvId}
+      cvRad={<CvRad cvs={cvListaUr(cvRows, lasta)} aktivtId={initialSelectedCvId} sida="mallar" fullt={fullt} />}
+    />
     <CvMallarClient
+      key={initialSelectedCvId ?? 'exempel'}
       initialCvs={cvRows}
       aktivaCvIds={aktiva}
       initialIsPremium={isPremium}
@@ -125,5 +142,6 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       ladda={forsta(params.ladda) === '1'}
       foto={forsta(params.foto) === '1'}
     />
+    </>
   )
 }

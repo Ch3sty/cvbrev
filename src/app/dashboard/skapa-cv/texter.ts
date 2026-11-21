@@ -18,7 +18,7 @@ export const BYGG = {
   /** Raden ovanför arket första gången (skissen yta 2). */
   tips: 'Grå text är exempel och följer inte med i filen. Tryck på ett avsnitt för att fylla i.',
   fler: '+ Fler avsnitt: intyg, projekt, intressen',
-  tillbakaMinaCv: 'Tillbaka till Mina CV',
+  tillbakaMinaCv: 'Tillbaka till Ditt CV',
 } as const
 
 export const START = {
@@ -32,7 +32,7 @@ export const START = {
   skriv: 'Skriv från början',
   stangUppladdning: 'Skriv från början i stället',
   laddar: 'Läser ditt CV',
-  minaCv: 'Tillbaka till Mina CV',
+  minaCv: 'Tillbaka till Ditt CV',
 } as const
 
 /** Den guidade luckan i den fasta raden (skissen yta 2). */

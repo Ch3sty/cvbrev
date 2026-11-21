@@ -150,6 +150,8 @@ export interface ByggareProps {
   /** Titeln från startbladet när hon laddade upp (?titel=). */
   uppTitel: string
   sparr: boolean
+  /** Från Ditt CV med titeln ifylld (?borja=1): startbladet hoppas över. */
+  borja?: boolean
   entry: Entry
   isAdmin: boolean
   katalog: readonly MallKort[]
@@ -180,7 +182,7 @@ export default function ByggareClient(p: ByggareProps) {
   }
   const [cvId, setCvIdState] = useState<string | null>(p.initialCvId)
   const cvIdRef = useRef(cvId)
-  const [start, setStart] = useState(!p.initialCvId)
+  const [start, setStart] = useState(!p.initialCvId && !p.borja)
   const [titel, setTitel] = useState(p.initialCv.personalInfo.title ?? '')
   const [mallId, setMallId] = useState(p.initialMall)
   const [val, setVal] = useState<MallVal>(() => {
@@ -240,6 +242,7 @@ export default function ByggareClient(p: ByggareProps) {
         q.delete('upp')
         q.delete('titel')
         q.delete('fran')
+        q.delete('borja')
         if (cvIdRef.current) q.set('cv', cvIdRef.current)
         if (!cvIdRef.current) q.delete('ark')
       })

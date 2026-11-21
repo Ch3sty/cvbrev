@@ -137,7 +137,9 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
     ort: profil?.location ?? '',
     linkedin: profil?.linkedin_url ?? '',
   }
-  let cv: ByggCv = sparat ?? nyttCv(kontakt, senasteTitel)
+  // Från Ditt CV med titeln ifylld (?borja=1&titel=): startbladet hoppas över.
+  const borjaTitel = !cvIdGiltigt && forsta(params.borja) === '1' ? (forsta(params.titel) ?? '').trim().slice(0, 80) : ''
+  let cv: ByggCv = sparat ?? nyttCv(kontakt, borjaTitel || senasteTitel)
   // Ett uppladdat CV har sitt eget format; kontakten fylls ur profilen där den saknas.
   if (sparat) {
     const pi = cv.personalInfo
@@ -187,6 +189,7 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       uppladdad={forsta(params.upp) === '1'}
       uppTitel={(forsta(params.titel) ?? '').slice(0, 80)}
       sparr={!cvId && antal >= maxCvs}
+      borja={Boolean(borjaTitel) && !(antal >= maxCvs)}
       entry={entry}
       isAdmin={isAdmin}
       katalog={MALL_KATALOG}

@@ -35,6 +35,67 @@ export interface AnalysUnderlag {
    * stället för summan av förslagens atsImpact.
    */
   kompetenserPlus?: number | null
+  /**
+   * Poängen med våra förslag (poängmodellens PoangSammanfattning.medAlla:
+   * de förvalda förslagen, aldrig lägre än poang). Räknas på servern med
+   * poängmodellen, aldrig här. Ersätter steg 1:s potentialuträkning.
+   */
+  medForslag?: number | null
+}
+
+/**
+ * Poängen med våra förslag ur underlaget: poängmodellens tal, aldrig lägre
+ * än poängen i dag. Ersätter steg 1:s potentialPoang (src/lib/cv/analys/
+ * potential.ts), som summerade AI:ns påhittade plus.
+ */
+export function medForslagUrAnalys(a: AnalysUnderlag | null): number | null {
+  const idag = poangUrAnalys(a)
+  if (idag === null) return null
+  const m = tal(a?.medForslag)
+  return m === null ? idag : Math.max(idag, Math.min(100, Math.round(m)))
+}
+
+export type AvsnittNyckel = 'profil' | 'erfarenhet' | 'utbildning' | 'kompetenser' | 'sprak'
+
+export interface Innehall {
+  /** Har CV:t struktur alls (structured_data går att läsa)? */
+  strukturerat: boolean
+  /** Avsnitten vi har letat efter, i ordning, med om de finns. Språk bara när vi läst in språken. */
+  avsnitt: { nyckel: AvsnittNyckel; finns: boolean }[]
+}
+
+const fylld = (s: unknown) => typeof s === 'string' && s.trim().length > 0
+
+/**
+ * Innehållet i CV:t (Ditt CV, Tre mått, Innehållet): profil, erfarenhet,
+ * utbildning och kompetenser ur structured_data i alla tre formaten, och
+ * språk via sprakLage. Språk räknas bara när vi har letat ('finns' eller
+ * 'saknas'); 'inte_inlast' ger fyra avsnitt och ingenting om språk.
+ */
+export function innehallUrCv(sd: unknown, sprak: 'finns' | 'saknas' | 'inte_inlast'): Innehall {
+  if (!sd || typeof sd !== 'object' || Array.isArray(sd)) return { strukturerat: false, avsnitt: [] }
+  const o = sd as Record<string, unknown>
+  const lista = (v: unknown) => (Array.isArray(v) ? v : [])
+  const profil = fylld(o.summary) || fylld(o.profile)
+  const erfarenhet =
+    lista(o.experience).some((e) => e && (fylld((e as Record<string, unknown>).position) || fylld((e as Record<string, unknown>).company))) ||
+    lista(o.roles).some((r) => r && (fylld((r as Record<string, unknown>).title) || fylld((r as Record<string, unknown>).company)))
+  const utbildning = lista(o.education).some(
+    (u) => u && (fylld((u as Record<string, unknown>).degree) || fylld((u as Record<string, unknown>).institution))
+  )
+  const kompetenser = lista(o.skills).some((k) =>
+    typeof k === 'string' ? fylld(k) : fylld((k as Record<string, unknown>)?.name) || lista((k as Record<string, unknown>)?.skills).some(fylld)
+  )
+  const strukturerat = Boolean(o.personalInfo || o.experience || o.roles || o.summary || o.profile || o.education || o.skills)
+  if (!strukturerat) return { strukturerat: false, avsnitt: [] }
+  const avsnitt: Innehall['avsnitt'] = [
+    { nyckel: 'profil', finns: profil },
+    { nyckel: 'erfarenhet', finns: erfarenhet },
+    { nyckel: 'utbildning', finns: utbildning },
+    { nyckel: 'kompetenser', finns: kompetenser },
+  ]
+  if (sprak !== 'inte_inlast') avsnitt.push({ nyckel: 'sprak', finns: sprak === 'finns' })
+  return { strukturerat, avsnitt }
 }
 
 export interface Fynd {
