@@ -296,7 +296,9 @@ Deno.serve(async (req) => {
 - 40 till 90 ord
 - Säg vilken roll personen har eller söker, med yrkestiteln ur CV:t
 - Använd BARA fakta som står i CV:t: arbetsgivare, titlar, kompetenser, tal och resultat. Hitta aldrig på något.
-- Ta med något konkret (antal år, ansvar, resultat) BARA om det står i CV:t. Saknas talet: skriv platshållaren [antal] där personen själv fyller i det, aldrig ett påhittat tal.`;
+- Ta med något konkret (antal år, ansvar, resultat) BARA om det står i CV:t. Saknas talet: skriv platshållaren [antal] där personen själv fyller i det, aldrig ett påhittat tal.
+- Tal som redan står i texten, med siffror eller med ord ("fem års erfarenhet", "12 medarbetare", "tre butiker"), skriver du av precis som de står. Byt ALDRIG ut ett tal som finns mot [antal]. [antal] får bara stå där texten saknar tal.
+- Skriv på svenska med svenska facktermer. Inga engelska ord där det finns ett svenskt: "lager" eller "lagerhantering", inte "inventory"; "varuexponering", inte "merchandising"; "kundservice", inte "customer service". Stava korrekt och kontrollera stavningen innan du svarar.`;
 
       const rollerForProfil = (modellCV.experience || []).slice(0, 3).map((e: any) => ({
         position: e.position, company: e.company, description: e.description,
@@ -405,7 +407,7 @@ KRITISKA REGLER FÖR "skill":
 EXEMPEL PER BRANSCH (använd som guide):
 
 Detaljhandel:
-✅ "Försäljning", "Butiksdrift", "Kassasystem", "Visual merchandising", "Kundservice", "Lagerhantering"
+✅ "Försäljning", "Butiksdrift", "Kassasystem", "Varuexponering", "Kundservice", "Lagerhantering"
 
 Bygg/Hantverk:
 ✅ "Arbetsledning", "Byggnorm", "Projektering", "Säkerhetsarbete", "Kvalitetssäkring", "Renovering"
@@ -490,6 +492,8 @@ KRITISKA REGLER FÖR suggestedText:
 ✅ Fokusera på: specifika ansvarsområden, action verbs, konkreta arbetsuppgifter
 ✅ OM användaren redan nämner resultat → förtydliga dem och BEHÅLL alla siffror som står i originalet
 ✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet, och skriv platshållaren [antal] där personen kan fylla i en egen siffra (högst en per punkt), t.ex. "Besvarade [antal] kundärenden per dag". Skriv ALDRIG ett tal som inte står i originaltexten.
+❌ Byt ALDRIG ut ett tal som redan står i originalet mot [antal], vare sig det är skrivet med siffror ("12 medarbetare") eller med ord ("fem års erfarenhet", "tre butiker"). Skriv av talet precis som det står. [antal] får bara stå där originalet saknar tal.
+✅ SPRÅK: skriv på svenska med svenska facktermer. Inga engelska ord där det finns ett svenskt: "lager" eller "lagerhantering", inte "inventory"; "varuexponering", inte "merchandising"; "kundservice", inte "customer service". Stava korrekt och kontrollera stavningen innan du svarar.
 ✅ Använd BARA arbetsgivare, titlar, verktyg och kompetenser som står i CV:t. Lägg aldrig till system, certifikat eller ansvar som inte nämns.
 ✅ FORM: 3 till 6 punkter, VARJE punkt på EGEN RAD (radbrytning \\n mellan punkterna), utan punkttecken
 ✅ Varje punkt börjar med ett verb (Ledde, Ansvarade, Byggde, Sålde, Planerar) och är högst 25 ord
