@@ -157,6 +157,12 @@ export default function MallarKlient(p: MallarKlientProps) {
   }, [visad, brev])
 
   /* ---------------------------------------------------------------- arket */
+  // Förhandsvisningar som föll, så att Försök igen gör om just dem: arket
+  // (mall och typsnitt) och korten (en ny omgång för de kort som saknas).
+  const fallnaArk = useRef<{ mall: string; font: string | null } | null>(null)
+  const kortFoll = useRef(false)
+  const [kortForsok, setKortForsok] = useState(0)
+
   const hamtaArk = useCallback(
     async (mall: string, f: string | null) => {
       const k = nyckel(mall, f)
@@ -166,11 +172,24 @@ export default function MallarKlient(p: MallarKlientProps) {
         setArkHtml((a) => ({ ...a, [k]: html }))
         if (!kortHtml[mall]) setKortHtml((a) => ({ ...a, [mall]: html }))
       } catch {
+        fallnaArk.current = { mall, font: f }
         setFel(T.fel.forhandsvisa)
       }
     },
     [arkHtml, kortHtml, brevId],
   )
+
+  /** Försök igen i felraden: raden går bort, och kommer tillbaka bara om det faller igen. */
+  const forsokIgen = () => {
+    setFel(null)
+    const arket = fallnaArk.current
+    fallnaArk.current = null
+    if (arket) void hamtaArk(arket.mall, arket.font)
+    if (kortFoll.current) {
+      kortFoll.current = false
+      setKortForsok((n) => n + 1)
+    }
+  }
 
   const spara = useCallback(
     (andring: { mall_id?: string; font_id?: string | null }) => {
@@ -239,18 +258,23 @@ export default function MallarKlient(p: MallarKlientProps) {
     // I omgångar med nytt försök vid fel (klient.ts): ett anrop för alla övriga kunde svara 504 och lämna korten med katalogens CV-bilder.
     forhandsvisaIOmgangar(brevId, saknas, font, (ut) => setKortHtml((a) => ({ ...ut, ...a })), { signal: ctrl.signal })
       .then((misslyckade) => {
-        if (misslyckade.length) setFel(T.fel.forhandsvisa)
+        if (!misslyckade.length) return
+        kortFoll.current = true
+        setFel(T.fel.forhandsvisa)
       })
       .catch((e) => {
-        if ((e as Error)?.name !== 'AbortError') setFel(T.fel.forhandsvisa)
+        if ((e as Error)?.name === 'AbortError') return
+        kortFoll.current = true
+        setFel(T.fel.forhandsvisa)
       })
       .finally(() => {
         if (!ctrl.signal.aborted) setHamtar(false)
       })
     return () => ctrl.abort()
     // Hämtas med typsnittet som gäller när korten visas; byte av typsnitt ritar bara arket om.
+    // kortForsok: Försök igen i felraden startar en ny omgång för korten som saknas.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [synligaNyckel, brevId])
+  }, [synligaNyckel, brevId, kortForsok])
 
   /* ---------------------------------------------------------------- nedladdning */
   const returTill = brev ? mallarKopretur(brev.id, visad, sparrFormat) : null
@@ -442,10 +466,13 @@ export default function MallarKlient(p: MallarKlientProps) {
           {namnKravs ? (
             <NameRequiredNotice className="mb-4" rubrik={T.namnRubrik} text={T.namnText} onSaved={() => void laddaNer(namnKravs)} />
           ) : null}
+          {/* Samma rad som sparfelet i Brevet: texten och, där sidan själv kan göra om det som föll
+              (förhandsvisningen), knappen Försök igen. Spara- och nedladdningsfel görs om med användarens eget tryck. */}
           {felText ? (
-            <p className="b3-ml-fel" role="alert">
-              {felText}
-            </p>
+            <div className="b3-ml-fel" role="alert">
+              <span>{felText}</span>
+              {felText === T.fel.forhandsvisa ? <LitenKnapp onClick={forsokIgen}>{T.forsokIgen}</LitenKnapp> : null}
+            </div>
           ) : null}
           <div className="b3-ml-panelhuvud">
             <div>

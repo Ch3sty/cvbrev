@@ -833,7 +833,8 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 .b3-ml-ovriga-lank { display: none; }
 .b3-ml-lank { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--b3-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .b3-ml-lank:hover { color: var(--koppar-ink); }
-.b3-ml-fel { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: var(--b3-saknas); border: 2px solid var(--b3-saknas-kant); font-size: 14px; line-height: 20px; color: var(--b3-ink); }
+.b3-ml-fel { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: var(--b3-saknas); border: 2px solid var(--b3-saknas-kant); font-size: 14px; line-height: 20px; color: var(--b3-ink); }
+.b3-ml-fel > span { flex: 1; min-width: 0; }
 @media (min-width: 1280px) {
   .b3-ml-ovriga { margin-top: 16px; font-size: 14px; line-height: 21px; }
   .b3-ml-ovriga-lank { display: inline; }

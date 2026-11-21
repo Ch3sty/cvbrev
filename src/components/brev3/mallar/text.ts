@@ -48,11 +48,13 @@ export const MALLAR_TEXT = {
   premiumMobil: 'Ladda ner brevet som PDF och Word, i alla mallar',
   fel: {
     spara: 'Mallen kunde inte sparas. Försök igen.',
-    forhandsvisa: 'Mallen kunde inte visas. Försök igen.',
+    // Raden har knappen Försök igen (forsokIgen), så texten upprepar den inte.
+    forhandsvisa: 'Mallen kunde inte visas.',
     ladda: 'Filen kunde inte skapas. Försök igen.',
     last: 'Brevet är låst på gratisnivån, så mallen sparades inte.',
     kopEjRegistrerat: 'Vi väntar på bekräftelsen av ditt köp. Ladda om sidan om en liten stund, så hämtas filen.',
   },
+  forsokIgen: 'Försök igen',
   namnRubrik: 'Vi behöver ditt namn först',
   namnText: 'Det står överst i brevet.',
   kopieratKvitto: 'Texten är kopierad',
