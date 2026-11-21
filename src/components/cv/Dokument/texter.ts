@@ -98,6 +98,10 @@ export const VERKTYG = {
   farg: 'Färg',
   foto: 'Foto',
   fotoPa: 'Foto på',
+  /** CV-rummets brickor (Mallar): underraden och fotobrickans text. */
+  anpassa: 'Anpassa mallen',
+  ordningKort: 'Ordning',
+  laggTill: 'Lägg till',
   ordning: {
     standard: 'Standard',
     intyg: 'Intyg först',
@@ -356,6 +360,12 @@ export const FINAL = {
   analysKnapp: 'Analysera ditt CV',
   brevLank: 'Skriv ett personligt brev',
   minaCv: 'Gå till Ditt CV',
+  /** CV-rummets målgång (Nedladdat-1440): eyebrow med dagen, brevraden när en träff finns. */
+  nedladdat: (dag: string) => `Nedladdat · ${dag}`,
+  brevRadTraff: 'Vi förifyller brevet med annonsen och matchar det mot ditt CV.',
+  tillbakaDittCv: 'Tillbaka till Ditt CV',
+  filRad: (mall: string, sidor: number) => `${mall}, ${DOK.sidor(sidor)}`,
+  arkAlt: (mall: string) => `Ditt CV i mallen ${mall}`,
   jobbEtikett: (titel: string, var_: string, lank: boolean) =>
     `${[titel, var_].filter(Boolean).join(', ')}. ${lank ? 'Öppna annonsen i ny flik' : 'Se jobbet i Dina matchningar'}`,
 } as const

@@ -1,6 +1,10 @@
 'use client'
 
 /**
+ * Målgången som blad (publika provsidan, /cv-mallar/prova). Inloggat
+ * (galleriet och byggaren) ritas den i CV-rummets utseende i Final.tsx, med
+ * samma innehåll och logik.
+ *
  * Nedladdningen är finalen (skissen yta 5, beslut 4): bocken ritas, filen
  * har ett namn, Öppna och Dela som två lika stora knappar, sedan en enda
  * nästa handling: första jobbet som matchar hennes CV (räknat ur titel och
@@ -16,15 +20,7 @@ import type { Format, MallKort } from '@/lib/cv/mallar/kontrakt'
 import { IkonDela, IkonOppna, IkonPdf, IkonWord } from '@/components/illustrations/MallIkoner'
 import Ark from './Ark'
 import { FINAL } from './texter'
-
-export interface Traff {
-  id: string | null
-  rubrik: string
-  arbetsgivare: string
-  ort: string
-  url: string | null
-  beskrivning: string
-}
+import type { FinalProps, Traff } from './Final'
 
 /** Första meningen ur annonsen, högst 80 tecken (granskningen P4). */
 function skalrad(text: string): string {
@@ -34,27 +30,7 @@ function skalrad(text: string): string {
   return mening.length <= 80 ? mening : `${mening.slice(0, 77).replace(/\s+\S*$/, '')}...`
 }
 
-export interface FinalProps {
-  open: boolean
-  onClose: () => void
-  fil: { blob: Blob; url: string; filnamn: string }
-  mall: MallKort
-  format: Format
-  sidor: number
-  /** Inloggad: CV:ts id, för brevet. */
-  cvId?: string | null
-  /** Titel och ort ur CV:t, för träffen. */
-  titel?: string
-  ort?: string
-  surface: string
-  /**
-   * CV-byggaren (skissen 2026-11-16, yta 5): nästa steg är analysen av
-   * CV:t, sedan brevet och Mina CV som länkar, i stället för jobbträffen.
-   */
-  nasta?: 'analys'
-}
-
-export default function Final({ open, onClose, fil, mall, format, sidor, cvId, titel, ort, surface, nasta }: FinalProps) {
+export default function FinalArk({ open, onClose, fil, mall, format, sidor, cvId, titel, ort, surface, nasta }: FinalProps) {
   const router = useRouter()
   const [traff, setTraff] = useState<Traff | null | 'vantar'>('vantar')
   const kanDela = useMemo(() => {

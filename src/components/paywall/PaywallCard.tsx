@@ -39,6 +39,7 @@ import Bankbredd from '@/components/publikt/Bankbredd'
 import type { TestTyp } from '@/components/illustrations/TestGlyfer'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import { SparrArk, SparrFot, SparrVagg, type SparrData } from './TestSparr'
+import CvSparr, { type CvSparrData } from '@/components/cv/rum3/sparr/CvSparr'
 
 export { PRISER_HREF }
 
@@ -164,9 +165,15 @@ export interface PaywallCardProps {
    * `matning`, eller variant test-tak) får det nya, alla andra (CV, brev,
    * mallar) ritas som förut. 'kort' tvingar det tidigare kortet.
    */
-  utseende?: 'kort' | 'test'
+  utseende?: 'kort' | 'test' | 'cv'
   /** Hennes siffror i den nya spärren (dagens resultat, nivån, mönstret, provet). Saknas en faller raden bort. */
   sparrData?: SparrData | null
+  /**
+   * CV-rummet (omgång 1, steg 2): spärrarna vid nedladdning (mall,
+   * cv-export-word, cv-export) med hennes CV i mallen bredvid texten. Samma
+   * texter, pris, köp, länk och mätning som kortet; bara ritningen byts.
+   */
+  cvSparr?: CvSparrData | null
   /** Arkets kryss i det nya utseendet (GraValSheet). */
   onStang?: (() => void) | null
 }
@@ -203,6 +210,7 @@ function PaywallCard({
   utseende,
   sparrData = null,
   onStang = null,
+  cvSparr = null,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [copied, setCopied] = useState(false)
@@ -393,6 +401,46 @@ function PaywallCard({
         return prisLank
     }
   })()
+
+  // CV-rummet: spärrarna vid nedladdning med hennes CV i mallen.
+  if (utseende === 'cv' && cvSparr && (variant === 'mall' || variant === 'cv-export-word' || variant === 'cv-export')) {
+    const pr = copy.prisrad ?? ''
+    const i = pr.indexOf('. ')
+    const prisrad = i < 0 ? <b>{pr}</b> : <><b>{pr.slice(0, i + 1)}</b><br />{' '}{pr.slice(i + 2)}</>
+    const fria =
+      variant === 'mall' && onSecondary && !arPrisText(copy.secondary)
+        ? {
+            text: copy.secondary,
+            onClick: () => {
+              ctaClicked('secondary')
+              onSecondary()
+            },
+          }
+        : null
+    return (
+      <div className={className}>
+        <CvSparr
+          data={cvSparr}
+          variant={variant}
+          titel={copy.title}
+          body={copy.body}
+          prisrad={prisrad}
+          kop={
+            <button type="button" onClick={primarHandling} className="cv3s-stor" data-sparr-kop>
+              {copy.primary}
+            </button>
+          }
+          lank={
+            <Link href={PRISER_HREF} className="cv3s-lank" onClick={() => ctaClicked('secondary')}>
+              {copy.secondary === 'Se priset' ? copy.secondary : PAKETRADER.jamfor}
+            </Link>
+          }
+          fria={fria}
+          onStang={onStang}
+        />
+      </div>
+    )
+  }
 
   // Omgång 3: testflödets spärrar i det nya utseendet. Samma texter, pris,
   // köp, länkar, påminnelse och mätning som kortet nedan; bara ritningen byts.

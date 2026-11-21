@@ -24,6 +24,7 @@ import Sheet from '@/components/shell/Sheet'
 import PaywallCard from './PaywallCard'
 import type { PaywallVariant } from './paywall-copy'
 import type { SparrData } from './TestSparr'
+import type { CvSparrData } from '@/components/cv/rum3/sparr/CvSparr'
 import type { Feature, Scope } from '@/lib/access/features'
 import type { PlanKey } from '@/lib/plans/plans'
 import { capture, type BetalvaggPlats } from '@/lib/analytics/events'
@@ -52,6 +53,13 @@ export interface GraValSheetProps {
   grundKvarIdag?: number | null
   /** Omgång 3: hennes siffror i testernas spärr (nivån, provet). Saknas en faller raden bort. */
   sparrData?: SparrData | null
+  /**
+   * CV-rummet (omgång 1, steg 2): spärrarna vid nedladdning i nya utseendet,
+   * med hennes CV i vald mall. Utelämnat: kortet som förut.
+   */
+  cvSparr?: CvSparrData | null
+  /** Variantens sekundära handling (gratisvägen i varianten mall). Utelämnat: arket stängs. */
+  onSecondary?: () => void
 }
 
 export default function GraValSheet({
@@ -67,6 +75,8 @@ export default function GraValSheet({
   mall = null,
   grundKvarIdag = null,
   sparrData = null,
+  cvSparr = null,
+  onSecondary,
 }: GraValSheetProps) {
   // gray_option_tapped en gång per öppning.
   const mattRef = useRef(false)
@@ -100,6 +110,29 @@ export default function GraValSheet({
             bare
             utseende="test"
             sparrData={sparrData}
+            onStang={onClose}
+          />
+        ) : null}
+      </Sheet>
+    )
+  }
+
+  if (cvSparr && (variant === 'mall' || variant === 'cv-export-word' || variant === 'cv-export')) {
+    return (
+      <Sheet open={open} onClose={onClose} bare className="cv3s-sheet sm:!max-w-[1020px] sm:!rounded-[28px] !border-0 sm:max-h-[94dvh]">
+        {open ? (
+          <PaywallCard
+            variant={variant}
+            feature={feature}
+            scope={scope === 'cv' || scope === 'tester' ? scope : null}
+            track={track}
+            onSecondary={onSecondary ?? onClose}
+            plats={plats}
+            dagarKvar={dagarKvar}
+            mall={mall}
+            bare
+            utseende="cv"
+            cvSparr={cvSparr}
             onStang={onClose}
           />
         ) : null}

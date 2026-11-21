@@ -209,3 +209,93 @@ export const NY = {
   brevRad: 'Brev som utgår från ditt CV.',
   brevRad2: 'Klistra in annonsen, så matchar vi brevet mot det.',
 } as const
+
+/**
+ * Mallar (steg 2, skissen Mallar och Mobil-mallar). Antal räknas alltid ur
+ * katalogen av anroparen; inga tal står här.
+ */
+export const MALLAR = {
+  ogon: (i: number, n: number) => `Vald mall · ${i} av ${n}`,
+  gratis: 'Gratis',
+  premium: 'Premium',
+  foljer: 'Texten följer med när du byter mall, och du ändrar den direkt på arket.',
+  exempelFoljer: 'Ett exempel-CV. Lägg in ditt eget, så ser du det i varje mall.',
+  andra: 'Ändra texten',
+  andraUnder: 'Alla avsnitt',
+  typsnitt: 'Typsnitt',
+  farg: 'Färg',
+  fargVald: (i: number) => `Färg ${i}, vald`,
+  ordning: 'Ordning',
+  foto: 'Foto',
+  laggTill: 'Lägg till',
+  fotoPa: 'Foto på',
+  verktyg: 'Anpassa mallen',
+  format: 'Format',
+  wordLast: 'Word, ingår i Premium',
+  wordSaknas: 'Word finns inte i den här mallen',
+  forra: 'Föregående mall',
+  nasta: 'Nästa mall',
+  svep: ['Svep för', 'nästa mall'] as const,
+  tipsDator: 'Tryck på ett avsnitt för att ändra texten',
+  tipsMobil: 'Tryck på en rubrik för att byta den. Tryck på arket för helskärm.',
+  arkAlt: (mall: string) => `Ditt CV i mallen ${mall}. Klicka för att läsa i helskärm.`,
+  exempelAlt: (mall: string) => `Ett exempel-CV i mallen ${mall}`,
+  panelOgon: (n: number) => `Alla ${n} mallar`,
+  panelRubrik: 'Ditt eget CV i varje mall',
+  panelRubrikExempel: 'Ett exempel-CV i varje mall',
+  panelRad: 'Innehållet följer med när du byter mall. Du betalar först när du laddar ner en Premiummall.',
+  panelRadKort: 'Du betalar först när du laddar ner en Premiummall.',
+  filter: 'Filtrera mallar',
+  baraPdf: 'Finns som PDF.',
+  sidaAv: (i: number, n: number) => `Sida ${i} av ${n}.`,
+  lasHelskarm: 'Läs i helskärm',
+  gratisVag: (mall: string) => `Ladda ner gratis i ${mall}`,
+  gratisVagRad: 'Samma CV, samma rubriker.',
+  premOgon: 'Jobbcoach Premium',
+  premRubrik: (n: number) => `Alla ${n} mallar, så ofta du vill`,
+  premPunkter: [
+    'Ladda ner på nytt varje gång CV:t ändras, som PDF eller Word',
+    'Hela CV-analysen, med åtgärden bakom varje rubrik',
+    'Personliga brev och alla rekryteringstester',
+  ] as const,
+  valdMall: 'Vald mall',
+  tillArket: 'Till arket',
+  exempelLadda: 'Ladda upp ditt CV',
+  exempelSkriv: 'Skriv från början',
+  exempelRad: 'Nedladdningen öppnar när ditt CV finns här.',
+} as const
+
+/** CV-raden under flikarna på telefonen, när det finns fler än ett CV. */
+export const CV_RAD_MOBIL = {
+  aria: (namn: string) => `CV: ${namn}. Byt CV`,
+} as const
+
+/**
+ * Spärrarna vid nedladdning i nya utseendet (skissen Sparr-mall-1440 och
+ * Mobil-sparr). Eyebrow, brödtext, prisrad och knapp kommer ur paywall-copy;
+ * här står bara rubriken per variant, talrutorna och punkterna.
+ */
+export const SPARR = {
+  ditt: (mall: string) => `Ditt CV i ${mall}`,
+  exempel: (mall: string) => `Exempel-CV i ${mall}`,
+  rubrik: {
+    mall: 'Skicka CV:t precis som det ser ut här',
+    'cv-export-word': 'Ändra CV:t själv, i Word',
+    'cv-export': 'Ladda ner igen, i vilken mall du vill',
+  },
+  mallar: 'mallar, alla med ditt CV',
+  word: 'finns också som Word',
+  poang: 'poäng att hämta i analysen',
+  talAria: (mallar: number, word: number, poang: number | null) =>
+    `${mallar} mallar med ditt CV. ${word} finns också som Word.${poang ? ` ${poang} poäng finns att hämta i analysen.` : ''}`,
+  punktFil: (mall: string, word: boolean) => (word ? `${mall} som PDF eller Word` : `${mall} som PDF`),
+  punktFilRad: ', filen laddas ner direkt efter köpet',
+  punktNy: 'Ladda ner på nytt',
+  punktNyRad: ' varje gång CV:t ändras, i vilken mall du vill',
+  punktNyRadKort: ' varje gång CV:t ändras',
+  punktAnalys: 'Åtgärden bakom varje rubrik',
+  punktAnalysRad: ' i analysen, med färdiga formuleringar',
+  punktAnalysRadKort: ' i analysen',
+  friaRad: (namn: string) => `${namn}. Samma CV, samma rubriker.`,
+  stang: 'Stäng',
+} as const

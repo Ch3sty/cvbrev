@@ -1,6 +1,12 @@
 'use client'
 
 /**
+ * Merförsäljningen i CV-rummets utseende (omgång 1, steg 2, byggspecen
+ * avsnitt 9): samma ram som spärrarna vid nedladdning, med hennes CV i den
+ * valda mallen till vänster (överst på telefonen) och korten, knappen och
+ * "Nej tack" till höger. Urval, texter, ordning och mätning som förut. Den
+ * publika provsidan ritar bladet i MerforsaljningArk.tsx.
+ *
  * Merförsäljningen vid andra nedladdningen (skissen yta 5 bild 3, trions
  * beslut om punkt 14): tre kort med bild av hennes eget CV i andra mallar,
  * vad som skiljer i högst fyra ord (MallKort.kort), mallnamnet i liten text.
@@ -15,10 +21,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
 import type { MallKort } from '@/lib/cv/mallar/kontrakt'
-import { medSkala } from './matning'
-import { forhandsvisningHtml, type Kalla } from './hooks'
-import Ark from './Ark'
+import Sheet from '@/components/shell/Sheet'
+import { begarEgnaMallar, type EgetCv } from './egnaMallar'
+import EgenMiniatyr from './EgenMiniatyr'
+import type { Kalla } from './hooks'
 import { MERFORSALJNING } from './texter'
+import { SPARR } from '@/components/cv/rum3/texter'
 import { MERFORSALJNING_URVAL, arSaljbar } from '@/lib/cv/mallval/forslag'
 
 /**
@@ -108,23 +116,22 @@ export interface MerforsaljningProps {
   surface: string
 }
 
+/** Hennes CV ur källan, för miniatyrerna (inloggat). */
+function egetCvUr(k: Exclude<Kalla, { typ: 'exempel' }>): EgetCv | null {
+  if (k.typ !== 'inloggad') return null
+  return { cvId: k.cvId ?? '', structuredData: k.structuredData, cvText: k.cvText, val: k.val }
+}
+
 export default function Merforsaljning({ open, onClose, katalog, nuvarande, filnamn, sidor, harFoto, kalla, pris, kampanj, onKop, surface }: MerforsaljningProps) {
   const urval = useMemo(() => merforsaljningsUrval(katalog, nuvarande.id, sidor, harFoto), [katalog, nuvarande.id, sidor, harFoto])
   const [vald, setVald] = useState(0)
-  const [bilder, setBilder] = useState<Record<string, string>>({})
+  const cv = useMemo(() => egetCvUr(kalla(nuvarande.id)), [kalla, nuvarande.id])
 
   useEffect(() => {
     if (!open) return
     capture('merforsaljning_visad', { template: nuvarande.id, templates: urval.map((m) => m.id).join(','), surface })
-    let levande = true
-    for (const m of urval) {
-      void forhandsvisningHtml(kalla(m.id)).then((h) => {
-        if (levande && h) setBilder((b) => ({ ...b, [m.id]: medSkala(h) }))
-      })
-    }
-    return () => {
-      levande = false
-    }
+    // Alla tre korten i en fråga (egnaMallar), direkt.
+    if (cv) begarEgnaMallar(cv, urval.map((m) => m.id), true)
     // Urvalet och källan räcker en gång per öppning.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
@@ -132,69 +139,99 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
   const valdMall = urval[vald]
   if (!valdMall) return null
   const visatPris = kampanj?.pris ?? pris
+  const nej = () => {
+    capture('merforsaljning_klick', { template: nuvarande.id, position: -1, val: 'nej', surface })
+    onClose()
+  }
 
   return (
-    <Ark
-      open={open}
-      onClose={onClose}
-      rubrik={MERFORSALJNING.rubrik}
-      under={MERFORSALJNING.under(filnamn, nuvarande.namn, urval.length)}
-      fot={
-        <div className="grid gap-2">
-          <p className="text-meta text-ink-3">{MERFORSALJNING.wordRad}</p>
-          <button
-            type="button"
-            onClick={() => {
-              capture('merforsaljning_klick', { template: valdMall.id, position: vald, val: 'kop', surface })
-              onKop(valdMall)
-            }}
-            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[linear-gradient(180deg,#E8863B,var(--koppar)_60%,var(--koppar-djup))] px-4 py-2 text-center text-sm font-semibold leading-tight text-koppar-text"
-          >
-            {MERFORSALJNING.knapp(valdMall.namn, visatPris)}
-          </button>
-          {kampanj ? <p className="text-center text-meta text-ink-3">{MERFORSALJNING.kampanj(kampanj.pris, kampanj.ordinarie)}</p> : null}
-          <button
-            type="button"
-            onClick={() => {
-              capture('merforsaljning_klick', { template: nuvarande.id, position: -1, val: 'nej', surface })
-              onClose()
-            }}
-            className="inline-flex min-h-11 items-center justify-center text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
-          >
-            {MERFORSALJNING.nejTack(nuvarande.namn)}
-          </button>
+    <Sheet open={open} onClose={onClose} bare className="cv3s-sheet sm:!max-w-[1020px] sm:!rounded-[28px] !border-0 sm:max-h-[94dvh]">
+      {open ? (
+        <div className="cv3s" data-merforsaljning>
+          <div className="cv3s-vagg">
+            <span className="cv3s-cirkel" aria-hidden="true" />
+            <span className="cv3s-kulle" aria-hidden="true" />
+            <div className="cv3s-vagg-topp">
+              <div className="min-w-0">
+                <p className="cv3s-ogon-vagg">{SPARR.ditt(valdMall.namn)}</p>
+                <span className="cv3s-fm-rad md:hidden">
+                  <span className="cv3s-fm">PDF</span>
+                  {valdMall.word ? <span className="cv3s-fm">Word</span> : null}
+                </span>
+              </div>
+              <span className="cv3s-fm-rad hidden md:inline-flex">
+                <span className="cv3s-fm">PDF</span>
+                {valdMall.word ? <span className="cv3s-fm">Word</span> : null}
+              </span>
+              <button type="button" className="cv3s-stang md:hidden" onClick={onClose} aria-label={SPARR.stang}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+            <div className="cv3s-ark">
+              <EgenMiniatyr key={valdMall.id} mall={valdMall} cv={cv} direkt alt={SPARR.ditt(valdMall.namn)} />
+            </div>
+          </div>
+
+          <div className="cv3s-text">
+            <button type="button" className="cv3s-stang hidden md:flex" onClick={onClose} aria-label={SPARR.stang}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+            <h2 className="cv3s-rubrik cv3s-rubrik-utan-ogon">{MERFORSALJNING.rubrik}</h2>
+            <p className="cv3s-body">{MERFORSALJNING.under(filnamn, nuvarande.namn, urval.length)}</p>
+
+            <div className="cv3s-val" role="radiogroup" aria-label={MERFORSALJNING.rubrik}>
+              {urval.map((m, i) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={vald === i}
+                  aria-label={`${kortText(m, harFoto)}. ${MERFORSALJNING.mallnamn(m.namn)}`}
+                  onClick={() => {
+                    setVald(i)
+                    capture('merforsaljning_klick', { template: m.id, position: i, val: 'kort', surface })
+                  }}
+                  className="cv3s-valkort"
+                >
+                  <span className="cv3s-valkort-bild">
+                    <EgenMiniatyr mall={m} cv={cv} bild="liten" />
+                  </span>
+                  <span className="min-w-0">
+                    <b>{kortText(m, harFoto)}</b>
+                    <small>{MERFORSALJNING.mallnamn(m.namn)}</small>
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <div className="cv3s-fot">
+              <p className="cv3s-pris cv3s-pris-liten">{MERFORSALJNING.wordRad}</p>
+              <div className="cv3s-kop">
+                <button
+                  type="button"
+                  className="cv3s-stor"
+                  onClick={() => {
+                    capture('merforsaljning_klick', { template: valdMall.id, position: vald, val: 'kop', surface })
+                    onKop(valdMall)
+                  }}
+                >
+                  {MERFORSALJNING.knapp(valdMall.namn, visatPris)}
+                </button>
+              </div>
+              {kampanj ? <p className="cv3s-kampanj">{MERFORSALJNING.kampanj(kampanj.pris, kampanj.ordinarie)}</p> : null}
+              <div className="cv3s-lankar cv3s-lankar-mitt">
+                <button type="button" className="cv3s-lank" onClick={nej}>
+                  {MERFORSALJNING.nejTack(nuvarande.namn)}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      }
-    >
-      <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={MERFORSALJNING.rubrik}>
-        {urval.map((m, i) => (
-          <button
-            key={m.id}
-            type="button"
-            role="radio"
-            aria-checked={vald === i}
-            aria-label={`${kortText(m, harFoto)}. ${MERFORSALJNING.mallnamn(m.namn)}`}
-            onClick={() => {
-              setVald(i)
-              capture('merforsaljning_klick', { template: m.id, position: i, val: 'kort', surface })
-            }}
-            className={`flex min-w-0 flex-col items-center gap-2 rounded-xl bg-papper p-1.5 text-center ${vald === i ? 'border-2 border-koppar' : 'border border-kant'}`}
-          >
-            <span className="relative block aspect-[210/297] w-full max-w-[112px] shrink-0 overflow-hidden rounded-[3px] border border-kant bg-white">
-              {bilder[m.id] ? (
-                <iframe srcDoc={bilder[m.id]} title={m.namn} tabIndex={-1} scrolling="no" className="pointer-events-none absolute inset-0 h-full w-full border-0" />
-              ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={m.bild.liten} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
-              )}
-            </span>
-            <span className="min-w-0">
-              <span className="block text-[13px] font-semibold leading-tight text-ink-1">{kortText(m, harFoto)}</span>
-              <span className="block text-meta text-ink-3">{MERFORSALJNING.mallnamn(m.namn)}</span>
-            </span>
-          </button>
-        ))}
-      </div>
-    </Ark>
+      ) : null}
+    </Sheet>
   )
 }
