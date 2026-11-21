@@ -41,6 +41,8 @@ type Sok = Record<string, string | string[] | undefined> & {
   format?: string | string[]
   kop?: string | string[]
   ladda?: string | string[]
+  /** Köpreturen från kassan (create-plan-session): tillgången väntas in om webhooken ligger efter. */
+  premium_activated?: string | string[]
   foto?: string | string[]
   /** Reserv: äldre länkar "Lägg till språken" med ?andra=sprak går vidare till arbetsläget. */
   andra?: string | string[]
@@ -227,6 +229,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       prisLang={prisLang}
       kampanj={kampanj}
       ladda={forsta(params.ladda) === '1'}
+      kopRetur={forsta(params.premium_activated) === 'true'}
       foto={forsta(params.foto) === '1'}
       fullt={fullt}
       plusPerCv={plusPerCv}

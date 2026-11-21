@@ -12,12 +12,16 @@
  * väntar vi inte: adressen städas och inget mer händer.
  *
  * Logiken ligger i en ren styrning (skapaKopretur) som testas med falska
- * klockor; useKopretur kopplar den till vyns props.
+ * klockor; useKopretur kopplar den till vyns props. CV-rummets Mallar
+ * (dashboard/cv-mallar/kopretur.ts) använder samma styrning.
  */
 import { useEffect, useRef, useState } from 'react'
 
 export const KOPRETUR_INTERVALL_MS = 2500
 export const KOPRETUR_MAX_FORSOK = 6
+
+/** Raden när försöken tagit slut (samma ord som brevrummets texter). */
+export const KOPRETUR_EJ_REGISTRERAT = 'Vi väntar på bekräftelsen av ditt köp. Ladda om sidan om en liten stund, så hämtas filen.'
 
 export type KopreturFormat = 'pdf' | 'docx'
 export type KopreturLage = 'vilar' | 'vantar' | 'klar' | 'ej-registrerat'
