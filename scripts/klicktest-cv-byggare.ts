@@ -1,15 +1,17 @@
 /**
- * Klicktestet för CV-byggaren "Direkt på arket"
- * (docs/design/skiss-cv-byggare-2026-11-16.html), i riktig Chrome.
+ * Klicktestet för arbetsläget på /dashboard/skapa-cv (byggspecen avsnitt 7,
+ * skisserna Redigera-1440, Bygg-1440, Mobil-redigera; tidigare CV-byggaren
+ * "Direkt på arket"), i riktig Chrome.
  *
  *   npx tsx scripts/klicktest-cv-byggare.ts skapa  --ut <mapp>
- *   npx tsx scripts/klicktest-cv-byggare.ts klicka --ut <mapp> [--bas URL] [--bara gratis|premium|full|upp|kvot]
+ *   npx tsx scripts/klicktest-cv-byggare.ts klicka --ut <mapp> [--bas URL] [--bara gratis|premium|full|upp|kvot|redigera]
  *   npx tsx scripts/klicktest-cv-byggare.ts radera --ut <mapp>
  *
  * Tre konton med adresser *@jobbcoach-qa.test, unika per körning:
  *   gratis   nytt gratiskonto utan CV (Pixel 7: hela flödet, sedan uppladdning på dator)
  *   premium  betalande (1440 px: flödet, premiummall och Word)
- *   full     gratis med två CV (spärren i startbladet)
+ *   full     gratis med två uppladdade CV (spärren i startbladet, och att
+ *            redigera ett uppladdat CV: inga byggarfält, Klar tillbaka till fran)
  * Raderingen går bara på id:n skriptet själv skapat (konton.json), och
  * räknar raderna före delete (feedback_testdata_stadning).
  * Skärmdumparna hamnar i --ut, aldrig i git.
@@ -236,12 +238,11 @@ async function oppna(browser: Browser, k: Konto, vy: typeof PIXEL7 | typeof DATO
   return { ctx, page, nedMapp }
 }
 
-/** Ett jobb med Jobbcoachens punkter, via Nästa-luckan. */
+/** Ett jobb med Jobbcoachens punkter: från början öppnas erfarenhetsbladet direkt. */
 async function fyllJobb(page: Page, steg: string, coach: boolean) {
-  await klickaText(page, 'Lägg till ett jobb')
   const blad = await vantaPa(page, '#e-titel')
-  kontroll(Boolean(blad), `${steg}: erfarenhetsbladet öppnas från Nästa-luckan`)
-  kontroll(page.url().includes('ark=erfarenhet'), `${steg}: bladet står i adressen (${new URL(page.url()).search})`)
+  kontroll(Boolean(blad), `${steg}: erfarenhetsbladet står öppet efter Skriv från början`)
+  kontroll(page.url().includes('avsnitt=erfarenhet'), `${steg}: avsnittet står i adressen (${new URL(page.url()).search})`)
   await skriv(page, '#e-titel', 'Kundtjänstmedarbetare')
   await skriv(page, '#e-arb', 'Nordvik Service AB')
   await page.select('#e-fran-m', '8')
@@ -268,12 +269,15 @@ async function fyllJobb(page: Page, steg: string, coach: boolean) {
     const rad = await page.evaluate(() => document.body.innerText.includes('Jobbcoachen skrev'))
     kontroll(rad && text.split('\n').length >= 2, `${steg}: Skriv punkter åt mig fyller fältet (${tid} ms, ${text.split('\n').length} rader)`)
     kontroll(!/—/.test(text), `${steg}: punkterna saknar tankstreck`)
+    const kvot = await page.$eval('[data-coach-kvot]', (e) => (e as HTMLElement).innerText).catch(() => '')
+    kontroll(kvot === '' || /2 av 3 gratis förslag kvar/.test(kvot), `${steg}: kvoten räknas ned i kortet (${kvot.slice(0, 40) || 'Premium, ingen kvotrad'})`)
     await bild(page, `${steg}-jobbcoach-klar`)
   }
-  await klickaText(page, 'Spara', '[role=dialog]')
+  await page.click('[data-bygg-blad] [data-spara]')
   await vantaSparat(page)
   await vila(1200)
-  kontroll(!page.url().includes('ark='), `${steg}: Spara stänger bladet (${new URL(page.url()).search})`)
+  // Bladet står kvar på jobbet (arbetsläget stänger inget); telefonens bottenblad fälls ihop.
+  kontroll(page.url().includes('avsnitt=erfarenhet') && Boolean(await page.$('[data-bygg-blad]')), `${steg}: Spara lägger jobbet i CV:t och bladet står kvar (${new URL(page.url()).search})`)
 }
 
 async function fyllUtbildning(page: Page, steg: string) {
@@ -283,7 +287,7 @@ async function fyllUtbildning(page: Page, steg: string) {
   await skriv(page, '#u-skola', 'Polhemsgymnasiet')
   await skriv(page, '#u-fran', '2019')
   await skriv(page, '#u-till', '2022')
-  await klickaText(page, 'Spara', '[role=dialog]')
+  await page.click('[data-bygg-blad] [data-spara]')
   await vantaSparat(page)
   await vila(1000)
 }
@@ -291,15 +295,16 @@ async function fyllUtbildning(page: Page, steg: string) {
 async function fyllKompetenser(page: Page, steg: string) {
   await page.click('[data-avsnitt-knapp="kompetenser"]')
   kontroll(Boolean(await vantaPa(page, '#k-falt')), `${steg}: kompetensbladet öppnas`)
-  const bladRubrik = await page.$eval('[role=dialog] h2', (h) => (h as HTMLElement).innerText.trim()).catch(() => '')
+  const bladRubrik = await page.$eval('[data-bygg-blad] h2', (h) => (h as HTMLElement).innerText.trim()).catch(() => '')
   kontroll(bladRubrik === 'Färdigheter', `${steg}: bladet heter som avsnittet på arket (${bladRubrik})`)
+  await page.focus('#k-falt')
   await page.type('#k-falt', 'Zendesk')
   await page.keyboard.press('Enter')
   await page.type('#k-falt', 'Reklamationer, ')
-  await klickaText(page, '+ Kundbemötande', '[role=dialog]').catch(() => undefined)
-  const chips = await page.$$eval('[role=dialog] li', (l) => l.map((x) => (x as HTMLElement).innerText.trim()).filter(Boolean))
+  await klickaText(page, '+ Kundbemötande', '[data-bygg-blad]').catch(() => undefined)
+  const chips = await page.$$eval('[data-bygg-blad] li', (l) => l.map((x) => (x as HTMLElement).innerText.trim()).filter(Boolean))
   kontroll(chips.some((c) => c.startsWith('Zendesk')) && chips.some((c) => c.startsWith('Reklamationer')), `${steg}: chipsfältet tar Enter och komma (${chips.slice(0, 5).join(', ')})`)
-  await klickaText(page, 'Spara', '[role=dialog]')
+  await page.click('[data-bygg-blad] [data-spara]')
   await vantaSparat(page)
   await vila(1000)
 }
@@ -317,7 +322,7 @@ async function fyllProfil(page: Page, steg: string, coach: boolean) {
   } else {
     await skriv(page, '#p-text', 'Kundtjänstmedarbetare med vana vid telefon och chatt.')
   }
-  await klickaText(page, 'Spara', '[role=dialog]')
+  await page.click('[data-bygg-blad] [data-spara]')
   await vantaSparat(page)
   await vila(1000)
 }
@@ -340,7 +345,7 @@ async function gratisFlode(browser: Browser, k: Konto) {
   const pillar = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[data-lagg-till]')].map((x) => x.innerText.trim()))
   kontroll(pillar.includes('+ Lägg till färdigheter') && pillar.includes('+ Skriv några rader om dig') && pillar.includes('+ Lägg till ett jobb'), `${steg}: pillen heter som rubriken i mallen (${pillar.join(' | ')})`)
   const spokText = await page.evaluate(() => {
-    const f = document.querySelector<HTMLIFrameElement>('.dok-ark-yta iframe')
+    const f = document.querySelector<HTMLIFrameElement>('iframe[data-visad]')
     return f?.contentDocument?.body.innerText ?? ''
   })
   kontroll(spokText.includes('Hur många ärenden du tog emot per dag'), `${steg}: spöktexten följer titeln (kundtjänst)`)
@@ -356,13 +361,19 @@ async function gratisFlode(browser: Browser, k: Konto) {
   kontroll(sd?.bygge?.utkast === true, `${steg}: CV:t är märkt utkast`)
   await bild(page, `${steg}-efter-jobb`)
 
-  // Bakåtgesten stänger bladet, inte byggaren.
-  await page.click('[data-avsnitt-knapp="utbildning"]')
-  await vantaPa(page, '#u-utb')
-  await page.goBack()
-  await vila(1000)
-  const kvar = await page.$('#u-utb')
-  kontroll(!kvar && page.url().includes('/dashboard/skapa-cv'), `${steg}: bakåtgesten stänger bladet och stannar i byggaren`)
+  // Arket uppdateras medan hon skriver: titeln syns på arket före Spara.
+  await page.evaluate(() => document.querySelector<HTMLButtonElement>('[data-avsnitt-flik="kontakt"]')?.click())
+  if (await vantaPa(page, '#b-titel', 8000)) {
+    await skriv(page, '#b-titel', 'Kundtjänstmedarbetare inom e-handel')
+    const levande = await page
+      .waitForFunction(() => (document.querySelector<HTMLIFrameElement>('iframe[data-visad]')?.contentDocument?.body.innerText ?? '').includes('inom e-handel'), { timeout: 15000 })
+      .then(() => true)
+      .catch(() => false)
+    kontroll(levande, `${steg}: arket visar titeln medan hon skriver, före Spara`)
+    await page.click('[data-bygg-blad] [data-spara]')
+    await vantaSparat(page)
+    await vila(800)
+  }
 
   await fyllUtbildning(page, steg)
   await fyllKompetenser(page, steg)
@@ -372,12 +383,10 @@ async function gratisFlode(browser: Browser, k: Konto) {
   await fyllProfil(page, steg, true)
   await bild(page, `${steg}-ifyllt`)
 
-  // Mallbyte i remsan och tillbaka till Linne.
-  await klickaText(page, 'Björk').catch(() => undefined)
-  await vila(2500)
-  await bild(page, `${steg}-mall-bjork`)
-  await klickaText(page, 'Linne').catch(() => undefined)
-  await vila(2500)
+  // Mallen byts på Mallar (brickan Byt mall i huvudet på datorn), inte här.
+  // Telefonen: bottenbladet fälls ihop så att filraden under arket syns.
+  await page.evaluate(() => document.querySelector<HTMLButtonElement>('[data-bygg-blad] button[aria-expanded="true"]')?.click())
+  await vila(600)
 
   // PDF i Linne, gratis.
   await klickaText(page, 'Spara och ladda ner PDF')
@@ -394,14 +403,14 @@ async function gratisFlode(browser: Browser, k: Konto) {
   kontroll((rader3[0]?.structured_data as { bygge?: { utkast: boolean } })?.bygge?.utkast === false, `${steg}: CV:t märkt klart efter nedladdningen`)
   kontroll(Boolean(sd2?.summary), `${steg}: profilen sparad`)
 
-  // Mina CV visar CV:t, återkomst via ?cv=.
+  // Ditt CV visar CV:t, återkomst via ?cv=.
   await page.goto(`${BAS}/dashboard/profil/cv`, { waitUntil: 'networkidle2' })
   kontroll((await page.evaluate(() => document.body.innerText)).includes('CV - Sara Holm'), `${steg}: Mina CV visar CV:t`)
   await bild(page, `${steg}-mina-cv`)
   await page.goto(`${BAS}/dashboard/skapa-cv?cv=${rader3[0].id}`, { waitUntil: 'networkidle2' })
   await vila(1500)
   const start = await page.$('[data-startblad]')
-  const iframe = await page.evaluate(() => document.querySelector<HTMLIFrameElement>('.dok-ark-yta iframe')?.contentDocument?.body.innerText ?? '')
+  const iframe = await page.evaluate(() => document.querySelector<HTMLIFrameElement>('iframe[data-visad]')?.contentDocument?.body.innerText ?? '')
   kontroll(!start && iframe.includes('Nordvik Service AB'), `${steg}: återkomst via ?cv= visar arket utan startblad`)
   await bild(page, `${steg}-aterkomst`)
   kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
@@ -414,7 +423,7 @@ async function gratisFlode(browser: Browser, k: Konto) {
   await vila(1500)
   await bild(m.page, 'gratis-pixel7-morkt')
   await m.page.waitForSelector('[data-avsnitt-knapp="erfarenhet"]', { timeout: 15000 })
-  await m.page.click('[data-avsnitt-knapp="erfarenhet"]')
+  await m.page.evaluate(() => document.querySelector<HTMLButtonElement>('[data-avsnitt-knapp="erfarenhet"]')?.click())
   await vila(1200)
   await bild(m.page, 'gratis-pixel7-morkt-blad')
   await m.ctx.close()
@@ -451,7 +460,7 @@ async function uppladdning(browser: Browser, k: Konto) {
   await klickaText(page, 'Ladda upp CV', '[data-startblad]')
   await page.waitForFunction(() => location.search.includes('cv='), { timeout: 90000 }).catch(() => null)
   await vila(4000)
-  const iframe = await page.evaluate(() => document.querySelector<HTMLIFrameElement>('.dok-ark-yta iframe')?.contentDocument?.body.innerText ?? '')
+  const iframe = await page.evaluate(() => document.querySelector<HTMLIFrameElement>('iframe[data-visad]')?.contentDocument?.body.innerText ?? '')
   kontroll(iframe.includes('Logistikbolaget') || iframe.includes('Lagerarbetare'), `${steg}: uppladdat CV fyller arket`)
   kontroll(!page.url().includes('upp=1'), `${steg}: engångsparametrarna tas bort`)
   await bild(page, `${steg}-arket`)
@@ -473,41 +482,25 @@ async function premiumFlode(browser: Browser, k: Konto) {
   await vila(1500)
   await bild(page, `${steg}-arket-tomt`)
   await fyllJobb(page, steg, false)
-  // Dockat blad: Esc stänger och fokus går tillbaka.
+  // Bladet till vänster om arket, papper med mörkt huvud (skissen Bygg-1440).
   await page.click('[data-avsnitt-knapp="utbildning"]')
-  const dockad = await vantaPa(page, '[data-bygg-blad]')
-  kontroll(Boolean(dockad), `${steg}: bladet dockas till höger på dator`)
-  // Vänta in ingångsanimationen innan skärmdumpen (opacitet 1).
-  await page.waitForFunction(() => getComputedStyle(document.querySelector('[data-bygg-blad]')!).opacity === '1', { timeout: 5000 }).catch(() => null)
-  const lage = await page.$eval('[data-bygg-blad]', (el) => {
-    const r = el.getBoundingClientRect()
-    const cs = getComputedStyle(el)
-    return { top: Math.round(r.top), botten: Math.round(window.innerHeight - r.bottom), hoger: Math.round(document.querySelector('header')!.getBoundingClientRect().right - r.right), bredd: Math.round(r.width), hojd: Math.round(r.height), opacitet: cs.opacity, radie: cs.borderTopLeftRadius, inert: el.closest('[inert],[aria-disabled=true]') !== null }
-  })
-  kontroll(lage.opacitet === '1' && !lage.inert, `${steg}: bladet är fullt opakt och inte inert (opacitet ${lage.opacitet})`)
-  kontroll(lage.hoger === 0 && lage.top <= 62 && lage.radie === '0px' && lage.hojd > 600 && lage.botten > 40 && lage.botten < 120, `${steg}: bladet dockat i full höjd mellan toppraden och den fasta raden (${JSON.stringify(lage)})`)
-  await bild(page, `${steg}-dockat-blad`)
-  await page.keyboard.press('Escape')
+  await vantaPa(page, '#u-utb')
   await vila(800)
-  kontroll(!(await page.$('[data-bygg-blad]')), `${steg}: Esc stänger det dockade bladet`)
+  const lage = await page.evaluate(() => {
+    const b = document.querySelector('[data-bygg-blad]')!.getBoundingClientRect()
+    const a = document.querySelector('[data-arbets-ark]')!.getBoundingClientRect()
+    return { bladHoger: Math.round(b.right), arkVanster: Math.round(a.left), etikett: Boolean(document.querySelector('[data-etikett]')), markering: document.querySelector('[data-markering]')?.getAttribute('data-markering') }
+  })
+  kontroll(lage.bladHoger < lage.arkVanster && lage.etikett && lage.markering === 'utbildning', `${steg}: bladet till vänster, arket till höger med avsnittet markerat (${JSON.stringify(lage)})`)
+  await bild(page, `${steg}-blad-och-ark`)
   await fyllUtbildning(page, steg)
   await bild(page, `${steg}-miniminiva`)
 
-  // Premiummall i kolumnen, Word. Första synliga Premiummallen bland förslagen
-  // (urvalet är handplockat per CV sedan utbud 2, så namnet läses ur kortet).
-  // Kortet kan vara spärrat medan arket mäts; försök tills det inte är det.
-  let premiumMall = ''
-  for (let forsok = 0; forsok < 5 && !premiumMall; forsok++) {
-    premiumMall = await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('aside[aria-label] button')].find(
-        (x) => /\nPremium\b/.test(x.innerText) && x.getBoundingClientRect().width > 0 && !x.disabled
-      )
-      b?.click()
-      return (b?.innerText.split('\n').map((s) => s.trim()).filter(Boolean).find((s) => !/^(PDF|W|Premium|Gratis)$/.test(s)) ?? '').toLowerCase()
-    })
-    if (!premiumMall) await vila(1500)
-  }
-  await vila(3000)
+  // Premiummallen via adressen (mallen väljs på Mallar, som länkar hit med ?mall=).
+  const premiumMall = 'koppar'
+  const id = (await cvRader(k.id))[0]?.id
+  await page.goto(`${BAS}/dashboard/skapa-cv?cv=${id}&mall=${premiumMall}`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await vila(2500)
   await bild(page, `${steg}-premiummall`)
   await page.evaluate(() => {
     const w = [...document.querySelectorAll<HTMLButtonElement>('[role=radio]')].find((b) => b.innerText.includes('Word') && b.getBoundingClientRect().width > 0)
@@ -537,7 +530,7 @@ async function fullFlode(browser: Browser, k: Konto) {
   await ctx.close()
 }
 
-/** Jobbcoachens kvot slut: PaywallCard i bladet, knappen kvar som spärrad. */
+/** Jobbcoachens kvot slut: PaywallCard i kortet, knappen kvar som spärrad. */
 async function kvotFlode(browser: Browser, k: Konto) {
   const fel: string[] = []
   const steg = 'gratis-pixel7-kvot'
@@ -557,14 +550,51 @@ async function kvotFlode(browser: Browser, k: Konto) {
   kontroll(!error, `${steg}: kontots tre gratisförslag förbrukade (${error?.message ?? 'ok'})`)
   const cv = (await cvRader(k.id)).find((r) => (r.structured_data as { experience?: unknown[] })?.experience?.length)
   const { ctx, page } = await oppna(browser, k, PIXEL7, fel)
-  await page.goto(`${BAS}/dashboard/skapa-cv?cv=${cv?.id}&ark=erfarenhet:0`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await page.goto(`${BAS}/dashboard/skapa-cv?cv=${cv?.id}&avsnitt=erfarenhet`, { waitUntil: 'networkidle2', timeout: 120000 })
   await vantaPa(page, '[data-coach-knapp]')
-  await page.click('[data-coach-knapp]')
+  // Servern läser kvoten när sidan öppnas: väggen står i kortet utan ett nytt anrop.
   await page.waitForFunction(() => document.body.innerText.includes('Låt Jobbcoachen skriva resten av ditt CV'), { timeout: 15000 }).catch(() => null)
   const text = await page.evaluate(() => document.body.innerText)
   const sparrad = await page.$eval('[data-coach-knapp]', (b) => (b as HTMLButtonElement).disabled).catch(() => false)
   kontroll(text.includes('Låt Jobbcoachen skriva resten av ditt CV') && sparrad, `${steg}: PaywallCard i bladet och knappen spärrad`)
   await bild(page, `${steg}-paywall`)
+  kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
+  await ctx.close()
+}
+
+/**
+ * Ett uppladdat CV i arbetsläget (byggspecen avsnitt 7): Språk ur adressen,
+ * arket ändras medan hon skriver, Klar sparar och går tillbaka till fran.
+ * Datan sparas som på mallsidan: inga byggarfält, jobben orörda.
+ */
+async function redigeraFlode(browser: Browser, k: Konto) {
+  const fel: string[] = []
+  const steg = 'full-1440-redigera'
+  const rad = (await cvRader(k.id))[0]
+  const fore = rad?.structured_data as { experience?: unknown[] }
+  const { ctx, page } = await oppna(browser, k, DATOR, fel)
+  await page.goto(`${BAS}/dashboard/skapa-cv?cv=${rad.id}&avsnitt=sprak&mall=linne&fran=ditt-cv`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await vantaPa(page, '[data-bygg-blad]')
+  const rubrik = await page.$eval('h1', (h) => (h as HTMLElement).innerText.trim()).catch(() => '')
+  kontroll(rubrik === 'Redigera ditt CV' && !(await page.$('[data-startblad]')), `${steg}: uppladdat CV öppnas i Redigera ditt CV utan startblad (${rubrik})`)
+  kontroll(Boolean(await page.$('[data-avsnitt-flik="sprak"][aria-current="true"]')), `${steg}: avsnitt=sprak öppnar Språk`)
+  // Ett nytt språk sist i listan.
+  await klickaText(page, '+ Lägg till språk', '[data-bygg-blad]')
+  await vila(300)
+  const falt = await page.$$eval('[data-bygg-blad] input[id^="s-"]', (l) => l.map((x) => x.id))
+  await skriv(page, `#${falt[falt.length - 1]}`, 'Tyska')
+  const levande = await page
+    .waitForFunction(() => (document.querySelector<HTMLIFrameElement>('iframe[data-visad]')?.contentDocument?.body.innerText ?? '').includes('Tyska'), { timeout: 15000 })
+    .then(() => true)
+    .catch(() => false)
+  kontroll(levande, `${steg}: arket visar språket medan hon skriver`)
+  await bild(page, `${steg}-sprak`)
+  await page.click('[data-klar]')
+  await page.waitForFunction(() => location.pathname === '/dashboard/profil/cv', { timeout: 30000 }).catch(() => null)
+  kontroll(page.url().includes(`/dashboard/profil/cv?cv=${rad.id}`), `${steg}: Klar sparar och går till Ditt CV med samma cv (${page.url().replace(BAS, '')})`)
+  const efter = (await cvRader(k.id)).find((r) => r.id === rad.id)?.structured_data as { bygge?: unknown; experience?: unknown[]; languages?: { language: string }[] } | undefined
+  kontroll(Boolean(efter?.languages?.some((l) => l.language === 'Tyska')), `${steg}: språket sparat i structured_data`)
+  kontroll(Boolean(efter) && !('bygge' in efter!) && JSON.stringify(efter!.experience) === JSON.stringify(fore?.experience), `${steg}: inga byggarfält och jobben orörda`)
   kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
   await ctx.close()
 }
@@ -575,6 +605,7 @@ async function klicka() {
   const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true, args: ['--no-sandbox'] })
   try {
     if (!BARA || BARA === 'full') await fullFlode(browser, k('full'))
+    if (!BARA || BARA === 'redigera') await redigeraFlode(browser, k('full'))
     if (!BARA || BARA === 'gratis') await gratisFlode(browser, k('gratis'))
     if (!BARA || BARA === 'upp') await uppladdning(browser, k('gratis'))
     if (!BARA || BARA === 'premium') await premiumFlode(browser, k('premium'))
