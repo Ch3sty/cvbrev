@@ -95,7 +95,7 @@ export default function CVSelectionStep({
         <Upload className="h-6 w-6 flex-shrink-0 text-ink-2" strokeWidth={1.75} aria-hidden="true" />
         <span className="min-w-0">
           <span className="block text-kort text-ink-1">Ladda upp ett nytt CV</span>
-          <span className="block text-meta text-ink-3">Tar dig till Mina CV</span>
+          <span className="block text-meta text-ink-3">Tar dig till Ditt CV</span>
         </span>
       </Link>
     </div>

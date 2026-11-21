@@ -175,6 +175,7 @@ export default function CvAnalysClient({
     return (
       <>
         <RumHuvud
+      utanTopprad
           title={RUBRIK.analyseraCv}
           description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på under en minut."
         />

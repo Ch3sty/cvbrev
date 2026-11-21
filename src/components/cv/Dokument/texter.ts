@@ -355,7 +355,7 @@ export const FINAL = {
   analysRad: 'De flesta arbetsgivare låter ett rekryteringssystem sortera först. Vi visar vad du ska ändra.',
   analysKnapp: 'Analysera ditt CV',
   brevLank: 'Skriv ett personligt brev',
-  minaCv: 'Gå till Mina CV',
+  minaCv: 'Gå till Ditt CV',
   jobbEtikett: (titel: string, var_: string, lank: boolean) =>
     `${[titel, var_].filter(Boolean).join(', ')}. ${lank ? 'Öppna annonsen i ny flik' : 'Se jobbet i Dina matchningar'}`,
 } as const

@@ -1,0 +1,211 @@
+/**
+ * Texterna i CV-rummets nya formspråk (omgång 1, skissen Main, Hem-ny,
+ * Hem-oanalyserat och Mobil-hem). Priser, kvoter och betalväggstexter kommer
+ * aldrig härifrån: de står i paywall-copy och KampanjPrisKontext.
+ *
+ * Inga tankstreck, inga engelska gränssnittsord, tal som huvudtal.
+ */
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal'
+
+const stor = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+const ANTAL = TEMPLATE_COUNT
+
+const TALORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
+export const talord = (n: number) => TALORD[n] ?? String(n)
+
+export const CV_RAD = {
+  cv: 'CV:',
+  byt: 'Byt CV',
+  skapa: 'Skapa nytt',
+} as const
+
+export const BYT_ARK = {
+  rubrik: 'Byt CV',
+  under: 'Välj vilket CV du arbetar med. Det följer med mellan Ditt CV, Mallar och Analys.',
+  visasNu: 'Visas nu',
+  visa: 'Visa',
+  ratext: 'Råtext',
+  taBort: 'Ta bort',
+  tarBort: 'Tar bort',
+  last: PAKETRADER.lastCv,
+  utkast: 'Utkast.',
+  poang: (p: number) => `${p} av 100.`,
+  inteAnalyserat: 'Inte analyserat.',
+  andrat: (nar: string) => `Ändrat ${nar}.`,
+  nytt: 'Skapa nytt CV',
+  bekraftaRubrik: 'Ta bort CV',
+  bekrafta: (namn: string) => `${namn} raderas permanent och kan inte återställas.`,
+  bekraftaKnapp: 'Ta bort',
+} as const
+
+export const NYTT_ARK = {
+  rubrik: 'Ett CV till',
+  under: 'Ladda upp ett CV du har, eller skriv ett från början på arket.',
+  ladda: 'Ladda upp ett CV du har',
+  laddaText: 'PDF eller Word, även din LinkedIn-PDF. Vi fyller i avsnitten åt dig.',
+  skriv: 'Skriv ditt CV från början',
+  skrivText: 'Du skriver direkt på arket, ett avsnitt i taget. Jobbcoachen kan föreslå punkterna.',
+  jobb: 'Vilket jobb söker du?',
+  jobbPlatshallare: 'Till exempel Kundtjänstmedarbetare',
+  borja: 'Börja skriva',
+  valjFil: 'Välj fil',
+  uppladdningRubrik: 'Ladda upp ett CV',
+} as const
+
+export const VAGG = {
+  /** Dokumentets väg: gjort i perfekt particip, nästa och kommande som verb. */
+  gjord: { uppladdat: 'uppladdat', utkast: 'utkast', analyserat: 'analyserat', atgardat: 'åtgärdat', nedladdat: 'nedladdat' },
+  kommer: { borja: 'börja', analysera: 'analysera', atgarda: 'åtgärda', laddaNer: 'ladda ner' },
+  lasbarhet: ['av 100 i', 'läsbarhet'] as const,
+  inteMatt: ['läsbarheten,', 'inte mätt än'] as const,
+  steg: ['steg till ett CV', 'du kan skicka'] as const,
+  seMallar: `Se det i ${ANTAL} mallar`,
+  exempelMallar: `Exempel-CV i tre av ${ANTAL} mallar`,
+  mallChip: (namn: string) => `Mallen ${namn}`,
+  inteNedladdat: 'Inte nedladdat än',
+  nedladdat: 'Nedladdat',
+  bytMall: 'Byt mall',
+  arkAlt: (mall: string) => `Ditt CV i mallen ${mall}`,
+  exempelAlt: (mall: string) => `Ett exempel-CV i mallen ${mall}`,
+  poangAria: (mall: string, p: number) => `Ditt CV i mallen ${mall}. Läsbarhetspoäng ${p} av 100.`,
+} as const
+
+export const NASTA = {
+  ny: { ogon: 'Börja här', rubrik: 'Två sätt att börja' },
+  analysera: {
+    ogon: 'Nästa steg · under en minut',
+    rubrik: 'Se ditt CV som rekryteraren ser det',
+    text: 'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant och visar vad som drar ner.',
+    knapp: 'Analysera mitt CV',
+    sidorad: 'En analys ingår gratis. Poängen får du direkt.',
+    sidoradPremium: 'Poängen får du direkt, och du kör om när du vill.',
+  },
+  atgarda: {
+    ogon: (plus: number) => `Åtgärda först · ger ${plus} poäng`,
+    knapp: 'Åtgärda i CV:t',
+    sidorad: 'Förslaget är redan skrivet. Du väljer vad som följer med.',
+  },
+  laddaNer: {
+    ogon: 'Nästa steg',
+    rubrik: 'Ladda ner ditt CV',
+    text: `Välj mall och ladda ner som PDF eller Word. Texten följer med i alla ${ANTAL}.`,
+    knapp: 'Välj mall och ladda ner',
+    sidorad: 'Du provar fritt och betalar först när du laddar ner en Premiummall.',
+  },
+  brev: {
+    ogon: 'Använd CV:t',
+    rubrik: 'Skriv ett personligt brev',
+    text: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
+    knapp: 'Skriv brev',
+    sidorad: 'CV:t är nedladdat och klart att skicka.',
+  },
+  utkast: {
+    ogon: 'Utkast',
+    rubrik: 'Skriv klart ditt CV',
+    text: 'Utkastet är sparat. Fortsätt där du slutade, ett avsnitt i taget.',
+    sidorad: 'Du laddar ner det när avsnitten är ifyllda.',
+  },
+} as const
+
+export const PANEL = {
+  ogon: 'Så ligger ditt CV till',
+  rubrik: 'Tre mått på ditt CV',
+  helaAnalysen: 'Hela analysen',
+  lasbarhet: 'Läsbarheten',
+  attHamta: (n: number) => `${n} poäng att hämta`,
+  inteMatt: 'inte mätt än',
+  medForslag: (p: number) => `Med våra förslag: ${p} av 100`,
+  idag: 'i dag',
+  potentialAria: (nu: number, med: number) => `Läsbarhetspoängen är ${nu} av 100 i dag och ${med} med våra förslag.`,
+  finnsAttHamta: (n: number) => `${n} poäng finns att hämta.`,
+  drarNer: (n: number) =>
+    n === 0 ? 'Inget drar ner just nu.' : n === 1 ? 'En sak drar ner, och den går att åtgärda på en kväll.' : `${talord(n).charAt(0).toUpperCase()}${talord(n).slice(1)} saker drar ner, alla går att åtgärda på en kväll.`,
+  drarNerKort: (n: number) => (n === 0 ? 'Inget drar ner.' : n === 1 ? 'En sak drar ner.' : `${talord(n).charAt(0).toUpperCase()}${talord(n).slice(1)} saker drar ner.`),
+  luckaText: 'av 100, så väl ett rekryteringssystem läser ditt CV',
+  matsIAnalysen: 'Mäts i analysen.',
+  matsIAnalysenRad: 'De flesta arbetsgivare låter ett rekryteringssystem sortera ansökningarna först.',
+  innehall: 'Innehållet',
+  avAvsnitt: (n: number) => `av ${n} avsnitt`,
+  sprakSaknas: 'Språk saknas.',
+  sprakSaknasRad: 'Lägg till språken du kan.',
+  allaAvsnitt: 'Alla avsnitt finns.',
+  allaAvsnittRad: 'Rekryteraren hittar det hon letar efter.',
+  saknas: (namn: string) => `${namn} saknas.`,
+  saknasRad: 'Lägg till det i CV:t.',
+  oStrukturerat: 'Vi har inte läst in avsnitten än.',
+  oStruktureratRad: 'Strukturera CV:t, så ser du vilka avsnitt som finns.',
+  strukturera: 'Strukturera nu',
+  strukturerar: 'Strukturerar',
+  struktureraFel: 'Det gick inte att strukturera CV:t. Försök igen.',
+  avsnittNamn: { profil: 'Profil', erfarenhet: 'Erfarenhet', utbildning: 'Utbildning', kompetenser: 'Kompetenser', sprak: 'Språk' },
+  mallen: 'Mallen',
+  atsSaker: 'ATS-säker',
+  dinMallNu: 'Din mall nu',
+  testad: 'Testad för rekryteringssystem.',
+  bytBland: `Byt bland ${ANTAL} mallar`,
+  textenFoljer: ', texten följer med.',
+  fler: (n: number) => `+${n}`,
+  flerAria: (n: number) => `Byt mall, ${n} mallar till`,
+} as const
+
+export const DRAR_NER = {
+  rubrik: 'Vad som drar ner, i ordning',
+  rad: 'Störst effekt först. Den tyngsta åtgärden ingår gratis, de övriga ingår i Premium.',
+  radKort: 'Den tyngsta åtgärden ingår gratis, de övriga ingår i Premium.',
+  radPremium: 'Störst effekt först. Alla åtgärder är öppna, med färdiga formuleringar.',
+  plus: (n: number) => `+${n} poäng`,
+  plusKort: (n: number) => `+${n}`,
+  plusAria: (n: number) => `${n} poäng till om det åtgärdas`,
+  gratis: 'Ingår gratis',
+  premium: 'Premium',
+  malTal: (p: number) => `${p}`,
+  malRad: (n: number) => `av 100 när ${n === 1 ? 'den' : `alla ${talord(n)}`} är åtgärdade.`.replace('den är åtgärdade', 'den är åtgärdad'),
+  malKort: (p: number) => `${p} av 100`,
+  malKortRad: (n: number) => (n === 1 ? 'när den är åtgärdad.' : `när alla ${talord(n)} är åtgärdade.`),
+  kopRubrik: (n: number) => (n === 1 ? 'Öppna åtgärden, med färdiga formuleringar' : `Öppna alla ${talord(n)} åtgärder, med färdiga formuleringar`),
+} as const
+
+export const ANNAN_MALL = {
+  rubrik: 'Samma CV, annan mall',
+  rad: (mall: string) => `Du har ${mall}. Så här ser ditt CV ut i tre andra. Du provar fritt och betalar först när du laddar ner.`,
+  radKort: 'Du provar fritt och betalar först när du laddar ner.',
+  alla: `Alla ${ANTAL} mallar`,
+  allaKort: `Alla ${ANTAL}`,
+  dinMall: (kort: string) => `Din mall nu. ${kort}.`,
+  gratis: 'Gratis',
+  premium: 'Premium',
+} as const
+
+export const RADER = {
+  brevOgon: 'Använd CV:t',
+  brev: 'Skriv ett personligt brev',
+  brevText: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
+  brevTextKort: 'Vi matchar brevet mot ditt CV.',
+  brevKnapp: 'Skriv brev',
+  sparadeOgon: (n: number, max: number | null) => (max ? `Sparade CV · ${n} av ${max}` : `Sparade CV · ${n}`),
+  nytt: 'Ett CV till, för en annan roll',
+  nyttText: 'Ladda upp, eller skriv från början på arket.',
+  nyttTextKort: 'Ladda upp eller skriv från början.',
+  nyttKnapp: 'Skapa nytt CV',
+  nyttKnappKort: 'Skapa nytt',
+  fulltOgon: 'Sparade CV · fullt',
+  byggOgon: 'CV-byggaren',
+  bygg: 'Byggt i CV-byggaren',
+  byggText: 'Ändra texten och avsnitten där du skrev CV:t.',
+} as const
+
+export const NY = {
+  panelOgon: 'När CV:t är inne',
+  panelRubrik: 'Tre saker du får direkt',
+  poang: 'Läsbarhetspoäng',
+  poangAv: 'av 100',
+  poangRad: 'Så väl läser ett rekryteringssystem ditt CV.',
+  poangRad2: 'Under en minut, och en analys ingår gratis.',
+  mallar: 'Mallar',
+  mallarRad: `Ditt CV i ${ANTAL} mallar.`,
+  mallarRad2: `${stor(talSomOrd(FREE_TEMPLATE_COUNT))} är gratis, och du ser alla med ditt eget innehåll innan du väljer.`,
+  brev: 'Personligt brev',
+  brevRad: 'Brev som utgår från ditt CV.',
+  brevRad2: 'Klistra in annonsen, så matchar vi brevet mot det.',
+} as const

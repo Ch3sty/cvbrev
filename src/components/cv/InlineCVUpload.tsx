@@ -13,19 +13,25 @@ interface InlineCVUploadProps {
   showCancel?: boolean;
   /** Dölj kortets egen rubrik när föräldern redan satt en. */
   hideHeader?: boolean;
+  /**
+   * Filen hon redan valt (Ditt CV:s "Välj fil" öppnar filväljaren direkt).
+   * Samtycket och knappen visas sedan som vanligt.
+   */
+  startFil?: File | null;
 }
 
 export default function InlineCVUpload({
   onComplete,
   onCancel,
   showCancel = true,
-  hideHeader = false
+  hideHeader = false,
+  startFil = null,
 }: InlineCVUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(startFil);
 
   const { uploadCV, subscriptionTier } = useProfile();
 

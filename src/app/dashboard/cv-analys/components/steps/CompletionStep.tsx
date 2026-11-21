@@ -63,7 +63,7 @@ export default function CompletionStep({
           )}
           {savedCvId && (
             <Link href="/dashboard/profil/cv" className={SEKUNDAR}>
-              Visa under Mina CV
+              Visa i Ditt CV
             </Link>
           )}
         </div>

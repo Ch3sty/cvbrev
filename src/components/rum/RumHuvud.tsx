@@ -46,6 +46,8 @@ export interface RumHuvudProps {
   tat?: boolean
   /** Toppradens kontextlänk och brand. */
   topprad?: Omit<ToppradProps, 'pa'>
+  /** Utan topprad: en flikremsa ovanför bär redan toppåtgärderna (CV-rummet). */
+  utanTopprad?: boolean
   className?: string
 }
 
@@ -61,11 +63,12 @@ export default function RumHuvud({
   liten,
   tat = true,
   topprad,
+  utanTopprad,
   className,
 }: RumHuvudProps) {
   return (
     <Vagg tat={tat} className={className}>
-      <Topprad {...topprad} />
+      {utanTopprad ? null : <Topprad {...topprad} />}
       {instrument ? (
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center lg:gap-10">
           <div>

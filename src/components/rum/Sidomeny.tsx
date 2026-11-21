@@ -160,11 +160,12 @@ export default function Sidomeny() {
       { href: KURVAN_HREF, etikett: UNDERSIDA.dinUtveckling },
       { href: '/dashboard/tester/installningar', etikett: UNDERSIDA.planInforProvet },
     ],
+    // CV-rummet omgång 1 (byggspecen 1.2): flikarnas ordning, sedan Skapa nytt CV och LinkedIn.
     cv: [
       { href: '/dashboard/profil/cv', etikett: UNDERSIDA.minaCv, chip: antalChip(cvAntal) },
+      { href: '/dashboard/cv-mallar', etikett: UNDERSIDA.mallar },
+      { href: '/dashboard/cv-analys', etikett: UNDERSIDA.analys },
       { href: '/dashboard/skapa-cv', etikett: UNDERSIDA.skapaNyttCv },
-      { href: '/dashboard/cv-analys', etikett: UNDERSIDA.analyseraCv },
-      { href: '/dashboard/cv-mallar', etikett: UNDERSIDA.cvMallar },
       { href: '/dashboard/linkedin-optimizer', etikett: UNDERSIDA.linkedin, last: lasFor('linkedin') },
     ],
     brev: [

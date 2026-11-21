@@ -31,7 +31,11 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from '@/lib/supabase/server';
-import { getCvAnalysData, emptyCvAnalysData } from './getCvAnalysData';
+import { getCvAnalysData, emptyCvAnalysData, lockedCvIds } from './getCvAnalysData';
+import CvFlikRemsa from '@/components/cv/rum3/CvFlikRemsa';
+import { CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess';
+import CvRad from '@/components/cv/rum3/CvRad';
+import { cvListaUr, valtCvId } from '@/components/cv/rum3/cvLista';
 import CvAnalysClient from './CvAnalysClient';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import type { AterupptagenAnalys } from './aterupptagning';
@@ -87,5 +91,20 @@ export default async function CVAnalysisPage({
     }
   }
 
-  return <CvAnalysClient data={data ?? emptyCvAnalysData(user.id)} aterupptagen={aterupptagen} />;
+  // CV-rummets flikar överst (omgång 1, steg 1). Analysens innehåll byggs om i steg 4.
+  const sidansData = data ?? emptyCvAnalysData(user.id);
+  const lasta = lockedCvIds(sidansData.cvs, sidansData.isPremium);
+  const cvParam = typeof sok.cv === 'string' ? sok.cv : null;
+  const valt = aterupptagen?.cvId && sidansData.cvs.some((c) => c.id === aterupptagen.cvId) ? aterupptagen.cvId : valtCvId(sidansData.cvs, lasta, cvParam);
+  const fullt = !sidansData.isPremium && sidansData.cvs.length - lasta.size >= CV_GRANS_GRATIS;
+  return (
+    <>
+      <CvFlikRemsa
+        aktiv="analys"
+        cvId={valt}
+        cvRad={<CvRad cvs={cvListaUr(sidansData.cvs, lasta)} aktivtId={valt} sida="analys" fullt={fullt} />}
+      />
+      <CvAnalysClient data={sidansData} aterupptagen={aterupptagen} />
+    </>
+  );
 }
