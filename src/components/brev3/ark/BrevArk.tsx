@@ -89,6 +89,10 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
   const id = useId().replace(/[^a-zA-Z0-9]/g, '')
   const scope = `brevark-${id}`
   const { css, kropp } = useMemo(() => scopaBrevHtml(html, scope), [html, scope])
+  // Samma objekt mellan omritningarna: React 19 jämför propen som objekt och
+  // satte annars arkets innerHTML på nytt vid varje omritning, vilket raderade
+  // krympsteget och luften som mätningen satt (siffror och plats på fel rad).
+  const inreHtml = useMemo(() => ({ __html: kropp }), [kropp])
 
   const yttre = useRef<HTMLDivElement>(null)
   const inre = useRef<HTMLDivElement>(null)
@@ -282,7 +286,7 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
             onClick={onStycke ? tryck : undefined}
             onKeyDown={onStycke ? tangent : undefined}
             style={{ width: ARK_BREDD_PX, transform: `scale(${s})`, transformOrigin: '0 0' }}
-            dangerouslySetInnerHTML={{ __html: kropp }}
+            dangerouslySetInnerHTML={inreHtml}
           />
         ) : null}
       </div>
