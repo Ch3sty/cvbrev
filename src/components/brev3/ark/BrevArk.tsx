@@ -43,6 +43,8 @@ interface Siffra {
   nr: number
   top: number
   left: number
+  /** Det saknade kravets streckade siffra. */
+  lucka?: boolean
 }
 
 interface Plats {
@@ -164,11 +166,6 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
       const textVanster = x(stycke.getBoundingClientRect().left)
       lista.push({ nr: Number(m.dataset.krav), top: y(r.top) + r.height / k / 2 - SIFFRA_HOJD / 2, left: Math.max(2, textVanster - 30) })
     })
-    lista.sort((x, y) => x.top - y.top)
-    // Två krav på samma rad: siffrorna staplas i stället för att krocka.
-    for (let i = 1; i < lista.length; i++) if (lista[i].top < lista[i - 1].top + SIFFRA_HOJD + 1) lista[i].top = lista[i - 1].top + SIFFRA_HOJD + 1
-    setSiffror((f) => lika(f, lista))
-
     if (saknatKrav) {
       const st = saknatSt
       if (st) {
@@ -184,8 +181,15 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
         }
         const ny = { top, left, bredd: Math.max(30, Math.min(134 * (b! / 480), hoger - left)), hojd, nrTop: top + hojd / 2 - SIFFRA_HOJD / 2, nrLeft: Math.max(2, x(sr.left) - 30) }
         setPlats((f) => lika(f, ny))
+        // Det saknade kravets siffra är med när siffrorna flyttas isär.
+        lista.push({ nr: saknatKrav.nr, top: ny.nrTop, left: ny.nrLeft, lucka: true })
       } else setPlats(null)
     } else setPlats(null)
+
+    lista.sort((x, y) => x.top - y.top)
+    // Två siffror på samma rad (även den saknade): de staplas, ingen täcker en annan.
+    for (let i = 1; i < lista.length; i++) if (lista[i].top < lista[i - 1].top + SIFFRA_HOJD + 1) lista[i].top = lista[i - 1].top + SIFFRA_HOJD + 1
+    setSiffror((f) => lika(f, lista))
 
     const a = rot.querySelector<HTMLElement>('[data-aktivt]')
     if (a) {
@@ -272,12 +276,12 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
 .b3-brevark .b3-ark-papper{position:absolute;inset:0;overflow:hidden;border-radius:8px;background:#fff}
 .b3-brevark .b3-nr{position:absolute;width:20px;height:${SIFFRA_HOJD}px;border-radius:6px;background:#2F7D5B;color:#fff;font:800 11px/${SIFFRA_HOJD}px 'Schibsted Grotesk',Inter,sans-serif;text-align:center;pointer-events:none}
 .b3-brevark .b3-nr.lucka{background:#fff;border:2px dashed #E07A2F;color:#A8491A;line-height:${SIFFRA_HOJD - 4}px}
-@keyframes b3-ark-blink{0%,100%{box-shadow:0 0 0 2.5px #E07A2F}50%{box-shadow:0 0 0 2.5px #E07A2F,0 0 0 8px rgba(224,122,47,.22)}}
-.b3-brevark .b3-plats{position:absolute;border-radius:5px;background:rgba(224,122,47,.12);animation:b3-ark-blink 2.2s ease-in-out infinite;pointer-events:none}
+@keyframes b3-ark-blink{0%,100%{background:rgba(224,122,47,.10)}50%{background:rgba(224,122,47,.34)}}
+.b3-brevark .b3-plats{position:absolute;border-radius:4px;box-sizing:border-box;border:2px solid #E07A2F;background:rgba(224,122,47,.10);animation:b3-ark-blink 2.2s ease-in-out infinite;pointer-events:none}
 .b3-brevark .b3-etikett{position:absolute;display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:11px;background:#E07A2F;color:#1A1206;font:700 13px/16px Inter,sans-serif;box-shadow:0 3px 0 #A8491A;white-space:nowrap;pointer-events:none;z-index:2}
 .b3-brevark .b3-etikett.liten{height:26px;padding:0 10px;font-size:12px;border-radius:9px;box-shadow:0 2px 0 #A8491A}
 .b3-brevark [data-stycke][role=button]:focus-visible{outline:3px solid #E07A2F;outline-offset:4px;border-radius:4px}
-@media (prefers-reduced-motion:reduce){.b3-brevark .b3-plats{animation:none;box-shadow:0 0 0 2.5px #E07A2F}}`}</style>
+@media (prefers-reduced-motion:reduce){.b3-brevark .b3-plats{animation:none;background:rgba(224,122,47,.18)}}`}</style>
       <div className="b3-ark-papper" style={{ boxShadow: SKUGGA[lage] }} role={ariaLabel ? 'img' : undefined} aria-label={ariaLabel}>
         {b ? (
           <div
@@ -291,16 +295,13 @@ export default function BrevArk({ html, bredd, lage = 'arbete', saknatKrav: sakn
         ) : null}
       </div>
       {siffror.map((x) => (
-        <span key={`k${x.nr}`} className="b3-nr" aria-hidden="true" style={{ top: x.top, left: x.left }}>
+        <span key={`k${x.nr}`} className={x.lucka ? 'b3-nr lucka' : 'b3-nr'} aria-hidden="true" style={{ top: x.top, left: x.left }}>
           {x.nr}
         </span>
       ))}
       {plats && saknatKrav ? (
         <>
           <span className="b3-plats" aria-hidden="true" style={{ top: plats.top, left: plats.left, width: plats.bredd, height: plats.hojd }} />
-          <span className="b3-nr lucka" aria-hidden="true" style={{ top: plats.nrTop, left: plats.nrLeft }}>
-            {saknatKrav.nr}
-          </span>
           <span className="b3-etikett" style={{ top: plats.top + plats.hojd / 2 - 17, left: (b ?? 0) - 30 }}>
             Här hamnar meningen
             <svg width="10" height="14" viewBox="0 0 10 14" aria-hidden="true" style={{ position: 'absolute', left: -9, top: 10 }}>
