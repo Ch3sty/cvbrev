@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * CV-väljaren i steg 1. Varje CV är ett plain ChoiceCard med naken ikon 24,
+ * CV-väljaren i brevrummet (Skriv brev och Dina brev, "Byt CV"). Varje CV är ett plain ChoiceCard med naken ikon 24,
  * filnamn och datum som meta. Låsta CV (utanför gratisgränsen) är spärrade
  * med förklaring i meta. Uppladdning är en rad med chevron, ingen knapp:
  * den primära handlingen ligger i skalets fot.

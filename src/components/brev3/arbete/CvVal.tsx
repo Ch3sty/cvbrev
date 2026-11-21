@@ -5,7 +5,7 @@
  * visas men går inte att välja, som i dagens första steg.
  */
 import Sheet from '@/components/shell/Sheet'
-import CvPickerGrid from '@/app/dashboard/skapa-brev/components/CvPickerGrid'
+import CvPickerGrid from '@/components/brev3/cv/CvPickerGrid'
 import type { SkrivCv } from './SkrivBrev'
 import { SKRIV } from './texter'
 

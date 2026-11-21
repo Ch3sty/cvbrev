@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation'
 import type { HemCv } from './data'
 
 const Sheet = dynamic(() => import('@/components/shell/Sheet'), { ssr: false })
-const CvPickerGrid = dynamic(() => import('@/app/dashboard/skapa-brev/components/CvPickerGrid'), { ssr: false })
+const CvPickerGrid = dynamic(() => import('@/components/brev3/cv/CvPickerGrid'), { ssr: false })
 
 /** Samma utseende som väggradens länkar (.b3-cvrad a), för knappen Byt CV. */
 export const VAGG_LANK =

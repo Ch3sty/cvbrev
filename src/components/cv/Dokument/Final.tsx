@@ -114,7 +114,7 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
         jobAdUrl: t.url ?? undefined,
       })
     }
-    router.push('/dashboard/skapa-brev')
+    router.push(cvId ? `/dashboard/skapa-brev?cv=${encodeURIComponent(cvId)}` : '/dashboard/skapa-brev')
   }
 
   const harTraff = traff && traff !== 'vantar'

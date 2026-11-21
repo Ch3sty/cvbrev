@@ -11,7 +11,7 @@
 import { GRATIS_MALL_IDS, FORVALD_MALL_ID, getMallKort } from '@/lib/cv/mallar/katalog'
 import { losMallId } from '@/lib/cv/mallar/alias'
 
-/** Typsnitten i FontSelector (skapa-brev/components/FontSelector.tsx), samma id. */
+/** Typsnitten brevet kan få (listan i src/lib/letters/typsnitt.ts), samma id som förut. */
 export const BREV_TYPSNITT_IDS = [
   'calibri',
   'arial',

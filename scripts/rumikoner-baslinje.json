@@ -40,7 +40,7 @@
     "src/app/dashboard/mina-brev/components/LetterActions.tsx",
     "src/app/dashboard/profil/cv/components/CvDetailView.tsx",
     "src/app/dashboard/profil/prenumeration/PrenumerationClient.tsx",
-    "src/app/dashboard/skapa-brev/components/CvPickerGrid.tsx",
+    "src/components/brev3/cv/CvPickerGrid.tsx",
     "src/app/dashboard/skapa-brev/components/FontSelector.tsx",
     "src/app/dashboard/skapa-brev/components/steps/TemplateStep.tsx",
     "src/app/dashboard/skapa-cv/components/CVCreatorWizard.tsx",

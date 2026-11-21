@@ -47,7 +47,6 @@ export const SKRIV = {
   bytCv: 'Byt CV',
   valjCv: 'Välj CV',
   skrivBrevet: 'Skriv brevet',
-  avbryt: 'Avbryt',
   vantar: 'Läser annonsens krav mot ditt CV. Tar 10 till 15 sekunder.',
   skriverBrevet: 'Skriver brevet',
   skriverStycke: (n: number, av: number) => `Skriver stycke ${n} av ${av}`,
