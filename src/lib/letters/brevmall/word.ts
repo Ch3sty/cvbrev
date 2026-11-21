@@ -50,6 +50,13 @@ import { brevArendeFarg, brevDef, brevMallDef, brevMatt, harKontaktspalt, mallVa
 import { arendeRad, avslutsRad, datumRad, halsningsRad, rensadeStycken } from './text'
 import type { BrevData, BrevVal } from './typer'
 
+/**
+ * Word-filens tätaste krympsteg: 2, som före steg 3 (2026-11-21). Uppskattningen
+ * överskattar och sidantalet i Word är inte mätt; långa brev i Word är en egen
+ * uppföljning som kräver mätning i Word.
+ */
+export const WORD_MAX_STEG = 2 as const
+
 /* Enheterna, som i bygg.ts (små nog att upprepa i stället för att exportera fler namn). */
 const TWIP_PER_MM = 56.6929
 const mm = (v: number) => Math.round(v * TWIP_PER_MM)
@@ -116,7 +123,10 @@ export async function byggBrevDokument(mallId: string, data: BrevData, val: Brev
   const sprak = { value: data.sprak === 'en' ? 'en-GB' : 'sv-SE' }
 
   // Brödtexten: brevets grad och radavstånd i det steg som uppskattningen säger räcker.
-  const bm = brevMatt(def, uppskattatSteg(original, data, val))
+  // Högst steg 2 (WORD_MAX_STEG): uppskattningen överskattar höjden för de flesta typsnitt, så
+  // steg 3 skulle göra många Word-brev tätare än PDF:en utan att sidantalet i Word är mätt.
+  // Steg 3 i Word för långa brev är en egen uppföljning som kräver mätning i Word.
+  const bm = brevMatt(def, uppskattatSteg(original, data, val, WORD_MAX_STEG))
   const grad = bm.grad
   const rad = { line: pt(grad * bm.rad), lineRule: 'atLeast' as const }
   const text = ord(p.text)

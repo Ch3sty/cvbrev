@@ -166,6 +166,18 @@ describe('steg 3, långa brev (2026-11-21)', () => {
     const langre = { ...lang, stycken: [...lang.stycken, ...lang.stycken.slice(2, 4)] }
     for (const id of ['ek', 'granit', 'linne']) expect(uppskattatSteg(brevMallDef(id), langre), id).toBe(3)
   })
+
+  it('Word får aldrig steg 3: högst steg 2, som före ändringen', async () => {
+    const { WORD_MAX_STEG } = await import('../word')
+    expect(WORD_MAX_STEG).toBe(2)
+    const lang = exempelBrev('lang')
+    const langre = { ...lang, stycken: [...lang.stycken, ...lang.stycken.slice(2, 4)] }
+    for (const def of MALLAR.filter((m) => m.word)) expect(uppskattatSteg(def, langre, undefined, WORD_MAX_STEG), def.id).toBeLessThanOrEqual(2)
+    // Linne: brödtexten i steg 2 är 10,5 pt (w:sz 21), steg 3 skulle vara 10 pt (w:sz 20).
+    const xml = await (await JSZip.loadAsync(await byggBrevDocx('linne', langre))).file('word/document.xml')!.async('string')
+    expect(xml).toContain('<w:sz w:val="21"/>')
+    expect(xml).not.toContain('<w:sz w:val="20"/>')
+  })
 })
 
 describe('katalogen', () => {

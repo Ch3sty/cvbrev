@@ -214,11 +214,14 @@ export function uppskattadHojd(defIn: MallDef, data: BrevData, steg: BrevSteg, v
   return huvud + fasta + rader * radMm + stycken.length * m.luft
 }
 
-/** Steget som uppskattningen säger räcker för en sida (Word). */
-export function uppskattatSteg(def: MallDef, data: BrevData, val?: BrevVal): BrevSteg {
+/**
+ * Steget som uppskattningen säger räcker för en sida, högst `maxSteg`
+ * (Word anger 2, se word.ts).
+ */
+export function uppskattatSteg(def: MallDef, data: BrevData, val?: BrevVal, maxSteg: BrevSteg = 3): BrevSteg {
   const grans = brevGransMm(def)
-  for (const s of BREV_STEGEN) if (uppskattadHojd(def, data, s, val) <= grans) return s
-  return 3
+  for (const s of BREV_STEGEN) if (s <= maxSteg && uppskattadHojd(def, data, s, val) <= grans) return s
+  return maxSteg
 }
 
 /* ------------------------------------------------------------ brevets CSS */
