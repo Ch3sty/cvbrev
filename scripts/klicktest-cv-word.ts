@@ -210,7 +210,7 @@ async function klicka() {
         let body = await text(page)
         kontroll(page.url().includes('/dashboard/cv-mallar') && (await synlig(page, YTA.format)), `${steg}: sidan öppnas med formatvalet (${page.url().replace(BAS, '')})`)
         const wordFilter = await page.evaluate((s) => [...document.querySelectorAll<HTMLElement>(s)].find((e) => /^Word/.test(e.innerText))?.innerText ?? '', '[aria-label="Filtrera mallar"] button')
-        kontroll(/Words*d+/.test(wordFilter), `${steg}: filtret Word räknar mallarna med Word (${wordFilter.replace(/s+/g, ' ')})`)
+        kontroll(/Word\s*\d+/.test(wordFilter), `${steg}: filtret Word räknar mallarna med Word (${wordFilter.replace(/\s+/g, ' ')})`)
         await bild(page, `${steg}-1-galleri`)
 
         if (k.roll === 'gratis') {
@@ -221,12 +221,13 @@ async function klicka() {
           await klickaSynlig(page, YTA.word)
           await page.waitForSelector(YTA.sparr('cv-export-word'), { timeout: 15000 }).catch(() => null)
           body = await text(page)
-          kontroll((await synlig(page, YTA.sparr('cv-export-word'))) && body.includes('Word i den här mallen ingår i Premium'), `${steg}: låst Word öppnar spärren "Word i den här mallen ingår i Premium"`)
+          // Dagens rubrik står som ögonrad i versaler (text-transform), och innerText ger versalerna.
+          kontroll((await synlig(page, YTA.sparr('cv-export-word'))) && /Word i den här mallen ingår i Premium/i.test(body), `${steg}: låst Word öppnar spärren "Word i den här mallen ingår i Premium"`)
           kontroll(/Köp Premium/.test(body), `${steg}: spärren har köpknappen`)
           await bild(page, `${steg}-3-sparr`)
           await page.keyboard.press('Escape')
           await new Promise((r) => setTimeout(r, 600))
-          kontroll(/Premium/.test(await knapp()) && (await knapp()).startsWith('Ladda ner Word'), `${steg}: med låst Word valt säger knappen priset (${(await knapp()).replace(/s+/g, ' ')})`)
+          kontroll(/Premium/.test(await knapp()) && (await knapp()).startsWith('Ladda ner Word'), `${steg}: med låst Word valt säger knappen priset (${(await knapp()).replace(/\s+/g, ' ')})`)
           await bild(page, `${steg}-4-word-last`)
           await klickaSynlig(page, YTA.pdf)
           await klickaSynlig(page, YTA.ruta('affisch'))
