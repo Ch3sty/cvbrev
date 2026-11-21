@@ -22,7 +22,6 @@ const TEMPLATES = [
   {
     id: 'classic',
     name: 'Klassisk',
-    tier: 'free',
     description: 'Traditionell svensk brevmall',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
@@ -32,7 +31,6 @@ const TEMPLATES = [
   {
     id: 'sidebar',
     name: 'Sidofält',
-    tier: 'free',
     description: 'Vertikal linje som skiljer kontaktinfo från innehåll',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
@@ -42,7 +40,6 @@ const TEMPLATES = [
   {
     id: 'minimal',
     name: 'Minimal',
-    tier: 'free',
     description: 'Ren från/till struktur',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
@@ -52,7 +49,6 @@ const TEMPLATES = [
   {
     id: 'compact',
     name: 'Kompakt',
-    tier: 'free',
     description: 'Sparar vertikalt utrymme med inline kontaktinfo',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
@@ -62,7 +58,6 @@ const TEMPLATES = [
   {
     id: 'centered',
     name: 'Centrerad',
-    tier: 'premium',
     description: 'Centrerad header med horisontell linje',
     headerAlign: 'center' as const,
     bodyAlign: 'left' as const,
@@ -71,8 +66,7 @@ const TEMPLATES = [
   },
   {
     id: 'twocolumn',
-    name: 'Professional Split',
-    tier: 'premium',
+    name: 'Två spalter',
     description: 'Två-kolumns layout med kontaktinfo till höger',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
@@ -221,9 +215,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-2">
-                    {template.tier === 'premium' && (
-                      <Crown className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                    )}
                     <span className="text-sm font-medium text-slate-900">{template.name}</span>
                   </div>
                   <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isTemplateOpen ? 'rotate-180' : ''}`} />
@@ -238,7 +229,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   >
                     {TEMPLATES.map((tmpl) => {
                       const isSelected = selectedTemplate === tmpl.id
-                      const isPremium = tmpl.tier === 'premium'
 
                       return (
                         <button
@@ -262,7 +252,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                           <div className="flex-1 text-left">
                             <div className="font-semibold text-sm text-slate-900 flex items-center gap-2">
                               {tmpl.name}
-                              {isPremium && <Crown className="w-3.5 h-3.5 text-amber-500" />}
                             </div>
                             <p className="text-xs text-slate-600 mt-0.5">{tmpl.description}</p>
                           </div>
@@ -305,7 +294,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                         <div className="overflow-y-auto flex-1 p-2">
                           {TEMPLATES.map((tmpl) => {
                             const isSelected = selectedTemplate === tmpl.id
-                            const isPremium = tmpl.tier === 'premium'
 
                             return (
                               <button
@@ -329,7 +317,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                                 <div className="flex-1 text-left">
                                   <div className="font-semibold text-sm text-slate-900 flex items-center gap-2">
                                     {tmpl.name}
-                                    {isPremium && <Crown className="w-4 h-4 text-amber-500" />}
                                   </div>
                                   <p className="text-xs text-slate-600 mt-1">{tmpl.description}</p>
                                 </div>
@@ -520,19 +507,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
               </div>
             </div>
 
-            {/* Premium Notice */}
-            {template.tier === 'premium' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2"
-              >
-                <Crown className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                <div className="text-xs text-amber-900">
-                  <span className="font-semibold">{template.name}</span> ingår i {PAKETRADER.bricka}, med alla mallar och nedladdningar utan tak.
-                </div>
-              </motion.div>
-            )}
           </div>
 
       {/* Live Preview */}
@@ -564,12 +538,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                 </p>
               </div>
             </div>
-            {template.tier === 'premium' && (
-              <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
-                <Crown className="w-3 h-3" />
-                {PAKETRADER.bricka}
-              </div>
-            )}
           </div>
 
           {/* Letter Preview */}

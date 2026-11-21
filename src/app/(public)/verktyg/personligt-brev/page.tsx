@@ -12,12 +12,16 @@
  * brev utan konto" och "Läs mer om personliga brev". Gratisbrevet enligt
  * koden: första brevet gratis, sedan ett per rullande sju dygn (avsnitt 7).
  * Serverkomponent; klient-JS bara för FastKnapprad.
+ *
+ * Våg 1 för brevets publika ytor (2026-11-21): talen och mallarna läses ur
+ * brevets katalog (samma 40 mallar som CV:t, src/components/publikt/brevmallar.ts),
+ * mallsektionen visar sju av dem med brevets egna miniatyrer, och
+ * description, schemat och FAQ-svaren följer produkten.
  */
 import Link from 'next/link'
 import { BREV_FAQ_ITEMS } from './components/brev-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
-import { LETTER_TEMPLATES } from '@/lib/letters/letter-templates'
 import { PREVIEW_PARAGRAPHS } from '@/lib/letters/public-draft-tal'
 import { FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import PubliktSida from '@/components/publikt/PubliktSida'
@@ -31,8 +35,20 @@ import Faq from '@/components/publikt/Faq'
 import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
-import MallMiniatyr, { TreStycken } from '@/components/publikt/MallMiniatyr'
+import { TreStycken } from '@/components/publikt/MallMiniatyr'
 import { talOrd } from '@/components/publikt/talord'
+import {
+  BREV_GRATIS_NAMN,
+  BREV_MALL_ANTAL,
+  BREV_PREMIUM_ANTAL,
+  BREV_WORD_ANTAL,
+  MINIATYR_BREDD,
+  MINIATYR_HOJD,
+  SALJ_MALL_IDS,
+  brevMallKortFor,
+  brevMiniatyrSrc,
+  formatMarke,
+} from '@/components/publikt/brevmallar'
 import SkarmBrev from '@/components/publikt/telefon/skarmar/SkarmBrev'
 import SkarmAnnons from '@/components/publikt/telefon/skarmar/SkarmAnnons'
 
@@ -40,20 +56,8 @@ const REGISTRERA = '/register?borja=brev'
 const PREMIUM = paketKort()
 const PRIS = prisPeriod(SALD_PLAN)
 
-/** Svensk text per brevmall. Antal och nivå kommer ur registret. */
-const MALLTEXT: Record<string, { text: string; branscher: string }> = {
-  classic: { text: 'Traditionell svensk standard.', branscher: 'Offentlig sektor, vård, utbildning' },
-  minimalist: { text: 'Generösa marginaler och en lugn känsla.', branscher: 'Tech, design, konsult' },
-  compact: { text: 'Kontaktuppgifterna på en rad och tät text.', branscher: 'Tech, fintech, moderna bolag' },
-  modern: { text: 'Accentstreck och ett tydligt mottagarblock.', branscher: 'Marknadsföring, finans, konsult' },
-  executive: { text: 'Sidofält för kontaktuppgifterna.', branscher: 'Bank, juridik, ledning' },
-  creative: { text: 'Ett färgat sidhuvud som syns.', branscher: 'Design, reklam, media' },
-  traditional: { text: 'Konservativ och med justerad text.', branscher: 'Bank, juridik, försäkring' },
-}
-
-const MALLAR = Object.values(LETTER_TEMPLATES)
-const MALLANTAL = MALLAR.length
-const GRATISMALLAR = MALLAR.filter((m) => m.tier === 'free').length
+/** Mallsektionens sju kort ur brevets katalog (samma mallar som CV:t). */
+const MALLAR = brevMallKortFor(SALJ_MALL_IDS)
 
 const SKRIVTIPS = [
   {
@@ -97,7 +101,7 @@ export default function PersonligtBrevSida() {
     name: 'Jobbcoach.ai Personligt brev-verktyg',
     url: 'https://www.jobbcoach.ai/verktyg/personligt-brev',
     description:
-      'Skräddarsy personliga brev som matchar jobbannonsen. Sju mallar, fem toner plus automatiskt tonval, ATS-optimerat. Export som PDF eller Word.',
+      `Skräddarsy personliga brev som matchar jobbannonsen. ${BREV_MALL_ANTAL} mallar, samma som till ditt CV, och fem toner plus automatiskt tonval i ${PREMIUM}. Läsbart för rekryteringssystem (ATS). Nedladdning som PDF, och som Word i ${BREV_WORD_ANTAL} av mallarna, ingår i ${PREMIUM}.`,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -107,7 +111,7 @@ export default function PersonligtBrevSida() {
       description: 'Första personliga brevet gratis, sedan ett var sjunde dag. Ingen kortuppgift',
     },
     featureList:
-      '7 brevmallar, 5 toner plus automatiskt tonval, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
+      `${BREV_MALL_ANTAL} brevmallar som matchar CV-mallarna, 5 toner plus automatiskt tonval, läsbart för rekryteringssystem (ATS), PDF i alla mallar och Word i ${BREV_WORD_ANTAL}, brev som sparas av sig själva, matchning mot jobbannonsen, svenska och engelska`,
   }
 
   const howToSchema = {
@@ -115,7 +119,7 @@ export default function PersonligtBrevSida() {
     '@type': 'HowTo',
     name: 'Så skapar du ett personligt brev med Jobbcoach.ai',
     description:
-      'Fyra steg från tomt papper till färdig ansökan: välj CV, klistra in annons, välj mall och ton, ladda ner.',
+      'Fyra steg från tomt papper till färdig ansökan: välj CV, klistra in annons, välj mall och ton, kopiera eller ladda ner.',
     totalTime: 'PT4M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -142,14 +146,14 @@ export default function PersonligtBrevSida() {
         position: 3,
         name: 'Välj mall och ton',
         text:
-          'Sju mallar och fem toner, från professionellt till entusiastiskt. I Premium kan vi också välja tonen åt dig utifrån annonsen.',
+          `${BREV_MALL_ANTAL} mallar, samma som till ditt CV, och fem toner, från professionell till entusiastisk. Mallen byter du när du vill, utan att skriva om brevet. I Premium kan vi också välja tonen åt dig utifrån annonsen.`,
       },
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'Ladda ner som PDF eller Word',
+        name: 'Kopiera eller ladda ner brevet',
         text:
-          'Granska, finjustera om du vill, exportera. Spara brevet i ditt konto för senare.',
+          `Brevet sparas av sig självt i ditt konto. Kopiera texten direkt, eller ladda ner det med ${PREMIUM}: PDF i alla mallar, Word i ${BREV_WORD_ANTAL} av dem.`,
       },
     ],
   }
@@ -196,7 +200,7 @@ export default function PersonligtBrevSida() {
             tal={[
               { tal: `${FREE_LETTERS_PER_ACCOUNT} brev`, text: 'gratis, utan kortuppgift' },
               { tal: '4 min', text: 'från annons till brev' },
-              { tal: `${MALLANTAL} mallar`, text: 'PDF och Word' },
+              { tal: `${BREV_MALL_ANTAL} mallar`, text: 'samma som till ditt CV' },
             ]}
             bildLag
             bild={
@@ -261,33 +265,49 @@ export default function PersonligtBrevSida() {
           <Rum yta="ton" rum="brev" id="mallar">
             <div className="pub-wrap">
               <p className="pub-kick">Mallar</p>
-              <h2 className="pub-h2">{`${MALLANTAL} mallar för personliga brev`}</h2>
+              <h2 className="pub-h2">{`${BREV_MALL_ANTAL} mallar för personliga brev`}</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
-                Alla mallar går att läsa för rekryteringssystemen svenska arbetsgivare använder. Byt mall utan att skriva om
-                brevet. {GRATISMALLAR} av dem är gratis och räcker långt för de flesta ansökningar, resten ingår i {PREMIUM}, {PRIS}.
+                Brevet skrivs i samma mallar som ditt CV, så att ansökan hänger ihop. Du provar alla med ditt eget brev och byter
+                utan att skriva om något. {BREV_GRATIS_NAMN} är gratis, de övriga {BREV_PREMIUM_ANTAL} ingår i {PREMIUM}, {PRIS}.
               </p>
               <div className="pub-mallar">
-                {MALLAR.map((m) => (
-                  <div className="pub-mall" key={m.id}>
-                    <div className="pub-mall-bild">
-                      <MallMiniatyr id={m.id} />
+                {MALLAR.map((m) => {
+                  const gratis = m.niva === 'gratis'
+                  return (
+                    <div className="pub-mall" key={m.id}>
+                      <div className="pub-mall-bild">
+                        {/* Brevets egen miniatyr, ritad av brevmotorn (scripts/brevmallar-miniatyrer.ts). */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={brevMiniatyrSrc(m.id)}
+                          alt={`Personligt brev i mallen ${m.namn}`}
+                          width={MINIATYR_BREDD}
+                          height={MINIATYR_HOJD}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                      <h3>{m.namn}</h3>
+                      <p>{m.kort}.</p>
+                      <div className="pub-mall-rad">
+                        <span className={`pub-tagg ${gratis ? '' : 'pub-tagg-prem'}`.trim()}>{gratis ? 'Gratis' : PREMIUM}</span>
+                        <span className="pub-mall-format">{formatMarke(m.word)}</span>
+                      </div>
                     </div>
-                    <h3>{m.name}</h3>
-                    <p>
-                      {MALLTEXT[m.id] ? `${MALLTEXT[m.id].text} Passar ${MALLTEXT[m.id].branscher.toLowerCase()}.` : m.description}
-                    </p>
-                    <span className={`pub-tagg ${m.tier === 'free' ? '' : 'pub-tagg-prem'}`.trim()}>
-                      {m.tier === 'free' ? 'Gratis' : `Ingår i ${PREMIUM}`}
-                    </span>
-                  </div>
-                ))}
-                <Link className="pub-mall pub-mall-mer" href="/personligt-brev-exempel">
-                  <span className="pub-mer-tal">{MALLANTAL}</span>
-                  <b className="pub-h4">Se mallarna i färdiga brev</b>
-                  <p>Exempel yrke för yrke, så ser du hur varje mall bär ett riktigt brev.</p>
-                  <span className="pub-lank">Till exemplen</span>
+                  )
+                })}
+                <Link className="pub-mall pub-mall-mer" href="/cv-mallar">
+                  <span className="pub-mer-tal">{BREV_MALL_ANTAL}</span>
+                  <b className="pub-h4">Alla mallarna</b>
+                  <p>{`Brev och CV i samma mall. Se alla ${BREV_MALL_ANTAL} bland CV-mallarna.`}</p>
+                  <span className="pub-lank">Till mallarna</span>
                 </Link>
               </div>
+              <p className="pub-mallar-fot">
+                <Link className="pub-lank" href="/personligt-brev-exempel">
+                  Se ett färdigt brev för ditt yrke
+                </Link>
+              </p>
             </div>
           </Rum>
 
@@ -352,7 +372,7 @@ export default function PersonligtBrevSida() {
                   <Objekt typ="uppat" />
                   <h3 className="pub-h4">{PRIS}</h3>
                   <p>
-                    Allt i {PREMIUM}: personliga brev utan tak, alla {talOrd(MALLANTAL)} mallar, PDF och Word. Säg upp när du vill i
+                    Allt i {PREMIUM}: personliga brev utan tak, alla {BREV_MALL_ANTAL} mallar, PDF och Word. Säg upp när du vill i
                     ditt konto.
                   </p>
                 </div>

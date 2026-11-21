@@ -8,7 +8,9 @@
  * (trions beslut om punkt 13): noll JavaScript, komponenten läser aldrig
  * filen. Klicket mäts med data-cta-klick.
  *
- * Brevet: oförändrat (mallväljare och typsnitt i MallVisning).
+ * Brevet: mallväljare och typsnitt i MallVisning, utan nivåmärkning (våg 1,
+ * 2026-11-21). Fotraden läser antalet och gratismallarna ur brevets katalog.
+ * Visningen byts mot brevmotorns mallar i våg 2.
  */
 import MallVisning from './MallVisning'
 import MallVisningCv, { type ArtikelMall } from './MallVisningCv'
@@ -16,6 +18,7 @@ import { MALL_KATALOG, GRATIS_ANTAL, MALL_ANTAL } from '@/lib/cv/mallar/katalog'
 import { FONTS } from '@/lib/cv/preview-utils'
 import { BREV_MALLAR } from '@/lib/cv/showcase-exempel'
 import { ARTIKEL, KNAPP, UPPLADDNING, DOK } from '@/components/cv/Dokument/texter'
+import { BREV_GRATIS_NAMN, BREV_MALL_ANTAL } from '@/components/publikt/brevmallar'
 
 const TYPSNITT = FONTS.map((f) => ({ id: f.id, name: f.name }))
 
@@ -68,7 +71,7 @@ export function BrevMallVisning() {
       typ="brev"
       mallar={BREV_MALLAR}
       typsnitt={TYPSNITT}
-      fotrad="Samma brev i sex mallar. Fyra är gratis."
+      fotrad={`Uppställningarna här är exempel. I verktyget skriver du brevet i ${BREV_MALL_ANTAL} mallar, och ${BREV_GRATIS_NAMN} är gratis.`}
       lank={{ text: 'Skriv ditt eget brev', href: '/skapa-brev/start' }}
     />
   )

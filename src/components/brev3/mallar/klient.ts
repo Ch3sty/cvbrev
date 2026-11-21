@@ -51,6 +51,82 @@ export async function forhandsvisaFlera(brevId: string, mallar: readonly string[
   return ((await res.json()) as { mallar: Record<string, string> }).mallar
 }
 
+/** Så många mallar per anrop när rutnätet fylls: lika många som sidan ritar på servern. */
+export const OMGANG_STORLEK = 8
+/** Försök per omgång: det första plus två nya. */
+export const OMGANG_FORSOK = 3
+/** Väntan före nytt försök, ms (ett per nytt försök). */
+export const OMGANG_VANTAN = [800, 2000] as const
+
+/** Ett fel värt att försöka igen: nät, tidsgräns och serverfel, aldrig övriga 4xx (fel kropp, ingen inloggning, inget brev). */
+export function provaIgen(e: unknown): boolean {
+  if (e instanceof MallarFel) return e.status >= 500 || e.status === 408 || e.status === 429
+  return (e as Error)?.name !== 'AbortError'
+}
+
+function avbrott(): Error {
+  const e = new Error('Avbrutet')
+  e.name = 'AbortError'
+  return e
+}
+
+function vanta(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) return reject(avbrott())
+    const t = setTimeout(resolve, ms)
+    signal?.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(t)
+        reject(avbrott())
+      },
+      { once: true },
+    )
+  })
+}
+
+/**
+ * Rutnätets mallar i omgångar om OMGANG_STORLEK, en omgång i taget, så att
+ * varje anrop ryms gott i funktionens tidsgräns även för ett långt brev
+ * (QA 2026-11-21: alla 32 övriga i ett anrop gav 504 och korten stod kvar
+ * med katalogens CV-bilder). En omgång som faller försöks igen
+ * (OMGANG_FORSOK gånger totalt, med väntan emellan) när felet är värt det.
+ * Varje lyckad omgång lämnas direkt till klar(), så att korten fylls efter
+ * hand. Avbrott (signal) stoppar allt och kastar AbortError. Svar: mallarna
+ * som inte gick att hämta.
+ */
+export async function forhandsvisaIOmgangar(
+  brevId: string,
+  mallar: readonly string[],
+  fontId: string | null | undefined,
+  klar: (ut: Record<string, string>) => void,
+  opt: { signal?: AbortSignal; storlek?: number; forsok?: number; vantan?: readonly number[]; hamta?: typeof forhandsvisaFlera } = {},
+): Promise<string[]> {
+  const storlek = Math.max(1, opt.storlek ?? OMGANG_STORLEK)
+  const forsok = Math.max(1, opt.forsok ?? OMGANG_FORSOK)
+  const vantan = opt.vantan ?? OMGANG_VANTAN
+  const hamta = opt.hamta ?? forhandsvisaFlera
+  const misslyckade: string[] = []
+  for (let i = 0; i < mallar.length; i += storlek) {
+    const omgang = mallar.slice(i, i + storlek)
+    for (let f = 1; ; f++) {
+      if (opt.signal?.aborted) throw avbrott()
+      try {
+        klar(await hamta(brevId, omgang, fontId, opt.signal))
+        break
+      } catch (e) {
+        if ((e as Error)?.name === 'AbortError') throw e
+        if (f >= forsok || !provaIgen(e)) {
+          misslyckade.push(...omgang)
+          break
+        }
+        await vanta(vantan[Math.min(f - 1, vantan.length - 1)] ?? 0, opt.signal)
+      }
+    }
+  }
+  return misslyckade
+}
+
 /** Sparar brevets mall och/eller typsnitt (PUT /api/letters/[id]). Kastar MallarFel (403 letter_locked, 402 premium_required). */
 export async function sparaVal(brevId: string, andring: { mall_id?: string; font_id?: string | null }): Promise<void> {
   const res = await fetch(`/api/letters/${encodeURIComponent(brevId)}`, {

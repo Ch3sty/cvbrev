@@ -28,7 +28,7 @@ import LankLista, { type LankRad } from '@/components/publikt/LankLista'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import { PremiumOrd } from '@/components/publikt/PremiumBlock'
-import MallMiniatyr from '@/components/publikt/MallMiniatyr'
+import { mallBild } from '@/lib/cv/mallar/katalog'
 import { TESTTAL, PROV_MINUTER } from '@/components/publikt/testtal'
 import { storForst, talOrd } from '@/components/publikt/talord'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
@@ -39,6 +39,9 @@ import SkarmBrev from '@/components/publikt/telefon/skarmar/SkarmBrev'
 import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 
 const PREMIUM = paketKort()
+
+/** Dekoren i CV-avsnittet: tre CV-mallar ur katalogen (stora bilden, 300 x 424). */
+const DEKOR_MALLAR = ['linne', 'bjork', 'koppar'] as const
 
 const kort = (id: string) => {
   const k = FUNKTIONER.kort.find((x) => x.id === id)
@@ -220,16 +223,40 @@ export default function FunktionerSida() {
               </div>
             </div>
             <div className="pub-mitt" aria-hidden="true">
-              <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', filter: 'drop-shadow(0 18px 28px rgba(20,16,10,.18))' }}>
-                <div style={{ transform: 'rotate(-6deg)', width: 110 }}>
-                  <MallMiniatyr id="executive" />
-                </div>
-                <div style={{ width: 130, position: 'relative', zIndex: 1 }}>
-                  <MallMiniatyr id="modern" />
-                </div>
-                <div style={{ transform: 'rotate(6deg)', width: 110 }}>
-                  <MallMiniatyr id="classic" />
-                </div>
+              {/* Avsnittet handlar om CV: CV-katalogens egna bilder (UX 2026-11-21). Bredderna i procent
+                  med dagens mått som tak, så att de tre arken ryms i spalten på 375 px. */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 12,
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  width: '100%',
+                  maxWidth: 374,
+                  filter: 'drop-shadow(0 18px 28px rgba(20,16,10,.18))',
+                }}
+              >
+                {DEKOR_MALLAR.map((id, i) => (
+                  <div
+                    key={id}
+                    style={
+                      i === 1
+                        ? { width: '34%', maxWidth: 130, position: 'relative', zIndex: 1 }
+                        : { transform: `rotate(${i === 0 ? -6 : 6}deg)`, width: '28%', maxWidth: 110 }
+                    }
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={mallBild(id).stor}
+                      alt=""
+                      width={300}
+                      height={424}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ display: 'block', width: '100%', height: 'auto', background: '#fff', borderRadius: 3 }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

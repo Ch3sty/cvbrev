@@ -9,7 +9,8 @@
  *
  * Adressen: brev (annars det senast uppdaterade), mall (mallen som provas,
  * köpreturen sätter den), format och ladda=1 (tillbaka från kassan: filen
- * laddas ner av sig själv).
+ * laddas ner av sig själv; med premium_activated=true väntas tillgången in
+ * om webhooken ligger efter).
  */
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -90,6 +91,7 @@ export default async function MallarPage({ searchParams }: { searchParams: Promi
       kopieraText={rad ? brevSomText(kalla.data) : null}
       ladda={forsta(params.ladda) === '1'}
       laddaFormat={forsta(params.format) === 'docx' ? 'docx' : 'pdf'}
+      kopRetur={forsta(params.premium_activated) === 'true'}
     />
   )
 }
