@@ -186,6 +186,36 @@ function maskeraDjupt(v: any, fullName: string | null): any {
   return v;
 }
 
+/**
+ * Är bäraren projektets servicenyckel?
+ *
+ * Det går inte att jämföra med miljöns SUPABASE_SERVICE_ROLE_KEY som sträng:
+ * Supabase ger funktionsmiljön en egen nyckel vid varje driftsättning, och den
+ * är inte samma sträng som nyckeln vår server har (2026-11-21: jämförelsen
+ * nekade varje anrop från servern, 403). Därför i två steg:
+ *   1. Rollen i JWT:n ska vara service_role. En användares JWT faller här,
+ *      utan något nätverksanrop.
+ *   2. Rollen i en JWT bevisar inget i sig, så nyckeln prövas mot
+ *      auth-tjänstens adminyta, som bara svarar 200 på en giltig servicenyckel.
+ */
+async function arServicenyckel(barare: string, supabaseUrl: string, miljonyckel: string): Promise<boolean> {
+  if (!barare) return false;
+  if (miljonyckel && barare === miljonyckel) return true;
+  try {
+    const del = barare.split('.')[1] ?? '';
+    const b64 = del.replace(/-/g, '+').replace(/_/g, '/');
+    const krav = JSON.parse(atob(b64 + '='.repeat((4 - (b64.length % 4)) % 4)));
+    if (krav?.role !== 'service_role') return false;
+    const svar = await fetch(`${supabaseUrl}/auth/v1/admin/users?page=1&per_page=1`, {
+      headers: { Authorization: `Bearer ${barare}`, apikey: barare },
+    });
+    await svar.body?.cancel();
+    return svar.ok;
+  } catch {
+    return false;
+  }
+}
+
 Deno.serve(async (req) => {
   let jobId: string | undefined;
 
@@ -201,7 +231,7 @@ Deno.serve(async (req) => {
     // funktionen direkt med valfritt jobId och cvId, förbi kvoten och med
     // någon annans CV. Driftsätt aldrig med --no-verify-jwt.
     const barare = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
-    if (!supabaseServiceKey || barare !== supabaseServiceKey) {
+    if (!(await arServicenyckel(barare, supabaseUrl, supabaseServiceKey))) {
       console.error('[analyze-cv-background] nekat: anropet kom inte med servicenyckeln');
       return new Response(
         JSON.stringify({ error: 'Forbidden' }),
