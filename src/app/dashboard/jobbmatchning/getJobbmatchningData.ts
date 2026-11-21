@@ -75,6 +75,17 @@ export interface JobbmatchningData {
    * utan en egen rundtur efter hydrering.
    */
   jobPreferences: JobPreferences;
+  /**
+   * När Matchade jobb senast visades (profiles.matchningar_sedda_at), läst
+   * innan sidan markerar den som sedd igen. Träffar publicerade efter det är
+   * nya. Null när det inte går att veta.
+   */
+  seddaAt: string | null;
+  /**
+   * Annonserna användaren redan sparat under Ska sökas eller loggat som sökta
+   * därifrån, per Arbetsförmedlingens annons-id (omgång 1, F3).
+   */
+  sparade: Record<string, 'sparad' | 'sokt'>;
 }
 
 /**
@@ -87,6 +98,8 @@ export const EMPTY_JOBBMATCHNING_DATA: JobbmatchningData = {
   lockedCvIds: [],
   activeCV: null,
   jobPreferences: EMPTY_JOB_PREFERENCES,
+  seddaAt: null,
+  sparade: {},
 };
 
 /**
@@ -98,7 +111,7 @@ export async function getJobbmatchningData(
   supabase: any,
   userId: string
 ): Promise<JobbmatchningData> {
-  const [cvRes, activeRes, profileRes] = await Promise.all([
+  const [cvRes, activeRes, profileRes, seddaRes, sparadeRes] = await Promise.all([
     supabase
       .from('cv_texts')
       .select('id, file_name, created_at')
@@ -114,6 +127,17 @@ export async function getJobbmatchningData(
       .select('subscription_tier, premium_until, job_preferences')
       .eq('id', userId)
       .maybeSingle(),
+    // Egna frågor: saknas kolumnen eller tabellen ska resten ändå läsas.
+    supabase
+      .from('profiles')
+      .select('matchningar_sedda_at')
+      .eq('id', userId)
+      .maybeSingle(),
+    supabase
+      .from('job_saved_ads')
+      .select('af_ad_id, application_id')
+      .eq('user_id', userId)
+      .not('af_ad_id', 'is', null),
   ]);
 
   if (cvRes.error) {
@@ -155,5 +179,11 @@ export async function getJobbmatchningData(
     lockedCvIds: cvs.filter((cv) => !active.has(cv.id)).map((cv) => cv.id),
     activeCV: (activeRes.data ?? null) as ActiveCVData | null,
     jobPreferences: toJobPreferences(profileRow?.job_preferences),
+    seddaAt: (seddaRes.data as { matchningar_sedda_at?: string | null } | null)?.matchningar_sedda_at ?? null,
+    sparade: Object.fromEntries(
+      ((sparadeRes.data ?? []) as Array<{ af_ad_id: string | null; application_id: string | null }>)
+        .filter((r) => r.af_ad_id)
+        .map((r) => [r.af_ad_id as string, r.application_id ? 'sokt' : 'sparad'] as const)
+    ),
   };
 }

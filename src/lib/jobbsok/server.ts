@@ -28,6 +28,8 @@ import { arPlatshallareNamn } from '@/lib/profile/dokumentKontakt'
 import { toJobPreferences } from '@/types/user.types'
 import { rankMatches } from '@/app/dashboard/jobbmatchning/data/match-ranking'
 import { buildMatchReasons } from '@/app/dashboard/jobbmatchning/data/match-reasons'
+import { applyClientFilters, applyPreferences } from '@/app/dashboard/jobbmatchning/data/job-filtering'
+import { DEFAULT_FILTERS } from '@/app/dashboard/jobbmatchning/data/filter-standard'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { idagSv } from './datum'
@@ -306,10 +308,13 @@ export async function hamtaToppTraffar(userId: string, antal = 3, opt: { nu?: Da
 
   const cv = (cvRes.data ?? null) as ActiveCVData | null
   const profil = profilRes.data as { job_preferences?: unknown; matchningar_sedda_at?: string | null } | null
-  const orter = toJobPreferences(profil?.job_preferences).locations
+  const prefs = toJobPreferences(profil?.job_preferences)
+  const orter = prefs.locations
   const sedda = profil?.matchningar_sedda_at ? Date.parse(profil.matchningar_sedda_at) : null
   const tak = harBetalt ? antal : Math.min(antal, FREE_TIER_JOB_LIMIT)
-  const { ranked } = rankMatches(jobs, cv, orter, tak)
+  // Samma kedja som Matchade jobb (preferenserna och grundfiltren, bland dem
+  // gränsen 100 km), så att Översikt aldrig visar träffar som listan gallrar bort.
+  const { ranked } = rankMatches(applyClientFilters(applyPreferences(jobs, prefs), DEFAULT_FILTERS, false), cv, orter, tak)
   const nu = opt.nu ?? new Date()
   return {
     lasta: jobs.length,

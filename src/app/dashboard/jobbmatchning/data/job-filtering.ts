@@ -7,7 +7,7 @@
 //
 // OBS: `remote` (distansjobb) och `noExperience` hanteras INTE här, de finns
 // inte som tillförlitliga fält på jobben utan kommer från den globala cachen.
-import type { JobFilters } from '../components/JobFilterPanel';
+import type { JobFilters } from './filter-standard';
 
 // Jobb-formen är löst typad (any från edge-svaret); vi plockar bara fälten vi behöver.
 type Job = Record<string, any>;

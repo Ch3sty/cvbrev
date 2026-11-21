@@ -1,15 +1,17 @@
-import { SkeletonPage, SkeletonHero, SkeletonBlock } from '@/components/dashboard/skeletons/PageSkeleton'
+import { Golv, JobbVagg, LyftPanel, RadSkelett, VaggSkelett } from '@/components/jobb3/kit'
 
-// Jobbmatchning: hero + lista med matchnings-kort.
-export default function JobbmatchningLoading() {
+/** Matchade jobb medan sidan läses: väggen och listans panel i samma form som det färdiga. */
+export default function JobbmatchningLaddar() {
   return (
-    <SkeletonPage>
-      <SkeletonHero />
-      <div className="space-y-3 sm:space-y-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <SkeletonBlock key={i} height={130} rounded="rounded-xl" />
-        ))}
-      </div>
-    </SkeletonPage>
+    <>
+      <JobbVagg hojd={436} hojdMobil={338} flik={false} etikett="Laddar Matchade jobb">
+        <VaggSkelett />
+      </JobbVagg>
+      <Golv>
+        <LyftPanel>
+          <RadSkelett rader={5} />
+        </LyftPanel>
+      </Golv>
+    </>
   )
 }

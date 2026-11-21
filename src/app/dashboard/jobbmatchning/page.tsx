@@ -16,7 +16,7 @@
  * fortfarande av POST /api/jobs/redact på servern. Sidan hämtar inga jobb.
  *
  * Grinden är också oförändrad och medvetet mjuk: utan CV visas
- * JobMatchingOnboarding i stället för en omdirigering, så användaren förstår
+ * ett tomt läge med uppladdningen i stället för en omdirigering, så användaren förstår
  * vad funktionen är innan vi skickar henne till CV-uppladdningen.
  */
 import { cookies } from 'next/headers';
@@ -28,7 +28,8 @@ import {
   getJobbmatchningData,
   EMPTY_JOBBMATCHNING_DATA,
 } from './getJobbmatchningData';
-import JobbmatchningClient from './JobbmatchningClient';
+import MatchadeJobb from '@/components/jobb3/jobb/MatchadeJobb';
+import { hamtaSenasteKorning } from './senasteKorning';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 /**
@@ -57,11 +58,20 @@ export default async function JobbmatchningPage() {
     return EMPTY_JOBBMATCHNING_DATA;
   });
 
+  // Senaste körningen ur job_matchings_cache, så att träffarna står i första
+  // HTML (omgång 1, F7). Går den fel öppnas sidan som förut, utan träffar.
+  const korning = data.loadFailed
+    ? null
+    : await hamtaSenasteKorning(supabase, user.id, data.activeCV, data.jobPreferences).catch((error) => {
+        console.error('Jobbmatchning: kunde inte läsa senaste körningen', error);
+        return null;
+      });
+
   // "N nya" på Jobbsökets hem räknar från när sidan senast visades (spec
   // 16.2 fråga 3). Efter svaret, så att sidan aldrig väntar på skrivningen.
   after(() => markeraMatchningarSedda(supabase, user.id));
 
   // userId går vidare så klienten kan nyckla den lokalt sparade sökningen på
   // rätt konto. Två konton i samma webbläsare ska aldrig se varandras träffar.
-  return <JobbmatchningClient initialData={data} userId={user.id} />;
+  return <MatchadeJobb initialData={data} korning={korning} userId={user.id} />;
 }
