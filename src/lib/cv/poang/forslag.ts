@@ -51,7 +51,7 @@ export interface PoangKategori {
   max: number
   /** Kategorins poäng i dag. */
   idag: number
-  /** Kategorins poäng med alla förslag införda. */
+  /** Kategorins poäng med de förvalda förslagen (forvaltVal). */
   medAlla: number
   /** medAlla minus idag. Kan vara noll. */
   plus: number
@@ -62,7 +62,10 @@ export interface PoangSammanfattning {
   version: typeof POANG_VERSION
   /** Poäng i dag, 0 till 100. */
   idag: number
-  /** Poäng med alla förslag i resultatet införda. */
+  /**
+   * Poäng med våra förslag: de förvalda, alltså alla som inte sänker
+   * poängen (forvaltVal). Aldrig lägre än idag.
+   */
   medAlla: number
   /** medAlla minus idag. */
   plus: number
@@ -154,12 +157,59 @@ export function allaVal(analys: AnalysForPoang): Val {
   }
 }
 
-/** Poäng i dag, med alla förslag och per kategori, för analysens resultat. */
-export function poangSammanfattning(analys: AnalysForPoang): PoangSammanfattning | null {
+/**
+ * De förvalda förslagen: de som inte sänker poängen, varken var för sig
+ * eller tillsammans. Förslagen prövas i ordning efter eget plus (störst
+ * först) och läggs till bara om poängen med dem inte blir lägre än utan.
+ * Ett förslag som ensamt sänker poängen är aldrig förvalt. Poängen med de
+ * förvalda är därför aldrig lägre än i dag och aldrig lägre än det bästa
+ * enskilda förslaget, också när två förslag överlappar.
+ */
+export function forvaltVal(analys: AnalysForPoang): Val {
+  const tomt: Val = { profil: false, roller: [], kompetenser: [] }
+  const cv = kanonisktCv(analys.structuredCV)
+  if (!cv) return tomt
+  const total = (val: Val) => poangMedVal(analys, val)?.total ?? 0
+  const idag = raknaPoang(cv).total
+  const alla = allaVal(analys)
+  type Kandidat = { typ: 0 | 1 | 2; i: number; plus: number }
+  const med = (val: Val, k: Kandidat): Val =>
+    k.typ === 0
+      ? { ...val, profil: true }
+      : k.typ === 1
+        ? { ...val, roller: [...val.roller, k.i] }
+        : { ...val, kompetenser: [...val.kompetenser, k.i] }
+  const kandidater: Kandidat[] = [
+    ...(alla.profil ? [{ typ: 0 as const, i: 0 }] : []),
+    ...alla.roller.map((i) => ({ typ: 1 as const, i })),
+    ...alla.kompetenser.map((i) => ({ typ: 2 as const, i })),
+  ].map((k) => ({ ...k, plus: total(med(tomt, { ...k, plus: 0 })) - idag }))
+  kandidater.sort((a, b) => b.plus - a.plus || a.typ - b.typ || a.i - b.i)
+
+  let val = tomt
+  let nu = idag
+  for (const k of kandidater) {
+    if (k.plus < 0) continue
+    const prov = med(val, k)
+    const t = total(prov)
+    if (t >= nu) {
+      val = prov
+      nu = t
+    }
+  }
+  return { ...val, roller: [...val.roller].sort((a, b) => a - b), kompetenser: [...val.kompetenser].sort((a, b) => a - b) }
+}
+
+/**
+ * Poäng i dag, med våra förslag och per kategori, för analysens resultat.
+ * "Med våra förslag" (medAlla) är poängen med de förvalda förslagen
+ * (forvaltVal): alla som inte sänker poängen.
+ */
+export function poangSammanfattning(analys: AnalysForPoang, forval?: Val): PoangSammanfattning | null {
   const cv = kanonisktCv(analys.structuredCV)
   if (!cv) return null
   const idag = raknaPoang(cv)
-  const alla = poangMedVal(analys, allaVal(analys)) ?? idag
+  const alla = poangMedVal(analys, forval ?? forvaltVal(analys)) ?? idag
   return {
     version: POANG_VERSION,
     idag: idag.total,
@@ -390,10 +440,18 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
  * förslag hon faktiskt ser.
  */
 export function medSammanfattning(result: Obj): Obj {
-  const s = poangSammanfattning(result as AnalysForPoang)
+  const val = forvaltVal(result as AnalysForPoang)
+  const s = poangSammanfattning(result as AnalysForPoang, val)
   const ats = arObj(result.atsFriendliness) ? result.atsFriendliness : {}
+  // forvald: om förslaget är förvalt (sänker inte poängen, ensamt eller
+  // tillsammans med de andra förvalda). Väljsteget förväljer bara dessa.
+  const markera = (lista: unknown, valda: readonly number[]) =>
+    Array.isArray(lista) ? lista.map((x, i) => (arObj(x) ? { ...x, forvald: valda.includes(i) } : x)) : lista
   return {
     ...result,
+    profileSummary: arObj(result.profileSummary) ? { ...result.profileSummary, forvald: val.profil } : result.profileSummary,
+    roleBasedImprovements: markera(result.roleBasedImprovements, val.roller),
+    skillSuggestions: markera(result.skillSuggestions, val.kompetenser),
     atsFriendliness: {
       ...ats,
       score: s ? s.idag : null,

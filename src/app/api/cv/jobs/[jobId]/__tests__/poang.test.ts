@@ -8,7 +8,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { FIXTURER } from '@/lib/cv/poang/__tests__/fixturer'
-import { poangForRad, poangMedVal, allaVal } from '@/lib/cv/poang'
+import { poangForRad, poangMedVal, forvaltVal } from '@/lib/cv/poang'
 
 const ANVANDARE = { id: 'user-1' }
 const NORMALT = FIXTURER.find((f) => f.namn === 'normalt')!
@@ -86,7 +86,7 @@ describe('GET /api/cv/jobs/[jobId]: poängen', () => {
     result.roleBasedImprovements.forEach((r: { plus: number }, i: number) => {
       expect(poangMedVal(result, { profil: false, roller: [i], kompetenser: [] })!.total - ratt).toBe(r.plus)
     })
-    expect(result.poang.medAlla).toBe(poangMedVal(result, allaVal(result))!.total)
+    expect(result.poang.medAlla).toBe(poangMedVal(result, forvaltVal(result))!.total)
   })
 
   it('samma CV ger samma poäng vid varje läsning', async () => {
@@ -103,6 +103,6 @@ describe('GET /api/cv/jobs/[jobId]: poängen', () => {
       result.roleBasedImprovements.length + result.skillSuggestions.length + result.generalImprovements.length
     expect(synliga).toBe(1)
     expect(result.gated.findingsTotal).toBe(9)
-    expect(result.poang.medAlla).toBe(poangMedVal(result, allaVal(result))!.total)
+    expect(result.poang.medAlla).toBe(poangMedVal(result, forvaltVal(result))!.total)
   })
 })

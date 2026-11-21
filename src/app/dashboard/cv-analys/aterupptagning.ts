@@ -46,6 +46,9 @@ export function aterupptagning(a: AterupptagenAnalys): Aterupptagning {
   const harProfil = typeof profil?.improvedText === 'string' && profil.improvedText.trim().length > 0
   const roller = index(r.roleBasedImprovements, (v) => typeof v.suggestedText === 'string' && v.suggestedText.trim().length > 0)
   const kompetenser = index(r.skillSuggestions, (v) => typeof v.skill === 'string' && v.skill.trim().length > 0)
+  // Förvalt utan sparat val: bara förslag som inte sänker poängen
+  // (forvald: false sätts av poängmodellen, src/lib/cv/poang).
+  const forvald = (v: Record<string, unknown> | undefined) => v?.forvald !== false
   const val = sparat
     ? {
         profil: sparat.profile === true && harProfil,
@@ -53,7 +56,12 @@ export function aterupptagning(a: AterupptagenAnalys): Aterupptagning {
         kompetenser: (talLista(sparat.skills) ?? []).filter((i) => kompetenser.includes(i)),
         allmant: talLista(sparat.general) ?? [],
       }
-    : { profil: harProfil, roller, kompetenser, allmant: [] as number[] }
+    : {
+        profil: harProfil && forvald(profil),
+        roller: roller.filter((i) => forvald((r.roleBasedImprovements as Record<string, unknown>[])[i])),
+        kompetenser: kompetenser.filter((i) => forvald((r.skillSuggestions as Record<string, unknown>[])[i])),
+        allmant: [] as number[],
+      }
   const harStrukturerad = Boolean(r.structuredCV && typeof r.structuredCV === 'object')
   return {
     cvId: a.cvId,

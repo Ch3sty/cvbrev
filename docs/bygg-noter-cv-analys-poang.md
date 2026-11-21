@@ -16,6 +16,8 @@ Allt finns i analysresultatet som `GET /api/cv/jobs/[jobId]` och den återupptag
 | `roleBasedImprovements[i].atsImpact`, `.plus`, `.rollIndex` | rollförslagets plus och rollens plats i `structuredCV.experience` |
 | `skillSuggestions[i].atsImpact`, `.plus` | kompetensförslagets plus |
 | `generalImprovements[i].atsImpact` | alltid 0, råden förs inte in |
+| `forvald` (profil, roller, kompetenser) | förvalt: sänker inte poängen, ensamt eller tillsammans med de andra förvalda. Förväl bara dessa. |
+| `fyllI`, `ersattaTal` (profil, roller) | texten har platshållaren `[antal]` där hon ska fylla i en egen siffra; `ersattaTal` är hur många påhittade tal som byttes ut |
 
 Gratisnivån: servern filtrerar som förut (`gateAnalysisResult`) och räknar sedan om `poang` på de förslag hon faktiskt får, så "med våra förslag" aldrig lovar något hon inte ser.
 
@@ -27,7 +29,7 @@ Ur `@/lib/cv/poang` (klientsäker):
 export interface PoangSammanfattning {
   version: 1
   idag: number        // poäng i dag, 0 till 100
-  medAlla: number     // poäng med alla förslag i resultatet införda
+  medAlla: number     // "med våra förslag": de förvalda (inga som sänker), aldrig under idag
   plus: number        // medAlla - idag
   kategorier: PoangKategori[]
 }
@@ -37,7 +39,7 @@ export interface PoangKategori {
   namn: string        // "Kontaktuppgifter", "Personbeskrivning", ...
   max: number         // maxpoäng, summerar till 100
   idag: number        // kategorins poäng i dag, summerar till idag
-  medAlla: number     // kategorins poäng med alla förslag
+  medAlla: number     // kategorins poäng med de förvalda förslagen
   plus: number        // medAlla - idag
 }
 ```
@@ -48,11 +50,11 @@ Kontrollerna inom en kategori (för en detaljvy) får man med `raknaPoang(kanoni
 
 ```json
 "poang": {
-  "version": 1, "idag": 69, "medAlla": 95, "plus": 26,
+  "version": 1, "idag": 69, "medAlla": 89, "plus": 20,
   "kategorier": [
     { "id": "kontakt",     "namn": "Kontaktuppgifter",          "max": 10, "idag": 10, "medAlla": 10, "plus": 0 },
     { "id": "profil",      "namn": "Personbeskrivning",         "max": 15, "idag": 7,  "medAlla": 15, "plus": 8 },
-    { "id": "erfarenhet",  "namn": "Erfarenhet",                "max": 35, "idag": 22, "medAlla": 35, "plus": 13 },
+    { "id": "erfarenhet",  "namn": "Erfarenhet",                "max": 35, "idag": 22, "medAlla": 29, "plus": 7 },
     { "id": "kompetenser", "namn": "Kompetenser",               "max": 12, "idag": 9,  "medAlla": 12, "plus": 3 },
     { "id": "utbildning",  "namn": "Utbildning",                "max": 8,  "idag": 8,  "medAlla": 8,  "plus": 0 },
     { "id": "sprak",       "namn": "Språk",                     "max": 5,  "idag": 3,  "medAlla": 3,  "plus": 0 },

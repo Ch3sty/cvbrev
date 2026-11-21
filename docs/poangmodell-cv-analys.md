@@ -13,7 +13,7 @@ Förut bad analysen modellen själv skriva `atsFriendliness.score` (0 till 100) 
 1. **Samma CV ger alltid samma poäng.** Poängen räknas ur lagrad data: `cv_texts.structured_data` (och `cv_text` för kontaktuppgifter i det äldre roles-formatet). Saknar CV:t struktur läses det in en gång med samma inläsning som uppladdningen och sparas. Inget i modellen beror på slump, datum, klockslag eller AI-svar.
 2. **Varje delpoäng är något man kan peka på i CV:t.** Sju kategorier, maxpoäng som summerar till 100.
 3. **Fler ord ger aldrig fler poäng.** För lång profil, för många punkter, för många kompetenser, överlånga punkter och för långt CV drar ner.
-4. **Plus som stämmer.** Ett förslags plus är `poäng(CV med förslaget infört) − poäng(CV i dag)`. Potentialen är poängen med alla förslag införda, inte summan av plusen.
+4. **Plus som stämmer.** Ett förslags plus är `poäng(CV med förslaget infört) − poäng(CV i dag)`. Potentialen ("med våra förslag") är poängen med de förvalda förslagen införda, inte summan av plusen. Förvalda är alla förslag som inte sänker poängen (se Förslagen).
 5. **Löftet håller hela vägen.** Analysflödet sparar exakt det CV som potentialen räknades på (`byggForbattratCv`), så det sparade CV:t får den poäng som utlovades. Redigerar hon en text räknas poängen på det som sparas.
 
 ## Kategorierna
@@ -125,7 +125,17 @@ Kontrollen "Resultat i siffror" får aldrig bli ett skäl att lägga in tal som 
 
 Rollförslag matchas mot CV:ts roller: först rollens plats (`experienceIndex`, från analysversionen som arbetar på lagrad struktur) om titeln stämmer, sedan titel och arbetsgivare, sedan bara titel. Ett förslag som inte går att matcha tas bort ur resultatet. Förslag sorteras efter verkligt plus.
 
-Ett förslag kan ge noll eller till och med sänka poängen (en omskrivning med elva punkter). Då visas inget plus, men förslaget finns kvar. Potentialen räknar med det som det är.
+### Förslag som sänker poängen, och förslag som överlappar
+
+Ett förslag kan ge noll eller till och med sänka poängen (en omskrivning med elva punkter eller utan siffror). Då visas inget plus, men förslaget finns kvar och hon kan välja det själv.
+
+De förvalda förslagen (`forvaltVal`) räknas så här: förslagen prövas i ordning efter eget plus, störst först. Ett förslag som ensamt sänker poängen hoppas över. Övriga läggs till bara om poängen med dem inte blir lägre än utan dem. Därför:
+
+- ett förslag med negativt plus är aldrig förvalt och räknas aldrig in i "med våra förslag",
+- "med våra förslag" är aldrig lägre än poängen i dag och aldrig lägre än det bästa enskilda förslaget,
+- två förslag som var för sig höjer men tillsammans ger mindre (till exempel två kompetenser som tillsammans tar CV:t över 1500 ord) förväljs inte båda; talet stämmer för det som faktiskt är förvalt.
+
+Varje förslag i resultatet bär `forvald: true/false`. En återupptagen analys utan sparat val förväljer bara dessa. En ny analys förväljer ingenting; hon väljer själv, och "Potential med dina val" räknas på det hon valt.
 
 ## Var poängen räknas
 
@@ -150,15 +160,17 @@ Funktionen `dashboard_summering()` i databasen returnerar fortfarande det sparad
 
 Fixturerna ligger i `src/lib/cv/poang/__tests__/fixturer.ts` (inga användares CV). "AI förr" är det påhittade talet i fixturens analys, för att visa åt vilket håll det rör sig.
 
-| CV | AI förr | I dag | Med alla förslag | Kontakt | Profil | Erfarenhet | Kompetenser | Utbildning | Språk | Format |
+| CV | AI förr | I dag | Med våra förslag | Kontakt | Profil | Erfarenhet | Kompetenser | Utbildning | Språk | Format |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Tunt (en roll utan beskrivning) | 55 | 36 | 61 | 5 | 0 | 13 (+22) | 9 | 0 | 0 | 9 (+3) |
-| Normalt | 62 | 69 | 95 | 10 | 7 (+8) | 22 (+13) | 9 (+3) | 8 | 3 | 10 (+2) |
+| Tunt (en roll utan beskrivning) | 55 | 36 | 55 | 5 | 0 | 13 (+16) | 9 | 0 | 0 | 9 (+3) |
+| Normalt | 62 | 69 | 89 | 10 | 7 (+8) | 22 (+7) | 9 (+3) | 8 | 3 | 10 (+2) |
 | Starkt (Erik Lindberg) | 71 | 100 | 100 | 10 | 15 | 35 | 12 | 8 | 5 | 15 |
-| Studentens | 48 | 71 | 94 | 10 | 5 (+7) | 24 (+11) | 7 (+5) | 8 | 5 | 12 |
+| Studentens | 48 | 71 | 91 | 10 | 5 (+7) | 24 (+8) | 7 (+5) | 8 | 5 | 12 |
 | Långt yrkesliv | 80 | 99 | 99 | 10 | 15 | 34 | 12 | 8 | 5 | 15 |
 | Utan struktur (reservinläsning) | 40 | 26 | 33 | 8 | 0 | 15 | 0 (+7) | 0 | 0 | 3 |
-| Kort men välskrivet | 66 | 92 | 95 | 10 | 13 | 32 (+3) | 12 | 8 | 5 | 12 |
+| Kort men välskrivet | 66 | 92 | 92 | 10 | 13 | 32 | 12 | 8 | 5 | 12 |
+
+"Med våra förslag" räknas efter att påhittade tal bytts mot `[antal]` (som inte ger poäng förrän hon fyllt i sin siffra) och bara med förvalda förslag.
 
 Spridningen är större än förut: tunna CV hamnar lägre, genomarbetade högre. 100 kräver att varje kontroll är uppfylld.
 

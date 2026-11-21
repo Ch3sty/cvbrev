@@ -19,6 +19,7 @@ export {
   byggForbattratCv,
   poangMedVal,
   allaVal,
+  forvaltVal,
   poangSammanfattning,
   poangsattAnalys,
   medSammanfattning,

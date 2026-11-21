@@ -9,6 +9,7 @@ import {
   medSammanfattning,
   poangForRad,
   allaVal,
+  forvaltVal,
   stadaKompetenser,
   KATEGORIER,
   POANG_VERSION,
@@ -16,6 +17,7 @@ import {
   ersattPahittadeTal,
 } from '@/lib/cv/poang'
 import { talIText } from '@/lib/cv/poang/matt'
+import { aterupptagning } from '@/app/dashboard/cv-analys/aterupptagning'
 import { gateAnalysisResult } from '@/lib/cv/gateAnalysisResult'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { FIXTURER, type Fixtur } from './fixturer'
@@ -269,7 +271,7 @@ describe('förslagen: plus som stämmer', () => {
     for (const f of FIXTURER) {
       const a = analysFor(f)
       const s = a.poang as { idag: number; medAlla: number; kategorier: Array<{ idag: number; medAlla: number; plus: number }> }
-      expect(s.medAlla).toBe(poangMedVal(a, allaVal(a))!.total)
+      expect(s.medAlla).toBe(poangMedVal(a, forvaltVal(a))!.total)
       expect(s.idag).toBe(poangForRad({ structured_data: f.structured_data, cv_text: f.cv_text }))
       expect(s.kategorier.reduce((x, k) => x + k.idag, 0)).toBe(s.idag)
       expect(s.kategorier.reduce((x, k) => x + k.medAlla, 0)).toBe(s.medAlla)
@@ -396,6 +398,83 @@ describe('förslagen hittar aldrig på fakta', () => {
   })
 })
 
+describe('förslag som sänker poängen och förslag som överlappar', () => {
+  it('ett förslag som sänker poängen är inte förvalt och räknas inte in i potentialen', () => {
+    const starkt = FIXTURER.find((x) => x.namn === 'starkt')!
+    const a = poangsattAnalys(
+      {
+        ...starkt.analys,
+        // En omskrivning som tar bort siffrorna och punkterna sänker poängen.
+        roleBasedImprovements: [{ roleTitle: 'Senior Projektledare', company: 'Nordea Bank', suggestedText: 'Var projektledare på banken.' }],
+      },
+      { structured_data: starkt.structured_data }
+    )
+    const roll = (a.roleBasedImprovements as Array<{ plus: number; forvald: boolean }>)[0]
+    expect(roll.plus).toBeLessThan(0)
+    expect(roll.forvald).toBe(false)
+    const s = a.poang as { idag: number; medAlla: number }
+    expect(s.medAlla).toBe(s.idag)
+    expect(s.medAlla).toBeGreaterThanOrEqual(s.idag)
+    expect(forvaltVal(a).roller).toEqual([])
+    // Den återupptagna analysen förväljer det inte heller.
+    expect(aterupptagning({ id: 'j', cvId: 'c', displayName: null, result: a }).val.roller).toEqual([])
+  })
+
+  it('potentialen är aldrig lägre än i dag eller än det bästa enskilda förslaget', () => {
+    for (const f of FIXTURER) {
+      const a = analysFor(f)
+      const s = a.poang as { idag: number; medAlla: number }
+      expect(s.medAlla).toBeGreaterThanOrEqual(s.idag)
+      const alla = allaVal(a)
+      const enskilda = [
+        ...(alla.profil ? [poangMedVal(a, { profil: true, roller: [], kompetenser: [] })!.total] : []),
+        ...alla.roller.map((i) => poangMedVal(a, { profil: false, roller: [i], kompetenser: [] })!.total),
+        ...alla.kompetenser.map((i) => poangMedVal(a, { profil: false, roller: [], kompetenser: [i] })!.total),
+      ]
+      for (const e of enskilda) expect(s.medAlla).toBeGreaterThanOrEqual(e)
+    }
+  })
+
+  it('två förslag som var för sig höjer men tillsammans sänker: bara det ena är förvalt', () => {
+    // Ett CV nära gränsen 1500 ord, med fem korta kompetenser. En sjätte
+    // kompetens lyfter antalet (3 till 6 poäng) och ryms under gränsen; två
+    // till tar CV:t över 1500 ord och längdpoängen faller. Fyllnadstexten
+    // justeras tills just det fallet uppstår.
+    const ord = (n: number) => Array.from({ length: n }, (_, i) => `ord${i}`).join(' ')
+    let hittad: Record<string, unknown> | null = null
+    for (let n = 1460; n <= 1500 && !hittad; n++) {
+      const cv = cvAv({
+        personalInfo: { fullName: 'Test Person', email: 'test@exempel.se' },
+        skills: [{ category: '', skills: ['Excel', 'Word', 'Visma', 'Fortnox', 'Bokföring'] }],
+        projects: [{ name: 'Projekt', description: ord(n) }],
+      })
+      const analys = {
+        structuredCV: cv,
+        skillSuggestions: [
+          { skill: 'Lönehantering' },
+          { skill: 'Kundreskontra' },
+        ],
+      }
+      const a = poangsattAnalys(analys, null)
+      const idag = (a.poang as { idag: number }).idag
+      const en = poangMedVal(a, { profil: false, roller: [], kompetenser: [0] })!.total - idag
+      const tva = poangMedVal(a, { profil: false, roller: [], kompetenser: [0, 1] })!.total - idag
+      if (en > 0 && tva < en) hittad = a
+    }
+    expect(hittad).not.toBeNull()
+    const a = hittad!
+    const s = a.poang as { idag: number; medAlla: number }
+    const komp = a.skillSuggestions as Array<{ plus: number; forvald: boolean }>
+    expect(komp.every((k) => k.plus > 0)).toBe(true)
+    expect(komp.filter((k) => k.forvald)).toHaveLength(1)
+    // "Med våra förslag" är sant för det som faktiskt är förvalt ...
+    expect(s.medAlla).toBe(poangMedVal(a, forvaltVal(a))!.total)
+    // ... och inte lägre än det bästa enskilda förslaget.
+    expect(s.medAlla - s.idag).toBe(Math.max(...komp.map((k) => k.plus)))
+    expect(s.medAlla).toBeGreaterThan(poangMedVal(a, allaVal(a))!.total)
+  })
+})
+
 describe('gamla analyser och gratisnivån', () => {
   it('sparade analyser visas med modellens tal, aldrig AI:ns', () => {
     for (const f of FIXTURER) {
@@ -439,7 +518,7 @@ describe('gamla analyser och gratisnivån', () => {
     expect(synlig.atsImpact).toBe(Math.max(...allaPlus))
     // Potentialen räknas bara på det hon ser.
     const s = gated.poang as { medAlla: number }
-    expect(s.medAlla).toBe(poangMedVal(gated, allaVal(gated))!.total)
+    expect(s.medAlla).toBe(poangMedVal(gated, forvaltVal(gated))!.total)
     // Premium får allt orört.
     expect(gateAnalysisResult(a, true)).toBe(a)
   })

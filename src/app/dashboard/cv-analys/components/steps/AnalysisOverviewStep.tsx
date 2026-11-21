@@ -29,7 +29,7 @@ interface AnalysisOverviewStepProps {
   potentialScore: number;
   /**
    * Poängmodellens kategorier (src/lib/cv/poang, PoangSammanfattning):
-   * maxpoäng, poäng i dag och plus med alla förslag införda.
+   * maxpoäng, poäng i dag och plus med de förvalda förslagen.
    */
   kategorier?: PoangKategori[];
 }
@@ -139,7 +139,7 @@ export default function AnalysisOverviewStep({
 
           <p className="mt-4 border-t border-kant pt-4 text-sm leading-relaxed text-ink-2">
             {potentialScore > atsScore
-              ? `Inför du alla förslag blir poängen ${potentialScore}. Talet är uträknat på ditt CV med förslagen på plats, inte uppskattat.`
+              ? `Inför du våra förslag blir poängen ${potentialScore}. Talet är uträknat på ditt CV med förslagen på plats, inte uppskattat.`
               : 'Förslagen höjer inte poängen, men kan ändå göra texten tydligare för den som läser.'}
           </p>
         </section>
@@ -239,8 +239,8 @@ export default function AnalysisOverviewStep({
           <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
             <h3 className="text-kort text-ink-1">Så räknas poängen</h3>
             <p className="mt-0.5 text-meta text-ink-3">
-              Sju delar som tillsammans ger 100. Plus är vad alla förslag
-              ger i varje del när de är införda.
+              Sju delar som tillsammans ger 100. Plus är vad våra förslag
+              ger i varje del. Förslag som skulle sänka poängen räknas inte in.
             </p>
 
             <div className="mt-4 space-y-2.5 text-sm">
@@ -250,7 +250,7 @@ export default function AnalysisOverviewStep({
             </div>
 
             <div className="mt-4 flex items-center justify-between border-t border-kant pt-4">
-              <span className="text-kort text-ink-1">Med alla förslag</span>
+              <span className="text-kort text-ink-1">Med våra förslag</span>
               <span className="text-kort tabular-nums text-ink-1">
                 {potentialScore > atsScore ? `+${potentialScore - atsScore} poäng` : 'Ingen ändring'}
               </span>

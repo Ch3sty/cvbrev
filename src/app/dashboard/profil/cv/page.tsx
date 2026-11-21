@@ -113,9 +113,13 @@ export default async function MinaCVPage() {
       );
       const sammanfattning = analys.poang as PoangSammanfattning | null;
       const kompetenser = Array.isArray(analys.skillSuggestions) ? analys.skillSuggestions : null;
+      // Kompetenserna tillsammans, bara de förvalda (de som inte sänker poängen).
+      const forvaldaKompetenser = kompetenser
+        ? kompetenser.flatMap((k, i) => ((k as { forvald?: unknown })?.forvald === true ? [i] : []))
+        : [];
       const medKompetenser =
-        sammanfattning && kompetenser && kompetenser.length > 0
-          ? poangMedVal(analys, { profil: false, roller: [], kompetenser: kompetenser.map((_, i) => i) })
+        sammanfattning && forvaldaKompetenser.length > 0
+          ? poangMedVal(analys, { profil: false, roller: [], kompetenser: forvaldaKompetenser })
           : null;
       cvRum.underlag = {
         jobbId: (senaste.id as string) ?? null,
