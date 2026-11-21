@@ -16,6 +16,7 @@ import { premiumSparr, startmallForBrev, cvMallUrStrukturerad, farSparaMall } fr
 import { slaIhopAndring, tolkaBrevAndring } from '../brevAndring'
 import { brevKvot, brevKvotEfterSkrivning, formatGratisbrevDag } from '../brevKvot'
 import { ritaBrevHtml } from '../ritaBrev'
+import { renderBrevHtml } from '../brevmall'
 import { getDocxTemplate } from '../docx-templates'
 
 const rad = (id: string, updated: string, extra: Record<string, unknown> = {}) => ({
@@ -477,6 +478,21 @@ describe('ritningen', () => {
     expect(html).toContain('Nordanvind')
     expect(html).not.toContain('<b>stycke</b>')
     expect(html).toContain('Georgia')
+    // Brevmallen skyddar texten med entiteter: styckena kommer tillbaka ordagrant.
+    expect(styckenFranContent(html)).toEqual(['Ett <b>stycke</b>.', 'Två.'])
+    expect(styckenForBrev({ body_stycken: null, content: html })).toEqual(['Ett <b>stycke</b>.', 'Två.'])
+  })
+
+  it('styckena går att läsa tillbaka ur brevmallen även med markeringar och skrivmarkör', () => {
+    const html = renderBrevHtml('koppar', { ...data, stycken: ['Jag har lett team & budget.', 'Två.'] }, {}, {
+      markeringar: [{ krav: 'Budget', citat: 'lett team & budget' }],
+    })
+    expect(html).toContain('data-krav="1"')
+    expect(styckenFranContent(html)).toEqual(['Jag har lett team & budget.', 'Två.'])
+  })
+
+  it('gamla mallens HTML läses som förut ur div.body-content', () => {
+    const html = ritaBrevHtml({ mall_id: null, template_id: 'classic' }, data)
     expect(styckenFranContent(html)).toEqual(['Ett ‹b›stycke‹/b›.', 'Två.'])
   })
 

@@ -10,6 +10,7 @@ const getUser = vi.fn()
 const harAtkomst = vi.fn()
 const brevRad = vi.fn()
 const uppdatera = vi.fn()
+const PROFIL = { full_name: 'Erik Lindberg', email: 'erik@exempel.se', phone: '070-123 45 67', include_phone_in_letters: true }
 
 vi.mock('next/headers', () => ({ cookies: async () => ({}) }))
 vi.mock('@/lib/supabase/premiumAccess', () => ({ userHasAccess: (...a: unknown[]) => harAtkomst(...a) }))
@@ -22,17 +23,36 @@ vi.mock('@/lib/supabase/server', () => ({
       if (tabell === 'letters')
         return {
           select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: brevRad(), error: null }) }) }) }),
-          update: (v: unknown) => {
+          // markeraForberett: update().eq().eq().is().select().maybeSingle()
+          update: (v: Record<string, unknown>) => {
             uppdatera(v)
-            return { eq: () => ({ eq: () => ({ is: async () => ({ error: null }) }) }) }
+            const svar = { data: { forberett_at: v.forberett_at ?? null, forberett_som: v.forberett_som ?? null }, error: null }
+            const kedja = {
+              eq: () => kedja,
+              is: () => kedja,
+              select: () => kedja,
+              maybeSingle: async () => svar,
+              then: (ok: (r: unknown) => unknown) => Promise.resolve({ error: null }).then(ok),
+            }
+            return kedja
           },
         }
-      // profiles
+      if (tabell === 'cv_texts')
+        return {
+          select: () => ({
+            eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { structured_data: { personalInfo: { title: 'Projektledare' } } }, error: null }) }) }),
+          }),
+        }
+      // profiles: hela raden (gamla vägen), motorns avsändarkolumner
+      // (hamtaBrevProfil) och onboarding_track (loggningen).
       return {
-        select: () => ({
+        select: (kolumner: string) => ({
           eq: () => ({
-            single: async () => ({ data: { full_name: 'Erik Lindberg', email: 'erik@exempel.se', phone: '070-123 45 67', include_phone_in_letters: true }, error: null }),
-            maybeSingle: async () => ({ data: { onboarding_track: null }, error: null }),
+            single: async () => ({ data: PROFIL, error: null }),
+            maybeSingle: async () => ({
+              data: kolumner.includes('full_name') ? PROFIL : { onboarding_track: null },
+              error: null,
+            }),
           }),
         }),
       }

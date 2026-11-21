@@ -33,13 +33,44 @@ export function styckenFranText(text: string | null | undefined): string[] {
   return delar.map(rensaStycke).filter((s) => s.length > 0)
 }
 
+function avkodaEntiteter(text: string): string {
+  return text
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&amp;/g, '&')
+}
+
+const BREVMALL_STYCKE = /<p\b[^>]*\bdata-stycke="\d+"[^>]*>([\s\S]*?)<\/p>/g
+
 /**
- * Styckena ur ett gammalt brevs content. Mallens HTML: div.body-content via
+ * Styckena ur brevmallens HTML (src/lib/letters/brevmall): varje stycke är
+ * ett element med data-stycke. Markeringar och skrivmarkören tas bort, och
+ * entiteterna avkodas, så att texten blir den som ritades. Null om HTML:en
+ * inte kommer från brevmallen.
+ */
+export function styckenFranBrevmall(html: string): string[] | null {
+  if (!html.includes('data-stycke=')) return null
+  const ut: string[] = []
+  for (const m of html.matchAll(BREVMALL_STYCKE)) {
+    const text = rensaStycke(avkodaEntiteter(m[1].replace(/<[^>]*>/g, '')))
+    if (text) ut.push(text)
+  }
+  return ut
+}
+
+/**
+ * Styckena ur ett brevs content. Brevmallens HTML: elementen med
+ * data-stycke. De gamla mallarnas HTML: div.body-content via
  * extractEditableContent. Ren text (det publika utkastet): delas som den är.
  */
 export function styckenFranContent(content: string | null | undefined): string[] {
   if (!content) return []
-  return styckenFranText(extractEditableContent(content))
+  return styckenFranBrevmall(content) ?? styckenFranText(extractEditableContent(content))
 }
 
 /**
