@@ -278,6 +278,7 @@ function brevCss(def: MallDef, c: MallCtx, namnPt?: number): string {
 .brev-halsning{margin-top:5mm}
 .brev-stycke,.brev-avslut{margin-top:var(--brev-luft)}
 .brev-namn{margin-top:6.5mm;font-weight:700}
+.brev-avslut,.brev-namn{break-before:avoid;page-break-before:avoid}
 .brev-slut{display:block;height:0}
 mark[data-krav]{background:rgba(47,125,91,.2);color:inherit;border-radius:2px;padding:0 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 mark[data-krav]:nth-of-type(even){background:rgba(47,125,91,.32)}

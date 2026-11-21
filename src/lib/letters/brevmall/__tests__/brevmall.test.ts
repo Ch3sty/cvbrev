@@ -150,6 +150,14 @@ describe('steg 3, långa brev (2026-11-21)', () => {
     }
   })
 
+  it('avslutet och namnet bryts aldrig ensamma till sida två', () => {
+    for (const def of MALLAR) {
+      const html = renderBrevHtml(def.id, brev)
+      expect(html, def.id).toContain('.brev-avslut,.brev-namn{break-before:avoid;page-break-before:avoid}')
+      expect(html, def.id).toMatch(/<div class="brev-avslut"><p>[^<]*<\/p><p class="brev-namn">/)
+    }
+  })
+
   it('steg 0 till 2 som förut, steg 3 som en regel till, skriptet provar fyra steg', async () => {
     const html = renderBrevHtml('linne', exempelBrev('kort'))
     expect(html).toContain(
