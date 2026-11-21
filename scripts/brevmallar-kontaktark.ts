@@ -135,6 +135,18 @@ async function main() {
         3
       )
     }
+    // PDF:er som i nedladdningen (utskriftsmedia, sidan ur @page), långa brevet, med antalet sidor.
+    if (process.argv.includes('--pdf')) {
+      for (const id of ['linne', 'bjork', 'koppar', 'kalksten', 'granit', 'ritning', 'sockel', 'ramverk', 'kant', 'terrakotta']) {
+        if (BARA && !BARA.includes(id)) continue
+        await page.setContent(baddaInTypsnitt(renderBrevHtml(id, exempelBrev('lang'))), { waitUntil: 'load' })
+        await page.evaluate(() => document.fonts.ready.then(() => new Promise((r) => setTimeout(r, 30))))
+        const pdf = Buffer.from(await page.pdf({ format: 'A4', printBackground: true, margin: { top: '0', right: '0', bottom: '0', left: '0' }, preferCSSPageSize: true }))
+        fs.writeFileSync(path.join(UT, `brev-${id}-lang.pdf`), pdf)
+        const sidor = (pdf.toString('latin1').match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
+        console.log(`pdf ${id}: ${sidor} sida${sidor > 1 ? 'or' : ''}`)
+      }
+    }
   } finally {
     await browser.close()
   }
