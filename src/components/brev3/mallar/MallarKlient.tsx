@@ -128,6 +128,8 @@ export default function MallarKlient(p: MallarKlientProps) {
   const premiumMall = visadKort.niva === 'premium'
   const kanSpara = useCallback((id: string) => !!brev && !brev.isLocked && farSparaMall(id, p.harBetalt), [brev, p.harBetalt])
   const provar = !!brev && visad !== sparad && !kanSpara(visad)
+  // Gammalt brev (ingen mall bland de 40 ännu): allt som visas provas tills något sparas.
+  const provarVisning = provar || (!!brev && !sparad)
 
   /* ---------------------------------------------------------------- adressen */
   useEffect(() => {
@@ -286,7 +288,7 @@ export default function MallarKlient(p: MallarKlientProps) {
   const tillbaka = !provar || brev?.isLocked ? undefined : (sparadKort ?? kort(p.startmall))
   const ogon = !brev
     ? T.exempelOgon(visadKort.namn)
-    : provar
+    : provarVisning
       ? T.provar(visadKort.namn)
       : kvitto && kvitto !== T.kopieratKvitto
         ? kvitto
@@ -427,7 +429,7 @@ export default function MallarKlient(p: MallarKlientProps) {
 
           <div className="b3-mallrutnat" aria-busy={hamtar}>
             {synliga.map((k) => (
-              <MallKort key={k.id} mall={k} html={kortHtml[k.id]} vald={k.id === visad} provar={k.id === visad && provar} cvMall={k.id === p.cvMall} onProva={(id) => void prova(id)} />
+              <MallKort key={k.id} mall={k} html={kortHtml[k.id]} vald={k.id === visad} provar={k.id === visad && provarVisning} cvMall={k.id === p.cvMall} onProva={(id) => void prova(id)} />
             ))}
             {!utfalld && ovriga > 0 ? (
               <button type="button" className="b3-mallk-fler" onClick={() => setUtfalld(true)}>

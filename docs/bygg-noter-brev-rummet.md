@@ -280,3 +280,62 @@ Kopierat i stället för exporterat: kontaktavsnittets markup i spalten (fem rad
 ### Hur man backar
 
 Ta bort `src/lib/letters/brevmall/` utom `typer.ts`, `src/components/brev3/ark/`, `brev-data.ts` och den nya vägen i `download/route.ts` (blocket efter JSON-tolkningen och funktionerna `filnamn`, `brevmallPdf`, `nyttBrevSomFil`), och de två exportraderna sist i `html.ts` och `bygg.ts`. Sidofält: återställ `.sidebar`-reglerna och e-postradens grad i `docx-templates.ts`.
+
+
+## Mallar (etapp 2, gren `feat/brev-rummet-c`, arbetskopia `brev-c`)
+
+### Vad som byggdes
+
+- **Fliken Mallar** `/dashboard/mina-brev/mallar?brev=<id>` (skissen Mallar). Serverkomponenten `src/app/dashboard/mina-brev/mallar/page.tsx` läser brevlistan (`hamtaBrevlista`: lås och `harBetalt`), kontots paket (`getUserScope`, nedladdning = `letter_download`) och spår, och ritar brevet i de åtta första mallarna plus den som visas. Klienten `src/components/brev3/mallar/MallarKlient.tsx` provar mallar och typsnitt, sparar, laddar ner och öppnar spärren.
+  - Adressen: `brev` (annars det senast uppdaterade), `mall` (mallen som provas; köpreturen sätter den), `format`, `ladda=1`. Klienten skriver tillbaka `brev` och `mall` med `replaceState` och tar bort `ladda`, `format`, `premium_activated`.
+  - Premium: en provad mall sparas direkt med motorns `PUT` (`Brevet står nu i Kalksten`). Gratis: Linne och Björk sparas, övriga provas (`Du provar mallen Koppar` + Premiumtagg, `Tillbaka till Linne`). Låst brev: allt provas, inget sparas. Gammalt brev utan `mall_id`: visas som "Du provar" tills något sparas (då flyttar motorn brevet till nya formatet).
+  - Typsnitt: "Mallens eget" + de elva, Helvetica låst för gratis (`aria-disabled`, ingen spärr: inga nya spärrar). Valet ritar om arket och sparas (`font_id`).
+  - Filtren Alla 40, Gratis, Enkla, Med färg, Sidospalt härleds ur katalogens `familj` och `stil` (`filter.ts`, med test). Med färg = fyllda huvuden, band, spalter, sidor eller rubriker; Enkla = en spalt utan färgfält och utan sidospalt.
+  - "Visa de 32 övriga": resten hämtas i ett anrop (`mallar: [...]`). Filter som visar mallar som inte är hämtade hämtar dem på samma sätt.
+  - Utan brev: exempelbrevet (`exempelBrev('normal', egen avsändare)`, titel ur senaste CV:t), "Skriv ditt första brev, så ser du det här i alla mallar" och "Skriv brevet".
+  - Telefon (inte ritad): väggen växer med innehållet, arket 60 % av bredden med CV:t bakom, brickorna som svepbar rad, mallarna som remsa (160 px) med ett sista kort "Visa de 32 övriga", filtren och typsnitten svepbara, en fast rad längst ner (sticky, ovanför dörrnavet) med "Ladda ner i {mall}".
+- **Förhandsvisningsrutten** `POST /api/letters/[id]/forhandsvisa` (`src/app/api/letters/[id]/forhandsvisa/route.ts`). Ägarkontroll med id och `user_id` (404), ingen skrivning, ingen AI, ingen kvot. Låsta brev går att förhandsvisa.
+  - `{ mall_id?, font_id? }` -> `{ html, mall_id, font_id }`. `mall_id` saknas: brevets mall, annars startmallen. `font_id` saknas: brevets; `null`: mallens eget.
+  - `{ mallar: string[], font_id? }` -> `{ mallar: { [id]: html }, font_id }`, högst 40.
+  - id `exempel` ritar exempelbrevet med användarens namn (Mallar och mallväljaren utan brev).
+  - 400 `invalid_field` (`falt: font_id | mall_id | mallar`), 401, 404, 500.
+- **Nedladdningen i gränssnittet**: `POST /api/letters/download` med `{ id, format }`. Det som visas sparas först om det skiljer sig från det sparade (filen ritas ur raden). 402 öppnar spärren, 422 visar `NameRequiredNotice` och laddar ner när namnet är sparat. Gratis får `BrevSparr` variant `nedladdning` (kopiera texten i stället kopierar `brevSomText` och märker brevet `kopierat`). Köpet: `kopstegHref(SALD_PLAN, 'nedladdning', { retur: '/dashboard/mina-brev/mallar?brev=..&mall=..&format=pdf', mall })` via spärren; Premiumkortet går till köpsteget med plats `mall` och samma retur. Kassan skickar tillbaka med `&ladda=1&premium_activated=true` och filen laddas ner av sig själv en gång.
+- **Mallväljaren** `src/components/brev3/mallar/MallValjare.tsx` (default export, ladda med `next/dynamic`):
+
+| Prop | Typ | |
+|---|---|---|
+| `open`, `onClose` | `boolean`, `() => void` | Sheet:ets läge |
+| `vald` | `string \| null` | brevets mall, markeras "Vald" |
+| `onValj` | `(mallId) => void` | en mall användaren får ha. Stänger inte själv |
+| `harBetalt` | `boolean` | utan: Premiummallar med låstagg |
+| `onPremium?` | `(mallId) => void` | gratis trycker på Premiummall. Saknas: de är `aria-disabled` |
+| `brevId?` | `string \| null` | riktiga miniatyrer (ett anrop vid första öppning, `exempel` går), annars katalogens `/mallar/v2/<id>-liten.webp` |
+| `fontId?` | `string \| null` | typsnitt för miniatyrerna, undefined = brevets |
+| `titel?` | `string` | förval "Välj mall" |
+
+- **Typsnittslistan** `src/lib/letters/typsnitt.ts`: `BREV_TYPSNITT` (id, namn, familj, grupp, premium), `typsnittNamn`, `malltypsnittNamn`, `MALLENS_EGET`. Id:n kommer ur `BREV_TYPSNITT_IDS` i `brevRegler.ts`, CSS-stacken ur `src/lib/documents/typsnitt.ts`. `FontSelector.tsx` är orörd (byggaren arbete kan läsa härifrån). Namnen sätts i sig själva med de egna typsnittsfilerna (`fontFace` ur `typsnitt-filer.ts`), inte Google.
+- **Köpreturen** `src/lib/stripe/kopRetur.ts` (`arKopRetur`), använd av kassan (`create-plan-session/route.ts`) och köpsteget (`valj-spar/page.tsx`) i stället för deras egna kontroller. Godtar `/dashboard/cv-mallar?`, `/dashboard/mina-brev/mallar?` och `/dashboard/mina-brev/<uuid>?`, under 300 tecken, utan blanksteg, `<>"\`. Test i `create-plan-session/__tests__/retur.test.ts` och `mallar/__tests__/filter.test.ts`.
+
+### Nya filer
+
+`src/app/dashboard/mina-brev/mallar/page.tsx`, `src/app/api/letters/[id]/forhandsvisa/route.ts`, `src/components/brev3/mallar/` (`MallarKlient.tsx`, `MallKort.tsx`, `MallValjare.tsx`, `BytBrevArk.tsx`, `filter.ts`, `klient.ts`, `rita.server.ts`, `text.ts`, `index.ts`, `__tests__/filter.test.ts`), `src/lib/letters/typsnitt.ts`, `src/lib/stripe/kopRetur.ts`. CSS sist i `src/app/brev3.css` (avsnittet "Mallar").
+
+### Beslut
+
+- Åtta mallar på servern (specen), inte fyra som skissen; länken säger därför "Visa de 32 övriga".
+- Skissens rubrik "CV-rummets 40 mallar, nu också för brevet" blev "Alla 40 CV-mallar, nu också för brevet": "rum" är ett internt designord (1.7).
+- Korten är knappar (`aria-pressed`), inte länkar: ett tryck provar, ingen navigering.
+- Mallkortens rad är katalogens kortrad utan foto ("Centrerad."), inte skissens handskrivna ("Centrerat huvud, rak linje.").
+- Premium: "Ladda ner i {mall}" ger PDF, en vit bricka "Word" bredvid när mallen har Word; raden intill "PDF att bifoga, Word att ändra i själv." eller "Den här mallen finns som PDF.".
+- Byt brev öppnar ett Sheet med användarens brev (högst 30).
+- Väggens CV-bild är katalogens stora bild av mallen (exempel-CV:t), inte användarens CV.
+
+### Det som återstår
+
+- Brevet (`/dashboard/mina-brev/<id>`) är godkänd köpretur men läser inte `ladda=1` än (byggaren arbete / etapp 3).
+- Mallväljaren är inte inkopplad i Skriv och Brevet (etapp 3).
+- `loading.tsx` för Mallar finns inte: föräldern `mina-brev/loading.tsx` (hem) gäller under navigering.
+
+### Backa
+
+Ta bort filerna ovan och avsnittet "Mallar" sist i `brev3.css`; återställ `arMallRetur`/`lasRetur` i kassan och köpsteget (bara `/dashboard/cv-mallar?`).
