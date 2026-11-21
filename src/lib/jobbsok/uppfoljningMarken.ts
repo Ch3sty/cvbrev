@@ -18,7 +18,7 @@
  */
 import { PLACEHOLDERS, maskForModel, type MaskOptions } from '@/lib/privacy/pii'
 import { raknaOrdITexten } from './datum'
-import { tvattaText } from './uppfoljning'
+import { delaUppMejl, tvattaText, type MejlDelar } from './uppfoljning'
 
 export interface Mark {
   /** Märket som AI:n ser, till exempel "[TELEFON 1]". */
@@ -118,6 +118,23 @@ export function maskaMedMarken(stycken: readonly string[], opts: MaskOptions): M
     if (kontroll.usedSecondPass || kontroll.text !== t) return null
   }
   return { stycken: ut, marken }
+}
+
+/**
+ * Allt rutten behöver före AI-anropet: mejlet uppdelat (delaUppMejl), den
+ * märkta brödtexten och ordräkningen på samma brödtext som svaret räknas på.
+ * Null när avslutet inte känns igen, när brödtexten är tom eller när
+ * uppgifterna inte går att märka entydigt: då blir utkastet orört.
+ */
+export function forberedKortning(
+  body: string,
+  opts: MaskOptions
+): { delar: MejlDelar; markt: MarktText; ordForut: number } | null {
+  const delar = delaUppMejl(body)
+  if (!delar || delar.stycken.length === 0) return null
+  const markt = maskaMedMarken(delar.stycken, opts)
+  if (!markt || markt.stycken.length === 0) return null
+  return { delar, markt, ordForut: raknaOrdITexten(delar.stycken.join(' ')) }
 }
 
 /**

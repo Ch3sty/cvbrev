@@ -90,27 +90,75 @@ export function sattIhop(stycken: readonly string[], sprak: MejlSprak, namn: str
   return [HALSNING[sprak], ...stycken, sign].join('\n\n')
 }
 
-/** Styckena utan hälsning, avslut och namn (det som går till AI:n vid "Skriv om kortare"). */
-export function styckenUrMejl(body: string): string[] {
-  const delar = body
-    .replace(/\r\n/g, '\n')
+/** Mejlet uppdelat för "Skriv om kortare". Hälsning och avslut står ordagrant som användaren har dem. */
+export interface MejlDelar {
+  /** Hälsningsraden ordagrant ("Hej Anna,"), null när mejlet saknar en. */
+  halsning: string | null
+  /** Brödtextens stycken, det enda som går till AI:n. */
+  stycken: string[]
+  /** Allt från avslutsfrasen och nedåt, ordagrant: namn, telefon, e-post, länkar, extra rader. */
+  avslut: string
+}
+
+const HALSNING_RE = /^(hej|hejsan|hallå|god morgon|goddag|hello|hi|dear|good (morning|afternoon))\b/i
+const AVSLUT_RE =
+  /^((med\s+)?(vänliga|vänlig|bästa|varma|många)\s+hälsning(ar)?|hälsningar|mvh|tack på förhand|(kind|kindest|best|warm|warmest)\s+regards|regards|best wishes|(yours\s+)?sincerely|thanks in advance|many thanks)\b[^\n]{0,40}$/i
+
+/**
+ * Delar mejlet i hälsning, brödtext och avslut. Avslutet börjar på första
+ * raden efter hälsningen som är en känd avslutsfras ("Vänliga hälsningar",
+ * "Kind regards" och liknande) och tar med varje rad därefter. Null när
+ * avslutet inte går att hitta: då vet vi inte vad som är brödtext, och
+ * hellre orört utkast än en text där något har försvunnit.
+ */
+export function delaUppMejl(body: string): MejlDelar | null {
+  const rader = body.replace(/\r\n/g, '\n').trim().split('\n')
+  let start = 0
+  let halsning: string | null = null
+  const forsta = rader[0]?.trim() ?? ''
+  const forstaEnsam = rader.length > 1 && rader[1].trim() === ''
+  // En lång första rad som börjar med en hälsning ("Hej, jag sökte ...") går
+  // inte att dela säkert: AI:n skulle kunna stryka hälsningen.
+  if (forsta.length > 60 && HALSNING_RE.test(forsta)) return null
+  if (
+    forsta &&
+    forsta.length <= 60 &&
+    (HALSNING_RE.test(forsta) ||
+      // En kort egen rad som slutar med komma eller utropstecken ("Tjena Anna!") räknas också som hälsning.
+      (forstaEnsam && forsta.length <= 40 && forsta.split(/\s+/).length <= 5 && /[,!]$/.test(forsta)))
+  ) {
+    halsning = rader[0].trimEnd()
+    start = 1
+  }
+  const slut = rader.findIndex((r, i) => i >= start && r.trim().length <= 60 && AVSLUT_RE.test(r.trim()))
+  if (slut < 0) return null
+  const stycken = rader
+    .slice(start, slut)
+    .join('\n')
     .split(/\n\s*\n/)
     .map((s) => s.trim())
     .filter(Boolean)
-  const utan = delar.filter((d, i) => {
-    if (i === 0 && /^(hej|hejsan|hello|hi|dear)\b[^\n]{0,40}[,!]?$/i.test(d)) return false
-    return true
-  })
-  const sista = utan.length - 1
-  if (sista >= 0 && /^(vänliga hälsningar|med vänlig hälsning|mvh|hälsningar|kind regards|best regards|regards)\b/i.test(utan[sista])) {
-    utan.pop()
-  }
-  return utan
+  const avslut = rader.slice(slut).join('\n').trimEnd()
+  return { halsning, stycken, avslut }
 }
 
-/** Ord i mejlets brödtext (utan hälsning och avslut). */
+/** Sätter ihop hälsning, de nya styckena och avslutet. Hälsning och avslut står som de var. */
+export function sattTillbaka(delar: MejlDelar, stycken: readonly string[]): string {
+  return [...(delar.halsning ? [delar.halsning] : []), ...stycken, delar.avslut].join('\n\n')
+}
+
+/** Brödtextens stycken utan hälsning och avslut (tomt när avslutet inte känns igen). */
+export function styckenUrMejl(body: string): string[] {
+  return delaUppMejl(body)?.stycken ?? []
+}
+
+/**
+ * Ord i mejlets brödtext (utan hälsning och avslut), samma delar som går till
+ * AI:n och som svaret räknas på. Känns avslutet inte igen räknas hela texten.
+ */
 export function ordIMejlet(body: string): number {
-  return raknaOrdITexten(styckenUrMejl(body).join(' '))
+  const delar = delaUppMejl(body)
+  return raknaOrdITexten(delar ? delar.stycken.join(' ') : body)
 }
 
 /** Tar bort talstreck och platshållare som modellen kan ha lämnat. */

@@ -59,15 +59,30 @@ Skriv sakligt och vardagligt. Undvik fraser som "ser fram emot", "bidra till ert
 Ingen hälsning, inget avslut, inget namn, inga platshållare som [NAMN]. Hitta inte på något. Inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["...","...","..."]}`
 }
 
-function systemKortare(sprak: 'sv' | 'en', medMarken: boolean): string {
+// Samma förbjudna fraser som i första utkastet (system()); slutkontrollen
+// 2026-11-21 fick "mycket intresserad" i en kortad text.
+const FRASER_SV =
+  'Undvik fraser som "ser fram emot", "bidra till ert team", "mycket intresserad" och "rekryteringsprocessen"; säg "rekryteringen".'
+const FRASER_EN =
+  'Avoid phrases like "look forward to", "contribute to your team", "very interested" and "recruitment process"; say "the recruitment".'
+
+/**
+ * Märkena räknas upp ordagrant i instruktionen. Med exempel i stället för
+ * uppräkning ("som [TELEFON 1] eller [E-POST 1]") hittade modellen på märket
+ * ur exemplet, och svaret underkändes varje gång (prövat mot modellen
+ * 2026-11-21).
+ */
+function systemKortare(sprak: 'sv' | 'en', marken: readonly string[]): string {
+  const medMarken = marken.length > 0
+  const lista = marken.join(', ')
   if (sprak === 'en') {
     return medMarken
-      ? 'Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. Markers in square brackets, like [PHONE 1] or [TELEFON 1], are the sender\'s own details: keep every marker exactly as written, at least once, and do not add any other square brackets. No greeting, no sign-off, no name, no dashes. Reply only with JSON: {"amne":"...","stycken":["..."]}'
-      : 'Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. No greeting, no sign-off, no name, no dashes, no placeholders. Reply only with JSON: {"amne":"...","stycken":["..."]}'
+      ? `Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. ${FRASER_EN} The text contains these markers in square brackets: ${lista}. They are the sender's own details: keep each of them exactly as written, at least once. Use no other markers and no other square brackets, and do not add contact details that are not in the text. No greeting, no sign-off, no name, no dashes. Reply only with JSON: {"amne":"...","stycken":["..."]}`
+      : `Rewrite the follow-up email shorter: keep the meaning and the facts, cut words, keep two or three paragraphs. ${FRASER_EN} No greeting, no sign-off, no name, no dashes, no placeholders. Reply only with JSON: {"amne":"...","stycken":["..."]}`
   }
   return medMarken
-    ? 'Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. Märken inom hakparentes, som [TELEFON 1] eller [E-POST 1], är avsändarens egna uppgifter: skriv varje märke exakt som det står, minst en gång, och lägg inte till några andra hakparenteser. Ingen hälsning, inget avslut, inget namn, inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["..."]}'
-    : 'Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. Ingen hälsning, inget avslut, inget namn, inga tankstreck, inga platshållare. Svara bara med JSON: {"amne":"...","stycken":["..."]}'
+    ? `Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. ${FRASER_SV} Texten har de här märkena inom hakparentes: ${lista}. De är avsändarens egna uppgifter: skriv vart och ett exakt som det står, minst en gång. Använd inga andra märken och inga andra hakparenteser, och lägg inte till kontaktuppgifter som inte står i texten. Ingen hälsning, inget avslut, inget namn, inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["..."]}`
+    : `Skriv om uppföljningsmejlet kortare: behåll innebörden och sakuppgifterna, stryk ord, behåll två eller tre stycken. ${FRASER_SV} Ingen hälsning, inget avslut, inget namn, inga tankstreck, inga platshållare. Svara bara med JSON: {"amne":"...","stycken":["..."]}`
 }
 
 type Validering = (raw: unknown, maxOrd: number) => { subject: string; stycken: string[] } | null
@@ -117,7 +132,8 @@ export async function skrivUppfoljningsmejl(u: UppfoljningUnderlag): Promise<AiM
 /**
  * "Skriv om kortare". `stycken` är mejlets brödtext utan hälsning, avslut och
  * namn, och redan maskad av rutten (maskaMedMarken) eftersom användaren kan ha
- * skrivit in egna uppgifter. Svaret måste bli kortare än förut.
+ * skrivit in egna uppgifter. Svaret måste bli kortare än förut; `ordForut`
+ * räknas på samma brödtext (forberedKortning) som svaret prövas mot.
  *
  * `marken` är märkena i styckena ([TELEFON 1] och så vidare) med användarens
  * uppgifter. Bara märkena går till AI:n; uppgifterna sätts tillbaka i det
@@ -138,6 +154,11 @@ export async function skrivKortare(
   }
   const prompt = `Mejlet (JSON):\n${JSON.stringify({ amne: amne.slice(0, 200), stycken: ut })}\nNu ${ordForut} ord. Sikta på högst ${Math.max(25, Math.round(ordForut * 0.75))}.`
   const maxOrd = Math.max(20, ordForut - 1)
-  if (marken.length === 0) return anropa(systemKortare(sprak, false), prompt, maxOrd)
-  return anropa(systemKortare(sprak, true), prompt, maxOrd, (raw, max) => valideraMejlMedMarken(raw, max, marken))
+  if (marken.length === 0) return anropa(systemKortare(sprak, []), prompt, maxOrd)
+  return anropa(
+    systemKortare(sprak, marken.map((m) => m.mark)),
+    prompt,
+    maxOrd,
+    (raw, max) => valideraMejlMedMarken(raw, max, marken)
+  )
 }

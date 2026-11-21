@@ -328,3 +328,162 @@ Inget är raderat. Temat återställdes till "Följer systemet" på Premiumkonto
 Inga React-fel och inga hydreringsvarningar (#418, #423, #425) på någon sida i pass 2: Rapporten, Inför intervjun, ett bedömt svar, Jobbcoachen, Bli upptäckt (två omladdningar), Meddelanden, Arbetsstil, Skriv brev (med och utan annons), Dina brev (gratis), Översikt, Sökta tjänster, en tjänst, Statistik. Den publika delningssidan gav inga konsolfel. Matchade jobb öppnades inte.
 
 Webbläsaren är stängd, porten 9333 är ledig och inga Chrome-processer från testet ligger kvar.
+
+
+# Pass 3, lokal slutkörning på grenen
+
+Grenen `fix/jobbsoket-slutkontroll` (senaste commit 10ea39d2) i arbetskopian `cvbrev-jobbsok`, en lokal produktionsserver på port 5231 mot produktionsdatabasen, en headless Chrome, en flik, egen `userDataDir` per konto, minst tre sekunder mellan sidladdningar. Klockan cirka 16.30 till 17.25 svensk tid. Servern kördes i tre klockor efter varandra: Black Week (`KAMPANJ_NU=2026-11-25T12:00:00+01:00`), Cyber Monday (`2026-11-30T12:00:00+01:00`) och utan variabel. Datorn 1440×900, telefonen Pixel 7 412×915 (mobil-UA, pekskärm) som egen webbläsarstart, och 360×800 där det krävdes. Bilderna ligger i `scratchpad\jobbsok-qa\bilder\` med prefixet `p3-`, raderna jag skapade i `scratchpad\jobbsok-qa\testdata-p3.json`. Inga köp, inga mejl, inget samtycke i Bli upptäckt.
+
+Under passet körde en annan session mot produktionsdatabasen (ett annat konto i Pixel 7, syns i API-loggen 15.47 UTC). Två laddningar av Översikt för Premiumkontot tog 32,0 och 22,5 s i början av passet; alla senare laddningar av samma sida tog 0,3 till 0,8 s. Rapporten för gratiskontot tog en gång 14,1 s, annars under 3 s.
+
+Kampanjens villkor i koden: `kampanjForVisning` (`src/lib/kampanj/kampanj.server.ts`) visar priset när en kampanj pågår och `harBetalat(profil)` är falskt, alltså utan `subscription_id`, `subscription_status`, `paket_started_at` och utan `premium_source` som börjar på `onetime`. Gratiskontot har inget av dem och uppfyller villkoret. Premiumkontot har `premium_source` "manual" och inget av de andra, och uppfyller därför också villkoret (se fel 2).
+
+## Testsviten och bygget
+
+- `npx vitest run`, en gång: **337 filer (334 gröna, 3 överhoppade), 4 283 test (4 270 gröna, 13 överhoppade), 0 röda.** 98 s.
+- `npm run build` föll direkt: Turbopack "Symlink node_modules is invalid, it points out of the filesystem root" (länken till rotmappens `node_modules`).
+- `npx next build --webpack`: **gick igenom** på 4 min 27 s ("Compiled successfully in 116s", 800 statiska sidor på 55 s). Inga varningar som rör `src/components/jobb3`, `src/lib/jobbsok`, `src/lib/jobmatching` eller `src/app/dela`. Övriga varningar: `baseline-browser-mapping` är gammal, `NODE_TLS_REJECT_UNAUTHORIZED=0`, "Using edge runtime on a page currently disables static generation".
+
+## Del A, det som rättades efter klicktestet i produktion
+
+| Steg | Utfall | Vad jag såg | Konto, bredd | Bild |
+|---|---|---|---|---|
+| Sista ansökningsdag, Översikt mot Matchade jobb | **fungerar** | Annonsen hos Umeå kommun (sista dag 30 nov) står som "Sista dag mån 30 nov, 9 dagar kvar" på Översikt och "Sista dag 30 nov, 9 dagar kvar" på Matchade jobb, båda kontona, båda laddningarna. Ingen sida visar 1 dec för den. | gratis och Premium, 1440 | p3-a-oversikt-gratis-1440.png, p3-a-matchade-gratis-1440.png, p3-a-oversikt-premium-1440.png |
+| React #418, #423, #425 | **fungerar** | Ingen hydreringsvarning på Matchade jobb, Översikt, Skriv brev (`/dashboard/skapa-brev`) eller Inför intervjun, två laddningar var. | gratis och Premium, 1440 | |
+| Matchade jobb, gratis, svarstid och HTML | **fungerar** | Dokumentet 530 ms och 474 ms. "22 jobb passar dig, tre är öppna". HTML:en bär exakt tre annons-id (31734444, 31716065, 31754202). Dold annons 31760528 i `/api/jobbmatchning/annons` ger 404 "Annonsen finns inte i dina träffar". | gratis, 1440 | p3-a-matchade-gratis-1440.png |
+| Matchade jobb, Premium, svarstid | **fungerar** | 2,8 s och 2,1 s, 11 träffar. API-loggen har ingen läsning av `job_matchings_cache?select=jobs` under passet, bara `select=expires_at,total_jobs_found` och sammanfattningen. | Premium, 1440 | p3-a-matchade-premium-1440.png |
+| Ny sökning (testets enda), omladdning direkt | **fungerar** | "Sök igen" 16.50.32. `match-jobs` 200 efter 42 s (50 annonser, `hasMore` sann, inget fält `sparad`: produktionens edge-funktion är inte grenens), sammanfattningen POST 200 två sekunder senare. Listan bytte från 11 till "2 jobb passar dig" (Clockwork 69, Nya Umeå City Hotell 46). Omladdning direkt: samma två rader, "Senast sökt nyss". Ingen påfyllning (`/pool`) gick, varken före eller efter omladdningen. | Premium, 1440 | p3-a-sokning-klar-premium-1440.png, p3-a-sokning-omladdad-premium-1440.png |
+| Sökprofilen, en ort till | **fungerar delvis** | Stockholm tillagd: PATCH profiles 204 och GET `/api/jobbmatchning/pool` 200, men listan stod kvar på "2 jobb passar dig". Troligen för att den nya körningen bara har annonser runt Umeå, så omräkningen gav samma resultat; att listan räknades om syns alltså inte. Återställd till bara Umeå (PATCH 204). | Premium, 1440 | p3-a-sokprofil-stockholm-premium-1440.png, p3-a-sokprofil-aterstalld-premium-1440.png |
+| Uppföljningen: Kopiera mejlet, Ja | **fungerar** | Norrmejerier. POST `/skickad` 200 och sedan inget mer: **inget nytt POST till `/api/jobbsok/uppfoljning/<id>`**. "Följde upp i dag" med Ångra, och raden "Följde upp 21 nov, Uppföljningsmejlet kopierat och skickat." bland händelserna direkt (två sådana rader, den andra är pass 1:s uppföljning samma dag). | Premium, 1440 | p3-a-foljde-upp-premium-1440.png |
+| Omladdning med och utan `?steg=folj-upp` | **fungerar** | Samma läge båda gångerna, "Följde upp i dag" och Ångra, inga anrop till uppföljningsrutten. | Premium, 1440 | |
+| Ångra | **fungerar** | DELETE `/skickad?uppfoljning=19e3a202…` 200 och GET 200. Utkastet kom tillbaka (det kortade, 46 ord), raden "Följde upp" från i dag försvann, pass 1:s rad står kvar. | Premium, 1440 | p3-a-angra-premium-1440.png |
+| Skriv om kortare med telefonnummer | **fungerar inte** | Se fel 1. Numret "070-123 45 67" (på en rad under namnet) finns inte i den kortade texten, och inget meddelande visades. | Premium, 1440 | p3-a-kortare-premium-1440.png |
+| Uppföljningen, gratis, "QA-test tyst I" | **fungerar** | "Följde upp i dag ... 3 december säger vi till igen." med Ångra och raden "Följde upp 21 nov, Du följde upp på egen hand." Med och utan `?steg=folj-upp`: inget anrop till uppföljningsrutten, ingen 402. | gratis, 1440 | p3-a-tyst-i-gratis-1440.png |
+| Händelse före sökdatumet | **fungerar** | Ny tjänst "QA-test pass3 J" sökt 15 nov. Kallelse dagen 14 nov: arket säger "Dagen kan inte ligga före dagen du sökte tjänsten, 15 november. Ändra sökdatumet först om det är fel." (fältets `min` 2026-11-15, inget anrop gick). | Premium, 1440 | p3-a-handelse-fore-sokdag-premium-1440.png |
+| Sökdatum efter en händelse | **fungerar** | Kallelse 18 nov sparad. Redigera, sökdatum 19 nov: "Du har en händelse den 18 november. Sökdatumet kan inte ligga efter den." (fältets `max` 2026-11-18, inget PUT gick). | Premium, 1440 | p3-a-sokdatum-efter-handelse-premium-1440.png |
+| Hur gick intervjun?, Den är genomförd | **fungerar** | Intervju 20 nov 10.00. "Den är genomförd": POST `/utfall` 200, och 2,5 s senare finns varken "Hur gick intervjun?" eller knapparna kvar, utan omladdning. | Premium, 1440 | p3-a-genomford-premium-1440.png |
+| Ska sökas, aktiv rad, 1440 | **fungerar, med en avvikelse** | "Markera som sökt" 121×44, "Skriv brev" 105×48, "Ta bort" 48×**32**. Ta bort under 44 px i 1440 (CSS-regeln ger 44 px bara under 1280 px, enligt byggnoterna avsiktligt). Allt synligt, inget täckt. | Premium, 1440 | p3-a-ska-sokas-premium-1440.png |
+| Ska sökas, 412 | **fungerar** | 121×44, 105×48, 48×44, ingen vågrät rullning. "Markera som sökt" öppnar arket "Markera som sökt" med tjänst och arbetsgivare; Esc stänger. | Premium, 412 | p3-a-ska-sokas-premium-412.png, p3-a-markera-ark-premium-412.png |
+| Ska sökas, 360, Ta bort | **fungerar** | 121×44, 105×48, 48×44, ingen vågrät rullning. "Ta bort" på "QA-test ska söka B": frågan "Ta bort raden? Annonsen försvinner från Ska sökas. Den har aldrig räknats i din statistik.", DELETE 200, raden borta. | Premium, 360 | p3-a-ska-sokas-premium-360.png, p3-a-ta-bort-fraga-premium-360.png |
+| Inför intervjun, gratis | **fungerar** | Provet med 5 av 5 är fortfarande från i dag. "Du fick 5 av 5 i dag, med alla fyra delarna på plats. Nästa prov öppnar i morgon." Alla fyra brickor "Fanns med", ordet "Saknades" finns inte på sidan. | gratis, 1440 och 412 | p3-a-hubb-gratis-1440.png, p3-a-hubb-gratis-412.png |
+| Räkneord på Översikt | **fungerar** | Gratis 412: "1 sparad". Premium 412: "3 sparade". | gratis och Premium, 412 | p3-a-oversikt-gratis-412.png |
+| Räkneord i Kopiera som text | **fungerar** | "Totalt: 11 sökta jobb (10 annonserade, 1 spontan), 3 intervjuer." | Premium, 1440 | |
+
+## Del B, besluten
+
+| Steg | Utfall | Vad jag såg | Konto, bredd | Bild |
+|---|---|---|---|---|
+| `/Skärmbild 2025-09-26 220531.jpg` | **fungerar** | 404. | utloggad | |
+| Profilvisningar | **fungerar** | Varken Bli upptäckt eller raden på Översikt har ett antal; båda kontona är inte synliga, så inga visningar visas. Inget "rekryterare har sett". | båda, 1440 och 412 | p3-b-bli-upptackt-gratis-1440.png |
+| Rutan Dela med en länk, Premium | **fungerar** | Texten och kryssrutan ordagrant enligt beslut 4. Länk med lista: POST 200, `showCompanyNames` sann. | Premium, 1440 | p3-b-dela-ruta-premium-1440.png |
+| Rutan, gratis | **fungerar** | Ingen kryssruta; i stället "Listan med företag, tjänst och datum ingår i Premium. Länken visar antalen." Länken skapades med `show_company_names: false`. | gratis, 1440 | p3-b-dela-ruta-gratis-1440.png |
+| Direkt POST med listan, gratis | **fungerar** | `{"show_company_names":true}` från gratiskontots session: 200, `showCompanyNames` falskt, och den publika sidan saknar lista. | gratis | p3-b-dela-utan-lista-gratis-direktpost-1440-ljust.png |
+| Delningssidan med lista | **fungerar, en sak att bedöma** | "QA Omg2 premium", "Läget den 21 november 2026." under namnet, tratten 13/8/7/0, tretton rader med år ("Sökt 20 november 2026, svar på annons"). 412: raderna som kort, ingen vågrät rullning. Mörkt läge följer systemet. `noindex, nofollow`. Erbjudande-rutan har orange kant och orange flagga, och förklaringen "Tyst i över tolv dagar" har en orangebrun ruta; i övrigt ingen orange eller röd toning. Jämförd med Statistik bara i minnet, inte sida vid sida. | utloggad, 1440 och 412, ljust och mörkt | p3-b-dela-med-lista-premium-1440-ljust/-morkt.png, p3-b-dela-med-lista-premium-412-ljust/-morkt.png |
+| Delningssidan utan lista | **fungerar** | Samma vägg och tratt (5 sökta, 0, 0, 0), ingen lista. `noindex`, ingen vågrät rullning. | utloggad, 1440 och 412, ljust och mörkt | p3-b-dela-utan-lista-gratis-direktpost-*.png |
+| Återkallad och påhittad token | **fungerar** | "Länken har upphört" i alla fyra varianterna (HTTP 200), `noindex`. | utloggad | p3-b-dela-aterkallad-*.png, p3-b-dela-pahittad-*.png |
+| Länkarna återkallade | **fungerar** | "Återkalla länken" på båda kontona, DELETE 200 `revoked` 1. Rutan hämtar länken på klienten och visar den först efter några sekunder; mitt första försök hittade inte knappen efter 6 s. | båda, 1440 | |
+| Spärren för intervjusteget | **fungerar** | Översikt: inga Följ upp-rader. Filtret Följ upp: 0, "Inga sökta tjänster med det här filtret just nu." "QA-test intervju G": läget Kallad till intervju, "Sätt tid", blocket Förbered, inget Följ upp-block. E och J (genomförda): inget Följ upp-block. | Premium, 1440 | p3-b-filter-foljupp-premium-1440.png, p3-b-tjanst-G-premium-1440.png |
+| Nolläget utan CV, 1440 | **fungerar** | Nytt konto. "Har du redan sökt en tjänst? Logga den" under "Har du inget CV? Bygg ett här" inne i väggen, 260×44, träffas av sin egen mittpunkt, väggens överflöd synligt, inget klippt. Trycket gick till `/dashboard/sokta-tjanster?logga=1&fran=oversikt-ny` med arket "Logga sökt tjänst" öppet; Esc tog bort `logga` och `fran`. | noll-utan-cv, 1440 | p3-b-nollage-noll-utan-cv-1440.png, p3-b-nollage-ark-noll-utan-cv-1440.png |
+| Nolläget utan CV, 412 | **fungerar** | Samma, 260×44, ingen vågrät rullning, inget täckt. | noll-utan-cv, 412 | p3-b-nollage-noll-utan-cv-412.png, p3-b-nollage-ark-noll-utan-cv-412.png |
+| Nolläget med CV utan sökta tjänster | **inte prövat** | Det finns ingen färdig test-CV-fil bland QA-skripten (ingen pdf eller docx under `scripts`). | | |
+| Kampanjmejlet utan adminsession | **fungerar** | POST `/api/admin/email/campaign` utan session: 401 "Ej inloggad". | utloggad | |
+| Kampanjmejlet 410 | **inte prövat** | Kräver adminsession. | | |
+
+## Del C, betalväggarna i kampanjläge
+
+Köpknappen följdes ett steg på varje vägg; adressen saknar kampanjparameter i alla fall, köpsteget själv visar kampanjen ("Black Week, gäller till och med söndag 29 november 23.59" respektive "Cyber Monday, gäller bara måndag 30 november till 23.59", "149 kr" överstruket och "99 kr första månaden" respektive "49 kr första månaden, sedan 149 kr i månaden").
+
+| Vägg | Klocka | Rubrik | Prisrad | Knapp | Ett steg | Bredd | Bild |
+|---|---|---|---|---|---|---|---|
+| Uppföljningsmejlet (dubbletten "QA-test tyst I") | Black Week | Fler uppföljningsmejl ingår i Premium | Jobbcoach Premium, 99 kr första månaden, sedan 149 kr i månaden. Säg upp när du vill. | Köp Premium, 99 kr första månaden | `/dashboard/valj-spar?paket=all_month&steg=kop&plats=uppfoljning` | 1440, 412 | p3-c-uppf-bw-gratis-1440.png, p3-c-uppf-bw-gratis-412.png |
+| Matchade jobb (`?annons=dold-0`) | Black Week | Se varför du passar för alla 22 | samma som ovan | Köp Premium, 99 kr första månaden | `...&plats=jobbtraffar` | 1440, 412 | p3-c-match-bw-gratis-*.png |
+| Rapporten | Black Week | Din rapport är sammanställd | samma som ovan | Köp Premium, 99 kr första månaden | `...&plats=af_rapport` | 1440, 412 | p3-c-rapport-bw-gratis-*.png |
+| Uppföljningsmejlet | Cyber Monday | Fler uppföljningsmejl ingår i Premium | Jobbcoach Premium, 49 kr första månaden, sedan 149 kr i månaden. Säg upp när du vill. | Köp Premium, 49 kr första månaden | `...&plats=uppfoljning` | 1440, 412 | p3-c-uppf-cm-gratis-*.png |
+| Matchade jobb | Cyber Monday | Se varför du passar för alla 22 | samma 49 kr-rad | Köp Premium, 49 kr första månaden | `...&plats=jobbtraffar` | 1440, 412 | p3-c-match-cm-gratis-*.png |
+| Rapporten | Cyber Monday | Din rapport är sammanställd | samma 49 kr-rad | Köp Premium, 49 kr första månaden | `...&plats=af_rapport` | 1440, 412 | p3-c-rapport-cm-gratis-*.png |
+| Matchade jobb | utan kampanj | Se varför du passar för alla 22 | Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill. | Köp Premium, 149 kr i månaden | inte följd | 1440 | p3-c-match-ord-gratis-1440.png |
+
+| Steg | Utfall | Vad jag såg | Konto, bredd | Bild |
+|---|---|---|---|---|
+| "Jag har redan skickat det" i 412 | **fungerar** | Står under väggen (201×44), väggens mittpunkt-test träffar etiketten i båda klockorna. Tryckt en gång (Cyber Monday): POST `/skickad` 200, "Följde upp i dag" med Ångra. Omladdad: samma läge, inget anrop, ingen 402. | gratis, 412 | p3-c-redan-skickat-gratis-412.png |
+| Premiumkontot ser inget kampanjpris | **fungerar inte** | Se fel 2. Raden "BLACK WEEK första månaden Premium för 99 kr. Köp Premium, 99 kr" står överst på Översikt och alla andra sidor. | Premium, 1440 och 412 | p3-a-oversikt-premium-1440.png, p3-a-ska-sokas-premium-360.png |
+
+## Prestanda
+
+`scripts/perf-inloggat.ts --port 5231 --epost <Premiumkontot> --filter =<rutt>`, en körning av skriptet per rutt (skriptets filter tar en rutt åt gången), tre mätningar per rutt, Pixel 7 med 3x CPU-strypning och LTE, servern utan kampanjvariabel. Alla sju rutterna finns i skriptet.
+
+| Rutt | Budget | LCP | FCP | CLS | Utfall |
+|---|---|---|---|---|---|
+| Översikt `/dashboard` | 1 000 ms (skriptets kritiska) | 824 ms | 512 ms | 0 | håller |
+| Sökta tjänster | 1 500 ms | 712 ms | 396 ms | 0 | håller |
+| En sökt tjänst | 1 500 ms | 1 156 ms | 808 ms | 0 | håller |
+| Inför intervjun | 1 500 ms | 728 ms | 600 ms | 0 | håller |
+| Jobbcoachen | 2 000 ms | 680 ms | 680 ms | 0 | håller |
+| Bli upptäckt | 1 500 ms | 820 ms | 488 ms | 0 | håller |
+| Matchade jobb | 2 000 ms | 1 000 ms | 708 ms | 0 | håller |
+
+Alla håller budgeten, CLS 0 överallt.
+
+## Felen
+
+1. **"Skriv om kortare" tar bort det som står under namnet i avslutningen, utan meddelande.** Adress `/dashboard/sokta-tjanster/0d576ab5-ad94-4814-9127-01819c1241ce?steg=folj-upp`. Jag skrev "Nå mig gärna på 070-123 45 67." på en egen rad sist i utkastet, under "Vänliga hälsningar / QA Omg2 premium" (sparat med PUT 200), och tryckte "Skriv om kortare" (POST `/kortare` 200). Väntat: numret ordagrant kvar, eller texten orörd med "Det gick inte att skriva om just nu. Din text är kvar." Det som hände: den kortade texten saknar numret helt och inget meddelande visades. Den kortade texten:
+
+   > Hej,
+   >
+   > Jag sökte tjänsten som ekonomiassistent den 6 november och undrar hur rekryteringsprocessen fortskrider.
+   >
+   > Jag är fortsatt mycket intresserad av rollen och min erfarenhet av reskontra och bokföring matchar era krav väl.
+   >
+   > Hör gärna av er om ni behöver kompletterande information.
+   >
+   > Vänliga hälsningar
+   > QA Omg2 premium
+
+   Orsak: `styckenUrMejl` i `src/lib/jobbsok/uppfoljning.ts` rad 105 till 107 tar bort hela sista stycket när det börjar med "Vänliga hälsningar", och raden under namnet hör till samma stycke (bara enkel radbrytning). Numret gick alltså aldrig till AI:n och kontrollen av märkena slog aldrig till; `sattIhop` skriver sedan bara hälsningen och namnet. Ingen konsoltext. Därtill: den kortade texten har "mycket intresserad", som pass 1 noterade att prompten förbjuder. Att numret står kvar när det står inne i brödtexten är inte prövat (bara en omskrivning ingick).
+2. **Premiumkontot får Black Week-raden.** Översikt och alla inloggade sidor, 1440 och 412: "BLACK WEEK första månaden Premium för 99 kr. Köp Premium, 99 kr" och "Nej tack". Väntat: inget kampanjpris för ett konto som har Premium. Orsak: `kampanjForVisning` (`src/lib/kampanj/kampanj.server.ts` rad 42 till 47) avgör bara med `harBetalat`, och `src/app/dashboard/layout.tsx` rad 115 och 117 visar raden och väggarnas pris när `behorig` är sann, utan att fråga om kontot har Premium just nu. Premiumkontots Premium är manuellt (`premium_source` "manual", `premium_until` 27 nov, ingen prenumeration), så det räknas som aldrig betalat. Samma gäller alla konton med manuellt givet Premium eller annan Premium utan prenumerationsfält. Felet kommer från kampanjkoden på main, inte från grenen. Ingen konsoltext.
+3. **"Ta bort" på en aktiv Ska sökas-rad är 32 px hög i 1440.** `/dashboard/sokta-tjanster?filter=ska-sokas`, 48×32 px. Uppdraget kräver 44 px i alla bredder; byggnoterna säger att `.j3-spar-bort` får 44 px bara under 1280 px (`src/app/jobb3.css`), så det är som byggt men under kravet. 412 och 360: 44 px.
+
+Iakttagelser utan felmärkning: köpsteget (`/dashboard/valj-spar`) visar i sidomenyn "Prenumeration 149 kr/mån" medan kortet visar kampanjpriset; sökprofilens omräkning gick inte att se (tabellen ovan); delningssidans Erbjudande-ruta och förklaringen "Tyst i över tolv dagar" är orangetonade; gratiskontots delningssida skriver "0 av 0" mellan Fått svar och Intervju.
+
+## Rader jag skapade i pass 3
+
+Hela listan med tider står i `scratchpad\jobbsok-qa\testdata-p3.json`.
+
+Nytt konto: ett gratiskonto utan CV, `profiles.id` 33825074-7c79-48b3-85db-9455e5118009, e-posten innehåller `jobbcoach-qa`, i kontofilen `scripts\.qa-jobbsoket-konton.json` som `typ` "noll-utan-cv". **Ska ligga kvar.**
+
+Premiumkontot:
+- `job_applications` d89b27a2-cb72-409c-b203-0d76f3a557bb "QA-test pass3 J" (sökt 15 nov) med kallelsen c3791c61-2cb6-4d74-bd41-ade8044618fe (18 nov, intervju 20 nov 10.00) och genomförd b2338f1d-4ca4-4dbe-bcc7-539080ea052e. **Finns kvar.**
+- Uppföljningsutkastet 19e3a202 på Norrmejerier: omskrivet kortare (rewrites +1), markerat skickat och sedan ångrat. **Står kvar som oskickat utkast** med den kortade texten.
+- En ny matchningskörning 16.50 (skrev om kontots cache och sammanfattning; listan har nu två träffar i stället för elva). Sökprofilen fick Stockholm och återställdes till Umeå.
+- Delningslänk med lista (token Al--5O…): **återkallad**.
+- `job_saved_ads` 481b6347 "QA-test ska söka B" (från pass 1): **borttagen** genom "Ta bort" i 360, som uppdraget tillät.
+
+Gratiskontot:
+- Delningslänk (token d8THpF…, utan lista), återkallad av nästa; delningslänk från direkt POST (token sKhr1m…, utan lista trots begäran): **återkallad**.
+- "Jag har redan skickat det" på dubbletten "QA-test tyst I" b12641af: **en uppföljning (eget) finns kvar**, tjänsten har lämnat Följ upp.
+
+Inget annat raderat.
+
+## Konsolfel per sida (pass 3)
+
+| Sida | Text | Antal |
+|---|---|---|
+| `/dashboard/sokta-tjanster/<dubbletten>?steg=folj-upp` (gratis) | Failed to load resource: 402 (förväntat, spärren) | 4 |
+| `/dashboard/jobbmatchning` (gratis) | Failed to load resource: 404 (mitt eget anrop av en dold annons) | 1 |
+| Flera (en tjänst, rapporten, Översikt) | CSS-preload oanvänd (`dc7d2bc4…css`, `9cac0e34…css`) | flera |
+
+Inga React-fel och inga hydreringsvarningar (#418, #423, #425) på någon sida i pass 3. Delningssidan gav inga konsolfel.
+
+Servern och webbläsaren är stängda, portarna 5231 och 9333 är lediga, inga Chrome-processer från testet ligger kvar och `.next` i arbetskopian är borttagen. `arbetsyta.mjs` efteråt: 5,7 GB ledigt, inga föräldralösa servrar, arbetskopian utan ocommittade filer före den här texten.
+
+# Pass 4, omprov av Skriv om kortare
+
+Fel 1 efter rättningen (`delaUppMejl`, `sattTillbaka`, `forberedKortning`), lokal `next dev --webpack` på port 5231, Premium 1440, Norrmejerier (utkast 19e3a202, redan kortat två gånger, 46 ord), "Ring gärna på 070-123 45 67." sist i brödtexten och "070-123 45 67" på egen rad under namnet (PUT 200), "Skriv om kortare" en gång: **fungerar (det godtagna andra utfallet)**: POST `/kortare` 502 `ai_fel` efter ett AI-svar som inte klarade valideringen, texten orörd tecken för tecken (båda numren kvar, avslutet oförändrat) och meddelandet "Det gick inte att skriva om just nu. Din text är kvar." syntes; samma text körd offline genom `forberedKortning` visar att hela avslutet hölls utanför AI:n och att numret i brödtexten gick som `[TELEFON 1]`; den lyckade kortningen med nummer är prövad i vitest (`uppfoljningKortare.test.ts`), inte i webbläsaren. Bilder p4-fore-kortare-premium-1440.png och p4-kortare-premium-1440.png.
+
+## Tillägg till pass 4: varför AI:ns svar underkändes, och omprov utan server
+
+Samordnaren, 2026-11-21 kväll. Omprovet i webbläsaren gav orört utkast, och ett prov med en ny text på 96 ord gav samma sak. AI:ns råa svar visade orsaken: instruktionen nämnde "[TELEFON 1] eller [E-POST 1]" som exempel, och modellen lade till `[E-POST 1]` i svaret fast texten inte hade någon e-post. Valideringen stoppar okända märken, så varje kortning av en text med en egen uppgift i brödtexten slutade i "Det gick inte att skriva om just nu. Din text är kvar."
+
+Rättat i `src/lib/openai/uppfoljningsmejl.ts`: instruktionen räknar nu upp exakt de märken som finns i texten och säger att inga andra får användas.
+
+Omprov: samma funktioner i samma ordning som rutten (`forberedKortning`, `skrivKortare`, `sattTillbaka`), körda tre gånger mot modellen utan server och utan databas, med en påhittad text på 96 ord med "Hej Anna,", ett telefonnummer i brödtexten och ett telefonnummer och en länk under namnet. Alla tre gav en godkänd kortning (52 till 66 ord). Hälsningsraden, numret i brödtexten och hela avslutet stod kvar ordagrant i alla tre. Inte prövat i webbläsaren efter den här ändringen: knappen och rutten är desamma som i pass 3 och 4.

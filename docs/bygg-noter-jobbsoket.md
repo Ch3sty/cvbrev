@@ -353,6 +353,15 @@ Underlag: punkt 7, 8 och 12 i "Pass 2" i `docs/qa/jobbsoket-slutkontroll-2026-11
 
 Se i webbläsaren: gratiskontot efter dagens prov med 5 av 5 på "Ett problem du löste": hubben säger "med alla fyra delarna på plats" och alla fyra brickor "Fanns med"; Premium: nytt bedömt svar, tryck på "Inför intervjun": det nya provet står överst utan omladdning; Översikt i 412 med en sparad: "1 sparad"; Kopiera som text med en spontan: "1 spontan".
 
+### Efter den lokala slutkörningen
+
+Underlag: fel 1 i "Pass 3" i `docs/qa/jobbsoket-slutkontroll-2026-11-21.md`. Inget commitat, ingen databas, inget bygge.
+
+1. **"Skriv om kortare" tappade allt under namnet.** Orsak: `styckenUrMejl` tog bort hela avslutsstycket och rutten byggde ett nytt avslut med `sattIhop` (hälsningsfras och namnet ur profilen), så telefon, e-post, länkar och extra rader i avslutet försvann utan meddelande, och en ändrad hälsningsrad ("Hej Anna,") blev "Hej,". Ändrat: ny ren `delaUppMejl` i `src/lib/jobbsok/uppfoljning.ts` delar mejlet i hälsningsrad, brödtext och avslut (från första raden med en känd avslutsfras, "Vänliga hälsningar", "Mvh", "Kind regards" och liknande, och alla rader därefter), och `sattTillbaka` sätter ihop hälsningen och avslutet ordagrant runt de kortade styckena. Bara brödtexten går till AI:n. Känns avslutet inte igen, eller börjar en lång första rad med en hälsning, blir det null och rutten svarar med det befintliga 502-meddelandet och orört utkast. `forberedKortning` i `src/lib/jobbsok/uppfoljningMarken.ts` samlar uppdelningen, märkningen och ordräkningen, och rutten (`src/app/api/jobbsok/uppfoljning/[id]/kortare/route.ts`) använder den; `ordForut` räknas på samma brödtext som svaret prövas mot, så ett långt avslut fäller inte längre en lyckad kortning. `styckenUrMejl` och `ordIMejlet` bygger på `delaUppMejl`. Första utkastet (`sattIhop`, mallen) är orört.
+2. **Förbjudna fraser i kortningen.** `systemKortare` i `src/lib/openai/uppfoljningsmejl.ts` har nu samma förbud som första utkastet ("ser fram emot", "bidra till ert team", "mycket intresserad", "rekryteringsprocessen", säg "rekryteringen"), på svenska och engelska, med och utan märken.
+
+Test: ny `src/lib/jobbsok/__tests__/uppfoljningKortare.test.ts` (8 fall). `uppfoljningMarken.test.ts` och `motor.test.ts` gick igenom utan ändring. Typkontrollen gick igenom. Webbläsaren (pass 4 i QA-filen): ett tryck gav orört utkast med meddelandet, båda numren kvar; en lyckad kortning med nummer i avslutet är bara prövad i vitest.
+
 ## Migreringar
 
 - `20261121180000_jobbsoket_omgang1.sql`: körd i produktion 2026-11-21 med ägarens ja.
