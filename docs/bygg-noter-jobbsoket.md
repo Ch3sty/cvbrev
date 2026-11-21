@@ -261,3 +261,45 @@ Koden: `git revert` på motorns commit. Rutten för rapporten och POST /api/appl
 
 - **Strecket i korten** (mörkt frågekort på tjänstens sida, STAR-brickorna S och T på det bedömda svaret, bara i 1440). Ingen regel i kitet eller vyerna ritar en kant, linje eller kontur där, och kitsidans bilder av samma komponenter saknar strecket. Mätt i bilderna: en pixel bred, en rektangel 6 px innanför kortets sidor och 7 px över dess nederkant, bara nedre delen ritad och på T streckad; färgen är kortets egen blandad med ungefär 40 % av ytan bakom kortet (ljusare på det mörka kortet över vit panel, mörkare på de ljusa brickorna över mörk vägg); identisk i ljust och mörkt läge, borta i 412. Det pekar på en rastersöm i ett eget kompositlager (delvis omritad textyta i 1x) snarare än ett ritat element. På det bedömda svaret ligger den vågräta linjen exakt där kullarnas svg börjar (y 275). Prövas i del 2: skärmbild med deviceScaleFactor 1 och 2, och DevTools lager och omritningar.
 - Hydreringsvarningen på Inför intervjun (gratis): hubben ritas på servern, och dess klientdelar (Topprad, JobbFlikar, InforIntervjunClient) läser inget datum, ingen slump och inget lagrat i första render (useTema, NotificationBell och MessagesHeaderButton börjar likadant på servern). Orsaken är inte hittad; prövas i del 2.
+
+## Slutkontrollen (etapp 3 del 2, gren `feat/jobbsoket-a`, arbetskopia `cvbrev-qa-b`)
+
+2026-11-21, på 1a4cf71a (A:s gren med B och C inslagna). Avbruten i förtid på art directors besked (ägaren rundade av sessionen). Hjälpskripten ligger i `scratchpad\jobbsok\bygg\slut\` (`start.cjs` startar en webbläsare med båda QA-kontona, `kor.cjs <steg>` kör ett steg mot dev-servern på 5231).
+
+### Kört och utfall
+
+- **Vitest, hela sviten:** 317 filer gröna, 3 överhoppade; 4103 test gröna, 13 överhoppade. Inga röda.
+- **`npm run build`:** grönt (kompilerat på 66 s, 800 statiska sidor). Inga varningar som rör Jobbsökets filer (bara den kända om `NODE_TLS_REJECT_UNAUTHORIZED`). Turbopack skriver inga ruttstorlekar. Bygget kördes före rättningarna nedan; `npx tsc --noEmit` är grön efter dem.
+- **Klicktest a, Översikt (Premium, 1440 och 412):** väggens primärknapp "Förbered intervjun" landar på tjänsten med `?steg=forbered` och blocket Förbered intervjun; bakåt fungerar. "Öppna utkastet" landar på Norrmejerier med `?steg=folj-upp` och det sparade utkastet. Ändra veckans mål öppnar arket och stängs med Esc. "Logga sökt tjänst" går till `?logga=1` och öppnar arket. Telefonens fyra flikar (höjd 44) når alla fyra sidor med rätt aktiv flik. Profilkompletteringens fält Telefon och Ort ligger i linje (samma överkant). "Skriv brevet" var trasig, se Rättat.
+  - En landning på `/dashboard` utan parametrar öppnar senaste rummet (Personliga brev efter ett besök i skapa-brev). Det är regeln, inte ett fel; Översikt prövades med `/dashboard?oversikt=1`.
+- **Klicktest b, Matchade jobb (Premium):** vald annons står i adressen, bakåt och framåt fungerar; Spara till Ska sökas ger "Sparad i Ska sökas" och raden syns under Sökta tjänster (filtret Ska sökas); Markera som sökt därifrån öppnar arket förifyllt (tjänst, arbetsgivare, dagens datum) och tjänsten hamnar bland de sökta; Skriv brev från en träff öppnar skapa-brev med annonsen ifylld.
+- **Sammanfattningsvägen (Premium):** Matchade jobb läste sammanfattningen, och träffarna var desamma som ur hela körningen (11 av 11, samma ordning; kontrollerat med en tillfällig logg som är borttagen). Läsningen av hela körningen tog 3,8 s i samma anrop, vilket sammanfattningen sparar.
+
+### Rättat under slutkontrollen
+
+1. **Dina brev** (`src/components/brev3/hem/data.ts`): jobblistan "Börja med ett jobb som passar ditt CV" hämtas genom `hamtaBasta` (samma väg som Översikt och Matchade jobb: sammanfattningen, annars hela körningen, med ort och avstånd) i stället för de tolv första annonserna i körningen. Inget annat i brevrummet är ändrat.
+2. **"Skriv brevet" i Att göra nu** (Sök före sista dag) pekade på `/dashboard/skapa-brev?ska-sokas=<id>`, som ingen läste: Skriv brev öppnades tomt. Ny rutt `/dashboard/sokta-tjanster/skriv-brev?id=<id>` (`page.tsx` och `src/components/jobb3/sokta/TillSkrivBrev.tsx`): en sparad träff som finns bland de bästa går till Matchade jobb med `?skriv=1` (hela annonstexten), annars fylls Skriv brev i med raden (tjänst, arbetsgivare, ort, länk) genom samma förifyllning som Matchade jobb använder. Prövat: Ålö AB (en träff som inte finns i körningen) öppnade Skriv brev med tjänsten ifylld.
+3. **Sidomenyns märke vid Matchade jobb** (`src/lib/dashboard/getSummary.ts`): finns tabellen men ingen sammanfattning för kontot står inget märke, i stället för `matchningar_nya()` (som räknar alla lästa annonser och kunde visa upp till 25 fast listan hade färre). Reserven gäller bara om tabellen saknas.
+
+### Kvar att kontrollera (i prioritetsordning)
+
+1. **Gratisnivån och sammanfattningen:** gratiskontot har ingen sammanfattning än. Ladda Matchade jobb (reserven skriver den), ladda om Matchade jobb och Översikt (läser den), kontrollera att HTML:en bara har de tre öppna annonserna och att en ny sökning eller ändrad sökprofil ger en ny sammanfattning. Kräver dev-server och gratiskontot.
+2. **Klicktest c till j:** Sökta tjänster (logga Jag har sökt och Jag ska söka, förifyllt via adressen, Lista/Statistik/Rapport och filter med bakåt, sök), en sökt tjänst (Kallad till intervju med dag, tid och plats, Ändra tid, Rätta en händelse, Redigera, Ta bort), Hur gick intervjun?, uppföljningen (Premium hela vägen och gratisväggen med `plats=uppfoljning`), Rapporten (månad, kopiera, delningslänk, gratislåset), Inför intervjun (svar och bedömning, ett AI-anrop, "upp från", Uppdatera), Jobbcoachen (förslag i fältet, en fråga, ett AI-anrop), Bli upptäckt (fällning före laddning, ingen hydreringsvarning), Meddelanden, Arbetsstil, omdirigeringen från `/dashboard/introduktion`, Dina brev med listan från rättning 1.
+3. **Strecket i korten och hydreringsvarningen** (punkt k): inte prövade i webbläsaren. Jämför deviceScaleFactor 1 och 2 och läs attributet med React:s utvecklingsvarning i konsolen.
+4. **Tomma lägen** för Sökta tjänster och Översikt (punkt l).
+5. **Slutbilder** (1440 och 412, gratis och mörkt läge): inga tagna.
+6. **Prestanda** (`npx tsx scripts/perf-inloggat.ts --port <p> --filter ...` mot `npx next start`, efter ett nytt bygge med rättningarna): inte körd. Före sammanfattningen tog läsningen av hela körningen 1,5 till 6,6 s (A:s mätning), i slutkontrollen 3,8 s.
+7. **Ett nytt `npm run build`** med rättningarna 1 till 3.
+
+## Migreringar
+
+- `20261121180000_jobbsoket_omgang1.sql`: körd i produktion 2026-11-21 med ägarens ja.
+- `20261121200000_jobbmatchning_sammanfattning.sql` (tabellen `job_matching_summaries`, RLS på, en läspolicy): körd i produktion 2026-11-21 med ägarens ja.
+
+Båda är bara tillägg (nya tabeller och nullbara kolumner) och går att köra flera gånger.
+
+## Backa
+
+- **Koden:** `git revert` på slutkontrollens commit backar rättningarna ovan. Hela omgången backas genom att inte slå in `feat/jobbsoket-a`, eller med `git revert -m 1` på sammanslagningen i main. Grenarna B och C finns kvar som de var (`feat/jobbsoket-b`, `feat/jobbsoket-c`).
+- **Databasen:** migreringarna kan stå kvar när koden backas; gammal kod läser inte de nya tabellerna och kolumnerna. Rollback-SQL står överst i varje migreringsfil och körs först när koden som läser dem är backad.
+- **Testdatan:** grunddatan på QA-kontona står i `scratchpad\jobbsok\bygg\motor\testdata.json`, `...\a\testdata.json` och `...\c\testdata.json`, med id per rad.

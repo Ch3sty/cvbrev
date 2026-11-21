@@ -25,6 +25,7 @@ import { CV_GRANS_BETALT, CV_GRANS_GRATIS } from '@/lib/supabase/premiumAccess'
 import { buildMatchReasons } from '@/app/dashboard/jobbmatchning/data/match-reasons'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import { toJobPreferences } from '@/types/user.types'
+import { hamtaBasta } from '@/lib/jobmatching/sammanfattning.server'
 import { arkKalla, type ArkKalla } from './Miniatyr'
 import { jobbTagg, sistaDag, skalRad } from './text'
 
@@ -130,8 +131,7 @@ function langdAndel(brev: BrevIListan, profil: BrevProfil | null): { ord: number
 }
 
 export async function hamtaDinaBrev(supabase: Klient, userId: string, valtCvId: string | null): Promise<DinaBrevData> {
-  const jobbKolumner = Array.from({ length: JOBB_ATT_LASA }, (_, i) => `j${i}:jobs->${i}`).join(', ')
-  const [lista, avsandare, cvRes, soktaRes, matchRes, aktivtCvRes, prefRes] = await Promise.all([
+  const [lista, avsandare, cvRes, soktaRes, aktivtCvRes, prefRes] = await Promise.all([
     hamtaBrevlista(supabase, userId),
     hamtaBrevProfil(supabase, userId),
     supabase
@@ -140,7 +140,6 @@ export async function hamtaDinaBrev(supabase: Klient, userId: string, valtCvId: 
       .eq('user_id', userId)
       .order('created_at', { ascending: false }),
     supabase.from('job_applications').select('id', { count: 'exact', head: true }).eq('user_id', userId),
-    supabase.from('job_matchings_cache').select(`created_at, ${jobbKolumner}`).eq('user_id', userId).order('created_at', { ascending: false }).limit(1).maybeSingle(),
     supabase.from('active_cv_for_matching').select('*').eq('user_id', userId).maybeSingle(),
     supabase.from('profiles').select('job_preferences').eq('id', userId).maybeSingle(),
   ])
@@ -216,15 +215,21 @@ export async function hamtaDinaBrev(supabase: Klient, userId: string, valtCvId: 
     }
   }
 
-  // Jobben: de senaste matchningarna användaren inte har skrivit brev till.
+  // Jobben: de bästa träffarna (samma väg som Översikt och Matchade jobb:
+  // sammanfattningen, annars hela körningen, med ort och avstånd) som
+  // användaren inte har skrivit brev till.
   const jobb: HemJobb[] = []
-  const matchRad = matchRes.data as Record<string, unknown> | null
-  if (matchRad) {
+  const aktivtCv = (aktivtCvRes.data ?? null) as ActiveCVData | null
+  const prefs = toJobPreferences((prefRes.data as { job_preferences?: unknown } | null)?.job_preferences)
+  const basta = await hamtaBasta(supabase, userId, aktivtCv, prefs).catch((err) => {
+    console.error('[brev] Kunde inte läsa de bästa träffarna:', err)
+    return null
+  })
+  if (basta) {
     const skrivna = new Set(brev.map((b) => `${norm(b.company)}|${norm(b.job_title)}`))
-    const aktivtCv = (aktivtCvRes.data ?? null) as ActiveCVData | null
-    const orter = toJobPreferences((prefRes.data as { job_preferences?: unknown } | null)?.job_preferences).locations
-    for (let i = 0; i < JOBB_ATT_LASA && jobb.length < 3; i++) {
-      const job = matchRad[`j${i}`] as Record<string, any> | null
+    const orter = prefs.locations
+    for (let i = 0; i < basta.ranked.length && i < JOBB_ATT_LASA && jobb.length < 3; i++) {
+      const job = basta.ranked[i].job as Record<string, any> | null
       if (!job || !job.headline) continue
       const foretag = String(job.employer?.name ?? '').trim()
       if (skrivna.has(`${norm(foretag)}|${norm(job.headline)}`)) continue

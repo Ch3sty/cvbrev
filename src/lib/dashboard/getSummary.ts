@@ -795,7 +795,11 @@ async function hamtaMatchningarNya(supabase: any, userId: string): Promise<numbe
       /* reserven nedan */
     }
   }
-  if (matchningarNyaSaknas) return null
+  // Finns tabellen men ingen rad (Matchade jobb har inte skrivit någon
+  // sammanfattning än) står inget märke: matchningar_nya() räknar alla lästa
+  // annonser, inte de bästa, och kunde visa fler än listans bästa träffar.
+  // Bara när tabellen saknas helt är den reserven, med taket 25.
+  if (matchningarNyaSaknas || !sammanfattningSaknas) return null
   try {
     const { data, error } = await supabase.rpc('matchningar_nya')
     if (error) {

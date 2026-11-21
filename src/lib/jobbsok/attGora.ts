@@ -32,7 +32,7 @@ import {
   veckodagNamn,
   veckodagOchDag,
 } from './datum'
-import { jobbHref, soktaHref, tjanstHref } from './adress'
+import { jobbHref, soktaHref, tjanstHref, SOKTA_HREF } from './adress'
 import {
   ATT_GORA_MAX,
   FORBERED_INOM_DAGAR,
@@ -174,7 +174,8 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
       overrad: versaler(`Sista dag ${r.dagarKvar === 0 ? 'i dag' : `${veckodagNamn(r.sistaDag)} ${kortDag(r.sistaDag)}`}`),
       rubrik: `Sök ${r.company} ${r.dagarKvar === 0 ? 'i dag' : `senast ${narText(r.sistaDag, idag).replace(/^på /, '')}`}`,
       text: `${r.jobTitle}${r.matchScore !== null ? `, ${r.matchScore} % matchgrad` : ''}.`,
-      knapp: { text: 'Skriv brevet', href: `${SKRIV_BREV_HREF}?ska-sokas=${encodeURIComponent(r.id)}` },
+      // Rutten väljer: Matchade jobb när träffen finns bland de bästa, annars Skriv brev ifyllt med raden.
+      knapp: { text: 'Skriv brevet', href: `${SOKTA_HREF}/skriv-brev?id=${encodeURIComponent(r.id)}` },
       sparadId: r.id,
       bokstaver: r.bokstaver,
     })
