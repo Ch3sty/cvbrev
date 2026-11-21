@@ -327,7 +327,8 @@ Provsidan (`/verktyg/rekryteringstester/prova`), provet i artiklarna, registreri
 - `d059cdea` provet i artiklarna: resultatet utan rubriker, kontoraden på telefon, provtexten.
 - `3422f883` registreringens provpanel och det konkreta löftet.
 - `f367ff6c` (via merge `1e28bea7`) personlighetsprovet, byggt på egen gren.
-- Rättningar efter granskningen: `e3fc92d6` typvalet som rutnät, `6af7f44b` typens symbol i stället för beskurna miniatyrer, `9b1d0b56` typraden i personlighetsprovet en gång i DOM, `cb723874` och `054e4f3e` mörkt läge, `f7ea6e3f` artikelrutans höjd medan resultatet laddas (CLS 0), `6dee5590` tryckytan för Logga in.
+- Rättningar efter granskningen: `e3fc92d6` typvalet som rutnät, `6af7f44b` typens symbol i stället för beskurna miniatyrer, `9b1d0b56` typraden i personlighetsprovet en gång i DOM, `cb723874` och `054e4f3e` mörkt läge, `f7ea6e3f` artikelrutans höjd medan resultatet laddas (CLS 0), `6dee5590` tryckytan för Logga in, `ea44cb8e` fem sifferklossar i det öppna kortet (märket i klossen och raden Ditt svar / Rätt svar, som på telefon).
+- `16c4a5a7` SEO: baslinjen omtagen för /verktyg/personlighetstest (`scripts/seo-baslinje/publika-prov-omgang3-2026-11-21-undantag.json`, SEO-godkänd). SEO-diffen mot bygget på 21 sidor: Fel 0. Facitkontrollen (`qa-omgang2-publikt-prov.ts`, 19 sidor): Fel 0.
 
 ### Kontraktet: `oppet_facit`
 
@@ -357,7 +358,8 @@ CLS när resultatet laddas in (Pixel 7, riktiga tryck, rättningen fördröjd 1,
 
 ### Kvar
 
-- Inloggningsvägen till kontot (Logga in från resultatet, provet hämtas på valkommen-sidan) är inte genomgången med ett riktigt konto: QA-gratiskontots lösenord är slumpat och fick inte sättas om i slutkontrollen. Länken leder till `/login?redirect=/dashboard/valkommen` och token står kvar i fliken (`jc_pending_test`), som hämtkedjan läser.
+- **Logga in från resultatet hämtar inte provet till ett befintligt konto** (kört med QA-gratiskontot från omgång 2, Pixel 7, bygget). Kedjan: resultatet, "Logga in" till `/login?redirect=/dashboard/valkommen`, inloggningen lyckas, `/dashboard/valkommen`, `/dashboard`. Ingen `jc_signup`-cookie (inloggningen skriver ingen), ingen `?test=` i adressen, så servern på valkommen-sidan (`page.tsx`, "Inget pågående registreringsflöde") skickar ett befintligt konto till `/dashboard` innan hämtkedjan i klienten körs. `jc_pending_test` står kvar i fliken, inget claim-anrop görs, provet är ohämtat. Fanns före omgången (`loggaInHref` i `RegisterKontoSteg.tsx` är orörd). Möjlig rättning, inte gjord: `loggaInHref` med smakprov skickar `redirect=/dashboard/valkommen?test=<token>`, som valkommen-sidan redan läser (`smakprovUrParams`).
+- `FigurserieTrana.test.tsx` (inte rörd i den här omgången) föll med 2 test i hela sviten under full last och är grön ensam; noteras, testet är inte ändrat.
 - Startskärmen följer den delade `Startskarm` (knappen i kortet, inte i hjälten som i förlagan); matrisens öppna kort står i en kolumn; domen är `Forklaringen`, inte förlagans tvåspaltsruta.
 - Facittexter finns i fyra JS-filer som bara laddas av den inloggade resultatsidans genomgång (`TestResultsPage`, `NumericalReview` med flera, dynamiskt). Fanns före den här omgången och laddas inte av de publika proven.
 
