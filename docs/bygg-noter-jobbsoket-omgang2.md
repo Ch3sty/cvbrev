@@ -285,3 +285,27 @@ Kräver att migreringen är körd. Konto: gratis, en slutförd Nivåkoll, dagens
 - **Slutkontrollen avbröts 2026-11-21 cirka 23.05.** Produktionens Supabase-gateway slutade svara 22.35. Loggen visade att två sessioner samtidigt körde testflöden genom lokala servrar mot produktionsdatabasen; den här sessionens klicktest gjorde en Nivåkoll för att få fram kortet på testernas Hem och stod för 915 läsningar av `profiles` på tio minuter. Server och webbläsare stängdes direkt. Regeln framåt står i minnet: inga provflöden i klicktest mot produktion.
 - **Det slutkontrollen hann med:** hela testsviten (360 filer gröna, 3 överhoppade; 4 589 test gröna, 13 överhoppade), bygget med webpack (första försöket föll på minnet, det andra gick igenom), kortet på testernas Hem i 412 och 1440, ljust och mörkt, i hopfällt, utfällt och felläge, och brickan i Kom igång på plats två för ett konto utan val. Bilderna ligger utanför git.
 - **Inte prövat i webbläsare:** arket på testvägen och kvittensen, statusen Kallad till test i listan och på tjänstens sida, "När är intervjun?", intervjulägena med det nya utkastet (aldrig kört mot modellen), annonsens fot på telefon, träffantalet efter sökning och omladdning, och prestandan med CLS på testernas Hem och i hubben.
+
+## Efter klicktestet (2026-11-21 natt)
+
+Klicktestet (`docs/qa/jobbsoket-omgang2-2026-11-21.md`) hittade tre fel. Rättade samma natt, inte committade.
+
+### Fel 1: listan tom efter sparandet på testvägen
+
+- **Orsak.** Arket anropar `onKlar` och direkt efter `onClose`. `loggad` i `SoktaVy.tsx` begärde `router.refresh()`, och `stangLogga` rensade sedan `?logga=1&tjanst=…` med `window.history.replaceState`. Next 16 lappar `replaceState` så att anropet blir en `ACTION_RESTORE` i routerns kö, och en restore markerar den pågående åtgärden som kastad (`app-router-instance.js`, `dispatchAction`). Uppdateringen hämtades men lades aldrig in, så listan, väggen och räknarna stod kvar på det gamla. Sidomenyn läses ur `DashboardDataContext` med en egen hämtning och påverkades inte. Det gällde varje loggning som började med `?logga=1` i adressen, inte bara testvägen; loggning från knappen har ingen `logga` i adressen och rensar aldrig, därför fungerade den. Kvittensens läge hindrade inte omritningen.
+- **Rättning.** `rensaAdress()` i `SoktaVy.tsx` rensar adressen och anropas i `loggad` före `router.refresh()`. Den läser `window.location.search` i stället för `adress`, så när arket sedan stänger sig och `stangLogga` anropar den igen gör den ingenting, och ingen ny restore kastar uppdateringen.
+- **Test.** `src/components/jobb3/sokta/__tests__/testvag-uppdatering.test.tsx` (ny, 2 gröna): på testvägen rensas adressen en gång, före uppdateringen, uppdateringen och summeringen begärs, och kvittensen står kvar. Utan `logga` i adressen rörs den inte. Testet föll mot den gamla ordningen.
+
+### Fel 2: valet av tjänst i "När är intervjun?" klipptes
+
+- **Orsak.** `ValRad` lägger valen i en flexrad med `flex: 1`, och `ValKnapp form="rad"` klipper texten på en rad (`white-space: nowrap`, ellips). Med en tjänst och "En annan tjänst" blev det två kolumner, och "Företaget, tjänsten" klipptes före titeln.
+- **Rättning.** `IntervjuFraga.tsx`: valen ligger i `div.j3c-tjanstval`, och varje val visar titeln (`j3c-tjanstval-titel`) som huvudtext och arbetsgivaren (`j3c-tjanstval-ag`) under, med ett dolt kommatecken så att skärmläsaren läser "Ekonomiassistent, Umeå Energi". `jobb3-c.css`: valen står i en kolumn i full bredd, minst 56 px höga, texten bryts och klipps först efter två rader per del. Vald rad har kitets valda läge (`.j3-val.rad[aria-pressed="true"]`). Kitet är orört.
+- **Test.** `IntervjuFraga.test.tsx`: titeln och arbetsgivaren läses ur varje val, och valen ligger i `.j3c-tjanstval`. 16 gröna.
+
+### Fel 3: annonsens fot på telefon låg inte fast
+
+- **Orsak.** `FastFot` låg i en egen `div.mt-6` i `MatchadeJobb.tsx`. `position: sticky` fäster inom sin förälder, och föräldern var exakt lika hög som foten, så foten kunde aldrig flytta sig. Så har det varit sedan omgång 1.
+- **Rättning.** Foten ligger direkt i golvets inre ram (`j3-golv-inre`), som rymmer hela annonsen, med en tom `h-6` före i stället för marginalen. Foten tar sin egen höjd i flödet, så vid annonsens slut står den efter sista raden och täcker inget. Dold träff, betalväggen och listan har ingen `FastFot` och är oförändrade. Från 1280 px döljer `.j3-fot` sig som förut.
+- **Test.** `annonsFot.test.tsx` oförändrad, 9 gröna. Sticky går inte att pröva i jsdom; se webbläsarprovet i QA-filen.
+
+`npx tsc --noEmit`: inga fel. `testvag.test.tsx`: 11 gröna.

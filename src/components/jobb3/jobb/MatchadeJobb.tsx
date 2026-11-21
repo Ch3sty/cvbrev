@@ -1163,11 +1163,14 @@ export default function MatchadeJobb({
                     </TextLank>
                   </p>
                 ) : null}
-                <div className="mt-6">
-                  <FastFot rader>
-                    <AnnonsFotMobil job={a} handlingar={handlingarFor(a, s.score.score)} />
-                  </FastFot>
-                </div>
+                {/* Foten ligger direkt i golvet, inte i en egen ram: sticky fäster mot
+                    närmaste förälder, och en ram lika hög som foten gav den inget att
+                    fästa mot (felet efter klicktestet 2026-11-21). I flödet tar foten
+                    sin egen höjd, så annonsens sista rader hamnar ovanför den. */}
+                <div aria-hidden="true" className="h-6" />
+                <FastFot rader>
+                  <AnnonsFotMobil job={a} handlingar={handlingarFor(a, s.score.score)} />
+                </FastFot>
               </Golv>
             </>
           )

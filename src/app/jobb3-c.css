@@ -148,6 +148,13 @@
 .j3c-ihop-text small { display: block; font-size: 13px; line-height: 18px; color: var(--j3-ink-2); }
 .j3c-tva { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 10px; align-items: start; }
 .j3c-tva .j3-falt { margin-top: 0; }
+/* Vilken tjänst gäller intervjun: en rad per tjänst i full bredd, texten bryts hellre än klipps (9.4). */
+.j3c-tjanstval .j3-valrad { flex-direction: column; }
+.j3c-tjanstval .j3-val.rad { flex: none; width: 100%; min-height: 56px; padding: 10px 14px; }
+.j3c-tjanstval .j3-val.rad .j3-val-text { display: block; white-space: normal; overflow: visible; }
+.j3c-tjanstval-titel, .j3c-tjanstval-ag { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; }
+.j3c-tjanstval-titel { font-size: 15px; line-height: 20px; font-weight: 700; }
+.j3c-tjanstval-ag { margin-top: 2px; font-size: 13px; line-height: 18px; font-weight: 600; color: var(--j3-ink-2); }
 .j3c-visa-alla .j3-lank { min-height: 44px; display: inline-flex; align-items: center; }
 /* Hoppa över utan layoutskifte: båda lägena finns i HTML:en, skriptet i IntervjuHubb väljer före första ritningen. */
 .j3c-fraga-ihop { display: none; }

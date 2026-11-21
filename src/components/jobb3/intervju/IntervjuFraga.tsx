@@ -320,7 +320,8 @@ export default function IntervjuFraga({ tom, valbara }: { tom: boolean; valbara:
 
         <GruppEtikett id={fid('vilken')}>{T.vilken}</GruppEtikett>
         {harValbara ? (
-          <div ref={valRef}>
+          <div ref={valRef} className="j3c-tjanstval">
+            {/* En rad per tjänst i full bredd: titeln som huvudtext, arbetsgivaren under (9.4, efter klicktestet). */}
             <ValRad etikett={T.vilken}>
               {visade.map((t) => (
                 <ValKnapp
@@ -333,7 +334,9 @@ export default function IntervjuFraga({ tom, valbara }: { tom: boolean; valbara:
                     rensa('val')
                   }}
                 >
-                  {`${t.company}, ${t.jobTitle}`}
+                  <span className="j3c-tjanstval-titel">{t.jobTitle}</span>
+                  <span className="sr-only">, </span>
+                  <span className="j3c-tjanstval-ag">{t.company}</span>
                 </ValKnapp>
               ))}
               <ValKnapp

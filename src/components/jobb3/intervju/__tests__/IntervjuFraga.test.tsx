@@ -129,7 +129,11 @@ describe('arket', () => {
     expect(faltOrdning(dialog)).toEqual(['Dag', 'Tid', 'Plats'])
     const val = within(dialog).getByRole('group', { name: T.vilken })
     const knappar = within(val).getAllByRole('button')
-    expect(knappar.map((k) => k.textContent?.replace(/^(UE|NO)/, '').trim())).toEqual(['Umeå Energi, Ekonomiassistent', 'Norrmejerier, Ekonomiassistent', 'En annan tjänst'])
+    // Varje tjänst är en egen rad: titeln som huvudtext och arbetsgivaren under (efter klicktestet).
+    expect(knappar.map((k) => k.querySelector('.j3c-tjanstval-titel')?.textContent ?? null)).toEqual(['Ekonomiassistent', 'Ekonomiassistent', null])
+    expect(knappar.map((k) => k.querySelector('.j3c-tjanstval-ag')?.textContent ?? null)).toEqual(['Umeå Energi', 'Norrmejerier', null])
+    expect(knappar.map((k) => k.textContent?.replace(/^(UE|NO)/, '').trim())).toEqual(['Ekonomiassistent, Umeå Energi', 'Ekonomiassistent, Norrmejerier', 'En annan tjänst'])
+    expect(dialog.querySelector('.j3c-tjanstval')?.contains(val)).toBe(true)
     expect(knappar.every((k) => k.getAttribute('aria-pressed') === 'false')).toBe(true)
     // Valen står efter Plats.
     const plats = within(dialog).getByLabelText(/^Plats/)

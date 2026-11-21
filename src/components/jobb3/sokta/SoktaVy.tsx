@@ -61,11 +61,21 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
     window.history.pushState(null, '', href)
   }, [adress.vy, adress.filter])
 
+  /**
+   * Tar bort ?logga=1 och förifyllningen ur adressen. Läser window.location och
+   * inte adress, så att ett andra anrop i samma ritning inte rensar igen.
+   * window.history.replaceState blir en ACTION_RESTORE i Next:s router, och en
+   * sådan kastar en router.refresh() som redan är på väg. Därför rensas adressen
+   * före uppdateringen, aldrig efter (felet efter klicktestet 2026-11-21).
+   */
+  const rensaAdress = () => {
+    if (!new URLSearchParams(window.location.search).has('logga')) return
+    window.history.replaceState(null, '', soktaHref({ vy: adress.vy, filter: adress.filter }))
+  }
+
   const stangLogga = () => {
     setLoggaOppen(false)
-    if (adress.logga) {
-      window.history.replaceState(null, '', soktaHref({ vy: adress.vy, filter: adress.filter }))
-    }
+    rensaAdress()
   }
 
   const oppnaLogga = (f: LoggaForifyllt | null = null) => {
@@ -93,6 +103,8 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
     } else if (r.typ === 'sparad') {
       success('Sparad under Ska sökas.', 3000)
     }
+    // Adressen först: arket stänger sig efter onKlar, och rensningen då hade kastat uppdateringen.
+    rensaAdress()
     router.refresh()
     // Kom igång-brickan "Logga en tjänst du har sökt": summeringen ligger i
     // klientens DashboardDataContext och läses inte om av router.refresh().
