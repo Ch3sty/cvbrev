@@ -19,8 +19,8 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getActiveCvIds } from '@/lib/cv/cv-quota';
 import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import MinaCvClient, { type InitialCv, type CvRumData } from './MinaCvClient';
-import type { AnalysUnderlag } from '@/lib/rum/cvRum';
-import { poangForRad, poangsattAnalys, poangMedVal, type CvRad, type PoangSammanfattning } from '@/lib/cv/poang';
+import { poangForRad, analysForKlient, poangMedVal, type CvRad, type PoangSammanfattning } from '@/lib/cv/poang';
+import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 const FREE_MAX_CVS = 2;
@@ -43,7 +43,7 @@ export default async function MinaCVPage() {
   const cvRum: CvRumData = { underlag: null, poangPerCv: {}, nedladdatAt: null };
 
   try {
-    const [cvRes, grans, poangRes, senasteRes, nedladdRes] = await Promise.all([
+    const [cvRes, grans, poangRes, senasteRes, nedladdRes, harFullAnalys] = await Promise.all([
       supabase
         .from('cv_texts')
         .select('*')
@@ -76,6 +76,8 @@ export default async function MinaCVPage() {
         .order('downloaded_at', { ascending: false })
         .limit(1)
         .maybeSingle(),
+      // Gratisnivån får samma filtrerade analys som i analysflödet.
+      userHasAccess(supabase, user.id, 'cv_analysis_full').catch(() => false),
     ]);
 
     if (cvRes.error) {
@@ -101,7 +103,7 @@ export default async function MinaCVPage() {
     if (senaste && cvRows.some((cv) => cv.id === senaste.cv_id)) {
       const cv = cvRows.find((c) => c.id === senaste.cv_id);
       // Förslagens plus räknas med samma funktion som analysflödet.
-      const analys = poangsattAnalys(
+      const analys = analysForKlient(
         {
           structuredCV: senaste.struktur,
           profileSummary: senaste.profil,
@@ -109,7 +111,8 @@ export default async function MinaCVPage() {
           skillSuggestions: senaste.kompetenser,
           generalImprovements: senaste.allmant,
         },
-        cv as CvRad
+        cv as CvRad,
+        harFullAnalys
       );
       const sammanfattning = analys.poang as PoangSammanfattning | null;
       const kompetenser = Array.isArray(analys.skillSuggestions) ? analys.skillSuggestions : null;
@@ -127,10 +130,18 @@ export default async function MinaCVPage() {
         klar: (senaste.completed_at as string) ?? null,
         namn: (senaste.display_name as string) || cv?.file_name || null,
         poang: sammanfattning ? sammanfattning.idag : null,
-        profil: (analys.profileSummary as AnalysUnderlag['profil']) ?? null,
-        roller: Array.isArray(analys.roleBasedImprovements) ? (analys.roleBasedImprovements as AnalysUnderlag['roller']) : null,
-        kompetenser: kompetenser as AnalysUnderlag['kompetenser'],
-        allmant: Array.isArray(analys.generalImprovements) ? (analys.generalImprovements as AnalysUnderlag['allmant']) : null,
+        // Bara det CV-rummet visar följer med till klienten: rubrik och plus,
+        // aldrig förslagstexterna (de visas i analysflödet).
+        profil: analys.profileSummary ? { atsImpact: (analys.profileSummary as { atsImpact?: unknown }).atsImpact } : null,
+        roller: Array.isArray(analys.roleBasedImprovements)
+          ? (analys.roleBasedImprovements as Array<Record<string, unknown>>).map((r) => ({ roleTitle: r.roleTitle, company: r.company, atsImpact: r.atsImpact }))
+          : null,
+        kompetenser: kompetenser
+          ? (kompetenser as Array<Record<string, unknown>>).map((k) => ({ skill: k.skill, atsImpact: k.atsImpact }))
+          : null,
+        allmant: Array.isArray(analys.generalImprovements)
+          ? (analys.generalImprovements as Array<Record<string, unknown>>).map((g) => ({ title: g.title, description: g.description, atsImpact: g.atsImpact }))
+          : null,
         kompetenserPlus: sammanfattning && medKompetenser ? medKompetenser.total - sammanfattning.idag : null,
       };
     }

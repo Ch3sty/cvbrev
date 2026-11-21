@@ -64,7 +64,9 @@ export async function GET() {
         .limit(5),
       supabase
         .from('cv_analysis_jobs')
-        .select('id, result, display_name, completed_at, created_at')
+        // Inte result: analysens innehåll och sparade tal behövs inte här
+        // och ska inte läsas i onödan (poängen räknas med poängmodellen).
+        .select('id, display_name, completed_at, created_at')
         .eq('user_id', userId)
         .eq('status', 'completed')
         .order('completed_at', { ascending: false })
@@ -133,24 +135,16 @@ export async function GET() {
       })
     }
 
-    // CV-analys (extrahera score fran result-jsonb om mojligt)
+    // CV-analys. Fälten som lästes som poäng här (overall_score, score,
+    // ats_score) har aldrig funnits i resultatet, så ingen poäng visades;
+    // raden läser nu bara namnet.
     for (const row of cvAnalysisRes.data || []) {
-      const r = (row.result as Record<string, unknown> | null) || null
-      const score =
-        (r?.overall_score as number | undefined) ??
-        (r?.score as number | undefined) ??
-        (r?.ats_score as number | undefined) ??
-        null
-      const title = score
-        ? `CV-analys: ${score}/100`
-        : row.display_name
-        ? `CV-analys: ${row.display_name}`
-        : 'CV-analys genomförd'
+      const title = row.display_name ? `CV-analys: ${row.display_name}` : 'CV-analys genomförd'
       items.push({
         id: `analysis-${row.id}`,
         type: 'analys',
         title,
-        subtitle: row.display_name && score ? row.display_name : undefined,
+        subtitle: undefined,
         href: '/dashboard/cv-analys',
         createdAt: row.completed_at || row.created_at || new Date().toISOString(),
       })

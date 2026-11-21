@@ -32,6 +32,7 @@ export {
   type PoangKategori,
   type CvRad,
 } from './forslag'
+export { analysForKlient } from './utlamning'
 export {
   delaKompetens,
   stadaKompetenser,
