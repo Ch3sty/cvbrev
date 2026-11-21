@@ -64,6 +64,7 @@ export default function CvAnalysClient({
   // kvot. Startar hon en ny analys därifrån gäller kvoten som vanligt.
   const [showIntro, setShowIntro] = useState(!ater && !startCvId);
   const [kvotSlut, setKvotSlut] = useState(false);
+  const [jobbStartat, setJobbStartat] = useState(false);
 
   /* Kvotläget. Startvärdena är serverns, och uppdateras av analyssvaret precis
      som förut: 429 med limitReached låser vyn med exakt återkomsttid, ett
@@ -114,6 +115,8 @@ export default function CvAnalysClient({
       if (!selectedCV) {
         throw new Error('Inget CV valt');
       }
+      // En ny start prövas mot kvoten som vanligt (402 visar spärren).
+      setJobbStartat(false);
 
       const response = await fetch(API_ANALYZE_ROUTE, {
         method: 'POST',
@@ -141,6 +144,9 @@ export default function CvAnalysClient({
         throw new Error(result.message || 'Kunde inte starta analys');
       }
 
+      // Analysen är startad: den här visningen ska följa den till resultatet,
+      // även när kvoten nu är förbrukad (gratisnivåns enda analys).
+      setJobbStartat(true);
       if (result.remainingAnalyses !== undefined) {
         setRemainingAnalyses(result.remainingAnalyses);
       }
@@ -171,9 +177,12 @@ export default function CvAnalysClient({
   }, [router, ater?.cvId, startCvId]);
 
   // Spärrvyn. Samma villkor som förut: gratisnivå och antingen ett 429 från
-  // servern eller en räknare som gått i noll.
+  // servern eller en räknare som gått i noll. Inte efter att en analys
+  // startats här: svaret räknar ner till noll för gratisnivåns enda analys,
+  // och då bytte spärren förut ut flödet som väntade på resultatet.
   const hasReachedLimit =
     !data.isPremium &&
+    !jobbStartat &&
     (ater
       ? kvotSlut
       : quotaLockResetAt !== null ||
