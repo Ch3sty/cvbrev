@@ -66,7 +66,7 @@ describe('brev utan namn', () => {
   )
 
   it('brevflödet visar NameRequiredNotice vid name_required', () => {
-    const klient = las('app/dashboard/skapa-brev/CreateLetterClient.tsx')
+    const klient = las('components/brev3/arbete/SkrivBrev.tsx')
     expect(klient).toMatch(/name_required/)
     expect(klient).toMatch(/<NameRequiredNotice/)
   })
