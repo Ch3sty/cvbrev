@@ -11,8 +11,28 @@ import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/templat
 const stor = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const ANTAL = TEMPLATE_COUNT
 
-const TALORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
+const TALORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv']
 export const talord = (n: number) => TALORD[n] ?? String(n)
+
+/**
+ * Siffrorna som står kvar i CV:t (efterrättning A 2026-11-21): [antal] där
+ * hon ska skriva sitt eget tal. Ditt CV:s nästa steg, raden vid
+ * nedladdningen och arket som frågar före filen. Räknar rader, inte
+ * platshållare.
+ */
+export const SIFFROR = {
+  ogon: 'Nästa steg',
+  rubrik: 'Fyll i dina siffror',
+  text: (n: number) =>
+    n === 1
+      ? 'En rad väntar på din siffra. Där det står [antal] skriver du ditt eget tal.'
+      : `${stor(talord(n))} rader väntar på dina siffror. Där det står [antal] skriver du ditt eget tal.`,
+  knapp: 'Fyll i siffrorna',
+  rad: (n: number) => (n === 1 ? 'En rad har [antal] kvar.' : `${stor(talord(n))} rader har [antal] kvar.`),
+  arkRubrik: (n: number) => `Det står [antal] kvar i ${n === 1 ? 'en rad' : `${talord(n)} rader`}`,
+  arkText: 'Arbetsgivaren ser texten precis som den står. Fyll i dina egna siffror först.',
+  laddaAnda: 'Ladda ner ändå',
+} as const
 
 export const CV_RAD = {
   cv: 'CV:',

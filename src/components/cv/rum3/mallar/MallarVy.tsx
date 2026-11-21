@@ -110,6 +110,8 @@ export interface MallarVyProps {
   onMatt: (m: Matning) => void
   sidor: number
   fel?: ReactNode
+  /** En lugn rad vid nedladdningsknappen (siffrorna som står kvar). */
+  pamin?: ReactNode
   last?: boolean
   lyft?: boolean
   /** Raden ovanför väggens innehåll (fotot efter kontot). */
@@ -307,6 +309,7 @@ export default function MallarVy(p: MallarVyProps) {
       ) : (
         exempelVagar()
       )}
+      {p.cv && p.pamin ? <div className="cv3m-pamin">{p.pamin}</div> : null}
       {p.fel ? <div className="cv3m-fel">{p.fel}</div> : null}
     </>
   )
@@ -437,9 +440,10 @@ export default function MallarVy(p: MallarVyProps) {
 
       {/* Telefonen: format och nedladdning i den fasta raden. */}
       <style>{'@media (max-width:1279.98px){main.dashboard-main-content{padding-bottom:0!important}}'}</style>
-      <div className="cv3m-fast" data-fast-rad>
+      <div className="cv3m-fast" data-fast-rad data-pamin={p.cv && p.pamin ? '' : undefined}>
         {p.cv ? (
           <>
+            {p.pamin ? <div className="cv3m-fast-pamin">{p.pamin}</div> : null}
             {formatSeg()}
             {laddaKnapp()}
           </>

@@ -1,0 +1,82 @@
+// @vitest-environment node
+/**
+ * Analys-sidan när [antal] står kvar i CV:t (efterrättning A 2026-11-21):
+ * inte "Inget drar ner just nu" utan fyndet Dina siffror, med sant plus.
+ */
+import { describe, expect, it } from 'vitest'
+import { byggAnalysVy } from '../analysData'
+import { kanonisktCv, medSiffror, plusForSiffror, raknaPoang } from '@/lib/cv/poang'
+
+const CV = {
+  personalInfo: { fullName: 'Sara Lind', email: 'sara.lind@exempel.se', phone: '070-555 12 34', address: 'Uppsala', title: 'Butikssäljare' },
+  summary:
+    'Butikssäljare med vana av kassa, varuplock och kundmöten i en stor butik. Jag har hjälpt många kunder om dagen och vet hur man håller ordning på lager och hyllor när det är mycket att göra.',
+  experience: [
+    {
+      position: 'Butikssäljare',
+      company: 'ICA Kvantum',
+      startDate: '2019',
+      endDate: '2024',
+      description: ['Hjälpte kunder att hitta rätt varor i butiken', 'Ansvarade för kassan under helger med [antal] kunder per pass', 'Fyllde på hyllor och tog emot leveranser'],
+    },
+  ],
+  education: [{ degree: 'Gymnasieexamen', institution: 'Katedralskolan', startDate: '2014', endDate: '2017' }],
+  skills: [{ category: 'Färdigheter', skills: ['Kassa', 'Kundservice', 'Truckkort', 'Lagerhantering', 'Varuplock', 'Merförsäljning'] }],
+  languages: [{ language: 'Svenska', proficiency: 'Modersmål' }],
+}
+
+// Analysen som sparades före Ersätt: förslaget är redan infört i CV:t, så inget förslag återstår.
+const JOBB = {
+  id: 'jobb-siffror',
+  completed_at: null,
+  result: {
+    roleBasedImprovements: [
+      { roleTitle: 'Butikssäljare', company: 'ICA Kvantum', suggestedText: CV.experience[0].description.join('\n'), atsImpact: 4 },
+    ],
+    skillSuggestions: [],
+    generalImprovements: [],
+  } as Record<string, unknown>,
+}
+
+describe('fyndet Dina siffror', () => {
+  for (const full of [false, true]) {
+    it(`${full ? 'Premium' : 'gratis'}: ett öppet fynd med plus ur poängmodellen`, () => {
+      const vy = byggAnalysVy(JOBB, { structured_data: CV }, full)!
+      expect(vy.fynd).toHaveLength(1)
+      const f = vy.fynd[0]
+      expect(f).toMatchObject({ nyckel: 'siffror', typ: 'siffror', titel: 'Dina siffror', oppen: true, sektion: 'erfarenhet', rader: 1 })
+      expect(f.roll).toEqual({ titel: 'Butikssäljare', foretag: 'ICA Kvantum' })
+      const bas = kanonisktCv(CV)!
+      expect(f.plus).toBe(plusForSiffror(bas))
+      expect(f.plus).toBe(raknaPoang(medSiffror(bas)).total - vy.poang.idag)
+      expect(f.plus).toBeGreaterThan(0)
+    })
+  }
+
+  it('när siffrorna fyllts i finns inget fynd och poängen är den utlovade', () => {
+    const fore = byggAnalysVy(JOBB, { structured_data: CV }, true)!
+    const lovat = fore.poang.idag + fore.fynd[0].plus
+    const ifyllt = JSON.parse(JSON.stringify(CV).replace('[antal]', '45'))
+    const efter = byggAnalysVy(JOBB, { structured_data: ifyllt }, true)!
+    expect(efter.fynd.find((x) => x.typ === 'siffror')).toBeUndefined()
+    expect(efter.poang.idag).toBe(lovat)
+  })
+
+  it('bland andra fynd står siffrorna sist vid lika plus, och gratisnivåns öppna förslag först', () => {
+    const jobb = {
+      ...JOBB,
+      result: {
+        ...JOBB.result,
+        skillSuggestions: [{ skill: 'Butiksdata' }, { skill: 'Visuell marknadsföring' }],
+        roleBasedImprovements: [],
+      },
+    }
+    const cv = { ...CV, skills: [{ category: 'Färdigheter', skills: ['Kassa'] }] }
+    const vy = byggAnalysVy(jobb, { structured_data: cv }, false)!
+    const typer = vy.fynd.map((x) => x.typ)
+    expect(typer).toContain('siffror')
+    expect(typer[0]).not.toBe('siffror')
+    const i = typer.indexOf('siffror')
+    for (const x of vy.fynd.slice(i + 1)) expect(x.plus).toBeLessThan(vy.fynd[i].plus)
+  })
+})

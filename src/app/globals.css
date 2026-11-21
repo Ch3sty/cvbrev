@@ -4445,6 +4445,14 @@ html[data-flow-active='true'] .cv3-remsa { display: none; }
 .cv3m-stor-liten b { font-size: 14px; line-height: 18px; }
 .cv3m-stor-liten small { font-size: 11px; line-height: 14px; }
 .cv3m-fel { margin-top: 12px; max-width: 560px; padding: 8px 12px; border-radius: 12px; background: var(--papper); color: var(--ink-1); }
+/* Siffrorna som står kvar (efterrättning A 2026-11-21): en lugn rad vid nedladdningen och arkets fot. */
+.cv3-siffror-rad { margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: inherit; overflow-wrap: anywhere; }
+.cv3-siffror-lank { display: inline; padding: 0; border: 0; background: none; font: inherit; font-weight: 700; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; white-space: nowrap; }
+.cv3m-pamin { margin-top: 12px; max-width: 560px; color: var(--vagg-ink); }
+.cv3m-fast[data-pamin] { flex-wrap: wrap; row-gap: 8px; }
+.cv3m-fast-pamin { flex-basis: 100%; min-width: 0; color: var(--ink-1); }
+.cv3-siffror-fot { display: grid; gap: 10px; }
+.cv3-siffror-fot .t3-stor { justify-content: center; }
 .cv3m-exempel { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 26px; }
 .cv3m-fotorad { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 12px; padding: 6px 6px 6px 14px; border-radius: 16px; background: rgba(255, 255, 255, .08); font-size: 13px; line-height: 18px; font-weight: 600; color: var(--vagg-ink); max-width: 560px; }
 @media (max-width: 1279.98px) { .cv3m-fotorad { margin-top: 12px; } }

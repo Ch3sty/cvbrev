@@ -19,7 +19,8 @@ import { useEgenMall, type EgetCv } from '@/components/cv/Dokument/egnaMallar';
 
 export interface ArkMarkering {
   nr: number;
-  sektion: 'profil' | 'erfarenhet' | 'kompetenser';
+  /** Avsnittet; "fler" (projekt, certifikat) markeras inte. */
+  sektion: 'profil' | 'erfarenhet' | 'kompetenser' | 'utbildning' | 'fler';
   roll?: { titel: string; foretag: string };
   /** Första fyndet: koppar och puls. */
   nu?: boolean;
@@ -63,7 +64,7 @@ function rollensTopp(doc: Document, titel: string, fran: number, till: number, e
 
 function rutorUr(doc: Document, m: Matning, markeringar: ArkMarkering[]): Ruta[] {
   const ut: Ruta[] = [];
-  const avsnitt = (s: ArkMarkering['sektion']) => m.rubriker.find((r) => r.sektion === s) ?? null;
+  const avsnitt = (s: ArkMarkering['sektion']) => m.rubriker.find((r) => (r.sektion as string) === s) ?? null;
 
   // Rollerna: i ordning nedåt i avsnittet, var och en till nästa roll.
   const erf = avsnitt('erfarenhet');

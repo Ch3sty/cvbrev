@@ -55,6 +55,8 @@ import { cvListaUr } from '@/components/cv/rum3/cvLista'
 import { arbetslageHref, type ArbetsAvsnitt } from '@/components/cv/rum3/flikar'
 import { valTillQuery } from '@/lib/cv/mallar/val'
 import MallarVy, { AndraBricka, type Byte } from '@/components/cv/rum3/mallar/MallarVy'
+import { useSiffrorKvar } from '@/components/cv/rum3/SiffrorKvar'
+import { platshallareIRad } from '@/lib/cv/poang'
 import type { CvSparrData } from '@/components/cv/rum3/sparr/CvSparr'
 
 export interface InitialCv {
@@ -287,15 +289,17 @@ export default function CvMallarClient(p: {
     else setSparr('cv-export')
   }
 
-  const laddaNer = useCallback(
-    async (m: MallKort = mall, f: Format = format) => {
+  // [antal] kvar i CV:t: raden vid knappen och arket före filen (efterrättning A).
+  const platshallare = useMemo(() => (cv ? platshallareIRad(cv.structured_data, cv.cv_text) : []), [cv])
+  const forstaMedSiffra = platshallare[0]?.avsnitt
+  const siffror = useSiffrorKvar(
+    platshallare,
+    cv && forstaMedSiffra ? { href: arbetslageHref(cv.id, 'mallar', { avsnitt: forstaMedSiffra, mall: mallId, val }) } : null
+  )
+
+  const skapaFil = useCallback(
+    async (m: MallKort, f: Format) => {
       if (!cv) return
-      const t = m.niva === 'gratis' ? 'free' : 'premium'
-      capture('nedladdning_klickad', { template: m.id, format: f, inloggad: true, surface: SURFACE, tier: t })
-      setFel(null)
-      if (f === 'docx' && m.niva === 'premium' && !p.harWord) return setSparr('cv-export-word')
-      if (m.niva === 'premium' && !p.initialIsPremium) return setSparr('mall')
-      if (p.gratisAnvand) return saljEllerVagg()
       const namn = cvData?.personalInfo.fullName || cv.file_name.replace(/\.[^/.]+$/, '')
       const ut = await ladda({
         mall: m.id,
@@ -322,7 +326,25 @@ export default function CvMallarClient(p: {
     },
     // valMedRubriker räknas ur val och CV:t; beroendena nedan räcker.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cv, cvData, mall, format, valMedRubriker, p.harWord, p.initialIsPremium, p.gratisAnvand, ladda, logActivity]
+    [cv, cvData, valMedRubriker, ladda, logActivity]
+  )
+
+  const laddaNer = useCallback(
+    async (m: MallKort = mall, f: Format = format) => {
+      if (!cv) return
+      const t = m.niva === 'gratis' ? 'free' : 'premium'
+      capture('nedladdning_klickad', { template: m.id, format: f, inloggad: true, surface: SURFACE, tier: t })
+      setFel(null)
+      if (f === 'docx' && m.niva === 'premium' && !p.harWord) return setSparr('cv-export-word')
+      if (m.niva === 'premium' && !p.initialIsPremium) return setSparr('mall')
+      if (p.gratisAnvand) return saljEllerVagg()
+      // Samma väg för PDF och Word: arket frågar först, Ladda ner ändå fortsätter här.
+      if (siffror.stoppa(() => void skapaFil(m, f))) return
+      await skapaFil(m, f)
+    },
+    // saljEllerVagg läser bara mallen och sidantalet; beroendena nedan räcker.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cv, mall, format, p.harWord, p.initialIsPremium, p.gratisAnvand, siffror.stoppa, skapaFil]
   )
 
   const sparaRubrik = async (s: Sektion, r: string | null) => {
@@ -465,6 +487,7 @@ export default function CvMallarClient(p: {
       }}
       kanWord={Boolean(p.harWord) || !premiumMall}
       knapp={{ text: knappText, under: knappUnder, onClick: () => void laddaNer(), framsteg, disabled: !cv }}
+      pamin={siffror.rad}
       gratisVag={cv && premiumMall && !p.initialIsPremium ? { mall: gratis, onClick: () => valjMall(gratis.id, 'tryck') } : null}
       premium={p.initialIsPremium}
       onKop={kop}
@@ -492,6 +515,7 @@ export default function CvMallarClient(p: {
       }
     >
       {foto.filInput}
+      {siffror.ark}
       <FotoArkInloggad open={fotoArk} onClose={() => setFotoArk(false)} fotoUrl={fotoUrl} onByt={foto.valj} onTaBort={() => void foto.taBort()} fel={foto.fel} />
 
       {/* "Alla 40" i helskärmens remsa: samma ark som den publika ytan, ovanpå helskärmen. */}

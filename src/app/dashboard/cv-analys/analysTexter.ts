@@ -35,6 +35,20 @@ export const ANALYS = {
       : typ === 'kompetenser'
         ? 'Kompetenser som rekryterare letar efter i roller som dina. Lägg bara till dem du faktiskt har.'
         : 'Vårt förslag beskriver vad du gjorde, rad för rad, med verb först.',
+  // Siffrorna som står kvar i CV:t (efterrättning A 2026-11-21).
+  rubrikAterstar: (n: number) => (n === 1 ? 'En sak återstår' : `${TALORD[n] ?? n} saker återstår`),
+  siffrorIngress: 'Där det står [antal] skriver du ditt eget tal. Markeringen på arket visar var.',
+  siffrorIngressKort: 'Där det står [antal] skriver du ditt eget tal.',
+  siffrorSidorad: (rader: number) =>
+    rader === 1 ? 'En rad väntar på din siffra.' : `${TALORD[rader] ?? rader} rader väntar på dina siffror.`,
+  medSiffror: 'med dina siffror',
+  siffrorTalAria: (idag: number, med: number) => `Läsbarhetspoängen är ${idag} av 100 i dag och ${med} med dina siffror.`,
+  borjaMedSiffror: 'Börja med dina siffror',
+  siffrorRubrik: 'Dina siffror',
+  siffrorText: 'Vi skriver aldrig tal åt dig. Där det står [antal] fyller du i ditt eget, till exempel hur många kunder, order eller kronor.',
+  siffrorKort: 'Där det står [antal] fyller du i ditt eget tal.',
+  siffrorKnapp: 'Fyll i siffrorna',
+  siffrorAlt: 'dina siffror',
   inget: 'Inget drar ner just nu',
   ingetRad: 'Förslagen höjer inte poängen. Ditt CV är redo för en mall.',
   nuvarande: 'Nuvarande text',

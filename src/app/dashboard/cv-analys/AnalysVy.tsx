@@ -94,13 +94,18 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   const vy = data.vy;
   const mall = MALL_KATALOG.find((m) => m.id === data.mallId) ?? MALL_KATALOG[0];
   const fynd = vy?.fynd ?? [];
-  const forsta = fynd.find((f) => f.oppen) ?? null;
+  // Siffrorna ([antal] kvar i CV:t) är ett fynd bland de andra men inget
+  // förslag: de fälls ut först när inget förslag är öppet.
+  const siffror = fynd.find((f) => f.typ === 'siffror') ?? null;
+  const baraSiffror = siffror !== null && fynd.length === 1;
+  const forsta = fynd.find((f) => f.oppen && f.typ !== 'siffror') ?? siffror;
   const lastaFinns = fynd.some((f) => !f.oppen);
   const p = vy?.poang ?? null;
   const cvQ = data.cvId ? `&cv=${encodeURIComponent(data.cvId)}` : '';
   const jobbHref = (steg: 4 | 5, valj: string) =>
     vy ? `/dashboard/cv-analys?job=${encodeURIComponent(vy.jobbId)}${cvQ}&steg=${steg}&valj=${encodeURIComponent(valj)}` : '#';
   const mallarHref = flikHref('mallar', data.cvId, { mall: mall.id });
+  const siffrorHref = siffror && data.cvId ? arbetslageHref(data.cvId, 'analys', { avsnitt: siffror.sektion, mall: mall.id }) : null;
   const paywall = getPaywallCopy('analys');
 
   const markeringar: ArkMarkering[] = useMemo(
@@ -154,21 +159,24 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   /* ------------------------------------------------------------- väggen */
 
-  const talRad = p ? (
-    <div className="cv4-tal-rad" role="img" aria-label={ANALYS.talAria(p.idag, p.medAlla)}>
-      <div className="cv4-tal" data-nu>
-        <b>{p.idag}</b>
-        <span>{ANALYS.idag}</span>
+  // Bara siffrorna kvar: andra talet är poängen med hennes siffror (inget plus, inget andra tal).
+  const senare = baraSiffror ? (siffror!.plus > 0 ? { tal: p ? p.idag + siffror!.plus : 0, text: ANALYS.medSiffror } : null) : p ? { tal: p.medAlla, text: ANALYS.medForslag } : null;
+  const talRad =
+    p && senare ? (
+      <div className="cv4-tal-rad" role="img" aria-label={baraSiffror ? ANALYS.siffrorTalAria(p.idag, senare.tal) : ANALYS.talAria(p.idag, p.medAlla)}>
+        <div className="cv4-tal" data-nu>
+          <b>{p.idag}</b>
+          <span>{ANALYS.idag}</span>
+        </div>
+        <svg className="cv4-tal-pil" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M2 12h28M22 4l8 8-8 8" />
+        </svg>
+        <div className="cv4-tal" data-sen>
+          <b>{senare.tal}</b>
+          <span>{senare.text}</span>
+        </div>
       </div>
-      <svg className="cv4-tal-pil" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M2 12h28M22 4l8 8-8 8" />
-      </svg>
-      <div className="cv4-tal" data-sen>
-        <b>{p.medAlla}</b>
-        <span>{ANALYS.medForslag}</span>
-      </div>
-    </div>
-  ) : null;
+    ) : null;
 
   const introSidorad = data.isPremium ? ANALYS.introSidoradPremium : ANALYS.introSidorad;
 
@@ -176,9 +184,25 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     switch (data.lage) {
       case 'resultat': {
         const n = fynd.length;
+        if (baraSiffror && siffrorHref) {
+          return {
+            ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
+            rubrik: ANALYS.rubrikAterstar(1),
+            ingress: ANALYS.siffrorIngress,
+            ingressKort: ANALYS.siffrorIngressKort,
+            knapp: (bred) => (
+              <Link href={siffrorHref} className={`t3-stor${bred ? ' t3-stor-bred' : ''}`} data-fyll-siffror>
+                {ANALYS.siffrorKnapp}
+                <Pil />
+              </Link>
+            ),
+            sidorad: ANALYS.siffrorSidorad(siffror!.rader ?? 1),
+            tal: talRad,
+          };
+        }
         return {
           ogon: ANALYS.ogon(datumKort(vy?.klar ?? null)),
-          rubrik: ANALYS.rubrik(n),
+          rubrik: siffror ? ANALYS.rubrikAterstar(n) : ANALYS.rubrik(n),
           ingress: ANALYS.ingress(n),
           ingressKort: ANALYS.ingressKort(n),
           knapp: (bred) =>
@@ -277,16 +301,19 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
   /* ------------------------------------------------------------- golvet */
 
   const fyndRad = (f: AnalysFynd, nr: number) => {
+    const arSiffror = f.typ === 'siffror';
     const innehall = (
       <>
         <span className="cv4-nr">{nr}</span>
         <span className="cv4-last-text">
           <b>{f.titel}</b>
-          <small>{f.meta}</small>
+          <small>{arSiffror ? ANALYS.siffrorKort : f.meta}</small>
         </span>
-        <span className="cv4-pluspill" aria-label={ANALYS.plusAria(f.plus)}>
-          {ANALYS.plus(f.plus)}
-        </span>
+        {f.plus > 0 ? (
+          <span className="cv4-pluspill" aria-label={ANALYS.plusAria(f.plus)}>
+            {ANALYS.plus(f.plus)}
+          </span>
+        ) : null}
         {f.oppen ? null : (
           <span className="cv4-las" aria-hidden="true">
             <Lock size={16} strokeWidth={2.6} />
@@ -296,7 +323,11 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     );
     return (
       <li key={f.nyckel}>
-        {f.oppen ? (
+        {arSiffror && siffrorHref ? (
+          <Link href={siffrorHref} className="cv4-last" data-fyll-siffror>
+            {innehall}
+          </Link>
+        ) : f.oppen ? (
           <Link href={jobbHref(4, f.nyckel)} className="cv4-last">
             {innehall}
           </Link>
@@ -352,6 +383,38 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
     </div>
   );
 
+  /** Siffrorna utfällda: samma papper som förslagen, men hennes egen uppgift och ingen förslagstext. */
+  const siffrorKort = (f: AnalysFynd, nr: number) => (
+    <div className="cv4-papper" data-papper data-siffror>
+      <div className="cv4-papper-hu">
+        <span className="cv4-nr" data-nu>
+          {nr}
+        </span>
+        <b>{ANALYS.siffrorRubrik}</b>
+        {f.plus > 0 ? (
+          <span className="cv4-pluspill" aria-label={ANALYS.plusAria(f.plus)}>
+            {ANALYS.plus(f.plus)}
+          </span>
+        ) : null}
+      </div>
+      <div className="cv4-spalter">
+        <div className="cv4-spalt" data-ny style={{ gridColumn: '1 / -1' }}>
+          <p>
+            <MedPlatshallare text={ANALYS.siffrorText} />
+          </p>
+        </div>
+      </div>
+      <div className="cv4-fot">
+        <p className="cv4-fot-text">{ANALYS.siffrorSidorad(f.rader ?? 1)}</p>
+        {siffrorHref ? (
+          <Link href={siffrorHref} className="cv4-kn" data-ton="mork" data-fyll-siffror>
+            {ANALYS.siffrorKnapp}
+          </Link>
+        ) : null}
+      </div>
+    </div>
+  );
+
   const premRuta =
     vy && !vy.harFull && lastaFinns ? (
       <div className="cv4-prem" data-kopruta>
@@ -379,7 +442,14 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
         <p className="cv4-ogon" data-ton="koppar">
           {ANALYS.drarNerOgon}
         </p>
-        {forsta ? (
+        {forsta && forsta.typ === 'siffror' ? (
+          <>
+            <h2 id="analys-panel" className="cv4-h2">
+              {ANALYS.borjaMedSiffror}
+            </h2>
+            {siffrorKort(forsta, fynd.indexOf(forsta) + 1)}
+          </>
+        ) : forsta && forsta.typ !== 'siffror' ? (
           <>
             <h2 id="analys-panel" className="cv4-h2">
               {ANALYS.borjaMed(forsta.typ, forsta.roll?.foretag)}
@@ -522,7 +592,7 @@ export default function AnalysVy({ data, cvRad, children }: { data: AnalysSidaDa
 
   const arkAlt = ANALYS.arkAlt(
     data.lage === 'resultat' ? fynd.length : 0,
-    fynd.map((f) => (f.typ === 'roll' ? f.titel : f.typ === 'profil' ? 'sammanfattningen' : 'kompetenserna')).join(', ')
+    fynd.map((f) => (f.typ === 'roll' ? f.titel : f.typ === 'profil' ? 'sammanfattningen' : f.typ === 'siffror' ? ANALYS.siffrorAlt : 'kompetenserna')).join(', ')
   );
 
   const hoger = (

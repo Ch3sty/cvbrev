@@ -18,25 +18,33 @@ import {
   poangsattAnalys,
   raknaPoang,
   harPlatshallare,
+  platshallareKvar,
+  plusForSiffror,
   type CvRad,
+  type SiffrorAvsnitt,
   type PoangKategori,
   type PoangSammanfattning,
   type Val,
 } from '@/lib/cv/poang'
 
-export type FyndTyp = 'profil' | 'roll' | 'kompetenser'
+export type FyndTyp = 'profil' | 'roll' | 'kompetenser' | 'siffror'
 
 export interface AnalysFynd {
-  /** profil, roll-<index i resultatets rollista> eller kompetenser. Väljer förslaget i flödet (?valj=). */
+  /**
+   * profil, roll-<index i resultatets rollista>, kompetenser eller siffror.
+   * Väljer förslaget i flödet (?valj=); siffror går till arbetsläget.
+   */
   nyckel: string
   typ: FyndTyp
   titel: string
   /** "Rollbeskrivning. Hög påverkan." */
   meta: string
-  /** Verkligt plus ur poängmodellen. */
+  /** Verkligt plus ur poängmodellen. Siffrorna: noll när talen inte ändrar poängen. */
   plus: number
-  /** Avsnittet på arket. */
-  sektion: 'profil' | 'erfarenhet' | 'kompetenser'
+  /** Avsnittet på arket (och i arbetsläget för siffrorna). */
+  sektion: SiffrorAvsnitt
+  /** Siffrorna: rader med [antal] kvar. */
+  rader?: number
   /** Rollens titel och arbetsgivare, för markeringen på arket. */
   roll?: { titel: string; foretag: string }
   /** Åtgärden syns (Premium, eller det gratisnivån får). */
@@ -207,11 +215,32 @@ export function byggAnalysVy(
     }
   }
 
+  // Siffrorna som står kvar ([antal] i CV:t): ett fynd bland de andra, sist
+  // vid lika plus. Plus är poäng(CV med talen ifyllda) minus poäng i dag.
+  // Öppet också för gratisnivån: det är hennes egen uppgift, ingen åtgärd från oss.
+  const kvar = platshallareKvar(bas)
+  if (kvar.length > 0) {
+    const plus = plusForSiffror(bas)
+    const forsta = kvar[0]
+    const e = forsta.avsnitt === 'erfarenhet' && forsta.index !== undefined ? bas.experience[forsta.index] : null
+    fynd.push({
+      nyckel: 'siffror',
+      typ: 'siffror',
+      titel: 'Dina siffror',
+      meta: plus > 0 ? `Dina egna tal. ${paverkan(plus)}` : 'Dina egna tal.',
+      plus,
+      sektion: forsta.avsnitt,
+      ...(e ? { roll: { titel: text(e.position), foretag: text(e.company) } } : {}),
+      rader: kvar.length,
+      oppen: true,
+    })
+  }
+
   // Störst effekt först; lika plus behåller ordningen ovan. Gratis: det första
-  // öppna fyndet (det hon får med åtgärd) står först, som på Ditt CV.
+  // öppna förslaget (det hon får med åtgärd) står först, som på Ditt CV.
   fynd.sort((a, b) => b.plus - a.plus)
   if (!harFull) {
-    const i = fynd.findIndex((f) => f.oppen)
+    const i = fynd.findIndex((f) => f.oppen && f.typ !== 'siffror')
     if (i > 0) fynd.unshift(...fynd.splice(i, 1))
   }
 

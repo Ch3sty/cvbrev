@@ -34,6 +34,15 @@ export {
 } from './forslag'
 export { analysForKlient } from './utlamning'
 export {
+  platshallareKvar,
+  platshallareIRad,
+  medSiffror,
+  plusForSiffror,
+  SIFFRA_FOR_PLUS,
+  type PlatshallareKvar,
+  type SiffrorAvsnitt,
+} from './siffror'
+export {
   delaKompetens,
   stadaKompetenser,
   kompetenserIcv,

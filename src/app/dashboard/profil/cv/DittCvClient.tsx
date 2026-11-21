@@ -52,7 +52,8 @@ import type { CvListRad } from '@/components/cv/rum3/BytCvArk';
 import { DokumentBanaDator, DokumentBanaMobil, type BanaSteg } from '@/components/cv/rum3/DokumentBana';
 import SkrivFranBorjan from '@/components/cv/rum3/SkrivFranBorjan';
 import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
-import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, VAGG } from '@/components/cv/rum3/texter';
+import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, SIFFROR, VAGG } from '@/components/cv/rum3/texter';
+import { platshallareIRad } from '@/lib/cv/poang';
 
 // Syns aldrig i första vyn: snabbpoängen bara direkt efter första
 // uppladdningen, betalväggen bara när ett låst fynd trycks.
@@ -97,7 +98,7 @@ export interface DittCvData {
   harFoto: boolean;
 }
 
-type Lage = 'ny' | 'utkast' | 'analysera' | 'analysera-sparr' | 'atgarda' | 'ladda-ner' | 'brev';
+type Lage = 'ny' | 'utkast' | 'analysera' | 'analysera-sparr' | 'atgarda' | 'siffror' | 'ladda-ner' | 'brev';
 
 /** Rubrikens storlek ur längden, så att den ryms på två rader på väggen. */
 function rubrikPx(text: string): number {
@@ -182,8 +183,13 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
   const atgardad = vag?.[2]?.status === 'gjord';
   const nedladdad = vag?.[3]?.status === 'gjord';
   const kvotSlut = !data.analysFull && data.analysKvar !== null && data.analysKvar <= 0;
+  // [antal] kvar i CV:t (efterrättning A): då är nästa steg hennes siffror, inte nedladdningen.
+  const platshallare = useMemo(
+    () => (aktivt ? platshallareIRad(aktivt.structured_data, aktivt.cv_text) : []),
+    [aktivt]
+  );
 
-  const lage: Lage = !aktivt
+  const lageForeSiffror: Lage = !aktivt
     ? 'ny'
     : utkast
       ? 'utkast'
@@ -196,6 +202,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           : !nedladdad
             ? 'ladda-ner'
             : 'brev';
+  const lage: Lage =
+    platshallare.length > 0 && (lageForeSiffror === 'ladda-ner' || lageForeSiffror === 'brev') ? 'siffror' : lageForeSiffror;
 
   const mall: MallKort = katalog.find((m) => m.id === data.mallId) ?? katalog[0];
   const urval = useMemo(() => merforsaljningsUrval(katalog, mall.id, 1, data.harFoto), [katalog, mall.id, data.harFoto]);
@@ -345,6 +353,18 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           knapp: lank(atgardaHref!, NASTA.atgarda.knapp),
           knappBred: lank(atgardaHref!, NASTA.atgarda.knapp, true),
           sidorad: NASTA.atgarda.sidorad,
+        };
+      }
+      case 'siffror': {
+        const href = arbetslageHref(aktivt.id, 'ditt-cv', { avsnitt: platshallare[0].avsnitt, mall: mall.id });
+        return {
+          ogon: SIFFROR.ogon,
+          rubrik: SIFFROR.rubrik,
+          text: SIFFROR.text(platshallare.length),
+          textKort: forstaMeningen(SIFFROR.text(platshallare.length)),
+          knapp: lank(href, SIFFROR.knapp),
+          knappBred: lank(href, SIFFROR.knapp, true),
+          sidorad: null,
         };
       }
       case 'ladda-ner':

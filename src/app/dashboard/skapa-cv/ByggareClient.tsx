@@ -47,6 +47,8 @@ import { GUIDAD, antalKlara, filnamnFor, guidadPlats, harInnehall, miniminiva, t
 import { spokAvsnitt } from '@/lib/cv/bygg/spok'
 import { utanBygge, type Entry } from '@/lib/cv/bygg/kalla'
 import type { ArkVal } from '@/lib/cv/bygg/ark'
+import { platshallareKvar } from '@/lib/cv/poang'
+import { useSiffrorKvar } from '@/components/cv/rum3/SiffrorKvar'
 import StartBlad from './StartBlad'
 import ArbetsArk, { type ArkMal } from './ArbetsArk'
 import { ArbetsKontext, type Arbete } from './blad/Ram'
@@ -502,6 +504,13 @@ export default function ByggareClient(p: ByggareProps) {
     else setSparr('cv-export')
   }
 
+  // [antal] kvar i det sparade CV:t: raden under knappen och arket före filen.
+  const platshallare = useMemo(() => platshallareKvar(ren), [ren])
+  const siffror = useSiffrorKvar(
+    platshallare,
+    platshallare[0] ? { onClick: () => gaTill(arkForParam(cvRef.current, platshallare[0].avsnitt)) } : null
+  )
+
   const laddaNer = async (m: MallKort = mall, f: Format = format) => {
     const tier = m.niva === 'gratis' ? 'free' : 'premium'
     capture('nedladdning_klickad', { template: m.id, format: f, inloggad: true, surface: SURFACE, tier })
@@ -510,6 +519,12 @@ export default function ByggareClient(p: ByggareProps) {
     if (m.niva === 'premium' && !p.isPremium) return setSparr('mall')
     if (p.gratisAnvand) return void saljEllerVagg()
     if (utkastRef.current && sparaRef.current && !sparaRef.current()) return
+    // [antal] kvar: arket frågar först, Ladda ner ändå fortsätter (efterrättning A).
+    if (siffror.stoppa(() => void skapaFil(m, f), platshallareKvar(utanBygge(cvRef.current)))) return
+    await skapaFil(m, f)
+  }
+
+  const skapaFil = async (m: MallKort, f: Format) => {
     await ko.current
     const id = cvIdRef.current
     const c = cvRef.current
@@ -758,6 +773,8 @@ export default function ByggareClient(p: ByggareProps) {
             </span>
           </button>
         </div>
+        {siffror.rad}
+        {siffror.ark}
         {fel ? (
           <p role="alert" className="rounded-xl bg-papper px-3 py-2 text-sm text-fel">
             {fel}

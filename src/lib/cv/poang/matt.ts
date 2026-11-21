@@ -63,7 +63,10 @@ export function pastaenden(rader: readonly unknown[]): string[] {
  */
 export const PLATSHALLARE_TAL = '[antal]'
 
-const PLATSHALLARE_RE = /\[[^\]\n]{1,30}\]/g
+/** Mönstret för en platshållare: kort text inom hakparentes ("[antal]"). */
+export const PLATSHALLARE_MONSTER = '\\[[^\\]\\n]{1,30}\\]'
+
+const PLATSHALLARE_RE = new RegExp(PLATSHALLARE_MONSTER, 'g')
 
 /** Texten utan platshållare inom hakparentes. */
 export function utanPlatshallare(text: string): string {
@@ -72,7 +75,7 @@ export function utanPlatshallare(text: string): string {
 
 /** Har texten en platshållare som användaren ska fylla i? */
 export function harPlatshallare(text: unknown): boolean {
-  return typeof text === 'string' && /\[[^\]\n]{1,30}\]/.test(text)
+  return typeof text === 'string' && new RegExp(PLATSHALLARE_MONSTER).test(text)
 }
 
 /** Talen i en text, normaliserade ("35,5" och "35.5" blir samma). */
