@@ -467,3 +467,21 @@ Slutkontrollens resultat står i `docs/qa/brev-rummet-slutkontroll-2026-11-21.md
 
 - Bara etapp 3: `git revert` på etapp 3:s commits (från `5fde4de8` och framåt på grenen).
 - Hela brevrummet: `git revert -m 1` på sammanslagningen till main, eller återställ `src/app/dashboard/mina-brev`, `src/app/dashboard/skapa-brev`, `src/components/brev3`, `src/lib/letters`, `src/app/api/letters`, `src/app/brev3.css` (och importen i `src/app/dashboard/layout.tsx`) till läget före grenen. Migreringen är bara tillägg; kolumnerna kan ligga kvar (se "Körningar mot produktion"). Köpreturen (`src/lib/stripe/kopRetur.ts`) och exporterna i `src/lib/cv/**` backas med samma revert.
+
+## Putsning av fem brevmallar 2026-11-21, gren `fix/brevmallar-puts`, arbetskopia `brev-a`
+
+Art directorns fem beslut efter kontaktarken. CV-mallarna är orörda: ingen fil under `src/lib/cv/**` eller `src/components/cv/**` ändrades, och sha256 på CV:ts HTML (40 mallar, 15 med foto) och Word (26) är identiska före och efter. Brevets HTML och Word är identiska för de 36 övriga mallarna.
+
+- **Tabellen:** `src/lib/letters/brevmall/puts.ts` (`BREV_PUTS`, fryst). `brevDef` lägger raden på sin kopia (sida, huvud, band, ruta kopieras innan de ändras), `brevMatt` läser `brod`, `brevCss` läser `block` och `css`, `brevArendeFarg` (render.ts, används också av word.ts) läser `arendeAccent`, `uppskattadHojd` läser `teckenEm`. Kontrasten ligger nu i `kontrast.ts` (render.ts exporterar den som förut).
+- **Not:** sidmarginalerna 16 till 40 mm (huvudet och linjen följer med), brödtexten 11 pt i steg 0. Längsta raden 80 tecken i korta brevet (steg 0, 11 pt) och 93 i långa (steg 1, 10,5 pt), förut 119 och 123. Långt brev steg 1. Namnet får minst 45 % av huvudet så att en lång e-post bryts i kontakten. Word: samma marginaler och grad; uppskattningen räknar Calibri med 0,42 em per tecken (andra typsnitt som förut med 0,5).
+- **Mörkrum:** bandet 52 (i praktiken 58) till 40,5 mm: luft 8/5 mm, luft under namn och titel 1 och 2,5 mm, namnet i samma grad (34 pt). Långt brev steg 2 till steg 1. Ärenderaden i accenten mörkad till kontrast 4,5 (förvald orange blir #906d4c).
+- **Kvadrat:** rutan 56 till 32 mm (26 mm i första varvet var för litet: namnet blev mindre än titeln), namnet på två rader (delat där den längsta raden blir kortast, mellanslag före bindestreck) i 9 till 15 pt, Erik Lindberg 14 pt. Namnet är huvudets största text: blir det mindre än titelns 13 pt sänks titeln till namnets grad, bara i brevet. Rutan är kvadratisk med `aspect-ratio` och växer om ett namn inte ryms vid 9 pt (Anna-Karin Bergströmsson-Lind: 40 mm), så att namnet aldrig klipps; uppskattningen räknar med rutans storlek för namnet. Långt brev steg 1, slutar 255 av 279 mm.
+- **Panorama:** ärenderaden i accenten (plommon #8C2F39, kontrast räcker), brödtexten 11 pt, bandets luft 12/10 till 10/8 mm så att långa brevet ryms i steg 1.
+- **Siluett:** oförändrad. Namnet syns i miniatyren i 150 px bredd.
+- **Word bland de fem:** bara Not.
+- **Tester:** `src/lib/letters/brevmall/__tests__/puts.test.ts`.
+
+### Hur man backar
+
+- En mall: ta bort dess rad i `PUTS` i puts.ts (och id:t i testets lista).
+- Allt: `git revert` på putsningens commit.

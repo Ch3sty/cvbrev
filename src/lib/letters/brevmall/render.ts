@@ -23,7 +23,7 @@
  * Inga Node-moduler: renderaren kan laddas dynamiskt i klienten.
  */
 import type { MallVal, TypsnittId } from '@/lib/cv/mallar/kontrakt'
-import { allaTypsnitt, los, matt, palett, type Hex } from '@/lib/cv/mallar/farg'
+import { allaTypsnitt, los, matt, palett, type Hex, type Palett } from '@/lib/cv/mallar/farg'
 import { fontFace, TYPSNITT_FILER } from '@/lib/cv/mallar/typsnitt-filer'
 import { mallCss, mallHuvud, namnGradTvaRader, type MallCtx } from '@/lib/cv/mallar/render/html'
 import type { Dokument, KontaktRad } from '@/lib/cv/mallar/innehall'
@@ -32,6 +32,8 @@ import { getMall, getMallMedAlias } from '@/lib/cv/mallar/register'
 import { BREV_FORVALD_MALL } from './katalog'
 import { arendeRad, avslutsRad, datumRad, halsningsRad, hittaMarkeringar, rensadeStycken, type Traff } from './text'
 import type { BrevData, BrevRenderVal, BrevVal } from './typer'
+import { kontrast } from './kontrast'
+import { brevPuts, laggPaPuts, morkTillKontrast, namnIRuta } from './puts'
 
 /** Steget i krympningen: 0 ingen, 1 och 2 mindre grad och radavstånd. */
 export type BrevSteg = 0 | 1 | 2
@@ -54,16 +56,17 @@ export function harKontaktspalt(def: MallDef): boolean {
 /**
  * Definitionen som brevet ritas med: utan foto och utan det som bara hör
  * till ett CV. Layouten blir en spalt, utom sidospalt med kontakten.
+ * Brevets egna tillägg per mall (puts.ts) läggs på kopian; `def` rörs aldrig.
  */
 export function brevDef(def: MallDef): MallDef {
-  return {
+  return laggPaPuts({
     ...def,
     foto: undefined,
     tidsaxel: false,
     profilSpalter: false,
     rutor: undefined,
     layout: harKontaktspalt(def) ? def.layout : { typ: 'enspalt' },
-  }
+  })
 }
 
 /** Brevets val som CV-mallens val: accentens plats bland mallens fyra och typsnittet. */
@@ -84,21 +87,18 @@ export function mallValFor(def: MallDef, val?: BrevVal): MallVal {
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
 
-/** Relativ luminans (WCAG) för en hexfärg. */
-function luminans(hex: string): number {
-  const s = hex.replace('#', '')
-  const full = s.length === 3 ? s.split('').map((c) => c + c).join('') : s.slice(0, 6)
-  const [r, g, b] = [0, 2, 4].map((i) => {
-    const v = parseInt(full.slice(i, i + 2), 16) / 255
-    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4
-  })
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b
-}
+export { kontrast }
 
-/** Kontrasten mellan två färger, 1 till 21. */
-export function kontrast(a: string, b: string): number {
-  const [x, y] = [luminans(a), luminans(b)].sort((p, q) => q - p)
-  return (x + 0.05) / (y + 0.05)
+/**
+ * Ärenderadens färg: rubrikernas färg om den har minst 4,5 mot papperet
+ * (annars textfärgen), eller med putsningens arendeAccent mallens accent
+ * mörkad tills kontrasten räcker. Samma i HTML och Word.
+ */
+export function brevArendeFarg(def: MallDef, p: Palett): string {
+  const sida = def.farger.sida ?? '#ffffff'
+  if (brevPuts(def.id)?.arendeAccent) return morkTillKontrast(p.accent, sida, 4.5)
+  const rubrikFarg = los(def.rubrik.farg, p, p.accent)
+  return kontrast(rubrikFarg, sida) >= 4.5 ? rubrikFarg : p.text
 }
 
 /** Avsändarens kontaktrader i CV:ts ordning: e-post, telefon, ort. */
@@ -144,7 +144,7 @@ function kontaktAvsnitt(rader: KontaktRad[], rubrik: string): string {
 /** Brödtextens grad, radavstånd och styckeluft per steg. */
 export function brevMatt(def: MallDef, steg: BrevSteg): { grad: number; rad: number; luft: number } {
   // Brevet läses som löptext: en punkt över CV:ts brödtext och luftigare rader.
-  const grad = Math.min(12, Math.max(10.5, def.grad.brod + 1))
+  const grad = brevPuts(def.id)?.brod ?? Math.min(12, Math.max(10.5, def.grad.brod + 1))
   const rad = Math.min(1.6, Math.max(1.45, def.radavstand + 0.22))
   if (steg === 1) return { grad: grad - 0.5, rad: rad - 0.1, luft: 3.2 }
   if (steg === 2) return { grad: Math.max(9, grad - 1), rad: Math.max(1.3, rad - 0.2), luft: 2.6 }
@@ -164,35 +164,41 @@ export function textbreddMm(def: MallDef): number {
 
 /**
  * Uppskattad höjd på brevet i mm vid ett steg, utan att rita det: tecken per
- * rad ur textbredden och graden (ungefär 0,5 em per tecken), plus huvudet och
- * de fasta raderna. Word-filen väljer sitt steg med den; HTML:en mäter.
+ * rad ur textbredden och graden (ungefär 0,5 em per tecken, putsningens
+ * teckenEm för brödtypsnittet om den finns), plus huvudet och de fasta
+ * raderna. Word-filen väljer sitt steg med den; HTML:en mäter.
  */
-export function uppskattadHojd(defIn: MallDef, data: BrevData, steg: BrevSteg): number {
+export function uppskattadHojd(defIn: MallDef, data: BrevData, steg: BrevSteg, val?: BrevVal): number {
   const def = brevDef(defIn)
   const m = brevMatt(def, steg)
   const PT = 0.3528
   const bredd = textbreddMm(def)
-  const tecken = Math.max(20, Math.floor(bredd / (m.grad * PT * 0.5)))
+  const em = brevPuts(def.id)?.teckenEm?.[mallValFor(def, val).typsnitt ?? def.typsnitt.brod] ?? 0.5
+  const tecken = Math.max(20, Math.floor(bredd / (m.grad * PT * em)))
   const radMm = m.grad * m.rad * PT
   const stycken = rensadeStycken(data)
   const rader = stycken.reduce((sum, s) => sum + Math.max(1, Math.ceil(s.length / tecken)), 0)
   const h = def.huvud
   const band = h.form === 'band' && h.band ? Math.max(h.band.minHojd ?? 0, h.band.luft.topp + h.band.luft.botten + def.grad.namn * 1.2 * PT + 10) : 0
-  const huvud = (band || def.sida.topp + def.grad.namn * 1.2 * PT + def.grad.titel * 1.4 * PT + (harKontaktspalt(def) ? 0 : 6)) + 14
+  // Namnrutan (Kvadrat): rutans sida, eller texten bredvid om den är högre.
+  const pb = brevPuts(def.id)?.block
+  const ruta = h.block ? (pb ? namnIRuta(data.avsandare.namn ?? '', pb).rutaMm : h.block.storlek) : 0
+  const block = h.form === 'block-vanster' && h.block ? def.sida.topp + Math.max(ruta, def.grad.titel * 1.4 * PT + 3 * def.grad.kontakt * 1.5 * PT + h.luftKontakt) : 0
+  const huvud = (band || block || def.sida.topp + def.grad.namn * 1.2 * PT + def.grad.titel * 1.4 * PT + (harKontaktspalt(def) ? 0 : 6)) + 14
   const fasta = 4 * radMm + 6.5 + 7.5 + 5 + radMm * 3 + 7
   return huvud + fasta + rader * radMm + stycken.length * m.luft
 }
 
 /** Steget som uppskattningen säger räcker för en sida (Word). */
-export function uppskattatSteg(def: MallDef, data: BrevData): BrevSteg {
+export function uppskattatSteg(def: MallDef, data: BrevData, val?: BrevVal): BrevSteg {
   const grans = 297 - def.sida.botten
-  for (const s of [0, 1, 2] as const) if (uppskattadHojd(def, data, s) <= grans) return s
+  for (const s of [0, 1, 2] as const) if (uppskattadHojd(def, data, s, val) <= grans) return s
   return 2
 }
 
 /* ------------------------------------------------------------ brevets CSS */
 
-function brevCss(def: MallDef, c: MallCtx): string {
+function brevCss(def: MallDef, c: MallCtx, namnPt?: number): string {
   const { p, f } = c
   const h = def.huvud
   const l = def.layout
@@ -200,8 +206,7 @@ function brevCss(def: MallDef, c: MallCtx): string {
   const r = def.rubrik
 
   // Ärenderaden i rubrikernas typsnitt och färg, om färgen syns mot papperet (Skylt har vita rubriker på band).
-  const rubrikFarg = f(r.farg, p.accent)
-  const arendeFarg = kontrast(rubrikFarg, sida) >= 4.5 ? rubrikFarg : p.text
+  const arendeFarg = brevArendeFarg(def, p)
 
   // Papperets bakgrund: sidospaltens färg i hela sidans höjd, Kants färgkant, annars sidans färg.
   let bakgrund: string = sida
@@ -296,6 +301,20 @@ mark[data-krav]:nth-of-type(even){background:rgba(47,125,91,.32)}
   if (def.sockel) ut.push(`.brev .sockel{position:absolute!important;left:0;right:0;bottom:0}`)
   if (def.sidram) ut.push(`.brev .sidram{position:absolute!important}`)
 
+  // Namnrutan (putsningen, Kvadrat): kvadratisk, minst rutans sida, växer med namnet så att det aldrig klipps.
+  const pb = brevPuts(def.id)?.block
+  if (pb && h.form === 'block-vanster') {
+    const np = namnPt ?? pb.maxNamnPt
+    ut.push(`.brev .namnruta{width:auto;height:auto;min-width:${pb.storlek}mm;aspect-ratio:1/1}
+.brev .namnruta .namn{font-size:${np}pt;line-height:1.12;overflow-wrap:normal}
+.brev .namnruta .namnrad{display:block;white-space:nowrap}
+.brev .huvud-block{gap:6mm}`)
+    // Namnet är huvudets största text: titeln bredvid aldrig större än namnet i rutan.
+    if (def.grad.titel > np) ut.push(`.brev .huvud-block .titel{font-size:${np}pt}`)
+  }
+  const egenCss = brevPuts(def.id)?.css
+  if (egenCss) ut.push(egenCss)
+
   return ut.join('\n')
 }
 
@@ -385,7 +404,15 @@ export function renderBrevHtml(mallId: string, data: BrevData, val: BrevVal = {}
   const spalt = l.typ === 'sidospalt' && l.spalt.kontakt ? l.spalt : null
   const huvudISpalt = Boolean(spalt?.huvudISpalten)
 
-  const huvudHtml = huvudISpalt ? '' : mallHuvud(dok, c)
+  // Namnrutan (putsningen, Kvadrat): namnet på två rader i en grad som ryms i rutan.
+  const pb = brevPuts(def.id)?.block
+  const iRuta = pb && h.form === 'block-vanster' ? namnIRuta(dok.namn, pb) : undefined
+  let huvudHtml = huvudISpalt ? '' : mallHuvud(dok, c)
+  if (iRuta) {
+    const fore = `<div class="namnruta"><h1 class="namn" data-falt="namn">${esc(dok.namn)}</h1>`
+    const rader = iRuta.rader.map((r) => `<span class="namnrad">${esc(r)}</span>`).join(' ')
+    huvudHtml = huvudHtml.replace(fore, `<div class="namnruta"><h1 class="namn" data-falt="namn">${rader}</h1>`)
+  }
   const topp = iTopp ? `<div class="brev-topp">${huvudHtml}</div>` : ''
   const skiljare = '<div class="brev-skiljare" aria-hidden="true"></div>'
   const huvudspalt = `<td class="brev-huvudspalt${spalt ? ' med-spalt' : ''}">${iTopp ? '' : huvudHtml}${skiljare}${brevText(data, opt)}</td>`
@@ -419,7 +446,7 @@ export function renderBrevHtml(mallId: string, data: BrevData, val: BrevVal = {}
 <title>${esc(titel)}</title>
 <style>${typsnitt}</style>
 <style>${mallCss(c)}</style>
-<style>${brevCss(def, c)}</style>
+<style>${brevCss(def, c, iRuta?.pt)}</style>
 </head>
 <body><div class="cv brev mall-${esc(def.id)} familj-${def.familj}" data-steg="${steg}" data-grans="${brevGransMm(def)}"${last}>${topp}${tabell}${sockel}${sidram}</div>${passaSkript(brevGransMm(def))}</body>
 </html>`
