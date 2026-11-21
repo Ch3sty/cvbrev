@@ -61,6 +61,8 @@ export type BetalvaggPlats =
   | 'test_tak'
   | 'cv_antal'
   | 'af_rapport'
+  /** Uppföljningsmejlet på en sökt tjänst: gratisutkastet är använt (Jobbsöket omgång 1, F5). */
+  | 'uppfoljning'
   | 'nedgraderad'
   | 'prenumeration'
   | 'smart_ton'

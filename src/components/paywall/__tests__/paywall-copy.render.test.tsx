@@ -105,6 +105,14 @@ describe('betalväggarnas copy per spärr', () => {
     expect(document.body.textContent).not.toMatch(/[Dd]agens meddelanden/)
   })
 
+  it('uppföljningsmejlet: egen rubrik och text, köpknappen och länken till prissidan', () => {
+    render(<PaywallCard variant="uppfoljning" bare />)
+    expect(screen.getByText('Fler uppföljningsmejl ingår i Premium')).toBeTruthy()
+    expect(screen.getByText(/Ditt gratis utkast är använt på en annan tjänst/)).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Köp Premium/ })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
+  })
+
   it('ingen variant innehåller talstreck, gamla paket eller för lång knapp', () => {
     const varianter = [
       'mall',
@@ -122,6 +130,7 @@ describe('betalväggarnas copy per spärr', () => {
       'af-rapport',
       'linkedin',
       'historik',
+      'uppfoljning',
     ] as const
 
     for (const variant of varianter) {

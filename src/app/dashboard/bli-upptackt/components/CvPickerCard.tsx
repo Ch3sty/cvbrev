@@ -14,7 +14,8 @@ interface CvPickerCardProps {
 function formatUpdated(cv: CvOption): string {
   const date = cv.updated_at ?? cv.created_at;
   if (!date) return '';
-  return new Date(date).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' });
+  // Svensk tid uttryckligen: servern (UTC) och webbläsaren ska skriva samma dag, annars varnar hydreringen nära midnatt.
+  return new Date(date).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' });
 }
 
 /**

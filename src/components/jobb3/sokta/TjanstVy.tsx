@@ -187,7 +187,8 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
     }
     return {
       rubrik: r.rubrik,
-      datum: kortDag(r.datum),
+      // Händelsens egen dag: "Kallad till intervju" visar dagen kallelsen kom, inte intervjutiden.
+      datum: handelseEtikett(r),
       text: r.text || kanTas ? text : undefined,
       lage: 'klar',
       ikon: r.typ === 'foljde_upp' ? <IkonMejl size={18} /> : r.eventType === 'rejected' || r.eventType === 'declined' ? <IkonAvslag size={18} /> : undefined,

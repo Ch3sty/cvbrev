@@ -7,6 +7,7 @@ import {
   dagarMellan,
   forberedelse,
   franStockholm,
+  handelseEtikett,
   handelselista,
   idagSv,
   intervjuerPaGang,
@@ -453,6 +454,10 @@ describe('händelselistan', () => {
     expect(rader[0]).toMatchObject({ rubrik: 'Ansökan skickad', text: 'Svar på annons, med personligt brev.' })
     expect(rader[1]).toMatchObject({ rubrik: 'Följde upp', datum: '2026-11-10' })
     expect(rader[3].text).toBe('Om 3 dagar. På onsdag frågar vi hur det gick, så loggas den som genomförd.')
+    // Kallad till intervju visar dagen kallelsen kom; intervjutiden står bara på raden Intervju.
+    expect(rader[2].rubrik).toBe('Kallad till intervju')
+    expect(handelseEtikett(rader[2])).toBe('13 nov')
+    expect(handelseEtikett(rader[3])).toBe('tis 24 nov 10.00')
   })
 })
 

@@ -89,6 +89,18 @@ describe('PaywallCard, mätning', () => {
     expect(window.location.href).toBe('/dashboard/valj-spar?paket=all_month&steg=kop&plats=nedladdning')
   })
 
+  it('uppföljningsmejlet mäts med egen plats, och köpet räknas där och inte mot Jobbcoachen', () => {
+    render(<PaywallCard variant="uppfoljning" bare />)
+    expect(captureMock.mock.calls.filter(([namn]) => namn === 'betalvagg_visad')[0][1]).toEqual({ plats: 'uppfoljning', dagar_kvar: null })
+    expect(captureMock.mock.calls.filter(([namn]) => namn === 'paywall_shown')[0][1]).toMatchObject({ variant: 'uppfoljning' })
+    captureMock.mockClear()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Köp Premium, 149 kr i månaden' }))
+
+    expect(captureMock).toHaveBeenCalledWith('paywall_cta_clicked', expect.objectContaining({ variant: 'uppfoljning', cta: 'primary', plan: 'all_month', plats: 'uppfoljning' }))
+    expect(window.location.href).toBe('/dashboard/valj-spar?paket=all_month&steg=kop&plats=uppfoljning')
+  })
+
   it('skickar paywall_cta_clicked med cta secondary för vyns egen handling', () => {
     const onSecondary = vi.fn()
     render(<PaywallCard variant="mall" track="cv" onSecondary={onSecondary} />)

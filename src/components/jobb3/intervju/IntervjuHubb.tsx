@@ -88,7 +88,8 @@ function intervjuKnapp(i: IntervjuPaGang) {
   if (i.lage === 'bokad') return { text: 'Förbered intervjun', href: tjanstHref(i.id, 'forbered') }
   if (i.lage === 'hur_gick') return { text: 'Hur gick det?', href: tjanstHref(i.id, 'hur-gick') }
   if (i.lage === 'utan_tid') return { text: 'Sätt tid', href: tjanstHref(i.id, 'andra-tid') }
-  return { text: 'Hur gick det?', href: tjanstHref(i.id) }
+  // vantar_besked: intervjun är loggad som genomförd och väntar besked. "Hur gick det?" bara när tiden passerat utan genomförd intervju (hur_gick).
+  return { text: 'Uppdatera', href: tjanstHref(i.id) }
 }
 
 export default function IntervjuHubb({ data, intervjuer, now }: { data: InforIntervjunData; intervjuer: IntervjuPaGang[]; now: Date }) {

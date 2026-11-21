@@ -27,7 +27,8 @@ const FAMILY_ORDER: FamilyKey[] = ['matrislogik', 'verbal', 'numerisk'];
 
 function formatDate(iso: string | null): string {
   if (!iso) return '';
-  return new Date(iso).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' });
+  // Svensk tid uttryckligen: servern (UTC) och webbläsaren ska skriva samma dag.
+  return new Date(iso).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' });
 }
 
 /**

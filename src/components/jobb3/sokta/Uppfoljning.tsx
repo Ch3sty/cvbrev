@@ -248,11 +248,8 @@ export default function Uppfoljning({
       <div className="mt-[18px] grid gap-6 xl:mt-[22px] xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
         {lage === 'sparr' ? (
           <SparrRam etikett="Uppföljningsmejlet ingår i Premium">
-            <p className="j3-h3">Fler uppföljningsmejl ingår i Premium</p>
-            <p className="j3-text" style={{ margin: '6px 0 14px' }}>
-              Ditt gratis utkast är använt på en annan tjänst. Med Premium skriver vi ett utkast till varje tjänst du vill följa upp. Du kan också skriva mejlet själv och logga det här.
-            </p>
-            <PaywallCard variant="chatt" del="fot" />
+            {/* Egen variant: rubrik, text, pris, köpknapp och mätning (plats uppfoljning) som de andra väggarna. */}
+            <PaywallCard variant="uppfoljning" bare />
           </SparrRam>
         ) : (
           <TonYta>

@@ -114,7 +114,8 @@ export default function LoggaArk({
     setOrt(r?.location ?? f?.location ?? '')
     setLank(r?.job_ad_url ?? f?.job_ad_url ?? '')
     setAnteckning(r?.notes ?? '')
-    setFler(Boolean(r?.location || r?.job_ad_url || r?.notes))
+    // Förifyllt från en träff (?logga=1&ort=...&lank=...): visa fälten, så att det som följer med syns.
+    setFler(Boolean(r?.location || r?.job_ad_url || r?.notes || (!r && (f?.location || f?.job_ad_url))))
     setFel(null)
   }, [open, redigera, forifyllt, franSparad])
 

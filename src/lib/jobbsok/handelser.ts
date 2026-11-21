@@ -90,9 +90,13 @@ function stor(s: string): string {
   return s.charAt(0).toLocaleUpperCase('sv-SE') + s.slice(1)
 }
 
-/** Datumets etikett i listan: "2 nov", eller "tis 24 nov 10.00" för en intervju med tid. */
+/**
+ * Datumets etikett i listan: händelsens dag ("2 nov"; "Kallad till intervju"
+ * visar dagen kallelsen kom), och "tis 24 nov 10.00" bara på raden för den
+ * kommande intervjun.
+ */
 export function handelseEtikett(r: HandelseListRad): string {
-  if (r.tid) return intervjuEtikett(r.tid) ?? r.datum
+  if (r.typ === 'kommande_intervju' && r.tid) return intervjuEtikett(r.tid) ?? r.datum
   const d = dagFor(r.datum)
   return d ? kortDag(d) : r.datum
 }
