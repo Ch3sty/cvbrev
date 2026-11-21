@@ -4,9 +4,9 @@
  * Övningsprovet i ramen (plan-testflode-2026-11-20 avsnitt 2), för format
  * med en uppgift per del (figurserier nu, deduktivt i etapp 3).
  *
- * - Ringen räknar ned från sessionens start på servern (useExamDeadline-
- *   mönstret: tiden räknas från started_at, en omladdning ger aldrig mer
- *   tid). Hård gräns: vid noll lämnas provet in, utan dialog.
+ * - Ringen räknar ned från sessionens start på servern (tiden räknas från
+ *   started_at, så en omladdning ger aldrig mer tid). Hård gräns: vid noll
+ *   lämnas provet in, utan dialog.
  * - Tryck markerar, Nästa bekräftar; svaret skickas i bakgrunden med kö
  *   och omförsök, samma route och kropp som förut. Fasta format har ‹,
  *   räknaren och uppgiftsarket.
