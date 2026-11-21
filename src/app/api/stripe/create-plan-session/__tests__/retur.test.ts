@@ -73,8 +73,29 @@ describe('create-plan-session, köpet tillbaka till filen', () => {
     expect(arg.metadata.source).toBe('betalvagg:mall:kalksten')
   })
 
-  it('ignorerar en retur som inte är galleriet', async () => {
-    for (const retur of ['https://ond.example/x', '/dashboard/profil?x=1', '//ond.example', '/dashboard/cv-mallar?x=<s>']) {
+  it('godtar brevrummets Mallar och Brevet och skickar tillbaka med ladda=1', async () => {
+    for (const retur of [
+      '/dashboard/mina-brev/mallar?brev=0f8fad5b-d9cb-469f-a165-70867728950e&mall=koppar&format=pdf',
+      '/dashboard/mina-brev/0f8fad5b-d9cb-469f-a165-70867728950e?format=docx',
+    ]) {
+      sessionsSkapa.mockClear()
+      await anrop({ plan: 'all_month', source: 'betalvagg:nedladdning', consent: true, retur })
+      const arg = sessionsSkapa.mock.calls[0][0]
+      expect(arg.success_url, retur).toMatch(new RegExp(`${retur.replace(/[?]/g, '\\?')}&ladda=1&premium_activated=true$`))
+      expect(arg.cancel_url, retur).toMatch(new RegExp(`${retur.replace(/[?]/g, '\\?')}$`))
+    }
+  })
+
+  it('ignorerar en retur som inte är galleriet eller brevrummet', async () => {
+    for (const retur of [
+      'https://ond.example/x',
+      '/dashboard/profil?x=1',
+      '//ond.example',
+      '/dashboard/cv-mallar?x=<s>',
+      '/dashboard/mina-brev?x=1',
+      '/dashboard/mina-brev/inte-ett-id?x=1',
+      '/dashboard/mina-brev/mallar/../../profil?x=1',
+    ]) {
       sessionsSkapa.mockClear()
       await anrop({ plan: 'all_month', source: 'test', consent: true, retur })
       const arg = sessionsSkapa.mock.calls[0][0]
