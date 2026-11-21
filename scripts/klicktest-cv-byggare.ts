@@ -312,7 +312,11 @@ async function fyllKompetenser(page: Page, steg: string) {
 async function fyllProfil(page: Page, steg: string, coach: boolean) {
   await page.click('[data-avsnitt-knapp="profil"]')
   kontroll(Boolean(await vantaPa(page, '#p-text')), `${steg}: profilbladet öppnas`)
-  const rad = await page.evaluate(() => document.body.innerText.includes('Jobbcoachen kan skriva ett förslag utifrån dina jobb'))
+  // Kortet i bladet (arbetsläget); spöktexten "Jobbcoachen kan skriva ett
+  // förslag" står bara i arkets iframe och syns inte i innerText.
+  const rad = await page.evaluate(
+    () => document.body.innerText.includes('Jobbcoachen skriver profilen åt dig') && !!document.querySelector('[data-coach-knapp]')
+  )
   kontroll(rad, `${steg}: profilbladet erbjuder förslaget när ett jobb finns`)
   if (coach) {
     await page.click('[data-coach-knapp]')
@@ -405,7 +409,16 @@ async function gratisFlode(browser: Browser, k: Konto) {
 
   // Ditt CV visar CV:t, återkomst via ?cv=.
   await page.goto(`${BAS}/dashboard/profil/cv`, { waitUntil: 'networkidle2' })
-  kontroll((await page.evaluate(() => document.body.innerText)).includes('CV - Sara Holm'), `${steg}: Mina CV visar CV:t`)
+  // Ditt CV skriver namnet bara när det finns fler än ett CV; med ett CV är
+  // det väggens läge (inte "ny") och CV:t i adressen till Mallar som visar det.
+  const dittCv = await page.evaluate(() => ({
+    lage: document.querySelector('[data-lage]')?.getAttribute('data-lage') ?? null,
+    mallar: [...document.querySelectorAll('a[href*="/dashboard/cv-mallar?cv="]')].map((a) => a.getAttribute('href')),
+  }))
+  kontroll(
+    dittCv.lage !== null && dittCv.lage !== 'ny' && dittCv.mallar.some((h) => h?.includes(rader3[0].id)),
+    `${steg}: Ditt CV visar CV:t (läge ${dittCv.lage})`
+  )
   await bild(page, `${steg}-mina-cv`)
   await page.goto(`${BAS}/dashboard/skapa-cv?cv=${rader3[0].id}`, { waitUntil: 'networkidle2' })
   await vila(1500)

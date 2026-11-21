@@ -16,7 +16,7 @@ const UT = path.join(SCRATCH, 'cv', 'bygge', 'steg4', 'flode')
 fs.mkdirSync(UT, { recursive: true })
 const k = JSON.parse(fs.readFileSync(`${SCRATCH}/qa-cv-analys-konton.json`, 'utf8')).premium
 const sb = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
-const BAS = 'http://localhost:5320'
+const BAS = process.env.BAS ?? 'http://localhost:5320'
 
 async function cookies(epost) {
   const { data: link } = await sb.auth.admin.generateLink({ type: 'magiclink', email: epost })
