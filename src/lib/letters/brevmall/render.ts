@@ -421,6 +421,6 @@ export function renderBrevHtml(mallId: string, data: BrevData, val: BrevVal = {}
 <style>${mallCss(c)}</style>
 <style>${brevCss(def, c)}</style>
 </head>
-<body><div class="cv brev mall-${esc(def.id)} familj-${def.familj}" data-steg="${steg}"${last}>${topp}${tabell}${sockel}${sidram}</div>${passaSkript(brevGransMm(def))}</body>
+<body><div class="cv brev mall-${esc(def.id)} familj-${def.familj}" data-steg="${steg}" data-grans="${brevGransMm(def)}"${last}>${topp}${tabell}${sockel}${sidram}</div>${passaSkript(brevGransMm(def))}</body>
 </html>`
 }

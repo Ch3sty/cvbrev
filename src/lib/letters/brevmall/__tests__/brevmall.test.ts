@@ -71,7 +71,8 @@ describe('renderBrevHtml', () => {
   it('valt typsnitt ersätter brödtextens, en tvingad krympning sätts', () => {
     const html = renderBrevHtml('linne', brev, { typsnitt: 'georgia' }, { steg: 2 })
     expect(html).toMatch(/--typsnitt:Georgia/)
-    expect(html).toContain('data-steg="2" data-last=""')
+    expect(html).toContain('data-steg="2"')
+    expect(html).toContain('data-last=""')
   })
 
   it('accenten väljs bland mallens fyra', () => {
@@ -149,5 +150,20 @@ describe('byggBrevDocx', () => {
     expect(xml).toContain('Kind regards')
     expect(xml).toContain('Application:')
     await expect(byggBrevDocx('morkrum', brev)).rejects.toThrow(/Word/)
+  })
+})
+
+describe('scopaBrevHtml', () => {
+  it('lägger alla regler under behållaren, också i @media, och tar bort skript och @page', async () => {
+    const { scopaBrevHtml, scopaCss } = await import('../scopa')
+    const { css, kropp } = scopaBrevHtml(renderBrevHtml('koppar', brev), 'brevark-x')
+    expect(kropp).not.toContain('<script')
+    expect(kropp).toContain('class="cv brev')
+    expect(css).not.toMatch(/@page/)
+    expect(css).toContain('.brevark-x .huvud-band')
+    expect(css).not.toMatch(/(^|\})\s*\.huvud\{/)
+    expect(scopaCss(':root{--a:1}html,body{margin:0}@media screen{.x{color:red}}@media print{.y{color:blue}}@font-face{font-family:A}', '.s')).toBe(
+      '.s{--a:1}\n.s,.s{margin:0}\n@media screen{.s .x{color:red}}\n@font-face{font-family:A}'
+    )
   })
 })
