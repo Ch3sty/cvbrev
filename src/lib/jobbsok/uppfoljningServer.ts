@@ -10,7 +10,7 @@ import { kravForBrev } from '@/lib/letters/lage'
 import { arPlatshallareNamn } from '@/lib/profile/dokumentKontakt'
 import { skrivUppfoljningsmejl, type AiMejlResultat } from '@/lib/openai/uppfoljningsmejl'
 import { dagFor, idagSv } from './datum'
-import { sattIhop, uppfoljningsmall, valjKompetenser, type Mejl, type UppfoljningUnderlag } from './uppfoljning'
+import { mallAmne, sattIhop, uppfoljningsmall, valjKompetenser, type Mejl, type UppfoljningUnderlag } from './uppfoljning'
 import type { Klient } from './server'
 import type { JobApplication, Uppfoljning } from './typer'
 
@@ -67,7 +67,9 @@ export interface Utkast {
 export async function skrivUtkast(u: UnderlagOchNamn): Promise<Utkast> {
   const ai = await skrivUppfoljningsmejl(u.underlag)
   if (ai.mejl) {
-    return { mejl: { subject: ai.mejl.subject, body: sattIhop(ai.mejl.stycken, u.underlag.sprak, u.namn) }, kalla: 'ai', ai }
+    // Ämnesraden är alltid mallens ("Min ansökan till tjänsten som ...", rökprovet 2026-11-21):
+    // AI:ns egna ämnesrader blev rubrikaktiga ("Uppföljning av ansökan Ekonomiassistent").
+    return { mejl: { subject: mallAmne(u.underlag), body: sattIhop(ai.mejl.stycken, u.underlag.sprak, u.namn) }, kalla: 'ai', ai }
   }
   return { mejl: uppfoljningsmall(u.underlag, u.namn), kalla: 'mall', ai }
 }

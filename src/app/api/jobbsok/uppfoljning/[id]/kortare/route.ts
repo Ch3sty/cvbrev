@@ -38,39 +38,59 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
     return felSvar(409, 'tak', 'Utkastet har skrivits om tre gånger. Ändra direkt i texten.', { omskrivningarKvar: 0 })
   }
 
-  const { underlag, namn, kanda } = await lasUnderlag(s.supabase, s.user.id, tjanst, s.user.email)
-  const mask = (t: string) =>
-    maskForModel(t, {
-      detectNameHeuristically: false,
-      fullName: kanda.namn,
-      knownPhones: [kanda.telefon],
-    }).text
-  const stycken = styckenUrMejl(utkast.body).map(mask)
-  const ordForut = ordIMejlet(utkast.body)
-  const ai = await skrivKortare(mask(utkast.subject), stycken, underlag.sprak, ordForut)
-  await loggaKostnad(s.supabase, s.user.id, ai, 'uppfoljning_kortare', '/api/jobbsok/uppfoljning/[id]/kortare')
-
-  if (!ai.mejl) {
+  // Allt som kan gå fel före skrivningen (underlaget, maskningen, AI:n, svarets
+  // validering) ger 502 ai_fel med utkastet orört: ingen rad ändras och
+  // rewrites räknas inte upp. Vyn säger då "Det gick inte att skriva om just nu.
+  // Din text är kvar."
+  const orort = () => {
     captureServer('uppfoljning_kortare', s.user.id, { omskrivning: utkast.rewrites + 1, lyckades: false })
-    return felSvar(502, 'ai_fel', 'Det gick inte att skriva om just nu. Texten är kvar som den var.', {
-      omskrivningarKvar: UPPFOLJNING_MAX_OMSKRIVNINGAR - utkast.rewrites,
+    return felSvar(502, 'ai_fel', 'Det gick inte att skriva om just nu. Din text är kvar.', {
+      textOrord: true,
+      data: utkast,
+      omskrivningarKvar: Math.max(0, UPPFOLJNING_MAX_OMSKRIVNINGAR - utkast.rewrites),
     })
   }
 
+  let nyttAmne: string
+  let nyText: string
+  try {
+    const { underlag, namn, kanda } = await lasUnderlag(s.supabase, s.user.id, tjanst, s.user.email)
+    const mask = (t: string) =>
+      maskForModel(t, {
+        detectNameHeuristically: false,
+        fullName: kanda.namn,
+        knownPhones: [kanda.telefon],
+      }).text
+    const stycken = styckenUrMejl(utkast.body).map(mask)
+    if (stycken.length === 0) return orort()
+    const ordForut = ordIMejlet(utkast.body)
+    const ai = await skrivKortare(mask(utkast.subject), stycken, underlag.sprak, ordForut)
+    await loggaKostnad(s.supabase, s.user.id, ai, 'uppfoljning_kortare', '/api/jobbsok/uppfoljning/[id]/kortare').catch(() => {})
+    if (!ai.mejl) return orort()
+    // Ämnesraden står kvar som användaren har den; bara brödtexten kortas.
+    nyttAmne = utkast.subject
+    nyText = sattIhop(ai.mejl.stycken, underlag.sprak, namn)
+  } catch (err) {
+    console.error('[uppfoljning] Skriv om kortare gick fel före skrivningen:', err)
+    return orort()
+  }
+
+  // Villkoret på rewrites gör att två samtidiga tryck inte räknas som ett.
   const { data, error } = await db
     .from('job_application_followups')
-    .update({
-      subject: ai.mejl.subject,
-      body: sattIhop(ai.mejl.stycken, underlag.sprak, namn),
-      rewrites: utkast.rewrites + 1,
-    })
+    .update({ subject: nyttAmne, body: nyText, rewrites: utkast.rewrites + 1 })
     .eq('id', utkast.id)
     .eq('user_id', s.user.id)
+    .eq('rewrites', utkast.rewrites)
+    .is('sent_at', null)
     .select()
-    .single()
-  if (error || !data) {
+    .maybeSingle()
+  if (error) {
     console.error('[uppfoljning] Omskrivningen kunde inte sparas:', error)
-    return felSvar(500, 'spara_fel', 'Kunde inte spara omskrivningen')
+    return orort()
+  }
+  if (!data) {
+    return felSvar(409, 'andrat_under_tiden', 'Utkastet ändrades under tiden. Din text är kvar.', { textOrord: true })
   }
   captureServer('uppfoljning_kortare', s.user.id, { omskrivning: utkast.rewrites + 1, lyckades: true })
   return NextResponse.json({

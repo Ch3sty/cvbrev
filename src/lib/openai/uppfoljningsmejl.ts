@@ -54,6 +54,7 @@ Regler: en ämnesrad och exakt tre korta stycken, högst ${UPPFOLJNING_MAX_ORD -
 1. När och vad hon sökte, och en artig fråga om hur långt de kommit i rekryteringen.
 2. Att hon är fortfarande intresserad, kopplat till högst tre av kompetenserna eller till kraven.
 3. Att hon gärna skickar mer och svarar på mejlet eller i telefon.
+Skriv sakligt och vardagligt. Undvik fraser som "ser fram emot", "bidra till ert team", "mycket intresserad" och "rekryteringsprocessen"; säg "rekryteringen". Nämn kompetenserna med namn om de finns.
 Ingen hälsning, inget avslut, inget namn, inga platshållare som [NAMN]. Hitta inte på något. Inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["...","...","..."]}`
 }
 

@@ -173,6 +173,8 @@ export interface AttGoraHandling {
   nyckel: string
   /** Handlingens datum, se BYGGSPEC F2. */
   datum: Dag
+  /** Intervjutiden (ISO) för forbered_intervju; sorterar kommande intervjuer. */
+  tid?: string | null
   /** Har datumet redan passerat (före i dag)? */
   passerad: boolean
   ikon: AttGoraIkon

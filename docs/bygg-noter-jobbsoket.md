@@ -167,7 +167,7 @@ Alla kontrollerar sessionen (401 `unauthorized`), svarar `{ success: true, ... }
 | GET `/api/jobbsok/uppfoljning/[applicationId]` | | `{ data: { utkast, senastSkickad, nastaPaminnelse, sparr, omskrivningarKvar } }` | 404 |
 | POST `/api/jobbsok/uppfoljning/[applicationId]` | | `{ data: Uppfoljning, kalla: 'sparat'\|'ai'\|'mall'\|'ateranvant', sparr }` | 402 `premium_required`+`sparr`, 429 `dygnstak`+`sparr`, 404 |
 | PUT `/api/jobbsok/uppfoljning/[applicationId]` | `{ subject, body }` | `{ data }` | 400 `invalid_field`, 404 `utkast_saknas` |
-| POST `/api/jobbsok/uppfoljning/[applicationId]/kortare` | | `{ data, omskrivningarKvar }` | 404 `utkast_saknas`, 409 `tak`, 502 `ai_fel` (texten orörd) |
+| POST `/api/jobbsok/uppfoljning/[applicationId]/kortare` | | `{ data, omskrivningarKvar }` (ämnesraden står kvar, bara brödtexten kortas) | 404 `utkast_saknas`, 409 `tak`, 409 `andrat_under_tiden`, 502 `ai_fel` + `textOrord: true` + `data` (det orörda utkastet) |
 | POST `/api/jobbsok/uppfoljning/[applicationId]/skickad` | `{ via?: 'epost'\|'kopierat'\|'eget', datum? }` | `{ data, nastaPaminnelse }` | 400 `invalid_field` |
 | DELETE `/api/jobbsok/uppfoljning/[applicationId]/skickad?uppfoljning=<id>` | | `{ success }` | 404, 409 `utkast_finns` |
 | PUT `/api/jobbsok/intervju/[applicationId]` | `{ datum: Dag\|null, tid?: 'HH:mm', plats? }` | `{ data: Handelse }` | 400, 404 `kallelse_saknas` |
@@ -180,6 +180,8 @@ Alla kontrollerar sessionen (401 `unauthorized`), svarar `{ success: true, ... }
 
 Klientflödet för uppföljningen: öppna blocket → POST (hämtar eller skapar) → visa `data.subject`/`data.body`; ändringar → PUT; "Öppna i e-post" = `mailtoHref(...)`, "Kopiera mejlet" kopierar; därefter "Skickade du mejlet?" Ja → POST `/skickad` med `via`. "Jag har redan skickat det" → POST `/skickad` utan kropp (via `eget`), syns även när POST gav 402. Betalväggen visas när `sparr.lage === 'premium_required'` (dagens `PaywallCard`).
 
+**Skriv om kortare förstör aldrig något.** Går underlaget, maskningen, AI-anropet eller valideringen av svaret fel svarar rutten 502 `ai_fel` med `textOrord: true` och utkastet som det var; raden skrivs inte och `rewrites` räknas inte upp. Skrivningen sker bara efter ett godkänt svar och har villkoret `rewrites = <tidigare värde>` och `sent_at is null`, så två samtidiga tryck räknas inte dubbelt (409 `andrat_under_tiden`). Vyn säger då: **"Det gick inte att skriva om just nu. Din text är kvar."** och behåller texten i fältet.
+
 ### Mäthändelser (serverside, `captureServer`)
 
 `ska_sokas_sparad`, `ska_sokas_markerad_sokt`, `uppfoljning_utkast_oppnat` (`kalla`, `premium`, `orsak`, `ms`), `uppfoljning_sparr`, `uppfoljning_kortare`, `uppfoljning_loggad` (`via`, `med_utkast`, `dagar_tyst`), `intervjutid_satt` (`andring`, `har_klockslag`, `har_plats`, `dagar_kvar`, `kalla`), `intervju_utfall`, `veckans_mal_andrat`. Inga arbetsgivarnamn eller personuppgifter. Kostnaden för AI-anropen skrivs i `ai_usage_costs` (`feature_name` `uppfoljning_utkast` / `uppfoljning_kortare`).
@@ -187,16 +189,15 @@ Klientflödet för uppföljningen: öppna blocket → POST (hämtar eller skapar
 ### Egna beslut
 
 1. **Veckans mål i `profiles.weekly_application_goal`.** Sökprofilen ligger som jsonb i `profiles.job_preferences` (lästa i `getJobbmatchningData.ts`, `ProfilClient.tsx`, `brev3/hem/data.ts`), det finns ingen egen tabell. `profiles_skydda_kolumner` (steg 1 och 2) räknar upp sina skyddade kolumner med namn; den nya kolumnen står inte där, så sessionen får skriva den.
-2. **Ordningen i Att göra nu följer specen ordagrant**: passerade först. Med Elins data blir därför "Följ upp Norrmejerier" (tyst sedan 18 nov, passerat) första handlingen och väggens rubrik, inte intervjun som skissen visar. Vill art director ha skissens ordning måste regeln ändras (t.ex. att Följ upp inte räknas som passerad). Testet "tar högst tre…" låser nuvarande tolkning.
-3. **"Sök en tjänst till" står alltid sist** (fyllnad), annars hade veckans söndag gått före en intervju två dagar senare. Datum = veckans söndag.
-4. **"Sök före sista dag"**: rubriken säger "senast torsdag" i stället för skissens "före torsdag" (sista dagen räknas med).
+2. **Ordningen i Att göra nu** (rättad av art director 2026-11-21, skissens ordning gäller): först "Hur gick intervjun?", sedan kommande intervjuer inom 14 dagar efter intervjutid, sedan allt övrigt i stigande datum med det som passerat först, och "Sök en tjänst till" alltid sist (fyllnad, bara när det finns plats). Med Elins data: Förbered intervjun (Umeå Energi), Följ upp Norrmejerier, Sök Ålö AB senast torsdag. `AttGoraHandling.tid` bär intervjutiden för sorteringen.
+3. (utgår, ingår i punkt 2)4. **"Sök före sista dag"**: rubriken säger "senast torsdag" i stället för skissens "före torsdag" (sista dagen räknas med).
 5. **Tystnad**: kan inte uppstå för avslutade, erbjudanden eller en kallelse med satt tid. En kallelse utan tid och en genomförd intervju kan bli tysta. Senaste aktivitet = senaste händelsens `occurred_at` eller senaste `sent_at` (inte `status_updated_at`, som triggern sätter vid varje ändring).
 6. **Hur gick intervjun?** visas från dagen efter intervjudagen (svensk tid); på intervjudagen står den kvar som bokad. "Den är genomförd" loggar på intervjudagen (aldrig framåt). "Inställd" tar bort tid och plats; statusen står kvar som kallad (läge `utan_tid`).
 7. **Tid utan klockslag** sparas som 00:00 svensk tid och läses som "bara datum" (`klockslag()` ger null). Ingen extra kolumn.
 8. **Intervjuer på gång** tar med genomförda som väntar besked (skissen visar LF), inte bara kallade.
 9. **Spärren**: ett "utkast" är en rad med `body`. "Jag har redan skickat det" skapar en rad utan text och räknas aldrig. Gratis: när kontots enda utkast hör till samma tjänst öppnas det igen som ett nytt oskickat utkast med samma text (ingen AI). Premium-taket räknas från midnatt svensk tid. Ångra en skickad uppföljning med text gör den oskickad igen i stället för att radera (annars kunde gratiskontot få ett nytt utkast). Behörigheten är `userHasPremiumAccess` (alla betalda spår), som rapporten.
 10. **Namnet** sätts in av servern efter AI-svaret (`sattIhop`), ur `profiles.full_name` (platshållarnamn hoppas över). "Skriv om kortare" skickar brödtexten utan hälsning och signatur, maskad med `maskForModel`.
-11. **AI-tidsgräns 8 s**, sedan mallen. Svaret måste ha 2–4 stycken, högst 90 ord, inga hakparenteser, e-postadresser eller länkar; talstreck byts mot komma.
+11. **Ämnesraden är alltid mallens** ("Min ansökan till tjänsten som ekonomiassistent"): i rökprovet blev AI:ns egna rubrikaktiga ("Uppföljning av ansökan Ekonomiassistent"). AI:n skriver bara de tre styckena; prompten förbjuder "ser fram emot", "bidra till ert team", "mycket intresserad". **AI-tidsgräns 8 s**, sedan mallen. Svaret måste ha 2–4 stycken, högst 90 ord, inga hakparenteser, e-postadresser eller länkar; talstreck byts mot komma.
 12. **Brickan**: initialerna i de två första orden, annars två första bokstäverna; bolagsformer (AB, publ…) räknas inte. Skissens exempel är inte konsekventa (KO, VO, LF); regeln ger KF, VL, LV för dem.
 13. **Grupperna** i Sökta tjänster har även Erbjudande (tackat ja står där). Tackat nej och avslag är Avslutade.
 14. **`job_saved_ads.application_id` on delete set null**: tas den sökta tjänsten bort kommer raden tillbaka under Ska sökas.
@@ -206,15 +207,28 @@ Klientflödet för uppföljningen: öppna blocket → POST (hämtar eller skapar
 18. **Rapportfönstret** i Att göra nu räknar dag och förra månad i svensk tid (dagens hook använder webbläsarens klocka); villkoret är detsamma.
 19. Översikten använder **senaste** betyget per fråga (som tjänstens förberedelse), läst med `hamtaProv`, inte summeringens bästa betyg.
 
+### Rökprov mot databasen (2026-11-21, efter att art director kört migreringen)
+
+Dev-server 5231, en inloggad session per QA-konto (gratis och Premium), ett anrop per rutt, skriptet i `scratchpad\jobbsok\bygg\motor\rokprov.mjs`, svaren i `rokprov-logg.json`. Alla rutter svarade som väntat:
+
+- Ska sökas: POST (match och egen) 200, samma annons igen 200 `alreadyExists`, PUT 200, DELETE 200, GET 200, `/sokt` 200 (sökt tjänst skapad, raden dold).
+- Intervjun: kallelse med tid via `POST /api/applications/[id]/events` 200 (`interview_at` 2026-11-24T09:00Z), `PUT .../events/[eventId]` 200, `PUT /api/jobbsok/intervju/[id]` 200, `utfall` genomförd 200 (loggad på intervjudagen 18 nov, omgång 1), `DELETE /api/jobbsok/intervju/[id]` 200.
+- Veckans mål: PUT 4 och GET 200 ("Veckans mål: 2 av 4 sökta").
+- Uppföljning Premium: GET 200, POST 200 `kalla: 'ai'` (1,7 s), POST igen 200 `kalla: 'sparat'` (inte omskrivet), PUT 200, kortare 200 (`rewrites` 1), skickad utan kropp 200 (`sent_via: 'eget'`, `nastaPaminnelse` 3 dec), ångra 200.
+- Gratisspärren: första utkastet 200 `kalla: 'ai'`, andra tjänsten 402 `premium_required`, "Jag har redan skickat det" på samma tjänst 200.
+- Inbäddade frågan `job_applications.select('*, job_application_events(*)')`: fungerar (Premium 7 rader, händelserna per rad 1 till 3).
+- Alla laddare (via en tillfällig rutt som är borttagen): inga fel. Premiums Översikt ger Förbered intervjun (Umeå Energi), Följ upp Norrmejerier, Sök Ålö AB senast torsdag; banan Ska sökas 2, Sökt 4 (NO tyst 15 dagar), Intervju 2 (1 bokad, 1 väntar besked); Jobbcoachen fyra förslag ur läget.
+
+Rättat efter rökprovet: ämnesraden (beslut 11) och promptens ordval. Testdatan står i `scratchpad\jobbsok\bygg\motor\testdata.json` med id per rad för radering.
+
 ### Det som inte är prövat
 
-- **Ingen rutt är provkörd mot databasen.** Migreringen är inte körd, så tabellerna och kolumnerna finns inte; rutterna kan inte provas förrän den är det. På dev-servern (port 5231) svarade fyra rutter 401 utan session, alltså kompilerar och spärrar de; inget mer.
-- Serverladdarna är inte anropade (inga vyer använder dem än). Den inbäddade frågan `job_applications.select('*, job_application_events(*)')` är inte provad mot PostgREST.
-- AI-anropet är inte gjort på riktigt; valideringen och mallen är enhetstestade.
-- Att trigger `sync_job_application_current_status` även sätter `status_updated_at` när bara intervjutiden ändras (det är en UPDATE på händelsen). Ofarligt för den nya motorn, men dagens summering räknar tystnad på `status_updated_at`.
-- `trackAIUsage` skriver med användarens session, som CV-byggaren gör; inte provat för de nya feature-namnen.
-- RLS-policyerna i migreringen (is_admin i select) är inte körda.
-
+- Felvägen i "Skriv om kortare" (502 `ai_fel`) är granskad i koden men inte framkallad mot databasen; 409 `tak` och 409 `andrat_under_tiden` likaså.
+- Reservmallen har inte använts skarpt (AI:n svarade båda gångerna); den är enhetstestad.
+- Premiums dygnstak (30) och gratis "öppna samma tjänsts utkast igen" efter att det skickats (`ateranvand`) är bara enhetstestade.
+- `hamtaToppTraffar` gav tomt (QA-kontona har ingen matchningskörning och inget CV); poängsättningen mot en riktig körning är inte prövad. QA-kontona saknar också CV och intervjuprov, så förberedelsens betyg och kompetenserna i AI-underlaget är tomma i testdatan.
+- Mäthändelserna har skickats men inte kontrollerats i PostHog.
+- Att trigger `sync_job_application_current_status` även sätter `status_updated_at` när bara intervjutiden ändras. Ofarligt för den nya motorn, men dagens summering räknar tystnad på `status_updated_at`.
 ### Hur man backar
 
 Koden: `git revert` på motorns commit. Rutten för rapporten och POST /api/applications går tillbaka till sin inbyggda logik. Migreringen är bara tillägg och kan stå kvar; vill man ta bort den står rollback-SQL:en överst i filen (först när koden som läser den är backad).

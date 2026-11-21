@@ -319,27 +319,45 @@ describe('Att göra nu', () => {
     nu: NU,
   })
 
-  it('tar högst tre, passerade först och sedan stigande datum', () => {
+  it('tar högst tre: kommande intervju först, sedan övrigt med det passerade först', () => {
     const a = attGoraNu(ind())
     expect(a.lage).toBe('handlingar')
-    expect(a.handlingar.map((h) => h.typ)).toEqual(['folj_upp', 'forbered_intervju', 'sok_fore_sista_dag'])
-    expect(a.handlingar[0]).toMatchObject({ datum: '2026-11-18', passerad: true, overrad: 'TYST I 15 DAGAR', rubrik: 'Följ upp Norrmejerier' })
-    expect(a.handlingar[1]).toMatchObject({ datum: '2026-11-24', overrad: 'TISDAG 24 NOV 10.00', rubrik: 'Förbered intervjun på Umeå Energi' })
-    expect(a.handlingar[1].text).toBe('Tre av sju frågor övade. Börja med Ett problem du löste, där du fick 2 av 5.')
+    expect(a.handlingar.map((h) => h.typ)).toEqual(['forbered_intervju', 'folj_upp', 'sok_fore_sista_dag'])
+    expect(a.handlingar[0]).toMatchObject({ datum: '2026-11-24', overrad: 'TISDAG 24 NOV 10.00', rubrik: 'Förbered intervjun på Umeå Energi' })
+    expect(a.handlingar[0].text).toBe('Tre av sju frågor övade. Börja med Ett problem du löste, där du fick 2 av 5.')
+    expect(a.handlingar[1]).toMatchObject({ datum: '2026-11-18', passerad: true, overrad: 'TYST I 15 DAGAR', rubrik: 'Följ upp Norrmejerier' })
     expect(a.handlingar[2]).toMatchObject({ datum: '2026-11-26', overrad: 'SISTA DAG TORSDAG 26 NOV', rubrik: 'Sök Ålö AB senast torsdag' })
     expect(a.handlingar[2].text).toBe('Ekonomiassistent, 92 % matchgrad.')
   })
 
+  it('sätter "Hur gick intervjun?" före kommande intervjuer och sorterar intervjuerna efter tid', () => {
+    const nu = new Date('2026-11-25T08:00:00Z')
+    const x = tjanst('x', 'Xylem', 'Controller', '2026-11-01', 'interview_invited', [
+      handelse('x', 'interview_invited', '2026-11-20', { interview_at: '2026-11-26T08:00:00.000Z' }),
+    ])
+    const y = tjanst('y', 'Ystad Energi', 'Controller', '2026-11-01', 'interview_invited', [
+      handelse('y', 'interview_invited', '2026-11-20', { interview_at: '2026-11-27T08:00:00.000Z' }),
+    ])
+    const a = attGoraNu({ ...ind(), tjanster: [y, x, elin()[0]].map((t) => tjanstLage(t, nu)), skaSokas: [], nu })
+    expect(a.handlingar.map((h) => [h.typ, h.ansokanId])).toEqual([
+      ['hur_gick_intervjun', 'ue'],
+      ['forbered_intervju', 'x'],
+      ['forbered_intervju', 'y'],
+    ])
+  })
+
   it('låter första handlingen bära väggens rubrik och primärknapp', () => {
     const a = attGoraNu(ind())
-    expect(a.vagg.rubrik).toBe('Följ upp Norrmejerier')
+    expect(a.vagg.rubrik).toBe('Intervju på Umeå Energi på tisdag')
+    expect(a.vagg.text).toBe('Redovisningsekonom, tisdag 24 november klockan 10.00. Du har övat på tre av de sju vanligaste frågorna.')
     expect(a.vagg.knapp).toEqual(a.handlingar[0].knapp)
-    expect(a.vagg.knapp.href).toBe('/dashboard/sokta-tjanster/no?steg=folj-upp')
+    expect(a.vagg.knapp.href).toBe('/dashboard/sokta-tjanster/ue?steg=forbered')
     expect(a.vagg.overrad).toBe('LÖRDAG 21 NOV · VECKA 47')
-    // Avfärdad uppföljning: intervjun blir väggen.
+    // Avfärdad intervju: uppföljningen blir väggen, och Sök en tjänst till står sist.
     const b = attGoraNu({ ...ind(), avfardade: new Set([a.handlingar[0].nyckel]) })
-    expect(b.vagg.rubrik).toBe('Intervju på Umeå Energi på tisdag')
-    expect(b.vagg.text).toBe('Redovisningsekonom, tisdag 24 november klockan 10.00. Du har övat på tre av de sju vanligaste frågorna.')
+    expect(b.vagg.rubrik).toBe('Följ upp Norrmejerier')
+    expect(b.vagg.knapp.href).toBe('/dashboard/sokta-tjanster/no?steg=folj-upp')
+    expect(b.handlingar.map((h) => h.typ)).toEqual(['folj_upp', 'sok_fore_sista_dag', 'sok_en_till'])
   })
 
   it('frågar hur intervjun gick dagen efter', () => {

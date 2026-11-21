@@ -1,6 +1,11 @@
 /**
- * Att göra nu (BYGGSPEC F2): högst tre handlingar, det som redan passerat
- * först och sedan stigande datum. Den första handlingen är väggens rubrik och
+ * Att göra nu (BYGGSPEC F2, ordningen rättad av art director 2026-11-21 så att
+ * skissen gäller): högst tre handlingar i ordningen
+ *   1. "Hur gick intervjun?" (äldst först)
+ *   2. kommande intervju inom 14 dagar (efter intervjutid)
+ *   3. allt övrigt: det som passerat först, sedan stigande datum
+ *   4. "Sök en tjänst till" alltid sist (fyllnad)
+ * Den första handlingen är väggens rubrik och
  * bär sidans enda primärknapp. Finns inget att göra säger väggen läget som det
  * är och knappen går till Matchade jobb. Klientsäker och ren.
  *
@@ -127,6 +132,7 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
           typ: 'forbered_intervju',
           nyckel: `forbered_intervju:${t.id}`,
           datum: i.dag,
+          tid: i.tid,
           passerad: false,
           ikon: 'kalender',
           overrad: versaler(`${veckodagNamn(i.dag)} ${kortDag(i.dag)}${kl ? ` ${kl}` : ''}`),
@@ -196,11 +202,29 @@ export function attGoraKandidater(ind: AttGoraIndata): AttGoraHandling[] {
   return ut.filter((h) => !ind.avfardade?.has(h.nyckel))
 }
 
-/** Sorteringen: passerade först, sedan stigande datum; samma datum i kandidatordning. */
+/** Grupp i sorteringen: 0 hur gick, 1 kommande intervju, 2 övrigt, 3 Sök en tjänst till. */
+function sorteringsgrupp(typ: AttGoraTyp): number {
+  if (typ === 'hur_gick_intervjun') return 0
+  if (typ === 'forbered_intervju') return 1
+  if (typ === 'sok_en_till') return 3
+  return 2
+}
+
+const jamfor = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)
+
+/**
+ * Sorteringen: "Hur gick intervjun?" först, sedan kommande intervjuer efter
+ * tid, sedan övrigt (passerade först, sedan stigande datum), "Sök en tjänst
+ * till" sist. Samma datum: kandidatordningen.
+ */
 export function sorteraHandlingar(h: readonly AttGoraHandling[]): AttGoraHandling[] {
   return [...h].sort((a, b) => {
+    const ga = sorteringsgrupp(a.typ)
+    const gb = sorteringsgrupp(b.typ)
+    if (ga !== gb) return ga - gb
+    if (ga === 1) return jamfor(a.tid ?? a.datum, b.tid ?? b.datum)
     if (a.passerad !== b.passerad) return a.passerad ? -1 : 1
-    if (a.datum !== b.datum) return a.datum.localeCompare(b.datum)
+    if (a.datum !== b.datum) return jamfor(a.datum, b.datum)
     return PRIORITET[a.typ] - PRIORITET[b.typ]
   })
 }
