@@ -1,123 +1,143 @@
 'use client'
 
 /**
- * Bladets ram (skissen beslut 4): på mobil ett bottenblad (Ark), på dator
- * dockat till höger i full höjd mellan toppraden och den fasta raden, 400 px
- * på mallkolumnens plats, papper med kant och skugga åt vänster, egen
- * rullning i kroppen och Spara i foten. Ingen dimma: hela arket syns medan
- * hon skriver. Samma dialog i båda: rubrik, fokus på
- * första fältet, Esc stänger, fokus tillbaka till träffytan på arket.
+ * Bladets ram i arbetsläget (skisserna Redigera-1440, Bygg-1440,
+ * Mobil-redigera): papper med mörkt huvud. På datorn står bladet till
+ * vänster under avsnittsraden, med egen rullning i kroppen och foten
+ * (förklaringen, Avbryt, Spara) alltid synlig. På telefonen är det ett
+ * bottenblad under arket; huvudet med handtaget fäller ihop och upp det.
+ *
+ * Ramen hämtar det arbetsläget äger ur ArbetsKontext: läget, avsnittsraden
+ * (telefonen har den överst i bladet), raderna ovanför innehållet (Ångra,
+ * spärren för antal CV), Nästa-raden och foten. Bladen ger rubriken,
+ * innehållet och sin sparknapp.
  */
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
-import Ark from '@/components/cv/Dokument/Ark'
-import { IkonStang } from '@/components/illustrations/MallIkoner'
-import { DOK } from '@/components/cv/Dokument/texter'
+import { createContext, useContext, useEffect, useId, useRef, type ReactNode } from 'react'
+import type { ByggCv } from '@/lib/cv/bygg/modell'
+import type { Lage } from '../arbetslage'
+import { ARBETE } from '../texter'
+import s from '../arbetslage.module.css'
+
+export interface Arbete {
+  dator: boolean
+  lage: Lage
+  fallt: boolean
+  setFallt: (v: boolean) => void
+  avsnittsrad: ReactNode
+  ovan: ReactNode
+  nasta: ReactNode
+  fotText: string
+  onAvbryt: (() => void) | null
+  /** Bladets sparfunktion, så att Klar och avsnittsbyten sparar det hon skrivit. Sant när det gick. */
+  registrera: (fn: (() => boolean) | null) => void
+  /** Bladets utkast medan hon skriver (null: inget ändrat), för arket. */
+  onUtkast: (cv: ByggCv | null) => void
+}
+
+export const ArbetsKontext = createContext<Arbete | null>(null)
+
+export function useArbete(): Arbete {
+  const a = useContext(ArbetsKontext)
+  if (!a) throw new Error('ArbetsKontext saknas')
+  return a
+}
+
+/**
+ * Bladets utkast till arket: CV:t som det skulle se ut om hon sparade nu.
+ * Jämförs med bladets första version, så att ett blad som bara öppnats
+ * aldrig räknas som ändrat (ett uppladdat CV:s datum skrivs inte om av sig självt).
+ */
+export function useUtkast(bygg: () => ByggCv | null, deps: readonly unknown[]) {
+  const { onUtkast } = useArbete()
+  const forsta = useRef<string | null>(null)
+  useEffect(() => {
+    const ny = bygg()
+    const sn = JSON.stringify(ny)
+    if (forsta.current === null) {
+      forsta.current = sn
+      return
+    }
+    onUtkast(sn === forsta.current || !ny ? null : ny)
+    // deps bär bladets fält.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps)
+}
+
+/** Registrerar bladets spara hos arbetsläget, varje rendering (fälten ändras). */
+export function useRegistrera(spara: () => boolean) {
+  const { registrera } = useArbete()
+  const ref = useRef(spara)
+  ref.current = spara
+  useEffect(() => {
+    registrera(() => ref.current())
+    return () => registrera(null)
+  }, [registrera])
+}
 
 export interface RamProps {
-  dator: boolean
   rubrik: ReactNode
+  /** Till höger i huvudet: "3 jobb, det senaste först", "Avsnitt 2 av 5". */
   under?: ReactNode
-  onClose: () => void
+  /** Telefonens kortare variant ("Jobb 1 av 3"). */
+  underMobil?: ReactNode
+  /** Sparknappen. */
   fot?: ReactNode
   children: ReactNode
-  /** Byts nyckeln flyttas fokus på nytt (ett annat blad i samma ram). */
+  /** Byts nyckeln flyttas fokus till första fältet (dator). */
   nyckel: string
 }
 
-/** Toppraden i FlowShell: 56 px och linjen om 3 px, plus kanten. */
-const TOPP = 60
-
-/**
- * Var den fasta raden börjar, räknat från vyns nederkant. Raden är sticky
- * längst ner i flödets rullyta, så dess överkant står still medan hon rullar;
- * den mäts om när raden byter höjd (förslaget, felraden) eller fönstret.
- */
-function useRadensHojd(): number {
-  const [h, setH] = useState(72)
-  useEffect(() => {
-    const el = document.querySelector<HTMLElement>('[data-fast-rad]')
-    if (!el) return
-    const mat = () => setH(Math.max(0, Math.round(window.innerHeight - el.getBoundingClientRect().top)))
-    mat()
-    const ro = new ResizeObserver(mat)
-    ro.observe(el)
-    window.addEventListener('resize', mat)
-    return () => {
-      ro.disconnect()
-      window.removeEventListener('resize', mat)
-    }
-  }, [])
-  return h
-}
-
-function Dockad({ rubrik, under, onClose, fot, children, nyckel }: Omit<RamProps, 'dator'>) {
+export default function Ram({ rubrik, under, underMobil, fot, children, nyckel }: RamProps) {
+  const a = useArbete()
   const id = useId()
   const ref = useRef<HTMLElement>(null)
-  const stang = useRef(onClose)
-  stang.current = onClose
-  const radH = useRadensHojd()
+  const kropp = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const forra = document.activeElement as HTMLElement | null
+    kropp.current?.scrollTo({ top: 0 })
+    if (!a.dator) return
     const t = window.setTimeout(() => {
-      const forsta = ref.current?.querySelector<HTMLElement>('input, textarea, select, button:not([data-stang])')
-      ;(forsta ?? ref.current)?.focus()
+      const forsta = kropp.current?.querySelector<HTMLElement>('input:not([type=checkbox]), textarea, select')
+      forsta?.focus({ preventScroll: true })
     }, 30)
-    const tangent = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      // Ett ark ovanpå (rubriker, mallar) tar Esc själv.
-      if (document.querySelector('.dok-ark')) return
-      e.stopPropagation()
-      stang.current()
-    }
-    window.addEventListener('keydown', tangent, true)
-    return () => {
-      window.clearTimeout(t)
-      window.removeEventListener('keydown', tangent, true)
-      if (forra && document.contains(forra)) forra.focus?.()
-    }
+    return () => window.clearTimeout(t)
+    // Bara när bladet byts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nyckel])
 
+  const fallt = !a.dator && a.fallt
   return (
-    <section
-      ref={ref}
-      role="dialog"
-      aria-modal="false"
-      aria-labelledby={`${id}-r`}
-      tabIndex={-1}
-      data-bygg-blad
-      style={{ top: TOPP, bottom: radH }}
-      className="fixed right-0 z-[45] flex w-[340px] flex-col border-l border-kant bg-papper shadow-[-16px_0_32px_-20px_rgba(0,0,0,.35)] outline-none motion-safe:animate-[bladIn_160ms_ease-out] xl:w-[400px]"
-    >
-      <style>{'@keyframes bladIn{from{opacity:0}to{opacity:1}}'}</style>
-      <div className="flex shrink-0 items-start gap-3 px-5 pb-2 pt-5">
-        <div className="min-w-0 flex-1">
-          <h2 id={`${id}-r`} className="font-display text-xl font-bold leading-tight text-ink-1">
-            {rubrik}
-          </h2>
-          {under ? <p className="mt-1 text-meta text-ink-3">{under}</p> : null}
-        </div>
-        <button
-          type="button"
-          data-stang
-          onClick={onClose}
-          aria-label={DOK.stangEsc}
-          className="-mr-2 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink-2 hover:bg-papper-2"
-        >
-          <IkonStang size={20} />
-        </button>
+    <section ref={ref} className={s.blad} aria-labelledby={`${id}-r`} data-bygg-blad data-fallt={fallt ? '' : undefined}>
+      <div className={s.bladHu}>
+        {a.dator ? null : (
+          <button
+            type="button"
+            onClick={() => a.setFallt(!a.fallt)}
+            aria-expanded={!fallt}
+            aria-label={fallt ? ARBETE.visaBladet : ARBETE.fallIhop}
+            className="absolute inset-0 z-[1] cursor-pointer rounded-t-[26px] border-0 bg-transparent"
+          >
+            <span aria-hidden className={s.handtag} />
+          </button>
+        )}
+        <h2 id={`${id}-r`}>{rubrik}</h2>
+        {a.dator ? under ? <span>{under}</span> : null : underMobil ?? under ? <span>{underMobil ?? under}</span> : null}
       </div>
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-5">{children}</div>
-      {fot ? <div className="shrink-0 border-t border-kant px-5 py-3">{fot}</div> : null}
+      <div ref={kropp} className={s.bladKropp}>
+        {a.dator ? null : a.avsnittsrad}
+        {a.ovan}
+        {children}
+      </div>
+      {a.nasta}
+      <div className={s.fot}>
+        {a.dator ? <p className={s.fotText}>{a.fotText}</p> : null}
+        {a.onAvbryt ? (
+          <button type="button" className={s.avbryt} onClick={a.onAvbryt}>
+            {ARBETE.avbryt}
+          </button>
+        ) : null}
+        {fot}
+      </div>
     </section>
-  )
-}
-
-export default function Ram(p: RamProps) {
-  if (p.dator) return <Dockad key={p.nyckel} {...p} />
-  return (
-    <Ark key={p.nyckel} open onClose={p.onClose} rubrik={p.rubrik} under={p.under} fot={p.fot}>
-      {p.children}
-    </Ark>
   )
 }

@@ -1,31 +1,62 @@
 'use client'
 
 /**
- * Jobbcoachen i bladen (skissen beslut 6, yta 3): sekundär knapp med
- * pennan under fältet, bara på tryck. Väntan: knappen byter till "Skriver"
- * och fylls, fältet låses med tre rader, högst åtta sekunder, sedan felraden.
- * Resultatet är hennes att ändra; tonraden säger vad som hände och ger Ångra.
- * När gratisförslagen är använda står PaywallCard i bladet och knappen kvar
- * som spärrad. Premiums dygnstak (ett missbruksskydd) ger bara en textrad,
- * aldrig en köpvägg mot någon som redan betalar. Aldrig gnistikonen, aldrig ordet AI.
+ * Jobbcoachen i bladen. Arbetsläget (byggspecen avsnitt 7) ger den ett kort:
+ * rubriken, knappen med dagens texter och, för gratiskonton, kvoten som tre
+ * brickor ("2 av 3 gratis förslag kvar") med Premium-etiketten på samma rad.
+ * Premium har ingen kvotrad; dygnstaket (ett missbruksskydd) ger bara en
+ * textrad, aldrig en köpvägg mot någon som redan betalar. När gratisförslagen
+ * är slut står dagens PaywallCard i kortet och knappen är spärrad.
+ *
+ * Väntan: knappen byter till "Skriver" och fylls, fältet låses med tre
+ * rader, högst åtta sekunder, sedan felraden. Resultatet är hennes att
+ * ändra; den gröna raden säger vad som hände och ger Ångra.
+ *
+ * Kvoten är densamma som förut (3 per konto gratis, 30 per dygn Premium,
+ * checkCvByggAiQuota). Servern läser läget när sidan öppnas, och kortet
+ * räknar ned efter varje lyckat förslag ur svarets kvar.
+ * Aldrig gnistikonen, aldrig ordet AI.
  */
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import PaywallCard from '@/components/paywall/PaywallCard'
-import { IkonPenna } from '@/components/illustrations/MallIkoner'
+import { IkonBock, IkonLas, IkonPenna } from '@/components/illustrations/MallIkoner'
 import { capture } from '@/lib/analytics/events'
 import { BLAD, COACH } from '../texter'
+import s from '../arbetslage.module.css'
 
 export type CoachTyp = 'punkter' | 'profil' | 'kompetenser'
 type Lage = 'vila' | 'skriver' | 'tid' | 'fel' | 'kvot' | 'tak'
 
 const GRANS_MS = 8000
 
+/* ----------------------------------------------------------- kvoten */
+
+export interface CoachKvot {
+  premium: boolean
+  /** Gratisförslag kvar på kontot; null för Premium. */
+  kvar: number | null
+  /** Gratisnivåns tak (tre per konto). */
+  av: number
+}
+
+const KvotKontext = createContext<{ kvot: CoachKvot; satt: (kvar: number | null) => void } | null>(null)
+
+export function CoachKvotProvider({ start, children }: { start: CoachKvot; children: ReactNode }) {
+  const [kvot, setKvot] = useState<CoachKvot>(start)
+  const satt = useCallback((kvar: number | null) => setKvot((k) => (k.premium ? k : { ...k, kvar: kvar ?? k.kvar })), [])
+  return <KvotKontext.Provider value={{ kvot, satt }}>{children}</KvotKontext.Provider>
+}
+
+function useKvot() {
+  return useContext(KvotKontext) ?? { kvot: { premium: false, kvar: null, av: 3 }, satt: () => undefined }
+}
+
+/* ------------------------------------------------------------ anropet */
+
 export function useJobbcoach(namn: string) {
-  const [lage, setLage] = useState<Lage>('vila')
+  const { kvot, satt } = useKvot()
+  const [lage, setLage] = useState<Lage>(() => (!kvot.premium && kvot.kvar === 0 ? 'kvot' : 'vila'))
   const [framsteg, setFramsteg] = useState(0)
-  const [kvot, setKvot] = useState<string | null>(null)
-  /** Gratisförslag kvar efter senaste förslaget; null för Premium eller före första. */
-  const [kvar, setKvar] = useState<number | null>(null)
   const timer = useRef<number | null>(null)
   const ac = useRef<AbortController | null>(null)
 
@@ -36,6 +67,11 @@ export function useJobbcoach(namn: string) {
     },
     []
   )
+
+  // Kvoten slut i ett annat blad: kortet här visar väggen också.
+  useEffect(() => {
+    if (!kvot.premium && kvot.kvar === 0 && lage === 'vila') setLage('kvot')
+  }, [kvot, lage])
 
   const kor = useCallback(
     async <T,>(typ: CoachTyp, data: Record<string, unknown>): Promise<T | null> => {
@@ -58,13 +94,12 @@ export function useJobbcoach(namn: string) {
           signal: kontroll.signal,
         })
         if (res.status === 429) {
-          const j = (await res.json().catch(() => ({}))) as { nextResetAt?: string; isPremium?: boolean }
+          const j = (await res.json().catch(() => ({}))) as { isPremium?: boolean }
           if (j.isPremium) {
             setLage('tak')
             return null
           }
-          setKvot(j.nextResetAt ?? new Date().toISOString())
-          setKvar(0)
+          satt(0)
           setLage('kvot')
           return null
         }
@@ -77,7 +112,7 @@ export function useJobbcoach(namn: string) {
           return null
         }
         const j = (await res.json()) as T & { kvar?: number | null }
-        setKvar(typeof j.kvar === 'number' ? j.kvar : null)
+        if (typeof j.kvar === 'number') satt(j.kvar)
         setFramsteg(1)
         setLage('vila')
         return j
@@ -90,93 +125,147 @@ export function useJobbcoach(namn: string) {
         timer.current = null
       }
     },
-    [lage, namn]
+    [lage, namn, satt]
   )
 
-  return { lage, framsteg, kvot, kvar, kor, skriver: lage === 'skriver' }
+  return { lage, framsteg, kor, skriver: lage === 'skriver' }
 }
 
-export function CoachKnapp({
+/* --------------------------------------------------------------- kortet */
+
+function Brickor({ kvar, av }: { kvar: number; av: number }) {
+  const anvanda = Math.max(0, av - kvar)
+  return (
+    <span className={s.pips} role="img" aria-label={COACH.kvotBild(anvanda, av)}>
+      {Array.from({ length: av }, (_, i) => (
+        <i key={i} data-av={i < anvanda ? '' : undefined} />
+      ))}
+    </span>
+  )
+}
+
+export function CoachKort({
+  rubrik,
+  under,
   text,
   coach,
   onClick,
   kraver,
+  mobil,
 }: {
+  rubrik: string
+  under: string
+  /** Knappens text (dagens: "Skriv punkter åt mig", "Skriv om punkterna" ...). */
   text: string
   coach: ReturnType<typeof useJobbcoach>
   onClick: () => void
   /** Orsaken när knappen inte går att använda än, annars null. */
   kraver: string | null
+  mobil: boolean
 }) {
-  const stangd = Boolean(kraver) || coach.lage === 'kvot' || coach.lage === 'tak'
-  // Väggen hamnar under knappen i bladets rullyta: rulla fram den när kvoten tar slut.
+  const { kvot } = useKvot()
+  const slut = coach.lage === 'kvot' || (!kvot.premium && kvot.kvar === 0)
+  const stangd = Boolean(kraver) || slut || coach.lage === 'tak'
   const vagg = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (coach.lage === 'kvot') vagg.current?.scrollIntoView({ block: 'end' })
+    if (coach.lage === 'kvot') vagg.current?.scrollIntoView({ block: 'nearest' })
   }, [coach.lage])
+
+  const knapp = (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={stangd || coach.skriver}
+      aria-busy={coach.skriver}
+      data-coach-knapp
+      className={s.jc}
+      style={mobil ? { width: '100%', height: 46, marginTop: 8 } : undefined}
+    >
+      {coach.skriver ? <span aria-hidden className={s.jcFyll} style={{ width: `${Math.round(coach.framsteg * 100)}%` }} /> : null}
+      <span className={s.jcText}>
+        <IkonPenna size={17} strokeWidth={2.4} />
+        {coach.skriver ? COACH.skriver : text}
+      </span>
+    </button>
+  )
+
   return (
-    <div className="grid gap-1.5">
-      <button
-        type="button"
-        onClick={onClick}
-        disabled={stangd || coach.skriver}
-        aria-busy={coach.skriver}
-        data-coach-knapp
-        className="relative inline-flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-xl border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1 hover:border-ink-1 disabled:cursor-not-allowed disabled:opacity-60 min-[480px]:w-auto"
-      >
-        {coach.skriver ? (
-          <span
-            aria-hidden
-            className="absolute inset-y-0 left-0 bg-ton transition-[width] duration-200 ease-out motion-reduce:transition-none"
-            style={{ width: `${Math.round(coach.framsteg * 100)}%` }}
-          />
-        ) : null}
-        <span className="relative inline-flex items-center gap-2">
-          <IkonPenna size={18} />
-          {coach.skriver ? COACH.skriver : text}
-        </span>
-      </button>
-      {kraver ? <p className="text-meta text-ink-3">{kraver}</p> : null}
+    <div className={s.jck} data-coach-kort>
+      {mobil ? (
+        <>
+          <b className={s.jckRubrik} style={{ fontSize: 14 }}>
+            {rubrik}
+          </b>
+          {knapp}
+        </>
+      ) : (
+        <div className={s.jckRad}>
+          <span className={s.ik} aria-hidden>
+            <IkonPenna size={22} strokeWidth={2.2} />
+          </span>
+          <span style={{ flex: 1, minWidth: 0 }}>
+            <b className={s.jckRubrik}>{rubrik}</b>
+            <small>{under}</small>
+          </span>
+          {knapp}
+        </div>
+      )}
+      {kraver ? <p className={s.coachInfo}>{kraver}</p> : null}
       <div aria-live="polite">
-        {coach.lage === 'tid' ? <p className="text-sm text-fel">{COACH.tid}</p> : null}
-        {coach.lage === 'fel' ? <p className="text-sm text-fel">{COACH.fel}</p> : null}
-        {coach.lage === 'tak' ? <p className="text-meta text-ink-3">{COACH.tak}</p> : null}
-        {coach.lage !== 'kvot' && coach.kvar !== null && coach.kvar > 0 ? (
-          <p className="text-meta text-ink-3">{COACH.kvar(coach.kvar)}</p>
-        ) : null}
+        {coach.lage === 'tid' ? <p className={s.coachFel}>{COACH.tid}</p> : null}
+        {coach.lage === 'fel' ? <p className={s.coachFel}>{COACH.fel}</p> : null}
+        {coach.lage === 'tak' ? <p className={s.coachInfo}>{COACH.tak}</p> : null}
       </div>
-      {coach.lage === 'kvot' && coach.kvot ? (
-        <div ref={vagg}>
-          <PaywallCard variant="kvot" quota={{ feature: 'cv_bygg', nextResetAt: coach.kvot }} className="mt-1" />
+      {slut ? (
+        <div ref={vagg} style={{ marginTop: 10 }}>
+          <PaywallCard variant="kvot" quota={{ feature: 'cv_bygg', nextResetAt: new Date().toISOString() }} />
+        </div>
+      ) : !kvot.premium && kvot.kvar !== null ? (
+        <div className={s.kvot} data-coach-kvot>
+          <Brickor kvar={kvot.kvar} av={kvot.av} />
+          <span>
+            <b>{COACH.kvotRad(kvot.kvar, kvot.av)}</b>{' '}
+            <span className={s.prm}>
+              <IkonLas size={11} strokeWidth={2.6} />
+              {COACH.premium}
+            </span>{' '}
+            {mobil ? COACH.premiumTextKort : COACH.premiumText}
+          </span>
         </div>
       ) : null}
     </div>
   )
 }
 
-/** Tonraden efter ett förslag: vad som hände, och Ångra. */
+/** Den gröna raden efter ett förslag: vad som hände, och Ångra. */
 export function CoachRad({ text, onAngra, typ }: { text: string; onAngra: () => void; typ: CoachTyp }) {
+  const i = text.indexOf('. ')
+  const fet = i > 0 ? text.slice(0, i + 1) : text
+  const rest = i > 0 ? text.slice(i + 1) : ''
   return (
-    <p className="flex flex-wrap items-center gap-x-2 rounded-xl bg-ton px-3 py-2 text-[13px] leading-5 text-ton-ink" role="status">
-      <span>{text}</span>
+    <div className={s.dom} role="status" data-coach-rad>
+      <IkonBock size={18} strokeWidth={3} style={{ flexShrink: 0 }} />
+      <span style={{ flex: 1 }}>
+        <b>{fet}</b>
+        {rest}
+      </span>
       <button
         type="button"
         onClick={() => {
           capture('cv_bygg_ai_anvand', { typ, accepterad: false })
           onAngra()
         }}
-        className="inline-flex min-h-8 items-center font-semibold underline underline-offset-4"
       >
         {BLAD.angra}
       </button>
-    </p>
+    </div>
   )
 }
 
 /** Tre rader i väntan, i fältets plats (writing-lines i globals.css). */
 export function Skrivrader() {
   return (
-    <div aria-hidden className="writing-lines absolute inset-0 rounded-[10px] bg-papper p-3">
+    <div aria-hidden className="writing-lines absolute inset-0 rounded-[12px] bg-papper p-3">
       <span />
       <span />
       <span />

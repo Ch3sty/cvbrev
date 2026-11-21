@@ -154,6 +154,22 @@ export const COACH = {
   kvar: (n: number) => `${n === 1 ? 'Ett förslag' : `${antalOrd(n, true)} förslag`} kvar i gratisnivån.`,
   /** Premiums dygnstak. */
   tak: 'Dagens förslag är använda. I morgon skriver Jobbcoachen igen, och du kan skriva själv direkt.',
+  /** Kortet i bladet (arbetsläget, byggspecen avsnitt 7). */
+  kort: {
+    punkter: 'Jobbcoachen skriver punkterna åt dig',
+    punkterUnder: 'Utifrån titeln och arbetsgivaren. Du ändrar fritt efteråt.',
+    punkterOm: 'Låt Jobbcoachen skriva om punkterna',
+    punkterOmUnder: 'Med resultat och nyckelord, utifrån det du har skrivit.',
+    profil: 'Jobbcoachen skriver profilen åt dig',
+    profilOm: 'Låt Jobbcoachen skriva om profilen',
+    komp: 'Jobbcoachen föreslår kompetenser',
+    kompUnder: 'Utifrån din titel och dina jobb. Du väljer vilka som kommer med.',
+  },
+  kvotRad: (kvar: number, av: number) => `${kvar} av ${av} gratis förslag kvar.`,
+  kvotBild: (anvanda: number, av: number) => `${anvanda} av ${av} gratis förslag är använda`,
+  premium: 'Premium',
+  premiumText: 'Jobbcoachen skriver punkter till alla dina jobb, profilen och kompetenserna.',
+  premiumTextKort: 'Punkter till alla jobb, profilen och kompetenserna.',
 } as const
 
 export const FLER_BLAD = {
@@ -172,6 +188,70 @@ export const FLER_BLAD = {
   intressen: 'Intressen, med komma emellan',
   laggIntyg: '+ Lägg till intyg',
   laggProjekt: '+ Lägg till ett projekt',
+} as const
+
+/**
+ * Arbetsläget (skisserna Redigera-1440, Bygg-1440, Mobil-redigera): EN vy
+ * för att ändra ett CV eller skriva ett nytt. Ordagrant ur skissen där den
+ * har text.
+ */
+export const ARBETE = {
+  redigera: 'Redigera ditt CV',
+  bygg: 'Bygg ditt CV',
+  klar: 'Klar',
+  bytMall: 'Byt mall',
+  mallBricka: (mall: string) => `Mallen ${mall}. Byt mall`,
+  tillbaka: {
+    mallar: 'Tillbaka till mallarna',
+    'ditt-cv': 'Tillbaka till Ditt CV',
+    analys: 'Tillbaka till analysen',
+  },
+  stang: 'Stäng och gå till Ditt CV',
+  avsnittAv: (i: number) => `Avsnitt ${i} av 5`,
+  stapel: (klara: number, nu: string | null) =>
+    `${klara === 0 ? 'Inget' : klara === 1 ? 'Ett' : antalOrd(klara, true)} av fem avsnitt ifyllda${nu ? `, du skriver ${nu}` : ''}.`,
+  avsnittsrad: 'Avsnitt i ditt CV',
+  flikar: {
+    kontakt: 'Kontakt',
+    profil: 'Profil',
+    erfarenhet: 'Erfarenhet',
+    utbildning: 'Utbildning',
+    kompetenser: 'Kompetenser',
+    sprak: 'Språk',
+    fler: '+ Fler',
+  },
+  flerEtikett: 'Fler avsnitt',
+  duAndrar: 'Du ändrar här',
+  synsDirekt: 'Syns direkt',
+  underArk: (mall: string, i: number, n: number) => `${mall}, ${i} av ${n}.`,
+  underArkRad: 'Tryck på ett annat avsnitt på arket för att ändra det.',
+  gratText: 'Grå text är exempel',
+  gratTextRad: 'och följer inte med i filen.',
+  arkTitel: (mall: string) => `Ditt CV i mallen ${mall}`,
+  fotRedigera: 'Ändringen syns direkt på arket och gäller i alla mallar.',
+  fotBygg: 'Du kan ladda ner när namn, e-post och ett jobb eller en utbildning finns.',
+  fotByggKlar: 'Ändringen syns direkt på arket.',
+  sparaJobbet: 'Spara jobbet',
+  avbryt: 'Avbryt',
+  jobbAntal: (n: number) => `${n} jobb, det senaste först`,
+  utbAntal: (n: number) => `${n === 1 ? 'En utbildning' : `${antalOrd(n, true)} utbildningar`}, den senaste först`,
+  jobbAv: (i: number, n: number) => `Jobb ${i} av ${n}`,
+  utbAv: (i: number, n: number) => `Utbildning ${i} av ${n}`,
+  nyttJobb: 'Nytt jobb',
+  nyUtb: 'Ny utbildning',
+  extrajobb: 'Även extrajobb och praktik räknas',
+  gymnasiet: 'Även gymnasiet räknas',
+  laggJobb: 'Lägg till ett jobb',
+  laggUtb: 'Lägg till en utbildning',
+  taBortJobbPa: (f: string) => (f ? `Ta bort jobbet på ${f}` : 'Ta bort jobbet'),
+  taBortUtbPa: (s: string) => (s ? `Ta bort utbildningen på ${s}` : 'Ta bort utbildningen'),
+  nastaJobb: (namn: string) => `Nästa jobb, ${namn}`,
+  nastaUtb: (namn: string) => `Nästa utbildning, ${namn}`,
+  nasta: 'Nästa',
+  nastaKontakt: 'Fyll i ditt namn och din e-post.',
+  visaBladet: 'Visa bladet',
+  fallIhop: 'Fäll ihop bladet',
+  ort: 'Ort',
 } as const
 
 /** Ångra-raden efter en borttagning, i åtta sekunder. */

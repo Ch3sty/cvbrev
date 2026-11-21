@@ -33,9 +33,12 @@ import { medSpok } from '@/lib/cv/bygg/spok'
 import { renderaMallHtml } from '@/lib/cv/rendera-mall-html'
 import { tolkaVal } from '@/lib/cv/mallar/val'
 import { nyttCv, type ByggCv } from '@/lib/cv/bygg/modell'
-import { byggKalla, rubrikerFor, valFor, type Entry } from '@/lib/cv/bygg/kalla'
+import { rubrikerFor, valFor, type Entry } from '@/lib/cv/bygg/kalla'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
+import { checkCvByggAiQuota, FREE_CV_BYGG_AI_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import ByggareClient from './ByggareClient'
+import { arkKalla, lageFor, tolkaAvsnitt, tolkaFran } from './arbetslage'
+import type { CoachKvot } from './blad/Jobbcoach'
 
 type Rad = { id: string; structured_data: unknown; cv_text: string | null; section_titles: Partial<Record<Sektion, string>> | null }
 type Sok = Record<string, string | string[] | undefined>
@@ -72,9 +75,10 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
   let pris = prisPeriod(SALD_PLAN)
   let prisLang = pris
   let kampanj: { pris: string; ordinarie: string } | null = null
+  let coachKvot: CoachKvot = { premium: false, kvar: null, av: FREE_CV_BYGG_AI_PER_ACCOUNT }
 
   try {
-    const [adminRes, listaRes, radRes, profilRes, scopeRes, grans, kamp] = await Promise.all([
+    const [adminRes, listaRes, radRes, profilRes, scopeRes, grans, kamp, kvot] = await Promise.all([
       supabase.from('admin_users').select('role').eq('id', user.id).eq('role', 'super_admin').maybeSingle(),
       supabase
         .from('cv_texts')
@@ -99,8 +103,15 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       getUserScope(supabase, user.id),
       getCvGrans(supabase, user.id),
       kampanjForVisning(user.id, kampanjNu()),
+      // Jobbcoachens kvot (oförändrad: 3 per konto gratis, 30 per dygn Premium) för kortets brickor.
+      checkCvByggAiQuota(supabase, user.id).catch(() => null),
     ])
     isAdmin = Boolean(adminRes.data)
+    if (kvot) {
+      coachKvot = kvot.isPremium
+        ? { premium: true, kvar: null, av: kvot.limit }
+        : { premium: false, kvar: Math.max(0, kvot.limit - kvot.used), av: kvot.limit }
+    }
     const lista = (listaRes.data ?? []) as { id: string; titel?: string | null }[]
     antal = lista.length
     maxCvs = grans.maxCvs
@@ -130,6 +141,8 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
 
   // CV:t: återkomst via ?cv=, annars ett nytt ur profilen.
   const sparat = rad ? (normalizeStructuredData(rad.structured_data) as ByggCv | null) : null
+  // Ett gammalt CV utan struktur går inte att redigera i avsnitt: till Ditt CV, där "Strukturera nu" finns.
+  if (rad && !sparat) redirect(`/dashboard/profil/cv?cv=${rad.id}`)
   const kontakt = {
     namn: profil?.full_name ?? '',
     epost: profil ? dokumentEpost(profil as Parameters<typeof dokumentEpost>[0], user) : user.email ?? '',
@@ -159,24 +172,31 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
   const mall = mallUrl ?? losMallId(cv.bygge?.mall ?? null) ?? MALL_KATALOG[0].id
   const val = valFor(cv)
   const rubriker = rubrikerFor(rad?.section_titles ?? null)
+  // Arbetsläget: bygg (nytt eller utkast) eller redigera (uppladdat eller klart).
+  const lage = lageFor(cvId, cv)
 
-  // Arkets första HTML, samma väg som /api/cv/preview-html med spok.
+  // Arkets första HTML, samma väg som /api/cv/preview-html (spöktexten bara när CV:t byggs).
   let initialHtml: string | null = null
   try {
+    const kalla = arkKalla({ cv, cvId, mall, val, rubriker, lage })
     const forberett = await forberedInloggatCv(supabase, user, {
-      structuredData: byggKalla({ cv, cvId, mall, val, rubriker }).structuredData,
+      structuredData: kalla.structuredData,
       cvId: cvId ?? undefined,
     })
     if (forberett.ok) {
-      const s = medSpok(forberett.cv)
-      initialHtml = renderaMallHtml(s.cv, mall, tolkaVal({ ...val, rubriker }), { forhandsvisning: true, spok: s.markering })
+      if (kalla.spok) {
+        const s = medSpok(forberett.cv)
+        initialHtml = renderaMallHtml(s.cv, mall, tolkaVal({ ...val, rubriker }), { forhandsvisning: true, spok: s.markering })
+      } else {
+        initialHtml = renderaMallHtml(forberett.cv, mall, tolkaVal({ ...val, rubriker }), { forhandsvisning: true })
+      }
     }
   } catch (error) {
     console.error('Fel vid server-rendering av arket:', error)
   }
 
-  const fran = forsta(params.fran)
-  const entry: Entry = cvId ? 'ateruppta' : fran && ENTRY[fran] ? ENTRY[fran] : mallUrl ? 'mall' : 'annan'
+  const franRa = forsta(params.fran)
+  const entry: Entry = cvId ? 'ateruppta' : franRa && ENTRY[franRa] ? ENTRY[franRa] : mallUrl ? 'mall' : 'annan'
 
   return (
     <ByggareClient
@@ -203,6 +223,10 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       pris={pris}
       prisLang={prisLang}
       kampanj={kampanj}
+      lage={lage}
+      fran={tolkaFran(franRa)}
+      startAvsnitt={tolkaAvsnitt(forsta(params.avsnitt)) ?? (forsta(params.andra) === 'sprak' ? 'sprak' : null)}
+      coachKvot={coachKvot}
     />
   )
 }

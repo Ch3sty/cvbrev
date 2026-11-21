@@ -553,7 +553,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
 
   const sparkSaknas = innehall?.avsnitt.find((a) => !a.finns) ?? null;
   const finnsAntal = innehall?.avsnitt.filter((a) => a.finns).length ?? 0;
-  const sprakHref = aktivt ? flikHref('mallar', aktivt.id, { andra: 'sprak' }) : '#';
+  const sprakHref = aktivt ? `/dashboard/skapa-cv?${new URLSearchParams({ cv: aktivt.id, avsnitt: 'sprak', fran: 'ditt-cv', mall: mall.id }).toString()}` : '#';
 
   const matare1 =
     poang !== null && potential !== null && lage !== 'utkast' ? (
