@@ -7,12 +7,16 @@
  * att ändra (och följer med till PDF och Word).
  *
  *   npx tsx scripts/klicktest-helskarm-dator.ts skapa  --ut <mapp>
- *   npx tsx scripts/klicktest-helskarm-dator.ts klicka --ut <mapp> [--bas URL] [--snabb]
+ *   npx tsx scripts/klicktest-helskarm-dator.ts klicka --ut <mapp> [--bas URL] [--snabb] [--skarpt]
  *   npx tsx scripts/klicktest-helskarm-dator.ts radera --ut <mapp>
  *
  * Kontot: qa-helskarm-dator-<tid>@jobbcoach-qa.test (Premium, långt CV).
  * Raderingen går bara på id:t i konton.json (räknas före delete). Bilder
  * och filer hamnar i --ut, aldrig i git.
+ *
+ * Inloggat följer CV-rummets Mallar (scripts/klicktest-cv-yta.ts): galleriet
+ * med alla mallar, format och nedladdning på väggen, och titeln som öppnar
+ * arbetsläget. Titeln i PDF och Word laddas ner bara med --skarpt.
  */
 import fs from 'fs'
 import path from 'path'
@@ -21,6 +25,7 @@ import puppeteer, { type Browser, type Page } from 'puppeteer-core'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
 import { MALL_KATALOG } from '../src/lib/cv/mallar/katalog'
 import { CHROME, lasPdfGeometri } from './lib/pdf-verktyg'
+import { SKARPT, YTA, klickaSynlig, synlig } from './klicktest-cv-yta'
 
 function laddaEnv() {
   for (const fil of ['.env.local', '../../../.env.local']) {
@@ -607,6 +612,47 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
   await ctx.close()
 }
 
+/** Mallar i CV-rummet: alla grupper synliga, rutorna med namn och nivå, klick byter arket. */
+async function provaGalleri(page: Page, steg: string) {
+  const m = await page.evaluate((panel) => {
+    const p = document.querySelector(panel)
+    if (!p) return null
+    const rutor = [...p.querySelectorAll<HTMLButtonElement>('[data-mall-ruta]')]
+    return {
+      grupper: p.querySelectorAll('section').length,
+      rutor: rutor.length,
+      unika: new Set(rutor.map((r) => r.dataset.mallRuta)).size,
+      utanNamn: rutor.filter((r) => !r.querySelector('b')?.textContent?.trim() || !/Gratis|Premium/.test(r.innerText)).length,
+      valda: rutor.filter((r) => r.getAttribute('aria-pressed') === 'true').length,
+    }
+  }, YTA.panel)
+  kontroll(Boolean(m && m.unika === MALL_KATALOG.length && m.utanNamn === 0 && m.valda >= 1), `${steg}: alla ${MALL_KATALOG.length} mallar synliga i ${m?.grupper} grupper, med namn och nivå (${JSON.stringify(m)})`)
+  const fore = await page.$eval(YTA.arkIframe, (f) => f.getAttribute('srcdoc')?.length ?? 0).catch(() => 0)
+  await klickaSynlig(page, YTA.ruta('skylt'))
+  const bytt = await page
+    .waitForFunction((sel, n) => (document.querySelector(sel)?.getAttribute('srcdoc')?.length ?? 0) !== n, { timeout: 30000 }, YTA.arkIframe, fore)
+    .then(() => true)
+    .catch(() => false)
+  kontroll(bytt, `${steg}: klick på en ruta byter arket`)
+  await klickaSynlig(page, YTA.ruta('linne'))
+  await vila(1200)
+}
+
+/** Ett tryck på titeln på arket går till arbetsläget med Kontakt, fran och mallen (steg 3). */
+async function provaTillArbetslaget(page: Page, steg: string, k: Konto) {
+  const sel = `${YTA.ark} button[data-huvud="titel"]`
+  if (!(await page.$(sel))) return kontroll(false, `${steg}: titeln går inte att trycka på`)
+  await page.evaluate((s) => document.querySelector<HTMLElement>(s)!.scrollIntoView({ block: 'center' }), sel)
+  await vila(300)
+  await Promise.all([page.waitForNavigation({ timeout: 60000 }).catch(() => null), page.click(sel)])
+  const u = new URL(page.url())
+  kontroll(
+    u.pathname === '/dashboard/skapa-cv' && u.searchParams.get('cv') === k.cvId && u.searchParams.get('avsnitt') === 'kontakt' && u.searchParams.get('fran') === 'mallar' && u.searchParams.get('mall') === 'linne',
+    `${steg}: tryck på titeln öppnar arbetsläget i Kontakt (${u.pathname}${u.search})`
+  )
+  await bild(page, `${steg}-arbetslaget`)
+}
+
 async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork', medFil: boolean) {
   const steg = `in-${vy.namn}-${tema}`
   const { page, ctx, fel } = await nySida(browser, vy, tema)
@@ -614,50 +660,49 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
   await page.goto(`${BAS}/dashboard/cv-mallar?mall=linne&cv=${k.cvId}`, { waitUntil: 'networkidle2', timeout: 120000 })
   await vila(3000)
   await provaHelskarm(page, `${steg}-1-mina-mallar`, vy, { flerSidor: true })
-  await provaMallyta(page, `${steg}-2-mallyta`, vy)
-  if (!vy.isMobile) await provaFastRad(page, `${steg}-3-fastrad`)
-  if (medFil) {
-    // Titeln följer med till PDF och Word.
+  await provaGalleri(page, `${steg}-2-galleri`)
+  // Format och nedladdning: väggen på datorn, den fasta raden på telefonen.
+  kontroll((await synlig(page, YTA.format)) && (await synlig(page, YTA.ladda)) && (vy.isMobile ? await synlig(page, YTA.fastRad) : true), `${steg}-3: format och nedladdning nåbara`)
+  await provaTillArbetslaget(page, `${steg}-4`, k)
+  if (medFil && SKARPT) {
+    // Titeln följer med till PDF och Word: titeln sätts i CV:t (arbetsläget
+    // har sitt eget klicktest), sedan laddas båda formaten ner på riktigt.
+    const ny = `Driftchef ${Date.now() % 1000}`
+    const rad = await sb.from('cv_texts').select('structured_data').eq('id', k.cvId!).single()
+    const sd = rad.data?.structured_data as { personalInfo?: Record<string, unknown> }
+    await sb.from('cv_texts').update({ structured_data: { ...sd, personalInfo: { ...(sd?.personalInfo ?? {}), title: ny } } }).eq('id', k.cvId!)
     await page.goto(`${BAS}/dashboard/cv-mallar?mall=linne&cv=${k.cvId}`, { waitUntil: 'networkidle2', timeout: 120000 })
     await vila(3000)
-    const ny = `Driftchef ${Date.now() % 1000}`
-    if (await provaTitel(page, `${steg}-4-titel`, ny)) {
-      const sparad = await sb.from('cv_texts').select('structured_data').eq('id', k.cvId!).single()
-      kontroll((sparad.data?.structured_data as { personalInfo?: { title?: string } })?.personalInfo?.title === ny, `${steg}: titeln sparad i CV:t`)
-      for (const format of ['pdf', 'docx'] as const) {
-        await page.evaluate((f) => {
-          const knappar = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] [role=radio]')].filter((b) => b.offsetParent !== null)
-          knappar.find((b) => (f === 'pdf' ? /^PDF/ : /^Word/).test((b.getAttribute('aria-label') || b.innerText).trim()))?.click()
-        }, format)
-        await vila(600)
-        const vald = await page.evaluate(() => [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] [role=radio][aria-checked="true"]')].filter((b) => b.offsetParent !== null).map((b) => (b.getAttribute('aria-label') || b.innerText).trim()).join())
-        if (!new RegExp(format === 'pdf' ? '^PDF' : '^Word').test(vald)) await bild(page, `${steg}-format-${format}`)
-        // Begäran som knappen skickar, upprepad med samma kaka (sidan läser
-        // svaret som ström, så puppeteer ser ingen kropp).
-        const begaran = page.waitForRequest((r) => r.url().includes('/api/cv/generate-formatted') && r.method() === 'POST', { timeout: 120000 })
-        await page.evaluate(() => [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((b) => /Ladda ner/.test(b.innerText))!.click())
-        const req = await begaran
-        const kaka = (await page.cookies()).map((c) => `${c.name}=${c.value}`).join('; ')
-        const r = await fetch(req.url(), { method: 'POST', headers: { 'Content-Type': 'application/json', cookie: kaka }, body: req.postData() })
-        const buf = Buffer.from(await r.arrayBuffer())
-        fs.writeFileSync(path.join(UT, `${steg}-titel.${format}`), buf)
-        let text = ''
-        if (format === 'pdf') text = (await lasPdfGeometri(buf)).rader.map((x) => x.text).join('\n')
-        else {
-          const JSZip = (await import('jszip')).default
-          try {
-            const zip = await JSZip.loadAsync(buf)
-            text = (await zip.file('word/document.xml')!.async('string')).replace(/<[^>]+>/g, '')
-          } catch {
-            text = ''
-          }
+    for (const format of ['pdf', 'docx'] as const) {
+      await klickaSynlig(page, format === 'pdf' ? YTA.pdf : YTA.word)
+      await vila(600)
+      // Begäran som knappen skickar, upprepad med samma kaka (sidan läser
+      // svaret som ström, så puppeteer ser ingen kropp).
+      const begaran = page.waitForRequest((r) => r.url().includes('/api/cv/generate-formatted') && r.method() === 'POST', { timeout: 120000 })
+      await klickaSynlig(page, YTA.ladda)
+      const req = await begaran
+      const kaka = (await page.cookies()).map((c) => `${c.name}=${c.value}`).join('; ')
+      const r = await fetch(req.url(), { method: 'POST', headers: { 'Content-Type': 'application/json', cookie: kaka }, body: req.postData() })
+      const buf = Buffer.from(await r.arrayBuffer())
+      fs.writeFileSync(path.join(UT, `${steg}-titel.${format}`), buf)
+      let text = ''
+      if (format === 'pdf') text = (await lasPdfGeometri(buf)).rader.map((x) => x.text).join('\n')
+      else {
+        const JSZip = (await import('jszip')).default
+        try {
+          const zip = await JSZip.loadAsync(buf)
+          text = (await zip.file('word/document.xml')!.async('string')).replace(/<[^>]+>/g, '')
+        } catch {
+          text = ''
         }
-        kontroll(r.ok && text.includes(ny), `${steg}: nedladdad ${format.toUpperCase()} har titeln "${ny}" (valt format ${vald})`)
-        await vila(1500)
-        await page.keyboard.press('Escape')
-        await vila(500)
       }
+      kontroll(r.ok && text.includes(ny), `${steg}: nedladdad ${format.toUpperCase()} har titeln "${ny}"`)
+      await vila(1500)
+      await page.keyboard.press('Escape')
+      await vila(500)
     }
+  } else if (medFil) {
+    kontroll(true, `${steg}: titeln i PDF och Word hoppas över utan --skarpt (riktiga nedladdningar)`)
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()

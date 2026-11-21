@@ -3,19 +3,25 @@
  * riktig Chrome, Pixel 7 och 1280, som utloggad, gratis och Premium.
  *
  *   npx tsx scripts/klicktest-mallar-komponenter.ts skapa  --ut <mapp>
- *   npx tsx scripts/klicktest-mallar-komponenter.ts klicka --ut <mapp> [--bas URL]
+ *   npx tsx scripts/klicktest-mallar-komponenter.ts klicka --ut <mapp> [--bas URL] [--skarpt]
  *   npx tsx scripts/klicktest-mallar-komponenter.ts radera --ut <mapp>
  *
  * Konton: gratis och premium med ett CV vardera, plus kontot som skapas i
  * kontoarket på provsidan (utloggad). Adresserna är unika per körning,
  * qa-mallar-<roll>-<tid>@jobbcoach-qa.test, och raderingen går bara på id:n
  * i konton.json (räknas före delete). Skärmdumparna hamnar i --ut, aldrig i git.
+ *
+ * Inloggat följer CV-rummets Mallar (scripts/klicktest-cv-yta.ts). Utan
+ * --skarpt: inga riktiga nedladdningar (generate-formatted besvaras i
+ * webbläsaren), merförsäljningen hoppas över (kräver gratisräknaren), och
+ * provsidans kontoark skapar inget konto. Med --skarpt som förut.
  */
 import fs from 'fs'
 import path from 'path'
 import { createClient } from '@supabase/supabase-js'
 import puppeteer, { type Browser, type Page } from 'puppeteer-core'
 import { NORMALT_CV } from '../src/lib/cv/word/__tests__/fixtures'
+import { SKARPT, YTA, fejkaNedladdning, klickaSynlig, synlig } from './klicktest-cv-yta'
 
 function laddaEnv() {
   for (const fil of ['.env.local', '../../../.env.local']) {
@@ -388,6 +394,9 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
     await vantaText(page, 'Skapa ett konto, så följer ditt CV med.', 15000).catch(() => undefined)
     await vila(600)
     await bild(page, `${steg}-08-kontoark`)
+    // Kontot skapas bara i en skarp körning (nytt konto i databasen).
+    if (!SKARPT) kontroll(await page.evaluate(() => Boolean(document.querySelector('[role=dialog] input[type=email]'))), `${steg}: kontoarket öppnas (kontot skapas bara med --skarpt)`)
+    else {
     const tid = Date.now()
     const epost = `qa-mallar-utloggad-${tid}@jobbcoach-qa.test`
     await page.type('[role=dialog] input[type=email]', epost)
@@ -434,6 +443,7 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
       const { count } = await sb.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', ny.id)
       kontroll(count === 1 && andra.ny === false, `${steg}: utkastet hämtas en gång, andra anspråket återanvänder raden (${count} rad, ny ${andra.ny})`)
     }
+    }
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()
@@ -442,22 +452,36 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
 async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork') {
   const steg = `${k.roll}-${vy}-${tema}`
   const { page, ctx, fel, nedMapp } = await nySida(browser, vy, steg, tema)
+  const telefon = vy !== 'dator'
   for (const c of await sessionsCookie(k.epost)) await page.setCookie({ ...c, url: BAS, path: '/' })
-  await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2', timeout: 120000 })
+  // Utan --skarpt besvaras nedladdningen i webbläsaren (klicktest-cv-yta.ts).
+  await fejkaNedladdning(page, { traff: { traff: null } })
+  await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=linne`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await page.waitForSelector(YTA.arkIframe, { timeout: 60000 }).catch(() => null)
   await vila(2500)
   await bild(page, `${steg}-01-galleri`)
   kontroll(page.url().includes('mall='), `${steg}: valet i adressen (${page.url().replace(BAS, '')})`)
-  // Rulla till mitten och till slutet: raden ska ligga mot navet hela vägen.
+  // Telefonen: den fasta raden mot navet hela vägen. Datorn: kolumnen som
+  // följer med visar vald mall och nedladdningen när arket rullat ur bild.
   for (const lage of ['mitt', 'slut'] as const) {
     await page.evaluate((l) => {
       const m = document.querySelector('main.dashboard-main-content') as HTMLElement | null
       const el = m && m.scrollHeight > m.clientHeight ? m : document.scrollingElement!
       el.scrollTop = l === 'mitt' ? el.scrollHeight / 3 : el.scrollHeight
     }, lage)
-    await vila(700)
-    const r = await matRad(page)
-    const mal = r.navTopp ?? r.vy
-    kontroll(r.under !== null && Math.abs(r.under - mal) <= 2, `${steg}: fasta raden mot ${r.navTopp ? 'navet' : 'vyns botten'} vid ${lage} (radens underkant ${r.under}, mål ${mal}, höjd ${r.hojd})`)
+    await vila(900)
+    if (telefon) {
+      const r = await matRad(page)
+      const mal = r.navTopp ?? r.vy
+      kontroll(r.under !== null && Math.abs(r.under - mal) <= 2, `${steg}: fasta raden mot ${r.navTopp ? 'navet' : 'vyns botten'} vid ${lage} (radens underkant ${r.under}, mål ${mal}, höjd ${r.hojd})`)
+    } else {
+      const ok = await page.evaluate(() => {
+        const v = document.querySelector<HTMLElement>('.cv3m-vald')
+        const r = v?.getBoundingClientRect()
+        return Boolean(r && r.top >= 0 && r.bottom <= window.innerHeight && v!.querySelector('[data-ladda-knapp]'))
+      })
+      kontroll(ok, `${steg}: vald mall med nedladdningen syns i kolumnen vid ${lage}`)
+    }
     if (lage === 'slut') await bild(page, `${steg}-02-rad-${lage}`)
   }
   if (tema === 'mork') {
@@ -472,8 +496,8 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
   })
   await vila(500)
 
-  // B6: rubrikarket följer det sparade valet.
-  const rubrik = await page.$('button[aria-label^="Byt rubrik"]')
+  // B6: rubrikarket följer det sparade valet (rubrikbytet stannar på Mallar).
+  const rubrik = await page.$(YTA.rubrik)
   if (rubrik) {
     await rubrik.click()
     await vila(800)
@@ -494,20 +518,16 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
   }
 
   if (k.roll === 'gratis') {
-    // Premiummall: köpet går direkt till köpsteget med mallen och returen.
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta [aria-label*="Premium"]')].find((x) => x.offsetParent !== null)
-      b?.click()
-    })
-    await vila(2500)
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((x) => x.innerText.startsWith('Ladda ner') && x.innerText.includes('Premium'))
-      b?.click()
-    })
+    // Premiummall: spärren mall, och köpet går direkt till köpsteget med mallen och returen.
+    await klickaSynlig(page, YTA.ruta('koppar'))
     await vila(1500)
-    await bild(page, `${steg}-04-vagg-premiummall`)
+    await klickaSynlig(page, YTA.ladda)
+    await page.waitForSelector(YTA.sparr('mall'), { timeout: 15000 }).catch(() => null)
+    await vila(800)
+    await bild(page, `${steg}-04-sparr-premiummall`)
+    kontroll(await synlig(page, YTA.sparr('mall')), `${steg}: Premiummall utan Premium öppnar spärren mall`)
     const kop = await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] button, [role=dialog] a')].find((x) => /Premium|Köp/.test(x.innerText))
+      const b = document.querySelector<HTMLButtonElement>('[data-sparr-kop]')
       b?.click()
       return Boolean(b)
     })
@@ -515,62 +535,62 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
     const url = decodeURIComponent(page.url())
     kontroll(kop && url.includes('/dashboard/valj-spar') && url.includes('retur=/dashboard/cv-mallar?') && url.includes('mall='), `${steg}: köpet går till köpsteget med retur och mall (${url.replace(BAS, '').slice(0, 160)})`)
     await bild(page, `${steg}-05-kopsteg`)
-    await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2' })
+    await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=linne`, { waitUntil: 'networkidle2' })
     await vila(2500)
   }
 
   // Första nedladdningen (gratis bara på Pixel 7, annars använd).
   const forsta = !(k.roll === 'gratis' && vy === 'dator')
   if (forsta) {
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF'))
-      b?.click()
-    })
+    await klickaSynlig(page, YTA.ladda)
     await vantaText(page, 'Klart. Ditt CV är nedladdat.', 90000).catch(() => undefined)
     await vila(2500)
     await bild(page, `${steg}-06-final`)
     const pdf = await vantaFil(nedMapp, '.pdf', 10000)
-    kontroll(Boolean(pdf), `${steg}: PDF nedladdad, finalen visas (${pdf ? path.basename(pdf) : 'ingen'})`)
+    kontroll(Boolean(pdf) && (await synlig(page, YTA.final)), `${steg}: PDF nedladdad${SKARPT ? '' : ' (påhittad)'}, målgången visas (${pdf ? path.basename(pdf) : 'ingen'})`)
     await page.keyboard.press('Escape')
     await vila(500)
   }
   if (k.roll === 'gratis') {
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner PDF'))
-      b?.click()
-    })
-    await vantaText(page, 'Ditt CV i en annan mall?', 30000).catch(() => undefined)
-    await vila(3000)
-    await bild(page, `${steg}-07-merforsaljning`)
-    const bilder = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[role=dialog] [role=radio] > span:first-child')].map((e) => Math.round(e.getBoundingClientRect().width)))
-    kontroll(bilder.length === 3 && bilder.every((b) => b >= 100), `${steg}: merförsäljningen med tre bilder om 100 px eller mer (${bilder.join(', ')})`)
-    const lofte = await page.evaluate(() => [...document.querySelectorAll('[role=dialog] [role=radio]')].map((e) => (e as HTMLElement).innerText).join(' | '))
-    kontroll(!/foto|bild/i.test(lofte), `${steg}: korten lovar inget foto utan foto (${lofte.replace(/\n/g, ' ')})`)
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[role=dialog] button')].find((x) => x.innerText.startsWith('Ladda ner i'))
-      b?.click()
-    })
-    await vila(3000)
-    const url = decodeURIComponent(page.url())
-    kontroll(url.includes('/dashboard/valj-spar') && url.includes('retur=/dashboard/cv-mallar?') && url.includes('mall='), `${steg}: merförsäljningens knapp direkt till köpsteget med vald mall (${url.replace(BAS, '').slice(0, 160)})`)
+    // Merförsäljningen kräver att servern räknat första filen: bara skarpt.
+    if (!SKARPT) {
+      kontroll(true, `${steg}: merförsäljningen hoppas över utan --skarpt (gratisräknaren rörs inte)`)
+    } else {
+      if (vy === 'dator') {
+        await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=linne`, { waitUntil: 'networkidle2' })
+        await vila(2500)
+      }
+      await klickaSynlig(page, YTA.ladda)
+      await page.waitForSelector(YTA.merforsaljning, { timeout: 30000 }).catch(() => null)
+      await vila(3000)
+      await bild(page, `${steg}-07-merforsaljning`)
+      const bilder = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[data-merforsaljning] [role=radio] .cv3s-valkort-bild')].map((e) => Math.round(e.getBoundingClientRect().width)))
+      kontroll(bilder.length === 3 && bilder.every((b) => b >= 80), `${steg}: merförsäljningen med tre bilder (${bilder.join(', ')})`)
+      const lofte = await page.evaluate(() => [...document.querySelectorAll('[data-merforsaljning] [role=radio]')].map((e) => (e as HTMLElement).innerText).join(' | '))
+      kontroll(!/foto|bild/i.test(lofte), `${steg}: korten lovar inget foto utan foto (${lofte.replace(/\n/g, ' ')})`)
+      await page.evaluate(() => {
+        const b = [...document.querySelectorAll<HTMLButtonElement>('[data-merforsaljning] button')].find((x) => x.innerText.startsWith('Ladda ner i'))
+        b?.click()
+      })
+      await vila(3000)
+      const url = decodeURIComponent(page.url())
+      kontroll(url.includes('/dashboard/valj-spar') && url.includes('retur=/dashboard/cv-mallar?') && url.includes('mall='), `${steg}: merförsäljningens knapp direkt till köpsteget med vald mall (${url.replace(BAS, '').slice(0, 160)})`)
+    }
   } else {
-    // Premium: Word, och köpreturen (?ladda=1) startar nedladdningen.
+    // Premium: köpreturen (?ladda=1) startar nedladdningen, sedan Word.
     await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=kalksten&format=pdf&ladda=1&premium_activated=true`, { waitUntil: 'networkidle2' })
     const pdf2 = await vantaFil(nedMapp, 'kalksten-erik-lindberg.pdf', 90000)
     await vila(2000)
     await bild(page, `${steg}-07-retur-ladda`)
     kontroll(Boolean(pdf2) && !page.url().includes('ladda=1'), `${steg}: köpreturen laddar ner filen direkt och tar bort ladda ur adressen (${pdf2 ? path.basename(pdf2) : 'ingen'})`)
     await page.keyboard.press('Escape')
-    await page.evaluate(() => ([...document.querySelectorAll<HTMLButtonElement>('[role=radio]')].find((b) => b.innerText.includes('Word')))?.click())
     await vila(500)
-    await page.evaluate(() => {
-      const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((e) => e.innerText.trim().startsWith('Ladda ner Word'))
-      b?.click()
-    })
+    await klickaSynlig(page, YTA.word)
+    await vila(500)
+    await klickaSynlig(page, YTA.ladda)
     const docx = await vantaFil(nedMapp, '.docx', 90000)
-    kontroll(Boolean(docx), `${steg}: Word laddas ner (${docx ? path.basename(docx) : 'ingen'})`)
-    // Byggarens gamla steg 7 (granskningen V8) finns inte längre: CV-byggaren
-    // Direkt på arket (f039f965) testas i scripts/klicktest-cv-byggare.ts.
+    kontroll(Boolean(docx), `${steg}: Word laddas ner${SKARPT ? '' : ' (påhittad)'} (${docx ? path.basename(docx) : 'ingen'})`)
+    // Arbetsläget (texten) testas i scripts/klicktest-cv-byggare.ts.
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()

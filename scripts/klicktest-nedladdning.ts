@@ -3,7 +3,7 @@
  * nedladdning utan profiles.email_verified_at, i riktig Chrome.
  *
  *   npx tsx scripts/klicktest-nedladdning.ts skapa  --ut <mapp>
- *   npx tsx scripts/klicktest-nedladdning.ts klicka --ut <mapp> [--bas URL]
+ *   npx tsx scripts/klicktest-nedladdning.ts klicka --ut <mapp> [--bas URL] [--skarpt]
  *   npx tsx scripts/klicktest-nedladdning.ts radera --ut <mapp>
  *
  * Tre konton, alla UTAN email_verified_at, som 133 av 155 nya konton:
@@ -12,12 +12,18 @@
  *   premium betalande (premium_grants-liknande fält på profilen)
  * Varje konto har ett CV (Erik Lindberg). Adresserna är unika per körning och
  * raderingen går bara på id:n som skriptet själv skapat (konton.json).
+ *
+ * CV-rummet (omgång 1): Mallar i nya ytan (scripts/klicktest-cv-yta.ts).
+ * Utan --skarpt besvaras nedladdningen i webbläsaren och serverkontrollerna
+ * (gratisräknaren, 402, Word och brevet) hoppas över; med --skarpt går allt
+ * mot servern som förut.
  */
 import fs from 'fs'
 import path from 'path'
 import { createClient } from '@supabase/supabase-js'
 import puppeteer, { type Page } from 'puppeteer-core'
 import { NORMALT_CV } from '../src/lib/cv/word/__tests__/fixtures'
+import { SKARPT, YTA, fejkaNedladdning, klickaSynlig, synlig } from './klicktest-cv-yta'
 
 function laddaEnv() {
   for (const fil of ['.env.local', '../../../.env.local']) {
@@ -159,6 +165,7 @@ async function klickaKnapp(page: Page, borjar: string) {
   }, borjar)
   if (!ok) throw new Error(`hittade ingen knapp "${borjar}"`)
 }
+void klickaKnapp
 async function vantaFil(mapp: string, slut: string, ms = 60000) {
   const start = Date.now()
   while (Date.now() - start < ms) {
@@ -203,24 +210,37 @@ async function klicka() {
         await bcdp.send('Browser.setDownloadBehavior', { behavior: 'allow', downloadPath: nedMapp, browserContextId: (ctx as unknown as { id: string }).id })
         for (const c of await sessionsCookie(k.epost)) await page.setCookie({ ...c, url: BAS, path: '/' })
         await page.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS, path: '/' })
-        await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2', timeout: 90000 })
+        await fejkaNedladdning(page, { traff: { traff: null } })
+        // Linne (gratismall), så att gratiskontot laddar ner utan Premium.
+        await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=linne`, { waitUntil: 'networkidle2', timeout: 90000 })
+        await page.waitForSelector(YTA.arkIframe, { timeout: 60000 }).catch(() => null)
         await vila(1500)
-        kontroll(page.url().includes('/dashboard/cv-mallar'), `${steg}: sidan öppnas`)
+        kontroll(page.url().includes('/dashboard/cv-mallar') && (await synlig(page, YTA.ladda)), `${steg}: sidan öppnas med nedladdningsknappen`)
 
         const forsta = k.roll === 'premium' || v.namn === 'pixel7'
         if (forsta) {
-          await klickaKnapp(page, 'Ladda ner som PDF')
+          await klickaSynlig(page, YTA.ladda)
           const pdf = await vantaFil(nedMapp, '.pdf', 90000)
           const ok = Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF'
           kontroll(ok, `${steg}: PDF laddas ner utan bekräftad e-post (${pdf ? path.basename(pdf) : 'ingen fil'})`)
           const body = await page.evaluate(() => document.body.innerText)
           kontroll(!/email_not_verified|e-post för att ladda ner/i.test(body), `${steg}: ingen e-postspärr på nedladdningen (bannern om permanent lagring får stå)`)
+          await page.waitForSelector(YTA.final, { timeout: 15000 }).catch(() => null)
+          kontroll(await synlig(page, YTA.final), `${steg}: målgången visas efter filen`)
           if (!ok) await page.screenshot({ path: path.join(UT, `${steg}-fel.png`) as `${string}.png` })
         } else {
-          // Andra försöket för gratiskontot: betalväggen, aldrig ett fel.
-          await vila(500)
+          // Andra försöket för gratiskontot: merförsäljningen (eller spärren
+          // cv-export), aldrig ett fel. Kräver att första filen räknats på
+          // servern, alltså en skarp körning.
+          if (!SKARPT) {
+            kontroll(true, `${steg}: andra försöket hoppas över utan --skarpt (gratisräknaren rörs inte)`)
+            await ctx.close()
+            continue
+          }
+          await klickaSynlig(page, YTA.ladda)
+          await vila(1500)
           const body = await page.evaluate(() => document.body.innerText)
-          kontroll(/Din gratisnedladdning är använd/.test(body), `${steg}: andra gången visas att gratisnedladdningen är använd`)
+          kontroll((await synlig(page, YTA.merforsaljning)) || /Din gratis nedladdning är använd/.test(body), `${steg}: andra gången visas merförsäljningen eller att gratisnedladdningen är använd`)
           kontroll(!/email_not_verified|Kunde inte generera/i.test(body), `${steg}: ingen rå felkod`)
           const { data: p } = await sb.from('profiles').select('free_cv_exports_used').eq('id', k.id).single()
           kontroll(p?.free_cv_exports_used === 1, `${steg}: gratisräknaren står på 1 efter första filen (${p?.free_cv_exports_used})`)
@@ -235,7 +255,7 @@ async function klicka() {
           kontroll(status === 402, `${steg}: andra PDF:en spärras med 402 (${status})`)
         }
 
-        if (k.roll === 'premium') {
+        if (k.roll === 'premium' && SKARPT) {
           // Word i en Word-mall och brevet, via samma rutter som knapparna.
           const svar = await page.evaluate(async (cv) => {
             const w = await fetch('/api/cv/generate-formatted', {

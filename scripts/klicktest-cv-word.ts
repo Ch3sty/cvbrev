@@ -3,19 +3,24 @@
  * i riktig Chrome, som nya användare: Pixel 7 och 1280 px, ljust och mörkt.
  *
  *   npx tsx scripts/klicktest-cv-word.ts skapa  --ut <mapp>            # tre QA-konton, id i <mapp>/konton.json
- *   npx tsx scripts/klicktest-cv-word.ts klicka --ut <mapp> [--bas URL] # skärmdumpar och kontroller
+ *   npx tsx scripts/klicktest-cv-word.ts klicka --ut <mapp> [--bas URL] [--skarpt] # skärmdumpar och kontroller
  *   npx tsx scripts/klicktest-cv-word.ts radera --ut <mapp>            # raderar exakt kontona i konton.json
  *
  * Kontona: gratis (före första nedladdningen), gratis med använd
  * nedladdning, och Premium. Varje konto har ett CV (Erik Lindberg).
  * Adresserna är unika per körning (qa-cvword-<roll>-<tid>@jobbcoach-qa.test),
  * och raderingen går bara på id:n som skriptet själv skapat.
+ *
+ * CV-rummet (omgång 1): Mallar i nya ytan (scripts/klicktest-cv-yta.ts).
+ * Utan --skarpt besvaras nedladdningen i webbläsaren; med --skarpt laddas
+ * filerna ner på riktigt.
  */
 import fs from 'fs'
 import path from 'path'
 import { createClient } from '@supabase/supabase-js'
 import puppeteer, { type Page } from 'puppeteer-core'
 import { NORMALT_CV } from '../src/lib/cv/word/__tests__/fixtures'
+import { SKARPT, YTA, fejkaNedladdning, klickaSynlig, synlig, synligText } from './klicktest-cv-yta'
 
 function laddaEnv() {
   for (const rad of fs.readFileSync('.env.local', 'utf8').split(/\r?\n/)) {
@@ -145,31 +150,6 @@ const kontroll = (ok: boolean, text: string) => {
 async function text(page: Page) {
   return page.evaluate(() => document.body.innerText)
 }
-async function klickaText(page: Page, selector: string, innehall: string) {
-  const ok = await page.evaluate(
-    (sel, t) => {
-      const el = [...document.querySelectorAll<HTMLElement>(sel)].find((e) => e.innerText.trim().startsWith(t))
-      if (!el) return false
-      el.scrollIntoView({ block: 'center' })
-      el.click()
-      return true
-    },
-    selector,
-    innehall
-  )
-  if (!ok) throw new Error(`hittade inte ${selector} "${innehall}"`)
-  await new Promise((r) => setTimeout(r, 700))
-}
-async function valjMall(page: Page, namn: string) {
-  await page.evaluate((n) => {
-    const b = [...document.querySelectorAll<HTMLElement>('[role="radiogroup"][aria-label="Välj mall"] [role="radio"]')].find((e) =>
-      (e.getAttribute('aria-label') ?? '').startsWith(n)
-    )
-    b?.scrollIntoView({ block: 'center' })
-    b?.click()
-  }, namn)
-  await new Promise((r) => setTimeout(r, 900))
-}
 async function bild(page: Page, namn: string, element?: string) {
   const fil = path.join(UT, `${namn}.png`) as `${string}.png`
   if (element) {
@@ -177,10 +157,6 @@ async function bild(page: Page, namn: string, element?: string) {
     await new Promise((r) => setTimeout(r, 300))
   }
   await page.screenshot({ path: fil })
-}
-async function tillFormat(page: Page) {
-  await page.evaluate(() => document.getElementById('formatval-rubrik')?.scrollIntoView({ block: 'center' }))
-  await new Promise((r) => setTimeout(r, 400))
 }
 async function vantaFil(mapp: string, slut: string, ms = 30000) {
   const start = Date.now()
@@ -223,82 +199,75 @@ async function klicka() {
         await bcdp.send('Browser.setDownloadBehavior', { behavior: 'allow', downloadPath: nedMapp, browserContextId: (ctx as unknown as { id: string }).id })
         for (const c of await sessionsCookie(k.epost)) await page.setCookie({ ...c, url: BAS, path: '/' })
         await page.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS, path: '/' })
-        await page.goto(`${BAS}/dashboard/cv-mallar`, { waitUntil: 'networkidle2', timeout: 60000 })
+        await fejkaNedladdning(page, { traff: { traff: null } })
+        await page.goto(`${BAS}/dashboard/cv-mallar?cv=${k.cvId}&mall=linne`, { waitUntil: 'networkidle2', timeout: 60000 })
+        await page.waitForSelector(YTA.arkIframe, { timeout: 60000 }).catch(() => null)
         await new Promise((r) => setTimeout(r, 1500))
         const sista = n === kombinationer.length - 1
+        const knapp = () => synligText(page, YTA.ladda)
+        const wordEtikett = () => page.evaluate((s) => [...document.querySelectorAll<HTMLElement>(s)].find((e) => e.offsetParent !== null)?.getAttribute('aria-label') ?? '', YTA.word)
 
         let body = await text(page)
-        kontroll(page.url().includes('/dashboard/cv-mallar'), `${steg}: sidan öppnas (${page.url().replace(BAS, '')})`)
-        kontroll(/Sex av \d+ syns här\. Alla klarar rekryteringssystemens läsning\. Sex av dem finns också som Word/.test(body), `${steg}: steg 2 säger att sex finns som Word`)
-        const wordEtiketter = await page.evaluate(
-          () => [...document.querySelectorAll('[role="radiogroup"][aria-label="Välj mall"] [role="radio"]')].filter((e) => (e.getAttribute('aria-label') ?? '').includes('Finns också som Word')).length
-        )
-        kontroll(wordEtiketter === 5, `${steg}: Word-etiketten på fem av de sex synliga mallarna (${wordEtiketter})`)
-        await bild(page, `${steg}-1-galleri`, '[role="radiogroup"][aria-label="Välj mall"]')
-
-        await tillFormat(page)
-        body = await text(page)
-        kontroll(body.includes('Finns också som Word'), `${steg}: mallinfon har brickan Finns också som Word (Norrsken)`)
+        kontroll(page.url().includes('/dashboard/cv-mallar') && (await synlig(page, YTA.format)), `${steg}: sidan öppnas med formatvalet (${page.url().replace(BAS, '')})`)
+        const wordFilter = await page.evaluate((s) => [...document.querySelectorAll<HTMLElement>(s)].find((e) => /^Word/.test(e.innerText))?.innerText ?? '', '[aria-label="Filtrera mallar"] button')
+        kontroll(/Words*d+/.test(wordFilter), `${steg}: filtret Word räknar mallarna med Word (${wordFilter.replace(/s+/g, ' ')})`)
+        await bild(page, `${steg}-1-galleri`)
 
         if (k.roll === 'gratis') {
-          kontroll(body.includes('PDF är gratis första gången. Word, för att ändra i filen själv, ingår i Premium.'), `${steg}: raden om gratis-PDF och Word i Premium`)
-          kontroll(body.includes('Ladda ner som PDF'), `${steg}: knappen säger Ladda ner som PDF`)
-          await bild(page, `${steg}-2-format-pdf`)
-          await klickaText(page, '[role="radio"]', 'Word')
+          kontroll((await wordEtikett()) === 'Word' && (await knapp()).startsWith('Ladda ner PDF'), `${steg}: gratismallen: Word öppet, knappen Ladda ner PDF`)
+          await klickaSynlig(page, YTA.ruta('kalksten'))
+          await new Promise((r) => setTimeout(r, 900))
+          kontroll((await wordEtikett()) === 'Word, ingår i Premium', `${steg}: Premiummall: Word med lås`)
+          await klickaSynlig(page, YTA.word)
+          await page.waitForSelector(YTA.sparr('cv-export-word'), { timeout: 15000 }).catch(() => null)
           body = await text(page)
-          kontroll(body.includes('Word-filen ingår i Premium'), `${steg}: låst Word öppnar betalväggen "Word-filen ingår i Premium"`)
-          kontroll(/Köp Premium, \d+ kr|Köp Premium/.test(body), `${steg}: betalväggen har köpknappen`)
-          await bild(page, `${steg}-3-betalvagg`)
+          kontroll((await synlig(page, YTA.sparr('cv-export-word'))) && body.includes('Word i den här mallen ingår i Premium'), `${steg}: låst Word öppnar spärren "Word i den här mallen ingår i Premium"`)
+          kontroll(/Köp Premium/.test(body), `${steg}: spärren har köpknappen`)
+          await bild(page, `${steg}-3-sparr`)
           await page.keyboard.press('Escape')
           await new Promise((r) => setTimeout(r, 600))
-          await tillFormat(page)
-          body = await text(page)
-          kontroll(/Köp Premium/.test(body) && !body.includes('Ladda ner som Word'), `${steg}: med låst Word valt blir knappen köpknappen`)
+          kontroll(/Premium/.test(await knapp()) && (await knapp()).startsWith('Ladda ner Word'), `${steg}: med låst Word valt säger knappen priset (${(await knapp()).replace(/s+/g, ' ')})`)
           await bild(page, `${steg}-4-word-last`)
-          await klickaText(page, '[role="radio"]', 'PDF')
-          await valjMall(page, 'Sidopanel')
-          await tillFormat(page)
-          body = await text(page)
-          kontroll(body.includes('Sidopanel laddas ner som PDF.'), `${steg}: mall utan Word visar "Sidopanel laddas ner som PDF."`)
-          await page.evaluate(() => [...document.querySelectorAll('p')].find((p) => p.innerText === 'Sidopanel laddas ner som PDF.')?.scrollIntoView({ block: 'center' }))
+          await klickaSynlig(page, YTA.pdf)
+          await klickaSynlig(page, YTA.ruta('affisch'))
+          await new Promise((r) => setTimeout(r, 900))
+          kontroll((await wordEtikett()) === 'Word finns inte i den här mallen', `${steg}: mall utan Word: Word avstängt`)
           await bild(page, `${steg}-5-utan-word`)
           if (sista) {
-            await valjMall(page, 'Norrsken')
-            await tillFormat(page)
-            await klickaText(page, 'button', 'Ladda ner som PDF')
+            await klickaSynlig(page, YTA.ruta('linne'))
+            await new Promise((r) => setTimeout(r, 900))
+            await klickaSynlig(page, YTA.ladda)
             const pdf = await vantaFil(nedMapp, '.pdf', 60000)
-            kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: gratis-PDF laddas ner (${pdf ? path.basename(pdf) : 'ingen fil'})`)
+            kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: gratis-PDF laddas ner${SKARPT ? '' : ' (påhittad)'} (${pdf ? path.basename(pdf) : 'ingen fil'})`)
+            await page.waitForSelector(YTA.final, { timeout: 15000 }).catch(() => null)
+            kontroll(await synlig(page, YTA.final), `${steg}: målgången visas`)
             await bild(page, `${steg}-6-pdf-klar`)
           }
         }
 
         if (k.roll === 'anvand') {
-          kontroll(body.includes('Din gratisnedladdning är använd. Fler nedladdningar, i PDF och Word, ingår i Premium.'), `${steg}: raden om använd gratisnedladdning`)
-          const last = await page.evaluate(() => [...document.querySelectorAll('[aria-labelledby="formatval-rubrik"] [role="radio"][aria-label*="Låst"]')].length)
-          kontroll(last === 2, `${steg}: båda formaten låsta (${last})`)
-          kontroll(body.includes('Se vad som ingår'), `${steg}: länken Se vad som ingår`)
-          await bild(page, `${steg}-2-bada-lasta`)
+          await klickaSynlig(page, YTA.ladda)
+          await new Promise((r) => setTimeout(r, 1500))
+          body = await text(page)
+          kontroll((await synlig(page, YTA.merforsaljning)) || body.includes('Din gratis nedladdning är använd'), `${steg}: använd gratisnedladdning: merförsäljningen eller spärren`)
+          kontroll(body.includes('Nej tack') || body.includes('Se vad som ingår'), `${steg}: en väg ut (Nej tack eller Se vad som ingår)`)
+          await bild(page, `${steg}-2-anvand`)
         }
 
         if (k.roll === 'premium') {
-          await valjMall(page, 'Tidlös')
-          await tillFormat(page)
-          body = await text(page)
-          kontroll(/ATS-säker[\s\S]*Finns också som Word[\s\S]*Premium/.test(body), `${steg}: Tidlös mallinfo ATS-säker, Finns också som Word, Premium`)
-          await klickaText(page, '[role="radio"]', 'Word')
-          body = await text(page)
-          kontroll(body.includes('Typsnitt i Word-filen: Garamond'), `${steg}: Typsnitt i Word-filen: Garamond`)
-          kontroll(body.includes('Går att redigera') && body.includes('Ladda ner som Word'), `${steg}: Word öppet och knappen säger Ladda ner som Word`)
+          await klickaSynlig(page, YTA.ruta('kalksten'))
+          await new Promise((r) => setTimeout(r, 900))
+          await klickaSynlig(page, YTA.word)
+          await new Promise((r) => setTimeout(r, 500))
+          kontroll((await knapp()).startsWith('Ladda ner Word') && !/Premium/.test(await knapp()), `${steg}: Word öppet och knappen säger Ladda ner Word`)
           await bild(page, `${steg}-2-word-valt`)
-          await klickaText(page, 'button', 'Ladda ner som Word')
+          await klickaSynlig(page, YTA.ladda)
           const docx = await vantaFil(nedMapp, '.docx', 60000)
           const ok = Boolean(docx) && fs.readFileSync(docx!).subarray(0, 2).toString() === 'PK'
-          kontroll(ok, `${steg}: Word-filen laddas ner (${docx ? path.basename(docx) + ', ' + fs.statSync(docx).size + ' byte' : 'ingen fil'})`)
-          await new Promise((r) => setTimeout(r, 1200))
+          kontroll(ok, `${steg}: Word-filen laddas ner${SKARPT ? '' : ' (påhittad)'} (${docx ? path.basename(docx) + ', ' + fs.statSync(docx).size + ' byte' : 'ingen fil'})`)
+          await page.waitForSelector(YTA.final, { timeout: 15000 }).catch(() => null)
           body = await text(page)
-          kontroll(/Ditt CV är klart som Word-fil: cv-tidlos-erik-lindberg\.docx/.test(body), `${steg}: bekräftelsen med filnamnet`)
-          kontroll(body.includes('Ladda upp den nya versionen i CV-analysen'), `${steg}: återvägen till CV-analysen`)
-          await page.evaluate(() => document.querySelector('section[role="status"]')?.scrollIntoView({ block: 'center' }))
+          kontroll((await synlig(page, YTA.final)) && /.docx/.test(body) && body.includes('Kalksten'), `${steg}: målgången med filnamnet och mallen`)
           await bild(page, `${steg}-3-word-klar`)
         }
 

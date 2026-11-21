@@ -11,12 +11,15 @@
  *           raden i huvudspalten och i spalten) med pdf.js.
  *   klicka  I riktig Chrome, Pixel 7 och 1280, ljust och mörkt: helskärmen på
  *           mallsidan (exempel och uppladdat långt CV, utloggad), provsidan,
- *           Mina mallar och byggarens steg 7 (inloggad). Arken staplade med
- *           12 px glipa, "Sida i av n" under varje ark, ingen sidled.
+ *           och Mallar i CV-rummet (inloggad). Arken staplade med 12 px
+ *           glipa, "Sida i av n" under varje ark, ingen sidled. Byggarens
+ *           steg 7 finns inte längre (arbetsläget har klicktest-cv-byggare).
  *
  *   npx tsx scripts/klicktest-helskarm-sidor.ts skapa  --ut <mapp>
  *   npx tsx scripts/klicktest-helskarm-sidor.ts jamfor --ut <mapp> [--bas URL]
- *   npx tsx scripts/klicktest-helskarm-sidor.ts klicka --ut <mapp> [--bas URL]
+ *   npx tsx scripts/klicktest-helskarm-sidor.ts klicka --ut <mapp> [--bas URL] [--skarpt]
+ *
+ * Utan --skarpt jämförs Mallars ark inte med en riktig PDF (ingen nedladdning).
  *   npx tsx scripts/klicktest-helskarm-sidor.ts radera --ut <mapp>
  *
  * Kontot: qa-helskarm-premium-<tid>@jobbcoach-qa.test med ett långt CV.
@@ -29,6 +32,7 @@ import { createClient } from '@supabase/supabase-js'
 import puppeteer, { type Browser, type Page } from 'puppeteer-core'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
 import { CHROME, lasPdfGeometri, norm } from './lib/pdf-verktyg'
+import { SKARPT, YTA, synlig } from './klicktest-cv-yta'
 
 function laddaEnv() {
   for (const fil of ['.env.local', '../../../.env.local']) {
@@ -357,24 +361,22 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
   // Fotomall med sidospalt: arken mot filen ur samma konto.
   await page.goto(`${BAS}/dashboard/cv-mallar?mall=kalksten`, { waitUntil: 'networkidle2', timeout: 120000 })
   await vila(2500)
-  const cookie = (await page.cookies()).map((c) => `${c.name}=${c.value}`).join('; ')
-  const pdf = await fetch(`${BAS}/api/cv/generate-formatted`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', cookie },
-    body: JSON.stringify({ template: 'kalksten', cvId: k.cvId, structuredData: CV_LANGDER.langt, format: 'pdf', val: {} }),
-  })
-  const filSidor = pdf.ok ? (await lasPdfGeometri(Buffer.from(await pdf.arrayBuffer()))).sidor : undefined
-  await helskarm(page, `${steg}-1-mina-mallar-kalksten`, filSidor)
-  // Byggarens steg 7 med det långa CV:t som utkast.
-  const utkast = { data: CV_LANGDER.langt, timestamp: Date.now(), expiresAt: Date.now() + 86400000 }
-  await page.evaluate((u) => localStorage.setItem('jobbcoach_cv_draft', JSON.stringify(u)), utkast)
-  await page.goto(`${BAS}/dashboard/skapa-cv?steg=7`, { waitUntil: 'networkidle2', timeout: 120000 })
-  await vila(1500)
-  await page.evaluate(() => (document.querySelector('section[aria-label="Påbörjat utkast"] button') as HTMLButtonElement | null)?.click())
-  await vila(4000)
-  const n = await helskarm(page, `${steg}-2-byggaren`)
-  kontroll(n >= 2, `${steg}: byggarens långa CV ger ${n} ark`)
-  await page.evaluate(() => localStorage.removeItem('jobbcoach_cv_draft'))
+  // Arken jämförs med filens sidor bara i en skarp körning (riktig PDF på servern).
+  let filSidor: number | undefined
+  if (SKARPT) {
+    const cookie = (await page.cookies()).map((c) => `${c.name}=${c.value}`).join('; ')
+    const pdf = await fetch(`${BAS}/api/cv/generate-formatted`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', cookie },
+      body: JSON.stringify({ template: 'kalksten', cvId: k.cvId, structuredData: CV_LANGDER.langt, format: 'pdf', val: {} }),
+    })
+    filSidor = pdf.ok ? (await lasPdfGeometri(Buffer.from(await pdf.arrayBuffer()))).sidor : undefined
+  }
+  kontroll(await synlig(page, YTA.helskarm), `${steg}: arket på Mallar har förstoringsglaset`)
+  const n = await helskarm(page, `${steg}-1-mina-mallar-kalksten`, filSidor)
+  kontroll(n >= 2, `${steg}: det långa CV:t ger ${n} ark i helskärmen`)
+  // Byggarens steg 7 finns inte längre: arbetsläget ritar hela dokumentet
+  // själv och har sitt eget klicktest (scripts/klicktest-cv-byggare.ts).
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()
 }
