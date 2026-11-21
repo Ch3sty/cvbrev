@@ -487,3 +487,54 @@ Samordnaren, 2026-11-21 kväll. Omprovet i webbläsaren gav orört utkast, och e
 Rättat i `src/lib/openai/uppfoljningsmejl.ts`: instruktionen räknar nu upp exakt de märken som finns i texten och säger att inga andra får användas.
 
 Omprov: samma funktioner i samma ordning som rutten (`forberedKortning`, `skrivKortare`, `sattTillbaka`), körda tre gånger mot modellen utan server och utan databas, med en påhittad text på 96 ord med "Hej Anna,", ett telefonnummer i brödtexten och ett telefonnummer och en länk under namnet. Alla tre gav en godkänd kortning (52 till 66 ord). Hälsningsraden, numret i brödtexten och hela avslutet stod kvar ordagrant i alla tre. Inte prövat i webbläsaren efter den här ändringen: knappen och rutten är desamma som i pass 3 och 4.
+
+# Pass 5, kontroll i produktion efter push
+
+2026-11-21 kväll, `https://www.jobbcoach.ai` efter `bce37384` och den nya `match-jobs`. Fristående headless Chrome, en flik, profil per konto, inloggningen satt kvar från tidigare pass (ingen ny inloggning behövdes). 13 sidladdningar sammanlagt, minst tre sekunder mellan dem. Ett AI-anrop: "Sök igen" en gång på Premium. Inget annat tryckt, ingen rad raderad. Svarstid är tiden tills dokumentet var inläst (`domcontentloaded`). Bilderna ligger i qa-mappen `bilder\p5-*.png` i sessionens scratchpad.
+
+| Punkt | Resultat | Vad jag såg | Svarstid |
+|---|---|---|---|
+| 1. Matchade jobb, Premium, 1440 | **fungerar** | "2 jobb passar dig", träffarna ritas. Sista dag stämmer med annonsen: `application_deadline` 2026-11-30T23:59:59 visas som "Sista dag 30 nov, 9 dagar kvar" (Ekonom, Umeå kommun), 2026-12-10T23:59:59 som "10 dec, 19 dagar kvar". Ingen #418, #423 eller #425. | 3635 ms (första laddningen), 676 och 1010 ms därefter |
+| 1. Matchade jobb, Premium, 412 (egen start) | **fungerar** | Samma två träffar, "30 nov, 9 dagar kvar" och "10 dec, 19 dagar kvar". Inga React-fel. | 549 ms |
+| 2. Ny sökning, Premium | **fungerar**, med en avvikelse | "Sök igen" tryckt 19.40.32. Första `match-jobs`: 200 efter 22,7 s, `sparad: true`, 50 annonser i `jobs`, `hasMore: true`, 513 kB. Påfyllningen direkt efter: 200 efter 4,0 s, 250 annonser (`cached`), 2,6 MB. Efter sökningen sa sidan "7 jobb passar dig" med Ekonom (Umeå kommun) överst. Omladdad: överst samma nya annons (före sökningen var Clockwork överst), "Senast sökt nyss" (stämmer). **Avvikelse:** efter omladdningen står "2 jobb passar dig" och "2 bästa träffarna", inte 7. Samma 2 på telefonen några minuter senare. | 22,7 s (sökningen), 1010 ms (omladdningen) |
+| 3. Matchade jobb, gratis | **fungerar** | "22 jobb passar dig, tre är öppna": tre öppna träffar (30 nov, 10 dec, 27 nov), fem dolda rader med bara matchgrad (61, 61, 46, 46, 40) och "14 träffar till är dolda". Dokumentets HTML (113 kB) bär exakt de tre öppna annons-id:na; de dolda länkarna heter `annons=dold-0` till `dold-4`. | 2726 ms |
+| 4. Översikt, Premium | **fungerar** | Väggen "Intervju på Umeå Energi på tisdag". Att göra nu: "Tre saker som för jobbsöket framåt", tre kort "Förbered intervjun" (Umeå Energi tis 24 nov 10.00, QA Testbolag F ons 25 nov 14.00, QA Testbolag A fre 27 nov 09.15). Bli upptäckt: "Rekryterare kan hitta dig, anonymt. Du godkänner varje kontakt." Inget antal rekryterare. | 713 ms |
+| 4. Översikt, gratis | **fungerar** | Väggen "Följ upp QA Testbolag H". Att göra nu: "Tyst i 13 dagar, Följ upp QA Testbolag H", "Sista dag onsdag 25 nov, Sök Ica Lager senast onsdag", "Veckans mål 1 av 3, Sök två tjänster till". Bli upptäckt: samma rad som Premium, inget antal. | 1398 ms |
+| 5. Sökta tjänster, Premium, 1440 | **fungerar** | Två aktiva rader under Ska sökas (Ålö AB, Volvo Lastvagnar), var och en med "Markera som sökt" 121×44, "Skriv brev" 105×48, "Ta bort" 48×32 under foten. | 524 ms |
+| 5. Sökta tjänster, Premium, 412 (egen start) | **fungerar** | Samma två rader och tre knappar; "Ta bort" 48×44. | 2644 ms |
+| 6a. Uppföljningen, Premium, inget POST vid laddning | **fungerar** | Norrmejerier (`0d576ab5`): inga anrop alls till `/api/jobbsok/uppfoljning/...` vid laddningen. | 981 ms |
+| 6b. Uppföljningen, Premium, "Följde upp" med Ångra | **inte prövat** | Norrmejerier visar utkastet (55 ord, "Skriv om kortare", "Kopiera mejlet") eftersom pass 3 tryckte Ångra. Ingen annan Premiumtjänst är uppföljd i dag enligt pass 3 och 4, och uppdraget sa att inget skulle tryckas. | |
+| 7. Rapporten, gratis | **fungerar** | "Dela med en länk": "Listan med företag, tjänst och datum ingår i Premium. Länken visar antalen." Ingen kryssruta. Ingen länk skapad. | 500 ms |
+| 8. Dina brev, Premium | **fungerar** | 200, sidan ritas ("Ditt första brev, Klistra in annonsen, så skriver vi brevet"). | 782 ms |
+| 9. Inför intervjun, gratis | **fungerar** | "Du fick 5 av 5 i dag, med alla fyra delarna på plats. Nästa prov öppnar i morgon." Alla fyra STAR-brickor "Fanns med". Inget om att något saknades. Rubriken säger fortfarande "Skriv om svaret om ett problem du löste" (känt, står i byggnoterna). | 509 ms |
+
+## Avvikelse att utreda
+
+Efter den nya sökningen visade Matchade jobb (Premium) "7 jobb passar dig" i webbläsaren, men efter omladdning och på telefonen några minuter senare "2 jobb passar dig". Den översta annonsen var densamma och är ny för sökningen, så sammanfattningen kommer från den nya sökningen, men antalet träffar på servern stämmer inte med det klienten räknade fram. `/dashboard/jobbmatchning`.
+
+## Konsolfel per sida (pass 5)
+
+| Sida | Fel | Antal |
+|---|---|---|
+| `/dashboard/jobbmatchning` (Premium 1440, under sökningen) | Varning: WebSocket till Supabase realtime stängdes innan anslutningen var klar (vid sidbytet) | 1 |
+| `/dashboard?oversikt=1` (Premium 1440) | Samma WebSocket-varning | 1 |
+| Övriga sidor, båda kontona, 1440 och 412 | inga | 0 |
+
+Inga React-fel (#418, #423, #425) på någon sida.
+
+## Rader jag påverkade i pass 5
+
+- Premium: en ny sökning 19.40 skrev om kontots `job_matchings_cache` och `job_matching_summaries`. Inga andra skrivningar.
+
+## Kvar efter pass 5 (samordnaren, 2026-11-21 sen kväll)
+
+Live: main `bce37384`, edge-funktionen `match-jobs` driftsatt, cachetabellen tömd på 31 utgångna körningar (74 MB till 6,8 MB) och två dubbla index borttagna, allt med ägarens ja.
+
+Inte rättat, går till Jobbsöket omgång 2:
+- **Antalet träffar skiljer mellan sökningen och omladdningen.** Direkt efter en ny sökning skrev sidan "7 jobb passar dig", efter omladdning "2 jobb passar dig" (Premiumkontot, Umeå). Webbläsarens räkning efter sökningen och serverns räkning ur sammanfattningen ger alltså olika antal för samma körning. Samma sak syntes i pass 1. Orsaken är inte utredd.
+- En sökt tjänst i intervjusteget med ett oskickat utkast visar fortfarande Följ upp-blocket på tjänstens sida.
+- Hubben i Inför intervjun har rubriken "Skriv om svaret om ..." också efter högsta betyg.
+- `/dashboard/introduktion` svarar 200 och skickar vidare i sidan, inte med en riktig 308.
+- Kampanjraden visas för ett konto med manuellt tilldelad Premium (kampanjkoden frågar bara om kontot har betalat). Inget riktigt konto har manuell Premium. Kampanjlogiken ändras bara med ägaren.
+
+Inte prövat någonstans: "Följde upp" med Ångra i produktion efter pushen (prövat lokalt i pass 3), Översikt med CV men utan sökta tjänster, gratisgränsen vid andra intervjuprovet, en riktig förfrågan i Meddelanden, kampanjruttens 410-svar.
