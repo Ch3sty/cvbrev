@@ -122,6 +122,24 @@ describe('inga personuppgifter till AI:n', () => {
     expect(p.kategorier.find((k) => k.id === 'kontakt')!.poang).toBe(10)
   })
 
+  it('uppladdningen: texten är redan maskad, kontakten kommer ur råtexten och når aldrig modellen', async () => {
+    svar = { profile: 'Undersköterska.', roles: [], education: [], skills: [], languages: [] }
+    // Så här ser texten ut när uppladdningen har maskat den före sparning.
+    const sparadText = CV.replace('070-123 45 67', '[TEL]')
+      .replace('073-987 65 43', '[TEL]')
+      .replace('karin.holmstrom@exempel.se', '[EMAIL]')
+      .replace('752 31', '[POSTNR]')
+    const { extractContactLocally } = await import('@/lib/privacy/extractContact')
+    const r = await parseCV(sparadText, { fullName: null, phone: null, kontakt: extractContactLocally(CV) })
+    utanPersonuppgifter(anrop[0].prompt)
+    expect(r.contact?.email).toBe('karin.holmstrom@exempel.se')
+    expect(r.contact?.phone?.replace(/\D/g, '')).toBe('0701234567')
+    expect(r.contact?.address).toContain('Uppsala')
+    // Utan kontakten ur råtexten finns inget nummer att läsa i den sparade texten.
+    const utan = await parseCV(sparadText, { fullName: null, phone: null })
+    expect(utan.contact?.phone ?? '').toBe('')
+  })
+
   it('basanalysen till snabbpoängen (analyzeCvBasic): maskad prompt, inga platshållare i texterna', async () => {
     svar = {
       summary: '[NAMN] har ett tydligt CV.',

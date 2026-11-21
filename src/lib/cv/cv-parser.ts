@@ -5,7 +5,7 @@
 
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 import { tvattaSprak, type InlastSprak } from './sprak';
-import { extractContactLocally } from '@/lib/privacy/extractContact';
+import { extractContactLocally, type ExtractedContact } from '@/lib/privacy/extractContact';
 import { maskaCvForModel, rensaDjupt } from '@/lib/privacy/cvForModel';
 
 // Interfaces for parsed CV structure
@@ -49,13 +49,28 @@ export interface ParsedCV {
  */
 export async function parseCV(
   cvText: string,
-  options: { fullName?: string | null; phone?: string | null } = {}
+  options: {
+    fullName?: string | null;
+    phone?: string | null;
+    /**
+     * Kontaktuppgifter som anroparen redan läst lokalt ur råtexten. Behövs
+     * när cvText redan är maskad (uppladdningen sparar bara maskad text):
+     * då står det [TEL] och [EMAIL] där uppgifterna fanns. Icke-tomma fält
+     * här går före det som hittas i cvText. Skickas aldrig till modellen.
+     */
+    kontakt?: Partial<ExtractedContact> | null;
+  } = {}
 ): Promise<ParsedCV> {
   // Inga personuppgifter till modellen (ägarens beslut 2026-11-21). Namn och
   // kontaktuppgifter läses lokalt ur texten (eller kommer ur profilen) och
   // sätts in efter svaret; modellen får den maskade texten och ombeds inte
   // längre om namnet.
   const lokal = extractContactLocally(cvText);
+  for (const [nyckel, varde] of Object.entries(options.kontakt ?? {})) {
+    if (typeof varde === 'string' && varde.trim()) {
+      lokal[nyckel as keyof ExtractedContact] = varde.trim();
+    }
+  }
   const namn = lokal.fullName || (options.fullName ?? '').trim();
   const maskad = maskaCvForModel(cvText, {
     fullName: options.fullName ?? null,

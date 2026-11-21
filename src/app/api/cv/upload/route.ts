@@ -9,6 +9,7 @@ import { extractTextWithVision } from '@/lib/cv-parser/vision-fallback';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
 import { sanitizeStorageKey } from '@/utils/helpers';
 import { backfillProfileContact } from '@/lib/profile/backfillContact';
+import { extractContactLocally, type ExtractedContact } from '@/lib/privacy/extractContact';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
 import { paketKort } from '@/lib/plans/plans';
 export const runtime = 'nodejs';
@@ -244,7 +245,13 @@ Alternativt: Ladda upp som .DOCX istället.`,
       return emitter.close();
     }
 
+    // Kontaktuppgifterna läses lokalt ur råtexten innan den maskas. Annars
+    // står det bara [TEL] och [EMAIL] kvar, och telefonnumret i ett uppladdat
+    // CV försvann både ur CV:t och ur profilens förifyllning. Uppgifterna går
+    // aldrig till modellen: parsern sätter in dem efter svaret.
+    let kontaktUrFilen: ExtractedContact | null = null;
     if (extractedText && !textExtractionFailed) {
+      kontaktUrFilen = extractContactLocally(extractedText);
       extractedText = stripPii(extractedText);
     }
 
@@ -263,6 +270,7 @@ Alternativt: Ladda upp som .DOCX istället.`,
         structuredData = await parseCVStructure(textToSave, {
           fullName: (profile as { full_name?: string | null }).full_name ?? null,
           phone: (profile as { phone?: string | null }).phone ?? null,
+          kontakt: kontaktUrFilen,
         });
         console.info(
           `[upload] structured CV parsing OK: ${structuredData.roles.length} roles, ${structuredData.skills.length} skills`
