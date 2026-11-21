@@ -143,7 +143,9 @@ export default async function CVAnalysisPage({ searchParams }: { searchParams: P
     const p = poangForRad(cv as CvRadData);
     if (p !== null) poangPerCv[cv.id] = p;
   }
-  const cvRadEl = <CvRad cvs={cvListaUr(sidansData.cvs, lasta, poangPerCv)} aktivtId={valt} sida="analys" fullt={fullt} />;
+  // Nyckeln: elementet skapas här på servern och ritas som syskon i väggens
+  // topprad (CvVagg, CvFlikRemsa); utan nyckel varnar React för listnycklar.
+  const cvRadEl = <CvRad key="cv-rad" cvs={cvListaUr(sidansData.cvs, lasta, poangPerCv)} aktivtId={valt} sida="analys" fullt={fullt} />;
 
   if (aterupptagen) {
     return (
