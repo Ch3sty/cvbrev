@@ -138,6 +138,39 @@ export function lagaOcrText(text: string): string {
 }
 
 /**
+ * En avskiljare (•) före en länk läses som " - ", och textstädningen
+ * (cleanExtractedText, "2020 - 2024" blir "2020-2024") limmar sedan ihop
+ * ordet och länken: "Stockholm-linkedin.com/in/namn". Då blir orten en del av
+ * länkens ord och maskas bort med den (maskaOcrRester). Ordet och länken
+ * skiljs åt med ett mellanslag, bara när en länk följer direkt på strecket.
+ * Körs efter städningen.
+ */
+export function skiljOrdFranLank(text: string): string {
+  return text.replace(
+    /(\p{L})[-‐-―−](?=(?:https?:\/\/|www\.|(?:[a-z]{2,3}\.)?linkedin\.com\/|github\.com\/))/gu,
+    '$1 '
+  );
+}
+
+/**
+ * Procenttecknet. Den svenska modellen läser "35 %" som "35 24" (bildfixturen
+ * bild-cv-erik-lindberg.pdf, i produktion 2026-11-21). Andra renderingsskalor
+ * (2, 4 och 5 i stället för 3) gav "35 2", "35 20" och "40 4", så felet går
+ * inte att rätta vid källan med upplösningen. Rättas bara i det enda läget där
+ * "24" inte kan betyda något annat: efter ett ord som står före ett mått
+ * ("med", "till", "cirka" ...), ett tal med en eller två siffror (ett
+ * postnummer har tre), och sist på raden, före skiljetecken eller före ett
+ * ord som brukar följa på procent ("på", "jämfört"). "24 anställda", årtal,
+ * klockslag, "114 24 Stockholm" och "2 24-timmarspass" står kvar.
+ */
+const PROCENT_SOM_24 =
+  /(^|[\s(])((?:med|från|till|av|på|ca|cirka|över|under|drygt|nästan|runt|knappt|än)\s+\d{1,2}(?:,\d{1,2})?) 24(?=[ \t]*$|[.,;:!?)](?:\s|$)|[ \t]+(?:och|på|i|mot|jämfört|per|under|inom|efter|genom|sedan|till|av)(?=[\s.,;:!?)]|$))/gimu;
+
+export function lagaProcent(text: string): string {
+  return text.replace(PROCENT_SOM_24, '$1$2 %');
+}
+
+/**
  * Andra skyddet för OCR-text, efter den vanliga maskeringen. OCR läser ibland
  * fel i just personuppgifterna ("[inkedin:com/in/eriklindberd",
  * "erik.indberg@"), och då känner mönstren inte igen dem. Början av varje
@@ -267,7 +300,7 @@ export async function lasPdfMedOcr(
       return { ok: false, skal: svar.skal, fel: svar.fel, sidor: bilder.length, ms: ms() };
     }
 
-    const text = cleanExtractedText(lagaOcrText(svar.sidor.map((s) => s.text).join('\n\n')));
+    const text = skiljOrdFranLank(cleanExtractedText(lagaProcent(lagaOcrText(svar.sidor.map((s) => s.text).join('\n\n')))));
     // Medelkonfidens viktad med textmängden, så att en nästan tom sida två
     // inte drar ned ett väl läst CV.
     const totalt = svar.sidor.reduce((s, k) => s + k.text.length, 0);

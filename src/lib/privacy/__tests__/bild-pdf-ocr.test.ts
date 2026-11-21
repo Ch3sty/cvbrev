@@ -213,6 +213,14 @@ describe('bild-PDF i uppladdningen: OCR på servern, aldrig bilder till modellen
     expect(struktur?.contact?.email).toBe('erik.lindberg@email.se')
     expect(struktur?.contact?.phone?.replace(/\D/g, '')).toBe('0734567890')
     expect(klar?.data.data.usedVisionFallback).toBe(true)
+
+    // Orten i kontaktraden står kvar (maskas inte) och läses in utan postnummer.
+    expect(cvText).toContain('Stockholm')
+    expect((struktur?.contact as { address?: string } | undefined)?.address).toBe('Stockholm')
+    // Procenttecknet, som OCR:en läser som 24.
+    expect(cvText).toContain('med 35 %')
+    expect(cvText).toContain('med 40 %')
+    expect(cvText).not.toMatch(/med (35|40) 24/)
   }, 120_000)
 
   it('en bild utan läsbar text ger beskedet för bildbaserad PDF och inget modellanrop', async () => {

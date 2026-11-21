@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { maskForModel, detectNameInCv, looksLikeName, PLACEHOLDERS } from '@/lib/privacy/pii';
 import { extractContactLocally } from '@/lib/privacy/extractContact';
+import { lagaOcrText, maskaOcrRester, skiljOrdFranLank } from '@/lib/cv-parser/ocr';
+import { cleanExtractedText } from '@/lib/cv-parser/text-utils';
 
 /**
  * Två uppställningar som båda förekommer i verkliga CV:n. Löftet på
@@ -160,5 +162,59 @@ describe('extractContactLocally', () => {
     expect(contact.fullName).toBe('');
     expect(contact.email).toBe('');
     expect(contact.phone).toBe('');
+  });
+});
+
+describe('extractContactLocally: ort utan postnummer', () => {
+  it('läser orten på en egen rad i kontaktblocket (text-PDF)', () => {
+    const contact = extractContactLocally(
+      'Testa Testsson\nLagerarbetare\nÖrebro\ntesta@example.se\n070-123 45 67\n\nPROFIL\nNoggrann lagerarbetare.'
+    );
+    expect(contact.city).toBe('Örebro');
+    expect(contact.postalCode).toBe('');
+  });
+
+  it('läser orten i en kontaktrad med OCR:ens avskiljare', () => {
+    expect(extractContactLocally('Testa Testsson\ntesta@example.se » 070-123 45 67 + Stockholm\nProfil').city).toBe('Stockholm');
+    expect(extractContactLocally('Testa Testsson\ntesta@example.se • 070-123 45 67 • STOCKHOLM').city).toBe('Stockholm');
+    expect(
+      extractContactLocally('Erik Lindberg\nProjektledare inom IT\nerik.lindberg@email.se » 073-456 78 90 + Stockholm linkedin.com/in/eriklindberg')
+        .city
+    ).toBe('Stockholm');
+    expect(extractContactLocally('Testa Testsson\nOrt: Malmö').city).toBe('Malmö');
+  });
+
+  it('postnummer och ort går före', () => {
+    expect(extractContactLocally(CV_NAMN_OVERST).city).toBe('Stockholm');
+  });
+
+  it('yrkestitlar, företag och orter längre ned blir aldrig ort', () => {
+    const titlar = extractContactLocally('Testa Testsson\nLagerarbetare\ntesta@example.se\n\nARBETSLIVSERFARENHET\nLagerarbetare, Örebro\nPostNord, Stockholm');
+    expect(titlar.city).toBe('');
+    // Ett led som bara börjar med ett kommunnamn är inte orten.
+    expect(extractContactLocally('Testa Testsson\nStockholms stad\nGöteborg Energi').city).toBe('');
+    // Efternamnet Lund i namnraden är inte orten Lund.
+    expect(extractContactLocally('Anna Lund • anna@example.se • 070-123 45 67').city).toBe('');
+    // Kommunnamn som också är vanliga ord eller förnamn godtas inte.
+    expect(extractContactLocally('Testa Testsson\nMark\nNora').city).toBe('');
+    // Bara de översta raderna räknas.
+    const langt = ['Testa Testsson', ...Array.from({ length: 12 }, (_, i) => `Rad ${i + 1}`), 'Uppsala'].join('\n');
+    expect(extractContactLocally(langt).city).toBe('');
+  });
+});
+
+describe('OCR: ort före en länk utan avskiljare', () => {
+  it('skiljer orten från länken så att den varken läses som länk eller maskas som namn', () => {
+    // Så som OCR:en och textstädningen lämnar raden (bildfixturen).
+    const radOcr = cleanExtractedText(lagaOcrText('erik.lindberg@email.se » 073-456 78 90 + Stockholm - linkedin.com/in/eriklindberg'));
+    expect(radOcr).toContain('Stockholm-linkedin.com');
+    const lagad = skiljOrdFranLank(radOcr);
+    expect(lagad).toBe('erik.lindberg@email.se » 073-456 78 90 + Stockholm linkedin.com/in/eriklindberg');
+    expect(extractContactLocally(`Erik Lindberg\n${lagad}`).city).toBe('Stockholm');
+    const maskad = maskaOcrRester(lagad, ['Erik Lindberg']);
+    expect(maskad).toContain('Stockholm');
+    expect(maskad).not.toMatch(/eriklindberg/);
+    // Vanliga bindestreck rörs inte.
+    expect(skiljOrdFranLank('Sälj- och marknadsansvar, IT-stöd, e-post')).toBe('Sälj- och marknadsansvar, IT-stöd, e-post');
   });
 });

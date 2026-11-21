@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
                 ...quotaExceededBody(
                     'cv_analysis',
                     quota,
-                    `Du har använt din analys. Att köra om den ingår i ${paketKort()}.`
+                    `Du har hämtat dina gratisförslag. Nya förslag från Jobbcoachen ingår i ${paketKort()}.`
                 ),
                 feature: 'cv_analysis_full',
                 suggestedPlan: suggestPlan('cv_analysis_full', track),

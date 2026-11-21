@@ -177,6 +177,12 @@ export interface PaywallCardProps {
   cvSparr?: CvSparrData | null
   /** Arkets kryss i det nya utseendet (GraValSheet). */
   onStang?: (() => void) | null
+  /**
+   * surface i paywall_shown, paywall_cta_clicked och feature_blocked när
+   * väggen ska mätas som en yta och inte som sidans adress (genomgången på
+   * Analys, 2026-11-21). Utelämnad: sidans adress som förut.
+   */
+  matYta?: string
 }
 
 /** Sant när väggen ritas i omgång 3:s utseende för testflödet. */
@@ -212,11 +218,12 @@ function PaywallCard({
   sparrData = null,
   onStang = null,
   cvSparr = null,
+  matYta,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [copied, setCopied] = useState(false)
   const pathname = usePathname()
-  const surface = pathname ?? ''
+  const surface = matYta ?? pathname ?? ''
   // Kampanjpriset (K1): bara när servern sett att kontot aldrig haft Premium.
   const kampanj = useKampanjPris()
   const kampanjNyckel = kampanj?.nyckel ?? null

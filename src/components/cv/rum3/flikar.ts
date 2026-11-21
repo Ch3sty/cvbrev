@@ -52,9 +52,15 @@ export type ArbetsAvsnitt = 'kontakt' | 'profil' | 'erfarenhet' | 'utbildning' |
  * sitt första. Valen (typsnitt, färg, ordning) står i adressen med samma
  * namn som exempel-API:t och följer med tillbaka.
  */
-export function arbetslageHref(cvId: string, fran: 'mallar' | 'ditt-cv' | 'analys', opts?: { avsnitt?: ArbetsAvsnitt; mall?: string; val?: MallVal }): string {
+export function arbetslageHref(
+  cvId: string,
+  fran: 'mallar' | 'ditt-cv' | 'analys',
+  opts?: { avsnitt?: ArbetsAvsnitt; post?: number; mall?: string; val?: MallVal }
+): string {
   const q = new URLSearchParams({ cv: cvId })
   if (opts?.avsnitt) q.set('avsnitt', opts.avsnitt)
+  // Rollen eller utbildningen (plats i CV:ts lista) som ska vara öppen.
+  if (opts?.avsnitt && typeof opts.post === 'number' && opts.post >= 0) q.set('post', String(opts.post))
   if (opts?.mall) q.set('mall', opts.mall)
   // Valen från Mallar (typsnitt, färg, ordning) följer med, så att arket är detsamma.
   if (opts?.val) valTillQuery(opts.val, q)

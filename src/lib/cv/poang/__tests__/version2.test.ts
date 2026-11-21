@@ -314,6 +314,24 @@ describe('genomgången', () => {
     })
     expect(utb.kontroller.find((k) => k.id === 'period')!.brister[0].text).toBe('Handelsprogrammet: år saknas.')
     expect(utb.avsnitt).toBe('utbildning')
+    expect(utb.post).toBe(0)
+  })
+
+  it('Öppna i CV:t får rollen som första bristen gäller', () => {
+    const cv = cvAv({
+      experience: [
+        { position: 'Säljare', company: 'ICA', startDate: '2020', description: ['Sålde för 40 000 kronor i veckan', 'Ledde 3 kollegor i kassan'] },
+        { position: 'Kassör', company: 'Coop', startDate: '2018', endDate: '2019', description: ['Tog betalt i kassan', 'Räknade kassan varje kväll'] },
+      ],
+    })
+    const erf = genomgang(cv).find((d) => d.id === 'erfarenhet')!
+    const forsta = erf.kontroller.flatMap((k) => k.brister)[0]
+    expect(forsta.rollIndex).toBe(1)
+    expect(erf.avsnitt).toBe('erfarenhet')
+    expect(erf.post).toBe(1)
+    // En del utan brist på en post får ingen post.
+    const kontakt = genomgang(cv).find((d) => d.id === 'kontakt')!
+    expect(kontakt.post).toBeUndefined()
   })
 
   it('språk och kontaktuppgifter säger vad som saknas', () => {

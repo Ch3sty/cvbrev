@@ -36,7 +36,6 @@ import {
   type AnalysUnderlag,
   type Fynd,
 } from '@/lib/rum/cvRum';
-import { kvotCopy } from '@/components/paywall/paywall-copy';
 import { PremiumKnappText, PremiumPrisradText, useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
 import { capture } from '@/lib/analytics/events';
 import { kopstegHref } from '@/lib/onboarding/steps';
@@ -163,7 +162,9 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
   const bygge = (aktivt?.structured_data as { bygge?: { utkast?: boolean } } | null)?.bygge ?? null;
   const utkast = bygge?.utkast === true;
   const underlag = data.underlag;
-  const poang = poangUrAnalys(underlag);
+  // Poängen finns för alla CV med struktur, också utan hämtade förslag
+  // (beslutet 2026-11-21): samma tal som Analys och Mallar (poangPerCv).
+  const poang = poangUrAnalys(underlag) ?? (aktivt ? (data.poangPerCv[aktivt.id] ?? null) : null);
   // Gratis: fyndet servern släpper med åtgärd står först (samma ordning som
   // Analys-sidan), övriga efter verkligt plus. Premium: efter plus.
   const fynd = (() => {
@@ -174,7 +175,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     return forsta ? [forsta, ...alla.filter((f) => f !== forsta)] : alla;
   })();
   // Med våra förslag: poängmodellens tal (src/lib/cv/poang), aldrig en summa av plus.
-  const potential = medForslagUrAnalys(underlag);
+  // Utan hämtade förslag finns inget "med"-tal: det är talet i dag.
+  const potential = medForslagUrAnalys(underlag) ?? poang;
   const attHamta = poang !== null && potential !== null ? Math.max(0, potential - poang) : 0;
   const atgardaHref = underlag?.jobbId ? `/dashboard/cv-analys?job=${encodeURIComponent(underlag.jobbId)}` : null;
   const vag = aktivt
@@ -204,6 +206,11 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             : 'brev';
   const lage: Lage =
     platshallare.length > 0 && (lageForeSiffror === 'ladda-ner' || lageForeSiffror === 'brev') ? 'siffror' : lageForeSiffror;
+  // Talet visas i alla lägen utom utkastet ur byggaren. Ett uppladdat CV är också ett
+  // utkast tills det laddats ner (startbladet), men det är helt inläst: då står samma
+  // tal som på Analys och Mallar, inte "inte mätt än" (slutvarvet 2026-11-21).
+  // Uppladdade CV ligger under users/, byggarens under ai-improved/ (save-improved).
+  const talISteget = lage !== 'utkast' || Boolean(aktivt?.original_file_path?.startsWith('users/'));
 
   const mall: MallKort = katalog.find((m) => m.id === data.mallId) ?? katalog[0];
   const urval = useMemo(() => merforsaljningsUrval(katalog, mall.id, 1, data.harFoto), [katalog, mall.id, data.harFoto]);
@@ -310,7 +317,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
   // Poäng kvar till 100: ingen yta säger att CV:t är klart under 100 (genomgången på Analys, 2026-11-21).
   const kvarTill100 = poang !== null ? Math.max(0, 100 - poang) : 0;
   const genomgangLank = aktivt ? (
-    <Link href={flikHref('analys', aktivt.id)} className="underline underline-offset-[3px]" data-se-genomgangen>
+    <Link href={flikHref('analys', aktivt.id)} className="inline-block py-[13px] -my-[13px] underline underline-offset-[3px]" data-se-genomgangen>
       {PANEL.seGenomgangen}
     </Link>
   ) : null;
@@ -334,27 +341,23 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           sidorad: NASTA.utkast.sidorad,
         };
       case 'analysera':
-      case 'analysera-sparr': {
-        const sparrKnapp = (bred: boolean) => (
-          <button type="button" className={`${knappKlass}${bred ? ' t3-stor-bred' : ''}`} onClick={() => setSparr('analys-omkorning')} data-nasta-knapp>
-            {knappInnehall(NASTA.analysera.knapp)}
-          </button>
-        );
+      case 'analysera-sparr':
+        // Inga hämtade förslag: knappen går till genomgången, som är öppen
+        // för alla CV (beslutet 2026-11-21). Förslagen hämtas där.
         return {
           ogon: NASTA.analysera.ogon,
           rubrik: NASTA.analysera.rubrik,
           text: NASTA.analysera.text,
           textKort: forstaMeningen(NASTA.analysera.text),
-          knapp: lage === 'analysera' ? lank(flikHref('analys', aktivt.id), NASTA.analysera.knapp) : sparrKnapp(false),
-          knappBred: lage === 'analysera' ? lank(flikHref('analys', aktivt.id), NASTA.analysera.knapp, true) : sparrKnapp(true),
+          knapp: lank(flikHref('analys', aktivt.id), NASTA.analysera.knapp),
+          knappBred: lank(flikHref('analys', aktivt.id), NASTA.analysera.knapp, true),
           sidorad:
             lage === 'analysera-sparr'
-              ? `${kvotCopy('cv_analysis').title}.`
+              ? NASTA.analysera.sidoradSparr
               : data.analysFull
                 ? NASTA.analysera.sidoradPremium
                 : NASTA.analysera.sidorad,
         };
-      }
       case 'atgarda': {
         const f = fynd[0];
         return {
@@ -368,7 +371,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
         };
       }
       case 'siffror': {
-        const href = arbetslageHref(aktivt.id, 'ditt-cv', { avsnitt: platshallare[0].avsnitt, mall: mall.id });
+        // Rollen eller utbildningen där den första [antal] står öppnas (post).
+        const href = arbetslageHref(aktivt.id, 'ditt-cv', { avsnitt: platshallare[0].avsnitt, post: platshallare[0].index, mall: mall.id });
         return {
           ogon: SIFFROR.ogon,
           rubrik: SIFFROR.rubrik,
@@ -451,7 +455,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           <b>{VAGG.steg[1]}</b>
         </span>
       </p>
-    ) : poang !== null && lage !== 'utkast' ? (
+    ) : poang !== null && talISteget ? (
       <p className="t3-stort">
         <span className="t3-stort-tal" aria-hidden="true">{poang}</span>
         <span className="t3-stort-rad">
@@ -578,10 +582,10 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           <Link
             href={mallarHref(mall.id)}
             className="cv3-tumme"
-            aria-label={poang !== null && lage !== 'utkast' ? VAGG.poangAria(mall.namn, poang) : VAGG.arkAlt(mall.namn)}
+            aria-label={poang !== null && talISteget ? VAGG.poangAria(mall.namn, poang) : VAGG.arkAlt(mall.namn)}
           >
             <EgenMiniatyr mall={mall} cv={egetCv} direkt />
-            {poang !== null && lage !== 'utkast' ? (
+            {poang !== null && talISteget ? (
               <span className="cv3-tumme-tal" aria-hidden="true">{poang}</span>
             ) : (
               <span className="cv3-tumme-tal" data-lucka aria-hidden="true">?</span>
@@ -603,7 +607,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
   const sprakHref = aktivt ? arbetslageHref(aktivt.id, 'ditt-cv', { avsnitt: 'sprak', mall: mall.id }) : '#';
 
   const matare1 =
-    poang !== null && potential !== null && lage !== 'utkast' ? (
+    poang !== null && talISteget && potential !== null ? (
       <div className="t3-matare t3-matare-niva">
         <div className="t3-matare-topp">
           <p className="t3-ogon-matt">{PANEL.lasbarhet}</p>
@@ -807,7 +811,7 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
               {PANEL.rubrik}
             </h2>
           </div>
-          {underlag && aktivt ? (
+          {aktivt && poang !== null ? (
             <Link href={flikHref('analys', aktivt.id)} className="t3-lank hidden xl:inline-flex">
               {PANEL.helaAnalysen}
             </Link>
@@ -1087,7 +1091,9 @@ function PotentialStapel({ nu, med, etikett }: { nu: number; med: number; etiket
   const nuX = x0 + (B * nu) / 100;
   const medX = x0 + (B * med) / 100;
   return (
-    <svg viewBox="0 0 270 98" className="block min-w-0 flex-1" style={{ maxWidth: 300 }} role="img" aria-label={med > nu ? PANEL.potentialAria(nu, med) : PANEL.idagAria(nu)}>
+    // Utan "med"-tal (inga hämtade förslag, det vanliga läget) finns ingen
+    // bubbla: rutan börjar vid stapeln, så att ingen tom yta står ovanför.
+    <svg viewBox={med > nu ? '0 0 270 98' : '0 50 270 48'} overflow="visible" className="block min-w-0 flex-1" style={{ maxWidth: 300 }} role="img" aria-label={med > nu ? PANEL.potentialAria(nu, med) : PANEL.idagAria(nu)}>
       {/* Bubblan bara när "med"-talet är högre än i dag (samma regel på telefon). */}
       {med > nu ? (
         <>

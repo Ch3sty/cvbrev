@@ -27,6 +27,7 @@ import Golv from '@/components/rum/Golv';
 import { RUBRIK } from '@/lib/rum/copy';
 
 import { logUserActivity } from '@/lib/activity-logger';
+import { capture } from '@/lib/analytics/events';
 import { lockedCvIds, type CvAnalysData } from './getCvAnalysData';
 import { aterupptagning, type AterupptagenAnalys } from './aterupptagning';
 import { flikHref } from '@/components/cv/rum3/flikar';
@@ -47,7 +48,14 @@ export default function CvAnalysClient({
   data,
   aterupptagen = null,
   startCvId = null,
+  hamtning = null,
 }: {
+  /**
+   * Mätningen av hämtningen (cv_suggestions_fetched, beslutet 2026-11-21):
+   * varifrån den startades och om kontot hämtat förslag förut. Utelämnad
+   * (den återupptagna analysen) skickas ingen händelse.
+   */
+  hamtning?: { kalla: 'genomgang' | 'ditt_cv'; forstaGangen: boolean } | null;
   data: CvAnalysData;
   /** Sparad analys ur ?job=<id>: öppnas i granskningen, ingen kvot dras. */
   aterupptagen?: AterupptagenAnalys | null;
@@ -136,7 +144,7 @@ export default function CvAnalysClient({
           setRemainingAnalyses(0);
           setKvotSlut(true);
           const quotaError = new Error(
-            result.message || 'Du har använt din CV-analys.'
+            result.message || 'Du har hämtat dina gratisförslag.'
           ) as Error & { quotaExceeded?: boolean };
           quotaError.quotaExceeded = true;
           throw quotaError;
@@ -149,6 +157,14 @@ export default function CvAnalysClient({
       setJobbStartat(true);
       if (result.remainingAnalyses !== undefined) {
         setRemainingAnalyses(result.remainingAnalyses);
+      }
+      if (hamtning) {
+        capture('cv_suggestions_fetched', {
+          tier: data.isPremium ? 'premium' : 'free',
+          cv_id: selectedCV,
+          forsta_gangen: hamtning.forstaGangen,
+          kalla: hamtning.kalla,
+        });
       }
 
       if (data.userId) {
@@ -168,7 +184,7 @@ export default function CvAnalysClient({
 
       return result.jobId;
     },
-    [data.cvs, data.userId]
+    [data.cvs, data.userId, data.isPremium, hamtning]
   );
 
   // En ny analys är klar: till genomgången för det CV:t (Analys i läget
