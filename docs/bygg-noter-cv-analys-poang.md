@@ -87,6 +87,39 @@ Spara alltid det `byggForbattratCv` ger, annars håller inte löftet. Plus kan i
 - `.../steps/SelectImprovementsStep.tsx`, `.../select/AutoApplyPanel.tsx`, `.../select/CategoryHero.tsx`, `.../select/categoryFlow.ts` (+ test), `.../review/ChangeLogList.tsx`: texten om att råden "tillämpas automatiskt" rättad (de har aldrig förts in), fliken heter "Råd", profilens plus visas bara när det är över noll.
 - `src/app/dashboard/cv-analys/page.tsx`: den återupptagna analysen poängsätts med CV-raden ur listan.
 
+- `src/app/dashboard/cv-analys/page.tsx`: går också genom `analysForKlient`, så gratisnivån filtreras vid återupptagning.
+- `.../select/ImprovementCard.tsx` (ny `FyllISiffra`), `.../select/ProfileImprovementCard.tsx`, `.../select/SkillImprovementCard.tsx`: raden "Fyll i din egen siffra där det står [antal]", och kompetensförslag sägs vara förslag att lägga till om de stämmer.
+- `src/lib/rum/copy.ts`: `kompetenserMeta` slutar med "Lägg till dem som stämmer."
+
 ## Edge-funktionen
 
-`supabase/functions/analyze-cv-background/index.ts` är ändrad men inte driftsatt. Webbappen klarar både gamla och nya versionen (den räknar allt själv och matchar rollerna). Den nya versionen arbetar på lagrad struktur, ber aldrig om tal, sätter `experienceIndex` och föreslår en personbeskrivning när den saknas.
+`supabase/functions/analyze-cv-background/index.ts` och `supabase/functions/_shared/pii.ts` är ändrade men inte driftsatta. Webbappen klarar både gamla och nya versionen (den räknar allt själv, matchar rollerna, byter påhittade tal mot `[antal]` och tar bort maskeringens platshållare). Den nya versionen arbetar på lagrad struktur, ber aldrig om tal, sätter `experienceIndex`, föreslår en personbeskrivning när den saknas, ber om `[antal]` i stället för påhittade siffror och maskar också webbadresser och födelsedatum.
+
+`_shared/pii.ts` delas med andra edge-funktioner som importerar den; de får den nya maskeringen (fler mönster, inga borttagna) nästa gång de driftsätts.
+
+### Provköra och felsöka efter driftsättning
+
+Driftsätt: `supabase functions deploy analyze-cv-background` (tar med `_shared`).
+
+Provkör: kör en analys i appen med ett testkonto (ett CV med lagrad struktur och ett utan). Jobbet syns i `cv_analysis_jobs` och i adminsidan Drift (`/admin/drift`), som listar jobb som står i `processing`.
+
+Loggarna: Supabase, Edge Functions, analyze-cv-background, Logs. Varje rad börjar med `[Job <id>]`. Förväntat förlopp:
+
+1. `Step 1/5: Using stored structure (N roles)` (eller `Parsing CV ...` när strukturen saknas)
+2. `Profile summary improvement generated` eller `New profile summary generated`
+3. `Found N skill suggestions`
+4. `Batch i completed: N improvements` per tre roller
+5. `Step 5/5: Performing general analysis...`
+6. `Preview text generated`, `✅ Analysis completed successfully`
+
+`[privacy] personuppgifter kvar efter andra passet` betyder att maskeringen missade något mönster: texten skickades ändå maskerad hårt, men mönstret bör läggas till i båda `pii.ts`.
+
+Resultatet i `cv_analysis_jobs.result` ska ha: `analysisType: 'full'`, `profileSummary` (eller `null`), `skillSuggestions[]` (utan `atsImpact`), `roleBasedImprovements[]` med `experienceIndex`, `generalImprovements[]` (utan `atsImpact`), `keywords[]`, `atsFriendliness: { score: null }`, `parsedRoles[]`, `structuredCV` och `formattedPreview`. Inga `[NAMN]`, `[TELEFON]`, `[LÄNK]` någonstans. Webbappen räknar talen när resultatet läses, så `score: null` är rätt.
+
+Ett jobb som fastnat står kvar i `processing` med gammal `updated_at` (funktionen dog före sin catch, till exempel på tidsgränsen). Klienten ger upp efter 90 sekunder med "Analysen svarar inte", och kvoten rullas inte tillbaka för `processing`. Ett jobb som kastar sätts till `failed` med felet i `error`, och kvoten rullas tillbaka vid nästa läsning av jobbet.
+
+Rätta framåt: felet syns i loggen med jobbets id; rätta i `index.ts` och driftsätt igen. Behövs en snabb återgång är förra versionen `git show b43314b6:supabase/functions/analyze-cv-background/index.ts` (grenens utgångspunkt; `_shared/pii.ts` på samma sätt); webbappen fungerar med den också.
+
+## Personuppgifter och AI-anropen
+
+Regeln (ägarens beslut 2026-11-21): namn, e-post, telefon, gatuadress och postnummer, personnummer, födelsedatum och webbadresser lämnar aldrig servern till AI:n. All CV-text till modellen går genom `maskaCvForModel` (`src/lib/privacy/cvForModel.ts`, ovanpå `maskForModel` i `pii.ts`). Kontaktuppgifterna läses lokalt (`extractContactLocally`, `lankarLokalt`) eller ur profilen och sätts in efter svaret. Maskeringens platshållare tas bort ur allt modellen svarar (`rensaDjupt`, i edge-funktionen `rensaPii`). Test: `src/lib/privacy/__tests__/cv-ai-anrop.test.ts`.

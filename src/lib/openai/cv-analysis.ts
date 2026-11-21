@@ -9,7 +9,7 @@
 // modellen hitta på poäng och plus; den är borttagen. Den fulla analysen körs
 // i edge-funktionen analyze-cv-background.
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
-import { maskForModel } from '@/lib/privacy/pii';
+import { maskaCvForModel, rensaDjupt } from '@/lib/privacy/cvForModel';
 
 interface BasicAnalysisResult {
     analysisType: 'basic'; // För att frontend ska veta vilken typ det är
@@ -30,7 +30,8 @@ export async function analyzeCvBasic(
     // Personuppgifter maskas innan texten lämnar servern. Platshållarna är
     // stabila strängar, så modellen ser ATT kontaktuppgifter finns och inte
     // föreslår att de ska läggas till.
-    const masked = maskForModel(cvText, { fullName: options.fullName, maskUrls: false }).text;
+    // Webbadresser maskas också (ägarens beslut 2026-11-21: inga personuppgifter till AI:n).
+    const masked = maskaCvForModel(cvText, { fullName: options.fullName });
     const truncatedCV = masked.substring(0, 6000);
     const modelToUse = GEMINI_MODELS.fast; // Basic-analys: snabb modell räcker
     const systemPrompt = `
@@ -52,7 +53,8 @@ export async function analyzeCvBasic(
             maxOutputTokens: 1500,
             thinkingBudget: 0,
         });
-        const parsedResult = result.data;
+        // Platshållarna från maskeringen visas aldrig för henne.
+        const parsedResult = rensaDjupt(result.data);
 
         return {
             analysisType: 'basic',

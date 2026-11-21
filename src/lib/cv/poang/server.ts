@@ -46,7 +46,15 @@ export async function sakerstallStruktur(supabase: Klient, cvId: string): Promis
   const text = typeof rad.cv_text === 'string' ? rad.cv_text : ''
   if (text.length < 50) return rad
   const { parseCV } = await import('@/lib/cv/cv-parser')
-  const struktur = await parseCV(text)
+  // Profilens namn och nummer maskas ordagrant före modellen (parseCV maskar
+  // allt; kontaktuppgifterna sätts lokalt efter svaret).
+  const { data: agare } = await supabase.from('cv_texts').select('user_id').eq('id', cvId).maybeSingle()
+  const userId = (agare as { user_id?: string } | null)?.user_id
+  const { data: profil } = userId
+    ? await supabase.from('profiles').select('full_name, phone').eq('id', userId).maybeSingle()
+    : { data: null }
+  const p = profil as { full_name?: string | null; phone?: string | null } | null
+  const struktur = await parseCV(text, { fullName: p?.full_name ?? null, phone: p?.phone ?? null })
   const { error } = await supabase.from('cv_texts').update({ structured_data: struktur }).eq('id', cvId)
   if (error) {
     console.error('[poang] kunde inte spara strukturen', error.message)

@@ -5,6 +5,8 @@
 
 import { generateJSON, GEMINI_MODELS } from '@/lib/gemini';
 import { tvattaSprak, type InlastSprak } from './sprak';
+import { extractContactLocally } from '@/lib/privacy/extractContact';
+import { maskaCvForModel, rensaDjupt } from '@/lib/privacy/cvForModel';
 
 // Interfaces for parsed CV structure
 export interface ParsedRole {
@@ -45,18 +47,32 @@ export interface ParsedCV {
 /**
  * Parse CV text using AI to extract structured data
  */
-export async function parseCV(cvText: string): Promise<ParsedCV> {
+export async function parseCV(
+  cvText: string,
+  options: { fullName?: string | null; phone?: string | null } = {}
+): Promise<ParsedCV> {
+  // Inga personuppgifter till modellen (ägarens beslut 2026-11-21). Namn och
+  // kontaktuppgifter läses lokalt ur texten (eller kommer ur profilen) och
+  // sätts in efter svaret; modellen får den maskade texten och ombeds inte
+  // längre om namnet.
+  const lokal = extractContactLocally(cvText);
+  const namn = lokal.fullName || (options.fullName ?? '').trim();
+  const maskad = maskaCvForModel(cvText, {
+    fullName: options.fullName ?? null,
+    extraNames: [lokal.fullName],
+    knownPhones: [options.phone, lokal.phone],
+  });
   try {
     console.log('🔍 Parsing CV with AI to identify roles and structure...');
 
     const prompt = `Analysera följande CV och extrahera strukturerad data.
+Personuppgifter är ersatta med platshållare som [NAMN] och [TELEFON]. Återge dem aldrig.
 
 CV-text:
-${cvText}
+${maskad}
 
 Returnera en JSON-struktur med följande format:
 {
-  "name": "Personens namn",
   "profile": "Profilsammanfattning om den finns",
   "roles": [
     {
@@ -121,7 +137,7 @@ Exempel på KORREKT rollextraktion:
   "originalText": "Målare, Lingfjords Fasadtvätt AB Stockholm, Vårberg — 2014-2014..."
 }`;
 
-    const { data: parsedData } = await generateJSON<ParsedCV>({
+    const { data: svar } = await generateJSON<ParsedCV>({
       model: GEMINI_MODELS.fast,
       systemInstruction: 'Du är en expert på att analysera och strukturera CV-information. Svara alltid med giltig JSON.',
       prompt,
@@ -131,6 +147,17 @@ Exempel på KORREKT rollextraktion:
       maxOutputTokens: 2600,
       thinkingBudget: 0,
     });
+
+    // Platshållarna från maskeringen följer aldrig med in i strukturen.
+    // Namn och kontakt sätts lokalt, aldrig ur modellens svar.
+    const parsedData = rensaDjupt(svar) as ParsedCV;
+    parsedData.name = namn;
+    parsedData.contact = {
+      email: lokal.email,
+      // Bara det som står i CV:t: poängen för kontaktuppgifter räknas på det.
+      phone: lokal.phone,
+      address: [lokal.address, lokal.postalCode, lokal.city].filter(Boolean).join(', '),
+    };
 
     // Validate and clean the parsed data
     parsedData.roles = (parsedData.roles || []).map(role => {
@@ -170,7 +197,8 @@ Exempel på KORREKT rollextraktion:
       period: edu.period || 'Period ej angiven',
     }));
 
-    parsedData.skills = parsedData.skills || [];
+    // En kompetens som bara var en platshållare är tom efter tvätten.
+    parsedData.skills = (parsedData.skills || []).filter((s) => typeof s === 'string' && s.trim().length > 0);
 
     // Alltid en lista vid lyckad inläsning: nyckeln betyder "vi har letat".
     // Bara språk som står i texten följer med (inga gissade modersmål).
@@ -190,7 +218,16 @@ Exempel på KORREKT rollextraktion:
     // Return a fallback structure if AI parsing fails. Reserven letar inte
     // efter språk och får därför ingen languages-nyckel (sprakLage blir
     // 'inte_inlast', inte 'saknas').
-    return fallbackParse(cvText);
+    // Reserven körs lokalt (ingen AI) och får samma lokala namn och kontakt.
+    return {
+      ...fallbackParse(cvText),
+      name: namn,
+      contact: {
+        email: lokal.email,
+        phone: lokal.phone,
+        address: [lokal.address, lokal.postalCode, lokal.city].filter(Boolean).join(', '),
+      },
+    };
   }
 }
 

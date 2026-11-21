@@ -16,7 +16,6 @@ import { checkDailyBudget, checkIpRateLimit, getClientIp } from '@/lib/rate-limi
 import { parseCV, cleanExtractedText } from '@/lib/cv-parser'
 import { analyzeCvBasic } from '@/lib/openai/cv-analysis'
 import { parseCV as parseCVStructure } from '@/lib/cv/cv-parser'
-import { maskForModel } from '@/lib/privacy/pii'
 import { poangForRad } from '@/lib/cv/poang'
 
 export const maxDuration = 30
@@ -113,8 +112,9 @@ export async function POST(request: Request) {
     // samma inläsning som uppladdningen. Texterna (sammanfattning och det
     // viktigaste att fixa) kommer från basanalysen; inga tal tas därifrån.
     // Strukturen lever bara i den här funktionen, precis som texten.
-    const maskerad = maskForModel(cvText, { maskUrls: false }).text
-    const [analysis, struktur] = await Promise.all([analyzeCvBasic(cvText), parseCVStructure(maskerad)])
+    // parseCV maskar själv (namn, kontakt, adresser, länkar) och läser
+    // kontaktuppgifterna lokalt ur originalet, som poängen räknas på.
+    const [analysis, struktur] = await Promise.all([analyzeCvBasic(cvText), parseCVStructure(cvText)])
     const score = poangForRad({ structured_data: struktur, cv_text: cvText })
     if (score === null) {
       return NextResponse.json(

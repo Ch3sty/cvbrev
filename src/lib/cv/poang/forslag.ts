@@ -15,6 +15,7 @@
  */
 import type { CVMetadata } from '../cv-metadata'
 import { kanonisktCv } from './kanon'
+import { utanPiiPlatshallare, rensaDjupt } from '@/lib/privacy/cvForModel'
 import { ersattPahittadeTal, falt, harPlatshallare, kompetenserIcv, stadaKompetenser, talIText } from './matt'
 import { KATEGORIER, POANG_VERSION, raknaPoang, type KategoriId, type Poang } from './modell'
 
@@ -307,7 +308,7 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
 
   const ats = arObj(result.atsFriendliness) ? result.atsFriendliness : {}
   const allmant = Array.isArray(result.generalImprovements)
-    ? result.generalImprovements.map((g) => (arObj(g) ? { ...g, atsImpact: 0, plus: 0 } : g))
+    ? result.generalImprovements.map((g) => (arObj(g) ? { ...rensaDjupt(g), atsImpact: 0, plus: 0 } : g))
     : result.generalImprovements
 
   if (!bas) {
@@ -338,7 +339,8 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
   const { personalInfo: _pi, ...innehall } = bas
   const kanda = new Set(talIText(JSON.stringify(innehall)))
   const granska = (text: string) => {
-    const { text: ren, ersatta } = ersattPahittadeTal(text, kanda)
+    // Maskeringens platshållare ([NAMN], [TELEFON] ...) visas aldrig för henne.
+    const { text: ren, ersatta } = ersattPahittadeTal(utanPiiPlatshallare(text), kanda)
     return { text: ren, ersatta, fyllI: harPlatshallare(ren) }
   }
 
@@ -396,10 +398,10 @@ export function poangsattAnalys(result: Obj, cvRad?: CvRad | null): Obj {
   const kompIn = (Array.isArray(result.skillSuggestions) ? result.skillSuggestions : []).filter(arObj)
   const kompetenser = sorteraEfterPlus(
     kompIn.flatMap((s, ursprung) => {
-      const namn = falt(s.skill)
+      const namn = falt(typeof s.skill === 'string' ? utanPiiPlatshallare(s.skill) : s.skill)
       if (!namn) return []
       const plus = plusFor({ skillSuggestions: [{ skill: namn }] }, { profil: false, roller: [], kompetenser: [0] })
-      return [{ ...s, skill: namn, atsImpact: Math.max(0, plus), plus, ursprung }]
+      return [{ ...rensaDjupt(s), skill: namn, atsImpact: Math.max(0, plus), plus, ursprung }]
     })
   )
 

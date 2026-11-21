@@ -19,6 +19,7 @@ export const PLACEHOLDERS = {
   address: '[ADRESS]',
   postalCode: '[POSTNUMMER]',
   personalId: '[PERSONNUMMER]',
+  birthDate: '[FÖDELSEDATUM]',
   url: '[LÄNK]',
 } as const;
 
@@ -36,7 +37,11 @@ const PATTERNS = {
   streetAddress:
     /\b[A-ZÅÄÖ][a-zåäöé]+(?:gatan|vägen|väg|stigen|gränden|torget|platsen|allén|backen)[ ]+\d+(?:[ ]?[A-Za-z])?\b/g,
   postalCode: /\b\d{3}\s?\d{2}\b(?!\s*\d)/g,
-  url: /\bhttps?:\/\/[^\s<>"]+|\bwww\.[^\s<>"]+/gi,
+  // Födelsedatum efter "född", "födelsedatum" eller "f.d.": ett datum eller år.
+  birthDate:
+    /\b(?:född|födelsedatum|födelsedag|födelseår|f\.\s?d\.|date of birth|born)\s*:?\s*(?:den\s+)?(?:\d{1,2}\s+[a-zåäö]+\.?\s+\d{4}|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}[./-]\d{1,2}[./-]\d{2,4}|\d{4})/gi,
+  // Med protokoll eller www, och profiladresser utan (linkedin.com/in/namn).
+  url: /\bhttps?:\/\/[^\s<>"]+|\bwww\.[^\s<>"]+|\b(?:[a-z0-9-]+\.)*(?:linkedin|github|gitlab|behance|dribbble)\.com\/[^\s<>"]*/gi,
 } as const;
 
 export interface MaskOptions {
@@ -175,6 +180,7 @@ export function maskPii(text: string, options: MaskOptions = {}): MaskResult {
 
   // Ordningen är medveten, se kommentaren vid PATTERNS.
   apply('email', PATTERNS.email);
+  apply('birthDate', PATTERNS.birthDate);
   apply('personalId', PATTERNS.personalId);
   apply('phone', PATTERNS.phoneIntl);
   apply('phone', PATTERNS.phoneSe);

@@ -107,9 +107,30 @@ function strukturUrLagrad(sd: any): any | null {
   return null;
 }
 
+/**
+ * Maskeringens platshållare bort ur allt modellen svarar, så att de aldrig
+ * hamnar i sparad struktur eller i förslag hon ser. [antal] i förslagen är
+ * inte en av dem. Speglar src/lib/privacy/cvForModel.ts.
+ */
+const PII_PLATSHALLARE = /\[(?:NAMN|E-POST|EMAIL|TELEFON|TEL|ADRESS|POSTNUMMER|POSTNR|PERSONNUMMER|PERSNR|FÖDELSEDATUM|LÄNK|URL)\]/gi;
+function rensaPii(v: any): any {
+  if (typeof v === 'string') {
+    if (!new RegExp(PII_PLATSHALLARE.source, 'i').test(v)) return v;
+    return v.replace(PII_PLATSHALLARE, '').replace(/\(\s*[,;]?\s*\)/g, '').split('\n')
+      .map((r: string) => r.replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:])/g, '$1').replace(/^[\s,;:]+|[\s,;:]+$/g, '')).join('\n').trim();
+  }
+  if (Array.isArray(v)) return v.map(rensaPii);
+  if (v && typeof v === 'object') {
+    const ut: any = {};
+    for (const [k, x] of Object.entries(v)) ut[k] = rensaPii(x);
+    return ut;
+  }
+  return v;
+}
+
 /** Strängarna i ett objekt maskade, för allt som går till modellen. */
 function maskeraDjupt(v: any, fullName: string | null): any {
-  if (typeof v === 'string') return maskForModel(v, { fullName, maskUrls: false }).text;
+  if (typeof v === 'string') return maskForModel(v, { fullName, maskUrls: true }).text;
   if (Array.isArray(v)) return v.map((x) => maskeraDjupt(x, fullName));
   if (v && typeof v === 'object') {
     const ut: any = {};
@@ -175,16 +196,16 @@ Deno.serve(async (req) => {
     // -------------------------------------------------------------------
     const { data: ownerProfile } = await supabase
       .from('profiles')
-      .select('full_name')
+      .select('full_name, phone')
       .eq('id', cv.user_id)
       .maybeSingle();
 
     const localContact = extractContactLocally(cvText);
     const knownName = ownerProfile?.full_name || localContact.fullName || null;
 
-    // maskUrls: false, LinkedIn och portfolio är yrkesinformation som
-    // ATS-bedömningen ska kunna se.
-    const maskedCv = maskForModel(cvText, { fullName: knownName, maskUrls: false });
+    // Inga personuppgifter till modellen (ägarens beslut 2026-11-21), inte
+    // heller webbadresser: LinkedIn läses lokalt och sätts in efteråt.
+    const maskedCv = maskForModel(cvText, { fullName: knownName, maskUrls: true, knownPhones: [ownerProfile?.phone] });
     const safeCvText = maskedCv.text;
 
     if (maskedCv.warnings.length > 0) {
@@ -224,7 +245,8 @@ Deno.serve(async (req) => {
       thinkingBudget: 0,
     });
 
-    structuredCV = structuredParsingResult.data;
+    // Platshållare från maskeringen följer aldrig med in i strukturen.
+    structuredCV = rensaPii(structuredParsingResult.data);
 
     // FIX: Sortera experience i OMVÄND KRONOLOGI (senaste först, äldsta sist).
     // Bara för den egna tolkningen: den lagrade strukturen behåller CV:ts
@@ -579,7 +601,8 @@ VIKTIGT för matchKeywords:
         return rest;
       });
 
-      analysisResult = {
+      // Platshållare från maskeringen bort ur allt hon ser.
+      analysisResult = rensaPii({
         analysisType: 'full', // Ändrat från 'premium' till 'full' - alla får samma
         profileSummary: profileSummaryImprovement,
         skillSuggestions: skillSuggestions,
@@ -591,7 +614,7 @@ VIKTIGT för matchKeywords:
         atsFriendliness: { score: null, feedback: '', missingKeywords: [] },
         model: GEMINI_MODELS.quality,
         tokens: { total: 0 }
-      };
+      });
     }
 
     // Lägg till parsed roles från structuredCV
@@ -641,7 +664,7 @@ VIKTIGT för matchKeywords:
       phone: localContact.phone,
       address: localAddress,
     });
-    analysisResult.formattedPreview = formattedPreview;
+    analysisResult.formattedPreview = rensaPii(formattedPreview);
     console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
 
     console.log(`[Job ${jobId}] Saving results (with structured CV data + preview)...`);
