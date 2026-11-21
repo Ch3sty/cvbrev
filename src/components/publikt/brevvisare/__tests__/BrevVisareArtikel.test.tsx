@@ -24,7 +24,7 @@ describe('visaren i artiklarna', () => {
     expect(html).toContain('<noscript>')
     expect(html).toContain('role="group" aria-label="Välj mall"')
     expect((html.match(/aria-pressed="true"/g) ?? []).length).toBe(1)
-    expect(html).toContain('aria-label="Mallen Granit"')
+    expect(html).toContain('aria-label="Mallen Terrakotta"')
     // Första läget: bara nästa mall kikar fram.
     expect(html).not.toContain('mv-kik-v')
     expect(html).toContain('mv-kik-h')

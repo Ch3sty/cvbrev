@@ -15,7 +15,7 @@ import { VISARE_TEXT } from '../texter'
 
 describe('namnraden och fotraden ur katalogen', () => {
   it('fem mallar i skissens ordning, med katalogens namn och miniatyrer', () => {
-    expect([...VISARE_MALL_IDS]).toEqual(['linne', 'bjork', 'koppar', 'kalksten', 'granit'])
+    expect([...VISARE_MALL_IDS]).toEqual(['linne', 'bjork', 'koppar', 'ritning', 'terrakotta'])
     const m = visarMallar()
     expect(m.map((x) => x.id)).toEqual([...VISARE_MALL_IDS])
     for (const x of m) {
@@ -25,12 +25,13 @@ describe('namnraden och fotraden ur katalogen', () => {
     }
   })
 
-  it('gratis och Premium med Word, som skissen', () => {
-    const [linne, bjork, koppar, kalksten, granit] = visarMallar()
+  it('gratis och Premium med Word, Premium utan Word för Ritning och Terrakotta', () => {
+    const [linne, bjork, koppar, ritning, terrakotta] = visarMallar()
     expect(`${linne.namn}. ${linne.rad}`).toBe('Linne. Gratis, även som Word.')
     expect(bjork.rad).toBe('Gratis, även som Word.')
     expect(`${koppar.namn}. ${koppar.rad}`).toBe('Koppar. Ingår i Premium, även som Word.')
-    for (const x of [kalksten, granit]) expect(x.rad).toBe('Ingår i Premium, även som Word.')
+    expect(`${ritning.namn}. ${ritning.rad}`).toBe('Ritning. Ingår i Premium.')
+    expect(`${terrakotta.namn}. ${terrakotta.rad}`).toBe('Terrakotta. Ingår i Premium.')
   })
 
   it('mening följer katalogens nivå och word; utan Word faller tillägget bort', () => {

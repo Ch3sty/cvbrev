@@ -2,10 +2,10 @@
  * GET /api/public/exempel/brev?mall=koppar&slug=projektledare
  *
  * Ett personligt brev i en av mallvisarens fem mallar (Linne, Björk, Koppar,
- * Kalksten, Granit), ritat av brevmotorn som ett eget HTML-dokument för
+ * Ritning, Terrakotta), ritat av brevmotorn som ett eget HTML-dokument för
  * iframen i mallvisaren (byggspecen våg 2, 2026-11-21). Brevet väljs med
  * slug (exempelsidornas yrke), nyckel (artiklarnas sex brev) eller ingen
- * parameter (motorns exempelbrev). De sex gamla mall-id:na ger Linne, så att
+ * parameter (motorns exempelbrev). De sex gamla mall-id:na och Kalksten och Granit ger Linne, så att
  * cachade artiklar fortfarande får ett ark. Okänd mall, slug eller nyckel
  * ger 404. Valet och ritningen står i rita.ts. Cachas ett dygn i CDN:et.
  */

@@ -18,10 +18,11 @@ import { ARTIKEL_BREV, arArtikelBrevNyckel } from '@/components/mdx/personligt-b
 import { VISARE_MALL_IDS, brevDataFranFalt, type PubliktBrevFalt } from '@/components/publikt/brevvisare/visare-data'
 
 /**
- * De sex gamla uppställningarna (classic till twocolumn). Cachade artiklar
- * pekar på dem i minst en vecka efter våg 2, så de svarar med Linne.
+ * De sex gamla uppställningarna (classic till twocolumn), och Kalksten och
+ * Granit som var med i visaren innan UX bytte dem mot Ritning och Terrakotta.
+ * Cachade sidor kan peka på dem, så de svarar med Linne i stället för 404.
  */
-export const GAMLA_MALL_IDS = ['classic', 'sidebar', 'minimal', 'compact', 'centered', 'twocolumn'] as const
+export const GAMLA_MALL_IDS = ['classic', 'sidebar', 'minimal', 'compact', 'centered', 'twocolumn', 'kalksten', 'granit'] as const
 
 /** Mallen ur parametern: en av de fem, gamla id:n ger Linne, ingen parameter ger Linne. Okänd ger null. */
 export function valdMall(param: string | null): string | null {

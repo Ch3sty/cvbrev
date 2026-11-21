@@ -27,8 +27,10 @@ describe('valet av mall', () => {
     expect(valdMall('')).toBe('linne')
   })
 
-  it('de sex gamla mall-id:na svarar med Linne, inte 404', () => {
-    expect([...GAMLA_MALL_IDS]).toEqual(['classic', 'sidebar', 'minimal', 'compact', 'centered', 'twocolumn'])
+  it('de sex gamla mall-id:na, Kalksten och Granit svarar med Linne, inte 404', () => {
+    expect([...GAMLA_MALL_IDS]).toEqual(['classic', 'sidebar', 'minimal', 'compact', 'centered', 'twocolumn', 'kalksten', 'granit'])
+    expect(valdMall('ritning')).toBe('ritning')
+    expect(valdMall('terrakotta')).toBe('terrakotta')
     for (const id of GAMLA_MALL_IDS) expect(valdMall(id)).toBe('linne')
     for (const id of GAMLA_MALL_IDS) expect(svaraBrev(q(`mall=${id}&typsnitt=calibri`), DATUM).status).toBe(200)
   })

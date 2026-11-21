@@ -24,6 +24,7 @@ import {
   formatMarke,
   namnLista,
 } from '../brevmallar'
+import { VISARE_MALL_IDS } from '../brevvisare/visare-data'
 
 const PUBLIC = path.resolve(__dirname, '../../../../public')
 
@@ -53,7 +54,8 @@ describe('brevmallarna på de publika sidorna', () => {
   })
 
   it('varje vald mall har sin miniatyr under public/ i måtten som står i HTML', async () => {
-    for (const id of SALJ_MALL_IDS) {
+    // Säljsidans sju och mallvisarens fem (våg 2): en bild per vald mall.
+    for (const id of new Set<string>([...SALJ_MALL_IDS, ...VISARE_MALL_IDS])) {
       const fil = path.join(PUBLIC, brevMiniatyrSrc(id))
       expect(fs.existsSync(fil), `${fil} saknas, kör npx tsx scripts/brevmallar-miniatyrer.ts`).toBe(true)
       const meta = await sharp(fil).metadata()

@@ -14,8 +14,12 @@ import { ARTIKEL, antalOrd } from '@/components/cv/Dokument/texter'
 import { BREV_MALL_ANTAL, brevMallKortFor, brevMiniatyrSrc } from '@/components/publikt/brevmallar'
 import { brevStycken } from '@/components/publikt/innehall/exempel/exempel-data'
 
-/** Visarens fem mallar, i den här ordningen (byggnoten: fast i komponenten). */
-export const VISARE_MALL_IDS = ['linne', 'bjork', 'koppar', 'kalksten', 'granit'] as const
+/**
+ * Visarens fem mallar, i den här ordningen (byggnoten: fast i komponenten).
+ * UX:s beslut 2026-11-21 efter mätningen av 89 brev i 40 mallar: Kalksten och
+ * Granit ut (tolv exempelbrev rymdes inte på en sida), Ritning och Terrakotta in.
+ */
+export const VISARE_MALL_IDS = ['linne', 'bjork', 'koppar', 'ritning', 'terrakotta'] as const
 export type VisareMallId = (typeof VISARE_MALL_IDS)[number]
 
 /** En mall som klientön ser den: namn, namnradens mening och miniatyren. */
