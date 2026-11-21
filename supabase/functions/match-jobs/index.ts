@@ -359,24 +359,45 @@ Deno.serve(async (req) => {
     // Sortera efter relevans
     filteredJobs.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
 
-    // Ta top 600 för caching. Höjt från 300 så klientsidig filtrering (ort,
-    // omfattning, publicerat, sortering) och region→kommun-gruppering har en
-    // bredare bas att jobba mot — utan att behöva söka om mot servern.
+    // Ta top 600 för svaret. Det färska svaret (första 50) räknas ur dem.
     const topJobs = filteredJobs.slice(0, 600);
 
     console.log(`[Match-Jobs-V2] Top ${topJobs.length} jobs selected`);
     console.log(`[Match-Jobs-V2] Score range: ${topJobs[0]?.relevance || 0} - ${topJobs[topJobs.length - 1]?.relevance || 0}`);
 
+    // Det som SPARAS är mindre (rättningen efter slutkontrollen 2026-11-21).
+    // 600 hela annonser blev 1,9 MB jsonb i snitt och 3,7 MB som mest, och
+    // både upserten och läsningen föll på tidsgränsen (8 s för authenticated)
+    // på minsta instansen. Det stora i en annons är description.text och
+    // description.text_formatted (samma text två gånger, båda används av
+    // appen: matchningen läser text, annonsvyn visar text_formatted), så de
+    // kan inte tas bort. I stället:
+    //   - de 300 bästa sparas, som före höjningen till 600. Appen läser som
+    //     mest 120 (poolen) och 25 (de bästa) ur den sparade körningen;
+    //     påfyllningen efter en sökning ger 300 i stället för 600.
+    //   - fält som ingen läsare använder tas bort (poängdelarna, quickScore,
+    //     logotypadressen, antal tjänster, omfattning i procent, lönetyp och
+    //     varaktighet). Totalt antal (total_jobs_found) är som förut.
+    const SPARA_MAX = 300;
+    const sparadeJobb = topJobs.slice(0, SPARA_MAX).map((job) => {
+      const { scoringBreakdown: _p, quickScore: _q, logo_url: _l, number_of_vacancies: _n, scope_of_work: _s, salary_type: _t, duration: _d, ...rest } = job;
+      return rest;
+    });
+
     // ============================================================================
     // STEG 8: Cache resultat (1 timme) + Log Activity
     // ============================================================================
+    // sparad: null när ingen sparning försöktes (egen sökfråga), annars om
+    // körningen faktiskt hamnade i job_matchings_cache. Klienten hoppar över
+    // påfyllningen när den är false, annars gör påfyllningen om hela sökningen.
+    let sparad: boolean | null = null;
     if (!customQuery) {
       try {
-        await supabase.from('job_matchings_cache').upsert({
+        const { error: cacheUpsertError } = await supabase.from('job_matchings_cache').upsert({
           user_id: userId,
           cv_id: activeCV.cv_id,
           filter_hash: filterHash,
-          jobs: topJobs,
+          jobs: sparadeJobb,
           search_params: {
             primaryOccupation: primaryOccupation.normalized,
             location: cvLocation,
@@ -389,8 +410,23 @@ Deno.serve(async (req) => {
           onConflict: 'user_id,cv_id,filter_hash'
         });
 
-        console.log('[Match-Jobs-V2] ✅ Cached matching for 1 hour');
+        if (cacheUpsertError) {
+          sparad = false;
+          console.error(`[Match-Jobs-V2] Cache save FAILED (${cacheUpsertError.code ?? 'okänd kod'}): ${cacheUpsertError.message}`);
+        } else {
+          sparad = true;
+          console.log(`[Match-Jobs-V2] ✅ Cached ${sparadeJobb.length} of ${topJobs.length} jobs for 1 hour`);
+        }
+      } catch (cacheError) {
+        sparad = false;
+        console.error('[Match-Jobs-V2] Cache save error:', cacheError);
+        // Non-blocking error, continue
+      }
 
+      // Sökningen är gjord även om sparningen föll: aktiviteten och
+      // onboardingsteget loggas i båda fallen, som förut när sparningen
+      // inte kontrollerades.
+      {
         // Log fresh job matching activity
         try {
           await supabase.from('user_activities').insert({
@@ -424,9 +460,6 @@ Deno.serve(async (req) => {
           console.error('[Match-Jobs-V2] Onboarding progress error:', onboardingError);
           // Non-blocking, continue
         }
-      } catch (cacheError) {
-        console.error('[Match-Jobs-V2] Cache save error:', cacheError);
-        // Non-blocking error, continue
       }
     }
 
@@ -448,6 +481,7 @@ Deno.serve(async (req) => {
       jobs: initialJobs,
       hasMore: endIndex < topJobs.length,
       totalAvailable: topJobs.length,
+      sparad,
       activeCV: {
         cvId: activeCV.cv_id,
         parsedAt: activeCV.parsed_at,
