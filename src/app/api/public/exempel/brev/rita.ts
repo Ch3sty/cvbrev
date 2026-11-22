@@ -66,14 +66,22 @@ export function valtBrev(sp: URLSearchParams, datum: string): BrevData | null {
  */
 export const SMALARE_TEXT: Readonly<Record<string, number>> = Object.freeze({ raster: 0.92, betong: 0.92, morkrum: 0.92 })
 
+/**
+ * Visarens tätaste låsta steg: 2, som före steg 3. Visarens fem mallar bär
+ * alla 89 exempelbrev på steg 2 (mätt 2026-11-21, 0 av 445 behöver steg 3),
+ * och uppskattningen överskattar höjden, så steg 3 skulle visa exempelbreven
+ * mindre än de behöver (41 av 445 i produktionen 2026-11-22).
+ */
+export const VISARE_MAX_STEG = 2 as const
+
 /** Steget som låses i arket. */
 export function lastSteg(mall: string, data: BrevData): BrevSteg {
   const def = brevMallDef(mall)
   const f = Object.prototype.hasOwnProperty.call(SMALARE_TEXT, def.id) ? SMALARE_TEXT[def.id] : undefined
-  if (!f) return uppskattatSteg(def, data)
+  if (!f) return uppskattatSteg(def, data, undefined, VISARE_MAX_STEG)
   // Smalare text: högermarginalen ökas så att textbredden blir f gånger. Gränsen (nedre marginalen) är densamma.
   const bredd = 210 - def.sida.vanster - def.sida.hoger
-  return uppskattatSteg({ ...def, sida: { ...def.sida, hoger: def.sida.hoger + bredd * (1 - f) } }, data)
+  return uppskattatSteg({ ...def, sida: { ...def.sida, hoger: def.sida.hoger + bredd * (1 - f) } }, data, undefined, VISARE_MAX_STEG)
 }
 
 /**
