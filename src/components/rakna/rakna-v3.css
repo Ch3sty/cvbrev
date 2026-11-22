@@ -1,0 +1,67 @@
+/* ============================================================
+   RÄKNA UT, publikt omgång 3 (P5a): grundens skal runt hubben och de nio
+   kalkylatorerna. Bara på sidor med .rk3 (Sida className), så att
+   kalkylatorerna i artiklarna och /embed ser ut som förut. Kalkylatorns
+   egna klasser står i rakna.css. Prefix rk3-.
+   ============================================================ */
+
+/* Brödsmulan (Breadcrumb bär BreadcrumbList) får väggens toner. */
+.rk3-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); color: var(--vagg-mjuk); }
+.rk3-smula nav { margin-bottom: 0; }
+.rk3-smula a { display: inline-block; padding: 4px 0; }
+.rk3-smula + * { margin-top: 26px; }
+
+/* Hjälten med kalkylatorn */
+.rk3 .rk-h1 { font-size: 34px; line-height: 1.05; overflow-wrap: anywhere; hyphens: auto; }
+@media (min-width: 900px) { .rk3 .rk-h1 { font-size: 50px; } }
+@media (max-width: 640px) { .rk3 .rk-h1.rk-h1-lang { font-size: 26px; } }
+.rk3 .rk-hjalte-text .p3-ey { margin-bottom: 10px; }
+.rk3 .rk-bevis li { min-height: 28px; }
+@media (max-width: 1023px) {
+  .rk3 .rk-hjalte-text .p3-ey { order: 1; margin-bottom: 0; }
+}
+
+/* Kalkylatorns kort: grundens kant och klack i stället för skugga. */
+.rk3 .rk-kalk { border: 2px solid var(--kant); border-bottom-width: 8px; border-radius: var(--r-stor, 32px); box-shadow: none; background: var(--papper); }
+.rk3 .rk-res { background: var(--vagg-3); }
+.rk3 .rk-input { border-width: 2px; min-height: 50px; }
+.rk3 .rk-knapp.pub-knapp { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; border: 0; border-radius: 16px; font-weight: 700; font-size: 17px; color: var(--koppar-text); background: linear-gradient(180deg, var(--koppar-topp, var(--koppar)), var(--koppar)); box-shadow: 0 5px 0 var(--koppar-klack); }
+
+/* Så räknar vi */
+.rk3-h2 { margin-top: 12px; }
+.rk3-kallkort { align-self: start; }
+.rk3 .rk-kallkort-topp { background: var(--ton); color: var(--ton-ink); }
+.rk3 .rk-kallista li { border-top-width: 2px; }
+.rk3 .rk-brod a { color: var(--ink-1); }
+
+/* Premiumytan: siffran, texten och samtalet */
+.rk3-premium .rk3-text { font-size: 17px; color: var(--vagg-mjuk); }
+.rk3-premium .p3-knapprad { margin-top: 22px; }
+.rk3-premium .p3-liten { margin-top: 20px; }
+.rk3-ord { color: var(--koppar-ljus); }
+.rk3-storsiffra { color: #fff; }
+.rk3-lank { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; color: inherit; }
+.p3-premium .rk3-lank { color: #fff; }
+.rk3-samtal { min-width: 0; }
+@media (max-width: 999px) { .rk3-samtal { display: none; } }
+
+/* Insikterna (rekryterarkalkylatorerna) */
+.rk3-insikt { display: grid; gap: 24px; align-items: end; }
+.rk3-insikt > .p3-sekt-huvud + * { margin-top: 0; }
+@media (min-width: 900px) { .rk3-insikt { grid-template-columns: minmax(0, 1fr) auto; gap: 48px; } }
+
+/* Frågorna och Läs mer */
+.rk3-rub-liten { margin-top: 48px; }
+.rk3-merom { border: 2px solid var(--kant); border-bottom-width: 5px; background: var(--papper); }
+.rk3-merom li { border-top-width: 2px; }
+
+/* Hubbens kort */
+.rk3-besked { border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 8px 0 rgba(0, 0, 0, .22); }
+.rk3-lapp { box-shadow: 0 5px 0 rgba(0, 0, 0, .2); }
+.rk3-stortal { margin-top: 32px; border: 2px solid var(--kant); border-top: 8px solid var(--vagg); border-bottom-width: 6px; background: var(--papper); }
+.rk3-stortal .rk-kalknamn { color: var(--ton-ink); }
+.rk3-stortal .p3-lank { min-height: 0; margin-top: 14px; color: var(--ink-1); }
+.rk3-kort a { border: 2px solid var(--kant); border-bottom-width: 5px; background: var(--papper); }
+.rk3-kort small { color: var(--ton-ink); }
+.rk3 .rk-ikon { background: var(--ton); color: var(--ton-ink); }
+.rk3 .rk-not { color: var(--ink-3); }

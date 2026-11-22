@@ -1,31 +1,28 @@
 /**
- * /rakna-ut, hubben för kalkylatorerna, publikt v2
- * (docs/design/spec-publikt-v2-del-b-2026-10-12.md avsnitt 3.5, skissen
- * flik #raknaut). h1, title, description, canonical, rubrikerna och
- * länkarna är oförändrade; ramen är ny.
+ * /rakna-ut, hubben för kalkylatorerna. Publikt omgång 3 (P5a): grundens
+ * skal och komponenter (BYGGBRIEF beslut 10, ingen egen skiss). h1, title,
+ * description, canonical, rubrikerna och länkarna är oförändrade sedan
+ * publikt v2.
  *
  * Sektionsföljden:
- *   1. Hjälten på vägg jobb med lönebeskedet (räknat på servern ur
- *      beraknaLon(LON_STANDARD)) och talraden, där antalet kalkylatorer
- *      räknas ur listan.
+ *   1. Hjälten på skogens vägg med lönebeskedet (räknat på servern ur
+ *      beraknaLon(LON_STANDARD)) och talbrickorna, där antalet
+ *      kalkylatorer räknas ur listan.
  *   2. För dig som söker jobb eller byter: lön efter skatt som stort kort
  *      med ett räknat exempel, sedan tre kort.
- *   3. Bläck: löneförhandlingens värde, räknat ur loneforhandling.ts, och
- *      Jobbcoachen i telefonen.
- *   4. För dig som anställer på panel: vad en anställd kostar som stort kort,
- *      tre kort och länken till insikterna för rekryterare.
+ *   3. Sidans mörkaste ton: löneförhandlingens värde, räknat ur
+ *      loneforhandling.ts, och samtalet med Jobbcoachen.
+ *   4. För dig som anställer på papper i grafit: vad en anställd kostar som
+ *      stort kort, tre kort och länken till insikterna för rekryterare.
  *
- * Serverkomponent, ingen klient-JS utöver sidhuvudet.
+ * Serverkomponent, ingen klient-JS utöver ramen och mätningen. Brödsmulan
+ * (Breadcrumb) bär BreadcrumbList som förut.
  */
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Breadcrumb from '@/components/Breadcrumb'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import { Sida } from '@/components/publikt/v3/Sida'
-import Rum from '@/components/publikt/Rum'
-import TalRad from '@/components/publikt/TalRad'
-import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
+import { Sida, Sektion, SektionHuvud, Talbrickor, Knapp, Knapprad, TextLank, Samtal } from '@/components/publikt/v3'
 import { Stapel } from '@/components/rakna/ui'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { TABELLER } from '@/lib/rakna/sammanfattning'
@@ -35,6 +32,7 @@ import { FORHANDLING_STANDARD, beraknaForhandling } from '@/lib/rakna/loneforhan
 import { ANSTALLD_STANDARD, beraknaAnstalld } from '@/lib/rakna/anstalldKostnad'
 import { kr, krTecken } from '@/lib/rakna/format'
 import '@/components/rakna/rakna.css'
+import '@/components/rakna/rakna-v3.css'
 import ArtikelKlient from '@/components/artiklar/ArtikelKlient'
 
 export const metadata: Metadata = {
@@ -113,7 +111,7 @@ const REKRYTERARKORT: Kort[] = [
 
 function KortRad({ kort }: { kort: Kort[] }) {
   return (
-    <ul className="rk-kort">
+    <ul className="rk-kort rk3-kort">
       {kort.map((k) => (
         <li key={k.slug}>
           <Link href={`/rakna-ut/${k.slug}`}>
@@ -145,45 +143,43 @@ export default function Page() {
   const premie = `Ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}`
 
   return (
-    // Publikt omgång 3: sidans färg följer hjältens rum (jobb), så att menyn och foten står i samma färg.
-    <Sida farg="jobb">
-    <PubliktSida>
+    <Sida farg="jobb" className="rk3">
       <main>
         {/* 1. Hjälten */}
-        <Rum rum="jobb" yta="vagg" id="hjalte" vag="mark" style={{ paddingTop: 'clamp(24px, 4vw, 56px)' }}>
-          <div className="pub-wrap">
-            <Breadcrumb
-              items={[
-                { name: 'Hem', href: '/' },
-                { name: 'Räkna ut', href: '/rakna-ut' },
-              ]}
-            />
-            <div className="rk-hubb-g">
-              <div>
-                <p className="pub-kick">Räkna ut, gratis och utan konto</p>
-                <h1 className="rk-h1">Räkna ut: kalkylatorer för lön, jobb och rekrytering</h1>
-                <p className="pub-ingress" style={{ marginTop: 18 }}>
+        <section id="hjalte" className="p3-vagg p3-hjalte p3-utan-lyft">
+          <div className="p3-bredd">
+            <div className="rk3-smula">
+              <Breadcrumb
+                items={[
+                  { name: 'Hem', href: '/' },
+                  { name: 'Räkna ut', href: '/rakna-ut' },
+                ]}
+              />
+            </div>
+            <div className="p3-hjalte-rad p3-med-bild">
+              <div className="p3-hjalte-text">
+                <p className="p3-ey">Räkna ut, gratis och utan konto</p>
+                <h1 className="p3-h1 p3-h1-mindre">Räkna ut: kalkylatorer för lön, jobb och rekrytering</h1>
+                <p className="p3-varde">
                   Gratis, utan konto och byggda på myndighetsdata och namngivna källor: Skatteverkets skattetabeller, LAS,
                   semesterlagen och Avtalats premier. <b>Varje verktyg redovisar öppet hur det räknar.</b>
                 </p>
-                <div className="pub-handling">
-                  <Link className="pub-knapp" href="/rakna-ut/lon-efter-skatt" data-primar="">
+                <div className="p3-knapprad">
+                  <Knapp href="/rakna-ut/lon-efter-skatt" pil data-primar="">
                     Räkna ut lön efter skatt
-                  </Link>
-                  <Link className="pub-lank" href="#for-dig-som-anstaller">
-                    Kalkylatorerna för rekryterare
-                  </Link>
+                  </Knapp>
+                  <TextLank href="#for-dig-som-anstaller">Kalkylatorerna för rekryterare</TextLank>
                 </div>
-                <TalRad
-                  tal={[
+                <Talbrickor
+                  brickor={[
                     { tal: String(SLUGGAR.length), text: 'kalkylatorer' },
                     { tal: '2026', text: 'års skattetabeller' },
                     { tal: '0 kr', text: 'och inget konto' },
                   ]}
                 />
               </div>
-              <div className="rk-besked-ram" aria-hidden="true">
-                <div className="rk-besked">
+              <div className="p3-hjalte-bild rk-besked-ram" aria-hidden="true">
+                <div className="rk-besked rk3-besked">
                   <span className="rk-exempelchip">Exempel</span>
                   <p className="rk-res-kick">Lönebesked</p>
                   <p className="rk-res-rad">
@@ -201,7 +197,7 @@ export default function Page() {
                     ]}
                   />
                 </div>
-                <div className="rk-lapp">
+                <div className="rk-lapp rk3-lapp">
                   <Bock />
                   <span>
                     <b>Skatteverkets tabell</b>samma som på lönebeskedet
@@ -210,133 +206,129 @@ export default function Page() {
               </div>
             </div>
           </div>
-        </Rum>
+        </section>
 
         {/* 2. För dig som söker jobb eller byter */}
-        <Rum yta="mark" rum="jobb" id="for-dig-som-soker-jobb" aria-label="För dig som söker jobb eller byter">
-          <div className="pub-wrap">
-            <h2 className="pub-h2">För dig som söker jobb eller byter</h2>
-            <p className="pub-ingress" style={{ marginTop: 12 }}>
-              Innan du säger ja till ett erbjudande, säger upp dig eller går in i lönesamtalet: räkna på vad det betyder i
-              kronor.
-            </p>
-            <Link className="rk-stortal" href="/rakna-ut/lon-efter-skatt">
-              <div>
-                <small className="rk-kalknamn">Lön efter skatt 2026</small>
-                <h3>Se vad som blir kvar i handen</h3>
-                <p>
-                  Nettolön med Skatteverkets riktiga skattetabeller och din kommuns skattesats. Jämför två löner eller
-                  kommuner.
-                </p>
-                <span className="pub-lank">Räkna på din lön</span>
+        <Sektion id="for-dig-som-soker-jobb" aria-label="För dig som söker jobb eller byter">
+          <SektionHuvud
+            rubrik="För dig som söker jobb eller byter"
+            varde="Innan du säger ja till ett erbjudande, säger upp dig eller går in i lönesamtalet: räkna på vad det betyder i kronor."
+          />
+          <Link className="rk-stortal rk3-stortal" href="/rakna-ut/lon-efter-skatt">
+            <div>
+              <small className="rk-kalknamn">Lön efter skatt 2026</small>
+              <h3>Se vad som blir kvar i handen</h3>
+              <p>
+                Nettolön med Skatteverkets riktiga skattetabeller och din kommuns skattesats. Jämför två löner eller
+                kommuner.
+              </p>
+              <span className="p3-lank">Räkna på din lön</span>
+            </div>
+            <div>
+              <p className="rk-tal-l">
+                {kr(lon.netto)}
+                <small>
+                  kvar av {kr(LON_STANDARD.lon)} i {LON_STANDARD.kommun}, skattetabell {lon.tab}
+                </small>
+              </p>
+              <div className="rk-stapel rk-stapel-ljus" aria-hidden="true">
+                <i className="rk-ton-0" style={{ width: `${((lon.netto / LON_STANDARD.lon) * 100).toFixed(1)}%` }} />
+                <i className="rk-ton-1" style={{ width: `${((lon.skatt / LON_STANDARD.lon) * 100).toFixed(1)}%` }} />
               </div>
-              <div>
-                <p className="rk-tal-l">
-                  {kr(lon.netto)}
-                  <small>
-                    kvar av {kr(LON_STANDARD.lon)} i {LON_STANDARD.kommun}, skattetabell {lon.tab}
-                  </small>
-                </p>
-                <div className="rk-stapel rk-stapel-ljus" aria-hidden="true">
-                  <i className="rk-ton-0" style={{ width: `${((lon.netto / LON_STANDARD.lon) * 100).toFixed(1)}%` }} />
-                  <i className="rk-ton-1" style={{ width: `${((lon.skatt / LON_STANDARD.lon) * 100).toFixed(1)}%` }} />
-                </div>
-              </div>
-            </Link>
-            <KortRad kort={LONEKORT} />
-          </div>
-        </Rum>
+            </div>
+          </Link>
+          <KortRad kort={LONEKORT} />
+        </Sektion>
 
-        {/* 3. Bläck: löneförhandlingens värde och Jobbcoachen */}
-        <Rum yta="premium" id="loneforhandling">
+        {/* 3. Löneförhandlingens värde och Jobbcoachen */}
+        <Sektion id="loneforhandling" luft="utan-topp">
           {/* Nästa steg mäts som article_cta_clicked, slug rakna-ut (analysen 2026-11-08, punkt 11). */}
           <div
-            className="pub-wrap pub-tva"
+            className="p3-premium rk3-premium"
             data-cta-position="final"
             data-cta-cluster="career"
             data-cta-variant="rakna-ut"
             data-cta-slug="rakna-ut"
           >
-            <div className="pub-tva-text">
-              <p className="pub-kick">{premie}</p>
-              <p className="rk-storsiffra" aria-hidden="true">
-                <span className="pub-gradord">{krTecken(forhandling.ar10)}</span>
-              </p>
-              <h2 className="pub-h2 rk-h2-mellan">
-                {kr(FORHANDLING_STANDARD.hojning)} mer i månaden är värt {krTecken(forhandling.ar10)} på tio år
-              </h2>
-              <p className="pub-ingress" style={{ marginTop: 14 }}>
-                Löneförhandlingens värde räknar ut vad en höjning blir när varje revision läggs ovanpå den. Jobbcoachen
-                hjälper dig få den: marknadslön och argument ur SCB och fackens statistik, med källa till varje svar.
-                Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
-              </p>
-              <div className="pub-handling">
-                <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
-                  Fråga Jobbcoachen
-                </Link>
-                <Link className="pub-lank" href="/rakna-ut/loneforhandling" data-cta-klick="/rakna-ut/loneforhandling">
-                  Räkna på din egen höjning
-                </Link>
+            <div className="p3-premium-rad p3-med-lista">
+              <div className="p3-premium-text">
+                <p className="p3-ey">{premie}</p>
+                <p className="rk-storsiffra rk3-storsiffra" aria-hidden="true">
+                  <span className="rk3-ord">{krTecken(forhandling.ar10)}</span>
+                </p>
+                <h2 className="p3-h2 rk-h2-mellan">
+                  {kr(FORHANDLING_STANDARD.hojning)} mer i månaden är värt {krTecken(forhandling.ar10)} på tio år
+                </h2>
+                <p className="rk3-text">
+                  Löneförhandlingens värde räknar ut vad en höjning blir när varje revision läggs ovanpå den. Jobbcoachen
+                  hjälper dig få den: marknadslön och argument ur SCB och fackens statistik, med källa till varje svar.
+                  Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
+                </p>
+                <Knapprad>
+                  <Knapp href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
+                    Fråga Jobbcoachen
+                  </Knapp>
+                  <TextLank href="/rakna-ut/loneforhandling" data-cta-klick="/rakna-ut/loneforhandling">
+                    Räkna på din egen höjning
+                  </TextLank>
+                </Knapprad>
+                <p className="p3-liten">
+                  Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
+                  <Link className="rk3-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
+                    Prova fem testfrågor gratis
+                  </Link>{' '}
+                  eller{' '}
+                  <Link className="rk3-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
+                    se alla rekryteringstester
+                  </Link>
+                  .
+                </p>
               </div>
-              <p className="pub-liten" style={{ marginTop: 20 }}>
-                Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
-                <Link className="pub-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
-                  Prova fem testfrågor gratis
-                </Link>{' '}
-                eller{' '}
-                <Link className="pub-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
-                  se alla rekryteringstester
-                </Link>
-                .
-              </p>
-            </div>
-            <div className="pub-mitt">
-              <SkarmCoach />
+              <div className="rk3-samtal" aria-hidden="true">
+                <Samtal yta />
+              </div>
             </div>
           </div>
-        </Rum>
+        </Sektion>
 
         {/* 4. För dig som anställer */}
-        <Rum yta="panel" rum="neu" id="for-dig-som-anstaller" aria-label="För dig som anställer">
-          <div className="pub-wrap">
-            <h2 className="pub-h2">För dig som anställer</h2>
-            <p className="pub-ingress" style={{ marginTop: 12 }}>
-              Siffrorna som bär ett rekryteringsbeslut, räknade på era egna förutsättningar.
-            </p>
-            <Link className="rk-stortal" href="/rakna-ut/vad-kostar-en-anstalld">
-              <div>
-                <small className="rk-kalknamn">Vad kostar en anställd?</small>
-                <h3>Vet vad en anställning kostar innan ni annonserar</h3>
-                <p>Hela månadskostnaden 2026: arbetsgivaravgift, ITP1, särskild löneskatt, försäkringar och semester.</p>
-                <span className="pub-lank">Räkna på en anställning</span>
+        <Sektion botten="papper" farg="neutral" id="for-dig-som-anstaller" aria-label="För dig som anställer">
+          <SektionHuvud
+            rubrik="För dig som anställer"
+            varde="Siffrorna som bär ett rekryteringsbeslut, räknade på era egna förutsättningar."
+          />
+          <Link className="rk-stortal rk3-stortal" href="/rakna-ut/vad-kostar-en-anstalld">
+            <div>
+              <small className="rk-kalknamn">Vad kostar en anställd?</small>
+              <h3>Vet vad en anställning kostar innan ni annonserar</h3>
+              <p>Hela månadskostnaden 2026: arbetsgivaravgift, ITP1, särskild löneskatt, försäkringar och semester.</p>
+              <span className="p3-lank">Räkna på en anställning</span>
+            </div>
+            <div>
+              <p className="rk-tal-l">
+                {kr(anstalld.total)}
+                <small>i månaden för {kr(ANSTALLD_STANDARD.lon)} i lön med kollektivavtal</small>
+              </p>
+              <div className="rk-stapel rk-stapel-ljus" aria-hidden="true">
+                <i className="rk-ton-0" style={{ width: `${((ANSTALLD_STANDARD.lon / anstalld.total) * 100).toFixed(1)}%` }} />
+                <i className="rk-ton-1" style={{ width: `${(((anstalld.total - ANSTALLD_STANDARD.lon) / anstalld.total) * 100).toFixed(1)}%` }} />
               </div>
-              <div>
-                <p className="rk-tal-l">
-                  {kr(anstalld.total)}
-                  <small>i månaden för {kr(ANSTALLD_STANDARD.lon)} i lön med kollektivavtal</small>
-                </p>
-                <div className="rk-stapel rk-stapel-ljus" aria-hidden="true">
-                  <i className="rk-ton-0" style={{ width: `${((ANSTALLD_STANDARD.lon / anstalld.total) * 100).toFixed(1)}%` }} />
-                  <i className="rk-ton-1" style={{ width: `${(((anstalld.total - ANSTALLD_STANDARD.lon) / anstalld.total) * 100).toFixed(1)}%` }} />
-                </div>
-              </div>
+            </div>
+          </Link>
+          <KortRad kort={REKRYTERARKORT} />
+          <p className="p3-liten rk-not">
+            Siffran är början.{' '}
+            <Link className="rk3-lank" href="/for-rekryterare">
+              Läs insikterna för rekryterare
             </Link>
-            <KortRad kort={REKRYTERARKORT} />
-            <p className="pub-liten rk-not">
-              Siffran är början.{' '}
-              <Link className="pub-lank" href="/for-rekryterare">
-                Läs insikterna för rekryterare
-              </Link>
-            </p>
-            <p className="pub-liten rk-not">
-              Kalkylatorerna uppdateras årligen med nya skattetabeller, basbelopp och avgifter, senast för inkomståret 2026.
-              De ger vägledning, inte skatte- eller juridisk rådgivning.
-            </p>
-          </div>
-        </Rum>
+          </p>
+          <p className="p3-liten rk-not">
+            Kalkylatorerna uppdateras årligen med nya skattetabeller, basbelopp och avgifter, senast för inkomståret 2026.
+            De ger vägledning, inte skatte- eller juridisk rådgivning.
+          </p>
+        </Sektion>
       </main>
       <ArtikelKlient cluster="career" />
-    </PubliktSida>
     </Sida>
   )
 }

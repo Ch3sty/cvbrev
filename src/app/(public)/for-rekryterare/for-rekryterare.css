@@ -1,0 +1,81 @@
+/* /for-rekryterare, publikt omgång 3 (P5a). Grundens skal; egna klasser
+   heter fr-*. Träffkortet och profilen (if-* ur foretag.css) får grundens
+   kanter och sidans toner här, så att inget står svart eller beige. */
+
+/* Portalens bilder tar sidans grafit i stället för v2:s egna hexvärden. */
+.fr-sida .pub-rum-neu { --rum-vagg: var(--vagg); --rum-vagg-2: var(--vagg-2); --rum-ljus: var(--ljus); --rum-ton: var(--ton); --rum-ink: var(--ton-ink); }
+.fr-sida .if-kand,
+.fr-sida .if-profil,
+.fr-sida .if-webb { border: 2px solid var(--kant); border-bottom-width: 6px; box-shadow: none; }
+.fr-sida .if-kand-knapp { min-height: 44px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+.fr-sida .if-rad-k { border-width: 2px; }
+.fr-sida .if-rad-k.if-vald { border-color: var(--koppar); box-shadow: none; background: var(--koppar-mjuk); }
+
+/* Hjälten */
+.fr-bevis { display: flex; flex-wrap: wrap; gap: 8px; }
+.fr-bevis li { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: var(--vagg-ink); font-size: 14px; font-weight: 600; }
+.fr-hjaltebild { position: relative; display: grid; justify-items: center; padding: 0 0 72px; }
+.fr-hjaltebild > .p3-ey { justify-self: start; margin: 0 0 12px 4px; }
+.fr-hjaltebild .if-kand { width: 100%; max-width: 440px; transform: rotate(-1.5deg); }
+.fr-hjaltenot { justify-self: start; max-width: 44ch; margin: 18px 0 0 4px; }
+.fr-verifierad { position: absolute; right: 0; bottom: 92px; display: grid; gap: 2px; padding: 14px 18px; border-radius: 18px; background: var(--vagg); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .18); box-shadow: 0 6px 0 var(--vagg-3); transform: rotate(4deg); }
+.fr-verifierad span { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ljus); }
+.fr-verifierad b { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1.05; letter-spacing: -0.02em; }
+.fr-verifierad small { font-size: 12.5px; color: var(--vagg-mjuk); }
+
+/* Insidan: portalen och fem steg */
+.fr-portal { display: grid; gap: 28px; align-items: start; }
+.fr-portal > * { min-width: 0; }
+.fr-webb { transform: rotate(-.6deg); }
+.fr-steg5 { display: grid; gap: 10px; }
+.fr-steg5 li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+.fr-steg5 .p3-h3 { font-size: 17px; }
+.fr-steg5 p { margin-top: 4px; font-size: 14.5px; color: var(--ink-2); }
+@media (min-width: 1000px) { .fr-portal { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; } }
+
+/* Korten med h3 */
+.fr-punkter .p3-h3 { font-size: 18px; }
+.fr-punkter + .fr-citat { margin-top: 28px; }
+.p3-sekt-huvud + .fr-punkter { margin-top: 28px; }
+
+/* Verifierade resultat */
+.fr-tva { display: grid; gap: 40px; }
+.fr-tva > * { min-width: 0; }
+.fr-citat { margin-top: 28px; padding-left: 18px; border-left: 4px solid var(--koppar); font-family: var(--disp); font-weight: 700; font-size: 22px; line-height: 1.3; letter-spacing: -0.015em; color: var(--vagg-ink); }
+.fr-badgar { position: relative; min-height: 420px; }
+.fr-badge { position: absolute; left: 2%; top: 10px; width: min(330px, 88%); display: grid; gap: 4px; padding: 20px 22px; border-radius: 22px; background: var(--papper); color: var(--ink-1); border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); transform: rotate(-3deg); }
+.fr-badge-k { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ton-ink); }
+.fr-badge b { font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.03em; }
+.fr-badge-n, .fr-badge-d { font-size: 13.5px; color: var(--ink-3); }
+.fr-badge-skala { position: relative; height: 10px; margin-top: 10px; border-radius: 999px; background: var(--ton); }
+.fr-badge-skala i { position: absolute; inset: 0 auto 0 0; width: var(--p); border-radius: 999px; background: var(--ton-ink); }
+.fr-badge-2 { left: auto; right: 0; top: 220px; width: min(300px, 80%); transform: rotate(3deg); }
+.fr-matris { position: absolute; left: 10%; bottom: 0; width: 110px; transform: rotate(-8deg); }
+.fr-matris svg { display: block; width: 100%; height: auto; }
+@media (min-width: 1000px) { .fr-tva { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center; } .fr-badge b { font-size: 54px; } }
+
+/* Stegen och träffkorten */
+.fr-efter { margin-top: 32px; }
+.fr-not { margin-top: 28px; }
+.fr-sida .if-kand-par { margin-top: 0; }
+
+/* Integriteten på sidans mörkaste ton */
+.fr-mork { display: grid; gap: 12px; margin-top: 26px; }
+.fr-mork li { padding: 18px 20px; border-radius: 18px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 255, 255, .12); }
+.fr-integritet .fr-mork .p3-h3 { font-size: 17px; color: #fff; }
+.fr-integritet .fr-mork p { margin-top: 6px; font-size: 14.5px; color: var(--vagg-mjuk); }
+@media (min-width: 760px) { .fr-mork { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1100px) { .fr-mork { grid-template-columns: repeat(3, 1fr); } .fr-mork li:first-child { grid-column: span 2; } }
+
+/* Insikter */
+.fr-rubrikrad { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+.fr-rubrikrad > .p3-sekt-huvud + * { margin-top: 0; }
+.fr-ingress { max-width: 760px; margin-top: 14px; }
+.fr-ingress + .fr-insikter { margin-top: 28px; }
+
+/* Slutbandet */
+.fr-band { display: grid; gap: 20px; align-items: center; }
+.fr-band .p3-text { margin-top: 8px; }
+.fr-band-rubrik { font-size: 24px; }
+@media (min-width: 900px) { .fr-band { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; } .fr-band-rubrik { font-size: 28px; } }
+@media (max-width: 640px) { .fr-band .p3-knapp { width: 100%; } }

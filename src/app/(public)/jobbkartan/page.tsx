@@ -10,13 +10,16 @@
  *
  * Avsnitten: 1 hjälten med kartan och tidsreglaget, 2 konkurrensen om jobben, 3 ditt yrke med
  * kroken till jobbmatchningen före lönekartan, 4 din kommun, 5 för journalister, 6 vanliga frågor, 7 vägen vidare in i tjänsten.
+ *
+ * Publikt omgång 3 (P5a): grundens skal (BYGGBRIEF beslut 10). Hjälten står på skogens vägg med
+ * kartan på en ljus yta, sektionerna är grundens (golv, ton, papper, vägg), rubrikerna, etiketterna
+ * och knapparna har grundens typografi och form, och frågorna är grundens Faq med samma FAQPage.
+ * Alla id, data-attribut och texter som app.ts läser och skriver är orörda. jobbkartan.css delas
+ * med /embed/jobbkartan och är orörd här; sidans egna justeringar står i jobbkartan-sida.css.
  */
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import { Sida } from '@/components/publikt/v3/Sida'
-import Faq, { type FaqFraga } from '@/components/publikt/Faq'
+import { Sida, Sektion, Faq, Knapp, type FaqFraga } from '@/components/publikt/v3'
 import { HjalteTal, JkTillbehor, KartScen, Tidrad } from '@/components/jobbkartan/Hjalte'
 import JobbkartanKlient from '@/components/jobbkartan/JobbkartanKlient'
 import { FJALL, GEO, OVERSIKT, extrem, hamtaAnnonser, kon, rubrik, type JobbkartanData } from '@/lib/jobbkartan/data'
@@ -24,6 +27,7 @@ import { fmt, kortLan, kvartalKort, kvartalNamn, manadNamn } from '@/lib/jobbkar
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { talOrd } from '@/components/publikt/talord'
 import '@/components/jobbkartan/jobbkartan.css'
+import './jobbkartan-sida.css'
 
 const URL_SIDA = 'https://www.jobbcoach.ai/jobbkartan'
 /** Registreringen med jobbmatchningen förvald, samma adress som /verktyg/jobbmatchning använder. */
@@ -110,25 +114,26 @@ export default async function JobbkartanSida() {
   }
 
   return (
-    <Sida farg="jobb">
-    <PubliktSida>
+    <Sida farg="jobb" className="jks">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dataset) }} />
       <main className="jk">
         {/* 1. Hjälten */}
-        <section className="sek yta-mark" id="jk-hjalte" style={{ paddingTop: 'clamp(20px, 3vw, 40px)' }}>
-          <div className="wrap">
-            <Breadcrumb
-              items={[
-                { name: 'Hem', href: '/' },
-                { name: 'Jobbkartan', href: '/jobbkartan' },
-              ]}
-            />
+        <section className="p3-vagg p3-hjalte p3-utan-lyft jks-hjalte" id="jk-hjalte">
+          <div className="p3-bredd">
+            <div className="jks-smula">
+              <Breadcrumb
+                items={[
+                  { name: 'Hem', href: '/' },
+                  { name: 'Jobbkartan', href: '/jobbkartan' },
+                ]}
+              />
+            </div>
           </div>
-          <div className="wrap hjalte">
+          <div className="p3-bredd hjalte">
             <div className="hjalte-text">
-              <p className="kick">Jobbkartan, {kvartalNamn(D.kvartal[q])}</p>
-              <h1 className="h1">{rubrik(D)}</h1>
-              <p className="ingress" style={{ marginTop: 22 }}>
+              <p className="p3-ey">Jobbkartan, {kvartalNamn(D.kvartal[q])}</p>
+              <h1 className="p3-h1 p3-h1-mindre">{rubrik(D)}</h1>
+              <p className="p3-varde jks-ingress">
                 Vi la ihop SCB:s arbetslösa och arbetsgivarnas lediga jobb, län för län. Det ger ett enkelt mått på kön:{' '}
                 <b>hur många som konkurrerar om samma annons.</b> Ljusa län är lätta att få jobb i, mörka är trånga. Peka på ett
                 län, eller dra i tiden.
@@ -141,13 +146,13 @@ export default async function JobbkartanSida() {
         </section>
 
         {/* 2. Konkurrensen om jobben */}
-        <section className="sek yta-panel" id="jk-konkurrens">
-          <div className="wrap">
-            <p className="kick">Konkurrensen om jobben</p>
-            <h2 className="h2" style={{ maxWidth: '18ch' }}>
+        <Sektion botten="papper" className="yta-panel" id="jk-konkurrens">
+          <div>
+            <p className="p3-ey">Konkurrensen om jobben</p>
+            <h2 className="p3-h2 jks-h2" style={{ maxWidth: '18ch' }}>
               Så lång är kön till varje ledigt jobb
             </h2>
-            <p className="ingress" style={{ marginTop: 18 }}>
+            <p className="p3-varde jks-ingress">
               SCB frågar hushållen vilka som är arbetslösa och arbetsgivarna hur många jobb som står lediga, varje kvartal. Delar
               vi det ena med det andra får vi kön. <b>Hela landet: {fmt(kon(D, '00', q), 1)} per jobb.</b>
               {ex.min && ex.max
@@ -198,16 +203,16 @@ export default async function JobbkartanSida() {
               <div className="legend-rad" id="jk-tid-legend" />
             </div>
           </div>
-        </section>
+        </Sektion>
 
         {/* 3. Ditt yrke */}
-        <section className="sek yta-ton" id="jk-yrke">
-          <div className="wrap">
-            <p className="kick">Ditt yrke på kartan</p>
-            <h2 className="h2" style={{ maxWidth: '16ch' }}>
+        <Sektion botten="ton" className="yta-ton" id="jk-yrke">
+          <div>
+            <p className="p3-ey">Ditt yrke på kartan</p>
+            <h2 className="p3-h2 jks-h2" style={{ maxWidth: '16ch' }}>
               Var är ditt yrke vanligast?
             </h2>
-            <p className="ingress" style={{ marginTop: 18 }}>
+            <p className="p3-varde jks-ingress">
               Vi räknar inte antal, för då vinner alltid Stockholm. Vi räknar{' '}
               <b>hur stor del av länets anställda som har yrket</b> och jämför med landet. 2,0 betyder dubbelt så vanligt som i
               snitt, 0,5 hälften.
@@ -297,16 +302,16 @@ export default async function JobbkartanSida() {
             {/* Kroken: från kartan till annonserna. h3, inte h2, så att rubrikträdet står kvar. */}
             <div className="krok kort" id="jk-krok">
               <div>
-                <p className="kick">Från kartan till annonserna</p>
-                <h3 className="h3">Annonserna för ditt yrke, där kön är kortast</h3>
+                <p className="p3-ey">Från kartan till annonserna</p>
+                <h3 className="p3-h3">Annonserna för ditt yrke, där kön är kortast</h3>
                 <p className="brod" style={{ marginTop: 8 }}>
                   Kartan visar var jobben finns. Jobbmatchningen läser ditt CV och plockar ut annonserna som passar dig, med
                   skälen utskrivna. Dina {talOrd(FREE_TIER_JOB_LIMIT)} bästa träffar ser du gratis.
                 </p>
               </div>
-              <Link className="knapp" href={REGISTRERA_JOBB} data-jk-cta="">
+              <Knapp href={REGISTRERA_JOBB} data-jk-cta="">
                 Se mina träffar gratis
-              </Link>
+              </Knapp>
             </div>
             <div className="sektionsrad">
               <h3 className="h3">Månadslön, område för område</h3>
@@ -325,16 +330,16 @@ export default async function JobbkartanSida() {
               </div>
             </div>
           </div>
-        </section>
+        </Sektion>
 
         {/* 4. Din kommun */}
-        <section className="sek yta-panel" id="jk-kommun">
-          <div className="wrap">
-            <p className="kick">Din kommun</p>
-            <h2 className="h2" style={{ maxWidth: '16ch' }}>
+        <Sektion botten="papper" className="yta-panel" id="jk-kommun">
+          <div>
+            <p className="p3-ey">Din kommun</p>
+            <h2 className="p3-h2 jks-h2" style={{ maxWidth: '16ch' }}>
               Hur ser det ut där du bor?
             </h2>
-            <p className="ingress" style={{ marginTop: 18 }}>
+            <p className="p3-varde jks-ingress">
               Arbetslöshet och sysselsättningsgrad för 20 till 65 år, månad för månad sedan {manadNamn(D.manader[0], true)}.{' '}
               <b>Din kommun mot länet och hela landet.</b> Siffrorna är SCB:s preliminära registerstatistik och kan justeras när
               nya månader kommer.
@@ -424,16 +429,16 @@ export default async function JobbkartanSida() {
               </div>
             </div>
           </div>
-        </section>
+        </Sektion>
 
-        {/* 5. För journalister */}
-        <section className="sek yta-black" id="jk-data">
-          <div className="wrap">
-            <p className="kick">För journalister och nyfikna</p>
-            <h2 className="h2" style={{ maxWidth: '20ch' }}>
+        {/* 5. För journalister, på sidans mörkaste ton */}
+        <Sektion botten="vagg" className="yta-black" id="jk-data">
+          <div>
+            <p className="p3-ey">För journalister och nyfikna</p>
+            <h2 className="p3-h2 jks-h2" style={{ maxWidth: '20ch' }}>
               Allt här går att kontrollera, ladda ner och bädda in
             </h2>
-            <p className="ingress" style={{ marginTop: 18 }}>
+            <p className="p3-varde jks-ingress">
               Inga egna skattningar. Varje diagram har en källa med tabellnummer, och det du ser på skärmen kan du ta med dig som
               CSV. Fri att använda, <b>CC0, ange gärna SCB</b>.
             </p>
@@ -569,45 +574,42 @@ export default async function JobbkartanSida() {
               </div>
             </details>
           </div>
-        </section>
+        </Sektion>
 
         {/* 6. Vanliga frågor */}
-        <section className="sek yta-mark" id="jk-fragor">
-          <div className="wrap" style={{ maxWidth: 820 }}>
-            <Faq id="vanliga-fragor" rubrik="Vanliga frågor om jobbkartan" fragor={fragor} schema />
-          </div>
-        </section>
+        <Sektion className="yta-mark" id="jk-fragor">
+          <Faq id="vanliga-fragor" rubrik="Vanliga frågor om jobbkartan" fragor={fragor} schema />
+        </Sektion>
 
         {/* 7. Vägen vidare */}
-        <section className="sek yta-panel" id="jk-vidare">
-          <div className="wrap vidare">
-            <div>
-              <p className="kick">När du vet var jobben finns</p>
-              <h2 className="h2" style={{ maxWidth: '18ch' }}>
+        <Sektion botten="papper" className="yta-panel" id="jk-vidare">
+          <div className="p3-o jks-vidare" data-p3-farg="jobb">
+            <div className="p3-o-text">
+              <p className="p3-ey">När du vet var jobben finns</p>
+              <h2 className="p3-h2" style={{ maxWidth: '18ch' }}>
                 Sök där kön är kort, med ett CV som syns
               </h2>
-              <p className="ingress" style={{ marginTop: 18 }}>
+              <p className="p3-varde">
                 Jobbmatchningen läser ditt CV och hittar platsannonserna som passar dig, nära dig eller i hela Sverige. Varje
                 träff får ett skäl, och du kan skriva det personliga brevet direkt från annonsen.
               </p>
-              <div className="vidare-knappar">
-                <Link className="knapp" href={REGISTRERA_JOBB} data-jk-cta="">
+              <div className="p3-knapprad">
+                <Knapp href={REGISTRERA_JOBB} data-jk-cta="">
                   Se mina träffar gratis
-                </Link>
-                <Link className="knapp-tunn" href="/verktyg/jobbmatchning">
+                </Knapp>
+                <Knapp href="/verktyg/jobbmatchning" variant="glas">
                   Se jobbmatchningen
-                </Link>
-                <Link className="knapp-tunn" href="/cv-exempel">
+                </Knapp>
+                <Knapp href="/cv-exempel" variant="glas">
                   CV-exempel för ditt yrke
-                </Link>
+                </Knapp>
               </div>
             </div>
           </div>
-        </section>
+        </Sektion>
         <JkTillbehor />
       </main>
       <JobbkartanKlient annonser={D.annonser} />
-    </PubliktSida>
     </Sida>
   )
 }

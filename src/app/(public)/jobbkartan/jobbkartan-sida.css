@@ -1,0 +1,42 @@
+/* /jobbkartan, publikt omgång 3 (P5a): grundens skal runt kartan.
+   jobbkartan.css delas med /embed/jobbkartan och står orörd; här står bara
+   sidans justeringar, under .jks (Sida className). Prefix jks-.
+   Inga hexvärden: allt läses ur grundens tokens. */
+
+/* Tokens som publikt v2 gav via .pub-sida och som kartans CSS läser. */
+.jks { --lyft: 0 5px 0 rgba(0, 0, 0, .08); }
+
+/* Brödsmulan (Breadcrumb bär BreadcrumbList) får väggens toner. */
+.jks-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); color: var(--vagg-mjuk); }
+.jks-smula nav { margin-bottom: 0; }
+.jks-smula a { display: inline-block; padding: 4px 0; }
+
+/* Hjälten på väggen: texten ljus, kartan på en ljus yta. */
+.jks .jk .jks-hjalte .hjalte { margin-top: 18px; }
+.jks .jk .jks-hjalte .hjalte-text > * + * { margin-top: 18px; }
+.jks .jk .jks-hjalte .tal-v { color: var(--vagg-ink); }
+.jks .jk .jks-hjalte .tal-e,
+.jks .jk .jks-hjalte .legend,
+.jks .jk .jks-hjalte .lanval { color: var(--vagg-mjuk); }
+.jks .jk .jks-hjalte .scen { --mark: var(--golv); padding: 14px; border-radius: 32px; background: var(--golv); box-shadow: 0 8px 0 var(--vagg-3); }
+.jks .jk .jks-hjalte .tidrad { border: 2px solid var(--kant); border-bottom-width: 5px; box-shadow: none; background: var(--papper); }
+.jks .jk .jks-hjalte .lanval select { min-height: 44px; color: var(--ink-1); background: var(--papper); }
+.jks .jk .spela { width: 44px; height: 44px; color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+
+/* Sektionernas huvud i grundens typografi. */
+.jks .jk .jks-h2 { margin-top: 14px; }
+.jks .jk .jks-ingress { max-width: 60ch; margin-top: 18px; }
+
+/* Korten, sökfälten och chipen får grundens kant och klack. */
+.jks.p3 .jk .kort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); box-shadow: none; }
+.jks.p3 .jk .yta-panel .kort { background: var(--golv); }
+.jks .jk .sok input { min-height: 56px; border: 2px solid var(--kant-stark); border-bottom-width: 5px; box-shadow: none; background: var(--papper); }
+.jks .jk .chip { min-height: 44px; border-width: 2px; border-bottom-width: 4px; background: var(--papper); }
+.jks .jk .chip[aria-pressed="true"] { background: var(--vagg); color: var(--vagg-ink); border-color: var(--vagg-3); }
+.jks .jk .toast { background: var(--vagg-3); color: var(--vagg-ink); }
+.jks .jk .krok .p3-knapp { flex: none; }
+@media (max-width: 699px) { .jks .jk .krok .p3-knapp { width: 100%; } }
+.jks .jk .data-kort .knapp-tunn { min-height: 44px; }
+
+/* Vägen vidare: en ö i skog. */
+.jks .jk .jks-vidare .p3-o-text { max-width: 760px; }

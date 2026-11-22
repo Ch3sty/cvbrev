@@ -1,36 +1,37 @@
 /**
- * KalkylatorSida: mallen för de nio kalkylatorerna under /rakna-ut, publikt
- * v2 (docs/design/spec-publikt-v2-del-b-2026-10-12.md avsnitt 3.5, skissen
- * flik #raknaut).
+ * KalkylatorSida: mallen för de nio kalkylatorerna under /rakna-ut.
+ * Publikt omgång 3 (P5a): grundens skal och komponenter (BYGGBRIEF beslut
+ * 10, ingen egen skiss), texten, rubrikerna och länkarna som i publikt v2.
  *
  * Sektionsföljden:
- *   1. Hjälten på vägg (jobb för lön och jobb, neu för rekryterarna) bär
- *      kalkylatorn: kick, h1, ingress och tre bevis till vänster, fälten och
- *      resultatet på bläck till höger. På mobil står kalkylatorn direkt
- *      under h1 (CSS-ordning), DOM-ordningen är h1, ingress, kalkylator.
- *   2. "Så räknar vi" på mark, med källorna i ett eget kort.
- *   3. Jobbcoachen på bläck med telefonen (lönesidorna), eller insikterna
- *      för rekryterare på panel (rekryterarsidorna, inget paket).
- *   4. Frågorna och Läs mer på mark.
+ *   1. Hjälten på väggen (skog för lön och jobb, grafit för rekryterarna)
+ *      bär kalkylatorn: etikett, h1, ingress och tre bevis till vänster,
+ *      fälten och resultatet till höger. I telefonen står kalkylatorn
+ *      direkt under h1 (CSS-ordning), DOM-ordningen är h1, ingress,
+ *      kalkylator.
+ *   2. "Så räknar vi" på golvet, med källorna på ett eget kort.
+ *   3. Jobbcoachen på sidans mörkaste ton med samtalet (lönesidorna), eller
+ *      insikterna för rekryterare på papper (rekryterarsidorna, inget paket).
+ *   4. Frågorna och Läs mer.
  *
- * Schemat (WebApplication, FAQPage), brödsmulorna, rubrikerna och länkarna
- * är desamma som före v2. Serverkomponent; kalkylatorn är en klientö som
- * skickas in färdig med sitt startläge.
+ * Schemat (WebApplication, FAQPage), brödsmulorna (Breadcrumb bär
+ * BreadcrumbList som förut), rubrikerna och länkarna är desamma som före.
+ * Serverkomponent; kalkylatorn är en klientö som skickas in färdig med sitt
+ * startläge. Kalkylatorns egna klasser (rk-kalk, rk-res) står i rakna.css,
+ * som också artiklarna och /embed läser; skalet står i rakna-v3.css.
  */
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Breadcrumb from '@/components/Breadcrumb'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import { Sida } from '@/components/publikt/v3/Sida'
-import Rum from '@/components/publikt/Rum'
-import Faq from '@/components/publikt/Faq'
+import '@/components/publikt/publikt.css'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
-import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
+import { Sida, Sektion, SektionHuvud, Faq, Knapp, Knapprad, TextLank, Samtal } from '@/components/publikt/v3'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import type { Slug } from '@/lib/rakna/delning'
 import ArtikelKlient from '@/components/artiklar/ArtikelKlient'
 import './rakna.css'
+import './rakna-v3.css'
 
 type FaqPost = { q: string; a: string }
 type LankPost = { text: string; href: string }
@@ -48,7 +49,7 @@ export interface KalkylatorSidaProps {
   kategori: Kategori
   /** Kalkylatorn med sitt startläge, från ./start/<slug>. */
   kalkylator: ReactNode
-  /** Kicken över h1. */
+  /** Etiketten över h1. */
   kick?: string
   /** Tre korta bevis under ingressen. */
   bevis?: readonly string[]
@@ -65,7 +66,7 @@ function KallIkon() {
     <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
       <path d="M11 5h13l7 7v21a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" />
       <path d="M24 5v7h7M14 18h12M14 23h8" />
-      <circle cx="28" cy="29" r="6" fill="var(--panel)" />
+      <circle cx="28" cy="29" r="6" fill="var(--papper)" />
       <path d="M25.5 29l2 2 3.5-4" />
     </svg>
   )
@@ -78,73 +79,70 @@ function KallIkon() {
  */
 function Jobbcoachen({ slug }: { slug: Slug }) {
   return (
-    <Rum yta="premium" id="lonesamtal">
+    <Sektion id="lonesamtal" luft="tat">
       <div
-        className="pub-wrap pub-tva"
+        className="p3-premium rk3-premium"
         data-cta-position="final"
         data-cta-cluster="career"
         data-cta-variant="rakna-ut"
         data-cta-slug={`rakna-ut/${slug}`}
       >
-        <div className="pub-tva-text">
-          <p className="pub-kick">
-            Ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}
-          </p>
-          <h2 className="pub-h2">
-            Ta siffrorna med in i <span className="pub-gradord">lönesamtalet</span>
-          </h2>
-          <p className="pub-ingress" style={{ marginTop: 16 }}>
-            Jobbcoachen tar fram marknadslön och argument ur SCB och fackens statistik, med källa till varje svar, och
-            hjälper dig lägga upp samtalet. {FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden är gratis på ditt konto.
-            Jobbcoachen, så mycket du vill, ingår i {paketKort()}.
-          </p>
-          <div className="pub-handling">
-            <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
-              Fråga Jobbcoachen
-            </Link>
-            <Link className="pub-lank" href="/priser" data-cta-klick="/priser">
-              Se vad som ingår
-            </Link>
+        <div className="p3-premium-rad p3-med-lista">
+          <div className="p3-premium-text">
+            <p className="p3-ey">
+              Ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}
+            </p>
+            <h2 className="p3-h2">
+              Ta siffrorna med in i <span className="rk3-ord">lönesamtalet</span>
+            </h2>
+            <p className="rk3-text">
+              Jobbcoachen tar fram marknadslön och argument ur SCB och fackens statistik, med källa till varje svar, och
+              hjälper dig lägga upp samtalet. {FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden är gratis på ditt konto.
+              Jobbcoachen, så mycket du vill, ingår i {paketKort()}.
+            </p>
+            <Knapprad>
+              <Knapp href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
+                Fråga Jobbcoachen
+              </Knapp>
+              <TextLank href="/priser" data-cta-klick="/priser">
+                Se vad som ingår
+              </TextLank>
+            </Knapprad>
+            <p className="p3-liten">
+              Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
+              <Link className="rk3-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
+                Prova fem testfrågor gratis
+              </Link>{' '}
+              eller{' '}
+              <Link className="rk3-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
+                se alla rekryteringstester
+              </Link>
+              .
+            </p>
           </div>
-          <p className="pub-liten" style={{ marginTop: 20 }}>
-            Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
-            <Link className="pub-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
-              Prova fem testfrågor gratis
-            </Link>{' '}
-            eller{' '}
-            <Link className="pub-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
-              se alla rekryteringstester
-            </Link>
-            .
-          </p>
-        </div>
-        <div className="pub-mitt">
-          <SkarmCoach />
+          <div className="rk3-samtal" aria-hidden="true">
+            <Samtal yta />
+          </div>
         </div>
       </div>
-    </Rum>
+    </Sektion>
   )
 }
 
 function Insikterna() {
   return (
-    <Rum yta="panel" rum="neu" id="insikter">
-      <div className="pub-wrap rk-insikt">
-        <div>
-          <p className="pub-kick">För rekryterare</p>
-          <h2 className="pub-h2">Siffran är början. Insikterna tar er vidare.</h2>
-          <p className="pub-ingress" style={{ marginTop: 16 }}>
-            Våra insikter för rekryterare går igenom vad ni gör med resultatet: kravprofilen, den strukturerade
-            intervjun, testerna och referenserna, med källorna utskrivna.
-          </p>
-        </div>
-        <div className="pub-handling" style={{ marginTop: 0 }}>
-          <Link className="pub-knapp" href="/for-rekryterare">
-            Läs insikterna för rekryterare
-          </Link>
-        </div>
+    <Sektion botten="papper" id="insikter" farg="neutral">
+      <div className="rk3-insikt">
+        <SektionHuvud
+          etikett="För rekryterare"
+          rubrik="Siffran är början. Insikterna tar er vidare."
+          varde="Våra insikter för rekryterare går igenom vad ni gör med resultatet: kravprofilen, den strukturerade intervjun, testerna och referenserna, med källorna utskrivna."
+        />
+        <Knapprad>
+          <Knapp href="/for-rekryterare">Läs insikterna för rekryterare</Knapp>
+        </Knapprad>
       </div>
-    </Rum>
+    </Sektion>
   )
 }
 
@@ -162,7 +160,6 @@ export default function KalkylatorSida({
   bevis,
 }: KalkylatorSidaProps) {
   const url = `https://www.jobbcoach.ai/rakna-ut/${slug}`
-  const rum = kategori === 'lon' ? 'jobb' : 'neu'
   // Ett ord som Träffsäkerhetssimulatorn får inte plats i full storlek på 360 px.
   const langtOrd = titel.split(' ').some((o) => o.length > 18)
 
@@ -192,25 +189,26 @@ export default function KalkylatorSida({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      {/* Publikt omgång 3: sidans färg följer hjältens rum, så att menyn och foten står i samma färg. */}
-      <Sida farg={rum === 'jobb' ? 'jobb' : 'neutral'}>
-      <PubliktSida>
+      {/* Sidans färg: skog för lönesidorna, grafit för rekryterarsidorna. */}
+      <Sida farg={kategori === 'lon' ? 'jobb' : 'neutral'} className="rk3">
         <main>
           {/* 1. Hjälten bär kalkylatorn */}
-          <Rum rum={rum} yta="vagg" id="hjalte" className="rk-hjalte" vag="mark">
-            <div className="pub-wrap">
-              <Breadcrumb
-                items={[
-                  { name: 'Hem', href: '/' },
-                  { name: 'Räkna ut', href: '/rakna-ut' },
-                  { name: titel, href: `/rakna-ut/${slug}` },
-                ]}
-              />
+          <section id="hjalte" className="p3-vagg p3-hjalte p3-utan-lyft rk3-hjalte">
+            <div className="p3-bredd">
+              <div className="rk3-smula">
+                <Breadcrumb
+                  items={[
+                    { name: 'Hem', href: '/' },
+                    { name: 'Räkna ut', href: '/rakna-ut' },
+                    { name: titel, href: `/rakna-ut/${slug}` },
+                  ]}
+                />
+              </div>
               <div className="rk-hjalte-g">
                 <div className="rk-hjalte-text">
-                  <p className="pub-kick">{kick ?? 'Kalkylator, gratis och utan konto'}</p>
-                  <h1 className={`rk-h1 ${langtOrd ? 'rk-h1-lang' : ''}`.trim()}>{titel}</h1>
-                  <p className="pub-ingress rk-ingress">{intro}</p>
+                  <p className="p3-ey">{kick ?? 'Kalkylator, gratis och utan konto'}</p>
+                  <h1 className={`p3-h1 rk-h1 ${langtOrd ? 'rk-h1-lang' : ''}`.trim()}>{titel}</h1>
+                  <p className="p3-varde rk-ingress">{intro}</p>
                   <ul className="rk-bevis">
                     {(bevis ?? BEVIS[kategori]).map((b) => (
                       <li key={b}>{b}</li>
@@ -220,19 +218,17 @@ export default function KalkylatorSida({
                 {kalkylator}
               </div>
             </div>
-          </Rum>
+          </section>
 
           {/* 2. Så räknar vi */}
-          <Rum yta="mark" rum={rum} id="sa-raknar-vi">
-            <div className="pub-wrap rk-metod">
+          <Sektion id="sa-raknar-vi">
+            <div className="rk-metod">
               <div>
-                <p className="pub-kick" style={{ color: 'var(--rum-ink)' }}>
-                  Metod
-                </p>
-                <h2 className="pub-h2">Så räknar vi</h2>
+                <p className="p3-ey">Metod</p>
+                <h2 className="p3-h2 rk3-h2">Så räknar vi</h2>
                 <div className="rk-brod">{metod}</div>
               </div>
-              <aside className="rk-kallkort" aria-label="Källor">
+              <aside className="p3-kort rk3-kallkort" aria-label="Källor">
                 <div className="rk-kallkort-topp">
                   <KallIkon />
                 </div>
@@ -246,39 +242,36 @@ export default function KalkylatorSida({
                     </li>
                   ))}
                 </ul>
-                <p className="pub-liten" style={{ marginTop: 14 }}>
+                <p className="p3-liten">
                   Uppdaterad för inkomståret 2026. Vi går igenom siffrorna varje januari. Vägledning, inte skatte- eller
                   juridisk rådgivning.
                 </p>
               </aside>
             </div>
-          </Rum>
+          </Sektion>
 
           {/* 3. Nästa steg */}
           {kategori === 'lon' ? <Jobbcoachen slug={slug} /> : <Insikterna />}
 
           {/* 4. Frågorna och Läs mer */}
-          <Rum yta="mark" id="fragor">
-            <div className="pub-wrap" style={{ maxWidth: 820 }}>
-              <Faq rubrik="Vanliga frågor" fragor={faq} />
-              <h2 className="rk-rub-liten">Läs mer</h2>
-              <ul className="rk-merom">
-                {relaterade.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href}>{l.text}</Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/rakna-ut">Alla kalkylatorer</Link>
+          <Sektion botten="ton" id="fragor">
+            <Faq rubrik="Vanliga frågor" fragor={faq} />
+            <h2 className="p3-h3 rk3-rub-liten">Läs mer</h2>
+            <ul className="rk-merom rk3-merom">
+              {relaterade.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href}>{l.text}</Link>
                 </li>
-              </ul>
-            </div>
-          </Rum>
+              ))}
+              <li>
+                <Link href="/rakna-ut">Alla kalkylatorer</Link>
+              </li>
+            </ul>
+          </Sektion>
         </main>
         <FastKnapprad text="Räkna ut" href="#kalkylator" observera="hjalte" />
         {/* Mätningen av nästa steg (punkt 11). Utan slug: ingen article_viewed. */}
         <ArtikelKlient cluster="career" />
-      </PubliktSida>
       </Sida>
     </>
   )
