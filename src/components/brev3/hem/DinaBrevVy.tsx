@@ -48,7 +48,7 @@ import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/Kampa
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { SALD_PLAN } from '@/lib/plans/plans'
-import { CV_HREF, SKRIV_BREV_HREF, brevHref } from '@/lib/letters/lage'
+import { CV_HREF, SKRIV_BREV_HREF, brevHref, harAnnons } from '@/lib/letters/lage'
 import type { BrevIListan } from '@/lib/letters/server'
 import { formatGratisbrevDag } from '@/lib/letters/brevKvot'
 import { kortDatum } from '@/lib/rum/copy'
@@ -127,6 +127,8 @@ function VaggMedBrev({ d, skrivHref, mallarHref }: { d: DinaBrevData; skrivHref:
   const fokusArk = fokus ? d.ark[fokus.id] : undefined
   const krav = matt?.krav
   const rad = sidorad(d)
+  // Brevet ur startflödet kan sakna annons: då heter vägens första plats "tjänsten".
+  const utanAnnons = !!fokus && !harAnnons(fokus)
 
   return (
     <>
@@ -164,7 +166,7 @@ function VaggMedBrev({ d, skrivHref, mallarHref }: { d: DinaBrevData; skrivHref:
           </div>
           <div className="b3-hero-hoger">
             {steg.stortTal ? <StortTal tal={steg.stortTal.tal} rest={steg.stortTal.rest} /> : null}
-            <BrevBana form="dator" steg={banSteg} klara={klara} />
+            <BrevBana form="dator" steg={banSteg} klara={klara} utanAnnons={utanAnnons} />
             {fokusArk ? (
               <ArkBunt
                 style={{ left: 290, top: 0 }}
@@ -209,7 +211,7 @@ function VaggMedBrev({ d, skrivHref, mallarHref }: { d: DinaBrevData; skrivHref:
             </VaggArk>
           ) : null}
         </div>
-        <BrevBana form="mobil" steg={banSteg} klara={klara} />
+        <BrevBana form="mobil" steg={banSteg} klara={klara} utanAnnons={utanAnnons} />
         <div className="mt-3.5">
           <StorKnapp href={knappHref}>
             {steg.knapp.text}

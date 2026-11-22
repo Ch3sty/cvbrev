@@ -24,6 +24,8 @@ export interface MalgangProps {
   intervjuHref: string
   jobb: { cvId: string; titel: string; foretag: string; ort: string | null; annons: string; url: string | null; sistaDag: string | null; nastaGratis: string | null } | null
   nastaGratis: string | null
+  /** Brevet skrevs utan annons (startflödet): ingen annons nämns. */
+  utanAnnons?: boolean
 }
 
 const KORT =
@@ -67,7 +69,7 @@ function IkonPratbubbla() {
 }
 
 /** Brevets väg, klar till flaggan, med arket och stämpeln (skissens högra halva). */
-function Banan({ html, stampel }: { html: string; stampel: string }) {
+function Banan({ html, stampel, utanAnnons }: { html: string; stampel: string; utanAnnons: boolean }) {
   const bock = (x: number, y: number) => (
     <g key={`${x}`}>
       <circle cx={x} cy={y} r="13" fill="#E07A2F" />
@@ -75,7 +77,7 @@ function Banan({ html, stampel }: { html: string; stampel: string }) {
     </g>
   )
   return (
-    <div role="img" aria-label={SKICKAT.arkEtikett} className="relative mx-auto h-[300px] w-full max-w-[380px] xl:mx-0 xl:h-[480px] xl:w-[560px] xl:max-w-none">
+    <div role="img" aria-label={utanAnnons ? SKICKAT.arkEtikettUtanAnnons : SKICKAT.arkEtikett}className="relative mx-auto h-[300px] w-full max-w-[380px] xl:mx-0 xl:h-[480px] xl:w-[560px] xl:max-w-none">
       <svg viewBox="0 0 560 480" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
         <g className="motion-safe:animate-[b3-skickat-dala_.7s_ease-out_both]">
           <circle cx="70" cy="60" r="6" fill="#E07A2F" />
@@ -95,7 +97,7 @@ function Banan({ html, stampel }: { html: string; stampel: string }) {
         <circle cx="500" cy="320" r="15" fill="#FBF3F8" />
         <path d="M493.5 320.5l4.2 4.2 8.6-9.2" fill="none" stroke="#3A1930" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         <g fontSize="13" fontWeight="600" fill="#D6AFC8" textAnchor="middle" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
-          <text x="40" y="474">annonsen</text>
+          <text x="40" y="474">{utanAnnons ? 'tjänsten' : 'annonsen'}</text>
           <text x="200" y="456">brevet</text>
           <text x="350" y="412">läst igenom</text>
           <text x="500" y="356" fill="#FBF3F8" fontWeight="700">
@@ -144,9 +146,9 @@ export default function Malgang(p: MalgangProps) {
               <h1 className="m-0 mt-3 font-[family-name:var(--font-display)] text-[40px] font-extrabold leading-[44px] tracking-[-.03em] xl:text-[64px] xl:leading-[66px]">
                 {SKICKAT.rubrik}
               </h1>
-              <p className="m-0 mt-4 max-w-[470px] text-[16px] leading-6 text-[color:var(--vagg-mjuk)] xl:text-[18px] xl:leading-[27px]">{SKICKAT.ingress}</p>
+              <p className="m-0 mt-4 max-w-[470px] text-[16px] leading-6 text-[color:var(--vagg-mjuk)] xl:text-[18px] xl:leading-[27px]">{p.utanAnnons ? SKICKAT.ingressUtanAnnons : SKICKAT.ingress}</p>
               <div className="xl:hidden">
-                <Banan html={p.html} stampel={SKICKAT.stampel(p.soktDagKort)} />
+                <Banan html={p.html} stampel={SKICKAT.stampel(p.soktDagKort)} utanAnnons={!!p.utanAnnons} />
               </div>
               <div className="mt-7 flex flex-col gap-3 xl:flex-row xl:items-center">
                 <StorKnapp href="/dashboard/skapa-brev">
@@ -168,7 +170,7 @@ export default function Malgang(p: MalgangProps) {
               </div>
             </div>
             <div className="hidden xl:block xl:pt-[54px]">
-              <Banan html={p.html} stampel={SKICKAT.stampel(p.soktDagKort)} />
+              <Banan html={p.html} stampel={SKICKAT.stampel(p.soktDagKort)} utanAnnons={!!p.utanAnnons} />
             </div>
           </div>
           <section className="mt-10 xl:mt-[40px]" aria-labelledby="medan-du-vantar">

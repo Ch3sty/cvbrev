@@ -77,6 +77,8 @@ export interface BrevetBrev {
   tonality: string | null
   cv_id: string | null
   forberett_at: string | null
+  /** Brevet har en annons. Brev ur startflödet kan sakna en. */
+  har_annons?: boolean
 }
 
 export interface BrevetVyProps {
@@ -350,7 +352,7 @@ export default function BrevetVy(props: BrevetVyProps) {
       const f = e instanceof BrevFel ? e : null
       if (f?.status === 429 || f?.code === 'quota_exceeded') setSparr('vecka')
       else if (f?.status === 422 || f?.code === 'name_required') setNamnKravs(true)
-      else if (f?.code === 'annons_saknas') setOmFel(BREVET.annonsSaknas)
+      else if (f?.code === 'annons_saknas') setOmFel(start.har_annons === false ? BREVET.annonsSaknasFranStart : BREVET.annonsSaknas)
       else if (f?.code === 'cv_saknas') setOmFel(BREVET.cvSaknas)
       else setOmFel(BREVET.skrivOmFel)
     } finally {
@@ -505,7 +507,7 @@ export default function BrevetVy(props: BrevetVyProps) {
   /* ------------------------------------------------------------ bladet */
 
   const bladRubrik: Record<FlikId, string> = {
-    kraven: BREVET.kravRubrik,
+    kraven: start.har_annons === false ? BREVET.kravRubrikUtanAnnons : BREVET.kravRubrik,
     texten: BREVET.textRubrik,
     ton: BREVET.tonRubrik,
     typsnitt: BREVET.typsnittRubrik,
@@ -522,7 +524,7 @@ export default function BrevetVy(props: BrevetVyProps) {
   const flikInnehall = (() => {
     switch (flik) {
       case 'kraven':
-        return <KravFlik krav={kravTraffar} antalStycken={stycken.filter((s) => s.trim()).length} last={last} onLaggTill={laggTill} />
+        return <KravFlik krav={kravTraffar} utanAnnons={start.har_annons === false}antalStycken={stycken.filter((s) => s.trim()).length} last={last} onLaggTill={laggTill} />
       case 'texten':
         return (
           <TextFlik
@@ -635,7 +637,7 @@ export default function BrevetVy(props: BrevetVyProps) {
       </span>
       <span className="flex-1 text-[13px] leading-[18px] text-[color:var(--b3-ink-2)]">
         <b className="block text-[14px] leading-[18px] text-[color:var(--b3-ink)]">{BREVET.harDuSkickat}</b>
-        {soktFel ? <span className="text-[color:var(--fel)]">{BREVET.soktFel}</span> : BREVET.harDuSkickatRad}
+        {soktFel ? <span className="text-[color:var(--fel)]">{BREVET.soktFel}</span> : start.har_annons === false ? BREVET.harDuSkickatRadUtanAnnons : BREVET.harDuSkickatRad}
       </span>
       <LitenKnapp onClick={markeraSokt} disabled={markerar}>
         {markerar ? BREVET.markerar : BREVET.markeraSokt}

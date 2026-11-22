@@ -27,11 +27,14 @@ const HJALP = 'mt-1.5 block text-[12px] leading-[17px] text-[color:var(--b3-ink-
 
 export function KravFlik({
   krav,
+  utanAnnons = false,
   antalStycken,
   last,
   onLaggTill,
 }: {
   krav: BrevKrav[] | null
+  /** Brevet skrevs utan annons (startflödet): inga krav att mäta mot. */
+  utanAnnons?: boolean
   antalStycken: number
   last: boolean
   onLaggTill: (kravIndex: number, mening: string) => Promise<boolean>
@@ -42,7 +45,7 @@ export function KravFlik({
   const [fel, setFel] = useState(false)
 
   if (!krav || krav.length < 3) {
-    return <p className="m-0 py-3 text-[14px] leading-[21px] text-[color:var(--b3-ink-2)]">{BREVET.ingaKrav}</p>
+    return <p className="m-0 py-3 text-[14px] leading-[21px] text-[color:var(--b3-ink-2)]">{utanAnnons ? BREVET.ingenAnnons : BREVET.ingaKrav}</p>
   }
   const saknade = krav.map((k, i) => ({ k, i })).filter((x) => !x.k.citat)
   const valt = aktivt !== null && saknade.some((x) => x.i === aktivt) ? aktivt : saknade[0]?.i ?? null

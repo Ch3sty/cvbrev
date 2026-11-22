@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { avdubblaBrev, arBrevLast, brevlista, oppnaBrevIds } from '../lista'
-import { brevetsVag, nastaSteg, stortTalForBrev } from '../lage'
+import { brevetsVag, harAnnons, nastaSteg, skrivetMot, stortTalForBrev } from '../lage'
 import {
   citatFinns,
   hittaCitat,
@@ -242,7 +242,7 @@ describe('brevets väg och nästa steg', () => {
 
   it('ett krav saknas: skissens text och talet "6 av 7"', () => {
     const s = nastaSteg({
-      brev: [{ id: 'a', company: 'Nordanvind Energi', updated_at: '2026-11-20', krav: kravSex, body_stycken: text }],
+      brev: [{ id: 'a', company: 'Nordanvind Energi', updated_at: '2026-11-20', krav: kravSex, body_stycken: text, job_description: 'Annonsen', cv_id: 'cv1' }],
       sokta: new Set(),
       harCv: true,
     })
@@ -263,19 +263,34 @@ describe('brevets väg och nästa steg', () => {
   })
 
   it('utan kravmått: läs igenom och ordantal', () => {
-    const s = nastaSteg({ brev: [{ id: 'a', company: 'X', krav: [], body_stycken: ['Ett två tre.'] }], sokta: new Set(), harCv: true })
+    const s = nastaSteg({ brev: [{ id: 'a', company: 'X', krav: [], body_stycken: ['Ett två tre.'], job_description: 'Annonsen', cv_id: 'cv1' }], sokta: new Set(), harCv: true })
     expect(s.lage).toBe('las-igenom')
     expect(s.text).toBe('Brevet är skrivet mot annonsen och ditt CV. Läs igenom det en gång, sedan är det klart att skicka.')
     expect(s.stortTal).toEqual({ tal: '3', rest: 'ord' })
   })
 
   it('nämner CV:t bara när kontot har ett (klicktestet 2026-11-22)', () => {
-    const brev = [{ id: 'a', company: 'X', krav: [], body_stycken: ['Ett två tre.'] }]
+    const brev = [{ id: 'a', company: 'X', krav: [], body_stycken: ['Ett två tre.'], job_description: 'Annonsen', cv_id: 'cv1' }]
     const utanCv = nastaSteg({ brev, sokta: new Set(), harCv: false })
     expect(utanCv.text).toBe('Brevet är skrivet mot annonsen. Läs igenom det en gång, sedan är det klart att skicka.')
     expect(utanCv.text).not.toMatch(/CV/)
     const medCv = nastaSteg({ brev, sokta: new Set(), harCv: true })
     expect(medCv.text).toContain('mot annonsen och ditt CV.')
+  })
+
+  it('nämner annonsen bara när brevet har en (klicktestet live 2026-11-22)', () => {
+    // Brevet ur startflödet: ingen annons inklistrad, inget CV bakom brevet.
+    const franStart = { id: 'a', company: 'Nordhaga Bygg AB', krav: null, body_stycken: ['Ett två tre.'], job_description: null, cv_id: null }
+    for (const harCv of [false, true]) {
+      const s = nastaSteg({ brev: [franStart], sokta: new Set(), harCv })
+      expect(s.text).toBe('Brevet bygger på det du fyllde i om tjänsten. Läs igenom det en gång, sedan är det klart att skicka.')
+      expect(s.text).not.toMatch(/annons|CV/)
+    }
+    // Tom eller bara blanksteg räknas som ingen annons.
+    expect(skrivetMot({ id: 'b', job_description: '  \n ', cv_id: 'cv1' }, true)).toBe('Brevet är skrivet utifrån ditt CV.')
+    expect(skrivetMot({ id: 'b', job_description: 'Annonsen', cv_id: null }, true)).toBe('Brevet är skrivet mot annonsen.')
+    expect(harAnnons({ job_description: null })).toBe(false)
+    expect(harAnnons({ job_description: ' Vi söker ' })).toBe(true)
   })
 
   it('förberett men inte skickat', () => {

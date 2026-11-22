@@ -19,7 +19,7 @@ import { userHasAccess } from '@/lib/supabase/premiumAccess'
 import { arBrevLastForAnvandare, hamtaBrevProfil, hamtaSokta } from '@/lib/letters/server'
 import { brevDataFranBrev, brevSprak } from '@/lib/letters/brevData'
 import { brevKvot } from '@/lib/letters/brevKvot'
-import { kravForBrev } from '@/lib/letters/lage'
+import { harAnnons, kravForBrev } from '@/lib/letters/lage'
 import { lasSparadeKrav } from '@/lib/letters/krav'
 import { styckenForBrev } from '@/lib/letters/stycken'
 import { renderBrevHtml } from '@/lib/letters/brevmall'
@@ -82,6 +82,7 @@ export default async function BrevetSida({
         tonality: rad.tonality,
         cv_id: rad.cv_id ?? null,
         forberett_at: rad.forberett_at ?? null,
+        har_annons: harAnnons(rad),
       }}
       data={data}
       html={html}

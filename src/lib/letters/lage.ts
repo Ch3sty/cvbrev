@@ -74,6 +74,29 @@ export interface BrevForNastaSteg extends BrevForVag {
   krav?: unknown
   body_stycken?: unknown
   content?: string | null
+  /** Annonsen brevet skrevs mot; tom eller null när ingen annons klistrades in. */
+  job_description?: string | null
+  /** CV:t brevet skrevs mot; null för brev ur startflödet utan konto. */
+  cv_id?: string | null
+}
+
+/** Har brevet en annons? Brev ur startflödet kan sakna en (job_description null). */
+export function harAnnons(brev: { job_description?: string | null }): boolean {
+  return !!(brev.job_description ?? '').trim()
+}
+
+/**
+ * Första meningen i nästa steg: bara det som är sant om brevet. Annonsen
+ * nämns när brevet har en, CV:t när brevet skrevs mot ett och kontot har
+ * kvar ett (klicktesten 2026-11-22).
+ */
+export function skrivetMot(brev: BrevForNastaSteg, harCv: boolean): string {
+  const annons = harAnnons(brev)
+  const cv = harCv && !!brev.cv_id
+  if (annons && cv) return 'Brevet är skrivet mot annonsen och ditt CV.'
+  if (annons) return 'Brevet är skrivet mot annonsen.'
+  if (cv) return 'Brevet är skrivet utifrån ditt CV.'
+  return 'Brevet bygger på det du fyllde i om tjänsten.'
 }
 
 export interface NastaStegIndata {
@@ -173,9 +196,9 @@ export function nastaSteg(indata: NastaStegIndata): NastaSteg {
     }
   }
 
-  // CV:t nämns bara när kontot har ett: ett brev från startflödet utan konto
-  // skrivs på det hon fyllde i, inte på något CV (klicktestet 2026-11-22).
-  const skrivet = harCv ? 'Brevet är skrivet mot annonsen och ditt CV.' : 'Brevet är skrivet mot annonsen.'
+  // Ett brev ur startflödet utan konto skrivs på det hon fyllde i: ingen
+  // annons om hon inte klistrade in en, och inget CV (klicktesten 2026-11-22).
+  const skrivet = skrivetMot(aktuellt, harCv)
   const matt = kravMatt(kravForBrev(aktuellt))
   if (matt && matt.saknas > 0) {
     const saknas = matt.saknas === 1 ? 'Ett krav saknas' : `${antalOrd(matt.saknas)} krav saknas`

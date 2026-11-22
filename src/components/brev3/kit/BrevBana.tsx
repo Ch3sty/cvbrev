@@ -25,6 +25,8 @@ export interface BrevBanaProps {
   klara: readonly BrevSteg[]
   /** dator: kurvan med kullar (Main). mobil: raka raden (Mobil-hem). */
   form: 'dator' | 'mobil'
+  /** Brevet skrevs utan annons: första platsen heter "tjänsten". */
+  utanAnnons?: boolean
   className?: string
 }
 
@@ -59,9 +61,22 @@ const NASTA_ORD: Record<BrevSteg, string> = {
   skickat: 'Nästa steg är att skicka',
 }
 
+/**
+ * Brev utan annons (startflödet utan inklistrad annons): första platsen
+ * heter "tjänsten", det hon fyllde i, i stället för "annonsen".
+ */
+const UTAN_ANNONS = { etikett: 'tjänsten', klarOrd: 'tjänsten är ifylld' }
+
+function etiketter(utanAnnons: boolean) {
+  if (!utanAnnons) return { E: ETIKETT, EK: ETIKETT_KLAR }
+  return { E: { ...ETIKETT, annonsen: UTAN_ANNONS.etikett }, EK: { ...ETIKETT_KLAR, annonsen: UTAN_ANNONS.etikett } }
+}
+
 /** Skärmläsarens mening om vägen. */
-export function banaEtikett(steg: BrevSteg | null, klara: readonly BrevSteg[]): string {
-  const klar = BANANS_STEG.filter((s) => klara.includes(s) && s !== steg).map((s) => KLAR_ORD[s])
+export function banaEtikett(steg: BrevSteg | null, klara: readonly BrevSteg[], utanAnnons = false): string {
+  const klar = BANANS_STEG.filter((s) => klara.includes(s) && s !== steg).map((s) =>
+    s === 'annonsen' && utanAnnons ? UTAN_ANNONS.klarOrd : KLAR_ORD[s]
+  )
   const delar: string[] = []
   if (klar.length) delar.push(`${klar.join(' och ')}.`)
   if (steg) {
@@ -126,8 +141,9 @@ function AktuellIkon({ steg, x, y, s }: { steg: BrevSteg; x: number; y: number; 
   )
 }
 
-function Dator({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSteg[] }) {
+function Dator({ steg, klara, utanAnnons }: { steg: BrevSteg | null; klara: readonly BrevSteg[]; utanAnnons: boolean }) {
   const { aktuell, klarSet, nadd } = index(steg, klara)
+  const { E, EK } = etiketter(utanAnnons)
   const fran = Math.max(0, nadd)
   return (
     <>
@@ -166,7 +182,7 @@ function Dator({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
               <circle className="b3-halo" cx={x} cy={y} r={21} style={{ fill: 'var(--koppar)' }} />
               <circle cx={x} cy={y} r={21} style={{ fill: 'var(--koppar)', stroke: 'var(--vagg-ink)' }} strokeWidth={3} />
               <AktuellIkon steg={s} x={x} y={y} s={1} />
-              {text(y + 46, true, ETIKETT[s])}
+              {text(y + 46, true, E[s])}
             </g>
           )
         }
@@ -182,7 +198,7 @@ function Dator({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
               ) : (
                 <circle cx={x} cy={y} r={8} style={{ fill: 'var(--vagg-ink)' }} />
               )}
-              {text(klar ? y + 34 : y + 28, klar, ETIKETT_KLAR[s])}
+              {text(klar ? y + 34 : y + 28, klar, EK[s])}
             </g>
           )
         }
@@ -191,14 +207,14 @@ function Dator({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
             <g key={s}>
               <circle cx={x} cy={y} r={13} style={{ fill: 'var(--koppar)' }} />
               <path d={bock(x, y)} fill="none" style={{ stroke: 'var(--koppar-text)' }} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" />
-              {text(y + 36, false, ETIKETT_KLAR[s])}
+              {text(y + 36, false, EK[s])}
             </g>
           )
         }
         return (
           <g key={s}>
             <circle cx={x} cy={y} r={9} style={{ fill: 'var(--vagg)', stroke: 'var(--vagg-svag)' }} strokeWidth={3} />
-            {text(y + 31, false, ETIKETT[s])}
+            {text(y + 31, false, E[s])}
           </g>
         )
       })}
@@ -206,8 +222,9 @@ function Dator({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
   )
 }
 
-function Mobil({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSteg[] }) {
+function Mobil({ steg, klara, utanAnnons }: { steg: BrevSteg | null; klara: readonly BrevSteg[]; utanAnnons: boolean }) {
   const { aktuell, klarSet, nadd } = index(steg, klara)
+  const { E, EK } = etiketter(utanAnnons)
   const fran = Math.max(0, nadd)
   const y = MOBIL_Y
   return (
@@ -238,7 +255,7 @@ function Mobil({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
               <circle className="b3-halo" cx={x} cy={y} r={15} style={{ fill: 'var(--koppar)' }} />
               <circle cx={x} cy={y} r={15} style={{ fill: 'var(--koppar)', stroke: 'var(--vagg-ink)' }} strokeWidth={3} />
               <AktuellIkon steg={s} x={x} y={y} s={0.73} />
-              {text(true, ETIKETT[s])}
+              {text(true, E[s])}
             </g>
           )
         }
@@ -254,7 +271,7 @@ function Mobil({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
               ) : (
                 <circle cx={x} cy={y + 4} r={6} style={{ fill: 'var(--vagg-ink)' }} />
               )}
-              {text(klar, ETIKETT_KLAR[s])}
+              {text(klar, EK[s])}
             </g>
           )
         }
@@ -263,14 +280,14 @@ function Mobil({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
             <g key={s}>
               <circle cx={x} cy={y} r={10} style={{ fill: 'var(--koppar)' }} />
               <path d={bock(x, y, 0.78)} fill="none" style={{ stroke: 'var(--koppar-text)' }} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" />
-              {text(false, ETIKETT_KLAR[s])}
+              {text(false, EK[s])}
             </g>
           )
         }
         return (
           <g key={s}>
             <circle cx={x} cy={y} r={7} style={{ fill: 'var(--vagg)', stroke: 'var(--vagg-svag)' }} strokeWidth={2.5} />
-            {text(false, ETIKETT[s])}
+            {text(false, E[s])}
           </g>
         )
       })}
@@ -278,18 +295,18 @@ function Mobil({ steg, klara }: { steg: BrevSteg | null; klara: readonly BrevSte
   )
 }
 
-export function BrevBana({ steg, klara, form, className }: BrevBanaProps) {
-  const etikett = banaEtikett(steg, klara)
+export function BrevBana({ steg, klara, form, utanAnnons = false, className }: BrevBanaProps) {
+  const etikett = banaEtikett(steg, klara, utanAnnons)
   if (form === 'mobil') {
     return (
       <svg viewBox="0 0 380 70" width="380" height="70" className={className ? `b3-bana-mobil ${className}` : 'b3-bana-mobil'} role="img" aria-label={etikett}>
-        <Mobil steg={steg} klara={klara} />
+        <Mobil steg={steg} klara={klara} utanAnnons={utanAnnons} />
       </svg>
     )
   }
   return (
     <svg viewBox="0 0 600 300" width="580" height="290" className={className ? `b3-bana-dator ${className}` : 'b3-bana-dator'} role="img" aria-label={etikett}>
-      <Dator steg={steg} klara={klara} />
+      <Dator steg={steg} klara={klara} utanAnnons={utanAnnons} />
     </svg>
   )
 }

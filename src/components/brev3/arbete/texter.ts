@@ -87,6 +87,7 @@ export const BREVET = {
   ] as const,
   // Kraven
   kravRubrik: 'Kraven i annonsen',
+  kravRubrikUtanAnnons: 'Kraven',
   kravSidorad: (n: number, av: number) => `${n} av ${av} har fått svar i brevet`,
   kravSidoradMobil: (n: number, av: number) => `${n} av ${av}`,
   saknasRad: 'Står i annonsen men inte i brevet.',
@@ -99,6 +100,9 @@ export const BREVET = {
   allaSvar: 'Brevet svarar på alla krav vi hittade i annonsen.',
   ingaKrav:
     'Vi kunde inte läsa ut tydliga krav ur den här annonsen. Läs annonsen en gång till och se att brevet svarar på det viktigaste.',
+  /** Brev utan annons (startflödet): det finns inga krav att mäta mot. */
+  ingenAnnons:
+    'Brevet skrevs utan annons, så det finns inga krav att mäta det mot. Klistra in annonsen när du skriver nästa brev, så visar vi var brevet svarar på kraven.',
   arkRadKrav: 'Siffrorna visar var brevet svarar på kraven.',
   arkRadKravSlut: 'Tryck på ett stycke på arket för att ändra texten.',
   arkRadText: 'Arket följer texten medan du skriver.',
@@ -126,6 +130,8 @@ export const BREVET = {
   kvotRaknas: 'Det räknas som veckans gratisbrev.',
   skrivOmFel: 'Brevet kunde inte skrivas om. Texten är oförändrad.',
   annonsSaknas: 'Annonsen finns inte kvar i brevet, så det går inte att skriva om det.',
+  /** Skriv om på ett brev som aldrig hade någon annons (startflödet). */
+  annonsSaknasFranStart: 'Brevet skrevs utan annons, och en omskrivning behöver annonsen. Skriv ett nytt brev med annonsen, eller ändra texten för hand.',
   cvSaknas: 'CV:t brevet byggde på finns inte kvar, så det går inte att skriva om det.',
   // Typsnitt
   typsnittRubrik: 'Typsnitt',
@@ -167,6 +173,7 @@ export const BREVET = {
   // Sökt
   harDuSkickat: 'Har du skickat ansökan?',
   harDuSkickatRad: 'Brevet, annonsen och datumet hamnar i Sökta tjänster.',
+  harDuSkickatRadUtanAnnons: 'Brevet och datumet hamnar i Sökta tjänster.',
   markeraSokt: 'Markera som sökt',
   markerar: 'Sparar',
   soktFel: 'Det gick inte att spara. Försök igen.',
@@ -185,6 +192,7 @@ export const SKICKAT = {
   ogon: (dag: string, foretag: string | null) => (foretag ? `Sökt ${dag} · ${foretag}` : `Sökt ${dag}`),
   rubrik: 'Ansökan är skickad',
   ingress: 'Brevet, annonsen och datumet ligger i Sökta tjänster, så du kan följa upp när det är dags.',
+  ingressUtanAnnons: 'Brevet och datumet ligger i Sökta tjänster, så du kan följa upp när det är dags.',
   skrivNasta: 'Skriv nästa brev',
   oppnaSokta: 'Öppna Sökta tjänster',
   ansokningar: (n: number) => (n === 1 ? 'ansökan skickad' : 'ansökningar skickade'),
@@ -197,6 +205,7 @@ export const SKICKAT = {
   nastaBrev: { rubrik: 'Skriv nästa brev', text: 'Klistra in nästa annons, så skriver vi brevet mot ditt CV.' },
   nastaGratis: (dag: string) => `Nästa gratisbrev ${dag}.`,
   arkEtikett: 'Brevets väg är klar: annonsen, brevet, genomläsningen och skickat.',
+  arkEtikettUtanAnnons: 'Brevets väg är klar: tjänsten, brevet, genomläsningen och skickat.',
 }
 
 export type FlikId = (typeof BREVET.avsnitt)[number]['id']

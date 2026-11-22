@@ -11,6 +11,7 @@ import { hamtaBrevProfil, hamtaSokta } from '@/lib/letters/server'
 import { brevDataFranBrev } from '@/lib/letters/brevData'
 import { brevKvot, formatGratisbrevDag } from '@/lib/letters/brevKvot'
 import { renderBrevHtml } from '@/lib/letters/brevmall'
+import { harAnnons } from '@/lib/letters/lage'
 import { hamtaOppnaTraffar } from '@/lib/jobmatching/oppna.server'
 import { dagFor, kortDag } from '@/lib/jobbsok/datum'
 import type { Letter } from '@/store/letter-store'
@@ -122,6 +123,7 @@ export default async function SkickatSida({ params }: { params: Promise<{ id: st
       intervjuHref="/dashboard/intervju"
       jobb={jobb}
       nastaGratis={nastaGratis}
+      utanAnnons={!harAnnons(rad)}
     />
   )
 }
