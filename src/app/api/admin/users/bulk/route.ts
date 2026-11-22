@@ -19,6 +19,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { raderaKontotsFiler, rensaLosaRader } from '@/lib/konto/raderaKonto.server'
+import { raderaIPosthog } from '@/lib/konto/posthogRadering.server'
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays'
 
 export const dynamic = 'force-dynamic'
@@ -85,6 +86,8 @@ export async function POST(request: NextRequest) {
           failed.push({ id, error: error.message })
         } else {
           succeeded.push(id)
+          // PostHog även här, ingen avslutsrad (beslut-mejl-och-radering 2c punkt 4).
+          await raderaIPosthog(adminClient, id)
         }
       }
 

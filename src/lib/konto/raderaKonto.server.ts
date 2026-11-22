@@ -23,20 +23,36 @@
 //     anon_interview_samples, anon_personality_samples och guest_invitations
 //     där kontot är gästen raderas; i audit_logs nollas ip-adress, webbläsare,
 //     metadata och gamla/nya värden, händelsen och tiden står kvar.
-//     admin_actions, api_metrics och system_alerts rörs inte.
+//     system_alerts rörs inte (bär bara administratörers id).
 //     email_events (Resends händelser: levererat, öppnat, klickat) har ingen
 //     koppling till kontot, bara mottagarens adress och ämnet i payload. Raderna
 //     tas bort på kontots e-postadress, läst före raderingen (beslut-agarpunkter,
 //     policylistan punkt 2, 2026-11-22: kodändringen som gör policyns
 //     "mejlloggen tas bort" sann).
+//     Sedan beslut-mejl-och-radering 2c (2026-11-22) också: inbjudningar som
+//     kontot skickat (guest_invitations.inviter_id), improved_cvs, rekryterarnas
+//     anteckningar, projekt och delningslänkar om kontot som kandidat, och
+//     api_metrics. I admin_actions nollas metadata och beskrivning där kontot
+//     är målet. email_events tas bort på alla adresser kontot haft: inloggningens,
+//     profilens, kontaktadressen och varje mottagare i email_log.
 //  4. Auth-användaren tas bort. Raderingen kaskaderar via foreign keys till
 //     profiles, premium_grants, app_enheter och resten, som admins radering i
 //     api/admin/users/[id].
+//  5. Avslutsraden (konto_avslut, beslut-mejl-och-radering 2b): skrivs bara när
+//     kontot raderas av användaren själv (opts satt) och bara efter att
+//     deleteUser lyckats, så att ett nytt försök aldrig ger två rader. Läses
+//     före Stripe, eftersom behörigheten då fortfarande gäller. Undantagna
+//     konton ger ingen rad. Ett fel här stoppar aldrig raderingen: saknas
+//     tabellen loggas felet och raden hoppas över.
+//  6. PostHog: personen och händelserna tas bort, eller köas
+//     (posthogRadering.server.ts). Kan inte heller ge ok: false.
 //
 // En prenumeration i Google Play avslutas inte här; den hanteras i Play och
 // kontovyn i appen säger det före bekräftelsen.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { lasAvslut, type AvslutOpts } from './avslut.server'
+import { raderaIPosthog } from './posthogRadering.server'
 
 const LEVANDE = new Set(['active', 'trialing', 'past_due', 'unpaid', 'incomplete'])
 
@@ -123,6 +139,13 @@ const LOSA_RADER: ReadonlyArray<{ tabell: string; kolumn: string }> = [
   { tabell: 'anon_personality_samples', kolumn: 'user_id' },
   { tabell: 'anon_personality_samples', kolumn: 'claimed_by' },
   { tabell: 'guest_invitations', kolumn: 'guest_user_id' },
+  // Utan foreign key mot kontot (beslut-mejl-och-radering 2a och 2c punkt 2).
+  { tabell: 'guest_invitations', kolumn: 'inviter_id' },
+  { tabell: 'improved_cvs', kolumn: 'user_id' },
+  { tabell: 'recruiter_candidate_notes', kolumn: 'candidate_user_id' },
+  { tabell: 'recruiter_project_candidates', kolumn: 'candidate_user_id' },
+  { tabell: 'recruiter_share_links', kolumn: 'candidate_user_id' },
+  { tabell: 'api_metrics', kolumn: 'user_id' },
 ]
 
 /**
@@ -146,17 +169,23 @@ export function mottagarvarden(adresser: ReadonlyArray<string | null | undefined
 }
 
 /**
- * Kontots e-postadresser före raderingen: inloggningens och profilens. Utan
- * `profilEpost` läses profilens adress här. Ett fel i uppslaget ger färre
- * adresser, aldrig ett avbrott.
+ * Kontots e-postadresser före raderingen: inloggningens, profilens,
+ * kontaktadressen och varje mottagare i kontots email_log, så att händelser
+ * till en adress kontot haft före ett byte också tas bort. Utan `profil`
+ * läses profilens adresser här. Läsningen sker före raderingen av email_log.
+ * Ett fel i ett uppslag ger färre adresser, aldrig ett avbrott.
  */
-export async function kontotsAdresser(admin: SupabaseClient, userId: string, profilEpost?: string | null): Promise<string[]> {
-  if (profilEpost === undefined) {
+export async function kontotsAdresser(
+  admin: SupabaseClient,
+  userId: string,
+  profil?: { email?: string | null; contact_email?: string | null } | null
+): Promise<string[]> {
+  if (profil === undefined) {
     try {
-      const { data } = await admin.from('profiles').select('email').eq('id', userId).maybeSingle()
-      profilEpost = (data as { email?: string | null } | null)?.email ?? null
+      const { data } = await admin.from('profiles').select('email, contact_email').eq('id', userId).maybeSingle()
+      profil = (data as { email?: string | null; contact_email?: string | null } | null) ?? null
     } catch {
-      profilEpost = null
+      profil = null
     }
   }
   let authEpost: string | null | undefined
@@ -166,7 +195,18 @@ export async function kontotsAdresser(admin: SupabaseClient, userId: string, pro
   } catch {
     authEpost = null
   }
-  return [authEpost, profilEpost].filter((a): a is string => typeof a === 'string' && a.length > 0)
+  let loggade: string[] = []
+  try {
+    const { data } = await admin.from('email_log').select('recipient').eq('user_id', userId)
+    loggade = ((data ?? []) as Array<{ recipient?: string | null }>).map((r) => r.recipient ?? '')
+  } catch {
+    loggade = []
+  }
+  const ut: string[] = []
+  for (const a of [authEpost, profil?.email, profil?.contact_email, ...loggade]) {
+    if (typeof a === 'string' && a.length > 0 && !ut.includes(a)) ut.push(a)
+  }
+  return ut
 }
 
 /**
@@ -191,19 +231,38 @@ export async function rensaLosaRader(admin: SupabaseClient, userId: string, epos
     .update({ ip_address: null, user_agent: null, old_values: null, new_values: null, metadata: null })
     .eq('user_id', userId)
   if (error) throw new Error(`audit_logs: ${error.message}`)
+  // Adminens åtgärder mot kontot står kvar som händelser, men metadata och
+  // beskrivning kan bära adressen och nollas (beslut-mejl-och-radering 2c).
+  const { error: e2 } = await admin
+    .from('admin_actions')
+    .update({ metadata: null, description: null })
+    .eq('target_user_id', userId)
+  if (e2) throw new Error(`admin_actions: ${e2.message}`)
 }
 
-export async function raderaKonto(admin: SupabaseClient, userId: string): Promise<RaderaResultat> {
+export async function raderaKonto(
+  admin: SupabaseClient,
+  userId: string,
+  opts?: AvslutOpts
+): Promise<RaderaResultat> {
   const { data: profil } = await admin
     .from('profiles')
-    .select('stripe_customer_id, email')
+    .select('stripe_customer_id, email, contact_email')
     .eq('id', userId)
     .maybeSingle()
 
-  const rad = profil as { stripe_customer_id?: string | null; email?: string | null } | null
+  const rad = profil as { stripe_customer_id?: string | null; email?: string | null; contact_email?: string | null } | null
   const customerId = rad?.stripe_customer_id
   // Adresserna läses före allt annat: efter deleteUser finns de inte kvar.
-  const epost = await kontotsAdresser(admin, userId, rad?.email)
+  const epost = await kontotsAdresser(admin, userId, rad ?? null)
+  // Avslutsraden läses före Stripe, medan behörigheten fortfarande gäller.
+  // Utan opts (adminens radering) skrivs ingen rad. Ett läsfel stoppar aldrig.
+  const avslut = opts
+    ? await lasAvslut(admin, userId, opts).catch((e) => {
+        console.error('[raderaKonto] avslut kunde inte läsas', e instanceof Error ? e.message : String(e))
+        return null
+      })
+    : null
   if (customerId) {
     try {
       await avslutaStripe(customerId)
@@ -235,5 +294,16 @@ export async function raderaKonto(admin: SupabaseClient, userId: string): Promis
     console.error('[raderaKonto] deleteUser', error.message)
     return { ok: false, fel: 'radering', detalj: error.message }
   }
+
+  // Kontot är borta. Inget härifrån kan ge ok: false.
+  if (avslut) {
+    try {
+      const { error: e } = await admin.from('konto_avslut').insert(avslut)
+      if (e) console.error('[raderaKonto] avslut', e.message)
+    } catch (e) {
+      console.error('[raderaKonto] avslut', e instanceof Error ? e.message : String(e))
+    }
+  }
+  await raderaIPosthog(admin, userId)
   return { ok: true }
 }

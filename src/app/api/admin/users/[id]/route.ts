@@ -27,6 +27,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { raderaKontotsFiler, rensaLosaRader } from '@/lib/konto/raderaKonto.server'
+import { raderaIPosthog } from '@/lib/konto/posthogRadering.server'
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays'
 
 export const dynamic = 'force-dynamic'
@@ -215,6 +216,10 @@ export async function DELETE(
         { status: 500 }
       )
     }
+
+    // PostHog även för adminens radering, så att testkonton försvinner där
+    // också. Ingen avslutsrad (beslut-mejl-och-radering 2c punkt 4).
+    await raderaIPosthog(adminClient, targetUserId)
 
     return NextResponse.json({
       success: true,

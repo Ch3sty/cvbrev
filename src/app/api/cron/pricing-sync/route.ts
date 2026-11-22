@@ -19,6 +19,7 @@ import { collectAdminMetrics, dagStr } from '@/lib/admin/collect';
 import { KAMPANJER, arStartdag } from '@/lib/kampanj/kampanj';
 import { kampanjMottagare, skickaKampanj } from '@/lib/email/kampanjUtskick';
 import { arUtskicksdag, jobbsoketMottagare, skickaJobbsoket } from '@/lib/email/jobbsoketUtskick';
+import { korPosthogRaderingar } from '@/lib/konto/posthogRadering.server';
 
 /**
  * Vercel Cron job endpoint
@@ -292,6 +293,22 @@ export async function GET(request: NextRequest) {
     } else {
       results.intervjuprovCleanup = { skipped: true, reason: 'Midnattsslotten rensar' };
       results.personlighetsprovCleanup = { skipped: true, reason: 'Midnattsslotten rensar' };
+    }
+
+    // ====================================
+    // 2d. POSTHOG-RADERINGAR (midnattsslotten, beslut-mejl-och-radering 2c punkt 4)
+    // ====================================
+    // Raderade konton där PostHog inte svarade, eller nyckeln saknades, ligger
+    // i posthog_raderingar och tas här. Ingen egen cron: planen tillåter två.
+    if (!isMorningSlot) {
+      try {
+        results.posthogRadering = await korPosthogRaderingar(supabaseAdmin);
+      } catch (error: any) {
+        console.error('[PostHog-radering] kön föll:', error);
+        results.posthogRadering = { success: false, error: error.message };
+      }
+    } else {
+      results.posthogRadering = { skipped: true, reason: 'Midnattsslotten tömmer kön' };
     }
 
     // ====================================
