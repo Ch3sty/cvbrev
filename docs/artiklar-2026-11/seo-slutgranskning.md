@@ -344,3 +344,88 @@ PostHog räknar publika besök först vid interaktion sedan 23 september, så an
 ### 6. Oenighet
 
 Ingen. Alla mina punkter rör produkten och konverteringen, och SEO:s besked om sökningen står.
+
+---
+
+## SEO:s besked före push (2026-11-22)
+
+**Beskedet är JA.** Det finns inget som måste rättas före push. Tre saker ska göras i samband med push (punkt 6), och några ändringar tar vi efter push (punkt 7).
+
+Underlag: byggnoterna (`bygg-noter.md`), grindens rapport `docs/qa/seo-diff/artiklar-2026-11-diff.md` (Fel 2), avtrycken `artiklar-2026-11-efter.json` och `artiklar-2026-11-nya.json`, och undantagsfilerna `artiklar-2026-11-lankar-in-undantag.json`, `spatial-formaga-2026-11-22-undantag.json` och `hjalteknapp-provtyp-2026-11-22-undantag.json`. Läsvidare-urvalet har jag räknat om ur koden (`relateradeArtiklar` i `src/app/(public)/artiklar/[slug]/page.tsx`). Search Console för de undanträngda sidorna hämtade jag i dag (28 dagar, 2026-10-24 till 2026-11-20).
+
+### 1. De 136 LANK_BORTA och 4 RUBRIK_BORTA: den vanliga följden, godkänt
+
+**Varför det blir så:** "Läs vidare" tar först artiklar med flest gemensamma taggar. Är de färre än tre fylls listan på med de nyaste artiklarna. De två nya artiklarna är nu de nyaste. Enligt min omräkning hamnar aktivitetsrapporten i Läs vidare på 70 sidor, men bara 6 av dem genom en gemensam tagg; de andra 64 är påfyllnad. Artikeln om samma mall hamnar på 51 sidor, varav 1 genom tagg. Platserna de tar hade de förra nyaste artiklarna från 14 november. Det har hänt vid varje publicering, och grinden har haft samma slags rader förut (till exempel när talserier, ordforstaelse-test och i-prov trängde undan kort på rotation-test-guide den 10 november). Artikellistans fyra RUBRIK_BORTA är kort som flyttar till nästa sida.
+
+**Vilka länkmål som försvann och vad det kostar:**
+
+| Länkmål | Försvunna länkar | Länkas kvar från | 28 dagar (klick, visningar, position) | Bedömning |
+|---|---|---|---|---|
+| `/artiklar/intervjufragor-sjukskoterska` | 50 | 7 sidor: `/artiklar`, `intervjufragor-underskoterska`, `kompetensbaserade-intervjufragor`, `strukturerad-intervju`, `kompetensbaserad-intervju-star-metoden`, `/authors/helena`, `/personligt-brev-exempel/sjukskoterska` | 8, 147, 4,8 | Inga förlorade länkar som spelar roll |
+| `/artiklar/intervjufragor-underskoterska` | 26 | 7 sidor, samma mönster, plus `/personligt-brev-exempel/underskoterska` | 13, 246, 4,7 | Inga förlorade länkar som spelar roll |
+| `/artiklar/cubiks-logiks-test` | 38 | 31 sidor, bland dem `logiktest-tips` och `tester-hos-myndigheter` | 2, 71, 5,0 | Inga förlorade länkar som spelar roll |
+| `/artiklar/angest-jobbet-dags-att-byta` | 2 | 8 sidor i ångest- och karriärbytesklustret | 1, 250, 38,4 | Inga förlorade länkar som spelar roll |
+| `/artiklar/personligt-brev-innehall-checklista` | 2 | 16 brevartiklar | 0, 139, 4,9 | Inga förlorade länkar som spelar roll |
+| övriga 17 mål (taggsidor, `?page=17`, enstaka artiklar) | 1 eller 2 var | | | Följer av att listan rullar vidare |
+
+De två artiklarna med intervjufrågor är de enda med klick som tappar många länkar. Ändå blir ingen artikel med klick sämre länkad på ett sätt som spelar roll:
+
+- De länkar som försvann satt i Läs vidare på artiklar om CV, tester och LinkedIn, alltså utanför ämnet.
+- Alla länkar som hör till ämnet står kvar: intervjuklustrets två hubbar, STAR-artikeln, varandra och brevexemplet för samma yrke.
+- Båda artiklarna är indexerade och rankar redan på position 4,7 till 4,8.
+
+**Urvalet för de nya artiklarna är svagt, men det är inte nytt och stoppar inte push.** Aktivitetsrapporten visas i Läs vidare på `ats-vanligt-cv`, `nyckelord-i-cv` och testartiklarna, där den inte hör hemma. Det har varit samma för varje ny artikel, och för sökningen är det snarast till hjälp den första tiden: länkarna gör att de nya sidorna hittas och genomsöks snabbare. Rättningen gör vi efter push (punkt 7.1) och inte genom att ändra taggar, eftersom taggarna är länkar till taggsidor och väljer författare.
+
+### 2. Hjälteknappen i de fem testartiklarna: stämmer med mitt besked
+
+`hjalteknapp-provtyp-2026-11-22-undantag.json` har exakt de fem rader jag väntade: `cubiks-logiks-test`, `ordforstaelse-test`, `talserier`, `i-prov` och `stanine-testresultat`, alla för `/verktyg/rekryteringstester/prova`. Matrisartiklarna har ingen rad och samma adress som förut. Alla fem länkar fortfarande till `/verktyg/rekryteringstester` (saas-leads villkor, enligt byggnoterna), och den nya adressen med `?typ=` är ett nytt länkmål. I `rotation-test-guide` står den enkla adressen kvar i listan längst ned, och artikeln behöver ingen rad.
+
+### 3. De två kvarvarande felen (ogImage): godtas, avgörs av avtrycket mot live
+
+Felen gäller `/verktyg/bli-upptackt` och `/verktyg/personlighetstest`. Sidorna är orörda i bygget. Felet är att live saknar og:image och det lokala bygget har en, och samma två rader föll i förra omgångens lokala bygge innan live gav Fel 0. Det rör inte rankingen. Två villkor:
+
+- I avtrycket mot live dagen efter push får de två raderna vara antingen oförändrat tomma eller fyllda med verktygens bild. Allt annat på de två sidorna ska vara oförändrat.
+- **Att live saknar og:image på två verktygssidor är ett fel i sig** (delningar i sociala medier får ingen bild). Det läggs som ett eget ärende efter push (punkt 7.2). Det stoppar inte den här pushen.
+
+### 4. Byggarens avvikelser: ingen påverkar sökningen
+
+- **`action="/register"` med redirect i ett dolt fält.** Det är bättre än min lydelse. Utan JavaScript landar formuläret på `/register`, inte på en ny variant av artikelns adress, och grinden räknar inte `/register` som länkmål. Tjänst och arbetsgivare kommer aldrig in i adressen (textfälten saknar `name`). Att datumfältet är förifyllt med dagens datum är också i sin ordning.
+- **Länkmeningen sist i stycket i saga-upp-sig och personligt-brev-layout.** Det är samma ankare och samma avsnitt. Ingen skillnad för sökningen.
+- **Artikelbilden till samma mall utan kontaktraden.** Alt-texten och `imageAlt` är oförändrade, och raderna som syns står ordagrant i artikeln. Ingen skillnad för sökningen.
+
+### 5. De två nya sidorna: jag har läst avtrycket själv, och det räcker
+
+Jag har läst `artiklar-2026-11-nya.json` för båda sidorna:
+
+- status 200, `index, follow`, canonical till den egna adressen
+- title och description ordagrant som i brieferna
+- en h1
+- rubrikträdet i briefernas ordning, med den rättade H3:n "Intervjuer, rekryteringsträffar, arbete och studier"
+- sex FAQ-frågor, synliga och i FAQPage
+- typerna BlogPosting, BreadcrumbList, FAQPage och HowTo
+
+Första bilden är författarporträttet, sedan artikelbilden. Det är samma ordning som i alla befintliga artiklar (i live-avtrycket har till exempel `rotation-test-guide` och `talserier` Lindas porträtt först), så det stämmer med skalet. I samma mall kommer visarens bild (`/mallar/v2/linne-stor.webp`) efter artikelbilden. I HTML:en står bara `?mall=linne`.
+
+I `rotation-test-guide` visar rapporten:
+
+- H1, title och description bytta
+- de fyra rubrikraderna
+- den sjunde FAQ-frågan
+- ordantalet 5 515 → 6 397
+- nya länkar bara till `#vad-innebar-hog-spatial-formaga` och `?typ=spatial`
+- artikelbilden med `imageAlt`
+
+Inget länkmål har försvunnit.
+
+### 6. I samband med push (krav)
+
+1. **Datumen.** Sker pushen inte 2026-11-22 ändras `date` och `updated` i de två nya artiklarna och `updated` i `rotation-test-guide` till pushdagen. Undantagsfilernas `datum` får stå.
+2. **Dagen efter push:** revalidera de rörda adresserna. Det är de tre artiklarna, de sju sidorna med nya länkar in, de fem testartiklarna, `/artiklar`, `/artiklar?page=2` och `/verktyg/sokta-tjanster`. Ta sedan ett avtryck mot live med samma sidlista plus de två nya adresserna. Godkänt är Fel 0, eller bara de två ogImage-raderna i punkt 3. Det avtrycket blir nästa baslinje, och de två nya sidorna kommer därmed med i den.
+3. **Indexering.** Skicka IndexNow för de två nya adresserna och `rotation-test-guide`. Ge ägaren de två nya adresserna så att han kan begära indexering i Search Console.
+
+### 7. Efter push (inga hinder, men gör dem)
+
+1. **Läs vidare.** Fyll på med artiklar ur samma kluster (`getCtaVariantForTags`) innan de nyaste tas, och de nyaste bara om klustret har färre än tre. Då hamnar en ny artikel inte på sidor där den inte hör hemma, och påfyllnaden byts inte ut vid varje publicering. Det ändringen gör är just att byta Läs vidare-länkar på många sidor, så den ska ha en egen grindkörning med egna LANK_BORTA-rader.
+2. **og:image på `/verktyg/bli-upptackt` och `/verktyg/personlighetstest`** i live. Ta reda på varför Vercel-bygget inte ger dem bilden när det lokala bygget gör det.
+3. **En svaghet i grinden.** META_BYTT kontrollerar bara sökväg och fält, inte texten före och efter. I rapporten godkändes bytet av rotation-test-guides title och description av en rad från 2026-11-08, inte av raderna från i dag. Då kan en gammal rad släppa igenom ett senare, oavsiktligt byte. Låt META_BYTT kräva `efter` (och gärna `fore`), som H1_BYTT redan gör. Dagens rader finns och är korrekta, så detta stoppar inte pushen.
+4. Avläsningarna enligt avsnitt E i byggarens lista och saas-leads avsnitt 5, räknade från pushdagen.
