@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og'
 import OgFrame from '@/components/og-preview/OgFrame'
+import { ogBild } from '@/components/og-preview/ogBild'
 import OgCvMockup from '@/components/og-preview/OgCvMockup'
 import { YRKESMALL_LIST } from '../yrkesmall-data'
 
@@ -16,15 +16,14 @@ export default async function Image({
   const data = YRKESMALL_LIST.find(y => y.slug === yrke)
   const yrkesNamn = data?.namn || 'CV-mall'
 
-  return new ImageResponse(
+  return ogBild(
     (
       <OgFrame
-        eyebrow="CV-mall för svenskt yrke"
+        eyebrow="CV-mall"
         title={yrkesNamn}
         subtitle="ATS-säker · gratis eller i Premium · uppdaterad 2026"
         illustration={<OgCvMockup />}
       />
-    ),
-    { ...size }
+    )
   )
 }

@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og'
 import OgFrame from '@/components/og-preview/OgFrame'
+import { ogBild } from '@/components/og-preview/ogBild'
 import { OgSkapaCvIllustration } from '@/components/og-preview/OgIllustrations'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 
@@ -11,7 +11,7 @@ export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function Image() {
-  return new ImageResponse(
+  return ogBild(
     (
       <OgFrame
         eyebrow="CV-exempel"
@@ -19,7 +19,6 @@ export default async function Image() {
         subtitle="Börja med ditt."
         illustration={<OgSkapaCvIllustration />}
       />
-    ),
-    { ...size }
+    )
   )
 }

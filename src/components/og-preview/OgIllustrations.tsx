@@ -1,958 +1,1054 @@
 /**
- * Custom SVG-illustrationer för OG-bilder.
+ * Illustrationerna i delningsbilderna, en per sida eller sidtyp.
  *
- * Alla 540×540 viewbox, inline-style, orange/röd-DNA. Designade för att
- * fungera direkt i Next.js ImageResponse (next/og).
+ * Varje illustration visar produkten som den ser ut, i delens färg:
+ * testerna i indigo (tran), CV i petrol (cv), personliga brev i plommon
+ * (brev) och Jobbsöket i skog (jobb). Innehållet är sajtens egna exempel
+ * (Sara Lindström, den kontrollräknade matrisen, 93 av 100 med två delar
+ * som tappar). Tal står bara inuti en avbildad produktvy.
  *
- * Stil: two-layer mockups (en lutad bakgrund + en framför motsatta hållet),
- * matchar OgLetterMockup + OgCvMockup-mönstret från exempel-sidor.
+ * Ytan är 560 × 560 och ritas av next/og (Satori): flexbox och absolut
+ * placering, byggdelarna i OgDelar.tsx.
  */
+import type { ReactNode } from 'react'
+import {
+  ArkRubrik,
+  Lage,
+  Linje,
+  OG_FARG,
+  OG_INK,
+  OG_KOPPAR,
+  OgArk,
+  OgBakplatta,
+  OgBlad,
+  OgBock,
+  OgBrade,
+  OgBricka,
+  OgDorr,
+  OgKort,
+  OgLucka,
+  OgMinistig,
+  OgRad,
+  OgSju,
+  OgSvar,
+  OgSvav,
+  OgTapp,
+  OgYta,
+  Platta,
+  type OgFarg,
+} from './OgDelar'
 
-const wrapperStyle: React.CSSProperties = {
-  position: 'relative',
-  width: 540,
-  height: 540,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
+/* ------------------------------------------------------------------ */
+/* Delat innehåll                                                      */
+/* ------------------------------------------------------------------ */
 
-// =============================================================
-// CV-ANALYS — CV med förstoringsglas + checkmarks
-// =============================================================
-export function OgCvAnalysisIllustration() {
+/** Satori ritar inte fragment som kolumn: delat innehåll ligger alltid i en egen kolumn. */
+const KOLUMN = { display: "flex", flexDirection: "column", flexShrink: 0 } as const
+
+/** Poängen i CV-analysen: talet stort, "av 100" bredvid. */
+function Poang({ farg, storlek }: { farg: OgFarg; storlek: number }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="cva-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="cva-loupe" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrund-CV (lutad) */}
-        <g transform="translate(60 80) rotate(7 200 230)" opacity="0.45">
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="400" height="6" rx="3" fill="#FB923C" />
-          <rect x="40" y="40" width="160" height="9" rx="3" fill="#94A3B8" />
-          <rect x="40" y="58" width="120" height="6" rx="3" fill="#CBD5E1" />
-          {[100, 130, 160, 220, 250, 280, 340, 370].map((y, i) => (
-            <rect key={i} x="40" y={y} width={i % 2 === 0 ? 320 : 280} height="5" rx="2.5" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Förgrunds-CV med highlights */}
-        <g transform="translate(60 30) rotate(-3 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#cva-strip)" />
-
-          {/* Header med avatar */}
-          <circle cx="76" cy="76" r="32" fill="url(#cva-loupe)" />
-          <rect x="124" y="58" width="180" height="14" rx="4" fill="#1E293B" />
-          <rect x="124" y="80" width="140" height="7" rx="3" fill="#94A3B8" />
-
-          <line x1="36" y1="138" x2="364" y2="138" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Item 1 - GRÖN highlight (godkänt) */}
-          <rect x="32" y="156" width="336" height="50" rx="6" fill="#D1FAE5" opacity="0.55" />
-          <rect x="36" y="166" width="180" height="7" rx="3" fill="#475569" />
-          <rect x="36" y="180" width="280" height="5" rx="2.5" fill="#94A3B8" />
-          <rect x="36" y="190" width="260" height="5" rx="2.5" fill="#94A3B8" />
-          {/* Checkmark */}
-          <circle cx="346" cy="181" r="11" fill="#10B981" />
-          <path d="M 341 181 L 345 185 L 351 178" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-
-          {/* Item 2 - ORANGE highlight (förbättring) */}
-          <rect x="32" y="216" width="336" height="50" rx="6" fill="#FFEDD5" opacity="0.7" />
-          <rect x="36" y="226" width="160" height="7" rx="3" fill="#475569" />
-          <rect x="36" y="240" width="290" height="5" rx="2.5" fill="#94A3B8" />
-          <rect x="36" y="250" width="240" height="5" rx="2.5" fill="#94A3B8" />
-          {/* Pil (förbättring) */}
-          <circle cx="346" cy="241" r="11" fill="#F97316" />
-          <path d="M 346 246 L 346 236 M 342 240 L 346 236 L 350 240" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-
-          {/* Item 3 - normal */}
-          <rect x="36" y="284" width="170" height="7" rx="3" fill="#475569" />
-          <rect x="36" y="298" width="320" height="5" rx="2.5" fill="#CBD5E1" />
-          <rect x="36" y="308" width="280" height="5" rx="2.5" fill="#CBD5E1" />
-
-          <line x1="36" y1="336" x2="364" y2="336" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Sektion 2 - score-bar */}
-          <rect x="36" y="356" width="100" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="378" width="328" height="14" rx="7" fill="#FFEDD5" />
-          <rect x="36" y="378" width="276" height="14" rx="7" fill="url(#cva-strip)" />
-          <rect x="36" y="404" width="40" height="6" rx="3" fill="#94A3B8" />
-          <rect x="316" y="404" width="48" height="6" rx="3" fill="#DC2626" />
-        </g>
-
-        {/* Förstoringsglas (extra accent ovan i hörnet) */}
-        <g transform="translate(390 50)">
-          <circle cx="48" cy="48" r="44" fill="white" opacity="0.95" />
-          <circle cx="48" cy="48" r="32" stroke="url(#cva-loupe)" strokeWidth="6" fill="none" />
-          <line x1="72" y1="72" x2="92" y2="92" stroke="#DC2626" strokeWidth="8" strokeLinecap="round" />
-          {/* Utropstecken som path */}
-          <rect x="44" y="32" width="8" height="20" rx="3" fill="#DC2626" />
-          <circle cx="48" cy="60" r="4" fill="#DC2626" />
-        </g>
-      </svg>
+    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+      <div style={{ display: 'flex', fontSize: storlek, fontWeight: 800, lineHeight: 0.9, letterSpacing: storlek * -0.04 }}>93</div>
+      <div
+        style={{
+          display: 'flex',
+          marginLeft: 8,
+          marginBottom: Math.round(storlek * 0.06),
+          fontSize: Math.max(18, Math.round(storlek * 0.21)),
+          fontWeight: 500,
+          color: OG_FARG[farg].mjuk,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        av 100
+      </div>
     </div>
-  );
+  )
 }
 
-// =============================================================
-// JOBBMATCHNING — pusselbitar som möts + jobb-card
-// =============================================================
-export function OgJobbmatchningIllustration() {
+/** Den valda delen på arket: kopparram och varm botten, som i CV-byggaren. */
+function ValdDel({ children }: { children: ReactNode }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="jm-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="jm-piece1" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="1" stopColor="#F97316" />
-          </linearGradient>
-          <linearGradient id="jm-piece2" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrunds-jobb-card */}
-        <g transform="translate(40 40) rotate(-5 220 220)" opacity="0.45">
-          <rect x="0" y="0" width="440" height="200" rx="16" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="440" height="6" rx="3" fill="#FB923C" />
-          <rect x="20" y="24" width="40" height="40" rx="8" fill="#FED7AA" />
-          <rect x="72" y="28" width="180" height="10" rx="3" fill="#94A3B8" />
-          <rect x="72" y="46" width="120" height="6" rx="3" fill="#CBD5E1" />
-          <rect x="20" y="84" width="400" height="4" rx="2" fill="#CBD5E1" />
-          <rect x="20" y="96" width="380" height="4" rx="2" fill="#CBD5E1" />
-        </g>
-
-        {/* Förgrund: 2 stora pussel-bitar som möts */}
-        <g transform="translate(60 130)">
-          {/* Skugga */}
-          <ellipse cx="210" cy="290" rx="180" ry="20" fill="rgba(0,0,0,0.18)" filter="blur(8px)" />
-
-          {/* Vänster bit (CV-profil) */}
-          <g transform="translate(0 30)">
-            <path
-              d="M 0 0 L 180 0 L 180 60 Q 180 80 200 80 Q 220 80 220 60 L 220 0 L 240 0 L 240 240 L 0 240 Z"
-              fill="white"
-              stroke="#FED7AA"
-              strokeWidth="2"
-            />
-            <rect x="0" y="0" width="240" height="6" rx="3" fill="url(#jm-piece1)" />
-            <circle cx="60" cy="56" r="20" fill="url(#jm-piece1)" />
-            <rect x="92" y="46" width="100" height="8" rx="3" fill="#1E293B" />
-            <rect x="92" y="62" width="80" height="6" rx="3" fill="#94A3B8" />
-            <rect x="20" y="100" width="200" height="5" rx="2" fill="#CBD5E1" />
-            <rect x="20" y="112" width="180" height="5" rx="2" fill="#CBD5E1" />
-            <rect x="20" y="124" width="200" height="5" rx="2" fill="#CBD5E1" />
-            <rect x="20" y="148" width="60" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-            <rect x="86" y="148" width="60" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-            <rect x="152" y="148" width="60" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-          </g>
-
-          {/* Höger bit (Jobb) */}
-          <g transform="translate(180 50)">
-            <path
-              d="M 60 0 L 240 0 L 240 220 L 60 220 L 60 160 Q 60 140 40 140 Q 20 140 20 160 L 20 220 Q 20 220 20 220 L 0 220 L 0 0 L 20 0 L 20 60 Q 20 80 40 80 Q 60 80 60 60 Z"
-              fill="white"
-              stroke="#FED7AA"
-              strokeWidth="2"
-            />
-            <rect x="0" y="0" width="240" height="6" rx="3" fill="url(#jm-piece2)" />
-            <rect x="80" y="30" width="40" height="40" rx="6" fill="#FED7AA" />
-            <rect x="80" y="84" width="140" height="8" rx="3" fill="#1E293B" />
-            <rect x="80" y="100" width="100" height="5" rx="2" fill="#94A3B8" />
-            <rect x="80" y="120" width="160" height="4" rx="2" fill="#CBD5E1" />
-            <rect x="80" y="132" width="140" height="4" rx="2" fill="#CBD5E1" />
-            <rect x="80" y="156" width="100" height="20" rx="10" fill="url(#jm-piece2)" />
-          </g>
-
-          {/* Fram match-prick i mitten där bitarna möts */}
-          <circle cx="220" cy="180" r="14" fill="#FCD34D" stroke="white" strokeWidth="3" />
-          <path d="M 214 180 L 219 185 L 226 174" stroke="#1E293B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </g>
-      </svg>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexShrink: 0,
+        marginTop: 14,
+        padding: '0 8px 10px',
+        borderRadius: 8,
+        border: `3px solid ${OG_KOPPAR.bas}`,
+        background: '#FFF7F0',
+      }}
+    >
+      {children}
     </div>
-  );
+  )
 }
 
-// =============================================================
-// JOBBCOACHEN — chat-bubblor
-// =============================================================
-export function OgJobbcoachenIllustration() {
+/** CV:t på arket: namn, kontaktrad och delarna som linjer. */
+function CvInnehall({ namn = 20, vald = true, langt }: { namn?: number; vald?: boolean; langt?: boolean }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="jc-bubble" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrund-bubbla (användarens fråga) */}
-        <g transform="translate(80 80) rotate(-4 140 70)" opacity="0.85">
-          <path
-            d="M 12 0 L 268 0 Q 280 0 280 12 L 280 100 Q 280 112 268 112 L 60 112 L 36 136 L 36 112 L 12 112 Q 0 112 0 100 L 0 12 Q 0 0 12 0 Z"
-            fill="white"
-            stroke="#FED7AA"
-            strokeWidth="2"
-          />
-          <rect x="20" y="20" width="200" height="6" rx="3" fill="#1E293B" />
-          <rect x="20" y="36" width="240" height="5" rx="2" fill="#94A3B8" />
-          <rect x="20" y="50" width="220" height="5" rx="2" fill="#94A3B8" />
-          <rect x="20" y="78" width="60" height="20" rx="10" fill="#FFEDD5" />
-        </g>
-
-        {/* Stor svarsbubbla (jobbcoachen) */}
-        <g transform="translate(80 240) rotate(2 200 110)">
-          <ellipse cx="200" cy="240" rx="180" ry="14" fill="rgba(0,0,0,0.18)" filter="blur(6px)" />
-          <path
-            d="M 0 12 Q 0 0 12 0 L 388 0 Q 400 0 400 12 L 400 200 Q 400 212 388 212 L 80 212 L 56 236 L 56 212 L 12 212 Q 0 212 0 200 Z"
-            fill="url(#jc-bubble)"
-          />
-          <path
-            d="M 0 12 Q 0 0 12 0 L 388 0 Q 400 0 400 12 L 400 16 L 0 16 Z"
-            fill="#FCD34D"
-            opacity="0.8"
-          />
-
-          {/* Coach avatar */}
-          <circle cx="40" cy="46" r="20" fill="white" opacity="0.95" />
-          <circle cx="40" cy="40" r="6" fill="#DC2626" />
-          <path d="M 28 56 Q 28 48 40 48 Q 52 48 52 56" fill="#DC2626" />
-
-          <rect x="76" y="32" width="180" height="8" rx="3" fill="white" />
-          <rect x="76" y="48" width="120" height="6" rx="3" fill="white" opacity="0.85" />
-
-          {/* Quote-text */}
-          <rect x="24" y="84" width="352" height="6" rx="3" fill="white" opacity="0.95" />
-          <rect x="24" y="100" width="340" height="6" rx="3" fill="white" opacity="0.95" />
-          <rect x="24" y="116" width="280" height="6" rx="3" fill="white" opacity="0.95" />
-
-          {/* Tagg-rad */}
-          <rect x="24" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-          <rect x="112" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-          <rect x="200" y="148" width="80" height="22" rx="11" fill="rgba(255,255,255,0.25)" />
-        </g>
-      </svg>
+    <div style={KOLUMN}>
+      <div style={{ display: 'flex', fontSize: namn, fontWeight: 800, letterSpacing: -0.3, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+        Sara Lindström
+      </div>
+      <Linje b="78%" h={6} farg="#B9B6C2" mt={8} />
+      <ArkRubrik />
+      <Linje />
+      <Linje b="84%" />
+      {vald ? (
+        <ValdDel>
+          <ArkRubrik mt={10} b="46%" />
+          <Linje b="84%" />
+          <Linje />
+          <Linje b="62%" />
+        </ValdDel>
+      ) : (
+        <div style={KOLUMN}>
+          <ArkRubrik b="46%" />
+          <Linje b="84%" />
+          <Linje />
+          <Linje b="62%" />
+        </div>
+      )}
+      <ArkRubrik />
+      <Linje b="84%" />
+      <Linje b="46%" />
+      {langt ? (
+        <div style={KOLUMN}>
+          <ArkRubrik b="30%" />
+          <Linje b="62%" />
+          <Linje b="74%" />
+        </div>
+      ) : null}
     </div>
-  );
+  )
 }
 
-// =============================================================
-// LINKEDIN — profil-mockup i orange
-// =============================================================
-export function OgLinkedinIllustration() {
+/** Brevet på arket: avsändare, hälsning och två stycken där svaren på kraven är märkta. */
+function BrevInnehall({ farg = OG_FARG.brev.svag, tat }: { farg?: string; tat?: boolean }) {
+  const steg = tat ? 7 : 8
+  const h = tat ? 6 : 7
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="li-banner" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrunds-profil */}
-        <g transform="translate(60 80) rotate(7 200 230)" opacity="0.45">
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="400" height="100" fill="#FB923C" />
-          <circle cx="76" cy="120" r="40" fill="#FED7AA" stroke="white" strokeWidth="6" />
-        </g>
-
-        {/* Förgrunds-profil */}
-        <g transform="translate(80 30) rotate(-4 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-
-          {/* Banner */}
-          <rect x="0" y="0" width="400" height="120" rx="20" fill="url(#li-banner)" />
-          <rect x="0" y="100" width="400" height="20" fill="url(#li-banner)" />
-
-          {/* Avatar */}
-          <circle cx="76" cy="140" r="44" fill="white" />
-          <circle cx="76" cy="140" r="38" fill="url(#li-banner)" />
-          <circle cx="76" cy="130" r="12" fill="white" opacity="0.9" />
-          <path d="M 56 154 Q 56 142 76 142 Q 96 142 96 154 L 96 162 L 56 162 Z" fill="white" opacity="0.9" />
-
-          {/* "in"-pill */}
-          <rect x="320" y="124" width="58" height="32" rx="8" fill="#0A66C2" />
-
-          {/* Namn + Headline */}
-          <rect x="36" y="200" width="200" height="14" rx="4" fill="#1E293B" />
-          <rect x="36" y="222" width="280" height="9" rx="3" fill="#475569" />
-          <rect x="36" y="238" width="240" height="9" rx="3" fill="#475569" />
-
-          <rect x="36" y="260" width="120" height="6" rx="3" fill="#FB923C" />
-
-          <line x1="36" y1="284" x2="364" y2="284" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* About-sektion */}
-          <rect x="36" y="304" width="80" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="324" width="328" height="5" rx="2" fill="#CBD5E1" />
-          <rect x="36" y="334" width="316" height="5" rx="2" fill="#CBD5E1" />
-          <rect x="36" y="344" width="280" height="5" rx="2" fill="#CBD5E1" />
-
-          <line x1="36" y1="372" x2="364" y2="372" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Skills */}
-          <rect x="36" y="392" width="60" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="412" width="80" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="124" y="412" width="100" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="232" y="412" width="80" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
-        </g>
-      </svg>
+    <div style={KOLUMN}>
+      <Linje b="42%" h={tat ? 9 : 11} farg={farg} mt={0} />
+      <Linje b="62%" h={h - 1} farg="#B9B6C2" mt={8} />
+      <Linje b="26%" h={h} farg="#8E8A99" mt={tat ? 16 : 20} />
+      <Linje h={h} mt={tat ? 12 : 16} />
+      <Linje b="76%" h={h} farg={OG_KOPPAR.ljus} mt={steg} />
+      <Linje h={h} mt={steg} />
+      <Linje b="58%" h={h} mt={steg} />
+      <Linje h={h} mt={tat ? 14 : 18} />
+      <Linje b="64%" h={h} farg={OG_KOPPAR.ljus} mt={steg} />
+      <Linje b="88%" h={h} mt={steg} />
+      <Linje b="40%" h={h} mt={steg} />
     </div>
-  );
+  )
 }
 
-// =============================================================
-// REKRYTERINGSTESTER — matrix-grid + checkboxes
-// =============================================================
-export function OgRekryteringstesterIllustration() {
+/** En nål i CV-byggaren: delens nummer vid arkets kant. */
+function Nal({ x, y, nr, nu }: { x: number; y: number; nr: number; nu?: boolean }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="rt-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="rt-tile" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrund: kontext-passage med tester */}
-        <g transform="translate(60 80) rotate(7 200 230)" opacity="0.45">
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="400" height="6" rx="3" fill="#FB923C" />
-          {[40, 70, 100, 130, 160, 200, 230, 260, 290].map((y, i) => (
-            <rect key={i} x="40" y={y} width={i % 2 === 0 ? 320 : 280} height="5" rx="2.5" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Förgrund: matrix 3x3 grid */}
-        <g transform="translate(80 30) rotate(-4 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#rt-strip)" />
-
-          {/* Header */}
-          <rect x="36" y="36" width="160" height="14" rx="4" fill="#1E293B" />
-          <rect x="36" y="60" width="120" height="7" rx="3" fill="#94A3B8" />
-
-          {/* Test-meta-rad */}
-          <rect x="36" y="86" width="60" height="20" rx="10" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="106" y="86" width="80" height="20" rx="10" fill="#FFEDD5" stroke="#FED7AA" />
-
-          {/* Matrix-grid */}
-          <g transform="translate(60 130)">
-            {/* Cellbakgrunder */}
-            {[0, 1, 2].map(row =>
-              [0, 1, 2].map(col => (
-                <rect
-                  key={`bg-${row}-${col}`}
-                  x={col * 96}
-                  y={row * 96}
-                  width="80"
-                  height="80"
-                  rx="10"
-                  fill="#FFF7ED"
-                  stroke="#FED7AA"
-                  strokeWidth="1.5"
-                />
-              ))
-            )}
-            {/* Mönster i celler */}
-            {/* Row 0: 1, 2, 3 prickar */}
-            <circle cx="40" cy="40" r="6" fill="url(#rt-tile)" />
-            <circle cx="124" cy="32" r="5" fill="url(#rt-tile)" />
-            <circle cx="148" cy="48" r="5" fill="url(#rt-tile)" />
-            <circle cx="220" cy="28" r="4" fill="url(#rt-tile)" />
-            <circle cx="240" cy="40" r="4" fill="url(#rt-tile)" />
-            <circle cx="220" cy="52" r="4" fill="url(#rt-tile)" />
-
-            {/* Row 1: streck i olika riktningar */}
-            <line x1="20" y1="116" x2="60" y2="156" stroke="url(#rt-tile)" strokeWidth="6" strokeLinecap="round" />
-            <line x1="124" y1="116" x2="156" y2="156" stroke="url(#rt-tile)" strokeWidth="6" strokeLinecap="round" />
-            <line x1="156" y1="116" x2="124" y2="156" stroke="url(#rt-tile)" strokeWidth="6" strokeLinecap="round" />
-            <rect x="220" y="116" width="40" height="40" rx="6" fill="none" stroke="url(#rt-tile)" strokeWidth="3" />
-
-            {/* Row 2: blandat + frågetecken */}
-            <circle cx="40" cy="232" r="14" fill="none" stroke="url(#rt-tile)" strokeWidth="3" />
-            <line x1="124" y1="216" x2="156" y2="248" stroke="url(#rt-tile)" strokeWidth="6" strokeLinecap="round" />
-            <line x1="156" y1="216" x2="124" y2="248" stroke="url(#rt-tile)" strokeWidth="6" strokeLinecap="round" />
-
-            {/* Sista cellen: ? */}
-            <rect x="208" y="200" width="80" height="80" rx="10" fill="url(#rt-tile)" />
-          </g>
-
-          {/* Svarsknappar */}
-          <g transform="translate(36 410)">
-            {[0, 1, 2, 3].map(i => (
-              <rect
-                key={i}
-                x={i * 84}
-                y="0"
-                width="76"
-                height="40"
-                rx="8"
-                fill={i === 1 ? '#FB923C' : 'white'}
-                stroke="#FED7AA"
-                strokeWidth="1.5"
-              />
-            ))}
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
+    <Lage x={x} y={y} b={38}>
+      <div style={{ display: 'flex', width: 38, height: 41, borderRadius: 19, background: 'rgba(6, 8, 26, 0.3)' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 38,
+            height: 38,
+            borderRadius: 19,
+            border: '3px solid #FFFFFF',
+            background: nu ? OG_KOPPAR.bas : '#EEF3F2',
+            color: nu ? OG_KOPPAR.text : '#5C6F6E',
+            fontSize: 17,
+            fontWeight: 800,
+            lineHeight: 1,
+          }}
+        >
+          {nr}
+        </div>
+      </div>
+    </Lage>
+  )
 }
 
-// =============================================================
-// PERSONLIGHETSTEST — fem spektrum med var sin markör, två styrkor
-// =============================================================
-// Profilen visas i produkten som lägen på fem skalor och som styrkor i ord,
-// aldrig som poäng. Bilden säger samma sak: markörer på spår, inga tal.
-export function OgPersonlighetstestIllustration() {
-  const rader = [
-    { etikett: 96, lage: 0.72 },
-    { etikett: 128, lage: 0.36 },
-    { etikett: 74, lage: 0.86 },
-    { etikett: 112, lage: 0.55 },
-    { etikett: 88, lage: 0.22 },
-  ];
+/** En pratbubbla i samtalet med Jobbcoachen. */
+function Bubbla({ fran, farg, children, under }: { fran: 'du' | 'coach'; farg: OgFarg; children: ReactNode; under?: string }) {
+  const f = OG_FARG[farg]
+  const du = fran === 'du'
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="pt-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="pt-markor" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-          <linearGradient id="pt-styrka" x1="0" y1="0" x2="160" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrund: rapportens textsida */}
-        <g transform="translate(60 80) rotate(7 200 230)" opacity="0.45">
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="400" height="6" rx="3" fill="#FB923C" />
-          {[40, 70, 100, 130, 160, 200, 230, 260, 290].map((y, i) => (
-            <rect key={i} x="40" y={y} width={i % 2 === 0 ? 320 : 280} height="5" rx="2.5" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Förgrund: profilen på fem skalor */}
-        <g transform="translate(80 30) rotate(-4 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#pt-strip)" />
-
-          {/* Rubrik */}
-          <rect x="36" y="36" width="170" height="14" rx="4" fill="#1E293B" />
-          <rect x="36" y="60" width="124" height="7" rx="3" fill="#94A3B8" />
-
-          {/* Fem skalor: etikett, spår med mittstreck, markör */}
-          {rader.map((r, i) => {
-            const y = 104 + i * 56;
-            const cx = 36 + r.lage * 328;
-            return (
-              <g key={i}>
-                <rect x="36" y={y} width={r.etikett} height="9" rx="3" fill="#334155" />
-                <rect x="36" y={y + 22} width="328" height="14" rx="7" fill="#FFF7ED" stroke="#FED7AA" strokeWidth="1.5" />
-                <rect x="199" y={y + 19} width="2" height="20" rx="1" fill="#FDBA74" />
-                <circle cx={cx} cy={y + 29} r="14" fill="white" />
-                <circle cx={cx} cy={y + 29} r="11" fill="url(#pt-markor)" />
-              </g>
-            );
-          })}
-
-          {/* Två främsta styrkor, i ord */}
-          <rect x="36" y="392" width="112" height="7" rx="3" fill="#94A3B8" />
-          <g transform="translate(36 412)">
-            <rect x="0" y="0" width="156" height="42" rx="21" fill="url(#pt-styrka)" />
-            <rect x="24" y="17" width="108" height="8" rx="4" fill="white" opacity="0.92" />
-            <rect x="168" y="0" width="160" height="42" rx="21" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1.5" />
-            <rect x="192" y="17" width="112" height="8" rx="4" fill="#C2410C" opacity="0.75" />
-          </g>
-        </g>
-      </svg>
+    <div style={{ display: 'flex', justifyContent: du ? 'flex-end' : 'flex-start', marginTop: du ? 0 : 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          maxWidth: du ? 350 : 390,
+          borderRadius: 20,
+          borderBottomRightRadius: du ? 6 : 20,
+          borderBottomLeftRadius: du ? 20 : 6,
+          background: du ? 'transparent' : 'rgba(6, 8, 26, 0.3)',
+          paddingBottom: du ? 0 : 5,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '12px 16px 13px',
+            borderRadius: 20,
+            borderBottomRightRadius: du ? 6 : 20,
+            borderBottomLeftRadius: du ? 20 : 6,
+            background: du ? f.ljus : '#FFFFFF',
+            color: du ? f.vagg3 : OG_INK.ett,
+            fontSize: 19,
+            fontWeight: 500,
+            lineHeight: 1.34,
+          }}
+        >
+          <div style={{ display: 'flex' }}>{children}</div>
+          {under ? (
+            <div style={{ display: 'flex', marginTop: 6, fontSize: 16, fontWeight: 800, color: OG_KOPPAR.ink }}>{under}</div>
+          ) : null}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-// =============================================================
-// CV-MALLAR — staplade CV i olika stilar
-// =============================================================
-export function OgCvMallarIllustration() {
+/** En pilleretikett. */
+function Chip({ children, yta, farg, storlek = 15 }: { children: ReactNode; yta: string; farg: string; storlek?: number }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="cm-strip" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Tre staplade CV-mallar i olika stilar */}
-
-        {/* Bakgrund: Modern Minimal (ljus) */}
-        <g transform="translate(40 80) rotate(8 140 200)" opacity="0.7">
-          <rect x="0" y="0" width="280" height="380" rx="14" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="20" y="20" width="100" height="10" rx="3" fill="#1E293B" />
-          <rect x="20" y="36" width="80" height="6" rx="3" fill="#94A3B8" />
-          <line x1="20" y1="60" x2="260" y2="60" stroke="#FB923C" strokeWidth="2" />
-          {[80, 110, 140, 180, 210, 240, 280, 310, 340].map((y, i) => (
-            <rect key={i} x="20" y={y} width={i % 2 === 0 ? 220 : 180} height="4" rx="2" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Mellan: Nordic (sidofält) */}
-        <g transform="translate(120 70) rotate(-2 140 200)" opacity="0.85">
-          <rect x="6" y="10" width="280" height="380" rx="14" fill="rgba(0,0,0,0.15)" filter="blur(4px)" />
-          <rect x="0" y="0" width="280" height="380" rx="14" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="100" height="380" fill="#1F4E5F" />
-          <circle cx="50" cy="60" r="26" fill="white" opacity="0.85" />
-          <rect x="14" y="100" width="72" height="6" rx="3" fill="white" opacity="0.85" />
-          <rect x="14" y="116" width="60" height="4" rx="2" fill="white" opacity="0.65" />
-          <rect x="14" y="160" width="50" height="6" rx="3" fill="white" opacity="0.85" />
-          <rect x="14" y="174" width="60" height="4" rx="2" fill="white" opacity="0.65" />
-          <rect x="14" y="184" width="56" height="4" rx="2" fill="white" opacity="0.65" />
-          {/* Höger sida */}
-          <rect x="116" y="20" width="140" height="10" rx="3" fill="#1E293B" />
-          <rect x="116" y="36" width="100" height="6" rx="3" fill="#94A3B8" />
-          <rect x="116" y="60" width="60" height="8" rx="3" fill="#0F766E" />
-          {[80, 95, 110, 140, 155, 170, 200, 215, 230].map((y, i) => (
-            <rect key={i} x="116" y={y} width={i % 3 === 0 ? 130 : 110} height="4" rx="2" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Förgrund: Creative (med färgad header) */}
-        <g transform="translate(220 80) rotate(6 140 200)">
-          <rect x="6" y="14" width="280" height="380" rx="14" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="280" height="380" rx="14" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          {/* Geometrisk header */}
-          <path d="M 0 0 L 280 0 L 280 50 L 168 80 L 0 50 Z" fill="url(#cm-strip)" />
-          <rect x="20" y="14" width="100" height="10" rx="3" fill="white" />
-          <rect x="20" y="30" width="80" height="6" rx="3" fill="white" opacity="0.85" />
-
-          {/* Avatar i circle */}
-          <circle cx="206" cy="86" r="14" fill="white" stroke="url(#cm-strip)" strokeWidth="3" />
-
-          <rect x="20" y="100" width="60" height="8" rx="3" fill="#DC2626" />
-          {[120, 134, 148, 178, 192, 206, 240, 254, 268, 304, 318, 332].map((y, i) => (
-            <rect key={i} x="20" y={y} width={i % 2 === 0 ? 220 : 180} height="4" rx="2" fill="#CBD5E1" />
-          ))}
-          {/* Pills */}
-          <rect x="20" y="350" width="50" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="78" y="350" width="60" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="146" y="350" width="50" height="14" rx="7" fill="#FFEDD5" stroke="#FED7AA" />
-        </g>
-
-        {/* Antal-badge */}
-        <g transform="translate(420 380)">
-          <circle cx="60" cy="60" r="50" fill="#FCD34D" />
-          <circle cx="60" cy="60" r="50" fill="url(#cm-strip)" opacity="0.95" />
-        </g>
-      </svg>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        flexShrink: 0,
+        padding: `${Math.round(storlek * 0.42)}px ${Math.round(storlek * 0.85)}px`,
+        borderRadius: 999,
+        background: yta,
+        color: farg,
+        fontSize: storlek,
+        fontWeight: 800,
+        lineHeight: 1.15,
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {children}
     </div>
-  );
+  )
 }
 
-// =============================================================
-// PERSONLIGT BREV (verktyg) — kompaktare brev-mockup
-// =============================================================
-export function OgPersonligtBrevIllustration() {
+/** En knapp i koppar med klack, som sajtens. Bild av knappen, ingen handling. */
+function KopparKnapp({ children, storlek = 20 }: { children: ReactNode; storlek?: number }) {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="pb-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="pb-name" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrunds-brev */}
-        <g transform="translate(60 80) rotate(-7 200 230)" opacity="0.45">
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
-          <rect x="0" y="0" width="400" height="6" rx="3" fill="#FB923C" />
-          {[50, 90, 110, 160, 180, 200, 250, 270].map((y, i) => (
-            <rect key={i} x="40" y={y} width={250 + (i % 2) * 60} height="6" rx="3" fill="#CBD5E1" />
-          ))}
-        </g>
-
-        {/* Förgrundsbrev med "Skapa nu"-CTA */}
-        <g transform="translate(80 30) rotate(4 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#pb-strip)" />
-
-          {/* Header */}
-          <rect x="36" y="44" width="180" height="14" rx="4" fill="url(#pb-name)" />
-          <rect x="36" y="68" width="220" height="6" rx="3" fill="#94A3B8" />
-          <rect x="36" y="82" width="180" height="6" rx="3" fill="#94A3B8" />
-          <rect x="290" y="44" width="74" height="6" rx="3" fill="#CBD5E1" />
-
-          {/* Subjekt */}
-          <rect x="36" y="118" width="280" height="10" rx="3" fill="#1E293B" />
-
-          {/* Hälsning */}
-          <rect x="36" y="148" width="120" height="7" rx="3" fill="#475569" />
-
-          {/* Paragrafer (simplifierat) */}
-          {[178, 192, 206, 220, 234, 266, 280, 294, 308, 340, 354].map((y, i) => (
-            <rect key={i} x="36" y={y} width={290 + (i * 9 % 50) - 25} height="6" rx="3" fill="#475569" opacity="0.8" />
-          ))}
-
-          {/* Signatur */}
-          <path
-            d="M 36 402 Q 60 390 84 402 T 132 402 Q 156 390 180 402"
-            stroke="#1E293B"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <rect x="36" y="420" width="120" height="6" rx="3" fill="#94A3B8" />
-        </g>
-
-        {/* Floating "Anpassad för jobbet"-badge */}
-        <g transform="translate(60 320)">
-          <rect x="0" y="0" width="160" height="56" rx="12" fill="white" stroke="url(#pb-strip)" strokeWidth="2" />
-          <rect x="0" y="0" width="160" height="4" rx="2" fill="url(#pb-strip)" />
-          <circle cx="22" cy="28" r="10" fill="url(#pb-strip)" />
-          <path d="M 18 28 L 22 32 L 28 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </g>
-      </svg>
+    <div style={{ display: 'flex', flexShrink: 0, borderRadius: 999, background: OG_KOPPAR.ink, paddingBottom: 5 }}>
+      <div
+        style={{
+          display: 'flex',
+          padding: `${Math.round(storlek * 0.55)}px ${Math.round(storlek * 1.1)}px`,
+          borderRadius: 999,
+          background: OG_KOPPAR.bas,
+          color: OG_KOPPAR.text,
+          fontSize: storlek,
+          fontWeight: 800,
+          lineHeight: 1.1,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {children}
+      </div>
     </div>
-  );
+  )
 }
 
-// =============================================================
-// SKAPA CV — CV med plus/redigerings-indikator
-// =============================================================
-export function OgSkapaCvIllustration() {
-  return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="sc-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="sc-plus" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#DC2626" />
-          </linearGradient>
-        </defs>
+/* ------------------------------------------------------------------ */
+/* STARTSIDAN och FUNKTIONER: de fyra delarna som kort                 */
+/* ------------------------------------------------------------------ */
 
-        {/* Bakgrund: tomt CV med markörer för fält att fylla */}
-        <g transform="translate(80 30) rotate(-4 200 250)">
-          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
-          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#sc-strip)" />
-
-          {/* Header med animerad blink-cursor */}
-          <circle cx="76" cy="76" r="32" stroke="url(#sc-plus)" strokeWidth="3" strokeDasharray="6 4" fill="#FFEDD5" />
-
-          <rect x="124" y="58" width="180" height="14" rx="4" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1" strokeDasharray="4 3" />
-          <rect x="124" y="80" width="140" height="7" rx="3" fill="#FED7AA" />
-
-          <line x1="36" y1="138" x2="364" y2="138" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Sektion 1 - delvis ifylld */}
-          <rect x="36" y="158" width="100" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="180" width="180" height="7" rx="3" fill="#475569" />
-          <rect x="36" y="194" width="120" height="6" rx="3" fill="#94A3B8" />
-          <rect x="36" y="212" width="318" height="5" rx="2.5" fill="#CBD5E1" />
-          <rect x="36" y="222" width="280" height="5" rx="2.5" fill="#CBD5E1" />
-
-          {/* Sektion 2 - tom (placeholder) */}
-          <rect x="36" y="252" width="84" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="274" width="328" height="50" rx="6" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1.5" strokeDasharray="6 4" />
-
-          <line x1="36" y1="346" x2="364" y2="346" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Sektion 3 — pills */}
-          <rect x="36" y="366" width="100" height="8" rx="3" fill="#1E293B" />
-          <rect x="36" y="386" width="76" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="120" y="386" width="64" height="22" rx="11" fill="#FFEDD5" stroke="#FED7AA" />
-          {/* Tom pill med + */}
-          <rect x="192" y="386" width="44" height="22" rx="11" fill="white" stroke="#FED7AA" strokeWidth="1.5" strokeDasharray="3 3" />
-        </g>
-
-        {/* Stor "Bygg ditt CV"-pil ovan */}
-        <g transform="translate(380 60)">
-          <circle cx="60" cy="60" r="56" fill="white" />
-          <circle cx="60" cy="60" r="48" fill="url(#sc-plus)" />
-        </g>
-
-        {/* Tids-badge */}
-        <g transform="translate(400 380)">
-          <rect x="0" y="0" width="120" height="44" rx="22" fill="#FCD34D" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-// =============================================================
-// ARTIKLAR (lista) — 3-4 artiklar i stack
-// =============================================================
-export function OgArticlesListIllustration() {
-  return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="al-strip" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
-
-        {/* Tredje bak */}
-        <g transform="translate(60 60) rotate(-6 140 110)" opacity="0.45">
-          <rect x="0" y="0" width="280" height="180" rx="12" fill="white" />
-          <rect x="0" y="0" width="280" height="80" rx="12" fill="#FED7AA" />
-          <rect x="20" y="100" width="80" height="6" rx="3" fill="#FB923C" />
-          <rect x="20" y="116" width="200" height="9" rx="3" fill="#1E293B" />
-          <rect x="20" y="132" width="180" height="9" rx="3" fill="#1E293B" />
-          <rect x="20" y="156" width="100" height="5" rx="2" fill="#94A3B8" />
-        </g>
-
-        {/* Andra mitten */}
-        <g transform="translate(120 130) rotate(2 140 110)" opacity="0.85">
-          <rect x="6" y="10" width="280" height="220" rx="12" fill="rgba(0,0,0,0.18)" filter="blur(4px)" />
-          <rect x="0" y="0" width="280" height="220" rx="12" fill="white" />
-          <rect x="0" y="0" width="280" height="100" rx="12" fill="url(#al-strip)" opacity="0.85" />
-          {/* Bild-mockup i headern */}
-          <circle cx="48" cy="50" r="18" fill="white" opacity="0.4" />
-          <rect x="76" y="42" width="80" height="6" rx="3" fill="white" opacity="0.85" />
-          <rect x="76" y="54" width="60" height="5" rx="2" fill="white" opacity="0.7" />
-
-          <rect x="20" y="120" width="60" height="14" rx="7" fill="#FFEDD5" />
-          <rect x="20" y="142" width="240" height="8" rx="3" fill="#1E293B" />
-          <rect x="20" y="158" width="220" height="8" rx="3" fill="#1E293B" />
-          <rect x="20" y="180" width="100" height="5" rx="2" fill="#94A3B8" />
-          <rect x="200" y="194" width="60" height="14" rx="7" fill="#FB923C" />
-        </g>
-
-        {/* Förgrund */}
-        <g transform="translate(80 290) rotate(-3 140 100)">
-          <rect x="6" y="10" width="380" height="190" rx="12" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="380" height="190" rx="12" fill="white" />
-          <rect x="0" y="0" width="160" height="190" rx="12" fill="#FFEDD5" />
-          <rect x="0" y="0" width="160" height="190" fill="url(#al-strip)" opacity="0.5" />
-          {/* "CV"-text på vänster bild */}
-          <rect x="40" y="76" width="80" height="40" rx="6" fill="white" opacity="0.95" />
-
-          <rect x="180" y="20" width="50" height="14" rx="7" fill="#FFEDD5" />
-          <rect x="180" y="46" width="180" height="9" rx="3" fill="#1E293B" />
-          <rect x="180" y="62" width="160" height="9" rx="3" fill="#1E293B" />
-          <rect x="180" y="86" width="190" height="5" rx="2" fill="#94A3B8" />
-          <rect x="180" y="98" width="170" height="5" rx="2" fill="#94A3B8" />
-          <rect x="180" y="110" width="160" height="5" rx="2" fill="#94A3B8" />
-          <rect x="180" y="140" width="100" height="20" rx="10" fill="url(#al-strip)" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-// =============================================================
-// EXEMPEL — kombinerad CV+brev mockup
-// =============================================================
-export function OgExempelIllustration() {
-  return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="ex-strip" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-        </defs>
-
-        {/* Bakgrund-brev (lutad höger) */}
-        <g transform="translate(220 70) rotate(8 140 200)">
-          <rect x="6" y="10" width="280" height="380" rx="14" fill="rgba(0,0,0,0.18)" filter="blur(4px)" />
-          <rect x="0" y="0" width="280" height="380" rx="14" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="280" height="6" rx="3" fill="url(#ex-strip)" />
-          <rect x="20" y="20" width="120" height="10" rx="3" fill="url(#ex-strip)" />
-          <rect x="20" y="36" width="140" height="6" rx="3" fill="#94A3B8" />
-          <rect x="180" y="20" width="80" height="6" rx="3" fill="#CBD5E1" />
-          {/* Subjekt */}
-          <rect x="20" y="64" width="200" height="8" rx="3" fill="#1E293B" />
-          {/* Brevtext */}
-          {[90, 102, 114, 134, 146, 158, 178, 190, 202, 222, 234, 246, 266, 278, 298, 310, 322].map((y, i) => (
-            <rect key={i} x="20" y={y} width={i % 3 === 0 ? 230 : i % 3 === 1 ? 200 : 240} height="4" rx="2" fill="#475569" opacity="0.7" />
-          ))}
-          {/* Signatur */}
-          <path d="M 20 348 Q 36 340 52 348 T 92 348 Q 108 340 124 348" stroke="#1E293B" strokeWidth="2" strokeLinecap="round" fill="none" />
-        </g>
-
-        {/* Förgrund-CV (lutad vänster) */}
-        <g transform="translate(40 60) rotate(-5 140 200)">
-          <rect x="6" y="14" width="280" height="390" rx="14" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
-          <rect x="0" y="0" width="280" height="390" rx="14" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="280" height="6" rx="3" fill="url(#ex-strip)" />
-
-          {/* Header med avatar */}
-          <circle cx="50" cy="56" r="22" fill="url(#ex-strip)" />
-          <rect x="84" y="42" width="130" height="10" rx="3" fill="#1E293B" />
-          <rect x="84" y="60" width="100" height="6" rx="3" fill="#94A3B8" />
-          {/* Pill-rad kontakt */}
-          {[84, 124, 164, 204].map((x, i) => (
-            <rect key={i} x={x} y="76" width="32" height="5" rx="2" fill="#CBD5E1" />
-          ))}
-
-          <line x1="20" y1="104" x2="260" y2="104" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Sektion 1: erfarenhet */}
-          <rect x="20" y="120" width="80" height="6" rx="3" fill="#1E293B" />
-          <rect x="20" y="136" width="140" height="6" rx="3" fill="#475569" />
-          <rect x="20" y="148" width="100" height="5" rx="2" fill="#94A3B8" />
-          {[166, 176, 186, 196].map((y) => (
-            <rect key={y} x="20" y={y} width="240" height="4" rx="2" fill="#CBD5E1" />
-          ))}
-
-          <line x1="20" y1="218" x2="260" y2="218" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Sektion 2 */}
-          <rect x="20" y="234" width="80" height="6" rx="3" fill="#1E293B" />
-          <rect x="20" y="250" width="120" height="5" rx="2" fill="#475569" />
-          <rect x="20" y="260" width="180" height="4" rx="2" fill="#CBD5E1" />
-
-          <line x1="20" y1="288" x2="260" y2="288" stroke="#FED7AA" strokeWidth="1.5" />
-
-          {/* Pills */}
-          <rect x="20" y="304" width="80" height="6" rx="3" fill="#1E293B" />
-          <rect x="20" y="318" width="50" height="16" rx="8" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="78" y="318" width="60" height="16" rx="8" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="146" y="318" width="50" height="16" rx="8" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="20" y="342" width="60" height="16" rx="8" fill="#FFEDD5" stroke="#FED7AA" />
-          <rect x="88" y="342" width="70" height="16" rx="8" fill="#FFEDD5" stroke="#FED7AA" />
-        </g>
-
-        {/* Floating "150+ yrken"-badge */}
-        <g transform="translate(380 400)">
-          <circle cx="60" cy="60" r="56" fill="#FCD34D" />
-          <circle cx="60" cy="60" r="48" fill="url(#ex-strip)" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-// =============================================================
-// HOME — komplett ekosystem (CV + brev + chart + matchning)
-// =============================================================
 export function OgHomeIllustration() {
   return (
-    <div style={wrapperStyle}>
-      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="home-strip" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#FB923C" />
-            <stop offset="0.5" stopColor="#DC2626" />
-            <stop offset="1" stopColor="#BE185D" />
-          </linearGradient>
-          <linearGradient id="home-bar1" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0" stopColor="#F97316" />
-            <stop offset="1" stopColor="#FED7AA" />
-          </linearGradient>
-        </defs>
+    <OgYta>
+      <OgKort farg="tran" x={2} y={-12} b={300} rot={-2} namn="Rekryteringstester">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <OgBrade b={198} />
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <OgSvar s={50} f="kx" />
+            <OgSvar s={50} f="cx" vald />
+            <OgSvar s={50} f="cp" />
+          </div>
+        </div>
+      </OgKort>
 
-        {/* CV-card (vänster) */}
-        <g transform="translate(20 60) rotate(-4 110 140)">
-          <rect x="6" y="10" width="220" height="280" rx="12" fill="rgba(0,0,0,0.18)" filter="blur(4px)" />
-          <rect x="0" y="0" width="220" height="280" rx="12" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="220" height="6" rx="3" fill="url(#home-strip)" />
-          <circle cx="36" cy="40" r="16" fill="url(#home-strip)" />
-          <rect x="60" y="32" width="100" height="6" rx="3" fill="#1E293B" />
-          <rect x="60" y="44" width="80" height="5" rx="2" fill="#94A3B8" />
-          <line x1="16" y1="68" x2="204" y2="68" stroke="#FED7AA" />
-          {[84, 96, 108, 130, 142, 154, 180, 192, 204, 230, 242, 254].map((y, i) => (
-            <rect key={i} x="16" y={y} width={i % 3 === 0 ? 160 : 130} height="4" rx="2" fill="#CBD5E1" />
+      <OgKort farg="cv" x={320} y={2} b={236} rot={2.4} namn="CV-analys">
+        <Poang farg="cv" storlek={86} />
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 16 }}>
+          <OgSju farg="cv" />
+        </div>
+        <OgTapp namn="Erfarenhet" poang="30 av 35" andel={86} />
+        <OgTapp namn="Språk" poang="3 av 5" andel={60} />
+      </OgKort>
+
+      <OgKort farg="brev" x={0} y={308} b={278} rot={1.6} namn="Personliga brev">
+        <OgBlad pad="16px 16px 18px">
+          <Linje b="44%" h={9} farg={OG_FARG.brev.svag} mt={0} />
+          <Linje h={7} mt={9} />
+          <Linje b="72%" h={7} farg={OG_KOPPAR.ljus} mt={9} />
+          <Linje h={7} mt={9} />
+          <Linje b="54%" h={7} farg={OG_KOPPAR.ljus} mt={9} />
+          <Linje b="82%" h={7} mt={9} />
+        </OgBlad>
+        <OgRad farg="brev" fet="3 av 4 krav" text="har fått svar" />
+      </OgKort>
+
+      <OgKort farg="jobb" x={296} y={328} b={262} rot={-2} namn="Jobbsöket">
+        <OgMinistig farg="jobb" b={222} />
+        <OgRad farg="jobb" fet="Intervju" text="tisdag 10.00" mt={10} />
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* REKRYTERINGSTESTER: matrisuppgiften och en talserie                 */
+/* ------------------------------------------------------------------ */
+
+export function OgRekryteringstesterIllustration() {
+  const t = OG_FARG.tran
+  return (
+    <OgYta>
+      <OgKort
+        farg="tran"
+        x={4}
+        y={-4}
+        b={404}
+        rot={-2}
+        namn="Matrislogik"
+        namnStorlek={24}
+        pad={20}
+        hoger={
+          <Chip yta="rgba(255, 255, 255, 0.14)" farg={t.ink} storlek={16}>
+            9 av 15
+          </Chip>
+        }
+      >
+        {/* Framsteget i bitar: besvarade, den man står på, kvar */}
+        <div style={{ display: 'flex', marginBottom: 14 }}>
+          {Array.from({ length: 15 }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                flexGrow: 1,
+                flexBasis: 0,
+                height: 8,
+                marginLeft: i ? 4 : 0,
+                borderRadius: 4,
+                background: i < 8 ? t.ljus : i === 8 ? OG_KOPPAR.bas : 'rgba(255, 255, 255, 0.16)',
+              }}
+            />
           ))}
-        </g>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <OgBrade b={280} />
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <OgSvar s={66} f="kx" />
+            <OgSvar s={66} f="cx" vald />
+            <OgSvar s={66} f="cp" />
+          </div>
+        </div>
+      </OgKort>
 
-        {/* Brev-card (höger topp) */}
-        <g transform="translate(260 30) rotate(4 110 100)">
-          <rect x="6" y="10" width="220" height="180" rx="12" fill="rgba(0,0,0,0.18)" filter="blur(4px)" />
-          <rect x="0" y="0" width="220" height="180" rx="12" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="220" height="6" rx="3" fill="url(#home-strip)" />
-          <rect x="16" y="20" width="80" height="8" rx="3" fill="url(#home-strip)" />
-          <rect x="16" y="36" width="100" height="5" rx="2" fill="#94A3B8" />
-          {[60, 72, 84, 100, 112, 124, 140, 152].map((y, i) => (
-            <rect key={i} x="16" y={y} width={170 - (i % 2) * 30} height="4" rx="2" fill="#475569" opacity="0.7" />
+      <OgKort farg="tran" x={200} y={392} b={354} rot={3} namn="Talserier">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {['3', '6', '12', '24'].map((tal) => (
+            <OgBricka key={tal} s={56}>
+              {tal}
+            </OgBricka>
           ))}
-        </g>
+          <OgLucka s={56} />
+        </div>
+      </OgKort>
+    </OgYta>
+  )
+}
 
-        {/* Chart-card (höger botten) */}
-        <g transform="translate(280 250) rotate(-3 100 110)">
-          <rect x="6" y="10" width="220" height="200" rx="12" fill="rgba(0,0,0,0.18)" filter="blur(4px)" />
-          <rect x="0" y="0" width="220" height="200" rx="12" fill="white" stroke="#FED7AA" strokeWidth="1.5" />
-          <rect x="0" y="0" width="220" height="6" rx="3" fill="url(#home-strip)" />
-          <rect x="16" y="20" width="100" height="6" rx="3" fill="#1E293B" />
-          <rect x="16" y="32" width="80" height="5" rx="2" fill="#94A3B8" />
+/* ------------------------------------------------------------------ */
+/* PERSONLIGHETSTEST: fem skalor med var sin markör, två drag i ord    */
+/* ------------------------------------------------------------------ */
+// Profilen visas i produkten som lägen på fem skalor och som drag i ord,
+// aldrig som poäng. Bilden säger samma sak: markörer på skalor, inga tal.
+export function OgPersonlighetstestIllustration() {
+  const t = OG_FARG.tran
+  const skala = 236
+  const rader = [
+    { namn: 'Samvetsgrannhet', lage: 0.84 },
+    { namn: 'Utåtriktning', lage: 0.3 },
+    { namn: 'Stabilitet', lage: 0.58 },
+    { namn: 'Vänlighet', lage: 0.66 },
+    { namn: 'Öppenhet', lage: 0.8 },
+  ]
+  return (
+    <OgYta>
+      <OgKort farg="tran" x={28} y={44} b={504} rot={-2} namn="Din profil" namnStorlek={24} pad={24}>
+        {rader.map((r, i) => (
+          <div key={r.namn} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: i ? 16 : 6 }}>
+            <div style={{ display: 'flex', fontSize: 21, fontWeight: 800, letterSpacing: -0.2, whiteSpace: 'nowrap' }}>{r.namn}</div>
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', flexShrink: 0, width: skala, height: 30 }}>
+              <div style={{ display: 'flex', width: skala, height: 12, borderRadius: 6, background: 'rgba(255, 255, 255, 0.16)' }} />
+              <div style={{ position: 'absolute', left: skala / 2 - 1, top: 4, width: 3, height: 22, borderRadius: 2, background: t.svag }} />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: Math.round(r.lage * skala) - 15,
+                  top: 0,
+                  width: 30,
+                  height: 30,
+                  borderRadius: 15,
+                  border: '5px solid #FFFFFF',
+                  background: OG_KOPPAR.bas,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+        <div style={{ display: 'flex', marginTop: 26, fontSize: 17, fontWeight: 500, color: t.mjuk }}>Dina tydligaste drag</div>
+        <div style={{ display: 'flex', marginTop: 10 }}>
+          <Chip yta={OG_KOPPAR.bas} farg={OG_KOPPAR.text} storlek={19}>
+            Hög samvetsgrannhet
+          </Chip>
+          <div style={{ display: 'flex', marginLeft: 10 }}>
+            <Chip yta={t.ink} farg={t.vagg} storlek={19}>
+              Hög öppenhet
+            </Chip>
+          </div>
+        </div>
+      </OgKort>
+    </OgYta>
+  )
+}
 
-          {/* Chart */}
-          <line x1="16" y1="170" x2="204" y2="170" stroke="#CBD5E1" strokeWidth="1.5" />
-          <line x1="16" y1="170" x2="16" y2="60" stroke="#CBD5E1" strokeWidth="1.5" />
-          <rect x="36" y="130" width="22" height="40" rx="3" fill="url(#home-bar1)" />
-          <rect x="68" y="100" width="22" height="70" rx="3" fill="url(#home-strip)" />
-          <rect x="100" y="120" width="22" height="50" rx="3" fill="url(#home-bar1)" />
-          <rect x="132" y="80" width="22" height="90" rx="3" fill="url(#home-strip)" />
-          <rect x="164" y="70" width="22" height="100" rx="3" fill="url(#home-bar1)" />
-          {/* Trendlinje */}
-          <path d="M 47 120 L 79 90 L 111 110 L 143 70 L 175 60" stroke="#DC2626" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
+/* ------------------------------------------------------------------ */
+/* CV-ANALYS: arket med den del som tappar, och poängen                */
+/* ------------------------------------------------------------------ */
 
-        {/* Match-prick i mitten */}
-        <g transform="translate(220 220)">
-          <circle cx="50" cy="50" r="46" fill="white" opacity="0.95" />
-          <circle cx="50" cy="50" r="38" fill="url(#home-strip)" />
-        </g>
+export function OgCvAnalysisIllustration() {
+  return (
+    <OgYta>
+      <OgArk x={6} y={34} b={316} h={452} rot={-4} pad={26}>
+        <CvInnehall namn={22} langt />
+      </OgArk>
+      <OgKort farg="cv" x={256} y={140} b={298} rot={2.5} namn="CV-analys" namnStorlek={24} pad={20}>
+        <Poang farg="cv" storlek={108} />
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 18 }}>
+          <OgSju farg="cv" h={18} />
+        </div>
+        <OgTapp namn="Erfarenhet" poang="30 av 35" andel={86} storlek={19} mt={18} />
+        <OgTapp namn="Språk" poang="3 av 5" andel={60} storlek={19} mt={16} />
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* SKAPA CV: arket i byggaren med nålar, och Jobbcoachens förslag      */
+/* ------------------------------------------------------------------ */
+
+export function OgSkapaCvIllustration() {
+  const c = OG_FARG.cv
+  const forslag = ['Drev fyra upphandlingar enligt LOU', 'Ansvarade för budget och tidplan']
+  return (
+    <OgYta>
+      <OgArk x={34} y={4} b={338} h={468} rot={-3} pad={28}>
+        <CvInnehall namn={23} langt />
+      </OgArk>
+      <Nal x={12} y={36} nr={1} />
+      <Nal x={18} y={112} nr={2} />
+      <Nal x={24} y={196} nr={3} nu />
+      <Nal x={34} y={314} nr={4} />
+      <OgKort farg="cv" x={196} y={296} b={346} rot={3} namn="Jobbcoachen föreslår" namnStorlek={21}>
+        {forslag.map((text, i) => (
+          <div key={text} style={{ display: 'flex', alignItems: 'center', marginTop: i ? 12 : 2 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                width: 28,
+                height: 28,
+                borderRadius: 9,
+                background: i === 0 ? OG_KOPPAR.bas : 'rgba(255, 255, 255, 0.14)',
+                border: i === 0 ? `2px solid ${OG_KOPPAR.bas}` : `2px solid ${c.svag}`,
+              }}
+            >
+              {i === 0 ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 12.5l4 4 8-9" stroke={OG_KOPPAR.text} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ) : null}
+            </div>
+            <div style={{ display: 'flex', marginLeft: 12, fontSize: 18, fontWeight: 500, lineHeight: 1.25, color: c.ink }}>{text}</div>
+          </div>
+        ))}
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* CV-MALLAR: tre ark i tre stilar                                     */
+/* ------------------------------------------------------------------ */
+
+function MallArk({ x, y, rot, children }: { x: number; y: number; rot: number; children: ReactNode }) {
+  return (
+    <Lage x={x} y={y} b={206} h={300} rot={rot}>
+      <Platta yta="#FFFFFF" klack="rgba(6, 8, 26, 0.36)" radie={8} djup={9} pad={0} stil={{ overflow: 'hidden', color: OG_INK.ett }}>
+        {children}
+      </Platta>
+    </Lage>
+  )
+}
+
+export function OgCvMallarIllustration() {
+  return (
+    <OgYta>
+      <OgKort farg="cv" x={14} y={22} b={532} h={506} rot={-1.5} namn="CV-mallar" namnStorlek={24} pad={22} />
+
+      {/* Mall med färgat huvud */}
+      <MallArk x={40} y={150} rot={-7}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 70, padding: '18px 18px 0', background: '#B5543A' }}>
+          <Linje b="62%" h={11} farg="#FFFFFF" mt={0} />
+          <Linje b="44%" h={6} farg="rgba(255, 255, 255, 0.7)" mt={9} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', padding: '0 18px' }}>
+          <ArkRubrik mt={14} />
+          <Linje />
+          <Linje b="84%" />
+          <Linje b="62%" />
+          <ArkRubrik mt={14} b="46%" />
+          <Linje b="84%" />
+          <Linje />
+          <ArkRubrik mt={14} b="30%" />
+          <Linje b="62%" />
+        </div>
+      </MallArk>
+
+      {/* Mall med sidofält och foto */}
+      <MallArk x={176} y={118} rot={1}>
+        <div style={{ display: 'flex', flexGrow: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 70, padding: '18px 12px', background: '#1E5F5F' }}>
+            <div style={{ display: 'flex', width: 42, height: 42, borderRadius: 21, background: '#D7ECEA' }} />
+            <Linje h={5} farg="rgba(255, 255, 255, 0.75)" mt={16} />
+            <Linje b="80%" h={5} farg="rgba(255, 255, 255, 0.5)" mt={7} />
+            <Linje h={5} farg="rgba(255, 255, 255, 0.75)" mt={22} />
+            <Linje b="70%" h={5} farg="rgba(255, 255, 255, 0.5)" mt={7} />
+            <Linje b="86%" h={5} farg="rgba(255, 255, 255, 0.5)" mt={7} />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: '20px 16px' }}>
+            <Linje b="78%" h={11} farg="#2B2B33" mt={0} />
+            <Linje b="52%" h={6} farg="#B9B6C2" mt={9} />
+            <ArkRubrik mt={18} b="50%" />
+            <Linje />
+            <Linje b="84%" />
+            <Linje b="62%" />
+            <ArkRubrik mt={16} b="42%" />
+            <Linje b="84%" />
+            <Linje />
+            <ArkRubrik mt={16} b="34%" />
+            <Linje b="62%" />
+          </div>
+        </div>
+      </MallArk>
+
+      {/* Enkel mall med kopparlinje */}
+      <MallArk x={312} y={150} rot={8}>
+        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, padding: '22px 20px' }}>
+          <Linje b="66%" h={12} farg="#2B2B33" mt={0} />
+          <Linje b="48%" h={6} farg="#B9B6C2" mt={9} />
+          <Linje h={3} farg={OG_KOPPAR.bas} mt={14} />
+          <Linje b="34%" h={7} farg="#8E8A99" mt={16} />
+          <Linje />
+          <Linje b="84%" />
+          <Linje b="62%" />
+          <Linje b="40%" h={7} farg="#8E8A99" mt={18} />
+          <Linje b="84%" />
+          <Linje />
+          <Linje b="30%" h={7} farg="#8E8A99" mt={18} />
+          <Linje b="62%" />
+        </div>
+      </MallArk>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* PERSONLIGT BREV: brevet och annonsens krav                          */
+/* ------------------------------------------------------------------ */
+
+export function OgPersonligtBrevIllustration() {
+  const krav: [string, boolean][] = [
+    ['Offentlig upphandling, LOU', true],
+    ['Budgetansvar', true],
+    ['Tidplan och uppföljning', true],
+    ['PMP-certifiering', false],
+  ]
+  return (
+    <OgYta>
+      <OgKort farg="brev" x={0} y={22} b={404} rot={-2} namn="Personligt brev" namnStorlek={24} pad={20}>
+        <OgBlad pad="24px 24px 28px">
+          <BrevInnehall />
+        </OgBlad>
+        <OgRad farg="brev" fet="3 av 4 krav" text="har fått svar" storlek={20} mt={16} />
+      </OgKort>
+
+      {/* Lappen står till höger om raden under brevet, så att den aldrig täcker den */}
+      <OgSvav x={288} y={324} b={270} rot={4} pad="16px 16px 18px">
+        <div style={{ display: 'flex', fontSize: 20, fontWeight: 800, letterSpacing: -0.2 }}>Annonsens krav</div>
+        {krav.map(([text, pa]) => (
+          <div key={text} style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
+            <OgBock s={22} pa={pa} />
+            <div style={{ display: 'flex', marginLeft: 9, fontSize: 16, fontWeight: 500, color: OG_INK.tva, whiteSpace: 'nowrap' }}>{text}</div>
+          </div>
+        ))}
+      </OgSvav>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* JOBBMATCHNING: träffen med matchgrad och skälen                     */
+/* ------------------------------------------------------------------ */
+
+function Matchring({ varde, s = 68 }: { varde: number; s?: number }) {
+  const r = 16
+  const omkrets = 2 * Math.PI * r
+  return (
+    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, width: s, height: s }}>
+      <svg width={s} height={s} viewBox="0 0 40 40" fill="none" style={{ position: 'absolute', left: 0, top: 0 }}>
+        <circle cx="20" cy="20" r={r} stroke={OG_FARG.jobb.ton} strokeWidth="5" />
+        <circle
+          cx="20"
+          cy="20"
+          r={r}
+          stroke={OG_FARG.jobb.tonInk}
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeDasharray={`${(omkrets * varde) / 100} ${omkrets}`}
+          transform="rotate(-90 20 20)"
+        />
       </svg>
+      <div style={{ display: 'flex', fontSize: Math.round(s * 0.36), fontWeight: 800, letterSpacing: -0.5, color: OG_FARG.jobb.vagg }}>{varde}</div>
     </div>
-  );
+  )
+}
+
+export function OgJobbmatchningIllustration() {
+  const skal = ['1 av dina 3 roller', 'Fyra av dina kompetenser nämns i annonsen', 'Göteborg, en av orterna du har valt']
+  return (
+    <OgYta>
+      <OgKort farg="jobb" x={10} y={50} b={484} rot={-2} namn="Matchade jobb" namnStorlek={24} pad={20}>
+        <OgBlad pad="20px 20px 22px" radie={16}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Matchring varde={91} />
+            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 14 }}>
+              <div style={{ display: 'flex', fontSize: 25, fontWeight: 800, letterSpacing: -0.4, lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+                Projektledare, bygg
+              </div>
+              <div style={{ display: 'flex', marginTop: 5, fontSize: 17, fontWeight: 500, color: OG_INK.tre, whiteSpace: 'nowrap' }}>
+                Nordhaga Bygg, Göteborg
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', marginTop: 18, fontSize: 17, fontWeight: 800, color: OG_FARG.jobb.tonInk }}>Därför passar du</div>
+          {skal.map((text) => (
+            <div key={text} style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
+              <OgBock s={24} />
+              <div style={{ display: 'flex', marginLeft: 10, fontSize: 16, fontWeight: 500, color: OG_INK.tva, whiteSpace: 'nowrap' }}>{text}</div>
+            </div>
+          ))}
+        </OgBlad>
+      </OgKort>
+      <Lage x={352} y={400} b={190} rot={3}>
+        <KopparKnapp storlek={24}>Skriv brev</KopparKnapp>
+      </Lage>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* SÖKTA TJÄNSTER: vägen från Ska sökas till Erbjudande                */
+/* ------------------------------------------------------------------ */
+
+function Bol({ x, y, text, nu }: { x: number; y: number; text: string; nu?: boolean }) {
+  const j = OG_FARG.jobb
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: x,
+        top: y,
+        display: 'flex',
+        width: 44,
+        height: 49,
+        borderRadius: 13,
+        background: 'rgba(0, 0, 0, 0.3)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 44,
+          height: 44,
+          borderRadius: 13,
+          border: nu ? `4px solid ${OG_KOPPAR.bas}` : `4px solid ${j.ink}`,
+          background: j.ink,
+          color: j.vagg,
+          fontSize: 16,
+          fontWeight: 800,
+          lineHeight: 1,
+        }}
+      >
+        {text}
+      </div>
+    </div>
+  )
+}
+
+function Etikett({ x, y, namn, under, hoger }: { x: number; y: number; namn: string; under?: string; hoger?: boolean }) {
+  const j = OG_FARG.jobb
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: x,
+        top: y,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: hoger ? 'flex-end' : 'flex-start',
+        width: 170,
+      }}
+    >
+      <div style={{ display: 'flex', fontSize: 19, fontWeight: 800, letterSpacing: -0.2, lineHeight: 1.1, color: j.ink, whiteSpace: 'nowrap' }}>{namn}</div>
+      {under ? (
+        <div style={{ display: 'flex', marginTop: 3, fontSize: 14, fontWeight: 500, color: j.mjuk, whiteSpace: 'nowrap' }}>{under}</div>
+      ) : null}
+    </div>
+  )
+}
+
+export function OgSoktaTjansterIllustration() {
+  const j = OG_FARG.jobb
+  return (
+    <OgYta>
+      <OgKort farg="jobb" x={14} y={56} b={532} rot={-1.5} namn="Sökta tjänster" namnStorlek={24} pad={22}>
+        <div style={{ position: 'relative', display: 'flex', width: 484, height: 318 }}>
+          <svg width="484" height="318" viewBox="0 0 484 318" fill="none" style={{ position: 'absolute', left: 0, top: 0 }}>
+            <path
+              d="M40 262 C 120 262, 130 202, 200 192 S 290 162, 340 132 S 420 86, 446 62"
+              stroke={j.ink}
+              strokeOpacity="0.6"
+              strokeWidth="4"
+              strokeDasharray="1 11"
+              strokeLinecap="round"
+            />
+            <circle cx="40" cy="262" r="10" fill={j.vagg2} stroke={j.ink} strokeWidth="4" />
+            <circle cx="200" cy="192" r="13" fill={OG_KOPPAR.bas} stroke={j.ink} strokeWidth="4" />
+            <circle cx="340" cy="132" r="10" fill={j.vagg2} stroke={j.ink} strokeWidth="4" />
+            <path d="M446 62V14" stroke={j.ink} strokeWidth="4.5" strokeLinecap="round" />
+            <path d="M448 14l34 12-34 13z" fill={OG_KOPPAR.bas} />
+            <circle cx="446" cy="62" r="7.5" fill={j.ink} />
+          </svg>
+
+          <Bol x={18} y={192} text="IL" />
+          <Bol x={150} y={118} text="DA" nu />
+          <Bol x={204} y={110} text="CO" />
+          <Bol x={318} y={62} text="PO" />
+
+          <div style={{ position: 'absolute', left: 104, top: 76, display: 'flex' }}>
+            <div
+              style={{
+                display: 'flex',
+                padding: '6px 13px',
+                borderRadius: 999,
+                background: OG_KOPPAR.bas,
+                color: OG_KOPPAR.text,
+                fontSize: 15,
+                fontWeight: 800,
+                lineHeight: 1.15,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              tyst i 12 dagar
+            </div>
+          </div>
+
+          <Etikett x={8} y={284} namn="Ska sökas" />
+          <Etikett x={168} y={218} namn="Sökt" under="2 väntar på svar" />
+          <Etikett x={310} y={156} namn="Intervju" under="tisdag 10.00" />
+          <Etikett x={262} y={4} namn="Erbjudande" hoger />
+        </div>
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* BLI UPPTÄCKT: kandidatkortet utan namn, och kontaktförfrågan        */
+/* ------------------------------------------------------------------ */
+
+export function OgBliUpptacktIllustration() {
+  const j = OG_FARG.jobb
+  return (
+    <OgYta>
+      <OgBakplatta farg="jobb" x={70} y={30} b={440} h={420} rot={5} />
+      <OgSvav x={10} y={62} b={430} rot={-2} pad="22px 24px 24px" radie={22}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              width: 60,
+              height: 60,
+              borderRadius: 18,
+              background: j.ton,
+              color: j.tonInk,
+              fontSize: 28,
+              fontWeight: 800,
+            }}
+          >
+            P
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 14 }}>
+            <div style={{ display: 'flex', fontSize: 26, fontWeight: 800, letterSpacing: -0.4, lineHeight: 1.1 }}>Projektledare</div>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: 6 }}>
+              <div style={{ display: 'flex', fontSize: 17, fontWeight: 500, color: OG_INK.tre, whiteSpace: 'nowrap' }}>Västra Götaland</div>
+              <div style={{ display: 'flex', marginLeft: 8 }}>
+                <Chip yta={j.ton} farg={j.tonInk} storlek={14}>
+                  Anonym
+                </Chip>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', marginTop: 16, fontSize: 18, lineHeight: 1.3, whiteSpace: 'nowrap' }}>
+          <div style={{ display: 'flex', fontWeight: 800 }}>8 års erfarenhet,</div>
+          <div style={{ display: 'flex', marginLeft: 5, fontWeight: 500, color: OG_INK.tva }}>senast projektledare</div>
+        </div>
+        <div style={{ display: 'flex', marginTop: 14 }}>
+          <Chip yta="#DFE3F6" farg="#3B4790" storlek={15}>
+            Matrislogik, topp 15 %
+          </Chip>
+        </div>
+        <div style={{ display: 'flex', marginTop: 8 }}>
+          <Chip yta="#EFEDF2" farg={OG_INK.tva} storlek={15}>
+            Strukturerad
+          </Chip>
+          <div style={{ display: 'flex', marginLeft: 8 }}>
+            <Chip yta="#EFEDF2" farg={OG_INK.tva} storlek={15}>
+              Lugn under press
+            </Chip>
+          </div>
+        </div>
+      </OgSvav>
+
+      <OgKort farg="jobb" x={206} y={316} b={348} rot={3} namn="Kontaktförfrågan" namnStorlek={21} pad={20}>
+        <div style={{ display: 'flex', fontSize: 19, fontWeight: 500, lineHeight: 1.3, color: j.ink }}>En rekryterare vill prata med dig</div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', marginTop: 14 }}>
+          <KopparKnapp storlek={18}>Tacka ja</KopparKnapp>
+          <div style={{ display: 'flex', marginLeft: 10 }}>
+            <Chip yta="rgba(255, 255, 255, 0.14)" farg={j.ink} storlek={18}>
+              Nej tack
+            </Chip>
+          </div>
+        </div>
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* JOBBCOACHEN: ett samtal                                             */
+/* ------------------------------------------------------------------ */
+
+export function OgJobbcoachenIllustration() {
+  return (
+    <OgYta>
+      <OgKort farg="jobb" x={16} y={50} b={528} rot={-1.5} namn="Jobbcoachen" namnStorlek={24} pad={22}>
+        <Bubbla fran="du" farg="jobb">
+          Jag sökte en tjänst för tolv dagar sedan och har inte hört något. Ska jag höra av mig?
+        </Bubbla>
+        <Bubbla fran="coach" farg="jobb" under="Vill du att vi skriver utkastet?">
+          Ja. Efter en till två veckor är det rimligt att fråga. Skriv kort vilken tjänst det gäller.
+        </Bubbla>
+        <div style={{ display: 'flex', marginTop: 16 }}>
+          <Chip yta="rgba(255, 255, 255, 0.14)" farg={OG_FARG.jobb.ink} storlek={16}>
+            Vad skriver jag i ett uppföljningsmejl?
+          </Chip>
+        </div>
+      </OgKort>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* LINKEDIN: profilen med orden rekryteraren söker på utmärkta         */
+/* ------------------------------------------------------------------ */
+
+export function OgLinkedinIllustration() {
+  const c = OG_FARG.cv
+  const rubrik: [string, boolean][] = [
+    ['Projektledare', true],
+    ['inom', false],
+    ['energi', true],
+    ['och', false],
+    ['bygg', true],
+    ['|', false],
+    ['Offentlig upphandling', true],
+    ['enligt', false],
+    ['LOU', true],
+  ]
+  return (
+    <OgYta>
+      <OgBakplatta farg="cv" x={64} y={70} b={450} h={430} rot={5} />
+
+      <Lage x={12} y={118} b={452} rot={-2}>
+        <Platta yta="#FFFFFF" klack="rgba(6, 8, 26, 0.36)" radie={20} djup={9} pad={0} stil={{ overflow: 'hidden', color: OG_INK.ett }}>
+          <div style={{ display: 'flex', height: 92, background: c.tonInk }} />
+          <div style={{ display: 'flex', flexDirection: 'column', padding: '0 26px 28px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 92,
+                height: 92,
+                marginTop: -46,
+                borderRadius: 46,
+                border: '6px solid #FFFFFF',
+                background: c.ton,
+                color: c.tonInk,
+                fontSize: 30,
+                fontWeight: 800,
+              }}
+            >
+              SL
+            </div>
+            <div style={{ display: 'flex', marginTop: 10, fontSize: 28, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1.1 }}>Sara Lindström</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: 8 }}>
+              {rubrik.map(([ord, sokord], i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    marginRight: 5,
+                    marginTop: 5,
+                    padding: sokord ? '1px 6px' : '1px 0',
+                    borderRadius: 6,
+                    background: sokord ? OG_KOPPAR.mjuk : 'transparent',
+                    color: sokord ? OG_KOPPAR.text : OG_INK.tva,
+                    fontSize: 19,
+                    fontWeight: sokord ? 800 : 500,
+                    lineHeight: 1.25,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {ord}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', marginTop: 12, fontSize: 16, fontWeight: 500, color: OG_INK.tre }}>Göteborg, Västra Götalands län</div>
+            <Linje h={7} mt={20} />
+            <Linje b="84%" h={7} mt={9} />
+            <Linje b="52%" h={7} mt={9} />
+          </div>
+        </Platta>
+      </Lage>
+
+      <OgSvav x={236} y={28} b={318} rot={3} pad="14px 16px 16px">
+        <div style={{ display: 'flex', fontSize: 15, fontWeight: 800, color: OG_INK.tre }}>Rekryteraren söker</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: 8,
+            padding: '9px 12px',
+            borderRadius: 12,
+            border: '2px solid #CADFDD',
+            background: '#F3F8F8',
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke={c.tonInk} strokeWidth="3" />
+            <path d="M15.5 15.5L21 21" stroke={c.tonInk} strokeWidth="3" strokeLinecap="round" />
+          </svg>
+          <div style={{ display: 'flex', marginLeft: 9, fontSize: 18, fontWeight: 800, letterSpacing: -0.2, whiteSpace: 'nowrap' }}>
+            projektledare LOU Göteborg
+          </div>
+        </div>
+      </OgSvav>
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* ARTIKLAR: tre artiklar ur de olika delarna                          */
+/* ------------------------------------------------------------------ */
+
+function ArtikelKort({ x, y, rot, farg, etikett, b = 316 }: { x: number; y: number; rot: number; farg: OgFarg; etikett: string; b?: number }) {
+  const f = OG_FARG[farg]
+  return (
+    <Lage x={x} y={y} b={b} rot={rot}>
+      <Platta yta="#FFFFFF" klack="rgba(6, 8, 26, 0.36)" radie={20} djup={9} pad={0} stil={{ overflow: 'hidden', color: OG_INK.ett }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 92, background: f.vagg2 }}>
+          <OgDorr farg={farg} s={58} />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '16px 20px 22px' }}>
+          <Chip yta={f.ton} farg={f.tonInk} storlek={15}>
+            {etikett}
+          </Chip>
+          <Linje b="92%" h={12} farg="#2B2B33" mt={14} />
+          <Linje b="64%" h={12} farg="#2B2B33" mt={9} />
+          <Linje b="38%" h={7} farg="#B9B6C2" mt={14} />
+        </div>
+      </Platta>
+    </Lage>
+  )
+}
+
+export function OgArticlesListIllustration() {
+  return (
+    <OgYta>
+      <ArtikelKort x={232} y={-8} rot={5} farg="brev" etikett="Personligt brev" />
+      <ArtikelKort x={6} y={166} rot={-4} farg="cv" etikett="CV" />
+      <ArtikelKort x={214} y={322} rot={2} farg="tran" etikett="Rekryteringstester" b={336} />
+    </OgYta>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* EXEMPEL: ett CV och ett personligt brev                             */
+/* ------------------------------------------------------------------ */
+
+export function OgExempelIllustration() {
+  return (
+    <OgYta>
+      <OgKort farg="cv" x={0} y={18} b={292} rot={-3} namn="CV">
+        <OgBlad pad="20px 20px 24px">
+          <CvInnehall namn={18} />
+        </OgBlad>
+      </OgKort>
+      <OgKort farg="brev" x={268} y={128} b={290} rot={3} namn="Personligt brev">
+        <OgBlad pad="20px 20px 26px">
+          <BrevInnehall tat />
+        </OgBlad>
+      </OgKort>
+    </OgYta>
+  )
 }

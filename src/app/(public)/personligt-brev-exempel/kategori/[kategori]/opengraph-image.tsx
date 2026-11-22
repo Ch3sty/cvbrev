@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og'
 import OgFrame from '@/components/og-preview/OgFrame'
+import { ogBild } from '@/components/og-preview/ogBild'
 import { OgPersonligtBrevIllustration } from '@/components/og-preview/OgIllustrations'
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 
@@ -12,14 +12,13 @@ export default async function Image({ params }: { params: Promise<{ kategori: st
   const { kategori } = await params
   const kat = KATEGORIER.find((k) => k.slug === kategori)
 
-  return new ImageResponse(
+  return ogBild(
     (
       <OgFrame
         eyebrow="Personligt brev-exempel"
         title={kat ? `Personligt brev-exempel för ${kat.namn.toLowerCase()}` : 'Personligt brev-exempel per bransch'}
         illustration={<OgPersonligtBrevIllustration />}
       />
-    ),
-    { ...size }
+    )
   )
 }

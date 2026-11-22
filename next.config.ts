@@ -83,6 +83,10 @@ const nextConfig: NextConfig = {
     // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk (TTF).
     // Webbsidans woff2 i samma mapp bakas in av next/font och behövs inte här.
     '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*.ttf'],
+    // Sidornas delningsbilder (opengraph-image.tsx via ogBild) läser samma
+    // typsnitt. Nyckeln träffar varje rutt som heter opengraph-image, också
+    // de som ritas vid anrop (per yrke och per bransch).
+    'opengraph-image': ['./src/assets/fonts/**/*.ttf'],
   },
 
   // Markera dessa paket som externa för serverside bundling

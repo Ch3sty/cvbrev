@@ -7,6 +7,9 @@ import {
   OgJobbcoachenIllustration,
   OgLinkedinIllustration,
   OgRekryteringstesterIllustration,
+  OgPersonlighetstestIllustration,
+  OgSoktaTjansterIllustration,
+  OgBliUpptacktIllustration,
   OgCvMallarIllustration,
   OgPersonligtBrevIllustration,
   OgSkapaCvIllustration,
@@ -32,7 +35,7 @@ const LEGACY_VARIANTS: Array<{
 interface CustomVariant {
   label: string;
   category: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   illustration: ReactNode;
@@ -42,9 +45,8 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
   {
     label: 'Hem (/)',
     category: 'Marketing',
-    eyebrow: 'Jobbcoach.ai',
-    title: 'Bygg en ansökan som blir läst',
-    subtitle: 'CV · Brev · Matchning · Tester',
+    title: 'Därför får du\ninte svar på dina\nansökningar',
+    subtitle: 'Träna inför testet, vässa CV:t och skriv ett brev som svarar på annonsen.',
     illustration: <OgHomeIllustration />,
   },
   {
@@ -67,15 +69,15 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
     label: 'CV-mallar (/cv-mallar)',
     category: 'Verktyg',
     eyebrow: 'CV-mallar',
-    title: 'Mallar för alla branscher',
-    subtitle: '8+ designer · ATS-optimerat',
+    title: 'Mallar för alla yrken',
+    subtitle: 'ATS-testade · gratis eller i Premium',
     illustration: <OgCvMallarIllustration />,
   },
   {
     label: 'CV-analys (/verktyg/cv-analys)',
     category: 'Verktyg',
     eyebrow: 'CV-analys',
-    title: 'Förbättra ditt CV på 60 sek',
+    title: 'CV-analys: se var ditt CV tappar poäng',
     subtitle: 'Konkret feedback, ingen gissning',
     illustration: <OgCvAnalysisIllustration />,
   },
@@ -91,8 +93,8 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
     label: 'Jobbcoachen (/verktyg/jobbcoachen)',
     category: 'Verktyg',
     eyebrow: 'Jobbcoachen',
-    title: 'Karriärråd när du behöver det',
-    subtitle: 'Lön · Intervju · Arbetsrätt · Tips',
+    title: 'Karriärrådgivning med svenska källor',
+    subtitle: 'Lön · Arbetsrätt · Intervju · Karriärbyte',
     illustration: <OgJobbcoachenIllustration />,
   },
   {
@@ -107,8 +109,8 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
     label: 'LinkedIn-optimering (/verktyg/linkedin-optimering)',
     category: 'Verktyg',
     eyebrow: 'LinkedIn-optimering',
-    title: 'Profilen rekryterare hittar',
-    subtitle: 'Headline · About · Sökord',
+    title: 'Hamna i rekryterarnas sökresultat',
+    subtitle: 'Rubrik · Om mig · Erfarenhet · Kompetenser',
     illustration: <OgLinkedinIllustration />,
   },
   {
@@ -116,8 +118,31 @@ const CUSTOM_VARIANTS: CustomVariant[] = [
     category: 'Verktyg',
     eyebrow: 'Rekryteringstester',
     title: 'Träna inför provet',
-    subtitle: 'Matrislogik · Verbal · Numerisk',
+    subtitle: 'Matrislogik · Verbal · Numerisk · Personlighet',
     illustration: <OgRekryteringstesterIllustration />,
+  },
+  {
+    label: 'Personlighetstest (/verktyg/personlighetstest)',
+    category: 'Verktyg',
+    eyebrow: 'Personlighetstest',
+    title: 'Vad rekryteraren läser ut av dig',
+    subtitle: 'Femfaktormodellen, din profil direkt',
+    illustration: <OgPersonlighetstestIllustration />,
+  },
+  {
+    label: 'Sökta tjänster (/verktyg/sokta-tjanster)',
+    category: 'Verktyg',
+    eyebrow: 'Sökta tjänster',
+    title: 'Håll koll på varje jobb du har sökt',
+    illustration: <OgSoktaTjansterIllustration />,
+  },
+  {
+    label: 'Bli upptäckt (/verktyg/bli-upptackt)',
+    category: 'Verktyg',
+    eyebrow: 'Bli upptäckt',
+    title: 'Låt rekryterare hitta dig',
+    subtitle: 'Anonym tills du själv tackar ja',
+    illustration: <OgBliUpptacktIllustration />,
   },
   {
     label: 'Skapa CV (/verktyg/skapa-cv)',

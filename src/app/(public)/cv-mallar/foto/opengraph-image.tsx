@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og';
 import OgFrame from '@/components/og-preview/OgFrame';
+import { ogBild } from '@/components/og-preview/ogBild';
 import { OgCvMallarIllustration } from '@/components/og-preview/OgIllustrations';
 import { STIL_SIDOR, stilMallar } from '@/lib/seo/cv-kluster';
 
@@ -13,7 +13,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  return new ImageResponse(
+  return ogBild(
     (
       <OgFrame
         eyebrow="CV-mallar"
@@ -21,7 +21,6 @@ export default async function Image() {
         subtitle={`${ANTAL} mallar · ATS-testade · ${GRATIS} gratis`}
         illustration={<OgCvMallarIllustration />}
       />
-    ),
-    { ...size }
+    )
   );
 }

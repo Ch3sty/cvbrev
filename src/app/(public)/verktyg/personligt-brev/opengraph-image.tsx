@@ -1,21 +1,20 @@
-import { ImageResponse } from 'next/og';
 import OgFrame from '@/components/og-preview/OgFrame';
+import { ogBild } from '@/components/og-preview/ogBild';
 import { OgPersonligtBrevIllustration } from '@/components/og-preview/OgIllustrations';
 
-export const alt = 'Personligt brev: skräddarsydd ansökan på 60 sekunder';
+export const alt = 'Personligt brev: skräddarsy ditt brev till varje annons';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-  return new ImageResponse(
+  return ogBild(
     (
       <OgFrame
         eyebrow="Personligt brev"
-        title="Brev som matchar varje jobb"
-        subtitle="Skräddarsydd ansökan på 60 sek"
+        title="Skräddarsy ditt brev till varje annons"
+        subtitle="Vi läser annonsen och ditt CV"
         illustration={<OgPersonligtBrevIllustration />}
       />
-    ),
-    { ...size }
+    )
   );
 }
