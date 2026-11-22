@@ -40,7 +40,7 @@ export default function InsikterHub() {
   }
 
   return (
-    <Sida farg="neutral">
+    <Sida farg="jobb">
       <main>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
         <section className="p3-vagg p3-hjalte p3-utan-lyft">

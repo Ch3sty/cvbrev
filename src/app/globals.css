@@ -2020,7 +2020,9 @@ html {
 .pub-rum-cv   { --rum-vagg: #113538; --rum-vagg-2: #1D4D51; --rum-ljus: #7FCFCA; --rum-ton: #D7ECEA; --rum-ink: #1E5F5F; }
 .pub-rum-brev { --rum-vagg: #3A1930; --rum-vagg-2: #56284A; --rum-ljus: #E29DCB; --rum-ton: #F0DCE8; --rum-ink: #6E2B59; }
 .pub-rum-jobb { --rum-vagg: #1B3324; --rum-vagg-2: #2A4C37; --rum-ljus: #8FD3A0; --rum-ton: #DCEBDD; --rum-ink: #245C37; }
-.pub-rum-neu  { --rum-vagg: #26262C; --rum-vagg-2: #36363E; --rum-ljus: #C9C8D2; --rum-ton: #E2E1E6; --rum-ink: #3C3C46; }
+/* Utan egen del: ytan följer färgen den står i (sidans, eller indigo). Grafiten
+   finns inte publikt längre (ägaren 2026-11-22: inget svart). */
+.pub-rum-neu  { --rum-vagg: var(--vagg, #1B2246); --rum-vagg-2: var(--vagg-2, #2B3470); --rum-ljus: var(--ljus, #93A0EC); --rum-ton: var(--ton, #DFE3F6); --rum-ink: var(--ton-ink, #3B4790); }
 /* Logotypens ord följer läget på de ombyggda publika sidorna (mörkt läge). */
 :root:has(.pub-sida) .logo-ord { fill: var(--ink-1); }
 :root:has(.pub-sida) .logo-ai { fill: var(--ink-3); }
@@ -2028,8 +2030,11 @@ html {
 /* =============================================================================
    PUBLIKT OMGÅNG 3 (2026-11-22, docs/publikt-omgang3/bygg/grunden.md).
 
-   Fem färger på publika sidor, samma värden som inloggats rum
-   (docs/design/publikt-omgang3/kit.css). Egna attribut, aldrig data-rum, så
+   Fyra färger på publika sidor (indigo, petrol, plommon, skog), samma
+   värden som inloggats rum (docs/design/publikt-omgang3/kit.css). Grafiten
+   finns inte publikt (ägaren 2026-11-22: inget svart): allt utan egen del
+   står i indigo, som startsidan (FARG_OVRIGT i farg.ts). Inget beige
+   heller: papper-2, den nedsänkta ytan, har sidans ton. Egna attribut, aldrig data-rum, så
    att inloggats :root:has([data-rum]) aldrig slår på publikt och tvärtom:
      data-p3-sida   sidans färg (<Sida farg>), lyfts till roten så att menyn,
                     kampanjraden och foten står i samma färg som sidan
@@ -2049,7 +2054,7 @@ html {
   --koppar: #E07A2F; --koppar-topp: #EC8B41; --koppar-ink: #A8491A; --koppar-djup: #C4621F;
   --koppar-klack: #A8491A; --koppar-ljus: #F4B98A; --koppar-text: #1A1206; --koppar-mjuk: #FBE3D0;
   --ink-1: #1A1A1F; --ink-2: #4A4A55; --ink-3: #65656E; --ink-hover: #2E2E36;
-  --papper: #FFFFFF; --papper-2: #F4F3F0;
+  --papper: #FFFFFF;
   --positiv: #2F7D5B; --positiv-mjuk: #DCEFE5;
   --varning: #985A08; --varning-mjuk: #F7E8CF;
   --fel: #B3382E; --fel-mjuk: #F8E1DE; --fel-kant: #F0C7C2; --fel-morker: #7A2219;
@@ -2058,38 +2063,37 @@ html {
   --r-kort: 22px; --r-stor: 32px; --r-knapp: 16px;
   --disp: var(--font-display), 'Schibsted Grotesk', Inter, system-ui, sans-serif;
   --lyft: 0 1px 2px rgba(20, 20, 40, 0.05), 0 10px 24px -14px rgba(20, 20, 40, 0.18);
-  --golv-skarm: #F4F3F0; --papper-skarm: #FFFFFF; --kant-skarm: #E3E1DC;
+  --papper-skarm: #FFFFFF;
 }
-/* Neutral (grafit) som grund, sedan färgen. Lokal yta, sidans färg och menyns gissning. */
+/* Indigo som grund (allt utan egen del), sedan färgen. Lokal yta, sidans färg
+   och menyns gissning. papper-2 är den nedsänkta ytan, i sidans ton. */
 :root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])),
-[data-p3-farg="neutral"], [data-p3-sida="neutral"] {
-  --golv: #ECEBE9; --vagg: #26262C; --vagg-2: #36363E; --vagg-3: #1A1A1F; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; --vagg-svag: #7C7B88; --ljus: #C9C8D2; --ton: #E2E1E6; --ton-ink: #3C3C46; --kant: #DDDCE0; --kant-stark: #C4C3CB;
-}
 :root:has([data-p3-sida="tran"]):not(:has([data-rum])),
 :root:has([data-p3-sokvag="tran"]):not(:has([data-p3-sida], [data-rum])),
 [data-p3-farg="tran"], [data-p3-sida="tran"] {
-  --golv: #EBEDF6; --vagg: #1B2246; --vagg-2: #2B3470; --vagg-3: #121737; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; --vagg-svag: #6F78B0; --ljus: #93A0EC; --ton: #DFE3F6; --ton-ink: #3B4790; --kant: #D5DAF0; --kant-stark: #B9C1E6;
+  --golv: #EBEDF6; --vagg: #1B2246; --vagg-2: #2B3470; --vagg-3: #121737; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; --vagg-svag: #6F78B0; --ljus: #93A0EC; --ton: #DFE3F6; --ton-ink: #3B4790; --kant: #D5DAF0; --kant-stark: #B9C1E6; --papper-2: #F3F4FB;
 }
 :root:has([data-p3-sida="cv"]):not(:has([data-rum])),
 :root:has([data-p3-sokvag="cv"]):not(:has([data-p3-sida], [data-rum])),
 [data-p3-farg="cv"], [data-p3-sida="cv"] {
-  --golv: #E6EFEF; --vagg: #113538; --vagg-2: #1D4D51; --vagg-3: #0B2628; --vagg-ink: #F1F8F7; --vagg-mjuk: #A3C9C8; --vagg-svag: #5C918F; --ljus: #7FCFCA; --ton: #D7ECEA; --ton-ink: #1E5F5F; --kant: #CADFDD; --kant-stark: #A9CBC8;
+  --golv: #E6EFEF; --vagg: #113538; --vagg-2: #1D4D51; --vagg-3: #0B2628; --vagg-ink: #F1F8F7; --vagg-mjuk: #A3C9C8; --vagg-svag: #5C918F; --ljus: #7FCFCA; --ton: #D7ECEA; --ton-ink: #1E5F5F; --kant: #CADFDD; --kant-stark: #A9CBC8; --papper-2: #F0F7F6;
 }
 :root:has([data-p3-sida="brev"]):not(:has([data-rum])),
 :root:has([data-p3-sokvag="brev"]):not(:has([data-p3-sida], [data-rum])),
 [data-p3-farg="brev"], [data-p3-sida="brev"] {
-  --golv: #F2EAEE; --vagg: #3A1930; --vagg-2: #56284A; --vagg-3: #280F22; --vagg-ink: #FBF3F8; --vagg-mjuk: #D6AFC8; --vagg-svag: #9C6A8C; --ljus: #E29DCB; --ton: #F0DCE8; --ton-ink: #6E2B59; --kant: #E6D2DD; --kant-stark: #D3B3C6;
+  --golv: #F2EAEE; --vagg: #3A1930; --vagg-2: #56284A; --vagg-3: #280F22; --vagg-ink: #FBF3F8; --vagg-mjuk: #D6AFC8; --vagg-svag: #9C6A8C; --ljus: #E29DCB; --ton: #F0DCE8; --ton-ink: #6E2B59; --kant: #E6D2DD; --kant-stark: #D3B3C6; --papper-2: #F9F2F6;
 }
 :root:has([data-p3-sida="jobb"]):not(:has([data-rum])),
 :root:has([data-p3-sokvag="jobb"]):not(:has([data-p3-sida], [data-rum])),
 [data-p3-farg="jobb"], [data-p3-sida="jobb"] {
-  --golv: #E8EEE7; --vagg: #1B3324; --vagg-2: #2A4C37; --vagg-3: #112219; --vagg-ink: #F2F8F2; --vagg-mjuk: #A9C9B1; --vagg-svag: #6A9676; --ljus: #8FD3A0; --ton: #DCEBDD; --ton-ink: #245C37; --kant: #CFDFD0; --kant-stark: #B0CBB3;
+  --golv: #E8EEE7; --vagg: #1B3324; --vagg-2: #2A4C37; --vagg-3: #112219; --vagg-ink: #F2F8F2; --vagg-mjuk: #A9C9B1; --vagg-svag: #6A9676; --ljus: #8FD3A0; --ton: #DCEBDD; --ton-ink: #245C37; --kant: #CFDFD0; --kant-stark: #B0CBB3; --papper-2: #F1F6F1;
 }
 /* Det som räknas ur färgen. Skrivs där färgen sätts, eftersom var() löses
    där egenskapen deklareras. */
 :root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])),
 [data-p3-farg], [data-p3-sida] {
   --premium: var(--vagg-3); --premium-2: var(--vagg-2); --premium-kant: rgba(255, 255, 255, 0.12);
+  --golv-skarm: var(--papper-2); --kant-skarm: var(--kant);
   --mark: var(--golv); --panel: var(--papper); --insunken: var(--papper-2); --insunken-topp: var(--kant-stark);
   --accent: var(--koppar); --accent-ink: var(--koppar-ink); --accent-mjuk: var(--koppar-mjuk);
   --ink-1-mjuk: var(--vagg-mjuk); --ink-1-kant: var(--vagg-kant); --ink-1-accent: var(--koppar-ljus);
@@ -2109,6 +2113,19 @@ html {
 }
 :root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .bg-ink-1.hover\:bg-ink-hover:hover {
   background-color: var(--vagg-2);
+}
+/* På kalkylatorns mörka resultatyta är bläcket ljust: prickarna och den valda stapeln syntes inte. */
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .rk-res .bg-ink-1 {
+  background-color: var(--vagg-ink);
+}
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .rk-res .bg-insunken {
+  background-color: rgba(255, 255, 255, .14);
+}
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .rk-res .bg-kant-stark {
+  background-color: var(--vagg-svag);
+}
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .rk-res .border-kant-stark {
+  border-color: var(--vagg-svag);
 }
 
 /* Ordförrådets motsatsord (skiss-tester-steg2, beslut 7): plommon, aldrig koppar. */

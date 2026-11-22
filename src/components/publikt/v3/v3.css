@@ -278,10 +278,10 @@
 .p3-ark { position: relative; background: #fff; color: #1A1A1F; border-radius: 6px; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); padding: 7% 7.5%; font-family: Georgia, 'Times New Roman', serif; text-align: left; }
 .p3-ark .p3-ark-namn { font-size: clamp(17px, 2.5vw, 26px); line-height: 1.1; }
 .p3-ark .p3-ark-kontakt { display: inline-block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: clamp(7.5px, .9vw, 10px); color: #4A4A55; }
-.p3-ark .p3-ark-rubrik { margin-top: 5.5%; padding-bottom: 3px; border-bottom: 1px solid #C9C6BF; font-weight: 400; font-size: clamp(10px, 1.15vw, 13px); }
+.p3-ark .p3-ark-rubrik { margin-top: 5.5%; padding-bottom: 3px; border-bottom: 1px solid #C6C8D2; font-weight: 400; font-size: clamp(10px, 1.15vw, 13px); }
 .p3-ark .p3-ark-rad { display: flex; justify-content: space-between; gap: 8px; margin-top: 7px; font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: clamp(7.5px, .9vw, 10px); }
 .p3-ark .p3-ark-rad span { font-weight: 400; color: #65656E; white-space: nowrap; }
-.p3-ark .p3-l { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #DCDAD5; }
+.p3-ark .p3-l { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #DADCE4; }
 .p3-ark .p3-l.p3-k { width: 62%; } .p3-ark .p3-l.p3-m { width: 84%; } .p3-ark .p3-l.p3-s { width: 46%; }
 .p3-ark .p3-del { position: relative; margin: 0 -2.5%; padding: 0 2.5% 6px; border-radius: 8px; }
 .p3-ark .p3-del.p3-vald { outline: 2.5px solid var(--koppar); outline-offset: 2px; background: #FFF7F0; }
@@ -460,7 +460,7 @@
 .p3-mall-bild { position: relative; display: block; background: #fff; border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 10px; overflow: hidden; }
 .p3-mall-bild img { width: 100%; height: auto; aspect-ratio: 112 / 158; object-fit: cover; object-position: top; }
 .p3-mall-bild.p3-brevmall img { aspect-ratio: 480 / 679; }
-.p3-mall-format { position: absolute; left: 8px; bottom: 8px; min-height: 22px; padding: 2px 8px; border-radius: 7px; background: rgba(26, 26, 31, .82); color: #fff; font-size: 12px; font-weight: 700; display: inline-grid; place-items: center; }
+.p3-mall-format { position: absolute; left: 8px; bottom: 8px; min-height: 22px; padding: 2px 8px; border-radius: 7px; background: var(--vagg-3); color: #fff; font-size: 12px; font-weight: 700; display: inline-grid; place-items: center; }
 .p3-mall-rad { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .p3-mall-rad b { font-family: var(--disp); font-size: 16px; margin-right: auto; }
 .p3-mall-rad .p3-chip { min-height: 24px; font-size: 12px; padding: 1px 9px; }
@@ -491,7 +491,7 @@ a.p3-mall:hover .p3-mall-bild { border-color: var(--kant-stark); }
 .p3-bark li.p3-ny { background: #FBE3D0; border-radius: 4px; }
 .p3-bark .p3-gra { color: #6E6E78; font-style: italic; }
 .p3-bark .p3-lagg { display: inline-block; margin-top: 3px; font-weight: 700; color: var(--koppar-ink); }
-.p3-bark .p3-skrivknapp { display: inline-flex; align-items: center; gap: .5em; height: 2.6em; margin: 6px 0 4px; padding: 0 1em; border-radius: 8px; border: 1.5px solid #C9C6BF; border-bottom-width: 3px; background: #fff; font-weight: 700; color: #1A1A1F; }
+.p3-bark .p3-skrivknapp { display: inline-flex; align-items: center; gap: .5em; height: 2.6em; margin: 6px 0 4px; padding: 0 1em; border-radius: 8px; border: 1.5px solid #C6C8D2; border-bottom-width: 3px; background: #fff; font-weight: 700; color: #1A1A1F; }
 .p3-bark .p3-skrivknapp svg { width: 1.3em; height: 1.3em; color: var(--koppar-ink); }
 .p3-bdel { position: relative; margin: 0 -2.5%; padding: 0 2.5% 6px; border-radius: 8px; }
 .p3-bdel.p3-vald { margin-top: 12px; padding-top: 1px; padding-bottom: 8px; outline: 2.5px solid var(--koppar); outline-offset: 2px; background: #FFF7F0; }
@@ -577,5 +577,8 @@ span.p3-nr.p3-nr-vagg { color: var(--vagg-ink); }
 }
 /* Liten grå text och kopparetiketten höll 4,43:1 på de tonade bottnarna i plommon och grafit. Ett steg mörkare ger 4,9:1 där och ändrar inget annat synligt. */
 .p3 { --ink-3: #5E5E68; --koppar-ink: #9E4317; }
+/* Rubrik satt som stycke (p.p3-h2) på vägg, ö och Premium: reglerna för stycken gav den dämpade textfärgen. Rubriker är ljusa. */
+:is(.p3-vagg, .p3-o) p:is(.p3-h1, .p3-h2, .p3-h3) { color: var(--vagg-ink); }
+.p3-premium p:is(.p3-h1, .p3-h2, .p3-h3) { color: #fff; }
 /* Rubrik satt som stycke (p.p3-h2) på papper: grundens regel för stycken gav den textgrått. Rubriker är bläck. */
 :is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) p:is(.p3-h1, .p3-h2, .p3-h3) { color: var(--ink-1); }

@@ -1,7 +1,7 @@
 /**
  * Klustrets färg, etikett och hjälteknapp på artiklarna (spec-publikt-v2
  * del B avsnitt 1 och 3.1). Rumsfärgen följer ämnet: tester indigo, CV teal,
- * brev plommon, intervju, lön och karriär grön, övrigt grafit.
+ * brev plommon, intervju, lön, karriär och allmän jobbsökning grön.
  *
  * Knappen läser inline-kortets mål ur reklam-copy.ts, så att hjälten och
  * provkortet pekar på samma verktyg. Testklustret går direkt till provet
@@ -20,7 +20,8 @@ export const KLUSTER_RUM: Record<CtaCluster, RumNamn> = {
   letter: 'brev',
   interview: 'jobb',
   career: 'jobb',
-  generic: 'neu',
+  // Etiketten är Jobbsökning: skog, som Jobbsöket. Grafiten finns inte publikt längre.
+  generic: 'jobb',
 }
 
 export const KLUSTER_ETIKETT: Record<CtaCluster, string> = {

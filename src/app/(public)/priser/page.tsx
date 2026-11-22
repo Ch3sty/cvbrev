@@ -43,6 +43,7 @@ import {
   Samtal,
   Stig,
   IntervjuKort,
+  FARG_OVRIGT,
   type Farg,
 } from '@/components/publikt/v3'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -179,12 +180,18 @@ function Steg({ steg }: { steg: readonly { rubrik: string; text: string }[] }) {
  * Konto, CV, CV, CV, Jobbsöket, CV, Personliga brev, CV, Jobbsöket,
  * Jobbsöket, Rekryteringstester, Jobbsöket).
  */
-function fargForSteg(s: string): Farg {
+function delForSteg(s: string): Farg | 'neutral' {
   if (/^Profilen/.test(s)) return 'neutral'
   if (/^Personligt brev/.test(s)) return 'brev'
   if (/^Rekryteringstesterna/.test(s)) return 'tran'
   if (/jobbmatchningen|Bli upptäckt|Jobbcoachen|^Intervjuprovet/.test(s)) return 'jobb'
   return 'cv'
+}
+
+/** Stoppets färg. Kontot har ingen egen färg publikt: indigo, som sidan. */
+function fargForSteg(s: string): Farg {
+  const del = delForSteg(s)
+  return del === 'neutral' ? FARG_OVRIGT : del
 }
 
 /** Gruppens färg i tabellen, ur gruppnamnet. */
@@ -532,7 +539,7 @@ export default function PriserSida() {
                   <li key={s} data-p3-farg={fargForSteg(s)}>
                     <span>
                       {s}
-                      <small>{RUM_NAMN[fargForSteg(s)]}</small>
+                      <small>{RUM_NAMN[delForSteg(s)]}</small>
                     </span>
                   </li>
                 ))}
@@ -562,7 +569,7 @@ export default function PriserSida() {
               </tr>
             </thead>
             {COMPARISON.map((grupp) => (
-              <tbody key={grupp.title} role="rowgroup" className="pr-jf-grupp" data-p3-farg={GRUPP_FARG[grupp.title] ?? 'neutral'}>
+              <tbody key={grupp.title} role="rowgroup" className="pr-jf-grupp" data-p3-farg={GRUPP_FARG[grupp.title] ?? FARG_OVRIGT}>
                 <tr className="pr-jf-huvud" role="row">
                   <th scope="rowgroup" colSpan={3} role="columnheader">
                     <Dorr ikon={GRUPP_FARG[grupp.title] ?? 'neutral'} />

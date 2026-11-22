@@ -66,7 +66,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   // bion på väggen, artiklarna på golvet. Text, rubriker, länkar och
   // Person-schemat som förut.
   return (
-    <Sida farg="neutral" className="min-h-screen">
+    <Sida className="min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

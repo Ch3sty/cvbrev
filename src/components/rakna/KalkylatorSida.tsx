@@ -131,7 +131,7 @@ function Jobbcoachen({ slug }: { slug: Slug }) {
 
 function Insikterna() {
   return (
-    <Sektion botten="papper" id="insikter" farg="neutral">
+    <Sektion botten="papper" id="insikter">
       <div className="rk3-insikt">
         <SektionHuvud
           etikett="För rekryterare"
@@ -189,8 +189,8 @@ export default function KalkylatorSida({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      {/* Sidans färg: skog för lönesidorna, grafit för rekryterarsidorna. */}
-      <Sida farg={kategori === 'lon' ? 'jobb' : 'neutral'} className="rk3">
+      {/* Sidans färg: skog, som navet /rakna-ut. Rekryterarsidorna hör till Jobbsökets andra sida. */}
+      <Sida farg="jobb" className="rk3">
         <main>
           {/* 1. Hjälten bär kalkylatorn */}
           <section id="hjalte" className="p3-vagg p3-hjalte p3-utan-lyft rk3-hjalte">

@@ -5,15 +5,18 @@
  *
  *   <Sida farg="cv"> ...sektioner... </Sida>
  *
+ * Utan farg står sidan i indigo (FARG_OVRIGT i farg.ts): det är förvalet för
+ * allt som inte hör till tester, CV, brev eller Jobbsöket.
+ *
  * Bara ett skal per sida. En sektion eller ö i en annan färg sätter farg på
  * sig själv (lokalt), aldrig ett andra skal.
  */
 
 import type { ReactNode } from 'react'
-import type { Farg } from './farg'
+import { FARG_OVRIGT, type Farg } from './farg'
 import './v3.css'
 
-export function Sida({ farg, id, className = '', children }: { farg: Farg; id?: string; className?: string; children: ReactNode }) {
+export function Sida({ farg = FARG_OVRIGT, id, className = '', children }: { farg?: Farg; id?: string; className?: string; children: ReactNode }) {
   return (
     <div id={id} className={`p3 ${className}`.trim()} data-p3-sida={farg}>
       {children}

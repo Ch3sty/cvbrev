@@ -1,8 +1,31 @@
-/* /press, publikt omgång 3. */
-.pr-fakta { display: grid; gap: 18px; margin-top: 22px; }
-@media (min-width: 700px) { .pr-fakta { grid-template-columns: 1fr 1fr; gap: 22px; } }
-.pr-fakta .p3-h3 { font-size: 17px; margin-bottom: 4px; }
-.pr-kit { margin-top: 24px; }
-.pr-ikon { width: 32px; height: 32px; color: var(--ton-ink); }
-.pr-liten-ikon { width: 16px; height: 16px; }
-.pr-mitt { justify-content: center; }
+/* /press, publikt omgång 3 (utseendegranskning 2, 2026-11-22). Prefix ps-. */
+
+/* hjälten: märket på ljus och mörk botten och som ensam symbol */
+.ps-marke { position: relative; width: 100%; max-width: 440px; aspect-ratio: 44 / 30; margin: 0 auto; }
+.ps-blad, .ps-symbol { position: absolute; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--disp); font-weight: 800; letter-spacing: -0.02em; }
+.ps-blad { width: 64%; height: 38%; border-radius: 20px; font-size: clamp(17px, 4.6vw, 24px); }
+.ps-blad i, .ps-symbol i { display: grid; place-items: center; border-radius: 28%; background: #F97316; color: #fff; font-style: normal; box-shadow: 0 3px 0 #B4500C; }
+.ps-blad i { width: 1.7em; height: 1.7em; }
+.ps-blad b { font-weight: inherit; }
+.ps-ljus { left: 0; top: 4%; background: var(--papper); color: var(--ink-1); box-shadow: 0 7px 0 var(--kant-stark); transform: rotate(-4deg); }
+.ps-ljus b span { color: var(--ink-3); }
+.ps-mork { right: 0; top: 46%; background: var(--vagg-3); color: #fff; border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 7px 0 rgba(0, 0, 0, .3); transform: rotate(3deg); }
+.ps-mork b span { color: var(--vagg-mjuk); }
+.ps-symbol { right: 6%; top: 0; width: 22%; aspect-ratio: 1; border-radius: 26%; background: var(--vagg-2); border: 2px solid rgba(255, 255, 255, .16); transform: rotate(6deg); }
+.ps-symbol i { width: 58%; height: 58%; font-size: clamp(22px, 6vw, 32px); }
+
+/* snabbfakta: fyra värden, stora */
+.ps-fakta { display: grid; gap: 12px; margin-top: 22px; }
+.ps-fakta > div { padding: 16px 18px; border-radius: 16px; background: var(--ton); }
+.ps-fakta .p3-h3 { font-family: Inter, system-ui, sans-serif; font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ton-ink); }
+.ps-fakta p { margin-top: 8px; font-family: var(--disp); font-weight: 800; font-size: 24px; line-height: 1.12; letter-spacing: -0.02em; color: var(--ink-1); }
+@media (min-width: 700px) { .ps-fakta { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .ps-fakta { grid-template-columns: .7fr .8fr 1.5fr 1fr; } .ps-fakta p { font-size: 28px; } }
+
+/* presskit och pressmeddelanden */
+.ps-kort { border-color: var(--kant-stark); }
+.ps-platta { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 5px 0 var(--vagg-3); }
+.ps-ikon { width: 30px; height: 30px; }
+.ps-kort .p3-h3 { margin-top: 18px; }
+.ps-kort .p3-knapp { margin-top: 16px; }
+.ps-liten-ikon { width: 16px; height: 16px; }

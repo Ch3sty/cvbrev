@@ -482,9 +482,9 @@ export default function Startsidan({ konton }: { konton: number | null }) {
         </div>
       </Sektion>
 
-      {/* 6. Medierna på mörk yta */}
+      {/* 6. Medierna på mörk yta: indigo, sidans färg (grafiten finns inte publikt längre). */}
       <Sektion>
-        <O farg="neutral" rubrikNiva="h2" etikett="Bekräftat av medierna" ikon={false} rubrik="Robotarna har redan läst ditt CV.">
+        <O farg="tran" rubrikNiva="h2" etikett="Bekräftat av medierna" ikon={false} rubrik="Robotarna har redan läst ditt CV.">
           <p className="p3-varde">
             Sveriges största redaktioner har samma slutsats: rekryteringen har förändrats i grunden. Den första som läser din
             ansökan är inte en människa.

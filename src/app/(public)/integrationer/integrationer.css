@@ -1,0 +1,38 @@
+/* /integrationer, publikt omgång 3 (utseendegranskning 2, 2026-11-22). Prefix ig-. */
+
+/* hjältens kopplingsbild: Jobbcoach i mitten, de fyra verktygen runt om */
+.ig-bild { position: relative; width: 100%; max-width: 440px; aspect-ratio: 4 / 3; margin: 0 auto; color: var(--vagg-svag); }
+.ig-linjer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ig-nod, .ig-mitt { position: absolute; display: grid; place-items: center; transform: translate(-50%, -50%); }
+.ig-nod { width: 21%; aspect-ratio: 1; border-radius: 24%; background: var(--papper); color: var(--ton-ink); box-shadow: 0 6px 0 var(--kant-stark); }
+.ig-nod svg { width: 46%; height: 46%; }
+.ig-nod-1 { left: 16.5%; top: 20.5%; transform: translate(-50%, -50%) rotate(-5deg); }
+.ig-nod-2 { left: 83.5%; top: 20.5%; transform: translate(-50%, -50%) rotate(4deg); }
+.ig-nod-3 { left: 16.5%; top: 79.5%; transform: translate(-50%, -50%) rotate(3deg); }
+.ig-nod-4 { left: 83.5%; top: 79.5%; transform: translate(-50%, -50%) rotate(-4deg); }
+.ig-mitt { left: 50%; top: 50%; width: 30%; aspect-ratio: 1; border-radius: 26%; background: linear-gradient(180deg, var(--koppar-topp, var(--koppar)), var(--koppar)); box-shadow: 0 8px 0 var(--koppar-klack); }
+.ig-mitt i { font-family: var(--disp); font-style: normal; font-weight: 800; font-size: clamp(34px, 9vw, 60px); line-height: 1; color: #fff; }
+
+/* läget, lyft över väggen */
+.ig-lage > * + * { margin-top: 12px; }
+.ig-lage .p3-varde { max-width: 62ch; }
+
+/* de fyra integrationerna, var och en i sin färg */
+.ig-kort { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; border-color: var(--kant-stark); }
+.ig-kort > * + * { margin-top: 0; }
+.ig-kort .p3-h3 + p { margin-top: 6px; }
+.ig-kort .p3-chip { margin-top: 12px; }
+.ig-ikon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 4px 0 var(--vagg-3); }
+.ig-ikon svg { width: 28px; height: 28px; }
+
+/* de tre vinsterna */
+.ig-vinst .p3-nr { margin-bottom: 4px; }
+
+/* förslagsön: ett litet kort på väg in */
+.ig-forslag { display: grid; gap: 10px; width: 100%; max-width: 260px; margin: 0 auto; padding: 22px; border-radius: 22px; background: var(--papper); box-shadow: 0 8px 0 rgba(0, 0, 0, .25); transform: rotate(3deg); }
+.ig-forslag span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--ton); color: var(--ton-ink); }
+.ig-forslag span svg { width: 24px; height: 24px; }
+.ig-forslag b { display: block; height: 8px; border-radius: 4px; background: var(--kant); }
+.ig-forslag b:nth-of-type(2) { width: 82%; }
+.ig-forslag b:nth-of-type(3) { width: 56%; background: var(--koppar-ljus); }
+@media (max-width: 999px) { .ig-o .p3-o-bild { display: none; } }

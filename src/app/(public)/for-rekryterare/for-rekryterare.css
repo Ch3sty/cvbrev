@@ -60,6 +60,9 @@
 .fr-sida .if-kand-par { margin-top: 0; }
 
 /* Integriteten på sidans mörkaste ton */
+/* Integriteten är ingen Premium-yta: sidans vägg med mörk klack, inte den mörkaste tonen med kopparklack. */
+.p3-premium.fr-integritet { background: var(--vagg); box-shadow: 0 8px 0 var(--vagg-3); }
+.p3-premium.fr-integritet::before { background: var(--vagg-2); }
 .fr-mork { display: grid; gap: 12px; margin-top: 26px; }
 .fr-mork li { padding: 18px 20px; border-radius: 18px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 255, 255, .12); }
 .fr-integritet .fr-mork .p3-h3 { font-size: 17px; color: #fff; }

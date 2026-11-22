@@ -203,7 +203,7 @@ export default function ForRekryterareSida() {
     .map((i) => ({ href: `/for-rekryterare/insikter/${i.slug}`, rubrik: i.title, text: i.description }))
 
   return (
-    <Sida farg="neutral" className="fr-sida">
+    <Sida farg="jobb" className="fr-sida">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 

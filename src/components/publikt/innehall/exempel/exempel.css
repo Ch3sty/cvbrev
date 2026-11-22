@@ -381,7 +381,7 @@
 .ib-byt-bunt { display: flex; align-items: center; padding-left: 5px; flex: none; }
 .ib-byt-bunt i { position: relative; width: 21px; height: 29px; margin-left: -5px; border-radius: 2px; background: #fff; overflow: hidden; box-shadow: 0 0 0 1px rgba(110, 43, 89, .22), 0 4px 6px -3px rgba(58, 25, 48, .45); }
 .ib-byt-bunt i::before { content: ''; position: absolute; }
-.ib-byt-bunt i::after { content: ''; position: absolute; left: 4px; right: 4px; top: 12px; height: 11px; background: repeating-linear-gradient(180deg, #CFC8BC 0 1.5px, transparent 1.5px 4px); }
+.ib-byt-bunt i::after { content: ''; position: absolute; left: 4px; right: 4px; top: 12px; height: 11px; background: repeating-linear-gradient(180deg, #C6C8D2 0 1.5px, transparent 1.5px 4px); }
 .ib-byt-bunt .m1 { transform: rotate(-7deg) translateY(1px); }
 .ib-byt-bunt .m1::before { left: 4px; top: 5px; width: 9px; height: 2.5px; background: #1C1917; border-radius: 1px; }
 .ib-byt-bunt .m2 { transform: rotate(-3.5deg); }

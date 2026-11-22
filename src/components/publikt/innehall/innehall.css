@@ -14,9 +14,9 @@
 
 .pub-sida {
   --ark: #ffffff;
-  --ark-ink: #1c1917;
-  --ark-dim: #6b645e;
-  --ark-kant: #e4ded3;
+  --ark-ink: #1A1A1F;
+  --ark-dim: #5B5B66;
+  --ark-kant: #E0DFE4;
 }
 
 /* ---------------------------------------------------------- hjälten */
@@ -377,7 +377,7 @@
 }
 
 /* Signaturen: författare, specialistområden, datum. Injiceras före FAQ. */
-.ib-signatur { margin: 36px 0 28px; padding: 22px; border-radius: 20px; background: var(--insunken); max-width: 68ch; }
+.ib-signatur { margin: 36px 0 28px; padding: 22px; border-radius: 20px; background: var(--rum-ton, var(--ton, var(--insunken))); max-width: 68ch; }
 .ib-signatur-h { display: flex; gap: 14px; align-items: flex-start; }
 .ib-signatur-h img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
 .ib-signatur-h b { display: block; font-family: var(--display); font-size: 17px; color: var(--ink-1); letter-spacing: -0.01em; }
@@ -553,7 +553,7 @@
   text-decoration: none;
   color: var(--vagg-ink);
 }
-.ib-filter a em { font-style: normal; font-size: 12px; color: var(--vagg-mjuk); }
+.ib-filter a em { font-style: normal; font-size: 12px; color: var(--vagg-ink); opacity: .86; }
 .ib-filter a.aktiv { background: #fff; color: var(--rum-vagg); border-color: #fff; }
 .ib-filter a.aktiv em { color: var(--rum-vagg); }
 /* Situationsraden på galleriorna (K6, 2026-11-14), ovanför branschfiltret. */

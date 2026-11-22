@@ -6,7 +6,7 @@
 
 import './v3.css'
 
-export { FARGER, FARG_NAMN, fargForSokvag, type Farg } from './farg'
+export { FARGER, FARG_NAMN, FARG_OVRIGT, fargForSokvag, type Farg } from './farg'
 export { Sida } from './Sida'
 export { Hjalte, Lyft, Brodsmulor, brodsmulorSchema, type Brodsmula } from './Hjalte'
 export { Sektion, SektionHuvud, type SektionBotten } from './Sektion'

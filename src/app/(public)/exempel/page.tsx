@@ -101,7 +101,7 @@ export default function ExempelPage() {
   }
 
   return (
-    <Sida farg="neutral">
+    <Sida>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

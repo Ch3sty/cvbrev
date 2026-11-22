@@ -84,7 +84,7 @@ function BaddaPanel({ slug, titel }: { slug: string; titel: string }) {
         value={snutt}
         rows={6}
         onFocus={(e) => e.currentTarget.select()}
-        className="w-full rounded-lg border border-[var(--kant-stark,#C4C3CB)] bg-[var(--papper-2,#F4F3F0)] p-3 font-mono text-xs text-[var(--ink-1,#1A1A1F)] focus:border-[var(--koppar-ink,#A8491A)] focus:outline-none"
+        className="w-full rounded-lg border border-[var(--kant-stark,#C4C3CB)] bg-[var(--papper-2,#F1F6F1)] p-3 font-mono text-xs text-[var(--ink-1,#1A1A1F)] focus:border-[var(--koppar-ink,#A8491A)] focus:outline-none"
       />
       <button
         type="button"

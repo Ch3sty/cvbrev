@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function KontaktPage() {
   return (
-    <Sida farg="neutral">
+    <Sida>
       <PubliktSida>
         <main>
           <Hjalte

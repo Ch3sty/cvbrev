@@ -63,7 +63,7 @@ const MILSTOLPAR: Steg[] = [
     period: 'Vintern 2024',
     rubrik: 'cvbrev.se blev Jobbcoach.ai',
     text: 'Det nya namnet speglar det större uppdraget: en partner genom hela jobbsöket, från första utkastet till första anställningsdagen.',
-    farg: 'neutral',
+    farg: 'tran',
     bild: (
       <span className="oo-namn">
         <s>cvbrev.se</s>

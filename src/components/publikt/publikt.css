@@ -1659,7 +1659,7 @@ a.pub-mall-mer {
 .prov-rum {
   --koppar: #E07A2F; --koppar-ink: #A8491A; --koppar-djup: #C4621F; --koppar-ljus: #F4B98A; --koppar-text: #1A1206; --koppar-mjuk: #FBE3D0;
   --ink-1: #1A1A1F; --ink-2: #4A4A55; --ink-3: #65656E; --ink-hover: #2E2E36;
-  --papper: #FFFFFF; --papper-2: #F4F3F0; --kant: #E3E1DC; --kant-stark: #C9C6BF;
+  --papper: #FFFFFF; --papper-2: #F3F4FB; --kant: #D5DAF0; --kant-stark: #B9C1E6;
   --positiv: #2F7D5B; --positiv-mjuk: #DCEFE5; --fel: #B3382E; --fel-mjuk: #F8E1DE; --fel-kant: #F0C7C2; --fel-morker: #7A2219;
   --fokus: var(--koppar-ink);
   --lyft: 0 1px 2px rgba(20, 20, 40, 0.05), 0 10px 24px -14px rgba(20, 20, 40, 0.18);

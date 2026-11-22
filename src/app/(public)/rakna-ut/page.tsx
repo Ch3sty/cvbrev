@@ -292,7 +292,7 @@ export default function Page() {
         </Sektion>
 
         {/* 4. För dig som anställer */}
-        <Sektion botten="papper" farg="neutral" id="for-dig-som-anstaller" aria-label="För dig som anställer">
+        <Sektion botten="papper" id="for-dig-som-anstaller" aria-label="För dig som anställer">
           <SektionHuvud
             rubrik="För dig som anställer"
             varde="Siffrorna som bär ett rekryteringsbeslut, räknade på era egna förutsättningar."

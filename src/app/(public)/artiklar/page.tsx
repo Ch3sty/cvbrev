@@ -194,7 +194,7 @@ export default async function ArticlesIndexPage({
 
   // Publikt omgång 3: grundens skal i grafit (listan har ingen egen del).
   return (
-    <Sida farg="neutral">
+    <Sida>
     <PubliktSida>
       <script
         type="application/ld+json"

@@ -1,171 +1,125 @@
-'use client'
+/**
+ * /integrationer, publikt omgång 3. Utseendegranskning 2 (2026-11-22): sidan
+ * stod på golvet utan vägg, med ikoner i små rutor och emoji som bilder.
+ * Nu har den grundens form: hjälten på väggen med en kopplingsbild, läget
+ * som lyft kort, de fyra integrationerna som kort i var sin färg, de tre
+ * vinsterna som numrerade kort och förslaget som en ö. Rubrikerna (h1, två
+ * h2, sju h3), texterna och länken till /kontakt är desamma som förut, ord
+ * för ord. Serverkomponent, utan framer-motion och utan emoji.
+ */
+import { Briefcase, Linkedin, Mail, Users } from 'lucide-react'
+import type { ComponentType, SVGProps } from 'react'
+import { Sida, Hjalte, Lyft, Sektion, Rutnat, Kort, Chip, Nr, O, Knapp, Ikon, type Farg } from '@/components/publikt/v3'
+import './integrationer.css'
 
-import { Puzzle, Linkedin, Briefcase, Mail, Users } from 'lucide-react'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { Sida } from '@/components/publikt/v3/Sida'
+type Integration = {
+  icon: ComponentType<SVGProps<SVGSVGElement>>
+  name: string
+  description: string
+  status: string
+  farg: Farg
+}
+
+const FUTURE_INTEGRATIONS: Integration[] = [
+  { icon: Linkedin, name: 'LinkedIn', description: 'Importera profil och optimera för jobbsökning', status: 'Planerad Q2 2026', farg: 'cv' },
+  { icon: Briefcase, name: 'Arbetsförmedlingen', description: 'Sök jobb direkt från plattformen', status: 'Under utveckling', farg: 'jobb' },
+  { icon: Mail, name: 'Gmail & Outlook', description: 'Skicka personliga brev direkt från din e-post', status: 'Planerad Q3 2026', farg: 'brev' },
+  { icon: Users, name: 'ATS-system', description: 'Integration med Applicant Tracking Systems', status: 'Enterprise-funktion', farg: 'tran' },
+]
+
+const VINSTER = [
+  { rubrik: 'Snabbare arbetsflöde', text: 'Importera data automatiskt och spara tid' },
+  { rubrik: 'Bättre matchning', text: 'Vi anpassar innehållet efter jobbannonsen' },
+  { rubrik: 'Mät resultat', text: 'Följ upp ansökningar och optimera strategi' },
+]
+
+/** Kopplingsbilden i hjälten: Jobbcoach i mitten, de fyra verktygen runt om. Dekor. */
+function Kopplingar() {
+  return (
+    <div className="ig-bild" aria-hidden="true">
+      <svg className="ig-linjer" viewBox="0 0 400 300" fill="none" preserveAspectRatio="none">
+        <path d="M200 150 L66 62 M200 150 L334 62 M200 150 L66 238 M200 150 L334 238" stroke="currentColor" strokeWidth="3" strokeDasharray="1 10" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      </svg>
+      {FUTURE_INTEGRATIONS.map((i, n) => (
+        <span key={i.name} className={`ig-nod ig-nod-${n + 1}`} data-p3-farg={i.farg}>
+          <i.icon />
+        </span>
+      ))}
+      <span className="ig-mitt">
+        <i>J</i>
+      </span>
+    </div>
+  )
+}
 
 export default function IntegrationsPage() {
-  const futureIntegrations = [
-    {
-      icon: Linkedin,
-      name: "LinkedIn",
-      description: "Importera profil och optimera för jobbsökning",
-      status: "Planerad Q2 2026"
-    },
-    {
-      icon: Briefcase,
-      name: "Arbetsförmedlingen",
-      description: "Sök jobb direkt från plattformen",
-      status: "Under utveckling"
-    },
-    {
-      icon: Mail,
-      name: "Gmail & Outlook",
-      description: "Skicka personliga brev direkt från din e-post",
-      status: "Planerad Q3 2026"
-    },
-    {
-      icon: Users,
-      name: "ATS-system",
-      description: "Integration med Applicant Tracking Systems",
-      status: "Enterprise-funktion"
-    }
-  ]
-
   return (
-    <Sida farg="neutral" className="min-h-screen">
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* Header */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="w-20 h-20 mx-auto mb-8 bg-[var(--vagg)] rounded-2xl flex items-center justify-center shadow-lg"
-            >
-              <Puzzle className="w-10 h-10 text-[var(--vagg-ink)]" />
-            </motion.div>
+    <Sida>
+      <main>
+        <Hjalte h1="Integrationer" varde="Koppla samman Jobbcoach.ai med de verktyg du redan använder" bild={<Kopplingar />} lyft />
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-4xl md:text-5xl font-bold text-[var(--ink-1)] mb-6"
-            >
-              Integrationer
-            </motion.h1>
+        <Lyft className="ig-lage">
+          <h2 className="p3-h2">Integrationer under utveckling</h2>
+          <p className="p3-varde">
+            Vi arbetar på att skapa sömlösa kopplingar till de mest populära verktygen för jobbsökning och karriärutveckling i Sverige
+          </p>
+        </Lyft>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-[var(--ink-2)] mb-8 leading-relaxed"
-            >
-              Koppla samman Jobbcoach.ai med de verktyg du redan använder
-            </motion.p>
-          </div>
-
-          {/* Current Status */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="bg-[var(--papper)] rounded-[22px] border-2 border-b-[6px] border-[var(--kant)] p-8 mb-12 shadow-sm text-center"
-          >
-            <h2 className="text-2xl font-bold text-[var(--ink-1)] mb-4">Integrationer under utveckling</h2>
-            <p className="text-[var(--ink-2)] leading-relaxed">
-              Vi arbetar på att skapa sömlösa kopplingar till de mest populära verktygen för jobbsökning och karriärutveckling i Sverige
-            </p>
-          </motion.div>
-
-          {/* Future Integrations */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="grid md:grid-cols-2 gap-6 mb-12"
-          >
-            {futureIntegrations.map((integration, index) => (
-              <motion.div
-                key={integration.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.1, duration: 0.6 }}
-                className="bg-[var(--papper)] rounded-[22px] border-2 border-b-[6px] border-[var(--kant)] p-6 shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[var(--vagg)] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <integration.icon className="w-6 h-6 text-[var(--vagg-ink)]" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-[var(--ink-1)] mb-2">{integration.name}</h3>
-                    <p className="text-[var(--ink-2)] text-sm mb-3">{integration.description}</p>
-                    <span className="inline-block bg-[var(--ton)] text-[var(--ton-ink)] text-xs px-3 py-1 rounded-full font-medium">
-                      {integration.status}
-                    </span>
-                  </div>
+        <Sektion>
+          <Rutnat kolumner={2}>
+            {FUTURE_INTEGRATIONS.map((integration) => (
+              <Kort key={integration.name} farg={integration.farg} className="ig-kort">
+                <span className="ig-ikon" aria-hidden="true">
+                  <integration.icon />
+                </span>
+                <div>
+                  <h3 className="p3-h3">{integration.name}</h3>
+                  <p>{integration.description}</p>
+                  <Chip>{integration.status}</Chip>
                 </div>
-              </motion.div>
+              </Kort>
             ))}
-          </motion.div>
+          </Rutnat>
+        </Sektion>
 
-          {/* Integration Benefits */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="grid md:grid-cols-3 gap-6 mb-12"
-          >
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-[var(--vagg-ink)] font-bold text-xl">🚀</span>
-              </div>
-              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Snabbare arbetsflöde</h3>
-              <p className="text-[var(--ink-2)] text-sm">Importera data automatiskt och spara tid</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-[var(--vagg-ink)] font-bold text-xl">🎯</span>
-              </div>
-              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Bättre matchning</h3>
-              <p className="text-[var(--ink-2)] text-sm">Vi anpassar innehållet efter jobbannonsen</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-[var(--vagg-ink)] font-bold text-xl">📈</span>
-              </div>
-              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Mät resultat</h3>
-              <p className="text-[var(--ink-2)] text-sm">Följ upp ansökningar och optimera strategi</p>
-            </div>
-          </motion.div>
+        <Sektion botten="papper">
+          <Rutnat kolumner={3}>
+            {VINSTER.map((v, n) => (
+              <Kort key={v.rubrik} ton className="ig-vinst">
+                <Nr typ="koppar">{n + 1}</Nr>
+                <h3 className="p3-h3">{v.rubrik}</h3>
+                <p>{v.text}</p>
+              </Kort>
+            ))}
+          </Rutnat>
+        </Sektion>
 
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-            className="bg-[var(--ton)] rounded-[22px] border-2 border-[var(--kant-stark)] p-8 text-center"
-          >
-            <h2 className="text-2xl font-bold text-[var(--ink-1)] mb-4">Vill du föreslå en integration?</h2>
-            <p className="text-[var(--ink-2)] mb-6">
-              Berätta vilket verktyg du använder så prioriterar vi utvecklingen
-            </p>
-            <Link
-              href="/kontakt"
-              className="inline-flex items-center gap-2 bg-[var(--koppar)] text-[var(--koppar-text)] px-8 py-4 rounded-2xl font-semibold shadow-[0_4px_0_var(--koppar-klack)] hover:bg-[var(--koppar-topp)] transition-colors min-h-[48px]"
-            >
-              Föreslå integration
-            </Link>
-          </motion.div>
-        </motion.div>
+        <Sektion>
+          <O
+            farg="jobb"
+            className="ig-o"
+            ikon={false}
+            som="div"
+            rubrikNiva="h2"
+            rubrik="Vill du föreslå en integration?"
+            varde="Berätta vilket verktyg du använder så prioriterar vi utvecklingen"
+            knappar={
+              <Knapp href="/kontakt" pil>
+                Föreslå integration
+              </Knapp>
+            }
+            bild={
+              <div className="ig-forslag" aria-hidden="true">
+                <span>
+                  <Ikon namn="upp" />
+                </span>
+                <b />
+                <b />
+                <b />
+              </div>
+            }
+          />
+        </Sektion>
       </main>
     </Sida>
   )

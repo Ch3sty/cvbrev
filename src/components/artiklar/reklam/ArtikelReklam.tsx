@@ -36,6 +36,7 @@ import {
   Traff,
   TraffRad,
   SARA_FLER_TRAFFAR,
+  FARG_OVRIGT,
   type Farg,
   type IkonNamn,
 } from '@/components/publikt/v3'
@@ -75,7 +76,8 @@ function matning(position: string, cluster: CtaCluster | 'lista', variant: strin
 /** Klustrets färg i grunden (artikelns topp och menyn, beslut 8). */
 export function fargForKluster(cluster: CtaCluster): Farg {
   const rum = KLUSTER_RUM[cluster]
-  return rum === 'neu' ? 'neutral' : (rum as Farg)
+  // Inget kluster står i grafit (ägaren 2026-11-22): utan egen del gäller indigo.
+  return rum === 'neu' ? FARG_OVRIGT : rum
 }
 
 /* ------------------------------------------------------------- rutan */

@@ -270,7 +270,7 @@ const ALLA: VerktygRad[] = [
   { href: '/verktyg/sokta-tjanster', rubrik: 'Sökta tjänster', text: 'Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Gratis för alla med konto.', farg: 'jobb', klass: 'fn-ny' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv tackar ja.', farg: 'jobb' },
   { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och med källor du kan kolla själv.', farg: 'jobb' },
-  { href: '/rakna-ut', rubrik: 'Räkna ut lön och skatt', text: `${storForst(talOrd(RAKNA_UT_SLUGGAR.length))} kalkylatorer på Skatteverkets tabeller.`, farg: 'neutral', klass: 'fn-sist' },
+  { href: '/rakna-ut', rubrik: 'Räkna ut lön och skatt', text: `${storForst(talOrd(RAKNA_UT_SLUGGAR.length))} kalkylatorer på Skatteverkets tabeller.`, farg: 'jobb', klass: 'fn-sist' },
 ]
 
 export const FUNKTIONER_FAQ = [

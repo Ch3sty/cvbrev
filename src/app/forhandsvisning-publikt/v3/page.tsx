@@ -159,7 +159,7 @@ function FargProv({ farg }: { farg: Farg }) {
             </KortBild>
             <h3 className="p3-h3">Med bildyta</h3>
           </Kort>
-          <LankBricka href="#" farg={farg === 'neutral' ? 'tran' : farg} rubrik="Länkbrickan" text="Dörr i delens färg och en rad om vad man får." />
+          <LankBricka href="#" farg={farg} rubrik="Länkbrickan" text="Dörr i delens färg och en rad om vad man får." />
         </Rutnat>
         <div style={{ marginTop: 40 }}>
           <VagSteg

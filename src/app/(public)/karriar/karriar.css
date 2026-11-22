@@ -1,4 +1,19 @@
-/* /karriar, publikt omgång 3. */
+/* /karriar, publikt omgång 3 (utseendegranskning 2, 2026-11-22). Prefix ka-. */
 .ka-snart { display: block; color: var(--koppar-ljus); }
-.ka-ikon { width: 32px; height: 32px; color: var(--ton-ink); }
-.ka-slut { margin-top: 32px; display: grid; gap: 14px; }
+
+/* hjälten: det vi bygger */
+.ka-hbild { width: 100%; max-width: 440px; margin: 0 auto; min-width: 0; }
+.ka-hbild > .p3-tram { transform: rotate(1.5deg); }
+@media (max-width: 999px) { .ka-hbild { max-width: 340px; } }
+
+/* de två korten, var sin färg */
+.ka-kort { border-color: var(--kant-stark); }
+.ka-platta { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 5px 0 var(--vagg-3); }
+.ka-ikon { width: 30px; height: 30px; }
+.ka-kort .p3-h3 { margin-top: 18px; }
+
+/* vägen till kontakt */
+.ka-slut { margin-top: 28px; display: grid; gap: 14px; padding: 24px; border-radius: var(--r-kort, 22px); background: var(--ton); border: 2px solid var(--kant-stark); }
+.ka-slut .p3-liten { color: var(--ton-ink); }
+@media (min-width: 900px) { .ka-slut { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 28px; padding: 28px 32px; } }
+@media (max-width: 479px) { .ka-slut .p3-knapp { white-space: normal; text-align: center; min-height: 56px; padding-top: 10px; padding-bottom: 10px; } }

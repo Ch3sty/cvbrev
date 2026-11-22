@@ -78,7 +78,7 @@
 .p3-mm-matris svg { width: 56%; height: 56%; }
 .p3-mm-matris .p3-tom { background: none; border: 2.5px dashed #E07A2F; color: #A8491A; font-family: var(--disp, var(--font-display)), sans-serif; font-weight: 800; font-size: 20px; }
 .p3-mm-blad { max-width: 190px; padding: 12px; border-radius: 8px; background: #fff; box-shadow: 0 4px 0 var(--kant-stark); }
-.p3-mm-blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DCDAD5; }
+.p3-mm-blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DADCE4; }
 .p3-mm-blad i:first-child { margin-top: 0; width: 44%; background: var(--vagg-svag); }
 .p3-mm-blad i.p3-m { background: #F4B98A; width: 72%; }
 .p3-mm-blad i.p3-k { width: 50%; }
@@ -88,7 +88,7 @@
 .p3-mm-prem p { margin: 0 auto 0 0; max-width: 43ch; font-size: 14.5px; line-height: 1.45; color: var(--vagg-mjuk); }
 .p3-mm-prem p b { display: block; font-family: var(--disp, var(--font-display)), sans-serif; font-size: 19px; letter-spacing: -0.01em; color: #fff; }
 .p3-knapp-glas-ram { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 13px; font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; color: #fff; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .26); box-shadow: 0 4px 0 rgba(0, 0, 0, .28); }
-.p3-mm-mer { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 2px 4px; padding: 8px 10px; border-radius: 22px; background: #F4F3F0; }
+.p3-mm-mer { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 2px 4px; padding: 8px 10px; border-radius: 22px; background: var(--ton); }
 .p3-mm-mer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; color: #1A1A1F; }
 .p3-mm-mer a:hover { background: #fff; }
 
@@ -130,7 +130,7 @@
 .kampanj-rad.p3-kampanj:focus-visible { outline-color: var(--koppar-ink, #A8491A); }
 
 /* ---------- foten: sidans mörkaste ton ---------- */
-:root:not(:has([data-p3-sida], [data-p3-sokvag])) .p3-fot { --vagg-3: #1A1A1F; --vagg-2: #36363E; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; }
+:root:not(:has([data-p3-sida], [data-p3-sokvag])) .p3-fot { --vagg-3: #121737; --vagg-2: #2B3470; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; }
 .p3-fot { background: var(--vagg-3); color: var(--vagg-mjuk); padding: 56px 0 32px; font-size: 15px; line-height: 1.55; font-family: Inter, system-ui, sans-serif; }
 .p3-fot-rad { display: grid; gap: 36px; }
 .p3-fot-rubrik { margin: 0 0 12px; font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--vagg-mjuk); }

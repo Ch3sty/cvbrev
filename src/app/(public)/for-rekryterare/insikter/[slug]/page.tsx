@@ -112,7 +112,7 @@ export default async function InsiktPage({ params }: Props) {
   // datum står på väggen; brödtexten på ett papperskort på golvet. Rubriker,
   // text, länkar och schema som förut.
   return (
-    <Sida farg="neutral">
+    <Sida farg="jobb">
     <main>
       <script
         type="application/ld+json"
