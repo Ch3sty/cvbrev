@@ -212,6 +212,8 @@ export default function JobbcoachenSida() {
         {/* 1. Hjälten: samtalet i stor skala */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

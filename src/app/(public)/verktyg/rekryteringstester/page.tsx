@@ -701,6 +701,8 @@ export default function RekryteringstesterSida() {
         {/* 1. Hjälten: uppgiften i ramen, resultatet och förklaringen svävar över */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

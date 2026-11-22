@@ -281,6 +281,8 @@ export default function SkapaCvSida() {
         {/* 1. Hjälten: arket som det ser ut i byggaren */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

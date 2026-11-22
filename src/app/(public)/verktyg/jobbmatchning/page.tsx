@@ -260,6 +260,8 @@ export default function JobbmatchningSida() {
         {/* 1. Hjälten: Matchade jobb som i kontot */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

@@ -151,6 +151,8 @@ export default function CVAnalysSida() {
             (SEO avsnitt 6), första ledet formas som etikett. */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

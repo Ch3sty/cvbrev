@@ -61,6 +61,8 @@
 .bx-marken { display: flex; flex-wrap: wrap; gap: 6px; }
 .bx-marken span { display: inline-grid; place-items: center; min-height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-size: 13.5px; font-weight: 700; }
 html[data-brevvisare-oppen] .bx-marken { display: none; }
+html[data-brevvisare-oppen] .bx-alla-mallar { display: none; }
+.bx-fotrad .bx-alla-mallar { display: inline-flex; align-items: center; min-height: 44px; color: var(--vagg-ink); }
 .bx-fotrad .ib-valjare { flex-basis: 100%; order: -1; }
 .bx-yta .mv-hall { margin: 0; }
 .bx-yta .mv { border-color: transparent; }

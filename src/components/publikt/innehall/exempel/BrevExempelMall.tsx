@@ -276,6 +276,10 @@ export default function BrevExempelMall({
                 <span>En A4</span>
                 <span>Cirka {ord} ord</span>
               </p>
+              {/* Länken till alla brevmallar står i serverns HTML också när visaren är stängd (SEO:s slutbesked, punkt 54 och kontrollistan punkt 6). Visaren har en egen när den är öppen. */}
+              <TextLank href={brevValjare.alla!.href} className="bx-alla-mallar">
+                {brevValjare.alla!.text}
+              </TextLank>
             </div>
           </div>
           <aside className="bx-noter" aria-label="Rekryterarens kommentarer">

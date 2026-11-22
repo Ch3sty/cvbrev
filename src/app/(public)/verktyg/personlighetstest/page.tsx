@@ -183,6 +183,8 @@ export default function PersonlighetstestSida() {
 
       <Sida farg="tran" className="pt-sida">
         <Hjalte
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Verktyg', href: '/funktioner' },

@@ -142,6 +142,8 @@ export default function BliUpptacktSida() {
         {/* 1. Hjälten: reglaget, kandidatkortet och förfrågan */}
         <Hjalte
           id="hjalte"
+          // Baslinjen har ingen BreadcrumbList här; schemat ändras bara med SEO:s ja.
+          brodsmulorSchema={false}
           brodsmulor={[
             { name: 'Hem', href: '/' },
             { name: 'Bli upptäckt', href: '/verktyg/bli-upptackt' },
