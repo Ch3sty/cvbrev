@@ -61,6 +61,7 @@ import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artik
 import { GratisKort, InlineKort, JobbKort, ProvKort, SidoJobbKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import { JOBB_KORT, JOBB_KORT_SLUGAR, JOBB_SKAL_SLUGAR, TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 // De tre artiklarna 2026-11 (docs/artiklar-2026-11/seo-slutgranskning.md, H, J och K).
+import CvOchBrevPar from '@/components/artiklar/CvOchBrevPar';
 import LoggaSoktJobb from '@/components/artiklar/LoggaSoktJobb';
 import ManadsbladArtikel from '@/components/artiklar/ManadsbladArtikel';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
@@ -526,6 +527,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ArtikelProv: (p: { typ: string }) => <ArtikelProv typ={p.typ} slug={slug} cluster={cluster} />,
         // CV och brev i samma mall (byggordern H), arket och månadsbladet i
         // artikeln om aktivitetsrapporten (J och K).
+        CvOchBrevPar: () => <CvOchBrevPar slug={slug} />,
         LoggaSoktJobb: () => <LoggaSoktJobb slug={slug} />,
         ManadsbladArtikel: ManadsbladArtikel,
         // Premiumpriset ur PLANS i löptext: "149 kr i månaden", under en

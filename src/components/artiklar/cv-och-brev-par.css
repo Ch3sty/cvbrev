@@ -1,0 +1,137 @@
+/* ==========================================================================
+   <CvOchBrevPar />: CV och personligt brev i samma mall, sida vid sida
+   (byggordern H, docs/artiklar-2026-11/seo-slutgranskning.md). Allt under
+   .cbp-hall. Smalt läge är grundläget; brett läge från 700 px behållarbredd.
+   Grunden: rummets färger (plommon via data-p3-farg="brev"), koppar bara på
+   knappen, klack i stället för skugga, bara tokens. Rörelse bara transform
+   och opacity, allt av vid reduced motion.
+   ========================================================================== */
+
+.cbp-hall { container: cbp / inline-size; margin: 28px 0 36px; }
+.cbp-hall .cbp { padding: 14px; color: var(--ink-1); }
+.cbp-hall .cbp > * + * { margin-top: 0; }
+.cbp-in { display: grid; gap: 14px; min-width: 0; }
+.cbp-in > * { min-width: 0; }
+.cbp-in p { margin: 0; }
+
+/* Raden ovanför arken: namnet, Gratis eller Premium, formatet. */
+.cbp-huvud { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; min-height: 32px; }
+.cbp-huvud strong { font-family: var(--disp); font-weight: 800; font-size: 20px; line-height: 1.2; letter-spacing: -.015em; color: var(--ink-1); }
+.cbp-format { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+
+/* Scenen: brevrummets vägg, arken som två papper på bordet. */
+.cbp-scen {
+  position: relative;
+  padding: 14px 10px 22px;
+  border-radius: 18px;
+  background: radial-gradient(120% 90% at 85% 0%, var(--vagg-2) 0%, var(--vagg) 62%);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.cbp-par { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: end; }
+.cbp-ark { display: grid; gap: 7px; min-width: 0; }
+.cbp-etikett { justify-self: start; display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 999px; background: var(--vagg-3); color: var(--vagg-ink); font-size: 12px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
+.cbp-papper {
+  position: relative; display: block; width: 100%;
+  /* Brevets mått; CV-bilden (300 x 424) har nästan samma proportion och fyller samma höjd. */
+  aspect-ratio: 480 / 679;
+  border-radius: 3px; overflow: hidden;
+  background: var(--papper);
+  box-shadow: 0 6px 0 var(--vagg-3);
+  transition: transform .2s ease;
+}
+.cbp-ark-cv .cbp-papper { transform: rotate(-1deg); }
+.cbp-ark-brev .cbp-papper { transform: rotate(1deg); }
+@media (hover: hover) {
+  .cbp-scen:hover .cbp-ark-cv .cbp-papper { transform: rotate(-1deg) translateY(-3px); }
+  .cbp-scen:hover .cbp-ark-brev .cbp-papper { transform: rotate(1deg) translateY(-3px); }
+}
+.cbp-papper img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; }
+.cbp-papper img.cbp-ny { opacity: 0; }
+.cbp-papper img.cbp-tona { animation: cbp-in .22s ease-out both; }
+.cbp-in[aria-busy='true'] .cbp-papper img.cbp-gammal { opacity: .35; }
+@keyframes cbp-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Medan paret laddas: en kopparlinje under arken. */
+.cbp-laddar { position: absolute; left: 0; right: 0; bottom: -14px; height: 3px; overflow: hidden; border-radius: 3px; }
+.cbp-laddar::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 40%; border-radius: 3px; background: var(--koppar); animation: cbp-lopp .9s ease-in-out infinite; }
+@keyframes cbp-lopp { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+/* Kantpilarna: föregående och nästa mall, 44 px. */
+.cbp-kant {
+  position: absolute; top: 50%; z-index: 2;
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border-radius: 999px; border: 2px solid var(--kant-stark);
+  background: var(--papper); color: var(--ink-1);
+  box-shadow: 0 4px 0 var(--vagg-3);
+  cursor: pointer; transform: translateY(-50%);
+  -webkit-tap-highlight-color: transparent;
+}
+.cbp-kant svg { width: 20px; height: 20px; }
+.cbp-kant-v { left: 4px; }
+.cbp-kant-h { right: 4px; }
+.cbp-kant:active { transform: translateY(calc(-50% + 3px)); box-shadow: 0 1px 0 var(--vagg-3); }
+.cbp-kant:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+
+/* Raden om fotot: reserverad höjd, så att inget hoppar när den kommer och går. */
+.cbp-foto { min-height: 40px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+
+/* Mallraden: telefonen rullar raden i sig själv, aldrig sidan. */
+.cbp-rad {
+  display: flex; gap: 10px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding: 0 4px;
+  margin: -4px -14px 0; padding: 4px 14px 6px;
+  scrollbar-width: none;
+}
+.cbp-rad::-webkit-scrollbar { display: none; }
+.cbp-mini {
+  flex: 0 0 64px; scroll-snap-align: start;
+  appearance: none; background: none; border: 0; margin: 0; padding: 0; font: inherit; color: inherit; cursor: pointer;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: center; min-width: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.cbp-mini-bild {
+  position: relative; display: block; width: 100%; aspect-ratio: 112 / 158;
+  border-radius: 6px; overflow: hidden; background: var(--papper);
+  border: 2px solid var(--kant);
+  transition: transform .16s ease, border-color .16s ease;
+}
+.cbp-mini-bild img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.cbp-mini-namn { font-size: 12px; font-weight: 600; line-height: 1.25; color: var(--ink-3); white-space: nowrap; }
+@media (hover: hover) { .cbp-mini:hover .cbp-mini-bild { transform: translateY(-2px); border-color: var(--kant-stark); } }
+.cbp-mini[aria-pressed='true'] .cbp-mini-bild { border-width: 3px; border-color: var(--kant-stark); box-shadow: 0 4px 0 var(--kant-stark); transform: translateY(-2px); }
+.cbp-mini[aria-pressed='true'] .cbp-mini-namn { color: var(--ink-1); font-weight: 700; }
+.cbp-mini:focus-visible { outline: 3px solid var(--koppar); outline-offset: 3px; border-radius: 6px; }
+
+/* Knappen och textlänken: telefonen staplar, knappen tar hela bredden. */
+.cbp-handling { display: grid; gap: 6px; justify-items: start; }
+.cbp-handling .cbp-knapp { width: 100%; white-space: normal; min-height: 56px; padding: 12px 20px; }
+.cbp-cvlank, .cbp-alla { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 15.5px; color: var(--ink-1); }
+.cbp-fot { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+.cbp-alla { justify-self: start; margin-top: -6px; }
+
+/* Brett läge, från 700 px behållarbredd. */
+@container cbp (min-width: 700px) {
+  .cbp-hall .cbp { padding: 22px; }
+  .cbp-in { gap: 16px; }
+  .cbp-huvud strong { font-size: 22px; }
+  .cbp-scen { padding: 22px 64px 30px; }
+  .cbp-par { gap: 16px; }
+  .cbp-etikett { font-size: 13px; }
+  .cbp-kant-v { left: 10px; }
+  .cbp-kant-h { right: 10px; }
+  .cbp-foto { min-height: 22px; }
+  .cbp-rad { overflow: visible; margin: 0; padding: 4px 0 0; scroll-snap-type: none; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+  .cbp-mini { flex: none; }
+  .cbp-handling { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  .cbp-handling .cbp-knapp { width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cbp-papper, .cbp-mini-bild, .cbp-kant { transition: none; }
+  .cbp-papper img.cbp-tona { animation: none; }
+  .cbp-laddar::before { animation: none; width: 100%; }
+  .cbp-ark-cv .cbp-papper, .cbp-ark-brev .cbp-papper { transform: none; }
+}
