@@ -58,10 +58,11 @@
 .cbp-laddar::before { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 40%; border-radius: 3px; background: var(--koppar); animation: cbp-lopp .9s ease-in-out infinite; }
 @keyframes cbp-lopp { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 
-/* Kantpilarna: föregående och nästa mall, 44 px. */
+/* Kantpilarna: föregående och nästa mall, 44 px. Bara i brett läge; i telefonen
+   täckte de arkens mitt, där byter svepet och mallraden. */
 .cbp-kant {
   position: absolute; top: 50%; z-index: 2;
-  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  display: none; place-items: center; width: 44px; height: 44px; padding: 0;
   border-radius: 999px; border: 2px solid var(--kant-stark);
   background: var(--papper); color: var(--ink-1);
   box-shadow: 0 4px 0 var(--vagg-3);
@@ -120,6 +121,7 @@
   .cbp-scen { padding: 22px 64px 30px; }
   .cbp-par { gap: 16px; }
   .cbp-etikett { font-size: 13px; }
+  .cbp-kant { display: grid; }
   .cbp-kant-v { left: 10px; }
   .cbp-kant-h { right: 10px; }
   .cbp-foto { min-height: 22px; }
