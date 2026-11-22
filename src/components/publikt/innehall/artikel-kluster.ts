@@ -10,6 +10,7 @@
 
 import type { CtaCluster, InlineVerktyg } from '@/lib/cta/clusters'
 import { INLINE } from '@/components/artiklar/reklam/reklam-copy'
+import { arProvTyp, provAntal } from '@/lib/tests/prov-typer'
 import type { RumNamn } from '../telefon/Telefon'
 
 export const PROVA_HREF = '/verktyg/rekryteringstester/prova'
@@ -41,8 +42,35 @@ export const KLUSTER_ETIKETT: Record<CtaCluster, string> = {
  */
 export const FRAGA_COACHEN = { text: 'Fråga Jobbcoachen', href: '/verktyg/jobbcoachen' } as const
 
-export function hjalteKnapp(cluster: CtaCluster, verktyg: InlineVerktyg): { text: string; href: string } | null {
-  if (cluster === 'test') return { text: 'Prova fem uppgifter gratis', href: PROVA_HREF }
+const ANTAL_ORD: Readonly<Record<number, string>> = { 5: 'fem', 6: 'sex' }
+
+/**
+ * Hjältens prov i testklustret (saas-lead och SEO 2026-11-22,
+ * docs/artiklar-2026-11/brief-spatial-formaga.md 10.4 och 11.2): provet i
+ * artikelns egen typ, läst ur första <ArtikelProv typ>. Matris och artiklar
+ * utan prov behåller exakt adressen utan parameter. I-provet har sex uppgifter.
+ */
+export function provHjalte(provTyp: string | null | undefined): { text: string; href: string } {
+  if (!provTyp || !arProvTyp(provTyp) || provTyp === 'matris') {
+    return { text: 'Prova fem uppgifter gratis', href: PROVA_HREF }
+  }
+  return {
+    text: `Prova ${ANTAL_ORD[provAntal(provTyp)]} uppgifter gratis`,
+    href: `${PROVA_HREF}?typ=${provTyp}`,
+  }
+}
+
+/** Typen i artikelns första <ArtikelProv typ="...">, eller null. */
+export function artikelProvTyp(mdx: string): string | null {
+  return mdx.match(/<ArtikelProv\b[^>]*?\btyp="([a-z-]+)"/)?.[1] ?? null
+}
+
+export function hjalteKnapp(
+  cluster: CtaCluster,
+  verktyg: InlineVerktyg,
+  provTyp?: string | null
+): { text: string; href: string } | null {
+  if (cluster === 'test') return provHjalte(provTyp)
   if (verktyg === 'raknare' || verktyg === 'lankrad') return { ...FRAGA_COACHEN }
   // Intervjuklustrets inline-kort är provkortet sedan S6 (2026-11-15), men
   // hjälteknappen står kvar på Jobbcoachen: en ändring i taget.

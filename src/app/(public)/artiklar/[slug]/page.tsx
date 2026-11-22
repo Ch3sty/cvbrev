@@ -70,7 +70,7 @@ import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
 import { MatrisUppgift, MatrisFacit } from '@/components/artiklar/MatrisUppgift';
 // Talserier, spatial förmåga och ordförråd som lösta uppgifter (SEO-planen 2026-11-10).
 import { TalserieUppgift, SpatialUppgift, SpatialFacit, OrdUppgift } from '@/components/artiklar/Steg2Uppgift';
-import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
+import { KLUSTER_ETIKETT, artikelProvTyp, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
 import { CvMallVisning } from '@/components/artiklar/MallVisningar';
 // Brevets mallvisare (byggspecen våg 2, 2026-11-21): serverrenderad, första vyn utan JavaScript.
@@ -652,7 +652,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 cluster={cluster}
                 paket={paket}
                 relaterade={relaterade}
-                primar={hjalteKnapp(cluster, verktyg)}
+                // Testklustret: provet i artikelns egen typ (byggordern L).
+                primar={hjalteKnapp(cluster, verktyg, artikelProvTyp(post.content))}
                 bild={hjalteBild}
                 slut={paket && paket !== 'gratis' ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
                 sticky={<StickyMobileCTA cluster={cluster} slug={slug} />}
