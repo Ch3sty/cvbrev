@@ -1,0 +1,17 @@
+{
+ "_om": "Rekryterarsidan och den publika sidan om Bli upptäckt sa mer än koden gör sedan rättningarna 2026-11-22 (docs/bygg-noter-bli-upptackt-2026-11-22.md): placeringen visas bara över mitten, beskrivning, lärosäte och datum visas först efter kandidatens ja, och alla kandidater har inte testresultat. Copywritern skrev om de osanna meningarna; rubriker, FAQ-frågor, title och description är orörda. Läses av scripts/seo-diff-artiklar.ts.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/for-rekryterare",
+   "datum": "2026-11-22",
+   "skal": "Service-schemats description och fyra FAQ-svar säger nu det koden gör: testresultat per nivå i stället för percentiler på varje kandidat, placering över mitten, CV:t som fil visas aldrig, och vad som blir synligt efter ja. Frågorna oförändrade.",
+   "andrade": ["FAQPage", "Service"]
+  },
+  {
+   "path": "/verktyg/bli-upptackt",
+   "datum": "2026-11-22",
+   "skal": "FAQ-svaret om vad profilen visar säger att placeringen syns bara när resultatet ligger över mitten. Frågan oförändrad.",
+   "andrade": ["FAQPage"]
+  }
+ ]
+}

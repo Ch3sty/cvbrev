@@ -50,7 +50,7 @@ const KUNSKAPSTESTER = {
 }
 
 const TRYGGHET = [
-  { rubrik: 'Du är anonym tills du säger ja', text: 'Rekryteraren ser din roll, dina kompetenser, dina villkor (tillträde, arbetsplats, omfattning och län), dina verifierade testresultat med nivå och placering, och om du valt det dina två främsta styrkor i ord. Aldrig ditt CV som fil, och aldrig dina kontaktuppgifter förrän du tackat ja till en förfrågan. I läget Anonym först, som är förvalt, gäller samma sak för ditt namn.' },
+  { rubrik: 'Du är anonym tills du säger ja', text: 'Rekryteraren ser din roll, dina kompetenser, dina villkor (tillträde, arbetsplats, omfattning och län), dina verifierade testresultat med nivå, och om du valt det dina två främsta styrkor i ord. Placeringen syns bara när ditt resultat ligger över mitten, annars står det bara att du har gjort testet. Aldrig ditt CV som fil, och aldrig dina kontaktuppgifter förrän du tackat ja till en förfrågan. I läget Anonym först, som är förvalt, gäller samma sak för ditt namn.' },
   { rubrik: 'Din nuvarande chef kan inte hitta dig', text: 'I läget Anonym först döljer vi vilka företag du har jobbat på, också det du jobbar på i dag, så din arbetsgivare kan inte känna igen dig i kandidatpoolen.' },
   { rubrik: 'Bara riktiga företag får söka', text: 'Vi kontrollerar att varje rekryterare hör till ett verkligt företag innan de släpps in, så du slipper oseriösa förfrågningar.' },
   { rubrik: 'Ditt lönespann stannar hos dig', text: 'Rekryteraren ser aldrig ditt löneanspråk. Lön pratar ni om själva, om och när ni börjar chatta.' },

@@ -44,7 +44,7 @@ const INSIDAN = [
   },
   {
     rubrik: 'Profilen som beslutsunderlag',
-    text: 'Verifierade resultat med nivå och normgrupp, plus en arbetsstilsrapport som beskriver hur personen jobbar.',
+    text: 'Verifierade resultat per nivå, plus en arbetsstilsrapport som beskriver hur personen jobbar.',
   },
   {
     rubrik: 'Kandidaten tackade ja',
@@ -63,7 +63,7 @@ const VARDE = [
   },
   {
     rubrik: 'Verifierat före första kontakt',
-    text: 'Percentiler på kognitiva tester per nivå, inte formuleringskonst i ett CV. Du ser vad kandidaten bevisat redan i sökögonblicket, innan ni ens hälsat.',
+    text: 'Verifierade resultat på kognitiva tester per nivå, inte formuleringskonst i ett CV. Du ser vad kandidaten bevisat redan i sökögonblicket, innan ni ens hälsat.',
   },
   {
     rubrik: 'Bevakning på kravprofilen',
@@ -86,11 +86,11 @@ const SIFFROR = [
   },
   {
     rubrik: 'Öppen normgrupp',
-    text: '"Topp 8 % av 340 testade" betyder exakt det: jämfört med alla som gjort samma test hos oss, och du ser hur många de är.',
+    text: '"Topp 8 % av 340 testade" betyder exakt det: jämfört med alla som gjort samma test hos oss, och du ser hur många de är. Placeringen visas när resultatet ligger över mitten, annars ser du att testet är genomfört på nivån.',
   },
   {
     rubrik: 'Färskhet framgår',
-    text: 'Vi visar när testet gjordes. Resultat äldre än två år flaggas, så du vet om det är dags att be kandidaten testa igen.',
+    text: 'Arbetsstilsrapporten flaggas när personlighetstestet är äldre än två år, så du vet om det är dags att be kandidaten testa igen.',
   },
 ]
 
@@ -120,7 +120,7 @@ const INTEGRITET = [
   },
   {
     rubrik: 'Anonym tills kandidaten säger ja',
-    text: 'Namn, foto och kontaktuppgifter är dolda tills kandidaten accepterat er kontakt. Det skyddar kandidaten och ger dig svar från folk som faktiskt är intresserade.',
+    text: 'Namn, arbetsgivare och kontaktuppgifter är dolda tills kandidaten accepterat er kontakt. Det skyddar kandidaten och ger dig svar från folk som faktiskt är intresserade.',
   },
   {
     rubrik: 'Kandidaten ser samma som du',
@@ -136,7 +136,7 @@ const INTEGRITET = [
   },
   {
     rubrik: 'Inga rå-CV:n eller löneanspråk',
-    text: 'Vi delar aldrig råa dokument, och kandidatens lönespann lämnar aldrig servern. Du ser strukturerade uppgifter som kandidaten godkänt för visning, varken mer eller mindre.',
+    text: 'CV:t som fil delas aldrig, och kandidatens lönespann lämnar aldrig servern. Före kandidatens ja ser du strukturerade uppgifter som kandidaten godkänt för visning. Efter ett ja tillkommer en kort beskrivning per anställning ur CV:t.',
   },
   {
     rubrik: 'Tydlig datahantering',
@@ -166,7 +166,7 @@ export default function ForRekryterareSida() {
     name: 'Jobbcoach.ai kandidatpool för rekryterare',
     url: 'https://www.jobbcoach.ai/for-rekryterare',
     description:
-      'Kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten accepterar kontakt. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.',
+      'Kandidatpool med verifierade testresultat per nivå. Anonymt tills kandidaten accepterar kontakt. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.',
     serviceType: 'Rekryteringstjänst',
     areaServed: {
       '@type': 'Country',
@@ -331,7 +331,7 @@ export default function ForRekryterareSida() {
                 <div className="fr-badge-skala">
                   <i style={{ ['--p' as string]: '90%' }} />
                 </div>
-                <span className="fr-badge-d">Gjort i september 2026</span>
+                <span className="fr-badge-d">Jämfört med alla som gjort samma test</span>
               </div>
               <div className="fr-badge fr-badge-2">
                 <span className="fr-badge-k">Numeriskt, standardnivå</span>

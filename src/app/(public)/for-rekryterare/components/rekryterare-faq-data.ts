@@ -9,7 +9,7 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Vad ser vi om en kandidat?',
-    a: 'Innan kontakt: yrkesroll, region, verifierade testresultat med percentiler, personlighetsstyrkor, toppkompetenser och villkor som tillträde, arbetsplats och omfattning. Namn och arbetsgivare är dolda tills kandidaten tackat ja, om hen inte själv har valt Öppen profil, och kontaktuppgifterna visas alltid först efter ett ja. Rå-CV:n visas aldrig.',
+    a: 'Innan kontakt: yrkesroll, region, verifierade testresultat per nivå, toppkompetenser och villkor som tillträde, arbetsplats och omfattning, och personlighetsstyrkor i ord om kandidaten valt att visa dem. Placeringen på ett test visas när resultatet ligger över mitten, annars står det att testet är genomfört. Namn och arbetsgivare är dolda tills kandidaten tackat ja, om hen inte själv har valt Öppen profil, och kontaktuppgifterna visas alltid först efter ett ja. CV:t som fil visas aldrig.',
   },
   {
     q: 'Hur funkar det med GDPR?',
@@ -21,11 +21,11 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Vilka tester har kandidaterna gjort?',
-    a: 'Kognitiva tester i matrislogik, verbal och numerisk förmåga, med percentiler räknade mot alla som gjort samma test hos oss. Dessutom en personlighetskartläggning som lyfter fram kandidatens styrkor. Resultaten kommer från våra egna tester gjorda i inloggat läge, inte från självskattningar.',
+    a: 'Kognitiva tester i matrislogik, verbal och numerisk förmåga, med placeringen räknad mot alla som gjort samma test hos oss. Dessutom en personlighetskartläggning som lyfter fram kandidatens styrkor. Resultaten kommer från våra egna tester gjorda i inloggat läge, inte från självskattningar.',
   },
   {
     q: 'Hur verifieras testresultaten?',
-    a: 'Vi räknar kandidatens första slutförda försök på varje nivå som det verifierade resultatet, aldrig det bästa av flera försök. Badgen visar alltid vilken nivå siffran gäller, och percentilen jämförs mot alla som gjort exakt samma test hos oss, med antalet testade utskrivet. Vi visar också när testet gjordes och flaggar resultat äldre än två år.',
+    a: 'Vi räknar kandidatens första slutförda försök på varje nivå som det verifierade resultatet, aldrig det bästa av flera försök. Badgen visar alltid vilken nivå resultatet gäller, och placeringen jämförs mot alla som gjort exakt samma test hos oss, med antalet testade utskrivet. Placeringen visas när resultatet ligger över mitten. Annars står det att testet är genomfört på nivån. Det skyddar kandidaten, och du ser ändå att testet är gjort. Arbetsstilsrapporten flaggas när personlighetstestet är äldre än två år.',
   },
   {
     q: 'Kan jag filtrera bort kandidater på personlighet?',
@@ -33,7 +33,7 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Vad låses upp när kandidaten tackar ja?',
-    a: 'Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en introduktionsguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.',
+    a: 'Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga, tillsammans med en kort beskrivning per anställning, lärosäte och examensår. Dessutom låses en introduktionsguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du profilen anonymt: titlar, utbildningens inriktning, kompetenser och testresultat.',
   },
   {
     q: 'Kan jag dela en profil med min chef?',

@@ -17,6 +17,12 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 const GRANS_MS = 5_000
+/**
+ * Nattkörningen väntar längre: den har ingen användare som väntar, och ett
+ * anrop med hundra id tar längre tid hos PostHog (på live 2026-11-22 hann ett
+ * enda id inte svara inom fem sekunder).
+ */
+const NATT_GRANS_MS = 15_000
 const KO_OMGANG = 100
 /** Antal försök innan kön larmar under Drift. */
 export const POSTHOG_MAX_FORSOK = 5
@@ -32,11 +38,11 @@ function installning(): { url: string; nyckel: string } | null {
 }
 
 /** Ett anrop till bulk_delete. Kastar aldrig. */
-export async function anropaBulkDelete(distinctIds: string[]): Promise<Svar> {
+export async function anropaBulkDelete(distinctIds: string[], gransMs: number = GRANS_MS): Promise<Svar> {
   const inst = installning()
   if (!inst) return { ok: false, fel: 'nyckel saknas' }
   const styr = new AbortController()
-  const timer = setTimeout(() => styr.abort(), GRANS_MS)
+  const timer = setTimeout(() => styr.abort(), gransMs)
   try {
     const res = await fetch(inst.url, {
       method: 'POST',
@@ -48,7 +54,7 @@ export async function anropaBulkDelete(distinctIds: string[]): Promise<Svar> {
     return { ok: false, fel: `PostHog svarade ${res.status}` }
   } catch (e) {
     const namn = e instanceof Error ? e.name : ''
-    return { ok: false, fel: namn === 'AbortError' ? `PostHog svarade inte inom ${GRANS_MS} ms` : 'PostHog gick inte att nå' }
+    return { ok: false, fel: namn === 'AbortError' ? `PostHog svarade inte inom ${gransMs} ms` : 'PostHog gick inte att nå' }
   } finally {
     clearTimeout(timer)
   }
@@ -114,7 +120,7 @@ export async function korPosthogRaderingar(admin: SupabaseClient): Promise<KoRes
   if (rader.length === 0) return { success: true, raderade: 0, kvar: 0 }
 
   const ids = rader.map((r) => r.distinct_id)
-  const svar = await anropaBulkDelete(ids)
+  const svar = await anropaBulkDelete(ids, NATT_GRANS_MS)
   if (svar.ok) {
     const { error: e } = await admin.from('posthog_raderingar').delete().in('distinct_id', ids)
     if (e) console.error('[posthogRadering] köraderna gick inte att ta bort:', e.message)

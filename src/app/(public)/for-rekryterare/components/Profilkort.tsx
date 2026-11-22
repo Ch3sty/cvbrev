@@ -11,18 +11,18 @@ import { SpektrumRad, type Spektrum } from '@/components/publikt/innehall/Traffk
 const ERFARENHET = [
   {
     roll: 'Redovisningsansvarig',
-    period: '2022 till nu',
-    text: 'Ansvarar för koncernbokslut i ett växande byggbolag. Byggde upp rutinerna för projektredovisning från grunden.',
+    period: '4 år',
+    text: 'Beskrivningen visas efter accepterad kontakt',
   },
   {
     roll: 'Redovisningsekonom',
-    period: '2019 till 2022',
-    text: 'Löpande redovisning, moms och månadsbokslut för tre bolag i en byggkoncern.',
+    period: '3 år',
+    text: 'Beskrivningen visas efter accepterad kontakt',
   },
   {
     roll: 'Ekonomiassistent',
-    period: '2018 till 2019',
-    text: 'Leverantörsreskontra och avstämningar. Första rollen efter examen.',
+    period: '1 år',
+    text: 'Beskrivningen visas efter accepterad kontakt',
   },
 ]
 
@@ -86,7 +86,7 @@ export default function Profilkort() {
 
           <h3>Utbildning och språk</h3>
           <p className="if-profil-p">
-            <b>Civilekonomexamen, redovisning och finansiering.</b> Handelshögskola i Stockholm, examen 2018.
+            <b>Civilekonomexamen, redovisning och finansiering.</b> Lärosätet visas efter accepterad kontakt.
           </p>
           <p className="if-profil-p">Svenska, modersmål. Engelska, flytande.</p>
 
@@ -103,7 +103,7 @@ export default function Profilkort() {
         <div>
           <h3>Verifierade resultat</h3>
           <p className="if-profil-not" style={{ marginTop: 0, marginBottom: 10 }}>
-            Slutförda rekryteringstester på Jobbcoach.ai, bästa resultat per nivå. Verifierat av oss.
+            Slutförda rekryteringstester på Jobbcoach.ai, första slutförda försöket per nivå. Verifierat av oss.
           </p>
           <ul className="if-profil-res pub-rum-tran">
             {RESULTAT.map((r) => (
@@ -115,9 +115,9 @@ export default function Profilkort() {
             ))}
           </ul>
           <p className="if-profil-not">
-            Strukturerad och Analytisk: personlighetsstyrkor, delade med kandidatens samtycke. Percentilerna jämför
-            kandidaten med alla som gjort samma test hos oss. Du behöver inte lita på CV-formuleringar, resultaten kommer
-            från riktiga test gjorda på vår plattform.
+            Strukturerad och Analytisk: personlighetsstyrkor, delade med kandidatens samtycke. Placeringen jämför
+            kandidaten med alla som gjort samma test hos oss och visas när resultatet ligger över mitten. Du behöver
+            inte lita på CV-formuleringar, resultaten kommer från riktiga test gjorda på vår plattform.
           </p>
 
           <h3>Arbetsstil</h3>

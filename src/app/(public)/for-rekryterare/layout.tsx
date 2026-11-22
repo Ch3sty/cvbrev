@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Kandidater med bevisade färdigheter | Jobbcoach.ai',
     description:
-      'Varje kandidat i poolen har verifierade testresultat med percentiler. Filtrera på villkor, visa intresse, kontakt låses upp när kandidaten säger ja.',
+      'Sök i en kandidatpool med verifierade testresultat per nivå. Filtrera på villkor, visa intresse, kontakt låses upp när kandidaten säger ja.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/for-rekryterare',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Rekrytera kandidater med bevisade färdigheter | Jobbcoach.ai',
     description:
-      'Verifierade testresultat med percentiler på varje kandidat. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.',
+      'Verifierade testresultat per nivå i kandidatpoolen. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/for-rekryterare',
