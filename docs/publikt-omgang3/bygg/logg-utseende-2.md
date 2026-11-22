@@ -112,7 +112,7 @@ Domen är ett ord: **håller**, **nära** eller **avviker**.
 | `/personligt-brev-exempel/projektledare` | Visaren är sedd öppen i artikeln, inte på exempelsidan | nära |
 | `/verktyg/personlighetstest`, `/verktyg/linkedin-optimering` | Inte rörda. Det som återstår enligt första loggen kräver produktens form eller ny text | nära |
 
-Övriga sidor med domen håller i första loggen är fotograferade om på sista bygget och mätta. Av dem är start, cv-analys (412), priser och om-oss inte sedda om i bild efter färgbytet av `--papper-2`.
+Övriga sidor med domen håller i första loggen är fotograferade om på sista bygget och mätta. Av dem är priser, om-oss, jobbcoachen, skapa-cv, jobbmatchning och registreringen inte sedda om i bild efter bytet av `--papper-2` (mätningen hittade inget nytt på dem).
 
 ## Största rättningarna
 
@@ -133,7 +133,7 @@ Domen är ett ord: **håller**, **nära** eller **avviker**.
 ## Det som fortfarande avviker eller inte är sett
 
 - **Inte sedda i bild** (fotograferade och mätta): `/cv-mallar/sjukskoterska`, `/cv-mallar/systemutvecklare`, `/personligt-brev-exempel/larare` och `/saljare`, `/cv-exempel/civilingenjor`, `/rakna-ut/uppsagningstid`, artikeln `bra-personligt-brev` utanför visaren, artikeln `soka-jobb-via-mail` i telefon, `/for-rekryterare/insikter` under första skärmarna.
-- **412**: start och cv-analys är sedda som blad. Rekryteringstester bara hjälten. Priser och Sökta tjänster är fotograferade och mätta men inte sedda.
+- **412**: start och Sökta tjänster är sedda som blad på sista bygget, cv-analys som blad på första granskningens bygge, rekryteringstester bara hjälten. Priser är fotograferad och mätt men inte sedd.
 - **Bladen är förminskade.** Enskilda textrader, små ikoner och avstånd under några pixlar är inte granskade utom där jag klippte ut i full skala.
 - Mellanbredder (768, 1024) bara för rekryteringstesternas hjälte (1100 och 1280). Animationer inte alls. Inloggat läge inte alls.
 - Inloggningens fel vid fel lösenord, och registreringens fel "kontot finns redan": båda kräver anrop mot produktionen.
