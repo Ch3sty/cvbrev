@@ -32,7 +32,7 @@ export function delningsbild(webp: string, alt?: string) {
   }
 }
 
-/** Räkna ut-hubbens gemensamma bild, på hubben och alla nio kalkylatorer. */
+/** Räkna ut-hubbens gemensamma bild, på hubben och på varje kalkylator. */
 export const RAKNA_UT_DELNINGSBILD = delningsbild(
   '/images/rakna-ut.webp',
   'Räkna ut: kalkylatorer för lön efter skatt, uppsägningstid, semesterersättning och vad en anställd kostar',
