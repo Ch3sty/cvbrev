@@ -13,7 +13,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import PubliktSida from '@/components/publikt/PubliktSida'
 import '@/components/publikt/innehall/foretag.css'
-import { Sida, Hjalte, Lyft } from '@/components/publikt/v3'
+import { Sida, Hjalte, Lyft, Ikon } from '@/components/publikt/v3'
 import KontaktFormPublik from '@/components/kontakt/KontaktFormPublik'
 import './kontakt.css'
 
@@ -39,6 +39,23 @@ export default function KontaktPage() {
             etikett="Kontakta oss"
             h1="Vi svarar på dina frågor"
             varde="Skicka ett meddelande eller välj rätt e-post nedan. Vi läser allt och svarar inom ett par vardagar."
+            // Ett meddelande och ett svar (utseendegranskning 2: hjälten stod utan bild). Dekor, bara på dator.
+            bild={
+              <div className="kt-bild" aria-hidden="true">
+                <span className="kt-blad kt-fraga">
+                  <b />
+                  <b />
+                  <b />
+                </span>
+                <span className="kt-blad kt-svar">
+                  <i>
+                    <Ikon namn="bock" />
+                  </i>
+                  <b />
+                  <b />
+                </span>
+              </div>
+            }
             lyft
           />
           <Lyft id="kontakt-form" className="kt-lyft">

@@ -6,5 +6,21 @@
 .kt-vagar .p3-h3 { font-size: 17px; margin-bottom: 4px; }
 .kt-vagar p { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
 .kt-vagar a { font-weight: 600; color: var(--ink-1); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; display: inline; }
+/* hjältens bild: ett meddelande och ett svar. I telefonen står formuläret direkt under rubriken. */
+.kt-bild { display: none; }
+@media (min-width: 1000px) {
+  .kt-bild { display: block; position: relative; width: 100%; max-width: 400px; height: 210px; margin: 0 auto; }
+  .kt-blad { position: absolute; display: grid; align-content: start; gap: 10px; padding: 20px; border-radius: 22px; }
+  .kt-blad b { display: block; height: 8px; border-radius: 4px; }
+  .kt-fraga { left: 0; top: 0; width: 66%; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .2); border-bottom-left-radius: 6px; transform: rotate(-3deg); }
+  .kt-fraga b { background: rgba(255, 255, 255, .3); }
+  .kt-fraga b:nth-child(2) { width: 84%; }
+  .kt-fraga b:nth-child(3) { width: 52%; }
+  .kt-svar { right: 0; top: 84px; width: 62%; background: var(--papper); box-shadow: 0 7px 0 var(--kant-stark); border-bottom-right-radius: 6px; transform: rotate(2.5deg); }
+  .kt-svar i { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: var(--koppar); color: #fff; box-shadow: 0 3px 0 var(--koppar-klack); }
+  .kt-svar i svg { width: 20px; height: 20px; }
+  .kt-svar b { background: var(--kant); }
+  .kt-svar b:last-child { width: 60%; }
+}
 .kt-golv { height: 64px; }
 @media (min-width: 900px) { .kt-golv { height: 112px; } }
