@@ -4,7 +4,7 @@
    Kopparrampen är Jobbkartans (validerad i jobbkartan.css), ljust och mörkt.
    ============================================================ */
 .yk {
-  --yk-k0: #D8D1C4; --yk-k1: #E58E4F; --yk-k2: #DE7A33; --yk-k3: #C4621F; --yk-k4: #A14A17; --yk-k5: #742A0C;
+  --yk-k0: #CDD2D3; --yk-k1: #EE9F65; --yk-k2: #DF7A2F; --yk-k3: #BF5F1E; --yk-k4: #9A4515; --yk-k5: #742A0C;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .yk {

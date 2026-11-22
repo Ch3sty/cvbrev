@@ -616,7 +616,12 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
     const rader = LAN.map((k) => ({ kod: k, v: kon(k, q) }))
       .filter((x): x is { kod: string; v: number } => x.v != null)
       .sort((a, b) => a.v - b.v)
-    const W = smal() ? 430 : 640, L = smal() ? 98 : 118, R = smal() ? 40 : 46, RH = 21, T = 8
+    // Raderna är tryckytor: 44 px i telefonen och på pekskärm, 32 px med mus (då ryms alla län på en skärm).
+    // I telefonen ritas diagrammet i skärmens egna mått, så att texten inte krymper under 12 px.
+    const grov = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+    const bredd = Math.round(svg.getBoundingClientRect().width)
+    const W = smal() ? Math.max(300, bredd || 343) : 640, L = smal() ? 104 : 118, R = smal() ? 40 : 46, T = 8
+    const RH = smal() || grov ? 44 : 32, SH = smal() || grov ? 20 : 18, TY = RH / 2 + 4.5
     const H = T + rader.length * RH + 24
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`)
     const max = Math.max(4, Math.ceil(Math.max(...rader.map((x) => x.v))))
@@ -630,9 +635,9 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
       const vald = x.kod === state.lan
       const grp = sv('g', { class: 'rad', tabindex: 0, role: 'button', 'data-kod': x.kod, 'aria-label': `${namn(x.kod)}: ${fmt(x.v, 1)} arbetslösa per ledigt jobb` })
       grp.appendChild(sv('rect', { x: 0, y, width: W, height: RH, fill: 'transparent' }))
-      grp.appendChild(sv('text', { x: L - 10, y: y + 14.5, 'text-anchor': 'end', class: vald ? 'stark' : '' }, kort(x.kod)))
-      grp.appendChild(sv('rect', { class: 'stapel' + (vald ? ' vald' : ''), x: L, y: y + 3, width: Math.max(2, sx(x.v) - L), height: RH - 7, rx: 3 }))
-      grp.appendChild(sv('text', { x: sx(x.v) + 6, y: y + 14.5, class: vald ? 'stark' : '' }, fmt(x.v, 1)))
+      grp.appendChild(sv('text', { x: L - 10, y: y + TY, 'text-anchor': 'end', class: vald ? 'stark' : '' }, kort(x.kod)))
+      grp.appendChild(sv('rect', { class: 'stapel' + (vald ? ' vald' : ''), x: L, y: y + (RH - SH) / 2, width: Math.max(2, sx(x.v) - L), height: SH, rx: 4 }))
+      grp.appendChild(sv('text', { x: sx(x.v) + 6, y: y + TY, class: vald ? 'stark' : '' }, fmt(x.v, 1)))
       svg.appendChild(grp)
     })
     svg.appendChild(sv('line', { class: 'riket', x1: sx(r), x2: sx(r), y1: T - 4, y2: H - 20 }))

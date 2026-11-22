@@ -9,7 +9,7 @@
 /* Brödsmulan (Breadcrumb bär BreadcrumbList) får väggens toner. */
 .jks-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); color: var(--vagg-mjuk); }
 .jks-smula nav { margin-bottom: 0; }
-.jks-smula a { display: inline-block; padding: 4px 0; }
+.jks-smula a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0; }
 
 /* Hjälten på väggen: texten ljus, kartan på en ljus yta. */
 .jks .jk .jks-hjalte .hjalte { margin-top: 18px; }
