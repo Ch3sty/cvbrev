@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import TraffsakerhetStart from '@/components/rakna/start/traffsakerhet'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Hur många rekryteringar lyckas med CV-granskning jämfört med strukturerad intervju och test? Simulera urvalsmetodernas träffsäkerhet på forskningens siffror.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/traffsakerhet' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import FelrekryteringStart from '@/components/rakna/start/felrekrytering'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Ange månadslönen och se felrekryteringens kostnad post för post: rekrytering, lön under anställningen, produktionsbortfall och omstarten. Källbelagd kalkyl.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/felrekrytering' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

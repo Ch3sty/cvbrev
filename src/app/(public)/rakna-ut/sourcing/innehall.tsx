@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import SourcingStart from '@/components/rakna/start/sourcing'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Hur många riktade kontakter krävs för en anställning? Räkna baklänges genom svarsfrekvens, intervjuer och erbjudanden med benchmarks från branschdata.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/sourcing' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

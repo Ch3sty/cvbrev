@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import TimlonStart from '@/components/rakna/start/timlon-till-manadslon'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     '180 kr i timmen blir 31 320 kr i månaden vid heltid: timlönen gånger 174. Räkna om åt båda hållen, ändra timmarna för deltid och se årslönen.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

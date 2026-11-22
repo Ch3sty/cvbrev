@@ -99,6 +99,7 @@ const CVTemplateShowcase = MallMiniatyrer;
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
 import { SOCIALA_KONTON } from '@/lib/sociala-konton';
+import { delningsbild } from '@/lib/delningsbild';
 
 // Korrekt typdefinition för props med Promise
 interface ArticlePageProps {
@@ -128,6 +129,11 @@ export async function generateMetadata(
     const imageUrl = post.frontmatter.image
         ? (post.frontmatter.image.startsWith('http') ? post.frontmatter.image : `${siteBaseUrl}${post.frontmatter.image}`)
         : undefined;
+    // Delningsbilden är JPG-systern i 1200 × 630 (src/lib/delningsbild.ts): Facebook
+    // och LinkedIn visar inte WebP säkert. JSON-LD och sidans bild behåller WebP-filen.
+    const delning = post.frontmatter.image?.endsWith('.webp')
+        ? delningsbild(post.frontmatter.image, post.frontmatter.imageAlt)
+        : imageUrl ? { url: imageUrl } : undefined;
 
     return {
         title: metaTitle,
@@ -144,7 +150,7 @@ export async function generateMetadata(
             title: pageTitle,
             description: post.frontmatter.description,
             url: `${siteBaseUrl}/artiklar/${slug}`,
-            images: imageUrl ? [{ url: imageUrl }] : undefined,
+            images: delning ? [delning] : undefined,
             type: 'article',
             publishedTime: publishedDate,
             authors: post.frontmatter.author ? [post.frontmatter.author] : undefined,
@@ -154,7 +160,7 @@ export async function generateMetadata(
             card: 'summary_large_image',
             title: pageTitle,
             description: post.frontmatter.description,
-            images: imageUrl ? [imageUrl] : undefined,
+            images: delning ? [delning] : undefined,
         },
     };
 }

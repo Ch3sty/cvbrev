@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import LoneforhandlingStart from '@/components/rakna/start/loneforhandling'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Räkna ut vad en löneökning är värd över 5, 10 och 20 år. En höjning på 2 000 kr i månaden växer med varje revision, se den ackumulerade skillnaden.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/loneforhandling' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

@@ -16,6 +16,12 @@
 // arLonArtikel), aldrig ur underlaget. Ut: public/images/artiklar/<slug>-v2.webp
 // bara när valideringen är utan fel. QA-bilderna (aldrig i git) hamnar i
 // ARTIKELBILD_QA eller i systemets temp-mapp.
+//
+// Steget efter (sedan 2026-11-22): delningsbilden. Kör
+//   node node_modules/tsx/dist/cli.mjs scripts/artikelbild/delningsbild.ts <slug>
+// så att artikeln får <slug>-v2-og.jpg i 1200 × 630, som og:image och
+// twitter:image pekar på (Facebook och LinkedIn visar inte WebP säkert).
+// src/lib/__tests__/delningsbild.test.ts fäller en artikel som saknar den.
 // =============================================================================
 
 import fs from 'node:fs'

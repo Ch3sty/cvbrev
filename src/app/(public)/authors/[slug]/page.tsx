@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { AUTHORS, getAuthorById, getAllAuthorIds, getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
 import { getAllPostsMeta } from '@/lib/blog';
+import { delningsbild } from '@/lib/delningsbild';
 import { ArtikelKort } from '@/components/artiklar/lista/ArtikelLista';
 import { Sida, Sektion, Chip } from '@/components/publikt/v3';
 import './authors.css';
@@ -37,7 +38,8 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
       description: author.bio,
       siteName: 'jobbcoach.ai',
       locale: 'sv_SE',
-      images: [{ url: `${SITE_URL}${author.image}`, width: 200, height: 200, alt: author.name }],
+      // JPG-systern i 1200 × 630 (src/lib/delningsbild.ts); Facebook och LinkedIn visar inte WebP säkert.
+      images: [delningsbild(author.image, author.name)],
     },
     twitter: { card: 'summary', title, description: author.bio },
   };

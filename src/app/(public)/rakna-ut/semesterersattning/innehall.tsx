@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import SemesterStart from '@/components/rakna/start/semesterersattning'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Räkna ut semesterersättning enligt semesterlagen: 12 procent med procentregeln eller 5,03 procent av månadslönen per sparad dag vid slutlön. Med källor.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/semesterersattning' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

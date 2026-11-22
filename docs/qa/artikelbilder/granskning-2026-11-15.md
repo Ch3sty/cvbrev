@@ -21,3 +21,7 @@ Sex artiklar saknar materialet (ingen CV-rad respektive brevrad i texten) och be
 ## Resultat
 
 149 bilder live, 149 utan valideringsfel, 26 till 54 kB (snitt 40), minsta luft 24 px. Uppgiftsregistret `uppgifter.json` har 56 uppgifter utan dubbletter.
+
+## Delningsbilden (2026-11-22)
+
+En artikel delad i en Facebook-grupp kom utan bild: og:image var WebP-filen, utan mått och typ. Sedan 2026-11-22 har varje artikelbild en JPG-syster i 1200 × 630, `<slug>-v2-og.jpg`, framtagen av `scripts/artikelbild/delningsbild.ts` (7 % bort upptill och nertill, där bara bottnen finns, sidorna förlängda i kantens färg). og:image och twitter:image pekar på den med width, height, type och imageAlt; JSON-LD och bilden på sidan behåller WebP-filen. En ny artikelbild kräver därför två steg: `artikelbild.ts` och sedan `delningsbild.ts`. Testet `src/lib/__tests__/delningsbild.test.ts` fäller en artikel som saknar sin JPG.

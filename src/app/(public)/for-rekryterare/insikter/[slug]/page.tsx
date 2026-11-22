@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns'
 import { sv } from 'date-fns/locale'
 import Link from 'next/link'
 import { getAllInsikterMeta, getInsiktBySlug } from '@/lib/blog'
+import { delningsbild } from '@/lib/delningsbild'
 import Breadcrumb from '@/components/Breadcrumb'
 import CustomImage from '@/components/mdx/Image'
 import FAQContainer from '@/components/mdx/FAQContainer'
@@ -47,7 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'sv_SE',
       url: `https://www.jobbcoach.ai/for-rekryterare/insikter/${slug}`,
       siteName: 'Jobbcoach.ai',
-      images: fm.image ? [{ url: `https://www.jobbcoach.ai${fm.image}` }] : undefined,
+      // JPG-systern i 1200 × 630 (src/lib/delningsbild.ts); Facebook och LinkedIn visar inte WebP säkert.
+      images: fm.image
+        ? [fm.image.endsWith('.webp') ? delningsbild(fm.image, fm.title) : { url: `https://www.jobbcoach.ai${fm.image}` }]
+        : undefined,
     },
     robots: { index: true, follow: true },
   }

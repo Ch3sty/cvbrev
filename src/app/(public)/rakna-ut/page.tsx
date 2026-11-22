@@ -19,6 +19,7 @@
  * (Breadcrumb) bär BreadcrumbList som förut.
  */
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   description:
     'Gratis kalkylatorer utan konto: lön efter skatt 2026, uppsägningstid enligt LAS, semesterersättning, vad en anställd kostar och mer. Byggda på myndighetsdata.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 type Kort = { slug: string; varde: string; namn: string; beskrivning: string; ikon?: ReactNode }

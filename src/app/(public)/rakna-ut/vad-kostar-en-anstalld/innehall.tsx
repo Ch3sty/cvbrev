@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import AnstalldKostnadStart from '@/components/rakna/start/vad-kostar-en-anstalld'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Räkna ut vad en anställd kostar per månad och år 2026: arbetsgivaravgift, tjänstepension, försäkringar, särskild löneskatt och semester, post för post.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/vad-kostar-en-anstalld' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [

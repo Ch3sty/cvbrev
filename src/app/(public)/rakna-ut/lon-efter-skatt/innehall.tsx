@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { RAKNA_UT_DELNINGSBILD } from '@/lib/delningsbild'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import LonEfterSkattStart from '@/components/rakna/start/lon-efter-skatt'
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   description:
     'Räkna ut din lön efter skatt med Skatteverkets skattetabeller 2026 och din kommuns faktiska skattesats. Jämför två löner eller kommuner och se skillnaden per år.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/lon-efter-skatt' },
-  openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
+  openGraph: { images: [RAKNA_UT_DELNINGSBILD] },
 }
 
 const faq = [
