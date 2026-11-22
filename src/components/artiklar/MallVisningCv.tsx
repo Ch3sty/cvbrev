@@ -162,7 +162,7 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
       <a
         href={`/cv-mallar/prova?${q.toString()}`}
         onClick={() => capture('fortsatt_klickad', { surface: yta, slug: slug(), yrke_slug: yrke, template: mall.id })}
-        className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[linear-gradient(180deg,#E8863B,var(--koppar)_60%,var(--koppar-djup))] px-4 text-sm font-semibold text-koppar-text"
+        className="mb-[5px] mt-3 inline-flex min-h-[52px] w-full items-center justify-center rounded-[16px] bg-[linear-gradient(180deg,#E8863B,var(--koppar)_60%,var(--koppar-djup))] px-4 text-[15px] font-bold text-koppar-text shadow-[0_5px_0_var(--koppar-klack,#A8491A)]"
       >
         {etiketter.fortsatt}
       </a>

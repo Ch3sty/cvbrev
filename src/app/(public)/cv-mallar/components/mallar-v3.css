@@ -265,3 +265,10 @@
 .cvy-ats { margin-top: 18px; max-width: 860px; }
 .cvy-check { max-width: 760px; }
 .cvy-relaterad { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Arbetsytan står på ett tonat bord i det lyfta kortet, så att arket syns som ett ark (förut vitt på vitt). */
+.cvm-prova > .cvm-prova-topp + * { padding: 16px 12px 0; border-radius: 24px; background: var(--ton); }
+@media (min-width: 900px) { .cvm-prova > .cvm-prova-topp + * { padding: 28px 28px 0; border-radius: 28px; } }
+/* "Ladda upp" på yrkessidorna var en bar länk på 25 px: samma knapp som på stilsidorna, 44 px. */
+.cvm-mall-knapp { display: inline-flex; align-items: center; justify-content: center; flex: none; min-height: 44px; padding: 0 14px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; background: var(--papper); color: var(--ink-1); font-size: 14px; font-weight: 700; text-decoration: none; text-align: center; white-space: nowrap; }

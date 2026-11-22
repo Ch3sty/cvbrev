@@ -50,7 +50,7 @@ const GRUPPER: { namn: string; ids: readonly string[] }[] = [
 ]
 
 const CHIP =
-  'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-[10px] border border-kant-stark bg-papper px-2.5 text-[13px] font-medium text-ink-1 hover:border-ink-1 disabled:opacity-60'
+  'inline-flex h-11 shrink-0 items-center gap-1.5 rounded-[10px] border border-kant-stark bg-papper px-2.5 text-[13px] font-medium text-ink-1 hover:border-ink-1 disabled:opacity-60'
 
 function Radio({ vald, onClick, children, stil }: { vald: boolean; onClick: () => void; children: React.ReactNode; stil?: React.CSSProperties }) {
   return (
@@ -146,7 +146,7 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
           </span>
         </button>
 
-        <div className="inline-flex h-10 shrink-0 items-center gap-0.5 rounded-[10px] border border-kant-stark bg-papper pl-2 pr-0.5" role="radiogroup" aria-label={VERKTYG.farg}>
+        <div className="inline-flex h-11 shrink-0 items-center rounded-[10px] border border-kant-stark bg-papper pl-2" role="radiogroup" aria-label={VERKTYG.farg}>
           <IkonFarg size={16} className="text-ink-3" />
           {mall.accenter.map((c, i) => (
             <button
@@ -157,7 +157,7 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
               aria-label={`${VERKTYG.farg} ${i + 1}`}
               disabled={last}
               onClick={() => onVal({ ...val, farg: i }, { typ: 'farg', farg: i })}
-              className="inline-flex h-11 w-8 items-center justify-center"
+              className="inline-flex h-11 w-11 items-center justify-center"
             >
               <span
                 className="block h-6 w-6 rounded-full"

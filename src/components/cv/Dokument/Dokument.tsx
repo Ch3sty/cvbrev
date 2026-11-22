@@ -562,7 +562,7 @@ export default function Dokument({
               onClick={() => setHelskarm(true)}
               disabled={last}
               aria-label={`${DOK.sidor(sidor)}. ${DOK.helskarm}`}
-              className="absolute bottom-3 right-3 inline-flex h-7 items-center gap-1 rounded-[7px] bg-ink-1 px-2 text-xs font-semibold text-papper"
+              className="absolute bottom-3 right-3 inline-flex h-7 items-center gap-1 rounded-[7px] bg-ink-1 px-2 text-xs font-semibold text-papper after:absolute after:-inset-2 after:content-['']"
             >
               <IkonSida size={13} />
               {sidor}

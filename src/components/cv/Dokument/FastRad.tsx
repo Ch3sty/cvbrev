@@ -41,7 +41,7 @@ export function FormatVal({ format, onFormat, mallHarWord, kanWord, last, kompak
         vald ? 'bg-papper text-ink-1 shadow-[0_0_0_1px_var(--ink-1)]' : 'text-ink-2 hover:text-ink-1'
       } disabled:opacity-60`
     return (
-      <div className="flex h-12 w-[132px] shrink-0 items-stretch gap-0.5 rounded-[10px] bg-papper-2 p-1" role="radiogroup" aria-label="Format">
+      <div className="flex h-[52px] w-[132px] shrink-0 items-stretch gap-0.5 rounded-[10px] bg-papper-2 p-1" role="radiogroup" aria-label="Format">
         <button type="button" role="radio" aria-checked={format === 'pdf'} className={del(format === 'pdf')} onClick={() => onFormat('pdf')} disabled={last}>
           <IkonPdf size={18} />
           {FORMAT.pdf}

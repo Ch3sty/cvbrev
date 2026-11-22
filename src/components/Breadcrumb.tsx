@@ -54,7 +54,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
               ) : (
                 <Link
                   href={item.href}
-                  className="hover:text-ink-1 transition-colors"
+                  className="inline-flex min-h-11 min-w-11 items-center hover:text-ink-1 transition-colors"
                 >
                   {item.name}
                 </Link>

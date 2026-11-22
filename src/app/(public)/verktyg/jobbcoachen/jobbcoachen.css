@@ -110,3 +110,7 @@ button.jc-forslagrad, a.jc-forslagrad { width: 100%; border: 0; font: inherit; f
 button.jc-forslagrad:focus-visible, a.jc-forslagrad:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
 a.jc-fraga { text-decoration: none; }
 a.jc-fraga:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Frågebubblan är en länk: tryckyta 44 px. */
+.jc-amne a.jc-fraga { display: inline-flex; align-items: center; min-height: 44px; }

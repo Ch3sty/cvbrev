@@ -735,3 +735,11 @@
 .ib-ded { display: grid; gap: 10px; justify-items: center; }
 .ib-ded svg { display: block; width: 100%; max-width: 170px; height: auto; }
 .ib-ded p { font-size: 14px; font-weight: 700; margin: 0; }
+
+/* ---------- utseendegranskningen 2026-11-22: tryckytor 44 px i artikelns skal ---------- */
+.ib-smula a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.ib-chips a { min-height: 44px; }
+.ib-toc a { display: flex; align-items: center; min-height: 44px; padding-top: 4px; padding-bottom: 4px; }
+.ib-toc-m li { align-items: center; padding: 0; }
+.ib-toc-m a { display: flex; align-items: center; min-height: 44px; flex: 1; }
+.pub-handling > a.pub-lank, .ib-rubrikrad > a.pub-lank { display: inline-flex; align-items: center; min-height: 44px; }
