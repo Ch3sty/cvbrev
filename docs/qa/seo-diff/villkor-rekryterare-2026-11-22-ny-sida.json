@@ -1,0 +1,114 @@
+[
+  {
+    "path": "/for-rekryterare/villkor",
+    "status": 200,
+    "h1": [
+      "Villkor för rekryterare"
+    ],
+    "title": "Villkor för rekryterare | jobbcoach.ai",
+    "description": "Villkoren för dig som använder kandidatpoolen på jobbcoach.ai: vad poolen får användas till, vem som ansvarar för uppgifterna och urval utan diskriminering.",
+    "canonical": "https://www.jobbcoach.ai/for-rekryterare/villkor",
+    "ogImage": "",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "vem-villkoren-galler",
+        "text": "1. Vem villkoren gäller"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-kandidatpoolen-far-anvandas-till",
+        "text": "2. Vad kandidatpoolen får användas till"
+      },
+      {
+        "tag": "h2",
+        "id": "kandidaten-ar-anonym",
+        "text": "3. Kandidaten är anonym tills hen tackar ja"
+      },
+      {
+        "tag": "h2",
+        "id": "ansvaret-for-uppgifterna",
+        "text": "4. Ansvaret för uppgifterna"
+      },
+      {
+        "tag": "h2",
+        "id": "urval-utan-diskriminering",
+        "text": "5. Urval utan diskriminering"
+      },
+      {
+        "tag": "h2",
+        "id": "ingen-automatisk-insamling",
+        "text": "6. Ingen automatisk insamling"
+      },
+      {
+        "tag": "h2",
+        "id": "kandidaten-bestammer",
+        "text": "7. Kandidaten bestämmer"
+      },
+      {
+        "tag": "h2",
+        "id": "kostnad-och-andringar",
+        "text": "8. Kostnad och ändringar"
+      },
+      {
+        "tag": "h2",
+        "id": "svensk-ratt-och-fragor",
+        "text": "9. Svensk rätt och frågor"
+      }
+    ],
+    "lankar": [
+      "#ansvaret-for-uppgifterna",
+      "#ingen-automatisk-insamling",
+      "#kandidaten-ar-anonym",
+      "#kandidaten-bestammer",
+      "#kostnad-och-andringar",
+      "#svensk-ratt-och-fragor",
+      "#urval-utan-diskriminering",
+      "#vad-kandidatpoolen-far-anvandas-till",
+      "#vem-villkoren-galler",
+      "/",
+      "/anvandarvillkor",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [],
+    "ord": 444
+  }
+]

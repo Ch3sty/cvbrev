@@ -1,0 +1,65 @@
+{
+ "_om": "Bygget 2026-11-22 kväll (docs/bygg-noter-samtycke-villkor-2026-11-22.md): samtycket säger att styrkorna är sökbara, policyns avsnitt om Bli upptäckt, villkor för rekryterare. Lydelserna är ägarens, ordagrant. Läses av scripts/seo-diff-artiklar.ts.",
+ "RUBRIK_BYTT": [
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 5. Cookies och liknande tekniker",
+   "efter": "h2 6. Cookies och liknande tekniker",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  },
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 6. Datasäkerhet",
+   "efter": "h2 7. Datasäkerhet",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  },
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 7. Datalagring",
+   "efter": "h2 8. Datalagring",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  },
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 8. Dina rättigheter",
+   "efter": "h2 9. Dina rättigheter",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  },
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 9. Ändringar i denna integritetspolicy",
+   "efter": "h2 10. Ändringar i denna integritetspolicy",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  },
+  {
+   "path": "/integritetspolicy",
+   "fore": "h2 10. Kontakta oss",
+   "efter": "h2 11. Kontakta oss",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22 (docs/juridik/konsekvensbedomning-bli-upptackt-utkast-2026-11-22.md, avsnitt 4.3 och 8 punkt 1): integritetspolicyn får ett nytt avsnitt 5 om Bli upptäckt, direkt efter avsnitt 4 Delning av personuppgifter. Följande avsnitt numreras om ett steg, texten i dem är oförändrad och id:na står kvar."
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/integritetspolicy",
+   "rubrik": "h2#bli-upptackt 5. Bli upptäckt: när du väljer att synas för rekryterare",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22: policyn hade inget avsnitt om kandidatpoolen, rekryterare som mottagare, sökning på styrkor eller delningslänken (konsekvensbedömningen avsnitt 4.3). Rubrik och text ordagrant enligt ägaren."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/verktyg/bli-upptackt",
+   "datum": "2026-11-22",
+   "skal": "Ägarbeslut 2026-11-22: FAQ-svaret på \"Kommer jag bli nerspammad av rekryterare?\" sa att bara rekryterare vars sökning matchar profilen kan se den. Det stämmer inte (poolen går att bläddra i utan sökning). Andra meningen säger nu att rekryterare ser profilen utan namn och kontaktuppgifter. Frågan oförändrad.",
+   "andrade": [
+    "FAQPage"
+   ]
+  }
+ ]
+}
