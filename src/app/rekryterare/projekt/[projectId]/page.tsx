@@ -80,14 +80,14 @@ export default function ProjektDetaljPage() {
   );
 
   const statusByCandidate = useMemo(
-    () => Object.fromEntries(members.map((m) => [m.candidateUserId, m.status])),
+    () => Object.fromEntries(members.map((m) => [m.candidateId, m.status])),
     [members]
   );
 
-  const changeStatus = async (candidateUserId: string, status: string) => {
+  const changeStatus = async (candidateId: string, status: string) => {
     const prev = members;
     setMembers((list) =>
-      list.map((m) => (m.candidateUserId === candidateUserId ? { ...m, status } : m))
+      list.map((m) => (m.candidateId === candidateId ? { ...m, status } : m))
     );
     try {
       const res = await fetch(
@@ -95,7 +95,7 @@ export default function ProjektDetaljPage() {
         {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId, status }),
+          body: JSON.stringify({ candidateId, status }),
         }
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -105,17 +105,17 @@ export default function ProjektDetaljPage() {
     }
   };
 
-  const removeCandidate = async (candidateUserId: string) => {
+  const removeCandidate = async (candidateId: string) => {
     const prev = members;
-    setMembers((list) => list.filter((m) => m.candidateUserId !== candidateUserId));
-    setSelectedIds((ids) => ids.filter((id) => id !== candidateUserId));
+    setMembers((list) => list.filter((m) => m.candidateId !== candidateId));
+    setSelectedIds((ids) => ids.filter((id) => id !== candidateId));
     try {
       const res = await fetch(
         `/api/recruiter/projects/${encodeURIComponent(projectId!)}/candidates`,
         {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId }),
+          body: JSON.stringify({ candidateId }),
         }
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -164,14 +164,14 @@ export default function ProjektDetaljPage() {
   };
 
   const handleInterest = useCallback(
-    async (candidateUserId: string) => {
-      setSendingId(candidateUserId);
+    async (candidateId: string) => {
+      setSendingId(candidateId);
       setNotice(null);
       try {
         const res = await fetch('/api/recruiter/interest', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId }),
+          body: JSON.stringify({ candidateId }),
         });
         const data = await res.json().catch(() => null);
         if (res.status === 429) {
@@ -181,7 +181,7 @@ export default function ProjektDetaljPage() {
         if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
         const status = data?.interest?.status ?? 'pending';
         setPeekCandidate((prev) =>
-          prev && prev.userId === candidateUserId ? { ...prev, interestStatus: status } : prev
+          prev && prev.candidateId === candidateId ? { ...prev, interestStatus: status } : prev
         );
       } catch {
         setNotice('Det gick inte att skicka intresset. Försök igen.');
@@ -192,13 +192,13 @@ export default function ProjektDetaljPage() {
     []
   );
 
-  const toggleSelect = (userId: string) =>
+  const toggleSelect = (candidateId: string) =>
     setSelectedIds((prev) =>
-      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+      prev.includes(candidateId) ? prev.filter((id) => id !== candidateId) : [...prev, candidateId]
     );
 
   const toggleSelectAll = () => {
-    const all = tableCandidates.map((c) => c.userId);
+    const all = tableCandidates.map((c) => c.candidateId);
     setSelectedIds((prev) => (all.every((id) => prev.includes(id)) ? [] : all));
   };
 

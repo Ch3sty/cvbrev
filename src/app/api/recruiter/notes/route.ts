@@ -1,14 +1,17 @@
 // /api/recruiter/notes
 // Rekryterarens privata anteckning per kandidat, plan-rekryterare-v2 FAS B3.
 //
-//   GET ?candidateUserId=  → anteckningen eller null.
-//   PUT { candidateUserId, note } → upsert. Tom sträng raderar raden.
+//   GET ?candidateId=  → anteckningen eller null.
+//   PUT { candidateId, note } → upsert. Tom sträng raderar raden.
+//
+// candidateId är kandidatens id mot rekryterare, aldrig kontots id.
 //
 // En anteckning per (rekryterare, kandidat). Aldrig synlig för kandidaten.
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
+import { userIdForRef } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,12 +23,14 @@ export async function GET(request: NextRequest) {
     if (!gate.ok) return gate.response;
     const { user } = gate.ctx;
 
-    const candidateUserId = request.nextUrl.searchParams.get('candidateUserId')?.trim();
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = request.nextUrl.searchParams.get('candidateId')?.trim();
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
 
     const admin = getSupabaseAdmin();
+    const candidateUserId = await userIdForRef(admin, candidateRef);
+    if (!candidateUserId) return NextResponse.json({ note: null });
 
     const { data, error } = await (admin as any)
       .from('recruiter_candidate_notes')
@@ -54,17 +59,16 @@ export async function PUT(request: NextRequest) {
     if (!gate.ok) return gate.response;
     const { user } = gate.ctx;
 
-    let body: { candidateUserId?: string; note?: string };
+    let body: { candidateId?: string; note?: string };
     try {
       body = await request.json();
     } catch {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
 
-    const candidateUserId =
-      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
     if (typeof body.note !== 'string') {
       return NextResponse.json({ error: 'note krävs (sträng)' }, { status: 400 });
@@ -79,6 +83,10 @@ export async function PUT(request: NextRequest) {
     }
 
     const admin = getSupabaseAdmin();
+    const candidateUserId = await userIdForRef(admin, candidateRef);
+    if (!candidateUserId) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
 
     // Tom sträng raderar raden.
     if (!note) {

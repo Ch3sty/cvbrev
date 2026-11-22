@@ -72,8 +72,8 @@ function useBackTarget(): { href: string; label: string } {
 }
 
 function DetailView() {
-  const params = useParams<{ userId: string }>();
-  const userId = params?.userId;
+  const params = useParams<{ candidateId: string }>();
+  const candidateId = params?.candidateId;
   const back = useBackTarget();
 
   const [candidate, setCandidate] = useState<CandidateDetail | null>(null);
@@ -91,9 +91,9 @@ function DetailView() {
   }, []);
 
   const fetchDetail = useCallback(async () => {
-    if (!userId) return;
+    if (!candidateId) return;
     try {
-      const res = await fetch(`/api/recruiter/candidate/${encodeURIComponent(userId)}`);
+      const res = await fetch(`/api/recruiter/candidate/${encodeURIComponent(candidateId)}`);
       if (res.status === 404) {
         setState('notfound');
         return;
@@ -110,14 +110,14 @@ function DetailView() {
       console.error('Kandidatprofil: kunde inte hämta', error);
       setState('error');
     }
-  }, [userId]);
+  }, [candidateId]);
 
   useEffect(() => {
     fetchDetail();
   }, [fetchDetail]);
 
   const handleInterest = async () => {
-    if (!userId) return;
+    if (!candidateId) return;
     setSending(true);
     setNotice(null);
     try {
@@ -125,7 +125,7 @@ function DetailView() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          candidateUserId: userId,
+          candidateId: candidateId,
           message: message.trim() || undefined,
         }),
       });
@@ -193,9 +193,9 @@ function DetailView() {
             {back.label}
           </Link>
 
-          {userId && <NotesPopover candidateUserId={userId} />}
-          {userId && <ShareButton candidateUserId={userId} />}
-          {userId && <AddToProjectMenu candidateUserIds={[userId]} />}
+          {candidateId && <NotesPopover candidateId={candidateId} />}
+          {candidateId && <ShareButton candidateId={candidateId} />}
+          {candidateId && <AddToProjectMenu candidateIds={[candidateId]} />}
 
           {interestStatus === null ? (
             <button

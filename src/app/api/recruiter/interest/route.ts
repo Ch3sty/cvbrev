@@ -16,6 +16,7 @@ import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
 import { generateRecruiterInterestEmail } from '@/lib/email/recruiter-interest';
+import { findVisibleProfile } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,16 +30,16 @@ export async function POST(request: NextRequest) {
     if (!gate.ok) return gate.response;
     const { user, recruiter } = gate.ctx;
 
-    let body: { candidateUserId?: string; message?: string };
+    let body: { candidateId?: string; message?: string };
     try {
       body = await request.json();
     } catch {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
 
-    const candidateUserId = body.candidateUserId?.trim();
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
     const message = body.message?.trim() || null;
     if (message && message.length > MESSAGE_MAX) {
@@ -50,16 +51,13 @@ export async function POST(request: NextRequest) {
 
     const admin = getSupabaseAdmin();
 
-    // Kandidaten måste vara synlig i poolen.
-    const { data: candidate } = await (admin as any)
-      .from('candidate_profiles')
-      .select('user_id, visibility')
-      .eq('user_id', candidateUserId)
-      .neq('visibility', 'off')
-      .maybeSingle();
+    // Kandidaten måste vara synlig i poolen. Rekryteraren har kandidatens
+    // id mot rekryterare, aldrig kontots id (candidateAccess.ts).
+    const candidate = await findVisibleProfile(admin, candidateRef);
     if (!candidate) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
+    const candidateUserId = candidate.user_id;
 
     // Rate limit: räkna rekryterarens intressen i det rullande 24h-fönstret.
     const windowStart = new Date(Date.now() - RATE_WINDOW_MS).toISOString();

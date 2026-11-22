@@ -92,6 +92,8 @@ export const STRENGTH_LABELS = STRENGTH_MAP.map((s) => s.label);
 /** Raden ur candidate_profiles som funktionerna behöver. */
 export interface CandidateProfileRow {
   user_id: string;
+  /** Kandidatens id mot rekryteraren när kolumnen finns (candidateAccess.ts). */
+  public_id?: string | null;
   cv_id: string | null;
   visibility: 'anonymous' | 'open';
   show_personality: boolean | null;
@@ -132,7 +134,10 @@ export interface TestBadge {
 }
 
 export interface CandidateCard {
+  /** Kontots id. Stannar på servern: vitlistan skickar candidateId i stället. */
   userId: string;
+  /** candidate_profiles.public_id, null innan kolumnen finns. */
+  publicId: string | null;
   role: string | null;
   skills: string[];
   regions: string[];
@@ -821,6 +826,7 @@ export async function buildCandidateCard(
 
   return {
     userId: row.user_id,
+    publicId: row.public_id ?? null,
     role: roleSkills.occupation,
     skills: roleSkills.skills.slice(0, 6),
     regions: row.regions ?? [],

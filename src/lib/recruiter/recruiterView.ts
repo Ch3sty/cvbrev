@@ -66,7 +66,11 @@ export interface RecruiterTestBadge {
 }
 
 export interface RecruiterCard {
-  userId: string;
+  /**
+   * Kandidatens id mot rekryteraren: candidate_profiles.public_id, aldrig
+   * kontots id (se candidateAccess.ts).
+   */
+  candidateId: string;
   role: string | null;
   skills: string[];
   regions: string[];
@@ -161,10 +165,11 @@ function badge(b: CandidateCard['testBadges'][number]): RecruiterTestBadge {
  * gäller före och efter ja.
  */
 export function toRecruiterCard(
-  card: CandidateCard & { matchReasons?: string[] }
+  card: CandidateCard & { matchReasons?: string[] },
+  candidateId: string
 ): RecruiterCard {
   const out: RecruiterCard = {
-    userId: card.userId,
+    candidateId,
     role: card.role ?? null,
     skills: strings(card.skills),
     regions: strings(card.regions),
@@ -195,6 +200,7 @@ export function toRecruiterCard(
 /** Detaljprofilen, formad efter rekryterarens åtkomst. */
 export function toRecruiterDetail(
   detail: CandidateDetail,
+  candidateId: string,
   access: RecruiterAccess
 ): RecruiterDetail {
   const open = access.contactUnlocked;
@@ -232,7 +238,7 @@ export function toRecruiterDetail(
   }
 
   return {
-    ...toRecruiterCard(detail),
+    ...toRecruiterCard(detail, candidateId),
     experience,
     education,
     testResults: (detail.testResults ?? []).map((r) => ({

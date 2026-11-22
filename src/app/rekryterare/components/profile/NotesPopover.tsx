@@ -8,7 +8,7 @@ import { formatLongDate } from '../types';
  * Privat anteckning per (rekryterare, kandidat): popover mot notes-API:t.
  * Tom sträng raderar anteckningen.
  */
-export default function NotesPopover({ candidateUserId }: { candidateUserId: string }) {
+export default function NotesPopover({ candidateId }: { candidateId: string }) {
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState('');
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export default function NotesPopover({ candidateUserId }: { candidateUserId: str
     (async () => {
       try {
         const res = await fetch(
-          `/api/recruiter/notes?candidateUserId=${encodeURIComponent(candidateUserId)}`
+          `/api/recruiter/notes?candidateId=${encodeURIComponent(candidateId)}`
         );
         if (!res.ok) return;
         const data = (await res.json()) as {
@@ -42,7 +42,7 @@ export default function NotesPopover({ candidateUserId }: { candidateUserId: str
     return () => {
       cancelled = true;
     };
-  }, [candidateUserId]);
+  }, [candidateId]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,7 +60,7 @@ export default function NotesPopover({ candidateUserId }: { candidateUserId: str
       const res = await fetch('/api/recruiter/notes', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ candidateUserId, note }),
+        body: JSON.stringify({ candidateId, note }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setHasNote(Boolean(note.trim()));

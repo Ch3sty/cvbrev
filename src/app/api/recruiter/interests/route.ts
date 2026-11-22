@@ -8,7 +8,7 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import { recruiterCardsFor } from '@/lib/recruiter/candidateAccess';
+import { recruiterCardsFor, refsForUserIds } from '@/lib/recruiter/candidateAccess';
 import type { RecruiterCard } from '@/lib/recruiter/recruiterView';
 import { unreadByInterest } from '@/lib/interests/threadUnread';
 
@@ -63,12 +63,18 @@ export async function GET() {
     // Trådstatistik (antal + olästa) för accepterade intressen.
     const acceptedIds = interests.filter((i) => i.status === 'accepted').map((i) => i.id);
     const threadStats = await unreadByInterest(admin, acceptedIds, user.id, 'recruiter');
+    // Kandidatens id mot rekryteraren, aldrig kontots id.
+    const refs = await refsForUserIds(
+      admin,
+      interests.map((i) => i.candidate_user_id)
+    );
 
     const result = interests.map((i) => {
       const stats = threadStats.get(i.id) ?? { total: 0, unread: 0 };
       return {
         interestId: i.id,
-        candidateUserId: i.candidate_user_id,
+        // null när profilen är borttagen.
+        candidateId: refs.get(i.candidate_user_id) ?? null,
         status: i.status,
         createdAt: i.created_at,
         respondedAt: i.responded_at,

@@ -6,7 +6,7 @@ import type { ProjectSummary } from './types';
 
 interface AddToProjectMenuProps {
   /** En eller flera kandidater (bulk från CompareToolbar). */
-  candidateUserIds: string[];
+  candidateIds: string[];
   /** 'button' = sekundär knapp med text, 'compact' = liten ghost-variant. */
   variant?: 'button' | 'compact';
   /** Anropas efter lyckad tilläggning (t.ex. rensa markering). */
@@ -19,7 +19,7 @@ interface AddToProjectMenuProps {
  * Används i tabellrad, peek-panel och detaljprofilens action-bar.
  */
 export default function AddToProjectMenu({
-  candidateUserIds,
+  candidateIds,
   variant = 'button',
   onAdded,
 }: AddToProjectMenuProps) {
@@ -70,11 +70,11 @@ export default function AddToProjectMenu({
     setBusyId(projectId);
     setError(null);
     try {
-      for (const candidateUserId of candidateUserIds) {
+      for (const candidateId of candidateIds) {
         const res = await fetch(`/api/recruiter/projects/${projectId}/candidates`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId }),
+          body: JSON.stringify({ candidateId }),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
       }
@@ -117,7 +117,7 @@ export default function AddToProjectMenu({
     }
   };
 
-  const count = candidateUserIds.length;
+  const count = candidateIds.length;
 
   return (
     <div ref={rootRef} className="relative inline-flex">

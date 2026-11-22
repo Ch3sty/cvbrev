@@ -23,14 +23,14 @@ function archetypeColor(title: string): string {
 
 export interface ProjectTableMode {
   statusByCandidate: Record<string, string>;
-  onStatusChange: (candidateUserId: string, status: string) => void;
-  onRemove: (candidateUserId: string) => void;
+  onStatusChange: (candidateId: string, status: string) => void;
+  onRemove: (candidateId: string) => void;
 }
 
 interface CandidateTableProps {
   candidates: PoolCandidate[];
   selectedIds: string[];
-  onToggleSelect: (userId: string) => void;
+  onToggleSelect: (candidateId: string) => void;
   onToggleSelectAll: () => void;
   onRowClick: (candidate: PoolCandidate) => void;
   /** Info-ikon med matchReasons visas bara vid aktiv sökning. */
@@ -57,7 +57,7 @@ export default function CandidateTable({
   projectMode,
 }: CandidateTableProps) {
   const allSelected =
-    candidates.length > 0 && candidates.every((c) => selectedIds.includes(c.userId));
+    candidates.length > 0 && candidates.every((c) => selectedIds.includes(c.candidateId));
 
   return (
     <div className="overflow-x-auto rounded-2xl border border-orange-100 bg-white">
@@ -87,10 +87,10 @@ export default function CandidateTable({
         <tbody>
           {candidates.map((candidate) => (
             <Row
-              key={candidate.userId}
+              key={candidate.candidateId}
               candidate={candidate}
-              selected={selectedIds.includes(candidate.userId)}
-              onToggleSelect={() => onToggleSelect(candidate.userId)}
+              selected={selectedIds.includes(candidate.candidateId)}
+              onToggleSelect={() => onToggleSelect(candidate.candidateId)}
               onClick={() => onRowClick(candidate)}
               showMatchReasons={showMatchReasons}
               fromPath={fromPath}
@@ -135,7 +135,7 @@ function Row({
   const skillChips = candidate.skills.slice(0, 3);
   const skillOverflow = candidate.skills.length - skillChips.length;
 
-  const profileHref = `/rekryterare/kandidat/${candidate.userId}?from=${encodeURIComponent(fromPath)}`;
+  const profileHref = `/rekryterare/kandidat/${candidate.candidateId}?from=${encodeURIComponent(fromPath)}`;
 
   return (
     <tr
@@ -267,8 +267,8 @@ function Row({
         {projectMode ? (
           <div className="flex items-center gap-1">
             <select
-              value={projectMode.statusByCandidate[candidate.userId] ?? 'ny'}
-              onChange={(e) => projectMode.onStatusChange(candidate.userId, e.target.value)}
+              value={projectMode.statusByCandidate[candidate.candidateId] ?? 'ny'}
+              onChange={(e) => projectMode.onStatusChange(candidate.candidateId, e.target.value)}
               className="min-h-[32px] pl-2 pr-6 rounded-lg border border-slate-200 bg-white text-[12px] font-bold text-slate-700 cursor-pointer"
               aria-label="Kandidatstatus i projektet"
             >
@@ -280,7 +280,7 @@ function Row({
             </select>
             <button
               type="button"
-              onClick={() => projectMode.onRemove(candidate.userId)}
+              onClick={() => projectMode.onRemove(candidate.candidateId)}
               className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
               aria-label="Ta bort från projektet"
             >

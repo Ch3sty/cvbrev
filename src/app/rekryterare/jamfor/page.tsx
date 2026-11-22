@@ -163,7 +163,7 @@ function CompareTable({ entries }: { entries: CompareEntry[] }) {
                 const roleLabel = candidate.role ?? 'Kandidat';
                 return (
                   <th
-                    key={candidate.userId}
+                    key={candidate.candidateId}
                     className="sticky top-0 z-10 bg-white text-left align-bottom px-4 pt-4 pb-3 border-b border-orange-100 min-w-[180px]"
                   >
                     <div
@@ -319,7 +319,7 @@ function CompareTable({ entries }: { entries: CompareEntry[] }) {
             <CompareRow label="Åtgärd" entries={entries}>
               {(e) => (
                 <Link
-                  href={`/rekryterare/kandidat/${e.candidate.userId}?from=${encodeURIComponent('/rekryterare/jamfor')}`}
+                  href={`/rekryterare/kandidat/${e.candidate.candidateId}?from=${encodeURIComponent('/rekryterare/jamfor')}`}
                   className="inline-flex items-center min-h-[34px] px-3 rounded-lg text-[12px] font-bold text-orange-700 border border-orange-300 bg-white hover:bg-orange-50 transition-colors whitespace-nowrap"
                 >
                   Öppna profil
@@ -354,7 +354,7 @@ function CompareRow({
       </th>
       {entries.map((entry, i) => (
         <td
-          key={entry.candidate.userId}
+          key={entry.candidate.candidateId}
           className={`align-top px-4 py-3 text-[13px] text-slate-700 leading-relaxed ${
             best?.has(i) ? 'bg-orange-50/60' : ''
           }`}

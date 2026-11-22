@@ -15,7 +15,7 @@ import {
 interface CandidateHitCardProps {
   candidate: PoolCandidate;
   sending: boolean;
-  onInterest: (userId: string) => void;
+  onInterest: (candidateId: string) => void;
   /** Om satt: kortet öppnar peek-panelen i stället för att navigera. */
   onOpen?: () => void;
   /** Markering för jämför/projekt (mobilens motsvarighet till tabellens checkbox). */
@@ -196,7 +196,7 @@ export default function CandidateHitCard({
               // Knappen ligger i länken: stoppa navigeringen och skicka direkt.
               e.preventDefault();
               e.stopPropagation();
-              onInterest(candidate.userId);
+              onInterest(candidate.candidateId);
             }}
             className="flex-shrink-0 min-h-[36px] px-3.5 rounded-lg text-[12.5px] font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
@@ -231,7 +231,7 @@ export default function CandidateHitCard({
 
   return (
     <Link
-      href={`/rekryterare/kandidat/${candidate.userId}`}
+      href={`/rekryterare/kandidat/${candidate.candidateId}`}
       className={rootClass}
       style={rootStyle}
     >

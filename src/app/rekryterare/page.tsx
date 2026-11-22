@@ -216,19 +216,19 @@ function SearchView() {
 
   // Intresseflödet: optimistisk uppdatering med rollback (samma som tidigare).
   const handleInterest = useCallback(
-    async (candidateUserId: string) => {
-      setSendingId(candidateUserId);
+    async (candidateId: string) => {
+      setSendingId(candidateId);
       setNotice(null);
 
       const snapshot = candidates;
       const apply = (status: PoolCandidate['interestStatus']) => {
         setCandidates((prev) =>
           (prev ?? []).map((c) =>
-            c.userId === candidateUserId ? { ...c, interestStatus: status } : c
+            c.candidateId === candidateId ? { ...c, interestStatus: status } : c
           )
         );
         setPeekCandidate((prev) =>
-          prev && prev.userId === candidateUserId ? { ...prev, interestStatus: status } : prev
+          prev && prev.candidateId === candidateId ? { ...prev, interestStatus: status } : prev
         );
       };
       apply('pending');
@@ -237,7 +237,7 @@ function SearchView() {
         const res = await fetch('/api/recruiter/interest', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId }),
+          body: JSON.stringify({ candidateId }),
         });
         const data = await res.json().catch(() => null);
         if (res.status === 429) {
@@ -262,11 +262,11 @@ function SearchView() {
   // Sekventiellt så dygnsgränsen (10/dygn) respekteras, stannar vid 429.
   const [bulkSending, setBulkSending] = useState(false);
   const handleBulkInterest = useCallback(
-    async (userIds: string[]) => {
+    async (candidateIds: string[]) => {
       const pool = candidates ?? [];
       // Bara de utan tidigare intresse (skickat/accepterat/avböjt hoppas över).
-      const targets = userIds.filter((id) =>
-        pool.some((c) => c.userId === id && !c.interestStatus)
+      const targets = candidateIds.filter((id) =>
+        pool.some((c) => c.candidateId === id && !c.interestStatus)
       );
       if (targets.length === 0) {
         setNotice('De markerade kandidaterna har redan fått en intresseförfrågan.');
@@ -278,12 +278,12 @@ function SearchView() {
       let sent = 0;
       let stoppedByLimit = false;
 
-      for (const candidateUserId of targets) {
+      for (const candidateId of targets) {
         try {
           const res = await fetch('/api/recruiter/interest', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ candidateUserId }),
+            body: JSON.stringify({ candidateId }),
           });
           const data = await res.json().catch(() => null);
           if (res.status === 429) {
@@ -295,7 +295,7 @@ function SearchView() {
           const status = data?.interest?.status ?? 'pending';
           setCandidates((prev) =>
             (prev ?? []).map((c) =>
-              c.userId === candidateUserId ? { ...c, interestStatus: status } : c
+              c.candidateId === candidateId ? { ...c, interestStatus: status } : c
             )
           );
         } catch (error) {
@@ -318,14 +318,14 @@ function SearchView() {
     [candidates]
   );
 
-  const toggleSelect = useCallback((userId: string) => {
+  const toggleSelect = useCallback((candidateId: string) => {
     setSelectedIds((prev) =>
-      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+      prev.includes(candidateId) ? prev.filter((id) => id !== candidateId) : [...prev, candidateId]
     );
   }, []);
 
   const toggleSelectAll = useCallback(() => {
-    const visible = (candidates ?? []).map((c) => c.userId);
+    const visible = (candidates ?? []).map((c) => c.candidateId);
     setSelectedIds((prev) => (visible.every((id) => prev.includes(id)) ? [] : visible));
   }, [candidates]);
 
@@ -541,13 +541,13 @@ function SearchView() {
               <div className="grid gap-4 sm:grid-cols-2 lg:hidden">
                 {visibleCandidates.map((candidate) => (
                   <CandidateHitCard
-                    key={candidate.userId}
+                    key={candidate.candidateId}
                     candidate={candidate}
-                    sending={sendingId === candidate.userId}
+                    sending={sendingId === candidate.candidateId}
                     onInterest={handleInterest}
                     onOpen={() => setPeekCandidate(candidate)}
-                    selected={selectedIds.includes(candidate.userId)}
-                    onToggleSelect={() => toggleSelect(candidate.userId)}
+                    selected={selectedIds.includes(candidate.candidateId)}
+                    onToggleSelect={() => toggleSelect(candidate.candidateId)}
                   />
                 ))}
               </div>

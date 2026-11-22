@@ -234,7 +234,7 @@ export async function runPoolSearch(
   // Strukturella filter trycks ned i frågan; fritext/percentil/styrka m.fl.
   // filtreras efter kortbygget eftersom de kräver härledd data.
   // Samma ingång som alla andra rekryterarvägar (candidateAccess.ts).
-  let query = visibleProfilesQuery(admin).order('updated_at', { ascending: false });
+  let query = (await visibleProfilesQuery(admin)).query.order('updated_at', { ascending: false });
 
   if (filters.regions?.length) query = query.overlaps('regions', filters.regions);
   if (filters.availability) query = query.eq('availability', filters.availability);

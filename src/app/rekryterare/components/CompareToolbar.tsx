@@ -59,7 +59,7 @@ export default function CompareToolbar({
         Jämför ({Math.min(count, 4)})
       </button>
 
-      <AddToProjectMenu candidateUserIds={selectedIds} onAdded={onClear} />
+      <AddToProjectMenu candidateIds={selectedIds} onAdded={onClear} />
 
       <button
         type="button"

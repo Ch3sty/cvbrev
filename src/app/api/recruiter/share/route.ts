@@ -14,6 +14,7 @@ import {
   shareLinkExpiry,
   revokeShareLink,
 } from '@/lib/recruiter/shareLinks';
+import { findVisibleProfile, userIdForRef } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,31 +26,26 @@ export async function POST(request: NextRequest) {
     if (!gate.ok) return gate.response;
     const { user } = gate.ctx;
 
-    let body: { candidateUserId?: string };
+    let body: { candidateId?: string };
     try {
       body = await request.json();
     } catch {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
 
-    const candidateUserId =
-      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
 
     const admin = getSupabaseAdmin();
 
     // Endast synliga kandidater kan delas.
-    const { data: candidate } = await (admin as any)
-      .from('candidate_profiles')
-      .select('user_id')
-      .eq('user_id', candidateUserId)
-      .neq('visibility', 'off')
-      .maybeSingle();
+    const candidate = await findVisibleProfile(admin, candidateRef);
     if (!candidate) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
+    const candidateUserId = candidate.user_id;
 
     const expiresAt = shareLinkExpiry().toISOString();
 
@@ -91,7 +87,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// DELETE /api/recruiter/share  { candidateUserId }
+// DELETE /api/recruiter/share  { candidateId }
 // Återkallar rekryterarens aktiva delningslänkar för en kandidat i förväg.
 export async function DELETE(request: NextRequest) {
   try {
@@ -99,19 +95,20 @@ export async function DELETE(request: NextRequest) {
     if (!gate.ok) return gate.response;
     const { user } = gate.ctx;
 
-    let body: { candidateUserId?: string };
+    let body: { candidateId?: string };
     try {
       body = await request.json();
     } catch {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
 
-    const candidateUserId =
-      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
 
+    const candidateUserId = await userIdForRef(getSupabaseAdmin(), candidateRef);
+    if (!candidateUserId) return NextResponse.json({ revoked: 0 });
     const revoked = await revokeShareLink(user.id, candidateUserId);
     return NextResponse.json({ revoked });
   } catch (error) {

@@ -9,7 +9,7 @@ import { formatLongDate } from '../types';
  * länk (14 dagar) med exakt samma maskering som rekryteraren själv ser.
  * Länken visas i en popover med kopieringsknapp.
  */
-export default function ShareButton({ candidateUserId }: { candidateUserId: string }) {
+export default function ShareButton({ candidateId }: { candidateId: string }) {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -41,7 +41,7 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
         const res = await fetch('/api/recruiter/share', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ candidateUserId }),
+          body: JSON.stringify({ candidateId }),
         });
         const data = (await res.json().catch(() => null)) as {
           url?: string;
@@ -80,7 +80,7 @@ export default function ShareButton({ candidateUserId }: { candidateUserId: stri
       const res = await fetch('/api/recruiter/share', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ candidateUserId }),
+        body: JSON.stringify({ candidateId }),
       });
       if (!res.ok) {
         setError('Kunde inte återkalla länken.');

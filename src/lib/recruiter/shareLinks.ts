@@ -12,7 +12,7 @@
 
 import crypto from 'crypto';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { findVisibleProfile, recruiterDetailFor } from '@/lib/recruiter/candidateAccess';
+import { findVisibleProfileByUserId, recruiterDetailFor } from '@/lib/recruiter/candidateAccess';
 import type { RecruiterDetail } from '@/lib/recruiter/recruiterView';
 
 export const SHARE_LINK_TTL_DAYS = 14;
@@ -60,7 +60,7 @@ export async function getSharedCandidate(token: string): Promise<SharedCandidate
   if (!link) return null;
 
   // Kandidaten måste fortfarande vara synlig i poolen.
-  const row = await findVisibleProfile(admin, link.candidate_user_id);
+  const row = await findVisibleProfileByUserId(admin, link.candidate_user_id);
   if (!row) return null;
 
   // Skaparens intressestatus avgör upplåsningen, precis som i skaparens vy,

@@ -21,7 +21,7 @@ import {
 interface PeekPanelProps {
   candidate: PoolCandidate | null;
   onClose: () => void;
-  onInterest: (candidateUserId: string) => void;
+  onInterest: (candidateId: string) => void;
   sendingInterest: boolean;
   /** Skickas som ?from= till fullprofilen. */
   fromPath: string;
@@ -48,7 +48,7 @@ export default function PeekPanel({
     (async () => {
       try {
         const res = await fetch(
-          `/api/recruiter/candidate/${encodeURIComponent(candidate.userId)}`
+          `/api/recruiter/candidate/${encodeURIComponent(candidate.candidateId)}`
         );
         if (!res.ok) return;
         const data = (await res.json()) as { candidate: CandidateDetail };
@@ -124,7 +124,7 @@ function PeekContent({
   candidate: PoolCandidate;
   detail: CandidateDetail | null;
   onClose: () => void;
-  onInterest: (candidateUserId: string) => void;
+  onInterest: (candidateId: string) => void;
   sendingInterest: boolean;
   fromPath: string;
 }) {
@@ -153,7 +153,7 @@ function PeekContent({
     { label: 'Körkort', value: candidate.driversLicense ? 'B-körkort' : '' },
   ].filter((t) => t.value);
 
-  const profileHref = `/rekryterare/kandidat/${candidate.userId}?from=${encodeURIComponent(fromPath)}`;
+  const profileHref = `/rekryterare/kandidat/${candidate.candidateId}?from=${encodeURIComponent(fromPath)}`;
 
   return (
     <>
@@ -326,7 +326,7 @@ function PeekContent({
           <button
             type="button"
             disabled={sendingInterest}
-            onClick={() => onInterest(candidate.userId)}
+            onClick={() => onInterest(candidate.candidateId)}
             className="inline-flex items-center justify-center min-h-[40px] px-4 rounded-xl text-[13px] font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             style={{ background: CTA_GRADIENT }}
           >
@@ -335,7 +335,7 @@ function PeekContent({
         ) : (
           <InterestStatusBadge status={candidate.interestStatus} />
         )}
-        <AddToProjectMenu candidateUserIds={[candidate.userId]} />
+        <AddToProjectMenu candidateIds={[candidate.candidateId]} />
         <Link
           href={profileHref}
           className="inline-flex items-center gap-1 min-h-[40px] px-3 rounded-xl text-[12.5px] font-bold text-slate-500 hover:text-orange-700 hover:bg-orange-50 transition-colors ml-auto"

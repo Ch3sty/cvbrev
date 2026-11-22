@@ -1,5 +1,5 @@
 // Delade klienttyper för rekryterarportalen. Speglar payloaden från
-// /api/recruiter/pool, /api/recruiter/candidate/[userId] och projekt-API:erna.
+// /api/recruiter/pool, /api/recruiter/candidate/[candidateId] och projekt-API:erna.
 // Server-typerna importeras type-only från vitlistan (recruiterView.ts), så
 // klienten bara känner till fält som faktiskt får lämna servern;
 // etikettkonstanterna återanvänds från Bli upptäckt-sidan.
@@ -269,7 +269,7 @@ export interface ProjectSummary {
 }
 
 export interface ProjectCandidate {
-  candidateUserId: string;
+  candidateId: string;
   status: string;
   addedAt: string;
   card: CandidateCard;
@@ -286,7 +286,8 @@ export interface SavedSearch {
 
 export interface InterestItem {
   interestId: string;
-  candidateUserId: string;
+  /** Kandidatens id mot rekryterare. null när profilen är borttagen. */
+  candidateId: string | null;
   status: string;
   createdAt: string;
   respondedAt: string | null;

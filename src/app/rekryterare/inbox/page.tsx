@@ -140,7 +140,7 @@ export default function InboxPage() {
                 </div>
                 {interest.card && (
                   <Link
-                    href={`/rekryterare/kandidat/${interest.candidateUserId}?from=${encodeURIComponent('/rekryterare/inbox')}`}
+                    href={`/rekryterare/kandidat/${interest.candidateId}?from=${encodeURIComponent('/rekryterare/inbox')}`}
                     className="flex-shrink-0 inline-flex items-center gap-1 min-h-[36px] px-3 rounded-lg text-[12.5px] font-bold text-orange-700 hover:bg-orange-50 transition-colors"
                   >
                     Öppna profil

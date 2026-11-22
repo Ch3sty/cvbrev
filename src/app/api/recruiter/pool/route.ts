@@ -37,6 +37,7 @@ import {
 } from '@/lib/recruiter/poolSearch';
 import type { EducationLevelBucket, FamilyKey } from '@/lib/recruiter/candidateData';
 import { toRecruiterCard } from '@/lib/recruiter/recruiterView';
+import { candidateRefOf } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -116,7 +117,7 @@ export async function GET(request: NextRequest) {
       const interest = interestByCandidate.get(card.userId);
       return {
         // Vitlistan: bara kortets godkända fält lämnar servern.
-        ...toRecruiterCard(card),
+        ...toRecruiterCard(card, candidateRefOf({ user_id: card.userId, public_id: card.publicId })),
         interestStatus: interest?.status ?? null,
         interestSentAt: interest?.createdAt ?? null,
       };

@@ -1,16 +1,19 @@
 // /api/recruiter/projects/[projectId]/candidates
 // Kandidater i ett projekt, plan-rekryterare-v2 FAS B3.
 //
-//   POST   { candidateUserId }         → lägg till (kandidaten måste vara synlig
-//                                        i poolen), bumpar projektets updated_at.
-//   PATCH  { candidateUserId, status } → uppdatera status (ny/kontaktad/vantar/dialog).
-//   DELETE { candidateUserId }         → ta bort ur projektet.
+//   POST   { candidateId }         → lägg till (kandidaten måste vara synlig
+//                                    i poolen), bumpar projektets updated_at.
+//   PATCH  { candidateId, status } → uppdatera status (ny/kontaktad/vantar/dialog).
+//   DELETE { candidateId }         → ta bort ur projektet.
+//
+// candidateId är kandidatens id mot rekryterare, aldrig kontots id.
 //
 // Ägarskap kontrolleras alltid mot recruiter_projects.recruiter_user_id.
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
+import { findVisibleProfile, userIdForRef } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,14 +74,13 @@ export async function POST(
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    const body = await readBody<{ candidateUserId?: string }>(request);
+    const body = await readBody<{ candidateId?: string }>(request);
     if (!body) {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
-    const candidateUserId =
-      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
 
     const admin = getSupabaseAdmin();
@@ -88,15 +90,11 @@ export async function POST(
     }
 
     // Kandidaten måste finnas i poolen med synligheten på.
-    const { data: candidate } = await (admin as any)
-      .from('candidate_profiles')
-      .select('user_id')
-      .eq('user_id', candidateUserId)
-      .neq('visibility', 'off')
-      .maybeSingle();
+    const candidate = await findVisibleProfile(admin, candidateRef);
     if (!candidate) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
+    const candidateUserId = candidate.user_id;
 
     const { data: inserted, error: insertError } = await (admin as any)
       .from('recruiter_project_candidates')
@@ -120,7 +118,7 @@ export async function POST(
         return NextResponse.json({
           member: existing
             ? {
-                candidateUserId: existing.candidate_user_id,
+                candidateId: candidateRef,
                 status: existing.status,
                 addedAt: existing.added_at,
               }
@@ -136,7 +134,7 @@ export async function POST(
 
     return NextResponse.json({
       member: {
-        candidateUserId: inserted.candidate_user_id,
+        candidateId: candidateRef,
         status: inserted.status,
         addedAt: inserted.added_at,
       },
@@ -162,14 +160,13 @@ export async function PATCH(
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    const body = await readBody<{ candidateUserId?: string; status?: string }>(request);
+    const body = await readBody<{ candidateId?: string; status?: string }>(request);
     if (!body) {
       return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 });
     }
-    const candidateUserId =
-      typeof body.candidateUserId === 'string' ? body.candidateUserId.trim() : '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    const candidateRef = typeof body.candidateId === 'string' ? body.candidateId.trim() : '';
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
     const status = body.status;
     if (!status || !VALID_STATUSES.includes(status as ProjectCandidateStatus)) {
@@ -182,6 +179,11 @@ export async function PATCH(
     const admin = getSupabaseAdmin();
 
     if (!(await ownsProject(admin, projectId, user.id))) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    const candidateUserId = await userIdForRef(admin, candidateRef);
+    if (!candidateUserId) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
@@ -203,7 +205,7 @@ export async function PATCH(
 
     return NextResponse.json({
       member: {
-        candidateUserId: updated.candidate_user_id,
+        candidateId: candidateRef,
         status: updated.status,
         addedAt: updated.added_at,
       },
@@ -228,20 +230,25 @@ export async function DELETE(
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    // candidateUserId tas ur body, med query-param som fallback.
-    const body = await readBody<{ candidateUserId?: string }>(request);
-    const candidateUserId =
-      (typeof body?.candidateUserId === 'string' ? body.candidateUserId.trim() : '') ||
-      request.nextUrl.searchParams.get('candidateUserId')?.trim() ||
+    // candidateId tas ur body, med query-param som fallback.
+    const body = await readBody<{ candidateId?: string }>(request);
+    const candidateRef =
+      (typeof body?.candidateId === 'string' ? body.candidateId.trim() : '') ||
+      request.nextUrl.searchParams.get('candidateId')?.trim() ||
       '';
-    if (!candidateUserId) {
-      return NextResponse.json({ error: 'candidateUserId krävs' }, { status: 400 });
+    if (!candidateRef) {
+      return NextResponse.json({ error: 'candidateId krävs' }, { status: 400 });
     }
 
     const admin = getSupabaseAdmin();
 
     if (!(await ownsProject(admin, projectId, user.id))) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+
+    const candidateUserId = await userIdForRef(admin, candidateRef);
+    if (!candidateUserId) {
+      return NextResponse.json({ success: true });
     }
 
     const { error } = await (admin as any)

@@ -9,11 +9,21 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { createFakeDb, fakeAdmin, type FakeDb } from './fakeAdmin';
+import { __resetPublicIdState } from '../candidateAccess';
 
 const KAND = '11111111-1111-4111-8111-111111111111';
 const REK = '22222222-2222-4222-8222-222222222222';
 const CV = '33333333-3333-4333-8333-333333333333';
 const PROJEKT = '44444444-4444-4444-8444-444444444444';
+/** Kandidatens id mot rekryterare (candidate_profiles.public_id). */
+const PUBLIK = '55555555-5555-4555-8555-555555555555';
+
+const PROFILKOLUMNER = [
+  'user_id', 'public_id', 'cv_id', 'visibility', 'show_personality', 'show_full_workstyle',
+  'context_tags', 'availability', 'workplace', 'extent', 'employment_types', 'regions',
+  'drivers_license', 'salary_min', 'salary_max', 'pitch', 'consent_given_at', 'created_at',
+  'updated_at',
+];
 
 let db: FakeDb;
 
@@ -66,10 +76,12 @@ const EFTER_JA = [
 const KONTOEPOST = 'kannetecken-konto@exempel.test';
 
 function byggDb(intresse: 'inget' | 'pending' | 'accepted' | 'declined' = 'inget') {
+  __resetPublicIdState();
   db = createFakeDb({
     candidate_profiles: [
       {
         user_id: KAND,
+        public_id: PUBLIK,
         cv_id: CV,
         visibility: 'anonymous',
         show_personality: false,
@@ -186,7 +198,14 @@ function byggDb(intresse: 'inget' | 'pending' | 'accepted' | 'declined' = 'inget
     interest_thread_reads: [],
     notifications: [],
     email_log: [],
-  });
+  }, { candidate_profiles: PROFILKOLUMNER });
+}
+
+/** Läget innan migreringen är körd: kolumnen public_id finns inte. */
+function utanKolumnen() {
+  __resetPublicIdState();
+  db.schema.candidate_profiles = PROFILKOLUMNER.filter((k) => k !== 'public_id');
+  for (const r of db.tables.candidate_profiles) delete r.public_id;
 }
 
 function utan(text: string, strangar: string[]) {
@@ -210,9 +229,9 @@ async function sokning(q: string) {
   return json(await GET(new NextRequest(`http://localhost/api/recruiter/pool?q=${encodeURIComponent(q)}`)));
 }
 async function detaljen(ref: string) {
-  const { GET } = await import('@/app/api/recruiter/candidate/[userId]/route');
+  const { GET } = await import('@/app/api/recruiter/candidate/[candidateId]/route');
   return GET(new NextRequest(`http://localhost/api/recruiter/candidate/${ref}`), {
-    params: Promise.resolve({ userId: ref }),
+    params: Promise.resolve({ candidateId: ref }),
   });
 }
 async function inkorgen() {
@@ -254,10 +273,10 @@ async function anteckningen() {
   await PUT(
     new NextRequest('http://localhost/api/recruiter/notes', {
       method: 'PUT',
-      body: JSON.stringify({ candidateUserId: KAND, note: 'Ring på måndag' }),
+      body: JSON.stringify({ candidateId: PUBLIK, note: 'Ring på måndag' }),
     })
   );
-  return json(await GET(new NextRequest(`http://localhost/api/recruiter/notes?candidateUserId=${KAND}`)));
+  return json(await GET(new NextRequest(`http://localhost/api/recruiter/notes?candidateId=${PUBLIK}`)));
 }
 
 describe('före kandidatens ja: ingen fritext ur CV:t', () => {
@@ -266,12 +285,13 @@ describe('före kandidatens ja: ingen fritext ur CV:t', () => {
   it('poolen och sökningen', async () => {
     const svar = (await poolen()) + (await sokning('projektledare'));
     expect(svar).toContain('Projektledare');
-    utan(svar, [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03']);
+    utan(svar, [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03', KAND]);
+    expect(svar).toContain(PUBLIK);
   });
 
   it('detaljsidan (också förhandspanelen och jämförelsen, samma rutt)', async () => {
-    const svar = await json(await detaljen(KAND));
-    utan(svar, [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03', '2015-01', '2014']);
+    const svar = await json(await detaljen(PUBLIK));
+    utan(svar, [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03', '2015-01', '2014', KAND]);
     const { candidate } = JSON.parse(svar);
     // Titel och längd i år, inga datum.
     expect(candidate.experience.map((e: any) => [e.position, e.period])).toEqual([
@@ -286,15 +306,15 @@ describe('före kandidatens ja: ingen fritext ur CV:t', () => {
   });
 
   it('inkorgen', async () => {
-    utan(await inkorgen(), [...ALDRIG, ...EFTER_JA, KONTOEPOST]);
+    utan(await inkorgen(), [...ALDRIG, ...EFTER_JA, KONTOEPOST, KAND]);
   });
 
   it('projektet', async () => {
-    utan(await projektet(), [...ALDRIG, ...EFTER_JA, KONTOEPOST]);
+    utan(await projektet(), [...ALDRIG, ...EFTER_JA, KONTOEPOST, KAND]);
   });
 
   it('delningslänken', async () => {
-    utan(await delningen(), [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03']);
+    utan(await delningen(), [...ALDRIG, ...EFTER_JA, KONTOEPOST, '2019-03', KAND]);
   });
 
   it('sparade sökningar och bevakningsmejlet', async () => {
@@ -310,7 +330,7 @@ describe('efter kandidatens ja: det samtycket säger', () => {
   beforeEach(() => byggDb('accepted'));
 
   it('detaljsidan visar arbetsgivare, beskrivningar, lärosäte, namn och e-post', async () => {
-    const svar = await json(await detaljen(KAND));
+    const svar = await json(await detaljen(PUBLIK));
     med(svar, [...EFTER_JA, KONTOEPOST, '2019-03']);
     utan(svar, ALDRIG);
   });
@@ -334,7 +354,7 @@ describe('öppen profil: arbetsgivare och namn utan ja, e-post aldrig utan ja', 
   });
 
   it('detaljsidan', async () => {
-    const svar = await json(await detaljen(KAND));
+    const svar = await json(await detaljen(PUBLIK));
     med(svar, EFTER_JA);
     utan(svar, [...ALDRIG, KONTOEPOST]);
   });
@@ -363,5 +383,37 @@ describe('notiser och mejl till rekryteraren när kandidaten svarar', () => {
     const notis = await svara('accept');
     med(notis, ['KANNETECKEN_KONTONAMN']);
     utan(notis, [...ALDRIG, KONTOEPOST, 'KANNETECKEN_BESKRIVNING_A', 'KANNETECKEN_LAROSATE']);
+  });
+});
+
+describe('kontots id når aldrig rekryteraren', () => {
+  beforeEach(() => byggDb('accepted'));
+
+  it('ett gammalt id (kontots) ger 404, inte en omdirigering', async () => {
+    const res = await detaljen(KAND);
+    expect(res.status).toBe(404);
+    expect(res.headers.get('location')).toBeNull();
+  });
+
+  it('efter ja: inget av svaren bär kontots id', async () => {
+    const svar = (await poolen()) + (await json(await detaljen(PUBLIK))) + (await inkorgen()) + (await projektet()) + (await delningen());
+    utan(svar, [KAND]);
+  });
+
+  it('intresse, anteckning och projekt tar kandidatens id mot rekryterare, inte kontots', async () => {
+    const { POST } = await import('@/app/api/recruiter/interest/route');
+    const gammalt = await POST(new NextRequest('http://localhost/api/recruiter/interest', { method: 'POST', body: JSON.stringify({ candidateId: KAND }) }));
+    expect(gammalt.status).toBe(404);
+    const { POST: lagg } = await import('@/app/api/recruiter/projects/[projectId]/candidates/route');
+    const med = await lagg(new NextRequest('http://localhost/x', { method: 'POST', body: JSON.stringify({ candidateId: PUBLIK }) }), { params: Promise.resolve({ projectId: PROJEKT }) });
+    expect(JSON.stringify(await med.json())).not.toContain(KAND);
+  });
+
+  it('innan migreringen är körd används kontots id som förut', async () => {
+    utanKolumnen();
+    const res = await detaljen(KAND);
+    expect(res.status).toBe(200);
+    const kort = JSON.parse(await poolen()).candidates;
+    expect(kort[0].candidateId).toBe(KAND);
   });
 });

@@ -83,7 +83,7 @@ export async function GET(
     }>;
 
     let candidates: Array<{
-      candidateUserId: string;
+      candidateId: string;
       status: string;
       addedAt: string;
       card: RecruiterCard;
@@ -107,7 +107,7 @@ export async function GET(
         if (!card) return []; // synlighet av eller profil borta
         return [
           {
-            candidateUserId: m.candidate_user_id,
+            candidateId: card.candidateId,
             status: m.status,
             addedAt: m.added_at,
             card,

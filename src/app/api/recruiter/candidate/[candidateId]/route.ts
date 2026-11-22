@@ -1,4 +1,6 @@
-// GET /api/recruiter/candidate/[userId]
+// GET /api/recruiter/candidate/[candidateId]
+// candidateId är kandidatens id mot rekryterare (public_id), aldrig kontots
+// id. När kolumnen finns ger kontots id 404, aldrig en omdirigering.
 // Detaljprofilen för en kandidat i poolen. 404 om profilen inte är synlig.
 //
 // Svaret formas av vitlistan i src/lib/recruiter/recruiterView.ts: före
@@ -16,17 +18,17 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ userId: string }> }
+  { params }: { params: Promise<{ candidateId: string }> }
 ) {
   try {
     const gate = await requireApprovedRecruiter();
     if (!gate.ok) return gate.response;
     const { user } = gate.ctx;
 
-    const { userId } = await params;
+    const { candidateId } = await params;
     const admin = getSupabaseAdmin();
 
-    const row = userId ? await findVisibleProfile(admin, userId) : null;
+    const row = candidateId ? await findVisibleProfile(admin, candidateId) : null;
     if (!row) {
       // Dold eller obefintlig profil ska inte gå att skilja åt.
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
