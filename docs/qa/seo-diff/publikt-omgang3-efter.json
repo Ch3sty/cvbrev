@@ -700,8 +700,24 @@
       "{\"@context\":\"https://schema.org\",\"@type\":\"ItemList\",\"description\":\"De mest sökta yrkesspecifika CV-exemplen och brev-exemplen i Sverige\",\"itemListElement\":[{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Undersköterska\",\"position\":1,\"url\":\"https://www.jobbcoach.ai/cv-exempel/underskoterska\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Undersköterska\",\"position\":2,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/underskoterska\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Sjuksköterska\",\"position\":3,\"url\":\"https://www.jobbcoach.ai/cv-exempel/sjukskoterska\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Sjuksköterska\",\"position\":4,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/sjukskoterska\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Lärare\",\"position\":5,\"url\":\"https://www.jobbcoach.ai/cv-exempel/larare\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Lärare\",\"position\":6,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/larare\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Förskollärare\",\"position\":7,\"url\":\"https://www.jobbcoach.ai/cv-exempel/forskollarare\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Förskollärare\",\"position\":8,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/forskollarare\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Systemutvecklare\",\"position\":9,\"url\":\"https://www.jobbcoach.ai/cv-exempel/systemutvecklare\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Systemutvecklare\",\"position\":10,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/systemutvecklare\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Ingenjör\",\"position\":11,\"url\":\"https://www.jobbcoach.ai/cv-exempel/ingenjor\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Ingenjör\",\"position\":12,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/ingenjor\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Ekonomiassistent\",\"position\":13,\"url\":\"https://www.jobbcoach.ai/cv-exempel/ekonomiassistent\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Ekonomiassistent\",\"position\":14,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/ekonomiassistent\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Redovisningsekonom\",\"position\":15,\"url\":\"https://www.jobbcoach.ai/cv-exempel/redovisningsekonom\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Redovisningsekonom\",\"position\":16,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/redovisningsekonom\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Butikssäljare\",\"position\":17,\"url\":\"https://www.jobbcoach.ai/cv-exempel/butikssaljare\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Butikssäljare\",\"position\":18,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/butikssaljare\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Receptionist\",\"position\":19,\"url\":\"https://www.jobbcoach.ai/cv-exempel/receptionist\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Receptionist\",\"position\":20,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/receptionist\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: Projektledare\",\"position\":21,\"url\":\"https://www.jobbcoach.ai/cv-exempel/projektledare\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: Projektledare\",\"position\":22,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/projektledare\"},{\"@type\":\"ListItem\",\"name\":\"CV-exempel: HR-specialist\",\"position\":23,\"url\":\"https://www.jobbcoach.ai/cv-exempel/hr-specialist\"},{\"@type\":\"ListItem\",\"name\":\"Personligt brev exempel: HR-specialist\",\"position\":24,\"url\":\"https://www.jobbcoach.ai/personligt-brev-exempel/hr-specialist\"}],\"name\":\"Populära CV-exempel och brev-exempel\",\"numberOfItems\":24}",
       "{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\",\"description\":\"Vi har 89 CV-exempel, 89 exempel på personligt brev och 40 CV-mallar. Börja med ditt yrke och gå vidare till exemplet, brevet eller mallen du behöver.\",\"name\":\"Exempel för jobbansökan: CV, personligt brev och mallar\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/exempel\"}"
     ],
-    "forstaBild": null,
-    "bilder": [],
+    "forstaBild": {
+      "src": "/mallar/v2/koppar-stor.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/mallar/v2/koppar-stor.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/brev/linne.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": ""
+      }
+    ],
     "faq": [
       "ld: Hur många yrkes-exempel har ni?",
       "ld: Är exemplen gratis att använda?",
@@ -6328,7 +6344,7 @@
       "ld: Hur ofta uppdateras jobbkartan?",
       "ld: Får jag använda siffrorna och kartan?"
     ],
-    "ord": 1085
+    "ord": 1079
   },
   {
     "path": "/rakna-ut/lon-efter-skatt",
@@ -133991,8 +134007,20 @@
       "/verktyg/sokta-tjanster"
     ],
     "jsonLd": [],
-    "forstaBild": null,
-    "bilder": [],
+    "forstaBild": {
+      "src": "/mallar/brev/linne.webp",
+      "alt": ""
+    },
+    "bilder": [
+      {
+        "src": "/mallar/brev/linne.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/brev/koppar.webp",
+        "alt": ""
+      }
+    ],
     "faq": [],
     "ord": 84
   },

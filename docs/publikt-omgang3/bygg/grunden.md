@@ -13,7 +13,7 @@ import {
 
 ## 1. Färgen: så väljer en sida sin färg
 
-Fem färger: `tran` (Rekryteringstester, indigo), `cv` (petrol), `brev` (plommon), `jobb` (skog), `neutral` (grafit).
+Fyra färger: `tran` (Rekryteringstester, indigo), `cv` (petrol), `brev` (plommon), `jobb` (skog). Grafiten (`neutral`) finns inte publikt sedan 2026-11-22 (ägaren: inget svart, och grafiten läses som svart). Allt utan egen del står i indigo: `FARG_OVRIGT` i `farg.ts`, som också är förvalet i `<Sida>` (en sida utan egen del skriver bara `<Sida>`).
 
 ```tsx
 export default function Page() {
@@ -28,7 +28,8 @@ export default function Page() {
 
 - `<Sida farg>` sätter `data-p3-sida` på sidans yttersta element. `globals.css` (blocket PUBLIKT OMGÅNG 3) lyfter färgen till roten, så att **menyn, kampanjraden och foten** står i samma färg. En sida har exakt ett `Sida`.
 - En yta i en annan färg (en ö, ett kort, en sektion) får `farg` på sig själv: `<O farg="jobb">`, `<Sektion farg="brev">`, `<Kort farg="cv">`. Det gäller bara lokalt och lyfts aldrig.
-- Sidor som ännu inte har `Sida` får en färg ur adressen (`fargForSokvag` i `farg.ts`, menyn sätter `data-p3-sokvag`). Startsidan, `/funktioner`, `/priser`, `/om-oss` och testsidorna är `tran`, CV-sidorna `cv`, brevsidorna `brev`, Jobbsökets sidor och `/jobbkartan` `jobb`, allt annat `neutral`. **Sidan vinner alltid över adressen.** Artiklar sätter klustrets färg med `<Sida farg>` (beslut 8).
+- Sidor som ännu inte har `Sida` får en färg ur adressen (`fargForSokvag` i `farg.ts`, menyn sätter `data-p3-sokvag`). Startsidan, `/funktioner`, `/priser`, `/om-oss` och testsidorna är `tran`, CV-sidorna `cv`, brevsidorna `brev`, Jobbsökets sidor, `/jobbkartan`, `/for-rekryterare` och `/rakna-ut` `jobb`, allt annat `tran` (indigo). **Sidan vinner alltid över adressen.** Artiklar sätter klustrets färg med `<Sida farg>` (beslut 8).
+- `--papper-2` (den nedsänkta ytan: fält, signaturer, spår) har sidans ton, aldrig varmgrå. Den sätts per färg i `globals.css`.
 - Tokens att använda i egen CSS: `--vagg`, `--vagg-2`, `--vagg-3` (mörkast, Premium), `--vagg-ink`, `--vagg-mjuk`, `--golv`, `--ton`, `--ton-ink`, `--ljus`, `--kant`, `--kant-stark`, `--papper`, `--papper-2`, `--ink-1/2/3`, `--koppar`, `--koppar-ink`, `--koppar-ljus`, `--koppar-mjuk`, `--koppar-klack`, `--disp` (rubriksnittet).
 - Gamla Tråd-namn (`--mark`, `--panel`, `--insunken`, `--premium`, `bg-mark`, `bg-ink-1`) pekar nu på de nya färgerna på publika sidor. Det är därför gamla sidor står hela medan ni bygger. Använd dem inte i ny kod.
 - Publika sidor är bara ljusa. Mörkt läge finns inte publikt längre.
