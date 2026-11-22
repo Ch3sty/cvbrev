@@ -419,6 +419,8 @@ async function runUpload(request: Request, emitter: SseEmitter) {
         await backfillProfileContact(user.id, {
           phone: structuredData.contact.phone,
           address: structuredData.contact.address,
+          // Namnet läses lokalt ur filen och sätts in efter modellen.
+          fullName: structuredData.name || kontaktUrFilen?.fullName || null,
         });
       } catch (backfillError) {
         console.warn('[upload] profil-backfill misslyckades:', backfillError);

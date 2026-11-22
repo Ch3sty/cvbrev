@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     // Blockerar aldrig svaret, och skriver aldrig över befintliga värden.
     const backfilled = await backfillProfileContact(
       session.user.id,
-      (result.cvData as { personalInfo?: { phone?: unknown; address?: unknown } })?.personalInfo
+      (result.cvData as { personalInfo?: { phone?: unknown; address?: unknown; fullName?: unknown } })?.personalInfo
     );
 
     return NextResponse.json({ ...result, backfilledContact: backfilled });

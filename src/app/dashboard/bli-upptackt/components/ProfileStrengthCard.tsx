@@ -48,6 +48,27 @@ interface ViewStats {
   total: number;
 }
 
+/** Testens namn i löptext. */
+const TEST_I_TEXT: Record<FamilyKey, string> = {
+  matrislogik: 'matrislogik',
+  verbal: 'verbalt resonemang',
+  numerisk: 'numeriskt resonemang',
+};
+
+/**
+ * "Gör testet i matrislogik", "Gör testerna i verbalt och numeriskt
+ * resonemang", "Gör testerna i matrislogik, verbalt och numeriskt resonemang".
+ */
+export function gorTesterna(familjer: FamilyKey[]): string {
+  if (familjer.length === 1) return `Gör testet i ${TEST_I_TEXT[familjer[0]]}`;
+  const resonemang = familjer.filter((f) => f !== 'matrislogik');
+  const delar: string[] = familjer.includes('matrislogik') ? ['matrislogik'] : [];
+  if (resonemang.length === 1) delar.push(TEST_I_TEXT[resonemang[0]]);
+  if (resonemang.length === 2) delar.push('verbalt', 'numeriskt resonemang');
+  const lista = delar.length > 1 ? `${delar.slice(0, -1).join(', ')} och ${delar[delar.length - 1]}` : delar[0];
+  return `Gör testerna i ${lista}`;
+}
+
 /**
  * Stegen i den ordning de faktiskt hjälper kandidaten, inte i poängordning.
  * Returnerar bara det som återstår: klara steg är inte information, de är
@@ -87,9 +108,8 @@ function remainingSteps(profile: CandidateProfileState, summary: SummaryData | n
     ? (Object.keys(FAMILY_LABELS) as FamilyKey[]).filter((k) => !summary.results[k]?.done)
     : [];
   if (familiesTodo.length > 0) {
-    const names = familiesTodo.map((k) => FAMILY_LABELS[k].toLowerCase()).join(' och ');
     steps.push({
-      label: `Gör ${names}${familiesTodo.length > 1 ? '-testerna' : '-testet'}, resultaten visas som bevis på profilen`,
+      label: `${gorTesterna(familiesTodo)}, resultaten visas som bevis på profilen`,
       href: '/dashboard/tester',
     });
   }
@@ -136,17 +156,11 @@ export default function ProfileStrengthCard({
     <SectionCard title="Din profil" delay={0.25}>
       {isVisible && <ViewsRow views={views} />}
 
+      {/* Ett steg i taget, utan räknare: panelen "Bygg din profil" räknar
+          sina egna steg, och två olika tal på samma sida motsade varandra
+          ("Ett av fem steg klara" bredvid "5 steg till efter det"). */}
       {next ? (
-        <>
-          <NextStep step={next} />
-          {steps.length > 1 && (
-            <p className="mt-3 text-sm text-ink-3">
-              {steps.length === 2
-                ? 'Ett steg till efter det.'
-                : `${steps.length - 1} steg till efter det.`}
-            </p>
-          )}
-        </>
+        <NextStep step={next} />
       ) : (
         <p className="mt-4 text-sm text-ink-2 leading-relaxed">
           Profilen är klar. Du behöver inte göra något mer, och du kan ändra

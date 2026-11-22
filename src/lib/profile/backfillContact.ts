@@ -15,6 +15,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 export interface BackfilledContact {
   phone?: string;
   location?: string;
+  fullName?: string;
 }
 
 /** Tomt fält: null, tom sträng eller triggerns gamla platshållare. */
@@ -59,6 +60,19 @@ export function normalizePhone(phone: unknown): string | null {
 }
 
 /**
+ * Ett namn ur CV:t som går att lita på: för- och efternamn, inga siffror,
+ * ingen adress och ingen maskningsmarkör ([NAMN] och liknande).
+ */
+export function normalizeFullName(name: unknown): string | null {
+  if (typeof name !== 'string') return null;
+  const trimmed = name.replace(/\s+/g, ' ').trim();
+  if (trimmed.length < 3 || trimmed.length > 80) return null;
+  if (/[\d@[\]<>{}|\\/]/.test(trimmed)) return null;
+  if (!/\S\s+\S/.test(trimmed)) return null;
+  return trimmed;
+}
+
+/**
  * Fyller tomma profilfält från parsad personalInfo. Körs med service role
  * eftersom den anropas från serverrutter direkt efter parsning.
  *
@@ -67,13 +81,16 @@ export function normalizePhone(phone: unknown): string | null {
  */
 export async function backfillProfileContact(
   userId: string,
-  personalInfo: { phone?: unknown; address?: unknown } | null | undefined
+  personalInfo: { phone?: unknown; address?: unknown; fullName?: unknown } | null | undefined
 ): Promise<BackfilledContact> {
   if (!userId || !personalInfo) return {};
 
   const parsedPhone = normalizePhone(personalInfo.phone);
   const parsedCity = extractCity(personalInfo.address);
-  if (!parsedPhone && !parsedCity) return {};
+  // Namnet fylldes inte, fast telefon och ort gjorde det (klicktestet
+  // 2026-11-22): profilen sa "Namnet saknas" direkt efter uppladdningen.
+  const parsedName = normalizeFullName(personalInfo.fullName);
+  if (!parsedPhone && !parsedCity && !parsedName) return {};
 
   try {
     // Admin-klienten är generiskt typad här, så vi läser raden som ett
@@ -96,7 +113,7 @@ export async function backfillProfileContact(
 
     const { data: profile, error } = await admin
       .from('profiles')
-      .select('phone, location')
+      .select('phone, location, full_name')
       .eq('id', userId)
       .single();
 
@@ -112,6 +129,10 @@ export async function backfillProfileContact(
     if (parsedCity && isBlank(profile.location)) {
       updates.location = parsedCity;
       filled.location = parsedCity;
+    }
+    if (parsedName && isBlank(profile.full_name)) {
+      updates.full_name = parsedName;
+      filled.fullName = parsedName;
     }
 
     if (Object.keys(updates).length === 0) return {};

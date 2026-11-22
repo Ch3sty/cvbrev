@@ -246,6 +246,19 @@ function Hero({
             {badge.label}
           </span>
         ))}
+        {/* Personlighetsstyrkorna, som på poolens kort. Har kandidaten en
+            arbetsstil visar arbetsstilskortet dem längre ned i stället. */}
+        {!candidate.workStyleReport &&
+          !candidate.workStyle &&
+          candidate.personalityStrengths.map((chip) => (
+            <span
+              key={chip}
+              className="inline-flex items-center gap-1.5 text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" aria-hidden="true" />
+              {chip}
+            </span>
+          ))}
         {candidate.skills.map((skill) => (
           <span
             key={skill}

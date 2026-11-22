@@ -94,10 +94,9 @@ export default function SectionCard({
         </span>
         <div className="min-w-0">
           <div className="j3c-steghuvud">
-            <h3>
-              {title}
-              <span className="sr-only">{steg.klar ? ', klart' : ''}</span>
-            </h3>
+            {/* Ett namn för skärmläsaren, "Synlighetsläge, klart", i stället för
+                rubriken följd av ett ensamt ", klart". */}
+            <h3 aria-label={steg.klar ? `${title}, klart` : undefined}>{title}</h3>
             {headerExtra || fallKnapp ? (
               <div className="flex shrink-0 items-center gap-2">
                 {headerExtra}
