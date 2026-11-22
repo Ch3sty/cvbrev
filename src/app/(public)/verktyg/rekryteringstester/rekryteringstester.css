@@ -12,6 +12,16 @@
 }
 
 /* ---------- hjälten: uppgiften i ramen, stor ---------- */
+/* Rubriken (utseendegranskning 2, 2026-11-22). "Rekryteringstester" är 18 tecken: i grundens 66 px
+   blev rubriken fyra till fem rader på dator, och i telefonen gick ordet ut i kanten. På dator är
+   textspalten bredare och rubriken skissens storlek, så att "rekryteringstester innan" ryms på en
+   rad och rubriken bryter på tre. I telefonen 38 px på 375 (grundens långa rubriker är 36), 40 från 392. */
+.rt-sida #hjalte .p3-h1 { font-size: clamp(36px, 10.2vw, 40px); }
+@media (min-width: 900px) { .rt-sida #hjalte .p3-h1 { font-size: 54px; } }
+@media (min-width: 1000px) {
+  .rt-sida #hjalte .p3-hjalte-rad.p3-med-bild { grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); }
+  .rt-sida #hjalte .p3-h1 { font-size: clamp(40px, 4.1vw, 56px); }
+}
 .rt-hbild { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 98px 0 128px; min-width: 0; }
 .rt-hbild > .p3-tram { transform: rotate(1.2deg); }
 .rt-hbild .p3-tbrade { max-width: 270px; margin-left: auto; margin-right: auto; }

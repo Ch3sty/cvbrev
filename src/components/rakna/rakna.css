@@ -53,6 +53,14 @@
 @media (min-width: 560px) { .rk-falt-tva { grid-template-columns: 1fr 1fr; } }
 /* På den smala kolumnen i kortet står två fält under varandra. */
 @media (min-width: 900px) { .rk-kalk .rk-falt-tva, .rk-falt .sm\:grid-cols-2 { grid-template-columns: minmax(0, 1fr); } }
+/* Utseendegranskning 2 (2026-11-22). Ett barn med sm:col-span-2 öppnade en andra, osynlig kolumn i den
+   enkolumniga gruppen, så att vartannat val föll ihop till noll bredd (Träffsäkerhetssimulatorn). */
+@media (min-width: 900px) { .rk-falt .sm\:grid-cols-2 > * { grid-column: 1; } }
+/* Resultatytan fyller kortets höjd (den låg i en omslutande div och slutade där texten tog slut). */
+.rk-kalk > div:has(> .rk-res) { display: flex; flex-direction: column; }
+.rk-kalk > div > .rk-res { flex: 1 1 auto; grid-template-columns: minmax(0, 1fr); }
+/* De tio prickarna krymper med ytan i stället för att spränga den (10 x 28 px + mellanrum = 352 px). */
+.rk-res [role='img'].flex > span { flex: 1 1 0; width: auto; height: auto; max-width: 28px; aspect-ratio: 1; }
 
 .rk-etikett { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--ink-1); }
 .rk-input {

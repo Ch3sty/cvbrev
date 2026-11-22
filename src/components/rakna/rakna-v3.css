@@ -8,13 +8,18 @@
 /* Brödsmulan (Breadcrumb bär BreadcrumbList) får väggens toner. */
 .rk3-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); color: var(--vagg-mjuk); }
 .rk3-smula nav { margin-bottom: 0; }
-.rk3-smula a { display: inline-block; padding: 4px 0; }
+.rk3-smula a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0; }
 .rk3-smula + * { margin-top: 26px; }
 
 /* Hjälten med kalkylatorn */
 .rk3 .rk-h1 { font-size: 34px; line-height: 1.05; overflow-wrap: anywhere; hyphens: auto; }
 @media (min-width: 900px) { .rk3 .rk-h1 { font-size: 50px; } }
 @media (max-width: 640px) { .rk3 .rk-h1.rk-h1-lang { font-size: 26px; } }
+/* Ett ord på 24 tecken (Träffsäkerhetssimulatorn) bröts mitt i ordet på dator: bredare textspalt och mindre rubrik. */
+@media (min-width: 1024px) {
+  .rk3 .rk-hjalte-g:has(.rk-h1-lang) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; }
+  .rk3 .rk-h1.rk-h1-lang { font-size: clamp(30px, 3.1vw, 40px); overflow-wrap: normal; }
+}
 .rk3 .rk-hjalte-text .p3-ey { margin-bottom: 10px; }
 .rk3 .rk-bevis li { min-height: 28px; }
 @media (max-width: 1023px) {

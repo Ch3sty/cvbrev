@@ -4,7 +4,7 @@
    schemat inte ändras. */
 .ins-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); }
 .ins-smula nav { margin-bottom: 0; }
-.ins-smula a { display: inline-block; padding: 4px 0; }
+.ins-smula a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0; }
 .ins-huvud { max-width: 820px; margin-top: 26px; }
 .ins-huvud > * + * { margin-top: 16px; }
 .ins-meta { font-size: 14px; color: var(--vagg-mjuk); }

@@ -49,9 +49,19 @@
 
 /* ön under korten */
 .cve-o { margin-top: 40px; }
+/* Ett riktigt brevark i öns högra kant, som på brevnavets ö om CV. */
+@media (min-width: 1000px) {
+  .cve-o.p3-o { padding-right: 230px; }
+  .cve-o.p3-o::after { content: ''; position: absolute; right: 64px; top: 34px; width: 132px; height: 187px; border-radius: 4px; background: #fff url('/mallar/brev/linne.webp') center top / cover no-repeat; box-shadow: 0 6px 0 rgba(0, 0, 0, .25), 0 18px 30px rgba(0, 0, 0, .25); transform: rotate(5deg); }
+}
 
 /* guiden */
 .cve-guide { display: grid; gap: 16px; max-width: 900px; }
+.cve-guide-bild { display: none; }
+@media (min-width: 1100px) {
+  .cve-guide-rad { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; align-items: start; }
+  .cve-guide-bild { display: block; position: sticky; top: 110px; padding: 30px 26px 40px; border-radius: var(--r-stor, 32px); background: var(--vagg); box-shadow: 0 8px 0 var(--vagg-3); }
+}
 .cve-guide .p3-kort p + p { margin-top: 12px; }
 .cve-guide a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .cve-guide-slut { font-size: 17px; font-weight: 600; }

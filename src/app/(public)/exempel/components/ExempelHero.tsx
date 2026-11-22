@@ -6,8 +6,7 @@
  * är desamma som förut. Serverkomponent, utan framer-motion.
  */
 import { FileText, LayoutGrid, Mail } from 'lucide-react'
-import { Hjalte, Knapp, TextLank, Ikon } from '@/components/publikt/v3'
-import { ExempelHeroIcon } from './illustrations/ExempelIcons'
+import { Hjalte, Knapp, TextLank, Ikon, MallMiniatyr } from '@/components/publikt/v3'
 import { TOTAL_CV_YRKEN, TOTAL_BREV_YRKEN, KATEGORIER } from './exempel-data'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 
@@ -53,7 +52,14 @@ export default function ExempelHero() {
           </Knapp>
         </>
       }
-      bild={<ExempelHeroIcon className="ex-hjaltebild" />}
+      // Tre riktiga ark i stället för den lilla runda ikonen (utseendegranskning 2). Dekor.
+      bild={
+        <div className="ex-blad" aria-hidden="true">
+          <MallMiniatyr id="koppar" storlek="stor" namn={false} chip={false} alt="" prioritet />
+          <MallMiniatyr id="linne" typ="brev" namn={false} chip={false} alt="" prioritet />
+          <MallMiniatyr id="linne" storlek="stor" namn={false} chip={false} alt="" prioritet />
+        </div>
+      }
     >
       <ul className="ex-trust">
         {TRUST.map((t) => (

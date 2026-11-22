@@ -7,7 +7,7 @@
  * Alla 89 kort står i HTML:en, sökningen döljer bara dem som inte matchar.
  */
 import Link from 'next/link'
-import { Sida, Hjalte, Lyft, Sektion, SektionHuvud, Kort, Faq, O, Knapp, TextLank, Svav, Situationsrad } from '@/components/publikt/v3'
+import { Sida, Hjalte, Lyft, Sektion, SektionHuvud, Kort, Faq, O, Knapp, TextLank, Svav, Situationsrad, CvArk } from '@/components/publikt/v3'
 import { mallBild } from '@/lib/cv/mallar/katalog'
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 import type { GalleriYrke } from '@/app/(public)/exempel/components/GalleriPageContent'
@@ -117,6 +117,7 @@ export default function CvExempelNav({ yrken, faqItems }: { yrken: GalleriYrke[]
           rubrik="Så använder du ett CV-exempel som mall"
           varde="Vad är skillnaden mellan en mall och ett exempel? Hur väljer du rätt? Är de gratis? Här är svaren."
         />
+        <div className="cve-guide-rad">
         <div className="cve-guide">
           <Kort>
             <h3 className="p3-h3">Vad är en CV-mall, och vad är skillnaden mot ett exempel?</h3>
@@ -185,6 +186,11 @@ export default function CvExempelNav({ yrken, faqItems }: { yrken: GalleriYrke[]
               Bläddra alla CV-exempel
             </Link>
           </p>
+        </div>
+        {/* Arket bredvid guiden på dator (utseendegranskning 2): spalten till höger stod tom. Dekor. */}
+        <div className="cve-guide-bild" aria-hidden="true">
+          <CvArk />
+        </div>
         </div>
       </Sektion>
 

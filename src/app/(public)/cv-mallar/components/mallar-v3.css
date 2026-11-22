@@ -81,6 +81,10 @@
 .cvm-mall .p3-mall-bild { border-width: 1.5px; border-bottom-width: 1.5px; border-radius: 5px; }
 .cvm-mall .p3-mall-format { left: 5px; top: 5px; bottom: auto; min-height: 20px; padding: 0 6px; border-radius: 6px; }
 .cvm-mall .p3-mall-rad b { font-size: 15px; }
+/* Namnet och brickan (utseendegranskning 2): brickan stod bredvid korta namn och under långa.
+   Som i skissen: namnet på egen rad, brickan under, lika på alla 40 kort. */
+.cvm-mallnat:not(.cvm-stilnat) .cvm-mall .p3-mall-rad { display: grid; justify-items: start; gap: 5px; }
+.cvm-mallnat:not(.cvm-stilnat) .cvm-mall .p3-mall-rad b { margin-right: 0; line-height: 1.15; }
 .cvm-mall small { display: none; font-size: 12.5px; line-height: 1.3; color: var(--ink-3); }
 @media (min-width: 600px) { .cvm-mallnat { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; } .cvm-mall small { display: block; } }
 @media (min-width: 1000px) { .cvm-mallnat { grid-template-columns: repeat(8, minmax(0, 1fr)); margin-top: 28px; } .cvm-mall { padding: 10px 10px 12px; } }
@@ -96,6 +100,8 @@
 .cvm-prem { margin-top: 22px; padding: 26px 22px; }
 .cvm-prem-rad { display: grid; gap: 22px; }
 .cvm-prem-rubrik { font-family: var(--disp); font-weight: 700; font-size: 22px; line-height: 1.2; color: #fff; }
+/* Rubriken är ett stycke: Premium-öns regel för stycken gav den dämpad färg. Vit, som i skissen. */
+.p3-premium.cvm-prem .cvm-prem-rubrik { color: #fff; }
 .cvm-prem .p3-pris { font-size: 40px; }
 @media (min-width: 1000px) { .cvm-prem { padding: 36px 44px; } .cvm-prem-rad { grid-template-columns: 1.3fr auto; gap: 48px; align-items: center; } .cvm-prem .p3-pris { font-size: 52px; } .cvm-prem-rubrik { font-size: 24px; } }
 
@@ -218,9 +224,15 @@
 .cvm-stil em { font-style: normal; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 
 /* ---------- stilsidornas egna avsnitt och länkkort ---------- */
-.cvm-avsnitt { max-width: 760px; }
-.cvm-avsnitt-text { display: grid; gap: 12px; margin-top: 16px; font-size: 17px; color: var(--ink-2); }
-.cvm-avsnitt-text ol { display: grid; gap: 10px; padding-left: 22px; list-style: decimal; }
+/* Utseendegranskning 2 (2026-11-22): stilsidornas textavsnitt var bara text på tonad botten.
+   Texten ligger nu på papper med klack, och stegen är numrerade brickor (samma ol och li). */
+.cvm-avsnitt { max-width: 860px; }
+.cvm-avsnitt-text { display: grid; gap: 12px; margin-top: 20px; padding: 22px; border-radius: var(--r-kort, 22px); background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; font-size: 17px; color: var(--ink-2); }
+@media (min-width: 900px) { .cvm-avsnitt-text { padding: 28px 32px; } }
+/* !important: listan på /cv-mallar/word har sin gamla form som inline-stil (decimal, 22 px indrag). */
+.cvm-avsnitt-text ol { display: grid; gap: 12px; padding-left: 0 !important; list-style: none !important; counter-reset: cvm-steg; }
+.cvm-avsnitt-text ol > li { counter-increment: cvm-steg; position: relative; min-height: 36px; padding: 5px 0 5px 48px; }
+.cvm-avsnitt-text ol > li::before { content: counter(cvm-steg); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 16px; box-shadow: 0 3px 0 var(--kant-stark); }
 .cvm-avsnitt-text .pub-lank, .cvm-avsnitt-text a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; color: var(--ink-1); }
 .cvm-stilnat .cvm-mall-knapp { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 12px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; background: var(--papper); color: var(--ink-1); font-size: 14px; font-weight: 700; text-decoration: none; text-align: center; }
 .cvm-stilnat > li { display: grid; align-content: start; gap: 8px; }

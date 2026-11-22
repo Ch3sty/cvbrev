@@ -238,20 +238,22 @@ export default function BliUpptacktSida() {
                 ))}
               </div>
             }
+            efter={
+              <div className="bu-testband">
+                <div>
+                  <h3 className="p3-h3">{KUNSKAPSTESTER.rubrik}</h3>
+                  <p>{KUNSKAPSTESTER.text}</p>
+                </div>
+                <div className="bu-kk-chips" aria-hidden="true">
+                  <span className="bu-test">Matrislogik, topp 10 %</span>
+                  <span className="bu-test">Verbalt, topp 25 %</span>
+                  <span className="bu-test">Numeriskt, topp 30 %</span>
+                </div>
+              </div>
+            }
           >
             <p>Du ser samma rapport som rekryteraren och väljer själv om den ska visas.</p>
           </O>
-          <Kort farg="tran" ton className="bu-testband">
-            <div>
-              <h3 className="p3-h3">{KUNSKAPSTESTER.rubrik}</h3>
-              <p>{KUNSKAPSTESTER.text}</p>
-            </div>
-            <div className="bu-kk-chips" aria-hidden="true">
-              <span className="bu-test">Matrislogik, topp 10 %</span>
-              <span className="bu-test">Verbalt, topp 25 %</span>
-              <span className="bu-test">Numeriskt, topp 30 %</span>
-            </div>
-          </Kort>
         </Sektion>
 
         {/* 5. Tryggheten */}

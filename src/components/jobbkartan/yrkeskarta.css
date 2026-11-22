@@ -45,7 +45,7 @@
 }
 .yk-tal span { font-size: 14px; color: var(--ink-2); }
 .yk-fot { margin-top: 22px; font-size: 13px; line-height: 1.5; color: var(--ink-2); max-width: 52ch; }
-.yk-lank { display: inline-block; margin-top: 18px; color: var(--rum-ink); }
+.yk-lank { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--rum-ink); }
 .yk-karta { display: block; width: 100%; height: auto; }
 .yk-karta path { stroke: var(--rum-ton); stroke-width: 1.4; stroke-linejoin: round; }
 .yk-k0 { fill: var(--yk-k0); background: var(--yk-k0); }

@@ -37,6 +37,8 @@
 .jks .jk .krok .p3-knapp { flex: none; }
 @media (max-width: 699px) { .jks .jk .krok .p3-knapp { width: 100%; } }
 .jks .jk .data-kort .knapp-tunn { min-height: 44px; }
+/* Bäddkoden (12 px) höll 4,4:1 i kortets dämpade textfärg. Ljus text: över 10:1. */
+.jks .jk .data-kort code { color: var(--vagg-ink); }
 
 /* Vägen vidare: en ö i skog. */
 .jks .jk .jks-vidare .p3-o-text { max-width: 760px; }
