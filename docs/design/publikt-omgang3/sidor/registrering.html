@@ -1,0 +1,238 @@
+<!-- titel: Skiss skapa konto | rum: tran -->
+<style>
+  .skissrad { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 0 0 14px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .skissrad::before { content: 'Skiss'; padding: 3px 9px; border-radius: 7px; background: var(--ink-1); color: #fff; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+
+  /* toppraden: ingen meny, bara vägen till inloggningen */
+  .topp { background: var(--vagg-3); color: var(--vagg-ink); }
+  .topp-rad { display: flex; align-items: center; gap: 12px; height: 64px; }
+  .topp .logga { margin-right: auto; }
+  .topp-fraga { display: none; font-size: 15px; color: var(--vagg-mjuk); }
+  .topp a.lank { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
+  @media (min-width: 560px) { .topp-fraga { display: inline; } }
+  @media (min-width: 1000px) { .topp-rad { height: 76px; } }
+
+  .konto { padding: 20px 0 40px; }
+  .konto-rad { display: grid; gap: 28px; }
+  .konto-rad > * { min-width: 0; }
+  @media (min-width: 1000px) { .konto { padding: 56px 0 88px; } .konto-rad { grid-template-columns: 1.08fr .92fr; gap: 64px; align-items: center; } .kontokort { order: 2; } }
+
+  /* kontokortet */
+  .kontokort { background: var(--papper); color: var(--ink-1); border-radius: var(--r-stor); border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 10px 0 rgba(0, 0, 0, .34), 0 36px 70px rgba(0, 0, 0, .3); padding: 24px 20px 22px; }
+  .vagg .kontokort .h1 { color: var(--ink-1); font-size: 34px; }
+  .kontokort .under { margin-top: 8px; font-size: 16px; color: var(--ink-2); }
+  .kontokort .under b { color: #1F5C41; font-weight: 700; }
+  .google { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 56px; margin-top: 20px; border-radius: var(--r-knapp); background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; font-weight: 700; font-size: 16.5px; color: var(--ink-1); text-decoration: none; }
+  .google i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--kant); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 15px; color: #4285F4; }
+  .eller { display: flex; align-items: center; gap: 12px; margin: 18px 0 14px; font-size: 13.5px; color: var(--ink-3); }
+  .eller::before, .eller::after { content: ''; flex: 1; border-top: 2px solid var(--kant); }
+  .falt + .falt { margin-top: 14px; }
+  .falt label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 15px; }
+  .falt .in { display: flex; align-items: center; height: 54px; padding: 0 16px; border-radius: 14px; background: var(--papper-2); border: 2px solid var(--kant-stark); font-size: 16px; color: var(--ink-3); }
+  .kryss { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; min-height: 44px; margin-top: 16px; font-size: 14.5px; line-height: 1.4; color: var(--ink-2); }
+  .kryss i { width: 26px; height: 26px; border-radius: 8px; background: var(--papper); border: 2px solid var(--ink-3); }
+  .kontokort .knapp { margin-top: 18px; }
+  .juridik { margin-top: 14px; font-size: 13.5px; line-height: 1.45; color: var(--ink-3); }
+  .juridik a { color: var(--ink-2); text-underline-offset: 3px; }
+  @media (min-width: 1000px) { .kontokort { padding: 40px 40px 34px; } .vagg .kontokort .h1 { font-size: 44px; } }
+
+  /* det här ingår gratis: fyra delar */
+  .gratis-huvud > * + * { margin-top: 12px; }
+  .gratis-huvud .h2 { font-size: 30px; }
+  .delar4 { display: grid; gap: 12px; margin-top: 22px; }
+  .dl { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; min-width: 0; padding: 16px; border-radius: 22px; background: var(--vagg); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .14); box-shadow: 0 6px 0 var(--vagg-3); }
+  .dl::before { content: ''; position: absolute; z-index: -1; right: -50px; top: -80px; width: 200px; height: 200px; border-radius: 50%; background: var(--vagg-2); opacity: .8; }
+  .dl-namn { display: flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 18px; letter-spacing: -0.015em; }
+  .dl-namn .dorr { width: 34px; height: 34px; border-radius: 11px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+  .dl-namn .dorr svg { width: 19px; height: 19px; }
+  .dl p { margin-top: 8px; font-size: 14px; line-height: 1.4; color: var(--vagg-mjuk); }
+  .dl-tal { font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.04em; text-align: right; }
+  .dl-tal small { display: block; margin-top: 3px; font-family: var(--text); font-weight: 600; font-size: 12px; letter-spacing: 0; color: var(--vagg-mjuk); }
+  .dl-matris { display: grid; grid-template-columns: repeat(2, 30px); gap: 4px; }
+  .dl-matris span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 8px; background: var(--papper); color: var(--ink-1); }
+  .dl-matris svg { width: 58%; height: 58%; }
+  .dl-matris .tom { background: none; border: 2px dashed var(--koppar-ljus); color: var(--koppar-ljus); font-family: var(--disp); font-weight: 800; font-size: 15px; }
+  .dl-blad { width: 72px; padding: 8px; border-radius: 6px; background: #fff; transform: rotate(3deg); box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+  .dl-blad i { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #DCDAD5; }
+  .dl-blad i:first-child { margin-top: 0; width: 46%; background: #9C6A8C; }
+  .dl-blad i.m { background: #F4B98A; width: 72%; }
+  .dl svg.ministig { width: 84px; height: auto; overflow: visible; }
+  .prem-not { margin-top: 18px; padding: 14px 16px; border-radius: 18px; background: var(--premium); color: #C9C3D9; font-size: 14.5px; line-height: 1.45; box-shadow: 0 5px 0 #0B0910; }
+  .prem-not b { color: var(--koppar-ljus); }
+  @media (min-width: 620px) { .delar4 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .gratis-huvud .h2 { font-size: 40px; } .delar4 { gap: 14px; margin-top: 28px; } .dl { padding: 20px; } }
+
+  /* steget efter kontot */
+  .efter { display: grid; gap: 32px; margin-top: 8px; }
+  .efter > div { min-width: 0; }
+  .skarm { max-width: 480px; background: var(--papper); border-radius: 30px; overflow: hidden; border: 3px solid var(--ink-1); box-shadow: 0 10px 0 rgba(0, 0, 0, .14); }
+  .sk-topp { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 16px; background: var(--vagg-3); color: var(--vagg-ink); font-family: var(--disp); font-weight: 700; font-size: 16px; }
+  .sk-topp span { margin-left: auto; display: grid; place-items: center; width: 44px; height: 44px; margin-right: -8px; }
+  .sk-topp svg { width: 20px; height: 20px; }
+  .sk-kropp { padding: 22px 16px 18px; background: var(--golv); }
+  .sk-kropp .h2 { font-size: 28px; margin-top: 6px; }
+  .sk-kropp > p.t { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
+  .sk-fot { padding: 14px 16px 16px; background: var(--papper); border-top: 2px solid var(--kant); }
+  .sk-fot .liten { margin-top: 10px; text-align: center; }
+  .sk-fot .lank { display: flex; justify-content: center; align-items: center; min-height: 44px; margin-top: 6px; font-size: 15px; }
+  .vallista { display: grid; gap: 10px; margin-top: 18px; }
+  .val { display: grid; grid-template-columns: 46px 1fr 28px; gap: 2px 12px; align-items: center; min-height: 76px; padding: 12px 14px; border-radius: 20px; background: var(--ton); border: 2px solid var(--kant-stark); border-bottom-width: 5px; }
+  .val .dorr { grid-row: span 2; width: 46px; height: 46px; }
+  .val b { align-self: end; font-family: var(--disp); font-weight: 800; font-size: 17.5px; line-height: 1.2; }
+  .val .t { grid-column: 2; align-self: start; font-size: 13.5px; line-height: 1.35; color: var(--ink-2); }
+  .val .ring { grid-column: 3; grid-row: 1 / span 2; width: 28px; height: 28px; border-radius: 50%; background: var(--papper); border: 2px solid var(--kant-stark); }
+  .val.vald { border-color: var(--ink-1); }
+  .val.vald .ring { display: grid; place-items: center; background: var(--ink-1); border-color: var(--ink-1); color: #fff; }
+  .val.vald .ring svg { width: 16px; height: 16px; }
+  .val.tom { background: var(--papper); }
+  .kopkort { margin-top: 16px; border-radius: 22px; overflow: hidden; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; }
+  .kopkort .huvud { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 16px; background: var(--premium); color: #C9C3D9; font-size: 14px; }
+  .kopkort .huvud b { font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.03em; color: #fff; }
+  .kopkort .inne { padding: 16px; }
+  .kopkort .bockar li { font-size: 14.5px; line-height: 1.4; }
+  .villkorsrader { display: grid; gap: 6px; margin-top: 16px; padding-top: 14px; border-top: 2px solid var(--golv); font-size: 13.5px; }
+  .villkorsrader div { display: flex; justify-content: space-between; gap: 14px; }
+  .villkorsrader dt { color: var(--ink-3); }
+  .villkorsrader dd { text-align: right; font-weight: 600; }
+  .forsta { display: grid; grid-template-columns: 40px 1fr; gap: 2px 12px; margin-top: 14px; padding: 12px; border-radius: 14px; background: var(--golv); font-size: 13.5px; color: var(--ink-3); }
+  .forsta .dorr { grid-row: span 2; }
+  .forsta b { font-size: 14.5px; color: var(--ink-1); }
+  .samtycke { display: grid; grid-template-columns: 26px 1fr; gap: 12px; margin-top: 16px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+  .samtycke i { width: 26px; height: 26px; border-radius: 8px; background: var(--papper); border: 2px solid var(--ink-3); }
+  @media (min-width: 1000px) { .efter { grid-template-columns: 410px 410px minmax(0, 1fr); gap: 32px; align-items: start; } .sk-kropp { padding: 26px 22px 22px; } .sk-fot { padding: 16px 22px 18px; } }
+</style>
+
+<!-- ============ KONTOSIDAN ============ -->
+<header class="topp">
+  <div class="bredd topp-rad">
+    <a class="logga" href="#"><i>J</i>Jobbcoach<span>.ai</span></a>
+    <span class="topp-fraga">Har du redan ett konto?</span>
+    <a class="lank" href="#">Logga in</a>
+  </div>
+</header>
+
+<main>
+  <section class="vagg konto">
+    <div class="bredd konto-rad">
+      <div class="kontokort">
+        <h1 class="h1">Skapa ditt konto</h1>
+        <p class="under"><b>Gratis konto, inget kreditkort.</b> Klart på en minut.</p>
+        <a class="google" href="#"><i>G</i>Fortsätt med Google</a>
+        <div class="eller">eller med e-post</div>
+        <div class="falt"><label>E-post</label><div class="in">namn@exempel.se</div></div>
+        <div class="falt"><label>Lösenord</label><div class="in">Minst 8 tecken</div></div>
+        <label class="kryss"><i></i><span>Mejla mig erbjudanden och tips om tester och jobbsök. Avsluta när du vill.</span></label>
+        <a class="knapp knapp-bred" href="#">Skapa konto</a>
+        <p class="juridik">Genom att skapa konto godkänner du våra <a href="#">användarvillkor</a> och vår <a href="#">integritetspolicy</a>.</p>
+      </div>
+
+      <div>
+        <div class="gratis-huvud">
+          <p class="ey">Det här ingår gratis</p>
+          <h2 class="h2">Börja med det som avgör urvalet</h2>
+        </div>
+        <div class="delar4">
+          <div class="dl" data-rum="tran">
+            <div><p class="dl-namn"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span>Rekryteringstesterna</p><p>Grundnivån i alla åtta typerna, ett test om dagen, med förklaring efter varje uppgift.</p></div>
+            <div class="dl-matris" aria-hidden="true">
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"><path d="M20 6l15 27H5z"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.5"><circle cx="20" cy="20" r="14"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.5"><rect x="6" y="6" width="28" height="28" rx="3"/></svg></span>
+              <span class="tom">?</span>
+            </div>
+          </div>
+          <div class="dl" data-rum="cv">
+            <div><p class="dl-namn"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span>CV-analysen</p><p>Läsbarhetspoängen och genomgången i sju delar, för varje CV.</p></div>
+            <div class="dl-tal" aria-hidden="true">93<small>av 100</small></div>
+          </div>
+          <div class="dl" data-rum="brev">
+            <div><p class="dl-namn"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span>Ett personligt brev</p><p>Skrivet på annonsen utifrån ditt CV.</p></div>
+            <div class="dl-blad" aria-hidden="true"><i></i><i></i><i class="m"></i><i></i><i class="m" style="width:52%"></i></div>
+          </div>
+          <div class="dl" data-rum="jobb">
+            <div><p class="dl-namn"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span>Jobbsöket</p><p>Tre matchade jobb, och Sökta tjänster som håller koll på varje ansökan.</p></div>
+            <svg class="ministig" viewBox="0 0 220 96" fill="none" aria-hidden="true"><path d="M12 84C50 84 54 60 88 56s42-12 64-24 36-16 50-22" stroke="currentColor" stroke-opacity=".55" stroke-width="4" stroke-dasharray="1 9" stroke-linecap="round"/><circle cx="12" cy="84" r="7" fill="var(--vagg)" stroke="currentColor" stroke-width="4"/><circle cx="88" cy="56" r="9" fill="#E07A2F" stroke="currentColor" stroke-width="4"/><circle cx="152" cy="32" r="7" fill="var(--vagg)" stroke="currentColor" stroke-width="4"/><path d="M202 10V-14" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M202-14l18 6-18 7z" fill="#E07A2F"/><circle cx="202" cy="10" r="6" fill="currentColor"/></svg>
+          </div>
+        </div>
+        <p class="prem-not"><b>Premium</b>, 149 kr i månaden, när du vill ha alla verktyg, nivåer och mallar. Säg upp när du vill.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEGET EFTER KONTOT ============ -->
+  <section class="sekt" style="padding-top:40px">
+    <div class="bredd">
+      <div class="sekt-huvud" style="margin-bottom:28px">
+        <div class="skissrad">Stegen efter kontot, i samma ordning som i dag</div>
+        <h2 class="h2">Efter kontot: Premium eller gratis, sedan vad du vill börja med</h2>
+        <p class="varde">De här två skärmarna visas inloggat, direkt efter att kontot är skapat. Texterna är dagens. Formen är ny.</p>
+      </div>
+      <div class="efter">
+        <div>
+          <div class="skissrad">Skärm 2: köpsteget, med vägen till gratis</div>
+          <div class="skarm">
+            <div class="sk-topp">Kom igång<span aria-label="Stäng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div>
+            <div class="sk-kropp">
+              <p class="ey">Allt öppnas direkt efter betalningen</p>
+              <h2 class="h2">Jobbcoach Premium</h2>
+              <div class="kopkort">
+                <div class="huvud"><b>149 kr</b>i månaden, säg upp när du vill.</div>
+                <div class="inne">
+                  <p class="ey" style="color:var(--ink-3)">Det här ingår i Premium</p>
+                  <ul class="bockar" style="margin-top:12px">
+                    <li>Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet</li>
+                    <li>Alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn</li>
+                    <li>Jobbmatchning, de 25 bästa träffarna med skälen</li>
+                    <li>Uppföljningsmejl till varje sökt tjänst och rapport till Arbetsförmedlingen att skriva ut eller kopiera</li>
+                    <li>Jobbcoachen, fråga så mycket du vill</li>
+                    <li>Intervjuprovet utan dagsgräns och hela din testhistorik</li>
+                  </ul>
+                  <dl class="villkorsrader">
+                    <div><dt>Förnyas</dt><dd>varje månad på samma datum, nästa 22 december</dd></div>
+                    <div><dt>Uppsägning</dt><dd>när som helst i ditt konto</dd></div>
+                    <div><dt>Ångerrätt</dt><dd>gäller inte, du startar direkt</dd></div>
+                  </dl>
+                  <div class="forsta"><span class="dorr" data-rum="cv"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>Första steget: ladda upp CV:t</b><span>Tar en kvart. Sedan är allt ovan öppet, i vilken ordning du vill.</span></div>
+                </div>
+              </div>
+              <label class="samtycke"><i></i><span>Jag vill att innehållet startar direkt och förstår att ångerrätten därmed inte gäller. 149 kr dras varje månad på samma datum, nästa gång 22 december, tills jag säger upp prenumerationen.</span></label>
+            </div>
+            <div class="sk-fot">
+              <a class="knapp knapp-bred" href="#">Till betalning, 149 kr</a>
+              <a class="lank" href="#">Börja gratis i stället</a>
+              <p class="liten">Kortbetalning via Stripe. Kvitto på mejl.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="skissrad">Skärm 3: för den som börjar gratis</div>
+          <div class="skarm">
+            <div class="sk-topp">Kom igång<span aria-label="Stäng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div>
+            <div class="sk-kropp">
+              <p class="ey">Sista steget</p>
+              <h2 class="h2">Vad vill du börja med?</h2>
+              <p class="t">Vi lägger det du väljer överst på hemskärmen. Inget kostar något.</p>
+              <div class="vallista" role="radiogroup" aria-label="Vad vill du börja med?">
+                <div class="val vald" data-rum="tran" role="radio" aria-checked="true"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><b>Rekryteringstester</b><span class="ring"><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></span><span class="t">Grundnivån i varje testtyp ligger öppen.</span></div>
+                <div class="val" data-rum="cv" role="radio" aria-checked="false"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV</b><span class="ring"></span><span class="t">Vi läser ditt CV och visar vad en rekryterare ser.</span></div>
+                <div class="val" data-rum="brev" role="radio" aria-checked="false"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personliga brev</b><span class="ring"></span><span class="t">Klistra in annonsen, så skriver vi brevet utifrån ditt CV.</span></div>
+                <div class="val" data-rum="jobb" role="radio" aria-checked="false"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbsöket</b><span class="ring"></span><span class="t">Vi matchar ditt CV mot lediga jobb i Platsbanken och skriver varför de passar.</span></div>
+                <div class="val tom" role="radio" aria-checked="false"><span class="dorr" style="background:var(--ink-3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.200 9.200a2.900 2.900 0 1 1 4.300 2.600c-.900.500-1.500 1.100-1.500 2.200M12 17.500v.01"/></svg></span><b>Jag vet inte än</b><span class="ring"></span><span class="t">Då visar vi hemskärmen som den är.</span></div>
+              </div>
+            </div>
+            <div class="sk-fot">
+              <a class="knapp knapp-bred" href="#">Till hemskärmen</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="skissrad">Tanken bakom</div>
+          <div class="kort"><h3 class="h3">Fyra val i stället för tre</h3><p>I dag står "CV och personliga brev", "Urvalstester" och "Jag vet inte än". Skissen har de fyra delarna med sina namn och färger, testerna först, så att valet ser ut som kontot man landar i.</p></div>
+          <div class="kort" style="margin-top:14px"><h3 class="h3">Juridiken rörs inte</h3><p>Samtycket om ångerrätten, villkorsraderna och raden under Skapa konto står ordagrant som i dag.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

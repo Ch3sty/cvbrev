@@ -1,0 +1,553 @@
+<!-- titel: Skiss Sökta tjänster | rum: jobb -->
+<style>
+  /* brickan: en sökt tjänst, samma två bokstäver som i kontot */
+  .br { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 13px; background: var(--papper); color: var(--vagg); font-family: var(--disp); font-weight: 800; font-size: 14.5px; line-height: 1; box-shadow: 0 4px 0 rgba(0, 0, 0, .28); }
+  .br.tom { background: none; border: 2.5px dashed currentColor; color: inherit; box-shadow: none; }
+  .br.tyst { outline: 3px solid var(--koppar); outline-offset: 2px; }
+  .br.int { background: var(--ton-ink); color: #fff; }
+  .br.av { background: var(--papper-2); color: var(--ink-3); }
+  .br.liten { width: 34px; height: 34px; border-radius: 10px; font-size: 12px; box-shadow: 0 3px 0 rgba(0, 0, 0, .22); }
+  .pa-papper .br { background: var(--ton); color: var(--ton-ink); box-shadow: 0 4px 0 var(--kant-stark); }
+  .pa-papper .br.tom { background: none; box-shadow: none; color: var(--ton-ink); }
+  .pa-papper .br.int { background: var(--ton-ink); color: #fff; box-shadow: 0 4px 0 var(--vagg-3); }
+  .pa-papper .br.av { background: var(--papper-2); color: var(--ink-3); box-shadow: 0 4px 0 #DDDCD8; }
+  .pa-papper .br.liten { box-shadow: 0 3px 0 var(--kant-stark); }
+
+  /* hjälten: spåret, med plats för etiketterna i telefon */
+  .sparvy { width: 100%; max-width: 560px; margin: 0 auto; min-width: 0; }
+  .malrad { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); font-size: 14.5px; font-weight: 600; }
+  .malrad i { width: 14px; height: 14px; border-radius: 5px; border: 2px solid var(--vagg-mjuk); flex: none; }
+  .malrad i.k { background: var(--koppar); border-color: var(--koppar); }
+  .sparvy .malrad { margin-top: 18px; }
+  @media (max-width: 699px) {
+    .sparvy { padding: 0 22px; }
+    .sparvy .stig .etk:nth-of-type(1) { transform: translate(-36%, 0); text-align: left; }
+    .sparvy .stig .etk:nth-of-type(4) { top: -9% !important; }
+    .sparvy { padding-top: 10px; }
+  }
+
+  .tva { display: grid; gap: 32px; align-items: center; }
+  .tva > * { min-width: 0; }
+  @media (min-width: 1000px) { .tva { grid-template-columns: 1fr 1fr; gap: 72px; } .tva.smal-v { grid-template-columns: .86fr 1.14fr; } .tva.smal-h { grid-template-columns: 1.14fr .86fr; } }
+
+  /* arket Logga sökt tjänst */
+  .arkform { background: var(--golv); border-radius: 22px; padding: 18px; display: grid; gap: 12px; }
+  .arkform .arkrubrik { font-family: var(--disp); font-weight: 800; font-size: 20px; }
+  .arkform .etik { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .vaxel { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; border-radius: 15px; background: var(--papper); border: 2px solid var(--kant); }
+  .vaxel span { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 11px; font-weight: 700; font-size: 14.5px; color: var(--ink-2); text-align: center; }
+  .vaxel span.pa { background: var(--vagg); color: #fff; }
+  .vaxel svg { width: 16px; height: 16px; }
+  .falt { display: block; margin-top: 5px; min-height: 48px; padding: 12px 14px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); font-size: 15.5px; font-weight: 500; }
+  .falt.tomt { color: var(--ink-3); font-weight: 400; }
+  .faltpar { display: grid; gap: 12px; }
+  @media (min-width: 520px) { .faltpar { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px) { .arkform { padding: 26px; } }
+
+  /* stegens små bilder */
+  .vagsteg .bild { gap: 8px; align-content: center; justify-items: center; }
+  .mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+  .mini-chip { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .mini-chip.k { background: var(--koppar); border-color: var(--koppar); color: var(--koppar-text); }
+  .mini-pil { width: 26px; border-top: 3px dotted var(--kant-stark); }
+
+  /* de fyra facken: samma bild som i Sökta tjänster */
+  .fack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+  .fack > div { min-width: 0; border-radius: 20px; padding: 14px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .16); display: grid; align-content: start; gap: 4px; min-height: 196px; }
+  .fack > div.mal { border-style: dashed; border-color: var(--koppar-ljus); background: rgba(224, 122, 47, .08); }
+  .fack b { font-family: var(--disp); font-size: 15.5px; }
+  .fack .tal { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -0.03em; }
+  .fack .mal .tal { color: var(--koppar-ljus); }
+  .fack small { font-size: 13px; line-height: 1.3; color: var(--vagg-mjuk); }
+  .fack .brickor2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 36px; align-items: end; }
+  .fack .tagg { position: relative; }
+  .fack .tagg em { position: absolute; left: 50%; bottom: calc(100% + 5px); transform: translateX(-50%); font-style: normal; white-space: nowrap; height: 22px; padding: 0 8px; border-radius: 999px; background: var(--koppar); color: var(--koppar-text); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+  .statusar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .statusar span { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .1); font-size: 13.5px; font-weight: 600; }
+  @media (min-width: 1000px) { .fack { grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; } .fack > div { padding: 22px; min-height: 250px; } .fack .tal { font-size: 60px; } .fack b { font-size: 18px; } }
+
+  /* Ska sökas: sparade annonser */
+  .spar { display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; align-items: start; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 20px; }
+  .spar + .spar { margin-top: 12px; }
+  .spar b { font-family: var(--disp); font-size: 17.5px; line-height: 1.2; }
+  .spar small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+  .spar .sista { grid-column: 2; display: inline-flex; align-items: center; gap: 8px; justify-self: start; margin-top: 8px; min-height: 30px; padding: 4px 12px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 13.5px; font-weight: 700; }
+  .spar .sista.lugn { background: var(--ton); color: var(--ton-ink); }
+  .spar .gor { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--golv); }
+  .spar .gor .kn { display: inline-grid; place-items: center; height: 44px; padding: 0 18px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; }
+  .spar .gor .tl { font-weight: 600; font-size: 14.5px; text-decoration: underline; text-underline-offset: 3px; }
+  .spar .gor .tl.svag { color: var(--ink-3); margin-left: auto; }
+
+  .malkort { display: grid; gap: 18px; align-items: center; margin-top: 20px; }
+  .malbild { display: flex; align-items: center; gap: 8px; }
+  .malbild i { flex: none; width: 46px; height: 46px; border-radius: 14px; border: 3px dashed var(--kant-stark); display: grid; place-items: center; font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 15px; color: var(--ton-ink); }
+  .malbild i.k { border: 0; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+  .malbild b { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1.05; letter-spacing: -0.03em; margin-left: 8px; min-width: 0; }
+  .malbild b small { display: block; margin-top: 4px; font-family: var(--text); font-weight: 600; font-size: 13.5px; line-height: 1.25; letter-spacing: 0; color: var(--ink-3); }
+  @media (min-width: 900px) { .malkort { grid-template-columns: auto 1fr; gap: 40px; } .malbild i { width: 52px; height: 52px; border-radius: 16px; } .malbild b { font-size: 34px; white-space: nowrap; } }
+
+  /* tratten: från sökt till erbjudande */
+  .tratt { display: grid; gap: 10px; margin-top: 36px; }
+  .led { min-width: 0; padding: 16px; border-radius: 20px; background: var(--golv); display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; align-items: center; }
+  .led .tal { grid-row: span 2; font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -0.03em; min-width: 46px; }
+  .led b { font-family: var(--disp); font-size: 17.5px; align-self: end; }
+  .led small { font-size: 13.5px; color: var(--ink-3); align-self: start; }
+  .led .matt { grid-column: 1 / -1; height: 10px; border-radius: 999px; background: var(--papper); margin-top: 10px; overflow: hidden; }
+  .led .matt i { display: block; height: 100%; border-radius: 999px; background: var(--ton-ink); }
+  .led .brickrad { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; min-height: 37px; }
+  .led.mal { background: none; border: 3px dashed var(--koppar); }
+  .led.mal .tal { color: var(--koppar-ink); }
+  .mellan { justify-self: center; display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--vagg); color: #fff; font-size: 13px; font-weight: 700; white-space: nowrap; }
+  .mellan svg { width: 14px; height: 14px; transform: rotate(90deg); }
+  @media (min-width: 1000px) {
+    .tratt { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 12px; margin-top: 52px; }
+    .led { grid-template-columns: 1fr; align-content: start; padding: 22px; gap: 4px; }
+    .led .tal { grid-row: auto; font-size: 68px; }
+    .led b { font-size: 20px; margin-top: 6px; }
+    .mellan { align-self: center; }
+    .mellan svg { transform: none; }
+  }
+  .statkort .ministaplar { display: flex; align-items: end; gap: 6px; height: 62px; margin-top: 4px; }
+  .statkort .ministaplar i { flex: 1; border-radius: 6px 6px 2px 2px; background: var(--ton-ink); min-height: 6px; }
+  .statkort .ministaplar i.nu { background: var(--koppar); }
+  .statkort .delning { display: flex; height: 18px; border-radius: 999px; overflow: hidden; margin-top: 4px; gap: 3px; }
+  .statkort .delning i { display: block; background: var(--ton-ink); }
+  .statkort .delning i:nth-child(2) { background: var(--ljus); }
+  .statkort .delning i:nth-child(3) { background: var(--kant-stark); }
+  .statkort .forkl { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13.5px; color: var(--ink-2); }
+  .statkort .cvrad { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 14px; font-weight: 600; align-items: center; }
+  .statkort .cvrad .stapel { grid-column: 1 / -1; }
+
+  /* uppföljningsmejlet */
+  .mejl { background: var(--papper); color: var(--ink-1); border-radius: 22px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 8px 0 rgba(0, 0, 0, .24), 0 30px 60px rgba(0, 0, 0, .22); overflow: hidden; max-width: 540px; width: 100%; margin: 0 auto; }
+  .mejl-huvud { padding: 6px 18px; background: var(--papper-2); font-size: 14px; }
+  .mejl-huvud div { display: grid; grid-template-columns: 52px 1fr; gap: 10px; padding: 9px 0; }
+  .mejl-huvud div + div { border-top: 1px solid #E2E0DB; }
+  .mejl-huvud span { color: var(--ink-3); }
+  .mejl-huvud b { font-weight: 600; min-width: 0; }
+  .mejl-huvud em { font-style: normal; color: var(--ink-3); font-weight: 400; }
+  .mejl-kropp { padding: 16px 18px 6px; }
+  .o .mejl .mejl-kropp p { font-size: 15px; line-height: 1.55; color: var(--ink-1); }
+  .mejl-kropp p + p { margin-top: 10px; }
+  .mejl-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 14px 18px 18px; }
+  .mejl-fot span { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; white-space: nowrap; }
+  .mejl-fot span:first-child { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+  .mejl-fot svg { width: 17px; height: 17px; }
+  .mejl-fraga { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 14px 18px; background: var(--ton); font-size: 14.5px; }
+  .mejl-fraga b { font-family: var(--disp); font-size: 16px; margin-right: auto; }
+  .mejl-fraga span { display: inline-grid; place-items: center; height: 38px; padding: 0 14px; border-radius: 11px; background: var(--papper); border: 2px solid var(--kant-stark); font-weight: 700; }
+  .sedan { display: grid; gap: 12px; margin-top: 24px; }
+  .sedan li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--vagg-mjuk); }
+  .sedan li b { color: var(--vagg-ink); }
+  .sedan li i { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-style: normal; font-family: var(--disp); font-weight: 800; }
+  .chiprad { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* intervjun på tjänsten */
+  .ivkort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 24px; overflow: hidden; }
+  .ivtopp { display: grid; grid-template-columns: 62px 1fr; gap: 14px; align-items: center; padding: 18px; background: var(--vagg); color: var(--vagg-ink); }
+  .ivdag { display: grid; place-items: center; align-content: center; width: 62px; height: 66px; border-radius: 16px; background: var(--papper); color: var(--vagg); box-shadow: 0 4px 0 rgba(0, 0, 0, .3); font-family: var(--disp); font-weight: 800; font-size: 26px; line-height: 1; }
+  .ivdag small { font-family: var(--text); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); margin-bottom: 3px; }
+  .ivtopp b { font-family: var(--disp); font-size: 19px; line-height: 1.2; display: block; }
+  .ivtopp div span { font-size: 14px; color: var(--vagg-mjuk); }
+  .ivkropp { padding: 16px 18px 18px; display: grid; gap: 10px; }
+  .ivkropp > p { font-size: 14.5px; color: var(--ink-2); }
+  .fragarad { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--golv); font-weight: 600; font-size: 15px; }
+  .fragarad.nu { outline: 2.5px solid var(--koppar); background: #FFF7F0; }
+  .fragarad small { grid-column: 1 / -1; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+  .betyg { display: inline-flex; gap: 4px; }
+  .betyg i { width: 12px; height: 12px; border-radius: 4px; background: var(--kant-stark); }
+  .betyg i.p { background: var(--ton-ink); }
+  .hurgick { margin-top: 14px; padding: 18px; border-radius: 24px; background: var(--ton); border: 2px solid var(--kant-stark); }
+  .hurgick b { font-family: var(--disp); font-size: 19px; }
+  .hurgick p { font-size: 14.5px; color: var(--ink-2); margin-top: 4px; }
+  .hurgick div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .hurgick span { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; }
+
+  /* rapportbladet: det som skrivs ut */
+  .blad { position: relative; background: #fff; color: #1A1A1F; border-radius: 6px; box-shadow: 0 10px 0 rgba(0, 0, 0, .14), 0 30px 60px rgba(20, 40, 28, .2); padding: 22px 20px; transform: rotate(.8deg); max-width: 560px; width: 100%; margin: 0 auto; }
+  .blad h3 { font-family: var(--disp); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+  .blad .period { font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+  .blad h4 { margin-top: 18px; padding-bottom: 6px; border-bottom: 2px solid #1A1A1F; font-size: 13.5px; font-weight: 700; display: flex; justify-content: space-between; gap: 10px; }
+  .blad h4 span { font-weight: 500; color: var(--ink-3); white-space: nowrap; }
+  .blad .rr { display: grid; grid-template-columns: 54px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid #E6E4DF; font-size: 13.5px; line-height: 1.35; }
+  .blad .rr span { color: var(--ink-3); }
+  .blad .siffror { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 18px; }
+  @media (min-width: 520px) { .blad .siffror { grid-template-columns: repeat(4, 1fr); } }
+  .blad .siffror div { min-width: 0; padding: 10px 8px; border-radius: 10px; background: #F4F3F0; text-align: center; font-size: 12.5px; line-height: 1.25; color: var(--ink-2); }
+  .blad .siffror b { display: block; font-family: var(--disp); font-weight: 800; font-size: 24px; color: #1A1A1F; }
+  .blad .bfot { margin-top: 14px; font-size: 12px; color: var(--ink-3); }
+  @media (min-width: 900px) { .blad { padding: 36px 38px; } .blad h3 { font-size: 26px; } .blad .rr { font-size: 14.5px; grid-template-columns: 64px 1fr; } .blad .siffror b { font-size: 30px; } .blad .siffror div { font-size: 13px; } }
+  .manval { display: grid; grid-template-columns: 46px 1fr; gap: 2px 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--papper); border: 2px solid var(--kant-stark); }
+  .manval.vald { border-color: var(--ink-1); border-bottom-width: 5px; }
+  .manval i { grid-row: span 2; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: var(--ton); color: var(--ton-ink); font-style: normal; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  .manval b { font-family: var(--disp); font-size: 16px; align-self: end; }
+  .manval span { font-size: 13.5px; color: var(--ink-3); align-self: start; }
+  .uttag { display: grid; gap: 10px; margin-top: 22px; }
+  .uttag li { display: grid; grid-template-columns: 40px 1fr; gap: 4px 12px; align-items: center; padding: 14px; border-radius: 16px; background: var(--papper); border: 2px solid var(--kant); font-weight: 600; font-size: 15px; }
+  .uttag li i { grid-row: span 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--ton-ink); color: #fff; }
+  .uttag li i svg { width: 20px; height: 20px; }
+  .uttag li div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .uttag li span.f { font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+
+  .prem-rad { display: grid; gap: 22px; }
+  .prem-rad > * { min-width: 0; }
+  .gratiskort { background: var(--papper); color: var(--ink-1); border-radius: 22px; padding: 22px; border-bottom: 6px solid rgba(0, 0, 0, .35); }
+  .premium .gratiskort p { color: var(--ink-2); }
+  .premkort { border-radius: 22px; padding: 22px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 255, 255, .16); }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; } .gratiskort, .premkort { padding: 32px; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>Sökta tjänster</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Sökta tjänster, gratis för alla med konto</p>
+          <h1 class="h1">Håll koll på varje jobb du har sökt</h1>
+          <p class="varde">Spara annonsen du ska söka, logga den du har sökt och se när det är dags att höra av sig. Tystnaden räknar vi åt dig. <b>Efter tolv tysta dagar ligger ett utkast till uppföljningsmejlet klart.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Logga din första sökta tjänst <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så fungerar det</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>0 kr</b><span>för logg, lista och statistik</span></div>
+            <div class="bricka"><b>12</b><span>tysta dagar, sedan ett utkast</span></div>
+            <div class="bricka"><b>1 blad</b><span>per månad, som underlag</span></div>
+          </div>
+        </div>
+        <div class="sparvy">
+          <!--@del stig-->
+          <p><span class="malrad"><i class="k"></i><i class="k"></i><i></i>Veckans mål: 2 av 3 sökta</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="tva smal-v">
+        <div class="arkform" aria-label="Exempel: arket där du loggar en sökt tjänst">
+          <span class="arkrubrik">Logga sökt tjänst</span>
+          <div><span class="etik">Har du sökt eller ska du söka?</span>
+            <div class="vaxel" style="margin-top:5px"><span class="pa"><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg>Jag har sökt</span><span>Jag ska söka</span></div>
+          </div>
+          <div><span class="etik">Tjänst</span><span class="falt">Projektledare</span></div>
+          <div><span class="etik">Arbetsgivare</span><span class="falt">Dalvik Anläggning</span></div>
+          <div class="faltpar">
+            <div><span class="etik">Datum sökt</span><span class="falt">10 november 2026</span></div>
+            <div><span class="etik">Hur sökte du?</span><span class="falt">Svar på annons</span></div>
+          </div>
+          <a class="knapp knapp-bred" href="#" style="margin-top:6px">Logga sökt tjänst</a>
+        </div>
+        <div>
+          <p class="ey">Tar en minut</p>
+          <h2 class="h2" style="margin-top:10px">Logga en tjänst du har sökt</h2>
+          <p class="varde" style="margin-top:12px">Tjänst, arbetsgivare och datum räcker. Har du inte sökt än väljer du Jag ska söka och lägger till sista ansökningsdag.</p>
+          <ul class="bockar pa-papper" style="margin-top:22px">
+            <li>Tjänsten får en bricka som följer med från Sökt till Erbjudande.</li>
+            <li>Vi räknar dagarna sedan du senast hörde något. Du loggar aldrig tystnaden själv.</li>
+            <li>Månaden fylls i av sig själv, som underlag till din aktivitetsrapport.</li>
+          </ul>
+          <p class="liten" style="margin-top:18px">Kommer du från Matchade jobb är tjänsten, arbetsgivaren och sista ansökningsdag redan ifyllda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så fungerar det</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Fyra steg från sparad annons till en månad som går att visa upp.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Spara annonsen du ska söka</h3>
+          <p>Lägg den under Ska sökas med sista ansökningsdag. Från en träff i Matchade jobb sparar du med ett tryck.</p>
+          <div class="bild pa-papper" aria-hidden="true"><span class="br tom">IL</span><span class="mini-chip k">Sista dag onsdag</span></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Logga när du har sökt</h3>
+          <p>Markera annonsen som sökt, eller logga en tjänst du sökt på egen hand. Brickan flyttar till Sökt.</p>
+          <div class="bild pa-papper" aria-hidden="true"><div class="mini-rad"><span class="br tom">IL</span><i class="mini-pil"></i><span class="br">IL</span></div><span class="mini-chip">Sökt 22 nov</span></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Uppdatera när något händer</h3>
+          <p>Kallad till test, kallad till intervju, erbjudande eller avslag. Varje händelse hamnar på tjänsten med sitt datum.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-rad"><span class="mini-chip">Kallad till test</span><span class="mini-chip">Intervju</span><span class="mini-chip">Erbjudande</span></div></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Följ upp och ta ut månaden</h3>
+          <p>Efter tolv tysta dagar föreslår vi ett uppföljningsmejl. Vid månadens slut står allt du sökt samlat på ett blad.</p>
+          <div class="bild pa-papper" aria-hidden="true"><div class="mini-rad"><span class="br tyst">DA</span><span class="mini-chip k">tyst i 12 dagar</span></div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <article class="o" style="padding-bottom:28px">
+        <div class="sekt-huvud">
+          <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Läget i en blick</p></div>
+          <h2 class="h2">Från Ska sökas till erbjudande</h2>
+          <p class="varde">Varje tjänst är en bricka med arbetsgivarens två bokstäver. Du ser var den står, vilken som har varit tyst för länge och vilken intervju som kommer härnäst.</p>
+        </div>
+        <div class="fack" role="img" aria-label="Exempel: en tjänst under Ska sökas, tre sökta varav en har varit tyst i tolv dagar, en intervju på tisdag och inget erbjudande än">
+          <div><b>Ska sökas</b><span class="tal">1</span><small>Närmast: onsdag</small><div class="brickor2"><span class="br tom">IL</span></div></div>
+          <div><b>Sökt</b><span class="tal">3</span><small>Väntar svar</small><div class="brickor2"><span class="tagg"><em>12 dagar</em><span class="br tyst">DA</span></span><span class="br">CO</span><span class="br">HE</span></div></div>
+          <div><b>Intervju</b><span class="tal">1</span><small>Bokad tisdag</small><div class="brickor2"><span class="tagg"><em>tis 10.00</em><span class="br int">PO</span></span></div></div>
+          <div class="mal"><b>Erbjudande</b><span class="tal">0</span><small>Hit ska en bricka</small><div class="brickor2"><svg width="44" height="54" viewBox="0 0 44 54" fill="none" aria-hidden="true"><path d="M6 52V4" stroke="#F2F8F2" stroke-width="4" stroke-linecap="round"/><path d="M6 5l32 10-32 12z" fill="#E07A2F"/></svg></div></div>
+        </div>
+        <div class="statusar" aria-label="Händelser du kan logga på en sökt tjänst"><span>Sökt</span><span>Kallad till test</span><span>Kallad till intervju</span><span>Intervju genomförd</span><span>Provjobbat</span><span>Erbjudande</span><span>Tackade ja</span><span>Tackade nej</span><span>Avslag</span></div>
+        <p class="liten" style="margin-top:14px;max-width:64ch">Ett avslag räknas som ett svar och flyttar tjänsten till Avslutade, längst ned. Den försvinner aldrig ur din historik.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="tva">
+        <div class="sekt-huvud">
+          <p class="ey" style="color:var(--ton-ink)">Ska sökas</p>
+          <h2 class="h2">Spara annonsen med sista ansökningsdag</h2>
+          <p class="varde">Hittar du en annons på måndagen men hinner skriva först på torsdagen? Lägg den under Ska sökas. Den står kvar med sin sista ansökningsdag, och vi säger till i god tid.</p>
+          <p style="color:var(--ink-2)">Sparade annonser räknas inte som sökta förrän du har sökt. Från raden skriver du det personliga brevet, och när ansökan är skickad markerar du den som sökt.</p>
+          <div class="chiprad" style="margin-top:20px"><span class="chip chip-gratis">Gratis för alla med konto</span></div>
+        </div>
+        <div aria-label="Exempel: två sparade annonser under Ska sökas" class="pa-papper">
+          <div class="spar">
+            <span class="br tom">IL</span>
+            <div><b>Projektledare, logistik</b><small>Isberg Logistik, Göteborg</small></div>
+            <span class="sista">Sista dag onsdag 25 nov, 3 dagar kvar</span>
+            <div class="gor"><span class="kn">Skriv brev</span><span class="tl">Markera som sökt</span><span class="tl svag">Ta bort</span></div>
+          </div>
+          <div class="spar">
+            <span class="br tom">NB</span>
+            <div><b>Byggprojektledare</b><small>Nordhaga Bygg, Mölndal</small></div>
+            <span class="sista lugn">Sista dag torsdag 3 dec, 11 dagar kvar</span>
+            <div class="gor"><span class="kn">Skriv brev</span><span class="tl">Markera som sökt</span><span class="tl svag">Ta bort</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kort malkort" style="margin-top:32px">
+        <div class="malbild" role="img" aria-label="Veckans mål: två av tre sökta"><i class="k">CO</i><i class="k">HE</i><i>3</i><b>2 av 3<small>sökta den här veckan</small></b></div>
+        <div>
+          <h3 class="h3">Veckans mål håller farten uppe</h3>
+          <p style="margin-top:8px">Förvalet är tre sökta tjänster i veckan. Du ändrar det själv, från en till tio, och veckan börjar om varje måndag. Saknas en ansökan visar vi annonser som passar ditt CV.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Statistik</p>
+        <h2 class="h2">Se var ansökningarna tar stopp</h2>
+        <p class="varde">Får du inga svar alls, eller tar det stopp efter intervjun? Statistiken ritar vägen från sökt till erbjudande, med en bricka per tjänst.</p>
+        <div class="chiprad"><span class="chip chip-gratis">Gratis för alla med konto</span></div>
+      </div>
+      <div class="tratt pa-papper" role="img" aria-label="Exempel: åtta sökta. Fem har svarat. Två har lett till intervju. Inget erbjudande än.">
+        <div class="led"><span class="tal">8</span><b>Sökta</b><small>Sedan 14 oktober</small><div class="matt"><i style="width:100%"></i></div>
+          <div class="brickrad"><span class="br liten">DA</span><span class="br liten">CO</span><span class="br liten">HE</span><span class="br liten int">PO</span><span class="br liten int">VK</span><span class="br liten av">SB</span><span class="br liten av">TR</span><span class="br liten av">ÖH</span></div></div>
+        <span class="mellan">5 av 8 <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="led"><span class="tal">5</span><b>Fått svar</b><small>2 kallelser, 3 avslag</small><div class="matt"><i style="width:62%"></i></div>
+          <div class="brickrad"><span class="br liten int">PO</span><span class="br liten int">VK</span><span class="br liten av">SB</span><span class="br liten av">TR</span><span class="br liten av">ÖH</span></div></div>
+        <span class="mellan">2 av 5 <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="led"><span class="tal">2</span><b>Intervju</b><small>1 genomförd, 1 bokad</small><div class="matt"><i style="width:25%"></i></div>
+          <div class="brickrad"><span class="br liten int">PO</span><span class="br liten int">VK</span></div></div>
+        <span class="mellan">väntar <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="led mal"><span class="tal">0</span><b>Erbjudande</b><small>Inget än</small><div class="brickrad"><svg width="30" height="37" viewBox="0 0 44 54" fill="none" aria-hidden="true"><path d="M6 52V4" stroke="#1B3324" stroke-width="4" stroke-linecap="round"/><path d="M6 5l32 10-32 12z" fill="#E07A2F"/></svg></div></div>
+      </div>
+      <div class="rutnat r3">
+        <div class="kort statkort"><h3 class="h3">Aktivitet per vecka</h3><p>Hur många du har sökt, vecka för vecka eller månad för månad.</p>
+          <div class="ministaplar" role="img" aria-label="Exempel: sökta per vecka, sex veckor"><i style="height:34%"></i><i style="height:66%"></i><i style="height:34%"></i><i style="height:100%"></i><i style="height:34%"></i><i class="nu" style="height:66%"></i></div></div>
+        <div class="kort statkort"><h3 class="h3">Hur du sökte</h3><p>Svar på annons, spontanansökan eller via kontakt. Du ser vilken väg som ger svar.</p>
+          <div class="delning" role="img" aria-label="Exempel: fem på annons, två spontana, en via kontakt"><i style="flex:5"></i><i style="flex:2"></i><i style="flex:1"></i></div>
+          <div class="forkl"><span>5 annons</span><span>2 spontana</span><span>1 via kontakt</span></div></div>
+        <div class="kort statkort"><h3 class="h3">Svar per CV</h3><p>Skickar du olika CV:n ser du hur många av de sökta tjänsterna med varje CV som har fått svar.</p>
+          <div class="cvrad"><span>CV, projektledning</span><span>4 av 5</span><div class="stapel"><i style="width:80%"></i></div></div>
+          <div class="cvrad"><span>CV, logistik</span><span>1 av 3</span><div class="stapel"><i style="width:33%"></i></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <article class="o vand">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Uppföljningsmejlet</p></div>
+            <h2 class="h2">Tyst i tolv dagar? Utkastet är redan skrivet.</h2>
+            <p class="varde">De flesta ansökningar får aldrig en påminnelse, för att det tar emot att skriva den. <b>Vi skriver utkastet utifrån din ansökan, och du ändrar det du vill direkt i texten.</b></p>
+            <ol class="sedan">
+              <li><i>1</i><span><b>Du skickar från din egen e-post.</b> Utkastet öppnas i ditt mejlprogram, eller så kopierar du texten. Vi skickar aldrig något åt dig.</span></li>
+              <li><i>2</i><span><b>Tjänsten lämnar Följ upp.</b> Ingen ny påminnelse på tolv dagar.</span></li>
+              <li><i>3</i><span><b>Är det fortfarande tyst säger vi till.</b> Då väljer du själv om du vill fråga en gång till.</span></li>
+            </ol>
+            <p style="margin-top:18px">Har du varit på intervju frågar mejlet i stället om besked, och då räcker sju dagar utan svar.</p>
+            <div class="chiprad" style="margin-top:20px"><span class="chip chip-vagg">Första utkastet gratis</span><span class="chip chip-premium">Fler utkast i Premium</span></div>
+          </div>
+          <div class="o-bild">
+            <div class="mejl" aria-label="Exempel: utkast till uppföljningsmejl">
+              <div class="mejl-huvud">
+                <div><span>Till</span><b><em>Mottagarens adress, står oftast under Kontakt i annonsen</em></b></div>
+                <div><span>Ämne</span><b>Min ansökan till tjänsten som projektledare</b></div>
+              </div>
+              <div class="mejl-kropp">
+                <p>Hej,</p>
+                <p>Jag sökte tjänsten som projektledare hos er den 10 november och undrar hur långt ni har kommit i rekryteringen.</p>
+                <p>Jag är fortfarande intresserad. Det jag gör i dag, projektledning, budgetansvar och upphandling, ligger nära det ni beskriver i annonsen.</p>
+                <p>Hör gärna av er om ni vill ha något mer från mig. Jag svarar på det här mejlet eller i telefon.</p>
+                <p>Vänliga hälsningar<br>Sara Lindström</p>
+              </div>
+              <div class="mejl-fot"><span><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg>Öppna i e-post</span><span>Kopiera mejlet</span><span>Skriv om kortare</span></div>
+              <div class="mejl-fraga"><b>Skickade du mejlet?</b><span>Ja, det är skickat</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="tva">
+        <div>
+          <div class="ivkort" aria-label="Exempel: en sökt tjänst med bokad intervju">
+            <div class="ivtopp"><span class="ivdag"><small>tis</small>24</span><div><b>Intervju tisdag 10.00</b><span>Projektledare, Polhem Ombyggnad · Göteborg</span></div></div>
+            <div class="ivkropp">
+              <p><b style="color:var(--ink-1)">Förbered intervjun på tisdag.</b> Två av de sju vanligaste frågorna är övade. Börja med den du fick lägst betyg på.</p>
+              <div class="fragarad nu"><span>Ett problem du löste</span><span class="betyg" role="img" aria-label="Betyg 3 av 5"><i class="p"></i><i class="p"></i><i class="p"></i><i></i><i></i></span><small>Lägst betyg hittills. Öva på den här först.</small></div>
+              <div class="fragarad"><span>Berätta om dig själv</span><span class="betyg" role="img" aria-label="Betyg 4 av 5"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i></i></span></div>
+              <div class="fragarad"><span>Varför vill du ha jobbet?</span><span style="font-size:13.5px;font-weight:500;color:var(--ink-3)">Inte övad</span></div>
+            </div>
+          </div>
+          <div class="hurgick"><b>Hur gick intervjun?</b><p>Dagen efter frågar vi. Svara med ett tryck, så hamnar det rätt bland händelserna.</p><div><span>Den är genomförd</span><span>Den blev flyttad</span><span>Den blev inställd</span></div></div>
+        </div>
+        <div class="sekt-huvud">
+          <p class="ey">Inför intervjun</p>
+          <h2 class="h2">Intervjun hör till tjänsten du sökte</h2>
+          <p class="varde">När du blir kallad sätter du dag, tid och plats på den sökta tjänsten. Sedan vet vi vad du förbereder dig för.</p>
+          <p style="color:var(--ink-2)">Frågorna du övar på hör ihop med just den tjänsten, och annonsens krav ligger bredvid. Efter intervjun frågar vi hur det gick. Har du inte fått besked på sju dagar föreslår vi ett kort mejl som tackar för intervjun och frågar när du kan vänta det.</p>
+          <div class="chiprad" style="margin-top:20px"><span class="chip chip-gratis">Ett intervjuprov per dygn gratis</span><span class="chip chip-premium">Utan dagsgräns i Premium</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="tva smal-v">
+        <div class="sekt-huvud">
+          <p class="ey" style="color:var(--ton-ink)">Månadsrapporten</p>
+          <h2 class="h2">Underlaget till din aktivitetsrapport, redan ifyllt</h2>
+          <p class="varde">Lämnar du aktivitetsrapport till Arbetsförmedlingen? Då har du redan gjort jobbet. Allt du loggat under månaden står samlat på ett blad: sökta jobb, spontanansökningar och intervjuer, med datum.</p>
+          <p style="color:var(--ink-2)"><b style="color:var(--ink-1)">Du lämnar in rapporten själv.</b> Vi skickar ingenting till Arbetsförmedlingen, och ingen där ser ditt konto.</p>
+          <div style="margin-top:22px;display:grid;gap:8px;max-width:420px">
+            <div class="manval vald"><i>nov</i><b>November 2026</b><span>6 sökta jobb, 1 intervju</span></div>
+            <div class="manval"><i>okt</i><b>Oktober 2026</b><span>2 sökta jobb</span></div>
+          </div>
+          <ul class="uttag" style="max-width:520px">
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-upp"/></svg></i><div>Skriv ut eller spara som PDF <span class="chip chip-premium">Premium</span></div><span class="f">Bladet som det ser ut här bredvid.</span></li>
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></i><div>Kopiera som text <span class="chip chip-premium">Premium</span></div><span class="f">Rad för rad, att klistra in där du rapporterar.</span></li>
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></i><div>Dela med en länk <span class="chip chip-gratis">Antalen gratis</span></div><span class="f">Gäller i 30 dagar. Listan med företag, tjänst och datum ingår i Premium.</span></li>
+          </ul>
+        </div>
+        <div class="blad" aria-label="Exempel: månadsrapporten för november">
+          <h3>Sara Lindström</h3>
+          <p class="period">November 2026 · 6 sökta jobb, 1 intervju denna period</p>
+          <h4>1. Sökta annonserade jobb <span>5</span></h4>
+          <div class="rr"><span>3 nov</span><div>Projektledare, Västkajen Fastigheter, Göteborg</div></div>
+          <div class="rr"><span>10 nov</span><div>Projektledare, Dalvik Anläggning, Göteborg</div></div>
+          <div class="rr"><span>12 nov</span><div>Projektledare, Polhem Ombyggnad, Göteborg</div></div>
+          <div class="rr"><span>17 nov</span><div>Uppdragsledare, Corvent, Mölndal</div></div>
+          <div class="rr"><span>19 nov</span><div>Projektledare, Hedlunda Entreprenad, Kungälv</div></div>
+          <h4>2. Intresseanmälningar och spontanansökningar <span>1</span></h4>
+          <div class="rr"><span>6 nov</span><div>Projektledare, Trossö Rör, Göteborg</div></div>
+          <h4>3. Intervjuer och provjobb <span>1</span></h4>
+          <div class="rr"><span>18 nov</span><div>Intervju, projektledare, Västkajen Fastigheter</div></div>
+          <div class="siffror"><div><b>8</b>Sökta totalt</div><div><b>5</b>Fått svar</div><div><b>2</b>Intervjuer</div><div><b>0</b>Erbjudanden</div></div>
+          <p class="bfot">Genererad via jobbcoach.ai · 22 november 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="premium">
+        <div class="sekt-huvud">
+          <p class="ey">Gratis och Premium</p>
+          <h2 class="h2">Gratis att logga. Premium när du vill ta ut mer.</h2>
+          <p style="font-size:17px;max-width:60ch">Allt du lägger in är gratis och ligger kvar. Premium lägger till det vi skriver och sammanställer åt dig.</p>
+        </div>
+        <div class="prem-rad" style="margin-top:28px">
+          <div class="gratiskort">
+            <h3 class="h3" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">Gratis <span class="chip chip-gratis">för alla med konto</span></h3>
+            <ul class="bockar pa-papper" style="margin-top:16px">
+              <li>Logga sökta tjänster, utan tak</li>
+              <li>Listan, läget och statistiken från sökt till erbjudande</li>
+              <li>Ska sökas med sista ansökningsdag</li>
+              <li>Veckans mål</li>
+              <li>Det första utkastet till ett uppföljningsmejl</li>
+              <li>Delningslänk som visar antalen</li>
+              <li>Ett intervjuprov med bedömning per dygn</li>
+            </ul>
+            <p style="margin-top:18px;font-size:14.5px">Inget kort behövs. Du skapar kontot med din e-postadress.</p>
+          </div>
+          <div class="premkort">
+            <h3 class="h3" style="color:#fff">Jobbcoach Premium</h3>
+            <div class="pris" style="margin-top:10px">149 kr<small>i månaden</small></div>
+            <p style="margin-top:6px;font-size:14.5px">Säg upp när du vill.</p>
+            <ul class="bockar" style="margin-top:18px">
+              <li>Utkast till uppföljningsmejl varje gång du vill följa upp, efter en ansökan eller en intervju</li>
+              <li>Månadsrapporten med alla rader, att skriva ut eller kopiera</li>
+              <li>Delningslänk med listan över företag, tjänst och datum</li>
+              <li>Matchade jobb med de 25 bästa träffarna, och Jobbcoachen så mycket du vill</li>
+            </ul>
+            <div class="knapprad" style="margin-top:24px"><a class="knapp" href="#">Börja gratis</a><a class="lank" href="#" style="color:#fff">Se allt i Premium</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Före och efter ansökan</p>
+        <h2 class="h2">Resten av jobbsöket ligger ett tryck bort</h2>
+      </div>
+      <div class="rutnat r3">
+        <a class="lankbricka" data-rum="tran" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><b>Rekryteringstester</b><span>Kallad till test? Träna på samma sorts uppgifter först.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbmatchning</b><span>Annonser som passar ditt CV, att spara till Ska sökas.</span></a>
+        <a class="lankbricka" data-rum="brev" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personligt brev</b><span>Skrivet på annonsen du sparade, utifrån ditt CV.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbcoachen</b><span>Föreslår frågor utifrån läget i dina sökta tjänster.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Söka jobb via mejl</b><span>Artikel: så skriver du ansökan och påminnelsen.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Uppföljning efter intervju</b><span>Artikel: när och hur du frågar om besked.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Frågor om Sökta tjänster</h2>
+        <p class="varde">Hittar du inte svaret? Mejla support@jobbcoach.ai.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Vad kostar det att hålla koll på sina sökta jobb här?</summary><p>Ingenting. Att logga sökta tjänster, spara annonser under Ska sökas, sätta veckans mål och se statistiken är gratis för alla med konto, utan kortuppgift. Det första utkastet till ett uppföljningsmejl är också gratis. Fler utkast och månadsrapporten med alla rader ingår i Jobbcoach Premium, 149 kr i månaden.</p></details>
+        <details><summary>Skickar ni uppföljningsmejlet åt mig?</summary><p>Nej. Vi skriver ett utkast, och du öppnar det i din egen e-post eller kopierar texten. Du ändrar det du vill och skickar själv, från din egen adress. Vi skickar aldrig något till en arbetsgivare.</p></details>
+        <details><summary>Skickar ni rapporten till Arbetsförmedlingen?</summary><p>Nej. Månadsrapporten är ditt eget underlag. Du skriver ut den, kopierar texten eller delar en länk, och lämnar in din aktivitetsrapport själv hos Arbetsförmedlingen.</p></details>
+        <details><summary>Vad ska stå i en aktivitetsrapport?</summary><p>Svaret skrivs efter källkontroll mot Arbetsförmedlingen. Inga regler återges i skissen.</p></details>
+        <details><summary>Varför föreslår ni uppföljning efter just tolv dagar?</summary><p>Det är vår egen gräns för en skickad ansökan: lång nog för att arbetsgivaren ska ha hunnit läsa, kort nog för att rekryteringen fortfarande pågår. Efter en genomförd intervju är gränsen sju dagar. Du kan alltid följa upp tidigare på egen hand och logga det.</p></details>
+        <details><summary>Måste jag hitta jobben genom er jobbmatchning?</summary><p>Nej. Du loggar vilken tjänst som helst med tjänst, arbetsgivare och datum, också spontanansökningar och jobb du fått nys om genom en kontakt. Kommer du från en träff i Matchade jobb är uppgifterna redan ifyllda.</p></details>
+        <details><summary>Kan jag lägga in jobb jag sökte innan jag skapade kontot?</summary><p>Ja. Du väljer själv datumet när du loggar, så äldre ansökningar hamnar i rätt månad. Har du skrivit personliga brev här tidigare föreslår vi att lägga in dem som sökta tjänster med ett tryck.</p></details>
+        <details><summary>Hur hänger intervjun ihop med den sökta tjänsten?</summary><p>När du loggar att du är kallad sätter du dag, tid och plats. Tjänsten dyker då upp under Inför intervjun, med frågorna du har övat på och annonsens krav. Dagen efter intervjun frågar vi hur det gick.</p></details>
+        <details><summary>Vem kan se mina sökta tjänster?</summary><p>Svaret skrivs tillsammans med ägaren. Texter om datalagring formuleras inte i skissen.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Logga din första sökta tjänst <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a><a class="lank" href="#">Se priserna</a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

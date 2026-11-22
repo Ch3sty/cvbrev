@@ -1,0 +1,372 @@
+<!-- titel: Skiss Bli upptäckt | rum: jobb -->
+<style>
+  .tva { display: grid; gap: 32px; align-items: center; }
+  .tva > * { min-width: 0; }
+  @media (min-width: 1000px) { .tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+  .chiprad { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* kandidatkortet: det rekryteraren ser */
+  .kkort { background: var(--papper); color: var(--ink-1); border-radius: 24px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 8px 0 rgba(0, 0, 0, .24), 0 30px 60px rgba(0, 0, 0, .22); padding: 18px; width: 100%; max-width: 460px; margin: 0 auto; }
+  .kk-huvud { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: center; }
+  .kk-avatar { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--vagg); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 22px; box-shadow: 0 4px 0 var(--vagg-3); }
+  .kk-huvud b { display: block; font-family: var(--disp); font-size: 20px; line-height: 1.15; }
+  .kk-huvud div > span { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13.5px; color: var(--ink-3); margin-top: 3px; }
+  .kk-anonym { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px 0 6px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-weight: 700; font-size: 12px; }
+  .kk-anonym svg { width: 13px; height: 13px; }
+  .kk-rad { margin-top: 12px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+  .kk-rad b { color: var(--ink-1); font-weight: 600; }
+  .kk-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .kk-chips span { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 10px; border-radius: 9px; border: 2px solid var(--kant); font-size: 13px; color: var(--ink-2); }
+  .kk-chips span.test { border-color: var(--ton-ink); background: var(--ton); color: var(--ton-ink); font-weight: 700; }
+  .kk-chips span.styrka { border-color: var(--kant-stark); color: var(--ink-1); font-weight: 600; }
+  .kk-stil { margin-top: 12px; padding: 14px; border-radius: 16px; background: var(--golv); display: grid; gap: 12px; }
+  .spektrum > div { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; line-height: 1.3; color: var(--ink-3); }
+  .spektrum > div span { max-width: 48%; }
+  .spektrum > div span:last-child { text-align: right; }
+  .spektrum > div .pa { color: var(--ink-1); font-weight: 700; }
+  .spektrum i { position: relative; display: block; height: 6px; margin-top: 7px; border-radius: 999px; background: var(--kant-stark); }
+  .spektrum i::after { content: ''; position: absolute; top: 50%; left: var(--lage, 50%); width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--vagg); border: 3px solid var(--papper); box-shadow: 0 2px 0 rgba(0, 0, 0, .25); }
+  .kk-stil p { font-size: 13px; color: var(--ink-2); }
+  .kk-fot { margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--golv); font-size: 13px; color: var(--ink-3); }
+
+  @media (max-width: 599px) { .bricka.lang b { font-size: 22px; line-height: 1.2; } }
+  @media (max-width: 399px) { .bricka.lang b { font-size: 20px; } }
+
+  /* reglaget och förfrågan */
+  .reglage { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 5px 14px 5px 6px; border-radius: 999px; background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-size: 14.5px; font-weight: 600; }
+  .reglage i { position: relative; flex: none; width: 46px; height: 28px; border-radius: 999px; background: var(--koppar); }
+  .reglage i::after { content: ''; position: absolute; right: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 2px 0 rgba(0, 0, 0, .2); }
+  .reglage.pa-papper { background: var(--golv); color: var(--ink-1); }
+  .reglage.av { color: var(--ink-3); }
+  .reglage.av i { background: var(--kant-stark); }
+  .reglage.av i::after { right: auto; left: 3px; }
+  .forfragan { background: var(--papper); color: var(--ink-1); border-radius: 22px; padding: 16px; box-shadow: 0 6px 0 rgba(0, 0, 0, .24), 0 24px 48px rgba(0, 0, 0, .22); }
+  .forfragan .etk { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); }
+  .forfragan b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.25; margin-top: 4px; }
+  .forfragan p { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+  .forfragan div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .forfragan div span { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; }
+  .forfragan div span:first-child { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+  .hjbild { position: relative; width: 100%; max-width: 520px; margin: 0 auto; display: grid; gap: 12px; }
+  .hjbild .reglage { justify-self: start; }
+  @media (min-width: 1000px) { .hjbild { padding: 0 0 156px 0; } .hjbild .kkort { margin: 0; transform: rotate(-1.4deg); } .hjbild .forfragan { position: absolute; right: -24px; bottom: 0; width: 320px; transform: rotate(2deg); } }
+
+  /* stegens små bilder */
+  .vagsteg .bild { gap: 8px; align-content: center; justify-items: center; }
+  .mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+  .mini-chip { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .mini-chip.t { background: var(--ton); border-color: var(--ton-ink); color: var(--ton-ink); }
+  .mini-chip.k { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+
+  /* värdekorten */
+  .v-topp { display: flex; align-items: center; min-height: 56px; margin-bottom: 4px; }
+  .sokfalt { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px; border-radius: 13px; background: var(--golv); border: 2px solid var(--kant-stark); font-size: 13.5px; font-weight: 600; }
+  .sokfalt svg { width: 16px; height: 16px; color: var(--ton-ink); flex: none; }
+
+  /* arbetsstilen i ord */
+  .ordkort { background: var(--papper); color: var(--ink-1); border-radius: 24px; padding: 18px; box-shadow: 0 8px 0 rgba(0, 0, 0, .24); display: grid; gap: 12px; width: 100%; max-width: 480px; margin: 0 auto; }
+  .ordkort .rad { padding: 14px; border-radius: 16px; background: var(--golv); }
+  .o .ordkort .h3 { color: var(--ink-1); font-size: 17.5px; }
+  .o .ordkort p { color: var(--ink-2); font-size: 14.5px; margin-top: 4px; }
+  .testband { display: grid; gap: 14px; margin: 0 0 28px; padding: 18px; border-radius: 22px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .16); }
+  .testband p { color: var(--vagg-mjuk); font-size: 15px; margin-top: 6px; }
+  .testband .kk-chips { margin-top: 0; }
+  .testband .kk-chips span.test { background: var(--papper); border-color: var(--papper); color: var(--vagg); min-height: 36px; padding: 4px 14px; font-size: 14px; }
+  @media (min-width: 1000px) { .testband { grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; padding: 28px; margin-bottom: 64px; } .o .o-rad.tat .o-text, .o .o-rad.tat .o-bild { padding-bottom: 36px; } }
+
+  /* tryggheten */
+  .laskort { display: grid; grid-template-columns: 48px 1fr; gap: 6px 14px; align-items: center; align-content: start; }
+  .laskort > * + * { margin-top: 0; }
+  .laskort .las { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 4px 0 var(--vagg-3); }
+  .laskort .las svg { width: 24px; height: 24px; }
+  .laskort p { grid-column: 1 / -1; margin-top: 6px; }
+  .vagen4 { display: grid; gap: 8px; margin-top: 28px; }
+  .vagen4 > div { min-width: 0; padding: 14px 16px; border-radius: 18px; background: var(--ton); border: 2px solid var(--kant-stark); font-size: 14.5px; line-height: 1.35; color: var(--ink-2); }
+  .vagen4 > div b { display: block; font-family: var(--disp); font-size: 16.5px; color: var(--ink-1); }
+  .vagen4 > div.ja { background: var(--vagg); border-color: var(--vagg); color: var(--vagg-mjuk); }
+  .vagen4 > div.ja b { color: var(--vagg-ink); }
+  .vagen4 > span { justify-self: center; color: var(--ton-ink); }
+  .vagen4 > span svg { width: 20px; height: 20px; transform: rotate(90deg); }
+  @media (min-width: 1000px) { .vagen4 { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; margin-top: 40px; } .vagen4 > span { align-self: center; } .vagen4 > span svg { transform: none; } }
+
+  /* matchningen: sökningen möter profilen */
+  .sokval { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .sokval span { display: inline-grid; place-items: center; min-height: 44px; padding: 0 16px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; }
+  .sokval span.vald { background: var(--vagg); border-color: var(--vagg-3); color: #fff; }
+  .mote { margin-top: 16px; background: var(--golv); border-radius: 24px; padding: 16px; }
+  .mote-huvud, .mote-rad { display: grid; grid-template-columns: 1fr 34px 1fr; gap: 8px; align-items: center; }
+  .mote-huvud { font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .mote-huvud span:last-child { text-align: right; }
+  .mote-rad + .mote-rad { margin-top: 8px; }
+  .mote-rad > div { min-width: 0; padding: 10px 12px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .mote-rad > div small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2px; }
+  .mote-rad > div:last-child { text-align: right; }
+  .mote-rad > i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--positiv); color: #fff; }
+  .mote-rad > i svg { width: 18px; height: 18px; }
+  .mote-rad.ej > i { background: var(--papper); border: 2px dashed var(--kant-stark); color: var(--ink-3); }
+  .mote-rad.ej > div:last-child { color: var(--ink-3); text-decoration: line-through; }
+  .mote-svar { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: center; margin-top: 14px; padding: 14px 16px; border-radius: 18px; background: var(--vagg); color: var(--vagg-ink); }
+  .mote-svar i { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+  .mote-svar i svg { width: 22px; height: 22px; }
+  .mote-svar b { font-family: var(--disp); font-size: 17px; line-height: 1.25; }
+  .mote-svar span { display: block; font-size: 13.5px; color: var(--vagg-mjuk); margin-top: 2px; }
+  .mote-svar.ej { background: var(--papper); color: var(--ink-1); border: 2px dashed var(--kant-stark); }
+  .mote-svar.ej i { background: var(--golv); color: var(--ink-3); box-shadow: none; }
+  .mote-svar.ej span { color: var(--ink-3); }
+  @media (min-width: 900px) { .mote { padding: 26px; } .mote-rad > div { padding: 12px 16px; font-size: 15px; } }
+
+  /* det här ser en rekryterare */
+  .synlistor { display: grid; gap: 12px; margin-top: 22px; }
+  .synlistor > div { border-radius: 18px; padding: 16px; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .16); }
+  .synlistor b { display: block; font-family: var(--disp); font-size: 16px; color: var(--vagg-ink); margin-bottom: 8px; }
+  .synlistor li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; margin-top: 7px; font-size: 14.5px; line-height: 1.4; color: var(--vagg-mjuk); }
+  .synlistor li::before { content: ''; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: var(--ljus) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23112219' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.500 12.500l3.800 3.800 7.400-8.300'/%3E%3C/svg%3E") center/13px no-repeat; }
+  .synlistor .dolt li::before { border-radius: 7px; background: rgba(255, 255, 255, .16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F2F8F2' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.500' width='14' height='10' rx='2.500'/%3E%3Cpath d='M8 10.500V8a4 4 0 0 1 8 0v2.500'/%3E%3C/svg%3E") center/13px no-repeat; }
+  @media (min-width: 700px) { .synlistor { grid-template-columns: 1fr 1fr; } }
+
+  .slut { display: grid; gap: 24px; align-items: center; padding: 28px 22px; border-radius: var(--r-stor); background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 8px; }
+  @media (min-width: 1000px) { .slut { grid-template-columns: 1.3fr .7fr; gap: 56px; padding: 56px; } }
+  .slut-bild { display: grid; gap: 10px; justify-items: start; }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte utan-lyft">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span>Bli upptäckt</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Bli upptäckt, tidig åtkomst</p>
+          <h1 class="h1">Bli hittad av rekryterare, utan att jaga jobb själv.</h1>
+          <p class="varde">Skapa en profil på jobbcoach.ai så kan rekryterare som söker efter någon med din bakgrund hitta dig. <b>Du bestämmer själv om du vill synas, och du väljer alltid om du vill svara när någon hör av sig.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Skapa min profil <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Se hur det fungerar, fyra steg</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka lang" style="flex:1.6 1 118px"><b>Anonym</b><span>tills du tackar ja</span></div>
+            <div class="bricka"><b>4</b><span>steg, och du styr i varje</span></div>
+            <div class="bricka"><b>1</b><span>klick för att sluta synas</span></div>
+          </div>
+        </div>
+        <div class="hjbild">
+          <span class="reglage"><i></i>Synlig för rekryterare</span>
+          <div class="kkort" aria-label="Exempel: så ser en rekryterare Saras profil, utan namn">
+            <div class="kk-huvud"><span class="kk-avatar">P</span><div><b>Projektledare</b><span>Västra Götaland <span class="kk-anonym"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg>Anonym</span></span></div></div>
+            <p class="kk-rad"><b>8 års erfarenhet</b> · Senast: Projektledare (5 år) · Civilingenjör</p>
+            <div class="kk-chips"><span class="test">Matrislogik · topp 15 %</span><span class="styrka">Strukturerad</span><span class="styrka">Lugn under press</span></div>
+            <div class="kk-chips"><span>projektledning</span><span>LOU</span><span>budgetansvar</span><span>AMA</span></div>
+            <p class="kk-fot">3 månader · Hybrid · Heltid · B-körkort</p>
+          </div>
+          <div class="forfragan" aria-label="Exempel: en kontaktförfrågan från en rekryterare">
+            <span class="etk">Kontaktförfrågan</span>
+            <b>En rekryterare vill prata med dig</b>
+            <p>Tackar du ja delas ditt namn och dina kontaktuppgifter. Annars händer ingenting.</p>
+            <div><span>Tacka ja</span><span>Nej tack</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så fungerar det</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Du lägger in ditt CV, gör testerna om du vill och slår sedan på synligheten. Då kan rekryterare hitta din profil när de letar efter någon med just din kompetens, utan att du skickar en enda ansökan. Fyra steg, och du styr i varje.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Skapa din profil</h3>
+          <p>Lägg in ditt CV, så fyller vi i yrkesroll, kompetenser och erfarenhet åt dig. Du kan ändra allt själv.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-rad"><span class="mini-chip">Projektledare</span><span class="mini-chip">8 år</span><span class="mini-chip">LOU</span><span class="mini-chip">budgetansvar</span></div></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Gör testerna, om du vill</h3>
+          <p>Personlighetstestet och kunskapstesterna är frivilliga. Gör du dem får profilen starkare bevis för vad du kan och hur du jobbar.</p>
+          <div class="bild" aria-hidden="true"><span class="mini-chip t">Matrislogik · topp 15 %</span><span class="mini-chip">Frivilligt</span></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Slå på synlighet</h3>
+          <p>Aktivera synligheten när du är redo. Profilen blir sökbar för verifierade rekryterare, men helt anonymt. De ser inte vem du är.</p>
+          <div class="bild" aria-hidden="true"><span class="reglage pa-papper" style="background:var(--papper)"><i></i>Synlig för rekryterare</span></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">En rekryterare hör av sig, du väljer</h3>
+          <p>Gillar en rekryterare det de ser skickar de en kontaktförfrågan. Tackar du ja delas ditt namn och dina kontaktuppgifter, och ni chattar i appen.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-rad"><span class="mini-chip k">Tacka ja</span><span class="mini-chip">Nej tack</span></div></div></li>
+      </ol>
+      <div class="knapprad" style="margin-top:32px"><a class="knapp knapp-vit" href="#">Skapa min profil</a></div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Därför fungerar det</p>
+        <h2 class="h2">Rätt synlighet, inte mer synlighet</h2>
+      </div>
+      <div class="rutnat r2">
+        <div class="kort"><div class="v-topp" aria-hidden="true"><span class="sokfalt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4.500 4.500"/></svg>projektledare, Västra Götaland</span></div><h3 class="h3">Rätt rekryterare, inte alla</h3><p>Bara rekryterare som söker just din typ av kompetens hör av sig. Du slipper drunkna i förfrågningar som inte passar.</p></div>
+        <div class="kort"><div class="v-topp" aria-hidden="true"><span class="reglage pa-papper"><i></i>Synlig för rekryterare</span></div><h3 class="h3">Du bestämmer när du syns</h3><p>Slå på och av synligheten när du vill. Namn och kontaktuppgifter delas först när du själv tackar ja.</p></div>
+        <div class="kort"><div class="v-topp" aria-hidden="true"><div class="kk-chips" style="margin:0"><span class="test">Matrislogik · topp 15 %</span><span class="test">Numeriskt · topp 30 %</span></div></div><h3 class="h3">Bevis, inte påståenden</h3><p>Testresultaten visar vad du kan, i stället för att du bara skriver det i ett brev.</p></div>
+        <div class="kort"><div class="v-topp" aria-hidden="true"><div class="spektrum" style="width:100%;max-width:340px"><div><span>Improviserar</span><span class="pa">Planerar</span></div><i style="--lage:86%"></i></div></div><h3 class="h3">Så du passar teamet</h3><p>Din arbetsstil visar hur du samarbetar och jobbar, så rekryteraren ser om du skulle trivas hos dem.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <article class="o vand" data-rum="tran">
+        <div class="o-rad tat">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><p class="ey">Frivilligt personlighetstest</p></div>
+            <h2 class="h2">Visa hur du jobbar, inte bara vad du kan</h2>
+            <p class="varde">Rekrytering handlar också om hur du samarbetar, fattar beslut och driver dig själv framåt. Personlighetstestet ger dig en rapport i ord, aldrig i poäng, så rekryteraren ser om du skulle trivas i just deras team.</p>
+            <p>Du ser samma rapport som rekryteraren och väljer själv om den ska visas.</p>
+          </div>
+          <div class="o-bild">
+            <div class="ordkort" aria-label="Exempel: arbetsstilen i ord">
+              <div class="rad"><h3 class="h3">Så arbetar du</h3><p>Till exempel: du bygger struktur där den saknas och håller tidsplanen utan påminnelser.</p></div>
+              <div class="rad"><h3 class="h3">Så samarbetar du</h3><p>Till exempel: du ställer upp utan att bli tillfrågad, och kollegors framgång väger tungt i din motivation.</p></div>
+              <div class="rad"><h3 class="h3">Så drivs du</h3><p>Till exempel: du har stark tilltro till din egen förmåga utan behov av rampljus och leder genom expertis.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="testband">
+          <div><h3 class="h3">Bevisa vad du kan med kunskapstester</h3><p>Gör korta tester i logiskt, verbalt och numeriskt tänkande. Resultatet visar var du ligger jämfört med andra som gjort samma test, till exempel bland de 10 procent som presterade bäst. Det blir ett bevis på din förmåga i stället för ett påstående. Också helt frivilligt.</p></div>
+          <div class="kk-chips" aria-hidden="true"><span class="test">Matrislogik · topp 10 %</span><span class="test">Verbalt · topp 25 %</span><span class="test">Numeriskt · topp 30 %</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Din trygghet</p>
+        <h2 class="h2">Du har full kontroll hela vägen</h2>
+        <p class="varde">Du bestämmer vem som får se vem du är, och när. Ditt namn, dina kontaktuppgifter, ditt CV-dokument och din arbetsgivare visas aldrig förrän du själv tackat ja.</p>
+      </div>
+      <div class="vagen4" role="img" aria-label="Vägen från anonym profil till kontakt: anonym profil, kontaktförfrågan, du tackar ja, först då delas namn och kontaktuppgifter">
+        <div><b>Anonym profil</b>Roll, kompetenser, villkor och testresultat. Inget namn.</div>
+        <span><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div><b>Kontaktförfrågan</b>En rekryterare vars sökning matchar hör av sig.</div>
+        <span><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div><b>Du väljer</b>Tacka ja eller nej. Säger du nej händer ingenting.</div>
+        <span><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="ja"><b>Först efter ditt ja</b>Namn och kontaktuppgifter delas, och ni chattar i appen.</div>
+      </div>
+      <div class="rutnat r2">
+        <div class="kort laskort"><span class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><h3 class="h3">Du är anonym tills du säger ja</h3><p>Rekryteraren ser din roll, dina kompetenser, dina villkor (tillträde, arbetsplats, omfattning och län), dina verifierade testresultat med nivå och placering, och om du valt det dina två främsta styrkor i ord. Aldrig ditt CV som fil, och aldrig namn eller kontaktuppgifter förrän du tackat ja till en förfrågan.</p></div>
+        <div class="kort laskort"><span class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><h3 class="h3">Din nuvarande chef kan inte hitta dig</h3><p>Vi döljer vilket företag du jobbar på i dag, så din arbetsgivare kan inte känna igen dig i kandidatpoolen.</p></div>
+        <div class="kort laskort"><span class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><h3 class="h3">Bara riktiga företag får söka</h3><p>Vi kontrollerar att varje rekryterare hör till ett verkligt företag innan de släpps in, så du slipper oseriösa förfrågningar.</p></div>
+        <div class="kort laskort"><span class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><h3 class="h3">Ditt lönespann stannar hos dig</h3><p>Rekryteraren ser aldrig ditt löneanspråk. Lön pratar ni om själva, om och när ni börjar chatta.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="tva" style="align-items:start">
+        <div class="sekt-huvud">
+          <p class="ey">Så här matchas du</p>
+          <h2 class="h2">Rekryteraren hittar dig för att du passar</h2>
+          <p class="varde">När en rekryterare söker i kandidatpoolen jämför vi din profil, dina testresultat och din arbetsstil med det rekryteraren letar efter. Välj en sökning och se att bara det som stämmer räknas som träff.</p>
+          <div class="sokval" role="group" aria-label="Välj en sökning"><span class="vald">Bygg, Västra Götaland</span><span>Annan region</span><span>Högre testkrav</span><span>Annan arbetsstil</span></div>
+          <p class="liten" style="margin-top:18px">Bara rekryterare vars sökning matchar din profil ser dig. Ingen bläddrar bland alla.</p>
+        </div>
+        <div>
+          <div class="mote" aria-label="Exempel: en rekryterares sökning jämförd med Saras profil">
+            <div class="mote-huvud"><span>Din profil</span><span></span><span>Rekryterarens sökning</span></div>
+            <div class="mote-rad"><div><small>Yrkesroll</small>Projektledare</div><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><small>Söker roll</small>Projektledare</div></div>
+            <div class="mote-rad"><div><small>Region</small>Västra Götaland</div><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><small>I region</small>Västra Götaland</div></div>
+            <div class="mote-rad"><div><small>Test</small>Matrislogik, topp 15 %</div><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><small>Test, minst</small>Topp 20 %</div></div>
+            <div class="mote-rad"><div><small>Kompetens</small>LOU, budgetansvar</div><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><small>Kompetens</small>LOU</div></div>
+            <div class="mote-rad"><div><small>Arbetsstil</small>Strukturerad</div><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><small>Arbetsstil</small>Strukturerad</div></div>
+            <div class="mote-svar"><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div><b>Full träff. Din profil syns för den här rekryteraren.</b><span>5 av 5 stämmer.</span></div></div>
+          </div>
+          <div class="mote-svar ej" style="margin-top:12px"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 12h10"/></svg></i><div><b>Annan region: 4 av 5 stämmer.</b><span>Den här sökningen hittar dig inte.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <article class="o">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Exempelprofil</p></div>
+            <h2 class="h2">Det här ser en rekryterare av din profil</h2>
+            <p class="varde">Rekryteraren ser din yrkesroll, region, kompetenser, dina testresultat och din arbetsstil.</p>
+            <div class="synlistor">
+              <div><b>Syns på kortet</b><ul>
+                <li>Yrkesroll, region och erfarenhet</li>
+                <li>Kompetenser ur ditt CV</li>
+                <li>Testresultat som nivå och placering</li>
+                <li>Arbetsstil och styrkor i ord, om du vill</li>
+                <li>Tillträde, arbetsplats och omfattning</li>
+              </ul></div>
+              <div class="dolt"><b>Syns inte</b><ul>
+                <li>Ditt namn och ditt foto</li>
+                <li>Dina kontaktuppgifter</li>
+                <li>Ditt CV-dokument</li>
+                <li>Ditt lönespann</li>
+                <li>Vilket företag du jobbar på i dag</li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="o-bild">
+            <div class="kkort" aria-label="Exempel: kandidatkortet som en rekryterare ser det">
+              <div class="kk-huvud"><span class="kk-avatar">P</span><div><b>Projektledare</b><span>Västra Götaland <span class="kk-anonym"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg>Anonym</span></span></div></div>
+              <p class="kk-rad"><b>8 års erfarenhet</b> · Senast: Projektledare (5 år) · Civilingenjör</p>
+              <p class="kk-rad">Projektledare som håller ihop upphandling och tidplan. Trivs bäst där många ska dra åt samma håll.</p>
+              <div class="kk-chips"><span class="test">Matrislogik · topp 15 %</span><span class="test">Numeriskt · topp 30 %</span><span class="styrka">Strukturerad</span><span class="styrka">Lugn under press</span></div>
+              <div class="kk-stil">
+                <div class="spektrum"><div><span>Improviserar och anpassar</span><span class="pa">Planerar och strukturerar</span></div><i style="--lage:88%"></i></div>
+                <div class="spektrum"><div><span>Får energi av eget fokusarbete</span><span class="pa">Får energi av samarbete i grupp</span></div><i style="--lage:68%"></i></div>
+                <p>Trivs när processer är tydliga och kvalitet hinner göras rätt.</p>
+              </div>
+              <div class="kk-chips"><span>projektledning</span><span>LOU</span><span>budgetansvar</span><span>AMA</span><span>tidplan</span></div>
+              <p class="kk-fot">3 månader · Hybrid · Heltid · B-körkort</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="slut">
+        <div>
+          <p class="ey">Gratis, utan kortuppgift</p>
+          <h2 class="h2" style="margin-top:12px">Redo att bli hittad i stället för att leta?</h2>
+          <p style="margin-top:14px;font-size:17px;color:var(--ink-2);max-width:60ch">Profilen, synligheten och testerna kostar inget. Rekryteraren ser dina kompetenser, dina villkor och dina verifierade testresultat, men inte vem du är. Du är anonym tills du själv tackar ja till en förfrågan, och du stänger av synligheten när du vill med reglaget på sidan.</p>
+          <div class="knapprad" style="margin-top:26px"><a class="knapp" href="#">Skapa min profil <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a><a class="lank" href="#">Se hur det fungerar</a></div>
+        </div>
+        <div class="slut-bild" aria-hidden="true">
+          <span class="reglage pa-papper"><i></i>Synlig för rekryterare</span>
+          <span class="reglage pa-papper av"><i></i>Av, med ett klick</span>
+          <span class="chip chip-gratis">0 kr, ingen kortuppgift</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Frågor om Bli upptäckt</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Kan min nuvarande chef se att jag är synlig?</summary><p>Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen.</p></details>
+        <details><summary>Kommer jag bli nerspammad av rekryterare?</summary><p>Nej. Bara rekryterare vars sökning matchar din profil kan se dig, och de kan bara skicka en kontaktförfrågan, inte kontakta dig direkt. Du väljer själv om du vill svara.</p></details>
+        <details><summary>Hur vet jag att rekryterarna är seriösa?</summary><p>Vi kontrollerar att varje rekryterare och företag är verifierat innan de får tillgång till kandidatpoolen. Oseriösa konton stängs av.</p></details>
+        <details><summary>Måste jag göra personlighetstestet och kunskapstesterna?</summary><p>Nej, det är helt frivilligt. Du kan synas ändå. Men gör du testerna får din profil starkare bevis för vad du kan och hur du jobbar, vilket ökar chansen att rätt rekryterare hör av sig.</p></details>
+        <details><summary>Vad kostar det att synas för rekryterare?</summary><p>Ingenting. Profilen, synligheten och grundnivån i testerna är gratis, utan kortuppgift. Vill du göra profilen starkare öppnar Premium alla testnivåer, så att du kan visa verifierade resultat på avancerad och expertnivå i stället för bara grundnivån.</p></details>
+        <details><summary>Syns min lön eller mitt löneanspråk för rekryterare?</summary><p>Nej. Din profil visar bara din roll, region, kompetenser och testresultat. Lön är något du och rekryteraren pratar om själva, om och när ni börjar chatta.</p></details>
+        <details><summary>Kan jag ångra mig och sluta synas?</summary><p>Ja, när som helst. Du stänger av synligheten med reglaget på sidan, och din profil slutar då dyka upp i rekryterares sökningar direkt.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Skapa min profil <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

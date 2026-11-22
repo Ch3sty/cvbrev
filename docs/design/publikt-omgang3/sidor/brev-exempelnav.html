@@ -1,0 +1,257 @@
+<!-- titel: Skiss Personligt brev-exempel, navet | rum: brev -->
+<style>
+  main img { height: auto; }
+
+  /* hjälten: sökfältet är handlingen, breven är bilden */
+  .sok { display: grid; gap: 10px; margin-top: 26px; }
+  .sok .falt { display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 18px; border-radius: var(--r-knapp); background: var(--papper); color: var(--ink-3); font-size: 16.5px; box-shadow: 0 5px 0 rgba(0, 0, 0, .28); }
+  .sok .falt svg { width: 22px; height: 22px; flex: none; color: var(--ton-ink); }
+  .sok .knapp { min-height: 60px; }
+  @media (min-width: 700px) { .sok { grid-template-columns: 1fr auto; } }
+  .situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 22px; font-size: 14px; color: var(--vagg-mjuk); }
+  .situation > span { flex-basis: 100%; font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+  .situation a { display: inline-grid; place-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .2); color: var(--vagg-ink); font-weight: 700; font-size: 15px; text-decoration: none; }
+  @media (min-width: 700px) { .situation > span { flex-basis: auto; margin-right: 6px; } }
+
+  .brevbunt { position: relative; width: 100%; max-width: 480px; margin: 0 auto; padding: 30px 12% 64px; }
+  .brevbunt img { border-radius: 5px; box-shadow: 0 8px 0 rgba(0, 0, 0, .22), 0 26px 50px rgba(0, 0, 0, .3); }
+  .brevbunt .bak { position: absolute; top: 30px; width: 62%; }
+  .brevbunt .bak.v { left: 0; transform: rotate(-8deg); }
+  .brevbunt .bak.h { right: 0; transform: rotate(7deg); }
+  .brevbunt .fram { position: relative; z-index: 2; width: 100%; transform: rotate(-1deg); }
+  .brevbunt .svav { left: -4px; bottom: 6px; --rot: -3deg; transform: rotate(-3deg); }
+  .brevbunt .flik { position: absolute; z-index: 3; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--vagg-ink); color: var(--vagg); font-size: 14px; font-weight: 700; display: inline-grid; place-items: center; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); white-space: nowrap; }
+  .brevbunt .flik.a { right: -2px; top: 12%; }
+  .brevbunt .flik.b { right: 4%; bottom: 96px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+  .brevbunt .flik.c { left: 2%; top: 4px; }
+  @media (min-width: 1000px) { .brevbunt { margin-right: 0; padding-bottom: 40px; } .brevbunt .svav { left: -34px; bottom: 30px; } .brevbunt .flik.a { right: -30px; } }
+
+  /* branscherna: tio dörrar, talet först */
+  .bransch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+  .bransch a { display: grid; gap: 6px; align-content: space-between; min-height: 112px; padding: 14px; border-radius: 18px; background: var(--golv); border: 2px solid var(--kant); border-bottom-width: 5px; text-decoration: none; color: var(--ink-1); min-width: 0; }
+  .bransch b { font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.03em; color: var(--ton-ink); }
+  .bransch span { font-size: 14.5px; font-weight: 600; line-height: 1.25; }
+  .bransch i { display: block; height: 6px; border-radius: 3px; background: var(--ton); overflow: hidden; }
+  .bransch i::before { content: ''; display: block; height: 100%; width: var(--andel); border-radius: 3px; background: var(--ton-ink); }
+  .bransch a.alla { grid-column: span 2; grid-template-columns: auto 1fr; align-items: center; align-content: center; gap: 4px 16px; min-height: 84px; background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
+  .bransch a.alla b { color: var(--koppar-ljus); font-size: 46px; grid-row: span 2; }
+  .bransch a.alla span { font-family: var(--disp); font-size: 19px; font-weight: 800; align-self: end; }
+  .bransch a.alla small { font-size: 13.5px; color: var(--vagg-mjuk); align-self: start; }
+  @media (min-width: 1000px) { .bransch { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 24px; } .bransch a { padding: 18px; min-height: 128px; } .bransch b { font-size: 44px; } .bransch span { font-size: 15.5px; } .bransch a.alla b { font-size: 64px; } }
+
+  /* de 89 korten */
+  .yrken { display: grid; gap: 12px; margin-top: 28px; }
+  .yk { display: grid; grid-template-columns: 58px 1fr; gap: 14px; align-items: start; height: 100%; padding: 14px 16px 14px 14px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 20px; text-decoration: none; color: var(--ink-1); }
+  .yk img { width: 58px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(58, 25, 48, .1), 0 4px 0 rgba(58, 25, 48, .16); transform: rotate(-3deg); margin-top: 4px; }
+  .yk span { display: block; min-width: 0; }
+  .yk small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ton-ink); }
+  .yk h3 { margin-top: 3px; font-family: var(--disp); font-weight: 800; font-size: 19px; line-height: 1.2; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+  .yk em { display: block; margin-top: 5px; font-style: normal; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+  @media (min-width: 700px) { .yrken { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .yrken { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; } .yk h3 { font-size: 21px; } }
+
+  /* CV-raden: en liten ö i CV:ts färg */
+  .cvrad { margin-top: 40px; padding: 26px 20px; display: grid; gap: 20px; align-items: center; }
+  .cvrad .h2 { font-size: 28px; }
+  .cvrad .mini { display: none; }
+  @media (min-width: 900px) { .cvrad { grid-template-columns: 1fr auto 150px; gap: 40px; padding: 36px 48px; overflow: hidden; } .cvrad .h2 { font-size: 34px; } .cvrad .mini { display: block; align-self: end; margin-bottom: -80px; } .cvrad .mini img { width: 150px; border-radius: 4px; box-shadow: 0 6px 0 rgba(0, 0, 0, .25); transform: rotate(4deg); } }
+
+  /* guiden: mall och exempel bredvid varandra */
+  .guide { display: grid; gap: 28px; margin-top: 36px; }
+  .jamfor { padding: 22px 18px; border-radius: var(--r-stor); background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 8px 0 var(--vagg-3); }
+  .jamfor .ey { color: var(--koppar-ljus); }
+  .jamfor .tva { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+  .jamfor figure { margin: 0; min-width: 0; }
+  .jamfor figcaption { margin-top: 12px; font-size: 14px; line-height: 1.4; color: var(--vagg-mjuk); }
+  .jamfor figcaption b { display: block; font-family: var(--disp); font-size: 18px; color: var(--vagg-ink); }
+  .tommall { aspect-ratio: 480 / 679; background: #fff; border-radius: 4px; padding: 10% 9%; display: grid; grid-template-rows: auto 1fr 2fr 1fr; gap: 6%; box-shadow: 0 6px 0 rgba(0, 0, 0, .25); }
+  .tommall i { display: block; height: 7px; width: 46%; border-radius: 3px; background: #C9C6BF; }
+  .tommall span { display: grid; place-items: center; border-radius: 8px; border: 2px dashed var(--kant-stark); color: var(--ton-ink); font-size: 12px; font-weight: 700; text-align: center; padding: 2px; }
+  .jamfor img { width: 100%; border-radius: 4px; box-shadow: 0 6px 0 rgba(0, 0, 0, .25); }
+  .svarkort { display: grid; gap: 14px; }
+  .svarkort .kort > p + p { margin-top: 12px; }
+  .svarkort .kort p { font-size: 16px; line-height: 1.6; }
+  .svarkort .kort .h3 { font-size: 21px; }
+  .tredelar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .nivaer { display: grid; gap: 8px; margin-top: 14px; }
+  .nivaer li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 12px; border-radius: 14px; background: var(--golv); font-size: 15px; font-weight: 600; }
+  @media (min-width: 1000px) { .guide { grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; margin-top: 48px; } .jamfor { position: sticky; top: 100px; padding: 32px; } .svarkort .kort .h3 { font-size: 24px; } }
+
+  /* slutet */
+  .slut { padding-bottom: 28px; }
+  .slut .o-bild img { width: 100%; max-width: 300px; margin: 0 auto; border-radius: 5px; box-shadow: 0 8px 0 rgba(0, 0, 0, .25); transform: rotate(3deg); }
+  @media (min-width: 1000px) { .slut { padding-bottom: 0; } .slut .o-bild { align-self: end; padding-bottom: 0; margin-bottom: -60px; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Exempel</a></span><span>Personliga brev-exempel</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Personligt brev-exempel</p>
+          <h1 class="h1">Personligt brev-exempel för 89 yrken. <span style="color:var(--koppar-ljus)">Börja med ditt.</span></h1>
+          <p class="varde">Ett exempel på personligt brev är ett färdigt brev för ett visst yrke. Vi har 89, skrivna för svenska rekryterare. Varje brev har en inledning, ett mittparti och en avslutning, och vi förklarar varför styckena fungerar. Låna upplägget, byt ut innehållet mot dina egna erfarenheter och håll brevet till en A4-sida.</p>
+          <form class="sok" role="search" aria-label="Sök yrke">
+            <span class="falt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>Sök ditt yrke, till exempel lärare</span>
+            <a class="knapp" href="#">Hitta exemplet</a>
+          </form>
+          <nav class="situation" aria-label="Välj efter situation">
+            <span>Din situation</span>
+            <a href="#">Student</a><a href="#">Utan erfarenhet</a><a href="#">Karriärbyte</a><a href="#">Chef</a>
+          </nav>
+        </div>
+        <div class="brevbunt" aria-hidden="true">
+          <img class="bak v" src="../underlag/mallar/brev/bjork.webp" alt="" width="480" height="679">
+          <img class="bak h" src="../underlag/mallar/brev/koppar.webp" alt="" width="480" height="679">
+          <img class="fram" src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679">
+          <span class="flik c">Undersköterska</span>
+          <span class="flik a">Lärare</span>
+          <span class="flik b gungar">Projektledare</span>
+          <div class="svav gungar sen"><div class="stor">89</div><div class="under">yrken, ett färdigt brev var</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <p class="ey">Välj bransch</p>
+      <p class="h3" style="margin-top:8px;font-size:26px">Tio branscher. Hitta den som är din.</p>
+      <nav class="bransch" aria-label="Filtrera efter bransch">
+        <a class="alla" href="#" aria-current="page"><b>89</b><span>Alla yrken</span><small>Hela listan står här nedanför</small></a>
+        <a href="#" style="--andel:100%"><b>23</b><span>Butik, restaurang och service</span><i></i></a>
+        <a href="#" style="--andel:74%"><b>17</b><span>Vård och omsorg</span><i></i></a>
+        <a href="#" style="--andel:35%"><b>8</b><span>Ekonomi och HR</span><i></i></a>
+        <a href="#" style="--andel:35%"><b>8</b><span>Utbildning och pedagogik</span><i></i></a>
+        <a href="#" style="--andel:35%"><b>8</b><span>Administration och offentlig sektor</span><i></i></a>
+        <a href="#" style="--andel:30%"><b>7</b><span>IT och utveckling</span><i></i></a>
+        <a href="#" style="--andel:30%"><b>7</b><span>Lager, logistik och transport</span><i></i></a>
+        <a href="#" style="--andel:17%"><b>4</b><span>Teknik och industri</span><i></i></a>
+        <a href="#" style="--andel:17%"><b>4</b><span>Hantverk, bygg och fastighet</span><i></i></a>
+        <a href="#" style="--andel:13%"><b>3</b><span>Student och första jobbet</span><i></i></a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Alla exempel</p>
+        <h2 class="h2">89 yrken</h2>
+        <p class="varde">Hitta rätt mall för ditt personliga brev. Färdiga exempel skrivna med rätt ton, struktur och nyckelord för svenska rekryterare som du kan använda som mall för ditt eget brev.</p>
+      </div>
+      <ul class="yrken">
+<!--@del brev-exempelnav-yrken-->
+      </ul>
+
+      <div class="o cvrad" data-rum="cv">
+        <div>
+          <h2 class="h2">Behöver du även CV?</h2>
+          <p class="varde" style="margin-top:8px;font-size:17px">En komplett ansökan kräver båda. Vi har 89 CV-exempel inom samma yrken.</p>
+        </div>
+        <div><a class="knapp knapp-vit" href="#">Bläddra CV-exempel</a></div>
+        <div class="mini" aria-hidden="true"><img src="../underlag/mallar/cv/linne-liten.webp" alt="" width="112" height="158"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Guide till exemplen</p>
+        <h2 class="h2">Så använder du ett exempel på personligt brev som mall</h2>
+        <p class="varde">Vad är skillnaden mellan en mall och ett exempel? Hur väljer du rätt? Är de gratis? Här är svaren.</p>
+      </div>
+      <div class="guide">
+        <div class="jamfor">
+          <p class="ey">Mall och exempel</p>
+          <div class="tva">
+            <figure>
+              <div class="tommall" aria-hidden="true"><i></i><span>Inledning</span><span>Huvuddel</span><span>Avslutning</span></div>
+              <figcaption><b>Mallen</b>En tom struktur. Du fyller den själv.</figcaption>
+            </figure>
+            <figure>
+              <img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679">
+              <figcaption><b>Exemplet</b>Samma struktur, ifylld för ett yrke.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="svarkort">
+          <div class="kort">
+            <h3 class="h3">Vad är en mall för personligt brev, och vad är skillnaden mot ett exempel?</h3>
+            <p>En mall för personligt brev är en färdig struktur som du fyller med dina egna uppgifter. Den bestämmer ordningen på sektioner, hur rubriker ser ut och vilka delar som ska finnas med. Ett exempel är en ifylld mall för personligt brev för en specifik roll, där du ser hur en riktig person formulerat sig.</p>
+            <p>I praktiken används orden ofta synonymt. Våra 89 yrkesexempel funkar som mallar du kan kopiera strukturen från och anpassa till din situation. När någon säger "jag behöver en mall för personligt brev" menar de oftast just det här: en konkret förlaga att utgå från. Letar du efter en tom mall har vi gått igenom vilka som fungerar i <a class="lank" href="#">Personligt brev mall gratis</a>.</p>
+          </div>
+          <div class="kort">
+            <h3 class="h3">Hur väljer du rätt mall för personligt brev för ditt yrke?</h3>
+            <p>Börja med din exakta yrkestitel. Är du undersköterska söker du på "undersköterska". Hittar du ingen exakt träff väljer du ett närliggande yrke i samma bransch. En distriktssköterska kan hämta inspiration från sjuksköterska-mallen, en account manager från säljare-mallen.</p>
+            <p>Det som faktiskt skiljer en bra mall för personligt brev från en dålig är hur den hanterar tre saker: inledningen, kopplingen till annonsens krav, och avslutningen. Två yrken med liknande arbetsuppgifter har ofta liknande behov, även om titlarna skiljer sig.</p>
+            <div class="tredelar"><span class="chip">1 Inledningen</span><span class="chip">2 Kopplingen till annonsens krav</span><span class="chip">3 Avslutningen</span></div>
+            <p>Du kan också <a class="lank" href="#">filtrera på bransch</a> för att se alla mallar inom vård, tech, ekonomi, service, utbildning eller offentlig sektor.</p>
+          </div>
+          <div class="kort">
+            <h3 class="h3">Vad gör en mall för personligt brev bra?</h3>
+            <p>En bra mall är inte ett färdigskrivet brev du kopierar. Det är en struktur som visar dig var olika delar ska gå: inledning som fångar intresset, en huvuddel som kopplar din erfarenhet till annonsens krav, och en avslutning som gör nästa steg tydligt.</p>
+            <p>Det som skiljer våra mallar för personligt brev från standardmallarna du hittar i Word är att de är yrkesspecifika. En mall för ett personligt brev till sjuksköterska är skriven med vårdens ton och nyckelord, inte med generiska fraser som passar lika bra till en projektledarroll.</p>
+            <p>Använd mallen som ram. Byt ut detaljerna mot dina egna erfarenheter och dina egna siffror. Ett brev som ser ut som en kopia av en mall sticker aldrig ut.</p>
+          </div>
+          <div class="kort">
+            <h3 class="h3">Är mallar för personligt brev gratis? Kan jag ladda ner dem?</h3>
+            <p>Alla 89 exempel är gratis att läsa och låna upplägget från. Du behöver inget konto för det, och vi tar inte betalt för innehållet.</p>
+            <ul class="nivaer">
+              <li><span class="chip chip-gratis">Gratis</span>Läsa alla 89 exempel, utan konto</li>
+              <li><span class="chip chip-gratis">Gratis</span>Skriva ditt första brev och kopiera texten</li>
+              <li><span class="chip chip-premium">Premium</span>Ladda ner brevet som PDF eller Word</li>
+            </ul>
+            <p>Vill du ha ditt eget brev som fil skriver du det i <a class="lank" href="#">vårt brevverktyg</a>. Första brevet är gratis, sedan ett var sjunde dag, och texten kopierar du fritt. Nedladdning som PDF eller Word ingår i Premium.</p>
+            <p>Om du hellre vill jobba i Word direkt kan du kopiera texten från ett exempel, klistra in den i ett tomt dokument och anpassa den. Använd Garamond eller Calibri 11-12 punkter och spara som PDF innan du skickar.</p>
+          </div>
+          <p style="font-size:17px;font-weight:600">Redo att börja? Välj ett exempel som passar ditt yrke. <a class="lank" href="#">Bläddra alla personligt brev-exempel</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Vanliga frågor om brev-exempel</p>
+        <h2 class="h2">Det du undrar om brev-exemplen</h2>
+        <p class="varde">Hittar du inte svaret? <a class="lank" href="#">Hör av dig</a>.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Hur väljer jag rätt brev-exempel för mitt yrke?</summary><p>Sök på din exakta yrkestitel eller välj din bransch i filtret. Hittar du inte just din titel kan du välja ett närliggande yrke i samma område. En förskollärare och grundskollärare kan ha mycket att lära av varandras brev. Strukturen och tonaliteten är ofta liknande inom samma fält.</p></details>
+        <details><summary>Hur långt ska ett personligt brev vara?</summary><p>250 till 350 ord, eller ungefär tre fjärdedelar av en A4-sida. Kortare än så känns ointresserat, längre än så läses sällan i sin helhet. Strukturera brevet i tre eller fyra stycken: en öppning som visar att du läst annonsen, en mittparti om varför just du passar, och ett avslut med tydlig nästa steg.</p></details>
+        <details><summary>Vad ska jag skriva i ett personligt brev?</summary><p>Ett bra brev visar att du förstått tjänsten och kopplar din erfarenhet direkt till annonsens krav. Använd företagets egna ord och nyckelfraser från annonsen. Lyft fram konkreta resultat som siffror, projekt eller mätbara förbättringar, istället för generella adjektiv som "engagerad" eller "lösningsorienterad".</p></details>
+        <details><summary>Hur skiljer sig brev mellan olika branscher?</summary><p>Tonalitet och struktur varierar mycket mellan branscher. En konsultbyrå förväntar sig formellt språk och tydligt resultatfokus, medan en startup ofta uppskattar mer personlig ton. Vården kräver empati och lyhördhet, tech-branschen kräver tekniska detaljer och stack-kompetens. Våra exempel visar dessa skillnader yrke för yrke.</p></details>
+        <details><summary>Kan jag använda samma personliga brev för flera jobb?</summary><p>Vi rekommenderar att du anpassar varje brev. Generiska brev syns direkt och får sällan svar. Spara strukturen och de delar som handlar om dig själv, men byt ut de sektioner som handlar om företaget och rollen för varje ny ansökan. Det tar bara några minuter extra.</p></details>
+        <details><summary>Är brev-exemplen gratis att använda?</summary><p>Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan skriva ditt eget brev med våra verktyg ingår ett brev i veckan när du har registrerat dig.</p></details>
+        <details><summary>Hur skriver jag ett personligt brev utan erfarenhet?</summary><p>Skriv om det du faktiskt har gjort, som skolprojekt, föreningsuppdrag, extrajobb eller praktik, och koppla varje exempel till ett krav i annonsen. Exemplen för student, gymnasieelev och sommarjobb visar hur det kan se ut. <a class="lank" href="#">Personligt brev utan erfarenhet</a></p></details>
+        <details><summary>Vad skriver jag i ett personligt brev vid karriärbyte?</summary><p>Förklara bytet tidigt, i en eller två meningar, och lägg resten av brevet på det du tar med dig. Utgå från ett exempel i yrket du söker dig till och använd dess ord för din egen erfarenhet. <a class="lank" href="#">Personligt brev vid karriärbyte</a></p></details>
+        <details><summary>Finns det exempel på personligt brev för chefstjänster?</summary><p>Ja, för chef, enhetschef, butikschef, lagerchef, produktchef och teamledare. Välj det som ligger närmast din roll och läs hur brevet kopplar ledarerfarenheten till annonsens krav. <a class="lank" href="#">Personligt brev för chef</a></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="o slut">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><p class="ey">Skriv ditt eget</p></div>
+            <h2 class="h2">Klar att skriva ditt eget brev?</h2>
+            <p class="varde">Använd exemplen som inspiration och bygg ditt eget med våra verktyg. Det är gratis att börja.</p>
+            <div class="knapprad"><a class="knapp" href="#">Skapa brev gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a><a class="lank" href="#">Tillbaka till hubben</a></div>
+            <p class="liten" style="margin-top:16px">Första personliga brevet gratis, sedan ett var sjunde dag.</p>
+          </div>
+          <div class="o-bild" aria-hidden="true"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

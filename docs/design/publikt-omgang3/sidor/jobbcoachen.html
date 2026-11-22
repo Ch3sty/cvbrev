@@ -1,0 +1,307 @@
+<!-- titel: Skiss Jobbcoachen | rum: jobb -->
+<style>
+  .tva { display: grid; gap: 32px; align-items: center; }
+  .tva > * { min-width: 0; }
+  @media (min-width: 1000px) { .tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+  .chiprad { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* brickan: en sökt tjänst, samma två bokstäver som i kontot */
+  .br { display: inline-grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 13.5px; box-shadow: 0 3px 0 var(--kant-stark); }
+  .br.tyst { outline: 3px solid var(--koppar); outline-offset: 1px; }
+  .br.int { background: var(--ton-ink); color: #fff; box-shadow: 0 3px 0 var(--vagg-3); }
+
+  /* källan: i texten och under svaret */
+  .kref { font-size: 13px; font-weight: 700; color: var(--koppar-ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+  .kallor { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; }
+  .kallor > b { font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-right: 2px; }
+  .kalla { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; padding: 3px 11px 3px 4px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .kalla i { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ton-ink); color: #fff; font-style: normal; font-size: 12px; }
+  .chatt .jc .kallor { margin-top: 12px; }
+
+  /* hjälten: samtalet i stor skala */
+  .samtal { position: relative; width: 100%; max-width: 540px; margin: 0 auto; }
+  .samtal-ram { background: var(--golv); border-radius: var(--r-stor); padding: 18px 16px 16px; box-shadow: 0 8px 0 rgba(0, 0, 0, .28), 0 30px 60px rgba(0, 0, 0, .25); color: var(--ink-1); }
+  .samtal-topp { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .samtal-topp .dorr { width: 40px; height: 40px; }
+  .samtal-topp b { font-family: var(--disp); font-size: 17px; line-height: 1.15; }
+  .samtal-topp b span { display: block; font-family: var(--text); font-weight: 500; font-size: 13px; color: var(--ink-3); }
+  .samtal .chatt { max-width: none; }
+  .samtal .chatt p { max-width: 90%; }
+  .skriv { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 14px; }
+  .skriv span { display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 15px; background: var(--papper); border: 2px solid var(--kant-stark); font-size: 15px; color: var(--ink-3); }
+  .skriv i { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+  .skriv i svg { width: 20px; height: 20px; }
+  .laget { margin-top: 14px; background: var(--papper); color: var(--ink-1); border-radius: 22px; padding: 16px; box-shadow: 0 6px 0 rgba(0, 0, 0, .22); }
+  .laget > b { font-family: var(--disp); font-size: 16.5px; }
+  .laget > small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+  .forslagrad { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; margin-top: 10px; padding: 9px 12px 9px 9px; border-radius: 16px; background: var(--golv); font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+  .forslagrad.vald { outline: 2.5px solid var(--koppar); background: #FFF7F0; }
+  @media (min-width: 1000px) { .samtal { padding: 0 0 216px 0; } .samtal-ram { padding: 24px 22px 22px; } .laget { position: absolute; left: -44px; bottom: 0; width: 340px; margin: 0; transform: rotate(-2deg); } }
+
+  /* lyftet: ett svars delar */
+  .svarbild { background: var(--golv); border-radius: 24px; padding: 18px 16px; }
+  .svarbild .chatt { max-width: none; }
+  .svarbild .chatt p { max-width: 94%; }
+  .delar3 { display: grid; gap: 12px; margin-top: 22px; }
+  .delar3 li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+  .delar3 li .nr { width: 44px; height: 44px; font-size: 19px; }
+  .delar3 li b { display: block; font-family: var(--disp); font-size: 17.5px; }
+  .delar3 li span { font-size: 15px; color: var(--ink-2); }
+
+  /* stegens små bilder */
+  .vagsteg .bild { gap: 8px; align-content: center; justify-items: center; }
+  .mini-falt { display: flex; align-items: center; width: 100%; max-width: 240px; min-height: 40px; padding: 8px 12px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant-stark); font-size: 13px; font-weight: 500; line-height: 1.3; text-align: left; }
+  .mini-kallor { display: grid; grid-template-columns: repeat(3, auto); gap: 6px; }
+  .mini-kallor span { display: grid; place-items: center; min-width: 46px; height: 34px; padding: 0 8px; border-radius: 10px; background: var(--vagg); color: #fff; font-family: var(--disp); font-weight: 800; font-size: 12.5px; }
+  .mini-bubbla { max-width: 240px; padding: 9px 12px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; line-height: 1.35; text-align: left; }
+  .mini-bubbla.du { background: var(--ton-ink); border-color: var(--ton-ink); color: #fff; justify-self: end; }
+
+  /* frågor utifrån läget, och vad svaren utgår från */
+  .vet { display: grid; gap: 12px; margin-top: 18px; }
+  .vet > div { border-radius: 18px; padding: 16px; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .16); }
+  .vet b { display: block; font-family: var(--disp); font-size: 16px; color: var(--vagg-ink); margin-bottom: 8px; }
+  .vet li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; margin-top: 7px; font-size: 14.5px; line-height: 1.4; color: var(--vagg-mjuk); }
+  .vet li::before { content: ''; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: var(--ljus) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23112219' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.500 12.500l3.800 3.800 7.400-8.300'/%3E%3C/svg%3E") center/13px no-repeat; }
+  .vet .inte li::before { background: rgba(255, 255, 255, .16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F2F8F2' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M7 12h10'/%3E%3C/svg%3E") center/13px no-repeat; }
+  @media (min-width: 700px) { .vet { grid-template-columns: 1fr 1fr; } }
+  .o .laget { margin-top: 0; }
+
+  /* sex områden: frågan som bubbla */
+  .amne { display: grid; align-content: start; gap: 10px; }
+  .amne > * + * { margin-top: 0; }
+  .amne .fraga { justify-self: end; max-width: 92%; padding: 10px 14px; border-radius: 18px 18px 6px 18px; background: var(--ton-ink); color: #fff; font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+  .amne .h3 { margin-top: 4px; }
+
+  /* källorna */
+  .kallhylla { display: grid; gap: 12px; margin-top: 28px; }
+  .kallkort { display: grid; grid-template-columns: 56px 1fr; gap: 6px 14px; align-items: center; padding: 16px; border-radius: 20px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .25); }
+  .kallkort .mono { grid-row: span 1; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 17px; background: var(--vagg); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 16px; }
+  .o .kallkort .h3 { color: var(--ink-1); }
+  .kallkort p { grid-column: 1 / -1; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+  @media (min-width: 700px) { .kallhylla { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .kallhylla { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; } .kallkort { padding: 22px; } }
+
+  @media (max-width: 399px) { .o .h2.langt { font-size: 26px; } }
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; } }
+  .tio { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 300px; margin-top: 10px; }
+  .tio i { aspect-ratio: 1; border-radius: 7px; background: var(--koppar); box-shadow: 0 3px 0 var(--koppar-klack); }
+  .kvot { padding: 18px; border-radius: 20px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 255, 255, .16); }
+  .kvot b { font-family: var(--disp); font-size: 17px; color: #fff; }
+  .kvot + .kvot { margin-top: 12px; }
+  .utantak { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .utantak i { flex: 1; height: 22px; border-radius: 8px; background: linear-gradient(90deg, var(--koppar), var(--koppar) 60%, rgba(224, 122, 47, 0)); }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>Jobbcoachen</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Jobbcoachen, svar med källor</p>
+          <h1 class="h1">Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad</h1>
+          <p class="varde">Fråga om lön, intervju, uppsägning eller karriärbyte och få ett kort svar med klickbara källhänvisningar till Arbetsförmedlingen, SCB och fackförbund. <b>Vi gör researchen, så slipper du googla på 20 olika sajter.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Fråga gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så fungerar det</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka" style="flex:1.4 1 104px"><b>10</b><span>meddelanden gratis per konto</span></div>
+            <div class="bricka"><b>Källor</b><span>du kan kolla själv</span></div>
+            <div class="bricka"><b>6</b><span>svenska källor bakom svaren</span></div>
+          </div>
+        </div>
+        <div class="samtal">
+          <div class="samtal-ram" aria-label="Exempel: ett samtal med Jobbcoachen om att följa upp en ansökan">
+            <div class="samtal-topp"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbcoachen<span>Svarar med svenska källor</span></b></div>
+            <div class="chatt">
+              <p class="du">Jag sökte en tjänst för tolv dagar sedan och har inte hört något. Ska jag höra av mig?</p>
+              <p class="jc">Ja. Efter en till två veckor är det rimligt att fråga <span class="kref">(Källa 1)</span>. Skriv kort: vilken tjänst det gäller, att du fortfarande är intresserad och en fråga om tidsplanen <span class="kref">(Källa 2)</span>.
+                <span class="kallor"><b>Källor</b><span class="kalla"><i>1</i>Arbetsförmedlingen</span><span class="kalla"><i>2</i>Unionen</span></span>
+                <small>Vill du att vi går igenom vad mejlet ska innehålla?</small></p>
+            </div>
+            <div class="skriv" aria-hidden="true"><span>Skriv en fråga</span><i><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></i></div>
+          </div>
+          <div class="laget" aria-label="Exempel: frågor som Jobbcoachen föreslår utifrån läget i de sökta tjänsterna">
+            <b>Frågor utifrån ditt läge</b><small>Hämtade ur dina sökta tjänster.</small>
+            <div class="forslagrad vald"><span class="br tyst">DA</span>Vad skriver jag i ett uppföljningsmejl?</div>
+            <div class="forslagrad"><span class="br int">PO</span>Vad frågar jag arbetsgivaren på intervjun?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="tva">
+        <div class="svarbild" aria-label="Exempel: ett svar från Jobbcoachen med två källor">
+          <div class="chatt">
+            <p class="du">Hur lång uppsägningstid har jag?</p>
+            <p class="jc">Det beror på hur länge du har varit anställd och på ditt kollektivavtal. Lagen ger dig minst en månad <span class="kref">(Källa 1)</span>. Avtalet kan ge längre tid, så läs det eller fråga facket <span class="kref">(Källa 2)</span>.
+              <span class="kallor"><b>Källor</b><span class="kalla"><i>1</i>Lagen om anställningsskydd</span><span class="kalla"><i>2</i>Unionen: Uppsägningstid</span></span>
+              <small>Hur länge har du arbetat där?</small></p>
+          </div>
+        </div>
+        <div>
+          <p class="ey">Prova själv</p>
+          <p class="h2" style="margin-top:10px">Varje svar visar var det kommer ifrån</p>
+          <ol class="delar3">
+            <li><span class="nr">1</span><div><b>Ett kort svar i klartext</b><span>Några meningar, inte en rapport. Jobbcoachen frågar tillbaka när svaret beror på din situation.</span></div></li>
+            <li><span class="nr">2</span><div><b>Källan står i texten</b><span>Varje påstående som bygger på en källa är märkt, så du ser vad som är lag, statistik eller avtal.</span></div></li>
+            <li><span class="nr">3</span><div><b>Källorna går att öppna</b><span>Under svaret ligger källorna som länkar. Du kan alltid läsa själv innan du lutar dig mot svaret.</span></div></li>
+          </ol>
+          <div class="knapprad" style="margin-top:26px"><a class="knapp" href="#">Skapa konto och fråga själv</a><span class="liten">Tio meddelanden gratis, utan kortuppgift</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så fungerar det</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Ställ frågan, få svaret med källa och gå vidare. Inga flikar fulla av lönerapporter och forumtrådar.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Ställ frågan</h3>
+          <p>Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige.</p>
+          <div class="bild" aria-hidden="true"><span class="mini-falt">Hur svarar jag på frågan om svagheter?</span></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Vi söker bland verifierade källor</h3>
+          <p>Jobbcoachen söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-kallor"><span>AF</span><span>SCB</span><span>Fack</span><span>FK</span><span>CSN</span><span>SKV</span></div></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Du får svar med källhänvisning</h3>
+          <p>Svaret är kort och konkret med klickbara källor markerade direkt i texten.</p>
+          <div class="bild" aria-hidden="true"><span class="mini-bubbla">Lagen ger dig minst en månad <span class="kref">(Källa 1)</span>.</span><span class="kalla"><i>1</i>Lagen om anställningsskydd</span></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Följ upp tills det är klart</h3>
+          <p>Jobbcoachen minns samtalet och du kan följa upp utan att börja om.</p>
+          <div class="bild" aria-hidden="true" style="justify-items:stretch"><span class="mini-bubbla du">Jag har varit där i sex år.</span><span class="mini-bubbla">Då gäller längre tid. Så här räknar du.</span></div></li>
+      </ol>
+      <div class="knapprad" style="margin-top:32px"><a class="knapp knapp-vit" href="#">Fråga Jobbcoachen gratis</a></div>
+
+      <article class="o" style="margin-top:44px">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">När du inte vet vad du ska fråga</p></div>
+            <h3 class="h2">Jobbcoachen föreslår frågor utifrån ditt läge</h3>
+            <p class="varde">Har du loggat dina sökta tjänster ligger frågorna redan framme: en ansökan som har varit tyst, en intervju som närmar sig, ett avslag du vill ha återkoppling på.</p>
+            <p>Du trycker på en fråga, så står den i fältet. Den skickas först när du själv vill.</p>
+            <div class="vet">
+              <div><b>Det här utgår svaren från</b><ul>
+                <li>Din målroll, ort och bransch ur profilen</li>
+                <li>CV och personliga brev som du själv delar i samtalet</li>
+                <li>Det ni redan har sagt i samtalet</li>
+              </ul></div>
+              <div class="inte"><b>Det här läser Jobbcoachen inte</b><ul>
+                <li>Dina matchade jobb</li>
+                <li>Dina testresultat</li>
+                <li>Dokument du inte har delat</li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="o-bild">
+            <div class="laget" style="position:static;width:auto;transform:none;max-width:460px;margin:0 auto" aria-label="Exempel: fyra frågor utifrån läget i de sökta tjänsterna">
+              <b>Frågor utifrån ditt läge</b><small>Hämtade ur dina sökta tjänster. Tryck på en, så står den i fältet.</small>
+              <div class="forslagrad"><span class="br int">PO</span>Hur svarar jag på lönefrågan hos Polhem Ombyggnad?</div>
+              <div class="forslagrad vald"><span class="br tyst">DA</span>Vad skriver jag i ett uppföljningsmejl?</div>
+              <div class="forslagrad"><span class="br int">PO</span>Vad frågar jag arbetsgivaren på intervjun?</div>
+              <div class="forslagrad"><span class="br">VK</span>Hur länge är det rimligt att vänta på besked?</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Vad du kan fråga om</p>
+        <h2 class="h2">Sex områden vi hjälper dig med</h2>
+        <p class="varde">Jobbcoachen kan svensk arbetsmarknad, från lönesamtalet till arbetsrätten.</p>
+      </div>
+      <div class="rutnat r3">
+        <div class="kort amne"><span class="fraga">Hur skriver jag min sammanfattning?</span><h3 class="h3">CV och personligt brev</h3><p>Få feedback på en formulering, hjälp att skriva om en mening så att den landar, eller förslag på vad som saknas. Dela ditt sparade CV direkt i samtalet.</p></div>
+        <div class="kort amne"><span class="fraga">Vad tjänar en projektledare i Göteborg?</span><h3 class="h3">Marknadslön och löneförhandling</h3><p>Svaren bygger på SCB:s lönestatistik och fackförbundens underlag i vår kunskapsbas, med källan angiven. Du får en siffra att utgå från och argument att luta dig mot i samtalet.</p></div>
+        <div class="kort amne"><span class="fraga">Hur svarar jag på frågan om svagheter?</span><h3 class="h3">Intervjuförberedelse</h3><p>Öva svar på vanliga intervjufrågor, packa din erfarenhet i en berättelse och få tips på vad du själv ska fråga.</p></div>
+        <div class="kort amne"><span class="fraga">Hur lång uppsägningstid har jag?</span><h3 class="h3">Arbetsrätt och LAS</h3><p>Vi förklarar uppsägningstider, anställningsformer, semester, övertid och vad LAS säger om saklig grund, med källa så att du ser vad lagen säger.</p></div>
+        <div class="kort amne"><span class="fraga">Vilka roller passar min bakgrund?</span><h3 class="h3">Karriärbyte och utveckling</h3><p>Byta bransch, ta nästa kliv eller plugga vidare? Vi visar vilka roller som ligger nära din erfarenhet och vilka kompetenser du behöver bygga.</p></div>
+        <div class="kort amne"><span class="fraga">Får jag CSN som vuxen?</span><h3 class="h3">A-kassa, sjukdom och CSN</h3><p>Ersättningsregler, väntedagar, vad som gäller vid sjukskrivning och hur CSN fungerar om du vill plugga om. Vi hänvisar till rätt myndighet när det behövs.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <article class="o" style="padding-bottom:28px">
+        <div class="sekt-huvud">
+          <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Källorna bakom svaren</p></div>
+          <h2 class="h2 langt">Verifierad svensk arbetsmarknadsdata</h2>
+          <p class="varde">Inga blogginlägg och inga forumtrådar. Jobbcoachen hämtar svaren ur sex pålitliga källor och visar exakt var informationen kommer ifrån.</p>
+        </div>
+        <div class="kallhylla">
+          <div class="kallkort"><span class="mono">AF</span><h3 class="h3">Arbetsförmedlingen</h3><p>Regler för arbetslöshet, etableringsstöd, jobbsökarverksamhet och stödformer. Hit hänvisar Jobbcoachen när frågan rör myndighetsregler eller stöd.</p></div>
+          <div class="kallkort"><span class="mono">SCB</span><h3 class="h3">SCB</h3><p>Lönestatistik per yrke, region och erfarenhet samt arbetsmarknadsdata. Frågar du om marknadslön är det SCB:s lönestrukturstatistik som ligger till grund.</p></div>
+          <div class="kallkort"><span class="mono">Fack</span><h3 class="h3">Fackförbund</h3><p>Kollektivavtal och stöd från Unionen, Kommunal, IF Metall, Vision och fler. Används när frågan rör avtalsenliga villkor eller regler i en viss bransch.</p></div>
+          <div class="kallkort"><span class="mono">FK</span><h3 class="h3">Försäkringskassan</h3><p>Sjukpenning, föräldraledighet, regler vid sjukskrivning och ersättningar. Hit hänvisar vi när frågan rör socialförsäkringen och vad du har rätt till.</p></div>
+          <div class="kallkort"><span class="mono">CSN</span><h3 class="h3">CSN</h3><p>Studielån, omställningsstudiestöd och regler för att plugga om som vuxen. Användbart när du överväger vidareutbildning eller karriärbyte.</p></div>
+          <div class="kallkort"><span class="mono">SKV</span><h3 class="h3">Skatteverket</h3><p>Skatteregler för anställning, eget företag, traktamente och förmåner. Används när lönen räknas i nettotermer eller när du jämför anställningsformer.</p></div>
+        </div>
+        <p class="liten" style="margin-top:18px;max-width:70ch">Kunskapsbasen är ett femtiotal dokument och uppdateras när vi gör en ny genomgång, inte av sig själv när en källa ändras. Därför står källan vid svaren som bygger på vår kunskapsbas, så att du kan kontrollera att regeln fortfarande gäller.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium, 149 kr i månaden</p>
+            <h2 class="h2" style="margin-top:12px">Sluta googla. Fråga någon som vet.</h2>
+            <p style="margin-top:14px;font-size:17px;max-width:52ch">Tio meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill ingår i Premium.</p>
+            <div class="knapprad" style="margin-top:26px">
+              <a class="knapp" href="#">Fråga Jobbcoachen gratis</a>
+              <a class="lank" href="#" style="color:#fff">Se hur det fungerar</a>
+            </div>
+          </div>
+          <div>
+            <div class="kvot"><b>Gratis: tio meddelanden per konto</b>
+              <div class="tio" role="img" aria-label="Tio meddelanden"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <p style="margin-top:10px;font-size:14.5px">Samtalet ligger kvar att läsa när de är slut.</p></div>
+            <div class="kvot"><b>Premium: fråga så mycket du vill</b>
+              <div class="utantak" role="img" aria-label="Utan tak"><i></i></div>
+              <p style="margin-top:10px;font-size:14.5px">Du fortsätter i samma samtal, där du slutade.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Vanliga frågor om karriärrådgivning</h2>
+        <p class="varde">Hittar du inte svaret? Mejla support@jobbcoach.ai.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Hur fungerar Jobbcoachen?</summary><p>Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Jobbcoachen söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett kort, läsbart svar med klickbara källhänvisningar så du själv kan dubbelkolla. Inget mer googlande och gissa vilken sida som är seriös.</p></details>
+        <details><summary>Var hittar jag tillförlitlig löneinformation i Sverige?</summary><p>Jobbcoachen svarar utifrån en kunskapsbas om svensk arbetsmarknad där SCB:s lönestrukturstatistik och fackförbundens publicerade underlag ingår. Du får en bild av marknadslönen per yrke utan att behöva läsa rapporter på 80 sidor själv. Svaren anger källan när de bygger på vår kunskapsbas, så du vet var siffrorna kommer ifrån och kan kontrollera dem själv.</p></details>
+        <details><summary>Kan jag få juridisk rådgivning här?</summary><p>Nej. Jobbcoachen förklarar hur svensk arbetsrätt fungerar i praktiken (LAS, uppsägningstider, semesterregler, anställningsformer) och hänvisar till lagtext och officiella källor. Men vi ger inte juridisk rådgivning i enskilda ärenden. Står du inför en konflikt eller uppsägning rekommenderar vi att du kontaktar ditt fackförbund eller en jurist.</p></details>
+        <details><summary>Vilka källor använder Jobbcoachen?</summary><p>Vi använder verifierade svenska källor: Arbetsförmedlingen för regler och program, SCB för lönestatistik och arbetsmarknadsdata, fackförbund (Unionen, Kommunal, IF Metall m.fl.) för avtal och stöd, samt Försäkringskassan, CSN och Skatteverket för ersättningar och regler kring sjukdom, studier och skatt. Svar som bygger på kunskapsbasen markeras med (Källa N) direkt i texten så du kan klicka dig vidare.</p></details>
+        <details><summary>Hur ofta uppdateras informationen?</summary><p>Kunskapsbasen är ett femtiotal dokument om svensk arbetsmarknad från Arbetsförmedlingen, SCB, fackförbund och myndigheter. Den uppdateras när vi gör en ny genomgång, inte automatiskt när en källa ändras. Därför anger svaren sin källa när de bygger på kunskapsbasen, så att du kan kontrollera att siffran eller regeln fortfarande gäller innan du lutar dig mot den.</p></details>
+        <details><summary>Är det gratis att använda Jobbcoachen?</summary><p>Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter, och de kommer inte tillbaka nästa dag. Vill du skriva fler än tio ingår Jobbcoachen utan tak i Premium, 149 kr i månaden.</p></details>
+        <details><summary>Kan jag dela mitt CV med Jobbcoachen?</summary><p>Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst.</p></details>
+        <details><summary>Vad händer när mina tio meddelanden är slut?</summary><p>Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i Premium, 149 kr i månaden, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: två CV-mallar, CV-analysens poäng och genomgång, ett personligt brev var sjunde dag och grundnivån i alla åtta testtyperna, ett test om dagen.</p></details>
+        <details><summary>Vad vet Jobbcoachen om mig?</summary><p>Din målroll, din ort och din bransch, om du har fyllt i dem i profilen. Allt annat bestämmer du: Jobbcoachen läser ett CV eller ett personligt brev först när du delar det i samtalet. Dina matchade jobb och dina testresultat läser den inte. Frågorna som föreslås utifrån ditt läge räknas fram ur dina sökta tjänster.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Fråga gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

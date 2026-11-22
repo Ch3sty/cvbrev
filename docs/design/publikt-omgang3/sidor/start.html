@@ -1,0 +1,294 @@
+<!-- titel: Skiss startsidan | rum: tran -->
+<style>
+  /* hjälten: fyra kort, ett per del av jobbsöket, i stället för en telefon */
+  .kollage { display: grid; grid-template-columns: 1.12fr 1fr; align-items: start; gap: 12px; max-width: 560px; margin: 0 auto; width: 100%; }
+  .rk .tapp { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; margin-top: 12px; font-size: 12.5px; font-weight: 600; }
+  .rk .tapp span { white-space: nowrap; }
+  @media (max-width: 399px) { .kollage { grid-template-columns: 1.3fr 1fr; gap: 8px; } .rk { padding: 10px; } .rk h3 { font-size: 11.5px; gap: 5px; letter-spacing: -0.02em; } .rk h3 .dorr { width: 24px; height: 24px; } .rk .tal { font-size: 46px; } .rk .tapp { font-size: 11.5px; } }
+  .rk .tapp .stapel { grid-column: 1 / -1; height: 7px; background: rgba(255, 255, 255, .16); }
+  .rk { border-radius: 24px; padding: 14px; background: var(--vagg-2); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 7px 0 var(--vagg-3), 0 26px 50px rgba(0, 0, 0, .3); min-width: 0; }
+  .rk h3 { display: flex; align-items: center; gap: 8px; font-family: var(--disp); font-weight: 700; font-size: 13.5px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .rk h3 .dorr { width: 28px; height: 28px; border-radius: 9px; background: var(--vagg-ink); color: var(--vagg); box-shadow: none; }
+  .rk h3 .dorr svg { width: 18px; height: 18px; }
+  .rk:nth-child(1) { transform: rotate(-2deg); }
+  .rk:nth-child(2) { transform: rotate(2.5deg) translateY(18px); }
+  .rk:nth-child(3) { transform: rotate(1.5deg) translateY(-4px); }
+  .rk:nth-child(4) { transform: rotate(-2deg) translateY(14px); }
+  .rk .matris { padding: 6px; gap: 4px; border-radius: 14px; border: 0; }
+  .rk .matris span { border-radius: 8px; }
+  .rk .tal { font-family: var(--disp); font-weight: 800; font-size: 54px; line-height: .9; letter-spacing: -0.04em; }
+  .rk .tal small { font-family: var(--text); font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 6px; }
+  .rk .sju { display: flex; gap: 3px; height: 14px; margin-top: 14px; }
+  .rk .sju i { border-radius: 4px; background: var(--ljus); }
+  .rk .sju i.t { background: var(--koppar); }
+  .rk .rad { margin-top: 10px; font-size: 13px; line-height: 1.35; color: var(--vagg-mjuk); }
+  .rk .blad { background: #fff; border-radius: 8px; padding: 12px; }
+  .rk .blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DCDAD5; }
+  .rk .blad i.m { background: #F4B98A; width: 70%; }
+  .rk .blad i:first-child { margin-top: 0; width: 45%; background: #9C6A8C; }
+  .rk svg.ministig { width: 100%; height: auto; overflow: visible; }
+  @media (min-width: 1000px) { .kollage { gap: 16px; } .rk { padding: 18px; } .rk h3 { font-size: 17px; } .rk .tal { font-size: 72px; } }
+
+  .media { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 34px; padding: 26px 0; }
+  .media span { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); flex-basis: 100%; text-align: center; }
+  .media b { font-family: var(--disp); font-weight: 800; font-size: 19px; color: var(--ink-2); }
+
+  @media (min-width: 1000px) { .o-bild .tsvar { grid-template-columns: repeat(6, 1fr); } }
+  @media (min-width: 1000px) { .o-bild .tsvar .ttan { width: 17px; height: 17px; left: 3px; top: 3px; border-width: 1.5px; border-radius: 5px; font-size: 9.5px; } .o-bild .tsvar .tkloss.fig svg { width: 46%; height: 46%; transform: translate(4px, 5px); } }
+  .o-bild .tfraga { margin-top: 14px; }
+  .gratisrad { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vagg-mjuk); }
+  .cvbild { position: relative; width: 100%; max-width: 470px; margin: 0 auto; padding: 92px 0 0 9%; }
+  .cvbild .svav { left: 0; top: 0; transform: rotate(-3deg); }
+
+  .tva { display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 1000px) { .tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+
+  .press { display: grid; gap: 12px; margin-top: 32px; }
+  .press a { display: block; padding: 20px; border-radius: 20px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 255, 255, .14); text-decoration: none; color: var(--vagg-ink); }
+  .press a b { display: block; font-size: 12.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ljus); }
+  .press a strong { display: block; margin-top: 8px; font-family: var(--disp); font-size: 19px; line-height: 1.2; }
+  .press a span { display: block; margin-top: 8px; font-size: 14.5px; color: var(--vagg-mjuk); }
+  .press a em { display: block; margin-top: 12px; font-style: normal; font-size: 13.5px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  @media (min-width: 1000px) { .press { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+
+  .veckomal { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); font-size: 14.5px; font-weight: 600; }
+  .veckomal i { width: 14px; height: 14px; border-radius: 5px; border: 2px solid var(--vagg-mjuk); }
+  .veckomal i.k { background: var(--koppar); border-color: var(--koppar); }
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; } }
+</style>
+
+<!--@del rekryteringstester-stil-->
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte utan-lyft">
+    <div class="bredd">
+      <div class="hjalte-rad">
+        <div class="hjalte-text">
+          <p class="ey">Bekräftat av SVT, SR, DN och Kollega</p>
+          <h1 class="h1">Därför får du inte svar på dina ansökningar</h1>
+          <p class="varde">Allt fler rekryterare låter rekryteringssystem sålla kandidater automatiskt, ofta utan att du vet om det. <b>Är ditt CV inte optimerat når det aldrig en människa.</b> Vi ser till att du tar dig förbi: träning inför urvalstestet, ett CV som rekryteringssystemen (ATS) läser och ett personligt brev som svarar på annonsen.</p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Skapa konto gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Se hur det fungerar</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>543+</b><span>har skapat konto</span></div>
+            <div class="bricka"><b>8</b><span>testtyper, grundnivån gratis</span></div>
+            <div class="bricka"><b>1 brev</b><span>gratis, sedan ett i veckan</span></div>
+          </div>
+        </div>
+        <div class="kollage" aria-label="De fyra delarna i Jobbcoach: rekryteringstester, CV, personliga brev och jobbsöket">
+          <div class="rk gungar" data-rum="tran" style="--rot:-2deg">
+            <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span>Rekryteringstester</h3>
+            <div class="matris">
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M20 6l15 27H5z"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><circle cx="20" cy="20" r="14"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><rect x="6" y="6" width="28" height="28" rx="3"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><rect x="6" y="6" width="28" height="28" rx="3"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M20 6l15 27H5z"/><circle cx="20" cy="24" r="3" fill="currentColor"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3"><rect x="6" y="6" width="28" height="28" rx="3"/><path d="M13 20h14M20 13v14"/></svg></span>
+              <span><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M20 6l15 27H5z"/><path d="M14 25h12M20 19v12"/></svg></span>
+              <span class="tom">?</span>
+            </div>
+          </div>
+          <div class="rk gungar sen" data-rum="cv" style="--rot:2.5deg">
+            <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span>CV-analys</h3>
+            <div class="tal">93<small>av 100</small></div>
+            <div class="sju"><i style="flex:10"></i><i style="flex:15"></i><i class="t" style="flex:35"></i><i style="flex:12"></i><i style="flex:8"></i><i class="t" style="flex:5"></i><i style="flex:15"></i></div>
+            <p class="rad">7 poäng kvar. De sitter i två delar.</p>
+            <div class="tapp"><span>Erfarenhet</span><span>30 av 35</span><div class="stapel koppar"><i style="width:86%"></i></div></div>
+            <div class="tapp"><span>Språk</span><span>3 av 5</span><div class="stapel koppar"><i style="width:60%"></i></div></div>
+          </div>
+          <div class="rk gungar sen" data-rum="brev" style="--rot:1.5deg">
+            <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span>Personliga brev</h3>
+            <div class="blad"><i></i><i></i><i class="m"></i><i></i><i class="m" style="width:52%"></i><i style="width:80%"></i></div>
+            <p class="rad">Svarar på 3 av 4 krav i annonsen.</p>
+          </div>
+          <div class="rk gungar" data-rum="jobb" style="--rot:-2deg">
+            <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span>Jobbsöket</h3>
+            <svg class="ministig" viewBox="0 0 220 96" fill="none"><path d="M12 84C50 84 54 60 88 56s42-12 64-24 36-16 50-22" stroke="currentColor" stroke-opacity=".55" stroke-width="3" stroke-dasharray="1 8" stroke-linecap="round"/><circle cx="12" cy="84" r="6" fill="var(--vagg-2)" stroke="currentColor" stroke-width="3"/><circle cx="88" cy="56" r="8" fill="#E07A2F" stroke="currentColor" stroke-width="3"/><circle cx="152" cy="32" r="6" fill="var(--vagg-2)" stroke="currentColor" stroke-width="3"/><path d="M202 10V-14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M202-14l18 6-18 7z" fill="#E07A2F"/><circle cx="202" cy="10" r="5" fill="currentColor"/></svg>
+            <p class="rad">2 sökta väntar på svar. Intervju tisdag.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt-papper">
+    <div class="bredd media"><span>Rekryteringssystemen beskrivna av</span><b>Kollega</b><b>SVT Nyheter</b><b>Sveriges Radio P1</b><b>Dagens Nyheter</b></div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Vägen till intervjun</p>
+        <h2 class="h2">Tre verktyg som gör ansökan starkare</h2>
+        <p class="varde">Först urvalstestet som avgör vem som får intervjun. Sedan ett CV som kommer igenom, och jobben du annars hade missat. Allt i samma konto.</p>
+      </div>
+
+      <div style="margin-top:40px">
+        <article class="o" data-rum="tran">
+          <div class="o-rad">
+            <div class="o-text">
+              <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><p class="ey">Inför urvalstestet</p></div>
+              <h3 class="h2">Rekryteringstester</h3>
+              <p class="varde"><b>Känn igen uppgiften innan provdagen.</b> Logik, verbalt och numeriskt i tre nivåer med förklaring efter varje uppgift, och personlighetstestet som visar vad rekryteraren läser ut av dig.</p>
+              <p>Åtta testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Grundnivån visar var du står i varje typ, träningen följer din nivå och lägger tiden där du tappar, och övningsprovet går mot klockan som det skarpa testet. Fem uppgifter provar du utan konto.</p>
+              <div class="knapprad"><a class="knapp knapp-vit" href="#">Så fungerar det</a><span class="gratisrad"><span class="chip chip-vagg">Gratis</span>Grundnivån i alla åtta testtyperna</span></div>
+            </div>
+            <div class="o-bild"><!--@del start-testram--></div>
+          </div>
+        </article>
+
+        <article class="o vand" data-rum="cv">
+          <div class="o-rad">
+            <div class="o-text">
+              <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><p class="ey">Inför ansökan</p></div>
+              <h3 class="h2">CV-analys</h3>
+              <p class="varde"><b>Vet exakt varför CV:t inte får svar.</b> En läsbarhetspoäng av 100 och vad som saknas, del för del, utmärkt direkt på ditt CV.</p>
+              <p>Ladda upp som PDF eller Word. Vi går igenom sju delar, från kontaktuppgifter till datum, ordning och längd, och visar var varje tappad poäng sitter. Jobbcoachen föreslår nya formuleringar, och du ser poängen röra sig.</p>
+              <div class="knapprad"><a class="knapp knapp-vit" href="#">Så fungerar det</a><span class="gratisrad"><span class="chip chip-vagg">Gratis</span>Poängen och genomgången, för varje CV</span></div>
+            </div>
+            <div class="o-bild"><div class="cvbild"><div class="svav gungar"><div class="stor">93</div><div class="under">av 100 i dag</div></div><!--@del cv-ark--></div></div>
+          </div>
+        </article>
+
+        <article class="o" data-rum="jobb">
+          <div class="o-rad">
+            <div class="o-text">
+              <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Jobben du annars missar</p></div>
+              <h3 class="h2">Jobbmatchning</h3>
+              <p class="varde"><b>Jobben du annars hade missat.</b> Din kompetens matchad mot annonserna i Platsbanken, med skälen utskrivna.</p>
+              <p>Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste. Från en träff skriver du brevet, sparar annonsen eller markerar den som sökt.</p>
+              <div class="knapprad"><a class="knapp knapp-vit" href="#">Så fungerar det</a><span class="gratisrad"><span class="chip chip-vagg">Gratis</span>Tre träffar</span></div>
+            </div>
+            <div class="o-bild"><!--@del traffar--></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <article class="o vand" data-rum="brev">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><p class="ey">Så jobbar vi</p></div>
+            <h2 class="h2">Vi matchar din erfarenhet mot tjänstens krav</h2>
+            <p class="varde">Klistra in en jobbannons, eller välj en träff. Vi läser ditt CV, identifierar vad tjänsten kräver och väver in din egen erfarenhet i ett personligt brev som faktiskt bevisar att du passar.</p>
+            <p>Brevet står i samma mall som ditt CV. 40 mallar och fem toner att välja mellan.</p>
+            <div class="knapprad"><a class="knapp" href="#">Skriv ett brev gratis</a><span class="gratisrad">Första personliga brevet gratis, sedan ett var sjunde dag</span></div>
+          </div>
+          <div class="o-bild"><!--@del brevpar--></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper" data-rum="jobb">
+    <div class="bredd tva">
+      <div class="sekt-huvud">
+        <p class="ey">Hela vägen</p>
+        <h2 class="h2">Jobbcoachen svarar hela vägen</h2>
+        <p class="varde">Intervjufrågor, uppföljning, avtal och avslag, utifrån svensk arbetsmarknad. Inte från en amerikansk mall.</p>
+        <p style="color:var(--ink-2)">Fråga vad du vill om intervjun, uppsägningstiden eller hur du svarar på ett avslag. Jobbcoachen känner till din målroll och de dokument du själv delar i samtalet, och föreslår frågor utifrån läget i dina sökta tjänster.</p>
+        <div class="knapprad" style="margin-top:24px"><a class="knapp" href="#">Ställ första frågan</a><span class="liten">Tio meddelanden gratis</span></div>
+      </div>
+      <div style="background:var(--golv);border-radius:var(--r-stor);padding:24px 18px"><!--@del chatt--></div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="o" data-rum="neutral" style="padding-bottom:28px">
+        <div class="sekt-huvud">
+          <p class="ey">Bekräftat av medierna</p>
+          <h2 class="h2">Robotarna har redan läst ditt CV.</h2>
+          <p class="varde">Sveriges största redaktioner har samma slutsats: rekryteringen har förändrats i grunden. Den första som läser din ansökan är inte en människa.</p>
+        </div>
+        <div class="press">
+          <a href="#"><b>Kollega</b><strong>AI-rekrytering klassad som högriskverksamhet</strong><span>40 procent av Teamtailors över 10 000 arbetsgivare har slagit på AI i rekryteringen.</span><em>kollega.se</em></a>
+          <a href="#"><b>SVT Nyheter</b><strong>Knepen som gör att du inte sorteras bort</strong><span>Hur sticker du ut när perfekta AI-skrivna CV:n blivit norm?</span><em>svt.se</em></a>
+          <a href="#"><b>Sveriges Radio P1</b><strong>Så tar du dig förbi robotarna</strong><span>Jesper Olsson på Trygghetsrådet TRR förklarar hur du undviker att bli bortsållad.</span><em>sverigesradio.se</em></a>
+          <a href="#"><b>Dagens Nyheter</b><strong>Intervjuad av en robot</strong><span>AI tar över allt fler steg i rekryteringen hos svenska företag.</span><em>dn.se</em></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så hjälper vi dig komma förbi</p>
+        <h2 class="h2">Och resten av jobbsöket</h2>
+      </div>
+      <article class="o" data-rum="jobb" style="margin-top:32px">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Sökta tjänster</p></div>
+            <h3 class="h2">Håll koll på var varje ansökan står</h3>
+            <p class="varde">Spara annonsen du ska söka, logga den du har sökt och se när det är dags att höra av sig. Vi skriver utkastet till uppföljningsmejlet.</p>
+            <p><span class="veckomal"><i class="k"></i><i class="k"></i><i></i>Veckans mål: 2 av 3 sökta</span></p>
+            <div class="knapprad"><a class="knapp knapp-vit" href="#">Så fungerar Sökta tjänster</a><span class="gratisrad"><span class="chip chip-vagg">Gratis för alla</span></span></div>
+          </div>
+          <div class="o-bild"><!--@del stig--></div>
+        </div>
+      </article>
+      <div class="rutnat r4" style="margin-top:20px">
+        <a class="lankbricka" data-rum="brev" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personligt brev</b><span>Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.</span></a>
+        <a class="lankbricka" data-rum="cv" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV-mallar</b><span>40 mallar som rekryteringssystemen läser, 2 gratis.</span></a>
+        <a class="lankbricka" data-rum="jobb" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbcoachen</b><span>Intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad.</span></a>
+        <a class="lankbricka" data-rum="cv" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>LinkedIn-profilen</b><span>Rubrik och sammanfattning som rekryterare hittar när de söker.</span></a>
+        <a class="lankbricka" data-rum="jobb" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Bli upptäckt</b><span>Rekryterare hittar dig, anonymt tills du själv svarar.</span></a>
+        <a class="lankbricka" data-rum="jobb" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbkartan</b><span>Hur många som konkurrerar om varje jobb, län för län.</span></a>
+        <a class="lankbricka" data-rum="cv" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV-exempel</b><span>Färdiga CV:n yrke för yrke, att utgå ifrån.</span></a>
+        <a class="lankbricka" data-rum="brev" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personligt brev-exempel</b><span>Brev att utgå från, yrke för yrke.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium</p>
+            <h2 class="h2" style="margin-top:12px">Allt i Premium</h2>
+            <p style="margin-top:14px;font-size:17px">Alla verktyg, alla nivåer, alla mallar. Mindre än en lunch i månaden, säg upp när du vill.</p>
+            <div class="pris" style="margin-top:22px">149 kr<small>i månaden</small></div>
+            <div class="knapprad" style="margin-top:22px"><a class="knapp" href="#">Köp Premium, 149 kr i månaden</a></div>
+            <p class="liten" style="margin-top:14px;color:#9B95AD">Kortbetalning via Stripe. Kvitto på mejl.</p>
+          </div>
+          <ul class="bockar">
+            <li>Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet</li>
+            <li>Alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn</li>
+            <li>Jobbmatchning, de 25 bästa träffarna med skälen</li>
+            <li>Uppföljningsmejl till varje sökt tjänst och rapport till Arbetsförmedlingen att skriva ut</li>
+            <li>Jobbcoachen, fråga så mycket du vill</li>
+            <li>Intervjuprovet utan dagsgräns och hela din testhistorik</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud"><h2 class="h2">Svaren på det du undrar</h2></div>
+      <div class="faq">
+        <details open><summary>Vad är ATS, och varför ska mitt CV vara anpassat?</summary><p>ATS (Applicant Tracking System) är de rekryteringssystem de flesta större svenska arbetsgivare använder för att sortera ansökningar automatiskt. Är ditt CV inte läsbart för systemet kan du sorteras bort innan en människa ens öppnar det. Alla våra CV-mallar är byggda för att systemen ska kunna läsa dem.</p></details>
+        <details><summary>Hur mycket av jobbet gör ni åt mig?</summary><p>Vi skriver utkastet utifrån ditt CV och jobbannonsen. Du läser igenom, justerar tonen där det behövs och skickar.</p></details>
+        <details><summary>Hur snabbt kan jag skapa ett personligt brev?</summary><p>Runt 60 sekunder från att du klistrar in annonsen till ett färdigt utkast.</p></details>
+        <details><summary>Är mina uppgifter säkra?</summary><p>Svaret står kvar ordagrant som i dag. Texter om datalagring ändras inte i den här omgången.</p></details>
+        <details><summary>Vad kostar det, och vad får jag utan att betala?</summary><p>Gratisnivån kräver inget kort. Söker du på allvar ingår allt i Jobbcoach Premium, 149 kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Skapa konto gratis</a><a class="lank" href="#">Fler frågor om priset? Se priserna</a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

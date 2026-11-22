@@ -1,0 +1,607 @@
+
+=== cv-mallar.html
+TITLE: CV-mall: 40 mallar att fylla i och ladda ner, 2 gratis
+DESC: CV-mallar för svenska jobb: 40 mallar att fylla i och ladda ner som PDF eller Word, 2 av dem gratis. Ladda upp ditt CV och se det i mallarna direkt.
+LD: ItemList, ListItem, BreadcrumbList, FAQPage, Question, Answer, Product, Brand, Offer, Organization, HowTo, MonetaryAmount, HowToStep
+H1: CV-mallar att fylla i och ladda ner. 40 mallar, 2 gratis.
+H2: CV-mallar för ditt yrke
+H3: Läkare
+H3: Specialistsjuksköterska
+H3: Barnmorska
+H3: Fysioterapeut
+H3: Sjuksköterska
+H3: Undersköterska
+H3: Vårdbiträde
+H3: Hemtjänst
+H3: Hemtjänstpersonal
+H3: Personlig assistent
+H3: Psykolog
+H3: Kurator
+H3: Boendestöd
+H3: Vårdadministratör
+H3: Förskollärare
+H3: Lärare
+H3: Grundskollärare
+H3: Specialpedagog
+H3: Barnskötare
+H3: Elevassistent
+H3: Fritidspedagog
+H3: Fritidsledare
+H3: Student
+H3: Butiksbiträde
+H3: Butikssäljare
+H3: Butikschef
+H3: Kassörska
+H3: Kundtjänstmedarbetare
+H3: Kundtjänst
+H3: Hotellvärd
+H3: Receptionist
+H3: Kundrådgivare
+H3: Lagerarbetare
+H3: Truckförare
+H3: Logistiker
+H3: Lagerchef
+H3: Terminalarbetare
+H3: Logistikassistent
+H3: Fastighetsskötare
+H3: Servicemedarbetare
+H3: Lokalvårdare
+H3: Kock
+H3: Bartender
+H3: Konditor
+H3: Barista
+H3: Servitris/Restaurangbiträde
+H3: Köksbiträde
+H3: Säljare
+H3: Account Manager
+H3: Sommarjobb
+H3: Systemutvecklare
+H3: DevOps Engineer
+H3: IT-konsult
+H3: Projektledare IT
+H3: Scrum Master
+H3: Produktchef
+H3: Ingenjör
+H3: Automationsingenjör
+H3: Konstruktör
+H3: Ekonomiassistent
+H3: Administrativ assistent
+H3: Redovisningsekonom
+H3: Controller
+H3: Ekonom
+H3: HR-specialist
+H3: Administratör
+H3: Handläggare
+H3: LSS-handläggare
+H3: Socialsekreterare
+H3: Kontorsassistent
+H3: Chef
+H3: Enhetschef
+H3: Projektledare
+H3: Teamledare
+H2: Alla våra CV-mallar
+H2: CV-mallar för Word
+H3: Linne
+H3: Björk
+H3: Koppar
+H3: Kalksten
+H3: Granit
+H3: Kolumn
+H3: Årsring
+H3: Antikva
+H3: Fasad
+H3: Raster
+H3: Folio
+H3: Stål
+H3: Lind
+H3: Alm
+H3: Valv
+H3: Sand
+H3: Furu
+H3: Ramverk
+H3: Index
+H3: Skylt
+H3: Loft
+H3: Pergament
+H3: Betong
+H3: Not
+H3: Spår
+H3: Ek
+H2: Så fungerar det
+H3: Välj en mall
+H3: Fyll i dina uppgifter
+H3: Vi flyttar in innehållet
+H3: Ladda ner som PDF, eller Word i 26 av mallarna
+H2: Mer än en snygg layout
+H3: Byggda för rekryteringssystem
+H3: PDF, och Word i utvalda mallar
+H3: Fyra färger och rubriker för din bransch
+H3: Ordningen du vill ha, på en sida
+H3: Profilbild där det passar
+H3: LinkedIn synligt i sidhuvudet
+H3: Redigera när du vill
+H3: Fungerar i mobilen
+H2: Vad gör en bra CV-mall för svenska arbetsgivare?
+H3: Mallen måste passera rekryteringssystemet
+H3: Olika yrken kräver olika upplägg
+H3: Mallen ska passa hur långt du kommit i karriären
+H3: Använd båda, de kompletterar varandra
+H2: Var hittar man en gratis CV-mall?
+H2: PDF eller Word?
+H2: Mallar efter stil
+H2: Vanliga frågor om CV-mallar
+H2: Letar du efter ett färdigt CV-exempel i stället?
+
+=== funktioner.html
+TITLE: Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai
+DESC: Alla verktyg för jobbsöket: rekryteringstester, CV-analys, CV-mallar, personliga brev, jobbmatchning och Jobbcoachen. Byggt för svensk arbetsmarknad.
+LD: FAQPage, Question, Answer
+H1: Allt du behöver för att landa nästa jobb
+H2: Rekryteringstester
+H2: Personliga brev
+H2: CV-analysen
+H2: Ett CV som både systemet och rekryteraren läser
+H3: Bygg CV:t steg för steg
+H3: 40 mallar, 2 gratis
+H3: Foto och LinkedIn där mallen stöder det
+H3: Ladda ner som PDF
+H2: Jobben hittar dig, och du går förberedd in i intervjun.
+H2: Matchade jobb
+H2: Jobbcoachen
+H2: Bli hittad på LinkedIn
+H2: Alla verktyg, samlade
+H2: Vanliga frågor
+
+=== om-oss.html
+TITLE: Om oss: jobbverktyg för svensk arbetsmarknad | Jobbcoach.ai
+DESC: Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Data i EU, och vi loggar aldrig in åt dig.
+LD: Organization, ContactPoint, Country, AboutPage, BreadcrumbList, ListItem
+H1: Vi hjälper dig att nå dina karriärmål
+H2: Från cvbrev.se till Jobbcoach.ai
+H3: Det började som cvbrev.se
+H3: Användarna ville ha mer
+H3: cvbrev.se blev Jobbcoach.ai
+H3: En plattform med fler verktyg
+H2: Tre saker vi lovar
+H3: Du behåller kontrollen
+H3: Svenska källor i botten
+H3: Du betalar bara när du behöver mer
+H2: Saknar du något, eller har du en fråga?
+
+=== personligt-brev-exempel.html
+TITLE: Personligt brev exempel: 89 färdiga brev för svenska yrken
+DESC: Personligt brev exempel för 89 yrken, skrivna för svenska rekryterare. Se inledning, koppling till annonsen och avslutning, och använd brevet som mall.
+LD: ItemList, ListItem, BreadcrumbList, FAQPage, Question, Answer
+H1: Personligt brev-exempel för 89 yrken. Börja med ditt.
+H2: 89 yrken
+H3: Äldreboende
+H3: Civilingenjör
+H3: Gymnasieelev
+H3: Undersköterska
+H3: Student/Första jobbet
+H3: Lärare
+H3: Sjuksköterska
+H3: Butikssäljare
+H3: Säljare
+H3: Sommarjobb
+H3: Ekonomiassistent
+H3: Barnskötare
+H3: Personlig assistent
+H3: Administratör
+H3: Förskollärare
+H3: Handläggare
+H3: Ingenjör
+H3: IT-konsult
+H3: Kurator
+H3: Lagerarbetare
+H3: Fastighetsskötare
+H3: Läkare
+H3: Receptionist
+H3: Lokalvårdare
+H3: Butiksbiträde
+H3: Butikschef
+H3: Servitris/Restaurangbiträde
+H3: Chef
+H3: Projektledare
+H3: Elevassistent
+H3: Kundtjänst
+H3: Vårdbiträde
+H3: Hemtjänstpersonal
+H3: Hemtjänst
+H3: Kock
+H3: Specialpedagog
+H3: Fritidspedagog
+H3: Redovisningsekonom
+H3: HR-specialist
+H3: Systemutvecklare
+H3: Account Manager
+H3: Controller
+H3: Ekonom
+H3: DevOps Engineer
+H3: Psykolog
+H3: Scrum Master
+H3: Truckförare
+H3: Lagerchef
+H3: Barnmorska
+H3: Specialistsjuksköterska
+H3: Löneadministratör
+H3: Teamledare
+H3: Enhetschef
+H3: Produktchef
+H3: Boendestödjare
+H3: Barista
+H3: Köksbiträde
+H3: Logistikassistent
+H3: Logistiker
+H3: LSS-handläggare
+H3: Kundrådgivare
+H3: Hotellvärd
+H3: Vårdadministratör
+H3: Fysioterapeut
+H3: Kundtjänstmedarbetare
+H3: Terminalarbetare
+H3: Administrativ assistent
+H3: Grundskollärare
+H3: Socialsekreterare
+H3: Projektledare IT
+H3: Automationsingenjör
+H3: Bartender
+H3: Fritidsledare
+H3: Kassörska
+H3: Konditor
+H3: Konstruktör
+H3: Kontorsassistent
+H3: Servicemedarbetare
+H3: Städare
+H3: Vaktmästare
+H3: Socionom
+H3: Stödpedagog
+H3: Chaufför
+H3: IT-tekniker
+H3: Telefonförsäljare
+H3: Diskare
+H3: Snickare
+H3: Elektriker
+H3: Väktare
+H2: Behöver du även CV?
+H2: Så använder du ett exempel på personligt brev som mall
+H3: Vad är en mall för personligt brev, och vad är skillnaden mot ett exempel?
+H3: Hur väljer du rätt mall för personligt brev för ditt yrke?
+H3: Vad gör en mall för personligt brev bra?
+H3: Är mallar för personligt brev gratis? Kan jag ladda ner dem?
+H2: Det du undrar om brev-exemplen
+H2: Klar att skriva ditt eget brev?
+
+=== priser.html
+TITLE: Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai
+DESC: Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.
+LD: Product, Brand, AggregateOffer, Offer, UnitPriceSpecification, QuantitativeValue, Organization, FAQPage, Question, Answer
+H1: Jobbcoach Premium, 149 kr i månaden
+H2: Allt i Premium
+H2: Vill du se först?
+H2: Vad du faktiskt får, funktion för funktion
+H3: Rekryteringstester
+H3: CV-analysen
+H3: Personliga brev
+H3: Matchade jobb
+H3: Jobbcoachen
+H2: Hjälpredan Kom igång tar dig igenom allt i rätt ordning
+H2: Vad som ingår, rad för rad
+H2: Fler frågor om priset?
+
+=== start.html
+TITLE: Jobbcoach.ai - CV, personligt brev, jobbmatchning &amp; rekryteringstester
+DESC: Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.
+LD: Organization, WebSite, FAQPage, Question, Answer
+H1: Därför får du inte svar på dina ansökningar
+H2: Tre verktyg som gör ansökan starkare
+H3: Rekryteringstester
+H3: CV-analys
+H3: Jobbmatchning
+H2: Vi matchar din erfarenhet mot tjänstens krav
+H2: Jobbcoachen svarar hela vägen
+H2: Robotarna har redan läst ditt CV.
+H2: Och resten av jobbsöket
+H2: Allt i Premium
+H2: Svaren på det du undrar
+
+=== verktyg_bli-upptackt.html
+TITLE: Bli upptäckt, låt rekryterare hitta dig | Jobbcoach.ai
+DESC: Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Anonym tills du själv tackar ja. Kostar inget, ingen kortuppgift.
+LD: Service, Country, Organization, FAQPage, Question, Answer
+H1: Bli hittad av rekryterare, utan att jaga jobb själv.
+H2: Så fungerar det
+H3: Skapa din profil
+H3: Gör testerna, om du vill
+H3: Slå på synlighet
+H3: En rekryterare hör av sig, du väljer
+H2: Rätt synlighet, inte mer synlighet
+H3: Rätt rekryterare, inte alla
+H3: Du bestämmer när du syns
+H3: Bevis, inte påståenden
+H3: Så du passar teamet
+H2: Visa hur du jobbar, inte bara vad du kan
+H3: Så arbetar du
+H3: Så samarbetar du
+H3: Så drivs du
+H3: Bevisa vad du kan med kunskapstester
+H2: Du har full kontroll hela vägen
+H3: Du är anonym tills du säger ja
+H3: Din nuvarande chef kan inte hitta dig
+H3: Bara riktiga företag får söka
+H3: Ditt lönespann stannar hos dig
+H2: Rekryteraren hittar dig för att du passar
+H2: Det här ser en rekryterare av din profil
+H2: Redo att bli hittad i stället för att leta?
+H2: Frågor om Bli upptäckt
+
+=== verktyg_cv-analys.html
+TITLE: CV-analys: poäng och konkreta förslag | Jobbcoach.ai
+DESC: Vi läser ditt CV som ett rekryteringssystem gör och ger dig en läsbarhetspoäng, poängen du kan nå och konkreta åtgärder. En analys gratis per konto.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Få konkret feedback på ditt CV på 60 sekunder
+H2: Analysera ditt CV direkt
+H2: Så fungerar det
+H3: Ladda upp ditt CV
+H3: Vi analyserar i bakgrunden
+H3: Få ATS-poäng och förslag
+H3: Spara den förbättrade versionen
+H2: Sex saker rekryteraren och systemet ser först
+H3: Läsbarhet för rekryteringssystem
+H3: Struktur
+H3: Språk och grammatik
+H3: Nyckelord
+H3: Kvantifiering
+H3: Profil och styrkor
+H2: Fem saker som lyfter vilket CV som helst
+H3: Kvantifiera dina resultat
+H3: Börja varje punkt med ett verb
+H3: Använd annonsens egna ord
+H3: En sida räcker ofta
+H3: Hoppa över bilden
+H2: Hela analysen, varje fynd med åtgärd.
+H2: Frågor om CV-analysen
+
+=== verktyg_jobbcoachen.html
+TITLE: Jobbcoachen: karriärsvar med källor | Jobbcoach.ai
+DESC: Fråga om lön, intervju, uppsägning eller karriärbyte. Svaren bygger på Arbetsförmedlingen, SCB och fackförbund, med källa till varje svar.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad
+H2: Så fungerar det
+H3: Ställ frågan
+H3: Vi söker bland verifierade källor
+H3: Du får svar med källhänvisning
+H3: Följ upp tills det är klart
+H2: Sex områden vi hjälper dig med
+H3: CV och personligt brev
+H3: Marknadslön och löneförhandling
+H3: Intervjuförberedelse
+H3: Arbetsrätt och LAS
+H3: Karriärbyte och utveckling
+H3: A-kassa, sjukdom och CSN
+H2: Verifierad svensk arbetsmarknadsdata
+H3: Arbetsförmedlingen
+H3: SCB
+H3: Fackförbund
+H3: Försäkringskassan
+H3: CSN
+H3: Skatteverket
+H2: Sluta googla. Fråga någon som vet.
+H2: Vanliga frågor om karriärrådgivning
+
+=== verktyg_jobbmatchning.html
+TITLE: Jobbmatchning: lediga jobb som passar ditt CV | Jobbcoach.ai
+DESC: Vi läser ditt CV och matchar det mot lediga tjänster från Arbetsförmedlingen, med skälet till varje träff utskrivet. Tre träffar gratis, ingen kortuppgift.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Hitta jobb som matchar ditt CV automatiskt
+H2: Tre träffar gratis, med skälen
+H2: Så fungerar det
+H3: Aktivera ditt CV
+H3: Vi extraherar yrkesdata
+H3: Vi söker tusentals annonser
+H3: Du får jobben sorterade
+H2: Sex datapunkter ur ditt CV
+H3: Yrkesroller
+H3: Kompetenser
+H3: Utbildning
+H3: Plats
+H3: Språk
+H3: Erfarenhetsnivå
+H2: Sex skäl att låta oss söka åt dig
+H3: Roller du inte tänkt på själv
+H3: Matchning i procent per annons
+H3: Tusentals lediga jobb
+H3: Avstånd du väljer själv
+H3: Uppdaterat varje dag
+H3: Bäst träff överst
+H2: Från träff till ansökan
+H2: Hitta ditt nästa jobb automatiskt.
+H2: Vanliga frågor om att söka jobb
+
+=== verktyg_linkedin-optimering.html
+TITLE: LinkedIn-optimering för rekryterarsök | Jobbcoach.ai
+DESC: Vi skriver om rubrik, om-mig och kompetenser så att rekryterare hittar dig. Du klistrar in din text och får den tillbaka. Vi loggar aldrig in åt dig.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Hamna i rekryterarnas sökresultat på LinkedIn
+H2: Så fungerar det
+H3: Hämta din profiltext från LinkedIn
+H3: Klistra in i fem fält
+H3: Vi optimerar fem sektioner samtidigt
+H3: Jämför före och efter
+H3: Kopiera tillbaka till LinkedIn
+H2: Fem sektioner i ett pass
+H3: Rubrik, högst 220 tecken
+H3: Om mig, 250 till 350 ord
+H3: Erfarenhet i STAR-format
+H3: Utbildning, valfritt
+H3: Kompetenser i 3 till 4 grupper
+H2: Varför du inte syns i dag
+H3: Rekryterare söker på sökord
+H3: Rubriken avgör om du visas
+H3: Algoritmen belönar fullständighet
+H2: Bred eller skarp inriktning
+H3: Stå ut i mängden
+H3: Sikta på en specifik roll
+H2: Sluta vara osynlig. Börja synas i dag.
+H2: Vanliga frågor om LinkedIn-optimering
+
+=== verktyg_personlighetstest.html
+TITLE: Personlighetstest gratis: vad rekryteraren läser ut av dig
+DESC: Tjugo påståenden på femfaktormodellen, samma modell som MAP och de flesta svenska rekryteringstest. Din profil direkt, med en rad per faktor.
+LD: WebApplication, Offer, FAQPage, Question, Answer
+H1: Personlighetstest, gratis och utan konto
+H2: Så fungerar det
+H3: Svara på tjugo påståenden
+H3: Se profilen direkt
+H3: Spara den med ett gratiskonto
+H3: Gör hela testet
+H2: De fem faktorerna och vad rekryteraren ser i dem
+H3: Samvetsgrannhet
+H3: Utåtriktning
+H3: Stabilitet
+H3: Vänlighet
+H3: Öppenhet
+H2: Femtio påståenden, gratis i kontot
+H2: Vanliga frågor om personlighetstestet
+
+=== verktyg_personligt-brev.html
+TITLE: Personligt brev som matchar annonsen | Jobbcoach.ai
+DESC: Vi läser annonsens kravprofil och skriver brevet mot den. 40 mallar, samma som till ditt CV, och fem toner. Första brevet gratis, ingen kortuppgift.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Skräddarsy ditt brev till varje annons
+H2: Skriv ett brev utan konto
+H2: Så fungerar det
+H3: Välj ditt CV
+H3: Klistra in jobbannonsen
+H3: Välj mall och ton
+H3: Kopiera eller ladda ner brevet
+H2: 40 mallar för personliga brev
+H3: Linne
+H3: Björk
+H3: Koppar
+H3: Kalksten
+H3: Granit
+H3: Fasad
+H3: Terrakotta
+H2: Fem regler som höjer svarsfrekvensen
+H3: Använd annonsens egna ord
+H3: Visa siffror, inte adjektiv
+H3: Håll brevet under en sida
+H3: Matcha företagets ton
+H3: Skriv tre stycken
+H2: När brevet svarar mot kraven har rekryteraren en anledning att ringa
+H3: Ett brev gratis
+H3: PDF och Word
+H3: 149 kr i månaden
+H2: Läs mer om personliga brev
+H3: Personligt brev-exempel
+H3: Hur skriver man ett personligt brev?
+H3: Bra personligt brev
+H3: Inleda ett personligt brev
+H3: Hur långt ska ett personligt brev vara?
+H3: Avslutningen
+H2: Ditt nästa brev tar tre minuter, inte tre timmar.
+H2: Det du undrar om brevverktyget
+
+=== verktyg_rekryteringstester.html
+TITLE: Rekryteringstester: öva logik, I-provet och mer gratis
+DESC: Öva på matrislogik, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd, och inför I-provet. Grundnivån är gratis, ingen kortuppgift.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer, VideoObject, Organization
+H1: Träna på rekryteringstester innan arbetsgivaren testar dig
+H2: Gör ett prov direkt, utan konto
+H2: Så fungerar det
+H3: Välj test
+H3: Lös frågorna i din takt
+H3: Se resultat och tid direkt
+H3: Se vad du missade
+H2: Sex färdigheter som avgör testet
+H3: Mönsterigenkänning
+H3: Logiskt tänkande
+H3: Läsförståelse
+H3: Kritiskt tänkande
+H3: Snabbräkning
+H3: Tabelltolkning
+H2: Åtta testtyper, alla gratis att börja
+H3: Matrislogik
+H3: Verbalt resonemang
+H3: Numeriskt resonemang
+H3: Figurserier
+H3: Deduktiv slutledning
+H3: Talserier
+H3: Spatial förmåga
+H3: Ordförråd
+H2: Vilket test ska du göra?
+H3: Polisen eller Försvarsmakten
+H3: Matrigma
+H3: Alva Labs
+H3: SHL
+H3: Aon
+H3: Lokförare
+H3: Annat eller vet inte
+H3: Personlighet
+H2: Ta reda på vad rekryteraren ser i dig
+H3: Noggrannhet
+H3: Extraversion
+H3: Känslostabilitet
+H3: Vänlighet
+H3: Öppenhet
+H2: Träning som syns på resultatet
+H3: Gratis att prova
+H3: Rapport efter varje test
+H3: Premium tar bort taket
+H2: Så förbereder du dig inför ett rekryteringstest
+H3: Öva på rätt testtyp
+H3: Träna under tidspress
+H3: Välj tillfälle och miljö
+H3: Svara ärligt på personlighetsdelen
+H3: Reda ut frågorna i förväg
+H3: Räkna med att det känns svårt
+H2: Inför testet
+H3: Tips inför testet
+H3: Så läser du resultatet
+H3: Tester hos myndigheter
+H2: Guider per testtyp
+H3: Logiska tester
+H3: Matrislogik
+H3: Numeriska test
+H3: Verbala test
+H3: I-provet
+H3: Spatial förmåga
+H3: Talserier
+H3: Ordförståelse test
+H3: Personlighetstest
+H3: Deduktiva och induktiva test
+H3: Alva Labs logiktest
+H3: MAP från Assessio
+H2: Träna nu. Kom förberedd sen.
+H2: Vanliga frågor om rekryteringstester
+
+=== verktyg_skapa-cv.html
+TITLE: Skapa CV gratis: skriv direkt på arket, PDF eller Word
+DESC: Skapa CV gratis i en färdig mall: skriv direkt på arket eller ladda upp ett CV du har. Jobbcoachen föreslår punkter och du laddar ner som PDF eller Word.
+LD: WebApplication, Offer, HowTo, MonetaryAmount, HowToStep, FAQPage, Question, Answer
+H1: Skapa ditt CV gratis på minuter
+H2: Så fungerar det
+H3: Skriv vilket jobb du söker
+H3: Ladda upp ett CV eller skriv från början
+H3: Fyll i direkt på arket
+H3: Välj mall och ladda ner
+H2: Det här gör CV-byggandet enkelt
+H3: Mallar som rekryteringssystemen kan läsa
+H3: Arket är byggaren
+H3: Jobbcoachen skriver punkterna
+H3: Rubriker som följer yrket
+H3: Utkastet väntar på dig
+H3: Ladda ner som PDF, eller Word i 26 av mallarna
+H3: Börja från ett CV du redan har
+H3: Fungerar lika bra i mobilen
+H2: Mallar som passar din bransch
+H3: Linne
+H3: Björk
+H3: Koppar
+H2: Gör skillnad i varje ansökan
+H3: Ladda upp ditt gamla CV och börja där det slutade
+H3: Gratis att börja
+H3: Läsbart för systemen i alla mallar
+H2: Skapa ditt CV gratis på minuter.
+H2: Vanliga frågor om att skapa CV

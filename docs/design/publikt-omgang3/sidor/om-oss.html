@@ -1,0 +1,177 @@
+<!-- titel: Skiss om oss | rum: tran -->
+<style>
+  /* hjälten: från ett verktyg till fyra delar, i stället för en telefon */
+  .vaxt { display: grid; gap: 10px; width: 100%; max-width: 520px; margin: 0 auto; }
+  .vaxt .etk { display: inline-flex; align-items: center; gap: 8px; width: max-content; height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); font-size: 13px; font-weight: 700; color: var(--vagg-ink); }
+  .vaxt .etk.nu { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+  .vaxt .v { display: grid; grid-template-columns: 44px 1fr; gap: 0 12px; align-items: center; min-width: 0; padding: 14px 16px; border-radius: 20px; background: var(--vagg-2); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 7px 0 var(--vagg-3); }
+  .vaxt .v .dorr { grid-row: span 2; width: 44px; height: 44px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+  .vaxt .v b { font-family: var(--disp); font-weight: 800; font-size: 18px; letter-spacing: -0.015em; line-height: 1.2; }
+  .vaxt .v span:last-child { font-size: 13.5px; line-height: 1.3; color: var(--vagg-mjuk); }
+  .vaxt .v:nth-child(3) { width: 90%; }
+  .vaxt .v:nth-child(4) { width: 80%; }
+  .vaxt .v:nth-child(5) { width: 70%; }
+  @media (min-width: 1000px) { .vaxt { gap: 12px; margin-right: 0; } .vaxt .v { padding: 18px 20px; } .vaxt .v b { font-size: 21px; } .vaxt .v span:last-child { font-size: 14.5px; } }
+
+  /* historien: bilden i varje steg */
+  .vagsteg .bild { min-height: 132px; }
+  .vagsteg li { min-width: 0; align-content: start; }
+  .vagsteg small { grid-column: 2; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+  .vagsteg li.nu { border-color: var(--koppar); }
+  .mb { width: 92px; padding: 10px; border-radius: 6px; background: #fff; box-shadow: 0 5px 0 var(--kant-stark); transform: rotate(-3deg); }
+  .mb i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DCDAD5; }
+  .mb i:first-child { margin-top: 0; width: 46%; background: var(--vagg-svag); }
+  .mb i.m { background: var(--koppar-ljus); width: 72%; }
+  .par { display: flex; align-items: flex-end; gap: 10px; }
+  .par .mb:last-child { transform: rotate(3deg); }
+  .namn { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 15px; color: var(--ink-3); }
+  .namn s { text-decoration-thickness: 2px; }
+  .namn .logga { margin: 0; font-size: 17px; color: var(--ink-1); }
+  .namn .logga span { color: var(--ink-3); }
+  .namn svg { width: 18px; height: 18px; flex: none; color: var(--koppar-ink); }
+  .fyra { display: grid; grid-template-columns: repeat(4, 40px); gap: 8px; }
+  .fyra .dorr { width: 40px; height: 40px; }
+  @media (min-width: 1000px) { .vagsteg small { grid-column: 1; } }
+
+  /* löftena: ett kort och en bild var */
+  .loften { display: grid; gap: 14px; margin-top: 36px; }
+  .lofte { display: flex; flex-direction: column; min-width: 0; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 7px; border-radius: var(--r-kort); overflow: hidden; }
+  .lofte .text { padding: 22px; }
+  .lofte .text > * + * { margin-top: 10px; }
+  .lofte .text p { color: var(--ink-2); font-size: 15.5px; }
+  .lofte .bild { margin-top: auto; padding: 20px 22px 24px; background: var(--golv); border-top: 2px solid var(--kant); }
+  .flode { display: grid; gap: 8px; }
+  .flode span { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 6px 12px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 4px; font-size: 14px; font-weight: 600; }
+  .flode span i { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 13px; }
+  .flode span.aldrig { background: none; border: 2px dashed var(--kant-stark); color: var(--ink-2); }
+  .flode span.aldrig i { background: var(--ink-1); color: #fff; }
+  .flode span.aldrig svg { width: 14px; height: 14px; }
+  .kallor { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kallor span { display: inline-grid; place-items: center; min-height: 36px; padding: 4px 12px; border-radius: 10px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 4px; font-family: var(--disp); font-weight: 700; font-size: 14.5px; }
+  .kallor span:nth-child(odd) { transform: rotate(-1.5deg); }
+  .kallor span:nth-child(even) { transform: rotate(1.5deg); }
+  .tvapris { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tvapris div { min-width: 0; padding: 12px 14px; border-radius: 16px; }
+  .tvapris b { display: block; font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.03em; }
+  .tvapris span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.3; }
+  .tvapris .g { background: var(--positiv-mjuk); color: #1F5C41; border-bottom: 4px solid #B9DCC9; }
+  .tvapris .p { background: var(--premium); color: #C9C3D9; border-bottom: 4px solid #0B0910; }
+  .tvapris .p b { color: #fff; }
+  @media (min-width: 1000px) { .loften { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; } .lofte .text { padding: 28px; } .lofte .bild { padding: 24px 28px 28px; } }
+
+  /* slutet: talen och kontakten */
+  .slut { padding-bottom: 28px; }
+  .slut-rad { display: grid; gap: 32px; }
+  .tal2 { display: grid; gap: 12px; }
+  .tal2 div { padding: 18px 20px; border-radius: 22px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+  .tal2 b { display: block; font-family: var(--disp); font-weight: 800; font-size: 60px; line-height: .95; letter-spacing: -0.04em; }
+  .tal2 span { display: block; margin-top: 8px; font-size: 15.5px; line-height: 1.4; color: var(--vagg-mjuk); }
+  .slut .kontakt > * + * { margin-top: 14px; }
+  .slut .kontakt p:not(.ey) { color: var(--vagg-mjuk); font-size: 17px; }
+  .slut .knapprad { margin-top: 26px; }
+  @media (min-width: 620px) { .tal2 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .slut { padding-bottom: 64px; } .slut-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; } .tal2 b { font-size: 84px; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <!-- 1. Hjälten -->
+  <section class="vagg hjalte utan-lyft">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span>Om oss</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Om Jobbcoach.ai</p>
+          <h1 class="h1">Vi hjälper dig att nå dina karriärmål</h1>
+          <p class="varde">Vi har byggt jobbverktyg som förstår svensk arbetsmarknad. Ingen amerikansk import, ingen gissning. <b>Verktygen vi själva hade velat ha när vi sökte jobb.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Se våra verktyg <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#vart-team">Så började det</a>
+          </div>
+        </div>
+        <div class="vaxt" role="img" aria-label="Från ett verktyg 2023 till fyra delar i dag: personliga brev, CV, Jobbsöket och rekryteringstester">
+          <span class="etk nu">I dag: fyra delar i samma konto</span>
+          <div class="v" data-rum="tran"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><b>Rekryteringstester</b><span>Åtta testtyper i tre nivåer</span></div>
+          <div class="v" data-rum="jobb"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbsöket</b><span>Matchade jobb, sökta tjänster, Jobbcoachen</span></div>
+          <div class="v" data-rum="cv"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV</b><span>Analys, mallar och LinkedIn</span></div>
+          <div class="v" data-rum="brev"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personliga brev</b><span>Här började vi</span></div>
+          <span class="etk">2023: ett verktyg, cvbrev.se</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Historien som en väg -->
+  <section class="sekt" id="vart-team">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Vår historia</p>
+        <h2 class="h2">Från cvbrev.se till Jobbcoach.ai</h2>
+      </div>
+      <ol class="vagsteg">
+        <li data-rum="brev"><span class="nr">1</span><small>2023</small><h3 class="h3" style="grid-column:1/-1">Det började som cvbrev.se</h3>
+          <p style="grid-column:1/-1">En enkel idé: göra det lättare att skriva personliga brev som fungerar för svenska arbetsgivare. Användarna kom snabbare till sitt första utkast.</p>
+          <div class="bild" aria-hidden="true"><div class="mb"><i></i><i></i><i class="m"></i><i></i><i class="m" style="width:52%"></i><i style="width:80%"></i></div></div></li>
+        <li data-rum="cv"><span class="nr">2</span><small>Hösten 2024</small><h3 class="h3" style="grid-column:1/-1">Användarna ville ha mer</h3>
+          <p style="grid-column:1/-1">Det personliga brevet var bara ena halvan. Användarna bad om hjälp med CV, jobbsökning, intervjuförberedelse och lön. Problemet var större än vi först trott.</p>
+          <div class="bild" aria-hidden="true"><div class="par"><div class="mb"><i></i><i></i><i></i><i style="width:60%"></i></div><div class="mb"><i></i><i class="m"></i><i></i><i></i><i style="width:70%"></i><i></i></div></div></div></li>
+        <li data-rum="neutral"><span class="nr">3</span><small>Vintern 2024</small><h3 class="h3" style="grid-column:1/-1">cvbrev.se blev Jobbcoach.ai</h3>
+          <p style="grid-column:1/-1">Det nya namnet speglar det större uppdraget: en partner genom hela jobbsöket, från första utkastet till första anställningsdagen.</p>
+          <div class="bild" aria-hidden="true"><div class="namn"><s>cvbrev.se</s><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg><span class="logga"><i>J</i>Jobbcoach<span>.ai</span></span></div></div></li>
+        <li class="nu" data-rum="tran"><span class="nr nr-koppar">4</span><small>2025 och framåt, nu</small><h3 class="h3" style="grid-column:1/-1">En plattform med fler verktyg</h3>
+          <p style="grid-column:1/-1">Vi lanserar verktyg löpande, alla med svenska källor och svensk arbetsmarknad som utgångspunkt: rekryteringstester, jobbmatchning, LinkedIn-profilen och Jobbcoachen.</p>
+          <div class="bild" aria-hidden="true"><div class="fyra"><span class="dorr" data-rum="tran"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><span class="dorr" data-rum="cv"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><span class="dorr" data-rum="brev"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><span class="dorr" data-rum="jobb"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span></div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. Tre löften -->
+  <section class="sekt sekt-ton" data-rum="jobb">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Så arbetar vi</p>
+        <h2 class="h2">Tre saker vi lovar</h2>
+      </div>
+      <ol class="loften">
+        <li class="lofte">
+          <div class="text"><span class="nr">1</span><h3 class="h3">Du behåller kontrollen</h3>
+            <p>Vi loggar aldrig in på dina konton, varken LinkedIn, Arbetsförmedlingen eller någon annanstans. Du klistrar in det som behövs och kopierar tillbaka resultatet. Inget delat lösenord, ingen automatik bakom ryggen.</p></div>
+          <div class="bild" aria-hidden="true"><div class="flode"><span><i>1</i>Du klistrar in</span><span><i>2</i>Vi skriver</span><span><i>3</i>Du kopierar tillbaka och skickar</span><span class="aldrig"><i><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></i>Ditt lösenord stannar hos dig</span></div></div>
+        </li>
+        <li class="lofte">
+          <div class="text"><span class="nr">2</span><h3 class="h3">Svenska källor i botten</h3>
+            <p>Svaren bygger på Arbetsförmedlingen, SCB, fackförbunden, Försäkringskassan, CSN och Skatteverket. Vi gissar inte, vi hänvisar, med källor du kan kolla själv.</p></div>
+          <div class="bild" aria-hidden="true"><div class="kallor"><span>Arbetsförmedlingen</span><span>SCB</span><span>Fackförbunden</span><span>Försäkringskassan</span><span>CSN</span><span>Skatteverket</span></div></div>
+        </li>
+        <li class="lofte">
+          <div class="text"><span class="nr">3</span><h3 class="h3">Du betalar bara när du behöver mer</h3>
+            <p>Du provar det mesta utan kortuppgifter. Behöver du mer finns allt i Premium, en månad i taget, och du säger upp i ditt konto utan att uppge skäl.</p></div>
+          <div class="bild" aria-hidden="true"><div class="tvapris"><div class="g"><b>0 kr</b><span>Gratisnivån, inget kort</span></div><div class="p"><b>149 kr</b><span>Premium, i månaden</span></div></div></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4. Talen och kontakten -->
+  <section class="sekt">
+    <div class="bredd">
+      <div class="o slut" data-rum="tran">
+        <div class="slut-rad">
+          <div class="tal2" aria-label="Jobbcoach.ai i siffror">
+            <div><b>543+</b><span>har skapat konto för att söka jobb med svenska verktyg.</span></div>
+            <div><b>278+</b><span>personliga brev skrivna på riktiga annonser sedan starten.</span></div>
+          </div>
+          <div class="kontakt">
+            <p class="ey">Kontakt</p>
+            <h2 class="h2">Saknar du något, eller har du en fråga?</h2>
+            <p>Vi läser varje mejl och svarar inom ett par vardagar. Mycket av det som finns i verktygen i dag kom från användare som skrev till oss.</p>
+            <div class="knapprad"><a class="knapp" href="#">Skapa konto gratis</a><a class="lank" href="#">info@jobbcoach.ai</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

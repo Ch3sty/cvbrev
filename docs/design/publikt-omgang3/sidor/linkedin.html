@@ -1,0 +1,450 @@
+<!-- titel: Skiss LinkedIn-optimering | rum: cv -->
+<style>
+  /* profilen: så ser rubriken och Om mig ut där rekryteraren läser dem */
+  .prof { background: #fff; color: var(--ink-1); border-radius: 20px; border: 2px solid var(--kant); border-bottom-width: 6px; overflow: hidden; min-width: 0; }
+  .prof-ban { height: 56px; background: linear-gradient(115deg, var(--vagg-2), var(--ljus)); }
+  .prof-ban.gra { background: linear-gradient(115deg, #C9CCD1, #E4E6E9); }
+  .prof-kropp { padding: 0 18px 20px; }
+  .prof-bild { display: grid; place-items: center; width: 68px; height: 68px; margin-top: -34px; border-radius: 50%; background: var(--ton); border: 4px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 23px; color: var(--ton-ink); }
+  .prof-namn { margin-top: 8px; font-family: var(--disp); font-weight: 800; font-size: 21px; letter-spacing: -0.015em; }
+  .prof-rub { margin-top: 4px; font-size: 16px; line-height: 1.42; color: var(--ink-1); text-wrap: pretty; }
+  .prof-rub mark, .prof-om mark { background: var(--koppar-mjuk); color: inherit; border-radius: 4px; padding: 0 3px; }
+  .prof-ort { margin-top: 6px; font-size: 13px; color: var(--ink-3); }
+  .prof-om { margin-top: 16px; padding-top: 14px; border-top: 2px solid var(--papper-2); }
+  .prof-om b { display: block; font-family: var(--disp); font-size: 15px; }
+  .prof-om p { margin-top: 6px; font-size: 14.5px; line-height: 1.58; color: var(--ink-2); }
+  .prof-om .mer { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--ton-ink); }
+  @media (min-width: 900px) { .prof-kropp { padding: 0 26px 26px; } .prof-ban { height: 72px; } .prof-bild { width: 84px; height: 84px; margin-top: -42px; font-size: 28px; } .prof-namn { font-size: 25px; } .prof-rub { font-size: 18px; } .prof-om p { font-size: 15.5px; } }
+
+  /* hjälten: sökrutan, profilen och poängen */
+  .instr { position: relative; width: 100%; max-width: 540px; margin: 0 auto; padding: 66px 0 56px; }
+  .instr .prof { border-color: rgba(0, 0, 0, .06); border-bottom-width: 2px; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); transform: rotate(1.2deg); }
+  .instr .sok { left: 0; top: 0; width: min(330px, 88%); --rot: -2deg; transform: rotate(-2deg); padding: 12px 14px 14px; }
+  .sok small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .sokfalt { display: flex; align-items: center; gap: 10px; margin-top: 8px; height: 44px; padding: 0 14px; border-radius: 12px; background: var(--papper-2); border: 2px solid var(--kant-stark); font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; }
+  .sokfalt svg { width: 18px; height: 18px; flex: none; color: var(--ton-ink); }
+  .instr .poang { right: -4px; bottom: 0; --rot: 2deg; transform: rotate(2deg); display: flex; align-items: center; gap: 12px; }
+  .instr .poang .under { max-width: 12ch; line-height: 1.3; }
+  @media (min-width: 1000px) { .instr { margin-right: 0; padding: 84px 0 64px; } .instr .poang { right: -26px; } .instr .sok { left: -30px; } }
+
+  /* före och efter i stor skala */
+  .fe-topp { display: grid; gap: 20px; align-items: end; }
+  .fe-tal { display: flex; align-items: baseline; gap: 12px; font-family: var(--disp); font-weight: 800; letter-spacing: -0.04em; line-height: .95; }
+  .fe-tal s { font-size: 34px; color: var(--ink-3); text-decoration-thickness: 3px; }
+  .fe-tal svg { width: 28px; height: 28px; align-self: center; color: var(--ink-3); }
+  .fe-tal b { font-size: 72px; color: var(--vagg); }
+  .fe-tal + p { margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .fe { position: relative; display: grid; gap: 28px; margin-top: 28px; }
+  .fe-kol { min-width: 0; display: grid; gap: 14px; align-content: start; }
+  .fe-etk { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .fe-etk .chip { height: 32px; font-size: 14px; }
+  .fe-etk .chip.gra { background: var(--papper-2); color: var(--ink-2); }
+  .fe-etk .chip.kop { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+  .fe-kol.fore .prof { background: #FBFBFA; }
+  .fe-kol.fore .prof-rub, .fe-kol.fore .prof-om p { color: var(--ink-3); }
+  .fe-kol.efter .prof { border-color: var(--koppar); }
+  .tecken { padding: 14px 16px; border-radius: 16px; background: var(--golv); }
+  .tecken b { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+  .tecken b span { font-family: var(--disp); font-weight: 800; }
+  .tecken .stapel { margin-top: 8px; background: var(--papper); }
+  .tecken p { margin-top: 12px; font-size: 13.5px; color: var(--ink-2); }
+  .ordrad { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .ordrad span { display: inline-grid; place-items: center; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; font-weight: 600; }
+  .ordrad span.pa { background: var(--ton-ink); border-color: var(--ton-ink); color: #fff; }
+  .fe-pil { display: none; }
+  .fe-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 26px; padding-top: 22px; border-top: 2px solid var(--papper-2); }
+  .fe-fot .plus { display: flex; flex-wrap: wrap; gap: 8px; margin-right: auto; }
+  .fe-fot .plus span { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 10px; background: var(--positiv-mjuk); color: #1F5C41; font-size: 14px; font-weight: 600; }
+  @media (min-width: 900px) {
+    .fe-topp { grid-template-columns: 1fr auto; gap: 40px; }
+    .fe-tal b { font-size: 104px; } .fe-tal s { font-size: 46px; }
+    .fe { grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: 56px; align-items: start; margin-top: 40px; }
+    .fe-pil { position: absolute; z-index: 2; left: calc(41% - 4px); top: 150px; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 5px 0 var(--koppar-klack); transform: translateX(-50%); }
+    .fe-pil svg { width: 26px; height: 26px; }
+  }
+
+  /* stegen: fem, i två rader */
+  .steg5 { display: grid; gap: 14px; margin-top: 36px; }
+  .steg5 li { display: grid; gap: 10px; align-content: start; min-width: 0; padding: 20px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort); }
+  .steg5 li p { color: var(--ink-2); font-size: 15.5px; }
+  .steg5 .huvud { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; }
+  .steg5 .bild { display: grid; place-items: center; min-height: 132px; padding: 16px; border-radius: 16px; background: var(--golv); }
+  @media (min-width: 700px) { .steg5 { grid-template-columns: repeat(6, 1fr); gap: 18px; } .steg5 li { grid-column: span 3; padding: 24px; } }
+  @media (min-width: 1000px) { .steg5 li { grid-column: span 2; } .steg5 li:nth-child(n+4) { grid-column: span 3; grid-template-columns: 1fr 1fr; gap: 10px 24px; } .steg5 li:nth-child(n+4) .bild { grid-row: 1 / span 2; grid-column: 2; align-self: stretch; } .steg5 .bild { min-height: 150px; } }
+  /* stegens små bilder */
+  .b-kopiera { width: 100%; max-width: 230px; padding: 12px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant); }
+  .b-kopiera i { display: block; height: 7px; margin-top: 7px; border-radius: 4px; background: var(--kant); }
+  .b-kopiera i.v { background: var(--koppar-ljus); outline: 3px solid var(--koppar-mjuk); }
+  .b-kopiera i:first-child { margin-top: 0; }
+  .b-falt { display: grid; gap: 6px; width: 100%; max-width: 250px; }
+  .b-falt span { display: flex; align-items: center; justify-content: space-between; height: 30px; padding: 0 10px; border-radius: 9px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; font-weight: 600; }
+  .b-falt span em { font-style: normal; font-weight: 500; font-size: 12px; color: var(--ink-3); }
+  .b-falt span.kr { border-color: var(--ton-ink); }
+  .b-pass { display: grid; gap: 7px; width: 100%; max-width: 250px; }
+  .b-pass div { display: grid; grid-template-columns: 82px 1fr; gap: 8px; align-items: center; font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+  .b-pass .stapel { height: 9px; background: var(--papper); }
+  .b-jamfor { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 300px; }
+  .b-jamfor div { padding: 10px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant); font-size: 12px; font-weight: 700; color: var(--ink-3); }
+  .b-jamfor div + div { border-color: var(--koppar); color: var(--koppar-ink); }
+  .b-jamfor b { display: block; font-family: var(--disp); font-size: 26px; line-height: 1; color: var(--ink-1); margin-bottom: 6px; }
+  .b-jamfor i { display: block; height: 6px; margin-top: 5px; border-radius: 3px; background: var(--kant); }
+  .b-jamfor div + div i { background: var(--koppar-ljus); }
+  .b-tillbaka { display: grid; gap: 8px; justify-items: center; }
+  .b-tillbaka span { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; white-space: nowrap; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 13px; font-weight: 700; }
+  .b-tillbaka span svg { width: 18px; height: 18px; color: var(--positiv); }
+  .b-tillbaka small { font-size: 12.5px; color: var(--ink-3); }
+
+  /* fem sektioner i ett pass: profilen med fem nålar och en tråd */
+  .pass { display: grid; gap: 28px; margin-top: 36px; }
+  .passark { position: relative; align-self: start; margin-left: 22px; background: #fff; color: var(--ink-1); border-radius: 18px; box-shadow: 0 8px 0 var(--kant-stark); padding: 8px 18px 18px 30px; }
+  .passark::before { content: ''; position: absolute; left: -2px; top: 40px; bottom: 44px; border-left: 4px solid var(--koppar); }
+  .passark .del { position: relative; padding: 14px 0; border-bottom: 2px solid var(--papper-2); }
+  .passark .del:last-child { border-bottom: 0; padding-bottom: 0; }
+  .passark .pn { position: absolute; left: -52px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--koppar); color: var(--koppar-text); border: 3px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 17px; box-shadow: 0 3px 0 var(--koppar-klack); }
+  .passark small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .passark .t { margin-top: 5px; font-size: 14.5px; line-height: 1.45; font-weight: 600; }
+  .passark .l { display: block; height: 6px; margin-top: 7px; border-radius: 3px; background: #E3E6E6; }
+  .passark .l.m { width: 86%; } .passark .l.k { width: 58%; }
+  .passark .rad { display: flex; justify-content: space-between; gap: 8px; margin-top: 6px; font-size: 13.5px; font-weight: 700; }
+  .passark .rad span { font-weight: 500; color: var(--ink-3); white-space: nowrap; }
+  .passark .grupper { display: grid; gap: 6px; margin-top: 8px; }
+  .passark .grupper div { display: flex; flex-wrap: wrap; gap: 5px; }
+  .passark .grupper span { display: inline-grid; place-items: center; height: 26px; padding: 0 9px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-size: 12.5px; font-weight: 600; }
+  .passtid { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; height: 44px; padding: 0 16px 0 8px; border-radius: 999px; background: var(--papper); border: 2px solid var(--kant-stark); font-weight: 700; font-size: 15px; }
+  .passtid i { width: 26px; height: 26px; border-radius: 50%; border: 4px solid var(--kant-stark); border-top-color: var(--koppar); border-right-color: var(--koppar); }
+  .sektrader { display: grid; gap: 12px; align-content: start; }
+  .sektrad { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; padding: 16px 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+  .sektrad p { grid-column: 2; font-size: 14.5px; color: var(--ink-2); }
+  .sektrad .matt { grid-column: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; margin-top: 6px; font-family: var(--disp); font-weight: 800; font-size: 15px; }
+  .sektrad .matt s { color: var(--ink-3); }
+  .sektrad .matt .stapel { position: relative; height: 10px; }
+  .sektrad .matt .stapel u { position: absolute; z-index: 1; inset: 0 auto 0 0; border-radius: 999px; background: var(--koppar-ink); }
+  .sektrad .matt .stapel i { background: var(--koppar-ljus); }
+  @media (min-width: 1000px) { .pass { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; margin-top: 52px; } .passark { margin-left: 26px; padding: 12px 28px 26px 40px; position: sticky; top: 100px; } .passark .pn { left: -64px; width: 46px; height: 46px; font-size: 19px; } .passark .t { font-size: 16px; } }
+
+  /* varför du inte syns: tre skäl, tre bilder */
+  .varfor { padding-bottom: 28px; }
+  .varfor .kort { border-color: transparent; border-bottom-color: rgba(0, 0, 0, .25); display: grid; gap: 10px; align-content: start; }
+  .varfor .kort > * + * { margin-top: 0; }
+  .vbild { display: grid; align-content: center; gap: 7px; min-height: 148px; padding: 14px; border-radius: 16px; background: var(--golv); }
+  .vbild .sokfalt { margin-top: 0; height: 38px; font-size: 13.5px; background: var(--papper); }
+  .vtraff { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 9px; background: var(--papper); font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; }
+  .vtraff::before { content: ''; width: 22px; height: 22px; border-radius: 50%; background: var(--ton-ink); }
+  .vtraff.ej { background: none; border: 2px dashed var(--kant-stark); color: var(--ink-3); }
+  .vtraff.ej::before { background: var(--kant-stark); }
+  .vbild .mellan { text-align: center; font-size: 12px; color: var(--ink-3); line-height: 1; }
+  .vbild .tk { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; line-height: 1.3; font-weight: 700; }
+  .vbild .tk span { flex: none; white-space: nowrap; font-weight: 500; color: var(--ink-3); }
+  .vbild .stapel { height: 14px; background: var(--papper); }
+  .fem { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .fem span { display: grid; place-items: center; aspect-ratio: 1; max-height: 54px; border-radius: 12px; background: var(--papper); border: 2px dashed var(--kant-stark); font-family: var(--disp); font-weight: 800; font-size: 15px; color: var(--ink-3); }
+  .fem span.pa { background: var(--ton-ink); border: 0; color: #fff; }
+  .fem + small { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  @media (min-width: 1000px) { .varfor { padding-bottom: 64px; } .vbild { min-height: 214px; } }
+
+  /* bred eller skarp: två val */
+  .val2 { display: grid; gap: 16px; margin-top: 36px; }
+  .valkort { position: relative; display: grid; gap: 12px; align-content: start; min-width: 0; padding: 22px; background: var(--papper); border: 3px solid var(--kant-stark); border-bottom-width: 8px; border-radius: 26px; }
+  .valkort.vald { border-color: var(--koppar); }
+  .valkort .topp { display: flex; align-items: center; gap: 12px; }
+  .valkort .ring { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--kant-stark); background: #fff; }
+  .valkort.vald .ring { border-color: var(--koppar); background: radial-gradient(circle, var(--koppar) 0 46%, #fff 50%); }
+  .valkort .topp .chip { margin-left: auto; }
+  .valkort p { color: var(--ink-2); font-size: 15.5px; }
+  .valbild { display: grid; gap: 10px; padding: 16px; border-radius: 18px; background: var(--golv); }
+  .valbild small { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .valbild .rub { padding: 12px 14px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant); font-size: 14.5px; line-height: 1.4; font-weight: 600; }
+  .valbild .malroll { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; min-height: 44px; padding: 8px 14px; border-radius: 12px; background: var(--papper); border: 2px solid var(--ton-ink); font-weight: 600; font-size: 15px; }
+  .valbild .malroll em { font-style: normal; font-weight: 500; font-size: 13px; color: var(--ink-3); }
+  @media (min-width: 900px) { .val2 { grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 52px; } .valkort { padding: 32px; } .valbild { padding: 20px; } }
+
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; } }
+  .mer3 { display: grid; gap: 12px; margin-top: 18px; }
+  @media (min-width: 800px) { .mer3 { grid-template-columns: repeat(3, 1fr); } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>LinkedIn-optimering</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <h1 class="h1"><span class="over">LinkedIn-optimering, syns när rekryteraren söker</span> Hamna i rekryterarnas sökresultat på LinkedIn</h1>
+          <p class="varde">Du klistrar in din profiltext, vi skriver om fem sektioner samtidigt och ger dig en bättre version att klistra tillbaka. <b>Vi loggar aldrig in på din LinkedIn, du behåller full kontroll.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Optimera min profil <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så fungerar det</a>
+          </div>
+          <p class="liten">Ingår i Jobbcoach Premium, 149 kr i månaden. Exemplet här nedanför ser du utan konto.</p>
+          <div class="brickor">
+            <div class="bricka"><b>0</b><span>inloggningar på din LinkedIn</span></div>
+            <div class="bricka"><b>5</b><span>sektioner samtidigt</span></div>
+            <div class="bricka"><b>5 min</b><span>tills profilen är uppdaterad</span></div>
+          </div>
+        </div>
+        <div class="instr" aria-label="Exempel: Sara Lindströms profil efter omskrivningen, med orden en rekryterare söker på utmärkta">
+          <div class="svav sok gungar"><small>Rekryteraren söker</small><div class="sokfalt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4.500 4.500"/></svg>projektledare LOU Göteborg</div></div>
+          <div class="prof">
+            <div class="prof-ban"></div>
+            <div class="prof-kropp">
+              <div class="prof-bild">SL</div>
+              <div class="prof-namn">Sara Lindström</div>
+              <p class="prof-rub"><mark>Projektledare</mark> inom energi och bygg | Offentlig upphandling enligt <mark>LOU</mark>, budgetansvar, tidplan | Leder ombyggnader från förfrågan till överlämning</p>
+              <p class="prof-ort"><mark style="background:var(--koppar-mjuk);border-radius:4px;padding:0 3px">Göteborg</mark>, Västra Götalands län</p>
+              <div class="prof-om" style="padding-bottom:26px"><b>Om</b><p>Jag leder ombyggnader och energiprojekt åt offentliga beställare.</p></div>
+            </div>
+          </div>
+          <div class="svav poang gungar sen"><div class="stor">87</div><div class="under">i profilpoäng efter, 32 före</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Före och efter i stor skala. Rubriken här är ett stycke, inte en H2: sidan har ingen rubrik på exemplet i dag. -->
+  <section class="bredd" id="exempel">
+    <div class="lyft">
+      <div class="fe-topp">
+        <div>
+          <p class="ey">Exempel, Sara Lindström</p>
+          <p class="h2" style="margin-top:10px">Rubriken och Om mig, före och efter</p>
+          <p class="varde" style="margin-top:12px">Så ser de två första raderna ut på en profil, där rekryteraren läser dem. Erfarenhet, utbildning och kompetenser skrivs om i samma pass.</p>
+        </div>
+        <div>
+          <div class="fe-tal" role="img" aria-label="Profilpoäng för rubriken: 32 före, 87 efter"><s>32</s><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg><b>87</b></div>
+          <p>profilpoäng för rubriken, av 100</p>
+        </div>
+      </div>
+
+      <div class="fe">
+        <span class="fe-pil" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="fe-kol fore">
+          <div class="fe-etk"><span class="chip gra">I dag</span><span class="liten">Det Sara klistrar in</span></div>
+          <div class="prof">
+            <div class="prof-ban gra"></div>
+            <div class="prof-kropp">
+              <div class="prof-bild" style="background:#ECEDEF;color:#65656E">SL</div>
+              <div class="prof-namn">Sara Lindström</div>
+              <p class="prof-rub">Projektledare på Nordanvind Energi</p>
+              <p class="prof-ort">Göteborg, Västra Götalands län</p>
+              <div class="prof-om"><b>Om</b><p>Jag är en driven och engagerad projektledare som trivs med många bollar i luften och tycker om att arbeta med människor.</p></div>
+            </div>
+          </div>
+          <div class="tecken">
+            <b>Rubrikens längd <span>34 av 220 tecken</span></b>
+            <div class="stapel"><i style="width:15.5%;background:var(--kant-stark)"></i></div>
+            <p>Ord en rekryterare kan söka på:</p>
+            <div class="ordrad"><span class="pa">projektledare</span></div>
+          </div>
+        </div>
+        <div class="fe-kol efter">
+          <div class="fe-etk"><span class="chip kop">Efter</span><span class="liten">Det Sara får tillbaka</span></div>
+          <div class="prof">
+            <div class="prof-ban"></div>
+            <div class="prof-kropp">
+              <div class="prof-bild">SL</div>
+              <div class="prof-namn">Sara Lindström</div>
+              <p class="prof-rub"><mark>Projektledare</mark> inom <mark>energi</mark> och <mark>bygg</mark> | <mark>Offentlig upphandling</mark> enligt <mark>LOU</mark>, <mark>budgetansvar</mark>, tidplan | Leder ombyggnader från förfrågan till överlämning</p>
+              <p class="prof-ort">Göteborg, Västra Götalands län</p>
+              <div class="prof-om"><b>Om</b>
+                <p>Jag leder ombyggnads- och energiprojekt åt offentliga beställare, från förfrågningsunderlag till överlämning. De senaste tre åren har jag drivit fyra upphandlingar enligt LOU och hållit ihop tidplan, budget och underentreprenörer i projekt på upp till 42 miljoner kronor.</p>
+                <p>Jag började som biträdande projektledare inom logistik och tog med mig vanan att räkna på flöden. I dag är det den som gör att mina projekt blir klara före plan.</p>
+                <span class="mer">Fortsätter: vart Sara är på väg. 280 ord.</span>
+              </div>
+            </div>
+          </div>
+          <div class="tecken">
+            <b>Rubrikens längd <span>144 av 220 tecken</span></b>
+            <div class="stapel koppar"><i style="width:65.5%"></i></div>
+            <p>Ord en rekryterare kan söka på:</p>
+            <div class="ordrad"><span class="pa">projektledare</span><span class="pa">energi</span><span class="pa">bygg</span><span class="pa">offentlig upphandling</span><span class="pa">LOU</span><span class="pa">budgetansvar</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fe-fot">
+        <div class="plus"><span>+ Branschens sökord</span><span>+ Tydlig specialisering</span><span>+ Resultat i siffror</span></div>
+        <span class="chip chip-premium">Ingår i Premium</span>
+        <a class="knapp knapp-vit knapp-liten" href="#">Kopiera alla sektioner</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" id="sa-funkar-det">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Fem steg, fem minuter</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Inga inloggningar på LinkedIn och ingen automatisk publicering. Du kopierar in, vi optimerar, du kopierar tillbaka. Klart på fem minuter.</p>
+      </div>
+      <ol class="steg5">
+        <li><div class="huvud"><span class="nr">1</span><h3 class="h3">Hämta din profiltext från LinkedIn</h3></div>
+          <div class="bild" aria-hidden="true"><div class="b-kopiera"><i class="v" style="width:70%"></i><i class="v"></i><i class="v" style="width:88%"></i><i style="width:60%"></i><i style="width:82%"></i></div></div>
+          <p>Kopiera din nuvarande rubrik, om mig-text och erfarenhet från LinkedIn. Har du sparat ett CV hos oss fyller vi i fälten åt dig i stället.</p></li>
+        <li><div class="huvud"><span class="nr">2</span><h3 class="h3">Klistra in i fem fält</h3></div>
+          <div class="bild" aria-hidden="true"><div class="b-falt"><span>Rubrik <em>valfritt</em></span><span class="kr">Om mig</span><span class="kr">Erfarenhet</span><span>Utbildning <em>valfritt</em></span><span>Kompetenser <em>valfritt</em></span></div></div>
+          <p>Klistra in texten i fälten Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser, eller välj ditt sparade CV som källa. Om mig och Erfarenhet behövs, resten är valfritt.</p></li>
+        <li><div class="huvud"><span class="nr">3</span><h3 class="h3">Vi optimerar fem sektioner samtidigt</h3></div>
+          <div class="bild" aria-hidden="true"><div class="b-pass"><div>Rubrik<span class="stapel koppar"><i style="width:100%"></i></span></div><div>Om mig<span class="stapel koppar"><i style="width:82%"></i></span></div><div>Erfarenhet<span class="stapel koppar"><i style="width:64%"></i></span></div><div>Utbildning<span class="stapel koppar"><i style="width:90%"></i></span></div><div>Kompetenser<span class="stapel koppar"><i style="width:74%"></i></span></div></div></div>
+          <p>Vi bearbetar alla fem sektioner parallellt med svensk arbetsmarknad som ram, branschens sökord och anpassning för rekryteringssystem. Det tar 30 till 60 sekunder.</p></li>
+        <li><div class="huvud"><span class="nr">4</span><h3 class="h3">Jämför före och efter</h3></div>
+          <div class="bild" aria-hidden="true"><div class="b-jamfor"><div><b>32</b>Före<i></i><i style="width:60%"></i></div><div><b>87</b>Efter<i></i><i></i><i style="width:70%"></i></div></div></div>
+          <p>Din nuvarande text står bredvid den optimerade. För varje sektion ser du poängen före och efter och exakt vad som ändrats. Inget händer som du inte godkänt.</p></li>
+        <li><div class="huvud"><span class="nr nr-koppar">5</span><h3 class="h3">Kopiera tillbaka till LinkedIn</h3></div>
+          <div class="bild" aria-hidden="true"><div class="b-tillbaka"><span><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg>Alla sektioner kopierade</span><small>Du klistrar in och sparar själv</small></div></div>
+          <p>En knapp kopierar alla sektioner eller en i taget. Du klistrar in på LinkedIn själv och sparar. Vi rör aldrig din profil.</p></li>
+      </ol>
+      <div class="knapprad" style="margin-top:32px"><a class="knapp knapp-vit" href="#">Optimera min profil</a></div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Vad vi optimerar</p>
+        <h2 class="h2">Fem sektioner i ett pass</h2>
+        <p class="varde">Vi optimerar alla fem sektioner samtidigt, med samma röda tråd genom hela profilen. För varje sektion ser du poängen före och efter, så du vet exakt vad som blev bättre.</p>
+        <span class="passtid"><i></i>Ett pass, 30 till 60 sekunder</span>
+      </div>
+      <div class="pass">
+        <div class="passark" role="img" aria-label="Saras profil med de fem sektionerna utmärkta: rubrik, om mig, erfarenhet, utbildning och kompetenser, sammanbundna av en tråd">
+          <div class="del"><span class="pn">1</span><small>Rubrik</small><p class="t">Projektledare inom energi och bygg | Offentlig upphandling enligt LOU, budgetansvar, tidplan</p></div>
+          <div class="del"><span class="pn">2</span><small>Om mig</small><p class="t">Jag leder ombyggnads- och energiprojekt åt offentliga beställare.</p><i class="l"></i><i class="l m"></i><i class="l k"></i></div>
+          <div class="del"><span class="pn">3</span><small>Erfarenhet</small>
+            <div class="rad">Projektledare, Nordanvind Energi <span>2021 – nu</span></div><i class="l m"></i><i class="l"></i>
+            <div class="rad">Biträdande projektledare, Halda Logistik <span>2018 – 2021</span></div><i class="l k"></i></div>
+          <div class="del"><span class="pn">4</span><small>Utbildning</small><div class="rad">Civilingenjör, industriell ekonomi <span>2013 – 2018</span></div></div>
+          <div class="del"><span class="pn">5</span><small>Kompetenser</small>
+            <div class="grupper"><div><span>Projektledning</span><span>Tidplan</span><span>Budgetansvar</span></div><div><span>LOU</span><span>Förfrågningsunderlag</span><span>AMA</span></div><div><span>Entreprenadjuridik</span><span>AB 04</span></div></div></div>
+        </div>
+        <div class="sektrader">
+          <div class="sektrad"><span class="nr nr-koppar">1</span><h3 class="h3">Rubrik, högst 220 tecken</h3><p>Vi bygger en rubrik med yrkesroll, specialområden och målgrupp. Är fältet tomt skriver vi en från grunden utifrån din erfarenhet.</p><div class="matt" role="img" aria-label="Exempel: 32 före, 87 efter"><s>32</s><span class="stapel"><u style="width:32%"></u><i style="width:87%"></i></span><span>87</span></div></div>
+          <div class="sektrad"><span class="nr nr-koppar">2</span><h3 class="h3">Om mig, 250 till 350 ord</h3><p>Visar den röda tråden i din karriär: varifrån du kommer, vad du gör nu och vart du är på väg. Tonen anpassas efter om du är junior, erfaren eller senior.</p><div class="matt" role="img" aria-label="Exempel: 41 före, 89 efter"><s>41</s><span class="stapel"><u style="width:41%"></u><i style="width:89%"></i></span><span>89</span></div></div>
+          <div class="sektrad"><span class="nr nr-koppar">3</span><h3 class="h3">Erfarenhet i STAR-format</h3><p>Skriver om varje roll som situation, uppgift, handling och resultat. Vi börjar med handlingsverb och sätter siffror där det går. Ingenting hittas på.</p><div class="matt" role="img" aria-label="Exempel: 38 före, 84 efter"><s>38</s><span class="stapel"><u style="width:38%"></u><i style="width:84%"></i></span><span>84</span></div></div>
+          <div class="sektrad"><span class="nr nr-koppar">4</span><h3 class="h3">Utbildning, valfritt</h3><p>Ger den som är junior en utbyggd version med examensarbete och relevanta kurser. Den som är senior får en kort lista som inte tar fokus från yrkeserfarenheten.</p><div class="matt" role="img" aria-label="Exempel: 55 före, 80 efter"><s>55</s><span class="stapel"><u style="width:55%"></u><i style="width:80%"></i></span><span>80</span></div></div>
+          <div class="sektrad"><span class="nr nr-koppar">5</span><h3 class="h3">Kompetenser i 3 till 4 grupper</h3><p>Samlar dina kompetenser i tematiska grupper och lyfter dem som matchar målrollen. Tomma modeord som "lagspelare" rensas bort.</p><div class="matt" role="img" aria-label="Exempel: 46 före, 88 efter"><s>46</s><span class="stapel"><u style="width:46%"></u><i style="width:88%"></i></span><span>88</span></div></div>
+          <p class="liten">Poängen är Saras, som exempel: mörkt före, ljust efter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="o varfor">
+        <div class="sekt-huvud">
+          <p class="ey">Bakgrunden</p>
+          <h2 class="h2">Varför du inte syns i dag</h2>
+          <p class="varde">Du är inte osynlig. <b>Din profil talar bara inte samma språk som rekryterarens sökruta.</b></p>
+        </div>
+        <div class="rutnat r3">
+          <div class="kort">
+            <div class="vbild" aria-hidden="true"><div class="sokfalt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4.500 4.500"/></svg>projektledare LOU</div><div class="vtraff">Projektledare bygg | LOU, budget</div><div class="vtraff">Projektledare | Upphandling enligt LOU</div><div class="mellan">⋮</div><div class="vtraff ej">Projektledare på Nordanvind Energi</div></div>
+            <h3 class="h3">Rekryterare söker på sökord</h3>
+            <p>Rekryterare hittar inte kandidater genom att bläddra bland miljontals profiler. De söker. Saknar profilen de branschord rekryteraren skriver i sökrutan dyker du aldrig upp i resultatet.</p>
+          </div>
+          <div class="kort">
+            <div class="vbild" aria-hidden="true"><div class="tk">"Marknadsförare" <span>14 av 220</span></div><div class="stapel"><i style="width:6.400%;background:var(--kant-stark)"></i></div><div class="tk" style="margin-top:10px">Yrkesroll, specialområden, målgrupp <span>144 av 220</span></div><div class="stapel koppar"><i style="width:64%"></i></div></div>
+            <h3 class="h3">Rubriken avgör om du visas</h3>
+            <p>Du har 220 tecken till rubriken på LinkedIn. De flesta använder färre än 30. En rubrik som bara säger "Marknadsförare" rankar lågt mot mer specifika sökningar som "B2B-marknadsförare SaaS Stockholm".</p>
+          </div>
+          <div class="kort">
+            <div class="vbild" aria-hidden="true"><div class="fem"><span class="pa">1</span><span class="pa">2</span><span>3</span><span>4</span><span>5</span></div><small>Två av fem sektioner ifyllda</small></div>
+            <h3 class="h3">Algoritmen belönar fullständighet</h3>
+            <p>LinkedIns algoritm prioriterar profiler som är kompletta: rubrik, om mig, erfarenhet, utbildning och kompetenser. En halvfärdig profil hamnar längre ner i sökresultatet, oavsett hur duktig du är.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Två lägen</p>
+        <h2 class="h2">Bred eller skarp inriktning</h2>
+        <p class="varde">Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst om du byter strategi.</p>
+      </div>
+      <div class="val2">
+        <div class="valkort vald">
+          <div class="topp"><span class="ring"></span><h3 class="h3">Stå ut i mängden</h3><span class="chip">Bred</span></div>
+          <div class="valbild" aria-hidden="true">
+            <small>Rubriken blir</small>
+            <div class="rub">Projektledare inom energi, bygg och infrastruktur | Upphandling, budget, tidplan</div>
+            <small>Syns i sökningar på</small>
+            <div class="ordrad" style="margin-top:0"><span class="pa">projektledare</span><span class="pa">byggprojektledare</span><span class="pa">uppdragsledare</span><span class="pa">projektchef</span></div>
+          </div>
+          <p>Välj det när du är öppen för flera typer av roller i din bransch. Vi bygger en bred profil som syns i många olika rekryterarsökningar. Ingen enskild roll låser profilen, men sökorden håller dig synlig för flera arbetsgivare och nischer.</p>
+        </div>
+        <div class="valkort">
+          <div class="topp"><span class="ring"></span><h3 class="h3">Sikta på en specifik roll</h3><span class="chip">Skarp</span></div>
+          <div class="valbild" aria-hidden="true">
+            <small>Du skriver in målrollen</small>
+            <div class="malroll">Projektchef, energi <em>används för sökord och ton</em></div>
+            <small>Rubriken blir</small>
+            <div class="rub">Projektchef energi | Offentlig upphandling enligt LOU | Leder ombyggnader upp till 42 miljoner</div>
+            <div class="ordrad" style="margin-top:0"><span class="pa">projektchef energi</span><span>projektledare</span><span>uppdragsledare</span></div>
+          </div>
+          <p>Välj det när du vet exakt vilken titel du går efter. Du skriver in målrollen, till exempel "Senior backendutvecklare" eller "Marknadschef B2B SaaS", och vi anpassar rubrik, om mig och erfarenhet till det språk rekryterare använder för just den tjänsten och dess senioritet. Du kan göra om optimeringen mot en annan roll senare.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium, 149 kr i månaden</p>
+            <h2 class="h2" style="margin-top:12px">Sluta vara osynlig. Börja synas i dag.</h2>
+            <p style="margin-top:14px;font-size:17px;max-width:54ch">LinkedIn-optimeringen ingår i Jobbcoach Premium, tillsammans med alla CV-mallar, CV-analysens alla förslag, personliga brev utan tak och rekryteringstesterna. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.</p>
+            <div class="knapprad" style="margin-top:26px">
+              <a class="knapp" href="#">Optimera min profil</a>
+              <a class="lank" href="#" style="color:#fff">Se hur det fungerar</a>
+            </div>
+          </div>
+          <div>
+            <div class="pris">149 kr<small>i månaden, säg upp när du vill</small></div>
+            <ul class="bockar" style="margin-top:22px">
+              <li>LinkedIn-profilen omskriven, i båda lägena och så ofta du vill</li>
+              <li>40 CV-mallar och CV-analysens alla förslag</li>
+              <li>Rekryteringstester, personliga brev och jobbmatchning</li>
+            </ul>
+            <p class="liten" style="margin-top:18px">Utan Premium ser du exemplet här på sidan och kan skapa ett konto, men inte köra optimeringen på din egen profil.</p>
+          </div>
+        </div>
+      </div>
+      <p class="ey" style="margin-top:40px;color:var(--ton-ink)">Mer för ditt CV</p>
+      <div class="mer3">
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV-analys</b><span>Läsbarhetspoäng i sju delar, gratis för varje CV</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>Skapa CV</b><span>Skriv direkt på arket</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV-mallar</b><span>40 mallar, Linne och Björk gratis</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Vanliga frågor om LinkedIn-optimering</h2>
+        <p class="varde">Hittar du inte svaret? Mejla support@jobbcoach.ai.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Varför syns jag inte på LinkedIn idag?</summary><p>Rekryterare hittar kandidater genom att söka på sökord i LinkedIns sökmotor. Om din rubrik bara säger "Marknadsförare" och din om-mig-text är generisk, så matchar du inte det rekryterare faktiskt söker på, till exempel "B2B SaaS marknadsförare i Stockholm". Det handlar inte om att du är osynlig, utan om att profilen inte är skriven för det sökspråk rekryterare använder.</p></details>
+        <details><summary>Hur skriver man en bra LinkedIn-rubrik?</summary><p>En bra rubrik utnyttjar de 220 tecken du har och innehåller tre delar: din yrkesroll, dina specialområden och vem du jobbar med. Till exempel "Senior frontend-utvecklare | React, TypeScript, designsystem | Bygger produkt för B2B SaaS-bolag" i stället för bara "Frontend-utvecklare". Vi skapar förslag utifrån din erfarenhet och målroll, så du slipper stirra på en tom ruta.</p></details>
+        <details><summary>Vilka nyckelord letar rekryteringssystemen (ATS) efter på LinkedIn?</summary><p>ATS är förkortningen för Applicant Tracking System, alltså de rekryteringssystem och sökverktyg rekryterare använder för att hitta kandidater. På LinkedIn handlar det om att rätt branschord ska finnas på rätt plats: i rubriken, i om-mig-texten och under erfarenhet. Vi hittar de sökord som matchar din erfarenhet och väver in dem i texten så att den fortfarande låter som du.</p></details>
+        <details><summary>Loggar ni in på min LinkedIn?</summary><p>Nej. Vi rör aldrig din LinkedIn-profil och har inget delat lösenord. Du kopierar din egen profiltext från LinkedIn, klistrar in i vårt verktyg, vi optimerar texten och visar resultatet. Sedan kopierar du tillbaka den nya texten till LinkedIn själv. Du behåller full kontroll och vi får aldrig tillgång till ditt konto.</p></details>
+        <details><summary>Hur lång tid tar optimeringen?</summary><p>Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom fälten då är ifyllda från början.</p></details>
+        <details><summary>Behöver jag ladda upp mitt CV?</summary><p>Nej, men det går snabbare om du har ett sparat CV. Då fyller vi i din erfarenhet, utbildning och kompetenser från ditt CV. Annars kopierar du bara texten från din nuvarande LinkedIn-profil och klistrar in i fem fält: Rubrik, Om mig, Erfarenhet, Utbildning och Kompetenser.</p></details>
+        <details><summary>Vad är skillnaden mellan "Stå ut i mängden" och "Sikta på en specifik roll"?</summary><p>Stå ut bygger en bred profil som fungerar mot flera arbetsgivare och rekryterare i din bransch, bra om du är öppen för olika typer av roller. Sikta på en specifik roll lyfter fram exakt de sökord och formuleringar som krävs för en given titel, till exempel Senior backendutvecklare eller Marknadschef B2B. Du väljer läge i steg ett och kan göra om optimeringen i det andra läget när som helst.</p></details>
+        <details><summary>Vad kostar LinkedIn-optimeringen?</summary><p>LinkedIn-optimeringen ingår i Jobbcoach Premium, 149 kr i månaden, tillsammans med alla CV-mallar, CV-analysens alla förslag, personliga brev utan tak och rekryteringstesterna. Du säger upp när du vill. Utan prenumeration kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Optimera min profil <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

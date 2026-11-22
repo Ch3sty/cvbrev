@@ -1,0 +1,46 @@
+<style>
+  /* Matchade jobb som den ritas om för telefonskärmen SkarmMatchning (post 3.2):
+     rubriken Matchade jobb, en vald träff med matchgrad, sista ansökningsdag,
+     skälen i ord och de tre handlingarna med text, och listan under. */
+  .mj-ring { --p: 72; flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(closest-side, var(--papper) 74%, transparent 76%), conic-gradient(var(--ton-ink) calc(var(--p) * 1%), var(--ton) 0); font-family: var(--disp); font-weight: 800; font-size: 17px; line-height: 1; color: var(--ink-1); }
+  .mj-ring.liten { width: 44px; height: 44px; font-size: 14.5px; }
+  .mj { width: 100%; max-width: 480px; margin: 0 auto; }
+  .mj-topp { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-bottom: 12px; color: var(--vagg-ink); }
+  .mj-topp b { font-family: var(--disp); font-weight: 800; font-size: 20px; margin-right: auto; }
+  .mj-topp span { font-size: 13.5px; color: var(--vagg-mjuk); }
+  .mj-topp u { color: var(--vagg-ink); font-weight: 600; text-underline-offset: 3px; }
+  .mj .traff { padding: 18px; }
+  .mj-huvud { display: grid; grid-template-columns: 54px 1fr; gap: 14px; align-items: center; }
+  .mj-huvud b { display: block; font-family: var(--disp); font-size: 19px; line-height: 1.2; }
+  .mj-huvud small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+  .mj-sista { display: inline-flex; align-items: center; min-height: 30px; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 13.5px; font-weight: 700; }
+  .mj-darfor { margin-top: 14px; padding: 14px; border-radius: 16px; background: var(--golv); }
+  .mj-darfor > b { display: block; font-size: 12.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ton-ink); }
+  .mj-darfor li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; margin-top: 10px; font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+  .mj-darfor li::before { content: ''; width: 24px; height: 24px; border-radius: 50%; background: var(--positiv) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.500 12.500l3.800 3.800 7.400-8.300'/%3E%3C/svg%3E") center/15px no-repeat; }
+  .mj-darfor li small { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+  .mj-darfor .mj-komp { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .mj-darfor .mj-komp i { font-style: normal; display: inline-grid; place-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; font-weight: 600; }
+  .mj-rad { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; padding: 12px 14px; margin: 10px 4% 0; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 rgba(0, 0, 0, .2); opacity: .96; }
+  .mj-rad b { display: block; font-family: var(--disp); font-size: 15.5px; line-height: 1.2; }
+  .mj-rad small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+  .mj-rad + .mj-rad { margin-left: 8%; margin-right: 8%; opacity: .88; }
+</style>
+<div class="mj" aria-label="Exempel: Matchade jobb med en vald träff">
+  <div class="mj-topp"><b>Matchade jobb</b><span>Senast sökt för 2 timmar sedan. <u>Sök igen</u></span></div>
+  <div class="traff">
+    <div class="mj-huvud"><span class="mj-ring" style="--p:91" role="img" aria-label="91 procent matchgrad mot ditt CV">91</span><div><b>Projektledare, bygg</b><small>Sweco, Göteborg</small></div></div>
+    <span class="mj-sista">Sista ansökningsdag 28 nov, 6 dagar kvar</span>
+    <div class="mj-darfor">
+      <b>Därför passar du</b>
+      <ul>
+        <li><div>1 av dina 3 roller<small>Projektledare stämmer med en roll i ditt CV.</small></div></li>
+        <li><div>Fyra av dina kompetenser nämns i annonsen<span class="mj-komp"><i>projektledning</i><i>LOU</i><i>budgetansvar</i><i>AMA</i></span></div></li>
+        <li><div>Göteborg<small>En av orterna du har valt.</small></div></li>
+      </ul>
+    </div>
+    <div class="gor"><span>Skriv brev</span><span>Spara till Ska sökas</span><span>Markera som sökt</span></div>
+  </div>
+  <div class="mj-rad"><span class="mj-ring liten" style="--p:86">86</span><div><b>Uppdragsledare, infrastruktur</b><small>Trafikverket, Mölndal · sista dag 3 dec</small></div></div>
+  <div class="mj-rad"><span class="mj-ring liten" style="--p:82">82</span><div><b>Byggprojektledare</b><small>Nordhaga Bygg, Kungälv · sista dag 11 dec</small></div></div>
+</div>

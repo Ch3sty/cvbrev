@@ -1,0 +1,273 @@
+<!-- titel: Skiss menyn | rum: tran -->
+<style>
+  /* skissens egna etiketter, inte en del av produkten */
+  .skissrad { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 28px 0 14px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .skissrad::before { content: 'Skiss'; padding: 3px 9px; border-radius: 7px; background: var(--ink-1); color: #fff; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .skissrad.pa-vagg { color: var(--vagg-mjuk); }
+
+  /* ---------- datorn: menyn öppen över hjälten ---------- */
+  .dator { display: none; }
+  @media (min-width: 1000px) { .dator { display: block; } }
+  .dator .nav { position: relative; }
+  .dator .nav-val button svg { transform: rotate(180deg); }
+  .scen { position: relative; }
+  .scen .skym { position: absolute; inset: 0; z-index: 3; background: rgba(12, 15, 40, .58); }
+  .scen .mega-plats { position: absolute; z-index: 5; left: 0; right: 0; top: 0; }
+
+  /* megamenyn: fyra delar med var sin färg, testerna först och bredast */
+  .mm { padding: 18px; }
+  .mm-rum { display: grid; gap: 12px; }
+  .mm-kol { display: flex; flex-direction: column; min-width: 0; border-radius: 22px; overflow: hidden; background: var(--golv); border: 2px solid var(--kant); border-bottom-width: 6px; }
+  .mm-huvud { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 16px; background: var(--vagg); color: var(--vagg-ink); text-decoration: none; font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -0.015em; }
+  .mm-huvud::before { content: ''; position: absolute; z-index: -1; right: -40px; top: -70px; width: 170px; height: 170px; border-radius: 50%; background: var(--vagg-2); }
+  .mm-huvud .dorr { background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+  .mm-lankar { display: grid; gap: 2px; padding: 8px; }
+  .mm-lankar a { display: block; padding: 9px 10px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; color: var(--ink-1); }
+  .mm-lankar a span { display: block; font-weight: 400; font-size: 13px; color: var(--ink-2); }
+  .mm-lankar a em { font-style: normal; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 12px; font-weight: 700; }
+  .mm-lankar a:hover, .mm-lankar a.hov { background: var(--papper); box-shadow: 0 3px 0 var(--kant-stark); }
+  .mm-bild { margin-top: auto; padding: 4px 18px 16px; }
+  .mm-bild p { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--ton-ink); }
+  .mm-matris { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 220px; }
+  .mm-matris span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 11px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 4px; }
+  .mm-matris svg { width: 56%; height: 56%; }
+  .mm-matris .tom { background: none; border: 2.5px dashed var(--koppar); color: var(--koppar-ink); font-family: var(--disp); font-weight: 800; font-size: 20px; }
+  .mm-blad { max-width: 190px; padding: 12px; border-radius: 8px; background: #fff; box-shadow: 0 4px 0 var(--kant-stark); }
+  .mm-blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DCDAD5; }
+  .mm-blad i:first-child { margin-top: 0; width: 44%; background: var(--vagg-svag); }
+  .mm-blad i.m { background: var(--koppar-ljus); width: 72%; }
+  .mm-blad i.k { width: 50%; }
+  .mm-fot { display: grid; gap: 12px; margin-top: 12px; }
+  .mm-prem { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 20px; border-radius: 22px; background: var(--premium); box-shadow: 0 6px 0 #0B0910; }
+  .mm-prem::before { content: ''; position: absolute; z-index: -1; right: -60px; top: -110px; width: 260px; height: 260px; border-radius: 50%; background: var(--premium-2); }
+  .mm-prem p { margin-right: auto; max-width: 43ch; font-size: 14.5px; color: #C9C3D9; }
+  .mm-prem p b { display: block; white-space: nowrap; font-family: var(--disp); font-size: 19px; letter-spacing: -0.01em; color: #fff; }
+  .mm-prem .knapp-glas { color: #fff; }
+  .mm-mer { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 2px 4px; padding: 8px 10px; border-radius: 22px; background: var(--papper-2); }
+  .mm-mer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; color: var(--ink-1); }
+  .mm-mer a:hover { background: var(--papper); }
+  @media (min-width: 1000px) {
+    .mm { padding: 22px; }
+    .mm-rum { grid-template-columns: 1.14fr 1.14fr 1fr 1.14fr; gap: 14px; }
+    .mm-fot { grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 14px; }
+  }
+
+  /* ---------- telefonen ---------- */
+  .tel-rad { display: grid; gap: 0; }
+  .tel { background: var(--golv); min-width: 0; }
+  .tel-kol .skissrad { padding-left: 16px; padding-right: 16px; }
+  .blod { padding-left: 0; padding-right: 0; }
+  .tm-topp { display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 16px; background: var(--vagg-3); color: var(--vagg-ink); }
+  .tm-topp .logga { margin-right: auto; font-size: 17px; gap: 8px; }
+  .tm-topp .logga i { width: 28px; height: 28px; font-size: 16px; }
+  .tm-topp .knapp-liten { padding: 0 12px; font-size: 14px; }
+  .tm-topp .nav-meny { display: grid; flex: none; margin-left: 2px; }
+  .tm-stang { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px 0 10px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, .22); color: var(--vagg-ink); font-weight: 600; font-size: 15px; }
+  .tm-stang svg { width: 20px; height: 20px; }
+  .tel-hjalte { padding: 24px 16px 40px; }
+  .tel-hjalte .h1 { font-size: 40px; margin-top: 14px; }
+  .tel-hjalte .varde { font-size: 18px; margin-top: 16px; }
+  .tel-hjalte .knapp { margin-top: 24px; }
+
+  .tm-kropp { display: grid; gap: 12px; padding: 16px 16px 22px; }
+  .tm-block { position: relative; overflow: hidden; isolation: isolate; border-radius: 22px; padding: 14px 12px 12px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 6px 0 var(--vagg-3); }
+  .tm-block::before { content: ''; position: absolute; z-index: -1; right: -50px; top: -90px; width: 220px; height: 220px; border-radius: 50%; background: var(--vagg-2); opacity: .7; }
+  .tm-block h3 { display: flex; align-items: center; gap: 10px; padding: 0 4px 12px; font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -0.015em; }
+  .tm-block h3 .dorr { width: 36px; height: 36px; border-radius: 11px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+  .tm-block h3 .dorr svg { width: 20px; height: 20px; }
+  .tm-lankar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tm-lankar.en { grid-template-columns: 1fr; }
+  .tm-lankar a { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 54px; padding: 8px 12px; border-radius: 14px; background: var(--papper); color: var(--ink-1); border-bottom: 4px solid rgba(0, 0, 0, .25); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.2; }
+  .tm-lankar a span { margin-top: 3px; font-weight: 400; font-size: 13px; color: var(--ink-2); }
+  .tm-lankar a em { align-self: flex-start; font-style: normal; margin-top: 4px; padding: 1px 8px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 12px; font-weight: 700; }
+  .tm-mer { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tm-mer a { display: flex; align-items: center; min-height: 48px; padding: 6px 14px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 4px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.2; }
+  .tm-mer a.bred { grid-column: 1 / -1; }
+  .tm-prem { position: relative; overflow: hidden; isolation: isolate; display: block; padding: 14px 16px; border-radius: 20px; background: var(--premium); color: #C9C3D9; box-shadow: 0 5px 0 #0B0910; text-decoration: none; font-size: 14px; }
+  .tm-prem::before { content: ''; position: absolute; z-index: -1; right: -60px; top: -100px; width: 220px; height: 220px; border-radius: 50%; background: var(--premium-2); }
+  .tm-prem b { display: block; font-family: var(--disp); font-size: 16px; letter-spacing: -0.01em; color: #fff; }
+  .tm-prem em { display: inline-block; margin-top: 8px; font-style: normal; font-weight: 600; color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+  .tm-fot { display: grid; grid-template-columns: 1.45fr 1fr; gap: 10px; padding: 12px 16px 14px; background: var(--papper); border-top: 2px solid var(--kant); }
+  .tm-fot .knapp { padding: 0 10px; font-size: 16px; min-width: 0; }
+
+  .tel-not { display: none; }
+  @media (min-width: 1000px) {
+    .tel-rad { grid-template-columns: 390px 390px minmax(0, 1fr); gap: 36px; align-items: start; }
+    .tel { border-radius: 30px; overflow: hidden; border: 3px solid var(--ink-1); box-shadow: 0 10px 0 rgba(0, 0, 0, .14); }
+    .tel-kol .skissrad { padding: 0 0 14px; }
+    .blod { padding-left: 40px; padding-right: 40px; }
+    .tel-not { display: block; }
+    .tel-not .kort + .kort { margin-top: 14px; }
+  }
+
+  /* ---------- menyn i varje färg ---------- */
+  .rumsprov { display: grid; gap: 14px; margin-top: 24px; }
+  .rumsprov { margin-left: -16px; margin-right: -16px; }
+  .rumsprov > div { overflow: hidden; }
+  @media (min-width: 900px) { .rumsprov { margin-left: 0; margin-right: 0; } .rumsprov > div { border-radius: 22px; border: 2px solid var(--kant-stark); border-bottom-width: 6px; } }
+  .rumsprov .nav { position: relative; }
+  .rumsprov .remsa { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 16px 16px 20px; background: var(--vagg); color: var(--vagg-ink); }
+  .rumsprov .remsa b { font-family: var(--disp); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+  .rumsprov .remsa span { font-size: 14px; color: var(--vagg-mjuk); }
+  @media (min-width: 900px) { .rumsprov .remsa { padding: 20px 40px 26px; } .rumsprov .remsa b { font-size: 30px; } }
+</style>
+
+<!-- ============ DATORN: menyn öppen över hjälten ============ -->
+<div class="dator">
+  <header class="nav">
+    <div class="bredd nav-rad">
+      <a class="logga" href="#"><i>J</i>Jobbcoach<span>.ai</span></a>
+      <nav class="nav-val" aria-label="Huvudmeny">
+        <a href="#">Funktioner</a>
+        <a href="#">Priser</a>
+        <button aria-expanded="true" aria-controls="megameny">Vad vi erbjuder <svg viewBox="0 0 24 24"><use href="#i-ner"/></svg></button>
+        <a href="#">Artiklar</a>
+        <a href="#">Om oss</a>
+      </nav>
+      <a class="nav-in" href="#">Logga in</a>
+      <a class="knapp knapp-liten" href="#">Skapa konto</a>
+    </div>
+  </header>
+  <div class="scen">
+    <section class="vagg hjalte utan-lyft">
+      <div class="bredd">
+        <div class="hjalte-rad">
+          <div class="hjalte-text">
+            <p class="ey">Bekräftat av SVT, SR, DN och Kollega</p>
+            <h1 class="h1">Därför får du inte svar på dina ansökningar</h1>
+            <p class="varde">Allt fler rekryterare låter rekryteringssystem sålla kandidater automatiskt, ofta utan att du vet om det. <b>Är ditt CV inte optimerat når det aldrig en människa.</b> Vi ser till att du tar dig förbi: träning inför urvalstestet, ett CV som rekryteringssystemen (ATS) läser och ett personligt brev som svarar på annonsen.</p>
+            <div class="knapprad"><span class="knapp">Skapa konto gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span><span class="lank">Se hur det fungerar</span></div>
+            <div class="brickor">
+              <div class="bricka"><b>543+</b><span>har skapat konto</span></div>
+              <div class="bricka"><b>8</b><span>testtyper, grundnivån gratis</span></div>
+              <div class="bricka"><b>1 brev</b><span>gratis, sedan ett i veckan</span></div>
+            </div>
+          </div>
+          <div style="max-width:460px;margin:0 auto;width:100%"><!--@del matris--></div>
+        </div>
+      </div>
+    </section>
+    <div class="skym"></div>
+    <div class="mega-plats"><div class="bredd"><!--@del meny-mega--></div></div>
+  </div>
+</div>
+
+<!-- ============ TELEFONEN ============ -->
+<section class="sekt" style="padding-top:8px">
+  <div>
+    <div class="bredd blod tel-rad">
+      <div class="tel-kol">
+        <div class="skissrad">Telefonen, stängd meny</div>
+        <div class="tel">
+          <div class="tm-topp">
+            <a class="logga" href="#"><i>J</i>Jobbcoach<span>.ai</span></a>
+            <a class="knapp knapp-liten" href="#">Skapa konto</a>
+            <button class="nav-meny" aria-label="Öppna menyn" aria-expanded="false"><svg viewBox="0 0 24 24"><use href="#i-meny"/></svg></button>
+          </div>
+          <div class="vagg tel-hjalte">
+            <p class="ey">Bekräftat av SVT, SR, DN och Kollega</p>
+            <p class="h1">Därför får du inte svar på dina ansökningar</p>
+            <p class="varde">Allt fler rekryterare låter rekryteringssystem sålla kandidater automatiskt, ofta utan att du vet om det.</p>
+            <span class="knapp">Skapa konto gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tel-kol">
+        <div class="skissrad">Telefonen, öppen meny över hela skärmen</div>
+        <nav class="tel tm" aria-label="Meny">
+          <div class="tm-topp">
+            <a class="logga" href="#"><i>J</i>Jobbcoach<span>.ai</span></a>
+            <button class="tm-stang" aria-expanded="true" aria-label="Stäng menyn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Stäng</button>
+          </div>
+          <div class="tm-kropp">
+            <div class="tm-block" data-rum="tran">
+              <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span>Rekryteringstester</h3>
+              <div class="tm-lankar en">
+                <a href="#">Rekryteringstester<span>Åtta testtyper i tre nivåer</span></a>
+                <a href="#">Personlighetstest<span>Det rekryteraren läser ut av dig</span></a>
+              </div>
+            </div>
+            <div class="tm-block" data-rum="cv">
+              <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span>CV</h3>
+              <div class="tm-lankar">
+                <a href="#">CV-analys</a>
+                <a href="#">Skapa CV</a>
+                <a href="#">CV-mallar</a>
+                <a href="#">LinkedIn-profilen</a>
+              </div>
+            </div>
+            <div class="tm-block" data-rum="brev">
+              <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span>Personliga brev</h3>
+              <div class="tm-lankar">
+                <a href="#">Personligt brev</a>
+                <a href="#">Personligt brev-exempel</a>
+              </div>
+            </div>
+            <div class="tm-block" data-rum="jobb">
+              <h3><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span>Jobbsöket</h3>
+              <div class="tm-lankar">
+                <a href="#">Jobbmatchning</a>
+                <a href="#">Sökta tjänster<em>Nyhet</em></a>
+                <a href="#">Jobbcoachen</a>
+                <a href="#">Bli upptäckt</a>
+              </div>
+            </div>
+            <div class="tm-mer">
+              <a href="#">Funktioner</a>
+              <a href="#">Priser</a>
+              <a href="#">Artiklar</a>
+              <a href="#">Om oss</a>
+              <a href="#">Jobbkartan</a>
+              <a href="#">För rekryterare</a>
+              <a class="bred" href="#">Räkna ut lön och skatt</a>
+            </div>
+            <a class="tm-prem" href="#"><b>Jobbcoach Premium, 149 kr i månaden</b>Tester, CV, personliga brev, jobbmatchning och Jobbcoachen. Säg upp när du vill.<br><em>Se vad som ingår</em></a>
+          </div>
+          <div class="skissrad" style="padding:0 16px 10px">Raden nedan ligger fast i skärmens nederkant</div>
+          <div class="tm-fot">
+            <a class="knapp" href="#">Skapa konto gratis</a>
+            <a class="knapp knapp-vit" href="#">Logga in</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="tel-not">
+        <div class="skissrad" style="padding:0 0 14px">Tanken bakom</div>
+        <div class="kort">
+          <p class="ey">Så är den tänkt</p>
+          <h3 class="h3">Samma fyra delar som i kontot</h3>
+          <p>Rekryteringstester, CV, Personliga brev och Jobbsöket, i den ordningen och i sina färger. Den som skapar konto känner igen sig direkt.</p>
+        </div>
+        <div class="kort">
+          <h3 class="h3">Hela skärmen, en handling</h3>
+          <p>Menyn öppnas över hela skärmen. Skapa konto gratis och Logga in ligger kvar längst ned medan man rullar. Knappen i toppraden byts mot Stäng, så att skärmen bara har en kopparknapp.</p>
+        </div>
+        <div class="kort">
+          <h3 class="h3">Alla länkar är kvar</h3>
+          <p>Varje länk i dagens meny finns med. Nya är Sökta tjänster, Personlighetstest och Personligt brev-exempel.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENYN I VARJE FÄRG ============ -->
+<section class="sekt sekt-papper" data-rum="neutral" style="padding-top:40px">
+  <div class="bredd">
+    <div class="skissrad" style="padding-top:0">Menyn tar färg efter sidan man står på</div>
+    <div class="sekt-huvud">
+      <h2 class="h2">En meny, fem färger</h2>
+      <p class="varde">Det vita och beiga är borta. Menyn står i samma mörka färg som sidans överdel, och Skapa konto är den enda kopparknappen.</p>
+    </div>
+    <div class="rumsprov">
+      <div data-rum="tran"><!--@del nav--><div class="remsa"><b>Start och rekryteringstester</b><span>startsidan, Funktioner, Priser, Om oss och testsidorna</span></div></div>
+      <div data-rum="cv"><!--@del nav--><div class="remsa"><b>CV</b><span>CV-analys, Skapa CV, CV-mallar, CV-exempel och LinkedIn-profilen</span></div></div>
+      <div data-rum="brev"><!--@del nav--><div class="remsa"><b>Personliga brev</b><span>Personligt brev och brevexemplen</span></div></div>
+      <div data-rum="jobb"><!--@del nav--><div class="remsa"><b>Jobbsöket</b><span>Jobbmatchning, Sökta tjänster, Jobbcoachen, Bli upptäckt och Jobbkartan</span></div></div>
+      <div data-rum="neutral"><!--@del nav--><div class="remsa"><b>Övriga sidor</b><span>Artiklar, Hjälpcenter, Kontakt, Logga in och Skapa konto</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!--@del fot-->

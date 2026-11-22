@@ -1,0 +1,343 @@
+<!-- titel: Skiss Jobbmatchning | rum: jobb -->
+<style>
+  .tva { display: grid; gap: 32px; align-items: center; }
+  .tva > * { min-width: 0; }
+  @media (min-width: 1000px) { .tva { grid-template-columns: 1fr 1fr; gap: 72px; } .tva.smal-v { grid-template-columns: .82fr 1.18fr; } }
+  .chiprad { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* lyftet: tre öppna av tjugofem */
+  .tjugofem { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 16px; border-radius: 22px; background: var(--golv); }
+  .tjugofem > span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); color: var(--kant-stark); min-width: 0; }
+  .tjugofem > span svg { width: 42%; height: 42%; }
+  .tjugofem > span.oppen { border: 0; background: none; }
+  .tjugofem .mj-ring { width: 100%; height: 100%; font-size: clamp(15px, 4.2vw, 22px); box-shadow: 0 4px 0 var(--kant-stark); }
+  .tjugofem-rad { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 14px; color: var(--ink-2); }
+  .tjugofem-rad span { display: inline-flex; align-items: center; gap: 8px; }
+  .tjugofem-rad i { width: 14px; height: 14px; border-radius: 50%; background: var(--ton-ink); }
+  .tjugofem-rad span + span i { border-radius: 5px; background: var(--papper); border: 2px solid var(--kant-stark); }
+  @media (min-width: 900px) { .tjugofem { padding: 22px; gap: 10px; } }
+
+  /* stegens små bilder */
+  .vagsteg .bild { gap: 8px; align-content: center; justify-items: center; }
+  .mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+  .mini-chip { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .mini-chip.m { background: var(--vagg); border-color: var(--vagg); color: #fff; }
+  .minicv { width: 100%; max-width: 230px; padding: 12px 14px; border-radius: 14px; background: var(--vagg); color: var(--vagg-ink); text-align: left; }
+  .minicv b { display: block; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--vagg-mjuk); }
+  .minicv b u { float: right; letter-spacing: 0; text-transform: none; color: var(--vagg-ink); text-underline-offset: 3px; }
+  .minicv span { display: block; margin-top: 6px; font-family: var(--disp); font-weight: 700; font-size: 14.5px; }
+  .minicv small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--vagg-mjuk); }
+
+  /* sex datapunkter: CV:t med sex nålar */
+  .dp { display: grid; gap: 28px; margin-top: 36px; align-items: start; }
+  .dp > * { min-width: 0; }
+  .dp-ark { width: 100%; max-width: 440px; margin: 0 auto; padding: 0 22px 0 26px; }
+  .dp-ark .ark { transform: rotate(-1.2deg); }
+  .dp-ark .nal { background: var(--ton-ink); color: #fff; }
+  .dp-ark .nal.tva { left: auto; right: -8%; top: 30%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0; }
+  .dp-ark .rad em { font-style: normal; }
+  .dp-ark .ark mark { background: var(--koppar-mjuk); color: inherit; border-radius: 3px; padding: 0 2px; }
+  .dp-ark .tagg { display: inline-block; margin: 6px 4px 0 0; padding: 2px 7px; border-radius: 999px; background: var(--koppar-mjuk); font-family: var(--text); font-size: clamp(7.5px, .9vw, 10px); font-weight: 600; }
+  .dp-lista { display: grid; gap: 12px; }
+  .dprad { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; padding: 16px 18px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px; border-radius: 18px; }
+  .dprad .nr { background: var(--ton-ink); color: #fff; box-shadow: 0 4px 0 var(--vagg-3); }
+  .dprad p { grid-column: 1 / -1; margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
+  .dprad .ur { grid-column: 1 / -1; margin-top: 4px; font-size: 13.5px; font-weight: 600; color: var(--koppar-ink); }
+  @media (min-width: 1000px) { .dp { grid-template-columns: .8fr 1.2fr; gap: 64px; margin-top: 52px; } .dp-ark { position: sticky; top: 110px; padding-left: 34px; } .dp-lista { grid-template-columns: 1fr 1fr; gap: 14px; } }
+
+  /* grenarna: en titel, tre dörrar */
+  .gren { display: grid; gap: 10px; width: 100%; max-width: 480px; margin: 0 auto; }
+  .gren-rot { justify-self: start; display: inline-flex; flex-direction: column; padding: 12px 18px; border-radius: 16px; background: var(--vagg-ink); color: var(--vagg); font-family: var(--disp); font-weight: 800; font-size: 19px; box-shadow: 0 5px 0 rgba(0, 0, 0, .3); }
+  .gren-rot small { font-family: var(--text); font-weight: 500; font-size: 13px; color: var(--ton-ink); }
+  .gren-gren { position: relative; margin-left: 30px; display: grid; grid-template-columns: 1fr 54px; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 rgba(0, 0, 0, .22); }
+  .gren-gren::before { content: ''; position: absolute; left: -18px; top: -10px; bottom: 50%; width: 18px; border-left: 3px dotted var(--vagg-mjuk); border-bottom: 3px dotted var(--vagg-mjuk); border-bottom-left-radius: 12px; }
+  .gren-gren b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.2; }
+  .gren-gren small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+
+  /* kedjan: träff, sparad, sökt */
+  .kedja { display: grid; gap: 10px; margin-top: 36px; }
+  .kedja > * { min-width: 0; }
+  .lank-k { background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; border-radius: 22px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+  .lank-k .var { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ton-ink); }
+  .lank-k .sak { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; }
+  .lank-k .sak b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.2; }
+  .lank-k .sak small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+  .lank-k p { font-size: 14.5px; color: var(--ink-2); }
+  .lank-k .pill { justify-self: start; display: inline-flex; align-items: center; min-height: 28px; padding: 3px 11px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 13px; font-weight: 700; }
+  .br { display: inline-grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 14px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 15px; box-shadow: 0 4px 0 var(--kant-stark); }
+  .br.tom { background: none; border: 2.5px dashed var(--ton-ink); box-shadow: none; }
+  .steg-k { justify-self: center; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 14px; border-radius: 12px; background: var(--vagg); color: #fff; font-size: 13.5px; font-weight: 700; text-align: center; }
+  .steg-k svg { width: 15px; height: 15px; flex: none; transform: rotate(90deg); }
+  @media (min-width: 1000px) {
+    .kedja { grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; margin-top: 52px; }
+    .lank-k { padding: 24px; }
+    .steg-k { align-self: center; flex-direction: column; padding: 10px 12px; max-width: 124px; }
+    .steg-k svg { transform: none; }
+  }
+
+  .skal-topp { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 54px; }
+  .skal-bild { display: flex; align-items: center; gap: 6px; }
+  .skal-bild svg { width: 84px; height: 48px; }
+  .skal-bild .vx { display: inline-flex; padding: 4px; border-radius: 12px; background: var(--golv); font-size: 12.5px; font-weight: 700; }
+  .skal-bild .vx i { font-style: normal; display: inline-grid; place-items: center; height: 30px; padding: 0 10px; border-radius: 9px; color: var(--ink-3); }
+  .skal-bild .vx i.pa { background: var(--vagg); color: #fff; }
+  .skal-bild .prick { width: 16px; height: 16px; border-radius: 50%; background: var(--koppar); box-shadow: 0 3px 0 var(--koppar-klack); }
+  .skal-bild small { font-size: 12.5px; font-weight: 700; color: var(--ink-3); margin-left: 4px; }
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>Jobbmatchning</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Jobbmatchning, fler dörrar än din titel</p>
+          <h1 class="h1">Hitta jobb som matchar ditt CV automatiskt</h1>
+          <p class="varde">Vi läser ditt CV och söker bland tusentals lediga jobb från Arbetsförmedlingen. <b>Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Hitta jobb gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så fungerar det</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>3</b><span>träffar gratis, med skälen</span></div>
+            <div class="bricka"><b>25</b><span>bästa träffarna i Premium</span></div>
+            <div class="bricka"><b>0 kr</b><span>att börja, utan kortuppgift</span></div>
+          </div>
+        </div>
+        <div style="min-width:0"><!--@del jobbmatchning-skarm--></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="tva">
+        <div>
+          <p class="ey">Prova utan kort</p>
+          <h2 class="h2" style="margin-top:10px">Tre träffar gratis, med skälen</h2>
+          <p class="varde" style="margin-top:12px">Skapa ett konto och lägg in ditt CV, så ser du dina tre bästa träffar och varför de passar. Inget kort, ingen bindning.</p>
+          <ul class="bockar pa-papper" style="margin-top:22px">
+            <li>Skälen i ord för varje träff: rollen, kompetenserna och orten</li>
+            <li>Nya annonser hämtas från Platsbanken tre gånger per dygn</li>
+            <li>De 25 bästa träffarna ingår i Jobbcoach Premium, 149 kr i månaden</li>
+          </ul>
+          <div class="knapprad" style="margin-top:26px"><a class="knapp" href="#">Hitta jobb gratis</a><span class="liten">Inget CV än? <a class="lank" href="#">Se CV-exempel först</a></span></div>
+        </div>
+        <div>
+          <div class="tjugofem" role="img" aria-label="Av de 25 bästa träffarna är tre öppna på gratisnivån">
+            <span class="oppen"><span class="mj-ring" style="--p:91">91</span></span><span class="oppen"><span class="mj-ring" style="--p:86">86</span></span><span class="oppen"><span class="mj-ring" style="--p:82">82</span></span>
+            <span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span><span><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></span>
+          </div>
+          <div class="tjugofem-rad"><span><i></i>3 öppna träffar, gratis</span><span><i></i>22 till i Premium</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så fungerar det</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Fyra steg från CV till en lista sorterad efter hur väl du passar.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Ditt CV läses in</h3>
+          <p>Ladda upp ett CV eller bygg ett hos oss. Det senaste läses in av sig självt, och har du flera byter du med Byt CV.</p>
+          <div class="bild" aria-hidden="true"><div class="minicv"><b>Ditt CV <u>Byt CV</u></b><span>Sara Lindström, projektledare</span><small>3 roller · 14 kompetenser · 2 utbildningar</small></div></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Vi extraherar yrkesdata</h3>
+          <p>Vi läser ut yrkesroller, kompetenser, utbildning, plats och språk automatiskt.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-rad"><span class="mini-chip">Projektledare</span><span class="mini-chip">LOU</span><span class="mini-chip">Göteborg</span><span class="mini-chip">Civilingenjör</span></div></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Vi söker tusentals annonser</h3>
+          <p>Du trycker på Hitta jobb som passar, och vi söker bland Platsbankens annonser i hela Sverige.</p>
+          <div class="bild" aria-hidden="true"><span class="mini-chip m">Hitta jobb som passar</span><span style="font-size:12.5px;color:var(--ink-3)">Senast sökt för 2 timmar sedan. <u>Sök igen</u></span></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Du får jobben sorterade</h3>
+          <p>Varje annons får matchning i procent. Toppmatchningarna hamnar överst.</p>
+          <div class="bild" aria-hidden="true"><div class="mini-rad" style="gap:10px"><span class="mj-ring" style="--p:91">91</span><span class="mj-ring liten" style="--p:86">86</span><span class="mj-ring liten" style="--p:82">82</span></div></div></li>
+      </ol>
+      <div class="knapprad" style="margin-top:32px"><a class="knapp knapp-vit" href="#">Hitta jobb nu</a></div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Vad vi läser ut</p>
+        <h2 class="h2">Sex datapunkter ur ditt CV</h2>
+        <p class="varde">Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV, och sedan gör AI jobbet: den läser varje annons och jämför kraven med det du faktiskt kan.</p>
+      </div>
+      <div class="dp">
+        <div class="dp-ark">
+          <div class="ark" aria-label="Exempel: Sara Lindströms CV med de sex datapunkterna utmärkta">
+            <div class="del"><span class="nal">4</span>
+              <div class="namn">Sara Lindström</div>
+              <span class="kontakt">sara.lindstrom@exempel.se · 070-123 45 67 · <mark>Göteborg</mark></span>
+            </div>
+            <div class="del">
+              <h5>Profil</h5>
+              <i class="l"></i><i class="l m"></i><i class="l k"></i>
+            </div>
+            <div class="del"><span class="nal">1</span><span class="nal tva">6</span>
+              <h5>Arbetslivserfarenhet</h5>
+              <div class="rad"><em><mark>Projektledare</mark>, Nordanvind Energi</em> <span><mark>2021 – pågående</mark></span></div>
+              <i class="l m"></i><i class="l"></i>
+              <div class="rad"><em><mark>Biträdande projektledare</mark>, Halda Logistik</em> <span><mark>2018 – 2021</mark></span></div>
+              <i class="l"></i><i class="l s"></i>
+            </div>
+            <div class="del"><span class="nal">2</span>
+              <h5>Kompetenser</h5>
+              <span class="tagg">projektledning</span><span class="tagg">LOU</span><span class="tagg">budgetansvar</span><span class="tagg">AMA</span>
+            </div>
+            <div class="del"><span class="nal">3</span>
+              <h5>Utbildning</h5>
+              <div class="rad"><em><mark>Civilingenjör, industriell ekonomi</mark></em> <span>2013 – 2018</span></div>
+            </div>
+            <div class="del"><span class="nal">5</span>
+              <h5>Språk</h5>
+              <span class="tagg">svenska, modersmål</span><span class="tagg">engelska, flytande</span>
+            </div>
+          </div>
+        </div>
+        <div class="dp-lista">
+          <div class="dprad"><span class="nr">1</span><h3 class="h3">Yrkesroller</h3><p>Vi översätter dina tidigare titlar till JobTech Taxonomy, den officiella svenska yrkesklassificeringen. Så vet vi att "frontend-utvecklare" och "webbutvecklare" är närliggande roller.</p><span class="ur">Ur Saras CV: projektledare, biträdande projektledare</span></div>
+          <div class="dprad"><span class="nr">2</span><h3 class="h3">Kompetenser</h3><p>Tekniska och mjuka kompetenser ur ditt CV, från enskilda program till hela erfarenhetsområden. Vi ställer dem mot kraven i varje annons.</p><span class="ur">Ur Saras CV: projektledning, LOU, budgetansvar, AMA</span></div>
+          <div class="dprad"><span class="nr">3</span><h3 class="h3">Utbildning</h3><p>Examensnivå och inriktning. Vissa tjänster kräver en viss utbildning, andra ser den som meriterande. Vi räknar med båda.</p><span class="ur">Ur Saras CV: civilingenjör, industriell ekonomi</span></div>
+          <div class="dprad"><span class="nr">4</span><h3 class="h3">Plats</h3><p>Vi vet var du bor och sorterar bort jobb som ligger orimligt långt bort. Du väljer själv om du vill se jobb nära dig eller i hela Sverige.</p><span class="ur">Ur Saras CV: Göteborg</span></div>
+          <div class="dprad"><span class="nr">5</span><h3 class="h3">Språk</h3><p>Vilka språk du kan och på vilken nivå. Det avgör internationella roller och tjänster där svenska är ett krav.</p><span class="ur">Ur Saras CV: svenska, engelska</span></div>
+          <div class="dprad"><span class="nr">6</span><h3 class="h3">Erfarenhetsnivå</h3><p>År i branschen och senioritet. Vi matchar inte en junior mot en chefsroll, och inte en senior mot en traineetjänst.</p><span class="ur">Ur Saras CV: åtta år, två roller</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <article class="o">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><p class="ey">Vad du får</p></div>
+            <h2 class="h2">Sex skäl att låta oss söka åt dig</h2>
+            <p class="varde">Vi söker bredare än du hinner själv och visar tjänster du faktiskt har chans att få.</p>
+            <p>Det är lätt att stirra sig blind på sin titel. Här är tre träffar för en undersköterska. Ingen av de tre annonserna innehåller ordet undersköterska.</p>
+          </div>
+          <div class="o-bild">
+            <div class="gren" role="img" aria-label="Exempel: titeln undersköterska ger träffar som stödassistent, vårdbiträde och boendestödjare">
+              <span class="gren-rot">Undersköterska<small>titeln i CV:t</small></span>
+              <div class="gren-gren"><div><b>Stödassistent</b><small>Region Västra Götaland, Mölndal</small></div><span class="mj-ring" style="--p:91">91</span></div>
+              <div class="gren-gren"><div><b>Vårdbiträde, hemtjänst</b><small>Göteborgs stad</small></div><span class="mj-ring" style="--p:86">86</span></div>
+              <div class="gren-gren"><div><b>Boendestödjare</b><small>Attendo, Partille</small></div><span class="mj-ring" style="--p:82">82</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <div class="rutnat r3">
+        <div class="kort"><div class="skal-topp"><span class="nr">1</span><span class="skal-bild" aria-hidden="true"><svg viewBox="0 0 84 48" fill="none"><path d="M14 24h18M32 24c10 0 8-14 22-14M32 24h22M32 24c10 0 8 14 22 14" stroke="var(--kant-stark)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 6"/><rect x="2" y="15" width="18" height="18" rx="6" fill="var(--ton-ink)"/><rect x="56" y="2" width="16" height="16" rx="5" fill="var(--koppar)"/><rect x="56" y="16" width="16" height="16" rx="5" fill="var(--ton)" stroke="var(--ton-ink)" stroke-width="2" transform="translate(10 0)"/><rect x="56" y="30" width="16" height="16" rx="5" fill="var(--ton)" stroke="var(--ton-ink)" stroke-width="2"/></svg></span></div><h3 class="h3">Roller du inte tänkt på själv</h3><p>Vi vet att en undersköterska också passar som stödassistent, vårdbiträde och boendestödjare, och visar tjänster du aldrig hade hittat med samma sökord som förra gången.</p></div>
+        <div class="kort"><div class="skal-topp"><span class="nr">2</span><span class="skal-bild" aria-hidden="true"><span class="mj-ring" style="--p:72;box-shadow:0 0 0 2px var(--kant)">72</span><small>av 100</small></span></div><h3 class="h3">Matchning i procent per annons</h3><p>Varje jobb får ett tal mellan 0 och 100 som visar hur väl ditt CV svarar mot kraven. Du ser direkt var du har störst chans.</p></div>
+        <div class="kort"><div class="skal-topp"><span class="nr">3</span><span class="skal-bild" aria-hidden="true"><svg viewBox="0 0 84 48" fill="none"><rect x="30" y="4" width="34" height="40" rx="6" fill="var(--ton)" stroke="var(--kant-stark)" stroke-width="2" transform="rotate(10 47 24)"/><rect x="24" y="4" width="34" height="40" rx="6" fill="var(--ton)" stroke="var(--kant-stark)" stroke-width="2" transform="rotate(-8 41 24)"/><rect x="27" y="4" width="34" height="40" rx="6" fill="#fff" stroke="var(--ton-ink)" stroke-width="2"/><path d="M34 15h20M34 23h20M34 31h12" stroke="var(--ton-ink)" stroke-width="3" stroke-linecap="round"/></svg></span></div><h3 class="h3">Tusentals lediga jobb</h3><p>Hela Arbetsförmedlingens annonsbas, Sveriges största samling lediga tjänster, från offentlig sektor till privata bolag.</p></div>
+        <div class="kort"><div class="skal-topp"><span class="nr">4</span><span class="skal-bild" aria-hidden="true"><span class="vx"><i class="pa">Nära dig</i><i>Hela Sverige</i></span></span></div><h3 class="h3">Avstånd du väljer själv</h3><p>Se jobben nära dig, eller hela Sverige med ett klick. Du bestämmer om du vill pendla eller hålla dig nära hemmet.</p></div>
+        <div class="kort"><div class="skal-topp"><span class="nr">5</span><span class="skal-bild" aria-hidden="true"><i class="prick"></i><i class="prick"></i><i class="prick"></i><small>per dygn</small></span></div><h3 class="h3">Nya annonser tre gånger per dygn</h3><p>Annonserna hämtas från Platsbanken tre gånger per dygn. Du söker om med ett tryck när du vill se de senaste.</p></div>
+        <div class="kort"><div class="skal-topp"><span class="nr">6</span><span class="skal-bild" aria-hidden="true"><svg viewBox="0 0 84 48" fill="none"><rect x="8" y="4" width="72" height="11" rx="5.500" fill="var(--koppar)"/><rect x="8" y="19" width="56" height="11" rx="5.500" fill="var(--ton-ink)"/><rect x="8" y="34" width="40" height="11" rx="5.500" fill="var(--kant-stark)"/></svg></span></div><h3 class="h3">Bäst träff överst</h3><p>Toppmatchningarna hamnar först. Du slipper bläddra igenom hundratals annonser för att hitta de få som passar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Nästa steg</p>
+        <h2 class="h2">Från träff till ansökan</h2>
+        <p class="varde">En träff är bara början. Därifrån skriver du brevet, sparar annonsen tills du hinner söka och markerar den som sökt. Sedan håller vi räkningen åt dig.</p>
+      </div>
+      <div class="kedja">
+        <div class="lank-k">
+          <span class="var">Matchade jobb</span>
+          <div class="sak"><span class="mj-ring liten" style="--p:91">91</span><div><b>Projektledare, bygg</b><small>Sweco, Göteborg</small></div></div>
+          <span class="pill">Sista ansökningsdag 28 nov</span>
+          <p>Träffen visar matchgraden, skälen och sista ansökningsdag. Med Skriv brev får du ett personligt brev på just den annonsen.</p>
+        </div>
+        <span class="steg-k">Spara till Ska sökas <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="lank-k">
+          <span class="var">Ska sökas</span>
+          <div class="sak"><span class="br tom">SW</span><div><b>Projektledare, bygg</b><small>Sparad annons</small></div></div>
+          <span class="pill">Sista dag lördag 28 nov, 6 dagar kvar</span>
+          <p>Annonsen ligger kvar med sin sista ansökningsdag, och vi säger till när dagen närmar sig.</p>
+        </div>
+        <span class="steg-k">Markera som sökt <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></span>
+        <div class="lank-k">
+          <span class="var">Sökta tjänster</span>
+          <div class="sak"><span class="br">SW</span><div><b>Projektledare, bygg</b><small>Sökt 24 november</small></div></div>
+          <span class="pill" style="background:var(--ton);color:var(--ton-ink)">Väntar svar</span>
+          <p>Nu räknar vi dagarna. Har du inte hört något på tolv dagar ligger ett utkast till uppföljningsmejlet klart.</p>
+          <a class="lank" href="#" style="font-size:15px">Så fungerar Sökta tjänster</a>
+        </div>
+      </div>
+      <div class="rutnat r4">
+        <a class="lankbricka" data-rum="tran" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><b>Rekryteringstester</b><span>Kallad till test efter ansökan? Träna först.</span></a>
+        <a class="lankbricka" data-rum="brev" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><b>Personligt brev från träffen</b><span>Från ett matchat jobb till ett brev som svarar på just den annonsen.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Sökta tjänster</b><span>Uppföljning, intervju och månadsrapport.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Bli upptäckt</b><span>Rekryterare hittar dig, anonymt tills du själv svarar.</span></a>
+        <a class="lankbricka" data-rum="cv" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><b>CV-exempel</b><span>Färdiga CV:n yrke för yrke, om du inte har ett eget än.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Så fungerar AI-jobbmatchning</b><span>Vad som händer när jobben hittar dig i stället för tvärtom.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Byta karriär</b><span>Guiden för den som ska söka utanför sin gamla titel.</span></a>
+        <a class="lankbricka" href="#"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-jobb"/></svg></span><b>Jobbcoachen</b><span>Intervjufrågor och avtal inför jobbet du hittade.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium, 149 kr i månaden</p>
+            <h2 class="h2" style="margin-top:12px">Hitta ditt nästa jobb automatiskt.</h2>
+            <p style="margin-top:14px;font-size:17px;max-width:52ch">Se dina tre bästa träffar med skälen utskrivna, utan kortuppgift. De 25 bästa träffarna i varje sökning ingår i Premium, utan bindningstid.</p>
+            <div class="knapprad" style="margin-top:26px">
+              <a class="knapp" href="#">Hitta jobb gratis</a>
+              <a class="lank" href="#" style="color:#fff">Se CV-exempel först</a>
+            </div>
+          </div>
+          <div>
+            <div class="pris">149 kr<small>i månaden</small></div>
+            <ul class="bockar" style="margin-top:22px">
+              <li>De 25 bästa träffarna, med skälen för var och en</li>
+              <li>Personliga brev från träffen, i 40 mallar</li>
+              <li>Uppföljningsmejl till varje sökt tjänst och månadsrapporten att skriva ut</li>
+              <li>Rekryteringstester i tre nivåer och Jobbcoachen så mycket du vill</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Vanliga frågor om att söka jobb</h2>
+        <p class="varde">Hittar du inte svaret? Mejla support@jobbcoach.ai.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Hur hittar jag jobb som passar mig?</summary><p>Ladda upp eller bygg ett CV hos oss, så söker vi bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din utbildning och din ort och ger dig en matchning i procent per annons. De jobb där du har starkast match hamnar överst i listan.</p></details>
+        <details><summary>Var hittar jag lediga jobb i Sverige?</summary><p>Vi hämtar annonserna från Arbetsförmedlingens Platsbank, Sveriges största samling av lediga jobb. Du får samma annonser som på arbetsformedlingen.se, men sorterade efter hur väl just ditt CV matchar varje tjänst.</p></details>
+        <details><summary>Hur matchar man CV mot lediga jobb?</summary><p>Vår matchningstjänst extraherar nyckeldata från ditt CV: yrkesroller, kompetenser, utbildningsnivå, plats och språk. Sedan jämförs den datan mot kraven i varje jobbannons. Resultatet är en procentsiffra mellan 0 och 100 som visar hur väl just ditt CV svarar mot det specifika jobbet.</p></details>
+        <details><summary>Var kommer jobben ifrån?</summary><p>Alla jobbannonser kommer från Arbetsförmedlingens öppna data, som täcker både offentlig och privat sektor i hela Sverige. Vi lägger inte till egna annonser och tar inte betalt av arbetsgivare för synlighet, så listan är opartisk och hämtad direkt från källan.</p></details>
+        <details><summary>Hur ofta uppdateras jobbannonserna?</summary><p>Annonserna hämtas från Platsbanken tre gånger per dygn. Din lista visar den senaste sökningen, och du söker om med ett tryck när du vill se de senaste annonserna.</p></details>
+        <details><summary>Är det gratis att söka jobb online hos er?</summary><p>Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se de 25 bästa träffarna ingår jobbmatchningen i Premium, 149 kr i månaden.</p></details>
+        <details><summary>Funkar jobbmatchning för alla yrken?</summary><p>Ja. Vi använder JobTech Taxonomy som är den officiella svenska standarden för yrkesklassificering, så funktionen täcker allt från undersköterskor och lärare till mjukvaruutvecklare och projektledare. Det enda kravet är att du har ett CV.</p></details>
+        <details><summary>Behöver jag ladda upp ett CV?</summary><p>Ja, vi behöver något att matcha mot. Ladda upp ett befintligt CV som PDF eller Word, eller skapa ett nytt med vår CV-byggare. Det senaste CV:t läses in av sig självt, och har du flera byter du med Byt CV.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Hitta jobb gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

@@ -1,0 +1,183 @@
+Funktioner
+Priser
+Vad vi erbjuder
+Artiklar
+Om oss
+Skriv och förbättra
+Personligt brev
+CV-analys
+Skapa CV
+CV-mallar
+LinkedIn-profilen
+Hitta jobb
+Jobbmatchning
+Bli upptäckt
+Jobbkartan
+Träna
+Rekryteringstester
+Jobbcoachen
+Räkna ut lön och skatt
+Jobbcoach Premium, 149 kr i månaden
+Tester, CV, personliga brev, jobbmatchning och Jobbcoachen . Säg upp när du vill.
+Se vad som ingår
+Alla funktioner
+För rekryterare
+Logga in
+Skapa konto
+Funktioner
+Priser
+Artiklar
+Om oss
+Skriv och förbättra
+Personligt brev
+CV-analys
+Skapa CV
+CV-mallar
+LinkedIn-profilen
+Hitta jobb
+Jobbmatchning
+Bli upptäckt
+Jobbkartan
+Träna
+Rekryteringstester
+Jobbcoachen
+Räkna ut lön och skatt
+Logga in
+För rekryterare
+BLACK WEEK Första månaden Premium för 99 kr, till och med söndag. Se erbjudandet
+CYBER MONDAY Första månaden Premium för 49 kr. Bara i dag till 23.59. Se erbjudandet
+Hem
+Verktyg
+Jobbmatchning
+Jobbmatchning, fler dörrar än din titel
+# Hitta jobb som matchar ditt CV automatiskt
+Aktivera ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen. Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel.
+Hitta jobb gratis
+Så fungerar det
+3 träffar gratis, med skälen
+Dagligen nya annonser in, tillsatta ut
+Hela Sverige alla branscher
+14:05
+Dina matchningar
+Dina 25 bästa träffar
+Kompetens mot alla annonser i Platsbanken. Skälen står under varje träff.
+Projektledare, bygg 92 %
+Sweco, Göteborg
+Du täcker: projektledning, LOU, budgetansvar, AMA
+Saknas: PMP-certifiering
+Uppdragsledare, infrastruktur 88 %
+Trafikverket, Mölndal
+Du täcker: tidplan, entreprenadjuridik, BAS-P
+Byggledare 81 %
+Peab, Borås
+Skriv brev från träffen
+## Tre träffar gratis, med skälen
+Aktivera ditt CV, så ser du dina tre bästa träffar och exakt varför de passar. Inget kort, ingen bindning.
+Vilka krav du täcker och vad som saknas, per träff
+Nya annonser in tre gånger per dygn, tillsatta ut
+De 25 bästa träffarna ingår i Premium
+Hitta jobb gratis
+Inget CV än? Se CV-exempel först
+## Så fungerar det
+Fyra steg från aktiverat CV till en lista sorterad efter hur väl du passar.
+### Aktivera ditt CV
+Ladda upp ett CV eller välj ett du redan sparat. Aktivering tar några sekunder.
+### Vi extraherar yrkesdata
+Vi läser ut yrkesroller, kompetenser, utbildning, plats och språk automatiskt.
+### Vi söker tusentals annonser
+Vi söker direkt mot Arbetsförmedlingens öppna API i hela Sverige.
+### Du får jobben sorterade
+Varje annons får matchning i procent. Toppmatchningarna hamnar överst.
+Hitta jobb nu
+14:05
+Jobbmatchning
+CV:t är aktiverat
+Sex datapunkter lästa ur projektledare-cv.pdf. Nu söker vi i Platsbanken.
+Ur ditt CV
+Yrkesroller
+Projektledare bygg, uppdragsledare
+Kompetenser
+LOU, AMA, budgetansvar, BAS-P
+Utbildning
+Civilingenjör, väg och vatten
+Plats
+Göteborg
+Språk
+Svenska, engelska
+Erfarenhet
+Sex år, senior
+Söker bland 1 843 lediga jobb 62 %
+Alla annonser i Platsbanken, även de med en annan titel än din.
+Visa träffarna
+Vad vi läser ut
+## Sex datapunkter ur ditt CV
+Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV, och sedan gör AI jobbet: den läser varje annons och jämför kraven med det du faktiskt kan.
+### Yrkesroller
+Vi översätter dina tidigare titlar till JobTech Taxonomy, den officiella svenska yrkesklassificeringen. Så vet vi att "frontend-utvecklare" och "webbutvecklare" är närliggande roller.
+### Kompetenser
+Tekniska och mjuka kompetenser ur ditt CV, från enskilda program till hela erfarenhetsområden. Vi ställer dem mot kraven i varje annons.
+### Utbildning
+Examensnivå och inriktning. Vissa tjänster kräver en viss utbildning, andra ser den som meriterande. Vi räknar med båda.
+### Plats
+Vi vet var du bor och sorterar bort jobb som ligger orimligt långt bort. Du väljer själv om du vill se jobb nära dig eller i hela Sverige.
+### Språk
+Vilka språk du kan och på vilken nivå. Det avgör internationella roller och tjänster där svenska är ett krav.
+### Erfarenhetsnivå
+År i branschen och senioritet. Vi matchar inte en junior mot en chefsroll, och inte en senior mot en traineetjänst.
+Vad du får
+## Sex skäl att låta oss söka åt dig
+Vi söker bredare än du hinner själv och visar tjänster du faktiskt har chans att få.
+### Roller du inte tänkt på själv
+Det är lätt att stirra sig blind på sin titel. Vi vet att en undersköterska också passar som stödassistent, vårdbiträde och boendestödjare, och visar tjänster du aldrig hade hittat med samma sökord som förra gången.
+### Matchning i procent per annons
+Varje jobb får ett tal mellan 0 och 100 som visar hur väl ditt CV svarar mot kraven. Du ser direkt var du har störst chans.
+### Tusentals lediga jobb
+Hela Arbetsförmedlingens annonsbas, Sveriges största samling lediga tjänster, från offentlig sektor till privata bolag.
+### Avstånd du väljer själv
+Se jobben nära dig, eller hela Sverige med ett klick. Du bestämmer om du vill pendla eller hålla dig nära hemmet.
+### Uppdaterat varje dag
+Nya jobb syns i din lista inom timmar efter att de publicerats. Tillsatta tjänster försvinner av sig själva.
+### Bäst träff överst
+Toppmatchningarna hamnar först. Du slipper bläddra igenom hundratals annonser för att hitta de få som passar.
+Undersköterska titeln i CV:t
+Stödassistent Region Västra Götaland, Mölndal
+91 %
+Vårdbiträde, hemtjänst Göteborgs stad
+86 %
+Boendestödjare Attendo, Partille
+82 %
+Exempel på träffar för en undersköterska. Ingen av de tre annonserna innehåller ordet undersköterska.
+Nästa steg
+## Från träff till ansökan
+Jobbmatchningen hänger ihop med resten av kontot: brevet skrivs från träffen, och rekryterare kan hitta dig åt andra hållet.
+Personligt brev från träffen Ett klick från ett matchat jobb till ett brev som svarar på just den annonsen.
+Bli upptäckt Rekryterare hittar dig, anonymt tills du själv svarar.
+CV-exempel Färdiga CV:n yrke för yrke, om du inte har ett att aktivera än.
+Så fungerar AI-jobbmatchning Vad som händer när jobben hittar dig i stället för tvärtom.
+Byta karriär Guiden för den som ska söka utanför sin gamla titel.
+Jobbcoachen Lön, intervjufrågor och avtal inför jobbet du hittade.
+Jobbcoach Premium , 149 kr i månaden
+## Hitta ditt nästa jobb automatiskt.
+Aktivera ditt CV och se dina 3 bästa träffar med skälen utskrivna, utan kortuppgift. De 25 bästa träffarna, varje gång du öppnar sidan, ingår i Premium, utan bindningstid.
+Hitta jobb gratis
+Se CV-exempel först
+## Vanliga frågor om att söka jobb
+Hittar du inte svaret? Hör av dig
+.
+Hur hittar jag jobb som passar mig?
+Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din utbildning och din ort och ger dig en matchning i procent per annons. De jobb där du har starkast match hamnar överst i listan.
+Var hittar jag lediga jobb i Sverige?
+Vi söker direkt mot Arbetsförmedlingens öppna API som är Sveriges största samling av lediga jobb. Det innebär att du får tillgång till samma annonser som finns på arbetsformedlingen.se, men sorterade efter hur väl just ditt CV matchar varje tjänst.
+Hur matchar man CV mot lediga jobb?
+Vår matchningstjänst extraherar nyckeldata från ditt CV: yrkesroller, kompetenser, utbildningsnivå, plats och språk. Sedan jämförs den datan mot kraven i varje jobbannons. Resultatet är en procentsiffra mellan 0 och 100 som visar hur väl just ditt CV svarar mot det specifika jobbet.
+Var kommer jobben ifrån?
+Alla jobbannonser kommer från Arbetsförmedlingens öppna data, som täcker både offentlig och privat sektor i hela Sverige. Vi lägger inte till egna annonser och tar inte betalt av arbetsgivare för synlighet, så listan är opartisk och uppdaterad direkt från källan.
+Hur ofta uppdateras jobbannonserna?
+Annonserna uppdateras dagligen. När en arbetsgivare publicerar en ny tjänst på Arbetsförmedlingen syns den i din lista inom timmar. När en tjänst tas bort försvinner den också automatiskt från listan, så du slipper söka jobb som redan är tillsatta.
+Är det gratis att söka jobb online hos er?
+Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i Premium, 149 kr i månaden.
+Funkar jobbmatchning för alla yrken?
+Ja. Vi använder JobTech Taxonomy som är den officiella svenska standarden för yrkesklassificering, så funktionen täcker allt från undersköterskor och lärare till mjukvaruutvecklare och projektledare. Det enda kravet är att du har ett CV att aktivera.
+Behöver jag ladda upp ett CV?
+Ja, vi behöver något att matcha mot. Du kan antingen ladda upp ett befintligt CV i PDF eller Word, eller skapa ett nytt med vår CV-byggare. När CV:t är aktiverat extraheras all data automatiskt och du kan börja söka jobb direkt.
+Hitta jobb gratis

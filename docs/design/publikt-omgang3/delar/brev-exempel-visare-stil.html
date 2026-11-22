@@ -1,0 +1,71 @@
+<style>
+  /* Mallvisaren för personliga brev. Delas av skisserna brev-exempel, brev-artikel och skapa-brev-start.
+     Inga rubriker, inga kronor, ingen spärr. Första vyn (Linne) står i HTML. */
+  .mv { position: relative; isolation: isolate; overflow: hidden; border-radius: 26px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 8px 0 var(--vagg-3); container: mv / inline-size; text-align: left; }
+  .mv::before { content: ''; position: absolute; z-index: -1; right: -30%; top: -22%; width: 90%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .55; }
+  .mv-scen { padding: 12px 12px 26px; }
+  .mv-topp { display: flex; align-items: center; min-height: 44px; }
+  .mv-tillbaka { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 12px; border-radius: 13px; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .24); color: var(--vagg-ink); font-weight: 700; font-size: 15px; }
+  .mv-tillbaka svg { width: 18px; height: 18px; }
+  .mv-kick { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ljus); padding-left: 4px; }
+  .mv-bord { display: grid; gap: 16px; margin-top: 10px; }
+  .mv-rad { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .mv-mini { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; justify-items: center; align-content: start; min-height: 44px; padding: 5px 4px 6px; border-radius: 12px; border: 2px solid transparent; color: var(--vagg-mjuk); font-size: 12px; font-weight: 700; line-height: 1.2; }
+  .mv-mini span { white-space: nowrap; }
+  .mv-mini img { width: 100%; height: auto; border-radius: 2px; box-shadow: 0 2px 0 rgba(0, 0, 0, .3); }
+  .mv-mini[aria-pressed='true'] { border-color: var(--koppar); background: rgba(255, 255, 255, .1); color: var(--vagg-ink); }
+  .mv-bunt { position: relative; width: 100%; max-width: 452px; margin: 0 auto; padding: 0 20px; }
+  .mv-kik { position: absolute; top: 3%; width: 62%; }
+  .mv-kik img { width: 100%; height: auto; border-radius: 3px; box-shadow: 0 6px 0 rgba(0, 0, 0, .2); }
+  .mv-kik-v { left: 0; transform: rotate(-3deg); }
+  .mv-kik-h { right: 0; transform: rotate(3deg); }
+  .mv-ark { position: relative; z-index: 2; aspect-ratio: 480 / 679; background: #fff; color: #1A1A1F; border-radius: 3px; box-shadow: 0 8px 0 rgba(0, 0, 0, .25), 0 26px 50px rgba(0, 0, 0, .32); container-type: inline-size; overflow: hidden; }
+  .mv-sockel { display: grid; gap: 12px; padding: 18px 16px 20px; background: var(--papper); color: var(--ink-1); }
+  .mv-namnrad { font-size: 16px; color: var(--ink-2); }
+  .mv-namnrad b { font-family: var(--disp); font-weight: 800; font-size: 26px; letter-spacing: -0.02em; color: var(--ink-1); margin-right: 6px; }
+  .mv-sockel .knapp { justify-self: start; }
+  .mv-lank { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; justify-self: start; font-weight: 700; font-size: 17px; color: var(--ink-1); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .mv-lank svg { width: 20px; height: 20px; }
+  .mv-fot { font-size: 14.5px; line-height: 1.5; color: var(--ink-3); }
+  .mv-fot a { color: var(--ink-1); font-weight: 600; white-space: nowrap; }
+  @container mv (max-width: 399px) { .mv-sockel .knapp { width: 100%; } }
+  @container mv (min-width: 620px) {
+    .mv-scen { padding: 18px 24px 34px; }
+    .mv-bord { grid-template-columns: minmax(0, 1fr) 84px; gap: 22px; align-items: start; margin-top: 14px; }
+    .mv-bunt { order: 1; padding: 0 30px; }
+    .mv-rad { order: 2; grid-template-columns: 1fr; gap: 4px; }
+    .mv-mini { font-size: 13px; padding: 6px 6px 7px; }
+    .mv-sockel { grid-template-columns: 1fr auto; align-items: center; gap: 10px 24px; padding: 22px 28px 24px; }
+    .mv-fot, .mv-text { grid-column: 1 / -1; }
+  }
+
+  /* "Läs brevet som text" under visaren i artiklarna */
+  .mv-text { border-top: 2px solid var(--kant); margin: 4px -16px -20px; }
+  .mv-text summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 0 16px; font-weight: 700; font-size: 17px; cursor: pointer; list-style: none; }
+  .mv-text summary::-webkit-details-marker { display: none; }
+  .mv-text summary::after { content: '+'; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); font-size: 20px; flex: none; }
+  .mv-text[open] summary::after { content: '−'; }
+  .mv-text-brev { padding: 0 16px 22px; font-size: 16.5px; line-height: 1.65; color: var(--ink-1); max-width: 68ch; }
+  .mv-text-brev p + p { margin-top: 14px; }
+  .mv-text-brev .mv-text-huvud { color: var(--ink-3); font-size: 15px; }
+  .mv-text-huvud b { color: var(--ink-1); }
+  @container mv (min-width: 620px) { .mv-text { margin: 6px -28px -24px; } .mv-text summary { padding: 0 28px; } .mv-text-brev { padding: 0 28px 28px; } }
+
+  /* Brevet på arket, i A4:ans skala (mallen Linne). Måtten följer arkets bredd. */
+  .a4 { padding: 9cqw 9.4cqw 0; font-family: 'Inter', sans-serif; font-size: 1.86cqw; line-height: 1.42; color: #26262C; }
+  .a4 .n { font-family: Georgia, 'Times New Roman', serif; font-size: 5.1cqw; line-height: 1.1; color: #1A1A1F; }
+  .a4 .k { margin-top: 1.6cqw; padding-bottom: 3cqw; border-bottom: 1px solid #D9D6D0; font-size: 1.6cqw; color: #4A4A55; }
+  .a4 .d { margin-top: 3.2cqw; color: #65656E; }
+  .a4 .f { margin-top: 3cqw; font-weight: 700; color: #1A1A1F; }
+  .a4 .a { margin-top: 3cqw; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 2.3cqw; color: #1F3A5F; }
+  .a4 p { margin-top: 1.7cqw; }
+  .a4 .s { margin-top: 3cqw; font-weight: 700; color: #1A1A1F; }
+  .a4.koppar { padding-top: 0; }
+  .a4.koppar .huvud { margin: 0 -9.4cqw; padding: 7cqw 9.4cqw 6cqw; background: #8B4A2B; color: #fff; }
+  .a4.koppar .huvud p { margin-top: 0; }
+  .a4.koppar .n { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; font-size: 4.6cqw; }
+  .a4.koppar .k { margin-top: 1.6cqw; border: 0; padding-bottom: 0; color: #fff; }
+  .a4.koppar .a { font-family: 'Inter', sans-serif; color: #8B4A2B; }
+  .a4 .tom { color: #B9A7B3; }
+  .a4 i.l { display: block; height: 1.3cqw; margin-top: 1.5cqw; border-radius: 1cqw; background: #E4E1DC; }
+</style>

@@ -1,0 +1,350 @@
+<!-- titel: Skiss Skapa CV | rum: cv -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="i-penna" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16.500 4.500a2.100 2.100 0 0 1 3 3L8 19z"/></g>
+    <g id="i-blad" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M12 11v6M9 14h6"/></g>
+  </defs>
+</svg>
+<style>
+  /* arket som byggare */
+  .bark p, .bark li, .bark .lagg, .bark .skrivknapp { font-family: var(--text); font-size: clamp(8px, .98vw, 11px); line-height: 1.5; }
+  .bark p { margin-top: 5px; color: #33333A; }
+  .bark ul { margin-top: 4px; }
+  .bark li { position: relative; padding: 1px 4px 1px 1.200em; color: #33333A; }
+  .bark li::before { content: '•'; position: absolute; left: .300em; }
+  .bark li.ny { background: #FBE3D0; border-radius: 4px; }
+  .bark .gra { color: #9A9AA3; font-style: italic; }
+  .bark .lagg { display: inline-block; margin-top: 3px; font-weight: 700; color: var(--koppar-ink); }
+  .bark .skrivknapp { display: inline-flex; align-items: center; gap: .500em; height: 2.600em; margin: 6px 0 4px; padding: 0 1em; border-radius: 8px; border: 1.500px solid #C9C6BF; border-bottom-width: 3px; background: #fff; font-weight: 700; color: #1A1A1F; }
+  .bark .skrivknapp svg { width: 1.300em; height: 1.300em; color: var(--koppar-ink); }
+  .bark .del.vald { margin-top: 12px; padding-top: 1px; padding-bottom: 8px; }
+  .bark .del.vald h5 { margin-top: 3%; }
+  .bnal { display: none; }
+  .med-nal .bnal { position: absolute; z-index: 2; left: calc(-6.500% - 17px); top: 2px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--koppar); color: var(--koppar-text); border: 3px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 15px; box-shadow: 0 3px 0 rgba(0, 0, 0, .2); }
+  .med-nal li .bnal { left: auto; right: -20px; top: 50%; margin-top: -17px; }
+  .verktygsrad { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 14px 0 0; padding: 8px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); }
+  .verktygsrad span { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 11px; background: var(--papper-2); font-size: 13.500px; font-weight: 700; white-space: nowrap; }
+  .verktygsrad .farg { gap: 4px; }
+  .verktygsrad .farg i { width: 14px; height: 14px; border-radius: 50%; }
+  .verktygsrad .tva { margin-left: auto; padding: 3px; gap: 2px; background: var(--golv); }
+  .verktygsrad .tva b { display: grid; place-items: center; height: 30px; padding: 0 11px; border-radius: 9px; font-size: 13.500px; }
+  .verktygsrad .tva b.pa { background: var(--papper); box-shadow: 0 2px 0 var(--kant-stark); }
+  .verktygsrad .bnal { left: auto; right: -12px; top: -14px; }
+
+  .cvb { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 46px 0 128px 0; min-width: 0; }
+  .cvb .ark { transform: rotate(1.200deg); }
+  .cvb .mallchip { position: absolute; z-index: 4; left: 4%; top: 28px; height: 34px; padding: 0 14px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); font-size: 14px; }
+  .cvb .forslag { right: -4px; bottom: 0; width: min(310px, 88%); --rot: -2deg; transform: rotate(-2deg); }
+  .forslag em { display: flex; align-items: center; gap: 8px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+  .forslag em svg { width: 16px; height: 16px; }
+  .forslag li { display: grid; grid-template-columns: 22px 1fr; gap: 9px; align-items: center; margin-top: 8px; font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .forslag li i { width: 22px; height: 22px; border-radius: 7px; border: 2px solid var(--kant-stark); }
+  .forslag li.v i { border-color: var(--ink-1); background: var(--ink-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.500' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.500l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat; }
+  .forslag small { display: block; margin-top: 10px; font-size: 12.500px; color: var(--ink-3); }
+  @media (min-width: 1000px) { .cvb { padding: 54px 0 120px 0; margin-right: 0; } .cvb .mallchip { top: 34px; } .cvb .forslag { right: -34px; } }
+
+  /* startbladet */
+  .start { display: grid; gap: 26px; }
+  .start > *, .linne > div { min-width: 0; }
+  @media (max-width: 480px) { .linne { grid-template-columns: 92px 1fr; gap: 14px; padding: 14px; align-items: center; } .linne-text { grid-column: 1 / -1; } .linne-text p:first-child { margin-top: 0; } .namnfalt { flex-wrap: wrap; padding: 8px 12px; } .brickor .bricka:first-child b { font-size: 19px; line-height: 1.2; } }
+  .falt { display: flex; align-items: center; gap: 10px; min-height: 60px; margin-top: 16px; padding: 0 18px; border-radius: 16px; border: 2px solid var(--ink-1); border-bottom-width: 5px; background: var(--papper); font-size: 18px; font-weight: 600; }
+  .falt::after { content: ''; width: 2px; height: 24px; background: var(--koppar); }
+  .ingangar { display: grid; gap: 10px; margin-top: 14px; }
+  .ingangar a { display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; align-items: center; padding: 14px; border-radius: 18px; background: var(--golv); border: 2px solid var(--kant); border-bottom-width: 5px; text-decoration: none; }
+  .ingangar a.vald { background: var(--papper); border-color: var(--ink-1); }
+  .ingangar i { grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; background: var(--ton-ink); color: #fff; }
+  .ingangar i svg { width: 22px; height: 22px; }
+  .ingangar b { font-family: var(--disp); font-size: 17px; align-self: end; }
+  .ingangar span { font-size: 14px; color: var(--ink-3); line-height: 1.35; align-self: start; }
+  .linne { display: grid; grid-template-columns: 124px 1fr; gap: 18px; align-items: start; padding: 18px; border-radius: 22px; background: var(--golv); }
+  .mini { display: block; width: 100%; border-radius: 6px; background: #fff; border: 2px solid var(--kant-stark); border-bottom-width: 5px; aspect-ratio: 112 / 158; object-fit: cover; }
+  .linne .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .linne p { margin-top: 8px; font-size: 14.500px; color: var(--ink-2); }
+  .namnfalt { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 8px; min-height: 48px; margin-top: 12px; padding: 8px 14px; border-radius: 13px; border: 2px solid var(--kant-stark); background: var(--papper); font-size: 15px; font-weight: 600; }
+  .namnfalt span { font-size: 13px; font-weight: 700; color: var(--ton-ink); white-space: nowrap; }
+  @media (min-width: 1000px) { .start { grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; } .ingangar { grid-template-columns: 1fr 1fr; } .linne { padding: 24px; grid-template-columns: 150px 1fr; } .linne .mini { grid-row: span 2; } .linne-text { grid-column: 2; margin-top: -10px; } }
+
+  /* stegens bilder */
+  .vagsteg .bild { min-height: 140px; }
+  .b-titel { display: grid; gap: 8px; width: 100%; max-width: 220px; }
+  .b-titel b { display: flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 11px; border: 2px solid var(--ink-1); background: #fff; font-size: 14.500px; }
+  .b-titel span { display: flex; flex-wrap: wrap; gap: 5px; }
+  .b-titel i { height: 24px; padding: 0 8px; border-radius: 7px; background: #fff; font-style: normal; font-size: 12px; font-weight: 700; color: var(--ton-ink); display: grid; place-items: center; }
+  .b-tva { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 220px; }
+  .b-tva span { display: grid; place-items: center; gap: 6px; padding: 14px 6px; border-radius: 14px; background: #fff; font-size: 12.500px; font-weight: 700; text-align: center; border-bottom: 4px solid var(--kant-stark); }
+  .b-tva svg { width: 26px; height: 26px; color: var(--ton-ink); }
+  .b-ark { width: 100%; max-width: 200px; padding: 12px; border-radius: 6px; background: #fff; box-shadow: 0 4px 0 rgba(0, 0, 0, .14); }
+  .b-ark i { display: block; height: 5px; margin-top: 5px; border-radius: 3px; background: #DCDAD5; }
+  .b-ark i:first-child { margin-top: 0; width: 46%; height: 7px; background: #1A1A1F; }
+  .b-ark div { margin: 7px -5px 0; padding: 5px; border-radius: 6px; outline: 2px solid var(--koppar); background: #FFF7F0; }
+  .b-ark div i:first-child { height: 5px; background: #DCDAD5; width: 90%; }
+  .b-ark div i.m { background: var(--koppar-ljus); width: 72%; }
+  .b-mallar { display: flex; align-items: end; }
+  .b-mallar img { width: 62px; border-radius: 4px; border: 2px solid #fff; box-shadow: 0 3px 0 rgba(0, 0, 0, .16); }
+  .b-mallar img + img { margin-left: -14px; }
+  .b-mallar img:nth-child(2) { width: 74px; position: relative; z-index: 1; }
+
+  /* det här gör byggandet enkelt */
+  .enkelt-lista { display: grid; gap: 12px; margin-top: 26px; }
+  .enkelt-lista li { display: grid; grid-template-columns: 40px 1fr; gap: 2px 14px; padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+  .enkelt-lista .nr { width: 40px; height: 40px; border-radius: 13px; font-size: 18px; grid-row: span 2; }
+  .enkelt-lista .h3 { font-size: 18.500px; align-self: center; }
+  .enkelt-lista p { grid-column: 2; font-size: 14.500px; color: var(--vagg-mjuk); }
+  .enkelt-bild { width: 100%; max-width: 480px; margin: 0 auto; padding-left: 6%; padding-right: 3%; }
+  .fyra .kort { display: grid; grid-template-rows: auto auto 1fr; align-content: start; }
+  .ebild { display: grid; place-items: center; height: 104px; margin: -6px -6px 6px; padding: 12px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); }
+  .ebild .las { display: grid; gap: 5px; width: 120px; padding: 10px; border-radius: 6px; background: #fff; position: relative; }
+  .ebild .las i { height: 5px; border-radius: 3px; background: #C9D6D5; }
+  .ebild .las i:first-child { width: 50%; background: var(--ton-ink); }
+  .ebild .las::after { content: ''; position: absolute; left: -8px; right: -8px; top: 52%; border-top: 3px solid var(--koppar); border-radius: 2px; }
+  .ebild .sparat { display: grid; gap: 8px; justify-items: center; font-size: 13px; font-weight: 700; }
+  .ebild .sparat span { display: flex; gap: 4px; }
+  .ebild .sparat span i { width: 26px; height: 10px; border-radius: 5px; background: #fff; }
+  .ebild .sparat span i.pa { background: var(--ton-ink); }
+  .ebild .fran { display: flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 20px; }
+  .ebild .fran b { display: grid; place-items: center; width: 52px; height: 64px; border-radius: 6px; background: #fff; font-size: 13px; color: var(--ink-1); border-bottom: 4px solid var(--kant-stark); }
+  .ebild .tel { display: flex; align-items: end; gap: 10px; }
+  .ebild .tel b { width: 44px; height: 76px; border-radius: 10px; border: 3px solid var(--ton-ink); background: #fff; }
+  .ebild .tel i { width: 96px; height: 62px; border-radius: 8px; border: 3px solid var(--ton-ink); background: #fff; }
+
+  /* mallarna */
+  .mallkort { display: grid; grid-template-columns: 112px 1fr; gap: 16px; align-items: start; padding: 18px; border-radius: var(--r-kort); background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; min-width: 0; }
+  .mallkort .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .mallkort p { margin-top: 8px; font-size: 14.500px; color: var(--ink-2); }
+  .mallkort p b { color: var(--ink-1); }
+  .fler { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 18px; padding: 18px 20px; border-radius: var(--r-kort); background: var(--ton); }
+  .fler-rad { display: flex; }
+  .fler-rad img { width: 54px; border-radius: 4px; border: 2px solid #fff; box-shadow: 0 3px 0 rgba(0, 0, 0, .14); }
+  .fler-rad img + img { margin-left: -12px; }
+  .fler b { font-family: var(--disp); font-weight: 800; font-size: 22px; }
+  .fler b span { display: block; font-family: var(--text); font-weight: 400; font-size: 14.500px; color: var(--ink-2); }
+
+  /* gör skillnad: tre tal */
+  .tretal { display: grid; gap: 14px; margin-top: 32px; }
+  .tretal div { padding: 22px; border-radius: 24px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+  .tretal div > b { display: block; font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -.035em; color: var(--vagg-ink); }
+  .tretal .h3 { margin-top: 12px; }
+  .tretal p { margin-top: 6px; font-size: 15px; color: var(--vagg-mjuk); }
+  .skillnad { padding: 28px 20px 32px; border-radius: var(--r-stor); box-shadow: 0 8px 0 var(--vagg-3); }
+  @media (min-width: 1000px) { .tretal { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; } .tretal div > b { font-size: 76px; } .skillnad { padding: 64px; } }
+
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; } }
+  @media (max-width: 480px) { .premium .pris small { display: block; margin: 8px 0 0; } }
+  @media (max-width: 480px) { .linne { grid-template-columns: 84px 1fr; gap: 14px; padding: 14px; align-items: center; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>Skapa CV</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Skapa CV, direkt på arket</p>
+          <h1 class="h1">Skapa ditt CV gratis på minuter</h1>
+          <p class="varde">Skriv direkt på arket i den mall du valt, eller ladda upp ett CV du har så fyller vi i avsnitten. Jobbcoachen föreslår punkterna och du laddar ner som PDF, eller Word i 26 av mallarna. <b>Gratis att börja och helt på svenska.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Bygg mitt CV gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Ladda upp ditt CV</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>På arket</b><span>du ser CV:t i mallen medan du skriver</span></div>
+            <div class="bricka"><b>3</b><span>förslag på punkter, gratis</span></div>
+            <div class="bricka"><b>40</b><span>mallar, 2 gratis</span></div>
+          </div>
+        </div>
+        <div class="cvb">
+          <span class="chip mallchip">Mallen Linne, gratis</span>
+          <!--@del skapa-cv-ark-->
+          <div class="svav forslag gungar sen">
+            <em><svg viewBox="0 0 24 24"><use href="#i-penna"/></svg>Jobbcoachen föreslår</em>
+            <ul>
+              <li class="v"><i></i>Drev fyra upphandlingar enligt LOU</li>
+              <li><i></i>Ansvarade för budget och tidplan</li>
+              <li><i></i>Ledde ett team på tolv personer</li>
+            </ul>
+            <small>Du väljer, ändrar eller hoppar över.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="start">
+        <div>
+          <p class="ey">Börja här</p>
+          <p class="h2" style="margin-top:10px">Vilket jobb söker du?</p>
+          <p class="varde" style="margin-top:12px">Yrkestiteln styr rubrikerna, den grå exempeltexten och Jobbcoachens förslag.</p>
+          <div class="falt">Projektledare</div>
+          <div class="ingangar">
+            <a class="vald" href="#"><i><svg viewBox="0 0 24 24"><use href="#i-upp"/></svg></i><b>Ladda upp ett CV du har</b><span>PDF, Word eller en PDF av din LinkedIn-profil.</span></a>
+            <a href="#"><i><svg viewBox="0 0 24 24"><use href="#i-blad"/></svg></i><b>Skriv från början</b><span>Du börjar på ett tomt ark i Linne.</span></a>
+          </div>
+          <div class="knapprad" style="margin-top:22px">
+            <a class="knapp" href="#">Bygg mitt CV gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <span class="liten">Gratis att börja, ingen kortuppgift.</span>
+          </div>
+        </div>
+        <div class="linne">
+          <img class="mini" src="../underlag/mallar/cv/linne-liten.webp" alt="CV-mallen Linne">
+          <div class="linne-topp">
+            <div class="chips"><span class="chip">Linne</span><span class="chip chip-gratis">Gratis</span><span class="chip">Även som Word</span></div>
+            <p style="font-family:var(--disp);font-weight:700;font-size:19px;color:var(--ink-1);margin-top:12px">Så ser arket ut</p>
+          </div>
+          <div class="linne-text">
+            <p>I byggaren skriver du direkt på arket i den mall du valt, här <a class="lank" href="#">Linne</a>. Tryck på ett avsnitt och fyll i. Grå exempeltext visar vad som brukar stå där och följer inte med i filen.</p>
+            <div class="namnfalt">Sara Lindström<span>Prova Linne med ditt namn</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Fyra steg</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Du skriver, vi sätter ihop. Inga krångliga Word-mallar att kämpa med.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Skriv vilket jobb du söker</h3>
+          <p>Yrkestiteln styr rubrikerna, den grå exempeltexten och Jobbcoachens förslag, så att CV:t talar branschens språk från början.</p>
+          <div class="bild" aria-hidden="true"><div class="b-titel"><b>Projektledare</b><span><i>Arbetslivserfarenhet</i><i>Projekt</i><i>Certifieringar</i></span></div></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Ladda upp ett CV eller skriv från början</h3>
+          <p>Har du ett CV i PDF eller Word, eller en PDF av din LinkedIn-profil, fyller vi i avsnitten åt dig. Annars börjar du på ett tomt ark.</p>
+          <div class="bild" aria-hidden="true"><div class="b-tva"><span><svg viewBox="0 0 24 24"><use href="#i-upp"/></svg>Ladda upp</span><span><svg viewBox="0 0 24 24"><use href="#i-blad"/></svg>Tomt ark</span></div></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Fyll i direkt på arket</h3>
+          <p>Tryck på ett avsnitt och skriv. När du kommer till ett jobb trycker du på Skriv punkter åt mig så föreslår Jobbcoachen punkterna.</p>
+          <div class="bild" aria-hidden="true"><div class="b-ark"><i></i><i></i><i style="width:80%"></i><div><i></i><i class="m"></i><i style="width:60%"></i></div><i></i><i style="width:70%"></i></div></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Välj mall och ladda ner</h3>
+          <p>Byt mall, färg och typsnitt utan att något försvinner, och ladda ner som PDF, eller som Word i de 26 Word-mallarna.</p>
+          <div class="bild" aria-hidden="true"><div class="b-mallar"><img src="../underlag/mallar/cv/bjork-liten.webp" alt=""><img src="../underlag/mallar/cv/linne-liten.webp" alt=""><img src="../underlag/mallar/cv/koppar-liten.webp" alt=""></div></div></li>
+      </ol>
+      <div class="knapprad" style="margin-top:32px"><a class="knapp knapp-vit" href="#">Skapa mitt CV gratis</a></div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <article class="o" data-rum="cv">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-cv"/></svg></span><p class="ey">Vad du får</p></div>
+            <h2 class="h2">Det här gör CV-byggandet enkelt</h2>
+            <p class="varde">Byggaren tar bort friktionen. Du lägger tiden på innehållet, vi sköter resten.</p>
+            <ul class="enkelt-lista">
+              <li><span class="nr nr-koppar">1</span><h3 class="h3">Arket är byggaren</h3><p>Du skriver direkt i mallen. Tryck på ett avsnitt, fyll i och se raden landa där den ska stå. Grå exempeltext visar vad som brukar stå där och följer inte med i filen.</p></li>
+              <li><span class="nr nr-koppar">2</span><h3 class="h3">Jobbcoachen skriver punkterna</h3><p>Tryck på Skriv punkter åt mig så föreslår Jobbcoachen punkter utifrån yrket och det du skrivit. Du väljer, ändrar eller hoppar över. Tre förslag ingår gratis på ditt konto. I Premium får du 30 per dygn.</p></li>
+              <li><span class="nr nr-koppar">3</span><h3 class="h3">Rubriker som följer yrket</h3><p>Skriv vilket jobb du söker så får avsnitten rubriker för din bransch, till exempel Klinisk erfarenhet i vården. Du kan också skriva en egen rubrik.</p></li>
+              <li><span class="nr nr-koppar">4</span><h3 class="h3">Ladda ner som PDF, eller Word i 26 av mallarna</h3><p>Alla mallar laddas ner som PDF. Välj en av de 26 Word-mallarna när du vill ändra i filen själv, eller när annonsen ber om ett format som går att redigera. I gratismallarna kostar Word-filen inget, i de övriga ingår den i Premium.</p></li>
+            </ul>
+          </div>
+          <div class="o-bild">
+            <div class="enkelt-bild med-nal">
+              <!--@del skapa-cv-ark-->
+              <div class="verktygsrad"><span>Aa Calibri</span><span class="farg"><i style="background:#1F3A5F"></i><i style="background:#1E5A3C"></i><i style="background:#7A1F2B"></i><i style="background:#3A3A3A"></i></span><span>Byt mall</span><span class="tva"><b class="pa">PDF</b><b>Word</b></span><span class="bnal">4</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <div class="rutnat r4 fyra" style="margin-top:20px">
+        <div class="kort"><div class="ebild" aria-hidden="true"><div class="las"><i></i><i></i><i></i><i style="width:70%"></i><i></i><i style="width:55%"></i></div></div><h3 class="h3">Mallar som rekryteringssystemen kan läsa</h3><p>Alla mallar är byggda för systemen svenska arbetsgivare sorterar ansökningar med. Rena rubriker, läsbar struktur och ingen formatering som förvirrar maskinen.</p></div>
+        <div class="kort"><div class="ebild" aria-hidden="true"><div class="sparat"><span><i class="pa"></i><i class="pa"></i><i class="pa"></i><i></i><i></i></span>Sparat, 3 av 5 avsnitt</div></div><h3 class="h3">Utkastet väntar på dig</h3><p>CV:t sparas i ditt konto när du sparat första avsnittet, och sedan efter varje avsnitt. Du fortsätter där du slutade från Mina CV, på vilken enhet som helst.</p></div>
+        <div class="kort"><div class="ebild" aria-hidden="true"><div class="fran"><b>PDF</b>→<b>Linne</b></div></div><h3 class="h3">Börja från ett CV du redan har</h3><p>Ladda upp ditt gamla CV, eller en PDF av din LinkedIn-profil, så läser vi ut roller, utbildning och kompetenser åt dig. Du slipper skriva allt en gång till.</p></div>
+        <div class="kort"><div class="ebild" aria-hidden="true"><div class="tel"><b></b><i></i></div></div><h3 class="h3">Fungerar lika bra i mobilen</h3><p>Hela byggaren är gjord för mobilen först. Bygg hela CV:t i telefonen, och när du sparat det öppnar du det på datorn för att ladda ner.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Mallar att välja på</p>
+        <h2 class="h2">Mallar som passar din bransch</h2>
+        <p class="varde">40 mallar som passar alla yrken, med rubriker för din bransch, 2 av dem gratis. Byt mall efteråt utan att förlora det du fyllt i.</p>
+      </div>
+      <div class="rutnat r3">
+        <div class="mallkort"><img class="mini" src="../underlag/mallar/cv/linne-liten.webp" alt="CV-mallen Linne"><div><h3 class="h3">Linne</h3><div class="chips"><span class="chip chip-gratis">Gratis</span><span class="chip">Word</span></div><p><b>Klassisk och luftig.</b> Georgia-namn, Calibri-text, tunn linje under rubrikerna.</p></div></div>
+        <div class="mallkort"><img class="mini" src="../underlag/mallar/cv/bjork-liten.webp" alt="CV-mallen Björk"><div><h3 class="h3">Björk</h3><div class="chips"><span class="chip chip-gratis">Gratis</span><span class="chip">Word</span><span class="chip">Foto</span></div><p><b>Centrerad, med foto.</b> Centrerat huvud med rund fotoplats, accentstapel vid rubrikerna.</p></div></div>
+        <div class="mallkort"><img class="mini" src="../underlag/mallar/cv/koppar-liten.webp" alt="CV-mallen Koppar"><div><h3 class="h3">Koppar</h3><div class="chips"><span class="chip chip-premium">Premium</span><span class="chip">Word</span><span class="chip">Foto</span></div><p><b>Färgat huvud, foto.</b> Färgat huvudband med vit text och rund fotoplats.</p></div></div>
+      </div>
+      <div class="fler">
+        <div class="fler-rad" aria-hidden="true"><img src="../underlag/mallar/cv/kalksten-liten.webp" alt=""><img src="../underlag/mallar/cv/granit-liten.webp" alt=""><img src="../underlag/mallar/cv/kolumn-liten.webp" alt=""><img src="../underlag/mallar/cv/fasad-liten.webp" alt=""><img src="../underlag/mallar/cv/ritning-liten.webp" alt=""><img src="../underlag/mallar/cv/terrakotta-liten.webp" alt=""><img src="../underlag/mallar/cv/morkrum-liten.webp" alt=""></div>
+        <b>37 mallar till<span>26 finns också som Word, 15 har plats för foto.</span></b>
+        <a class="knapp knapp-vit" href="#" style="margin-left:auto">Se alla mallar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="vagg skillnad">
+        <div class="sekt-huvud">
+          <p class="ey">Resultat</p>
+          <h2 class="h2">Gör skillnad i varje ansökan</h2>
+        </div>
+        <div class="tretal">
+          <div><b>1 fil</b><h3 class="h3">Ladda upp ditt gamla CV och börja där det slutade</h3><p>Vi fyller i avsnitten åt dig, och du lägger tiden på att göra dem bättre.</p></div>
+          <div><b>0 kr</b><h3 class="h3">Gratis att börja</h3><p>Ingen kortuppgift och inga dolda avgifter.</p></div>
+          <div><b>Alla 40</b><h3 class="h3">Läsbart för systemen i alla mallar</h3><p>Ansökan sorteras inte bort på vägen för att maskinen inte kunde läsa den.</p></div>
+        </div>
+        <div class="knapprad" style="margin-top:28px"><a class="knapp" href="#">Skapa ditt CV gratis</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium, 149 kr i månaden</p>
+            <h2 class="h2" style="margin-top:12px">Skapa ditt CV gratis på minuter.</h2>
+            <p style="margin-top:14px;font-size:17px;max-width:52ch">Skriv direkt på arket, låt Jobbcoachen föreslå punkterna och ladda ner i en mall som systemen kan läsa. Du börjar gratis utan kortuppgift.</p>
+            <div class="knapprad" style="margin-top:26px">
+              <a class="knapp" href="#">Bygg mitt CV gratis</a>
+              <a class="lank" href="#" style="color:#fff">Se CV-exempel först</a>
+            </div>
+          </div>
+          <div>
+            <div class="pris">149 kr<small>i månaden, säg upp när du vill</small></div>
+            <ul class="bockar" style="margin-top:22px">
+              <li>Alla 40 mallar</li>
+              <li>Word i alla 26 Word-mallar</li>
+              <li>CV-analysens alla förslag</li>
+              <li>Nedladdning utan tak</li>
+              <li>Jobbcoachens förslag på punkter, 30 per dygn</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Vanliga frågor om att skapa CV</h2>
+        <p class="varde">Hittar du inte svaret? <a class="lank" href="#">Hör av dig</a>.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Hur skapar jag ett professionellt CV?</summary><p>Skriv vilket jobb du söker, så får avsnitten rubriker och exempeltext för yrket. Ladda sedan upp ett CV du har, så fyller vi i avsnitten, eller skriv från början. Du fyller i direkt på arket i den mall du valt, och när du kommer till ett jobb kan Jobbcoachen föreslå punkterna; tre förslag ingår gratis på ditt konto. Till sist väljer du mall och laddar ner som PDF, eller som Word i de 26 Word-mallarna.</p></details>
+        <details><summary>Är det gratis att skapa CV online hos er?</summary><p>Ja. Du bygger ditt CV och laddar ner det som PDF en gång utan att lämna kortuppgifter. Två av mallarna, Linne och Björk, är gratis, och de räcker långt för de flesta ansökningar. Vill du ha alla 40 mallar, ladda ner utan tak och hämta Word-filen i 26 av mallarna ingår det i Premium, 149 kr i månaden.</p></details>
+        <details><summary>Hur lång tid tar det att skapa ett CV?</summary><p>Svaret står kvar som i dag.</p></details>
+        <details><summary>Behöver jag ladda upp ett befintligt CV?</summary><p>Svaret står kvar som i dag.</p></details>
+        <details><summary>Kan jag importera mina uppgifter från LinkedIn?</summary><p>Svaret står kvar som i dag.</p></details>
+        <details><summary>Hur sparas mitt CV medan jag bygger det?</summary><p>Svaret står kvar ordagrant som i dag.</p></details>
+        <details><summary>Vilka format kan jag ladda ner CV:t i?</summary><p>Alla mallar laddas ner som PDF, och 26 av dem finns också som Word-fil (.docx). PDF är det vanligaste och läses rätt av rekryteringssystem och rekryterares verktyg. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. I gratismallarna Linne och Björk är Word gratis, precis som PDF. Word i de övriga Word-mallarna ingår i Premium.</p></details>
+        <details><summary>Funkar CV-byggaren på mobilen?</summary><p>Svaret står kvar som i dag.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Bygg mitt CV gratis <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

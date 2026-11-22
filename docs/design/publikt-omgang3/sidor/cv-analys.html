@@ -1,0 +1,283 @@
+<!-- titel: Skiss CV-analys | rum: cv -->
+<style>
+  .instr { position: relative; width: 100%; padding: 78px 0 20px 9%; max-width: 540px; margin: 0 auto; }
+  .instr .ark { transform: rotate(1.4deg); }
+  .instr .poang { left: 0; top: 0; --rot: -3deg; transform: rotate(-3deg); }
+  .instr .fynd { right: -6px; bottom: -8px; width: min(270px, 74%); --rot: 2deg; transform: rotate(2deg); }
+  .instr .fynd b { display: flex; justify-content: space-between; font-size: 14.5px; }
+  .instr .fynd p { margin-top: 8px; font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
+  .instr .kvar { position: absolute; z-index: 4; right: 2%; top: 26px; height: 34px; padding: 0 14px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); font-size: 14px; }
+  @media (min-width: 1000px) { .instr { padding: 104px 0 30px 10%; margin-right: 0; } .instr .kvar { top: 40px; } .instr .fynd { right: -28px; bottom: 10px; } }
+
+  .slapp { display: grid; gap: 24px; align-items: stretch; }
+  .slapp-yta { display: grid; place-items: center; gap: 12px; text-align: center; padding: 28px 18px; border-radius: 22px; border: 3px dashed var(--kant-stark); background: var(--golv); }
+  .slapp-yta .fil { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: var(--papper); color: var(--ton-ink); box-shadow: 0 5px 0 var(--kant-stark); }
+  .slapp-yta .fil svg { width: 30px; height: 30px; }
+  .slapp-far { display: grid; gap: 10px; align-content: start; }
+  .slapp-far li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--golv); font-size: 15px; font-weight: 600; }
+  .slapp-far li i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton-ink); color: #fff; }
+  .slapp-far li i svg { width: 18px; height: 18px; }
+  .slapp-far li span { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+  @media (min-width: 900px) { .slapp { grid-template-columns: 1.15fr 1fr; gap: 40px; } .slapp-yta { padding: 48px 28px; } }
+
+  /* sju delar, hundra poäng: stapeln är bilden */
+  .hundra { display: flex; gap: 4px; height: 64px; margin-top: 40px; }
+  .hundra div { position: relative; border-radius: 12px; background: var(--papper); overflow: hidden; min-width: 0; }
+  .hundra div i { position: absolute; inset: 0 auto 0 0; background: var(--ton-ink); }
+  .hundra div.tapp { background: repeating-linear-gradient(135deg, #F6C9A6 0 6px, #FBE3D0 6px 12px); }
+  .hundra div.tapp i { background: var(--koppar); }
+  .hundra div b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--disp); font-weight: 800; font-size: 17px; color: #fff; }
+  .hundra div.tapp b { color: var(--koppar-text); }
+  .delar { display: grid; gap: 12px; margin-top: 18px; }
+  .delrad { display: grid; grid-template-columns: 48px 1fr auto; gap: 4px 14px; align-items: center; padding: 16px 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+  .delrad p { grid-column: 2 / -1; font-size: 14.5px; color: var(--ink-2); }
+  .delrad .max { font-family: var(--disp); font-weight: 800; font-size: 19px; white-space: nowrap; }
+  .delrad .max small { font-family: var(--text); font-weight: 500; font-size: 13px; color: var(--ink-3); }
+  .delrad.tapp { border-color: var(--koppar); }
+  @media (min-width: 1000px) { .delar { grid-template-columns: 1fr 1fr; gap: 16px; } .hundra div b { font-size: 21px; } .delrad.bred { grid-column: 1 / -1; } }
+
+  /* vägen till 100 */
+  .vagen { border-radius: var(--r-stor); padding: 28px 20px 34px; }
+  .vagen-rad { display: grid; gap: 28px; margin-top: 28px; }
+  .tillhundra { display: flex; height: 44px; border-radius: 14px; overflow: hidden; }
+  .tillhundra i { display: grid; place-items: center; font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 17px; }
+  .tillhundra .idag { flex: 93; background: var(--ljus); color: var(--vagg-3); }
+  .tillhundra .jc { flex: 5; background: var(--koppar); color: var(--koppar-text); min-width: 44px; }
+  .tillhundra .sjalv { flex: 2; min-width: 40px; color: var(--vagg-ink); background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .28) 0 6px, rgba(255, 255, 255, .1) 6px 12px); }
+  .forklaring { display: grid; gap: 8px; margin-top: 16px; font-size: 15px; color: var(--vagg-mjuk); }
+  .forklaring li { display: flex; gap: 10px; align-items: center; }
+  .forklaring li::before { content: ''; width: 14px; height: 14px; border-radius: 5px; background: var(--ljus); flex: none; }
+  .forklaring li:nth-child(2)::before { background: var(--koppar); }
+  .forklaring li:nth-child(3)::before { background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .5) 0 3px, rgba(255, 255, 255, .15) 3px 6px); }
+  .forklaring b { margin-left: auto; color: var(--vagg-ink); font-family: var(--disp); }
+  .niva { display: grid; gap: 14px; }
+  .niva .kort { border-color: transparent; border-bottom-color: rgba(0, 0, 0, .25); }
+  .niva .kort .h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  @media (min-width: 1000px) { .vagen { padding: 64px; } .vagen-rad { grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; } .niva { grid-template-columns: 1fr 1fr; } }
+
+  .fore { margin-top: 12px; padding: 12px 14px; border-radius: 14px; background: var(--golv); font-size: 14.5px; }
+  .fore s { color: var(--ink-3); }
+  .fore b { display: block; margin-top: 4px; color: var(--ton-ink); }
+
+  .prem-rad { display: grid; gap: 28px; }
+  @media (min-width: 1000px) { .prem-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>CV-analys</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p><span class="chip chip-vagg">Gratis för varje CV</span></p>
+          <h1 class="h1"><span class="over">CV-analys med läsbarhetspoäng</span> Se var ditt CV tappar, del för del</h1>
+          <p class="varde">Vi går igenom ditt CV i sju delar och räknar en läsbarhetspoäng av 100. Du ser var varje tappad poäng sitter och hur du tar tillbaka den. <b>Poängen och genomgången är gratis för varje CV.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Analysera mitt CV <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så räknas poängen</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>7</b><span>delar i genomgången</span></div>
+            <div class="bricka"><b>100</b><span>poäng att nå</span></div>
+            <div class="bricka"><b>0 kr</b><span>för poängen, varje CV</span></div>
+          </div>
+        </div>
+        <div class="instr">
+          <span class="chip kvar">7 poäng kvar till 100</span>
+          <div class="svav poang gungar"><div class="stor">93</div><div class="under">av 100 i dag</div></div>
+          <!--@del cv-ark-->
+          <div class="svav fynd gungar sen">
+            <b>Erfarenhet <span>30 av 35</span></b>
+            <div class="stapel koppar" style="margin-top:8px"><i style="width:86%"></i></div>
+            <p>Flera punkter börjar inte med vad du gjorde. Jobbcoachen föreslår nya.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="slapp">
+        <div>
+          <p class="ey">Prova utan konto</p>
+          <h2 class="h2" style="margin-top:10px">Analysera ditt CV direkt</h2>
+          <p class="varde" style="margin-top:12px">Ladda upp ditt CV som PDF eller Word, så får du din läsbarhetspoäng och det viktigaste du bör ändra. Inget konto behövs, och vi sparar varken filen eller texten.</p>
+          <div class="slapp-yta" style="margin-top:22px">
+            <span class="fil"><svg viewBox="0 0 24 24"><use href="#i-upp"/></svg></span>
+            <b style="font-family:var(--disp);font-size:20px">Släpp din CV-fil här</b>
+            <a class="knapp" href="#">Välj din CV-fil</a>
+            <span class="liten">PDF, Word eller ren text. Max 5 MB.</span>
+          </div>
+        </div>
+        <div>
+          <p class="ey" style="color:var(--ton-ink)">Det här får du se</p>
+          <ul class="slapp-far" style="margin-top:14px">
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div>Din läsbarhetspoäng av 100<span>Varje poäng går att peka på i ditt CV.</span></div></li>
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div>Delen där du tappar mest<span>Med vad som saknas, i klartext.</span></div></li>
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div>Hela genomgången i ett gratiskonto<span>Alla sju delar, för varje CV du sparar.</span></div></li>
+          </ul>
+          <p class="liten" style="margin-top:16px">Är din PDF inskannad? Skapa ett gratiskonto, så läser vi av bilden. Bildläsningen läser svenska.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Så fungerar det</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Fyra steg från uppladdat CV till en starkare ansökan.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Ladda upp ditt CV</h3>
+          <p>Som PDF eller Word, eller välj ett CV du redan har sparat. Inskannade PDF:er läser vi av när du är inloggad.</p></li>
+        <li><span class="nr">2</span><h3 class="h3">Vi går igenom sju delar</h3>
+          <p>Kontaktuppgifter, personbeskrivning, erfarenhet, kompetenser, utbildning, språk och till sist datum, ordning och längd.</p></li>
+        <li><span class="nr">3</span><h3 class="h3">Se läsbarhetspoängen och vad som saknas</h3>
+          <p>Du får en läsbarhetspoäng av 100 och ser vad som saknas i varje del, utmärkt direkt på ditt CV.</p></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Hämta Jobbcoachens förslag</h3>
+          <p>Jobbcoachen skriver förslag på nya formuleringar. Välj dem du vill ha och spara CV:t i en av 40 mallar.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Vad vi kontrollerar</p>
+        <h2 class="h2">Sju delar som ger din läsbarhetspoäng</h2>
+        <p class="varde">Varje poäng går att peka på i ditt CV. Fler ord ger aldrig fler poäng. Så här fördelas de hundra, med Saras CV som exempel.</p>
+      </div>
+      <div class="hundra" role="img" aria-label="Poängens fördelning: Kontaktuppgifter 10, Personbeskrivning 15, Erfarenhet 35, Kompetenser 12, Utbildning 8, Språk 5, Datum, ordning och längd 15">
+        <div style="flex:10"><i style="width:100%"></i><b>10</b></div>
+        <div style="flex:15"><i style="width:100%"></i><b>15</b></div>
+        <div style="flex:35" class="tapp"><i style="width:86%"></i><b>35</b></div>
+        <div style="flex:12"><i style="width:100%"></i><b>12</b></div>
+        <div style="flex:8"><i style="width:100%"></i><b>8</b></div>
+        <div style="flex:5" class="tapp"><i style="width:60%"></i><b>5</b></div>
+        <div style="flex:15"><i style="width:100%"></i><b>15</b></div>
+      </div>
+      <div class="delar">
+        <div class="delrad"><span class="nr">1</span><h3 class="h3">Kontaktuppgifter</h3><span class="max">10 <small>poäng</small></span><p>Namn, e-postadress, telefonnummer och ort.</p></div>
+        <div class="delrad"><span class="nr">2</span><h3 class="h3">Personbeskrivning</h3><span class="max">15 <small>poäng</small></span><p>Lagom lång, säger vilken roll du har eller söker och har något konkret: år, antal eller resultat.</p></div>
+        <div class="delrad tapp bred"><span class="nr nr-koppar">3</span><h3 class="h3">Erfarenhet</h3><span class="max">35 <small>poäng</small></span><p>Den tyngsta delen. Varje roll har titel, arbetsgivare och period, beskriver vad du gjorde och har minst ett resultat i siffror. Punkterna börjar med ett verb. <b style="color:var(--koppar-ink)">Sara har 30 av 35: flera punkter börjar inte med vad hon gjorde.</b></p></div>
+        <div class="delrad"><span class="nr">4</span><h3 class="h3">Kompetenser</h3><span class="max">12 <small>poäng</small></span><p>Ett eget avsnitt med lagom många korta, sökbara termer.</p></div>
+        <div class="delrad"><span class="nr">5</span><h3 class="h3">Utbildning</h3><span class="max">8 <small>poäng</small></span><p>Namn, skola och år eller period för varje utbildning.</p></div>
+        <div class="delrad tapp"><span class="nr nr-koppar">6</span><h3 class="h3">Språk</h3><span class="max">5 <small>poäng</small></span><p>Språken står med, och varje språk har en nivå. <b style="color:var(--koppar-ink)">Sara har 3 av 5: nivån saknas.</b></p></div>
+        <div class="delrad"><span class="nr">7</span><h3 class="h3">Datum, ordning och längd</h3><span class="max">15 <small>poäng</small></span><p>Perioder som går att tolka, samma datumformat, senaste rollen först och ett CV som är lagom långt.</p></div>
+      </div>
+      <p class="liten" style="margin-top:18px;max-width:70ch">Poängen mäter hur lätt ditt CV är att läsa för en rekryterare och för rekryteringssystem (ATS). Den kommer inte från något ATS-system.</p>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="vagg vagen">
+        <div class="sekt-huvud">
+          <p class="ey">Gratis och Premium</p>
+          <h2 class="h2">Vägen till 100 poäng</h2>
+          <p class="varde"><b>Poängen är gratis.</b> Förslagen gör jobbet åt dig.</p>
+        </div>
+        <div class="vagen-rad">
+          <div>
+            <div class="tillhundra" role="img" aria-label="93 poäng i dag, Jobbcoachens förslag ger 5 till, du själv kan hämta 2 till"><i class="idag">93</i><i class="jc">+5</i><i class="sjalv">+2</i></div>
+            <ul class="forklaring">
+              <li>I dag <b>93</b></li>
+              <li>Jobbcoachens förslag <b>+5</b></li>
+              <li>Du själv <b>+2</b></li>
+            </ul>
+            <p class="liten" style="margin-top:18px">Varje CV får sin egen väg till 100. Du ser alltid hur många poäng som återstår och i vilken del de sitter.</p>
+          </div>
+          <div class="niva">
+            <div class="kort">
+              <h3 class="h3">Gratis <span class="chip chip-gratis">för varje CV</span></h3>
+              <ul class="bockar pa-papper" style="margin-top:14px">
+                <li>Läsbarhetspoängen</li>
+                <li>Vad som saknas i alla sju delar</li>
+                <li>Jobbcoachens förslag en gång, med det tyngsta förslaget öppet</li>
+              </ul>
+            </div>
+            <div class="kort">
+              <h3 class="h3">Premium <span class="chip chip-premium">149 kr i månaden</span></h3>
+              <ul class="bockar" style="margin-top:14px">
+                <li>Alla förslag från Jobbcoachen</li>
+                <li>Nya förslag efter varje ändring</li>
+                <li>Ersätt ditt nuvarande CV med ett tryck</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt sekt-papper">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Skrivtips</p>
+        <h2 class="h2">Fem saker som lyfter vilket CV som helst</h2>
+      </div>
+      <div class="rutnat r3">
+        <div class="kort"><span class="nr">1</span><h3 class="h3">Kvantifiera dina resultat</h3><p>Siffror övertygar mer än adjektiv.</p><div class="fore"><s>Duktig på försäljning</s><b>Ökade omsättningen 40 procent på 8 månader</b></div></div>
+        <div class="kort"><span class="nr">2</span><h3 class="h3">Börja varje punkt med ett verb</h3><p>Drev, byggde, ledde, införde. Aktiva verb visar handlingskraft.</p><div class="fore"><s>Ansvarig för införandet</s><b>Ledde införandet för 40 handläggare</b></div></div>
+        <div class="kort"><span class="nr">3</span><h3 class="h3">Använd annonsens egna ord</h3><p>Står en term i annonsen, skriv den exakt så i CV:t. Rekryteringssystemen letar efter exakta termer, inte synonymer.</p></div>
+        <div class="kort"><span class="nr">4</span><h3 class="h3">En sida räcker ofta</h3><p>Under fem års erfarenhet: en A4. Mer erfarenhet: högst två.</p></div>
+        <div class="kort"><span class="nr">5</span><h3 class="h3">Hoppa över bilden</h3><p>I Sverige väger innehållet tyngre än utseendet, så lägg platsen på det som säljer dig.</p></div>
+        <div class="kort kort-ton"><h3 class="h3">Se hur andra har gjort</h3><p>CV-exempel för 89 yrken, skrivna för svenska rekryterare.</p><a class="lank" href="#">Se CV-exempel</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="premium">
+        <div class="prem-rad">
+          <div>
+            <p class="ey">Jobbcoach Premium</p>
+            <h2 class="h2" style="margin-top:12px">Alla förslag, och nya när du har ändrat.</h2>
+            <p style="margin-top:14px;font-size:17px;max-width:52ch">Poängen och genomgången i sju delar är gratis. Alla förslag från Jobbcoachen, alla 40 mallar och personliga brev utan tak ingår i Premium.</p>
+            <div class="knapprad" style="margin-top:26px">
+              <a class="knapp" href="#">Analysera mitt CV gratis</a>
+              <a class="lank" href="#" style="color:#fff">Se CV-exempel först</a>
+            </div>
+          </div>
+          <div>
+            <div class="pris">149 kr<small>i månaden, säg upp när du vill</small></div>
+            <ul class="bockar" style="margin-top:22px">
+              <li>Alla förslag, och nya efter varje ändring</li>
+              <li>40 CV-mallar, 26 av dem också som Word</li>
+              <li>Rekryteringstester, personliga brev och jobbmatchning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <h2 class="h2">Frågor om CV-analysen</h2>
+        <p class="varde">Hittar du inte svaret? Mejla support@jobbcoach.ai.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>Vad betyder läsbarhetspoängen?</summary><p>Läsbarhetspoängen är ett tal från 0 till 100 som visar hur lätt ditt CV är att läsa för en rekryterare och för rekryteringssystem (ATS). Den räknas ur det som står i CV:t, i sju delar. Bredvid ser du hur många poäng som återstår till 100 och var de sitter.</p></details>
+        <details><summary>Hur lång tid tar en CV-analys?</summary><p>Poängen syns så snart ditt CV är sparat. Jobbcoachens förslag tar under en minut.</p></details>
+        <details><summary>Vad är gratis i CV-analysen?</summary><p>Poängen och vad som saknas i alla sju delar är gratis för varje CV, utan kortuppgifter. Jobbcoachens förslag hämtar du en gång gratis, med det tyngsta förslaget öppet. Alla förslag och nya förslag efter ändringar ingår i Premium, 149 kr i månaden.</p></details>
+        <details><summary>Vilka förbättringsförslag får jag?</summary><p>Jobbcoachen skriver förslag på nya formuleringar där du tappar poäng, till exempel punkter som inte börjar med vad du gjorde. Du ser din nuvarande text och förslaget bredvid varandra och väljer själv vad du tar med.</p></details>
+        <details><summary>Kan jag ladda upp ett inskannat CV som PDF?</summary><p>Ja, när du är inloggad. Då läser vi av bilden och gör om den till text. Bildläsningen läser svenska.</p></details>
+        <details><summary>Behöver jag ha CV:t på svenska?</summary><p>Analysen är byggd för svenska CV och svensk arbetsmarknad, och förslagen kommer på svenska.</p></details>
+        <details><summary>Räknas poängen om när jag ändrar i CV:t?</summary><p>Ja. Poängen räknas om för varje CV du sparar, utan kostnad. Med Premium får du också nya förslag från Jobbcoachen efter ändringen.</p></details>
+        <details><summary>Är mitt CV säkert hos er?</summary><p>Svaret står kvar ordagrant som i dag. Texter om datalagring ändras inte i den här omgången.</p></details>
+        <details><summary>Vad händer efter analysen?</summary><p>Du väljer vilka förslag du vill ha, ser poängen röra sig och sparar CV:t i en av 40 mallar. Två mallar är gratis, med en nedladdning som PDF. Alla 40 mallar, Word och fler nedladdningar ingår i Premium.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Analysera mitt CV <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

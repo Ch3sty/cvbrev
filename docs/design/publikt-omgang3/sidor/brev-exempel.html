@@ -1,0 +1,429 @@
+<!-- titel: Skiss Personligt brev-exempel, projektledare | rum: brev -->
+<!--@del brev-exempel-visare-stil-->
+<style>
+  main img { height: auto; }
+
+  /* hjälten */
+  .bevis { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .bevis .chip { height: 34px; padding: 0 14px 0 10px; font-size: 14px; }
+  .bevis .chip svg { width: 16px; height: 16px; }
+  .exbild { position: relative; width: 100%; max-width: 450px; margin: 0 0 0 auto; padding: 16px 44px 34px; }
+  .exbild .mv-ark { transform: rotate(1.5deg); }
+  .exbild .mv-kik { top: 6%; }
+  .lapp { position: absolute; z-index: 3; width: 236px; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; padding: 12px 14px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .25), 0 20px 40px rgba(0, 0, 0, .22); font-size: 14px; font-weight: 700; line-height: 1.3; }
+  .lapp.a { left: -40px; top: 34%; --rot: -3deg; transform: rotate(-3deg); }
+  .lapp.b { right: -34px; bottom: 9%; --rot: 2deg; transform: rotate(2deg); }
+  .m, .lapp i, .not i, .varfor i { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--ton-ink); color: #fff; font-family: var(--disp); font-style: normal; font-weight: 800; font-size: 14.5px; flex: none; }
+  @media (max-width: 999px) { .exbild { display: none; } }
+
+  /* papperet på plommon, och kommentarerna bredvid */
+  .exrad { display: grid; gap: 22px; margin-top: 28px; }
+  .exbord { position: relative; isolation: isolate; overflow: hidden; margin: 0 -8px; padding: 8px 8px 0; border-radius: 26px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 8px 0 var(--vagg-3); }
+  .exbord::before { content: ''; position: absolute; z-index: -1; right: -30%; top: -12%; width: 90%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .55; }
+  .expapper { position: relative; padding: 28px 20px 32px; border-radius: 8px; background: #fff; color: #26262C; box-shadow: 0 6px 0 rgba(0, 0, 0, .22); }
+  .expapper .n { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; line-height: 1.1; color: #1A1A1F; }
+  .expapper .k { margin-top: 8px; padding-bottom: 16px; border-bottom: 1px solid #D9D6D0; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+  .expapper .d { margin-top: 18px; font-size: 14px; color: var(--ink-3); }
+  .expapper .f { margin-top: 14px; font-size: 15px; font-weight: 700; color: #1A1A1F; }
+  .expapper .a { margin-top: 2px; font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 18px; color: #1F3A5F; }
+  .expapper .t { position: relative; margin-top: 15px; font-size: 16px; line-height: 1.68; }
+  .expapper .m { margin-right: 6px; width: 24px; height: 24px; font-size: 13px; border-radius: 8px; vertical-align: 1px; }
+  .exverktyg { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 16px 8px 18px; }
+  .bytmall { display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 22px 0 14px; border-radius: 16px; background: var(--papper); color: var(--ink-1); font-weight: 700; font-size: 17px; box-shadow: 0 5px 0 rgba(0, 0, 0, .32); }
+  .bytmall .fan { display: flex; padding-left: 8px; }
+  .bytmall .fan img { width: 27px; margin-left: -8px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(26, 26, 31, .2); }
+  .bytmall .fan img:nth-child(odd) { transform: rotate(-4deg); }
+  .bytmall .fan img:nth-child(even) { transform: rotate(4deg) translateY(-2px); }
+  .exmeta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .noter { display: grid; gap: 10px; align-content: start; }
+  .not { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 14px 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+  .not b { display: block; font-family: var(--disp); font-size: 16.5px; line-height: 1.25; }
+  .not span { display: block; margin-top: 4px; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+  .notcta { display: grid; gap: 8px; padding: 20px; border-radius: 22px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 6px 0 var(--vagg-3); }
+  .notcta b { font-family: var(--disp); font-size: 21px; letter-spacing: -0.015em; }
+  .notcta p { color: var(--vagg-mjuk); font-size: 15px; }
+  .notcta .knapp { margin-top: 8px; width: 100%; }
+  .notcta .lank { margin-top: 6px; color: var(--vagg-ink); min-height: 44px; display: inline-flex; align-items: center; }
+  @media (min-width: 1000px) {
+    .exrad { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; margin-top: 44px; }
+    .exbord { margin: 0; padding: 26px 26px 0; }
+    .expapper { padding: 56px 64px 60px 84px; }
+    .expapper .n { font-size: 40px; }
+    .expapper .a { font-size: 21px; }
+    .expapper .t { font-size: 16.5px; }
+    .expapper .m { position: absolute; left: -52px; top: 2px; margin: 0; width: 30px; height: 30px; font-size: 15px; }
+    .expapper .m + .m { top: 40px; }
+    .exverktyg { padding: 20px 4px 24px; }
+    .noter { position: sticky; top: 100px; }
+  }
+
+  /* skissens egna blad: syns inte på sidan */
+  .skissnot { margin-top: 48px; padding: 14px 16px; border-radius: 16px; border: 2px dashed var(--koppar); background: #FFF7F0; color: var(--koppar-text); font-size: 14.5px; line-height: 1.5; }
+  .skissnot b { display: block; font-size: 12.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); }
+  .ramrad { display: grid; gap: 24px; margin-top: 24px; }
+  .ram375 { position: relative; width: 375px; max-width: 100vw; height: 667px; margin: 0 auto; overflow: hidden; background: var(--golv); outline: 4px solid var(--ink-1); }
+  .ram375 .mnav { display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 16px; background: var(--vagg-3); color: var(--vagg-ink); }
+  .ram375 .mnav .logga { font-size: 17px; }
+  .ram375 .mnav .knapp { margin-left: auto; }
+  .ram375 .mv { margin: 10px 8px 0; }
+  .cookie { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 16px 16px 18px; background: #fff; color: var(--ink-1); border-top: 1px solid var(--kant-stark); box-shadow: 0 -10px 30px rgba(0, 0, 0, .28); }
+  .cookie p { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+  .cookie div { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .cookie span { display: grid; place-items: center; height: 46px; border-radius: 12px; border: 2px solid var(--kant-stark); font-weight: 700; font-size: 15px; }
+  .cookie span:last-child { background: var(--ink-1); border-color: var(--ink-1); color: #fff; }
+  .ramtext { max-width: 520px; }
+  .ramtext li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; margin-top: 14px; font-size: 15.5px; color: var(--ink-2); }
+  .ramtext li i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-style: normal; font-weight: 800; }
+  @media (min-width: 1000px) { .ramrad { grid-template-columns: 375px 1fr; gap: 64px; align-items: center; } .ram375 { margin: 0; } }
+
+  /* varför det fungerar, tipsen */
+  .varfor { display: grid; gap: 14px; margin-top: 32px; }
+  .varfor li { display: grid; grid-template-columns: 48px 1fr; gap: 6px 16px; padding: 20px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; border-radius: var(--r-kort); }
+  .varfor li p { grid-column: 2; font-size: 15.5px; color: var(--ink-2); }
+  .varfor .h3 { align-self: center; }
+  @media (max-width: 420px) { .varfor li { grid-template-columns: 40px 1fr; padding: 18px 16px; } .varfor .nr { width: 40px; height: 40px; font-size: 19px; border-radius: 13px; } }
+  @media (min-width: 1000px) { .varfor { grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; } .varfor li { padding: 28px; } }
+  .tips { display: grid; gap: 14px; margin-top: 32px; }
+  .tips .kort { display: grid; gap: 12px; align-content: start; }
+  .tips .kort > * + * { margin-top: 0; }
+  .tips .huvud { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; }
+  .tips q { display: block; quotes: none; padding: 12px 14px; border-radius: 14px; background: var(--golv); border-left: 4px solid var(--ton-ink); font-family: Georgia, 'Times New Roman', serif; font-size: 15.5px; line-height: 1.5; color: var(--ink-1); }
+  @media (min-width: 1000px) { .tips { grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; } .tips .kort.bred { grid-column: 1 / -1; } }
+
+  /* skrivguiden */
+  .guide { display: grid; gap: 28px; margin-top: 8px; }
+  .mv.ut { margin: 0 -8px; }
+  @media (min-width: 1000px) { .mv.ut { margin: 0; } }
+  .guide .text p:not(.ey) { font-size: 17px; line-height: 1.65; color: var(--ink-2); margin-top: 16px; max-width: 68ch; }
+  .guide .text h2 + p:not(.ey) { font-size: 19px; color: var(--ink-1); }
+  .delar { padding: 22px 18px; border-radius: var(--r-stor); background: var(--ton); }
+  .delar ol { display: grid; gap: 10px; margin-top: 14px; }
+  .delar li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 12px; border-radius: 14px; background: var(--papper); font-size: 14.5px; color: var(--ink-2); }
+  .delar li i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--ton-ink); color: #fff; font-family: var(--disp); font-style: normal; font-weight: 800; }
+  .delar li b { display: block; font-family: var(--disp); font-size: 16px; color: var(--ink-1); }
+  @media (min-width: 1000px) { .guide { grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: start; } .delar { padding: 28px; } }
+
+  .faq-h2::first-letter { text-transform: uppercase; }
+
+  /* hela ansökan */
+  .ansokan { display: grid; gap: 14px; margin-top: 32px; }
+  .par-kort { position: relative; display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: start; padding: 20px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; border-radius: var(--r-kort); text-decoration: none; color: var(--ink-1); }
+  .par-kort img { width: 84px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 5px 0 rgba(0, 0, 0, .14); transform: rotate(-3deg); }
+  .par-kort .h3 { margin-top: 6px; }
+  .par-kort p { font-size: 15px; color: var(--ink-2); margin-top: 6px; }
+  .par-kort .bockar { margin-top: 10px; gap: 6px; }
+  .par-kort .bockar li { font-size: 14.5px; }
+  .par-kort .lank { display: inline-block; margin-top: 10px; }
+  .par-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 22px; font-size: 15.5px; }
+  @media (min-width: 1000px) { .ansokan { grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; } .par-kort { grid-template-columns: 110px 1fr; padding: 28px; gap: 24px; } .par-kort img { width: 110px; } }
+
+  /* fler yrken (samma kort som i navet) */
+  .yrken { display: grid; gap: 12px; margin-top: 28px; }
+  .yk { display: grid; grid-template-columns: 58px 1fr; gap: 14px; align-items: start; height: 100%; padding: 14px 16px 14px 14px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 20px; text-decoration: none; color: var(--ink-1); }
+  .yk img { width: 58px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(58, 25, 48, .1), 0 4px 0 rgba(58, 25, 48, .16); transform: rotate(-3deg); margin-top: 4px; }
+  .yk span { display: block; min-width: 0; }
+  .yk small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ton-ink); }
+  .yk h3 { margin-top: 3px; font-family: var(--disp); font-weight: 800; font-size: 19px; line-height: 1.2; letter-spacing: -0.015em; }
+  .yk em { display: block; margin-top: 5px; font-style: normal; font-size: 14.5px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+  @media (min-width: 700px) { .yrken { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .yrken { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 40px; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte utan-lyft">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Exempel</a></span><span><a href="#">Personligt brev-exempel</a></span><span>Projektledare</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Personligt brev-exempel</p>
+          <h1 class="h1">Projektledare</h1>
+          <p class="varde">Ett professionellt personligt brev för projektledare som visar konkreta projektresultat, både agila och traditionella metoder, samt certifieringar. Optimerat för svenska techföretag och ATS-system.</p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Använd som mall <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Se exemplet</a>
+          </div>
+          <ul class="bevis">
+            <li class="chip chip-vagg"><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg>Komplett brev</li>
+            <li class="chip chip-vagg"><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg>40 mallar</li>
+            <li class="chip chip-vagg"><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg>Kopiera direkt</li>
+          </ul>
+        </div>
+        <div class="exbild" aria-hidden="true">
+          <span class="mv-kik mv-kik-v"><img src="../underlag/mallar/brev/koppar.webp" alt="" width="480" height="679"></span>
+          <span class="mv-kik mv-kik-h"><img src="../underlag/mallar/brev/ritning.webp" alt="" width="480" height="679"></span>
+          <div class="mv-ark">
+<!--@del brev-exempel-a4-->
+          </div>
+          <div class="lapp a gungar"><i>1</i>Kvantifierade projektresultat ökar trovärdigheten</div>
+          <div class="lapp b gungar sen"><i>3</i>Certifieringar nämns tidigt och naturligt</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Papperet, stängt läge -->
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Vad du får här</p>
+        <h2 class="h2">Komplett exempel på 60 sek</h2>
+        <p class="varde">Här är ett färdigskrivet personligt brev för projektledare som du kan kopiera och anpassa direkt. Under brevet förklarar vi varför det fungerar och ger konkreta tips för din bransch.</p>
+      </div>
+      <div class="exrad">
+        <div class="exbord">
+          <div class="expapper" id="exempel-papper">
+            <p class="n">Sara Lindström</p>
+            <p class="k">Storgatan 12, 111 23 Stockholm · 070-123 45 67 · sara.lindstrom@exempel.se</p>
+            <p class="d">2026-11-22</p>
+            <p class="f">TechFlow Sweden AB</p>
+            <p class="a">Senior Projektledare</p>
+            <p class="t">Hej,</p>
+            <p class="t">Jag söker tjänsten som projektledare på TechFlow Sweden AB. Med sju års erfarenhet av att leda både agila och traditionella IT-projekt känner jag mig redo att bidra till era digitaliseringsprojekt inom fintech. Er satsning på AI-driven kundanalys och moderna utvecklingsmetoder passar perfekt med min bakgrund.</p>
+            <p class="t"><span class="m" aria-label="Not 1">1</span><span class="m" aria-label="Not 2">2</span>Under min nuvarande roll som projektledare på Digital Innovations har jag framgångsrikt lett åtta större projekt med budgetar mellan 2 och 8 miljoner kronor. Ett konkret exempel är när jag koordinerade lanseringen av en ny mobilbank-app med ett team på 15 utvecklare, vilket levererades två veckor före deadline och 12 procent under budget. Projektet ökade kundens dagliga aktiva användare med 40 procent under första kvartalet. Jag arbetar strukturerat med Scrum och Kanban, faciliterar dagliga stand-ups och retrospectives, och säkerställer att teamet har tydliga sprintmål.</p>
+            <p class="t"><span class="m" aria-label="Not 3">3</span><span class="m" aria-label="Not 4">4</span>Jag är certifierad PMP sedan 2021 och Scrum Master sedan 2019, vilket gett mig verktyg för både traditionell och agil projektledning. Min styrka ligger i stakeholder management. Jag har regelbundet navigerat komplexa projekt där affärssidan, utvecklingsteamet och externa partners haft olika prioriteringar. Genom att hålla veckovisa avstämningar och transparent kommunikation i Jira och Confluence har jag lyckats hålla alla parter engagerade och informerade. Jag trivs med att coacha teammedlemmar och ser min roll som att ta bort blockerare snarare än att mikromanagera.</p>
+            <p class="t">Det som verkligen tilltalar mig med TechFlow är er kultur kring kontinuerlig förbättring och innovation. Jag har själv drivit införandet av retrospectives och blameless postmortems i min nuvarande organisation, vilket minskat incidenter med 30 procent. Er satsning på AI och machine learning inom fintech är något jag gärna vill vara del av. Jag har tidigare lett projekt inom riskanalys och betalningslösningar och ser stora möjligheter i skärningspunkten mellan AI och finansiella tjänster.</p>
+            <p class="t">Jag är övertygad om att min erfarenhet av att leverera tekniska projekt i tid och budget, kombinerat med min förmåga att bygga och leda team, skulle göra mig till ett värdefullt tillskott. Jag ser fram emot att diskutera hur jag kan bidra till era mål.</p>
+            <p class="t">Varma hälsningar,<br>Sara Lindström</p>
+          </div>
+          <div class="exverktyg">
+            <button type="button" class="bytmall" aria-expanded="false"><span class="fan" aria-hidden="true"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"><img src="../underlag/mallar/brev/bjork.webp" alt="" width="480" height="679"><img src="../underlag/mallar/brev/koppar.webp" alt="" width="480" height="679"><img src="../underlag/mallar/brev/ritning.webp" alt="" width="480" height="679"><img src="../underlag/mallar/brev/terrakotta.webp" alt="" width="480" height="679"></span>Byt mall</button>
+            <p class="exmeta"><span class="chip chip-vagg">Exempelbrev</span><span class="chip chip-vagg">En A4</span><span class="chip chip-vagg">Cirka 330 ord</span></p>
+          </div>
+        </div>
+        <aside class="noter" aria-label="Rekryterarens kommentarer">
+          <p class="ey" style="color:var(--ton-ink)">Rekryterarens kommentarer</p>
+          <div class="not"><i>1</i><div><b>Kvantifierade projektresultat ökar trovärdigheten</b></div></div>
+          <div class="not"><i>2</i><div><b>Både agila och traditionella metoder täcks in</b><span>Brevet nämner Scrum, Kanban, sprintmål OCH PRINCE2/PMP.</span></div></div>
+          <div class="not"><i>3</i><div><b>Certifieringar nämns tidigt och naturligt</b><span>PMP och Scrum Master-certifieringar nämns i kompetens-stycket med årtal (2021, 2019) vilket ger kontext.</span></div></div>
+          <div class="not"><i>4</i><div><b>Ledarskap visas genom exempel, inte påståenden</b></div></div>
+          <div class="notcta">
+            <b>Ditt brev på din annons</b>
+            <p>Klistra in annonsen, så skriver vi ett utkast utifrån ditt CV.</p>
+            <a class="knapp" href="#">Använd som mall</a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- 2b. Samma sektion med Byt mall öppen -->
+      <div class="skissnot"><b>Skissblad: öppet läge</b>Så ser sektionen ut när besökaren har tryckt på Byt mall. Visaren står i papperets ställe. Kommentarskortets knapp har blivit en textlänk, eftersom visarens knapp är den fyllda. På telefon står miniatyrerna över arket, i brett läge som en lodrät remsa till höger.</div>
+      <div class="exrad" style="margin-top:20px">
+        <div class="mv ut" data-mv-kontext="exempel">
+          <div class="mv-scen">
+            <div class="mv-topp"><button type="button" class="mv-tillbaka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Visa exemplet igen</button></div>
+            <div class="mv-bord">
+<!--@del brev-exempel-minirad-->
+              <div class="mv-bunt">
+                <span class="mv-kik mv-kik-h" aria-hidden="true"><img src="../underlag/mallar/brev/bjork.webp" alt="" width="480" height="679"></span>
+                <div class="mv-ark" role="img" aria-label="Personligt brev för projektledare i mallen Linne">
+<!--@del brev-exempel-a4-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mv-sockel">
+            <p class="mv-namnrad" aria-live="polite"><b>Linne.</b> <span>Gratis, även som Word.</span></p>
+            <a class="knapp" href="#">Använd som mall</a>
+            <p class="mv-fot">Det här är fem av 40 mallar. Med ett konto provar du alla med ditt eget brev. <a href="#">Se alla 40 mallar</a></p>
+          </div>
+        </div>
+        <aside class="noter" aria-label="Rekryterarens kommentarer">
+          <p class="ey" style="color:var(--ton-ink)">Rekryterarens kommentarer</p>
+          <div class="not"><i>1</i><div><b>Kvantifierade projektresultat ökar trovärdigheten</b></div></div>
+          <div class="not"><i>2</i><div><b>Både agila och traditionella metoder täcks in</b><span>Brevet nämner Scrum, Kanban, sprintmål OCH PRINCE2/PMP.</span></div></div>
+          <div class="not"><i>3</i><div><b>Certifieringar nämns tidigt och naturligt</b><span>PMP och Scrum Master-certifieringar nämns i kompetens-stycket med årtal (2021, 2019) vilket ger kontext.</span></div></div>
+          <div class="not"><i>4</i><div><b>Ledarskap visas genom exempel, inte påståenden</b></div></div>
+          <div class="notcta">
+            <b>Ditt brev på din annons</b>
+            <p>Klistra in annonsen, så skriver vi ett utkast utifrån ditt CV.</p>
+            <a class="lank" href="#">Skriv brevet på din annons</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- 2c. Cookieraden på 375 x 667 -->
+    <div class="bredd"><div class="skissnot"><b>Skissblad: cookieraden på liten telefon</b>375 × 667, ny besökare, direkt efter att visaren har öppnats. Cookieraden är orörd.</div></div>
+    <div class="bredd ramrad" style="padding-left:0;padding-right:0">
+      <div class="ram375" aria-label="Skiss: visaren på en telefon som är 375 gånger 667 punkter">
+        <div class="mnav"><span class="logga"><i>J</i>Jobbcoach<span>.ai</span></span><span class="knapp knapp-liten">Skapa konto</span></div>
+        <div class="mv" data-mv-kontext="exempel">
+          <div class="mv-scen">
+            <div class="mv-topp"><button type="button" class="mv-tillbaka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Visa exemplet igen</button></div>
+            <div class="mv-bord">
+<!--@del brev-exempel-minirad-->
+              <div class="mv-bunt">
+                <span class="mv-kik mv-kik-h" aria-hidden="true"><img src="../underlag/mallar/brev/bjork.webp" alt="" width="480" height="679"></span>
+                <div class="mv-ark">
+<!--@del brev-exempel-a4-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cookie"><p>Vi använder cookies för att göra tjänsten bättre. <u>Läs mer</u></p><div><span>Avvisa</span><span>Acceptera</span></div></div>
+      </div>
+      <div class="ramtext" style="padding:0 16px">
+        <p class="h3">Miniatyrerna först, arket under</p>
+        <ul>
+          <li><i>1</i><span>I dag ligger miniatyrraden under arket på telefon, och hamnar bakom cookieraden hos en ny besökare. Här står den överst, direkt under "Visa exemplet igen".</span></li>
+          <li><i>2</i><span>Sidan rullar till visarens överkant när den öppnas, som i dag. Då syns knappen, alla fem mallarna och arkets huvud, och cookieraden täcker bara brevets nedre del.</span></li>
+          <li><i>3</i><span>Namnraden, knappen och fotraden ligger kvar i sockeln under arket. Inget i cookieraden ändras.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Varför det fungerar -->
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Varför det fungerar</p>
+        <h2 class="h2">Det här gör brevet starkt</h2>
+        <p class="varde">Konkreta detaljer i exemplet som rekryterare och ATS-system letar efter för projektledare.</p>
+      </div>
+      <ul class="varfor">
+        <li><span class="nr">1</span><h3 class="h3">Kvantifierade projektresultat ökar trovärdigheten</h3><p>Istället för "jag har lett framgångsrika projekt" nämns specifika siffror: 8 projekt, 2-8 MSEK budget, 15 utvecklare, levererat 2 veckor före deadline och 12% under budget. Detta gör påståendena trovärdiga och mätbara.</p></li>
+        <li><span class="nr">2</span><h3 class="h3">Både agila och traditionella metoder täcks in</h3><p>Brevet nämner Scrum, Kanban, sprintmål OCH PRINCE2/PMP. Detta visar flexibilitet och bredare kompetens än bara "vi kör agilt". Många företag använder hybrid-metodik, så detta ökar relevansen.</p></li>
+        <li><span class="nr">3</span><h3 class="h3">Certifieringar nämns tidigt och naturligt</h3><p>PMP och Scrum Master-certifieringar nämns i kompetens-stycket med årtal (2021, 2019) vilket ger kontext. Detta signalerar professionalism och formell kompetens utan att skryta.</p></li>
+        <li><span class="nr">4</span><h3 class="h3">Ledarskap visas genom exempel, inte påståenden</h3><p>Istället för "jag är en bra ledare" beskrivs konkret arbetssätt: faciliterar stand-ups, tar bort blockerare, coachar teammedlemmar, navigerar stakeholder-prioriteringar. Detta visar ledarskap utan arrogans.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Tips -->
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Skrivtips</p>
+        <h2 class="h2">Tips för projektledare</h2>
+        <p class="varde">Råden bygger på det rekryterare letar efter i din bransch.</p>
+      </div>
+      <div class="tips">
+        <div class="kort"><div class="huvud"><span class="nr">1</span><h3 class="h3">Lyft fram konkreta projektresultat med siffror</h3></div>
+          <p>Arbetsgivare inom projektledning vill se mätbara resultat. Istället för att skriva "jag har lett många framgångsrika projekt", specificera:</p>
+          <q>"Jag ledde lanseringen av en ny CRM-plattform (8 MSEK budget, 12 månader, team på 20 personer) som minskade kundserviceärenden med 25% första kvartalet".</q>
+          <p>Nämn alltid budget, tidsram, teamstorlek och resultat om möjligt. Om du levererade i tid och budget, nämn det explicit. Om projektet överskred budget men gav stort värde, förklara varför: "Projektet gick 10% över budget men genererade 2 MSEK extra intäkter första året".</p></div>
+        <div class="kort"><div class="huvud"><span class="nr">2</span><h3 class="h3">Inkludera både agila och traditionella metoder</h3></div>
+          <p>Många företag använder hybrid-metodik. Visa att du behärskar både agilt (Scrum, Kanban, SAFe) och traditionellt (PRINCE2, PMBOK, vattenfallsmodellen). Skriv till exempel:</p>
+          <q>"Jag har lett agila projekt med Scrum för produktutveckling och använt vattenfallsmodellen för regulatoriska implementeringsprojekt".</q>
+          <p>Nämn konkreta verktyg: Jira, Azure DevOps, MS Project, Confluence, Trello. Anpassa efter vad jobbannonsen nämner. Om de skriver "agilt arbetssätt", betona Scrum/Kanban. Om de skriver "projektmetodik", nämn PRINCE2/PMP.</p></div>
+        <div class="kort"><div class="huvud"><span class="nr">3</span><h3 class="h3">Visa stakeholder management genom konkreta exempel</h3></div>
+          <p>Stakeholder management är en av projektledarens viktigaste färdigheter. Beskriv hur du hanterat komplexa stakeholder-situationer:</p>
+          <q>"När affärssidan krävde scope-utökning mitt i projektet faciliterade jag en prioriteringssession, visualiserade konsekvenserna för tidsplan och budget i Excel, och vi kom överens om en fas 2-lösning".</q>
+          <p>Visa att du kan navigera mellan olika intressen (affär vs teknik, ledning vs team, intern vs extern) och hitta lösningar som alla kan stå bakom.</p></div>
+        <div class="kort"><div class="huvud"><span class="nr">4</span><h3 class="h3">Nämn certifieringar tidigt och med kontext</h3></div>
+          <p>Projektledningscertifieringar (PMP, PRINCE2, Scrum Master, SAFe, AgilePM) är högt värderade. Nämn dem redan i andra eller tredje stycket med årtal:</p>
+          <q>"Jag är certifierad PMP sedan 2022 och har tillämpat PMBOK-ramverket i samtliga mina projekt".</q>
+          <p>Om du har flera certifieringar, prioritera de som nämns i jobbannonsen. Har du aktivt förnyat certifieringen (t.ex. PDU:er för PMP), nämn det för att visa kontinuerlig utveckling.</p></div>
+        <div class="kort bred"><div class="huvud"><span class="nr">5</span><h3 class="h3">Anpassa till projekttyp och bransch</h3></div>
+          <p>IT-projekt kräver olika fokus än byggprojekt eller verksamhetsutveckling. För IT: betona agilt, DevOps, continuous delivery. För bygg: lyft fram tidsplanering, leverantörshantering, säkerhet på plats. För change management: fokusera på kommunikation, motstånd, utbildning.</p>
+          <p>Läs jobbannonsen noga: Söker de någon för digitalisering? Lyft IT-exempel. Regulatoriska projekt? Betona compliance och risk. Produktlansering? Fokusera på go-to-market och samarbete med marketing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Skrivguiden -->
+  <section class="sekt sekt-papper">
+    <div class="bredd guide">
+      <div class="text">
+        <p class="ey">Skrivguide</p>
+        <h2 class="h2" style="margin-top:14px">Så skriver du ett personligt brev som projektledare</h2>
+        <p>Söker du jobb som projektledare och behöver ett personligt brev som visar dina projektresultat? Det här exemplet demonstrerar hur du balanserar kvantifierbara leveranser med ledarskapsförmåga och certifieringar som PMP eller Scrum Master.</p>
+        <p>Du får se exakt hur Sara lyfter fram både agila metoder (Scrum/Kanban) och traditionell projektmetodik (PRINCE2), konkreta projektresultat (budget, tidsram, teamstorlek) och stakeholder management. Brevet är ATS-optimerat med nyckelord som rekryterare söker: projektledning, agilt arbetssätt, budget, riskhantering och leverans.</p>
+        <p>Använd exemplet som inspiration för din egen ansökan och anpassa efter den specifika projekttyp (IT, bygg, verksamhetsutveckling) du söker. Läs också våra tips om hur du visar ledarskap utan att låta arrogant.</p>
+      </div>
+      <div class="delar" aria-hidden="true">
+        <p class="ey" style="color:var(--ton-ink)">Brevets tre delar</p>
+        <ol>
+          <li><i>1</i><div><b>Inledningen</b>Tjänsten du söker och varför just den.</div></li>
+          <li><i>2</i><div><b>Huvuddelen</b>Ett krav per stycke, med ett exempel och en siffra.</div></li>
+          <li><i>3</i><div><b>Avslutningen</b>Vad du vill ska hända härnäst.</div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <div class="bredd"><div class="skissnot" style="margin-top:32px"><b>Skissblad: Jobbkartan</b>Här står sektionen "Var jobben finns" (YrkesKarta) kvar för de yrken som har den. Den ritas tillsammans med Jobbkartan och är inte med i den här skissen.</div></div>
+
+  <!-- 6. Frågorna -->
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Vanliga frågor</p>
+        <h2 class="h2 faq-h2">personligt brev för projektledare</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Ska jag nämna certifieringar som PMP eller Scrum Master?</summary><p>Ja, absolut. Projektledningscertifieringar är högt värderade och bör nämnas tydligt. Skriv till exempel: "Jag är certifierad PMP sedan 2022 och har tillämpat PMBOK-ramverket i samtliga mina projekt." Inkludera dem redan i kompetens-stycket för maximal synlighet. Om du har flera certifieringar, prioritera de som nämns i jobbannonsen eller är mest relevanta för branschen.</p></details>
+        <details><summary>Hur visar jag ledarskap utan att låta arrogant?</summary><p>Fokusera på resultatet för teamet och organisationen snarare än dig själv. Istället för "jag är en excellent ledare" skriv "jag ser min roll som att stötta teamet att nå sina mål. Ett exempel är när jag coachade två juniora projektledare som sedan kunde ta egna projekt." Beskriv konkreta situationer där teamet lyckades tack vare ditt stöd. Använd "vi levererade" oftare än "jag levererade".</p></details>
+        <details><summary>Behöver jag nämna alla verktyg och metoder jag kan?</summary><p>Nej, prioritera de verktyg som nämns i jobbannonsen eller som är branschstandard. Om annonsen kräver Jira och du kan både Jira och Trello, fokusera på Jira. Nämn 4-6 centrala verktyg/metoder snarare än att lista 20 olika. Gruppera dem logiskt: "agila metoder (Scrum, Kanban), projektverktyg (Jira, MS Project, Confluence), budget (Excel, PowerBI)". Kvalitet över kvantitet ger ett mer trovärdigt intryck.</p></details>
+        <details><summary>Hur anpassar jag brevet till olika typer av projekt?</summary><p>Anpassa dina exempel efter projekttyp i annonsen. Söker de projektledare för IT-projekt? Lyft IT-exempel med Scrum, DevOps, continuous delivery. Är det byggprojekt? Fokusera på tidsplanering, leverantörshantering, arbetsmiljö. Regulatoriska projekt? Betona compliance, risk, dokumentation. Beskriv också projektets storlek (budget, team, tidsram) så det matchar vad de söker. En projektledare för små agila team skriver annorlunda än en som leder stora transformationsprojekt.</p></details>
+        <details><summary>Vad gör jag om jag är ny som projektledare?</summary><p>Lyft fram projektledande uppgifter du haft i andra roller. Har du koordinerat team, drivit initiativ, planerat komplexa leveranser eller faciliterat workshops? Det är relevant projektledarerfarenhet. Nämn också utbildning och certifieringar: "Jag har precis avslutat min Scrum Master-certifiering och är redo att tillämpa dessa metoder." Fokusera på din potential, strukturerade arbetssätt och vilja att lära. Sök gärna junior- eller associerade projektledarroller först.</p></details>
+        <details><summary>Ska jag nämna projekt som gick över budget eller deadline?</summary><p>Generellt nej, men om du kan visa lärdomar och hur du hanterade situationen är det okej. Till exempel: "I ett tidigt projekt underskattade vi teknisk komplexitet vilket ledde till 3 månaders försening. Jag införde veckovisa riskgenomgångar och buffertplanering, metoder jag använt i alla projekt sedan dess." Fokusera på vad du lärde dig och hur du utvecklades. Visa att du tar ansvar och lär av erfarenheter, inte att du skyller på andra.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Hela ansökan -->
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Komplett ansökan</p>
+        <h2 class="h2">Skapa hela ansökan</h2>
+        <p class="varde">Ett starkt personligt brev ökar dina chanser. Men utan ett ATS-optimerat CV missar du intervjuer. Se hur du bygger en komplett ansökan för projektledare.</p>
+      </div>
+      <div class="ansokan">
+        <div class="par-kort">
+          <img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679">
+          <div><span class="chip">Du är här</span><h3 class="h3">Personligt brev</h3><p>Projektledare</p>
+            <ul class="bockar pa-papper"><li>Engagerande inledning</li><li>Rätt tonalitet och längd</li><li>Stark avslutning</li></ul></div>
+        </div>
+        <a class="par-kort" href="#" data-rum="cv">
+          <img src="../underlag/mallar/cv/linne-liten.webp" alt="" width="112" height="158">
+          <div><span class="chip">Samma person, samma mall</span><h3 class="h3">CV-exempel</h3><p>Projektledare</p>
+            <p>Se hur du strukturerar ett ATS-optimerat CV med rätt nyckelord och kvantifierade resultat för projektledare.</p>
+            <span class="lank">Se CV-exemplet</span></div>
+        </a>
+      </div>
+      <p class="par-fot"><span>Redo att skapa din egen ansökan?</span><a class="lank" href="#">Skapa CV</a><a class="lank" href="#">Skapa personligt brev</a></p>
+    </div>
+  </section>
+
+  <!-- 8. Fler yrken -->
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Andra yrken</p>
+        <h2 class="h2">Fler personliga brev-exempel</h2>
+        <p class="varde">Hitta inspiration från liknande yrken, eller se alla <a class="lank" href="#">89 personligt brev-exempel</a>. Alla följer samma upplägg.</p>
+      </div>
+      <ul class="yrken">
+        <li><a class="yk" href="#"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"><span><small>IT och utveckling</small><h3>Scrum Master</h3><em>Se brevexempel</em></span></a></li>
+        <li><a class="yk" href="#"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"><span><small>IT och utveckling</small><h3>Produktchef</h3><em>Se brevexempel</em></span></a></li>
+        <li><a class="yk" href="#"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"><span><small>IT och utveckling</small><h3>IT-konsult</h3><em>Se brevexempel</em></span></a></li>
+        <li><a class="yk" href="#"><img src="../underlag/mallar/brev/linne.webp" alt="" width="480" height="679"><span><small>Administration och offentlig sektor</small><h3>Chef</h3><em>Se brevexempel</em></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9. Slutet -->
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="o">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-brev"/></svg></span><p class="ey">Skapa ditt eget</p></div>
+            <h2 class="h2">Imponerad? Skapa ditt nu</h2>
+            <p class="varde">Ladda upp ditt CV, klistra in jobbannonsen och välj mall, så är det klart på några minuter. Skräddarsytt för projektledare och optimerat för rekryteringssystem.</p>
+            <div class="knapprad"><a class="knapp" href="#">Skriv personligt brev som projektledare</a></div>
+            <p class="liten" style="margin-top:14px">Inga kortuppgifter krävs</p>
+          </div>
+          <div class="o-bild"><!--@del brevpar--></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

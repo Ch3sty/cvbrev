@@ -1,0 +1,303 @@
+<!-- titel: Skiss Personlighetstest | rum: tran -->
+<!--@del rekryteringstester-stil-->
+<style>
+  @media (max-width: 899px) { .hjalte .h1 { font-size: clamp(31px, 8.800vw, 38px); } }
+  @media (min-width: 900px) { .hjalte .h1 { font-size: 60px; } }
+
+  /* profilen: fem faktorer på en femgradig skala */
+  .profil { border-radius: 24px; background: var(--papper); color: var(--ink-1); padding: 18px; box-shadow: 0 8px 0 rgba(0, 0, 0, .26), 0 30px 60px rgba(0, 0, 0, .28); text-align: left; }
+  .profil > em { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+  .profil > b { display: block; margin-top: 4px; font-family: var(--disp); font-weight: 800; font-size: 20px; line-height: 1.2; }
+  .frad { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; padding: 11px 0; border-top: 1.500px solid var(--kant); }
+  .frad:first-of-type { margin-top: 14px; }
+  .frad > b { font-family: var(--disp); font-size: 16.500px; }
+  .skala { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .skala i { height: 12px; border-radius: 6px; background: var(--ton); }
+  .skala i.pa { background: var(--ton-ink); }
+  .skala i.nu { background: var(--koppar); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+  .pbild { position: relative; width: 100%; max-width: 470px; margin: 0 auto; padding: 84px 0 132px; min-width: 0; }
+  .pbild .profil { transform: rotate(-1.200deg); }
+  .pbild .drag { right: -4px; top: 0; --rot: 3deg; transform: rotate(3deg); }
+  .pbild .drag em, .pbild .fraga em { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #3B4790; }
+  .pbild .drag b { display: block; margin-top: 3px; font-family: var(--disp); font-weight: 800; font-size: 19px; line-height: 1.15; }
+  .pbild .fraga { left: -4px; bottom: 0; width: min(300px, 86%); --rot: -2deg; transform: rotate(-2deg); border-bottom-left-radius: 6px; }
+  .pbild .fraga b { display: block; margin-top: 4px; font-family: var(--disp); font-size: 16px; line-height: 1.3; }
+  @media (min-width: 1000px) { .pbild { padding: 92px 0 124px; margin-right: 0; } .profil { padding: 26px; } .pbild .drag { right: -26px; } .pbild .fraga { left: -40px; } .pbild .drag b { font-size: 22px; } }
+
+  /* provet: påståendet och fem svarskort */
+  .pprov { display: grid; gap: 22px; }
+  .pprov-huvud { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .pprov-huvud .tkapsel { margin-left: auto; background: var(--golv); box-shadow: 0 3px 0 var(--kant-stark); }
+  .pprov .tbitar { padding: 0; grid-template-columns: repeat(20, 1fr); grid-auto-flow: row; gap: 3px; }
+  .pastaende { font-family: var(--disp); font-weight: 800; font-size: 25px; line-height: 1.18; letter-spacing: -.02em; text-wrap: balance; }
+  .likert { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .likert a { display: grid; justify-items: center; align-content: start; gap: 8px; min-height: 104px; padding: 12px 2px 8px; border-radius: 16px; background: var(--papper); border: 2px solid #C8CEEC; box-shadow: 0 4px 0 #C8CEEC; text-decoration: none; text-align: center; font-size: 12px; font-weight: 600; line-height: 1.2; letter-spacing: -.015em; color: var(--ink-2); min-width: 0; overflow-wrap: break-word; }
+  @media (max-width: 480px) { .likert { gap: 4px; } .likert a { padding-left: 0; padding-right: 0; border-radius: 14px; } .pprov-huvud .chip { display: none; } }
+  .ifr em .chip { text-transform: none; letter-spacing: 0; }
+  .likert a b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: #F4F5FB; border: 2px solid #C8CEEC; font-family: var(--disp); font-weight: 800; font-size: 18px; color: var(--ink-1); }
+  .likert a.vald { background: #EEF0FB; border-color: #3B4790; box-shadow: 0 4px 0 #3B4790; color: var(--ink-1); }
+  .likert a.vald b { background: #3B4790; border-color: #3B4790; color: #fff; }
+  .pprov-fot { display: grid; gap: 6px; }
+  .efter { border-radius: 22px; background: var(--golv); padding: 18px; }
+  .efter li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; padding: 10px 0; font-size: 15px; font-weight: 600; }
+  .efter li + li { border-top: 1.500px solid var(--kant); }
+  .efter li i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton-ink); color: #fff; }
+  .efter li i.las { background: var(--papper); color: var(--ink-3); border: 2px dashed var(--kant-stark); }
+  .efter li i svg { width: 18px; height: 18px; }
+  .efter li span { display: block; font-weight: 400; font-size: 13.500px; color: var(--ink-3); }
+  @media (min-width: 1000px) { .pprov { grid-template-columns: 1.25fr .75fr; gap: 44px; align-items: start; } .pastaende { font-size: 34px; } .likert { gap: 10px; } .likert a { min-height: 112px; font-size: 13px; padding: 14px 6px 10px; } .likert a b { width: 40px; height: 40px; font-size: 22px; } .efter { padding: 24px; } }
+
+  /* stegens bilder */
+  .vagsteg .bild { min-height: 132px; }
+  .b-likert { display: grid; grid-template-columns: repeat(5, 30px); gap: 5px; }
+  .b-likert i { display: grid; place-items: center; height: 38px; border-radius: 9px; background: #fff; border: 2px solid #C8CEEC; font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 14px; }
+  .b-likert i.v { background: #3B4790; border-color: #3B4790; color: #fff; }
+  .b-profil { display: grid; gap: 7px; width: 100%; max-width: 210px; }
+  .b-profil div { display: grid; grid-template-columns: repeat(5, 1fr) 56px; gap: 3px; align-items: center; font-size: 12px; font-weight: 700; color: var(--ton-ink); }
+  .b-profil i { height: 9px; border-radius: 5px; background: #fff; }
+  .b-profil i.pa { background: var(--ton-ink); }
+  .b-profil i.nu { background: var(--koppar); }
+  .b-profil span { padding-left: 6px; }
+  .b-krav { display: grid; gap: 6px; width: 100%; max-width: 220px; }
+  .b-krav span { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 32px; padding: 0 10px; border-radius: 10px; background: #fff; font-size: 12.500px; font-weight: 700; }
+  .b-krav span i { width: 10px; height: 10px; border-radius: 50%; background: var(--positiv); }
+  .b-krav span i.f { background: var(--koppar); }
+  .b-femtio { font-family: var(--disp); font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -.04em; color: var(--ton-ink); }
+
+  /* faktorerna mot en kravprofil */
+  .roller { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .roller span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 14.500px; font-weight: 700; }
+  .roller span.vald { background: var(--vagg); border-color: var(--vagg-3); color: #fff; }
+  .fakt { display: grid; gap: 12px; margin-top: 18px; }
+  .fakt article { display: grid; gap: 14px; padding: 18px; border-radius: var(--r-kort); background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; min-width: 0; }
+  .fakt article.fraga-vantar { border-color: var(--koppar); }
+  .fakt p { margin-top: 6px; font-size: 15.500px; color: var(--ink-2); }
+  .matt { align-self: center; min-width: 0; }
+  .matt-topp { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; margin-bottom: 10px; font-size: 14px; font-weight: 700; }
+  .spann { position: relative; height: 44px; border-radius: 14px; background: var(--golv); }
+  .spann .krav { position: absolute; top: 5px; bottom: 5px; border-radius: 10px; background: var(--ton); border: 2px dashed var(--ton-ink); }
+  .spann .du { position: absolute; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: var(--koppar); border: 3px solid #fff; box-shadow: 0 3px 0 var(--koppar-klack); }
+  .spann-axel { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--ink-3); text-align: center; }
+  .forkl { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 18px; font-size: 14px; color: var(--ink-2); }
+  .forkl span { display: inline-flex; align-items: center; gap: 8px; }
+  .forkl i { width: 18px; height: 18px; border-radius: 50%; background: var(--koppar); border: 2px solid #fff; }
+  .forkl i.k { width: 28px; border-radius: 6px; background: var(--ton); border: 2px dashed var(--ton-ink); }
+  @media (min-width: 900px) { .fakt article { grid-template-columns: 1fr 1fr; gap: 40px; padding: 26px 28px; } }
+
+  /* frågorna på intervjun */
+  .ifragor { display: grid; gap: 12px; }
+  .ifr { padding: 16px 18px; border-radius: 20px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); border-bottom-left-radius: 6px; }
+  .ifr em { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #3B4790; }
+  .ifr b { display: block; margin-top: 6px; font-family: var(--disp); font-size: 19px; line-height: 1.25; }
+  .ifr p { margin-top: 8px; font-size: 14.500px; line-height: 1.5; color: var(--ink-2); }
+  .ifr p strong { color: var(--ink-1); }
+  .ifr.isvar { margin-left: 9%; border-radius: 20px; border-bottom-right-radius: 6px; background: var(--vagg-2); color: var(--vagg-ink); box-shadow: 0 6px 0 var(--vagg-3); border: 2px solid rgba(255, 255, 255, .16); }
+  .ifr.isvar em { color: var(--koppar-ljus); }
+  .ifr.isvar p { color: var(--vagg-ink); }
+
+  /* tre test: 20, 50, 120 */
+  .trappa3 { display: grid; gap: 12px; margin-top: 32px; align-items: end; }
+  .trappa3 article { padding: 20px; border-radius: 24px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .16); color: var(--vagg-ink); min-width: 0; }
+  .trappa3 .tal { font-family: var(--disp); font-weight: 800; font-size: 64px; line-height: .95; letter-spacing: -.04em; }
+  .trappa3 .tal small { font-family: var(--text); font-size: 15px; font-weight: 600; letter-spacing: 0; margin-left: 8px; color: var(--vagg-mjuk); }
+  .trappa3 h3 { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .trappa3 p { margin-top: 8px; font-size: 15px; color: var(--vagg-mjuk); }
+  .trappa3 .mitt { background: var(--papper); border-color: transparent; color: var(--ink-1); box-shadow: 0 8px 0 rgba(0, 0, 0, .28); }
+  .trappa3 .mitt .h3 { color: var(--ink-1); }
+  .trappa3 .mitt .tal { color: var(--vagg); }
+  .trappa3 .mitt .tal small, .trappa3 .mitt p { color: var(--ink-2); }
+  .trappa3 .mitt .bockar { margin-top: 14px; }
+  .trappa3 .prem { background: var(--premium); border-color: #3A2F55; }
+  @media (min-width: 1000px) { .trappa3 { grid-template-columns: .9fr 1.2fr .9fr; gap: 18px; margin-top: 48px; } .trappa3 article { padding: 28px; } .trappa3 .tal { font-size: 84px; } .trappa3 .mitt .tal { font-size: 120px; } }
+  .femtio { padding: 28px 20px 32px; }
+  @media (min-width: 1000px) { .femtio { padding: 64px; } }
+</style>
+
+<!--@del nav-->
+
+<main>
+  <section class="vagg hjalte">
+    <div class="bredd">
+      <nav class="brod" aria-label="Breadcrumb"><a href="#">Hem</a><span><a href="#">Verktyg</a></span><span>Personlighetstest</span></nav>
+      <div class="hjalte-rad" style="margin-top:26px">
+        <div class="hjalte-text">
+          <p class="ey">Personlighetstest, femfaktormodellen</p>
+          <h1 class="h1">Personlighetstest, gratis och utan konto</h1>
+          <p class="varde">Tjugo påståenden på samma modell som MAP och de flesta test i svensk rekrytering. Du får din profil direkt och en rad per faktor om hur en rekryterare läser den. <b>Inget konto, ungefär två minuter.</b></p>
+          <div class="knapprad">
+            <a class="knapp" href="#">Gör provet nu <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a>
+            <a class="lank" href="#">Så läser rekryteraren profilen</a>
+          </div>
+          <div class="brickor">
+            <div class="bricka"><b>20</b><span>påståenden</span></div>
+            <div class="bricka"><b>2 min</b><span>ungefär</span></div>
+            <div class="bricka"><b>5</b><span>faktorer i profilen</span></div>
+          </div>
+        </div>
+        <div class="pbild" aria-label="Exempel: Sara Lindströms profil med fem faktorer, hennes tydligaste drag och en fråga hon kan få på intervjun">
+          <div class="svav drag gungar"><em>Ditt tydligaste drag</em><b>Hög samvetsgrannhet</b></div>
+          <div class="profil">
+            <em>Din profil</em>
+            <b>Fem faktorer, 1 till 5</b>
+            <div class="frad"><b>Samvetsgrannhet</b><span class="chip">Hög</span><div class="skala"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i></div></div>
+            <div class="frad"><b>Utåtriktning</b><span class="chip">Låg</span><div class="skala"><i class="pa"></i><i class="nu"></i><i></i><i></i><i></i></div></div>
+            <div class="frad"><b>Stabilitet</b><span class="chip">Hög</span><div class="skala"><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i></div></div>
+            <div class="frad"><b>Vänlighet</b><span class="chip">Mitt emellan</span><div class="skala"><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><i></i></div></div>
+            <div class="frad"><b>Öppenhet</b><span class="chip">Mitt emellan</span><div class="skala"><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><i></i></div></div>
+          </div>
+          <div class="svav fraga gungar sen"><em>Rekryteraren lär fråga</em><b>När kostade strukturen dig flexibilitet?</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bredd">
+    <div class="lyft">
+      <div class="pprov">
+        <div style="display:grid;gap:18px;min-width:0">
+          <div class="pprov-huvud"><p class="ey">Personlighet</p><span class="chip">Inga rätt eller fel</span><span class="tkapsel">1 av 20</span></div>
+          <div class="tbitar" role="img" aria-label="Påstående 1 av 20"><i class="nu"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="pastaende">Jag gör klart det jag lovat även när ingen följer upp.</p>
+          <p style="font-weight:600;color:var(--ink-2)">Hur väl stämmer det på dig?</p>
+          <div class="likert">
+            <a href="#"><b>1</b>Stämmer inte alls</a>
+            <a href="#"><b>2</b>Stämmer dåligt</a>
+            <a href="#"><b>3</b>Varken eller</a>
+            <a class="vald" href="#"><b>4</b>Stämmer ganska bra</a>
+            <a href="#"><b>5</b>Stämmer helt</a>
+          </div>
+          <div class="pprov-fot">
+            <p style="font-size:15px;color:var(--ink-2)">Inga rätt eller fel. Ett tryck svarar och går vidare. Tänk på hur du är på jobbet, och svara med första rimliga svaret.</p>
+            <p class="liten">Inget konto behövs. Svaren sparas i sju dagar så att du kan hämta hela tolkningen.</p>
+          </div>
+        </div>
+        <div class="efter">
+          <p class="ey" style="color:var(--ton-ink)">Det här får du</p>
+          <ul style="margin-top:8px">
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div>Profilen direkt<span>Fem faktorer med bandord: hög, mitt emellan eller låg.</span></div></li>
+            <li><i><svg viewBox="0 0 24 24"><use href="#i-bock"/></svg></i><div>En rad per faktor<span>Så läser en rekryterare den.</span></div></li>
+            <li><i class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></i><div>Profilen mot sex kravprofiler<span>Med ett gratiskonto.</span></div></li>
+            <li><i class="las"><svg viewBox="0 0 24 24"><use href="#i-las"/></svg></i><div>Vad du kan säga på intervjun<span>Med ett gratiskonto.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey">Från kryss till profil</p>
+        <h2 class="h2">Så fungerar det</h2>
+        <p class="varde">Från tjugo kryss till en profil du kan ta med dig in i intervjun.</p>
+      </div>
+      <ol class="vagsteg">
+        <li><span class="nr">1</span><h3 class="h3">Svara på tjugo påståenden</h3>
+          <p>Fyra per faktor, på samma femgradiga skala som MAP och de flesta test i svensk rekrytering. Tänk på hur du är på jobbet och ta första rimliga svaret.</p>
+          <div class="bild" aria-hidden="true"><div class="b-likert"><i>1</i><i>2</i><i>3</i><i class="v">4</i><i>5</i></div></div></li>
+        <li><span class="nr">2</span><h3 class="h3">Se profilen direkt</h3>
+          <p>Du får de fem faktorerna med ett bandord (hög, mitt emellan eller låg) och en mening per faktor om hur en rekryterare läser den.</p>
+          <div class="bild" aria-hidden="true"><div class="b-profil"><div><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><span>Hög</span></div><div><i class="pa"></i><i class="nu"></i><i></i><i></i><i></i><span>Låg</span></div><div><i class="pa"></i><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><span>Hög</span></div><div><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><i></i><span>Mitt</span></div><div><i class="pa"></i><i class="pa"></i><i class="nu"></i><i></i><i></i><span>Mitt</span></div></div></div></li>
+        <li><span class="nr">3</span><h3 class="h3">Spara den med ett gratiskonto</h3>
+          <p>Då ser du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända.</p>
+          <div class="bild" aria-hidden="true"><div class="b-krav"><span>Ekonomi <i></i></span><span>Ledarskap <i class="f"></i></span><span>IT och utveckling <i></i></span></div></div></li>
+        <li><span class="nr nr-koppar">4</span><h3 class="h3">Gör hela testet</h3>
+          <p>I kontot finns hela testet med femtio påståenden, gratis. Det ger profilen du kan ta med dig till intervjun.</p>
+          <div class="bild" aria-hidden="true"><div class="b-femtio">50</div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sekt sekt-ton">
+    <div class="bredd">
+      <div class="sekt-huvud">
+        <p class="ey" style="color:var(--ton-ink)">Vad testet mäter</p>
+        <h2 class="h2">De fem faktorerna och vad rekryteraren ser i dem</h2>
+        <p class="varde">Ingen faktor är bra eller dålig i sig. Det som avgör är hur profilen möter kravprofilen för rollen. Här är Saras profil läst mot en av de sex kravprofilerna.</p>
+      </div>
+      <div class="roller" aria-label="Sex vanliga kravprofiler">
+        <span class="vald">Ledarskap och projektledning</span><span>Ekonomi och administration</span><span>Sälj och kundkontakt</span><span>Vård och omsorg</span><span>IT och utveckling</span><span>Lager</span>
+      </div>
+      <div class="forkl"><span><i></i>Saras värde</span><span><i class="k"></i>Det kravprofilen frågar efter</span></div>
+      <div class="fakt">
+        <article>
+          <div><h3 class="h3">Samvetsgrannhet</h3><p>Struktur, noggrannhet och att göra klart det man lovat. Väger tungt i ekonomi, administration och ledarroller.</p></div>
+          <div class="matt"><div class="matt-topp">Hög<span class="chip chip-gratis">Passar kravprofilen</span></div><div class="spann" role="img" aria-label="Saras värde 4 av 5, kravprofilen 4 till 5"><span class="krav" style="left:60%;right:1.500%"></span><span class="du" style="left:70%"></span></div><div class="spann-axel"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+        </article>
+        <article class="fraga-vantar">
+          <div><h3 class="h3">Utåtriktning</h3><p>Var du hämtar energi: i möten med människor eller i eget arbete. Väger tungt i sälj och kundkontakt.</p></div>
+          <div class="matt"><div class="matt-topp">Låg<span class="chip chip-premium">Räkna med en fråga</span></div><div class="spann" role="img" aria-label="Saras värde 2 av 5, kravprofilen 3 till 5"><span class="krav" style="left:40%;right:1.500%"></span><span class="du" style="left:30%"></span></div><div class="spann-axel"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+        </article>
+        <article>
+          <div><h3 class="h3">Stabilitet</h3><p>Hur du hanterar press och motgångar. Hög stabilitet är detsamma som låg särbarhet i testets egna termer.</p></div>
+          <div class="matt"><div class="matt-topp">Hög<span class="chip chip-gratis">Passar kravprofilen</span></div><div class="spann" role="img" aria-label="Saras värde 4 av 5, kravprofilen 4 till 5"><span class="krav" style="left:60%;right:1.500%"></span><span class="du" style="left:70%"></span></div><div class="spann-axel"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+        </article>
+        <article>
+          <div><h3 class="h3">Vänlighet</h3><p>Samarbete, omtanke och hur rakt du säger ifrån. Väger tungt i vård, omsorg och team med mycket samarbete.</p></div>
+          <div class="matt"><div class="matt-topp">Mitt emellan<span class="chip chip-gratis">Passar kravprofilen</span></div><div class="spann" role="img" aria-label="Saras värde 3 av 5, kravprofilen 2 till 4"><span class="krav" style="left:20%;right:20%"></span><span class="du" style="left:50%"></span></div><div class="spann-axel"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+        </article>
+        <article>
+          <div><h3 class="h3">Öppenhet</h3><p>Nyfikenhet på nya arbetssätt och idéer. Väger tungt där verktyg och metoder byts ofta, som i IT.</p></div>
+          <div class="matt"><div class="matt-topp">Mitt emellan<span class="chip chip-gratis">Passar kravprofilen</span></div><div class="spann" role="img" aria-label="Saras värde 3 av 5, kravprofilen 3 till 4"><span class="krav" style="left:40%;right:20%"></span><span class="du" style="left:50%"></span></div><div class="spann-axel"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+        </article>
+      </div>
+
+      <article class="o" data-rum="tran" style="margin-top:28px">
+        <div class="o-rad">
+          <div class="o-text">
+            <div class="o-huvud"><span class="dorr"><svg viewBox="0 0 24 24"><use href="#i-tran"/></svg></span><p class="ey">Inför intervjun</p></div>
+            <h3 class="h2">Frågor rekryteraren lär ställa</h3>
+            <p class="varde">Där profilen och kravprofilen skiljer sig kommer frågan. Vi skriver ut vilka frågor din profil brukar ge och hur du kan svara, faktor för faktor.</p>
+            <p>Med det fördjupade testet i Premium får du också frågorna rekryteraren har i sin intervjuguide, att öva på i förväg.</p>
+            <div class="knapprad"><a class="knapp knapp-vit" href="#">Gör provet utan konto</a><span class="liten">Hela tolkningen följer med ett gratiskonto.</span></div>
+          </div>
+          <div class="o-bild">
+            <div class="ifragor">
+              <div class="ifr"><em>Fråga 1, hög samvetsgrannhet</em><b>När kostade strukturen dig flexibilitet?</b></div>
+              <div class="ifr isvar"><em>Så svarar du</em><p>Säg att du håller det du lovar, och ge ett exempel där det räknades. Visa också en gång när du släppte planen för att nå målet.</p></div>
+              <div class="ifr"><em>Fråga 2, låg utåtriktning</em><b>Hur gör du dig hörd i en grupp?</b></div>
+              <div class="ifr isvar"><em>Så svarar du</em><p>Förbered ett exempel där du fick gehör för ett förslag i en grupp. Säg att du tänker innan du talar, och visa vad det gav.</p></div>
+              <div class="ifr"><em>Fråga 3, STAR <span class="chip chip-premium">Fördjupade testet</span></em><b>Ett långt projekt utan yttre press, hur höll du igång?</b></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sekt">
+    <div class="bredd">
+      <div class="vagg femtio" style="border-radius:var(--r-stor);box-shadow:0 8px 0 var(--vagg-3)">
+        <div class="sekt-huvud">
+          <p class="ey">Hela testet</p>
+          <h2 class="h2">Femtio påståenden, gratis i kontot</h2>
+          <p class="varde">Provet ger en riktning. Hela testet ger profilen rekryteraren faktiskt jämför med, och den sparas inför intervjun.</p>
+        </div>
+        <div class="trappa3">
+          <article><div class="tal">20<small>påståenden</small></div><h3 class="h3">Provet <span class="chip chip-vagg">Utan konto</span></h3><p>Två minuter. Profilen direkt, med en rad per faktor om hur rekryteraren läser den.</p></article>
+          <article class="mitt"><div class="tal">50<small>påståenden</small></div><h3 class="h3">Hela testet <span class="chip chip-gratis">Gratis i kontot</span></h3><p>Tio minuter. Profilen du kan ta med dig till intervjun.</p>
+            <ul class="bockar pa-papper"><li>Profilen mot sex kravprofiler</li><li>Styrkorna och det att vara medveten om</li><li>Det du kan säga på intervjun</li></ul>
+            <div class="knapprad" style="margin-top:20px"><a class="knapp" href="#">Skapa konto gratis</a><a class="lank" href="#">Gör provet först</a></div></article>
+          <article class="prem"><div class="tal">120<small>påståenden</small></div><h3 class="h3">Fördjupade testet <span class="chip chip-premium">Premium</span></h3><p>25 minuter, 30 delfaktorer. Din arbetsstil och frågorna i rekryterarens intervjuguide. Ingår i Jobbcoach Premium, 149 kr i månaden.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekt" style="padding-top:0">
+    <div class="bredd">
+      <div class="sekt-huvud"><h2 class="h2">Vanliga frågor om personlighetstestet</h2></div>
+      <div class="faq">
+        <details open><summary>Är personlighetstestet gratis?</summary><p>Ja. Provet med tjugo påståenden kräver inget konto. Med ett gratiskonto sparar du profilen och får hela tolkningen, och hela testet med femtio påståenden ingår också gratis.</p></details>
+        <details><summary>Vilken modell bygger testet på?</summary><p>Femfaktormodellen, även kallad Big Five. Det är samma modell som MAP från Assessio och de flesta personlighetstest i svensk rekrytering bygger på. Faktorerna är samvetsgrannhet, utåtriktning, stabilitet, vänlighet och öppenhet.</p></details>
+        <details><summary>Räcker tjugo påståenden för en profil?</summary><p>Tjugo påståenden ger en riktning, inte ett exakt tal. Därför visar vi bandord i stället för poäng. Vill du ha en profil du kan lita på gör du hela testet med femtio påståenden i kontot.</p></details>
+        <details><summary>Vad är omvända påståenden?</summary><p>Hälften av påståendena är formulerade åt andra hållet, så att "stämmer inte" ger högt värde på faktorn. Det är så ett test ser om du svarar konsekvent. Efter att du skapat ett konto ser du vilka tio som var omvända och hur konsekvent du svarade.</p></details>
+        <details><summary>Kan jag öva inför ett skarpt personlighetstest?</summary><p>Du kan vänja dig vid formatet, och det är värt det. Svaren ska däremot vara ärliga: de flesta test har en indikator som flaggar tillrättalagda svar, och den som svarar sig in i fel roll hamnar på en arbetsplats där hen trivs sämre.</p></details>
+        <details><summary>Vad ingår om jag betalar?</summary><p>Grundtestet med femtio påståenden är gratis. Med Premium, 149 kr i månaden, ingår det fördjupade testet med 120 påståenden och 30 delfaktorer, och intervjuprovet utan tak.</p></details>
+      </div>
+      <div class="knapprad" style="margin-top:36px"><a class="knapp" href="#">Gör provet nu <svg viewBox="0 0 24 24"><use href="#i-pil"/></svg></a><a class="lank" href="#">Alla rekryteringstester</a></div>
+    </div>
+  </section>
+</main>
+
+<!--@del fot-->

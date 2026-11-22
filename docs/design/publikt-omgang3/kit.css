@@ -1,0 +1,376 @@
+/* Publikt omgång 3, skissernas gemensamma grund (2026-11-22).
+   Samma material som inloggat (Rummen v3): mörk vägg i rummets kulör, ljust
+   golv, papper med tjock kant och klack, koppar som enda accent.
+   Tokens ordagrant ur docs/designsystem.md avsnitt 2. */
+
+:root {
+  --koppar: #E07A2F; --koppar-topp: #EC8B41; --koppar-ink: #A8491A; --koppar-djup: #C4621F;
+  --koppar-klack: #A8491A; --koppar-ljus: #F4B98A; --koppar-text: #1A1206; --koppar-mjuk: #FBE3D0;
+  --ink-1: #1A1A1F; --ink-2: #4A4A55; --ink-3: #65656E;
+  --papper: #FFFFFF; --papper-2: #F4F3F0;
+  --positiv: #2F7D5B; --positiv-mjuk: #DCEFE5;
+  --premium: #17131F; --premium-2: #2A2140;
+  --r-kort: 22px; --r-stor: 32px; --r-knapp: 16px;
+  --disp: 'Schibsted Grotesk', 'Inter', system-ui, sans-serif;
+  --text: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Rummen. Sätts på body (sidans rum) och får sättas om på en sektion. */
+[data-rum='tran'] { --vagg: #1B2246; --vagg-2: #2B3470; --vagg-3: #121737; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; --vagg-svag: #6F78B0; --golv: #EBEDF6; --ton: #DFE3F6; --ton-ink: #3B4790; --ljus: #93A0EC; --kant: #D5DAF0; --kant-stark: #B9C1E6; }
+[data-rum='cv'] { --vagg: #113538; --vagg-2: #1D4D51; --vagg-3: #0B2628; --vagg-ink: #F1F8F7; --vagg-mjuk: #A3C9C8; --vagg-svag: #5C918F; --golv: #E6EFEF; --ton: #D7ECEA; --ton-ink: #1E5F5F; --ljus: #7FCFCA; --kant: #CADFDD; --kant-stark: #A9CBC8; }
+[data-rum='brev'] { --vagg: #3A1930; --vagg-2: #56284A; --vagg-3: #280F22; --vagg-ink: #FBF3F8; --vagg-mjuk: #D6AFC8; --vagg-svag: #9C6A8C; --golv: #F2EAEE; --ton: #F0DCE8; --ton-ink: #6E2B59; --ljus: #E29DCB; --kant: #E6D2DD; --kant-stark: #D3B3C6; }
+[data-rum='jobb'] { --vagg: #1B3324; --vagg-2: #2A4C37; --vagg-3: #112219; --vagg-ink: #F2F8F2; --vagg-mjuk: #A9C9B1; --vagg-svag: #6A9676; --golv: #E8EEE7; --ton: #DCEBDD; --ton-ink: #245C37; --ljus: #8FD3A0; --kant: #CFDFD0; --kant-stark: #B0CBB3; }
+[data-rum='neutral'] { --vagg: #26262C; --vagg-2: #36363E; --vagg-3: #1A1A1F; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; --vagg-svag: #7C7B88; --golv: #ECEBE9; --ton: #E2E1E6; --ton-ink: #3C3C46; --ljus: #C9C8D2; --kant: #DDDCE0; --kant-stark: #C4C3CB; }
+
+/* Premium har ingen egen svart: det är sidans mörkaste ton med kopparklack. */
+[data-rum] { --premium: var(--vagg-3); --premium-2: var(--vagg-2); }
+
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--text); color: var(--ink-1); background: var(--golv); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { list-style: none; padding: 0; }
+
+.bredd { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 900px) { .bredd { padding: 0 40px; } }
+
+/* ---------- typ ---------- */
+.h1 { font-family: var(--disp); font-weight: 800; font-size: 40px; line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+/* etiketten ovanför rubriken kan vara en del av H1: sökordet står i rubriken, ögat läser löftet */
+.h1 .over { display: block; margin-bottom: 14px; font-family: var(--text); font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); text-wrap: wrap; }
+.vagg .h1 .over { color: var(--koppar-ljus); }
+.h2 { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1.1; letter-spacing: -0.025em; text-wrap: balance; }
+.h3 { font-family: var(--disp); font-weight: 700; font-size: 20px; line-height: 1.2; letter-spacing: -0.015em; }
+.varde { font-size: 18px; line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+.varde b, .varde strong { color: var(--ink-1); font-weight: 600; }
+.ey { font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); }
+.liten { font-size: 14px; line-height: 1.45; color: var(--ink-3); }
+@media (min-width: 900px) {
+  .h1 { font-size: 66px; }
+  .h2 { font-size: 46px; }
+  .h3 { font-size: 22px; }
+  .varde { font-size: 21px; }
+}
+
+/* ---------- knappar: klack i stället för skugga ---------- */
+.knapp { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 28px; border-radius: var(--r-knapp); font-weight: 700; font-size: 17px; line-height: 1; text-decoration: none; white-space: nowrap; color: var(--koppar-text); background: linear-gradient(180deg, var(--koppar-topp), var(--koppar)); box-shadow: 0 5px 0 var(--koppar-klack); transition: transform .08s, box-shadow .08s; }
+.knapp:hover { transform: translateY(1px); box-shadow: 0 4px 0 var(--koppar-klack); }
+.knapp:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--koppar-klack); }
+.knapp svg { width: 20px; height: 20px; }
+.knapp-liten { min-height: 44px; padding: 0 18px; font-size: 15px; border-radius: 13px; box-shadow: 0 4px 0 var(--koppar-klack); }
+.knapp-vit { background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 var(--kant-stark); border: 2px solid var(--kant-stark); }
+.knapp-vit:hover { box-shadow: 0 4px 0 var(--kant-stark); }
+.knapp-glas { background: rgba(255, 255, 255, .08); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .26); box-shadow: 0 5px 0 rgba(0, 0, 0, .28); }
+.knapp-glas:hover { box-shadow: 0 4px 0 rgba(0, 0, 0, .28); }
+.knapp-bred { width: 100%; }
+.lank { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; text-decoration-color: currentColor; }
+.knapprad { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+
+/* ---------- menyn: står på väggen, i sidans rum ---------- */
+.nav { position: sticky; top: 0; z-index: 40; background: var(--vagg-3); color: var(--vagg-ink); }
+.nav-rad { display: flex; align-items: center; gap: 8px; height: 64px; }
+.logga { display: inline-flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; color: var(--vagg-ink); margin-right: auto; }
+.logga i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #F97316; color: #fff; font-style: normal; font-size: 19px; box-shadow: 0 3px 0 #B4500C; }
+.logga span { color: var(--vagg-mjuk); }
+.nav-val { display: none; align-items: center; gap: 2px; margin-right: auto; }
+.nav-val a, .nav-val button { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--vagg-mjuk); text-decoration: none; }
+.nav-val a:hover, .nav-val button:hover { color: var(--vagg-ink); background: rgba(255, 255, 255, .08); }
+.nav-val [aria-current], .nav-val [aria-expanded='true'] { color: var(--vagg-ink); background: rgba(255, 255, 255, .12); }
+.nav-val svg { width: 16px; height: 16px; }
+.nav-in { display: none; height: 40px; align-items: center; padding: 0 14px; font-size: 15px; font-weight: 600; color: var(--vagg-ink); text-decoration: none; border-radius: 12px; }
+.nav-in:hover { background: rgba(255, 255, 255, .08); }
+.nav-meny { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, .22); margin-left: 8px; color: var(--vagg-ink); }
+.nav-meny svg { width: 22px; height: 22px; }
+@media (min-width: 1000px) {
+  .nav-rad { height: 76px; }
+  .logga { margin-right: 28px; font-size: 20px; }
+  .nav-val, .nav-in { display: inline-flex; }
+  .nav-meny { display: none; }
+}
+
+@media (max-width: 399px) {
+  .logga { font-size: 17px; gap: 8px; }
+  .logga i { width: 28px; height: 28px; font-size: 16px; }
+  .nav .knapp-liten { padding: 0 12px; font-size: 14px; }
+  .nav-meny { margin-left: 2px; }
+  .bricka { min-width: 0; flex-basis: 80px; padding: 10px 10px 8px; }
+  .bricka b { font-size: 23px; white-space: nowrap; }
+}
+
+/* Menyn "Vad vi erbjuder": papper med fyra rum, samma ordning som inloggat */
+.mega { background: var(--papper); color: var(--ink-1); border-radius: 0 0 var(--r-stor) var(--r-stor); border: 2px solid rgba(0, 0, 0, .08); border-top: 0; box-shadow: 0 8px 0 rgba(0, 0, 0, .10), 0 40px 80px rgba(10, 12, 30, .28); padding: 28px; }
+.mega-rum { display: grid; gap: 14px; }
+.mega-kol { border-radius: 20px; padding: 16px; background: var(--golv); }
+.mega-kol h3 { display: flex; align-items: center; gap: 12px; font-family: var(--disp); font-weight: 800; font-size: 18px; letter-spacing: -0.015em; margin-bottom: 10px; }
+.dorr { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--ton-ink); color: #fff; box-shadow: 0 3px 0 var(--vagg-3); }
+.dorr svg { width: 22px; height: 22px; }
+.mega-kol a { display: block; padding: 9px 10px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px; color: var(--ink-1); }
+.mega-kol a span { display: block; font-weight: 400; font-size: 13px; color: var(--ink-3); }
+.mega-kol a:hover { background: var(--papper); }
+.mega-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 16px; padding: 16px 20px; border-radius: 20px; background: var(--premium); color: #F5F4F7; }
+.mega-fot p { margin-right: auto; font-size: 15px; color: var(--vagg-mjuk); }
+.mega-fot p b { display: block; font-family: var(--disp); font-size: 18px; color: #fff; }
+.mega-fot a { color: #fff; font-size: 15px; }
+@media (min-width: 1000px) { .mega-rum { grid-template-columns: repeat(4, 1fr); } }
+
+/* Kampanjraden under menyn (finns i dag, KampanjRadPublik) */
+.kampanj { background: var(--koppar-mjuk); color: var(--koppar-text); font-size: 14px; text-align: center; padding: 9px 16px; }
+.kampanj b { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 12.5px; margin-right: 6px; }
+
+/* ---------- väggen ---------- */
+.vagg { position: relative; color: var(--vagg-ink); background: var(--vagg); overflow: hidden; isolation: isolate; }
+.vagg::before { content: ''; position: absolute; z-index: -1; right: -22vw; top: -32vw; width: 70vw; height: 70vw; border-radius: 50%; background: var(--vagg-2); opacity: .55; }
+.vagg::after { content: ''; position: absolute; z-index: -1; left: -30vw; bottom: -46vw; width: 62vw; height: 62vw; border-radius: 50%; background: var(--vagg-3); opacity: .6; }
+.vagg .h1, .vagg .h2, .vagg .h3 { color: var(--vagg-ink); }
+.vagg .varde { color: var(--vagg-mjuk); }
+.vagg .varde b, .vagg .varde strong { color: var(--vagg-ink); }
+.vagg .ey { color: var(--koppar-ljus); }
+.vagg .liten { color: var(--vagg-mjuk); }
+.brod { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13.5px; color: var(--vagg-mjuk); }
+.brod a { text-decoration: none; }
+.brod a:hover { text-decoration: underline; }
+.brod span::before { content: '›'; margin-right: 8px; opacity: .6; }
+
+.hjalte { padding: 28px 0 96px; }
+.hjalte.utan-lyft { padding-bottom: 56px; }
+@media (min-width: 1000px) { .hjalte.hjalte.utan-lyft { padding-bottom: 88px; } }
+.hjalte-rad { display: grid; gap: 40px; align-items: center; }
+.hjalte-text > * + * { margin-top: 18px; }
+.hjalte-text .knapprad { margin-top: 28px; }
+@media (min-width: 1000px) {
+  .hjalte { padding: 44px 0 150px; }
+  .hjalte-rad { grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 56px; }
+  .hjalte-text > * + * { margin-top: 22px; }
+}
+
+/* talbrickor: ett tal står aldrig ensamt */
+.brickor { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.bricka { flex: 1 1 96px; min-width: 96px; max-width: 190px; padding: 12px 14px 10px; border-radius: 16px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+.bricka b { display: block; font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.03em; color: var(--vagg-ink); }
+.bricka span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.3; color: var(--vagg-mjuk); }
+@media (min-width: 900px) { .bricka b { font-size: 34px; } }
+
+/* ---------- golvet och korten ---------- */
+.sekt { padding: 64px 0; }
+.sekt-ton { background: var(--ton); }
+.sekt-papper { background: var(--papper); }
+.sekt-huvud { max-width: 760px; }
+.sekt-huvud > * + * { margin-top: 14px; }
+.sekt-huvud.mitt { margin-left: auto; margin-right: auto; text-align: center; }
+@media (min-width: 900px) { .sekt { padding: 112px 0; } }
+
+.kort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort); padding: 22px; }
+.kort > * + * { margin-top: 10px; }
+.kort p { color: var(--ink-2); font-size: 15.5px; }
+.kort-ton { background: var(--ton); border-color: var(--kant-stark); }
+/* papper på väggen: texten är alltid bläck, aldrig väggens ljusa text */
+.kort, .lyft, .svav, .ram, .traff, .annons, .ark { color: var(--ink-1); }
+:is(.vagg, .o) :is(.kort, .lyft, .svav, .traff) :is(.h2, .h3) { color: var(--ink-1); }
+:is(.vagg, .o) :is(.kort, .lyft, .svav, .traff) p { color: var(--ink-2); }
+:is(.vagg, .o) :is(.kort, .lyft) .ey { color: var(--koppar-ink); }
+.lyft { position: relative; z-index: 2; margin-top: -64px; background: var(--papper); border-radius: var(--r-stor); border: 2px solid var(--kant); border-bottom-width: 8px; padding: 22px; }
+@media (min-width: 900px) { .kort { padding: 28px; } .lyft { margin-top: -104px; padding: 40px; } }
+
+.rutnat { display: grid; gap: 14px; margin-top: 32px; }
+@media (min-width: 700px) { .rutnat.r2, .rutnat.r3, .rutnat.r4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .rutnat { gap: 18px; margin-top: 48px; } .rutnat.r3 { grid-template-columns: repeat(3, 1fr); } .rutnat.r4 { grid-template-columns: repeat(4, 1fr); } }
+
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 11px; border-radius: 999px; font-size: 13px; font-weight: 700; background: var(--ton); color: var(--ton-ink); }
+.chip-gratis { background: var(--positiv-mjuk); color: #1F5C41; }
+.chip-premium { background: var(--koppar-mjuk); color: var(--koppar-ink); }
+.chip-vagg { background: rgba(255, 255, 255, .12); color: var(--vagg-ink); }
+
+.nr { display: grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 15px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 22px; box-shadow: 0 4px 0 var(--kant-stark); }
+.nr-koppar { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+
+/* stegen: en väg, inte en lista */
+.vagsteg { display: grid; gap: 14px; margin-top: 36px; counter-reset: steg; }
+.vagsteg li { position: relative; min-width: 0; align-content: start; display: grid; grid-template-columns: 48px 1fr; gap: 6px 16px; align-items: start; padding: 20px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort); }
+.vagsteg li p { grid-column: 2; color: var(--ink-2); font-size: 15.5px; }
+.vagsteg li .h3 { align-self: center; }
+.vagsteg .bild { grid-column: 1 / -1; margin-top: 10px; border-radius: 14px; background: var(--golv); padding: 14px; min-height: 120px; display: grid; place-items: center; }
+@media (min-width: 1000px) {
+  .vagsteg { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .vagsteg li { grid-template-columns: 1fr; padding: 24px; }
+  .vagsteg li p { grid-column: 1; }
+  .vagsteg li:not(:last-child)::after { content: ''; position: absolute; right: -20px; top: 46px; width: 20px; border-top: 3px dotted var(--kant-stark); }
+  .vagsteg .bild { order: -1; margin: 0 0 8px; min-height: 150px; }
+}
+
+/* frågor och svar */
+.faq { display: grid; gap: 12px; margin-top: 36px; max-width: 860px; }
+.faq details { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+.faq summary { display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 14px 18px; font-family: var(--disp); font-weight: 700; font-size: 17.5px; line-height: 1.25; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; margin-left: auto; flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); font-family: var(--text); font-weight: 700; font-size: 20px; }
+.faq details[open] summary::after { content: '−'; }
+.faq details p { padding: 0 18px 20px; color: var(--ink-2); max-width: 70ch; }
+@media (min-width: 900px) { .faq summary { font-size: 19px; padding: 16px 24px; } .faq details p { padding: 0 24px 24px; } }
+
+/* Premium: en ö, inte en rad */
+.premium { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor); background: var(--premium); color: var(--vagg-ink); padding: 32px 22px; box-shadow: 0 8px 0 var(--koppar-klack); }
+.premium::before { content: ''; position: absolute; z-index: -1; right: -120px; top: -160px; width: 440px; height: 440px; border-radius: 50%; background: var(--premium-2); }
+.premium .h2 { color: #fff; }
+.premium .ey { color: var(--koppar-ljus); }
+.premium p { color: var(--vagg-mjuk); }
+.premium .pris { font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.03em; color: #fff; }
+.premium .pris small { font-family: var(--text); font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 8px; }
+.bockar { display: grid; gap: 10px; }
+.bockar li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; font-size: 15.5px; }
+.bockar li::before { content: ''; width: 24px; height: 24px; border-radius: 8px; background: var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/16px no-repeat; }
+.bockar.pa-papper li::before { background-color: var(--ton); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E"); }
+@media (min-width: 900px) { .premium { padding: 56px; } .premium .pris { font-size: 60px; } }
+
+/* ---------- foten: sidans mörkaste ton, aldrig beige och aldrig svart ---------- */
+.fot { background: var(--vagg-3); color: var(--vagg-mjuk); padding: 56px 0 32px; font-size: 15px; }
+.fot-rad { display: grid; gap: 36px; }
+.fot h4 { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--vagg-mjuk); opacity: .8; margin-bottom: 12px; }
+.fot a { display: block; padding: 6px 0; text-decoration: none; color: var(--vagg-ink); }
+.fot a:hover { color: #fff; text-decoration: underline; }
+.fot .logga { display: inline-flex; margin-bottom: 14px; color: #fff; }
+.fot .logga span { color: var(--vagg-mjuk); }
+.fot-inline { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 14px; }
+.fot-inline a { font-weight: 600; }
+.fot-botten { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .14); font-size: 13.5px; color: var(--vagg-mjuk); }
+.fot-botten a { display: inline; padding: 0; color: var(--vagg-mjuk); }
+.fot-botten span:last-child { margin-left: auto; }
+@media (min-width: 900px) { .fot { padding: 80px 0 36px; } .fot-rad { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 32px; } }
+
+/* ---------- instrument: det riktiga arket, inte en bild av en telefon ---------- */
+.ark { position: relative; background: #fff; color: #1A1A1F; border-radius: 6px; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); padding: 7% 7.5%; font-family: Georgia, 'Times New Roman', serif; }
+.ark .namn { font-size: clamp(17px, 2.5vw, 26px); line-height: 1.1; }
+.ark .kontakt { display: inline-block; margin-top: 6px; font-family: var(--text); font-size: clamp(7.5px, .9vw, 10px); color: #4A4A55; }
+.ark h5 { margin-top: 5.5%; padding-bottom: 3px; border-bottom: 1px solid #C9C6BF; font-weight: 400; font-size: clamp(10px, 1.15vw, 13px); }
+.ark .rad { display: flex; justify-content: space-between; gap: 8px; margin-top: 7px; font-family: var(--text); font-weight: 700; font-size: clamp(7.5px, .9vw, 10px); }
+.ark .rad span { font-weight: 400; color: #65656E; }
+.ark .l { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #DCDAD5; }
+.ark .l.k { width: 62%; } .ark .l.m { width: 84%; } .ark .l.s { width: 46%; }
+.ark .del { position: relative; margin: 0 -2.5%; padding: 0 2.5% 6px; border-radius: 8px; }
+.ark .del.vald { outline: 2.5px solid var(--koppar); outline-offset: 2px; background: #FFF7F0; }
+.nal { position: absolute; left: calc(-6.5% - 17px); top: 2px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #EEF3F2; color: #5C6F6E; border: 3px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 15px; box-shadow: 0 3px 0 rgba(0, 0, 0, .18); }
+.del.vald .nal { background: var(--koppar); color: var(--koppar-text); }
+@media (min-width: 900px) { .nal { width: 42px; height: 42px; font-size: 18px; left: calc(-6.5% - 21px); } }
+
+.svav { position: absolute; z-index: 3; background: var(--papper); color: var(--ink-1); border-radius: 20px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 6px 0 rgba(0, 0, 0, .2), 0 24px 48px rgba(0, 0, 0, .24); padding: 14px 16px; }
+.svav .stor { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: .95; letter-spacing: -0.04em; color: var(--vagg); }
+.svav .under { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+@media (min-width: 900px) { .svav { padding: 18px 22px; } .svav .stor { font-size: 68px; } .svav .under { font-size: 15px; } }
+
+.stapel { height: 10px; border-radius: 999px; background: var(--ton); overflow: hidden; }
+.stapel i { display: block; height: 100%; border-radius: 999px; background: var(--ton-ink); }
+.stapel.koppar i { background: var(--koppar); }
+
+@keyframes gunga { 0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); } 50% { transform: translateY(-8px) rotate(var(--rot, 0deg)); } }
+.gungar { animation: gunga 6s ease-in-out infinite; }
+.gungar.sen { animation-delay: -3s; }
+@media (prefers-reduced-motion: reduce) { .gungar { animation: none; } }
+
+/* ---------- öar: stora färgblock, ett rum var ---------- */
+.o { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor); background: var(--vagg); color: var(--vagg-ink); padding: 28px 20px 0; box-shadow: 0 8px 0 var(--vagg-3); }
+.o::before { content: ''; position: absolute; z-index: -1; right: -18%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .6; }
+.o .h2, .o .h3 { color: var(--vagg-ink); }
+.o .ey { color: var(--koppar-ljus); }
+.o .varde { color: var(--vagg-mjuk); }
+.o .varde b, .o .varde strong { color: var(--vagg-ink); }
+.o-text p { color: var(--vagg-mjuk); }
+.o .liten { color: var(--vagg-mjuk); }
+.o-rad { display: grid; gap: 28px; }
+.o-text > * + * { margin-top: 14px; }
+.o-text .knapprad { margin-top: 24px; }
+.o-bild { align-self: end; padding-bottom: 28px; min-width: 0; }
+.o + .o { margin-top: 20px; }
+.o-huvud { display: flex; align-items: center; gap: 12px; }
+.o-huvud .dorr { width: 48px; height: 48px; border-radius: 15px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.o-huvud .dorr svg { width: 26px; height: 26px; }
+@media (min-width: 1000px) {
+  .o { padding: 64px 64px 0; border-radius: 44px; }
+  .o-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .o-text { padding-bottom: 64px; }
+  .o-bild { padding-bottom: 64px; align-self: center; }
+  .o.vand .o-text { order: 2; }
+  .o + .o { margin-top: 28px; }
+}
+
+/* ---------- testets ram: som sessionen ser ut sedan omgång 3 (2026-11-21) ----------
+   Samma klassnamn som förut, ny form: ljus indigo ram, kryss och klocka som brickor,
+   framsteg i bitar, mörkt bräde med vita rutor, frågan under brädet, svar med klack. */
+.ram { --t-kant: #C8CEEC; --t-indigo: #3B4790; --t-vagg: #1B2246; background: #EBEDF6; color: var(--ink-1); border-radius: 26px; border: 3px solid #fff; box-shadow: 0 8px 0 rgba(0, 0, 0, .24), 0 30px 60px rgba(0, 0, 0, .25); overflow: hidden; max-width: 460px; margin: 0 auto; }
+.ram-huvud { display: flex; align-items: center; gap: 10px; padding: 12px 14px 10px; }
+.ram-huvud::before { content: ''; flex: none; width: 32px; height: 32px; border-radius: 10px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B2246' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center/14px no-repeat; box-shadow: 0 3px 0 var(--t-kant); }
+.ram-huvud b { font-family: var(--disp); font-size: 15.5px; line-height: 1.15; color: var(--ink-1); min-width: 0; }
+.ram-huvud b span { display: block; font-family: var(--text); font-weight: 500; font-size: 12.5px; color: var(--ink-3); }
+.klocka { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px 0 7px; border-radius: 999px; background: #fff; box-shadow: 0 3px 0 var(--t-kant); font-weight: 700; font-size: 14px; color: var(--ink-1); }
+.klocka i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--t-kant); border-top-color: var(--koppar); border-right-color: var(--koppar); }
+.ram-stapel { height: 8px; margin: 0 14px 10px; border-radius: 4px; background: repeating-linear-gradient(90deg, #D5D9EE 0 17px, transparent 17px 22px); }
+.ram-stapel i { display: block; height: 100%; width: 54%; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--t-indigo) 0 17px, transparent 17px 22px); }
+.ram-kropp { display: flex; flex-direction: column; padding: 0 14px 14px; background: none; }
+.ram-fraga { order: 2; margin: 12px 0 10px; font-family: var(--disp); font-weight: 700; font-size: 16px; line-height: 1.25; color: var(--ink-1); }
+.matris { order: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; padding: 9px; border-radius: 20px; background: var(--t-vagg, #1B2246); box-shadow: 0 5px 0 #121737; border: 0; }
+.matris span, .svar span { display: grid; place-items: center; aspect-ratio: 1; min-width: 0; border-radius: 12px; background: #fff; color: #1B2246; }
+.matris span { box-shadow: 0 3px 0 #C8CEEC; }
+.matris svg { width: 56%; height: 56%; }
+.matris .tom { background: #2B3470; border: 2.5px dashed var(--koppar); box-shadow: none; color: var(--koppar-ljus); font-family: var(--disp); font-weight: 800; font-size: 24px; }
+.svar { order: 3; display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; }
+.svar span { border: 2px solid #C8CEEC; box-shadow: 0 4px 0 #C8CEEC; margin-bottom: 4px; }
+.svar span.vald { background: #EEF0FB; border-color: #3B4790; box-shadow: 0 4px 0 #3B4790; }
+.svar svg { width: 54%; height: 54%; }
+.matris + .svar { margin-top: 12px; }
+.ram-fot { display: flex; align-items: center; gap: 10px; padding: 12px 14px 14px; background: #fff; }
+.ram-fot::before { content: ''; flex: none; width: 36px; height: 36px; border-radius: 11px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B2246' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 6l-6 6 6 6'/%3E%3C/svg%3E") center/16px no-repeat; border: 2px solid #C8CEEC; box-shadow: 0 3px 0 #C8CEEC; }
+.ram-fot .knapp { flex: 1; }
+
+/* ---------- spåret: Jobbsökets instrument ---------- */
+.stig { position: relative; aspect-ratio: 5 / 3; color: var(--vagg-ink); }
+.stig svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stig .etk { position: absolute; transform: translate(-50%, 0); text-align: center; font-family: var(--disp); font-weight: 700; font-size: 14px; line-height: 1.2; white-space: nowrap; }
+.stig .etk small { display: block; font-family: var(--text); font-weight: 500; font-size: 12px; color: var(--vagg-mjuk); }
+.stig .bol { position: absolute; transform: translate(-50%, -100%); display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--vagg-ink); color: var(--vagg); font-family: var(--disp); font-weight: 800; font-size: 14px; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.stig .bol.nu { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.stig .bol.tom { background: none; border: 2.5px dashed currentColor; color: inherit; box-shadow: none; }
+.stig .tyst { position: absolute; transform: translate(-50%, -100%); height: 26px; padding: 0 10px; border-radius: 999px; background: var(--koppar); color: var(--koppar-text); font-size: 12.5px; font-weight: 700; display: grid; place-items: center; white-space: nowrap; }
+@media (max-width: 899px) { .stig .bol { width: 34px; height: 34px; font-size: 12px; border-radius: 10px; } .stig .etk { font-size: 13px; } .stig .etk small { font-size: 11.5px; } .stig .tyst { font-size: 11.5px; height: 22px; padding: 0 8px; } }
+@media (min-width: 900px) { .stig .etk { font-size: 16px; } .stig .etk small { font-size: 13.5px; } .stig .bol { width: 52px; height: 52px; font-size: 16px; border-radius: 16px; } }
+
+/* ---------- träffen i Matchade jobb ---------- */
+.traff { background: var(--papper); color: var(--ink-1); border-radius: 22px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); padding: 18px; }
+.traff + .traff { margin-top: 12px; }
+.traff-topp { display: flex; gap: 12px; align-items: start; }
+.traff-topp b { font-family: var(--disp); font-size: 18px; line-height: 1.2; }
+.traff-topp small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+.traff-topp .chip { margin-left: auto; flex: none; }
+.traff .skal { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.traff .skal span { height: 26px; padding: 0 10px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-size: 13px; font-weight: 600; display: inline-grid; place-items: center; }
+.traff .gor { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.traff .gor span { height: 38px; padding: 0 14px; border-radius: 12px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 14px; font-weight: 700; display: inline-grid; place-items: center; }
+.traff .gor span:first-child { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+.traff.liten { opacity: .85; margin-left: 5%; margin-right: 5%; }
+
+/* ---------- brevet och annonsen ---------- */
+.brevpar { position: relative; max-width: 520px; margin: 0 auto; padding: 0 0 26px 16%; }
+.annons { position: absolute; z-index: 2; left: 0; top: 16%; width: 46%; background: var(--papper); color: var(--ink-1); border-radius: 18px; padding: 14px; box-shadow: 0 6px 0 rgba(0, 0, 0, .22), 0 20px 40px rgba(0, 0, 0, .2); --rot: -4deg; transform: rotate(-4deg); font-size: 12.5px; }
+.annons b { display: block; font-family: var(--disp); font-size: 14.5px; line-height: 1.2; }
+.annons li { display: flex; gap: 6px; align-items: center; margin-top: 7px; color: var(--ink-2); }
+.annons li::before { content: ''; flex: none; width: 14px; height: 14px; border-radius: 5px; background: var(--positiv-mjuk) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F7D5B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/10px no-repeat; }
+.annons li.ej::before { background: var(--papper-2); }
+.brevark p { font-family: var(--text); font-size: clamp(7.5px, .95vw, 10.5px); line-height: 1.55; color: #33333A; margin-top: 8px; }
+.brevark mark { background: #FBE3D0; color: inherit; border-radius: 3px; padding: 0 2px; }
+.brevpar .svav { right: -4px; bottom: 0; }
+@media (min-width: 900px) { .annons { font-size: 13.5px; padding: 18px; } .annons b { font-size: 16px; } .brevpar .svav { right: -24px; } }
+
+/* ---------- samtalet med Jobbcoachen ---------- */
+.chatt { display: grid; gap: 10px; max-width: 480px; margin: 0 auto; }
+.chatt p { max-width: 86%; padding: 13px 16px; border-radius: 20px; font-size: 15px; line-height: 1.45; }
+.chatt .du { justify-self: end; background: var(--ton-ink); color: #fff; border-bottom-right-radius: 6px; }
+.chatt .jc { background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 5px; border-bottom-left-radius: 6px; }
+.chatt .jc small { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--ton-ink); }
+.chatt .forslag { display: flex; flex-wrap: wrap; gap: 8px; }
+.chatt .forslag span { height: 36px; padding: 0 14px; border-radius: 999px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant-stark); font-size: 14px; font-weight: 600; display: inline-grid; place-items: center; }
+
+/* ---------- länkbrickor ---------- */
+.lankbricka { display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; align-items: center; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; text-decoration: none; color: var(--ink-1); }
+.lankbricka .dorr { width: 44px; height: 44px; grid-row: span 2; }
+.lankbricka b { font-family: var(--disp); font-size: 17px; align-self: end; }
+.lankbricka span:last-child { font-size: 14px; color: var(--ink-3); line-height: 1.35; align-self: start; }
