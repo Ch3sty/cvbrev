@@ -9,9 +9,12 @@ export const contentType = 'image/png'
 export default async function Image({
   params,
 }: {
-  params: { yrke: string }
+  // Next 16 ger params som ett löfte. Utan await blev slugen undefined och
+  // varje yrkessida fick reservrubriken i stället för sitt yrke.
+  params: Promise<{ yrke: string }>
 }) {
-  const yrke = SLUG_TO_YRKE[params.yrke] || 'CV-exempel'
+  const { yrke: slug } = await params
+  const yrke = SLUG_TO_YRKE[slug] || 'CV-exempel'
 
   return ogBild(<OgFrame variant="cv" yrke={yrke} />)
 }
