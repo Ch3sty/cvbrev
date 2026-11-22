@@ -21,6 +21,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { useAnkratLage } from '@/hooks/useAnkratLage'
+import { useStangMeny } from '@/hooks/useStangMeny'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { vidUtloggning } from '@/lib/lagring/kontoLagring'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
@@ -74,31 +75,9 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
     if (open) temaRef.current?.focus({ preventScroll: true })
   }, [open])
 
-  // Stäng vid klick utanför och vid Escape.
-  useEffect(() => {
-    if (!open) return
-
-    const onPointerDown = (event: MouseEvent | TouchEvent) => {
-      if (!containerRef.current) return
-      const mal = event.target as Node
-      if (!containerRef.current.contains(mal) && !menyRef.current?.contains(mal)) setOpen(false)
-    }
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setOpen(false)
-        knappRef.current?.focus({ preventScroll: true })
-      }
-    }
-
-    document.addEventListener('mousedown', onPointerDown)
-    document.addEventListener('touchstart', onPointerDown)
-    document.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('mousedown', onPointerDown)
-      document.removeEventListener('touchstart', onPointerDown)
-      document.removeEventListener('keydown', onKey)
-    }
-  }, [open])
+  // Stäng vid klick utanför och vid Escape, med fokus tillbaka på knappen
+  // (samma som klockan och meddelanderutan, useStangMeny).
+  useStangMeny(open, () => setOpen(false), [containerRef, menyRef], () => knappRef.current)
 
   const logout = async () => {
     const supabase = getSupabaseClient()

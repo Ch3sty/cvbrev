@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { scheduleIdle } from '@/lib/scheduleIdle';
 import { useAnkratLage } from '@/hooks/useAnkratLage';
+import { useStangMeny } from '@/hooks/useStangMeny';
 import Link from 'next/link';
 import { IkonKlocka } from '@/components/illustrations/Ikoner';
 import { IlluTomNotiser } from '@/components/illustrations/EmptyStateIllustrations';
@@ -43,6 +44,7 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const listaRef = useRef<HTMLDivElement>(null);
+  const knappRef = useRef<HTMLButtonElement>(null);
   // Listan ritas i body under klockan (useAnkratLage), över väggarnas lager.
   const lage = useAnkratLage(open, ref);
 
@@ -82,16 +84,9 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
     };
   }, [load]);
 
-  // Stäng vid klick utanför.
-  useEffect(() => {
-    if (!open) return;
-    const onClick = (e: MouseEvent) => {
-      const mal = e.target as Node;
-      if (ref.current && !ref.current.contains(mal) && !listaRef.current?.contains(mal)) setOpen(false);
-    };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
-  }, [open]);
+  // Stäng vid klick utanför och vid Escape, med fokus tillbaka på klockan
+  // (samma som meddelanderutan och profilmenyn, useStangMeny).
+  useStangMeny(open, () => setOpen(false), [ref, listaRef], () => knappRef.current);
 
   const markAll = async () => {
     setItems((prev) => prev.map((i) => ({ ...i, read: true })));
@@ -128,7 +123,9 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
   return (
     <div className="relative" ref={ref}>
       <button
+        ref={knappRef}
         type="button"
+        aria-expanded={open}
         className={`relative inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-[10px] text-current transition-colors ${pa === 'vagg' ? 'hover:bg-white/10' : 'hover:bg-papper-2'}`}
         onClick={() => setOpen((v) => !v)}
         aria-label={unread > 0 ? `Notiser, ${unread} olästa` : 'Notiser'}

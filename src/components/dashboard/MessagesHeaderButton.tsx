@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useAnkratLage } from '@/hooks/useAnkratLage';
+import { useStangMeny } from '@/hooks/useStangMeny';
 // Toppradens länk förladdas bara på avsikt (AvsiktsLank).
 import Link from '@/components/rum/AvsiktsLank';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
@@ -27,6 +28,14 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
   const showPopover = !popoverSeen && !popoverClosed;
   // Popovern ritas i body under knappen (useAnkratLage), över väggarnas lager.
   const lage = useAnkratLage(loaded && isVisible && showPopover, ref);
+  const rutaRef = useRef<HTMLDivElement>(null);
+  const stangRuta = () => {
+    setPopoverClosed(true);
+    markPopoverSeen();
+  };
+  // Rutan stängs som klockan och profilmenyn: klick utanför och Escape, och
+  // vid Escape går fokus tillbaka till knappen (useStangMeny).
+  useStangMeny(loaded && isVisible && showPopover, stangRuta, [ref, rutaRef], () => ref.current?.querySelector<HTMLElement>('a'));
 
   if (!loaded || !isVisible) return null;
 
@@ -59,6 +68,7 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
       {/* Engångspopover första gången man blivit synlig. Svävar, får skugga. */}
       {showPopover && lage && createPortal(
         <div
+          ref={rutaRef}
           style={{ top: lage.top, right: lage.right }}
           className="fixed z-40 w-[264px] rounded-2xl border border-kant bg-papper p-4 text-ink-1 shadow-svav [--fokus:var(--koppar-ink)]"
           role="dialog"
@@ -66,10 +76,7 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
         >
           <button
             type="button"
-            onClick={() => {
-              setPopoverClosed(true);
-              markPopoverSeen();
-            }}
+            onClick={stangRuta}
             aria-label="Stäng"
             className="absolute right-1 top-1 inline-flex h-11 w-11 items-center justify-center rounded-[10px] text-ink-3 hover:bg-papper-2 hover:text-ink-1"
           >
@@ -84,10 +91,7 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
           <div className="mt-2 flex items-center justify-between gap-3">
             <button
               type="button"
-              onClick={() => {
-                setPopoverClosed(true);
-                markPopoverSeen();
-              }}
+              onClick={stangRuta}
               className="flex min-h-[44px] items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1"
             >
               Uppfattat
