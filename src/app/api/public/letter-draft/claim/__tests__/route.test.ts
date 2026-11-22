@@ -21,7 +21,7 @@ vi.mock('next/headers', () => ({ cookies: async () => ({}) }))
 vi.mock('@/lib/supabase/premiumAccess', () => ({ userHasAccess: (...a: unknown[]) => harAtkomst(...a) }))
 const tidigare = vi.fn()
 const forsta = vi.fn()
-const raknat = vi.fn(async () => {})
+const raknat = vi.fn(async (..._a: unknown[]) => {})
 let kvotProfil: Record<string, unknown> = {}
 vi.mock('@/lib/letters/public-draft', () => ({
   getClaimableDraft: async () => utkast(),
@@ -29,7 +29,7 @@ vi.mock('@/lib/letters/public-draft', () => ({
   forstaInhamtadeUtkast: async (...a: unknown[]) => forsta(...a),
 }))
 vi.mock('@/lib/letters/skrivBrev', () => ({
-  raknaBrevMotKvot: (...a: unknown[]) => raknat(...(a as [])),
+  raknaBrevMotKvot: (...a: unknown[]) => raknat(...a),
   kvotSlutSvar: (lage: { effectiveCount: number }) => ({ error: 'quota_exceeded', used: lage.effectiveCount }),
 }))
 vi.mock('@/lib/supabase/server', () => ({
