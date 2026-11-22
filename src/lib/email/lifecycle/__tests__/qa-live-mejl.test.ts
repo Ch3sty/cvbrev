@@ -8,7 +8,6 @@ import { describe, expect, it } from 'vitest'
 
 import type { LifecycleContext } from '../types'
 import { quotaWall } from '../templates/conversion'
-import { gratisnivaAndras } from '../templates/campaign-gratisniva'
 import { mejlRubrik } from '../templates/komigang'
 import { generatePasswordResetEmailHTML } from '@/lib/email/password-reset-email-generator'
 import { generateConfirmationEmailHTML, generateConfirmationEmailText } from '@/lib/email/confirmation-email-generator'
@@ -95,19 +94,6 @@ describe('kvotväggsmejlet', () => {
     expect(subject).toBe('Du har slagit i taket tre gånger på sju dagar')
     expect(html).toContain('du har slagit i taket tre gånger de senaste sju dagarna.')
     expect(html).not.toMatch(/den här veckan|de senaste dagarna/)
-  })
-})
-
-describe('gratisnivåns kampanj', () => {
-  it('listan står direkt efter "Det här ändras:" och före knappen', async () => {
-    const { subject, html } = await rendera(gratisnivaAndras)
-    expect(subject).toBe('Vi ändrar gratisnivån inom kort')
-    const inledning = html.indexOf('Det här ändras:')
-    const lista = html.indexOf('CV-mallar:')
-    const knapp = html.indexOf('Se vad som gäller')
-    expect(inledning).toBeGreaterThan(-1)
-    expect(lista).toBeGreaterThan(inledning)
-    expect(knapp).toBeGreaterThan(lista)
   })
 })
 

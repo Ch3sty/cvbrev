@@ -8,10 +8,8 @@ import { describe, expect, it } from 'vitest'
 
 import type { LifecycleContext } from '../types'
 import { quotaWall } from '../templates/conversion'
-import { gratisnivaAndras } from '../templates/campaign-gratisniva'
 import { cancelImmediate } from '../templates/transactional'
 import { HELA_PAKETET_RADER } from '@/lib/plans/plans'
-import { GRATIS_LISTA } from '@/lib/plans/gratis-copy'
 import { generatePasswordResetEmailHTML, generatePasswordResetEmailText } from '@/lib/email/password-reset-email-generator'
 import { generateConfirmationEmailHTML } from '@/lib/email/confirmation-email-generator'
 import { generateRecruiterInterestEmail } from '@/lib/email/recruiter-interest'
@@ -52,18 +50,6 @@ describe('kvotväggsmejlet (M1 till M3)', () => {
     expect(preheader).not.toMatch(/utan tak/)
     expect(html).not.toMatch(/taket på allt/)
     expect(html).toContain('skriver du personliga brev, frågar Jobbcoachen och tränar alla testnivåer utan att räkna, och du säger upp när du vill.')
-  })
-})
-
-describe('gratisnivåns kampanj (M4 till M8)', () => {
-  it('följer gratisnivån som den är', async () => {
-    const { html } = await rendera(gratisnivaAndras)
-    expect(html).toContain('Det personliga brevet som fil, alla mallar och de högre testnivåerna ingår i')
-    expect(html).toContain('fria mallar och en nedladdning, resten förhandsvisas i full storlek')
-    expect(html).toContain('CV-analys: läsbarhetspoängen och genomgången i sju delar, för varje CV')
-    expect(html).toContain('Personliga brev: ett personligt brev var sjunde dag, och de två senaste går att ändra.')
-    expect(html).toContain(GRATIS_LISTA[0].slice(1))
-    expect(html).not.toMatch(/fynd|uttaget|per konto, sedan/)
   })
 })
 

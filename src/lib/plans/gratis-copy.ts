@@ -60,9 +60,6 @@ export const GRATIS_LISTA = [
   'Sökta tjänster med Ska sökas, veckans mål och det första uppföljningsmejlet',
 ] as const
 
-/** Testraden i gratisnivåmejlet (campaign-gratisniva.ts): samma rad som listans första. */
-export const GRATIS_TESTRAD = GRATIS_LISTA[0]
-
 /** Index i GRATIS_LISTA för mallraden, som länkar till /cv-mallar. */
 export const GRATIS_MALLRAD = 1
 

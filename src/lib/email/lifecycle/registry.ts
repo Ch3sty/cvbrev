@@ -6,12 +6,13 @@
 // föll med veckoprogrammet (docs/design/spec-onboarding-2026-09-22.html).
 // I stället ligger hjälpredans två mejl: komigang (ett om dagen om nästa
 // bricka) och paket_fornyas (dagen före förnyelsen), plus uppsägningskvittot.
+//
+// Kampanjen "Vi ändrar gratisnivån" är pensionerad 2026-11-22 (beslut-mejl-och-radering 1c); en kvarglömd rad avbryts som unknown_email_type.
 
 import type { LifecycleEmail } from './types';
 import { winback14, winback30 } from './templates/winback';
 import { quotaWall, onetimeExpired } from './templates/conversion';
 import { paymentFailed, cancelImmediate, cancelFollowup } from './templates/transactional';
-import { gratisnivaAndras, GRATISNIVA_EMAIL_TYPE } from './templates/campaign-gratisniva';
 import { weeklyDigest, WEEKLY_DIGEST_TYPE } from './templates/weekly-digest';
 import { uppsagtGallerUt, kvittoMejl } from './templates/vecka';
 import { komIgangMejl, paketFornyasMejl, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE } from './templates/komigang';
@@ -36,7 +37,6 @@ const ALL: LifecycleEmail[] = [
   paymentFailed,
   cancelImmediate,
   cancelFollowup,
-  gratisnivaAndras,
   weeklyDigest,
 ];
 
@@ -74,4 +74,4 @@ export function resolveLifecycleEmail(emailType: string): LifecycleEmail | null 
   return null;
 }
 
-export { GRATISNIVA_EMAIL_TYPE, WEEKLY_DIGEST_TYPE, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE };
+export { WEEKLY_DIGEST_TYPE, KOMIGANG_TYPE, PAKET_FORNYAS_TYPE };
