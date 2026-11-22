@@ -9,7 +9,7 @@
  * 300 x 424, brevet 480 x 679), aldrig iframes, alla lazy så att
  * artikelbilden förblir LCP.
  *
- * Första vyn (Linne) står i HTML och är det enda paret av ?mall=-adresser
+ * Första vyn (Linne) står i HTML och är det enda paret av mall-adresser
  * där (SEO 11.1); de andra adresserna byggs i klienten. Utan JavaScript göms
  * mallraden och kantpilarna, så att inget reglage är dött.
  */
