@@ -67,3 +67,36 @@ Lagringsloggarna i projektet börjar 2026-11-19 12:51 UTC, när projektet skapad
 2. Ägaren avgör, gärna med en jurist, om detta är en personuppgiftsincident som ska anmälas till IMY. Underlaget ovan säger vad som går och inte går att visa.
 3. Hinken `profile-photos` är publik och dess regler jämför också första mappnamnet med användarens id. Inte ändrat här.
 4. Skalets miljö har `NODE_TLS_REJECT_UNAUTHORIZED=0` satt, vilket stänger av certifikatkontrollen för alla anrop från Node i den terminalen. Det bör tas bort.
+
+## Loggarna i det gamla projektet (läst 2026-11-22, på ägarens uppdrag)
+
+Det gamla projektet i Ohio (`dbvbnbkvadvlhjhomibg`) är igång och dess loggar går att läsa via Management API (`GET /v1/projects/<projekt>/analytics/endpoints/logs`, ett dygn per fråga, bara läsning). Loggarna börjar 2026-08-24. Lästa: alla 88 dygn från 2026-08-24 till 2026-11-19, 2 981 895 anrop mot projektet. Skript och råutdata: sessionens arbetsmapp `gamla-loggar` (`q-varifran.sql`, `ut-varifran.txt`), utan användar-id i utdatat.
+
+Reglerna i det gamla projektet är samma felbyggda regler som rättades i det nya: två ALL-regler på `auth.role() = 'authenticated'` och ägarregler som jämför första mappnamnet.
+
+Alla anrop mot lagringen under de 88 dygnen, utom publika profilfoton:
+
+| Vem | Varifrån | Vad | Antal |
+|---|---|---|---|
+| Inloggad användare | Vår server hos Vercel (Amazon), klienten `supabase-ssr createServerClient` | Uppladdning till egen mapp | 148 |
+| Inloggad användare | Samma | Listning i `cvs` | 93 |
+| Inloggad användare | Samma | Radering i `cvs` | 27 |
+| Inloggad användare | Tele2 Sverige, klienten `supabase-ssr createServerClient` (lokal utvecklingsserver, tre dygn) | Uppladdning till egen mapp 39, listning 20, en nekad uppladdning av profilfoto | 60 |
+| Servernyckeln | Tele2 Sverige och Vercel, klienten `supabase-js-node` (skript och serverrutter) | Listning, radering och uppladdning vid städning och kontoradering | cirka 1 070 |
+| Servernyckeln | Tele2 Sverige | Hämtning av alla filer vid flytten till Irland 2026-11-19 | 2 450 CV och 14 profilfoton |
+
+Det loggarna visar:
+
+- Ingen fil i `cvs` har hämtats med en användares nyckel under de 88 dygnen. Ingen signerad adress har skapats. De enda hämtningarna är flytten 2026-11-19 med servernyckeln.
+- Inget anrop där ett inloggat konto har en annan användares mapp i adressen.
+- Varje anrop med en användares nyckel kom genom vår egen serverkod (`createServerClient`), från Vercel eller från den lokala utvecklingsservern. Inget anrop kom från en webbläsare eller en annan klient direkt mot lagringen.
+
+Det loggarna inte visar:
+
+- Tiden före 2026-08-24. Hinken har funnits sedan mars 2025.
+- Vilken mapp en listning eller radering gällde, eftersom den står i anropets innehåll. Alla sådana anrop kom dock genom vår egen serverkod, som bara arbetar i den inloggades mapp.
+- Klientens namn och nätverk är uppgifter som den som anropar kan förfalska. Att Tele2-anropen är ägarens egen uppkoppling är ett antagande som ägaren kan bekräfta.
+
+Slutsats för ägarens beslut om IMY: under den tid som går att se finns inget tecken på att någon har läst, listat eller raderat någon annans filer. Beslutet och motiveringen är ägarens.
+
+Öppet: det gamla projektet har kvar 350 filer i `cvs` och de felbyggda reglerna. Inget är ändrat där.
