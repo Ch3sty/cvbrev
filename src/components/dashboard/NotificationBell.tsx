@@ -1,7 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { scheduleIdle } from '@/lib/scheduleIdle';
+import { useAnkratLage } from '@/hooks/useAnkratLage';
 import Link from 'next/link';
 import { IkonKlocka } from '@/components/illustrations/Ikoner';
 import { IlluTomNotiser } from '@/components/illustrations/EmptyStateIllustrations';
@@ -40,6 +42,9 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
   const [unread, setUnread] = useState(0);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const listaRef = useRef<HTMLDivElement>(null);
+  // Listan ritas i body under klockan (useAnkratLage), över väggarnas lager.
+  const lage = useAnkratLage(open, ref);
 
   const load = useCallback(async () => {
     try {
@@ -81,7 +86,8 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
   useEffect(() => {
     if (!open) return;
     const onClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const mal = e.target as Node;
+      if (ref.current && !ref.current.contains(mal) && !listaRef.current?.contains(mal)) setOpen(false);
     };
     document.addEventListener('mousedown', onClick);
     return () => document.removeEventListener('mousedown', onClick);
@@ -139,8 +145,11 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
         )}
       </button>
 
-      {open && (
-        <div className="absolute right-0 z-50 mt-2 w-[320px] max-w-[calc(100vw-24px)] overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop">
+      {open && lage && createPortal(
+        <div
+          ref={listaRef}
+          style={{ top: lage.top, right: lage.right }}
+          className="fixed z-40 w-[320px] max-w-[calc(100vw-24px)] overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop">
           <div className="flex min-h-[44px] items-center justify-between border-b border-kant px-4">
             <span className="text-sm font-medium text-ink-1">Notiser</span>
             {unread > 0 && (
@@ -216,7 +225,8 @@ export default function NotificationBell({ pa = 'vagg' }: { pa?: 'vagg' | 'golv'
               })
             )}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

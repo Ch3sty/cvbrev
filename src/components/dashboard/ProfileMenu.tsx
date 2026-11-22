@@ -12,10 +12,15 @@
  *
  * Utseendet slår igenom direkt och menyn står kvar öppen, så att man ser
  * skillnaden och kan byta tillbaka. Den stängs först vid val av en rad.
+ *
+ * Menyn ritas i body (portal) med fast läge under knappen, i navigationens
+ * lager (40, designsystemet): se useAnkratLage för varför.
  */
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
+import { useAnkratLage } from '@/hooks/useAnkratLage'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { vidUtloggning } from '@/lib/lagring/kontoLagring'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
@@ -54,6 +59,10 @@ export function initialer(name: string, email: string): string {
 export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = null, pa = 'vagg' }: ProfileMenuProps) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const menyRef = useRef<HTMLDivElement | null>(null)
+  const knappRef = useRef<HTMLButtonElement | null>(null)
+  // Menyns plats i fönstret: under knappen, högerkanten i linje med knappens.
+  const lage = useAnkratLage(open, knappRef)
   const { summary } = useDashboardData()
   const komIgang = useKomIgang()
   const huvud = summary?.paket ? menyHuvud(summary.paket) : null
@@ -71,10 +80,14 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
 
     const onPointerDown = (event: MouseEvent | TouchEvent) => {
       if (!containerRef.current) return
-      if (!containerRef.current.contains(event.target as Node)) setOpen(false)
+      const mal = event.target as Node
+      if (!containerRef.current.contains(mal) && !menyRef.current?.contains(mal)) setOpen(false)
     }
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        knappRef.current?.focus({ preventScroll: true })
+      }
     }
 
     document.addEventListener('mousedown', onPointerDown)
@@ -98,6 +111,7 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
   return (
     <div className="relative" ref={containerRef}>
       <button
+        ref={knappRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
@@ -108,11 +122,13 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
         <Avatar avatarUrl={avatarUrl} initialer={initialer(name, email)} pa={pa} />
       </button>
 
-      {open && (
+      {open && lage && createPortal(
         <div
+          ref={menyRef}
           role="menu"
           aria-label="Konto"
-          className="absolute right-0 top-full z-50 mt-2 w-72 max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop"
+          style={{ top: lage.top, right: lage.right, maxHeight: `calc(100dvh - ${lage.top + 16}px)` }}
+          className="fixed z-40 w-72 max-w-[calc(100vw-32px)] overflow-y-auto overscroll-contain rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop"
         >
           <div className="border-b border-kant px-4 py-3">
             <p className="truncate text-sm font-medium text-ink-1">{name}</p>
@@ -203,7 +219,8 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
               {KONTO_SEKTION.loggaUt}
             </button>
           </nav>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   )

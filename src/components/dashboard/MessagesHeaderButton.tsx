@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useAnkratLage } from '@/hooks/useAnkratLage';
 // Toppradens länk förladdas bara på avsikt (AvsiktsLank).
 import Link from '@/components/rum/AvsiktsLank';
 import { useCandidateInterests } from '@/hooks/useCandidateInterests';
@@ -21,15 +23,18 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
   const { pending, unread, isVisible, loaded } = useCandidateInterests();
   const [popoverSeen, markPopoverSeen] = useUiFlag('header_messages_popover');
   const [popoverClosed, setPopoverClosed] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const showPopover = !popoverSeen && !popoverClosed;
+  // Popovern ritas i body under knappen (useAnkratLage), över väggarnas lager.
+  const lage = useAnkratLage(loaded && isVisible && showPopover, ref);
 
   if (!loaded || !isVisible) return null;
 
   const badge = pending + unread;
-  const showPopover = !popoverSeen && !popoverClosed;
   if (badge === 0 && !showPopover) return null;
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center" ref={ref}>
       <Link
         href="/dashboard/meddelanden"
         aria-label={
@@ -52,9 +57,10 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
       </Link>
 
       {/* Engångspopover första gången man blivit synlig. Svävar, får skugga. */}
-      {showPopover && (
+      {showPopover && lage && createPortal(
         <div
-          className="absolute right-0 top-[52px] z-50 w-[264px] rounded-2xl border border-kant bg-papper p-4 text-ink-1 shadow-svav [--fokus:var(--koppar-ink)]"
+          style={{ top: lage.top, right: lage.right }}
+          className="fixed z-40 w-[264px] rounded-2xl border border-kant bg-papper p-4 text-ink-1 shadow-svav [--fokus:var(--koppar-ink)]"
           role="dialog"
           aria-label="Om meddelanden"
         >
@@ -94,7 +100,8 @@ export default function MessagesHeaderButton({ pa = 'vagg' }: { pa?: 'vagg' | 'g
               Visa mig
             </Link>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
