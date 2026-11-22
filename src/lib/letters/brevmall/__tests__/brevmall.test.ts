@@ -24,7 +24,7 @@ describe('renderBrevHtml', () => {
       // Brev har inget foto.
       expect(html, def.id).not.toMatch(/class="foto/)
       // Kontakten står någonstans: i huvudet, i spalten eller i sockeln.
-      expect(html, def.id).toContain('070-123 45 67')
+      expect(html, def.id).toContain('073-456 78 90')
     }
   })
 
@@ -210,7 +210,7 @@ describe('byggBrevDocx', () => {
       expect(xml, def.id).toContain('Ansökan: IT-projektledare till kundplattformen')
       expect(xml, def.id).toContain('Jag berättar gärna mer')
       expect(xml, def.id).toContain('Med vänlig hälsning')
-      expect(xml, def.id).toContain('erik.lindberg@exempel.se')
+      expect(xml, def.id).toContain('erik.lindberg@email.se')
     }
   }, 60_000)
 

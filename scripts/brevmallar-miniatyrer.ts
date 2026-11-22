@@ -13,6 +13,7 @@
  * Ingen server, ingen databas.
  *
  *   npx tsx scripts/brevmallar-miniatyrer.ts [--bara linne,koppar]
+ *   npx tsx scripts/brevmallar-miniatyrer.ts --alla                      (alla 40 mallar i MALL_KATALOG)
  *   npx tsx scripts/brevmallar-miniatyrer.ts --prov ramverk --ut <mapp>   (mall utanför urvalet, för granskning)
  */
 import fs from 'fs'
@@ -24,6 +25,7 @@ import { renderBrevHtml } from '../src/lib/letters/brevmall'
 import { exempelBrev } from '../src/lib/letters/brevmall/exempel'
 import { MINIATYR_BREDD, MINIATYR_HOJD, SALJ_MALL_IDS, brevMiniatyrSrc } from '../src/components/publikt/brevmallar'
 import { VISARE_MALL_IDS } from '../src/components/publikt/brevvisare/visare-data'
+import { MALL_KATALOG } from '../src/lib/cv/mallar/katalog'
 
 const arg = (namn: string) => {
   const i = process.argv.indexOf(namn)
@@ -35,8 +37,11 @@ const A4_BREDD = 794
 const A4_HOJD = 1123
 
 async function main() {
-  // Säljsidans sju och mallvisarens fem (våg 2), varje mall en gång.
-  const alla: string[] = [...new Set<string>([...SALJ_MALL_IDS, ...VISARE_MALL_IDS])]
+  // Säljsidans sju och mallvisarens fem (våg 2), varje mall en gång. Med --alla
+  // ritas alla 40 (startflödets väljare och visaren CvOchBrevPar visar varje mall).
+  const alla: string[] = process.argv.includes('--alla')
+    ? MALL_KATALOG.map((m) => m.id)
+    : [...new Set<string>([...SALJ_MALL_IDS, ...VISARE_MALL_IDS])]
   const bara = arg('--bara')?.split(',')
   // --prov ritar mallar utanför urvalet till en egen mapp (--ut), för granskning.
   const prov = arg('--prov')?.split(',')

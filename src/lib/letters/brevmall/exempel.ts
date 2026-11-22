@@ -5,13 +5,19 @@
  * eget namn). Klientsäker: ren data.
  */
 import type { BrevAvsandare, BrevData, BrevKrav } from './typer'
+import { SHOWCASE_CV } from '@/lib/cv/showcase-exempel'
 
+/**
+ * Samma person som i exempel-CV:t: namn, titel, telefon, e-post och ort läses
+ * ur SHOWCASE_CV, så att CV- och brevbilderna i samma mall har samma huvud
+ * (artikeln om CV och brev i samma mall, saas-lead 10.2).
+ */
 export const EXEMPEL_AVSANDARE: BrevAvsandare = {
-  namn: 'Erik Lindberg',
-  titel: 'Projektledare inom IT',
-  epost: 'erik.lindberg@exempel.se',
-  telefon: '070-123 45 67',
-  ort: 'Stockholm',
+  namn: SHOWCASE_CV.namn,
+  titel: SHOWCASE_CV.titel,
+  epost: SHOWCASE_CV.kontakt.epost,
+  telefon: SHOWCASE_CV.kontakt.telefon,
+  ort: SHOWCASE_CV.kontakt.plats,
 }
 
 const STYCKEN = [
