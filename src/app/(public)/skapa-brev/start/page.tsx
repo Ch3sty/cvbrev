@@ -36,7 +36,9 @@ const BASE_URL = 'https://www.jobbcoach.ai'
  * scripts/brevmallar-miniatyrer.ts. De övriga 32 visas med mallens
  * CV-miniatyr, och väljaren säger det (logg-p3b, beslut 2).
  */
-const BREV_MINIATYRER = new Set<string>(['linne', 'bjork', 'koppar', 'kalksten', 'granit', 'fasad', 'terrakotta', 'ritning'])
+// Alla 40 mallar har en brevbild sedan 2026-11-22 (public/mallar/brev/<id>.webp, ritade av brevmotorn med
+// npx tsx scripts/brevmallar-miniatyrer.ts --prov <id,...> --ut public/mallar/brev). En ny mall utan bild faller tillbaka på CV-miniatyren.
+const BREV_MINIATYRER = new Set<string>(['affisch', 'alm', 'antikva', 'arsring', 'betong', 'bjork', 'ek', 'fasad', 'folio', 'furu', 'granit', 'horisont', 'index', 'kakel', 'kalksten', 'kant', 'kolumn', 'koppar', 'kvadrat', 'lind', 'linne', 'loft', 'morkrum', 'not', 'panorama', 'pergament', 'ramverk', 'raster', 'ritning', 'sand', 'sigill', 'siluett', 'skylt', 'sockel', 'spar', 'stal', 'terrakotta', 'tidning', 'tusch', 'valv'])
 
 interface PageProps {
   searchParams: Promise<{ yrke?: string; mall?: string }>

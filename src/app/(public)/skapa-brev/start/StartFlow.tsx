@@ -354,7 +354,7 @@ function MallValjare({
           ))}
         </div>
         <p className="sb-v-rad">{texter.valjareRad}</p>
-        <p className="sb-v-not">Bilderna visar mallen på ett brev eller ett CV. Ditt brev får mallens huvud, typsnitt och färger.</p>
+        <p className="sb-v-not">Bilderna visar mallen på ett exempelbrev. Ditt brev får mallens huvud, typsnitt och färger.</p>
         <div className="sb-v-rutnat">
           {synliga.map((x) => (
             <button
