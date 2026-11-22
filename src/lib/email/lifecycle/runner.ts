@@ -425,7 +425,6 @@ export async function scheduleKomIgangMejl(
   }
 
   for (const profile of rows ?? []) {
-    if (profile.quota_emails_opt_out === true) { result.skipped += 1; continue; }
     const scope = profile.premium_scope === 'cv' || profile.premium_scope === 'tester' ? profile.premium_scope : 'allt';
     const premiumUntil = profile.premium_until ? new Date(profile.premium_until) : null;
     const planKey = harPaket(scope, premiumUntil, now, {
@@ -445,6 +444,9 @@ export async function scheduleKomIgangMejl(
       result.fornyas += 1;
       continue;
     }
+
+    // Avregistrerade får förnyelsebeskedet (transaktionellt, beslut-mejl-och-radering 1a) men inget Kom igång-mejl.
+    if (profile.quota_emails_opt_out === true) { result.skipped += 1; continue; }
 
     // Köpdagen: veckopaketens period började för mindre än 20 timmar sedan.
     if (planKey && PLAN_BY_KEY[planKey].length === 'vecka' && fornyas) {
