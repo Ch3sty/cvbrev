@@ -23,7 +23,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
   return (
     <SectionCard
       title="Synlighetsläge"
-      sub="Anonym först är standard. Namn och foto visas aldrig förrän du själv godkänner en kontakt."
+      sub="Anonym först är standard. Då visas ditt namn och dina arbetsgivare först när du själv tackat ja till en kontakt."
       delay={0.1}
       {...collapse}
       headerExtra={
@@ -50,7 +50,7 @@ export default function VisibilityModeCard({ visibility, lastMode, onChange, col
           disabled={!isOn}
           onClick={() => onChange('open')}
           title="Öppen profil"
-          description="Namn syns direkt. Snabbare kontakt, mindre kontroll."
+          description="Namn, arbetsgivare och lärosäten syns direkt, med en kort beskrivning av varje anställning. Snabbare kontakt, mindre kontroll."
         />
       </div>
       {!isOn && (

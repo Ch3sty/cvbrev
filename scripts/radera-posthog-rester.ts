@@ -126,8 +126,27 @@ async function main() {
   console.log(`Personer utan konto oavsett e-post (--alla): ${utanEpostVillkor.personer}, händelser hos dem: ${await raknaHandelser(utanEpostVillkor.distinctIds)}`);
   console.log(`Urvalet som raderas med --kor${alla ? ' --alla' : ''}: ${urval.personer} personer`);
 
+  // --koa: lägg urvalet i kön posthog_raderingar i stället för att radera
+  // härifrån. Midnattskörningen (korPosthogRaderingar) tar då 100 per natt med
+  // nyckeln som ligger i Vercel, så nyckeln behöver inte finnas lokalt.
+  // Kön bär bara id. Redan köade id rörs inte.
+  if (process.argv.includes('--koa')) {
+    const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      auth: { persistSession: false },
+    });
+    const { count: fore } = await admin.from('posthog_raderingar').select('distinct_id', { count: 'exact', head: true });
+    for (let i = 0; i < urval.distinctIds.length; i += 200) {
+      const rader = urval.distinctIds.slice(i, i + 200).map((id) => ({ distinct_id: id, senaste_fel: 'rest efter raderat konto' }));
+      const { error } = await admin.from('posthog_raderingar').upsert(rader, { onConflict: 'distinct_id', ignoreDuplicates: true });
+      if (error) throw new Error(`kön: ${error.message}`);
+    }
+    const { count: efter } = await admin.from('posthog_raderingar').select('distinct_id', { count: 'exact', head: true });
+    console.log(`Kön före: ${fore}, efter: ${efter}. Nattkörningen tar 100 per natt.`);
+    return;
+  }
+
   if (!kor) {
-    console.log('Torrkörning: inget raderat. Kör med --kor efter ägarens ja.');
+    console.log('Torrkörning: inget raderat. Kör med --kor eller --koa efter ägarens ja.');
     return;
   }
 

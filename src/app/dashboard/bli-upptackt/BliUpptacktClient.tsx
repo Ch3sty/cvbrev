@@ -11,6 +11,7 @@ import {
   Golv,
   IkonBock,
   IkonLas,
+  IkonLasUpp,
   IkonOga,
   IkonPil,
   JobbVagg,
@@ -30,7 +31,7 @@ import CvPickerCard from './components/CvPickerCard';
 import VisibilityModeCard from './components/VisibilityModeCard';
 import SectionCard, { StegKontext } from './components/SectionCard';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
-import { HIDDEN_ITEMS, SHOWN_ITEMS } from './components/delas';
+import { AFTER_YES_ITEMS, HIDDEN_ITEMS, SHOWN_ITEMS } from './components/delas';
 import type { CollapseProps } from './components/SectionCard';
 import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type SummaryData } from './components/types';
 import type { BliUpptacktData } from './getPageData';
@@ -290,13 +291,20 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
               rubrikId="fore-rubrik"
               hoger={<span className="j3-text">Du kan slå av synligheten när du vill.</span>}
             />
-            <div className="mt-5 grid gap-3.5 xl:grid-cols-2">
+            <div className="mt-5 grid gap-3.5 xl:grid-cols-3">
               <TonYta>
                 <div className="flex items-center gap-2.5 text-[var(--j3-bock)]">
                   <IkonOga size={22} />
                   <b className="j3c-kortrubrik">Det här visas</b>
                 </div>
                 <Punkter punkter={SHOWN_ITEMS.map((s) => ({ ikon: <IkonBock size={16} />, text: s }))} />
+              </TonYta>
+              <TonYta>
+                <div className="flex items-center gap-2.5 text-[var(--j3-ink)]">
+                  <IkonLasUpp size={20} className="shrink-0" />
+                  <b className="j3c-kortrubrik">Visas först när du tackat ja till en kontakt</b>
+                </div>
+                <Punkter punkter={AFTER_YES_ITEMS.map((s) => ({ ikon: <IkonBock size={16} />, text: s }))} />
               </TonYta>
               <TonYta>
                 <div className="flex items-center gap-2.5 text-[var(--j3-ink)]">

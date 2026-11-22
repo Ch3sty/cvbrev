@@ -4,7 +4,7 @@ import { KNAPP_PRIMAR } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { Check } from '@/components/illustrations/RumIkoner';
 import Sheet from '@/components/shell/Sheet';
-import { HIDDEN_ITEMS, SHOWN_ITEMS } from './delas';
+import { AFTER_YES_ITEMS, HIDDEN_ITEMS, SHOWN_ITEMS } from './delas';
 
 interface ConsentModalProps {
   open: boolean;
@@ -75,27 +75,24 @@ export default function ConsentModal({
         </div>
       }
     >
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <section className="rounded-lg border border-kant bg-papper-2 p-4 ">
-          <h3 className="mb-2 text-sm font-medium text-ink-1">Det här visas</h3>
-          <ul className="space-y-1.5">
-            {SHOWN_ITEMS.map((item) => (
-              <li key={item} className="text-meta leading-snug text-ink-2">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="rounded-lg border border-kant bg-papper-2 p-4 ">
-          <h3 className="mb-2 text-sm font-medium text-ink-1">Det här visas aldrig</h3>
-          <ul className="space-y-1.5">
-            {HIDDEN_ITEMS.map((item) => (
-              <li key={item} className="text-meta leading-snug text-ink-2">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
+      {/* Tre listor staplade: dialogen är för smal för tre spalter. */}
+      <div className="grid grid-cols-1 gap-3">
+        {[
+          { rubrik: 'Det här visas', rader: SHOWN_ITEMS },
+          { rubrik: 'Visas först när du tackat ja till en kontakt', rader: AFTER_YES_ITEMS },
+          { rubrik: 'Det här visas aldrig', rader: HIDDEN_ITEMS },
+        ].map((lista) => (
+          <section key={lista.rubrik} className="rounded-lg border border-kant bg-papper-2 p-4 ">
+            <h3 className="mb-2 text-sm font-medium text-ink-1">{lista.rubrik}</h3>
+            <ul className="space-y-1.5">
+              {lista.rader.map((item) => (
+                <li key={item} className="text-meta leading-snug text-ink-2">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
 
       {/* Huvudsamtycke (obligatoriskt) */}
@@ -114,7 +111,7 @@ export default function ConsentModal({
         Visa mina främsta styrkor och min arbetsstil från personlighetstestet på
         profilen.{' '}
         <span className="font-normal text-ink-3">
-          Eget samtycke, kan bockas ur utan att synligheten påverkas.
+          Eget samtycke, valfritt. Du kan ändra dig senare utan att synligheten påverkas.
         </span>
       </ConsentRow>
 

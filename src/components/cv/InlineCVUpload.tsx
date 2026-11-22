@@ -205,8 +205,8 @@ export default function InlineCVUpload({
                   >
                     GDPR-riktlinjerna
                   </a>
-                  . Ditt CV används bara för att skapa brev och analyser åt dig. Vi delar det
-                  aldrig med tredje part.
+                  . Ditt CV används bara för ditt eget jobbsök hos oss, till exempel till brev
+                  och analyser. Vi visar det inte för någon utan att du själv har valt det.
                 </span>
               </label>
 
