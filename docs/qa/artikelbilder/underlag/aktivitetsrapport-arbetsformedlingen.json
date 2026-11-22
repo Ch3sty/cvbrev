@@ -1,0 +1,17 @@
+{
+ "alt": "Lista över sökta jobb i oktober med datum, tjänst och arbetsgivare, som underlag till aktivitetsrapporten",
+ "fyll": {
+  "etikett": "Sökta jobb i oktober",
+  "huvud": {
+   "variant": "rader",
+   "chip": "Exempel: listan för oktober",
+   "rader": [
+    { "datum": "2 okt", "etikett": "Annons", "rubrik": "Ekonomiassistent", "under": "Hasselgläntans Redovisning" },
+    { "datum": "6 okt", "etikett": "Annons", "rubrik": "Löneadministratör", "under": "Tallmons Åkeri" },
+    { "datum": "9 okt", "etikett": "Spontant", "rubrik": "Ekonomiassistent", "under": "Björkvallens Bostäder" }
+   ],
+   "orange": 1
+  },
+  "grepp": ["Skriv upp jobbet samma dag du söker det", "Spara underlaget i tre månader", "Ditt eget antal står i handlingsplanen"]
+ }
+}

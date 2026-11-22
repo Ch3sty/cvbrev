@@ -1,0 +1,14 @@
+{
+ "alt": "CV och personligt brev i samma mall bredvid varandra, med samma huvud, typsnitt och accentfärg",
+ "fyll": {
+  "etikett": "Samma mall, två ark",
+  "huvud": {
+   "variant": "par",
+   "chip": "Samma huvud",
+   "vanster": { "etikett": "CV", "rubrik": "Erik Lindberg", "rad": ["Projektledare", "inom IT"] },
+   "hoger": { "etikett": "Personligt brev", "rubrik": "Erik Lindberg", "rad": ["Projektledare", "inom IT"] },
+   "orange": "hoger"
+  },
+  "grepp": ["Samma namn, skrivet på samma sätt", "Samma telefonnummer och samma e-postadress", "En accentfärg, samma i båda"]
+ }
+}

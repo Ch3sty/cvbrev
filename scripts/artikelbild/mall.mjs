@@ -472,9 +472,12 @@ function chattKort(ctx, fragaVarde, svarVarde, rum) {
  *   svar:   ett kort svar i stort (ja eller nej) med en rad och undantagen
  *   steg:   numrerade steg eller sätt, ett i orange, valfri liten etikett per steg
  *   listor: två rubriker med punkter under, en rubrik i orange
- *   par:    två dokument bredvid varandra (CV och brev), ett med orange kant
+ *   par:    två dokument bredvid varandra (CV och brev), ett med orange kant;
+ *           valfri liten etikett per dokument ("CV", "PERSONLIGT BREV") ovanför rubriken
+ *   rader:  rader ur en lista i artikeln (datum och liten etikett, rubrik, rad
+ *           under), en rad med orange markering (aktivitetsrapporten 2026-11-22)
  */
-export const VARIANTER = ['svar', 'steg', 'listor', 'par'];
+export const VARIANTER = ['svar', 'steg', 'listor', 'par', 'rader'];
 const punkt = (x, y, fill = F.ink) => `<circle cx="${x}" cy="${y}" r="6" fill="${fill}"/>`;
 
 function svarKort(ctx, h, rum) {
@@ -554,8 +557,13 @@ function parKort(ctx, h, rum) {
     const x = 32 + i * (dw + 8), orange = (i === 0 ? 'vanster' : 'hoger') === h.orange;
     const r = bryt(ctx, d.rubrik, { size: 28, weight: 700, fam: DISPLAY, maxW: dw - 2 * pad, maxRader: 3, namn: 'dokumentets rubrik' });
     const l = bryt(ctx, d.rad, { size: 28, weight: 500, maxW: dw - 2 * pad, maxRader: 3, namn: 'dokumentets rad' });
-    let inner = rader(r, x + pad, top + 58, 36, 28, 700, orange ? F.kopparInk : F.ink, DISPLAY);
-    let y = top + 58 + r.length * 36 + 8;
+    // Valfri liten etikett ovanför rubriken ("CV", "PERSONLIGT BREV"): 20 px versaler, som CV-arkets sektioner.
+    const et = d.etikett ? t(d.etikett).toUpperCase() : '';
+    if (et && ctx.mat(et, 20, 700) + et.length * 2 > dw - 2 * pad) ctx.fel.push(`dokumentets etikett "${et}" ryms inte`);
+    const r0 = top + (et ? 92 : 58);
+    let inner = et ? `<text data-liten="1" x="${x + pad}" y="${top + 52}" font-family="${BROD}" font-size="20" font-weight="700" letter-spacing="2" fill="${orange ? F.kopparInk : F.ink3}">${esc(et)}</text>` : '';
+    inner += rader(r, x + pad, r0, 36, 28, 700, orange ? F.kopparInk : F.ink, DISPLAY);
+    let y = r0 + r.length * 36 + 8;
     inner += rader(l, x + pad, y + 20, 36, 28, 500, F.ink2);
     y += l.length * 36 + 24;
     for (const bw of [dw - 2 * pad, dw - 90, dw - 70, 0, dw - 2 * pad, dw - 110]) {
@@ -569,10 +577,46 @@ function parKort(ctx, h, rum) {
   return arkBakom(HX, HY, W, hh, rum) + kort({ x: HX, y: HY, w: W, h: hh, rum, inner: s, huvud: true });
 }
 
+/**
+ * Rader ur en lista i artikeln (aktivitetsrapporten: exempeltabellen). Varje
+ * rad: datum och en liten etikett (hur du sökte), rubriken (tjänsten) och
+ * raden under (arbetsgivaren). Exakt en rad har orange markering. Raka kort,
+ * eftersom allt är text.
+ */
+function raderKort(ctx, h, rum) {
+  let s = chip(ctx, t(h.chip), rum);
+  const lista = h.rader ?? [];
+  if (lista.length < 2 || lista.length > 4) ctx.fel.push(`radkortet tar två till fyra rader (${lista.length})`);
+  if (typeof h.orange !== 'number' || h.orange < 1 || h.orange > lista.length) ctx.fel.push('radkortet behöver orange: numret på den rad som är orange');
+  const W = 600, x0 = 68, rh = 3 * 38 + 8;
+  let y = 120;
+  lista.forEach((rad, i) => {
+    const a = h.orange === i + 1;
+    const datum = t(rad.datum), tag = rad.etikett ? t(rad.etikett).toUpperCase() : '';
+    const rub = bryt(ctx, rad.rubrik, { size: 28, weight: 700, fam: DISPLAY, maxW: W - x0 - MARGINAL, maxRader: 1, namn: 'radens rubrik' });
+    const und = bryt(ctx, rad.under, { size: 28, weight: 500, maxW: W - x0 - MARGINAL, maxRader: 1, namn: 'raden under' });
+    s += `<rect x="40" y="${y + 6}" width="8" height="${rh - 12}" rx="4" fill="${a ? F.koppar : F.kantStark}"/>`;
+    s += `<text x="${x0}" y="${y + 30}" font-family="${BROD}" font-size="28" font-weight="700" fill="${a ? F.kopparInk : F.ink3}">${esc(datum)}</text>`;
+    if (tag) {
+      const dx = Math.ceil(x0 + ctx.mat(datum, 28, 700) + 20);
+      const tw = Math.round(ctx.mat(tag, 20, 700) + tag.length * 1.5 + 28);
+      if (dx + tw > W - MARGINAL) ctx.fel.push(`radens etikett "${tag}" ryms inte`);
+      s += `<rect x="${dx}" y="${y + 2}" width="${tw}" height="38" rx="19" fill="${a ? F.kopparMjuk : RUM[rum].ton}"/>`;
+      s += `<text data-liten="1" x="${dx + 14}" y="${y + 28}" font-family="${BROD}" font-size="20" font-weight="700" letter-spacing="1.5" fill="${a ? F.kopparInk : RUM[rum].vagg}">${esc(tag)}</text>`;
+    }
+    s += rader(rub, x0, y + 72, 38, 28, 700, F.ink, DISPLAY);
+    s += rader(und, x0, y + 110, 38, 28, 500, F.ink2);
+    y += rh + 18;
+    if (i < lista.length - 1) s += `<line x1="40" y1="${y - 10}" x2="${W - 40}" y2="${y - 10}" stroke="${F.kant}" stroke-width="2"/>`;
+  });
+  const hh = Math.max(440, y + 12);
+  return arkBakom(HX, HY, W, hh, rum) + kort({ x: HX, y: HY, w: W, h: hh, rum, inner: s, huvud: true });
+}
+
 function variantKort(ctx, h, rum) {
   if (!VARIANTER.includes(h.variant)) { ctx.fel.push(`okänd variant ${h.variant} (${VARIANTER.join(', ')})`); return ''; }
   if (!h.chip) ctx.fel.push('varianten behöver en chip med artikelns egen rubrik');
-  return { svar: svarKort, steg: stegKort, listor: listorKort, par: parKort }[h.variant](ctx, h, rum);
+  return { svar: svarKort, steg: stegKort, listor: listorKort, par: parKort, rader: raderKort }[h.variant](ctx, h, rum);
 }
 
 /* ------------------------------------------------------------------ mallar */
