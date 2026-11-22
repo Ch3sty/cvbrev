@@ -1,0 +1,124 @@
+/**
+ * POST /api/public/letter-draft/claim (publikt omgång 3, beslut 6). Supabase,
+ * behörigheten och utkastet är mockade; ingen databas. Brevet ritas på
+ * riktigt av brevmotorn (ritaRad).
+ */
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+const getUser = vi.fn()
+const harAtkomst = vi.fn()
+const utkast = vi.fn()
+const insatt = vi.fn()
+const markerat = vi.fn()
+const befintligt = vi.fn()
+const PROFIL = { full_name: 'Sara Lindström', email: 'sara@exempel.se', phone: null, include_phone_in_letters: false }
+
+vi.mock('next/headers', () => ({ cookies: async () => ({}) }))
+vi.mock('@/lib/supabase/premiumAccess', () => ({ userHasAccess: (...a: unknown[]) => harAtkomst(...a) }))
+vi.mock('@/lib/letters/public-draft', () => ({ getClaimableDraft: async () => utkast() }))
+vi.mock('@/lib/supabase/server', () => ({
+  createServerClient: () => ({
+    auth: { getUser },
+    from: () => ({
+      select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: PROFIL, error: null }) }) }),
+    }),
+  }),
+}))
+vi.mock('@/lib/supabase/admin', () => ({
+  getSupabaseAdmin: () => ({
+    from: (tabell: string) => {
+      if (tabell === 'letters')
+        return {
+          insert: (rad: Record<string, unknown>) => {
+            insatt(rad)
+            return { select: () => ({ single: async () => ({ data: { id: 'b1' }, error: null }) }) }
+          },
+          select: () => {
+            const kedja = { eq: () => kedja, order: () => kedja, limit: () => kedja, maybeSingle: async () => ({ data: befintligt(), error: null }) }
+            return kedja
+          },
+        }
+      return {
+        update: (v: Record<string, unknown>) => {
+          markerat(v)
+          const kedja = { eq: () => kedja, is: async () => ({ error: null }) }
+          return kedja
+        },
+      }
+    },
+  }),
+}))
+
+import { POST } from '../route'
+
+const anrop = (body: unknown) => new Request('http://lokal/api/public/letter-draft/claim', { method: 'POST', body: JSON.stringify(body) })
+
+const UTKAST = {
+  token: 'tok-1',
+  role: 'Projektledare',
+  employer: 'Nordhaga Bygg',
+  letter_text: 'När ni söker en projektledare känner jag igen mina senaste tre år.\n\nJag har drivit fyra upphandlingar.',
+  yrke_slug: 'projektledare',
+  claimed_by: null,
+  expires_at: '2099-01-01T00:00:00Z',
+}
+
+beforeEach(() => {
+  vi.clearAllMocks()
+  getUser.mockResolvedValue({ data: { user: { id: 'u1', email: 'sara@exempel.se' } } })
+  harAtkomst.mockResolvedValue(false)
+  utkast.mockReturnValue(UTKAST)
+  befintligt.mockReturnValue(null)
+})
+
+describe('claim av brevutkastet', () => {
+  it('utan val: brevet i Linne, i brevrummets format, till brevet', async () => {
+    const res = await POST(anrop({ token: 'tok-1' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/b1' })
+    const rad = insatt.mock.calls[0][0]
+    expect(rad).toMatchObject({ mall_id: 'linne', tonality: 'professional', job_description: null, title: 'Projektledare', company: 'Nordhaga Bygg' })
+    expect(rad.body_stycken).toEqual(['När ni söker en projektledare känner jag igen mina senaste tre år.', 'Jag har drivit fyra upphandlingar.'])
+    // content är brevet ritat i mallen (brevmotorns stycken), inte den råa texten.
+    expect(String(rad.content)).toContain('data-stycke="0"')
+    expect(markerat).toHaveBeenCalledWith(expect.objectContaining({ claimed_by: 'u1' }))
+  })
+
+  it('Premiummall på gratisnivån: sparas i Linne och öppnas provad i Mallar', async () => {
+    const res = await POST(anrop({ token: 'tok-1', mall: 'koppar', ton: 'balanced', annons: 'Vi söker en projektledare.' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/mallar?brev=b1&mall=koppar' })
+    expect(insatt.mock.calls[0][0]).toMatchObject({ mall_id: 'linne', tonality: 'balanced', job_description: 'Vi söker en projektledare.' })
+  })
+
+  it('gratismallen Björk sparas och öppnas direkt', async () => {
+    const res = await POST(anrop({ token: 'tok-1', mall: 'bjork' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/b1' })
+    expect(insatt.mock.calls[0][0].mall_id).toBe('bjork')
+  })
+
+  it('med betald behörighet sparas Premiummallen', async () => {
+    harAtkomst.mockResolvedValue(true)
+    const res = await POST(anrop({ token: 'tok-1', mall: 'koppar' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/b1' })
+    expect(insatt.mock.calls[0][0].mall_id).toBe('koppar')
+  })
+
+  it('auto (Premium) tas inte emot som ton', async () => {
+    await POST(anrop({ token: 'tok-1', ton: 'auto' }))
+    expect(insatt.mock.calls[0][0].tonality).toBe('professional')
+  })
+
+  it('redan hämtat av samma konto: samma brev, ingen ny rad', async () => {
+    utkast.mockReturnValue({ ...UTKAST, claimed_by: 'u1' })
+    befintligt.mockReturnValue({ id: 'b0', mall_id: 'linne' })
+    const res = await POST(anrop({ token: 'tok-1', mall: 'koppar' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/mallar?brev=b0&mall=koppar' })
+    expect(insatt).not.toHaveBeenCalled()
+  })
+
+  it('hämtat av någon annan: 409, utan inloggning: 401', async () => {
+    utkast.mockReturnValue({ ...UTKAST, claimed_by: 'u2' })
+    expect((await POST(anrop({ token: 'tok-1' }))).status).toBe(409)
+    getUser.mockResolvedValue({ data: { user: null } })
+    expect((await POST(anrop({ token: 'tok-1' }))).status).toBe(401)
+  })
+})
