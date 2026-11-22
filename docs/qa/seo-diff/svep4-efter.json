@@ -1,0 +1,1209 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "h1": [
+      "Därför får du inte svar på dina ansökningar"
+    ],
+    "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+    "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+    "canonical": "https://www.jobbcoach.ai",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre verktyg som gör ansökan starkare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analys"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbmatchning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vi matchar din erfarenhet mot tjänstens krav"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobbcoachen svarar hela vägen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Robotarna har redan läst ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Och resten av jobbsöket"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Håll koll på var varje ansökan står"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt i Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Svaren på det du undrar"
+      }
+    ],
+    "lankar": [
+      "#tre-verktyg",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/sokta-tjanster"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"email\":\"info@jobbcoach.ai\",\"logo\":\"https://www.jobbcoach.ai/icon.png\",\"name\":\"Jobbcoach.ai\",\"sameAs\":[\"https://www.facebook.com/jobbcoachai\",\"https://www.instagram.com/jobbcoach.ai\"],\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"WebSite\",\"inLanguage\":\"sv-SE\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS (Applicant Tracking System) är de rekryteringssystem de flesta större svenska arbetsgivare använder för att sortera ansökningar automatiskt. Är ditt CV inte läsbart för systemet kan du sorteras bort innan en människa ens öppnar det. Alla våra CV-mallar är byggda för att systemen ska kunna läsa dem.\"},\"name\":\"Vad är ATS, och varför ska mitt CV vara anpassat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi skriver utkastet utifrån ditt CV och jobbannonsen. Du läser igenom, justerar tonen där det behövs och skickar. Resultatet låter som du, bara mer genomarbetat än om du skrivit varje brev från noll.\"},\"name\":\"Hur mycket av jobbet gör ni åt mig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Runt 60 sekunder från att du klistrar in annonsen till ett färdigt utkast. Du sparar en kvart eller mer per ansökan jämfört med att skriva från grunden.\"},\"name\":\"Hur snabbt kan jag skapa ett personligt brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi säljer inte dina uppgifter och tränar inga egna AI-modeller på ditt CV. Ditt konto, dina CV, brev och testresultat lagras i EU, i Irland, och text ur ditt CV går till Googles AI-tjänst utan namn, e-postadress och telefonnummer. Raderar du kontot under Inställningar tar vi bort det du har sparat hos oss. Kvitton finns kvar hos Stripe i sju år, som bokföringslagen kräver.\"},\"name\":\"Är mina uppgifter säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna, ett test om dagen, och personlighetstestet, 2 CV-mallar och en nedladdning, CV-analysens läsbarhetspoäng och genomgång i sju delar för varje CV, ett personligt brev var sjunde dag, 3 matchade jobb, 10 meddelanden till Jobbcoachen och Sökta tjänster med det första uppföljningsmejlet. Söker du på allvar ingår allt i Jobbcoach Premium, 149 kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.\"},\"name\":\"Vad kostar det, och vad får jag utan att betala?\"}]}]}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "Hur mycket av jobbet gör ni åt mig?",
+      "Hur snabbt kan jag skapa ett personligt brev?",
+      "Är mina uppgifter säkra?",
+      "Vad kostar det, och vad får jag utan att betala?",
+      "ld: Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "ld: Hur mycket av jobbet gör ni åt mig?",
+      "ld: Hur snabbt kan jag skapa ett personligt brev?",
+      "ld: Är mina uppgifter säkra?",
+      "ld: Vad kostar det, och vad får jag utan att betala?"
+    ],
+    "ord": 1380
+  },
+  {
+    "path": "/jobbkartan",
+    "status": 200,
+    "h1": [
+      "I Jämtland går det 0,4 arbetslösa på varje ledigt jobb. I Södermanland 3,5."
+    ],
+    "title": "Jobbkartan: konkurrensen om jobben, yrken och kommuner",
+    "description": "Hur många arbetslösa går det på varje ledigt jobb i ditt län? Se kön, var ditt yrke är vanligt och arbetslösheten i din kommun på en karta byggd på SCB:s data.",
+    "canonical": "https://www.jobbcoach.ai/jobbkartan",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image?5f285caef61c1cfc",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så lång är kön till varje ledigt jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-pikto-rubrik",
+        "text": "Stockholms län"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-staplar-rubrik",
+        "text": "Alla län, andra kvartalet 2026"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Två år av kö, kvartal för kvartal"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Var är ditt yrke vanligast?"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-yrke-namn",
+        "text": "Grundutbildade sjuksköterskor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Annonserna för ditt yrke, där kön är kortast"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Månadslön, område för område"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hur ser det ut där du bor?"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-kommun-namn",
+        "text": "Göteborg"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt här går att kontrollera, ladda ner och bädda in"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Källor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Metod i klartext"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Osäkerhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ta med dig det du ser"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om jobbkartan"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sök där kön är kort, med ett CV som syns"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/cv-exempel",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/verktyg/jobbmatchning"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"description\":\"Arbetslösa per ledigt jobb per län och kvartal, anställda per yrke och län, månadslön per riksområde och arbetslöshet per kommun och månad, sammanställt ur SCB:s statistikdatabas.\",\"distribution\":[{\"@type\":\"DataDownload\",\"contentUrl\":\"https://www.jobbcoach.ai/jobbkartan/data/kommuner.json\",\"encodingFormat\":\"application/json\"},{\"@type\":\"DataDownload\",\"contentUrl\":\"https://www.jobbcoach.ai/jobbkartan/data/yrken.json\",\"encodingFormat\":\"application/json\"}],\"inLanguage\":\"sv\",\"isAccessibleForFree\":true,\"isBasedOn\":{\"@type\":\"Organization\",\"name\":\"Statistiska centralbyrån (SCB)\",\"url\":\"https://www.scb.se\"},\"license\":\"https://creativecommons.org/publicdomain/zero/1.0/\",\"name\":\"Jobbkartan: konkurrensen om jobben, yrken och arbetslöshet per län och kommun\",\"spatialCoverage\":{\"@type\":\"Place\",\"name\":\"Sverige\"},\"temporalCoverage\":\"2020/2026-07\",\"url\":\"https://www.jobbcoach.ai/jobbkartan\",\"variableMeasured\":[\"Arbetslösa per ledigt jobb\",\"Anställda per yrke\",\"Månadslön\",\"Arbetslöshet\",\"Sysselsättningsgrad\"]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det är antalet arbetslösa i länet delat med antalet lediga jobb hos arbetsgivarna i samma län och kvartal. 1,7 i hela landet andra kvartalet 2026 betyder att det gick ungefär 17 arbetslösa på tio lediga jobb. Ju lägre tal, desto kortare kö till varje jobb.\"},\"name\":\"Vad betyder arbetslösa per ledigt jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Allt kommer från SCB:s statistikdatabas: arbetslösa ur Arbetskraftsundersökningarna, lediga jobb ur Konjunkturstatistik över lediga jobb, arbetslöshet per kommun ur Befolkningens arbetsmarknadsstatus, yrken per län ur yrkesregistret och lönerna ur lönestrukturstatistiken. Antalet platsannonser i dag kommer från Arbetsförmedlingen.\"},\"name\":\"Var kommer siffrorna ifrån?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nyheterna citerar oftast Arbetskraftsundersökningarna, en urvalsundersökning bland 15 till 74 år. Kommunsiffrorna här är registerstatistik för 20 till 65 år och mäter inte exakt samma sak. Därför blandar vi dem aldrig i samma diagram.\"},\"name\":\"Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Sök på yrket under Ditt yrke på kartan. Vi räknar hur stor del av länets anställda som har yrket och jämför med hela landet. 2,0 betyder att yrket är dubbelt så vanligt som i snitt, 0,5 att det är hälften så vanligt. Där yrket är vanligt finns oftast fler arbetsgivare att söka sig till.\"},\"name\":\"Hur vet jag om mitt yrke är vanligt där jag bor?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Platsannonserna läses om varje dygn. SCB:s siffror uppdaterar vi när SCB publicerar nytt: arbetslösheten per kommun varje månad, konkurrensen om jobben varje kvartal och yrkena och lönerna en gång om året.\"},\"name\":\"Hur ofta uppdateras jobbkartan?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. SCB:s data är fri att använda (CC0) och du kan ladda ner det du ser som CSV eller bädda in kartan på din egen webbplats. Ange gärna SCB som källa och länka till jobbkartan.\"},\"name\":\"Får jag använda siffrorna och kartan?\"}]}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Kartans siffror som tabell, alla län och kvartal",
+      "Vad betyder arbetslösa per ledigt jobb?",
+      "Var kommer siffrorna ifrån?",
+      "Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?",
+      "Hur vet jag om mitt yrke är vanligt där jag bor?",
+      "Hur ofta uppdateras jobbkartan?",
+      "Får jag använda siffrorna och kartan?",
+      "ld: Vad betyder arbetslösa per ledigt jobb?",
+      "ld: Var kommer siffrorna ifrån?",
+      "ld: Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?",
+      "ld: Hur vet jag om mitt yrke är vanligt där jag bor?",
+      "ld: Hur ofta uppdateras jobbkartan?",
+      "ld: Får jag använda siffrorna och kartan?"
+    ],
+    "ord": 1085
+  },
+  {
+    "path": "/priser",
+    "status": 200,
+    "h1": [
+      "Jobbcoach Premium, 149 kr i månaden"
+    ],
+    "title": "Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai",
+    "description": "Jobbcoach Premium, 149 kr i månaden: rekryteringstester, CV-analys, personliga brev, jobbmatchning, sökta tjänster och Jobbcoachen. Säg upp när du vill.",
+    "canonical": "https://www.jobbcoach.ai/priser",
+    "ogImage": "https://www.jobbcoach.ai/priser/opengraph-image-tywgmg?b7701fe36639b8cb",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt i Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vill du se först?"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad du faktiskt får, funktion för funktion"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analysen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Personliga brev"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Matchade jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoachen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sökta tjänster"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Inför intervjun"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hjälpredan Kom igång tar dig igenom allt i rätt ordning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vad som ingår, rad för rad"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Fler frågor om priset?"
+      }
+    ],
+    "lankar": [
+      "#funktioner",
+      "#gratis",
+      "#guide",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/verktyg/personlighetstest",
+      "/verktyg/sokta-tjanster"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Allt vi gör: alla rekryteringstester med övningsprov och det fördjupade personlighetstestet, alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn, jobbmatchning med de 25 bästa träffarna, uppföljningsmejl till dina sökta tjänster, rapporten till Arbetsförmedlingen att skriva ut eller kopiera, intervjuprovet utan dagsgräns och Jobbcoachen. 149 kr i månaden, och inget av det kostar extra.\"},\"name\":\"Vad ingår i Jobbcoach Premium?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan mejlar vi vad du gjort och vad som är kvar, så att du kan säga upp innan nästa dragning om du är klar. Ingen förnyelse i smyg.\"},\"name\":\"Vad händer när månaden är slut?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och grundnivån i testerna fungerar, och köper Premium först när du vill ha resten.\"},\"name\":\"Kan jag börja gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I ditt konto, under Profil och Prenumeration, när du vill. Ingen bindningstid, inget att skriva eller ringa om. Månaden du redan betalat gäller ut.\"},\"name\":\"Hur säger jag upp?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Jobbcoach.ai\"},\"description\":\"Tester, CV, personliga brev, Jobbsöket och Jobbcoachen\",\"name\":\"Jobbcoach Premium\",\"offers\":{\"@type\":\"AggregateOffer\",\"availability\":\"https://schema.org/InStock\",\"highPrice\":149,\"lowPrice\":149,\"offerCount\":1,\"offers\":[{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"description\":\"149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.\",\"name\":\"Jobbcoach Premium, en månad\",\"price\":149,\"priceCurrency\":\"SEK\",\"priceSpecification\":{\"@type\":\"UnitPriceSpecification\",\"price\":149,\"priceCurrency\":\"SEK\",\"referenceQuantity\":{\"@type\":\"QuantitativeValue\",\"unitCode\":\"MON\",\"value\":1}},\"seller\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"url\":\"https://www.jobbcoach.ai/priser\"}],\"priceCurrency\":\"SEK\"},\"url\":\"https://www.jobbcoach.ai/priser\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Vad ingår i Jobbcoach Premium?",
+      "Vad händer när månaden är slut?",
+      "Kan jag börja gratis?",
+      "Hur säger jag upp?",
+      "ld: Vad ingår i Jobbcoach Premium?",
+      "ld: Vad händer när månaden är slut?",
+      "ld: Kan jag börja gratis?",
+      "ld: Hur säger jag upp?"
+    ],
+    "ord": 1973
+  },
+  {
+    "path": "/artiklar/alva-labs-logiktest",
+    "status": 200,
+    "h1": [
+      "Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du"
+    ],
+    "title": "Alva logiktest: öva gratis och förstå resultatet 1 till 10",
+    "description": "Alva logiktest: 20 matrisuppgifter med två minuter var. Öva gratis på samma format, se vad 6, 7 eller 8 betyder och när du får göra om testet.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/alva-labs-logiktest",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/alva-labs-logiktest-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Johan Lindberg"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur fungerar Alva Labs logiktest?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ar-alva-labs-logiktest",
+        "text": "Vad är Alva Labs logiktest?"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-ar-testet-uppbyggt",
+        "text": "Så är testet uppbyggt"
+      },
+      {
+        "tag": "h2",
+        "id": "tre-exempeluppgifter-och-hur-du-loser-dem",
+        "text": "Tre exempeluppgifter, och hur du löser dem"
+      },
+      {
+        "tag": "h2",
+        "id": "varfor-testet-ska-kannas-svart",
+        "text": "Varför testet ska kännas svårt"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-laser-du-resultatet-skalan-1-till-10",
+        "text": "Så läser du resultatet: skalan 1 till 10"
+      },
+      {
+        "tag": "h2",
+        "id": "kan-man-gora-om-alva-labs-logiktest",
+        "text": "Kan man göra om Alva Labs logiktest?"
+      },
+      {
+        "tag": "h2",
+        "id": "kan-man-ova-pa-alvas-logiktest-gratis",
+        "text": "Kan man öva på Alvas logiktest gratis?"
+      },
+      {
+        "tag": "h2",
+        "id": "tips-infor-alva-labs-logiktest",
+        "text": "Tips inför Alva Labs logiktest"
+      },
+      {
+        "tag": "h2",
+        "id": "personlighetstestet-i-samma-utskick",
+        "text": "Personlighetstestet i samma utskick"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-misstag-pa-alvas-logiktest",
+        "text": "Vanliga misstag på Alvas logiktest"
+      },
+      {
+        "tag": "h2",
+        "id": "testet-ar-en-del-av-helheten",
+        "text": "Testet är en del av helheten"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#kan-man-gora-om-alva-labs-logiktest",
+      "#kan-man-gora-om-alva-labs-logiktest",
+      "#kan-man-ova-pa-alvas-logiktest-gratis",
+      "#kan-man-ova-pa-alvas-logiktest-gratis",
+      "#personlighetstestet-i-samma-utskick",
+      "#personlighetstestet-i-samma-utskick",
+      "#sa-ar-testet-uppbyggt",
+      "#sa-ar-testet-uppbyggt",
+      "#sa-laser-du-resultatet-skalan-1-till-10",
+      "#sa-laser-du-resultatet-skalan-1-till-10",
+      "#testet-ar-en-del-av-helheten",
+      "#testet-ar-en-del-av-helheten",
+      "#tips-infor-alva-labs-logiktest",
+      "#tips-infor-alva-labs-logiktest",
+      "#tre-exempeluppgifter-och-hur-du-loser-dem",
+      "#tre-exempeluppgifter-och-hur-du-loser-dem",
+      "#vad-ar-alva-labs-logiktest",
+      "#vad-ar-alva-labs-logiktest",
+      "#vad-ar-alva-labs-logiktest",
+      "#vanliga-misstag-pa-alvas-logiktest",
+      "#vanliga-misstag-pa-alvas-logiktest",
+      "#varfor-testet-ska-kannas-svart",
+      "#varfor-testet-ska-kannas-svart",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/aon-cut-e-test",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/cubiks-logiks-test",
+      "/artiklar/deduktivt-induktivt-test",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/intervjufragor-sjukskoterska",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/logiktest-tips",
+      "/artiklar/logiska-tester",
+      "/artiklar/logiska-tester",
+      "/artiklar/matrigma-test",
+      "/artiklar/matrislogik-test-guide",
+      "/artiklar/matrislogik-test-guide",
+      "/artiklar/personlighetstest-jobb-guide",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=adaptivt logiktest",
+      "/artiklar?tag=alva labs göra om test",
+      "/artiklar?tag=alva labs logiktest",
+      "/artiklar?tag=alva labs logiktest resultat",
+      "/artiklar?tag=alva labs logiktest tips",
+      "/artiklar?tag=alva labs logiktest öva",
+      "/artiklar?tag=alva logiktest",
+      "/artiklar?tag=alva test gratis",
+      "/artiklar?tag=matrislogik",
+      "/cv-mallar",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbmatchning",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova",
+      "/verktyg/rekryteringstester/prova?fran=alva-labs-logiktest&mitt_test=alva"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/johan\",\"@type\":\"Person\",\"description\":\"Teknologiexpert inom HR-automation med djup förståelse för ATS-system och digitala rekryteringsprocesser. Utvecklar strategier för hur kandidater navigerar dagens teknikdrivna rekryteringslandskap.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Johan.webp\",\"width\":200},\"jobTitle\":\"AI & HR-teknikspecialist\",\"knowsAbout\":[\"HR-teknologi\",\"Digitala ansökningsprocesser\",\"ATS-optimering\",\"LinkedIn-strategier\"],\"name\":\"Johan Lindberg\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-09-23T00:00:00.000Z\",\"description\":\"Alva logiktest: 20 matrisuppgifter med två minuter var. Öva gratis på samma format, se vad 6, 7 eller 8 betyder och när du får göra om testet.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Vad är Alva Labs logiktest?\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#vad-ar-alva-labs-logiktest\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Så är testet uppbyggt\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#sa-ar-testet-uppbyggt\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Tre exempeluppgifter, och hur du löser dem\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#tre-exempeluppgifter-och-hur-du-loser-dem\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Varför testet ska kännas svårt\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#varfor-testet-ska-kannas-svart\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Så läser du resultatet: skalan 1 till 10\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#sa-laser-du-resultatet-skalan-1-till-10\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Kan man göra om Alva Labs logiktest?\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#kan-man-gora-om-alva-labs-logiktest\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Kan man öva på Alvas logiktest gratis?\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#kan-man-ova-pa-alvas-logiktest-gratis\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Tips inför Alva Labs logiktest\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#tips-infor-alva-labs-logiktest\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Personlighetstestet i samma utskick\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#personlighetstestet-i-samma-utskick\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Vanliga misstag på Alvas logiktest\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#vanliga-misstag-pa-alvas-logiktest\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\"},\"name\":\"Testet är en del av helheten\",\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest#testet-ar-en-del-av-helheten\"}],\"headline\":\"Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/alva-labs-logiktest-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"alva labs logiktest, alva logiktest, alva test gratis, alva labs logiktest öva, alva labs logiktest resultat, alva labs göra om test, alva labs logiktest tips, adaptivt logiktest, matrislogik\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\",\"wordCount\":3528}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/alva-labs-logiktest\",\"name\":\"Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Enligt Alva Labs hjälpsidor består logiktestet av 20 uppgifter, och du har högst två minuter på dig per uppgift. Före det riktiga testet får du två övningsuppgifter som inte räknas in i resultatet. De flesta blir klara på 15 till 20 minuter, men hela testet får ta upp till 40 minuter.\"},\"name\":\"Hur många frågor har Alva Labs logiktest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Testet väljer nästa uppgift utifrån hur du har svarat hittills, så att den ska vara utmanande men inte omöjlig. Två personer med lika många rätt kan därför få olika resultat, eftersom poängen bygger på hur svåra uppgifterna var som du löste, inte på antalet rätt.\"},\"name\":\"Är Alvas logiktest adaptivt?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Resultatet ges på en skala från 1 till 10 som följer en normalfördelning. Alva delar in skalan i tre band: 1 till 3 är under genomsnittet, 4 till 7 är genomsnittet och 8 till 10 är över genomsnittet. 5 och 6 är de vanligaste resultaten, och de allra flesta hamnar mellan 4 och 7. Vad som räcker beror på rollen, eftersom arbetsgivaren jämför med sin egen kravprofil.\"},\"name\":\"Vad är ett bra resultat på Alva Labs logiktest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Du måste svara på varje uppgift när den visas, och går tiden ut går testet vidare av sig självt. Fastnar du är det därför bättre att välja det alternativ som verkar mest rimligt än att låta klockan rinna ut.\"},\"name\":\"Kan man hoppa över en uppgift i Alvas logiktest?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Alva Labs publicerar inga fullständiga övningstest, och de skriver själva att ingen förberedelse krävs. Formatet är däremot öppet beskrivet: 3x3-matriser med sex svarsalternativ. Du kan öva gratis på samma format hos oss: fem matrisfrågor utan konto, och med ett gratiskonto ett grundnivåtest om dagen med genomgång. Avancerad nivå, träning på din nivå och övningsprovet i Alvas format ingår i Premium.\"},\"name\":\"Går det att öva på Alva Labs logiktest gratis?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Alva skriver att du får hela rapporten direkt efter testet och att det är samma rapport som rekryteraren ser. Du ser däremot inte hur väl din profil matchar rollen. Resultatet är ditt, och inom 24 månader kan du dela det med en ny arbetsgivare i stället för att göra testet igen.\"},\"name\":\"Får jag se mitt resultat från Alva?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, i praktiken. Alva skriver att du och arbetsgivaren har samma rapport, och i rapporten finns en graf över varje uppgift du svarade på, grön för rätt och röd för fel. Resultatet på skalan 1 till 10 räknas däremot inte som antal rätt, utan efter hur svåra uppgifterna var som du löste.\"},\"name\":\"Kan arbetsgivaren se hur många jag fick rätt?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Johan.webp",
+      "alt": "Johan Lindberg - AI & HR-teknikspecialist"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Johan.webp",
+        "alt": "Johan Lindberg - AI & HR-teknikspecialist"
+      },
+      {
+        "src": "/images/artiklar/alva-labs-logiktest-v2.webp",
+        "alt": "Matrisuppgift att öva på inför Alva logiktest, två minuter och skala 1 till 10"
+      },
+      {
+        "src": "/videos/tester-v3-169-affisch.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/jobbcoach/Johan.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/matrislogik-test-guide-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/cubiks-logiks-test-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/intervjufragor-sjukskoterska-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Hur många frågor har Alva Labs logiktest?",
+      "Är Alvas logiktest adaptivt?",
+      "Vad är ett bra resultat på Alva Labs logiktest?",
+      "Kan man hoppa över en uppgift i Alvas logiktest?",
+      "Går det att öva på Alva Labs logiktest gratis?",
+      "Får jag se mitt resultat från Alva?",
+      "Kan arbetsgivaren se hur många jag fick rätt?",
+      "ld: Hur många frågor har Alva Labs logiktest?",
+      "ld: Är Alvas logiktest adaptivt?",
+      "ld: Vad är ett bra resultat på Alva Labs logiktest?",
+      "ld: Kan man hoppa över en uppgift i Alvas logiktest?",
+      "ld: Går det att öva på Alva Labs logiktest gratis?",
+      "ld: Får jag se mitt resultat från Alva?",
+      "ld: Kan arbetsgivaren se hur många jag fick rätt?"
+    ],
+    "ord": 3801
+  },
+  {
+    "path": "/artiklar/ai-jobbmatchning",
+    "status": 200,
+    "h1": [
+      "AI-jobbmatchning: så fungerar det när jobben hittar dig i stället"
+    ],
+    "title": "AI-jobbmatchning: så fungerar det och så använder du den",
+    "description": "Jobbmatchning med AI läser ditt CV och sorterar tusentals annonser efter hur väl de passar dig. Vi förklarar tekniken, styrkorna och fallgroparna.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/ai-jobbmatchning",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/ai-jobbmatchning-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Johan Lindberg"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur fungerar AI-jobbmatchning?"
+      },
+      {
+        "tag": "h2",
+        "id": "problemet-med-sokrutan",
+        "text": "Problemet med sökrutan"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-fungerar-matchningen-steg-for-steg",
+        "text": "Så fungerar matchningen, steg för steg"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-far-du-battre-matchningar-mata-motorn-ratt",
+        "text": "Så får du bättre matchningar: mata motorn rätt"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ai-matchningen-ar-bra-pa-och-vad-den-inte-ar",
+        "text": "Vad AI-matchningen är bra på, och vad den inte är"
+      },
+      {
+        "tag": "h2",
+        "id": "matchningen-i-ett-smart-jobbsokarflode",
+        "text": "Matchningen i ett smart jobbsökarflöde"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#matchningen-i-ett-smart-jobbsokarflode",
+      "#matchningen-i-ett-smart-jobbsokarflode",
+      "#problemet-med-sokrutan",
+      "#problemet-med-sokrutan",
+      "#problemet-med-sokrutan",
+      "#sa-far-du-battre-matchningar-mata-motorn-ratt",
+      "#sa-far-du-battre-matchningar-mata-motorn-ratt",
+      "#sa-fungerar-matchningen-steg-for-steg",
+      "#sa-fungerar-matchningen-steg-for-steg",
+      "#vad-ai-matchningen-ar-bra-pa-och-vad-den-inte-ar",
+      "#vad-ai-matchningen-ar-bra-pa-och-vad-den-inte-ar",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/ai-rekrytering-sverige",
+      "/artiklar/arbetslivserfarenhet-cv",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/bli-hittad-av-rekryterare",
+      "/artiklar/bli-hittad-av-rekryterare",
+      "/artiklar/cubiks-logiks-test",
+      "/artiklar/datorkunskaper-cv",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/intervjufragor-sjukskoterska",
+      "/artiklar/intervjufragor-underskoterska",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/nyckelord-i-cv",
+      "/artiklar/optimera-linkedin-profil",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/personligt-brev-spontanansokan",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=ai jobbmatchning",
+      "/artiklar?tag=hitta jobb med ai",
+      "/artiklar?tag=jobbmatch ai",
+      "/artiklar?tag=jobbmatchning",
+      "/artiklar?tag=jobbmatchningar",
+      "/artiklar?tag=matcha jobb",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbmatchning",
+      "/verktyg/jobbmatchning",
+      "/verktyg/jobbmatchning",
+      "/verktyg/jobbmatchning",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/johan\",\"@type\":\"Person\",\"description\":\"Teknologiexpert inom HR-automation med djup förståelse för ATS-system och digitala rekryteringsprocesser. Utvecklar strategier för hur kandidater navigerar dagens teknikdrivna rekryteringslandskap.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Johan.webp\",\"width\":200},\"jobTitle\":\"AI & HR-teknikspecialist\",\"knowsAbout\":[\"HR-teknologi\",\"Digitala ansökningsprocesser\",\"ATS-optimering\",\"LinkedIn-strategier\"],\"name\":\"Johan Lindberg\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-07-22T00:00:00.000Z\",\"description\":\"Jobbmatchning med AI läser ditt CV och sorterar tusentals annonser efter hur väl de passar dig. Vi förklarar tekniken, styrkorna och fallgroparna.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},\"name\":\"Problemet med sökrutan\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning#problemet-med-sokrutan\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},\"name\":\"Så fungerar matchningen, steg för steg\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning#sa-fungerar-matchningen-steg-for-steg\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},\"name\":\"Så får du bättre matchningar: mata motorn rätt\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning#sa-far-du-battre-matchningar-mata-motorn-ratt\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},\"name\":\"Vad AI-matchningen är bra på, och vad den inte är\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning#vad-ai-matchningen-ar-bra-pa-och-vad-den-inte-ar\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\"},\"name\":\"Matchningen i ett smart jobbsökarflöde\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning#matchningen-i-ett-smart-jobbsokarflode\"}],\"headline\":\"AI-jobbmatchning: så fungerar det när jobben hittar dig i stället\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/ai-jobbmatchning-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"jobbmatchning, ai jobbmatchning, jobbmatch ai, matcha jobb, hitta jobb med ai, jobbmatchningar\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\",\"wordCount\":1530}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/ai-jobbmatchning\",\"name\":\"AI-jobbmatchning: så fungerar det när jobben hittar dig i stället\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Teknik som läser din yrkesprofil, oftast ur ditt CV, och jämför den mot stora mängder jobbannonser för att sortera fram de tjänster som faktiskt passar dig. I stället för att du söker på titlar och bläddrar igenom hundratals irrelevanta träffar analyserar systemet kompetenser, erfarenhet och krav på båda sidor och rangordnar annonserna efter relevans.\"},\"name\":\"Vad är AI-jobbmatchning?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I vårt verktyg sker det i fyra steg: ditt CV läses in, systemet extraherar yrkesdata ur det, kompetenser, roller, erfarenhet och nivå, sedan söks tusentals aktuella annonser igenom, och till sist får du träffarna sorterade efter hur väl de matchar din profil. Samma grundprincip gäller de flesta matchningstjänster: profilen är nyckeln, och ju bättre CV-underlag, desto bättre matchningar.\"},\"name\":\"Hur fungerar jobbmatchning med AI i praktiken?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Den är bättre på bredd och blinda fläckar: AI:n tröttnar aldrig, missar inte annonsen som publicerades i går och hittar roller med andra titlar än den du söker på, ett vanligt problem eftersom samma jobb kan heta fem olika saker. Den ersätter däremot inte ditt omdöme om arbetsgivare, kultur och villkor. Rätt använd är matchningen ett filter som sparar timmar, inte en autopilot.\"},\"name\":\"Är AI-jobbmatchning bättre än att söka jobb själv?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nästan alltid för att underlaget är tunt eller otydligt: ett CV med vaga formuleringar, gamla roller utan beskrivning eller kompetenser som saknas ger AI:n fel bild. Systemen matchar på det som faktiskt står, precis som rekryteringssystemens CV-läsning. Uppdatera CV:t med exakta system, titlar och kompetenser, så förbättras matchningarna direkt.\"},\"name\":\"Varför får jag konstiga jobbmatchningar?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Hos oss ser du dina tre bästa träffar gratis, utan kortuppgifter. Med Jobbcoach Premium ser du dina 25 bästa. Andra tjänster har andra modeller, från helt gratis myndighetstjänster som Arbetsförmedlingens Platsbanken till prenumerationstjänster. Testa alltid gratisvägen först: du märker snabbt om matchningarna håller kvalitet för just din profil.\"},\"name\":\"Kostar AI-jobbmatchning något?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, den ändrar bara var du lägger tiden. Matchningen hittar rätt annonser åt dig, men varje ansökan ska fortfarande anpassas: nyckelorden mot just den annonsen, brevet mot just den arbetsgivaren. Vinsten är att timmarna du tidigare la på att leta nu kan läggas på att söka bättre på färre, mer träffsäkra jobb.\"},\"name\":\"Ersätter jobbmatchning ett anpassat CV och personligt brev?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Johan.webp",
+      "alt": "Johan Lindberg - AI & HR-teknikspecialist"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Johan.webp",
+        "alt": "Johan Lindberg - AI & HR-teknikspecialist"
+      },
+      {
+        "src": "/images/artiklar/ai-jobbmatchning-v2.webp",
+        "alt": "Samtal med Jobbcoachen om AI-jobbmatchning och varför ett konkret CV ger bättre träffar"
+      },
+      {
+        "src": "/mallar/v2/linne-liten.webp",
+        "alt": "CV-mallen Linne"
+      },
+      {
+        "src": "/mallar/v2/bjork-liten.webp",
+        "alt": "CV-mallen Björk"
+      },
+      {
+        "src": "/images/jobbcoach/Johan.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/cubiks-logiks-test-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/intervjufragor-sjukskoterska-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/intervjufragor-underskoterska-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Vad är AI-jobbmatchning?",
+      "Hur fungerar jobbmatchning med AI i praktiken?",
+      "Är AI-jobbmatchning bättre än att söka jobb själv?",
+      "Varför får jag konstiga jobbmatchningar?",
+      "Kostar AI-jobbmatchning något?",
+      "Ersätter jobbmatchning ett anpassat CV och personligt brev?",
+      "ld: Vad är AI-jobbmatchning?",
+      "ld: Hur fungerar jobbmatchning med AI i praktiken?",
+      "ld: Är AI-jobbmatchning bättre än att söka jobb själv?",
+      "ld: Varför får jag konstiga jobbmatchningar?",
+      "ld: Kostar AI-jobbmatchning något?",
+      "ld: Ersätter jobbmatchning ett anpassat CV och personligt brev?"
+    ],
+    "ord": 1892
+  },
+  {
+    "path": "/for-rekryterare",
+    "status": 200,
+    "h1": [
+      "Kandidater med bevisade färdigheter"
+    ],
+    "title": "Hitta kandidater med verifierade testresultat | Jobbcoach.ai för rekryterare",
+    "description": "Sök på kravprofilen i en växande kandidatpool med verifierade testresultat och arbetsstilsrapporter. Anonymt tills kandidaten säger ja. Kostnadsfritt under lanseringsperioden.",
+    "canonical": "https://www.jobbcoach.ai/for-rekryterare",
+    "ogImage": "",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Från sökning till anställning"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sök på kravprofilen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Förhandsgranska utan att öppna"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Profilen som beslutsunderlag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kandidaten tackade ja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ett arbetsflöde, inte en sökning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Mindre gissning, mer träff"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svarsvilliga kandidater"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verifierat före första kontakt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Bevakning på kravprofilen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Budgetfilter utan löneexponering"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Siffror som tål följdfrågor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Första försöket räknas"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Nivån syns alltid"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Öppen normgrupp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Färskhet framgår"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så funkar det, steg för steg"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Sök på kravprofilen"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Samla i projekt och jämför"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Visa intresse, kandidaten svarar"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Dela med din rekryterande chef"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så ser en träff ut"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så ser hela profilen ut"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetslivserfarenhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Utbildning och språk"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Söker mig till"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verifierade resultat"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Arbetsstil"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Villkor"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Integriteten är inte ett hinder. Den är produkten."
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Uttryckligt samtycke"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Anonym tills kandidaten säger ja"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Kandidaten ser samma som du"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Visning, aldrig filtrering"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Verifierade rekryterare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Inga rå-CV:n eller löneanspråk"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Tydlig datahantering"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Kunskap som förbättrar nästa rekrytering"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "AI-förordningen för rekryterare: kraven som gäller från 2 december 2027"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Bakgrundskontroller vid anställning: vad som faktiskt är tillåtet 2026"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Diskrimineringslagen i urvalet: vad som prövas när någon frågar"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lönehistorikfrågan: förbudet som kommer, och vad ni frågar i stället"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lönekartläggning: kravet som redan gäller, och vad rekryteringen får gratis"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Lönerapporteringen: trösklarna, datumen och femprocentsregeln"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Det rekryterare undrar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Var med från början. Poolen växer varje dag."
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "/",
+      "/for-rekryterare/insikter",
+      "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+      "/for-rekryterare/insikter/bakgrundskontroller",
+      "/for-rekryterare/insikter/diskrimineringslagen-rekrytering",
+      "/for-rekryterare/insikter/lonehistorik",
+      "/for-rekryterare/insikter/lonekartlaggning",
+      "/for-rekryterare/insikter/lonerapportering",
+      "/integritetspolicy#cookies",
+      "/kontakt",
+      "/priser",
+      "/priser",
+      "/rekryterare/registrera",
+      "/rekryterare/registrera",
+      "/rekryterare/registrera"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ingenting just nu. Under lanseringsperioden är kandidatpoolen kostnadsfri för verifierade rekryterare. Vi bygger tjänsten tillsammans med de första användarna och vill ha er feedback, inte era fakturor. Om prissättningen förändras får ni besked i god tid, och ni binder er aldrig till något genom att skapa konto.\"},\"name\":\"Vad kostar det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Manuellt, av oss. Vi kontrollerar organisationsnumret och att kontaktpersonen hör till företaget innan kontot godkänns. Det tar normalt en till två arbetsdagar. Statusen ser du på din rekryterarsida, och vi hör av oss via mail när kontot är klart.\"},\"name\":\"Hur verifieras vårt företag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Innan kontakt: yrkesroll, region, verifierade testresultat med percentiler, personlighetsstyrkor, toppkompetenser och villkor som tillträde, arbetsplats och omfattning. Namn och arbetsgivare är dolda tills kandidaten tackat ja, om hen inte själv har valt Öppen profil, och kontaktuppgifterna visas alltid först efter ett ja. Rå-CV:n visas aldrig.\"},\"name\":\"Vad ser vi om en kandidat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. Kandidatprofilerna lagras i EU, i Irland, vi säljer aldrig uppgifter vidare, och kandidaten kan radera sitt konto själv när som helst.\"},\"name\":\"Hur funkar det med GDPR?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"När kandidaten tackar ja till er intresseförfrågan. Då ser båda parter namn och kontaktväg och ni tar dialogen direkt, utan mellanhänder. Tackar kandidaten nej ser ni bara att intresset avböjts, identiteten förblir skyddad.\"},\"name\":\"När låses kandidatens kontaktuppgifter upp?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kognitiva tester i matrislogik, verbal och numerisk förmåga, med percentiler räknade mot alla som gjort samma test hos oss. Dessutom en personlighetskartläggning som lyfter fram kandidatens styrkor. Resultaten kommer från våra egna tester gjorda i inloggat läge, inte från självskattningar.\"},\"name\":\"Vilka tester har kandidaterna gjort?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi räknar kandidatens första slutförda försök på varje nivå som det verifierade resultatet, aldrig det bästa av flera försök. Badgen visar alltid vilken nivå siffran gäller, och percentilen jämförs mot alla som gjort exakt samma test hos oss, med antalet testade utskrivet. Vi visar också när testet gjordes och flaggar resultat äldre än två år.\"},\"name\":\"Hur verifieras testresultaten?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, och det är ett medvetet val. Personlighetsdata beskriver hur någon arbetar, inte hur bra, och lämpar sig inte för att sålla bort människor. Arbetsstilsrapporten visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Det skyddar både dig och kandidaten, och håller oss på rätt sida av GDPR och EU:s AI-förordning.\"},\"name\":\"Kan jag filtrera bort kandidater på personlighet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en introduktionsguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.\"},\"name\":\"Vad låses upp när kandidaten tackar ja?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du skapar en delningslänk som visar en maskerad, läsbar version av profilen och håller i fjorton dagar. Din rekryterande chef ser samma underlag som du, enligt samma maskeringsregler, utan att behöva eget konto. Det slår skärmdumpar som tappar bort anonymiteten.\"},\"name\":\"Kan jag dela en profil med min chef?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Spara din sökning och slå på bevakning. Då mailar vi dig när nya kandidater som matchar din kravprofil har lagt till sig i poolen, som mest en gång per dag. I en pool som växer är det ofta smidigare än att söka om och om igen.\"},\"name\":\"Hur får jag veta när nya kandidater dyker upp?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Service\",\"areaServed\":{\"@type\":\"Country\",\"name\":\"Sverige\"},\"description\":\"Kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten accepterar kontakt. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.\",\"name\":\"Jobbcoach.ai kandidatpool för rekryterare\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Kostnadsfritt under lanseringsperioden för verifierade rekryterare\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"serviceType\":\"Rekryteringstjänst\",\"url\":\"https://www.jobbcoach.ai/for-rekryterare\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Vad kostar det?",
+      "Hur verifieras vårt företag?",
+      "Vad ser vi om en kandidat?",
+      "Hur funkar det med GDPR?",
+      "När låses kandidatens kontaktuppgifter upp?",
+      "Vilka tester har kandidaterna gjort?",
+      "Hur verifieras testresultaten?",
+      "Kan jag filtrera bort kandidater på personlighet?",
+      "Vad låses upp när kandidaten tackar ja?",
+      "Kan jag dela en profil med min chef?",
+      "Hur får jag veta när nya kandidater dyker upp?",
+      "ld: Vad kostar det?",
+      "ld: Hur verifieras vårt företag?",
+      "ld: Vad ser vi om en kandidat?",
+      "ld: Hur funkar det med GDPR?",
+      "ld: När låses kandidatens kontaktuppgifter upp?",
+      "ld: Vilka tester har kandidaterna gjort?",
+      "ld: Hur verifieras testresultaten?",
+      "ld: Kan jag filtrera bort kandidater på personlighet?",
+      "ld: Vad låses upp när kandidaten tackar ja?",
+      "ld: Kan jag dela en profil med min chef?",
+      "ld: Hur får jag veta när nya kandidater dyker upp?"
+    ],
+    "ord": 2142
+  }
+]
