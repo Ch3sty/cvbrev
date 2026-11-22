@@ -191,18 +191,21 @@
   {
    "path": "/artiklar/rotation-test-guide",
    "falt": "description",
+   "efter": "Spatial förmåga är att vrida, vika och vända former i huvudet. Så märks hög spatial förmåga, så testas den och här löser du uppgifter med facit.",
    "datum": "2026-11-19",
    "skal": "T7: description med speglade figurer och kroppar av kuber (152 tecken)."
   },
   {
    "path": "/artiklar/deduktivt-induktivt-test",
    "falt": "title",
+   "efter": "Deduktiv slutledningsförmåga: test, exempel och lösningar",
    "datum": "2026-11-19",
    "skal": "T7: seoTitle Deduktiv slutledningsförmåga: test, exempel och lösningar, på Search Console-underlaget (578 visningar landar på logiska-tester). Avläsning 28 dagar efter publicering."
   },
   {
    "path": "/artiklar/deduktivt-induktivt-test",
    "falt": "description",
+   "efter": "Deduktiv slutledningsförmåga och induktiv logik: fem deduktiva format med löst exempel, vilka tester Aon och SHL använder och hur du övar gratis.",
    "datum": "2026-11-19",
    "skal": "T7: ny description med fem deduktiva format (145 tecken)."
   }

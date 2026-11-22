@@ -6,7 +6,7 @@
     { "path": "/verktyg/skapa-cv", "fore": "h3 Ladda ner som PDF eller Word (×2)", "efter": "h3 Ladda ner som PDF, eller Word i sex av mallarna", "datum": "2026-11-15", "skal": "Sanningskravet: Word finns i sex mallar (funktionslistan och HowTo)." }
   ],
   "META_BYTT": [
-    { "path": "/verktyg/skapa-cv", "falt": "description", "datum": "2026-11-15", "skal": "Sanningskravet: 'PDF eller Word' blir 'PDF, eller Word i utvalda mallar' (157 tecken)." },
+    { "path": "/verktyg/skapa-cv", "falt": "description", "efter": "Skapa CV gratis i en färdig mall: skriv direkt på arket eller ladda upp ett CV du har. Jobbcoachen föreslår punkter och du laddar ner som PDF eller Word.", "datum": "2026-11-15", "skal": "Sanningskravet: 'PDF eller Word' blir 'PDF, eller Word i utvalda mallar' (157 tecken)." },
     { "path": "/verktyg/cv-mallar", "falt": "description", "datum": "2026-11-15", "skal": "Sanningskravet: 'PDF eller Word' blir 'PDF, eller Word i utvalda mallar'." }
   ],
   "LD_UNDANTAG": [

@@ -1,0 +1,815 @@
+{
+  "_om": "Läs vidare fylls på ur samma kluster innan de nyaste tas (SEO-slutgranskningen 2026-11-22, punkt 7.1; src/lib/artiklar/lasVidare.ts). Raderna är exakt de länkar som lämnar en artikels Läs vidare, räknade med scripts/seo-baslinje/las-vidare-jamfor.ts mot artiklarna i content/artiklar 2026-11-22. Läses av scripts/seo-diff-artiklar.ts. Tre länkar som lämnar Läs vidare men står kvar på annat ställe i samma artikel har ingen rad.",
+  "LANK_BORTA": [
+    {
+      "path": "/artiklar/soka-sommarjobb",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/uppsagningsbrev-mall",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/aon-cut-e-test",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/logiktest-exempel-med-losningar",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/matrigma-test",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/alva-labs-logiktest",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/alva-labs-logiktest",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/deduktivt-induktivt-test",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/map-test-personlighetstest",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/map-test-personlighetstest",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/bli-hittad-av-rekryterare",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/bli-hittad-av-rekryterare",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/korrekturlasa-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/korrekturlasa-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ljuga-i-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ljuga-i-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/optimera-linkedin-profil",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/optimera-linkedin-profil",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/sprak-i-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/sprak-i-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cover-letter-sverige",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-utan-erfarenhet",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/rekommendationsbrev-exempel-mall",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/rekommendationsbrev-exempel-mall",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/mjuka-harda-kompetenser",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/mjuka-harda-kompetenser",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-ar-kompetenser-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-ar-kompetenser-guide",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/angest-infor-nytt-jobb",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/angest-infor-nytt-jobb",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hur-ofta-byta-jobb",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/hur-ofta-byta-jobb",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/matrislogik-test-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/matrislogik-test-guide",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/numeriskt-test-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/numeriskt-test-guide",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/panikangest-pa-jobbet",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/panikangest-pa-jobbet",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personlighetstest-jobb-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vaga-byta-jobb",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-bild-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-bild-guide",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/exempel-pa-cv-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-format-guide",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-langd-regler",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/personligt-brev-pa-engelska",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-exempel-student-nyexaminerad",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-exempel-student-nyexaminerad",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "lank": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "lank": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare fylls på ur samma kluster (getCtaVariantForTags) närmast i tid i stället för med de nyaste (SEO-slutgranskningen 2026-11-22, punkt 7.1)."
+    }
+  ]
+}

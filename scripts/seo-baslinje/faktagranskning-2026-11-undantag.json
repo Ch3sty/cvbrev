@@ -1408,96 +1408,112 @@
   {
    "path": "/artiklar/jobbcoach-online",
    "falt": "title",
+   "efter": "Jobbcoach online gratis: AI-hjälp på 60 sekunder",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. Före: \"Jobbcoach online gratis: AI-hjälp på 60 sek (vs 1500 kr/h)\"."
   },
   {
    "path": "/artiklar/jobbcoach-online",
    "falt": "description",
+   "efter": "Jobbcoach online ger dig CV-analys, personliga brev och svar på jobbfrågor inom en minut, gratis att testa. Så står den sig mot en coach du betalar per timme.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. Före: \"Jobbcoach online ger dig CV-feedback, personliga brev och ATS-analys på 60 sekunder, gratis att testa. Slipp 1500 kr/h och veckors väntan på en coach.\"."
   },
   {
    "path": "/artiklar/matrislogik-test-guide",
    "falt": "description",
+   "efter": "Matrislogik är ett av de vanligaste logiska testen vid rekrytering. Lär dig regeltyperna, se lösta exempel steg för steg och öva gratis inför testet.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/matrislogik-test-guide.md. Före: \"Matrislogik är det vanligaste logiska testet vid rekrytering. Lär dig regeltyperna, se exempel lösta steg för steg och öva gratis inför ditt skarpa test.\"."
   },
   {
    "path": "/artiklar/personligt-brev-langd-regler",
    "falt": "description",
+   "efter": "Personligt brev längd: 200-400 ord, 1400-2800 tecken, en A4-sida. Se de exakta reglerna för ord, tecken och format, med källor från Akavia och Indeed.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-langd-regler.md. Före: \"Personligt brev längd: 200-400 ord, 1500-3000 tecken, en A4-sida. Se de exakta reglerna för ord, tecken och format, med källor från Akavia och Indeed.\"."
   },
   {
    "path": "/artiklar/personligt-brev-mall-word",
    "falt": "title",
+   "efter": "Personligt brev mall Word: hitta och fyll i rätt mall",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. Före: \"Personligt brev mall Word (gratis) | jobbcoach.ai\"."
   },
   {
    "path": "/artiklar/personligt-brev-mall-word",
    "falt": "description",
+   "efter": "Hitta en gratis Word-mall för personligt brev: var Words egna mallar finns, vilken malltyp som passar din bransch och hur du fyller i mallen rätt.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. Före: \"Ladda ner gratis personligt brev-mallar för Word. Färdiga och professionella mallar redo att använda direkt, plus tips på hur du anpassar dem rätt för jobbet.\"."
   },
   {
    "path": "/artiklar/tidshantering-cv",
    "falt": "description",
+   "efter": "Strukturerad och van vid deadlines står i mängder av platsannonser. Vi visar vad tidshantering konkret är och hur du bevisar den i CV, brev och intervju.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/tidshantering-cv.md. Före: \"Strukturerad och van vid deadlines står i varannan annons. Vi visar vad tidshantering konkret är och hur du bevisar den i CV, brev och intervju.\"."
   },
   {
    "path": "/artiklar/vad-ar-en-jobbcoach",
    "falt": "description",
+   "efter": "Vad är en jobbcoach, vad gör den och vad kostar det? Vi reder ut rollen, var du hittar kostnadsfritt stöd och när du faktiskt behöver coachning.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md. Före: \"Vad är en jobbcoach, vad gör den och vad kostar det? Vi reder ut rollen, priserna (gratis till 15 000 kr) och när du faktiskt behöver coachning.\"."
   },
   {
    "path": "/artiklar/vad-motiverar-dig-svar",
    "falt": "description",
+   "efter": "Vad motiverar dig är en vanlig fråga på intervjun. Vi visar vad den egentligen testar, metoden för ett äkta svar och fem färdiga exempel.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-motiverar-dig-svar.md. Före: \"Vad motiverar dig är en av intervjuns vanligaste frågor. Vi visar vad den egentligen testar, metoden för ett äkta svar och fem färdiga exempel.\"."
   },
   {
    "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
    "falt": "title",
+   "efter": "AI-förordningen i rekrytering: kraven från 2 dec 2027",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md. Före: \"AI-förordningen i rekrytering: kraven från 2 aug 2026\"."
   },
   {
    "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
    "falt": "description",
+   "efter": "Rekryterings-AI är högriskklassad och huvudkraven gäller från 2 december 2027 efter EU:s uppskjutning. Vad som redan är förbjudet och vad ni ansvarar för.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md. Före: \"Rekryterings-AI är högriskklassad och huvudkraven börjar gälla 2 augusti 2026. Vad som redan är förbjudet, vad ni ansvarar för och frågorna till leverantören.\"."
   },
   {
    "path": "/for-rekryterare/insikter/forsta-testforsoket-raknas",
    "falt": "description",
+   "efter": "Omtag höjer testpoäng en fjärdedel till en tredjedel standardavvikelse utan att förmågan ändrats. Forskningen bakom, och varför första försöket ska räknas.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-forsta-testforsoket-raknas.md. Före: \"Omtag höjer testpoäng en tredjedels standardavvikelse utan att förmågan ändrats. Forskningen bakom, och varför verifierade förstagångsresultat bör vara krav.\"."
   },
   {
    "path": "/for-rekryterare/insikter/lonespann-i-jobbannonsen",
    "falt": "description",
+   "efter": "57 procent vill se lönen i annonsen, bara 31 procent av rekryterarna vill visa den. Så sätter ni ett lönespann som breddar fältet.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonespann-i-jobbannonsen.md. Före: \"57 procent av kandidaterna vill se lönen i annonsen, bara 31 procent av rekryterarna vill visa den. Så sätter ni ett lönespann som breddar fältet.\"."
   },
   {
    "path": "/for-rekryterare/insikter/medarbetartips",
    "falt": "description",
+   "efter": "Tipsade medarbetare har 10-30 procent lägre risk att sluta enligt QJE-studien. Så designas ett tipsprogram som levererar, och så hanteras kanalens slagsida.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-medarbetartips.md. Före: \"Tipsade medarbetare stannar 10-30 procent oftare enligt QJE-studien. Så designas ett tipsprogram som levererar, och så hanteras kanalens inbyggda slagsida.\"."
   },
   {
    "path": "/for-rekryterare/insikter/personlighet-i-urval",
    "falt": "description",
+   "efter": "Personlighetstest förutsäger arbetsprestation svagt men beskriver arbetssätt väl. Forskningsläget, fakingproblemet och gränsen mot automatisk gallring.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-personlighet-i-urval.md. Före: \"Personlighetstest förutsäger arbetsprestation svagt men beskriver arbetssätt väl. Forskningsläget, fakingproblemet och gränsen mot sorteringsfilter.\"."
   },
   {
    "path": "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
    "falt": "description",
+   "efter": "Byråarvode på 15-30 procent av årslönen, annonsvägen med uppskattningsvis 50-150 timmar intern tid, eller egen sourcing. Prisspann och när varje väg passar.",
    "datum": "2026-11-15",
    "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-vad-kostar-en-rekrytering.md. Före: \"Byråarvode på 15-30 procent av årslönen, annonsvägen med 50-150 timmar intern tid, eller egen sourcing. Verkliga prisspann och när varje väg är rätt val.\"."
   }

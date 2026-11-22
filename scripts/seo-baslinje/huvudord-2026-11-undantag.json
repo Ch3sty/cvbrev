@@ -4,72 +4,84 @@
   {
    "path": "/cv-mallar",
    "falt": "title",
+   "efter": "CV-mall: 40 mallar att fylla i och ladda ner, 2 gratis",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6)."
   },
   {
    "path": "/cv-mallar",
    "falt": "description",
+   "efter": "CV-mallar för svenska jobb: 40 mallar att fylla i och ladda ner som PDF eller Word, 2 av dem gratis. Ladda upp ditt CV och se det i mallarna direkt.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6)."
   },
   {
    "path": "/exempel",
    "falt": "title",
+   "efter": "Exempel för din jobbansökan: CV och personligt brev per yrke",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25."
   },
   {
    "path": "/exempel",
    "falt": "description",
+   "efter": "Vi har 89 CV-exempel och 89 exempel på personligt brev för svenska yrken. Börja med ditt yrke och se exemplet, brevet eller mallen du behöver.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25."
   },
   {
    "path": "/cv-exempel",
    "falt": "title",
+   "efter": "CV-exempel: 89 färdiga CV för svenska yrken | Jobbcoach.ai",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6)."
   },
   {
    "path": "/cv-exempel",
    "falt": "description",
+   "efter": "CV-exempel för 89 svenska yrken, från undersköterska till systemutvecklare. Se hur profil, erfarenhet och kompetenser formuleras och använd exemplet som mall.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6)."
   },
   {
    "path": "/personligt-brev-exempel",
    "falt": "title",
+   "efter": "Personligt brev exempel: 89 färdiga brev för svenska yrken",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6)."
   },
   {
    "path": "/personligt-brev-exempel",
    "falt": "description",
+   "efter": "Personligt brev exempel för 89 yrken, skrivna för svenska rekryterare. Se inledning, koppling till annonsen och avslutning, och använd brevet som mall.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6)."
   },
   {
    "path": "/artiklar/skriva-personligt-brev-guide",
    "falt": "title",
+   "efter": "Personligt brev: så skriver du det, med 3 färdiga exempel",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b)."
   },
   {
    "path": "/artiklar/skriva-personligt-brev-guide",
    "falt": "description",
+   "efter": "Personligt brev som rekryteraren läser hela: strukturen i fyra delar, 3 färdiga brev för olika lägen och exemplet som visar skillnaden mot ett AI-brev.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b)."
   },
   {
    "path": "/artiklar/personligt-brev-mall-gratis",
    "falt": "title",
+   "efter": "Personligt brev mall gratis: så ser en mall ut som fungerar",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar."
   },
   {
    "path": "/artiklar/personligt-brev-mall-gratis",
    "falt": "description",
+   "efter": "Personligt brev mall gratis: strukturen i fyra delar, vilka gratismallar som fungerar och vilka du ska undvika, plus 89 yrkesexempel att utgå från.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar."
   },
@@ -88,12 +100,14 @@
   {
    "path": "/artiklar/personligt-brev-exempel-generella",
    "falt": "title",
+   "efter": "Så använder du exempel på personligt brev utan att kopiera",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan tar sin egen långsvans, länk till galleriet, \"30+\" och \"över 30\" blir 89 i text, H2 och FAQ-svar."
   },
   {
    "path": "/artiklar/personligt-brev-exempel-generella",
    "falt": "description",
+   "efter": "Så använder du exempel på personligt brev: vad du ska låna, vad du aldrig kopierar och ett brev som går från svagt till starkt, steg för steg.",
    "datum": "2026-11-14",
    "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan tar sin egen långsvans, länk till galleriet, \"30+\" och \"över 30\" blir 89 i text, H2 och FAQ-svar."
   }

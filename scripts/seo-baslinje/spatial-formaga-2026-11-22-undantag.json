@@ -1,8 +1,8 @@
 {
   "_om": "Omskrivning av rotation-test-guide mot spatial förmåga (SEO-brief docs/artiklar-2026-11/brief-spatial-formaga.md, 2026-11-22): H1, seoTitle, description, snabbsvarets rubrik, två nya rubriker och en ny FAQ-fråga. Övriga rubriker, frågor, taggar, bild och länkar orörda. Läses av scripts/seo-diff-artiklar.ts.",
   "META_BYTT": [
-    { "path": "/artiklar/rotation-test-guide", "falt": "title", "datum": "2026-11-22", "skal": "seoTitle Spatial förmåga: vad det är, exempel och gratis test. Sökfrågorna är definitionsfrågor och klickfrekvensen var 0,1 procent (1 klick på 742 visningar, position 9,4, 90 dagar)." },
-    { "path": "/artiklar/rotation-test-guide", "falt": "description", "datum": "2026-11-22", "skal": "Description som svarar på vad spatial förmåga är och nämner hög spatial förmåga (58 visningar, 90 dagar)." }
+    { "path": "/artiklar/rotation-test-guide", "falt": "title", "efter": "Spatial förmåga: vad det är, exempel och gratis test", "datum": "2026-11-22", "skal": "seoTitle Spatial förmåga: vad det är, exempel och gratis test. Sökfrågorna är definitionsfrågor och klickfrekvensen var 0,1 procent (1 klick på 742 visningar, position 9,4, 90 dagar)." },
+    { "path": "/artiklar/rotation-test-guide", "falt": "description", "efter": "Spatial förmåga är att vrida, vika och vända former i huvudet. Så märks hög spatial förmåga, så testas den och här löser du uppgifter med facit.", "datum": "2026-11-22", "skal": "Description som svarar på vad spatial förmåga är och nämner hög spatial förmåga (58 visningar, 90 dagar)." }
   ],
   "H1_BYTT": [
     { "path": "/artiklar/rotation-test-guide", "fore": "Rotationstest och spatial förmåga: så löser du figurer som vridits", "efter": "Spatial förmåga: vad det är, hur rotationstest mäter den och hur du tränar upp den", "datum": "2026-11-22", "skal": "H1 med huvudordet spatial förmåga först (742 och 106 visningar på 90 dagar); rotationstest står kvar i H1 och i H2 Vad rotationstest mäter." }

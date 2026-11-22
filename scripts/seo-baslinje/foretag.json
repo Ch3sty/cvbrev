@@ -41,24 +41,28 @@
       {
         "path": "/kontakt",
         "falt": "title",
+        "efter": "Kontakta oss | Jobbcoach.ai",
         "datum": "2026-10-12",
         "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
       },
       {
         "path": "/kontakt",
         "falt": "description",
+        "efter": "Har du en fråga om ditt konto, en funktion eller ett samarbete? Skicka ett meddelande här eller mejla oss, så svarar vi inom ett par vardagar.",
         "datum": "2026-10-12",
         "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
       },
       {
         "path": "/hjalpcenter",
         "falt": "title",
+        "efter": "Hjälpcenter | Jobbcoach.ai",
         "datum": "2026-10-12",
         "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
       },
       {
         "path": "/hjalpcenter",
         "falt": "description",
+        "efter": "Hjälp med Jobbcoach.ai: kom igång med kontot, skapa och redigera personliga brev, hantera betalning och prenumeration. Hittar du inte svaret, kontakta oss.",
         "datum": "2026-10-12",
         "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
       }

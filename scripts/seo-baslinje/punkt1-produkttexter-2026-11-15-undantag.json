@@ -48,24 +48,28 @@
   {
    "path": "/om-oss",
    "falt": "description",
+   "efter": "Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Lagring i EU, och vi loggar aldrig in åt dig.",
    "datum": "2026-11-15",
    "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). \"Data i EU\" stämde inte: databasen ligger i USA. Resten av beskrivningen oförändrad."
   },
   {
    "path": "/verktyg/bli-upptackt",
    "falt": "description",
+   "efter": "Skapa en profil så kan rekryterare som söker din bakgrund hitta dig. Anonym tills du själv tackar ja. Kostar inget, ingen kortuppgift.",
    "datum": "2026-11-15",
    "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Bli upptäckt är gratis för alla (saas-lead): \"Ingår i Jobbcoach Premium, 149 kr i månaden\" blir \"Kostar inget, ingen kortuppgift.\""
   },
   {
    "path": "/verktyg/cv-analys",
    "falt": "description",
+   "efter": "CV-analys som ger ditt CV en läsbarhetspoäng av 100 i sju delar, för rekryterare och rekryteringssystem (ATS). Poängen är gratis för varje CV du sparar.",
    "datum": "2026-11-15",
    "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Analysen ger inga betyg i sex kategorier, utan poängen nu och poängen med förslagen."
   },
   {
    "path": "/verktyg/personligt-brev",
    "falt": "description",
+   "efter": "Vi läser annonsens kravprofil och skriver brevet mot den. 40 mallar, samma som till ditt CV, och fem toner. Första brevet gratis, ingen kortuppgift.",
    "datum": "2026-11-15",
    "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Fem toner, inte sex tonaliteter."
   }

@@ -544,42 +544,49 @@
     {
       "path": "/verktyg/cv-analys",
       "falt": "description",
+      "efter": "CV-analys som ger ditt CV en läsbarhetspoäng av 100 i sju delar, för rekryterare och rekryteringssystem (ATS). Poängen är gratis för varje CV du sparar.",
       "datum": "2026-11-22",
       "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-5: \"En analys gratis per konto\" stämmer inte; poängen är gratis för varje CV. 152 tecken."
     },
     {
       "path": "/priser",
       "falt": "description",
+      "efter": "Jobbcoach Premium, 149 kr i månaden: rekryteringstester, CV-analys, personliga brev, jobbmatchning, sökta tjänster och Jobbcoachen. Säg upp när du vill.",
       "datum": "2026-11-22",
       "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), PRI-9: sökta tjänster tillagt, testerna först. 152 tecken, \"personliga brev\" och \"149 kr i månaden\" står kvar."
     },
     {
       "path": "/integrationer",
       "falt": "title",
+      "efter": "Integrationer med LinkedIn och Arbetsförmedlingen",
       "datum": "2026-11-22",
       "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Sidan ärvde rotens titel; nu egen, \"Integrationer med LinkedIn och Arbetsförmedlingen\" (49 tecken)."
     },
     {
       "path": "/integrationer",
       "falt": "description",
+      "efter": "Så hänger Jobbcoach.ai ihop med LinkedIn, Arbetsförmedlingen, din e-post och ditt Google-konto: fyra kopplingar som finns i kontot i dag.",
       "datum": "2026-11-22",
       "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Sidan ärvde rotens beskrivning; nu egen (137 tecken)."
     },
     {
       "path": "/integrationer",
       "falt": "canonical",
+      "efter": "https://www.jobbcoach.ai/integrationer",
       "datum": "2026-11-22",
       "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Canonical från tom till https://www.jobbcoach.ai/integrationer."
     },
     {
       "path": "/integrationer",
       "falt": "robots",
+      "efter": "index, follow",
       "datum": "2026-11-22",
       "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Egen metadata med robots index, follow enligt beslutet (sidan hade ingen robots-tagg)."
     },
     {
       "path": "/om-oss",
       "falt": "description",
+      "efter": "Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Lagring i EU, och vi loggar aldrig in åt dig.",
       "datum": "2026-11-22",
       "skal": "Beslut-agarpunkter D-7 (2026-11-22): \"Data i EU\" blir \"Lagring i EU\"; vår lagring är i Irland, bearbetningen hos Google sägs inte här. 157 tecken."
     }

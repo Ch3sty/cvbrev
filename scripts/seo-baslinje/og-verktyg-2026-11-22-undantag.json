@@ -1,0 +1,19 @@
+{
+  "_om": "og:image på /verktyg/bli-upptackt och /verktyg/personlighetstest (SEO-slutgranskningen 2026-11-22, punkt 7.2). Live saknade bilden: sidorna ärvde bilden i /verktyg, en mapp utan sida, vilket det lokala webpack-bygget gör men inte Vercels Turbopack-bygge. Varje sida har nu en egen opengraph-image.tsx som syskonen. Läses av scripts/seo-diff-artiklar.ts.",
+  "META_TILLAGD": [
+    {
+      "path": "/verktyg/bli-upptackt",
+      "falt": "ogImage",
+      "efterBorjar": "/verktyg/bli-upptackt/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Egen og:image i segmentet, så att den finns också i Turbopack-bygget på Vercel (punkt 7.2)."
+    },
+    {
+      "path": "/verktyg/personlighetstest",
+      "falt": "ogImage",
+      "efterBorjar": "/verktyg/personlighetstest/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Egen og:image i segmentet, så att den finns också i Turbopack-bygget på Vercel (punkt 7.2)."
+    }
+  ]
+}

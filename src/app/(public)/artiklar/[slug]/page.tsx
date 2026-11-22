@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import { getAllPostsMeta, getPostBySlug, Post, FaqItemData, HowToData, PostMeta } from '@/lib/blog';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Metadata, ResolvingMetadata } from 'next';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
+import { valjLasVidare } from '@/lib/artiklar/lasVidare';
 import { sv } from 'date-fns/locale';
 import Link from 'next/link';
 import React from 'react';
@@ -400,29 +401,12 @@ function injectCVTemplateShowcase(content: string, tags: string[] | undefined): 
 }
 
 /**
- * Tre relaterade artiklar: flest gemensamma taggar, sedan nyast, fyllt med
- * de senaste. Samma urval som ArticleSidebar gjorde i klienten, nu på
- * servern så att bara tre artiklar följer med sidan i stället för alla.
+ * Tre relaterade artiklar på servern (urvalet i src/lib/artiklar/lasVidare.ts):
+ * flest gemensamma taggar, sedan samma kluster närmast i tid, de nyaste bara
+ * när klustret inte räcker.
  */
 function relateradeArtiklar(alla: PostMeta[], slug: string, taggar: string[]): RelateradArtikel[] {
-    const andra = alla.filter((p) => p.slug !== slug);
-    const tid = (p: PostMeta) => (p.date ? parseISO(p.date).getTime() : 0);
-    let urval: PostMeta[] = [];
-    if (taggar.length > 0) {
-        urval = andra
-            .map((p) => ({ p, gemensamma: p.tags?.filter((t) => taggar.includes(t)).length || 0 }))
-            .filter((x) => x.gemensamma > 0)
-            .sort((a, b) => b.gemensamma - a.gemensamma || tid(b.p) - tid(a.p))
-            .slice(0, 3)
-            .map((x) => x.p);
-    }
-    if (urval.length < 3) {
-        const senaste = andra
-            .filter((p) => !urval.some((u) => u.slug === p.slug))
-            .sort((a, b) => tid(b) - tid(a));
-        urval = [...urval, ...senaste].slice(0, 3);
-    }
-    return urval.map((p) => ({
+    return valjLasVidare(alla, slug, taggar).map((p) => ({
         slug: p.slug,
         titel: p.title,
         kategori: KLUSTER_ETIKETT[getCtaVariantForTags(p.tags)],

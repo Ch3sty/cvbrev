@@ -218,13 +218,32 @@ const H1_BYTT: Array<{ path: string; fore: string; efter: string; datum: string;
   },
 ];
 
-/** Title och description som får bytas (sidan hade startsidans metadata). */
-const META_BYTT: Array<{ path: string; falt: 'title' | 'description'; datum: string; skal: string }> = (
+/**
+ * Title och description som får bytas. Sedan 2026-11-22 (SEO:s uppföljning
+ * 7.3) kräver raden texten efter bytet, `efter`, och prövar `fore` när den
+ * står. En gammal rad släpper alltså inte igenom ett senare, oavsiktligt byte
+ * på samma sida. En rad utan `efter` godkänner inget byte. Raderna från före
+ * 2026-11-22 fick `efter` ur avtrycket mot live samma dag
+ * (docs/qa/seo-diff/publikt-omgang3-efter-live-5.json).
+ */
+type MetaBytt = { path: string; falt: 'title' | 'description'; fore?: string; efter?: string; datum: string; skal: string };
+const META_EFTER_2026_11_22: Record<string, { title: string; description: string }> = {
+  '/kontakt': {
+    title: 'Kontakta oss | Jobbcoach.ai',
+    description: 'Har du en fråga om ditt konto, en funktion eller ett samarbete? Skicka ett meddelande här eller mejla oss, så svarar vi inom ett par vardagar.',
+  },
+  '/hjalpcenter': {
+    title: 'Hjälpcenter | Jobbcoach.ai',
+    description: 'Hjälp med Jobbcoach.ai: kom igång med kontot, skapa och redigera personliga brev, hantera betalning och prenumeration. Hittar du inte svaret, kontakta oss.',
+  },
+};
+const META_BYTT: MetaBytt[] = (
   ['/kontakt', '/hjalpcenter'] as const
 ).flatMap((p) =>
-  (['title', 'description'] as const).map((falt) => ({
+  (['title', 'description'] as const).map((falt): MetaBytt => ({
     path: p,
     falt,
+    efter: META_EFTER_2026_11_22[p][falt],
     datum: '2026-10-12',
     skal: 'Ägarbeslut 10 i del B: sidan ärvde startsidans title och description och får egna.',
   }))
@@ -232,6 +251,7 @@ const META_BYTT: Array<{ path: string; falt: 'title' | 'description'; datum: str
   {
     path: '/funktioner',
     falt: 'description',
+    efter: 'Alla verktyg för jobbsöket: rekryteringstester, CV-analys, CV-mallar, personliga brev, jobbmatchning och Jobbcoachen. Byggt för svensk arbetsmarknad.',
     datum: '2026-10-12',
     skal: 'Ägarkrav korrekta termer (SEO-granskningen av del A): "Åtta verktyg" stämde inte, nu "Alla verktyg för jobbsöket:" med rekryteringstester först.',
   },
@@ -299,8 +319,12 @@ function ldUndantag(sida: string): { datum: string; skal: string; nya?: boolean;
   };
 }
 
-/** Metadata som får tillkomma där den saknades (tom före, satt efter). */
-const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal: string }> = [
+/**
+ * Metadata som får tillkomma där den saknades (tom före, satt efter). Också ur
+ * nyckeln META_TILLAGD i *-undantag.json. `efterBorjar` kräver att det nya
+ * värdet (för og:image utan värd och frågesträng) börjar så.
+ */
+const META_TILLAGD: Array<{ path: string; falt: 'canonical' | 'ogImage'; efterBorjar?: string; datum: string; skal: string }> = [
   {
     path: '/',
     falt: 'canonical',
@@ -392,6 +416,7 @@ function lasUndantagsfiler() {
     lagg(LANK_BORTA, 'LANK_BORTA')
     lagg(H1_BYTT, 'H1_BYTT')
     lagg(META_BYTT, 'META_BYTT')
+    lagg(META_TILLAGD, 'META_TILLAGD')
     lagg(FAQ_BYTT, 'FAQ_BYTT')
     lagg(LANK_BYTT, 'LANK_BYTT')
     lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
@@ -847,7 +872,7 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         // OG-bildens frågesträng är byggets hash och byts vid varje bygge.
         const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0].replace(/^https?:\/\/[^/]+/, '') : v);
         const tillagd = META_TILLAGD.find((m) => m.path === f.path && m.falt === falt);
-        if (tillagd && f[falt] === '' && e[falt]) {
+        if (tillagd && f[falt] === '' && e[falt] && (!tillagd.efterBorjar || norm(e[falt]).startsWith(tillagd.efterBorjar))) {
           info(`${falt} tillagd (${tillagd.datum}): "${e[falt]}"`);
           continue;
         }
@@ -860,10 +885,18 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
           info(`robots: "${f.robots}" → "${e.robots}" (max-image-preview:large, 2026-11-15)`);
           continue;
         }
-        const bytt = META_BYTT.find((m) => m.path === f.path && m.falt === falt);
-        if (bytt && norm(f[falt]) !== norm(e[falt])) {
-          info(`${falt} bytt (${bytt.datum}): "${f[falt]}" → "${e[falt]}". ${bytt.skal}`);
-          continue;
+        if (norm(f[falt]) !== norm(e[falt]) && (falt === 'title' || falt === 'description')) {
+          // Raden måste ange texten efter bytet (och texten före, om den står).
+          const rader = META_BYTT.filter((m) => m.path === f.path && m.falt === falt);
+          const bytt = rader.find((m) => m.efter !== undefined && m.efter === e[falt] && (m.fore === undefined || m.fore === f[falt]));
+          if (bytt) {
+            info(`${falt} bytt (${bytt.datum}): "${f[falt]}" → "${e[falt]}". ${bytt.skal}`);
+            continue;
+          }
+          if (rader.length) {
+            brott(`${falt}: "${f[falt]}" → "${e[falt]}" (META_BYTT finns för sidan, ${rader.map((r) => r.datum).join(', ')}, men ingen rad har den här texten som efter)`);
+            continue;
+          }
         }
         if (norm(f[falt]) !== norm(e[falt])) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
