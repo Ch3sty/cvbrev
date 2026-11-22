@@ -10,8 +10,8 @@
  * `aktiv={null}` ritar flikarna utan aktiv flik (sidor utan flik).
  */
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import AvsiktsLank from '@/components/rum/AvsiktsLank'
 import { JOBB_FLIKAR, jobbFlikForPath, type JobbFlik } from './flikar'
 
 export interface JobbFlikarProps {
@@ -28,13 +28,14 @@ export default function JobbFlikar({ aktiv, hrefs }: JobbFlikarProps) {
       {JOBB_FLIKAR.map((f) => {
         const ar = f.id === vald
         return (
-          <Link key={f.id} href={hrefs?.[f.id] ?? f.href} className="j3-flik" aria-current={ar ? 'page' : undefined} prefetch={ar ? false : undefined}>
+          // Förladdas bara på avsikt, inte när flikraden syns (AvsiktsLank).
+          <AvsiktsLank key={f.id} href={hrefs?.[f.id] ?? f.href} className="j3-flik" aria-current={ar ? 'page' : undefined}>
             <b>
               <span className="lang">{f.namn}</span>
               <span className="kort">{f.kort}</span>
             </b>
             <small>{f.rad}</small>
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </nav>

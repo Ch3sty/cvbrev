@@ -578,3 +578,52 @@ Beslutade gemensamt av saas-lead och UX på ägarens uppdrag.
 Inte gjort, och känt: `cv_text` skrivs fortfarande omaskad av `/api/cv/strukturerad` (varje sparning i byggaren och arbetsläget) och av save-improved när man väljer "nytt". Lagringen är alltså inte enhetlig än. Ingen läcka: allt maskas när det skickas till modellen.
 
 Kontroll: tsc rent, hela vitest 4409 gröna, `next build` grönt, klicktest på lokalt produktionsbygge i 412 och 1440 (språknivåerna på ark, i väljaren, i Kalkstens smala spalt och i Word-filen; dubbletten i zonen och i arket; mini-analysens besked och knapp). Ersätt-vägen är bara kontrollerad med test, eftersom den kräver hämtade förslag.
+
+### `cv_text` sparas maskad i alla skrivvägar (2026-11-21, natt)
+
+Beställt av ägaren. Alla vägar som skriver `cv_texts.cv_text` använder nu `maskaLagradCvText` (`src/lib/privacy/lagradCvText.ts`): uppladdningen och Ersätt (sedan tidigare), byggaren och arbetsläget (`/api/cv/strukturerad`), save-improved med "nytt", LinkedIn-importen och provsidan (`/api/cv/prova/hamta`). `structured_data` sparas som förut, omaskad, och är källan till allt som ritas.
+
+Två ställen visade den lagrade texten för användaren (Råtext i Byt CV och förhandsraden i Jobbcoachens dokumentval). De skriver nu texten ur strukturen (`cvTextForVisning` i `src/lib/cv/visningsText.ts`), annars hade de visat platshållare.
+
+Orörda med avsikt: `src/app/api/cv/update/route.ts`, `src/app/api/cv/generate-improved/route.ts` och `src/store/cv-store.ts`. Ingen sida anropar dem, och de sparar text utan struktur, så maskning där hade raderat kontaktuppgifterna. De bör tas bort eller få struktur.
+
+Befintliga rader är inte städade. De blir maskade nästa gång användaren sparar. Dubblettjämförelsens filreserv ligger kvar: efter en sparning i byggaren är texten strukturens, inte uppladdningens, så det är filjämförelsen som träffar.
+
+Kontroll: tsc rent, hela vitest 4422 gröna, `next build` grönt, klicktest på lokalt produktionsbygge i 412 och 1440 (byggaren från början, arbetsläget, PDF och Word, dubbletten, Ersätt och "spara som nytt" på riktigt: 94 utlovat gav 94). Sparanropet tog 210 till 360 ms efter ändringen; någon mätning före gjordes inte.
+
+### Driftstoppet 2026-11-21, cirka 22:35 till 23:35 svensk tid
+
+Klicktestet ovan kördes mot produktionsdatabasen från ett lokalt produktionsbygge och gav cirka 2 700 anrop per fem minuter i drygt tjugo minuter (gatewayens logg: `/auth/v1/user` och `/rest/v1/profiles` från serverrenderade inloggade sidor, huvuddelen från det här testets QA-konto, en annan sessions test ovanpå de sista tio minuterna). Supabase på minsta instansen tappade auth, rest och storage, senare även databasen. Ägaren startade om projektet och uppgraderade till Pro. Stripe hade inga händelser under stoppet.
+
+Orsaken till lasten: varje inloggad sida förladdar menyns länkar, och varje förladdning är en full serverrendering med inloggningskontroll och profilläsning. En sidvisning blir tio till tjugo anrop.
+
+Regler efter detta:
+- Inga klicktester mot produktionsdatabasen. Tester behöver en egen databas.
+- Ett test som ändå måste gå mot produktion får ett tak på antal sidvisningar, inte bara på modellanrop och uppladdningar, och gatewayens logg bevakas under tiden.
+- Förladdningen av menylänkar i inloggat läge bör stängas av eller profilläsningen cachas.
+
+### Förladdningen i inloggat läge, mallbilden och påminnelsefunktionen (2026-11-22, natt)
+
+**Förladdningen (`5adfc7a1`).** Varje inloggad sida förladdade länkarna i sidomenyn, dörrnavet och rummens flikar. Dörrarna hade `prefetch={true}`, alltså hela sidan med data. Varje förladdning är en serverrendering av dashboard-layouten (`src/app/dashboard/layout.tsx`: inloggningskontroll, summering, profilläsning), som ligger ovanför loading.tsx och därför körs varje gång. Två andra sessioners test samma natt (tak på 40 sidladdningar, fyra sekunders paus) gav ändå cirka 4 000 anrop per fem minuter, alltså i storleksordningen 200 anrop mot Supabase per sidladdning.
+
+Ny komponent `src/components/rum/AvsiktsLank.tsx`: `prefetch={false}` (som i Next 16 stänger av både synlighet och hovring) och routerns `prefetch` en gång per adress vid hovring, fokus eller touchstart. Används i `Sidomeny`, `Dorrnav`, menyns sidfot och logga, meddelandeknappen och flikraderna (`CvFlikar`, `JobbFlikar`, `BrevVagg`, testernas `Vaggen`, `Lagesrad`). Länkar i sidornas innehåll förladdas fortfarande som vanligt; på Ditt CV finns ett tiotal sådana (mallänkar med olika `?mall=`), nästa ställe att byta om mer ska bort.
+
+**Mallbilden.** Det främre arket och telefonens tumnagel på Ditt CV får `fetchPriority="high"`, arken bakom `low` (`EgenMiniatyr.tsx`, prop `fortur`). Bilden `/mallar/v2/linne-stor.webp` var LCP och kom efter första målningen (mätt 2026-11-21: 1088 till 1288 ms mot budget 1000).
+
+Kontrollerat: tsc, hela vitest (4424 gröna), Vercels bygge, och att fyra inloggade sidor ritas utan fel i produktion efter ändringen. **Inte mätt i webbläsare:** antalet förladdningsanrop före och efter, att hovring och touch förladdar, att klick navigerar som förut, och LCP. Mätningen väntar på att ingen annan session kör mot produktionen. Risk att känna till: på telefon börjar förladdningen först när fingret landar, så byte av rum kan kännas något långsammare.
+
+Backa: `git revert 5adfc7a1`.
+
+**`send-verification-reminders` (`35a831c1`).** Funktionen fanns bara i drift, inte i repot. Källan ligger nu i `supabase/functions/send-verification-reminders/`, oförändrad utöver kravet på rubriken `x-cron-secret`. Morgonjobbet `send-verification-reminders-daily` skickar den ur vault (migrering `20261121230000`). Funktionen har ingen egen spärr mot dubbla utskick, så den som anropade den flera gånger under ett påminnelsefönster kunde få samma mejl skickat om och om igen. Kontrollerat: utan eller med fel hemlighet 401; morgonjobbets eget kommando 200 med 0 skickade och 16 överhoppade, kört när ingen användare låg i ett fönster.
+
+Att ta ställning till (ägarens, utskick): påminnelsemejlet innehåller rutan "95% av våra användare som verifierar sin e-post får sitt drömjobb inom 3 månader!", ett påstående utan belägg, och sidfoten säger 2024. Jobbet körs en gång om dygnet men skickar bara till den som registrerade sig för 24 till 25 eller 72 till 73 timmar sedan, alltså nästan ingen.
+
+### Påminnelsemejlet om obekräftad e-post omskrivet (2026-11-22, `773701e8`)
+
+Ägaren: "meddelandet överlag är helt efterblivet, det kan vi ju inte skicka." Utöver det påhittade talet var tre saker fel i `send-verification-reminders`: texten lovade obegränsat antal CV och sju brev i veckan, länken var registreringens och hade gått ut när påminnelsen skickades (`/api/auth/confirm-email` kastar utgångna länkar), och fönstren var en timme breda fast jobbet körs en gång om dygnet.
+
+Nu: två korta mejl i livscykelmejlens skal (`paminnelseMejl`), med det bekräftelsen faktiskt låser upp (ett CV till, fler sparade brev). En ny länk per påminnelse, giltig i tre dygn (`email_confirmations`, upsert på `user_id`). Fönstren är 24 till 48 och 72 till 96 timmar efter registreringen. Inget mejl om kontot fått ett bekräftelsemejl de senaste 20 timmarna, och aldrig till adresser på `.test`. Kroppen `{"provkorning": true}` räknar utan att skicka eller skriva.
+
+Följd att känna till: jobbet skickar nu på riktigt, varje dag 09:00 UTC. Provkörningen natten till 2026-11-22 gav 17 konton i spannet, 7 första och 4 andra påminnelser. Stänga av: `select cron.alter_job((select jobid from cron.job where jobname = 'send-verification-reminders-daily'), active := false);`
+
+Inte gjort: mejlen är inte sedda i en riktig mejlklient och inget provmejl är skickat. De är ritade till HTML och lämnade till ägaren som förhandsvisning.

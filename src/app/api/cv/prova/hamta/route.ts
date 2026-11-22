@@ -4,7 +4,7 @@
  * Hämtar hem utkastet från provsidan till kontot (plan-mallar 3.2): direkt
  * efter kontot, i samma flik, aldrig efter e-postverifiering. CV:t sparas i
  * cv_texts med structured_data i CVMetadata-format och de valda rubrikerna
- * i section_titles; cv_text skrivs ur den strukturerade datan.
+ * i section_titles; cv_text skrivs ur den strukturerade datan, maskad.
  *
  * Body: { cv: CVMetadata, mall?: string, rubriker?: Record<Sektion,string>,
  * filnamn?: string }. Svar: { cvId } eller 403 { kod: 'grans' } när kontot
@@ -17,6 +17,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getCvGrans } from '@/lib/supabase/premiumAccess'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
 import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
+import { maskaLagradCvText } from '@/lib/privacy/lagradCvText'
 import { arPlatshallareNamn, arPlatshallareTelefon, arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
 import { arTomEllerPlatshallare } from '@/lib/profile/dokumentEpost'
 import { arSektion } from '@/lib/cv/mallval/sektioner'
@@ -83,7 +84,8 @@ export async function POST(request: Request) {
     user_id: user.id,
     file_name: namn,
     original_file_path: `prova/${user.id}/${Date.now()}.json`,
-    cv_text: formatCVMetadataAsText(cv),
+    // Maskad som vid uppladdningen; kontakten står omaskad i structured_data.
+    cv_text: maskaLagradCvText(formatCVMetadataAsText(cv)),
     structured_data: cv,
     text_extraction_failed: false,
   }

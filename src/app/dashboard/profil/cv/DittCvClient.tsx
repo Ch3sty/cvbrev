@@ -53,6 +53,7 @@ import SkrivFranBorjan from '@/components/cv/rum3/SkrivFranBorjan';
 import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
 import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, SIFFROR, VAGG } from '@/components/cv/rum3/texter';
 import { platshallareIRad } from '@/lib/cv/poang';
+import { cvTextForVisning } from '@/lib/cv/visningsText';
 
 // Syns aldrig i första vyn: snabbpoängen bara direkt efter första
 // uppladdningen, betalväggen bara när ett låst fynd trycks.
@@ -154,7 +155,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
         last: lasta.has(c.id),
         utkast: (c.structured_data as { bygge?: { utkast?: boolean } } | null)?.bygge?.utkast === true,
         poang: data.poangPerCv[c.id] ?? null,
-        cvText: c.cv_text,
+        // Råtext: kontaktuppgifterna ur strukturen, inte den maskade texten.
+        cvText: cvTextForVisning(c.cv_text, c.structured_data),
       })),
     [data.cvs, data.poangPerCv, lasta]
   );
@@ -421,16 +423,17 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     <div className="cv3-arkstapel">
       {(aktivt ? bakom : exempelBakom).map((m, i) => (
         <span key={m.id} className="cv3-ark" data-plats={i + 1} aria-hidden="true">
-          <EgenMiniatyr mall={m} cv={egetCv} direkt />
+          {/* Arken bakom är dekor: de får vänta på det främre (LCP på dator). */}
+          <EgenMiniatyr mall={m} cv={egetCv} direkt fortur="lag" />
         </span>
       ))}
       {aktivt ? (
         <Link href={mallarHref(mall.id)} className="cv3-ark" data-plats="0" aria-label={VAGG.arkAlt(mall.namn)}>
-          <EgenMiniatyr mall={mall} cv={egetCv} direkt />
+          <EgenMiniatyr mall={mall} cv={egetCv} direkt fortur="hog" />
         </Link>
       ) : (
         <span className="cv3-ark" data-plats="0">
-          <EgenMiniatyr mall={mall} cv={null} alt={VAGG.exempelAlt(mall.namn)} direkt />
+          <EgenMiniatyr mall={mall} cv={null} alt={VAGG.exempelAlt(mall.namn)} direkt fortur="hog" />
         </span>
       )}
       {aktivt ? (
@@ -584,7 +587,8 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             className="cv3-tumme"
             aria-label={poang !== null && talISteget ? VAGG.poangAria(mall.namn, poang) : VAGG.arkAlt(mall.namn)}
           >
-            <EgenMiniatyr mall={mall} cv={egetCv} direkt />
+            {/* Telefonens ark: samma bild som väggens främre ark, LCP på telefon. */}
+            <EgenMiniatyr mall={mall} cv={egetCv} direkt fortur="hog" />
             {poang !== null && talISteget ? (
               <span className="cv3-tumme-tal" aria-hidden="true">{poang}</span>
             ) : (

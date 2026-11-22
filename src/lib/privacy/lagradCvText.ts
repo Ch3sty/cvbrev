@@ -1,10 +1,14 @@
 // src/lib/privacy/lagradCvText.ts
 //
 // Maskeringen av CV-texten som sparas i cv_texts.cv_text. Samma funktion
-// används vid uppladdningen (api/cv/upload) och när ett förbättrat CV ersätter
-// det gamla på plats (api/cv/save-improved, lage 'ersatt'), så att kolumnen
-// har samma form oavsett hur CV:t kom dit. Kontaktuppgifterna för arket och
-// nedladdningen läses ur den strukturerade datan, aldrig ur den här texten.
+// används av alla vägar som sparar ett CV med struktur, så att kolumnen har
+// samma form oavsett hur CV:t kom dit: uppladdningen (api/cv/upload),
+// byggaren och arbetsläget (api/cv/strukturerad), save-improved (Ersätt och
+// nytt, också byggarens första sparning), LinkedIn-importen
+// (api/cv/create-from-linkedin) och provsidan (api/cv/prova/hamta).
+// Kontaktuppgifterna för arket och nedladdningen läses ur den strukturerade
+// datan, aldrig ur den här texten. Visas texten som löptext skrivs den ur
+// strukturen (src/lib/cv/visningsText.ts).
 //
 // Flyttad oförändrad från upload-rutten (stripPii) 2026-11-21.
 

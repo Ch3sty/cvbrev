@@ -6,7 +6,7 @@
  *
  * Server component.
  */
-import Link from 'next/link'
+import AvsiktsLank from '@/components/rum/AvsiktsLank'
 import { CV_FLIKAR, flikHref, type CvFlik } from './flikar'
 
 export interface CvFlikarProps {
@@ -21,19 +21,19 @@ export default function CvFlikar({ aktiv, cvId }: CvFlikarProps) {
       {CV_FLIKAR.map((f) => {
         const ar = f.id === aktiv
         return (
-          <Link
+          // Förladdas bara på avsikt och då bara ner till loading.tsx, så
+          // flikarnas tal hämtas färska vid varje byte (AvsiktsLank).
+          <AvsiktsLank
             key={f.id}
             href={flikHref(f.id, cvId)}
             className="t3-flik"
             data-flik={f.id}
             aria-current={ar ? 'page' : undefined}
-            // Ingen förhämtning: flikarna visar alltid färska tal (forhamtaCvSida i flikar.ts).
-            prefetch={false}
           >
             <b>{f.namn}</b>
             <small className="hidden md:block">{f.rad}</small>
             <small className="md:hidden">{f.radKort}</small>
-          </Link>
+          </AvsiktsLank>
         )
       })}
     </nav>
