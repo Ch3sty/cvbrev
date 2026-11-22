@@ -217,8 +217,8 @@ function GateView({
               <h1 className="text-lg font-bold text-slate-900 mb-2">Ansökan granskas</h1>
               <p className="text-[13.5px] text-slate-500 leading-relaxed mb-2">
                 Vi verifierar {companyName ? <strong>{companyName}</strong> : 'ditt företag'} mot
-                org-numret. Det tar oftast mindre än en arbetsdag, du får ett
-                mail så fort kontot är godkänt.
+                org-numret. Vi granskar ansökan inom en till två arbetsdagar.
+                Du får ett mail när kontot är godkänt.
               </p>
               <p className="text-[13px] text-slate-400 leading-relaxed mb-6">
                 Verifieringen skyddar kandidaterna: bara riktiga rekryterare

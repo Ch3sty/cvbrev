@@ -46,6 +46,7 @@ import {
 import Logo from '@/components/Logo'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { LOSENORD_FEL, LOSENORD_HJALP, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
+import { normaliseraOrgnummer, orgnummerFel } from '@/lib/recruiter/orgnummer'
 
 const RECRUITER_DRAFT_KEY = 'jobbcoach_recruiter_application_draft'
 
@@ -79,17 +80,16 @@ const EMPTY_FIELDS: CompanyFields = {
   website: '',
 }
 
-/** Normalisera "5566778899" → "556677-8899", trimma bort mellanslag. */
-function normalizeOrgNumber(value: string): string {
-  const cleaned = value.replace(/\s/g, '')
-  if (/^\d{10}$/.test(cleaned)) {
-    return `${cleaned.slice(0, 6)}-${cleaned.slice(6)}`
-  }
-  return cleaned
-}
+/** Tio siffror, kontrollsiffra och tredje siffran, se src/lib/recruiter/orgnummer.ts. */
+const normalizeOrgNumber = normaliseraOrgnummer
 
 function isValidOrgNumber(value: string): boolean {
-  return /^\d{6}-\d{4}$/.test(value)
+  return orgnummerFel(value) === null
+}
+
+/** Säger till oss att en ansökan kommit in. Best effort, stoppar aldrig flödet. */
+function meddelaAnsokan(): void {
+  fetch('/api/recruiter/ansokan', { method: 'POST' }).catch(() => undefined)
 }
 
 const inputClass =
@@ -188,6 +188,7 @@ export default function RekryterareRegistreraSida() {
         if (cancelled) return
         window.localStorage.removeItem(RECRUITER_DRAFT_KEY)
         if (!insertError) {
+          meddelaAnsokan()
           setView('done')
           return
         }
@@ -225,9 +226,8 @@ export default function RekryterareRegistreraSida() {
     if (fields.companyName.trim().length < 2) {
       return 'Fyll i företagets namn.'
     }
-    if (!isValidOrgNumber(normalizeOrgNumber(fields.orgNumber))) {
-      return 'Organisationsnumret ska ha formatet NNNNNN-NNNN, till exempel 556677-8899.'
-    }
+    const orgFel = orgnummerFel(fields.orgNumber)
+    if (orgFel) return orgFel
     return null
   }
 
@@ -311,6 +311,7 @@ export default function RekryterareRegistreraSida() {
           )
           return
         }
+        meddelaAnsokan()
         setUserId(data.user.id)
         setUserEmail(data.user.email ?? null)
         setView('done')
@@ -358,6 +359,7 @@ export default function RekryterareRegistreraSida() {
         return
       }
       window.localStorage.removeItem(RECRUITER_DRAFT_KEY)
+      meddelaAnsokan()
       setView('done')
     } finally {
       setSubmitting(false)
@@ -407,9 +409,9 @@ export default function RekryterareRegistreraSida() {
                 Skapa rekryterarkonto
               </h1>
               <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto">
-                Fyll i uppgifterna så verifierar vi ert företag manuellt,
-                oftast inom en till två arbetsdagar. Inget kostar något under
-                betan.
+                Fyll i uppgifterna så verifierar vi ert företag manuellt. Vi
+                granskar ansökan inom en till två arbetsdagar. Du får ett mail
+                när kontot är godkänt. Inget kostar något under betan.
               </p>
             </div>
 
@@ -468,10 +470,13 @@ export default function RekryterareRegistreraSida() {
                       inputMode="numeric"
                       value={fields.orgNumber}
                       onChange={(e) => setField('orgNumber', e.target.value)}
-                      placeholder="556677-8899"
+                      aria-describedby="orgNumber-hjalp"
                       required
                       className={inputClass}
                     />
+                    <p id="orgNumber-hjalp" className="mt-1 text-[12px] text-slate-500">
+                      Tio siffror, som det står hos Bolagsverket.
+                    </p>
                   </div>
                 </div>
 
@@ -716,9 +721,8 @@ export default function RekryterareRegistreraSida() {
             title="Ansökan mottagen"
             body={
               <>
-                Tack! Vi verifierar företag manuellt, oftast inom en till två
-                arbetsdagar. När kontot är godkänt ser du det på din
-                rekryterarsida, och vi hör av oss via mail.
+                Tack! Vi granskar ansökan inom en till två arbetsdagar. Du får
+                ett mail när kontot är godkänt.
               </>
             }
             action={{ href: '/rekryterare', label: 'Till rekryterarsidan' }}
@@ -731,9 +735,8 @@ export default function RekryterareRegistreraSida() {
             title="Din ansökan väntar på godkännande"
             body={
               <>
-                Vi har tagit emot ansökan och verifierar företaget manuellt,
-                oftast inom en till två arbetsdagar. Du behöver inte göra
-                något mer, vi hör av oss via mail när kontot är klart.
+                Vi har tagit emot ansökan. Vi granskar ansökan inom en till två
+                arbetsdagar. Du får ett mail när kontot är godkänt.
               </>
             }
             action={{ href: '/rekryterare', label: 'Till rekryterarsidan' }}
@@ -763,7 +766,7 @@ export default function RekryterareRegistreraSida() {
             body={
               <>
                 Vi kunde tyvärr inte verifiera företaget den här gången. Tror
-                du att något blivit fel? Mejla{' '}
+                du att något blivit fel? Maila{' '}
                 <a
                   href="mailto:hej@jobbcoach.ai"
                   className="font-bold text-orange-700 hover:text-orange-800"

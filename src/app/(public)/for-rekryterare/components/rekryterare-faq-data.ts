@@ -5,7 +5,7 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Hur verifieras vårt företag?',
-    a: 'Manuellt, av oss. Vi kontrollerar organisationsnumret och att kontaktpersonen hör till företaget innan kontot godkänns. Det tar normalt en till två arbetsdagar. Statusen ser du på din rekryterarsida, och vi hör av oss via mail när kontot är klart.',
+    a: 'Manuellt, av oss. Vi kontrollerar organisationsnumret och att kontaktpersonen hör till företaget innan kontot godkänns. Vi granskar ansökan inom en till två arbetsdagar. Statusen ser du på din rekryterarsida, och du får ett mail när kontot är godkänt.',
   },
   {
     q: 'Vad ser vi om en kandidat?',

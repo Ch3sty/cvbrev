@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin';
 import { cookies } from 'next/headers';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { skickaGodkantMejl } from '@/lib/email/rekryterarMejl';
 
 // Admin-API för rekryteraransökningar (recruiter_profiles).
 // GET: lista alla ansökningar med e-post från profiles, pending först.
 // POST: { userId, action: 'approve' | 'reject' } — sätter status,
-//       approved_at och approved_by.
+//       approved_at och approved_by. Vid godkännande går mailet
+//       "Ditt rekryterarkonto är godkänt" till rekryteraren, en gång per
+//       konto (email_log), också om kontot dras tillbaka och godkänns igen.
 // Admin-checken följer samma mönster som /api/admin/revenue.
 
 interface RecruiterRow {
@@ -151,7 +154,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true, status: newStatus });
+    // Mailet till rekryteraren. Best effort: godkännandet står även om
+    // mailet inte går iväg, och felet syns i loggen.
+    const mailSkickat =
+      action === 'approve' && existing.status !== 'approved'
+        ? await skickaGodkantMejl(admin, userId)
+        : false;
+
+    return NextResponse.json({ ok: true, status: newStatus, mailSkickat });
   } catch (error) {
     console.error('Error in admin recruiters POST:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

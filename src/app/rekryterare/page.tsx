@@ -486,7 +486,7 @@ function SearchView() {
                   type="button"
                   onClick={async () => {
                     const name = window.prompt(
-                      'Spara den här sökningen och få mejl när fler kandidater matchar. Ge sökningen ett namn:'
+                      'Spara den här sökningen och få mail när fler kandidater matchar. Ge sökningen ett namn:'
                     );
                     if (name && name.trim()) await saveSearch(name.trim());
                   }}
@@ -494,7 +494,7 @@ function SearchView() {
                 >
                   spara sökningen
                 </button>{' '}
-                så mejlar vi dig så fort det dyker upp nya som passar.
+                så mailar vi dig så fort det dyker upp nya som passar.
               </p>
             </div>
           )}
