@@ -172,7 +172,10 @@ export interface AnalyticsEvents {
     }
   sample_completed: ClusterContext &
     SampleIntervju & {
-      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'
+      /** sokt: arket Logga sökt tjänst före kontot (artikeln om aktivitetsrapporten och verktygssidan), utan fältens innehåll. */
+      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality' | 'sokt'
+      /** Var arket Logga sökt tjänst skickades (kind sokt). */
+      surface?: 'artikel' | 'verktyg'
       yrke_slug?: string
       template?: string
       ton?: string
@@ -502,8 +505,9 @@ export interface AnalyticsEvents {
   typsnitt_bytt: { font: string; surface: string; template?: string; tier?: 'free' | 'premium' }
   nedladdning_klickad: { template: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
   /** hur: brevets mallvisare (våg 2) skiljer på miniatyr, svep och kikande kant. */
-  mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev'; hur?: 'miniatyr' | 'svep' | 'kant' }
-  mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' }
+  mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' | 'par'; hur?: 'miniatyr' | 'svep' | 'kant' }
+  /** mal: visaren CvOchBrevPar (typ par) skiljer på knappen till brevet och länken till CV:t. */
+  mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' | 'par'; mal?: 'brev' | 'cv' }
   /* Mallsatsningen fas 2 (plan-mallar avsnitt 8, utbudets avsnitt 6): de nya
      ytorna. template och tier på alla händelser per mall. surface: mallsida,
      prova, galleri, byggare, artikel, yrkessida. */
@@ -533,7 +537,7 @@ export interface AnalyticsEvents {
   merforsaljning_klick: { template: string; position: number; val: 'kort' | 'kop' | 'nej'; surface: string }
   namn_ifyllt: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; falt: 'namn' | 'titel' }
   fortsatt_klickad: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; template: string }
-  mallvisning_visad: { slug: string; template: string; typ?: 'cv' | 'brev' }
+  mallvisning_visad: { slug: string; template: string; typ?: 'cv' | 'brev' | 'par' }
   mallvisning_uppladdning_klick: { slug: string }
   cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean; entry?: string | null; foto_pa?: boolean; sidor?: number | null }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }

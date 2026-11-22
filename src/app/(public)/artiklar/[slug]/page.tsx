@@ -60,6 +60,8 @@ import CVExample from '@/components/mdx/CVExample';
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
 import { GratisKort, InlineKort, JobbKort, ProvKort, SidoJobbKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import { JOBB_KORT, JOBB_KORT_SLUGAR, JOBB_SKAL_SLUGAR, TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
+// De tre artiklarna 2026-11 (docs/artiklar-2026-11/seo-slutgranskning.md, H, J och K).
+import LoggaSoktJobb from '@/components/artiklar/LoggaSoktJobb';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
 import ArtikelProv from '@/components/artiklar/prov/ArtikelProv';
 import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
@@ -521,6 +523,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         TypProvKort: (p: { typ: ProvKortTyp }) => <TypProvKort typ={p.typ} cluster={cluster} slug={slug} />,
         // Uppgift 1 i artikeln, provet startar på sidan (SEO-planen 4.2, våg 1 och 2).
         ArtikelProv: (p: { typ: string }) => <ArtikelProv typ={p.typ} slug={slug} cluster={cluster} />,
+        // CV och brev i samma mall (byggordern H), arket och månadsbladet i
+        // artikeln om aktivitetsrapporten (J och K).
+        LoggaSoktJobb: () => <LoggaSoktJobb slug={slug} />,
         // Premiumpriset ur PLANS i löptext: "149 kr i månaden", under en
         // kampanj "99 kr första månaden, sedan 149 kr i månaden" (H2).
         PremiumPris: () => <MedKampanjPris text={premiumPris(PREMIUM_PLAN)} />,

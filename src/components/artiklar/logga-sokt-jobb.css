@@ -1,0 +1,9 @@
+/*
+ * <LoggaSoktJobb /> i artikeln om aktivitetsrapporten. Arket själv står i
+ * sokta-tjanster.css (st-*); här bara ramen i artikelns spalt, med grundens
+ * klack. Färger bara ur tokens.
+ */
+.lsj { margin: 28px 0 32px; max-width: 600px; }
+.lsj .st-arkform { border: 2px solid var(--kant); border-bottom-width: 6px; }
+.lsj .st-arkform .st-arkrubrik { line-height: 1.25; }
+.lsj .st-arkform .st-etik { line-height: 1.4; }

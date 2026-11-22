@@ -21,6 +21,7 @@
 import { useState, type FormEvent, type MouseEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { idagSv } from '@/lib/jobbsok/datum'
+import { capture } from '@/lib/analytics/events'
 import { SOKT_KONTO_HREF, kontrolleraSokt, soktRedirect, sparaSoktUtkast, type SoktFalt, type SoktKanal } from '@/lib/jobbsok/provaSokt'
 
 const KANALER: { varde: SoktKanal; namn: string }[] = [
@@ -35,7 +36,11 @@ const FEL: Record<SoktFalt, string> = {
   datum: 'Välj ett datum, högst i dag.',
 }
 
-export default function LoggaArkPublik() {
+/**
+ * surface och slug följer med till händelsen sample_completed (kind sokt), aldrig
+ * fältens innehåll. I artikeln om aktivitetsrapporten står arket i <LoggaSoktJobb />.
+ */
+export default function LoggaArkPublik({ surface = 'verktyg', slug }: { surface?: 'artikel' | 'verktyg'; slug?: string } = {}) {
   const router = useRouter()
   const idag = idagSv()
   const [lage, setLage] = useState<'sokt' | 'ska-soka'>('sokt')
@@ -59,6 +64,8 @@ export default function LoggaArkPublik() {
     }
     setSkickar(true)
     sparaSoktUtkast(u)
+    // Bara var arket skickades, aldrig tjänst, arbetsgivare eller datum (saas-lead 10.2, SEO 11.3).
+    capture('sample_completed', { kind: 'sokt', surface, ...(slug ? { slug } : {}) })
     // Bara läget i adressen, aldrig tjänst eller arbetsgivare (PostHog läser adressen).
     router.push(lage === 'sokt' ? SOKT_KONTO_HREF : `/register?redirect=${encodeURIComponent(soktRedirect({ lage }))}`)
   }
@@ -66,7 +73,13 @@ export default function LoggaArkPublik() {
   const felId = (f: SoktFalt) => (fel === f ? `st-${f}-fel` : undefined)
 
   return (
-    <form className="st-arkform" onSubmit={skicka} noValidate aria-label="Logga sökt tjänst">
+    // Utan JavaScript skickas formuläret med GET till kontovägen (SEO 11.3): /register med
+    // redirect som dolt fält, eftersom en GET-sändning ersätter frågesträngen i action.
+    // Då landar hon på samma adress som SOKT_KONTO_HREF, och artikeln laddas aldrig om
+    // med ?lage=sokt. Textfälten har inga name, så tjänst och arbetsgivare kommer aldrig
+    // med i adressen. Med JavaScript gör onSubmit som förut.
+    <form className="st-arkform" action="/register" method="get" onSubmit={skicka} noValidate aria-label="Logga sökt tjänst">
+      <input type="hidden" name="redirect" value={soktRedirect({ lage: 'sokt' })} />
       <span className="st-arkrubrik" aria-hidden="true">
         Logga sökt tjänst
       </span>
