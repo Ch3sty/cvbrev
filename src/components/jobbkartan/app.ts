@@ -608,6 +608,7 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
   /* ------------------------------------------------------------ Staplarna över länen */
   const lanstaplar = $<SVGSVGElement>('jk-lanstaplar')
   if (lanstaplar) kopplaLan(lanstaplar, valjLan, lanTips, '.rad')
+  let stapelBredd = 0
   function ritaStaplar() {
     const svg = lanstaplar
     if (!svg) return
@@ -616,12 +617,13 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
     const rader = LAN.map((k) => ({ kod: k, v: kon(k, q) }))
       .filter((x): x is { kod: string; v: number } => x.v != null)
       .sort((a, b) => a.v - b.v)
-    // Raderna är tryckytor: 44 px i telefonen och på pekskärm, 32 px med mus (då ryms alla län på en skärm).
-    // I telefonen ritas diagrammet i skärmens egna mått, så att texten inte krymper under 12 px.
-    const grov = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+    // Raderna är tryckytor och sajtens minsta är 44 px, med mus och med finger (svep 4, 2026-11-22; förut
+    // 32 px med mus). Diagrammet ritas i sina egna mått på skärmen, en enhet är en pixel, så att raden
+    // blir 44 px och texten aldrig krymper. Ändras bredden ritas det om (se Storlek och start).
     const bredd = Math.round(svg.getBoundingClientRect().width)
-    const W = smal() ? Math.max(300, bredd || 343) : 640, L = smal() ? 104 : 118, R = smal() ? 40 : 46, T = 8
-    const RH = smal() || grov ? 44 : 32, SH = smal() || grov ? 20 : 18, TY = RH / 2 + 4.5
+    stapelBredd = bredd
+    const W = Math.max(300, bredd || (smal() ? 343 : 600)), L = smal() ? 104 : 124, R = smal() ? 40 : 52, T = 8
+    const RH = 44, SH = smal() ? 20 : 22, TY = RH / 2 + 4.5
     const H = T + rader.length * RH + 24
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`)
     const max = Math.max(4, Math.ceil(Math.max(...rader.map((x) => x.v))))
@@ -1124,6 +1126,8 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
   lyssna('resize', () => {
     clearTimeout(resizeT)
     resizeT = setTimeout(() => {
+      // Länsstaplarna ritas i skärmens mått (44 px per rad), så de ritas om så fort bredden ändras.
+      if (lanstaplar && Math.round(lanstaplar.getBoundingClientRect().width) !== stapelBredd) ritaStaplar()
       if (smal() === varSmal) return
       varSmal = smal()
       ritaHjalte(hojdNu)
