@@ -17,9 +17,11 @@
 // 2. Endast positiv/neutral inramning: påståenden beskriver styrkor, aldrig
 //    brister. Lågt facettvärde ger inget påstående alls. Lågt band renderas
 //    endast som neutral pol i godkända bipolära spektra, aldrig som text.
-// 3. Visning, aldrig filtrering: rekryterare kan läsa arbetsstilen men det
-//    finns medvetet inget sökfilter på den. Aldrig matchprocent, prediktion
-//    eller ranking på personlighetsdata.
+// 3. Sökbart bara på det kandidaten valt att visa (ägarbeslut 2026-11-22):
+//    rekryterare kan filtrera på styrkor i ord och på arbetsstil, och då
+//    bara bland kandidater som själva kryssat i att visa dem. Aldrig
+//    matchprocent, prediktion eller ranking på personlighetsdata, och
+//    testets värden går varken att se eller söka på.
 // 4. Spektra exponeras ENDAST som band 1-5 + polettiketter — råvärden lämnar
 //    aldrig motorn i typer som går till klienten. Band 3 = neutral
 //    ("Flexibel mellan lägena") och genererar ingen copy.

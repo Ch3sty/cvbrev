@@ -127,8 +127,8 @@ const INTEGRITET = [
     text: 'Arbetsstilsrapporten kandidaten delar är exakt den du läser, inga dolda poäng. Den symmetrin gör att fler vågar visa upp sig, och att det du ser är något de själva står bakom.',
   },
   {
-    rubrik: 'Visning, aldrig filtrering',
-    text: 'Personlighetsdata visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Vi bygger medvetet inom ramarna för GDPR och EU:s AI-förordning.',
+    rubrik: 'Sök på styrkor kandidaten valt att visa',
+    text: 'Filtrera på personlighetsstyrkor och arbetsstil, till exempel Strukturerad eller Stresstålig. Träffarna är kandidater som själva valt att visa dem. Styrkorna står i ord och beskriver hur någon arbetar, inte hur bra. Testets värden visas aldrig och går inte att söka på, och vi sätter ingen matchprocent.',
   },
   {
     rubrik: 'Verifierade rekryterare',

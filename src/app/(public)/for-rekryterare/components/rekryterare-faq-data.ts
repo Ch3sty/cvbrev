@@ -29,7 +29,7 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Kan jag filtrera bort kandidater på personlighet?',
-    a: 'Nej, och det är ett medvetet val. Personlighetsdata beskriver hur någon arbetar, inte hur bra, och lämpar sig inte för att sålla bort människor. Arbetsstilsrapporten visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Det skyddar både dig och kandidaten, och håller oss på rätt sida av GDPR och EU:s AI-förordning.',
+    a: 'Ja, på det kandidaten själv valt att visa. I sökningen väljer du en eller flera personlighetsstyrkor och arbetsstilar, och får då de kandidater som visar sina styrkor eller sin arbetsstil och har någon av dem du valt. Kandidater som inte visar sin personlighet ligger kvar i poolen och syns igen när du tar bort filtret. Styrkorna beskriver hur någon arbetar, inte hur bra, så använd dem för att hitta ett arbetssätt som passar rollen och för att ställa bättre frågor i intervjun. Testets värden och råpoäng visas aldrig och går inte att filtrera på, och vi sätter ingen matchprocent.',
   },
   {
     q: 'Vad låses upp när kandidaten tackar ja?',
