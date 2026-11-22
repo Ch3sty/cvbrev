@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 import OgFrame from '@/components/og-preview/OgFrame';
-import { OgRekryteringstesterIllustration } from '@/components/og-preview/OgIllustrations';
+import { OgPersonlighetstestIllustration } from '@/components/og-preview/OgIllustrations';
 
 // Egen bild i segmentet. Bilden i /verktyg (mapp utan sida) ärvdes i det
 // lokala webpack-bygget men inte i Vercels Turbopack-bygge, så sidan saknade
@@ -16,7 +16,7 @@ export default async function Image() {
         eyebrow="Personlighetstest"
         title="Vad rekryteraren läser ut av dig"
         subtitle="Femfaktormodellen, din profil direkt"
-        illustration={<OgRekryteringstesterIllustration />}
+        illustration={<OgPersonlighetstestIllustration />}
       />
     ),
     { ...size }

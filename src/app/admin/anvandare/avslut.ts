@@ -114,7 +114,19 @@ export async function hamtaAvslut(admin: any): Promise<AvslutSammanstallning> {
         .select(
           'kvartal, kontots_alder, hade_premium, har_betalat, antal_cv, antal_brev, antal_test, antal_sokta, dagar_sedan_aktivitet, anledning'
         )
-        .order('id')
+        // Tabellen har inget id (policyn: raden innehåller aldrig något id).
+        // Sorteringen går på alla lästa kolumner: rader som hamnar lika är då
+        // identiska, så sidindelningen ger rätt antal av varje sort.
+        .order('kvartal')
+        .order('kontots_alder')
+        .order('hade_premium')
+        .order('har_betalat')
+        .order('antal_cv')
+        .order('antal_brev')
+        .order('antal_test')
+        .order('antal_sokta')
+        .order('dagar_sedan_aktivitet')
+        .order('anledning')
         .range(fran, fran + SIDA - 1);
       if (error) {
         console.error('[admin/anvandare] konto_avslut gick inte att läsa:', error.message);

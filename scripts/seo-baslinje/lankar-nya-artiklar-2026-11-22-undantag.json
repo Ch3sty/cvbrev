@@ -1,0 +1,17 @@
+{
+ "_om": "SEO:s uppföljning efter publiceringen 2026-11-22 (beskedet före push av Läs vidare): de två nya artiklarna får länkar i löptext från ämnesnära sidor med trafik. En mening per sida, skriven av copywritern. /cv-mallar får en mening i guidens länkstycke; där ändras inget schema. Läses av scripts/seo-diff-artiklar.ts.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+   "datum": "2026-11-22",
+   "skal": "En mening med länk till /artiklar/aktivitetsrapport-arbetsformedlingen i steg 1 under Så begär du ditt arbetsgivarintyg. BlogPostings wordCount och dateModified följer (updated 2026-11-22).",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/uppsagningsbrev-mall",
+   "datum": "2026-11-22",
+   "skal": "En mening med länk till /artiklar/aktivitetsrapport-arbetsformedlingen i stycket Arbetsgivarintyget. BlogPostings wordCount och dateModified följer (updated 2026-11-22).",
+   "andrade": ["BlogPosting"]
+  }
+ ]
+}

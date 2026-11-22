@@ -27,19 +27,23 @@ function rad(over: Partial<AvslutRad> = {}): AvslutRad {
   }
 }
 
+/** Kolumnerna läsningen sorterade på, i ordning. */
+let sorterat: string[] = []
+
 function klient(svar: { data: unknown; error: unknown } | Error) {
-  return {
-    from: () => ({
-      select: () => ({
-        order: () => ({
-          range: async () => {
-            if (svar instanceof Error) throw svar
-            return svar
-          },
-        }),
-      }),
-    }),
+  sorterat = []
+  // Läsningen sorterar på flera kolumner, så order ger tillbaka samma led.
+  const led = {
+    order: (kolumn: string) => {
+      sorterat.push(kolumn)
+      return led
+    },
+    range: async () => {
+      if (svar instanceof Error) throw svar
+      return svar
+    },
   }
+  return { from: () => ({ select: () => led }) }
 }
 
 describe('hamtaAvslut', () => {
@@ -55,6 +59,12 @@ describe('hamtaAvslut', () => {
   it('läser och räknar ihop raderna', async () => {
     const s = await hamtaAvslut(klient({ data: [rad(), rad({ anledning: 'for_dyrt' })], error: null }))
     expect(s.antal).toBe(2)
+  })
+
+  it('sorterar aldrig på ett id: tabellen har inget (policyn säger att raden saknar id)', async () => {
+    await hamtaAvslut(klient({ data: [rad()], error: null }))
+    expect(sorterat).not.toContain('id')
+    expect(sorterat.length).toBeGreaterThan(0)
   })
 })
 

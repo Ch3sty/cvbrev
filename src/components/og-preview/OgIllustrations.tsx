@@ -431,6 +431,86 @@ export function OgRekryteringstesterIllustration() {
 }
 
 // =============================================================
+// PERSONLIGHETSTEST — fem spektrum med var sin markör, två styrkor
+// =============================================================
+// Profilen visas i produkten som lägen på fem skalor och som styrkor i ord,
+// aldrig som poäng. Bilden säger samma sak: markörer på spår, inga tal.
+export function OgPersonlighetstestIllustration() {
+  const rader = [
+    { etikett: 96, lage: 0.72 },
+    { etikett: 128, lage: 0.36 },
+    { etikett: 74, lage: 0.86 },
+    { etikett: 112, lage: 0.55 },
+    { etikett: 88, lage: 0.22 },
+  ];
+  return (
+    <div style={wrapperStyle}>
+      <svg width="540" height="540" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="pt-strip" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#FB923C" />
+            <stop offset="0.5" stopColor="#DC2626" />
+            <stop offset="1" stopColor="#BE185D" />
+          </linearGradient>
+          <linearGradient id="pt-markor" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#F97316" />
+            <stop offset="1" stopColor="#DC2626" />
+          </linearGradient>
+          <linearGradient id="pt-styrka" x1="0" y1="0" x2="160" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#F97316" />
+            <stop offset="1" stopColor="#DC2626" />
+          </linearGradient>
+        </defs>
+
+        {/* Bakgrund: rapportens textsida */}
+        <g transform="translate(60 80) rotate(7 200 230)" opacity="0.45">
+          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" opacity="0.85" />
+          <rect x="0" y="0" width="400" height="6" rx="3" fill="#FB923C" />
+          {[40, 70, 100, 130, 160, 200, 230, 260, 290].map((y, i) => (
+            <rect key={i} x="40" y={y} width={i % 2 === 0 ? 320 : 280} height="5" rx="2.5" fill="#CBD5E1" />
+          ))}
+        </g>
+
+        {/* Förgrund: profilen på fem skalor */}
+        <g transform="translate(80 30) rotate(-4 200 250)">
+          <rect x="6" y="14" width="400" height="490" rx="20" fill="rgba(0,0,0,0.22)" filter="blur(4px)" />
+          <rect x="0" y="0" width="400" height="490" rx="20" fill="white" />
+          <rect x="0" y="0" width="400" height="8" rx="4" fill="url(#pt-strip)" />
+
+          {/* Rubrik */}
+          <rect x="36" y="36" width="170" height="14" rx="4" fill="#1E293B" />
+          <rect x="36" y="60" width="124" height="7" rx="3" fill="#94A3B8" />
+
+          {/* Fem skalor: etikett, spår med mittstreck, markör */}
+          {rader.map((r, i) => {
+            const y = 104 + i * 56;
+            const cx = 36 + r.lage * 328;
+            return (
+              <g key={i}>
+                <rect x="36" y={y} width={r.etikett} height="9" rx="3" fill="#334155" />
+                <rect x="36" y={y + 22} width="328" height="14" rx="7" fill="#FFF7ED" stroke="#FED7AA" strokeWidth="1.5" />
+                <rect x="199" y={y + 19} width="2" height="20" rx="1" fill="#FDBA74" />
+                <circle cx={cx} cy={y + 29} r="14" fill="white" />
+                <circle cx={cx} cy={y + 29} r="11" fill="url(#pt-markor)" />
+              </g>
+            );
+          })}
+
+          {/* Två främsta styrkor, i ord */}
+          <rect x="36" y="392" width="112" height="7" rx="3" fill="#94A3B8" />
+          <g transform="translate(36 412)">
+            <rect x="0" y="0" width="156" height="42" rx="21" fill="url(#pt-styrka)" />
+            <rect x="24" y="17" width="108" height="8" rx="4" fill="white" opacity="0.92" />
+            <rect x="168" y="0" width="160" height="42" rx="21" fill="#FFEDD5" stroke="#FED7AA" strokeWidth="1.5" />
+            <rect x="192" y="17" width="112" height="8" rx="4" fill="#C2410C" opacity="0.75" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+// =============================================================
 // CV-MALLAR — staplade CV i olika stilar
 // =============================================================
 export function OgCvMallarIllustration() {

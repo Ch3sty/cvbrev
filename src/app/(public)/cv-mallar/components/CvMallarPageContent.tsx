@@ -554,6 +554,10 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                   <Link href="/artiklar/cv-pa-engelska-resume" className="cvm-lank">
                     CV på engelska
                   </Link>
+                  . Ska det personliga brevet få samma huvud, typsnitt och färg som CV:t visar vi hur i guiden om{' '}
+                  <Link href="/artiklar/cv-och-personligt-brev-samma-mall" className="cvm-lank">
+                    CV och personligt brev i samma mall
+                  </Link>
                   .
                 </p>
               </article>
