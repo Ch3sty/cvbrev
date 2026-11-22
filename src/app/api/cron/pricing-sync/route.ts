@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { syncPricingToDatabase, clearPricingCache } from '@/lib/openai/pricing-sync';
-import { generateQuotaBackEmail } from '@/lib/email/quota-back';
+import { skickaKvotPaminnelser } from '@/lib/email/kvotPaminnelse';
 import { generateSavedSearchAlertEmail, type AlertCandidate } from '@/lib/email/saved-search-alert';
 import { runPoolSearch, type PoolFilters } from '@/lib/recruiter/poolSearch';
 import { runLifecycleEmails, scheduleWinbacks, scheduleWeeklyDigests, scheduleKomIgangMejl, scheduleTraningsmejl } from '@/lib/email/lifecycle/runner';
@@ -129,7 +129,7 @@ export async function GET(request: NextRequest) {
         } else {
           let onetimeMails = 0;
           for (const user of expiredUsers) {
-            console.log(`[Paketutgång] Downgraded ${user.email} - Source: ${user.premium_source}, Expired: ${user.premium_until}`);
+            console.log(`[Paketutgång] Downgraded ${user.id} - Source: ${user.premium_source}, Expired: ${user.premium_until}`);
 
             // Spår D3: engångsköp som löpt ut får ett kort "vill du förlänga".
             // Reverse trial (signup_trial) har rt_day6 och ska INTE få det här.
@@ -280,73 +280,13 @@ export async function GET(request: NextRequest) {
     // 3. KVOTPÅMINNELSER (morgonslotten)
     // ====================================
     // Skickar "kvoten är tillbaka"-mail till användare som klickat "Påminn mig"
-    // och vars kvot nu öppnat. Respekterar quota_emails_opt_out.
+    // och vars kvot nu öppnat. Respekterar quota_emails_opt_out och hoppar över
+    // den vars behörighet gör kvoten obegränsad (beslut-mejl-och-radering 1d,
+    // loopen ligger i src/lib/email/kvotPaminnelse.ts).
     if (isMorningSlot) {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
-        const nowISO = now.toISOString();
-
-        const { data: due, error: dueError } = await supabaseAdmin
-          .from('quota_reminders')
-          .select('id, user_id, feature')
-          .is('sent_at', null)
-          .lte('remind_after', nowISO)
-          .limit(200);
-
-        if (dueError) throw dueError;
-
-        let sent = 0;
-        let skipped = 0;
-        for (const reminder of due ?? []) {
-          const { data: profile } = await supabaseAdmin
-            .from('profiles')
-            .select('email, quota_emails_opt_out, subscription_tier')
-            .eq('id', reminder.user_id)
-            .single();
-
-          // Hoppa över opt-out, saknad e-post och användare som hunnit bli
-          // premium (deras kvoter är obegränsade). Markera ändå som hanterad
-          // så samma rad inte processas varje morgon.
-          if (!profile?.email || profile.quota_emails_opt_out || profile.subscription_tier === 'premium') {
-            skipped++;
-          } else {
-            const { subject, html } = generateQuotaBackEmail(reminder.user_id, reminder.feature);
-            // Taggar följer med till Resends webhook-events så statistiken
-            // kan grupperas per mailtyp/funktion (endast a-z0-9_- tillåts).
-            const featureTag = reminder.feature.replace(/[^a-zA-Z0-9_-]/g, '_');
-            const { data: sendData, error: sendError } = await resend.emails.send({
-              from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
-              to: [profile.email],
-              subject,
-              html,
-              tags: [
-                { name: 'type', value: 'quota_back' },
-                { name: 'feature', value: featureTag }
-              ]
-            });
-            if (sendError) {
-              console.error('[Quota Reminders] Send failed for', reminder.id, sendError);
-              continue; // lämna osänd, försöks igen imorgon
-            }
-            sent++;
-            await supabaseAdmin.from('email_log').insert({
-              resend_id: sendData?.id ?? null,
-              user_id: reminder.user_id,
-              email_type: 'quota_back',
-              feature: reminder.feature,
-              recipient: profile.email,
-              subject
-            });
-          }
-
-          await supabaseAdmin
-            .from('quota_reminders')
-            .update({ sent_at: nowISO })
-            .eq('id', reminder.id);
-        }
-
-        console.log(`[Quota Reminders] sent=${sent} skipped=${skipped} due=${due?.length ?? 0}`);
-        results.quotaReminders = { success: true, sent, skipped };
+        results.quotaReminders = await skickaKvotPaminnelser(supabaseAdmin, resend, now);
       } catch (error: any) {
         console.error('[Quota Reminders] Error:', error);
         results.quotaReminders = { success: false, error: error.message };
