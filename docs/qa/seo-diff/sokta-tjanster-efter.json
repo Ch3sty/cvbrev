@@ -1,0 +1,197 @@
+[
+  {
+    "path": "/verktyg/sokta-tjanster",
+    "status": 200,
+    "h1": [
+      "Håll koll på varje jobb du har sökt"
+    ],
+    "title": "Sökta jobb: håll koll på dina ansökningar | Jobbcoach.ai",
+    "description": "Logga sökta jobb, se var ansökningarna står och få ett utkast till uppföljningsmejl efter tolv tysta dagar. Med underlag till aktivitetsrapporten.",
+    "canonical": "https://www.jobbcoach.ai/verktyg/sokta-tjanster",
+    "ogImage": "https://www.jobbcoach.ai/verktyg/sokta-tjanster/opengraph-image-d1tl60?e85859c8718d6e07",
+    "robots": "index, follow",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Logga ett jobb du har sökt"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så fungerar det"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Spara annonsen du ska söka"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Logga när du har sökt"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Uppdatera när något händer"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Följ upp och ta ut månaden"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Från Ska sökas till erbjudande"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Spara annonsen med sista ansökningsdag"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Veckans mål håller farten uppe"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Se var ansökningarna tar stopp"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Aktivitet per vecka"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Hur du sökte"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Svar per CV"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Uppföljningsmejlet efter tolv tysta dagar"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Intervjun hör till tjänsten du sökte"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Underlag till din aktivitetsrapport"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Gratis att logga. Premium när du vill ta ut mer."
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Gratis för alla med konto"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbcoach Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Resten av jobbsöket ligger ett tryck bort"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Frågor om Sökta tjänster"
+      }
+    ],
+    "lankar": [
+      "#sa-funkar-det",
+      "/",
+      "/artiklar/soka-jobb-via-mail",
+      "/artiklar/soka-jobb-via-mail",
+      "/artiklar/uppfoljning-efter-intervju",
+      "/artiklar/uppfoljning-efter-intervju",
+      "/funktioner",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/funktioner\",\"name\":\"Verktyg\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/verktyg/sokta-tjanster\",\"name\":\"Sökta tjänster\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Att logga sökta jobb, spara annonser under Ska sökas, sätta veckans mål och se statistiken är gratis för alla med konto, och du behöver inte lämna några kortuppgifter. Det första utkastet till ett uppföljningsmejl är också gratis. Fler utkast och månadsrapporten med alla rader ingår i Jobbcoach Premium, 149 kr i månaden.\"},\"name\":\"Kostar det något att logga sökta jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi skriver ett utkast, och du öppnar det i din egen e-post eller kopierar texten. Du ändrar det du vill och skickar själv, från din egen adress. Vi skickar aldrig något till en arbetsgivare.\"},\"name\":\"Skickar ni uppföljningsmejlet åt mig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Månadsrapporten är ditt eget underlag. Du lämnar in aktivitetsrapporten själv, på Mina sidor eller på något av de andra sätt Arbetsförmedlingen anger. Vi skickar ingenting dit.\"},\"name\":\"Skickar ni min aktivitetsrapport till Arbetsförmedlingen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Enligt Arbetsförmedlingen ska alla jobb du har sökt under månaden stå med, annonserade eller inte, och även intervjuer du har varit på. Du lämnar rapporten mellan den 1:a och den 14:e varje månad, och den gäller månaden innan. Den lämnas på Mina sidor, med blankett eller per telefon, och du sparar underlag som visar att du har sökt jobben i minst tre månader. Vår månadsrapport har tjänst, arbetsgivare och datum för varje sökt jobb. Vad som gäller i ditt fall står hos Arbetsförmedlingen, på sidan Aktivitetsrapportera (läst 22 november 2026).\"},\"name\":\"Vad ska stå i en aktivitetsrapport?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det är vår egen gräns, ingen regel. Tolv dagar är långt nog för att arbetsgivaren ska ha hunnit läsa, och kort nog för att rekryteringen oftast fortfarande pågår. Efter en intervju föreslår vi mejlet redan efter sju dagar utan besked. Du kan alltid höra av dig tidigare på egen hand.\"},\"name\":\"Varför föreslår ni uppföljning efter just tolv dagar?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Du loggar vilket jobb som helst med tjänst, arbetsgivare och datum, också spontanansökningar och jobb du har fått höra om genom en kontakt. Kommer du från en träff i Matchade jobb är uppgifterna redan ifyllda.\"},\"name\":\"Måste jag hitta jobben genom er jobbmatchning?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du väljer själv datumet när du loggar, så äldre ansökningar hamnar i rätt månad. Har du skrivit personliga brev hos oss tidigare föreslår vi att lägga in dem som sökta tjänster, med ett tryck.\"},\"name\":\"Kan jag lägga in jobb jag sökte innan jag skapade kontot?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"När du loggar att du är kallad sätter du dag, tid och plats på tjänsten. Den står då under Inför intervjun, med frågorna du har övat på och annonsens krav bredvid. Dagen efter intervjun frågar vi hur det gick.\"},\"name\":\"Hur hänger intervjun ihop med den sökta tjänsten?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"name\":\"Så håller du koll på dina sökta jobb\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Spara annonsen du ska söka\",\"position\":1,\"text\":\"Lägg den under Ska sökas med sista ansökningsdag. Från en träff i Matchade jobb sparar du med ett tryck.\"},{\"@type\":\"HowToStep\",\"name\":\"Logga när du har sökt\",\"position\":2,\"text\":\"Markera annonsen som sökt, eller logga ett jobb du har sökt på egen hand. Brickan flyttar till Sökt.\"},{\"@type\":\"HowToStep\",\"name\":\"Uppdatera när något händer\",\"position\":3,\"text\":\"Kallad till test, kallad till intervju, erbjudande eller avslag. Varje händelse hamnar på tjänsten med sitt datum.\"},{\"@type\":\"HowToStep\",\"name\":\"Följ upp och ta ut månaden\",\"position\":4,\"text\":\"Efter tolv tysta dagar föreslår vi ett uppföljningsmejl. Vid månadens slut står det du har sökt samlat på ett blad.\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"applicationCategory\":\"BusinessApplication\",\"description\":\"Logga sökta jobb, se var ansökningarna står och få ett utkast till uppföljningsmejl efter tolv tysta dagar. Med underlag till aktivitetsrapporten.\",\"featureList\":\"Logga sökta jobb med tjänst, arbetsgivare och datum, Ska sökas med sista ansökningsdag, Veckans mål, Statistik från sökt till erbjudande, Utkast till uppföljningsmejl efter tolv tysta dagar, Månadsrapport som underlag till aktivitetsrapporten\",\"name\":\"Jobbcoach.ai Sökta tjänster\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"operatingSystem\":\"Web browser\",\"url\":\"https://www.jobbcoach.ai/verktyg/sokta-tjanster\"}"
+    ],
+    "forstaBild": null,
+    "bilder": [],
+    "faq": [
+      "Kostar det något att logga sökta jobb?",
+      "Skickar ni uppföljningsmejlet åt mig?",
+      "Skickar ni min aktivitetsrapport till Arbetsförmedlingen?",
+      "Vad ska stå i en aktivitetsrapport?",
+      "Varför föreslår ni uppföljning efter just tolv dagar?",
+      "Måste jag hitta jobben genom er jobbmatchning?",
+      "Kan jag lägga in jobb jag sökte innan jag skapade kontot?",
+      "Hur hänger intervjun ihop med den sökta tjänsten?",
+      "ld: Kostar det något att logga sökta jobb?",
+      "ld: Skickar ni uppföljningsmejlet åt mig?",
+      "ld: Skickar ni min aktivitetsrapport till Arbetsförmedlingen?",
+      "ld: Vad ska stå i en aktivitetsrapport?",
+      "ld: Varför föreslår ni uppföljning efter just tolv dagar?",
+      "ld: Måste jag hitta jobben genom er jobbmatchning?",
+      "ld: Kan jag lägga in jobb jag sökte innan jag skapade kontot?",
+      "ld: Hur hänger intervjun ihop med den sökta tjänsten?"
+    ],
+    "ord": 1716
+  }
+]
