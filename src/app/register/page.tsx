@@ -9,7 +9,7 @@
 // Efter provet (?test=) läser servern besökarens resultat, bara antal rätt,
 // totalt och vilka positioner som blev fel (prov-resultat.server.ts), så att
 // panelen i kontosteget står i första bilden (skissen 2026-11-09). Sidan
-// står i .pub-sida och i grundens skal på grafit (publikt omgång 3, skissen
+// står i .pub-sida och i grundens skal på indigo (publikt omgång 3, skissen
 // registrering): Sida sätter färgen, formen står i registrering.css.
 
 import { headers } from 'next/headers'
@@ -79,7 +79,7 @@ export default async function RegisterPage({
 
   return (
     <PubliktSida>
-      <Sida farg="neutral">
+      <Sida farg="tran">
         <RegisterFlode ingang={ingang} provResultat={provResultat} nio={nioRader(provResultat?.typ ?? null)} />
       </Sida>
     </PubliktSida>

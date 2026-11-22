@@ -6,7 +6,7 @@
  * en, en panel bredvid kortet.
  *
  * Ren markup utan hooks, så att både server- och klientsidor kan använda
- * den. Sida sätter grafit (data-p3-sida) och laddar grundens CSS; formen
+ * den. Sida sätter indigo (data-p3-sida, som skissens bilder) och laddar grundens CSS; formen
  * står i registrering.css (rg-*), samma som Logga in.
  */
 
@@ -27,7 +27,7 @@ export function AuthKortSkal({
   children: ReactNode
 }) {
   return (
-    <Sida farg="neutral">
+    <Sida farg="tran">
       <div className="rg-skal rg-auto">
         <header className="rg-topp">
           <div className="p3-bredd rg-topp-rad">

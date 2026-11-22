@@ -6,7 +6,7 @@
    Google-knappen, fälten, kryssrutan, beskedsraderna, och panelerna bredvid
    kortet. Klasserna heter rg-* och krockar inte med grunden (p3-*) eller
    publikt.css (pub-*). Färgerna är grundens tokens, som sätts av sidans
-   data-p3-sida (grafit). Inga hex-värden.
+   data-p3-sida (indigo sedan utseendegranskningen 2026-11-22). Inga hex-värden.
    ============================================================================= */
 
 /* ---------- skalet ---------- */
@@ -207,3 +207,7 @@
 .rg-krav ul { display: grid; gap: 6px; }
 .rg-krav .rg-ey { margin-bottom: 2px; }
 .rg-lank:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Framstegstråden visar steg. Utan steg (bara kontot, inloggningen) finns inget att visa: förut en hel kopparlinje under toppraden. */
+.rg-trad.rg-trad-tom { visibility: hidden; height: 0; }

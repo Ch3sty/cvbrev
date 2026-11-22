@@ -140,7 +140,7 @@ export default function PubliktFlodesskal({
           aria-valuemax={100}
           aria-valuenow={pct}
           aria-label={steg ? `Steg ${steg.nu} av ${steg.av}` : undefined}
-          className="rg-trad"
+          className={`rg-trad ${steg || typeof framsteg === 'number' ? '' : 'rg-trad-tom'}`.trim()}
         >
           <div style={{ width: `${pct}%` }} />
         </div>
