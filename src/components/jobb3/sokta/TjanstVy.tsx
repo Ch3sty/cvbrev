@@ -11,6 +11,11 @@
  * om med router.refresh(). Det som användaren själv just gjort (svarat på
  * Hur gick intervjun?, loggat en uppföljning) syns direkt ur lokalt läge,
  * innan serverdatan är tillbaka (klicktestet 2026-11-21).
+ *
+ * Omgång 2 (byggspec 2.3, 2.4): efter intervju eller provjobb heter panelen
+ * "Fråga <företaget> om besked"; Följ upp visas bara när tjänsten har en sort
+ * att följa upp (foljUppTyp); en kallelse utan tid får blocket "Sätt tiden"
+ * överst i panelen.
  */
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
@@ -46,6 +51,7 @@ import {
   IkonPenna,
   IkonBock,
   IkonVaska,
+  IkonRutnat,
   IkonFlagga,
   IkonAvslag,
   IkonKalender,
@@ -64,8 +70,12 @@ import {
   kortDag,
   langDag,
   langDagMedAr,
+  momentDag,
+  momentOrd,
   narText,
+  nastaPaminnelse,
   ordtal,
+  skaSattaTiden,
   veckodagNamn,
   veckodagOchDag,
   type ApplicationEventType,
@@ -114,18 +124,22 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
   // syns efter att tjänsten lämnat Följ upp. "Hur gick intervjun?" står
   // aldrig kvar när frågan är besvarad (klicktestet 2026-11-21).
   // Följ upp visas när tjänsten är tyst, har ett utkast eller följdes upp i
-  // dag (så att "Följde upp i dag" och Ångra står kvar efter en omladdning).
+  // dag (så att "Följde upp i dag" och Ångra står kvar efter en omladdning),
+  // och bara när läget har något att följa upp (foljUppTyp, omgång 2): en
+  // kallad tjänst visar aldrig Följ upp, inte heller med ?steg=folj-upp ur en
+  // gammal notis. u.utkast är redan rensat av servern till rätt sort.
+  const kanFoljaUpp = t.foljUppTyp !== null
   const grund: Block = t.avslutad
     ? null
     : i?.lage === 'hur_gick' && !hurGickBesvarad
       ? 'hur-gick'
       : i && (i.lage === 'bokad' || i.lage === 'utan_tid')
         ? 'forbered'
-        : tyst || u.utkast || uppfoljdIdag
+        : kanFoljaUpp && (tyst || u.utkast || uppfoljdIdag)
           ? 'folj-upp'
           : null
   const onskat: Block =
-    fokus === 'folj-upp' && !t.avslutad
+    fokus === 'folj-upp' && !t.avslutad && kanFoljaUpp
       ? 'folj-upp'
       : fokus === 'forbered' && t.station === 'intervju'
         ? 'forbered'
@@ -133,7 +147,9 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
           ? 'hur-gick'
           : null
   const [foljUppVisad, setFoljUppVisad] = useState((onskat ?? grund) === 'folj-upp')
-  const block: Block = foljUppVisad ? 'folj-upp' : grund ?? onskat
+  // Står kvar efter "Ja, det är skickat" (sorten är densamma), men inte när
+  // en ny händelse (kallelse, avslag, erbjudande) har tagit bort sorten.
+  const block: Block = foljUppVisad && kanFoljaUpp ? 'folj-upp' : grund ?? onskat
   useEffect(() => {
     if (block === 'folj-upp') setFoljUppVisad(true)
   }, [block])
@@ -168,7 +184,9 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
             ? 'Kallad till intervju'
             : t.station === 'erbjudande'
               ? STATUS_META[t.status ?? 'offer_received'].label
-              : 'Väntar svar'
+              : t.status === 'test_invited'
+                ? 'Kallad till test'
+                : 'Väntar svar'
 
   const intervjuRubrik = i?.dag
     ? `Intervju ${veckodagNamn(i.dag)} ${langDag(i.dag)}${klockslag(i.tid) ? `, ${klockslag(i.tid)}` : ''}`
@@ -178,18 +196,34 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
   const tidLank = (vagg: boolean) =>
     i && i.lage !== 'vantar_besked' ? (
       <TextLank vagg={vagg} onClick={() => setTidArk('andra')}>
-        {i.tid ? 'Ändra tid' : 'Sätt tid'}
+        {i.tid ? 'Ändra tid' : 'Sätt tiden'}
       </TextLank>
     ) : null
   const datumBricka = (pa: 'vagg' | 'golv') =>
     i?.dag ? <DatumBricka manad={MANAD_KORT[Number(i.dag.slice(5, 7)) - 1]} dag={Number(i.dag.slice(8, 10))} pa={pa} /> : null
 
   const visaDatumRuta = !!(i && (i.lage === 'bokad' || i.lage === 'hur_gick') && i.dag)
+  // Efter intervju eller provjobb (omgång 2): M är "Intervjun" eller "Provjobbet", D intervjudagen.
+  const efterMoment = t.foljUppTyp === 'intervju' || t.foljUppTyp === 'provjobb'
+  const moment = momentOrd(t)
+  const mDag = momentDag(t)
+  // Kallelsens dag när "Sätt tiden" har tagits upp (två dagar efter kallelsen), annars null.
+  const kalladEfterTva = skaSattaTiden(i, idag) ? (i?.kalladDag ?? null) : null
+  // Påminnelsedagen före sju dagar; efter en just loggad uppföljning räknas den från den.
+  const beskedSenast = lokalUppf?.sent_at ? nastaPaminnelse(lokalUppf.sent_at, t.foljUppTyp) : t.tystSedan
   const ingressVagg = tyst
-    ? `Du sökte ${veckodagNamn(t.appliedAt)} ${langDag(t.appliedAt)} och har inte hört något. Efter två veckor är det helt i sin ordning att fråga.`
-    : i?.lage === 'utan_tid'
-      ? 'Du är kallad till intervju. Sätt tiden när du vet den, så påminner vi och frågar hur det gick.'
-      : null
+    ? efterMoment
+      ? `${moment.stor} var ${veckodagNamn(mDag)} ${langDag(mDag)} och du har inte fått besked. Efter en vecka är det helt i sin ordning att fråga.`
+      : `Du sökte ${veckodagNamn(t.appliedAt)} ${langDag(t.appliedAt)} och har inte hört något. Efter två veckor är det helt i sin ordning att fråga.`
+    : efterMoment && i?.lage === 'vantar_besked'
+      ? `${moment.stor} var ${veckodagNamn(mDag)} ${langDag(mDag)}. Har du inte fått besked den ${langDag(beskedSenast)} säger vi till.`
+      : i?.lage === 'utan_tid'
+        ? kalladEfterTva
+          ? `Du blev kallad till intervju den ${langDag(kalladEfterTva)}. Sätt tiden, så påminner vi före intervjun och frågar hur det gick.`
+          : 'Du är kallad till intervju. Sätt tiden när du vet den, så påminner vi och frågar hur det gick.'
+        : t.status === 'test_invited' && t.kalladTillTest
+          ? `Du blev kallad till test ${veckodagNamn(t.kalladTillTest)} ${langDag(t.kalladTillTest)}. Arbetsgivaren har hört av sig, så vi föreslår ingen uppföljning. Lägg till intervjun eller beskedet här när det kommer.`
+          : null
 
   /* -------------------------------------------------------- händelserna */
 
@@ -232,13 +266,15 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
       rubrik: 'Följde upp',
       datum: 'läggs till när du har skickat',
       datumKoppar: true,
-      text: `Inget hört på ${t.dagarTyst} dagar. Tystnaden loggar du aldrig själv, den räknar vi ut.`,
+      text: efterMoment
+        ? `Inget besked på ${t.dagarTyst} dagar. Tystnaden loggar du aldrig själv, den räknar vi ut.`
+        : `Inget hört på ${t.dagarTyst} dagar. Tystnaden loggar du aldrig själv, den räknar vi ut.`,
       lage: 'snart',
       ikon: <IkonMejl size={20} />,
     })
   }
   if (!t.avslutad && t.status !== 'accepted') {
-    if (t.station === 'sokt') rader.push({ rubrik: 'Svar', lage: 'sen', ikon: <IkonPrat size={20} /> })
+    if (t.station === 'sokt') rader.push({ rubrik: t.status === 'test_invited' ? 'Besked efter testet' : 'Svar', lage: 'sen', ikon: <IkonPrat size={20} /> })
     else if (t.station === 'intervju') rader.push({ rubrik: 'Erbjudande', lage: 'sen', ikon: <IkonFlagga size={20} /> })
   }
 
@@ -257,6 +293,8 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
             { typ: 'rejected', ikon: <IkonAvslag /> },
           ]
         : [
+            // Kallad till test (9 B) först, utom när tjänsten redan står som kallad till test.
+            ...(t.status === 'test_invited' ? [] : [{ typ: 'test_invited' as const, ikon: <IkonRutnat /> }]),
             { typ: 'interview_invited', ikon: <IkonKalender /> },
             { typ: 'rejected', ikon: <IkonAvslag /> },
           ]
@@ -319,8 +357,32 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
         <IkonPil />
       </StorKnapp>
     )
+    // Kallelse utan tid (omgång 2): under 1280 px alltid, från 1280 px först
+    // två dagar efter kallelsen (väggen har ingressen och länken före det).
+    const satTidBlock =
+      i?.lage === 'utan_tid' ? (
+        <div className={kalladEfterTva ? undefined : 'xl:hidden'} style={{ marginBottom: 18 }}>
+          <TonYta>
+            <p className="j3-h3">{kalladEfterTva ? 'Sätt tiden för intervjun' : 'Ingen tid satt för intervjun'}</p>
+            <p className="j3-text" style={{ margin: '4px 0 12px' }}>
+              {kalladEfterTva
+                ? `Du blev kallad den ${langDag(kalladEfterTva)}. Med tiden satt påminner vi före intervjun. Har den redan varit loggar du det här.`
+                : 'Sätt tiden när du vet den, så påminner vi före intervjun och frågar hur det gick.'}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <LitenKnapp storlek={48} ikon={<IkonKalender />} onClick={() => setTidArk('andra')}>
+                Sätt tiden
+              </LitenKnapp>
+              <LitenKnapp storlek={48} variant="streckad" onClick={() => setHandelse({ open: true, typ: 'interview_completed' })}>
+                Intervjun har redan varit
+              </LitenKnapp>
+            </div>
+          </TonYta>
+        </div>
+      ) : null
     panelInnehall = (
       <>
+        {satTidBlock}
         {visaDatumRuta ? (
           <div className="xl:hidden" style={{ marginBottom: 14 }}>
             <DatumRuta pa="golv" bricka={datumBricka('golv')} rubrik={i?.dag ? `Intervju ${veckodagNamn(i.dag)}${klockslag(i.tid) ? ` ${klockslag(i.tid)}` : ''}` : ''} rad={<>{omText} {tidLank(false)}</>} />
@@ -361,10 +423,14 @@ export default function TjanstVy({ data, fokus }: { data: SoktTjanstData; fokus:
       <>
         <PanelHuvud
           ogon="Nästa steg"
-          rubrik={`Följ upp ${t.company}`}
+          rubrik={efterMoment ? `Fråga ${t.company} om besked` : `Följ upp ${t.company}`}
           rubrikId="nasta"
           stor
-          under="Ett kort mejl brukar ge besked. Utkastet är skrivet utifrån din ansökan. Ändra det du vill direkt i texten."
+          under={
+            efterMoment
+              ? `Ett kort mejl som tackar för ${moment.liten} och frågar när du kan vänta besked. Ändra det du vill direkt i texten.`
+              : 'Ett kort mejl brukar ge besked. Utkastet är skrivet utifrån din ansökan. Ändra det du vill direkt i texten.'
+          }
         />
         <Uppfoljning
           ansokanId={a.id}

@@ -57,6 +57,10 @@ export const NASTA = {
   lasIgen: {
     tillagg: 'Nästa prov öppnar i morgon.',
     knapp: 'Läs återkopplingen igen',
+    // Dagens prov fick högsta betyg (arHogstaBetyg): inget att skriva om.
+    ogonHogst: 'Klart för i dag',
+    rubrikHogst: (fraga: FragaId) => `Högsta betyg på frågan om ${FRAGOR[fraga].bestamd}`,
+    imorgon: (fraga: FragaId) => `Då föreslår vi frågan om ${FRAGOR[fraga].bestamd}.`,
   },
   nyFraga: {
     rubrik: (fraga: FragaId) => `Öva på "${FRAGOR[fraga].text.replace(/\.$/, '')}"`,

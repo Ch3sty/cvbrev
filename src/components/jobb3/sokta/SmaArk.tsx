@@ -22,6 +22,7 @@ import {
   IkonKalender,
   IkonVaska,
   IkonPersoner,
+  IkonRutnat,
 } from '@/components/jobb3/kit'
 import { STATUS_META } from '@/lib/applications/status'
 import { dagFor, handelseForeSokt, idagSv, klockslag, VECKANS_MAL_MAX, VECKANS_MAL_MIN, type ApplicationEventType, type Dag } from '@/lib/jobbsok'
@@ -102,6 +103,7 @@ export function MalArk({ open, onClose, mal, onSparat }: { open: boolean; onClos
 /* -------------------------------------------------- Lägg till händelse */
 
 const VAL: { typ: ApplicationEventType; ikon: React.ReactNode }[] = [
+  { typ: 'test_invited', ikon: <IkonRutnat /> },
   { typ: 'interview_invited', ikon: <IkonKalender /> },
   { typ: 'interview_completed', ikon: <IkonBock /> },
   { typ: 'trial_work_completed', ikon: <IkonVaska /> },
@@ -209,7 +211,7 @@ export function HandelseArk({
           ))}
         </ValRad>
       ) : null}
-      <Falt etikett={typ === 'interview_invited' ? 'Dagen du blev kallad' : 'Datum'} typ="datum" value={datum} min={typ === 'applied' ? undefined : sokt} max={idag} onChange={(e) => setDatum(e.target.value)} />
+      <Falt etikett={typ === 'interview_invited' || typ === 'test_invited' ? 'Dagen du blev kallad' : 'Datum'} typ="datum" value={datum} min={typ === 'applied' ? undefined : sokt} max={idag} onChange={(e) => setDatum(e.target.value)} />
       {typ === 'interview_invited' ? (
         <>
           <Falt etikett="Intervjuns dag" tillagg="valfritt" typ="datum" value={intDag} min={idag} onChange={(e) => setIntDag(e.target.value)} />

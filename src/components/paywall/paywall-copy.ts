@@ -436,10 +436,12 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
 
     // F5: första utkastet per konto är gratis, samma tjänsts utkast går alltid
     // att öppna igen. "Jag har redan skickat det" står kvar bredvid väggen.
+    // Omgång 2 (byggspec 2.5): utkastet kan vara använt på samma tjänst men
+    // för en annan sort (ansökan, intervju), så texten säger inte "annan tjänst".
     case 'uppfoljning':
       return {
         title: `Fler uppföljningsmejl ingår i ${PREMIUM}`,
-        body: `Ditt gratis utkast är använt på en annan tjänst. Med ${PREMIUM} skriver vi ett utkast till varje tjänst du vill följa upp. Du kan också skriva mejlet själv och logga det här.`,
+        body: `Ditt gratis utkast är använt. Med ${PREMIUM} skriver vi ett utkast varje gång du vill följa upp, efter en ansökan eller en intervju. Du kan också skriva mejlet själv och logga det här.`,
         primary: knapp,
         secondary: 'Se vad som ingår',
       }

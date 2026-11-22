@@ -4,6 +4,7 @@
 import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { PremiumKnappText } from '@/components/kampanj/KampanjPrisKontext'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad'
 import { useState, useEffect } from 'react';
@@ -112,7 +113,8 @@ export default function CVQuotaManager({
           href={kopstegHref(SALD_PLAN, 'cv_antal')}
           className={`${KNAPP_PRIMAR_SMAL} mt-3`}
         >
-          {PAKETRADER.kopCv}
+          {/* Kampanjens knapptext för konton som kan få den, samma ord som köpsteget och kassan. */}
+          <PremiumKnappText />
         </a>
       )}
 

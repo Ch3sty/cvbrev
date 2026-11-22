@@ -14,8 +14,58 @@ import { exampleData } from '@/app/(public)/personligt-brev-exempel/[yrke]/exemp
 import { ARTIKEL_BREV, ARTIKEL_BREV_NYCKLAR } from '@/components/mdx/personligt-brev-preview-data'
 import { VISARE_MALL_IDS, brevDataFranFalt } from '@/components/publikt/brevvisare/visare-data'
 import { avslutsRad } from '@/lib/letters/brevmall/text'
-import { GAMLA_MALL_IDS, lastSteg, ritaArk, svaraBrev, valdMall, valtBrev } from '../rita'
+import { MALLAR } from '@/lib/cv/mallar/register'
+import { brevMallDef, uppskattatSteg } from '@/lib/letters/brevmall/render'
+import { GAMLA_MALL_IDS, SMALARE_TEXT, VISARE_MAX_STEG, lastSteg, ritaArk, svaraBrev, valdMall, valtBrev } from '../rita'
 import { GET } from '../route'
+
+describe('det låsta steget (2026-11-21)', () => {
+  const brev = Object.keys(exampleData).map((s) => [s, valtBrev(q(`slug=${s}`), DATUM)!] as const)
+
+  it('Raster, Betong och Mörkrum: smalare text i uppskattningen, aldrig glesare än förut', () => {
+    expect(SMALARE_TEXT).toEqual({ raster: 0.92, betong: 0.92, morkrum: 0.92 })
+    for (const mall of Object.keys(SMALARE_TEXT))
+      for (const [s, d] of brev) expect(lastSteg(mall, d), `${mall} ${s}`).toBeGreaterThanOrEqual(uppskattatSteg(brevMallDef(mall), d, undefined, 2))
+    // De tio ritningar som föll i visaren men inte i produkten (mätningen 2026-11-21): nu produktens steg.
+    const fall: [string, string, number][] = [
+      ['raster', 'civilingenjor', 2],
+      ['raster', 'it-konsult', 2],
+      ['raster', 'teamledare', 1],
+      ['betong', 'barnskotare', 1],
+      ['betong', 'barnmorska', 2],
+      ['betong', 'stodpedagog', 1],
+      ['morkrum', 'sjukskoterska', 2],
+      ['morkrum', 'socialsekreterare', 2],
+      ['morkrum', 'ekonom', 1],
+      ['morkrum', 'devops-engineer', 2],
+    ]
+    for (const [mall, slug, steg] of fall) expect(lastSteg(mall, valtBrev(q(`slug=${slug}`), DATUM)!), `${mall} ${slug}`).toBe(steg)
+  })
+
+  it('övriga mallar: samma steg som uppskattningen med högst steg 2', () => {
+    for (const def of MALLAR) {
+      if (def.id in SMALARE_TEXT) continue
+      for (const [s, d] of brev) expect(lastSteg(def.id, d), `${def.id} ${s}`).toBe(uppskattatSteg(def, d, undefined, 2))
+    }
+  })
+
+  it('visaren låser aldrig steg 3; de fem mallarna x 89 brev har samma steg som före steg 3', () => {
+    expect(VISARE_MAX_STEG).toBe(2)
+    for (const def of MALLAR) for (const [s, d] of brev) expect(lastSteg(def.id, d), `${def.id} ${s}`).toBeLessThanOrEqual(2)
+    let n = 0
+    for (const mall of VISARE_MALL_IDS)
+      for (const [s, d] of brev) {
+        expect(lastSteg(mall, d), `${mall} ${s}`).toBe(uppskattatSteg(brevMallDef(mall), d, undefined, 2))
+        // Arkets attribut (CSS-regeln för steg 3 står i alla ark och räknas inte).
+        expect(ritaArk(mall, d)).not.toMatch(/<div class="cv brev[^>]*data-steg="3"/)
+        n++
+      }
+    expect(n).toBe(445)
+    // Fallen ur produktionen 2026-11-22 (data-steg="3" före rättningen).
+    for (const [mall, slug] of [['ritning', 'lakare'], ['koppar', 'hemtjanstpersonal']])
+      expect(lastSteg(mall, valtBrev(q(`slug=${slug}`), DATUM)!), `${mall} ${slug}`).toBe(2)
+  })
+})
 
 const DATUM = '2026-11-21'
 const q = (s: string) => new URLSearchParams(s)

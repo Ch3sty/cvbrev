@@ -53,6 +53,11 @@ describe('putsningen av brevmallarna (2026-11-21)', () => {
     expect(brevDef(brevMallDef('morkrum')).huvud.band!.minHojd).toBe(40)
   })
 
+  it('steg 3 tar putsningens grad som utgångspunkt (Not, Panorama 11 pt: 9,5 pt i steg 3)', () => {
+    expect(brevMatt(brevDef(brevMallDef('not')), 3)).toEqual({ grad: 9.5, rad: 1.3, luft: 2 })
+    expect(brevMatt(brevDef(brevMallDef('panorama')), 3).grad).toBe(9.5)
+  })
+
   it('ärenderaden i Mörkrum och Panorama: mallens accent med minst 4,5 i kontrast mot papperet', () => {
     for (const id of ['morkrum', 'panorama']) {
       const def = brevDef(brevMallDef(id))

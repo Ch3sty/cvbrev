@@ -20,6 +20,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import BrevArk from '@/components/brev3/ark/BrevArk'
 import {
@@ -54,6 +55,7 @@ import { MallKort } from './MallKort'
 import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, mallarKopretur, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
+import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk, tvaSidorLage, type BrevMatt } from '../kit/sidmatt'
 
 const BytBrevArk = dynamic(() => import('./BytBrevArk'), { ssr: false })
 
@@ -157,6 +159,12 @@ export default function MallarKlient(p: MallarKlientProps) {
   }, [visad, brev])
 
   /* ---------------------------------------------------------------- arket */
+  // Förhandsvisningar som föll, så att Försök igen gör om just dem: arket
+  // (mall och typsnitt) och korten (en ny omgång för de kort som saknas).
+  const fallnaArk = useRef<{ mall: string; font: string | null } | null>(null)
+  const kortFoll = useRef(false)
+  const [kortForsok, setKortForsok] = useState(0)
+
   const hamtaArk = useCallback(
     async (mall: string, f: string | null) => {
       const k = nyckel(mall, f)
@@ -166,11 +174,24 @@ export default function MallarKlient(p: MallarKlientProps) {
         setArkHtml((a) => ({ ...a, [k]: html }))
         if (!kortHtml[mall]) setKortHtml((a) => ({ ...a, [mall]: html }))
       } catch {
+        fallnaArk.current = { mall, font: f }
         setFel(T.fel.forhandsvisa)
       }
     },
     [arkHtml, kortHtml, brevId],
   )
+
+  /** Försök igen i felraden: raden går bort, och kommer tillbaka bara om det faller igen. */
+  const forsokIgen = () => {
+    setFel(null)
+    const arket = fallnaArk.current
+    fallnaArk.current = null
+    if (arket) void hamtaArk(arket.mall, arket.font)
+    if (kortFoll.current) {
+      kortFoll.current = false
+      setKortForsok((n) => n + 1)
+    }
+  }
 
   const spara = useCallback(
     (andring: { mall_id?: string; font_id?: string | null }) => {
@@ -222,6 +243,40 @@ export default function MallarKlient(p: MallarKlientProps) {
 
   const ark = arkHtml[nyckel(visad, font)] ?? kortHtml[visad] ?? null
 
+  /* ---------------------------------------------------------------- två sidor */
+  // Samma mätning som Brevet (kit/sidmatt), på arket i den valda mallen och
+  // typsnittet. Kortets HTML som reserv medan arket hämtas mäts inte, och en
+  // mätning gäller bara den HTML den gjordes på: inget gammalt värde visas
+  // medan nytt ark laddas.
+  const brevRef = useRef<HTMLDivElement>(null)
+  const valtArk = arkHtml[nyckel(visad, font)] ?? null
+  const [sidmatt, setSidmatt] = useState<BrevMatt | null>(null)
+  const mattNamn = visadKort.namn
+  useEffect(() => {
+    if (!brev || !valtArk) return
+    let aktiv = true
+    const mat = () => {
+      const el = aktiv && brevRef.current ? synligtArk(brevRef.current) : null
+      const andel = el ? matBrevAndel(el) : null
+      if (andel !== null) setSidmatt({ html: valtArk, andel, mall: mattNamn })
+    }
+    const t = setTimeout(mat, BREV_MATT_FORDROJNING_MS)
+    // Ett nytt typsnitt laddas först när det används: mät igen när filerna är klara.
+    void document.fonts?.ready.then(() => setTimeout(mat, 0))
+    return () => {
+      aktiv = false
+      clearTimeout(t)
+    }
+    // mattNamn hör till valtArk (samma mall); det räcker att mäta om när arket byts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brev, valtArk])
+  // ja, nej, eller under mätningen: vantar-efter-ja (syntes före bytet) och vantar.
+  const tvaLage = tvaSidorLage({ egetBrev: !!brev, html: valtArk, matt: sidmatt })
+  // Texten bär alltid mallnamnet den mättes i, aldrig gammalt besked med nytt namn.
+  const tvaNamn = sidmatt?.mall ?? visadKort.namn
+  // Reserven på dator håller höjden med katalogens längsta namn, så att rutan är lika hög för alla mallar.
+  const langstaNamn = useMemo(() => katalog.reduce((a, k) => (k.namn.length > a.length ? k.namn : a), ''), [katalog])
+
   /* ---------------------------------------------------------------- rutnätet */
   const filtrerade = useMemo(() => katalog.filter((k) => passarFilter(k, filter)), [katalog, filter])
   const synliga = utfalld ? filtrerade : filtrerade.slice(0, p.forstaAntal)
@@ -239,18 +294,23 @@ export default function MallarKlient(p: MallarKlientProps) {
     // I omgångar med nytt försök vid fel (klient.ts): ett anrop för alla övriga kunde svara 504 och lämna korten med katalogens CV-bilder.
     forhandsvisaIOmgangar(brevId, saknas, font, (ut) => setKortHtml((a) => ({ ...ut, ...a })), { signal: ctrl.signal })
       .then((misslyckade) => {
-        if (misslyckade.length) setFel(T.fel.forhandsvisa)
+        if (!misslyckade.length) return
+        kortFoll.current = true
+        setFel(T.fel.forhandsvisa)
       })
       .catch((e) => {
-        if ((e as Error)?.name !== 'AbortError') setFel(T.fel.forhandsvisa)
+        if ((e as Error)?.name === 'AbortError') return
+        kortFoll.current = true
+        setFel(T.fel.forhandsvisa)
       })
       .finally(() => {
         if (!ctrl.signal.aborted) setHamtar(false)
       })
     return () => ctrl.abort()
     // Hämtas med typsnittet som gäller när korten visas; byte av typsnitt ritar bara arket om.
+    // kortForsok: Försök igen i felraden startar en ny omgång för korten som saknas.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [synligaNyckel, brevId])
+  }, [synligaNyckel, brevId, kortForsok])
 
   /* ---------------------------------------------------------------- nedladdning */
   const returTill = brev ? mallarKopretur(brev.id, visad, sparrFormat) : null
@@ -381,24 +441,64 @@ export default function MallarKlient(p: MallarKlientProps) {
                 </span>
               ) : null}
             </p>
+            {/* Telefon och mellanbredd: brevet blir två sidor i den här mallen, en lugn
+                rad i väggens stil (som brevraden b3-cvrad) med Ändra texten intill. Under
+                mätningen hålls platsen osynligt bara om raden syntes före bytet, så att
+                rubriken flyttar sig högst en gång. Tom ruta utan signal. Spärrar ingenting. */}
+            {brev ? (
+              <div
+                role="status"
+                className={tvaLage === 'ja' ? 'b3-cvrad b3-ml-sidor' : tvaLage === 'vantar-efter-ja' ? 'b3-cvrad b3-ml-sidor b3-ml-sidor-dold' : 'b3-ml-sidor-tom'}
+              >
+                {tvaLage === 'ja' ? (
+                  <>
+                    <span>{T.tvaSidor(tvaNamn)}</span>
+                    <Link href={`/dashboard/mina-brev/${brev.id}?flik=texten`}>{T.andraTexten}</Link>
+                  </>
+                ) : tvaLage === 'vantar-efter-ja' ? (
+                  <>
+                    <span aria-hidden="true">{T.tvaSidor(tvaNamn)}</span>
+                    <span aria-hidden="true" className="b3-ml-sidor-lank">
+                      {T.andraTexten}
+                    </span>
+                  </>
+                ) : null}
+              </div>
+            ) : null}
             <h1 className="b3-h1">{T.rubrik}</h1>
-            <p className="b3-ingress">
-              {brev ? (
-                <>
-                  <span className="hidden xl:inline">{T.ingress}</span>
-                  <span className="xl:hidden">{T.ingressMobil}</span>
-                </>
-              ) : (
-                T.exempelIngress
-              )}
-            </p>
+            {brev ? (
+              <>
+                <p className="b3-ingress b3-ml-ingress-mobil">{T.ingressMobil}</p>
+                {/* Dator: tvåsidestexten tar ingressens plats, i samma ruta och höjd. Lagren
+                    ligger i samma rutnätscell och den osynliga reserven håller höjden, så att
+                    ingenting i väggen flyttar sig mellan lägena. Under mätningen står ingressen
+                    kvar om den stod före bytet; stod tvåsidestexten tonas den ut. */}
+                <div className="b3-ingress b3-ml-ingress">
+                  <span className="b3-ml-ingress-lager" data-av={tvaLage === 'ja' || tvaLage === 'vantar-efter-ja' ? '' : undefined} aria-hidden={tvaLage === 'ja' || undefined}>
+                    {T.ingress}
+                  </span>
+                  <span className="b3-ml-ingress-lager b3-ml-ingress-reserv" aria-hidden="true">
+                    <b>{T.tvaSidorForsta(langstaNamn)}</b> {T.tvaSidorAndra}
+                  </span>
+                  <span role="status" className="b3-ml-ingress-lager" data-av={tvaLage === 'ja' ? undefined : ''}>
+                    {tvaLage === 'ja' || tvaLage === 'vantar-efter-ja' ? (
+                      <span aria-hidden={tvaLage === 'vantar-efter-ja' || undefined}>
+                        <b>{T.tvaSidorForsta(tvaNamn)}</b> {T.tvaSidorAndra}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <p className="b3-ingress">{T.exempelIngress}</p>
+            )}
           </div>
 
           <div className="b3-ml-par" role="img" aria-label={T.arkEtikett(visadKort.namn)}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="b3-ml-cv" src={`/mallar/v2/${visad}-stor.webp`} alt="" width={222} height={314} />
             <span className="b3-chip glas b3-ml-cv-etikett">{T.dittCv}</span>
-            <div className="b3-ml-brev" aria-busy={!arkHtml[nyckel(visad, font)]}>
+            <div className="b3-ml-brev" ref={brevRef} aria-busy={!arkHtml[nyckel(visad, font)]}>
               {ark ? <BrevArk html={ark} lage="golv" /> : null}
             </div>
             <span className="b3-ml-brev-etikett">{T.dittBrev}</span>
@@ -442,10 +542,13 @@ export default function MallarKlient(p: MallarKlientProps) {
           {namnKravs ? (
             <NameRequiredNotice className="mb-4" rubrik={T.namnRubrik} text={T.namnText} onSaved={() => void laddaNer(namnKravs)} />
           ) : null}
+          {/* Samma rad som sparfelet i Brevet: texten och, där sidan själv kan göra om det som föll
+              (förhandsvisningen), knappen Försök igen. Spara- och nedladdningsfel görs om med användarens eget tryck. */}
           {felText ? (
-            <p className="b3-ml-fel" role="alert">
-              {felText}
-            </p>
+            <div className="b3-ml-fel" role="alert">
+              <span>{felText}</span>
+              {felText === T.fel.forhandsvisa ? <LitenKnapp onClick={forsokIgen}>{T.forsokIgen}</LitenKnapp> : null}
+            </div>
           ) : null}
           <div className="b3-ml-panelhuvud">
             <div>

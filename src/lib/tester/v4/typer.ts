@@ -270,6 +270,16 @@ export interface TesterV4Data {
   vaggBana: VaggNod[];
   /** Omgång 3: Vägen till provet, ett förslag per dag. Tom för den som inte har gjort något än. */
   vagen: VagDag[];
+  /** Jobbsöket omgång 2 (9 B): underlaget för kortet "Vilken tjänst gäller provet?". */
+  tjanstfraga?: TjanstfragaUnderlag;
+}
+
+/** Grinden för kortet på Hem (9.14): slutförd Nivåkoll och sökt tjänst, ur läsningar som redan görs. */
+export interface TjanstfragaUnderlag {
+  /** Minst en rad i test_nivapunkter med typ matning eller ommatning. */
+  harNivakoll: boolean;
+  /** Minst en rad i job_applications. */
+  harSoktTjanst: boolean;
 }
 
 /** Väggens rubrik och knapp (omgång 3, steg 3a). */

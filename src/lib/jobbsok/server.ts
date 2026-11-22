@@ -39,12 +39,14 @@ import { bana, skaSokasLista, tjanstensSteg } from './bana'
 import { veckansMal } from './veckansMal'
 import { attGoraNu } from './attGora'
 import { forberedelse, intervjuerPaGang, type IntervjuPaGang } from './intervju'
+import { valbaraForIntervju, type ValbarForIntervju } from './intervju'
 import { handelselista } from './handelser'
 import { kanaler, manadsstaplar, tratt, veckostaplar } from './statistik'
 import { avslutadeText, soktaLista, soktaVagg } from './lista'
 import { coachForslag } from './coach'
-import { nastaPaminnelse } from './lage'
+import { nastaPaminnelse, tystGransFor } from './lage'
 import { uppfoljningSparr, type SparrSvar } from './uppfoljning'
+import { utkastGaller } from './utkastTyp'
 import { sistaAnsokningsdag } from './matchning'
 import type {
   AttGoraNu,
@@ -64,6 +66,7 @@ import type {
   TjanstensSteg,
   Tratt,
   Uppfoljning,
+  UppfoljningsTyp,
   VeckansMal,
   VeckoStapel,
 } from './typer'
@@ -484,7 +487,11 @@ export async function hamtaSoktaTjanster(userId: string, opt: { nu?: Date; manad
 /* --------------------------------------------------------- En sökt tjänst */
 
 export interface UppfoljningLage {
-  /** Oskickat utkast, eller null. Skrivs aldrig om när sidan öppnas igen. */
+  /** Sorten uppföljning som passar tjänsten nu (tjänstens foljUppTyp); null när inget ska följas upp. */
+  typ: UppfoljningsTyp | null
+  /** Dagarna till nästa påminnelse för sorten: 12 efter en ansökan, 7 efter intervju eller provjobb. */
+  grans: number
+  /** Oskickat utkast som gäller för tjänstens läge (utkastGaller), eller null. Ett utkast av fel sort kommer aldrig med. Skrivs aldrig om när sidan öppnas igen. */
   utkast: Uppfoljning | null
   /** Senaste skickade uppföljning, eller null. */
   senastSkickad: Uppfoljning | null
@@ -530,7 +537,7 @@ export async function hamtaSoktTjanst(userId: string, id: string, opt: { nu?: Da
 
   const [uppfoljningar, kontotsUtkast, brevRes, cvRes, sparadRes, prov, harBetalt] = await Promise.all([
     lasUppfoljningar(supabase, userId, id),
-    supabase.from('job_application_followups').select('application_id, created_at').eq('user_id', userId).not('body', 'is', null),
+    supabase.from('job_application_followups').select('application_id, created_at, subject').eq('user_id', userId).not('body', 'is', null),
     a.letter_id
       ? supabase.from('letters').select('id, title, language, krav, body_stycken, content').eq('id', a.letter_id).eq('user_id', userId).maybeSingle()
       : Promise.resolve({ data: null, error: null }),
@@ -547,13 +554,17 @@ export async function hamtaSoktTjanst(userId: string, id: string, opt: { nu?: Da
   const brevRad = brevRes.data as { id: string; title: string | null; language?: string | null; krav?: unknown; body_stycken?: unknown; content?: string | null } | null
   const krav = brevRad ? kravForBrev(brevRad) : null
 
-  const utkast = [...historik.uppfoljningar].reverse().find((u) => !u.sent_at) ?? null
+  // Bara ett utkast av rätt sort visas; ett av fel sort ligger kvar orört i databasen (byggspec 2.4).
+  const typ = tjanst.foljUppTyp
+  const oskickatUtkast = [...historik.uppfoljningar].reverse().find((u) => !u.sent_at) ?? null
+  const utkast = utkastGaller(oskickatUtkast, typ) ? oskickatUtkast : null
   const skickade = historik.uppfoljningar.filter((u) => u.sent_at).sort((x, y) => (x.sent_at as string).localeCompare(y.sent_at as string))
   const senastSkickad = skickade[skickade.length - 1] ?? null
   const sparr = uppfoljningSparr({
     harBetalt,
-    utkast: ((kontotsUtkast as { data?: unknown }).data ?? []) as Array<{ application_id: string; created_at: string }>,
+    utkast: ((kontotsUtkast as { data?: unknown }).data ?? []) as Array<{ application_id: string; created_at: string; subject: string | null }>,
     applicationId: id,
+    typ: typ ?? undefined,
     nu,
   })
   const sparad = sparadRes.data as { id: string; af_ad_id: string | null; match_score: number | null } | null
@@ -566,9 +577,11 @@ export async function hamtaSoktTjanst(userId: string, id: string, opt: { nu?: Da
     steg: tjanstensSteg(historik, tjanst),
     forberedelse: forberedelse(prov, krav),
     uppfoljning: {
+      typ,
+      grans: tystGransFor(typ),
       utkast,
       senastSkickad,
-      nastaPaminnelse: senastSkickad?.sent_at ? nastaPaminnelse(senastSkickad.sent_at) : null,
+      nastaPaminnelse: senastSkickad?.sent_at ? nastaPaminnelse(senastSkickad.sent_at, typ) : null,
       sparr,
       omskrivningarKvar: utkast ? Math.max(0, 3 - (utkast.rewrites ?? 0)) : 3,
     },
@@ -590,6 +603,18 @@ export async function hamtaIntervjuerPaGang(userId: string, opt: { nu?: Date } =
   // Uppföljningar behövs inte: intervjusteget räknar inte tystnad på bokade.
   const tjanster = sattIhopHistorik(ansokningar.rader, []).map((t) => tjanstLage(t, nu))
   return intervjuerPaGang(tjanster, nu)
+}
+
+/**
+ * Inför intervjun (byggspec 9.6): intervjuerna på gång och tjänsterna arket
+ * "När är intervjun?" erbjuder, ur samma läsning som hamtaIntervjuerPaGang.
+ */
+export async function hamtaIntervjuHubb(userId: string, opt: { nu?: Date } = {}): Promise<{ intervjuer: IntervjuPaGang[]; valbara: ValbarForIntervju[] }> {
+  const nu = opt.nu ?? new Date()
+  const supabase = await sessionsKlient()
+  const ansokningar = await lasAnsokningar(supabase, userId)
+  const tjanster = sattIhopHistorik(ansokningar.rader, []).map((t) => tjanstLage(t, nu))
+  return { intervjuer: intervjuerPaGang(tjanster, nu), valbara: valbaraForIntervju(tjanster) }
 }
 
 /** "Frågor utifrån ditt läge" för Jobbcoachen (F9), utan AI. */

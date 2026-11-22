@@ -6,6 +6,7 @@ import { renderBrevHtml, byggBrevDocx, brevOrd, brevMallKatalog, uppskattatSteg,
 import { exempelBrev, EXEMPEL_KRAV } from '../exempel'
 import { formateraDatum, halsningsRad, hittaCitat, hittaMarkeringar, brevSomText } from '../text'
 import type { BrevData } from '../typer'
+import { BREV_STEG3, BREV_STEGEN, brevDef, brevMatt } from '../render'
 
 const brev = exempelBrev('normal')
 
@@ -115,6 +116,75 @@ describe('texten', () => {
   it('långt brev krymper i uppskattningen, kort gör det inte', () => {
     expect(uppskattatSteg(brevMallDef('linne'), exempelBrev('kort'))).toBe(0)
     expect(uppskattatSteg(brevMallDef('kalksten'), exempelBrev('lang'))).toBeGreaterThan(0)
+  })
+})
+
+describe('steg 3, långa brev (2026-11-21)', () => {
+  it('värdena: grad minus 1,5 (golv 9,5), radavstånd minus 0,26 (golv 1,30), luft 2 mm', () => {
+    expect(BREV_STEGEN).toEqual([0, 1, 2, 3])
+    expect(BREV_STEG3).toEqual({ gradMinus: 1.5, gradGolv: 9.5, radMinus: 0.26, radGolv: 1.3, luft: 2 })
+    const s3 = (id: string) => brevMatt(brevDef(brevMallDef(id)), 3)
+    expect(s3('ek')).toEqual({ grad: 9.5, rad: 1.3, luft: 2 })
+    expect(s3('granit')).toEqual({ grad: 9.5, rad: 1.3, luft: 2 })
+    expect(s3('kalksten')).toEqual({ grad: 10, rad: 1.3, luft: 2 })
+    expect(s3('loft')).toEqual({ grad: 10.5, rad: 1.3, luft: 2 })
+    expect(s3('pergament')).toEqual({ grad: 10.5, rad: 1.3, luft: 2 })
+    expect(s3('sockel')).toEqual({ grad: 9.5, rad: 1.34, luft: 2 })
+    expect(s3('sigill')).toEqual({ grad: 10, rad: 1.32, luft: 2 })
+    // Aldrig under golven.
+    for (const def of MALLAR) {
+      const s3 = brevMatt(brevDef(def), 3)
+      expect(s3.grad, def.id).toBeGreaterThanOrEqual(BREV_STEG3.gradGolv)
+      expect(s3.rad, def.id).toBeGreaterThanOrEqual(BREV_STEG3.radGolv)
+    }
+  })
+
+  it('steg 3 ger aldrig större grad eller större radavstånd än steg 2, i någon av de 40 mallarna', () => {
+    expect(MALLAR.length).toBe(40)
+    for (const def of MALLAR) {
+      const d = brevDef(def)
+      const [s2, s3] = [brevMatt(d, 2), brevMatt(d, 3)]
+      expect(s3.grad, def.id).toBeLessThanOrEqual(s2.grad)
+      expect(s3.rad, def.id).toBeLessThanOrEqual(s2.rad)
+      expect(s3.luft, def.id).toBeLessThan(s2.luft)
+    }
+  })
+
+  it('avslutet och namnet bryts aldrig ensamma till sida två', () => {
+    for (const def of MALLAR) {
+      const html = renderBrevHtml(def.id, brev)
+      expect(html, def.id).toContain('.brev-avslut,.brev-namn{break-before:avoid;page-break-before:avoid}')
+      expect(html, def.id).toMatch(/<div class="brev-avslut"><p>[^<]*<\/p><p class="brev-namn">/)
+    }
+  })
+
+  it('steg 0 till 2 som förut, steg 3 som en regel till, skriptet provar fyra steg', async () => {
+    const html = renderBrevHtml('linne', exempelBrev('kort'))
+    expect(html).toContain(
+      '.cv.brev{--brev-grad:11.5pt;--brev-rad:1.54;--brev-luft:3.8mm}\n.cv.brev[data-steg="1"]{--brev-grad:11pt;--brev-rad:1.44;--brev-luft:3.2mm}\n.cv.brev[data-steg="2"]{--brev-grad:10.5pt;--brev-rad:1.34;--brev-luft:2.6mm}\n.cv.brev[data-steg="3"]{--brev-grad:10pt;--brev-rad:1.3;--brev-luft:2mm}'
+    )
+    expect(html).toContain('for(var i=0;i<4;i++)')
+    expect(renderBrevHtml('ek', exempelBrev('lang'), {}, { steg: 3 })).toContain('data-steg="3"')
+    const { BREV_ANTAL_STEG } = await import('../scopa')
+    expect(BREV_ANTAL_STEG).toBe(BREV_STEGEN.length)
+  })
+
+  it('uppskattningen väljer steg 3 när steg 2 inte räcker', () => {
+    const lang = exempelBrev('lang')
+    const langre = { ...lang, stycken: [...lang.stycken, ...lang.stycken.slice(2, 4)] }
+    for (const id of ['ek', 'granit', 'linne']) expect(uppskattatSteg(brevMallDef(id), langre), id).toBe(3)
+  })
+
+  it('Word får aldrig steg 3: högst steg 2, som före ändringen', async () => {
+    const { WORD_MAX_STEG } = await import('../word')
+    expect(WORD_MAX_STEG).toBe(2)
+    const lang = exempelBrev('lang')
+    const langre = { ...lang, stycken: [...lang.stycken, ...lang.stycken.slice(2, 4)] }
+    for (const def of MALLAR.filter((m) => m.word)) expect(uppskattatSteg(def, langre, undefined, WORD_MAX_STEG), def.id).toBeLessThanOrEqual(2)
+    // Linne: brödtexten i steg 2 är 10,5 pt (w:sz 21), steg 3 skulle vara 10 pt (w:sz 20).
+    const xml = await (await JSZip.loadAsync(await byggBrevDocx('linne', langre))).file('word/document.xml')!.async('string')
+    expect(xml).toContain('<w:sz w:val="21"/>')
+    expect(xml).not.toContain('<w:sz w:val="20"/>')
   })
 })
 

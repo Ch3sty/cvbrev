@@ -21,6 +21,10 @@ import { lasSparade } from '@/lib/jobbsok/server'
 import { valideraNySparad } from '@/lib/jobbsok/validering'
 import { MIGRERING_SAKNAS, admin, arSchemaFel, felSvar, krav, lasKropp } from '@/lib/jobbsok/rutt'
 import type { SparadAnnons } from '@/lib/jobbsok/typer'
+// Kom igång-brickan "Logga en tjänst du har sökt" (Jobbsöket omgång 2). Med
+// await: den sparade nyckeln är enda källan för en sparad annons, summeringen
+// räknar inte job_saved_ads. markeraBricka kastar aldrig.
+import { markeraBricka } from '@/lib/onboarding/komigang-server'
 
 export async function GET() {
   const s = await krav()
@@ -62,6 +66,7 @@ export async function POST(request: Request) {
         match_score: rad.match_score,
         redan_sparad: true,
       })
+      await markeraBricka(s.user.id, 'sokt_tjanst')
       return NextResponse.json({ success: true, data: rad, rad: skaSokasRad(rad, idag), alreadyExists: true })
     }
   }
@@ -76,7 +81,10 @@ export async function POST(request: Request) {
     // Två samtidiga tryck på samma träff: unika indexet säger nej, den första raden gäller.
     if (error?.code === '23505' && indata.af_ad_id) {
       const { data: rad } = await db.from('job_saved_ads').select('*').eq('user_id', s.user.id).eq('af_ad_id', indata.af_ad_id).maybeSingle()
-      if (rad) return NextResponse.json({ success: true, data: rad, rad: skaSokasRad(rad as SparadAnnons, idag), alreadyExists: true })
+      if (rad) {
+        await markeraBricka(s.user.id, 'sokt_tjanst')
+        return NextResponse.json({ success: true, data: rad, rad: skaSokasRad(rad as SparadAnnons, idag), alreadyExists: true })
+      }
     }
     console.error('[ska-sokas] Kunde inte spara:', error)
     return felSvar(500, 'spara_fel', 'Kunde inte spara annonsen')
@@ -91,5 +99,6 @@ export async function POST(request: Request) {
     match_score: rad.match_score,
     redan_sparad: false,
   })
+  await markeraBricka(s.user.id, 'sokt_tjanst')
   return NextResponse.json({ success: true, data: rad, rad: vy })
 }

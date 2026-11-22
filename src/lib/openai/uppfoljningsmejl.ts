@@ -59,6 +59,44 @@ Skriv sakligt och vardagligt. Undvik fraser som "ser fram emot", "bidra till ert
 Ingen hälsning, inget avslut, inget namn, inga platshållare som [NAMN]. Hitta inte på något. Inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["...","...","..."]}`
 }
 
+/**
+ * Instruktionen efter en genomförd intervju eller ett provjobb (Jobbsöket
+ * omgång 2, byggspec 2.6). Underlaget har `moment` och `datum` men aldrig
+ * intervjuns plats eller anteckningar. Inga exempel på platshållare utöver
+ * förbudet: modellen hittar annars på märket ur exemplet (se systemKortare).
+ * Exporterad för testerna.
+ */
+export function systemEfterMoment(sprak: 'sv' | 'en', typ: 'intervju' | 'provjobb'): string {
+  const maxOrd = UPPFOLJNING_MAX_ORD - 20
+  if (sprak === 'en') {
+    const efter = typ === 'intervju' ? 'after a completed interview' : 'after a completed trial day'
+    const tack = typ === 'intervju' ? 'for the interview' : 'for the trial day'
+    const sades = typ === 'intervju' ? 'what was said in the interview' : 'what happened during the trial day'
+    return `You write a short email from a job seeker to an employer ${efter}, the way a person writes it, never salesy.
+Rules: a subject line and exactly three short paragraphs, at most ${maxOrd} words in total.
+1. A thank you ${tack}, with the day and the role.
+2. That she still wants the role, tied to at most two of the given skills or requirements.
+3. A question about when she can expect a decision, and that she is happy to answer further questions.
+Write plainly. Avoid phrases like "look forward to", "contribute to your team", "very interested" and "recruitment process"; say "the recruitment". Claim nothing about ${sades} or how it went. If the input has no date, mention no day.
+No greeting, no sign-off, no name, no placeholders like [NAME]. Do not invent facts. No dashes. Reply only with JSON: {"amne":"...","stycken":["...","...","..."]}`
+  }
+  const efter = typ === 'intervju' ? 'efter en genomförd intervju' : 'efter ett genomfört provjobb'
+  const tack = typ === 'intervju' ? 'Ett tack för intervjun' : 'Ett tack för provjobbet'
+  const sades = typ === 'intervju' ? 'vad som sades på intervjun eller hur den gick' : 'vad som hände under provjobbet eller hur det gick'
+  return `Du skriver ett kort mejl från en arbetssökande till en arbetsgivare ${efter}, som en människa skriver det, aldrig säljigt.
+Regler: en ämnesrad och exakt tre korta stycken, högst ${maxOrd} ord sammanlagt. Svenska med svenska facktermer, arbetsgivaren tilltalas "ni".
+1. ${tack}, med dagen och tjänsten.
+2. Att hon fortfarande vill ha tjänsten, kopplat till högst två av kompetenserna eller kraven.
+3. En fråga om när hon kan vänta besked, och att hon gärna svarar på fler frågor.
+Skriv sakligt och vardagligt. Undvik fraser som "ser fram emot", "bidra till ert team", "mycket intresserad" och "rekryteringsprocessen"; säg "rekryteringen". Påstå inget om ${sades}. Saknas datum i underlaget nämner du ingen dag. Nämn kompetenserna med namn om de finns.
+Ingen hälsning, inget avslut, inget namn, inga platshållare som [NAMN]. Hitta inte på något. Inga tankstreck. Svara bara med JSON: {"amne":"...","stycken":["...","...","..."]}`
+}
+
+/** Instruktionen för underlagets sort: efter ansökan (system) eller efter intervju eller provjobb. */
+export function instruktionFor(u: Pick<UppfoljningUnderlag, 'sprak' | 'typ'>): string {
+  return u.typ === 'intervju' || u.typ === 'provjobb' ? systemEfterMoment(u.sprak, u.typ) : system(u.sprak)
+}
+
 // Samma förbjudna fraser som i första utkastet (system()); slutkontrollen
 // 2026-11-21 fick "mycket intresserad" i en kortad text.
 const FRASER_SV =
@@ -123,10 +161,10 @@ async function anropa(
   }
 }
 
-/** Första utkastet. */
+/** Första utkastet. Instruktionen väljs efter sorten (u.typ). */
 export async function skrivUppfoljningsmejl(u: UppfoljningUnderlag): Promise<AiMejlResultat> {
   const prompt = `Underlag (JSON):\n${JSON.stringify(underlagForModellen(u))}`
-  return anropa(system(u.sprak), prompt, UPPFOLJNING_MAX_ORD)
+  return anropa(instruktionFor(u), prompt, UPPFOLJNING_MAX_ORD)
 }
 
 /**

@@ -3262,6 +3262,36 @@ a.t3-dag:focus-visible { outline: 3px solid var(--sess-indigo); outline-offset: 
 .t3-typikoner { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
 .t3-typikon { width: 40px; height: 40px; border-radius: 12px; background: var(--sess-indigo-mjuk); display: flex; align-items: center; justify-content: center; }
 @media (max-width: 1279.98px) { .t3-radk-typer .t3-typikoner { width: 100%; justify-content: space-between; gap: 4px; flex-wrap: nowrap; } .t3-radk-typer .t3-typikon { width: 36px; height: 36px; border-radius: 11px; } }
+/* Jobbsöket omgång 2 (byggspec 9.15): kortet "Vilken tjänst gäller provet?" under Vägen till provet.
+   Skissens avsnitt 4; ikonrutan i rummets ton (grönt betyder rätt svar här), ingen koppar. */
+.t3-fraga { display: grid; grid-template-columns: 42px minmax(0, 1fr); column-gap: 12px; row-gap: 12px; align-items: start; padding: 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--sess-kant); box-shadow: 0 4px 0 var(--sess-kant); color: var(--ink-1); }
+.t3-fraga-ik { width: 42px; height: 42px; border-radius: 13px; background: var(--ton); color: var(--ton-ink); display: flex; align-items: center; justify-content: center; }
+.t3-fraga-text h2 { margin: 1px 0 0; font-family: var(--font-display), Inter, system-ui, sans-serif; font-weight: 700; font-size: 18px; line-height: 24px; letter-spacing: -.01em; }
+.t3-fraga-text h2:focus { outline: none; }
+.t3-fraga-text p { margin: 2px 0 0; font-size: 13px; line-height: 19px; color: var(--ink-2); }
+.t3-fraga-val { grid-column: 1 / -1; display: flex; align-items: center; gap: 4px 18px; flex-wrap: wrap; }
+.t3-fraga-val .t3-liten { margin-left: 0; }
+.t3-fraga-hoppa { min-height: 44px; display: inline-flex; align-items: center; padding: 0 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--sess-kant); }
+.t3-fraga-hoppa:focus-visible, .t3-liten:focus-visible { outline: 3px solid var(--sess-indigo); outline-offset: 2px; }
+.t3-liten.t3-liten-mork { background: var(--vagg); border-color: var(--vagg); color: var(--vagg-ink); box-shadow: 0 3px 0 var(--sess-brade-kant); gap: 8px; }
+.t3-fraga-falt { grid-column: 1 / -1; display: grid; gap: 12px; }
+.t3-falt { display: block; }
+.t3-falt > span { display: block; margin-bottom: 6px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink-1); }
+.t3-falt input { display: block; width: 100%; height: 52px; border-radius: 14px; border: 2px solid var(--sess-kant); background: var(--papper); padding: 0 14px; font-size: 16px; line-height: 22px; font-weight: 500; color: var(--ink-1); }
+.t3-falt input::placeholder { color: var(--ink-3); font-weight: 400; }
+.t3-falt input:focus, .t3-falt input[data-fokus] { outline: none; border-color: var(--sess-indigo); box-shadow: 0 0 0 3px var(--sess-indigo-mjuk); }
+.t3-falt input[aria-invalid="true"] { border-color: var(--koppar-ink); }
+.t3-falt-fel { margin: 6px 2px 0; font-size: 13px; line-height: 18px; font-weight: 600; color: var(--koppar-ink); }
+@media (min-width: 1280px) {
+  .t3-fraga { grid-template-columns: 46px minmax(0, 1fr) auto; column-gap: 16px; align-items: center; padding: 16px 18px; border-radius: 20px; }
+  .t3-fraga-ik { width: 46px; height: 46px; border-radius: 14px; }
+  .t3-fraga-text h2 { font-size: 20px; line-height: 26px; }
+  .t3-fraga-text p { font-size: 14px; line-height: 21px; }
+  .t3-fraga-val { grid-column: auto; flex-wrap: nowrap; gap: 20px; }
+  .t3-fraga[data-lage="utfalld"] { align-items: start; }
+  .t3-fraga[data-lage="utfalld"] .t3-fraga-falt { grid-column: 2 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: end; column-gap: 12px; }
+  .t3-fraga[data-lage="utfalld"] .t3-fraga-val { height: 52px; }
+}
 /* Tester: planpanelen, sätten att öva, korten och startarket */
 .t3-planpanel { display: flex; flex-direction: column; gap: 16px; }
 @media (min-width: 1280px) { .t3-planpanel { display: grid; grid-template-columns: 400px minmax(0, 1fr); column-gap: 32px; } }

@@ -58,6 +58,8 @@ import MallarVy, { AndraBricka, type Byte } from '@/components/cv/rum3/mallar/Ma
 import { useSiffrorKvar } from '@/components/cv/rum3/SiffrorKvar'
 import { platshallareIRad } from '@/lib/cv/poang'
 import type { CvSparrData } from '@/components/cv/rum3/sparr/CvSparr'
+import { KOPRETUR_EJ_REGISTRERAT, useKopretur } from '@/components/brev3/kit/kopretur'
+import { behallKopreturParametrar, cvKopreturIn, stadaCvKopreturAdress } from './kopretur'
 
 export interface InitialCv {
   id: string
@@ -114,6 +116,8 @@ export default function CvMallarClient(p: {
   kampanj: { pris: string; ordinarie: string } | null
   /** ?ladda=1: tillbaka från kassan, nedladdningen startar (affärsgranskningen B2). */
   ladda: boolean
+  /** ?premium_activated=true: direkt från ett köp, så tillgången väntas in om webhooken ligger efter. */
+  kopRetur: boolean
   /** ?foto=1: kontot skapades via fotoarket (B4). */
   foto: boolean
   /** Gratisnivåns CV-kvot är full (Ett CV till visar betalväggen). */
@@ -171,6 +175,17 @@ export default function CvMallarClient(p: {
     [cv, valMedRubriker]
   )
 
+  // Tillgången för filen som köptes (formatet i returen), mot serverns props.
+  // De läses direkt ur p, så router.refresh i köpreturen ger nya värden.
+  const tillgang = {
+    premiumMall,
+    isPremium: p.initialIsPremium,
+    harWord: Boolean(p.harWord),
+    gratisAnvand: Boolean(p.gratisAnvand),
+    format: p.initialFormat,
+  }
+  const behallKopRetur = behallKopreturParametrar({ ladda: p.ladda, kopRetur: p.kopRetur, ...tillgang })
+
   // Valet i adressen, utan ny navigering.
   useEffect(() => {
     const q = new URLSearchParams(window.location.search)
@@ -178,14 +193,20 @@ export default function CvMallarClient(p: {
     else q.delete('cv')
     q.set('mall', mallId)
     q.delete('kop')
-    q.delete('ladda')
+    // Köpreturens parametrar står kvar medan tillgången väntas in (router.refresh
+    // läser dem) och när försöken tagit slut; kopretur städar dem annars.
+    if (!behallKopRetur) {
+      q.delete('ladda')
+      q.delete('premium_activated')
+    }
     q.delete('foto')
-    q.delete('premium_activated')
     if (format === 'docx') q.set('format', 'docx')
     else q.delete('format')
     q.delete('andra')
     valTillQuery(val, q)
     window.history.replaceState(window.history.state, '', `${window.location.pathname}?${q.toString()}`)
+    // behallKopRetur läses när valet ändras; köpreturen städar själv när den är klar.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cvId, mallId, format, val])
 
   /** Köpreturen: galleriet med CV, mall och format, dit kassan skickar tillbaka. */
@@ -272,17 +293,6 @@ export default function CvMallarClient(p: {
   const knappText = behoverKop ? KNAPP.laddaNerIMall(format, mall.namn) : KNAPP.laddaNer(format)
   const knappUnder = behoverKop ? KNAPP.premiumPris(p.pris) : undefined
 
-  // Tillbaka från kassan (?ladda=1): nedladdningen startar en gång, när
-  // dokumentet är mätt och kontot har mallen (affärsgranskningen B2).
-  const laddaStartad = useRef(false)
-  useEffect(() => {
-    if (!p.ladda || laddaStartad.current || !matning || !cv) return
-    if (premiumMall && !p.initialIsPremium) return
-    laddaStartad.current = true
-    void laddaNer()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matning, cv])
-
   /** Merförsäljningen när det finns andra mallar att visa, annars betalväggen. */
   const saljEllerVagg = () => {
     if (merforsaljningsUrval(p.katalog, mall.id, matning?.sidor ?? 1, Boolean(fotoUrl)).length) setMerforsaljning(true)
@@ -346,6 +356,17 @@ export default function CvMallarClient(p: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cv, mall, format, p.harWord, p.initialIsPremium, p.gratisAnvand, siffror.stoppa, skapaFil]
   )
+
+  // Tillbaka från kassan (?ladda=1): nedladdningen startar en gång, när
+  // dokumentet är mätt och kontot har mallen (affärsgranskningen B2). Med
+  // premium_activated=true väntas tillgången in med router.refresh om
+  // webhooken ligger efter (brevrummets kit/kopretur, samma styrning).
+  const kopRetur = useKopretur(cvKopreturIn({ ladda: p.ladda, kopRetur: p.kopRetur, redo: Boolean(matning && cv), mallHarWord: mall.word, ...tillgang }), {
+    refresh: () => router.refresh(),
+    laddaNer: (f) => void laddaNer(mall, f),
+    stadaAdress: stadaCvKopreturAdress,
+  })
+  const felText = fel ?? (kopRetur.ejRegistrerat ? KOPRETUR_EJ_REGISTRERAT : null)
 
   const sparaRubrik = async (s: Sektion, r: string | null) => {
     setFordrojning(0)
@@ -486,7 +507,8 @@ export default function CvMallarClient(p: {
         setFormat(f)
       }}
       kanWord={Boolean(p.harWord) || !premiumMall}
-      knapp={{ text: knappText, under: knappUnder, onClick: () => void laddaNer(), framsteg, disabled: !cv }}
+      // Under väntan på köpet visar knappen samma upptagna läge som en vanlig nedladdning (som breven).
+      knapp={{ text: knappText, under: knappUnder, onClick: () => void laddaNer(), framsteg: framsteg ?? (kopRetur.vantar ? 0 : null), disabled: !cv }}
       pamin={siffror.rad}
       gratisVag={cv && premiumMall && !p.initialIsPremium ? { mall: gratis, onClick: () => valjMall(gratis.id, 'tryck') } : null}
       premium={p.initialIsPremium}
@@ -500,9 +522,9 @@ export default function CvMallarClient(p: {
         <Remsa katalog={p.katalog} vald={mall.id} foreslagna={forslag.ids} onValj={(id) => valjMall(id, 'tryck')} onAlla={() => setAllaArk(true)} last={framsteg !== null} kompakt />
       }
       fel={
-        fel ? (
+        felText ? (
           <p role="alert" className="text-sm text-fel">
-            {fel}
+            {felText}
           </p>
         ) : namnKravs ? (
           <NameRequiredNotice

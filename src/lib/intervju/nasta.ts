@@ -82,6 +82,21 @@ export function valjHubbHandling(u: HubbUnderlag): HubbHandling {
   return { kind: 'nyFraga', fraga: rekommenderadFraga(u.prov) }
 }
 
+/**
+ * Dagens prov fick högsta betyg och kvoten är slut: inget att skriva om
+ * (Jobbsöket omgång 2, byggspecen avsnitt 4). Hubben ger läget egna texter;
+ * rangordningen och händelsens kind är desamma som för lasIgen.
+ */
+export function arHogstaBetyg(h: HubbHandling): boolean {
+  return h.kind === 'lasIgen' && saknadesI(h.prov) === null
+}
+
+/** Frågan hubben föreslår när nästa prov öppnar, eller null när den föreslår något annat. */
+export function imorgonFraga(u: HubbUnderlag): FragaId | null {
+  const h = valjHubbHandling({ ...u, kvotKvar: true })
+  return h.kind === 'nyFraga' ? h.fraga : null
+}
+
 /* ------------------------------------------------------ hemskärmen */
 
 export interface IntervjuHem {

@@ -33,11 +33,29 @@ const TOMT: ProvadeUnderlag = {
 
 describe('listorna', () => {
   // Intervjuprovet tillkom i Test och Allt 2026-09-24 (rod-trad-prov-spec).
-  it('har exakt specens antal: CV 8, Test 9, Allt 12, gratis 5', () => {
+  // Loggningen av en sökt tjänst tillkom i gratislistan i Jobbsöket omgång 2.
+  it('har exakt specens antal: CV 8, Test 9, Allt 12, gratis 6', () => {
     expect(KOM_IGANG_LISTA.cv).toHaveLength(8)
     expect(KOM_IGANG_LISTA.tester).toHaveLength(9)
     expect(KOM_IGANG_LISTA.allt).toHaveLength(12)
-    expect(KOM_IGANG_LISTA.gratis).toHaveLength(5)
+    expect(KOM_IGANG_LISTA.gratis).toHaveLength(6)
+  })
+
+  it('loggningen står direkt efter profilen i gratislistan och aldrig i betalandes listor', () => {
+    expect(KOM_IGANG_LISTA.gratis[1]).toBe('sokt_tjanst')
+    expect(KOM_IGANG_LISTA.cv).not.toContain('sokt_tjanst')
+    expect(KOM_IGANG_LISTA.tester).not.toContain('sokt_tjanst')
+    expect(KOM_IGANG_LISTA.allt).not.toContain('sokt_tjanst')
+  })
+
+  it('brickan för en sökt tjänst öppnar loggningsarket med fran=komigang', () => {
+    const t = brickaText('sokt_tjanst', null)
+    expect(t.titel).toBe('Logga en tjänst du har sökt')
+    expect(t.text).toBe('Företag, tjänst och datum. En minut.')
+    expect(t.klarText).toBe('Finns under Sökta tjänster')
+    expect(t.kort).toBe('logga en sökt tjänst')
+    expect(t.knapp).toBe('Logga tjänsten')
+    expect(t.href).toBe('/dashboard/sokta-tjanster?logga=1&fran=komigang')
   })
 
   it('profilen är första brickan i alla paket, och CV:t direkt efter i CV och Allt', () => {
@@ -79,6 +97,10 @@ describe('läget', () => {
     expect(lage.antalTotalt).toBe(8)
     expect(lage.nasta).toBe('uppdatera_cv')
     expect(komIgangRadText(lage)).toBe('3 av 8 provade. Nästa: uppdatera CV:t.')
+  })
+
+  it('gratis utan val med ifylld profil: nästa är loggningen', () => {
+    expect(komIgangRadText(komIgangLage(null, ['profil']))).toBe('1 av 6 provade. Nästa: logga en sökt tjänst.')
   })
 
   it('provade brickor utanför paketets lista räknas inte', () => {
@@ -131,6 +153,13 @@ describe('kvitteringen ur tabellerna', () => {
     expect(harledProvade({ ...TOMT, analysisCompleted: 1 })).not.toContain('uppdatera_cv')
     expect(harledProvade({ ...TOMT, analysisCompleted: 2 })).toContain('uppdatera_cv')
     expect(harledProvade({ ...TOMT, sparade: ['kurva'] })).toContain('kurva')
+  })
+
+  it('en rad i job_applications eller job_saved_ads ger loggningsbrickan, liksom den sparade nyckeln', () => {
+    expect(harledProvade({ ...TOMT, applicationCount: 1 })).toContain('sokt_tjanst')
+    expect(harledProvade({ ...TOMT, savedAdCount: 1 })).toContain('sokt_tjanst')
+    expect(harledProvade(TOMT)).not.toContain('sokt_tjanst')
+    expect(harledProvade({ ...TOMT, sparade: ['sokt_tjanst'] })).toContain('sokt_tjanst')
   })
 
   it('profilen kräver både roll och ort', () => {

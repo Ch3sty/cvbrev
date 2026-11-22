@@ -601,3 +601,48 @@ Regler efter detta:
 - Inga klicktester mot produktionsdatabasen. Tester behöver en egen databas.
 - Ett test som ändå måste gå mot produktion får ett tak på antal sidvisningar, inte bara på modellanrop och uppladdningar, och gatewayens logg bevakas under tiden.
 - Förladdningen av menylänkar i inloggat läge bör stängas av eller profilläsningen cachas.
+
+### Förladdningen i inloggat läge, mallbilden och påminnelsefunktionen (2026-11-22, natt)
+
+**Förladdningen (`5adfc7a1`).** Varje inloggad sida förladdade länkarna i sidomenyn, dörrnavet och rummens flikar. Dörrarna hade `prefetch={true}`, alltså hela sidan med data. Varje förladdning är en serverrendering av dashboard-layouten (`src/app/dashboard/layout.tsx`: inloggningskontroll, summering, profilläsning), som ligger ovanför loading.tsx och därför körs varje gång. Två andra sessioners test samma natt (tak på 40 sidladdningar, fyra sekunders paus) gav ändå cirka 4 000 anrop per fem minuter, alltså i storleksordningen 200 anrop mot Supabase per sidladdning.
+
+Ny komponent `src/components/rum/AvsiktsLank.tsx`: `prefetch={false}` (som i Next 16 stänger av både synlighet och hovring) och routerns `prefetch` en gång per adress vid hovring, fokus eller touchstart. Används i `Sidomeny`, `Dorrnav`, menyns sidfot och logga, meddelandeknappen och flikraderna (`CvFlikar`, `JobbFlikar`, `BrevVagg`, testernas `Vaggen`, `Lagesrad`). Länkar i sidornas innehåll förladdas fortfarande som vanligt; på Ditt CV finns ett tiotal sådana (mallänkar med olika `?mall=`), nästa ställe att byta om mer ska bort.
+
+**Mallbilden.** Det främre arket och telefonens tumnagel på Ditt CV får `fetchPriority="high"`, arken bakom `low` (`EgenMiniatyr.tsx`, prop `fortur`). Bilden `/mallar/v2/linne-stor.webp` var LCP och kom efter första målningen (mätt 2026-11-21: 1088 till 1288 ms mot budget 1000).
+
+Kontrollerat: tsc, hela vitest (4424 gröna), Vercels bygge, och att fyra inloggade sidor ritas utan fel i produktion efter ändringen. **Inte mätt i webbläsare:** antalet förladdningsanrop före och efter, att hovring och touch förladdar, att klick navigerar som förut, och LCP. Mätningen väntar på att ingen annan session kör mot produktionen. Risk att känna till: på telefon börjar förladdningen först när fingret landar, så byte av rum kan kännas något långsammare.
+
+Backa: `git revert 5adfc7a1`.
+
+**`send-verification-reminders` (`35a831c1`).** Funktionen fanns bara i drift, inte i repot. Källan ligger nu i `supabase/functions/send-verification-reminders/`, oförändrad utöver kravet på rubriken `x-cron-secret`. Morgonjobbet `send-verification-reminders-daily` skickar den ur vault (migrering `20261121230000`). Funktionen har ingen egen spärr mot dubbla utskick, så den som anropade den flera gånger under ett påminnelsefönster kunde få samma mejl skickat om och om igen. Kontrollerat: utan eller med fel hemlighet 401; morgonjobbets eget kommando 200 med 0 skickade och 16 överhoppade, kört när ingen användare låg i ett fönster.
+
+Att ta ställning till (ägarens, utskick): påminnelsemejlet innehåller rutan "95% av våra användare som verifierar sin e-post får sitt drömjobb inom 3 månader!", ett påstående utan belägg, och sidfoten säger 2024. Jobbet körs en gång om dygnet men skickar bara till den som registrerade sig för 24 till 25 eller 72 till 73 timmar sedan, alltså nästan ingen.
+
+### Påminnelsemejlet om obekräftad e-post omskrivet (2026-11-22, `773701e8`)
+
+Ägaren: "meddelandet överlag är helt efterblivet, det kan vi ju inte skicka." Utöver det påhittade talet var tre saker fel i `send-verification-reminders`: texten lovade obegränsat antal CV och sju brev i veckan, länken var registreringens och hade gått ut när påminnelsen skickades (`/api/auth/confirm-email` kastar utgångna länkar), och fönstren var en timme breda fast jobbet körs en gång om dygnet.
+
+Nu: två korta mejl i livscykelmejlens skal (`paminnelseMejl`), med det bekräftelsen faktiskt låser upp (ett CV till, fler sparade brev). En ny länk per påminnelse, giltig i tre dygn (`email_confirmations`, upsert på `user_id`). Fönstren är 24 till 48 och 72 till 96 timmar efter registreringen. Inget mejl om kontot fått ett bekräftelsemejl de senaste 20 timmarna, och aldrig till adresser på `.test`. Kroppen `{"provkorning": true}` räknar utan att skicka eller skriva.
+
+Följd att känna till: jobbet skickar nu på riktigt, varje dag 09:00 UTC. Provkörningen natten till 2026-11-22 gav 17 konton i spannet, 7 första och 4 andra påminnelser. Stänga av: `select cron.alter_job((select jobid from cron.job where jobname = 'send-verification-reminders-daily'), active := false);`
+
+Inte gjort: mejlen är inte sedda i en riktig mejlklient och inget provmejl är skickat. De är ritade till HTML och lämnade till ägaren som förhandsvisning.
+
+### Mätningen av förladdningen i produktion (2026-11-22, tio sidvisningar)
+
+Gjord mot www.jobbcoach.ai med ett eget QA-konto (raderat efteråt), när ingen annan session körde. Skript: en headless Chrome, 1440 och Pixel 7, sex sekunders väntan utan interaktion per sida.
+
+| Sida | Bredd | Förladdningsanrop utan interaktion | Adresser |
+|---|---|---|---|
+| /dashboard | 1440 | 7 | /dashboard/jobbmatchning, /dashboard/sokta-tjanster |
+| /dashboard | Pixel 7 | 3 | /dashboard/tester/pass |
+| /dashboard/profil/cv | 1440 | 8 | /dashboard/cv-mallar, /dashboard/cv-analys, /dashboard/cv-mallar?mall= |
+| /dashboard/profil/cv | Pixel 7 | 12 | samma tre |
+
+Ingen av adresserna är en menylänk: sidomenyn, dörrnavet och flikraderna förladdas inte längre när de syns. Det som återstår kommer från länkar i sidornas innehåll (översiktens kort, Ditt CV:s mallänkar och analyskort). Next 16 gör flera anrop per adress, därav 7 till 12 anrop för två till tre adresser. Före ändringen förladdades enligt koden ett tiotal adresser från menyn på varje sida, dörrarna med hela sidan och dess data. Något mätt före-värde i webbläsare finns inte.
+
+Avsikt och klick: pekaren över "Rekryteringstester" i sidomenyn gav 2 anrop till /dashboard/tester, och touchstart på "Tester" i dörrnavet likaså. Klick och tryck landade på /dashboard/tester med rätt rubrik. Inga svar 500 eller högre.
+
+LCP för Ditt CV (Pixel 7, 3x strypt processor, mobilnät, mot produktion): uppvärmning 1372 ms, sedan 1528, 1032 och 1524 ms. CLS 0. LCP-elementet var rubriken (h1), inte mallbilden. Värdena går inte att jämföra rakt av med budgeten 1000 ms, som mäts mot ett lokalt bygge, men de visar att sidan inte säkert håller den. Varför rubriken målas så sent (typsnittet eller hydreringen) är inte utrett.
+
+Nästa steg om lasten ska ner mer: byt innehållslänkarna på översikten och Ditt CV till `AvsiktsLank`.

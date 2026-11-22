@@ -32,7 +32,7 @@ Importera allt från `@/components/jobb3/kit`. Knappar och länkar: `href` ger `
 | `Knapprad` | `children` (StorKnapp), `rad` (bara dator) | |
 | `Chips` | `children`, `dator` (dölj på telefon) | |
 | `Golv` | `children` | `<main>`, 1120 brett på dator. |
-| `FastFot` | `children` | Telefonens fot över dörrnavet (sticky), döljs på dator. |
+| `FastFot` | `children`, `rader` | Telefonens fot över dörrnavet (sticky), döljs på dator. `rader` ger två rader (annonsens fot): primärknappen i full bredd överst. |
 
 ```tsx
 <JobbVagg hojd={596} hojdMobil={500} handling={<GlasKnapp href="?logga=1" ikon={<IkonPlus />}>Logga sökt tjänst</GlasKnapp>} atgarder={<Topprad bara="atgarder" />}>
@@ -49,7 +49,7 @@ Importera allt från `@/components/jobb3/kit`. Knappar och länkar: `href` ger `
 
 - `StorKnapp` (primär, koppar, EN per skärm): `storlek` 'normal' (60 på dator) \| 'mellan' (56) \| 'lag' (52), `golv` (mjukare skugga på papper), `bred`, `href`/`onClick`/`type`/`disabled`. Telefon: alltid 56 och full bredd; klassen `lag-alltid` ger 52 och egen bredd också på telefon (Skicka, Följ upp i en rad).
 - `LitenKnapp` (vit): `storlek` 44\|48\|52, `variant` 'vit'\|'kop'(bara i betalväggar)\|'streckad'(Annat)\|'morkt'(på väggens mörka kort), `bred`, `ikon` (ritas i rummets gröna).
-- `IkonKnapp` (56 x 56, annonsens fot på telefon): `etikett` (aria-label).
+- `IkonKnapp` är borttagen (Jobbsöket omgång 2): annonsens fot på telefon har inte längre ikonknappar utan text. Foten är `AnnonsFotMobil` i `jobb/AnnonsVy.tsx` i `<FastFot rader>`: "Skriv brev" i full bredd, under den två `LitenKnapp storlek={48}` med ikon och text ("Spara", "Markera som sökt"). Klassen `.j3-liten.ikon` står kvar, den används av `sokta/Backfill.tsx` och `sokta/Rapport.tsx`.
 - `GlasKnapp` (väggen): `ikon`, `href`/`onClick`.
 - `TextLank`: `vagg`, `mjuk`, `liten`.
 - `Chip` (bricka i väggen), `VaggEtikett` (glasbricka "Umeå", "Lön: satt").

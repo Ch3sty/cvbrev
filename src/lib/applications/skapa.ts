@@ -8,6 +8,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { JobApplication } from './status';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 const VALID_CHANNELS = ['ad', 'unsolicited', 'network'];
 
@@ -109,5 +110,40 @@ export async function skapaSoktTjanst(
     console.error('Fel vid skapande av ansökt-händelse:', eventError);
   }
 
-  return { ok: true, data: { ...(created as JobApplication), current_status: 'applied' }, alreadyExists: false };
+  // Kallad till test (Jobbsöket omgång 2, 9.16): bara från testvägen och bara
+  // när rutan är kryssad. En egen insert efter applied, så att triggern sätter
+  // test_invited också när båda händelserna har samma dag (created_at avgör).
+  let status: JobApplication['current_status'] = 'applied';
+  if (!eventError && arKalladTillTest(body)) {
+    status = (await skrivKalladTillTest(supabase, created.id)) ? 'test_invited' : 'applied';
+  }
+
+  // Kom igång-brickan "Logga en tjänst du har sökt" (Jobbsöket omgång 2).
+  // Mäter onboarding_step_completed första gången och kastar aldrig.
+  void markeraBricka(userId, 'sokt_tjanst');
+
+  return { ok: true, data: { ...(created as JobApplication), current_status: status }, alreadyExists: false };
+}
+
+/** Testvägens två adresser (9.14). */
+export const TESTVAG_FRAN = ['test-hem', 'test-hem-plan'] as const;
+
+/** kallad_till_test gäller bara när det är true och anropet kommer från testvägen. */
+export function arKalladTillTest(body: Record<string, unknown>): boolean {
+  return body.kallad_till_test === true && typeof body.fran === 'string' && (TESTVAG_FRAN as readonly string[]).includes(body.fran);
+}
+
+/**
+ * Skriver "Kallad till test" i dag (svensk tid), med ett försök till. Faller
+ * båda loggas felet och tjänsten står kvar som sökt. Före migreringen
+ * 20261122120000 nekar databasens villkor typen, och det blir just det läget.
+ */
+async function skrivKalladTillTest(supabase: SupabaseClient<any, any, any>, applicationId: string): Promise<boolean> {
+  const rad = { application_id: applicationId, event_type: 'test_invited', occurred_at: idagSv() };
+  for (let forsok = 0; forsok < 2; forsok++) {
+    const { error } = await supabase.from('job_application_events').insert(rad);
+    if (!error) return true;
+    if (forsok === 1) console.error('Fel vid skapande av händelsen kallad till test:', error);
+  }
+  return false;
 }

@@ -18,6 +18,16 @@ export type { ApplicationChannel, ApplicationEventType, JobApplication, JobAppli
 /** 'YYYY-MM-DD' i svensk tid. */
 export type Dag = string
 
+/** Vilken sorts uppföljningsmejl som passar tjänsten just nu. */
+export type UppfoljningsTyp = 'ansokan' | 'intervju' | 'provjobb'
+
+/** Dagar utan besked efter en genomförd intervju eller ett provjobb innan vi påminner. */
+export const INTERVJU_BESKED_DAGAR = 7
+/** Dagar efter kallelsens datum innan "Sätt tiden" tas upp i Att göra nu. */
+export const KALLELSE_UTAN_TID_DAGAR = 2
+/** Dagar efter "Kallad till test" innan Att göra nu frågar vad som hände (9 B). */
+export const TEST_UPPDATERA_DAGAR = 14
+
 /* ------------------------------------------------------------- tabellerna */
 
 /** job_application_events med kolumnerna från migreringen 20261121180000. */
@@ -116,6 +126,8 @@ export interface IntervjuInfo {
   handelseId: string | null
   /** Dagen intervjun hölls eller ska hållas. */
   dag: Dag | null
+  /** Dagen kallelsen kom: occurred_at på senaste "Kallad till intervju". */
+  kalladDag: Dag | null
 }
 
 /** En sökt tjänst färdig för en vy. */
@@ -133,14 +145,20 @@ export interface TjanstLage {
   avslutad: boolean
   /** Senaste aktivitet: händelse eller skickad uppföljning. */
   senasteAktivitet: Dag
-  /** Tyst i minst tolv dagar och väntar på något. */
+  /** Sorten uppföljning som passar nu. Null: kallad (med eller utan tid, eller tiden passerad), erbjudande, avslutad. */
+  foljUppTyp: UppfoljningsTyp | null
+  /** Gränsen i dagar för tystnad: 12 för 'ansokan', 7 för 'intervju' och 'provjobb'. 12 när foljUppTyp är null. */
+  tystGrans: number
+  /** Tyst: foljUppTyp finns och dagarTyst >= tystGrans. */
   tyst: boolean
   /** Dagar sedan senaste aktivitet. */
   dagarTyst: number
-  /** Dagen tystnaden inträffade (senaste aktivitet plus tolv dagar). */
+  /** Senaste aktivitet plus tystGrans. */
   tystSedan: Dag
   intervju: IntervjuInfo | null
-  /** Har tjänsten ett oskickat utkast? */
+  /** Dagen (occurred_at) för senaste "Kallad till test" när statusen är test_invited, annars null (9 B). */
+  kalladTillTest: Dag | null
+  /** Har tjänsten ett oskickat utkast av rätt sort (utkastGaller)? */
   harUtkast: boolean
   /** Senaste skickade uppföljning. */
   senastUppfoljd: Dag | null
@@ -155,6 +173,8 @@ export interface TjanstLage {
 export type AttGoraTyp =
   | 'hur_gick_intervjun'
   | 'forbered_intervju'
+  | 'satt_intervjutid'
+  | 'uppdatera_test'
   | 'folj_upp'
   | 'sok_fore_sista_dag'
   | 'af_rapport'

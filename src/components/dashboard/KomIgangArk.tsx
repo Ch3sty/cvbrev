@@ -49,6 +49,7 @@ import {
   IlluBrickaOga,
   IlluBrickaPerson,
   IlluBrickaProfil,
+  IlluBrickaSokt,
   IlluBrickaUpp,
 } from '@/components/illustrations/OnboardingScener'
 
@@ -72,6 +73,7 @@ export const BRICKA_IKON: Record<BrickaKey, ComponentType<ScenProps>> = {
   personlighet: IlluBrickaPerson,
   intervjuprov: IlluScenIntervju,
   kurva: IlluBrickaKurva,
+  sokt_tjanst: IlluBrickaSokt,
 }
 
 type Tillstand = 'klar' | 'nasta' | 'kvar'

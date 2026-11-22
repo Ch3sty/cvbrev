@@ -41,6 +41,7 @@ import { useNotification } from '@/context/notificationcontext'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { capture } from '@/lib/analytics/events'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { PremiumKnappText } from '@/components/kampanj/KampanjPrisKontext'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import type { BrevData, BrevKrav } from '@/lib/letters/brevmall/typer'
@@ -55,6 +56,7 @@ import { BREVET, type FlikId, type TonId } from './texter'
 import { forladdaRitare, ritaBrev } from './ritare'
 import { laddaNerBrev } from './ladda'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
+import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk } from '../kit/sidmatt'
 
 const ConfirmDialog = dynamic(() => import('@/components/shell/ConfirmDialog'), { ssr: false })
 
@@ -471,14 +473,11 @@ export default function BrevetVy(props: BrevetVyProps) {
   const [andel, setAndel] = useState(0.6)
   useEffect(() => {
     const t = setTimeout(() => {
-      const ark = [...document.querySelectorAll<HTMLElement>('[data-arbetsram] .cv.brev')].find((e) => e.getBoundingClientRect().width > 0)
-      const slut = ark?.querySelector<HTMLElement>('.brev-slut')
-      if (!ark || !slut) return
-      const r = ark.getBoundingClientRect()
-      const skala = r.width / (ark.offsetWidth || 1)
-      const gransPx = (Number(ark.getAttribute('data-grans')) || 279) * (96 / 25.4) * skala
-      setAndel((slut.getBoundingClientRect().top - r.top) / gransPx)
-    }, 120)
+      const ark = synligtArk(document, '[data-arbetsram] .cv.brev')
+      const a = ark ? matBrevAndel(ark) : null
+      if (a === null) return
+      setAndel(a)
+    }, BREV_MATT_FORDROJNING_MS)
     return () => clearTimeout(t)
   }, [html])
 
@@ -660,7 +659,8 @@ export default function BrevetVy(props: BrevetVyProps) {
           <div className="my-2 flex flex-col gap-2.5 rounded-[16px] border-2 border-[color:var(--b3-prem-kant)] bg-[color:var(--b3-prem)] p-3.5 xl:flex-row xl:items-center">
             <p className="m-0 flex-1 text-[14px] leading-[20px] text-[color:var(--b3-prem-text)]">{BREVET.lastRad}</p>
             <LitenKnapp kop href={kopstegHref(SALD_PLAN, 'kvot', { retur: `/dashboard/mina-brev/${id}?flik=texten` })}>
-              {PAKETRADER.kopCv}
+              {/* Kampanjens knapptext för konton som kan få den, samma ord som köpsteget och kassan. */}
+              <PremiumKnappText />
             </LitenKnapp>
           </div>
         ) : null}

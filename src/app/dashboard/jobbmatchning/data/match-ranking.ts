@@ -52,7 +52,13 @@ export function rankMatches(
     // Lika matchgrad: färskast först.
     const ta = Date.parse(String(a.job.publication_date ?? '')) || 0;
     const tb = Date.parse(String(b.job.publication_date ?? '')) || 0;
-    return tb - ta;
+    if (tb !== ta) return tb - ta;
+    // Sist annonsens id, så att ordningen inte beror på i vilken ordning
+    // annonserna kom in: webbläsaren räknar ur hela sökningen, servern ur
+    // sammanfattningen eller poolen, och båda ska få samma lista.
+    const ia = String(a.job.id ?? '');
+    const ib = String(b.job.id ?? '');
+    return ia < ib ? -1 : ia > ib ? 1 : 0;
   });
 
   const aboveThreshold = scored.filter((s) => s.score.score >= MATCH_THRESHOLD).length;

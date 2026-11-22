@@ -91,6 +91,8 @@ function trattData(t: DeladTratt): TrattBildData {
 /** Radens läge ur current_status, som listan visade förut. */
 function radLage(status: ApplicationEventType | null): { ton: KitTon; steg: { steg: FyrSteg; avslutad?: boolean }; pill: Status } {
   switch (status) {
+    case 'test_invited':
+      return { ton: 'standard', steg: { steg: 2 }, pill: 'vantar' };
     case 'interview_invited':
       return { ton: 'int', steg: { steg: 3 }, pill: 'intervju' };
     case 'interview_completed':

@@ -18,6 +18,10 @@
  * Rättat efter klicktestet 2026-11-21: hämtningen körde om när
  * router.refresh() efter "Ja, det är skickat" gav start.utkast = null, och
  * skrev då ett nytt AI-utkast. Nu körs den bara vid monteringen.
+ *
+ * Omgång 2: sorten (start.typ: ansökan, intervju, provjobb) styr raden medan
+ * utkastet skrivs, raden "Till" och "Vad som händer sedan"; dagarna räknas
+ * med start.grans (12 eller 7). Servern skickar bara ett utkast av rätt sort.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -48,6 +52,7 @@ import {
   mailtoHref,
   nastaPaminnelse,
   nyligenUppfoljd,
+  ordtal,
   plusDagar,
   raknaOrdITexten,
   veckodagNamn,
@@ -64,6 +69,28 @@ type Lage = 'laddar' | 'utkast' | 'sparr' | 'tak' | 'fel' | 'skickad'
 type Skickad = { id: string; nasta: string; dag: string }
 
 const KORTARE_FEL = 'Det gick inte att skriva om just nu. Din text är kvar.'
+
+/** Texterna som skiljer sig per sort (byggspec 2.3, uppföljningsblocket). */
+const SORT_TEXT = {
+  ansokan: {
+    skrivs: 'Vi skriver utkastet utifrån din ansökan',
+    till: 'Mottagarens adress, står oftast under Kontakt i annonsen',
+    tyst: 'Är det fortfarande tyst säger vi till, och då får du välja om du vill fråga en gång till.',
+  },
+  intervju: {
+    skrivs: 'Vi skriver ett tack för intervjun och en fråga om besked',
+    till: 'Mottagarens adress, den som kallade dig till intervjun',
+    tyst: 'Har du fortfarande inte fått besked säger vi till, och då får du välja om du vill fråga en gång till.',
+  },
+  provjobb: {
+    skrivs: 'Vi skriver ett tack för provjobbet och en fråga om besked',
+    till: 'Mottagarens adress, den du hade kontakt med om provjobbet',
+    tyst: 'Har du fortfarande inte fått besked säger vi till, och då får du välja om du vill fråga en gång till.',
+  },
+} as const
+
+/** "tolv", "sju": ordtal räcker till tio. */
+const dagarOrd = (n: number) => (n === 12 ? 'tolv' : ordtal(n))
 
 export default function Uppfoljning({
   ansokanId,
@@ -83,6 +110,10 @@ export default function Uppfoljning({
   onAngrad?: (id: string) => void
 }) {
   const idag = idagSv()
+  // Sorten och gränsen ur serverns läge; utan sort (ska inte hända när blocket visas) som efter en ansökan.
+  const typ = start.typ ?? 'ansokan'
+  const grans = start.grans
+  const sortText = SORT_TEXT[typ]
   const [forsta] = useState(() => nyligenUppfoljd(start, idag))
   const [lage, setLage] = useState<Lage>(start.utkast ? 'utkast' : forsta ? 'skickad' : 'laddar')
   const [utkast, setUtkast] = useState<UppfoljningRad | null>(start.utkast)
@@ -194,7 +225,7 @@ export default function Uppfoljning({
       const json = await anropa(`/api/jobbsok/uppfoljning/${ansokanId}/skickad`, 'POST', via ? { via } : {})
       const rad = json.data as UppfoljningRad
       fore.current = lage
-      setSkickad({ id: rad.id, nasta: json.nastaPaminnelse ?? nastaPaminnelse(idag), dag: rad.sent_at ?? idag })
+      setSkickad({ id: rad.id, nasta: json.nastaPaminnelse ?? nastaPaminnelse(idag, typ), dag: rad.sent_at ?? idag })
       setFraga(null)
       setLage('skickad')
       onSkickad?.(rad)
@@ -238,7 +269,7 @@ export default function Uppfoljning({
     }
   }
 
-  const nasta = plusDagar(idag, 12)
+  const nasta = plusDagar(idag, grans)
   const vadSedan = (
     <TonYta>
       <p className="j3-eyebrow" style={{ marginBottom: 12 }}>
@@ -248,8 +279,8 @@ export default function Uppfoljning({
         liten
         handelser={[
           { rubrik: 'Du skickar mejlet', text: `När du har skickat det loggar vi Följde upp i dag, ${veckodagNamn(idag)} ${kortDag(idag)}.`, lage: 'snart', ikon: <IkonSkicka size={18} /> },
-          { rubrik: 'Påminnelsen flyttas fram', text: 'Tjänsten lämnar Följ upp. Ingen ny påminnelse på tolv dagar.', lage: 'sen', ikon: <IkonKlocka size={18} /> },
-          { rubrik: `${stor(veckodagNamn(nasta))} ${langDag(nasta)}`, text: 'Är det fortfarande tyst säger vi till, och då får du välja om du vill fråga en gång till.', lage: 'sen', ikon: `${Number(nasta.slice(8))}/${Number(nasta.slice(5, 7))}` },
+          { rubrik: 'Påminnelsen flyttas fram', text: `Tjänsten lämnar Följ upp. Ingen ny påminnelse på ${dagarOrd(grans)} dagar.`, lage: 'sen', ikon: <IkonKlocka size={18} /> },
+          { rubrik: `${stor(veckodagNamn(nasta))} ${langDag(nasta)}`, text: sortText.tyst, lage: 'sen', ikon: `${Number(nasta.slice(8))}/${Number(nasta.slice(5, 7))}` },
         ]}
       />
     </TonYta>
@@ -335,7 +366,7 @@ export default function Uppfoljning({
     <div className="mt-[18px] grid gap-6 xl:mt-[22px] xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
       {lage === 'laddar' || !utkast ? (
         <div role="status" aria-live="polite">
-          <MejlUtkast till="Mottagarens adress, står oftast under Kontakt i annonsen" amne={<span className="j3-b-skrivs">Vi skriver utkastet utifrån din ansökan</span>} fotVanster="Det tar några sekunder.">
+          <MejlUtkast till={sortText.till} amne={<span className="j3-b-skrivs">{sortText.skrivs}</span>} fotVanster="Det tar några sekunder.">
             <div className="flex flex-col gap-3" aria-hidden="true">
               <Skel b="22%" h={16} />
               <Skel h={16} />
@@ -348,7 +379,7 @@ export default function Uppfoljning({
         </div>
       ) : (
         <MejlUtkast
-          till="Mottagarens adress, står oftast under Kontakt i annonsen"
+          till={sortText.till}
           amne={utkast.subject}
           fotVanster={ord <= 90 ? `${ord} ord. Kort nog att läsas på en gång.` : `${ord} ord.`}
           fotHoger={

@@ -24,6 +24,7 @@ import {
   Falt,
   FlerDetaljer,
   GruppEtikett,
+  Kryss,
   StorKnapp,
   TextFalt,
   ValFalt,
@@ -48,7 +49,23 @@ export interface LoggaForifyllt {
   match_score?: number | null
   /** Raden under Ska sökas som blir sökt. */
   sparadId?: string
+  /** Varifrån arket öppnades (?fran=), högst 40 tecken. test-hem och test-hem-plan är testvägen (9.16). */
+  fran?: string
 }
+
+/** Testvägen från Hem i Rekryteringstester (Jobbsöket omgång 2, 9.16). */
+export function arTestvag(fran: string | null | undefined): fran is 'test-hem' | 'test-hem-plan' {
+  return fran === 'test-hem' || fran === 'test-hem-plan'
+}
+
+/** Texterna på testvägen. */
+export const TESTVAG_TEXT = {
+  datumHjalp: 'Dagen du skickade ansökan. Datumet står i din månadsrapport.',
+  datumFel: 'Välj dagen du sökte, så blir månadsrapporten rätt.',
+  kryss: 'Arbetsgivaren har kallat mig till test',
+  fotKallad: 'Tjänsten står som kallad till test. Lägg till intervjun eller beskedet när det kommer.',
+} as const
+const FOT_SOKT = 'Brickan hamnar under Sökt. Vi säger till om det är tyst efter tolv dagar.'
 
 export type LoggaResultat = { typ: 'sokt'; data: JobApplication; nytt: boolean } | { typ: 'sparad' } | { typ: 'andrad' }
 
@@ -90,6 +107,10 @@ export default function LoggaArk({
 }) {
   const idag = idagSv()
   const franSparad = !!forifyllt?.sparadId
+  // Testvägen: ny tjänst från kortet på testernas Hem, inte redigering, inte en sparad annons.
+  const testvag = arTestvag(forifyllt?.fran) && !redigera && !franSparad
+  const [kallad, setKallad] = useState(false)
+  const [datumFel, setDatumFel] = useState<string | null>(null)
   const [lage, setLage] = useState<'sokt' | 'ska-soka'>('sokt')
   const [titel, setTitel] = useState('')
   const [foretag, setForetag] = useState('')
@@ -112,7 +133,10 @@ export default function LoggaArk({
     setLage(r || franSparad ? 'sokt' : f?.lage ?? 'sokt')
     setTitel(r?.job_title ?? f?.job_title ?? '')
     setForetag(r?.company ?? f?.company ?? '')
-    setDatum(r?.applied_at ?? idagSv())
+    // Testvägen: Datum sökt är tomt och obligatoriskt, aldrig förifyllt (samordnarens beslut, som 9.4).
+    setDatum(r?.applied_at ?? (testvag ? '' : idagSv()))
+    setDatumFel(null)
+    setKallad(testvag && f?.fran === 'test-hem-plan')
     setSistaDag(f?.last_application_date ?? '')
     setKanal((r?.application_channel as ApplicationChannel) ?? 'ad')
     setCvId(r?.cv_id ?? '')
@@ -122,7 +146,7 @@ export default function LoggaArk({
     // Förifyllt från en träff (?logga=1&ort=...&lank=...): visa fälten, så att det som följer med syns.
     setFler(Boolean(r?.location || r?.job_ad_url || r?.notes || (!r && (f?.location || f?.job_ad_url))))
     setFel(null)
-  }, [open, redigera, forifyllt, franSparad])
+  }, [open, redigera, forifyllt, franSparad, testvag])
 
   useEffect(() => {
     if (!open || cver) return
@@ -149,6 +173,11 @@ export default function LoggaArk({
   const spara = async (e?: FormEvent) => {
     e?.preventDefault()
     if (!kanSpara) return
+    if (testvag && !skaSoka && !datum) {
+      setDatumFel(TESTVAG_TEXT.datumFel)
+      document.getElementById('logga-datum-sokt')?.focus()
+      return
+    }
     if (redigera && !skaSoka && datum && datum !== redigera.applied_at) {
       const efter = soktEfterHandelse(datum, handelser ?? [])
       if (efter) {
@@ -189,7 +218,12 @@ export default function LoggaArk({
           const json = await skicka(`/api/jobbsok/ska-sokas/${forifyllt.sparadId}/sokt`, 'POST', falt)
           onKlar({ typ: 'sokt', data: json.data as JobApplication, nytt: !json.alreadyExists })
         } else {
-          const json = await skicka('/api/applications', 'POST', { ...falt, ...(forifyllt?.af_ad_id ? { af_ad_id: forifyllt.af_ad_id } : {}) })
+          const json = await skicka('/api/applications', 'POST', {
+            ...falt,
+            ...(forifyllt?.af_ad_id ? { af_ad_id: forifyllt.af_ad_id } : {}),
+            // Testvägen (9.16): fran alltid, kallad_till_test bara när rutan är kryssad.
+            ...(testvag ? { fran: forifyllt?.fran, ...(kallad ? { kallad_till_test: true } : {}) } : {}),
+          })
           onKlar({ typ: 'sokt', data: json.data as JobApplication, nytt: !json.alreadyExists })
         }
       }
@@ -207,7 +241,9 @@ export default function LoggaArk({
     ? null
     : skaSoka
       ? 'Den räknas inte förrän du har sökt.'
-      : 'Brickan hamnar under Sökt. Vi säger till om det är tyst efter tolv dagar.'
+      : testvag && kallad
+        ? TESTVAG_TEXT.fotKallad
+        : FOT_SOKT
 
   const visaCv = !skaSoka && (cver?.length ?? 0) > 0
 
@@ -250,7 +286,29 @@ export default function LoggaArk({
           </>
         ) : (
           <>
-            <Falt etikett="Datum sökt" typ="datum" value={datum} max={senastSokt} onChange={(e) => setDatum(e.target.value)} />
+            {testvag ? (
+              <>
+                <Falt
+                  id="logga-datum-sokt"
+                  etikett="Datum sökt"
+                  typ="datum"
+                  value={datum}
+                  max={senastSokt}
+                  required
+                  hjalp={TESTVAG_TEXT.datumHjalp}
+                  fel={datumFel ?? undefined}
+                  onChange={(e) => {
+                    setDatum(e.target.value)
+                    if (e.target.value) setDatumFel(null)
+                  }}
+                />
+                <Kryss checked={kallad} onChange={(e) => setKallad(e.target.checked)}>
+                  {TESTVAG_TEXT.kryss}
+                </Kryss>
+              </>
+            ) : (
+              <Falt etikett="Datum sökt" typ="datum" value={datum} max={senastSokt} onChange={(e) => setDatum(e.target.value)} />
+            )}
             <GruppEtikett>Hur sökte du?</GruppEtikett>
             <ValRad etikett="Hur sökte du?">
               {KANALER.map((k) => (

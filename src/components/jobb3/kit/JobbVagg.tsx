@@ -249,7 +249,9 @@ export function Golv({ children, className }: { children: ReactNode; className?:
 /**
  * Den fasta foten på telefon, över dörrnavet: "Logga sökt tjänst" och
  * annonsens knappar. Döljs på dator, där glasknappen i väggen gör jobbet.
+ * `rader`: annonsens fot i två rader, primärknappen överst i full bredd och
+ * de vita knapparna med text under (Jobbsöket omgång 2, byggspecen 3.4).
  */
-export function FastFot({ children }: { children: ReactNode }) {
-  return <div className="j3-fot">{children}</div>
+export function FastFot({ children, rader }: { children: ReactNode; rader?: boolean }) {
+  return <div className={rader ? 'j3-fot rader' : 'j3-fot'}>{children}</div>
 }
