@@ -18,6 +18,7 @@
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { Ikon } from '@/components/publikt/v3/Ikon'
+import { InloggadVaxel } from '@/components/publikt/v3/Inloggad'
 import { SKAL } from './registrering-copy'
 import './registrering.css'
 
@@ -130,10 +131,19 @@ export default function PubliktFlodesskal({
                   Jobbcoach<span>.ai</span>
                 </b>
               </Link>
-              {toppLank.forklaring ? <span className="rg-topp-fraga">{toppLank.forklaring}</span> : null}
-              <Link href={toppLank.href} onClick={toppLank.onClick} className="rg-topp-lank">
-                {toppLank.text}
-              </Link>
+              {/* Inloggad: vägen till kontot i samma ruta (Inloggad.tsx, CLS 0). */}
+              <InloggadVaxel
+                className="p3-vaxel-topp"
+                kontoKlass="rg-topp-lank"
+                ut={
+                  <>
+                    {toppLank.forklaring ? <span className="rg-topp-fraga">{toppLank.forklaring}</span> : null}
+                    <Link href={toppLank.href} onClick={toppLank.onClick} className="rg-topp-lank">
+                      {toppLank.text}
+                    </Link>
+                  </>
+                }
+              />
             </>
           )}
         </div>

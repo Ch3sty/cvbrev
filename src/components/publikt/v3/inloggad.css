@@ -1,0 +1,9 @@
+/* Inloggad.tsx: två lägen i samma ruta, det dolda med visibility, så att
+   rutan har samma bredd i båda lägena och bytet inte flyttar något. */
+.p3-vaxel { display: inline-grid; align-items: center; justify-items: end; gap: 8px; }
+.p3-vaxel > .p3-vaxel-ut,
+.p3-vaxel > .p3-vaxel-in { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: inherit; }
+.p3-vaxel > .p3-vaxel-in { visibility: hidden; }
+.p3-vaxel[data-inloggad] > .p3-vaxel-ut { visibility: hidden; }
+.p3-vaxel[data-inloggad] > .p3-vaxel-in { visibility: visible; }
+.p3-vaxel.p3-vaxel-topp { gap: 12px; }

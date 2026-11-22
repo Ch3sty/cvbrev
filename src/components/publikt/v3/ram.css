@@ -120,6 +120,7 @@
 .p3-tm-prem em { display: inline-block; margin-top: 8px; font-style: normal; font-weight: 600; color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .p3-tm-fot { flex: none; display: grid; grid-template-columns: 1.45fr 1fr; gap: 10px; padding: 12px 16px max(14px, env(safe-area-inset-bottom)); background: #fff; border-top: 2px solid var(--kant); }
 .p3-tm-fot .p3-knapp { padding: 0 10px; font-size: 16px; min-width: 0; }
+.p3-tm-fot[data-inloggad] { grid-template-columns: 1fr; }
 .p3-tm :focus-visible { outline: 3px solid #A8491A; outline-offset: 2px; }
 @media (min-width: 1000px) { .p3-nav .p3-tm { display: none !important; } }
 

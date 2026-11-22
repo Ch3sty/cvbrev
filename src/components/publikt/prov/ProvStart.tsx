@@ -27,9 +27,11 @@ import { Matrisen } from '@/components/session/typer/Matris'
 import { FigurV7, type LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { PROV_TYPER, type ProvTyp } from '@/lib/tests/prov-typer'
 import { PROV_NAMN, PROV_RAM } from './prov-copy'
+import { InloggadVaxel } from '@/components/publikt/v3/Inloggad'
 
 const PROVA_PATH = '/verktyg/rekryteringstester/prova'
 const TILLBAKA = '/verktyg/rekryteringstester'
+const TOPP_LANK = 'inline-flex min-h-11 items-center font-semibold text-vagg-ink underline underline-offset-[3px]'
 
 /** Typvalets ordning: matrisen först, I-provet sist. */
 const TYPVAL: readonly ProvTyp[] = ['matris', 'figurserie', 'talserie', 'numerisk', 'verbal', 'deduktiv', 'spatial', 'ordforrad', 'iprov']
@@ -162,10 +164,19 @@ export default function ProvStart(p: ProvStartProps) {
               Rekryteringstester
             </Link>
             <p className="m-0 ml-auto text-sm text-vagg-mjuk">
-              <span className="hidden lg:inline">Har du redan ett konto? </span>
-              <Link href={p.loginHref} className="inline-flex min-h-11 items-center font-semibold text-vagg-ink underline underline-offset-[3px]">
-                Logga in
-              </Link>
+              {/* Inloggad: vägen till kontot i samma ruta (Inloggad.tsx, CLS 0). */}
+              <InloggadVaxel
+                className="!gap-1"
+                kontoKlass={TOPP_LANK}
+                ut={
+                  <>
+                    <span className="hidden lg:inline">Har du redan ett konto?</span>
+                    <Link href={p.loginHref} className={TOPP_LANK}>
+                      Logga in
+                    </Link>
+                  </>
+                }
+              />
             </p>
           </div>
 

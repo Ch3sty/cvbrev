@@ -13,6 +13,7 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Sida } from '@/components/publikt/v3/Sida'
+import { InloggadVaxel } from '@/components/publikt/v3/Inloggad'
 import '@/components/registrering/registrering.css'
 
 export function AuthKortSkal({
@@ -39,12 +40,18 @@ export function AuthKortSkal({
               </b>
             </Link>
             {toppLank ? (
-              <>
-                {toppLank.fraga ? <span className="rg-topp-fraga">{toppLank.fraga}</span> : null}
-                <Link href={toppLank.href} className="rg-topp-lank">
-                  {toppLank.text}
-                </Link>
-              </>
+              <InloggadVaxel
+                className="p3-vaxel-topp"
+                kontoKlass="rg-topp-lank"
+                ut={
+                  <>
+                    {toppLank.fraga ? <span className="rg-topp-fraga">{toppLank.fraga}</span> : null}
+                    <Link href={toppLank.href} className="rg-topp-lank">
+                      {toppLank.text}
+                    </Link>
+                  </>
+                }
+              />
             ) : null}
           </div>
         </header>

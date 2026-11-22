@@ -28,6 +28,7 @@ import { ENTRY_STORAGE_KEY } from '@/components/registrering/intent'
 import { PROVA_PATH } from '@/lib/flodessidor'
 import { fargForSokvag } from '@/components/publikt/v3/farg'
 import { Ikon } from '@/components/publikt/v3/Ikon'
+import { KontoLank, KontoVaxel, useInloggad } from '@/components/publikt/v3/Inloggad'
 import { HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
 import '@/components/publikt/v3/v3.css'
 import '@/components/publikt/v3/ram.css'
@@ -54,6 +55,7 @@ function Logga() {
 
 export default function LandingNavbar({ mega, mobil }: { mega?: ReactNode; mobil?: ReactNode }) {
   const pathname = usePathname() ?? '/'
+  const inloggad = useInloggad()
   const [menyOppen, setMenyOppen] = useState(false)
   const [mobilOppen, setMobilOppen] = useState(false)
   const stangTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -160,17 +162,27 @@ export default function LandingNavbar({ mega, mobil }: { mega?: ReactNode; mobil
           {HEADER_EFTER.map(valLank)}
         </nav>
 
-        <Link className="p3-nav-in" href="/login">
-          Logga in
-        </Link>
-        <Link
-          href="/register"
-          data-cta="navbar-signup"
-          onClick={() => markeraIngang('header')}
-          className="p3-knapp p3-knapp-liten"
-        >
-          Skapa konto
-        </Link>
+        {/* Inloggad: vägen till kontot i samma ruta (Inloggad.tsx, CLS 0). */}
+        <KontoVaxel
+          inloggad={inloggad}
+          ut={
+            <>
+              <Link className="p3-nav-in" href="/login" tabIndex={inloggad ? -1 : undefined}>
+                Logga in
+              </Link>
+              <Link
+                href="/register"
+                data-cta="navbar-signup"
+                onClick={() => markeraIngang('header')}
+                className="p3-knapp p3-knapp-liten"
+                tabIndex={inloggad ? -1 : undefined}
+              >
+                Skapa konto
+              </Link>
+            </>
+          }
+          inne={<KontoLank inloggad={inloggad} className="p3-knapp p3-knapp-liten" />}
+        />
         <button
           ref={menyKnapp}
           type="button"
@@ -213,13 +225,19 @@ export default function LandingNavbar({ mega, mobil }: { mega?: ReactNode; mobil
           </button>
         </div>
         <div className="p3-tm-kropp">{mobil}</div>
-        <div className="p3-tm-fot">
-          <Link href="/register" className="p3-knapp" data-cta="navbar-signup" onClick={() => markeraIngang('meny')}>
-            Skapa konto gratis
-          </Link>
-          <Link href="/login" className="p3-knapp p3-knapp-vit">
-            Logga in
-          </Link>
+        <div className="p3-tm-fot" data-inloggad={inloggad ? '' : undefined}>
+          {inloggad ? (
+            <KontoLank inloggad className="p3-knapp" />
+          ) : (
+            <>
+              <Link href="/register" className="p3-knapp" data-cta="navbar-signup" onClick={() => markeraIngang('meny')}>
+                Skapa konto gratis
+              </Link>
+              <Link href="/login" className="p3-knapp p3-knapp-vit">
+                Logga in
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
