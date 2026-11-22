@@ -1,0 +1,56 @@
+{
+  "_om": "Publikt omgång 3, textändringarna (docs/publikt-omgang3/textbeslut.md, saas-lead 2026-11-22, med SEO:s krav i docs/publikt-omgang3/seo-krav.md). Push 1: matchningen och Jobbcoachen. Matchningen körs inte när sidan öppnas, aktiveringen finns inte, Jobbcoachen känner till målroll, ort, bransch och delade dokument, inte hela CV:t. Läses av scripts/seo-diff-artiklar.ts.",
+  "RUBRIK_BYTT": [
+    {
+      "path": "/verktyg/jobbmatchning",
+      "fore": "h3 Aktivera ditt CV",
+      "efter": "h3 Välj eller ladda upp ditt CV",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut JM-1 (SEO:s lydelse): det finns ingen aktivering, senaste CV:t läses in av sig självt och byts under Byt CV. Samma rad är HowTo-steg 1."
+    }
+  ],
+  "LD_UNDANTAG": [
+    {
+      "path": "/verktyg/jobbmatchning",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut JM-1, JM-2, JM-4, JM-8 och B5: HowTo-beskrivningen och steg 1 utan aktivering, steg 3 \"Vi hämtar annonserna ur Arbetsförmedlingens öppna API\", featureList \"nya annonser tre gånger per dygn\", FAQ-svaren utan aktivering och \"de 25 bästa träffarna\". Frågorna oförändrade.",
+      "andrade": ["WebApplication", "HowTo", "FAQPage"]
+    },
+    {
+      "path": "/verktyg/jobbcoachen",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut JC-2 och B5: featureList får frågeförslag utifrån sökta tjänster, HowTo-steg 1 och två FAQ-svar säger att Jobbcoachen föreslår frågor utifrån läget, svaret om gratisnivån säger CV-analysens läsbarhetspoäng. Frågorna oförändrade.",
+      "andrade": ["WebApplication", "HowTo", "FAQPage"]
+    },
+    {
+      "path": "/funktioner",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut FUN-1: svaret på \"Hur ofta uppdateras jobbmatchningen?\" sa att matchningen körs när du öppnar sidan. Frågan oförändrad.",
+      "andrade": ["FAQPage"]
+    },
+    {
+      "path": "/verktyg/bli-upptackt",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut BU-1 (B-27): svaret om lön räknar upp samma saker som kortet, med två styrkor. Frågan oförändrad.",
+      "andrade": ["FAQPage"]
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut ART-3: annonserna hämtas tre gånger per dygn, matchningen görs inte när sidan öppnas. BlogPostings wordCount och dateModified.",
+      "andrade": ["BlogPosting"]
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut ART-8: annonserna hämtas tre gånger om dygnet, matchningen görs inte när sidan öppnas. BlogPostings wordCount och dateModified.",
+      "andrade": ["BlogPosting"]
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut ART-10 till ART-12 (B-22): steg 1 \"Ditt CV läses in\" i stället för aktiveringen, också i FAQ-svaret (frontmatter och synligt), annonserna tre gånger per dygn, triageringen på träffen. Stegen fyra, frågan och länktexten med \"jobbmatchningen\" står.",
+      "andrade": ["BlogPosting", "FAQPage"]
+    }
+  ]
+}

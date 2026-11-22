@@ -242,7 +242,7 @@ export const FUNKTIONER = {
       scenAlt: 'Tre jobbträffar med matchningsgrad',
       rubrik: 'Matchade jobb',
       sub: ingarGratis('tre träffar.'),
-      text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken, som fylls på tre gånger per dygn. Varje gång du öppnar sidan får du de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.`,
+      text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot annonserna i Platsbanken. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste. Du får de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilken av dina roller som matchar och vilka av dina kompetenser annonsen frågar efter. Från en träff skriver du det personliga brevet, sparar annonsen till Ska sökas eller markerar den som sökt.`,
       ingar: ['allt'],
     },
     {
@@ -251,7 +251,7 @@ export const FUNKTIONER = {
       scenAlt: 'Jobbcoachen svarar',
       rubrik: 'Jobbcoachen',
       sub: ingarGratis('tio meddelanden.'),
-      text: 'Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Svaren utgår från svensk arbetsmarknad och ditt eget CV, inte från en amerikansk mall.',
+      text: 'Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Svaren utgår från svensk arbetsmarknad, med källor du kan kolla själv, inte från en amerikansk mall. Jobbcoachen känner till din målroll, ort och bransch och de dokument du själv delar i samtalet, och föreslår frågor utifrån läget i dina sökta tjänster.',
       ingar: ['allt'],
     },
   ] satisfies readonly FunktionKort[],

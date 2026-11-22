@@ -51,7 +51,7 @@ const VAD_DU_FAR = [
   { rubrik: 'Matchning i procent per annons', text: 'Varje jobb får ett tal mellan 0 och 100 som visar hur väl ditt CV svarar mot kraven. Du ser direkt var du har störst chans.' },
   { rubrik: 'Tusentals lediga jobb', text: 'Hela Arbetsförmedlingens annonsbas, Sveriges största samling lediga tjänster, från offentlig sektor till privata bolag.' },
   { rubrik: 'Avstånd du väljer själv', text: 'Se jobben nära dig, eller hela Sverige med ett klick. Du bestämmer om du vill pendla eller hålla dig nära hemmet.' },
-  { rubrik: 'Uppdaterat varje dag', text: 'Nya jobb syns i din lista inom timmar efter att de publicerats. Tillsatta tjänster försvinner av sig själva.' },
+  { rubrik: 'Uppdaterat varje dag', text: 'Annonserna hämtas tre gånger per dygn. Du söker om med ett tryck när du vill se de senaste, och annonser som tagits bort följer inte med i nästa sökning.' },
   { rubrik: 'Bäst träff överst', text: 'Toppmatchningarna hamnar först. Du slipper bläddra igenom hundratals annonser för att hitta de få som passar.' },
 ]
 
@@ -63,8 +63,9 @@ const GRENAR = [
 
 const VIDARE: LankRad[] = [
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev från träffen', text: 'Ett klick från ett matchat jobb till ett brev som svarar på just den annonsen.', objekt: 'brev', rum: 'brev' },
+  { href: '/funktioner#sokta-tjanster', rubrik: 'Sökta tjänster', text: 'Spara annonsen till Ska sökas, logga den du har sökt och se när det är dags att följa upp.', objekt: 'sokta', rum: 'jobb' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
-  { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, om du inte har ett att aktivera än.', objekt: 'exempel', rum: 'cv' },
+  { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, om du inte har ett eget än.', objekt: 'exempel', rum: 'cv' },
   { href: '/artiklar/ai-jobbmatchning', rubrik: 'Så fungerar AI-jobbmatchning', text: 'Vad som händer när jobben hittar dig i stället för tvärtom.', objekt: 'match', rum: 'jobb' },
   { href: '/artiklar/byta-karriar-jobbsokande-guide', rubrik: 'Byta karriär', text: 'Guiden för den som ska söka utanför sin gamla titel.', objekt: 'yrke', rum: 'jobb' },
   { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor och avtal inför jobbet du hittade.', objekt: 'chat', rum: 'neu' },
@@ -90,7 +91,7 @@ export default function JobbmatchningSida() {
       description: '3 fulla träffar med skälen gratis, ingen kortuppgift',
     },
     featureList:
-      'Tusentals lediga jobb från Arbetsförmedlingen, matchning i procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',
+      'Tusentals lediga jobb från Arbetsförmedlingen, matchning i procent per annons, distans-filter, nya annonser tre gånger per dygn, sortering på relevans, alla branscher i Sverige',
   }
 
   const howToSchema = {
@@ -98,7 +99,7 @@ export default function JobbmatchningSida() {
     '@type': 'HowTo',
     name: 'Så hittar du jobb med Jobbcoach.ai jobbmatchning',
     description:
-      'Fyra steg från aktiverat CV till sorterade jobbmatchningar: aktivera CV, vi extraherar yrkesdata, vi söker tusentals annonser, du får jobben sorterade efter relevans.',
+      'Fyra steg från uppladdat CV till sorterade jobbmatchningar: välj eller ladda upp CV, vi extraherar yrkesdata, vi söker tusentals annonser, du får jobben sorterade efter relevans.',
     totalTime: 'PT3M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -109,8 +110,8 @@ export default function JobbmatchningSida() {
       {
         '@type': 'HowToStep',
         position: 1,
-        name: 'Aktivera ditt CV',
-        text: 'Ladda upp ett CV eller välj ett du redan sparat. Aktivering tar några sekunder.',
+        name: 'Välj eller ladda upp ditt CV',
+        text: 'Ladda upp ett CV eller använd det du redan har sparat. Ditt senaste CV läses in av sig självt, och du byter under Byt CV.',
       },
       {
         '@type': 'HowToStep',
@@ -122,7 +123,7 @@ export default function JobbmatchningSida() {
         '@type': 'HowToStep',
         position: 3,
         name: 'Vi söker tusentals annonser',
-        text: 'Vi söker direkt mot Arbetsförmedlingens öppna API i hela Sverige.',
+        text: 'Vi hämtar annonserna ur Arbetsförmedlingens öppna API, i hela Sverige.',
       },
       {
         '@type': 'HowToStep',
@@ -168,13 +169,13 @@ export default function JobbmatchningSida() {
             ]}
             kick="Jobbmatchning, fler dörrar än din titel"
             h1="Hitta jobb som matchar ditt CV automatiskt"
-            ingress="Aktivera ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen."
+            ingress="Ladda upp ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen."
             fet="Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel."
             primar={{ text: 'Hitta jobb gratis', href: REGISTRERA, dataCta: 'hero-primary' }}
             sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
             tal={[
               { tal: `${FREE_TIER_JOB_LIMIT} träffar`, text: 'gratis, med skälen' },
-              { tal: 'Dagligen', text: 'nya annonser in, tillsatta ut' },
+              { tal: '3 gånger', text: 'per dygn hämtas nya annonser' },
               { tal: 'Hela Sverige', text: 'alla branscher' },
             ]}
             bildLag
@@ -194,10 +195,10 @@ export default function JobbmatchningSida() {
               <ProvaKort
                 rum="jobb"
                 rubrik={`${storForst(TRAFFAR)} träffar gratis, med skälen`}
-                text={`Aktivera ditt CV, så ser du dina ${TRAFFAR} bästa träffar och exakt varför de passar. Inget kort, ingen bindning.`}
+                text={`Ladda upp ditt CV, så ser du dina ${TRAFFAR} bästa träffar och varför de passar. Inget kort, ingen bindning.`}
                 punkter={[
-                  'Vilka krav du täcker och vad som saknas, per träff',
-                  'Nya annonser in tre gånger per dygn, tillsatta ut',
+                  'Varför rollen passar och vilka av dina kompetenser annonsen frågar efter, per träff',
+                  'Nya annonser in tre gånger per dygn, borttagna ut',
                   `De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}`,
                 ]}
                 knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
@@ -219,7 +220,7 @@ export default function JobbmatchningSida() {
               <div className="pub-tva-text pub-rum-jobb">
                 <h2 className="pub-h2">Så fungerar det</h2>
                 <p className="pub-ingress" style={{ marginTop: 16 }}>
-                  Fyra steg från aktiverat CV till en lista sorterad efter hur väl du passar.
+                  Fyra steg från uppladdat CV till en lista sorterad efter hur väl du passar.
                 </p>
                 <div style={{ marginTop: 28 }}>
                   <Steg rader={howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text }))} />
@@ -301,8 +302,9 @@ export default function JobbmatchningSida() {
               <p className="pub-kick">Nästa steg</p>
               <h2 className="pub-h2">Från träff till ansökan</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 32px' }}>
-                Jobbmatchningen hänger ihop med resten av kontot: brevet skrivs från träffen, och rekryterare kan hitta dig åt
-                andra hållet.
+                Jobbmatchningen hänger ihop med resten av kontot. Från en träff skriver du brevet, sparar annonsen till Ska sökas med
+                sista ansökningsdag eller markerar den som sökt, och följer den sedan under Sökta tjänster. Rekryterare kan dessutom
+                hitta dig åt andra hållet.
               </p>
               <LankLista lankar={VIDARE} />
             </div>
@@ -316,7 +318,7 @@ export default function JobbmatchningSida() {
               </>
             }
             rubrik="Hitta ditt nästa jobb automatiskt."
-            text={`Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. De ${JOB_MATCHES_PER_RUN} bästa träffarna, varje gång du öppnar sidan, ingår i ${PREMIUM}, utan bindningstid.`}
+            text={`Ladda upp ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}, utan bindningstid. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste.`}
             knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
             lank={{ text: 'Se CV-exempel först', href: '/cv-exempel' }}
           />

@@ -70,7 +70,7 @@ const ALLA: LankRad[] = [
   { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
   { href: '/verktyg/jobbmatchning', rubrik: 'Jobbmatchning', text: 'Din kompetens mot alla annonser i Platsbanken, med skälen.', objekt: 'match', rum: 'jobb' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
-  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och ditt CV.', objekt: 'chat', rum: 'neu' },
+  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och med källor du kan kolla själv.', objekt: 'chat', rum: 'neu' },
   { href: '/rakna-ut', rubrik: 'Räkna ut lön och skatt', text: `${storForst(talOrd(RAKNA_UT_SLUGGAR.length))} kalkylatorer på Skatteverkets tabeller.`, objekt: 'klocka', rum: 'neu' },
 ]
 
@@ -85,7 +85,7 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur ofta uppdateras jobbmatchningen?',
-    a: `Vi hämtar annonserna från Arbetsförmedlingen och JobTech tre gånger per dygn, så nya annonser kommer med inom några timmar. Matchningen körs när du öppnar sidan. Gratis ser du dina ${FREE_TIER_JOB_LIMIT} bästa träffar, i ${PREMIUM} de ${JOB_MATCHES_PER_RUN} bästa, med skälen utskrivna.`,
+    a: `Vi hämtar annonserna från Arbetsförmedlingen och JobTech tre gånger per dygn, så nya annonser kommer med inom några timmar. Du söker om med ett tryck när du vill se de senaste, och mellan sökningarna ligger dina träffar kvar som de var. Gratis ser du dina ${FREE_TIER_JOB_LIMIT} bästa träffar, i ${PREMIUM} de ${JOB_MATCHES_PER_RUN} bästa, med skälen utskrivna.`,
   },
   {
     q: 'Vad händer om jag säger upp prenumerationen?',

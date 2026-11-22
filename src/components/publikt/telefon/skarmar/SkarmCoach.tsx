@@ -1,6 +1,7 @@
 /**
- * Jobbcoachen inför intervjun. Ett fast exempel: lönespannet står bara i
- * telefonen, aldrig i löptexten (ingen lön utan källa i löptext).
+ * Jobbcoachen med frågeförslag utifrån läget i Sökta tjänster. Inget belopp
+ * och inget påstående om att svaren bygger på CV:t. Frågan och de två
+ * förslagen är sådana som vyn själv föreslår (src/lib/jobbsok/coach.ts).
  */
 
 import Telefon from '../Telefon'
@@ -10,22 +11,32 @@ export default function SkarmCoach({ glid, className }: { glid?: boolean; classN
   return (
     <Telefon rum="neu" glid={glid} className={className}>
       <SkarmVagg
-        kick="Jobbcoachen"
-        rubrik="Inför intervjun på torsdag"
-        sub="Svaren utgår från svensk arbetsmarknad och ditt CV."
+        kick={null}
+        rubrik="Jobbcoachen"
+        sub="Fråga om lön, intervjuer, arbetsrätt eller ditt CV. Vi svarar med källor du kan kolla själv."
       />
       <SkarmGolv>
-        <div className="s-bubbla s-jag">Vad är rimlig lön för en projektledare i Göteborg med sex års erfarenhet?</div>
+        <div className="s-bubbla s-jag">Vad skriver jag i ett uppföljningsmejl?</div>
         <div className="s-bubbla">
-          Med din bakgrund från NCC och LOU-upphandlingarna ligger spannet i Göteborg runt <b>48 000 till 56 000 kr</b> i
-          månaden. Begär 54 000 och motivera med budgetansvaret på 42 miljoner.
+          Håll det kort. Säg vilken tjänst det gäller, att du fortfarande är intresserad och fråga när de räknar med att ge
+          besked. Tre till fyra meningar räcker. <span className="s-dim">(Källa 1)</span>
         </div>
-        <div className="s-bubbla">Vill du att vi övar på frågan om varför du lämnade NCC?</div>
-        <div className="s-bubbla s-jag">Ja, ta den.</div>
+        <div className="s-kort">
+          <div className="s-kick2">Frågor utifrån ditt läge</div>
+          <p className="s-dim">Hämtade ur dina sökta tjänster.</p>
+          <div className="s-chips" style={{ marginTop: 6 }}>
+            {['Vad frågar jag arbetsgivaren på intervjun?', 'Hur länge är det rimligt att vänta på besked?'].map((k) => (
+              <span className="s-chip s-saknas" key={k}>
+                {k}
+              </span>
+            ))}
+          </div>
+        </div>
       </SkarmGolv>
       <SkarmFot>
         <div className="s-input">
-          <span>Skriv en fråga</span>
+          <span>Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt</span>
+          {/* Skicka-knappen, som i vyn */}
           <i />
         </div>
       </SkarmFot>

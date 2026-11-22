@@ -50,7 +50,7 @@ export default function JobbcoachenSida() {
       description: '10 meddelanden gratis per konto, utan kortuppgift',
     },
     featureList:
-      'Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev',
+      'Karriärrådgivning från svenska källor, klickbara källhänvisningar i varje svar, marknadslön per yrke, arbetsrätt och LAS, intervjuförberedelse, karriärbyte, A-kassa och CSN, dokumentdelning av CV och brev, frågeförslag utifrån dina sökta tjänster',
   }
 
   const howToSchema = {
@@ -71,7 +71,7 @@ export default function JobbcoachenSida() {
         position: 1,
         name: 'Ställ frågan',
         text:
-          'Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige.',
+          'Skriv en fråga om lön, intervju, arbetsrätt, karriärbyte eller annat som rör jobblivet i Sverige. Har du loggat sökta tjänster föreslår Jobbcoachen frågor utifrån ditt läge, till exempel vad du skriver i ett uppföljningsmejl.',
       },
       {
         '@type': 'HowToStep',
@@ -171,7 +171,7 @@ export default function JobbcoachenSida() {
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta googla. Fråga någon som vet.',
-          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill, med ditt CV i samtalet, ingår i ${paketKort()}.`,
+          text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift, och du kan dela ditt CV i samtalet från första frågan. Jobbcoachen så mycket du vill ingår i ${paketKort()}.`,
           knapp: { text: 'Fråga Jobbcoachen gratis', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

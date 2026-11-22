@@ -132,7 +132,7 @@ export const TESTKORT_INTERVJU = {
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */
 export const INLINE_RAKNARE = {
   rubrik: 'Räkna på det själv, fråga sedan',
-  text: 'Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som utgår från ditt CV.',
+  text: 'Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som svarar med källor du kan kolla själv och läser ditt CV när du delar det i samtalet.',
   lankar: [
     { text: 'Räkna ut lönen efter skatt', href: '/rakna-ut/lon-efter-skatt' },
     { text: 'Räkna ut uppsägningstiden', href: '/rakna-ut/uppsagningstid' },

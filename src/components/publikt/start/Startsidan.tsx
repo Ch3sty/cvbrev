@@ -83,7 +83,7 @@ const RESTEN: LankRad[] = [
     objekt: 'mallar',
     rum: 'cv',
   },
-  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och ditt CV.', objekt: 'chat', rum: 'neu' },
+  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och med källor du kan kolla själv.', objekt: 'chat', rum: 'neu' },
   { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
   {
@@ -271,7 +271,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               <b>Jobben du annars hade missat.</b> Din kompetens matchad mot alla annonser i Platsbanken, med skälen utskrivna.
             </>
           }
-          text={`Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan och visar de ${JOB_MATCHES_PER_RUN} bästa träffarna varje gång du öppnar sidan: vilka krav du täcker och vad som saknas. Från en träff skriver du brevet med ett klick.`}
+          text={`Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan och visar de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste. Från en träff skriver du brevet, sparar annonsen till Ska sökas eller markerar den som sökt.`}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/jobbmatchning' }}
           knappNot={`${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar gratis`}
           telefon={<SkarmMatchning />}
@@ -299,8 +299,8 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           kick="Hela vägen"
           rubrik="Jobbcoachen svarar hela vägen"
           rubrikNiva="h2"
-          ingress="Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och ditt CV. Inte från en amerikansk mall."
-          text="Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Svaren känner till ditt CV, dina matchningar och hur testerna gått, så att rådet gäller just din ansökan."
+          ingress="Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och med källor du kan kolla själv. Inte från en amerikansk mall."
+          text="Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Jobbcoachen känner till din målroll, ort och bransch och de dokument du själv delar i samtalet, och föreslår frågor utifrån läget i dina sökta tjänster."
           knapp={{ text: 'Ställ första frågan', href: '/verktyg/jobbcoachen' }}
           knappNot={`${storForst(talOrd(FREE_CHAT_MESSAGES_PER_ACCOUNT))} frågor gratis`}
           telefon={<SkarmCoach />}

@@ -1,7 +1,8 @@
 /**
- * Jobbmatchningen efter att CV:t aktiverats: de sex datapunkterna lästa ur
- * CV:t. Namnen är desamma som rubrikerna i sidans "Sex datapunkter ur ditt
- * CV" (DATAPUNKTER), så skärmen och löptexten följs åt.
+ * Matchade jobb innan första sökningen: CV:t är inläst och sökningen väntar
+ * på ett tryck. Vyn visar roller, kompetenser, utbildningar och ort ur CV:t.
+ * DATAPUNKTER exporteras till sidans "Sex datapunkter ur ditt CV", så att
+ * rubrikerna där står kvar med samma namn.
  */
 
 import Telefon from '../Telefon'
@@ -10,54 +11,53 @@ import { SkarmFot, SkarmGolv, SkarmVagg } from '../delar'
 /** Datapunkternas namn, i samma ordning som sidans H3. */
 export const DATAPUNKTER = ['Yrkesroller', 'Kompetenser', 'Utbildning', 'Plats', 'Språk', 'Erfarenhetsnivå'] as const
 
-const VARDEN: Record<(typeof DATAPUNKTER)[number], string> = {
-  Yrkesroller: 'Projektledare bygg, uppdragsledare',
-  Kompetenser: 'LOU, AMA, budgetansvar, BAS-P',
-  Utbildning: 'Civilingenjör, väg och vatten',
-  Plats: 'Göteborg',
-  Språk: 'Svenska, engelska',
-  Erfarenhetsnivå: 'Sex år, senior',
-}
-
-/** Kortare etikett där sidans rubrik inte ryms i telefonens kolumn. */
-const ETIKETT: Partial<Record<(typeof DATAPUNKTER)[number], string>> = { Erfarenhetsnivå: 'Erfarenhet' }
-
 export default function SkarmAktivera({ glid, className }: { glid?: boolean; className?: string }) {
   return (
     <Telefon rum="jobb" glid={glid} className={className}>
-      <SkarmVagg
-        kick="Jobbmatchning"
-        rubrik="CV:t är aktiverat"
-        sub="Sex datapunkter lästa ur projektledare-cv.pdf. Nu söker vi i Platsbanken."
-      />
+      <SkarmVagg kick="Matchade jobb" rubrik="Jobb som passar ditt CV" />
       <SkarmGolv>
         <div className="s-kort">
-          <div className="s-kick2">Ur ditt CV</div>
-          <dl className="s-data">
-            {DATAPUNKTER.map((d) => (
-              <div key={d} style={{ display: 'contents' }}>
-                <dt>{ETIKETT[d] ?? d}</dt>
-                <dd>{VARDEN[d]}</dd>
-              </div>
+          <div className="s-rad">
+            <div className="s-kick2">Ditt CV</div>
+            <span className="s-dim" style={{ fontSize: 10 }}>
+              <u>Byt CV</u> <u>Rätta</u>
+            </span>
+          </div>
+          <b style={{ fontSize: 12 }}>projektledare-cv.pdf</b>
+          <div className="s-chips" style={{ marginTop: 6 }}>
+            {['3 roller', '14 kompetenser', '2 utbildningar'].map((k) => (
+              <span className="s-chip" key={k}>
+                {k}
+              </span>
             ))}
-          </dl>
+          </div>
+          <p className="s-dim" style={{ marginTop: 6 }}>
+            Ort i CV:t: Göteborg
+          </p>
         </div>
         <div className="s-kort">
           <div className="s-rad">
-            <b style={{ fontSize: 12 }}>Söker bland 1 843 lediga jobb</b>
-            <span className="s-dim" style={{ whiteSpace: 'nowrap' }}>
-              62 %
+            <div className="s-kick2">Så söker vi åt dig</div>
+            <span className="s-dim" style={{ fontSize: 10 }}>
+              <u>Ändra</u>
             </span>
           </div>
-          <div className="s-matare" style={{ marginTop: 8 }}>
-            <i style={{ width: '62%' }} />
+          <div className="s-chips">
+            {['Göteborg', 'Distans: nej', 'Heltid'].map((k) => (
+              <span className="s-chip s-saknas" key={k}>
+                {k}
+              </span>
+            ))}
           </div>
-          <p className="s-dim" style={{ marginTop: 8 }}>
-            Alla annonser i Platsbanken, även de med en annan titel än din.
+        </div>
+        <div className="s-kort">
+          <b style={{ fontSize: 12 }}>Vi har inte letat än</b>
+          <p className="s-dim" style={{ marginTop: 4 }}>
+            Tryck här så läser vi igenom Arbetsförmedlingens annonser mot ditt CV.
           </p>
         </div>
       </SkarmGolv>
-      <SkarmFot knapp="Visa träffarna" />
+      <SkarmFot knapp="Hitta jobb som passar" />
     </Telefon>
   )
 }

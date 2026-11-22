@@ -19,7 +19,7 @@ export interface FaqItem {
 export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur fungerar Jobbcoachen?',
-    a: 'Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Jobbcoachen söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett kort, läsbart svar med klickbara källhänvisningar så du själv kan dubbelkolla. Inget mer googlande och gissa vilken sida som är seriös.',
+    a: 'Du ställer en fråga om jobb, lön, intervju eller arbetsrätt och Jobbcoachen söker bland verifierade svenska källor som Arbetsförmedlingen, SCB och fackförbund. Du får ett kort, läsbart svar med klickbara källhänvisningar så du själv kan dubbelkolla. Inget mer googlande och gissa vilken sida som är seriös. Har du loggat sökta tjänster föreslår Jobbcoachen dessutom frågor utifrån ditt läge.',
   },
   {
     q: 'Var hittar jag tillförlitlig löneinformation i Sverige?',
@@ -43,10 +43,10 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kan jag dela mitt CV med Jobbcoachen?',
-    a: 'Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst.',
+    a: 'Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst. Utan bifogat dokument känner Jobbcoachen till din målroll, ort och bransch ur profilen. Har du loggat sökta tjänster får du också förslag på frågor utifrån läget, till exempel inför en bokad intervju.',
   },
   {
     q: 'Vad händer när mina tio meddelanden är slut?',
-    a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag och ${GRUNDNIVAN_ALLA_DAG}.`,
+    a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, CV-analysens läsbarhetspoäng, ett personligt brev var sjunde dag och ${GRUNDNIVAN_ALLA_DAG}.`,
   },
 ]

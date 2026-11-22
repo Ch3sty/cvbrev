@@ -27,7 +27,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',
-    a: 'Nej. Din profil visar bara din roll, region, kompetenser och testresultat. Lön är något du och rekryteraren pratar om själva, om och när ni börjar chatta.',
+    a: 'Nej. Din profil visar din roll, dina kompetenser, dina villkor, dina testresultat med nivå och placering och, om du valt det, dina två främsta styrkor i ord. Lön är något du och rekryteraren pratar om själva, om och när ni börjar chatta.',
   },
   {
     q: 'Kan jag ångra mig och sluta synas?',

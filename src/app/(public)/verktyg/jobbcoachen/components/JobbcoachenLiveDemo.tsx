@@ -9,7 +9,7 @@ import { ExternalLink, Send } from 'lucide-react'
  * 2. Typing-indikator (3 prickar bouncing)
  * 3. Assistant-bubbla med text + (Kalla N)-citat
  * 4. Kalle-pills under svaret
- * 5. Loopar genom 3 scenarier (lon / arbetsratt / karriarbyte)
+ * 5. Loopar genom 3 scenarier (uppfoljningsmejl / arbetsratt / karriarbyte)
  *
  * Persona: Karriarguiden. Samtalspartner forst, uppslagsverk sist.
  * Inga em-dash, inga rubriker, "vi"-ton.
@@ -28,13 +28,10 @@ interface Scenario {
 
 const SCENARIOS: Scenario[] = [
   {
-    user: 'Vad är marknadslönen för en undersköterska i Stockholm?',
+    user: 'Vad skriver jag i ett uppföljningsmejl?',
     answer:
-      'Medianlönen för undersköterskor i Stockholmsregionen ligger på cirka 30 200 kr i månaden enligt SCB:s lönestatistik 2024 (Källa 1). Med 3 års erfarenhet och natt-tillägg kan du landa runt 32 500 (Källa 2). Vill du se hur du argumenterar för en höjning?',
-    sources: [
-      { label: 'SCB Lönestatistik 2024', org: 'SCB' },
-      { label: 'Kommunal löneavtal', org: 'Fackförbund' },
-    ],
+      'Håll det kort. Säg vilken tjänst det gäller, att du fortfarande är intresserad och fråga när de räknar med att ge besked. Tre till fyra meningar räcker. Vill du att vi skriver ett utkast tillsammans?',
+    sources: [],
   },
   {
     user: 'Min chef sa upp mig idag, vad har jag för rättigheter?',
@@ -48,9 +45,8 @@ const SCENARIOS: Scenario[] = [
   {
     user: 'Är det för sent att byta bransch som 42-åring?',
     answer:
-      'Inte alls. SCB:s arbetskraftsundersökning visar att var fjärde person mellan 40 och 50 byter bransch minst en gång (Källa 1). Det som funkar bäst är att börja från dina överförbara kompetenser. Vad jobbar du med idag, så ser vi vilka roller som ligger nära?',
+      'Inte alls. Många byter bransch mitt i arbetslivet. Det som funkar bäst är att börja från dina överförbara kompetenser. Vad jobbar du med i dag, så ser vi vilka roller som ligger nära?',
     sources: [
-      { label: 'SCB Arbetskraftsundersökning', org: 'SCB' },
       { label: 'Yrkesväxling', org: 'Arbetsförmedlingen' },
     ],
   },

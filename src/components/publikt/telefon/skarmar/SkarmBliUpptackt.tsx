@@ -7,7 +7,8 @@
 import Telefon from '../Telefon'
 import { SkarmBock, SkarmFot, SkarmGolv, SkarmVagg } from '../delar'
 
-const STYRKOR = ['Håller ihop upphandling och tidplan', 'Lugn under press', 'Leder genom expertis']
+/** Två styrkor, som kortet och rekryterarens förhandsvisning (RecruiterPreviewCard, slice(0, 2)). */
+const STYRKOR = ['Håller ihop upphandling och tidplan', 'Lugn under press']
 
 export default function SkarmBliUpptackt({ glid, className }: { glid?: boolean; className?: string }) {
   return (
