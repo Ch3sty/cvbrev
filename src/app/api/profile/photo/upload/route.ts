@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { profilfotoSokvag } from '@/lib/lagring/sokvagar';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -65,10 +66,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate unique filename
-    const timestamp = Date.now();
-    const fileExtension = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-    const fileName = `profile-photo-${timestamp}.${fileExtension}`;
-    const filePath = `users/${user.id}/${fileName}`;
+    const filePath = profilfotoSokvag(user.id, file.name);
 
     // Convert File to ArrayBuffer for Supabase upload
     const fileBuffer = await file.arrayBuffer();

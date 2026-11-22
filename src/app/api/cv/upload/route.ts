@@ -7,7 +7,7 @@ import { markFirstMilestone } from '@/lib/activation-tracking';
 import { parseCV, ImageBasedPdfError } from '@/lib/cv-parser';
 import { lasPdfMedOcr, maskaOcrRester } from '@/lib/cv-parser/ocr';
 import { parseCV as parseCVStructure, type ParsedCV } from '@/lib/cv/cv-parser';
-import { sanitizeStorageKey } from '@/utils/helpers';
+import { cvSokvag, kontoMapp } from '@/lib/lagring/sokvagar';
 import { backfillProfileContact } from '@/lib/profile/backfillContact';
 import { extractContactLocally, type ExtractedContact } from '@/lib/privacy/extractContact';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
@@ -130,10 +130,10 @@ async function runUpload(request: Request, emitter: SseEmitter) {
       return emitter.close();
     }
 
-    const userFolder = `users/${user.id}`;
+    // Allt i hinken cvs ligger under users/<id>/ (reglerna i S-1, lib/lagring/sokvagar.ts).
+    const userFolder = kontoMapp(user.id);
     const originalFileName = file.name;
-    const sanitizedFileName = sanitizeStorageKey(originalFileName);
-    const storageFilePath = `${userFolder}/${sanitizedFileName}`;
+    const storageFilePath = cvSokvag(user.id, originalFileName);
 
     console.log(`ℹ️ Original filename: ${originalFileName}`);
 

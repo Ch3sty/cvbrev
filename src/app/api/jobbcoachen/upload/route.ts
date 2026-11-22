@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { parseCV } from '@/lib/cv-parser';
-import { sanitizeStorageKey } from '@/utils/helpers';
+import { bilagaSokvag } from '@/lib/lagring/sokvagar';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
@@ -76,11 +76,9 @@ export async function POST(request: Request) {
     }
 
     // Upload to Storage
-    const sanitizedFileName = sanitizeStorageKey(file.name);
-    const timestamp = Date.now();
-    const storagePath = conversationId
-      ? `users/${user.id}/chat_attachments/${conversationId}/${timestamp}_${sanitizedFileName}`
-      : `users/${user.id}/chat_attachments/temp/${timestamp}_${sanitizedFileName}`;
+    // Under users/<id>/chat_attachments/ (reglerna i S-1). Samtalets id kommer
+    // från formuläret och blir mappnamn bara om det är ett rent id.
+    const storagePath = bilagaSokvag(user.id, conversationId, file.name);
 
     console.log(`📤 Uploading to storage: ${storagePath}`);
 

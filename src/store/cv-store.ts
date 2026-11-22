@@ -2,7 +2,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
-import { parseCV } from '@/lib/cv-parser'
 import type { CVTemplateType } from '@/lib/cv/cv-metadata'
 import type { ParsedCV } from '@/lib/cv/cv-parser'
 // AI recommendations removed - using simple static recommendations instead
@@ -42,7 +41,6 @@ interface CVStore {
   
   // Basic CV operations
   fetchCVs: () => Promise<void>
-  uploadCV: (file: File, title?: string) => Promise<boolean>
   selectCV: (id: string) => void
   deleteCV: (id: string) => Promise<boolean>
   
@@ -107,62 +105,6 @@ export const useCVStore = create<CVStore>()(
     } catch (error: any) {
       console.error('Error fetching CVs:', error)
       set({ error: error.message, isLoading: false })
-    }
-  },
-  
-  uploadCV: async (file: File, title?: string) => {
-    set({ isLoading: true, error: null })
-    
-    try {
-      const supabase = getSupabaseClient()
-      
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        throw new Error('Ej autentiserad')
-      }
-      
-      // Parsa CV för att extrahera text
-      const cvText = await parseCV(file)
-      
-      // Ladda upp fil till Supabase Storage
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${user.id}-${Date.now()}.${fileExt}`
-      
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('cvs')
-        .upload(fileName, file)
-        
-      if (uploadError) throw uploadError
-      
-      // Skapa en publik URL för filen
-      const { data: { publicUrl } } = supabase.storage
-        .from('cvs')
-        .getPublicUrl(fileName)
-      
-      // Spara metadata i databasen
-      const displayName = title || file.name
-      
-      const { data, error } = await supabase
-        .from('cv_texts')
-        .insert({
-          user_id: user.id,
-          file_name: displayName,
-          original_file_path: publicUrl,
-          cv_text: cvText
-        })
-        .select()
-        
-      if (error) throw error
-      
-      // Uppdatera lokal state
-      await get().fetchCVs()
-      
-      return true
-    } catch (error: any) {
-      console.error('Error uploading CV:', error)
-      set({ error: error.message, isLoading: false })
-      return false
     }
   },
   
