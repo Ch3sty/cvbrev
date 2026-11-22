@@ -193,6 +193,12 @@ export interface ExperienceEntry {
    * kan peka ut arbetsgivaren. Se recruiterView.ts.
    */
   duration?: string | null;
+  /**
+   * Anställningens längd i hela månader, avrundat nedåt. recruiterView.ts
+   * formar texten ur den (hela år nedåt, summan aldrig över den totala
+   * erfarenheten); talet själv lämnar aldrig servern.
+   */
+  durationMonths?: number | null;
 }
 
 export interface EducationEntry {
@@ -895,6 +901,16 @@ function shortDate(value: unknown): string | null {
   return match ? `${match[1]}-${match[2]}` : value.trim();
 }
 
+/** Längden i hela månader, avrundat nedåt, ur samma periodtolkning som senioriteten. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function durationMonths(raw: any, now: number = Date.now()): number | null {
+  const interval = parseInterval(raw);
+  if (!interval || interval.start > now) return null;
+  const ms = (interval.end ?? now) - interval.start;
+  if (ms < 0) return null;
+  return Math.floor(ms / (YEAR_MS / 12));
+}
+
 /** Längden på en anställning i ord, ur samma periodtolkning som senioriteten. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function durationText(raw: any, now: number = Date.now()): string | null {
@@ -951,7 +967,7 @@ function mapExperience(sd: any, contactUnlocked: boolean): ExperienceEntry[] {
       }
 
       if (!position && !description) return null;
-      return { position, company, period, description, duration: durationText(raw) };
+      return { position, company, period, description, duration: durationText(raw), durationMonths: durationMonths(raw) };
     })
     .filter((e): e is ExperienceEntry => e !== null);
 }

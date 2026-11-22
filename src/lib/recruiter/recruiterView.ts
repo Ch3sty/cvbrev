@@ -202,6 +202,29 @@ export function toRecruiterCard(
   return out;
 }
 
+/**
+ * Anställningarnas längd före ja (QA live 2026-11-22): hela år avrundat nedåt
+ * (8 år och 7 månader blir "8 år"), under ett år "Under 1 år", och summan av
+ * det som visas går aldrig över den totala erfarenheten som sidan anger
+ * (yearsOfExperience). Räcker inte resten till en rad visas ingen längd där.
+ * Utan månader (äldre form) används texten som den är.
+ */
+export function langderForeJa(
+  rader: ReadonlyArray<{ duration?: string | null; durationMonths?: number | null }>,
+  totaltAr: number | null
+): (string | null)[] {
+  let kvar = totaltAr ?? Number.POSITIVE_INFINITY;
+  return rader.map((e) => {
+    const m = e.durationMonths;
+    if (typeof m !== 'number' || !Number.isFinite(m) || m < 0) return e.duration ?? null;
+    if (m < 12) return 'Under 1 år';
+    const ar = Math.min(Math.floor(m / 12), kvar);
+    if (ar < 1) return null;
+    kvar -= ar;
+    return `${ar} år`;
+  });
+}
+
 /** Detaljprofilen, formad efter rekryterarens åtkomst. */
 export function toRecruiterDetail(
   detail: CandidateDetail,
@@ -209,8 +232,9 @@ export function toRecruiterDetail(
   access: RecruiterAccess
 ): RecruiterDetail {
   const open = access.contactUnlocked;
+  const langder = open ? [] : langderForeJa(detail.experience ?? [], detail.yearsOfExperience ?? null);
 
-  const experience: RecruiterExperience[] = (detail.experience ?? []).map((e) =>
+  const experience: RecruiterExperience[] = (detail.experience ?? []).map((e, i) =>
     open
       ? {
           position: e.position ?? null,
@@ -222,7 +246,7 @@ export function toRecruiterDetail(
       : {
           position: e.position ?? null,
           company: null,
-          period: e.duration ?? null,
+          period: langder[i] ?? null,
           description: null,
           descriptionHidden: Boolean(e.description),
         }
