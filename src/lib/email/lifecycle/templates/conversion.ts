@@ -23,7 +23,9 @@ export const quotaWall: LifecycleEmail = {
   type: 'quota_wall',
   shouldSend: async (ctx) => !hasPremiumNow(ctx.profile),
   render: (ctx) => {
-    const subject = 'Du har slagit i taket tre gånger den här veckan';
+    // Samma tid i ämnet och i texten: mejlet utlöses vid tredje träffen på
+    // sju dagar, räknat bakåt från nu (recordQuotaWall i hooks.ts).
+    const subject = 'Du har slagit i taket tre gånger på sju dagar';
     const preheader = `${paketMedPris(SALD_PLAN)}, utan bindningstid.`;
     return {
       subject,
@@ -34,7 +36,7 @@ export const quotaWall: LifecycleEmail = {
         preheader,
         body:
           heading('Du söker mer än gratisnivån räcker till') +
-          paragraph(`${greet(ctx.profile.full_name)} du har slagit i taket tre gånger de senaste dagarna.`) +
+          paragraph(`${greet(ctx.profile.full_name)} du har slagit i taket tre gånger de senaste sju dagarna.`) +
           paragraph(
             'Det är inte ett problem, det betyder att du söker på allvar. Men då arbetar du emot en gräns som är byggd för den som skickar en ansökan i veckan. Med ' + paketKort() + ' skriver du personliga brev, frågar Jobbcoachen och tränar alla testnivåer utan att räkna, och du säger upp när du vill.'
           ),

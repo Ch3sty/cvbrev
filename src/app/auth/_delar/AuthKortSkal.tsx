@@ -33,7 +33,10 @@ export function AuthKortSkal({
           <div className="p3-bredd rg-topp-rad">
             <Link href="/" aria-label="Till startsidan" className="rg-logga">
               <i aria-hidden="true">J</i>
-              Jobbcoach<span>.ai</span>
+              {/* Ordet i ett eget element, som i menyn: annars blir "Jobbcoach" och ".ai" två flexdelar med mellanrum emellan. */}
+              <b>
+                Jobbcoach<span>.ai</span>
+              </b>
             </Link>
             {toppLank ? (
               <>

@@ -34,6 +34,11 @@ export interface LayoutOptions {
   ctaUrl?: string;
   /** Liten ruta under CTA, t.ex. lista eller jämförelse. */
   note?: string;
+  /**
+   * Rutan före knappen i stället för efter, när brödtexten slutar med en
+   * inledning till den ("Det här ändras:") och knappen annars hamnar emellan.
+   */
+  noteForeKnappen?: boolean;
   /** Sista raden före footern, ofta en sekundär länk. */
   footNote?: string;
   /** Transaktionella mail visar ingen avregistreringsrad i brödtexten. */
@@ -140,8 +145,7 @@ export function renderLayout(options: LayoutOptions): string {
               ${options.body}
             </td>
           </tr>
-          ${cta}
-          ${note}
+          ${options.noteForeKnappen ? `${note}${cta ? '<tr><td style="height:16px;font-size:0;line-height:0;">&nbsp;</td></tr>' : ''}${cta}` : `${cta}${note}`}
           ${footNote}
           <tr><td style="height:32px;font-size:0;line-height:0;">&nbsp;</td></tr>
         </table>

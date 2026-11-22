@@ -47,7 +47,7 @@ export interface StartMall {
   namn: string
   gratis: boolean
   word: boolean
-  /** "Ingår i Premium, även som Word." */
+  /** "Ingår i Premium, även som Word." eller, för gratismallarna, "Gratis att skriva och spara brevet i. Nedladdning … ingår i Premium." (mallrader.ts) */
   rad: string
   /** Miniatyren: brevets egen om den finns, annars mallens CV-miniatyr. */
   bild: string
@@ -63,7 +63,7 @@ export interface StartTexter {
   /** "Linne och Björk" */
   gratisNamn: string
   allaAntal: number
-  /** "Linne och Björk är gratis. De övriga 38 ingår i Premium, och du provar dem med ditt eget brev." */
+  /** "Linne och Björk är gratis att skriva och spara brev i. De övriga 38 ingår i Premium, …" (mallrader.ts) */
   valjareRad: string
 }
 
@@ -213,7 +213,7 @@ function ArkRad({ mall, vald, gratisNamn }: { mall: StartMall; vald: boolean; gr
   if (vald) {
     return (
       <>
-        <b>{`${mall.namn}, mallen du valde.`}</b> {mall.word ? 'Den är gratis, även som Word.' : 'Den är gratis.'}
+        <b>{`${mall.namn}, mallen du valde.`}</b> {mall.rad}
       </>
     )
   }

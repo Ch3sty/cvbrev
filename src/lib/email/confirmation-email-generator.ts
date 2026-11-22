@@ -55,7 +55,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
       <td align="center" style="padding: 30px 15px;">
 
         <!-- Main Container -->
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 600px;background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
 
           <!-- Header Section -->
           <tr>
@@ -75,10 +75,6 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td style="text-align: center;">
-                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 50%; margin: 0 auto 30px auto; display: flex; align-items: center; justify-content: center; line-height: 80px;">
-                      <span style="color: white; font-size: 36px;">✉️</span>
-                    </div>
-
                     <h2 style="color: #131B32; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">
                       ${hej}
                     </h2>
@@ -173,7 +169,6 @@ Har du problem? Kontakta oss på support@jobbcoach.ai
 
 ---
 Jobbcoach.ai - Din partner för en framgångsrik karriär
-© 2024 Jobbcoach.ai
 jobbcoach.ai
   `;
 }

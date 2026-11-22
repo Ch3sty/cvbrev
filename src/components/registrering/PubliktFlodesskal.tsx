@@ -125,7 +125,10 @@ export default function PubliktFlodesskal({
             <>
               <Link href="/" aria-label={SKAL.hem} className="rg-logga">
                 <i aria-hidden="true">J</i>
-                Jobbcoach<span>.ai</span>
+                {/* Ordet i ett eget element, som i menyn: annars blir "Jobbcoach" och ".ai" två flexdelar med mellanrum emellan. */}
+                <b>
+                  Jobbcoach<span>.ai</span>
+                </b>
               </Link>
               {toppLank.forklaring ? <span className="rg-topp-fraga">{toppLank.forklaring}</span> : null}
               <Link href={toppLank.href} onClick={toppLank.onClick} className="rg-topp-lank">

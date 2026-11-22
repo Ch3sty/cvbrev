@@ -89,7 +89,8 @@ function cleanDocxText(text: string): string {
     .replace(/\n+/g, '\n')
 
     // Fix common DOCX formatting issues
-    .replace(/(\w)-\s+(\w)/g, '$1$2')  // Fix hyphenation within a line
+    // Avstavning slås ihop, men inte "bygg- och anläggning" (se text-utils.ts).
+    .replace(/(\w)-\s+(?!(?:och|eller|samt|respektive|resp|som|till|med|utan)(?![\p{L}\d]))(\w)/giu, '$1$2')
     .replace(/(\w)\s+([,.:])/g, '$1$2') // Remove spaces before punctuation
     .replace(/\b([A-Za-z])\s+(\d+)\b/g, '$1$2') // Fix split code names (e.g., "ABT 06" becomes "ABT06")
     .replace(/(\w)\s+\-\s+(\w)/g, '$1-$2') // Fix split ranges (e.g., "2020 - 2024" becomes "2020-2024")

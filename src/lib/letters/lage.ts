@@ -173,6 +173,9 @@ export function nastaSteg(indata: NastaStegIndata): NastaSteg {
     }
   }
 
+  // CV:t nämns bara när kontot har ett: ett brev från startflödet utan konto
+  // skrivs på det hon fyllde i, inte på något CV (klicktestet 2026-11-22).
+  const skrivet = harCv ? 'Brevet är skrivet mot annonsen och ditt CV.' : 'Brevet är skrivet mot annonsen.'
   const matt = kravMatt(kravForBrev(aktuellt))
   if (matt && matt.saknas > 0) {
     const saknas = matt.saknas === 1 ? 'Ett krav saknas' : `${antalOrd(matt.saknas)} krav saknas`
@@ -180,7 +183,7 @@ export function nastaSteg(indata: NastaStegIndata): NastaSteg {
       ...gemensamt,
       lage: 'krav-saknas',
       rubrik: 'Läs igenom och skicka',
-      text: `Brevet är skrivet mot annonsen och ditt CV. ${saknas}, sedan är det klart att skicka.`,
+      text: `${skrivet} ${saknas}, sedan är det klart att skicka.`,
     }
   }
 
@@ -188,7 +191,7 @@ export function nastaSteg(indata: NastaStegIndata): NastaSteg {
     ...gemensamt,
     lage: 'las-igenom',
     rubrik: 'Läs igenom och skicka',
-    text: 'Brevet är skrivet mot annonsen och ditt CV. Läs igenom det en gång, sedan är det klart att skicka.',
+    text: `${skrivet} Läs igenom det en gång, sedan är det klart att skicka.`,
   }
 }
 

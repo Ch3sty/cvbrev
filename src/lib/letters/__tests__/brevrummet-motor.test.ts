@@ -269,6 +269,15 @@ describe('brevets väg och nästa steg', () => {
     expect(s.stortTal).toEqual({ tal: '3', rest: 'ord' })
   })
 
+  it('nämner CV:t bara när kontot har ett (klicktestet 2026-11-22)', () => {
+    const brev = [{ id: 'a', company: 'X', krav: [], body_stycken: ['Ett två tre.'] }]
+    const utanCv = nastaSteg({ brev, sokta: new Set(), harCv: false })
+    expect(utanCv.text).toBe('Brevet är skrivet mot annonsen. Läs igenom det en gång, sedan är det klart att skicka.')
+    expect(utanCv.text).not.toMatch(/CV/)
+    const medCv = nastaSteg({ brev, sokta: new Set(), harCv: true })
+    expect(medCv.text).toContain('mot annonsen och ditt CV.')
+  })
+
   it('förberett men inte skickat', () => {
     const s = nastaSteg({
       brev: [{ id: 'a', company: 'X', forberett_at: '2026-11-20', forberett_som: 'kopierat', body_stycken: ['a'] }],

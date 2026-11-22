@@ -13,6 +13,7 @@ import {
   formatDateRange,
   shouldShowSection
 } from './cv-metadata';
+import { extractContactLocally } from '@/lib/privacy/extractContact';
 
 // Svenska månader för datumparsing
 const SWEDISH_MONTHS = {
@@ -49,6 +50,37 @@ const SWEDISH_LANGUAGE_LEVELS: Record<string, 'Nybörjare' | 'Konversation' | 'F
   'tvåspråkig': 'Tvåspråkig',
   'bilingual': 'Tvåspråkig'
 };
+
+/**
+ * Svenskt telefonnummer i de vanliga skrivsätten: "070-123 45 67",
+ * "0701234567", "+46 70 123 45 67", "+46 (0)70-123 45 67", "08-123 456 78",
+ * "031-12 34 56". Ett svenskt nummer har 7 till 9 siffror efter nollan
+ * (riktnummer inräknat), och mönstret räknar siffror med högst ett mellanslag
+ * eller bindestreck mellan dem. Den gamla regexen räknade tecken och tappade
+ * därför sista siffran i "070-123 45 67".
+ *
+ * Gränserna: inget nummer börjar mitt i ett annat tal eller ett datum
+ * (inget tal, plus, bindestreck, snedstreck eller punkt direkt före), och
+ * numret slutar där nästa tecken inte är en siffra. Ett postnummer eller
+ * årtal efter numret slukas inte: nio siffror är taket, och räcker inte
+ * siffrorna till ett helt tal backar mönstret till numrets egna.
+ */
+export const SVENSKT_TELEFONNUMMER =
+  /(?<![\d+\-/.])(?:(?:\+46|0046)[\s-]?(?:\(0\)[\s-]?)?[1-9](?:[\s-]?\d){6,8}|0[1-9](?:[\s-]?\d){6,8})(?!\d)/;
+
+/**
+ * Numret som det står, med mellanrummen jämnade. Ett nummer utan
+ * mellanrum ("0701234567") får mobilnummers vanliga gruppering
+ * ("070-123 45 67"); "0046" skrivs "+46". Siffrorna ändras aldrig.
+ */
+export function normaliseraTelefon(nummer: string): string {
+  let s = nummer.trim().replace(/\s+/g, ' ').replace(/\s*-\s*/g, '-');
+  if (s.startsWith('0046')) s = '+46' + s.slice(4);
+  if (/^07\d{8}$/.test(s)) {
+    return `${s.slice(0, 3)}-${s.slice(3, 6)} ${s.slice(6, 8)} ${s.slice(8)}`;
+  }
+  return s;
+}
 
 export class SwedishCVContentParser {
   
@@ -110,13 +142,10 @@ export class SwedishCVContentParser {
     const emailMatches = text.match(emailRegex);
     const email = emailMatches?.[0] || '';
     
-    // Telefon (svenska format)
-    const phoneRegex = /(\+46|0046|0)[\s-]?[1-9][\d\s-]{7,10}/g;
-    const phoneMatches = text.match(phoneRegex);
-    let phone = phoneMatches?.[0] || '';
-    if (phone) {
-      phone = this.normalizeSwedishPhoneNumber(phone);
-    }
+    // Telefon (svenska format). Se SVENSKT_TELEFONNUMMER: räknar siffror,
+    // inte tecken, så att mellanslag och bindestreck inte kostar en siffra.
+    const phoneMatch = text.match(SVENSKT_TELEFONNUMMER);
+    const phone = phoneMatch ? normaliseraTelefon(phoneMatch[0]) : '';
     
     // LinkedIn
     const linkedInRegex = /(linkedin\.com\/in\/[\w-]+|linkedin\.com\/pub\/[\w-]+)/gi;
@@ -150,11 +179,15 @@ export class SwedishCVContentParser {
              /^[A-ZÅÄÖ]/.test(trimmed);
     }) || '';
     
-    // Adress (svenska adressformat)
+    // Adress: postnummer och ort ("411 05 Göteborg"). Står orten utan
+    // postnummer ("Projektledare | Göteborg | e-post | telefon") läses den
+    // som kontots uppladdning gör, mot Sveriges kommuner i kontaktblocket
+    // (extractContactLocally), så att besökarens ort följer med.
     const addressRegex = /\d{3}\s?\d{2}\s+[A-ZÅÄÖ][a-zåäö]+/g;
     const addressMatch = text.match(addressRegex);
-    const address = addressMatch?.[0] || '';
-    
+    const ort = extractContactLocally(text).city;
+    const address = addressMatch?.[0] || ort;
+
     return {
       fullName: nameCandidate,
       email,
@@ -164,33 +197,6 @@ export class SwedishCVContentParser {
       website,
       github
     };
-  }
-  
-  /**
-   * Normalisera svenska telefonnummer
-   */
-  private normalizeSwedishPhoneNumber(phone: string): string {
-    // Ta bort alla mellanslag och bindestreck
-    let cleaned = phone.replace(/[\s-]/g, '');
-    
-    // Konvertera till internationellt format
-    if (cleaned.startsWith('0046')) {
-      cleaned = '+46' + cleaned.substring(4);
-    } else if (cleaned.startsWith('0')) {
-      cleaned = '+46' + cleaned.substring(1);
-    } else if (!cleaned.startsWith('+46')) {
-      cleaned = '+46' + cleaned;
-    }
-    
-    // Formatera med mellanslag för läsbarhet
-    if (cleaned.startsWith('+46')) {
-      const number = cleaned.substring(3);
-      if (number.length >= 8) {
-        return `+46 ${number.substring(0, 2)}-${number.substring(2, 5)} ${number.substring(5)}`;
-      }
-    }
-    
-    return cleaned;
   }
   
   /**

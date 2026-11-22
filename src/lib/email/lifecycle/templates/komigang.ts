@@ -108,6 +108,26 @@ async function lasLage(ctx: LifecycleContext): Promise<{ lage: KomIgangLage; pak
 
 /* --------------------------------------------------- nästa bricka */
 
+/**
+ * Brickorna vars titel är ett avbockat läge ("Profilen ifylld", "CV uppladdat",
+ * "CV-analysen körd"). Titeln passar i listan i kontot, men i ett mejl som ber
+ * henne göra just det blir den fel (klicktestet på live 2026-11-22). Där
+ * används knappens ord som rubrik och kortformen i uppräkningar.
+ */
+const AVBOCKAD_TITEL: ReadonlySet<BrickaKey> = new Set<BrickaKey>(['profil', 'cv_upp', 'analys']);
+
+/** Mejlets rubrik för brickan. */
+export function mejlRubrik(key: BrickaKey, paket: Paket): string {
+  const b = brickaText(key, paket);
+  return AVBOCKAD_TITEL.has(key) ? b.knapp : b.titel;
+}
+
+/** Brickan i en uppräkning mitt i en mening ("mallen, brevet och LinkedIn"). */
+function iMening(key: BrickaKey, paket: Paket): string {
+  const b = brickaText(key, paket);
+  return AVBOCKAD_TITEL.has(key) ? b.kort : b.titel.toLowerCase();
+}
+
 interface Brickmejl {
   subject: string;
   preheader: string;
@@ -125,7 +145,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
   const dagar = dagarKvar(ctx.profile.current_period_end);
   const kvarTitlar = lage.lista
     .filter((k) => !lage.provade.includes(k))
-    .map((k) => brickaText(k, lage.paket).titel.toLowerCase());
+    .map((k) => iMening(k, lage.paket));
   const hej = greet(ctx);
 
   switch (key) {
@@ -302,7 +322,7 @@ export const komIgangMejl: LifecycleEmail = {
         type: KOMIGANG_TYPE,
         userId: ctx.userId,
         preheader: mejl.preheader,
-        body: heading(escapeHtml(bricka.titel)) + paragraph(escapeHtml(mejl.body)),
+        body: heading(escapeHtml(mejlRubrik(nasta, lage.paket))) + paragraph(escapeHtml(mejl.body)),
         ctaLabel: mejl.cta,
         ctaUrl: bricka.href,
       }),

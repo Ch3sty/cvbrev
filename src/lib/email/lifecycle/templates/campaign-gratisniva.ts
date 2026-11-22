@@ -52,6 +52,8 @@ export const gratisnivaAndras: LifecycleEmail = {
             'Jobbcoachen: tio meddelanden per konto',
           ]) +
           '<p style="margin:12px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#9A3412;">Allt du redan skapat ligger kvar och går att läsa och kopiera som vanligt.</p>',
+        // "Det här ändras:" leder till listan, så listan står före knappen.
+        noteForeKnappen: true,
         ctaLabel: 'Se vad som gäller',
         ctaUrl: '/priser',
         footNote:

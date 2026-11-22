@@ -16,7 +16,10 @@ export function cleanExtractedText(text: string): string {
     .replace(/ ?\n\s*/g, '\n')         // Trim around newlines, collapse blank lines
 
     // Specific handling for CV format
-    .replace(/(\w)-[^\S\n]+(\w)/g, '$1$2')  // Handle incorrect hyphenation within a line
+    // Avstavning inom en rad ("infra- struktur") slås ihop, men inte svenska
+    // sammandragningar med bindestreck ("bygg- och anläggning", "för- eller
+    // nackdelar", "heltids- till deltid"), som annars blev "byggoch".
+    .replace(/(\w)-[^\S\n]+(?!(?:och|eller|samt|respektive|resp|som|till|med|utan)(?![\p{L}\d]))(\w)/giu, '$1$2')
     .replace(/(\w)[^\S\n]+([,.:])/g, '$1$2') // Remove spaces before punctuation
     // Fix split code names (e.g., "ABT 06" becomes "ABT06"). Å, ä och ö
     // räknas som bokstäver, så "för 5" aldrig blir "för5".

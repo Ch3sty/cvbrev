@@ -22,11 +22,11 @@ import { exampleData } from '../../personligt-brev-exempel/[yrke]/exempel-data'
 import { mallBild } from '@/lib/cv/mallar/katalog'
 import { BREV_FORVALD_MALL } from '@/lib/letters/brevRegler'
 import { mallarKatalog } from '@/components/brev3/mallar/filter'
-import { namnradMening } from '@/components/publikt/brevvisare/visare-data'
 import { BREV_GRATIS_NAMN, BREV_MALL_ANTAL, BREV_PREMIUM_ANTAL, brevMiniatyrSrc } from '@/components/publikt/brevmallar'
 import { paketKort } from '@/lib/plans/plans'
 import { Sida, Ikon } from '@/components/publikt/v3'
 import StartFlow, { type StartMall, type StartTexter } from './StartFlow'
+import { startMallRad, startValjareRad } from './mallrader'
 import './skapa-brev-start.css'
 
 const BASE_URL = 'https://www.jobbcoach.ai'
@@ -72,7 +72,7 @@ function startMallar(): StartMall[] {
       namn: k.namn,
       gratis: k.niva === 'gratis',
       word: k.word,
-      rad: namnradMening(k.niva === 'gratis', k.word),
+      rad: startMallRad(k.niva === 'gratis', k.word, paketKort()),
       bild: brevbild ? brevMiniatyrSrc(k.id) : mallBild(k.id).liten,
       brevbild,
       farg: k.farg,
@@ -89,7 +89,7 @@ function startTexter(): StartTexter {
     premium,
     gratisNamn: BREV_GRATIS_NAMN,
     allaAntal: BREV_MALL_ANTAL,
-    valjareRad: `${BREV_GRATIS_NAMN} är gratis. De övriga ${BREV_PREMIUM_ANTAL} ingår i ${premium}, och du provar dem med ditt eget brev.`,
+    valjareRad: startValjareRad(BREV_GRATIS_NAMN, BREV_PREMIUM_ANTAL, premium),
   }
 }
 

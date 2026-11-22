@@ -18,6 +18,7 @@
 .rg-topp-rad { display: flex; align-items: center; gap: 12px; height: 64px; }
 .rg-logga { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-right: auto; text-decoration: none; color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
 .rg-logga i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; font-style: normal; background: linear-gradient(180deg, var(--koppar-topp), var(--koppar)); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+.rg-logga b { font-weight: inherit; }
 .rg-logga span { color: var(--vagg-mjuk); font-weight: 700; }
 .rg-topp-fraga { display: none; font-size: 15px; color: var(--vagg-mjuk); }
 .rg-topp a.rg-topp-lank,
