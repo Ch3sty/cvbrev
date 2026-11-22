@@ -24,7 +24,8 @@ function summaryLabel(badges: TestBadge[]): { text: string; strong: boolean } | 
     const topX = Math.max(1, 100 - (best.percentile ?? 0));
     return { text: `Topp ${topX} %`, strong: topX <= 25 };
   }
-  // Ingen percentil (litet underlag): visa högsta bevisade nivån i stället.
+  // Ingen placering (litet underlag eller under mitten): visa högsta
+  // bevisade nivån i stället, aldrig ett tal.
   const withLevel = badges.filter((b) => b.level);
   if (withLevel.length > 0) {
     const order = { grund: 0, avancerad: 1, expert: 2 } as const;
@@ -55,7 +56,7 @@ export default function PercentileDots({ badges }: { badges: TestBadge[] }) {
           const tooltip = badge
             ? p !== null
               ? `${FAMILY_LABELS[family]} · ${badge.level ? LEVEL_LABELS[badge.level] : ''} · topp ${Math.max(1, 100 - p)} %${badge.sampleSize ? ` av ${badge.sampleSize}` : ''}`
-              : `${FAMILY_LABELS[family]} · ${badge.level ? LEVEL_LABELS[badge.level] : 'verifierad'}, rangordning byggs upp`
+              : `${FAMILY_LABELS[family]} · ${badge.level ? LEVEL_LABELS[badge.level] : 'verifierad'}, genomfört`
             : `${FAMILY_LABELS[family]} · ej testad`;
 
           return (

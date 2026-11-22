@@ -32,6 +32,7 @@ import {
   type WorkStyleReport,
   type DomainScores,
 } from './workStyle';
+import { synligPercentil } from './placering';
 
 /** Disclaimer som UI:t visar ovanför arbetsstilsrapporten, ordagrant. */
 export { WORKSTYLE_DISCLAIMER, CONTEXT_TAG_MICROCOPY } from './workStyle';
@@ -354,9 +355,11 @@ async function fetchSessions(admin: Admin, userId: string): Promise<SessionRow[]
 
 export function badgeLabel(family: FamilyKey, level: Level, percentile: number | null): string {
   // Nivån ingår alltid i etiketten: "Matrislogik · Expertnivå · topp 8 %".
-  // Under 25 testade visas bara nivån, aldrig andel rätt (saas-lead 2026-11-15).
+  // Placeringen visas bara över mitten (placering.ts); annars, och under 25
+  // testade, bara att testet är gjort på nivån. Aldrig andel rätt.
   const base = `${FAMILY_LABELS[family]} · ${LEVEL_LABELS[level]}`;
-  return percentile !== null ? `${base} · topp ${Math.max(1, 100 - percentile)} %` : base;
+  const synlig = synligPercentil(percentile);
+  return synlig !== null ? `${base} · topp ${Math.max(1, 100 - synlig)} %` : base;
 }
 
 /**
@@ -374,7 +377,7 @@ function firstCompleted(sessions: SessionRow[]): SessionRow {
  * (expert > avancerad > grund), aldrig rå-score-jämförelse över nivåer.
  * Resultatet på nivån = första slutförda sessionen, inte bästa av N.
  */
-async function buildTestBadges(
+export async function buildTestBadges(
   sessions: SessionRow[],
   ctx: PercentileContext
 ): Promise<TestBadge[]> {
@@ -396,7 +399,10 @@ async function buildTestBadges(
       const level = LEVELS[levelIndex];
       const verified = firstCompleted(sessions.filter((s) => s.test_type === testType));
 
-      const { percentile, sampleSize } = await ctx.getStats(testType, verified.score ?? 0, verified.meta);
+      const stats = await ctx.getStats(testType, verified.score ?? 0, verified.meta);
+      // Under mitten: inget tal alls, varken placering eller underlag.
+      const percentile = synligPercentil(stats.percentile);
+      const sampleSize = percentile === null ? null : stats.sampleSize;
 
       const badge: TestBadge = {
         family,
@@ -987,11 +993,11 @@ async function buildAllTestResults(
       // Verifierat resultat = första slutförda försöket, aldrig best-of-N.
       const verified = firstCompleted(own);
       entries.push(
-        ctx.getStats(testType, verified.score ?? 0, verified.meta).then(({ percentile, sampleSize }) => ({
+        ctx.getStats(testType, verified.score ?? 0, verified.meta).then((stats) => ({
           family,
           level: LEVELS[levelIndex],
-          percentile,
-          sampleSize,
+          percentile: synligPercentil(stats.percentile),
+          sampleSize: synligPercentil(stats.percentile) === null ? null : stats.sampleSize,
           completedAt: verified.completed_at,
           attempts: own.length,
         }))

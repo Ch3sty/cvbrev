@@ -440,3 +440,50 @@ describe('poolen visar aldrig en profil utan CV och yrkesroll', () => {
     expect(JSON.parse(await poolen()).candidates).toHaveLength(1);
   });
 });
+
+describe('testens placering visas bara över mitten', () => {
+  /** 100 andra sessioner med poäng 0..99, och kandidatens egen. */
+  function medVerbalt(poang: number) {
+    byggDb('inget');
+    const andra = Array.from({ length: 100 }, (_, i) => ({
+      user_id: `annan-${i}`,
+      test_type: 'verbal-resonemang',
+      score: i,
+      completed_at: '2026-11-01T10:00:00.000Z',
+      meta: null,
+    }));
+    db.tables.logic_test_v4_sessions = [
+      ...andra,
+      { user_id: KAND, test_type: 'verbal-resonemang', score: poang, completed_at: '2026-11-20T10:00:00.000Z', meta: null },
+    ];
+  }
+
+  it('percentil 36: bara att testet är genomfört, inget tal någonstans', async () => {
+    medVerbalt(36);
+    const svar = (await poolen()) + (await json(await detaljen(PUBLIK)));
+    expect(svar).toContain('Verbalt · Grundnivå');
+    expect(svar).not.toMatch(/topp \d+ %|Topp \d+ %/);
+    const kort = JSON.parse(await poolen()).candidates[0];
+    expect(kort.testBadges[0]).toMatchObject({ percentile: null, sampleSize: null, label: 'Verbalt · Grundnivå' });
+    expect(JSON.stringify(kort.matchReasons)).not.toMatch(/Topp/);
+  });
+
+  it('percentil 36 går inte att utläsa med filtret topp 70 %', async () => {
+    medVerbalt(36);
+    const { GET } = await import('@/app/api/recruiter/pool/route');
+    const res = await GET(new NextRequest('http://localhost/api/recruiter/pool?minPercentile=30'));
+    expect((await res.json()).candidates).toEqual([]);
+  });
+
+  it('percentil 80: placeringen visas', async () => {
+    medVerbalt(80);
+    const kort = JSON.parse(await poolen()).candidates[0];
+    expect(kort.testBadges[0].label).toBe('Verbalt · Grundnivå · topp 21 %');
+  });
+
+  it('percentil 50 är topp 50 % och visas', async () => {
+    medVerbalt(50);
+    const kort = JSON.parse(await poolen()).candidates[0];
+    expect(kort.testBadges[0].label).toBe('Verbalt · Grundnivå · topp 50 %');
+  });
+});

@@ -15,6 +15,12 @@ describe('rekryterarvyn utan råpoäng', () => {
     expect(badgeLabel('verbal', 'expert', 92)).toMatch(/topp 8 %$/)
   })
 
+  it('under mitten visas bara nivån, inget tal (ägarbeslut 2026-11-22)', () => {
+    expect(badgeLabel('matrislogik', 'grund', 36)).toBe('Matrislogik · Grundnivå')
+    expect(badgeLabel('matrislogik', 'grund', 49)).toBe('Matrislogik · Grundnivå')
+    expect(badgeLabel('matrislogik', 'grund', 50)).toBe('Matrislogik · Grundnivå · topp 50 %')
+  })
+
   it('rekryterarens datatyper och vyer bär ingen bestScore', () => {
     const rot = path.resolve(__dirname, '../../../..')
     for (const fil of [

@@ -161,7 +161,9 @@ describe('getCandidateSummary: percentilgränsen', () => {
     };
 
     await run([session('matrislogik', 90, '2026-01-01T10:00:00Z', BLANDAD_V2)]);
-    expect(kedjor).toHaveLength(2);
+    // Två för kandidatens egen vy och två för rekryterarens märken
+    // (recruiterBadges), alla mot samma underlag.
+    expect(kedjor).toHaveLength(4);
     for (const k of kedjor) {
       expect(harFilter(k, 'eq', 'meta->>alternativ_blandade', 'true')).toBe(true);
       expect(harFilter(k, 'eq', 'meta->>bank_version', '2')).toBe(true);

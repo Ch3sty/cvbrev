@@ -402,13 +402,14 @@ function VerifiedResults({ candidate }: { candidate: CandidateDetail }) {
             <span className="text-[12.5px] font-bold text-orange-800 flex-shrink-0">
               {result.percentile !== null
                 ? `Topp ${Math.max(1, 100 - result.percentile)} % av ${result.sampleSize ?? '?'} testade`
-                : 'Placering visas vid 25 testade'}
+                : 'Genomfört'}
             </span>
           </div>
         ))}
       </div>
       <p className="mt-3 text-[12px] text-slate-400 leading-relaxed">
-        Percentilerna jämför kandidaten med alla som gjort samma test hos oss.
+        Placeringen jämför kandidaten med alla som gjort samma test hos oss och
+        visas när resultatet är över mitten. Annars står bara att testet är genomfört.
       </p>
     </PortalCard>
   );

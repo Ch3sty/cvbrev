@@ -50,18 +50,19 @@ export default function RecruiterPreviewCard({
   const displayName = isOpen && fullName ? fullName : roleLabel;
   const avatarInitial = (isOpen && fullName ? fullName : roleLabel).charAt(0).toUpperCase();
 
-  const testBadges = FAMILY_ORDER.filter((key) => summary?.results?.[key]?.done).map((key) => {
-    const result = summary!.results[key];
-    return {
-      key,
-      label:
-        result.percentile !== null
-          ? `${FAMILY_LABELS[key]} · topp ${Math.max(1, 100 - result.percentile)} %`
-          : result.level
+  // Märkena exakt som rekryteraren ser dem (samma härledning och samma
+  // placeringsregel: placering bara över mitten, annars bara nivån).
+  const testBadges = summary?.recruiterBadges
+    ? summary.recruiterBadges.map((b) => ({ key: b.family, label: b.label }))
+    : FAMILY_ORDER.filter((key) => summary?.results?.[key]?.done).map((key) => {
+        const result = summary!.results[key];
+        return {
+          key,
+          label: result.level
             ? `${FAMILY_LABELS[key]} · ${LEVEL_LABELS[result.level]}`
             : FAMILY_LABELS[key],
-    };
-  });
+        };
+      });
 
   const personalityChips =
     profile.show_personality && summary?.personality?.done ? summary.personality.strengths : [];

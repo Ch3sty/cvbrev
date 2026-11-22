@@ -23,7 +23,12 @@
 // inte — det ligger i candidate_profiles och går bara till kandidatens egen vy.
 
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { deriveSeniority, deriveEducationLevel } from '@/lib/recruiter/candidateData';
+import {
+  buildTestBadges,
+  createPercentileContext,
+  deriveSeniority,
+  deriveEducationLevel,
+} from '@/lib/recruiter/candidateData';
 import { MIN_PERCENTILE_SAMPLE, STRENGTH_MAP } from '@/lib/candidate/strengthConstants';
 import { begransaTillUnderlag, percentilUnderlag } from '@/lib/logicTestV7/percentilUnderlag';
 
@@ -361,6 +366,12 @@ export async function getCandidateSummary(
 
   const results = Object.fromEntries(familyEntries) as Record<FamilyKey, FamilyResult>;
 
+  // Rekryterarens märken för samma sessioner, så att förhandsvisningen visar
+  // exakt det rekryteraren ser (också när placeringen hålls inne).
+  const recruiterBadges = (await buildTestBadges(sessions, createPercentileContext(admin))).map(
+    (b) => ({ family: b.family, label: b.label })
+  );
+
   // --- Personlighet: styrkor, arbetsstil och v2-rapporterna ---
   // Grundtestare (facet_scores saknas): workStyle/rapporter blir null och
   // hasAdvancedTest false — UI visar upsell + låst förhandsvisning.
@@ -415,6 +426,7 @@ export async function getCandidateSummary(
 
   return {
     results,
+    recruiterBadges,
     personality,
     skills: {
       skills: extractedSkills.length > 0 ? extractedSkills : structured.skills,

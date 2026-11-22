@@ -36,6 +36,8 @@ import type {
   CardWorkStyle,
 } from './candidateData';
 import type { WorkStyle } from './workStyle';
+import { badgeLabel, FAMILY_LABELS } from './candidateData';
+import { synligPercentil } from './placering';
 
 export interface RecruiterAccess {
   /** Arbetsgivare, beskrivningar, lärosäten och namn. */
@@ -150,12 +152,15 @@ function strings(list: readonly unknown[] | null | undefined): string[] {
 }
 
 function badge(b: CandidateCard['testBadges'][number]): RecruiterTestBadge {
+  // Placeringsregeln (placering.ts) gäller också här, även om kortet redan
+  // byggts efter den: etiketten byggs om ur det som får visas.
+  const percentile = synligPercentil(b.percentile);
   return {
     family: b.family,
-    label: b.label,
+    label: b.level ? badgeLabel(b.family, b.level, percentile) : FAMILY_LABELS[b.family],
     level: b.level,
-    percentile: b.percentile,
-    sampleSize: b.sampleSize,
+    percentile,
+    sampleSize: percentile === null ? null : b.sampleSize,
     testDate: dateOnly(b.testDate),
   };
 }
@@ -244,8 +249,8 @@ export function toRecruiterDetail(
     testResults: (detail.testResults ?? []).map((r) => ({
       family: r.family,
       level: r.level,
-      percentile: r.percentile,
-      sampleSize: r.sampleSize,
+      percentile: synligPercentil(r.percentile),
+      sampleSize: synligPercentil(r.percentile) === null ? null : r.sampleSize,
       completedAt: dateOnly(r.completedAt),
       attempts: r.attempts,
     })),

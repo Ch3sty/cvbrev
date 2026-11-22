@@ -88,6 +88,12 @@ export interface SummaryData {
     hasAdvancedTest: boolean;
   };
   skills: { skills: string[]; occupation: string | null; location: string | null };
+  /**
+   * Testmärkena exakt som rekryteraren ser dem: samma härledning (första
+   * slutförda försöket på högsta nivån) och samma placeringsregel. Driver
+   * förhandsvisningen "Så ser rekryterare dig".
+   */
+  recruiterBadges?: Array<{ family: FamilyKey; label: string }>;
   /** Senioritet härledd ur CV:ts arbetshistorik (fas 3.5). */
   seniority?: {
     yearsOfExperience: number | null;
