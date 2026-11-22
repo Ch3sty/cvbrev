@@ -117,7 +117,7 @@
 .sb-valjare { width: min(1120px, 100%); max-width: 100%; max-height: min(92vh, 900px); margin: auto auto 0; padding: 0; border: 0; border-radius: 26px 26px 0 0; background: var(--papper); color: var(--ink-1); box-shadow: 0 8px 0 rgba(0, 0, 0, .3); overflow: hidden; }
 @media (min-width: 700px) { .sb-valjare { margin: auto; border-radius: 26px; width: min(1120px, calc(100% - 48px)); } }
 .sb-valjare::backdrop { background: rgba(20, 12, 24, .62); }
-.sb-v-ram { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; max-height: inherit; }
+.sb-v-ram { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr); max-height: inherit; }
 .sb-v-huvud { display: flex; align-items: center; gap: 12px; padding: 16px 12px 12px 18px; }
 .sb-v-huvud p { margin-right: auto; font-family: var(--disp); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: var(--ink-1); }
 .sb-v-stang { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; border: 2px solid var(--kant-stark); background: var(--papper); color: var(--ink-1); cursor: pointer; }
@@ -137,16 +137,11 @@
 /* Samma färger som grundens .p3-chip-gratis. */
 .sb-vm-gratis { background: var(--positiv-mjuk); color: #1F5C41; }
 .sb-vm-vald { background: var(--koppar); color: var(--koppar-text); }
-.sb-v-fot { display: grid; gap: 12px; padding: 16px 18px 20px; border-top: 2px solid var(--kant); background: var(--papper); }
-.sb-v-fot p { font-size: 16px; line-height: 1.4; color: var(--ink-2); }
-.sb-v-fot p b { margin-right: 6px; font-family: var(--disp); font-weight: 800; font-size: 22px; color: var(--ink-1); }
-.sb-v-anvand { justify-self: stretch; }
-@media (min-width: 700px) { .sb-v-rutnat { grid-template-columns: repeat(5, minmax(0, 1fr)); } .sb-v-anvand { justify-self: end; } }
+@media (min-width: 700px) { .sb-v-rutnat { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 @media (min-width: 1000px) {
   .sb-v-huvud { padding: 22px 20px 14px 28px; }
   .sb-v-filter, .sb-v-rad, .sb-v-not { padding-left: 28px; padding-right: 28px; }
   .sb-v-rutnat { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; padding: 18px 24px 22px; }
-  .sb-v-fot { grid-template-columns: 1fr auto; align-items: center; padding: 18px 28px 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) { .sb-rakna-stapel i { transition: none; } }

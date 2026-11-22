@@ -285,7 +285,13 @@ function Ark({
   )
 }
 
-/** Väljaren med alla 40 mallarna (skissblad 2). Inget lås och inget köpsteg: alla går att välja och provas. */
+/**
+ * Väljaren med alla 40 mallarna (skissblad 2). Inget lås och inget köpsteg:
+ * alla går att välja och provas. Ett tryck på en mall väljer den och stänger
+ * väljaren, som brevrummets väljare gör inloggat. Förr förhandsvisade trycket
+ * bara och valet gällde först på "Använd ...", så utkastet kunde skrivas i en
+ * annan mall än den man tryckt på (klicktestet live 2026-11-22).
+ */
 function MallValjare({
   oppen,
   mallar,
@@ -303,21 +309,18 @@ function MallValjare({
 }) {
   const ref = useRef<HTMLDialogElement>(null)
   const [filter, setFilter] = useState<Filter>('alla')
-  const [markerad, setMarkerad] = useState(vald)
 
   useEffect(() => {
     const d = ref.current
     if (!d) return
     if (oppen) {
-      setMarkerad(vald)
       if (!d.open && typeof d.showModal === 'function') d.showModal()
     } else if (d.open) {
       d.close()
     }
-  }, [oppen, vald])
+  }, [oppen])
 
   const synliga = mallar.filter((m) => passar(m, filter))
-  const m = mallar.find((x) => x.id === markerad) ?? mallar[0]
   const filtren: { id: Filter; text: string }[] = [
     { id: 'alla', text: `Alla ${texter.allaAntal}` },
     { id: 'gratis', text: 'Gratis' },
@@ -354,17 +357,16 @@ function MallValjare({
           ))}
         </div>
         <p className="sb-v-rad">{texter.valjareRad}</p>
-        <p className="sb-v-not">Bilderna visar mallen på ett exempelbrev. Ditt brev får mallens huvud, typsnitt och färger.</p>
+        <p className="sb-v-not">Tryck på en mall så byter brevet till den. Bilderna visar mallen på ett exempelbrev, och ditt brev får samma huvud, typsnitt och färger.</p>
         <div className="sb-v-rutnat">
           {synliga.map((x) => (
             <button
               key={x.id}
               type="button"
               className="sb-vm"
-              aria-pressed={x.id === markerad}
-              aria-label={`Mallen ${x.namn}${x.gratis ? ', gratis' : ''}`}
-              onClick={() => setMarkerad(x.id)}
-              onDoubleClick={() => onValj(x.id)}
+              aria-pressed={x.id === vald}
+              aria-label={`Använd mallen ${x.namn}${x.gratis ? ', gratis' : ''}`}
+              onClick={() => onValj(x.id)}
             >
               <span className="sb-vm-bild" aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -378,14 +380,6 @@ function MallValjare({
               ) : null}
             </button>
           ))}
-        </div>
-        <div className="sb-v-fot">
-          <p aria-live="polite">
-            <b>{`${m.namn}.`}</b> {m.rad}
-          </p>
-          <button type="button" className="p3-knapp p3-knapp-vit sb-v-anvand" onClick={() => onValj(m.id)}>
-            {`Använd ${m.namn}`}
-          </button>
         </div>
       </div>
     </dialog>
