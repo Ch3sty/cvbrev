@@ -45,6 +45,7 @@ import {
 } from '@/components/jobb3/kit'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import type { CoachForslagLista } from '@/lib/jobbsok'
+import { hamtaCoachFraga } from '@/lib/jobbsok/provaFraga'
 import type { Message, MessageAttachment } from '@/types/jobbcoachen'
 import CoachSvar from './CoachSvar'
 
@@ -70,7 +71,7 @@ export default function CoachVy({
   brevAntal,
   forslag,
   kvot,
-  startFraga,
+  hamtaFraga,
 }: {
   cvAntal: number
   brevAntal: number
@@ -78,10 +79,12 @@ export default function CoachVy({
   /** Gratisnivåns kvot ur servern; null med Premium. */
   kvot: { kvar: number; av: number } | null
   /**
-   * Frågan besökaren skrev på /verktyg/jobbcoachen före kontot (?fraga=,
-   * publikt omgång 3). Står i fältet och skickas först när hon själv vill.
+   * Adressen bär flaggan ?fraga=1: besökaren skrev en fråga på
+   * /verktyg/jobbcoachen före kontot (publikt omgång 3). Frågan hämtas ur
+   * webbläsarens lagring (lib/jobbsok/provaFraga.ts), aldrig ur adressen,
+   * ställs i fältet och skickas först när hon själv vill.
    */
-  startFraga?: string
+  hamtaFraga?: boolean
 }) {
   const [meddelanden, setMeddelanden] = useState<Message[]>([])
   const [laddar, setLaddar] = useState(false)
@@ -89,7 +92,7 @@ export default function CoachVy({
   const [fel, setFel] = useState<string | null>(null)
   const [sparr, setSparr] = useState(false)
   const [kvar, setKvar] = useState<number | null>(kvot ? kvot.kvar : null)
-  const [text, setText] = useState(startFraga ?? '')
+  const [text, setText] = useState('')
   const [valda, setValda] = useState<Dokument[]>([])
   const [visaVal, setVisaVal] = useState(false)
   const slutRef = useRef<HTMLDivElement>(null)
@@ -105,6 +108,13 @@ export default function CoachVy({
       // Ingen lagring: samtalet börjar om.
     }
   }, [])
+
+  // Frågan från den publika sidan: läses en gång och tas sedan bort ur lagringen.
+  useEffect(() => {
+    if (!hamtaFraga) return
+    const fraga = hamtaCoachFraga()
+    if (fraga) setText((nu) => nu || fraga)
+  }, [hamtaFraga])
 
   useEffect(() => {
     if (meddelanden.length === 0) return

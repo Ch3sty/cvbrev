@@ -12,10 +12,10 @@
  * inte). Schemat (WebApplication, HowTo, FAQPage) byggs ur samma listor.
  * Hjältens exempel har inga namngivna källor och inga belopp.
  */
-import Link from 'next/link'
 import JobbcoachenLiveDemo from './components/JobbcoachenLiveDemo'
 import CoachFraga from './components/CoachFraga'
-import { coachHref } from './components/coach-href'
+import FragaLank from './components/FragaLank'
+import { coachHref } from '@/lib/jobbsok/provaFraga'
 import { JOBBCOACHEN_FAQ_ITEMS } from './components/jobbcoachen-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
@@ -71,6 +71,7 @@ const KALLOR = [
  * Produktens riktiga förslag ur src/lib/jobbsok/coach.ts. Arbetsgivarnas
  * bokstäver och namn är exempel. Varje förslag leder in i ett riktigt
  * första meddelande: genom kontot till Jobbcoachen med frågan i fältet.
+ * Frågan bärs i webbläsarens lagring (FragaLank), aldrig i adressen.
  */
 const LAGET = [
   { bokstaver: 'PO', ton: 'jc-int', fraga: 'Hur svarar jag på lönefrågan hos Polhem Ombyggnad?' },
@@ -85,12 +86,12 @@ function Laget() {
       <b>Frågor utifrån ditt läge</b>
       <small>Hämtade ur dina sökta tjänster. Tryck på en, så står den i fältet.</small>
       {LAGET.map((f) => (
-        <Link key={f.fraga} className="jc-forslagrad" href={coachHref(f.fraga)}>
+        <FragaLank key={f.fraga} className="jc-forslagrad" fraga={f.fraga}>
           <span className={`jc-br ${f.ton}`.trim()} aria-hidden="true">
             {f.bokstaver}
           </span>
           {f.fraga}
-        </Link>
+        </FragaLank>
       ))}
     </div>
   )
@@ -237,7 +238,8 @@ export default function JobbcoachenSida() {
             </>
           }
           brickor={[
-            { tal: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden`, text: 'gratis per konto' },
+            // Talet för sig, ordet i raden under (samma ord i samma ordning): "10 meddelanden" rymdes inte i brickan.
+            { tal: String(FREE_CHAT_MESSAGES_PER_ACCOUNT), text: 'meddelanden gratis per konto' },
             { tal: 'Källor', text: 'du kan kolla själv', ord: true },
             { tal: String(KALLOR.length), text: 'källor i kunskapsbasen' },
           ]}
@@ -363,7 +365,7 @@ export default function JobbcoachenSida() {
           <Rutnat kolumner={3}>
             {AMNEN.map((a) => (
               <Kort key={a.rubrik} className="jc-amne">
-                <Link className="jc-fraga" href={coachHref(a.fraga)}>{a.fraga}</Link>
+                <FragaLank className="jc-fraga" fraga={a.fraga}>{a.fraga}</FragaLank>
                 <h3 className="p3-h3">{a.rubrik}</h3>
                 <p>{a.text}</p>
               </Kort>

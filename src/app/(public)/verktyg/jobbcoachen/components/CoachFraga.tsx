@@ -5,8 +5,9 @@
  * /verktyg/jobbcoachen (publikt omgång 3, "inga genvägar"). Besökaren
  * skriver en egen fråga eller trycker på ett förslag, så står det i fältet,
  * precis som i kontot. Skicka leder genom registreringen till Jobbcoachen i
- * kontot med frågan i fältet (coachHref), där hon skickar sitt första
- * meddelande.
+ * kontot med frågan i fältet, där hon skickar sitt första meddelande.
+ * Frågan bärs i webbläsarens lagring (lib/jobbsok/provaFraga.ts), aldrig i
+ * adressen: PostHog läser hela adressen. Adressen bär bara flaggan ?fraga=1.
  *
  * Förslagen är produktens riktiga (src/lib/jobbsok/coach.ts); bokstäverna
  * på brickorna är exempel. Klasserna jc- står i jobbcoachen.css.
@@ -14,7 +15,7 @@
 
 import { useRef, useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { coachHref } from './coach-href'
+import { coachHref, sparaCoachFraga } from '@/lib/jobbsok/provaFraga'
 
 const FORSLAG = [
   { bokstaver: 'DA', ton: 'jc-tyst', fraga: 'Vad skriver jag i ett uppföljningsmejl?' },
@@ -36,7 +37,8 @@ export default function CoachFraga() {
 
   function skicka(e: FormEvent) {
     e.preventDefault()
-    router.push(coachHref(text))
+    // Sparad fråga ger flaggan; går lagringen inte att nå öppnas fältet tomt.
+    router.push(coachHref(sparaCoachFraga(text)))
   }
 
   return (
