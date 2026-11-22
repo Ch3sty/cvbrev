@@ -323,7 +323,9 @@ export function RaderaKonto({
         </ul>
         <p className="mt-2 text-meta text-ink-3">
           {RADERA_TEXT.R5}{' '}
-          <Link href={DATALAGRING_HREF} className="underline underline-offset-2 hover:text-ink-1">
+          {/* Tryckyta 44 px utan att raden hoppar: inline-block med 13 px luft upp och
+              ned och lika mycket negativ marginal, så att radhöjden (18 px) står kvar. */}
+          <Link href={DATALAGRING_HREF} className="-my-[13px] inline-block py-[13px] underline underline-offset-2 hover:text-ink-1">
             {RADERA_TEXT.R5lank}
           </Link>
         </p>

@@ -163,3 +163,13 @@ describe('lydelserna', () => {
     }
   })
 })
+
+describe('raderingsarket efter QA live 2026-11-22', () => {
+  it('länken till datalagringen har 44 px tryckyta utan att raden hoppar', () => {
+    ark()
+    const lank = screen.getByRole('link', { name: RADERA_TEXT.R5lank })
+    // 18 px radhöjd (text-meta) + 2 x 13 px luft = 44 px; negativ marginal lika stor.
+    for (const k of ['inline-block', 'py-[13px]', '-my-[13px]']) expect(lank.className.split(' ')).toContain(k)
+    expect(lank.textContent).toBe(RADERA_TEXT.R5lank)
+  })
+})
