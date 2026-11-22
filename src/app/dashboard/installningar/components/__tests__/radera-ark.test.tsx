@@ -172,4 +172,16 @@ describe('raderingsarket efter QA live 2026-11-22', () => {
     for (const k of ['inline-block', 'py-[13px]', '-my-[13px]']) expect(lank.className.split(' ')).toContain(k)
     expect(lank.textContent).toBe(RADERA_TEXT.R5lank)
   })
+
+  it('de sex valen står i ett jämnt rutnät, två kolumner om tre, med orörda lydelser', () => {
+    ark()
+    const knappar = ANLEDNINGAR.map((a) => screen.getByRole('button', { name: a.etikett }))
+    const rutnat = knappar[0].parentElement!
+    expect(rutnat.className.split(' ')).toEqual(expect.arrayContaining(['grid', 'grid-cols-2', 'auto-rows-fr']))
+    for (const k of knappar) {
+      expect(k.parentElement).toBe(rutnat)
+      expect(k.className.split(' ')).toEqual(expect.arrayContaining(['w-full', 'min-h-11']))
+    }
+    expect(knappar.map((k) => k.textContent)).toEqual(ANLEDNINGAR.map((a) => a.etikett))
+  })
 })

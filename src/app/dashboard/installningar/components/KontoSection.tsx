@@ -258,7 +258,9 @@ export function AnledningsFraga({
     <fieldset>
       <legend className="text-sm font-medium text-ink-1">{RADERA_TEXT.R6}</legend>
       <p className="mt-0.5 text-meta text-ink-3">{RADERA_TEXT.R7}</p>
-      <div className="mt-2 flex flex-wrap gap-2">
+      {/* Två kolumner om tre i alla bredder (QA live 2026-11-22): ett jämnt rutnät
+          i stället för rader som bröts olika i 1440, 412 och appens ark. */}
+      <div className="mt-2 grid auto-rows-fr grid-cols-2 gap-2">
         {ANLEDNINGAR.map((a) => {
           const ar = vald === a.nyckel
           return (
@@ -268,7 +270,7 @@ export function AnledningsFraga({
               aria-pressed={ar}
               disabled={disabled}
               onClick={() => onVal(ar ? null : a.nyckel)}
-              className={`inline-flex min-h-11 items-center rounded-xl border px-3 text-sm transition-colors disabled:opacity-60 ${
+              className={`flex min-h-11 w-full items-center rounded-xl border px-3 py-2 text-left text-sm leading-5 transition-colors disabled:opacity-60 ${
                 ar ? 'border-ink-1 font-medium text-ink-1' : 'border-kant text-ink-2 hover:border-kant-stark'
               }`}
             >
