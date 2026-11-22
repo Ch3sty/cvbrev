@@ -521,14 +521,18 @@ function parseInterval(raw: any): { start: number; end: number | null } | null {
     }
   }
   // Format B (äldre parsade): period-sträng, t.ex. "2019–2023" eller "2021 - nu".
+  // Står månaden med ("2015-01 till 2019-02") används den, annars hela år.
   const period = typeof raw?.period === 'string' ? raw.period : '';
-  const years = period.match(/(19|20)\d{2}/g);
-  if (!years || years.length === 0) return null;
-  const start = Date.parse(`${years[0]}-01-01`);
+  const marken = [...period.matchAll(/((?:19|20)\d{2})(?:-(\d{2}))?/g)];
+  if (marken.length === 0) return null;
+  const forsta = marken[0];
+  const start = Date.parse(`${forsta[1]}-${forsta[2] ?? '01'}-01`);
   if (Number.isNaN(start)) return null;
   if (ONGOING_RE.test(period)) return { start, end: null };
-  const lastYear = years[years.length - 1];
-  const end = Date.parse(`${lastYear}-12-31`);
+  const sista = marken[marken.length - 1];
+  const end = sista[2]
+    ? Date.parse(`${sista[1]}-${sista[2]}-28`)
+    : Date.parse(`${sista[1]}-12-31`);
   return { start, end: Number.isNaN(end) ? null : end };
 }
 
