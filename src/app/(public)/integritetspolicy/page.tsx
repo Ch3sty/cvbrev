@@ -221,17 +221,25 @@ export default function PrivacyPolicyPage() {
         {/* Datalagring */}
          <section>
           <h2 id="datalagring">7. Datalagring</h2>
+          {/* Lydelserna godkända av ägaren 2026-11-22 (docs/beslut-mejl-och-radering-2026-11-22.md).
+              Meningarna om appen Testklar, Google Play och RevenueCat är utelämnade tills appen är släppt. */}
           <p>
-             Vi lagrar din kontoinformation och prenumerationsstatus (via Stripe kund-ID) så länge ditt konto är aktivt hos oss, och en rimlig tid därefter för administrativa ändamål eller om det krävs enligt lag.
+            Vi lagrar dina uppgifter så länge du har ett konto hos oss. Det gäller din kontoinformation, din prenumerationsstatus (via kund-ID från Stripe) och det du skapar och sparar i Tjänsten. När du raderar kontot tar vi bort det och allt som hör till det. Vad som då blir kvar, och varför, står längre ned i det här avsnittet.
           </p>
           <p>
             Dina uppladdade CV-filer (original och textversion) samt dina sparade personliga brev lagras hos Supabase och är kopplade till ditt konto. Du kan när som helst radera enskilda filer och brev via ditt konto.
           </p>
           <p>
-            När du raderar ditt konto under Inställningar tar vi bort kontot och all data som hör till det: profilen, CV-texter, personliga brev, testresultat, samtal med Jobbcoachen, sparade intervju- och personlighetssvar och mejlloggen i databasen, samt uppladdade CV-filer, bilagor och profilfoto i vår lagring. Har du en pågående prenumeration avslutas den i samma stund. Två saker blir kvar. Kvitton och betalningsunderlag finns hos vår betalleverantör Stripe i sju år, eftersom bokföringslagen kräver det. Dessutom sparar vi tekniska säkerhetsloggar som inte går att koppla till dig: de innehåller varken e-postadress, namn eller IP-adress.
+            När du raderar ditt konto under Inställningar tar vi bort kontot och allt som går att knyta till dig: profilen, CV-texter och uppladdade CV-filer, personliga brev, testresultat, sökta tjänster, samtal med Jobbcoachen, sparade intervju- och personlighetssvar, bilagor, profilfoto och vår logg över mejl vi har skickat till dig, med tillhörande händelser. I användningsstatistiken hos PostHog tar vi bort dig och dina händelser. PostHog rensar händelser i omgångar, så det kan ta upp till en vecka innan de är borta. Har du en prenumeration på Jobbcoach Premium som du har köpt på webben avslutas den i samma stund, så att inget mer dras.
           </p>
           <p>
-            Svar du skriver i intervjuprovet i våra artiklar sparas i sju dagar tillsammans med bedömningen, så att du kan hämta hela återkopplingen. Det gäller också när du skapat ett konto och svaret kopplats till det. Efter sju dagar raderas svaret automatiskt. Vi sparar inte din IP-adress, bara en envägskodad version som används för att begränsa antalet prov per dygn.
+            Några uppgifter blir kvar hos våra leverantörer och i vår säkerhetslogg. Har du betalat hos oss finns ditt namn, den e-postadress du betalade med, kvitton och betalningsunderlag kvar hos vår betalleverantör Stripe. Bokföringslagen kräver att vi sparar det underlaget i sju år. Hos Resend, som skickar våra mejl, finns kopior av de mejl vi har skickat till dig, med din e-postadress och mejlets innehåll. Hos Supabase finns tekniska inloggningsloggar med e-postadress och IP-adress. Resend och Supabase sparar sina loggar under den tid som följer av deras villkor, och vi kan inte radera dem i förväg. I vår egen säkerhetslogg tar vi bort IP-adress och webbläsare. Händelsen och tidpunkten står kvar, utan koppling till ditt konto.
+          </p>
+          <p>
+            När ett konto raderas sparar vi en rad statistik om avslutet, för att förstå varför människor slutar och kunna göra Tjänsten bättre. Raden innehåller vilket kvartal kontot raderades, hur gammalt kontot var, om det hade Jobbcoach Premium vid avslutet och om det någon gång har betalat, hur många CV, personliga brev, genomförda test och sökta tjänster som fanns, hur länge sedan kontot senast användes, om raderingen gjordes på webben eller i appen, och en anledning om du har valt en. Kontots ålder, antalen och tiden sedan senaste aktivitet anges bara i intervall, aldrig som exakta tal. Raden innehåller aldrig något id, ingen e-postadress, ingen IP-adress, inget exakt datum och ingen fritext. Att ange en anledning är frivilligt. Du väljer i så fall ett av sex färdiga alternativ, och raderingen fungerar likadant om du låter bli.
+          </p>
+          <p>
+            Svar du skriver i intervjuprovet i våra artiklar sparas i sju dagar tillsammans med bedömningen, så att du kan hämta hela återkopplingen. Det gäller också när du skapat ett konto och svaret kopplats till det. Efter sju dagar raderas svaret automatiskt. I intervjuprovet sparar vi inte din IP-adress, bara en envägskodad version som används för att begränsa antalet prov per dygn.
           </p>
         </section>
 
