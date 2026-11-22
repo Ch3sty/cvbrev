@@ -1,6 +1,8 @@
 -- Kandidatens id mot rekryterare (Bli upptäckt, rättningsomgången 2026-11-22).
 --
--- EJ KÖRD. Väntar på ägarens ja.
+-- KÖRD i produktionen 2026-11-22 (ägarens besked samma dag). Kontrollerat
+-- efteråt: 8 profiler, 8 olika id, inget lika med kontots, och koden i
+-- candidateAccess.ts läser kolumnen genom PostgREST.
 --
 -- Rekryterarportalen pekade ut kandidater med kontots id (auth-användarens
 -- uuid) i poolens kort, i detaljsvaret och i adressen

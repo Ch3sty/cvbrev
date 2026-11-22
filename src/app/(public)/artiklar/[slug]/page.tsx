@@ -97,6 +97,7 @@ const CVTemplateShowcase = MallMiniatyrer;
 
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
+import { SOCIALA_KONTON } from '@/lib/sociala-konton';
 
 // Korrekt typdefinition för props med Promise
 interface ArticlePageProps {
@@ -191,10 +192,7 @@ function generateEnhancedArticleSchema(post: Post, slug: string, headings: any[]
         "@type": "Organization",
         "name": publisherName,
         "logo": { "@type": "ImageObject", "url": publisherLogoUrl },
-        "sameAs": [
-            "https://www.linkedin.com/company/jobbcoach-ai",
-            "https://twitter.com/jobbcoach_ai"
-        ]
+        "sameAs": SOCIALA_KONTON
     };
     const imageUrl = post.frontmatter.image ? (post.frontmatter.image.startsWith('http') ? post.frontmatter.image : `${siteBaseUrl}${post.frontmatter.image}`) : undefined;
     try {

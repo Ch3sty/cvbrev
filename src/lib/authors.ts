@@ -1,6 +1,8 @@
 // Författardatabas för jobbcoach.ai artiklar
 // Alla författare är fiktiva personer skapade för E-E-A-T SEO-optimering
 
+import { SOCIALA_KONTON } from '@/lib/sociala-konton'
+
 export interface Author {
   id: string;
   name: string;
@@ -206,10 +208,7 @@ export function generateAuthorSchema(author: Author, articleUrl?: string) {
       "@type": "Organization",
       "name": "jobbcoach.ai",
       "url": "https://www.jobbcoach.ai",
-      "sameAs": [
-        "https://www.linkedin.com/company/jobbcoach-ai",
-        "https://twitter.com/jobbcoach_ai"
-      ]
+      "sameAs": SOCIALA_KONTON
     },
     ...(articleUrl && {
       "url": articleUrl
