@@ -134,14 +134,8 @@
 .p3-kort-bild { display: grid; place-items: center; min-height: 120px; padding: 14px; border-radius: 14px; background: var(--golv); }
 @media (min-width: 900px) { .p3-kort { padding: 28px; } }
 
-/* Papper på en vägg eller ö: texten är alltid bläck, aldrig väggens ljusa
-   text. .p3-papper är den allmänna regeln för egna pappersytor. */
-.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-annons, .p3-ark, .p3-papper, .p3-tram, .p3-lankbricka { color: var(--ink-1); }
-:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper, .p3-lankbricka) :is(.p3-h1, .p3-h2, .p3-h3) { color: var(--ink-1); }
-:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(p, .p3-varde, .p3-text) { color: var(--ink-2); }
-:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(.p3-varde, .p3-text) :is(b, strong) { color: var(--ink-1); }
-:is(.p3-kort, .p3-lyft, .p3-papper) .p3-ey { color: var(--koppar-ink); }
-:is(.p3-kort, .p3-lyft, .p3-papper) .p3-liten { color: var(--ink-3); }
+/* Papper på en vägg, en ö eller Premium: reglerna står efter Premium-blocket
+   (sök "Papper vinner"), så att de vinner på samma specificitet. */
 .p3-papper { background: var(--papper); }
 
 .p3-lyft { position: relative; z-index: 2; margin-top: -64px; background: var(--papper); border-radius: var(--r-stor, 32px); border: 2px solid var(--kant); border-bottom-width: 8px; padding: 22px; }
@@ -205,9 +199,9 @@
 .p3-lankbricka { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 2px 14px; align-items: center; min-height: 76px; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; text-decoration: none; }
 .p3-lankbricka:hover { border-color: var(--kant-stark); }
 .p3-lankbricka .p3-dorr { width: 44px; height: 44px; grid-row: span 2; }
-.p3-lankbricka b { font-family: var(--disp); font-size: 17px; line-height: 1.2; align-self: end; }
+.p3-lankbricka .p3-lb-namn { font-family: var(--disp); font-weight: 700; font-size: 17px; line-height: 1.2; align-self: end; }
 .p3-lankbricka > span:last-child { font-size: 14px; color: var(--ink-3); line-height: 1.35; align-self: start; }
-.p3-lankbricka.p3-utan-text b { align-self: center; grid-row: span 2; }
+.p3-lankbricka.p3-utan-text .p3-lb-namn { align-self: center; grid-row: span 2; }
 
 /* ---------- öar: stora färgblock ---------- */
 .p3-o { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor, 32px); background: var(--vagg); color: var(--vagg-ink); padding: 28px 20px; box-shadow: 0 8px 0 var(--vagg-3); }
@@ -264,6 +258,21 @@
 .p3-bockar li::before { content: ''; width: 24px; height: 24px; border-radius: 8px; background: var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/16px no-repeat; }
 .p3-bockar.p3-pa-papper li::before { background-color: var(--ton); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E"); }
 .p3-premium .p3-bockar li { color: var(--vagg-ink); }
+
+/* ---------- Papper vinner: text på papper är alltid bläck ----------
+   Ett kort, ett lyft eller en egen pappersyta på en vägg, en ö eller
+   Premium får aldrig ytans ljusa text. Reglerna har samma specificitet
+   som väggens, öns och Premiums och står därför efter dem (P5a, 2026-11-22:
+   förut vann öns rubrikregel och gav ljus text på vitt papper). */
+.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-annons, .p3-ark, .p3-papper, .p3-tram, .p3-lankbricka { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper, .p3-lankbricka) :is(.p3-h1, .p3-h2, .p3-h3) { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(p, .p3-varde, .p3-text) { color: var(--ink-2); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(.p3-varde, .p3-text) :is(b, strong) { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-ey { color: var(--koppar-ink); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-liten { color: var(--ink-3); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-gratisrad { color: var(--ink-3); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-lank { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-bockar li { color: var(--ink-1); }
 
 /* ---------- instrument: arket och den svävande brickan ---------- */
 .p3-ark { position: relative; background: #fff; color: #1A1A1F; border-radius: 6px; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); padding: 7% 7.5%; font-family: Georgia, 'Times New Roman', serif; text-align: left; }
@@ -459,3 +468,91 @@ a.p3-mall:hover .p3-mall-bild { border-color: var(--kant-stark); }
 
 /* Ankare hamnar under menyn (64 px i telefonen, 76 px på dator). */
 .p3 :is(section, article, div, h2, h3)[id] { scroll-margin-top: 92px; }
+
+/* =============================================================================
+   P5a (2026-11-22): det sidorna önskade i onskemal.md.
+   ============================================================================= */
+
+.p3-dold { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* CV-arket: flera nålar på samma del (datapunkter per del) */
+.p3-nalar { position: absolute; left: calc(-6.5% - 17px); top: 2px; display: grid; gap: 6px; }
+.p3-nalar .p3-nal { position: static; }
+@media (min-width: 900px) { .p3-nalar { left: calc(-6.5% - 21px); } }
+.p3-ark.p3-liten-ark .p3-nalar { left: calc(-6.5% - 13px); }
+
+/* Arket som byggare (delar/skapa-cv-ark.html) */
+.p3-byggare { position: relative; width: 100%; min-width: 0; }
+.p3-bark p, .p3-bark li, .p3-bark .p3-lagg, .p3-bark .p3-skrivknapp { font-family: Inter, system-ui, sans-serif; font-size: clamp(8px, .98vw, 11px); line-height: 1.5; }
+.p3-bark p { margin-top: 5px; color: #33333A; }
+.p3-bark ul { margin-top: 4px; }
+.p3-bark li { position: relative; padding: 1px 4px 1px 1.2em; color: #33333A; }
+.p3-bark li::before { content: '\2022'; position: absolute; left: .3em; }
+.p3-bark li.p3-ny { background: #FBE3D0; border-radius: 4px; }
+.p3-bark .p3-gra { color: #6E6E78; font-style: italic; }
+.p3-bark .p3-lagg { display: inline-block; margin-top: 3px; font-weight: 700; color: var(--koppar-ink); }
+.p3-bark .p3-skrivknapp { display: inline-flex; align-items: center; gap: .5em; height: 2.6em; margin: 6px 0 4px; padding: 0 1em; border-radius: 8px; border: 1.5px solid #C9C6BF; border-bottom-width: 3px; background: #fff; font-weight: 700; color: #1A1A1F; }
+.p3-bark .p3-skrivknapp svg { width: 1.3em; height: 1.3em; color: var(--koppar-ink); }
+.p3-bdel { position: relative; margin: 0 -2.5%; padding: 0 2.5% 6px; border-radius: 8px; }
+.p3-bdel.p3-vald { margin-top: 12px; padding-top: 1px; padding-bottom: 8px; outline: 2.5px solid var(--koppar); outline-offset: 2px; background: #FFF7F0; }
+.p3-bnal { position: absolute; z-index: 2; left: calc(-6.5% - 17px); top: 2px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--koppar); color: var(--koppar-text); border: 3px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 15px; font-style: normal; box-shadow: 0 3px 0 rgba(0, 0, 0, .2); }
+.p3-bark li .p3-bnal { left: auto; right: -20px; top: 50%; margin-top: -17px; }
+.p3-verktygsrad { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; padding: 8px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); }
+.p3-verktygsrad > span { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 11px; background: var(--papper-2); font-size: 13.5px; font-weight: 700; white-space: nowrap; }
+.p3-verktygsrad .p3-vfarg i { width: 14px; height: 14px; border-radius: 50%; }
+.p3-verktygsrad .p3-vtva { margin-left: auto; padding: 3px; gap: 2px; background: var(--golv); }
+.p3-verktygsrad .p3-vtva b { display: grid; place-items: center; height: 30px; padding: 0 11px; border-radius: 9px; font-size: 13.5px; }
+.p3-verktygsrad .p3-vtva b.p3-pa { background: var(--papper); box-shadow: 0 2px 0 var(--kant-stark); }
+.p3-verktygsrad > .p3-bnal { position: absolute; display: grid; height: 34px; padding: 0; left: auto; right: -12px; top: -14px; border-radius: 50%; background: var(--koppar); }
+@media (min-width: 900px) { .p3-bnal { width: 42px; height: 42px; font-size: 18px; left: calc(-6.5% - 21px); } .p3-bark li .p3-bnal { right: -24px; margin-top: -21px; } .p3-verktygsrad > .p3-bnal { height: 42px; } }
+
+/* Testramen: referensfiguren och fritt stycke (spatial förmåga, ordförråd) */
+.p3-tref { display: grid; place-items: center; width: 124px; margin: 0 auto; padding: 10px; border-radius: 18px; background: #1B2246; box-shadow: 0 5px 0 #0E1330; }
+.p3-tref span { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 12px; background: #fff; color: #1B2246; }
+.p3-tref svg { width: 80px; height: 80px; }
+.p3-tstycke-fritt { display: grid; gap: 12px; }
+
+/* Inför intervjun: tjänsten med bokad intervju och frågorna */
+.p3-ivkort { width: 100%; max-width: 520px; margin: 0 auto; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 24px; overflow: hidden; text-align: left; }
+.p3-ivtopp { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 14px; align-items: center; padding: 18px; background: var(--vagg); color: var(--vagg-ink); }
+.p3-ivdag { display: grid; place-items: center; align-content: center; width: 62px; height: 66px; border-radius: 16px; background: var(--papper); color: var(--vagg); box-shadow: 0 4px 0 var(--vagg-3); font-family: var(--disp); font-weight: 800; font-size: 26px; line-height: 1; }
+.p3-ivdag small { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); margin-bottom: 3px; }
+.p3-ivtopp b { display: block; font-family: var(--disp); font-size: 19px; line-height: 1.2; color: var(--vagg-ink); }
+.p3-ivtopp div span { font-size: 14px; color: var(--vagg-mjuk); }
+.p3-ivkropp { display: grid; gap: 10px; padding: 16px 18px 18px; }
+.p3-ivkropp > p { font-size: 14.5px; color: var(--ink-2); }
+.p3-ivkropp > p b { color: var(--ink-1); }
+.p3-ivfraga { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--golv); font-weight: 600; font-size: 15px; }
+.p3-ivfraga.p3-nu { outline: 2.5px solid var(--koppar); background: var(--koppar-mjuk); }
+.p3-ivfraga small { grid-column: 1 / -1; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+.p3-ivfraga .p3-ej { font-size: 13.5px; font-weight: 500; color: var(--ink-3); }
+.p3-ivbetyg { display: inline-flex; gap: 4px; }
+.p3-ivbetyg i { width: 12px; height: 12px; border-radius: 4px; background: var(--kant-stark); }
+.p3-ivbetyg i.p3-p { background: var(--ton-ink); }
+
+/* Filterchips: radioknappar, sidan döljer korten med :has */
+.p3-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.p3-filter input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.p3-filter label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 14.5px; font-weight: 700; cursor: pointer; color: var(--ink-1); }
+.p3-filter label b { font-weight: 500; color: var(--ink-3); }
+.p3-filter input:checked + label { background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
+.p3-filter input:checked + label b { color: var(--vagg-mjuk); }
+.p3-filter input:focus-visible + label { outline: 3px solid var(--koppar); outline-offset: 3px; }
+
+/* Sökfältet på väggen: vitt fält med klack och kopparknapp */
+.p3-sok { display: flex; flex-wrap: wrap; gap: 10px; max-width: 580px; }
+.p3-sok-falt { flex: 1 1 240px; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 16px; border-radius: 16px; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 rgba(0, 0, 0, .3); }
+.p3-sok-falt svg { width: 20px; height: 20px; flex: none; color: var(--ink-3); }
+.p3-sok-falt input { flex: 1; min-width: 0; height: 52px; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink-1); outline: none; }
+.p3-sok-falt input::placeholder { color: var(--ink-3); }
+.p3-sok-falt:focus-within { outline: 3px solid var(--koppar); outline-offset: 3px; }
+.p3-sok .p3-knapp { flex: none; }
+@media (max-width: 559px) { .p3-sok .p3-knapp { width: 100%; } }
+
+/* Situationsraden: en rad tryckytor på väggen */
+.p3-situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.p3-situation > span { margin-right: 4px; font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--vagg-mjuk); }
+.p3-situation a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid rgba(255, 255, 255, .26); background: rgba(255, 255, 255, .08); color: var(--vagg-ink); font-weight: 700; font-size: 15px; text-decoration: none; }
+.p3-situation a:hover { background: rgba(255, 255, 255, .14); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-situation > span { color: var(--ink-3); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-situation a { border-color: var(--kant-stark); background: var(--papper); color: var(--ink-1); }

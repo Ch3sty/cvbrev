@@ -131,6 +131,7 @@ export function LankBricka({
   text,
   farg,
   ikon,
+  rubrikNiva = 'b',
   className = '',
 }: {
   href: string
@@ -139,13 +140,16 @@ export function LankBricka({
   farg?: Farg
   /** Standard: delens ikon ur farg. */
   ikon?: IkonNamn
+  /** 'h3' när länkens namn är en rubrik på sidan sedan tidigare (SEO), annars fet text. */
+  rubrikNiva?: 'b' | 'h3'
   className?: string
 }) {
   const namn: IkonNamn = ikon ?? farg ?? 'pil'
+  const Rubrik = rubrikNiva
   return (
     <Link href={href} className={`p3-lankbricka ${text ? '' : 'p3-utan-text'} ${className}`.replace(/\s+/g, ' ').trim()} data-p3-farg={farg}>
       <Dorr ikon={namn} />
-      <b>{rubrik}</b>
+      <Rubrik className="p3-lb-namn">{rubrik}</Rubrik>
       {text ? <span>{text}</span> : null}
     </Link>
   )

@@ -15,26 +15,57 @@ export interface ArkRad {
   tid?: string
 }
 
+/**
+ * Nålens nummer för en del: ett tal, flera tal (flera datapunkter i samma
+ * del, till exempel Yrkesroller och Erfarenhetsnivå i erfarenheten), eller
+ * null för ingen nål. Utan nal numreras delarna i ordning (namnet är 1).
+ */
+export type ArkNal = number | readonly number[] | null
+
 export interface ArkDel {
   rubrik: string
   rader?: readonly ArkRad[]
   /** Grå textrader: 'hel', 'm' (84 %), 'k' (62 %), 's' (46 %). */
   linjer?: readonly ('hel' | 'm' | 'k' | 's')[]
+  /** Egen nål för delen (se ArkNal). */
+  nal?: ArkNal
 }
 
 export const SARA_KONTAKT = 'sara.lindstrom@exempel.se · 070-123 45 67 · Göteborg'
 
+/** Perioderna skrivs "2021 till nu", aldrig med tankstreck (SEO:s slutbesked, punkt 43). */
 export const SARA_DELAR: readonly ArkDel[] = [
   { rubrik: 'Profil', linjer: ['hel', 'm', 'k'] },
   {
     rubrik: 'Arbetslivserfarenhet',
-    rader: [{ text: 'Projektledare, Nordanvind Energi', tid: '2021 – pågående' }],
+    rader: [{ text: 'Projektledare, Nordanvind Energi', tid: '2021 till nu' }],
     linjer: ['m', 'hel', 'k'],
   },
   { rubrik: 'Kompetenser', linjer: ['m', 'k'] },
-  { rubrik: 'Utbildning', rader: [{ text: 'Civilingenjör, industriell ekonomi', tid: '2013 – 2018' }], linjer: ['s'] },
+  { rubrik: 'Utbildning', rader: [{ text: 'Civilingenjör, industriell ekonomi', tid: '2013 till 2018' }], linjer: ['s'] },
   { rubrik: 'Språk', linjer: ['s'] },
 ]
+
+/** Nålarna för en del: tom lista för ingen. */
+function nalLista(nal: ArkNal | undefined, standard: number): readonly number[] {
+  if (nal === null) return []
+  if (nal === undefined) return [standard]
+  return typeof nal === 'number' ? [nal] : nal
+}
+
+function Nalar({ nr }: { nr: readonly number[] }) {
+  if (!nr.length) return null
+  if (nr.length === 1) return <span className="p3-nal">{nr[0]}</span>
+  return (
+    <span className="p3-nalar">
+      {nr.map((n) => (
+        <span key={n} className="p3-nal">
+          {n}
+        </span>
+      ))}
+    </span>
+  )
+}
 
 function Linjer({ linjer }: { linjer?: ArkDel['linjer'] }) {
   if (!linjer?.length) return null
@@ -88,6 +119,7 @@ export function CvArk({
   namn = 'Sara Lindström',
   kontakt = SARA_KONTAKT,
   delar,
+  namnNal,
   vald = 3,
   nalar = true,
   poang,
@@ -101,6 +133,8 @@ export function CvArk({
   kontakt?: string
   /** Delarna under namnet. Namnet och kontakten är del 1. */
   delar?: readonly ArkDel[]
+  /** Egen nål för namnet och kontaktraden (standard 1, null för ingen). */
+  namnNal?: ArkNal
   /** Nålens nummer som är vald (kopparram), 0 för ingen. */
   vald?: number
   nalar?: boolean
@@ -121,25 +155,26 @@ export function CvArk({
     {
       rubrik: 'Arbetslivserfarenhet',
       rader: [
-        { text: 'Projektledare, Nordanvind Energi', tid: '2021 – pågående' },
-        { text: 'Biträdande projektledare, Halda Logistik', tid: '2018 – 2021' },
+        { text: 'Projektledare, Nordanvind Energi', tid: '2021 till nu' },
+        { text: 'Biträdande projektledare, Halda Logistik', tid: '2018 till 2021' },
       ],
     },
     ...SARA_DELAR.slice(2),
   ]
+  const namnNr = nalLista(namnNal, 1)
   const ark = (
     <div className={`p3-ark ${liten ? 'p3-liten-ark' : ''}`.trim()} role="img" aria-label={ariaLabel}>
-      <div className={`p3-del ${vald === 1 ? 'p3-vald' : ''}`.trim()}>
-        {nalar ? <span className="p3-nal">1</span> : null}
+      <div className={`p3-del ${vald && namnNr.includes(vald) ? 'p3-vald' : ''}`.trim()}>
+        {nalar ? <Nalar nr={namnNr} /> : null}
         <div className="p3-ark-namn">{namn}</div>
         <span className="p3-ark-kontakt">{kontakt}</span>
       </div>
       {allaDelar.map((d, i) => {
-        const nr = i + 2
+        const nr = nalLista(d.nal, i + 2)
         const radLinjer: ArkDel['linjer'] = d.rader?.length && !d.linjer ? ['m', 'hel', 'k'] : undefined
         return (
-          <div key={d.rubrik + i} className={`p3-del ${vald === nr ? 'p3-vald' : ''}`.trim()}>
-            {nalar ? <span className="p3-nal">{nr}</span> : null}
+          <div key={d.rubrik + i} className={`p3-del ${vald && nr.includes(vald) ? 'p3-vald' : ''}`.trim()}>
+            {nalar ? <Nalar nr={nr} /> : null}
             <div className="p3-ark-rubrik">{d.rubrik}</div>
             {d.rader?.map((r, j) => (
               <div key={j}>

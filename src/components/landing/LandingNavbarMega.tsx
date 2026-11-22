@@ -5,7 +5,10 @@
  * så att texten och talen aldrig hamnar i klientens JavaScript och alla
  * länkar står i HTML:en även när menyn är stängd.
  *
- * Raden under varje länk: textbeslut NAV-1, ordagrant. Talen räknas ur
+ * Raden under varje länk: textbeslut NAV-1, med SEO:s slutbesked punkt 26 och
+ * 28 (2026-11-22) för LinkedIn, Jobbcoachen, Sökta tjänster och Personligt
+ * brev. Märket Nyhet ritas med ::after (.p3-med-nyhet i ram.css), så att
+ * ankartexten är exakt länkens namn. Talen räknas ur
  * konstanter (testtyper, mallar, brevexempel), aldrig för hand.
  */
 
@@ -25,12 +28,12 @@ const UNDER: Record<string, string> = {
   '/verktyg/cv-analys': 'Läsbarhetspoäng i sju delar',
   '/verktyg/skapa-cv': 'Skriv direkt på arket',
   '/cv-mallar': `${TEMPLATE_COUNT} mallar, ${talOrd(FREE_TEMPLATE_COUNT)} gratis`,
-  '/verktyg/linkedin-optimering': 'Syns i rekryterarnas sök',
-  '/verktyg/personligt-brev': 'Skrivet på annonsens krav',
+  '/verktyg/linkedin-optimering': 'Rubrik och sammanfattning som hittas',
+  '/verktyg/personligt-brev': 'Skrivet mot annonsens krav',
   '/personligt-brev-exempel': `${BREV_GALLERI.length} yrken att utgå från`,
   '/verktyg/jobbmatchning': 'Annonser som passar ditt CV',
-  '/verktyg/sokta-tjanster': 'Uppföljning och rapport',
-  '/verktyg/jobbcoachen': 'Svar med källor',
+  '/verktyg/sokta-tjanster': 'Håll koll på dina sökta jobb',
+  '/verktyg/jobbcoachen': 'Intervju, avtal och avslag',
   '/verktyg/bli-upptackt': 'Låt rekryterare hitta dig',
 }
 
@@ -38,13 +41,9 @@ const UNDER: Record<string, string> = {
 const PREMIUM_RUBRIK = paketMedPris(SALD_PLAN)
 const PREMIUM_TEXT = `${PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp när du vill.`
 
+/** Länkens namn. Märket Nyhet är ::after på namnet, aldrig text i länken (SEO punkt 26). */
 function Etikett({ l }: { l: NavLank }) {
-  return (
-    <>
-      {l.label}
-      {l.nyhet ? <em className="p3-nyhet">Nyhet</em> : null}
-    </>
-  )
+  return l.nyhet ? <span className="p3-med-nyhet">{l.label}</span> : <>{l.label}</>
 }
 
 /** En liten matrisuppgift i testkolumnen (bild, aria-hidden). */
@@ -150,8 +149,7 @@ export function MobilMenyKropp() {
           <div className={`p3-tm-lankar ${d.farg === 'tran' ? 'p3-en' : ''}`.trim()}>
             {d.lankar.map((l) => (
               <Link key={l.href + l.label} href={l.href}>
-                {l.label}
-                {l.nyhet ? <em className="p3-nyhet">Nyhet</em> : null}
+                <Etikett l={l} />
                 {d.farg === 'tran' && UNDER[l.href] ? <span>{UNDER[l.href]}</span> : null}
               </Link>
             ))}

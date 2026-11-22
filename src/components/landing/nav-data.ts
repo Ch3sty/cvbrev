@@ -97,6 +97,7 @@ export const DELAR: readonly NavDel[] = [
     href: '/verktyg/jobbmatchning',
     lankar: [
       { label: 'Jobbmatchning', href: '/verktyg/jobbmatchning', ikon: 'matchning' },
+      // Märket Nyhet tas bort 2027-01-12 (SEO:s slutbesked punkt 24).
       { label: 'Sökta tjänster', href: SOKTA_TJANSTER_HREF, nyhet: true },
       { label: 'Jobbcoachen', href: '/verktyg/jobbcoachen', ikon: 'coach' },
       { label: 'Bli upptäckt', href: '/verktyg/bli-upptackt', ikon: 'synlig' },
@@ -138,7 +139,8 @@ export const FOT_DELAR: readonly NavDel[] = [
       { label: 'Skapa CV', href: '/verktyg/skapa-cv' },
       { label: 'CV-mallar', href: '/cv-mallar' },
       { label: 'CV-exempel', href: '/cv-exempel' },
-      { label: 'CV-mallar per yrke', href: '/cv-mallar' },
+      // SEO:s slutbesked punkt 26: avsnittet "CV-mallar för ditt yrke" har id="yrken".
+      { label: 'CV-mallar per yrke', href: '/cv-mallar#yrken' },
       { label: 'LinkedIn-profilen', href: '/verktyg/linkedin-optimering' },
     ],
   },

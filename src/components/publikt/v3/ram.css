@@ -68,7 +68,8 @@
 .p3-mm-lankar a { display: block; padding: 9px 10px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.3; color: #1A1A1F; }
 .p3-mm-lankar a span { display: block; font-weight: 400; font-size: 13px; color: #4A4A55; }
 .p3-mm-lankar a:hover, .p3-mm-lankar a:focus-visible { background: #fff; box-shadow: 0 3px 0 var(--kant-stark); }
-.p3-nyhet { font-style: normal; display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: #FBE3D0; color: #A8491A; font-size: 12px; font-weight: 700; line-height: 1.3; vertical-align: 1px; }
+/* Märket Nyhet efter länkens namn, utanför ankartexten (SEO punkt 26). */
+.p3-med-nyhet::after { content: 'Nyhet'; font-style: normal; display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: #FBE3D0; color: #A8491A; font-size: 12px; font-weight: 700; line-height: 1.3; vertical-align: 1px; }
 .p3-mm-bild { margin-top: auto; padding: 4px 18px 16px; }
 .p3-mm-bild p { margin: 10px 0 0; font-size: 13px; font-weight: 600; color: var(--ton-ink); }
 .p3-mm-matris { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 220px; }
@@ -108,7 +109,7 @@
 .p3-tm-lankar.p3-en { grid-template-columns: 1fr; }
 .p3-tm-lankar a { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 54px; padding: 8px 12px; border-radius: 14px; background: #fff; color: #1A1A1F; border-bottom: 4px solid rgba(0, 0, 0, .25); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.2; }
 .p3-tm-lankar a span { margin-top: 3px; font-weight: 400; font-size: 13px; color: #4A4A55; }
-.p3-tm-lankar a .p3-nyhet { align-self: flex-start; margin: 4px 0 0; }
+.p3-tm-lankar a .p3-med-nyhet { align-self: flex-start; }
 .p3-tm-mer { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .p3-tm-mer a { display: flex; align-items: center; min-height: 48px; padding: 6px 14px; border-radius: 14px; background: #fff; color: #1A1A1F; border: 2px solid var(--kant); border-bottom-width: 4px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.2; }
 .p3-tm-mer a:last-child:nth-child(odd) { grid-column: 1 / -1; }

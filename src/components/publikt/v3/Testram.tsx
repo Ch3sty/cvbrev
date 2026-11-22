@@ -20,6 +20,20 @@ import { Ikon } from './Ikon'
 
 export type Figur = 't' | 'c' | 'k' | 'tp' | 'cp' | 'kp' | 'tx' | 'cx' | 'kx' | 'pil' | 'l'
 
+const FIGURER: ReadonlySet<string> = new Set(['t', 'c', 'k', 'tp', 'cp', 'kp', 'tx', 'cx', 'kx', 'pil', 'l'])
+
+/**
+ * En ruta på brädet eller i en svarskloss: ett av grundens figurnamn, eller
+ * en egen ritning (ReactNode) ur bankernas ritare (FigurV7, SpatialSvg,
+ * MatrisFigur med fyllning) eller ett tal i en talserie.
+ */
+export type Ruta = Figur | ReactNode
+
+function RutaRitning({ ruta }: { ruta: Ruta }) {
+  if (typeof ruta === 'string' && FIGURER.has(ruta)) return <FigurRitning figur={ruta as Figur} />
+  return <>{ruta}</>
+}
+
 function FigurRitning({ figur }: { figur: Figur }) {
   const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 3, strokeLinejoin: 'round', strokeLinecap: 'round' } as const
   const form = figur[0]
@@ -53,8 +67,8 @@ function FigurRitning({ figur }: { figur: Figur }) {
 }
 
 export interface TestSvar {
-  /** Figur i klossen, eller text. */
-  figur?: Figur
+  /** Figur i klossen (grundens namn eller en egen ritning), eller text. */
+  figur?: Ruta
   text?: ReactNode
   tillstand?: 'vald' | 'ratt' | 'fel'
 }
@@ -89,7 +103,9 @@ export function Testram({
   bitar,
   brade = MATRIS_BRADE,
   bradeKolumner = 3,
+  referens,
   stycke,
+  styckeFritt = false,
   fraga = 'Vilken figur hör hemma i den tomma rutan?',
   svar = MATRIS_SVAR,
   svarKolumner,
@@ -107,11 +123,18 @@ export function Testram({
   tid?: string | null
   /** Bitarnas lägen: 'b' besvarad, 'r' rätt, 'f' fel, 'nu', '' kvar. Standard: besvarade fram till uppgiften. */
   bitar?: readonly ('b' | 'r' | 'f' | 'nu' | '')[]
-  /** Brädets rutor, null är luckan. null för uppgifter utan bräde. */
-  brade?: readonly (Figur | null)[] | null
+  /**
+   * Brädets rutor, null är luckan. En ruta är ett figurnamn, en egen ritning
+   * eller ett tal. null för uppgifter utan bräde.
+   */
+  brade?: readonly (Ruta | null)[] | null
   bradeKolumner?: number
+  /** En referensfigur i en mörk ruta (spatial förmåga: "vilken är samma figur vriden?"). */
+  referens?: ReactNode
   /** Text ovanför uppgiften (verbala och numeriska uppgifter). */
   stycke?: ReactNode
+  /** Stycket utan den vita rutan, för egna ytor som ordkortet. */
+  styckeFritt?: boolean
   fraga?: ReactNode
   svar?: readonly TestSvar[]
   /** Standard: 6 figurer på en rad när ramen är bred, text en per rad. */
@@ -124,7 +147,7 @@ export function Testram({
 }) {
   const bitarna =
     bitar ?? Array.from({ length: av }, (_, i) => (i + 1 < uppgift ? 'b' : i + 1 === uppgift ? 'nu' : '')) as readonly string[]
-  const arFigurer = svar.every((s) => s.figur)
+  const arFigurer = svar.length > 0 && svar.every((s) => s.figur !== undefined && s.figur !== null)
   const kol = svarKolumner ?? (arFigurer ? (svar.length === 6 ? 6 : svar.length === 4 ? 4 : 3) : 1)
   const svarKlass = `p3-tsvar ${kol === 3 ? '' : `p3-s${kol}`}`.trim()
   return (
@@ -160,9 +183,9 @@ export function Testram({
         {brade?.length ? (
           <div className={`p3-tbrade ${bradeKolumner === 3 ? '' : 'p3-rad'}`.trim()} style={bradeKolumner === 3 ? undefined : ({ ['--kol' as string]: bradeKolumner } as CSSProperties)}>
             {brade.map((f, i) =>
-              f ? (
+              f !== null && f !== undefined && f !== false ? (
                 <span key={i}>
-                  <FigurRitning figur={f} />
+                  <RutaRitning ruta={f} />
                 </span>
               ) : (
                 <span key={i} className="p3-lucka">
@@ -172,16 +195,22 @@ export function Testram({
             )}
           </div>
         ) : null}
-        {stycke ? <div className="p3-tstycke">{stycke}</div> : null}
+        {referens ? (
+          <div className="p3-tref">
+            <span>{referens}</span>
+          </div>
+        ) : null}
+        {stycke ? <div className={styckeFritt ? 'p3-tstycke-fritt' : 'p3-tstycke'}>{stycke}</div> : null}
         {fraga ? <p className="p3-tfraga">{fraga}</p> : null}
         {svar.length ? (
           <div className={svarKlass}>
             {svar.map((s, i) => {
-              const k = ['p3-tkloss', s.figur ? 'p3-fig' : 'p3-rad', s.tillstand ? `p3-${s.tillstand}` : ''].filter(Boolean).join(' ')
+              const harFigur = s.figur !== undefined && s.figur !== null
+              const k = ['p3-tkloss', harFigur ? 'p3-fig' : 'p3-rad', s.tillstand ? `p3-${s.tillstand}` : ''].filter(Boolean).join(' ')
               return (
                 <span key={i} className={k}>
                   <i className="p3-ttan">{BOKSTAVER[i]}</i>
-                  {s.figur ? <FigurRitning figur={s.figur} /> : <span>{s.text}</span>}
+                  {harFigur ? <RutaRitning ruta={s.figur} /> : <span>{s.text}</span>}
                 </span>
               )
             })}

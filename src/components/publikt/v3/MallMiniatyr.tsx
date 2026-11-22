@@ -18,6 +18,7 @@ export function MallMiniatyr({
   format = false,
   href,
   prioritet,
+  alt,
   className = '',
 }: {
   /** Mallens id i katalogen (linne, bjork, koppar ...). */
@@ -27,29 +28,33 @@ export function MallMiniatyr({
   storlek?: 'liten' | 'stor'
   /** Namnet under bilden. */
   namn?: boolean
-  /** Gratis eller Premium ur katalogen. */
-  chip?: boolean
+  /** Gratis eller Premium ur katalogen. 'gratis' visar chipet bara på gratismallarna. */
+  chip?: boolean | 'gratis'
   /** Formatmärket "PDF · Word" eller "PDF" på bilden. */
   format?: boolean
   href?: string
   /** För en miniatyr som är sidans LCP: laddas direkt. */
   prioritet?: boolean
+  /** Bildens alt. Standard "CV-mallen X" eller "Brevmallen X"; tom sträng för dekor. */
+  alt?: string
   className?: string
 }) {
   const kort = getMallKort(id)
+  const bildAlt = alt ?? (kort ? `${typ === 'brev' ? 'Brevmallen' : 'CV-mallen'} ${kort.namn}` : '')
+  const visaChip = chip === 'gratis' ? kort?.niva === 'gratis' : chip
   const src = typ === 'brev' ? brevMiniatyrSrc(id) : storlek === 'stor' ? mallBild(id).stor : mallBild(id).liten
   const [w, h] = typ === 'brev' ? [MINIATYR_BREDD, MINIATYR_HOJD] : storlek === 'stor' ? [300, 424] : [112, 158]
   const innehall = (
     <>
       <span className={`p3-mall-bild ${typ === 'brev' ? 'p3-brevmall' : ''}`.trim()}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={kort ? `Mallen ${kort.namn}` : ''} width={w} height={h} loading={prioritet ? 'eager' : 'lazy'} decoding="async" />
+        <img src={src} alt={bildAlt} width={w} height={h} loading={prioritet ? 'eager' : 'lazy'} decoding="async" />
         {format && kort ? <span className="p3-mall-format">{formatMarke(kort.word)}</span> : null}
       </span>
-      {(namn || chip) && kort ? (
+      {(namn || visaChip) && kort ? (
         <span className="p3-mall-rad">
           {namn ? <b>{kort.namn}</b> : null}
-          {chip ? <Chip typ={kort.niva === 'gratis' ? 'gratis' : 'premium'}>{kort.niva === 'gratis' ? 'Gratis' : 'Premium'}</Chip> : null}
+          {visaChip ? <Chip typ={kort.niva === 'gratis' ? 'gratis' : 'premium'}>{kort.niva === 'gratis' ? 'Gratis' : 'Premium'}</Chip> : null}
         </span>
       ) : null}
     </>
