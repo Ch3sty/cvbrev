@@ -98,6 +98,23 @@ describe('korPosthogRaderingar', () => {
 })
 
 describe('raderaIPosthog', () => {
+  it('2xx raderar direkt och köar id:t för en andra radering i nattkörningen', async () => {
+    fetchMock.mockResolvedValue({ status: 202 })
+    const d = db([])
+    expect(await raderaIPosthog(d.client, A)).toBe('raderad')
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(d.tables.posthog_raderingar).toHaveLength(1)
+    expect(d.tables.posthog_raderingar[0]).toMatchObject({ distinct_id: A, senaste_fel: null })
+  })
+
+  it('2xx svarar raderad också när kön inte går att skriva', async () => {
+    fetchMock.mockResolvedValue({ status: 202 })
+    const logg = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const klient = { from: () => ({ upsert: async () => ({ error: { message: 'relation does not exist' } }) }) }
+    expect(await raderaIPosthog(klient as never, A)).toBe('raderad')
+    logg.mockRestore()
+  })
+
   it('utan nyckel köas allt, utan anrop', async () => {
     delete process.env.POSTHOG_RADERA_NYCKEL
     const d = db([])

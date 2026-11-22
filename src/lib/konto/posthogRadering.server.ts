@@ -9,7 +9,8 @@
 //
 // Nyckeln POSTHOG_RADERA_NYCKEL är en egen personlig nyckel med bara
 // person:write. Saknas den, eller svarar PostHog inte med 2xx, läggs kontots
-// id i posthog_raderingar och midnattskörningen försöker igen. Kön bär bara
+// id i posthog_raderingar och midnattskörningen försöker igen. Också en
+// lyckad radering köas, för en andra radering samma natt. Kön bär bara
 // id, aldrig e-post. Inget här kastar: en radering av kontot ska aldrig falla
 // på PostHog.
 
@@ -60,7 +61,18 @@ export async function anropaBulkDelete(distinctIds: string[]): Promise<Svar> {
 export async function raderaIPosthog(admin: SupabaseClient, userId: string): Promise<'raderad' | 'koad' | 'fel'> {
   try {
     const svar = await anropaBulkDelete([userId])
-    if (svar.ok) return 'raderad'
+    if (svar.ok) {
+      // Webbläsaren kan skicka sin sista omgång händelser i samma sekund som
+      // raderingen, och då skapar PostHog personen på nytt under samma id
+      // (sett på live 2026-11-22: personen fanns kvar 27 minuter efter en
+      // radering som svarat 2xx). Id:t läggs därför också i kön, så att
+      // midnattskörningen raderar en gång till när webbläsaren har tystnat.
+      const { error } = await admin
+        .from('posthog_raderingar')
+        .upsert({ distinct_id: userId, senaste_fel: null }, { onConflict: 'distinct_id', ignoreDuplicates: true })
+      if (error) console.error('[posthogRadering] kunde inte köa den andra raderingen:', error.message)
+      return 'raderad'
+    }
     const { error } = await admin
       .from('posthog_raderingar')
       .upsert({ distinct_id: userId, senaste_fel: svar.fel }, { onConflict: 'distinct_id', ignoreDuplicates: true })

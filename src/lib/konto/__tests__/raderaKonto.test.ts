@@ -405,7 +405,9 @@ describe('PostHog (beslut-mejl-och-radering 2c punkt 4)', () => {
     const [url, init] = fetchMock.mock.calls[0]
     expect(url).toBe('https://eu.posthog.com/api/projects/148688/persons/bulk_delete/')
     expect(JSON.parse(init.body)).toEqual({ distinct_ids: [U1], delete_events: true })
-    expect(inserts.posthog_raderingar).toBeUndefined()
+    // Också en lyckad radering köas, för en andra radering i nattkörningen
+    // (webbläsarens sista händelser kan återskapa personen).
+    expect(inserts.posthog_raderingar).toEqual([{ distinct_id: U1, senaste_fel: null }])
   })
 
   it('PostHog svarar 500: id:t hamnar i kön och raderingen svarar ok', async () => {
