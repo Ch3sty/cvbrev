@@ -17,6 +17,7 @@ import { Resend } from 'resend';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { generateInterestMessageEmail } from '@/lib/email/interest-message';
+import { hamtaAvslutade } from '@/lib/interests/avslutadKontakt';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,8 +70,15 @@ export async function GET(
 
     // Tråden finns bara för accepterade intressen (spegling av POST och av
     // kontaktupplåsningen). Innan accept finns ingen kontakt att läsa.
+    // En kontakt som kandidaten har avslutat går att läsa men är stängd för
+    // nya meddelanden (se src/lib/interests/avslutadKontakt.ts).
+    let avslutadAt: string | null = null;
     if (participant.interest.status !== 'accepted') {
-      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      const avslutade = await hamtaAvslutade(admin, [participant.interest]);
+      avslutadAt = avslutade.get(participant.interest.id) ?? null;
+      if (!avslutadAt) {
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -119,7 +127,13 @@ export async function GET(
       console.error('Interest messages: läsmarkör misslyckades', readError);
     }
 
-    return NextResponse.json({ messages, role: participant.role, theirLastReadAt });
+    return NextResponse.json({
+      messages,
+      role: participant.role,
+      theirLastReadAt,
+      stangd: Boolean(avslutadAt),
+      avslutadAt,
+    });
   } catch (error) {
     console.error('Interest messages GET error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

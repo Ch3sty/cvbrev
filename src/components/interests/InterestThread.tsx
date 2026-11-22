@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { KANDIDATEN_AVSLUTADE } from '@/lib/interests/avslutadKontakt';
 
 interface ThreadMessage {
   id: string;
@@ -33,6 +34,8 @@ export default function InterestThread({ interestId }: { interestId: string }) {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Kandidaten har avslutat kontakten: tråden går att läsa, inte skriva i.
+  const [stangd, setStangd] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async () => {
@@ -41,6 +44,7 @@ export default function InterestThread({ interestId }: { interestId: string }) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMessages(data.messages ?? []);
+      setStangd(Boolean(data.stangd));
     } catch {
       setMessages([]);
     }
@@ -85,9 +89,11 @@ export default function InterestThread({ interestId }: { interestId: string }) {
         {messages === null ? (
           <p className="py-4 text-center text-meta text-ink-3">Hämtar meddelanden</p>
         ) : messages.length === 0 ? (
-          <p className="py-4 text-center text-meta text-ink-3">
-            Inga meddelanden än. Skriv det första.
-          </p>
+          stangd ? null : (
+            <p className="py-4 text-center text-meta text-ink-3">
+              Inga meddelanden än. Skriv det första.
+            </p>
+          )
         ) : (
           messages.map((m) => (
             <div key={m.id} className={`flex ${m.mine ? 'justify-end' : 'justify-start'}`}>
@@ -108,6 +114,9 @@ export default function InterestThread({ interestId }: { interestId: string }) {
             </div>
           ))
         )}
+        {stangd && (
+          <p className="py-2 text-center text-meta text-ink-3">{KANDIDATEN_AVSLUTADE}</p>
+        )}
         <div ref={endRef} />
       </div>
 
@@ -117,6 +126,7 @@ export default function InterestThread({ interestId }: { interestId: string }) {
         </p>
       )}
 
+      {!stangd && (
       <div className="flex items-end gap-2 border-t border-kant p-2.5">
         <textarea
           value={draft}
@@ -141,6 +151,7 @@ export default function InterestThread({ interestId }: { interestId: string }) {
           Skicka
         </button>
       </div>
+      )}
     </div>
   );
 }

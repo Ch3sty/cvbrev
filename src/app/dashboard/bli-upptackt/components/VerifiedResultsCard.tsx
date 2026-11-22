@@ -138,7 +138,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
             checked={showPersonality}
             onToggle={togglePersonalityShare}
             label="Visa dina två främsta styrkor"
-            sub="Styrkorna står i ord på profilen, aldrig som poäng. Du kan stänga av när du vill."
+            sub="Styrkorna står i ord på profilen, aldrig som poäng, och rekryterare kan söka på dem. Du kan stänga av när du vill."
           />
         </div>
       )}
@@ -159,7 +159,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
               checked={showPersonality}
               onToggle={togglePersonalityShare}
               label="Visa styrkor och arbetsstil"
-              sub="Nivå 1: dina främsta styrkor, arketyp och några punkter om din arbetsstil."
+              sub="Nivå 1: dina främsta styrkor, arketyp och några punkter om din arbetsstil. Rekryterare kan söka på styrkorna och arbetsstilen."
             />
             <ToggleRow
               checked={profile.show_full_workstyle && showPersonality}

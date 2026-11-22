@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Inbox as InboxIcon, MessageSquare } from 'lucide-react';
 import InterestThread from '@/components/interests/InterestThread';
+import { KANDIDATEN_AVSLUTADE } from '@/lib/interests/avslutadKontakt';
 import {
   CTA_GRADIENT,
   formatLongDate,
@@ -119,7 +120,7 @@ export default function InboxPage() {
                     <span className="text-[14px] font-bold text-slate-900 leading-tight">
                       {interest.card?.role ?? 'Kandidaten är inte längre synlig'}
                     </span>
-                    <StatusBadge status={interest.status} />
+                    <StatusBadge status={interest.status} avslutad={Boolean(interest.avslutadAt)} />
                   </div>
                   <p className="text-[12px] text-slate-500 mt-0.5">
                     {[
@@ -149,8 +150,15 @@ export default function InboxPage() {
                 )}
               </div>
 
-              {/* Meddelandetråd: bara när kandidaten accepterat kontakten */}
-              {interest.status === 'accepted' && (
+              {interest.avslutadAt && (
+                <p className="mt-3 pl-0 sm:pl-[52px] text-[12.5px] text-slate-600">
+                  {KANDIDATEN_AVSLUTADE}
+                </p>
+              )}
+
+              {/* Meddelandetråd: när kandidaten accepterat kontakten. En
+                  avslutad kontakt går att läsa men inte skriva i. */}
+              {(interest.status === 'accepted' || Boolean(interest.avslutadAt)) && (
                 <div className="mt-3 pl-0 sm:pl-[52px]">
                   {openThread === interest.interestId ? (
                     <InterestThread interestId={interest.interestId} />
@@ -179,7 +187,9 @@ export default function InboxPage() {
                         ? `Nytt svar från kandidaten (${interest.unreadCount})`
                         : (interest.messageCount ?? 0) > 0
                           ? `Öppna konversation (${interest.messageCount})`
-                          : 'Skriv ett meddelande'}
+                          : interest.avslutadAt
+                            ? 'Öppna konversation'
+                            : 'Skriv ett meddelande'}
                     </button>
                   )}
                 </div>
@@ -192,7 +202,14 @@ export default function InboxPage() {
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status, avslutad }: { status: string; avslutad?: boolean }) {
+  if (avslutad) {
+    return (
+      <span className="inline-flex text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-slate-100 border border-slate-200 text-slate-500">
+        Avslutad
+      </span>
+    );
+  }
   if (status === 'accepted') {
     return (
       <span className="inline-flex text-[11.5px] font-bold rounded-full px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700">

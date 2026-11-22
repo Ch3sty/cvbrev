@@ -64,8 +64,8 @@ export default function ContextTagsCard({ options, selected, onChange }: Context
       </div>
       <p className="mt-3 text-meta text-ink-3">
         Förslagen bygger på din profil, du väljer själv vilka som får stå för
-        dig. Rekryterare kan aldrig filtrera på taggarna, de läser dem som din
-        egen beskrivning.
+        dig. Rekryterare läser taggarna som din egen beskrivning, och en sökning
+        på ett ord i en tagg kan hitta dig.
       </p>
     </SectionCard>
   );

@@ -24,6 +24,11 @@ export interface CandidateInterest {
   recruiterContact: RecruiterContact | null;
   messageCount: number;
   unreadCount: number;
+  /**
+   * När kandidaten avslutade kontakten efter ett ja (status är då
+   * 'declined'), annars null. Tråden går att läsa men inte skriva i.
+   */
+  avslutadAt?: string | null;
 }
 
 /** Företagets initial för avatarer. */

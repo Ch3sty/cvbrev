@@ -728,7 +728,7 @@ const CONTEXT_TAG_BANK: Array<{ tag: string; facets: string[] }> = [
 
 /** Rapporthuvudets disclaimer, skriven som styrkedeklaration. */
 export const WORKSTYLE_DISCLAIMER =
-  'Den här profilen bygger på kandidatens egen skattning i ett fördjupat personlighetstest (120 frågor, femfaktormodellen). Den beskriver arbetssätt och trivsel, inte kompetens eller förväntad prestation. Använd den för att ställa bättre frågor, inte för att sortera. Kandidaten ser exakt samma rapport som du.';
+  'Den här profilen bygger på kandidatens egen skattning i ett fördjupat personlighetstest (120 frågor, femfaktormodellen). Den beskriver arbetssätt och trivsel, inte kompetens eller förväntad prestation. Använd den för att förstå hur personen arbetar och ställa bättre frågor, inte som ett betyg. Kandidaten ser exakt samma rapport som du.';
 
 /** Obligatorisk mikrocopy när kontexttaggar visas för rekryterare. */
 export const CONTEXT_TAG_MICROCOPY =

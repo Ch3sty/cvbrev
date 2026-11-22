@@ -50,7 +50,7 @@ export default function WorkStyleCard({ candidate, unlocked, delay = 0 }: WorkSt
       <PortalCard title="Arbetsstil" delay={delay}>
         {/* Disclaimern ovanför rapporten, i liten stil. Visas ALLTID, även i
             den kompakta fallback-vyn: den innehåller regeln "använd för att
-            ställa bättre frågor, inte för att sortera" och får aldrig saknas. */}
+            ställa bättre frågor, inte som ett betyg" och får aldrig saknas. */}
         <p className="mb-3 text-[12px] text-slate-400 leading-relaxed">
           {report?.disclaimer ?? WORKSTYLE_DISCLAIMER}
         </p>

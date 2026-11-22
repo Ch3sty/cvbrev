@@ -34,6 +34,7 @@ import {
   type CvOption,
   type SummaryData,
 } from './components/types';
+import { SAMTYCKE_VERSION, STYRKOR_FRAGA_KEY } from './components/samtycke';
 
 /** Räknarna bakom larmet och meddelandegenvägen högst upp på sidan. */
 export interface InterestCounts {
@@ -62,6 +63,13 @@ export interface BliUpptacktData {
   collapsedSections: string[] | null;
   /** true när kontots enda CV är förvalt men inte sparat på profilen. */
   cvForvalt: boolean;
+  /**
+   * true när samtycket gavs före 2026-11-22 (version v1) och kandidaten inte
+   * har svarat på frågan om sökbara styrkor. Rutan "Rekryterare kan söka på
+   * dina styrkor" visas när detta är sant och profilen visar styrkor. Se
+   * components/samtycke.ts.
+   */
+  styrkorFraga: boolean;
 }
 
 const PREF_KEY = 'bli_upptackt_collapsed';
@@ -131,7 +139,7 @@ export async function getBliUpptacktData(
   userId: string
 ): Promise<BliUpptacktData> {
   // Första omgången: allt som inte beror på något annat.
-  const [profileRes, candidateRes, cvRes, prefRes, interests] = await Promise.all([
+  const [profileRes, candidateRes, cvRes, prefRes, interests, fragaRes] = await Promise.all([
     supabase.from('profiles').select('full_name, subscription_tier, premium_until').eq('id', userId).maybeSingle(),
     supabase.from('candidate_profiles').select('*').eq('user_id', userId).maybeSingle(),
     supabase
@@ -146,6 +154,12 @@ export async function getBliUpptacktData(
       .eq('key', PREF_KEY)
       .maybeSingle(),
     getInterestCounts(supabase, userId),
+    supabase
+      .from('user_ui_preferences')
+      .select('value')
+      .eq('user_id', userId)
+      .eq('key', STYRKOR_FRAGA_KEY)
+      .maybeSingle(),
   ]);
 
   const profileRow = profileRes.data as
@@ -204,6 +218,14 @@ export async function getBliUpptacktData(
       : []
     : null;
 
+  // Frågan om sökbara styrkor: bara för samtycken före den nya raden. Fallerar
+  // läsningen visas ingen ruta (hellre ingen fråga än en som kommer tillbaka).
+  const styrkorFraga =
+    Boolean(row?.consent_given_at) &&
+    row?.consent_version !== SAMTYCKE_VERSION &&
+    !fragaRes?.error &&
+    !fragaRes?.data;
+
   // Har kontot ett enda CV är det förvalt. Det sparas först när kandidaten
   // slår på synligheten, eller väljer det själv.
   let cvForvalt = false;
@@ -238,5 +260,6 @@ export async function getBliUpptacktData(
     views: views as ViewStats | null,
     collapsedSections,
     cvForvalt,
+    styrkorFraga,
   };
 }

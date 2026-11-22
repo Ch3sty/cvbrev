@@ -11,6 +11,7 @@ import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
 import { recruiterCardsFor, refsForUserIds } from '@/lib/recruiter/candidateAccess';
 import type { RecruiterCard } from '@/lib/recruiter/recruiterView';
 import { unreadByInterest } from '@/lib/interests/threadUnread';
+import { hamtaAvslutade } from '@/lib/interests/avslutadKontakt';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,8 +61,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
-    // Trådstatistik (antal + olästa) för accepterade intressen.
-    const acceptedIds = interests.filter((i) => i.status === 'accepted').map((i) => i.id);
+    // Kontakter som kandidaten har avslutat (status 'declined' med markör).
+    // Deras trådar går att läsa men inte skriva i.
+    const avslutade = await hamtaAvslutade(admin, interests);
+    // Trådstatistik (antal + olästa) för accepterade och avslutade intressen.
+    const acceptedIds = interests
+      .filter((i) => i.status === 'accepted' || avslutade.has(i.id))
+      .map((i) => i.id);
     const threadStats = await unreadByInterest(admin, acceptedIds, user.id, 'recruiter');
     // Kandidatens id mot rekryteraren, aldrig kontots id.
     const refs = await refsForUserIds(
@@ -83,6 +89,8 @@ export async function GET() {
         card: cardByCandidate.get(i.candidate_user_id) ?? null,
         messageCount: stats.total,
         unreadCount: stats.unread,
+        // Tidpunkten då kandidaten avslutade kontakten, annars null.
+        avslutadAt: avslutade.get(i.id) ?? null,
       };
     });
 

@@ -17,6 +17,7 @@ import Topprad from '@/components/rum/Topprad'
 import ConversationThread from '@/components/interests/ConversationThread'
 import { type CandidateInterest } from '@/components/interests/hubTypes'
 import {
+  Ark,
   Bricka,
   Felruta,
   Golv,
@@ -67,6 +68,9 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
   const [mobil, setMobil] = useState<'lista' | 'trad'>(() => (djuplank && valjForst(start, djuplank) === djuplank ? 'trad' : 'lista'))
   const [sok, setSok] = useState('')
   const [visaAvbojda, setVisaAvbojda] = useState(false)
+  // "Avsluta kontakten": id för intresset som väntar på bekräftelse.
+  const [avslutaId, setAvslutaId] = useState<string | null>(null)
+  const [avslutar, setAvslutar] = useState(false)
 
   const vald = useMemo(() => lista.find((i) => i.id === valdId) ?? null, [lista, valdId])
 
@@ -102,6 +106,31 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
     },
     [lista],
   )
+
+  // Kandidaten tar tillbaka sitt ja. Servern kontrollerar att intresset är
+  // hennes eget (POST /api/candidate/interests/end); listan uppdateras först
+  // när servern har svarat, eftersom det inte går att ångra.
+  const avsluta = useCallback(async (id: string) => {
+    setAvslutar(true)
+    setSvarsfel(null)
+    try {
+      const res = await fetch('/api/candidate/interests/end', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ interestId: id }),
+      })
+      const d = await res.json().catch(() => null)
+      if (!res.ok) throw new Error(d?.error || `HTTP ${res.status}`)
+      const nar = typeof d?.avslutadAt === 'string' ? d.avslutadAt : new Date().toISOString()
+      setLista((f) => f.map((i) => (i.id === id ? { ...i, status: 'declined', respondedAt: nar, avslutadAt: nar, recruiterContact: null, unreadCount: 0 } : i)))
+      setAvslutaId(null)
+    } catch {
+      setAvslutaId(null)
+      setSvarsfel('Det gick inte att avsluta kontakten. Försök igen.')
+    } finally {
+      setAvslutar(false)
+    }
+  }, [])
 
   const vagg = (ingress: string) => (
     <JobbVagg hojd={316} hojdMobil={260} flik={null} tillbaka={TILLBAKA} atgarder={<Topprad bara="atgarder" />} luft={96}>
@@ -147,6 +176,7 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
   const rad = (i: CandidateInterest) => {
     const pending = i.status === 'pending'
     const avbojd = i.status === 'declined'
+    const avslutad = Boolean(i.avslutadAt)
     const olast = i.unreadCount > 0
     return (
       <button key={i.id} type="button" className={`j3c-rad j3-sido${i.id === valdId ? ' vald' : ''}`} aria-current={i.id === valdId ? 'true' : undefined} aria-busy={svarar === i.id || undefined} onClick={() => valj(i.id)}>
@@ -155,9 +185,9 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
         </Bricka>
         <span className="j3-sido-text">
           <b>{i.companyName}</b>
-          <small>{pending ? (i.message?.trim() || 'Vill komma i kontakt.') : avbojd ? 'Avböjd' : i.message?.trim() || 'Ni är i kontakt. Säg hej.'}</small>
+          <small>{pending ? (i.message?.trim() || 'Vill komma i kontakt.') : avslutad ? 'Kontakten avslutad' : avbojd ? 'Avböjd' : i.message?.trim() || 'Ni är i kontakt. Säg hej.'}</small>
           <span className="mt-2 flex flex-wrap items-center gap-2">
-            {pending ? <StatusPiller status="folj-upp">Väntar på ditt svar</StatusPiller> : avbojd ? <StatusPiller status="avslutad">Avböjd</StatusPiller> : <StatusPiller status="intervju">Kontakten godkänd</StatusPiller>}
+            {pending ? <StatusPiller status="folj-upp">Väntar på ditt svar</StatusPiller> : avslutad ? <StatusPiller status="avslutad">Avslutad</StatusPiller> : avbojd ? <StatusPiller status="avslutad">Avböjd</StatusPiller> : <StatusPiller status="intervju">Kontakten godkänd</StatusPiller>}
             <span className="j3-fin">{kortDatum(i.respondedAt ?? i.createdAt)}</span>
             {olast ? <span className="sr-only">{`${i.unreadCount} olästa`}</span> : null}
           </span>
@@ -167,8 +197,8 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
   }
 
   const hoger = vald ? (
-    vald.status === 'accepted' ? (
-      <ConversationThread interest={vald} />
+    vald.status === 'accepted' || vald.avslutadAt ? (
+      <ConversationThread interest={vald} onAvsluta={vald.status === 'accepted' ? () => setAvslutaId(vald.id) : undefined} />
     ) : (
       <div className="p-4 xl:px-7 xl:py-6">
         <div className="flex items-start gap-3.5 border-b-2 border-[var(--j3-linje)] pb-4">
@@ -263,6 +293,24 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
             </div>
           </div>
         </LyftPanel>
+        <Ark
+          open={avslutaId !== null}
+          onClose={() => (avslutar ? undefined : setAvslutaId(null))}
+          rubrik="Avsluta kontakten?"
+          bredd={460}
+          fot={
+            <div className="flex flex-col gap-3">
+              <StorKnapp bred disabled={avslutar} onClick={() => avslutaId && avsluta(avslutaId)}>
+                Avsluta kontakten
+              </StorKnapp>
+              <LitenKnapp bred disabled={avslutar} onClick={() => setAvslutaId(null)}>
+                Avbryt
+              </LitenKnapp>
+            </div>
+          }
+        >
+          <p className="j3-text">Rekryteraren ser då inte längre ditt namn, din e-post eller dina arbetsgivare, och ni kan inte skriva till varandra här. Det går inte att ångra.</p>
+        </Ark>
       </Golv>
     </>
   )

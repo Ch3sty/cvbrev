@@ -32,6 +32,8 @@ import VisibilityModeCard from './components/VisibilityModeCard';
 import SectionCard, { StegKontext } from './components/SectionCard';
 import { useCollapsedSections } from './hooks/useCollapsedSections';
 import { AFTER_YES_ITEMS, HIDDEN_ITEMS, SHOWN_ITEMS } from './components/delas';
+import StyrkorFraga from './components/StyrkorFraga';
+import { SAMTYCKE_VERSION, STYRKOR_FRAGA_DATUM, STYRKOR_FRAGA_KEY, type StyrkorSvar } from './components/samtycke';
 import type { CollapseProps } from './components/SectionCard';
 import { FAMILY_LABELS, type CandidateProfileState, type FamilyKey, type SummaryData } from './components/types';
 import type { BliUpptacktData } from './getPageData';
@@ -148,6 +150,31 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
 
   const { fullName, cvs, interests, views } = initialData;
 
+  // Frågan om sökbara styrkor till dem som samtyckte före 2026-11-22.
+  const [styrkorFragaKvar, setStyrkorFragaKvar] = useState(initialData.styrkorFraga);
+  const [svarSparas, setSvarSparas] = useState(false);
+
+  /** Sparar svaret med tidpunkt, så att rutan aldrig kommer tillbaka. */
+  const sparaStyrkorSvar = useCallback(
+    async (svar: StyrkorSvar, kalla: 'rutan' | 'kortet') => {
+      setStyrkorFragaKvar(false);
+      if (!userId) return;
+      const nu = new Date().toISOString();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error } = await (supabase as any).from('user_ui_preferences').upsert(
+        {
+          user_id: userId,
+          key: STYRKOR_FRAGA_KEY,
+          value: { svar, svarat_at: nu, fraga: STYRKOR_FRAGA_DATUM, kalla },
+          updated_at: nu,
+        },
+        { onConflict: 'user_id,key' }
+      );
+      if (error) console.error('Bli upptäckt: kunde inte spara svaret om styrkorna', error);
+    },
+    [supabase, userId]
+  );
+
   const fetchSummary = useCallback(async (cvId: string | null) => {
     try {
       const url = cvId ? `/api/candidate/summary?cv_id=${encodeURIComponent(cvId)}` : '/api/candidate/summary';
@@ -215,8 +242,11 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
       show_personality: showPersonality,
       show_full_workstyle: showPersonality && showFullWorkstyle,
       consent_given_at: new Date().toISOString(),
-      consent_version: 'v1',
+      // v2: raden om styrkor säger att rekryterare kan söka på dem. Nya
+      // samtycken får därför aldrig frågan i StyrkorFraga.
+      consent_version: SAMTYCKE_VERSION,
     });
+    setStyrkorFragaKvar(false);
     setLastMode('anonymous');
     setConsentOpen(false);
   };
@@ -230,6 +260,23 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
     // Bara vid första visningen.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const svaraStyrkor = async (svar: StyrkorSvar) => {
+    setSvarSparas(true);
+    try {
+      if (svar === 'sluta') await saveProfile({ show_personality: false, show_full_workstyle: false });
+      await sparaStyrkorSvar(svar, 'rutan');
+    } finally {
+      setSvarSparas(false);
+    }
+  };
+
+  // Slår kandidaten på styrkorna i kortet har hon läst den nya texten om
+  // sökbarheten där; då ställs frågan inte.
+  const patchResultat = (patch: Partial<CandidateProfileState>) => {
+    if (patch.show_personality === true && styrkorFragaKvar) void sparaStyrkorSvar('fortsatt', 'kortet');
+    saveProfile(patch);
+  };
 
   const handleSelectCv = (cvId: string) => {
     saveProfile({ cv_id: cvId });
@@ -440,6 +487,11 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
       </JobbVagg>
 
       <Golv>
+        {styrkorFragaKvar && profile.show_personality ? (
+          <div className="mb-6 max-w-[760px]">
+            <StyrkorFraga avancerad={Boolean(summary?.personality?.hasAdvancedTest)} sparar={svarSparas} onSvar={svaraStyrkor} />
+          </div>
+        ) : null}
         <Spalter sido={420} tat>
           <div>
             <LyftPanel rubrikId="bygg-rubrik" luft="22px 28px 28px">
@@ -452,7 +504,7 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
                 {harTaggar
                   ? steg('kontexttaggar', <ContextTagsCard options={summary!.personality.contextTagOptions} selected={profile.context_tags} onChange={(context_tags) => saveProfile({ context_tags })} />, 'kontexttaggar')
                   : null}
-                {steg('resultat', <VerifiedResultsCard summary={summary} profile={profile} onPatch={saveProfile} collapse={collapseFor('arbetsstil')} />, 'arbetsstilsrapport')}
+                {steg('resultat', <VerifiedResultsCard summary={summary} profile={profile} onPatch={patchResultat} collapse={collapseFor('arbetsstil')} />, 'arbetsstilsrapport')}
               </div>
             </LyftPanel>
 

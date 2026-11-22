@@ -297,6 +297,8 @@ export interface InterestItem {
   messageCount?: number;
   /** Olästa meddelanden från kandidaten. */
   unreadCount?: number;
+  /** När kandidaten avslutade kontakten efter ett ja, annars null. */
+  avslutadAt?: string | null;
 }
 
 // ---------------------------------------------------------------------------

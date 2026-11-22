@@ -17,6 +17,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { unreadByInterest } from '@/lib/interests/threadUnread';
+import { hamtaAvslutade } from '@/lib/interests/avslutadKontakt';
 import type { CandidateInterest } from '@/components/interests/hubTypes';
 
 interface InterestRow {
@@ -61,7 +62,14 @@ export async function getCandidateInterests(
 
   const recruiterIds = Array.from(new Set(rows.map((r) => r.recruiter_user_id)));
   const admin = getSupabaseAdmin();
-  const acceptedIds = rows.filter((r) => r.status === 'accepted').map((r) => r.id);
+  // Kontakter kandidaten själv har avslutat (se avslutadKontakt.ts).
+  const avslutade = await hamtaAvslutade(
+    admin,
+    rows.map((r) => ({ id: r.id, candidate_user_id: userId, status: r.status }))
+  );
+  const acceptedIds = rows
+    .filter((r) => r.status === 'accepted' || avslutade.has(r.id))
+    .map((r) => r.id);
 
   // Rekryterarnas namnfält och trådstatistiken behöver inte vänta på varandra.
   const [recruiterRes, threadStats] = await Promise.all([
@@ -84,6 +92,7 @@ export async function getCandidateInterests(
   return rows.map((row) => {
     const recruiter = recruiterMap.get(row.recruiter_user_id);
     const accepted = row.status === 'accepted';
+    const avslutadAt = avslutade.get(row.id) ?? null;
     return {
       id: row.id,
       companyName: recruiter?.company_name ?? 'Okänt företag',
@@ -103,8 +112,9 @@ export async function getCandidateInterests(
             website: recruiter?.website ?? null,
           }
         : null,
-      messageCount: accepted ? threadStats.get(row.id)?.total ?? 0 : 0,
+      messageCount: accepted || avslutadAt ? threadStats.get(row.id)?.total ?? 0 : 0,
       unreadCount: accepted ? threadStats.get(row.id)?.unread ?? 0 : 0,
+      avslutadAt,
     };
   });
 }

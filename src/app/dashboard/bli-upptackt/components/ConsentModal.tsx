@@ -109,9 +109,9 @@ export default function ConsentModal({
       {/* Separat personlighetssamtycke (nivå 1, valfritt) */}
       <ConsentRow checked={personalityConsent} onToggle={togglePersonality}>
         Visa mina främsta styrkor och min arbetsstil från personlighetstestet på
-        profilen.{' '}
+        profilen. Rekryterare kan också söka på dem.{' '}
         <span className="font-normal text-ink-3">
-          Eget samtycke, valfritt. Du kan ändra dig senare utan att synligheten påverkas.
+          Eget samtycke, valfritt. Du kan ändra dig senare, profilen är synlig i poolen oavsett.
         </span>
       </ConsentRow>
 

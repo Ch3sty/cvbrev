@@ -64,10 +64,15 @@ function theirLabel(interest: CandidateInterest): string {
 export default function ConversationThread({
   interest,
   onBack,
+  onAvsluta,
 }: {
   interest: CandidateInterest;
   onBack?: () => void;
+  /** Öppnar bekräftelsen för "Avsluta kontakten". Bara för en öppen kontakt. */
+  onAvsluta?: () => void;
 }) {
+  // Kandidaten har avslutat kontakten: tråden går att läsa, inte skriva i.
+  const stangd = Boolean(interest.avslutadAt);
   const interestId = interest.id;
   const [messages, setMessages] = useState<ThreadMessage[] | null>(null);
   const [theirLastReadAt, setTheirLastReadAt] = useState<string | null>(null);
@@ -199,13 +204,22 @@ export default function ConversationThread({
             )}
           </div>
         </div>
+        {onAvsluta && !stangd && (
+          <button
+            type="button"
+            onClick={onAvsluta}
+            className="inline-flex min-h-11 shrink-0 items-center text-meta font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1 hover:decoration-ink-1"
+          >
+            Avsluta kontakten
+          </button>
+        )}
       </div>
 
       {/* Samtalet */}
       <div className="flex-1 overflow-y-auto px-4 py-4">
         {messages === null ? (
           <p className="py-6 text-center text-meta text-ink-3">Hämtar meddelanden</p>
-        ) : messages.length === 0 ? (
+        ) : messages.length === 0 && stangd ? null : messages.length === 0 ? (
           <EmptyState
             bare
             illustration={IlluTomMapp}
@@ -283,6 +297,9 @@ export default function ConversationThread({
             })}
           </div>
         )}
+        {stangd && (
+          <p className="mt-4 text-center text-meta text-ink-3">Du har avslutat kontakten.</p>
+        )}
         <div ref={endRef} />
       </div>
 
@@ -292,7 +309,8 @@ export default function ConversationThread({
         </p>
       )}
 
-      {/* Skrivfältet */}
+      {/* Skrivfältet, borta när kontakten är avslutad */}
+      {!stangd && (
       <div className="flex items-end gap-2 border-t border-kant p-3">
         <textarea
           value={draft}
@@ -317,6 +335,7 @@ export default function ConversationThread({
           Skicka
         </button>
       </div>
+      )}
     </div>
   );
 }
