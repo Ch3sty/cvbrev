@@ -512,7 +512,7 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
       ingress:
         'CV, personliga brev, alla tester, jobbmatchning och Jobbcoachen, i 24 timmar. Vi föreslår att du börjar med CV:t och analysen, så hinner du använda resten på ett uppdaterat CV.',
       steg: [
-        'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
+        'Ladda upp CV:t och se läsbarhetspoängen. Uppdatera efter det som saknas.',
         'Kör jobbmatchningen på det uppdaterade CV:t och skriv personliga brev från träffarna.',
         'Träna tester eller fråga Jobbcoachen med tiden som är kvar.',
       ],
@@ -544,7 +544,7 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
       ingress:
         'CV, personliga brev, alla tester, jobbmatchning och Jobbcoachen. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
       steg: [
-        'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
+        'Ladda upp CV:t och se läsbarhetspoängen. Uppdatera efter det som saknas.',
         'Kör jobbmatchningen på det uppdaterade CV:t och se jobb du inte hittat själv.',
         'Gör dig synlig för rekryterare, skriv personliga brev från träffarna, träna tester, fråga Jobbcoachen.',
       ],
@@ -559,8 +559,8 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
     ingress: `Hela CV-analysen, ${TEMPLATE_COUNT} mallar, personliga brev och LinkedIn-profilen, i vilken ordning du vill. Vi föreslår att du börjar med CV:t, för allt annat bygger på det.`,
     steg: [
       'Ladda upp CV:t, PDF eller Word. En minut.',
-      'Kör CV-analysen på det. Poäng, fynd, nyckelord.',
-      'Uppdatera CV:t efter fynden. Sedan mall, personligt brev och LinkedIn, när du vill.',
+      'Se läsbarhetspoängen för det och vad som saknas, del för del.',
+      'Uppdatera CV:t efter det som saknas. Sedan mall, personligt brev och LinkedIn, när du vill.',
     ],
     primar: 'Ladda upp CV:t',
     primarHref: '/dashboard/profil/cv',
@@ -586,7 +586,7 @@ export function valkommenMedCv(
   ]
   return {
     rubrik: `Du har ${namn}. Och ett CV redan.`,
-    ingress: `${cvNamn} ligger här sedan tidigare. Vi föreslår att du kör hela CV-analysen på det nu, så ser du alla fynd med åtgärd innan du uppdaterar och väljer mall.`,
+    ingress: `${cvNamn} ligger här sedan tidigare. Vi föreslår att du öppnar CV-analysen för det nu, så ser du poängen och vad som saknas i varje del innan du uppdaterar och väljer mall.`,
     cvRad: delar.filter(Boolean).join(' '),
     primar: 'Kör hela CV-analysen',
     primarHref: '/dashboard/cv-analys',

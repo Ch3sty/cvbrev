@@ -118,7 +118,7 @@ export function generatePasswordResetEmailHTML(data: PasswordResetEmailData): st
                     <!-- Security Tip -->
                     <div style="background-color: #DBEAFE; border-radius: 12px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #3B82F6; text-align: left;">
                       <p style="color: #1E40AF; font-size: 14px; margin: 0 0 10px 0; font-weight: 600;">
-                        💡 Tips för ett säkert lösenord:
+                        Tips för ett säkert lösenord:
                       </p>
                       <ul style="color: #1E3A8A; font-size: 14px; margin: 0; padding-left: 20px; line-height: 1.6;">
                         <li>Minst 8 tecken långt</li>
