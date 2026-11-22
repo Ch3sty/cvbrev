@@ -56,7 +56,7 @@ export function PremiumO({
   pris?: boolean
   uppsagning?: boolean
   /** En länk ({ text, href }, ritas som kopparknapp) eller ett eget element (köpknappen). */
-  knapp?: ReactNode | { text: string; href: string; dataCta?: string }
+  knapp?: ReactNode | { text: ReactNode; href: string; dataCta?: string }
   /** Liten rad under knappen ("Kortbetalning via Stripe. Kvitto på mejl."). */
   not?: ReactNode
   /** Bocklistan till höger på dator. */
@@ -68,7 +68,7 @@ export function PremiumO({
   const knappEl =
     knapp && typeof knapp === 'object' && 'href' in (knapp as object) ? (
       <Link className={knappKlass({})} href={(knapp as { href: string }).href} data-cta={(knapp as { dataCta?: string }).dataCta}>
-        {(knapp as { text: string }).text}
+        {(knapp as { text: ReactNode }).text}
       </Link>
     ) : (
       (knapp as ReactNode)

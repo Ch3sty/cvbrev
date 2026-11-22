@@ -249,6 +249,10 @@
 .p3-pris small { font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 8px; }
 .p3-pris s { font-size: .42em; font-weight: 600; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 10px; }
 @media (max-width: 479px) { .p3-pris small { display: block; margin: 8px 0 0; } }
+/* Kampanjens prisrad är för lång för att stå bredvid priset: den bröts mitt i
+   meningen. Egen rad under, med radavstånd som går att läsa. */
+.p3-pris small { line-height: 1.45; }
+.p3-pris [data-kv]:not([data-kv="ord"]) small { display: block; margin: 10px 0 0; }
 @media (min-width: 900px) { .p3-pris { font-size: 60px; } }
 .p3-pris.p3-pa-papper { color: var(--ink-1); }
 .p3-pris.p3-pa-papper :is(small, s) { color: var(--ink-3); }

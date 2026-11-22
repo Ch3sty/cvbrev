@@ -53,6 +53,7 @@ import { KATEGORIER } from '@/lib/cv/poang/modell'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { BREV_GRATIS_NAMN, BREV_MALL_ANTAL } from '../brevmallar'
 import { SOCIALA_KONTON } from '@/lib/sociala-konton'
+import { KampanjVarianter } from '@/components/kampanj/Kampanj'
 // Den fasta knappraden (pub-botten) är stylad i publikt.css.
 import '../publikt.css'
 import './start.css'
@@ -567,7 +568,12 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           rubrik={`Allt i ${paketKort()}`}
           text="Alla verktyg, alla nivåer, alla mallar. Mindre än en lunch i månaden, säg upp när du vill."
           punkter={HELA_PAKETET_RADER}
-          knapp={{ text: kopKnapp(), href: '/priser' }}
+          knapp={{
+            // Knappen följer kampanjen som priset ovanför gör (Black Week):
+            // utan varianterna stod 99 kr över en knapp med 149 kr.
+            text: <KampanjVarianter ord={kopKnapp()} kampanj={(k) => k.copy.prisKnapp} />,
+            href: '/priser',
+          }}
           not="Kortbetalning via Stripe. Kvitto på mejl."
         />
       </Sektion>
