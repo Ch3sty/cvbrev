@@ -3,11 +3,14 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { recordQuotaWall } from '@/lib/email/lifecycle/hooks';
+import { arAterkommandeKvot } from '@/lib/email/quota-back';
 
 // POST /api/quota/remind
 // "Påminn mig när kvoten är tillbaka." Body: { feature, remindAfter (ISO) }.
 // Raderna plockas upp av morgon-cronen som skickar mailet. RLS begränsar
 // insert till egna rader; unique-constraint gör anropet idempotent.
+// Bara veckans brev och dagens test tas emot, de enda kvoter som kommer
+// tillbaka av sig själva (beslut-mejl-och-radering 1b).
 export async function POST(request: Request) {
   try {
     const { feature, remindAfter } = await request.json();
@@ -15,6 +18,7 @@ export async function POST(request: Request) {
     if (!feature || typeof feature !== 'string' || !remindAfter) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
+    if (!arAterkommandeKvot(feature)) return NextResponse.json({ error: 'feature_utan_aterkomst' }, { status: 400 });
 
     const remindDate = new Date(remindAfter);
     const maxAhead = Date.now() + 8 * 24 * 60 * 60 * 1000;

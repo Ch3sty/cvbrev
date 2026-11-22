@@ -5,7 +5,7 @@
  */
 import { describe, expect, it } from 'vitest'
 
-import { generateQuotaBackEmail } from '../quota-back'
+import { arAterkommandeKvot, generateQuotaBackEmail, kvotensFeature } from '../quota-back'
 
 describe('generateQuotaBackEmail', () => {
   it('har ingen egen text för CV-analysen', () => {
@@ -23,5 +23,23 @@ describe('generateQuotaBackEmail', () => {
   it('brevet och testerna har kvar sina texter', () => {
     expect(generateQuotaBackEmail('u1', 'letter_generation').subject).toBe('Veckans personliga brev väntar på dig')
     expect(generateQuotaBackEmail('u1', 'test:matrislogik').subject).toBe('Dagens rekryteringstester väntar på dig')
+  })
+})
+
+describe('arAterkommandeKvot och kvotensFeature (beslut-mejl-och-radering 1b)', () => {
+  it('sant bara för veckans brev och dagens test', () => {
+    for (const f of ['letter_generation', 'test:matris', 'test:matrislogik-pass']) {
+      expect(arAterkommandeKvot(f)).toBe(true)
+    }
+    for (const f of ['cv_analysis', 'chat_message', 'cv_bygg', 'test:', 'test:../x']) {
+      expect(arAterkommandeKvot(f)).toBe(false)
+    }
+  })
+
+  it('kvotensFeature pekar på behörigheten som gör kvoten obegränsad', () => {
+    expect(kvotensFeature('letter_generation')).toBe('letter_download')
+    expect(kvotensFeature('test:matrislogik')).toBe('tests_above_base')
+    expect(kvotensFeature('cv_analysis')).toBeNull()
+    expect(kvotensFeature('test:../x')).toBeNull()
   })
 })

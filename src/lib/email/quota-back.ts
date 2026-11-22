@@ -7,6 +7,17 @@
 import { unsubscribeUrl } from './unsubscribe';
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans';
 
+/** Kvoter som kommer tillbaka av sig själva: veckans brev och dagens test. */
+export function arAterkommandeKvot(feature: string): boolean {
+  return feature === 'letter_generation' || /^test:[a-z0-9-]{1,48}$/.test(feature);
+}
+/** Featuren i behörigheten som gör kvoten obegränsad (quotaService rad 163 och 400). */
+export function kvotensFeature(feature: string): 'letter_download' | 'tests_above_base' | null {
+  if (feature === 'letter_generation') return 'letter_download';
+  if (/^test:[a-z0-9-]{1,48}$/.test(feature)) return 'tests_above_base';
+  return null;
+}
+
 const PREMIUM = paketNamn(SALD_PLAN);
 const PRIS = prisPeriod(SALD_PLAN);
 
@@ -50,7 +61,8 @@ const DEFAULT_COPY: FeatureCopy = {
 
 function copyFor(feature: string): FeatureCopy {
   if (FEATURE_COPY[feature]) return FEATURE_COPY[feature];
-  if (feature.startsWith('test:') || feature.includes('prov')) return TEST_COPY;
+  if (feature.startsWith('test:')) return TEST_COPY;
+  // Skydd för gamla rader med andra nycklar (beslut-mejl-och-radering 1b).
   return DEFAULT_COPY;
 }
 
