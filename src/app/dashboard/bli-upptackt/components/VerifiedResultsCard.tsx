@@ -128,6 +128,21 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
         )}
       </div>
 
+      {/* Grundtestare: samma nivå 1-val som avancerad-testare har nedan. Utan
+          det gick personlighetsdelen bara att slå på i samtyckesdialogen, och
+          sedan rutan är tom från början (ägarbeslut 2026-11-22) fanns ingen
+          väg tillbaka för den som lämnat den tom. */}
+      {personality?.done && !canShareFullReport && (
+        <div className="mt-4 rounded-lg border border-kant bg-papper-2 px-4">
+          <ToggleRow
+            checked={showPersonality}
+            onToggle={togglePersonalityShare}
+            label="Visa dina två främsta styrkor"
+            sub="Styrkorna står i ord på profilen, aldrig som poäng. Du kan stänga av när du vill."
+          />
+        </div>
+      )}
+
       {/* Delningsnivåerna: bara för avancerad-testare med kvalificerad rapport */}
       {personality?.done && canShareFullReport && (
         <div className="mt-4 rounded-lg border border-kant bg-papper-2 p-4 ">
