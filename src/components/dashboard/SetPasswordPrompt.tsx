@@ -9,6 +9,7 @@ import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knapp
 import { useState } from 'react'
 import { IkonCheck, IkonLas, IkonX } from '@/components/illustrations/RumSymboler'
 import { createClient } from '@/lib/supabase/client'
+import { LOSENORD_FEL, LOSENORD_HJALP, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
 
 interface SetPasswordPromptProps {
   userId: string
@@ -32,8 +33,8 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
     setError(null)
 
     // Validation
-    if (password.length < 8) {
-      setError('Lösenordet måste vara minst 8 tecken långt')
+    if (password.length < MIN_LOSENORD) {
+      setError(LOSENORD_FEL)
       return
     }
 
@@ -72,7 +73,14 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
 
     } catch (err: any) {
       console.error('Error setting password:', err)
-      setError(err.message || 'Kunde inte uppdatera lösenord. Försök igen.')
+      // Supabases engelska svar visas aldrig rått (svep 4, 2026-11-22).
+      setError(
+        arSvagtLosenord(err)
+          ? LOSENORD_FEL
+          : err?.code === 'same_password'
+            ? 'Det nya lösenordet måste skilja sig från det gamla.'
+            : 'Kunde inte uppdatera lösenordet. Försök igen.'
+      )
     } finally {
       setIsLoading(false)
     }
@@ -127,7 +135,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
               Skapa lösenord nu
             </button>
           ) : (
-            <form onSubmit={handleSetPassword} className="mt-4 space-y-3">
+            <form onSubmit={handleSetPassword} className="mt-4 space-y-3" noValidate>
               {error && (
                 <div className="rounded-lg border border-fel-kant bg-fel-mjuk p-3 text-sm text-fel">
                   {error}
@@ -145,9 +153,9 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="h-11 w-full rounded-lg border border-kant bg-papper-2 pl-3 pr-16 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
-                    placeholder="Minst 8 tecken"
+                    placeholder={LOSENORD_HJALP}
                     required
-                    minLength={8}
+                    minLength={MIN_LOSENORD}
                   />
                   <button
                     type="button"
@@ -173,7 +181,7 @@ export default function SetPasswordPrompt({ userId, onDismiss, onPasswordSet }: 
                   className="h-11 w-full rounded-lg border border-kant bg-papper-2 px-3 text-ink-1  placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1"
                   placeholder="Upprepa lösenordet"
                   required
-                  minLength={8}
+                  minLength={MIN_LOSENORD}
                 />
               </div>
 

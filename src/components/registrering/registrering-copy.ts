@@ -13,6 +13,7 @@ import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { ANTAL_TESTTYPER, GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_ALLA, GRUNDNIVAN_RAD, Ord, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import type { SignupIntent, SmakprovTyp } from './intent'
+import { LOSENORD_FEL, LOSENORD_HJALP } from '@/lib/auth/losenord'
 
 /* ------------------------------------------------------------ skalet */
 
@@ -77,7 +78,7 @@ export const STEG2 = {
   epost: 'E-post',
   epostPlats: 'namn@exempel.se',
   losen: 'Lösenord',
-  losenPlats: 'Minst 8 tecken',
+  losenPlats: LOSENORD_HJALP,
   villkorFore: 'Genom att skapa konto godkänner du våra ',
   villkorLank: 'användarvillkor',
   villkorMitt: ' och vår ',
@@ -99,7 +100,7 @@ export const STEG2 = {
     finnsRubrik: 'Det finns redan ett konto med den adressen',
     finnsText: 'Logga in i stället, så kommer du rätt. Ditt val följer med.',
     finnsLank: 'Logga in',
-    losen: 'Lösenordet måste vara minst 8 tecken.',
+    losen: LOSENORD_FEL,
     mansklig: 'Vi kunde inte bekräfta att du är en människa. Ladda om sidan och försök igen.',
     /** Rubriken för fel som inte har en egen. */
     allmanRubrik: 'Kontot kunde inte skapas',

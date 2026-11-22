@@ -8,6 +8,7 @@
  */
 import type { Familj, Ordning, Sektion } from '@/lib/cv/mallar/kontrakt'
 import type { ForslagSkal } from '@/lib/cv/mallval/forslag'
+import { LOSENORD_FEL, LOSENORD_HJALP } from '@/lib/auth/losenord'
 
 const ORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv']
 
@@ -253,7 +254,7 @@ export const KONTO_ARK = {
   eller: 'eller',
   epost: 'E-post',
   losen: 'Lösenord',
-  losenHjalp: 'Minst 8 tecken',
+  losenHjalp: LOSENORD_HJALP,
   knapp: 'Skapa konto och ladda ner',
   knappKop: 'Skapa konto och gå till kassan',
   harKonto: 'Har du redan ett konto?',
@@ -266,7 +267,7 @@ export const KONTO_ARK = {
   sparar: 'Sparar ditt CV och skapar filen',
   fel: {
     epost: 'Skriv en e-postadress, till exempel namn@exempel.se.',
-    losen: 'Lösenordet behöver vara minst 8 tecken.',
+    losen: LOSENORD_FEL,
     finns: 'Det finns redan ett konto med den här adressen. Logga in, så följer ditt CV med.',
     allman: 'Det gick inte att skapa kontot just nu. Försök igen om en stund.',
   },

@@ -23,6 +23,7 @@ import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
 import Ark from './Ark'
 import { KONTO_ARK } from './texter'
+import { MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
 
 export interface KontoArkProps {
   open: boolean
@@ -41,7 +42,6 @@ export interface KontoArkProps {
   under?: string
 }
 
-const MIN_LOSEN = 8
 
 export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, under, knapp }: KontoArkProps) {
   const [epost, setEpost] = useState('')
@@ -58,7 +58,7 @@ export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, un
     if (busy) return
     setFel(null)
     if (!epost.includes('@') || epost.trim().length < 4) return setFel({ text: KONTO_ARK.fel.epost })
-    if (losen.length < MIN_LOSEN) return setFel({ text: KONTO_ARK.fel.losen })
+    if (losen.length < MIN_LOSENORD) return setFel({ text: KONTO_ARK.fel.losen })
     setBusy(true)
     const kontext = getSignupAnalyticsContext()
     capture('signup_started', { method: 'password', intent: 'cv', entry: 'cv_prova', ...kontext })
@@ -104,7 +104,7 @@ export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, un
       })
       if (m.includes('already registered') || m.includes('already been registered') || kod === 'user_already_exists') {
         setFel({ text: KONTO_ARK.fel.finns, loggaIn: true })
-      } else if (m.includes('Password should be at least')) {
+      } else if (arSvagtLosenord(err)) {
         setFel({ text: KONTO_ARK.fel.losen })
       } else {
         setFel({ text: KONTO_ARK.fel.allman })

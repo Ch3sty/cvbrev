@@ -70,8 +70,7 @@ import {
   STEG2,
   brickorText,
 } from './registrering-copy'
-
-const MIN_LOSEN = 8
+import { MIN_LOSENORD as MIN_LOSEN, arSvagtLosenord } from '@/lib/auth/losenord'
 
 type FaltFel = 'epost' | 'losen' | null
 
@@ -285,7 +284,7 @@ export default function RegisterKontoSteg({
       matFel('signup', kod)
       if (m.includes('already registered') || m.includes('already been registered')) {
         setFel({ rubrik: STEG2.fel.finnsRubrik, text: STEG2.fel.finnsText, loggaIn: true, falt: 'epost' })
-      } else if (m.includes('Password should be at least')) {
+      } else if (arSvagtLosenord(err)) {
         setFel({ rubrik: STEG2.fel.losen, falt: 'losen' })
       } else if (m.toLowerCase().includes('email')) {
         setFel({ rubrik: STEG2.fel.epost, falt: 'epost' })

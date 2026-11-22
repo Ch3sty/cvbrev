@@ -18,14 +18,15 @@ import { logUserActivity } from '@/lib/activity-logger';
 import { capture, identifyUser } from '@/lib/analytics/events';
 import { planKropp, type OnboardingMinne } from '@/lib/mobilapp/onboarding';
 import { loggaInMedGoogle } from '../skal-inloggning';
+import { LOSENORD_FEL, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord';
 
-export const MIN_LOSEN = 8;
+export const MIN_LOSEN = MIN_LOSENORD;
 
 export type KontoSvar = { ok: true; nytt: boolean } | { ok: false; fel: string; falt?: 'epost' | 'losen' | null; finns?: boolean };
 
 const FEL = {
   epost: 'Skriv en e-postadress.',
-  losen: `Lösenordet behöver minst ${MIN_LOSEN} tecken.`,
+  losen: LOSENORD_FEL,
   finns: 'Det finns redan ett konto med den adressen. Logga in i stället.',
   fel: 'E-postadressen eller lösenordet stämmer inte.',
   google: 'Inloggningen med Google gick inte. Försök igen eller använd e-post.',
@@ -166,7 +167,7 @@ export async function skapaKontoEpost(epost: string, losen: string): Promise<Kon
     if (/already|exists|email_exists|user_already_exists/i.test(kod) || /already/i.test(String(e?.message ?? ''))) {
       return { ok: false, fel: FEL.finns, falt: 'epost', finns: true };
     }
-    if (/weak_password|password/i.test(kod)) return { ok: false, fel: FEL.losen, falt: 'losen' };
+    if (arSvagtLosenord(err) || /weak_password|password/i.test(kod)) return { ok: false, fel: FEL.losen, falt: 'losen' };
     return { ok: false, fel: FEL.allman };
   }
 }

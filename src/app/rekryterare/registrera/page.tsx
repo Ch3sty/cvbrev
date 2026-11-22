@@ -45,6 +45,7 @@ import {
 } from 'lucide-react'
 import Logo from '@/components/Logo'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
+import { LOSENORD_FEL, LOSENORD_HJALP, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
 
 const RECRUITER_DRAFT_KEY = 'jobbcoach_recruiter_application_draft'
 
@@ -248,8 +249,9 @@ export default function RekryterareRegistreraSida() {
       setError('Fyll i en giltig e-postadress.')
       return
     }
-    if (password.length < 6) {
-      setError('Lösenordet måste vara minst 6 tecken långt.')
+    // Samma gräns och lydelse som den vanliga registreringen (src/lib/auth/losenord.ts).
+    if (password.length < MIN_LOSENORD) {
+      setError(LOSENORD_FEL)
       return
     }
 
@@ -273,6 +275,8 @@ export default function RekryterareRegistreraSida() {
           setError(
             'Det finns redan ett konto med den här e-postadressen. Logga in först och öppna sidan igen, så ansöker du med ditt befintliga konto.'
           )
+        } else if (arSvagtLosenord(signUpError)) {
+          setError(LOSENORD_FEL)
         } else {
           setError(signUpError.message || 'Kontot kunde inte skapas. Försök igen.')
         }
@@ -594,12 +598,16 @@ export default function RekryterareRegistreraSida() {
                           type="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          placeholder="Minst 6 tecken"
+                          placeholder={LOSENORD_HJALP}
                           autoComplete="new-password"
                           required
-                          minLength={6}
+                          minLength={MIN_LOSENORD}
+                          aria-describedby="password-hjalp"
                           className={inputClass}
                         />
+                        <p id="password-hjalp" className="mt-1.5 text-xs text-slate-500">
+                          {LOSENORD_HJALP}
+                        </p>
                       </div>
                     </div>
                   </div>

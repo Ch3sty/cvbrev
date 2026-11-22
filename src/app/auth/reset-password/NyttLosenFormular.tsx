@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { AuthRad } from '../_delar/AuthKortSkal'
+import { LOSENORD_FEL, LOSENORD_HJALP, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
 
 function Oga({ oppet }: { oppet: boolean }) {
   return (
@@ -96,8 +97,8 @@ export default function NyttLosenFormular() {
   }, [supabase.auth])
 
   const validatePassword = (pwd: string) => {
-    if (pwd.length < 8) {
-      return 'Lösenordet måste vara minst 8 tecken långt'
+    if (pwd.length < MIN_LOSENORD) {
+      return LOSENORD_FEL
     }
     if (!/[A-Z]/.test(pwd)) {
       return 'Lösenordet måste innehålla minst en stor bokstav'
@@ -148,7 +149,14 @@ export default function NyttLosenFormular() {
       }, 2000)
     } catch (err: any) {
       console.error('Error resetting password:', err)
-      setError(err.message || 'Ett fel uppstod. Försök igen.')
+      // Supabases engelska svar visas aldrig rått (svep 4, 2026-11-22).
+      setError(
+        arSvagtLosenord(err)
+          ? LOSENORD_FEL
+          : err?.code === 'same_password'
+            ? 'Det nya lösenordet måste skilja sig från det gamla.'
+            : 'Ett fel uppstod. Försök igen.'
+      )
     } finally {
       setLoading(false)
     }
@@ -173,7 +181,7 @@ export default function NyttLosenFormular() {
   }
 
   const checks = [
-    { ok: password.length >= 8, label: 'Minst 8 tecken' },
+    { ok: password.length >= MIN_LOSENORD, label: LOSENORD_HJALP },
     { ok: /[A-Z]/.test(password), label: 'Minst en stor bokstav' },
     { ok: /[a-z]/.test(password), label: 'Minst en liten bokstav' },
     { ok: /[0-9]/.test(password), label: 'Minst en siffra' },
@@ -210,7 +218,7 @@ export default function NyttLosenFormular() {
             <input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Minst 8 tecken"
+              placeholder={LOSENORD_HJALP}
               value={password}
               onChange={(e) => handlePasswordChange(e.target.value)}
               required
