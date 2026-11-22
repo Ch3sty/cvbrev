@@ -23,6 +23,8 @@ import Sheet from '@/components/shell/Sheet'
 import Chip from '@/components/rum/Chip'
 import { ToggleSwitch, INPUT_CLASS } from '@/app/dashboard/profil/components/ProfileField'
 import { KONTO_SEKTION } from '@/app/dashboard/profil/profil-copy'
+import { ANLEDNINGAR, type Anledning } from '@/lib/konto/avslut'
+import { DATALAGRING_HREF, RADERA_TEXT } from '@/lib/konto/radera-copy'
 
 interface MejlRad {
   key: 'digest' | 'quota' | 'erbjudanden'
@@ -190,9 +192,12 @@ export interface KontoSectionProps {
   epost: string
   /** Inloggningssättet i klartext: "Google" eller "Lösenord". */
   inloggningSatt: string
-  harPaket: boolean
+  /** Levande prenumeration på webben (Stripe), som raderingen avslutar. */
+  harStripePrenumeration: boolean
+  /** Giltig prenumeration i Google Play, som raderingen inte avslutar. */
+  harPlayPrenumeration: boolean
   onLogout: () => void
-  onDeleteAccount: () => Promise<void>
+  onDeleteAccount: (anledning: Anledning | null) => Promise<void>
 }
 
 export default function KontoSection(p: KontoSectionProps) {
@@ -222,7 +227,12 @@ export default function KontoSection(p: KontoSectionProps) {
       </div>
 
       <Sheet open={radera} onClose={() => setRadera(false)} title={KONTO_SEKTION.radera}>
-        <RaderaKonto harPaket={p.harPaket} onAvbryt={() => setRadera(false)} onDeleteAccount={p.onDeleteAccount} />
+        <RaderaKonto
+          harStripePrenumeration={p.harStripePrenumeration}
+          harPlayPrenumeration={p.harPlayPrenumeration}
+          onAvbryt={() => setRadera(false)}
+          onDeleteAccount={p.onDeleteAccount}
+        />
       </Sheet>
     </section>
   )
@@ -231,16 +241,59 @@ export default function KontoSection(p: KontoSectionProps) {
 const BTN_SEKUNDAR =
   `${KNAPP_SEKUNDAR_SMAL} shrink-0`
 
-function RaderaKonto({
-  harPaket,
+/**
+ * Frågan om anledning (beslut-mejl-och-radering 2b och 2c punkt 6): frivillig,
+ * sex val, inget förvalt, ett andra tryck på valt chip tar bort valet.
+ */
+export function AnledningsFraga({
+  vald,
+  onVal,
+  disabled,
+}: {
+  vald: Anledning | null
+  onVal: (a: Anledning | null) => void
+  disabled?: boolean
+}) {
+  return (
+    <fieldset>
+      <legend className="text-sm font-medium text-ink-1">{RADERA_TEXT.R6}</legend>
+      <p className="mt-0.5 text-meta text-ink-3">{RADERA_TEXT.R7}</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {ANLEDNINGAR.map((a) => {
+          const ar = vald === a.nyckel
+          return (
+            <button
+              key={a.nyckel}
+              type="button"
+              aria-pressed={ar}
+              disabled={disabled}
+              onClick={() => onVal(ar ? null : a.nyckel)}
+              className={`inline-flex min-h-11 items-center rounded-xl border px-3 text-sm transition-colors disabled:opacity-60 ${
+                ar ? 'border-ink-1 font-medium text-ink-1' : 'border-kant text-ink-2 hover:border-kant-stark'
+              }`}
+            >
+              {a.etikett}
+            </button>
+          )
+        })}
+      </div>
+    </fieldset>
+  )
+}
+
+export function RaderaKonto({
+  harStripePrenumeration,
+  harPlayPrenumeration,
   onAvbryt,
   onDeleteAccount,
 }: {
-  harPaket: boolean
+  harStripePrenumeration: boolean
+  harPlayPrenumeration: boolean
   onAvbryt: () => void
-  onDeleteAccount: () => Promise<void>
+  onDeleteAccount: (anledning: Anledning | null) => Promise<void>
 }) {
   const [text, setText] = useState('')
+  const [anledning, setAnledning] = useState<Anledning | null>(null)
   const [raderar, setRaderar] = useState(false)
   const [fel, setFel] = useState('')
   const kan = text.trim().toLowerCase() === 'radera mitt konto'
@@ -250,7 +303,7 @@ function RaderaKonto({
     setRaderar(true)
     setFel('')
     try {
-      await onDeleteAccount()
+      await onDeleteAccount(anledning)
     } catch (err: any) {
       setFel(err?.message || 'Något gick fel. Försök igen.')
       setRaderar(false)
@@ -260,18 +313,22 @@ function RaderaKonto({
   return (
     <div className="space-y-4">
       <div>
-        <p className="text-sm font-medium text-ink-1">Det här raderas</p>
+        <p className="text-sm font-medium text-ink-1">{RADERA_TEXT.R2}</p>
         <ul className="mt-1 space-y-1 text-sm leading-[22px] text-ink-2">
-          <li>All personlig information</li>
-          <li>Uppladdade CV:n och sparade personliga brev</li>
-          <li>Genomförda CV-analyser och historik</li>
-          {harPaket ? (
-            <li className="font-medium text-ink-1">
-              Ditt paket sägs inte upp automatiskt. Säg upp det under Prenumeration först.
-            </li>
-          ) : null}
+          {RADERA_TEXT.R3.map((rad) => (
+            <li key={rad}>{rad}</li>
+          ))}
+          {harStripePrenumeration ? <li className="font-medium text-ink-1">{RADERA_TEXT.R4}</li> : null}
+          {harPlayPrenumeration ? <li className="font-medium text-ink-1">{RADERA_TEXT.R4b}</li> : null}
         </ul>
+        <p className="mt-2 text-meta text-ink-3">
+          {RADERA_TEXT.R5}{' '}
+          <Link href={DATALAGRING_HREF} className="underline underline-offset-2 hover:text-ink-1">
+            {RADERA_TEXT.R5lank}
+          </Link>
+        </p>
       </div>
+      <AnledningsFraga vald={anledning} onVal={setAnledning} disabled={raderar} />
       <div>
         <label htmlFor="radera-bekrafta" className="block text-sm font-medium text-ink-1">
           Skriv <span className="font-semibold">radera mitt konto</span> för att bekräfta

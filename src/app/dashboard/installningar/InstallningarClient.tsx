@@ -37,7 +37,7 @@ const SEKTIONER = [
 export default function InstallningarClient({ epost, inloggningSatt }: { epost: string; inloggningSatt: string }) {
   const { summary } = useDashboardData();
   const profil = (summary?.profile as Record<string, unknown> | null) ?? null;
-  const { handleLogout, handleDeleteAccount, harPaket } = useKontoHandlingar();
+  const { handleLogout, handleDeleteAccount, harStripePrenumeration, harPlayPrenumeration } = useKontoHandlingar();
 
   // Ankaret vid klientnavigering: Next scrollar innan sektionen finns. En
   // gång vid mount, och bara om rubriken inte redan syns (som på profilen).
@@ -81,7 +81,8 @@ export default function InstallningarClient({ epost, inloggningSatt }: { epost: 
           <KontoSection
             epost={epost || String(profil?.email ?? '')}
             inloggningSatt={inloggningSatt}
-            harPaket={harPaket}
+            harStripePrenumeration={harStripePrenumeration}
+            harPlayPrenumeration={harPlayPrenumeration}
             onLogout={handleLogout}
             onDeleteAccount={handleDeleteAccount}
           />

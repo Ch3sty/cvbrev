@@ -120,7 +120,8 @@ export const KONTO_SEKTION = {
   loggaUt: 'Logga ut',
   loggaUtText: 'Från den här enheten',
   radera: 'Radera mitt konto',
-  raderaText: 'All data tas bort och kan inte återställas',
+  // R1, beslut-mejl-och-radering 2c.
+  raderaText: 'Kontot och allt i det tas bort och går inte att få tillbaka',
 } as const
 
 /** Inställningssidan (skiss-installningar-2026-10-12). */
