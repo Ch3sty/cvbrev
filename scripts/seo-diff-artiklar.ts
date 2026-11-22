@@ -343,6 +343,15 @@ const META_TILLAGD: Array<{ path: string; falt: 'canonical' | 'ogImage'; efterBo
 const BILD_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
 
 /**
+ * Bara og:image bytt till en annan fil med samma motiv (delningsbilderna
+ * 2026-11-22: WebP blev JPG i 1200 × 630, src/lib/delningsbild.ts). Gäller
+ * enbart fältet ogImage, med exakt gammal och ny adress (utan värd och
+ * frågesträng). Sidans bilder, första bild och JSON-LD jämförs som vanligt.
+ * Nyckeln OG_BILD_BYTT i *-undantag.json.
+ */
+const OG_BILD_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
+
+/**
  * Författarens porträtt bytt, när en omskrivning ger nya taggar och därmed en
  * annan författare ur src/lib/authors.ts. Ett undantag per sida med exakt
  * gammal och ny src; gäller bara första bilden. Laddas ur nyckeln
@@ -421,6 +430,7 @@ function lasUndantagsfiler() {
     lagg(LANK_BYTT, 'LANK_BYTT')
     lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
     lagg(BILD_BYTT, 'BILD_BYTT')
+    lagg(OG_BILD_BYTT, 'OG_BILD_BYTT')
     lagg(FORFATTARE_BYTT, 'FORFATTARE_BYTT')
     lagg(STATUS_BYTT, 'STATUS_BYTT')
     lagg(HARD_SIDOR, 'HARD_SIDOR')
@@ -878,6 +888,11 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         }
         if (bildBytt && falt === 'ogImage' && norm(f.ogImage) === bildBytt.gammal && norm(e.ogImage) === bildBytt.ny) {
           info(`og:image bytt (${bildBytt.datum}): ${bildBytt.gammal} → ${bildBytt.ny}. ${bildBytt.skal}`);
+          continue;
+        }
+        const ogBytt = falt === 'ogImage' && OG_BILD_BYTT.find((b) => b.path === f.path && norm(f.ogImage) === b.gammal && norm(e.ogImage) === b.ny);
+        if (ogBytt) {
+          info(`og:image bytt (${ogBytt.datum}): ${ogBytt.gammal} → ${ogBytt.ny}. ${ogBytt.skal}`);
           continue;
         }
         // max-image-preview:large gäller alla artiklar (generateMetadata, 2026-11-15), också de vars bild inte byts.

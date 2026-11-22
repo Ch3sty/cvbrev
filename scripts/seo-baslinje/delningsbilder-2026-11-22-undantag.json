@@ -1,0 +1,1547 @@
+{
+  "_om": "Delningsbilderna 2026-11-22. Raderna är framtagna av scripts/seo-baslinje/delningsbilder-2026-11-22.ts ur docs/qa/seo-diff/publikt-omgang3-efter-live-6.json. OG_BILD_BYTT tillåter bara att og:image byts från exakt den gamla WebP-adressen till exakt dess JPG-syster; META_TILLAGD bara att en saknad og:image blir sidans egen opengraph-image. Läses av scripts/seo-diff-artiklar.ts.",
+  "OG_BILD_BYTT": [
+    {
+      "path": "/rakna-ut",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/lon-efter-skatt",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/uppsagningstid",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/semesterersattning",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/timlon-till-manadslon",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/loneforhandling",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/vad-kostar-en-anstalld",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/felrekrytering",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/sourcing",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/rakna-ut/traffsakerhet",
+      "gammal": "/images/rakna-ut.webp",
+      "ny": "/images/rakna-ut-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/artiklar/cubiks-logiks-test",
+      "gammal": "/images/artiklar/cubiks-logiks-test-v2.webp",
+      "ny": "/images/artiklar/cubiks-logiks-test-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/intervjufragor-sjukskoterska",
+      "gammal": "/images/artiklar/intervjufragor-sjukskoterska-v2.webp",
+      "ny": "/images/artiklar/intervjufragor-sjukskoterska-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/intervjufragor-underskoterska",
+      "gammal": "/images/artiklar/intervjufragor-underskoterska-v2.webp",
+      "ny": "/images/artiklar/intervjufragor-underskoterska-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/logiktest-tips",
+      "gammal": "/images/artiklar/logiktest-tips-v2.webp",
+      "ny": "/images/artiklar/logiktest-tips-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/soka-sommarjobb",
+      "gammal": "/images/artiklar/soka-sommarjobb-v2.webp",
+      "ny": "/images/artiklar/soka-sommarjobb-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/stanine-testresultat",
+      "gammal": "/images/artiklar/stanine-testresultat-v2.webp",
+      "ny": "/images/artiklar/stanine-testresultat-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/tester-hos-myndigheter",
+      "gammal": "/images/artiklar/tester-hos-myndigheter-v2.webp",
+      "ny": "/images/artiklar/tester-hos-myndigheter-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/uppsagningsbrev-mall",
+      "gammal": "/images/artiklar/uppsagningsbrev-mall-v2.webp",
+      "ny": "/images/artiklar/uppsagningsbrev-mall-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/videointervju-tips",
+      "gammal": "/images/artiklar/videointervju-tips-v2.webp",
+      "ny": "/images/artiklar/videointervju-tips-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/i-prov",
+      "gammal": "/images/artiklar/i-prov-v2.webp",
+      "ny": "/images/artiklar/i-prov-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "gammal": "/images/artiklar/ordforstaelse-test-v2.webp",
+      "ny": "/images/artiklar/ordforstaelse-test-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/talserier",
+      "gammal": "/images/artiklar/talserier-v2.webp",
+      "ny": "/images/artiklar/talserier-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/aon-cut-e-test",
+      "gammal": "/images/artiklar/aon-cut-e-test-v2.webp",
+      "ny": "/images/artiklar/aon-cut-e-test-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/arbetspsykologiska-tester",
+      "gammal": "/images/artiklar/arbetspsykologiska-tester-v2.webp",
+      "ny": "/images/artiklar/arbetspsykologiska-tester-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/logiktest-exempel-med-losningar",
+      "gammal": "/images/artiklar/logiktest-exempel-med-losningar-v2.webp",
+      "ny": "/images/artiklar/logiktest-exempel-med-losningar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/matrigma-test",
+      "gammal": "/images/artiklar/matrigma-test-v2.webp",
+      "ny": "/images/artiklar/matrigma-test-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/alva-labs-logiktest",
+      "gammal": "/images/artiklar/alva-labs-logiktest-v2.webp",
+      "ny": "/images/artiklar/alva-labs-logiktest-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "gammal": "/images/artiklar/bakgrundskontroll-vid-anstallning-v2.webp",
+      "ny": "/images/artiklar/bakgrundskontroll-vid-anstallning-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/deduktivt-induktivt-test",
+      "gammal": "/images/artiklar/deduktivt-induktivt-test-v2.webp",
+      "ny": "/images/artiklar/deduktivt-induktivt-test-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/map-test-personlighetstest",
+      "gammal": "/images/artiklar/map-test-personlighetstest-v2.webp",
+      "ny": "/images/artiklar/map-test-personlighetstest-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/verifierade-testresultat-vs-cv",
+      "gammal": "/images/artiklar/verifierade-testresultat-vs-cv-v2.webp",
+      "ny": "/images/artiklar/verifierade-testresultat-vs-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "gammal": "/images/artiklar/ai-jobbmatchning-v2.webp",
+      "ny": "/images/artiklar/ai-jobbmatchning-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "gammal": "/images/artiklar/arbetslivserfarenhet-cv-v2.webp",
+      "ny": "/images/artiklar/arbetslivserfarenhet-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "gammal": "/images/artiklar/ats-vanligt-cv-v2.webp",
+      "ny": "/images/artiklar/ats-vanligt-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bli-hittad-av-rekryterare",
+      "gammal": "/images/artiklar/bli-hittad-av-rekryterare-v2.webp",
+      "ny": "/images/artiklar/bli-hittad-av-rekryterare-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "gammal": "/images/artiklar/cv-format-kronologiskt-funktionellt-v2.webp",
+      "ny": "/images/artiklar/cv-format-kronologiskt-funktionellt-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "gammal": "/images/artiklar/datorkunskaper-cv-v2.webp",
+      "ny": "/images/artiklar/datorkunskaper-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "gammal": "/images/artiklar/europass-cv-v2.webp",
+      "ny": "/images/artiklar/europass-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "gammal": "/images/artiklar/handlingsord-cv-v2.webp",
+      "ny": "/images/artiklar/handlingsord-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "gammal": "/images/artiklar/hobbyer-intressen-cv-v2.webp",
+      "ny": "/images/artiklar/hobbyer-intressen-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "gammal": "/images/artiklar/hur-langt-ska-ett-cv-vara-v2.webp",
+      "ny": "/images/artiklar/hur-langt-ska-ett-cv-vara-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/korrekturlasa-cv",
+      "gammal": "/images/artiklar/korrekturlasa-cv-v2.webp",
+      "ny": "/images/artiklar/korrekturlasa-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "gammal": "/images/artiklar/ladda-upp-cv-linkedin-v2.webp",
+      "ny": "/images/artiklar/ladda-upp-cv-linkedin-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "gammal": "/images/artiklar/ledarskapsformagor-cv-v2.webp",
+      "ny": "/images/artiklar/ledarskapsformagor-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ljuga-i-cv",
+      "gammal": "/images/artiklar/ljuga-i-cv-v2.webp",
+      "ny": "/images/artiklar/ljuga-i-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "gammal": "/images/artiklar/nyckelord-i-cv-v2.webp",
+      "ny": "/images/artiklar/nyckelord-i-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/optimera-linkedin-profil",
+      "gammal": "/images/artiklar/optimera-linkedin-profil-v2.webp",
+      "ny": "/images/artiklar/optimera-linkedin-profil-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-avslutning-exempel",
+      "gammal": "/images/artiklar/personligt-brev-avslutning-exempel-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-avslutning-exempel-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "gammal": "/images/artiklar/prestationer-utmarkelser-cv-v2.webp",
+      "ny": "/images/artiklar/prestationer-utmarkelser-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/sprak-i-cv",
+      "gammal": "/images/artiklar/sprak-i-cv-v2.webp",
+      "ny": "/images/artiklar/sprak-i-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "gammal": "/images/artiklar/tidshantering-cv-v2.webp",
+      "ny": "/images/artiklar/tidshantering-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "gammal": "/images/artiklar/utbildning-i-cv-v2.webp",
+      "ny": "/images/artiklar/utbildning-i-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "gammal": "/images/artiklar/vad-motiverar-dig-svar-v2.webp",
+      "ny": "/images/artiklar/vad-motiverar-dig-svar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cover-letter-sverige",
+      "gammal": "/images/artiklar/cover-letter-sverige-v2.webp",
+      "ny": "/images/artiklar/cover-letter-sverige-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "gammal": "/images/artiklar/arbetsgivarintyg-tjanstgoringsbetyg-v2.webp",
+      "ny": "/images/artiklar/arbetsgivarintyg-tjanstgoringsbetyg-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-utan-erfarenhet",
+      "gammal": "/images/artiklar/cv-utan-erfarenhet-v2.webp",
+      "ny": "/images/artiklar/cv-utan-erfarenhet-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/kompetensbaserade-intervjufragor",
+      "gammal": "/images/artiklar/kompetensbaserade-intervjufragor-v2.webp",
+      "ny": "/images/artiklar/kompetensbaserade-intervjufragor-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/logiska-tester",
+      "gammal": "/images/artiklar/logiska-tester-v2.webp",
+      "ny": "/images/artiklar/logiska-tester-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "gammal": "/images/artiklar/loneforhandling-v2.webp",
+      "ny": "/images/artiklar/loneforhandling-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/meritforteckning-eller-cv",
+      "gammal": "/images/artiklar/meritforteckning-eller-cv-v2.webp",
+      "ny": "/images/artiklar/meritforteckning-eller-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "gammal": "/images/artiklar/motivationsbrev-exempel-v2.webp",
+      "ny": "/images/artiklar/motivationsbrev-exempel-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "gammal": "/images/artiklar/ny-pa-jobbet-v2.webp",
+      "ny": "/images/artiklar/ny-pa-jobbet-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-butik",
+      "gammal": "/images/artiklar/personligt-brev-butik-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-butik-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "gammal": "/images/artiklar/personligt-brev-folkhogskola-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-folkhogskola-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "gammal": "/images/artiklar/provanstallning-v2.webp",
+      "ny": "/images/artiklar/provanstallning-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/rekommendationsbrev-exempel-mall",
+      "gammal": "/images/artiklar/rekommendationsbrev-exempel-mall-v2.webp",
+      "ny": "/images/artiklar/rekommendationsbrev-exempel-mall-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/saga-upp-sig",
+      "gammal": "/images/artiklar/saga-upp-sig-v2.webp",
+      "ny": "/images/artiklar/saga-upp-sig-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "gammal": "/images/artiklar/skapa-cv-med-ai-v2.webp",
+      "ny": "/images/artiklar/skapa-cv-med-ai-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/soka-jobb-via-mail",
+      "gammal": "/images/artiklar/soka-jobb-via-mail-v2.webp",
+      "ny": "/images/artiklar/soka-jobb-via-mail-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/strukturerad-intervju",
+      "gammal": "/images/artiklar/strukturerad-intervju-v2.webp",
+      "ny": "/images/artiklar/strukturerad-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/styrkor-svagheter-intervju",
+      "gammal": "/images/artiklar/styrkor-svagheter-intervju-v2.webp",
+      "ny": "/images/artiklar/styrkor-svagheter-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/exempel-pa-kompetenser-lista",
+      "gammal": "/images/artiklar/exempel-pa-kompetenser-lista-v2.webp",
+      "ny": "/images/artiklar/exempel-pa-kompetenser-lista-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/mjuka-harda-kompetenser",
+      "gammal": "/images/artiklar/mjuka-harda-kompetenser-v2.webp",
+      "ny": "/images/artiklar/mjuka-harda-kompetenser-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/olika-kompetenser-typer",
+      "gammal": "/images/artiklar/olika-kompetenser-typer-v2.webp",
+      "ny": "/images/artiklar/olika-kompetenser-typer-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "gammal": "/images/artiklar/sociala-kompetenser-v2.webp",
+      "ny": "/images/artiklar/sociala-kompetenser-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-ar-kompetenser-guide",
+      "gammal": "/images/artiklar/vad-ar-kompetenser-guide-v2.webp",
+      "ny": "/images/artiklar/vad-ar-kompetenser-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "gammal": "/images/artiklar/vilka-kompetenser-har-jag-v2.webp",
+      "ny": "/images/artiklar/vilka-kompetenser-har-jag-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/klassiska-intervjufragor-lista",
+      "gammal": "/images/artiklar/klassiska-intervjufragor-lista-v2.webp",
+      "ny": "/images/artiklar/klassiska-intervjufragor-lista-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/loneansprak-intervju",
+      "gammal": "/images/artiklar/loneansprak-intervju-v2.webp",
+      "ny": "/images/artiklar/loneansprak-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/var-ser-du-dig-sjalv-om-fem-ar",
+      "gammal": "/images/artiklar/var-ser-du-dig-sjalv-om-fem-ar-v2.webp",
+      "ny": "/images/artiklar/var-ser-du-dig-sjalv-om-fem-ar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/varfor-ska-vi-anstalla-dig-svar",
+      "gammal": "/images/artiklar/varfor-ska-vi-anstalla-dig-svar-v2.webp",
+      "ny": "/images/artiklar/varfor-ska-vi-anstalla-dig-svar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/varfor-soker-du-jobbet-svar",
+      "gammal": "/images/artiklar/varfor-soker-du-jobbet-svar-v2.webp",
+      "ny": "/images/artiklar/varfor-soker-du-jobbet-svar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/angest-infor-nytt-jobb",
+      "gammal": "/images/artiklar/angest-infor-nytt-jobb-v2.webp",
+      "ny": "/images/artiklar/angest-infor-nytt-jobb-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-ofta-byta-jobb",
+      "gammal": "/images/artiklar/hur-ofta-byta-jobb-v2.webp",
+      "ny": "/images/artiklar/hur-ofta-byta-jobb-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/matrislogik-test-guide",
+      "gammal": "/images/artiklar/matrislogik-test-guide-v2.webp",
+      "ny": "/images/artiklar/matrislogik-test-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/numeriskt-test-guide",
+      "gammal": "/images/artiklar/numeriskt-test-guide-v2.webp",
+      "ny": "/images/artiklar/numeriskt-test-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/panikangest-pa-jobbet",
+      "gammal": "/images/artiklar/panikangest-pa-jobbet-v2.webp",
+      "ny": "/images/artiklar/panikangest-pa-jobbet-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personlighetstest-jobb-guide",
+      "gammal": "/images/artiklar/personlighetstest-jobb-guide-v2.webp",
+      "ny": "/images/artiklar/personlighetstest-jobb-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/rotation-test-guide",
+      "gammal": "/images/artiklar/rotation-test-guide-v2.webp",
+      "ny": "/images/artiklar/rotation-test-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vaga-byta-jobb",
+      "gammal": "/images/artiklar/vaga-byta-jobb-v2.webp",
+      "ny": "/images/artiklar/vaga-byta-jobb-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "gammal": "/images/artiklar/verbalt-test-guide-v2.webp",
+      "ny": "/images/artiklar/verbalt-test-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-bild-guide",
+      "gammal": "/images/artiklar/cv-bild-guide-v2.webp",
+      "ny": "/images/artiklar/cv-bild-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/kompetenser-cv-guide",
+      "gammal": "/images/artiklar/kompetenser-cv-guide-v2.webp",
+      "ny": "/images/artiklar/kompetenser-cv-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bra-cv-guide",
+      "gammal": "/images/artiklar/bra-cv-guide-v2.webp",
+      "ny": "/images/artiklar/bra-cv-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/fardigheter-cv-exempel",
+      "gammal": "/images/artiklar/fardigheter-cv-exempel-v2.webp",
+      "ny": "/images/artiklar/fardigheter-cv-exempel-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/exempel-pa-cv-guide",
+      "gammal": "/images/artiklar/exempel-pa-cv-guide-v2.webp",
+      "ny": "/images/artiklar/exempel-pa-cv-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "gammal": "/images/artiklar/vad-ar-ett-cv-v2.webp",
+      "ny": "/images/artiklar/vad-ar-ett-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-skriver-man-cv",
+      "gammal": "/images/artiklar/hur-skriver-man-cv-v2.webp",
+      "ny": "/images/artiklar/hur-skriver-man-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-personligt-brev-vara",
+      "gammal": "/images/artiklar/hur-langt-ska-personligt-brev-vara-v2.webp",
+      "ny": "/images/artiklar/hur-langt-ska-personligt-brev-vara-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-format-guide",
+      "gammal": "/images/artiklar/personligt-brev-format-guide-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-format-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-innehall-checklista",
+      "gammal": "/images/artiklar/personligt-brev-innehall-checklista-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-innehall-checklista-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-jobbansokan",
+      "gammal": "/images/artiklar/personligt-brev-jobbansokan-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-jobbansokan-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-langd-regler",
+      "gammal": "/images/artiklar/personligt-brev-langd-regler-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-langd-regler-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "gammal": "/images/artiklar/personligt-brev-mall-word-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-mall-word-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-personligt-brev",
+      "gammal": "/images/artiklar/vad-ar-ett-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/vad-ar-ett-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "gammal": "/images/artiklar/jobbcoach-online-v2.webp",
+      "ny": "/images/artiklar/jobbcoach-online-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "gammal": "/images/artiklar/vad-ar-en-jobbcoach-v2.webp",
+      "ny": "/images/artiklar/vad-ar-en-jobbcoach-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bild-i-personligt-brev",
+      "gammal": "/images/artiklar/bild-i-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/bild-i-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bra-personligt-brev",
+      "gammal": "/images/artiklar/bra-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/bra-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-layout",
+      "gammal": "/images/artiklar/personligt-brev-layout-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-layout-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-pa-engelska",
+      "gammal": "/images/artiklar/personligt-brev-pa-engelska-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-pa-engelska-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-utan-erfarenhet",
+      "gammal": "/images/artiklar/personligt-brev-utan-erfarenhet-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-utan-erfarenhet-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-utbildning",
+      "gammal": "/images/artiklar/personligt-brev-utbildning-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-utbildning-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/angest-jobbet-dags-att-byta",
+      "gammal": "/images/artiklar/angest-jobbet-dags-att-byta-v2.webp",
+      "ny": "/images/artiklar/angest-jobbet-dags-att-byta-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/byta-jobb-praktiska-tips",
+      "gammal": "/images/artiklar/byta-jobb-praktiska-tips-v2.webp",
+      "ny": "/images/artiklar/byta-jobb-praktiska-tips-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/byta-karriar-jobbsokande-guide",
+      "gammal": "/images/artiklar/byta-karriar-jobbsokande-guide-v2.webp",
+      "ny": "/images/artiklar/byta-karriar-jobbsokande-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hitta-ratt-karriarvag",
+      "gammal": "/images/artiklar/hitta-ratt-karriarvag-v2.webp",
+      "ny": "/images/artiklar/hitta-ratt-karriarvag-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/karriarbyte-olika-aldrar",
+      "gammal": "/images/artiklar/karriarbyte-olika-aldrar-v2.webp",
+      "ny": "/images/artiklar/karriarbyte-olika-aldrar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/utbildning-omskolning-karriarbyte",
+      "gammal": "/images/artiklar/utbildning-omskolning-karriarbyte-v2.webp",
+      "ny": "/images/artiklar/utbildning-omskolning-karriarbyte-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-kompetenser-egenskaper",
+      "gammal": "/images/artiklar/personligt-brev-kompetenser-egenskaper-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-kompetenser-egenskaper-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-spontanansokan",
+      "gammal": "/images/artiklar/personligt-brev-spontanansokan-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-spontanansokan-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vanliga-misstag-personligt-brev",
+      "gammal": "/images/artiklar/vanliga-misstag-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/vanliga-misstag-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-exempel-generella",
+      "gammal": "/images/artiklar/personligt-brev-exempel-generella-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-exempel-generella-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-exempel-situationer",
+      "gammal": "/images/artiklar/personligt-brev-exempel-situationer-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-exempel-situationer-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-struktur-innehall",
+      "gammal": "/images/artiklar/personligt-brev-struktur-innehall-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-struktur-innehall-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/bild-i-cv-ja-eller-nej",
+      "gammal": "/images/artiklar/bild-i-cv-ja-eller-nej-v2.webp",
+      "ny": "/images/artiklar/bild-i-cv-ja-eller-nej-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-exempel-student-nyexaminerad",
+      "gammal": "/images/artiklar/cv-exempel-student-nyexaminerad-v2.webp",
+      "ny": "/images/artiklar/cv-exempel-student-nyexaminerad-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-exempel-yrken",
+      "gammal": "/images/artiklar/cv-exempel-yrken-v2.webp",
+      "ny": "/images/artiklar/cv-exempel-yrken-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-innehall-struktur",
+      "gammal": "/images/artiklar/cv-innehall-struktur-v2.webp",
+      "ny": "/images/artiklar/cv-innehall-struktur-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "gammal": "/images/artiklar/cv-pa-engelska-resume-v2.webp",
+      "ny": "/images/artiklar/cv-pa-engelska-resume-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-profil-sammanfattning",
+      "gammal": "/images/artiklar/cv-profil-sammanfattning-v2.webp",
+      "ny": "/images/artiklar/cv-profil-sammanfattning-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/fardigheter-kompetenser-cv",
+      "gammal": "/images/artiklar/fardigheter-kompetenser-cv-v2.webp",
+      "ny": "/images/artiklar/fardigheter-kompetenser-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/olika-intervjutyper-tips",
+      "gammal": "/images/artiklar/olika-intervjutyper-tips-v2.webp",
+      "ny": "/images/artiklar/olika-intervjutyper-tips-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/online-cv-byggare-gratis",
+      "gammal": "/images/artiklar/online-cv-byggare-gratis-v2.webp",
+      "ny": "/images/artiklar/online-cv-byggare-gratis-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/referenser-cv",
+      "gammal": "/images/artiklar/referenser-cv-v2.webp",
+      "ny": "/images/artiklar/referenser-cv-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/skriva-cv-guide",
+      "gammal": "/images/artiklar/skriva-cv-guide-v2.webp",
+      "ny": "/images/artiklar/skriva-cv-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/uppfoljning-efter-intervju",
+      "gammal": "/images/artiklar/uppfoljning-efter-intervju-v2.webp",
+      "ny": "/images/artiklar/uppfoljning-efter-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vanliga-cv-misstag",
+      "gammal": "/images/artiklar/vanliga-cv-misstag-v2.webp",
+      "ny": "/images/artiklar/vanliga-cv-misstag-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/beratta-om-dig-sjalv-intervju",
+      "gammal": "/images/artiklar/beratta-om-dig-sjalv-intervju-v2.webp",
+      "ny": "/images/artiklar/beratta-om-dig-sjalv-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "gammal": "/images/artiklar/kompetensbaserad-intervju-star-metoden-v2.webp",
+      "ny": "/images/artiklar/kompetensbaserad-intervju-star-metoden-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/kroppssprak-intervju",
+      "gammal": "/images/artiklar/kroppssprak-intervju-v2.webp",
+      "ny": "/images/artiklar/kroppssprak-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/nervos-infor-intervju-tips",
+      "gammal": "/images/artiklar/nervos-infor-intervju-tips-v2.webp",
+      "ny": "/images/artiklar/nervos-infor-intervju-tips-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personliga-egenskaper-intervju",
+      "gammal": "/images/artiklar/personliga-egenskaper-intervju-v2.webp",
+      "ny": "/images/artiklar/personliga-egenskaper-intervju-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/skillnad-cv-personligt-brev",
+      "gammal": "/images/artiklar/skillnad-cv-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/skillnad-cv-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/skriva-personligt-brev-guide",
+      "gammal": "/images/artiklar/skriva-personligt-brev-guide-v2.webp",
+      "ny": "/images/artiklar/skriva-personligt-brev-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/arbetsintervju-guide",
+      "gammal": "/images/artiklar/arbetsintervju-guide-v2.webp",
+      "ny": "/images/artiklar/arbetsintervju-guide-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/beskriva-sig-sjalv-intervju-egenskaper",
+      "gammal": "/images/artiklar/beskriva-sig-sjalv-intervju-egenskaper-v2.webp",
+      "ny": "/images/artiklar/beskriva-sig-sjalv-intervju-egenskaper-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/din-digitala-jobbcoach",
+      "gammal": "/images/artiklar/din-digitala-jobbcoach-v2.webp",
+      "ny": "/images/artiklar/din-digitala-jobbcoach-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/fragor-att-stalla-pa-intervjun",
+      "gammal": "/images/artiklar/fragor-att-stalla-pa-intervjun-v2.webp",
+      "ny": "/images/artiklar/fragor-att-stalla-pa-intervjun-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/olika-intervjutyper-tekniker",
+      "gammal": "/images/artiklar/olika-intervjutyper-tekniker-v2.webp",
+      "ny": "/images/artiklar/olika-intervjutyper-tekniker-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vanliga-intervjufragor-svar",
+      "gammal": "/images/artiklar/vanliga-intervjufragor-svar-v2.webp",
+      "ny": "/images/artiklar/vanliga-intervjufragor-svar-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-och-personligt-brev",
+      "gammal": "/images/artiklar/cv-och-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/cv-och-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-ska-ett-cv-se-ut",
+      "gammal": "/images/artiklar/hur-ska-ett-cv-se-ut-v2.webp",
+      "ny": "/images/artiklar/hur-ska-ett-cv-se-ut-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/inleda-personligt-brev",
+      "gammal": "/images/artiklar/inleda-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/inleda-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/rubrik-for-personligt-brev",
+      "gammal": "/images/artiklar/rubrik-for-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/rubrik-for-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/vad-ska-finnas-med-i-personligt-brev",
+      "gammal": "/images/artiklar/vad-ska-finnas-med-i-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/vad-ska-finnas-med-i-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/fardiga-personliga-brev",
+      "gammal": "/images/artiklar/fardiga-personliga-brev-v2.webp",
+      "ny": "/images/artiklar/fardiga-personliga-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/hur-skriver-man-ett-personligt-brev",
+      "gammal": "/images/artiklar/hur-skriver-man-ett-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/hur-skriver-man-ett-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/skriva-personligt-brev-med-ai",
+      "gammal": "/images/artiklar/skriva-personligt-brev-med-ai-v2.webp",
+      "ny": "/images/artiklar/skriva-personligt-brev-med-ai-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/ai-rekrytering-sverige",
+      "gammal": "/images/artiklar/ai-rekrytering-sverige-v2.webp",
+      "ny": "/images/artiklar/ai-rekrytering-sverige-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-gratis",
+      "gammal": "/images/artiklar/personligt-brev-mall-gratis-v2.webp",
+      "ny": "/images/artiklar/personligt-brev-mall-gratis-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/tips-pa-personligt-brev",
+      "gammal": "/images/artiklar/tips-pa-personligt-brev-v2.webp",
+      "ny": "/images/artiklar/tips-pa-personligt-brev-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/authors/helena",
+      "gammal": "/images/jobbcoach/Helena.webp",
+      "ny": "/images/jobbcoach/Helena-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/authors/johan",
+      "gammal": "/images/jobbcoach/Johan.webp",
+      "ny": "/images/jobbcoach/Johan-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/authors/linda",
+      "gammal": "/images/jobbcoach/Linda.webp",
+      "ny": "/images/jobbcoach/Linda-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+      "gammal": "/images/insikter/ai-forordningen-rekrytering.webp",
+      "ny": "/images/insikter/ai-forordningen-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/bakgrundskontroller",
+      "gammal": "/images/insikter/bakgrundskontroller.webp",
+      "ny": "/images/insikter/bakgrundskontroller-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/diskrimineringslagen-rekrytering",
+      "gammal": "/images/insikter/diskrimineringslagen-rekrytering.webp",
+      "ny": "/images/insikter/diskrimineringslagen-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/lonehistorik",
+      "gammal": "/images/insikter/lonehistorik.webp",
+      "ny": "/images/insikter/lonehistorik-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/lonekartlaggning",
+      "gammal": "/images/insikter/lonekartlaggning.webp",
+      "ny": "/images/insikter/lonekartlaggning-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/lonerapportering",
+      "gammal": "/images/insikter/lonerapportering.webp",
+      "ny": "/images/insikter/lonerapportering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/lonespann-i-jobbannonsen",
+      "gammal": "/images/insikter/lonespann-i-jobbannonsen.webp",
+      "ny": "/images/insikter/lonespann-i-jobbannonsen-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/referenstagning",
+      "gammal": "/images/insikter/referenstagning.webp",
+      "ny": "/images/insikter/referenstagning-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/anonymiserad-rekrytering",
+      "gammal": "/images/insikter/anonymiserad-rekrytering.webp",
+      "ny": "/images/insikter/anonymiserad-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/bias-rekrytering",
+      "gammal": "/images/insikter/bias-rekrytering.webp",
+      "ny": "/images/insikter/bias-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/bygga-kandidatpool",
+      "gammal": "/images/insikter/bygga-kandidatpool.webp",
+      "ny": "/images/insikter/bygga-kandidatpool-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/kandidatdatabas",
+      "gammal": "/images/insikter/kandidatdatabas.webp",
+      "ny": "/images/insikter/kandidatdatabas-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/kravprofil",
+      "gammal": "/images/insikter/kravprofil.webp",
+      "ny": "/images/insikter/kravprofil-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/medarbetartips",
+      "gammal": "/images/insikter/medarbetartips.webp",
+      "ny": "/images/insikter/medarbetartips-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/skriva-jobbannons",
+      "gammal": "/images/insikter/skriva-jobbannons.webp",
+      "ny": "/images/insikter/skriva-jobbannons-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/uppsokande-rekrytering",
+      "gammal": "/images/insikter/uppsokande-rekrytering.webp",
+      "ny": "/images/insikter/uppsokande-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/forsta-testforsoket-raknas",
+      "gammal": "/images/insikter/forsta-testforsoket-raknas.webp",
+      "ny": "/images/insikter/forsta-testforsoket-raknas-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/percentiler-och-normgrupper",
+      "gammal": "/images/insikter/percentiler-och-normgrupper.webp",
+      "ny": "/images/insikter/percentiler-och-normgrupper-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/personlighet-i-urval",
+      "gammal": "/images/insikter/personlighet-i-urval.webp",
+      "ny": "/images/insikter/personlighet-i-urval-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/strukturerad-intervju-och-test",
+      "gammal": "/images/insikter/strukturerad-intervju-och-test.webp",
+      "ny": "/images/insikter/strukturerad-intervju-och-test-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/time-to-hire",
+      "gammal": "/images/insikter/time-to-hire.webp",
+      "ny": "/images/insikter/time-to-hire-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
+      "gammal": "/images/insikter/vad-kostar-en-rekrytering.webp",
+      "ny": "/images/insikter/vad-kostar-en-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/vakanskostnad",
+      "gammal": "/images/insikter/vakanskostnad.webp",
+      "ny": "/images/insikter/vakanskostnad-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/gdpr-rekrytering",
+      "gammal": "/images/insikter/gdpr-rekrytering.webp",
+      "ny": "/images/insikter/gdpr-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/hitta-kandidater-sourcing",
+      "gammal": "/images/insikter/hitta-kandidater-sourcing.webp",
+      "ny": "/images/insikter/hitta-kandidater-sourcing-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/kognitiva-tester-rekrytering-forskning",
+      "gammal": "/images/insikter/kognitiva-tester-rekrytering-forskning.webp",
+      "ny": "/images/insikter/kognitiva-tester-rekrytering-forskning-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/kompetensbaserad-rekrytering",
+      "gammal": "/images/insikter/kompetensbaserad-rekrytering.webp",
+      "ny": "/images/insikter/kompetensbaserad-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/lonetransparensdirektivet-rekrytering",
+      "gammal": "/images/insikter/lonetransparensdirektivet-rekrytering.webp",
+      "ny": "/images/insikter/lonetransparensdirektivet-rekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/for-rekryterare/insikter/vad-kostar-en-felrekrytering",
+      "gammal": "/images/insikter/vad-kostar-en-felrekrytering.webp",
+      "ny": "/images/insikter/vad-kostar-en-felrekrytering-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image pekade på en WebP utan mått, som Facebook och LinkedIn inte visar säkert. Nu JPG-systern i 1200 × 630 med width, height och type (scripts/artikelbild/delningsbild.ts). Samma motiv."
+    },
+    {
+      "path": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+      "gammal": "/images/artiklar/aktivitetsrapport-arbetsformedlingen-v2.webp",
+      "ny": "/images/artiklar/aktivitetsrapport-arbetsformedlingen-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    },
+    {
+      "path": "/artiklar/cv-och-personligt-brev-samma-mall",
+      "gammal": "/images/artiklar/cv-och-personligt-brev-samma-mall-v2.webp",
+      "ny": "/images/artiklar/cv-och-personligt-brev-samma-mall-v2-og.jpg",
+      "datum": "2026-11-22",
+      "skal": "og:image och twitter:image pekade på artikelbildens WebP utan mått, och en artikel delad i en Facebook-grupp kom utan bild. Nu JPG-systern i 1200 × 630 med width, height, type och imageAlt (scripts/artikelbild/delningsbild.ts). Samma motiv; JSON-LD och bilden på sidan behåller WebP."
+    }
+  ],
+  "META_TILLAGD": [
+    {
+      "path": "/cv-exempel",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/for-rekryterare",
+      "falt": "ogImage",
+      "efterBorjar": "/for-rekryterare/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/for-rekryterare/insikter",
+      "falt": "ogImage",
+      "efterBorjar": "/for-rekryterare/insikter/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/vard",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/vard/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/tech",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/tech/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/industri",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/industri/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/ekonomi",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/ekonomi/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/service",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/service/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/logistik",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/logistik/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/utbildning",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/utbildning/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/offentlig-sektor",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/offentlig-sektor/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/hantverk",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/hantverk/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/cv-exempel/kategori/student",
+      "falt": "ogImage",
+      "efterBorjar": "/cv-exempel/kategori/student/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/vard",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/vard/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/tech",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/tech/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/industri",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/industri/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/ekonomi",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/ekonomi/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/service",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/service/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/logistik",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/logistik/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/utbildning",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/utbildning/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/offentlig-sektor",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/offentlig-sektor/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/hantverk",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/hantverk/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/student",
+      "falt": "ogImage",
+      "efterBorjar": "/personligt-brev-exempel/kategori/student/opengraph-image",
+      "datum": "2026-11-22",
+      "skal": "Sidan saknade og:image. Nu en egen opengraph-image.tsx i segmentet efter syskonens mönster (OgFrame med sidans egen rubrik)."
+    }
+  ]
+}
