@@ -14,6 +14,7 @@
  * rörs inte. Schemat (Service, FAQPage) oförändrat.
  */
 import type { CSSProperties } from 'react'
+import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import BliUpptacktMatchning from './components/BliUpptacktMatchning'
 import BliUpptacktExempel, { KandidatKort } from './components/BliUpptacktExempel'
 import { BLI_UPPTACKT_FAQ_ITEMS } from './components/bli-upptackt-faq-data'
@@ -135,6 +136,7 @@ export default function BliUpptacktSida() {
 
   return (
     <>
+      <RedirectLoggedIn to="/dashboard/bli-upptackt" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
