@@ -24,8 +24,8 @@ import { genereraJobbsoketMejl, JOBBSOKET_MEJL_TYP } from './lifecycle/templates
 
 export const JOBBSOKET_UTSKICK: { nyckel: 'jobbsoket-2026-12'; dag: string | null } = {
   nyckel: 'jobbsoket-2026-12',
-  // Ägarens ja krävs. Sätt till '2026-12-02' (saas-leads förslag) när ägaren sagt ja.
-  dag: null,
+  // Ägarens ja 2026-11-22: onsdag 2 december 2026. Sätt till null för att stoppa utskicket.
+  dag: '2026-12-02',
 };
 
 /** Dagar bakåt från utskicksdagen som räknas som aktiv (villkor 5). */

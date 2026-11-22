@@ -188,9 +188,11 @@ describe('utskicket', () => {
 })
 
 describe('utskicksdagen', () => {
-  it('dagen är inte satt i koden', () => {
-    expect(JOBBSOKET_UTSKICK.dag).toBeNull()
-    expect(arUtskicksdag(NU)).toBe(false)
+  it('dagen i koden är den ägaren sagt ja till, 2 december 2026', () => {
+    expect(JOBBSOKET_UTSKICK.dag).toBe('2026-12-02')
+    expect(arUtskicksdag(new Date('2026-12-02T06:00:00Z'))).toBe(true)
+    expect(arUtskicksdag(new Date('2026-12-01T06:00:00Z'))).toBe(false)
+    expect(arUtskicksdag(new Date('2026-12-03T06:00:00Z'))).toBe(false)
   })
 
   it('falsk när dagen är null, sann bara på den svenska kalenderdagen', () => {
@@ -232,7 +234,7 @@ describe('admin-rutten', () => {
 
   it('GET utan parametrar ger dag, kvar, skickade och senasteTest', async () => {
     const res = await GET(req('http://x/api/admin/email/jobbsoket'))
-    expect(await res.json()).toEqual({ dag: null, kvar: 2, skickade: 0, senasteTest: null })
+    expect(await res.json()).toEqual({ dag: '2026-12-02', kvar: 2, skickade: 0, senasteTest: null })
   })
 
   it('POST test går till admins adress, märkt [TEST], loggat som campaign_test', async () => {

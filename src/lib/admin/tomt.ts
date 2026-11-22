@@ -47,7 +47,7 @@ export const MATSTART = {
    * Avslutsstatistiken (konto_avslut) skrivs från deploy. Sätts om till
    * deploytiden vid push (beslut-mejl-och-radering 2c punkt 8).
    */
-  avslut: '2026-11-23T09:00:00Z',
+  avslut: '2026-11-22T15:45:00Z',
 } as const;
 
 const MANAD = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
