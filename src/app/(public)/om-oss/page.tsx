@@ -1,10 +1,8 @@
 /**
- * /om-oss, publikt v2 (spec-publikt-v2-del-b avsnitt 3.6). Sektionerna i OmOssSida.
+ * /om-oss, publikt omgång 3 (skissen om-oss). Sektionerna och sidans färg i OmOssSida.
  * SEO: Organization och AboutPage med brödsmulor som JSON-LD, oförändrade.
  */
 import OmOssSida from './OmOssSida'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import '@/components/publikt/innehall/foretag.css'
 import { antalBrev, antalKonton } from '@/lib/publikt/antal'
 
 export const revalidate = 86400
@@ -83,9 +81,7 @@ export default async function OmOssPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
 
-      <PubliktSida>
-        <OmOssSida konton={konton} brev={brev} />
-      </PubliktSida>
+      <OmOssSida konton={konton} brev={brev} />
     </>
   )
 }

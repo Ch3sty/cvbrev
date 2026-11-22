@@ -20,6 +20,8 @@ import MeddelandeGranskare from '@/components/mdx/MeddelandeGranskare'
 import GallringsKollen from '@/components/mdx/GallringsKollen'
 import BakgrundsKollen from '@/components/mdx/BakgrundsKollen'
 import Transparenskollen from '@/components/mdx/Transparenskollen'
+import { Sida, Sektion } from '@/components/publikt/v3'
+import '../insikter.css'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -106,8 +108,12 @@ export default async function InsiktPage({ params }: Props) {
         }
       : null
 
+  // Publikt omgång 3: grundens skal. Brödsmulan, eyebrow, h1 och raden med
+  // datum står på väggen; brödtexten på ett papperskort på golvet. Rubriker,
+  // text, länkar och schema som förut.
   return (
-    <main className="bg-white">
+    <Sida farg="neutral">
+    <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -119,7 +125,10 @@ export default async function InsiktPage({ params }: Props) {
         />
       )}
 
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <article>
+        <section className="p3-vagg p3-hjalte p3-utan-lyft">
+        <div className="p3-bredd">
+        <div className="ins-smula">
         <Breadcrumb
           items={[
             { name: 'Hem', href: '/' },
@@ -128,41 +137,48 @@ export default async function InsiktPage({ params }: Props) {
             { name: fm.title, href: `/for-rekryterare/insikter/${slug}` },
           ]}
         />
+        </div>
 
-        <header className="mt-6 mb-8">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700 mb-3">
+        <header className="ins-huvud">
+          <p className="p3-ey">
             Insikter för rekryterare
           </p>
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-4">
+          <h1 className="p3-h1 p3-h1-mindre">
             {fm.title}
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="ins-meta">
             {format(parseISO(fm.date), 'd MMMM yyyy', { locale: sv })} · {readingTime} min
             läsning · {fm.author || 'Teamet på jobbcoach.ai'}
           </p>
         </header>
+        </div>
+        </section>
 
+        <Sektion luft="tat">
+        <div className="ins-artikel">
         <div
           className="prose prose-slate max-w-none
-            prose-headings:font-bold prose-headings:text-slate-900 prose-headings:scroll-mt-20
+            prose-headings:font-bold prose-headings:text-[var(--ink-1)] prose-headings:scroll-mt-20
             prose-h2:text-xl prose-h2:sm:text-2xl prose-h2:mt-10 prose-h2:mb-4
-            prose-p:leading-relaxed prose-a:text-orange-700 prose-a:font-semibold
-            prose-strong:text-slate-900 prose-li:leading-relaxed"
+            prose-p:leading-relaxed prose-a:text-[var(--koppar-ink)] prose-a:font-semibold
+            prose-strong:text-[var(--ink-1)] prose-li:leading-relaxed"
         >
           <MDXRemote source={post.content} components={components} />
         </div>
 
         <InsiktCTA />
 
-        <div className="mt-8 pt-6 border-t border-orange-100">
+        <div className="ins-tillbaka">
           <Link
             href="/for-rekryterare/insikter"
-            className="text-sm font-bold text-orange-700 hover:text-orange-800"
           >
             ← Alla insikter för rekryterare
           </Link>
         </div>
+        </div>
+        </Sektion>
       </article>
     </main>
+    </Sida>
   )
 }

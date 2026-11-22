@@ -120,7 +120,7 @@ export default function CvMallarFotoSida() {
                 I Sverige är bild på CV:t frivilligt och inte standard. I kundnära yrken och kreativa branscher kan en bild kännas naturlig,
                 medan offentlig sektor, juridik, finans och akademi oftare talar emot den. Vi går igenom för- och nackdelarna, och när du hellre
                 låter bli, i guiden{' '}
-                <Link href="/artiklar/bild-i-cv-ja-eller-nej" className="pub-lank">
+                <Link href="/artiklar/bild-i-cv-ja-eller-nej" className="cvm-lank">
                   bild i CV, ja eller nej
                 </Link>
                 .
@@ -128,7 +128,7 @@ export default function CvMallarFotoSida() {
               <p>
                 Bestämmer du dig för en bild ska den vara tagen i bra ljus mot en neutral bakgrund, med kameran i ögonhöjd. Storlek, upplösning
                 och beskärning finns i guiden om{' '}
-                <Link href="/artiklar/cv-bild-guide" className="pub-lank">
+                <Link href="/artiklar/cv-bild-guide" className="cvm-lank">
                   hur du väljer bild till CV:t
                 </Link>
                 .

@@ -1,9 +1,12 @@
 // src/app/auth/forgot-password/page.tsx
-'use client'
+//
+// Glömt lösenordet i samma kort som Logga in (publikt omgång 3, skissen
+// inloggning). Citatet följer textbeslut AUTH-1. Talen står kvar tills
+// ägaren har svarat (textbeslut B-30), fast skissen stryker dem: de står i
+// panelen bredvid kortet, där citaten och talen stod förut.
 
-import ForgotPasswordForm from '@/components/auth/forgot-password-form'
-import AuthShell from '@/components/auth/AuthShell'
-import { ToolBrevIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+import { AuthKortSkal } from '../_delar/AuthKortSkal'
+import GlomtFormular from './GlomtFormular'
 
 const FORGOT_QUOTES = [
   'Vi har alla glömt något. Det här är inte ditt jobb.',
@@ -20,12 +23,26 @@ const FORGOT_STATS = [
 
 export default function ForgotPasswordPage() {
   return (
-    <AuthShell
-      illustration={<ToolBrevIllustration className="w-full h-full" />}
-      quotes={FORGOT_QUOTES}
-      stats={FORGOT_STATS}
+    <AuthKortSkal
+      panel={
+        <>
+          {FORGOT_QUOTES.map((q) => (
+            <p key={q} className="rg-citat">
+              {q}
+            </p>
+          ))}
+          <ul className="rg-tal">
+            {FORGOT_STATS.map((s) => (
+              <li key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      }
     >
-      <ForgotPasswordForm />
-    </AuthShell>
+      <GlomtFormular />
+    </AuthKortSkal>
   )
 }

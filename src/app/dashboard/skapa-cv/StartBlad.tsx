@@ -33,18 +33,21 @@ export default function StartBlad({
   onSkriv,
   sparr,
   mall,
+  oppnaUppladdning,
 }: {
   titel: string
   onTitel: (t: string) => void
   onSkriv: () => void
   sparr: boolean
   mall: string
+  /** Från startbladet på /verktyg/skapa-cv (?ladda=1): uppladdningen är redan uppfälld. */
+  oppnaUppladdning?: boolean
 }) {
   const id = useId()
   const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const { uploadCV } = useProfile()
-  const [ladda, setLadda] = useState(false)
+  const [ladda, setLadda] = useState(Boolean(oppnaUppladdning))
 
   useEffect(() => {
     // Fokus in i bladet, inte på fältet: tangentbordet ska inte fälla upp av sig självt.

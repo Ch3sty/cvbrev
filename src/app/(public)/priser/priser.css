@@ -1,0 +1,190 @@
+/* =============================================================================
+   /priser, publikt omgång 3 (skissen priser). Egna klasser med prefixet pr-,
+   allt annat ur grunden (src/components/publikt/v3). Bara tokens, inga
+   hexkoder, inget svart och inget beige. Telefon först: 375 px utan
+   sidledsrullning, tryckytor minst 44 px, minsta text 12 px.
+   ============================================================================= */
+
+/* ---------- hjälten: de fyra delarna och ankarlänkarna ---------- */
+.pr-delar { display: flex; flex-wrap: wrap; gap: 8px; }
+.p3-hjalte-text > .pr-delar { margin-top: 24px; }
+.pr-delar li {
+  display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 14px 0 6px; border-radius: 14px;
+  background: var(--vagg-2); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 4px 0 var(--vagg-3);
+  font-family: var(--disp); font-weight: 700; font-size: 15px; white-space: nowrap;
+}
+.pr-delar .p3-dorr { width: 28px; height: 28px; border-radius: 9px; background: var(--vagg-ink); color: var(--vagg); box-shadow: none; }
+.pr-delar .p3-dorr svg { width: 17px; height: 17px; }
+.pr-ankare { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.p3-hjalte-text > .pr-ankare { margin-top: 18px; }
+
+/* ---------- prislappen: papper på väggen ---------- */
+.pr-lapp {
+  position: relative; width: 100%; max-width: 520px; margin: 0 auto; overflow: hidden;
+  background: var(--papper); color: var(--ink-1); border-radius: var(--r-stor, 32px); border: 2px solid var(--kant);
+  box-shadow: 0 10px 0 var(--vagg-3);
+}
+.pr-lapp-topp {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px;
+  padding: 14px 22px; background: var(--vagg-3); color: var(--vagg-mjuk); font-size: 14px;
+}
+.pr-lapp-topp b { font-family: var(--disp); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; color: var(--vagg-ink); }
+.pr-lapp-kropp { padding: 22px; }
+.pr-lapp .p3-pris.pr-lapp-pris { font-size: 60px; line-height: .95; letter-spacing: -0.04em; color: var(--ink-1); }
+.pr-lapp .p3-pris.pr-lapp-pris small { color: var(--ink-2); }
+.pr-lapp-kropp > .p3-knapp { margin-top: 20px; }
+.p3-vagg .pr-lapp .pr-lapp-not { margin-top: 12px; text-align: center; color: var(--ink-3); }
+.p3-vagg .pr-lapp .pr-lapp-rubrik { margin-top: 24px; padding-top: 22px; border-top: 3px dotted var(--kant-stark); color: var(--ink-1); }
+.pr-lapp .p3-bockar { margin-top: 14px; }
+.pr-lapp .p3-bockar li { color: var(--ink-1); }
+@media (max-width: 399px) { .pr-lapp-kropp { padding: 18px 16px; } .pr-lapp .p3-pris.pr-lapp-pris { font-size: 52px; } }
+@media (min-width: 1000px) {
+  .pr-lapp { margin-right: 0; }
+  .pr-lapp-kropp { padding: 32px; }
+  .pr-lapp-topp { padding: 16px 32px; }
+  .pr-lapp .p3-pris.pr-lapp-pris { font-size: 88px; }
+}
+
+/* ---------- gratisnivån: fyra delar, ett huvudtal var ---------- */
+.pr-gratis-topp { display: grid; gap: 18px; align-items: end; }
+.pr-gratis-topp > div > * + * { margin-top: 12px; }
+.p3-lyft .p3-ey.pr-gratis-ey { color: color-mix(in srgb, var(--positiv) 62%, var(--ink-1)); }
+@media (min-width: 1000px) { .pr-gratis-topp { grid-template-columns: 1fr auto; gap: 40px; } }
+.pr-gratis-rad { display: grid; gap: 12px; margin-top: 24px; }
+.pr-gt { min-width: 0; border-radius: 20px; padding: 16px; background: var(--ton); color: var(--ink-1); border: 2px solid var(--kant-stark); border-bottom-width: 5px; }
+.p3-lyft .pr-gt p { color: var(--ink-1); }
+.pr-gt-topp { display: flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 16.5px; }
+.pr-gt-topp .p3-dorr { width: 34px; height: 34px; border-radius: 11px; }
+.pr-gt-topp .p3-dorr svg { width: 19px; height: 19px; }
+.p3-lyft .pr-gt .pr-gt-tal { margin-top: 12px; font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -0.04em; color: var(--vagg); }
+.pr-gt-tal small { display: block; margin-top: 4px; font-family: var(--text, Inter, system-ui, sans-serif); font-weight: 700; font-size: 14px; letter-spacing: 0; color: var(--ton-ink); }
+.pr-gt ul { display: grid; gap: 6px; margin-top: 12px; font-size: 14px; line-height: 1.35; color: var(--ink-2); }
+.pr-gt li { display: grid; grid-template-columns: 14px 1fr; gap: 8px; }
+.pr-gt li::before { content: ''; width: 8px; height: 8px; margin-top: 6px; border-radius: 3px; background: var(--ton-ink); }
+@media (min-width: 620px) { .pr-gratis-rad { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) {
+  .pr-gratis-rad { grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+  .pr-gt { padding: 20px; }
+  .p3-lyft .pr-gt .pr-gt-tal { font-size: 60px; }
+}
+
+/* ---------- funktion för funktion ---------- */
+.pr-sida .p3-sekt-huvud + .p3-o { margin-top: 36px; }
+.pr-niv { display: grid; gap: 8px; }
+.pr-niv > div {
+  display: grid; grid-template-columns: 82px 1fr; gap: 12px; align-items: start; padding: 11px 12px; border-radius: 16px;
+  background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .1); font-size: 14.5px; line-height: 1.4; color: var(--vagg-ink);
+}
+.pr-niv .p3-chip { justify-content: center; }
+.pr-steg { display: grid; gap: 12px; counter-reset: pr-s; }
+.pr-steg li { display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; font-size: 14.5px; line-height: 1.45; color: var(--vagg-mjuk); }
+.pr-steg li::before {
+  counter-increment: pr-s; content: counter(pr-s); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px;
+  background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 15px;
+}
+.pr-steg li b { display: block; font-family: var(--disp); font-size: 16px; color: var(--vagg-ink); }
+.pr-bank {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 14px 16px; border-radius: 18px;
+  background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14);
+}
+.pr-bank b { font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.03em; color: var(--vagg-ink); }
+.pr-bank span { flex: 1 1 180px; font-size: 13.5px; line-height: 1.35; color: var(--vagg-mjuk); }
+.pr-full + .pr-duo, .pr-duo + .pr-duo, .pr-duo + .p3-o, .p3-o + .pr-intervju { margin-top: 20px; }
+.pr-duo { display: grid; gap: 20px; }
+.pr-duo > .p3-o { display: flex; flex-direction: column; margin-top: 0; min-width: 0; }
+.pr-duo > .p3-o > .p3-o-text { display: flex; flex-direction: column; flex: 1; }
+.pr-duo .p3-h2 { font-size: 30px; }
+.pr-bild { margin-top: auto; padding-top: 28px; min-width: 0; }
+.pr-duo .pr-bild .p3-chatt-yta { border-radius: var(--r-kort, 22px); }
+.pr-stigplats { min-width: 0; }
+@media (max-width: 899px) { .pr-stigplats { padding-left: 38px; } }
+@media (max-width: 399px) { .pr-niv > div { grid-template-columns: 1fr; gap: 6px; } .pr-niv .p3-chip { justify-self: start; } }
+@media (min-width: 1000px) {
+  .pr-duo { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .pr-full + .pr-duo, .pr-duo + .pr-duo, .pr-duo + .p3-o, .p3-o + .pr-intervju { margin-top: 28px; }
+  .pr-duo > .p3-o { padding: 44px; border-radius: 40px; }
+  .pr-duo .p3-h2 { font-size: 38px; }
+  .pr-bild { padding-top: 36px; }
+}
+
+/* ---------- Kom igång och villkoren ---------- */
+.pr-tva { display: grid; gap: 32px; align-items: start; }
+@media (min-width: 1000px) { .pr-tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+.pr-guide-ingress { color: var(--ink-2); font-size: 17px; }
+.pr-villkor { display: grid; gap: 10px; margin-top: 28px; }
+.pr-villkor li {
+  display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; padding: 14px 16px; border-radius: 18px;
+  background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px;
+}
+.pr-villkor i { grid-row: span 2; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: var(--ton); color: var(--ton-ink); }
+.pr-villkor i svg { width: 22px; height: 22px; }
+.pr-villkor b { font-family: var(--disp); font-size: 17px; }
+.pr-villkor span { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+.pr-kig { counter-reset: pr-k; }
+.pr-kig li { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center; min-height: 58px; padding: 7px 0; font-weight: 600; font-size: 15.5px; line-height: 1.3; }
+.pr-kig li::before {
+  counter-increment: pr-k; content: counter(pr-k); position: relative; z-index: 1; display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 13px; background: var(--ton-ink); color: var(--papper);
+  font-family: var(--disp); font-weight: 800; font-size: 17px; box-shadow: 0 3px 0 var(--vagg-3);
+}
+.pr-kig li:not(:last-child)::after { content: ''; position: absolute; left: 18.5px; top: 50%; height: 100%; border-left: 3px dotted var(--kant-stark); }
+
+/* ---------- rad för rad: riktig tabell, jämförbar i sidled i telefonen ---------- */
+.pr-jf { display: grid; gap: 16px; width: 100%; border-collapse: separate; }
+.pr-jf thead, .pr-jf tbody, .pr-jf tr, .pr-jf th, .pr-jf td { display: block; }
+.pr-jf th { text-align: left; font-weight: inherit; }
+.pr-jf-kol { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pr-jf-kol .pr-jf-tom { display: none; }
+.pr-jf-kol th { min-width: 0; padding: 14px 16px; border-radius: 18px; }
+.pr-jf-kol b { display: block; font-family: var(--disp); font-weight: 800; font-size: 24px; line-height: 1.05; letter-spacing: -0.02em; }
+.pr-jf-kol span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.3; }
+.pr-jf-kol .pr-g { background: var(--positiv-mjuk); color: color-mix(in srgb, var(--positiv) 55%, var(--ink-1)); border-bottom: 5px solid color-mix(in srgb, var(--positiv) 30%, var(--positiv-mjuk)); }
+.pr-jf-kol .pr-p { background: var(--koppar-mjuk); color: var(--koppar-ink); border-bottom: 5px solid var(--koppar-ljus); }
+.pr-jf-grupp { border-radius: var(--r-kort, 22px); overflow: hidden; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; }
+.pr-jf-huvud th {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--vagg); color: var(--vagg-ink);
+  font-family: var(--disp); font-weight: 800; font-size: 19px; letter-spacing: -0.015em;
+}
+.pr-jf-huvud .p3-dorr { width: 36px; height: 36px; border-radius: 11px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 var(--vagg-3); }
+.pr-jf-huvud .p3-dorr svg { width: 20px; height: 20px; }
+.pr-jf-rad { display: grid; grid-template-columns: 1fr 1fr; gap: 0 6px; padding: 12px 10px; border-top: 2px solid var(--golv); }
+.pr-jf-huvud + .pr-jf-rad { border-top: 0; }
+.pr-jf-vad { grid-column: 1 / -1; padding: 0 6px 8px; font-weight: 700; font-size: 15.5px; line-height: 1.3; color: var(--ink-1); }
+.pr-jf-vad span { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+.pr-cell { min-width: 0; padding: 9px 12px 10px; border-radius: 12px; font-size: 14.5px; line-height: 1.3; font-weight: 600; }
+.pr-cell::before { content: attr(data-k); display: block; margin-bottom: 3px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.pr-cell small { display: block; margin-top: 2px; font-weight: 400; font-size: 13px; }
+.pr-cell.pr-g { background: var(--positiv-mjuk); color: color-mix(in srgb, var(--positiv) 45%, var(--ink-1)); }
+.pr-cell.pr-p { background: var(--koppar-mjuk); color: var(--ink-1); }
+.pr-cell.pr-p::before { color: var(--koppar-ink); }
+.pr-cell.pr-p small { color: var(--ink-2); }
+.pr-cell.pr-nej { background: none; border: 2px dashed var(--kant-stark); color: var(--ink-3); font-weight: 500; }
+@media (min-width: 800px) {
+  .pr-jf-kol { grid-template-columns: 1.3fr 1fr 1fr; padding: 0 12px; }
+  .pr-jf-kol .pr-jf-tom { display: block; padding: 0; }
+  .pr-jf-rad { grid-template-columns: 1.3fr 1fr 1fr; gap: 0 8px; padding: 6px 10px; align-items: stretch; }
+  .pr-jf-vad { grid-column: auto; align-self: center; padding: 8px; }
+  .pr-cell { display: flex; flex-direction: column; justify-content: center; padding: 10px 14px; }
+  .pr-cell::before { display: none; }
+}
+
+/* ---------- frågorna ---------- */
+.pr-faq { max-width: 860px; }
+
+/* ---------- tillägg efter nytt-innehall.md (priser) ---------- */
+/* kortet efter personlighetstestet, under testramen */
+.pr-intervjukort { max-width: 460px; margin: 16px auto 0; }
+.pr-intervjukort .pr-intervjukort-rubrik { font-family: var(--disp); font-weight: 800; font-size: 18px; line-height: 1.2; color: var(--ink-1); }
+.pr-intervjukort .pr-intervjukort-under {
+  display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-size: 12.5px; font-weight: 700;
+}
+/* veckans mål i Sökta tjänster (exempel, aria-hidden) */
+.pr-veckomal {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 16px; border-radius: 999px;
+  background: rgba(255, 255, 255, .1); font-size: 14.5px; font-weight: 600; color: var(--vagg-ink);
+}
+.p3-o-text > p.pr-veckomal { color: var(--vagg-ink); }
+.pr-veckomal i { width: 14px; height: 14px; border-radius: 5px; border: 2px solid var(--vagg-mjuk); }
+.pr-veckomal i.pr-k { background: var(--koppar); border-color: var(--koppar); }
+/* Kom igång: småmärket under stoppet */
+.pr-kig li small { display: block; font-weight: 500; font-size: 13px; color: var(--ton-ink); }

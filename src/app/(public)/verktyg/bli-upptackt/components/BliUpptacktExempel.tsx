@@ -1,72 +1,89 @@
 /**
  * Avidentifierad exempelprofil: exakt vad en rekryterare ser, inte mer.
  * Arbetsstilen visas som två spektra i ord, aldrig som siffror, och
- * testresultatet som percentil, aldrig som råpoäng.
+ * testresultatet som placering, aldrig som råpoäng.
+ *
+ * Publikt omgång 3 (skissen bli-upptackt): ön i rummets färg med
+ * kandidatkortet i full storlek, byggt efter RecruiterPreviewCard. Exemplet
+ * är Sara Lindström, projektledare i Västra Götaland, utan namn. Texten om
+ * vad rekryteraren ser och inte ser står ordagrant som förut (samtyckesnära,
+ * rörs inte). Serverkomponent.
  */
 
-const SKILLS = ['Bokslut', 'Koncernredovisning', 'Fortnox']
+import type { CSSProperties } from 'react'
+import { O } from '@/components/publikt/v3'
 
-const SPEKTRA = [
-  { vanster: 'Improviserar och anpassar', hoger: 'Planerar och strukturerar', lage: '90%', aktiv: 'hoger' as const },
-  { vanster: 'Får energi av eget fokusarbete', hoger: 'Får energi av samarbete i grupp', lage: '30%', aktiv: 'vanster' as const },
+const SKILLS = ['projektledning', 'LOU', 'budgetansvar', 'AMA', 'tidplan']
+
+const SPEKTRA: { vanster: string; hoger: string; lage: string; aktiv: 'vanster' | 'hoger' }[] = [
+  { vanster: 'Improviserar och anpassar', hoger: 'Planerar och strukturerar', lage: '88%', aktiv: 'hoger' },
+  { vanster: 'Får energi av eget fokusarbete', hoger: 'Får energi av samarbete i grupp', lage: '68%', aktiv: 'hoger' },
 ]
+
+/** Kandidatkortet som rekryteraren ser det. kort = hjältens kortare form. */
+export function KandidatKort({ kort }: { kort?: boolean }) {
+  return (
+    <div className="bu-kkort" role="img" aria-label="Exempel: kandidatkortet som en rekryterare ser det, utan namn">
+      <div className="bu-kk-huvud">
+        <span className="bu-kk-avatar">P</span>
+        <div>
+          <b>Projektledare</b>
+          <span>
+            Västra Götaland <span className="bu-kk-anonym">Anonym</span>
+          </span>
+        </div>
+      </div>
+      <p className="bu-kk-rad">
+        <b>8 års erfarenhet</b>, senast projektledare (5 år), civilingenjör
+      </p>
+      {kort ? null : (
+        <p className="bu-kk-rad">Projektledare som håller ihop upphandling och tidplan. Trivs bäst där många ska dra åt samma håll.</p>
+      )}
+      <div className="bu-kk-chips">
+        <span className="bu-test">Matrislogik, topp 15 %</span>
+        {kort ? null : <span className="bu-test">Numeriskt, topp 30 %</span>}
+        <span className="bu-styrka">Strukturerad</span>
+        <span className="bu-styrka">Lugn under press</span>
+      </div>
+      {kort ? null : (
+        <div className="bu-kk-stil">
+          {SPEKTRA.map((s) => (
+            <div key={s.vanster} className="bu-spektrum">
+              <div>
+                <span className={s.aktiv === 'vanster' ? 'bu-pa' : undefined}>{s.vanster}</span>
+                <span className={s.aktiv === 'hoger' ? 'bu-pa' : undefined}>{s.hoger}</span>
+              </div>
+              <i style={{ ['--lage' as string]: s.lage } as CSSProperties} />
+            </div>
+          ))}
+          <p>Trivs när processer är tydliga och kvalitet hinner göras rätt.</p>
+        </div>
+      )}
+      <div className="bu-kk-chips">
+        {(kort ? SKILLS.slice(0, 4) : SKILLS).map((s) => (
+          <span key={s}>{s}</span>
+        ))}
+      </div>
+      <p className="bu-kk-fot">3 månader, hybrid, heltid, B-körkort</p>
+    </div>
+  )
+}
 
 export default function BliUpptacktExempel() {
   return (
-    <section aria-label="Det här ser en rekryterare av din profil" className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14">
-      <div>
-        <p className="text-steg uppercase text-ink-3">Exempelprofil</p>
-        <h2 className="mt-2 text-h2-pub text-ink-1">Det här ser en rekryterare av din profil</h2>
-        <p className="mt-3 max-w-[60ch] text-base leading-[27px] text-ink-2">
-          Rekryteraren ser din yrkesroll, region, kompetenser, dina testresultat och din arbetsstil. Rekryteraren ser
-          inte ditt namn, ditt foto, dina kontaktuppgifter, ditt CV-dokument, ditt lönespann eller vilket företag du
-          jobbar på i dag.
-        </p>
-      </div>
-
-      <div className="rounded-xl border border-kant bg-panel p-5">
-        <div className="flex items-center gap-3">
-          <div className="grid h-11 w-11 place-items-center rounded-lg bg-insunken text-lg font-semibold text-ink-1" aria-hidden="true">
-            R
-          </div>
-          <div>
-            <div className="text-kort font-semibold text-ink-1">Redovisningsekonom</div>
-            <div className="text-meta text-ink-3">Stockholm, anonym</div>
-          </div>
-        </div>
-
-        <p className="mt-3 text-meta text-ink-2">
-          <b className="font-semibold text-ink-1">8 års erfarenhet</b>, senast redovisningsansvarig (4 år), civilekonom
-        </p>
-        <p className="mt-2 text-sm italic leading-relaxed text-ink-2">
-          &ldquo;Redovisningsekonom med åtta år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp.&rdquo;
-        </p>
-
-        <div className="mt-4 space-y-3 rounded-lg bg-insunken p-3">
-          {SPEKTRA.map((s) => (
-            <div key={s.vanster}>
-              <div className="flex items-baseline justify-between gap-3 text-xs">
-                <span className={s.aktiv === 'vanster' ? 'font-semibold text-ink-1' : 'text-ink-3'}>{s.vanster}</span>
-                <span className={`text-right ${s.aktiv === 'hoger' ? 'font-semibold text-ink-1' : 'text-ink-3'}`}>{s.hoger}</span>
-              </div>
-              <div className="relative mt-1.5 h-1 rounded-full bg-kant" aria-hidden="true">
-                <span className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink-1" style={{ left: s.lage }} />
-              </div>
-            </div>
-          ))}
-          <p className="text-xs text-ink-2">Trivs när processer är tydliga och kvalitet hinner göras rätt.</p>
-        </div>
-
-        <ul className="mt-4 flex flex-wrap gap-1.5">
-          <li className="rounded-md border border-kant-stark px-2.5 py-1 text-xs font-medium text-ink-1">Matrislogik, topp 10 %</li>
-          <li className="rounded-md border border-kant-stark px-2.5 py-1 text-xs font-medium text-ink-1">Strukturerad</li>
-          {SKILLS.map((s) => (
-            <li key={s} className="rounded-md border border-kant px-2.5 py-1 text-xs text-ink-2">
-              {s}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <O
+      farg="jobb"
+      ikon="jobb"
+      etikett="Exempelprofil"
+      rubrik="Det här ser en rekryterare av din profil"
+      rubrikNiva="h2"
+      varde={
+        <>
+          Rekryteraren ser din yrkesroll, region, kompetenser, dina testresultat och din arbetsstil. Rekryteraren ser inte ditt namn, ditt
+          foto, dina kontaktuppgifter, ditt CV-dokument, ditt lönespann eller vilket företag du jobbar på i dag.
+        </>
+      }
+      bild={<KandidatKort />}
+    />
   )
 }

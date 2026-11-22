@@ -6,6 +6,8 @@ import { ArrowLeft } from 'lucide-react';
 import { AUTHORS, getAuthorById, getAllAuthorIds, getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
 import { getAllPostsMeta } from '@/lib/blog';
 import { ArtikelKort } from '@/components/artiklar/lista/ArtikelLista';
+import { Sida, Sektion, Chip } from '@/components/publikt/v3';
+import './authors.css';
 
 const SITE_URL = 'https://www.jobbcoach.ai';
 
@@ -60,83 +62,75 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     ...generateAuthorSchema(author, `${SITE_URL}/authors/${author.id}`),
   };
 
+  // Publikt omgång 3: grundens skal (BYGGBRIEF beslut 10). Profilen och
+  // bion på väggen, artiklarna på golvet. Text, rubriker, länkar och
+  // Person-schemat som förut.
   return (
-    <div className="relative min-h-screen">
+    <Sida farg="neutral" className="min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
 
-      {/* Subtil orange radial-glow uppe — matchar övriga publika sidor */}
-      <div
-        className="absolute inset-x-0 top-0 h-[40vh] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <section className="p3-vagg p3-hjalte p3-utan-lyft">
+      <div className="p3-bredd">
         <Link
           href="/artiklar"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-orange-600 transition-colors mb-8"
+          className="au-tillbaka"
         >
           <ArrowLeft className="w-4 h-4" />
           Alla artiklar
         </Link>
 
         {/* Profil-hero */}
-        <header className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-7 mb-10">
+        <header className="au-profil">
           <div className="flex-shrink-0">
             <Image
               src={author.image}
               alt={author.name}
               width={112}
               height={112}
-              className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border border-orange-100 shadow-sm"
+              className="au-bild"
             />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-1">
+            <p className="p3-ey">
               Skribent
             </p>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            <h1 className="p3-h1 p3-h1-mindre">
               {author.name}
             </h1>
-            <p className="text-base font-medium text-slate-600 mt-0.5">{author.title}</p>
-            <div className="flex flex-wrap gap-2 mt-3">
+            <p className="p3-varde">{author.title}</p>
+            <div className="au-chips">
               {author.expertise.map((e) => (
-                <span
-                  key={e}
-                  className="inline-block px-2.5 py-1 rounded-full bg-orange-50 border border-orange-100 text-orange-700 text-xs font-medium"
-                >
+                <Chip key={e} typ="vagg">
                   {e}
-                </span>
+                </Chip>
               ))}
             </div>
           </div>
         </header>
 
         {/* Bio */}
-        <div className="bg-white rounded-2xl border border-orange-100 p-6 sm:p-7 mb-12"
-             style={{ boxShadow: '0 4px 16px -8px rgba(249, 115, 22, 0.12)' }}>
-          <p className="text-slate-700 leading-relaxed">{author.bio}</p>
+        <div className="au-bio">
+          <p className="p3-text">{author.bio}</p>
         </div>
+      </div>
+      </section>
 
         {/* Artiklar av författaren */}
-        <section>
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-5">
+        <Sektion>
+          <h2 className="p3-h2 au-h2">
             Artiklar av {author.name.split(' ')[0]}
             {posts.length > 0 && (
-              <span className="ml-2 text-base font-medium text-slate-400 tabular-nums">
+              <span className="au-antal">
                 ({posts.length})
               </span>
             )}
           </h2>
 
           {posts.length === 0 ? (
-            <p className="text-slate-500">Inga publicerade artiklar än.</p>
+            <p className="p3-text">Inga publicerade artiklar än.</p>
           ) : (
             <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
@@ -144,8 +138,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               ))}
             </div>
           )}
-        </section>
-      </div>
-    </div>
+        </Sektion>
+    </Sida>
   );
 }

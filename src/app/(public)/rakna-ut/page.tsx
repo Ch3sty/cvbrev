@@ -22,6 +22,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Breadcrumb from '@/components/Breadcrumb'
 import PubliktSida from '@/components/publikt/PubliktSida'
+import { Sida } from '@/components/publikt/v3/Sida'
 import Rum from '@/components/publikt/Rum'
 import TalRad from '@/components/publikt/TalRad'
 import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
@@ -144,6 +145,8 @@ export default function Page() {
   const premie = `Ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}`
 
   return (
+    // Publikt omgång 3: sidans färg följer hjältens rum (jobb), så att menyn och foten står i samma färg.
+    <Sida farg="jobb">
     <PubliktSida>
       <main>
         {/* 1. Hjälten */}
@@ -334,5 +337,6 @@ export default function Page() {
       </main>
       <ArtikelKlient cluster="career" />
     </PubliktSida>
+    </Sida>
   )
 }

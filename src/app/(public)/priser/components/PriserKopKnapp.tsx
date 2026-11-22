@@ -28,11 +28,14 @@ export default function PriserKopKnapp({
   primar = false,
   cta = 'primary',
   etikett,
+  klass = 'pub-knapp',
 }: {
   primar?: boolean
   cta?: 'primary' | 'secondary'
   /** Knapptexten. Prissidan skickar kampanjvarianterna härifrån (servern). */
   etikett?: ReactNode
+  /** Knappens klass. Publikt omgång 3 skickar grundens kopparknapp (knappKlass). Logiken är densamma. */
+  klass?: string
 } = {}) {
   const router = useRouter()
   // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
@@ -59,7 +62,7 @@ export default function PriserKopKnapp({
       onClick={kop}
       disabled={busy}
       data-primar={primar ? '' : undefined}
-      className="pub-knapp"
+      className={klass}
     >
       {etikett ?? PAKET_KORT.allt.knapp}
     </button>

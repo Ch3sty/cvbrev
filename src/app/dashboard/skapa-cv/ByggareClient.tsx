@@ -176,6 +176,8 @@ export interface ByggareProps {
   sparr: boolean
   /** Från Ditt CV med titeln ifylld (?borja=1): startbladet hoppas över. */
   borja?: boolean
+  /** Från startbladet på /verktyg/skapa-cv (?ladda=1): uppladdningen är redan uppfälld. */
+  oppnaUppladdning?: boolean
   entry: Entry
   isAdmin: boolean
   katalog: readonly MallKort[]
@@ -278,6 +280,7 @@ export default function ByggareClient(p: ByggareProps) {
         q.delete('upp')
         q.delete('titel')
         q.delete('borja')
+        q.delete('ladda')
         q.delete('ark')
         // Posten är bara startvalet; bladet byts sedan fritt.
         q.delete('post')
@@ -937,6 +940,7 @@ export default function ByggareClient(p: ByggareProps) {
             }}
             sparr={p.sparr}
             mall={mallId}
+            oppnaUppladdning={p.oppnaUppladdning}
             onSkriv={() => {
               const t = titel.trim()
               const ny = { ...cvRef.current, personalInfo: { ...cvRef.current.personalInfo, title: t || undefined } }

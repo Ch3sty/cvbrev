@@ -11,6 +11,11 @@
  * SEO-spärren: h1, rubrikernas text och id, alla interna länkar,
  * författarens namn som h3 och författarbilden som första bild är
  * oförändrade. Reklamkortens rubriker är inte rubrikelement.
+ *
+ * Publikt omgång 3 (beslut 8): sidan får grundens skal (<Sida>) i klustrets
+ * färg, så att menyn, kampanjraden och foten tar samma färg som toppen.
+ * Toppen står kvar på klustrets vägg som i dag; artikeltexten, rubrikerna
+ * och typografin är orörda.
  */
 
 import Link from 'next/link'
@@ -27,7 +32,8 @@ import Innehall from '@/components/publikt/innehall/Innehall'
 import LasVidare from '@/components/publikt/innehall/LasVidare'
 import type { ArtikelKortData } from '@/components/publikt/innehall/ArtikelKort'
 import { KLUSTER_ETIKETT, KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
-import { SidoPaketKort } from './reklam/ArtikelReklam'
+import { Sida } from '@/components/publikt/v3'
+import { SidoPaketKort, fargForKluster } from './reklam/ArtikelReklam'
 import ArtikelKlient from './ArtikelKlient'
 
 export type RelateradArtikel = ArtikelKortData
@@ -101,6 +107,7 @@ export default function ArtikelRam({
   const guider = MEST_LASTA.filter((g) => g.href !== `/artiklar/${slug}`).slice(0, 6)
 
   return (
+    <Sida farg={fargForKluster(cluster)}>
     <PubliktSida>
       <ArtikelHjalte
         rum={rum}
@@ -151,5 +158,6 @@ export default function ArtikelRam({
       {sticky}
       <ArtikelKlient slug={slug} cluster={cluster} />
     </PubliktSida>
+    </Sida>
   )
 }

@@ -3,6 +3,7 @@
 import { Puzzle, Linkedin, Briefcase, Mail, Users } from 'lucide-react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { Sida } from '@/components/publikt/v3/Sida'
 
 export default function IntegrationsPage() {
   const futureIntegrations = [
@@ -33,7 +34,7 @@ export default function IntegrationsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-gray-100">
+    <Sida farg="neutral" className="min-h-screen">
       {/* Main Content */}
       <main className="container mx-auto px-4 py-20">
         <motion.div
@@ -48,16 +49,16 @@ export default function IntegrationsPage() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="w-20 h-20 mx-auto mb-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg"
+              className="w-20 h-20 mx-auto mb-8 bg-[var(--vagg)] rounded-2xl flex items-center justify-center shadow-lg"
             >
-              <Puzzle className="w-10 h-10 text-white" />
+              <Puzzle className="w-10 h-10 text-[var(--vagg-ink)]" />
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+              className="text-4xl md:text-5xl font-bold text-[var(--ink-1)] mb-6"
             >
               Integrationer
             </motion.h1>
@@ -66,7 +67,7 @@ export default function IntegrationsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-gray-600 mb-8 leading-relaxed"
+              className="text-xl text-[var(--ink-2)] mb-8 leading-relaxed"
             >
               Koppla samman Jobbcoach.ai med de verktyg du redan använder
             </motion.p>
@@ -77,10 +78,10 @@ export default function IntegrationsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 mb-12 shadow-sm text-center"
+            className="bg-[var(--papper)] rounded-[22px] border-2 border-b-[6px] border-[var(--kant)] p-8 mb-12 shadow-sm text-center"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Integrationer under utveckling</h2>
-            <p className="text-gray-600 leading-relaxed">
+            <h2 className="text-2xl font-bold text-[var(--ink-1)] mb-4">Integrationer under utveckling</h2>
+            <p className="text-[var(--ink-2)] leading-relaxed">
               Vi arbetar på att skapa sömlösa kopplingar till de mest populära verktygen för jobbsökning och karriärutveckling i Sverige
             </p>
           </motion.div>
@@ -98,16 +99,16 @@ export default function IntegrationsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 + index * 0.1, duration: 0.6 }}
-                className="bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-lg transition-all duration-300"
+                className="bg-[var(--papper)] rounded-[22px] border-2 border-b-[6px] border-[var(--kant)] p-6 shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <integration.icon className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-[var(--vagg)] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <integration.icon className="w-6 h-6 text-[var(--vagg-ink)]" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{integration.name}</h3>
-                    <p className="text-gray-600 text-sm mb-3">{integration.description}</p>
-                    <span className="inline-block bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full font-medium">
+                    <h3 className="text-lg font-semibold text-[var(--ink-1)] mb-2">{integration.name}</h3>
+                    <p className="text-[var(--ink-2)] text-sm mb-3">{integration.description}</p>
+                    <span className="inline-block bg-[var(--ton)] text-[var(--ton-ink)] text-xs px-3 py-1 rounded-full font-medium">
                       {integration.status}
                     </span>
                   </div>
@@ -124,25 +125,25 @@ export default function IntegrationsPage() {
             className="grid md:grid-cols-3 gap-6 mb-12"
           >
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">🚀</span>
+              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-[var(--vagg-ink)] font-bold text-xl">🚀</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Snabbare arbetsflöde</h3>
-              <p className="text-gray-600 text-sm">Importera data automatiskt och spara tid</p>
+              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Snabbare arbetsflöde</h3>
+              <p className="text-[var(--ink-2)] text-sm">Importera data automatiskt och spara tid</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">🎯</span>
+              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-[var(--vagg-ink)] font-bold text-xl">🎯</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Bättre matchning</h3>
-              <p className="text-gray-600 text-sm">Vi anpassar innehållet efter jobbannonsen</p>
+              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Bättre matchning</h3>
+              <p className="text-[var(--ink-2)] text-sm">Vi anpassar innehållet efter jobbannonsen</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">📈</span>
+              <div className="w-16 h-16 bg-[var(--vagg)] rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-[var(--vagg-ink)] font-bold text-xl">📈</span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Mät resultat</h3>
-              <p className="text-gray-600 text-sm">Följ upp ansökningar och optimera strategi</p>
+              <h3 className="font-semibold text-[var(--ink-1)] mb-2">Mät resultat</h3>
+              <p className="text-[var(--ink-2)] text-sm">Följ upp ansökningar och optimera strategi</p>
             </div>
           </motion.div>
 
@@ -151,21 +152,21 @@ export default function IntegrationsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200/50 p-8 text-center"
+            className="bg-[var(--ton)] rounded-[22px] border-2 border-[var(--kant-stark)] p-8 text-center"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Vill du föreslå en integration?</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-bold text-[var(--ink-1)] mb-4">Vill du föreslå en integration?</h2>
+            <p className="text-[var(--ink-2)] mb-6">
               Berätta vilket verktyg du använder så prioriterar vi utvecklingen
             </p>
             <Link
               href="/kontakt"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-2 bg-[var(--koppar)] text-[var(--koppar-text)] px-8 py-4 rounded-2xl font-semibold shadow-[0_4px_0_var(--koppar-klack)] hover:bg-[var(--koppar-topp)] transition-colors min-h-[48px]"
             >
               Föreslå integration
             </Link>
           </motion.div>
         </motion.div>
       </main>
-    </div>
+    </Sida>
   )
 }

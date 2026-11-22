@@ -17,6 +17,7 @@
  */
 import Link from 'next/link'
 import PubliktSida from '@/components/publikt/PubliktSida'
+import { Sida } from '@/components/publikt/v3/Sida'
 import '@/components/publikt/innehall/foretag.css'
 import Rum from '@/components/publikt/Rum'
 import Faq from '@/components/publikt/Faq'
@@ -200,6 +201,7 @@ export default function ForRekryterareSida() {
     .map((i) => ({ href: `/for-rekryterare/insikter/${i.slug}`, rubrik: i.title, text: i.description }))
 
   return (
+    <Sida farg="neutral">
     <PubliktSida>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -482,5 +484,6 @@ export default function ForRekryterareSida() {
         </Rum>
       </main>
     </PubliktSida>
+    </Sida>
   )
 }

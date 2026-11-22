@@ -1,0 +1,152 @@
+/* /skapa-brev/start i publikt omgång 3 (skissen skapa-brev-start).
+   Klasserna heter sb-*. Färger ur grundens tokens (sidan är plommon). */
+
+.sb-vagg { padding: 24px 0 64px; min-height: calc(100vh - 64px); }
+@media (min-width: 1000px) { .sb-vagg { padding: 40px 0 112px; } }
+.sb-tillbaka { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--vagg-mjuk); font-weight: 600; font-size: 15px; text-decoration: none; }
+.sb-tillbaka:hover { color: var(--vagg-ink); text-decoration: underline; text-underline-offset: 3px; }
+.sb-tillbaka svg { width: 18px; height: 18px; }
+.sb-huvud { max-width: 720px; margin-top: 12px; }
+.sb-huvud > * + * { margin-top: 14px; }
+.sb-huvud .p3-varde { font-size: 17px; }
+
+.sb-rad { display: grid; gap: 28px; margin-top: 28px; align-items: start; }
+@media (min-width: 1000px) { .sb-rad { grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 72px; margin-top: 40px; } }
+
+/* ---------- panelen ---------- */
+.sb-panel { border-radius: var(--r-stor, 32px); background: var(--papper); color: var(--ink-1); overflow: hidden; box-shadow: 0 8px 0 var(--vagg-3); }
+.sb-panel-huvud { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; padding: 18px 20px; background: var(--vagg-3); color: var(--vagg-ink); }
+.sb-panel-huvud b { font-family: var(--disp); font-weight: 800; font-size: 19px; }
+.sb-panel-huvud span { font-size: 14px; color: var(--vagg-mjuk); }
+.sb-panel-kropp { display: grid; gap: 22px; padding: 22px 20px; }
+@media (min-width: 900px) { .sb-panel-huvud, .sb-panel-kropp { padding-left: 24px; padding-right: 24px; } }
+
+.sb-mall { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px; border-radius: 18px; background: var(--ton); }
+.sb-mall-bild img { display: block; width: 48px; height: auto; border-radius: 3px; background: #fff; box-shadow: 0 0 0 1px var(--kant-stark), 0 3px 0 rgba(0, 0, 0, .08); }
+.sb-mall p { font-size: 15px; line-height: 1.4; color: var(--ink-2); }
+.sb-mall small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ton-ink); }
+.sb-mall b { color: var(--ink-1); }
+.sb-mall-byt, .sb-ark-byt { min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--ink-1); font: inherit; font-size: 15px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; white-space: nowrap; }
+.sb-mall-byt:focus-visible, .sb-ark-byt:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; border-radius: 6px; }
+.sb-ark-byt { color: var(--vagg-ink); font-size: inherit; }
+@media (max-width: 459px) { .sb-mall { grid-template-columns: 48px minmax(0, 1fr); row-gap: 2px; } .sb-mall-byt { grid-column: 2; justify-self: start; margin-top: -6px; } }
+
+/* ---------- tonen ---------- */
+.sb-ton { border: 0; margin: 0; padding: 0; min-width: 0; }
+.sb-ton legend { padding: 0; margin-bottom: 8px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.sb-ton-val { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 600px) { .sb-ton-val { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sb-ton-val button { display: grid; gap: 2px; min-height: 56px; padding: 9px 12px; border-radius: 14px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; background: var(--golv); color: var(--ink-1); font: inherit; text-align: left; cursor: pointer; }
+.sb-ton-val button b { font-size: 15px; font-weight: 700; }
+.sb-ton-val button small { font-size: 13px; line-height: 1.3; color: var(--ink-3); }
+.sb-ton-val button[aria-pressed='true'] { border-color: var(--vagg-3); background: var(--vagg); color: var(--vagg-ink); }
+.sb-ton-val button[aria-pressed='true'] small { color: var(--vagg-mjuk); }
+.sb-ton-val button:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.sb-foljde { color: var(--ton-ink); font-weight: 600; }
+
+.sb-falt { display: grid; gap: 8px; }
+.sb-falt label { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.sb-hjalp { font-size: 14.5px; line-height: 1.45; color: var(--ink-3); }
+.sb-input { position: relative; display: block; }
+.sb-falt input, .sb-falt textarea { width: 100%; min-height: 52px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--kant-stark); background: var(--golv); color: var(--ink-1); font: inherit; font-size: 16px; line-height: 1.5; }
+.sb-falt textarea { resize: vertical; }
+.sb-falt input::placeholder, .sb-falt textarea::placeholder { color: var(--ink-3); }
+.sb-falt input:focus-visible, .sb-falt textarea:focus-visible { outline: 3px solid var(--koppar); outline-offset: 1px; background: var(--papper); }
+.sb-input em { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: inline-grid; place-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-style: normal; font-size: 13px; font-weight: 700; pointer-events: none; }
+.sb-input:has(em) input { padding-right: 140px; }
+.sb-rakna { display: flex; align-items: center; gap: 12px; }
+.sb-rakna-stapel { flex: 1; height: 8px; border-radius: 999px; background: var(--ton); overflow: hidden; }
+.sb-rakna-stapel i { display: block; height: 100%; border-radius: 999px; background: var(--ton-ink); transition: width .2s; }
+.sb-rakna-tal { font-size: 13.5px; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sb-mer { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 14px; border-radius: 16px; border: 2px dashed var(--kant-stark); background: transparent; color: var(--ton-ink); font: inherit; font-weight: 700; font-size: 15.5px; text-align: left; cursor: pointer; }
+.sb-mer span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--ton); font-size: 18px; }
+.sb-mer:hover { border-color: var(--ton-ink); }
+.sb-fel { padding: 12px 14px; border-radius: 14px; border: 2px solid var(--fel-kant); background: var(--fel-mjuk); }
+.sb-fel p { font-size: 14.5px; color: var(--fel-morker); }
+.sb-fel-lank { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; color: var(--fel-morker); text-decoration: underline; text-underline-offset: 3px; }
+
+.sb-panel-fot { display: grid; gap: 14px; padding: 18px 20px 22px; border-top: 2px solid var(--kant); }
+.sb-panel-fot p { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+.sb-panel-fot b { color: var(--ink-1); }
+.sb-skriv { width: 100%; }
+.sb-skriv:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+@media (min-width: 600px) { .sb-panel-fot { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20px; padding-left: 24px; padding-right: 24px; } .sb-skriv { width: auto; } }
+
+/* ---------- arket ---------- */
+.sb-ark-spalt { display: none; }
+@media (min-width: 1000px) { .sb-ark-spalt { display: block; position: sticky; top: 100px; } }
+/* Efter utkastet: arket först på telefon, så att man ser brevet före panelen. */
+.sb-klart .sb-ark-spalt { display: block; order: -1; }
+@media (min-width: 1000px) { .sb-klart .sb-ark-spalt { order: 0; } }
+.sb-ark-ram { margin: 0; }
+.sb-ark-yta { position: relative; }
+/* Mallens ark från brevmotorn: A4, skalat till bredden av skriptet i dokumentet. */
+.sb-ark-mall { aspect-ratio: 210 / 297; border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); }
+.sb-ark-mall iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.sb-klart .sb-ark-spalt { max-width: 520px; width: 100%; justify-self: center; }
+.sb-ark { position: relative; min-height: 420px; padding: 32px 28px 40px; border-radius: 4px; background: #fff; color: #1A1A1F; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); }
+@media (min-width: 1000px) { .sb-ark { aspect-ratio: 1 / 1.414; min-height: 0; padding: 48px 44px; } }
+.sb-ark-namn { font-family: Georgia, 'Times New Roman', serif; font-size: 26px; line-height: 1.15; }
+.sb-ark-kontakt { margin-top: 4px; padding-bottom: 12px; border-bottom: 1px solid #D8D5CE; font-size: 12px; color: #65656E; }
+.sb-ark-mottagare { margin-top: 18px; font-size: 13px; font-weight: 700; color: #4A4A55; }
+.sb-ark-arende { margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--ton-ink); }
+.sb-ark-stycke { margin-top: 14px; font-size: 14px; line-height: 1.6; white-space: pre-line; }
+.sb-l { display: block; height: 6px; margin-top: 9px; border-radius: 3px; background: #E4E1DB; }
+.sb-l-kort { width: 14% !important; margin-top: 18px; }
+.sb-ark-luft { display: block; height: 14px; }
+.sb-lapp { position: absolute; right: -10px; top: 92px; display: inline-grid; place-items: center; min-height: 34px; padding: 0 14px; border-radius: 12px; background: var(--koppar); color: var(--koppar-text); font-weight: 700; font-size: 14px; box-shadow: 0 4px 0 var(--koppar-klack); transform: rotate(-3deg); }
+.sb-ark-vantar { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: center; margin-top: 22px; padding: 14px; border-radius: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; font-size: 14.5px; font-weight: 600; line-height: 1.35; color: var(--ink-1); }
+.sb-ark-ikon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); }
+.sb-ark-ikon svg { width: 18px; height: 18px; }
+.sb-ark-ram figcaption { margin-top: 18px; text-align: center; font-size: 15px; line-height: 1.45; color: var(--vagg-mjuk); }
+.sb-ark-ram figcaption b { color: var(--vagg-ink); }
+
+/* ---------- gaten ---------- */
+.sb-klart-rubrik { font-size: 32px; }
+@media (min-width: 900px) { .sb-klart-rubrik { font-size: 40px; } }
+.sb-klart-text { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+.sb-far { display: grid; gap: 8px; }
+.sb-far li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--ton); font-weight: 600; font-size: 15px; color: var(--ink-1); }
+.sb-far-ikon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: var(--ton-ink); color: #fff; }
+.sb-far-ikon svg { width: 16px; height: 16px; }
+.sb-far-las { background: var(--koppar-mjuk); color: var(--koppar-ink); }
+.sb-klart-not { text-align: center; font-size: 14.5px; color: var(--ink-3); }
+.sb-klart-not + .sb-klart-not { margin-top: -16px; }
+
+/* ---------- väljaren, alla 40 (skissblad 2) ---------- */
+.sb-valjare { width: min(1120px, 100%); max-width: 100%; max-height: min(92vh, 900px); margin: auto auto 0; padding: 0; border: 0; border-radius: 26px 26px 0 0; background: var(--papper); color: var(--ink-1); box-shadow: 0 8px 0 rgba(0, 0, 0, .3); overflow: hidden; }
+@media (min-width: 700px) { .sb-valjare { margin: auto; border-radius: 26px; width: min(1120px, calc(100% - 48px)); } }
+.sb-valjare::backdrop { background: rgba(20, 12, 24, .62); }
+.sb-v-ram { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; max-height: inherit; }
+.sb-v-huvud { display: flex; align-items: center; gap: 12px; padding: 16px 12px 12px 18px; }
+.sb-v-huvud p { margin-right: auto; font-family: var(--disp); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; color: var(--ink-1); }
+.sb-v-stang { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; border: 2px solid var(--kant-stark); background: var(--papper); color: var(--ink-1); cursor: pointer; }
+.sb-v-stang svg { width: 20px; height: 20px; }
+.sb-v-filter { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 18px; }
+.sb-v-filter button { display: inline-grid; place-items: center; min-height: 44px; padding: 0 16px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; background: var(--papper); color: var(--ink-1); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.sb-v-filter button[aria-pressed='true'] { background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
+.sb-v-rad { padding: 12px 18px 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+.sb-v-not { padding: 4px 18px 0; font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+.sb-v-rutnat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 14px 12px 16px; overflow-y: auto; overscroll-behavior: contain; }
+.sb-vm { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: center; padding: 8px 6px; border-radius: 14px; border: 2px solid transparent; background: var(--golv); color: var(--ink-1); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.sb-vm-bild { display: block; width: 100%; max-width: 112px; aspect-ratio: 112 / 158; }
+.sb-vm-bild img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 3px 0 rgba(0, 0, 0, .12); }
+.sb-vm[aria-pressed='true'] { border-color: var(--koppar); background: var(--koppar-mjuk); }
+.sb-vm:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.sb-vm i { position: absolute; left: 6px; top: 6px; display: inline-grid; place-items: center; height: 22px; padding: 0 8px; border-radius: 999px; font-style: normal; font-size: 12px; font-weight: 700; }
+/* Samma färger som grundens .p3-chip-gratis. */
+.sb-vm-gratis { background: var(--positiv-mjuk); color: #1F5C41; }
+.sb-vm-vald { background: var(--koppar); color: var(--koppar-text); }
+.sb-v-fot { display: grid; gap: 12px; padding: 16px 18px 20px; border-top: 2px solid var(--kant); background: var(--papper); }
+.sb-v-fot p { font-size: 16px; line-height: 1.4; color: var(--ink-2); }
+.sb-v-fot p b { margin-right: 6px; font-family: var(--disp); font-weight: 800; font-size: 22px; color: var(--ink-1); }
+.sb-v-anvand { justify-self: stretch; }
+@media (min-width: 700px) { .sb-v-rutnat { grid-template-columns: repeat(5, minmax(0, 1fr)); } .sb-v-anvand { justify-self: end; } }
+@media (min-width: 1000px) {
+  .sb-v-huvud { padding: 22px 20px 14px 28px; }
+  .sb-v-filter, .sb-v-rad, .sb-v-not { padding-left: 28px; padding-right: 28px; }
+  .sb-v-rutnat { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; padding: 18px 24px 22px; }
+  .sb-v-fot { grid-template-columns: 1fr auto; align-items: center; padding: 18px 28px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .sb-rakna-stapel i { transition: none; } }

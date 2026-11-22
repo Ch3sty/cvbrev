@@ -21,8 +21,9 @@ describe('SlutKort och Bankbredd', () => {
     const fig = d.querySelector('figure.bb')!
     expect(fig.className).toBe('bb bb-rad bb-vagg')
     expect(fig.querySelector('.bb-text')?.textContent).toBe('Nivån räknas bara på uppgifter du inte sett den senaste månaden.')
-    const rubrik = d.querySelector('.pub-h2')!
-    const punkter = d.querySelector('ul.pub-bock')!
+    // Publikt omgång 3: rubriken är ett stycke (.ar-slut-rub), punkterna grundens bocklista.
+    const rubrik = d.querySelector('.ar-slut-rub')!
+    const punkter = d.querySelector('ul.p3-bockar')!
     expect(rubrik.compareDocumentPosition(fig) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(fig.compareDocumentPosition(punkter) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })

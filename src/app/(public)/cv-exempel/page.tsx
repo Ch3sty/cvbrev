@@ -1,10 +1,10 @@
 /**
  * /cv-exempel - galleri-sida med CV-exempel per yrke.
- * Renderar GalleriPageContent med CV-yrkes-data.
+ * Renderar CvExempelNav (publikt omgång 3, navets form i CV:ts färg) med CV-yrkes-data.
  * SEO: ItemList + BreadcrumbList + FAQPage JSON-LD + dynamisk metadata.
  */
 import type { Metadata } from 'next'
-import GalleriPageContent from '@/app/(public)/exempel/components/GalleriPageContent'
+import CvExempelNav from './components/CvExempelNav'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { CV_GALLERI_FAQ } from '@/app/(public)/exempel/components/galleri-faq'
 
@@ -96,11 +96,7 @@ export default function CVExempelGalleri() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <GalleriPageContent
-        type="cv"
-        yrken={CV_GALLERI}
-        faqItems={CV_GALLERI_FAQ}
-      />
+      <CvExempelNav yrken={CV_GALLERI} faqItems={CV_GALLERI_FAQ} />
     </>
   )
 }

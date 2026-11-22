@@ -32,7 +32,9 @@ export const JOBBMATCHNING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur ofta uppdateras jobbannonserna?',
-    a: 'Annonserna uppdateras dagligen. När en arbetsgivare publicerar en ny tjänst på Arbetsförmedlingen syns den i din lista inom timmar. När en tjänst tas bort försvinner den också automatiskt från listan, så du slipper söka jobb som redan är tillsatta.',
+    // Textbeslut JM-4 och B-24: textforslag.md:s lydelse utan slutledet om
+    // tillsatta jobb (beslutet säger "borttagen", aldrig "tillsatta").
+    a: 'Annonserna hämtas från Arbetsförmedlingen tre gånger per dygn. Du söker om med ett tryck när du vill se de senaste, och mellan sökningarna ligger dina träffar kvar som de var. En annons som har tagits bort hos Arbetsförmedlingen följer inte med i nästa sökning.',
   },
   {
     q: 'Är det gratis att söka jobb online hos er?',

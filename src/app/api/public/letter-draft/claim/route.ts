@@ -5,6 +5,13 @@
  * (docs/plan-konvertering.md, C6). Kräver inloggning: det är först här
  * hela brevtexten blir tillgänglig.
  *
+ * Publikt omgång 3 (byggbriefens beslut 6): kroppen bär också besökarens
+ * val från startflödet, { token, mall?, ton?, annons? }, sparat bredvid
+ * utkastets token i webbläsaren (publikt-brev-val.ts). Brevet skrivs i
+ * brevrummets format (stycken och mall_id) och öppnas i den valda mallen;
+ * en Premiummall på gratisnivån provas i Mallar och brevet sparas i Linne.
+ * Reglerna står i src/lib/letters/claim-brev.ts.
+ *
  * Idempotent: har samma användare redan hämtat utkastet får de tillbaka
  * samma brev i stället för ett nytt.
  */
@@ -14,17 +21,20 @@ import { NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { userHasAccess } from '@/lib/supabase/premiumAccess'
 import { getClaimableDraft } from '@/lib/letters/public-draft'
+import { hamtaBrevProfil, ritaRad } from '@/lib/letters/server'
+import { claimMall, claimRad, claimRedirect, lasClaimVal } from '@/lib/letters/claim-brev'
 
 export async function POST(request: Request) {
-  let token: string | undefined
+  let body: Record<string, unknown> | null = null
   try {
-    const body = await request.json()
-    token = typeof body?.token === 'string' ? body.token.trim() : undefined
+    body = await request.json()
   } catch {
     return NextResponse.json({ error: 'Ogiltig begäran' }, { status: 400 })
   }
 
+  const token = typeof body?.token === 'string' ? body.token.trim() : undefined
   if (!token) {
     return NextResponse.json({ error: 'Token saknas' }, { status: 400 })
   }
@@ -51,16 +61,22 @@ export async function POST(request: Request) {
     )
   }
 
-  // Redan hämtat av någon annan: neka. Redan hämtat av samma användare:
-  // leta upp brevet och skicka tillbaka samma redirect som första gången.
+  // Redan hämtat av någon annan: neka.
   if (draft.claimed_by && draft.claimed_by !== user.id) {
     return NextResponse.json({ error: 'Utkastet är redan hämtat.' }, { status: 409 })
   }
 
+  const val = lasClaimVal(body)
+  // Samma behörighet som brevrummet läser (engångsköp och admin räknas).
+  const harBetalt = await userHasAccess(supabase, user.id, 'any').catch(() => false)
+  const mall = claimMall(val.mall, harBetalt)
+
+  // Redan hämtat av samma användare: leta upp brevet och skicka tillbaka
+  // samma redirect som första gången.
   if (draft.claimed_by === user.id) {
     const { data: existing } = await admin
       .from('letters')
-      .select('id')
+      .select('id, mall_id')
       .eq('user_id', user.id)
       .eq('title', draft.role)
       .eq('company', draft.employer)
@@ -68,23 +84,30 @@ export async function POST(request: Request) {
       .limit(1)
       .maybeSingle()
 
-    const existingId = (existing as { id?: string } | null)?.id
-    if (existingId) {
-      return NextResponse.json({ redirect: `/dashboard/mina-brev/${existingId}` })
+    const rad = existing as { id?: string; mall_id?: string | null } | null
+    if (rad?.id) {
+      return NextResponse.json({ redirect: claimRedirect(rad.id, rad.mall_id ? mall : { sparad: mall.sparad, provas: null }) })
+    }
+  }
+
+  const rad = claimRad(draft, user.id, val, mall)
+
+  // content: färdig HTML i mallen för äldre kod, mejl och utkastvägen, som
+  // generate-preview. Avsändaren ur profilen, efter alla AI-anrop. Går
+  // ritningen fel står utkastets text kvar som content, som före omgång 3.
+  let content = draft.letter_text
+  if (rad.mall_id) {
+    try {
+      const { profil } = await hamtaBrevProfil(supabase, user.id, null)
+      content = ritaRad(rad, profil, user)
+    } catch (err) {
+      console.error('[letter-draft/claim] Kunde inte rita brevet i mallen:', err)
     }
   }
 
   const { data: letter, error: insertError } = await admin
     .from('letters')
-    .insert({
-      user_id: user.id,
-      title: draft.role,
-      company: draft.employer,
-      job_title: draft.role,
-      content: draft.letter_text,
-      tonality: 'professional',
-      is_saved: true,
-    })
+    .insert({ ...rad, content })
     .select('id')
     .single()
 
@@ -102,5 +125,7 @@ export async function POST(request: Request) {
     .is('claimed_by', null)
 
   const letterId = (letter as { id: string }).id
-  return NextResponse.json({ redirect: `/dashboard/mina-brev/${letterId}` })
+  return NextResponse.json({
+    redirect: claimRedirect(letterId, rad.mall_id ? mall : { sparad: mall.sparad, provas: null }),
+  })
 }

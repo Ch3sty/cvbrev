@@ -1,53 +1,69 @@
 /**
- * Reklamkorten i artiklarna och artikellistan, publikt v2
- * (docs/design/spec-publikt-v2-del-b-2026-10-12.md, avsnitt 3.1 och 3.2).
+ * Reklamkorten i artiklarna och artikellistan, publikt omgång 3 (skissen
+ * artikelreklam, docs/design/publikt-omgang3/sidor/artikelreklam.html och
+ * noter/artikelreklam.md).
  *
- * Tre platser på en artikel: provkortet efter andra stycket (verktyget,
- * gratis först), sidopaketet i sidokolumnen (Premium i bläck, kort) och
- * slutkortet efter texten (PremiumBlock med klustrets telefoner). Två
- * platser i listan: gratiskortet bland artikelkorten och Premium i bläck
- * efter pagineringen. Klustret väljer vinkeln (paketForKluster); alla kort
- * säljer Jobbcoach Premium. Texterna står i reklam-copy.ts.
+ * Tre platser på en artikel: rutan efter andra stycket (verktyget, gratis
+ * först), sidokortet i sidokolumnen (Premium) och slutkortet efter texten
+ * (Premium med verktyget i större skala). Jobbsökets kort läggs till efter
+ * texten i artiklarna om matchning och uppföljning (JobbKort). Två platser i
+ * listan: gratiskortet bland artikelkorten och slutkortet efter
+ * pagineringen. Texterna står i reklam-copy.ts.
  *
- * Alla är serverkomponenter. Rubrikerna är p, aldrig h2 eller h3, så att
- * de inte hamnar i artikelns rubrikträd (SEO-spärrlistan punkt 3). Visning
- * och klick mäts av ArtikelKlient via data-cta-position och data-cta-klick.
- * InkPanel används inte längre här (del B: InkPanel bort från publika ytor).
+ * Formen: ett mörkt block i delens färg med klack, och bilden ur produkten
+ * ur grunden (testramen, CV-arket, brevet, träffen, vägen till erbjudande,
+ * mallminiatyrerna), aria-hidden. Rubrikerna är p, aldrig h2 eller h3, så
+ * att de inte hamnar i artikelns rubrikträd. Länkmålen är desamma som
+ * förut. Visning och klick mäts av ArtikelKlient via data-cta-position och
+ * data-cta-klick, oförändrat. Alla är serverkomponenter.
  */
 
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import type { ArtikelPaket, CtaCluster, InlineVerktyg } from '@/lib/cta/clusters'
-import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
-import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
+import {
+  Bocklista,
+  Brevpar,
+  CvArk,
+  Dorr,
+  Knapp,
+  MallMiniatyr,
+  PrisRad,
+  Samtal,
+  Stig,
+  Svav,
+  Testram,
+  TextLank,
+  Traff,
+  TraffRad,
+  SARA_FLER_TRAFFAR,
+  type Farg,
+  type IkonNamn,
+} from '@/components/publikt/v3'
 import ProvMatris from '@/components/publikt/innehall/ProvMatris'
 import TestBredd from '@/components/publikt/TestBredd'
 import Bankbredd from '@/components/publikt/Bankbredd'
 import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
-import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
-import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
-import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
-import SkarmCvAnalys from '@/components/publikt/telefon/skarmar/SkarmCvAnalys'
-import SkarmBrev from '@/components/publikt/telefon/skarmar/SkarmBrev'
-import SkarmMallar from '@/components/publikt/telefon/skarmar/SkarmMallar'
-import SkarmMatchning from '@/components/publikt/telefon/skarmar/SkarmMatchning'
-import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 import { PLAN_BY_KEY, SALD_PLAN } from '@/lib/plans/plans'
 import { KampanjPris, KampanjVarianter, MedKampanjPris } from '@/components/kampanj/Kampanj'
+import { PremiumOrd } from '@/components/publikt/PremiumBlock'
 import {
   GRATIS_KORT,
   INLINE,
   INLINE_PROVA,
   INLINE_RAKNARE,
+  JOBB_KORT,
   LANKRAD,
   LISTA_SLUT,
   SIDO,
   SLUT,
   TESTKORT_INTERVJU,
 } from './reklam-copy'
+import './reklam.css'
+
+type Data = Record<string, string | undefined>
 
 /** Datat som ArtikelKlient läser för visnings- och klickmätningen. */
-function matning(position: string, cluster: CtaCluster | 'lista', variant: string) {
+function matning(position: string, cluster: CtaCluster | 'lista', variant: string): Data {
   return {
     'data-cta-position': position,
     'data-cta-cluster': cluster,
@@ -55,25 +71,118 @@ function matning(position: string, cluster: CtaCluster | 'lista', variant: strin
   }
 }
 
-const INLINE_OBJEKT: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test'>, ObjektTyp> = {
-  mallar: 'mallar',
-  analys: 'cv',
-  brev: 'brev',
-  coach: 'chat',
+/** Klustrets färg i grunden (artikelns topp och menyn, beslut 8). */
+export function fargForKluster(cluster: CtaCluster): Farg {
+  const rum = KLUSTER_RUM[cluster]
+  return rum === 'neu' ? 'neutral' : (rum as Farg)
 }
 
-/** "Alla nivåer. Klockan på." ritas med gradienten på sista meningen. */
-function gradientSlut(rubrik: string): ReactNode {
-  const i = rubrik.lastIndexOf('. ', rubrik.length - 2)
-  if (i < 0) return rubrik
+/* ------------------------------------------------------------- rutan */
+
+/**
+ * Rutan i skissens form. Bilden står aria-hidden; bildSynlig för en bild
+ * med egen text som ska läsas (I-provets rutnät, gratiskortets bredd).
+ */
+export function ReklamRuta({
+  farg,
+  ikon,
+  etikett,
+  rubrik,
+  bild,
+  bildSynlig,
+  brod,
+  gratis,
+  knappar,
+  paket,
+  children,
+  className = '',
+  ariaLabel,
+  data,
+}: {
+  farg?: Farg
+  ikon: IkonNamn
+  etikett: ReactNode
+  rubrik?: ReactNode
+  bild?: ReactNode
+  bildSynlig?: boolean
+  brod?: ReactNode
+  gratis?: ReactNode
+  knappar?: ReactNode
+  paket?: string
+  children?: ReactNode
+  className?: string
+  ariaLabel?: string
+  data: Data
+}) {
   return (
-    <>
-      {rubrik.slice(0, i + 1)} <span className="pub-gradord">{rubrik.slice(i + 2)}</span>
-    </>
+    <aside className={`not-prose ar-hall ${className}`.trim()} aria-label={ariaLabel} {...data}>
+      <div className={`ar-rk ${bild ? '' : 'ar-utan-bild'}`.trim()} data-p3-farg={farg}>
+        <div className="ar-huvud">
+          <p className="ar-ey">
+            <Dorr ikon={ikon} />
+            {etikett}
+          </p>
+          {rubrik ? <p className="ar-rub">{rubrik}</p> : null}
+        </div>
+        {bild ? (
+          <div className="ar-bild" aria-hidden={bildSynlig ? undefined : true}>
+            {bild}
+          </div>
+        ) : null}
+        <div className="ar-rest">
+          {brod ? <p className="ar-brod">{brod}</p> : null}
+          {gratis ? <p className="ar-gratis">{gratis}</p> : null}
+          {children}
+          {knappar ? <div className="ar-gor">{knappar}</div> : null}
+          {paket ? (
+            <p className="ar-paket">
+              <MedKampanjPris text={paket} />
+            </p>
+          ) : null}
+        </div>
+      </div>
+    </aside>
   )
 }
 
-/* --------------------------------------------------------- provkortet */
+/* -------------------------------------------------------- bilderna */
+
+/**
+ * Den riktiga expertuppgiften (MatrisExpert) på ett papper, som i dag.
+ * Grundens testram ritar inte fyllning, så uppgiften står utan ram
+ * (önskemål till grunden).
+ */
+function ExpertUppgift() {
+  return (
+    <div className="ar-matris">
+      <ProvMatris />
+    </div>
+  )
+}
+
+type VerktygMedBild = Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test'>
+
+function InlineBild({ verktyg }: { verktyg: VerktygMedBild }) {
+  if (verktyg === 'mallar')
+    return (
+      <div className="ar-mallar">
+        <MallMiniatyr id="linne" />
+        <MallMiniatyr id="bjork" />
+      </div>
+    )
+  if (verktyg === 'analys') return <CvArk liten poang={{ tal: 93, text: 'av 100 i dag' }} kvar="7 poäng kvar till 100" />
+  if (verktyg === 'brev') return <Brevpar />
+  return <Samtal />
+}
+
+const INLINE_FARG: Record<VerktygMedBild, Farg> = {
+  mallar: 'cv',
+  analys: 'cv',
+  brev: 'brev',
+  coach: 'jobb',
+}
+
+/* --------------------------------------------------------- rutan i texten */
 
 export function InlineKort({
   cluster,
@@ -84,56 +193,50 @@ export function InlineKort({
   verktyg: InlineVerktyg
   slug: string
 }) {
-  const rum = `pub-rum-${KLUSTER_RUM[cluster]}`
-
   if (verktyg === 'lankrad') {
     return (
-      <aside
-        className={`not-prose ib-lankrad ${rum}`}
-        aria-label="Relaterade räknare"
-        {...matning('inline', cluster, 'lankrad')}
-        data-cta-slug={slug}
+      <ReklamRuta
+        farg={fargForKluster(cluster)}
+        ikon="neutral"
+        etikett={LANKRAD.etikett}
+        ariaLabel="Relaterade räknare"
+        data={{ ...matning('inline', cluster, 'lankrad'), 'data-cta-slug': slug }}
+        brod={LANKRAD.text}
       >
-        <p className="pub-liten">{LANKRAD.text}</p>
-        <ul>
+        <ul className="ar-lankar">
           {LANKRAD.lankar.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} data-cta-klick={l.href}>
+              <TextLank href={l.href} data-cta-klick={l.href}>
                 {l.text}
-              </Link>
+              </TextLank>
             </li>
           ))}
         </ul>
-      </aside>
+      </ReklamRuta>
     )
   }
 
   if (verktyg === 'raknare') {
     return (
-      <aside
-        className={`not-prose ib-prova ${rum}`}
-        aria-label={INLINE_RAKNARE.rubrik}
-        {...matning('inline', cluster, 'raknare')}
-        data-cta-slug={slug}
+      <ReklamRuta
+        farg="jobb"
+        ikon="neutral"
+        etikett={INLINE_RAKNARE.etikett}
+        rubrik={INLINE_RAKNARE.rubrik}
+        ariaLabel={INLINE_RAKNARE.rubrik}
+        data={{ ...matning('inline', cluster, 'raknare'), 'data-cta-slug': slug }}
+        brod={INLINE_RAKNARE.text}
       >
-        <div>
-          <p className="pub-kick">Verktyget</p>
-          <p className="ib-rub">{INLINE_RAKNARE.rubrik}</p>
-          <p className="ib-prova-text">{INLINE_RAKNARE.text}</p>
-          <ul className="ib-lankrad-lista">
-            {INLINE_RAKNARE.lankar.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} data-cta-klick={l.href} className="pub-lank">
-                  {l.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="ib-prova-sida" aria-hidden="true">
-          <Objekt typ="rakna" storlek={64} />
-        </div>
-      </aside>
+        <ul className="ar-lankar">
+          {INLINE_RAKNARE.lankar.map((l) => (
+            <li key={l.href}>
+              <TextLank href={l.href} data-cta-klick={l.href}>
+                {l.text}
+              </TextLank>
+            </li>
+          ))}
+        </ul>
+      </ReklamRuta>
     )
   }
 
@@ -156,45 +259,40 @@ export function InlineKort({
 
   const copy = INLINE[verktyg]
   return (
-    <aside
-      className={`not-prose ib-prova ${rum}`}
-      aria-label={copy.rubrik}
-      {...matning('inline', cluster, verktyg)}
-      data-cta-slug={slug}
-    >
-      <div>
-        <p className="pub-kick">Verktyget</p>
-        <p className="ib-rub">{copy.rubrik}</p>
-        <p className="ib-prova-text">{copy.text}</p>
-        <div className="pub-handling">
-          <Link href={copy.href} data-cta={`article-inline-${cluster}`} data-cta-klick={copy.href} className="pub-knapp">
-            {copy.knapp}
-          </Link>
-        </div>
-        <p className="pub-liten">
-          <MedKampanjPris text={copy.paketrad} />
-        </p>
-      </div>
-      <div className="ib-prova-sida" aria-hidden="true">
-        <Objekt typ={INLINE_OBJEKT[verktyg]} storlek={64} />
-      </div>
-    </aside>
+    <ReklamRuta
+      farg={INLINE_FARG[verktyg]}
+      ikon={INLINE_FARG[verktyg]}
+      etikett={copy.etikett}
+      rubrik={copy.rubrik}
+      ariaLabel={copy.rubrik}
+      data={{ ...matning('inline', cluster, verktyg), 'data-cta-slug': slug }}
+      bild={<InlineBild verktyg={verktyg} />}
+      brod={copy.brod}
+      gratis={copy.gratis}
+      knappar={
+        <Knapp href={copy.href} pil data-cta={`article-inline-${cluster}`} data-cta-klick={copy.href}>
+          {copy.knapp}
+        </Knapp>
+      }
+      paket={copy.paketrad}
+    />
   )
 }
 
 /**
- * Provkortet: expertfrågan i bild, knappen till provet och länken till
- * testsidan bredvid (analysen 2026-11-08, punkt 9 och 10). Båda målen mäts
- * som article_cta_clicked med target = länkens mål. I testklustret står det
- * efter andra stycket; i andra artiklar läggs det in med <TestKort /> och
- * egen rubrik och text, med variant 'testkort' så att de två går att skilja åt.
+ * Provkortet: expertuppgiften i bild, knappen till provet och länken till
+ * testsidan bredvid. Båda målen mäts som article_cta_clicked med target =
+ * länkens mål. I testklustret står det efter andra stycket; i andra artiklar
+ * läggs det in med <TestKort /> och egen rubrik och text, med variant
+ * 'testkort' så att de två går att skilja åt. Med egen text (testkortet)
+ * står texten hel, utan gratisrutan.
  */
 export function ProvKort({
   cluster,
   slug,
   etikett = INLINE_PROVA.etikett,
   rubrik = INLINE_PROVA.rubrik,
-  text = INLINE_PROVA.text,
+  text,
   variant = 'test',
 }: {
   cluster: CtaCluster
@@ -204,83 +302,108 @@ export function ProvKort({
   text?: string
   variant?: string
 }) {
+  const egenText = text !== undefined
   return (
-    <aside
-      className={`not-prose ib-prova pub-rum-${KLUSTER_RUM[cluster]}`}
-      aria-label={etikett}
-      {...matning('inline', cluster, variant)}
-      data-cta-slug={slug}
-    >
-      <div>
-        <p className="pub-kick">{etikett}</p>
-        <p className="ib-rub">{rubrik}</p>
-        <p className="ib-prova-text">{text}</p>
-        {/* Nio-raden: en av testtyperna, matrisen markerad (S2, S6). */}
-        <TestBredd form="rad" markerad="matris" label="En av åtta testtyper, matrislogik" />
-        <div className="pub-handling">
-          <Link
-            href={INLINE_PROVA.href}
-            data-cta={`article-inline-${cluster}`}
-            data-cta-klick={INLINE_PROVA.href}
-            className="pub-knapp"
-          >
+    <ReklamRuta
+      farg="tran"
+      ikon="tran"
+      etikett={etikett}
+      rubrik={rubrik}
+      ariaLabel={etikett}
+      data={{ ...matning('inline', cluster, variant), 'data-cta-slug': slug }}
+      bild={<ExpertUppgift />}
+      brod={egenText ? text : INLINE_PROVA.brod}
+      gratis={egenText ? undefined : INLINE_PROVA.gratis}
+      knappar={
+        <>
+          <Knapp href={INLINE_PROVA.href} pil data-cta={`article-inline-${cluster}`} data-cta-klick={INLINE_PROVA.href}>
             {INLINE_PROVA.knapp}
-          </Link>
-          <Link href={INLINE_PROVA.sekundar.href} data-cta-klick={INLINE_PROVA.sekundar.href} className="pub-lank">
+          </Knapp>
+          <TextLank href={INLINE_PROVA.sekundar.href} data-cta-klick={INLINE_PROVA.sekundar.href}>
             {INLINE_PROVA.sekundar.text}
-          </Link>
-        </div>
-        <p className="pub-liten">
-          <MedKampanjPris text={INLINE_PROVA.paketrad} />
-        </p>
-      </div>
-      <div className="ib-prova-sida">
-        <ProvMatris />
-      </div>
-    </aside>
+          </TextLank>
+        </>
+      }
+      paket={INLINE_PROVA.paketrad}
+    />
   )
 }
 
-/* ------------------------------------------------ sidokolumnens paketkort */
+/* ------------------------------------------------------ Jobbsökets kort */
+
+/**
+ * Jobbsökets kort efter texten (SEO-beskedet avsnitt 20): träffen i
+ * artiklarna om matchning, vägen från Ska sökas till Erbjudande i artiklarna
+ * om uppföljning. Läggs till, ersätter inget kort. Mäts som slutkort med
+ * egen variant. Arbetsgivarna är grundens påhittade, matchgraden exempel.
+ */
+export function JobbKort({ variant, cluster, slug }: { variant: keyof typeof JOBB_KORT; cluster: CtaCluster; slug: string }) {
+  const copy = JOBB_KORT[variant]
+  const bild =
+    variant === 'matchning' ? (
+      <div>
+        <Traff
+          sistaDag="Sista ansökningsdag 28 nov"
+          skal={[{ rubrik: '1 av dina 3 roller' }, { rubrik: 'Fyra av dina kompetenser' }, { rubrik: 'Göteborg, en av dina orter' }]}
+          handlingar={[]}
+        />
+        <TraffRad {...SARA_FLER_TRAFFAR[0]} />
+      </div>
+    ) : (
+      <Stig />
+    )
+  return (
+    <ReklamRuta
+      farg="jobb"
+      ikon="jobb"
+      etikett={copy.etikett}
+      rubrik={copy.rubrik}
+      ariaLabel={copy.etikett}
+      data={{ ...matning('final', cluster, `jobb-${variant}`), 'data-cta-slug': slug }}
+      bild={bild}
+      brod={copy.brod}
+      gratis={copy.gratis}
+      knappar={
+        <Knapp href={copy.href} pil data-cta={`article-jobb-${cluster}`} data-cta-klick={copy.href}>
+          {copy.knapp}
+        </Knapp>
+      }
+      paket={copy.paketrad}
+    />
+  )
+}
+
+/* ------------------------------------------------ sidokolumnens kort */
 
 export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; cluster: CtaCluster; slug: string }) {
   if (paket === 'gratis') {
     return (
-      <section
-        className="ib-gratis"
-        aria-label={GRATIS_KORT.rubrik}
-        {...matning('sidebar', cluster, 'gratis')}
-        data-cta-slug={slug}
-      >
-        <div>
-          <p className="pub-kick">{GRATIS_KORT.etikett}</p>
-          <p className="ib-rub" style={{ fontSize: 18 }}>
-            {GRATIS_KORT.rubrik}
-          </p>
-          <ul className="pub-bock" style={{ marginTop: 12 }}>
-            {GRATIS_KORT.rader.slice(0, 3).map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
-          {/* Sidokolumnen har ingen listrad intill rutnätet, så raden får caption (S7, S13). */}
-          <TestBredd form="rad" text={GRATIS_KORT.breddCaption} label="Åtta testtyper och personlighetstestet, grundnivån gratis" className="ib-tb-sido" />
-          <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp" style={{ width: '100%', marginTop: 16 }}>
-            {GRATIS_KORT.knapp}
-          </Link>
+      <section className="ar-sido ar-sido-gratis" aria-label={GRATIS_KORT.rubrik} {...matning('sidebar', cluster, 'gratis')} data-cta-slug={slug}>
+        <p className="ar-ey">{GRATIS_KORT.etikett}</p>
+        <p className="ar-sido-rub">{GRATIS_KORT.rubrik}</p>
+        <div className="ar-bock">
+          <Bocklista punkter={GRATIS_KORT.rader.slice(0, 3)} />
         </div>
+        {/* Sidokolumnen har ingen listrad intill rutnätet, så raden får caption (S7, S13). */}
+        <div className="ar-gratiskort">
+          <div className="ar-bredd">
+            <TestBredd form="rad" text={GRATIS_KORT.breddCaption} label="Åtta testtyper och personlighetstestet, grundnivån gratis" className="ib-tb-sido" />
+          </div>
+        </div>
+        <Knapp href={GRATIS_KORT.href} bred data-cta-klick={GRATIS_KORT.href}>
+          {GRATIS_KORT.knapp}
+        </Knapp>
       </section>
     )
   }
   const copy = SIDO[paket]
   return (
-    <section className="ib-black" aria-label={copy.rubrik} {...matning('sidebar', cluster, paket)} data-cta-slug={slug}>
-      <p className="pub-kick">{copy.etikett}</p>
-      <p className="ib-rub">{copy.rubrik}</p>
-      <p className="pub-liten" style={{ marginTop: 6 }}>
-        {copy.text}
-      </p>
-      <p className="ib-pris-l">
-        {/* Priset följer kampanjen som PremiumBlock (H2, 2026-11-14). */}
+    <section className="ar-sido" aria-label={copy.rubrik} {...matning('sidebar', cluster, paket)} data-cta-slug={slug}>
+      <p className="ar-ey">{copy.etikett}</p>
+      <p className="ar-sido-rub">{copy.rubrik}</p>
+      <p className="ar-sido-text">{copy.text}</p>
+      <p className="ar-sido-pris">
+        {/* Priset följer kampanjen som slutkortet (H2, 2026-11-14). */}
         <KampanjVarianter
           ord={
             <>
@@ -291,90 +414,123 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
           kampanj={(k) => <KampanjPris k={k} />}
         />
       </p>
-      <Link href="/priser" data-cta-klick="/priser" className="ib-knapp-ram">
+      <Knapp href="/priser" bred data-cta-klick="/priser">
         Se vad som ingår
-      </Link>
-      {copy.gratisrad ? (
-        <p className="pub-liten" style={{ marginTop: 12 }}>
-          {copy.gratisrad}
-        </p>
-      ) : null}
+      </Knapp>
+      {copy.gratisrad ? <p className="ar-sido-text">{copy.gratisrad}</p> : null}
     </section>
   )
 }
 
-/* ---------------------------------------------------- slutkortet i bläck */
+/* ---------------------------------------------- slutkortet efter texten */
 
-function Telefoner({ paket }: { paket: 'cv' | 'test' | 'allt' | 'lista' }) {
-  if (paket === 'test') {
-    return (
-      <>
-        <SkarmPersonlighet />
-        <SkarmMatris />
-        <SkarmIntervjufragor />
-      </>
-    )
-  }
+/** Verktyget i större skala i slutkortet (skissen: testets ram i stället för tre telefoner). */
+function SlutBild({ paket }: { paket: 'cv' | 'test' | 'allt' | 'lista' }) {
   if (paket === 'cv') {
     return (
-      <>
-        <SkarmBrev />
-        <SkarmCvAnalys />
-        <SkarmMallar />
-      </>
+      <div className="ar-slutbild" aria-hidden="true">
+        <CvArk poang={{ tal: 93, text: 'av 100 i dag' }} kvar="7 poäng kvar till 100" />
+      </div>
     )
   }
   if (paket === 'allt') {
     return (
-      <>
-        <SkarmCoach />
-        <SkarmMatchning />
-        <SkarmIntervjufragor />
-      </>
+      <div className="ar-slutbild" aria-hidden="true">
+        <Traff handlingar={[]} />
+      </div>
     )
   }
   return (
-    <>
-      <SkarmCvAnalys />
-      <SkarmMatchning />
-      <SkarmMatris />
-    </>
+    <div className="ar-slutbild ar-med-resultat" aria-hidden="true">
+      <Svav className="ar-resultat" stor="12 av 15" under="rätt, exempel på ett pass" gungar />
+      <Testram fraga={null} knapp={null} />
+    </div>
+  )
+}
+
+function PremiumKort({
+  id,
+  etikett,
+  rubrik,
+  text,
+  mellan,
+  punkter,
+  pris,
+  knapp,
+  lank,
+  bild,
+  data,
+}: {
+  id: string
+  etikett: string
+  rubrik: string
+  text?: ReactNode
+  mellan?: ReactNode
+  punkter: readonly string[]
+  /** Priset stort (slutkortet i artiklarna; listans kort har priset i texten). */
+  pris?: boolean
+  knapp: ReactNode
+  lank: { text: string; href: string }
+  bild: ReactNode
+  data: Data
+}) {
+  return (
+    <section id={id} className="ar-slut-sekt" {...data}>
+      <div className="p3-bredd">
+        <div className="p3-premium ar-slut">
+          <div className="ar-slut-rad">
+            <div className="ar-slut-text">
+              <p className="p3-ey">{etikett}</p>
+              {/* Rubriken är p, så att artiklarna inte får en ny h2. */}
+              <p className="ar-slut-rub">{rubrik}</p>
+              {text ? <p className="ar-slut-text-p">{text}</p> : null}
+              {mellan ? <div>{mellan}</div> : null}
+              <Bocklista punkter={punkter} />
+              {pris ? <PrisRad uppsagning /> : null}
+              <div className="p3-knapprad">
+                {knapp}
+                <TextLank href={lank.href} data-cta-klick={lank.href}>
+                  {lank.text}
+                </TextLank>
+              </div>
+            </div>
+            {bild}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
 /**
- * Slutkortet efter texten: PremiumBlock på bläck med klustrets telefoner.
- * Rubriken är p (rubrikNiva 'p'), så att 139 artiklar inte får en ny h2.
- * Paketet gratis ritas i textspalten av GratisKort i stället.
+ * Slutkortet efter texten: Premium på sidans mörkaste ton med kopparklack
+ * och klustrets verktyg i bild. Rubriken är p. Paketet gratis ritas i
+ * textspalten av GratisKort i stället.
  */
 export function SlutKort({ paket, cluster, slug }: { paket: Exclude<ArtikelPaket, 'gratis'>; cluster: CtaCluster; slug: string }) {
   const copy = SLUT[paket]
   return (
-    <div {...matning('final', cluster, paket)} data-cta-slug={slug}>
-      <PremiumBlock
-        id="premium-artikel"
-        kick={copy.etikett}
-        rubrik={gradientSlut(copy.rubrik)}
-        rubrikNiva="p"
-        mellan={
-          // Bankbredden i testpaketets slutkort, på bläcket mellan rubrik och
-          // punkter (docs/design/bankbredd-2026-11-19.md avsnitt 4).
-          paket === 'test' ? (
-            <Bankbredd form="rad" yta="vagg" text="Nivån räknas bara på uppgifter du inte sett den senaste månaden." />
-          ) : undefined
-        }
-        punkter={copy.rader}
-        pris
-        knapp={
-          <Link href={copy.href} data-cta={`article-final-${cluster}`} data-cta-klick={copy.href} className="pub-knapp">
-            {/* Knappen säger samma pris som raden ovanför (slutgranskningen 14 nov). */}
-            <KampanjVarianter ord={copy.knapp} kampanj={(k) => k.copy.prisKnapp} />
-          </Link>
-        }
-        lank={copy.sekundar}
-        bild={<Telefoner paket={paket} />}
-      />
-    </div>
+    <PremiumKort
+      id="premium-artikel"
+      data={{ ...matning('final', cluster, paket), 'data-cta-slug': slug }}
+      etikett={copy.etikett}
+      rubrik={copy.rubrik}
+      mellan={
+        // Bankbredden i testpaketets slutkort, mellan rubrik och punkter
+        // (docs/design/bankbredd-2026-11-19.md avsnitt 4).
+        paket === 'test' ? <Bankbredd form="rad" yta="vagg" text="Nivån räknas bara på uppgifter du inte sett den senaste månaden." /> : undefined
+      }
+      punkter={copy.rader}
+      pris
+      knapp={
+        <Knapp href={copy.href} data-cta={`article-final-${cluster}`} data-cta-klick={copy.href}>
+          {/* Knappen säger samma pris som raden ovanför (slutgranskningen 14 nov). */}
+          <KampanjVarianter ord={copy.knapp} kampanj={(k) => k.copy.prisKnapp} />
+        </Knapp>
+      }
+      lank={copy.sekundar}
+      bild={<SlutBild paket={paket} />}
+    />
   )
 }
 
@@ -392,68 +548,69 @@ export function GratisKort({
   className?: string
 }) {
   return (
-    <aside
-      className={`not-prose ib-gratis ib-gratis-bred ${className ?? ''}`.trim()}
-      aria-label={GRATIS_KORT.rubrik}
-      {...matning(position, cluster, 'gratis')}
-      data-cta-slug={slug}
+    <ReklamRuta
+      ikon="bock"
+      etikett={GRATIS_KORT.etikett}
+      rubrik={GRATIS_KORT.rubrik}
+      ariaLabel={GRATIS_KORT.rubrik}
+      className={`ar-gratiskort ${className ?? ''}`.trim()}
+      data={{ ...matning(position, cluster, 'gratis'), 'data-cta-slug': slug }}
+      bildSynlig
+      bild={
+        // Ingen caption: listans första rad står intill och säger bredden.
+        <div className="ar-bredd">
+          <TestBredd form="rutnat" label="Åtta testtyper och personlighetstestet, grundnivån gratis" />
+        </div>
+      }
+      knappar={
+        <>
+          <Knapp href={GRATIS_KORT.href} pil data-cta-klick={GRATIS_KORT.href}>
+            {GRATIS_KORT.knapp}
+          </Knapp>
+          <TextLank href={GRATIS_KORT.sekundar.href} data-cta-klick={GRATIS_KORT.sekundar.href}>
+            {GRATIS_KORT.sekundar.text}
+          </TextLank>
+        </>
+      }
     >
-      {/* Ordningen är mobilens: rubrik, rutnät, skäl, knapp (S7). På dator
-          lägger grid-areas listan till höger (innehall.css, ib-gratis-bred). */}
-      <div className="ig-text">
-        <p className="pub-kick">{GRATIS_KORT.etikett}</p>
-        <p className="pub-h3 ib-rub">{GRATIS_KORT.rubrik}</p>
-      </div>
-      {/* Ingen caption: listans första rad står intill och säger bredden. */}
-      <TestBredd form="rutnat" label="Åtta testtyper och personlighetstestet, grundnivån gratis" />
-      <ul className="pub-bock">
+      <ul className="ar-lista">
         {GRATIS_KORT.rader.map((r, i) => (
           <li key={r}>
             {/* Mallraden leder till verktygssidan: intern länkkraft som kortet
                 hade förut och inte får tappa (SEO-spärrlistan punkt 4). */}
             {i === GRATIS_KORT.mallrad ? (
-              <Link href="/cv-mallar" data-cta-klick="/cv-mallar" className="pub-lank" style={{ fontWeight: 500 }}>
+              <TextLank href="/cv-mallar" data-cta-klick="/cv-mallar">
                 {r}
-              </Link>
+              </TextLank>
             ) : (
               <span>{r}</span>
             )}
           </li>
         ))}
       </ul>
-      <div className="pub-handling">
-        <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp">
-          {GRATIS_KORT.knapp}
-        </Link>
-        <Link href={GRATIS_KORT.sekundar.href} data-cta-klick={GRATIS_KORT.sekundar.href} className="pub-lank">
-          {GRATIS_KORT.sekundar.text}
-        </Link>
-      </div>
-    </aside>
+    </ReklamRuta>
   )
 }
 
-/* -------------------------------------------- listans slutkort i bläck */
+/* ------------------------------------------------- listans slutkort */
 
 export function ListaSlutKort() {
   return (
-    <div {...matning('final', 'lista', 'paket')}>
-      <PremiumBlock
-        id="premium-arkiv"
-        kick={LISTA_SLUT.etikett}
-        rubrik={gradientSlut(LISTA_SLUT.rubrik)}
-        rubrikNiva="p"
-        text={<MedKampanjPris text={LISTA_SLUT.text} />}
-        punkter={LISTA_SLUT.rader}
-        knapp={
-          <Link href={LISTA_SLUT.href} data-cta-klick={LISTA_SLUT.href} className="pub-knapp">
-            {LISTA_SLUT.knapp}
-          </Link>
-        }
-        lank={{ text: 'Eller börja gratis med en CV-mall', href: '/cv-mallar' }}
-        bild={<Telefoner paket="lista" />}
-      />
-    </div>
+    <PremiumKort
+      id="premium-arkiv"
+      data={matning('final', 'lista', 'paket')}
+      etikett={LISTA_SLUT.etikett}
+      rubrik={LISTA_SLUT.rubrik}
+      text={<MedKampanjPris text={LISTA_SLUT.text} />}
+      punkter={LISTA_SLUT.rader}
+      knapp={
+        <Knapp href={LISTA_SLUT.href} data-cta-klick={LISTA_SLUT.href}>
+          {LISTA_SLUT.knapp}
+        </Knapp>
+      }
+      lank={{ text: 'Eller börja gratis med en CV-mall', href: '/cv-mallar' }}
+      bild={<SlutBild paket="lista" />}
+    />
   )
 }
 

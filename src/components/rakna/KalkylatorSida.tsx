@@ -21,6 +21,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Breadcrumb from '@/components/Breadcrumb'
 import PubliktSida from '@/components/publikt/PubliktSida'
+import { Sida } from '@/components/publikt/v3/Sida'
 import Rum from '@/components/publikt/Rum'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -191,6 +192,8 @@ export default function KalkylatorSida({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {/* Publikt omgång 3: sidans färg följer hjältens rum, så att menyn och foten står i samma färg. */}
+      <Sida farg={rum === 'jobb' ? 'jobb' : 'neutral'}>
       <PubliktSida>
         <main>
           {/* 1. Hjälten bär kalkylatorn */}
@@ -276,6 +279,7 @@ export default function KalkylatorSida({
         {/* Mätningen av nästa steg (punkt 11). Utan slug: ingen article_viewed. */}
         <ArtikelKlient cluster="career" />
       </PubliktSida>
+      </Sida>
     </>
   )
 }

@@ -12,24 +12,20 @@
  * Facit visas inte: bilden är en uppgift utan markerat svar.
  */
 
-import Link from 'next/link'
 import type { CtaCluster } from '@/lib/cta/clusters'
-import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { SpatialSvg } from '@/lib/spatialV1/ritare'
 import type { KubFigur } from '@/lib/spatialV1/types'
 import { nivakollHref, ovningsprovHref } from '@/lib/traning/rutter'
-import { MedKampanjPris } from '@/components/kampanj/Kampanj'
-import TestBredd, { type TestTyp } from '@/components/publikt/TestBredd'
-import { TEST_TYP_NAMN } from '@/components/illustrations/TestGlyfer'
+import TestBredd from '@/components/publikt/TestBredd'
+import { Knapp, TextLank } from '@/components/publikt/v3'
+import { ReklamRuta } from './ArtikelReklam'
 
-/** Kortets typ i Nio-raden (S12): "ett av åtta". I-provet har rutnätet som bild i stället. */
-const NIO_TYP: Record<Exclude<ProvKortTyp, 'iprov'>, TestTyp> = {
-  deduktiv: 'deduktiv',
-  talserie: 'talserier',
-  spatial: 'spatial',
-  ordforrad: 'ordforrad',
-}
+/*
+ * Publikt omgång 3 (skissen artikelreklam, beslut 9): provkorten får rutans
+ * form i testernas färg. Nio-raden under texten utgår som i provkortet;
+ * typens bild står på ett papper i rutan.
+ */
 
 export type ProvKortTyp = 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'iprov'
 
@@ -176,36 +172,37 @@ function Bild({ typ }: { typ: ProvKortTyp }) {
 export default function TypProvKort({ typ, cluster, slug }: { typ: ProvKortTyp; cluster: CtaCluster; slug: string }) {
   const c = TYP_PROVKORT[typ]
   return (
-    <aside
-      className={`not-prose ib-prova pub-rum-${KLUSTER_RUM[cluster]}`}
-      aria-label={c.etikett}
-      data-cta-position="inline"
-      data-cta-cluster={cluster}
-      data-cta-variant={`prov-${typ}`}
-      data-cta-slug={slug}
-    >
-      <div>
-        <p className="pub-kick">{c.etikett}</p>
-        <p className="ib-rub">{c.rubrik}</p>
-        <p className="ib-prova-text">{c.text}</p>
-        {typ !== 'iprov' ? (
-          <TestBredd form="rad" markerad={NIO_TYP[typ]} label={`En av åtta testtyper, ${TEST_TYP_NAMN[NIO_TYP[typ]]}`} />
-        ) : null}
-        <div className="pub-handling">
-          <Link href={c.href} data-cta={`article-inline-${cluster}`} data-cta-klick={c.href} className="pub-knapp">
-            {c.knapp}
-          </Link>
-          <Link href={c.sekundar.href} data-cta-klick={c.sekundar.href} className="pub-lank">
-            {c.sekundar.text}
-          </Link>
+    <ReklamRuta
+      farg="tran"
+      ikon="tran"
+      etikett={c.etikett}
+      rubrik={c.rubrik}
+      ariaLabel={c.etikett}
+      data={{
+        'data-cta-position': 'inline',
+        'data-cta-cluster': cluster,
+        'data-cta-variant': `prov-${typ}`,
+        'data-cta-slug': slug,
+      }}
+      // I-provets rutnät har en caption som läses; övriga bilder är aria-hidden själva.
+      bildSynlig={typ === 'iprov'}
+      bild={
+        <div className="ar-typbild">
+          <Bild typ={typ} />
         </div>
-        <p className="pub-liten">
-          <MedKampanjPris text={c.paketrad} />
-        </p>
-      </div>
-      <div className="ib-prova-sida">
-        <Bild typ={typ} />
-      </div>
-    </aside>
+      }
+      brod={c.text}
+      knappar={
+        <>
+          <Knapp href={c.href} pil data-cta={`article-inline-${cluster}`} data-cta-klick={c.href}>
+            {c.knapp}
+          </Knapp>
+          <TextLank href={c.sekundar.href} data-cta-klick={c.sekundar.href}>
+            {c.sekundar.text}
+          </TextLank>
+        </>
+      }
+      paket={c.paketrad}
+    />
   )
 }

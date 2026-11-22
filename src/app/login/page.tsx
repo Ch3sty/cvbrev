@@ -5,8 +5,12 @@
 // växlar mellan dem möter en design, inte två. Adressen läses på servern så
 // att skalet (och cookie-bannerns plats ovanför foten) finns redan i första
 // HTML:en, utan layoutskifte.
+//
+// Publikt omgång 3 (skissen inloggning): grundens skal på grafit. Sida
+// sätter färgen och laddar grundens CSS, formen står i registrering.css.
 
 import LoginFlode from '@/components/registrering/LoginFlode'
+import { Sida } from '@/components/publikt/v3/Sida'
 
 export default async function LoginPage({
   searchParams,
@@ -16,8 +20,10 @@ export default async function LoginPage({
   const p = await searchParams
   const s = (n: string) => (typeof p[n] === 'string' ? (p[n] as string) : null)
   return (
-    <LoginFlode
-      params={{ redirect: s('redirect'), borja: s('borja'), error: s('error'), confirmed: s('confirmed'), reset: s('reset') }}
-    />
+    <Sida farg="neutral">
+      <LoginFlode
+        params={{ redirect: s('redirect'), borja: s('borja'), error: s('error'), confirmed: s('confirmed'), reset: s('reset') }}
+      />
+    </Sida>
   )
 }

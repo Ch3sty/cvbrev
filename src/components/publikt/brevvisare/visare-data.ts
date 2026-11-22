@@ -52,6 +52,14 @@ export function visarFot(visade: number = VISARE_MALL_IDS.length, alla: number =
 }
 
 /**
+ * Länken efter fotraden (SEO:s besked 13 och 15, 2026-11-22): till
+ * säljsidan, där brevmallarna visas, inte till /cv-mallar.
+ */
+export function visarAllaLank(alla: number = BREV_MALL_ANTAL): { text: string; href: string } {
+  return { text: `Se alla ${alla} brevmallar`, href: '/verktyg/personligt-brev' }
+}
+
+/**
  * Orten ur en adress: allt efter postnumret ("Exportgatan 12, 422 46 Hisings
  * Backa" ger "Hisings Backa"), inte sista ordet. Utan postnummer den sista
  * delen efter komma ("Södermalm, Stockholm" ger "Stockholm").

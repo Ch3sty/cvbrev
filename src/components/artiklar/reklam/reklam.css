@@ -1,0 +1,190 @@
+/* =============================================================================
+   Artiklarnas reklamkort, publikt omgång 3 (skissen artikelreklam,
+   docs/design/publikt-omgang3/sidor/artikelreklam.html).
+
+   Rutan: ett mörkt block i delens färg med klack (tester indigo, CV petrol,
+   brev plommon, Jobbsöket skog). Ordningen: delens namn med dörr, rubriken
+   (ett stycke, aldrig h2/h3), verktyget i liten skala, brödtexten,
+   gratisraden i egen ruta med bock, knappen och Premium-raden. Rutan bryter
+   på behållarens bredd (620 px), inte fönstrets, så att samma ruta fungerar i
+   spalten, sidokolumnen och telefonen.
+
+   Färgerna kommer ur grundens tokens (data-p3-farg på rutan). Klasserna
+   heter ar-* och krockar inte med p3-*, pub-* eller ib-*.
+   ============================================================================= */
+
+.ar-hall { container-type: inline-size; min-width: 0; margin: 36px 0; }
+.ar-hall:first-child { margin-top: 0; }
+
+.ar-rk {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 18px;
+  padding: 22px 20px 24px;
+  border-radius: 26px;
+  background: var(--vagg);
+  color: var(--vagg-ink);
+  box-shadow: 0 8px 0 var(--vagg-3);
+  font-family: Inter, system-ui, sans-serif;
+  text-align: left;
+}
+.ar-rk::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: -24%;
+  top: -46%;
+  width: 76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--vagg-2);
+  opacity: .6;
+}
+.ar-rk > * { min-width: 0; }
+.ar-rk p { margin: 0; }
+
+.ar-ey { display: flex; align-items: center; gap: 10px; font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ljus); }
+.ar-ey .p3-dorr { width: 34px; height: 34px; border-radius: 11px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+.ar-ey .p3-dorr svg { width: 20px; height: 20px; }
+.ar-rk .ar-rub { margin-top: 12px; font-family: var(--disp); font-weight: 800; font-size: 24px; line-height: 1.12; letter-spacing: -0.02em; color: var(--vagg-ink); text-wrap: balance; }
+
+.ar-rest { display: grid; gap: 14px; }
+.ar-brod { font-size: 16px; line-height: 1.55; color: var(--vagg-mjuk); }
+.ar-gratis {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .08);
+  border: 2px solid rgba(255, 255, 255, .16);
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--vagg-ink);
+}
+.ar-gratis::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: var(--vagg-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/16px no-repeat;
+}
+.ar-gor { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 4px; }
+.ar-gor .p3-lank { color: var(--vagg-ink); font-size: 15px; }
+.ar-paket { font-size: 13.5px; line-height: 1.45; color: var(--vagg-mjuk); }
+
+/* Länkarna i räknarkortet och länkraden: vita textlänkar på väggen. */
+.ar-lankar { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.ar-lankar a { color: var(--vagg-ink); font-size: 15.5px; }
+
+/* Bilden: verktyget ur produkten, aria-hidden. */
+.ar-bild { display: grid; justify-items: center; }
+.ar-bild > * { width: 100%; max-width: 280px; }
+.ar-bild .p3-tram, .ar-bild .p3-traff, .ar-bild .p3-mj { max-width: 280px; }
+.ar-bild .p3-instr.p3-med-poang { padding-top: 66px; }
+.ar-bild .p3-svav .p3-stor { font-size: 34px; }
+.ar-bild .p3-svav .p3-under { font-size: 12.5px; }
+.ar-bild .p3-brevpar { padding-left: 12%; }
+.ar-bild .p3-annons { font-size: 12px; }
+.ar-bild .p3-traff { padding: 14px; }
+.ar-bild .p3-traff + .p3-traffrad { margin-top: 10px; }
+
+/* Testets uppgift (den riktiga expertuppgiften) på ett papper i rutan. */
+.ar-matris { padding: 12px; border-radius: 20px; background: var(--papper); color: var(--ink-1); box-shadow: 0 7px 0 rgba(0, 0, 0, .26); }
+.ar-matris-huvud { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 2px 10px; font-family: var(--disp); font-weight: 700; font-size: 14px; color: var(--ink-1); }
+.ar-matris-huvud span { font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 12px; color: var(--ink-3); }
+
+/* Mallkortet: två riktiga miniatyrer. */
+.ar-mallar { display: flex; justify-content: center; gap: 14px; }
+.ar-mallar .p3-mall { width: 112px; max-width: 46%; }
+.ar-mallar .p3-mall-rad { color: var(--vagg-ink); }
+
+/* Typkortens egna bilder (talserier, ordförråd, spatial, deduktivt) på papper. */
+.ar-typbild { padding: 14px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .24); }
+
+@container (min-width: 620px) {
+  .ar-rk {
+    grid-template-columns: minmax(0, 1fr) 272px;
+    grid-template-areas: 'huvud bild' 'rest bild';
+    gap: 14px 32px;
+    padding: 30px 30px 32px;
+    align-items: start;
+  }
+  .ar-rk.ar-utan-bild { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'huvud' 'rest'; }
+  .ar-huvud { grid-area: huvud; }
+  .ar-rest { grid-area: rest; }
+  .ar-bild { grid-area: bild; align-self: center; }
+  .ar-rk .ar-rub { font-size: 28px; }
+}
+
+/* ---------- sidokolumnens kort: Premium, sidans mörkaste ton med kopparklack ---------- */
+.ar-sido {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--vagg-3);
+  color: var(--vagg-ink);
+  padding: 22px;
+  box-shadow: 0 6px 0 var(--koppar-klack);
+}
+.ar-sido::before { content: ''; position: absolute; z-index: -1; right: -80px; top: -90px; width: 220px; height: 220px; border-radius: 50%; background: var(--vagg-2); }
+.ar-sido > * + * { margin-top: 10px; }
+.ar-sido p { margin: 0; }
+.ar-sido > * + p { margin-top: 10px; }
+.ar-sido .ar-ey { color: var(--koppar-ljus); }
+.ar-sido .ar-sido-rub { font-family: var(--disp); font-weight: 800; font-size: 20px; line-height: 1.15; letter-spacing: -0.02em; color: #fff; }
+.ar-sido .ar-sido-text { font-size: 14px; line-height: 1.45; color: var(--vagg-mjuk); }
+.ar-sido .ar-sido-pris { margin-top: 16px; font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.03em; color: #fff; }
+.ar-sido .ar-sido-pris small { display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 0; color: var(--vagg-mjuk); }
+.ar-sido .ar-sido-pris s { font-size: .5em; color: var(--vagg-mjuk); margin-left: 8px; }
+.ar-sido .p3-knapp { margin-top: 16px; }
+.ar-sido .ar-bock { margin-top: 14px; }
+.ar-sido .p3-bockar li { font-size: 14px; }
+
+/* Gratiskortet i sidokolumnen: samma form, i grafit. */
+.ar-sido.ar-sido-gratis { background: var(--vagg); box-shadow: 0 6px 0 var(--vagg-3); }
+
+/* ---------- slutkortet efter texten ---------- */
+.ar-slut-sekt { padding: 0 0 56px; background: var(--golv); }
+@media (min-width: 1024px) { .ar-slut-sekt { padding-bottom: 88px; } }
+.ar-slut-rad { display: grid; gap: 30px; }
+.ar-slut-rad > * { min-width: 0; }
+.ar-slut-text > * + * { margin-top: 14px; }
+.ar-slut-text > .p3-pris, .ar-slut-text > .p3-knapprad { margin-top: 22px; }
+.ar-slut .ar-slut-rub { font-family: var(--disp); font-weight: 800; font-size: 32px; line-height: 1.06; letter-spacing: -0.03em; color: #fff; text-wrap: balance; }
+.ar-slut .ar-slut-text-p { font-size: 17px; }
+.ar-slutbild { position: relative; width: 100%; max-width: 372px; margin: 0 auto; }
+.ar-slutbild.ar-med-resultat { padding: 104px 0 8px 22px; }
+.ar-slutbild .p3-tram { max-width: none; }
+.ar-slutbild .ar-resultat { left: 0; top: 0; width: 206px; --rot: -3deg; transform: rotate(-3deg); padding: 12px 16px 14px; }
+.ar-slutbild .ar-resultat .p3-stor { font-size: 40px; color: var(--ink-1); }
+.ar-slutbild .ar-resultat .p3-under { font-size: 13px; }
+@media (min-width: 900px) { .ar-slut .ar-slut-rub { font-size: 48px; } }
+@media (min-width: 1000px) {
+  .ar-slut-rad { grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
+  .ar-slutbild { margin-right: 0; }
+}
+
+/* ---------- gratiskortet i textspalten och listan ---------- */
+.ar-gratiskort .ar-lista { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ar-gratiskort .ar-lista li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 15px; line-height: 1.45; color: var(--vagg-ink); }
+.ar-gratiskort .ar-lista li::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: var(--vagg-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat;
+}
+.ar-gratiskort .ar-lista a { color: var(--vagg-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ar-gratiskort .ar-bredd { padding: 12px; border-radius: 16px; background: var(--papper); color: var(--ink-1); }
+
+.ar-rk :focus-visible, .ar-sido :focus-visible, .ar-slut :focus-visible { outline: 3px solid var(--koppar); outline-offset: 3px; border-radius: 6px; }
+
+/* Papper i bilderna får bläck, inte rutans ljusa text. */
+.ar-bild :is(.p3-traff, .p3-annons), .ar-slutbild .p3-traff { color: var(--ink-1); }
+.ib-arkiv-gratis .ar-hall { margin: 0; }

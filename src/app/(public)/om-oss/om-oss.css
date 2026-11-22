@@ -1,0 +1,92 @@
+/* /om-oss, publikt omgång 3 (skissen sidor/om-oss.html). Egna klasser med
+   prefixet oo-, bara tokens. */
+
+/* ---------- hjälten: från ett verktyg till fyra delar ---------- */
+.oo-vaxt { display: grid; gap: 10px; width: 100%; max-width: 520px; margin: 0 auto; }
+.oo-etk { display: inline-flex; align-items: center; width: max-content; max-width: 100%; min-height: 30px; padding: 4px 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); font-size: 13px; font-weight: 700; color: var(--vagg-ink); }
+.oo-etk-nu { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); }
+.oo-v { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 12px; align-items: center; min-width: 0; padding: 14px 16px; border-radius: 20px; background: var(--vagg-2); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 7px 0 var(--vagg-3); }
+.oo-v .p3-dorr { grid-row: span 2; width: 44px; height: 44px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+.oo-v b { font-family: var(--disp); font-weight: 800; font-size: 18px; line-height: 1.2; letter-spacing: -0.015em; }
+.oo-v span { font-size: 13.5px; line-height: 1.3; color: var(--vagg-mjuk); }
+.oo-vaxt .oo-v:nth-child(3) { width: 90%; }
+.oo-vaxt .oo-v:nth-child(4) { width: 80%; }
+.oo-vaxt .oo-v:nth-child(5) { width: 70%; }
+@media (min-width: 1000px) {
+  .oo-vaxt { gap: 12px; margin-right: 0; }
+  .oo-v { padding: 18px 20px; }
+  .oo-v b { font-size: 21px; }
+  .oo-v span { font-size: 14.5px; }
+}
+
+/* ---------- historien ---------- */
+.oo-hist > li > small { grid-column: 2; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+.oo-hist > li > h3 { grid-column: 1 / -1; }
+.oo-hist > li > p { grid-column: 1 / -1; }
+.oo-hist > li.oo-nu { border-color: var(--koppar); }
+.oo-hist .p3-steg-bild { min-height: 132px; }
+@media (min-width: 1000px) { .oo-hist > li > small { grid-column: 1; } }
+
+.oo-blad { display: block; width: 92px; padding: 10px; border-radius: 6px; background: var(--papper); box-shadow: 0 5px 0 var(--kant-stark); transform: rotate(-3deg); }
+.oo-blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: var(--kant); }
+.oo-blad i:first-child { margin-top: 0; width: 46%; background: var(--ton-ink); }
+.oo-blad i.oo-m { width: 72%; background: var(--koppar-ljus); }
+.oo-blad i.oo-k { width: 60%; }
+.oo-blad i.oo-h { width: 80%; }
+.oo-par { display: flex; align-items: flex-end; gap: 10px; }
+.oo-par .oo-blad:last-child { transform: rotate(3deg); }
+.oo-namn { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 15px; color: var(--ink-3); }
+.oo-namn s { text-decoration-thickness: 2px; }
+.oo-namn svg { width: 18px; height: 18px; flex: none; color: var(--koppar-ink); }
+.oo-logga { display: inline-flex; align-items: center; gap: 6px; font-size: 17px; color: var(--ink-1); }
+.oo-logga i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--koppar); color: var(--koppar-text); font-style: normal; font-size: 14px; box-shadow: 0 2px 0 var(--koppar-klack); }
+.oo-logga span { color: var(--ink-3); }
+.oo-fyra { display: grid; grid-template-columns: repeat(4, 40px); gap: 8px; }
+.oo-fyra .p3-dorr { width: 40px; height: 40px; }
+
+/* ---------- löftena ---------- */
+.oo-loften { display: grid; gap: 14px; }
+.oo-lofte { display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 7px; border-radius: var(--r-kort, 22px); }
+.oo-lofte-text { padding: 22px; }
+.oo-lofte-text > * + * { margin-top: 10px; }
+.oo-lofte-text h3 { color: var(--ink-1); }
+.oo-lofte-text p { font-size: 15.5px; color: var(--ink-2); }
+.oo-lofte-bild { margin-top: auto; padding: 20px 22px 24px; background: var(--golv); border-top: 2px solid var(--kant); }
+.oo-flode { display: grid; gap: 8px; }
+.oo-flode > span { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 6px 12px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 4px; font-size: 14px; font-weight: 600; color: var(--ink-1); }
+.oo-flode i { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 13px; }
+.oo-flode .oo-aldrig { background: none; border: 2px dashed var(--kant-stark); color: var(--ink-2); }
+.oo-flode .oo-aldrig i { background: var(--vagg-3); color: var(--vagg-ink); }
+.oo-flode .oo-aldrig svg { width: 14px; height: 14px; }
+.oo-kallor { display: flex; flex-wrap: wrap; gap: 8px; }
+.oo-kallor span { display: inline-grid; place-items: center; min-height: 36px; padding: 4px 12px; border-radius: 10px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 4px; font-family: var(--disp); font-weight: 700; font-size: 14.5px; color: var(--ink-1); }
+.oo-kallor span:nth-child(odd) { transform: rotate(-1.5deg); }
+.oo-kallor span:nth-child(even) { transform: rotate(1.5deg); }
+.oo-tvapris { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.oo-tvapris > span { min-width: 0; padding: 12px 14px; border-radius: 16px; }
+.oo-tvapris b { display: block; font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.03em; }
+.oo-tvapris > span > span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.3; }
+.oo-tvapris .oo-g { background: var(--positiv-mjuk); color: var(--positiv); border-bottom: 4px solid color-mix(in srgb, var(--positiv) 30%, transparent); }
+.oo-tvapris .oo-p { background: var(--vagg-3); color: var(--vagg-mjuk); border-bottom: 4px solid var(--koppar-klack); }
+.oo-tvapris .oo-p b { color: var(--vagg-ink); }
+@media (min-width: 1000px) {
+  .oo-loften { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .oo-lofte-text { padding: 28px; }
+  .oo-lofte-bild { padding: 24px 28px 28px; }
+}
+
+/* ---------- slutet: talen och kontakten ---------- */
+.oo-slut-rad { display: grid; gap: 32px; }
+.oo-tal { display: grid; gap: 12px; }
+.oo-tal > div { padding: 18px 20px; border-radius: 22px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+.oo-tal b { display: block; font-family: var(--disp); font-weight: 800; font-size: 60px; line-height: .95; letter-spacing: -0.04em; color: var(--vagg-ink); }
+.oo-tal span { display: block; margin-top: 8px; font-size: 15.5px; line-height: 1.4; color: var(--vagg-mjuk); }
+.oo-kontakt > * + * { margin-top: 14px; }
+.oo-kontakt p:not(.p3-ey) { font-size: 17px; color: var(--vagg-mjuk); }
+.oo-kontakt .p3-knapprad { margin-top: 26px; }
+.oo-kontakt .p3-lank { color: var(--vagg-ink); }
+@media (min-width: 620px) { .oo-tal { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) {
+  .oo-slut-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .oo-tal b { font-size: 84px; }
+}

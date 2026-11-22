@@ -21,7 +21,7 @@ export default function ExempelCTABand() {
           className="relative overflow-hidden rounded-[32px] p-8 sm:p-12 lg:p-16 text-white"
           style={{
             background:
-              'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+              'var(--vagg)',
           }}
         >
           <div
@@ -49,10 +49,10 @@ export default function ExempelCTABand() {
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
                 <Link
                   href="/register"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-white font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-orange-50 active:scale-[0.98] transition-all"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-[var(--koppar)] font-black text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:bg-[var(--koppar-topp)] active:scale-[0.98] transition-all"
                   style={{
-                    color: '#DC2626',
-                    boxShadow: '0 12px 32px -10px rgba(0, 0, 0, 0.25)',
+                    color: 'var(--koppar-text)',
+                    boxShadow: '0 4px 0 var(--koppar-klack)',
                   }}
                 >
                   <FileText className="w-5 h-5" strokeWidth={2.8} />

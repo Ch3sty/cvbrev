@@ -1,161 +1,167 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-
 /**
- * Demo som speglar resultatsteget i /dashboard/linkedin-optimizer: en
- * profilrad, sektionsflikar, poängen före och efter, texterna sida vid sida
- * och vad som blev bättre. Byter sektion var fjortonde sekund.
+ * Exemplet före och efter på /verktyg/linkedin-optimering (publikt omgång 3,
+ * skissen linkedin). Ersätter den rörliga demon med Anna Lindberg: ett stilla
+ * exempel med Sara Lindström, exempelpersonen i omgången, och påhittade
+ * arbetsgivare (byggbriefen, Exempel och påhittat). Poängen är exempeltal och
+ * står i aria-hidden ytor, märkta "Exempel". Serverkomponent.
+ *
+ * Profilytan (Profil) är sidans egen, grunden har ingen LinkedIn-profil.
  */
 
-type SectionKey = 'headline' | 'om' | 'erfarenhet'
+import type { ReactNode } from 'react'
+import { Chip, Knapp } from '@/components/publikt/v3'
 
-interface Scenario {
-  key: SectionKey
-  label: string
-  beforeScore: number
-  afterScore: number
-  before: string
-  after: string
-  improvements: string[]
+const RUBRIK_MAX = 220
+
+/** Saras rubrik i dag och efter, och orden en rekryterare kan söka på. */
+export const SARA_RUBRIK_FORE = 'Projektledare på Nordanvind Energi'
+const EFTER_DELAR: { text: string; ord?: boolean }[] = [
+  { text: 'Projektledare', ord: true },
+  { text: ' inom ' },
+  { text: 'energi', ord: true },
+  { text: ' och ' },
+  { text: 'bygg', ord: true },
+  { text: ' | ' },
+  { text: 'Offentlig upphandling', ord: true },
+  { text: ' enligt ' },
+  { text: 'LOU', ord: true },
+  { text: ', ' },
+  { text: 'budgetansvar', ord: true },
+  { text: ', tidplan | Leder ombyggnader från förfrågan till överlämning' },
+]
+export const SARA_RUBRIK_EFTER = EFTER_DELAR.map((d) => d.text).join('')
+const ORD_FORE = ['projektledare']
+const ORD_EFTER = EFTER_DELAR.filter((d) => d.ord).map((d) => d.text.toLowerCase().replace('lou', 'LOU'))
+
+/** Exempeltalen (aria-hidden). */
+export const POANG_RUBRIK = { fore: 32, efter: 87 }
+
+/** Rubriken med sökorden utmärkta. */
+export function RubrikEfter() {
+  return (
+    <>
+      {EFTER_DELAR.map((d, i) => (d.ord ? <mark key={i}>{d.text}</mark> : <span key={i}>{d.text}</span>))}
+    </>
+  )
 }
 
-const SCENARIOS: Scenario[] = [
-  {
-    key: 'headline',
-    label: 'Rubrik',
-    beforeScore: 32,
-    afterScore: 87,
-    before: 'Marknadsförare',
-    after:
-      'Marknadsförare som driver tillväxt för SaaS-bolag | Inbound, innehåll, betald annonsering | Jobbar med B2B-bolag i tillväxtfas',
-    improvements: ['Branschens sökord', 'Tydlig specialisering', 'Tydlig målgrupp'],
-  },
-  {
-    key: 'om',
-    label: 'Om mig',
-    beforeScore: 41,
-    afterScore: 89,
-    before:
-      'Jag är en passionerad och driven marknadsförare som älskar att jobba med människor och utveckla varumärken.',
-    after:
-      'Driver inbound och innehållsmarknadsföring för SaaS-bolag i tillväxtfas. På Klarna och Voi har jag byggt innehållsprogram som gett över 12 000 leads och sänkt kundanskaffningskostnaden med 38 procent. Specialiserad på B2B-positionering och lanseringsstrategi för techbolag.',
-    improvements: ['Konkreta resultat', 'Specifika nischer', 'Inga modeord'],
-  },
-  {
-    key: 'erfarenhet',
-    label: 'Erfarenhet',
-    beforeScore: 38,
-    afterScore: 84,
-    before: 'Marknadsförare på Klarna 2021-2023. Ansvarade för marknadsföring och kampanjer.',
-    after:
-      'Innehållsansvarig, marknad · Klarna · 2021-2023\n\nLedde innehållsstrategin för Klarnas B2B-del. Byggde en redaktion från noll till fyra skribenter och en produktion på över 40 artiklar per kvartal.\n\n• Gav 8 200 kvalificerade leads via sökoptimerat innehåll, 220 procent mer än året innan\n• Sänkte kundanskaffningskostnaden med 38 procent genom organisk spridning',
-    improvements: ['STAR-struktur', 'Siffror på resultaten', 'Handlingsverb'],
-  },
-]
-
-const SCENARIO_DURATION_MS = 14000
-
-export default function LinkedinOptimeringLiveDemo() {
-  const [scenarioIdx, setScenarioIdx] = useState(0)
-  const scenario = SCENARIOS[scenarioIdx]
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setScenarioIdx((prev) => (prev + 1) % SCENARIOS.length)
-    }, SCENARIO_DURATION_MS)
-    return () => clearTimeout(t)
-  }, [scenarioIdx])
-
+/** Profilytan: banderoll, initialer, namn, rubrik, ort och Om. */
+export function Profil({ rubrik, om, gra }: { rubrik: ReactNode; om?: ReactNode; gra?: boolean }) {
   return (
-    <div className="w-full overflow-hidden rounded-xl border border-kant bg-panel" aria-label="Exempel på en optimerad LinkedIn-profil">
-      {/* Profilrad */}
-      <div className="flex items-center gap-3 border-b border-kant px-4 py-3 sm:px-5">
-        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-insunken text-sm font-semibold text-ink-1">
-          A
+    <div className="lnk-prof">
+      <div className={`lnk-prof-ban ${gra ? 'lnk-gra' : ''}`.trim()} />
+      <div className="lnk-prof-kropp">
+        <div className={`lnk-prof-bild ${gra ? 'lnk-gra-bild' : ''}`.trim()} aria-hidden="true">
+          SL
         </div>
-        <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-semibold text-ink-1">Anna Lindberg</div>
-          <div className="truncate text-meta text-ink-3">Stockholm, marknadsförare</div>
-        </div>
+        <p className="lnk-prof-namn">Sara Lindström</p>
+        <p className="lnk-prof-rub">{rubrik}</p>
+        <p className="lnk-prof-ort">Göteborg, Västra Götalands län</p>
+        {om ? (
+          <div className="lnk-prof-om">
+            <b>Om</b>
+            {om}
+          </div>
+        ) : null}
       </div>
-
-      {/* Sektionsflikar */}
-      <div className="flex gap-1 overflow-x-auto border-b border-kant px-4 py-2 sm:px-5" aria-hidden="true">
-        {SCENARIOS.map((s, i) => (
-          <span
-            key={s.key}
-            className={`shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium ${
-              i === scenarioIdx ? 'bg-ink-1 text-white' : 'text-ink-3'
-            }`}
-          >
-            {s.label}
-          </span>
-        ))}
-      </div>
-
-      {/* Poängen */}
-      <div className="flex items-center justify-center gap-5 border-b border-kant bg-insunken px-4 py-4 sm:px-5">
-        <ScoreCircle value={scenario.beforeScore} variant="before" label="Före" />
-        <span aria-hidden="true" className="text-lg text-ink-3">
-          →
-        </span>
-        <ScoreCircle value={scenario.afterScore} variant="after" label="Efter" />
-      </div>
-
-      {/* Före och efter */}
-      <div key={scenarioIdx} className="grid min-h-[280px] grid-cols-1 gap-3 p-4 motion-safe:animate-thread-enter sm:grid-cols-2 sm:p-5">
-        <div className="rounded-lg border border-kant p-3 sm:p-4">
-          <div className="text-steg uppercase text-ink-3">Före</div>
-          <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed text-ink-2">{scenario.before}</p>
-        </div>
-        <div className="rounded-lg border border-kant-stark p-3 sm:p-4">
-          <div className="text-steg uppercase text-ink-1">Efter</div>
-          <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed text-ink-1">{scenario.after}</p>
-        </div>
-      </div>
-
-      {/* Förbättringar */}
-      <ul className="flex flex-wrap gap-1.5 border-t border-kant px-4 py-3 sm:px-5">
-        {scenario.improvements.map((imp) => (
-          <li key={imp} className="inline-flex items-center gap-1 rounded-md bg-positiv-mjuk px-2 py-1 text-xs font-medium text-positiv">
-            <span aria-hidden="true">+</span>
-            {imp}
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
 
-function ScoreCircle({ value, variant, label }: { value: number; variant: 'before' | 'after'; label: string }) {
-  const radius = 22
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference - (value / 100) * circumference
-  const efter = variant === 'after'
-
+function Tecken({ rubrik, ord, efter }: { rubrik: string; ord: readonly string[]; efter?: boolean }) {
+  const andel = Math.round((rubrik.length / RUBRIK_MAX) * 1000) / 10
   return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="relative h-14 w-14 sm:h-16 sm:w-16">
-        <svg viewBox="0 0 60 60" className="h-full w-full -rotate-90" fill="none" aria-hidden="true">
-          <circle cx="30" cy="30" r={radius} strokeWidth="5" className="fill-panel stroke-kant" />
-          <circle
-            cx="30"
-            cy="30"
-            r={radius}
-            strokeWidth="5"
-            strokeLinecap="round"
-            fill="none"
-            strokeDasharray={circumference}
-            strokeDashoffset={offset}
-            className={efter ? 'stroke-ink-1' : 'stroke-kant-stark'}
-          />
-        </svg>
-        <div className={`absolute inset-0 flex items-center justify-center text-sm font-semibold tabular-nums sm:text-base ${efter ? 'text-ink-1' : 'text-ink-3'}`}>
-          {value}
+    <div className="lnk-tecken">
+      <b>
+        Rubrikens längd{' '}
+        <span>
+          {rubrik.length} av {RUBRIK_MAX} tecken
+        </span>
+      </b>
+      <div className={`p3-stapel ${efter ? 'p3-koppar' : 'lnk-gra-stapel'}`} aria-hidden="true">
+        <i style={{ width: `${andel}%` }} />
+      </div>
+      <p>Ord en rekryterare kan söka på:</p>
+      <div className="lnk-ordrad">
+        {ord.map((o) => (
+          <span key={o} className="lnk-pa">
+            {o}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default function LinkedinOptimeringLiveDemo() {
+  return (
+    <div>
+      <div className="lnk-fe-topp">
+        <div>
+          <p className="p3-ey">Exempel, Sara Lindström</p>
+          <p className="p3-h2">Rubriken och Om mig, före och efter</p>
+          <p className="p3-varde">
+            Så ser de två första raderna ut på en profil, där rekryteraren läser dem. Erfarenhet, utbildning och kompetenser skrivs om i samma pass.
+          </p>
+        </div>
+        <div aria-hidden="true">
+          <div className="lnk-fe-tal">
+            <s>{POANG_RUBRIK.fore}</s>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+            <b>{POANG_RUBRIK.efter}</b>
+          </div>
+          <p className="p3-liten">Exempel: profilpoäng för rubriken, av 100</p>
         </div>
       </div>
-      <span className={`text-steg uppercase ${efter ? 'text-ink-1' : 'text-ink-3'}`}>{label}</span>
+
+      <div className="lnk-fe">
+        <div className="lnk-fe-kol">
+          <div className="lnk-fe-etk">
+            <Chip>I dag</Chip>
+            <span className="p3-liten">Det Sara klistrar in</span>
+          </div>
+          <Profil
+            gra
+            rubrik={SARA_RUBRIK_FORE}
+            om={<p>Jag är en driven och engagerad projektledare som trivs med många bollar i luften och tycker om att arbeta med människor.</p>}
+          />
+          <Tecken rubrik={SARA_RUBRIK_FORE} ord={ORD_FORE} />
+        </div>
+        <div className="lnk-fe-kol">
+          <div className="lnk-fe-etk">
+            <Chip typ="koppar">Efter</Chip>
+            <span className="p3-liten">Det Sara får tillbaka</span>
+          </div>
+          <Profil
+            rubrik={<RubrikEfter />}
+            om={
+              <>
+                <p>
+                  Jag leder ombyggnads- och energiprojekt åt offentliga beställare, från förfrågningsunderlag till överlämning. De senaste tre åren har jag drivit fyra
+                  upphandlingar enligt LOU och hållit ihop tidplan, budget och underentreprenörer i projekt på upp till 42 miljoner kronor.
+                </p>
+                <p>Jag började som biträdande projektledare inom logistik och tog med mig vanan att räkna på flöden. I dag är det den som gör att mina projekt blir klara före plan.</p>
+                <span className="lnk-mer">Fortsätter: vart Sara är på väg.</span>
+              </>
+            }
+          />
+          <Tecken rubrik={SARA_RUBRIK_EFTER} ord={ORD_EFTER} efter />
+        </div>
+      </div>
+
+      <div className="lnk-fe-fot">
+        <ul className="lnk-plus">
+          <li>+ Branschens sökord</li>
+          <li>+ Tydlig specialisering</li>
+          <li>+ Resultat i siffror</li>
+        </ul>
+        <Chip typ="premium">Ingår i Premium</Chip>
+        <Knapp href="/register" variant="vit" liten>
+          Optimera min profil
+        </Knapp>
+      </div>
     </div>
   )
 }

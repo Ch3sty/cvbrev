@@ -1,0 +1,281 @@
+/*
+ * /verktyg/rekryteringstester, publikt omgång 3 (skissen rekryteringstester).
+ * Egna klasser har prefixet rt-. Mått ur skissens stil, färger ur grundens
+ * tokens. Testets egna rätt- och felfärger (som i ram.css) står som två
+ * lokala tokens, eftersom grunden inte har dem som tokens.
+ */
+
+.rt-sida {
+  --rt-ratt: #2f7d5b;
+  --rt-fel: #b3382e;
+  --rt-fel-ljus: #f3b3ab;
+}
+
+/* ---------- hjälten: uppgiften i ramen, stor ---------- */
+.rt-hbild { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 98px 0 128px; min-width: 0; }
+.rt-hbild > .p3-tram { transform: rotate(1.2deg); }
+.rt-hbild .p3-tbrade { max-width: 270px; margin-left: auto; margin-right: auto; }
+.rt-hbild .rt-res { left: -4px; top: 0; transform: rotate(-4deg); }
+.rt-hbild .rt-res .p3-stor { font-size: 40px; }
+.rt-hbild .rt-regel { right: -4px; bottom: 0; width: min(260px, 76%); transform: rotate(2deg); }
+.rt-hbild .rt-regel em { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ton-ink); }
+.rt-hbild .rt-regel b { display: block; margin-top: 4px; font-family: var(--disp); font-size: 15.5px; line-height: 1.3; }
+@media (min-width: 1000px) {
+  .rt-hbild { padding: 126px 0 104px; }
+  .rt-hbild .p3-tbrade { max-width: 300px; }
+  .rt-hbild .rt-res { left: -24px; }
+  .rt-hbild .rt-res .p3-stor { font-size: 56px; }
+  .rt-hbild .rt-regel { right: -30px; }
+}
+
+/* ---------- provet utan konto ---------- */
+.rt-prov { display: grid; gap: 28px; }
+.rt-prov .p3-h2 { margin-top: 10px; }
+.rt-prov .p3-varde { margin-top: 12px; }
+.rt-provval { margin-top: 22px; }
+.rt-provval fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.rt-provval legend { padding: 0; font-family: var(--disp); font-weight: 700; font-size: 17px; color: var(--ink-1); }
+.rt-typval { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.rt-typval label { display: block; min-width: 0; cursor: pointer; }
+.rt-typval input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.rt-typval-yta { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 6px 10px; border-radius: 14px; border: 2px solid var(--kant); border-bottom-width: 4px; background: var(--papper); color: var(--ink-1); font-weight: 600; font-size: 14px; line-height: 1.15; min-width: 0; }
+.rt-typval-yta > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.rt-typval-ikon { display: grid; place-items: center; flex: none; width: 22px; height: 22px; color: var(--ton-ink); }
+.rt-typval-ikon svg { width: 22px; height: 22px; }
+.rt-typval input:checked + .rt-typval-yta { border-color: var(--ink-1); background: var(--ton); }
+.rt-typval input:focus-visible + .rt-typval-yta { outline: 3px solid var(--koppar-ink); outline-offset: 2px; }
+.rt-provval .p3-knapprad { margin-top: 22px; }
+.rt-provres { border-radius: 24px; background: var(--vagg); color: var(--vagg-ink); padding: 20px 18px; box-shadow: 0 6px 0 var(--vagg-3); }
+.rt-provres .p3-ey { color: var(--koppar-ljus); }
+.rt-provres-tal { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -.03em; margin-top: 6px; }
+.rt-provres-tal small { font-size: 20px; letter-spacing: -.01em; margin-left: 6px; }
+.rt-fem { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin-top: 16px; }
+.rt-fem span { display: grid; place-items: center; gap: 3px; padding: 9px 0 7px; border-radius: 13px; background: var(--papper); color: var(--ink-1); box-shadow: inset 0 -4px 0 var(--kant); font-size: 12px; font-weight: 700; }
+.rt-fem svg, .rt-sida .p3-tdom-rad svg.rt-m-ratt, .rt-sida .p3-tdom-rad svg.rt-m-fel { width: 22px; height: 22px; flex: none; }
+.rt-m-ratt { color: var(--rt-ratt); }
+.rt-m-fel { color: var(--rt-fel); }
+.rt-oppet { margin-top: 14px; }
+.rt-las { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 11px 14px; border-radius: 14px; background: rgba(255, 255, 255, .08); border: 2px dashed rgba(255, 255, 255, .26); font-size: 14px; color: var(--vagg-mjuk); }
+.rt-las svg { width: 20px; height: 20px; flex: none; color: var(--vagg-ink); }
+.rt-provres .p3-bockar { margin-top: 18px; }
+.rt-provres .p3-bockar li { color: var(--vagg-ink); }
+@media (min-width: 560px) { .rt-typval { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1000px) {
+  .rt-prov { grid-template-columns: 1.08fr .92fr; gap: 48px; align-items: start; }
+  .rt-provres { padding: 28px; }
+  .rt-provres-tal { font-size: 60px; }
+}
+
+/* ---------- ramen i små ytor: lättare skugga ---------- */
+.rt-sida .p3-tram.rt-liten { box-shadow: 0 5px 0 var(--kant-stark); border-color: var(--kant-stark); max-width: none; }
+.rt-sida .p3-tstycke:has(> .rt-fritt) { padding: 0; background: none; box-shadow: none; }
+.rt-fritt { display: grid; gap: 12px; }
+.rt-fritt .p3-tbrade.p3-rad span { font-size: 18px; }
+.rt-figkloss svg { width: 64% !important; height: 64% !important; }
+.rt-ref { display: grid; place-items: center; width: 124px; margin: 0 auto; padding: 10px; border-radius: 18px; background: var(--vagg-3); }
+.rt-ref span { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 12px; background: var(--papper); }
+.rt-ref svg { width: 80px; height: 80px; }
+.rt-ordkort { display: grid; place-items: center; gap: 2px; padding: 14px; border-radius: 16px; background: var(--vagg-3); color: var(--vagg-ink); }
+.rt-ordkort small { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ljus); }
+.rt-ordkort b { font-family: var(--disp); font-weight: 800; font-size: 28px; letter-spacing: .02em; }
+.rt-villkor { margin: 0; padding: 0; list-style: none; counter-reset: v; display: grid; gap: 6px; }
+.rt-villkor li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; }
+.rt-villkor li::before { counter-increment: v; content: counter(v); display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--ton); color: var(--ton-ink); font-weight: 700; font-size: 12px; }
+.rt-tabell em { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ton-ink); margin-bottom: 6px; }
+.rt-tabell table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.rt-tabell th { font-weight: 600; color: var(--ink-3); padding: 3px 4px; background: var(--golv); text-align: center; }
+.rt-tabell td { padding: 5px 4px; border-top: 1.5px solid var(--kant); text-align: center; color: var(--ink-1); }
+
+/* ---------- så fungerar det ---------- */
+.rt-topprad { display: grid; gap: 28px; align-items: end; }
+.rt-film { min-width: 0; }
+.rt-skarmar { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 16px; }
+.rt-skarm { display: grid; gap: 16px; padding: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 26px; min-width: 0; }
+.rt-skarm-text { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; }
+.rt-skarm-text p { grid-column: 1 / -1; margin-top: 6px; color: var(--ink-2); font-size: 15.5px; }
+.rt-skarm-yta { border-radius: 22px; background: var(--golv); padding: 14px; min-width: 0; display: grid; align-content: center; }
+.rt-skv { position: relative; overflow: hidden; isolation: isolate; border-radius: 20px; background: var(--vagg); color: var(--vagg-ink); padding: 14px 16px 18px; }
+.rt-skv::before { content: ''; position: absolute; z-index: -1; right: -90px; top: -120px; width: 300px; height: 300px; border-radius: 50%; background: var(--vagg-2); opacity: .7; }
+.rt-skv-topp { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--vagg-mjuk); }
+.rt-skv-topp i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: rgba(255, 255, 255, .1); color: var(--vagg-ink); }
+.rt-skv-topp svg { width: 16px; height: 16px; }
+.rt-skv-ey { margin-top: 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ljus); }
+.rt-skv-h { margin-top: 4px; font-family: var(--disp); font-weight: 800; font-size: 26px; line-height: 1.1; letter-spacing: -.02em; }
+.rt-skv-stor { font-size: 36px; }
+.rt-skv-regler { list-style: none; margin: 14px 0 22px; padding: 0; border-radius: 14px; border: 1.5px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .05); }
+.rt-skv-regler li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: center; padding: 10px 12px; font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+.rt-skv-regler li + li { border-top: 1.5px solid rgba(255, 255, 255, .14); }
+.rt-skv-regler small { display: block; font-weight: 400; font-size: 12.5px; color: var(--vagg-mjuk); }
+.rt-skv-regler i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: rgba(255, 255, 255, .12); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 13px; }
+.rt-skv-regler i svg { width: 16px; height: 16px; }
+.rt-skv-kort { position: relative; margin: -10px 10px 0; padding: 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; }
+.rt-skv-kort small { display: block; margin-top: 10px; font-size: 12.5px; color: var(--ink-3); }
+.rt-skv-stat { display: flex; gap: 22px; margin-top: 14px; }
+.rt-skv-stat b { display: block; font-family: var(--disp); font-weight: 800; font-size: 24px; line-height: 1.1; }
+.rt-skv-stat span { font-size: 12.5px; color: var(--vagg-mjuk); }
+.rt-skv-panel { margin-top: 16px; padding: 14px; border-radius: 16px; background: rgba(255, 255, 255, .07); border: 1.5px solid rgba(255, 255, 255, .16); }
+.rt-skv-panel > b { font-family: var(--disp); font-size: 15.5px; }
+.rt-sida .rt-bitar { padding: 10px 0 0; }
+.rt-skv-miss { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1.5px solid rgba(255, 255, 255, .16); font-size: 13.5px; line-height: 1.35; }
+.rt-skv-miss i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; border: 1.5px solid var(--rt-fel-ljus); color: var(--rt-fel-ljus); font-style: normal; font-family: var(--disp); font-weight: 800; }
+.rt-skv-miss span { display: block; color: var(--vagg-mjuk); }
+.rt-lista { border-radius: 20px; background: var(--papper); border: 2px solid var(--kant-stark); box-shadow: 0 5px 0 var(--kant-stark); overflow: hidden; color: var(--ink-1); }
+.rt-lista-huvud { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-family: var(--disp); font-weight: 800; font-size: 15.5px; }
+.rt-lista-huvud span { margin-left: auto; display: inline-flex; flex: none; gap: 4px; padding: 3px; border-radius: 10px; background: var(--golv); font-family: inherit; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.rt-lista-huvud span i { font-style: normal; padding: 4px 9px; border-radius: 8px; color: var(--ink-2); }
+.rt-lista-huvud span i.rt-pa { background: var(--papper); color: var(--ink-1); }
+.rt-lrad { display: grid; grid-template-columns: 26px 24px 1fr auto; gap: 10px; align-items: center; min-height: 48px; padding: 6px 14px; border-top: 1.5px solid var(--kant); font-size: 14px; font-weight: 600; }
+.rt-lrad > b { font-family: var(--disp); color: var(--ink-3); }
+.rt-lrad svg { width: 22px; height: 22px; }
+.rt-lrad small { font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+.rt-lista .p3-tdom { margin: 0 12px 14px; }
+.rt-lista .p3-tdom-kropp em + p, .rt-lista .p3-tdom-kropp p + em { margin-top: 8px; display: block; }
+@media (max-width: 480px) { .rt-skarm .p3-tram-huvud .p3-tkapsel:not(:last-child) { display: none; } }
+@media (min-width: 1000px) {
+  .rt-topprad { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .rt-skarmar { grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
+  .rt-skarm { padding: 26px; grid-template-rows: auto 1fr; }
+  .rt-skarm-yta { padding: 22px; }
+  .rt-skv { padding: 18px 22px 24px; }
+  .rt-skv-h { font-size: 32px; }
+  .rt-skv-stor { font-size: 40px; }
+}
+
+/* ---------- sex färdigheter: en liten bild av varje ---------- */
+.rt-fbild { display: flex; align-items: center; justify-content: center; gap: 8px; height: 104px; margin: -6px -6px 14px; padding: 12px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; overflow: hidden; }
+.rt-fb-bricka { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; background: var(--papper); color: var(--vagg-3); box-shadow: inset 0 -5px 0 var(--kant-stark); }
+.rt-fb-bricka svg { width: 28px; height: 28px; }
+.rt-fb-lucka { background: none; border: 3px dashed var(--koppar); box-shadow: none; color: var(--koppar-ink); font-size: 22px; }
+.rt-fb-led { height: 40px; padding: 0 12px; border-radius: 11px; background: var(--papper); color: var(--ink-1); display: grid; place-items: center; font-family: inherit; font-weight: 700; font-size: 14px; box-shadow: inset 0 -4px 0 var(--kant-stark); white-space: nowrap; }
+.rt-fb-svar { background: var(--ton-ink); color: var(--papper); box-shadow: none; }
+.rt-fb-pil { font-size: 18px; }
+.rt-fb-text { flex: 1; max-width: 250px; display: grid; gap: 6px; }
+.rt-fb-text i { height: 7px; border-radius: 4px; background: var(--kant-stark); }
+.rt-fb-text i.rt-m { background: var(--koppar); width: 78%; }
+.rt-fb-text i.rt-k { width: 55%; }
+.rt-fb-tre { display: grid; grid-template-columns: repeat(3, auto); gap: 6px; }
+.rt-fb-tre span { height: 38px; padding: 0 10px; border-radius: 11px; border: 2px solid var(--kant-stark); background: var(--papper); color: var(--ink-1); display: grid; place-items: center; font-family: inherit; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.rt-fb-tre span.rt-v { border-color: var(--ton-ink); }
+.rt-fb-rakna { display: flex; align-items: center; gap: 10px; font-size: 30px; color: var(--ink-1); letter-spacing: -.02em; }
+.rt-fb-rakna em { font-style: normal; height: 34px; padding: 0 12px; border-radius: 999px; background: var(--koppar); color: var(--koppar-text, var(--ink-1)); font-size: 16px; display: grid; place-items: center; }
+.rt-fb-tab { display: grid; grid-template-columns: repeat(4, 44px); gap: 4px; }
+.rt-fb-tab i { height: 16px; border-radius: 4px; background: var(--papper); }
+.rt-fb-tab i.rt-h { background: var(--kant-stark); }
+.rt-fb-tab i.rt-t { background: var(--koppar); }
+.rt-fard .p3-kort p { margin-top: 8px; }
+@media (max-width: 420px) { .rt-fb-tab { grid-template-columns: repeat(4, 40px); } .rt-fb-tre span { padding: 0 7px; font-size: 12px; } .rt-fb-led { padding: 0 8px; font-size: 13px; } }
+
+/* ---------- åtta testtyper ---------- */
+.rt-nivaer { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 8px; }
+.rt-nivaer li { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; }
+.rt-nivaer li b { display: block; font-family: var(--disp); font-size: 17px; }
+.rt-nivaer li b + span { display: block; font-size: 13.5px; color: var(--ink-3); }
+.rt-trappa { display: flex; align-items: end; gap: 3px; height: 30px; }
+.rt-trappa i { width: 10px; border-radius: 3px; background: var(--kant-stark); }
+.rt-trappa i.rt-pa { background: var(--ton-ink); }
+.rt-typer { display: grid; gap: 16px; margin-top: 20px; }
+.rt-typ { display: grid; gap: 16px; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 26px; min-width: 0; align-content: start; }
+.rt-typ-yta { display: grid; padding: 14px; border-radius: 20px; background: var(--golv); min-width: 0; align-content: center; }
+.rt-typ-text > p { margin-top: 8px; color: var(--ink-2); font-size: 15.5px; }
+.rt-typ-text .p3-h3 { display: flex; align-items: center; gap: 10px; }
+.rt-typ-text .p3-dorr { width: 36px; height: 36px; border-radius: 11px; flex: none; }
+.rt-typ-niva { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
+.rt-typ-niva li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 14px; color: var(--ink-2); }
+.rt-mt { margin-top: 32px; }
+@media (min-width: 760px) { .rt-nivaer { grid-template-columns: repeat(3, 1fr); } .rt-typer { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .rt-typ { padding: 22px; } .rt-typ-yta { padding: 20px; } .rt-typer { gap: 20px; } }
+
+/* ---------- vilket test: inbjudan för inbjudan ---------- */
+.rt-inbj { display: grid; gap: 14px; margin-top: 32px; }
+.rt-inbj article { display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; padding: 18px; border-radius: 22px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; min-width: 0; }
+.rt-bestar { display: flex; flex-wrap: wrap; gap: 5px; }
+.rt-bestar span { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 9px 0 6px; border-radius: 9px; background: var(--ton); color: var(--ton-ink); font-size: 12.5px; font-weight: 700; }
+.rt-bestar svg { width: 16px; height: 16px; }
+.rt-inbj p { font-size: 14.5px; color: var(--ink-2); }
+.rt-gor { display: grid; gap: 8px; align-content: end; }
+.rt-gor .p3-lank { font-size: 14.5px; padding: 6px 0; justify-self: start; }
+.rt-sida .rt-provknapp { min-height: 44px; font-size: 14.5px; padding: 0 12px; white-space: normal; text-align: center; line-height: 1.15; }
+@media (min-width: 700px) { .rt-inbj { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .rt-inbj { grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 48px; } }
+
+/* ---------- personligheten ---------- */
+.rt-pers .p3-o-text > p:not(.p3-ey):not(.p3-varde) { margin-top: 14px; }
+.rt-tretest { list-style: none; margin: 24px 0; padding: 0; display: grid; gap: 10px; }
+.rt-tretest li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: center; padding: 12px 14px; border-radius: 18px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+.rt-tretest li > b { font-family: var(--disp); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -.03em; color: var(--vagg-ink); }
+.rt-tretest li div { font-size: 14px; line-height: 1.4; color: var(--vagg-mjuk); }
+.rt-tretest li div strong { display: block; font-size: 15.5px; color: var(--vagg-ink); }
+.rt-sida .rt-profil { border-radius: 24px; background: var(--papper); color: var(--ink-1); padding: 18px; box-shadow: 0 6px 0 rgba(0, 0, 0, .25); }
+.rt-profil-ey, .rt-papper-ey { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+.rt-sida .rt-profil-mening { margin-top: 4px; font-family: var(--disp); font-weight: 700; font-size: 18px; line-height: 1.25; color: var(--ink-1); }
+.rt-profil ul { list-style: none; margin: 14px 0 0; padding: 0; }
+.rt-faktor { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; padding: 12px 0; border-top: 1.5px solid var(--kant); }
+.rt-sida .rt-faktor h3 { font-family: var(--disp); font-weight: 800; font-size: 17px; line-height: 1.2; color: var(--ink-1); }
+.rt-sida .rt-faktor p { font-size: 13px; color: var(--ink-3); margin: 0; }
+.rt-skala { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.rt-skala i { height: 12px; border-radius: 6px; background: var(--ton); }
+.rt-skala i.rt-pa { background: var(--ton-ink); }
+.rt-skala i.rt-nu { background: var(--koppar); }
+.rt-lasmot { display: grid; gap: 14px; margin-top: 24px; }
+.rt-sida .rt-papper { border-radius: 22px; background: var(--papper); color: var(--ink-1); padding: 18px; border-bottom: 5px solid rgba(0, 0, 0, .25); }
+.rt-kravrad { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: var(--golv); font-size: 14.5px; margin-top: 8px; color: var(--ink-1); }
+.rt-sida .rt-kravrad small { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-3); }
+.rt-ifraga { padding: 12px 14px; border-radius: 14px; background: var(--golv); margin-top: 8px; }
+.rt-sida .rt-ifraga b { display: block; font-family: var(--disp); font-size: 16px; line-height: 1.3; color: var(--ink-1); }
+.rt-sida .rt-ifraga span { display: block; margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+@media (max-width: 480px) { .rt-kravrad { grid-template-columns: 1fr; } .rt-kravrad .p3-chip { justify-self: start; } }
+@media (min-width: 1000px) { .rt-lasmot { grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 32px; } .rt-sida .rt-profil { padding: 26px; } }
+
+/* ---------- träningen som syns ---------- */
+.rt-tva { display: grid; gap: 24px; margin-top: 36px; }
+.rt-kurvkort { display: grid; gap: 18px; border-radius: 26px; background: var(--vagg); color: var(--vagg-ink); padding: 22px 20px; box-shadow: 0 8px 0 var(--vagg-3); }
+.rt-kurvkort .p3-ey { color: var(--koppar-ljus); }
+.rt-kurv-rad { margin-top: 6px; font-family: var(--disp); font-weight: 700; font-size: 18px; }
+.rt-kurva { width: 100%; height: auto; overflow: visible; margin-top: 12px; }
+.rt-kurva-linje { stroke: rgba(255, 255, 255, .12); }
+.rt-kurva-yta { fill: var(--koppar); fill-opacity: .16; }
+.rt-kurva-streck { stroke: var(--koppar); }
+.rt-kurva-punkt { fill: var(--vagg); stroke: var(--koppar); }
+.rt-kurva-nu { fill: var(--koppar); stroke: var(--papper); }
+.rt-trekort { display: grid; gap: 12px; }
+.rt-trekort .p3-kort p { margin-top: 8px; }
+@media (min-width: 1000px) { .rt-tva { grid-template-columns: .95fr 1.05fr; gap: 28px; margin-top: 56px; align-items: stretch; } .rt-kurvkort { padding: 36px; } }
+
+/* ---------- inför testdagen ---------- */
+.rt-forb { display: grid; gap: 20px; margin-top: 36px; }
+.rt-statkort { border-radius: 26px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant-stark); border-bottom-width: 6px; padding: 22px; align-self: start; }
+.rt-staplar { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: end; margin: 18px 0 12px; }
+.rt-staplar div { display: grid; justify-items: center; }
+.rt-staplar i { display: grid; place-items: start center; width: 100%; padding-top: 10px; border-radius: 16px 16px 6px 6px; background: var(--ton); color: var(--ton-ink); font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 30px; letter-spacing: -.02em; }
+.rt-staplar i.rt-nu { background: var(--ton-ink); color: var(--papper); }
+.rt-staplar span { margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.rt-tjugo { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; margin-top: 18px; padding-top: 18px; border-top: 2px solid var(--kant); font-size: 14.5px; color: var(--ink-2); }
+.rt-tjugo b { font-family: var(--disp); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -.03em; color: var(--koppar-ink); }
+.rt-tips { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.rt-tips li { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-content: start; padding: 18px; border-radius: 22px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; }
+.rt-tips li p { grid-column: 2; font-size: 15px; color: var(--ink-2); }
+.rt-tips li .p3-h3 { align-self: center; font-size: 19px; }
+@media (max-width: 480px) { .rt-tips li p { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .rt-forb { grid-template-columns: 380px 1fr; gap: 28px; margin-top: 56px; align-items: start; } .rt-tips { grid-template-columns: 1fr 1fr; gap: 16px; } .rt-statkort { position: sticky; top: 100px; padding: 30px; } }
+
+/* ---------- tre guider med sin bild ---------- */
+.rt-guide3 .p3-kort { display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; }
+.rt-gbild { display: grid; align-content: center; height: 110px; margin: -6px -6px 6px; padding: 14px; border-radius: 16px; background: var(--ton); }
+.rt-vecka { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.rt-vecka i { display: grid; place-items: center; height: 44px; border-radius: 10px; background: var(--papper); font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink-2); box-shadow: inset 0 -4px 0 var(--kant-stark); }
+.rt-vecka i.rt-ok { background: var(--ton-ink); color: var(--papper); box-shadow: none; }
+.rt-vecka i.rt-dag { background: var(--koppar); color: var(--ink-1); box-shadow: inset 0 -4px 0 var(--koppar-klack); }
+.rt-stanine { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; align-items: end; height: 70px; }
+.rt-stanine i { display: grid; place-items: end center; padding-bottom: 3px; border-radius: 6px 6px 3px 3px; background: var(--papper); font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink-2); }
+.rt-stanine i.rt-nu { background: var(--koppar); color: var(--ink-1); }
+.rt-mynd { display: flex; flex-wrap: wrap; gap: 5px; }
+.rt-mynd span { height: 28px; padding: 0 9px; border-radius: 8px; background: var(--papper); font-size: 12.5px; font-weight: 700; color: var(--ink-1); display: grid; place-items: center; }
+
+/* ---------- guider per testtyp: länkbrickan med h3 ---------- */
+.rt-guide .p3-dorr { color: var(--ton-ink); }
+.rt-guide .p3-dorr svg { width: 22px; height: 22px; }
+.rt-sida .rt-guide h3 { margin: 0; font-family: var(--disp); font-weight: 800; font-size: 17px; line-height: 1.2; color: var(--ink-1); align-self: end; }
+
+/* ---------- premium ---------- */
+.rt-premlank { margin-top: 14px; }
+.rt-premlank .p3-lank { color: var(--vagg-ink); }

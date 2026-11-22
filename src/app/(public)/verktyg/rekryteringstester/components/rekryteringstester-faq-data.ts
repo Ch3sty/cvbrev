@@ -24,7 +24,7 @@ function tidSvar(): string {
   return (
     `Matrislogik tar ${niva(T.matrisGrund.minuter, T.matrisAvancerad.minuter)}, verbalt resonemang ${niva(T.verbalGrund.minuter, T.verbalAvancerad.minuter)} och numeriskt resonemang ${niva(T.numeriskGrund.minuter, T.numeriskAvancerad.minuter)}. ` +
     `Övningsproven går mot klockan: ${T.matrisProv.provMinuter} minuter i matrislogik, ${T.verbalProv.provMinuter} i verbalt och ${T.numeriskProv.provMinuter} i numeriskt. ` +
-    'I träningen kan du när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.'
+    'Klockan visar provets tid men stoppar dig inte: går du över syns tiden i resultatet.'
   )
 }
 
@@ -64,7 +64,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur fungerar ett matrislogik-test?',
-    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på ' + T.matrisGrund.fragor + ' frågor per test i samma format som SHL och Cut-e använder.',
+    a: 'Du får en 3×3-matris där åtta av nio rutor innehåller en form. Formerna följer ett mönster, till exempel att antalet prickar ökar för varje rad eller att en figur roterar steg för steg. Din uppgift är att räkna ut vilken form som ska stå i den tomma rutan. Hos oss tränar du på ' + T.matrisGrund.fragor + ' uppgifter per test i samma format som SHL och Cut-e använder.',
   },
   {
     q: 'Vad är verbalt resonemang och hur tränar man på det?',
@@ -72,7 +72,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad är numeriskt resonemang?',
-    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på ' + T.numeriskGrund.fragor + ' frågor per test, och övningsprovet har ' + T.numeriskProv.fragor + '.',
+    a: 'I numeriskt resonemang får du en tabell eller ett diagram med ekonomiska siffror och ska räkna ut svaret på en fråga, oftast en procent eller skillnad. Det testar inte avancerad matematik utan din förmåga att läsa en tabell snabbt och göra rätt beräkning under tidspress. Du tränar på ' + T.numeriskGrund.fragor + ' uppgifter per test, och övningsprovet har ' + T.numeriskProv.fragor + '.',
   },
   {
     q: 'Hur tränar jag bäst inför ett rekryteringstest?',
@@ -108,7 +108,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du ' + GRUNDNIVAN_ALLA_DAG + ', med full genomgång och utan att lämna kortuppgifter. Resultatet är ditt. Att träna på din nivå så ofta du vill, avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem uppgifter provar du direkt här, utan konto, och ser resultatet och förklaringen till en av dem. Med ett gratiskonto gör du ' + GRUNDNIVAN_ALLA_DAG + ', med full genomgång och utan att lämna kortuppgifter. Resultatet är ditt. Att träna på din nivå så ofta du vill, avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

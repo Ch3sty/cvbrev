@@ -20,6 +20,8 @@ import {
   claimPendingPersonlighet,
   claimPendingTestSession,
 } from '@/lib/letters/claim-draft-client'
+import { claimPendingSokt } from '@/lib/jobbsok/provaSokt'
+import { claimPendingJobbCv } from '@/lib/jobmatching/provaCv'
 import { capture } from '@/lib/analytics/events'
 import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 import { rensaProvkalla, sparaKontokalla } from '@/lib/analytics/provkalla'
@@ -43,7 +45,11 @@ export async function hamtkedjan(signup: SignupCookie | null): Promise<string | 
       (await claimPendingCvStart(t('cv_start'))) ||
       (await claimPendingTestSession(t('test'))) ||
       (await claimPendingIntervju(t('intervju'))) ||
-      (await claimPendingPersonlighet(t('personlighet')))
+      (await claimPendingPersonlighet(t('personlighet'))) ||
+      // Den sökta tjänsten från /verktyg/sokta-tjanster (publikt omgång 3), ur localStorage.
+      (await claimPendingSokt()) ||
+      // CV:t från /verktyg/jobbmatchning (publikt omgång 3): till cv_texts, sedan Matchade jobb.
+      (await claimPendingJobbCv())
     )
   } catch (error) {
     console.error('[valkommen] Hämtkedjan misslyckades:', error)

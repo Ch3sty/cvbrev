@@ -58,8 +58,8 @@ import CVExample from '@/components/mdx/CVExample';
 // Serverrenderad; enda klientkoden är ArtikelKlient (mätning och
 // innehållsförteckningens tråd), mallväljaren och mobilens klistrade knapp.
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
-import { GratisKort, InlineKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
-import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
+import { GratisKort, InlineKort, JobbKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import { JOBB_KORT_SLUGAR, TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
 import ArtikelProv from '@/components/artiklar/prov/ArtikelProv';
 import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
@@ -658,6 +658,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 sticky={<StickyMobileCTA cluster={cluster} slug={slug} />}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
+
+                {/* Jobbsökets kort efter texten (publikt omgång 3, SEO-beskedet avsnitt 20):
+                    läggs till i artiklarna om matchning och uppföljning, ersätter inget kort. */}
+                {JOBB_KORT_SLUGAR[slug] ? <JobbKort variant={JOBB_KORT_SLUGAR[slug]} cluster={cluster} slug={slug} /> : null}
 
                 {/* Artiklar utan produkt: gratiskortet sist i texten. */}
                 {paket === 'gratis' ? <GratisKort cluster={cluster} slug={slug} position="final" /> : null}

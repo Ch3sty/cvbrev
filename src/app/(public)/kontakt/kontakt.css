@@ -1,0 +1,10 @@
+/* /kontakt, publikt omgång 3. Kontaktvägarna som små kort med kant i
+   delens färg (data-p3-farg sätter --vagg lokalt). */
+.kt-vagar { display: grid; gap: 12px; align-content: start; }
+@media (min-width: 900px) { .kt-vagar { padding-top: 8px; } }
+.kt-vagar li { padding: 18px 20px; border: 2px solid var(--kant); border-left: 8px solid var(--vagg); border-radius: 18px; background: var(--papper); color: var(--ink-1); }
+.kt-vagar .p3-h3 { font-size: 17px; margin-bottom: 4px; }
+.kt-vagar p { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.kt-vagar a { font-weight: 600; color: var(--ink-1); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; display: inline; }
+.kt-golv { height: 64px; }
+@media (min-width: 900px) { .kt-golv { height: 112px; } }

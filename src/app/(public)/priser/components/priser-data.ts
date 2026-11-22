@@ -17,6 +17,8 @@ import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT } from '@/lib/
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
 import { TESTTAL } from '@/components/publikt/testtal'
+import { BREV_GRATIS_ANTAL, BREV_GRATIS_NAMN, BREV_MALL_ANTAL, BREV_WORD_ANTAL, namnLista } from '@/components/publikt/brevmallar'
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 import { GRATIS_LISTA, GRATIS_MENING_KORT, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
@@ -61,6 +63,9 @@ export interface ComparisonGroup {
 const ja = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'ja' })
 const g = (text: string, sub?: string): ComparisonCell => ({ text, sub, ton: 'g' })
 const NEJ: ComparisonCell = { text: 'Ingår inte', ton: 'nej' }
+
+/** De gratis CV-mallarnas namn ur katalogen ("Linne och Björk"). */
+const CV_GRATIS_NAMN = namnLista(MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn))
 
 /** Tabellens kolumnhuvuden och skärmläsarens rubrik. */
 export const JAMFORELSE_KOLUMNER = {
@@ -120,13 +125,16 @@ const TESTER: ComparisonGroup = {
 export const COMPARISON: ComparisonGroup[] = [
   TESTER,
   {
-    title: 'CV och personliga brev',
+    // Publikt omgång 3 (skissen priser): fyra grupper som delarna i kontot.
+    // Gruppnamnet är ett radgruppshuvud (th), ingen rubrik.
+    title: 'CV',
     rows: [
       {
         label: 'CV-mallar',
         sub: 'som rekryteringssystem läser',
-        free: g(`${FREE_TEMPLATE_COUNT} mallar`),
-        premium: ja(`Alla ${TEMPLATE_COUNT}`),
+        // Underraderna ur nytt-innehall.md (priser): namnen och talet ur katalogen.
+        free: g(`${FREE_TEMPLATE_COUNT} mallar`, CV_GRATIS_NAMN),
+        premium: ja(`Alla ${TEMPLATE_COUNT}`, `${WORD_TEMPLATE_COUNT} också som Word`),
       },
       {
         label: 'CV-analys',
@@ -147,16 +155,41 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: ja('Utan tak'),
       },
       {
+        label: 'LinkedIn-profilen',
+        sub: 'rubrik och sammanfattning',
+        free: NEJ,
+        premium: ja('Ingår'),
+      },
+    ],
+  },
+  {
+    title: 'Personliga brev',
+    rows: [
+      {
         label: 'Personliga brev',
         sub: 'skrivna på annonsen',
         free: g('1, sedan 1 i veckan', 'läs, kopiera och ändra de två senaste'),
         premium: ja('Utan tak', 'nedladdning som PDF eller Word'),
       },
+      // Tre nya rader, lydelsen ur nytt-innehall.md (priser, tabellen). Talen
+      // och namnen ur brevmallarnas katalog.
       {
-        label: 'LinkedIn-profilen',
-        sub: 'rubrik och sammanfattning',
+        label: 'Nedladdning av brev',
+        sub: 'som PDF eller Word',
         free: NEJ,
-        premium: ja('Ingår'),
+        premium: ja('Ingår', `PDF i alla mallar, Word i ${BREV_WORD_ANTAL}`),
+      },
+      {
+        label: 'Brevmallar',
+        sub: `samma ${BREV_MALL_ANTAL} som för CV`,
+        free: g(`${BREV_GRATIS_ANTAL} mallar`, BREV_GRATIS_NAMN),
+        premium: ja(`Alla ${BREV_MALL_ANTAL}`),
+      },
+      {
+        label: 'Ton',
+        sub: 'fem att välja mellan',
+        free: g('Du väljer'),
+        premium: ja('Du väljer, eller så väljer vi efter annonsen'),
       },
     ],
   },

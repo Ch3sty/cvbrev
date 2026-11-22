@@ -50,7 +50,7 @@ const FOTO_GRATIS = MALL_KATALOG.filter((m) => m.foto && m.niva === 'gratis').ma
 
 export const STEG = [
   { rubrik: 'Välj en mall', text: 'Bläddra bland mallar i en spalt, med sidospalt, med rubriker i marginalen eller i konstnärlig form. Alla passar alla yrken, så välj den du vill att rekryteraren ska se först, och byt när du vill.' },
-  { rubrik: 'Fyll i dina uppgifter', text: 'Formuläret leder dig genom varje avsnitt. Du kan utgå från ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.' },
+  { rubrik: 'Fyll i dina uppgifter', text: 'Du skriver direkt på arket, avsnitt för avsnitt. Du kan utgå från ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.' },
   { rubrik: 'Vi flyttar in innehållet', text: 'Allt du fyller i hamnar automatiskt på rätt plats i mallen. Byter du mall efteråt följer innehållet med, utan att du fyller i något på nytt.' },
   { rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`, text: `Ladda ner ditt CV som PDF när du är nöjd, eller som Word-fil i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. I gratismallarna ${GRATIS_NAMN} väljer du fritt mellan de två formaten, Word i de övriga ingår i ${paketKort()}. CV:t sparas i ditt konto, så du kan komma tillbaka och ändra när som helst.` },
 ]

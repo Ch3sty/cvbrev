@@ -12,12 +12,12 @@ import { useRouter } from 'next/navigation'
 import { useId, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { logUserActivity } from '@/lib/activity-logger'
-import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton'
-import StatusRow from '@/components/shell/StatusRow'
-import { INPUT_CLASS } from '@/app/dashboard/profil/components/ProfileField'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
+import { Dorr, Ikon } from '@/components/publikt/v3/Ikon'
 import PubliktFlodesskal from './PubliktFlodesskal'
 import { ENTRY_STORAGE_KEY, INTENTS, lasIntent } from './intent'
 import { LOGIN, STEG2 } from './registrering-copy'
+import './registrering.css'
 
 /**
  * Godkända rekryterare hör hemma i rekryterarportalen. Fel eller timeout
@@ -37,8 +37,6 @@ async function efterInloggning(): Promise<string> {
 function sakerRelativ(v: string | null): string | null {
   return v && v.startsWith('/') && !v.startsWith('//') && !v.startsWith('/\\') ? v : null
 }
-
-const LANK = 'text-ink-1 underline decoration-kant-stark underline-offset-[3px]'
 
 export interface LoginParams {
   redirect: string | null
@@ -112,90 +110,107 @@ export default function LoginFlode({ params }: { params: LoginParams }) {
   return (
     <PubliktFlodesskal
       toppLank={{ href: registerHref, text: LOGIN.skapa, forklaring: LOGIN.harInte, onClick: markeraIngang }}
-      primar={{ text: LOGIN.primar, formId, busy, busyText: LOGIN.busy }}
-      fotnot={
-        <>
-          {LOGIN.harInte}{' '}
-          <Link href={registerHref} onClick={markeraIngang} className={LANK}>
-            {LOGIN.skapa}
-          </Link>
-        </>
-      }
+      bredd="full"
     >
-      <h1 className="font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
-        {LOGIN.rubrik}
-      </h1>
-      <p className="mt-1 text-sm leading-[22px] text-ink-2">{LOGIN.under}</p>
+      <section className="rg-konto">
+        <div className="p3-bredd rg-konto-rad rg-med-panel">
+          <div className="rg-kort">
+            <h1 className="rg-h1">{LOGIN.rubrik}</h1>
+            <p className="rg-under">{LOGIN.under}</p>
 
-      {bekraftelse && !fel ? (
-        <StatusRow tone="positive" showDot wrap className="mt-4">
-          {bekraftelse}
-        </StatusRow>
-      ) : null}
+            {bekraftelse && !fel ? (
+              <div className="rg-rad rg-bra" role="status">
+                <i aria-hidden="true">
+                  <Ikon namn="bock" />
+                </i>
+                <span>{bekraftelse}</span>
+              </div>
+            ) : null}
 
-      {fel ? (
-        <div role="alert" className="mt-3 flex items-start gap-2.5 rounded-lg border border-fel-kant bg-fel-mjuk p-3 text-fel">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="mt-px shrink-0" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 7.5v5.5M12 16.5v.01" />
-          </svg>
-          <div>
-            <p className="text-sm font-semibold leading-5">{LOGIN.fel.rubrik}</p>
-            <p className="mt-0.5 text-sm leading-[22px] text-fel-morker">{fel}</p>
+            {fel ? (
+              <div role="alert" className="rg-rad rg-fel">
+                <i aria-hidden="true">!</i>
+                <div>
+                  <p>
+                    <b>{LOGIN.fel.rubrik}</b>
+                  </p>
+                  <p>{fel}</p>
+                </div>
+              </div>
+            ) : null}
+
+            <GoogleSignInButton
+              next={mal ?? '/dashboard'}
+              label={LOGIN.google}
+              busyLabel={STEG2.googleOppnar}
+              errorText={STEG2.googleFel}
+              className="rg-google"
+            />
+            <p className="rg-eller" aria-hidden="true">
+              {STEG2.eller}
+            </p>
+
+            <form id={formId} onSubmit={skicka} noValidate className="rg-form">
+              <div className="rg-falt">
+                <label htmlFor={`${formId}-epost`}>{LOGIN.epost}</label>
+                <input
+                  id={`${formId}-epost`}
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  enterKeyHint="next"
+                  value={epost}
+                  onChange={(e) => setEpost(e.target.value)}
+                  placeholder={STEG2.epostPlats}
+                  aria-invalid={fel === LOGIN.fel.fel || undefined}
+                />
+              </div>
+              <div className="rg-falt">
+                <label htmlFor={`${formId}-losen`}>{LOGIN.losen}</label>
+                <input
+                  id={`${formId}-losen`}
+                  type="password"
+                  autoComplete="current-password"
+                  enterKeyHint="done"
+                  value={losen}
+                  onChange={(e) => setLosen(e.target.value)}
+                  aria-invalid={fel === LOGIN.fel.fel || undefined}
+                />
+                <Link href="/auth/forgot-password" className="rg-glomt">
+                  {LOGIN.glomt}
+                </Link>
+              </div>
+              <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="p3-knapp p3-knapp-bred">
+                {busy ? LOGIN.busy : LOGIN.primar}
+              </button>
+            </form>
+
+            <p className="rg-byt">
+              {LOGIN.harInte}{' '}
+              <Link href={registerHref} onClick={markeraIngang}>
+                {LOGIN.skapa}
+              </Link>
+            </p>
+          </div>
+
+          {/* Panelen bredvid kortet (nytt-innehall.md, inloggning): de fyra delarna väntar.
+              Text som läses upp, inga rubriker (sidan har bara sin H1). */}
+          <div className="rg-tillbaka">
+            <p className="p3-ey">{LOGIN.panel.kick}</p>
+            <p className="rg-h2">{LOGIN.panel.rubrik}</p>
+            <ul className="rg-vantar">
+              {LOGIN.panel.delar.map((d) => (
+                <li key={d.namn} className="rg-vt" data-p3-farg={d.farg}>
+                  <Dorr ikon={d.farg} />
+                  <b>{d.namn}</b>
+                  <span>{d.text}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      ) : null}
-
-      <GoogleSignInButton
-        next={mal ?? '/dashboard'}
-        label={LOGIN.google}
-        busyLabel={STEG2.googleOppnar}
-        errorText={STEG2.googleFel}
-        className="mt-4"
-      />
-      <AuthDivider text={STEG2.eller} />
-
-      <form id={formId} onSubmit={skicka} noValidate className="mt-3 grid gap-4">
-        <div>
-          <label htmlFor={`${formId}-epost`} className="block text-sm font-medium text-ink-1">
-            {LOGIN.epost}
-          </label>
-          <input
-            id={`${formId}-epost`}
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            autoCapitalize="none"
-            enterKeyHint="next"
-            value={epost}
-            onChange={(e) => setEpost(e.target.value)}
-            placeholder={STEG2.epostPlats}
-            aria-invalid={fel === LOGIN.fel.fel || undefined}
-            className={INPUT_CLASS}
-          />
-        </div>
-        <div>
-          <label htmlFor={`${formId}-losen`} className="block text-sm font-medium text-ink-1">
-            {LOGIN.losen}
-          </label>
-          <input
-            id={`${formId}-losen`}
-            type="password"
-            autoComplete="current-password"
-            enterKeyHint="done"
-            value={losen}
-            onChange={(e) => setLosen(e.target.value)}
-            aria-invalid={fel === LOGIN.fel.fel || undefined}
-            className={INPUT_CLASS}
-          />
-          <Link
-            href="/auth/forgot-password"
-            className="mt-1 inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4"
-          >
-            {LOGIN.glomt}
-          </Link>
-        </div>
-      </form>
+      </section>
     </PubliktFlodesskal>
   )
 }

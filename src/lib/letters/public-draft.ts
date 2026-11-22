@@ -22,6 +22,12 @@ export interface PublicDraftInput {
   /** Valfri jobbannons. Ger ett mer träffsäkert brev när den finns. */
   jobAd?: string
   yrkeSlug?: string
+  /**
+   * En av brevrummets fem toner (publikt omgång 3), validerad av rutten.
+   * Saknas den skrivs brevet professionellt, som före omgång 3. Auto ingår
+   * i Premium och tas aldrig emot här.
+   */
+  ton?: string
 }
 
 export interface PublicDraftResult {
@@ -83,7 +89,7 @@ export async function createPublicLetterDraft(
   const result = await generateCoverLetter(
     input.experience.trim(),
     jobDescription,
-    'professional',
+    input.ton || 'professional',
     'sv'
   )
 

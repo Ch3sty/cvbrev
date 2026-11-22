@@ -6,22 +6,28 @@
    står bara kartans egna: kopparrampen i fem steg (validerad: monoton,
    ett hue, ljusänden över 2:1 mot beige), sidoytorna och diagramserierna
    (validerade alla par, ljust och mörkt).
+
+   Publikt omgång 3 (2026-11-22): inget svart och inget beige. Den mörka
+   ytan (yta-black, datakorten, tipsrutan) är sidans mörkaste ton i skog
+   (--vagg-3, --vagg-2), rampens nollsteg, fjällen och rutnätet står i
+   grön grafit i stället för beige. Mörkt läge gäller bara inbäddningen
+   (/embed/jobbkartan); på den publika sidan (.p3) är kartan alltid ljus.
    ============================================================ */
 .jk {
   --display: var(--font-display), Inter, system-ui, sans-serif;
-  --black: #0F0E12; --black-2: #1A191F; --black-kant: rgba(255,255,255,.12);
-  --jobb-ton: #DCEBDD; --jobb-ink: #245C37;
-  --k0:#D8D1C4; --k1:#E58E4F; --k2:#DE7A33; --k3:#C4621F; --k4:#A14A17; --k5:#742A0C;
-  --s0:#BDB4A4; --s1:#C9743A; --s2:#BF6426; --s3:#A44F16; --s4:#833A10; --s5:#5A1F07;
-  --fjall:#B8AE9E; --sno:#FFFFFF; --moln:rgba(255,255,255,.9);
+  --black: var(--vagg-3, #112219); --black-2: var(--vagg-2, #2A4C37); --black-kant: rgba(255,255,255,.12);
+  --jobb-ton: var(--ton, #DCEBDD); --jobb-ink: var(--ton-ink, #245C37);
+  --k0:#C9D5C9; --k1:#E58E4F; --k2:#DE7A33; --k3:#C4621F; --k4:#A14A17; --k5:#742A0C;
+  --s0:#AFBDAF; --s1:#C9743A; --s2:#BF6426; --s3:#A44F16; --s4:#833A10; --s5:#5A1F07;
+  --fjall:#AEBBAE; --sno:#FFFFFF; --moln:rgba(255,255,255,.9);
   --serie-1:#E07A2F; --serie-2:#2A78D6; --serie-3:#1BAF7A;
-  --rutnat:#E7E2D9;
-  --tips-bg:#1C1917; --tips-ink:#EDE8DF; --tips-rubrik:#FFFFFF;
+  --rutnat:#DCE5DB;
+  --tips-bg:var(--vagg-3, #112219); --tips-ink:var(--vagg-ink, #F2F8F2); --tips-rubrik:#FFFFFF;
   --r:14px;
   --fokus:3px solid var(--koppar);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .jk {
+  :root:not([data-theme="light"]) .jk:not(.p3 .jk) {
     --black:#09090C; --black-2:#121116;
     --jobb-ton:#14261B; --jobb-ink:#A9C9B1;
     --k0:#3A3842; --k1:#9A4418; --k2:#B5561E; --k3:#CF6C2A; --k4:#E38A4A; --k5:#F2A86F;
@@ -32,7 +38,7 @@
     --tips-bg:#F3F2F7; --tips-ink:#2A2930; --tips-rubrik:#141317;
   }
 }
-:root[data-theme="dark"] .jk {
+:root[data-theme="dark"] .jk:not(.p3 .jk) {
   --black:#09090C; --black-2:#121116;
   --jobb-ton:#14261B; --jobb-ink:#A9C9B1;
   --k0:#3A3842; --k1:#9A4418; --k2:#B5561E; --k3:#CF6C2A; --k4:#E38A4A; --k5:#F2A86F;

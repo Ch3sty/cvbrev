@@ -19,12 +19,12 @@ export default function ExempelKategoriPaneler() {
           transition={{ duration: 0.4 }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--ink-1)] leading-[1.05] tracking-tight mb-4">
             Tre vägar till en{' '}
             <span
               style={{
                 background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  'var(--vagg)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -33,7 +33,7 @@ export default function ExempelKategoriPaneler() {
               starkare ansökan.
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-[var(--ink-2)] max-w-2xl mx-auto">
             Behöver du inspiration från ett färdigt CV? Vill du börja med en
             mall-design? Ska personligt brev skickas med? Vi har en sida för
             varje fråga.
@@ -51,16 +51,16 @@ export default function ExempelKategoriPaneler() {
           >
             <Link
               href="/cv-exempel"
-              className="group block relative overflow-hidden rounded-3xl bg-white border border-orange-100 p-6 sm:p-7 h-full hover:border-orange-300 transition-colors"
+              className="group block relative overflow-hidden rounded-3xl bg-[var(--papper)] border border-[var(--kant)] p-6 sm:p-7 h-full hover:border-[var(--kant-stark)] transition-colors"
               style={{
-                boxShadow: '0 12px 40px -16px rgba(249, 115, 22, 0.22)',
+                boxShadow: '0 4px 0 var(--kant)',
               }}
             >
               <div
                 className="absolute top-0 left-0 right-0 h-1.5"
                 style={{
                   background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                    'var(--vagg)',
                 }}
               />
 
@@ -68,27 +68,27 @@ export default function ExempelKategoriPaneler() {
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg"
                   style={{
-                    background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                    boxShadow: '0 12px 32px -10px rgba(220, 38, 38, 0.45)',
+                    background: 'var(--vagg)',
+                    boxShadow: 'none',
                   }}
                 >
                   <FileText className="w-7 h-7" strokeWidth={2.2} />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-[0.18em] text-orange-700 bg-orange-50 border border-orange-200 px-2.5 py-1 rounded-full">
+                <span className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--koppar-ink)] bg-[var(--ton)] border border-[var(--kant)] px-2.5 py-1 rounded-full">
                   {TOTAL_CV_YRKEN} yrken
                 </span>
               </div>
 
-              <h3 className="text-2xl font-black text-slate-900 mb-2 leading-tight tracking-tight">
+              <h3 className="text-2xl font-black text-[var(--ink-1)] mb-2 leading-tight tracking-tight">
                 CV-exempel
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-5">
+              <p className="text-sm text-[var(--ink-2)] leading-relaxed mb-5">
                 Se hur ett färdigt CV ser ut för ditt yrke. Konkret innehåll,
                 rätt nyckelord och kvantifierade resultat. Bra utgångspunkt
                 när du vet vad du ska skriva men behöver inspiration på hur.
               </p>
 
-              <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all">
+              <span className="inline-flex items-center gap-1.5 text-[var(--koppar-ink)] font-bold text-sm group-hover:gap-2.5 transition-all">
                 Se alla CV-exempel
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </span>
@@ -105,16 +105,16 @@ export default function ExempelKategoriPaneler() {
           >
             <Link
               href="/cv-mallar"
-              className="group block relative overflow-hidden rounded-3xl bg-white border-2 border-orange-200 p-6 sm:p-7 h-full hover:border-orange-400 transition-colors"
+              className="group block relative overflow-hidden rounded-3xl bg-[var(--papper)] border-2 border-[var(--kant)] p-6 sm:p-7 h-full hover:border-[var(--kant-stark)] transition-colors"
               style={{
-                boxShadow: '0 16px 48px -16px rgba(249, 115, 22, 0.32)',
+                boxShadow: '0 4px 0 var(--kant)',
               }}
             >
               <div
                 className="absolute top-0 left-0 right-0 h-1.5"
                 style={{
                   background:
-                    'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                    'var(--vagg)',
                 }}
               />
 
@@ -122,8 +122,8 @@ export default function ExempelKategoriPaneler() {
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-lg"
                   style={{
-                    background: 'linear-gradient(135deg, #F97316, #BE185D)',
-                    boxShadow: '0 12px 32px -10px rgba(190, 24, 93, 0.5)',
+                    background: 'var(--vagg)',
+                    boxShadow: 'none',
                   }}
                 >
                   <LayoutGrid className="w-7 h-7" strokeWidth={2.2} />
@@ -133,10 +133,10 @@ export default function ExempelKategoriPaneler() {
                 </span>
               </div>
 
-              <h3 className="text-2xl font-black text-slate-900 mb-2 leading-tight tracking-tight">
+              <h3 className="text-2xl font-black text-[var(--ink-1)] mb-2 leading-tight tracking-tight">
                 CV-mallar
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-5">
+              <p className="text-sm text-[var(--ink-2)] leading-relaxed mb-5">
                 Färdiga design-mallar att fylla med ditt eget innehåll.
                 Modern, traditionell, kreativ. Yrkesspecifika varianter för
                 vård, lärare, säljare och fler. Alla ATS-säkra och gratis.
@@ -162,8 +162,8 @@ export default function ExempelKategoriPaneler() {
               className="group block relative overflow-hidden rounded-3xl p-6 sm:p-7 h-full text-white"
               style={{
                 background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                boxShadow: '0 24px 60px -20px rgba(220, 38, 38, 0.55)',
+                  'var(--vagg)',
+                boxShadow: 'none',
               }}
             >
               <div
@@ -180,7 +180,7 @@ export default function ExempelKategoriPaneler() {
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30">
                     <Mail className="w-7 h-7 text-white" strokeWidth={2.2} />
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-[0.18em] bg-white text-orange-700 px-2.5 py-1 rounded-full shadow-md">
+                  <span className="text-[11px] font-black uppercase tracking-[0.18em] bg-[var(--papper)] text-[var(--koppar-ink)] px-2.5 py-1 rounded-full shadow-md">
                     {TOTAL_BREV_YRKEN} yrken
                   </span>
                 </div>

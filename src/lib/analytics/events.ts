@@ -163,11 +163,19 @@ export interface AnalyticsEvents {
   example_viewed: { kind: 'letter' | 'cv'; yrke_slug: string }
   example_cta_clicked: { kind: 'letter' | 'cv'; yrke_slug: string; target: string }
   sample_started: ClusterContext &
-    SampleIntervju & { kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'; yrke_slug?: string }
+    SampleIntervju & {
+      kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'
+      yrke_slug?: string
+      /** Brevets startflöde: mallen och tonen (publikt omgång 3). */
+      template?: string
+      ton?: string
+    }
   sample_completed: ClusterContext &
     SampleIntervju & {
       kind: 'letter' | 'cv' | 'test' | 'cv_analysis' | 'interview' | 'personality'
       yrke_slug?: string
+      template?: string
+      ton?: string
       /** Millisekunder från start till färdigt resultat. */
       duration_ms?: number
       /** Intervjuprovets nivå, 1 till 5. */
@@ -258,7 +266,8 @@ export interface AnalyticsEvents {
   profile_photo_uploaded: { source: 'upload'; resized: boolean; bytes_before: number; bytes_after: number }
   profile_photo_failed: { reason: 'too_large' | 'type' | 'network' }
   letter_tone_default_set: { tone: string }
-  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality' | 'cv_prova'; yrke_slug?: string }
+  /** template: brevmallen som följde med från startflödet (publikt omgång 3). */
+  draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality' | 'cv_prova'; yrke_slug?: string; template?: string }
   /* Kontosteget efter provet (analysen 2026-11-08, punkt 2): varje steg ska
      ha en händelse, och ett fel en felkod. draft_claim_failed när provet inte
      gick att koppla till det nya kontot (felkod http_404, http_401, natverk).

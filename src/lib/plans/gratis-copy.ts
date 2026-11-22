@@ -34,6 +34,8 @@ export const Ord = (n: number): string => {
 export const GRATIS_CHATTFRAGOR = 10
 export const GRATIS_BREVFONSTER = 'var sjunde dag'
 export const GRATIS_PASTAENDEN = 50
+/** Intervjuprov om dagen på gratisnivån (DAILY_LIMIT_INTERVIEW_SAMPLES i kvottjänsten). */
+export const GRATIS_INTERVJUPROV_PER_DAG = 1
 
 /** "åtta" */
 export const TESTTYPER_ORD = ord(ANTAL_TESTTYPER)

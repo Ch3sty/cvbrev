@@ -34,7 +34,8 @@ import {
   type PlanLength,
 } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
+import { GRATIS_INTERVJUPROV_PER_DAG, GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA_DAG, ord } from '@/lib/plans/gratis-copy'
+import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
@@ -168,7 +169,7 @@ export const GRATIS = {
 
 export interface FunktionKort {
   id: string
-  scen: 'cv' | 'brev' | 'matris' | 'match' | 'coach'
+  scen: 'cv' | 'brev' | 'matris' | 'match' | 'coach' | 'sokta' | 'intervju'
   scenAlt: string
   rubrik: string
   sub: string
@@ -183,6 +184,11 @@ export interface FunktionKort {
 
 /** "Ingår i Premium. Gratis: …" (copy-premium avsnitt 3). */
 const ingarGratis = (gratis: string) => `Ingår i ${PREMIUM}. Gratis: ${gratis}`
+
+/** Talet i neutrum ("ett intervjuprov"), siffran över tio. */
+const ettOrd = (n: number): string => (n === 1 ? 'ett' : ord(n))
+/** Dagarna som ord upp till tolv ("tolv tysta dagar"), annars siffran. */
+const dagarOrd = (n: number): string => (n === 11 ? 'elva' : n === 12 ? 'tolv' : ord(n))
 
 export const FUNKTIONER = {
   h2: 'Vad du faktiskt får, funktion för funktion',
@@ -224,12 +230,12 @@ export const FUNKTIONER = {
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
       sub: ingarGratis(`${GRUNDNIVAN_ALLA_DAG}, med genomgång.`),
-      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i de typer de stora urvalstesten använder: matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga och ordförråd, i tre nivåer från grund till expert, plus personlighetstestet. I övningsprovet går klockan på riktigt i samma format som Matrigma, Alva, SHL, Aon och I-provet, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och din utveckling dag för dag visar när du är redo.',
+      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i de typer de stora urvalstesten använder: matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga och ordförråd, i tre nivåer från grund till expert, plus personlighetstestet. I övningsprovet går klockan på riktigt i samma format som Matrigma, Alva, SHL, Aon och I-provet, och provet lämnas in automatiskt när tiden är ute. Efter varje uppgift får du förklaringen, inte bara facit, och din utveckling dag för dag visar när du är redo.',
       steg: [
         'Grundnivån visar var du står i varje typ.',
-        'Träna på avancerad och expertnivå i din svagaste typ, med förklaring på varje fråga.',
+        'Träna på avancerad och expertnivå i din svagaste typ, med förklaring efter varje uppgift.',
         'Kör övningsprovet mot klockan när du är redo. Automatisk inlämning, resultat direkt.',
-        'Följ din utveckling, pass för pass.',
+        'Följ din utveckling, test för test.',
       ],
       ingar: ['allt'],
       bred: true,
@@ -244,6 +250,29 @@ export const FUNKTIONER = {
       rubrik: 'Matchade jobb',
       sub: ingarGratis('tre träffar.'),
       text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot annonserna i Platsbanken. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste. Du får de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilken av dina roller som matchar och vilka av dina kompetenser annonsen frågar efter. Från en träff skriver du det personliga brevet, sparar annonsen till Ska sökas eller markerar den som sökt.`,
+      ingar: ['allt'],
+    },
+    // Två av Jobbsökets fyra flikar (textbeslut GEM-12 och B-9). Står mellan
+    // Matchade jobb och Jobbcoachen, i rummets ordning.
+    {
+      id: 'sokta-tjanster',
+      scen: 'sokta',
+      scenAlt: 'Sökta tjänster, från Ska sökas till Erbjudande',
+      rubrik: 'Sökta tjänster',
+      sub: `Gratis för alla med konto. I ${PREMIUM}: uppföljningsmejl till varje sökt tjänst och rapporten att skriva ut.`,
+      text: `Den som söker många jobb tappar lätt bort vem som har svarat. Här sparar du annonsen du ska söka, med sista ansökningsdag, loggar den du har sökt och följer varje tjänst från Sökt till Erbjudande. Veckans mål håller takten uppe. Efter ${dagarOrd(NO_RESPONSE_NUDGE_DAYS)} tysta dagar föreslår vi ett uppföljningsmejl och skriver utkastet, som öppnas i din egen e-post. Vi skickar aldrig något åt dig. Månadens sökta jobb står sammanställda som underlag till aktivitetsrapporten hos Arbetsförmedlingen, och den lämnar du in själv.`,
+      ingar: ['allt'],
+      lank: { text: 'Så fungerar Sökta tjänster', href: '/verktyg/sokta-tjanster' },
+    },
+    {
+      id: 'infor-intervjun',
+      scen: 'intervju',
+      scenAlt: 'Intervjuprovet med återkoppling på svaret',
+      rubrik: 'Inför intervjun',
+      sub: ingarGratis(`${ettOrd(GRATIS_INTERVJUPROV_PER_DAG)} intervjuprov om dagen.`),
+      // "sju dagar" är INTERVJU_BESKED_DAGAR på feat/jobbsoket-omgang2, som
+      // ännu inte finns i den här grenens bas.
+      text: 'Svara på en intervjufråga och få återkoppling som från en rekryterare: vad som hördes, och vad som saknades. När du är kallad skriver du in när intervjun är, så står den under Intervjuer på gång med förberedelserna bredvid. Efteråt frågar vi hur det gick, och hör du inget på sju dagar påminner vi om att fråga efter besked.',
       ingar: ['allt'],
     },
     {

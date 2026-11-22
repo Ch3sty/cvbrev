@@ -100,7 +100,7 @@ export default function CvMallarEnklaSida() {
               <p>
                 Därför väljer många en enkel mall när de söker i offentlig sektor, vården, banker och på advokatbyråer, där arbetsgivaren
                 förväntar sig ordning före form. Mer om luft, typsnitt och rubriker finns i guiden om{' '}
-                <Link href="/artiklar/hur-ska-ett-cv-se-ut" className="pub-lank">
+                <Link href="/artiklar/hur-ska-ett-cv-se-ut" className="cvm-lank">
                   hur ett CV ska se ut
                 </Link>
                 .
@@ -159,11 +159,11 @@ export default function CvMallarEnklaSida() {
               </p>
               <p>
                 Hur du skriver ett starkt CV när erfarenheten är kort går vi igenom i guiden om{' '}
-                <Link href="/artiklar/cv-utan-erfarenhet" className="pub-lank">
+                <Link href="/artiklar/cv-utan-erfarenhet" className="cvm-lank">
                   CV utan erfarenhet
                 </Link>
                 , och för dig som precis har tagit examen finns ett{' '}
-                <Link href="/artiklar/cv-exempel-student-nyexaminerad" className="pub-lank">
+                <Link href="/artiklar/cv-exempel-student-nyexaminerad" className="cvm-lank">
                   CV-exempel för student och nyexaminerad
                 </Link>
                 .

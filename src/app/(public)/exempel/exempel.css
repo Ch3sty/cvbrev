@@ -1,0 +1,9 @@
+/* /exempel, publikt omgång 3 (grundens skal, BYGGBRIEF beslut 10). */
+.ex-h1-led { color: var(--koppar-ljus); }
+.p3-lank.ex-inlank { display: inline; min-height: 0; color: var(--vagg-ink); }
+.ex-knappikon { width: 20px; height: 20px; flex: none; }
+.ex-trust { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; font-weight: 600; color: var(--vagg-ink); }
+.ex-trust li { display: inline-flex; align-items: center; gap: 6px; }
+.ex-trust svg { width: 16px; height: 16px; color: var(--koppar-ljus); }
+.ex-hjaltebild { width: 256px; height: 256px; margin: 0 auto; }
+@media (min-width: 640px) { .ex-hjaltebild { width: 320px; height: 320px; } }

@@ -4,8 +4,14 @@
  * Populara yrken (12) -> Bransch-hub (6 kategorier) -> Sa anvander du ->
  * FAQ -> CTA-band.
  * SEO: WebPage + BreadcrumbList + FAQPage + ItemList JSON-LD.
+ *
+ * Publikt omgång 3: grundens skal (BYGGBRIEF beslut 10). Hjälten står på
+ * väggen med brödsmulan (BreadcrumbList skrivs här som förut), resten på
+ * golvet med grundens tokens i stället för vitt och orange. Text, rubriker,
+ * länkar och schema som förut.
  */
-import Breadcrumb from '@/components/Breadcrumb'
+import { Sida } from '@/components/publikt/v3'
+import './exempel.css'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import ExempelHero from './components/ExempelHero'
 import ExempelKategoriPaneler from './components/ExempelKategoriPaneler'
@@ -95,7 +101,7 @@ export default function ExempelPage() {
   }
 
   return (
-    <>
+    <Sida farg="neutral">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
@@ -113,16 +119,7 @@ export default function ExempelPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <main className="bg-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <Breadcrumb
-            items={[
-              { name: 'Hem', href: '/' },
-              { name: 'Exempel', href: '/exempel' },
-            ]}
-          />
-        </div>
-
+      <main className="min-h-screen">
         <ExempelHero />
         <ExempelKategoriPaneler />
         <ExempelPopulara />
@@ -132,6 +129,6 @@ export default function ExempelPage() {
         <ExempelFAQ />
         <ExempelCTABand />
       </main>
-    </>
+    </Sida>
   )
 }

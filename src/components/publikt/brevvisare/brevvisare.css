@@ -10,11 +10,12 @@
 .mv-hall { container: mv / inline-size; margin: 28px 0; }
 .mv {
   position: relative;
-  background: var(--panel);
-  border: 1px solid var(--kant);
-  border-radius: 22px;
+  /* Omgång 3: papper med klack, plommonytan överst (data-p3-farg=brev ger tokens). */
+  background: var(--papper, #fff);
+  border: 2px solid var(--kant);
+  border-bottom-width: 6px;
+  border-radius: var(--r-kort, 22px);
   overflow: hidden;
-  box-shadow: var(--lyft);
   color: var(--ink-1);
   font-family: var(--body, Inter, system-ui, sans-serif);
   font-size: 16px;
@@ -31,12 +32,11 @@
   position: relative;
   overflow: hidden;
   padding: 8px 16px 18px;
-  --koppar: #E07A2F;
-  color: #F5F6FC;
-  background: radial-gradient(120% 90% at 85% 0%, #56284A 0%, #3A1930 60%);
+  color: var(--vagg-ink);
+  background: radial-gradient(120% 90% at 85% 0%, var(--vagg-2) 0%, var(--vagg) 60%);
 }
 .mv-topp { display: flex; align-items: center; justify-content: space-between; min-height: 44px; margin-bottom: 8px; }
-.mv-kick { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E29DCB; }
+.mv-kick { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ljus); }
 .mv-tillbaka {
   display: inline-flex; align-items: center; gap: 8px;
   min-height: 44px; padding: 0 16px 0 12px; margin-left: -4px;
@@ -85,8 +85,10 @@
 .mv-laddar { position: absolute; z-index: 3; left: 0; top: 0; height: 3px; width: 42%; background: var(--koppar); border-radius: 0 3px 3px 0; animation: mv-lopp .9s ease-in-out infinite; }
 @keyframes mv-lopp { from { transform: translateX(-100%); } to { transform: translateX(240%); } }
 
-/* Miniatyrerna: fem i rad på telefon, aldrig rullning. */
-.mv-rad { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 24px auto 0; max-width: 420px; }
+/* Miniatyrerna: fem i rad på telefon, aldrig rullning, och ÖVER arket (omgång 3),
+   så att cookieraden på 375 x 667 bara täcker brevets nedre del. */
+.mv-bord { display: flex; flex-direction: column; }
+.mv-rad { order: -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0 auto 22px; width: 100%; max-width: 420px; }
 .mv-mini {
   appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit;
   /* Spalten låst till cellens bredd: ett långt namn (Terrakotta) får sticka ut åt sidorna,
@@ -116,7 +118,8 @@
 .mv-namnrad b { font-family: var(--display, var(--font-display), Inter, system-ui, sans-serif); font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -.015em; color: var(--ink-1); }
 .mv-namnrad span { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
 .mv-fot { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
-.mv-sockel .pub-knapp { width: 100%; margin: 4px 0 2px; }
+.mv-sockel .mv-knapp { width: 100%; margin: 4px 0 8px; }
+.mv-alla { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: 15px; color: var(--ink-1); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .mv-lank {
   justify-self: start; display: inline-flex; align-items: center; min-height: 44px;
   font-weight: 600; font-size: 16px; color: var(--ink-1);
@@ -126,16 +129,16 @@
 .mv-lank svg { width: 18px; height: 18px; margin-left: 6px; flex: none; }
 
 /* Brevet som text (förhandsvisningen i artiklarna), utan JavaScript. */
-.mv-text { border-top: 1px solid var(--kant); margin: 2px -16px -18px; }
+.mv-text { border-top: 2px solid var(--kant); margin: 2px -16px -18px; }
 .mv-text summary {
   list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
   min-height: 52px; padding: 0 16px; font-weight: 600; font-size: 15.5px; color: var(--ink-1);
 }
 .mv-text summary::-webkit-details-marker { display: none; }
-.mv-text-ikon { flex: none; width: 28px; height: 28px; display: block; }
-.mv-text-ikon circle { stroke: var(--kant-stark); }
-.mv-text-ikon path { stroke: var(--ink-2); }
-.mv-text[open] .mv-text-ikon { transform: rotate(45deg); }
+/* Plus och minus i en liten ruta, som i frågorna (omgång 3). */
+.mv-text-ikon { display: none; }
+.mv-text summary::after { content: '+'; flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); font-weight: 700; font-size: 20px; }
+.mv-text[open] summary::after { content: '\2212'; }
 .mv-text summary:focus-visible { outline: 3px solid var(--koppar); outline-offset: -3px; border-radius: 4px; }
 .mv-text-brev { padding: 4px 16px 20px; display: grid; gap: 12px; max-width: 68ch; }
 .mv-text-brev p { font-size: 15.5px; line-height: 1.65; color: var(--ink-1); }
@@ -146,11 +149,11 @@
 @container mv (min-width: 700px) {
   .mv-scen { padding: 12px 28px 34px; }
   .mv-topp { margin-bottom: 12px; }
-  .mv-bord { display: flex; justify-content: center; align-items: flex-start; gap: 52px; }
+  .mv-bord { flex-direction: row; justify-content: center; align-items: flex-start; gap: 52px; }
   .mv-bunt { width: 452px; margin: 0; flex: none; }
   .mv-kik-v { transform: translateX(-31px) rotate(-2.3deg) scale(.96); }
   .mv-kik-h { transform: translateX(31px) rotate(2.3deg) scale(.96); }
-  .mv-rad { display: flex; flex-direction: column; justify-content: space-between; gap: 0; width: 72px; height: 639px; margin: 0; flex: none; padding-top: 4px; }
+  .mv-rad { order: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 0; width: 72px; height: 639px; margin: 0; flex: none; padding-top: 4px; }
   .mv-mini { gap: 6px; }
   .mv-mini-namn { font-size: 12.5px; }
   .mv-mini[aria-pressed='true'] .mv-mini-bild { transform: translateX(-6px); }
@@ -163,8 +166,9 @@
   .mv-namnrad b { font-size: 24px; margin-right: 6px; }
   .mv-namnrad span { font-size: 16.5px; }
   .mv-fot { grid-column: 1 / -1; grid-row: 2; font-size: 14.5px; }
-  .mv-sockel .pub-knapp, .mv-sockel .mv-lank { grid-column: 2; grid-row: 1; width: auto; justify-self: end; margin: 0; }
-  .mv-text { grid-column: 1 / -1; grid-row: 3; margin: 14px -28px -22px; }
+  .mv-sockel .mv-knapp, .mv-sockel .mv-lank { grid-column: 2; grid-row: 1; width: auto; justify-self: end; margin: 0; }
+  .mv-alla { grid-column: 1 / -1; grid-row: 3; }
+  .mv-text { grid-column: 1 / -1; grid-row: 4; margin: 14px -28px -22px; }
   .mv-text summary { padding: 0 28px; }
   .mv-text-brev { padding: 4px 28px 26px; }
 }

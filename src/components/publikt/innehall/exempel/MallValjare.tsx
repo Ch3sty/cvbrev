@@ -37,6 +37,8 @@ export interface BrevValjarData {
   yrke: string
   mallar: VisarMall[]
   fot: string
+  /** Länken efter fotraden: "Se alla 40 brevmallar" (omgång 3). */
+  alla?: { text: string; href: string }
   /** /skapa-brev/start?yrke=<slug>, samma som "Använd som mall". */
   href: string
   /** Kommentarskortets fyllda knapp, som göms medan visaren är öppen. */
@@ -87,8 +89,9 @@ function BrevValjare({ papperId, brev }: { papperId: string; brev: BrevValjarDat
             brev={`slug=${encodeURIComponent(brev.slug)}`}
             yrke={brev.yrke}
             kontext="exempel"
-            handling={{ text: T.skriv, href: brev.href }}
+            handling={{ text: T.anvand, href: brev.href }}
             fot={brev.fot}
+            alla={brev.alla}
             onTillbaka={() => setOppen(false)}
             tillbakaRef={tillbaka}
             rotRef={visarenRitad}
@@ -104,12 +107,12 @@ function BrevValjare({ papperId, brev }: { papperId: string; brev: BrevValjarDat
         onClick={() => setOppen(true)}
         data-byt-mall=""
       >
-        <span className="ib-byt-bunt" aria-hidden="true">
-          <i className="m1" />
-          <i className="m2" />
-          <i className="m3" />
-          <i className="m4" />
-          <i className="m5" />
+        {/* De fem riktiga miniatyrerna (omgång 3), samma som i visaren. */}
+        <span className="ib-byt-bunt ib-byt-bilder" aria-hidden="true">
+          {brev.mallar.map((m) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={m.id} src={m.bild} alt="" width={480} height={679} loading="lazy" decoding="async" />
+          ))}
         </span>
         {T.bytMall}
       </button>

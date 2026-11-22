@@ -1,0 +1,5 @@
+/* /hjalpcenter, publikt omgång 3. Länkkorten i grundens kortform. */
+.hc-kort { display: grid; align-content: start; text-decoration: none; transition: border-color .15s; }
+.hc-kort:hover { border-color: var(--kant-stark); }
+.hc-amnen { display: grid; gap: 4px; font-size: 14px; color: var(--ink-3); }
+.hc-amnen li::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--koppar); margin-right: 8px; vertical-align: 2px; }

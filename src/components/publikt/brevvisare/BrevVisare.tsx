@@ -21,6 +21,7 @@ import { useEffect, useRef, useState, type ReactNode, type Ref } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { VISARE_TEXT as T } from './texter'
 import type { VisarMall } from './visare-data'
+import '@/components/publikt/v3/v3.css'
 import './brevvisare.css'
 
 interface Props {
@@ -32,6 +33,8 @@ interface Props {
   kontext: 'exempel' | 'artikel'
   handling: { text: string; href: string }
   fot: string
+  /** Länken efter fotraden, "Se alla 40 brevmallar" till säljsidan (räknad på servern). */
+  alla?: { text: string; href: string }
   /** Artiklarna: arket hämtas först när det närmar sig vyn. */
   lazy?: boolean
   /** Exempelsidan: "Visa exemplet igen". */
@@ -55,7 +58,7 @@ const PIL_H = (
 
 const sida = () => window.location.pathname
 
-export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling, fot, lazy, onTillbaka, tillbakaRef, rotRef, children }: Props) {
+export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling, fot, alla, lazy, onTillbaka, tillbakaRef, rotRef, children }: Props) {
   const [i, setI] = useState(0)
   // Arket som syns nu; skiljer det sig från i laddas i i ett lager ovanpå.
   const [visad, setVisad] = useState(0)
@@ -77,6 +80,10 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
   const laddar = i !== visad
   const lager = laddar ? [visad, i] : [i]
   const m = mallar[i]
+  // Den valda mallen följer med i adressen in i startflödet och därifrån in i
+  // kontot (byggbriefens beslut 6). Första mallen (Linne, den som står i
+  // serverns HTML) ger samma adress som förut (SEO:s besked 13 och 15).
+  const href = i === 0 ? handling.href : `${handling.href}${handling.href.includes('?') ? '&' : '?'}mall=${encodeURIComponent(m.id)}`
   const fore = i > 0 ? i - 1 : null
   const efter = i < mallar.length - 1 ? i + 1 : null
 
@@ -99,7 +106,7 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
 
   return (
     <div className="mv-hall not-prose">
-      <div ref={rotRef} className="mv pub-rum-brev" aria-busy={laddar ? 'true' : undefined} data-mv-kontext={kontext}>
+      <div ref={rotRef} className="mv pub-rum-brev" data-p3-farg="brev" aria-busy={laddar ? 'true' : undefined} data-mv-kontext={kontext}>
         <div className="mv-scen">
           <div className="mv-topp">
             {kontext === 'exempel' ? (
@@ -179,9 +186,9 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
           </p>
           {kontext === 'exempel' ? (
             <a
-              className="pub-knapp"
-              href={handling.href}
-              data-cta-klick={handling.href}
+              className="p3-knapp mv-knapp"
+              href={href}
+              data-cta-klick={href}
               onClick={() => capture('mallvisning_klick', { slug: sida(), template: m.id, typ: 'brev' })}
             >
               {handling.text}
@@ -189,8 +196,8 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
           ) : (
             <a
               className="mv-lank"
-              href={handling.href}
-              data-cta-klick={handling.href}
+              href={href}
+              data-cta-klick={href}
               onClick={() => capture('mallvisning_klick', { slug: sida(), template: m.id, typ: 'brev' })}
             >
               {handling.text}
@@ -198,6 +205,11 @@ export default function BrevVisare({ mallar, brev = '', yrke, kontext, handling,
             </a>
           )}
           <p className="mv-fot">{fot}</p>
+          {alla ? (
+            <a className="mv-alla" href={alla.href}>
+              {alla.text}
+            </a>
+          ) : null}
           {children}
         </div>
       </div>

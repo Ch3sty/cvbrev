@@ -16,6 +16,7 @@
  */
 
 import { capture } from '@/lib/analytics/events'
+import { lasUtkastVal, rensaUtkastVal } from './publikt-brev-val'
 
 const DRAFT_STORAGE_KEY = 'jc_pending_draft'
 const CV_START_STORAGE_KEY = 'jc_pending_cv_start'
@@ -69,30 +70,38 @@ export function storePendingCvStart(value: string): void {
  * Hämtar ett väntande brevutkast. Token läses i första hand ur URL:en
  * (/register?draft=token), annars ur sessionStorage.
  *
- * Returnerar path till brevet, eller null om inget väntar.
+ * Publikt omgång 3: valet från startflödet (mall, ton, annons), sparat
+ * bredvid token i localStorage (publikt-brev-val.ts), skickas med, så att
+ * brevet öppnas i den valda mallen. Valet tas bort när claim har svarat.
+ *
+ * Returnerar path till brevet (eller till Mallar med Premiummallen provad),
+ * eller null om inget väntar.
  */
 export async function claimPendingDraft(fran?: string | null): Promise<string | null> {
   const token = fran ?? readQueryParam('draft') ?? readSession(DRAFT_STORAGE_KEY)
   if (!token) return null
+  const val = lasUtkastVal(token)
 
   try {
     const res = await fetch('/api/public/letter-draft/claim', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token, ...(val ?? {}) }),
     })
 
     if (!res.ok) {
       clearSession(DRAFT_STORAGE_KEY)
+      if (res.status !== 401) rensaUtkastVal()
       return null
     }
 
     const data = (await res.json()) as { redirect?: string }
     clearSession(DRAFT_STORAGE_KEY)
+    rensaUtkastVal()
 
     if (!data.redirect) return null
 
-    capture('draft_claimed', { kind: 'letter' })
+    capture('draft_claimed', { kind: 'letter', ...(val?.mall ? { template: val.mall } : {}) })
     return data.redirect
   } catch (err) {
     console.error('[claim-draft] Kunde inte hämta utkastet:', err)

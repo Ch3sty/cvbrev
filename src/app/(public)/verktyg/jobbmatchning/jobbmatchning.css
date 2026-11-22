@@ -1,0 +1,110 @@
+/*
+ * /verktyg/jobbmatchning, publikt omgång 3 (skissen jobbmatchning).
+ * Egna klasser med prefixet jm-. Färger bara ur grundens tokens.
+ */
+
+/* lyftet: tre öppna av tjugofem */
+.jm-tva { display: grid; gap: 32px; align-items: center; }
+.jm-tva > * { min-width: 0; }
+@media (min-width: 1000px) { .jm-tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+
+.jm-tjugofem { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 16px; border-radius: 22px; background: var(--golv); }
+.jm-tjugofem > span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); color: var(--kant-stark); min-width: 0; }
+.jm-tjugofem > span svg { width: 42%; height: 42%; }
+.jm-tjugofem > span.jm-oppen { border: 0; background: none; }
+.jm-tjugofem .p3-ring { width: 100%; height: 100%; font-size: clamp(15px, 4.2vw, 22px); box-shadow: 0 4px 0 var(--kant-stark); }
+.jm-tjugofem-rad { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 14px; color: var(--ink-2); }
+.jm-tjugofem-rad span { display: inline-flex; align-items: center; gap: 8px; }
+.jm-tjugofem-rad i { width: 14px; height: 14px; border-radius: 50%; background: var(--ton-ink); }
+.jm-tjugofem-rad span + span i { border-radius: 5px; background: var(--papper); border: 2px solid var(--kant-stark); }
+@media (min-width: 900px) { .jm-tjugofem { padding: 22px; gap: 10px; } }
+
+/* stegens små bilder */
+.jm-mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+.jm-mini-chip { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 12.5px; font-weight: 700; white-space: nowrap; color: var(--ink-1); }
+.jm-mini-chip.jm-m { background: var(--vagg); border-color: var(--vagg); color: var(--vagg-ink); }
+.jm-mini-not { display: block; margin-top: 6px; font-size: 12.5px; color: var(--ink-3); text-align: center; }
+.jm-minicv { width: 100%; max-width: 230px; padding: 12px 14px; border-radius: 14px; background: var(--vagg); color: var(--vagg-ink); text-align: left; }
+.jm-minicv b { display: block; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--vagg-mjuk); }
+.jm-minicv b u { float: right; letter-spacing: 0; text-transform: none; color: var(--vagg-ink); text-underline-offset: 3px; }
+.jm-minicv span { display: block; margin-top: 6px; font-family: var(--disp); font-weight: 700; font-size: 14.5px; }
+.jm-minicv small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--vagg-mjuk); }
+
+/* sex datapunkter: CV:t och sex kort */
+.jm-dp { display: grid; gap: 28px; align-items: start; }
+.jm-dp > * { min-width: 0; }
+.jm-dp-ark { width: 100%; max-width: 440px; margin: 0 auto; }
+.jm-dp-ark .p3-ark { transform: rotate(-1.2deg); }
+.jm-dp-lista { display: grid; gap: 12px; }
+.jm-dprad { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; }
+.jm-dprad > p { grid-column: 1 / -1; }
+.jm-dprad .jm-ur { grid-column: 1 / -1; font-size: 13.5px; font-weight: 600; color: var(--koppar-ink); }
+@media (min-width: 1000px) {
+  .jm-dp { grid-template-columns: .8fr 1.2fr; gap: 64px; }
+  .jm-dp-ark { position: sticky; top: 110px; }
+  .jm-dp-lista { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+
+/* grenarna: en titel, tre dörrar */
+.jm-gren { display: grid; gap: 10px; width: 100%; max-width: 480px; margin: 0 auto; }
+.jm-gren-rot { justify-self: start; display: inline-flex; flex-direction: column; padding: 12px 18px; border-radius: 16px; background: var(--vagg-ink); color: var(--vagg); font-family: var(--disp); font-weight: 800; font-size: 19px; box-shadow: 0 5px 0 var(--vagg-3); }
+.jm-gren-rot small { font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 13px; color: var(--ton-ink); }
+.jm-gren-gren { position: relative; margin-left: 30px; display: grid; grid-template-columns: 1fr 54px; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 var(--vagg-3); }
+.jm-gren-gren::before { content: ''; position: absolute; left: -18px; top: -10px; bottom: 50%; width: 18px; border-left: 3px dotted var(--vagg-mjuk); border-bottom: 3px dotted var(--vagg-mjuk); border-bottom-left-radius: 12px; }
+.jm-gren-gren b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.2; }
+.jm-gren-gren small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+.jm-gren .jm-gren-not { margin-top: 6px; font-size: 14px; }
+
+/* skälens kort */
+.jm-skal { margin-top: 28px; }
+.jm-skal-topp { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 54px; }
+.jm-skal-bild { display: flex; align-items: center; gap: 6px; }
+.jm-skal-bild svg { width: 84px; height: 48px; }
+.jm-skal-bild .jm-vx { display: inline-flex; padding: 4px; border-radius: 12px; background: var(--golv); font-size: 12.5px; font-weight: 700; }
+.jm-skal-bild .jm-vx i { font-style: normal; display: inline-grid; place-items: center; height: 30px; padding: 0 10px; border-radius: 9px; color: var(--ink-3); }
+.jm-skal-bild .jm-vx i.jm-pa { background: var(--vagg); color: var(--vagg-ink); }
+.jm-skal-bild .jm-prick { width: 16px; height: 16px; border-radius: 50%; background: var(--koppar); box-shadow: 0 3px 0 var(--koppar-klack); }
+.jm-skal-bild small { font-size: 12.5px; font-weight: 700; color: var(--ink-3); margin-left: 4px; }
+
+/* kedjan: träff, sparad, sökt */
+.jm-kedja { display: grid; gap: 10px; margin-bottom: 36px; }
+.jm-kedja > * { min-width: 0; }
+.jm-lank-k { background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 6px; border-radius: 22px; padding: 18px; display: grid; gap: 10px; align-content: start; color: var(--ink-1); }
+.jm-lank-k .jm-var { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ton-ink); }
+.jm-lank-k .jm-sak { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; }
+.jm-lank-k .jm-sak b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.2; }
+.jm-lank-k .jm-sak small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+.jm-lank-k p { font-size: 14.5px; color: var(--ink-2); }
+.jm-lank-k .jm-pill { justify-self: start; display: inline-flex; align-items: center; min-height: 28px; padding: 3px 11px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 13px; font-weight: 700; }
+.jm-lank-k .jm-pill.jm-ton { background: var(--ton); color: var(--ton-ink); }
+.jm-br { display: inline-grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 14px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 15px; box-shadow: 0 4px 0 var(--kant-stark); }
+.jm-br.jm-tom { background: none; border: 2.5px dashed var(--ton-ink); box-shadow: none; }
+.jm-steg-k { justify-self: center; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 14px; border-radius: 12px; background: var(--vagg); color: var(--vagg-ink); font-size: 13.5px; font-weight: 700; text-align: center; }
+.jm-steg-k svg { width: 15px; height: 15px; flex: none; transform: rotate(90deg); }
+@media (min-width: 1000px) {
+  .jm-kedja { grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px; align-items: stretch; margin-bottom: 52px; }
+  .jm-lank-k { padding: 24px; }
+  .jm-steg-k { align-self: center; flex-direction: column; padding: 10px 12px; max-width: 124px; }
+  .jm-steg-k svg { transform: none; }
+}
+
+/* luft */
+.jm-mt { margin-top: 22px; }
+.jm-mt-stor { margin-top: 32px; }
+
+/* lyftets CV-inläsning (CvProvaJobb) */
+.jm-prova-yta { display: grid; gap: 4px; padding: 18px; border-radius: 18px; border: 2.5px dashed var(--kant-stark); background: var(--golv); cursor: pointer; min-height: 44px; }
+.jm-prova-yta b { font-family: var(--disp); font-size: 18px; color: var(--ink-1); }
+.jm-prova-yta span { font-size: 14px; color: var(--ink-3); }
+.jm-prova-yta:hover { border-color: var(--ton-ink); }
+.jm-prova input:focus-visible + * .jm-prova-yta, #jm-cv-fil:focus-visible ~ .jm-prova-tom .jm-prova-yta { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.jm-prova-fel { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--koppar-ink); }
+.jm-prova-klar { display: grid; gap: 12px; padding: 18px; border-radius: 18px; background: var(--golv); }
+.jm-prova-rubrik { font-family: var(--disp); font-weight: 800; font-size: 18px; color: var(--ink-1); }
+.jm-prova-last { display: grid; gap: 8px; }
+.jm-prova-last div { display: grid; grid-template-columns: 110px 1fr; gap: 10px; font-size: 14.5px; }
+.jm-prova-last dt { color: var(--ink-3); font-weight: 600; }
+.jm-prova-last dd { margin: 0; color: var(--ink-1); overflow-wrap: anywhere; }
+.jm-prova-not { font-size: 13.5px; color: var(--ink-3); }
+.jm-textknapp { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--ink-1); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+.jm-prova .p3-knapp { width: 100%; }

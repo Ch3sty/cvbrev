@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'CV-analys med läsbarhetspoäng av 100 | Jobbcoach.ai',
     description:
-      'Vi kontrollerar struktur, språk, nyckelord och kvantifiering. Du får en ATS-poäng plus konkreta förslag i fyra delar. En analys gratis per konto.',
+      'Ditt CV får en läsbarhetspoäng av 100 i sju delar. Du ser var det tappar och vad som saknas i varje del. Poängen är gratis för varje CV du sparar.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/verktyg/cv-analys',

@@ -1,13 +1,17 @@
 // src/app/auth/reset-password/page.tsx
-'use client'
+//
+// Välj nytt lösenord i samma kort som Logga in (publikt omgång 3,
+// skissnoten inloggning punkt 2). Citaten och talen står kvar i panelen
+// bredvid kortet, som förut i vänsterpanelen: talen är säkerhetslöften och
+// rörs inte utan ägaren (textbeslut B-30 gäller samma slags tal). Citatets
+// tankstreck är bytt mot punkt (byggbriefen, inga tankstreck i text).
 
 import { Suspense } from 'react'
-import ResetPasswordForm from '@/components/auth/reset-password-form'
-import AuthShell from '@/components/auth/AuthShell'
-import { ToolJobbcoachenIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
+import { AuthKortSkal } from '../_delar/AuthKortSkal'
+import NyttLosenFormular from './NyttLosenFormular'
 
 const RESET_QUOTES = [
-  'Nästan inne — välj något du faktiskt kommer ihåg.',
+  'Nästan inne. Välj något du faktiskt kommer ihåg.',
   'Ett starkt lösenord är ett tryggt lösenord.',
   'Sista steget innan du är tillbaka i jakten.',
 ]
@@ -21,20 +25,28 @@ const RESET_STATS = [
 
 export default function ResetPasswordPage() {
   return (
-    <AuthShell
-      illustration={
-        <ToolJobbcoachenIllustration className="w-full h-full" />
+    <AuthKortSkal
+      panel={
+        <>
+          {RESET_QUOTES.map((q) => (
+            <p key={q} className="rg-citat">
+              {q}
+            </p>
+          ))}
+          <ul className="rg-tal">
+            {RESET_STATS.map((s) => (
+              <li key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </>
       }
-      quotes={RESET_QUOTES}
-      stats={RESET_STATS}
     >
-      <Suspense
-        fallback={
-          <div className="text-center text-slate-500 py-12">Laddar...</div>
-        }
-      >
-        <ResetPasswordForm />
+      <Suspense fallback={<p className="rg-text">Laddar...</p>}>
+        <NyttLosenFormular />
       </Suspense>
-    </AuthShell>
+    </AuthKortSkal>
   )
 }

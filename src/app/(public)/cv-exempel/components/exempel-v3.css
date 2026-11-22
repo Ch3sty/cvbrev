@@ -1,0 +1,89 @@
+/* =============================================================================
+   /cv-exempel och kategorisidorna i publikt omgång 3 (navets form ur skissen
+   brev-exempelnav, i CV:ts petrol). Egna klasser heter cve-*. Färger bara ur
+   grundens tokens.
+   ============================================================================= */
+
+.cve-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* hjälten: tre riktiga mallar och talet */
+.cve-bunt { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1 / 1.05; margin: 0 auto; }
+.cve-bunt > span { position: absolute; width: 52%; }
+.cve-bunt > span img { width: 100%; height: auto; border-radius: 6px; background: var(--papper); box-shadow: 0 8px 0 rgba(0, 0, 0, .25), 0 22px 40px rgba(0, 0, 0, .28); }
+.cve-bunt .cve-b1 { left: 2%; top: 8%; transform: rotate(-7deg); }
+.cve-bunt .cve-b2 { right: 2%; top: 4%; transform: rotate(6deg); }
+.cve-bunt .cve-b3 { left: 24%; top: 14%; z-index: 1; }
+.cve-bunt .p3-svav { right: 0; bottom: 6%; z-index: 2; }
+
+/* sökfältet */
+.cve-sok { display: flex; flex-wrap: wrap; gap: 10px; max-width: 560px; }
+.cve-sok-falt { flex: 1 1 240px; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 16px; border-radius: 16px; background: var(--papper); color: var(--ink-1); }
+.cve-sok-falt svg { width: 20px; height: 20px; flex: none; color: var(--ink-3); }
+.cve-sok-falt input { flex: 1; min-width: 0; height: 52px; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink-1); outline: none; }
+.cve-sok-falt:focus-within { outline: 3px solid var(--koppar); outline-offset: 3px; }
+
+/* situationsraden på väggen */
+.cve-situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--vagg-mjuk); }
+.cve-situation > span { margin-right: 4px; }
+.cve-situation a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 13px; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .18); color: var(--vagg-ink); text-decoration: none; font-weight: 700; }
+.cve-situation a:hover { background: rgba(255, 255, 255, .16); }
+
+/* branscherna i lyftkortet */
+.cve-bransch { display: grid; gap: 8px; margin-top: 16px; }
+.cve-bransch a { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 4px 12px; min-height: 64px; padding: 10px 14px; border-radius: 16px; background: var(--golv); color: var(--ink-1); text-decoration: none; }
+.cve-bransch a:hover { outline: 2px solid var(--kant-stark); }
+.cve-bransch b { grid-row: span 2; font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -.03em; color: var(--ton-ink); }
+.cve-bransch span { font-weight: 700; font-size: 15px; line-height: 1.25; }
+.cve-bransch i { display: block; height: 6px; border-radius: 3px; background: var(--kant); }
+.cve-bransch i::before { content: ""; display: block; width: var(--andel, 0%); height: 100%; border-radius: 3px; background: var(--ton-ink); }
+.cve-bransch a.cve-vald { background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 5px 0 var(--vagg-3); }
+.cve-bransch a.cve-vald b { color: var(--vagg-ink); }
+.cve-bransch a.cve-vald i { background: rgba(255, 255, 255, .2); }
+.cve-bransch a.cve-vald i::before { background: var(--koppar-ljus); }
+@media (min-width: 700px) { .cve-bransch { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .cve-bransch { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; } }
+
+/* yrkeskorten */
+.cve-yrken { display: grid; gap: 10px; }
+.cve-yrken > li { min-width: 0; }
+.cve-yrken > li > a { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 14px; align-items: start; height: 100%; padding: 14px; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; color: var(--ink-1); text-decoration: none; }
+.cve-yrken > li > a:hover { border-color: var(--kant-stark); }
+.cve-yrken img { width: 56px; height: auto; border-radius: 4px; border: 1.5px solid var(--kant); background: var(--papper); }
+.cve-yrken small { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ton-ink); }
+.cve-yrken .p3-h3 { margin-top: 2px; font-size: 18px; }
+.cve-yrken .cve-rad { display: block; margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+.cve-yrken > li[hidden] { display: none; }
+@media (min-width: 700px) { .cve-yrken { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .cve-yrken { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; } }
+.cve-tom { margin-top: 14px; }
+.cve-rubrikrad { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 20px; }
+
+/* ön under korten */
+.cve-o { margin-top: 40px; }
+
+/* guiden */
+.cve-guide { display: grid; gap: 16px; max-width: 900px; }
+.cve-guide .p3-kort p + p { margin-top: 12px; }
+.cve-guide a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cve-guide-slut { font-size: 17px; font-weight: 600; }
+
+/* ---------- CV-exemplet per yrke (CvExempelMall) ---------- */
+.cve-lank { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cve-mallkort { align-self: start; }
+.cve-mallkort-bild { display: flex; gap: 8px; }
+.cve-mallkort-bild .p3-mall { width: 72px; gap: 0; }
+.cve-pilot-mallar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 760px; }
+@media (min-width: 700px) { .cve-pilot-mallar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cve-pilot-mall { display: grid; gap: 8px; padding: 10px; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; color: var(--ink-1); text-decoration: none; }
+.cve-pilot-mall:hover { border-color: var(--kant-stark); }
+.cve-pilot-mall small { font-size: 13px; color: var(--ink-3); }
+.cve-pilot-knapp { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 12px; border-radius: 13px; background: linear-gradient(180deg, var(--koppar-topp), var(--koppar)); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); font-weight: 700; font-size: 14.5px; text-align: center; }
+.cve-pilot-h3 { margin-top: 40px; }
+.cve-pilot-rutnat { display: grid; gap: 14px; margin-top: 16px; }
+@media (min-width: 700px) { .cve-pilot-rutnat { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cve-h4 { font-family: var(--disp); font-weight: 700; font-size: 18px; line-height: 1.25; }
+.cve-pilot-lista { display: grid; gap: 6px; }
+.cve-pilot-lista li { position: relative; padding-left: 18px; font-size: 15px; color: var(--ink-2); }
+.cve-pilot-lista li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border-radius: 50%; background: var(--ton-ink); }
+.cve-pilot-ats { margin-top: 12px; max-width: 760px; }
+.cve-pilot-lankar { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 18px; }

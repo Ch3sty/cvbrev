@@ -134,25 +134,25 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
   return (
     <div>
       <noscript>
-        <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-4">
-          <p className="text-sm text-amber-900 font-semibold">
+        <div className="bg-koppar-mjuk border border-kant p-4 rounded-lg mb-4">
+          <p className="text-sm text-ink-1 font-semibold">
             För bästa upplevelse, aktivera JavaScript i din webbläsare.
           </p>
         </div>
       </noscript>
-          <div className="bg-orange-50/60 rounded-2xl p-4 sm:p-5 border border-orange-100 mb-6">
+          <div className="bg-ton rounded-2xl p-4 sm:p-5 border border-kant mb-6">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-bold text-slate-900 text-sm sm:text-base">Anpassa förhandsvisningen</h3>
+              <h3 className="font-bold text-ink-1 text-sm sm:text-base">Anpassa förhandsvisningen</h3>
             </div>
-            <p className="text-xs sm:text-sm text-slate-600 mb-4">
+            <p className="text-xs sm:text-sm text-ink-2 mb-4">
               Testa olika mallar och typsnitt
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Template Selector */}
               <div className="relative" ref={templateDropdownRef}>
-                <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-2">
-                  <Palette className="w-4 h-4 text-slate-600" />
+                <label className="flex items-center gap-2 text-sm font-semibold text-ink-1 mb-2">
+                  <Palette className="w-4 h-4 text-ink-2" />
                   Välj mall
                 </label>
 
@@ -161,23 +161,23 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                     setIsTemplateOpen(!isTemplateOpen)
                     setIsFontOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between"
+                  className="w-full px-4 py-3 bg-papper border-2 border-kant-stark rounded-lg hover:border-ink-1 transition-all flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    {template.tier === 'premium' && <Crown className="w-4 h-4 text-amber-500" />}
-                    <span className="font-semibold text-slate-900">{template.name}</span>
+                    {template.tier === 'premium' && <Crown className="w-4 h-4 text-koppar-ink" />}
+                    <span className="font-semibold text-ink-1">{template.name}</span>
                   </div>
-                  <ChevronDown className={`w-5 h-5 text-slate-600 transition-transform ${isTemplateOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-ink-2 transition-transform ${isTemplateOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {!isMobile && isTemplateOpen && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
+                    className="absolute top-full left-0 right-0 mt-2 bg-papper border-2 border-kant rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
                   >
                     <div className="p-2">
-                      <div className="px-3 py-2 text-xs font-semibold text-slate-500 uppercase">
+                      <div className="px-3 py-2 text-xs font-semibold text-ink-3 uppercase">
                         Gratis mallar
                       </div>
                       {freeTemplates.map((t) => (
@@ -190,23 +190,23 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                           }}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
                             selectedTemplate === t.id
-                              ? 'bg-orange-50 text-orange-900'
-                              : 'hover:bg-slate-50 text-slate-700'
+                              ? 'bg-ton text-ink-1'
+                              : 'hover:bg-ton text-ink-2'
                           }`}
                         >
                           <div className="flex-1">
                             <div className="font-medium">{t.name}</div>
-                            <div className="text-xs text-slate-500">{t.description}</div>
+                            <div className="text-xs text-ink-3">{t.description}</div>
                           </div>
                           {selectedTemplate === t.id && (
-                            <Check className="w-5 h-5 text-orange-700 flex-shrink-0 ml-2" />
+                            <Check className="w-5 h-5 text-ton-ink flex-shrink-0 ml-2" />
                           )}
                         </button>
                       ))}
                     </div>
 
-                    <div className="border-t border-slate-100 p-2">
-                      <div className="px-3 py-2 text-xs font-semibold text-amber-600 uppercase flex items-center gap-1">
+                    <div className="border-t border-kant p-2">
+                      <div className="px-3 py-2 text-xs font-semibold text-koppar-ink uppercase flex items-center gap-1">
                         <Crown className="w-3 h-3" />
                         {PAKETRADER.mallarRubrik}
                       </div>
@@ -220,19 +220,19 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                           }}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
                             selectedTemplate === t.id
-                              ? 'bg-amber-50 text-amber-900'
-                              : 'hover:bg-slate-50 text-slate-700'
+                              ? 'bg-koppar-mjuk text-ink-1'
+                              : 'hover:bg-ton text-ink-2'
                           }`}
                         >
                           <div className="flex-1">
                             <div className="font-medium flex items-center gap-2">
                               {t.name}
-                              <Crown className="w-3 h-3 text-amber-500" />
+                              <Crown className="w-3 h-3 text-koppar-ink" />
                             </div>
-                            <div className="text-xs text-slate-500">{t.description}</div>
+                            <div className="text-xs text-ink-3">{t.description}</div>
                           </div>
                           {selectedTemplate === t.id && (
-                            <Check className="w-5 h-5 text-amber-600 flex-shrink-0 ml-2" />
+                            <Check className="w-5 h-5 text-koppar-ink flex-shrink-0 ml-2" />
                           )}
                         </button>
                       ))}
@@ -243,8 +243,8 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
 
               {/* Font Selector */}
               <div className="relative" ref={fontDropdownRef}>
-                <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-2">
-                  <Type className="w-4 h-4 text-slate-600" />
+                <label className="flex items-center gap-2 text-sm font-semibold text-ink-1 mb-2">
+                  <Type className="w-4 h-4 text-ink-2" />
                   Välj typsnitt
                 </label>
 
@@ -253,18 +253,18 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                     setIsFontOpen(!isFontOpen)
                     setIsTemplateOpen(false)
                   }}
-                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-orange-400 transition-all flex items-center justify-between"
+                  className="w-full px-4 py-3 bg-papper border-2 border-kant-stark rounded-lg hover:border-ink-1 transition-all flex items-center justify-between"
                   style={{ fontFamily: font.family }}
                 >
-                  <span className="font-semibold text-slate-900">{font.name}</span>
-                  <ChevronDown className={`w-5 h-5 text-slate-600 transition-transform ${isFontOpen ? 'rotate-180' : ''}`} />
+                  <span className="font-semibold text-ink-1">{font.name}</span>
+                  <ChevronDown className={`w-5 h-5 text-ink-2 transition-transform ${isFontOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {!isMobile && isFontOpen && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 max-h-[400px] overflow-y-auto"
+                    className="absolute top-full left-0 right-0 mt-2 bg-papper border-2 border-kant rounded-xl shadow-xl z-50 max-h-[400px] overflow-y-auto"
                   >
                     {['ATS-Säkra', 'Moderna', 'Formella', PAKETRADER.bricka].map((category) => {
                       const categoryFonts = FONTS.filter(f => f.category === category)
@@ -272,8 +272,8 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
 
                       return (
                         <div key={category}>
-                          <div className="px-4 py-2 bg-slate-50">
-                            <span className="text-xs font-semibold text-slate-600 uppercase">
+                          <div className="px-4 py-2 bg-ton">
+                            <span className="text-xs font-semibold text-ink-2 uppercase">
                               {category}
                             </span>
                           </div>
@@ -286,18 +286,18 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
                                 setIsFontOpen(false)
                               }}
                               className={`w-full px-4 py-3 flex items-center gap-3 transition-colors ${
-                                selectedFont === fnt.id ? 'bg-orange-50' : 'hover:bg-slate-50'
+                                selectedFont === fnt.id ? 'bg-ton' : 'hover:bg-ton'
                               }`}
                               style={{ fontFamily: fnt.family }}
                             >
                               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                selectedFont === fnt.id ? 'border-orange-600 bg-orange-600' : 'border-slate-300'
+                                selectedFont === fnt.id ? 'border-ton-ink bg-ton-ink' : 'border-kant-stark'
                               }`}>
-                                {selectedFont === fnt.id && <Check className="w-3 h-3 text-white" />}
+                                {selectedFont === fnt.id && <Check className="w-3 h-3 text-papper" />}
                               </div>
                               <div className="flex-1 text-left">
                                 <div className="font-medium text-sm">{fnt.name}</div>
-                                <div className="text-xs text-slate-600">{exempelCV.namn}</div>
+                                <div className="text-xs text-ink-2">{exempelCV.namn}</div>
                               </div>
                             </button>
                           ))}
@@ -318,56 +318,56 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden"
+              className="bg-papper rounded-2xl border-2 border-kant shadow-xl overflow-hidden"
             >
-              <div className="bg-orange-50/50 px-5 sm:px-6 py-3 sm:py-4 border-b border-orange-100 flex items-center justify-between">
+              <div className="bg-ton px-5 sm:px-6 py-3 sm:py-4 border-b border-kant flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{
-                      background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
+                      background: 'var(--ton-ink)',
                       boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.35)',
                     }}
                   >
-                    <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-papper" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm sm:text-base">{template.name}</h3>
-                    <p className="text-xs sm:text-sm text-slate-600">Med {font.name} typsnitt</p>
+                    <h3 className="font-bold text-ink-1 text-sm sm:text-base">{template.name}</h3>
+                    <p className="text-xs sm:text-sm text-ink-2">Med {font.name} typsnitt</p>
                   </div>
                 </div>
                 {template.tier === 'premium' && (
-                  <div className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
+                  <div className="px-2.5 py-1 bg-koppar text-koppar-text text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1">
                     <Crown className="w-3 h-3" />
                     {PAKETRADER.bricka}
                   </div>
                 )}
               </div>
 
-              <div className="bg-white" style={{ minHeight: '800px', maxHeight: '800px', overflowY: 'auto' }}>
+              <div className="bg-papper" style={{ minHeight: '800px', maxHeight: '800px', overflowY: 'auto' }}>
                 {generatedHTML ? (
                   <div dangerouslySetInnerHTML={{ __html: generatedHTML }} />
                 ) : (
                   <div className="p-12 space-y-6 animate-pulse">
                     <div className="space-y-2">
-                      <div className="h-8 bg-slate-200 rounded w-3/4"></div>
-                      <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+                      <div className="h-8 bg-kant rounded w-3/4"></div>
+                      <div className="h-4 bg-kant rounded w-1/2"></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-4 bg-slate-200 rounded w-full"></div>
-                      <div className="h-4 bg-slate-200 rounded w-5/6"></div>
-                      <div className="h-4 bg-slate-200 rounded w-4/5"></div>
+                      <div className="h-4 bg-kant rounded w-full"></div>
+                      <div className="h-4 bg-kant rounded w-5/6"></div>
+                      <div className="h-4 bg-kant rounded w-4/5"></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-6 bg-slate-200 rounded w-2/3"></div>
-                      <div className="h-3 bg-slate-200 rounded w-full"></div>
-                      <div className="h-3 bg-slate-200 rounded w-5/6"></div>
-                      <div className="h-3 bg-slate-200 rounded w-4/5"></div>
+                      <div className="h-6 bg-kant rounded w-2/3"></div>
+                      <div className="h-3 bg-kant rounded w-full"></div>
+                      <div className="h-3 bg-kant rounded w-5/6"></div>
+                      <div className="h-3 bg-kant rounded w-4/5"></div>
                     </div>
                     <div className="space-y-2">
-                      <div className="h-6 bg-slate-200 rounded w-2/3"></div>
-                      <div className="h-3 bg-slate-200 rounded w-full"></div>
-                      <div className="h-3 bg-slate-200 rounded w-5/6"></div>
+                      <div className="h-6 bg-kant rounded w-2/3"></div>
+                      <div className="h-3 bg-kant rounded w-full"></div>
+                      <div className="h-3 bg-kant rounded w-5/6"></div>
                     </div>
                   </div>
                 )}

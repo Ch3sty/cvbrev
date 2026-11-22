@@ -1,0 +1,161 @@
+/* =============================================================================
+   /funktioner, publikt omgång 3 (skissen sidor/funktioner.html). Bara det
+   sidan har för sig själv; allt annat är grunden (p3-*). Klasserna heter
+   fn-*. Inga hexfärger: tokens ur globals.css (PUBLIKT OMGÅNG 3).
+   ============================================================================= */
+
+/* ---------- hjälten: ankarraden som fyra dörrar ---------- */
+.fn-dorrar { display: grid; gap: 12px; width: 100%; min-width: 0; }
+.fn-dr { position: relative; overflow: hidden; isolation: isolate; min-width: 0; display: flex; flex-direction: column; border-radius: 24px; padding: 16px; background: var(--vagg-2); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 7px 0 var(--vagg-3); }
+.fn-dr-topp { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.fn-dr-namn { display: flex; align-items: center; gap: 10px; font-family: var(--disp); font-weight: 800; font-size: 19px; line-height: 1.15; letter-spacing: -0.015em; color: var(--vagg-ink); }
+.fn-dr-namn .p3-dorr { width: 36px; height: 36px; border-radius: 11px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+.fn-dr-namn .p3-dorr svg { width: 20px; height: 20px; }
+.fn-dr-sak { margin-top: 6px; font-size: 13.5px; line-height: 1.35; color: var(--vagg-mjuk); }
+.fn-dr-tal { font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.04em; text-align: right; }
+.fn-dr-tal small { display: block; margin-top: 3px; font-family: inherit; font-weight: 600; font-size: 12px; letter-spacing: 0; color: var(--vagg-mjuk); }
+.fn-dr-matris { display: grid; grid-template-columns: repeat(4, 30px); gap: 4px; }
+.fn-dr-matris span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 8px; background: var(--papper); color: var(--ink-1); }
+.fn-dr-matris svg { width: 58%; height: 58%; }
+.fn-dr-matris .fn-tom { background: none; border: 2px dashed var(--koppar-ljus); color: var(--koppar-ljus); font-family: var(--disp); font-weight: 800; font-size: 15px; }
+.fn-dr-blad { width: 84px; padding: 9px; border-radius: 6px; background: var(--papper); transform: rotate(3deg); box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.fn-dr-blad i { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: var(--kant); }
+.fn-dr-blad i:first-child { margin-top: 0; width: 46%; background: var(--vagg-2); }
+.fn-dr-blad i.fn-m { background: var(--koppar-ljus); width: 72%; }
+.fn-dr svg.fn-ministig { width: 120px; height: auto; overflow: visible; margin-top: 8px; }
+.fn-dr-ank { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 14px; }
+.fn-dr-ank a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 13px; background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .14); color: var(--vagg-ink); text-decoration: none; font-weight: 600; font-size: 14.5px; }
+.fn-dr-ank a:hover { background: rgba(255, 255, 255, .18); }
+.fn-dr-ank a svg { width: 14px; height: 14px; opacity: .8; }
+.fn-nyhet { display: inline-block; padding: 1px 7px; border-radius: 999px; background: var(--koppar); color: var(--koppar-text); font-size: 11.5px; font-weight: 700; line-height: 1.5; }
+@media (max-width: 619px) { .fn-dr-topp.fn-smal { grid-template-columns: 1fr; } .fn-dr-topp.fn-smal .fn-dr-matris { grid-template-columns: repeat(4, 34px); } }
+@media (min-width: 620px) { .fn-dorrar { grid-template-columns: 1fr 1fr; } .fn-dr.fn-stor { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .fn-dorrar { gap: 16px; } .fn-dr { padding: 20px; } .fn-dr-namn { font-size: 21px; } }
+
+/* ---------- gratis först, sedan vad Premium lägger till ---------- */
+.fn-niv { display: grid; gap: 8px; }
+.fn-niv > div { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 12px; align-items: start; padding: 11px 12px; border-radius: 16px; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .1); font-size: 14.5px; line-height: 1.4; color: var(--vagg-ink); }
+.fn-niv .p3-chip { justify-content: center; }
+
+/* ---------- stegen som kort lista på en färgad yta ---------- */
+.fn-steg { display: grid; gap: 10px; counter-reset: fn-s; }
+.fn-steg li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: start; font-size: 15px; line-height: 1.45; color: var(--vagg-mjuk); }
+.fn-steg li::before { counter-increment: fn-s; content: counter(fn-s); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 15px; }
+
+/* ---------- testblocket: två kort under ön ---------- */
+.fn-tunder { display: grid; gap: 14px; margin-top: 28px; }
+@media (min-width: 1000px) { .fn-tunder { grid-template-columns: 1.1fr .9fr; gap: 18px; margin-top: 8px; } }
+.fn-typer { display: flex; flex-wrap: wrap; gap: 6px; }
+.fn-typer span { display: inline-grid; place-items: center; min-height: 30px; padding: 0 11px; border-radius: 9px; background: var(--ton); color: var(--ton-ink); font-size: 13.5px; font-weight: 600; }
+.fn-trappa { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; align-items: end; }
+.fn-trappa > div { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; padding: 8px; overflow-wrap: anywhere; border-radius: 14px 14px 6px 6px; font-size: 12.5px; line-height: 1.3; color: var(--ink-2); }
+.fn-trappa b { display: block; font-family: var(--disp); font-size: 13.5px; line-height: 1.15; color: var(--ink-1); hyphens: manual; }
+.fn-trappa em { align-self: flex-start; margin-bottom: auto; white-space: nowrap; overflow-wrap: normal; font-style: normal; font-weight: 700; font-size: 12px; padding: 2px 6px; border-radius: 999px; background: var(--papper); color: var(--ink-1); }
+.fn-trappa .fn-g { height: 92px; background: var(--positiv-mjuk); }
+.fn-trappa .fn-a { height: 124px; background: var(--koppar-mjuk); }
+.fn-trappa .fn-e { height: 156px; background: var(--koppar-ljus); }
+@media (min-width: 620px) { .fn-trappa > div { padding: 10px; } .fn-trappa b { font-size: 14.5px; } }
+.fn-res-tal { display: flex; align-items: baseline; gap: 10px; }
+.fn-res-tal b { font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: var(--vagg); }
+.fn-res-tal span { font-size: 14.5px; font-weight: 600; color: var(--ink-2); }
+.fn-res-lista { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+.fn-res-lista i { display: grid; place-items: center; aspect-ratio: 1; border-radius: 8px; background: var(--positiv-mjuk); color: var(--ink-1); font-style: normal; font-size: 12px; font-weight: 700; }
+.fn-res-lista i.fn-m { background: var(--papper); border: 2px solid var(--ink-1); }
+.fn-fork { padding: 12px 14px; border-radius: 14px; background: var(--golv); font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.fn-fork b { display: block; color: var(--ink-1); }
+
+/* ---------- breven: tonerna som rad ---------- */
+.fn-toner { display: flex; flex-wrap: wrap; gap: 6px; }
+.fn-toner span { display: inline-grid; place-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .16); font-size: 13.5px; font-weight: 600; color: var(--vagg-ink); }
+.fn-toner span.fn-v { background: var(--vagg-ink); color: var(--vagg); border-color: transparent; }
+
+/* ---------- CV-analysen: sju delar, hundra poäng ---------- */
+.fn-sju { display: flex; gap: 3px; height: 16px; }
+.fn-sju i { border-radius: 5px; background: var(--ljus); min-width: 0; }
+.fn-sju i.fn-t { background: var(--koppar); }
+.fn-sju-text { font-size: 13.5px; color: var(--vagg-mjuk); }
+.p3-o-text > .fn-sju-text { margin-top: 8px; }
+.fn-cvbild { width: 100%; max-width: 470px; margin: 0 auto; }
+
+/* ---------- Skapa CV och mallväggen ---------- */
+.fn-tva { display: grid; gap: 32px; align-items: center; }
+@media (min-width: 1000px) { .fn-tva { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; } }
+.fn-fyra { display: grid; gap: 12px; margin-top: 28px; }
+@media (min-width: 620px) { .fn-fyra { grid-template-columns: 1fr 1fr; } }
+.fn-fyra .p3-kort > * + * { margin-top: 10px; }
+.fn-mallvagg { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor, 32px); padding: 22px 18px 24px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 8px 0 var(--vagg-3); }
+.fn-mallvagg::before { content: ''; position: absolute; z-index: -1; right: -20%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .6; }
+.fn-mallvagg-stor { font-family: var(--disp); font-weight: 800; font-size: 64px; line-height: .9; letter-spacing: -0.04em; }
+.fn-mallvagg-stor small { font-family: inherit; font-weight: 600; font-size: 15px; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 8px; }
+.fn-mallar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 8px; margin-top: 20px; }
+.fn-mallar .p3-mall-rad { flex-direction: column; align-items: center; gap: 3px; color: var(--vagg-ink); }
+.fn-mallar .p3-mall-rad b { font-size: 12.5px; }
+.fn-mallvagg .p3-brickor { margin-top: 20px; }
+@media (max-width: 899px) { .fn-mallvagg-stor small { display: block; margin: 10px 0 0; } }
+@media (min-width: 1000px) { .fn-mallvagg { padding: 36px; } .fn-mallvagg-stor { font-size: 88px; } .fn-mallar { gap: 16px 14px; } }
+
+/* ---------- Jobbsöket: en vägg med tre instrument ---------- */
+.fn-jrad { display: grid; gap: 24px; padding: 36px 0; border-top: 3px dotted rgba(255, 255, 255, .22); }
+.fn-jrad > * { min-width: 0; }
+.fn-jrad-text > * + * { margin-top: 16px; }
+.fn-jrad-text > .p3-knapprad { margin-top: 22px; }
+.fn-jrad .p3-text { color: var(--vagg-mjuk); }
+.fn-jrad .fn-panel { background: var(--golv); border-radius: var(--r-stor, 32px); padding: 22px 16px; }
+.fn-veckomal { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 16px; border-radius: 999px; background: rgba(255, 255, 255, .1); font-size: 14.5px; font-weight: 600; color: var(--vagg-ink); }
+.fn-veckomal i { width: 14px; height: 14px; border-radius: 5px; border: 2px solid var(--vagg-mjuk); }
+.fn-veckomal i.fn-k { background: var(--koppar); border-color: var(--koppar); }
+@media (max-width: 899px) { .fn-stigplats { padding-left: 38px; } }
+.fn-jmer { display: grid; gap: 12px; margin-top: 8px; }
+.fn-jmer > div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; align-content: start; padding: 18px; border-radius: 22px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); color: var(--vagg-ink); }
+.fn-jmer .p3-dorr { grid-row: span 3; width: 44px; height: 44px; background: var(--vagg-ink); color: var(--vagg); }
+.fn-jmer .p3-h3 { font-size: 18px; }
+.fn-jmer .p3-h3 a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.fn-jmer p { font-size: 14.5px; line-height: 1.45; color: var(--vagg-mjuk); }
+.fn-jmer .fn-jmer-sub { font-weight: 600; color: var(--vagg-ink); }
+@media (min-width: 1000px) {
+  .fn-jrad { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; padding: 56px 0; }
+  .fn-jrad.fn-vand > :first-child { order: 2; }
+  .fn-jrad .fn-panel { padding: 32px; }
+  .fn-jmer { grid-template-columns: 1fr 1fr; gap: 18px; }
+}
+
+/* ---------- LinkedIn: rubriken före och efter, på profilkortet ---------- */
+.fn-lk { max-width: 520px; width: 100%; margin: 0 auto; }
+.fn-lk-topp { display: flex; align-items: center; gap: 14px; }
+.fn-lk-av { display: grid; place-items: center; flex: none; width: 60px; height: 60px; border-radius: 50%; background: var(--ton-ink); color: var(--papper); font-family: var(--disp); font-weight: 800; font-size: 21px; box-shadow: 0 4px 0 var(--vagg-3); }
+.fn-lk-topp b { font-family: var(--disp); font-size: 20px; }
+.fn-lk-topp div span { display: block; font-size: 13.5px; color: var(--ink-3); }
+.fn-lk-ruta { margin-top: 14px; padding: 14px; border-radius: 16px; background: var(--golv); }
+.fn-lk-ruta small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.p3-kort .fn-lk-ruta p { margin-top: 6px; font-family: var(--disp); font-weight: 700; font-size: 16.5px; line-height: 1.3; color: var(--ink-1); }
+.p3-kort .fn-lk-ruta.fn-fore p { color: var(--ink-3); text-decoration: line-through; text-decoration-thickness: 2px; }
+.fn-lk-ruta.fn-efter { background: var(--papper); border: 2.5px solid var(--koppar); }
+.fn-lk-sok { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.fn-lk-sok span { display: inline-grid; place-items: center; min-height: 26px; padding: 0 9px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-size: 12.5px; font-weight: 600; }
+.fn-lk-sok span.fn-tom { background: none; border: 2px dashed var(--kant-stark); color: var(--ink-2); }
+.fn-lk-pil { display: grid; place-items: center; width: 36px; height: 36px; margin: 8px auto -6px; border-radius: 12px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 3px 0 var(--koppar-klack); transform: rotate(90deg); }
+.fn-lk-pil svg { width: 18px; height: 18px; }
+.fn-chiprad { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* ---------- Alla verktyg, samlade ---------- */
+.fn-alla { display: grid; gap: 12px; margin-top: 32px; }
+.fn-alla .p3-lankbricka.fn-forst { background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
+.fn-alla .p3-lankbricka.fn-forst .p3-dorr { background: var(--vagg-ink); color: var(--vagg); }
+.fn-alla .p3-lankbricka.fn-forst b { color: var(--vagg-ink); }
+.fn-alla .p3-lankbricka.fn-forst > span:last-child { color: var(--vagg-mjuk); }
+/* Märket står utanför ankartexten (SEO-beskedet, menyn): ritat med CSS. */
+.fn-alla .fn-ny b::after { content: 'Nyhet'; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 700; vertical-align: 2px; }
+@media (min-width: 700px) { .fn-alla { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) {
+  .fn-alla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .fn-alla .p3-lankbricka.fn-forst { grid-column: 1 / -1; padding: 22px; }
+  .fn-alla .p3-lankbricka.fn-forst b { font-size: 22px; }
+  .fn-alla .p3-lankbricka.fn-sist { grid-column: span 2; }
+}
+
+/* ---------- avstånd i öarnas textspalt ---------- */
+.p3-o-text > .fn-niv, .p3-o-text > .fn-steg, .p3-o-text > .fn-toner { margin-top: 20px; }
+
+/* Dörrarnas ankare: märket Nyhet står bredvid länken, utanför ankartexten. */
+.fn-dr-lank { display: inline-flex; align-items: center; gap: 6px; }
+.fn-lk-sok small { display: inline-grid; place-items: center; min-height: 26px; margin: 0; font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--ink-3); }

@@ -1,27 +1,24 @@
 /**
  * Stilsidorna /cv-mallar/word, /foto och /enkla (SEO-svepet 2026-11-17,
- * docs/plan-seo-cv-kluster-2026-11-17.md, B5). Samma ytor och komponenter som
- * /cv-mallar (P3): hjälten med uppladdningen i ProvaProvider och arbetsytan
- * direkt under, galleriet med mallkortet (Miniatyr) till provsidan, Premium-
- * raden under galleriet (S2), sedan sidans egen text, länkarna och frågorna.
- * Katalogen i providern är filtrerad till sidans mallar, så arbetsytan visar
- * bara mallar med egenskapen. Serverkomponent.
+ * docs/plan-seo-cv-kluster-2026-11-17.md, B5), i publikt omgång 3 med
+ * samma form som /cv-mallar där delarna delas (skissen cv-mallar): hjälten
+ * med mallväggen, uppladdningen och arbetsytan i det lyfta kortet,
+ * mallkortet i rutnätet till provsidan och Premiumremsan, sedan sidans egen
+ * text, länkarna och frågorna i grundens skal. Katalogen i providern är
+ * filtrerad till sidans mallar. Texten är sidornas egen, ordagrant.
+ * Serverkomponent.
  */
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import Hjalte from '@/components/publikt/Hjalte'
-import Rum from '@/components/publikt/Rum'
-import Faq, { type FaqFraga } from '@/components/publikt/Faq'
+import { Sida, Hjalte, Sektion, SektionHuvud, Rutnat, Faq, Knapp, TextLank, Dorr, type FaqFraga } from '@/components/publikt/v3'
 import ProvaProvider from '@/components/cv/Dokument/prova/ProvaKontext'
-import Uppladdning from '@/components/cv/Dokument/prova/Uppladdning'
-import ProvaArbetsyta from '@/components/cv/Dokument/prova/ProvaArbetsyta'
-import Miniatyr from '@/components/cv/Dokument/Miniatyr'
 import { ARTIKEL } from '@/components/cv/Dokument/texter'
 import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { prisInfo } from '@/lib/cv/mallval/pris.server'
 import { STIL_SIDOR, stilMallar, type Stil } from '@/lib/seo/cv-kluster'
+import { MallKortet, Mallvagg, ProvaLyft } from './MallDelar'
+import './mallar-v3.css'
 
 const BAS = 'https://www.jobbcoach.ai'
 
@@ -86,115 +83,101 @@ export function stilSchema(stil: Stil, faq: readonly FaqFraga[]) {
 export default function StilSida(p: StilSidaProps) {
   const sida = STIL_SIDOR[p.stil]
   const mallar = stilMallar(p.stil)
-  const ytor = ['panel', 'mark'] as const
+  // Gratismallarna först i mallväggen, sedan katalogens ordning.
+  const vagg = [...mallar.filter((m) => m.niva === 'gratis'), ...mallar.filter((m) => m.niva !== 'gratis')].slice(0, 8)
+  const bottnar = ['golv', 'ton'] as const
   return (
     <>
       <RedirectLoggedIn to={p.inloggadTill} />
       {stilSchema(p.stil, p.faq).map((s, i) => (
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
       ))}
-      <PubliktSida>
+      <Sida farg="cv">
         <ProvaProvider katalog={mallar} surface={`mallsida_${p.stil}`} pris={prisInfo()}>
           <div id="innehall">
             <Hjalte
               id="hjalte"
-              rum="cv"
-              yta="vagg"
-              vag="mark"
               brodsmulor={[
                 { name: 'Hem', href: '/' },
                 { name: 'CV-mallar', href: '/cv-mallar' },
                 { name: sida.kort, href: sida.path },
               ]}
-              kick={p.kick}
+              brodsmulorSchema={false}
+              etikett={p.kick}
               h1={sida.h1}
-              ingress={p.ingress}
-              primar={null}
-              bildLag
-              bild={<Uppladdning />}
+              h1Mindre
+              varde={p.ingress}
+              knappar={
+                <>
+                  <Knapp href="#ladda-upp" pil>
+                    Ladda upp ditt CV
+                  </Knapp>
+                  <TextLank href="#mallarna">Se alla {mallar.length} mallar</TextLank>
+                </>
+              }
+              bild={<Mallvagg mallar={vagg} etikett={`${vagg.length} av de ${mallar.length} mallarna`} />}
+              lyft
             />
 
             {/* Resultatet på samma sida, som på /cv-mallar. */}
-            <Rum rum="cv" yta="mark" storlek="tat" id="valj-mall">
-              <div className="pub-wrap">
-                <ProvaArbetsyta />
-              </div>
-            </Rum>
+            <ProvaLyft etikett="Se ditt eget CV i mallarna" />
 
-            <Rum rum="cv" yta="panel" id="mallarna">
-              <div className="pub-wrap">
-                <h2 className="pub-h2">{p.galleriRubrik}</h2>
-                <p className="pub-ingress" style={{ marginTop: 16 }}>
-                  {p.galleriIngress}
-                </p>
-                <div className="mt-8 grid max-w-[900px] grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
-                  {mallar.map((m) => {
-                    const gratis = m.niva === 'gratis'
-                    const href = `/cv-mallar/prova?mall=${encodeURIComponent(m.id)}`
-                    return (
-                      <div key={m.id} id={`mall-${m.id}`} className="grid scroll-mt-24 content-start gap-2">
-                        <Miniatyr mall={m} storlek="rutnat" href={href} under={ARTIKEL.mallrad(gratis, m.word)} />
-                        <Link
-                          href={href}
-                          data-cta-klick={href}
-                          className="inline-flex min-h-11 items-center justify-center rounded-full border border-kant-stark bg-papper px-3 text-center text-sm font-semibold text-ink-1 hover:border-ink-1"
-                        >
-                          {gratis ? 'Fyll i gratis' : 'Prova med ditt CV'}
-                        </Link>
-                      </div>
-                    )
-                  })}
-                </div>
-                <p className="pub-brod" style={{ marginTop: 28, maxWidth: 760 }} data-premium-rad="">
-                  <MedKampanjPris text={p.premiumRad} />{' '}
-                  <Link href="/priser" className="pub-lank" data-cta-klick="/priser">
+            <Sektion id="mallarna">
+              <SektionHuvud rubrik={p.galleriRubrik} varde={p.galleriIngress} />
+              <ul className="cvm-mallnat cvm-stilnat">
+                {mallar.map((m) => {
+                  const gratis = m.niva === 'gratis'
+                  const href = `/cv-mallar/prova?mall=${encodeURIComponent(m.id)}`
+                  return (
+                    <li key={m.id} id={`mall-${m.id}`}>
+                      <MallKortet mall={m} href={href} under={ARTIKEL.mallrad(gratis, m.word)} />
+                      <Link href={href} data-cta-klick={href} className="cvm-mall-knapp">
+                        {gratis ? 'Fyll i gratis' : 'Prova med ditt CV'}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+              <div className="p3-premium cvm-prem" data-premium-rad="">
+                <div className="cvm-prem-rad">
+                  <p style={{ fontSize: 16.5 }}>
+                    <MedKampanjPris text={p.premiumRad} />
+                  </p>
+                  <Link href="/priser" className="p3-lank" data-cta-klick="/priser">
                     Se vad Premium ger
                   </Link>
-                </p>
+                </div>
               </div>
-            </Rum>
+            </Sektion>
 
             {p.avsnitt.map((a, i) => (
-              <Rum key={a.id} rum="cv" yta={ytor[(i + 1) % 2]} id={a.id}>
-                <div className="pub-wrap" style={{ maxWidth: 760 }}>
-                  <p className="pub-kick">{a.kick}</p>
-                  <h2 className="pub-h2">{a.rubrik}</h2>
-                  <div className="pub-brod" style={{ marginTop: 16, display: 'grid', gap: 12 }}>
-                    {a.innehall}
-                  </div>
+              <Sektion key={a.id} botten={bottnar[(i + 1) % 2]} id={a.id}>
+                <div className="cvm-avsnitt">
+                  <SektionHuvud etikett={a.kick} rubrik={a.rubrik} />
+                  <div className="cvm-avsnitt-text">{a.innehall}</div>
                 </div>
-              </Rum>
+              </Sektion>
             ))}
 
-            <Rum rum="cv" yta={ytor[(p.avsnitt.length + 1) % 2]} id="mer">
-              <div className="pub-wrap">
-                <p className="pub-kick">Vidare</p>
-                <h2 className="pub-h2">Fler mallar och guider</h2>
-                <div className="pub-raster pub-raster-2" style={{ marginTop: 28 }}>
-                  {p.lankar.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      data-cta-klick={l.href}
-                      className="pub-kort block hover:border-ink-1"
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <span className="pub-h4 block">{l.rubrik}</span>
-                      <span className="mt-2 block text-[15px] text-ink-2">{l.text}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </Rum>
+            <Sektion botten={bottnar[(p.avsnitt.length + 1) % 2]} id="mer">
+              <SektionHuvud etikett="Vidare" rubrik="Fler mallar och guider" />
+              <Rutnat kolumner={2}>
+                {p.lankar.map((l) => (
+                  <Link key={l.href} href={l.href} data-cta-klick={l.href} className="p3-lankbricka">
+                    <Dorr ikon="cv" />
+                    <b>{l.rubrik}</b>
+                    <span>{l.text}</span>
+                  </Link>
+                ))}
+              </Rutnat>
+            </Sektion>
 
-            <Rum rum="cv" yta={ytor[p.avsnitt.length % 2]} id="fragor">
-              <div className="pub-wrap" style={{ maxWidth: 820 }}>
-                <Faq rubrik={p.faqRubrik} fragor={p.faq} />
-              </div>
-            </Rum>
+            <Sektion botten={bottnar[p.avsnitt.length % 2]} id="fragor">
+              <Faq rubrik={p.faqRubrik} fragor={p.faq} />
+            </Sektion>
           </div>
         </ProvaProvider>
-      </PubliktSida>
+      </Sida>
     </>
   )
 }

@@ -35,7 +35,8 @@ import {
 } from '@/lib/letters/claim-draft-client'
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
-import StatusRow from '@/components/shell/StatusRow'
+import { Dorr, Ikon } from '@/components/publikt/v3/Ikon'
+import './registrering.css'
 import { PROV3, PROV_NAMN, PROV_RAM } from '@/components/publikt/prov/prov-copy'
 import { arNyProvTyp, type ProvTyp } from '@/lib/tests/prov-typer'
 import { lasSparatProv, type Rutnat } from '@/lib/tests/prova-lokalt'
@@ -344,16 +345,16 @@ export default function RegisterKontoSteg({
       errorText={STEG2.googleFel}
       signup={{ intent, entry }}
       onBeforeRedirect={skrivCookie}
-      className="pub-konto-google"
+      className="rg-google"
     />
   )
 
   const formular = (
-    <div className="pub-konto-form">
-      {eyebrow ? <p className="pub-konto-eyebrow">{eyebrow}</p> : null}
-      <h1>{rubrik}</h1>
+    <div className="rg-formular">
+      {eyebrow ? <p className="rg-ey">{eyebrow}</p> : null}
+      <h1 className="rg-h1">{rubrik}</h1>
       {fel ? null : provMedResultat && provResultat ? (
-        <p className="pub-konto-under" data-prov-sedan>
+        <p className="rg-under" data-prov-sedan>
           {PROV3.panel.sedan(
             provResultat.typ && arNyProvTyp(provResultat.typ) ? provResultat.typ : 'matris',
             valjOppetFacit(provResultat.fel, provResultat.totalt).variant,
@@ -364,7 +365,7 @@ export default function RegisterKontoSteg({
           <b>{PROV3.panel.gratis}</b>
         </p>
       ) : (
-        <p className="pub-konto-under">
+        <p className="rg-under">
           {underFet ? (
             <>
               <b>{underFet}</b>
@@ -377,16 +378,15 @@ export default function RegisterKontoSteg({
       )}
 
       {fel ? (
-        <div role="alert" className="pub-konto-fel">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 7.5v5.5M12 16.5v.01" />
-          </svg>
+        <div role="alert" className="rg-rad rg-fel">
+          <i aria-hidden="true">!</i>
           <div className="min-w-0">
-            <p className="pub-konto-fel-rubrik">{fel.rubrik}</p>
+            <p>
+              <b>{fel.rubrik}</b>
+            </p>
             {fel.text ? <p>{fel.text}</p> : null}
             {fel.loggaIn ? (
-              <Link href={loginHref} className="pub-lank inline-flex min-h-11 items-center">
+              <Link href={loginHref} className="rg-lank">
                 {STEG2.fel.finnsLank}
               </Link>
             ) : null}
@@ -395,19 +395,22 @@ export default function RegisterKontoSteg({
       ) : null}
 
       {smak && !arTest && !fel ? (
-        <StatusRow tone="positive" showDot>
-          {smak.status}
-        </StatusRow>
+        <div className="rg-rad rg-bra" role="status">
+          <i aria-hidden="true">
+            <Ikon namn="bock" />
+          </i>
+          <span>{smak.status}</span>
+        </div>
       ) : null}
 
       {intent && !smak && !fel && (lage === 'tratt' || lage === 'konto') ? (
-        <div className="flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 py-2">
-          <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink-1">
-            <IntentIkon intent={intent} size={20} className="shrink-0 text-ink-2" />
+        <div className="rg-valrad">
+          <span>
+            <IntentIkon intent={intent} size={20} className="shrink-0" />
             <span>{STEG2.valrad[intent]}</span>
           </span>
           {onAndraVal ? (
-            <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0 text-ink-2`}>
+            <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0`}>
               {STEG2.andra}
             </button>
           ) : null}
@@ -417,13 +420,13 @@ export default function RegisterKontoSteg({
       {!fel ? (
         <>
           {google}
-          <p className="pub-konto-eller" aria-hidden="true">
+          <p className="rg-eller" aria-hidden="true">
             {STEG2.eller}
           </p>
         </>
       ) : null}
 
-      <form id={formId} onSubmit={skicka} noValidate className="pub-konto-falt-g">
+      <form id={formId} onSubmit={skicka} noValidate className="rg-form">
         <Falt
           label={STEG2.epost}
           id={`${formId}-epost`}
@@ -451,23 +454,18 @@ export default function RegisterKontoSteg({
         <TurnstileWidget onToken={setTurnstileToken} />
         {/* Mejlvalet: frivilligt och oikryssat, före knappen så att valet
             syns innan kontot skapas. Följer med genom Google i jc_signup. */}
-        <label className="pub-konto-villkor" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer', minHeight: 44, fontSize: 13 }}>
-          <input
-            type="checkbox"
-            checked={erbjudanden}
-            onChange={(e) => setErbjudanden(e.target.checked)}
-            style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: 'var(--ink-1)', cursor: 'pointer' }}
-          />
+        <label className="rg-kryss">
+          <input type="checkbox" checked={erbjudanden} onChange={(e) => setErbjudanden(e.target.checked)} />
           <span>{STEG2.erbjudanden}</span>
         </label>
-        <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="pub-knapp pub-konto-knapp">
+        <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="p3-knapp p3-knapp-bred">
           {busy ? STEG2.busy : smak ? smak.knapp : STEG2.primar}
         </button>
       </form>
 
       {fel ? google : null}
 
-      <p className="pub-konto-villkor">
+      <p className="rg-juridik">
         {STEG2.villkorFore}
         <Link href="/anvandarvillkor">{STEG2.villkorLank}</Link>
         {STEG2.villkorMitt}
@@ -522,14 +520,14 @@ export default function RegisterKontoSteg({
       toppLank={{ href: loginHref, text: SKAL.loggaIn, forklaring: SKAL.harKonto }}
       bredd="full"
     >
-      <div className={`pub-konto${panel ? ' pub-konto-med-panel' : ''}`}>
-        <div className="pub-konto-g">
+      <section className="rg-konto">
+        <div className={`p3-bredd rg-konto-rad ${panel ? 'rg-med-panel' : 'rg-ensam'}`}>
           {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} nio={nio?.prov} poster={provPoster} /> : null}
-          {panel === 'gratis' ? <GratisPanel nio={nio?.gratis} /> : null}
+          {panel === 'gratis' ? <GratisPanel /> : null}
 
-          {formular}
+          <div className="rg-kort">{formular}</div>
         </div>
-      </div>
+      </section>
     </PubliktFlodesskal>
   )
 }
@@ -538,8 +536,8 @@ export default function RegisterKontoSteg({
 
 function PremiumRad({ text }: { text: string }) {
   return (
-    <p className="pub-konto-premium">
-      <b>{KONTO_PANEL.premiumRad.namn}</b>
+    <p className="rg-prem-not">
+      <b>{KONTO_GRATIS.premiumNamn}</b>
       {/* Priset följer kampanjen (K2, K3): KampanjHuvud väljer variant före första målningen. */}
       <MedKampanjPris text={text} />
     </p>
@@ -644,65 +642,85 @@ function ProvLoftenEfter({ resultat }: { resultat: ProvResultat }) {
   )
 }
 
-/** Bar /register: vad som ingår gratis, samma panel. */
-function GratisPanel({ nio }: { nio?: ReactNode }) {
+/**
+ * Bar /register: vad som ingår gratis (skissen registrering). Fyra delar
+ * som färgade kort, ett per del, med en liten bild av det man får. Bilderna
+ * är aria-hidden; texten står i korten. Premiumraden under.
+ */
+const DEL_FARG = { matris: 'tran', cv: 'cv', brev: 'brev', jobb: 'jobb' } as const
+
+function GratisPanel() {
   return (
-    <aside className="pub-rum-tran pub-konto-panel">
-      <p className="pub-kick">{KONTO_GRATIS.kick}</p>
-      <h2>{KONTO_GRATIS.rubrik}</h2>
-      <ul className="pub-konto-ger">
+    <aside className="rg-panel">
+      <p className="p3-ey">{KONTO_GRATIS.kick}</p>
+      <h2 className="p3-h2">{KONTO_GRATIS.rubrik}</h2>
+      <ul className="rg-delar4">
         {KONTO_GRATIS.rader.map((r) => (
-          // Testraden: Nio-raden i stället för 64-ikonen, så att bredden syns
-          // innan kontot skapas (S3). Raden blir glyfrad, namn, text.
-          <li key={r.namn} className={r.ikon === 'matris' && nio ? 'glyfrad' : undefined}>
-            {r.ikon === 'matris' && nio ? (
-              nio
-            ) : (
-              <span className="pub-konto-obj" aria-hidden="true">
-                <GratisIkon typ={r.ikon} />
-              </span>
-            )}
+          <li key={r.namn} className="rg-dl" data-p3-farg={DEL_FARG[r.ikon]}>
             <div>
-              <b>{r.namn}</b>
-              <span>{r.text}</span>
+              <p className="rg-dl-namn">
+                <Dorr ikon={DEL_FARG[r.ikon]} />
+                {r.namn}
+              </p>
+              <p className="rg-dl-text">{r.text}</p>
             </div>
+            <GratisBild typ={r.ikon} />
           </li>
         ))}
       </ul>
-      <div className="pub-konto-dator">
-        <PremiumRad text={KONTO_GRATIS.premium} />
-      </div>
+      <PremiumRad text={KONTO_GRATIS.premium} />
     </aside>
   )
 }
 
-function GratisIkon({ typ }: { typ: 'matris' | 'cv' | 'brev' }) {
+/** Kortens små bilder: en matrisuppgift, poängen (exempel), ett brev och vägen i Jobbsöket. */
+function GratisBild({ typ }: { typ: 'matris' | 'cv' | 'brev' | 'jobb' }) {
   if (typ === 'matris')
     return (
-      <svg viewBox="0 0 64 64" focusable="false">
-        <rect x="6" y="6" width="52" height="52" rx="8" />
-        <path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45" />
-        <circle cx="14.5" cy="14.5" r="3.5" />
-        <path d="M28 18h8v-7" />
-        <circle cx="32" cy="32" r="3.5" />
-        <rect x="44" y="44" width="10" height="10" rx="2" fill="var(--koppar)" stroke="none" />
-      </svg>
+      <div className="rg-dl-matris" aria-hidden="true">
+        <span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round">
+            <path d="M20 6l15 27H5z" />
+          </svg>
+        </span>
+        <span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="3.5">
+            <circle cx="20" cy="20" r="14" />
+          </svg>
+        </span>
+        <span>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="3.5">
+            <rect x="6" y="6" width="28" height="28" rx="3" />
+          </svg>
+        </span>
+        <span className="rg-tom">?</span>
+      </div>
     )
   if (typ === 'cv')
     return (
-      <svg viewBox="0 0 64 64" focusable="false">
-        <rect x="10" y="6" width="40" height="52" rx="6" />
-        <circle cx="22" cy="19" r="4" />
-        <path d="M31 17h12M18 31h28M18 39h28M18 47h18" />
-        <circle cx="50" cy="12" r="9" fill="var(--rum-vagg)" />
-        <path d="M50 4a8 8 0 1 1-7 4" stroke="var(--koppar)" strokeWidth="3" />
-      </svg>
+      <div className="rg-dl-tal" aria-hidden="true">
+        93<small>av 100</small>
+      </div>
+    )
+  if (typ === 'brev')
+    return (
+      <div className="rg-dl-blad" aria-hidden="true">
+        <i />
+        <i />
+        <i className="rg-m" />
+        <i />
+        <i className="rg-m" style={{ width: '52%' }} />
+      </div>
     )
   return (
-    <svg viewBox="0 0 64 64" focusable="false">
-      <path d="M12 6h26l14 14v36a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
-      <path d="M38 6v14h14M18 30h24M18 38h28M18 46h28" />
-      <rect x="18" y="51" width="18" height="4" rx="2" fill="var(--koppar)" stroke="none" />
+    <svg className="rg-dl-stig" viewBox="0 0 220 96" fill="none" aria-hidden="true" focusable="false">
+      <path d="M12 84C50 84 54 60 88 56s42-12 64-24 36-16 50-22" stroke="currentColor" strokeOpacity=".55" strokeWidth="4" strokeDasharray="1 9" strokeLinecap="round" />
+      <circle cx="12" cy="84" r="7" fill="var(--vagg)" stroke="currentColor" strokeWidth="4" />
+      <circle cx="88" cy="56" r="9" fill="var(--koppar)" stroke="currentColor" strokeWidth="4" />
+      <circle cx="152" cy="32" r="7" fill="var(--vagg)" stroke="currentColor" strokeWidth="4" />
+      <path d="M202 10V-14" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+      <path d="M202-14l18 6-18 7z" fill="var(--koppar)" />
+      <circle cx="202" cy="10" r="6" fill="currentColor" />
     </svg>
   )
 }
@@ -733,7 +751,7 @@ function Falt({
   autoCapitalize?: 'none'
 }) {
   return (
-    <div className="pub-konto-falt">
+    <div className="rg-falt">
       <label htmlFor={id}>
         {label}
       </label>

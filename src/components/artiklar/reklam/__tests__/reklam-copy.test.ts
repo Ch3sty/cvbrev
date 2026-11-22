@@ -20,6 +20,7 @@ import {
   INLINE_PROVA,
   TESTKORT_INTERVJU,
   INLINE_RAKNARE,
+  JOBB_KORT,
   LANKRAD,
   LISTA_SLUT,
   SIDO,
@@ -29,7 +30,7 @@ import * as PAKET_COPY from '@/components/pricing/paket-copy'
 import * as PRISER_DATA from '@/app/(public)/priser/components/priser-data'
 import { KONTO_GRATIS } from '@/components/registrering/registrering-copy'
 
-const ALLA = { GRATIS_KORT, INLINE, INLINE_PROVA, TESTKORT_INTERVJU, INLINE_RAKNARE, LANKRAD, LISTA_SLUT, SIDO, SLUT }
+const ALLA = { GRATIS_KORT, INLINE, INLINE_PROVA, TESTKORT_INTERVJU, INLINE_RAKNARE, JOBB_KORT, LANKRAD, LISTA_SLUT, SIDO, SLUT }
 
 /** Alla strängar i ett objekt, rekursivt. */
 function strangar(v: unknown): string[] {
@@ -174,8 +175,12 @@ describe('F22: publika copykällor', () => {
 
   it('provkortets text och paketrad enligt S2', () => {
     expect(INLINE_PROVA.text).toBe(
-      'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna, ett test om dagen, gratis med konto.'
+      'Det här är en av våra expertuppgifter: tre regler samtidigt, form, tecken och fyllning. Fem uppgifter gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna, ett test om dagen, gratis med konto.'
     )
+    // Texten delas i brödtext och gratisraden (publikt omgång 3), utan att ett ord försvinner.
+    expect(`${INLINE_PROVA.brod} ${INLINE_PROVA.gratis}`).toBe(INLINE_PROVA.text)
+    for (const v of Object.values(INLINE)) expect(v.gratis ? `${v.brod} ${v.gratis}` : v.brod).toBe(v.text)
+    expect(INLINE_PROVA.knapp).toBe('Prova fem uppgifter')
     expect(INLINE_PROVA.paketrad).toBe(
       'Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.'
     )

@@ -14,6 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { checkDailyBudget, checkIpRateLimit, getClientIp, hashIp } from '@/lib/rate-limit/ip'
 import { createPublicLetterDraft } from '@/lib/letters/public-draft'
+import { publikTon } from '@/lib/letters/claim-brev'
 
 /** Tre utkast per IP och dygn. */
 const IP_LIMIT = 3
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
     experience?: unknown
     jobAd?: unknown
     yrkeSlug?: unknown
+    ton?: unknown
   }
 
   try {
@@ -44,6 +46,9 @@ export async function POST(request: Request) {
   const experience = typeof body.experience === 'string' ? body.experience.trim() : ''
   const jobAd = typeof body.jobAd === 'string' ? body.jobAd.trim().slice(0, 8000) : undefined
   const yrkeSlug = typeof body.yrkeSlug === 'string' ? body.yrkeSlug.slice(0, 100) : undefined
+  // Tonen (publikt omgång 3): en av de fem som gratisnivån har i kontot.
+  // Okänd ton, eller auto (Premium), ger förvalet. Samma spärrar som förut.
+  const ton = publikTon(body.ton) ?? undefined
 
   if (!role || !employer) {
     return NextResponse.json(
@@ -102,7 +107,7 @@ export async function POST(request: Request) {
   try {
     const draft = await createPublicLetterDraft(
       admin,
-      { role, employer, experience, jobAd, yrkeSlug },
+      { role, employer, experience, jobAd, yrkeSlug, ton },
       hashIp(ip)
     )
 

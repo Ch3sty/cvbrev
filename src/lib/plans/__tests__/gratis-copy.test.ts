@@ -10,6 +10,7 @@ import {
   GRATIS_BREVFONSTER,
   GRATIS_CHATTFRAGOR,
   GRATIS_FAQ,
+  GRATIS_INTERVJUPROV_PER_DAG,
   GRATIS_LISTA,
   GRATIS_MALLRAD,
   GRATIS_MENING_KORT,
@@ -22,7 +23,7 @@ import {
   TESTTYPER_ORD,
 } from '../gratis-copy'
 import { TEST_GROUPS } from '@/app/dashboard/tester/components/testCatalog'
-import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
+import { DAILY_LIMIT_INTERVIEW_SAMPLES, FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import { TESTTAL } from '@/components/publikt/testtal'
 import { GRATIS_KORT } from '@/components/artiklar/reklam/reklam-copy'
 import { FREE_HIGHLIGHTS, GRATIS_RAD } from '@/app/(public)/priser/components/priser-data'
@@ -41,6 +42,7 @@ describe('gratisnivån, en källa', () => {
 
   it('talen stämmer mot kvottjänsten och påståendebanken', () => {
     expect(GRATIS_CHATTFRAGOR).toBe(FREE_CHAT_MESSAGES_PER_ACCOUNT)
+    expect(GRATIS_INTERVJUPROV_PER_DAG).toBe(DAILY_LIMIT_INTERVIEW_SAMPLES)
     expect(LETTER_WINDOW_DAYS).toBe(7)
     expect(GRATIS_BREVFONSTER).toBe('var sjunde dag')
     expect(GRATIS_PASTAENDEN).toBe(TESTTAL.personlighetGrund.fragor)
@@ -76,7 +78,7 @@ describe('gratisnivån, en källa', () => {
     expect(GRATIS_RAD).toBe(GRATIS_MENING_KORT)
     expect(GRATIS.delar).toBe(GRATIS_MENING_LANG_DELAR)
     expect(KONTO_GRATIS.rader[0].namn).toBe('Rekryteringstesterna')
-    expect(KONTO_GRATIS.rader[0].text).toBe('Grundnivån i alla åtta typerna, ett test om dagen, med genomgång av varje fråga.')
+    expect(KONTO_GRATIS.rader[0].text).toBe('Grundnivån i alla åtta testtyperna, ett test om dagen, med förklaring efter varje uppgift.')
     expect(STEG3.forslag.tester.gratis).toEqual(['Grundnivån i alla åtta testtyperna, ett test om dagen', 'Genomgång av varje fråga', 'Personlighetstestet med 50 påståenden'])
     expect(STEG3.forslag.cv.gratis).toEqual([GRATIS_LISTA[1], GRATIS_LISTA[2]])
     expect(STEG3.forslag.brev.gratis).toEqual([GRATIS_LISTA[3], GRATIS_LISTA[2]])

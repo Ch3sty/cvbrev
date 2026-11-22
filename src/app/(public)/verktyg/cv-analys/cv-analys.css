@@ -1,0 +1,80 @@
+/* /verktyg/cv-analys i publikt omgång 3 (skissen cv-analys). Egna klasser
+   heter cva-*, allt annat kommer ur grunden (p3-*). Färger bara som tokens. */
+
+/* Lyftkortet: uppladdningen till vänster, vad man får se till höger */
+.cva-slapp { display: grid; gap: 24px; align-items: stretch; }
+.cva-mini > * + * { margin-top: 12px; }
+.cva-yta { display: grid; place-items: center; gap: 12px; text-align: center; margin-top: 22px; padding: 28px 18px; border-radius: 22px; border: 3px dashed var(--kant-stark); background: var(--golv); }
+.cva-fil { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: var(--papper); color: var(--ton-ink); box-shadow: 0 5px 0 var(--kant-stark); }
+.cva-fil svg { width: 30px; height: 30px; }
+.cva-yta .p3-knapp:disabled { opacity: .5; cursor: progress; }
+.cva-yta[data-over='true'] { border-color: var(--ton-ink); background: var(--ton); }
+.cva-slapp-text { font-family: var(--disp); font-size: 20px; color: var(--ink-1); }
+@media (hover: none) { .cva-slapp-text { display: none; } }
+.cva-besked { margin-top: 16px; padding: 16px; border-radius: 16px; border: 2px solid var(--kant); background: var(--papper); }
+.cva-besked > * + * { margin-top: 12px; }
+.cva-fel { color: var(--koppar-ink); font-weight: 600; }
+.cva-far { display: grid; gap: 10px; margin-top: 14px; }
+.cva-far li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--golv); font-size: 15px; font-weight: 600; color: var(--ink-1); }
+.cva-far li i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton-ink); color: var(--papper); }
+.cva-far li i svg { width: 18px; height: 18px; }
+.cva-far li span { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+@media (min-width: 900px) { .cva-slapp { grid-template-columns: 1.15fr 1fr; gap: 40px; } .cva-yta { padding: 48px 28px; } }
+
+/* Resultatet efter uppladdningen */
+.cva-resultat { display: grid; gap: 16px; }
+.cva-poang { display: flex; align-items: baseline; gap: 10px; }
+.cva-poang b { font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1; color: var(--ink-1); font-variant-numeric: tabular-nums; }
+.cva-poang span { color: var(--ink-3); font-size: 15px; }
+.cva-del { padding-top: 16px; border-top: 2px solid var(--kant); }
+.cva-del > * + * { margin-top: 8px; }
+.cva-del h3 { font-size: 16px; font-weight: 700; color: var(--ink-1); }
+.cva-del ul { display: grid; gap: 8px; }
+.cva-del li { display: flex; gap: 10px; align-items: center; font-size: 15px; color: var(--ink-3); }
+.cva-del li::before { content: ''; width: 12px; height: 12px; border-radius: 4px; background: var(--ton); flex: none; }
+
+/* Sju delar som ger poängen: stapeln är bilden */
+.cva-hundra { display: flex; gap: 4px; height: 64px; }
+.cva-hundra div { position: relative; border-radius: 12px; background: var(--papper); overflow: hidden; min-width: 0; }
+.cva-hundra div i { position: absolute; inset: 0 auto 0 0; background: var(--ton-ink); }
+.cva-hundra div.cva-tapp { background: var(--koppar-mjuk); }
+.cva-hundra div.cva-tapp i { background: var(--koppar); }
+.cva-hundra div b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--disp); font-weight: 800; font-size: 15px; color: var(--papper); }
+.cva-hundra div.cva-tapp b { color: var(--koppar-text); }
+.cva-delar { display: grid; gap: 12px; margin-top: 18px; }
+.cva-delrad { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 4px 14px; align-items: center; padding: 16px 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+.cva-delrad .p3-h3 { font-size: 18px; }
+.cva-delrad p { grid-column: 2 / -1; font-size: 14.5px; color: var(--ink-2); }
+.cva-delrad .cva-max { font-family: var(--disp); font-weight: 800; font-size: 19px; white-space: nowrap; color: var(--ink-1); }
+.cva-delrad .cva-max small { font-family: inherit; font-weight: 500; font-size: 13px; color: var(--ink-3); }
+.cva-delrad.cva-tapp { border-color: var(--koppar); }
+.cva-delrad .cva-exempel { color: var(--koppar-ink); font-weight: 600; }
+.cva-not { margin-top: 18px; max-width: 70ch; }
+@media (max-width: 520px) { .cva-delrad { grid-template-columns: 40px minmax(0, 1fr) auto; padding: 14px; } .cva-delrad p { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .cva-delar { grid-template-columns: 1fr 1fr; gap: 16px; } .cva-hundra div b { font-size: 21px; } .cva-delrad.cva-bred { grid-column: 1 / -1; } }
+
+/* Vägen till 100 */
+.cva-vagen { border-radius: var(--r-stor, 32px); padding: 28px 20px 34px; }
+.cva-vagen-rad { display: grid; gap: 28px; margin-top: 28px; }
+.cva-tillhundra { display: flex; height: 44px; border-radius: 14px; overflow: hidden; }
+.cva-tillhundra i { display: grid; place-items: center; font-style: normal; font-family: var(--disp); font-weight: 800; font-size: 17px; }
+.cva-tillhundra .cva-idag { flex: 93; background: var(--ljus); color: var(--vagg-3); }
+.cva-tillhundra .cva-jc { flex: 5; background: var(--koppar); color: var(--koppar-text); min-width: 44px; }
+.cva-tillhundra .cva-sjalv { flex: 2; min-width: 40px; color: var(--vagg-ink); background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .28) 0 6px, rgba(255, 255, 255, .1) 6px 12px); }
+.cva-forklaring { display: grid; gap: 8px; margin-top: 16px; font-size: 15px; color: var(--vagg-mjuk); }
+.cva-forklaring li { display: flex; gap: 10px; align-items: center; }
+.cva-forklaring li::before { content: ''; width: 14px; height: 14px; border-radius: 5px; background: var(--ljus); flex: none; }
+.cva-forklaring li:nth-child(2)::before { background: var(--koppar); }
+.cva-forklaring li:nth-child(3)::before { background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .5) 0 3px, rgba(255, 255, 255, .15) 3px 6px); }
+.cva-forklaring b { margin-left: auto; color: var(--vagg-ink); font-family: var(--disp); }
+.cva-niva { display: grid; gap: 14px; }
+.cva-niva .p3-kort { border-color: transparent; border-bottom-color: rgba(0, 0, 0, .25); }
+.cva-niva .p3-h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+@media (min-width: 1000px) { .cva-vagen { padding: 64px; } .cva-vagen-rad { grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; } .cva-niva { grid-template-columns: 1fr 1fr; } }
+
+/* Skrivtipsen: före och efter */
+.cva-fore { padding: 12px 14px; border-radius: 14px; background: var(--golv); font-size: 14.5px; }
+.cva-fore s { color: var(--ink-3); }
+.cva-fore b { display: block; margin-top: 4px; color: var(--ton-ink); }
+
+.cva-efter { margin-top: 36px; }

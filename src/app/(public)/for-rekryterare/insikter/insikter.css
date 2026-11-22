@@ -1,0 +1,29 @@
+/* Insikterna för rekryterare, publikt omgång 3 (grundens skal, BYGGBRIEF
+   beslut 10). Den gamla brödsmulan (components/Breadcrumb, som också bär
+   BreadcrumbList-schemat) står kvar och får väggens toner här, så att
+   schemat inte ändras. */
+.ins-smula { --ink-1: var(--vagg-ink); --ink-2: var(--vagg-ink); --ink-3: var(--vagg-mjuk); }
+.ins-smula nav { margin-bottom: 0; }
+.ins-smula a { display: inline-block; padding: 4px 0; }
+.ins-huvud { max-width: 820px; margin-top: 26px; }
+.ins-huvud > * + * { margin-top: 16px; }
+.ins-meta { font-size: 14px; color: var(--vagg-mjuk); }
+
+/* Hubbens kort: papper med klack, bilden överst. */
+.p3-kort.ins-kort { display: block; padding: 0; overflow: hidden; text-decoration: none; transition: transform .15s, border-color .15s; }
+.p3-kort.ins-kort:hover { border-color: var(--kant-stark); transform: translateY(-2px); }
+.ins-kort-bild { position: relative; aspect-ratio: 3 / 2; background: var(--ton); }
+.p3-kort.ins-kort > .ins-kort-text { margin-top: 0; padding: 20px 22px 24px; }
+.ins-kort-text > * + * { margin-top: 8px; }
+.ins-kort-text .ins-datum { font-size: 13px; color: var(--ink-3); }
+.ins-kort-text .p3-h3 { font-size: 19px; line-height: 1.25; }
+.ins-kort:hover .p3-h3 { text-decoration: underline; text-underline-offset: 3px; }
+.ins-kort-text p { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .ins-kort, .ins-kort:hover { transition: none; transform: none; } }
+
+/* Insikten: brödtexten på ett papper som går in över väggens nederkant. */
+.ins-artikel { max-width: 860px; margin: 0 auto; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); padding: 24px 18px; color: var(--ink-1); }
+@media (min-width: 900px) { .ins-artikel { padding: 48px 56px; } }
+.ins-tillbaka { margin-top: 32px; padding-top: 20px; border-top: 2px solid var(--kant); }
+.ins-tillbaka a { font-size: 14px; font-weight: 700; color: var(--koppar-ink); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.ins-tillbaka a:hover { text-decoration: underline; }

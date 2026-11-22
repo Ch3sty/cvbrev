@@ -1,0 +1,259 @@
+/* =============================================================================
+   Brevexemplen i publikt omgång 3 (skisserna brev-exempel och brev-exempelnav).
+   Klasserna heter bx-*. Färger bara ur grundens tokens (sidan är plommon).
+   Används av BrevExempelMall, BrevYrkesKort, navet och kategorisidorna.
+   ============================================================================= */
+
+.p3-lank-inline { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* ---------- hjälten ---------- */
+.bx-bevis { display: flex; flex-wrap: wrap; gap: 8px; }
+.bx-bevis li { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: var(--vagg-ink); font-size: 14px; font-weight: 700; }
+.bx-bevis svg { width: 16px; height: 16px; }
+/* Telefon: hjälten är kort så att brevet kommer direkt. Arket bara i brett läge. */
+.bx-hjalte .p3-hjalte-bild { display: none; }
+@media (min-width: 1000px) { .bx-hjalte .p3-hjalte-bild { display: block; } }
+.bx-hjalte-ark { position: relative; max-width: 460px; margin: 0 auto; padding: 12px 40px 40px; }
+.bx-bakom { position: absolute; top: 36px; width: 46%; border-radius: 3px; background: #fff; box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+.bx-bakom-v { left: 0; transform: rotate(-5deg); }
+.bx-bakom-h { right: 0; transform: rotate(5deg); }
+.bx-hjalte-ark .bx-a4 { position: relative; z-index: 1; transform: rotate(1deg); }
+.bx-lapp { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px; max-width: 250px; padding: 12px 14px; border-radius: 16px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .2), 0 20px 40px rgba(0, 0, 0, .25); font-size: 14.5px; line-height: 1.25; }
+.bx-lapp i { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 9px; background: var(--vagg); color: #fff; font-style: normal; font-weight: 800; font-size: 13.5px; }
+.bx-lapp-1 { left: -10px; top: 34%; --rot: -2deg; transform: rotate(-2deg); }
+.bx-lapp-2 { right: -14px; bottom: 6%; --rot: 2deg; transform: rotate(2deg); }
+
+/* ---------- arket, satt som Linne ---------- */
+.bx-a4 { background: #fff; color: #1A1A1F; border-radius: 4px; padding: 28px 22px 32px; box-shadow: 0 8px 0 rgba(0, 0, 0, .2), 0 28px 50px rgba(0, 0, 0, .28); font-size: 15.5px; line-height: 1.7; }
+.bx-a4-namn { font-family: Georgia, 'Times New Roman', serif; font-size: 28px; line-height: 1.15; }
+.bx-a4-kontakt { margin-top: 6px; padding-bottom: 14px; border-bottom: 1px solid #D8D5CE; font-size: 13px; line-height: 1.5; color: #4A4A55; }
+.bx-a4-datum { margin-top: 14px; font-size: 14px; color: #4A4A55; }
+.bx-a4-mottagare { margin-top: 12px; font-size: 15px; }
+.bx-a4-roll { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 19px; line-height: 1.3; color: var(--ton-ink); }
+.bx-a4-stycke { position: relative; margin-top: 14px; }
+.bx-a4-avslut { white-space: pre-line; }
+.bx-a4-nr { display: inline-flex; gap: 4px; margin-right: 8px; vertical-align: 2px; }
+.bx-a4-nr span { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; background: var(--vagg); color: #fff; font-family: Inter, system-ui, sans-serif; font-weight: 800; font-size: 12.5px; line-height: 1; }
+@media (min-width: 900px) {
+  .bx-a4 { padding: 56px 64px 64px 84px; font-size: 16px; }
+  .bx-a4-namn { font-size: 40px; }
+  .bx-a4-kontakt { font-size: 14px; }
+  .bx-a4-roll { font-size: 22px; }
+  /* Siffrorna i marginalen i brett läge, först i stycket på telefon. */
+  .bx-a4-nr { position: absolute; left: -52px; top: 4px; flex-direction: column; gap: 6px; margin: 0; }
+  .bx-a4-nr span { width: 30px; height: 30px; font-size: 14px; }
+}
+.bx-a4.bx-a4-liten { padding: 22px 20px 26px; font-size: 6.5px; line-height: 1.55; }
+.bx-a4-liten .bx-a4-namn { font-size: 15px; }
+.bx-a4-liten .bx-a4-kontakt { font-size: 6px; padding-bottom: 6px; }
+.bx-a4-liten .bx-a4-mottagare, .bx-a4-liten .bx-a4-roll { margin-top: 6px; font-size: 7.5px; }
+.bx-a4-liten p + p { margin-top: 5px; }
+
+/* ---------- exemplet: plommonytan och kommentarerna ---------- */
+.bx-exempel { display: grid; gap: 22px; }
+@media (min-width: 1100px) { .bx-exempel { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; } }
+.bx-yta { position: relative; overflow: hidden; isolation: isolate; padding: 14px 12px 16px; border-radius: var(--r-stor, 32px); background: var(--vagg); box-shadow: 0 8px 0 var(--vagg-3); }
+.bx-yta::before { content: ''; position: absolute; z-index: -1; right: -20%; top: -20%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .55; }
+@media (min-width: 900px) { .bx-yta { padding: 26px 26px 24px; } }
+.bx-papper { scroll-margin-top: 92px; }
+.bx-papper[hidden] { display: none; }
+.bx-fotrad { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 18px; }
+.bx-marken { display: flex; flex-wrap: wrap; gap: 6px; }
+.bx-marken span { display: inline-grid; place-items: center; min-height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); color: var(--vagg-ink); font-size: 13.5px; font-weight: 700; }
+html[data-brevvisare-oppen] .bx-marken { display: none; }
+.bx-fotrad .ib-valjare { flex-basis: 100%; order: -1; }
+.bx-yta .mv-hall { margin: 0; }
+.bx-yta .mv { border-color: transparent; }
+/* Knappen Byt mall: vit, med de fem riktiga miniatyrerna */
+.bx-fotrad .ib-byt-brev { display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 6px 22px 6px 12px; border-radius: 16px; border: 2px solid var(--kant-stark); background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 var(--vagg-3); font: inherit; font-family: var(--disp); font-weight: 700; font-size: 17px; cursor: pointer; transition: transform .08s, box-shadow .08s; }
+.bx-fotrad .ib-byt-brev:hover { transform: translateY(1px); box-shadow: 0 4px 0 var(--vagg-3); }
+.bx-fotrad .ib-byt-brev[hidden] { display: none; }
+.ib-byt-bilder { display: flex; align-items: center; padding-left: 8px; flex: none; }
+.ib-byt-bilder img { width: 26px; height: auto; margin-left: -8px; border-radius: 2px; background: #fff; box-shadow: 0 0 0 1px var(--kant-stark), 0 3px 5px -2px rgba(0, 0, 0, .35); }
+.ib-byt-bilder img:nth-child(1) { transform: rotate(-7deg); }
+.ib-byt-bilder img:nth-child(2) { transform: rotate(-3.5deg); }
+.ib-byt-bilder img:nth-child(3) { position: relative; z-index: 1; }
+.ib-byt-bilder img:nth-child(4) { transform: rotate(3.5deg); }
+.ib-byt-bilder img:nth-child(5) { transform: rotate(7deg); }
+@media (prefers-reduced-motion: reduce) { .bx-fotrad .ib-byt-brev { transition: none; } }
+
+.bx-noter { display: grid; gap: 12px; align-content: start; }
+.bx-not { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; padding: 14px 16px; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; }
+.bx-not .p3-nr { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; box-shadow: none; }
+.bx-not b { display: block; font-family: var(--disp); font-size: 16.5px; line-height: 1.25; color: var(--ink-1); }
+.bx-not span { display: block; margin-top: 6px; font-size: 14.5px; line-height: 1.45; color: var(--ink-3); }
+.bx-not-cta { padding: 20px; border-radius: 22px; background: var(--vagg-3); color: var(--vagg-ink); box-shadow: 0 6px 0 rgba(0, 0, 0, .3); }
+.bx-not-cta > * + * { margin-top: 10px; }
+.bx-not-cta-rub { font-family: var(--disp); font-weight: 800; font-size: 20px; line-height: 1.2; color: #fff; }
+.bx-not-cta p:not(.bx-not-cta-rub) { font-size: 15px; color: var(--vagg-mjuk); }
+.bx-not-cta .p3-knapp { margin-top: 16px; }
+.bx-not-cta .p3-knapp[hidden] { display: none; }
+.ib-cta-lank { display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; color: #fff; font-weight: 600; font-size: 15.5px; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; text-decoration-color: rgba(255, 255, 255, .5); }
+.ib-cta-lank:hover { text-decoration-color: #fff; }
+html[data-brevvisare-oppen] [data-sticky-mobil] { display: none; }
+
+/* ---------- korten: varför, tipsen ---------- */
+.bx-kort-rutnat { display: grid; gap: 14px; }
+@media (min-width: 800px) { .bx-kort-rutnat { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+@media (min-width: 800px) { .bx-tips.bx-udda > li:last-child { grid-column: 1 / -1; } }
+.bx-kort { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: start; min-width: 0; padding: 20px; border-radius: 22px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; color: var(--ink-1); }
+.bx-kort > div > * + * { margin-top: 10px; }
+.bx-kort .p3-h3 { margin-top: 8px; }
+.bx-kort p { font-size: 15.5px; line-height: 1.6; color: var(--ink-2); }
+.bx-kort b { color: var(--ink-1); }
+@media (min-width: 900px) { .bx-kort { padding: 26px; } }
+.bx-tips-kort { display: block; }
+.bx-tips-kort > * + * { margin-top: 12px; }
+.bx-tips-huvud { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: center; margin-bottom: 4px; }
+.bx-tips-huvud .p3-h3 { margin: 0; }
+.bx-citat { margin-top: 12px; padding: 14px 16px; border-radius: 14px; border-left: 4px solid var(--ton-ink); background: var(--ton); font-family: Georgia, 'Times New Roman', serif; font-size: 15.5px; line-height: 1.5; color: var(--ink-1) !important; }
+.bx-fe { display: grid; gap: 8px; }
+.bx-fe p { padding: 12px 14px; border-radius: 12px; }
+.bx-fore { background: var(--papper-2); }
+.bx-efter { background: var(--ton); }
+.bx-fe small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.bx-efter small { color: var(--ton-ink); }
+.bx-fe-rub { font-weight: 700; color: var(--ink-1) !important; }
+.bx-efter-not { font-size: 14.5px; color: var(--ink-3) !important; }
+
+/* ---------- skrivguiden ---------- */
+.bx-guide { display: grid; gap: 32px; align-items: start; }
+.bx-guide-text > * + * { margin-top: 16px; }
+.bx-guide-text .p3-text { color: var(--ink-2); }
+@media (min-width: 1000px) { .bx-guide { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; } }
+.bx-delar { padding: 22px; border-radius: var(--r-stor, 32px); background: var(--ton); }
+.bx-delar ol { display: grid; gap: 10px; margin-top: 14px; }
+.bx-delar li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 14px; background: var(--papper); }
+.bx-delar .p3-nr { width: 30px; height: 30px; border-radius: 10px; font-size: 14px; box-shadow: none; }
+.bx-delar span { font-size: 14.5px; line-height: 1.4; color: var(--ink-2); }
+.bx-delar b { display: block; font-size: 15.5px; color: var(--ink-1); }
+
+/* ---------- frågorna ---------- */
+.bx-faq .p3-faq-huvud .p3-h2::first-letter { text-transform: uppercase; }
+
+/* ---------- hela ansökan ---------- */
+.bx-par { display: grid; gap: 14px; }
+@media (min-width: 800px) { .bx-par { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+.bx-par-kort { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 18px; align-items: start; padding: 20px; border-radius: 22px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; color: var(--ink-1); text-decoration: none; }
+.bx-par-kort > div > * + * { margin-top: 10px; }
+.bx-par-kort p { font-size: 15.5px; color: var(--ink-2); }
+.bx-par-kort.bx-har { border-color: var(--ton-ink); }
+a.bx-par-kort:hover { border-color: var(--kant-stark); }
+.bx-par-bild img { width: 100%; border-radius: 3px; background: #fff; box-shadow: 0 0 0 1px var(--kant), 0 4px 0 rgba(0, 0, 0, .08); }
+.bx-par-bild .p3-mall-bild { border-width: 1px; border-bottom-width: 3px; }
+.bx-par-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; margin-top: 22px; color: var(--ink-2); }
+
+/* ---------- fler exempel, artiklar och verktyg ---------- */
+.bx-mer { margin-top: 56px; }
+.bx-mer > .p3-h2 { margin-top: 12px; }
+.bx-lankkort { display: grid; gap: 14px; margin-top: 24px; }
+@media (min-width: 800px) { .bx-lankkort { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+@media (min-width: 1100px) { .bx-lankkort { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.bx-lankkort a { display: grid; gap: 8px; height: 100%; padding: 20px; border-radius: 20px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; color: var(--ink-1); text-decoration: none; }
+.bx-lankkort a:hover { border-color: var(--kant-stark); }
+.bx-lankkort h3 { font-family: var(--disp); font-weight: 700; font-size: 18px; line-height: 1.25; }
+.bx-lankkort p { font-size: 15px; color: var(--ink-2); }
+.bx-lankkort .p3-lank { align-self: end; justify-self: start; min-height: 32px; }
+
+/* ---------- yrkeskorten (navet, kategorisidorna, fler exempel) ---------- */
+.bx-yk { display: grid; gap: 12px; }
+@media (min-width: 700px) { .bx-yk { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .bx-yk { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+.bx-yk li { min-width: 0; }
+.bx-yk li[hidden] { display: none; }
+.bx-yk a { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: center; height: 100%; padding: 14px 16px 14px 14px; border-radius: 20px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; color: var(--ink-1); text-decoration: none; }
+.bx-yk a:hover { border-color: var(--kant-stark); }
+.bx-yk-bild { display: block; padding: 6px 6px 0; border-radius: 10px; background: var(--ton); overflow: hidden; }
+.bx-yk-bild img { width: 100%; aspect-ratio: 480 / 679; object-fit: cover; object-position: top; background: #fff; }
+.bx-yk-text { min-width: 0; }
+.bx-yk small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ton-ink); }
+.bx-yk h3 { margin-top: 2px; font-family: var(--disp); font-weight: 700; font-size: 18px; line-height: 1.2; }
+.bx-yk-text > span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--ink-3); }
+
+/* ---------- slutet ---------- */
+.bx-slut .p3-gratisrad { color: var(--vagg-mjuk); }
+
+/* =============================================================================
+   Navet och kategorisidorna (skissen brev-exempelnav)
+   ============================================================================= */
+.bx-h1-koppar { color: var(--koppar-ljus); }
+
+/* sökfältet på väggen: vitt fält med klack och kopparknapp (HubbSok, GET-formulär) */
+.bx-sok .ib-hubb-sok { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; max-width: 580px; }
+@media (min-width: 560px) { .bx-sok .ib-hubb-sok { grid-template-columns: minmax(0, 1fr) auto; } }
+.bx-sok input { width: 100%; min-height: 56px; padding: 0 18px; border-radius: 16px; border: 0; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 rgba(0, 0, 0, .3); font: inherit; font-size: 16px; }
+.bx-sok input::placeholder { color: var(--ink-3); }
+.bx-sok input:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.bx-sok button.pub-knapp { min-height: 56px; padding: 0 26px; border: 0; border-radius: 16px; background: linear-gradient(180deg, var(--koppar-topp), var(--koppar)); color: var(--koppar-text); box-shadow: 0 5px 0 var(--koppar-klack); font: inherit; font-weight: 700; font-size: 17px; cursor: pointer; }
+.bx-situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.bx-situation span { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--vagg-mjuk); margin-right: 4px; }
+.bx-situation a { display: inline-grid; place-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid rgba(255, 255, 255, .26); background: rgba(255, 255, 255, .08); color: var(--vagg-ink); font-weight: 700; font-size: 15px; text-decoration: none; }
+.bx-situation a:hover { background: rgba(255, 255, 255, .14); }
+
+/* hjältens tre brev */
+.bx-navbild { position: relative; max-width: 480px; margin: 0 auto; aspect-ratio: 1 / 1.05; }
+.bx-navbild-ark { position: absolute; top: 8%; width: 58%; border-radius: 3px; background: #fff; box-shadow: 0 8px 0 rgba(0, 0, 0, .18), 0 24px 44px rgba(0, 0, 0, .3); }
+.bx-navbild-1 { left: 2%; transform: rotate(-6deg); }
+.bx-navbild-2 { right: 0; transform: rotate(6deg); }
+.bx-navbild-3 { left: 21%; top: 4%; z-index: 1; }
+.bx-navbild-lapp { position: absolute; z-index: 2; display: inline-grid; place-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px; background: var(--papper); color: var(--ink-1); font-weight: 700; font-size: 14px; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); }
+.bx-navbild-lapp-1 { left: 10%; top: 0; }
+.bx-navbild-lapp-2 { right: 0; top: 14%; }
+.bx-navbild-lapp-3 { right: 6%; bottom: 14%; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+.bx-navbild .bx-navbild-tal { left: 0; bottom: 4%; --rot: -2deg; transform: rotate(-2deg); }
+@media (max-width: 999px) { .bx-nav .p3-hjalte-bild { max-width: 360px; margin: 0 auto; } }
+
+/* branscherna i lyftkortet */
+.bx-bransch-rubrik { margin-top: 8px; font-family: var(--disp); font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink-1); }
+.bx-branscher { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+@media (min-width: 1000px) { .bx-branscher { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; } .bx-bransch-rubrik { font-size: 28px; } }
+.bx-bricka { display: flex; flex-direction: column; min-width: 0; min-height: 112px; padding: 14px 16px; border-radius: 18px; background: var(--ton); border: 2px solid var(--kant); border-bottom-width: 5px; color: var(--ink-1); text-decoration: none; }
+.bx-bricka:hover { border-color: var(--kant-stark); }
+.bx-bricka b { order: -1; font-family: var(--disp); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.03em; color: var(--ton-ink); }
+.bx-bricka-namn { margin-top: 8px; font-weight: 600; font-size: 14.5px; line-height: 1.25; }
+.bx-bricka small { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-3); }
+.bx-stapel { display: block; margin-top: auto; padding-top: 10px; }
+.bx-stapel, .bx-stapel i { height: 6px; border-radius: 999px; }
+.bx-stapel { background: linear-gradient(var(--kant-stark), var(--kant-stark)) 0 10px / 100% 6px no-repeat; height: 16px; }
+.bx-stapel i { display: block; margin-top: 0; background: var(--ton-ink); }
+.bx-bricka.bx-alla { grid-column: 1 / -1; }
+@media (min-width: 1000px) { .bx-bricka.bx-alla { grid-column: span 2; } }
+.bx-bricka.bx-mork { background: var(--vagg-3); border-color: var(--vagg-3); border-bottom-color: rgba(0, 0, 0, .4); color: #fff; }
+.bx-bricka.bx-mork b { color: var(--koppar-ljus); }
+.bx-bricka.bx-mork small { color: var(--vagg-mjuk); }
+.bx-bricka.bx-mork .bx-stapel { background-image: linear-gradient(rgba(255, 255, 255, .2), rgba(255, 255, 255, .2)); }
+.bx-bricka.bx-mork .bx-stapel i { background: var(--koppar); }
+.bx-bricka.bx-alla { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 16px; align-items: center; }
+.bx-bricka.bx-alla b { grid-row: span 2; font-size: 52px; }
+.bx-bricka.bx-alla .bx-bricka-namn { margin: 0; align-self: end; font-family: var(--disp); font-size: 19px; }
+.bx-bricka.bx-alla small { align-self: start; }
+
+.bx-tom { margin-top: 16px; }
+.bx-cv-o { margin-top: 40px; }
+.bx-cv-o .p3-o { padding-bottom: 28px; }
+@media (min-width: 1000px) { .bx-cv-o .p3-o { padding: 40px 48px; } .bx-cv-o .p3-o-text { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 32px; align-items: center; } .bx-cv-o .p3-o-text > .p3-knapprad { grid-column: 2; grid-row: 1 / span 2; margin: 0; } }
+
+/* guiden: mall och exempel */
+.bx-guide2-huvud { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 1000px) { .bx-guide2-huvud { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 56px; } }
+.bx-mallbild { padding: 20px; border-radius: var(--r-stor, 32px); background: var(--ton); }
+.bx-mallbild-par { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.bx-mallbild-par > div { display: grid; align-content: start; gap: 6px; }
+.bx-mallbild-tom { padding: 12px; border-radius: 10px; background: var(--papper); border: 2px dashed var(--kant-stark); }
+.bx-mallbild-tom span { display: grid; place-items: center; min-height: 34px; border-radius: 8px; background: var(--golv); font-size: 13px; font-weight: 600; color: var(--ink-3); }
+.bx-mallbild-fylld img { width: 100%; border-radius: 4px; background: #fff; box-shadow: 0 0 0 1px var(--kant), 0 4px 0 rgba(0, 0, 0, .08); }
+.bx-mallbild b { margin-top: 6px; font-family: var(--disp); font-size: 15px; color: var(--ink-1); }
+.bx-mallbild small { font-size: 13px; line-height: 1.35; color: var(--ink-3); }
+.bx-guide2-kort { display: grid; gap: 14px; margin-top: 32px; }
+@media (min-width: 800px) { .bx-guide2-kort { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+.bx-guide-kort { display: block; }
+.bx-guide-kort .p3-h3 { margin-top: 0; }
+.bx-delmarken { display: flex; flex-wrap: wrap; gap: 6px; }
+.bx-gratisrader { display: grid; gap: 8px; }
+.bx-gratisrader li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; background: var(--golv); font-size: 14.5px; color: var(--ink-1); }
+.bx-guide-slut { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin-top: 28px; color: var(--ink-2); }
+/* stapeln: spåret är elementet självt, fyllningen det inre */
+.bx-bricka .bx-stapel { display: block; height: 6px; margin-top: auto; padding: 0; border-radius: 999px; background: var(--kant-stark); }
+.bx-bricka .bx-bricka-namn { margin-bottom: 12px; }
+.bx-bricka .bx-stapel i { height: 100%; }
+.bx-bricka.bx-mork .bx-stapel { background: rgba(255, 255, 255, .2); }

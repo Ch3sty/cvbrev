@@ -22,7 +22,8 @@
 
 import { PLAN_BY_KEY, SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
 import { GRATIS_LISTA, GRATIS_MALLRAD, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
@@ -41,7 +42,7 @@ const PRISRAD = `${PRIS}, säg upp när du vill.`
 const KOP_HREF = `/register?paket=${SALD_PLAN}`
 
 /** Talord för små tal i löptext: "tre matchade jobb". */
-const ORD = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
+const ORD = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv']
 const ord = (n: number) => ORD[n] ?? String(n)
 const Ord = (n: number) => {
   const s = ord(n)
@@ -55,7 +56,14 @@ const BREVFONSTER = ORDNING[LETTER_WINDOW_DAYS]
   : `var ${LETTER_WINDOW_DAYS}:e dag`
 
 export interface InlineCopy {
+  /** Delens namn över rubriken (publikt omgång 3, skissen artikelreklam). */
+  etikett: string
   rubrik: string
+  /** Brödtexten utan gratisraden. */
+  brod: string
+  /** Vad som är gratis, i egen ruta med bock. Saknas där texten inte går att dela. */
+  gratis?: string
+  /** Hela texten, brod och gratis i följd (som förut). */
   text: string
   knapp: string
   href: string
@@ -70,28 +78,39 @@ export interface InlineCopy {
  */
 export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test'>, InlineCopy> = {
   mallar: {
+    etikett: 'CV-mallar',
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
+    brod: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     knapp: 'Välj en mall',
     href: '/cv-mallar',
     paketrad: `Alla ${TEMPLATE_COUNT} mallar och CV-analysens alla förslag ingår i ${KORT_PRIS}.`,
   },
   analys: {
+    etikett: 'CV-analys',
     rubrik: 'Se varför CV:t fastnar innan du skickar det',
+    brod: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet.',
+    gratis: 'Läsbarhetspoängen och genomgången i sju delar är gratis, för varje CV.',
     text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Läsbarhetspoängen och genomgången i sju delar är gratis, för varje CV.',
     knapp: 'Analysera mitt CV',
     href: '/verktyg/cv-analys',
     paketrad: `Alla förslag från Jobbcoachen, och nya efter varje ändring, ingår i ${KORT_PRIS}.`,
   },
   brev: {
+    etikett: 'Personliga brev',
     rubrik: 'Skriv det personliga brevet på annonsen, inte på mallen',
+    brod: 'Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV.',
+    gratis: `Ett personligt brev ${BREVFONSTER} är gratis, och de två senaste går att ändra.`,
     text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett personligt brev ${BREVFONSTER} är gratis, och de två senaste går att ändra.`,
     knapp: 'Skriv mitt personliga brev',
     href: '/skapa-brev/start',
     paketrad: `Personliga brev utan tak, som PDF eller Word, ingår i ${KORT_PRIS}.`,
   },
   coach: {
+    etikett: 'Jobbcoachen',
     rubrik: 'Träna svaret innan du sitter i rummet',
+    brod: 'Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt.',
+    gratis: `${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} meddelanden utan att betala.`,
     text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} meddelanden utan att betala.`,
     knapp: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
@@ -104,10 +123,13 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
  * i bild och fem frågor utan konto. Rubriken är frågan själv, aldrig h2/h3.
  */
 export const INLINE_PROVA = {
-  etikett: 'Prova på riktigt',
+  /** Delens namn (skissen artikelreklam). Uppgift, aldrig fråga, i testerna. */
+  etikett: 'Rekryteringstester',
   rubrik: 'Vilken figur hör hemma i den tomma rutan?',
-  text: `Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA_DAG}, gratis med konto.`,
-  knapp: 'Prova fem frågor',
+  brod: 'Det här är en av våra expertuppgifter: tre regler samtidigt, form, tecken och fyllning.',
+  gratis: `Fem uppgifter gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA_DAG}, gratis med konto.`,
+  text: `Det här är en av våra expertuppgifter: tre regler samtidigt, form, tecken och fyllning. Fem uppgifter gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA_DAG}, gratis med konto.`,
+  knapp: 'Prova fem uppgifter',
   href: '/verktyg/rekryteringstester/prova',
   /** Paketraden (S2): leverantörsnamnen, alltid "i samma format som". */
   paketrad: `Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
@@ -126,11 +148,12 @@ export const INLINE_PROVA = {
 export const TESTKORT_INTERVJU = {
   etikett: 'Inför intervjun',
   rubrik: 'Intervjun kommer sällan ensam',
-  text: 'Logiktest och personlighetstest ingår ofta i samma process, före eller efter intervjun. Prova fem matrisfrågor gratis, rätt och fel direkt, eller se alla tester och nivåer.',
+  text: 'Logiktest och personlighetstest ingår ofta i samma process, före eller efter intervjun. Prova fem matrisuppgifter gratis, rätt och fel direkt, eller se alla tester och nivåer.',
 } as const
 
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */
 export const INLINE_RAKNARE = {
+  etikett: 'Räkna ut',
   rubrik: 'Räkna på det själv, fråga sedan',
   text: 'Uppsägningstid och lön efter skatt räknar du ut gratis här. Löneförhandlingen förbereder du med Jobbcoachen, som svarar med källor du kan kolla själv och läser ditt CV när du delar det i samtalet.',
   lankar: [
@@ -142,6 +165,7 @@ export const INLINE_RAKNARE = {
 
 /** Övriga karriärartiklar: bara länkraden, som förut. */
 export const LANKRAD = {
+  etikett: 'Räkna ut',
   text: 'Räkna på det själv:',
   lankar: [
     { text: 'Räkna ut din uppsägningstid', href: '/rakna-ut/uppsagningstid' },
@@ -273,3 +297,49 @@ export const LISTA_SLUT = {
   knapp: 'Se vad som ingår',
   href: '/priser',
 } as const
+
+/**
+ * Jobbsökets kort (publikt omgång 3, skissen artikelreklam och SEO-beskedet
+ * avsnitt 20): två varianter i samma form. Träffen i artiklarna om
+ * matchning, Sökta tjänster i artiklarna om uppföljning. Kortet läggs till
+ * efter texten och ersätter inget annat kort, så att inget länkmål
+ * försvinner ur artikeln. Talen ur konstanterna, aldrig lön.
+ */
+export interface JobbKortCopy {
+  etikett: string
+  rubrik: string
+  brod: string
+  gratis: string
+  knapp: string
+  href: string
+  paketrad: string
+}
+
+export const JOBB_KORT: Record<'matchning' | 'sokta', JobbKortCopy> = {
+  matchning: {
+    etikett: 'Jobbsöket',
+    rubrik: 'Se vilka annonser som passar ditt CV',
+    brod: 'Vi läser ditt CV och söker bland annonserna i Platsbanken. Varje träff visar varför du passar.',
+    gratis: `${Ord(FREE_TIER_JOB_LIMIT)} träffar är gratis, med skälen utskrivna.`,
+    knapp: 'Hitta jobb gratis',
+    href: '/verktyg/jobbmatchning',
+    paketrad: `De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${KORT_PRIS}.`,
+  },
+  sokta: {
+    etikett: 'Sökta tjänster',
+    rubrik: 'Håll koll på varje jobb du har sökt',
+    brod: `Spara annonsen du ska söka, logga jobbet du har sökt och se när det är dags att höra av sig. Efter ${ord(NO_RESPONSE_NUDGE_DAYS)} tysta dagar föreslår vi ett uppföljningsmejl och skriver utkastet.`,
+    gratis: 'Att logga sökta jobb och se statistiken är gratis för alla med konto. Det första utkastet till ett uppföljningsmejl också.',
+    knapp: 'Så fungerar Sökta tjänster',
+    href: '/verktyg/sokta-tjanster',
+    paketrad: `Fler utkast och månadsrapporten med alla rader ingår i ${KORT_PRIS}.`,
+  },
+}
+
+/** Artiklarna som får Jobbsökets kort efter texten (SEO-beskedet avsnitt 20). */
+export const JOBB_KORT_SLUGAR: Readonly<Record<string, keyof typeof JOBB_KORT>> = {
+  'ai-jobbmatchning': 'matchning',
+  'soka-jobb-via-mail': 'sokta',
+  'uppfoljning-efter-intervju': 'sokta',
+  'personligt-brev-jobbansokan': 'sokta',
+}

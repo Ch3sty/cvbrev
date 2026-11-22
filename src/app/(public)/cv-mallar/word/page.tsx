@@ -112,7 +112,7 @@ export default function CvMallarWordSida() {
                 PDF är bättre i alla andra lägen. En PDF ser likadan ut hos rekryteraren som hos dig, medan ett Word-dokument kan se lite
                 annorlunda ut i en annan version av programmet. Står det inget om format i annonsen skickar du PDF. Du väljer format när du laddar
                 ner, och i Premium hämtar du samma CV i båda. Mer om vad systemen läser finns i guiden om ett{' '}
-                <Link href="/artiklar/ats-vanligt-cv" className="pub-lank">
+                <Link href="/artiklar/ats-vanligt-cv" className="cvm-lank">
                   ATS-vänligt CV
                 </Link>
                 .
@@ -148,7 +148,7 @@ export default function CvMallarWordSida() {
                 tabell och att namn och kontaktuppgifter inte står i sidhuvudet. Spara en kopia med ett nytt namn innan du börjar, byt ut all
                 exempeltext, också i sidhuvud och sidfot, och håll samma typsnitt och storlek genom hela dokumentet. Hur luft, rubriker och
                 typsnitt bör se ut går vi igenom i guiden om{' '}
-                <Link href="/artiklar/hur-ska-ett-cv-se-ut" className="pub-lank">
+                <Link href="/artiklar/hur-ska-ett-cv-se-ut" className="cvm-lank">
                   hur ett CV ska se ut
                 </Link>
                 .

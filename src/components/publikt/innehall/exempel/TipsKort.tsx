@@ -7,9 +7,11 @@
 import type { ReactNode } from 'react'
 import { inline } from './Rik'
 
-type Del = { typ: 'p' | 'rub' | 'efterNot'; text: string } | { typ: 'fe'; fore?: string; efter?: string }
+export type TipsDel = { typ: 'p' | 'rub' | 'efterNot'; text: string } | { typ: 'fe'; fore?: string; efter?: string }
+type Del = TipsDel
 
-function tolka(text: string): Del[] {
+/** Tipsets text i delar (stycken, rubriker, Före och Efter). Delas med brevexemplen i omgång 3. */
+export function tolka(text: string): Del[] {
   const rader = text
     .split(/\n\s*\n/)
     .flatMap((s) => s.split(/\n(?=\s*[❌✅])/u))

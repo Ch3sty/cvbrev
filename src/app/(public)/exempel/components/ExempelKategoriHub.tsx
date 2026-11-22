@@ -35,7 +35,7 @@ const ICON_MAP: Record<
 
 export default function ExempelKategoriHub() {
   return (
-    <section className="relative py-16 sm:py-20 bg-white">
+    <section className="relative py-16 sm:py-20 bg-[var(--papper)]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -44,15 +44,15 @@ export default function ExempelKategoriHub() {
           transition={{ duration: 0.4 }}
           className="text-center mb-10 sm:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-[var(--ton)] text-[var(--koppar-ink)] border border-[var(--kant)] mb-4">
             Bläddra efter bransch
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--ink-1)] leading-[1.05] tracking-tight mb-3">
             Sex stora{' '}
             <span
               style={{
                 background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  'var(--vagg)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -61,7 +61,7 @@ export default function ExempelKategoriHub() {
               branscher
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-[var(--ink-2)] max-w-2xl mx-auto">
             Hitta exempel filtrerade efter ditt yrkesområde. Varje bransch har
             egna intro-tips och mallar anpassade efter hur rekryterare där
             faktiskt sållar.
@@ -83,25 +83,24 @@ export default function ExempelKategoriHub() {
               >
                 <Link
                   href={`/cv-exempel/kategori/${kat.slug}`}
-                  className="group block bg-white rounded-3xl border border-orange-100 p-5 sm:p-6 h-full hover:border-orange-200 transition-colors"
+                  className="group block bg-[var(--papper)] rounded-3xl border border-[var(--kant)] p-5 sm:p-6 h-full hover:border-[var(--kant)] transition-colors"
                   style={{
-                    boxShadow:
-                      '0 6px 24px -14px rgba(249, 115, 22, 0.16)',
+                    boxShadow: '0 4px 0 var(--kant)',
                   }}
                 >
                   <div className="flex items-start justify-between mb-4">
                     <Icon className="w-14 h-14" />
-                    <span className="text-[10px] font-black uppercase tracking-wide text-orange-700 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-100">
+                    <span className="text-[10px] font-black uppercase tracking-wide text-[var(--koppar-ink)] bg-[var(--ton)] px-2 py-0.5 rounded-full border border-[var(--kant)]">
                       {totalYrken} yrken
                     </span>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-tight">
+                  <h3 className="text-lg sm:text-xl font-black text-[var(--ink-1)] mb-2 leading-tight">
                     {kat.namn}
                   </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                  <p className="text-sm text-[var(--ink-2)] leading-relaxed mb-4">
                     {kat.kortBeskrivning}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all">
+                  <span className="inline-flex items-center gap-1.5 text-[var(--koppar-ink)] font-bold text-sm group-hover:gap-2.5 transition-all">
                     Se {kat.namn.toLowerCase()}
                     <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                   </span>

@@ -10,6 +10,11 @@ export const VISARE_TEXT = {
   grupp: 'Välj mall',
   mall: (namn: string) => `Mallen ${namn}`,
   skriv: 'Skriv ditt eget brev',
+  /**
+   * Visarens knapp (byggbriefens beslut 6): mallen följer med in i
+   * startflödet och därifrån in i kontot, där brevet öppnas i mallen.
+   */
+  anvand: 'Använd som mall',
   /** Kommentarskortets textlänk medan visaren är öppen på exempelsidan. */
   skrivPaAnnons: 'Skriv brevet på din annons',
   lasSomText: 'Läs brevet som text',

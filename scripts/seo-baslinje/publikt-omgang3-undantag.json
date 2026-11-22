@@ -1,5 +1,5 @@
 {
-  "_om": "Publikt omgång 3, textändringarna (docs/publikt-omgang3/textbeslut.md, saas-lead 2026-11-22, med SEO:s krav i docs/publikt-omgang3/seo-krav.md). Push 1: matchningen och Jobbcoachen. Push 2: gratisnivån, Premium och CV-analysen: analysen ger en läsbarhetspoäng av 100 i sju delar, gratis för varje CV, och Jobbcoachens förslag är det som ingår i Premium. Inga ATS-poäng, fyra delar, fynd eller en analys per konto. Läses av scripts/seo-diff-artiklar.ts.",
+  "_om": "Publikt omgång 3, textändringarna (docs/publikt-omgang3/textbeslut.md, saas-lead 2026-11-22, med SEO:s krav i docs/publikt-omgang3/seo-krav.md). Push 1: matchningen och Jobbcoachen. Push 2: gratisnivån, Premium och CV-analysen: analysen ger en läsbarhetspoäng av 100 i sju delar, gratis för varje CV, och Jobbcoachens förslag är det som ingår i Premium. Inga ATS-poäng, fyra delar, fynd eller en analys per konto. Genomgången mot SEO:s slutbesked 2026-11-22 (docs/publikt-omgang3/seo-slutbesked.md): inga rader borttagna, inga nya behövs, eftersom slutbeskedets byten bara rör löptext, etiketter, länktexter och /register-länkar. Läses av scripts/seo-diff-artiklar.ts.",
   "RUBRIK_BYTT": [
     {
       "path": "/verktyg/jobbmatchning",

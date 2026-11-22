@@ -175,6 +175,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      // Sökta tjänster, ny i publikt omgång 3 (seo-besked-skisser.md).
+      url: `${baseUrl}/verktyg/sokta-tjanster`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/verktyg/rekryteringstester`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

@@ -154,7 +154,12 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
   }
   // Från Ditt CV med titeln ifylld (?borja=1&titel=): startbladet hoppas över.
   const borjaTitel = !cvIdGiltigt && forsta(params.borja) === '1' ? (forsta(params.titel) ?? '').trim().slice(0, 80) : ''
-  let cv: ByggCv = sparat ?? nyttCv(kontakt, borjaTitel || senasteTitel)
+  // Från startbladet på /verktyg/skapa-cv genom registreringen (?ladda=1&titel=,
+  // src/app/(public)/verktyg/skapa-cv/startval.ts): titeln står ifylld på
+  // byggarens startblad och uppladdningen är uppfälld. Bara utan ?cv=.
+  const startTitel = !cvIdGiltigt && forsta(params.borja) !== '1' ? (forsta(params.titel) ?? '').trim().slice(0, 80) : ''
+  const oppnaUppladdning = !cvIdGiltigt && forsta(params.ladda) === '1'
+  let cv: ByggCv = sparat ?? nyttCv(kontakt, borjaTitel || startTitel || senasteTitel)
   // Ett uppladdat CV har sitt eget format; kontakten fylls ur profilen där den saknas.
   if (sparat) {
     const pi = cv.personalInfo
@@ -219,6 +224,7 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       uppTitel={(forsta(params.titel) ?? '').slice(0, 80)}
       sparr={!cvId && antal >= maxCvs}
       borja={Boolean(borjaTitel) && !(antal >= maxCvs)}
+      oppnaUppladdning={oppnaUppladdning}
       entry={entry}
       isAdmin={isAdmin}
       katalog={MALL_KATALOG}

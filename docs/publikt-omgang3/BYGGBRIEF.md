@@ -5,9 +5,11 @@
 ## Mandatet
 
 - **Besluta själv.** Stöter du på något oklart: välj det som stämmer med skissen, produktfacit och SEO-kraven, skriv beslutet i din logg och gå vidare. Fråga inte ägaren och vänta inte på någon.
-- **Fastnar du på en del:** gör den enklaste lösning som är sann och hel, skriv upp vad som återstår och bygg vidare på resten. En sida som är klar till 90 procent och hel är bättre än en som väntar.
+- **Inga genvägar (ägaren 2026-11-22).** En funktion som är ritad i skissen ska fungera, inte visas som en bild eller en länk. Ni har tillstånd att bygga allt som behövs, också utanför sidans egna filer: en publik variant av något som finns inloggat, ett flöde som bär besökarens val in i kontot, en ändring i en motor eller en rutt. Titta först på ett publikt flöde som redan gör samma sak (CV-mallarna bär CV och mall in i kontot). Målet är att besökaren ska kunna se och använda funktionerna redan före kontot: det är det som gör dem till användare och till slut betalande.
+- **Fastnar du på riktigt:** välj en annan väg till samma funktion, och skriv upp vad du gjorde. Att skala ner funktionen är sista utvägen och ska motiveras i loggen.
 - **Ingen push.** Allt ligger kvar lokalt på grenen `design/publikt-omgang3`.
-- **Det här rörs aldrig**, och det är inget hinder, det lämnas bara som det är: priser och gränser, texter om datalagring, GDPR, integritetspolicy, villkor och samtycke, mejlmallar, kassan och Stripe, databasens schema, det inloggade läget (`src/app/dashboard`, `src/components/rum`, `brev3`, `jobb3`, `session`). Behöver en publik sida en inloggad komponents utseende: rita en egen publik variant, importera inte och ändra inte den inloggade.
+- **Det här är ägarens och rörs inte**: priser och gränser (kvoter, vad som är gratis och Premium), texter om datalagring, GDPR, integritetspolicy, villkor och samtycke, mejlmallar, kassan och Stripe. Inga migreringar körs mot produktionsdatabasen: behöver en funktion en ny kolumn, hitta först en lösning i det som finns, och går det inte, skriv migreringsfilen och lista den överst i loggen som ett steg före push.
+- **Inloggad kod och motorer får ändras när en publik funktion kräver det**, med omsorg: ändra så lite som möjligt, bryt inget som fungerar inloggat, och skriv eller uppdatera tester för det du rör. Behöver en publik sida bara en inloggad komponents utseende: rita en egen publik variant.
 
 ## Var
 
@@ -82,8 +84,8 @@ De gamla telefonskärmarna i `src/components/publikt/telefon/skarmar/` ersätts 
 2. Foten grupperas på samma sätt, inga länkar försvinner.
 3. Hjältens telefon "Mitt jobbsök" byts mot startsidans fyra kort.
 4. CV-analysen: H1 "CV-analys med läsbarhetspoäng: se var ditt CV tappar, del för del" enligt textbeslutet. Skissens lösning med första ledet som etikett inuti h1-elementet är tillåten.
-5. "Vad vill du börja med?": bygg skissens val bara om valet går att koppla till landningen utan att röra inloggat. Annars behålls dagens val i den nya formen.
-6. Brevvisarens knapp "Använd som mall" med mallen i adressen: bygg det om startflödet kan ta emot mallen utan ändring i brevmotorn eller databasen. Annars behålls "Skriv ditt eget brev" i den nya formen, och mallvalet visas i startflödet utan att sparas.
+5. "Vad vill du börja med?": valet ska styra var man landar, som i skissen.
+6. Brevvisarens knapp heter "Använd som mall" och mallen följer med hela vägen in i kontot, där brevet öppnas i den mallen. Startflödet har väljaren med alla 40 mallar, och annonsfältet på säljsidan tar emot annonsen och bär den in i startflödet.
 7. Kategorisidorna för brev och CV följer navets skiss.
 8. Artikelsidans topp behåller klustrets färg som i dag, och menyn tar samma färg.
 9. Reklamkortet för Jobbsöket visas i artiklar om att söka jobb. Övriga kort (mallkortet, coachkortet, räknarkortet, länkraden, provkorten) får samma form som de fyra ritade.

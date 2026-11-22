@@ -30,17 +30,17 @@ import {
  */
 export default function MallarHubGuideSection() {
   return (
-    <section className="relative py-14 sm:py-20 bg-white">
+    <section className="relative py-14 sm:py-20 bg-[var(--papper)]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Eyebrow + intro */}
         <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-[var(--ton)] text-[var(--koppar-ink)] border border-[var(--kant)] mb-4">
             Guide till mallarna
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.1] tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl font-black text-[var(--ink-1)] leading-[1.1] tracking-tight mb-3">
             Allt du behöver veta om CV-mallar och brev-mallar
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-[var(--ink-2)] leading-relaxed max-w-2xl mx-auto">
             Vad är skillnaden? När behöver du båda? Hur väljer du rätt? Här
             är svaren på det folk faktiskt undrar.
           </p>
@@ -118,49 +118,49 @@ export default function MallarHubGuideSection() {
               Du kan också bläddra direkt på bransch:{' '}
               <Link
                 href="/cv-exempel/kategori/vard"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 vård
               </Link>
               ,{' '}
               <Link
                 href="/cv-exempel/kategori/tech"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 tech
               </Link>
               ,{' '}
               <Link
                 href="/cv-exempel/kategori/ekonomi"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 ekonomi
               </Link>
               ,{' '}
               <Link
                 href="/cv-exempel/kategori/service"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 service
               </Link>
               ,{' '}
               <Link
                 href="/cv-exempel/kategori/utbildning"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 utbildning
               </Link>
               {' '}eller{' '}
               <Link
                 href="/cv-exempel/kategori/offentlig-sektor"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 offentlig sektor
               </Link>
               . Samma kategorier finns för{' '}
               <Link
                 href="/personligt-brev-exempel"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 brev-mallar
               </Link>
@@ -220,14 +220,14 @@ export default function MallarHubGuideSection() {
               laddar ner direkt. Vårt{' '}
               <Link
                 href="/verktyg/skapa-cv"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 CV-verktyg
               </Link>
               {' '}och{' '}
               <Link
                 href="/verktyg/personligt-brev"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 brevverktyg
               </Link>
@@ -235,15 +235,15 @@ export default function MallarHubGuideSection() {
             </p>
             <p>
               Filnamn när du skickar: alltid{' '}
-              <code className="text-sm bg-orange-50 px-1.5 py-0.5 rounded text-orange-700 font-mono">
+              <code className="text-sm bg-[var(--ton)] px-1.5 py-0.5 rounded text-[var(--koppar-ink)] font-mono">
                 CV - Ditt Namn - Företag.pdf
               </code>
               {' '}och{' '}
-              <code className="text-sm bg-orange-50 px-1.5 py-0.5 rounded text-orange-700 font-mono">
+              <code className="text-sm bg-[var(--ton)] px-1.5 py-0.5 rounded text-[var(--koppar-ink)] font-mono">
                 Personligt brev - Ditt Namn - Företag.pdf
               </code>
               . Aldrig{' '}
-              <code className="text-sm bg-slate-100 px-1.5 py-0.5 rounded text-slate-600 font-mono">
+              <code className="text-sm bg-[var(--papper-2)] px-1.5 py-0.5 rounded text-[var(--ink-2)] font-mono">
                 dokument1.pdf
               </code>
               .
@@ -272,21 +272,21 @@ export default function MallarHubGuideSection() {
               guider:{' '}
               <Link
                 href="/cv-mallar"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 var du hittar en gratis CV-mall
               </Link>
               {' '}och{' '}
               <Link
                 href="/artiklar/personligt-brev-mall-gratis"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 mallar för personligt brev
               </Link>
               . Alla våra designer hittar du på sidan{' '}
               <Link
                 href="/cv-mallar"
-                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+                className="text-[var(--koppar-ink)] font-bold hover:text-[var(--koppar-ink)] underline-offset-2 hover:underline"
               >
                 CV-mallar
               </Link>
@@ -301,22 +301,22 @@ export default function MallarHubGuideSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.4 }}
-          className="mt-12 sm:mt-16 p-6 sm:p-8 rounded-3xl bg-orange-50/50 border border-orange-100 text-center"
+          className="mt-12 sm:mt-16 p-6 sm:p-8 rounded-3xl bg-[var(--ton)] border border-[var(--kant)] text-center"
         >
-          <p className="text-base sm:text-lg text-slate-700 font-semibold mb-4">
+          <p className="text-base sm:text-lg text-[var(--ink-2)] font-semibold mb-4">
             Redo att börja? Plocka en mall som passar ditt yrke.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/cv-exempel"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-orange-700 font-bold text-sm sm:text-base border-2 border-orange-200 hover:border-orange-300 transition-colors min-h-[48px]"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[var(--papper)] text-[var(--koppar-ink)] font-bold text-sm sm:text-base border-2 border-[var(--kant)] hover:border-[var(--kant-stark)] transition-colors min-h-[48px]"
             >
               Bläddra CV-exempel
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
             <Link
               href="/personligt-brev-exempel"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-orange-700 font-bold text-sm sm:text-base border-2 border-orange-200 hover:border-orange-300 transition-colors min-h-[48px]"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[var(--papper)] text-[var(--koppar-ink)] font-bold text-sm sm:text-base border-2 border-[var(--kant)] hover:border-[var(--kant-stark)] transition-colors min-h-[48px]"
             >
               Bläddra personligt brev-exempel
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
@@ -352,17 +352,17 @@ function GuideBlock({
         <span
           className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-white"
           style={{
-            background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-            boxShadow: '0 6px 14px -4px rgba(220, 38, 38, 0.3)',
+            background: 'var(--vagg)',
+            boxShadow: 'none',
           }}
         >
           {icon}
         </span>
-        <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight tracking-tight pt-1">
+        <h3 className="text-xl sm:text-2xl font-black text-[var(--ink-1)] leading-tight tracking-tight pt-1">
           {title}
         </h3>
       </div>
-      <div className="space-y-3 text-base text-slate-700 leading-relaxed pl-12">
+      <div className="space-y-3 text-base text-[var(--ink-2)] leading-relaxed pl-12">
         {children}
       </div>
     </motion.article>

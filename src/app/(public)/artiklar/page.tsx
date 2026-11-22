@@ -8,6 +8,7 @@ import { generateTagsData } from '@/components/artiklar/ModernCategoriesServer';
 import { TomLista } from '@/components/artiklar/lista/ArtikelLista';
 import { ArkivHjalte, ArkivKort, ArkivSidor } from '@/components/artiklar/lista/Arkiv';
 import PubliktSida from '@/components/publikt/PubliktSida';
+import { Sida } from '@/components/publikt/v3';
 import { GratisKort, ListaSlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import ArtikelKlient from '@/components/artiklar/ArtikelKlient';
 
@@ -191,7 +192,9 @@ export default async function ArticlesIndexPage({
     .filter((s): s is string => Boolean(s))
     .slice(0, 3);
 
+  // Publikt omgång 3: grundens skal i grafit (listan har ingen egen del).
   return (
+    <Sida farg="neutral">
     <PubliktSida>
       <script
         type="application/ld+json"
@@ -241,5 +244,6 @@ export default async function ArticlesIndexPage({
       {filteredPosts.length > 0 ? <ListaSlutKort /> : null}
       <ArtikelKlient />
     </PubliktSida>
+    </Sida>
   );
 }

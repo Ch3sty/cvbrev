@@ -36,7 +36,7 @@ const ICON_MAP: Record<
 
 export default function ExempelPopulara() {
   return (
-    <section className="relative py-16 sm:py-20 bg-orange-50/30">
+    <section className="relative py-16 sm:py-20 bg-[var(--ton)]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -45,15 +45,15 @@ export default function ExempelPopulara() {
           transition={{ duration: 0.4 }}
           className="text-center mb-10 sm:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-white text-orange-700 border border-orange-200 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-[var(--papper)] text-[var(--koppar-ink)] border border-[var(--kant)] mb-4">
             Populära just nu
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.05] tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[var(--ink-1)] leading-[1.05] tracking-tight mb-3">
             Mest sökta yrkena{' '}
             <span
               style={{
                 background:
-                  'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
+                  'var(--vagg)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -62,7 +62,7 @@ export default function ExempelPopulara() {
               i Sverige
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-[var(--ink-2)] max-w-2xl mx-auto">
             Tolv yrken som tusentals söker jobb inom varje månad. Välj CV-exempel,
             CV-mall eller personligt brev.
           </p>
@@ -78,18 +78,17 @@ export default function ExempelPopulara() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.35, delay: idx * 0.04 }}
-                className="bg-white rounded-3xl border border-orange-100 p-4 sm:p-5 hover:border-orange-200 transition-colors flex flex-col"
+                className="bg-[var(--papper)] rounded-3xl border border-[var(--kant)] p-4 sm:p-5 hover:border-[var(--kant)] transition-colors flex flex-col"
                 style={{
-                  boxShadow:
-                    '0 6px 24px -14px rgba(249, 115, 22, 0.16)',
+                  boxShadow: '0 4px 0 var(--kant)',
                 }}
               >
                 <Icon className="w-12 h-12 sm:w-14 sm:h-14 mb-3" />
 
-                <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mb-1">
+                <div className="text-[10px] font-bold uppercase tracking-wide text-[var(--koppar-ink)] mb-1">
                   {yrke.kategoriNamn}
                 </div>
-                <h3 className="text-base sm:text-lg font-black text-slate-900 mb-3 leading-tight">
+                <h3 className="text-base sm:text-lg font-black text-[var(--ink-1)] mb-3 leading-tight">
                   {yrke.namn}
                 </h3>
 
@@ -97,7 +96,7 @@ export default function ExempelPopulara() {
                   {yrke.hasCV && (
                     <Link
                       href={`/cv-exempel/${yrke.slug}`}
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[var(--ton)] hover:bg-[var(--ton)] text-[var(--koppar-ink)] font-bold text-xs transition-colors min-h-[36px]"
                     >
                       <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
                       Se CV-exempel
@@ -107,7 +106,7 @@ export default function ExempelPopulara() {
                   {arPilotSammanslagen(yrke.slug) ? null : (
                     <Link
                       href={`/cv-mallar/${yrke.slug}`}
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors min-h-[36px]"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[var(--ton)] hover:bg-[var(--ton)] text-[var(--koppar-ink)] font-bold text-xs transition-colors min-h-[36px]"
                     >
                       <LayoutTemplate className="w-3.5 h-3.5" strokeWidth={2.5} />
                       Se CV-mallar
@@ -119,7 +118,7 @@ export default function ExempelPopulara() {
                       className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-white font-bold text-xs transition-all min-h-[36px]"
                       style={{
                         background:
-                          'linear-gradient(135deg, #F97316, #DC2626)',
+                          'var(--vagg)',
                       }}
                     >
                       <Mail className="w-3.5 h-3.5" strokeWidth={2.5} />

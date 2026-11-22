@@ -1,51 +1,28 @@
-'use client'
-
-import { motion } from 'framer-motion'
+/**
+ * Vanliga arbetsuppgifter på yrkesmallsidan, i publikt omgång 3. Numret,
+ * rubriken (h3) och punkterna som förut. Serverkomponent.
+ */
+import { Kort, Rutnat } from '@/components/publikt/v3'
 
 interface Grupp {
   rubrik: string
   punkter: string[]
 }
 
-interface ArbetsuppgifterListProps {
-  grupper: Grupp[]
-}
-
-export default function ArbetsuppgifterList({ grupper }: ArbetsuppgifterListProps) {
+export default function ArbetsuppgifterList({ grupper }: { grupper: Grupp[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <Rutnat kolumner={2}>
       {grupper.map((g, idx) => (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, x: -8 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.3, delay: idx * 0.04 }}
-          className="relative bg-white rounded-2xl border border-slate-200 p-5 pl-6"
-        >
-          <span
-            className="absolute left-0 top-4 bottom-4 w-1 rounded-r"
-            style={{ background: 'linear-gradient(180deg, #F97316, #DC2626)' }}
-            aria-hidden
-          />
-          <div className="flex items-baseline gap-3 mb-3">
-            <span className="text-[11px] font-black text-orange-700 tabular-nums">
-              {String(idx + 1).padStart(2, '0')}
-            </span>
-            <h3 className="text-base font-black text-slate-900 leading-tight">
-              {g.rubrik}
-            </h3>
-          </div>
-          <ul className="space-y-1.5">
+        <Kort key={idx}>
+          <p className="p3-ey">{String(idx + 1).padStart(2, '0')}</p>
+          <h3 className="p3-h3">{g.rubrik}</h3>
+          <ul className="cvy-punkter">
             {g.punkter.map((p, pIdx) => (
-              <li key={pIdx} className="flex items-start gap-2 text-sm text-slate-700 leading-relaxed">
-                <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400 mt-2" />
-                {p}
-              </li>
+              <li key={pIdx}>{p}</li>
             ))}
           </ul>
-        </motion.div>
+        </Kort>
       ))}
-    </div>
+    </Rutnat>
   )
 }

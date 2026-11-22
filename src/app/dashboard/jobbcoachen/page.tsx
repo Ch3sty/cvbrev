@@ -21,7 +21,14 @@ export const metadata = { title: 'Jobbcoachen' }
 
 const FASTA: CoachForslagLista = { lage: 'fasta', forslag: FASTA_FORSLAG.map((fraga) => ({ typ: 'fast', fraga, bokstaver: null, ansokanId: null })) }
 
-export default async function JobbcoachenPage() {
+/** Frågan från den publika sidan (?fraga=), högst 500 tecken. */
+function startFragaUr(v: string | string[] | undefined): string | undefined {
+  const s = (Array.isArray(v) ? v[0] : v)?.replace(/\s+/g, ' ').trim()
+  return s ? s.slice(0, 500) : undefined
+}
+
+export default async function JobbcoachenPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const sok = await searchParams
   const supabase = createServerClient({ cookies: await cookies() })
   const user = await hamtaVerifieradAnvandare()
   if (!user) redirect('/login')

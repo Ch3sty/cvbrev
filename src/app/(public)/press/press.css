@@ -1,0 +1,8 @@
+/* /press, publikt omgång 3. */
+.pr-fakta { display: grid; gap: 18px; margin-top: 22px; }
+@media (min-width: 700px) { .pr-fakta { grid-template-columns: 1fr 1fr; gap: 22px; } }
+.pr-fakta .p3-h3 { font-size: 17px; margin-bottom: 4px; }
+.pr-kit { margin-top: 24px; }
+.pr-ikon { width: 32px; height: 32px; color: var(--ton-ink); }
+.pr-liten-ikon { width: 16px; height: 16px; }
+.pr-mitt { justify-content: center; }

@@ -1,0 +1,116 @@
+/*
+ * /verktyg/jobbcoachen, publikt omgång 3 (skissen jobbcoachen).
+ * Egna klasser med prefixet jc-. Färger bara ur grundens tokens.
+ */
+
+.jc-tva { display: grid; gap: 32px; align-items: center; }
+.jc-tva > * { min-width: 0; }
+@media (min-width: 1000px) { .jc-tva { grid-template-columns: 1fr 1fr; gap: 72px; } }
+
+/* brickan: en sökt tjänst, samma två bokstäver som i kontot */
+.jc-br { display: inline-grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 13.5px; box-shadow: 0 3px 0 var(--kant-stark); }
+.jc-br.jc-tyst { outline: 3px solid var(--koppar); outline-offset: 1px; }
+.jc-br.jc-int { background: var(--ton-ink); color: var(--papper); box-shadow: 0 3px 0 var(--vagg-3); }
+
+/* källan: i texten och under svaret */
+.jc-kref { font-size: 13px; font-weight: 700; color: var(--koppar-ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.jc-kallor { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; }
+.jc-kallor > b { font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-right: 2px; }
+.jc-kalla { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; padding: 3px 11px 3px 4px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-size: 13px; font-weight: 700; line-height: 1.2; }
+.jc-kalla i { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ton-ink); color: var(--papper); font-style: normal; font-size: 12px; }
+
+/* hjälten: samtalet i stor skala */
+.jc-samtal { position: relative; width: 100%; max-width: 540px; margin: 0 auto; }
+.jc-samtal-ram { background: var(--golv); border-radius: 28px; padding: 18px 16px 16px; box-shadow: 0 8px 0 var(--vagg-3); color: var(--ink-1); }
+.jc-samtal-topp { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.jc-samtal-topp b { font-family: var(--disp); font-size: 17px; line-height: 1.15; }
+.jc-samtal-topp b span { display: block; font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 13px; color: var(--ink-3); }
+.jc-samtal .p3-chatt { max-width: none; }
+.jc-samtal .p3-chatt > p { max-width: 90%; }
+.jc-skriv { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 14px; }
+.jc-skriv span { display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 15px; background: var(--papper); border: 2px solid var(--kant-stark); font-size: 15px; color: var(--ink-3); }
+.jc-skriv i { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+.jc-skriv i svg { width: 20px; height: 20px; }
+.jc-laget { margin-top: 14px; background: var(--papper); color: var(--ink-1); border-radius: 22px; padding: 16px; box-shadow: 0 6px 0 var(--vagg-3); }
+.jc-laget > b { font-family: var(--disp); font-size: 16.5px; }
+.jc-laget > small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+.jc-forslagrad { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; margin-top: 10px; padding: 9px 12px 9px 9px; border-radius: 16px; background: var(--golv); font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+.jc-forslagrad.jc-vald { outline: 2.5px solid var(--koppar); background: var(--koppar-mjuk); }
+@media (min-width: 1000px) {
+  .jc-samtal { padding: 0 0 216px 0; }
+  .jc-samtal-ram { padding: 24px 22px 22px; }
+  .jc-samtal .jc-laget { position: absolute; left: -44px; bottom: 0; width: 340px; margin: 0; transform: rotate(-2deg); }
+}
+
+/* lyftet: ett svars delar */
+.jc-svarbild { background: var(--golv); border-radius: 24px; padding: 18px 16px; }
+.jc-svarbild .p3-chatt { max-width: none; }
+.jc-svarbild .p3-chatt > p { max-width: 94%; }
+.jc-delar3 { display: grid; gap: 12px; margin-top: 22px; }
+.jc-delar3 li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+.jc-delar3 li .p3-nr { width: 44px; height: 44px; font-size: 19px; }
+.jc-delar3 li b { display: block; font-family: var(--disp); font-size: 17.5px; color: var(--ink-1); }
+.jc-delar3 li span { font-size: 15px; color: var(--ink-2); }
+.jc-stor { font-family: var(--disp); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; font-size: 28px; color: var(--ink-1); margin-top: 10px; }
+@media (min-width: 900px) { .jc-stor { font-size: 38px; } }
+.jc-mt { margin-top: 26px; }
+.jc-mt-stor { margin-top: 32px; }
+
+/* stegens små bilder */
+.jc-mini-falt { display: flex; align-items: center; width: 100%; max-width: 240px; min-height: 40px; padding: 8px 12px; border-radius: 12px; background: var(--papper); border: 2px solid var(--kant-stark); font-size: 13px; font-weight: 500; line-height: 1.3; text-align: left; color: var(--ink-1); }
+.jc-mini-kallor { display: grid; grid-template-columns: repeat(3, auto); gap: 6px; justify-content: center; }
+.jc-mini-kallor span { display: grid; place-items: center; min-width: 46px; height: 34px; padding: 0 8px; border-radius: 10px; background: var(--vagg); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 12.5px; }
+.jc-mini-bubbla { display: block; max-width: 240px; padding: 9px 12px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; line-height: 1.35; text-align: left; color: var(--ink-1); }
+.jc-mini-bubbla.jc-du { background: var(--ton-ink); border-color: var(--ton-ink); color: var(--papper); margin-left: auto; }
+.jc-mini-stapel { display: grid; gap: 8px; width: 100%; }
+
+/* frågor utifrån läget, och vad svaren utgår från */
+.jc-laget-o { margin-top: 44px; }
+.jc-laget-o .jc-laget { margin: 0 auto; max-width: 460px; }
+.jc-vet { display: grid; gap: 12px; margin-top: 18px; }
+.jc-vet > div { border-radius: 18px; padding: 16px; background: var(--vagg-2); border: 2px solid var(--vagg-3); }
+.jc-vet b { display: block; font-family: var(--disp); font-size: 16px; color: var(--vagg-ink); margin-bottom: 8px; }
+.jc-vet li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; margin-top: 7px; font-size: 14.5px; line-height: 1.4; color: var(--vagg-mjuk); }
+.jc-vet li::before { content: ''; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: var(--ljus); }
+.jc-vet .jc-inte li::before { background: var(--vagg-3); }
+@media (min-width: 700px) { .jc-vet { grid-template-columns: 1fr 1fr; } }
+
+/* sex områden: frågan som bubbla */
+.jc-amne { display: grid; align-content: start; gap: 10px; }
+.jc-amne > * + * { margin-top: 0; }
+.jc-amne .jc-fraga { justify-self: end; max-width: 92%; padding: 10px 14px; border-radius: 18px 18px 6px 18px; background: var(--ton-ink); color: var(--papper); font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+
+/* källorna */
+.jc-kallhylla { display: grid; gap: 12px; margin-top: 28px; }
+.jc-kallkort { display: grid; grid-template-columns: 56px 1fr; gap: 6px 14px; align-items: center; }
+.jc-kallkort .jc-mono { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 17px; background: var(--vagg); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 16px; }
+.jc-kallkort > p { grid-column: 1 / -1; }
+.jc-kallnot { margin-top: 18px; max-width: 70ch; }
+@media (min-width: 700px) { .jc-kallhylla { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .jc-kallhylla { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; } }
+
+/* gratiskvoten: tio brickor och Premium utan tak */
+.jc-kvot { padding: 18px; border-radius: 20px; background: var(--vagg-2); border: 2px solid var(--vagg-3); }
+.jc-kvot b { font-family: var(--disp); font-size: 17px; color: var(--vagg-ink); }
+.jc-kvot + .jc-kvot { margin-top: 12px; }
+.jc-tio { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; max-width: 300px; margin-top: 10px; }
+.jc-tio i { aspect-ratio: 1; border-radius: 7px; background: var(--koppar); box-shadow: 0 3px 0 var(--koppar-klack); }
+.jc-utantak { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.jc-utantak i { flex: 1; height: 22px; border-radius: 8px; background: linear-gradient(90deg, var(--koppar), var(--koppar) 60%, transparent); }
+.jc-kvot p { margin-top: 10px; font-size: 14.5px; }
+
+/* Papper på ön: grundens ö-regel kommer efter pappersregeln i v3.css och gör
+   rubriken ljus. Rättat här tills grunden tar det (onskemal.md). */
+.p3-o :is(.p3-kort, .p3-papper) .p3-h3 { color: var(--ink-1); }
+
+/* skrivfältet och förslagen på riktigt (CoachFraga) */
+.jc-skriv input { min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 15px; background: var(--papper); border: 2px solid var(--kant-stark); font: inherit; font-size: 16px; color: var(--ink-1); }
+.jc-skriv input::placeholder { color: var(--ink-3); }
+.jc-skriv input:focus-visible { outline: 3px solid var(--koppar); outline-offset: 1px; }
+.jc-skriv button { display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 15px; background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); cursor: pointer; }
+.jc-skriv button svg { width: 20px; height: 20px; }
+.jc-skriv button:focus-visible { outline: 3px solid var(--ink-1); outline-offset: 2px; }
+button.jc-forslagrad, a.jc-forslagrad { width: 100%; border: 0; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--ink-1); text-align: left; cursor: pointer; text-decoration: none; }
+button.jc-forslagrad:focus-visible, a.jc-forslagrad:focus-visible { outline: 3px solid var(--koppar); outline-offset: 2px; }
+a.jc-fraga { text-decoration: none; }
+a.jc-fraga:hover { text-decoration: underline; text-underline-offset: 3px; }

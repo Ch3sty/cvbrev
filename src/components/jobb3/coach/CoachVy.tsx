@@ -70,12 +70,18 @@ export default function CoachVy({
   brevAntal,
   forslag,
   kvot,
+  startFraga,
 }: {
   cvAntal: number
   brevAntal: number
   forslag: CoachForslagLista
   /** Gratisnivåns kvot ur servern; null med Premium. */
   kvot: { kvar: number; av: number } | null
+  /**
+   * Frågan besökaren skrev på /verktyg/jobbcoachen före kontot (?fraga=,
+   * publikt omgång 3). Står i fältet och skickas först när hon själv vill.
+   */
+  startFraga?: string
 }) {
   const [meddelanden, setMeddelanden] = useState<Message[]>([])
   const [laddar, setLaddar] = useState(false)
@@ -83,7 +89,7 @@ export default function CoachVy({
   const [fel, setFel] = useState<string | null>(null)
   const [sparr, setSparr] = useState(false)
   const [kvar, setKvar] = useState<number | null>(kvot ? kvot.kvar : null)
-  const [text, setText] = useState('')
+  const [text, setText] = useState(startFraga ?? '')
   const [valda, setValda] = useState<Dokument[]>([])
   const [visaVal, setVisaVal] = useState(false)
   const slutRef = useRef<HTMLDivElement>(null)

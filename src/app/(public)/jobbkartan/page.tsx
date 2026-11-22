@@ -15,6 +15,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import PubliktSida from '@/components/publikt/PubliktSida'
+import { Sida } from '@/components/publikt/v3/Sida'
 import Faq, { type FaqFraga } from '@/components/publikt/Faq'
 import { HjalteTal, JkTillbehor, KartScen, Tidrad } from '@/components/jobbkartan/Hjalte'
 import JobbkartanKlient from '@/components/jobbkartan/JobbkartanKlient'
@@ -109,6 +110,7 @@ export default async function JobbkartanSida() {
   }
 
   return (
+    <Sida farg="jobb">
     <PubliktSida>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dataset) }} />
       <main className="jk">
@@ -606,5 +608,6 @@ export default async function JobbkartanSida() {
       </main>
       <JobbkartanKlient annonser={D.annonser} />
     </PubliktSida>
+    </Sida>
   )
 }

@@ -1,13 +1,13 @@
 /**
- * /hjalpcenter, publikt v2 (docs/design/spec-publikt-v2-del-b-2026-10-12.md
- * avsnitt 3.9): textmallen med de tre korten som länkkort. Texterna är
- * desamma som förut. Sidan hade startsidans title och description och får
- * egna (ägarbeslut 10 i del B). Serverkomponent.
+ * /hjalpcenter, publikt omgång 3: sidan utan egen skiss får grundens skal
+ * (BYGGBRIEF beslut 10). Hjälten på väggen, de tre korten som länkkort i
+ * grundens kortform och raden om den utbyggda hjälpen som tonad sektion.
+ * Texterna, rubrikerna och länkarna är desamma som förut. Serverkomponent.
  */
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import Textmall from '@/components/publikt/innehall/Textmall'
+import { Sida, Hjalte, Sektion, SektionHuvud, Rutnat, Knapprad, Knapp, TextLank } from '@/components/publikt/v3'
+import './hjalpcenter.css'
 
 export const metadata: Metadata = {
   title: 'Hjälpcenter | Jobbcoach.ai',
@@ -39,35 +39,44 @@ const KATEGORIER = [
 
 export default function HjalpcenterPage() {
   return (
-    <PubliktSida>
-      <Textmall titel="Hjälpcenter" smula="Hjälpcenter">
-        <p className="pub-ingress">Få hjälp med Jobbcoach.ai och optimera din karriärutveckling</p>
-        <div className="if-hjalpkort">
-          {KATEGORIER.map((k) => (
-            <Link key={k.titel} href={k.href}>
-              <h3>{k.titel} </h3>
-              <p>{k.beskrivning} </p>
-              <ul>
-                {k.amnen.map((a) => (
-                  <li key={a}>{a} </li>
-                ))}
-              </ul>
-            </Link>
-          ))}
-        </div>
-        <div className="if-hjalp-mer">
-          <h2>Utbyggd hjälpsektion kommer snart</h2>
-          <p>Vi arbetar på att skapa en omfattande kunskapsbas med guider, FAQ och videotutorials</p>
-          <div className="pub-handling">
-            <Link className="pub-lank" href="/kontakt">
-              Kontakta support
-            </Link>
-            <Link className="pub-lank" href="/funktioner">
-              Se funktioner
-            </Link>
-          </div>
-        </div>
-      </Textmall>
-    </PubliktSida>
+    <Sida farg="neutral">
+      <main>
+        <Hjalte
+          brodsmulor={[
+            { name: 'Hem', href: '/' },
+            { name: 'Hjälpcenter', href: '/hjalpcenter' },
+          ]}
+          brodsmulorSchema={false}
+          h1="Hjälpcenter"
+          varde="Få hjälp med Jobbcoach.ai och optimera din karriärutveckling"
+        />
+        <Sektion>
+          <Rutnat kolumner={3}>
+            {KATEGORIER.map((k) => (
+              <Link key={k.titel} href={k.href} className="p3-kort hc-kort">
+                <h3 className="p3-h3">{k.titel} </h3>
+                <p>{k.beskrivning} </p>
+                <ul className="hc-amnen">
+                  {k.amnen.map((a) => (
+                    <li key={a}>{a} </li>
+                  ))}
+                </ul>
+              </Link>
+            ))}
+          </Rutnat>
+        </Sektion>
+        <Sektion botten="ton">
+          <SektionHuvud
+            rubrik="Utbyggd hjälpsektion kommer snart"
+            varde="Vi arbetar på att skapa en omfattande kunskapsbas med guider, FAQ och videotutorials"
+          >
+            <Knapprad>
+              <Knapp href="/kontakt">Kontakta support</Knapp>
+              <TextLank href="/funktioner">Se funktioner</TextLank>
+            </Knapprad>
+          </SektionHuvud>
+        </Sektion>
+      </main>
+    </Sida>
   )
 }

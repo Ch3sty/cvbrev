@@ -16,8 +16,10 @@ describe('visaren i artiklarna', () => {
     expect(html).toContain('title="Personligt brev i mallen Linne"')
     expect(html).toContain('Samma brev i fem mallar')
     expect(html).toMatch(/<b>Linne\.<\/b> <span>Gratis, även som Word\.<\/span>/)
+    // Linne (första vyn) ger samma adress som förut; knappen heter "Använd som mall" (beslut 6).
     expect(html).toContain('href="/skapa-brev/start"')
-    expect(html).toContain('Skriv ditt eget brev')
+    expect(html).not.toContain('/skapa-brev/start?mall=')
+    expect(html).toContain('Använd som mall')
     expect(html).toContain('Det här är fem av 40 mallar. Med ett konto provar du alla med ditt eget brev.')
     expect(html).not.toMatch(/<h[1-6][\s>]/)
     expect(html).not.toContain('Läs brevet som text')

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import AuthRedirect from '@/components/landing/AuthRedirect';
-import PubliktSida from '@/components/publikt/PubliktSida';
 import FunktionerSida from './FunktionerSida';
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal';
 
@@ -13,8 +12,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
+    // Textbeslut FUN-10, kortad till 156 tecken (P1, publikt omgång 3): "och" före
+    // LinkedIn-optimering blev ett kommatecken.
     description:
-      `Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och ${TEMPLATE_COUNT} CV-mallar.`,
+      `Alla verktyg på en plattform: rekryteringstester, CV-analys, ${TEMPLATE_COUNT} CV-mallar, personliga brev, jobbmatchning, sökta tjänster, Jobbcoachen, LinkedIn-optimering.`,
     url: 'https://www.jobbcoach.ai/funktioner',
     type: 'website',
   },
@@ -27,14 +28,15 @@ export const metadata: Metadata = {
 };
 
 /**
- * /funktioner, publikt v2 (spec del A 5.6). Metadata och h1 oförändrade;
- * sektionerna bor i FunktionerSida.tsx.
+ * /funktioner, publikt omgång 3 (skissen funktioner). Metadata och h1
+ * oförändrade; sektionerna bor i FunktionerSida.tsx, som har sidans skal
+ * (<Sida farg="tran">).
  */
 export default function FunktionerPage() {
   return (
-    <PubliktSida>
+    <>
       <AuthRedirect />
       <FunktionerSida />
-    </PubliktSida>
+    </>
   );
 }

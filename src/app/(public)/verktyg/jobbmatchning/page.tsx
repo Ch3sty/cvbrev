@@ -1,49 +1,102 @@
 /**
- * /verktyg/jobbmatchning, publikt v2 (docs/design/spec-publikt-v2-del-a-2026-10-12.md
- * avsnitt 5.5, skissen v4 flik #matchning).
+ * /verktyg/jobbmatchning, publikt omgång 3 (skissen jobbmatchning,
+ * docs/design/publikt-omgang3/sidor/jobbmatchning.html).
  *
- * Hjälten på skog vägg med matchningarna i telefonen, tre träffar gratis,
- * Så fungerar det med aktiveringen, de sex datapunkterna, de sex skälen med
- * grenarna, från träff till ansökan, Premium på bläck och frågorna.
+ * Hjälten är Matchade jobb som i kontot, lyftet visar tre öppna av de 25
+ * bästa träffarna, stegen som väg, datapunkterna bredvid Saras CV, skälen
+ * med grenarna på en ö, kedjan träff, sparad, sökt, Premium och frågorna.
  *
- * SEO: h1, metadata och schemat (WebApplication, HowTo, FAQPage) oförändrade
- * utom FAQ-svaren som läser FREE_TIER_JOB_LIMIT och JOB_MATCHES_PER_RUN.
- * Baslinjens h2 och h3 står kvar. Nya h2: "Tre träffar gratis, med skälen"
- * och "Från träff till ansökan". Radien: rubriken "Avstånd du väljer själv"
- * står kvar, texten säger nära dig eller i hela Sverige (ägarens beslut 4).
+ * SEO (seo-besked-skisser.md avsnitt 17): h1, titel, description, alla sju
+ * H2 och alla H3 står, också "Uppdaterat varje dag" (textbeslut B-11).
+ * Steg 1 heter "Välj eller ladda upp ditt CV" (JM-1). Schemat
+ * (WebApplication, HowTo, FAQPage) byggs ur samma listor som syns.
  * Serverkomponent; klient-JS bara för FastKnapprad.
  */
-import Link from 'next/link'
 import { JOBBMATCHNING_FAQ_ITEMS } from './components/jobbmatchning-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
-import PubliktSida from '@/components/publikt/PubliktSida'
-import Hjalte from '@/components/publikt/Hjalte'
-import Rum from '@/components/publikt/Rum'
-import ProvaKort from '@/components/publikt/ProvaKort'
-import Steg from '@/components/publikt/Steg'
-import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
-import LankLista, { type LankRad } from '@/components/publikt/LankLista'
-import Faq from '@/components/publikt/Faq'
-import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
+import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
+import { BREV_MALL_ANTAL } from '@/components/publikt/brevmallar'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
-import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
+import CvProvaJobb from './components/CvProvaJobb'
 import { storForst, talOrd } from '@/components/publikt/talord'
-import SkarmMatchning from '@/components/publikt/telefon/skarmar/SkarmMatchning'
-import SkarmAktivera, { DATAPUNKTER as DATAPUNKT_NAMN } from '@/components/publikt/telefon/skarmar/SkarmAktivera'
+import type { Farg } from '@/components/publikt/v3'
+import {
+  Sida,
+  Hjalte,
+  Lyft,
+  Sektion,
+  SektionHuvud,
+  Kort,
+  Rutnat,
+  Nr,
+  VagSteg,
+  Faq,
+  LankBricka,
+  O,
+  PremiumO,
+  Bocklista,
+  Knapp,
+  Knapprad,
+  TextLank,
+  Ikon,
+  CvArk,
+  MatchadeJobb,
+  Matchgrad,
+} from '@/components/publikt/v3'
+// Den fasta knappraden (pub-botten) är stylad i publikt.css.
+import '@/components/publikt/publikt.css'
+import './jobbmatchning.css'
 
 const REGISTRERA = '/register?borja=jobb'
+const SOKTA_TJANSTER = '/verktyg/sokta-tjanster'
 const PREMIUM = paketKort()
 const TRAFFAR = talOrd(FREE_TIER_JOB_LIMIT)
 
-const DATAPUNKTER: { rubrik: (typeof DATAPUNKT_NAMN)[number]; text: string; objekt: ObjektTyp }[] = [
-  { objekt: 'yrke', rubrik: 'Yrkesroller', text: 'Vi översätter dina tidigare titlar till JobTech Taxonomy, den officiella svenska yrkesklassificeringen. Så vet vi att "frontend-utvecklare" och "webbutvecklare" är närliggande roller.' },
-  { objekt: 'kompetens', rubrik: 'Kompetenser', text: 'Tekniska och mjuka kompetenser ur ditt CV, från enskilda program till hela erfarenhetsområden. Vi ställer dem mot kraven i varje annons.' },
-  { objekt: 'utbildning', rubrik: 'Utbildning', text: 'Examensnivå och inriktning. Vissa tjänster kräver en viss utbildning, andra ser den som meriterande. Vi räknar med båda.' },
-  { objekt: 'plats', rubrik: 'Plats', text: 'Vi vet var du bor och sorterar bort jobb som ligger orimligt långt bort. Du väljer själv om du vill se jobb nära dig eller i hela Sverige.' },
-  { objekt: 'sprak', rubrik: 'Språk', text: 'Vilka språk du kan och på vilken nivå. Det avgör internationella roller och tjänster där svenska är ett krav.' },
-  { objekt: 'erfarenhet', rubrik: 'Erfarenhetsnivå', text: 'År i branschen och senioritet. Vi matchar inte en junior mot en chefsroll, och inte en senior mot en traineetjänst.' },
+const DATAPUNKTER: { rubrik: string; text: string; ur: string }[] = [
+  { rubrik: 'Yrkesroller', text: 'Vi översätter dina tidigare titlar till JobTech Taxonomy, den officiella svenska yrkesklassificeringen. Så vet vi att "frontend-utvecklare" och "webbutvecklare" är närliggande roller.', ur: 'projektledare, biträdande projektledare' },
+  { rubrik: 'Kompetenser', text: 'Tekniska och mjuka kompetenser ur ditt CV, från enskilda program till hela erfarenhetsområden. Vi ställer dem mot kraven i varje annons.', ur: 'projektledning, LOU, budgetansvar, AMA' },
+  { rubrik: 'Utbildning', text: 'Examensnivå och inriktning. Vissa tjänster kräver en viss utbildning, andra ser den som meriterande. Vi räknar med båda.', ur: 'civilingenjör, industriell ekonomi' },
+  { rubrik: 'Plats', text: 'Vi vet var du bor och sorterar bort jobb som ligger orimligt långt bort. Du väljer själv om du vill se jobb nära dig eller i hela Sverige.', ur: 'Göteborg' },
+  { rubrik: 'Språk', text: 'Vilka språk du kan och på vilken nivå. Det avgör internationella roller och tjänster där svenska är ett krav.', ur: 'svenska, engelska' },
+  { rubrik: 'Erfarenhetsnivå', text: 'År i branschen och senioritet. Vi matchar inte en junior mot en chefsroll, och inte en senior mot en traineetjänst.', ur: 'åtta år, två roller' },
+]
+
+/** Små bilder till skälen, aria-hidden. Samma ordning som VAD_DU_FAR. */
+const SKAL_BILDER = [
+  <svg key="1" viewBox="0 0 84 48" fill="none">
+    <path d="M14 24h18M32 24c10 0 8-14 22-14M32 24h22M32 24c10 0 8 14 22 14" stroke="var(--kant-stark)" strokeWidth="3" strokeLinecap="round" strokeDasharray="1 6" />
+    <rect x="2" y="15" width="18" height="18" rx="6" fill="var(--ton-ink)" />
+    <rect x="56" y="2" width="16" height="16" rx="5" fill="var(--koppar)" />
+    <rect x="66" y="16" width="16" height="16" rx="5" fill="var(--ton)" stroke="var(--ton-ink)" strokeWidth="2" />
+    <rect x="56" y="30" width="16" height="16" rx="5" fill="var(--ton)" stroke="var(--ton-ink)" strokeWidth="2" />
+  </svg>,
+  <>
+    <Matchgrad varde={72} liten />
+    <small>av 100</small>
+  </>,
+  <svg key="3" viewBox="0 0 84 48" fill="none">
+    <rect x="30" y="4" width="34" height="40" rx="6" fill="var(--ton)" stroke="var(--kant-stark)" strokeWidth="2" transform="rotate(10 47 24)" />
+    <rect x="24" y="4" width="34" height="40" rx="6" fill="var(--ton)" stroke="var(--kant-stark)" strokeWidth="2" transform="rotate(-8 41 24)" />
+    <rect x="27" y="4" width="34" height="40" rx="6" fill="var(--papper)" stroke="var(--ton-ink)" strokeWidth="2" />
+    <path d="M34 15h20M34 23h20M34 31h12" stroke="var(--ton-ink)" strokeWidth="3" strokeLinecap="round" />
+  </svg>,
+  <span key="4" className="jm-vx">
+    <i className="jm-pa">Nära dig</i>
+    <i>Hela Sverige</i>
+  </span>,
+  <>
+    <i className="jm-prick" />
+    <i className="jm-prick" />
+    <i className="jm-prick" />
+    <small>per dygn</small>
+  </>,
+  <svg key="6" viewBox="0 0 84 48" fill="none">
+    <rect x="8" y="4" width="72" height="11" rx="5.5" fill="var(--koppar)" />
+    <rect x="8" y="19" width="56" height="11" rx="5.5" fill="var(--ton-ink)" />
+    <rect x="8" y="34" width="40" height="11" rx="5.5" fill="var(--kant-stark)" />
+  </svg>,
 ]
 
 const VAD_DU_FAR = [
@@ -61,14 +114,15 @@ const GRENAR = [
   { roll: 'Boendestödjare', var: 'Attendo, Partille', procent: 82 },
 ]
 
-const VIDARE: LankRad[] = [
-  { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev från träffen', text: 'Ett klick från ett matchat jobb till ett brev som svarar på just den annonsen.', objekt: 'brev', rum: 'brev' },
-  { href: '/funktioner#sokta-tjanster', rubrik: 'Sökta tjänster', text: 'Spara annonsen till Ska sökas, logga den du har sökt och se när det är dags att följa upp.', objekt: 'sokta', rum: 'jobb' },
-  { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
-  { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, om du inte har ett eget än.', objekt: 'exempel', rum: 'cv' },
-  { href: '/artiklar/ai-jobbmatchning', rubrik: 'Så fungerar AI-jobbmatchning', text: 'Vad som händer när jobben hittar dig i stället för tvärtom.', objekt: 'match', rum: 'jobb' },
-  { href: '/artiklar/byta-karriar-jobbsokande-guide', rubrik: 'Byta karriär', text: 'Guiden för den som ska söka utanför sin gamla titel.', objekt: 'yrke', rum: 'jobb' },
-  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor och avtal inför jobbet du hittade.', objekt: 'chat', rum: 'neu' },
+const VIDARE: { href: string; rubrik: string; text: string; farg: Farg }[] = [
+  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Kallad till test efter ansökan? Träna först.', farg: 'tran' },
+  { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev från träffen', text: 'Ett klick från ett matchat jobb till ett brev som svarar på just den annonsen.', farg: 'brev' },
+  { href: SOKTA_TJANSTER, rubrik: 'Sökta tjänster', text: 'Spara annonsen till Ska sökas, logga den du har sökt och se när det är dags att följa upp.', farg: 'jobb' },
+  { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', farg: 'jobb' },
+  { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, om du inte har ett eget än.', farg: 'cv' },
+  { href: '/artiklar/ai-jobbmatchning', rubrik: 'Så fungerar AI-jobbmatchning', text: 'Vad som händer när jobben hittar dig i stället för tvärtom.', farg: 'jobb' },
+  { href: '/artiklar/byta-karriar-jobbsokande-guide', rubrik: 'Byta karriär', text: 'Guiden för den som ska söka utanför sin gamla titel.', farg: 'jobb' },
+  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor och avtal inför jobbet du hittade.', farg: 'neutral' },
 ]
 
 export default function JobbmatchningSida() {
@@ -147,6 +201,36 @@ export default function JobbmatchningSida() {
     })),
   }
 
+  // Stegens bilder ur kontot, aria-hidden i VagSteg. Exempel.
+  const stegBilder = [
+    <div key="1" className="jm-minicv">
+      <b>
+        Ditt CV <u>Byt CV</u>
+      </b>
+      <span>Sara Lindström, projektledare</span>
+      <small>3 roller, 14 kompetenser, 2 utbildningar</small>
+    </div>,
+    <div key="2" className="jm-mini-rad">
+      <span className="jm-mini-chip">Projektledare</span>
+      <span className="jm-mini-chip">LOU</span>
+      <span className="jm-mini-chip">Göteborg</span>
+      <span className="jm-mini-chip">Civilingenjör</span>
+    </div>,
+    <div key="3">
+      <div className="jm-mini-rad">
+        <span className="jm-mini-chip jm-m">Hitta jobb som passar</span>
+      </div>
+      <span className="jm-mini-not">
+        Senast sökt för 2 timmar sedan. <u>Sök igen</u>
+      </span>
+    </div>,
+    <div key="4" className="jm-mini-rad" style={{ gap: 10 }}>
+      <Matchgrad varde={91} />
+      <Matchgrad varde={86} liten />
+      <Matchgrad varde={82} liten />
+    </div>,
+  ]
+
   return (
     <>
       <RedirectLoggedIn to="/dashboard/jobbmatchning" />
@@ -154,196 +238,289 @@ export default function JobbmatchningSida() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <PubliktSida>
-        <div id="innehall">
-          {/* 1. Hjälten: skog vägg */}
-          <Hjalte
-            id="hjalte"
-            rum="jobb"
-            yta="vagg"
-            vag="mark"
-            brodsmulor={[
-              { name: 'Hem', href: '/' },
-              { name: 'Verktyg', href: '/funktioner' },
-              { name: 'Jobbmatchning', href: '/verktyg/jobbmatchning' },
-            ]}
-            kick="Jobbmatchning, fler dörrar än din titel"
-            h1="Hitta jobb som matchar ditt CV automatiskt"
-            ingress="Ladda upp ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen."
-            fet="Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel."
-            primar={{ text: 'Hitta jobb gratis', href: REGISTRERA, dataCta: 'hero-primary' }}
-            sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
-            tal={[
-              { tal: `${FREE_TIER_JOB_LIMIT} träffar`, text: 'gratis, med skälen' },
-              { tal: '3 gånger', text: 'per dygn hämtas nya annonser' },
-              { tal: 'Hela Sverige', text: 'alla branscher' },
-            ]}
-            bildLag
-            bild={
-              <>
-                <SvavandeObjekt objekt="cv" rot={-8} plats={{ left: -6, top: 40 }} bredd={100} mobil={{ left: -8, top: 30, bredd: 82 }} />
-                <SvavandeObjekt objekt="match" rot={6} plats={{ right: -10, top: 110 }} bredd={146} mobil={{ right: -12, top: 120, bredd: 118 }} />
-                <SvavandeObjekt objekt="plats" rot={-4} plats={{ left: 14, bottom: 60 }} bredd={88} doljPaMobil />
-                <SkarmMatchning />
-              </>
-            }
-          />
+      <Sida farg="jobb" id="innehall">
+        {/* 1. Hjälten: Matchade jobb som i kontot */}
+        <Hjalte
+          id="hjalte"
+          brodsmulor={[
+            { name: 'Hem', href: '/' },
+            { name: 'Verktyg', href: '/funktioner' },
+            { name: 'Jobbmatchning', href: '/verktyg/jobbmatchning' },
+          ]}
+          etikett="Jobbmatchning, fler dörrar än din titel"
+          h1="Hitta jobb som matchar ditt CV automatiskt"
+          varde={
+            <>
+              Ladda upp ditt CV så söker vi bland tusentals lediga jobb från Arbetsförmedlingen.{' '}
+              <b>Vi matchar dig också mot roller du inte tänkt på själv, så du får fler dörrar att knacka på än om du sökt på din titel.</b>
+            </>
+          }
+          knappar={
+            <>
+              <Knapp href="#prova" pil data-cta="hero-primary">
+                Hitta jobb gratis
+              </Knapp>
+              <TextLank href="#sa-funkar-det">Så fungerar det</TextLank>
+            </>
+          }
+          brickor={[
+            { tal: `${FREE_TIER_JOB_LIMIT} träffar`, text: 'gratis, med skälen' },
+            { tal: '3 gånger', text: 'per dygn hämtas nya annonser' },
+            { tal: 'Hela Sverige', text: 'alla branscher', ord: true },
+          ]}
+          bild={<MatchadeJobb />}
+          lyft
+        />
 
-          {/* 2. Tre träffar gratis */}
-          <Rum yta="mark" storlek="tat" id="prova">
-            <div className="pub-wrap">
-              <ProvaKort
-                rum="jobb"
-                rubrik={`${storForst(TRAFFAR)} träffar gratis, med skälen`}
-                text={`Ladda upp ditt CV, så ser du dina ${TRAFFAR} bästa träffar och varför de passar. Inget kort, ingen bindning.`}
+        {/* 2. Tre träffar gratis */}
+        <Lyft id="prova">
+          <div className="jm-tva">
+            <div>
+              <p className="p3-ey">Prova utan kort</p>
+              <h2 className="p3-h2" style={{ marginTop: 10 }}>
+                {`${storForst(TRAFFAR)} träffar gratis, med skälen`}
+              </h2>
+              <p className="p3-varde" style={{ marginTop: 12 }}>
+                {`Ladda upp ditt CV, så ser du dina ${TRAFFAR} bästa träffar och varför de passar. Inget kort, ingen bindning.`}
+              </p>
+              <Bocklista
+                paPapper
+                className="jm-mt"
                 punkter={[
                   'Varför rollen passar och vilka av dina kompetenser annonsen frågar efter, per träff',
                   'Nya annonser in tre gånger per dygn, borttagna ut',
                   `De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}`,
                 ]}
-                knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
-                not={
-                  <>
-                    Inget CV än?{' '}
-                    <Link className="pub-lank" href="/cv-exempel">
-                      Se CV-exempel först
-                    </Link>
-                  </>
-                }
               />
-            </div>
-          </Rum>
-
-          {/* 3. Så fungerar det, med aktiveringen */}
-          <Rum yta="panel" id="sa-funkar-det">
-            <div className="pub-wrap pub-tva pub-omv">
-              <div className="pub-tva-text pub-rum-jobb">
-                <h2 className="pub-h2">Så fungerar det</h2>
-                <p className="pub-ingress" style={{ marginTop: 16 }}>
-                  Fyra steg från uppladdat CV till en lista sorterad efter hur väl du passar.
-                </p>
-                <div style={{ marginTop: 28 }}>
-                  <Steg rader={howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text }))} />
-                </div>
-                <div className="pub-handling">
-                  <Link className="pub-knapp" href={REGISTRERA}>
-                    Hitta jobb nu
-                  </Link>
-                </div>
+              {/* Inga genvägar: CV:t läggs in här och följer med in i kontot (CvProvaJobb). */}
+              <div className="jm-mt">
+                <CvProvaJobb />
               </div>
-              <div className="pub-mitt">
-                <SkarmAktivera />
-              </div>
+              <Knapprad className="jm-mt">
+                <span className="p3-liten">
+                  Inget CV än? <TextLank href="/cv-exempel">Se CV-exempel först</TextLank> eller{' '}
+                  <TextLank href={REGISTRERA}>skapa kontot och bygg ett där</TextLank>
+                </span>
+              </Knapprad>
             </div>
-          </Rum>
-
-          {/* 4. Sex datapunkter */}
-          <Rum yta="ton" rum="jobb" id="datapunkter">
-            <div className="pub-wrap">
-              <p className="pub-kick">Vad vi läser ut</p>
-              <h2 className="pub-h2">Sex datapunkter ur ditt CV</h2>
-              <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV, och sedan gör AI jobbet: den läser varje annons och jämför kraven med det du faktiskt kan.
-              </p>
-              <div className="pub-raster pub-raster-3">
-                {DATAPUNKTER.map((d) => (
-                  <div className="pub-kort" key={d.rubrik}>
-                    <Objekt typ={d.objekt} />
-                    <h3 className="pub-h4">{d.rubrik}</h3>
-                    <p>{d.text}</p>
-                  </div>
+            <div>
+              <div
+                className="jm-tjugofem"
+                role="img"
+                aria-label={`Exempel: av de ${JOB_MATCHES_PER_RUN} bästa träffarna är ${TRAFFAR} öppna på gratisnivån`}
+              >
+                {[91, 86, 82].slice(0, FREE_TIER_JOB_LIMIT).map((p) => (
+                  <span key={p} className="jm-oppen">
+                    <Matchgrad varde={p} />
+                  </span>
+                ))}
+                {Array.from({ length: Math.max(0, JOB_MATCHES_PER_RUN - FREE_TIER_JOB_LIMIT) }, (_, i) => (
+                  <span key={`las-${i}`}>
+                    <Ikon namn="las" />
+                  </span>
                 ))}
               </div>
-            </div>
-          </Rum>
-
-          {/* 5. Sex skäl, med grenarna */}
-          <Rum yta="mark" id="skal">
-            <div className="pub-wrap pub-tva pub-tva-topp">
-              <div className="pub-tva-text pub-rum-jobb">
-                <p className="pub-kick">Vad du får</p>
-                <h2 className="pub-h2">Sex skäl att låta oss söka åt dig</h2>
-                <p className="pub-ingress" style={{ marginTop: 16 }}>
-                  Vi söker bredare än du hinner själv och visar tjänster du faktiskt har chans att få.
-                </p>
-                <div style={{ marginTop: 28 }}>
-                  <Steg rader={VAD_DU_FAR} />
-                </div>
+              <div className="jm-tjugofem-rad" aria-hidden="true">
+                <span>
+                  <i />
+                  {FREE_TIER_JOB_LIMIT} öppna träffar, gratis
+                </span>
+                <span>
+                  <i />
+                  {JOB_MATCHES_PER_RUN - FREE_TIER_JOB_LIMIT} till i {PREMIUM}
+                </span>
               </div>
-              <div className="pub-grenar pub-rum-jobb">
-                <div className="pub-gren" style={{ gridTemplateColumns: '1fr', paddingTop: 0 }}>
-                  <span className="pub-rot">
+            </div>
+          </div>
+        </Lyft>
+
+        {/* 3. Så fungerar det */}
+        <Sektion id="sa-funkar-det">
+          <SektionHuvud rubrik="Så fungerar det" varde="Fyra steg från uppladdat CV till en lista sorterad efter hur väl du passar." />
+          <VagSteg steg={howToSchema.step.map((s, i) => ({ rubrik: s.name, text: s.text, bild: stegBilder[i], koppar: i === 3 }))} />
+          <Knapprad className="jm-mt-stor">
+            <Knapp href={REGISTRERA} variant="vit">
+              Hitta jobb nu
+            </Knapp>
+          </Knapprad>
+        </Sektion>
+
+        {/* 4. Sex datapunkter */}
+        <Sektion botten="ton" id="datapunkter">
+          <SektionHuvud
+            etikett="Vad vi läser ut"
+            rubrik="Sex datapunkter ur ditt CV"
+            varde="Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV, och sedan gör AI jobbet: den läser varje annons och jämför kraven med det du faktiskt kan."
+          />
+          <div className="jm-dp">
+            <div className="jm-dp-ark">
+              <CvArk nalar={false} vald={0} ariaLabel="Exempel: Sara Lindströms CV, som datapunkterna läses ur" />
+            </div>
+            <div className="jm-dp-lista">
+              {DATAPUNKTER.map((d, i) => (
+                <Kort key={d.rubrik} className="jm-dprad">
+                  <Nr>{i + 1}</Nr>
+                  <h3 className="p3-h3">{d.rubrik}</h3>
+                  <p>{d.text}</p>
+                  <span className="jm-ur">Exempel ur Saras CV: {d.ur}</span>
+                </Kort>
+              ))}
+            </div>
+          </div>
+        </Sektion>
+
+        {/* 5. Sex skäl, med grenarna */}
+        <Sektion id="skal">
+          <O
+            farg="jobb"
+            ikon="jobb"
+            etikett="Vad du får"
+            rubrik="Sex skäl att låta oss söka åt dig"
+            rubrikNiva="h2"
+            varde="Vi söker bredare än du hinner själv och visar tjänster du faktiskt har chans att få."
+            bild={
+              <div className="jm-gren">
+                <div role="img" aria-label="Exempel: titeln undersköterska ger träffar som stödassistent, vårdbiträde och boendestödjare" style={{ display: 'grid', gap: 10 }}>
+                  <span className="jm-gren-rot">
                     Undersköterska <small>titeln i CV:t</small>
                   </span>
-                </div>
-                {GRENAR.map((g) => (
-                  <div className="pub-gren" key={g.roll}>
-                    <Objekt typ="yrke" storlek={34} />
-                    <div>
-                      <b>{g.roll}</b>
-                      <span>{g.var}</span>
+                  {GRENAR.map((g) => (
+                    <div className="jm-gren-gren" key={g.roll}>
+                      <div>
+                        <b>{g.roll}</b>
+                        <small>{g.var}</small>
+                      </div>
+                      <Matchgrad varde={g.procent} />
                     </div>
-                    <em>
-                      {g.procent}
-                      <small>%</small>
-                    </em>
-                  </div>
-                ))}
-                <p className="pub-liten">
-                  Exempel på träffar för en undersköterska. Ingen av de tre annonserna innehåller ordet undersköterska.
-                </p>
+                  ))}
+                </div>
+                <p className="p3-liten jm-gren-not">Exempel på träffar för en undersköterska. Ingen av de tre annonserna innehåller ordet undersköterska.</p>
               </div>
-            </div>
-          </Rum>
-
-          {/* 6. Från träff till ansökan */}
-          <Rum yta="panel" id="las-mer">
-            <div className="pub-wrap">
-              <p className="pub-kick">Nästa steg</p>
-              <h2 className="pub-h2">Från träff till ansökan</h2>
-              <p className="pub-ingress" style={{ margin: '16px 0 32px' }}>
-                Jobbmatchningen hänger ihop med resten av kontot. Från en träff skriver du brevet, sparar annonsen till Ska sökas med
-                sista ansökningsdag eller markerar den som sökt, och följer den sedan under Sökta tjänster. Rekryterare kan dessutom
-                hitta dig åt andra hållet.
-              </p>
-              <LankLista lankar={VIDARE} />
-            </div>
-          </Rum>
-
-          {/* 7. Premium-avslutet */}
-          <PremiumBlock
-            kick={
-              <>
-                Jobbcoach <PremiumOrd />, {prisPeriod(SALD_PLAN)}
-              </>
             }
+          />
+          <Rutnat kolumner={3} className="jm-skal">
+            {VAD_DU_FAR.map((s, i) => (
+              <Kort key={s.rubrik}>
+                <div className="jm-skal-topp">
+                  <Nr>{i + 1}</Nr>
+                  <span className="jm-skal-bild" aria-hidden="true">
+                    {SKAL_BILDER[i]}
+                  </span>
+                </div>
+                <h3 className="p3-h3">{s.rubrik}</h3>
+                <p>{s.text}</p>
+              </Kort>
+            ))}
+          </Rutnat>
+        </Sektion>
+
+        {/* 6. Från träff till ansökan */}
+        <Sektion botten="ton" id="las-mer">
+          <SektionHuvud
+            etikett="Nästa steg"
+            rubrik="Från träff till ansökan"
+            varde="Jobbmatchningen hänger ihop med resten av kontot. Från en träff skriver du brevet, sparar annonsen till Ska sökas med sista ansökningsdag eller markerar den som sökt, och följer den sedan under Sökta tjänster. Rekryterare kan dessutom hitta dig åt andra hållet."
+          />
+          <div className="jm-kedja" role="group" aria-label="Exempel: en träff som sparas till Ska sökas och sedan markeras som sökt">
+            <div className="jm-lank-k">
+              <span className="jm-var">Matchade jobb</span>
+              <div className="jm-sak">
+                <Matchgrad varde={91} liten />
+                <div>
+                  <b>Projektledare, bygg</b>
+                  <small>Nordhaga Bygg, Göteborg</small>
+                </div>
+              </div>
+              <span className="jm-pill">Sista ansökningsdag 28 nov</span>
+              <p>Träffen visar matchgraden, skälen och sista ansökningsdag. Med Skriv brev får du ett personligt brev på just den annonsen.</p>
+            </div>
+            <span className="jm-steg-k" aria-hidden="true">
+              Spara till Ska sökas <Ikon namn="pil" />
+            </span>
+            <div className="jm-lank-k">
+              <span className="jm-var">Ska sökas</span>
+              <div className="jm-sak">
+                <span className="jm-br jm-tom" aria-hidden="true">
+                  NB
+                </span>
+                <div>
+                  <b>Projektledare, bygg</b>
+                  <small>Sparad annons</small>
+                </div>
+              </div>
+              <span className="jm-pill">Sista dag lördag 28 nov, 6 dagar kvar</span>
+              <p>Annonsen ligger kvar med sin sista ansökningsdag, och vi säger till när dagen närmar sig.</p>
+            </div>
+            <span className="jm-steg-k" aria-hidden="true">
+              Markera som sökt <Ikon namn="pil" />
+            </span>
+            <div className="jm-lank-k">
+              <span className="jm-var">Sökta tjänster</span>
+              <div className="jm-sak">
+                <span className="jm-br" aria-hidden="true">
+                  NB
+                </span>
+                <div>
+                  <b>Projektledare, bygg</b>
+                  <small>Sökt 24 november</small>
+                </div>
+              </div>
+              <span className="jm-pill jm-ton">Väntar svar</span>
+              <p>{`Nu räknar vi dagarna. Har du inte hört något på ${talOrd(NO_RESPONSE_NUDGE_DAYS)} dagar föreslår vi ett uppföljningsmejl.`}</p>
+              <TextLank href={SOKTA_TJANSTER}>Håll koll på dina sökta jobb</TextLank>
+            </div>
+          </div>
+          <Rutnat kolumner={4}>
+            {VIDARE.map((l) => (
+              <LankBricka key={l.href} href={l.href} rubrik={l.rubrik} text={l.text} farg={l.farg} />
+            ))}
+          </Rutnat>
+        </Sektion>
+
+        {/* 7. Premium-avslutet */}
+        <Sektion>
+          <PremiumO
+            etikett={`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}`}
             rubrik="Hitta ditt nästa jobb automatiskt."
             text={`Ladda upp ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}, utan bindningstid. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste.`}
-            knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
-            lank={{ text: 'Se CV-exempel först', href: '/cv-exempel' }}
+            knapp={
+              <>
+                <Knapp href={REGISTRERA}>Hitta jobb gratis</Knapp>
+                <TextLank href="/cv-exempel">Se CV-exempel först</TextLank>
+              </>
+            }
+            punkter={[
+              `De ${JOB_MATCHES_PER_RUN} bästa träffarna, med skälen för var och en`,
+              `Personliga brev från träffen, i ${BREV_MALL_ANTAL} mallar`,
+              'Uppföljningsmejl till varje sökt tjänst och månadsrapporten att skriva ut',
+              'Rekryteringstester i tre nivåer och Jobbcoachen så mycket du vill',
+            ]}
           />
+        </Sektion>
 
-          {/* 8. Frågorna */}
-          <Rum yta="mark" id="fragor">
-            <div className="pub-wrap" style={{ maxWidth: 820 }}>
-              <Faq
-                rubrik="Vanliga frågor om att söka jobb"
-                ingress={
-                  <>
-                    Hittar du inte svaret?{' '}
-                    <a className="pub-lank" href="mailto:support@jobbcoach.ai">
-                      Hör av dig
-                    </a>
-                    .
-                  </>
-                }
-                fragor={JOBBMATCHNING_FAQ_ITEMS}
-              />
-            </div>
-          </Rum>
-        </div>
-        <FastKnapprad text="Hitta jobb gratis" href={REGISTRERA} observera="hjalte" />
-      </PubliktSida>
+        {/* 8. Frågorna */}
+        <Sektion id="fragor" luft="utan-topp">
+          <Faq
+            rubrik="Vanliga frågor om att söka jobb"
+            ingress={
+              <>
+                Hittar du inte svaret?{' '}
+                <a className="p3-lank" href="mailto:support@jobbcoach.ai">
+                  Hör av dig
+                </a>
+                .
+              </>
+            }
+            fragor={JOBBMATCHNING_FAQ_ITEMS}
+            efter={
+              <Knapp href={REGISTRERA} pil>
+                Hitta jobb gratis
+              </Knapp>
+            }
+          />
+        </Sektion>
+      </Sida>
+      <FastKnapprad text="Hitta jobb gratis" href="#prova" observera="hjalte" />
     </>
   )
 }

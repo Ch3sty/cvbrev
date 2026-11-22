@@ -8,9 +8,9 @@
  */
 
 import { PROV_COPY, type NyProvTyp } from '@/lib/tests/prov-typer'
-import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
+import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { ANTAL_TESTTYPER, GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_ALLA, GRUNDNIVAN_RAD, Ord, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import type { SignupIntent, SmakprovTyp } from './intent'
 
@@ -175,6 +175,17 @@ export const LOGIN = {
   },
   bekraftad: 'Din e-post är bekräftad. Logga in nedan.',
   aterstallt: 'Lösenordet är bytt. Logga in med det nya.',
+  /** Panelen bredvid kortet (nytt-innehall.md, inloggning). Läses upp, inga rubriker. */
+  panel: {
+    kick: 'Ditt konto',
+    rubrik: 'Allt ligger kvar där du lämnade det',
+    delar: [
+      { farg: 'tran', namn: 'Rekryteringstester', text: 'Dina resultat och din utveckling' },
+      { farg: 'cv', namn: 'CV', text: 'Dina CV och läsbarhetspoängen' },
+      { farg: 'brev', namn: 'Personliga brev', text: 'Alla brev du har skrivit' },
+      { farg: 'jobb', namn: 'Jobbsöket', text: 'Dina sökta tjänster och matchade jobb' },
+    ],
+  },
 } as const
 
 /* ------------------------------------------------------------ steg 3 */
@@ -350,11 +361,16 @@ export const KONTO_GRATIS = {
   kick: 'Det här ingår gratis',
   rubrik: 'Börja med det som avgör urvalet',
   rader: [
-    { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} typerna, ett test om dagen, med genomgång av varje fråga.` },
+    { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} testtyperna, ett test om dagen, med förklaring efter varje uppgift.` },
     { ikon: 'cv', namn: 'CV-analysen', text: 'Läsbarhetspoängen och vad som saknas, del för del, för varje CV.' },
     { ikon: 'brev', namn: 'Ett personligt brev', text: 'Skrivet på annonsen utifrån ditt CV.' },
-  ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev'; namn: string; text: string }[],
-  premium: `, ${prisPeriod(SALD_PLAN)}, när du vill ha allt utan tak. Säg upp när du vill.`,
+    // Publikt omgång 3 (nytt-innehall.md, registrering): Jobbsöket som fjärde del. Talet ur FREE_TIER_JOB_LIMIT.
+    { ikon: 'jobb', namn: 'Jobbsöket', text: `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb, och Sökta tjänster som håller koll på varje jobb du har sökt.` },
+  ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev' | 'jobb'; namn: string; text: string }[],
+  /** Premiumradens namn, helt utskrivet ur PLANS (nytt-innehall.md, registrering). */
+  premiumNamn: paketNamn(SALD_PLAN),
+  // "Utan tak" om Premium som helhet står inte (textbeslut Del 4 punkt 6); lydelsen ur nytt-innehall.md.
+  premium: `, ${prisPeriod(SALD_PLAN)}, när du vill ha alla verktyg, nivåer och mallar. Säg upp när du vill.`,
 } as const
 
 /** Brickornas skärmläsartext: "Fråga 3 fel, de andra rätt". */

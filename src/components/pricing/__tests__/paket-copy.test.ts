@@ -80,17 +80,23 @@ describe('ett paket säljs', () => {
   })
 
   it('alla funktionskort ingår i Premium och säger vad gratis ger', () => {
-    expect(FUNKTIONER.kort).toHaveLength(5)
+    expect(FUNKTIONER.kort).toHaveLength(7)
     for (const k of FUNKTIONER.kort) {
       expect(k.ingar, k.id).toEqual(['allt'])
-      expect(k.sub, k.id).toMatch(/^Ingår i Premium\. Gratis: /)
+      // Sökta tjänster är gratis för alla med konto; Premium lägger till (GEM-12).
+      if (k.id === 'sokta-tjanster') expect(k.sub).toMatch(/^Gratis för alla med konto\. I Premium: /)
+      else expect(k.sub, k.id).toMatch(/^Ingår i Premium\. Gratis: /)
     }
-    // FunktionerSida slår upp korten per id; de får inte byta namn.
+    expect(FUNKTIONER.kort.find((k) => k.id === 'infor-intervjun')?.sub).toBe('Ingår i Premium. Gratis: ett intervjuprov om dagen.')
+    expect(FUNKTIONER.kort.find((k) => k.id === 'sokta-tjanster')?.text).toContain('Efter tolv tysta dagar')
+    // FunktionerSida och /priser slår upp korten per id; de får inte byta namn.
     expect(FUNKTIONER.kort.map((k) => k.id)).toEqual([
       'cv-analys',
       'personliga-brev',
       'rekryteringstester',
       'matchade-jobb',
+      'sokta-tjanster',
+      'infor-intervjun',
       'jobbcoachen',
     ])
   })

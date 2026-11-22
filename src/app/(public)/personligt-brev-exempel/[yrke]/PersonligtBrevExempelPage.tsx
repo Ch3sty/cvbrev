@@ -1,10 +1,10 @@
 /**
- * Brevexemplet i publikt v2 (spec del B 3.3). Serverkomponent: brevet
- * serverrenderas i papperet och mallväljaren laddas först vid klick på
- * "Byt mall". Schemat ligger kvar i page.tsx.
+ * Brevexemplet i publikt omgång 3 (skissen brev-exempel). Serverkomponent:
+ * brevet serverrenderas på papperet och mallvisaren laddas först vid klick
+ * på "Byt mall". Schemat och metadatan ligger kvar i page.tsx.
  */
 
-import ExempelMall from '@/components/publikt/innehall/exempel/ExempelMall'
+import BrevExempelMall from '@/components/publikt/innehall/exempel/BrevExempelMall'
 
 export default function PersonligtBrevExempelPage({
   data,
@@ -14,5 +14,5 @@ export default function PersonligtBrevExempelPage({
   data: any
   slug: string
 }) {
-  return <ExempelMall typ="brev" slug={slug} data={data} />
+  return <BrevExempelMall slug={slug} data={data} />
 }

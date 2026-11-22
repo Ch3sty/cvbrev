@@ -9,7 +9,8 @@
 // Efter provet (?test=) läser servern besökarens resultat, bara antal rätt,
 // totalt och vilka positioner som blev fel (prov-resultat.server.ts), så att
 // panelen i kontosteget står i första bilden (skissen 2026-11-09). Sidan
-// står i .pub-sida, så att publikt v2:s tokens och mörkt läge gäller.
+// står i .pub-sida och i grundens skal på grafit (publikt omgång 3, skissen
+// registrering): Sida sätter färgen, formen står i registrering.css.
 
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -19,6 +20,7 @@ import { inloggadFranRegister, registerIngang } from '@/components/registrering/
 import { TRACK_CHOICE_PATH, VALKOMMEN_PATH } from '@/lib/onboarding/steps'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import PubliktSida from '@/components/publikt/PubliktSida'
+import { Sida } from '@/components/publikt/v3/Sida'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { getClientIp } from '@/lib/rate-limit/ip'
 import { hamtaProvResultat } from '@/lib/tests/prov-resultat.server'
@@ -77,7 +79,9 @@ export default async function RegisterPage({
 
   return (
     <PubliktSida>
-      <RegisterFlode ingang={ingang} provResultat={provResultat} nio={nioRader(provResultat?.typ ?? null)} />
+      <Sida farg="neutral">
+        <RegisterFlode ingang={ingang} provResultat={provResultat} nio={nioRader(provResultat?.typ ?? null)} />
+      </Sida>
     </PubliktSida>
   )
 }

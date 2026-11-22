@@ -1,0 +1,126 @@
+/*
+ * /verktyg/bli-upptackt, publikt omgång 3 (skissen bli-upptackt).
+ * Egna klasser med prefixet bu-. Färger bara ur grundens tokens.
+ */
+
+.bu-mt { margin-top: 32px; }
+
+/* kandidatkortet: det rekryteraren ser */
+.bu-kkort { background: var(--papper); color: var(--ink-1); border-radius: 24px; border: 2px solid var(--kant); box-shadow: 0 8px 0 var(--vagg-3); padding: 18px; width: 100%; max-width: 460px; margin: 0 auto; }
+.bu-kk-huvud { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: center; }
+.bu-kk-avatar { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--vagg); color: var(--vagg-ink); font-family: var(--disp); font-weight: 800; font-size: 22px; box-shadow: 0 4px 0 var(--vagg-3); }
+.bu-kk-huvud b { display: block; font-family: var(--disp); font-size: 20px; line-height: 1.15; }
+.bu-kk-huvud div > span { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13.5px; color: var(--ink-3); margin-top: 3px; }
+.bu-kk-anonym { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px 0 6px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-weight: 700; font-size: 12px; }
+.bu-kk-anonym svg { width: 13px; height: 13px; }
+.bu-kk-rad { margin-top: 12px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.bu-kk-rad b { color: var(--ink-1); font-weight: 600; }
+.bu-kk-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.bu-kk-chips span { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 10px; border-radius: 9px; border: 2px solid var(--kant); font-size: 13px; color: var(--ink-2); }
+.bu-kk-chips span.bu-test { border-color: var(--ton-ink); background: var(--ton); color: var(--ton-ink); font-weight: 700; }
+.bu-kk-chips span.bu-styrka { border-color: var(--kant-stark); color: var(--ink-1); font-weight: 600; }
+.bu-kk-stil { margin-top: 12px; padding: 14px; border-radius: 16px; background: var(--golv); display: grid; gap: 12px; }
+.bu-kk-stil p { font-size: 13px; color: var(--ink-2); }
+.bu-spektrum > div { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; line-height: 1.3; color: var(--ink-3); }
+.bu-spektrum > div span { max-width: 48%; }
+.bu-spektrum > div span:last-child { text-align: right; }
+.bu-spektrum > div .bu-pa { color: var(--ink-1); font-weight: 700; }
+.bu-spektrum i { position: relative; display: block; height: 6px; margin-top: 7px; border-radius: 999px; background: var(--kant-stark); }
+.bu-spektrum i::after { content: ''; position: absolute; top: 50%; left: var(--lage, 50%); width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--vagg); border: 3px solid var(--papper); box-shadow: 0 2px 0 var(--kant-stark); }
+.bu-kk-fot { margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--golv); font-size: 13px; color: var(--ink-3); }
+
+/* reglaget och förfrågan */
+.bu-reglage { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 5px 14px 5px 6px; border-radius: 999px; background: var(--vagg-2); color: var(--vagg-ink); font-size: 14.5px; font-weight: 600; }
+.bu-reglage i { position: relative; flex: none; width: 46px; height: 28px; border-radius: 999px; background: var(--koppar); }
+.bu-reglage i::after { content: ''; position: absolute; right: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--papper); box-shadow: 0 2px 0 var(--koppar-klack); }
+.bu-reglage.bu-pa-papper { background: var(--golv); color: var(--ink-1); }
+.bu-reglage.bu-av { color: var(--ink-3); }
+.bu-reglage.bu-av i { background: var(--kant-stark); }
+.bu-reglage.bu-av i::after { right: auto; left: 3px; }
+.bu-forfragan { background: var(--papper); color: var(--ink-1); border-radius: 22px; padding: 16px; box-shadow: 0 6px 0 var(--vagg-3); }
+.bu-forfragan .bu-etk { font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); }
+.bu-forfragan b { display: block; font-family: var(--disp); font-size: 17px; line-height: 1.25; margin-top: 4px; }
+.bu-forfragan p { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.bu-forfragan div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.bu-forfragan div span { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; border-radius: 13px; border: 2px solid var(--kant-stark); border-bottom-width: 5px; font-weight: 700; font-size: 14.5px; }
+.bu-forfragan div span:first-child { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+.bu-hjbild { position: relative; width: 100%; max-width: 520px; margin: 0 auto; display: grid; gap: 12px; }
+.bu-hjbild .bu-reglage { justify-self: start; }
+@media (min-width: 1000px) {
+  .bu-hjbild { padding: 0 0 156px 0; }
+  .bu-hjbild .bu-kkort { margin: 0; transform: rotate(-1.4deg); }
+  .bu-hjbild .bu-forfragan { position: absolute; right: -24px; bottom: 0; width: 320px; transform: rotate(2deg); }
+}
+
+/* stegens små bilder */
+.bu-mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+.bu-mini-chip { display: inline-flex; align-items: center; min-height: 28px; padding: 2px 10px; border-radius: 8px; background: var(--papper); border: 2px solid var(--kant); font-size: 12.5px; font-weight: 700; white-space: nowrap; color: var(--ink-1); }
+.bu-mini-chip.bu-t { background: var(--ton); border-color: var(--ton-ink); color: var(--ton-ink); }
+.bu-mini-chip.bu-k { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+
+/* värdekorten */
+.bu-v-topp { display: flex; align-items: center; min-height: 56px; margin-bottom: 4px; }
+.bu-sokfalt { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px; border-radius: 13px; background: var(--golv); border: 2px solid var(--kant-stark); font-size: 13.5px; font-weight: 600; color: var(--ink-1); }
+
+/* arbetsstilen i ord */
+.bu-ordkort { border-radius: 24px; padding: 18px; display: grid; gap: 12px; width: 100%; max-width: 480px; margin: 0 auto; }
+.bu-ordkort .bu-rad { padding: 14px; border-radius: 16px; background: var(--golv); }
+.bu-ordkort .bu-rad p { font-size: 14.5px; margin-top: 4px; }
+.bu-testband { display: grid; gap: 14px; margin-top: 20px; }
+@media (min-width: 1000px) { .bu-testband { grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; padding: 28px; } }
+
+/* tryggheten */
+.bu-laskort { display: grid; grid-template-columns: 48px 1fr; gap: 6px 14px; align-items: center; align-content: start; }
+.bu-laskort > * + * { margin-top: 0; }
+.bu-laskort .bu-las { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 4px 0 var(--vagg-3); }
+.bu-laskort .bu-las svg { width: 24px; height: 24px; }
+.bu-laskort > p { grid-column: 1 / -1; margin-top: 6px; }
+.bu-vagen4 { display: grid; gap: 8px; margin-bottom: 28px; }
+.bu-vagen4 > div { min-width: 0; padding: 14px 16px; border-radius: 18px; background: var(--ton); border: 2px solid var(--kant-stark); font-size: 14.5px; line-height: 1.35; color: var(--ink-2); }
+.bu-vagen4 > div b { display: block; font-family: var(--disp); font-size: 16.5px; color: var(--ink-1); }
+.bu-vagen4 > div.bu-ja { background: var(--vagg); border-color: var(--vagg); color: var(--vagg-mjuk); }
+.bu-vagen4 > div.bu-ja b { color: var(--vagg-ink); }
+.bu-vagen4 > span { justify-self: center; color: var(--ton-ink); }
+.bu-vagen4 > span svg { width: 20px; height: 20px; transform: rotate(90deg); }
+@media (min-width: 1000px) {
+  .bu-vagen4 { grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; margin-bottom: 40px; }
+  .bu-vagen4 > span { align-self: center; }
+  .bu-vagen4 > span svg { transform: none; }
+}
+
+/* matchningen: sökningen möter profilen */
+.bu-matchning { display: grid; gap: 28px; align-items: start; }
+.bu-matchning > * { min-width: 0; }
+@media (min-width: 1000px) { .bu-matchning { grid-template-columns: 1fr 1fr; gap: 72px; } }
+.bu-sokval { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
+.bu-sokval > span { font-size: 14px; color: var(--ink-3); margin-right: 4px; }
+.bu-sokval button { display: inline-grid; place-items: center; min-height: 44px; padding: 0 16px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 5px; font: inherit; font-weight: 700; font-size: 14.5px; color: var(--ink-1); cursor: pointer; }
+.bu-sokval button[aria-pressed='true'] { background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
+.bu-mote { background: var(--golv); border-radius: 24px; padding: 16px; }
+.bu-mote-huvud, .bu-mote-rad { display: grid; grid-template-columns: 1fr 34px 1fr; gap: 8px; align-items: center; }
+.bu-mote-huvud { font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+.bu-mote-huvud span:last-child { text-align: right; }
+.bu-mote-rad + .bu-mote-rad { margin-top: 8px; }
+.bu-mote-rad > div { min-width: 0; padding: 10px 12px; border-radius: 14px; background: var(--papper); border: 2px solid var(--kant); font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--ink-1); overflow-wrap: anywhere; }
+.bu-mote-rad > div small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2px; }
+.bu-mote-rad > div:last-child { text-align: right; }
+.bu-mote-rad > i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ton-ink); color: var(--papper); font-style: normal; }
+.bu-mote-rad > i svg { width: 18px; height: 18px; }
+.bu-mote-rad.bu-ej > i { background: var(--papper); border: 2px dashed var(--kant-stark); color: var(--ink-3); }
+.bu-mote-rad.bu-ej > div:last-child { color: var(--ink-3); text-decoration: line-through; }
+.bu-mote-svar { margin-top: 14px; padding: 14px 16px; border-radius: 18px; background: var(--vagg); color: var(--vagg-ink); }
+.bu-mote-svar b { font-family: var(--disp); font-size: 17px; line-height: 1.25; }
+.bu-mote-svar.bu-ej { background: var(--papper); color: var(--ink-1); border: 2px dashed var(--kant-stark); }
+@media (min-width: 900px) { .bu-mote { padding: 26px; } .bu-mote-rad > div { padding: 12px 16px; font-size: 15px; } }
+
+/* slutet */
+.bu-slut { display: grid; gap: 24px; align-items: center; padding: 28px 22px; border-radius: 28px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 8px; }
+.bu-slut > * + * { margin-top: 0; }
+@media (min-width: 1000px) { .bu-slut { grid-template-columns: 1.3fr .7fr; gap: 56px; padding: 56px; } }
+.bu-slut-bild { display: grid; gap: 10px; justify-items: start; }
+.bu-slut-text > * + * { margin-top: 14px; }
+
+/* Papper på ön: grundens ö-regel kommer efter pappersregeln i v3.css och gör
+   rubriken ljus. Rättat här tills grunden tar det (onskemal.md). */
+.p3-o :is(.p3-kort, .p3-papper) .p3-h3 { color: var(--ink-1); }
+.p3-o .bu-ordkort p { color: var(--ink-2); }

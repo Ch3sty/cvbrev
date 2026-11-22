@@ -32,7 +32,7 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur lång tid tar optimeringen?',
-    a: 'Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom alla fält då är ifyllda från början.',
+    a: 'Optimeringen tar 30 till 60 sekunder. Räkna sedan med två eller tre minuter för att klistra in resultatet på LinkedIn. Totalt cirka fem minuter från att du startar tills din profil är uppdaterad. Har du redan ett sparat CV hos oss går det ännu snabbare, eftersom fälten då är ifyllda från början.',
   },
   {
     q: 'Behöver jag ladda upp mitt CV?',

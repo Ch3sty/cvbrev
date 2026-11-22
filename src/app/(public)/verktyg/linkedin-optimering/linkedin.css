@@ -1,0 +1,146 @@
+/* /verktyg/linkedin-optimering i publikt omgång 3 (skissen linkedin). Egna
+   klasser heter lnk-*, allt annat kommer ur grunden (p3-*). Färger bara som
+   tokens. Profilytan (lnk-prof) är sidans egen: grunden har ingen. */
+
+/* Profilen som den ser ut på LinkedIn (exempel) */
+.lnk-prof { position: relative; overflow: hidden; border-radius: 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; color: var(--ink-1); text-align: left; }
+.lnk-prof-ban { height: 56px; background: linear-gradient(120deg, var(--vagg-2), var(--ton-ink)); }
+.lnk-prof-ban.lnk-gra { background: var(--kant); }
+.lnk-prof-kropp { padding: 0 18px 18px; }
+.lnk-prof-bild { display: grid; place-items: center; width: 64px; height: 64px; margin-top: -32px; border-radius: 50%; border: 3px solid var(--papper); background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 22px; }
+.lnk-gra-bild { background: var(--papper-2); color: var(--ink-3); }
+.lnk-prof-namn { margin-top: 8px; font-family: var(--disp); font-weight: 800; font-size: 19px; }
+.lnk-prof-rub { margin-top: 4px; font-size: 14.5px; line-height: 1.45; color: var(--ink-1); }
+.lnk-prof-ort { margin-top: 4px; font-size: 13px; color: var(--ink-3); }
+.lnk-prof-om { margin-top: 14px; padding-top: 12px; border-top: 2px solid var(--kant); font-size: 14px; color: var(--ink-2); }
+.lnk-prof-om > * + * { margin-top: 6px; }
+.lnk-prof-om b { color: var(--ink-1); }
+.lnk-prof mark { background: var(--ton); color: var(--ton-ink); border-radius: 4px; padding: 0 2px; font-weight: 600; }
+.lnk-mer { display: block; font-size: 12.5px; color: var(--ink-3); font-style: italic; }
+
+/* Hjältens bild */
+.lnk-instr { position: relative; width: 100%; max-width: 520px; margin: 0 auto; padding: 84px 0 70px; }
+.lnk-instr .lnk-prof { transform: rotate(1.2deg); }
+.lnk-instr .lnk-sok { left: 0; top: 0; width: min(330px, 92%); --rot: -2deg; transform: rotate(-2deg); }
+.lnk-instr .lnk-sok small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
+.lnk-instr .lnk-poang { right: -4px; bottom: 0; --rot: 2deg; transform: rotate(2deg); }
+.lnk-sokfalt { display: flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 8px; padding: 0 14px; border-radius: 12px; border: 2px solid var(--ink-1); background: var(--papper); font-size: 15px; font-weight: 600; color: var(--ink-1); }
+.lnk-sokfalt svg { width: 18px; height: 18px; flex: none; }
+
+/* Före och efter i lyftkortet */
+.lnk-fe-topp { display: grid; gap: 18px; }
+.lnk-fe-topp > div > * + * { margin-top: 12px; }
+.lnk-fe-tal { display: flex; align-items: center; gap: 12px; font-family: var(--disp); font-weight: 800; font-size: 48px; line-height: 1; color: var(--ink-1); }
+.lnk-fe-tal s { color: var(--ink-3); text-decoration-thickness: 3px; }
+.lnk-fe-tal svg { width: 32px; height: 32px; color: var(--koppar-ink); }
+.lnk-fe { display: grid; gap: 18px; margin-top: 26px; }
+.lnk-fe-kol > * + * { margin-top: 12px; }
+.lnk-fe-etk { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.lnk-tecken { padding: 14px; border-radius: 16px; background: var(--golv); }
+.lnk-tecken > * + * { margin-top: 8px; }
+.lnk-tecken > b { display: flex; justify-content: space-between; gap: 10px; font-size: 14.5px; color: var(--ink-1); }
+.lnk-tecken > b span { font-weight: 500; color: var(--ink-3); }
+.lnk-tecken > p { font-size: 13.5px; color: var(--ink-3); }
+.lnk-ordrad { display: flex; flex-wrap: wrap; gap: 6px; }
+.lnk-ordrad span { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px; background: var(--papper); border: 2px solid var(--kant); font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.lnk-ordrad span.lnk-pa { background: var(--ton); border-color: var(--ton); color: var(--ton-ink); }
+.lnk-gra-stapel i { background: var(--kant-stark); }
+.lnk-fe-fot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 2px solid var(--kant); }
+.lnk-plus { display: flex; flex-wrap: wrap; gap: 6px; margin-right: auto; }
+.lnk-plus li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-size: 13.5px; font-weight: 700; }
+@media (min-width: 900px) { .lnk-fe-topp { grid-template-columns: 1.4fr 1fr; align-items: end; } .lnk-fe { grid-template-columns: 1fr 1fr; gap: 28px; } }
+
+/* Stegen: fem kort, tre plus två */
+.lnk-steg5 { display: grid; gap: 14px; counter-reset: none; }
+.lnk-steg5 > li { display: grid; gap: 12px; align-content: start; min-width: 0; padding: 20px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); }
+.lnk-steg5 .lnk-huvud { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
+.lnk-steg5 p { color: var(--ink-2); font-size: 15.5px; }
+@media (min-width: 700px) { .lnk-steg5 { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .lnk-steg5 { grid-template-columns: repeat(6, 1fr); gap: 18px; } .lnk-steg5 > li { grid-column: span 2; } .lnk-steg5 > li:nth-child(4) { grid-column: 2 / span 2; } }
+.lnk-b { display: grid; place-items: center; min-height: 120px; padding: 14px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); }
+.lnk-b-kopiera { display: grid; gap: 6px; width: 100%; max-width: 200px; padding: 12px; border-radius: 8px; background: var(--papper); }
+.lnk-b-kopiera i { height: 6px; border-radius: 3px; background: var(--kant); }
+.lnk-b-kopiera i.lnk-v { background: var(--koppar-ljus); }
+.lnk-b-falt { display: grid; gap: 5px; width: 100%; max-width: 220px; }
+.lnk-b-falt span { display: flex; justify-content: space-between; align-items: center; height: 26px; padding: 0 10px; border-radius: 8px; background: var(--papper); font-size: 12px; font-weight: 700; color: var(--ink-1); }
+.lnk-b-falt span.lnk-kr { outline: 2px solid var(--koppar); }
+.lnk-b-falt em { font-style: normal; font-weight: 500; color: var(--ink-3); }
+.lnk-b-pass { display: grid; gap: 6px; width: 100%; max-width: 220px; }
+.lnk-b-pass div { display: grid; grid-template-columns: 82px 1fr; gap: 8px; align-items: center; font-size: 12px; font-weight: 700; color: var(--ink-1); }
+.lnk-b-jamfor { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 220px; }
+.lnk-b-jamfor div { display: grid; gap: 5px; padding: 10px; border-radius: 10px; background: var(--papper); font-size: 12px; font-weight: 700; color: var(--ink-3); }
+.lnk-b-jamfor b { font-family: var(--disp); font-size: 26px; line-height: 1; color: var(--ink-3); }
+.lnk-b-jamfor div + div b { color: var(--ton-ink); }
+.lnk-b-jamfor i { height: 5px; border-radius: 3px; background: var(--kant); }
+.lnk-b-tillbaka { display: grid; gap: 6px; justify-items: center; text-align: center; }
+.lnk-b-tillbaka span { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 12px; background: var(--papper); font-size: 13.5px; font-weight: 700; color: var(--ink-1); box-shadow: 0 4px 0 var(--kant-stark); }
+.lnk-b-tillbaka svg { width: 18px; height: 18px; color: var(--ton-ink); }
+.lnk-b-tillbaka small { font-size: 12px; color: var(--ton-ink); }
+.lnk-efter { margin-top: 32px; }
+
+/* Fem sektioner i ett pass */
+.lnk-passtid { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--papper); font-size: 14px; font-weight: 700; color: var(--ton-ink); }
+.lnk-passtid i { width: 10px; height: 10px; border-radius: 50%; background: var(--koppar); }
+.lnk-pass { display: grid; gap: 24px; }
+.lnk-passark { position: relative; padding: 22px 18px 22px 44px; border-radius: 8px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 var(--kant-stark); }
+.lnk-passark::before { content: ''; position: absolute; left: 21px; top: 34px; bottom: 34px; border-left: 3px solid var(--koppar); }
+.lnk-passark .lnk-del { position: relative; padding: 10px 0; border-bottom: 1px solid var(--kant); font-size: 13px; }
+.lnk-passark .lnk-del:last-child { border-bottom: 0; }
+.lnk-passark .lnk-pn { position: absolute; left: -38px; top: 8px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--koppar); color: var(--koppar-text); font-family: var(--disp); font-weight: 800; font-size: 13px; border: 2px solid var(--papper); }
+.lnk-passark small { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.lnk-passark .lnk-t { margin-top: 4px; font-weight: 600; }
+.lnk-passark .lnk-rad { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; font-weight: 600; }
+.lnk-passark .lnk-rad span { font-weight: 400; color: var(--ink-3); white-space: nowrap; }
+.lnk-passark .lnk-l { display: block; height: 5px; margin-top: 5px; border-radius: 3px; background: var(--kant); }
+.lnk-passark .lnk-l.lnk-m { width: 84%; }
+.lnk-passark .lnk-l.lnk-k { width: 62%; }
+.lnk-grupper { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.lnk-grupper span { padding: 2px 8px; border-radius: 999px; background: var(--ton); color: var(--ton-ink); font-size: 11.5px; font-weight: 600; }
+.lnk-sektrader { display: grid; gap: 12px; }
+.lnk-sektrad { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 6px 14px; padding: 16px 18px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+.lnk-sektrad .p3-h3 { align-self: center; font-size: 18px; }
+.lnk-sektrad > p, .lnk-sektrad .lnk-matt { grid-column: 2; }
+.lnk-sektrad > p { font-size: 14.5px; color: var(--ink-2); }
+.lnk-matt { display: grid; grid-template-columns: 26px 1fr 26px; gap: 8px; align-items: center; font-family: var(--disp); font-weight: 800; font-size: 14px; color: var(--ink-1); }
+.lnk-matt s { color: var(--ink-3); text-decoration: none; }
+.lnk-matt .lnk-stapel { position: relative; height: 10px; border-radius: 999px; background: var(--ton); overflow: hidden; }
+.lnk-matt .lnk-stapel i { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--ljus); }
+.lnk-matt .lnk-stapel u { position: absolute; inset: 0 auto 0 0; z-index: 1; border-radius: 999px; background: var(--ton-ink); text-decoration: none; }
+@media (max-width: 520px) { .lnk-sektrad { grid-template-columns: 40px minmax(0, 1fr); padding: 14px; } .lnk-sektrad > p, .lnk-sektrad .lnk-matt { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .lnk-pass { grid-template-columns: .85fr 1.15fr; gap: 48px; align-items: start; } .lnk-passark { position: sticky; top: 100px; } }
+
+/* Varför du inte syns: tre kort på ön */
+.lnk-varfor { padding: 28px 20px 34px; border-radius: var(--r-stor, 32px); box-shadow: 0 8px 0 var(--vagg-3); }
+.lnk-vbild { display: grid; gap: 6px; align-content: center; min-height: 140px; padding: 14px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); font-size: 12.5px; }
+.lnk-vbild .lnk-sokfalt { margin-top: 0; min-height: 36px; font-size: 13px; }
+.lnk-vtraff { padding: 6px 10px; border-radius: 8px; background: var(--papper); font-weight: 600; color: var(--ink-1); }
+.lnk-vtraff.lnk-ej { opacity: .55; text-decoration: line-through; }
+.lnk-mellan { text-align: center; font-weight: 800; }
+.lnk-tk { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; color: var(--ink-1); }
+.lnk-tk span { font-weight: 500; color: var(--ink-3); white-space: nowrap; }
+.lnk-fem { display: flex; gap: 6px; justify-content: center; }
+.lnk-fem span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--papper); color: var(--ink-3); font-weight: 800; border: 2px dashed var(--kant-stark); }
+.lnk-fem span.lnk-pa { background: var(--ton-ink); color: var(--papper); border-style: solid; border-color: var(--ton-ink); }
+.lnk-vbild small { text-align: center; font-weight: 700; }
+@media (min-width: 900px) { .lnk-varfor { padding: 64px; border-radius: 44px; } }
+
+/* Bred eller skarp */
+.lnk-val2 { display: grid; gap: 18px; }
+.lnk-valkort { display: grid; gap: 14px; align-content: start; padding: 22px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); color: var(--ink-1); }
+.lnk-valkort.lnk-vald { border-color: var(--ink-1); }
+.lnk-valkort > p { color: var(--ink-2); font-size: 15.5px; }
+.lnk-topp { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.lnk-ring { width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--kant-stark); flex: none; }
+.lnk-vald .lnk-ring { border: 7px solid var(--ton-ink); }
+.lnk-topp .p3-h3 { flex: 1 1 auto; }
+.lnk-valbild { display: grid; gap: 8px; padding: 16px; border-radius: 16px; background: var(--golv); }
+.lnk-valbild small { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.lnk-rub { padding: 10px 12px; border-radius: 10px; background: var(--papper); font-size: 14px; font-weight: 600; color: var(--ink-1); }
+.lnk-malroll { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; padding: 10px 12px; border-radius: 10px; border: 2px solid var(--ink-1); background: var(--papper); font-size: 14px; font-weight: 700; color: var(--ink-1); }
+.lnk-malroll em { font-style: normal; font-weight: 500; font-size: 12.5px; color: var(--ink-3); }
+@media (min-width: 900px) { .lnk-val2 { grid-template-columns: 1fr 1fr; gap: 24px; } }
+
+/* Länkbrickorna under Premium */
+.lnk-mer3 { display: grid; gap: 12px; margin-top: 14px; }
+@media (min-width: 900px) { .lnk-mer3 { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.lnk-mer-ey { margin-top: 40px; }

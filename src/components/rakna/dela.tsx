@@ -49,7 +49,7 @@ export function byggUrl(bas: string, params: Record<string, string | null>): str
 }
 
 const KNAPP_STIL =
-  'rounded-lg border border-orange-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-orange-400'
+  'rounded-lg border border-[var(--kant-stark,#C4C3CB)] bg-[var(--papper,#FFFFFF)] px-3 py-2 text-xs font-semibold text-[var(--ink-1,#1A1A1F)] transition-colors hover:border-[var(--ink-2,#4A4A55)] min-h-[44px]'
 
 function BaddaPanel({ slug, titel }: { slug: string; titel: string }) {
   const [kopierat, setKopierat] = useState(false)
@@ -72,9 +72,9 @@ function BaddaPanel({ slug, titel }: { slug: string; titel: string }) {
   }
 
   return (
-    <div className="mt-3 rounded-xl border border-orange-200 bg-white p-4">
-      <p className="mb-2 text-sm font-bold text-slate-900">Bädda in kalkylatorn på er webbplats, gratis</p>
-      <p className="mb-3 text-sm leading-relaxed text-slate-600">
+    <div className="mt-3 rounded-xl border-2 border-[var(--kant,#DDDCE0)] bg-[var(--papper,#FFFFFF)] p-4">
+      <p className="mb-2 text-sm font-bold text-[var(--ink-1,#1A1A1F)]">Bädda in kalkylatorn på er webbplats, gratis</p>
+      <p className="mb-3 text-sm leading-relaxed text-[var(--ink-2,#4A4A55)]">
         Klistra in koden nedan så får era läsare kalkylatorn direkt på er sida,
         alltid uppdaterad med årets siffror utan att ni behöver göra något.
         Enda villkoret är att källraden med länken till jobbcoach.ai står kvar.
@@ -84,12 +84,12 @@ function BaddaPanel({ slug, titel }: { slug: string; titel: string }) {
         value={snutt}
         rows={6}
         onFocus={(e) => e.currentTarget.select()}
-        className="w-full rounded-lg border border-orange-200 bg-orange-50/40 p-3 font-mono text-xs text-slate-700 focus:border-orange-500 focus:outline-none"
+        className="w-full rounded-lg border border-[var(--kant-stark,#C4C3CB)] bg-[var(--papper-2,#F4F3F0)] p-3 font-mono text-xs text-[var(--ink-1,#1A1A1F)] focus:border-[var(--koppar-ink,#A8491A)] focus:outline-none"
       />
       <button
         type="button"
         onClick={kopiera}
-        className="mt-2 rounded-lg border border-orange-600 bg-orange-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-orange-700"
+        className="mt-2 rounded-lg border border-[var(--koppar-klack,#A8491A)] bg-[var(--koppar,#E07A2F)] px-4 py-2 text-xs font-semibold text-[var(--koppar-text,#1A1206)] transition-colors hover:bg-[var(--koppar-topp,#EC8B41)] min-h-[44px]"
       >
         {kopierat ? 'Kopierad ✓' : 'Kopiera inbäddningskoden'}
       </button>
@@ -141,7 +141,7 @@ export function DelaRad({ delUrl, resultatText, badda }: DelaRadProps) {
   return (
     <div className="mt-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-bold uppercase tracking-wide text-slate-400">Dela</span>
+        <span className="text-xs font-bold uppercase tracking-wide text-[var(--ink-3,#65656E)]">Dela</span>
         {lankUrl && (
           <button type="button" onClick={() => kopiera(lankUrl, 'lank')} className={KNAPP_STIL}>
             {kopierat === 'lank' ? 'Länk kopierad ✓' : delUrl ? 'Kopiera länk till uträkningen' : 'Kopiera länk'}
@@ -161,7 +161,7 @@ export function DelaRad({ delUrl, resultatText, badda }: DelaRadProps) {
           <button
             type="button"
             onClick={() => setVisaBadda(!visaBadda)}
-            className={`${KNAPP_STIL} ${visaBadda ? 'border-orange-500 bg-orange-50' : ''}`}
+            className={`${KNAPP_STIL} ${visaBadda ? 'border-[var(--ink-1,#1A1A1F)] bg-[var(--ton,#E2E1E6)]' : ''}`}
           >
             {'</>'} Bädda in på er webbplats
           </button>

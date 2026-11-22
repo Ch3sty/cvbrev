@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import KategoriPageContent from '@/app/(public)/exempel/components/KategoriPageContent'
+import CvExempelKategori, { kategoriIngress } from '../../components/CvExempelKategori'
 import {
   KATEGORIER,
   type KategoriSlug,
@@ -60,7 +60,8 @@ export default async function CvKategoriSida({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: `CV-exempel för ${kat.namn}`,
-    description: kat.introIngress,
+    // Vårdens "20+ yrken" blir antalet ur datan (SEO-beskedet avsnitt 14).
+    description: kategoriIngress(kat, yrkenIDennaTyp.length),
     url: `https://www.jobbcoach.ai/cv-exempel/kategori/${slug}`,
   }
 
@@ -113,11 +114,7 @@ export default async function CvKategoriSida({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <KategoriPageContent
-        kategori={kat}
-        type="cv"
-        yrkenMap={CV_YRKEN}
-      />
+      <CvExempelKategori kategori={kat} yrkenMap={CV_YRKEN} />
     </>
   )
 }

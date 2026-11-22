@@ -15,7 +15,7 @@
 import type { ReactNode } from 'react'
 import BrevVisare from './BrevVisare'
 import { VISARE_TEXT as T } from './texter'
-import { brevDataFranFalt, brevTextDelar, idagISverige, visarFot, visarMallar } from './visare-data'
+import { brevDataFranFalt, brevTextDelar, idagISverige, visarAllaLank, visarFot, visarMallar } from './visare-data'
 import { ARTIKEL_BREV, arArtikelBrevNyckel, type ArtikelBrevNyckel } from '@/components/mdx/personligt-brev-preview-data'
 
 /** Utan JavaScript: Linne i hela scenens bredd (brett läge: 452 px, centrerat), namnraden och länken. */
@@ -33,8 +33,9 @@ function Ram({ brev, yrke, children }: { brev: string; yrke?: string; children?:
         brev={brev}
         yrke={yrke}
         kontext="artikel"
-        handling={{ text: T.skriv, href: '/skapa-brev/start' }}
+        handling={{ text: T.anvand, href: '/skapa-brev/start' }}
         fot={visarFot()}
+        alla={visarAllaLank()}
         lazy
       >
         {children}

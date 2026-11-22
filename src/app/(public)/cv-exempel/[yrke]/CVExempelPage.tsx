@@ -1,10 +1,11 @@
 /**
- * CV-exemplet i publikt v2 (spec del B 3.3). Serverkomponent: CV:t
+ * CV-exemplet per yrke. Publikt omgång 3: ritas av CvExempelMall (grundens
+ * skal i CV:ts petrol, samma form som brevexemplen). Serverkomponent: CV:t
  * serverrenderas i papperet och mallväljaren laddas först vid klick på
  * "Byt mall". Schemat ligger kvar i page.tsx.
  */
 
-import ExempelMall from '@/components/publikt/innehall/exempel/ExempelMall'
+import CvExempelMall from './CvExempelMall'
 
 export default function CVExempelPage({
   data,
@@ -14,5 +15,5 @@ export default function CVExempelPage({
   data: any
   slug: string
 }) {
-  return <ExempelMall typ="cv" slug={slug} data={data} />
+  return <CvExempelMall slug={slug} data={data} />
 }
