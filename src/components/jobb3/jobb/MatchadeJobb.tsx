@@ -1166,11 +1166,13 @@ export default function MatchadeJobb({
                 {/* Foten ligger direkt i golvet, inte i en egen ram: sticky fäster mot
                     närmaste förälder, och en ram lika hög som foten gav den inget att
                     fästa mot (felet efter klicktestet 2026-11-21). I flödet tar foten
-                    sin egen höjd, så annonsens sista rader hamnar ovanför den. */}
+                    sin egen höjd, så annonsens sista rader hamnar ovanför den.
+                    Luften efter foten ersätter main:s bottenpadding (jobb3.css). */}
                 <div aria-hidden="true" className="h-6" />
                 <FastFot rader>
                   <AnnonsFotMobil job={a} handlingar={handlingarFor(a, s.score.score)} />
                 </FastFot>
+                <div aria-hidden="true" className="j3-fot-luft" />
               </Golv>
             </>
           )

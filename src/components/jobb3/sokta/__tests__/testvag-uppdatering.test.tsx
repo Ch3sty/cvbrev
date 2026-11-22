@@ -1,24 +1,29 @@
 /**
- * Efter sparandet på testvägen ska listan läsas om (felet efter klicktestet
- * 2026-11-21). Adressen ?logga=1 rensas med window.history.replaceState, som i
- * Next:s router blir en ACTION_RESTORE och kastar en router.refresh() som redan
- * är på väg. Testet låser att uppdateringen begärs och att adressen rensas
- * före den, aldrig efter. Arket, listan och väggen är utbytta mot enkla
- * stand-ins: här prövas bara SoktaVy:s ordning.
+ * Efter sparandet ska listan läsas om (felet efter klicktestet 2026-11-21).
+ *
+ * Uppmätt i webbläsaren 2026-11-22: när ?logga=1 rensades med
+ * window.history.replaceState behöll Next sidans gamla träd under den nya
+ * adressen, och router.refresh() hämtade nya data (svaret bar tjänsten) som
+ * aldrig lades in. Det gällde vilken ordning anropen än kom i. Rättningen
+ * rensar adressen med router.replace, som hämtar sidan om i samma steg.
+ *
+ * Testet låser det: med ?logga=1 i adressen anropas router.replace mot den
+ * rena adressen, och window.history.replaceState anropas aldrig. Sidan
+ * monteras om efter bytet (sökparametrarna ingår i sidans nyckel), och
+ * kvittensen ska stå kvar i den nya monteringen. Utan ?logga=1 räcker
+ * router.refresh(). Arket, listan och väggen är enkla stand-ins.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 
-const handelser: string[] = []
-const refresh = vi.fn(() => {
-  handelser.push(`refresh ${window.location.search}`)
-})
+const refresh = vi.fn()
+const replace = vi.fn()
 const summering = vi.fn(async () => {})
 let sokParametrar = ''
 
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ refresh, push: vi.fn() }),
+  useRouter: () => ({ refresh, replace, push: vi.fn() }),
   useSearchParams: () => new URLSearchParams(sokParametrar),
 }))
 vi.mock('@/components/rum/Topprad', () => ({ default: () => null }))
@@ -57,24 +62,27 @@ vi.mock('../LoggaArk', () => ({
     ) : null,
 }))
 
-import SoktaVy from '../SoktaVy'
+import SoktaVy, { KVITTENS_EFTER_BYTET } from '../SoktaVy'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
 
 const DATA = { veckansMal: { mal: 3 } } as unknown as SoktaTjansterData
 const originalReplace = window.history.replaceState.bind(window.history)
+let historikRensningar: string[] = []
 
 function oppna(sok: string) {
   sokParametrar = sok
   originalReplace(null, '', `/dashboard/sokta-tjanster?${sok}`)
-  render(<SoktaVy data={DATA} forifyllt={{ job_title: 'Redovisningsassistent', company: 'QA Testbolag U', fran: 'test-hem' }} />)
+  return render(<SoktaVy data={DATA} forifyllt={{ job_title: 'Redovisningsassistent', company: 'QA Testbolag U', fran: 'test-hem' }} />)
 }
 
 beforeEach(() => {
-  handelser.length = 0
   refresh.mockClear()
+  replace.mockClear()
   summering.mockClear()
+  KVITTENS_EFTER_BYTET.k = null
+  historikRensningar = []
   vi.spyOn(window.history, 'replaceState').mockImplementation((d, u, url) => {
-    handelser.push(`rensa ${url}`)
+    historikRensningar.push(String(url))
     originalReplace(d, u, url)
   })
 })
@@ -84,23 +92,50 @@ afterEach(() => {
   originalReplace(null, '', '/')
 })
 
-describe('sparandet på testvägen', () => {
-  it('begär uppdateringen efter att adressen rensats, och rensar bara en gång', () => {
+describe('sparandet med ?logga=1 i adressen', () => {
+  it('testvägen: router.replace mot den rena adressen, en gång, aldrig history.replaceState', () => {
     oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U&fran=test-hem')
     fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
 
-    expect(refresh).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveBeenCalledWith('/dashboard/sokta-tjanster', { scroll: false })
+    // history.replaceState lämnade sidans gamla träd kvar, och uppdateringen lades aldrig in.
+    expect(historikRensningar).toEqual([])
     expect(summering).toHaveBeenCalledTimes(1)
-    // Ingen replaceState efter refresh: den hade kastat uppdateringen.
-    expect(handelser).toEqual(['rensa /dashboard/sokta-tjanster', 'refresh '])
-    // Kvittensen står kvar överst i listan.
     expect(screen.getByTestId('golv').textContent).toContain('QA Testbolag U står nu som kallad till test')
   })
 
-  it('vanlig loggning utan ?logga i adressen: uppdateringen begärs, adressen rörs inte', () => {
+  it('kvittensen står kvar när sidan monteras om efter bytet, och bara en gång', () => {
+    const forsta = oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U&fran=test-hem')
+    fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
+    forsta.unmount()
+
+    // Den nya sidan efter router.replace: ren adress, nya data.
+    const andra = oppna('')
+    expect(screen.getByTestId('golv').textContent).toContain('QA Testbolag U står nu som kallad till test')
+    andra.unmount()
+
+    // Nästa besök har ingen kvittens.
+    oppna('')
+    expect(screen.getByTestId('golv').textContent).not.toContain('står nu som kallad till test')
+  })
+
+  it('utan fran (till exempel från en träff): samma byte av adress', () => {
+    sokParametrar = ''
+    oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U')
+    fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
+    expect(replace).toHaveBeenCalledWith('/dashboard/sokta-tjanster', { scroll: false })
+    expect(historikRensningar).toEqual([])
+  })
+})
+
+describe('sparandet utan ?logga=1', () => {
+  it('vanlig loggning från knappen: router.refresh(), adressen rörs inte', () => {
     oppna('vy=lista')
     fireEvent.click(screen.getAllByRole('button', { name: 'Logga sökt tjänst' })[0])
     fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
-    expect(handelser).toEqual(['refresh ?vy=lista'])
+    expect(refresh).toHaveBeenCalledTimes(1)
+    expect(replace).not.toHaveBeenCalled()
+    expect(historikRensningar).toEqual([])
   })
 })

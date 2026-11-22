@@ -8,7 +8,7 @@
  * Efter en ändring hämtas sidans data om med router.refresh().
  */
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Topprad from '@/components/rum/Topprad'
 import { useNotification } from '@/context/notificationcontext'
@@ -40,8 +40,15 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
 
   // Varifrån sidan öppnades (?fran=), läst en gång vid montering: arket rensar adressen när det stängs (9.16).
   const [fran] = useState<string | null>(() => sok.get('fran')?.trim().slice(0, 40) || null)
-  // Kvittensen efter testvägen (9.16), bara i samma besök.
-  const [kvittens, setKvittens] = useState<TestKvittens | null>(null)
+  // Kvittensen efter testvägen (9.16), bara i samma besök. Sidan monteras om
+  // när adressen rensas (sökparametrarna ingår i sidans nyckel), så kvittensen
+  // följer med över bytet i KVITTENS_EFTER_BYTET.
+  const [kvittens, setKvittens] = useState<TestKvittens | null>(() => KVITTENS_EFTER_BYTET.k)
+  useEffect(() => {
+    KVITTENS_EFTER_BYTET.k = null
+  }, [])
+  // Adressen är redan på väg att rensas: arket anropar onKlar och sedan onClose.
+  const rensad = useRef(false)
 
   const [loggaOppen, setLoggaOppen] = useState(false)
   const [loggaForifyllt, setLoggaForifyllt] = useState<LoggaForifyllt | null>(null)
@@ -62,15 +69,19 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   }, [adress.vy, adress.filter])
 
   /**
-   * Tar bort ?logga=1 och förifyllningen ur adressen. Läser window.location och
-   * inte adress, så att ett andra anrop i samma ritning inte rensar igen.
-   * window.history.replaceState blir en ACTION_RESTORE i Next:s router, och en
-   * sådan kastar en router.refresh() som redan är på väg. Därför rensas adressen
-   * före uppdateringen, aldrig efter (felet efter klicktestet 2026-11-21).
+   * Tar bort ?logga=1 och förifyllningen ur adressen med router.replace, som
+   * byter adress och hämtar sidan om från servern i samma steg. Aldrig
+   * window.history.replaceState här: Next behåller då sidans gamla träd (med
+   * ?logga=… i nyckeln) under den nya adressen, och en router.refresh() efteråt
+   * hämtades men lades aldrig in, så listan stod kvar med gamla data (felet
+   * efter klicktestet 2026-11-21, uppmätt i webbläsaren 2026-11-22).
+   * Svarar true när adressen byts; då behövs ingen router.refresh().
    */
-  const rensaAdress = () => {
-    if (!new URLSearchParams(window.location.search).has('logga')) return
-    window.history.replaceState(null, '', soktaHref({ vy: adress.vy, filter: adress.filter }))
+  const rensaAdress = (): boolean => {
+    if (rensad.current || !new URLSearchParams(window.location.search).has('logga')) return false
+    rensad.current = true
+    router.replace(soktaHref({ vy: adress.vy, filter: adress.filter }), { scroll: false })
+    return true
   }
 
   const stangLogga = () => {
@@ -91,7 +102,9 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
         channel: r.data.application_channel,
         fran,
       })
-      setKvittens({ id: r.data.id, company: r.data.company, kallad: r.data.current_status === 'test_invited' })
+      const k = { id: r.data.id, company: r.data.company, kallad: r.data.current_status === 'test_invited' }
+      setKvittens(k)
+      KVITTENS_EFTER_BYTET.k = k
     } else if (r.typ === 'sokt') {
       successWithActivity(
         'Sparad i Sökta tjänster.',
@@ -103,9 +116,8 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
     } else if (r.typ === 'sparad') {
       success('Sparad under Ska sökas.', 3000)
     }
-    // Adressen först: arket stänger sig efter onKlar, och rensningen då hade kastat uppdateringen.
-    rensaAdress()
-    router.refresh()
+    // Med ?logga=1 i adressen hämtar bytet av adress sidan om; annars en vanlig uppdatering.
+    if (!rensaAdress()) router.refresh()
     // Kom igång-brickan "Logga en tjänst du har sökt": summeringen ligger i
     // klientens DashboardDataContext och läses inte om av router.refresh().
     void refreshSummering()
@@ -170,6 +182,9 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
     </>
   )
 }
+
+/** Kvittensen över ombytet av sida efter sparandet. Bara i klientens minne, så den försvinner vid omladdning. */
+export const KVITTENS_EFTER_BYTET: { k: TestKvittens | null } = { k: null }
 
 export interface TestKvittens {
   id: string

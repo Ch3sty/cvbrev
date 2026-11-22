@@ -11,6 +11,7 @@
 import { Suspense, type ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 import '../jobb3.css'
+import '../jobb3-c.css'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import {
   JobbVagg,
@@ -138,6 +139,7 @@ import {
 } from '@/components/jobb3/kit'
 import { ArkDemo, BrytDemo, TemaVal, VaxelDemo } from './KitKlient'
 import { AnnonsFotDemo } from './AnnonsFotDemo'
+import { IntervjuArkDemo } from './IntervjuArkDemo'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Jobbsökets kit', robots: { index: false, follow: false } }
@@ -1001,6 +1003,10 @@ export default function Jobb3KitSida() {
           <Suspense>
             <ArkDemo />
           </Suspense>
+        </Del>
+
+        <Del rubrik="När är intervjun? Valet av tjänst (9.4)" id="intervjuark">
+          <IntervjuArkDemo />
         </Del>
         <div style={{ height: 80 }} />
       </Golv>

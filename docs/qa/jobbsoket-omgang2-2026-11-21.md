@@ -184,17 +184,62 @@ Därtill aktivitetsrader från `logActivity` vid loggningarna och en AI-kostnads
 
 # Omprov efter rättningarna
 
-**Webbläsarprovet gjordes inte.** `scripts/arbetsyta.mjs` kördes före start och sedan fyra gånger till med fem minuters mellanrum (2026-11-22, cirka 00.05 till 00.25). Varje gång var en annan sessions server igång (`next start` på port 3472 i `cvbrev-brevkvar`), och det lediga minnet var under 3 GB: 3,2, 2,1, 2,0 och sist 0,7 GB av 15,8. Ingen dev-server och ingen webbläsare startades, inga sidladdningar gjordes och inga rader skapades i produktionen. `testdata-o2.json` är orörd.
+## Första försöket (2026-11-22, cirka 00.05 till 00.25)
 
-Rättningarna står i `docs/bygg-noter-jobbsoket-omgang2.md` under "Efter klicktestet (2026-11-21 natt)". Det som är prövat:
+Webbläsarprovet gjordes inte av den som rättade: `scripts/arbetsyta.mjs` visade fem gånger en annan sessions server (port 3472) och under 3 GB ledigt minne. Samordnaren gjorde sedan provet med ägarens ja mot en dev-server på port 5232 (`next dev --webpack`) och fann att fel 1 och fel 3 stod kvar och att fel 2 inte gick att se (bilder `o4-1-*`, `o4-3-*`).
 
-- Fel 1: `src/components/jobb3/sokta/__tests__/testvag-uppdatering.test.tsx` (ny), 2 gröna. Testet föll mot den gamla koden. `testvag.test.tsx` 11 gröna.
-- Fel 2: `IntervjuFraga.test.tsx`, 16 gröna, med titeln och arbetsgivaren i varje val.
-- Fel 3: inget enhetstest kan pröva sticky; `annonsFot.test.tsx` 9 gröna.
-- `npx tsc --noEmit`: inga fel.
+## Andra försöket (natten till 2026-11-22)
 
-Kvar att pröva i webbläsare när läget tillåter, med stegskripten `o4kor.cjs` (högst 8 laddningar, 5 s emellan, förhämtning avstängd), `o4-a.cjs`, `o4-b.cjs` och `o4-c.cjs` i scratchpaden `jobbsok-qa`:
+Mot samordnarens dev-server på port 5232 (inte stängd, ingen egen startad), headless Chrome med kontots profil, en flik, förhämtning avstängd (förfrågningar med `next-router-prefetch` och `purpose: prefetch` avbröts), minst fem sekunder mellan laddningar.
 
-1. Testvägen på kontot utan CV (412): spara, och den nya tjänsten står direkt i listan under Väntar svar som "Kallad till test", räknarna har ökat och kvittensen står överst.
-2. Arket "När är intervjun?" i 412 och 360: en rad per tjänst, titeln och arbetsgivaren hela. Kontot utan CV har en intervju på gång, så kortet syns inte där; använd gratiskontot.
-3. Annonsen på Premiumkontot i 360 x 800: foten ligger fast ovanför bottennavet medan annonsen rullas, och vid slutet står "Ansök hos ..." ovanför foten. Måtten att läsa av: foten cirka 140 px och bottennavet 72 px (`--bottom-nav-h` i dashboarden, plus säker yta), så ungefär 800 − 72 − 140 = 588 px är kvar för annonsen; det är ännu inte mätt i webbläsare.
+**Sidladdningar: 8 av 12** (räknaren `o4-raknare.json`). Fyra på kontot utan CV, två på Premium, en på kitsidan, och en som aldrig gick iväg (Git Bash gjorde om `/jobb3-kit` till en filsökväg och Chrome vägrade adressen; den räknades ändå). Därtill ett `curl` mot `/jobb3-kit` för att kompilera sidan. Inget svar var 502, 503 eller 504, ingen laddning tog över 6 sekunder. Inga provflöden, inga AI-anrop, ingen sökning. Bilderna ligger i scratchpadens `jobbsok-qa\bilder\` med prefixet `o4-5-`.
+
+### Fel 1
+
+| Försök | Arbetsgivare | Kod | Resultat |
+|---|---|---|---|
+| 1 | QA Testbolag V | rättningen i `11ee21c6` | Inte i listan efter 8 s. Omläsningen (`/dashboard/sokta-tjanster?_rsc=…`) svarade 200 och svaret innehöll tjänsten, men ingen omritning följde. |
+| 2 | QA Testbolag W | samma, med loggning av historik och RSC-anrop | Samma. Ordningen: `rensaAdress` gör `replaceState`, sedan en omläsning av den rena adressen, sedan Next:s egen historikskrivning för restore. Efter omläsningens svar kom ingen ny skrivning: svaret lades aldrig in. |
+| 3 | QA Testbolag X | ny rättning (`router.replace`) | I listan 1,1 s efter POST-svaret, under Väntar svar som "Kallad till test 22 nov". Räknarna "Sökt 4", "Alla 5", "Väntar svar 4", väggen "Fem är på väg". Kvittensen "QA Testbolag X står nu som kallad till test" kvar överst. Adressen `/dashboard/sokta-tjanster`. |
+| Utan `fran` | QA Testbolag Y | ny rättning | I listan 0,6 s efter POST-svaret ("Sökt 5", "Alla 6", väggen "Sex är på väg"). Ingen kvittens (rätt utan testvägen). |
+
+Bilder: `o4-5-fel1-testvag-noll-412.png` (försök 3; försöken 1 och 2 skrev över samma namn) och `o4-5-fel1-utan-fran-noll-412.png`.
+
+### Fel 3
+
+Premiumkontot, annonsen "Ekonom (vikariat)" (`?annons=31734444`). `main.dashboard-main-content` rullar (fönstrets `scrollY` är 0); provet rullade den. main:s bottenpadding är 0 medan foten finns, 40 px i 1440.
+
+| Bredd | Läge | Foten (topp till botten, höjd) | Navet (topp, höjd) | Glipa | "Ansök hos Umeå kommun" |
+|---|---|---|---|---|---|
+| 360 x 800 | överst | 586 till 728, 142 | 728, 72 | 0 | långt ned |
+| 360 x 800 | en bit ned | 586 till 728 | 728 | 0 | långt ned |
+| 360 x 800 | längst ned | 586 till 728 | 728 | 0 | 542 till 559, ovanför foten |
+| 412 x 915 | överst | 701 till 843, 142 | 843, 72 | 0 | långt ned |
+| 412 x 915 | en bit ned | 701 till 843 | 843 | 0 | långt ned |
+| 412 x 915 | längst ned | 701 till 843 | 843 | 0 | 657 till 674, ovanför foten |
+
+Kvar för annonsen i 360 x 800: 586 px ovanför foten. Kontot visar dessutom en banderoll "Bekräfta din e-post" på 44 px överst, så den läsbara ytan blir 542 px; utan banderollen 586. I 412 x 915: 701 px (657 med banderollen). Ingen sidledsrullning. I 1440 är foten dold. Bilder: `o4-5-fel3-{overst,mitten,botten}-premium-{360,412}.png`.
+
+### Fel 2
+
+Kitsidan `/jobb3-kit`, avsnittet "När är intervjun? Valet av tjänst (9.4)", arket öppnat med "Lägg in intervjun". Fyra rader i full bredd (380 px i 412, 328 px i 360), höjd 68 px för en kort titel, 102 px för den långa och 56 px för "En annan tjänst". Titeln står som huvudtext och arbetsgivaren under. Den långa titeln och det långa företagsnamnet bryts på två rader och klipps först där. Vald rad: ljus bakgrund och mörkgrön kant, inget rött. Ingen sidledsrullning. Bilder: `o4-5-fel2-ark-val-412.png`, `o4-5-fel2-ark-val-vald-412.png`, `o4-5-fel2-ark-val-360.png` (360 efter `setViewport`, utan omladdning).
+
+### Rader i produktionen
+
+Alla på kontot utan CV, i `testdata-o2.json` med `pass: "o4"` (V utan id):
+
+| Tabell | Id | Vad |
+|---|---|---|
+| `job_applications` | 8f084ae1-50c0-46d4-b972-b7ee34cfa7a3 | Redovisningsassistent, QA Testbolag U, samordnarens prov |
+| `job_applications` | inte fångat | Redovisningsassistent, QA Testbolag V, sökt 2026-11-01, kallad till test (POST-svaret kom efter skriptets väntetid; raden finns, listan visade den efter försök 3) |
+| `job_applications` | 500a6ae7-b323-4f0f-8e62-7a888dcaf750 | Redovisningsassistent, QA Testbolag W, sökt 2026-11-01, kallad till test |
+| `job_applications` | a230a2e3-824c-4a0c-bae1-ff7cd701c150 | Redovisningsassistent, QA Testbolag X, sökt 2026-11-01, kallad till test |
+| `job_applications` | 003bce4c-a869-4046-bf43-0d93959a2f9f | Redovisningsassistent, QA Testbolag Y, sökt 2026-11-01, utan testvägen |
+
+Därtill servern skapade händelser (`applied`, `test_invited`) och aktivitetsrader. Inget raderat.
+
+### Konsolen
+
+En varning om hydrering ("A tree hydrated but some attributes …") på varje sida i dev-läge, också på sidor som inte ändrats. Inga `pageerror`.
+
+Testwebbläsaren är stängd. Dev-servern på port 5232 står kvar.
