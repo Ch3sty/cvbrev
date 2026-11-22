@@ -95,8 +95,18 @@ function delB(sida: string): boolean {
   );
 }
 
+/**
+ * Fler sidor med den hårda regeln, ur nyckeln HARD_SIDOR i
+ * scripts/seo-baslinje/*-undantag.json (publikt omgång 3, 2026-11-22: /cv-mallar
+ * med yrkessidorna, /exempel, /jobbkartan med flera låg utanför). prefix: true
+ * gäller sidan och allt under den. Datum och skäl krävs, som för övriga nycklar.
+ */
+const HARD_SIDOR: Array<{ path: string; prefix?: boolean; datum: string; skal: string }> = [];
+
 function hard(sida: string): boolean {
-  return PUBLIKT_V2.has(sida) || delB(sida);
+  const sokvag = sida.split(/[?#]/)[0];
+  const extra = HARD_SIDOR.some((h) => sokvag === h.path || (h.prefix === true && sokvag.startsWith(h.path + '/')));
+  return PUBLIKT_V2.has(sida) || delB(sida) || extra;
 }
 
 /** Största tillåtna minskningen av ordantalet i main, i procent. */
@@ -388,6 +398,7 @@ function lasUndantagsfiler() {
     lagg(BILD_BYTT, 'BILD_BYTT')
     lagg(FORFATTARE_BYTT, 'FORFATTARE_BYTT')
     lagg(STATUS_BYTT, 'STATUS_BYTT')
+    lagg(HARD_SIDOR, 'HARD_SIDOR')
   }
 }
 lasUndantagsfiler()

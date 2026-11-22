@@ -22,6 +22,9 @@
 - Skisserna: `docs/design/publikt-omgang3/sidor/<namn>.html` (källa), `kit.css` (grunden), `delar/` (delfiler), `noter/<namn>.md` (vad som ändras, vad som kräver beslut, vilka filer bygget rör, förslag till grunden). Bygg en skiss med `node docs/design/publikt-omgang3/bygg.mjs <namn>` och läs `ut/skiss-<namn>.html`. Renderade bilder finns i `docs/design/publikt-omgang3/bilder/<namn>-<bredd>-NN.png` om mappen finns kvar: titta på dem, de visar målet.
 - `docs/design/publikt-omgang3/BRIEF.md`: formens regler, textreglerna och produktfacit.
 - `docs/publikt-omgang3/textbeslut.md` (slutlig lydelse för allt som var osant), `textforslag.md`, `kartlaggning.md`, `seo-krav.md`.
+- **`docs/publikt-omgang3/seo-besked-skisser.md`: SEO:s besked på varje rubrikbyte, nytt block och struket påstående i skisserna, sida för sida. SEO är chef över innehållet. Beskedet gäller före skissen och före den här filens beslut där de säger olika. Ett NEJ betyder att dagens text står kvar. Läs din sidas avsnitt innan du bygger den.**
+- **`docs/publikt-omgang3/bygg/seo-baslinje.md`: hur SEO-grinden körs efter bygget och åtta fällor som fäller en sida (till exempel att varje artikel i dag länkar till `/skapa-brev/start` via reklamen, och att allt bakom "Visa alla" måste stå i serverns HTML). Läs den.**
+- `docs/publikt-omgang3/bygglogg-text.md`: vad som redan är infört av textbeslutet (push 1 och 2) och vad som hoppades över. Det överhoppade som ligger i dina filer tar du.
 - `docs/publikt-omgang3/nytt-innehall.md` (kommer under bygget): godkänd text för allt som är nytt. Finns den inte när du behöver den, se Texten nedan.
 - `docs/designsystem.md` och inloggats kod, för hur de riktiga vyerna ser ut.
 

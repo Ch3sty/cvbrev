@@ -98,6 +98,13 @@
       "efter": "h3 Ladda ner som PDF eller Word",
       "datum": "2026-11-22",
       "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), FUN-8 (SEO:s lydelse): Word finns i 26 av mallarna."
+    },
+    {
+      "path": "/verktyg/rekryteringstester",
+      "fore": "h3 Lös frågorna i din takt",
+      "efter": "h3 Lös uppgifterna i din takt",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), rekryteringstester: ordlistan säger uppgift, inte fråga. Ingen sökfråga till sidan bär ordet frågor (GSC 90 dagar). Samma rad är HowTo-steg 2."
     }
   ],
   "LD_UNDANTAG": [
@@ -385,6 +392,74 @@
       "andrade": [
         "BlogPosting"
       ]
+    },
+    {
+      "path": "/verktyg/rekryteringstester",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), rekryteringstester: HowTo-steg 2 heter Lös uppgifterna i din takt och säger att klockan visar provets tid, steg 3 säger antal rätt, tiden mot provets tid och var missarna sitter, provet utan konto gäller nio testtyper. FAQ-svaren om tid och om vad som är gratis säger uppgift och klockans mjuka gräns. Frågorna oförändrade.",
+      "andrade": [
+        "WebApplication",
+        "HowTo",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/linkedin-optimering",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), linkedin: HowTo-steg 2 sa Inga obligatoriska fält, men Om mig och Erfarenhet krävs (route.ts:868-880). FAQ-svaret om tid säger fälten, inte alla fält. Frågorna oförändrade.",
+      "andrade": [
+        "HowTo",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), cv-mallar: steg 2 sa att formuläret leder dig, nya byggaren skrivs direkt på arket. Stegens namn oförändrade.",
+      "andrade": [
+        "HowTo"
+      ]
+    },
+    {
+      "path": "/personligt-brev-exempel",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), brev-exempelnav: svaret på Kan jag använda samma personliga brev för flera jobb? sa att anpassningen dubblar dina chanser, ett tal utan belägg. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/personligt-brev-exempel/kategori/vard",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), brev-exempelnav, kategorisidorna: ingressen sa 20+ yrken, sidan har 17. Talet läses ur datan.",
+      "andrade": [
+        "CollectionPage"
+      ]
+    },
+    {
+      "path": "/cv-exempel/kategori/vard",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), samma ingress som brevens vårdsida (exempel-data.ts:51): 20+ yrken blir talet ur datan, 17.",
+      "andrade": [
+        "CollectionPage"
+      ]
+    },
+    {
+      "path": "/artiklar/soka-jobb-via-mail",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), ART-17 (textbeslut B-23): efter ungefär en vecka blir efter en till två veckor i FAQ-svaret, snabbsvaret, löptexten och den synliga FAQ:n, och en mening med länk till Sökta tjänster läggs i stycket under H2 Uppföljning. Frågan, rubrikerna och exemplen står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/uppfoljning-efter-intervju",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), ART-18 (textbeslut B-16): en mening sist i ett befintligt stycke om att Sökta tjänster föreslår ett uppföljningsmejl sju dagar efter intervjun, med länk. HowTo, snabbsvar och FAQ orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
     }
   ],
   "H1_BYTT": [
@@ -431,6 +506,44 @@
       "efter": "Räknas poängen om när jag ändrar i CV:t?",
       "datum": "2026-11-22",
       "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-6 och B-17 (SEO:s fråga): poängen räknas om när CV:t sparas, ingen omkörning"
+    }
+  ],
+  "LANK_BYTT": [
+    {
+      "path": "/",
+      "fore": "/funktioner#sokta-tjanster",
+      "efter": "/verktyg/sokta-tjanster",
+      "datum": "2026-11-22",
+      "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), start: knappen i Sökta tjänster-blocket pekar på den nya sidan, som byggs i samma omgång (textbeslut B-12, Del 3 push 5). Ankaret #sokta-tjanster på /funktioner står kvar."
+    }
+  ],
+  "HARD_SIDOR": [
+    {
+      "path": "/cv-mallar",
+      "prefix": true,
+      "datum": "2026-11-22",
+      "skal": "Publikt omgång 3: /cv-mallar (544 visningar på 90 dagar) och de 72 sidorna under den, stilsidorna och mallsidorna per yrke (66 klick, 6 905 visningar) låg utanför den hårda regeln. Rubriker med text och nivå, FAQ och ordantal gäller nu."
+    },
+    {
+      "path": "/exempel",
+      "datum": "2026-11-22",
+      "skal": "Publikt omgång 3: 1 797 visningar på 90 dagar, får det nya skalet."
+    },
+    {
+      "path": "/jobbkartan",
+      "datum": "2026-11-22",
+      "skal": "Publikt omgång 3: får det nya skalet, position 5 på sina frågor."
+    },
+    {
+      "path": "/for-rekryterare",
+      "prefix": true,
+      "datum": "2026-11-22",
+      "skal": "Publikt omgång 3: insikterna under /for-rekryterare (7 353 visningar på 90 dagar) får det nya skalet; bara /for-rekryterare låg under den hårda regeln."
+    },
+    {
+      "path": "/verktyg/sokta-tjanster",
+      "datum": "2026-11-22",
+      "skal": "Ny sida i publikt omgång 3 (textbeslut Del 3 push 5). Gäller från första baslinjen mot live; sidan saknas i baslinjen före bygget."
     }
   ]
 }
