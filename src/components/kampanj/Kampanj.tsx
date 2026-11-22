@@ -68,7 +68,12 @@ export function KampanjVarianter({
   )
 }
 
-/** Raden under menyn på publika sidor. Hela raden är länken. */
+/**
+ * Raden under menyn på publika sidor. Hela raden är länken. Sedan publikt
+ * omgång 3 (2026-11-22) i grundens form, koppar-mjuk med kopparbläck
+ * (p3-kampanj i src/components/publikt/v3/ram.css), aldrig svart. Logiken
+ * (varianterna, data-kv, mätningen) är densamma.
+ */
 export function KampanjRadPublik() {
   const kvar = kampanjerKvar(new Date())
   if (kvar.length === 0) return null
@@ -76,7 +81,7 @@ export function KampanjRadPublik() {
     <>
       {kvar.map((k) => (
         <div key={k.nyckel} data-kv={k.nyckel}>
-          <a href="/priser" className={`kampanj-rad kampanj-rad--${k.tema}`} data-kampanj-lank={k.nyckel}>
+          <a href="/priser" className={`kampanj-rad kampanj-rad--${k.tema} p3-kampanj`} data-kampanj-lank={k.nyckel}>
             <span>
               <b>{k.etikett}</b>
               {k.copy.bannerText}

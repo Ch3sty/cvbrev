@@ -138,7 +138,7 @@
 .pub-sek { padding: clamp(56px, 8vw, 112px) 0; position: relative; overflow: hidden; overflow: clip; }
 .pub-sek-tat { padding: clamp(40px, 5vw, 72px) 0; }
 .pub-sek-stor { padding: clamp(72px, 10vw, 144px) 0; }
-.pub-sek[id], .pub-sek-tat[id] { scroll-margin-top: 72px; }
+.pub-sek[id], .pub-sek-tat[id] { scroll-margin-top: 88px; } /* menyn är 76 px på dator sedan omgång 3 */
 .pub-yta-mark { background: var(--mark); }
 .pub-yta-panel { background: var(--panel); }
 .pub-yta-ton { background: var(--rum-ton); }

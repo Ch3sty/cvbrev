@@ -1,15 +1,23 @@
 /**
- * Den publika navigationens innehåll (docs/design/analys-visuell-linje-2026-09-22.html,
- * avsnitt 5): headerns fem val, megamenyns tre grupper och footerns kolumner.
+ * Den publika navigationens innehåll: headerns fem val, menyns fyra delar
+ * och fotens kolumner. En fil, så att headern, telefonmenyn och foten inte
+ * glider isär.
  *
- * Samma tre grupper som sidomenyn i inloggat läge (Skriv och förbättra, Hitta
- * jobb, Träna), så att besökaren känner igen strukturen efter registreringen.
- * En fil, så att headern, mobilmenyn och footern inte glider isär.
+ * Publikt omgång 3 (2026-11-22, skissen docs/design/publikt-omgang3/sidor/meny.html,
+ * textbeslut NAV-1, byggbriefens beslut 1 och 2): fyra delar i samma ordning
+ * och färger som inloggat, Rekryteringstester först. Dagens ankartexter står
+ * kvar (de är sidornas primärord, seo-krav.md "Menyn och foten"). Priser har
+ * egen länk i headern och foten. Jobbcoachen står under Jobbsöket.
+ * Jobbkartan, Räkna ut lön och skatt och För rekryterare står utanför delarna.
  *
- * Ren data, inga komponenter: ikonerna anges som nyckel och slås upp där de
- * ritas, så att filen kan läsas av både server- och klientkomponenter.
+ * Ren data, inga komponenter: läses av både server- och klientkomponenter.
+ * Raden under varje länk i menyn räknas ur konstanter i LandingNavbarMega.tsx
+ * (servern), så att talen inte drar in data i klientens JavaScript.
  */
 
+import type { Farg } from '@/components/publikt/v3/farg'
+
+/** Ikonnycklar som NavIkon.tsx kan rita (kvar för den som vill ha dem). */
 export type NavIkon =
   | 'brev'
   | 'analys'
@@ -27,14 +35,22 @@ export interface NavLank {
   label: string
   href: string
   ikon?: NavIkon
+  /** Märket Nyhet efter länken. */
+  nyhet?: boolean
 }
 
-export interface NavGrupp {
+export interface NavDel {
+  farg: Exclude<Farg, 'neutral'>
   rubrik: string
+  /** Delens huvudsida: huvudet i menyn är en länk dit. */
+  href: string
   lankar: readonly NavLank[]
 }
 
-/** Headerns val. "Vad vi erbjuder" öppnar megamenyn och står mellan Priser och Artiklar. */
+/** Den nya sidan för Sökta tjänster (byggs av P4 i omgång 3). */
+export const SOKTA_TJANSTER_HREF = '/verktyg/sokta-tjanster'
+
+/** Headerns val. "Vad vi erbjuder" öppnar menyn och står mellan Priser och Artiklar. */
 export const HEADER_FORE: readonly NavLank[] = [
   { label: 'Funktioner', href: '/funktioner' },
   { label: 'Priser', href: '/priser' },
@@ -44,11 +60,22 @@ export const HEADER_EFTER: readonly NavLank[] = [
   { label: 'Om oss', href: '/om-oss' },
 ]
 
-export const GRUPPER: readonly NavGrupp[] = [
+/** Menyns fyra delar (NAV-1), testerna först. */
+export const DELAR: readonly NavDel[] = [
   {
-    rubrik: 'Skriv och förbättra',
+    farg: 'tran',
+    rubrik: 'Rekryteringstester',
+    href: '/verktyg/rekryteringstester',
     lankar: [
-      { label: 'Personligt brev', href: '/verktyg/personligt-brev', ikon: 'brev' },
+      { label: 'Rekryteringstester', href: '/verktyg/rekryteringstester', ikon: 'tester' },
+      { label: 'Personlighetstest', href: '/verktyg/personlighetstest' },
+    ],
+  },
+  {
+    farg: 'cv',
+    rubrik: 'CV',
+    href: '/verktyg/cv-analys',
+    lankar: [
       { label: 'CV-analys', href: '/verktyg/cv-analys', ikon: 'analys' },
       { label: 'Skapa CV', href: '/verktyg/skapa-cv', ikon: 'cv' },
       { label: 'CV-mallar', href: '/cv-mallar', ikon: 'mallar' },
@@ -56,43 +83,87 @@ export const GRUPPER: readonly NavGrupp[] = [
     ],
   },
   {
-    rubrik: 'Hitta jobb',
+    farg: 'brev',
+    rubrik: 'Personliga brev',
+    href: '/verktyg/personligt-brev',
     lankar: [
-      { label: 'Jobbmatchning', href: '/verktyg/jobbmatchning', ikon: 'matchning' },
-      { label: 'Bli upptäckt', href: '/verktyg/bli-upptackt', ikon: 'synlig' },
-      { label: 'Jobbkartan', href: '/jobbkartan', ikon: 'karta' },
+      { label: 'Personligt brev', href: '/verktyg/personligt-brev', ikon: 'brev' },
+      { label: 'Personligt brev-exempel', href: '/personligt-brev-exempel' },
     ],
   },
   {
-    rubrik: 'Träna',
+    farg: 'jobb',
+    rubrik: 'Jobbsöket',
+    href: '/verktyg/jobbmatchning',
     lankar: [
-      { label: 'Rekryteringstester', href: '/verktyg/rekryteringstester', ikon: 'tester' },
+      { label: 'Jobbmatchning', href: '/verktyg/jobbmatchning', ikon: 'matchning' },
+      { label: 'Sökta tjänster', href: SOKTA_TJANSTER_HREF, nyhet: true },
       { label: 'Jobbcoachen', href: '/verktyg/jobbcoachen', ikon: 'coach' },
-      { label: 'Räkna ut lön och skatt', href: '/rakna-ut', ikon: 'krona' },
+      { label: 'Bli upptäckt', href: '/verktyg/bli-upptackt', ikon: 'synlig' },
     ],
   },
 ]
 
-/** Footerns fjärde kolumn. Exempel och yrkesmallar står här så att länkarna från headern inte försvinner ur ramen. */
-export const LAS: NavGrupp = {
-  rubrik: 'Läs',
-  lankar: [
-    { label: 'Artiklar', href: '/artiklar' },
-    { label: 'Jobbkartan', href: '/jobbkartan' },
-    { label: 'CV-exempel', href: '/cv-exempel' },
-    { label: 'Personligt brev-exempel', href: '/personligt-brev-exempel' },
-    { label: 'CV-mallar per yrke', href: '/cv-mallar' },
-    { label: 'Exempel och mallar', href: '/exempel' },
-    { label: 'Insikter för rekryterare', href: '/for-rekryterare/insikter' },
-    { label: 'Priser', href: '/priser' },
-  ],
-}
+/** Utanför delarna, i menyns fot. */
+export const MER: readonly NavLank[] = [
+  { label: 'Alla funktioner', href: '/funktioner' },
+  { label: 'Jobbkartan', href: '/jobbkartan', ikon: 'karta' },
+  { label: 'Räkna ut lön och skatt', href: '/rakna-ut', ikon: 'krona' },
+  { label: 'För rekryterare', href: '/for-rekryterare' },
+]
 
-/** Footerns första kolumn under varumärket. */
+/**
+ * Telefonmenyns rutor under delarna: headerns val och det som står utanför
+ * delarna. Alla funktioner står inte här, Funktioner gör samma sak.
+ */
+export const TELEFON_MER: readonly NavLank[] = [
+  ...HEADER_FORE,
+  ...HEADER_EFTER,
+  { label: 'Jobbkartan', href: '/jobbkartan' },
+  { label: 'För rekryterare', href: '/for-rekryterare' },
+  { label: 'Räkna ut lön och skatt', href: '/rakna-ut' },
+]
+
+/**
+ * Fotens fyra kolumner: delarnas länkar plus exempel, mallar per yrke och
+ * Jobbsökets verktyg utanför menyn. Ingen länk från dagens fot försvinner
+ * (jämfört mot GRUPPER, LAS och FORETAG före omgång 3).
+ */
+export const FOT_DELAR: readonly NavDel[] = [
+  DELAR[0],
+  {
+    ...DELAR[1],
+    lankar: [
+      { label: 'CV-analys', href: '/verktyg/cv-analys' },
+      { label: 'Skapa CV', href: '/verktyg/skapa-cv' },
+      { label: 'CV-mallar', href: '/cv-mallar' },
+      { label: 'CV-exempel', href: '/cv-exempel' },
+      { label: 'CV-mallar per yrke', href: '/cv-mallar' },
+      { label: 'LinkedIn-profilen', href: '/verktyg/linkedin-optimering' },
+    ],
+  },
+  {
+    ...DELAR[2],
+    lankar: [...DELAR[2].lankar, { label: 'Exempel och mallar', href: '/exempel' }],
+  },
+  {
+    ...DELAR[3],
+    lankar: [
+      ...DELAR[3].lankar.map(({ label, href }) => ({ label, href })),
+      { label: 'Jobbkartan', href: '/jobbkartan' },
+      { label: 'Räkna ut lön och skatt', href: '/rakna-ut' },
+    ],
+  },
+]
+
+/** Fotens första kolumn under varumärket. */
 export const FORETAG: readonly NavLank[] = [
   { label: 'Om oss', href: '/om-oss' },
   { label: 'Funktioner', href: '/funktioner' },
+  { label: 'Priser', href: '/priser' },
+  { label: 'Artiklar', href: '/artiklar' },
   { label: 'Kontakt', href: '/kontakt' },
   { label: 'Hjälpcenter', href: '/hjalpcenter' },
   { label: 'För rekryterare', href: '/for-rekryterare' },
+  { label: 'Insikter för rekryterare', href: '/for-rekryterare/insikter' },
 ]

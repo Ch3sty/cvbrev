@@ -2000,34 +2000,8 @@ html {
   --vagg-kant: rgba(255, 255, 255, 0.14);
   --lyft: 0 1px 2px rgba(28, 25, 23, 0.06), 0 12px 32px -12px rgba(28, 25, 23, 0.22);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):has(.pub-sida) {
-    color-scheme: dark;
-    --mark: #141317; --panel: #1E1D22; --insunken: #26252B;
-    --kant: #2F2E35; --kant-stark: #45444C;
-    --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
-    --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
-    --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
-    --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
-    --premium: #09090C; --premium-2: #121116;
-    --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
-    --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-    --lyft-stor: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -30px rgba(0, 0, 0, 0.8);
-  }
-}
-:root[data-theme="dark"]:has(.pub-sida) {
-  color-scheme: dark;
-  --mark: #141317; --panel: #1E1D22; --insunken: #26252B;
-  --kant: #2F2E35; --kant-stark: #45444C;
-  --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
-  --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
-  --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
-  --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
-  --premium: #09090C; --premium-2: #121116;
-  --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
-  --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-  --lyft-stor: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -30px rgba(0, 0, 0, 0.8);
-}
+/* Mörkt läge för publika sidor togs bort i publikt omgång 3 (2026-11-22):
+   skisserna är ljusa, och ingen publik sida får stå på svart botten. */
 /* Sidan bakom: body har Trådens bg-white, här är det marken. */
 :root:has(.pub-sida) body {
   background-color: var(--mark);
@@ -2041,28 +2015,101 @@ html {
   white-space: nowrap;
 }
 
-/* Publika rum: sätter bara variabler lokalt, inget lyfts till roten.
-   Mörkt läge byter ton och ton-ink, väggen behålls. */
+/* Publika rum: sätter bara variabler lokalt, inget lyfts till roten. */
 .pub-rum-tran { --rum-vagg: #1B2246; --rum-vagg-2: #2B3470; --rum-ljus: #93A0EC; --rum-ton: #DFE3F6; --rum-ink: #3B4790; }
 .pub-rum-cv   { --rum-vagg: #113538; --rum-vagg-2: #1D4D51; --rum-ljus: #7FCFCA; --rum-ton: #D7ECEA; --rum-ink: #1E5F5F; }
 .pub-rum-brev { --rum-vagg: #3A1930; --rum-vagg-2: #56284A; --rum-ljus: #E29DCB; --rum-ton: #F0DCE8; --rum-ink: #6E2B59; }
 .pub-rum-jobb { --rum-vagg: #1B3324; --rum-vagg-2: #2A4C37; --rum-ljus: #8FD3A0; --rum-ton: #DCEBDD; --rum-ink: #245C37; }
 .pub-rum-neu  { --rum-vagg: #26262C; --rum-vagg-2: #36363E; --rum-ljus: #C9C8D2; --rum-ton: #E2E1E6; --rum-ink: #3C3C46; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .pub-rum-tran { --rum-ton: #161B36; --rum-ink: #AEB4DA; }
-  :root:not([data-theme="light"]) .pub-rum-cv   { --rum-ton: #0E2A2C; --rum-ink: #A3C9C8; }
-  :root:not([data-theme="light"]) .pub-rum-brev { --rum-ton: #2A1224; --rum-ink: #D6AFC8; }
-  :root:not([data-theme="light"]) .pub-rum-jobb { --rum-ton: #14261B; --rum-ink: #A9C9B1; }
-  :root:not([data-theme="light"]) .pub-rum-neu  { --rum-ton: #222127; --rum-ink: #B9B8C2; }
-}
-:root[data-theme="dark"] .pub-rum-tran { --rum-ton: #161B36; --rum-ink: #AEB4DA; }
-:root[data-theme="dark"] .pub-rum-cv   { --rum-ton: #0E2A2C; --rum-ink: #A3C9C8; }
-:root[data-theme="dark"] .pub-rum-brev { --rum-ton: #2A1224; --rum-ink: #D6AFC8; }
-:root[data-theme="dark"] .pub-rum-jobb { --rum-ton: #14261B; --rum-ink: #A9C9B1; }
-:root[data-theme="dark"] .pub-rum-neu  { --rum-ton: #222127; --rum-ink: #B9B8C2; }
 /* Logotypens ord följer läget på de ombyggda publika sidorna (mörkt läge). */
 :root:has(.pub-sida) .logo-ord { fill: var(--ink-1); }
 :root:has(.pub-sida) .logo-ai { fill: var(--ink-3); }
+
+/* =============================================================================
+   PUBLIKT OMGÅNG 3 (2026-11-22, docs/publikt-omgang3/bygg/grunden.md).
+
+   Fem färger på publika sidor, samma värden som inloggats rum
+   (docs/design/publikt-omgang3/kit.css). Egna attribut, aldrig data-rum, så
+   att inloggats :root:has([data-rum]) aldrig slår på publikt och tvärtom:
+     data-p3-sida   sidans färg (<Sida farg>), lyfts till roten så att menyn,
+                    kampanjraden och foten står i samma färg som sidan
+     data-p3-farg   en yta i en annan färg (ö, kort, menyns kolumner), lokalt
+     data-p3-sokvag menyns gissning ur adressen (fargForSokvag), gäller bara
+                    när sidan saknar <Sida>, så att gamla sidor får rätt färg
+                    medan de byggs om
+   Sidor med data-rum (provet utan konto ritar sessionsramen) hålls utanför.
+
+   Trådens namn (mark, panel, insunken, accent, premium) pekas om till de
+   nya färgerna, så att sidor som ännu inte är ombyggda står hela: inget
+   beige, och Premium och bläckytor blir sidans mörkaste ton i stället för
+   svart. Bara ljust läge.
+   ============================================================================= */
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) {
+  color-scheme: light;
+  --koppar: #E07A2F; --koppar-topp: #EC8B41; --koppar-ink: #A8491A; --koppar-djup: #C4621F;
+  --koppar-klack: #A8491A; --koppar-ljus: #F4B98A; --koppar-text: #1A1206; --koppar-mjuk: #FBE3D0;
+  --ink-1: #1A1A1F; --ink-2: #4A4A55; --ink-3: #65656E; --ink-hover: #2E2E36;
+  --papper: #FFFFFF; --papper-2: #F4F3F0;
+  --positiv: #2F7D5B; --positiv-mjuk: #DCEFE5;
+  --varning: #985A08; --varning-mjuk: #F7E8CF;
+  --fel: #B3382E; --fel-mjuk: #F8E1DE; --fel-kant: #F0C7C2; --fel-morker: #7A2219;
+  --vagg-kant: rgba(255, 255, 255, 0.14);
+  --fokus: var(--koppar-ink);
+  --r-kort: 22px; --r-stor: 32px; --r-knapp: 16px;
+  --disp: var(--font-display), 'Schibsted Grotesk', Inter, system-ui, sans-serif;
+  --lyft: 0 1px 2px rgba(20, 20, 40, 0.05), 0 10px 24px -14px rgba(20, 20, 40, 0.18);
+  --golv-skarm: #F4F3F0; --papper-skarm: #FFFFFF; --kant-skarm: #E3E1DC;
+}
+/* Neutral (grafit) som grund, sedan färgen. Lokal yta, sidans färg och menyns gissning. */
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])),
+[data-p3-farg="neutral"], [data-p3-sida="neutral"] {
+  --golv: #ECEBE9; --vagg: #26262C; --vagg-2: #36363E; --vagg-3: #1A1A1F; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; --vagg-svag: #7C7B88; --ljus: #C9C8D2; --ton: #E2E1E6; --ton-ink: #3C3C46; --kant: #DDDCE0; --kant-stark: #C4C3CB;
+}
+:root:has([data-p3-sida="tran"]):not(:has([data-rum])),
+:root:has([data-p3-sokvag="tran"]):not(:has([data-p3-sida], [data-rum])),
+[data-p3-farg="tran"], [data-p3-sida="tran"] {
+  --golv: #EBEDF6; --vagg: #1B2246; --vagg-2: #2B3470; --vagg-3: #121737; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; --vagg-svag: #6F78B0; --ljus: #93A0EC; --ton: #DFE3F6; --ton-ink: #3B4790; --kant: #D5DAF0; --kant-stark: #B9C1E6;
+}
+:root:has([data-p3-sida="cv"]):not(:has([data-rum])),
+:root:has([data-p3-sokvag="cv"]):not(:has([data-p3-sida], [data-rum])),
+[data-p3-farg="cv"], [data-p3-sida="cv"] {
+  --golv: #E6EFEF; --vagg: #113538; --vagg-2: #1D4D51; --vagg-3: #0B2628; --vagg-ink: #F1F8F7; --vagg-mjuk: #A3C9C8; --vagg-svag: #5C918F; --ljus: #7FCFCA; --ton: #D7ECEA; --ton-ink: #1E5F5F; --kant: #CADFDD; --kant-stark: #A9CBC8;
+}
+:root:has([data-p3-sida="brev"]):not(:has([data-rum])),
+:root:has([data-p3-sokvag="brev"]):not(:has([data-p3-sida], [data-rum])),
+[data-p3-farg="brev"], [data-p3-sida="brev"] {
+  --golv: #F2EAEE; --vagg: #3A1930; --vagg-2: #56284A; --vagg-3: #280F22; --vagg-ink: #FBF3F8; --vagg-mjuk: #D6AFC8; --vagg-svag: #9C6A8C; --ljus: #E29DCB; --ton: #F0DCE8; --ton-ink: #6E2B59; --kant: #E6D2DD; --kant-stark: #D3B3C6;
+}
+:root:has([data-p3-sida="jobb"]):not(:has([data-rum])),
+:root:has([data-p3-sokvag="jobb"]):not(:has([data-p3-sida], [data-rum])),
+[data-p3-farg="jobb"], [data-p3-sida="jobb"] {
+  --golv: #E8EEE7; --vagg: #1B3324; --vagg-2: #2A4C37; --vagg-3: #112219; --vagg-ink: #F2F8F2; --vagg-mjuk: #A9C9B1; --vagg-svag: #6A9676; --ljus: #8FD3A0; --ton: #DCEBDD; --ton-ink: #245C37; --kant: #CFDFD0; --kant-stark: #B0CBB3;
+}
+/* Det som räknas ur färgen. Skrivs där färgen sätts, eftersom var() löses
+   där egenskapen deklareras. */
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])),
+[data-p3-farg], [data-p3-sida] {
+  --premium: var(--vagg-3); --premium-2: var(--vagg-2); --premium-kant: rgba(255, 255, 255, 0.12);
+  --mark: var(--golv); --panel: var(--papper); --insunken: var(--papper-2); --insunken-topp: var(--kant-stark);
+  --accent: var(--koppar); --accent-ink: var(--koppar-ink); --accent-mjuk: var(--koppar-mjuk);
+  --ink-1-mjuk: var(--vagg-mjuk); --ink-1-kant: var(--vagg-kant); --ink-1-accent: var(--koppar-ljus);
+  --illu-fill: var(--papper); --illu-accent: var(--koppar); --illu-soft: var(--koppar-mjuk); --illu-muted: var(--kant-stark); --illu-dim: var(--ink-3); --illu-mjuk: var(--ton);
+  /* publikt v2:s rumsvärden följer samma färg där en sektion inte satt egen */
+  --rum-vagg: var(--vagg); --rum-vagg-2: var(--vagg-2); --rum-ljus: var(--ljus); --rum-ton: var(--ton); --rum-ink: var(--ton-ink);
+}
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) body {
+  background-color: var(--golv);
+  color: var(--ink-1);
+}
+/* Bläckytor (bg-ink-1: knappar, valda chip, pratbubblor) blir sidans
+   mörkaste ton i stället för svart. Sidorna som byggs om sätter koppar där
+   det är den primära handlingen. */
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .bg-ink-1 {
+  background-color: var(--vagg-3);
+}
+:root:has([data-p3-sida], [data-p3-sokvag]):not(:has([data-rum])) .bg-ink-1.hover\:bg-ink-hover:hover {
+  background-color: var(--vagg-2);
+}
 
 /* Ordförrådets motsatsord (skiss-tester-steg2, beslut 7): plommon, aldrig koppar. */
 :root { --motsats: #6E2B59; }

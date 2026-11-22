@@ -1,0 +1,147 @@
+/* =============================================================================
+   PUBLIKT OMGÅNG 3, ramen: menyn, telefonmenyn, kampanjraden och foten
+   (skissen docs/design/publikt-omgang3/sidor/meny.html, delar/fot.html,
+   delar/meny-mega.html). Laddas av LandingNavbar och Footer.
+
+   Menyn och foten står i sidans mörkaste ton (--vagg-3), aldrig vitt, beige
+   eller svart. Färgen kommer från roten (globals.css, PUBLIKT OMGÅNG 3).
+   Klasserna heter p3-nav-*, p3-mm-* (menyn Vad vi erbjuder), p3-tm-*
+   (telefonmenyn) och p3-fot-*.
+   ============================================================================= */
+
+/* ---------- loggan ---------- */
+.p3-logga { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; color: var(--vagg-ink); white-space: nowrap; }
+.p3-logga i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #F97316; color: #fff; font-style: normal; font-size: 19px; box-shadow: 0 3px 0 #B4500C; }
+.p3-logga b { font-weight: inherit; }
+.p3-logga b span { color: var(--vagg-mjuk); }
+
+/* ---------- menyn ---------- */
+.p3-nav { position: sticky; top: 0; z-index: 40; background: var(--vagg-3); color: var(--vagg-ink); font-family: Inter, system-ui, sans-serif; }
+.p3-nav-bredd { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 900px) { .p3-nav-bredd { padding: 0 40px; } }
+.p3-nav-rad { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; height: 64px; }
+.p3-nav-rad .p3-logga { margin-right: auto; }
+.p3-nav-val { display: none; align-items: center; gap: 2px; margin-right: auto; }
+.p3-nav-val a, .p3-nav-val button { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 0; border-radius: 12px; background: none; font: inherit; font-size: 15px; font-weight: 600; color: var(--vagg-mjuk); text-decoration: none; cursor: pointer; }
+.p3-nav-val a:hover, .p3-nav-val button:hover { color: var(--vagg-ink); background: rgba(255, 255, 255, .08); }
+.p3-nav-val [aria-current], .p3-nav-val [aria-expanded='true'], .p3-nav-val .p3-aktiv { color: var(--vagg-ink); background: rgba(255, 255, 255, .12); }
+.p3-nav-val svg { width: 16px; height: 16px; transition: transform .12s; }
+.p3-nav-val button[aria-expanded='true'] svg { transform: rotate(180deg); }
+.p3-nav-in { display: none; height: 40px; align-items: center; padding: 0 14px; font-size: 15px; font-weight: 600; color: var(--vagg-ink); text-decoration: none; border-radius: 12px; }
+.p3-nav-in:hover { background: rgba(255, 255, 255, .08); }
+.p3-nav-meny { display: grid; place-items: center; flex: none; width: 44px; height: 44px; margin-left: 8px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, .22); background: none; color: var(--vagg-ink); cursor: pointer; }
+.p3-nav-meny svg { width: 22px; height: 22px; }
+.p3-nav :focus-visible { outline: 3px solid var(--koppar-ljus); outline-offset: 2px; }
+@media (min-width: 1000px) {
+  .p3-nav-rad { height: 76px; }
+  .p3-nav-rad .p3-logga { margin-right: 28px; font-size: 20px; }
+  .p3-nav-val, .p3-nav-in { display: inline-flex; }
+  .p3-nav-meny { display: none; }
+}
+@media (max-width: 399px) {
+  .p3-logga { font-size: 17px; gap: 8px; }
+  .p3-logga i { width: 28px; height: 28px; font-size: 16px; }
+  .p3-nav .p3-knapp-liten { padding: 0 12px; font-size: 14px; }
+  .p3-nav-meny { margin-left: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .p3-nav-val svg { transition: none; } }
+
+/* menyns knapp Skapa konto (samma som .p3-knapp.p3-knapp-liten, här så att ramen står själv) */
+.p3-nav .p3-knapp, .p3-tm .p3-knapp { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 28px; border: 0; border-radius: 16px; font-weight: 700; font-size: 17px; line-height: 1.1; text-decoration: none; white-space: nowrap; color: #1A1206; background: linear-gradient(180deg, #EC8B41, #E07A2F); box-shadow: 0 5px 0 #A8491A; cursor: pointer; }
+.p3-nav .p3-knapp-liten { min-height: 44px; padding: 0 18px; font-size: 15px; border-radius: 13px; box-shadow: 0 4px 0 #A8491A; }
+.p3-nav .p3-knapp:hover, .p3-tm .p3-knapp:hover { transform: translateY(1px); }
+.p3-tm .p3-knapp-vit { background: #fff; color: #1A1A1F; border: 2px solid var(--kant-stark); box-shadow: 0 5px 0 var(--kant-stark); }
+
+/* ---------- Vad vi erbjuder (dator) ---------- */
+.p3-skym { position: fixed; inset: 76px 0 0 0; z-index: 1; background: rgba(12, 15, 40, .58); }
+.p3-mega-plats { position: absolute; z-index: 3; left: 0; right: 0; top: 100%; }
+.p3-mega-plats[hidden] { display: none; }
+.p3-mm { background: #fff; color: #1A1A1F; border-radius: 0 0 32px 32px; border: 2px solid rgba(0, 0, 0, .08); border-top: 0; box-shadow: 0 8px 0 rgba(0, 0, 0, .10), 0 40px 80px rgba(10, 12, 30, .28); padding: 22px; }
+.p3-mm-rum { display: grid; grid-template-columns: 1.14fr 1.14fr 1fr 1.14fr; gap: 14px; }
+.p3-mm-kol { display: flex; flex-direction: column; min-width: 0; border-radius: 22px; overflow: hidden; background: var(--golv); border: 2px solid var(--kant); border-bottom-width: 6px; }
+.p3-mm-huvud { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 16px; background: var(--vagg); color: var(--vagg-ink); text-decoration: none; font-family: var(--disp, var(--font-display)), Inter, sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.015em; }
+.p3-mm-huvud::before { content: ''; position: absolute; z-index: -1; right: -40px; top: -70px; width: 170px; height: 170px; border-radius: 50%; background: var(--vagg-2); }
+.p3-mm-huvud:hover { text-decoration: underline; text-underline-offset: 4px; }
+.p3-dorr-ram { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+.p3-dorr-ram svg { width: 22px; height: 22px; }
+.p3-mm-lankar { display: grid; gap: 2px; padding: 8px; }
+.p3-mm-lankar a { display: block; padding: 9px 10px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.3; color: #1A1A1F; }
+.p3-mm-lankar a span { display: block; font-weight: 400; font-size: 13px; color: #4A4A55; }
+.p3-mm-lankar a:hover, .p3-mm-lankar a:focus-visible { background: #fff; box-shadow: 0 3px 0 var(--kant-stark); }
+.p3-nyhet { font-style: normal; display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: #FBE3D0; color: #A8491A; font-size: 12px; font-weight: 700; line-height: 1.3; vertical-align: 1px; }
+.p3-mm-bild { margin-top: auto; padding: 4px 18px 16px; }
+.p3-mm-bild p { margin: 10px 0 0; font-size: 13px; font-weight: 600; color: var(--ton-ink); }
+.p3-mm-matris { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 220px; }
+.p3-mm-matris span { display: grid; place-items: center; aspect-ratio: 1; border-radius: 11px; background: #fff; color: #1A1A1F; border: 2px solid var(--kant); border-bottom-width: 4px; }
+.p3-mm-matris svg { width: 56%; height: 56%; }
+.p3-mm-matris .p3-tom { background: none; border: 2.5px dashed #E07A2F; color: #A8491A; font-family: var(--disp, var(--font-display)), sans-serif; font-weight: 800; font-size: 20px; }
+.p3-mm-blad { max-width: 190px; padding: 12px; border-radius: 8px; background: #fff; box-shadow: 0 4px 0 var(--kant-stark); }
+.p3-mm-blad i { display: block; height: 5px; margin-top: 6px; border-radius: 3px; background: #DCDAD5; }
+.p3-mm-blad i:first-child { margin-top: 0; width: 44%; background: var(--vagg-svag); }
+.p3-mm-blad i.p3-m { background: #F4B98A; width: 72%; }
+.p3-mm-blad i.p3-k { width: 50%; }
+.p3-mm-fot { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 14px; }
+.p3-mm-prem { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 20px; border-radius: 22px; background: var(--vagg-3); box-shadow: 0 6px 0 #A8491A; }
+.p3-mm-prem::before { content: ''; position: absolute; z-index: -1; right: -60px; top: -110px; width: 260px; height: 260px; border-radius: 50%; background: var(--vagg-2); }
+.p3-mm-prem p { margin: 0 auto 0 0; max-width: 43ch; font-size: 14.5px; line-height: 1.45; color: var(--vagg-mjuk); }
+.p3-mm-prem p b { display: block; font-family: var(--disp, var(--font-display)), sans-serif; font-size: 19px; letter-spacing: -0.01em; color: #fff; }
+.p3-knapp-glas-ram { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 13px; font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; color: #fff; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .26); box-shadow: 0 4px 0 rgba(0, 0, 0, .28); }
+.p3-mm-mer { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 2px 4px; padding: 8px 10px; border-radius: 22px; background: #F4F3F0; }
+.p3-mm-mer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px; color: #1A1A1F; }
+.p3-mm-mer a:hover { background: #fff; }
+
+/* ---------- telefonmenyn: hela skärmen ---------- */
+.p3-tm { position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; background: var(--golv); color: #1A1A1F; }
+.p3-tm[hidden] { display: none; }
+.p3-tm-topp { flex: none; display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 16px; background: var(--vagg-3); color: var(--vagg-ink); }
+.p3-tm-topp .p3-logga { margin-right: auto; font-size: 17px; gap: 8px; }
+.p3-tm-topp .p3-logga i { width: 28px; height: 28px; font-size: 16px; }
+.p3-tm-stang { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px 0 10px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, .22); background: none; color: var(--vagg-ink); font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; }
+.p3-tm-stang svg { width: 20px; height: 20px; }
+.p3-tm-kropp { flex: 1; overflow-y: auto; overscroll-behavior: contain; display: grid; align-content: start; gap: 12px; padding: 16px 16px 22px; }
+.p3-tm-block { position: relative; overflow: hidden; isolation: isolate; border-radius: 22px; padding: 14px 12px 12px; background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 6px 0 var(--vagg-3); }
+.p3-tm-block::before { content: ''; position: absolute; z-index: -1; right: -50px; top: -90px; width: 220px; height: 220px; border-radius: 50%; background: var(--vagg-2); opacity: .7; }
+.p3-tm-block > a { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 12px; font-family: var(--disp, var(--font-display)), sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.015em; color: var(--vagg-ink); text-decoration: none; }
+.p3-tm-block > a .p3-dorr-ram { width: 36px; height: 36px; border-radius: 11px; }
+.p3-tm-block > a .p3-dorr-ram svg { width: 20px; height: 20px; }
+.p3-tm-lankar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.p3-tm-lankar.p3-en { grid-template-columns: 1fr; }
+.p3-tm-lankar a { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 54px; padding: 8px 12px; border-radius: 14px; background: #fff; color: #1A1A1F; border-bottom: 4px solid rgba(0, 0, 0, .25); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.2; }
+.p3-tm-lankar a span { margin-top: 3px; font-weight: 400; font-size: 13px; color: #4A4A55; }
+.p3-tm-lankar a .p3-nyhet { align-self: flex-start; margin: 4px 0 0; }
+.p3-tm-mer { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.p3-tm-mer a { display: flex; align-items: center; min-height: 48px; padding: 6px 14px; border-radius: 14px; background: #fff; color: #1A1A1F; border: 2px solid var(--kant); border-bottom-width: 4px; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.2; }
+.p3-tm-mer a:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.p3-tm-prem { position: relative; overflow: hidden; isolation: isolate; display: block; padding: 14px 16px; border-radius: 20px; background: var(--vagg-3); color: var(--vagg-mjuk); box-shadow: 0 5px 0 #A8491A; text-decoration: none; font-size: 14px; line-height: 1.45; }
+.p3-tm-prem::before { content: ''; position: absolute; z-index: -1; right: -60px; top: -100px; width: 220px; height: 220px; border-radius: 50%; background: var(--vagg-2); }
+.p3-tm-prem b { display: block; font-family: var(--disp, var(--font-display)), sans-serif; font-size: 16px; letter-spacing: -0.01em; color: #fff; }
+.p3-tm-prem em { display: inline-block; margin-top: 8px; font-style: normal; font-weight: 600; color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.p3-tm-fot { flex: none; display: grid; grid-template-columns: 1.45fr 1fr; gap: 10px; padding: 12px 16px max(14px, env(safe-area-inset-bottom)); background: #fff; border-top: 2px solid var(--kant); }
+.p3-tm-fot .p3-knapp { padding: 0 10px; font-size: 16px; min-width: 0; }
+.p3-tm :focus-visible { outline: 3px solid #A8491A; outline-offset: 2px; }
+@media (min-width: 1000px) { .p3-nav .p3-tm { display: none !important; } }
+
+/* ---------- kampanjraden under menyn (samma logik, ny form) ---------- */
+.kampanj-rad.p3-kampanj { background: var(--koppar-mjuk, #FBE3D0); color: var(--koppar-text, #1A1206); }
+.kampanj-rad.p3-kampanj b { color: var(--koppar-ink, #A8491A); font-family: Inter, system-ui, sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.kampanj-rad.p3-kampanj u { color: var(--koppar-text, #1A1206); }
+.kampanj-rad.p3-kampanj:focus-visible { outline-color: var(--koppar-ink, #A8491A); }
+
+/* ---------- foten: sidans mörkaste ton ---------- */
+:root:not(:has([data-p3-sida], [data-p3-sokvag])) .p3-fot { --vagg-3: #1A1A1F; --vagg-2: #36363E; --vagg-ink: #F5F4F7; --vagg-mjuk: #B9B8C2; }
+.p3-fot { background: var(--vagg-3); color: var(--vagg-mjuk); padding: 56px 0 32px; font-size: 15px; line-height: 1.55; font-family: Inter, system-ui, sans-serif; }
+.p3-fot-rad { display: grid; gap: 36px; }
+.p3-fot-rubrik { margin: 0 0 12px; font-size: 12.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--vagg-mjuk); }
+.p3-fot ul { margin: 0; padding: 0; list-style: none; }
+.p3-fot-kol a { display: flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--vagg-ink); }
+.p3-fot a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.p3-fot .p3-logga { margin-bottom: 14px; color: #fff; }
+.p3-fot-om { margin: 0; max-width: 40ch; }
+.p3-fot-inline { display: flex; flex-wrap: wrap; gap: 0 18px; margin-top: 14px; }
+.p3-fot-inline a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--vagg-ink); text-decoration: none; }
+.p3-fot-botten { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .14); font-size: 13.5px; color: var(--vagg-mjuk); }
+.p3-fot-botten a { display: inline-flex; align-items: center; min-height: 44px; color: var(--vagg-mjuk); text-decoration: none; }
+.p3-fot-botten > :last-child { margin-left: auto; }
+.p3-fot :focus-visible { outline: 3px solid var(--koppar-ljus, #F4B98A); outline-offset: 2px; }
+@media (min-width: 700px) { .p3-fot-rad { grid-template-columns: 1fr 1fr; } .p3-fot-rad > :first-child { grid-column: 1 / -1; } }
+@media (min-width: 1000px) { .p3-fot { padding: 80px 0 36px; } .p3-fot-rad { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 32px; } .p3-fot-rad > :first-child { grid-column: auto; } .p3-fot-kol a { min-height: 36px; } }

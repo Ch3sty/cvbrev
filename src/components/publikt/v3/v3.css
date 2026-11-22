@@ -1,0 +1,461 @@
+/* =============================================================================
+   PUBLIKT OMGÅNG 3, komponenterna (docs/publikt-omgang3/bygg/grunden.md).
+
+   Porterat ur docs/design/publikt-omgang3/kit.css, som är facit för mått och
+   färger. Alla klasser heter p3-*, så att inget krockar med publikt.css
+   (pub-*), Rummen (.vagg, .kort, .knapp) eller Tailwind. Färgerna står i
+   globals.css (PUBLIKT OMGÅNG 3) och sätts med <Sida farg> eller
+   data-p3-farg på en yta. Laddas av Sida.tsx.
+
+   Rörelse bara med CSS och av under prefers-reduced-motion.
+   ============================================================================= */
+
+.p3 {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-1);
+  background: var(--golv);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+:where(.p3) *, :where(.p3) *::before, :where(.p3) *::after { box-sizing: border-box; }
+:where(.p3) :where(h1, h2, h3, h4, h5, p, figure, blockquote) { margin: 0; }
+:where(.p3) :where(ul, ol) { margin: 0; padding: 0; list-style: none; }
+:where(.p3) a { color: inherit; }
+:where(.p3) :where(img, svg) { display: block; max-width: 100%; }
+:where(.p3) img { height: auto; }
+:where(.p3) q { quotes: none; }
+.p3 :focus-visible { outline: 3px solid var(--koppar); outline-offset: 3px; border-radius: 6px; }
+
+.p3-bredd { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 900px) { .p3-bredd { padding: 0 40px; } }
+
+/* ---------- typ ---------- */
+.p3-h1 { font-family: var(--disp); font-weight: 800; font-size: 40px; line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+.p3-h1 .p3-over { display: block; margin-bottom: 14px; font-family: Inter, system-ui, sans-serif; font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); text-wrap: wrap; }
+.p3-vagg .p3-h1 .p3-over { color: var(--koppar-ljus); }
+.p3-h2 { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1.1; letter-spacing: -0.025em; text-wrap: balance; }
+.p3-h3 { font-family: var(--disp); font-weight: 700; font-size: 20px; line-height: 1.2; letter-spacing: -0.015em; }
+.p3-varde { font-size: 18px; line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+.p3-varde b, .p3-varde strong { color: var(--ink-1); font-weight: 600; }
+.p3-text { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.p3-text b, .p3-text strong { color: var(--ink-1); font-weight: 600; }
+.p3-ey { font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--koppar-ink); }
+.p3-liten { font-size: 14px; line-height: 1.45; color: var(--ink-3); }
+@media (min-width: 900px) {
+  .p3-h1 { font-size: 66px; }
+  .p3-h2 { font-size: 46px; }
+  .p3-h3 { font-size: 22px; }
+  .p3-varde { font-size: 21px; }
+}
+.p3-h1-mindre { font-size: 36px; }
+@media (min-width: 900px) { .p3-h1-mindre { font-size: 54px; } }
+
+/* ---------- knappar: klack i stället för skugga ---------- */
+.p3-knapp { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 28px; border: 0; border-radius: var(--r-knapp, 16px); font-family: inherit; font-weight: 700; font-size: 17px; line-height: 1.1; text-align: center; text-decoration: none; white-space: nowrap; cursor: pointer; color: var(--koppar-text); background: linear-gradient(180deg, var(--koppar-topp), var(--koppar)); box-shadow: 0 5px 0 var(--koppar-klack); transition: transform .08s, box-shadow .08s; }
+.p3-knapp:hover { transform: translateY(1px); box-shadow: 0 4px 0 var(--koppar-klack); }
+.p3-knapp:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--koppar-klack); }
+.p3-knapp svg { width: 20px; height: 20px; flex: none; }
+.p3-knapp-liten { min-height: 44px; padding: 0 18px; font-size: 15px; border-radius: 13px; box-shadow: 0 4px 0 var(--koppar-klack); }
+.p3-knapp-vit { background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 var(--kant-stark); border: 2px solid var(--kant-stark); }
+.p3-knapp-vit:hover { box-shadow: 0 4px 0 var(--kant-stark); }
+.p3-knapp-glas { background: rgba(255, 255, 255, .08); color: var(--vagg-ink); border: 2px solid rgba(255, 255, 255, .26); box-shadow: 0 5px 0 rgba(0, 0, 0, .28); }
+.p3-knapp-glas:hover { box-shadow: 0 4px 0 rgba(0, 0, 0, .28); }
+.p3-knapp-bred { width: 100%; }
+@media (max-width: 399px) { .p3-knapp { white-space: normal; padding: 0 20px; } }
+@media (prefers-reduced-motion: reduce) { .p3-knapp { transition: none; } }
+.p3-lank { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; text-decoration-color: currentColor; display: inline-flex; align-items: center; min-height: 44px; }
+.p3-knapprad { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.p3-gratisrad { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-3); }
+:is(.p3-vagg, .p3-o, .p3-premium) .p3-gratisrad { color: var(--vagg-mjuk); }
+
+/* ---------- väggen och hjälten ---------- */
+.p3-vagg { position: relative; color: var(--vagg-ink); background: var(--vagg); overflow: hidden; isolation: isolate; }
+.p3-vagg::before { content: ''; position: absolute; z-index: -1; right: -22vw; top: -32vw; width: 70vw; height: 70vw; border-radius: 50%; background: var(--vagg-2); opacity: .55; }
+.p3-vagg::after { content: ''; position: absolute; z-index: -1; left: -30vw; bottom: -46vw; width: 62vw; height: 62vw; border-radius: 50%; background: var(--vagg-3); opacity: .6; }
+.p3-vagg :is(.p3-h1, .p3-h2, .p3-h3) { color: var(--vagg-ink); }
+.p3-vagg :is(.p3-varde, .p3-text, .p3-liten) { color: var(--vagg-mjuk); }
+.p3-vagg :is(.p3-varde, .p3-text) :is(b, strong) { color: var(--vagg-ink); }
+.p3-vagg .p3-ey { color: var(--koppar-ljus); }
+.p3-brod { font-size: 13.5px; color: var(--vagg-mjuk); }
+.p3-brod ol { display: flex; flex-wrap: wrap; gap: 8px; }
+.p3-brod li + li::before { content: '›'; margin-right: 8px; opacity: .6; }
+.p3-brod a { text-decoration: none; display: inline-block; padding: 4px 0; }
+.p3-brod a:hover { text-decoration: underline; }
+
+.p3-hjalte { padding: 28px 0 96px; }
+.p3-hjalte.p3-utan-lyft { padding-bottom: 56px; }
+.p3-hjalte-rad { display: grid; gap: 40px; align-items: center; }
+.p3-brod + .p3-hjalte-rad { margin-top: 26px; }
+.p3-hjalte-text { min-width: 0; }
+.p3-hjalte-text > * + * { margin-top: 18px; }
+.p3-hjalte-text > .p3-knapprad { margin-top: 28px; }
+.p3-hjalte-bild { min-width: 0; width: 100%; }
+@media (min-width: 1000px) {
+  .p3-hjalte { padding: 44px 0 150px; }
+  .p3-hjalte.p3-utan-lyft { padding-bottom: 88px; }
+  .p3-hjalte-rad.p3-med-bild { grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 56px; }
+  .p3-hjalte-text > * + * { margin-top: 22px; }
+}
+.p3-hjalte-rad:not(.p3-med-bild) .p3-hjalte-text { max-width: 820px; }
+
+/* talbrickor: ett tal står aldrig ensamt */
+.p3-brickor { display: flex; flex-wrap: wrap; gap: 10px; }
+.p3-hjalte-text > .p3-brickor { margin-top: 30px; }
+.p3-bricka { flex: 1 1 96px; min-width: 96px; max-width: 190px; padding: 12px 14px 10px; border-radius: 16px; background: rgba(255, 255, 255, .07); border: 2px solid rgba(255, 255, 255, .14); }
+.p3-bricka b { display: block; font-family: var(--disp); font-weight: 800; font-size: 28px; line-height: 1; letter-spacing: -0.03em; color: var(--vagg-ink); }
+.p3-bricka span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.3; color: var(--vagg-mjuk); }
+.p3-bricka.p3-ord b { font-size: 22px; letter-spacing: -0.02em; }
+.p3-brickor.p3-fyra .p3-bricka { flex-basis: calc(50% - 5px); max-width: none; }
+@media (min-width: 900px) { .p3-bricka b { font-size: 34px; } .p3-bricka.p3-ord b { font-size: 26px; } .p3-brickor.p3-fyra .p3-bricka { flex-basis: 96px; max-width: 190px; } }
+@media (max-width: 399px) { .p3-bricka { min-width: 0; flex-basis: 80px; padding: 10px 10px 8px; } .p3-bricka b { font-size: 23px; white-space: nowrap; } .p3-bricka.p3-ord b { font-size: 18px; } }
+/* brickor på ljus botten */
+.p3-brickor.p3-pa-papper .p3-bricka { background: var(--papper); border-color: var(--kant); border-bottom-width: 5px; }
+.p3-brickor.p3-pa-papper .p3-bricka b { color: var(--ink-1); }
+.p3-brickor.p3-pa-papper .p3-bricka span { color: var(--ink-3); }
+
+/* ---------- golvet: sektioner och kort ---------- */
+.p3-sekt { padding: 64px 0; }
+.p3-sekt.p3-utan-topp { padding-top: 0; }
+.p3-sekt.p3-tat { padding: 40px 0; }
+.p3-sekt-ton { background: var(--ton); }
+.p3-sekt-papper { background: var(--papper); }
+.p3-sekt-golv { background: var(--golv); }
+.p3-sekt-huvud { max-width: 760px; }
+.p3-sekt-huvud > * + * { margin-top: 14px; }
+.p3-sekt-huvud.p3-mitt { margin-left: auto; margin-right: auto; text-align: center; }
+.p3-sekt-huvud + * { margin-top: 32px; }
+@media (min-width: 900px) { .p3-sekt { padding: 112px 0; } .p3-sekt.p3-tat { padding: 64px 0; } .p3-sekt-huvud + * { margin-top: 48px; } }
+
+.p3-kort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); padding: 22px; min-width: 0; }
+.p3-kort > * + * { margin-top: 10px; }
+.p3-kort p { color: var(--ink-2); font-size: 15.5px; }
+.p3-kort-ton { background: var(--ton); border-color: var(--kant-stark); }
+.p3-kort-bild { display: grid; place-items: center; min-height: 120px; padding: 14px; border-radius: 14px; background: var(--golv); }
+@media (min-width: 900px) { .p3-kort { padding: 28px; } }
+
+/* Papper på en vägg eller ö: texten är alltid bläck, aldrig väggens ljusa
+   text. .p3-papper är den allmänna regeln för egna pappersytor. */
+.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-annons, .p3-ark, .p3-papper, .p3-tram, .p3-lankbricka { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper, .p3-lankbricka) :is(.p3-h1, .p3-h2, .p3-h3) { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(p, .p3-varde, .p3-text) { color: var(--ink-2); }
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) :is(.p3-varde, .p3-text) :is(b, strong) { color: var(--ink-1); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-ey { color: var(--koppar-ink); }
+:is(.p3-kort, .p3-lyft, .p3-papper) .p3-liten { color: var(--ink-3); }
+.p3-papper { background: var(--papper); }
+
+.p3-lyft { position: relative; z-index: 2; margin-top: -64px; background: var(--papper); border-radius: var(--r-stor, 32px); border: 2px solid var(--kant); border-bottom-width: 8px; padding: 22px; }
+.p3-lyft-sekt { padding-bottom: 8px; }
+@media (min-width: 900px) { .p3-lyft { margin-top: -104px; padding: 40px; } }
+
+.p3-rutnat { display: grid; gap: 14px; }
+.p3-rutnat > * { min-width: 0; }
+@media (min-width: 700px) { .p3-rutnat.p3-r2, .p3-rutnat.p3-r3, .p3-rutnat.p3-r4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .p3-rutnat { gap: 18px; } .p3-rutnat.p3-r3 { grid-template-columns: repeat(3, 1fr); } .p3-rutnat.p3-r4 { grid-template-columns: repeat(4, 1fr); } }
+
+.p3-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 2px 11px; border-radius: 999px; font-size: 13px; line-height: 1.2; font-weight: 700; background: var(--ton); color: var(--ton-ink); }
+.p3-chip-gratis { background: var(--positiv-mjuk); color: #1F5C41; }
+.p3-chip-premium { background: var(--koppar-mjuk); color: var(--koppar-ink); }
+.p3-chip-vagg { background: rgba(255, 255, 255, .12); color: var(--vagg-ink); }
+.p3-chip-koppar { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); min-height: 34px; padding: 0 14px; font-size: 14px; }
+
+.p3-nr { display: grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 15px; background: var(--ton); color: var(--ton-ink); font-family: var(--disp); font-weight: 800; font-size: 22px; box-shadow: 0 4px 0 var(--kant-stark); }
+.p3-nr-koppar { background: var(--koppar); color: var(--koppar-text); box-shadow: 0 4px 0 var(--koppar-klack); }
+.p3-nr-vagg { background: var(--vagg); color: var(--vagg-ink); box-shadow: 0 4px 0 var(--vagg-3); }
+
+/* stegen: en väg, inte en lista */
+.p3-vagsteg { display: grid; gap: 14px; }
+.p3-vagsteg > li { position: relative; min-width: 0; align-content: start; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 6px 16px; align-items: start; padding: 20px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); }
+.p3-vagsteg > li > p, .p3-vagsteg > li > .p3-steg-text { grid-column: 2; color: var(--ink-2); font-size: 15.5px; }
+.p3-vagsteg > li > :is(h3, h4) { align-self: center; color: var(--ink-1); }
+.p3-vagsteg .p3-steg-bild { grid-column: 1 / -1; margin-top: 10px; border-radius: 14px; background: var(--golv); padding: 14px; min-height: 120px; display: grid; place-items: center; }
+@media (min-width: 1000px) {
+  .p3-vagsteg { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 18px; }
+  .p3-vagsteg > li { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .p3-vagsteg > li > p, .p3-vagsteg > li > .p3-steg-text { grid-column: 1; }
+  .p3-vagsteg > li:not(:last-child)::after { content: ''; position: absolute; right: -20px; top: 46px; width: 20px; border-top: 3px dotted var(--kant-stark); }
+  .p3-vagsteg .p3-steg-bild { order: -1; margin: 0 0 8px; min-height: 150px; }
+  /* fem steg: tre plus två */
+  .p3-vagsteg[data-n='5'] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .p3-vagsteg[data-n='5'] > li { grid-column: span 2; }
+  .p3-vagsteg[data-n='5'] > li:nth-child(n+4) { grid-column: span 3; }
+  .p3-vagsteg[data-n='5'] > li:nth-child(3)::after { display: none; }
+  /* sex eller fler: tre per rad */
+  .p3-vagsteg[data-n='6'], .p3-vagsteg[data-n='7'], .p3-vagsteg[data-n='8'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .p3-vagsteg:is([data-n='6'], [data-n='7'], [data-n='8']) > li:nth-child(3n)::after { display: none; }
+}
+:is(.p3-vagg, .p3-o) .p3-vagsteg > li { border-color: transparent; border-bottom-color: rgba(0, 0, 0, .25); }
+
+/* frågor och svar */
+.p3-faq { display: grid; gap: 12px; max-width: 860px; }
+.p3-faq-huvud + .p3-faq { margin-top: 32px; }
+.p3-faq details { background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; }
+.p3-faq summary { display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 14px 18px; font-family: var(--disp); font-weight: 700; font-size: 17.5px; line-height: 1.25; cursor: pointer; list-style: none; }
+.p3-faq summary::-webkit-details-marker { display: none; }
+.p3-faq summary::after { content: '+'; margin-left: auto; flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--ton); color: var(--ton-ink); font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: 20px; }
+.p3-faq details[open] summary::after { content: '\2212'; }
+.p3-faq details > div { padding: 0 18px 20px; color: var(--ink-2); max-width: 70ch; }
+.p3-faq details > div > * + * { margin-top: 10px; }
+.p3-faq-efter { margin-top: 32px; }
+@media (min-width: 900px) { .p3-faq summary { font-size: 19px; padding: 16px 24px; } .p3-faq details > div { padding: 0 24px 24px; } }
+
+/* länkbrickor och dörrar */
+.p3-dorr { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--ton-ink); color: #fff; box-shadow: 0 3px 0 var(--vagg-3); }
+.p3-dorr svg { width: 22px; height: 22px; }
+.p3-lankbricka { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 2px 14px; align-items: center; min-height: 76px; padding: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; text-decoration: none; }
+.p3-lankbricka:hover { border-color: var(--kant-stark); }
+.p3-lankbricka .p3-dorr { width: 44px; height: 44px; grid-row: span 2; }
+.p3-lankbricka b { font-family: var(--disp); font-size: 17px; line-height: 1.2; align-self: end; }
+.p3-lankbricka > span:last-child { font-size: 14px; color: var(--ink-3); line-height: 1.35; align-self: start; }
+.p3-lankbricka.p3-utan-text b { align-self: center; grid-row: span 2; }
+
+/* ---------- öar: stora färgblock ---------- */
+.p3-o { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor, 32px); background: var(--vagg); color: var(--vagg-ink); padding: 28px 20px; box-shadow: 0 8px 0 var(--vagg-3); }
+.p3-o.p3-med-bild { padding-bottom: 0; }
+.p3-o::before { content: ''; position: absolute; z-index: -1; right: -18%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--vagg-2); opacity: .6; }
+.p3-o :is(.p3-h2, .p3-h3) { color: var(--vagg-ink); }
+.p3-o .p3-ey { color: var(--koppar-ljus); }
+.p3-o :is(.p3-varde, .p3-liten) { color: var(--vagg-mjuk); }
+.p3-o :is(.p3-varde, .p3-text) :is(b, strong) { color: var(--vagg-ink); }
+.p3-o-text { min-width: 0; }
+.p3-o-text > * + * { margin-top: 14px; }
+.p3-o-text > p:not([class]), .p3-o-text .p3-text { color: var(--vagg-mjuk); }
+.p3-o-text > .p3-knapprad { margin-top: 24px; }
+.p3-o-rad { display: grid; gap: 28px; }
+.p3-o-bild { align-self: end; padding-bottom: 28px; min-width: 0; }
+.p3-o + .p3-o { margin-top: 20px; }
+.p3-o-huvud { display: flex; align-items: center; gap: 12px; }
+.p3-o-huvud .p3-dorr { width: 48px; height: 48px; border-radius: 15px; background: var(--vagg-ink); color: var(--vagg); box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.p3-o-huvud .p3-dorr svg { width: 26px; height: 26px; }
+@media (min-width: 1000px) {
+  .p3-o { padding: 64px; border-radius: 44px; }
+  .p3-o.p3-med-bild { padding: 64px 64px 0; }
+  .p3-o-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .p3-o.p3-med-bild .p3-o-text { padding-bottom: 64px; }
+  .p3-o-bild { padding-bottom: 64px; align-self: center; }
+  .p3-o.p3-vand .p3-o-text { order: 2; }
+  .p3-o + .p3-o { margin-top: 28px; }
+}
+
+/* ---------- Premium: sidans mörkaste ton med kopparklack ---------- */
+.p3-premium { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-stor, 32px); background: var(--vagg-3); color: var(--vagg-ink); padding: 32px 22px; box-shadow: 0 8px 0 var(--koppar-klack); }
+.p3-premium::before { content: ''; position: absolute; z-index: -1; right: -120px; top: -160px; width: 440px; height: 440px; border-radius: 50%; background: var(--vagg-2); }
+.p3-premium :is(.p3-h2, .p3-h3) { color: #fff; }
+.p3-premium .p3-ey { color: var(--koppar-ljus); }
+.p3-premium :is(p, .p3-liten) { color: var(--vagg-mjuk); }
+.p3-premium .p3-lank { color: #fff; }
+.p3-premium-rad { display: grid; gap: 28px; }
+.p3-premium-text > * + * { margin-top: 14px; }
+.p3-premium-text > .p3-pris { margin-top: 22px; }
+.p3-premium-text > .p3-knapprad { margin-top: 22px; }
+@media (min-width: 900px) { .p3-premium { padding: 56px; } }
+@media (min-width: 1000px) { .p3-premium-rad.p3-med-lista { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; } }
+
+.p3-pris { font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.03em; color: #fff; }
+.p3-pris small { font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 8px; }
+.p3-pris s { font-size: .42em; font-weight: 600; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 10px; }
+@media (max-width: 479px) { .p3-pris small { display: block; margin: 8px 0 0; } }
+@media (min-width: 900px) { .p3-pris { font-size: 60px; } }
+.p3-pris.p3-pa-papper { color: var(--ink-1); }
+.p3-pris.p3-pa-papper :is(small, s) { color: var(--ink-3); }
+
+.p3-bockar { display: grid; gap: 10px; }
+.p3-bockar li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 15.5px; }
+.p3-bockar li::before { content: ''; width: 24px; height: 24px; border-radius: 8px; background: var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/16px no-repeat; }
+.p3-bockar.p3-pa-papper li::before { background-color: var(--ton); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E"); }
+.p3-premium .p3-bockar li { color: var(--vagg-ink); }
+
+/* ---------- instrument: arket och den svävande brickan ---------- */
+.p3-ark { position: relative; background: #fff; color: #1A1A1F; border-radius: 6px; box-shadow: 0 10px 0 rgba(0, 0, 0, .22), 0 30px 60px rgba(0, 0, 0, .28); padding: 7% 7.5%; font-family: Georgia, 'Times New Roman', serif; text-align: left; }
+.p3-ark .p3-ark-namn { font-size: clamp(17px, 2.5vw, 26px); line-height: 1.1; }
+.p3-ark .p3-ark-kontakt { display: inline-block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: clamp(7.5px, .9vw, 10px); color: #4A4A55; }
+.p3-ark .p3-ark-rubrik { margin-top: 5.5%; padding-bottom: 3px; border-bottom: 1px solid #C9C6BF; font-weight: 400; font-size: clamp(10px, 1.15vw, 13px); }
+.p3-ark .p3-ark-rad { display: flex; justify-content: space-between; gap: 8px; margin-top: 7px; font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: clamp(7.5px, .9vw, 10px); }
+.p3-ark .p3-ark-rad span { font-weight: 400; color: #65656E; white-space: nowrap; }
+.p3-ark .p3-l { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #DCDAD5; }
+.p3-ark .p3-l.p3-k { width: 62%; } .p3-ark .p3-l.p3-m { width: 84%; } .p3-ark .p3-l.p3-s { width: 46%; }
+.p3-ark .p3-del { position: relative; margin: 0 -2.5%; padding: 0 2.5% 6px; border-radius: 8px; }
+.p3-ark .p3-del.p3-vald { outline: 2.5px solid var(--koppar); outline-offset: 2px; background: #FFF7F0; }
+.p3-nal { position: absolute; left: calc(-6.5% - 17px); top: 2px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #EEF3F2; color: #5C6F6E; border: 3px solid #fff; font-family: var(--disp); font-weight: 800; font-size: 15px; box-shadow: 0 3px 0 rgba(0, 0, 0, .18); }
+.p3-del.p3-vald .p3-nal { background: var(--koppar); color: var(--koppar-text); }
+@media (min-width: 900px) { .p3-nal { width: 42px; height: 42px; font-size: 18px; left: calc(-6.5% - 21px); } }
+.p3-ark.p3-liten-ark .p3-nal { width: 26px; height: 26px; font-size: 12px; left: calc(-6.5% - 13px); border-width: 2px; }
+.p3-ark.p3-liten-ark .p3-ark-namn { font-size: 16px; }
+
+.p3-svav { position: absolute; z-index: 3; background: var(--papper); color: var(--ink-1); border-radius: 20px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 6px 0 rgba(0, 0, 0, .2), 0 24px 48px rgba(0, 0, 0, .24); padding: 14px 16px; text-align: left; }
+.p3-svav .p3-stor { font-family: var(--disp); font-weight: 800; font-size: 46px; line-height: .95; letter-spacing: -0.04em; color: var(--vagg); }
+.p3-svav .p3-under { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.p3-svav.p3-statisk { position: relative; display: inline-block; }
+@media (min-width: 900px) { .p3-svav { padding: 18px 22px; } .p3-svav .p3-stor { font-size: 68px; } .p3-svav .p3-under { font-size: 15px; } .p3-svav.p3-mindre .p3-stor { font-size: 40px; } }
+.p3-svav.p3-mindre .p3-stor { font-size: 34px; }
+
+.p3-stapel { height: 10px; border-radius: 999px; background: var(--ton); overflow: hidden; }
+.p3-stapel i { display: block; height: 100%; border-radius: 999px; background: var(--ton-ink); }
+.p3-stapel.p3-koppar i { background: var(--koppar); }
+
+@keyframes p3-gunga { 0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); } 50% { transform: translateY(-8px) rotate(var(--rot, 0deg)); } }
+.p3-gungar { animation: p3-gunga 6s ease-in-out infinite; }
+.p3-gungar.p3-sen { animation-delay: -3s; }
+@media (prefers-reduced-motion: reduce) { .p3-gungar { animation: none; } }
+
+/* CV-arket med poäng och fynd (CV-analysens instrument) */
+.p3-instr { position: relative; width: 100%; max-width: 540px; margin: 0 auto; padding: 0 0 0 9%; }
+.p3-instr.p3-med-poang { padding-top: 78px; }
+.p3-instr.p3-med-fynd { padding-bottom: 20px; }
+.p3-instr .p3-ark { transform: rotate(var(--ark-rot, 1.4deg)); }
+.p3-instr .p3-poang { left: 0; top: 0; --rot: -3deg; transform: rotate(-3deg); }
+.p3-instr .p3-fynd { right: -6px; bottom: -8px; width: min(270px, 74%); --rot: 2deg; transform: rotate(2deg); }
+.p3-instr .p3-fynd b { display: flex; justify-content: space-between; gap: 8px; font-size: 14.5px; }
+.p3-instr .p3-fynd .p3-stapel { margin-top: 8px; }
+.p3-instr .p3-fynd p { margin-top: 8px; font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
+.p3-instr .p3-kvar { position: absolute; z-index: 4; right: 2%; top: 26px; }
+@media (min-width: 1000px) { .p3-instr.p3-med-poang { padding-top: 104px; } .p3-instr { padding-left: 10%; } .p3-instr.p3-med-fynd { padding-bottom: 30px; } .p3-instr .p3-kvar { top: 40px; } .p3-instr .p3-fynd { right: -28px; bottom: 10px; } }
+
+/* ---------- testramen: som sessionen ser ut sedan omgång 3 (2026-11-21) ---------- */
+.p3-tram { container-type: inline-size; width: 100%; max-width: 470px; margin: 0 auto; background: #EBEDF6; border-radius: 28px; border: 2px solid rgba(0, 0, 0, .08); box-shadow: 0 8px 0 rgba(0, 0, 0, .28), 0 30px 60px rgba(0, 0, 0, .3); overflow: hidden; text-align: left; }
+.p3-tram-huvud { display: flex; align-items: center; gap: 10px; padding: 12px 14px 10px; }
+.p3-tram-huvud b { min-width: 0; margin-right: auto; font-family: var(--disp); font-size: 15px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-1); }
+.p3-tram-huvud b span { display: block; font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 12.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; }
+.p3-tkryss { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 12px; background: #fff; color: var(--ink-2); box-shadow: 0 3px 0 #C8CEEC; }
+.p3-tkryss svg { width: 16px; height: 16px; }
+.p3-tkapsel { display: inline-flex; align-items: center; gap: 7px; flex: none; height: 34px; padding: 0 12px; border-radius: 12px; background: #fff; color: var(--ink-1); box-shadow: 0 3px 0 #C8CEEC; font-family: var(--disp); font-weight: 700; font-size: 14px; white-space: nowrap; }
+.p3-tkapsel i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #D5D9EC; border-top-color: var(--koppar); border-right-color: var(--koppar); }
+.p3-tbitar { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 0 14px 12px; }
+.p3-tbitar i { height: 10px; border-radius: 5px; background: #D5D9EC; }
+.p3-tbitar i.p3-b { background: #3B4790; }
+.p3-tbitar i.p3-r { background: #2F7D5B; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+.p3-tbitar i.p3-f { background: #F6D3CE; box-shadow: inset 0 0 0 2.5px #B3382E; }
+.p3-tbitar i.p3-nu { background: #fff; box-shadow: inset 0 0 0 3px var(--koppar); }
+.p3-tram-kropp { padding: 4px 14px 14px; }
+.p3-tram-kropp > * + * { margin-top: 12px; }
+.p3-tfraga { font-family: var(--disp); font-weight: 700; font-size: 17px; line-height: 1.25; color: var(--ink-1); }
+.p3-tstycke { padding: 14px; border-radius: 16px; background: #fff; box-shadow: 0 3px 0 #C8CEEC; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+.p3-tram-fot { display: flex; align-items: center; gap: 12px; padding: 12px 14px 16px; background: #fff; border-top: 2px solid #DFE3F6; }
+.p3-tram-fot .p3-knapp { flex: 1; }
+.p3-tbrade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; padding: 10px; border-radius: 22px; background: #1B2246; box-shadow: 0 5px 0 #0E1330; }
+.p3-tbrade span { display: grid; place-items: center; aspect-ratio: 1; min-width: 0; border-radius: 13px; background: #fff; color: #1B2246; box-shadow: inset 0 -5px 0 #D5D9EC; font-family: var(--disp); font-weight: 800; font-size: 20px; }
+.p3-tbrade svg { width: 56%; height: 56%; margin-top: -4%; }
+.p3-tbrade .p3-lucka { background: #2B3470; border: 3px dashed var(--koppar); box-shadow: none; color: var(--koppar-ljus); font-size: 26px; }
+.p3-tbrade .p3-fylld { background: #DCEFE5; box-shadow: inset 0 -5px 0 #A9D5BE, 0 0 0 3px #2F7D5B; }
+.p3-tbrade.p3-rad { grid-template-columns: repeat(var(--kol, 5), 1fr); }
+.p3-tsvar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.p3-tsvar.p3-s1 { grid-template-columns: 1fr; }
+.p3-tsvar.p3-s2 { grid-template-columns: repeat(2, 1fr); }
+.p3-tsvar.p3-s4 { grid-template-columns: repeat(2, 1fr); }
+@container (min-width: 400px) {
+  .p3-tsvar.p3-s6 { grid-template-columns: repeat(6, 1fr); }
+  .p3-tsvar.p3-s6 .p3-ttan { width: 17px; height: 17px; left: 3px; top: 3px; border-width: 1.5px; border-radius: 5px; font-size: 9.5px; }
+  .p3-tsvar.p3-s6 .p3-tkloss.p3-fig svg { width: 46%; height: 46%; transform: translate(3px, 4px); }
+  .p3-tsvar.p3-s4 { grid-template-columns: repeat(4, 1fr); }
+}
+.p3-tkloss { position: relative; display: grid; place-items: center; min-width: 0; min-height: 46px; padding: 6px 8px; border-radius: 14px; background: #fff; color: var(--ink-1); border: 2px solid #C8CEEC; box-shadow: 0 4px 0 #C8CEEC; font-weight: 600; font-size: 14.5px; line-height: 1.2; text-align: center; }
+.p3-tkloss.p3-fig { aspect-ratio: 1; padding: 0; color: #1B2246; }
+.p3-tkloss.p3-fig svg { width: 52%; height: 52%; }
+.p3-tkloss.p3-rad { grid-template-columns: 26px minmax(0, 1fr); gap: 10px; place-items: center start; text-align: left; padding: 8px 12px 8px 8px; }
+.p3-ttan { position: absolute; left: 5px; top: 5px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; border: 2px solid #C8CEEC; background: #F4F5FB; color: #4A4F6A; font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: 11px; line-height: 1; font-style: normal; }
+.p3-tkloss.p3-rad .p3-ttan { position: static; width: 26px; height: 26px; border-radius: 8px; font-size: 12px; }
+.p3-tkloss.p3-vald { background: #EEF0FB; border-color: #3B4790; box-shadow: 0 4px 0 #3B4790; }
+.p3-tkloss.p3-vald .p3-ttan { background: #3B4790; border-color: #3B4790; color: #fff; }
+.p3-tkloss.p3-ratt { background: #DCEFE5; border-color: #2F7D5B; box-shadow: 0 4px 0 #2F7D5B; }
+.p3-tkloss.p3-ratt .p3-ttan { background: #2F7D5B; border-color: #2F7D5B; color: #fff; }
+.p3-tkloss.p3-fel { background: #FBE6E3; border-color: #B3382E; box-shadow: 0 4px 0 #B3382E; }
+.p3-tkloss.p3-fel .p3-ttan { background: #B3382E; border-color: #B3382E; color: #fff; }
+.p3-tdom { border-radius: 18px; border: 2px solid #A9D5BE; background: #DCEFE5; padding: 14px; color: var(--ink-1); }
+.p3-tdom.p3-fel { border-color: #EFBDB6; background: #FBE6E3; }
+.p3-tdom-rad { display: flex; align-items: center; gap: 9px; font-family: var(--disp); font-weight: 800; font-size: 16px; color: #1F5C42; }
+.p3-tdom.p3-fel .p3-tdom-rad { color: #8A2A22; }
+.p3-tdom-rad svg { width: 24px; height: 24px; flex: none; }
+.p3-tdom-kropp { margin-top: 10px; padding: 12px 14px; border-radius: 13px; background: #fff; }
+.p3-tdom-kropp em { display: block; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #3B4790; }
+.p3-tdom-kropp b { display: block; margin-top: 4px; font-family: var(--disp); font-size: 16px; line-height: 1.3; }
+.p3-tdom-kropp p { margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+
+/* ---------- spåret i Jobbsöket ---------- */
+.p3-stig { container-type: inline-size; position: relative; width: 100%; aspect-ratio: 5 / 3; color: var(--vagg-ink); }
+.p3-stig svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.p3-stig .p3-etk { position: absolute; transform: translate(-50%, 0); text-align: center; font-family: var(--disp); font-weight: 700; font-size: 13px; line-height: 1.2; white-space: nowrap; }
+.p3-stig .p3-etk small { display: block; font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 12px; color: var(--vagg-mjuk); }
+.p3-stig .p3-etk.p3-vanster { transform: none; text-align: left; }
+.p3-stig .p3-etk.p3-hoger { transform: none; text-align: right; }
+.p3-stig .p3-bol { position: absolute; transform: translate(-50%, -100%); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--vagg-ink); color: var(--vagg); font-family: var(--disp); font-weight: 800; font-size: 12px; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.p3-stig .p3-bol.p3-nu { outline: 3px solid var(--koppar); outline-offset: 2px; }
+.p3-stig .p3-bol.p3-tom { background: none; border: 2.5px dashed currentColor; color: inherit; box-shadow: none; }
+.p3-stig .p3-tyst { position: absolute; transform: translate(-50%, -100%); height: 22px; padding: 0 8px; border-radius: 999px; background: var(--koppar); color: var(--koppar-text); font-size: 12px; font-weight: 700; display: grid; place-items: center; white-space: nowrap; }
+@container (min-width: 520px) {
+  .p3-stig .p3-etk { font-size: 16px; }
+  .p3-stig .p3-etk small { font-size: 13.5px; }
+  .p3-stig .p3-bol { width: 52px; height: 52px; font-size: 16px; border-radius: 16px; }
+  .p3-stig .p3-tyst { height: 26px; padding: 0 10px; font-size: 12.5px; }
+}
+@container (max-width: 380px) {
+  .p3-stig .p3-etk small { white-space: normal; max-width: 9.5em; }
+}
+.p3-stig-pa-papper { background: var(--vagg); border-radius: 22px; padding: 18px 18px 22px; }
+
+/* ---------- träffen i Matchade jobb ---------- */
+.p3-mj { width: 100%; max-width: 480px; margin: 0 auto; }
+.p3-mj-topp { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-bottom: 12px; color: var(--vagg-ink); }
+.p3-mj-topp b { font-family: var(--disp); font-weight: 800; font-size: 20px; margin-right: auto; }
+.p3-mj-topp span { font-size: 13.5px; color: var(--vagg-mjuk); }
+.p3-mj-topp u { color: var(--vagg-ink); font-weight: 600; text-underline-offset: 3px; }
+.p3-ring { --p: 72; flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(closest-side, var(--papper) 74%, transparent 76%), conic-gradient(var(--ton-ink) calc(var(--p) * 1%), var(--ton) 0); font-family: var(--disp); font-weight: 800; font-size: 17px; line-height: 1; color: var(--ink-1); }
+.p3-ring.p3-liten-ring { width: 44px; height: 44px; font-size: 14.5px; }
+.p3-traff { background: var(--papper); border-radius: 22px; border: 2px solid rgba(0, 0, 0, .06); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); padding: 18px; text-align: left; }
+.p3-traff + .p3-traff { margin-top: 12px; }
+.p3-traff-huvud { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: center; }
+.p3-traff-huvud.p3-med-ring { grid-template-columns: 54px minmax(0, 1fr); }
+.p3-traff-huvud b { display: block; font-family: var(--disp); font-size: 19px; line-height: 1.2; }
+.p3-traff-huvud small { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
+.p3-traff-sista { display: inline-flex; align-items: center; min-height: 30px; margin-top: 12px; padding: 4px 12px; border-radius: 999px; background: var(--koppar-mjuk); color: var(--koppar-ink); font-size: 13.5px; font-weight: 700; }
+.p3-traff-darfor { margin-top: 14px; padding: 14px; border-radius: 16px; background: var(--golv); }
+.p3-traff-darfor > b { display: block; font-size: 12.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ton-ink); }
+.p3-traff-darfor li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; margin-top: 10px; font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+.p3-traff-darfor li::before { content: ''; width: 24px; height: 24px; border-radius: 50%; background: var(--positiv) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.500 12.500l3.800 3.800 7.400-8.300'/%3E%3C/svg%3E") center/15px no-repeat; }
+.p3-traff-darfor li small { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
+.p3-traff-komp { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.p3-traff-komp i { font-style: normal; display: inline-grid; place-items: center; min-height: 26px; padding: 0 10px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); font-size: 13px; font-weight: 600; }
+.p3-traff-darfor .p3-traff-komp { margin-top: 6px; }
+.p3-traff-darfor .p3-traff-komp i { border-radius: 999px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); }
+.p3-traff-gor { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.p3-traff-gor span { min-height: 38px; padding: 0 14px; border-radius: 12px; border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 14px; font-weight: 700; display: inline-grid; place-items: center; }
+.p3-traff-gor span:first-child { background: var(--koppar); border-color: var(--koppar-klack); color: var(--koppar-text); }
+.p3-traffrad { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; padding: 12px 14px; margin: 10px 4% 0; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 rgba(0, 0, 0, .2); text-align: left; }
+.p3-traffrad b { display: block; font-family: var(--disp); font-size: 15.5px; line-height: 1.2; }
+.p3-traffrad small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+.p3-traffrad + .p3-traffrad { margin-left: 8%; margin-right: 8%; opacity: .92; }
+
+/* ---------- brevet och annonsen ---------- */
+.p3-brevpar { position: relative; width: 100%; max-width: 520px; margin: 0 auto; padding: 0 0 26px 16%; }
+.p3-annons { position: absolute; z-index: 2; left: 0; top: 16%; width: 46%; background: var(--papper); border-radius: 18px; padding: 14px; box-shadow: 0 6px 0 rgba(0, 0, 0, .22), 0 20px 40px rgba(0, 0, 0, .2); --rot: -4deg; transform: rotate(-4deg); font-size: 12.5px; text-align: left; }
+.p3-annons b { display: block; font-family: var(--disp); font-size: 14.5px; line-height: 1.2; }
+.p3-annons li { display: flex; gap: 6px; align-items: center; margin-top: 7px; color: var(--ink-2); line-height: 1.25; }
+.p3-annons li::before { content: ''; flex: none; width: 14px; height: 14px; border-radius: 5px; background: var(--positiv-mjuk) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F7D5B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/10px no-repeat; }
+.p3-annons li.p3-ej::before { background: var(--papper-2); }
+.p3-brevark .p3-ark-stycke { font-family: Inter, system-ui, sans-serif; font-size: clamp(7.5px, .95vw, 10.5px); line-height: 1.55; color: #33333A; margin-top: 8px; }
+.p3-brevark mark { background: #FBE3D0; color: inherit; border-radius: 3px; padding: 0 2px; }
+.p3-brevpar .p3-svav { right: -4px; bottom: 0; }
+@media (min-width: 900px) { .p3-annons { font-size: 13.5px; padding: 18px; } .p3-annons b { font-size: 16px; } .p3-brevpar .p3-svav { right: -24px; } }
+
+/* ---------- samtalet med Jobbcoachen ---------- */
+.p3-chatt { display: grid; gap: 10px; width: 100%; max-width: 480px; margin: 0 auto; text-align: left; }
+.p3-chatt > p { max-width: 86%; padding: 13px 16px; border-radius: 20px; font-size: 15px; line-height: 1.45; }
+.p3-chatt .p3-du { justify-self: end; background: var(--ton-ink); color: #fff; border-bottom-right-radius: 6px; }
+.p3-chatt .p3-jc { background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 5px; border-bottom-left-radius: 6px; }
+.p3-chatt .p3-jc small { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--ton-ink); }
+.p3-chatt-forslag { display: flex; flex-wrap: wrap; gap: 8px; }
+.p3-chatt-forslag span { min-height: 36px; padding: 6px 14px; border-radius: 999px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant-stark); font-size: 14px; font-weight: 600; line-height: 1.25; display: inline-flex; align-items: center; }
+.p3-chatt-yta { background: var(--golv); border-radius: var(--r-stor, 32px); padding: 24px 18px; }
+
+/* ---------- mallminiatyren ---------- */
+.p3-mall { display: grid; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink-1); }
+.p3-mall-bild { position: relative; display: block; background: #fff; border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 10px; overflow: hidden; }
+.p3-mall-bild img { width: 100%; height: auto; aspect-ratio: 112 / 158; object-fit: cover; object-position: top; }
+.p3-mall-bild.p3-brevmall img { aspect-ratio: 480 / 679; }
+.p3-mall-format { position: absolute; left: 8px; bottom: 8px; min-height: 22px; padding: 2px 8px; border-radius: 7px; background: rgba(26, 26, 31, .82); color: #fff; font-size: 12px; font-weight: 700; display: inline-grid; place-items: center; }
+.p3-mall-rad { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.p3-mall-rad b { font-family: var(--disp); font-size: 16px; margin-right: auto; }
+.p3-mall-rad .p3-chip { min-height: 24px; font-size: 12px; padding: 1px 9px; }
+a.p3-mall:hover .p3-mall-bild { border-color: var(--kant-stark); }
+
+/* Ankare hamnar under menyn (64 px i telefonen, 76 px på dator). */
+.p3 :is(section, article, div, h2, h3)[id] { scroll-margin-top: 92px; }
