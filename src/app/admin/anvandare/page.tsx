@@ -23,6 +23,9 @@ import PageHeader from '@/components/shell/PageHeader';
 import EmptyState from '@/components/shell/EmptyState';
 import FlowError from '@/components/shell/FlowError';
 import { MATSTART, tidKort } from '@/lib/admin/tomt';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { hamtaAvslut } from './avslut';
+import RaderadeKonton from './RaderadeKonton';
 import { undantagText } from '@/lib/admin/undantag';
 import Filter from './Filter';
 import {
@@ -225,6 +228,8 @@ export default async function AdminAnvandarePage({
   let lista: Awaited<ReturnType<typeof hamtaAnvandare>>;
   let kallor: Awaited<ReturnType<typeof hamtaKallor>>;
   let oversikt: Awaited<ReturnType<typeof hamtaOversikt>>;
+  // Avsluten läses för sig och kastar aldrig: saknas tabellen visas tomt läge.
+  const avslutLas = hamtaAvslut(getSupabaseAdmin());
 
   try {
     [lista, kallor, oversikt] = await Promise.all([
@@ -244,6 +249,8 @@ export default async function AdminAnvandarePage({
       </div>
     );
   }
+
+  const avslut = await avslutLas;
 
   const forsta = lista.total === 0 ? 0 : (lista.sida - 1) * SIDSTORLEK + 1;
   const sista = Math.min(lista.sida * SIDSTORLEK, lista.total);
@@ -355,6 +362,8 @@ export default async function AdminAnvandarePage({
           </nav>
         ) : null}
       </section>
+
+      <RaderadeKonton avslut={avslut} />
     </div>
   );
 }

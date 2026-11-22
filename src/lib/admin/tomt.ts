@@ -43,6 +43,11 @@ export const MATSTART = {
   undantag: '2026-09-22',
   /** Konverteringsomgången med signup_completed, 11 sep 22.08. */
   signupHandelse: '2026-09-11T20:08:00Z',
+  /**
+   * Avslutsstatistiken (konto_avslut) skrivs från deploy. Sätts om till
+   * deploytiden vid push (beslut-mejl-och-radering 2c punkt 8).
+   */
+  avslut: '2026-11-23T09:00:00Z',
 } as const;
 
 const MANAD = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
