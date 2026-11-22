@@ -1,6 +1,8 @@
 -- Profilvisningar: kandidaten ska kunna räkna sina visningar, aldrig se vem.
 --
--- EJ KÖRD. Väntar på ägarens ja.
+-- KÖRD i produktionen 2026-11-22 (ägarens ja samma kväll). Kontrollerat som
+-- rollen authenticated: räkningen på id går igenom, kolumnen
+-- recruiter_user_id nekas (42501), anon läser ingenting, servern skriver.
 --
 -- Fyndet (konsekvensbedömningen 2026-11-22, bekräftat mot databasen samma
 -- dag): rollerna anon och authenticated hade full rätt på tabellen, och
