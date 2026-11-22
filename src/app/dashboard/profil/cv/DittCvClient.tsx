@@ -54,6 +54,7 @@ import { arbetslageHref, flikHref } from '@/components/cv/rum3/flikar';
 import { ANNAN_MALL, DRAR_NER, NASTA, NY, NYTT_ARK, PANEL, RADER, SIFFROR, VAGG } from '@/components/cv/rum3/texter';
 import { platshallareIRad } from '@/lib/cv/poang';
 import { cvTextForVisning } from '@/lib/cv/visningsText';
+import { originalfilHref, originalfilNamn, originalfilSokvag } from '@/lib/lagring/originalfil';
 
 // Syns aldrig i första vyn: snabbpoängen bara direkt efter första
 // uppladdningen, betalväggen bara när ett låst fynd trycks.
@@ -993,6 +994,13 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
     </section>
   ) : null;
 
+  // Originalfilen: bara när CV:t har en uppladdad fil i kontots egen mapp.
+  const originalfil = (() => {
+    if (!aktivt) return null;
+    const sokvag = originalfilSokvag(aktivt.original_file_path, aktivt.user_id);
+    return sokvag ? { namn: originalfilNamn(aktivt.file_name, sokvag) } : null;
+  })();
+
   const rader = aktivt ? (
     <div className="t3-nederst">
       <div className="t3-radk">
@@ -1035,6 +1043,30 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
           <span className="xl:hidden">{RADER.nyttKnappKort}</span>
         </button>
       </div>
+      {originalfil ? (
+        <div className="t3-radk" data-originalfil>
+          <span className="cv3-ik" aria-hidden="true">
+            <FileText size={24} strokeWidth={2.2} />
+          </span>
+          <span className="t3-radk-text">
+            <span className="cv3-radk-ogon">{RADER.originalOgon}</span>
+            <b>{RADER.original}</b>
+            <small>
+              <span className="hidden xl:inline">{RADER.originalText(originalfil.namn)}</span>
+              <span className="break-all xl:hidden">{RADER.originalTextKort(originalfil.namn)}</span>
+            </small>
+            <span className="block">
+              <a href={originalfilHref(aktivt.id) + '&ladda=1'} className="cv3-textlank" download={originalfil.namn}>
+                {RADER.originalLadda}
+              </a>
+            </span>
+          </span>
+          <a href={originalfilHref(aktivt.id)} target="_blank" rel="noopener" className="t3-liten">
+            <span className="hidden xl:inline">{RADER.originalKnapp}</span>
+            <span className="xl:hidden">{RADER.originalKnappKort}</span>
+          </a>
+        </div>
+      ) : null}
       {bygge && !utkast ? (
         <div className="t3-radk">
           <span className="cv3-ik" aria-hidden="true">
