@@ -4,6 +4,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
+const sharp = createRequire('C:/Users/chris/cvbrev/node_modules/')('sharp')
 
 const rot = path.dirname(fileURLToPath(import.meta.url))
 const mal = process.argv[2]
@@ -19,6 +21,7 @@ const GRUPPER = [
   ['Rekryteringstester', 'tran', [['rekryteringstester', 'Rekryteringstester', '/verktyg/rekryteringstester'], ['personlighetstest', 'Personlighetstest', '/verktyg/personlighetstest']]],
   ['CV', 'cv', [['cv-analys', 'CV-analys', '/verktyg/cv-analys'], ['skapa-cv', 'Skapa CV', '/verktyg/skapa-cv'], ['cv-mallar', 'CV-mallar', '/cv-mallar'], ['linkedin', 'LinkedIn-profilen', '/verktyg/linkedin-optimering']]],
   ['Personliga brev', 'brev', [['personligt-brev', 'Personligt brev', '/verktyg/personligt-brev'], ['brev-exempelnav', 'Brevexempel, navet', '/personligt-brev-exempel'], ['brev-exempel', 'Brevexempel, ett yrke', '/personligt-brev-exempel/[yrke]'], ['brev-artikel', 'Artikel med mallvisaren', '/artiklar/...'], ['skapa-brev-start', 'Skriv brev, start', '/skapa-brev/start']]],
+  ['Sidor utan egen skiss', 'neutral', [['hjalpcenter', 'Hjälpcenter', '/hjalpcenter'], ['kontakt', 'Kontakt', '/kontakt'], ['press', 'Press', '/press'], ['karriar', 'Karriär', '/karriar'], ['integrationer', 'Integrationer', '/integrationer'], ['exempel', 'Exempel och mallar', '/exempel'], ['for-rekryterare', 'För rekryterare', '/for-rekryterare'], ['rakna-ut', 'Räkna ut', '/rakna-ut'], ['kalkylator', 'En kalkylator', '/rakna-ut/...'], ['jobbkartan', 'Jobbkartan', '/jobbkartan'], ['artiklar', 'Artiklar', '/artiklar'], ['cv-exempel', 'CV-exempel', '/cv-exempel'], ['cv-exempel-yrke', 'CV-exempel, ett yrke', '/cv-exempel/[yrke]'], ['cv-mallar-yrke', 'CV-mall, ett yrke', '/cv-mallar/[yrke]'], ['auth-glomt', 'Glömt lösenordet', '/auth/forgot-password'], ['fel404', 'Sidan finns inte', '404']]],
   ['Jobbsöket', 'jobb', [['sokta-tjanster', 'Sökta tjänster (ny sida)', '/verktyg/sokta-tjanster'], ['jobbmatchning', 'Jobbmatchning', '/verktyg/jobbmatchning'], ['jobbcoachen', 'Jobbcoachen', '/verktyg/jobbcoachen'], ['bli-upptackt', 'Bli upptäckt', '/verktyg/bli-upptackt']]],
 ]
 
@@ -44,12 +47,17 @@ function punkter(md, monster) {
 }
 
 fs.mkdirSync(path.join(mal, 'ut'), { recursive: true })
+fs.mkdirSync(path.join(mal, 'byggt'), { recursive: true })
+const BYGGT_NAMN = { 'brev-artikel': 'artikel-brev' }
+const byggda = []
 const filer = []
 const data = GRUPPER.map(([namn, farg, sidor]) => ({ namn, farg, sidor: sidor.map(([id, n, adress]) => {
   const kalla = path.join(rot, 'ut', `skiss-${id}.html`)
   const not = path.join(rot, 'noter', `${id}.md`)
   const klar = fs.existsSync(kalla) && fs.existsSync(not)
   const s = { id, namn: n, adress, fil: klar ? `ut/skiss-${id}.html` : null, granskad: GRANSKADE.has(id), sedd: SEDDA.has(id) }
+  const bn = BYGGT_NAMN[id] || id
+  if (fs.existsSync(path.join(rot, 'bilder-byggt', `${bn}-1440-01.png`)) && fs.existsSync(path.join(rot, 'bilder-byggt', `${bn}-375-01.png`))) { s.byggt = { d: `byggt/${bn}-1440.webp`, m: `byggt/${bn}-375.webp` }; byggda.push(bn) }
   if (klar) {
     fs.copyFileSync(kalla, path.join(mal, 'ut', `skiss-${id}.html`))
     filer.push(`ut/skiss-${id}.html`)
@@ -73,6 +81,10 @@ const kopiera = (rel) => {
 kopiera('underlag/mallar')
 kopiera('underlag/artikelbild')
 
+for (const bn of byggda) for (const w of [1440, 375]) {
+  await sharp(path.join(rot, 'bilder-byggt', `${bn}-${w}-01.png`)).webp({ quality: 80 }).toFile(path.join(mal, 'byggt', `${bn}-${w}.webp`))
+  filer.push(`byggt/${bn}-${w}.webp`)
+}
 const mall = fs.readFileSync(path.join(rot, 'artefakt-mall.html'), 'utf8')
 fs.writeFileSync(path.join(mal, 'publikt-omgang-3.html'), mall.replace('__DATA__', JSON.stringify(data)))
 fs.writeFileSync(path.join(mal, 'filer.json'), JSON.stringify(filer))

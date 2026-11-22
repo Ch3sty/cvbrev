@@ -72,6 +72,12 @@
   .ruta.telefon { display: flex; justify-content: center; }
   .ruta.telefon iframe { flex: none; width: 412px; max-width: 100%; height: 100%; border-inline: 2px solid var(--kant-stark); }
 
+  .byggt { display: grid; gap: 16px; align-items: start; }
+  .byggt figure { margin: 0; min-width: 0; }
+  .byggt img { display: block; width: 100%; height: auto; border-radius: 16px; border: 2px solid var(--kant-stark); background: var(--yta-2); }
+  .byggt figcaption { margin-top: 8px; font-size: 13px; color: var(--fg-3); }
+  @media (min-width: 800px) { .byggt { grid-template-columns: minmax(0, 1fr) minmax(0, 250px); } }
+  .segment button:disabled { opacity: .4; cursor: default; }
   .noter { display: grid; gap: 14px; }
   @media (min-width: 800px) { .noter { grid-template-columns: 1fr 1fr; } }
   .not { background: var(--yta); border: 2px solid var(--kant); border-bottom-width: 5px; border-radius: 18px; padding: 18px 20px; }
@@ -85,7 +91,7 @@
 <header class="topp gutter">
   <div class="bredd">
     <h1>Publika sidorna, omgång 3</h1>
-    <p>Skisser för alla publika sidor i samma standard som det nya inloggade läget. Välj en sida i listan och växla mellan telefon och dator. "Granskad" betyder att hela sidan är sedd i telefon och dator av den som håller ihop arbetet. "Stickprovad" betyder att första skärmen är sedd i telefonbredd och att alla tre bredder är renderade utan sidledsrullning. Inget byggs förrän du har godkänt.</p>
+    <p>Alla publika sidor är byggda efter de godkända skisserna och ligger på grenen design/publikt-omgang3, inte pushade. Välj en sida och växla mellan det byggda (bilder av sidans översta del, tagna på det lokala bygget) och skissen. Under varje sida står skissens not: vad som ändrades mot den gamla sidan, och vad som var öppet när skissen ritades. De öppna punkterna har agenterna sedan avgjort.</p>
     <div class="lage" id="lage"></div>
   </div>
 </header>
@@ -97,15 +103,17 @@
       <div class="list-rad">
         <div><h2 id="namn"></h2><code id="adress"></code></div>
         <div class="segment" role="group" aria-label="Bredd">
-          <button id="b-telefon" aria-pressed="false">Telefon 412</button>
-          <button id="b-dator" aria-pressed="true">Dator 1440</button>
+          <button id="b-byggt" aria-pressed="true">Byggt</button>
+          <button id="b-telefon" aria-pressed="false">Skiss, telefon</button>
+          <button id="b-dator" aria-pressed="false">Skiss, dator</button>
         </div>
         <a class="oppna" id="oppna" href="#">Öppna skissen ensam</a>
       </div>
       <div class="ruta" id="ruta"><iframe id="ram" title="Skiss" loading="lazy"></iframe></div>
+      <div class="byggt" id="byggt" hidden><figure><img id="bd" alt="Den byggda sidan i datorbredd, sidans översta del"><figcaption>Byggt, dator 1440, sidans översta del</figcaption></figure><figure><img id="bm" alt="Den byggda sidan i telefonbredd, sidans översta del"><figcaption>Byggt, telefon 375, sidans översta del</figcaption></figure></div>
       <div class="noter">
         <div class="not"><h3>Det här ändras</h3><ul id="andras"></ul></div>
-        <div class="not beslut"><h3>Kräver ditt beslut</h3><ul id="beslut"></ul></div>
+        <div class="not beslut"><h3>Var öppet i skissen, avgjort sedan dess</h3><ul id="beslut"></ul></div>
       </div>
     </section>
   </div>
@@ -116,20 +124,22 @@
   const GRUPPER = __DATA__
 
   const alla = GRUPPER.flatMap((g) => g.sidor)
-  const klara = alla.filter((s) => s.fil)
+  const klara = alla.filter((s) => s.fil || s.byggt)
   const el = (id) => document.getElementById(id)
   let vald = null
-  let lage = window.matchMedia('(max-width: 700px)').matches ? 'telefon' : 'dator'
+  let lage = 'byggt'
+  let visat = 'byggt'
 
   const granskade = klara.filter((s) => s.granskad).length
-  el('lage').innerHTML = `<div><b>${klara.length}</b><span>ritade, går att titta på</span></div><div><b>${granskade}</b><span>granskade i sin helhet</span></div><div><b>${klara.length - granskade}</b><span>stickprovade i telefon</span></div>`
+  el('lage').innerHTML = `<div><b>${alla.filter((s) => s.byggt).length}</b><span>sidtyper byggda och fotograferade</span></div><div><b>${alla.filter((s) => s.fil).length}</b><span>godkända skisser</span></div><div><b>498</b><span>sidor i SEO-kontrollen</span></div>`
 
   el('lista').innerHTML = GRUPPER.map((g) => `<div class="grupp"><h2><i style="--f:var(--${g.farg})"></i>${g.namn}</h2>` +
-    g.sidor.map((s) => `<button class="rad" data-id="${s.id}" ${s.fil ? '' : 'disabled'}>${s.namn}<small class="${s.fil && !s.granskad ? 'ritad' : ''}">${s.fil ? (s.granskad ? 'Granskad' : (s.sedd ? 'Stickprovad' : 'Ritad')) : 'Ritas nu'}</small></button>`).join('') + '</div>').join('')
+    g.sidor.map((s) => `<button class="rad" data-id="${s.id}" ${s.fil || s.byggt ? '' : 'disabled'}>${s.namn}<small>${s.byggt ? 'Byggd' : (s.fil ? 'Skiss' : 'Saknas')}</small></button>`).join('') + '</div>').join('')
 
   function skala() {
     const ruta = el('ruta'), ram = el('ram')
-    if (lage === 'telefon') { ruta.classList.add('telefon'); ram.style.cssText = ''; return }
+    if (visat === 'byggt') return
+    if (visat === 'telefon') { ruta.classList.add('telefon'); ram.style.cssText = ''; return }
     ruta.classList.remove('telefon')
     const s = ruta.clientWidth / 1440
     ram.style.width = '1440px'
@@ -143,14 +153,20 @@
     vald = s
     el('namn').textContent = s.namn
     el('adress').textContent = s.adress
-    el('oppna').href = s.fil
-    if (el('ram').getAttribute('src') !== s.fil) el('ram').src = s.fil
+    visat = (lage === 'byggt' && !s.byggt) ? 'dator' : (!s.fil ? 'byggt' : lage)
+    el('ruta').hidden = visat === 'byggt'
+    el('byggt').hidden = visat !== 'byggt'
+    if (s.byggt) { el('bd').src = s.byggt.d; el('bm').src = s.byggt.m }
+    el('oppna').hidden = !s.fil
+    if (s.fil) { el('oppna').href = s.fil; if (visat !== 'byggt' && el('ram').getAttribute('src') !== s.fil) el('ram').src = s.fil }
+    el('b-telefon').disabled = !s.fil; el('b-dator').disabled = !s.fil; el('b-byggt').disabled = !s.byggt
     const li = (rader) => (rader && rader.length ? rader.map((r) => `<li>${r}</li>`).join('') : '<li class="tom">Inget särskilt.</li>')
     el('andras').innerHTML = li(s.andras)
     el('beslut').innerHTML = li(s.beslut)
     for (const b of document.querySelectorAll('.rad')) b.setAttribute('aria-current', String(b.dataset.id === s.id))
-    el('b-telefon').setAttribute('aria-pressed', String(lage === 'telefon'))
-    el('b-dator').setAttribute('aria-pressed', String(lage === 'dator'))
+    el('b-byggt').setAttribute('aria-pressed', String(visat === 'byggt'))
+    el('b-telefon').setAttribute('aria-pressed', String(visat === 'telefon'))
+    el('b-dator').setAttribute('aria-pressed', String(visat === 'dator'))
     skala()
   }
 
@@ -160,6 +176,7 @@
     location.hash = b.dataset.id
     visa(b.dataset.id)
   })
+  el('b-byggt').addEventListener('click', () => { lage = 'byggt'; visa(vald.id) })
   el('b-telefon').addEventListener('click', () => { lage = 'telefon'; visa(vald.id) })
   el('b-dator').addEventListener('click', () => { lage = 'dator'; visa(vald.id) })
   window.addEventListener('hashchange', () => visa(location.hash.slice(1)))
