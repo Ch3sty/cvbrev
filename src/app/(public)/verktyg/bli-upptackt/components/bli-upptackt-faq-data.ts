@@ -11,7 +11,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kommer jag bli nerspammad av rekryterare?',
-    a: 'Nej. Bara rekryterare vars sökning matchar din profil kan se dig, och de kan bara skicka en kontaktförfrågan, inte kontakta dig direkt. Du väljer själv om du vill svara.',
+    a: 'Nej. Rekryterare ser din profil utan namn och kontaktuppgifter, och de kan bara skicka en kontaktförfrågan, inte kontakta dig direkt. Du väljer själv om du vill svara.',
   },
   {
     q: 'Hur vet jag att rekryterarna är seriösa?',

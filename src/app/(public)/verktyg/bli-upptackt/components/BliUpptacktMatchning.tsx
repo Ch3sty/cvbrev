@@ -23,11 +23,13 @@ const YOU = {
 }
 
 type Req = { role: string; region: string; min: number; skill: string; style: string }
+// Testkraven följer portalens filtersteg (topp 50, 25 och 10 %). Styrkorna
+// Strukturerad och Utåtriktad är styrkor i portalen, därav raden Styrka.
 const SEARCHES: { name: string; req: Req }[] = [
-  { name: 'Bygg, Västra Götaland', req: { role: 'Projektledare', region: 'Västra Götaland', min: 20, skill: 'LOU', style: 'Strukturerad' } },
-  { name: 'Annan region', req: { role: 'Projektledare', region: 'Stockholm', min: 20, skill: 'LOU', style: 'Strukturerad' } },
-  { name: 'Högre testkrav', req: { role: 'Projektledare', region: 'Västra Götaland', min: 5, skill: 'budgetansvar', style: 'Strukturerad' } },
-  { name: 'Annan arbetsstil', req: { role: 'Projektledare', region: 'Västra Götaland', min: 20, skill: 'LOU', style: 'Utåtriktad' } },
+  { name: 'Bygg, Västra Götaland', req: { role: 'Projektledare', region: 'Västra Götaland', min: 25, skill: 'LOU', style: 'Strukturerad' } },
+  { name: 'Annan region', req: { role: 'Projektledare', region: 'Stockholm', min: 25, skill: 'LOU', style: 'Strukturerad' } },
+  { name: 'Högre testkrav', req: { role: 'Projektledare', region: 'Västra Götaland', min: 10, skill: 'budgetansvar', style: 'Strukturerad' } },
+  { name: 'Annan styrka', req: { role: 'Projektledare', region: 'Västra Götaland', min: 25, skill: 'LOU', style: 'Utåtriktad' } },
 ]
 
 type Row = { key: string; etikett: string; sokEtikett: string; you: string; req: string; ok: boolean }
@@ -38,7 +40,7 @@ function buildRows(req: Req): Row[] {
     { key: 'region', etikett: 'Region', sokEtikett: 'I region', you: YOU.region, req: req.region, ok: req.region === YOU.region },
     { key: 'test', etikett: 'Test', sokEtikett: 'Test, minst', you: `${YOU.test.label}, topp ${YOU.test.pct} %`, req: `Minst topp ${req.min} %`, ok: YOU.test.pct <= req.min },
     { key: 'skill', etikett: 'Kompetens', sokEtikett: 'Kompetens', you: YOU.skills.join(', '), req: req.skill, ok: YOU.skills.includes(req.skill) },
-    { key: 'style', etikett: 'Arbetsstil', sokEtikett: 'Arbetsstil', you: YOU.style, req: req.style, ok: req.style === YOU.style },
+    { key: 'style', etikett: 'Styrka', sokEtikett: 'Styrka', you: YOU.style, req: req.style, ok: req.style === YOU.style },
   ]
 }
 
@@ -81,7 +83,7 @@ export default function BliUpptacktMatchning() {
             </button>
           ))}
         </div>
-        <p className="p3-liten">Bara rekryterare vars sökning matchar din profil ser dig. Ingen bläddrar bland alla.</p>
+        <p className="p3-liten">Du syns i de sökningar där din profil stämmer med det rekryteraren letar efter.</p>
       </div>
 
       <div className="bu-mote" aria-live="polite">

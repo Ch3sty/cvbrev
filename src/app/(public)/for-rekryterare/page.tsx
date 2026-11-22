@@ -140,7 +140,15 @@ const INTEGRITET = [
   },
   {
     rubrik: 'Tydlig datahantering',
-    text: 'En kandidat som stänger av sin synlighet försvinner direkt ur poolen, och drar hen tillbaka sitt konto raderas profilen. Som verifierat företag tecknar ni ett personuppgiftsbiträdesavtal med oss innan ni får tillgång.',
+    text: (
+      <>
+        En kandidat som stänger av sin synlighet försvinner direkt ur poolen, och drar hen tillbaka sitt konto raderas profilen. Som verifierat företag godkänner ni våra{' '}
+        <Link href="/for-rekryterare/villkor" className="underline underline-offset-2">
+          villkor för rekryterare
+        </Link>{' '}
+        innan ni får tillgång.
+      </>
+    ),
   },
 ]
 

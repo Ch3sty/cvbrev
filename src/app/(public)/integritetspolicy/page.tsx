@@ -33,28 +33,32 @@ const RUBRIKER = [
     text: "4. Delning av personuppgifter"
   },
   {
+    id: "bli-upptackt",
+    text: "5. Bli upptäckt: när du väljer att synas för rekryterare"
+  },
+  {
     id: "cookies",
-    text: "5. Cookies och liknande tekniker"
+    text: "6. Cookies och liknande tekniker"
   },
   {
     id: "datasakerhet",
-    text: "6. Datasäkerhet"
+    text: "7. Datasäkerhet"
   },
   {
     id: "datalagring",
-    text: "7. Datalagring"
+    text: "8. Datalagring"
   },
   {
     id: "dina-rattigheter",
-    text: "8. Dina rättigheter"
+    text: "9. Dina rättigheter"
   },
   {
     id: "andringar-i-denna-integritetspolicy",
-    text: "9. Ändringar i denna integritetspolicy"
+    text: "10. Ändringar i denna integritetspolicy"
   },
   {
     id: "kontakta-oss",
-    text: "10. Kontakta oss"
+    text: "11. Kontakta oss"
   }
 ];
 
@@ -108,7 +112,7 @@ export default function PrivacyPolicyPage() {
               <strong>Erbjudanden och tips på mejl:</strong> Ibland mejlar vi om kampanjer, nya tester och sådant som gör jobbsöket lättare. Nya konton får sådana mejl bara om de kryssat i rutan för det vid registreringen. Du kan när som helst stänga av dem via länken i mejlet eller under Inställningar i din profil. Kvitton och mejl som rör ditt konto skickas oavsett.
             </li>
             <li>
-              <strong>Cookies och spårningstekniker:</strong> Se avsnitt 5.
+              <strong>Cookies och spårningstekniker:</strong> Se avsnitt 6.
             </li>
           </ul>
         </section>
@@ -160,7 +164,7 @@ export default function PrivacyPolicyPage() {
                     <strong>Resend:</strong> Skickar våra mejl, till exempel kvitton, påminnelser och svar från supporten. Resend får din e-postadress och mejlets innehåll.
                   </li>
                   <li>
-                    <strong>PostHog:</strong> Användningsstatistik, se avsnitt 5. Lagringen sker i EU.
+                    <strong>PostHog:</strong> Användningsstatistik, se avsnitt 6. Lagringen sker i EU.
                   </li>
               </ul>
                <p>Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är bundna av sina respektive dataskyddsvillkor att skydda din information och inte använda den för andra ändamål.</p>
@@ -177,9 +181,34 @@ export default function PrivacyPolicyPage() {
           </ul>
         </section>
 
+        {/* Bli upptäckt. Lydelserna godkända av ägaren 2026-11-22, ordagrant. */}
+        <section>
+          <h2 id="bli-upptackt">5. Bli upptäckt: när du väljer att synas för rekryterare</h2>
+          <p>
+            Bli upptäckt är frivilligt. Slår du på synligheten visar vi en kandidatprofil för rekryterare, och det gör vi bara med ditt samtycke. Du kan ta tillbaka samtycket när som helst genom att stänga av synligheten. Då försvinner profilen ur kandidatpoolen direkt.
+          </p>
+          <ul>
+            <li>
+              <strong>Vilka som ser profilen:</strong> Rekryterare vid företag som vi har kontrollerat och godkänt innan de får tillgång till kandidatpoolen. En rekryterare kan dela profilen med en kollega via en länk som gäller i fjorton dagar. Länken visar det rekryteraren själv ser, aldrig din e-postadress.
+            </li>
+            <li>
+              <strong>Före ditt ja:</strong> Yrkesroll och erfarenhet, titlar, utbildningens nivå och inriktning, kompetenser, språk, region, villkor, din egen presentation och dina verifierade testresultat. Placeringen på ett test visas bara när du ligger över mitten. Styrkor och arbetsstil från personlighetstestet visas bara om du har valt det.
+            </li>
+            <li>
+              <strong>Efter att du tackat ja till en kontaktförfrågan:</strong> Ditt namn och din e-postadress, dina arbetsgivare, också den nuvarande, en kort beskrivning av varje anställning ur ditt CV, lärosäte, examensår och anställningarnas datum. Väljer du Öppen profil visas detta utom e-postadressen redan innan du tackat ja.
+            </li>
+            <li>
+              <strong>Sökning:</strong> Rekryterare kan söka och filtrera på det som visas på profilen, till exempel roll, kompetenser, region och testresultat. Har du valt att visa styrkor och arbetsstil kan de söka på dem också.
+            </li>
+            <li>
+              <strong>Det här visas aldrig:</strong> Ditt CV som fil, ditt foto, dina referenser, telefonnummer, adress och personnummer, testernas råpoäng, personlighetstestets värden, dina brev, analyser och chatthistorik. Ditt löneanspråk visas inte heller. Anger du ett använder vi det bara för att sålla bort förfrågningar som ligger under det.
+            </li>
+          </ul>
+        </section>
+
         {/* Cookies */}
         <section>
-          <h2 id="cookies">5. Cookies och liknande tekniker</h2>
+          <h2 id="cookies">6. Cookies och liknande tekniker</h2>
           <p>
             Vi använder cookies och liknande tekniker för att Tjänsten ska fungera korrekt och för att förbättra din användarupplevelse. Detta kan inkludera:
           </p>
@@ -202,7 +231,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Datasäkerhet */}
         <section>
-          <h2 id="datasakerhet">6. Datasäkerhet</h2>
+          <h2 id="datasakerhet">7. Datasäkerhet</h2>
           <p>
             Säkerheten för dina uppgifter är viktig för oss. Vi använder etablerade tjänsteleverantörer som Supabase och Stripe som vidtar omfattande säkerhetsåtgärder. Så här skyddar vi dina uppgifter i praktiken:
           </p>
@@ -220,7 +249,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Datalagring */}
          <section>
-          <h2 id="datalagring">7. Datalagring</h2>
+          <h2 id="datalagring">8. Datalagring</h2>
           {/* Lydelserna godkända av ägaren 2026-11-22 (docs/beslut-mejl-och-radering-2026-11-22.md).
               Meningarna om appen Testklar, Google Play och RevenueCat är utelämnade tills appen är släppt. */}
           <p>
@@ -245,7 +274,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Dina rättigheter (GDPR) */}
         <section>
-          <h2 id="dina-rattigheter">8. Dina rättigheter</h2>
+          <h2 id="dina-rattigheter">9. Dina rättigheter</h2>
           <p>
             I enlighet med GDPR och annan tillämplig lagstiftning har du rättigheter gällande dina personuppgifter:
           </p>
@@ -260,7 +289,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Ändringar i policyn */}
         <section>
-          <h2 id="andringar-i-denna-integritetspolicy">9. Ändringar i denna integritetspolicy</h2>
+          <h2 id="andringar-i-denna-integritetspolicy">10. Ändringar i denna integritetspolicy</h2>
           <p>
             Vi kan uppdatera denna policy. Ändringar publiceras här med ett uppdaterat datum högst upp. Vid väsentliga ändringar kan vi även meddela dig via e-post eller via Tjänsten.
           </p>
@@ -268,7 +297,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Kontaktinformation */}
         <section>
-          <h2 id="kontakta-oss">10. Kontakta oss</h2>
+          <h2 id="kontakta-oss">11. Kontakta oss</h2>
           <p>
             Om du har frågor om denna integritetspolicy, vänligen kontakta oss:
           </p>
