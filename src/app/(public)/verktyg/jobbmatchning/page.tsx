@@ -42,6 +42,8 @@ import {
   TextLank,
   Ikon,
   CvArk,
+  SARA_DELAR,
+  type ArkDel,
   MatchadeJobb,
   Matchgrad,
 } from '@/components/publikt/v3'
@@ -61,6 +63,22 @@ const DATAPUNKTER: { rubrik: string; text: string; ur: string }[] = [
   { rubrik: 'Plats', text: 'Vi vet var du bor och sorterar bort jobb som ligger orimligt långt bort. Du väljer själv om du vill se jobb nära dig eller i hela Sverige.', ur: 'Göteborg' },
   { rubrik: 'Språk', text: 'Vilka språk du kan och på vilken nivå. Det avgör internationella roller och tjänster där svenska är ett krav.', ur: 'svenska, engelska' },
   { rubrik: 'Erfarenhetsnivå', text: 'År i branschen och senioritet. Vi matchar inte en junior mot en chefsroll, och inte en senior mot en traineetjänst.', ur: 'åtta år, två roller' },
+]
+
+/** Saras ark med nålarna per datapunkt (samma nummer som korten bredvid). */
+const JM_ARK: ArkDel[] = [
+  { ...SARA_DELAR[0], nal: null },
+  {
+    rubrik: 'Arbetslivserfarenhet',
+    nal: [1, 6],
+    rader: [
+      { text: 'Projektledare, Nordanvind Energi', tid: '2021 till nu' },
+      { text: 'Biträdande projektledare, Halda Logistik', tid: '2018 till 2021' },
+    ],
+  },
+  { ...SARA_DELAR[2], nal: 2 },
+  { ...SARA_DELAR[3], nal: 3 },
+  { ...SARA_DELAR[4], nal: 5 },
 ]
 
 /** Små bilder till skälen, aria-hidden. Samma ordning som VAD_DU_FAR. */
@@ -354,7 +372,13 @@ export default function JobbmatchningSida() {
           />
           <div className="jm-dp">
             <div className="jm-dp-ark">
-              <CvArk nalar={false} vald={0} ariaLabel="Exempel: Sara Lindströms CV, som datapunkterna läses ur" />
+              {/* Nålarna följer korten: Plats på kontaktraden, Yrkesroller och Erfarenhetsnivå i erfarenheten. */}
+              <CvArk
+                namnNal={4}
+                delar={JM_ARK}
+                vald={0}
+                ariaLabel="Exempel: Sara Lindströms CV med de sex datapunkterna utmärkta, som de läses ur CV:t"
+              />
             </div>
             <div className="jm-dp-lista">
               {DATAPUNKTER.map((d, i) => (

@@ -24,11 +24,10 @@ import {
   Knapp,
   Knapprad,
   TextLank,
-  CvArk,
+  ByggarArk,
   Svav,
   Ikon,
   MallMiniatyr,
-  SARA_DELAR,
 } from '@/components/publikt/v3'
 import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
@@ -120,20 +119,6 @@ const STEG = [
     name: 'Välj mall och ladda ner',
     text: `Byt mall, färg och typsnitt utan att något försvinner, och ladda ner som PDF, eller som Word i de ${WORD_TEMPLATE_COUNT} Word-mallarna.`,
   },
-]
-
-/** Saras CV på arket (exempel), arbetslivserfarenheten med riktig text. */
-const ARK_DELAR = [
-  SARA_DELAR[0],
-  {
-    rubrik: 'Arbetslivserfarenhet',
-    rader: [
-      { text: 'Projektledare, Nordanvind Energi', tid: '2021 – pågående' },
-      { text: 'Biträdande projektledare, Halda Logistik', tid: '2018 – 2021' },
-    ],
-  },
-  SARA_DELAR[3],
-  SARA_DELAR[2],
 ]
 
 /** Stegens små bilder (aria-hidden i VagSteg). */
@@ -325,7 +310,7 @@ export default function SkapaCvSida() {
           bild={
             <div className="skc-cvb" role="img" aria-label={`Exempel: Sara Lindströms CV på arket i mallen ${FORVALD.namn}, med Jobbcoachens förslag på punkter`}>
               <span className="p3-chip p3-chip-koppar skc-mallchip">Mallen {FORVALD.namn}, gratis</span>
-              <CvArk delar={ARK_DELAR} vald={0} nalar={false} ariaLabel={`Exempel: Sara Lindströms CV i mallen ${FORVALD.namn}`} />
+              <ByggarArk ariaLabel={`Exempel: Sara Lindströms CV i mallen ${FORVALD.namn} medan hon skriver`} />
               <Svav className="skc-forslag" gungar sen>
                 <em>
                   <Ikon namn="cv" />
@@ -342,7 +327,7 @@ export default function SkapaCvSida() {
                   </li>
                   <li>
                     <i />
-                    Ledde ett team på tolv personer
+                    Höll ihop tidplan och underentreprenörer
                   </li>
                 </ul>
                 <small>Du väljer, ändrar eller hoppar över.</small>
@@ -452,20 +437,8 @@ export default function SkapaCvSida() {
             varde="Byggaren tar bort friktionen. Du lägger tiden på innehållet, vi sköter resten."
             bild={
               <div className="skc-enkelt-bild" aria-hidden="true">
-                <CvArk delar={ARK_DELAR} vald={2} nalar={false} luta={false} />
-                <div className="skc-verktygsrad">
-                  <span>Aa Calibri</span>
-                  <span className="skc-farg">
-                    {FORVALD.accenter.map((f) => (
-                      <i key={f} style={{ background: f }} />
-                    ))}
-                  </span>
-                  <span>Byt mall</span>
-                  <span className="skc-tva">
-                    <b className="skc-pa">PDF</b>
-                    <b>Word</b>
-                  </span>
-                </div>
+                {/* Grundens byggarark (P5a): nålarna 1 till 4 är plattans fyra punkter. */}
+                <ByggarArk nalar verktygsrad={{ farger: FORVALD.accenter, nal: 4 }} />
               </div>
             }
           >

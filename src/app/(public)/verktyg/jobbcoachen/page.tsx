@@ -217,7 +217,7 @@ export default function JobbcoachenSida() {
             { name: 'Verktyg', href: '/funktioner' },
             { name: 'Jobbcoachen', href: '/verktyg/jobbcoachen' },
           ]}
-          etikett="Jobbcoachen, svar med källa"
+          etikett="Jobbcoachen, för svensk arbetsmarknad"
           h1="Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad"
           h1Mindre
           varde={
@@ -236,8 +236,8 @@ export default function JobbcoachenSida() {
           }
           brickor={[
             { tal: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden`, text: 'gratis per konto' },
-            { tal: 'Källa', text: 'till varje svar', ord: true },
-            { tal: 'Sekunder', text: 'till första svaret', ord: true },
+            { tal: 'Källor', text: 'du kan kolla själv', ord: true },
+            { tal: String(KALLOR.length), text: 'källor i kunskapsbasen' },
           ]}
           bild={
             <div className="jc-samtal">
@@ -272,7 +272,7 @@ export default function JobbcoachenSida() {
             <JobbcoachenLiveDemo />
             <div>
               <p className="p3-ey">Prova själv</p>
-              <p className="jc-stor">Varje svar visar var det kommer ifrån</p>
+              <p className="jc-stor">Här ser du var svaret kommer ifrån</p>
               <ol className="jc-delar3">
                 <li>
                   <Nr>1</Nr>

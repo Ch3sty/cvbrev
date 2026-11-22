@@ -89,6 +89,10 @@ describe('ett paket säljs', () => {
     }
     expect(FUNKTIONER.kort.find((k) => k.id === 'infor-intervjun')?.sub).toBe('Ingår i Premium. Gratis: ett intervjuprov om dagen.')
     expect(FUNKTIONER.kort.find((k) => k.id === 'sokta-tjanster')?.text).toContain('Efter tolv tysta dagar')
+    // SEO:s slutbesked punkt 16 (2026-11-22): brevets sista steg säger var gratis tar slut.
+    expect(FUNKTIONER.kort.find((k) => k.id === 'personliga-brev')?.steg?.at(-1)).toBe('Redigera, välj mall och skicka. Nedladdning ingår i Premium.')
+    // Punkt 10: dagarna ur INTERVJU_BESKED_DAGAR, skrivna som ord.
+    expect(FUNKTIONER.kort.find((k) => k.id === 'infor-intervjun')?.text).toContain('hör du inget på sju dagar')
     // FunktionerSida och /priser slår upp korten per id; de får inte byta namn.
     expect(FUNKTIONER.kort.map((k) => k.id)).toEqual([
       'cv-analys',

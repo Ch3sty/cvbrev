@@ -5,7 +5,8 @@
  * vanligt GET-formulär med ?q=, så att det fungerar utan JavaScript. Med
  * JavaScript filtreras korten direkt medan man skriver; alla kort ligger i
  * HTML:en, sökningen döljer bara dem som inte matchar. Samma beteende som
- * dagens sökfält (exempel/components/HubbSok.tsx), i grundens form.
+ * dagens sökfält (exempel/components/HubbSok.tsx), med grundens klasser
+ * (p3-sok, p3-sok-falt i v3.css, samma som SokFalt).
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -59,7 +60,7 @@ export default function CvSok({
 
   return (
     <form
-      className="cve-sok"
+      className="p3-sok"
       action={action}
       method="get"
       role="search"
@@ -73,12 +74,12 @@ export default function CvSok({
         document.getElementById(listaId)?.scrollIntoView({ block: 'start' })
       }}
     >
-      <span className="cve-sok-falt">
+      <span className="p3-sok-falt">
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
           <circle cx="11" cy="11" r="7" />
           <path d="M16.5 16.5L21 21" />
         </svg>
-        <label htmlFor="cve-sok" className="cve-sr">
+        <label htmlFor="cve-sok" className="p3-dold">
           Sök yrke
         </label>
         <input

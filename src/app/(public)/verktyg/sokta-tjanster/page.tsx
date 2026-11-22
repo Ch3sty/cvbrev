@@ -20,6 +20,7 @@ import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { VECKANS_MAL_FORVAL, VECKANS_MAL_MAX, VECKANS_MAL_MIN, UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import LoggaArkPublik from './LoggaArkPublik'
+import { SOKT_KONTO_HREF } from '@/lib/jobbsok/provaSokt'
 import { storForst, talOrd } from '@/components/publikt/talord'
 import {
   Sida,
@@ -40,6 +41,7 @@ import {
   TextLank,
   Ikon,
   Stig,
+  IntervjuKort,
 } from '@/components/publikt/v3'
 import {
   AF_KALLA,
@@ -58,7 +60,8 @@ import {
 import '@/components/publikt/publikt.css'
 import './sokta-tjanster.css'
 
-const REGISTRERA = '/register'
+// K1 (saas-lead, SEO JA): kontot landar i Sökta tjänster med arket Logga sökt tjänst öppet.
+const REGISTRERA = SOKT_KONTO_HREF
 const PLAN = PLAN_BY_KEY[SALD_PLAN]
 
 /** Händelserna man kan logga, i kontots ordning, etiketterna ur STATUS_META. */
@@ -93,7 +96,7 @@ const PREMIUM_LISTA = [
 ]
 
 const VIDARE = [
-  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Kallad till test? Träna på samma sorts uppgifter först.', farg: 'tran' as const },
+  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: `${STATUS_META.test_invited.label}? Träna på samma sorts uppgifter först.`, farg: 'tran' as const },
   { href: '/verktyg/jobbmatchning', rubrik: 'Jobbmatchning', text: 'Annonser som passar ditt CV, att spara till Ska sökas.', farg: 'jobb' as const },
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet mot annonsen du sparade, utifrån ditt CV.', farg: 'brev' as const },
   { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Föreslår frågor utifrån läget i dina sökta tjänster.', farg: 'jobb' as const },
@@ -103,16 +106,6 @@ const VIDARE = [
 
 function Br({ typ, liten, children }: { typ?: 'tom' | 'tyst' | 'int' | 'av'; liten?: boolean; children: string }) {
   return <span className={['st-br', typ ? `st-${typ}` : '', liten ? 'st-liten' : ''].filter(Boolean).join(' ')}>{children}</span>
-}
-
-function Betyg({ av }: { av: number }) {
-  return (
-    <span className="st-betyg" role="img" aria-label={`Betyg ${av} av 5`}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <i key={i} className={i < av ? 'st-p' : undefined} />
-      ))}
-    </span>
-  )
 }
 
 export default function SoktaTjansterSida() {
@@ -159,7 +152,7 @@ export default function SoktaTjansterSida() {
       <span className="st-mini-chip">Sökt 22 nov</span>
     </div>,
     <div key="3" className="st-mini-rad">
-      <span className="st-mini-chip">Kallad till test</span>
+      <span className="st-mini-chip">{STATUS_META.test_invited.label}</span>
       <span className="st-mini-chip">Intervju</span>
       <span className="st-mini-chip">Erbjudande</span>
     </div>,
@@ -194,7 +187,7 @@ export default function SoktaTjansterSida() {
           }
           knappar={
             <>
-              <Knapp href="#logga" variant="vit" pil data-cta="hero-primary">
+              <Knapp href={REGISTRERA} pil data-cta="hero-primary">
                 Börja logga gratis
               </Knapp>
               <TextLank href="#sa-funkar-det">Så fungerar det</TextLank>
@@ -605,35 +598,8 @@ export default function SoktaTjansterSida() {
         <Sektion luft="utan-topp" id="intervjun">
           <div className="st-tva">
             <div>
-              <div className="st-ivkort" role="group" aria-label="Exempel: en sökt tjänst med bokad intervju">
-                <div className="st-ivtopp">
-                  <span className="st-ivdag">
-                    <small>tis</small>24
-                  </span>
-                  <div>
-                    <b>Intervju tisdag 10.00</b>
-                    <span>Projektledare, Polhem Ombyggnad, Göteborg</span>
-                  </div>
-                </div>
-                <div className="st-ivkropp">
-                  <p>
-                    <b>Förbered intervjun på tisdag.</b> Två av de sju vanligaste frågorna är övade. Börja med den du fick lägst betyg på.
-                  </p>
-                  <div className="st-fragarad st-nu">
-                    <span>Ett problem du löste</span>
-                    <Betyg av={3} />
-                    <small>Lägst betyg hittills. Öva på den här först.</small>
-                  </div>
-                  <div className="st-fragarad">
-                    <span>Berätta om dig själv</span>
-                    <Betyg av={4} />
-                  </div>
-                  <div className="st-fragarad">
-                    <span>Varför vill du ha jobbet?</span>
-                    <span className="st-ej">Inte övad</span>
-                  </div>
-                </div>
-              </div>
+              {/* Grundens bild för Inför intervjun (P5a), frågorna ur intervjuprovets bank. */}
+              <IntervjuKort />
               <div className="st-hurgick">
                 <b>Hur gick intervjun?</b>
                 <p>Dagen efter frågar vi. Svara med ett tryck, så hamnar det rätt bland händelserna.</p>
@@ -674,9 +640,8 @@ export default function SoktaTjansterSida() {
               </p>
               <Kort ton className="st-regel">
                 <p>
-                  Enligt Arbetsförmedlingen lämnar du aktivitetsrapporten mellan den 1:a och den 14:e varje månad, och den gäller månaden innan. Alla jobb
-                  du har sökt ska med, annonserade eller inte. Du lämnar den på Mina sidor, med blankett eller per telefon, och sparar underlag som visar
-                  att du har sökt jobben i minst tre månader. Källa:{' '}
+                  Enligt Arbetsförmedlingen lämnar du aktivitetsrapporten mellan den 1:a och den 14:e varje månad, för månaden innan, och alla jobb du har
+                  sökt ska med, annonserade eller inte. Källa:{' '}
                   <a className="p3-lank" href={AF_KALLA} rel="noopener">
                     Aktivitetsrapportera, arbetsformedlingen.se
                   </a>
@@ -789,7 +754,7 @@ export default function SoktaTjansterSida() {
               <div className="st-gratiskort p3-papper">
                 <h3 className="p3-h3">Gratis för alla med konto</h3>
                 <Bocklista paPapper punkter={GRATIS_LISTA} />
-                <p style={{ fontSize: 14.5 }}>Inget kort behövs. Du skapar kontot med din e-postadress.</p>
+                <p style={{ fontSize: 14.5 }}>Inget kort behövs. Du skapar kontot med Google eller med din e-postadress.</p>
               </div>
               <div className="st-premkort">
                 <h3 className="p3-h3">{paketNamn(SALD_PLAN)}</h3>

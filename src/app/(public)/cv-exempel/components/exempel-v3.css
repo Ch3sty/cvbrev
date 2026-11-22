@@ -15,18 +15,7 @@
 .cve-bunt .cve-b3 { left: 24%; top: 14%; z-index: 1; }
 .cve-bunt .p3-svav { right: 0; bottom: 6%; z-index: 2; }
 
-/* sökfältet */
-.cve-sok { display: flex; flex-wrap: wrap; gap: 10px; max-width: 560px; }
-.cve-sok-falt { flex: 1 1 240px; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 16px; border-radius: 16px; background: var(--papper); color: var(--ink-1); }
-.cve-sok-falt svg { width: 20px; height: 20px; flex: none; color: var(--ink-3); }
-.cve-sok-falt input { flex: 1; min-width: 0; height: 52px; border: 0; background: transparent; font: inherit; font-size: 16px; color: var(--ink-1); outline: none; }
-.cve-sok-falt:focus-within { outline: 3px solid var(--koppar); outline-offset: 3px; }
-
-/* situationsraden på väggen */
-.cve-situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--vagg-mjuk); }
-.cve-situation > span { margin-right: 4px; }
-.cve-situation a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 13px; background: rgba(255, 255, 255, .1); border: 2px solid rgba(255, 255, 255, .18); color: var(--vagg-ink); text-decoration: none; font-weight: 700; }
-.cve-situation a:hover { background: rgba(255, 255, 255, .16); }
+/* sökfältet och situationsraden är grundens (p3-sok, p3-situation i v3.css, P5a) */
 
 /* branscherna i lyftkortet */
 .cve-bransch { display: grid; gap: 8px; margin-top: 16px; }

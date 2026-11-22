@@ -28,7 +28,7 @@ import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import { TESTTAL } from '@/components/publikt/testtal'
 import type { BigFiveScores } from '@/lib/personalityTest/types'
 import { bandFor } from '@/lib/personalityTest/insights'
-import { INTERVJU, KRAVPROFILER, bandOrd, faktorUtfall, segment, visadPoang, type Faktor } from '@/lib/personlighet/smakprov-tolkning'
+import { KRAVPROFILER, bandOrd, faktorUtfall, segment, visadPoang, type Faktor } from '@/lib/personlighet/smakprov-tolkning'
 import {
   Sida,
   Hjalte,
@@ -133,7 +133,7 @@ function Matare({ faktor, profilIndex, forvald }: { faktor: Faktor; profilIndex:
     <div className={['pt-matt', !passar ? 'pt-fraga' : '', forvald ? 'pt-forvald' : ''].filter(Boolean).join(' ')} data-k={profilIndex}>
       <div className="pt-matt-topp">
         {bandOrd(band)}
-        <Chip typ={!regel ? 'ton' : passar ? 'gratis' : 'koppar'}>{!regel ? 'Inget krav i rollen' : passar ? 'Passar kravprofilen' : 'Räkna med en fråga'}</Chip>
+        <Chip typ={!regel ? 'ton' : passar ? 'gratis' : 'koppar'}>{!regel ? 'Inget krav i den här profilen' : passar ? 'Passar kravprofilen' : 'Räkna med en fråga'}</Chip>
       </div>
       <div className="pt-spann" role="img" aria-label={etikett}>
         {spann ? <span className="pt-krav" style={{ left: `${spann[0]}%`, right: `${100 - spann[1]}%` }} /> : null}
@@ -415,9 +415,11 @@ export default function PersonlighetstestSida() {
                         </em>
                         <b>{u.lasning}</b>
                       </div>
+                      {/* Intervjurådet hör till tolkningen i gratiskontot (provets spärr,
+                          personlighetsprov-resultat.test.tsx): här står bara var det finns. */}
                       <div className="pt-ifr pt-isvar">
                         <em>Så svarar du</em>
-                        <p>{INTERVJU[u.key][u.band]}</p>
+                        <p>Rådet för just den här frågan står i tolkningen när du har sparat profilen med ett gratiskonto.</p>
                       </div>
                     </div>
                   ))}

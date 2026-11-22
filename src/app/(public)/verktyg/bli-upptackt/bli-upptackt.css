@@ -119,8 +119,3 @@
 @media (min-width: 1000px) { .bu-slut { grid-template-columns: 1.3fr .7fr; gap: 56px; padding: 56px; } }
 .bu-slut-bild { display: grid; gap: 10px; justify-items: start; }
 .bu-slut-text > * + * { margin-top: 14px; }
-
-/* Papper på ön: grundens ö-regel kommer efter pappersregeln i v3.css och gör
-   rubriken ljus. Rättat här tills grunden tar det (onskemal.md). */
-.p3-o :is(.p3-kort, .p3-papper) .p3-h3 { color: var(--ink-1); }
-.p3-o .bu-ordkort p { color: var(--ink-2); }

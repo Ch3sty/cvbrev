@@ -29,6 +29,8 @@ export default function PriserKopKnapp({
   cta = 'primary',
   etikett,
   klass = 'pub-knapp',
+  yta = 'public_pricing',
+  plats = 'priser',
 }: {
   primar?: boolean
   cta?: 'primary' | 'secondary'
@@ -36,6 +38,10 @@ export default function PriserKopKnapp({
   etikett?: ReactNode
   /** Knappens klass. Publikt omgång 3 skickar grundens kopparknapp (knappKlass). Logiken är densamma. */
   klass?: string
+  /** Sidan i mätningen (surface). /funktioner skickar sin egen (K7, 2026-11-22). */
+  yta?: string
+  /** Platsen till köpsteget och kassans metadata. */
+  plats?: string
 } = {}) {
   const router = useRouter()
   // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
@@ -46,15 +52,15 @@ export default function PriserKopKnapp({
   const kop = useCallback(() => {
     capture('paywall_cta_clicked', {
       variant: 'onboarding_paket',
-      surface: 'public_pricing',
+      surface: yta,
       plan: SALD_PLAN,
       cta,
     })
     setBusy(true)
     // Ångerrättssamtycket lämnas på köpsteget, som bär både kryssrutan och
     // knappen. Prissidan öppnar därför aldrig kassan själv.
-    router.push(user ? kopstegHref(SALD_PLAN, 'priser') : `/register?paket=${SALD_PLAN}`)
-  }, [user, router, cta])
+    router.push(user ? kopstegHref(SALD_PLAN, plats) : `/register?paket=${SALD_PLAN}`)
+  }, [user, router, cta, yta, plats])
 
   return (
     <button

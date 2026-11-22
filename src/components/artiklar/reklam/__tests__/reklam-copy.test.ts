@@ -122,7 +122,7 @@ describe('reklamkortens texter', () => {
     for (const t of TEXTER) {
       expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/)
     }
-    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen. Resten ingår i Premium.')
+    expect(SIDO.test.gratisrad).toBe('Fem uppgifter gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen. Resten ingår i Premium.')
     expect(GRATIS_KORT.rader[0]).toContain('ett test om dagen')
   })
 
@@ -185,5 +185,16 @@ describe('F22: publika copykällor', () => {
       'Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.'
     )
     expect(LISTA_SLUT.rubrik).toBe('Läs klart. Gör sedan.')
+  })
+  it('slutbeskedet: K8, Jobbsökets kort (punkt 68) och etiketterna', () => {
+    expect(INLINE.analys.href).toBe('/verktyg/cv-analys#mini-analys')
+    expect(JOBB_KORT.sokta.etikett).toBe('Jobbsöket')
+    expect(JOBB_KORT.sokta.knapp).toBe('Håll koll på sökta jobb')
+    expect(JOBB_KORT.sokta.href).toBe('/verktyg/sokta-tjanster')
+    expect(JOBB_KORT.sokta.ariaLabel).toBe('Sökta tjänster')
+    expect(JOBB_KORT.matchning.ariaLabel).toBe('Jobbsöket')
+    expect(JOBB_KORT.sokta.brod).toBe('Logga jobbet du har sökt, så räknar vi dagarna. Efter tolv tysta dagar föreslår vi ett uppföljningsmejl och skriver utkastet.')
+    expect(JOBB_KORT.sokta.gratis).toBe('Att logga och se statistiken är gratis för alla med konto. Det första utkastet också.')
+    expect(JOBB_KORT.sokta.paketrad).toBe('Uppföljningsmejl till varje sökt tjänst och månadsrapporten med alla rader ingår i Premium, 149 kr i månaden.')
   })
 })

@@ -51,7 +51,7 @@ import { FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/
 import { ANTAL_TESTTYPER, GRATIS_FAQ, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import { KATEGORIER } from '@/lib/cv/poang/modell'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
-import { BREV_MALL_ANTAL } from '../brevmallar'
+import { BREV_GRATIS_NAMN, BREV_MALL_ANTAL } from '../brevmallar'
 // Den fasta knappraden (pub-botten) är stylad i publikt.css.
 import '../publikt.css'
 import './start.css'
@@ -423,7 +423,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
                 <Knapp href="/verktyg/jobbmatchning" variant="vit">
                   Så fungerar det
                 </Knapp>
-                <GratisRad chip={<Chip typ="vagg">Gratis</Chip>}>{`${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar`}</GratisRad>
+                <GratisRad chip={<Chip typ="vagg">Gratis</Chip>}>{`${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar, med skälen utskrivna`}</GratisRad>
               </>
             }
             bild={<MatchadeJobb topp={false} fler={SARA_FLER_TRAFFAR.slice(0, 1)} ariaLabel="Exempel: två träffar i Matchade jobb" />}
@@ -453,7 +453,8 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           }
           bild={<Brevpar ariaLabel="Exempel: en annons och det personliga brevet som svarar på dess krav" />}
         >
-          <p>{`Brevet får samma mall som ditt CV, så att ansökan hänger ihop. Du väljer bland ${BREV_MALL_ANTAL} mallar och fem toner.`}</p>
+          {/* K4 med SEO:s lydelse (slutbeskedet, avsnitt 2): namnen och talet ur brevets katalog. */}
+          <p>{`Brevet får samma mall som ditt CV, så att ansökan hänger ihop. Du väljer bland ${BREV_MALL_ANTAL} mallar, där ${BREV_GRATIS_NAMN} är gratis, och fem toner.`}</p>
         </O>
       </Sektion>
 

@@ -298,7 +298,7 @@ export default function CVAnalysSida() {
               rubrik="Vägen till 100 poäng"
               varde={
                 <>
-                  <b>Poängen är gratis.</b> Förslagen gör jobbet åt dig.
+                  <b>Poängen och genomgången är gratis.</b> Jobbcoachens förslag tar dig en bit på vägen, resten fyller du i själv.
                 </>
               }
             />

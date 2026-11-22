@@ -7,7 +7,7 @@
  * Alla 89 kort står i HTML:en, sökningen döljer bara dem som inte matchar.
  */
 import Link from 'next/link'
-import { Sida, Hjalte, Lyft, Sektion, SektionHuvud, Kort, Faq, O, Knapp, TextLank, Svav } from '@/components/publikt/v3'
+import { Sida, Hjalte, Lyft, Sektion, SektionHuvud, Kort, Faq, O, Knapp, TextLank, Svav, Situationsrad } from '@/components/publikt/v3'
 import { mallBild } from '@/lib/cv/mallar/katalog'
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 import type { GalleriYrke } from '@/app/(public)/exempel/components/GalleriPageContent'
@@ -75,14 +75,7 @@ export default function CvExempelNav({ yrken, faqItems }: { yrken: GalleriYrke[]
           rubrikId="yrken-rubrik"
           tomId="yrken-tom"
         />
-        <nav className="cve-situation" aria-label="Välj efter situation">
-          <span>Din situation</span>
-          {SITUATION_CV.map((s) => (
-            <Link key={s.href} href={s.href}>
-              {s.text}
-            </Link>
-          ))}
-        </nav>
+        <Situationsrad lankar={SITUATION_CV} />
       </Hjalte>
 
       <Lyft etikett="Välj bransch">
@@ -218,7 +211,7 @@ export default function CvExempelNav({ yrken, faqItems }: { yrken: GalleriYrke[]
           knappar={
             <>
               <Knapp href="/cv-mallar/prova">Skapa CV gratis</Knapp>
-              <TextLank href="/exempel">Tillbaka till hubben</TextLank>
+              <TextLank href="/exempel">Alla exempel och mallar</TextLank>
             </>
           }
         />

@@ -41,7 +41,7 @@ export const KLUSTER_ETIKETT: Record<CtaCluster, string> = {
 export const FRAGA_COACHEN = { text: 'Fråga Jobbcoachen', href: '/verktyg/jobbcoachen' } as const
 
 export function hjalteKnapp(cluster: CtaCluster, verktyg: InlineVerktyg): { text: string; href: string } | null {
-  if (cluster === 'test') return { text: 'Prova fem frågor gratis', href: PROVA_HREF }
+  if (cluster === 'test') return { text: 'Prova fem uppgifter gratis', href: PROVA_HREF }
   if (verktyg === 'raknare' || verktyg === 'lankrad') return { ...FRAGA_COACHEN }
   // Intervjuklustrets inline-kort är provkortet sedan S6 (2026-11-15), men
   // hjälteknappen står kvar på Jobbcoachen: en ändring i taget.

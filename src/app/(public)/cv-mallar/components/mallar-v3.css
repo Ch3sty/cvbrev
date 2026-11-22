@@ -24,10 +24,6 @@
 .cvm-prova { display: grid; gap: 18px; }
 .cvm-prova > * { min-width: 0; }
 .cvm-prova-topp { display: grid; gap: 14px; }
-.cvm-situation { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; color: var(--ink-2); }
-.cvm-situation > span { margin-right: 4px; }
-.cvm-situation a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 13px; background: var(--ton); color: var(--ton-ink); text-decoration: none; font-weight: 700; }
-.cvm-situation a:hover { text-decoration: underline; }
 @media (min-width: 1000px) {
   .cvm-prova-topp { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 44px; align-items: start; }
   .cvm-prova-topp .cvm-situation { margin-top: 4px; }
@@ -74,13 +70,8 @@
 .cvm-grupper [hidden], .cvm-grupp[hidden] { display: none !important; }
 
 /* ---------- alla mallar: filtret och rutnätet ---------- */
-.cvm-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; border: 0; min-width: 0; }
-.cvm-filter input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
-.cvm-filter label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 13px; background: var(--papper); border: 2px solid var(--kant-stark); border-bottom-width: 4px; font-size: 14.5px; font-weight: 700; cursor: pointer; color: var(--ink-1); }
-.cvm-filter label b { font-weight: 500; color: var(--ink-3); }
-.cvm-filter input:checked + label { background: var(--vagg); border-color: var(--vagg-3); color: var(--vagg-ink); }
-.cvm-filter input:checked + label b { color: var(--vagg-mjuk); }
-.cvm-filter input:focus-visible + label { outline: 3px solid var(--koppar); outline-offset: 3px; }
+/* chipen är grundens Filterchips (.p3-filter); här bara luften ovanför */
+.cvm-filter { margin-top: 26px; }
 .cvm-mallnat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 20px; }
 .cvm-mallnat > li { min-width: 0; scroll-margin-top: 96px; }
 .cvm-mall { display: grid; align-content: start; gap: 6px; height: 100%; padding: 8px 8px 10px; border-radius: 16px; background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 5px; text-decoration: none; color: var(--ink-1); min-width: 0; }

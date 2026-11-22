@@ -86,13 +86,13 @@ export default function CvExempelKategori({ kategori, yrkenMap }: { kategori: Ka
           farg="cv"
           rubrikNiva="h2"
           rubrik="Hittade du inte ditt yrke?"
-          varde="Bläddra hela biblioteket eller välj en annan bransch på hub-sidan."
+          varde="Bläddra i hela biblioteket eller välj en annan bransch bland alla exempel."
           knappar={
             <>
               <Knapp href="/cv-exempel" pil>
                 Alla cv-exempel
               </Knapp>
-              <TextLank href="/exempel">Tillbaka till hubben</TextLank>
+              <TextLank href="/exempel">Alla exempel och mallar</TextLank>
             </>
           }
         />

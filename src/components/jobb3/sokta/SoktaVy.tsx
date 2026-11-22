@@ -25,6 +25,7 @@ import {
 } from '@/components/jobb3/kit'
 import { soktaHref, tjanstHref, tolkaSoktaAdress, type SoktaFilter, type SoktaVy as Vy } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
+import { rensaSoktUtkast, soktUtkastSomForifyllt } from '@/lib/jobbsok/provaSokt'
 import LoggaArk, { type LoggaForifyllt, type LoggaResultat } from './LoggaArk'
 import { MalArk } from './SmaArk'
 import { ListaVagg, ListaGolv } from './Lista'
@@ -55,8 +56,18 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   const [malOppen, setMalOppen] = useState(false)
 
   // ?logga=1 (och ?logga=ska-soka) öppnar arket, förifyllt om adressen bär en träff.
+  // Utan träff i adressen: utkastet från /verktyg/sokta-tjanster, om besökaren
+  // loggade in i stället för att skapa konto (publikt omgång 3). Det läses ur
+  // webbläsaren, aldrig ur adressen, och tas bort när det är använt.
   useEffect(() => {
     if (!adress.logga) return
+    const utkast = forifyllt ? null : soktUtkastSomForifyllt()
+    if (utkast) {
+      rensaSoktUtkast()
+      setLoggaForifyllt({ ...utkast, fran: 'publikt-sokta' })
+      setLoggaOppen(true)
+      return
+    }
     setLoggaForifyllt({ ...(forifyllt ?? {}), lage: adress.logga })
     setLoggaOppen(true)
     // Bara när adressen ändras.

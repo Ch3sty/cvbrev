@@ -24,6 +24,7 @@ import { PLAN_BY_KEY, SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } fr
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
+import { UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
 import { GRATIS_LISTA, GRATIS_MALLRAD, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
@@ -93,7 +94,8 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
     gratis: 'Läsbarhetspoängen och genomgången i sju delar är gratis, för varje CV.',
     text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Läsbarhetspoängen och genomgången i sju delar är gratis, för varje CV.',
     knapp: 'Analysera mitt CV',
-    href: '/verktyg/cv-analys',
+    // K8 (saas-lead, SEO JA): rakt till uppladdningen. /verktyg/cv-analys står kvar i varje artikel genom Läs vidare.
+    href: '/verktyg/cv-analys#mini-analys',
     paketrad: `Alla förslag från Jobbcoachen, och nya efter varje ändring, ingår i ${KORT_PRIS}.`,
   },
   brev: {
@@ -307,6 +309,8 @@ export const LISTA_SLUT = {
  */
 export interface JobbKortCopy {
   etikett: string
+  /** Rutans aria-label (nytt-innehall.md, artikelreklam). */
+  ariaLabel: string
   rubrik: string
   brod: string
   gratis: string
@@ -318,6 +322,7 @@ export interface JobbKortCopy {
 export const JOBB_KORT: Record<'matchning' | 'sokta', JobbKortCopy> = {
   matchning: {
     etikett: 'Jobbsöket',
+    ariaLabel: 'Jobbsöket',
     rubrik: 'Se vilka annonser som passar ditt CV',
     brod: 'Vi läser ditt CV och söker bland annonserna i Platsbanken. Varje träff visar varför du passar.',
     gratis: `${Ord(FREE_TIER_JOB_LIMIT)} träffar är gratis, med skälen utskrivna.`,
@@ -325,14 +330,16 @@ export const JOBB_KORT: Record<'matchning' | 'sokta', JobbKortCopy> = {
     href: '/verktyg/jobbmatchning',
     paketrad: `De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${KORT_PRIS}.`,
   },
+  // Lydelserna ur nytt-innehall.md (artikelreklam), etikett och knapp enligt seo-slutbesked.md punkt 68.
   sokta: {
-    etikett: 'Sökta tjänster',
+    etikett: 'Jobbsöket',
+    ariaLabel: 'Sökta tjänster',
     rubrik: 'Håll koll på varje jobb du har sökt',
-    brod: `Spara annonsen du ska söka, logga jobbet du har sökt och se när det är dags att höra av sig. Efter ${ord(NO_RESPONSE_NUDGE_DAYS)} tysta dagar föreslår vi ett uppföljningsmejl och skriver utkastet.`,
-    gratis: 'Att logga sökta jobb och se statistiken är gratis för alla med konto. Det första utkastet till ett uppföljningsmejl också.',
-    knapp: 'Så fungerar Sökta tjänster',
+    brod: `Logga jobbet du har sökt, så räknar vi dagarna. Efter ${ord(NO_RESPONSE_NUDGE_DAYS)} tysta dagar föreslår vi ett uppföljningsmejl och skriver utkastet.`,
+    gratis: `Att logga och se statistiken är gratis för alla med konto. ${UPPFOLJNING_GRATIS_UTKAST === 1 ? 'Det första utkastet' : `De ${ord(UPPFOLJNING_GRATIS_UTKAST)} första utkasten`} också.`,
+    knapp: 'Håll koll på sökta jobb',
     href: '/verktyg/sokta-tjanster',
-    paketrad: `Fler utkast och månadsrapporten med alla rader ingår i ${KORT_PRIS}.`,
+    paketrad: `Uppföljningsmejl till varje sökt tjänst och månadsrapporten med alla rader ingår i ${KORT_PRIS}.`,
   },
 }
 

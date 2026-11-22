@@ -51,13 +51,6 @@
 @media (min-width: 900px) { .lnk-fe-topp { grid-template-columns: 1.4fr 1fr; align-items: end; } .lnk-fe { grid-template-columns: 1fr 1fr; gap: 28px; } }
 
 /* Stegen: fem kort, tre plus två */
-.lnk-steg5 { display: grid; gap: 14px; counter-reset: none; }
-.lnk-steg5 > li { display: grid; gap: 12px; align-content: start; min-width: 0; padding: 20px; background: var(--papper); color: var(--ink-1); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: var(--r-kort, 22px); }
-.lnk-steg5 .lnk-huvud { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; align-items: center; }
-.lnk-steg5 p { color: var(--ink-2); font-size: 15.5px; }
-@media (min-width: 700px) { .lnk-steg5 { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1000px) { .lnk-steg5 { grid-template-columns: repeat(6, 1fr); gap: 18px; } .lnk-steg5 > li { grid-column: span 2; } .lnk-steg5 > li:nth-child(4) { grid-column: 2 / span 2; } }
-.lnk-b { display: grid; place-items: center; min-height: 120px; padding: 14px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); }
 .lnk-b-kopiera { display: grid; gap: 6px; width: 100%; max-width: 200px; padding: 12px; border-radius: 8px; background: var(--papper); }
 .lnk-b-kopiera i { height: 6px; border-radius: 3px; background: var(--kant); }
 .lnk-b-kopiera i.lnk-v { background: var(--koppar-ljus); }

@@ -9,7 +9,7 @@
  * Ren data, klientsäker.
  */
 
-import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
+import { NO_RESPONSE_NUDGE_DAYS, STATUS_META } from '@/lib/applications/status'
 import { INTERVJU_BESKED_DAGAR } from '@/lib/jobbsok/typer'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { talOrd, storForst } from '@/components/publikt/talord'
@@ -36,7 +36,7 @@ export const URL = 'https://www.jobbcoach.ai/verktyg/sokta-tjanster'
 export const STEG = [
   { rubrik: 'Spara annonsen du ska söka', text: 'Lägg den under Ska sökas med sista ansökningsdag. Från en träff i Matchade jobb sparar du med ett tryck.' },
   { rubrik: 'Logga när du har sökt', text: 'Markera annonsen som sökt, eller logga ett jobb du har sökt på egen hand. Brickan flyttar till Sökt.' },
-  { rubrik: 'Uppdatera när något händer', text: 'Kallad till test, kallad till intervju, erbjudande eller avslag. Varje händelse hamnar på tjänsten med sitt datum.' },
+  { rubrik: 'Uppdatera när något händer', text: `${STATUS_META.test_invited.label}, kallad till intervju, erbjudande eller avslag. Varje händelse hamnar på tjänsten med sitt datum.` },
   {
     rubrik: 'Följ upp och ta ut månaden',
     text: `Efter ${TYST_DAGAR} tysta dagar föreslår vi ett uppföljningsmejl. Vid månadens slut står det du har sökt samlat på ett blad.`,

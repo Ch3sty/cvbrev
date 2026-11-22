@@ -42,6 +42,7 @@ import {
   Traff,
   Samtal,
   Stig,
+  IntervjuKort,
   type Farg,
 } from '@/components/publikt/v3'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -437,7 +438,7 @@ export default function PriserSida() {
                   { rubrik: 'Klistra in annonsen', text: 'Eller välj ett matchat jobb.' },
                   { rubrik: 'Välj ton', text: 'Fem toner, från professionell till kreativ. I Premium väljer vi åt dig efter annonsen.' },
                   { rubrik: 'Brevet svarar på kraven', text: 'Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.' },
-                  { rubrik: 'Redigera, ladda ner som PDF eller Word, skicka', text: 'Det som står i CV:t vinner.' },
+                  { rubrik: 'Redigera, välj mall och skicka', text: 'Det som står i CV:t vinner.' },
                 ]}
               />
               <div className="pr-bild">
@@ -488,6 +489,10 @@ export default function PriserSida() {
             <O farg="jobb" rubrik={intervju.rubrik}>
               <Niva gratis={intervjuNiva.gratis} premium={intervjuNiva.premium} />
               <p>{intervju.text}</p>
+              {/* Grundens bild för Inför intervjun (P5a, önskemålet från P1). */}
+              <div className="pr-bild">
+                <IntervjuKort />
+              </div>
             </O>
           </div>
         </Sektion>
@@ -589,7 +594,7 @@ export default function PriserSida() {
           <PremiumO
             rubrikNiva="p"
             rubrik="Allt öppet från första minuten."
-            text="Ingen bindningstid. Dagen innan månaden förnyas mejlar vi vad du har gjort, så att du kan säga upp om du är klar."
+            text="Ingen bindningstid."
             uppsagning
             knapp={
               <>

@@ -36,6 +36,7 @@ import {
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { GRATIS_INTERVJUPROV_PER_DAG, GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA_DAG, ord } from '@/lib/plans/gratis-copy'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
+import { INTERVJU_BESKED_DAGAR } from '@/lib/jobbsok/typer'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
@@ -220,7 +221,8 @@ export const FUNKTIONER = {
         'Klistra in annonsen, eller välj ett matchat jobb.',
         `Välj ton, från professionell till kreativ. I ${PREMIUM} väljer vi åt dig efter annonsen.`,
         'Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.',
-        'Redigera, ladda ner som PDF eller Word, skicka.',
+        // SEO:s slutbesked punkt 16: steget säger var gratis tar slut.
+        'Redigera, välj mall och skicka. Nedladdning ingår i Premium.',
       ],
       ingar: ['allt'],
     },
@@ -270,9 +272,8 @@ export const FUNKTIONER = {
       scenAlt: 'Intervjuprovet med återkoppling på svaret',
       rubrik: 'Inför intervjun',
       sub: ingarGratis(`${ettOrd(GRATIS_INTERVJUPROV_PER_DAG)} intervjuprov om dagen.`),
-      // "sju dagar" är INTERVJU_BESKED_DAGAR på feat/jobbsoket-omgang2, som
-      // ännu inte finns i den här grenens bas.
-      text: 'Svara på en intervjufråga och få återkoppling som från en rekryterare: vad som hördes, och vad som saknades. När du är kallad skriver du in när intervjun är, så står den under Intervjuer på gång med förberedelserna bredvid. Efteråt frågar vi hur det gick, och hör du inget på sju dagar påminner vi om att fråga efter besked.',
+      // Dagarna läses ur INTERVJU_BESKED_DAGAR (SEO:s slutbesked, punkt 10).
+      text: `Svara på en intervjufråga och få återkoppling som från en rekryterare: vad som hördes, och vad som saknades. När du är kallad skriver du in när intervjun är, så står den under Intervjuer på gång med förberedelserna bredvid. Efteråt frågar vi hur det gick, och hör du inget på ${ord(INTERVJU_BESKED_DAGAR)} dagar påminner vi om att fråga efter besked.`,
       ingar: ['allt'],
     },
     {

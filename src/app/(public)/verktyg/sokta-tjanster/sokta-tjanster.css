@@ -41,6 +41,11 @@
 .st-faltpar { display: grid; gap: 12px; }
 @media (min-width: 520px) { .st-faltpar { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 900px) { .st-arkform { padding: 26px; } }
+/* K3 (saas-lead): på datorn syns hjältens kopparknapp och arket på samma skärmyta, så arkets knapp är vit där. I telefonen ligger de på var sin yta och båda är koppar. */
+@media (min-width: 1000px) {
+  .st-arkform .st-arkknapp { background: var(--papper); color: var(--ink-1); box-shadow: 0 5px 0 var(--kant-stark); border: 2px solid var(--kant-stark); }
+  .st-arkform .st-arkknapp:hover { box-shadow: 0 4px 0 var(--kant-stark); }
+}
 
 /* stegens små bilder */
 .st-mini-rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
@@ -146,22 +151,6 @@
 .st-o-lank a { color: var(--vagg-ink); }
 
 /* intervjun på tjänsten */
-.st-ivkort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 24px; overflow: hidden; color: var(--ink-1); }
-.st-ivtopp { display: grid; grid-template-columns: 62px 1fr; gap: 14px; align-items: center; padding: 18px; background: var(--vagg); color: var(--vagg-ink); }
-.st-ivdag { display: grid; place-items: center; align-content: center; width: 62px; height: 66px; border-radius: 16px; background: var(--papper); color: var(--vagg); box-shadow: 0 4px 0 var(--vagg-3); font-family: var(--disp); font-weight: 800; font-size: 26px; line-height: 1; }
-.st-ivdag small { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); margin-bottom: 3px; }
-.st-ivtopp b { font-family: var(--disp); font-size: 19px; line-height: 1.2; display: block; }
-.st-ivtopp div span { font-size: 14px; color: var(--vagg-mjuk); }
-.st-ivkropp { padding: 16px 18px 18px; display: grid; gap: 10px; }
-.st-ivkropp > p { font-size: 14.5px; color: var(--ink-2); }
-.st-ivkropp > p b { color: var(--ink-1); }
-.st-fragarad { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--golv); font-weight: 600; font-size: 15px; }
-.st-fragarad.st-nu { outline: 2.5px solid var(--koppar); background: var(--koppar-mjuk); }
-.st-fragarad small { grid-column: 1 / -1; font-weight: 400; font-size: 13.5px; color: var(--ink-3); }
-.st-fragarad .st-ej { font-size: 13.5px; font-weight: 500; color: var(--ink-3); }
-.st-betyg { display: inline-flex; gap: 4px; }
-.st-betyg i { width: 12px; height: 12px; border-radius: 4px; background: var(--kant-stark); }
-.st-betyg i.st-p { background: var(--ton-ink); }
 .st-hurgick { margin-top: 14px; padding: 18px; border-radius: 24px; background: var(--ton); border: 2px solid var(--kant-stark); color: var(--ink-1); }
 .st-hurgick b { font-family: var(--disp); font-size: 19px; }
 .st-hurgick p { font-size: 14.5px; color: var(--ink-2); margin-top: 4px; }
@@ -211,10 +200,6 @@
 .st-premkort > * + * { margin-top: 14px; }
 @media (min-width: 1000px) { .st-prem-rad { grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; } .st-gratiskort, .st-premkort { padding: 32px; } }
 .st-premium-huvud > * + * { margin-top: 14px; }
-
-/* gratiskortet är papper på Premium-ytan: bläck, inte Premiums ljusa text */
-.p3-premium .st-gratiskort :is(.p3-h3, p, li) { color: var(--ink-1); }
-.p3-premium .st-gratiskort p { color: var(--ink-2); }
 
 /* arket som riktigt formulär */
 .st-faltgrupp { border: 0; padding: 0; margin: 0; min-width: 0; }

@@ -18,7 +18,7 @@
  * Serverkomponent. Klient-JS bara för typvalets mätning (ProvVal),
  * produktfilmen och de mätta länkarna (MattLank), som i dag.
  */
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { MYNDIGHETER_SLUG, faqMedMyndigheter } from './components/rekryteringstester-faq-data'
 import ProvVal from './components/ProvVal'
@@ -50,7 +50,7 @@ import {
 import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import MattLank from '@/components/publikt/MattLank'
 import { TESTTAL } from '@/components/publikt/testtal'
-import { ANTAL_TESTTYPER, GRUNDNIVAN_ALLA_DAG, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
+import { ANTAL_TESTTYPER, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA_DAG, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import Bankbredd from '@/components/publikt/Bankbredd'
 import Produktfilm from '@/components/publikt/Produktfilm'
 import { TESTGLYFER, type TestTyp } from '@/components/illustrations/TestGlyfer'
@@ -63,7 +63,6 @@ import type { MittTest } from '@/lib/traning/mittTest'
 import type { BigFiveScores } from '@/lib/personalityTest/types'
 import { bandFor } from '@/lib/personalityTest/insights'
 import {
-  INTERVJU,
   KRAVPROFILER,
   bandOrd,
   faktorUtfall,
@@ -83,8 +82,8 @@ const PREMIUM = paketKort()
 const PRIS = prisPeriod(SALD_PLAN)
 const T = TESTTAL
 const PROV_N = provAntal('matris')
-/** GRATIS_TESTRAD_PROV med "uppgifter" (SEO-beskedet avsnitt 10; strängen i gratis-copy.ts är P1:s, önskemål skrivet). */
-const PROV_RAD = `Fem uppgifter gratis här. Grundnivån i alla ${TESTTYPER_ORD} testtyperna gratis med konto, ett test om dagen.`
+/** Gratisraden för provet, ur gratis-copy.ts (säger "uppgifter" sedan P5a). */
+const PROV_RAD = GRATIS_TESTRAD_PROV
 
 /* ------------------------------------------------------------------ */
 /* Uppgifterna ur bankerna                                             */
@@ -172,49 +171,8 @@ const ORD = { ord: 'snabb', typ: 'Synonym till', svar: ['stark', 'trygg', 'enkel
 const textSvar = (lista: readonly (string | number)[], vald: number): TestSvar[] =>
   lista.map((s, i) => ({ text: String(s), tillstand: i === vald ? 'vald' : undefined }))
 
-/** Talraden på brädet (grundens bräde i rad, talen i brickorna). */
-function Talrad({ tal }: { tal: readonly number[] }) {
-  return (
-    <div className="rt-fritt">
-      <div className="p3-tbrade p3-rad" style={{ ['--kol' as string]: tal.length + 1 } as CSSProperties}>
-        {tal.map((t, i) => (
-          <span key={i}>{t}</span>
-        ))}
-        <span className="p3-lucka">?</span>
-      </div>
-    </div>
-  )
-}
-
-/** Figurserien och den spatiala uppgiften ritas med produktens egna ritare i ramens klossar. */
-function FigurUppgift({ rad, referens, fraga, svar, vald }: { rad?: ReactNode[]; referens?: ReactNode; fraga: string; svar: ReactNode[]; vald: number }) {
-  return (
-    <div className="rt-fritt">
-      {rad ? (
-        <div className="p3-tbrade p3-rad" style={{ ['--kol' as string]: rad.length + 1 } as CSSProperties}>
-          {rad.map((r, i) => (
-            <span key={i}>{r}</span>
-          ))}
-          <span className="p3-lucka">?</span>
-        </div>
-      ) : null}
-      {referens ? (
-        <div className="rt-ref">
-          <span>{referens}</span>
-        </div>
-      ) : null}
-      <p className="p3-tfraga">{fraga}</p>
-      <div className={`p3-tsvar ${svar.length === 6 ? 'p3-s6' : svar.length === 4 ? 'p3-s4' : ''}`.trim()}>
-        {svar.map((s, i) => (
-          <span key={i} className={`p3-tkloss p3-fig rt-figkloss ${i === vald ? 'p3-vald' : ''}`.trim()}>
-            <i className="p3-ttan">{'ABCDEF'[i]}</i>
-            {s}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
+/** Talraden på brädet: talen i brickorna och luckan sist (grundens Testram, P5a). */
+const talBrade = (tal: readonly number[]) => [...tal, null]
 
 /* ------------------------------------------------------------------ */
 /* Sidans listor                                                       */
@@ -398,17 +356,10 @@ const TESTTYPER: {
         av={T.figurGrund.fragor}
         tid={null}
         knapp={null}
-        brade={null}
-        fraga={null}
-        svar={[]}
-        stycke={
-          <FigurUppgift
-            rad={FIGURSERIE.rad.map((c, i) => <FigurV7 key={i} cell={c} />)}
-            fraga="Vilken figur kommer härnäst?"
-            svar={FIGURSERIE.svar.map((c, i) => <FigurV7 key={i} cell={c} />)}
-            vald={FIGURSERIE.ratt}
-          />
-        }
+        brade={[...FIGURSERIE.rad.map((c, i) => <FigurV7 key={i} cell={c} />), null]}
+        bradeKolumner={FIGURSERIE.rad.length + 1}
+        fraga="Vilken figur kommer härnäst?"
+        svar={FIGURSERIE.svar.map((c, i) => ({ figur: <FigurV7 cell={c} />, tillstand: i === FIGURSERIE.ratt ? ('vald' as const) : undefined }))}
         className="rt-liten"
       />
     ),
@@ -457,8 +408,8 @@ const TESTTYPER: {
         av={T.talserieGrund.fragor}
         tid={null}
         knapp={null}
-        brade={null}
-        stycke={<Talrad tal={TALSERIE_KORT.visade} />}
+        brade={talBrade(TALSERIE_KORT.visade)}
+        bradeKolumner={TALSERIE_KORT.visade.length + 1}
         fraga="Vilket tal kommer härnäst?"
         svar={textSvar(TALSERIE_KORT.svar, TALSERIE_KORT.ratt)}
         svarKolumner={3}
@@ -482,16 +433,9 @@ const TESTTYPER: {
         tid={null}
         knapp={null}
         brade={null}
-        fraga={null}
-        svar={[]}
-        stycke={
-          <FigurUppgift
-            referens={<SpatialSvg fig={SPATIAL.referens} />}
-            fraga={SPATIAL.fraga}
-            svar={SPATIAL.svar.map((f, i) => <SpatialSvg key={i} fig={f} />)}
-            vald={SPATIAL.ratt}
-          />
-        }
+        referens={<SpatialSvg fig={SPATIAL.referens} />}
+        fraga={SPATIAL.fraga}
+        svar={SPATIAL.svar.map((fig, i) => ({ figur: <SpatialSvg fig={fig} />, tillstand: i === SPATIAL.ratt ? ('vald' as const) : undefined }))}
         className="rt-liten"
       />
     ),
@@ -512,12 +456,11 @@ const TESTTYPER: {
         tid={null}
         knapp={null}
         brade={null}
+        styckeFritt
         stycke={
-          <div className="rt-fritt">
-            <div className="rt-ordkort">
-              <small>{ORD.typ}</small>
-              <b>{ORD.ord.toUpperCase()}</b>
-            </div>
+          <div className="rt-ordkort">
+            <small>{ORD.typ}</small>
+            <b>{ORD.ord.toUpperCase()}</b>
           </div>
         }
         fraga={null}
@@ -864,7 +807,7 @@ export default function RekryteringstesterSida() {
             <SektionHuvud
               etikett="Från första uppgiften till genomgången"
               rubrik="Så fungerar det"
-              varde="Från första frågan till färdig rapport. Ingen registrering innan du provar, du börjar inom 30 sekunder."
+              varde="Från första uppgiften till färdig rapport. Ingen registrering innan du provar, du börjar inom 30 sekunder. Alla tester går till på samma sätt: en startskärm som säger vad som gäller, uppgifterna med klocka och framstegsstapel, och ett resultat där varje uppgift går att öppna."
             >
               <Knapprad>
                 <Knapp href={PROVA} variant="vit">
@@ -941,9 +884,9 @@ export default function RekryteringstesterSida() {
                   uppgift={9}
                   av={avTal}
                   tid="5:26"
-                  brade={null}
+                  brade={talBrade(TALSERIE.visade)}
+                  bradeKolumner={TALSERIE.visade.length + 1}
                   fraga="Vilket tal kommer härnäst?"
-                  stycke={<Talrad tal={TALSERIE.visade} />}
                   svar={textSvar(TALSERIE.svar, TALSERIE.valt)}
                   svarKolumner={3}
                   className="rt-liten"
@@ -1275,7 +1218,8 @@ export default function RekryteringstesterSida() {
                 {utslag.map((u) => (
                   <div className="rt-ifraga" key={u.key}>
                     <b>{u.lasning}</b>
-                    <span>Så kan du svara: {INTERVJU[u.key][u.band]}</span>
+                    {/* Intervjurådet hör till tolkningen i gratiskontot, som på personlighetstestet (P5a). */}
+                    <span>Så kan du svara: rådet står i tolkningen när du har sparat profilen med ett gratiskonto.</span>
                   </div>
                 ))}
               </div>
@@ -1355,7 +1299,7 @@ export default function RekryteringstesterSida() {
               </div>
               <p className="p3-liten">TRR-undersökning bland tjänstemän som nyligen bytt jobb.</p>
               <div className="rt-tjugo" aria-hidden="true">
-                <b>20 %</b>
+                <b>Upp till 20 %</b>
                 <span>Så mycket kan två till tre timmars övning höja resultatet, enligt tidningen Ingenjören.</span>
               </div>
             </div>

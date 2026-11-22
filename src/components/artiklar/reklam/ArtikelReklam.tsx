@@ -39,7 +39,8 @@ import {
   type Farg,
   type IkonNamn,
 } from '@/components/publikt/v3'
-import ProvMatris from '@/components/publikt/innehall/ProvMatris'
+import { MATRIS_EXPERT_ALTERNATIV, MATRIS_EXPERT_RUTOR, MatrisFigur } from '@/components/publikt/MatrisExpert'
+import { TESTTAL } from '@/components/publikt/testtal'
 import TestBredd from '@/components/publikt/TestBredd'
 import Bankbredd from '@/components/publikt/Bankbredd'
 import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
@@ -147,16 +148,32 @@ export function ReklamRuta({
 
 /* -------------------------------------------------------- bilderna */
 
+/** En ruta ur expertuppgiften, med fyllning, som egen ritning i grundens testram. */
+function ExpertRuta({ ruta }: { ruta: (typeof MATRIS_EXPERT_RUTOR)[number] }) {
+  return (
+    <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <MatrisFigur ruta={ruta} streck={4.2} />
+    </svg>
+  )
+}
+
 /**
- * Den riktiga expertuppgiften (MatrisExpert) på ett papper, som i dag.
- * Grundens testram ritar inte fyllning, så uppgiften står utan ram
- * (önskemål till grunden).
+ * Den riktiga expertuppgiften (MatrisExpert, v7e-plus-p2-17) i grundens
+ * testram: brädet och alternativen tar nu egna ritningar med fyllning (P5a,
+ * önskemålet från P4). Inget alternativ är valt, facit visas inte.
  */
 function ExpertUppgift() {
   return (
-    <div className="ar-matris">
-      <ProvMatris />
-    </div>
+    <Testram
+      niva="Expertnivå"
+      uppgift={1}
+      av={TESTTAL.matrisExpert.fragor}
+      tid={null}
+      knapp={null}
+      brade={[...MATRIS_EXPERT_RUTOR.map((r, i) => <ExpertRuta key={i} ruta={r} />), null]}
+      svar={MATRIS_EXPERT_ALTERNATIV.map((a) => ({ figur: <ExpertRuta ruta={a.ruta} /> }))}
+      ariaLabel="Exempel: en uppgift i matrislogik på expertnivå, som den ser ut i testet"
+    />
   )
 }
 
@@ -171,9 +188,21 @@ function InlineBild({ verktyg }: { verktyg: VerktygMedBild }) {
       </div>
     )
   if (verktyg === 'analys') return <CvArk liten poang={{ tal: 93, text: 'av 100 i dag' }} kvar="7 poäng kvar till 100" />
-  if (verktyg === 'brev') return <Brevpar />
+  if (verktyg === 'brev') return <Brevpar stycken={BREVKORT_STYCKEN} />
   return <Samtal />
 }
+
+/**
+ * Brevkortets bild (seo-slutbesked.md punkt 69 och avsnitt 5): grundens brev
+ * (Brevpar, SARA_STYCKEN) kortat, inga nya meriter och inga belopp. Andra
+ * meningen har SEO:s lydelse ordagrant.
+ */
+const BREVKORT_STYCKEN: readonly ReactNode[] = [
+  <>När ni söker en projektledare som håller ihop upphandling och tidplan känner jag igen mina senaste tre år.</>,
+  <>
+    Ni skriver att rollen kräver vana vid <mark>offentlig upphandling enligt LOU</mark>. Jag har drivit fyra sådana.
+  </>,
+]
 
 const INLINE_FARG: Record<VerktygMedBild, Farg> = {
   mallar: 'cv',
@@ -358,7 +387,7 @@ export function JobbKort({ variant, cluster, slug }: { variant: keyof typeof JOB
       ikon="jobb"
       etikett={copy.etikett}
       rubrik={copy.rubrik}
-      ariaLabel={copy.etikett}
+      ariaLabel={copy.ariaLabel}
       data={{ ...matning('final', cluster, `jobb-${variant}`), 'data-cta-slug': slug }}
       bild={bild}
       brod={copy.brod}

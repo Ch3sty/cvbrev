@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { kontrolleraSokt, soktRedirect, soktTillRutt } from '../provaSokt'
+import { SOKT_KONTO_HREF, kontrolleraSokt, soktRedirect, soktTillRutt } from '../provaSokt'
 
 const bas = { lage: 'sokt' as const, tjanst: ' Projektledare ', arbetsgivare: 'Dalvik  Anläggning', datum: '2026-11-10', kanal: 'ad' as const }
 
@@ -31,15 +31,15 @@ describe('provaSokt', () => {
     })
   })
 
-  it('redirecten öppnar arket förifyllt i kontot', () => {
-    const href = soktRedirect(bas)
-    expect(href.startsWith('/dashboard/sokta-tjanster?')).toBe(true)
-    const q = new URLSearchParams(href.split('?')[1])
-    expect(q.get('logga')).toBe('1')
-    expect(q.get('tjanst')).toBe('Projektledare')
-    expect(q.get('arbetsgivare')).toBe('Dalvik Anläggning')
-    const ska = new URLSearchParams(soktRedirect({ ...bas, lage: 'ska-soka', datum: '2026-12-01' }).split('?')[1])
-    expect(ska.get('logga')).toBe('ska-soka')
-    expect(ska.get('sista')).toBe('2026-12-01')
+  it('redirecten öppnar arket i kontot utan tjänst eller arbetsgivare i adressen (PostHog läser adressen)', () => {
+    expect(soktRedirect(bas)).toBe('/dashboard/sokta-tjanster?logga=1')
+    expect(soktRedirect({ lage: 'ska-soka' })).toBe('/dashboard/sokta-tjanster?logga=ska-soka')
+    for (const href of [soktRedirect(bas), soktRedirect({ lage: 'ska-soka' }), SOKT_KONTO_HREF]) {
+      expect(href).not.toMatch(/tjanst=|arbetsgivare=|sista=|Projektledare|Dalvik/)
+    }
+  })
+
+  it('kontoknapparna går till registreringen med arket som mål (K1)', () => {
+    expect(SOKT_KONTO_HREF).toBe('/register?redirect=%2Fdashboard%2Fsokta-tjanster%3Flogga%3D1')
   })
 })

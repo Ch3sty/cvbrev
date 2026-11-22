@@ -68,13 +68,9 @@
 
 /* ---------- ramen i små ytor: lättare skugga ---------- */
 .rt-sida .p3-tram.rt-liten { box-shadow: 0 5px 0 var(--kant-stark); border-color: var(--kant-stark); max-width: none; }
-.rt-sida .p3-tstycke:has(> .rt-fritt) { padding: 0; background: none; box-shadow: none; }
-.rt-fritt { display: grid; gap: 12px; }
-.rt-fritt .p3-tbrade.p3-rad span { font-size: 18px; }
-.rt-figkloss svg { width: 64% !important; height: 64% !important; }
-.rt-ref { display: grid; place-items: center; width: 124px; margin: 0 auto; padding: 10px; border-radius: 18px; background: var(--vagg-3); }
-.rt-ref span { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 12px; background: var(--papper); }
-.rt-ref svg { width: 80px; height: 80px; }
+/* talen och figurerna i grundens Testram (P5a: brädet och klossarna tar egna ritningar) */
+.rt-sida .p3-tbrade.p3-rad span { font-size: 18px; }
+.rt-sida .p3-tkloss.p3-fig > svg { width: 64%; height: 64%; }
 .rt-ordkort { display: grid; place-items: center; gap: 2px; padding: 14px; border-radius: 16px; background: var(--vagg-3); color: var(--vagg-ink); }
 .rt-ordkort small { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ljus); }
 .rt-ordkort b { font-family: var(--disp); font-weight: 800; font-size: 28px; letter-spacing: .02em; }

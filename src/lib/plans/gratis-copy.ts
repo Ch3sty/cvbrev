@@ -107,7 +107,7 @@ export const GRATIS_MENING_KORT =
   `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb, ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och Sökta tjänster ingår utan att betala.`
 
 /** Testraden: provkort, testsidan, sidokolumnen. */
-export const GRATIS_TESTRAD_PROV = `Fem frågor gratis här. Grundnivån i alla ${TESTTYPER_ORD} testtyperna gratis med konto, ett test om dagen.`
+export const GRATIS_TESTRAD_PROV = `Fem uppgifter gratis här. Grundnivån i alla ${TESTTYPER_ORD} testtyperna gratis med konto, ett test om dagen.`
 
 /**
  * Startsidans FAQ-svar om gratisnivån (S11): siffror som i dag, tester först.

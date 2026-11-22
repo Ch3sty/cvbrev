@@ -99,10 +99,6 @@
 .jc-utantak i { flex: 1; height: 22px; border-radius: 8px; background: linear-gradient(90deg, var(--koppar), var(--koppar) 60%, transparent); }
 .jc-kvot p { margin-top: 10px; font-size: 14.5px; }
 
-/* Papper på ön: grundens ö-regel kommer efter pappersregeln i v3.css och gör
-   rubriken ljus. Rättat här tills grunden tar det (onskemal.md). */
-.p3-o :is(.p3-kort, .p3-papper) .p3-h3 { color: var(--ink-1); }
-
 /* skrivfältet och förslagen på riktigt (CoachFraga) */
 .jc-skriv input { min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 15px; background: var(--papper); border: 2px solid var(--kant-stark); font: inherit; font-size: 16px; color: var(--ink-1); }
 .jc-skriv input::placeholder { color: var(--ink-3); }

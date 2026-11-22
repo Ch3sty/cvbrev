@@ -7,9 +7,12 @@
  * skapar den sökta tjänsten, eller sparar annonsen under Ska sökas, genom
  * kontots egna rutter. Sedan tas utkastet bort här.
  *
- * Loggar hon in i stället för att skapa konto bär redirecten samma uppgifter
- * i adressen (soktaHref med logga, tjanst och arbetsgivare), så att arket
- * Logga sökt tjänst öppnas förifyllt i kontot.
+ * Tjänst och arbetsgivare står aldrig i en adress (SEO:s villkor i
+ * seo-slutbesked.md, Del 3 punkt 1): PostHog skickar hela adressen med varje
+ * sidvisning, också på /register och /dashboard/sokta-tjanster. Redirecten
+ * öppnar bara arket (?logga=1 eller ?logga=ska-soka). Loggar hon in i
+ * stället för att skapa konto fyller kontots ark i sig ur utkastet här
+ * (soktUtkastSomForifyllt, läst i SoktaVy), inte ur adressen.
  *
  * Alla läsningar och skrivningar i try/catch: privat läge och blockerad
  * lagring ska ge en sida som fungerar utan utkast.
@@ -63,11 +66,32 @@ export function soktTillRutt(u: Omit<SoktUtkast, 'sparad'>): { url: string; body
   }
 }
 
-/** Dit registreringen ska skicka henne: arket förifyllt, om hämtningen inte redan har gjort jobbet. */
-export function soktRedirect(u: Omit<SoktUtkast, 'sparad'>): string {
-  const href = soktaHref({ logga: u.lage, tjanst: ren(u.tjanst), arbetsgivare: ren(u.arbetsgivare), fran: 'publikt-sokta' })
-  // Sista ansökningsdag läses av sidans forifylltUr (?sista=), soktaHref har ingen parameter för den.
-  return u.lage === 'ska-soka' && arDag(u.datum) ? `${href}&sista=${u.datum}` : href
+/**
+ * Dit registreringen ska skicka henne: arket öppet i kontot, utan uppgifterna
+ * i adressen (se ovan). Förifyllningen kommer ur utkastet i webbläsaren.
+ */
+export function soktRedirect(u: Pick<SoktUtkast, 'lage'>): string {
+  return `${SOKTA_HREF}?logga=${u.lage === 'ska-soka' ? 'ska-soka' : '1'}`
+}
+
+/** Kontoknapparna på /verktyg/sokta-tjanster (saas-lead K1): kontot landar i arket Logga sökt tjänst. */
+export const SOKT_KONTO_HREF = `/register?redirect=${encodeURIComponent(soktRedirect({ lage: 'sokt' }))}`
+
+/** Utkastet som förifyllning till kontots ark, för den som loggar in i stället för att skapa konto. */
+export function soktUtkastSomForifyllt(nu: number = Date.now()): {
+  lage: 'sokt' | 'ska-soka'
+  job_title: string
+  company: string
+  last_application_date: string | null
+} | null {
+  const u = lasSoktUtkast(nu)
+  if (!u || typeof u.arbetsgivare !== 'string') return null
+  return {
+    lage: u.lage === 'ska-soka' ? 'ska-soka' : 'sokt',
+    job_title: ren(u.tjanst),
+    company: ren(u.arbetsgivare),
+    last_application_date: u.lage === 'ska-soka' && arDag(u.datum) ? u.datum : null,
+  }
 }
 
 export function lasSoktUtkast(nu: number = Date.now()): SoktUtkast | null {
@@ -90,7 +114,7 @@ export function sparaSoktUtkast(u: Omit<SoktUtkast, 'sparad'>): void {
   try {
     window.localStorage.setItem(SOKT_UTKAST_NYCKEL, JSON.stringify({ ...u, sparad: Date.now() }))
   } catch {
-    // Lagringen är avstängd: redirecten bär ändå uppgifterna till arket.
+    // Lagringen är avstängd: arket öppnas ändå i kontot, tomt.
   }
 }
 
@@ -122,7 +146,7 @@ export async function claimPendingSokt(): Promise<string | null> {
       rensaSoktUtkast()
       return u.lage === 'ska-soka' ? soktaHref({ filter: 'ska-sokas', fran: 'publikt-sokta' }) : soktaHref({ fran: 'publikt-sokta' })
     }
-    // Fel i fälten: släpp utkastet och låt arket öppnas förifyllt i stället.
+    // Fel i fälten: släpp utkastet och öppna arket i kontot, så att hon fyller i det där.
     if (res.status === 400) {
       rensaSoktUtkast()
       return soktRedirect(u)

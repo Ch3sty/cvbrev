@@ -7,7 +7,7 @@
  */
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { Lyft, MallMiniatyr } from '@/components/publikt/v3'
+import { Lyft, MallMiniatyr, Situationsrad as GrundSituationsrad } from '@/components/publikt/v3'
 import Uppladdning from '@/components/cv/Dokument/prova/Uppladdning'
 import ProvaArbetsyta from '@/components/cv/Dokument/prova/ProvaArbetsyta'
 import type { MallKort } from '@/lib/cv/mallar/kontrakt'
@@ -34,17 +34,9 @@ export const SITUATION = [
   { text: 'Chef', href: '/cv-mallar/chef' },
 ] as const
 
+/** Grundens situationsrad (P5a), i lyftets pappersläge. */
 export function Situationsrad() {
-  return (
-    <nav aria-label="Välj efter situation" className="cvm-situation">
-      <span>Börja från din situation</span>
-      {SITUATION.map((s) => (
-        <Link key={s.href} href={s.href}>
-          {s.text}
-        </Link>
-      ))}
-    </nav>
-  )
+  return <GrundSituationsrad className="cvm-situation" etikett="Börja från din situation" lankar={SITUATION} />
 }
 
 /**

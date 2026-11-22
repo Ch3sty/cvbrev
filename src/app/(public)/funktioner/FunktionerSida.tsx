@@ -17,7 +17,9 @@
  */
 
 import Link from 'next/link'
-import { FUNKTIONER } from '@/components/pricing/paket-copy'
+import { FUNKTIONER, PAKET_KORT } from '@/components/pricing/paket-copy'
+import PriserKopKnapp from '@/app/(public)/priser/components/PriserKopKnapp'
+import { KampanjVarianter } from '@/components/kampanj/Kampanj'
 import { HELA_PAKETET_RADER, SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, WORD_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { GRATIS_CHATTFRAGOR, GRATIS_INTERVJUPROV_PER_DAG, GRATIS_PASTAENDEN, GRUNDNIVAN_ALLA_DAG, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
@@ -41,6 +43,7 @@ import {
   Talbrickor,
   LankBricka,
   Knapp,
+  knappKlass,
   TextLank,
   Ikon,
   Dorr,
@@ -62,6 +65,8 @@ import '@/components/publikt/publikt.css'
 import './funktioner.css'
 
 const PREMIUM = paketKort()
+/** Köpknappens text som på /priser: kopKnapp() via PAKET_KORT, kampanjpriset följer med (K7). */
+const KOP_KNAPP = <KampanjVarianter ord={PAKET_KORT.allt.knapp} kampanj={(k) => k.copy.prisKnapp} />
 
 /** Mallväggen: åtta riktiga CV-mallar ur katalogen, gratismallarna först. */
 const MALLVAGG = ['linne', 'bjork', 'koppar', 'ritning', 'kalksten', 'terrakotta', 'tidning', 'siluett'] as const
@@ -661,7 +666,7 @@ export default function FunktionerSida() {
               </div>
               <div className="fn-lk-ruta fn-efter">
                 <small>Rubriken efter omskrivningen</small>
-                <p>Projektledare bygg, offentlig upphandling enligt LOU, budgetansvar 40 miljoner</p>
+                <p>Projektledare bygg, offentlig upphandling enligt LOU, budgetansvar</p>
                 <div className="fn-lk-sok">
                   <small>Hittas på:</small>
                   <span>projektledare bygg</span>
@@ -694,7 +699,14 @@ export default function FunktionerSida() {
           rubrik="Alla verktyg, alla nivåer, alla mallar."
           rubrikNiva="p"
           uppsagning
-          knapp={{ text: 'Se vad som ingår', href: '/priser' }}
+          knapp={
+            /* K7 (saas-lead, SEO JA): köpknappen med prissidans beteende, och
+               "Se vad som ingår" kvar som textlänk till /priser med samma ankartext. */
+            <>
+              <PriserKopKnapp cta="secondary" etikett={KOP_KNAPP} klass={knappKlass({})} yta="public_features" plats="funktioner" />
+              <TextLank href="/priser">Se vad som ingår</TextLank>
+            </>
+          }
           punkter={HELA_PAKETET_RADER}
         />
       </Sektion>

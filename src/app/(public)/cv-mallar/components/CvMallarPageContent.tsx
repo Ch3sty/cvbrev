@@ -29,6 +29,7 @@ import {
   TextLank,
   PrisRad,
   MallMiniatyr,
+  Filterchips,
   type FaqFraga,
 } from '@/components/publikt/v3'
 import ProvaProvider from '@/components/cv/Dokument/prova/ProvaKontext'
@@ -292,8 +293,9 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
           {/* Resultatet på samma sida: uppladdningen och arbetsytan i det lyfta kortet. */}
           <ProvaLyft etikett="Se ditt eget CV i mallarna" under={<Situationsrad />} />
 
-          {/* Yrkesmallar: snabblänkarna för "cv mall {yrke}", i grupper. */}
-          <Sektion>
+          {/* Yrkesmallar: snabblänkarna för "cv mall {yrke}", i grupper.
+              id="yrken" är fotens ankare "CV-mallar per yrke" (SEO:s slutbesked, punkt 26). */}
+          <Sektion id="yrken">
             <SektionHuvud
               etikett={`${yrkesmallar.length} yrken i ${grupper.length} grupper`}
               rubrik="CV-mallar för ditt yrke"
@@ -370,17 +372,7 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
               <p className="p3-text">Klicka på en mall så ser du den med ett färdigt CV, eller ladda upp ditt eget.</p>
             </SektionHuvud>
             <div className="cvm-filtrera">
-              <fieldset className="cvm-filter">
-                <legend className="cvm-sr">Filtrera mallarna</legend>
-                {FILTER.map((f) => (
-                  <span key={f.id}>
-                    <input type="radio" name="cvm-filter" id={`cvm-f-${f.id}`} defaultChecked={f.id === 'alla'} />
-                    <label htmlFor={`cvm-f-${f.id}`}>
-                      {f.namn} <b>{f.antal}</b>
-                    </label>
-                  </span>
-                ))}
-              </fieldset>
+              <Filterchips className="cvm-filter" namn="cvm-filter" idPrefix="cvm-f-" val={FILTER} forval="alla" legend="Filtrera mallarna" />
               <ul className="cvm-mallnat">
                 {MALL_KATALOG.map((m) => (
                   <li key={m.id} id={`mall-${m.id}`} data-f={filterTaggar(m)}>

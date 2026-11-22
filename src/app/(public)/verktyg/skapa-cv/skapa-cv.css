@@ -4,6 +4,7 @@
 /* Hjältens bild: arket, mallchipet och Jobbcoachens förslag */
 .skc-cvb { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 46px 0 150px; min-width: 0; }
 .skc-cvb .p3-ark { transform: rotate(1.2deg); }
+.skc-enkelt-bild .p3-bark { margin-left: 26px; }
 .skc-cvb .skc-mallchip { position: absolute; z-index: 4; left: 4%; top: 28px; }
 .skc-cvb .skc-forslag { right: -4px; bottom: 0; width: min(310px, 88%); --rot: -2deg; transform: rotate(-2deg); }
 .skc-forslag em { display: flex; align-items: center; gap: 8px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--koppar-ink); }
@@ -73,12 +74,6 @@
 .skc-enkelt .p3-h3 { font-size: 18.5px; align-self: center; }
 .skc-enkelt p { grid-column: 2; font-size: 14.5px; color: var(--vagg-mjuk); }
 .skc-enkelt-bild { width: 100%; max-width: 480px; margin: 0 auto; }
-.skc-verktygsrad { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; padding: 8px; border-radius: 18px; background: var(--papper); color: var(--ink-1); box-shadow: 0 6px 0 rgba(0, 0, 0, .22); }
-.skc-verktygsrad span { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 11px; background: var(--papper-2); font-size: 13.5px; font-weight: 700; white-space: nowrap; }
-.skc-verktygsrad .skc-farg i { width: 14px; height: 14px; border-radius: 50%; }
-.skc-verktygsrad .skc-tva { margin-left: auto; padding: 3px; gap: 2px; background: var(--golv); }
-.skc-verktygsrad .skc-tva b { display: grid; place-items: center; height: 30px; padding: 0 11px; border-radius: 9px; font-size: 13.5px; }
-.skc-verktygsrad .skc-tva b.skc-pa { background: var(--papper); box-shadow: 0 2px 0 var(--kant-stark); }
 .skc-fyra { margin-top: 20px; }
 .skc-ebild { display: grid; place-items: center; height: 104px; padding: 12px; border-radius: 16px; background: var(--ton); color: var(--ton-ink); }
 .skc-ebild .skc-las { position: relative; display: grid; gap: 5px; width: 120px; padding: 10px; border-radius: 6px; background: var(--papper); }

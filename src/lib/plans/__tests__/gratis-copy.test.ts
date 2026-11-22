@@ -66,7 +66,7 @@ describe('gratisnivån, en källa', () => {
     expect(GRATIS_MENING_KORT).toBe(
       'Ett grundnivåtest om dagen, två CV-mallar, CV-analysens läsbarhetspoäng för varje CV, ett personligt brev var sjunde dag, tre matchade jobb, tio meddelanden till Jobbcoachen och Sökta tjänster ingår utan att betala.'
     )
-    expect(GRATIS_TESTRAD_PROV).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen.')
+    expect(GRATIS_TESTRAD_PROV).toBe('Fem uppgifter gratis här. Grundnivån i alla åtta testtyperna gratis med konto, ett test om dagen.')
     expect(GRATIS_FAQ).toBe(
       'Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna, ett test om dagen, och personlighetstestet, 2 CV-mallar och en nedladdning, CV-analysens läsbarhetspoäng och genomgång i sju delar för varje CV, ett personligt brev var sjunde dag, 3 matchade jobb, 10 meddelanden till Jobbcoachen och Sökta tjänster med det första uppföljningsmejlet.'
     )

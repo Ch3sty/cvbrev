@@ -5,17 +5,23 @@
  * omgång 3 ("inga genvägar"): besökaren fyller i det på riktigt. Samma fält
  * och etiketter som kontots ark (LoggaArk). Det hon fyller i sparas i
  * webbläsaren (lib/jobbsok/provaSokt.ts) och hämtas hem efter kontot av
- * valkommen-sidan, så att den sökta tjänsten finns i kontot. Redirecten bär
- * samma uppgifter, så att arket öppnas förifyllt om hon loggar in i stället.
+ * valkommen-sidan, så att den sökta tjänsten finns i kontot. Loggar hon in i
+ * stället fyller kontots ark i sig ur samma utkast.
+ *
+ * SEO:s villkor (seo-slutbesked.md, Del 3 punkt 1): knappen är en vanlig
+ * länk till K1:s adress och fungerar utan JavaScript, fälten är tomma från
+ * början, och tjänst och arbetsgivare står aldrig i adressen eller i en
+ * händelse, så att de inte når PostHog. Med JavaScript kontrolleras fälten
+ * och utkastet sparas innan länken följs.
  *
  * Importerar inte grundens barrel (serverkomponenter); klasserna p3-knapp
  * och st-* räcker. Klasserna står i sokta-tjanster.css.
  */
 
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, type MouseEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { idagSv } from '@/lib/jobbsok/datum'
-import { kontrolleraSokt, soktRedirect, sparaSoktUtkast, type SoktFalt, type SoktKanal } from '@/lib/jobbsok/provaSokt'
+import { SOKT_KONTO_HREF, kontrolleraSokt, soktRedirect, sparaSoktUtkast, type SoktFalt, type SoktKanal } from '@/lib/jobbsok/provaSokt'
 
 const KANALER: { varde: SoktKanal; namn: string }[] = [
   { varde: 'ad', namn: 'Annons' },
@@ -41,8 +47,9 @@ export default function LoggaArkPublik() {
   const [fel, setFel] = useState<SoktFalt | null>(null)
   const [skickar, setSkickar] = useState(false)
 
-  function skicka(e: FormEvent) {
+  function skicka(e: FormEvent | MouseEvent<HTMLAnchorElement>) {
     e.preventDefault()
+    if (skickar) return
     const u = { lage, tjanst, arbetsgivare, datum: lage === 'sokt' ? datum : sista, kanal }
     const f = kontrolleraSokt(u, idag)
     setFel(f)
@@ -52,14 +59,15 @@ export default function LoggaArkPublik() {
     }
     setSkickar(true)
     sparaSoktUtkast(u)
-    router.push(`/register?redirect=${encodeURIComponent(soktRedirect(u))}`)
+    // Bara läget i adressen, aldrig tjänst eller arbetsgivare (PostHog läser adressen).
+    router.push(lage === 'sokt' ? SOKT_KONTO_HREF : `/register?redirect=${encodeURIComponent(soktRedirect({ lage }))}`)
   }
 
   const felId = (f: SoktFalt) => (fel === f ? `st-${f}-fel` : undefined)
 
   return (
-    <form className="st-arkform" onSubmit={skicka} noValidate aria-labelledby="st-arkrubrik">
-      <span className="st-arkrubrik" id="st-arkrubrik">
+    <form className="st-arkform" onSubmit={skicka} noValidate aria-label="Logga sökt tjänst">
+      <span className="st-arkrubrik" aria-hidden="true">
         Logga sökt tjänst
       </span>
       <fieldset className="st-faltgrupp">
@@ -105,7 +113,7 @@ export default function LoggaArkPublik() {
           className="st-falt"
           value={arbetsgivare}
           onChange={(e) => setArbetsgivare(e.target.value)}
-          placeholder="Företagets namn"
+          placeholder="Arbetsgivarens namn"
           maxLength={200}
           autoComplete="organization"
           aria-invalid={fel === 'arbetsgivare' || undefined}
@@ -174,9 +182,10 @@ export default function LoggaArkPublik() {
           ) : null}
         </div>
       )}
-      <button type="submit" className="p3-knapp p3-knapp-bred" disabled={skickar}>
+      {/* K3: kopparknapp i telefonen, vit på datorn där hjältens kopparknapp syns samtidigt (sokta-tjanster.css). */}
+      <a href={SOKT_KONTO_HREF} className="p3-knapp p3-knapp-bred st-arkknapp" onClick={skicka} aria-disabled={skickar || undefined}>
         {lage === 'sokt' ? 'Logga sökt tjänst' : 'Spara till Ska sökas'}
-      </button>
+      </a>
       <span className="st-arkfot">Sedan skapar du ett gratis konto, så ligger tjänsten där.</span>
     </form>
   )

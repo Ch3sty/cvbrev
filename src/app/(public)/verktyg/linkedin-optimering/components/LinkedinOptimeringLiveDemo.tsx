@@ -140,7 +140,7 @@ export default function LinkedinOptimeringLiveDemo() {
               <>
                 <p>
                   Jag leder ombyggnads- och energiprojekt åt offentliga beställare, från förfrågningsunderlag till överlämning. De senaste tre åren har jag drivit fyra
-                  upphandlingar enligt LOU och hållit ihop tidplan, budget och underentreprenörer i projekt på upp till 42 miljoner kronor.
+                  upphandlingar enligt LOU och hållit ihop tidplan, budget och underentreprenörer i varje projekt.
                 </p>
                 <p>Jag började som biträdande projektledare inom logistik och tog med mig vanan att räkna på flöden. I dag är det den som gör att mina projekt blir klara före plan.</p>
                 <span className="lnk-mer">Fortsätter: vart Sara är på väg.</span>

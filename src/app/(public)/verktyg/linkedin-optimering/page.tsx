@@ -19,6 +19,7 @@ import {
   Kort,
   Chip,
   Nr,
+  VagSteg,
   Faq,
   PremiumO,
   Knapp,
@@ -253,7 +254,7 @@ function LageBild({ nr }: { nr: number }) {
         Projektchef, energi <em>används för sökord och ton</em>
       </div>
       <small>Rubriken blir</small>
-      <div className="lnk-rub">Projektchef energi | Offentlig upphandling enligt LOU | Leder ombyggnader upp till 42 miljoner</div>
+      <div className="lnk-rub">Projektchef energi | Offentlig upphandling enligt LOU | Ombyggnader i tid och inom budget</div>
       <div className="lnk-ordrad">
         <span className="lnk-pa">projektchef energi</span>
         <span>projektledare</span>
@@ -375,24 +376,12 @@ export default function LinkedinOptimeringSida() {
         {/* 3. Så fungerar det: fem steg som kort, tre plus två */}
         <Sektion id="sa-funkar-det">
           <SektionHuvud
-            etikett="Fem steg, fem minuter"
+            etikett="Fem steg"
             rubrik="Så fungerar det"
             varde="Inga inloggningar på LinkedIn och ingen automatisk publicering. Du kopierar in, vi optimerar, du kopierar tillbaka. Klart på fem minuter."
           />
-          <ol className="lnk-steg5">
-            {STEG.map((s, i) => (
-              <li key={s.name}>
-                <div className="lnk-huvud">
-                  <Nr typ={i === STEG.length - 1 ? 'koppar' : 'ton'}>{i + 1}</Nr>
-                  <h3 className="p3-h3">{s.name}</h3>
-                </div>
-                <div className="lnk-b" aria-hidden="true">
-                  <StegBild nr={i} />
-                </div>
-                <p>{s.text}</p>
-              </li>
-            ))}
-          </ol>
+          {/* Grundens väg: fem steg blir tre plus två, bilden överst på dator (P5a). */}
+          <VagSteg steg={STEG.map((s, i) => ({ rubrik: s.name, text: s.text, bild: <StegBild nr={i} />, koppar: i === STEG.length - 1 }))} />
           <Knapprad className="lnk-efter">
             <Knapp href="/register" variant="vit">
               Optimera min profil
@@ -431,12 +420,12 @@ export default function LinkedinOptimeringSida() {
                 <span className="lnk-pn">3</span>
                 <small>Erfarenhet</small>
                 <div className="lnk-rad">
-                  Projektledare, Nordanvind Energi <span>2021 – nu</span>
+                  Projektledare, Nordanvind Energi <span>2021 till nu</span>
                 </div>
                 <i className="lnk-l lnk-m" />
                 <i className="lnk-l" />
                 <div className="lnk-rad">
-                  Biträdande projektledare, Halda Logistik <span>2018 – 2021</span>
+                  Biträdande projektledare, Halda Logistik <span>2018 till 2021</span>
                 </div>
                 <i className="lnk-l lnk-k" />
               </div>
@@ -444,7 +433,7 @@ export default function LinkedinOptimeringSida() {
                 <span className="lnk-pn">4</span>
                 <small>Utbildning</small>
                 <div className="lnk-rad">
-                  Civilingenjör, industriell ekonomi <span>2013 – 2018</span>
+                  Civilingenjör, industriell ekonomi <span>2013 till 2018</span>
                 </div>
               </div>
               <div className="lnk-del">
@@ -480,9 +469,7 @@ export default function LinkedinOptimeringSida() {
 
         {/* 5. Varför du inte syns i dag: ön med tre kort */}
         <Sektion id="varfor">
-          {/* Ön ritad som vägg: på .p3-o vinner öns ljusa rubrikfärg över
-              kortets bläck (onskemal.md), på .p3-vagg gör den inte det. */}
-          <div className="p3-vagg lnk-varfor">
+          <div className="p3-o lnk-varfor">
             <SektionHuvud
               etikett="Bakgrunden"
               rubrik="Varför du inte syns i dag"
