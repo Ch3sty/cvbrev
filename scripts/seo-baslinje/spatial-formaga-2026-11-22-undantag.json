@@ -1,0 +1,19 @@
+{
+  "_om": "Omskrivning av rotation-test-guide mot spatial förmåga (SEO-brief docs/artiklar-2026-11/brief-spatial-formaga.md, 2026-11-22): H1, seoTitle, description, snabbsvarets rubrik, två nya rubriker och en ny FAQ-fråga. Övriga rubriker, frågor, taggar, bild och länkar orörda. Läses av scripts/seo-diff-artiklar.ts.",
+  "META_BYTT": [
+    { "path": "/artiklar/rotation-test-guide", "falt": "title", "datum": "2026-11-22", "skal": "seoTitle Spatial förmåga: vad det är, exempel och gratis test. Sökfrågorna är definitionsfrågor och klickfrekvensen var 0,1 procent (1 klick på 742 visningar, position 9,4, 90 dagar)." },
+    { "path": "/artiklar/rotation-test-guide", "falt": "description", "datum": "2026-11-22", "skal": "Description som svarar på vad spatial förmåga är och nämner hög spatial förmåga (58 visningar, 90 dagar)." }
+  ],
+  "H1_BYTT": [
+    { "path": "/artiklar/rotation-test-guide", "fore": "Rotationstest och spatial förmåga: så löser du figurer som vridits", "efter": "Spatial förmåga: vad det är, hur rotationstest mäter den och hur du tränar upp den", "datum": "2026-11-22", "skal": "H1 med huvudordet spatial förmåga först (742 och 106 visningar på 90 dagar); rotationstest står kvar i H1 och i H2 Vad rotationstest mäter." }
+  ],
+  "RUBRIK_NY": [
+    { "path": "/artiklar/rotation-test-guide", "rubrik": "h2# Snabbsvar: hur klarar man ett rotationstest?", "datum": "2026-11-22", "skal": "Snabbsvarets rubrik byts (artiklarnas rubrikträd har ingen RUBRIK_BYTT, så den gamla och den nya står båda här). Texten flyttas ordagrant till H2 Tekniken som löser uppgifterna snabbt." },
+    { "path": "/artiklar/rotation-test-guide", "rubrik": "h2# Snabbsvar: vad är spatial förmåga?", "datum": "2026-11-22", "skal": "Nytt snabbsvar som svarar på huvudfrågan vad är spatial förmåga." },
+    { "path": "/artiklar/rotation-test-guide", "rubrik": "h2#vad-innebar-hog-spatial-formaga Vad innebär hög spatial förmåga?", "datum": "2026-11-22", "skal": "Nytt avsnitt för sökfrågan hög spatial förmåga (58 visningar, position 9,1, 90 dagar). Befintliga rubriker orörda och i samma ordning." },
+    { "path": "/artiklar/rotation-test-guide", "rubrik": "h3#ovningar-for-spatial-formaga-i-vardagen Övningar för spatial förmåga i vardagen", "datum": "2026-11-22", "skal": "Ny H3 under Så tränar du för sökfrågan spatial förmåga övningar (14 visningar, position 10,9, 90 dagar)." }
+  ],
+  "LD_UNDANTAG": [
+    { "path": "/artiklar/rotation-test-guide", "datum": "2026-11-22", "skal": "BlogPosting följer ny headline, description, wordCount och nya avsnitt; BreadcrumbList följer ny title; FAQPage får ett nytt svar på fråga 5 (provet utan konto, ett grundnivåtest om dagen i valfri testtyp) och en ny sjunde fråga. Frågorna 1 till 6 oförändrade.", "andrade": ["BlogPosting", "BreadcrumbList", "FAQPage"] }
+  ]
+}
