@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Building2, Clock, LogIn, LogOut, XCircle } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { vidUtloggning } from '@/lib/lagring/kontoLagring';
 import RecruiterSideNav from './components/RecruiterSideNav';
 
 // Rekryterarportalens skal: eget enkelt skal, INTE kandidat-dashboardens
@@ -69,6 +70,7 @@ export default function RekryterareLayout({ children }: { children: ReactNode })
       const supabase = getSupabaseClient();
       await supabase.auth.signOut();
     } finally {
+      vidUtloggning();
       window.location.href = '/login';
     }
   };

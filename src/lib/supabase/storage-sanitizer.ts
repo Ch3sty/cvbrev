@@ -133,81 +133,44 @@ function cleanAllStorage(): void {
 }
 
 /**
- * Patch storage methods to prevent future corruption
+ * Nycklarna "setItem" och "getItem" (klicktestet på live 2026-11-22).
+ *
+ * Här fanns förut patchStorageMethods, som tilldelade nya funktioner till
+ * setItem och getItem direkt på window.localStorage och window.sessionStorage. Ett Storage-objekt har en namngiven setter: en tilldelning
+ * av en egenskap blir en sparad nyckel med värdet som text, och metoden på
+ * prototypen står kvar orörd. Lappningen gjorde alltså ingenting utom att
+ * lägga funktionernas källkod i lagringen under namnen setItem och getItem,
+ * vid varje sidladdning. Den är borttagen. De nycklar den redan lagt kvar tas
+ * bort här, men bara när värdet är en funktions text, så att ingen annans
+ * nyckel med samma namn rörs.
  */
-function patchStorageMethods(): void {
-  if (typeof window === 'undefined') return;
+const FELSKRIVNA = ['setItem', 'getItem'];
 
-  // Patch localStorage
-  if (window.localStorage) {
-    const originalSetItem = window.localStorage.setItem;
-    const originalGetItem = window.localStorage.getItem;
-
-    window.localStorage.setItem = function(key: string, value: string) {
-      // Prevent setting invalid values
-      if (value === 'undefined' || value === undefined as any) {
-        this.removeItem(key);
-        return;
+export function rensaFelskrivnaNycklar(storage: Storage): number {
+  let antal = 0;
+  for (const nyckel of FELSKRIVNA) {
+    try {
+      const varde = storage.getItem(nyckel);
+      if (typeof varde === 'string' && /^\s*function\b/.test(varde)) {
+        storage.removeItem(nyckel);
+        antal++;
       }
-
-      try {
-        return originalSetItem.call(this, key, value);
-      } catch (e) {
-        // Silently fail
-      }
-    };
-
-    window.localStorage.getItem = function(key: string) {
-      try {
-        const value = originalGetItem.call(this, key);
-
-        // Return null for invalid values
-        if (value === 'undefined' || value === '') {
-          this.removeItem(key);
-          return null;
-        }
-
-        return value;
-      } catch (e) {
-        return null;
-      }
-    };
+    } catch {
+      // Blockerad lagring.
+    }
   }
+  return antal;
+}
 
-  // Patch sessionStorage similarly
-  if (window.sessionStorage) {
-    const originalSetItem = window.sessionStorage.setItem;
-    const originalGetItem = window.sessionStorage.getItem;
-
-    window.sessionStorage.setItem = function(key: string, value: string) {
-      // Prevent setting invalid values
-      if (value === 'undefined' || value === undefined as any) {
-        this.removeItem(key);
-        return;
-      }
-
-      try {
-        return originalSetItem.call(this, key, value);
-      } catch (e) {
-        // Silently fail
-      }
-    };
-
-    window.sessionStorage.getItem = function(key: string) {
-      try {
-        const value = originalGetItem.call(this, key);
-
-        // Return null for invalid values
-        if (value === 'undefined' || value === '') {
-          this.removeItem(key);
-          return null;
-        }
-
-        return value;
-      } catch (e) {
-        return null;
-      }
-    };
+function rensaFelskrivna(): void {
+  if (typeof window === 'undefined') return;
+  for (const typ of ['localStorage', 'sessionStorage'] as const) {
+    try {
+      const s = window[typ];
+      if (s) rensaFelskrivnaNycklar(s);
+    } catch {
+      // Ignore
+    }
   }
 }
 
@@ -285,8 +248,8 @@ export function initializeStorageSanitizer(): void {
   // Clean corrupted cookies
   cleanCorruptedCookies();
 
-  // Patch storage methods to prevent future corruption
-  patchStorageMethods();
+  // Nycklarna den gamla lappningen lade i lagringen.
+  rensaFelskrivna();
 }
 
 // Auto-initialize if this is the browser

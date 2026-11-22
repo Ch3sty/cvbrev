@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { KLIENT_SKAPAD, harSessionscookie } from '@/lib/supabase/klient-signal';
+import { utanSession, vidInloggning, vidUtloggning } from '@/lib/lagring/kontoLagring';
 
 /**
  * Supabase-klienten laddas bara när den behövs. AuthProvider ligger i rot-
@@ -80,8 +81,11 @@ export function AuthProvider({ children, initialUser = null }: AuthProviderProps
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
           async (event, session) => {
             if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+              if (session?.user) vidInloggning(session.user.id);
               setUser(session?.user ?? null);
             } else if (event === 'SIGNED_OUT') {
+              // Kontots nycklar i webbläsaren följer inte med till nästa konto.
+              vidUtloggning();
               setUser(null);
             }
           }
@@ -91,6 +95,8 @@ export function AuthProvider({ children, initialUser = null }: AuthProviderProps
         // Servern har redan verifierat sessionen och skickat ner användaren.
         if (!initialUser) {
           const { data: { user } } = await supabase.auth.getUser();
+          if (user) vidInloggning(user.id);
+          else utanSession();
           if (!avbruten) setUser(user);
         }
       } catch (error) {
@@ -101,10 +107,14 @@ export function AuthProvider({ children, initialUser = null }: AuthProviderProps
       }
     };
 
+    if (initialUser) vidInloggning(initialUser.id);
     if (initialUser || harSessionscookie(document.cookie)) {
       void koppla();
     } else {
-      // Ingen session: ingen användare, och inget att ladda.
+      // Ingen session: ingen användare, och inget att ladda. Låg ett kontos
+      // nycklar kvar (utloggat i en annan flik, sessionen gick ut) tas de
+      // bort nu, innan besökaren fyller i något som ska följa med.
+      utanSession();
       setIsLoading(false);
     }
 

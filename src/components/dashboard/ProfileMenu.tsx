@@ -17,6 +17,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
+import { vidUtloggning } from '@/lib/lagring/kontoLagring'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { menyHuvud } from '@/lib/onboarding/paket-rader'
 import { TOPPRAD, UNDERSIDA, UTSEENDE } from '@/lib/rum/copy'
@@ -89,6 +90,8 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
   const logout = async () => {
     const supabase = getSupabaseClient()
     await supabase.auth.signOut()
+    // Också här, inte bara i AuthProvider: sidan byts direkt efteråt.
+    vidUtloggning()
     window.location.href = '/'
   }
 

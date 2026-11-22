@@ -12,6 +12,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
+import { vidUtloggning } from '@/lib/lagring/kontoLagring';
 import { haptik } from './skal';
 
 async function raderaKonto(userId: string, epost: string | null): Promise<void> {
@@ -32,6 +33,7 @@ async function raderaKonto(userId: string, epost: string | null): Promise<void> 
   if (!res.ok) throw new Error(`radera ${res.status}`);
   // Sessionen pekar på ett konto som inte finns; rensa den lokalt.
   await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+  vidUtloggning();
 }
 
 export default function KontoHandlingar({ userId, epost }: { userId: string; epost: string | null }) {
@@ -62,6 +64,7 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
     setArbetar(true);
     logUserActivity(userId, 'logout', 'Användaren loggade ut', { from_page: 'appen' }).catch(() => {});
     await getSupabaseClient().auth.signOut();
+    vidUtloggning();
     window.location.href = '/login';
   };
 

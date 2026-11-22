@@ -11,6 +11,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { useNotification } from '@/context/notificationcontext';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
+import { vidUtloggning } from '@/lib/lagring/kontoLagring';
 
 export function useKontoHandlingar() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export function useKontoHandlingar() {
       }).catch((e) => console.error('Loggningsfel:', e));
     }
     await supabase.auth.signOut();
+    vidUtloggning();
     router.push('/login');
   };
 
@@ -60,6 +62,7 @@ export function useKontoHandlingar() {
     }
     // Användaren finns inte längre: rensa bara den lokala sessionen (en utloggning mot servern svarar 403).
     await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+    vidUtloggning();
 
     successWithMascot('Ditt konto är raderat. Tack för att du använde Jobbcoach.ai.', 'account-deleted', 4000, false);
 
