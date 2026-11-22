@@ -91,13 +91,34 @@ export default function ArtikelKlient({ slug, cluster }: { slug?: string; cluste
     // Innehållsförteckningens tråd.
     const lankar = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc] a[href^="#"]'))
     let avsnitt: IntersectionObserver | null = null
+    let storlek: ResizeObserver | null = null
     if (lankar.length && typeof IntersectionObserver !== 'undefined') {
+      const lugn = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      // Listan i sidospalten rullar i sig själv när den inte ryms. Den aktiva
+      // länken hålls synlig genom listans egen scrollTop, aldrig
+      // scrollIntoView, som kan rulla sidan.
+      const visaILista = (l: HTMLAnchorElement, mjukt = true) => {
+        const lista = l.closest<HTMLElement>('.ib-toc')
+        if (!lista || lista.scrollHeight <= lista.clientHeight + 1) return
+        const ram = lista.getBoundingClientRect()
+        const r = l.getBoundingClientRect()
+        const luft = 24
+        let mal: number | null = null
+        if (r.top < ram.top + luft) mal = lista.scrollTop + (r.top - ram.top) - luft
+        else if (r.bottom > ram.bottom - luft) mal = lista.scrollTop + (r.bottom - ram.bottom) + luft
+        if (mal === null) return
+        const top = Math.max(0, Math.min(mal, lista.scrollHeight - lista.clientHeight))
+        if (lugn || !mjukt || typeof lista.scrollTo !== 'function') lista.scrollTop = top
+        else lista.scrollTo({ top, behavior: 'smooth' })
+      }
       const markera = (id: string) => {
         for (const l of lankar) {
           const aktiv = l.getAttribute('href') === `#${id}`
+          const varAktiv = l.classList.contains('toc-aktiv')
           l.classList.toggle('toc-aktiv', aktiv)
           if (aktiv) l.setAttribute('aria-current', 'location')
           else l.removeAttribute('aria-current')
+          if (aktiv && !varAktiv) visaILista(l)
         }
       }
       avsnitt = new IntersectionObserver(
@@ -111,11 +132,22 @@ export default function ArtikelKlient({ slug, cluster }: { slug?: string; cluste
         const mal = document.getElementById(decodeURIComponent(l.getAttribute('href')!.slice(1)))
         if (mal) avsnitt.observe(mal)
       }
+      // Blir listan lägre (lägre fönster, cookieraden) står den aktiva
+      // länken kvar i synfältet.
+      const lista = document.querySelector<HTMLElement>('.ib-sido .ib-toc')
+      if (lista && typeof ResizeObserver !== 'undefined') {
+        storlek = new ResizeObserver(() => {
+          const aktiv = lista.querySelector<HTMLAnchorElement>('a.toc-aktiv')
+          if (aktiv) visaILista(aktiv, false)
+        })
+        storlek.observe(lista)
+      }
     }
 
     return () => {
       visning?.disconnect()
       avsnitt?.disconnect()
+      storlek?.disconnect()
       document.removeEventListener('click', klick)
       document.removeEventListener('click', produkt, true)
     }

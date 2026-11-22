@@ -406,17 +406,23 @@ export function JobbKort({ variant, cluster, slug }: { variant: keyof typeof JOB
 
 /* ------------------------------------------------ sidokolumnens kort */
 
+/*
+ * data-sido-steg: det som döljs med CSS i låga fönster så att knappen alltid
+ * syns (innehall.css, logg-sidokort.md). Steg 1 först, steg 2 och 3 i lägre
+ * fönster. Texten och ordningen i HTML:en är densamma i alla fönster.
+ */
+
 export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; cluster: CtaCluster; slug: string }) {
   if (paket === 'gratis') {
     return (
       <section className="ar-sido ar-sido-gratis" aria-label={GRATIS_KORT.rubrik} {...matning('sidebar', cluster, 'gratis')} data-cta-slug={slug}>
         <p className="ar-ey">{GRATIS_KORT.etikett}</p>
         <p className="ar-sido-rub">{GRATIS_KORT.rubrik}</p>
-        <div className="ar-bock">
+        <div className="ar-bock" data-sido-steg="2">
           <Bocklista punkter={GRATIS_KORT.rader.slice(0, 3)} />
         </div>
         {/* Sidokolumnen har ingen listrad intill rutnätet, så raden får caption (S7, S13). */}
-        <div className="ar-gratiskort">
+        <div className="ar-gratiskort" data-sido-steg="1">
           <div className="ar-bredd">
             <TestBredd form="rad" text={GRATIS_KORT.breddCaption} label="Åtta testtyper och personlighetstestet, grundnivån gratis" className="ib-tb-sido" />
           </div>
@@ -432,8 +438,8 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
     <section className="ar-sido" aria-label={copy.rubrik} {...matning('sidebar', cluster, paket)} data-cta-slug={slug}>
       <p className="ar-ey">{copy.etikett}</p>
       <p className="ar-sido-rub">{copy.rubrik}</p>
-      <p className="ar-sido-text">{copy.text}</p>
-      <p className="ar-sido-pris">
+      <p className="ar-sido-text" data-sido-steg="2">{copy.text}</p>
+      <p className="ar-sido-pris" data-sido-steg="3">
         {/* Priset följer kampanjen som slutkortet (H2, 2026-11-14). */}
         <KampanjVarianter
           ord={
@@ -448,7 +454,7 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
       <Knapp href="/priser" bred data-cta-klick="/priser">
         Se vad som ingår
       </Knapp>
-      {copy.gratisrad ? <p className="ar-sido-text">{copy.gratisrad}</p> : null}
+      {copy.gratisrad ? <p className="ar-sido-text" data-sido-steg="1">{copy.gratisrad}</p> : null}
     </section>
   )
 }
