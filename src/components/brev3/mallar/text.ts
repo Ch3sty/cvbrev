@@ -18,7 +18,10 @@ export const MALLAR_TEXT = {
   exempelIngress: 'Skriv ditt första brev, så ser du det här i alla mallar.',
   skrivBrevet: 'Skriv brevet',
   andraTexten: 'Ändra texten',
-  // Raden under ögonraden när brevet går över sidan i vald mall (mätt på arket).
+  // När brevet går över sidan i vald mall (mätt på arket): raden under ögonraden
+  // på telefonen, i ingressens plats på dator (första meningen fet).
+  tvaSidorForsta: (mall: string) => `I ${mall} blir brevet två sidor.`,
+  tvaSidorAndra: 'Korta texten eller prova en annan mall.',
   tvaSidor: (mall: string) => `I ${mall} blir brevet två sidor. Korta texten eller prova en annan mall.`,
   typsnitt: (namn: string) => `Typsnitt: ${namn}`,
   tillbaka: (mall: string) => `Tillbaka till ${mall}`,

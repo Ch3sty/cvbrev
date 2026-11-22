@@ -751,9 +751,26 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 .b3-ml-par { grid-area: par; }
 .b3-ml-knappar { grid-area: knappar; min-width: 0; }
 .b3-ml-ogon { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; min-height: 22px; }
-/* Två sidor i vald mall: brevradens stil (b3-cvrad), radbrytning på telefonen. */
+/* Två sidor i vald mall.
+   Telefon och mellanbredd: raden under ögonraden i brevradens stil (b3-cvrad),
+   med radbrytning. -dold håller platsen osynligt under mätningen om raden
+   syntes före bytet. Dator: raden visas inte, texten tar ingressens plats. */
 .b3-ml-sidor { flex-wrap: wrap; gap: 0 14px; margin-top: 6px; }
 .b3-ml-sidor > span { flex: 1 1 220px; min-width: 0; }
+.b3-ml-sidor > .b3-ml-sidor-lank { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+.b3-ml-sidor-dold { visibility: hidden; }
+/* Dator: ingressen och tvåsidestexten i samma rutnätscell. Reserven (osynlig)
+   håller höjden, så att rubriken, brickorna och knapparna står still. */
+.b3-ml-ingress { display: none; }
+.b3-ml-ingress-lager { grid-area: 1 / 1; transition: opacity 150ms ease-out; }
+.b3-ml-ingress-lager[data-av] { opacity: 0; transition-duration: 120ms; }
+.b3-ml-ingress-lager b { font-weight: 700; color: var(--vagg-ink); }
+.b3-ml-ingress-reserv { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .b3-ml-ingress-lager { transition: none; } }
+@media (min-width: 1280px) {
+  .b3-ml-sidor, .b3-ml-sidor-tom, .b3-ml-ingress-mobil { display: none; }
+  .b3-ml-ingress { display: grid; }
+}
 .b3-ml-prm { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 11px; background: #FBE3D0; color: #8A3A12; font-size: 11px; line-height: 14px; font-weight: 700; white-space: nowrap; }
 .b3-ml-brickor { display: flex; gap: 8px; margin: 22px -16px 0; padding: 0 16px 6px; overflow-x: auto; scrollbar-width: none; }
 .b3-ml-brickor::-webkit-scrollbar { display: none; }
@@ -771,7 +788,9 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
 
 /* CV:t och brevet sida vid sida. Etiketterna ligger utanför arken, aldrig
    över text: "Ditt CV" ovanför CV:ts överkant, "Ditt brev" under brevets
-   underkant (parets nedre marginal på telefonen, ytan under brevet på dator). */
+   underkant i parets nedre marginal (telefon och mellanbredd). På dator har
+   väggen fast höjd och panelen täcker ytan under brevet: där visas ingen
+   etikett för brevet (UX-beslut 2026-11-22; skärmläsare har arkEtikett). */
 .b3-ml-par { position: relative; width: 60%; max-width: 300px; margin: 22px auto 38px; }
 .b3-ml-cv { position: absolute; left: -30%; top: 9%; width: 74%; height: auto; aspect-ratio: 222 / 314; border-radius: 5px; background: #FFFFFF; box-shadow: 0 3px 0 var(--b3-djupast), 0 16px 30px rgba(0, 0, 0, .4); transform: rotate(-5deg); object-fit: cover; object-position: top; }
 .b3-ml-cv-etikett { position: absolute; left: -32%; top: -6px; z-index: 1; height: 26px; padding: 0 10px; font-size: 12px; }
@@ -783,7 +802,7 @@ a.b3-chip.ljus:hover { color: var(--vagg); }
   .b3-ml-cv { left: 70px; top: 50px; width: 222px; height: 314px; border-radius: 6px; box-shadow: 0 4px 0 var(--b3-djupast), 0 24px 44px rgba(0, 0, 0, .4); }
   .b3-ml-cv-etikett { left: 66px; top: 10px; height: 30px; padding: 0 12px; font-size: 13px; }
   .b3-ml-brev { position: absolute; left: 250px; top: 0; width: 280px; height: 396px; aspect-ratio: auto; box-shadow: 0 5px 0 var(--b3-djupast), 0 30px 56px rgba(0, 0, 0, .45); }
-  .b3-ml-brev-etikett { left: 246px; right: auto; top: 412px; height: 34px; padding: 0 12px; border-radius: 11px; font-size: 13px; }
+  .b3-ml-brev-etikett { display: none; }
 }
 
 /* Panelens huvud med filtren */

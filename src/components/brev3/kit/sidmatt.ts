@@ -28,6 +28,8 @@ export function matBrevAndel(ark: HTMLElement): number | null {
 export interface BrevMatt {
   html: string
   andel: number
+  /** Mallens namn när mätningen gjordes: texten bär alltid det namn den mättes i. */
+  mall?: string
 }
 
 /**
@@ -37,4 +39,24 @@ export interface BrevMatt {
  */
 export function visaTvaSidor(p: { egetBrev: boolean; html: string | null; matt: BrevMatt | null }): boolean {
   return p.egetBrev && p.html !== null && p.matt !== null && p.matt.html === p.html && p.matt.andel > 1
+}
+
+/**
+ * Läget för tvåsidestexten i Mallar, också medan ett nytt ark mäts:
+ *
+ *   ja               brevet blir två sidor i arket som visas
+ *   nej              ryms på en sida (eller exempelbrevet)
+ *   vantar-efter-ja  nytt ark mäts, och texten syntes före bytet: på dator
+ *                    tonas den ut, på telefonen hålls platsen (osynligt)
+ *   vantar           nytt ark mäts och texten syntes inte före bytet: inget
+ *                    ändras, så inget flyttar sig för den som inte berörs
+ *
+ * "Syntes före bytet" är den senaste mätningen, som gäller förra arket.
+ */
+export type TvaSidorLage = 'ja' | 'nej' | 'vantar-efter-ja' | 'vantar'
+
+export function tvaSidorLage(p: { egetBrev: boolean; html: string | null; matt: BrevMatt | null }): TvaSidorLage {
+  if (!p.egetBrev) return 'nej'
+  if (p.html !== null && p.matt !== null && p.matt.html === p.html) return p.matt.andel > 1 ? 'ja' : 'nej'
+  return p.matt !== null && p.matt.andel > 1 ? 'vantar-efter-ja' : 'vantar'
 }

@@ -55,7 +55,7 @@ import { MallKort } from './MallKort'
 import { EXEMPEL_ID, MallarFel, forhandsvisa, forhandsvisaIOmgangar, laddaNerBrev, mallarKopretur, markeraKopierat, sparaVal, type Filformat } from './klient'
 import { MALLAR_TEXT as T } from './text'
 import { stadaKopreturAdress, useKopretur } from '../kit/kopretur'
-import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk, visaTvaSidor, type BrevMatt } from '../kit/sidmatt'
+import { BREV_MATT_FORDROJNING_MS, matBrevAndel, synligtArk, tvaSidorLage, type BrevMatt } from '../kit/sidmatt'
 
 const BytBrevArk = dynamic(() => import('./BytBrevArk'), { ssr: false })
 
@@ -251,13 +251,14 @@ export default function MallarKlient(p: MallarKlientProps) {
   const brevRef = useRef<HTMLDivElement>(null)
   const valtArk = arkHtml[nyckel(visad, font)] ?? null
   const [sidmatt, setSidmatt] = useState<BrevMatt | null>(null)
+  const mattNamn = visadKort.namn
   useEffect(() => {
     if (!brev || !valtArk) return
     let aktiv = true
     const mat = () => {
       const el = aktiv && brevRef.current ? synligtArk(brevRef.current) : null
       const andel = el ? matBrevAndel(el) : null
-      if (andel !== null) setSidmatt({ html: valtArk, andel })
+      if (andel !== null) setSidmatt({ html: valtArk, andel, mall: mattNamn })
     }
     const t = setTimeout(mat, BREV_MATT_FORDROJNING_MS)
     // Ett nytt typsnitt laddas först när det används: mät igen när filerna är klara.
@@ -266,8 +267,15 @@ export default function MallarKlient(p: MallarKlientProps) {
       aktiv = false
       clearTimeout(t)
     }
+    // mattNamn hör till valtArk (samma mall); det räcker att mäta om när arket byts.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brev, valtArk])
-  const tvaSidor = visaTvaSidor({ egetBrev: !!brev, html: valtArk, matt: sidmatt })
+  // ja, nej, eller under mätningen: vantar-efter-ja (syntes före bytet) och vantar.
+  const tvaLage = tvaSidorLage({ egetBrev: !!brev, html: valtArk, matt: sidmatt })
+  // Texten bär alltid mallnamnet den mättes i, aldrig gammalt besked med nytt namn.
+  const tvaNamn = sidmatt?.mall ?? visadKort.namn
+  // Reserven på dator håller höjden med katalogens längsta namn, så att rutan är lika hög för alla mallar.
+  const langstaNamn = useMemo(() => katalog.reduce((a, k) => (k.namn.length > a.length ? k.namn : a), ''), [katalog])
 
   /* ---------------------------------------------------------------- rutnätet */
   const filtrerade = useMemo(() => katalog.filter((k) => passarFilter(k, filter)), [katalog, filter])
@@ -433,30 +441,57 @@ export default function MallarKlient(p: MallarKlientProps) {
                 </span>
               ) : null}
             </p>
-            {/* Brevet blir två sidor i den här mallen: en lugn rad i väggens stil (som
-                brevraden b3-cvrad), med Ändra texten intill. Spärrar ingenting. Tom ruta utan
-                signal, så att inget flyttar sig för den som inte har den. */}
+            {/* Telefon och mellanbredd: brevet blir två sidor i den här mallen, en lugn
+                rad i väggens stil (som brevraden b3-cvrad) med Ändra texten intill. Under
+                mätningen hålls platsen osynligt bara om raden syntes före bytet, så att
+                rubriken flyttar sig högst en gång. Tom ruta utan signal. Spärrar ingenting. */}
             {brev ? (
-              <div role="status" className={tvaSidor ? 'b3-cvrad b3-ml-sidor' : undefined}>
-                {tvaSidor ? (
+              <div
+                role="status"
+                className={tvaLage === 'ja' ? 'b3-cvrad b3-ml-sidor' : tvaLage === 'vantar-efter-ja' ? 'b3-cvrad b3-ml-sidor b3-ml-sidor-dold' : 'b3-ml-sidor-tom'}
+              >
+                {tvaLage === 'ja' ? (
                   <>
-                    <span>{T.tvaSidor(visadKort.namn)}</span>
+                    <span>{T.tvaSidor(tvaNamn)}</span>
                     <Link href={`/dashboard/mina-brev/${brev.id}?flik=texten`}>{T.andraTexten}</Link>
+                  </>
+                ) : tvaLage === 'vantar-efter-ja' ? (
+                  <>
+                    <span aria-hidden="true">{T.tvaSidor(tvaNamn)}</span>
+                    <span aria-hidden="true" className="b3-ml-sidor-lank">
+                      {T.andraTexten}
+                    </span>
                   </>
                 ) : null}
               </div>
             ) : null}
             <h1 className="b3-h1">{T.rubrik}</h1>
-            <p className="b3-ingress">
-              {brev ? (
-                <>
-                  <span className="hidden xl:inline">{T.ingress}</span>
-                  <span className="xl:hidden">{T.ingressMobil}</span>
-                </>
-              ) : (
-                T.exempelIngress
-              )}
-            </p>
+            {brev ? (
+              <>
+                <p className="b3-ingress b3-ml-ingress-mobil">{T.ingressMobil}</p>
+                {/* Dator: tvåsidestexten tar ingressens plats, i samma ruta och höjd. Lagren
+                    ligger i samma rutnätscell och den osynliga reserven håller höjden, så att
+                    ingenting i väggen flyttar sig mellan lägena. Under mätningen står ingressen
+                    kvar om den stod före bytet; stod tvåsidestexten tonas den ut. */}
+                <div className="b3-ingress b3-ml-ingress">
+                  <span className="b3-ml-ingress-lager" data-av={tvaLage === 'ja' || tvaLage === 'vantar-efter-ja' ? '' : undefined} aria-hidden={tvaLage === 'ja' || undefined}>
+                    {T.ingress}
+                  </span>
+                  <span className="b3-ml-ingress-lager b3-ml-ingress-reserv" aria-hidden="true">
+                    <b>{T.tvaSidorForsta(langstaNamn)}</b> {T.tvaSidorAndra}
+                  </span>
+                  <span role="status" className="b3-ml-ingress-lager" data-av={tvaLage === 'ja' ? undefined : ''}>
+                    {tvaLage === 'ja' || tvaLage === 'vantar-efter-ja' ? (
+                      <span aria-hidden={tvaLage === 'vantar-efter-ja' || undefined}>
+                        <b>{T.tvaSidorForsta(tvaNamn)}</b> {T.tvaSidorAndra}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <p className="b3-ingress">{T.exempelIngress}</p>
+            )}
           </div>
 
           <div className="b3-ml-par" role="img" aria-label={T.arkEtikett(visadKort.namn)}>

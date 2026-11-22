@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { matBrevAndel, synligtArk, visaTvaSidor } from '../sidmatt'
+import { matBrevAndel, synligtArk, tvaSidorLage, visaTvaSidor } from '../sidmatt'
 
 const MM = 96 / 25.4
 
@@ -72,5 +72,31 @@ describe('när raden om två sidor visas i Mallar', () => {
     expect(visaTvaSidor({ egetBrev: true, html: null, matt: gammal })).toBe(false)
     expect(visaTvaSidor({ egetBrev: true, html, matt: gammal })).toBe(false)
     expect(visaTvaSidor({ egetBrev: true, html, matt: null })).toBe(false)
+  })
+})
+
+describe('tvåsidestextens läge under mätningen (syntes före bytet)', () => {
+  const nytt = '<div>Loft, Lora</div>'
+  const forra = (andel: number) => ({ html: '<div>Ek</div>', andel, mall: 'Ek' })
+
+  it('mätningen gäller arket som visas: ja eller nej', () => {
+    expect(tvaSidorLage({ egetBrev: true, html: nytt, matt: { html: nytt, andel: 1.2, mall: 'Loft' } })).toBe('ja')
+    expect(tvaSidorLage({ egetBrev: true, html: nytt, matt: { html: nytt, andel: 0.9, mall: 'Loft' } })).toBe('nej')
+  })
+
+  it('texten syntes före bytet: vantar-efter-ja, både medan arket hämtas och medan det mäts', () => {
+    expect(tvaSidorLage({ egetBrev: true, html: null, matt: forra(1.3) })).toBe('vantar-efter-ja')
+    expect(tvaSidorLage({ egetBrev: true, html: nytt, matt: forra(1.3) })).toBe('vantar-efter-ja')
+  })
+
+  it('texten syntes inte före bytet: vantar, inget ska flytta sig', () => {
+    expect(tvaSidorLage({ egetBrev: true, html: nytt, matt: forra(0.8) })).toBe('vantar')
+    expect(tvaSidorLage({ egetBrev: true, html: nytt, matt: null })).toBe('vantar')
+    expect(tvaSidorLage({ egetBrev: true, html: null, matt: null })).toBe('vantar')
+  })
+
+  it('exempelbrevet: alltid nej', () => {
+    expect(tvaSidorLage({ egetBrev: false, html: nytt, matt: { html: nytt, andel: 1.5 } })).toBe('nej')
+    expect(tvaSidorLage({ egetBrev: false, html: nytt, matt: forra(1.5) })).toBe('nej')
   })
 })
