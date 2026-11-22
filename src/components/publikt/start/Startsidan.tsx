@@ -52,6 +52,7 @@ import { ANTAL_TESTTYPER, GRATIS_FAQ, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/l
 import { KATEGORIER } from '@/lib/cv/poang/modell'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { BREV_GRATIS_NAMN, BREV_MALL_ANTAL } from '../brevmallar'
+import { FACEBOOK_URL } from '@/lib/sociala-konton'
 // Den fasta knappraden (pub-botten) är stylad i publikt.css.
 import '../publikt.css'
 import './start.css'
@@ -159,7 +160,7 @@ function startSchema() {
         url: 'https://www.jobbcoach.ai',
         logo: 'https://www.jobbcoach.ai/icon.png',
         email: 'info@jobbcoach.ai',
-        sameAs: ['https://www.facebook.com/jobbcoach.ai', 'https://www.instagram.com/jobbcoach.ai'],
+        sameAs: [FACEBOOK_URL,'https://www.instagram.com/jobbcoach.ai'],
       },
       { '@type': 'WebSite', name: 'Jobbcoach.ai', url: 'https://www.jobbcoach.ai', inLanguage: 'sv-SE' },
       (() => {

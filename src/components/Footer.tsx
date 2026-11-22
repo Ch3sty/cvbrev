@@ -14,10 +14,11 @@
 
 import Link from 'next/link'
 import { FORETAG, FOT_DELAR } from '@/components/landing/nav-data'
+import { FACEBOOK_URL } from '@/lib/sociala-konton'
 import '@/components/publikt/v3/ram.css'
 
 const SOCIALA = [
-  { label: 'Facebook', href: 'https://www.facebook.com/jobbcoachai' },
+  { label: 'Facebook', href: FACEBOOK_URL },
   { label: 'Instagram', href: 'https://www.instagram.com/jobbcoach.ai/' },
   { label: 'info@jobbcoach.ai', href: 'mailto:info@jobbcoach.ai' },
 ] as const
