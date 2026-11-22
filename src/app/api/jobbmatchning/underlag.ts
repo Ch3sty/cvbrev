@@ -7,6 +7,7 @@ import { toJobPreferences, type JobPreferences } from '@/types/user.types'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import { krav, type Session } from '@/lib/jobbsok/rutt'
 import { NextResponse } from 'next/server'
+import { fyllCvOrt } from '@/lib/jobmatching/cvOrt.server'
 
 export interface Underlag extends Session {
   cv: ActiveCVData | null
@@ -22,7 +23,8 @@ export async function underlag(): Promise<Underlag | NextResponse> {
   ])
   return {
     ...s,
-    cv: (cvRes.data ?? null) as ActiveCVData | null,
+    // CV:ts ort när tolkningen lämnade den tom (cvOrt.server.ts).
+    cv: await fyllCvOrt(s.supabase, s.user.id, (cvRes.data ?? null) as ActiveCVData | null),
     prefs: toJobPreferences((profilRes.data as { job_preferences?: unknown } | null)?.job_preferences),
   }
 }

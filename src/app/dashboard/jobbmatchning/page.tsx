@@ -30,6 +30,7 @@ import {
 } from './getJobbmatchningData';
 import MatchadeJobb from '@/components/jobb3/jobb/MatchadeJobb';
 import { hamtaSenasteKorning } from './senasteKorning';
+import { fyllCvOrt } from '@/lib/jobmatching/cvOrt.server';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 
 /**
@@ -59,10 +60,15 @@ export default async function JobbmatchningPage({
   // gick fel. Förut visade den introduktionen "Ladda upp ditt första CV", och
   // ett konto med nio CV:n kunde alltså få onboarding av ett läsfel.
   // EMPTY_JOBBMATCHNING_DATA bär loadFailed: true, så klienten visar FlowError.
-  const data = await getJobbmatchningData(supabase, user.id).catch((error) => {
+  const lasta = await getJobbmatchningData(supabase, user.id).catch((error) => {
     console.error('Jobbmatchning: kunde inte hämta sidans data', error);
     return EMPTY_JOBBMATCHNING_DATA;
   });
+  // CV:ts ort när tolkningen lämnade den tom (klicktestet 2026-11-22,
+  // punkt 5). Sökprofilens orter går före, som förut.
+  const data = lasta.activeCV
+    ? { ...lasta, activeCV: await fyllCvOrt(supabase, user.id, lasta.activeCV) }
+    : lasta;
 
   // Senaste körningen (sammanfattningen, annars hela körningen högst en gång),
   // så att träffarna står i första HTML (omgång 1, F7). Går läsningen fel och

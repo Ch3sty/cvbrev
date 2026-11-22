@@ -423,17 +423,16 @@ export default function MatchadeJobb({
 
   /* ------------------------------------------------------------ hämtningar */
 
+  // Genom servern, som fyller i CV:ts ort när tolkningen lämnade den tom
+  // (klicktestet 2026-11-22, punkt 5). Sökprofilens orter går före, som förut.
   const fetchActiveCV = async () => {
     try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      if (!session) return
-      const { data, error: err } = await supabase.from('active_cv_for_matching').select('*').eq('user_id', session.user.id).maybeSingle()
-      if (err) {
-        console.error('Error fetching active CV:', err)
+      const res = await fetch('/api/jobbmatchning/aktivt-cv', { cache: 'no-store' })
+      if (!res.ok) {
+        console.error('Error fetching active CV:', res.status)
         return
       }
+      const { cv: data } = (await res.json()) as { cv: ActiveCVData | null }
       if (data) {
         setActiveCV(data)
         setActiveCVId(data.cv_id)
