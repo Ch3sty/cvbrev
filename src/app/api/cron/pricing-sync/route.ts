@@ -18,6 +18,7 @@ import { cleanupExpiredSmakprov } from '@/lib/personlighet/smakprov-rad';
 import { collectAdminMetrics, dagStr } from '@/lib/admin/collect';
 import { KAMPANJER, arStartdag } from '@/lib/kampanj/kampanj';
 import { kampanjMottagare, skickaKampanj } from '@/lib/email/kampanjUtskick';
+import { arUtskicksdag, jobbsoketMottagare, skickaJobbsoket } from '@/lib/email/jobbsoketUtskick';
 
 /**
  * Vercel Cron job endpoint
@@ -63,7 +64,8 @@ export async function GET(request: NextRequest) {
       winbacks: null,
       weeklyDigest: null,
       followUpNotifications: null,
-      draftCleanup: null
+      draftCleanup: null,
+      jobbsoketmejl: null
     };
 
     // ====================================
@@ -84,6 +86,22 @@ export async function GET(request: NextRequest) {
           console.error('[Kampanj] utskicket föll:', error);
           results.kampanjmejl = { success: false, error: error.message };
         }
+      }
+    }
+
+    // ====================================
+    // 0b. MEJLET OM JOBBSÖKET (morgonslotten, beslut-mejl-och-radering 1e)
+    // ====================================
+    // Gör något bara på utskicksdagen i src/lib/email/jobbsoketUtskick.ts.
+    // Dagen är null tills ägaren sagt ja, och då händer ingenting här.
+    if (isMorningSlot && arUtskicksdag(now)) {
+      try {
+        const { kvar } = await jobbsoketMottagare(supabaseAdmin, now);
+        results.jobbsoketmejl = await skickaJobbsoket(supabaseAdmin, kvar);
+        console.log('[Jobbsöket] utskick:', results.jobbsoketmejl);
+      } catch (error: any) {
+        console.error('[Jobbsöket] utskicket föll:', error);
+        results.jobbsoketmejl = { success: false, error: error.message };
       }
     }
 

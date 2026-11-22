@@ -13,13 +13,11 @@ import { NO_RESPONSE_NUDGE_DAYS, STATUS_META } from '@/lib/applications/status'
 import { APPLICATION_SHARE_TTL_DAYS } from '@/lib/applications/shareTtl'
 import { INTERVJU_BESKED_DAGAR } from '@/lib/jobbsok/typer'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { talOrd, storForst } from '@/components/publikt/talord'
+import { talOrd, talOrdTill20, storForst } from '@/components/publikt/talord'
 
-/** Tal som ord upp till tjugo ("tolv"), annars siffran. talOrd slutar vid tio. */
-const TONARE: Record<number, string> = { 11: 'elva', 12: 'tolv', 13: 'tretton', 14: 'fjorton', 15: 'femton', 16: 'sexton', 17: 'sjutton', 18: 'arton', 19: 'nitton', 20: 'tjugo' }
-export function talOrdTill20(n: number): string {
-  return n <= 10 ? talOrd(n) : TONARE[n] ?? String(n)
-}
+// talOrdTill20 bor i talord.ts sedan beslut-mejl-och-radering 1e (mejlet om
+// Jobbsöket läser den också); exporten här står kvar för befintliga läsare.
+export { talOrdTill20 }
 
 export const TYST_DAGAR = talOrdTill20(NO_RESPONSE_NUDGE_DAYS)
 export const BESKED_DAGAR = talOrdTill20(INTERVJU_BESKED_DAGAR)

@@ -1,7 +1,7 @@
 // En enkel Supabase-dubbel i minnet för livscykeltesterna: tabeller som
 // listor av rader, filtren eq, in, gte, gt, lt, lte, is, not is null och
 // like, samt select, insert, upsert (ignoreDuplicates på user_id+email_type),
-// update, maybeSingle och single. Ordning och limit ignoreras.
+// update, maybeSingle och single. Ordning, limit och range ignoreras.
 
 type Row = Record<string, any>;
 
@@ -73,6 +73,7 @@ export function fakeSupabase(tables: Record<string, Row[]> = {}): FakeDb {
       or: () => b,
       order: () => b,
       limit: () => b,
+      range: () => b,
       update: (p: any) => ((op = 'update'), (payload = p), b),
       upsert: (p: any, o: any) => ((op = 'upsert'), (payload = p), (upsertOpts = o), b),
       insert: (p: any) => ((op = 'insert'), (payload = p), b),

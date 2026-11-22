@@ -27,6 +27,31 @@ import MejlTabell from './MejlTabell';
 import Kolarm from './Kolarm';
 import { MallDiagram, OppnandegradDiagram } from './MejlDiagram';
 import { antal, grad, mallNamn, procent } from './format';
+import JobbsoketKort from './JobbsoketKort';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { JOBBSOKET_UTSKICK, jobbsoketMottagare } from '@/lib/email/jobbsoketUtskick';
+
+/** Utskicksdagen kl. 07.00 svensk tid som ISO, för tidKort. */
+function sjuSvenskTid(dag: string): string {
+  // Vintertid är UTC+1 och sommartid UTC+2: prova båda och ta den som blir 07.
+  for (const utc of ['06', '05']) {
+    const iso = `${dag}T${utc}:00:00Z`;
+    const tim = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm', hour: '2-digit', hour12: false }).format(new Date(iso));
+    if (Number(tim) === 7) return iso;
+  }
+  return `${dag}T06:00:00Z`;
+}
+
+/** Urvalet för kortet om Jobbsöket. En läsning per sidvisning; fel ger null. */
+async function jobbsoketStatus(): Promise<{ kvar: number; skickade: number } | null> {
+  try {
+    const { kvar, redan } = await jobbsoketMottagare(getSupabaseAdmin() as any, new Date());
+    return { kvar: kvar.length, skickade: redan };
+  } catch (error) {
+    console.error('[Mejl] urvalet för Jobbsöket:', error);
+    return null;
+  }
+}
 
 export const metadata: Metadata = {
   title: 'Mejl',
@@ -62,7 +87,7 @@ function nastaText(iso: string | null): string {
 }
 
 export default async function MejlPage() {
-  const data = await hamtaMejl(FONSTER_DAGAR);
+  const [data, jobbsoket] = await Promise.all([hamtaMejl(FONSTER_DAGAR), jobbsoketStatus()]);
 
   const leveransgrad = grad(data.totalt.levererade, data.totalt.skickade);
   const oppnandegrad = grad(data.totalt.oppnade, data.totalt.levererade);
@@ -168,6 +193,33 @@ export default async function MejlPage() {
           och Paketet förnyas har ett utskick per dag och köpare, de räknas
           ihop här och står per dag i tabellen Per mall.
         </p>
+      </SectionCard>
+
+      <SectionCard rubrik="Mejlet om Jobbsöket">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <MetricCard
+            etikett="Utskicksdag"
+            varde={
+              <span className="text-h1">
+                {JOBBSOKET_UTSKICK.dag ? tidKort(sjuSvenskTid(JOBBSOKET_UTSKICK.dag)) : 'Inte satt'}
+              </span>
+            }
+          />
+          <MetricCard
+            etikett="Kvar att skicka"
+            varde={jobbsoket ? antal(jobbsoket.kvar) : <span className="text-h1">Kunde inte läsas</span>}
+          />
+          <MetricCard
+            etikett="Skickade"
+            varde={jobbsoket ? antal(jobbsoket.skickade) : <span className="text-h1">Kunde inte läsas</span>}
+          />
+        </div>
+        <p className="mt-4 text-meta text-ink-3">
+          Urval: konton utan sökt tjänst, aktiva senaste 90 dagarna, som inte stängt av tips på mejl. Dagen sätts i src/lib/email/jobbsoketUtskick.ts.
+        </p>
+        <div className="mt-4">
+          <JobbsoketKort />
+        </div>
       </SectionCard>
 
       <SectionCard rubrik="Kön i email_schedule">
