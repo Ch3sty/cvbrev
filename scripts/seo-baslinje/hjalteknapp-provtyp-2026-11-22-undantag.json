@@ -1,0 +1,35 @@
+{
+  "_om": "Hjälteknappen i testartiklarna öppnar provet i artikelns egen typ, läst ur ArtikelProv (saas-lead och SEO 2026-11-22, docs/artiklar-2026-11/brief-spatial-formaga.md avsnitt 10 och 11). Matrisartiklarnas adress är oförändrad. Raderna gäller de fem sidor där grinden visade att den enkla adressen är borta. Läses av scripts/seo-diff-artiklar.ts.",
+  "LANK_BORTA": [
+    {
+      "path": "/artiklar/cubiks-logiks-test",
+      "lank": "/verktyg/rekryteringstester/prova",
+      "datum": "2026-11-22",
+      "skal": "Hjälteknappen öppnade matrisprovet på en sida om numeriskt test och går nu till provet i numeriskt test (/verktyg/rekryteringstester/prova?typ=numerisk). Samma prov utan konto, rätt typ. Artikeln länkar fortfarande till /verktyg/rekryteringstester (saas-leads villkor 3.3)."
+    },
+    {
+      "path": "/artiklar/stanine-testresultat",
+      "lank": "/verktyg/rekryteringstester/prova",
+      "datum": "2026-11-22",
+      "skal": "Hjälteknappen öppnade matrisprovet på en sida om I-provet och går nu till provet i I-provet (/verktyg/rekryteringstester/prova?typ=iprov). Samma prov utan konto, rätt typ. Artikeln länkar fortfarande till /verktyg/rekryteringstester (saas-leads villkor 3.3)."
+    },
+    {
+      "path": "/artiklar/i-prov",
+      "lank": "/verktyg/rekryteringstester/prova",
+      "datum": "2026-11-22",
+      "skal": "Hjälteknappen öppnade matrisprovet på en sida om I-provet och går nu till provet i I-provet (/verktyg/rekryteringstester/prova?typ=iprov). Samma prov utan konto, rätt typ. Artikeln länkar fortfarande till /verktyg/rekryteringstester (saas-leads villkor 3.3)."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "lank": "/verktyg/rekryteringstester/prova",
+      "datum": "2026-11-22",
+      "skal": "Hjälteknappen öppnade matrisprovet på en sida om ordförråd och går nu till provet i ordförråd (/verktyg/rekryteringstester/prova?typ=ordforrad). Samma prov utan konto, rätt typ. Artikeln länkar fortfarande till /verktyg/rekryteringstester (saas-leads villkor 3.3)."
+    },
+    {
+      "path": "/artiklar/talserier",
+      "lank": "/verktyg/rekryteringstester/prova",
+      "datum": "2026-11-22",
+      "skal": "Hjälteknappen öppnade matrisprovet på en sida om talserier och går nu till provet i talserier (/verktyg/rekryteringstester/prova?typ=talserie). Samma prov utan konto, rätt typ. Artikeln länkar fortfarande till /verktyg/rekryteringstester (saas-leads villkor 3.3)."
+    }
+  ]
+}

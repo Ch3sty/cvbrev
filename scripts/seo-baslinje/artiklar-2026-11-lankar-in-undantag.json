@@ -1,5 +1,5 @@
 {
-  "_om": "Länkar in till de två nya artiklarna aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall (docs/artiklar-2026-11/seo-slutgranskning.md, punkt A och B.3): en mening i löptexten per artikel, exakt mening och ankartext enligt listan. /verktyg/sokta-tjanster får en ny länk och fler ord, vilket inte fäller grinden. Läses av scripts/seo-diff-artiklar.ts.",
+  "_om": "Länkar in till de två nya artiklarna aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall (docs/artiklar-2026-11/seo-slutgranskning.md, punkt A och B.3): en mening i löptexten per artikel, exakt mening och ankartext enligt listan. /verktyg/sokta-tjanster får en ny länk och fler ord, vilket inte fäller grinden. Läses av scripts/seo-diff-artiklar.ts. LANK_BORTA och RUBRIK_BORTA: de rader grinden visade efter bygget, där Läs vidare-korten och artikellistan väljs automatiskt och de två nya artiklarna tränger undan äldre kort (B.3).",
   "LD_UNDANTAG": [
     {
       "path": "/artiklar/soka-jobb-via-mail",
@@ -48,6 +48,850 @@
       "andrade": [
         "BlogPosting"
       ]
+    }
+  ],
+  "LANK_BORTA": [
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar/uppsagningsbrev-mall",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar/videointervju-tips",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?page=17",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?tag=cubiks%20test%20gratis",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?tag=digital%20intervju",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?tag=upps%C3%A4gningsbrev%20exempel",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?tag=upps%C3%A4gningsbrev%20mall",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "lank": "/artiklar?tag=videointervju%20tips",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar/soka-sommarjobb",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/soka-sommarjobb",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/uppsagningsbrev-mall",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ordforstaelse-test",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/aon-cut-e-test",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/logiktest-exempel-med-losningar",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/matrigma-test",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/alva-labs-logiktest",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/alva-labs-logiktest",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/deduktivt-induktivt-test",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/map-test-personlighetstest",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/map-test-personlighetstest",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ai-jobbmatchning",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/arbetslivserfarenhet-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/bli-hittad-av-rekryterare",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/bli-hittad-av-rekryterare",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/europass-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/handlingsord-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hobbyer-intressen-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/korrekturlasa-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/korrekturlasa-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ladda-upp-cv-linkedin",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ledarskapsformagor-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ljuga-i-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ljuga-i-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/optimera-linkedin-profil",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/optimera-linkedin-profil",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/prestationer-utmarkelser-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/sprak-i-cv",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/sprak-i-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/tidshantering-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/utbildning-i-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-motiverar-dig-svar",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cover-letter-sverige",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-utan-erfarenhet",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/loneforhandling",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/motivationsbrev-exempel",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ny-pa-jobbet",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-folkhogskola",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/provanstallning",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/rekommendationsbrev-exempel-mall",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/rekommendationsbrev-exempel-mall",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/saga-upp-sig",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/skapa-cv-med-ai",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/soka-jobb-via-mail",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/soka-jobb-via-mail",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/mjuka-harda-kompetenser",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/mjuka-harda-kompetenser",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/sociala-kompetenser",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-ar-kompetenser-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-ar-kompetenser-guide",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vilka-kompetenser-har-jag",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/angest-infor-nytt-jobb",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/angest-infor-nytt-jobb",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hur-ofta-byta-jobb",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/hur-ofta-byta-jobb",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/matrislogik-test-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/matrislogik-test-guide",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/numeriskt-test-guide",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/numeriskt-test-guide",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/panikangest-pa-jobbet",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/panikangest-pa-jobbet",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personlighetstest-jobb-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vaga-byta-jobb",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/verbalt-test-guide",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-bild-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-bild-guide",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/exempel-pa-cv-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-ar-ett-cv",
+      "lank": "/artiklar/intervjufragor-underskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-format-guide",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-langd-regler",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-word",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "lank": "/artiklar/hur-langt-ska-personligt-brev-vara",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "lank": "/artiklar/personligt-brev-innehall-checklista",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-layout",
+      "lank": "/artiklar/personligt-brev-jobbansokan",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-pa-engelska",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/angest-jobbet-dags-att-byta",
+      "lank": "/artiklar/vad-ar-en-jobbcoach",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/personligt-brev-spontanansokan",
+      "lank": "/artiklar/angest-jobbet-dags-att-byta",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-exempel-student-nyexaminerad",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-exempel-student-nyexaminerad",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "lank": "/artiklar/cubiks-logiks-test",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "lank": "/artiklar/intervjufragor-sjukskoterska",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/din-digitala-jobbcoach",
+      "lank": "/artiklar/angest-jobbet-dags-att-byta",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar/ai-rekrytering-sverige",
+      "lank": "/artiklar/personligt-brev-innehall-checklista",
+      "datum": "2026-11-22",
+      "skal": "Läs vidare-korten är automatiska (flest gemensamma taggar, sedan nyast); de två nya artiklarna tränger undan äldre kort. Länkarna i brödtexten är orörda."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar/alva-labs-logiktest",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar?page=17",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar?tag=alva%20labs%20logiktest",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar?tag=alva%20logiktest",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar?tag=bakgrundskontroll%20anst%C3%A4llning",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "lank": "/artiklar?tag=bakgrundskontroll%20jobb",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    }
+  ],
+  "RUBRIK_BORTA": [
+    {
+      "path": "/artiklar",
+      "rubrik": "h2 Uppsägningsbrev mall: fyra exempel att kopiera vid egen uppsägning",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar",
+      "rubrik": "h2 Videointervju tips: så lyckas du på Teams, Zoom och i inspelade intervjuer",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "rubrik": "h2 Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
+    },
+    {
+      "path": "/artiklar?page=2",
+      "rubrik": "h2 Bakgrundskontroll vid anställning: vad arbetsgivaren får kolla och vad du kan göra",
+      "datum": "2026-11-22",
+      "skal": "Artikellistan visar de nyaste först; två nya artiklar (aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall) flyttar äldre kort till nästa sida."
     }
   ]
 }

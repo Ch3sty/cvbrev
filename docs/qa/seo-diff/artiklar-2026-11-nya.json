@@ -1,0 +1,523 @@
+[
+  {
+    "path": "/artiklar/aktivitetsrapport-arbetsformedlingen",
+    "status": 200,
+    "h1": [
+      "Aktivitetsrapport till Arbetsförmedlingen: vad som ska med och hur du för listan över sökta jobb"
+    ],
+    "title": "Aktivitetsrapport till Arbetsförmedlingen: vad ska med?",
+    "description": "Aktivitetsrapporten lämnas mellan den 1:a och 14:e och ska ta med alla jobb du sökt. Så för du listan över sökta jobb och sparar underlaget.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/aktivitetsrapport-arbetsformedlingen-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Helena Andersson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: vad ska stå i aktivitetsrapporten?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ar-en-aktivitetsrapport-och-vem-ska-lamna-den",
+        "text": "Vad är en aktivitetsrapport och vem ska lämna den?"
+      },
+      {
+        "tag": "h2",
+        "id": "nar-ska-aktivitetsrapporten-lamnas",
+        "text": "När ska aktivitetsrapporten lämnas?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ska-med-i-aktivitetsrapporten",
+        "text": "Vad ska med i aktivitetsrapporten?"
+      },
+      {
+        "tag": "h3",
+        "id": "alla-jobb-du-har-sokt",
+        "text": "Alla jobb du har sökt"
+      },
+      {
+        "tag": "h3",
+        "id": "intervjuer-rekryteringstraffar-arbete-och-studier",
+        "text": "Intervjuer, rekryteringsträffar, arbete och studier"
+      },
+      {
+        "tag": "h3",
+        "id": "det-som-inte-ska-med",
+        "text": "Det som inte ska med"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-for-du-listan-over-sokta-jobb-under-manaden",
+        "text": "Så för du listan över sökta jobb under månaden"
+      },
+      {
+        "tag": "h3",
+        "id": "uppgifterna-vi-rekommenderar-for-varje-jobb",
+        "text": "Uppgifterna vi rekommenderar för varje jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "kalkylark-anteckningar-eller-ett-verktyg",
+        "text": "Kalkylark, anteckningar eller ett verktyg"
+      },
+      {
+        "tag": "h3",
+        "id": "spara-underlaget-i-tre-manader",
+        "text": "Spara underlaget i tre månader"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-manga-jobb-maste-du-soka-varje-manad",
+        "text": "Hur många jobb måste du söka varje månad?"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-lamnar-du-in-aktivitetsrapporten",
+        "text": "Så lämnar du in aktivitetsrapporten"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-hander-om-rapporten-kommer-in-for-sent",
+        "text": "Vad händer om rapporten kommer in för sent?"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-granskas-rapporten",
+        "text": "Så granskas rapporten"
+      },
+      {
+        "tag": "h2",
+        "id": "underlaget-fran-sokta-tjanster",
+        "text": "Underlaget från Sökta tjänster"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#hur-manga-jobb-maste-du-soka-varje-manad",
+      "#hur-manga-jobb-maste-du-soka-varje-manad",
+      "#nar-ska-aktivitetsrapporten-lamnas",
+      "#nar-ska-aktivitetsrapporten-lamnas",
+      "#sa-for-du-listan-over-sokta-jobb-under-manaden",
+      "#sa-for-du-listan-over-sokta-jobb-under-manaden",
+      "#sa-granskas-rapporten",
+      "#sa-granskas-rapporten",
+      "#sa-lamnar-du-in-aktivitetsrapporten",
+      "#sa-lamnar-du-in-aktivitetsrapporten",
+      "#underlaget-fran-sokta-tjanster",
+      "#underlaget-fran-sokta-tjanster",
+      "#vad-ar-en-aktivitetsrapport-och-vem-ska-lamna-den",
+      "#vad-ar-en-aktivitetsrapport-och-vem-ska-lamna-den",
+      "#vad-ar-en-aktivitetsrapport-och-vem-ska-lamna-den",
+      "#vad-hander-om-rapporten-kommer-in-for-sent",
+      "#vad-hander-om-rapporten-kommer-in-for-sent",
+      "#vad-ska-med-i-aktivitetsrapporten",
+      "#vad-ska-med-i-aktivitetsrapporten",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/angest-jobbet-dags-att-byta",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/jobbcoach-online",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/personligt-brev-spontanansokan",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/soka-jobb-via-mail",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar/uppfoljning-efter-intervju",
+      "/artiklar/vad-ar-en-jobbcoach",
+      "/artiklar?tag=a-kassa",
+      "/artiklar?tag=aktivitetsrapport",
+      "/artiklar?tag=aktivitetsrapport arbetsförmedlingen",
+      "/artiklar?tag=aktivitetsrapportera",
+      "/artiklar?tag=arbetsförmedlingen",
+      "/artiklar?tag=jobbsökning",
+      "/artiklar?tag=lista sökta jobb",
+      "/artiklar?tag=sökta jobb",
+      "/cv-mallar",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbmatchning",
+      "/verktyg/jobbmatchning",
+      "/verktyg/rekryteringstester",
+      "/verktyg/sokta-tjanster",
+      "/verktyg/sokta-tjanster",
+      "/verktyg/sokta-tjanster",
+      "/verktyg/sokta-tjanster",
+      "/verktyg/sokta-tjanster",
+      "/verktyg/sokta-tjanster#manadsrapporten"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/helena\",\"@type\":\"Person\",\"description\":\"Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Helena.webp\",\"width\":200},\"jobTitle\":\"Senior Karriärcoach\",\"knowsAbout\":[\"Karriärstrategi\",\"Meritdokumentation\",\"Intervjumetodik\",\"Professionell utveckling\"],\"name\":\"Helena Andersson\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-11-22T00:00:00.000Z\",\"description\":\"Aktivitetsrapporten lämnas mellan den 1:a och 14:e och ska ta med alla jobb du sökt. Så för du listan över sökta jobb och sparar underlaget.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Vad är en aktivitetsrapport och vem ska lämna den?\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#vad-ar-en-aktivitetsrapport-och-vem-ska-lamna-den\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"När ska aktivitetsrapporten lämnas?\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#nar-ska-aktivitetsrapporten-lamnas\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Vad ska med i aktivitetsrapporten?\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#vad-ska-med-i-aktivitetsrapporten\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Så för du listan över sökta jobb under månaden\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#sa-for-du-listan-over-sokta-jobb-under-manaden\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Hur många jobb måste du söka varje månad?\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#hur-manga-jobb-maste-du-soka-varje-manad\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Så lämnar du in aktivitetsrapporten\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#sa-lamnar-du-in-aktivitetsrapporten\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Vad händer om rapporten kommer in för sent?\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#vad-hander-om-rapporten-kommer-in-for-sent\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Så granskas rapporten\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#sa-granskas-rapporten\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\"},\"name\":\"Underlaget från Sökta tjänster\",\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen#underlaget-fran-sokta-tjanster\"}],\"headline\":\"Aktivitetsrapport till Arbetsförmedlingen: vad som ska med och hur du för listan över sökta jobb\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/aktivitetsrapport-arbetsformedlingen-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"aktivitetsrapport, aktivitetsrapport arbetsförmedlingen, aktivitetsrapportera, sökta jobb, lista sökta jobb, arbetsförmedlingen, a-kassa, jobbsökning\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\",\"wordCount\":3028}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\",\"name\":\"Aktivitetsrapport till Arbetsförmedlingen: vad som ska med och hur du för listan över sökta jobb\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Alla jobb du har sökt under månaden innan: annonserade jobb, jobb som inte har annonserats, till exempel när du har lämnat ditt CV spontant, och jobb som Arbetsförmedlingen har tipsat om eller uppmanat dig att söka. Dit hör också jobbintervjuer och rekryteringsträffar du har varit på, om du har jobbat och studier du har deltagit i. Sjukdom ska inte stå i rapporten.\"},\"name\":\"Vad ska med i aktivitetsrapporten?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Tidigast den 1:a och senast den 14:e varje månad, och den gäller månaden innan. Det du gjorde i januari rapporterar du alltså mellan den 1:a och den 14:e februari. Skickar du blanketten med post ska den hinna fram till Arbetsförmedlingen senast den 14:e, så posta den i god tid.\"},\"name\":\"När ska aktivitetsrapporten vara inne?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Har du ersättning från a-kassan ska du enligt Arbetsförmedlingen i normalfallet söka minst 6 lämpliga jobb per månad, om det inte står något annat antal i din handlingsplan. Där kan det stå ett sökintervall, till exempel 6-20, och den lägsta siffran är ditt minimum. Jobbar du deltid kan du behöva söka färre. Deltar du i ett program kan andra villkor gälla. Ditt eget antal står i handlingsplanen, som du hittar på Mina sidor.\"},\"name\":\"Hur många jobb måste jag söka varje månad?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Arbetsförmedlingen skriver att rapporten inte går att lämna i efterhand, och du behöver inte ta med de missade aktiviteterna i nästa månads rapport. Kommer rapporten inte in i tid kan du få en varning eller bli utan ersättning i en eller flera dagar. Har du a-kassa är det a-kassan som avgör, efter att du har fått beskriva varför.\"},\"name\":\"Kan jag lämna aktivitetsrapporten i efterhand?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"I minst tre månader. Underlaget ska kunna visa att du har sökt jobben du har redovisat, eftersom Arbetsförmedlingen ibland gör kontroller. Som exempel nämner de din ansökan eller ditt CV, ett svar från arbetsgivaren som visar att du har sökt jobbet och en skärmbild av en bekräftelse. Spara det samma dag du söker, så har du det om brevet om en kontroll kommer.\"},\"name\":\"Hur länge ska jag spara underlag för sökta jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Vi skickar ingenting till Arbetsförmedlingen. Månadsrapporten i Sökta tjänster är ditt eget underlag, och du lämnar in aktivitetsrapporten själv på Mina sidor eller på något av de andra sätt Arbetsförmedlingen anger.\"},\"name\":\"Skickar jobbcoach.ai aktivitetsrapporten åt mig?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"description\":\"Från listan över sökta jobb till inlämnad rapport mellan den 1:a och 14:e.\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/aktivitetsrapport-arbetsformedlingen\",\"@type\":\"WebPage\"},\"name\":\"Så lämnar du aktivitetsrapporten till Arbetsförmedlingen\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"För listan under månaden\",\"position\":1,\"text\":\"Skriv upp varje jobb du söker samma dag: tjänst, arbetsgivare, datum och hur du sökte.\"},{\"@type\":\"HowToStep\",\"name\":\"Spara underlaget\",\"position\":2,\"text\":\"Spara ansökan eller CV:t, svar från arbetsgivaren eller en skärmbild av bekräftelsen i minst tre månader.\"},{\"@type\":\"HowToStep\",\"name\":\"Logga in när rapporteringen öppnar\",\"position\":3,\"text\":\"Logga in på Mina sidor med e-legitimation tidigast den 1:a i månaden efter.\"},{\"@type\":\"HowToStep\",\"name\":\"Fyll i alla sökta jobb och aktiviteter\",\"position\":4,\"text\":\"Ta med annonserade och oannonserade jobb, jobb Arbetsförmedlingen tipsat om, intervjuer och andra aktiviteter.\"},{\"@type\":\"HowToStep\",\"name\":\"Skicka senast den 14:e\",\"position\":5,\"text\":\"Skicka rapporten senast den 14:e. Den går inte att lämna i efterhand eller ändra när den är skickad.\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Helena.webp",
+      "alt": "Helena Andersson - Senior Karriärcoach"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Helena.webp",
+        "alt": "Helena Andersson - Senior Karriärcoach"
+      },
+      {
+        "src": "/images/artiklar/aktivitetsrapport-arbetsformedlingen-v2.webp",
+        "alt": "Lista över sökta jobb i oktober med datum, tjänst och arbetsgivare, som underlag till aktivitetsrapporten"
+      },
+      {
+        "src": "/images/jobbcoach/Helena.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/jobbcoach-online-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/vad-ar-en-jobbcoach-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/angest-jobbet-dags-att-byta-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Vad ska med i aktivitetsrapporten?",
+      "När ska aktivitetsrapporten vara inne?",
+      "Hur många jobb måste jag söka varje månad?",
+      "Kan jag lämna aktivitetsrapporten i efterhand?",
+      "Hur länge ska jag spara underlag för sökta jobb?",
+      "Skickar jobbcoach.ai aktivitetsrapporten åt mig?",
+      "ld: Vad ska med i aktivitetsrapporten?",
+      "ld: När ska aktivitetsrapporten vara inne?",
+      "ld: Hur många jobb måste jag söka varje månad?",
+      "ld: Kan jag lämna aktivitetsrapporten i efterhand?",
+      "ld: Hur länge ska jag spara underlag för sökta jobb?",
+      "ld: Skickar jobbcoach.ai aktivitetsrapporten åt mig?"
+    ],
+    "ord": 3176
+  },
+  {
+    "path": "/artiklar/cv-och-personligt-brev-samma-mall",
+    "status": 200,
+    "h1": [
+      "CV och personligt brev i samma mall: så får ansökan en röd tråd"
+    ],
+    "title": "CV och personligt brev mall: så matchar du designen",
+    "description": "CV och personligt brev i samma mall: samma huvud, typsnitt och färg gör att ansökan känns igen. Så matchar du dem, i Word eller hos oss.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/cv-och-personligt-brev-samma-mall-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Helena Andersson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: ska CV och personligt brev ha samma mall?"
+      },
+      {
+        "tag": "h2",
+        "id": "varfor-ska-cv-och-personligt-brev-se-likadana-ut",
+        "text": "Varför ska CV och personligt brev se likadana ut?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ska-vara-likadant-i-cvt-och-brevet",
+        "text": "Vad ska vara likadant i CV:t och brevet?"
+      },
+      {
+        "tag": "h3",
+        "id": "huvudet-med-namn-och-kontaktuppgifter",
+        "text": "Huvudet med namn och kontaktuppgifter"
+      },
+      {
+        "tag": "h3",
+        "id": "typsnitt-och-textstorlek",
+        "text": "Typsnitt och textstorlek"
+      },
+      {
+        "tag": "h3",
+        "id": "farg-och-accenter",
+        "text": "Färg och accenter"
+      },
+      {
+        "tag": "h3",
+        "id": "marginaler-och-avstand",
+        "text": "Marginaler och avstånd"
+      },
+      {
+        "tag": "h3",
+        "id": "filnamn-och-format",
+        "text": "Filnamn och format"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ska-skilja-dem-at",
+        "text": "Vad ska skilja dem åt?"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-far-du-samma-design-i-word-eller-google-docs",
+        "text": "Så får du samma design i Word eller Google Docs"
+      },
+      {
+        "tag": "h2",
+        "id": "sa-far-du-cv-och-brev-i-samma-mall-hos-oss",
+        "text": "Så får du CV och brev i samma mall hos oss"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-mallar-fungerar-for-bade-cv-och-brev",
+        "text": "Vilka mallar fungerar för både CV och brev?"
+      },
+      {
+        "tag": "h2",
+        "id": "vanliga-misstag-nar-cv-och-brev-ska-matcha",
+        "text": "Vanliga misstag när CV och brev ska matcha"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      }
+    ],
+    "lankar": [
+      "#sa-far-du-cv-och-brev-i-samma-mall-hos-oss",
+      "#sa-far-du-cv-och-brev-i-samma-mall-hos-oss",
+      "#sa-far-du-samma-design-i-word-eller-google-docs",
+      "#sa-far-du-samma-design-i-word-eller-google-docs",
+      "#vad-ska-skilja-dem-at",
+      "#vad-ska-skilja-dem-at",
+      "#vad-ska-vara-likadant-i-cvt-och-brevet",
+      "#vad-ska-vara-likadant-i-cvt-och-brevet",
+      "#vanliga-misstag-nar-cv-och-brev-ska-matcha",
+      "#vanliga-misstag-nar-cv-och-brev-ska-matcha",
+      "#varfor-ska-cv-och-personligt-brev-se-likadana-ut",
+      "#varfor-ska-cv-och-personligt-brev-se-likadana-ut",
+      "#varfor-ska-cv-och-personligt-brev-se-likadana-ut",
+      "#vilka-mallar-fungerar-for-bade-cv-och-brev",
+      "#vilka-mallar-fungerar-for-bade-cv-och-brev",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/bild-i-personligt-brev",
+      "/artiklar/cv-och-personligt-brev",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-jobbansokan",
+      "/artiklar/personligt-brev-layout",
+      "/artiklar/personligt-brev-layout",
+      "/artiklar/personligt-brev-mall-word",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skillnad-cv-personligt-brev",
+      "/artiklar/skillnad-cv-personligt-brev",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/soka-jobb-via-mail",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=ansökningshandlingar",
+      "/artiklar?tag=cv mall personligt brev",
+      "/artiklar?tag=cv och personligt brev",
+      "/artiklar?tag=cv och personligt brev mall",
+      "/artiklar?tag=cv-mall",
+      "/artiklar?tag=mall för personligt brev",
+      "/artiklar?tag=matchande cv och personligt brev",
+      "/artiklar?tag=personligt brev layout",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar",
+      "/cv-mallar/prova?mall=linne",
+      "/cv-mallar/word",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/skapa-brev/start",
+      "/skapa-brev/start?mall=linne",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbmatchning",
+      "/verktyg/personligt-brev",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/cv-mallar#yrken",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personlighetstest",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv",
+      "/verktyg/sokta-tjanster"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/helena\",\"@type\":\"Person\",\"description\":\"Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Helena.webp\",\"width\":200},\"jobTitle\":\"Senior Karriärcoach\",\"knowsAbout\":[\"Karriärstrategi\",\"Meritdokumentation\",\"Intervjumetodik\",\"Professionell utveckling\"],\"name\":\"Helena Andersson\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2026-11-22T00:00:00.000Z\",\"description\":\"CV och personligt brev i samma mall: samma huvud, typsnitt och färg gör att ansökan känns igen. Så matchar du dem, i Word eller hos oss.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Varför ska CV och personligt brev se likadana ut?\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#varfor-ska-cv-och-personligt-brev-se-likadana-ut\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Vad ska vara likadant i CV:t och brevet?\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#vad-ska-vara-likadant-i-cvt-och-brevet\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Vad ska skilja dem åt?\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#vad-ska-skilja-dem-at\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Så får du samma design i Word eller Google Docs\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#sa-far-du-samma-design-i-word-eller-google-docs\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Så får du CV och brev i samma mall hos oss\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#sa-far-du-cv-och-brev-i-samma-mall-hos-oss\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Vilka mallar fungerar för både CV och brev?\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#vilka-mallar-fungerar-for-bade-cv-och-brev\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\"},\"name\":\"Vanliga misstag när CV och brev ska matcha\",\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall#vanliga-misstag-nar-cv-och-brev-ska-matcha\"}],\"headline\":\"CV och personligt brev i samma mall: så får ansökan en röd tråd\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/cv-och-personligt-brev-samma-mall-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"cv och personligt brev mall, cv mall personligt brev, matchande cv och personligt brev, cv och personligt brev, cv-mall, personligt brev layout, ansökningshandlingar, mall för personligt brev\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\",\"wordCount\":2622}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\",\"name\":\"CV och personligt brev i samma mall: så får ansökan en röd tråd\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, det är vårt råd. Samma huvud med namn och kontaktuppgifter, samma typsnitt och samma accentfärg gör att dokumenten känns igen som en och samma ansökan. Arbetsförmedlingen råder dig också att välja den brevmall som passar ihop med hur ditt CV ser ut. Innehållet ska däremot skilja sig: CV:t listar dina meriter och brevet förklarar varför de passar tjänsten.\"},\"name\":\"Ska CV och personligt brev ha samma mall?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det går, och varken Arbetsförmedlingen eller någon annan källa vi har läst kräver det ena eller det andra. Vårt råd är ändå två filer, en för CV:t och en för brevet, med ditt namn i båda filnamnen. Rekryteringssystem har ofta ett fält för CV och ett för personligt brev, och då behövs de var för sig. Står det något annat i annonsen följer du den.\"},\"name\":\"Kan CV och personligt brev vara i samma dokument?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej. Har du ett foto räcker det att det finns i CV:t. Brevet är löptext, och ett porträtt där tar plats utan att tillföra något. Våra brevmallar har därför ingen fotoplats, inte heller när CV-mallen har en. Arbetsförmedlingens gröna brevmall har plats för ett foto, så förbjudet är det inte, men vi avråder.\"},\"name\":\"Ska det personliga brevet ha bild om CV:t har det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Samma i båda. Det väger tyngre än vilket du väljer. Ta ett vanligt och lättläst typsnitt, till exempel Calibri, Arial eller Georgia, och använd det för brödtexten i både CV:t och brevet. Har CV:t ett eget typsnitt för namn och rubriker får brevets namn och rubrik samma. I våra mallar har CV:t och brevet samma typsnitt från start.\"},\"name\":\"Vilket typsnitt ska CV och personligt brev ha?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Arbetsförmedlingen har Word-mallar för både CV och personligt brev i matchande utföranden, fria att ladda ner. Hos oss är mallarna Linne och Björk gratis för båda dokumenten. Brevet läser och kopierar du gratis, och CV:t laddar du ner en gång per konto utan kostnad i någon av de två mallarna. Att ladda ner brevet som fil ingår i Premium.\"},\"name\":\"Finns det gratis mallar för både CV och personligt brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, i de mallar som finns som Word. Alla mallar finns som PDF och 26 av dem också som Word, och det är samma mallar för CV:t och brevet. Att ladda ner brevet ingår i Premium, oavsett om du väljer PDF eller Word. Utan Premium kan du läsa brevet, kopiera texten och klistra in den i ett eget dokument.\"},\"name\":\"Kan jag ladda ner det personliga brevet som Word-fil?\"}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"HowTo\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/cv-och-personligt-brev-samma-mall\",\"@type\":\"WebPage\"},\"name\":\"Så får CV och personligt brev samma design i Word\",\"step\":[{\"@type\":\"HowToStep\",\"name\":\"Börja i CV:t\",\"position\":1,\"text\":\"Gör färdigt CV:ts huvud med namn och kontaktuppgifter, typsnitt och accentfärg.\"},{\"@type\":\"HowToStep\",\"name\":\"Kopiera huvudet till brevet\",\"position\":2,\"text\":\"Kopiera hela huvudet från CV:t och klistra in det överst i brevet, med samma typsnitt och storlek.\"},{\"@type\":\"HowToStep\",\"name\":\"Använd samma format\",\"position\":3,\"text\":\"Ge brevets brödtext och eventuella rubriker samma typsnitt, storlek och färg som i CV:t.\"},{\"@type\":\"HowToStep\",\"name\":\"Jämför sida vid sida\",\"position\":4,\"text\":\"Lägg dokumenten bredvid varandra och kontrollera marginaler, avstånd och kontaktuppgifter.\"},{\"@type\":\"HowToStep\",\"name\":\"Spara som PDF med ditt namn\",\"position\":5,\"text\":\"Spara båda som PDF med ditt namn i filnamnet, om annonsen inte ber om något annat.\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Helena.webp",
+      "alt": "Helena Andersson - Senior Karriärcoach"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Helena.webp",
+        "alt": "Helena Andersson - Senior Karriärcoach"
+      },
+      {
+        "src": "/images/artiklar/cv-och-personligt-brev-samma-mall-v2.webp",
+        "alt": "CV och personligt brev i samma mall bredvid varandra, med samma huvud, typsnitt och accentfärg"
+      },
+      {
+        "src": "/mallar/v2/linne-stor.webp",
+        "alt": "CV i mallen Linne"
+      },
+      {
+        "src": "/mallar/brev/linne.webp",
+        "alt": "Personligt brev i mallen Linne"
+      },
+      {
+        "src": "/mallar/v2/linne-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/bjork-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kalksten-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/granit-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kolumn-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/arsring-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/morkrum-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/mallar/v2/kvadrat-liten.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/jobbcoach/Helena.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/personligt-brev-jobbansokan-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/personligt-brev-layout-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/skillnad-cv-personligt-brev-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Ska CV och personligt brev ha samma mall?",
+      "Kan CV och personligt brev vara i samma dokument?",
+      "Ska det personliga brevet ha bild om CV:t har det?",
+      "Vilket typsnitt ska CV och personligt brev ha?",
+      "Finns det gratis mallar för både CV och personligt brev?",
+      "Kan jag ladda ner det personliga brevet som Word-fil?",
+      "ld: Ska CV och personligt brev ha samma mall?",
+      "ld: Kan CV och personligt brev vara i samma dokument?",
+      "ld: Ska det personliga brevet ha bild om CV:t har det?",
+      "ld: Vilket typsnitt ska CV och personligt brev ha?",
+      "ld: Finns det gratis mallar för både CV och personligt brev?",
+      "ld: Kan jag ladda ner det personliga brevet som Word-fil?"
+    ],
+    "ord": 2839
+  }
+]
