@@ -58,8 +58,8 @@ import CVExample from '@/components/mdx/CVExample';
 // Serverrenderad; enda klientkoden är ArtikelKlient (mätning och
 // innehållsförteckningens tråd), mallväljaren och mobilens klistrade knapp.
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
-import { GratisKort, InlineKort, JobbKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
-import { JOBB_KORT_SLUGAR, TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
+import { GratisKort, InlineKort, JobbKort, ProvKort, SidoJobbKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import { JOBB_KORT, JOBB_KORT_SLUGAR, JOBB_SKAL_SLUGAR, TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
 import ArtikelProv from '@/components/artiklar/prov/ArtikelProv';
 import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
@@ -297,6 +297,13 @@ function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
         return content;
     }
 
+    // Artikeln har en egen handling direkt efter snabbsvaret eller i texten:
+    // visaren CV och brev i samma mall, eller arket Logga sökt tjänst. Då
+    // injiceras inget inline-kort (saas-lead och SEO 2026-11-22, byggordern I).
+    if (content.includes('<CvOchBrevPar') || content.includes('<LoggaSoktJobb')) {
+        return content;
+    }
+
     // Artikeln har redan provkortet som <TestKort /> i texten: inget andra.
     if (verktyg === 'test' && content.includes('<TestKort')) {
         return content;
@@ -441,6 +448,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     const paket = paketForKluster(cluster, post.frontmatter.tags);
     const author = getAuthorForArticle(slug, post.frontmatter.tags || [], post.frontmatter.title);
     const relaterade = relateradeArtiklar(allPostsMeta, slug, post.frontmatter.tags || []);
+    // Jobbsöket tar hela skalets reklam i artiklarna i JOBB_SKAL_SLUGAR
+    // (aktivitetsrapporten, saas-lead 10.4): hjälteknappen, mobilknappen och
+    // sidokortet leder till Sökta tjänster, och gratiskortet visas inte.
+    const jobbSkal = JOBB_SKAL_SLUGAR.has(slug) ? JOBB_KORT_SLUGAR[slug] : undefined;
+    const jobbSkalKort = jobbSkal ? JOBB_KORT[jobbSkal] : undefined;
 
     // Injicera båda komponenter i innehållet - UTAN att modifiera headings.
     // CV-showcasen bara för cv-klustret, inte för alla cv-taggade artiklar.
@@ -653,10 +665,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 paket={paket}
                 relaterade={relaterade}
                 // Testklustret: provet i artikelns egen typ (byggordern L).
-                primar={hjalteKnapp(cluster, verktyg, artikelProvTyp(post.content))}
+                primar={jobbSkalKort ? { text: jobbSkalKort.knapp, href: jobbSkalKort.href } : hjalteKnapp(cluster, verktyg, artikelProvTyp(post.content))}
                 bild={hjalteBild}
                 slut={paket && paket !== 'gratis' ? <SlutKort paket={paket} cluster={cluster} slug={slug} /> : null}
-                sticky={<StickyMobileCTA cluster={cluster} slug={slug} />}
+                sticky={<StickyMobileCTA cluster={cluster} slug={slug} label={jobbSkalKort?.knapp} href={jobbSkalKort?.href} />}
+                sido={jobbSkal ? <SidoJobbKort variant={jobbSkal} cluster={cluster} slug={slug} /> : undefined}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
@@ -665,7 +678,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 {JOBB_KORT_SLUGAR[slug] ? <JobbKort variant={JOBB_KORT_SLUGAR[slug]} cluster={cluster} slug={slug} /> : null}
 
                 {/* Artiklar utan produkt: gratiskortet sist i texten. */}
-                {paket === 'gratis' ? <GratisKort cluster={cluster} slug={slug} position="final" /> : null}
+                {paket === 'gratis' && !jobbSkal ? <GratisKort cluster={cluster} slug={slug} position="final" /> : null}
             </ArtikelRam>
 
             {/* Schema markup */}

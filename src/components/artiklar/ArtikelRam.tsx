@@ -83,6 +83,8 @@ interface ArtikelRamProps {
   slut?: ReactNode
   /** Mobilens klistrade knapp, renderas utanför kolumnerna. */
   sticky?: ReactNode
+  /** Eget sidokort i stället för paketets (Jobbsökets kort i JOBB_SKAL_SLUGAR). */
+  sido?: ReactNode
 }
 
 export default function ArtikelRam({
@@ -102,6 +104,7 @@ export default function ArtikelRam({
   children,
   slut,
   sticky,
+  sido,
 }: ArtikelRamProps) {
   const rum = KLUSTER_RUM[cluster]
   const guider = MEST_LASTA.filter((g) => g.href !== `/artiklar/${slug}`).slice(0, 6)
@@ -146,7 +149,7 @@ export default function ArtikelRam({
 
           <aside className="ib-sido" aria-label="Innehåll och paketet">
             <Innehall headings={headings} variant="sido" />
-            {paket ? <SidoPaketKort paket={paket} cluster={cluster} slug={slug} /> : null}
+            {sido ?? (paket ? <SidoPaketKort paket={paket} cluster={cluster} slug={slug} /> : null)}
           </aside>
         </div>
       </Rum>

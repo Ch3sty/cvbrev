@@ -349,4 +349,15 @@ export const JOBB_KORT_SLUGAR: Readonly<Record<string, keyof typeof JOBB_KORT>> 
   'soka-jobb-via-mail': 'sokta',
   'uppfoljning-efter-intervju': 'sokta',
   'personligt-brev-jobbansokan': 'sokta',
+  'aktivitetsrapport-arbetsformedlingen': 'sokta',
 }
+
+/**
+ * Artiklar där Jobbsökets kort tar hela skalets reklam (saas-lead 2026-11-22,
+ * docs/artiklar-2026-11/brief-aktivitetsrapport.md 10.4): hjälteknappen,
+ * mobilens klistrade knapp och sidokortet leder dit, inget inline-kort
+ * injiceras och gratiskortet visas inte, eftersom Jobbsökets kort är
+ * slutkortet. De övriga artiklarna i JOBB_KORT_SLUGAR behåller klustrets
+ * reklam och får kortet som tillägg, som förut.
+ */
+export const JOBB_SKAL_SLUGAR: ReadonlySet<string> = new Set(['aktivitetsrapport-arbetsformedlingen'])

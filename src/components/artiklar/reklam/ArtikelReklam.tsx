@@ -412,6 +412,25 @@ export function JobbKort({ variant, cluster, slug }: { variant: keyof typeof JOB
  * fönster. Texten och ordningen i HTML:en är densamma i alla fönster.
  */
 
+/**
+ * Jobbsökets kort i sidokolumnen, för artiklarna i JOBB_SKAL_SLUGAR där
+ * Jobbsöket tar hela skalets reklam (aktivitetsrapporten, saas-lead 10.4).
+ * Samma text som kortet efter texten, mäts som sidokort med egen variant.
+ */
+export function SidoJobbKort({ variant, cluster, slug }: { variant: keyof typeof JOBB_KORT; cluster: CtaCluster; slug: string }) {
+  const copy = JOBB_KORT[variant]
+  return (
+    <section className="ar-sido" aria-label={copy.ariaLabel} {...matning('sidebar', cluster, `jobb-${variant}`)} data-cta-slug={slug}>
+      <p className="ar-ey">{copy.etikett}</p>
+      <p className="ar-sido-rub">{copy.rubrik}</p>
+      <p className="ar-sido-text" data-sido-steg="2">{copy.gratis}</p>
+      <Knapp href={copy.href} bred data-cta-klick={copy.href}>
+        {copy.knapp}
+      </Knapp>
+    </section>
+  )
+}
+
 export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; cluster: CtaCluster; slug: string }) {
   if (paket === 'gratis') {
     return (
