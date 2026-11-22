@@ -107,7 +107,7 @@ export default function VillkorForRekryterarePage() {
         <section>
           <h2 id="kandidaten-bestammer">7. Kandidaten bestämmer</h2>
           <p>
-            Kandidaten kan när som helst dölja sin profil, och kan ångra ett ja genom att säga det till dig eller till oss. Då slutar du använda uppgifterna du har fått från oss, om de inte redan behövs i en pågående rekrytering som kandidaten själv deltar i.
+            Kandidaten kan när som helst dölja sin profil eller avsluta kontakten med dig, med en knapp i tjänsten. Då ser du inte längre kandidatens namn, mailadress eller arbetsgivare, och ni kan inte skriva till varandra här. Du slutar också använda uppgifterna du har fått från oss, om de inte redan behövs i en pågående rekrytering som kandidaten själv deltar i.
           </p>
         </section>
 
