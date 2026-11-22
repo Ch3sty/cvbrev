@@ -150,7 +150,7 @@ export default async function BrevKategoriSida({ params }: PageProps) {
           lyft
         />
 
-        <BranschBrickor yrken={BREV_GALLERI} vald={kat.slug} allaHref="/personligt-brev-exempel" rubrik="Tio branscher. Byt till en annan." />
+        <BranschBrickor yrken={BREV_GALLERI} vald={kat.slug} allaHref="/personligt-brev-exempel" uppmaning="Byt till en annan." />
 
         <Sektion botten="golv">
           <SektionHuvud rubrik={`${yrkenIDennaTyp.length} yrken inom ${katLitet}`}>
@@ -187,11 +187,11 @@ export default async function BrevKategoriSida({ params }: PageProps) {
             knappar={
               <>
                 <Knapp href="/personligt-brev-exempel">Alla personligt brev-exempel</Knapp>
-                <TextLank href="/exempel">Tillbaka till hubben</TextLank>
+                <TextLank href="/exempel">Alla exempel och mallar</TextLank>
               </>
             }
           >
-            <p>Bläddra hela biblioteket eller välj en annan bransch på hub-sidan.</p>
+            <p>Bläddra i hela biblioteket eller välj en annan bransch bland alla exempel.</p>
           </O>
         </Sektion>
       </Sida>

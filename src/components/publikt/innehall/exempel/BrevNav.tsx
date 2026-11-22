@@ -14,6 +14,7 @@ import { KATEGORIER, type Kategori } from '@/app/(public)/exempel/components/exe
 import type { GalleriYrke } from '@/app/(public)/exempel/components/GalleriPageContent'
 import { MINIATYR_BREDD, MINIATYR_HOJD, brevMiniatyrSrc } from '@/components/publikt/brevmallar'
 import { Lyft, Svav } from '@/components/publikt/v3'
+import { storForst, talOrd } from '@/components/publikt/talord'
 
 /** Galleridatan skriver 'teknik' där kategorierna heter 'tech'. */
 export function normaliseraKategori(input: string): Kategori['slug'] {
@@ -36,17 +37,19 @@ export function BranschBrickor({
   yrken,
   vald,
   allaHref,
-  rubrik = 'Tio branscher. Hitta den som är din.',
+  uppmaning = 'Hitta den som är din.',
 }: {
   yrken: readonly GalleriYrke[]
   /** Kategorisidans egen bransch, som blir den mörka brickan. Utan: Alla yrken är mörk. */
   vald?: Kategori['slug']
   /** Alla yrken: #yrken på navet, navet från en kategorisida. */
   allaHref: string
-  rubrik?: string
+  /** Raden efter antalet branscher, som räknas ur datan (SEO:s slutbesked, avsnitt 3). */
+  uppmaning?: string
 }) {
   const lista = branscher(yrken)
   const storst = Math.max(...lista.map((k) => k.antal), 1)
+  const rubrik = `${storForst(talOrd(lista.length))} branscher. ${uppmaning}`
   return (
     <Lyft id="branscher" etikett="Välj bransch">
       <p className="p3-ey">Välj bransch</p>

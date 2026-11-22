@@ -368,7 +368,7 @@ export default function PersonligtBrevExempelGalleri() {
             knappar={
               <>
                 <Knapp href="/skapa-brev/start">Skapa brev gratis</Knapp>
-                <TextLank href="/exempel">Tillbaka till hubben</TextLank>
+                <TextLank href="/exempel">Alla exempel och mallar</TextLank>
               </>
             }
           >

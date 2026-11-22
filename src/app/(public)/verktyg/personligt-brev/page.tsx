@@ -68,7 +68,8 @@ const SKRIVTIPS = [
   {
     rubrik: 'Använd annonsens egna ord',
     text: 'Står det "stakeholder management" i annonsen, skriv just den frasen och inte din egen variant. Rekryterare letar efter exakta termer när de skummar.',
-    // SEO:s besked: efterexemplet på svenska.
+    // SEO:s besked: efterexemplet på svenska, annonsens ord över Före och Efter (slutbeskedet punkt 49).
+    annons: 'intressentdialog',
     fore: 'Van att hantera intressenter',
     efter: 'Ledde intressentdialogen i tre projekt',
   },
@@ -93,7 +94,7 @@ const SKRIVTIPS = [
 ] as const
 
 const FORDJUPNING = [
-  { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev som fungerat, yrke för yrke. Skriv ditt eget från ett av dem.' },
+  { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev att utgå från, yrke för yrke. Skriv ditt eget från ett av dem.' },
   { href: '/artiklar/hur-skriver-man-ett-personligt-brev', rubrik: 'Hur skriver man ett personligt brev?', text: 'Steg för steg, från annonsen till sista raden.' },
   { href: '/artiklar/bra-personligt-brev', rubrik: 'Bra personligt brev', text: 'Tio kännetecken, med exempel före och efter.' },
   { href: '/artiklar/inleda-personligt-brev', rubrik: 'Inleda ett personligt brev', text: 'Fånga intresset i första meningen utan att låta som alla andra.' },
@@ -123,7 +124,7 @@ const TONER = [
 const KRAV_SJU: readonly { lapp: string; panel: string; citat: string | null }[] = [
   { lapp: 'Projektledning, bygg', panel: 'Projektledning, bygg', citat: 'mina senaste tre år, där jag ledde en ombyggnad' },
   { lapp: 'Upphandling, LOU', panel: 'Offentlig upphandling, LOU', citat: 'Jag har drivit fyra sådana, från förfrågningsunderlag till tilldelning' },
-  { lapp: 'Budgetansvar', panel: 'Budgetansvar', citat: 'inom budget på 42 miljoner' },
+  { lapp: 'Budgetansvar', panel: 'Budgetansvar', citat: 'inom budget och två veckor före plan' },
   { lapp: 'AMA', panel: 'AMA', citat: 'Beskrivningarna skrev jag enligt AMA' },
   { lapp: 'Tidplan', panel: 'Tidplan', citat: 'två veckor före plan' },
   { lapp: 'Entreprenadjuridik', panel: 'Entreprenadjuridik', citat: 'AB 04 och ABT 06 har jag arbetat med i varje kontrakt' },
@@ -147,7 +148,7 @@ const HJALTE_STYCKEN = [
     När ni söker en <Kn n={1} />
     <mark>projektledare för byggprojekt</mark> som håller ihop upphandling och <Kn n={5} />
     <mark>tidplan</mark> känner jag igen mina senaste tre år, där jag ledde en ombyggnad <Kn n={3} />
-    <mark>inom budget på 42 miljoner</mark> och två veckor före plan.
+    <mark>inom budget och två veckor före plan</mark>.
   </>,
   <>
     Ni skriver att rollen kräver vana vid <Kn n={2} />
@@ -361,7 +362,7 @@ export default function PersonligtBrevSida() {
                   </span>
                   <span>
                     <b>Första personliga brevet gratis, sedan ett var sjunde dag</b>
-                    <small>Utan kortuppgift. Allt du skrivit ligger kvar.</small>
+                    <small>Utan kortuppgift. Allt du skrivit ligger kvar, och de två senaste breven går att ändra.</small>
                   </span>
                 </li>
                 <li>
@@ -399,7 +400,7 @@ export default function PersonligtBrevSida() {
                 <p className="p3-ey">Tonen</p>
                 <p className="pb-toner-rubrik">Fem toner. Samma erfarenhet, olika röst.</p>
                 <p className="p3-text">
-                  Så kan Saras första mening låta i var och en av dem. Du väljer ton innan brevet skrivs och byter när du vill.
+                  Exempel på hur Saras första mening kan låta i var och en av dem. I kontot väljer du ton innan brevet skrivs. Byter du efteråt skriver vi om brevet i den nya tonen.
                 </p>
               </div>
               <span className="pb-sprak" aria-label="Språk: svenska och engelska">
@@ -553,6 +554,7 @@ export default function PersonligtBrevSida() {
                     <p>{r.text}</p>
                     {'fore' in r ? (
                       <p className="pb-fe">
+                        {'annons' in r ? <span className="pb-fe-annons">I annonsen: {r.annons}</span> : null}
                         <s>{r.fore}</s>
                         <b>{r.efter}</b>
                       </p>

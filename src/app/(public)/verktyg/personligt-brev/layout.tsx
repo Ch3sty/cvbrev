@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Skräddarsy ditt personliga brev till varje annons | Jobbcoach.ai',
     description:
-      `${BREV_MALL_ANTAL} mallar, fem toner, klart på minuter. Första personliga brevet gratis att läsa. Nedladdning som PDF, och som Word i ${BREV_WORD_ANTAL} av mallarna, ingår i Premium.`,
+      `${BREV_MALL_ANTAL} mallar, fem toner. Första personliga brevet gratis att läsa, kopiera och ändra. Nedladdning som PDF, och som Word i ${BREV_WORD_ANTAL} av mallarna, ingår i Premium.`,
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/verktyg/personligt-brev',

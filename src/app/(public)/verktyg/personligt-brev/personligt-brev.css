@@ -145,6 +145,7 @@
 .pb-regel .pb-fe { display: grid; gap: 4px; padding: 12px 14px; border-radius: 14px; background: var(--ton); }
 .pb-fe s { color: var(--ink-3); font-size: 14px; }
 .pb-fe b { color: var(--ton-ink); font-size: 15px; }
+.pb-fe-annons { color: var(--ink-2); font-size: 13px; font-weight: 600; }
 
 /* ---------- resultatet: kravpanelen på ön ---------- */
 .pb-resultat { padding-bottom: 28px; }
@@ -190,6 +191,3 @@
 .pb-navkort .p3-lank { color: #fff; }
 .pb-artiklar { display: grid; gap: 12px; }
 .pb-artiklar .p3-lankbricka h3 { align-self: end; font-family: var(--disp); font-weight: 700; font-size: 17px; line-height: 1.2; color: var(--ink-1); }
-/* Kort på ön: grundens öregel (.p3-o .p3-h3) vinner över kortets bläck (önskemål till P0). Rättat lokalt. */
-.pb-resultat .p3-kort .p3-h3 { color: var(--ink-1); }
-.pb-resultat .p3-kort p { color: var(--ink-2); }

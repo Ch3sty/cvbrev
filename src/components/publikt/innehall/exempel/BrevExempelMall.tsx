@@ -366,19 +366,19 @@ export default function BrevExempelMall({
                 <li>
                   <Nr typ="vagg">1</Nr>
                   <span>
-                    <b>Inledningen</b>Tjänsten du söker och varför just den.
+                    <b>Öppningen</b>Tjänsten du söker och varför just den.
                   </span>
                 </li>
                 <li>
                   <Nr typ="vagg">2</Nr>
                   <span>
-                    <b>Huvuddelen</b>Ett krav per stycke, med ett exempel och en siffra.
+                    <b>Mitten</b>Ett krav per stycke, med ett exempel och en siffra.
                   </span>
                 </li>
                 <li>
                   <Nr typ="vagg">3</Nr>
                   <span>
-                    <b>Avslutningen</b>Vad du vill ska hända härnäst.
+                    <b>Avslutet</b>Vad du vill ska hända härnäst.
                   </span>
                 </li>
               </ol>
