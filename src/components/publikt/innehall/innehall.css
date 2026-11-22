@@ -738,6 +738,19 @@
 
 /* ---------- utseendegranskningen 2026-11-22: tryckytor 44 px i artikelns skal ---------- */
 .ib-smula a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+/* Klicktestet live 2026-11-22: på telefonen bröt sidans namn till en egen rad
+   som började med snedstrecket ("/ AI-jobbmatchning: ..."). Med tre steg eller
+   fler står sidans namn nu på en egen hel rad utan snedstreck först, och
+   snedstrecket står kvar efter steget före, så att raden ovan slutar
+   "Hem / Artiklar /". Länkarna behåller 44 px; namnet kortas med tre punkter
+   i radens bredd. Samma text, länkar och schema som förut. */
+@media (max-width: 639px) {
+  .ib-smula ol { row-gap: 0; }
+  .ib-smula li:nth-child(n + 3):last-child { flex-basis: 100%; }
+  .ib-smula li:nth-child(n + 3):last-child::before { content: none; }
+  .ib-smula li:nth-last-child(2):not(:first-child)::after { content: '/'; opacity: 0.6; }
+  .ib-smula li:nth-child(n + 3):last-child [aria-current] { max-width: 100%; }
+}
 .ib-chips a { min-height: 44px; }
 .ib-toc a { display: flex; align-items: center; min-height: 44px; padding-top: 4px; padding-bottom: 4px; }
 .ib-toc-m li { align-items: center; padding: 0; }
