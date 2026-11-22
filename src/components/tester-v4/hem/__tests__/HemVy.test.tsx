@@ -354,14 +354,16 @@ describe('kortet Vilken tjänst gäller provet? (byggspec 9.14 till 9.17)', () =
     expect(window.localStorage.getItem('tjanstfraga_test')).toBeNull()
   })
 
-  it('Fortsätt med båda fälten: nyckeln skrivs och adressen bär bara tjanst, arbetsgivare och fran', () => {
+  it('Fortsätt med båda fälten: nyckeln skrivs, tjänst och arbetsgivare ligger i webbläsaren och adressen bär bara logga och fran', () => {
     const data = medFraga()
     render(<HemVy data={data} />)
     fireEvent.click(screen.getByRole('button', { name: 'Lägg in tjänsten' }))
     fireEvent.change(screen.getByLabelText('Tjänst'), { target: { value: 'Ekonomiassistent' } })
     fireEvent.change(screen.getByLabelText('Arbetsgivare'), { target: { value: 'Norrmejerier' } })
     fireEvent.click(screen.getByRole('button', { name: /Fortsätt/ }))
-    expect(push).toHaveBeenCalledWith('/dashboard/sokta-tjanster?logga=1&tjanst=Ekonomiassistent&arbetsgivare=Norrmejerier&fran=test-hem-plan')
+    expect(push).toHaveBeenCalledWith('/dashboard/sokta-tjanster?logga=1&fran=test-hem-plan')
+    const lagrad = JSON.parse(window.localStorage.getItem('jc_sokt_forifyllt') ?? '{}')
+    expect(lagrad).toMatchObject({ job_title: 'Ekonomiassistent', company: 'Norrmejerier', fran: 'test-hem-plan' })
     expect(window.localStorage.getItem('tjanstfraga_test')).toBe(tjanstfragaNyckel(data.plan))
     // Fortsätt mäts inte.
     expect(vi.mocked(capture).mock.calls.filter((c) => c[0] === 'tjanstfraga_val').map((c) => (c[1] as { val: string }).val)).toEqual(['oppnad'])

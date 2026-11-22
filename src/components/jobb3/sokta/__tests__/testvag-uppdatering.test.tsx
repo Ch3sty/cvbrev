@@ -44,8 +44,10 @@ vi.mock('../Rapport', () => ({ RapportVagg: () => null, RapportGolv: () => null 
 vi.mock('../SmaArk', () => ({ MalArk: () => null }))
 // Arket som det riktiga: onKlar med serverns svar, sedan onClose.
 vi.mock('../LoggaArk', () => ({
-  default: ({ open, onKlar, onClose }: { open: boolean; onKlar: (r: unknown) => void; onClose: () => void }) =>
+  default: ({ open, onKlar, onClose, forifyllt }: { open: boolean; onKlar: (r: unknown) => void; onClose: () => void; forifyllt: unknown }) =>
     open ? (
+      <>
+      <div data-testid="forifyllt">{JSON.stringify(forifyllt)}</div>
       <button
         type="button"
         onClick={() => {
@@ -59,23 +61,31 @@ vi.mock('../LoggaArk', () => ({
       >
         Spara i arket
       </button>
+      </>
     ) : null,
 }))
 
 import SoktaVy, { KVITTENS_EFTER_BYTET } from '../SoktaVy'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
+import { sparaForifyllning } from '@/lib/jobbsok/forifyllning'
 
 const DATA = { veckansMal: { mal: 3 } } as unknown as SoktaTjansterData
 const originalReplace = window.history.replaceState.bind(window.history)
 let historikRensningar: string[] = []
 
+// Förifyllningen ligger i webbläsaren, aldrig i adressen (beslut-agarpunkter D-13).
+function lagg(fran?: string) {
+  sparaForifyllning({ job_title: 'Redovisningsassistent', company: 'QA Testbolag U', ...(fran ? { fran } : {}) })
+}
+
 function oppna(sok: string) {
   sokParametrar = sok
   originalReplace(null, '', `/dashboard/sokta-tjanster?${sok}`)
-  return render(<SoktaVy data={DATA} forifyllt={{ job_title: 'Redovisningsassistent', company: 'QA Testbolag U', fran: 'test-hem' }} />)
+  return render(<SoktaVy data={DATA} />)
 }
 
 beforeEach(() => {
+  window.localStorage.clear()
   refresh.mockClear()
   replace.mockClear()
   summering.mockClear()
@@ -94,7 +104,8 @@ afterEach(() => {
 
 describe('sparandet med ?logga=1 i adressen', () => {
   it('testvägen: router.replace mot den rena adressen, en gång, aldrig history.replaceState', () => {
-    oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U&fran=test-hem')
+    lagg('test-hem')
+    oppna('logga=1&fran=test-hem')
     fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
 
     expect(replace).toHaveBeenCalledTimes(1)
@@ -106,7 +117,8 @@ describe('sparandet med ?logga=1 i adressen', () => {
   })
 
   it('kvittensen står kvar när sidan monteras om efter bytet, och bara en gång', () => {
-    const forsta = oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U&fran=test-hem')
+    lagg('test-hem')
+    const forsta = oppna('logga=1&fran=test-hem')
     fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
     forsta.unmount()
 
@@ -122,10 +134,28 @@ describe('sparandet med ?logga=1 i adressen', () => {
 
   it('utan fran (till exempel från en träff): samma byte av adress', () => {
     sokParametrar = ''
-    oppna('logga=1&tjanst=Redovisningsassistent&arbetsgivare=QA%20Testbolag%20U')
+    lagg()
+    oppna('logga=1')
     fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
     expect(replace).toHaveBeenCalledWith('/dashboard/sokta-tjanster', { scroll: false })
     expect(historikRensningar).toEqual([])
+  })
+})
+
+describe('förifyllningen ur webbläsaren (beslut-agarpunkter D-13)', () => {
+  it('arket får tjänst och arbetsgivare ur lagringen, och lagringen töms när arket stängs', () => {
+    lagg('test-hem')
+    oppna('logga=1&fran=test-hem')
+    expect(screen.getByTestId('forifyllt').textContent).toContain('QA Testbolag U')
+    expect(screen.getByTestId('forifyllt').textContent).toContain('test-hem')
+    fireEvent.click(screen.getByRole('button', { name: 'Spara i arket' }))
+    expect(window.localStorage.getItem('jc_sokt_forifyllt')).toBeNull()
+  })
+
+  it('en förifyllning från en annan länk (annat fran) används inte', () => {
+    lagg('test-hem')
+    oppna('logga=1&fran=oversikt-ny')
+    expect(screen.getByTestId('forifyllt').textContent).not.toContain('QA Testbolag U')
   })
 })
 

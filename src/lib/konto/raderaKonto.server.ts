@@ -24,6 +24,11 @@
 //     där kontot är gästen raderas; i audit_logs nollas ip-adress, webbläsare,
 //     metadata och gamla/nya värden, händelsen och tiden står kvar.
 //     admin_actions, api_metrics och system_alerts rörs inte.
+//     email_events (Resends händelser: levererat, öppnat, klickat) har ingen
+//     koppling till kontot, bara mottagarens adress och ämnet i payload. Raderna
+//     tas bort på kontots e-postadress, läst före raderingen (beslut-agarpunkter,
+//     policylistan punkt 2, 2026-11-22: kodändringen som gör policyns
+//     "mejlloggen tas bort" sann).
 //  4. Auth-användaren tas bort. Raderingen kaskaderar via foreign keys till
 //     profiles, premium_grants, app_enheter och resten, som admins radering i
 //     api/admin/users/[id].
@@ -120,12 +125,66 @@ const LOSA_RADER: ReadonlyArray<{ tabell: string; kolumn: string }> = [
   { tabell: 'guest_invitations', kolumn: 'guest_user_id' },
 ]
 
-/** Raderar och tvättar kontots lösa rader. Kastar vid fel. */
-export async function rensaLosaRader(admin: SupabaseClient, userId: string): Promise<void> {
+/**
+ * Värdena payload->>'to' kan ha i email_events för en adress. Resends webhook
+ * sparar data.to som det kom (src/app/api/webhooks/resend/route.ts): en lista
+ * med en mottagare, ibland en sträng. Som text blir listan ["adress"]. Vi
+ * skickar alltid till en mottagare, så de två formerna täcker kontots rader.
+ * Både adressen som den står och med gemener.
+ */
+export function mottagarvarden(adresser: ReadonlyArray<string | null | undefined>): string[] {
+  const ut = new Set<string>()
+  for (const a of adresser) {
+    const t = a?.trim()
+    if (!t || !t.includes('@')) continue
+    for (const v of new Set([t, t.toLowerCase()])) {
+      ut.add(v)
+      ut.add(JSON.stringify([v]))
+    }
+  }
+  return [...ut]
+}
+
+/**
+ * Kontots e-postadresser före raderingen: inloggningens och profilens. Utan
+ * `profilEpost` läses profilens adress här. Ett fel i uppslaget ger färre
+ * adresser, aldrig ett avbrott.
+ */
+export async function kontotsAdresser(admin: SupabaseClient, userId: string, profilEpost?: string | null): Promise<string[]> {
+  if (profilEpost === undefined) {
+    try {
+      const { data } = await admin.from('profiles').select('email').eq('id', userId).maybeSingle()
+      profilEpost = (data as { email?: string | null } | null)?.email ?? null
+    } catch {
+      profilEpost = null
+    }
+  }
+  let authEpost: string | null | undefined
+  try {
+    const { data } = await admin.auth.admin.getUserById(userId)
+    authEpost = data?.user?.email
+  } catch {
+    authEpost = null
+  }
+  return [authEpost, profilEpost].filter((a): a is string => typeof a === 'string' && a.length > 0)
+}
+
+/**
+ * Raderar och tvättar kontots lösa rader. Kastar vid fel. `epost` är kontots
+ * adresser, lästa före raderingen; utelämnas de läses de här (adminens
+ * radering anropar före deleteUser). Utan adress rörs inte email_events.
+ */
+export async function rensaLosaRader(admin: SupabaseClient, userId: string, epost?: ReadonlyArray<string>): Promise<void> {
   if (!UUID.test(userId)) throw new Error('ogiltigt användar-id')
+  const adresser = epost ?? (await kontotsAdresser(admin, userId))
   for (const { tabell, kolumn } of LOSA_RADER) {
     const { error } = await admin.from(tabell).delete().eq(kolumn, userId)
     if (error) throw new Error(`${tabell}: ${error.message}`)
+  }
+  // Varje radering går på en hel mottagaradress, aldrig ett mönster.
+  for (const varde of mottagarvarden(adresser)) {
+    const { error } = await admin.from('email_events').delete().eq('payload->>to', varde)
+    if (error) throw new Error(`email_events: ${error.message}`)
   }
   const { error } = await admin
     .from('audit_logs')
@@ -137,11 +196,14 @@ export async function rensaLosaRader(admin: SupabaseClient, userId: string): Pro
 export async function raderaKonto(admin: SupabaseClient, userId: string): Promise<RaderaResultat> {
   const { data: profil } = await admin
     .from('profiles')
-    .select('stripe_customer_id')
+    .select('stripe_customer_id, email')
     .eq('id', userId)
     .maybeSingle()
 
-  const customerId = (profil as { stripe_customer_id?: string | null } | null)?.stripe_customer_id
+  const rad = profil as { stripe_customer_id?: string | null; email?: string | null } | null
+  const customerId = rad?.stripe_customer_id
+  // Adresserna läses före allt annat: efter deleteUser finns de inte kvar.
+  const epost = await kontotsAdresser(admin, userId, rad?.email)
   if (customerId) {
     try {
       await avslutaStripe(customerId)
@@ -161,7 +223,7 @@ export async function raderaKonto(admin: SupabaseClient, userId: string): Promis
   }
 
   try {
-    await rensaLosaRader(admin, userId)
+    await rensaLosaRader(admin, userId, epost)
   } catch (e) {
     const detalj = e instanceof Error ? e.message : String(e)
     console.error('[raderaKonto] rader', detalj)

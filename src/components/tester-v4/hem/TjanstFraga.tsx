@@ -10,8 +10,9 @@
  * och ingenting i första klientritningen: kortet visas först när Hoppa över
  * är läst ur localStorage, så att inget hoppar fram och sedan försvinner.
  *
- * Ingen nivå, inget resultat och ingen testtyp följer med: adressen bär bara
- * tjanst, arbetsgivare och fran. Mätningen: tjanstfraga_val med oppnad och
+ * Ingen nivå, inget resultat och ingen testtyp följer med: tjänst och
+ * arbetsgivare bärs i webbläsaren (lib/jobbsok/forifyllning.ts, beslut-agarpunkter
+ * D-13), och adressen bär bara ?logga=1 och fran. Mätningen: tjanstfraga_val med oppnad och
  * hoppad. Fortsätt och Avbryt skickar ingenting.
  */
 
@@ -19,6 +20,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { capture } from '@/lib/analytics/events'
 import { soktaHref } from '@/lib/jobbsok/adress'
+import { sparaForifyllning } from '@/lib/jobbsok/forifyllning'
 import { arHoppad, TJANSTFRAGA_NYCKEL, type Tjanstfraga } from '@/lib/tester/v4/tjanstfraga'
 import { lasTjanstfraga } from './HemMatning'
 
@@ -139,7 +141,9 @@ export default function TjanstFraga({ fraga }: { fraga: Tjanstfraga }) {
     if (nyttFel.arbetsgivare) return arbetsgivareRef.current?.focus()
     // Sparar hon ingen rad i arket räknas det som Hoppa över för den här planen.
     skrivNyckel(fraga.nyckel)
-    router.push(soktaHref({ logga: 'sokt', tjanst: t, arbetsgivare: a, fran: fraga.fran }))
+    // Tjänst och arbetsgivare bärs i webbläsaren, aldrig i adressen (beslut-agarpunkter D-13).
+    sparaForifyllning({ job_title: t, company: a, fran: fraga.fran })
+    router.push(soktaHref({ logga: 'sokt', fran: fraga.fran }))
   }
 
   return (

@@ -26,13 +26,14 @@ import {
 import { soktaHref, tjanstHref, tolkaSoktaAdress, type SoktaFilter, type SoktaVy as Vy } from '@/lib/jobbsok'
 import type { SoktaTjansterData } from '@/lib/jobbsok/server'
 import { rensaSoktUtkast, soktUtkastSomForifyllt } from '@/lib/jobbsok/provaSokt'
+import { lasForifyllning, rensaForifyllning } from '@/lib/jobbsok/forifyllning'
 import LoggaArk, { type LoggaForifyllt, type LoggaResultat } from './LoggaArk'
 import { MalArk } from './SmaArk'
 import { ListaVagg, ListaGolv } from './Lista'
 import { StatistikVagg, StatistikGolv } from './Statistik'
 import { RapportVagg, RapportGolv } from './Rapport'
 
-export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; forifyllt: LoggaForifyllt | null }) {
+export default function SoktaVy({ data }: { data: SoktaTjansterData }) {
   const router = useRouter()
   const sok = useSearchParams()
   const adress = tolkaSoktaAdress(new URLSearchParams(sok.toString()))
@@ -55,12 +56,17 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
   const [loggaForifyllt, setLoggaForifyllt] = useState<LoggaForifyllt | null>(null)
   const [malOppen, setMalOppen] = useState(false)
 
-  // ?logga=1 (och ?logga=ska-soka) öppnar arket, förifyllt om adressen bär en träff.
-  // Utan träff i adressen: utkastet från /verktyg/sokta-tjanster, om besökaren
-  // loggade in i stället för att skapa konto (publikt omgång 3). Det läses ur
-  // webbläsaren, aldrig ur adressen, och tas bort när det är använt.
+  // ?logga=1 (och ?logga=ska-soka) öppnar arket. Förifyllningen läses ur
+  // webbläsaren, aldrig ur adressen (beslut-agarpunkter D-13): först den som en
+  // annan vy i kontot lade dit (testernas Hem, forifyllning.ts), annars utkastet
+  // från /verktyg/sokta-tjanster, om besökaren loggade in i stället för att
+  // skapa konto (publikt omgång 3). Utkastet tas bort när det är använt,
+  // förifyllningen när arket stängs.
   useEffect(() => {
     if (!adress.logga) return
+    // Bara den förifyllning som hör till länken: samma ?fran= som när den lades dit.
+    const lagrad = lasForifyllning()
+    const forifyllt = lagrad && (lagrad.fran ?? null) === fran ? lagrad : null
     const utkast = forifyllt ? null : soktUtkastSomForifyllt()
     if (utkast) {
       rensaSoktUtkast()
@@ -97,6 +103,7 @@ export default function SoktaVy({ data, forifyllt }: { data: SoktaTjansterData; 
 
   const stangLogga = () => {
     setLoggaOppen(false)
+    rensaForifyllning()
     rensaAdress()
   }
 

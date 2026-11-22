@@ -62,15 +62,14 @@ export function tolkaSoktaAdress(p: Parametrar): SoktaAdress {
  * Länk till Sökta tjänster i en vy eller med ett filter. `fran` märker
  * varifrån länken kom (t.ex. 'oversikt-ny') så att sidvisningen i PostHog
  * visar källan; tolkaSoktaAdress läser den inte och sidan låter den stå kvar.
+ * Tjänst och arbetsgivare står aldrig i adressen (beslut-agarpunkter D-13):
+ * förifyllningen av arket bärs i webbläsaren, se forifyllning.ts.
  */
-export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; tjanst?: string; arbetsgivare?: string; manad?: string; fran?: string } = {}): string {
+export function soktaHref(a: { vy?: SoktaVy; filter?: SoktaFilter; logga?: 'sokt' | 'ska-soka'; manad?: string; fran?: string } = {}): string {
   const q = new URLSearchParams()
   if (a.vy && a.vy !== 'lista') q.set('vy', a.vy)
   if (a.filter && a.filter !== 'alla') q.set('filter', a.filter)
   if (a.logga) q.set('logga', a.logga === 'sokt' ? '1' : 'ska-soka')
-  // Arket Logga sökt tjänst förifyllt (9.15): sidan läser dem i forifylltUr.
-  if (a.tjanst) q.set('tjanst', a.tjanst)
-  if (a.arbetsgivare) q.set('arbetsgivare', a.arbetsgivare)
   if (a.manad) q.set('manad', a.manad)
   if (a.fran) q.set('fran', a.fran)
   const s = q.toString()

@@ -228,9 +228,7 @@ describe('listans texter', () => {
 })
 
 describe('adressen från testernas Hem', () => {
-  it('soktaHref med tjänst, arbetsgivare och fran, i den ordningen och inget annat', () => {
-    expect(soktaHref({ logga: 'sokt', tjanst: 'Ekonomiassistent', arbetsgivare: 'Norrmejerier', fran: 'test-hem-plan' })).toBe(
-      '/dashboard/sokta-tjanster?logga=1&tjanst=Ekonomiassistent&arbetsgivare=Norrmejerier&fran=test-hem-plan'
-    )
+  it('soktaHref bär bara logga och fran, aldrig tjänst eller arbetsgivare (beslut-agarpunkter D-13)', () => {
+    expect(soktaHref({ logga: 'sokt', fran: 'test-hem-plan' })).toBe('/dashboard/sokta-tjanster?logga=1&fran=test-hem-plan')
   })
 })

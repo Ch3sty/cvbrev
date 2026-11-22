@@ -13,9 +13,10 @@
  *     ändrat sökdatum får inte ligga efter tjänstens tidigaste händelse
  *     (`handelser`), samma kontroll och text som rutten.
  *
- * Förifyllt från en träff: `forifyllt` med tjänst, arbetsgivare, länk,
- * sista dag och af_ad_id (adressen ?logga=1&tjanst=...&arbetsgivare=..., se
- * byggnoterna). CV-listan hämtas först när arket öppnas, som förut.
+ * Förifyllt från en annan vy: `forifyllt` med tjänst, arbetsgivare, länk,
+ * sista dag och af_ad_id. Uppgifterna bärs i webbläsaren och läses av SoktaVy
+ * (lib/jobbsok/forifyllning.ts), aldrig ur adressen (beslut-agarpunkter D-13).
+ * CV-listan hämtas först när arket öppnas, som förut.
  */
 
 import { useEffect, useState, type FormEvent } from 'react'
@@ -143,7 +144,7 @@ export default function LoggaArk({
     setOrt(r?.location ?? f?.location ?? '')
     setLank(r?.job_ad_url ?? f?.job_ad_url ?? '')
     setAnteckning(r?.notes ?? '')
-    // Förifyllt från en träff (?logga=1&ort=...&lank=...): visa fälten, så att det som följer med syns.
+    // Förifyllt med ort eller länk: visa fälten, så att det som följer med syns.
     setFler(Boolean(r?.location || r?.job_ad_url || r?.notes || (!r && (f?.location || f?.job_ad_url))))
     setFel(null)
   }, [open, redigera, forifyllt, franSparad, testvag])
