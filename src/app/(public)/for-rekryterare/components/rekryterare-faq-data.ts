@@ -9,11 +9,11 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Vad ser vi om en kandidat?',
-    a: 'Innan kontakt: yrkesroll, region, verifierade testresultat med percentiler, personlighetsstyrkor, toppkompetenser och villkor som tillträde, arbetsplats och omfattning. Namn, foto och kontaktuppgifter är dolda tills kandidaten tackat ja till kontakt. Rå-CV:n visas aldrig.',
+    a: 'Innan kontakt: yrkesroll, region, verifierade testresultat med percentiler, personlighetsstyrkor, toppkompetenser och villkor som tillträde, arbetsplats och omfattning. Namn och arbetsgivare är dolda tills kandidaten tackat ja, om hen inte själv har valt Öppen profil, och kontaktuppgifterna visas alltid först efter ett ja. Rå-CV:n visas aldrig.',
   },
   {
     q: 'Hur funkar det med GDPR?',
-    a: 'Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. All data lagras i EU och vi säljer aldrig uppgifter vidare, och kandidaten kan radera sitt konto själv när som helst.',
+    a: 'Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. Kandidatprofilerna lagras i EU, i Irland, vi säljer aldrig uppgifter vidare, och kandidaten kan radera sitt konto själv när som helst.',
   },
   {
     q: 'När låses kandidatens kontaktuppgifter upp?',

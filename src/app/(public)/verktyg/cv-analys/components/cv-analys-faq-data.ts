@@ -43,7 +43,7 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är mitt CV säkert hos er?',
-    a: 'Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. CV-filerna ligger i en privat lagring som bara du kommer åt. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
+    a: 'Ja. Vi säljer inte dina uppgifter och tränar inga egna AI-modeller på ditt CV. CV-filen och texten lagras i EU, i Irland, i en lagring som bara ditt konto når. Innan text ur CV:t går till Googles AI-tjänst byter vi ut namn, e-postadress och telefonnummer. Du raderar kontot själv under Inställningar, och då tar vi bort allt du har sparat hos oss, också filerna. Kvitton finns kvar hos Stripe i sju år, som bokföringslagen kräver.',
   },
   {
     q: 'Vad händer efter analysen?',

@@ -2,9 +2,10 @@
 //
 // Välj nytt lösenord i samma kort som Logga in (publikt omgång 3,
 // skissnoten inloggning punkt 2). Citaten och talen står kvar i panelen
-// bredvid kortet, som förut i vänsterpanelen: talen är säkerhetslöften och
-// rörs inte utan ägaren (textbeslut B-30 gäller samma slags tal). Citatets
-// tankstreck är bytt mot punkt (byggbriefen, inga tankstreck i text).
+// bredvid kortet, som förut i vänsterpanelen. Talen är avgjorda 2026-11-22
+// (beslut-agarpunkter D-9): lösenordet är hashat, inte krypterat med AES-256
+// (det gäller leverantörens diskkryptering). Citatets tankstreck är bytt mot
+// punkt (byggbriefen, inga tankstreck i text).
 
 import { Suspense } from 'react'
 import { AuthKortSkal } from '../_delar/AuthKortSkal'
@@ -17,10 +18,10 @@ const RESET_QUOTES = [
 ]
 
 const RESET_STATS = [
-  { value: 'Kryptering', label: 'AES-256' },
-  { value: 'Aldrig', label: 'lagrat i klartext' },
-  { value: '8+', label: 'tecken min' },
-  { value: 'Säkert', label: 'via Supabase' },
+  { value: 'Hashat', label: 'aldrig i klartext' },
+  { value: '8+', label: 'tecken minst' },
+  { value: 'HTTPS', label: 'hela vägen' },
+  { value: 'Supabase', label: 'sköter inloggningen' },
 ]
 
 export default function ResetPasswordPage() {

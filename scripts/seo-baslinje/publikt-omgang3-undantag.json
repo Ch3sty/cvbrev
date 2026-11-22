@@ -105,6 +105,27 @@
       "efter": "h3 Lös uppgifterna i din takt",
       "datum": "2026-11-22",
       "skal": "SEO:s besked på skisserna (docs/publikt-omgang3/seo-besked-skisser.md), rekryteringstester: ordlistan säger uppgift, inte fråga. Ingen sökfråga till sidan bär ordet frågor (GSC 90 dagar). Samma rad är HowTo-steg 2."
+    },
+    {
+      "path": "/integrationer",
+      "fore": "h2 Integrationer under utveckling",
+      "efter": "h2 Kopplingar som finns i dag",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten."
+    },
+    {
+      "path": "/integrationer",
+      "fore": "h3 Gmail & Outlook",
+      "efter": "h3 Din e-post",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Ingen koppling till någon e-posttjänst finns; kortet beskriver uppföljningsmejlet som öppnas i ditt e-postprogram."
+    },
+    {
+      "path": "/integrationer",
+      "fore": "h3 ATS-system",
+      "efter": "h3 Google",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Ingen koppling till något rekryteringssystem finns; kortet beskriver Google-inloggningen."
     }
   ],
   "LD_UNDANTAG": [
@@ -121,7 +142,7 @@
     {
       "path": "/verktyg/jobbcoachen",
       "datum": "2026-11-22",
-      "skal": "Textbeslut JC-2 och B5: featureList får frågeförslag utifrån sökta tjänster, HowTo-steg 1 och två FAQ-svar säger att Jobbcoachen föreslår frågor utifrån läget, svaret om gratisnivån säger CV-analysens läsbarhetspoäng. Frågorna oförändrade.",
+      "skal": "Textbeslut JC-2 och B5: featureList får frågeförslag utifrån sökta tjänster, HowTo-steg 1 och två FAQ-svar säger att Jobbcoachen föreslår frågor utifrån läget, svaret om gratisnivån säger CV-analysens läsbarhetspoäng. Frågorna oförändrade. Beslut-agarpunkter D-12 (2026-11-22): en ny fråga, \"Vad vet Jobbcoachen om mig?\", efter frågan om att dela CV:t, synlig och i FAQPage. Ingen fråga byts.",
       "andrade": [
         "WebApplication",
         "HowTo",
@@ -139,7 +160,7 @@
     {
       "path": "/verktyg/bli-upptackt",
       "datum": "2026-11-22",
-      "skal": "Textbeslut BU-1 (B-27): svaret om lön räknar upp samma saker som kortet, med två styrkor. Frågan oförändrad.",
+      "skal": "Textbeslut BU-1 (B-27): svaret om lön räknar upp samma saker som kortet, med två styrkor. Frågan oförändrad. Beslut-agarpunkter D-10 (2026-11-22): svaret på \"Kan min nuvarande chef se att jag är synlig?\" säger att arbetsgivarna döljs i läget Anonym först, som är förvalt, och syns i Öppen profil. Frågan oförändrad.",
       "andrade": [
         "FAQPage"
       ]
@@ -190,7 +211,7 @@
     {
       "path": "/priser",
       "datum": "2026-11-22",
-      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), GEM-6 och PRI-8: Product-schemats description är förklaringsraden \"Tester, CV, personliga brev, Jobbsöket och Jobbcoachen\", och svaret på \"Vad ingår i Jobbcoach Premium?\" räknar upp förslagen, uppföljningsmejlen och rapporten. Frågorna oförändrade.",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), GEM-6 och PRI-8: Product-schemats description är förklaringsraden \"Tester, CV, personliga brev, Jobbsöket och Jobbcoachen\", och svaret på \"Vad ingår i Jobbcoach Premium?\" räknar upp förslagen, uppföljningsmejlen och rapporten. Frågorna oförändrade. Beslut-agarpunkter M1 (GEM-4, 2026-11-22): Premiumlistan HELA_PAKETET_RADER har sex rader, alla nivåer i de åtta testtyperna, CV-analysens alla förslag och uppföljningsmejlen med rapporten; samma lista läses av kvotväggsmejlet.",
       "andrade": [
         "Product",
         "FAQPage"
@@ -460,6 +481,46 @@
       "andrade": [
         "BlogPosting"
       ]
+    },
+    {
+      "path": "/for-rekryterare",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-5 och D-10 (2026-11-22): svaret på \"Vad ser vi om en kandidat?\" säger att namn och arbetsgivare syns direkt i Öppen profil och att kontaktuppgifterna alltid kräver ett ja; svaret på \"Hur funkar det med GDPR?\" säger att kandidatprofilerna lagras i EU, i Irland, i stället för all data. Frågorna oförändrade.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-1 (2026-11-22, efter S-1): svaret på \"Är mina uppgifter säkra?\" säger lagring i EU, i Irland, Googles AI-tjänst utan namn, e-post och telefon, och kvitton hos Stripe i sju år. Frågan oförändrad.",
+      "andrade": [
+        "Organization+WebSite+FAQPage"
+      ]
+    },
+    {
+      "path": "/funktioner",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-2 (2026-11-22, efter S-1): svaret på \"Är det säkert att lämna mitt CV till er?\" säger lagring i EU, i Irland, och kvitton hos Stripe i sju år. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-3 (2026-11-22, efter S-1): svaret på \"Är mitt CV säkert hos er?\" säger lagring i EU, i Irland, i en lagring som bara ditt konto når, maskningen före Googles AI-tjänst och kvitton hos Stripe i sju år. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/personligt-brev",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-4 (2026-11-22, efter S-1): svaret på \"Är det säkert att lämna mitt CV och era brev?\" säger lagring i EU, i Irland, maskningen och kvitton hos Stripe i sju år. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
     }
   ],
   "H1_BYTT": [
@@ -483,6 +544,36 @@
       "falt": "description",
       "datum": "2026-11-22",
       "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), PRI-9: sökta tjänster tillagt, testerna först. 152 tecken, \"personliga brev\" och \"149 kr i månaden\" står kvar."
+    },
+    {
+      "path": "/integrationer",
+      "falt": "title",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Sidan ärvde rotens titel; nu egen, \"Integrationer med LinkedIn och Arbetsförmedlingen\" (49 tecken)."
+    },
+    {
+      "path": "/integrationer",
+      "falt": "description",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Sidan ärvde rotens beskrivning; nu egen (137 tecken)."
+    },
+    {
+      "path": "/integrationer",
+      "falt": "canonical",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Canonical från tom till https://www.jobbcoach.ai/integrationer."
+    },
+    {
+      "path": "/integrationer",
+      "falt": "robots",
+      "datum": "2026-11-22",
+      "skal": "Ägarens besked 2026-11-22, beslut-agarpunkter punkt 1: sidan har bara de fyra kopplingar som finns i produkten. Egen metadata med robots index, follow enligt beslutet (sidan hade ingen robots-tagg)."
+    },
+    {
+      "path": "/om-oss",
+      "falt": "description",
+      "datum": "2026-11-22",
+      "skal": "Beslut-agarpunkter D-7 (2026-11-22): \"Data i EU\" blir \"Lagring i EU\"; vår lagring är i Irland, bearbetningen hos Google sägs inte här. 157 tecken."
     }
   ],
   "FAQ_BYTT": [

@@ -7,7 +7,7 @@ const PREMIUM = paketKort()
 export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Kan min nuvarande chef se att jag är synlig?',
-    a: 'Nej. Vi döljer vilket företag du jobbar på just nu, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen.',
+    a: 'Nej, inte i läget Anonym först, som är förvalt. Där döljer vi vilka företag du har jobbat på, så din arbetsgivare kan inte hitta eller känna igen din profil även om de letar i kandidatpoolen. Väljer du Öppen profil syns ditt namn och dina arbetsgivare direkt.',
   },
   {
     q: 'Kommer jag bli nerspammad av rekryterare?',

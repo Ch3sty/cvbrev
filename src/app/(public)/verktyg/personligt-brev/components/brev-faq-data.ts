@@ -24,7 +24,7 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Är det säkert att lämna mitt CV och era brev?',
-    a: 'Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV eller dina brev. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
+    a: 'Ja. Vi säljer inte dina uppgifter och tränar inga egna AI-modeller på ditt CV eller dina brev. CV:n och brev lagras i EU, i Irland. Innan text ur ditt CV går till Googles AI-tjänst byter vi ut namn, e-postadress och telefonnummer, och sätter tillbaka dem i brevet hos oss. Du raderar kontot själv under Inställningar, och då tar vi bort profilen, CV:n och breven. Kvitton finns kvar hos Stripe i sju år, som bokföringslagen kräver.',
   },
   {
     q: 'Vilken mall ska jag välja?',

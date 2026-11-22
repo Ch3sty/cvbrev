@@ -46,6 +46,10 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
     a: 'Ja. När du är inloggad kan du bifoga ett sparat CV eller personligt brev till en fråga. Jobbcoachen läser då innehållet och kan ge mer specifika råd, till exempel feedback på en formulering, förslag på vilka roller som passar din erfarenhet eller vad du bör ändra inför en specifik tjänst. Utan bifogat dokument känner Jobbcoachen till din målroll, ort och bransch ur profilen. Har du loggat sökta tjänster får du också förslag på frågor utifrån läget, till exempel inför en bokad intervju.',
   },
   {
+    q: 'Vad vet Jobbcoachen om mig?',
+    a: 'Det du har skrivit i profilen om målroll, ort och bransch, och det du skriver eller bifogar i samtalet. Jobbcoachen läser inte ditt CV, dina sökta tjänster eller dina testresultat på egen hand. Bifogar du ett CV eller ett brev byter vi ut namn, e-postadress och telefonnummer innan texten går till Googles AI-tjänst, men det du själv skriver går som du skrev det. Förslagen på frågor bygger på läget i dina sökta tjänster, och du väljer själv om du skickar dem. Samtalen sparas i ditt konto och tas bort när du raderar kontot.',
+  },
+  {
     q: 'Vad händer när mina tio meddelanden är slut?',
     a: `Samtalet ligger kvar. Du kan läsa hela konversationen och kopiera ur den som vanligt, men du kan inte skriva fler meddelanden. Vill du fortsätta ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}, och du plockar upp tråden exakt där du slutade. Väljer du att avstå fungerar resten av gratisnivån som förut: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, CV-analysens läsbarhetspoäng, ett personligt brev var sjunde dag och ${GRUNDNIVAN_ALLA_DAG}.`,
   },

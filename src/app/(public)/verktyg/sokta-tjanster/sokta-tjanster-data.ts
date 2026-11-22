@@ -10,6 +10,7 @@
  */
 
 import { NO_RESPONSE_NUDGE_DAYS, STATUS_META } from '@/lib/applications/status'
+import { APPLICATION_SHARE_TTL_DAYS } from '@/lib/applications/shareTtl'
 import { INTERVJU_BESKED_DAGAR } from '@/lib/jobbsok/typer'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { talOrd, storForst } from '@/components/publikt/talord'
@@ -85,5 +86,9 @@ export const FRAGOR: { q: string; a: string; lank?: { href: string; text: string
   {
     q: 'Hur hänger intervjun ihop med den sökta tjänsten?',
     a: 'När du loggar att du är kallad sätter du dag, tid och plats på tjänsten. Den står då under Inför intervjun, med frågorna du har övat på och annonsens krav bredvid. Dagen efter intervjun frågar vi hur det gick.',
+  },
+  {
+    q: 'Vem kan se mina sökta tjänster?',
+    a: `Ingen annan användare, ingen rekryterare och ingen arbetsgivare. De ligger i ditt konto och visas aldrig i Bli upptäckt. Skapar du en delningslänk ser den som har länken det du har valt att visa, i ${APPLICATION_SHARE_TTL_DAYS} dagar. När vi skriver ett utkast till ett uppföljningsmejl går tjänst och arbetsgivare till Googles AI-tjänst, aldrig ditt namn eller dina kontaktuppgifter. Vi skickar ingenting till Arbetsförmedlingen.`,
   },
 ]

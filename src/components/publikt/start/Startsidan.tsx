@@ -141,7 +141,7 @@ export const START_FAQ = [
   },
   {
     q: 'Är mina uppgifter säkra?',
-    a: 'Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
+    a: 'Ja. Vi säljer inte dina uppgifter och tränar inga egna AI-modeller på ditt CV. Ditt konto, dina CV, brev och testresultat lagras i EU, i Irland, och text ur ditt CV går till Googles AI-tjänst utan namn, e-postadress och telefonnummer. Raderar du kontot under Inställningar tar vi bort det du har sparat hos oss. Kvitton finns kvar hos Stripe i sju år, som bokföringslagen kräver.',
   },
   {
     q: 'Vad kostar det, och vad får jag utan att betala?',

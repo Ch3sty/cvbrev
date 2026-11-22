@@ -13,7 +13,9 @@ import { tjanstLage } from '@/lib/jobbsok/lage';
 import { tratt as raknaTratt } from '@/lib/jobbsok/statistik';
 import type { Bricka, BrickTon, Handelse, TjanstMedHistorik, Uppfoljning } from '@/lib/jobbsok/typer';
 
-export const APPLICATION_SHARE_TTL_DAYS = 30;
+import { APPLICATION_SHARE_TTL_DAYS } from '@/lib/applications/shareTtl';
+
+export { APPLICATION_SHARE_TTL_DAYS };
 
 /** 32 tecken URL-säker slump, samma generator som recruiter-delningen. */
 export function generateApplicationShareToken(): string {

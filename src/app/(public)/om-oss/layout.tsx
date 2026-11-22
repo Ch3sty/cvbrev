@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title:
     'Om oss: jobbverktyg för svensk arbetsmarknad | Jobbcoach.ai',
   description:
-    'Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Data i EU, och vi loggar aldrig in åt dig.',
+    'Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Lagring i EU, och vi loggar aldrig in åt dig.',
   keywords: [
     'om jobbcoach.ai',
     'om oss jobbcoach',

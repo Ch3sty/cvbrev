@@ -15,7 +15,7 @@
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketNamn } from '@/lib/plans/plans'
 import { NO_RESPONSE_NUDGE_DAYS, STATUS_META, type ApplicationEventType } from '@/lib/applications/status'
-import { APPLICATION_SHARE_TTL_DAYS } from '@/lib/applications/shareLinks'
+import { APPLICATION_SHARE_TTL_DAYS } from '@/lib/applications/shareTtl'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { VECKANS_MAL_FORVAL, VECKANS_MAL_MAX, VECKANS_MAL_MIN, UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -636,7 +636,7 @@ export default function SoktaTjansterSida() {
                 intresseanmälningar och spontanansökningar, intervjuer och provjobb, med datum.
               </p>
               <p className="p3-text">
-                <b>Du lämnar in rapporten själv.</b> Vi skickar ingenting till Arbetsförmedlingen.
+                <b>Du lämnar in rapporten själv.</b> Vi skickar ingenting till Arbetsförmedlingen, och ingen där ser ditt konto.
               </p>
               <Kort ton className="st-regel">
                 <p>
