@@ -26,5 +26,8 @@ export const RADERA_TEXT = {
   R11: 'Kontot och allt i det tas bort',
 } as const
 
+/** Ordet i R10b som blir länken i appens ark. */
+export const R10B_LANKORD = 'integritetspolicyn'
+
 /** Länken under R5 och R10b. */
 export const DATALAGRING_HREF = '/integritetspolicy#datalagring'

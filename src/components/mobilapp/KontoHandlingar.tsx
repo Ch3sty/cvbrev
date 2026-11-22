@@ -14,31 +14,35 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { logUserActivity } from '@/lib/activity-logger';
 import { vidUtloggning } from '@/lib/lagring/kontoLagring';
 import { haptik } from './skal';
+import { ANLEDNINGAR, type Anledning } from '@/lib/konto/avslut';
+import { DATALAGRING_HREF, R10B_LANKORD, RADERA_TEXT } from '@/lib/konto/radera-copy';
 
-async function raderaKonto(userId: string, epost: string | null): Promise<void> {
+/**
+ * Raderar kontot på servern med den frivilliga anledningen i kroppen
+ * (beslut-mejl-och-radering 2c punkt 7). Ingen aktivitetsrad skrivs före:
+ * den försvann ändå med kontot och höll kvar raderingen.
+ */
+export async function raderaKonto(anledning: Anledning | null): Promise<void> {
   const supabase = getSupabaseClient();
-  // Högst tre sekunder: loggningen får inte hålla kvar raderingen.
-  await Promise.race([
-    logUserActivity(userId, 'registered', 'Användaren raderade sitt konto', {
-      email: epost,
-      kalla: 'appen',
-      timestamp: new Date().toISOString(),
-    }).catch(() => {}),
-    new Promise<void>((r) => setTimeout(r, 3000)),
-  ]);
   // Servern raderar allt (lib/konto/raderaKonto.server.ts). De tidigare
   // anropen till /api/cv och /api/letters med DELETE är borta 2026-11-15:
   // brevens rutt saknar DELETE, och CV:na försvann även om raderingen avbröts.
-  const res = await fetch('/api/app/konto', { method: 'DELETE' });
+  const res = await fetch('/api/app/konto', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ anledning }),
+  });
   if (!res.ok) throw new Error(`radera ${res.status}`);
   // Sessionen pekar på ett konto som inte finns; rensa den lokalt.
   await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
   vidUtloggning();
 }
 
-export default function KontoHandlingar({ userId, epost }: { userId: string; epost: string | null }) {
+// epost tas fortfarande emot av anroparen men behövs inte längre här.
+export default function KontoHandlingar({ userId }: { userId: string; epost: string | null }) {
   const [ark, setArk] = useState(false);
   const [text, setText] = useState('');
+  const [anledning, setAnledning] = useState<Anledning | null>(null);
   const [arbetar, setArbetar] = useState(false);
   const [fel, setFel] = useState<string | null>(null);
   const falt = useRef<HTMLInputElement>(null);
@@ -52,6 +56,7 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
   const oppna = () => {
     window.history.pushState({ ...(window.history.state ?? {}), tkArk: true }, '');
     setText('');
+    setAnledning(null);
     setFel(null);
     setArk(true);
   };
@@ -72,7 +77,7 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
     setArbetar(true);
     setFel(null);
     try {
-      await raderaKonto(userId, epost);
+      await raderaKonto(anledning);
       haptik('latt');
       window.location.href = '/login';
     } catch (e) {
@@ -93,7 +98,7 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
         <button type="button" className="tk-rad tk-tryck" onClick={oppna}>
           <span className="t">
             <b style={{ color: 'var(--fel)' }}>Radera kontot</b>
-            <span>Konto, nivå och resultat tas bort</span>
+            <span>{RADERA_TEXT.R11}</span>
           </span>
         </button>
       </div>
@@ -105,8 +110,40 @@ export default function KontoHandlingar({ userId, epost }: { userId: string; epo
               Radera kontot?
             </h2>
             <p className="tk-p" style={{ marginTop: 6 }}>
-              Konto, nivå, träning och resultat raderas. En prenumeration avslutar du själv där du köpte den, raderingen gör det inte.
+              {RADERA_TEXT.R10}
             </p>
+            <p className="tk-meta" style={{ marginTop: 8 }}>
+              {RADERA_TEXT.R10b.split(R10B_LANKORD)[0]}
+              <a className="tk-lank" href={DATALAGRING_HREF} style={{ fontSize: 'inherit' }}>
+                {R10B_LANKORD}
+              </a>
+              {RADERA_TEXT.R10b.split(R10B_LANKORD)[1]}
+            </p>
+            <fieldset style={{ marginTop: 16, border: 0, padding: 0, minWidth: 0 }}>
+              <legend className="tk-p" style={{ fontWeight: 600, padding: 0 }}>
+                {RADERA_TEXT.R6}
+              </legend>
+              <p className="tk-meta" style={{ marginTop: 2 }}>
+                {RADERA_TEXT.R7}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                {ANLEDNINGAR.map((a) => {
+                  const vald = anledning === a.nyckel;
+                  return (
+                    <button
+                      key={a.nyckel}
+                      type="button"
+                      className="tk-val tk-tryck"
+                      aria-pressed={vald}
+                      disabled={arbetar}
+                      onClick={() => setAnledning(vald ? null : a.nyckel)}
+                    >
+                      {a.etikett}
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
             <label className="tk-meta" htmlFor="tk-radera-falt" style={{ display: 'block', marginTop: 16, marginBottom: 6 }}>
               Skriv RADERA för att bekräfta
             </label>

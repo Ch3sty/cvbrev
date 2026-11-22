@@ -876,3 +876,25 @@
   --fel: #e57f74;
   --fel-mjuk: #3f1f1c;
 }
+/* Valbara chips i raderingsarket (beslut-mejl-och-radering 2c punkt 7):
+   kant i stället för skugga, minst 44 px, valt läge med mörk kant. */
+[data-mobilapp] .tk-val {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--a-kant);
+  background: var(--a-papper);
+  color: var(--a-ink-2);
+  font-size: 14px;
+  text-align: left;
+}
+[data-mobilapp] .tk-val[aria-pressed='true'] {
+  border-color: var(--a-ink);
+  color: var(--a-ink);
+  font-weight: 600;
+}
+[data-mobilapp] .tk-val[disabled] {
+  opacity: 0.6;
+}
