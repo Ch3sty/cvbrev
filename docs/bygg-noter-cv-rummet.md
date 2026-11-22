@@ -627,3 +627,22 @@ Nu: två korta mejl i livscykelmejlens skal (`paminnelseMejl`), med det bekräft
 Följd att känna till: jobbet skickar nu på riktigt, varje dag 09:00 UTC. Provkörningen natten till 2026-11-22 gav 17 konton i spannet, 7 första och 4 andra påminnelser. Stänga av: `select cron.alter_job((select jobid from cron.job where jobname = 'send-verification-reminders-daily'), active := false);`
 
 Inte gjort: mejlen är inte sedda i en riktig mejlklient och inget provmejl är skickat. De är ritade till HTML och lämnade till ägaren som förhandsvisning.
+
+### Mätningen av förladdningen i produktion (2026-11-22, tio sidvisningar)
+
+Gjord mot www.jobbcoach.ai med ett eget QA-konto (raderat efteråt), när ingen annan session körde. Skript: en headless Chrome, 1440 och Pixel 7, sex sekunders väntan utan interaktion per sida.
+
+| Sida | Bredd | Förladdningsanrop utan interaktion | Adresser |
+|---|---|---|---|
+| /dashboard | 1440 | 7 | /dashboard/jobbmatchning, /dashboard/sokta-tjanster |
+| /dashboard | Pixel 7 | 3 | /dashboard/tester/pass |
+| /dashboard/profil/cv | 1440 | 8 | /dashboard/cv-mallar, /dashboard/cv-analys, /dashboard/cv-mallar?mall= |
+| /dashboard/profil/cv | Pixel 7 | 12 | samma tre |
+
+Ingen av adresserna är en menylänk: sidomenyn, dörrnavet och flikraderna förladdas inte längre när de syns. Det som återstår kommer från länkar i sidornas innehåll (översiktens kort, Ditt CV:s mallänkar och analyskort). Next 16 gör flera anrop per adress, därav 7 till 12 anrop för två till tre adresser. Före ändringen förladdades enligt koden ett tiotal adresser från menyn på varje sida, dörrarna med hela sidan och dess data. Något mätt före-värde i webbläsare finns inte.
+
+Avsikt och klick: pekaren över "Rekryteringstester" i sidomenyn gav 2 anrop till /dashboard/tester, och touchstart på "Tester" i dörrnavet likaså. Klick och tryck landade på /dashboard/tester med rätt rubrik. Inga svar 500 eller högre.
+
+LCP för Ditt CV (Pixel 7, 3x strypt processor, mobilnät, mot produktion): uppvärmning 1372 ms, sedan 1528, 1032 och 1524 ms. CLS 0. LCP-elementet var rubriken (h1), inte mallbilden. Värdena går inte att jämföra rakt av med budgeten 1000 ms, som mäts mot ett lokalt bygge, men de visar att sidan inte säkert håller den. Varför rubriken målas så sent (typsnittet eller hydreringen) är inte utrett.
+
+Nästa steg om lasten ska ner mer: byt innehållslänkarna på översikten och Ditt CV till `AvsiktsLank`.
