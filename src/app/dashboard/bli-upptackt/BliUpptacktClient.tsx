@@ -300,9 +300,9 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
                 <Punkter punkter={SHOWN_ITEMS.map((s) => ({ ikon: <IkonBock size={16} />, text: s }))} />
               </TonYta>
               <TonYta>
-                <div className="flex items-center gap-2.5 text-[var(--j3-ink)]">
-                  <IkonLasUpp size={20} className="shrink-0" />
-                  <b className="j3c-kortrubrik">Visas först när du tackat ja till en kontakt</b>
+                <div className="flex items-start gap-2.5 text-[var(--j3-ink)]">
+                  <IkonLasUpp size={20} className="mt-px shrink-0" />
+                  <b className="j3c-kortrubrik [text-wrap:balance]">Visas först när du tackat ja till en kontakt</b>
                 </div>
                 <Punkter punkter={AFTER_YES_ITEMS.map((s) => ({ ikon: <IkonBock size={16} />, text: s }))} />
               </TonYta>
