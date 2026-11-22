@@ -51,6 +51,7 @@ export default async function JobbcoachenPage({ searchParams }: { searchParams: 
       brevAntal={brevRes.count ?? 0}
       forslag={forslag}
       kvot={kvot && !kvot.isPremium ? { kvar: Math.max(0, kvot.limit - kvot.used), av: kvot.limit } : null}
+      startFraga={startFragaUr(sok.fraga)}
     />
   )
 }
