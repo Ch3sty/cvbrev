@@ -6,7 +6,7 @@ import AuthShell from '@/components/auth/AuthShell'
 import { ToolBrevIllustration } from '@/components/funktioner/illustrations/ToolIllustrations'
 
 const FORGOT_QUOTES = [
-  'Vi har alla glömt något — det här är inte ditt jobb.',
+  'Vi har alla glömt något. Det här är inte ditt jobb.',
   'Vi fixar detta. Du fokuserar på nästa intervju.',
   'En länk är allt som står mellan dig och inkorgen.',
 ]

@@ -38,7 +38,7 @@ import { HELA_PAKETET_RADER, SALD_PLAN, kopKnapp, paketMedPris } from '@/lib/pla
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
-import { GRATIS_FAQ, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
+import { ANTAL_TESTTYPER, GRATIS_FAQ, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 
 /** Gratisbrevet enligt koden (spec avsnitt 7, ägarens beslut 2). */
 const GRATISBREV = 'Första personliga brevet gratis, sedan ett var sjunde dag'
@@ -95,11 +95,11 @@ const RESTEN: LankRad[] = [
     matning: 'jobbkartan-teaser',
   },
   { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, att utgå ifrån.', objekt: 'exempel', rum: 'cv' },
-  { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev som fungerat, yrke för yrke.', objekt: 'exempel', rum: 'brev' },
+  { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev att utgå från, yrke för yrke.', objekt: 'exempel', rum: 'brev' },
   {
     href: '/funktioner#sokta-tjanster',
     rubrik: 'Sökta tjänster',
-    text: 'Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Gratis för alla.',
+    text: 'Håll koll på var varje ansökan står, från Ska sökas till erbjudande, med veckans mål och utkast till det första uppföljningsmejlet. Gratis för alla med konto.',
     objekt: 'sokta',
     rum: 'jobb',
   },
@@ -153,7 +153,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
   const tal = [
     ...(konton ? [{ tal: `${konton}+`, text: 'har skapat konto' }] : []),
     { tal: `${FREE_LETTERS_PER_ACCOUNT} brev`, text: 'gratis, sedan ett i veckan' },
-    { tal: '60 sek', text: 'till första CV-poängen' },
+    { tal: `${ANTAL_TESTTYPER} testtyper`, text: 'grundnivån gratis' },
   ]
   return (
     <>
@@ -225,10 +225,10 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           ingress={
             <>
               <b>Känn igen uppgiften innan provdagen.</b> Logik, verbalt och numeriskt i tre nivåer med förklaring efter varje
-              fråga, och personlighetstestet som visar vad rekryteraren läser ut av dig.
+              uppgift, och personlighetstestet som visar vad rekryteraren läser ut av dig.
             </>
           }
-          text={`${storForst(TESTTYPER_ORD)} testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Ett nivåtest visar var du står, träningen följer din nivå och lägger tiden där du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.`}
+          text={`${storForst(TESTTYPER_ORD)} testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Grundnivån visar var du står i varje typ, träningen följer din nivå och lägger tiden där du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.`}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }}
           knappNot={`${storForst(GRUNDNIVAN_ALLA)} och personlighetstestet gratis`}
           telefon={
@@ -249,13 +249,13 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           rubrikNiva="h3"
           ingress={
             <>
-              <b>Vet exakt varför CV:t inte får svar.</b> Poäng per område, varje fynd med åtgärd och nyckelorden
-              rekryteringssystemen letar efter.
+              <b>Vet exakt varför CV:t inte får svar.</b> En läsbarhetspoäng av 100 och vad som saknas, del för del, utmärkt
+              direkt på ditt CV.
             </>
           }
-          text="Ladda upp som PDF eller Word. Inom en minut får du poäng 1 till 10 på tydlighet och struktur, innehåll, resultat och nyckelord, och en lista med fynd där varje fynd har en åtgärd. Rätta, kör om, se poängen röra sig."
+          text="Ladda upp som PDF eller Word. Vi går igenom CV:t i sju delar, från kontaktuppgifter till datum, ordning och längd, och räknar en läsbarhetspoäng av 100. Du ser var varje tappad poäng sitter och vad som saknas. Jobbcoachen föreslår nya formuleringar, och poängen räknas om när du sparar."
           knapp={{ text: 'Så fungerar det', href: '/verktyg/cv-analys' }}
-          knappNot="Poängen och tyngsta fyndet gratis"
+          knappNot="Poängen och genomgången gratis, för varje CV"
           telefon={<SkarmCvAnalys />}
         />
 
@@ -268,7 +268,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           rubrikNiva="h3"
           ingress={
             <>
-              <b>Jobben du annars hade missat.</b> Din kompetens matchad mot alla annonser i Platsbanken, med skälen utskrivna.
+              <b>Jobben du annars hade missat.</b> Din kompetens matchad mot annonserna i Platsbanken, med skälen utskrivna.
             </>
           }
           text={`Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan och visar de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste. Från en träff skriver du brevet, sparar annonsen till Ska sökas eller markerar den som sökt.`}
@@ -302,7 +302,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
           ingress="Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och med källor du kan kolla själv. Inte från en amerikansk mall."
           text="Fråga vad du vill om lön, intervju, uppsägningstid eller hur du svarar på ett avslag. Jobbcoachen känner till din målroll, ort och bransch och de dokument du själv delar i samtalet, och föreslår frågor utifrån läget i dina sökta tjänster."
           knapp={{ text: 'Ställ första frågan', href: '/verktyg/jobbcoachen' }}
-          knappNot={`${storForst(talOrd(FREE_CHAT_MESSAGES_PER_ACCOUNT))} frågor gratis`}
+          knappNot={`${storForst(talOrd(FREE_CHAT_MESSAGES_PER_ACCOUNT))} meddelanden gratis`}
           telefon={<SkarmCoach />}
         />
 
@@ -358,7 +358,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               Allt i <PremiumOrd />
             </>
           }
-          text="Alla verktyg utan tak. Mindre än en lunch i månaden, säg upp när du vill."
+          text="Alla verktyg, alla nivåer, alla mallar. Mindre än en lunch i månaden, säg upp när du vill."
           punkter={HELA_PAKETET_RADER}
           pris
           knapp={{ text: kopKnapp(), href: '/priser' }}

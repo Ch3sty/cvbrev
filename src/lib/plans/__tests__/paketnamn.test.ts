@@ -163,7 +163,7 @@ describe('namnen ur PLANS', () => {
       expect(p.beskrivning.length, `${p.key}: ${p.beskrivning}`).toBeLessThanOrEqual(60)
       expect(p.beskrivning, p.key).not.toMatch(/—/)
     }
-    expect(PLAN_BY_KEY.all_month.beskrivning).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
+    expect(PLAN_BY_KEY.all_month.beskrivning).toBe('Tester, CV, personliga brev, Jobbsöket och Jobbcoachen')
     expect(PLAN_BY_KEY.all_day.beskrivning).toBe('Jobbcoach Premium i 24 timmar. Engångsköp, förnyas inte.')
     expect(PLAN_BY_KEY.all_day.body).toBe('24 timmar med Jobbcoach Premium. Ett engångsköp, inget dras igen.')
   })

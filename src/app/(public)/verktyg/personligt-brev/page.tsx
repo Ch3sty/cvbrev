@@ -244,7 +244,7 @@ export default function PersonligtBrevSida() {
               <div className="pub-tva-text pub-rum-brev">
                 <h2 className="pub-h2">Så fungerar det</h2>
                 <p className="pub-ingress" style={{ marginTop: 16 }}>
-                  Fyra steg från tomt papper till färdig ansökan. Du gör valen, vi sätter ihop brevet.
+                  Fyra steg från tomt papper till färdig ansökan. CV, annons, mall och ton väljer du på en och samma skärm, och allt går att ändra efteråt.
                 </p>
                 <div style={{ marginTop: 28 }}>
                   <Steg rader={howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text }))} />
@@ -361,7 +361,7 @@ export default function PersonligtBrevSida() {
                 <div className="pub-kort">
                   <Objekt typ="brev" />
                   <h3 className="pub-h4">Ett brev gratis</h3>
-                  <p>Sedan skriver du ett nytt i veckan, utan kortuppgift. Allt du skrivit ligger kvar att läsa och kopiera.</p>
+                  <p>Sedan skriver du ett nytt i veckan, utan kortuppgift. Allt du skrivit ligger kvar att läsa och kopiera, och de två senaste går att ändra.</p>
                 </div>
                 <div className="pub-kort">
                   <Objekt typ="ladda" />

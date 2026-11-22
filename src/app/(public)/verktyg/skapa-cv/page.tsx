@@ -44,7 +44,7 @@ const FUNKTIONER = [
     // Lagringsundantaget (ägarens besked 2026-11-17): beskriver hur nya
     // byggaren sparar, inget annat (ByggareClient.tsx, sparaServer).
     rubrik: 'Utkastet väntar på dig',
-    text: 'CV:t sparas i ditt konto när du sparat första avsnittet, och sedan efter varje avsnitt. Du fortsätter där du slutade från Mina CV, på vilken enhet som helst.',
+    text: 'CV:t sparas i ditt konto när du sparat första avsnittet, och sedan efter varje avsnitt. Du fortsätter där du slutade under Ditt CV, på vilken enhet som helst.',
   },
   {
     rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
@@ -230,7 +230,7 @@ export default function SkapaCvSida() {
           // S6: VerktygsMall låter priset i raden följa kampanjen (MedKampanjPris).
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Skapa ditt CV gratis på minuter.',
-          text: `Skriv direkt på arket, låt Jobbcoachen föreslå punkterna och ladda ner i en mall som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, Word i alla ${WORD_TEMPLATE_COUNT} Word-mallar, hela CV-analysen och nedladdning utan tak ingår i ${paketKort()}.`,
+          text: `Skriv direkt på arket, låt Jobbcoachen föreslå punkterna och ladda ner i en mall som systemen kan läsa. Du börjar gratis utan kortuppgift. Alla ${TEMPLATE_COUNT} mallar, Word i alla ${WORD_TEMPLATE_COUNT} Word-mallar, CV-analysens alla förslag och nedladdning utan tak ingår i ${paketKort()}.`,
           knapp: { text: 'Bygg mitt CV gratis', href: '/register?borja=cv' },
           sekundar: { text: 'Se CV-exempel först', href: '/cv-exempel' },
         }}

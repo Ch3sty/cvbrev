@@ -52,7 +52,9 @@ import { GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
-import { CV_ANALYSIS_LIMIT, FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
+import { FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
+import { UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
+import { KATEGORIER as POANG_DELAR } from '@/lib/cv/poang/modell'
 
 // Samma 24 timmar som resten av (public). Sidan har ingen besökarspecifik data:
 // inloggningen läses i klienten, så CDN:et får behålla svaret.
@@ -71,9 +73,10 @@ const funktion = (id: string) => {
 const GRATIS_RAD: { objekt: ObjektTyp; rum: 'tran' | 'cv' | 'brev' | 'jobb'; tal: number; text: string }[] = [
   { objekt: 'person', rum: 'tran', tal: T.personlighetGrund.fragor, text: 'påståenden' },
   { objekt: 'mallar', rum: 'cv', tal: FREE_TEMPLATE_COUNT, text: 'CV-mallar' },
-  { objekt: 'cv', rum: 'cv', tal: CV_ANALYSIS_LIMIT, text: 'CV-analys' },
+  { objekt: 'cv', rum: 'cv', tal: POANG_DELAR.length, text: 'delar i CV-analysen, varje CV' },
   { objekt: 'brev', rum: 'brev', tal: FREE_LETTERS_PER_ACCOUNT, text: 'brev, sedan ett i veckan' },
   { objekt: 'match', rum: 'jobb', tal: FREE_TIER_JOB_LIMIT, text: 'matchade jobb' },
+  { objekt: 'sokta', rum: 'jobb', tal: UPPFOLJNING_GRATIS_UTKAST, text: 'uppföljningsmejl i Sökta tjänster' },
 ]
 
 /** Köpknappens text, med kampanjvarianterna (lib/kampanj). */
@@ -102,7 +105,7 @@ export default function PriserSida() {
                   {NAMN_FORE} <PremiumOrd />, {prisPeriod(SALD_PLAN)}
                 </h1>
                 <p className="pub-ingress" style={{ marginTop: 20 }}>
-                  <b>Rekryteringstester, CV, personliga brev, jobbmatchning och Jobbcoachen</b>
+                  <b>Rekryteringstester, CV, personliga brev och Jobbsöket med jobbmatchning, sökta tjänster och Jobbcoachen</b>
                 </p>
                 <p className="pub-brod" style={{ marginTop: 10 }}>
                   Allt är öppet från första minuten. Ingen bindningstid, du säger upp när du vill. Mindre än en lunch i
@@ -252,9 +255,12 @@ export default function PriserSida() {
             text={analys.text}
             steg={[
               { rubrik: 'Ladda upp', text: 'Vi läser som en rekryterare gör på sex sekunder.' },
-              { rubrik: 'Poäng per område', text: 'Och de fynd som drar ned mest.' },
-              { rubrik: 'Nyckelorden', text: 'De rekryteringssystem (ATS) letar efter i din bransch.' },
-              { rubrik: 'Rätta, kör om', text: 'Se poängen röra sig.' },
+              {
+                rubrik: 'Poäng per del',
+                text: 'Hur lätt CV:t är att läsa för rekryteraren och rekryteringssystemen (ATS), och vad som saknas i var och en av de sju delarna.',
+              },
+              { rubrik: 'Jobbcoachens förslag', text: 'Nya formuleringar där du tappar poäng. En hämtning ingår gratis.' },
+              { rubrik: 'Rätta och spara', text: 'Se poängen räknas om.' },
             ]}
             telefon={<SkarmCvAnalys />}
           />
@@ -269,9 +275,9 @@ export default function PriserSida() {
             text={brev.text}
             steg={[
               { rubrik: 'Klistra in annonsen', text: 'Eller välj ett matchat jobb.' },
-              { rubrik: 'Välj ton', text: 'Saklig, personlig eller vi väljer åt dig.' },
+              { rubrik: 'Välj ton', text: 'Fem toner, från professionell till kreativ. I Premium väljer vi åt dig efter annonsen.' },
               { rubrik: 'Brevet svarar på kraven', text: 'Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.' },
-              { rubrik: 'Redigera, ladda ner som PDF, skicka', text: 'Det som står i CV:t vinner.' },
+              { rubrik: 'Redigera, ladda ner som PDF eller Word, skicka', text: 'Det som står i CV:t vinner.' },
             ]}
             telefon={<SkarmBrev />}
           />

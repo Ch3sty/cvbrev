@@ -157,7 +157,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'analys':
       return scopeHasFeature(s, 'cv_analysis_full')
         ? { text: 'Hela analysen, alla fynd och poängen', ingar: true }
-        : { text: 'Poäng och tyngsta fyndet', ingar: true }
+        : { text: 'Poängen och genomgången', ingar: true }
     case 'mallar':
       return scopeHasFeature(s, 'cv_templates_all')
         ? { text: `Alla ${TEMPLATE_COUNT} mallar, nedladdning utan tak`, ingar: true }

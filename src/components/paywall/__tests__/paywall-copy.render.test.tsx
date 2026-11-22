@@ -67,10 +67,10 @@ describe('betalväggarnas copy per spärr', () => {
     expect(screen.getByText('149 kr i månaden, säg upp när du vill.')).toBeTruthy()
   })
 
-  it('PW3, analys: kvitterar poängen och det tyngsta fyndet före priset', () => {
+  it('PW3, analys: kvitterar poängen och genomgången före priset', () => {
     render(<PaywallCard variant="analys" />)
     expect(screen.getByText('Åtgärderna ingår i Premium')).toBeTruthy()
-    expect(screen.getByText(/Du har sett det tyngsta fyndet och din läsbarhetspoäng/)).toBeTruthy()
+    expect(screen.getByText(/Du har sett din läsbarhetspoäng och vad som saknas i varje del/)).toBeTruthy()
     expect(screen.getByRole('button', { name: KNAPP })).toBeTruthy()
     // Ingen ATS-förekomst i den rekommenderade texten.
     expect(document.body.textContent).not.toMatch(/ATS/)

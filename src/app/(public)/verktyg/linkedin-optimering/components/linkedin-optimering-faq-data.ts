@@ -44,6 +44,6 @@ export const LINKEDIN_OPTIMERING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar LinkedIn-optimeringen?',
-    a: `LinkedIn-optimeringen ingår i ${paketMedPris(SALD_PLAN)}, tillsammans med alla CV-mallar, hela CV-analysen, personliga brev utan tak och rekryteringstesterna. Du säger upp när du vill. Utan prenumeration kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
+    a: `LinkedIn-optimeringen ingår i ${paketMedPris(SALD_PLAN)}, tillsammans med alla CV-mallar, CV-analysens alla förslag, personliga brev utan tak och rekryteringstesterna. Du säger upp när du vill. Utan prenumeration kan du se exemplet här på sidan och skapa ett konto, men inte köra optimeringen på din egen profil.`,
   },
 ]

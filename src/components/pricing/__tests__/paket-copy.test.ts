@@ -12,6 +12,7 @@
 import { describe, expect, it } from 'vitest'
 import { GRATIS_ANTAL } from '@/lib/cv/mallar/katalog'
 import { talSomOrd } from '@/lib/cv/template-antal'
+import { KOM_IGANG_LISTA } from '@/lib/onboarding/komigang'
 
 import { PLANS, PLAN_BY_KEY, SALD_PLAN, kopKnapp, type PlanKey } from '@/lib/plans/plans'
 import { ALLA_FEATURES } from '@/lib/access/features'
@@ -72,7 +73,7 @@ describe('ett paket säljs', () => {
   it('kortet bär fulla namnet, förklaringsraden och det som ingår ur PLANS', () => {
     const kort = PAKET_KORT.allt
     expect(kort.namn).toBe('Jobbcoach Premium')
-    expect(kort.beskrivning).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
+    expect(kort.beskrivning).toBe('Tester, CV, personliga brev, Jobbsöket och Jobbcoachen')
     expect(kort.ingar.length).toBeGreaterThanOrEqual(4)
     for (const rad of kort.ingar) expect(PLAN_BY_KEY.all_month.highlights).toContain(rad)
     expect(kort.prisrad).toBe('149 kr i månaden, säg upp när du vill.')
@@ -96,6 +97,9 @@ describe('ett paket säljs', () => {
 
   it('har en guidelista och en etikett per feature', () => {
     expect(GUIDE.listor.allt.steg.length).toBeGreaterThanOrEqual(8)
+    // Listan på /priser är betalandes Kom igång-lista, rad för rad (textbeslut GEM-13).
+    expect(GUIDE.listor.allt.steg).toHaveLength(KOM_IGANG_LISTA.allt.length)
+    expect(GUIDE.listor.allt.etikett).toBe(`${KOM_IGANG_LISTA.allt.length} steg`)
     for (const feature of ALLA_FEATURES) expect(FEATURE_ETIKETT[feature], feature).toBeTruthy()
   })
 })
@@ -104,7 +108,7 @@ describe('prissidan', () => {
   it('H1, förklaringsraden och ingressen enligt copy-premium', () => {
     expect(HERO.h1).toBe('Jobbcoach Premium, 149 kr i månaden')
     expect(PR_H1).toBe(HERO.h1)
-    expect(HERO.rad).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
+    expect(HERO.rad).toBe('Tester, CV, personliga brev, Jobbsöket och Jobbcoachen')
     expect(HERO.ingress).toBe(
       'Allt är öppet från första minuten. Ingen bindningstid, du säger upp när du vill.'
     )
@@ -114,9 +118,9 @@ describe('prissidan', () => {
     expect(PRISER_META.title).toBe('Priser: Jobbcoach Premium, 149 kr i månaden | Jobbcoach.ai')
     expect(PRISER_META.title.length).toBeLessThanOrEqual(60)
     expect(PRISER_META.description).toBe(
-      'Jobbcoach Premium kostar 149 kr i månaden. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.'
+      'Jobbcoach Premium, 149 kr i månaden: rekryteringstester, CV-analys, personliga brev, jobbmatchning, sökta tjänster och Jobbcoachen. Säg upp när du vill.'
     )
-    expect(PRISER_META.description.length).toBe(148)
+    expect(PRISER_META.description.length).toBe(152)
     expect(PRISER_META.url).toBe('https://www.jobbcoach.ai/priser')
   })
 
@@ -143,14 +147,15 @@ describe('prissidan', () => {
   it('gratisnivån lovar bara det som är sant i båda gaterna (spec-rummen 23.3, 23.7 b)', () => {
     // Den kanoniska källan (gratis-copy.ts, beslut 2026-11-15): grundnivån i
     // alla testtyper, aldrig Nivåkollen publikt.
-    expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje fråga')
+    expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje uppgift')
     expect(GRATIS_RAD).toBe(
-      `Ett grundnivåtest om dagen, ${talSomOrd(GRATIS_ANTAL)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.`
+      `Ett grundnivåtest om dagen, ${talSomOrd(GRATIS_ANTAL)} CV-mallar, CV-analysens läsbarhetspoäng för varje CV, ett personligt brev var sjunde dag, tre matchade jobb, tio meddelanden till Jobbcoachen och Sökta tjänster ingår utan att betala.`
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const grund = tester.rows.find((r) => r.label === 'Grundnivån')!
     expect(grund.sub).toBe('alla åtta testtyperna och personlighetstestet')
-    expect(grund.free.text).toBe('Ingår, med genomgång')
+    expect(grund.free.text).toBe('Ett test om dagen')
+    expect(grund.free.sub).toBe('med genomgång')
     expect(grund.premium.text).toBe('Ingår, plus träning på din nivå utan tak')
     expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')
     const sist = tester.rows[tester.rows.length - 1]

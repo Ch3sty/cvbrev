@@ -74,21 +74,21 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
     text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
     knapp: 'Välj en mall',
     href: '/cv-mallar',
-    paketrad: `Alla ${TEMPLATE_COUNT} mallar och hela CV-analysen ingår i ${KORT_PRIS}.`,
+    paketrad: `Alla ${TEMPLATE_COUNT} mallar och CV-analysens alla förslag ingår i ${KORT_PRIS}.`,
   },
   analys: {
     rubrik: 'Se varför CV:t fastnar innan du skickar det',
-    text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Poängen och det tyngsta fyndet är gratis.',
+    text: 'Ladda upp CV:t, så läser vi det som en rekryterare gör i första urvalet. Läsbarhetspoängen och genomgången i sju delar är gratis, för varje CV.',
     knapp: 'Analysera mitt CV',
     href: '/verktyg/cv-analys',
-    paketrad: `Hela analysen med varje fynd och åtgärd ingår i ${KORT_PRIS}.`,
+    paketrad: `Alla förslag från Jobbcoachen, och nya efter varje ändring, ingår i ${KORT_PRIS}.`,
   },
   brev: {
     rubrik: 'Skriv det personliga brevet på annonsen, inte på mallen',
-    text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett personligt brev ${BREVFONSTER} att läsa på skärmen, gratis.`,
+    text: `Klistra in annonsen, välj ton, vi skriver utkastet utifrån ditt CV. Ett personligt brev ${BREVFONSTER} är gratis, och de två senaste går att ändra.`,
     knapp: 'Skriv mitt personliga brev',
     href: '/skapa-brev/start',
-    paketrad: `Personliga brev utan tak, som PDF, ingår i ${KORT_PRIS}.`,
+    paketrad: `Personliga brev utan tak, som PDF eller Word, ingår i ${KORT_PRIS}.`,
   },
   coach: {
     rubrik: 'Träna svaret innan du sitter i rummet',
@@ -196,7 +196,7 @@ export interface SlutCopy {
 }
 
 /** Raderna som säger att resten också ingår (copy-premium avsnitt 3). */
-const CV_RAD = 'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn'
+const CV_RAD = 'Alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn'
 const TEST_RAD = 'Alla rekryteringstester, övningsprov och personlighetstestet'
 const SEKUNDAR = { text: 'Se vad som ingår', href: '/priser' }
 
@@ -220,9 +220,9 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     etikett: NAMN,
     rubrik: 'Ett CV som går igenom. Personliga brev som svarar på annonsen.',
     rader: [
-      'Hela CV-analysen med varje fynd och åtgärd',
+      'CV-analysens alla förslag, och nya efter varje ändring',
       `Alla ${TEMPLATE_COUNT} mallar, nedladdning utan tak`,
-      'Personliga brev utan tak, som PDF',
+      'Personliga brev utan tak, som PDF eller Word',
       'LinkedIn-profilen omskriven',
       'Dessutom alla rekryteringstester, jobbmatchning och Jobbcoachen',
     ],
@@ -236,6 +236,7 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     rubrik: 'Allt ingår. Från första annonsen till löneförhandlingen.',
     rader: [
       'Jobbmatchning, de bästa träffarna med skälen utskrivna',
+      'Uppföljningsmejl till dina sökta tjänster och rapporten till Arbetsförmedlingen',
       'Jobbcoachen, så mycket du vill',
       'Intervjuprov utan dagsgräns och historik',
       CV_RAD,

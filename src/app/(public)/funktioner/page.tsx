@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
     description:
-      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering.',
+      'Alla verktyg på en plattform: rekryteringstester, CV-analys, personliga brev, jobbmatchning, sökta tjänster, Jobbcoachen och LinkedIn-optimering.',
   },
 };
 

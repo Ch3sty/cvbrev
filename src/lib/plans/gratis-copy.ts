@@ -44,16 +44,25 @@ export const GRUNDNIVAN_ALLA = `grundnivån i alla ${TESTTYPER_ORD} testtyperna`
 /** "grundnivån i alla åtta testtyperna, ett test om dagen": samma fras med dagsgränsen. */
 export const GRUNDNIVAN_ALLA_DAG = `grundnivån i alla ${TESTTYPER_ORD} testtyperna, ett test om dagen`
 
-/** Listans första rad, tester. */
+/**
+ * Testraden i gratisnivåmejlet (campaign-gratisniva.ts). Mejlmallar rörs
+ * aldrig utan ägaren, så den står kvar med "fråga"; listans rad nedan säger
+ * "uppgift" (textbeslut publikt omgång 3, B4).
+ */
 export const GRATIS_TESTRAD = `Grundnivån i alla ${TESTTYPER_ORD} testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje fråga`
 
-/** Listan, fem rader, samma ordning överallt: tester, mallar, analys, brev, jobb och Jobbcoachen. */
+/**
+ * Listan, sex rader, samma ordning överallt: tester, mallar, analys, brev,
+ * jobb och Jobbcoachen, Sökta tjänster. Den nya raden står sist, så att
+ * index 1, 2 och 3 som registreringen läser står kvar.
+ */
 export const GRATIS_LISTA = [
-  GRATIS_TESTRAD,
+  `Grundnivån i alla ${TESTTYPER_ORD} testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje uppgift`,
   `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
-  'En CV-analys med poängen och det tyngsta fyndet',
-  `Ett personligt brev ${GRATIS_BREVFONSTER}, att läsa på skärmen`,
-  `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen`,
+  'CV-analysens läsbarhetspoäng och genomgång i sju delar, för varje CV',
+  `Ett personligt brev ${GRATIS_BREVFONSTER}, och de två senaste går att ändra`,
+  `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb, ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och ett intervjuprov om dagen`,
+  'Sökta tjänster med Ska sökas, veckans mål och det första uppföljningsmejlet',
 ] as const
 
 /** Index i GRATIS_LISTA för mallraden, som länkar till /cv-mallar. */
@@ -62,9 +71,9 @@ export const GRATIS_MALLRAD = 1
 /** Meningen, lång form (prissidan, FAQ). */
 export const GRATIS_MENING_LANG =
   `Utan att betala gör du ${GRUNDNIVAN_ALLA_DAG}, och personlighetstestet med ${GRATIS_PASTAENDEN} påståenden, ` +
-  `får ${ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ` +
-  `ett personligt brev ${GRATIS_BREVFONSTER} att läsa på skärmen, ${ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ` +
-  `${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen. Inget kort behövs.`
+  `får ${ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning, CV-analysens läsbarhetspoäng och genomgång i sju delar för varje CV, ` +
+  `ett personligt brev ${GRATIS_BREVFONSTER} där de två senaste går att ändra, ${ord(FREE_TIER_JOB_LIMIT)} matchade jobb, ` +
+  `${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och Sökta tjänster med det första uppföljningsmejlet. Inget kort behövs.`
 
 /**
  * Den långa meningen i delar, för /priser där vissa ord står i fetstil
@@ -78,20 +87,22 @@ export const GRATIS_MENING_LANG_DELAR: readonly { text: string; fet?: boolean }[
   { text: ` med ${GRATIS_PASTAENDEN} påståenden, får ` },
   { text: `${ord(FREE_TEMPLATE_COUNT)} CV-mallar`, fet: true },
   { text: ' och en nedladdning, ' },
-  { text: 'en CV-analys', fet: true },
-  { text: ' med poängen och det tyngsta fyndet, ' },
+  { text: 'CV-analysens läsbarhetspoäng', fet: true },
+  { text: ' och genomgång i sju delar för varje CV, ' },
   { text: 'ett personligt brev', fet: true },
-  { text: ` ${GRATIS_BREVFONSTER} att läsa på skärmen, ` },
+  { text: ` ${GRATIS_BREVFONSTER} där de två senaste går att ändra, ` },
   { text: `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb`, fet: true },
-  { text: ' och ' },
+  { text: ', ' },
   { text: `${ord(GRATIS_CHATTFRAGOR)} meddelanden`, fet: true },
-  { text: ' till Jobbcoachen. Inget kort behövs.' },
+  { text: ' till Jobbcoachen och ' },
+  { text: 'Sökta tjänster', fet: true },
+  { text: ' med det första uppföljningsmejlet. Inget kort behövs.' },
 ]
 
 /** Meningen, kort form (fotnoter, en rad). */
 export const GRATIS_MENING_KORT =
-  `Ett grundnivåtest om dagen, ${ord(FREE_TEMPLATE_COUNT)} CV-mallar, en CV-analys, ett personligt brev ${GRATIS_BREVFONSTER}, ` +
-  `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen ingår utan att betala.`
+  `Ett grundnivåtest om dagen, ${ord(FREE_TEMPLATE_COUNT)} CV-mallar, CV-analysens läsbarhetspoäng för varje CV, ett personligt brev ${GRATIS_BREVFONSTER}, ` +
+  `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb, ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och Sökta tjänster ingår utan att betala.`
 
 /** Testraden: provkort, testsidan, sidokolumnen. */
 export const GRATIS_TESTRAD_PROV = `Fem frågor gratis här. Grundnivån i alla ${TESTTYPER_ORD} testtyperna gratis med konto, ett test om dagen.`
@@ -102,8 +113,8 @@ export const GRATIS_TESTRAD_PROV = `Fem frågor gratis här. Grundnivån i alla 
  */
 export const GRATIS_FAQ =
   `Gratisnivån kräver inget kort: ${GRUNDNIVAN_ALLA_DAG}, och personlighetstestet, ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, ` +
-  `en CV-analys med poängen och det tyngsta fyndet, ett personligt brev ${GRATIS_BREVFONSTER}, ${FREE_TIER_JOB_LIMIT} matchade jobb ` +
-  `och ${GRATIS_CHATTFRAGOR} meddelanden till Jobbcoachen.`
+  `CV-analysens läsbarhetspoäng och genomgång i sju delar för varje CV, ett personligt brev ${GRATIS_BREVFONSTER}, ${FREE_TIER_JOB_LIMIT} matchade jobb, ` +
+  `${GRATIS_CHATTFRAGOR} meddelanden till Jobbcoachen och Sökta tjänster med det första uppföljningsmejlet.`
 
 /** "Grundnivån i alla åtta testtyperna, ett test om dagen", som egen rad i en lista. */
 export const GRUNDNIVAN_RAD = `Grundnivån i alla ${TESTTYPER_ORD} testtyperna, ett test om dagen`

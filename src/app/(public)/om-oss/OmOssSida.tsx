@@ -31,7 +31,7 @@ const MILSTOLPAR: Steg[] = [
   {
     period: '2023',
     rubrik: 'Det började som cvbrev.se',
-    text: 'En enkel idé: göra det lättare att skriva personliga brev som fungerar för svenska arbetsgivare. Tusentals användare kom snabbare till sitt första utkast.',
+    text: 'En enkel idé: göra det lättare att skriva personliga brev som fungerar för svenska arbetsgivare. De som använde den kom snabbare till sitt första utkast.',
     bild: { rum: 'brev', objekt: 'brev' },
   },
   {

@@ -13,8 +13,9 @@
  * sak och spärren en annan.
  */
 
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+import { UPPFOLJNING_GRATIS_UTKAST } from '@/lib/jobbsok/typer'
 import { TESTTAL } from '@/components/publikt/testtal'
 import { GRATIS_LISTA, GRATIS_MENING_KORT, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
@@ -75,7 +76,7 @@ const TESTER: ComparisonGroup = {
     {
       label: 'Grundnivån',
       sub: `alla ${TESTTYPER_ORD} testtyperna och personlighetstestet`,
-      free: g('Ingår, med genomgång'),
+      free: g('Ett test om dagen', 'med genomgång'),
       premium: ja('Ingår, plus träning på din nivå utan tak'),
     },
     {
@@ -129,21 +130,27 @@ export const COMPARISON: ComparisonGroup[] = [
       },
       {
         label: 'CV-analys',
-        sub: 'poäng, fynd, nyckelord',
-        free: g('Poäng och tyngsta fyndet', 'en gång'),
-        premium: ja('Hela rapporten', 'kör om utan tak'),
+        sub: 'läsbarhetspoäng i sju delar',
+        free: g('Poängen och genomgången', 'för varje CV'),
+        premium: ja('Ingår', 'för varje CV'),
+      },
+      {
+        label: 'Jobbcoachens förslag',
+        sub: 'nya formuleringar till ditt CV',
+        free: g('1 hämtning', 'det tyngsta förslaget öppet'),
+        premium: ja('Alla förslag', 'nya efter varje ändring'),
       },
       {
         label: 'CV-nedladdning',
-        sub: 'som PDF',
+        sub: `som PDF, och som Word i ${WORD_TEMPLATE_COUNT} av mallarna`,
         free: g('1 gång'),
         premium: ja('Utan tak'),
       },
       {
         label: 'Personliga brev',
         sub: 'skrivna på annonsen',
-        free: g('1, sedan 1 i veckan', 'läsa, inte ladda ner'),
-        premium: ja('Utan tak', 'nedladdning som PDF'),
+        free: g('1, sedan 1 i veckan', 'läs, kopiera och ändra de två senaste'),
+        premium: ja('Utan tak', 'nedladdning som PDF eller Word'),
       },
       {
         label: 'LinkedIn-profilen',
@@ -154,7 +161,7 @@ export const COMPARISON: ComparisonGroup[] = [
     ],
   },
   {
-    title: 'Jobb och coachning',
+    title: 'Jobbsöket',
     rows: [
       {
         label: 'Matchade jobb',
@@ -163,15 +170,33 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: ja(`${JOB_MATCHES_PER_RUN} träffar`, 'med skälen utskrivna'),
       },
       {
-        label: 'Jobbcoachen',
-        sub: 'lön, intervju, avtal',
-        free: g('10 meddelanden'),
-        premium: ja('Utan tak'),
+        label: 'Sökta tjänster',
+        sub: 'Ska sökas, veckans mål och statistik',
+        free: g('Ingår'),
+        premium: ja('Ingår'),
+      },
+      {
+        label: 'Uppföljningsmejl',
+        sub: 'utkast som öppnas i din egen e-post',
+        free: g(`${UPPFOLJNING_GRATIS_UTKAST} utkast`),
+        premium: ja('Till varje sökt tjänst'),
+      },
+      {
+        label: 'Rapport till Arbetsförmedlingen',
+        sub: 'månadens sökta jobb, du lämnar in den själv',
+        free: g('Antalen per månad'),
+        premium: ja('Hela rapporten', 'skriv ut eller kopiera som text'),
       },
       {
         label: 'Intervjuprovet',
         sub: 'svara på en intervjufråga, få återkoppling som från en rekryterare',
         free: g('1 om dagen'),
+        premium: ja('Utan tak'),
+      },
+      {
+        label: 'Jobbcoachen',
+        sub: 'lön, intervju, avtal',
+        free: g('10 meddelanden'),
         premium: ja('Utan tak'),
       },
     ],
@@ -191,7 +216,7 @@ export const PRISER_FAQ_ITEMS = [
     // Fulla namnet: frågan blir FAQPage-schema och visas fristående i
     // Google, där "Premium" utan varumärke är vem som helst (copy-vag5 6.1).
     q: `Vad ingår i ${HELA}?`,
-    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med övningsprov, intervjuprovet utan dagsgräns och personlighetstestet, jobbmatchning med de ${JOB_MATCHES_PER_RUN} bästa träffarna och Jobbcoachen. ${PRIS}, och inget av det kostar extra.`,
+    a: `Allt vi gör: alla rekryteringstester med övningsprov och det fördjupade personlighetstestet, alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn, jobbmatchning med de ${JOB_MATCHES_PER_RUN} bästa träffarna, uppföljningsmejl till dina sökta tjänster, rapporten till Arbetsförmedlingen att skriva ut eller kopiera, intervjuprovet utan dagsgräns och Jobbcoachen. ${PRIS}, och inget av det kostar extra.`,
   },
   {
     id: 'nar-manaden-ar-slut',
@@ -214,12 +239,12 @@ export const PRISER_FAQ_ITEMS = [
 
 /**
  * title, description, openGraph, twitter och OG-bilden (copy-premium
- * avsnitt 3). Talen ur PLANS. Title 58 tecken, description 148.
+ * avsnitt 3). Talen ur PLANS. Title 58 tecken, description 152.
  */
 export const PRISER_META = {
   url: 'https://www.jobbcoach.ai/priser',
   title: `Priser: ${paketMedPris(SALD_PLAN)} | Jobbcoach.ai`,
-  description: `${HELA} kostar ${PRIS}. CV-analys, personliga brev, rekryteringstester, jobbmatchning och Jobbcoachen ingår. Säg upp när du vill.`,
+  description: `${HELA}, ${PRIS}: rekryteringstester, CV-analys, personliga brev, jobbmatchning, sökta tjänster och Jobbcoachen. Säg upp när du vill.`,
   keywords:
     'Jobbcoach Premium, jobbcoach pris, cv-analys pris, rekryteringstester pris, personligt brev pris, jobbmatchning',
   ogTitle: paketMedPris(SALD_PLAN),

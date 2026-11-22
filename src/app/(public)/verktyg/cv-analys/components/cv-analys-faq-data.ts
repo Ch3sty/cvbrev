@@ -1,9 +1,11 @@
 /**
  * FAQ-data for /verktyg/cv-analys.
- * 8 fragor som tillsammans gor en stark FAQPage-rich-snippet i Google.
+ * 9 fragor som tillsammans gor en stark FAQPage-rich-snippet i Google.
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, WORD_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal'
+import { storForst, talOrd } from '@/components/publikt/talord'
 
 export interface FaqItem {
   q: string
@@ -13,27 +15,31 @@ export interface FaqItem {
 export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur lång tid tar en CV-analys?',
-    a: 'Mellan 30 och 60 sekunder från att du klickat på "Analysera". Vi läser igenom hela CV:t, kontrollerar struktur, språk, nyckelord och kvantifiering, och visar en läsbarhetspoäng plus konkreta förbättringsförslag direkt på skärmen. Du behöver inte göra något under tiden, bara vänta in resultatet.',
+    a: 'Här på sidan, utan konto, får du läsbarhetspoängen och det viktigaste att ändra inom en halv minut från att du valt filen. I kontot står poängen och genomgången i sju delar klara så snart ditt CV är inläst, och de räknas om varje gång du sparar. Vill du ha Jobbcoachens förslag på nya formuleringar hämtar du dem med ett tryck, och det tar under en minut. Du behöver inte göra något under tiden.',
   },
   {
-    q: 'Vad betyder ATS-poängen?',
-    a: 'ATS-poängen är ett mått från 0 till 100 på hur väl ditt CV fungerar med Applicant Tracking Systems, de rekryteringssystem svenska arbetsgivare använder för att sålla bland ansökningar. Poängen räknas fram ur det som står i CV:t, som struktur, läsbarhet, kompetenser och formatering, och samma CV ger alltid samma poäng. Bredvid den ser du vad poängen kan bli om du följer förslagen, så du vet hur mycket det finns att hämta.',
+    q: 'Vad betyder läsbarhetspoängen?',
+    a: 'Läsbarhetspoängen är ett tal från 0 till 100 som visar hur lätt ditt CV är att läsa för en rekryterare och för rekryteringssystem (ATS), de system svenska arbetsgivare sorterar ansökningar i. Vi räknar den ur det som står i CV:t, i sju delar: kontaktuppgifter, personbeskrivning, erfarenhet, kompetenser, utbildning, språk och till sist datum, ordning och längd. Bredvid poängen ser du hur många poäng som återstår till 100, i vilka delar de sitter och hur långt Jobbcoachens förslag tar dig.',
   },
   {
     q: 'Vilka förbättringsförslag får jag?',
-    a: 'Förslagen kommer i fyra delar. Personbeskrivning: din öppning, omskriven så att den säger vad du kan. Roller: varje erfarenhet med resultat och siffror i stället för bara ansvar. Kompetenser: det som saknas eller borde stå tydligare. Allmänna råd: struktur, formatering, innehåll och nyckelord som rekryteringssystemen letar efter, sådant du ändrar själv. För varje förslag på personbeskrivning och roller ser du den nuvarande texten och en föreslagen omskrivning, och de tyngsta fynden står först.',
+    a: 'Jobbcoachen skriver förslag på nya formuleringar i de delar där du tappar poäng. Personbeskrivning: din öppning, omskriven så att den säger vilken roll du har och vad du kan. Erfarenhet: rollerna med punkter som börjar med vad du gjorde, och plats för din egen siffra där ett resultat saknas. Kompetenser: termer du kan lägga till om de stämmer. Du ser din nuvarande text och förslaget bredvid varandra, och hur många poäng förslaget ger. Det ingen kan skriva åt dig, som ett telefonnummer, ett årtal eller en språknivå, står i genomgången med var du fyller i det.',
   },
   {
     q: 'Behöver jag ha CV:t på svenska?',
-    a: 'Analysen är byggd för svenska CV och svensk arbetsmarknad: förslagen, nyckelorden och omskrivningarna kommer på svenska. Har du ett engelskt CV går det att ladda upp, men räkna med att förslagen blir på svenska. Svenska arbetsgivare föredrar oftast ansökningar på svenska om jobbet inte är uttalat internationellt.',
+    a: 'Analysen är byggd för svenska CV och svensk arbetsmarknad, och Jobbcoachens förslag kommer på svenska. Har du ett engelskt CV går det att ladda upp som Word eller som PDF med markerbar text, men räkna med att förslagen blir på svenska. Är CV:t inskannat, alltså sparat som bild, läser vi bara av svensk text. Svenska arbetsgivare föredrar oftast ansökningar på svenska om jobbet inte är uttalat internationellt.',
   },
   {
-    q: 'Hur många analyser får jag göra gratis?',
-    a: 'En analys per konto är gratis, utan att du lämnar kortuppgifter. Du ser läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet i klartext med åtgärd. Vill du se alla fynd och köra om analysen efter en rättning ingår det i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '.',
+    q: 'Vad är gratis i CV-analysen?',
+    a: 'Läsbarhetspoängen och genomgången i sju delar är gratis för varje CV du sparar, utan att du lämnar kortuppgifter. Jobbcoachens förslag hämtar du en gång gratis per konto, och då är det tyngsta förslaget öppet. Alla förslag, och nya förslag när du har ändrat i CV:t, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '.',
   },
   {
-    q: 'Kan jag köra analysen igen när jag ändrat i CV:t?',
-    a: 'Ja. Med ' + paketKort() + ' kör du analysen utan tak, så du kan rätta efter fynden, ladda upp igen och se om poängen rör sig. Det är användbart när du testar olika rubriker, byter ordningsföljd eller skräddarsyr CV:t för en specifik bransch och vill veta om ändringen gjorde skillnad.',
+    q: 'Räknas poängen om när jag ändrar i CV:t?',
+    a: 'Ja. Poängen räknas om varje gång du sparar CV:t, gratis och utan gräns, så du ser direkt om ändringen gjorde skillnad. Det är användbart när du testar olika formuleringar, lägger till en siffra i en roll eller byter ordning på avsnitten. Med ' + paketKort() + ' kan du dessutom be Jobbcoachen om nya förslag efter ändringen, så ofta du vill.',
+  },
+  {
+    q: 'Kan jag ladda upp ett inskannat CV som PDF?',
+    a: 'Ja, när du är inloggad. Då läser vi av bilden och gör om den till text, och det tar ungefär en halv minut. Bildläsningen läser svenska. Här på sidan, utan konto, kan vi inte läsa en inskannad PDF. Ladda då upp en PDF med markerbar text eller en Word-fil, eller skapa ett gratiskonto.',
   },
   {
     q: 'Är mitt CV säkert hos er?',
@@ -41,6 +47,6 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad händer efter analysen?',
-    a: 'Du får upp resultatet direkt och kan välja vilka förslag du vill applicera. Klickar du i en förbättring uppdateras potentialpoängen i realtid så du ser exakt hur mycket bättre CV:t blir. När du är nöjd kan du spara den förbättrade versionen och ladda ner den som PDF.',
+    a: `Du ser poängen, vad som saknas i varje del och hur många poäng som återstår till 100. Därifrån öppnar du CV:t och fyller i det som saknas, eller hämtar Jobbcoachens förslag och väljer vilka som ska följa med. Poängen räknas om när du sparar. När du är nöjd väljer du en av ${TEMPLATE_COUNT} mallar och laddar ner CV:t som PDF, eller som Word i ${WORD_TEMPLATE_COUNT} av mallarna. ${storForst(talSomOrd(FREE_TEMPLATE_COUNT))} mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning är gratis.`,
   },
 ]

@@ -205,7 +205,7 @@ export default function LinkedinOptimeringSida() {
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta vara osynlig. Börja synas i dag.',
-          text: `LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}, tillsammans med alla CV-mallar, hela CV-analysen, personliga brev utan tak och rekryteringstesterna. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
+          text: `LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}, tillsammans med alla CV-mallar, CV-analysens alla förslag, personliga brev utan tak och rekryteringstesterna. Säg upp när du vill. Vi loggar aldrig in på din LinkedIn, du klistrar in texten själv.`,
           knapp: { text: 'Optimera min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

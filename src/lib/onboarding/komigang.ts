@@ -205,7 +205,7 @@ export function brickaText(
       return {
         key,
         titel: paket === 'tester' ? 'Ladda upp CV:t' : 'CV uppladdat',
-        text: paket === 'tester' ? 'Ingår gratis, poäng och tyngsta fyndet' : 'PDF eller Word. En minut.',
+        text: paket === 'tester' ? 'Ingår gratis, poängen och genomgången' : 'PDF eller Word. En minut.',
         klarText: fakta.cvNamn ?? 'Uppladdat',
         kort: 'ladda upp CV:t',
         href: '/dashboard/profil/cv',
@@ -396,8 +396,8 @@ const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>
   matris_grund: { titel: 'Nivåkollen', text: 'Gratis, cirka åtta minuter, sedan träning på din nivå' },
   personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
   intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
-  analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },
-  brev: { titel: 'Skriv ett personligt brev', text: 'Ett ingår gratis att läsa' },
+  analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och vad som saknas, del för del' },
+  brev: { titel: 'Skriv ett personligt brev', text: 'Ett ingår gratis att läsa och ändra' },
   jobbmatchning: { titel: 'Se tre matchade jobb', text: 'Jobb du inte hittat själv, med skälen' },
   mall: { titel: 'Välj en CV-mall', text: `${FREE_TEMPLATE_COUNT} mallar och en nedladdning ingår gratis` },
 }

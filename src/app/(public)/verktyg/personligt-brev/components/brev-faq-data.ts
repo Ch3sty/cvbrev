@@ -16,7 +16,7 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Hur många brev kan jag skapa gratis?',
-    a: `Det första brevet är gratis, sedan skriver du ett nytt i veckan. Allt du skrivit ligger kvar att läsa och kopiera, även på gratisnivån. Vill du skriva utan tak och ladda ner breven som PDF och Word ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Det första brevet är gratis, sedan skriver du ett nytt i veckan. Allt du skrivit ligger kvar att läsa och kopiera, även på gratisnivån, och de två senaste breven går att ändra. Vill du skriva utan tak och ladda ner breven som PDF och Word ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Kommer brevet att kännas som något vi alla skickat in?',

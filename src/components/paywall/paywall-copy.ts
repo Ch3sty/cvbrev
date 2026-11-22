@@ -110,7 +110,7 @@ export const GRATISRADER = {
   /** GR1, mallgalleriet, över listan. */
   mallar: `${FREE_TEMPLATE_COUNT} mallar ingår i gratisnivån`,
   /** GR3, CV-analysen, under poängen. */
-  analys: 'Poängen och det tyngsta fyndet ingår',
+  analys: 'Poängen och genomgången ingår',
 } as const
 
 /** Betalväggens knapp: "Köp Premium, 149 kr i månaden" (copy-premium 8). */
@@ -320,7 +320,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'analys':
       return {
         title: `Åtgärderna ingår i ${PREMIUM}`,
-        body: `Du har sett det tyngsta fyndet och din läsbarhetspoäng. ${PREMIUM} öppnar förslaget bakom varje rubrik och hämtar nya förslag när du rättat.`,
+        body: `Du har sett din läsbarhetspoäng och vad som saknas i varje del. ${PREMIUM} öppnar förslaget bakom varje rubrik och hämtar nya förslag när du rättat.`,
         primary: knapp,
         secondary: 'Se vad som ingår',
       }

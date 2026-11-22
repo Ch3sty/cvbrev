@@ -35,6 +35,8 @@ export interface VerktygsLank {
 export interface VerktygsRad {
   rubrik: string
   text: ReactNode
+  /** Kort bricka bredvid rubriken, utanför h3 (till exempel delens poäng). */
+  bricka?: string
 }
 
 export interface VerktygsMallProps {
@@ -66,7 +68,7 @@ export interface VerktygsMallProps {
    */
   provHjalte?: boolean
   steg: { id?: string; rubrik: string; ingress?: string; rader: VerktygsRad[]; lank?: VerktygsLank }
-  kontroll?: { id?: string; eyebrow?: string; rubrik: string; ingress?: string; rader: VerktygsRad[] }
+  kontroll?: { id?: string; eyebrow?: string; rubrik: string; ingress?: string; rader: VerktygsRad[]; not?: ReactNode }
   extra?: { id?: string; eyebrow?: string; rubrik: string; ingress?: ReactNode; rader: VerktygsRad[]; lank?: VerktygsLank }[]
   fritt?: ReactNode
   citat?: { text: string; namn: string; roll?: string }
@@ -91,6 +93,11 @@ export function Kort({ rader }: { rader: VerktygsRad[] }) {
           <h3 className="pub-h4" style={{ marginTop: 0 }}>
             {r.rubrik}
           </h3>
+          {r.bricka ? (
+            <span className="pub-tagg" style={{ marginTop: 6 }}>
+              {r.bricka}
+            </span>
+          ) : null}
           <div className="pub-brod" style={{ fontSize: 15, marginTop: 8 }}>
             {r.text}
           </div>
@@ -213,6 +220,11 @@ export default function VerktygsMall(p: VerktygsMallProps) {
                 </p>
               ) : null}
               <Kort rader={p.kontroll.rader} />
+              {p.kontroll.not ? (
+                <p className="pub-liten" style={{ marginTop: 24 }}>
+                  {p.kontroll.not}
+                </p>
+              ) : null}
             </div>
           </Rum>
         ) : null}

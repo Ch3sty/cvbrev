@@ -22,6 +22,13 @@ interface MiniResult {
 
 const ACCEPT = '.pdf,.docx,.txt'
 
+/** Det kontot visar, som fast lista (textbeslut CVA-12, B-2). */
+const I_KONTOT = [
+  'Poängen del för del, i alla sju delar',
+  'Vad som saknas i varje del, utmärkt på ditt CV',
+  'Jobbcoachens förslag på nya formuleringar',
+] as const
+
 export default function CVAnalysMini() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
@@ -80,7 +87,7 @@ export default function CVAnalysMini() {
 
           <div className="mt-6 border-t border-kant pt-6">
             <h3 className="text-sm font-semibold text-ink-1">
-              Det här bör du fixa först
+              Det viktigaste att ändra först
             </h3>
             {result.visibleImprovement ? (
               <p className="mt-2 text-sm leading-relaxed text-ink-2">
@@ -88,36 +95,37 @@ export default function CVAnalysMini() {
               </p>
             ) : (
               <p className="mt-2 text-sm leading-relaxed text-ink-2">
-                Vi hittade inget akut att ändra. Den fullständiga analysen går djupare.
+                Vi hittade inget akut att ändra. Genomgången i kontot visar varje del för sig.
               </p>
             )}
           </div>
 
-          {result.lockedImprovementCount > 0 ? (
-            <ul className="mt-6 space-y-3 border-t border-kant pt-6">
-              {Array.from({ length: result.lockedImprovementCount }).map((_, i) => (
-                <li key={i} className="flex items-center gap-3">
+          {/* En fast lista över det kontot visar, i stället för numrerade
+              förbättringar som kontot aldrig visar (textbeslut CVA-12). */}
+          <div className="mt-6 border-t border-kant pt-6">
+            <h3 className="text-sm font-semibold text-ink-1">I kontot ser du</h3>
+            <ul className="mt-3 space-y-3">
+              {I_KONTOT.map((rad) => (
+                <li key={rad} className="flex items-center gap-3">
                   <span
                     className="h-3 w-3 flex-shrink-0 rounded-full bg-neutral-200"
                     aria-hidden="true"
                   />
-                  <span className="text-sm text-ink-3">
-                    Förbättring {i + 2} av {result.lockedImprovementCount + 1}
-                  </span>
+                  <span className="text-sm text-ink-3">{rad}</span>
                 </li>
               ))}
             </ul>
-          ) : null}
+          </div>
         </div>
 
         <div className="mt-6 rounded-xl border border-kant bg-panel p-4 sm:p-6">
           <h3 className="text-base font-semibold text-ink-1">
-            Vi hittade mer i ditt CV
+            Se hela genomgången, del för del
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-2">
-            Skapa ett gratiskonto så kör vi en full analys av hela CV:t. Du får
-            läsbarhetspoängen, hur många fynd vi hittade och det tyngsta fyndet
-            i klartext med åtgärd.
+            Skapa ett gratiskonto, så går vi igenom hela CV:t i sju delar. Du ser
+            läsbarhetspoängen, vad som saknas i varje del och hur du når 100.
+            Jobbcoachens förslag hämtar du en gång gratis.
           </p>
           <Link
             href="/register?borja=cv"
@@ -130,7 +138,7 @@ export default function CVAnalysMini() {
             }
             className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-ink-1 px-4 text-sm font-medium text-white transition-colors hover:bg-ink-1 sm:w-auto"
           >
-            Se hela analysen
+            Se hela genomgången
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <p className="mt-3 text-xs text-ink-3">
@@ -148,7 +156,7 @@ export default function CVAnalysMini() {
           Analysera ditt CV direkt
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Ladda upp ditt CV som PDF eller Word, så får du en ATS-poäng och det viktigaste
+          Ladda upp ditt CV som PDF eller Word, så får du din läsbarhetspoäng och det viktigaste
           du bör ändra. Inget konto behövs, och vi sparar varken filen eller texten.
         </p>
 

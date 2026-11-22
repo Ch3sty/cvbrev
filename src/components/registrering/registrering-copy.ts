@@ -38,7 +38,7 @@ export const STEG1 = {
   kort: {
     cv: {
       titel: 'Skriva CV',
-      text: 'Bygg det steg för steg eller ladda upp ditt gamla och se vad rekryteraren ser.',
+      text: 'Skriv det direkt på arket eller ladda upp ditt gamla och se vad rekryteraren ser.',
     },
     brev: {
       titel: 'Skriva personliga brev',
@@ -50,11 +50,11 @@ export const STEG1 = {
     },
     intervju: {
       titel: 'Förbereda intervjun',
-      text: 'Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare.',
+      text: 'Svara på en vanlig intervjufråga och få återkoppling som från en rekryterare. Har du en intervju bokad lägger du in tiden, så säger vi till när det är dags att förbereda dig.',
     },
     jobb: {
       titel: 'Hitta jobb att söka',
-      text: 'Vi matchar ditt CV mot lediga jobb i Platsbanken och skriver varför de passar.',
+      text: 'Vi matchar ditt CV mot lediga jobb i Platsbanken, skriver varför de passar och håller koll på dem du har sökt.',
     },
   } satisfies Record<SignupIntent, { titel: string; text: string }>,
 } as const
@@ -192,9 +192,9 @@ const klart = (fornamn: string | null, resten: string) =>
   fornamn ? `Klart, ${fornamn}. ${resten}` : `Klart. ${resten}`
 
 const CV_RADER = [
-  { fet: 'Hela CV-analysen.', text: ' Varje fynd med åtgärd, kör om utan tak.' },
+  { fet: 'CV-analysens alla förslag.', text: ' Jobbcoachen skriver om, så ofta du vill.' },
   { fet: `${TEMPLATE_COUNT} CV-mallar`, text: ' som rekryteringssystem läser.' },
-  { fet: 'Personliga brev', text: ' på annonsen, som PDF.' },
+  { fet: 'Personliga brev', text: ' på annonsen, som PDF eller Word.' },
 ] as const
 
 /** Raden bredvid priset på förslagskortet. Priset står i kortets egen rad. */
@@ -215,7 +215,7 @@ export const STEG3 = {
   forslag: {
     cv: {
       rubrik: (f) => klart(f, 'Så får du CV:t genom urvalet'),
-      under: 'Börja gratis direkt, eller ta med hela analysen och alla mallar från start.',
+      under: 'Börja gratis direkt, eller ta med Jobbcoachens förslag och alla mallar från start.',
       kortRubrik: 'Få CV:t genom och skriv personliga brev',
       rader: CV_RADER,
       prisText: FORNYAS,
@@ -243,7 +243,7 @@ export const STEG3 = {
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
-      under: `Ett intervjuprov om dagen ingår gratis. Att öva utan tak ingår i ${PREMIUM}.`,
+      under: `Ett intervjuprov om dagen ingår gratis, och har du en intervju bokad står den under Intervjuer på gång. Att öva utan tak ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på intervjun',
       rader: [
         { fet: 'Intervjuprov utan tak', text: ', med återkoppling på varje svar.' },
@@ -251,22 +251,22 @@ export const STEG3 = {
         { fet: 'Alla nivåer', text: ' i rekryteringstesterna.' },
       ],
       prisText: FORNYAS,
-      gratis: ['Ett intervjuprov om dagen med återkoppling', 'Personlighetstestet med 50 påståenden'],
+      gratis: ['Ett intervjuprov om dagen med återkoppling', 'Intervjuer på gång, med tid och plats', `Personlighetstestet med ${GRATIS_PASTAENDEN} påståenden`],
     },
     jobb: {
       rubrik: (f) => klart(f, 'Så hittar jobben dig'),
-      under: 'Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis.',
+      under: 'Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis, och Sökta tjänster håller koll på svaren.',
       kortRubrik: 'Allt ingår, plus jobb som hittar dig',
       rader: [
         { fet: 'Jobbmatchning:', text: ` de ${JOB_MATCHES_PER_RUN} bästa träffarna, med skälen utskrivna.` },
-        { fet: 'Intervjuprovet:', text: ' utan dagsgräns, med återkoppling på varje svar.' },
+        { fet: 'Uppföljningsmejl', text: ' till dina sökta tjänster, och rapporten till Arbetsförmedlingen att skriva ut.' },
         {
-          fet: 'Jobbcoachen',
-          text: ', alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.',
+          fet: 'Intervjuprovet och Jobbcoachen',
+          text: ' utan tak, alla CV-mallar, CV-analysens alla förslag, personliga brev och alla rekryteringstester.',
         },
       ],
       prisText: FORNYAS,
-      gratis: ['Tre matchade jobb', 'Tio meddelanden till Jobbcoachen'],
+      gratis: ['Tre matchade jobb', 'Sökta tjänster med Ska sökas och veckans mål', 'Det första uppföljningsmejlet', 'Tio meddelanden till Jobbcoachen'],
     },
   } satisfies Record<SignupIntent, ForslagCopy>,
   /** "149 kr i månaden" i kortets prisrad, ur PLANS. */
@@ -351,7 +351,7 @@ export const KONTO_GRATIS = {
   rubrik: 'Börja med det som avgör urvalet',
   rader: [
     { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} typerna, ett test om dagen, med genomgång av varje fråga.` },
-    { ikon: 'cv', namn: 'CV-analysen', text: 'Poängen och det tyngsta fyndet i ditt CV.' },
+    { ikon: 'cv', namn: 'CV-analysen', text: 'Läsbarhetspoängen och vad som saknas, del för del, för varje CV.' },
     { ikon: 'brev', namn: 'Ett personligt brev', text: 'Skrivet på annonsen utifrån ditt CV.' },
   ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev'; namn: string; text: string }[],
   premium: `, ${prisPeriod(SALD_PLAN)}, när du vill ha allt utan tak. Säg upp när du vill.`,
@@ -428,7 +428,7 @@ export const PROVA_OCKSA = {
   },
   'cv-analys': {
     rubrik: 'Vad ser rekryteraren i ditt CV?',
-    text: 'Analysen visar poängen och det tyngsta fyndet, gratis.',
+    text: 'Analysen visar poängen och vad som saknas, del för del, gratis.',
     href: '/dashboard/cv-analys',
   },
 } as const

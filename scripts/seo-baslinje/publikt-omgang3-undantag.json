@@ -1,5 +1,5 @@
 {
-  "_om": "Publikt omgång 3, textändringarna (docs/publikt-omgang3/textbeslut.md, saas-lead 2026-11-22, med SEO:s krav i docs/publikt-omgang3/seo-krav.md). Push 1: matchningen och Jobbcoachen. Matchningen körs inte när sidan öppnas, aktiveringen finns inte, Jobbcoachen känner till målroll, ort, bransch och delade dokument, inte hela CV:t. Läses av scripts/seo-diff-artiklar.ts.",
+  "_om": "Publikt omgång 3, textändringarna (docs/publikt-omgang3/textbeslut.md, saas-lead 2026-11-22, med SEO:s krav i docs/publikt-omgang3/seo-krav.md). Push 1: matchningen och Jobbcoachen. Push 2: gratisnivån, Premium och CV-analysen: analysen ger en läsbarhetspoäng av 100 i sju delar, gratis för varje CV, och Jobbcoachens förslag är det som ingår i Premium. Inga ATS-poäng, fyra delar, fynd eller en analys per konto. Läses av scripts/seo-diff-artiklar.ts.",
   "RUBRIK_BYTT": [
     {
       "path": "/verktyg/jobbmatchning",
@@ -7,6 +7,97 @@
       "efter": "h3 Välj eller ladda upp ditt CV",
       "datum": "2026-11-22",
       "skal": "Textbeslut JM-1 (SEO:s lydelse): det finns ingen aktivering, senaste CV:t läses in av sig självt och byts under Byt CV. Samma rad är HowTo-steg 1."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h2 Sex saker rekryteraren och systemet ser först",
+      "efter": "h2 Sju delar som ger din läsbarhetspoäng",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1 (SEO:s lydelse): analysen räknar sju delar, inte sex kategorier."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Läsbarhet för rekryteringssystem",
+      "efter": "h3 Kontaktuppgifter",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: de sju H3 är poängmodellens egna namn (src/lib/cv/poang/modell.ts). Datum, ordning och längd är den sjunde, ny."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Struktur",
+      "efter": "h3 Personbeskrivning",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: poängmodellens namn."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Språk och grammatik",
+      "efter": "h3 Erfarenhet",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: poängmodellens namn."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Nyckelord",
+      "efter": "h3 Kompetenser",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: analysen mäter inga nyckelord."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Kvantifiering",
+      "efter": "h3 Utbildning",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: poängmodellens namn; siffror per roll räknas under Erfarenhet."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Profil och styrkor",
+      "efter": "h3 Språk",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-1: poängmodellens namn; profilen heter Personbeskrivning."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Vi analyserar i bakgrunden",
+      "efter": "h3 Vi går igenom sju delar",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-4 (SEO:s lydelse). Samma rad är HowTo-steg 2."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Få ATS-poäng och förslag",
+      "efter": "h3 Se läsbarhetspoängen och vad som saknas",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-3 (SEO:s lydelse): poängen heter läsbarhetspoäng. Samma rad är HowTo-steg 3."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h3 Spara den förbättrade versionen",
+      "efter": "h3 Hämta Jobbcoachens förslag",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-9 (SEO:s lydelse). Samma rad är HowTo-steg 4."
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "h2 Hela analysen, varje fynd med åtgärd.",
+      "efter": "h2 Alla förslag, och nya när du har ändrat.",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-5 (SEO:s lydelse): genomgången är gratis, förslagen är Premium."
+    },
+    {
+      "path": "/funktioner",
+      "fore": "h3 Bygg CV:t steg för steg",
+      "efter": "h3 Skriv CV:t direkt på arket",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), FUN-7 (SEO:s lydelse): CV-byggaren skrivs direkt på arket sedan 2026-11-16."
+    },
+    {
+      "path": "/funktioner",
+      "fore": "h3 Ladda ner som PDF",
+      "efter": "h3 Ladda ner som PDF eller Word",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), FUN-8 (SEO:s lydelse): Word finns i 26 av mallarna."
     }
   ],
   "LD_UNDANTAG": [
@@ -14,43 +105,332 @@
       "path": "/verktyg/jobbmatchning",
       "datum": "2026-11-22",
       "skal": "Textbeslut JM-1, JM-2, JM-4, JM-8 och B5: HowTo-beskrivningen och steg 1 utan aktivering, steg 3 \"Vi hämtar annonserna ur Arbetsförmedlingens öppna API\", featureList \"nya annonser tre gånger per dygn\", FAQ-svaren utan aktivering och \"de 25 bästa träffarna\". Frågorna oförändrade.",
-      "andrade": ["WebApplication", "HowTo", "FAQPage"]
+      "andrade": [
+        "WebApplication",
+        "HowTo",
+        "FAQPage"
+      ]
     },
     {
       "path": "/verktyg/jobbcoachen",
       "datum": "2026-11-22",
       "skal": "Textbeslut JC-2 och B5: featureList får frågeförslag utifrån sökta tjänster, HowTo-steg 1 och två FAQ-svar säger att Jobbcoachen föreslår frågor utifrån läget, svaret om gratisnivån säger CV-analysens läsbarhetspoäng. Frågorna oförändrade.",
-      "andrade": ["WebApplication", "HowTo", "FAQPage"]
+      "andrade": [
+        "WebApplication",
+        "HowTo",
+        "FAQPage"
+      ]
     },
     {
       "path": "/funktioner",
       "datum": "2026-11-22",
       "skal": "Textbeslut FUN-1: svaret på \"Hur ofta uppdateras jobbmatchningen?\" sa att matchningen körs när du öppnar sidan. Frågan oförändrad.",
-      "andrade": ["FAQPage"]
+      "andrade": [
+        "FAQPage"
+      ]
     },
     {
       "path": "/verktyg/bli-upptackt",
       "datum": "2026-11-22",
       "skal": "Textbeslut BU-1 (B-27): svaret om lön räknar upp samma saker som kortet, med två styrkor. Frågan oförändrad.",
-      "andrade": ["FAQPage"]
+      "andrade": [
+        "FAQPage"
+      ]
     },
     {
       "path": "/artiklar/jobbcoach-online",
       "datum": "2026-11-22",
       "skal": "Textbeslut ART-3: annonserna hämtas tre gånger per dygn, matchningen görs inte när sidan öppnas. BlogPostings wordCount och dateModified.",
-      "andrade": ["BlogPosting"]
+      "andrade": [
+        "BlogPosting"
+      ]
     },
     {
       "path": "/artiklar/vad-ar-en-jobbcoach",
       "datum": "2026-11-22",
       "skal": "Textbeslut ART-8: annonserna hämtas tre gånger om dygnet, matchningen görs inte när sidan öppnas. BlogPostings wordCount och dateModified.",
-      "andrade": ["BlogPosting"]
+      "andrade": [
+        "BlogPosting"
+      ]
     },
     {
       "path": "/artiklar/ai-jobbmatchning",
       "datum": "2026-11-22",
       "skal": "Textbeslut ART-10 till ART-12 (B-22): steg 1 \"Ditt CV läses in\" i stället för aktiveringen, också i FAQ-svaret (frontmatter och synligt), annonserna tre gånger per dygn, triageringen på träffen. Stegen fyra, frågan och länktexten med \"jobbmatchningen\" står.",
-      "andrade": ["BlogPosting", "FAQPage"]
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), B1, CVA-2 till CVA-10: WebApplication (description, offer, featureList), HowTo (description, stegen 1 till 4, totalTime struken enligt B-20) och FAQPage (svaren, tre frågor bytta enligt FAQ_BYTT och frågan om inskannad PDF ny). Frågan om tid står.",
+      "andrade": [
+        "WebApplication",
+        "HowTo",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), GEM-1 till GEM-3: svaret på frågan om gratisnivån säger CV-analysens läsbarhetspoäng och genomgång i sju delar och Sökta tjänster. Frågan oförändrad.",
+      "andrade": [
+        "Organization+WebSite+FAQPage"
+      ]
+    },
+    {
+      "path": "/priser",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), GEM-6 och PRI-8: Product-schemats description är förklaringsraden \"Tester, CV, personliga brev, Jobbsöket och Jobbcoachen\", och svaret på \"Vad ingår i Jobbcoach Premium?\" räknar upp förslagen, uppföljningsmejlen och rapporten. Frågorna oförändrade.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/funktioner",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), FUN-2: svaret på \"Hur kommer jag igång gratis?\" sa \"en CV-analys med poäng och det tyngsta fyndet\". Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/linkedin-optimering",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), GEM-5: \"hela CV-analysen\" blir \"CV-analysens alla förslag\" i kostnadssvaret. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/personligt-brev",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), BRV-1: svaret om gratis brev säger att de två senaste går att ändra. Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), SCV-1 och SCV-2: fliken heter Ditt CV, och gratisnedladdningen kan vara PDF eller Word. Frågorna oförändrade.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-exempel",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), EX-1: \"då ingår en CV-analys\" blir \"CV-analysens läsbarhetspoäng för varje CV du sparar\". Frågan oförändrad.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/jobbcoach-online",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-1, ART-2, ART-4 till ART-6: CV-analysen i sju delar med läsbarhetspoäng, tabellen med de sju delarna, gratis för varje CV, Premiumlistan med uppföljningsmejlen. FAQ-svaren om AI och om utlandet ändrade, frågorna står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/vad-ar-en-jobbcoach",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-7 och ART-9: läsbarhetspoängen och genomgången i sju delar, Sökta tjänster i gratis- och Premiumlistan. Tre FAQ-svar ändrade, frågorna står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/din-digitala-jobbcoach",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-13: läsbarhetspoängen, Jobbcoachens frågeförslag och Sökta tjänster.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/skriva-cv-guide",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14 och ART-15: \"ATS-poäng på 0-100\" blir \"läsbarhetspoäng av 100\" i FAQ-svaret (frontmatter och synligt). Frågan står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/cv-och-personligt-brev",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14 och ART-16: analysen mäter inga nyckelord; meningen står i FAQ-svaret (frontmatter och synligt). Frågan står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-gratis",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-19: brevet läser, kopierar och ändrar du gratis, nedladdning som PDF eller Word. FAQ-svaret ändrat i frontmatter och synligt, frågan står.",
+      "andrade": [
+        "BlogPosting",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/artiklar/ats-vanligt-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/cv-exempel-yrken",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/cv-profil-sammanfattning",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/datorkunskaper-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/fardigheter-cv-exempel",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/fardigheter-kompetenser-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/hur-skriver-man-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/nyckelord-i-cv",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/personligt-brev-kompetenser-egenskaper",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/vanliga-cv-misstag",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14: meningen om vår CV-analys säger vad analysen gör, inga nyckelord eller branschord. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/bra-cv-guide",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14 och ART-16: läsbarhetspoängen och vad som saknas i sju delar, gratis för varje CV, Jobbcoachens förslag i Premium. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/hur-ska-ett-cv-se-ut",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14 och ART-16: läsbarhetspoängen och vad som saknas i sju delar, gratis för varje CV, Jobbcoachens förslag i Premium. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/cv-pa-engelska-resume",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), ART-14 och ART-16: läsbarhetspoängen och vad som saknas i sju delar, gratis för varje CV, Jobbcoachens förslag i Premium. BlogPostings wordCount och dateModified.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    }
+  ],
+  "H1_BYTT": [
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "Få konkret feedback på ditt CV på 60 sekunder",
+      "efter": "CV-analys med läsbarhetspoäng: se var ditt CV tappar, del för del",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), B1 (SEO:s lydelse): H1 bär sidans sökord och poängens namn. Tiden i den gamla rubriken gällde bara poängen, inte förbättringen."
+    }
+  ],
+  "META_BYTT": [
+    {
+      "path": "/verktyg/cv-analys",
+      "falt": "description",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-5: \"En analys gratis per konto\" stämmer inte; poängen är gratis för varje CV. 152 tecken."
+    },
+    {
+      "path": "/priser",
+      "falt": "description",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), PRI-9: sökta tjänster tillagt, testerna först. 152 tecken, \"personliga brev\" och \"149 kr i månaden\" står kvar."
+    }
+  ],
+  "FAQ_BYTT": [
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "Vad betyder ATS-poängen?",
+      "efter": "Vad betyder läsbarhetspoängen?",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-3: poängen heter läsbarhetspoäng; \"ATS\" står kvar i svaret"
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "Hur många analyser får jag göra gratis?",
+      "efter": "Vad är gratis i CV-analysen?",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-5 och B-17 (SEO:s fråga)"
+    },
+    {
+      "path": "/verktyg/cv-analys",
+      "fore": "Kan jag köra analysen igen när jag ändrat i CV:t?",
+      "efter": "Räknas poängen om när jag ändrar i CV:t?",
+      "datum": "2026-11-22",
+      "skal": "Textbeslut publikt omgång 3 (docs/publikt-omgang3/textbeslut.md), CVA-6 och B-17 (SEO:s fråga): poängen räknas om när CV:t sparas, ingen omkörning"
     }
   ]
 }

@@ -36,7 +36,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
-    a: `Ja. Du bygger ditt CV och laddar ner det som PDF en gång utan att lämna kortuppgifter. ${GRATIS_ORD.charAt(0).toUpperCase() + GRATIS_ORD.slice(1)} av mallarna, ${GRATIS_NAMN}, är gratis, och de räcker långt för de flesta ansökningar. Vill du ha alla ${TEMPLATE_COUNT} mallar, ladda ner utan tak och hämta Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Ja. Du bygger ditt CV och laddar ner det en gång, som PDF eller som Word, utan att lämna kortuppgifter. ${GRATIS_ORD.charAt(0).toUpperCase() + GRATIS_ORD.slice(1)} av mallarna, ${GRATIS_NAMN}, är gratis, och de räcker långt för de flesta ansökningar. Vill du ha alla ${TEMPLATE_COUNT} mallar, ladda ner utan tak och hämta Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',
@@ -54,7 +54,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
     q: 'Hur sparas mitt CV medan jag bygger det?',
     // Lagringsundantaget (ägarens besked 2026-11-17): hur nya byggaren sparar,
     // kontrollerat i ByggareClient.tsx (sparaServer). Inget om var data lagras.
-    a: 'CV:t sparas i ditt konto när du har sparat första avsnittet, och därefter efter varje avsnitt du fyller i. Du kan stänga sidan när du vill och fortsätta där du slutade från Mina CV, på vilken enhet som helst.',
+    a: 'CV:t sparas i ditt konto när du har sparat första avsnittet, och därefter efter varje avsnitt du fyller i. Du kan stänga sidan när du vill och fortsätta där du slutade under Ditt CV, på vilken enhet som helst.',
   },
   {
     q: 'Vilka format kan jag ladda ner CV:t i?',

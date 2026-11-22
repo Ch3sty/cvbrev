@@ -1,30 +1,48 @@
 /**
- * CV-analysens resultat: poängringen 74 (räknar upp i CSS, talet står i
- * HTML från start), antal förslag per del och det tyngsta fyndet. Delarna
- * är desamma som i analysens resultat: personbeskrivning, roller,
- * kompetenser och allmänna råd. Mätaren visar andelen av alla
- * förslag som ligger i delen.
+ * CV-analysens genomgång: läsbarhetspoängen, vägen till 100 och delarna med
+ * poäng kvar. Delarnas namn och maxpoäng läses ur poängmodellen. Exemplet
+ * (Sara Lindström, textbeslut TEL-1): Erfarenhet tappar på punkter som inte
+ * börjar med vad hon gjorde, det som Jobbcoachens förslag skriver om, och
+ * Språk på en saknad nivå, som bara hon själv kan fylla i. Telefonen visar
+ * de två delarna med poäng kvar och raden om de fem som är klara.
  */
 
 import type { CSSProperties } from 'react'
+import { KATEGORIER } from '@/lib/cv/poang/modell'
 import Telefon from '../Telefon'
-import { SkarmFot, SkarmGolv, SkarmMatare, SkarmVagg } from '../delar'
+import { SkarmFot, SkarmGolv, SkarmVagg } from '../delar'
 
-const POANG = 74
+/** Exemplets poäng per del. */
+const EXEMPEL: Record<(typeof KATEGORIER)[number]['id'], { poang: number; rad?: string }> = {
+  kontakt: { poang: 10 },
+  profil: { poang: 15 },
+  erfarenhet: { poang: 30, rad: 'Punkterna börjar med vad du gjorde' },
+  kompetenser: { poang: 12 },
+  utbildning: { poang: 8 },
+  sprak: { poang: 3, rad: 'Nivå på varje språk' },
+  format: { poang: 15 },
+}
 
-const DELAR = [
-  { namn: 'Personbeskrivning', antal: 1 },
-  { namn: 'Roller', antal: 3 },
-  { namn: 'Kompetenser', antal: 2 },
-  { namn: 'Allmänna råd', antal: 4 },
+const DELAR = KATEGORIER.map((k) => ({ ...k, ...EXEMPEL[k.id] }))
+const POANG = DELAR.reduce((s, d) => s + d.poang, 0)
+const KVAR = DELAR.filter((d) => d.poang < d.max)
+const KLARA = DELAR.length - KVAR.length
+/** Vägen till 100: det Jobbcoachens förslag tar och det bara du kan fylla i. */
+const VAGEN = [
+  { namn: 'I dag', tal: String(POANG) },
+  { namn: 'Våra förslag', tal: '+5' },
+  { namn: 'Du själv', tal: '+2' },
 ]
-const ANTAL_FORSLAG = DELAR.reduce((summa, d) => summa + d.antal, 0)
+
+const ORD = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju']
+const ord = (n: number) => ORD[n] ?? String(n)
+const Ord = (n: number) => ord(n).charAt(0).toUpperCase() + ord(n).slice(1)
 
 export default function SkarmCvAnalys({ glid, className }: { glid?: boolean; className?: string }) {
   const ringStil = { '--mal-p': POANG / 100, '--mal-n': POANG } as CSSProperties
   return (
     <Telefon rum="cv" glid={glid} className={className}>
-      <SkarmVagg kick="CV-analysen">
+      <SkarmVagg kick="Läsbarhetspoäng">
         <div className="s-rad" style={{ marginTop: 8, alignItems: 'center' }}>
           <div className="s-ring" style={ringStil}>
             <svg viewBox="0 0 96 96" focusable="false">
@@ -33,42 +51,54 @@ export default function SkarmCvAnalys({ glid, className }: { glid?: boolean; cla
             </svg>
             <div className="s-siffra">
               <span className="s-tal">{POANG}</span>
-              <small>AV 100</small>
+              <small>av 100 i dag</small>
             </div>
           </div>
           <div style={{ flex: 1, minWidth: 0, paddingLeft: 12 }}>
             <div className="s-rub" style={{ fontSize: 17 }}>
-              Läsbart för systemen
+              {100 - POANG} poäng kvar till 100
             </div>
-            <div className="s-sub">{ANTAL_FORSLAG} förslag, 86 med dem. Det tyngsta står först.</div>
+            <div className="s-sub">De sitter i {ord(KVAR.length)} delar.</div>
           </div>
         </div>
       </SkarmVagg>
       <SkarmGolv>
         <div className="s-kort">
-          <div className="s-kick2">Förslag per del</div>
-          {DELAR.map((d, i) => (
-            <SkarmMatare
-              key={d.namn}
-              etikett={d.namn}
-              varde={<b>{d.antal}</b>}
-              andel={d.antal / ANTAL_FORSLAG}
-              forsta={i === 0}
-            />
+          <div className="s-kick2">Vägen till 100</div>
+          {VAGEN.map((v) => (
+            <div className="s-rad" key={v.namn} style={{ marginTop: 4 }}>
+              <span>{v.namn}</span>
+              <b>{v.tal}</b>
+            </div>
           ))}
         </div>
         <div className="s-kort">
-          <div className="s-kick2">Tyngsta fyndet</div>
-          <b style={{ fontSize: 13 }}>Resultaten saknar siffror</b>
-          <p className="s-dim" style={{ marginTop: 3 }}>
-            Tre av fyra roller beskriver ansvar, inte utfall. Lägg till en siffra per roll: budget, antal, procent.
+          <div className="s-kick2">Genomgången, del för del</div>
+          <b style={{ fontSize: 13 }}>
+            {Ord(DELAR.length)} delar. {Ord(KVAR.length)} har poäng kvar.
+          </b>
+          {KVAR.map((d) => (
+            <div key={d.id} style={{ marginTop: 6 }}>
+              <div className="s-rad">
+                <span>{d.namn}</span>
+                <span className="s-dim" style={{ whiteSpace: 'nowrap' }}>
+                  {d.poang} av {d.max} <span className="s-pill">Delvis</span>
+                </span>
+              </div>
+              {d.rad ? <p className="s-dim">{d.rad}</p> : null}
+            </div>
+          ))}
+          <p className="s-dim" style={{ marginTop: 6 }}>
+            {Ord(KLARA)} delar är klara
           </p>
-          <span className="s-pill" style={{ display: 'inline-block', marginTop: 8 }}>
-            Åtgärd: 4 minuter
-          </span>
         </div>
       </SkarmGolv>
-      <SkarmFot knapp="Rätta och kör om" />
+      <SkarmFot>
+        <div className="s-knapp">Hämta Jobbcoachens förslag</div>
+        <p className="s-dim" style={{ textAlign: 'center', marginTop: 4 }}>
+          En gång ingår gratis.
+        </p>
+      </SkarmFot>
     </Telefon>
   )
 }

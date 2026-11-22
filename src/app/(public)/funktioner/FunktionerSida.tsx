@@ -16,8 +16,8 @@
 import Link from 'next/link'
 import { FUNKTIONER } from '@/components/pricing/paket-copy'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
+import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, WORD_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { GRATIS_CHATTFRAGOR, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { SLUGGAR as RAKNA_UT_SLUGGAR } from '@/lib/rakna/delning'
 import Rum from '@/components/publikt/Rum'
@@ -56,16 +56,17 @@ const ANKARE = [
   { text: 'CV-analys', href: '#cv-analys' },
   { text: 'Skapa CV och mallar', href: '#cv-skapa-mallar' },
   { text: 'Jobbmatchning', href: '#jobbmatchning' },
+  { text: 'Sökta tjänster', href: '#sokta-tjanster' },
   { text: 'Jobbcoachen', href: '#jobbcoachen' },
   { text: 'LinkedIn-profilen', href: '#linkedin' },
 ] as const
 
 const ALLA: LankRad[] = [
-  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Matrislogik, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd i tre nivåer, övningsprov mot klockan och inför I-provet.', objekt: 'matris', rum: 'tran' },
+  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Matrislogik, figurserier, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd i tre nivåer, övningsprov mot klockan och inför I-provet.', objekt: 'matris', rum: 'tran' },
   { href: '/verktyg/personlighetstest', rubrik: 'Personlighetstest', text: 'Big Five-profilen rekryteraren jämför med, och frågorna du lär få.', objekt: 'person', rum: 'tran' },
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.', objekt: 'brev', rum: 'brev' },
-  { href: '/verktyg/cv-analys', rubrik: 'CV-analys', text: 'Poäng per område och varje fynd med åtgärd.', objekt: 'cv', rum: 'cv' },
-  { href: '/verktyg/skapa-cv', rubrik: 'Skapa CV', text: 'Steg för steg, med exempel för varje del.', objekt: 'mallar', rum: 'cv' },
+  { href: '/verktyg/cv-analys', rubrik: 'CV-analys', text: 'Läsbarhetspoäng i sju delar, och vad som saknas i varje del.', objekt: 'cv', rum: 'cv' },
+  { href: '/verktyg/skapa-cv', rubrik: 'Skapa CV', text: 'Skriv direkt på arket, med exempeltext i varje avsnitt.', objekt: 'mallar', rum: 'cv' },
   { href: '/cv-mallar', rubrik: 'CV-mallar', text: `${TEMPLATE_COUNT} mallar som rekryteringssystemen läser, ${FREE_TEMPLATE_COUNT} gratis.`, objekt: 'mallar', rum: 'cv' },
   { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
   { href: '/verktyg/jobbmatchning', rubrik: 'Jobbmatchning', text: 'Din kompetens mot alla annonser i Platsbanken, med skälen.', objekt: 'match', rum: 'jobb' },
@@ -93,7 +94,7 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, en CV-analys med poäng och det tyngsta fyndet, första personliga brevet och sedan ett var sjunde dag, och i testerna ${GRUNDNIVAN_ALLA_DAG}. Vill du ha mer ingår allt i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Skapa konto, så är gratisnivån igång direkt: i testerna ${GRUNDNIVAN_ALLA_DAG}, ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, CV-analysens läsbarhetspoäng och genomgång i sju delar för varje CV, första personliga brevet och sedan ett var sjunde dag, ${talOrd(FREE_TIER_JOB_LIMIT)} matchade jobb och Sökta tjänster med det första uppföljningsmejlet. Vill du ha mer ingår allt i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}.`,
   },
 ] as const
 
@@ -115,7 +116,7 @@ export default function FunktionerSida() {
               <h1 className="pub-h1">Allt du behöver för att landa nästa jobb</h1>
               <p className="pub-ingress" style={{ marginTop: 22 }}>
                 Rekryteringstester, personliga brev, CV, jobbmatchning, jobbcoach och en LinkedIn-profil som hittas.{' '}
-                <b>Byggt för svensk arbetsmarknad, granskat av rekryterare.</b>
+                <b>Byggt för svensk arbetsmarknad och för hur en rekryterare läser.</b>
               </p>
               <div className="pub-handling">
                 <Link className="pub-knapp" href="/register" data-primar="">
@@ -172,7 +173,7 @@ export default function FunktionerSida() {
           kick="Personligt brev"
           rubrik={brev.rubrik}
           rubrikNiva="h2"
-          gratisRad={`Ingår i ${PREMIUM}. Gratis: första brevet, sedan ett i veckan, att läsa och kopiera. Nedladdning ingår inte.`}
+          gratisRad={`Ingår i ${PREMIUM}. Gratis: första brevet, sedan ett i veckan, att läsa och kopiera. De två senaste går att ändra. Nedladdning ingår inte.`}
           text={brev.text}
           steg={brev.steg?.map((s) => ({ text: s }))}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/personligt-brev' }}
@@ -206,10 +207,10 @@ export default function FunktionerSida() {
                 <Steg
                   kolumner={2}
                   rader={[
-                    { rubrik: 'Bygg CV:t steg för steg', text: 'Personuppgifter, profil, erfarenhet, utbildning, kompetenser och språk, med exempel för varje del.' },
+                    { rubrik: 'Skriv CV:t direkt på arket', text: 'Kontaktuppgifter, personbeskrivning, erfarenhet, utbildning, kompetenser och språk. Tryck på ett avsnitt och fyll i, med exempeltext för varje del.' },
                     { rubrik: `${TEMPLATE_COUNT} mallar, ${FREE_TEMPLATE_COUNT} gratis`, text: 'Ren struktur som rekryteringssystemen tolkar rätt. Byt mall med ett klick, innehållet följer med.' },
                     { rubrik: 'Foto och LinkedIn där mallen stöder det', text: 'Välj själv om bilden och profillänken ska med. Standard i Sverige är utan bild.' },
-                    { rubrik: 'Ladda ner som PDF', text: `Utan tak i ${PREMIUM}, ${talOrd(FREE_CV_EXPORTS)} nedladdning på gratisnivån.` },
+                    { rubrik: 'Ladda ner som PDF eller Word', text: `Word finns i ${WORD_TEMPLATE_COUNT} av mallarna, gratismallarna inräknade. Utan tak i ${PREMIUM}, ${talOrd(FREE_CV_EXPORTS)} nedladdning på gratisnivån.` },
                   ]}
                 />
               </div>
@@ -267,12 +268,13 @@ export default function FunktionerSida() {
           <div className="pub-wrap">
             <div style={{ maxWidth: 760 }}>
               <p className="pub-kick">
-                Bara i Jobbcoach <PremiumOrd />, {prisPeriod(SALD_PLAN)}
+                Mer i Jobbcoach <PremiumOrd />, {prisPeriod(SALD_PLAN)}
               </p>
               <h2 className="pub-h2">Jobben hittar dig, och du går förberedd in i intervjun.</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
-                Jobbmatchning, Jobbcoachen så mycket du vill och intervjuprovet utan dagsgräns, plus alla rekryteringstester,
-                alla CV-mallar, CV-analysen och personliga brev.
+                {storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar, {talOrd(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och ett intervjuprov om dagen är
+                gratis. {PREMIUM} ger de {JOB_MATCHES_PER_RUN} bästa träffarna, Jobbcoachen så mycket du vill och intervjuprovet utan
+                dagsgräns, plus alla rekryteringstester, alla CV-mallar, CV-analysens alla förslag och personliga brev utan tak.
               </p>
             </div>
             <div className="pub-duo-premium">
@@ -365,8 +367,11 @@ export default function FunktionerSida() {
               <div style={{ flex: '1 1 280px' }}>
                 <b className="pub-h4">Sökta tjänster</b>
                 <p className="pub-brod" style={{ marginTop: 4 }}>
-                  Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Gratis för alla med konto, och ett
-                  personligt brev från en träff hamnar där av sig självt.
+                  Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Spara annonsen du ska söka under Ska
+                  sökas, sätt veckans mål och låt oss skriva utkastet till uppföljningsmejlet när det har varit tyst i tolv dagar.
+                  Gratis för alla med konto, med det första uppföljningsmejlet. Fler utkast och rapporten till
+                  Arbetsförmedlingen att skriva ut ingår i {PREMIUM}. Ett personligt brev hamnar här när du trycker Markera som
+                  sökt.
                 </p>
               </div>
               <Link className="pub-lank" href="/register">

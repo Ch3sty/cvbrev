@@ -34,7 +34,7 @@ export const CV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är CV-exemplen gratis att använda?',
-    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg registrerar du dig gratis, och då ingår en CV-analys.',
+    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg registrerar du dig gratis, och då ingår CV-analysens läsbarhetspoäng för varje CV du sparar.',
   },
   // Situationerna (SEO-förslaget K6, 2026-11-14).
   {

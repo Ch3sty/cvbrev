@@ -38,6 +38,7 @@ import { GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/grati
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
+import { KOM_IGANG_LISTA } from '@/lib/onboarding/komigang'
 
 /** "Jobbcoach Premium", ur PLANS. */
 const HELA_NAMN = paketNamn(SALD_PLAN)
@@ -190,15 +191,15 @@ export const FUNKTIONER = {
     {
       id: 'cv-analys',
       scen: 'cv',
-      scenAlt: 'CV-analysens rapport',
+      scenAlt: 'CV-analysens genomgång',
       rubrik: 'CV-analysen',
-      sub: ingarGratis('poängen och det tyngsta fyndet.'),
-      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du en läsbarhetspoäng från 0 till 100, vad den kan bli när du följt förslagen, och förslagen i fyra delar: personbeskrivning, roller, kompetenser och allmänna råd om struktur, formatering, innehåll och nyckelord. Varje fynd har en åtgärd.',
+      sub: ingarGratis('läsbarhetspoängen och genomgången i sju delar, för varje CV.'),
+      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar var ditt tappar, och vad du ändrar. Ladda upp som PDF eller Word, så går vi igenom CV:t i sju delar och räknar en läsbarhetspoäng av 100: kontaktuppgifter, personbeskrivning, erfarenhet, kompetenser, utbildning, språk och till sist datum, ordning och längd. Du ser var varje tappad poäng sitter. Jobbcoachen skriver förslag på nya formuleringar, och poängen räknas om när du sparar.',
       steg: [
         'Ladda upp, vi läser som en rekryterare gör på sex sekunder.',
-        'Poängen i dag, poängen med förslagen och de fynd som drar ned mest.',
-        'Nyckelorden rekryteringssystem (ATS) letar efter i din bransch.',
-        'Rätta, kör om, se poängen röra sig.',
+        'En läsbarhetspoäng av 100: hur lätt CV:t är att läsa för rekryteraren och för rekryteringssystemen (ATS).',
+        'Vad som saknas i var och en av de sju delarna, och Jobbcoachens förslag på nya formuleringar.',
+        'Rätta och spara, så räknas poängen om.',
       ],
       ingar: ['allt'],
     },
@@ -207,13 +208,13 @@ export const FUNKTIONER = {
       scen: 'brev',
       scenAlt: 'Annonsen blir ditt personliga brev',
       rubrik: 'Personliga brev',
-      sub: ingarGratis('ett personligt brev att läsa, nedladdning ingår inte.'),
-      text: 'Ett personligt brev som faktiskt svarar på annonsen är det som skiljer din ansökan från de tjugo som skickade samma mall. Klistra in annonsen, så skriver vi brevet utifrån ditt CV och det annonsen frågar efter, i den ton du väljer. Redigera, ladda ner som PDF, skicka.',
+      sub: ingarGratis('första personliga brevet, sedan ett var sjunde dag. De två senaste går att ändra, nedladdning ingår inte.'),
+      text: 'Ett personligt brev som faktiskt svarar på annonsen är det som skiljer din ansökan från de tjugo som skickade samma mall. Klistra in annonsen, så skriver vi brevet utifrån ditt CV och det annonsen frågar efter, i den ton du väljer. Redigera, ladda ner som PDF eller Word, skicka.',
       steg: [
         'Klistra in annonsen, eller välj ett matchat jobb.',
         `Välj ton, från professionell till kreativ. I ${PREMIUM} väljer vi åt dig efter annonsen.`,
         'Det personliga brevet svarar på annonsens krav med exempel ur ditt CV.',
-        'Redigera, ladda ner som PDF, skicka.',
+        'Redigera, ladda ner som PDF eller Word, skicka.',
       ],
       ingar: ['allt'],
     },
@@ -266,19 +267,22 @@ export const GUIDE = {
     'Du gör vad du vill, när du vill. Hjälpredan Kom igång är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion och inte missar det som ger mest. Gör du hela listan första kvällen är det lika bra. Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp innan nästa dragning om du är klar.',
   listor: {
     allt: {
-      etikett: `${11} steg`,
+      // Betalandes Kom igång-lista i produktens ordning (textbeslut GEM-13).
+      // Antalet läses ur listan; paket-copy.test.ts vaktar att raderna följer.
+      etikett: `${KOM_IGANG_LISTA.allt.length} steg`,
       steg: [
         'Profilen ifylld',
-        'CV uppladdat och analyserat',
-        'CV:t uppdaterat efter fynden',
+        'CV uppladdat',
+        'CV-analysen: läsbarhetspoängen och Jobbcoachens förslag',
+        'CV:t uppdaterat efter genomgången',
         'Första jobbmatchningen: jobb du inte hittat själv',
+        'Mall vald och nedladdad',
+        'Personligt brev på en annons',
+        'LinkedIn-profilen omskriven',
         'Bli upptäckt: profilen synlig för rekryterare',
         'Jobbcoachen: intervjun och lönen förberedd',
-        'Mall vald och nedladdad',
-        'Personligt brev från en träff',
-        'LinkedIn-profilen omskriven',
-        'Testerna: grund, avancerad, expert',
-        'Övningsprov mot klockan och personlighetstestet',
+        'Rekryteringstesterna: din nivå i matrislogik',
+        'Intervjuprovet: ett svar med återkoppling',
       ],
     },
   } satisfies Record<PaketId, { etikett: string; steg: readonly string[] }>,
@@ -628,7 +632,7 @@ export function forslagSkal(input: {
   }
 
   if (track === 'cv') {
-    return `Du sa att du vill jobba med ditt CV. ${PREMIUM} ger alla mallar, hela analysen och de personliga breven.`
+    return `Du sa att du vill jobba med ditt CV. ${PREMIUM} ger alla mallar, alla förslag i analysen och de personliga breven.`
   }
 
   if (track === 'tester') {
