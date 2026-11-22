@@ -487,3 +487,37 @@ describe('testens placering visas bara över mitten', () => {
     expect(kort.testBadges[0].label).toBe('Verbalt · Grundnivå · topp 50 %');
   });
 });
+
+describe('personlighetsdelen följer kandidatens eget kryss', () => {
+  function medPersonlighet(visa: boolean) {
+    byggDb('accepted');
+    db.tables.candidate_profiles[0].show_personality = visa;
+    db.tables.user_personality_profile = [
+      {
+        user_id: KAND,
+        openness: 58,
+        conscientiousness: 81,
+        extraversion: 47,
+        agreeableness: 72,
+        neuroticism: 35,
+        facet_scores: null,
+        updated_at: '2026-11-20T10:00:00.000Z',
+      },
+    ];
+  }
+
+  it('tom ruta: inget om personligheten når rekryteraren, inte ens efter ja', async () => {
+    medPersonlighet(false);
+    const svar = (await poolen()) + (await json(await detaljen(PUBLIK))) + (await delningen());
+    utan(svar, ['Strukturerad', 'Samarbetsvillig']);
+    const { candidate } = JSON.parse(await json(await detaljen(PUBLIK)));
+    expect(candidate).toMatchObject({ personalityStrengths: [], workStyle: null, workStyleReport: null, personalityTestedAt: null });
+  });
+
+  it('kryssad ruta: styrkorna i ord, aldrig råvärden', async () => {
+    medPersonlighet(true);
+    const svar = (await poolen()) + (await json(await detaljen(PUBLIK)));
+    med(svar, ['Strukturerad', 'Samarbetsvillig']);
+    expect(svar).not.toMatch(/conscientiousness|neuroticism|"81"|:81\b/);
+  });
+});

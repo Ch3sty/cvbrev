@@ -32,7 +32,9 @@ export default function ConsentModal({
   onCancel,
 }: ConsentModalProps) {
   const [mainConsent, setMainConsent] = useState(false);
-  const [personalityConsent, setPersonalityConsent] = useState(true);
+  // Tomt från början: kandidaten kryssar själv (ägarbeslut 2026-11-22).
+  // Texten i raden är ägarens och ändras inte här.
+  const [personalityConsent, setPersonalityConsent] = useState(false);
   const [fullWorkstyleConsent, setFullWorkstyleConsent] = useState(false);
 
   const togglePersonality = () => {
