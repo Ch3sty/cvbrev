@@ -119,3 +119,15 @@ Avtrycket skrevs först till `C:\c\Users\...` (samma fälla som i `logg-p5b.md`:
 ## Ny text utan godkännande
 
 Ingen. Brickan på `/verktyg/jobbcoachen` har samma ord i samma ordning, delade på talet och raden under.
+
+## Commits
+
+| Hash | Vad |
+|---|---|
+| `ac0eb58a` | Bara borttagningen av `coach-href.ts`. `git add` föll på den redan borttagna filen, så resten av ändringen kom inte med. Grenen bygger inte vid just den här commiten |
+| `8ee8cb49` | Jobbkartan: färgskalan, länsraderna, knapptexten, staplarna |
+| `d6b98585` | Tryckytor: CV-arkets verktygsrad, Ladda upp, brödsmulor, artikelns skal |
+| `6d1f1fe6` | Resten av `ac0eb58a`: frågan till Jobbcoachen i webbläsarens lagring |
+| `b443104c` | Det byggda mot skisserna: grunden och sexton sidor |
+| `83e230b2` | Skapa konto och Logga in i indigo, ingen kopparlinje |
+| `114c110b` | Den här loggen |
