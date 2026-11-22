@@ -177,6 +177,27 @@ export default function ProfileSections({
 
 // ---------------------------------------------------------------------------
 
+/**
+ * Raden under namnet. Före ja (anonym profil) är rubriken yrkesrollen och
+ * raden säger "Anonym profil". När namnet syns (efter kandidatens ja eller i
+ * Öppen profil) står yrkesrollen under namnet, utan "Anonym profil" (QA live
+ * 2026-11-22, punkt 4).
+ */
+export function profilRad(
+  candidate: Pick<CandidateDetail, 'fullName' | 'role' | 'regions' | 'visibility'>,
+  activeSince: string | null
+): string {
+  const namnSyns = Boolean(candidate.fullName);
+  return [
+    namnSyns ? candidate.role ?? 'Kandidat' : null,
+    candidate.regions[0] ?? null,
+    namnSyns ? null : candidate.visibility === 'open' ? 'Öppen profil' : 'Anonym profil',
+    activeSince ? `aktiv i poolen sedan ${activeSince}` : null,
+  ]
+    .filter(Boolean)
+    .join(' · ');
+}
+
 function Hero({
   candidate,
   interestStatus,
@@ -188,7 +209,6 @@ function Hero({
 }) {
   const roleLabel = candidate.role ?? 'Kandidat';
   const displayName = candidate.fullName ?? roleLabel;
-  const region = candidate.regions[0] ?? null;
   const seniority = seniorityFacts(candidate);
   const activeSince = formatShortDate(candidate.activeSince);
 
@@ -217,16 +237,7 @@ function Hero({
           <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 leading-tight truncate">
             {displayName}
           </h1>
-          <p className="text-[13px] text-slate-500 truncate">
-            {[
-              candidate.fullName ? roleLabel : null,
-              region,
-              candidate.visibility === 'open' ? 'Öppen profil' : 'Anonym profil',
-              activeSince ? `aktiv i poolen sedan ${activeSince}` : null,
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-          </p>
+          <p className="text-[13px] text-slate-500 truncate">{profilRad(candidate, activeSince)}</p>
         </div>
       </div>
 
