@@ -1,0 +1,53 @@
+{
+  "_om": "Länkar in till de två nya artiklarna aktivitetsrapport-arbetsformedlingen och cv-och-personligt-brev-samma-mall (docs/artiklar-2026-11/seo-slutgranskning.md, punkt A och B.3): en mening i löptexten per artikel, exakt mening och ankartext enligt listan. /verktyg/sokta-tjanster får en ny länk och fler ord, vilket inte fäller grinden. Läses av scripts/seo-diff-artiklar.ts.",
+  "LD_UNDANTAG": [
+    {
+      "path": "/artiklar/soka-jobb-via-mail",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/saga-upp-sig",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/cv-och-personligt-brev",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/skillnad-cv-personligt-brev",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/personligt-brev-mall-gratis",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    },
+    {
+      "path": "/artiklar/personligt-brev-layout",
+      "datum": "2026-11-22",
+      "skal": "Ny länk i löptexten till aktivitetsrapport-arbetsformedlingen eller cv-och-personligt-brev-samma-mall (SEO-slutgranskningen 2026-11-22); wordCount ändras. Rubriker, FAQ och taggar orörda.",
+      "andrade": [
+        "BlogPosting"
+      ]
+    }
+  ]
+}

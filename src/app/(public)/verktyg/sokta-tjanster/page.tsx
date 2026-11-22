@@ -649,6 +649,10 @@ export default function SoktaTjansterSida() {
                 </p>
               </Kort>
               <p className="p3-text">{`På gratisnivån ser du antalen per månad. Raderna, utskriften och kopieringen ingår i ${PREMIUM_MED_PRIS}.`}</p>
+              <p className="p3-text">
+                Vad som ska med och hur du för listan går vi igenom i artikeln om{' '}
+                <TextLank href="/artiklar/aktivitetsrapport-arbetsformedlingen">vad som ska med i aktivitetsrapporten</TextLank>.
+              </p>
               <div className="st-manval-lista" role="group" aria-label="Exempel: månaderna att välja bland">
                 <div className="st-manval st-vald">
                   <i>nov</i>
