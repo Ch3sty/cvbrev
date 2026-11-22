@@ -59,7 +59,7 @@ const RUBRIKER = [
 ];
 
 export default function PrivacyPolicyPage() {
-  const lastUpdatedDate = "2026-11-21"; // *** UPPDATERA detta datum när policyn ändras ***
+  const lastUpdatedDate = "2026-11-22"; // *** UPPDATERA detta datum när policyn ändras ***
 
   return (
     <PubliktSida>
@@ -191,7 +191,7 @@ export default function PrivacyPolicyPage() {
             Så styr ditt val i cookie-rutan analysen:
           </p>
            <ul>
-               <li><strong>Acceptera:</strong> PostHog sparar ett anonymt id i en cookie och i din webbläsares lagring, så att vi kan se hur Tjänsten används över flera besök.</li>
+               <li><strong>Acceptera:</strong> PostHog sparar ett id i en cookie och i din webbläsares lagring, så att vi kan se hur Tjänsten används över flera besök. När du är inloggad kopplas id:t till ditt konto och din e-postadress.</li>
                <li><strong>Innan du har valt:</strong> vi räknar sidvisningar och klick utan cookies och utan att något sparas i din webbläsare. Id:t lever bara så länge fliken är öppen.</li>
                <li><strong>Avvisa:</strong> ingen analys alls. PostHog laddas inte och ingenting om ditt besök skickas dit. Vi sparar bara ditt val, så att vi inte frågar igen.</li>
            </ul>
