@@ -159,3 +159,12 @@
 /* Dörrarnas ankare: märket Nyhet står bredvid länken, utanför ankartexten. */
 .fn-dr-lank { display: inline-flex; align-items: center; gap: 6px; }
 .fn-lk-sok small { display: inline-grid; place-items: center; min-height: 26px; margin: 0; font-size: 12px; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Pappren ligger inne i ön (O efter): ingen egen luft ovanför. */
+.p3-o-efter > .fn-tunder { margin-top: 0; }
+/* Hjältens dörrar: bladet fick krympa in över namnet "Personliga brev". Namnet får bryta, bilden håller sin plats. */
+.fn-dr-topp > * { min-width: 0; }
+.fn-dr-topp > :last-child { flex: none; justify-self: end; }
+.fn-dr-blad { width: 64px; padding: 7px; margin-right: 4px; }
+@media (min-width: 1000px) { .fn-dr:not(.fn-stor) .fn-dr-namn { font-size: 18px; } }

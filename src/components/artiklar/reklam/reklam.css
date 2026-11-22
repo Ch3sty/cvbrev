@@ -187,3 +187,7 @@
 /* Papper i bilderna får bläck, inte rutans ljusa text. */
 .ar-bild :is(.p3-traff, .p3-annons), .ar-slutbild .p3-traff { color: var(--ink-1); }
 .ib-arkiv-gratis .ar-hall { margin: 0; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Rutans regel ".ar-rk p { margin: 0 }" tog luften mellan brädet och uppgiftens fråga i testets ram. */
+.ar-rk .p3-tram-kropp > * + * { margin-top: 12px; }

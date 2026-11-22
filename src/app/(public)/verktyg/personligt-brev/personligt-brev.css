@@ -191,3 +191,11 @@
 .pb-navkort .p3-lank { color: #fff; }
 .pb-artiklar { display: grid; gap: 12px; }
 .pb-artiklar .p3-lankbricka h3 { align-self: end; font-family: var(--disp); font-weight: 700; font-size: 17px; line-height: 1.2; color: var(--ink-1); }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Siffrorna på de mörka brickorna: färgen rättas i grunden (span.p3-nr), här bara måtten. */
+.pb-tre-ark .p3-nr { font-size: 15px; line-height: 1; }
+/* Hjältens brev står som ett helt ark, och kravkortet hänger nedanför brevets text. Förut var arket så kort att kortet täckte de utmärkta kraven. */
+.pb-kravbild .p3-brevark { aspect-ratio: 210 / 262; }
+.pb-kravbild .p3-brevpar { padding-bottom: 116px; }
+@media (min-width: 900px) { .pb-kravbild .p3-brevpar { padding-bottom: 88px; } }

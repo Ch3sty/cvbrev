@@ -137,3 +137,16 @@
 .lnk-mer3 { display: grid; gap: 12px; margin-top: 14px; }
 @media (min-width: 900px) { .lnk-mer3 { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 .lnk-mer-ey { margin-top: 40px; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Före och efter: talet stort till höger som i skissen, Efter-profilen i kopparram, sökorden som fyllda brickor. */
+.lnk-fe-tal s { font-size: .56em; }
+@media (min-width: 900px) {
+  .lnk-fe-topp { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; }
+  .lnk-fe-topp > div:last-child { text-align: right; }
+  .lnk-fe-tal { justify-content: flex-end; font-size: 88px; letter-spacing: -.04em; }
+}
+.lnk-fe-kol:last-child > .lnk-prof { border-color: var(--koppar); box-shadow: 0 0 0 1px var(--koppar); }
+.lnk-tecken .lnk-ordrad span.lnk-pa { background: var(--ton-ink); border-color: var(--ton-ink); color: #fff; }
+/* Raden som inte ger träff: grå men läsbar (kontrast 4,5:1). */
+.lnk-vtraff.lnk-ej { opacity: 1; color: var(--ink-3); }

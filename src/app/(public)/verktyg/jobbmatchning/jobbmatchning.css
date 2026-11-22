@@ -108,3 +108,8 @@
 .jm-prova-not { font-size: 13.5px; color: var(--ink-3); }
 .jm-textknapp { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; color: var(--ink-1); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
 .jm-prova .p3-knapp { width: 100%; }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Sex datapunkter: nålarna på arket och siffrorna på korten i sidans mörka gröna med vit siffra, som i skissen, så att de hör ihop. */
+.jm-dp-ark .p3-nal { background: var(--vagg); color: #fff; }
+.jm-dprad > .p3-nr { background: var(--vagg); color: #fff; box-shadow: 0 4px 0 var(--vagg-3); }

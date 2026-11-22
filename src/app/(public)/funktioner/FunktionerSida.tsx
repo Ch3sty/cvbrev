@@ -351,6 +351,52 @@ export default function FunktionerSida() {
             </>
           }
           bild={<Testram ariaLabel="Exempel: en uppgift i matrislogik som den ser ut i testet" />}
+          // De två pappren ligger inne i ön, som i skissen (utseendegranskningen 2026-11-22).
+          efter={
+            <div className="fn-tunder">
+              <Kort>
+                <p className="p3-ey">Det här ingår</p>
+                <h3 className="p3-h3">{`${storForst(TESTTYPER_ORD)} testtyper, tre nivåer`}</h3>
+                <div className="fn-typer">
+                  {TESTTYPER.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </div>
+                <div className="fn-trappa" role="img" aria-label={`Tre nivåer: grundnivån är gratis, avancerad nivå och expertnivå ingår i ${PREMIUM}`}>
+                  <div className="fn-g">
+                    <em>Gratis</em>
+                    <b>Grund&shy;nivå</b>ett test om dagen
+                  </div>
+                  <div className="fn-a">
+                    <em>{PREMIUM}</em>
+                    <b>Avan&shy;cerad nivå</b>träna så ofta du vill
+                  </div>
+                  <div className="fn-e">
+                    <em>{PREMIUM}</em>
+                    <b>Expert&shy;nivå</b>och övnings&shy;prov mot klockan
+                  </div>
+                </div>
+              </Kort>
+              <Kort>
+                <p className="p3-ey">Efter testet</p>
+                <h3 className="p3-h3">Resultatet, uppgift för uppgift</h3>
+                <p>Du ser varje uppgift med rätt svar, regeln bakom och var du gick fel.</p>
+                <div>
+                  <div className="fn-res-tal" aria-hidden="true">
+                    <b>12</b>
+                    <span>av 15 rätt på grundnivån</span>
+                  </div>
+                  <div className="fn-res-lista" role="img" aria-label="Exempel: uppgiftslistan med tolv rätt och tre fel" style={{ marginTop: 14 }}>
+                    {Array.from({ length: 15 }, (_, i) => i + 1).map((n) => (
+                      <i key={n} className={[4, 9, 13].includes(n) ? 'fn-m' : undefined}>
+                        {n}
+                      </i>
+                    ))}
+                  </div>
+                </div>
+              </Kort>
+            </div>
+          }
         >
           <Niv
             gratis={`${gratisDel(tester.sub)} Personlighetstestet med ${GRATIS_PASTAENDEN} påståenden.`}
@@ -359,49 +405,6 @@ export default function FunktionerSida() {
           <p>{dela(testText)[1]}</p>
           <StegLista steg={tester.steg} />
         </O>
-        <div className="fn-tunder">
-          <Kort>
-            <p className="p3-ey">Det här ingår</p>
-            <h3 className="p3-h3">{`${storForst(TESTTYPER_ORD)} testtyper, tre nivåer`}</h3>
-            <div className="fn-typer">
-              {TESTTYPER.map((t) => (
-                <span key={t}>{t}</span>
-              ))}
-            </div>
-            <div className="fn-trappa" role="img" aria-label={`Tre nivåer: grundnivån är gratis, avancerad nivå och expertnivå ingår i ${PREMIUM}`}>
-              <div className="fn-g">
-                <em>Gratis</em>
-                <b>Grund&shy;nivå</b>ett test om dagen
-              </div>
-              <div className="fn-a">
-                <em>{PREMIUM}</em>
-                <b>Avan&shy;cerad nivå</b>träna så ofta du vill
-              </div>
-              <div className="fn-e">
-                <em>{PREMIUM}</em>
-                <b>Expert&shy;nivå</b>och övnings&shy;prov mot klockan
-              </div>
-            </div>
-          </Kort>
-          <Kort>
-            <p className="p3-ey">Efter testet</p>
-            <h3 className="p3-h3">Resultatet, uppgift för uppgift</h3>
-            <p>Du ser varje uppgift med rätt svar, regeln bakom och var du gick fel.</p>
-            <div>
-              <div className="fn-res-tal" aria-hidden="true">
-                <b>12</b>
-                <span>av 15 rätt på grundnivån</span>
-              </div>
-              <div className="fn-res-lista" role="img" aria-label="Exempel: uppgiftslistan med tolv rätt och tre fel" style={{ marginTop: 14 }}>
-                {Array.from({ length: 15 }, (_, i) => i + 1).map((n) => (
-                  <i key={n} className={[4, 9, 13].includes(n) ? 'fn-m' : undefined}>
-                    {n}
-                  </i>
-                ))}
-              </div>
-            </div>
-          </Kort>
-        </div>
       </Sektion>
 
       {/* 3. Personliga brev */}

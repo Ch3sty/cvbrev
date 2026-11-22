@@ -405,3 +405,15 @@
 .ib-cta-lank:hover { text-decoration-color: #fff; }
 html[data-brevvisare-oppen] [data-sticky-mobil] { display: none; }
 @media (prefers-reduced-motion: reduce) { .ib-byt-mall .ib-byt-brev { transition: none; } }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Arkets färger stod bara under .pub-sida (innehall.css). Exempelsidorna ligger nu på grundens Sida,
+   så arket saknade papper: mörk text direkt på den mörka ytan. Här står de där arket ritas. */
+.ib-papper, .ib-ex-ark, .p3 {
+  --ark: #FFFFFF;
+  --ark-ink: #1A1A1F;
+  --ark-dim: #5B5B66;
+  --ark-kant: #E0DFE4;
+  --display: var(--disp, var(--font-display)), Inter, system-ui, sans-serif;
+  --body: Inter, system-ui, sans-serif;
+}

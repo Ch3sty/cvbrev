@@ -27,6 +27,7 @@ export function O({
   children,
   knappar,
   bild,
+  efter,
   som: Som = 'article',
   className = '',
 }: {
@@ -44,6 +45,8 @@ export function O({
   children?: ReactNode
   knappar?: ReactNode
   bild?: ReactNode
+  /** Under texten och bilden, i öns hela bredd: papper som hör till ön (kort, exempel). */
+  efter?: ReactNode
   som?: ElementType
   className?: string
 }) {
@@ -74,6 +77,7 @@ export function O({
       ) : (
         text
       )}
+      {efter ? <div className="p3-o-efter">{efter}</div> : null}
     </Som>
   )
 }

@@ -90,3 +90,7 @@
   .oo-slut-rad { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
   .oo-tal b { font-size: 84px; }
 }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Grön text på grön platta höll 4,2:1. Samma mörkare gröna som grundens Gratis-bricka. */
+.oo-tvapris .oo-g { color: color-mix(in srgb, var(--positiv) 55%, var(--ink-1)); }

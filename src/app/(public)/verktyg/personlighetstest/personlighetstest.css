@@ -127,3 +127,14 @@
 .pt-steg.pt-mitt .p3-knapprad { margin-top: 18px; }
 .pt-steg.pt-prem { background: var(--vagg-3); border-color: var(--koppar); }
 @media (min-width: 1000px) { .pt-femtio { padding: 48px; } .pt-trappa { grid-template-columns: 1fr 1.25fr 1fr; gap: 18px; } .pt-steg.pt-mitt { padding: 26px; } }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Stegen som i skissen: bilden överst, sedan siffran, rubriken och texten. Förut låg bilderna sist och på olika höjd. */
+.pt-vag .pt-stegbild { order: -1; margin: 0 0 8px; }
+@media (min-width: 1100px) {
+  .pt-vag li { grid-template-columns: 1fr; grid-template-rows: auto auto auto 1fr; }
+  .pt-vag .pt-stegbild { min-height: 132px; }
+  .pt-vag li .p3-h3 { align-self: start; margin-top: 6px; }
+}
+/* Läget mot kravprofilen är en bricka, ingen knapp. */
+.pt-sida .p3-chip-koppar { min-height: 28px; padding: 2px 11px; font-size: 13px; background: var(--koppar-mjuk); color: var(--koppar-ink); box-shadow: none; }

@@ -645,7 +645,7 @@ export default function PersonligtBrevSida() {
         </Sektion>
 
         {/* 7. Fördjupning: exempelnavet och artiklarna */}
-        <Sektion id="las-mer" botten="ton" luft="utan-topp">
+        <Sektion id="las-mer" botten="golv" luft="utan-topp">
           <SektionHuvud
             etikett="Fördjupning"
             rubrik="Läs mer om personliga brev"

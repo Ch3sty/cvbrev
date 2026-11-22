@@ -556,3 +556,26 @@ a.p3-mall:hover .p3-mall-bild { border-color: var(--kant-stark); }
 .p3-situation a:hover { background: rgba(255, 255, 255, .14); }
 :is(.p3-kort, .p3-lyft, .p3-papper) .p3-situation > span { color: var(--ink-3); }
 :is(.p3-kort, .p3-lyft, .p3-papper) .p3-situation a { border-color: var(--kant-stark); background: var(--papper); color: var(--ink-1); }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Premium-ön och öarna ger stycken den mjuka tonen. Priset är ett stycke och ska stå vitt, som i skissen. */
+:is(.p3-premium, .p3-o, .p3-vagg) p.p3-pris:not(.p3-pa-papper) { color: #fff; }
+/* Brödsmulan: länkarna är tryckytor på 44 px, och sista ledet (utan länk) står på samma rad som de andra. */
+.p3-brod ol { align-items: center; gap: 0 8px; }
+.p3-brod li { display: inline-flex; align-items: center; min-height: 44px; }
+.p3-brod a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: 0 7px; margin: 0 -7px; }
+.p3-brod + .p3-hjalte-rad { margin-top: 12px; }
+/* Sifferbrickan är en span: sidregler som ".x span { color }" tog färgen från siffran, så att den försvann på mörka brickor. */
+span.p3-nr.p3-nr-koppar { color: var(--koppar-text); }
+span.p3-nr.p3-nr-vagg { color: var(--vagg-ink); }
+/* Öns nedre del (O efter): papper i hela bredden, inne i färgblocket. */
+.p3-o-efter { margin-top: 28px; }
+.p3-o.p3-med-bild > .p3-o-efter { margin-top: 0; padding-bottom: 28px; }
+@media (min-width: 900px) {
+  .p3-o-efter { margin-top: 40px; }
+  .p3-o.p3-med-bild > .p3-o-efter { margin-top: -24px; padding-bottom: 64px; }
+}
+/* Liten grå text och kopparetiketten höll 4,43:1 på de tonade bottnarna i plommon och grafit. Ett steg mörkare ger 4,9:1 där och ändrar inget annat synligt. */
+.p3 { --ink-3: #5E5E68; --koppar-ink: #9E4317; }
+/* Rubrik satt som stycke (p.p3-h2) på papper: grundens regel för stycken gav den textgrått. Rubriker är bläck. */
+:is(.p3-kort, .p3-lyft, .p3-svav, .p3-traff, .p3-papper) p:is(.p3-h1, .p3-h2, .p3-h3) { color: var(--ink-1); }

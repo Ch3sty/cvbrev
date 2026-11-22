@@ -140,7 +140,7 @@ const VIDARE: { href: string; rubrik: string; text: string; farg: Farg }[] = [
   { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, om du inte har ett eget än.', farg: 'cv' },
   { href: '/artiklar/ai-jobbmatchning', rubrik: 'Så fungerar AI-jobbmatchning', text: 'Vad som händer när jobben hittar dig i stället för tvärtom.', farg: 'jobb' },
   { href: '/artiklar/byta-karriar-jobbsokande-guide', rubrik: 'Byta karriär', text: 'Guiden för den som ska söka utanför sin gamla titel.', farg: 'jobb' },
-  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor och avtal inför jobbet du hittade.', farg: 'neutral' },
+  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor och avtal inför jobbet du hittade.', farg: 'jobb' },
 ]
 
 export default function JobbmatchningSida() {

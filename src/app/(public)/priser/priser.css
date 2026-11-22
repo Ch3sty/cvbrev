@@ -188,3 +188,18 @@
 .pr-veckomal i.pr-k { background: var(--koppar); border-color: var(--koppar); }
 /* Kom igång: småmärket under stoppet */
 .pr-kig li small { display: block; font-weight: 500; font-size: 13px; color: var(--ton-ink); }
+
+/* ---------- utseendegranskningen 2026-11-22 ---------- */
+/* Tabellens rader är grid: regeln ovan (.pr-jf tr, th, td som block) vägde tyngre än .pr-jf-kol och .pr-jf-rad,
+   så Gratis och Premium staplades i stället för att stå bredvid varandra. */
+.pr-jf .pr-jf-kol, .pr-jf .pr-jf-rad { display: grid; }
+.pr-jf .pr-jf-kol .pr-jf-tom { display: none; }
+/* Premiums kolumnhuvud i koppar med klack, som knappen. Rutorna under är ljus koppar. */
+.pr-jf .pr-jf-kol .pr-p { background: var(--koppar); color: var(--koppar-text); border-bottom: 5px solid var(--koppar-klack); }
+@media (min-width: 800px) {
+  .pr-jf .pr-jf-kol .pr-jf-tom { display: block; }
+  .pr-jf .pr-cell { display: flex; }
+}
+/* Radens namn i fet stil, som i skissen (th ärvde vikten av regeln för tabellen). */
+.pr-jf .pr-jf-vad { font-weight: 700; }
+.pr-jf .pr-jf-vad span { font-weight: 400; }

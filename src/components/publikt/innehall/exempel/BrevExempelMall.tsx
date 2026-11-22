@@ -113,7 +113,8 @@ function HjalteArk({ brev, lappar }: { brev: ReturnType<typeof brevFalt>; lappar
         </p>
         {brev.roll ? <p className="bx-a4-roll">{brev.roll}</p> : null}
         {halsning ? <p>{halsning}</p> : null}
-        {stycken.slice(0, 3).map((s, i) => (
+        {/* Hela brevet på arket (aria-hidden): arket ska stå som ett A4, inte som en avklippt remsa. */}
+        {stycken.map((s, i) => (
           <p key={i}>{s}</p>
         ))}
       </div>
