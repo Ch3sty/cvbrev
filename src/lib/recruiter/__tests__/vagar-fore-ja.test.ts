@@ -546,6 +546,7 @@ describe('Avsluta kontakten (ägarbeslut 2026-11-22)', () => {
     expect(db.tables.candidate_interests[0].status).toBe('declined');
     const detalj = await json(await detaljen(PUBLIK));
     utan(detalj, [...EFTER_JA, KONTOEPOST]);
+    expect(JSON.parse(detalj).avslutad).toBe(true);
     const { interests } = JSON.parse(await inkorgen());
     expect(interests[0].avslutadAt).toEqual(expect.any(String));
   });

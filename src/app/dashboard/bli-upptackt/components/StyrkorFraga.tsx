@@ -21,6 +21,7 @@ export default function StyrkorFraga({
 }) {
   return (
     <Notis
+      ton="ton"
       ikon={<IkonOga size={20} />}
       rubrik="Rekryterare kan söka på dina styrkor"
       text={

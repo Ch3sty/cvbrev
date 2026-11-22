@@ -13,6 +13,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
 import { findVisibleProfile, recruiterDetailFor } from '@/lib/recruiter/candidateAccess';
 import { logProfileView } from '@/lib/recruiter/profileViews';
+import { hamtaAvslutade } from '@/lib/interests/avslutadKontakt';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,7 +44,21 @@ export async function GET(
     // profilhämtning.
     void logProfileView(admin, row.user_id, user.id);
 
-    return NextResponse.json({ candidate: detail, interestStatus });
+    // Har kandidaten avslutat kontakten efter ett ja? (status 'declined' med
+    // markör, se src/lib/interests/avslutadKontakt.ts)
+    let avslutad = false;
+    if (interestStatus === 'declined') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: intresse } = await (admin as any)
+        .from('candidate_interests')
+        .select('id, candidate_user_id, status')
+        .eq('recruiter_user_id', user.id)
+        .eq('candidate_user_id', row.user_id)
+        .maybeSingle();
+      if (intresse) avslutad = (await hamtaAvslutade(admin, [intresse])).has(intresse.id);
+    }
+
+    return NextResponse.json({ candidate: detail, interestStatus, avslutad });
   } catch (error) {
     console.error('Recruiter candidate error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

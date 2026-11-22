@@ -487,15 +487,16 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
       </JobbVagg>
 
       <Golv>
-        {styrkorFragaKvar && profile.show_personality ? (
-          <div className="mb-6 max-w-[760px]">
-            <StyrkorFraga avancerad={Boolean(summary?.personality?.hasAdvancedTest)} sparar={svarSparas} onSvar={svaraStyrkor} />
-          </div>
-        ) : null}
         <Spalter sido={420} tat>
           <div>
             <LyftPanel rubrikId="bygg-rubrik" luft="22px 28px 28px">
               <PanelHuvud ogon="Bygg din profil" rubrik={stegRubrik} rubrikId="bygg-rubrik" hoger={<Streck klara={antalKlara} av={stegLista.length} />} hogerAlltid mitt />
+              {/* Frågan om sökbara styrkor, en gång, överst i panelen. */}
+              {styrkorFragaKvar && profile.show_personality ? (
+                <div className="mt-4">
+                  <StyrkorFraga avancerad={Boolean(summary?.personality?.hasAdvancedTest)} sparar={svarSparas} onSvar={svaraStyrkor} />
+                </div>
+              ) : null}
               <div className="mt-3">
                 {steg('cv', <CvPickerCard cvs={cvs} selectedId={profile.cv_id} onSelect={handleSelectCv} collapse={collapseFor('cv')} />, 'cv')}
                 {steg('synlighet', <VisibilityModeCard visibility={profile.visibility} lastMode={lastMode} onChange={handleModeChange} collapse={collapseFor('synlighet')} />)}

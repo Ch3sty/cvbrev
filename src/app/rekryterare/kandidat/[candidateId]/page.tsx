@@ -16,6 +16,7 @@ import {
 import NotesPopover from '../../components/profile/NotesPopover';
 import ShareButton from '../../components/profile/ShareButton';
 import ProfileSections from '../../components/profile/ProfileSections';
+import { KANDIDATEN_AVSLUTADE } from '@/lib/interests/avslutadKontakt';
 import {
   CTA_GRADIENT,
   type CandidateDetail,
@@ -78,6 +79,8 @@ function DetailView() {
 
   const [candidate, setCandidate] = useState<CandidateDetail | null>(null);
   const [interestStatus, setInterestStatus] = useState<InterestStatus>(null);
+  // Kandidaten har avslutat kontakten efter ett ja.
+  const [avslutad, setAvslutad] = useState(false);
   const [state, setState] = useState<'loading' | 'ready' | 'notfound' | 'error'>('loading');
   const [messageOpen, setMessageOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -102,9 +105,11 @@ function DetailView() {
       const data = (await res.json()) as {
         candidate: CandidateDetail;
         interestStatus: InterestStatus;
+        avslutad?: boolean;
       };
       setCandidate(data.candidate);
       setInterestStatus(data.interestStatus);
+      setAvslutad(Boolean(data.avslutad));
       setState('ready');
     } catch (error) {
       console.error('Kandidatprofil: kunde inte hämta', error);
@@ -319,7 +324,9 @@ function DetailView() {
       )}
       {interestStatus === 'declined' && (
         <p className="text-[12.5px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 leading-relaxed">
-          Den här kandidaten tackade nej till kontakt. Fler kandidater finns i poolen.
+          {avslutad
+            ? KANDIDATEN_AVSLUTADE
+            : 'Den här kandidaten tackade nej till kontakt. Fler kandidater finns i poolen.'}
         </p>
       )}
 

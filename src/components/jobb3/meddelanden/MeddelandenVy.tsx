@@ -170,7 +170,10 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
   const filtrerad = q ? lista.filter((i) => i.companyName.toLowerCase().includes(q)) : lista
   const vantar = filtrerad.filter((i) => i.status === 'pending')
   const aktiva = filtrerad.filter((i) => i.status === 'accepted')
-  const avbojda = filtrerad.filter((i) => i.status === 'declined')
+  // Avslutade kontakter står kvar bland samtalen (tråden går att läsa),
+  // avböjda förfrågningar ligger under knappen Avböjda.
+  const avslutade = filtrerad.filter((i) => i.status === 'declined' && i.avslutadAt)
+  const avbojda = filtrerad.filter((i) => i.status === 'declined' && !i.avslutadAt)
   const antalVantar = lista.filter((i) => i.status === 'pending').length
 
   const rad = (i: CandidateInterest) => {
@@ -272,6 +275,7 @@ export default function MeddelandenVy({ djuplank, start, laddfel }: { djuplank: 
                 ) : null}
                 {vantar.map(rad)}
                 {aktiva.map(rad)}
+                {avslutade.map(rad)}
                 {avbojda.length > 0 ? (
                   <div className="px-3 py-2">
                     <LitenKnapp onClick={() => setVisaAvbojda((v) => !v)} aria-label={visaAvbojda ? 'Dölj avböjda' : 'Visa avböjda'}>
