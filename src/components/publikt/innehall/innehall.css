@@ -92,6 +92,18 @@
     position: sticky;
     top: 84px;
     align-self: start;
+    /* Spalten ryms alltid i fönstret under toppen (84 px) med 16 px luft
+       nedtill, och rullar själv om den inte gör det. */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  /* Medan cookieraden visas (56 px i botten från 640 px) slutar spalten ovanför
+     den: förut täckte raden kortets nedersta 17 px (klicktestet live
+     2026-11-22). Raden döljs när besökaren svarat (data-samtycke="svarat"). */
+  html:has(.cookie-banner-container):not([data-samtycke='svarat']) .ib-sido {
+    max-height: calc(100vh - 100px - 56px - env(safe-area-inset-bottom, 0px));
   }
 }
 .ib-sidorub { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
