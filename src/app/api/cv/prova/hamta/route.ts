@@ -21,6 +21,7 @@ import { maskaLagradCvText } from '@/lib/privacy/lagradCvText'
 import { arPlatshallareNamn, arPlatshallareTelefon, arPlatshallareTitel } from '@/lib/profile/dokumentKontakt'
 import { arTomEllerPlatshallare } from '@/lib/profile/dokumentEpost'
 import { arSektion } from '@/lib/cv/mallval/sektioner'
+import { kvitteraNyttCv } from '@/lib/onboarding/forsta-handling.server'
 
 export const runtime = 'nodejs'
 
@@ -113,6 +114,9 @@ export async function POST(request: Request) {
     console.error('[cv/prova/hamta] kunde inte spara:', error)
     return NextResponse.json({ kod: 'fel' }, { status: 500 })
   }
+  // Ett nytt CV i kontot räknas som kontots CV i Kom igång och aktiveringen
+  // (klicktestet 2026-11-22, punkt 4), en gång: inte när raden uppdateras.
+  if (!tidigareId) await kvitteraNyttCv(supabase, user.id)
   // ny: false när raden fanns, så att draft_claimed bara skjuts en gång.
   return NextResponse.json({ cvId: (data as { id: string }).id, ny: !tidigareId })
 }

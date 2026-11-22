@@ -75,7 +75,11 @@ export async function POST(request: NextRequest) {
     }
     if (harIntent) andring.onboarding_intent = intent
 
-    const { error } = await admin.from('profiles').update(andring).eq('id', user.id)
+    // baraOmTomt: valet härlett ur det hon tog med sig in i kontot (brevet
+    // från startflödet), skrivs bara när hon inte redan valt själv.
+    const baraOmTomt = body.baraOmTomt === true && harIntent && !harTrack
+    const fraga = admin.from('profiles').update(andring).eq('id', user.id)
+    const { error } = baraOmTomt ? await fraga.is('onboarding_intent', null) : await fraga
 
     if (error) {
       console.error('[onboarding/track] Kunde inte spara spåret:', error.message)

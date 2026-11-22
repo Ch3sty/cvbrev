@@ -25,6 +25,7 @@ import { userHasAccess } from '@/lib/supabase/premiumAccess'
 import { getClaimableDraft } from '@/lib/letters/public-draft'
 import { hamtaBrevProfil, ritaRad } from '@/lib/letters/server'
 import { claimMall, claimRad, claimRedirect, lasClaimVal } from '@/lib/letters/claim-brev'
+import { kvitteraBrevFranPublikt } from '@/lib/onboarding/forsta-handling.server'
 
 export async function POST(request: Request) {
   let body: Record<string, unknown> | null = null
@@ -125,6 +126,11 @@ export async function POST(request: Request) {
     .is('claimed_by', null)
 
   const letterId = (letter as { id: string }).id
+
+  // Kontots första brev, som om det skrivits i kontot: milstolpen,
+  // onboardingsteget och Kom igångs bricka (klicktestet 2026-11-22, punkt 4).
+  await kvitteraBrevFranPublikt(supabase, user.id, letterId)
+
   return NextResponse.json({
     redirect: claimRedirect(letterId, rad.mall_id ? mall : { sparad: mall.sparad, provas: null }),
   })

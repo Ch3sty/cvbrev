@@ -23,6 +23,7 @@ import {
 import { claimPendingSokt } from '@/lib/jobbsok/provaSokt'
 import { claimPendingJobbCv } from '@/lib/jobmatching/provaCv'
 import { capture } from '@/lib/analytics/events'
+import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 import { rensaProvkalla, sparaKontokalla } from '@/lib/analytics/provkalla'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
@@ -35,25 +36,65 @@ import {
   type SignupIntent,
 } from '@/components/registrering/intent'
 
-/** Hämtkedjan, i samma ordning som förut. Token ur cookien för rätt typ. */
-export async function hamtkedjan(signup: SignupCookie | null): Promise<string | null> {
+/** Vad hämtkedjan hämtade hem. */
+export type Hamtat = 'draft' | 'cv_start' | 'test' | 'intervju' | 'personlighet' | 'sokt' | 'jobb_cv'
+
+/** Hämtkedjan, i samma ordning som förut, med vad som hämtades. Token ur cookien för rätt typ. */
+export async function hamtkedjanMedTyp(signup: SignupCookie | null): Promise<{ vag: string; typ: Hamtat } | null> {
   const sp = signup?.smakprov ?? null
   const t = (typ: string) => (sp && sp.typ === typ ? sp.token : undefined)
+  const kedja: Array<[Hamtat, () => Promise<string | null>]> = [
+    ['draft', () => claimPendingDraft(t('draft'))],
+    ['cv_start', () => claimPendingCvStart(t('cv_start'))],
+    ['test', () => claimPendingTestSession(t('test'))],
+    ['intervju', () => claimPendingIntervju(t('intervju'))],
+    ['personlighet', () => claimPendingPersonlighet(t('personlighet'))],
+    // Den sökta tjänsten från /verktyg/sokta-tjanster (publikt omgång 3), ur localStorage.
+    ['sokt', () => claimPendingSokt()],
+    // CV:t från /verktyg/jobbmatchning (publikt omgång 3): till cv_texts, sedan Matchade jobb.
+    ['jobb_cv', () => claimPendingJobbCv()],
+  ]
   try {
-    return (
-      (await claimPendingDraft(t('draft'))) ||
-      (await claimPendingCvStart(t('cv_start'))) ||
-      (await claimPendingTestSession(t('test'))) ||
-      (await claimPendingIntervju(t('intervju'))) ||
-      (await claimPendingPersonlighet(t('personlighet'))) ||
-      // Den sökta tjänsten från /verktyg/sokta-tjanster (publikt omgång 3), ur localStorage.
-      (await claimPendingSokt()) ||
-      // CV:t från /verktyg/jobbmatchning (publikt omgång 3): till cv_texts, sedan Matchade jobb.
-      (await claimPendingJobbCv())
-    )
+    for (const [typ, hamta] of kedja) {
+      const vag = await hamta()
+      if (vag) return { vag, typ }
+    }
+    return null
   } catch (error) {
     console.error('[valkommen] Hämtkedjan misslyckades:', error)
     return null
+  }
+}
+
+export async function hamtkedjan(signup: SignupCookie | null): Promise<string | null> {
+  return (await hamtkedjanMedTyp(signup))?.vag ?? null
+}
+
+/**
+ * Valet för Kom igång när hon inte valt själv men tog med sig något in i
+ * kontot (klicktestet 2026-11-22, punkt 4). Bara brevet: gratislistan utan
+ * val saknar brevet, så kontots första brev syntes aldrig ("0 av 6"). De
+ * andra flödena räknas redan i gratislistan utan val (sokt_tjanst, cv_upp),
+ * och ett härlett val hade flyttat dem ur listan (valet cv och jobb saknar
+ * cv_upp), så de får inget val.
+ */
+export function valUrHamtat(typ: Hamtat): SignupIntent | null {
+  return typ === 'draft' ? 'brev' : null
+}
+
+/** Sparar det härledda valet, bara om profilen saknar ett. Högst två sekunder. */
+async function sparaHarlettVal(intent: SignupIntent): Promise<void> {
+  try {
+    await Promise.race([
+      fetch('/api/onboarding/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intent, baraOmTomt: true }),
+      }),
+      new Promise<void>((r) => setTimeout(r, 2000)),
+    ])
+  } catch {
+    // Kom igång visar listan utan val; inget annat påverkas.
   }
 }
 
@@ -81,6 +122,7 @@ export interface ValkommenClientProps {
 
 export default function ValkommenClient({ signup, fornamn, kalla = null }: ValkommenClientProps) {
   const router = useRouter()
+  const { refresh } = useDashboardData()
   const kord = useRef(false)
   const [forslag, setForslag] = useState<SignupIntent | null>(null)
 
@@ -89,8 +131,17 @@ export default function ValkommenClient({ signup, fornamn, kalla = null }: Valko
     kord.current = true
     void (async () => {
       const intent = signup?.intent ?? null
-      const hamtat = await hamtkedjan(signup)
+      const fangst = await hamtkedjanMedTyp(signup)
+      const hamtat = fangst?.vag ?? null
       rensaSignupCookie()
+      if (fangst) {
+        // Det hon tog med sig räknas i Kom igång direkt: valet (bara när hon
+        // inte valt själv) och en färsk summering, eftersom layouten läste
+        // den innan något hämtats hem.
+        const harlett = intent ? null : valUrHamtat(fangst.typ)
+        if (harlett) await sparaHarlettVal(harlett)
+        void refresh()
+      }
       if (kalla) {
         // Källan och valet följer kontot till betalväggens händelser.
         sparaKontokalla({ ...(kalla.kalla ? { kalla: kalla.kalla } : {}), ...(kalla.mittTest ? { mitt_test: kalla.mittTest } : {}) })
@@ -130,6 +181,8 @@ export default function ValkommenClient({ signup, fornamn, kalla = null }: Valko
       router.replace(gren.destination)
       if (kalla?.satt) router.refresh()
     })()
+    // refresh byter identitet med användaren; kedjan körs ändå en gång (kord).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signup, router, kalla])
 
   if (forslag) return <ForslagSteg intent={forslag} fornamn={fornamn} entry={signup?.entry} />

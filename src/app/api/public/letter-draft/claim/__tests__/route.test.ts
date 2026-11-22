@@ -13,6 +13,10 @@ const markerat = vi.fn()
 const befintligt = vi.fn()
 const PROFIL = { full_name: 'Sara Lindström', email: 'sara@exempel.se', phone: null, include_phone_in_letters: false }
 
+const kvitterat = vi.fn(async () => {})
+vi.mock('@/lib/onboarding/forsta-handling.server', () => ({
+  kvitteraBrevFranPublikt: (...a: unknown[]) => kvitterat(...(a as [])),
+}))
 vi.mock('next/headers', () => ({ cookies: async () => ({}) }))
 vi.mock('@/lib/supabase/premiumAccess', () => ({ userHasAccess: (...a: unknown[]) => harAtkomst(...a) }))
 vi.mock('@/lib/letters/public-draft', () => ({ getClaimableDraft: async () => utkast() }))
@@ -81,6 +85,8 @@ describe('claim av brevutkastet', () => {
     // content är brevet ritat i mallen (brevmotorns stycken), inte den råa texten.
     expect(String(rad.content)).toContain('data-stycke="0"')
     expect(markerat).toHaveBeenCalledWith(expect.objectContaining({ claimed_by: 'u1' }))
+    // Kontots första brev i Kom igång och aktiveringen (klicktestet 2026-11-22, punkt 4).
+    expect(kvitterat).toHaveBeenCalledWith(expect.anything(), 'u1', 'b1')
   })
 
   it('Premiummall på gratisnivån: sparas i Linne och öppnas provad i Mallar', async () => {
@@ -113,6 +119,7 @@ describe('claim av brevutkastet', () => {
     const res = await POST(anrop({ token: 'tok-1', mall: 'koppar' }))
     expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/mallar?brev=b0&mall=koppar' })
     expect(insatt).not.toHaveBeenCalled()
+    expect(kvitterat).not.toHaveBeenCalled()
   })
 
   it('hämtat av någon annan: 409, utan inloggning: 401', async () => {

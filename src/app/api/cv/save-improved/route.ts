@@ -10,6 +10,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { getCvGrans } from '@/lib/supabase/premiumAccess';
 import { markeraBricka } from '@/lib/onboarding/komigang-server';
+import { kvitteraNyttCv } from '@/lib/onboarding/forsta-handling.server';
 import { maskaLagradCvText } from '@/lib/privacy/lagradCvText';
 
 export async function POST(request: NextRequest) {
@@ -154,9 +155,6 @@ export async function POST(request: NextRequest) {
       .select()
       .single();
 
-    // Hjälpredan Kom igång: ett förbättrat CV sparat räknas som uppdaterat efter fynden.
-    void markeraBricka(user.id, 'uppdatera_cv');
-
     if (insertError) {
       console.error('Error inserting CV:', insertError);
       console.error('Insert error details:', JSON.stringify(insertError, null, 2));
@@ -169,6 +167,14 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Hjälpredan Kom igång, först när raden finns. Ett förbättrat CV
+    // (originalCvId) räknas som uppdaterat efter fynden. Byggarens första
+    // sparning (inget original, startbladet och /cv-mallar/start) är ett
+    // nytt CV i kontot och räknas som kontots CV (klicktestet 2026-11-22,
+    // punkt 4); förut räknades det som uppdaterat och aldrig som CV.
+    if (originalCvId) void markeraBricka(user.id, 'uppdatera_cv');
+    else await kvitteraNyttCv(supabase, user.id);
 
     return NextResponse.json({
       success: true,
