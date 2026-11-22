@@ -1,0 +1,25 @@
+/*
+ * <ManadsbladArtikel /> i artikeln om aktivitetsrapporten. Bladet och
+ * uttagen bygger på st-blad och st-uttag i sokta-tjanster.css; här de grå
+ * strecken för låsta rader (mönstret ur kontots rapport, ritat om i CSS) och
+ * ramen i artikelns spalt. Färger bara ur tokens.
+ */
+.mba { margin: 28px 0 32px; display: grid; gap: 20px; justify-items: stretch; }
+.mba > * { min-width: 0; }
+.mba .mba-blad { margin: 0; max-width: 100%; transform: rotate(-.6deg); }
+.mba .st-blad .st-avsnitt { align-items: baseline; }
+.mba .st-blad .st-avsnitt strong { font-weight: 700; min-width: 0; }
+.mba .st-blad .st-avsnitt span { font-family: var(--disp); font-weight: 800; font-size: 18px; color: var(--ink-1); }
+.mba-streck { display: grid; }
+.mba-rad { display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--kant); }
+.mba-rad i { display: block; height: 9px; border-radius: 999px; background: var(--papper-2); }
+.mba-rad i.mba-dag { width: 38px; }
+.mba-las { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--ink-3); }
+.mba-las svg { width: 15px; height: 15px; flex: none; }
+.mba .mba-uttag { margin-top: 0; max-width: 100%; padding: 0; list-style: none; }
+.mba .mba-uttag li > div { line-height: 1.35; }
+.mba .mba-uttag li > span { line-height: 1.4; }
+@media (min-width: 900px) {
+  .mba-rad { grid-template-columns: 64px 1fr; }
+  .mba-rad i.mba-dag { width: 44px; }
+}
