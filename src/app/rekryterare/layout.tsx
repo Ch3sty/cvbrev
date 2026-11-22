@@ -8,6 +8,7 @@ import Logo from '@/components/Logo';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { vidUtloggning } from '@/lib/lagring/kontoLagring';
 import RecruiterSideNav from './components/RecruiterSideNav';
+import { VILLKOR_HREF, VILLKOR_VERSION } from '@/lib/recruiter/villkor';
 
 // Rekryterarportalens skal: eget enkelt skal, INTE kandidat-dashboardens
 // sidebar. Guarden ligger här i layouten och styrs av /api/recruiter/status.
@@ -23,6 +24,8 @@ type GuardState =
   | 'pending'
   | 'rejected'
   | 'approved'
+  /** Godkänt konto som ännu inte godkänt villkoren för rekryterare. */
+  | 'villkor'
   | 'error';
 
 export default function RekryterareLayout({ children }: { children: ReactNode }) {
@@ -51,9 +54,15 @@ export default function RekryterareLayout({ children }: { children: ReactNode })
         const data = (await res.json()) as {
           status: 'none' | 'pending' | 'approved' | 'rejected';
           companyName: string | null;
+          villkorGodkanda?: boolean;
         };
         if (cancelled) return;
         setCompanyName(data.companyName);
+        // Poolen visas först när villkoren för rekryterare är godkända.
+        if (data.status === 'approved' && !data.villkorGodkanda) {
+          setState('villkor');
+          return;
+        }
         setState(data.status === 'none' ? 'none' : data.status);
       } catch {
         if (!cancelled) setState('error');
@@ -96,6 +105,7 @@ export default function RekryterareLayout({ children }: { children: ReactNode })
         state={state}
         companyName={companyName}
         onSignOut={handleSignOut}
+        onVillkorGodkanda={() => setState('approved')}
       />
     );
   }
@@ -144,10 +154,12 @@ function GateView({
   state,
   companyName,
   onSignOut,
+  onVillkorGodkanda,
 }: {
   state: GuardState;
   companyName: string | null;
   onSignOut: () => void;
+  onVillkorGodkanda: () => void;
 }) {
   return (
     <div className="min-h-screen bg-orange-50/30 flex flex-col">
@@ -263,6 +275,8 @@ function GateView({
             </>
           )}
 
+          {state === 'villkor' && <VillkorRuta onGodkanda={onVillkorGodkanda} />}
+
           {state === 'error' && (
             <>
               <IconBubble>
@@ -285,6 +299,83 @@ function GateView({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Ett godkänt konto utan godkända villkor (ägarbeslut 2026-11-22): samma
+ * kryssruta som i registreringen och en knapp Fortsätt. Servern sätter
+ * tidpunkten och versionen; rutterna för poolen svarar 403 tills dess.
+ */
+function VillkorRuta({ onGodkanda }: { onGodkanda: () => void }) {
+  const [kryss, setKryss] = useState(false);
+  const [sparar, setSparar] = useState(false);
+  const [fel, setFel] = useState(false);
+
+  const fortsatt = async () => {
+    if (!kryss) return;
+    setSparar(true);
+    setFel(false);
+    try {
+      const res = await fetch('/api/recruiter/villkor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ version: VILLKOR_VERSION }),
+      });
+      if (res.status === 409) {
+        window.location.reload();
+        return;
+      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      onGodkanda();
+    } catch {
+      setFel(true);
+    } finally {
+      setSparar(false);
+    }
+  };
+
+  return (
+    <>
+      <IconBubble>
+        <Building2 className="w-6 h-6 text-orange-600" aria-hidden="true" />
+      </IconBubble>
+      <h1 className="text-lg font-bold text-slate-900 mb-5">Villkor för rekryterare</h1>
+      <label className="flex items-start gap-3 cursor-pointer text-left mb-6">
+        <input
+          type="checkbox"
+          checked={kryss}
+          onChange={(e) => setKryss(e.target.checked)}
+          className="mt-0.5 h-5 w-5 flex-shrink-0 rounded border-slate-300 accent-orange-600"
+        />
+        <span className="text-[13.5px] text-slate-700 leading-relaxed">
+          Jag har läst och godkänner{' '}
+          <a
+            href={VILLKOR_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-orange-700 underline underline-offset-2 hover:text-orange-800"
+          >
+            villkoren för rekryterare
+          </a>
+          .
+        </span>
+      </label>
+      {fel && (
+        <p className="text-[13px] text-red-700 mb-4" role="alert">
+          Det gick inte att spara. Försök igen.
+        </p>
+      )}
+      <button
+        type="button"
+        onClick={fortsatt}
+        disabled={!kryss || sparar}
+        className="inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-white text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-50"
+        style={{ background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)' }}
+      >
+        Fortsätt
+      </button>
+    </>
   );
 }
 

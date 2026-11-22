@@ -34,7 +34,8 @@ export interface SharedCandidate {
 
 /**
  * Publikt uppslag av en delningslänk. null om token är okänd, utgången,
- * eller om kandidaten inte längre är synlig i poolen.
+ * om skaparen inte längre är en godkänd rekryterare, eller om kandidaten
+ * inte längre är synlig i poolen.
  *
  * Detaljen byggs med SKAPARENS recruiter-id så att en delad profil aldrig
  * visar mer än vad rekryteraren själv ser.
@@ -58,6 +59,19 @@ export async function getSharedCandidate(token: string): Promise<SharedCandidate
     return null;
   }
   if (!link) return null;
+
+  // Skaparen måste fortfarande vara en godkänd rekryterare (ägarbeslut
+  // 2026-11-22). Dras godkännandet tillbaka slutar länken fungera.
+  const { data: creator, error: creatorError } = await (admin as any)
+    .from('recruiter_profiles')
+    .select('status')
+    .eq('user_id', link.recruiter_user_id)
+    .maybeSingle();
+  if (creatorError) {
+    console.error('Share links: kunde inte läsa skaparens status', creatorError);
+    return null;
+  }
+  if (creator?.status !== 'approved') return null;
 
   // Kandidaten måste fortfarande vara synlig i poolen.
   const row = await findVisibleProfileByUserId(admin, link.candidate_user_id);

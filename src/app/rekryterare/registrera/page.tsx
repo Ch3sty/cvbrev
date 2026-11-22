@@ -47,6 +47,7 @@ import Logo from '@/components/Logo'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { LOSENORD_FEL, LOSENORD_HJALP, MIN_LOSENORD, arSvagtLosenord } from '@/lib/auth/losenord'
 import { normaliseraOrgnummer, orgnummerFel } from '@/lib/recruiter/orgnummer'
+import { VILLKOR_HREF, VILLKOR_VERSION } from '@/lib/recruiter/villkor'
 
 const RECRUITER_DRAFT_KEY = 'jobbcoach_recruiter_application_draft'
 
@@ -92,6 +93,23 @@ function meddelaAnsokan(): void {
   fetch('/api/recruiter/ansokan', { method: 'POST' }).catch(() => undefined)
 }
 
+/**
+ * Sparar godkännandet av villkoren för rekryterare. Servern sätter tidpunkten
+ * och versionen (POST /api/recruiter/villkor). Misslyckas anropet stoppas
+ * kontot i portalen tills villkoren godkänts där, så ansökan går ändå vidare.
+ */
+async function sparaVillkor(): Promise<void> {
+  try {
+    await fetch('/api/recruiter/villkor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ version: VILLKOR_VERSION }),
+    })
+  } catch {
+    // Se ovan: portalen frågar igen.
+  }
+}
+
 const inputClass =
   'w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-300 transition-colors min-h-[46px]'
 
@@ -109,6 +127,8 @@ export default function RekryterareRegistreraSida() {
   const [profileStatus, setProfileStatus] = useState<ProfileStatus | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // Villkoren för rekryterare: obligatorisk kryssruta, tom från början.
+  const [villkor, setVillkor] = useState(false)
 
   const setField = (key: keyof CompanyFields, value: string) =>
     setFields((prev) => ({ ...prev, [key]: value }))
@@ -175,10 +195,10 @@ export default function RekryterareRegistreraSida() {
       }
 
       // Fullfölj ev. utkast som sparades före e-postbekräftelsen (fall 1b)
-      let draft: CompanyFields | null = null
+      let draft: (CompanyFields & { villkor?: boolean }) | null = null
       try {
         const raw = window.localStorage.getItem(RECRUITER_DRAFT_KEY)
-        if (raw) draft = JSON.parse(raw) as CompanyFields
+        if (raw) draft = JSON.parse(raw) as CompanyFields & { villkor?: boolean }
       } catch {
         // Trasigt utkast ignoreras, användaren får fylla i formuläret igen
       }
@@ -188,6 +208,8 @@ export default function RekryterareRegistreraSida() {
         if (cancelled) return
         window.localStorage.removeItem(RECRUITER_DRAFT_KEY)
         if (!insertError) {
+          // Villkoren kryssades i formuläret före e-postbekräftelsen.
+          if (draft.villkor) await sparaVillkor()
           meddelaAnsokan()
           setView('done')
           return
@@ -235,6 +257,7 @@ export default function RekryterareRegistreraSida() {
   const handleGuestSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+    if (!villkor) return
 
     const fieldError = validateCompanyFields()
     if (fieldError) {
@@ -311,6 +334,7 @@ export default function RekryterareRegistreraSida() {
           )
           return
         }
+        await sparaVillkor()
         meddelaAnsokan()
         setUserId(data.user.id)
         setUserEmail(data.user.email ?? null)
@@ -320,7 +344,7 @@ export default function RekryterareRegistreraSida() {
         try {
           window.localStorage.setItem(
             RECRUITER_DRAFT_KEY,
-            JSON.stringify(fields)
+            JSON.stringify({ ...fields, villkor: true })
           )
         } catch {
           // Utan localStorage får användaren fylla i igen efter bekräftelsen
@@ -337,7 +361,7 @@ export default function RekryterareRegistreraSida() {
   const handleAuthedSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    if (!userId) return
+    if (!userId || !villkor) return
 
     const fieldError = validateCompanyFields()
     if (fieldError) {
@@ -359,6 +383,7 @@ export default function RekryterareRegistreraSida() {
         return
       }
       window.localStorage.removeItem(RECRUITER_DRAFT_KEY)
+      await sparaVillkor()
       meddelaAnsokan()
       setView('done')
     } finally {
@@ -628,10 +653,33 @@ export default function RekryterareRegistreraSida() {
                   </div>
                 )}
 
+                {/* Villkoren för rekryterare: obligatoriskt kryss, tom från början */}
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={villkor}
+                    onChange={(e) => setVillkor(e.target.checked)}
+                    required
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 rounded border-slate-300 accent-orange-600"
+                  />
+                  <span className="text-sm text-slate-700 leading-relaxed">
+                    Jag har läst och godkänner{' '}
+                    <a
+                      href={VILLKOR_HREF}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-orange-700 underline underline-offset-2 hover:text-orange-800"
+                    >
+                      villkoren för rekryterare
+                    </a>
+                    .
+                  </span>
+                </label>
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || !villkor}
                   className="group w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-white font-bold text-base min-h-[52px] hover:shadow-xl active:scale-[0.98] transition-all disabled:opacity-60 disabled:pointer-events-none"
                   style={{
                     background:

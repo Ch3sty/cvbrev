@@ -7,11 +7,15 @@
 // candidateId är kandidatens id mot rekryterare, aldrig kontots id.
 //
 // En anteckning per (rekryterare, kandidat). Aldrig synlig för kandidaten.
+//
+// Har kandidaten dolt sin profil (eller finns den inte längre i poolen) går
+// anteckningen varken att läsa eller ändra, men den raderas inte
+// (ägarbeslut 2026-11-22). Syns profilen igen är anteckningen kvar.
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import { userIdForRef } from '@/lib/recruiter/candidateAccess';
+import { findVisibleProfile } from '@/lib/recruiter/candidateAccess';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,8 +33,12 @@ export async function GET(request: NextRequest) {
     }
 
     const admin = getSupabaseAdmin();
-    const candidateUserId = await userIdForRef(admin, candidateRef);
-    if (!candidateUserId) return NextResponse.json({ note: null });
+    // Bara kandidater som syns i poolen. En dold profils anteckning är låst.
+    const profile = await findVisibleProfile(admin, candidateRef);
+    if (!profile) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    }
+    const candidateUserId = profile.user_id;
 
     const { data, error } = await (admin as any)
       .from('recruiter_candidate_notes')
@@ -83,10 +91,13 @@ export async function PUT(request: NextRequest) {
     }
 
     const admin = getSupabaseAdmin();
-    const candidateUserId = await userIdForRef(admin, candidateRef);
-    if (!candidateUserId) {
+    // Bara kandidater som syns i poolen. En dold profils anteckning går
+    // varken att ändra eller radera härifrån.
+    const profile = await findVisibleProfile(admin, candidateRef);
+    if (!profile) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
+    const candidateUserId = profile.user_id;
 
     // Tom sträng raderar raden.
     if (!note) {

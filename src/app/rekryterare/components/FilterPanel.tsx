@@ -203,6 +203,11 @@ export default function FilterPanel({
         </ChipRow>
       </FilterGroup>
 
+      {/* Hjälpraden under de två personlighetsgrupperna (ägarbeslut 2026-11-22). */}
+      <p className="-mt-1 mb-3 text-[11.5px] text-slate-400 leading-snug">
+        Välj bara det som tjänsten kräver.
+      </p>
+
       <ClusterHeader>Villkor</ClusterHeader>
 
       {/* Tillträde */}

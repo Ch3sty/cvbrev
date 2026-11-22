@@ -24,6 +24,8 @@
 //   budget          månadsbudget i kr (filtrerar, exponeras aldrig)
 //   driversLicense  true = kräver B-körkort
 //   sort            relevance | seniority | recent | testScore
+//   visaUtanPersonlighet true = ta med kandidater som klarar övriga krav men
+//                   inte visar styrkor eller arbetsstil (när de filtren är på)
 //   page            1-baserad, pageSize 50
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -95,7 +97,9 @@ export async function GET(request: NextRequest) {
     const page = Number.isFinite(pageRaw) && pageRaw >= 1 ? pageRaw : 1;
 
     const admin = getSupabaseAdmin();
-    const { candidates, total } = await runPoolSearch(admin, filters, sort);
+    const { candidates, total, utanPersonlighet } = await runPoolSearch(admin, filters, sort, {
+      inkluderaDolda: params.get('visaUtanPersonlighet') === 'true',
+    });
 
     // Rekryterarens redan skickade intressen, för statusknappen på korten.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -130,6 +134,8 @@ export async function GET(request: NextRequest) {
       pageSize: PAGE_SIZE,
       // Bakåtkompatibelt alias tills alla klienter läser `total`.
       totalCount: total,
+      // Antal som klarar övriga krav men inte visar styrkor eller arbetsstil.
+      utanPersonlighet,
     });
   } catch (error) {
     console.error('Recruiter pool error:', error);

@@ -191,6 +191,10 @@ function byggDb(intresse: 'inget' | 'pending' | 'accepted' | 'declined' = 'inget
       },
     ],
     recruiter_candidate_notes: [],
+    recruiter_profiles: [
+      { user_id: REK, company_name: 'Rekryteringsbolaget', status: 'approved', villkor_godkanda_at: '2026-11-22T20:00:00.000Z', villkor_version: '2026-11-22' },
+    ],
+    user_ui_preferences: [],
     logic_test_v4_sessions: [],
     user_personality_profile: [],
     message_threads: [],
@@ -519,5 +523,152 @@ describe('personlighetsdelen följer kandidatens eget kryss', () => {
     const svar = (await poolen()) + (await json(await detaljen(PUBLIK)));
     med(svar, ['Strukturerad', 'Samarbetsvillig']);
     expect(svar).not.toMatch(/conscientiousness|neuroticism|"81"|:81\b/);
+  });
+});
+
+describe('Avsluta kontakten (ägarbeslut 2026-11-22)', () => {
+  beforeEach(() => byggDb('accepted'));
+
+  async function avsluta(interestId = 'intresse-1') {
+    const { POST } = await import('@/app/api/candidate/interests/end/route');
+    return POST(
+      new Request('http://localhost/api/candidate/interests/end', {
+        method: 'POST',
+        body: JSON.stringify({ interestId }),
+      })
+    );
+  }
+
+  it('rekryterarens vy blir anonym igen och inkorgen säger att kandidaten avslutat', async () => {
+    med(await json(await detaljen(PUBLIK)), EFTER_JA);
+    const res = await avsluta();
+    expect(res.status).toBe(200);
+    expect(db.tables.candidate_interests[0].status).toBe('declined');
+    const detalj = await json(await detaljen(PUBLIK));
+    utan(detalj, [...EFTER_JA, KONTOEPOST]);
+    const { interests } = JSON.parse(await inkorgen());
+    expect(interests[0].avslutadAt).toEqual(expect.any(String));
+  });
+
+  it('tråden går att läsa men är stängd för nya meddelanden', async () => {
+    await avsluta();
+    const route = await import('@/app/api/interests/[interestId]/messages/route');
+    const params = { params: Promise.resolve({ interestId: 'intresse-1' }) };
+    const las = await route.GET(new NextRequest('http://localhost/x'), params);
+    expect(las.status).toBe(200);
+    expect((await las.json()).stangd).toBe(true);
+    const skriv = await route.POST(
+      new NextRequest('http://localhost/x', { method: 'POST', body: JSON.stringify({ body: 'Hej igen' }) }),
+      params
+    );
+    expect(skriv.status).toBe(409);
+  });
+
+  it('en förfrågan som inte är accepterad kan inte avslutas, och ett nej är inte ett avslut', async () => {
+    byggDb('pending');
+    expect((await avsluta()).status).toBe(409);
+    byggDb('declined');
+    const { interests } = JSON.parse(await inkorgen());
+    expect(interests[0].avslutadAt).toBeNull();
+  });
+
+  it('någon annans intresse ger 404', async () => {
+    db.tables.candidate_interests[0].candidate_user_id = 'nagon-annan';
+    expect((await avsluta()).status).toBe(404);
+    expect(db.tables.candidate_interests[0].status).toBe('accepted');
+  });
+});
+
+describe('delningslänken kräver att skaparen är godkänd', () => {
+  beforeEach(() => byggDb('accepted'));
+
+  it('fungerar för en godkänd skapare', async () => {
+    expect(await delningen()).not.toBe('null');
+  });
+
+  it('slutar fungera när godkännandet dras tillbaka', async () => {
+    db.tables.recruiter_profiles[0].status = 'rejected';
+    expect(await delningen()).toBe('null');
+    db.tables.recruiter_profiles[0].status = 'pending';
+    expect(await delningen()).toBe('null');
+  });
+});
+
+describe('anteckningen när kandidaten döljer profilen', () => {
+  beforeEach(() => byggDb('inget'));
+
+  it('går varken att läsa eller ändra, men raderas inte', async () => {
+    await anteckningen();
+    expect(db.tables.recruiter_candidate_notes).toHaveLength(1);
+    db.tables.candidate_profiles[0].visibility = 'off';
+    const { PUT, GET } = await import('@/app/api/recruiter/notes/route');
+    expect((await GET(new NextRequest(`http://localhost/api/recruiter/notes?candidateId=${PUBLIK}`))).status).toBe(404);
+    const andra = await PUT(
+      new NextRequest('http://localhost/api/recruiter/notes', { method: 'PUT', body: JSON.stringify({ candidateId: PUBLIK, note: '' }) })
+    );
+    expect(andra.status).toBe(404);
+    expect(db.tables.recruiter_candidate_notes).toHaveLength(1);
+  });
+});
+
+describe('personlighetsfiltren och de som inte visar styrkor', () => {
+  function medPersonlighet(visa: boolean) {
+    byggDb('inget');
+    db.tables.candidate_profiles[0].show_personality = visa;
+    db.tables.user_personality_profile = [
+      {
+        user_id: KAND,
+        openness: 58,
+        conscientiousness: 81,
+        extraversion: 47,
+        agreeableness: 72,
+        neuroticism: 35,
+        facet_scores: null,
+        updated_at: '2026-11-20T10:00:00.000Z',
+      },
+    ];
+  }
+  async function pool(query: string) {
+    const { GET } = await import('@/app/api/recruiter/pool/route');
+    return JSON.parse(await json(await GET(new NextRequest(`http://localhost/api/recruiter/pool?${query}`))));
+  }
+
+  it('den som inte visar styrkor räknas för sig och kan tas med', async () => {
+    medPersonlighet(false);
+    const dold = await pool('strengths=Strukturerad');
+    expect(dold.candidates).toHaveLength(0);
+    expect(dold.utanPersonlighet).toBe(1);
+    const visad = await pool('strengths=Strukturerad&visaUtanPersonlighet=true');
+    expect(visad.candidates).toHaveLength(1);
+    expect(visad.candidates[0].personalityStrengths).toEqual([]);
+    expect(visad.utanPersonlighet).toBe(1);
+  });
+
+  it('den som visar andra styrkor än de valda räknas inte', async () => {
+    medPersonlighet(true);
+    const svar = await pool('strengths=Utåtriktad');
+    expect(svar.candidates).toHaveLength(0);
+    expect(svar.utanPersonlighet).toBe(0);
+    expect((await pool('strengths=Utåtriktad&visaUtanPersonlighet=true')).candidates).toHaveLength(0);
+  });
+
+  it('den som klarar övriga krav men saknar arbetsstil räknas när arbetsstilsfiltret är på', async () => {
+    medPersonlighet(true);
+    const svar = await pool('archetypes=Strategen');
+    expect(svar.candidates).toHaveLength(0);
+    expect(svar.utanPersonlighet).toBe(1);
+  });
+
+  it('utan personlighetsfilter är räknaren noll', async () => {
+    medPersonlighet(false);
+    expect((await pool('')).utanPersonlighet).toBe(0);
+  });
+
+  it('visade styrkor ger ingen plats högre upp i träffordningen', async () => {
+    const { completenessScore } = await import('@/lib/recruiter/poolSearch');
+    const bas = { testBadges: [], yearsOfExperience: 5, skills: ['LOU'], personalityStrengths: [] as string[] };
+    expect(completenessScore({ ...bas, personalityStrengths: ['Strukturerad', 'Nyfiken'] } as any)).toBe(
+      completenessScore(bas as any)
+    );
   });
 });

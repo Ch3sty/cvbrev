@@ -5,6 +5,7 @@
 
 import { NextResponse } from 'next/server';
 import { getRecruiterAuth } from '@/lib/recruiter/auth';
+import { harGodkantVillkor } from '@/lib/recruiter/villkor';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,6 +19,9 @@ export async function GET() {
     return NextResponse.json({
       status: auth.recruiter?.status ?? 'none',
       companyName: auth.recruiter?.company_name ?? null,
+      // Har rekryteraren godkänt villkoren för rekryterare? Portalen visar
+      // rutan med kryssrutan innan poolen när svaret är nej.
+      villkorGodkanda: harGodkantVillkor(auth.recruiter),
     });
   } catch (error) {
     console.error('Recruiter status error:', error);

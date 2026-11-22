@@ -60,6 +60,19 @@ export interface PoolCandidate extends CandidateCard {
 export interface PoolSearchResult {
   candidates: PoolCandidate[];
   total: number;
+  /**
+   * Kandidater som klarar sökningens övriga krav men inte visar styrkor
+   * (när filtret Personlighetsstyrka är på) eller inte har någon visad
+   * arbetsstil (när filtret Arbetsstil är på). Kandidater som visar andra
+   * styrkor än de valda räknas inte. 0 när inget av filtren är på. Ingår i
+   * candidates och total bara när anroparen bett om det (inkluderaDolda).
+   */
+  utanPersonlighet: number;
+}
+
+export interface PoolSearchOptions {
+  /** Ta med kandidaterna i utanPersonlighet bland träffarna ("Visa även dem"). */
+  inkluderaDolda?: boolean;
 }
 
 /** Vilka nycklar en sparad sökning får innehålla (whitelist vid POST). */
@@ -134,12 +147,15 @@ function matchTokens(card: CandidateCard, tokens: string[]): TokenMatch | null {
   return result;
 }
 
-/** Samma kompletthetspoäng som tidigare sortering — nu enbart tiebreak. */
-function completenessScore(card: CandidateCard): number {
+/**
+ * Kompletthetspoängen, bara tiebreak. Visade styrkor ger ingen poäng
+ * (ägarbeslut 2026-11-22): ingen ska hamna längre ned för att inte visa
+ * sin personlighet.
+ */
+export function completenessScore(card: CandidateCard): number {
   return (
     card.testBadges.length * 3 +
     (card.yearsOfExperience ? 2 : 0) +
-    (card.personalityStrengths.length ? 1 : 0) +
     (card.skills.length ? 1 : 0)
   );
 }
@@ -229,7 +245,8 @@ function sortCandidates<T extends { card: CandidateCard; relevance: number }>(
 export async function runPoolSearch(
   admin: Admin,
   filters: PoolFilters,
-  sort: PoolSortKey = 'relevance'
+  sort: PoolSortKey = 'relevance',
+  options: PoolSearchOptions = {}
 ): Promise<PoolSearchResult> {
   // Strukturella filter trycks ned i frågan; fritext/percentil/styrka m.fl.
   // filtreras efter kortbygget eftersom de kräver härledd data.
@@ -253,7 +270,7 @@ export async function runPoolSearch(
   const { data: rows, error } = await query;
   if (error) {
     console.error('poolSearch: kunde inte läsa candidate_profiles', error);
-    return { candidates: [], total: 0 };
+    return { candidates: [], total: 0, utanPersonlighet: 0 };
   }
 
   const profiles = (rows ?? []) as CandidateProfileRow[];
@@ -266,6 +283,7 @@ export async function runPoolSearch(
   const hasQuery = tokens.length > 0;
 
   const matched: Array<{ card: CandidateCard; relevance: number; match: TokenMatch | null }> = [];
+  let utanPersonlighet = 0;
 
   for (const card of cards) {
     // Utan yrkesroll hör profilen inte hemma i poolen (candidateAccess.ts).
@@ -296,16 +314,6 @@ export async function runPoolSearch(
       if (!hit) continue;
     }
 
-    if (filters.strengths?.length) {
-      if (!filters.strengths.some((s) => card.personalityStrengths.includes(s))) continue;
-    }
-
-    if (filters.archetypes?.length) {
-      if (!card.workStyleArchetype || !filters.archetypes.includes(card.workStyleArchetype)) {
-        continue;
-      }
-    }
-
     if (filters.educationLevels?.length) {
       if (
         !card.educationLevelBucket ||
@@ -313,6 +321,29 @@ export async function runPoolSearch(
       ) {
         continue;
       }
+    }
+
+    // Personlighetsfiltren sist, så att vi vet att övriga krav är uppfyllda.
+    // Den som inte visar styrkor (eller ingen arbetsstil) räknas för sig och
+    // kan tas med; den som visar andra styrkor än de valda gör inte det.
+    let doljer = false;
+    if (filters.strengths?.length) {
+      if (!filters.strengths.some((s) => card.personalityStrengths.includes(s))) {
+        if (card.personalityStrengths.length > 0) continue;
+        doljer = true;
+      }
+    }
+
+    if (filters.archetypes?.length) {
+      if (!card.workStyleArchetype || !filters.archetypes.includes(card.workStyleArchetype)) {
+        if (card.workStyleArchetype) continue;
+        doljer = true;
+      }
+    }
+
+    if (doljer) {
+      utanPersonlighet += 1;
+      if (!options.inkluderaDolda) continue;
     }
 
     matched.push({ card, relevance: match?.score ?? 0, match });
@@ -326,5 +357,6 @@ export async function runPoolSearch(
       matchReasons: buildMatchReasons(entry.card, entry.match),
     })),
     total: matched.length,
+    utanPersonlighet,
   };
 }

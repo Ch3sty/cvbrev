@@ -62,6 +62,10 @@ function SearchView() {
   const [sort, setSort] = useState<PoolSortKey>('relevance');
   const [candidates, setCandidates] = useState<PoolCandidate[] | null>(null);
   const [total, setTotal] = useState(0);
+  // Kandidater som klarar sökningens övriga krav men inte visar styrkor eller
+  // arbetsstil (bara när de filtren är på), och om de ska visas ändå.
+  const [utanPersonlighet, setUtanPersonlighet] = useState(0);
+  const [visaUtanPersonlighet, setVisaUtanPersonlighet] = useState(false);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -97,20 +101,25 @@ function SearchView() {
   const savedAppliedRef = useRef(false);
 
   const fetchPool = useCallback(
-    async (f: PoolFilterState, s: PoolSortKey, p: number, append: boolean) => {
+    async (f: PoolFilterState, s: PoolSortKey, p: number, append: boolean, visaUtan: boolean) => {
       const requestId = ++requestIdRef.current;
       if (append) setLoadingMore(true);
       else setLoading(true);
       try {
         const params = buildPoolParams(f, s, p);
+        if (visaUtan && (f.strengths.length > 0 || f.archetypes.length > 0)) {
+          params.set('visaUtanPersonlighet', 'true');
+        }
         const res = await fetch(`/api/recruiter/pool?${params.toString()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = (await res.json()) as {
           candidates: PoolCandidate[];
           total: number;
+          utanPersonlighet?: number;
         };
         if (requestId !== requestIdRef.current) return;
         setTotal(data.total);
+        setUtanPersonlighet(data.utanPersonlighet ?? 0);
         setCandidates((prev) =>
           append ? [...(prev ?? []), ...data.candidates] : data.candidates
         );
@@ -120,6 +129,7 @@ function SearchView() {
         if (!append) {
           setCandidates([]);
           setTotal(0);
+          setUtanPersonlighet(0);
         }
       } finally {
         if (requestId === requestIdRef.current) {
@@ -136,12 +146,12 @@ function SearchView() {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       setPage(1);
-      fetchPool(filters, sort, 1, false);
+      fetchPool(filters, sort, 1, false, visaUtanPersonlighet);
     }, 300);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [filters, sort, fetchPool]);
+  }, [filters, sort, fetchPool, visaUtanPersonlighet]);
 
   // Sparade sökningar + ?saved=<id> vid mount.
   useEffect(() => {
@@ -330,6 +340,7 @@ function SearchView() {
   }, [candidates]);
 
   const activeCount = countActiveFilters(filters);
+  const personlighetsfilter = filters.strengths.length > 0 || filters.archetypes.length > 0;
   const hasQuery = filters.q.trim().length > 0;
 
   // Klient-vy på status: filtrera bort redan hanterade utan att röra sökningen.
@@ -465,6 +476,30 @@ function SearchView() {
             </div>
           </div>
 
+          {/* Kandidater som inte visar styrkor eller arbetsstil: räknade på
+              servern, så att ett personlighetsfilter aldrig ensamt sållar
+              bort någon utan att rekryteraren vet om det. */}
+          {!loading && personlighetsfilter && utanPersonlighet > 0 && (
+            <p className="text-[12.5px] text-slate-600">
+              {visaUtanPersonlighet
+                ? 'Du ser också kandidater som inte visar styrkor eller arbetsstil.'
+                : utanPersonlighet === 1
+                  ? '1 kandidat till matchar sökningen men visar inte styrkor eller arbetsstil.'
+                  : `${utanPersonlighet} kandidater till matchar sökningen men visar inte styrkor eller arbetsstil.`}{' '}
+              <button
+                type="button"
+                onClick={() => setVisaUtanPersonlighet((v) => !v)}
+                className="font-semibold text-orange-700 underline underline-offset-2 hover:text-orange-800"
+              >
+                {visaUtanPersonlighet
+                  ? 'Dölj dem'
+                  : utanPersonlighet === 1
+                    ? 'Visa även den kandidaten'
+                    : 'Visa även dem'}
+              </button>
+            </p>
+          )}
+
           {/* Jämför-verktygsraden */}
           {selectedIds.length > 0 && (
             <CompareToolbar
@@ -560,7 +595,7 @@ function SearchView() {
                     onClick={() => {
                       const nextPage = page + 1;
                       setPage(nextPage);
-                      fetchPool(filters, sort, nextPage, true);
+                      fetchPool(filters, sort, nextPage, true, visaUtanPersonlighet);
                     }}
                     className="inline-flex items-center justify-center min-h-[44px] px-6 rounded-xl text-[13.5px] font-bold text-orange-700 border border-orange-300 bg-white hover:bg-orange-50 transition-colors disabled:opacity-50"
                   >
