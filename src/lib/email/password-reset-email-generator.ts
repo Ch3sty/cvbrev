@@ -66,7 +66,6 @@ export function generatePasswordResetEmailHTML(data: PasswordResetEmailData): st
                 <tr>
                   <td style="text-align: center;">
                     <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 50%; margin: 0 auto 30px auto; display: flex; align-items: center; justify-content: center; line-height: 80px;">
-                      <span style="color: white; font-size: 36px;">🔒</span>
                     </div>
 
                     <h2 style="color: #131B32; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">
@@ -96,10 +95,10 @@ export function generatePasswordResetEmailHTML(data: PasswordResetEmailData): st
                     <!-- Important Info Box -->
                     <div style="background-color: #FEF3C7; border-radius: 12px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #F59E0B; text-align: left;">
                       <p style="color: #92400E; font-size: 14px; margin: 0 0 10px 0; font-weight: 600;">
-                        ⚠️ Viktigt att veta:
+                        Viktigt att veta:
                       </p>
                       <ul style="color: #92400E; font-size: 14px; margin: 0; padding-left: 20px; line-height: 1.6;">
-                        <li>Länken är giltig i 60 minuter</li>
+                        <li>Länken gäller i 24 timmar</li>
                         <li>Om du inte begärde detta, ignorera mejlet</li>
                         <li>Ditt nuvarande lösenord fungerar fortfarande tills du väljer ett nytt</li>
                       </ul>
@@ -153,7 +152,7 @@ export function generatePasswordResetEmailHTML(data: PasswordResetEmailData): st
                       Hemsida
                     </a>
                     <span style="color: #CBD5E1;">|</span>
-                    <a href="https://www.jobbcoach.ai/support" style="color: #E9457A; text-decoration: none; font-size: 14px; margin: 0 15px; font-weight: 500;">
+                    <a href="https://www.jobbcoach.ai/kontakt" style="color: #E9457A; text-decoration: none; font-size: 14px; margin: 0 15px; font-weight: 500;">
                       Support
                     </a>
                     <span style="color: #CBD5E1;">|</span>
@@ -196,7 +195,7 @@ Om du inte gjorde denna begäran kan du ignorera detta mejl. Ditt nuvarande lös
 För att återställa ditt lösenord, besök följande länk:
 ${resetUrl}
 
-Länken är giltig i 60 minuter.
+Länken gäller i 24 timmar.
 
 Tips för ett säkert lösenord:
 - Minst 8 tecken långt
@@ -204,7 +203,7 @@ Tips för ett säkert lösenord:
 - Inkludera siffror och specialtecken
 - Använd inte samma lösenord på flera sajter
 
-Behöver du hjälp? Kontakta vår support på https://www.jobbcoach.ai/support
+Behöver du hjälp? Kontakta vår support på https://www.jobbcoach.ai/kontakt
 
 Med vänliga hälsningar,
 Jobbcoach.ai-teamet

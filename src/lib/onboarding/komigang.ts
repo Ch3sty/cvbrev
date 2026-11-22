@@ -224,11 +224,8 @@ export function brickaText(
       return {
         key,
         titel: 'CV-analysen körd',
-        text: 'Poäng, fynd, nyckelord',
-        klarText:
-          typeof fakta.poang === 'number'
-            ? `Poäng ${fakta.poang}${typeof fakta.fynd === 'number' ? `, ${talOrd(fakta.fynd)} fynd` : ''}`
-            : undefined,
+        text: 'Läsbarhetspoängen i sju delar',
+        klarText: typeof fakta.poang === 'number' ? `Poäng ${fakta.poang}` : undefined,
         kort: 'kör CV-analysen',
         href: '/dashboard/cv-analys',
         knapp: 'Kör CV-analysen',
@@ -237,7 +234,7 @@ export function brickaText(
       return {
         key,
         titel: 'CV-analysen, gratisnivån',
-        text: 'Poängen och tyngsta fyndet',
+        text: 'Poängen och vad som saknas, del för del',
         klarText: typeof fakta.poang === 'number' ? `Poäng ${fakta.poang}` : undefined,
         kort: 'kör CV-analysen',
         href: '/dashboard/cv-analys',
@@ -246,13 +243,13 @@ export function brickaText(
     case 'uppdatera_cv':
       return {
         key,
-        titel: 'Uppdatera CV:t efter fynden',
+        titel: 'Uppdatera CV:t efter genomgången',
         // Poängen följer CV:t direkt sedan 2026-11-21: ingen omkörning.
-        text: 'Rätta de två tyngsta och spara',
+        text: 'Ändra där poängen tappar och spara',
         klarText: 'Uppdaterat',
         kort: 'uppdatera CV:t',
         href: '/dashboard/cv-analys',
-        knapp: 'Öppna fynden',
+        knapp: 'Öppna genomgången',
       }
     case 'jobbmatchning':
       return {
@@ -420,11 +417,6 @@ const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>
   jobbmatchning: { titel: 'Se tre matchade jobb', text: 'Jobb du inte hittat själv, med skälen' },
   mall: { titel: 'Välj en CV-mall', text: `${FREE_TEMPLATE_COUNT} mallar och en nedladdning ingår gratis` },
   sokt_tjanst: { titel: 'Logga en tjänst du har sökt', text: 'Vi säger till när det är dags att följa upp' },
-}
-
-function talOrd(n: number): string {
-  const ord = ['noll', 'ett', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
-  return ord[n] ?? String(n)
 }
 
 /* --------------------------------------------------------------- läget */

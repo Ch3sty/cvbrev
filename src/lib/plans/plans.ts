@@ -88,12 +88,15 @@ const PREMIUM_KORT = 'Premium'
  * Det som ingår i Premium, i den ordning prissidan och betalväggen visar det.
  * Rekryteringstesterna står först (spec-publikt-v2 del A 5.1, ägarens krav
  * 2026-10-12: testerna först där verktyg räknas upp). Startsidans och
- * prissidans Premiumblock läser listan härifrån.
+ * prissidans Premiumblock läser listan härifrån. Kvotväggsmejlet
+ * (src/lib/email/lifecycle/templates/conversion.ts) läser samma lista, så
+ * mejlet säger det sidorna säger (beslut-agarpunkter M1, 2026-11-22).
  */
 export const HELA_PAKETET_RADER = [
-  'Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet',
-  'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
+  'Alla nivåer i de åtta testtyperna, övningsprov mot klockan och det fördjupade personlighetstestet',
+  'Alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn',
   `Jobbmatchning, de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen`,
+  'Uppföljningsmejl till dina sökta tjänster och rapporten till Arbetsförmedlingen, att skriva ut eller kopiera',
   'Jobbcoachen, fråga så mycket du vill',
   'Intervjuprovet utan dagsgräns och hela din testhistorik',
 ] as const

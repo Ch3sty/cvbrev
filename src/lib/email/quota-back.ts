@@ -28,22 +28,6 @@ const FEATURE_COPY: Record<string, FeatureCopy> = {
     cta: 'Skriv ditt personliga brev',
     path: '/dashboard/skapa-brev',
   },
-  cv_analysis: {
-    subject: 'Din CV-analys är tillgänglig igen',
-    preheader: 'Kvoten har nollställts. Kör en ny analys och se vad som förbättrats.',
-    heading: 'Dags att analysera ditt CV igen',
-    body: 'Du bad oss påminna dig när CV-analysen blev tillgänglig. Har du hunnit justera något sedan sist? Kör en ny analys och se hur poängen förändras.',
-    cta: 'Analysera ditt CV',
-    path: '/dashboard/cv-analys',
-  },
-  chat_message: {
-    subject: 'Jobbcoachen är redo för nya frågor',
-    preheader: 'Du kan skriva till jobbcoachen igen.',
-    heading: 'Jobbcoachen väntar på dig',
-    body: 'Du kan ställa frågor till jobbcoachen igen. Ta det du inte hann med sist, om CV:t, intervjun eller nästa steg i karriären.',
-    cta: 'Öppna chatten',
-    path: '/dashboard/jobbcoachen',
-  },
 };
 
 const TEST_COPY: FeatureCopy = {
@@ -74,6 +58,9 @@ function copyFor(feature: string): FeatureCopy {
 // funktion mailet redan handlar om. Bara testernas grundnivå återkommer varje
 // dygn och brevet varje vecka. Jobbcoachens tio meddelanden räknas per konto
 // och kommer aldrig tillbaka, så de står inte här (rättat 2026-11-15).
+// Av samma skäl är posterna för cv_analysis och chat_message borta ur
+// FEATURE_COPY (beslut-agarpunkter M20 och M21, 2026-11-22): CV-analysen har
+// ingen kvot och Jobbcoachens meddelanden kommer aldrig tillbaka.
 // Ändras gränserna i quotaService ändras raderna här.
 const DAILY_ITEMS: Array<{ key: string; label: string }> = [
   { key: 'letter_generation', label: 'veckans personliga brev' },

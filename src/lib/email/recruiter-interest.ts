@@ -67,7 +67,7 @@ export function generateRecruiterInterestEmail(
           </tr>
           <tr>
             <td style="padding:14px 32px 4px 32px;">
-              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#475569;"><strong style="color:#0F172A;">${company}</strong> har sett din profil och vill gärna ta kontakt. Din profil är fortfarande anonym, ditt namn och din e-postadress delas först om du väljer att acceptera.</p>
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;color:#475569;"><strong style="color:#0F172A;">${company}</strong> har sett din profil och vill gärna ta kontakt. Din e-postadress delas först om du tackar ja. Har du valt Anonym först gäller det också ditt namn.</p>
             </td>
           </tr>
           <!-- CTA -->
@@ -89,7 +89,7 @@ export function generateRecruiterInterestEmail(
                 <tr>
                   <td style="padding:14px 18px;">
                     <p style="margin:0 0 3px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#B45309;">Du bestämmer</p>
-                    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#78350F;">Accepterar du delas ditt namn och din e-postadress så att ni kan ta kontakt. Avböjer du ser rekryteraren bara att du tackat nej.</p>
+                    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#78350F;">Accepterar du delas ditt namn, din e-postadress och arbetsgivarna i din erfarenhet, så att ni kan ta kontakt. Avböjer du ser rekryteraren bara att du tackat nej.</p>
                   </td>
                 </tr>
               </table>

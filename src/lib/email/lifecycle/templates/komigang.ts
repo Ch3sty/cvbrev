@@ -133,11 +133,11 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
       return {
         subject:
           typeof fakta.poang === 'number'
-            ? `Ditt CV fick ${fakta.poang}. Här är de två fynden som drar ned mest.`
-            : 'Här är de två fynden som drar ned ditt CV mest.',
-        preheader: 'Rätta dem, kör om, se poängen stiga. Tar tio minuter.',
-        body: `${hej} Analysen hittade fynd i ditt CV. Två av dem väger tyngre än resten: resultaten saknar siffror, och nyckelorden för rollerna i ditt CV finns inte med. Båda går att rätta i kväll.`,
-        cta: 'Öppna fynden',
+            ? `Ditt CV fick ${fakta.poang} av 100. Så hittar du poängen som fattas.`
+            : 'Se var ditt CV tappar poäng.',
+        preheader: 'Ändra där det tappar och spara. Poängen räknas om direkt.',
+        body: `${hej} Genomgången visar ditt CV i sju delar och var varje tappad poäng sitter. Börja med den del som tappar mest, ändra och spara, så ser du poängen stiga.`,
+        cta: 'Öppna genomgången',
       };
     case 'profil':
       return {
@@ -156,10 +156,10 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
     case 'analys':
     case 'analys_gratis':
       return {
-        subject: 'Kör CV-analysen. Poäng, fynd, nyckelord.',
-        preheader: 'Så läser ett rekryteringssystem ditt CV. Två minuter.',
-        body: `${hej} Ditt CV ligger uppe. Analysen visar poängen, fynden i tyngdordning och vilka nyckelord som saknas för rollerna i ditt CV.`,
-        cta: 'Kör analysen',
+        subject: 'Se din läsbarhetspoäng, del för del.',
+        preheader: 'Sju delar, och var varje tappad poäng sitter.',
+        body: `${hej} Ditt CV ligger uppe. Analysen ger det en läsbarhetspoäng av 100 och går igenom det i sju delar, så att du ser var varje tappad poäng sitter och vad du ändrar för att få tillbaka den.`,
+        cta: 'Se poängen',
       };
     case 'mall':
       return {
@@ -203,34 +203,34 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
       return {
         subject: 'Fråga Jobbcoachen om lön, intervju eller avtal.',
         preheader: `Utan tak i ${paketKort()}.`,
-        body: `${hej} Jobbcoachen känner ditt CV och din målroll. Fråga om löneanspråk, om vad du ska säga på intervjun eller om ett avtal du fått, så svarar den utifrån det.`,
+        body: `${hej} Jobbcoachen känner till din målroll, ort och bransch från profilen, och läser ditt CV när du delar det i samtalet. Fråga om löneanspråk, om vad du ska säga på intervjun eller om ett avtal du fått.`,
         cta: 'Ställ en fråga',
       };
     case 'matris_grund':
       return {
-        subject: 'Matrislogik, grundnivå. Den vanligaste typen i urvalstest.',
-        preheader: 'Cirka 20 minuter, förklaring efter varje fråga.',
-        body: `${hej} Matrislogik är det moment nästan alla urvalstest börjar med. Grundnivån ger dig mönstren, och förklaringen efter varje fråga visar var resonemanget brister.`,
-        cta: 'Börja med matrislogik',
+        subject: 'Nivåkollen: din nivå i matrislogik på cirka åtta minuter.',
+        preheader: 'Sedan tränar du på din nivå.',
+        body: `${hej} Matrislogik är det moment nästan alla urvalstest börjar med. Nivåkollen visar var du ligger på cirka åtta minuter. Sedan tränar du på den nivån, och när du är klar förklarar vi varje svar.`,
+        cta: 'Kolla min nivå',
       };
     case 'matris_avancerad':
       return {
         subject: 'Matrislogik, avancerad nivå.',
         preheader: 'Samma mönstertyper, fler steg.',
-        body: `${hej} Avancerad nivå har samma mönstertyper som grundnivån men fler steg i varje, och förklaringen efter varje fråga visar var resonemanget brister.`,
+        body: `${hej} Avancerad nivå har samma mönstertyper som grundnivån men fler steg i varje, och förklaringen efter varje uppgift visar var resonemanget brister.`,
         cta: 'Starta avancerad nivå',
       };
     case 'verbalt_numeriskt_grund':
       return {
         subject: 'Två testtyper till att känna igen.',
         preheader: 'Verbalt och numeriskt, grundnivå.',
-        body: `${hej} Urvalstesten blandar typerna. Verbalt mäter hur du läser, numeriskt hur du räknar under tidspress. Grundnivån i båda tar en halvtimme tillsammans.`,
+        body: `${hej} Urvalstesten blandar typerna. Verbalt mäter hur du läser, numeriskt hur du räknar under tidspress. Börja med grundnivån i båda.`,
         cta: 'Öppna testerna',
       };
     case 'provlage':
       return {
         subject: 'Övningsprov mot klockan.',
-        preheader: '25 till 40 minuter, automatisk inlämning.',
+        preheader: 'Samma format och tid som provet, lämnas in när tiden är ute.',
         body: `${hej} Övningsprovet kör som ett skarpt urval: klockan går, inga förklaringar under tiden, automatisk inlämning när tiden är ute. Sitt ostört.`,
         cta: 'Starta provet',
       };

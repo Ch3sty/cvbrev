@@ -129,7 +129,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                       Din partner för en framgångsrik karriär
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 0;">
-                      © 2024 Jobbcoach.ai • Denna länk är giltig i 24 timmar
+                      Jobbcoach.ai. Länken gäller i 24 timmar.
                     </p>
                     <p style="color: #64748b; font-size: 13px; margin: 8px 0 0 0;">
                       <a href="https://www.jobbcoach.ai" style="color: #E9457A; text-decoration: none;">jobbcoach.ai</a>

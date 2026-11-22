@@ -7,6 +7,7 @@ import { SALD_PLAN, paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { renderLayout, heading, paragraph, firstName } from './layout';
 import { FREE_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal';
+import { GRATIS_BREVFONSTER, GRUNDNIVAN_ALLA_DAG } from '@/lib/plans/gratis-copy';
 
 function greet(fullName: string | null): string {
   const name = firstName(fullName);
@@ -60,7 +61,7 @@ export const cancelImmediate: LifecycleEmail = {
           heading('Din prenumeration är avslutad') +
           paragraph(`${greet(ctx.profile.full_name)} det är klart. Inget mer dras.`) +
           paragraph(
-            `Dina personliga brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, ett personligt brev i veckan och grundnivån i varje testtyp.`
+            `Dina personliga brev, CV:n och testresultat ligger kvar och går att läsa och kopiera. Kontot fungerar på gratisnivån: ${talSomOrd(FREE_TEMPLATE_COUNT)} CV-mallar, ett personligt brev ${GRATIS_BREVFONSTER} och ${GRUNDNIVAN_ALLA_DAG}.`
           ) +
           paragraph(
             `Skulle du behöva oss igen under en intensiv period ingår allt i ${paketMedPris(SALD_PLAN)}. Du säger upp i ditt konto.`

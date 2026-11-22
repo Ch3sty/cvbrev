@@ -47,13 +47,6 @@ export const GRUNDNIVAN_ALLA = `grundnivån i alla ${TESTTYPER_ORD} testtyperna`
 export const GRUNDNIVAN_ALLA_DAG = `grundnivån i alla ${TESTTYPER_ORD} testtyperna, ett test om dagen`
 
 /**
- * Testraden i gratisnivåmejlet (campaign-gratisniva.ts). Mejlmallar rörs
- * aldrig utan ägaren, så den står kvar med "fråga"; listans rad nedan säger
- * "uppgift" (textbeslut publikt omgång 3, B4).
- */
-export const GRATIS_TESTRAD = `Grundnivån i alla ${TESTTYPER_ORD} testtyperna med ett test om dagen, personlighetstestet och förklaring efter varje fråga`
-
-/**
  * Listan, sex rader, samma ordning överallt: tester, mallar, analys, brev,
  * jobb och Jobbcoachen, Sökta tjänster. Den nya raden står sist, så att
  * index 1, 2 och 3 som registreringen läser står kvar.
@@ -66,6 +59,9 @@ export const GRATIS_LISTA = [
   `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb, ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen och ett intervjuprov om dagen`,
   'Sökta tjänster med Ska sökas, veckans mål och det första uppföljningsmejlet',
 ] as const
+
+/** Testraden i gratisnivåmejlet (campaign-gratisniva.ts): samma rad som listans första. */
+export const GRATIS_TESTRAD = GRATIS_LISTA[0]
 
 /** Index i GRATIS_LISTA för mallraden, som länkar till /cv-mallar. */
 export const GRATIS_MALLRAD = 1

@@ -7,7 +7,7 @@
 
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
-import { GRATIS_TESTRAD } from '@/lib/plans/gratis-copy';
+import { GRATIS_BREVFONSTER, GRATIS_TESTRAD } from '@/lib/plans/gratis-copy';
 import { FREE_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { hasPremiumNow, swedishDate } from './helpers';
@@ -40,14 +40,14 @@ export const gratisnivaAndras: LifecycleEmail = {
           heading('Vi ändrar gratisnivån') +
           paragraph(`${name ? `Hej ${name},` : 'Hej,'} du har ett konto hos oss, så du ska höra det här från oss först.`) +
           paragraph(
-            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: du kan fortfarande prova varje verktyg, men uttaget, alltså den färdiga filen och djupet, ingår i ${paketKort()}.`
+            `${when.charAt(0).toUpperCase()}${when.slice(1)} ändrar vi vad som ingår gratis. Kort sagt: du kan fortfarande prova varje verktyg. Det personliga brevet som fil, alla mallar och de högre testnivåerna ingår i ${paketKort()}.`
           ) +
           paragraph('Det här ändras:'),
         note:
           list([
-            `CV-mallar: ${talSomOrd(FREE_TEMPLATE_COUNT)} fria mallar, resten förhandsvisas i full storlek`,
-            'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
-            `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketKort()}`,
+            `CV-mallar: ${talSomOrd(FREE_TEMPLATE_COUNT)} fria mallar och en nedladdning, resten förhandsvisas i full storlek`,
+            'CV-analys: läsbarhetspoängen och genomgången i sju delar, för varje CV',
+            `Personliga brev: ett personligt brev ${GRATIS_BREVFONSTER}, och de två senaste går att ändra. Nedladdningen ingår i ${paketKort()}`,
             `Rekryteringstester: ${GRATIS_TESTRAD.charAt(0).toLowerCase()}${GRATIS_TESTRAD.slice(1)}`,
             'Jobbcoachen: tio meddelanden per konto',
           ]) +

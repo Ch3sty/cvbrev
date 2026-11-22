@@ -24,7 +24,7 @@ export const quotaWall: LifecycleEmail = {
   shouldSend: async (ctx) => !hasPremiumNow(ctx.profile),
   render: (ctx) => {
     const subject = 'Du har slagit i taket tre gånger den här veckan';
-    const preheader = `${paketMedPris(SALD_PLAN)}, utan tak och utan bindningstid.`;
+    const preheader = `${paketMedPris(SALD_PLAN)}, utan bindningstid.`;
     return {
       subject,
       preheader,
@@ -36,7 +36,7 @@ export const quotaWall: LifecycleEmail = {
           heading('Du söker mer än gratisnivån räcker till') +
           paragraph(`${greet(ctx.profile.full_name)} du har slagit i taket tre gånger de senaste dagarna.`) +
           paragraph(
-            'Det är inte ett problem, det betyder att du söker på allvar. Men då arbetar du emot en gräns som är byggd för den som skickar en ansökan i veckan. Med ' + paketKort() + ' tar vi bort taket på allt, och du säger upp när du vill.'
+            'Det är inte ett problem, det betyder att du söker på allvar. Men då arbetar du emot en gräns som är byggd för den som skickar en ansökan i veckan. Med ' + paketKort() + ' skriver du personliga brev, frågar Jobbcoachen och tränar alla testnivåer utan att räkna, och du säger upp när du vill.'
           ),
         note: list([...PREMIUM_RADER]),
         ctaLabel: 'Se vad som ingår',

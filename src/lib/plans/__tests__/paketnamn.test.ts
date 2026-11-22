@@ -173,8 +173,8 @@ describe('namnen ur PLANS', () => {
     expect(m.body).toBe('149 kr i månaden. Allt ingår. Dras varje månad tills du säger upp.')
     expect(m.ctaLabel).toBe('Köp Premium, 149 kr i månaden')
     // Raden som hänvisade till de andra paketen är två egna rader (copy-premium 3).
-    expect(m.highlights).toContain('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
-    expect(m.highlights).toContain('Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet')
+    expect(m.highlights).toContain('Alla CV-mallar, CV-analysens alla förslag, personliga brev och LinkedIn')
+    expect(m.highlights).toContain('Alla nivåer i de åtta testtyperna, övningsprov mot klockan och det fördjupade personlighetstestet')
     expect(m.highlights.join(' ')).toMatch(/Jobbmatchning/)
     expect(m.highlights.join(' ')).toMatch(/Jobbcoachen/)
     // Bli upptäckt är gratis sedan 2026-11-15 (saas-lead); raden blev intervjuprovet.

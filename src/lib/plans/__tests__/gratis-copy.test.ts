@@ -17,6 +17,7 @@ import {
   GRATIS_MENING_LANG,
   GRATIS_MENING_LANG_DELAR,
   GRATIS_PASTAENDEN,
+  GRATIS_TESTRAD,
   GRATIS_TESTRAD_PROV,
   GRUNDNIVAN_ALLA_DAG,
   GRUNDNIVAN_RAD,
@@ -46,6 +47,10 @@ describe('gratisnivån, en källa', () => {
     expect(LETTER_WINDOW_DAYS).toBe(7)
     expect(GRATIS_BREVFONSTER).toBe('var sjunde dag')
     expect(GRATIS_PASTAENDEN).toBe(TESTTAL.personlighetGrund.fragor)
+  })
+
+  it('mejlets testrad är listans första rad (beslut-agarpunkter M8)', () => {
+    expect(GRATIS_TESTRAD).toBe(GRATIS_LISTA[0])
   })
 
   it('listan är sex rader, tester först, och mallraden pekas ut', () => {
