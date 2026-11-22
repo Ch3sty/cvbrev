@@ -142,6 +142,10 @@ export interface ProvadeUnderlag {
   personalityCompleted: number
   /** Intervjuprov skrivna inloggad (anon_interview_samples.user_id). Valfritt för äldre anropare. */
   intervjuprovCount?: number
+  /** Rader i job_applications. Valfritt: bara summeringen skickar det. */
+  applicationCount?: number
+  /** Rader i job_saved_ads. Valfritt, ingen anropare skickar det i dag (byggspecen 1.7). */
+  savedAdCount?: number
 }
 
 /** Vilka brickor som är provade, oavsett paket. Listan filtreras sedan per paket. */
@@ -163,6 +167,7 @@ export function harledProvade(u: ProvadeUnderlag): BrickaKey[] {
   if (u.conversationCount > 0) provade.add('coach')
   if (u.personalityCompleted > 0) provade.add('personlighet')
   if ((u.intervjuprovCount ?? 0) > 0) provade.add('intervjuprov')
+  if ((u.applicationCount ?? 0) > 0 || (u.savedAdCount ?? 0) > 0) provade.add('sokt_tjanst')
 
   for (const t of u.testTypes) {
     for (const key of brickorForTestType(t)) provade.add(key)
@@ -190,6 +195,7 @@ export function harledProvade(u: ProvadeUnderlag): BrickaKey[] {
     'personlighet',
     'intervjuprov',
     'kurva',
+    'sokt_tjanst',
   ]
   return KEYS.filter((k) => provade.has(k))
 }

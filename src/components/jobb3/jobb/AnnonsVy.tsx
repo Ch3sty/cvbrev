@@ -14,7 +14,6 @@ import {
   FaktaRutor,
   IkonBock,
   IkonBokmark,
-  IkonKnapp,
   IkonLas,
   IkonPil,
   KompetensRad,
@@ -26,7 +25,7 @@ import {
   StatusPiller,
   StorKnapp,
 } from '@/components/jobb3/kit'
-import { brickBokstaver, type SistaAnsokningsdag } from '@/lib/jobbsok'
+import { brickBokstaver, soktaHref, type SistaAnsokningsdag } from '@/lib/jobbsok'
 import { ansokan, arbetsgivareOrt, faktaRutor, kravOchMeriterande, type PassarSkal } from './annons'
 
 type Annons = Record<string, any>
@@ -194,20 +193,65 @@ export function AnnonsKortMobil({ job, procent, skal }: Pick<AnnonsProps, 'job' 
   )
 }
 
+/* ------------------------------------------------- annonsens fot på telefon */
+
+/** Länken från foten in i Sökta tjänster (mäts som sidvisning med fran=annons-fot). */
+export const FOT_SPARAD_HREF = soktaHref({ filter: 'ska-sokas', fran: 'annons-fot' })
+export const FOT_SOKT_HREF = soktaHref({ fran: 'annons-fot' })
+
+/**
+ * Vänster knapp i fotens andra rad (byggspecen 3.3). "Spara" räcker på
+ * telefon, hela meningen står i aria-label; datorn behåller sparText.
+ */
+export function sparTextMobil(l: SparLage): { text: string; etikett?: string } {
+  if (l === 'sparad') return { text: 'Sparad', etikett: 'Sparad i Ska sökas. Visa listan' }
+  if (l === 'sparar') return { text: 'Sparar' }
+  if (l === 'fel') return { text: 'Försök igen', etikett: 'Försök spara igen' }
+  return { text: 'Spara', etikett: 'Spara till Ska sökas' }
+}
+
+/** Höger knapp i fotens andra rad. I läget sökt blir raden en enda länk. */
+export function soktTextMobil(l: SoktLage): string {
+  if (l === 'sokt') return 'Loggad som sökt. Visa listan'
+  if (l === 'sparar') return 'Sparar'
+  if (l === 'fel') return 'Försök igen'
+  return 'Markera som sökt'
+}
+
+/**
+ * Foten i telefonens annonsvy, under 1280 px: "Skriv brev" i full bredd
+ * överst, Spara och Markera som sökt med text under (beslut 22). Ritas i
+ * <FastFot rader>. Inga hooks: lägena kommer som egenskaper.
+ */
 export function AnnonsFotMobil({ job, handlingar: h }: Pick<AnnonsProps, 'job' | 'handlingar'>) {
   void job
+  const spara = sparTextMobil(h.spara)
   return (
     <>
       <StorKnapp onClick={h.onSkrivBrev}>
         Skriv brev
         <IkonPil />
       </StorKnapp>
-      <IkonKnapp etikett={sparText(h.spara)} onClick={h.onSpara} disabled={h.spara === 'sparar' || h.spara === 'sparad'}>
-        {h.spara === 'sparad' ? <IkonBock /> : <IkonBokmark />}
-      </IkonKnapp>
-      <IkonKnapp etikett={soktText(h.sokt)} onClick={h.onSokt} disabled={h.sokt === 'sparar' || h.sokt === 'sokt'}>
-        <IkonBock />
-      </IkonKnapp>
+      {h.sokt === 'sokt' ? (
+        <LitenKnapp storlek={48} bred ikon={<IkonBock />} href={FOT_SOKT_HREF}>
+          {soktTextMobil(h.sokt)}
+        </LitenKnapp>
+      ) : (
+        <>
+          {h.spara === 'sparad' ? (
+            <LitenKnapp storlek={48} ikon={<IkonBock />} href={FOT_SPARAD_HREF} aria-label={spara.etikett}>
+              {spara.text}
+            </LitenKnapp>
+          ) : (
+            <LitenKnapp storlek={48} ikon={<IkonBokmark />} onClick={h.onSpara} disabled={h.spara === 'sparar'} aria-label={spara.etikett}>
+              {spara.text}
+            </LitenKnapp>
+          )}
+          <LitenKnapp storlek={48} ikon={<IkonBock />} onClick={h.onSokt} disabled={h.sokt === 'sparar'}>
+            {soktTextMobil(h.sokt)}
+          </LitenKnapp>
+        </>
+      )}
     </>
   )
 }

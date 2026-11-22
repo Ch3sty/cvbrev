@@ -41,11 +41,15 @@ import {
   Ark as ArkHurGick,
 } from '@/components/jobb3/kit'
 import {
+  beskedText,
+  foljUppText,
   intervjuEtikettKort,
   intervjuText,
   kortDag,
   langDag,
   tjanstHref,
+  testRadText,
+  vantarSvarText,
   veckodagNamn,
   dagarMellan,
   type SkaSokasRad,
@@ -98,7 +102,14 @@ export function ListaVagg({ data, onAndraMal }: { data: SoktaTjansterData; onAnd
               namn: 'Intervju',
               antal: st.intervju?.antal ?? 0,
               under: st.intervju?.undertext,
-              brickor: (st.intervju?.brickor ?? []).map((b) => ({ kod: b.bokstaver, ton: 'vit' as const, tagg: b.etikett ?? undefined, href: tjanstHref(b.id), etikett: b.company })),
+              // En tyst bricka efter intervju eller provjobb ritas som vid Sökt (omgång 2).
+              brickor: (st.intervju?.brickor ?? []).map((b) => ({
+                kod: b.bokstaver,
+                ton: b.tyst ? ('tyst' as const) : ('vit' as const),
+                tagg: b.tyst ? b.etikett?.replace('tyst ', '') ?? undefined : b.etikett ?? undefined,
+                href: tjanstHref(b.id),
+                etikett: b.company,
+              })),
             },
             {
               namn: 'Erbjudande',
@@ -171,6 +182,7 @@ export function ListaGolv({
   data,
   filter,
   vaxel,
+  kvittens,
   onFilter,
   onLogga,
   onRefresh,
@@ -178,6 +190,8 @@ export function ListaGolv({
   data: SoktaTjansterData
   filter: SoktaFilter
   vaxel: ReactNode
+  /** Kvittensen efter testvägen (9.16), överst i panelen före växeln. */
+  kvittens?: ReactNode
   onFilter: (f: SoktaFilter) => void
   onLogga: (f?: LoggaForifyllt | null) => void
   onRefresh: () => void
@@ -233,6 +247,8 @@ export function ListaGolv({
     const bricka = { kod: t.bokstaver, ton: golvTon(t.ton) }
     const href = tjanstHref(t.id)
     if (grupp === 'folj_upp') {
+      // Efter intervju eller provjobb: fråga om besked (byggspec 2.3, läge 1).
+      const besked = t.foljUppTyp === 'intervju' || t.foljUppTyp === 'provjobb'
       return (
         <TjanstRad
           key={t.id}
@@ -240,7 +256,7 @@ export function ListaGolv({
           bricka={bricka}
           rubrik={t.jobTitle}
           arbetsgivare={varRad(t)}
-          text={soktRad(t)}
+          text={besked ? beskedText(t) : soktRad(t)}
           steg={steg}
           status={{ status: 'folj-upp', text: `Tyst i ${t.dagarTyst} dagar`, vit: true }}
           hogerMobil={<StatusPiller status="folj-upp" vit>{`Tyst ${t.dagarTyst} dagar`}</StatusPiller>}
@@ -248,13 +264,13 @@ export function ListaGolv({
             <>
               <span className="hidden xl:inline-flex">
                 <StorKnapp storlek="lag" golv href={tjanstHref(t.id, 'folj-upp')} className="lag-alltid">
-                  Följ upp
+                  {besked ? 'Fråga om besked' : 'Följ upp'}
                   <IkonPil size={18} />
                 </StorKnapp>
               </span>
               <span className="w-full xl:hidden">
                 <StorKnapp storlek="lag" golv bred href={tjanstHref(t.id, 'folj-upp')}>
-                  Följ upp med ett kort mejl
+                  {besked ? 'Fråga om besked med ett kort mejl' : 'Följ upp med ett kort mejl'}
                 </StorKnapp>
               </span>
             </>
@@ -279,7 +295,7 @@ export function ListaGolv({
           </LitenKnapp>
         ) : i?.lage === 'utan_tid' ? (
           <LitenKnapp storlek={48} href={tjanstHref(t.id, 'andra-tid')}>
-            Sätt tid
+            Sätt tiden
           </LitenKnapp>
         ) : (
           <LitenKnapp storlek={48} href={href}>
@@ -342,7 +358,30 @@ export function ListaGolv({
         />
       )
     }
-    // Väntar svar
+    // Väntar svar. Kallad till test (9 B): egen text och bricka, steg 2.
+    if (t.status === 'test_invited') {
+      return (
+        <TjanstRad
+          key={t.id}
+          storlek="stor"
+          bricka={bricka}
+          rubrik={t.jobTitle}
+          arbetsgivare={varRad(t)}
+          text={testRadText(t)}
+          textMobil={testRadText(t, true)}
+          steg={steg}
+          status={{ status: 'vantar', text: 'Kallad till test' }}
+          hogerMobil={<StatusPiller status="vantar">Kallad till test</StatusPiller>}
+          handling={
+            <LitenKnapp storlek={48} href={href}>
+              Uppdatera
+            </LitenKnapp>
+          }
+          handlingMobil={false}
+          href={href}
+        />
+      )
+    }
     return (
       <TjanstRad
         key={t.id}
@@ -377,7 +416,7 @@ export function ListaGolv({
     ) : null
 
   const iPanelen = [
-    grupp('g-folj-upp', 'Följ upp', g.folj_upp, 'folj_upp', 'Tyst i minst tolv dagar. Ett kort mejl brukar ge besked.', 'tyst', true),
+    grupp('g-folj-upp', 'Följ upp', g.folj_upp, 'folj_upp', foljUppText(g.folj_upp), 'tyst', true),
     grupp('g-intervju', 'Intervju på gång', g.intervju, 'intervju', 'Förbered dig här. Frågorna hör ihop med tjänsten.', 'ton'),
     grupp('g-erbjudande', 'Erbjudande', g.erbjudande, 'erbjudande', 'Grattis. Logga ditt svar när du har bestämt dig.', 'ton'),
   ].filter(Boolean)
@@ -385,10 +424,10 @@ export function ListaGolv({
 
   const vantarGrupp = g.vantar_svar.length ? (
     vantarIPanelen ? (
-      grupp('g-vantar', 'Väntar svar', g.vantar_svar, 'vantar_svar', 'Svar brukar dröja en till två veckor. Vi säger till när det är dags att följa upp.', 'vit')
+      grupp('g-vantar', 'Väntar svar', g.vantar_svar, 'vantar_svar', vantarSvarText(g.vantar_svar), 'vit')
     ) : (
       <Avsnitt topp={48} rubrikId="g-vantar">
-        <GruppHuvud id="g-vantar" rubrik="Väntar svar" antal={g.vantar_svar.length} text="Svar brukar dröja en till två veckor. Vi säger till när det är dags att följa upp." />
+        <GruppHuvud id="g-vantar" rubrik="Väntar svar" antal={g.vantar_svar.length} text={vantarSvarText(g.vantar_svar)} />
         <Kort lista>{g.vantar_svar.map((t) => rad(t, 'vantar_svar'))}</Kort>
       </Avsnitt>
     )
@@ -486,6 +525,7 @@ export function ListaGolv({
     return (
       <Golv>
         <LyftPanel lyftMobil={28} luft="20px 28px 28px">
+          {kvittens ? <div style={{ marginBottom: 18 }}>{kvittens}</div> : null}
           {vaxel}
           <div style={{ marginTop: 18 }}>
             {data.lasfel ? (
@@ -513,6 +553,7 @@ export function ListaGolv({
   return (
     <Golv>
       <LyftPanel lyftMobil={28} luft="20px 28px 28px">
+        {kvittens ? <div style={{ marginBottom: 18 }}>{kvittens}</div> : null}
         <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           {vaxel}
           <div className="hidden xl:block xl:w-[300px]">

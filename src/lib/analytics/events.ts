@@ -451,6 +451,8 @@ export interface AnalyticsEvents {
     has_profile: 'none' | 'sample' | 'full'
     scope: string | null
     next_action: string
+    /** Byggspec 9.7: sektionen Intervjuer på gång bär frågan "När är intervjun?" (listan är tom). */
+    intervjufraga?: boolean
   }
   interview_practice_started: { question: FragaId; surface: 'dashboard' }
   interview_practice_completed: { question: FragaId; level: number; surface: 'dashboard' }
@@ -568,7 +570,7 @@ export interface AnalyticsEvents {
   nivakoll_gjord: TesterV4Kontext & { testtyp: string; niva: number | null; raknas?: boolean }
   kvot_slut_visad: TesterV4Kontext & { surface: string; testtyp?: string | null }
   /** Nya Hem (2026-11-19): en gång per besök. Inga personuppgifter. */
-  hem_visad: { plan: boolean; niva: 'gratis' | 'premium'; matta_typer: number; plattform: 'webb' | 'app' }
+  hem_visad: { plan: boolean; niva: 'gratis' | 'premium'; matta_typer: number; plattform: 'webb' | 'app'; tjanstfraga?: boolean }
   /** Tryck i navigeringen Hem, Tester, Din utveckling; sida är den man stod på. */
   tester_nav_klickad: {
     mal: 'hem' | 'tester' | 'utveckling'
@@ -707,15 +709,17 @@ export interface AnalyticsEvents {
   /** F3: "Markera som sökt" (eller "Sökt ändå") på en Ska sökas-rad. */
   ska_sokas_markerad_sokt: { kalla: 'match' | 'egen'; sista_dag_passerad: boolean }
   /** F5: utkastet öppnat. kalla: sparat (fanns redan), ai, mall (reserv), ateranvant (gratis, samma tjänst igen). */
-  uppfoljning_utkast_oppnat: { kalla: 'sparat' | 'ai' | 'mall' | 'ateranvant'; premium: boolean; orsak?: string | null; ms?: number }
+  uppfoljning_utkast_oppnat: { kalla: 'sparat' | 'ai' | 'mall' | 'ateranvant'; premium: boolean; orsak?: string | null; ms?: number; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F5: spärren stoppade ett nytt utkast. */
-  uppfoljning_sparr: { lage: 'premium_required' | 'dygnstak' }
+  uppfoljning_sparr: { lage: 'premium_required' | 'dygnstak'; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F5: "Skriv om kortare". */
   uppfoljning_kortare: { omskrivning: number; lyckades: boolean }
   /** F5: Följde upp loggad. med_utkast false = "Jag har redan skickat det". */
-  uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null }
+  uppfoljning_loggad: { via: 'epost' | 'kopierat' | 'eget'; med_utkast: boolean; dagar_tyst: number | null; typ?: 'ansokan' | 'intervju' | 'provjobb' }
   /** F6: intervjuns tid satt, ändrad eller borttagen. */
-  intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' }
+  intervjutid_satt: { andring: 'ny' | 'andrad' | 'borttagen'; har_klockslag: boolean; har_plats: boolean; dagar_kvar: number | null; kalla: 'kallelse' | 'andra_tid' | 'flyttad' | 'intervju-hubb' }
+  /** Byggspec 9.7: frågan om tjänsten (testernas Hem, Inför intervjun). Den enda nya händelsen i omgång 2. */
+  tjanstfraga_val: { plats: 'test-hem' | 'intervju-hubb'; val: 'oppnad' | 'hoppad' }
   /** F6: svaret på "Hur gick intervjun?". */
   intervju_utfall: { svar: 'genomford' | 'flyttad' | 'installd' }
   /** F4: veckans mål ändrat. */

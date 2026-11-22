@@ -255,6 +255,11 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
         body: `${hej} Alla dina sessioner ligger i en kurva, per testtyp. Du ser var du började, var du landade och vilken typ som flyttade sig mest.`,
         cta: 'Se din kurva',
       };
+    case 'sokt_tjanst':
+      // Brickan finns bara i gratislistorna (Jobbsöket omgång 2). Mejlet går bara
+      // till betalande, vars listor saknar den. Texten skrivs först när ägaren har
+      // godkänt ett mejl om brickan.
+      throw new Error('[komigang] sokt_tjanst har inget mejl');
   }
 }
 

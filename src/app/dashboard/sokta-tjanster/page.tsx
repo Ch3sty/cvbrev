@@ -38,6 +38,8 @@ function forifylltUr(p: Sok): LoggaForifyllt | null {
     last_application_date: sista && /^\d{4}-\d{2}-\d{2}$/.test(sista) ? sista : null,
     af_ad_id: text(p.af, 100) ?? null,
     match_score: Number.isFinite(match) && match >= 0 && match <= 100 ? Math.round(match) : null,
+    // Varifrån arket öppnades (9.16): testvägen är test-hem och test-hem-plan.
+    fran: text(p.fran, 40),
   }
 }
 

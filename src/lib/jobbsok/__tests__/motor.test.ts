@@ -236,7 +236,7 @@ describe('tjänstens läge', () => {
     expect(tjanstLage(t, new Date('2026-12-01T09:00:00Z')).tyst).toBe(true)
   })
 
-  it('en tjänst i intervjusteget blir aldrig tyst (spärren till omgång 2)', () => {
+  it('en kallelse blir aldrig tyst, en genomförd intervju och ett provjobb efter sju dagar (omgång 2)', () => {
     const ue = tjanstLage(elin()[0], new Date('2026-12-20T09:00:00Z'))
     expect(ue.tyst).toBe(false)
     // Kallad utan tid för 20 dagar sedan: står kvar som kallelse, inte under Följ upp.
@@ -246,22 +246,26 @@ describe('tjänstens läge', () => {
     expect(ut.tyst).toBe(false)
     expect(ut.ton).toBe('intervju')
     expect(ut.intervju?.lage).toBe('utan_tid')
-    // Genomförd intervju för 20 dagar sedan: väntar besked, inte tyst.
+    // Genomförd intervju för 20 dagar sedan: väntar besked och är tyst (sju dagar).
     const genomford = tjanst('y', 'Y', 'Z', '2026-10-20', 'interview_completed', [
       handelse('y', 'interview_invited', '2026-10-25'),
       handelse('y', 'interview_completed', '2026-11-01'),
     ])
     const g = tjanstLage(genomford, NU)
     expect(g.dagarTyst).toBe(20)
-    expect(g.tyst).toBe(false)
+    expect(g.tyst).toBe(true)
+    expect(g.foljUppTyp).toBe('intervju')
+    expect(g.ton).toBe('intervju')
     expect(g.intervju?.lage).toBe('vantar_besked')
     // Genomfört provjobb likaså.
     const provjobb = tjanst('z', 'Z', 'Q', '2026-10-20', 'trial_work_completed', [handelse('z', 'trial_work_completed', '2026-11-01')])
-    expect(tjanstLage(provjobb, NU).tyst).toBe(false)
-    // Ingen av dem hamnar under Följ upp i listan.
+    expect(tjanstLage(provjobb, NU).tyst).toBe(true)
+    expect(tjanstLage(provjobb, NU).foljUppTyp).toBe('provjobb')
+    // Kallelsen står kvar under Intervju på gång, de två under Följ upp.
     const lista = soktaLista([utanTid, genomford, provjobb].map((t) => tjanstLage(t, NU)), [])
-    expect(lista.antal['folj-upp']).toBe(0)
+    expect(lista.antal['folj-upp']).toBe(2)
     expect(lista.antal.intervju).toBe(3)
+    expect(lista.intervju.map((t) => t.id)).toEqual(['x'])
   })
 
   it('läser intervjuns läge: bokad, hur gick, väntar besked', () => {
@@ -590,6 +594,8 @@ describe('uppföljningsmejlet', () => {
     kompetenser: ['kund- och leverantörsreskontra', 'månadsavstämningar i Fortnox'],
     krav: [],
     sprak: 'sv' as const,
+    typ: 'ansokan' as const,
+    momentDag: null,
   }
 
   it('bygger reservmallen av samma uppgifter, med namnet satt lokalt', () => {
@@ -664,6 +670,10 @@ describe('adressen', () => {
     expect(medFran).toBe('/dashboard/sokta-tjanster?logga=1&fran=oversikt-ny')
     expect(tolkaSoktaAdress(new URLSearchParams(medFran.split('?')[1]))).toEqual({ vy: 'lista', filter: 'alla', logga: 'sokt', manad: null })
     expect(tjanstHref('abc', 'forbered')).toBe('/dashboard/sokta-tjanster/abc?steg=forbered')
+    // Byggspec 9.9: källan efter steget, och tolkningen läser den inte.
+    expect(tjanstHref('x', 'forbered', 'intervju-hubb')).toBe('/dashboard/sokta-tjanster/x?steg=forbered&fran=intervju-hubb')
+    expect(tjanstHref('x')).toBe('/dashboard/sokta-tjanster/x')
+    expect(tolkaTjanstAdress({ steg: 'forbered', fran: 'intervju-hubb' })).toBe('forbered')
     expect(tolkaTjanstAdress({ steg: 'hur-gick' })).toBe('hur-gick')
     expect(tolkaTjanstAdress({ steg: 'x' })).toBeNull()
   })

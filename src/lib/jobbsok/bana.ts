@@ -157,7 +157,12 @@ export function bana(tjanster: readonly TjanstLage[], skaSokas: readonly SkaSoka
       brickor: intervjuOrdning.map((t) => ({
         ...brickaFor(t),
         tyst: t.tyst,
-        etikett: t.intervju?.lage === 'bokad' ? intervjuEtikettKort(t.intervju.tid) : null,
+        // En tyst intervju eller ett tyst provjobb får samma etikett som vid Sökt.
+        etikett: t.tyst
+          ? `tyst ${t.dagarTyst} dagar`
+          : t.intervju?.lage === 'bokad'
+            ? intervjuEtikettKort(t.intervju.tid)
+            : null,
       })),
       undertext: intervjuDelar.length ? intervjuDelar.join(', ') : 'Ingen just nu',
     },
@@ -174,7 +179,7 @@ export function bana(tjanster: readonly TjanstLage[], skaSokas: readonly SkaSoka
 
 /* ------------------------------------------------- tjänstens fyra steg */
 
-const SVAR_TYPER = new Set(['rejected', 'interview_invited', 'interview_completed', 'trial_work_completed', 'offer_received', 'accepted', 'declined'])
+const SVAR_TYPER = new Set(['rejected', 'test_invited', 'interview_invited', 'interview_completed', 'trial_work_completed', 'offer_received', 'accepted', 'declined'])
 const INTERVJU_TYPER = new Set(['interview_invited', 'interview_completed', 'trial_work_completed'])
 const ERBJUDANDE_TYPER = new Set(['offer_received', 'accepted', 'declined'])
 

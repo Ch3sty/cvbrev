@@ -26,7 +26,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import type { RankedJob } from '@/app/dashboard/jobbmatchning/data/match-ranking'
 import type { ActiveCVData } from '@/app/dashboard/jobbmatchning/getJobbmatchningData'
 import type { JobPreferences } from '@/types/user.types'
-import { bastaTraffar, prefsNyckel, publicerade } from './basta'
+import { bastaTraffar, poolUrval, prefsNyckel, publicerade } from './basta'
 import { CACHE_TTL_MS, valjKalla, valjPoolKalla, valjVidLasfel, type KallaVal, type Lage } from './kalla'
 
 type Klient = any
@@ -251,13 +251,20 @@ export async function hamtaBasta(
 }
 
 /**
- * Poolen för klientens filter, "längre bort" och ändrad sökprofil: de 120
- * bästa utan filter ur hela körningen. Är sammanfattningen nyare än
- * körningen (sparningen av körningen föll) ges sammanfattningens annonser,
- * så att listan räknas ur den sökning som gjordes sist. korningAt är tiden
- * för den körning annonserna kommer ur.
+ * Poolen för klientens filter, "längre bort" och ändrad sökprofil ur hela
+ * körningen, vald med poolUrval (basta.ts): de bästa enligt sökprofilen
+ * först, sedan de 120 bästa inom 100 km och de 120 bästa utan gräns. Är
+ * sammanfattningen nyare än körningen (sparningen av körningen föll) ges
+ * sammanfattningens annonser, så att listan räknas ur den sökning som
+ * gjordes sist. korningAt är tiden för den körning annonserna kommer ur.
  */
-export async function hamtaPool(supabase: Klient, userId: string, cv: ActiveCVData | null, max = 120): Promise<{ jobs: Annons[]; adsRead: number; korningAt: number | null } | null> {
+export async function hamtaPool(
+  supabase: Klient,
+  userId: string,
+  cv: ActiveCVData | null,
+  prefs: JobPreferences,
+  max = 120
+): Promise<{ jobs: Annons[]; adsRead: number; korningAt: number | null } | null> {
   if (!cv) return null
   const [samm, meta] = await Promise.all([lasSammanfattning(supabase, userId), lasKorningMeta(supabase, userId, cv.cv_id)])
   const franSammanfattning = () => ({ jobs: samm!.jobs ?? [], adsRead: samm!.ads_read, korningAt: Date.parse(samm!.korning_at) })
@@ -269,7 +276,5 @@ export async function hamtaPool(supabase: Klient, userId: string, cv: ActiveCVDa
   if (hel === 'fel' || hel.jobs.length === 0) {
     return valjPoolKalla({ samm, cvId: cv.cv_id, korningTid: null }) === 'sammanfattning' ? franSammanfattning() : null
   }
-  const { rankMatches } = await import('@/app/dashboard/jobbmatchning/data/match-ranking')
-  const pool = rankMatches(hel.jobs, cv, [], max).ranked.map((r) => r.job)
-  return { jobs: pool, adsRead: hel.adsRead, korningAt: hel.korningAt ?? meta.korningTid }
+  return { jobs: poolUrval(hel.jobs, cv, prefs, max), adsRead: hel.adsRead, korningAt: hel.korningAt ?? meta.korningTid }
 }

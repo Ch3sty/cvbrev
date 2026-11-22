@@ -19,20 +19,23 @@ export default function InforIntervjunClient({
   scope,
   nextAction,
   kvotSlut,
+  intervjufraga,
 }: {
   provCount: number
   hasProfile: 'none' | 'sample' | 'full'
   scope: string | null
   nextAction: string
   kvotSlut: boolean
+  /** Sektionen Intervjuer på gång bär frågan "När är intervjun?" (byggspec 9.7). */
+  intervjufraga: boolean
 }) {
   const skickad = useRef(false)
   useEffect(() => {
     if (skickad.current) return
     skickad.current = true
-    capture('interview_hub_viewed', { prov_count: provCount, has_profile: hasProfile, scope, next_action: nextAction })
+    capture('interview_hub_viewed', { prov_count: provCount, has_profile: hasProfile, scope, next_action: nextAction, intervjufraga })
     capture('next_action_shown', { kind: nextAction, surface: 'infor-intervjun' })
     if (kvotSlut) capture('feature_blocked', { feature: 'interview_unlimited', scope, surface: 'infor-intervjun' })
-  }, [provCount, hasProfile, scope, nextAction, kvotSlut])
+  }, [provCount, hasProfile, scope, nextAction, kvotSlut, intervjufraga])
   return null
 }

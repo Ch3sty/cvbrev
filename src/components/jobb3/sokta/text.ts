@@ -96,6 +96,8 @@ export function fyrsteg(t: TjanstLage): { steg: 1 | 2 | 3 | 4; tyst?: boolean; a
   if (t.avslutad) return { steg: 2, avslutad: true }
   if (t.station === 'erbjudande') return { steg: 4 }
   if (t.station === 'intervju') return { steg: 3, tyst: t.tyst }
+  // Kallad till test (9 B): steg 2, Svar.
+  if (t.status === 'test_invited') return { steg: 2 }
   return { steg: 1, tyst: t.tyst }
 }
 

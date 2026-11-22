@@ -7,6 +7,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { markeraBricka } from '@/lib/onboarding/komigang-server';
 
 export async function GET() {
   try {
@@ -122,6 +123,9 @@ export async function POST(request: Request) {
         .insert({ application_id: created.id, event_type: 'applied', occurred_at: appliedAt });
       createdCount++;
     }
+
+    // Kom igång-brickan "Logga en tjänst du har sökt" (Jobbsöket omgång 2).
+    if (createdCount > 0) void markeraBricka(user.id, 'sokt_tjanst');
 
     return NextResponse.json({ success: true, created: createdCount });
   } catch (error) {

@@ -108,7 +108,12 @@ describe('betalväggarnas copy per spärr', () => {
   it('uppföljningsmejlet: egen rubrik och text, köpknappen och länken till prissidan', () => {
     render(<PaywallCard variant="uppfoljning" bare />)
     expect(screen.getByText('Fler uppföljningsmejl ingår i Premium')).toBeTruthy()
-    expect(screen.getByText(/Ditt gratis utkast är använt på en annan tjänst/)).toBeTruthy()
+    expect(
+      screen.getByText(
+        'Ditt gratis utkast är använt. Med Premium skriver vi ett utkast varje gång du vill följa upp, efter en ansökan eller en intervju. Du kan också skriva mejlet själv och logga det här.'
+      )
+    ).toBeTruthy()
+    expect(document.body.textContent).not.toContain('på en annan tjänst')
     expect(screen.getByRole('button', { name: /Köp Premium/ })).toBeTruthy()
     expect(screen.getByRole('link', { name: 'Se vad som ingår' })).toBeTruthy()
   })

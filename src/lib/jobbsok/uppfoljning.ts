@@ -9,12 +9,14 @@
 import type { ApplicationChannel } from '@/lib/applications/status'
 import { dagFor, idagSv, langDag, raknaOrdITexten } from './datum'
 import { titelILopText } from './attGora'
+import { AMNE_START, utkastTyp } from './utkastTyp'
 import {
   UPPFOLJNING_MAX_ORD,
   UPPFOLJNING_PREMIUM_PER_DYGN,
   type Dag,
   type Uppfoljning,
   type UppfoljningVia,
+  type UppfoljningsTyp,
 } from './typer'
 
 export type MejlSprak = 'sv' | 'en'
@@ -29,6 +31,10 @@ export interface UppfoljningUnderlag {
   /** Brevets krav (bara texten), tomt när brevet saknar krav. */
   krav: string[]
   sprak: MejlSprak
+  /** Sorten mejl: efter ansökan, efter intervju eller efter provjobb (tjänstens foljUppTyp). */
+  typ: UppfoljningsTyp
+  /** Intervjudagen eller provjobbsdagen (intervjuInfo().dag), null efter en ansökan eller när dagen saknas. */
+  momentDag: Dag | null
 }
 
 export interface Mejl {
@@ -67,9 +73,26 @@ export function valjKompetenser(
   return ut
 }
 
-/** Rensar text som ska skickas till AI:n: inga radbrytningar, högst 200 tecken per fält. */
+/**
+ * Rensar text som ska skickas till AI:n: inga radbrytningar, högst 200 tecken
+ * per fält. Efter intervju eller provjobb går bara tjänst, arbetsgivare,
+ * momentet, dagen, kompetenserna, kraven och språket: aldrig intervjuns plats
+ * eller anteckningar (de kan innehålla namn och adresser), och inte hur man
+ * sökte eller när.
+ */
 export function underlagForModellen(u: UppfoljningUnderlag): Record<string, unknown> {
   const f = (s: string, max = 200) => s.replace(/\s+/g, ' ').trim().slice(0, max)
+  if (u.typ === 'intervju' || u.typ === 'provjobb') {
+    return {
+      tjanst: f(u.jobTitle),
+      arbetsgivare: f(u.company),
+      moment: u.typ,
+      datum: u.momentDag ? langDag(u.momentDag) : null,
+      kompetenser: u.kompetenser.slice(0, 3).map((k) => f(k, 60)),
+      krav: u.krav.slice(0, 8).map((k) => f(k, 60)),
+      sprak: u.sprak,
+    }
+  }
   return {
     tjanst: f(u.jobTitle),
     arbetsgivare: f(u.company),
@@ -191,8 +214,16 @@ export function valideraAiMejl(raw: unknown, maxOrd = UPPFOLJNING_MAX_ORD): { su
   return { subject, stycken }
 }
 
-/** Ämnesraden i mallen. */
-export function mallAmne(u: Pick<UppfoljningUnderlag, 'jobTitle' | 'sprak' | 'kanal'>): string {
+/**
+ * Ämnesraden i mallen, alltid mallens, aldrig AI:ns. Efter intervju eller
+ * provjobb börjar den med AMNE_START, så att utkastTyp läser tillbaka samma
+ * sort; hur man sökte spelar då ingen roll. Utan `typ`: en ansökan.
+ */
+export function mallAmne(u: Pick<UppfoljningUnderlag, 'jobTitle' | 'sprak' | 'kanal'> & { typ?: UppfoljningsTyp }): string {
+  if (u.typ === 'intervju' || u.typ === 'provjobb') {
+    const start = AMNE_START[u.typ]
+    return (u.sprak === 'en' ? `${start.en}, ${u.jobTitle.trim()}` : `${start.sv}, tjänsten som ${titelILopText(u.jobTitle)}`).slice(0, MAX_AMNE)
+  }
   if (u.sprak === 'en') return `Following up on my application for ${u.jobTitle.trim()}`.slice(0, MAX_AMNE)
   if (u.kanal === 'unsolicited') return `Min spontanansökan, ${titelILopText(u.jobTitle)}`.slice(0, MAX_AMNE)
   return `Min ansökan till tjänsten som ${titelILopText(u.jobTitle)}`.slice(0, MAX_AMNE)
@@ -209,6 +240,7 @@ function lista(ord: readonly string[], och: string): string {
  * utkast.
  */
 export function uppfoljningsmall(u: UppfoljningUnderlag, namn: string | null): Mejl {
+  if (u.typ === 'intervju' || u.typ === 'provjobb') return mallEfterMoment(u, u.typ, namn)
   const komp = u.kompetenser.slice(0, 3).map((k) => k.trim()).filter(Boolean)
   if (u.sprak === 'en') {
     const forsta =
@@ -233,7 +265,44 @@ export function uppfoljningsmall(u: UppfoljningUnderlag, namn: string | null): M
   return { subject: mallAmne(u), body: sattIhop([forsta, andra, tredje], 'sv', namn) }
 }
 
-const EN_MANADER = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+/**
+ * Reservmallen efter en genomförd intervju eller ett provjobb (byggspec 2.6):
+ * ett tack med dagen, att man fortfarande är intresserad (högst två
+ * kompetenser) och en fråga om när besked kommer.
+ */
+function mallEfterMoment(u: UppfoljningUnderlag, typ: 'intervju' | 'provjobb', namn: string | null): Mejl {
+  const komp = u.kompetenser.slice(0, 2).map((k) => k.trim()).filter(Boolean)
+  const dag = u.momentDag
+  const subject = mallAmne({ ...u, typ })
+  if (u.sprak === 'en') {
+    const titel = u.jobTitle.trim()
+    const vad = typ === 'intervju' ? 'the interview' : 'the trial day'
+    const forsta = dag
+      ? `Thank you for ${vad} on ${enDatum(dag)} for the ${titel} position.`
+      : `Thank you for ${vad} for the ${titel} position.`
+    const andra = komp.length
+      ? `I am still interested. My experience with ${lista(komp, 'and')} is close to what you are looking for.`
+      : 'I am still interested in the role and in working with you.'
+    const tredje = 'Do you know when you expect to make a decision? Please let me know if you have further questions. I am happy to answer by email or phone.'
+    return { subject, body: sattIhop([forsta, andra, tredje], 'en', namn) }
+  }
+  const titel = titelILopText(u.jobTitle)
+  const forsta =
+    typ === 'intervju'
+      ? dag
+        ? `Tack för intervjun den ${langDag(dag)} om tjänsten som ${titel}.`
+        : `Tack för intervjun om tjänsten som ${titel}.`
+      : dag
+        ? `Tack för provjobbet den ${langDag(dag)}, för tjänsten som ${titel}.`
+        : `Tack för provjobbet, för tjänsten som ${titel}.`
+  const andra = komp.length
+    ? `Jag är fortfarande intresserad. Det jag gör i dag, ${lista(komp, 'och')}, ligger nära det ni söker.`
+    : 'Jag är fortfarande intresserad av tjänsten och av att jobba hos er.'
+  const tredje = 'Vet ni när ni räknar med att lämna besked? Hör gärna av er om ni vill fråga något mer. Jag svarar på det här mejlet eller i telefon.'
+  return { subject, body: sattIhop([forsta, andra, tredje], 'sv', namn) }
+}
+
+const EN_MANADER =['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 function enDatum(dag: Dag): string {
   const [, m, d] = dag.split('-').map(Number)
   return `${d} ${EN_MANADER[m - 1]}`
@@ -278,11 +347,18 @@ export interface SparrSvar {
  * (body inte null), alla tjänster. Ett konto utan Premium får ett utkast;
  * samma tjänsts utkast går alltid att öppna igen. Premium: högst 30 per
  * dygn (svensk tid, från midnatt).
+ *
+ * Sorten (omgång 2): ett gratiskonto får öppna sitt utkast igen bara när det
+ * hör till samma tjänst och är av samma sort (utkastTyp(subject) === typ). Ett
+ * intervjuutkast räknas som kontots gratisutkast, så den som har använt sitt
+ * på en ansökan möter betalväggen också när utkastet gäller samma tjänst.
+ * Utan `typ` och `subject` gäller sorten 'ansokan' på båda sidor: som förut.
  */
 export function uppfoljningSparr(ind: {
   harBetalt: boolean
-  utkast: ReadonlyArray<{ application_id: string; created_at: string }>
+  utkast: ReadonlyArray<{ application_id: string; created_at: string; subject?: string | null }>
   applicationId: string
+  typ?: UppfoljningsTyp
   nu?: Date
 }): SparrSvar {
   if (ind.harBetalt) {
@@ -292,7 +368,10 @@ export function uppfoljningSparr(ind: {
     return { lage: kvar > 0 ? 'ny' : 'dygnstak', kvarIdag: kvar }
   }
   if (ind.utkast.length === 0) return { lage: 'ny', kvarIdag: null }
-  if (ind.utkast.some((u) => u.application_id === ind.applicationId)) return { lage: 'ateranvand', kvarIdag: null }
+  const typ = ind.typ ?? 'ansokan'
+  if (ind.utkast.some((u) => u.application_id === ind.applicationId && utkastTyp(u.subject) === typ)) {
+    return { lage: 'ateranvand', kvarIdag: null }
+  }
   return { lage: 'premium_required', kvarIdag: null }
 }
 

@@ -22,6 +22,24 @@ describe('avståndet när annonsen saknar det (rättningsrundan 2026-11-21)', ()
     expect(ut.map((j) => j.id)).toEqual(['u', 'd'])
     expect(applyClientFilters([stockholm, umea], DEFAULT_FILTERS, true, 'Umeå')).toHaveLength(2)
   })
+  it('en ort i sökprofilen räknas som nära (Jobbsöket omgång 2)', () => {
+    // Utan orter i sökprofilen: som förut.
+    expect(arLangtBort(stockholm, 'Umeå', [])).toBe(true)
+    // Orten själv, på namnet.
+    expect(arLangtBort(stockholm, 'Umeå', ['Stockholm'])).toBe(false)
+    // Inom 100 km från en ort i sökprofilen som går att placera.
+    const uppsala = { id: 'up', headline: 'Ekonom', workplace_address: { municipality: 'Uppsala', region: 'Uppsala län' } }
+    expect(arLangtBort(uppsala, 'Umeå', ['Stockholm'])).toBe(false)
+    // Ett län går inte att placera: lyfter inte gränsen för grannarna, men
+    // annonser i länet gallras inte bort.
+    expect(arLangtBort(uppsala, 'Umeå', ['Stockholms län'])).toBe(true)
+    expect(arLangtBort({ ...stockholm, workplace_address: { municipality: 'Stockholm', region: 'Stockholms län' } }, 'Umeå', ['Stockholms län'])).toBe(false)
+    // En ort långt från både CV:t och sökprofilen.
+    const goteborg = { id: 'g', headline: 'Ekonom', workplace_address: { municipality: 'Göteborg' } }
+    expect(arLangtBort(goteborg, 'Umeå', ['Stockholm'])).toBe(true)
+    expect(applyClientFilters([stockholm, umea, goteborg], DEFAULT_FILTERS, false, 'Umeå', ['Stockholm']).map((j) => j.id)).toEqual(['s', 'u'])
+  })
+
   it('en annan ort blir inte ett skäl', () => {
     const cv = { cv_id: 'c', extracted_occupations: [], extracted_skills: [], extracted_educations: [], extracted_location: 'Umeå', parsed_at: '' }
     expect(buildMatchReasons(stockholm, cv, []).reasons).not.toContain('Stockholm')

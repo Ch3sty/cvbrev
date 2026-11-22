@@ -487,16 +487,21 @@ export function StegKortRad({ children }: { children: ReactNode }) {
   return <div className="j3-stegkort-rad">{children}</div>
 }
 
-/** En upplysning i en tonad ruta med ikon (samtycket i Meddelanden). */
-export function Notis({ ikon, rubrik, text, ton = 'tyst' }: { ikon: ReactNode; rubrik: string; text?: ReactNode; ton?: 'tyst' | 'ton' }) {
+/**
+ * En upplysning i en tonad ruta med ikon (samtycket i Meddelanden).
+ * `handling` ritas under texten (knappar får inte ligga i ett stycke),
+ * `role` gör rutan till en kvittens (role="status", kvittensen i Sökta tjänster).
+ */
+export function Notis({ ikon, rubrik, text, ton = 'tyst', handling, role }: { ikon: ReactNode; rubrik: string; text?: ReactNode; ton?: 'tyst' | 'ton'; handling?: ReactNode; role?: 'status' }) {
   return (
-    <div className={ton === 'ton' ? 'j3-notis ton' : 'j3-notis'}>
+    <div className={ton === 'ton' ? 'j3-notis ton' : 'j3-notis'} role={role}>
       <span className="j3-notis-ik" aria-hidden="true">
         {ikon}
       </span>
       <div>
         <b>{rubrik}</b>
         {text ? <p>{text}</p> : null}
+        {handling ? <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">{handling}</div> : null}
       </div>
     </div>
   )

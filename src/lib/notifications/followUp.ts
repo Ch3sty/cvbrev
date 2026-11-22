@@ -14,6 +14,11 @@
 // sätter även när bara intervjutiden ändras). En loggad uppföljning flyttar
 // fram nästa notis till nastaPaminnelse. Saknas uppföljningstabellen räknas
 // det som förut, på status_updated_at.
+//
+// Intervjulägena (Jobbsöket omgång 2, byggspec 2.7): en genomförd intervju
+// eller ett genomfört provjobb utan besked på sju dagar får en egen notis som
+// frågar om besked. En kallelse, med eller utan tid, ger aldrig en notis, och
+// "har inte hört av sig" står aldrig om en tjänst i intervjusteget.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import {
@@ -23,7 +28,9 @@ import {
   type ApplicationEventType,
 } from '@/lib/applications/status';
 import { tjanstHref } from '@/lib/jobbsok/adress';
-import { dagFor } from '@/lib/jobbsok/datum';
+import { titelILopText } from '@/lib/jobbsok/attGora';
+import { dagFor, langDag } from '@/lib/jobbsok/datum';
+import { INTERVJU_BESKED_DAGAR, type Dag, type UppfoljningsTyp } from '@/lib/jobbsok/typer';
 import { arSchemaFel } from '@/lib/jobbsok/schema';
 import { HISTORIK_SELECT, harHistorik, tystnadFor, type RadMedHistorik } from '@/lib/jobbsok/tystnad';
 
@@ -69,24 +76,30 @@ export interface Kandidat {
   days: number;
   /** Dagen tystnaden började (motorn); null i reservläget. */
   tystSedan: string | null;
+  /** Sorten (motorns foljUppTyp): 'ansokan', 'intervju' eller 'provjobb'. Reservläget: 'ansokan'. */
+  typ: UppfoljningsTyp;
+  /** Intervjudagen eller provjobbsdagen; null efter en ansökan. */
+  momentDag: Dag | null;
 }
 
 /**
- * Urvalet: pågående ansökningar utan svar som är tysta. Med historiken
- * avgör motorn (tystnadFor), annars det gamla sättet. Ren, för testerna.
+ * Urvalet: pågående tjänster som är tysta. Med historiken avgör motorn
+ * (tystnadFor): en obesvarad ansökan efter tolv dagar, en genomförd intervju
+ * eller ett provjobb efter sju, en kallelse aldrig. Utan historik det gamla
+ * sättet, och då bara tjänster utan svar. Ren, för testerna.
  */
 export function followUpCandidates(rows: readonly ApplicationRow[], now: Date): Kandidat[] {
   const ut: Kandidat[] = [];
   for (const app of rows) {
     if (statusIsClosed(app.current_status)) continue;
-    if (statusHasResponse(app.current_status)) continue;
     if (app.current_status === 'offer_received') continue;
     if (harHistorik(app)) {
       const t = tystnadFor(app, now);
-      if (t.tyst) ut.push({ app, days: t.dagarTyst, tystSedan: t.tystSedan });
+      if (t.tyst && t.typ) ut.push({ app, days: t.dagarTyst, tystSedan: t.tystSedan, typ: t.typ, momentDag: t.momentDag });
     } else {
+      if (statusHasResponse(app.current_status)) continue;
       const days = silentDaysFallback(app, now);
-      if (days >= NO_RESPONSE_NUDGE_DAYS) ut.push({ app, days, tystSedan: null });
+      if (days >= NO_RESPONSE_NUDGE_DAYS) ut.push({ app, days, tystSedan: null, typ: 'ansokan', momentDag: null });
     }
   }
   // Längst tystnad först: den som väntat mest är den som brådskar mest.
@@ -106,6 +119,23 @@ export function redanNotifierad(k: Kandidat, notiser: readonly string[]): boolea
     const dag = dagFor(iso);
     return !dag || dag >= k.tystSedan!;
   });
+}
+
+/** Notisens titel och text per sort (byggspec 2.7). */
+export function notisText(k: Pick<Kandidat, 'app' | 'days' | 'typ' | 'momentDag'>): { title: string; message: string } {
+  const { app } = k;
+  if (k.typ === 'intervju' || k.typ === 'provjobb') {
+    const moment = k.typ === 'intervju' ? 'Intervjun' : 'Provjobbet';
+    const dag = langDag(k.momentDag ?? dagFor(app.status_updated_at) ?? dagFor(app.created_at) ?? '');
+    return {
+      title: `Dags att fråga ${app.company} om besked`,
+      message: `${moment} för tjänsten som ${titelILopText(app.job_title)} var den ${dag}. Ett kort mejl som frågar när du kan vänta besked räcker.`,
+    };
+  }
+  return {
+    title: `${app.company} har inte hört av sig`,
+    message: `Din ansökan som ${app.job_title} har varit tyst i ${k.days} dagar. Ett kort mejl som frågar hur processen ligger till räcker.`,
+  };
 }
 
 export interface FollowUpResult {
@@ -128,20 +158,22 @@ export async function createFollowUpNotifications(
   // Bara pågående ansökningar är intressanta. Regeln bor i status.ts och
   // tillämpas i koden (followUpCandidates); statusfiltret i frågan är samma
   // mängd och finns bara för att hålla frågan liten under taket på 1000 rader.
-  const cutoff = new Date(now.getTime() - NO_RESPONSE_NUDGE_DAYS * DAY_MS).toISOString();
+  // Gränsen är den kortaste (sju dagar efter intervju eller provjobb); motorn
+  // avgör sedan per tjänst.
+  const cutoff = new Date(now.getTime() - INTERVJU_BESKED_DAGAR * DAY_MS).toISOString();
   const cutoffDag = dagFor(cutoff);
 
   // En samlad fråga för alla konton, med händelserna och uppföljningarna
   // inbäddade (inget per rad). Bara lägen som kan få notisen (ingen status,
-  // sökt, inget svar: samma mängd som filtret nedan) och bara de som kan ha
-  // varit tysta i NO_RESPONSE_NUDGE_DAYS: sökta före gränsen, eller med en
-  // gammal statusändring som förut.
+  // sökt, inget svar, genomförd intervju, genomfört provjobb) och bara de som
+  // kan ha varit tysta i minst INTERVJU_BESKED_DAGAR: sökta före gränsen,
+  // eller med en gammal statusändring som förut.
   const COLUMNS = 'id, user_id, job_title, company, current_status, status_updated_at, applied_at, created_at';
   const oldFilter = `status_updated_at.lte.${cutoff},and(status_updated_at.is.null,created_at.lte.${cutoff})`;
   let { data, error } = await (admin as any)
     .from('job_applications')
     .select(`${COLUMNS}, ${HISTORIK_SELECT}`)
-    .or('current_status.is.null,current_status.in.(applied,no_response)')
+    .or('current_status.is.null,current_status.in.(applied,no_response,interview_completed,trial_work_completed)')
     .or(`applied_at.lte.${cutoffDag},${oldFilter}`)
     .limit(1000);
 
@@ -202,13 +234,14 @@ export async function createFollowUpNotifications(
     }
     perUser.set(app.user_id, used + 1);
 
+    const { title, message } = notisText(kandidat);
     toInsert.push({
       user_id: app.user_id,
       type: FOLLOW_UP_NOTIFICATION_TYPE,
-      title: `${app.company} har inte hört av sig`,
-      message: `Din ansökan som ${app.job_title} har varit tyst i ${days} dagar. Ett kort mejl som frågar hur processen ligger till räcker.`,
+      title,
+      message,
       action_url: tjanstHref(app.id, 'folj-upp'),
-      metadata: { applicationId: app.id, silentDays: days },
+      metadata: { applicationId: app.id, silentDays: days, efter: kandidat.typ },
     });
   }
 

@@ -12,7 +12,7 @@
  * Klientsäker och ren.
  */
 import { tjanstLage } from './lage'
-import type { Dag, Handelse, JobApplication, TjanstMedHistorik, Uppfoljning } from './typer'
+import type { Dag, Handelse, JobApplication, TjanstMedHistorik, Uppfoljning, UppfoljningsTyp } from './typer'
 
 /** Inbäddningen i en select mot job_applications: bara kolumnerna motorn läser. */
 export const HISTORIK_SELECT =
@@ -37,12 +37,16 @@ export interface RadMedHistorik {
 }
 
 export interface Tystnad {
-  /** Tyst enligt motorn (kanBliTyst och NO_RESPONSE_NUDGE_DAYS). */
+  /** Tyst enligt motorn (foljUppTyp och tystGransFor: tolv dagar efter ansökan, sju efter intervju eller provjobb). */
   tyst: boolean
   /** Dagar sedan senaste aktivitet, svensk tid. */
   dagarTyst: number
   /** Dagen då tjänsten blir (eller blev) tyst: senaste aktivitet plus gränsen. */
   tystSedan: Dag
+  /** Tjänstens foljUppTyp: 'ansokan', 'intervju', 'provjobb', eller null (kallad, erbjudande, avslutad). */
+  typ: UppfoljningsTyp | null
+  /** Intervjudagen (lage.intervju?.dag), null utanför intervjusteget. */
+  momentDag: Dag | null
 }
 
 /** Har raden historiken inbäddad? Annars ska läsaren falla tillbaka till sitt gamla sätt. */
@@ -66,5 +70,11 @@ export function tystnadFor(rad: RadMedHistorik, nu: Date = new Date()): Tystnad 
       .map((u) => ({ sent_at: u.sent_at, body: null }) as unknown as Uppfoljning),
   }
   const lage = tjanstLage(t, nu)
-  return { tyst: lage.tyst, dagarTyst: lage.dagarTyst, tystSedan: lage.tystSedan }
+  return {
+    tyst: lage.tyst,
+    dagarTyst: lage.dagarTyst,
+    tystSedan: lage.tystSedan,
+    typ: lage.foljUppTyp,
+    momentDag: lage.intervju?.dag ?? null,
+  }
 }

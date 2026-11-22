@@ -61,6 +61,8 @@ export interface ModellIn {
   personlighet: { gjord: boolean };
   paket: Paketinfo;
   matrisMonster: UtvecklingV4Data['matrisMonster'];
+  /** Jobbsöket omgång 2 (9 B): förs vidare orört till TesterV4Data. */
+  tjanstfraga?: TesterV4Data['tjanstfraga'];
 }
 
 const ZONER: readonly Zon[] = ['grund', 'avancerad', 'expert'];
@@ -241,6 +243,7 @@ export function byggTesterV4(inp: ModellIn): TesterV4Data {
     dagens,
     vaggBana: byggVaggBana(vagenIn),
     vagen: byggVagen(vagenIn, dagens),
+    ...(inp.tjanstfraga ? { tjanstfraga: inp.tjanstfraga } : {}),
   };
 }
 

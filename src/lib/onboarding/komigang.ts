@@ -13,6 +13,7 @@ import type { Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { SALD_PLAN, paketKort, paketNamn, paketNamnForScope } from '@/lib/plans/plans'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
+import { soktaHref } from '@/lib/jobbsok/adress'
 
 /**
  * Namnet i appen (copy-premium avsnitt 1): scope allt heter Premium, också
@@ -44,6 +45,8 @@ export type BrickaKey =
   | 'personlighet'
   | 'intervjuprov'
   | 'kurva'
+  /** Logga en sökt tjänst (Jobbsöket omgång 2). Bara i gratislistorna. */
+  | 'sokt_tjanst'
 
 /** Hjälpredans fyra listor. Null är gratisnivån. */
 export type Paket = Scope | null
@@ -77,7 +80,9 @@ export const KOM_IGANG_LISTA: Record<'cv' | 'tester' | 'allt' | 'gratis', readon
     // saknar personlighetsbrickan, så intervjuprovet står sist.
     'intervjuprov',
   ],
-  gratis: ['profil', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'],
+  // Loggningen direkt efter profilen (Jobbsöket omgång 2, byggspecen 1.3):
+  // den kräver ingen fil och tar en minut på telefon.
+  gratis: ['profil', 'sokt_tjanst', 'cv_upp', 'analys_gratis', 'mall', 'matris_grund'],
 }
 
 /**
@@ -92,11 +97,14 @@ export const KOM_IGANG_LISTA: Record<'cv' | 'tester' | 'allt' | 'gratis', readon
  * ordning, aldrig av menyn eller behörigheterna (saas-leads villkor 1).
  */
 export const KOM_IGANG_LISTA_GRATIS: Record<SignupIntent, readonly BrickaKey[]> = {
-  tester: ['matris_grund', 'personlighet', 'intervjuprov', 'analys_gratis', 'brev', 'jobbmatchning'],
-  intervju: ['intervjuprov', 'personlighet', 'matris_grund', 'analys_gratis', 'brev', 'jobbmatchning'],
-  cv: ['analys_gratis', 'mall', 'brev', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
-  brev: ['brev', 'analys_gratis', 'mall', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
-  jobb: ['jobbmatchning', 'analys_gratis', 'brev', 'mall', 'matris_grund', 'intervjuprov'],
+  // Loggningen står först i "Gratis i de andra delarna", på plats fyra. För
+  // valet jobb står den i "Det du valde", direkt efter matchningen
+  // (Jobbsöket omgång 2, byggspecen 1.3).
+  tester: ['matris_grund', 'personlighet', 'intervjuprov', 'sokt_tjanst', 'analys_gratis', 'brev', 'jobbmatchning'],
+  intervju: ['intervjuprov', 'personlighet', 'matris_grund', 'sokt_tjanst', 'analys_gratis', 'brev', 'jobbmatchning'],
+  cv: ['analys_gratis', 'mall', 'brev', 'sokt_tjanst', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+  brev: ['brev', 'analys_gratis', 'mall', 'sokt_tjanst', 'jobbmatchning', 'matris_grund', 'intervjuprov'],
+  jobb: ['jobbmatchning', 'sokt_tjanst', 'analys_gratis', 'brev', 'mall', 'matris_grund', 'intervjuprov'],
 }
 
 /** Område per bricka i gratislistorna: skriva, jobb eller träna. */
@@ -108,6 +116,7 @@ export const OMRADE_FOR_BRICKA: Partial<Record<BrickaKey, Omrade>> = {
   mall: 'skriv',
   brev: 'skriv',
   jobbmatchning: 'jobb',
+  sokt_tjanst: 'jobb',
   matris_grund: 'trana',
   personlighet: 'trana',
   intervjuprov: 'trana',
@@ -388,6 +397,16 @@ export function brickaText(
         href: '/dashboard/tester?flik=utveckling',
         knapp: 'Se din kurva',
       }
+    case 'sokt_tjanst':
+      return {
+        key,
+        titel: 'Logga en tjänst du har sökt',
+        text: 'Företag, tjänst och datum. En minut.',
+        klarText: 'Finns under Sökta tjänster',
+        kort: 'logga en sökt tjänst',
+        href: soktaHref({ logga: 'sokt', fran: 'komigang' }),
+        knapp: 'Logga tjänsten',
+      }
   }
 }
 
@@ -400,6 +419,7 @@ const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>
   brev: { titel: 'Skriv ett personligt brev', text: 'Ett ingår gratis att läsa' },
   jobbmatchning: { titel: 'Se tre matchade jobb', text: 'Jobb du inte hittat själv, med skälen' },
   mall: { titel: 'Välj en CV-mall', text: `${FREE_TEMPLATE_COUNT} mallar och en nedladdning ingår gratis` },
+  sokt_tjanst: { titel: 'Logga en tjänst du har sökt', text: 'Vi säger till när det är dags att följa upp' },
 }
 
 function talOrd(n: number): string {

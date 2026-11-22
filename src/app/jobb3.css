@@ -1248,6 +1248,22 @@ textarea.j3-inp { height: auto; min-height: 104px; padding: 12px 14px; resize: v
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .j3-fot { background: rgba(11, 20, 14, .94); } }
 @media (min-width: 640px) { .j3-fot { margin: 0 -24px; padding-left: 24px; padding-right: 24px; } }
 @media (min-width: 1280px) { .j3-fot { display: none; } }
+/* main rullar (DashboardShell), och sticky räknar från main:s innehållsyta,
+   alltså ovanför bottenpaddingen (nav + 1,5rem). Med den kvar stod foten 96 px
+   ovanför navet. Samma lösning som brevrummets .b3-ml-fast: ingen bottenpadding
+   medan foten finns, och luften under den ligger i .j3-fot-luft i stället, så
+   att innehållets sista rader går att rulla fram ovanför foten. */
+@media (max-width: 1279.98px) { main.dashboard-main-content:has(.j3-fot) { padding-bottom: 0; } }
+/* Golvet har redan 40 px bottenpadding, så luften är navets höjd minus den:
+   vid annonsens slut står foten dikt mot navet. */
+.j3-fot-luft { height: max(0px, calc(var(--bottom-nav-h, 0px) - 40px)); }
+@media (min-width: 1280px) { .j3-fot-luft { display: none; } }
+/* Annonsens fot i två rader (Jobbsöket omgång 2, byggspecen 3.4): "Skriv brev"
+   i full bredd, under den de vita knapparna med text. 12 px mellan raderna
+   eftersom primärknappen har 5 px skugga under sig. */
+.j3-fot.rader { flex-wrap: wrap; row-gap: 12px; }
+.j3-fot.rader > .j3-stor { flex: 1 0 100%; }
+.j3-fot.rader > .j3-liten { flex: 1 1 auto; min-width: 0; padding: 0 12px; }
 
 /* ---------------------------------------------------------------- lägen: tomt, laddar, fel, spärr */
 .j3-tomt { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px; border-radius: 20px; border: 2.5px dashed var(--j3-streck); background: var(--j3-ljus); color: var(--j3-ink); }

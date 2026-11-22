@@ -273,6 +273,12 @@ export const hamtaUnderlagV4 = cache(async (userId: string): Promise<{ modell: M
       paket: { scope: (paket?.scope as string | null) ?? null, track: (paket?.track as string | null) ?? null, planKey: (paket?.planKey as string | null) ?? null },
       // Fylls av hamtaUtvecklingV4 ur motordatan; Hem och Tester behöver dem inte.
       matrisMonster: null,
+      // Kortet "Vilken tjänst gäller provet?" (Jobbsöket omgång 2, 9.14): ur läsningarna
+      // ovan, ingen ny fråga. Saknas summeringen räknas det som en sökt tjänst (inget kort).
+      tjanstfraga: {
+        harNivakoll: nivapunkter.some((n) => n.typ === 'matning' || n.typ === 'ommatning'),
+        harSoktTjanst: (summering?.sidomeny?.ansokningar ?? 1) > 0,
+      },
     },
   };
 });
