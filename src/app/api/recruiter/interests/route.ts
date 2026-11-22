@@ -8,12 +8,8 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import {
-  buildCandidateCard,
-  createPercentileContext,
-  type CandidateCard,
-  type CandidateProfileRow,
-} from '@/lib/recruiter/candidateData';
+import { recruiterCardsFor } from '@/lib/recruiter/candidateAccess';
+import type { RecruiterCard } from '@/lib/recruiter/recruiterView';
 import { unreadByInterest } from '@/lib/interests/threadUnread';
 
 export const dynamic = 'force-dynamic';
@@ -53,30 +49,16 @@ export async function GET() {
 
     // Ett kort per UNIK kandidat: profilerna hämtas i en fråga och korten
     // byggs en gång var, med delad percentilkontext.
-    const uniqueCandidateIds = [...new Set(interests.map((i) => i.candidate_user_id))];
-
-    const { data: profileRows, error: profileError } = await (admin as any)
-      .from('candidate_profiles')
-      .select(
-        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch'
-      )
-      .in('user_id', uniqueCandidateIds)
-      .neq('visibility', 'off');
-
-    if (profileError) {
+    let cardByCandidate: Map<string, RecruiterCard>;
+    try {
+      cardByCandidate = await recruiterCardsFor(
+        admin,
+        interests.map((i) => i.candidate_user_id)
+      );
+    } catch (profileError) {
       console.error('Recruiter interests: kunde inte läsa profiler', profileError);
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
-
-    const profiles = (profileRows ?? []) as CandidateProfileRow[];
-    const ctx = createPercentileContext(admin);
-    const cardByCandidate = new Map<string, CandidateCard>();
-    await Promise.all(
-      profiles.map(async (row) => {
-        const card = await buildCandidateCard(admin, row, ctx);
-        cardByCandidate.set(row.user_id, card);
-      })
-    );
 
     // Trådstatistik (antal + olästa) för accepterade intressen.
     const acceptedIds = interests.filter((i) => i.status === 'accepted').map((i) => i.id);

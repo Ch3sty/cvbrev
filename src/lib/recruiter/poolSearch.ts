@@ -24,6 +24,7 @@ import {
   type EducationLevelBucket,
   type FamilyKey,
 } from './candidateData';
+import { visibleProfilesQuery } from './candidateAccess';
 
 type Admin = SupabaseClient<Database>;
 
@@ -232,14 +233,8 @@ export async function runPoolSearch(
 ): Promise<PoolSearchResult> {
   // Strukturella filter trycks ned i frågan; fritext/percentil/styrka m.fl.
   // filtreras efter kortbygget eftersom de kräver härledd data.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query = (admin as any)
-    .from('candidate_profiles')
-    .select(
-      'user_id, cv_id, visibility, show_personality, show_full_workstyle, context_tags, availability, workplace, extent, employment_types, regions, drivers_license, pitch, consent_given_at, created_at'
-    )
-    .neq('visibility', 'off')
-    .order('updated_at', { ascending: false });
+  // Samma ingång som alla andra rekryterarvägar (candidateAccess.ts).
+  let query = visibleProfilesQuery(admin).order('updated_at', { ascending: false });
 
   if (filters.regions?.length) query = query.overlaps('regions', filters.regions);
   if (filters.availability) query = query.eq('availability', filters.availability);

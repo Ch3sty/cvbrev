@@ -181,6 +181,12 @@ export interface ExperienceEntry {
   company: string | null;
   period: string | null;
   description: string | null;
+  /**
+   * Anställningens längd i ord ("3 år", "Under ett år"). Det enda om tiden
+   * som får lämna servern före kandidatens ja: exakta datum ihop med titeln
+   * kan peka ut arbetsgivaren. Se recruiterView.ts.
+   */
+  duration?: string | null;
 }
 
 export interface EducationEntry {
@@ -858,6 +864,17 @@ function shortDate(value: unknown): string | null {
   return match ? `${match[1]}-${match[2]}` : value.trim();
 }
 
+/** Längden på en anställning i ord, ur samma periodtolkning som senioriteten. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function durationText(raw: any, now: number = Date.now()): string | null {
+  const interval = parseInterval(raw);
+  if (!interval || interval.start > now) return null;
+  const ms = (interval.end ?? now) - interval.start;
+  if (ms < 0) return null;
+  if (ms < YEAR_MS * 0.75) return 'Under ett år';
+  return `${Math.max(1, Math.round(ms / YEAR_MS))} år`;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapExperience(sd: any, contactUnlocked: boolean): ExperienceEntry[] {
   // Två format i produktion: CV-byggaren/parsern har experience[] med
@@ -903,7 +920,7 @@ function mapExperience(sd: any, contactUnlocked: boolean): ExperienceEntry[] {
       }
 
       if (!position && !description) return null;
-      return { position, company, period, description };
+      return { position, company, period, description, duration: durationText(raw) };
     })
     .filter((e): e is ExperienceEntry => e !== null);
 }

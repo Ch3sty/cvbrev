@@ -105,11 +105,16 @@ export default function ProfileSections({
                     )}
                     {exp.period && <span>· {exp.period}</span>}
                   </p>
-                  {exp.description && (
+                  {exp.description ? (
                     <p className="mt-1 text-[13px] text-slate-600 leading-relaxed">
                       {exp.description}
                     </p>
-                  )}
+                  ) : exp.descriptionHidden ? (
+                    <p className="mt-1 inline-flex items-center gap-1 text-[12px] text-slate-400">
+                      <Lock className="w-3 h-3" aria-hidden="true" />
+                      Beskrivningen visas efter accepterad kontakt
+                    </p>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -131,9 +136,16 @@ export default function ProfileSections({
                 </span>
                 <div className="min-w-0">
                   <p className="text-sm font-bold text-slate-900">{edu.degree ?? 'Utbildning'}</p>
-                  <p className="text-[12.5px] text-slate-500">
-                    {[edu.school, edu.year].filter(Boolean).join(' · ')}
-                  </p>
+                  {edu.schoolHidden ? (
+                    <p className="mt-0.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-500 text-[11px] font-bold">
+                      <Lock className="w-3 h-3" aria-hidden="true" />
+                      Lärosätet visas efter accepterad kontakt
+                    </p>
+                  ) : (
+                    <p className="text-[12.5px] text-slate-500">
+                      {[edu.school, edu.year].filter(Boolean).join(' · ')}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

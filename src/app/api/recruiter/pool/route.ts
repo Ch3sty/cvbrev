@@ -36,6 +36,7 @@ import {
   type SeniorityBucket,
 } from '@/lib/recruiter/poolSearch';
 import type { EducationLevelBucket, FamilyKey } from '@/lib/recruiter/candidateData';
+import { toRecruiterCard } from '@/lib/recruiter/recruiterView';
 
 export const dynamic = 'force-dynamic';
 
@@ -114,7 +115,8 @@ export async function GET(request: NextRequest) {
     const pageItems = candidates.slice(start, start + PAGE_SIZE).map((card) => {
       const interest = interestByCandidate.get(card.userId);
       return {
-        ...card,
+        // Vitlistan: bara kortets godkända fält lämnar servern.
+        ...toRecruiterCard(card),
         interestStatus: interest?.status ?? null,
         interestSentAt: interest?.createdAt ?? null,
       };

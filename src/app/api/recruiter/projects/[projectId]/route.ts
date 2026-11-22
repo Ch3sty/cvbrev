@@ -12,18 +12,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import {
-  buildCandidateCard,
-  createPercentileContext,
-  type CandidateProfileRow,
-} from '@/lib/recruiter/candidateData';
+import { recruiterCardsFor } from '@/lib/recruiter/candidateAccess';
+import type { RecruiterCard } from '@/lib/recruiter/recruiterView';
 
 export const dynamic = 'force-dynamic';
 
 const NAME_MAX = 80;
-
-const CANDIDATE_PROFILE_COLUMNS =
-  'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch';
 
 interface ProjectRow {
   id: string;
@@ -92,41 +86,34 @@ export async function GET(
       candidateUserId: string;
       status: string;
       addedAt: string;
-      card: Awaited<ReturnType<typeof buildCandidateCard>>;
+      card: RecruiterCard;
     }> = [];
 
     if (members.length > 0) {
       // Endast synliga profiler: kandidater med visibility 'off' faller bort.
-      const { data: visibleRows, error: visibleError } = await (admin as any)
-        .from('candidate_profiles')
-        .select(CANDIDATE_PROFILE_COLUMNS)
-        .in('user_id', members.map((m) => m.candidate_user_id))
-        .neq('visibility', 'off');
-
-      if (visibleError) {
+      let cardByUser: Map<string, RecruiterCard>;
+      try {
+        cardByUser = await recruiterCardsFor(
+          admin,
+          members.map((m) => m.candidate_user_id)
+        );
+      } catch (visibleError) {
         console.error('Recruiter project: kunde inte läsa profiler', visibleError);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
       }
 
-      const profileByUser = new Map(
-        ((visibleRows ?? []) as CandidateProfileRow[]).map((row) => [row.user_id, row])
-      );
-
-      const ctx = createPercentileContext(admin);
-      const built = await Promise.all(
-        members.map(async (m) => {
-          const row = profileByUser.get(m.candidate_user_id);
-          if (!row) return null; // synlighet av eller profil borta
-          const card = await buildCandidateCard(admin, row, ctx);
-          return {
+      candidates = members.flatMap((m) => {
+        const card = cardByUser.get(m.candidate_user_id);
+        if (!card) return []; // synlighet av eller profil borta
+        return [
+          {
             candidateUserId: m.candidate_user_id,
             status: m.status,
             addedAt: m.added_at,
             card,
-          };
-        })
-      );
-      candidates = built.filter((c): c is NonNullable<typeof c> => c !== null);
+          },
+        ];
+      });
     }
 
     return NextResponse.json({

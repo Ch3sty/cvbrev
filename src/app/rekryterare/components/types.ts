@@ -1,15 +1,18 @@
 // Delade klienttyper för rekryterarportalen. Speglar payloaden från
 // /api/recruiter/pool, /api/recruiter/candidate/[userId] och projekt-API:erna.
-// Server-typerna importeras type-only från lib så kontrakten aldrig glider
-// isär; etikettkonstanterna återanvänds från Bli upptäckt-sidan.
+// Server-typerna importeras type-only från vitlistan (recruiterView.ts), så
+// klienten bara känner till fält som faktiskt får lämna servern;
+// etikettkonstanterna återanvänds från Bli upptäckt-sidan.
 
 import type {
-  CandidateCard,
-  CandidateDetail,
-  TestBadge,
-  TestResultEntry,
-  ExperienceEntry,
-  EducationEntry,
+  RecruiterCard as CandidateCard,
+  RecruiterDetail as CandidateDetail,
+  RecruiterTestBadge as TestBadge,
+  RecruiterTestResult as TestResultEntry,
+  RecruiterExperience as ExperienceEntry,
+  RecruiterEducation as EducationEntry,
+} from '@/lib/recruiter/recruiterView';
+import type {
   FamilyKey,
   Level,
   EducationLevelBucket,

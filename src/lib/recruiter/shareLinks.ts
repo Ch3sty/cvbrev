@@ -12,11 +12,8 @@
 
 import crypto from 'crypto';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import {
-  buildCandidateDetail,
-  type CandidateDetail,
-  type CandidateProfileRow,
-} from '@/lib/recruiter/candidateData';
+import { findVisibleProfile, recruiterDetailFor } from '@/lib/recruiter/candidateAccess';
+import type { RecruiterDetail } from '@/lib/recruiter/recruiterView';
 
 export const SHARE_LINK_TTL_DAYS = 14;
 export const SHARE_TOKEN_LENGTH = 32;
@@ -30,11 +27,8 @@ export function shareLinkExpiry(now: Date = new Date()): Date {
   return new Date(now.getTime() + SHARE_LINK_TTL_DAYS * 24 * 60 * 60 * 1000);
 }
 
-const CANDIDATE_PROFILE_COLUMNS =
-  'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch';
-
 export interface SharedCandidate {
-  detail: CandidateDetail;
+  detail: RecruiterDetail;
   expiresAt: string;
 }
 
@@ -66,33 +60,13 @@ export async function getSharedCandidate(token: string): Promise<SharedCandidate
   if (!link) return null;
 
   // Kandidaten måste fortfarande vara synlig i poolen.
-  const { data: profileRow, error: profileError } = await (admin as any)
-    .from('candidate_profiles')
-    .select(CANDIDATE_PROFILE_COLUMNS)
-    .eq('user_id', link.candidate_user_id)
-    .neq('visibility', 'off')
-    .maybeSingle();
+  const row = await findVisibleProfile(admin, link.candidate_user_id);
+  if (!row) return null;
 
-  if (profileError) {
-    console.error('Share links: kunde inte läsa profilen', profileError);
-    return null;
-  }
-  if (!profileRow) return null;
-
-  // Skaparens intressestatus avgör upplåsningen, precis som i skaparens vy.
-  const { data: interest } = await (admin as any)
-    .from('candidate_interests')
-    .select('status')
-    .eq('recruiter_user_id', link.recruiter_user_id)
-    .eq('candidate_user_id', link.candidate_user_id)
-    .maybeSingle();
-
-  const accepted = interest?.status === 'accepted';
-  const row = profileRow as CandidateProfileRow;
-  const contactUnlocked = accepted || row.visibility === 'open';
-
-  const detail = await buildCandidateDetail(admin, row, contactUnlocked, {
-    emailUnlocked: accepted,
+  // Skaparens intressestatus avgör upplåsningen, precis som i skaparens vy,
+  // och vitlistan formar svaret som för alla andra rekryterarvägar.
+  const { detail } = await recruiterDetailFor(admin, row, link.recruiter_user_id, {
+    sharedLink: true,
   });
 
   return { detail, expiresAt: link.expires_at };

@@ -1,19 +1,15 @@
 // GET /api/recruiter/candidate/[userId]
 // Detaljprofilen för en kandidat i poolen. 404 om profilen inte är synlig.
 //
-// MASKERINGSREGEL (implementeras i buildCandidateDetail):
-//   contactUnlocked = intresse med status 'accepted' ELLER visibility 'open'
-//     → låser upp namn + arbetsgivarnamn i historiken.
-//   email låses ENBART upp vid accepterat intresse, aldrig av öppen profil.
-//   salary_min/salary_max lämnar aldrig servern.
+// Svaret formas av vitlistan i src/lib/recruiter/recruiterView.ts: före
+// kandidatens ja ingen fritext ur CV:t, inga arbetsgivare, lärosäten, namn
+// eller e-post. Efter ja, eller vid öppen profil, det samtycket säger.
+// E-post kräver alltid accepterat intresse. Lönespannet lämnar aldrig servern.
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { requireApprovedRecruiter } from '@/lib/recruiter/auth';
-import {
-  buildCandidateDetail,
-  type CandidateProfileRow,
-} from '@/lib/recruiter/candidateData';
+import { findVisibleProfile, recruiterDetailFor } from '@/lib/recruiter/candidateAccess';
 import { logProfileView } from '@/lib/recruiter/profileViews';
 
 export const dynamic = 'force-dynamic';
@@ -28,57 +24,24 @@ export async function GET(
     const { user } = gate.ctx;
 
     const { userId } = await params;
-    if (!userId) {
-      return NextResponse.json({ error: 'Not found' }, { status: 404 });
-    }
-
     const admin = getSupabaseAdmin();
 
-    const { data: profileRow, error } = await (admin as any)
-      .from('candidate_profiles')
-      .select(
-        'user_id, cv_id, visibility, show_personality, availability, workplace, extent, employment_types, regions, drivers_license, pitch'
-      )
-      .eq('user_id', userId)
-      .neq('visibility', 'off')
-      .maybeSingle();
-
-    if (error) {
-      console.error('Recruiter candidate: kunde inte läsa profilen', error);
-      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-    }
-    if (!profileRow) {
+    const row = userId ? await findVisibleProfile(admin, userId) : null;
+    if (!row) {
       // Dold eller obefintlig profil ska inte gå att skilja åt.
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
-    // Rekryterarens eget intresse för kandidaten avgör upplåsningen.
-    const { data: interest } = await (admin as any)
-      .from('candidate_interests')
-      .select('id, status, message, created_at, responded_at')
-      .eq('recruiter_user_id', user.id)
-      .eq('candidate_user_id', userId)
-      .maybeSingle();
-
-    const accepted = interest?.status === 'accepted';
-    const row = profileRow as CandidateProfileRow;
-    const contactUnlocked = accepted || row.visibility === 'open';
-
-    const detail = await buildCandidateDetail(admin, row, contactUnlocked, {
-      emailUnlocked: accepted,
-    });
+    const { detail, interestStatus } = await recruiterDetailFor(admin, row, user.id);
 
     // Profilen har bevisligen lämnats ut till en godkänd rekryterare: logga
     // visningen så kandidaten kan se att profilen faktiskt ses. Avdubblas per
     // dygn och rekryterare inne i logProfileView. Awaitas inte, eftersom en
     // tappad loggrad är ett mindre fel än en långsammare eller trasig
     // profilhämtning.
-    void logProfileView(admin, userId, user.id);
+    void logProfileView(admin, row.user_id, user.id);
 
-    return NextResponse.json({
-      candidate: detail,
-      interestStatus: interest?.status ?? null,
-    });
+    return NextResponse.json({ candidate: detail, interestStatus });
   } catch (error) {
     console.error('Recruiter candidate error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
