@@ -16,6 +16,7 @@
 -- (src/lib/lagring/sokvagar.ts). Hinken profile-photos rörs inte här, se
 -- 20261122190000_profile_photos_egen_mapp.sql (inte körd).
 
+begin;
 drop policy if exists "Allow storage access to all authenticated users" on storage.objects;
 drop policy if exists "Authenticated users can access cvs bucket" on storage.objects;
 drop policy if exists "Allow users to view own files" on storage.objects;
@@ -32,3 +33,4 @@ create policy "cvs: egen mapp, ändra" on storage.objects for update to authenti
   with check (bucket_id = 'cvs' and (storage.foldername(name))[1] = 'users' and (storage.foldername(name))[2] = auth.uid()::text);
 create policy "cvs: egen mapp, radera" on storage.objects for delete to authenticated
   using (bucket_id = 'cvs' and (storage.foldername(name))[1] = 'users' and (storage.foldername(name))[2] = auth.uid()::text);
+commit;

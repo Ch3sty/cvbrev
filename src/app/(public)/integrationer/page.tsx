@@ -77,6 +77,9 @@ const TITEL = 'Integrationer med LinkedIn och Arbetsförmedlingen'
 const BESKRIVNING =
   'Så hänger Jobbcoach.ai ihop med LinkedIn, Arbetsförmedlingen, din e-post och ditt Google-konto: fyra kopplingar som finns i kontot i dag.'
 const ADRESS = 'https://www.jobbcoach.ai/integrationer'
+// Rotens delningsbild (src/app/opengraph-image.tsx). En egen openGraph ersätter
+// rotens, så bilden måste stå här för att sidan ska behålla den.
+const BILD = { url: 'https://www.jobbcoach.ai/opengraph-image', width: 1200, height: 630 }
 
 export const metadata: Metadata = {
   title: TITEL,
@@ -90,11 +93,13 @@ export const metadata: Metadata = {
     siteName: 'Jobbcoach.ai',
     locale: 'sv_SE',
     type: 'website',
+    images: [BILD],
   },
   twitter: {
     card: 'summary_large_image',
     title: TITEL,
     description: BESKRIVNING,
+    images: [BILD.url],
   },
 }
 
