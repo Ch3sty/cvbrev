@@ -268,6 +268,9 @@ export async function runPoolSearch(
   const matched: Array<{ card: CandidateCard; relevance: number; match: TokenMatch | null }> = [];
 
   for (const card of cards) {
+    // Utan yrkesroll hör profilen inte hemma i poolen (candidateAccess.ts).
+    if (!card.role?.trim()) continue;
+
     // Fritext: AND över alla tokens, annars bort.
     let match: TokenMatch | null = null;
     if (hasQuery) {

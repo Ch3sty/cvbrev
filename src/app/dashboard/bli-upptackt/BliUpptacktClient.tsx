@@ -1,7 +1,8 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import Topprad from '@/components/rum/Topprad';
 import { BLI_UPPTACKT } from '@/lib/rum/copy';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -86,6 +87,32 @@ function Streck({ klara, av }: { klara: number; av: number }) {
   );
 }
 
+/** Vad som saknas innan profilen kan synas, med väg dit. */
+function Saknas({ saknas }: { saknas: { text: string; href: string }[] }) {
+  return (
+    <div className="j3-text" role="status">
+      <p>
+        <b>Innan du kan synas behöver profilen ett CV och en yrkesroll.</b>
+      </p>
+      <ul className="mt-1.5 space-y-1">
+        {saknas.map((s) => (
+          <li key={s.href}>
+            {s.href.startsWith('#') ? (
+              <a href={s.href} className="underline underline-offset-2">
+                {s.text}
+              </a>
+            ) : (
+              <Link href={s.href} className="underline underline-offset-2">
+                {s.text}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /**
  * Bli upptäckt (Jobbsöket omgång 1, skissen Upptackt och Upptackt-fore).
  * Kandidaten väljer CV, styr synlighet och anonymitet, anger villkor,
@@ -149,10 +176,30 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
     [supabase, userId]
   );
 
+  // Synligheten går inte att slå på förrän profilen har ett valt CV och en
+  // yrkesroll (ägarbeslut 2026-11-22). Poolen filtrerar dessutom bort sådana
+  // profiler på servern, vad raden än säger.
+  const roll = summary?.skills?.occupation?.trim() || null;
+  const saknas: { text: string; href: string }[] = [];
+  if (!profile.cv_id) {
+    saknas.push(
+      cvs.length === 0
+        ? { text: 'Ladda upp ett CV', href: '/dashboard/profil/cv' }
+        : { text: 'Välj vilket CV rekryterare ska se', href: '#cv' }
+    );
+  } else if (!roll) {
+    saknas.push({
+      text: 'Vi hittar ingen yrkesroll i CV:t. Analysera CV:t så hämtar vi roll och kompetenser.',
+      href: '/dashboard/jobbmatchning',
+    });
+  }
+  const kanSynas = saknas.length === 0;
+
   const handleMasterToggle = () => {
     if (profile.visibility === 'off') {
+      if (!kanSynas) return;
       if (!profile.consent_given_at) openConsent();
-      else saveProfile({ visibility: lastMode });
+      else saveProfile({ visibility: lastMode, cv_id: profile.cv_id });
     } else {
       setLastMode(profile.visibility as 'anonymous' | 'open');
       saveProfile({ visibility: 'off' });
@@ -162,6 +209,8 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
   const handleConsentConfirm = async (showPersonality: boolean, showFullWorkstyle: boolean) => {
     await saveProfile({
       visibility: 'anonymous',
+      // Ett förvalt CV (kontots enda) sparas här, tillsammans med samtycket.
+      cv_id: profile.cv_id,
       show_personality: showPersonality,
       show_full_workstyle: showPersonality && showFullWorkstyle,
       consent_given_at: new Date().toISOString(),
@@ -170,6 +219,16 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
     setLastMode('anonymous');
     setConsentOpen(false);
   };
+
+  // Kontots enda CV är förvalt. Har kandidaten redan samtyckt sparas det
+  // direkt, så att en redan synlig profil inte står utan CV i poolen.
+  useEffect(() => {
+    if (initialData.cvForvalt && initialData.profile.consent_given_at && initialData.profile.cv_id) {
+      saveProfile({ cv_id: initialData.profile.cv_id });
+    }
+    // Bara vid första visningen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSelectCv = (cvId: string) => {
     saveProfile({ cv_id: cvId });
@@ -247,11 +306,20 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
                 <Punkter punkter={HIDDEN_ITEMS.map((s) => ({ ikon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true"><path d="M6 12h12" /></svg>, text: s }))} />
               </TonYta>
             </div>
+            {!kanSynas && !profile.cv_id && cvs.length > 1 ? (
+              <div id="cv" className="mt-6 scroll-mt-24">
+                <CvPickerCard cvs={cvs} selectedId={profile.cv_id} onSelect={handleSelectCv} />
+              </div>
+            ) : null}
             <div className="mt-6 flex flex-col gap-4 border-t-2 border-[var(--j3-linje)] pt-6 xl:flex-row xl:items-center xl:justify-between">
-              <p className="j3-text">
-                Nästa steg är att läsa igenom vad som delas. <b>Inget syns förrän du godkänt det.</b>
-              </p>
-              <StorKnapp golv storlek="mellan" onClick={handleMasterToggle} disabled={saving}>
+              {kanSynas ? (
+                <p className="j3-text">
+                  Nästa steg är att läsa igenom vad som delas. <b>Inget syns förrän du godkänt det.</b>
+                </p>
+              ) : (
+                <Saknas saknas={saknas} />
+              )}
+              <StorKnapp golv storlek="mellan" onClick={handleMasterToggle} disabled={saving || !kanSynas}>
                 Kom igång
                 <IkonPil />
               </StorKnapp>
@@ -342,10 +410,23 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
             <Strombrytare
               pa={synlig}
               rubrik={bryterRubrik}
-              text={synlig ? 'Slå av när du vill. Då syns du inte alls.' : 'Slå på för att synas i kandidatpoolen igen.'}
+              text={
+                !kanSynas
+                  ? synlig
+                    ? 'Rekryterare ser inte profilen förrän den har ett CV och en yrkesroll.'
+                    : 'Profilen behöver ett CV och en yrkesroll innan du kan synas.'
+                  : synlig
+                    ? 'Slå av när du vill. Då syns du inte alls.'
+                    : 'Slå på för att synas i kandidatpoolen igen.'
+              }
               onClick={handleMasterToggle}
-              disabled={saving}
+              disabled={saving || (!synlig && !kanSynas)}
             />
+            {!kanSynas ? (
+              <div className="mt-4">
+                <Saknas saknas={saknas} />
+              </div>
+            ) : null}
           </div>
         </VaggHero>
       </JobbVagg>
@@ -356,7 +437,7 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
             <LyftPanel rubrikId="bygg-rubrik" luft="22px 28px 28px">
               <PanelHuvud ogon="Bygg din profil" rubrik={stegRubrik} rubrikId="bygg-rubrik" hoger={<Streck klara={antalKlara} av={stegLista.length} />} hogerAlltid mitt />
               <div className="mt-3">
-                {steg('cv', <CvPickerCard cvs={cvs} selectedId={profile.cv_id} onSelect={handleSelectCv} collapse={collapseFor('cv')} />)}
+                {steg('cv', <CvPickerCard cvs={cvs} selectedId={profile.cv_id} onSelect={handleSelectCv} collapse={collapseFor('cv')} />, 'cv')}
                 {steg('synlighet', <VisibilityModeCard visibility={profile.visibility} lastMode={lastMode} onChange={handleModeChange} collapse={collapseFor('synlighet')} />)}
                 {steg('villkor', <TermsCard profile={profile} onPatch={saveProfile} collapse={collapseFor('villkor')} />, 'villkor')}
                 {steg('pitch', <PitchCard pitch={profile.pitch} onSave={(pitch) => saveProfile({ pitch })} collapse={collapseFor('pitch')} />, 'pitch')}

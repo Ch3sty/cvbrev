@@ -19,6 +19,7 @@ import type { Database } from '@/types/database.types';
 import {
   buildCandidateCard,
   buildCandidateDetail,
+  candidateRole,
   createPercentileContext,
   type CandidateProfileRow,
 } from './candidateData';
@@ -88,7 +89,19 @@ async function profileColumns(admin: Admin): Promise<string> {
 
 // ---------------------------------------------------------------------------
 // Läsningarna
+//
+// Poolen visar aldrig en profil utan valt CV och yrkesroll (ägarbeslut
+// 2026-11-22), också om raden säger synlig: CV:t filtreras i frågan, rollen
+// efter härledningen (withRole, kortens role).
 // ---------------------------------------------------------------------------
+
+async function withRole(
+  admin: Admin,
+  row: CandidateProfileRow | null
+): Promise<CandidateProfileRow | null> {
+  if (!row) return null;
+  return (await candidateRole(admin, row.user_id, row.cv_id)) ? row : null;
+}
 
 /**
  * Frågan efter profiler som får synas för en rekryterare. Anroparen kan
@@ -102,7 +115,9 @@ export async function visibleProfilesQuery(admin: Admin): Promise<{ query: any }
   const query = (admin as any)
     .from('candidate_profiles')
     .select(await profileColumns(admin))
-    .neq('visibility', 'off');
+    .neq('visibility', 'off')
+    // Utan valt CV hör profilen inte hemma i poolen, vad raden än säger.
+    .not('cv_id', 'is', null);
   return { query };
 }
 
@@ -122,7 +137,7 @@ export async function findVisibleProfile(
     console.error('candidateAccess: kunde inte läsa profilen', error);
     return null;
   }
-  return (data as CandidateProfileRow | null) ?? null;
+  return withRole(admin, (data as CandidateProfileRow | null) ?? null);
 }
 
 /** Samma sak utifrån kontots id. Bara för serverns egna uppslag (delningslänken). */
@@ -136,7 +151,7 @@ export async function findVisibleProfileByUserId(
     console.error('candidateAccess: kunde inte läsa profilen', error);
     return null;
   }
-  return (data as CandidateProfileRow | null) ?? null;
+  return withRole(admin, (data as CandidateProfileRow | null) ?? null);
 }
 
 /**
@@ -235,6 +250,7 @@ export async function recruiterCardsFor(
   await Promise.all(
     ((data ?? []) as CandidateProfileRow[]).map(async (row) => {
       const card = await buildCandidateCard(admin, row, ctx);
+      if (!card.role?.trim()) return;
       result.set(row.user_id, toRecruiterCard(card, candidateRefOf(row)));
     })
   );

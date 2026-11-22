@@ -60,6 +60,8 @@ export interface BliUpptacktData {
   views: ViewStats | null;
   /** Hopfällda sektioner ur user_ui_preferences, null när raden saknas. */
   collapsedSections: string[] | null;
+  /** true när kontots enda CV är förvalt men inte sparat på profilen. */
+  cvForvalt: boolean;
 }
 
 const PREF_KEY = 'bli_upptackt_collapsed';
@@ -202,6 +204,14 @@ export async function getBliUpptacktData(
       : []
     : null;
 
+  // Har kontot ett enda CV är det förvalt. Det sparas först när kandidaten
+  // slår på synligheten, eller väljer det själv.
+  let cvForvalt = false;
+  if (!profile.cv_id && cvs.length === 1 && !cvs[0].isLocked) {
+    profile = { ...profile, cv_id: cvs[0].id };
+    cvForvalt = true;
+  }
+
   // Andra omgången: underlaget beror på vilket CV profilen pekar ut, och
   // visningarna hämtas bara när profilen faktiskt är synlig. Att visa
   // "0 visningar" för någon som inte slagit på synligheten vore att rapportera
@@ -227,5 +237,6 @@ export async function getBliUpptacktData(
     interests,
     views: views as ViewStats | null,
     collapsedSections,
+    cvForvalt,
   };
 }

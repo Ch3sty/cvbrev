@@ -740,6 +740,21 @@ async function fetchRoleAndSkills(
   return { occupation, skills, sd };
 }
 
+/**
+ * Yrkesrollen profilen visas under, samma härledning som träffkortet. null
+ * när rollen saknas: då hör profilen inte hemma i poolen (ägarbeslut
+ * 2026-11-22, se candidateAccess.ts).
+ */
+export async function candidateRole(
+  admin: Admin,
+  userId: string,
+  cvId: string | null
+): Promise<string | null> {
+  if (!cvId) return null;
+  const { occupation } = await fetchRoleAndSkills(admin, userId, cvId);
+  return occupation?.trim() || null;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function fetchStructuredData(
   admin: Admin,

@@ -417,3 +417,26 @@ describe('kontots id når aldrig rekryteraren', () => {
     expect(kort[0].candidateId).toBe(KAND);
   });
 });
+
+describe('poolen visar aldrig en profil utan CV och yrkesroll', () => {
+  beforeEach(() => byggDb('inget'));
+
+  it('synlig rad utan valt CV: inte i poolen, detaljen ger 404', async () => {
+    db.tables.candidate_profiles[0].cv_id = null;
+    expect(JSON.parse(await poolen()).candidates).toEqual([]);
+    expect((await detaljen(PUBLIK)).status).toBe(404);
+    expect(JSON.parse(await inkorgen()).interests).toEqual([]);
+  });
+
+  it('CV utan yrkesroll: inte i poolen, detaljen ger 404', async () => {
+    db.tables.active_cv_for_matching = [];
+    const sd = db.tables.cv_texts[0].structured_data;
+    sd.experience = sd.experience.map((e: any) => ({ ...e, position: '' }));
+    expect(JSON.parse(await poolen()).candidates).toEqual([]);
+    expect((await detaljen(PUBLIK)).status).toBe(404);
+  });
+
+  it('med CV och yrkesroll syns profilen', async () => {
+    expect(JSON.parse(await poolen()).candidates).toHaveLength(1);
+  });
+});
