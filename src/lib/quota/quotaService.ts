@@ -11,7 +11,9 @@
 // - Tester/prov:  logic_test_v4_sessions (slutförda sessioner per test_type)
 // - Chatt:        ai_messages (användarens egna meddelanden, role='user')
 // - CV-analys:    cv_analysis_jobs (usage_counted=true, hela kontots historik)
-// - Brev:         profiles-kolumnerna weekly_letter_* plus letters-historiken
+// - Brev:         profiles-kolumnerna weekly_letter_* plus letters-historiken.
+//                 Kontots första utkast ur startflödet räknas inte (en gång
+//                 per konto, ägarens beslut 2026-11-22, claim-brev.ts).
 // - Intervjuprov: anon_interview_samples (sparade svar sedan midnatt, per user_id)
 //
 // Gränserna efter paketomgången:

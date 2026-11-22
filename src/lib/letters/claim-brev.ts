@@ -15,6 +15,66 @@
 import { BREV_FORVALD_MALL, BREV_TONER_FRI, brevMallId, farSparaMall } from './brevRegler'
 import { styckenFranText } from './stycken'
 import { MAX_ANNONS } from './publikt-brev-val'
+import { DAILY_LIMIT_LETTERS, letterResetAtFromNow, resolveWeeklyLetterCounter } from '@/lib/quota/quotaService'
+
+/* ------------------------------- Kvoten -------------------------------- */
+
+/**
+ * Utkast ur startflödet som ett konto får hämta in utan att det räknas mot
+ * veckans gratisbrev (ägarens beslut 2026-11-22). Brevet från startflödet är
+ * det som lockade in kontot; att det åt upp veckans brev i kontot var fel.
+ * Gränsen är en per konto, för alltid, så att flödet inte blir en väg till
+ * obegränsat med gratisbrev: varje utkast efter det första räknas som ett
+ * brev skrivet i kontot. Själva kvoten (ett brev per rullande sju dygn) är
+ * oförändrad och bor i quotaService.
+ */
+export const FRIA_INHAMTADE_UTKAST = 1
+
+export interface ClaimKvotProfil {
+  weekly_letter_count?: number | null
+  weekly_letter_first_used_at?: string | null
+}
+
+/** Samma form som skrivBrev.kvotLage, så att raknaBrevMotKvot kan ta den direkt. */
+export interface ClaimKvotLage {
+  effectiveCount: number
+  windowIsStale: boolean
+  nextResetDate: Date
+}
+
+export interface ClaimKvot {
+  /**
+   * fritt:  räknas inte (betalt konto, eller kontots första inhämtade utkast).
+   * raknas: räknas som veckans gratisbrev, som ett brev skrivet i kontot.
+   * slut:   veckans gratisbrev är redan skrivet; utkastet hämtas inte in.
+   */
+  beslut: 'fritt' | 'raknas' | 'slut'
+  lage: ClaimKvotLage
+}
+
+/**
+ * Hur ett inhämtat utkast räknas. tidigareInhamtade är antalet utkast kontot
+ * redan hämtat in, det här utkastet oräknat.
+ */
+export function claimKvot(
+  tidigareInhamtade: number,
+  harBetalt: boolean,
+  profil: ClaimKvotProfil | null | undefined,
+  nu: Date = new Date()
+): ClaimKvot {
+  const { effectiveCount, windowIsStale } = resolveWeeklyLetterCounter(
+    profil?.weekly_letter_count ?? 0,
+    profil?.weekly_letter_first_used_at ?? null,
+    nu
+  )
+  const lage: ClaimKvotLage = {
+    effectiveCount,
+    windowIsStale,
+    nextResetDate: letterResetAtFromNow(profil?.weekly_letter_first_used_at ?? null, nu),
+  }
+  if (harBetalt || tidigareInhamtade < FRIA_INHAMTADE_UTKAST) return { beslut: 'fritt', lage }
+  return { beslut: effectiveCount >= DAILY_LIMIT_LETTERS ? 'slut' : 'raknas', lage }
+}
 
 /** Tonen det publika utkastet skrivs i när ingen ton väljs (som före omgång 3). */
 export const PUBLIK_FORVALD_TON = 'professional'

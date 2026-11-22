@@ -12,6 +12,11 @@
  * en Premiummall på gratisnivån provas i Mallar och brevet sparas i Linne.
  * Reglerna står i src/lib/letters/claim-brev.ts.
  *
+ * Veckans gratisbrev (ägarens beslut 2026-11-22): kontots första inhämtade
+ * utkast räknas inte mot kvoten. Ett andra utkast räknas som ett brev skrivet
+ * i kontot, och nekas med 429 när veckans gratisbrev redan är skrivet.
+ * Startflödets IP-gräns (public_rate_limits) begränsar utkasten före kontot.
+ *
  * Idempotent: har samma användare redan hämtat utkastet får de tillbaka
  * samma brev i stället för ett nytt.
  */
@@ -22,9 +27,10 @@ import { createServerClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { userHasAccess } from '@/lib/supabase/premiumAccess'
-import { getClaimableDraft } from '@/lib/letters/public-draft'
+import { forstaInhamtadeUtkast, getClaimableDraft, raknaInhamtadeUtkast } from '@/lib/letters/public-draft'
 import { hamtaBrevProfil, ritaRad } from '@/lib/letters/server'
-import { claimMall, claimRad, claimRedirect, lasClaimVal } from '@/lib/letters/claim-brev'
+import { claimKvot, claimMall, claimRad, claimRedirect, lasClaimVal, type ClaimKvotProfil } from '@/lib/letters/claim-brev'
+import { kvotSlutSvar, raknaBrevMotKvot } from '@/lib/letters/skrivBrev'
 import { kvitteraBrevFranPublikt } from '@/lib/onboarding/forsta-handling.server'
 
 export async function POST(request: Request) {
@@ -91,7 +97,24 @@ export async function POST(request: Request) {
     }
   }
 
-  const rad = claimRad(draft, user.id, val, mall)
+  // Veckans gratisbrev (ägarens beslut 2026-11-22, claim-brev.ts): kontots
+  // första inhämtade utkast räknas inte. Varje utkast efter det räknas som
+  // ett brev skrivet i kontot, och är veckans gratisbrev redan skrivet hämtas
+  // det inte in (samma 429 som generate-preview ger).
+  const nu = new Date()
+  let kvot: ReturnType<typeof claimKvot> | null = null
+  if (!harBetalt) {
+    const [tidigare, { data: kvotRad }] = await Promise.all([
+      raknaInhamtadeUtkast(admin, user.id, draft.token),
+      supabase.from('profiles').select('weekly_letter_count, weekly_letter_first_used_at').eq('id', user.id).maybeSingle(),
+    ])
+    kvot = claimKvot(tidigare, false, kvotRad as ClaimKvotProfil | null, nu)
+    if (kvot.beslut === 'slut') {
+      return NextResponse.json(kvotSlutSvar(kvot.lage), { status: 429 })
+    }
+  }
+
+  const rad = claimRad(draft, user.id, val, mall, nu)
 
   // content: färdig HTML i mallen för äldre kod, mejl och utkastvägen, som
   // generate-preview. Avsändaren ur profilen, efter alla AI-anrop. Går
@@ -126,6 +149,16 @@ export async function POST(request: Request) {
     .is('claimed_by', null)
 
   const letterId = (letter as { id: string }).id
+
+  if (kvot) {
+    // Två samtidiga anrop med olika utkast kan båda ha sett noll tidigare.
+    // Efter märkningen är bara kontots första inhämtade utkast fritt; ett
+    // annat som trodde sig vara fritt räknas ändå.
+    const raknas =
+      kvot.beslut === 'raknas' ||
+      (kvot.beslut === 'fritt' && ((await forstaInhamtadeUtkast(admin, user.id)) ?? draft.token) !== draft.token)
+    if (raknas) await raknaBrevMotKvot(user.id, kvot.lage, nu)
+  }
 
   // Kontots första brev, som om det skrivits i kontot: milstolpen,
   // onboardingsteget och Kom igångs bricka (klicktestet 2026-11-22, punkt 4).

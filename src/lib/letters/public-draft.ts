@@ -154,6 +154,65 @@ export async function getClaimableDraft(
 }
 
 /**
+ * Kvittot som kvitteraBrevFranPublikt skriver i user_activities när ett
+ * utkast hämtats in (forsta-handling.server.ts). Det står kvar efter att
+ * utkastet städats bort efter sju dygn, och är därför det som gör att
+ * spärren "ett inhämtat utkast per konto" håller över tid.
+ */
+export const INHAMTAT_AKTIVITET = { activity_type: 'letter_created', kalla: 'publikt_startflode' } as const
+
+/**
+ * Hur många utkast kontot redan har hämtat in, det här (utomToken) oräknat.
+ * Det största av två räkningar: utkast i public_letter_drafts med kontot som
+ * claimed_by (finns i sju dygn), och kvittona i user_activities (finns kvar).
+ * Samma utkast kan stå i båda, därför största och inte summan. Fel räknas
+ * som noll, som de andra kvotfrågorna, och loggas.
+ */
+export async function raknaInhamtadeUtkast(
+  admin: SupabaseClient<any>,
+  userId: string,
+  utomToken: string
+): Promise<number> {
+  const [utkast, kvitton] = await Promise.all([
+    admin
+      .from('public_letter_drafts')
+      .select('token', { count: 'exact', head: true })
+      .eq('claimed_by', userId)
+      .neq('token', utomToken),
+    admin
+      .from('user_activities')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .eq('activity_type', INHAMTAT_AKTIVITET.activity_type)
+      .eq('metadata->>kalla', INHAMTAT_AKTIVITET.kalla),
+  ])
+  if (utkast.error) console.error('[public-draft] Kunde inte räkna inhämtade utkast:', utkast.error.message)
+  if (kvitton.error) console.error('[public-draft] Kunde inte räkna kvitton för inhämtade utkast:', kvitton.error.message)
+  return Math.max(utkast.count ?? 0, kvitton.count ?? 0)
+}
+
+/**
+ * Kontots första inhämtade utkast (tidigast claimed_at, token som
+ * skiljelinje), eller null. Läses efter att ett utkast märkts som hämtat,
+ * så att två samtidiga anrop med olika utkast inte båda blir det fria.
+ */
+export async function forstaInhamtadeUtkast(admin: SupabaseClient<any>, userId: string): Promise<string | null> {
+  const { data, error } = await admin
+    .from('public_letter_drafts')
+    .select('token')
+    .eq('claimed_by', userId)
+    .order('claimed_at', { ascending: true })
+    .order('token', { ascending: true })
+    .limit(1)
+    .maybeSingle()
+  if (error) {
+    console.error('[public-draft] Kunde inte läsa första inhämtade utkastet:', error.message)
+    return null
+  }
+  return (data as { token?: string } | null)?.token ?? null
+}
+
+/**
  * Städar bort utgångna utkast. Exporteras för att spår D ska kunna haka in
  * den i pricing-sync-cronen. Returnerar antal borttagna rader.
  */

@@ -19,12 +19,24 @@ vi.mock('@/lib/onboarding/forsta-handling.server', () => ({
 }))
 vi.mock('next/headers', () => ({ cookies: async () => ({}) }))
 vi.mock('@/lib/supabase/premiumAccess', () => ({ userHasAccess: (...a: unknown[]) => harAtkomst(...a) }))
-vi.mock('@/lib/letters/public-draft', () => ({ getClaimableDraft: async () => utkast() }))
+const tidigare = vi.fn()
+const forsta = vi.fn()
+const raknat = vi.fn(async () => {})
+let kvotProfil: Record<string, unknown> = {}
+vi.mock('@/lib/letters/public-draft', () => ({
+  getClaimableDraft: async () => utkast(),
+  raknaInhamtadeUtkast: async (...a: unknown[]) => tidigare(...a),
+  forstaInhamtadeUtkast: async (...a: unknown[]) => forsta(...a),
+}))
+vi.mock('@/lib/letters/skrivBrev', () => ({
+  raknaBrevMotKvot: (...a: unknown[]) => raknat(...(a as [])),
+  kvotSlutSvar: (lage: { effectiveCount: number }) => ({ error: 'quota_exceeded', used: lage.effectiveCount }),
+}))
 vi.mock('@/lib/supabase/server', () => ({
   createServerClient: () => ({
     auth: { getUser },
     from: () => ({
-      select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: PROFIL, error: null }) }) }),
+      select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { ...PROFIL, ...kvotProfil }, error: null }) }) }),
     }),
   }),
 }))
@@ -73,6 +85,9 @@ beforeEach(() => {
   harAtkomst.mockResolvedValue(false)
   utkast.mockReturnValue(UTKAST)
   befintligt.mockReturnValue(null)
+  tidigare.mockResolvedValue(0)
+  forsta.mockResolvedValue('tok-1')
+  kvotProfil = {}
 })
 
 describe('claim av brevutkastet', () => {
@@ -127,5 +142,47 @@ describe('claim av brevutkastet', () => {
     expect((await POST(anrop({ token: 'tok-1' }))).status).toBe(409)
     getUser.mockResolvedValue({ data: { user: null } })
     expect((await POST(anrop({ token: 'tok-1' }))).status).toBe(401)
+  })
+
+  it('kontots första inhämtade utkast räknas inte mot veckans gratisbrev', async () => {
+    const res = await POST(anrop({ token: 'tok-1' }))
+    expect(res.status).toBe(200)
+    expect(tidigare).toHaveBeenCalledWith(expect.anything(), 'u1', 'tok-1')
+    expect(raknat).not.toHaveBeenCalled()
+  })
+
+  it('försök att hämta in ett andra utkast: hämtas in och räknas som veckans gratisbrev', async () => {
+    tidigare.mockResolvedValue(1)
+    utkast.mockReturnValue({ ...UTKAST, token: 'tok-2' })
+    const res = await POST(anrop({ token: 'tok-2' }))
+    expect(await res.json()).toEqual({ redirect: '/dashboard/mina-brev/b1' })
+    expect(insatt).toHaveBeenCalledTimes(1)
+    expect(raknat).toHaveBeenCalledTimes(1)
+    expect(raknat.mock.calls[0][0]).toBe('u1')
+  })
+
+  it('andra utkastet när veckans gratisbrev redan är skrivet: 429, inget brev, inget märkt', async () => {
+    tidigare.mockResolvedValue(1)
+    kvotProfil = { weekly_letter_count: 1, weekly_letter_first_used_at: new Date(Date.now() - 2 * 864e5).toISOString() }
+    const res = await POST(anrop({ token: 'tok-2' }))
+    expect(res.status).toBe(429)
+    expect((await res.json()).error).toBe('quota_exceeded')
+    expect(insatt).not.toHaveBeenCalled()
+    expect(markerat).not.toHaveBeenCalled()
+    expect(raknat).not.toHaveBeenCalled()
+  })
+
+  it('två samtidiga utkast: det som inte blev kontots första räknas ändå', async () => {
+    forsta.mockResolvedValue('tok-0')
+    await POST(anrop({ token: 'tok-1' }))
+    expect(raknat).toHaveBeenCalledTimes(1)
+  })
+
+  it('betalt konto: ingen räkning alls', async () => {
+    harAtkomst.mockResolvedValue(true)
+    tidigare.mockResolvedValue(4)
+    await POST(anrop({ token: 'tok-1' }))
+    expect(tidigare).not.toHaveBeenCalled()
+    expect(raknat).not.toHaveBeenCalled()
   })
 })
