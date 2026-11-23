@@ -11,6 +11,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react'
 import { premiumKnapp, premiumPrisrad, type KampanjVisning } from '@/lib/kampanj/kampanj'
+import { KampanjLiten } from './KampanjMarke'
 
 const KampanjPrisKontext = createContext<KampanjVisning | null>(null)
 
@@ -23,9 +24,24 @@ export function useKampanjPris(): KampanjVisning | null {
   return useContext(KampanjPrisKontext)
 }
 
-/** Prisraden i testrummets betalväggar, med kampanjpriset när kontot kan få det. */
+/**
+ * Prisraden i testrummets betalväggar, med kampanjpriset när kontot kan få
+ * det. Under en kampanj står kampanjmärket (plattan och nedräkningen) på egen
+ * rad före texten (spec-kampanjmarke 6.3). Väggarna är papper, därav paPapper.
+ */
 export function PremiumPrisradText() {
-  return <>{premiumPrisrad(useKampanjPris())}</>
+  const k = useKampanjPris()
+  return (
+    <>
+      {k ? (
+        <>
+          <KampanjLiten k={k} paPapper enheter={2} />
+          <br />
+        </>
+      ) : null}
+      {premiumPrisrad(k)}
+    </>
+  )
 }
 
 /** Köpknappens text, med kampanjpriset när kontot kan få det. */

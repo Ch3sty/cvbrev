@@ -35,6 +35,7 @@ import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
+import { KampanjLiten } from '@/components/kampanj/KampanjMarke'
 import Bankbredd from '@/components/publikt/Bankbredd'
 import type { TestTyp } from '@/components/illustrations/TestGlyfer'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
@@ -293,6 +294,18 @@ function PaywallCard({
     // inget kampanjpris heller.
     kampanj: sparKund ? null : kampanj,
   })
+  // Kampanjmärket på egen rad före prisraden när kampanjpriset gäller
+  // (spec-kampanjmarke 6.3). Väggarna är papper, därav paPapper.
+  const kampanjMarke = (rad: React.ReactNode): React.ReactNode =>
+    kampanj && !sparKund ? (
+      <>
+        <KampanjLiten k={kampanj} paPapper enheter={2} />
+        <br />
+        {rad}
+      </>
+    ) : (
+      rad
+    )
 
   const remind = async () => {
     if (!quota || reminder === 'saving' || reminder === 'saved') return
@@ -414,7 +427,7 @@ function PaywallCard({
   if (utseende === 'cv' && cvSparr && (variant === 'mall' || variant === 'cv-export-word' || variant === 'cv-export')) {
     const pr = copy.prisrad ?? ''
     const i = pr.indexOf('. ')
-    const prisrad = i < 0 ? <b>{pr}</b> : <><b>{pr.slice(0, i + 1)}</b><br />{' '}{pr.slice(i + 2)}</>
+    const prisrad = kampanjMarke(i < 0 ? <b>{pr}</b> : <><b>{pr.slice(0, i + 1)}</b><br />{' '}{pr.slice(i + 2)}</>)
     const fria =
       variant === 'mall' && onSecondary && !arPrisText(copy.secondary)
         ? {
@@ -486,7 +499,7 @@ function PaywallCard({
     const felrad = reminder === 'error' ? <p className="mt-1 text-meta text-fel">Kunde inte spara påminnelsen. Försök igen.</p> : null
     // Kvotspärren: påminnelsen står i remsan, länken till prissidan under knappen.
     const sekundar = variant === 'test-tak' || variant === 'kvot' ? prisLank : secondary
-    const prisrad = copy.prisrad ? prisradPaTvaRader(copy.prisrad) : null
+    const prisrad = copy.prisrad ? kampanjMarke(prisradPaTvaRader(copy.prisrad)) : null
     const vy = {
       slag,
       plats: platsen,
@@ -522,7 +535,7 @@ function PaywallCard({
           <Bankbredd form="rad" yta="ljus" markerad={testTyp && testTyp !== 'personlighet' ? testTyp : undefined} />
         </div>
       ) : null}
-      {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{prisradPaTvaRader(copy.prisrad)}</p> : null}
+      {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{kampanjMarke(prisradPaTvaRader(copy.prisrad))}</p> : null}
       <div className={KNAPPRAD}>
         <button type="button" onClick={primarHandling} className={del === 'kort' ? `${KNAPP_PRIMAR} hidden lg:inline-flex` : KNAPP_PRIMAR}>
           {copy.primary}

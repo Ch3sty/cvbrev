@@ -48,7 +48,10 @@ describe('spärren i testflödet', () => {
       </KampanjPrisProvider>
     )
     expect(screen.getByRole('button', { name: BW_KNAPP })).toBeTruthy()
-    expect(container.querySelector('[data-sparr-pris]')!.textContent).toBe(paywallPrisrad(undefined, BW))
+    // Kampanjmärket står på egen rad före prisraden (spec-kampanjmarke 6.3).
+    const pris = container.querySelector('[data-sparr-pris]')!
+    expect(pris.querySelector('.km-liten [data-kn-text]')).toBeTruthy()
+    expect(pris.textContent!.endsWith(paywallPrisrad(undefined, BW))).toBe(true)
   })
 
   it('utan hennes siffror faller raderna bort; med dem står de', () => {
