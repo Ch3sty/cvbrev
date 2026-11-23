@@ -30,16 +30,38 @@ import { antal, grad, mallNamn, procent } from './format';
 import JobbsoketKort from './JobbsoketKort';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { JOBBSOKET_UTSKICK, jobbsoketMottagare } from '@/lib/email/jobbsoketUtskick';
+import { kampanjMottagare } from '@/lib/email/kampanjUtskick';
+import { KAMPANJER, kampanjNu } from '@/lib/kampanj/kampanj';
+import KampanjKort from './KampanjKort';
+import { kampanjLage, kampanjLageText, kampanjUtskick, sjuSvenskTid, type KampanjRuta } from './kampanjlage';
 
-/** Utskicksdagen kl. 07.00 svensk tid som ISO, för tidKort. */
-function sjuSvenskTid(dag: string): string {
-  // Vintertid är UTC+1 och sommartid UTC+2: prova båda och ta den som blir 07.
-  for (const utc of ['06', '05']) {
-    const iso = `${dag}T${utc}:00:00Z`;
-    const tim = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm', hour: '2-digit', hour12: false }).format(new Date(iso));
-    if (Number(tim) === 7) return iso;
-  }
-  return `${dag}T06:00:00Z`;
+/**
+ * Kampanjmejlen, en ruta per kampanj i KAMPANJER. Talen kommer ur
+ * kampanjMottagare, samma källa som admin-rutten och morgonkörningen. En
+ * läsning per kampanj och sidvisning; fel ger null för den kampanjen.
+ */
+async function kampanjRutor(): Promise<KampanjRuta[]> {
+  const nu = kampanjNu();
+  const admin = getSupabaseAdmin() as any;
+  return Promise.all(
+    KAMPANJER.map(async (k) => {
+      let tal: KampanjRuta['tal'] = null;
+      try {
+        const { kvar, redan } = await kampanjMottagare(admin, k);
+        tal = { kvar: kvar.length, skickade: redan };
+      } catch (error) {
+        console.error(`[Mejl] urvalet för ${k.nyckel}:`, error);
+      }
+      return {
+        nyckel: k.nyckel,
+        namn: k.namn,
+        lage: kampanjLage(k, nu),
+        utskicksdag: tidKort(kampanjUtskick(k)),
+        lageText: kampanjLageText(k, nu),
+        tal,
+      };
+    })
+  );
 }
 
 /** Urvalet för kortet om Jobbsöket. En läsning per sidvisning; fel ger null. */
@@ -87,7 +109,11 @@ function nastaText(iso: string | null): string {
 }
 
 export default async function MejlPage() {
-  const [data, jobbsoket] = await Promise.all([hamtaMejl(FONSTER_DAGAR), jobbsoketStatus()]);
+  const [data, jobbsoket, kampanjer] = await Promise.all([
+    hamtaMejl(FONSTER_DAGAR),
+    jobbsoketStatus(),
+    kampanjRutor(),
+  ]);
 
   const leveransgrad = grad(data.totalt.levererade, data.totalt.skickade);
   const oppnandegrad = grad(data.totalt.oppnade, data.totalt.levererade);
@@ -194,6 +220,25 @@ export default async function MejlPage() {
           ihop här och står per dag i tabellen Per mall.
         </p>
       </SectionCard>
+
+      {kampanjer.length ? (
+        <SectionCard rubrik="Kampanjmejlen">
+          <div className="divide-y divide-kant">
+            {kampanjer.map((ruta) => (
+              <div key={ruta.nyckel} className="py-5 first:pt-0 last:pb-0">
+                <KampanjKort ruta={ruta} />
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 border-t border-kant pt-4 text-meta text-ink-3">
+            Urval: konton med en giltig adress som aldrig betalat, inte
+            avregistrerat sig och inte sagt nej till erbjudanden. Adminkontot
+            och testkonton undantas inte här, till skillnad från talen i resten
+            av sidan. Den som redan fått mejlet hoppas alltid över. Kampanjerna
+            sätts i src/lib/kampanj/kampanj.ts.
+          </p>
+        </SectionCard>
+      ) : null}
 
       <SectionCard rubrik="Mejlet om Jobbsöket">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
