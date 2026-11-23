@@ -16,7 +16,18 @@ import { knappKlass } from './Knapp'
  * "149 kr i månaden" stort. uppsagning lägger till ", säg upp när du vill".
  * paPapper ger bläck i stället för vitt (på ett kort eller golvet).
  */
-export function PrisRad({ uppsagning, paPapper, className = '' }: { uppsagning?: boolean; paPapper?: boolean; className?: string }) {
+export function PrisRad({
+  uppsagning,
+  paPapper,
+  utanUppsagningIKampanj,
+  className = '',
+}: {
+  uppsagning?: boolean
+  paPapper?: boolean
+  /** Kampanjmärkets sedan-rad utan "Säg upp när du vill." (prislappen har den redan i toppen). */
+  utanUppsagningIKampanj?: boolean
+  className?: string
+}) {
   const plan = PLAN_BY_KEY[SALD_PLAN]
   return (
     <p className={`p3-pris ${paPapper ? 'p3-pa-papper' : ''} ${className}`.replace(/\s+/g, ' ').trim()}>
@@ -26,7 +37,7 @@ export function PrisRad({ uppsagning, paPapper, className = '' }: { uppsagning?:
             {plan.amount} kr<small>{plan.suffix}{uppsagning ? ', säg upp när du vill' : ''}</small>
           </>
         }
-        kampanj={(k) => <KampanjPris k={k} />}
+        kampanj={(k) => <KampanjPris k={k} utanUppsagning={utanUppsagningIKampanj} />}
       />
     </p>
   )
@@ -74,15 +85,21 @@ export function PremiumO({
       (knapp as ReactNode)
     )
   return (
-    <div id={id} className={`p3-premium ${className}`.trim()}>
+    <div id={id} className={`p3-premium ${pris ? 'km-yta' : ''} ${className}`.replace(/\s+/g, ' ').trim()}>
       <div className={`p3-premium-rad ${punkter?.length ? 'p3-med-lista' : ''}`.trim()}>
         <div className="p3-premium-text">
           {etikett ? <p className="p3-ey">{etikett}</p> : null}
           <Rubrik className="p3-h2">{rubrik}</Rubrik>
           {text ? <p style={{ fontSize: 17 }}>{text}</p> : null}
-          {pris ? <PrisRad uppsagning={uppsagning} /> : null}
-          {knappEl ? <div className="p3-knapprad">{knappEl}</div> : null}
-          {not ? <p className="p3-liten">{not}</p> : null}
+          {pris || knappEl || not ? (
+            // Köpdelen i en egen ram, som blir biljetten i kampanjläge (kampanj.css).
+            <div className="p3-premium-kop">
+              {pris ? <PrisRad uppsagning={uppsagning} /> : null}
+              {knappEl ? <div className="p3-knapprad">{knappEl}</div> : null}
+              {pris ? <KampanjVarianter som="div" kampanj={(k) => <p className="p3-liten">{k.copy.prisFotnot}</p>} /> : null}
+              {not ? <p className="p3-liten">{not}</p> : null}
+            </div>
+          ) : null}
           {children}
         </div>
         {punkter?.length ? <Bocklista punkter={punkter} /> : null}

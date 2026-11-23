@@ -43,6 +43,9 @@ import { KURVAN_HREF } from '@/lib/traning/rutter'
 // Menyns länkar förladdas bara på avsikt (pekaren, fokus, touch), aldrig för
 // att de syns: varje förladdning är en serverrendering med databasanrop.
 import AvsiktsLank from './AvsiktsLank'
+import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
+import { KampanjLiten } from '@/components/kampanj/KampanjMarke'
+import type { KampanjVisning } from '@/lib/kampanj/kampanj'
 
 /** Nyhet-etiketten på Inför intervjun tas bort 2026-10-22, svensk midnatt. */
 const NYHET_INFOR_INTERVJUN_TILL = Date.parse('2026-10-22T00:00:00+02:00')
@@ -67,6 +70,8 @@ export interface Undersida {
   exact?: boolean
   /** Låst: trycket öppnar betalväggen. */
   last?: { feature: Feature; variant: PaywallVariant; text: string; format?: string }
+  /** Prenumeration under en kampanj kontot kan få: kampanjens pris och nedräkning (km-meny). */
+  kampanj?: KampanjVisning
 }
 
 /**
@@ -106,6 +111,10 @@ export default function Sidomeny() {
   const paket: PaketLage = summary?.paket ?? TOM_PAKET
   const profil = (summary?.profile ?? null) as Record<string, unknown> | null
   const [sparr, setSparr] = useState<{ feature: Feature; variant: PaywallVariant } | null>(null)
+  // Kampanjen kontot kan få (null för den som har eller haft Premium).
+  const kampanj = useKampanjPris()
+  const prenEtikett = prenumerationsEtikett(profil, paket)
+  const prenKampanj = kampanj && prenEtikett === `${PLAN_BY_KEY[SALD_PLAN].amount} kr/mån` ? kampanj : undefined
 
   const isAdmin = Boolean(summary?.arAdmin)
   const cvAntal = summary?.sidomeny?.cv ?? summary?.cv.count ?? null
@@ -204,7 +213,8 @@ export default function Sidomeny() {
       {
         href: '/dashboard/profil/prenumeration',
         etikett: UNDERSIDA.prenumeration,
-        chip: prenumerationsEtikett(profil, paket) ? <Chip liten>{prenumerationsEtikett(profil, paket)}</Chip> : undefined,
+        chip: prenEtikett ? <Chip liten>{prenEtikett}</Chip> : undefined,
+        kampanj: prenKampanj,
       },
       // Samma tre ord och ordning som avatarmenyn (skiss-installningar-2026-10-12).
       { href: '/dashboard/installningar', etikett: UNDERSIDA.installningar },
@@ -283,6 +293,31 @@ export default function Sidomeny() {
             )
           }
           const pa = aktiv?.href === u.href
+          if (u.kampanj) {
+            const k = u.kampanj
+            // Rad 1: Prenumeration och kampanjens pris. Rad 2: "Black Week
+            // 6 d 16 tim kvar" (spec-kampanjmarke 6.2).
+            return (
+              <AvsiktsLank
+                key={u.href}
+                href={u.href}
+                onClick={() => markeraRumYta('sidomeny')}
+                aria-current={pa ? 'page' : undefined}
+                style={{ margin: 0 }}
+                // "Cyber Monday 23 tim 54 min kvar" ryms inte i 248 px: med ett
+                // långt namn står tiden utan "kvar" (saas-lead 2026-11-23).
+                className={`km-meny km-tema-${k.tema}${k.namn.length > 10 ? ' km-meny-utan-kvar' : ''} px-3 text-sm ${
+                  pa
+                    ? 'rounded-r-[10px] font-medium text-ink-1 shadow-[inset_3px_0_0_var(--koppar)]'
+                    : 'rounded-[10px] text-ink-2 hover:bg-papper-2 hover:text-ink-1'
+                }`}
+              >
+                <span className="truncate">{u.etikett}</span>
+                <span className="km-meny-pris">{k.pris} kr</span>
+                <KampanjLiten k={k} utanPlatta medNamn utanLage paPapper enheter={2} />
+              </AvsiktsLank>
+            )
+          }
           return (
             <AvsiktsLank
               key={u.href}

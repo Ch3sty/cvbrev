@@ -113,8 +113,8 @@ async function publikt(browser, mobil) {
     await ga(p, '/priser')
     await avvisaKakor(p)
     const attr = await p.evaluate(() => document.documentElement.getAttribute('data-kampanj'))
-    const rad = await p.evaluate(() => [...document.querySelectorAll('.kampanj-rad')].filter((e) => e.offsetParent !== null).map((e) => e.innerText.replace(/\s+/g, ' ').trim()))
-    const pris = await p.evaluate(() => document.querySelector('.pub-pris')?.innerText.replace(/\s+/g, ' ').trim())
+    const rad = await p.evaluate(() => [...document.querySelectorAll('.km-rad')].filter((e) => e.offsetParent !== null).map((e) => e.innerText.replace(/\s+/g, ' ').trim()))
+    const pris = await p.evaluate(() => document.querySelector('.pr-lapp .p3-pris')?.innerText.replace(/\s+/g, ' ').trim())
     const knapp = await p.evaluate(() => document.querySelector('[data-primar]')?.innerText.replace(/\s+/g, ' ').trim())
     const vantat = { fore: [null, 0, '149 kr'], bw: ['black-week-2026', 1, '99 kr'], cm: ['cyber-monday-2026', 1, '49 kr'], efter: [null, 0, '149 kr'] }[lage]
     logg(`${lage}: data-kampanj`, attr === vantat[0], { attr })
@@ -159,7 +159,7 @@ async function artikel(p, lage) {
     [...document.querySelectorAll('aside.ib-prova .pub-liten')].map((e) => e.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean)
   )
   const sido = await p.evaluate(() =>
-    [...document.querySelectorAll('.ib-black .ib-pris-l')].filter((e) => e.offsetParent !== null).map((e) => e.innerText.replace(/\s+/g, ' ').trim())
+    [...document.querySelectorAll('.ar-sido .ar-sido-pris')].filter((e) => e.offsetParent !== null).map((e) => e.innerText.replace(/\s+/g, ' ').trim())
   )
   const ord = PRISORD[lage]
   const kortOk = kort.length > 0 && kort.every((t) => (ord ? t.includes(ord) && t.includes('sedan 149 kr i månaden') : t.includes('149 kr i månaden') && !t.includes('första månaden')))
@@ -256,7 +256,7 @@ async function inloggat(browser, mobil, kontoNamn) {
   const forstaManaden = /\d+ kr första månaden/.test(text)
   logg(
     'köpsteget visar rätt pris',
-    kp ? text.includes(`${kp} kr första månaden`) && text.includes(`Till betalning, ${kp} kr`) : text.includes('Till betalning, 149 kr') && !forstaManaden,
+    kp ? /första månaden, sedan 149 kr/i.test(text) && text.includes(`${kp} kr`) && text.includes(`Till betalning, ${kp} kr`) : text.includes('Till betalning, 149 kr') && !forstaManaden,
     {}
   )
   const samtycke = await p.evaluate(() => document.querySelector('input[type="checkbox"]')?.closest('label')?.innerText)
@@ -340,7 +340,7 @@ async function prisTexter(p) {
       const n = tw.currentNode
       if (!/\bkr\b/.test(n.textContent)) continue
       const el = n.parentElement
-      if (!el || el.closest('.kampanj-rad, a[href*="kampanjrad"], script, style, [aria-hidden="true"]')) continue
+      if (!el || el.closest('.km-rad, .km-rad-inloggad, .km, a[href*="kampanjrad"], script, style, [aria-hidden="true"]')) continue
       if (el.getClientRects().length === 0 || getComputedStyle(el).visibility === 'hidden') continue
       const blk = el.closest('p, li, button, a, h1, h2, h3, h4, label') ?? el
       ut.push(blk.innerText.replace(/\s+/g, ' ').trim())

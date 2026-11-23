@@ -19,6 +19,10 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
+// Testerna gäller ordinarie kassa. Utan fast klocka går de sönder under en
+// pågående kampanj (kampanjForKop läser profilen, som mockarna saknar).
+process.env.KAMPANJ_NU = '2026-11-13T12:00:00+01:00'
 import { samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 const ANVANDARE = { id: 'user-1', email: 'kund@example.com', user_metadata: {} }
@@ -127,9 +131,9 @@ describe('create-plan-session, ångerrättssamtycket', () => {
     const arg = sessionsSkapa.mock.calls[0][0]
     expect(arg.mode).toBe('subscription')
     // Samma mening som köpstegets kryssruta, med belopp och nästa dragning.
-    expect(arg.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('all_month'))
+    expect(arg.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('all_month', new Date(process.env.KAMPANJ_NU as string)))
     expect(arg.metadata.angerratt_samtycke_text).toContain('149 kr dras varje månad på samma datum, nästa gång')
-    expect(arg.subscription_data.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('all_month'))
+    expect(arg.subscription_data.metadata.angerratt_samtycke_text).toBe(samtyckeVidKop('all_month', new Date(process.env.KAMPANJ_NU as string)))
 
     // Servertid, inte klienttid: stämpeln ligger inom anropets egen sekund.
     const vid = Date.parse(arg.metadata.angerratt_samtycke_at)

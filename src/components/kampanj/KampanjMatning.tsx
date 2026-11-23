@@ -8,9 +8,17 @@
  */
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { capture } from '@/lib/analytics/events'
 
 export default function KampanjMatning() {
+  const sokvag = usePathname()
+  // Sidor som byts utan omladdning: fyll nedräkningen direkt i stället för
+  // vid nästa sekundslag.
+  useEffect(() => {
+    ;(window as unknown as { __kampanjTick?: () => void }).__kampanjTick?.()
+  }, [sokvag])
+
   useEffect(() => {
     const kampanj = document.documentElement.getAttribute('data-kampanj')
     if (!kampanj) return

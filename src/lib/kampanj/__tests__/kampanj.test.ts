@@ -49,6 +49,34 @@ describe('kampanjerKvar och skriptet', () => {
     expect(kampanjSkript(t('2026-12-01T00:00:00+01:00'))).toBe('')
     expect(kampanjSkript(t('2026-11-13T12:00:00+01:00'))).toContain('data-kampanj')
   })
+  it('väljaren är en funktion som går att köra om och bär temat', () => {
+    const s = kampanjSkript(t('2026-11-13T12:00:00+01:00'))
+    expect(s).toContain('window.__kampanjValj=function(){')
+    expect(s).toContain('window.__kampanjValj()')
+    expect(s).toContain('"black-week-2026"')
+    expect(s).toContain(',"svart"]')
+    expect(s).toContain(',"indigo"]')
+    expect(s).toContain("d.setAttribute('data-kampanj-tema',v[3])")
+    expect(s).toContain("d.removeAttribute('data-kampanj')")
+  })
+  it('skriptet väljer rätt variant i en riktig körning', () => {
+    const s = kampanjSkript(t('2026-11-13T12:00:00+01:00'))
+    const attr: Record<string, string> = {}
+    const win: Record<string, unknown> = { __kampanjNu: () => Date.parse('2026-11-30T07:00:00+01:00') }
+    const doc = {
+      cookie: '',
+      documentElement: {
+        setAttribute: (k: string, v: string) => { attr[k] = v },
+        removeAttribute: (k: string) => { delete attr[k] },
+      },
+    }
+    new Function('window', 'document', 'localStorage', s)(win, doc, { getItem: () => null })
+    expect(attr['data-kampanj']).toBe('cyber-monday-2026')
+    expect(attr['data-kampanj-tema']).toBe('indigo')
+    win.__kampanjNu = () => Date.parse('2026-12-01T00:00:05+01:00')
+    ;(win.__kampanjValj as () => void)()
+    expect(attr['data-kampanj']).toBeUndefined()
+  })
 })
 
 describe('arStartdag, mejlens dag', () => {

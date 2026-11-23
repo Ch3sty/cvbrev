@@ -140,6 +140,24 @@ export default function DashboardShell({
       : `${KAMPANJ_EJ_COOKIE}=1;max-age=${30 * 24 * 60 * 60};path=/;SameSite=Lax${secure}`;
   }, [kampanjBehorig]);
 
+  // Kampanjmärkets nedräkning (KLOCKA_KOD i <head>): fyll den direkt vid
+  // sidbyte, och hämta servern om när en kampanj når noll, så att nästa
+  // kampanj eller ordinarie pris står överallt. Högst en gång i minuten, om
+  // klientens klocka skulle gå före serverns.
+  useEffect(() => {
+    (window as unknown as { __kampanjTick?: () => void }).__kampanjTick?.();
+  }, [pathname]);
+  const senastHamtad = useRef(0);
+  useEffect(() => {
+    const slut = () => {
+      if (Date.now() - senastHamtad.current < 60_000) return;
+      senastHamtad.current = Date.now();
+      router.refresh();
+    };
+    window.addEventListener('kampanj-slut', slut);
+    return () => window.removeEventListener('kampanj-slut', slut);
+  }, [router]);
+
   // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
   // topprad och fot. E-postbannern hoppas över direkt, pathname är känd
   // redan vid första render, så det finns ingen bild där bannern syns.

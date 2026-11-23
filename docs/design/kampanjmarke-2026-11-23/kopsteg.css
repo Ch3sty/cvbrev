@@ -1,0 +1,88 @@
+/* =============================================================================
+   KÖPSTEGET (/dashboard/valj-spar) i det inloggade lägets nya form
+   (docs/design/spec-kampanjmarke-2026-11-23.md, avsnitt 6).
+
+   Väggen bär namnet och priset, två lyfta kort bär vad som ingår och
+   villkoren, foten bär samtycket och knappen. Bara rummens tokens, så att
+   mörkt läge följer med. Roten har data-rum="tran": Premium står i indigo
+   som publikt. Under en kampanj får väggen kampanjens tema (km-tema-*).
+   ============================================================================= */
+.kop { --kop-botten: var(--vagg-3); --kop-form: var(--vagg-2); --kop-klack: var(--koppar-ink); --kop-mjuk: var(--vagg-mjuk); --kop-ink: var(--vagg-ink); font-family: Inter, system-ui, sans-serif; color: var(--ink-1); }
+.kop[class*="km-tema-"] { --kop-botten: var(--km-botten); --kop-form: var(--km-form); --kop-klack: var(--km-accent-klack); --kop-mjuk: var(--km-mjuk); --kop-ink: var(--km-ink); }
+
+/* ---------- väggen ---------- */
+.kop-vagg { position: relative; isolation: isolate; overflow: hidden; background: var(--kop-botten); color: var(--kop-ink); border-radius: 0 0 28px 28px; box-shadow: 0 6px 0 var(--kop-klack); padding: 24px 16px 54px; }
+.kop-vagg::before { content: ''; position: absolute; z-index: -1; right: -110px; top: -150px; width: 400px; height: 400px; border-radius: 50%; background: var(--kop-form); }
+.kop-vagg::after { content: ''; position: absolute; z-index: -1; left: -140px; bottom: -230px; width: 380px; height: 380px; border-radius: 50%; background: var(--kop-form); opacity: .7; }
+.kop-vagg-in { display: grid; gap: 22px; max-width: 1040px; margin: 0 auto; }
+.kop-huvud { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 14px; }
+.kop-forsta { font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--kop-mjuk); }
+.kop-rubrik { margin: 0; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 30px; line-height: 1.08; letter-spacing: -0.025em; color: #fff; }
+.kop-pris { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 14px; margin: 16px 0 0; }
+.kop-pris b { font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 60px; line-height: .86; letter-spacing: -0.04em; color: #fff; white-space: nowrap; }
+.kop-pris .kop-bredvid { display: flex; align-items: center; gap: 10px; padding-bottom: 3px; }
+.kop-pris s { font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-size: 22px; line-height: 1; font-weight: 700; color: var(--kop-mjuk); text-decoration-thickness: 2px; }
+.kop-prisrad { margin: 12px 0 0; font-size: 15px; line-height: 1.45; font-weight: 500; color: var(--kop-mjuk); }
+.kop-under { margin: 4px 0 0; font-size: 14px; line-height: 1.45; color: var(--kop-mjuk); }
+/* Höger på väggen. Ordinarie: de fyra delarna som öppnas. Kampanj: nedräkningen. */
+.kop-delar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.kop-delar li { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 6px 12px 6px 8px; border-radius: 14px; background: var(--d-2); color: #fff; border: 2px solid rgba(255, 255, 255, .16); box-shadow: 0 4px 0 var(--d-3); font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 700; font-size: 14.5px; line-height: 1.15; }
+.kop-delar li i { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 10px; background: #fff; color: var(--d-1); }
+.kop-delar li i svg { width: 18px; height: 18px; }
+.kop-delar [data-del="tran"] { --d-1: #1B2246; --d-2: #2B3470; --d-3: #0C102A; }
+.kop-delar [data-del="cv"] { --d-1: #113538; --d-2: #1D4D51; --d-3: #0B2628; }
+.kop-delar [data-del="brev"] { --d-1: #3A1930; --d-2: #56284A; --d-3: #280F22; }
+.kop-delar [data-del="jobb"] { --d-1: #1B3324; --d-2: #2A4C37; --d-3: #112219; }
+.kop-tid { padding: 16px 16px 18px; border-radius: 22px; background: var(--km-botten-2); border: 2px solid var(--km-kant); border-bottom: 6px solid rgba(0, 0, 0, .42); }
+.kop-tid .km-stor .km-bricka { height: 64px; }
+.kop-tid .km-stor .km-bricka b { font-size: 30px; }
+.kop-tid-till { margin: 12px 0 0; font-size: 13.5px; line-height: 1.4; color: var(--km-mjuk); }
+
+/* ---------- golvet: två lyfta kort ---------- */
+.kop-golv { display: grid; gap: 14px; max-width: 1072px; margin: -30px auto 0; padding: 0 16px 20px; position: relative; z-index: 2; }
+.kop-kort { background: var(--papper); border: 2px solid var(--kant); border-bottom-width: 6px; border-radius: 24px; padding: 20px 18px; min-width: 0; }
+.kop-ey { margin: 0; font-size: 12px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.kop-lista { display: grid; gap: 11px; margin: 14px 0 0; padding: 0; list-style: none; }
+.kop-lista li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 11px; align-items: start; font-size: 15px; line-height: 1.45; color: var(--ink-1); }
+.kop-bock { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; background: var(--ton); color: var(--ton-ink); }
+.kop-bock svg { width: 16px; height: 16px; }
+.kop-villkor { display: grid; gap: 0; margin: 0; }
+.kop-villkor > div { display: grid; gap: 2px; padding: 11px 0; border-bottom: 2px dotted var(--kant-stark); }
+.kop-villkor > div:first-child { padding-top: 0; }
+.kop-villkor dt { font-size: 12px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.kop-villkor dd { margin: 0; font-size: 15px; line-height: 1.4; font-weight: 600; color: var(--ink-1); }
+.kop-forsta-steg { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px; border-radius: 16px; background: var(--ton); color: var(--ink-1); }
+.kop-forsta-steg > svg, .kop-forsta-steg > .kop-scen { flex: none; width: 44px; height: 44px; }
+.kop-forsta-steg b { display: block; font-size: 14.5px; line-height: 1.3; font-weight: 700; }
+.kop-forsta-steg span { display: block; margin-top: 2px; font-size: 13px; line-height: 1.4; color: var(--ink-2); }
+.kop-gratis { display: flex; justify-content: center; margin: 0; }
+.kop-gratis button, .kop-gratis a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; border: 0; background: none; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--ink-1); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--kant-stark); text-decoration-thickness: 2px; cursor: pointer; }
+
+/* ---------- foten: samtycket och knappen ---------- */
+.kop-fot { display: grid; gap: 12px; max-width: 1072px; margin: 0 auto; padding: 12px 16px 12px; }
+.kop-samtycke { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 16px; background: var(--papper-2); border: 2px solid var(--kant-stark); font-size: 13px; line-height: 19px; color: var(--ink-2); cursor: pointer; }
+.kop-samtycke:has(input:checked) { border-color: var(--positiv); background: var(--positiv-mjuk); color: var(--ink-1); }
+.kop-samtycke input { width: 26px; height: 26px; margin: 0; accent-color: var(--ink-1); cursor: pointer; }
+.kop-betala { display: grid; gap: 8px; }
+.kop-knapp { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 56px; padding: 0 28px; border: 0; border-radius: 16px; background: linear-gradient(180deg, #E8863B, var(--koppar) 60%, var(--koppar-djup)); color: var(--koppar-text); font: inherit; font-size: 17px; font-weight: 700; white-space: nowrap; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 5px 0 var(--koppar-ink); }
+.kop-knapp:active:not(:disabled) { transform: translateY(3px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 0 var(--koppar-ink); }
+.kop-knapp:disabled { opacity: .5; cursor: not-allowed; }
+.kop-hjalp { margin: 0; min-height: 18px; font-size: 13px; line-height: 18px; text-align: center; color: var(--ink-3); }
+
+@media (min-width: 1024px) {
+  /* Datorn: väggen blir en ö med alla hörn runda, så att den håller i varje bredd. */
+  .kop-vagg { margin: 20px 16px 0; padding: 36px 54px 66px; border-radius: 32px; }
+  .kop-tid .km-stor .km-bricka { height: 84px; }
+  .kop-tid .km-stor .km-bricka b { font-size: 40px; }
+  .kop-vagg-in { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 56px; align-items: center; }
+  .kop-rubrik { font-size: 40px; }
+  .kop-pris b { font-size: 76px; }
+  .kop-pris s { font-size: 26px; }
+  .kop-prisrad { font-size: 16px; }
+  .kop-tid { padding: 20px 22px 22px; }
+  .kop-golv { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; padding: 0 16px 24px; }
+  .kop-kort { padding: 24px; }
+  .kop-gratis { grid-column: 1 / -1; justify-content: flex-start; }
+  .kop-fot { grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: center; padding: 14px 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .kop-knapp { transition: none; } }

@@ -7,14 +7,23 @@
  * KampanjHuvud väljer i <head> före första målningen. Inget skiftar, och
  * ingen cache behöver rensas vid midnatt.
  *
+ * Kampanjmärket (KampanjMarke.tsx, kampanj.css) bär namnet, nedräkningen och
+ * slutdatumet. Klockan i <head> räknar ned och väljer om variant när en
+ * kampanj når noll (docs/design/spec-kampanjmarke-2026-11-23.md).
+ *
  * När sista kampanjen tagit slut renderas inga varianter och ingen stil
  * alls, så en sida som byggs om efter 1 december är som förut.
  */
 
+import './kampanj.css'
 import type { ReactNode } from 'react'
-import { PLAN_BY_KEY, SALD_PLAN, prisPeriod } from '@/lib/plans/plans'
-import { kampanjPrisPeriod, kampanjSkript, kampanjerKvar, type Kampanj } from '@/lib/kampanj/kampanj'
+import { SALD_PLAN, prisPeriod } from '@/lib/plans/plans'
+import { KAMPANJ_ORD, kampanjPrisPeriod, kampanjSkript, kampanjerKvar, type Kampanj } from '@/lib/kampanj/kampanj'
+import { KLOCKA_KOD } from '@/lib/kampanj/klocka'
 import KampanjMatning from './KampanjMatning'
+import { KampanjLiten, KampanjOrd } from './KampanjMarke'
+
+export { KampanjPris, KampanjUr, KampanjLiten, KampanjOrd } from './KampanjMarke'
 
 /** Stil och skript i <head>. Måste stå före allt som bär data-kv. */
 export function KampanjHuvud() {
@@ -26,53 +35,50 @@ export function KampanjHuvud() {
   ].join(',')
   const css =
     `[data-kv]{display:none}${visa}{display:revert}` +
-    `.kampanj-rad{display:flex;align-items:center;justify-content:center;gap:6px 14px;flex-wrap:wrap;min-height:44px;padding:9px 16px;font-size:14px;line-height:1.35;text-align:center;text-decoration:none}` +
-    `.kampanj-rad b{font-family:var(--font-display),Inter,system-ui,sans-serif;font-weight:800;letter-spacing:.04em;margin-right:6px}` +
-    `.kampanj-rad u{font-weight:600;text-underline-offset:3px}` +
-    `.kampanj-rad--svart{background:#141210;color:#E9DFD1}.kampanj-rad--svart b{color:#E07A2F}` +
-    `.kampanj-rad--indigo{background:#1B2246;color:#DDE1F6}.kampanj-rad--indigo b{color:#93A0EC}` +
-    `.kampanj-rad:focus-visible{outline:2px solid #E07A2F;outline-offset:-4px}` +
-    `@media (max-width:640px){.kampanj-rad{font-size:13px;padding:8px 14px}.kampanj-rad u{display:none}}` +
     `.pub-pris s{font-size:.42em;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:10px}` +
     `.ib-pris-l s{font-size:.5em;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:8px}`
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <script dangerouslySetInnerHTML={{ __html: kampanjSkript(new Date()) }} />
+      <script dangerouslySetInnerHTML={{ __html: kampanjSkript(new Date()) + KLOCKA_KOD }} />
     </>
   )
 }
 
 /**
  * Ordinarie innehåll och en variant per kampanj som är kvar. Utan kampanjer
- * kvar blir det bara det ordinarie, utan omslag.
+ * kvar blir det bara det ordinarie, utan omslag. Utan `ord` ritas ingen
+ * ordinarie variant alls. `som="div"` för block-innehåll.
  */
 export function KampanjVarianter({
   ord,
   kampanj,
+  som = 'span',
 }: {
-  ord: ReactNode
+  ord?: ReactNode
   kampanj: (k: Kampanj) => ReactNode
+  som?: 'span' | 'div'
 }) {
   const kvar = kampanjerKvar(new Date())
-  if (kvar.length === 0) return <>{ord}</>
+  if (kvar.length === 0) return <>{ord ?? null}</>
+  const Tagg = som
   return (
     <>
-      <span data-kv="ord">{ord}</span>
+      {ord !== undefined ? <Tagg data-kv="ord">{ord}</Tagg> : null}
       {kvar.map((k) => (
-        <span key={k.nyckel} data-kv={k.nyckel}>
+        <Tagg key={k.nyckel} data-kv={k.nyckel}>
           {kampanj(k)}
-        </span>
+        </Tagg>
       ))}
     </>
   )
 }
 
 /**
- * Raden under menyn på publika sidor. Hela raden är länken. Sedan publikt
- * omgång 3 (2026-11-22) i grundens form, koppar-mjuk med kopparbläck
- * (p3-kampanj i src/components/publikt/v3/ram.css), aldrig svart. Logiken
- * (varianterna, data-kv, mätningen) är densamma.
+ * Raden under menyn på publika sidor. Hela raden är länken. Sedan
+ * kampanjmärket (2026-11-23) på kampanjens nattbotten med plattan och
+ * nedräkningen (km-rad i kampanj.css). Logiken (varianterna, data-kv,
+ * mätningen) är densamma.
  */
 export function KampanjRadPublik() {
   const kvar = kampanjerKvar(new Date())
@@ -81,12 +87,16 @@ export function KampanjRadPublik() {
     <>
       {kvar.map((k) => (
         <div key={k.nyckel} data-kv={k.nyckel}>
-          <a href="/priser" className={`kampanj-rad kampanj-rad--${k.tema} p3-kampanj`} data-kampanj-lank={k.nyckel}>
-            <span>
-              <b>{k.etikett}</b>
-              {k.copy.bannerText}
+          <a href="/priser" className={`km-rad km-tema-${k.tema}`} data-kampanj-lank={k.nyckel}>
+            <span className="km-rad-in">
+              <span className="km-platta km-platta-liten">{k.namn}</span>
+              <span className="km-rad-text">
+                <span className="km-rad-lang">{k.copy.bannerText}</span>
+                <span className="km-rad-kort">{KAMPANJ_ORD.radKort(k)}</span>
+              </span>
+              <KampanjLiten k={k} utanPlatta enheter={2} />
+              <u>{k.copy.bannerLank}</u>
             </span>
-            <u>{k.copy.bannerLank}</u>
           </a>
         </div>
       ))}
@@ -95,22 +105,11 @@ export function KampanjRadPublik() {
   )
 }
 
-/** Priset på bläck: "99 kr 149 kr / första månaden, sedan ...". */
-export function KampanjPris({ k }: { k: Kampanj }) {
-  const ord = PLAN_BY_KEY[SALD_PLAN].amount
-  return (
-    <>
-      {k.pris} kr<s>{ord} kr</s>
-      <small>första månaden, sedan {ord} kr i månaden. Säg upp när du vill.</small>
-    </>
-  )
-}
-
 /**
  * En prisrad i löptext där "149 kr i månaden" följer kampanjen (H2,
  * 2026-11-14): provkorten, verktygskorten och sidokortet i artiklarna.
- * Bara själva priset byts, resten av meningen står som förut. Text utan
- * priset ritas som den är.
+ * Bara själva priset byts, resten av meningen står som förut, och under en
+ * kampanj står kampanjens namn före priset. Text utan priset ritas som den är.
  */
 export function MedKampanjPris({ text }: { text: string }) {
   const pris = prisPeriod(SALD_PLAN)
@@ -119,7 +118,17 @@ export function MedKampanjPris({ text }: { text: string }) {
   return (
     <>
       {text.slice(0, i)}
-      <KampanjVarianter ord={pris} kampanj={(k) => kampanjPrisPeriod(k)} />
+      <KampanjVarianter
+        ord={pris}
+        kampanj={(k) => (
+          <>
+            <KampanjOrd k={k} />
+            {/* Mellanrummet för skärmläsare och textutdrag; synligt står marginalen. */}
+            <span className="sr-only"> </span>
+            {kampanjPrisPeriod(k)}
+          </>
+        )}
+      />
       {text.slice(i + pris.length)}
     </>
   )

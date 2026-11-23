@@ -27,7 +27,7 @@ export function PrisRad({ className = '', style }: { className?: string; style?:
             {plan.amount} kr<small>{plan.suffix}, säg upp när du vill</small>
           </>
         }
-        kampanj={(k) => <KampanjPris k={k} />}
+        kampanj={(k) => <KampanjPris k={k} storlek="mellan" />}
       />
     </p>
   )

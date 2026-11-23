@@ -15,6 +15,7 @@
 import { JOBBMATCHNING_FAQ_ITEMS } from './components/jobbmatchning-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { BREV_MALL_ANTAL } from '@/components/publikt/brevmallar'
@@ -506,7 +507,12 @@ export default function JobbmatchningSida() {
         {/* 7. Premium-avslutet */}
         <Sektion>
           <PremiumO
-            etikett={`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}`}
+            etikett={
+              // Priset följer kampanjen som biljetten under (kampanjmärket 2026-11-23).
+              <>
+                {paketNamn(SALD_PLAN)}, <MedKampanjPris text={prisPeriod(SALD_PLAN)} />
+              </>
+            }
             rubrik="Hitta ditt nästa jobb automatiskt."
             text={`Ladda upp ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}, utan bindningstid. Annonserna hämtas tre gånger per dygn, och du söker om med ett tryck när du vill se de senaste.`}
             knapp={

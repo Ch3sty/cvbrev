@@ -124,11 +124,7 @@
 .p3-tm :focus-visible { outline: 3px solid #A8491A; outline-offset: 2px; }
 @media (min-width: 1000px) { .p3-nav .p3-tm { display: none !important; } }
 
-/* ---------- kampanjraden under menyn (samma logik, ny form) ---------- */
-.kampanj-rad.p3-kampanj { background: var(--koppar-mjuk, #FBE3D0); color: var(--koppar-text, #1A1206); }
-.kampanj-rad.p3-kampanj b { color: var(--koppar-ink, #A8491A); font-family: Inter, system-ui, sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-.kampanj-rad.p3-kampanj u { color: var(--koppar-text, #1A1206); }
-.kampanj-rad.p3-kampanj:focus-visible { outline-color: var(--koppar-ink, #A8491A); }
+/* Kampanjraden under menyn står i src/components/kampanj/kampanj.css (km-rad). */
 
 /* ---------- foten: sidans mörkaste ton ---------- */
 :root:not(:has([data-p3-sida], [data-p3-sokvag])) .p3-fot { --vagg-3: #121737; --vagg-2: #2B3470; --vagg-ink: #F5F6FC; --vagg-mjuk: #AEB4DA; }

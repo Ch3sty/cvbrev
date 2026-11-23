@@ -1,0 +1,232 @@
+/* =============================================================================
+   KAMPANJMÄRKET (docs/design/spec-kampanjmarke-2026-11-23.md)
+
+   En del som följer kampanjpriset överallt: plattan med kampanjens namn,
+   nedräkningen och slutdatumet i klartext. Tre storlekar (km-stor, km-mellan,
+   km-liten) och ordet ensamt i löptext (km-ord). Färgerna kommer ur temat:
+   .km-tema-<tema> på märket självt, eller html[data-kampanj-tema] på en yta
+   som bär klassen km-yta (Premium-ön, prislappen, sidokortet).
+
+   Utan skript ser allt färdigt ut: slutdatumet står i klartext (km-reserv).
+   Nedräkningen visas först när klockan har fyllt den (data-kn-klar), i samma
+   ruta, så att inget flyttar sig.
+   ============================================================================= */
+
+/* ---------- teman ---------- */
+.km-tema-svart, html[data-kampanj-tema="svart"] .km-yta {
+  --km-botten: #0B0D1F; --km-botten-2: #171A33; --km-form: #1A1E3E;
+  --km-ink: #FFF8F0; --km-mjuk: #BDBACD; --km-kant: rgba(255, 255, 255, .13);
+  --km-accent: #E07A2F; --km-accent-topp: #EC8B41; --km-accent-ljus: #F4B98A; --km-accent-text: #1A1206; --km-accent-klack: #A8491A;
+  --km-bricka: #FFFFFF; --km-bricka-ink: #14162B; --km-bricka-klack: #C9BFB4;
+}
+.km-tema-indigo, html[data-kampanj-tema="indigo"] .km-yta {
+  --km-botten: #1E2578; --km-botten-2: #2A3294; --km-form: #2F39A6;
+  --km-ink: #F6F7FF; --km-mjuk: #C5CAF3; --km-kant: rgba(255, 255, 255, .16);
+  --km-accent: #AEB8FF; --km-accent-topp: #C3CBFF; --km-accent-ljus: #C9CFFF; --km-accent-text: #121737; --km-accent-klack: #5F6BD6;
+  --km-bricka: #FFFFFF; --km-bricka-ink: #121737; --km-bricka-klack: #8E99EE;
+}
+
+/* ---------- plattan med kampanjens namn ---------- */
+.km-platta { display: inline-flex; align-items: center; flex: none; height: 36px; padding: 0 14px; border-radius: 12px; background: linear-gradient(180deg, var(--km-accent-topp), var(--km-accent)); color: var(--km-accent-text); font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 16px; line-height: 1; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 4px 0 var(--km-accent-klack); transform: rotate(-2deg); }
+.km-platta-liten { height: 24px; padding: 0 9px; border-radius: 8px; font-size: 11.5px; letter-spacing: .06em; box-shadow: 0 3px 0 var(--km-accent-klack); transform: rotate(-1.5deg); }
+
+/* ---------- gemensamt ---------- */
+.km { font-family: Inter, system-ui, sans-serif; font-weight: 400; letter-spacing: 0; line-height: 1.4; color: var(--km-ink); text-align: left; }
+.km :is(b, i, s) { font-style: normal; }
+.km [data-kn-t], .km [data-kn-text] { font-variant-numeric: tabular-nums; }
+/* Rutan där nedräkningen eller slutdatumet står. Båda ligger i samma cell. */
+.km-ur { display: grid; }
+.km-ur > * { grid-area: 1 / 1; }
+/* Reservläget väntar 1,2 s innan det visas, så att det aldrig blinkar förbi när klockan går. */
+.km-reserv { animation: km-reserv 0s linear 1.2s both; }
+@keyframes km-reserv { from { visibility: hidden; } to { visibility: visible; } }
+.km-ur-rad { visibility: hidden; }
+.km[data-kn-klar] .km-ur-rad { visibility: visible; }
+.km[data-kn-klar] .km-reserv { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.km-lage { font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--km-accent-ljus); white-space: nowrap; }
+.km-brickor { display: flex; gap: 8px; }
+.km-bricka { display: grid; justify-items: center; align-content: center; gap: 3px; flex: 1 1 0; min-width: 0; border-radius: 16px; background: var(--km-bricka); color: var(--km-bricka-ink); box-shadow: 0 5px 0 var(--km-bricka-klack); }
+.km-bricka b { font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.km-bricka i { font-weight: 600; line-height: 1; color: #5E5E68; white-space: nowrap; }
+/* Sista timmen: brickorna tar kampanjens färg. Ingen blinkning. */
+.km[data-kn-steg="2"] .km-bricka { background: linear-gradient(180deg, var(--km-accent-topp), var(--km-accent)); color: var(--km-accent-text); box-shadow: 0 5px 0 var(--km-accent-klack); }
+.km[data-kn-steg="2"] .km-bricka i { color: var(--km-accent-text); }
+/* Tiden är ute, sekunderna innan sidan byter läge. */
+.km[data-kn-steg="3"] .km-bricka { opacity: .45; }
+.km[data-kn-steg="3"] .km-lage { color: var(--km-ink); }
+
+/* ---------- STOR: priset, plattan och nedräkningen (Premium-ön, prislappen) ---------- */
+.km-stor { display: grid; gap: 0; }
+.km-stor .km-huvud { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.km-stor .km-forsta { font-size: 12.5px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--km-mjuk); }
+.km-stor .km-prisrad { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 16px; margin-top: 18px; }
+.km-stor .km-belopp { font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 68px; line-height: .86; letter-spacing: -0.04em; color: #fff; white-space: nowrap; }
+.km-stor .km-bredvid { display: grid; gap: 8px; justify-items: start; padding-bottom: 2px; }
+.km.km-stor .km-bredvid s { margin: 0; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: -0.01em; color: var(--km-mjuk); text-decoration-thickness: 2px; }
+.km-spar { display: inline-flex; align-items: center; min-height: 26px; padding: 2px 10px; border-radius: 999px; font-size: 13px; line-height: 1.2; font-weight: 700; white-space: nowrap; color: var(--km-accent-ljus); border: 2px solid var(--km-accent); }
+.km-stor .km-sedan { margin-top: 14px; font-size: 15px; line-height: 1.45; font-weight: 500; color: var(--km-mjuk); }
+.km-stor .km-ur { margin-top: 20px; padding-top: 18px; border-top: 3px dotted var(--km-kant); }
+/* Nedräkningen ensam, utan pris ovanför (köpstegets vägg): ingen linje. */
+.km-stor > .km-ur:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.km-stor .km-ur-rad { display: grid; gap: 10px; }
+.km-stor .km-bricka { height: 76px; max-width: 108px; }
+.km-stor .km-bricka b { font-size: 36px; }
+.km-stor .km-bricka i { font-size: 12.5px; }
+.km-stor .km-reserv { align-self: center; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 700; font-size: 20px; line-height: 1.25; letter-spacing: -0.01em; color: var(--km-ink); }
+@media (max-width: 479px) { .km-stor .km-bredvid { display: flex; align-items: center; gap: 10px; flex-basis: 100%; } }
+@media (min-width: 900px) {
+  .km-stor .km-belopp { font-size: 88px; }
+  .km.km-stor .km-bredvid s { font-size: 26px; }
+  .km-stor .km-bricka { height: 84px; }
+  .km-stor .km-bricka b { font-size: 40px; }
+}
+
+/* ---------- MELLAN: köpsteget, sidokortet, kort ---------- */
+.km-mellan { display: grid; gap: 0; }
+.km-mellan .km-huvud { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.km-mellan .km-forsta { font-size: 12px; line-height: 1.3; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--km-mjuk); }
+.km-mellan .km-prisrad { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 12px; margin-top: 14px; }
+.km-mellan .km-belopp { font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 44px; line-height: .9; letter-spacing: -0.035em; color: #fff; white-space: nowrap; }
+.km-mellan .km-bredvid { display: grid; gap: 6px; justify-items: start; }
+.km.km-mellan .km-bredvid s { margin: 0; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-size: 17px; line-height: 1; font-weight: 700; color: var(--km-mjuk); text-decoration-thickness: 2px; }
+.km-mellan .km-spar { min-height: 24px; font-size: 12px; padding: 1px 9px; }
+.km-mellan .km-sedan { margin-top: 10px; font-size: 13.5px; line-height: 1.45; font-weight: 500; color: var(--km-mjuk); }
+.km-mellan .km-ur { margin-top: 14px; }
+.km-mellan .km-ur-rad { display: grid; gap: 8px; }
+.km-mellan .km-bricka { height: 56px; max-width: 84px; border-radius: 13px; box-shadow: 0 4px 0 var(--km-bricka-klack); gap: 2px; }
+.km-mellan[data-kn-steg="2"] .km-bricka { box-shadow: 0 4px 0 var(--km-accent-klack); }
+.km-mellan .km-bricka b { font-size: 24px; }
+.km-mellan .km-bricka i { font-size: 12px; }
+.km-mellan .km-reserv { align-self: center; font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.3; color: var(--km-ink); }
+
+/* ---------- LITEN: en rad. Plattan och tiden som text ---------- */
+.km-liten { display: inline-flex; align-items: center; gap: 10px; min-height: 28px; font-size: 13px; line-height: 1.3; white-space: nowrap; vertical-align: middle; }
+.km-liten .km-nu { display: inline-grid; }
+.km-liten .km-nu > * { grid-area: 1 / 1; }
+.km-liten .km-nu-rad { visibility: hidden; color: var(--km-mjuk); }
+.km-liten .km-nu-rad b { font-weight: 700; color: var(--km-ink); }
+.km-liten[data-kn-klar] .km-nu-rad { visibility: visible; }
+.km-liten .km-reserv { color: var(--km-mjuk); }
+.km-liten[data-kn-klar] .km-reserv { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+.km-liten[data-kn-steg="2"] .km-nu-rad b { color: var(--km-accent-ljus); }
+/* På papper (inloggat, löptext): bläck i stället för ljus text. */
+.km-pa-papper { --km-ink: var(--ink-1, #1A1A1F); --km-mjuk: var(--ink-2, #4A4A55); }
+.km-pa-papper.km-liten[data-kn-steg="2"] .km-nu-rad b { color: var(--koppar-ink, #A8491A); }
+
+/* ---------- ORDET: kampanjens namn före ett pris i löptext ---------- */
+.km-ord { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; margin-right: 7px; border-radius: 7px; background: var(--km-botten); color: var(--km-accent-ljus); font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 11px; line-height: 1; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; vertical-align: 0.14em; box-shadow: 0 2px 0 var(--km-accent-klack); }
+
+/* =============================================================================
+   PREMIUM-ÖN I KAMPANJLÄGE (.p3-premium.km-yta). Det ordinarie läget rörs inte:
+   allt nedan gäller bara när <html> bär data-kampanj.
+   ============================================================================= */
+/* Köpdelen (priset, knappen, noten) i en egen ram, så att den kan bli biljetten. */
+.p3-premium-text > .p3-premium-kop { margin-top: 22px; }
+.p3-premium-kop > * + * { margin-top: 14px; }
+.p3-premium-kop > .p3-knapprad { margin-top: 22px; }
+
+html[data-kampanj] .p3-premium.km-yta { background: var(--km-botten); box-shadow: 0 8px 0 var(--km-accent-klack); }
+html[data-kampanj] .p3-premium.km-yta::before { background: var(--km-form); right: auto; left: -160px; top: auto; bottom: -260px; width: 520px; height: 520px; }
+/* En andra rund form uppe till höger, bakom biljetten: två färgfält, som i appen. */
+html[data-kampanj] .p3-premium.km-yta::after { content: ''; position: absolute; z-index: -1; right: -130px; top: -170px; width: 440px; height: 440px; border-radius: 50%; background: var(--km-form); }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-rad > * { min-width: 0; }
+html[data-kampanj] .p3-premium.km-yta :is(p, .p3-liten) { color: var(--km-mjuk); }
+html[data-kampanj] .p3-premium.km-yta .p3-ey { color: var(--km-accent-ljus); }
+html[data-kampanj] .p3-premium.km-yta .p3-bockar li { color: var(--km-ink); }
+html[data-kampanj] .p3-premium.km-yta .p3-bockar li::before { background-color: var(--km-accent); }
+/* biljetten */
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop { position: relative; margin-top: 26px; padding: 22px 18px 20px; border-radius: 26px; background: var(--km-botten-2); border: 2px solid var(--km-kant); border-bottom: 7px solid rgba(0, 0, 0, .42); }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > .p3-pris { margin: 0; font-size: inherit; line-height: inherit; letter-spacing: 0; }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > .p3-knapprad { margin-top: 20px; }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > .p3-knapprad > .p3-knapp { width: 100%; }
+@media (max-width: 479px) { html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > .p3-knapprad > .p3-knapp { white-space: normal; padding: 8px 10px; font-size: 15px; } }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop .p3-liten { margin-top: 14px; font-size: 13.5px; }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > [data-kv] { margin-top: 0; }
+html[data-kampanj] .p3-premium.km-yta .p3-premium-kop > [data-kv] + .p3-liten { margin-top: 4px; }
+@media (min-width: 900px) {
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-kop { padding: 30px 30px 26px; border-radius: 30px; }
+}
+@media (min-width: 1000px) {
+  /* Datorn: det du får till vänster (rubrik, text, lista), biljetten till höger. */
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-rad { grid-template-columns: minmax(0, 1fr) minmax(0, 470px); column-gap: 64px; row-gap: 0; align-items: start; }
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-text { display: contents; }
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-text > * { grid-column: 1; }
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-text > * + * { margin-top: 14px; }
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-text > .p3-premium-kop { grid-column: 2; grid-row: 1 / span 12; align-self: center; margin-top: 0; }
+  html[data-kampanj] .p3-premium.km-yta .p3-premium-rad > .p3-bockar { grid-column: 1; margin-top: 28px; }
+}
+
+/* =============================================================================
+   PRISSIDANS LAPP I KAMPANJLÄGE (.pr-lapp.km-yta)
+   ============================================================================= */
+html[data-kampanj] .pr-lapp.km-yta { background: var(--km-botten); color: var(--km-ink); border-color: var(--km-kant); box-shadow: 0 10px 0 var(--km-accent-klack); }
+html[data-kampanj] .pr-lapp.km-yta .pr-lapp-topp { background: var(--km-botten-2); color: var(--km-mjuk); border-bottom: 2px solid var(--km-kant); }
+html[data-kampanj] .pr-lapp.km-yta .pr-lapp-topp b { color: var(--km-ink); }
+html[data-kampanj] .pr-lapp.km-yta .p3-pris.pr-lapp-pris { font-size: inherit; line-height: inherit; letter-spacing: 0; color: var(--km-ink); }
+html[data-kampanj] .p3-vagg .pr-lapp.km-yta .pr-lapp-not { color: var(--km-mjuk); text-align: left; }
+html[data-kampanj] .p3-vagg .pr-lapp.km-yta .pr-lapp-rubrik { color: var(--km-ink); border-top-color: var(--km-kant); }
+html[data-kampanj] .pr-lapp.km-yta .p3-bockar li { color: var(--km-ink); }
+html[data-kampanj] .pr-lapp.km-yta .p3-bockar li::before { background-color: var(--km-accent); }
+/* Raden ovanför h1: kampanjen först, sedan sidans rubrik som ordinarie pris. */
+.km-over { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: 16px; line-height: 1.4; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--vagg-ink, #F5F6FC); }
+.km-over .km-platta { font-size: 14px; height: 32px; }
+
+/* =============================================================================
+   ARTIKLARNAS SIDOKORT I KAMPANJLÄGE (.ar-sido.km-yta)
+   ============================================================================= */
+html[data-kampanj] .ar-sido.km-yta { background: var(--km-botten); box-shadow: 0 6px 0 var(--km-accent-klack); }
+html[data-kampanj] .ar-sido.km-yta::before { background: var(--km-form); }
+html[data-kampanj] .ar-sido.km-yta .ar-ey { color: var(--km-accent-ljus); }
+html[data-kampanj] .ar-sido.km-yta .ar-sido-text { color: var(--km-mjuk); }
+html[data-kampanj] .ar-sido.km-yta .ar-sido-pris { font-size: inherit; line-height: inherit; letter-spacing: 0; }
+
+/* =============================================================================
+   RADEN ÖVERST, publik (.km-rad) och inloggad (.km-rad-inloggad)
+   Fast höjd i båda lägena: nedräkningen fyller en plats som redan finns.
+   ============================================================================= */
+.km-rad { display: block; background: var(--km-botten); color: var(--km-ink); border-bottom: 3px solid var(--km-accent-klack); text-decoration: none; font-family: Inter, system-ui, sans-serif; }
+.km-rad-in { display: grid; grid-template-columns: auto minmax(0, auto); justify-content: center; align-items: center; gap: 2px 12px; height: 66px; max-width: 1240px; margin: 0 auto; padding: 0 16px; font-size: 14px; line-height: 1.3; }
+.km-rad-in > .km-platta { justify-self: end; }
+.km-rad .km-rad-text { justify-self: start; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.km-rad .km-rad-lang, .km-rad u { display: none; }
+.km-rad .km-liten { grid-column: 1 / -1; justify-self: center; min-height: 20px; }
+.km-rad .km-liten .km-nu-rad { color: var(--km-accent-ljus); font-weight: 600; }
+.km-rad:focus-visible { outline: 3px solid var(--km-accent-ljus); outline-offset: -5px; }
+@media (min-width: 900px) {
+  .km-rad-in { display: flex; justify-content: center; gap: 16px; height: 52px; padding: 0 40px; font-size: 15px; }
+  .km-rad .km-rad-lang { display: inline; }
+  .km-rad .km-rad-kort { display: none; }
+  .km-rad .km-liten { min-width: 216px; justify-content: center; padding: 0 14px; min-height: 30px; border-radius: 999px; background: var(--km-botten-2); border: 2px solid var(--km-kant); }
+  .km-rad u { display: inline; font-weight: 700; text-underline-offset: 4px; text-decoration-thickness: 2px; color: #fff; }
+}
+
+/* Inloggat: samma rad med köplänk och Nej tack. */
+.km-rad-inloggad { position: relative; z-index: 20; background: var(--km-botten); color: var(--km-ink); border-bottom: 3px solid var(--km-accent-klack); font-family: Inter, system-ui, sans-serif; }
+.km-rad-inloggad .km-rad-in { display: flex; justify-content: flex-start; gap: 12px; height: 60px; max-width: 1120px; padding: 0 8px 0 16px; }
+.km-rad-inloggad a { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 2px 12px; flex: 1 1 auto; min-width: 0; min-height: 44px; color: inherit; text-decoration: none; }
+.km-rad-inloggad .km-rad-kop { font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.km-rad-inloggad .km-rad-lang { display: none; font-weight: 600; white-space: nowrap; }
+.km-rad-inloggad a > .km-platta { grid-row: 1; grid-column: 1; justify-self: start; }
+.km-rad-inloggad .km-rad-kop { grid-row: 1; grid-column: 2; }
+.km-rad-inloggad .km-liten { grid-row: 2; grid-column: 1 / -1; min-height: 18px; }
+.km-rad-inloggad .km-liten .km-nu-rad { color: var(--km-accent-ljus); font-weight: 600; }
+.km-rad-inloggad button { flex: none; display: inline-flex; align-items: center; height: 44px; padding: 0 10px; border: 0; border-radius: 10px; background: none; font: inherit; font-size: 14px; color: var(--km-mjuk); cursor: pointer; }
+@media (min-width: 1024px) {
+  .km-rad-inloggad .km-rad-in { height: 52px; padding: 0 28px 0 40px; }
+  .km-rad-inloggad a { display: flex; gap: 14px; }
+  .km-rad-inloggad .km-rad-kop { order: 4; }
+  .km-rad-inloggad .km-rad-lang { display: inline; }
+  .km-rad-inloggad .km-liten { min-width: 220px; justify-content: center; padding: 0 14px; min-height: 30px; border-radius: 999px; background: var(--km-botten-2); border: 2px solid var(--km-kant); }
+}
+
+/* =============================================================================
+   SIDOMENYN: Prenumeration under en kampanj
+   ============================================================================= */
+.km-meny { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0 8px; min-height: 60px; padding: 8px 12px; margin: 0 -12px; border-radius: 12px; text-decoration: none; color: var(--ink-2, #4A4A55); font-size: 14px; }
+.km-meny:hover { background: var(--papper-2, #F4F3F0); }
+.km-meny .km-meny-pris { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 8px; background: linear-gradient(180deg, var(--km-accent-topp), var(--km-accent)); color: var(--km-accent-text); font-family: var(--disp, var(--font-display)), Inter, system-ui, sans-serif; font-weight: 800; font-size: 12.5px; white-space: nowrap; box-shadow: 0 3px 0 var(--km-accent-klack); }
+.km-meny .km-liten { grid-column: 1 / -1; gap: 6px; min-height: 18px; max-width: 100%; overflow: hidden; font-size: 12px; }
+.km[data-kn-steg="3"] .km-kvar { display: none; }
+.km-meny-utan-kvar .km-kvar { display: none; }
+.km-meny .km-meny-namn { font-weight: 700; color: var(--ink-1, #1A1A1F); }
+

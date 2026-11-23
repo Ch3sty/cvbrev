@@ -18,6 +18,7 @@ import Link from 'next/link'
 import { BREV_FAQ_ITEMS } from './components/brev-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import { PREVIEW_PARAGRAPHS } from '@/lib/letters/public-draft-tal'
 import { FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import { storForst, talOrd } from '@/components/publikt/talord'
@@ -681,7 +682,12 @@ export default function PersonligtBrevSida() {
         {/* 8. Premium */}
         <Sektion botten="golv" luft="tat">
           <PremiumO
-            etikett={`${paketNamn(SALD_PLAN)}, ${PRIS}`}
+            etikett={
+              // Priset följer kampanjen som biljetten under (kampanjmärket 2026-11-23).
+              <>
+                {paketNamn(SALD_PLAN)}, <MedKampanjPris text={PRIS} />
+              </>
+            }
             rubrik="Ditt nästa brev tar tre minuter, inte tre timmar."
             text={`Första brevet är gratis och kräver ingen kortuppgift, sedan ett var sjunde dag. Personliga brev utan tak, alla mallar och nedladdning som PDF och Word ingår i ${PREMIUM}.`}
             uppsagning

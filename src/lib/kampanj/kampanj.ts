@@ -233,13 +233,34 @@ export const KAMPANJ_STANGD_COOKIE = 'jc_kampanj_stangd'
 export function kampanjSkript(nu: Date = new Date()): string {
   const kvar = kampanjerKvar(nu)
   if (kvar.length === 0) return ''
-  const lista = JSON.stringify(kvar.map((k) => [k.nyckel, ms(k.start), ms(k.slut)]))
+  const lista = JSON.stringify(kvar.map((k) => [k.nyckel, ms(k.start), ms(k.slut), k.tema]))
+  // Väljaren är en funktion, så att klockan (KLOCKA_KOD) kan välja om när en
+  // kampanj når noll. data-kampanj-tema styr färgen på ytor som delas av
+  // varianterna (km-yta i kampanj.css).
   return (
-    `try{var K=${lista},d=document.documentElement,n=Date.now();` +
-    `try{var o=localStorage.getItem('kampanj_nu');if(o){var p=Date.parse(o);if(p)n=p}}catch(e){}` +
-    `if(document.cookie.indexOf('${KAMPANJ_EJ_COOKIE}=1')<0){for(var i=0;i<K.length;i++){if(n>=K[i][1]&&n<K[i][2]){d.setAttribute('data-kampanj',K[i][0]);break}}}}catch(e){}`
+    `try{window.__kampanjValj=function(){var K=${lista},d=document.documentElement,n=window.__kampanjNu?window.__kampanjNu():Date.now(),v=null;` +
+    `if(!window.__kampanjNu){try{var o=localStorage.getItem('kampanj_nu');if(o){var p=Date.parse(o);if(p)n=p}}catch(e){}}` +
+    `if(document.cookie.indexOf('${KAMPANJ_EJ_COOKIE}=1')<0){for(var i=0;i<K.length;i++){if(n>=K[i][1]&&n<K[i][2]){v=K[i];break}}}` +
+    `if(v){d.setAttribute('data-kampanj',v[0]);d.setAttribute('data-kampanj-tema',v[3])}else{d.removeAttribute('data-kampanj');d.removeAttribute('data-kampanj-tema')}};` +
+    `window.__kampanjValj()}catch(e){}`
   )
 }
+
+/** Märkets fasta ord. Lägesorden står också i KLOCKA_KOD (klocka.ts): ändra på båda ställena. */
+export const KAMPANJ_ORD = {
+  forsta: 'Första månaden',
+  ordinarie: 'Ordinarie pris',
+  sparar: (k: Pick<Kampanj, 'rabattKr'>) => `Du sparar ${k.rabattKr} kr`,
+  sedan: (ord: number, uppsagning = true) => `Sedan ${ord} kr i månaden.${uppsagning ? ' Säg upp när du vill.' : ''}`,
+  galler: (k: Pick<Kampanj, 'giltigTill'>) => `Gäller ${k.giltigTill}`,
+  /** Stor bokstav först: "Till och med söndag 29 november 23.59". */
+  till: (k: Pick<Kampanj, 'giltigTill'>) => k.giltigTill.charAt(0).toUpperCase() + k.giltigTill.slice(1),
+  radKort: (k: Pick<Kampanj, 'pris'>) => `Första månaden ${k.pris} kr`,
+  radInloggad: (k: Pick<Kampanj, 'pris'>) => `Första månaden Premium för ${k.pris} kr.`,
+  overH1: (k: Pick<Kampanj, 'pris'>) => `Första månaden ${k.pris} kr. Sedan ordinarie pris:`,
+  slutarOm: 'Slutar om',
+  kvar: 'kvar',
+} as const
 
 /* ------------------------------------------------------------ visning */
 

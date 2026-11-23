@@ -49,6 +49,7 @@ import {
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import '@/components/publikt/publikt.css'
 import { KampanjVarianter } from '@/components/kampanj/Kampanj'
+import { KAMPANJ_ORD } from '@/lib/kampanj/kampanj'
 import { TESTTAL, PROV_MINUTER } from '@/components/publikt/testtal'
 import PriserKopKnapp from './components/PriserKopKnapp'
 import PriserMatning from './components/PriserMatning'
@@ -282,7 +283,19 @@ export default function PriserSida() {
         {/* 1. Hjälten: prislappen till höger */}
         <Hjalte
           id="hjalte"
-          etikett={HERO.eyebrow}
+          etikett={
+            // Kampanjen ramar in h1 utan att röra den: "Första månaden 99 kr.
+            // Sedan ordinarie pris:" och h1 fortsätter meningen.
+            <KampanjVarianter
+              ord={HERO.eyebrow}
+              kampanj={(k) => (
+                <span className={`km-over km-tema-${k.tema}`}>
+                  <span className="km-platta">{k.namn}</span>
+                  <span>{KAMPANJ_ORD.overH1(k)}</span>
+                </span>
+              )}
+            />
+          }
           h1={paketMedPris(SALD_PLAN)}
           varde={
             <>
@@ -291,13 +304,13 @@ export default function PriserSida() {
           }
           lyft
           bild={
-            <div className="pr-lapp">
+            <div className="pr-lapp km-yta">
               <div className="pr-lapp-topp">
                 <b>{PAKET_KORT.allt.namn}</b>
                 <span>{FORTROENDE[0].rubrik}</span>
               </div>
               <div className="pr-lapp-kropp">
-                <PrisRad paPapper className="pr-lapp-pris" />
+                <PrisRad paPapper utanUppsagningIKampanj className="pr-lapp-pris" />
                 <PriserKopKnapp primar etikett={KNAPP} klass={KOPPAR_BRED} />
                 <p className="p3-liten pr-lapp-not">
                   <KampanjVarianter ord={PAKET_KORT.allt.fotnot} kampanj={(k) => k.copy.prisFotnot} />

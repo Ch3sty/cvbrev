@@ -454,7 +454,7 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
   }
   const copy = SIDO[paket]
   return (
-    <section className="ar-sido" aria-label={copy.rubrik} {...matning('sidebar', cluster, paket)} data-cta-slug={slug}>
+    <section className="ar-sido km-yta" aria-label={copy.rubrik} {...matning('sidebar', cluster, paket)} data-cta-slug={slug}>
       <p className="ar-ey">{copy.etikett}</p>
       <p className="ar-sido-rub">{copy.rubrik}</p>
       <p className="ar-sido-text" data-sido-steg="2">{copy.text}</p>
@@ -467,7 +467,7 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
               <small>{copy.under}</small>
             </>
           }
-          kampanj={(k) => <KampanjPris k={k} />}
+          kampanj={(k) => <KampanjPris k={k} storlek="mellan" />}
         />
       </p>
       <Knapp href="/priser" bred data-cta-klick="/priser">

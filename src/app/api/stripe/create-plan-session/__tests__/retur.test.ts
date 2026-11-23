@@ -1,4 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
+// Testerna gäller ordinarie kassa. Utan fast klocka går de sönder under en
+// pågående kampanj (kampanjForKop läser profilen, som mockarna saknar).
+process.env.KAMPANJ_NU = '2026-11-13T12:00:00+01:00'
 import { samtyckeVidKop } from '@/components/pricing/paket-copy'
 
 const ANVANDARE = { id: 'user-1', email: 'kund@example.com', user_metadata: {} }
