@@ -418,12 +418,17 @@ export const KOPSTEG = {
     }
     return `${start} ${p.amount} kr dras ${takt}${nastaGang} tills jag säger upp prenumerationen.`
   },
-  samtyckeSparr: 'Kryssa i rutan ovanför för att fortsätta.',
+  samtyckeSparr: 'Kryssa i rutan för att fortsätta.',
   primar: (plan: PlanKey = SALD_PLAN, kampanj?: KampanjPris | null) =>
     `Till betalning, ${kampanj ? kampanj.pris : PLAN_BY_KEY[saljbarPlan(plan)].amount} kr`,
   /** Prisraden under rubriken när en kampanj gäller kontot. */
   prisradKampanj: (k: KampanjPris) =>
     `${k.pris} kr första månaden, sedan ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden. Säg upp när du vill.`,
+  /** Väggens prisrad under beloppet (kampanjmärket 2026-11-23): "i månaden, säg upp när du vill." */
+  prisradUtanBelopp: (plan: PlanKey = SALD_PLAN) => `${PLAN_BY_KEY[saljbarPlan(plan)].suffix}, säg upp när du vill.`,
+  /** Väggens prisrad under kampanjbeloppet: "första månaden, sedan 149 kr i månaden. Säg upp när du vill." */
+  prisradKampanjUtanBelopp: () =>
+    `första månaden, sedan ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden. Säg upp när du vill.`,
   /** Raden ovanför rubriken: "Black Week, gäller till söndag 29 november 23.59". */
   kampanjRad: (k: KampanjPris) => `${k.namn}, gäller ${k.giltigTill}`,
   /** 409 prisAndrat: kampanjen hann börja eller sluta medan steget var öppet. */

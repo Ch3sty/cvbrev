@@ -69,9 +69,14 @@ export default async function ValjSparPage({
   const { kampanj, behorig } =
     plan === SALD_PLAN ? await kampanjForVisning(user.id, kampanjNu()) : { kampanj: null, behorig: null }
 
+  const kampanjVisning = behorig ? visning(kampanj) : null
+
   return (
     <ValjSparClient
-      kampanj={behorig ? visning(kampanj) : null}
+      // Ny kampanj efter router.refresh() (klockan når noll): steget startar
+      // om med nytt pris och okryssad ruta.
+      key={kampanjVisning?.nyckel ?? 'ordinarie'}
+      kampanj={kampanjVisning}
       initialTrack={initialTrack}
       plan={plan}
       plats={lasPlats(params.plats)}

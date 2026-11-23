@@ -21,7 +21,7 @@
  * klart.
  */
 
-import { LANK } from '@/components/shell/knappar'
+import './kopsteg.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
@@ -34,7 +34,10 @@ import { IlluScenCv } from '@/components/illustrations/PriserScener'
 import { capture } from '@/lib/analytics/events'
 import { SPARVAL_GRATIS, type Track } from '@/lib/onboarding/program'
 import { PLAN_BY_KEY, SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
-import type { KampanjVisning } from '@/lib/kampanj/kampanj'
+import { KAMPANJ_ORD, type KampanjVisning } from '@/lib/kampanj/kampanj'
+import { KampanjUr } from '@/components/kampanj/KampanjMarke'
+import { DORR_IKON } from '@/components/rum/Dorrnav'
+import { RUM_NAMN } from '@/lib/rum/copy'
 import {
   KOPSTEG,
   PAKET_KORT,
@@ -310,96 +313,145 @@ export default function ValjSparClient({
 
   const datum = nastaDragningText(plan)
 
+  // Köpsteget i rummens form (spec-kampanjmarke-2026-11-23 avsnitt 6.4):
+  // väggen bär namnet och priset, två lyfta kort bär vad som ingår och
+  // villkoren, foten bär samtycket direkt intill knappen. Juridiken
+  // (samtycket, villkorens värden) står ordagrant som förut, och kryssrutan
+  // spärrar fortfarande knappen. data-rum="tran" ger indigons tokens.
   return (
-    <FlowShell
-      title={KOPSTEG.topp}
-      step={1}
-      totalSteps={1}
-      onExit={() => router.push('/dashboard')}
-      primaryLabel={KOPSTEG.primar(plan, kampanj)}
-      onPrimary={tillKassan}
-      primaryDisabled={!samtycke}
-      primaryBlockedReason={KOPSTEG.samtyckeSparr}
-      primaryBusy={busy}
-      busyLabel={KOPSTEG.busy}
-      banner={felBanner}
-      footerSecondary={
-        <div className="flex flex-col items-center gap-1 sm:items-start">
-          <button type="button" onClick={borjaGratis} disabled={busy} className={`${LANK} min-h-11 disabled:opacity-50`}>
-            {SPARVAL.sekundar}
-          </button>
-          <p className="text-center text-meta text-ink-3 sm:text-left">{KOPSTEG.fotnot}</p>
-        </div>
-      }
-    >
-      {kampanj ? (
-        <p className="mb-2 inline-flex items-center rounded-md bg-ink-1 px-2 py-1 text-[12px] font-semibold text-papper">
-          {KOPSTEG.kampanjRad(kampanj)}
-        </p>
-      ) : null}
-      <h2 className="text-kort-t text-ink-1">{KOPSTEG.rubrik(plan)}</h2>
-      <p className="mt-1 text-sm leading-[21px] text-ink-2">
-        {kampanj ? (
-          <>
-            <s className="mr-1.5 text-ink-3">{PLAN_BY_KEY[plan].amount} kr</s>
-            {KOPSTEG.prisradKampanj(kampanj)}
-          </>
-        ) : (
-          KOPSTEG.prisrad(plan)
-        )}
-      </p>
-      <p className="mt-0.5 text-meta text-ink-3">{KOPSTEG.under}</p>
-
-      <section
-        className="mt-4 rounded-2xl border border-kant bg-papper p-4"
-        aria-label={KOPSTEG.farEtikett}
+    <div data-rum="tran" className="contents">
+      <FlowShell
+        title={KOPSTEG.topp}
+        step={1}
+        totalSteps={1}
+        utanRaknare
+        bred
+        onExit={() => router.push('/dashboard')}
+        banner={felBanner ? <div className="px-4 pt-4">{felBanner}</div> : undefined}
+        footer={
+          <div className="kop-fot">
+            <label ref={villkorRef} className="kop-samtycke">
+              <input
+                type="checkbox"
+                checked={samtycke}
+                onChange={(e) => bockaSamtycke(e.target.checked)}
+                aria-describedby="kop-hjalp"
+              />
+              <span>{samtyckeVidKop(plan, new Date(), kampanj)}</span>
+            </label>
+            <div className="kop-betala">
+              <button type="button" className="kop-knapp" onClick={tillKassan} disabled={!samtycke || busy}>
+                {busy ? KOPSTEG.busy : KOPSTEG.primar(plan, kampanj)}
+              </button>
+              <p id="kop-hjalp" className="kop-hjalp" aria-live="polite">
+                {samtycke ? KOPSTEG.fotnot : KOPSTEG.samtyckeSparr}
+              </p>
+            </div>
+          </div>
+        }
       >
-        <p className="text-ey text-ink-3">{KOPSTEG.farEtikett}</p>
-        <ul className="mt-2 grid gap-2">
-          {PAKET_KORT.allt.ingar.map((rad) => (
-            <li key={rad} className="flex items-start gap-2.5 text-sm leading-5 text-ink-1">
-              <Check className="mt-px h-[18px] w-[18px] shrink-0 text-ton-ink" strokeWidth={2} aria-hidden="true" />
-              <span>{rad}</span>
-            </li>
-          ))}
-        </ul>
+        <div className={`kop${kampanj ? ` km-tema-${kampanj.tema}` : ''}`}>
+          <section className="kop-vagg" aria-label={KOPSTEG.rubrik(plan)}>
+            <div className="kop-vagg-in">
+              <div>
+                {kampanj ? (
+                  <p className="kop-huvud">
+                    <span className="km-platta">{kampanj.namn}</span>
+                    <span className="kop-forsta">{KAMPANJ_ORD.forsta}</span>
+                  </p>
+                ) : null}
+                <h2 className="kop-rubrik">{KOPSTEG.rubrik(plan)}</h2>
+                {kampanj ? (
+                  <>
+                    <p className="kop-pris">
+                      <b>{kampanj.pris} kr</b>
+                      <span className="kop-bredvid">
+                        <s>
+                          <span className="sr-only">{KAMPANJ_ORD.ordinarie} </span>
+                          {PLAN_BY_KEY[plan].amount} kr
+                        </s>
+                        <span className="km-spar">{KAMPANJ_ORD.sparar(kampanj)}</span>
+                      </span>
+                    </p>
+                    <p className="kop-prisrad">{KOPSTEG.prisradKampanjUtanBelopp()}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="kop-pris">
+                      <b>{PLAN_BY_KEY[plan].amount} kr</b>
+                    </p>
+                    <p className="kop-prisrad">{KOPSTEG.prisradUtanBelopp(plan)}</p>
+                  </>
+                )}
+                <p className="kop-under">{KOPSTEG.under}</p>
+              </div>
+              {kampanj ? (
+                <div className="kop-tid">
+                  <KampanjUr k={kampanj} storlek="stor" />
+                </div>
+              ) : (
+                <ul className="kop-delar" aria-label="Alla fyra delarna ingår">
+                  {(['tran', 'cv', 'brev', 'jobb'] as const).map((del) => {
+                    const Ikon = DORR_IKON[del]
+                    return (
+                      <li key={del} data-del={del}>
+                        <i aria-hidden="true">
+                          <Ikon size={18} />
+                        </i>
+                        {RUM_NAMN[del]}
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
+          </section>
 
-        <dl className="mt-4 grid gap-1 border-t border-kant pt-3 text-[13px]">
-          <div className="flex justify-between gap-3">
-            <dt className="text-ink-3">{engangs ? KOPSTEG.villkor.galler : KOPSTEG.villkor.fornyas}</dt>
-            <dd className="text-right font-medium text-ink-1">{KOPSTEG.fornyasVarde(plan, datum)}</dd>
-          </div>
-          <div className="flex justify-between gap-3">
-            <dt className="text-ink-3">{KOPSTEG.villkor.uppsagning}</dt>
-            <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.uppsagningVarde}</dd>
-          </div>
-          <div className="flex justify-between gap-3">
-            <dt className="text-ink-3">{KOPSTEG.villkor.angerratt}</dt>
-            <dd className="text-right font-medium text-ink-1">{KOPSTEG.villkor.angerrattVarde}</dd>
-          </div>
-        </dl>
-
-        <div className="mt-3 flex items-center gap-3 rounded-lg bg-papper-2 p-3 text-ink-1">
-          <IlluScenCv className="h-11 w-11 shrink-0" />
-          <div>
-            <p className="text-sm font-semibold leading-[19px] text-ink-1">{KOPSTEG.forstaSteg.rubrik}</p>
-            <p className="text-meta text-ink-3">{KOPSTEG.forstaSteg.text}</p>
+          <div className="kop-golv">
+            <section className="kop-kort" aria-label={KOPSTEG.farEtikett}>
+              <p className="kop-ey">{KOPSTEG.farEtikett}</p>
+              <ul className="kop-lista">
+                {PAKET_KORT.allt.ingar.map((rad) => (
+                  <li key={rad}>
+                    <span className="kop-bock" aria-hidden="true">
+                      <Check strokeWidth={3} />
+                    </span>
+                    <span>{rad}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="kop-kort" aria-label="Villkor">
+              <dl className="kop-villkor">
+                <div>
+                  <dt>{engangs ? KOPSTEG.villkor.galler : KOPSTEG.villkor.fornyas}</dt>
+                  <dd>{KOPSTEG.fornyasVarde(plan, datum)}</dd>
+                </div>
+                <div>
+                  <dt>{KOPSTEG.villkor.uppsagning}</dt>
+                  <dd>{KOPSTEG.villkor.uppsagningVarde}</dd>
+                </div>
+                <div>
+                  <dt>{KOPSTEG.villkor.angerratt}</dt>
+                  <dd>{KOPSTEG.villkor.angerrattVarde}</dd>
+                </div>
+              </dl>
+              <div className="kop-forsta-steg">
+                <IlluScenCv className="kop-scen" />
+                <div>
+                  <b>{KOPSTEG.forstaSteg.rubrik}</b>
+                  <span>{KOPSTEG.forstaSteg.text}</span>
+                </div>
+              </div>
+            </section>
+            <p className="kop-gratis">
+              <button type="button" onClick={borjaGratis} disabled={busy}>
+                {SPARVAL.sekundar}
+              </button>
+            </p>
           </div>
         </div>
-      </section>
-
-      <label ref={villkorRef} className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
-        <input
-          type="checkbox"
-          checked={samtycke}
-          onChange={(e) => bockaSamtycke(e.target.checked)}
-          // accent-color, inte text-*: webbläsaren ritar rutans fyllning
-          // själv och den var annars systemblå.
-          style={{ accentColor: 'var(--ink-1)' }}
-          className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
-        />
-        <span>{samtyckeVidKop(plan, new Date(), kampanj)}</span>
-      </label>
-    </FlowShell>
+      </FlowShell>
+    </div>
   )
 }

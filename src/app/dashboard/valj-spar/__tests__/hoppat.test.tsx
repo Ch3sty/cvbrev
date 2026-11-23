@@ -88,9 +88,62 @@ describe('köpsteget', () => {
   it('visar Premium direkt: fulla namnet i rubriken, prisraden i kort form', () => {
     render(<ValjSparClient initialTrack={null} />)
     expect(screen.getByRole('heading', { name: 'Jobbcoach Premium' })).toBeTruthy()
-    expect(screen.getByText(KOPSTEG.prisrad())).toBeTruthy()
+    // Väggen: beloppet stort, perioden under (kampanjmärket 2026-11-23).
+    expect(screen.getByText('149 kr')).toBeTruthy()
+    expect(screen.getByText(KOPSTEG.prisradUtanBelopp())).toBeTruthy()
+    expect(KOPSTEG.prisradUtanBelopp()).toBe('i månaden, säg upp när du vill.')
     expect(screen.queryByRole('radiogroup')).toBeNull()
     expect(screen.getByRole('button', { name: KOPSTEG.primar() })).toBeTruthy()
+  })
+
+  it('knappen är spärrad tills rutan är kryssad, och raden under säger varför', () => {
+    render(<ValjSparClient initialTrack={null} />)
+    const knapp = screen.getByRole('button', { name: KOPSTEG.primar() }) as HTMLButtonElement
+    expect(knapp.disabled).toBe(true)
+    expect(screen.getByText('Kryssa i rutan för att fortsätta.')).toBeTruthy()
+    fireEvent.click(screen.getByRole('checkbox'))
+    expect(knapp.disabled).toBe(false)
+    expect(screen.getByText(KOPSTEG.fotnot)).toBeTruthy()
+  })
+
+  it('under en kampanj: kampanjens pris, nedräkningen och samma kropp till kassan som förut', async () => {
+    const bw = {
+      nyckel: 'black-week-2026' as const,
+      namn: 'Black Week',
+      etikett: 'BLACK WEEK',
+      pris: 99,
+      rabattKr: 50,
+      giltigTill: 'till och med söndag 29 november 23.59',
+      tema: 'svart' as const,
+      slutMs: Date.parse('2026-11-30T00:00:00+01:00'),
+      copy: {
+        bannerText: '',
+        bannerLank: '',
+        kortRubrik: '',
+        kortKnapp: '',
+        kortStang: '',
+        prisKnapp: '',
+        prisFotnot: '',
+      },
+    }
+    fetchMock.mockImplementation(async (url: string) =>
+      url.includes('onboarding') ? svar(200, { ok: true }) : svar(200, { url: 'https://checkout.stripe.com/x' })
+    )
+    const href = vi.spyOn(window, 'location', 'get')
+    href.mockReturnValue({ href: '' } as Location)
+    const { container } = render(<ValjSparClient initialTrack="allt" plats="kampanjmejl" kampanj={bw} />)
+    expect(screen.getByText('99 kr')).toBeTruthy()
+    expect(screen.getByText('Du sparar 50 kr')).toBeTruthy()
+    expect(screen.getByText(KOPSTEG.prisradKampanjUtanBelopp())).toBeTruthy()
+    expect(container.querySelector('[data-kn]')?.getAttribute('data-kn')).toBe(String(bw.slutMs))
+    expect(screen.getByText('Gäller till och med söndag 29 november 23.59')).toBeTruthy()
+    fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.click(screen.getByRole('button', { name: 'Till betalning, 99 kr' }))
+    await waitFor(() => expect(fetchMock.mock.calls.some(([u]) => String(u).includes('create-plan-session'))).toBe(true))
+    const anrop = fetchMock.mock.calls.find(([u]) => String(u).includes('create-plan-session'))!
+    const kropp = JSON.parse((anrop[1] as RequestInit).body as string)
+    expect(kropp).toEqual({ plan: 'all_month', source: 'betalvagg:kampanjmejl', consent: true, kampanj: 'black-week-2026' })
+    href.mockRestore()
   })
 
   it('skickar platsen som source till kassan', async () => {

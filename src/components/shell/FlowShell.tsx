@@ -98,6 +98,8 @@ export interface FlowShellProps {
    * gratis är två lika stora val.
    */
   footerSecondarySameSize?: boolean
+  /** Egen fot i stället för knappraden. Skalet behåller ramen (papper, kant, safe-area) och mätningen av --flow-footer-h. */
+  footer?: ReactNode
 
   /** Stegets innehåll. Skalet äger scrollen, innehållet ska inte scrolla själv. */
   children: ReactNode
@@ -127,6 +129,7 @@ export default function FlowShell({
   busyLabel = 'Vänta',
   footerSecondary,
   footerSecondarySameSize = false,
+  footer,
   children,
   banner,
 }: FlowShellProps) {
@@ -161,7 +164,7 @@ export default function FlowShell({
   }, [visaDorrar])
 
   const pct = Math.round((Math.min(step, totalSteps) / totalSteps) * 100)
-  const showFooter = Boolean(primaryLabel && onPrimary)
+  const showFooter = Boolean(footer) || Boolean(primaryLabel && onPrimary)
 
   // Fotens verkliga höjd publiceras som --flow-footer-h. Cookie-bannern
   // (z-999, fixed i botten) lägger sig annars över Fortsätt-knappen i varje
@@ -186,7 +189,7 @@ export default function FlowShell({
       ro.disconnect()
       root.style.removeProperty('--flow-footer-h')
     }
-  }, [showFooter, primaryBlockedReason, footerSecondary])
+  }, [showFooter, primaryBlockedReason, footerSecondary, footer])
 
   const backButton = onBack ?? (utanTillbaka ? undefined : onExit)
   const backLabel = onBack ? 'Föregående steg' : exitLabel
@@ -273,6 +276,7 @@ export default function FlowShell({
           className="flex-shrink-0 border-t border-kant bg-papper"
           style={{ paddingBottom: visaDorrar ? 0 : 'env(safe-area-inset-bottom, 0px)' }}
         >
+          {footer ?? (
           <div className={`mx-auto w-full ${smal ? 'max-w-[560px]' : 'max-w-3xl'} px-4 py-3`}>
             {primaryBlockedReason && primaryDisabled && !primaryBusy ? (
               <p className="mb-2 text-sm text-ink-2" aria-live="polite">
@@ -300,6 +304,7 @@ export default function FlowShell({
 
             {footerSecondary && !footerSecondarySameSize ? <div className="mt-2">{footerSecondary}</div> : null}
           </div>
+          )}
         </footer>
       ) : null}
     </div>
