@@ -23,6 +23,7 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { kampanjNu, visning } from '@/lib/kampanj/kampanj'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { arKopRetur } from '@/lib/stripe/kopRetur'
+import { harRedanPlanen } from './redanKund'
 
 export const metadata = { title: paketNamn(SALD_PLAN) }
 
@@ -50,18 +51,27 @@ export default async function ValjSparPage({
   if (!user) redirect('/login')
 
   let initialTrack: Track | null = null
+  let redanKund = false
 
   try {
     const { data } = await supabase
       .from('profiles')
-      .select('onboarding_track')
+      .select('onboarding_track, subscription_status, price_id')
       .eq('id', user.id)
       .maybeSingle()
     const row = data as Record<string, unknown> | null
     if (isTrack(row?.onboarding_track)) initialTrack = row!.onboarding_track as Track
+    redanKund = harRedanPlanen(row, saljbarPlan(params.paket))
   } catch {
     /* ett läsfel får aldrig stoppa köpet, steget fungerar utan tidigare svar */
   }
+
+  // Den som redan prenumererar på det som säljs här ska inte få köpsteget en
+  // gång till (testköpet 2026-11-23: mejllänken visade pris, samtycke och
+  // "Till betalning" för en Premiumkund, och först kassan sa nej). Hon
+  // hamnar på sin prenumeration i stället. redirect() kastar, så den står
+  // utanför try.
+  if (redanKund) redirect('/dashboard/installningar#prenumeration')
 
   // Kampanjpriset om en kampanj pågår och kontot aldrig betalat. Kassan
   // kontrollerar samma sak igen och är facit (create-plan-session).
