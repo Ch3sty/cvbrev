@@ -64,3 +64,25 @@ export async function skickaOmgang(
   const andra = await skickaOmgang(resend, mejl.slice(mitt), pausMs, etikett);
   return [...forsta, ...andra];
 }
+
+const SIDA = 1000; // PostgREST kapar tyst vid 1 000 rader
+
+/**
+ * Läser alla rader en fråga ger, sida för sida. Frågan måste ha en fast
+ * ordning (order på id), annars kan sidorna överlappa. Utan det här blir en
+ * lista över "redan skickade" ofullständig vid 1 000 rader, och ett utskick
+ * kan gå två gånger till samma mottagare.
+ */
+export async function lasAlla<T>(
+  fraga: (fran: number, till: number) => PromiseLike<{ data: T[] | null; error: any }>
+): Promise<T[]> {
+  const ut: T[] = [];
+  for (let fran = 0; ; fran += SIDA) {
+    const { data, error } = await fraga(fran, fran + SIDA - 1);
+    if (error) throw error;
+    const rader = data ?? [];
+    ut.push(...rader);
+    if (rader.length < SIDA) break;
+  }
+  return ut;
+}

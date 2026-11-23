@@ -12,7 +12,7 @@
 import { Resend } from 'resend';
 import { harBetalat, type BetalProfil, type Kampanj } from '@/lib/kampanj/kampanj';
 import { genereraKampanjMejl, kampanjHuvuden, kampanjMejlTyp } from './campaign-kampanj';
-import { giltigMejladress, skickaOmgang } from './omgang';
+import { giltigMejladress, lasAlla, skickaOmgang } from './omgang';
 
 const FROM = 'Jobbcoach <noreply@jobbcoach.ai>';
 const BATCH = 100;
@@ -32,22 +32,25 @@ export interface Mottagare {
 
 /** Vilka som ska få kampanjens mejl just nu, minus de som redan fått det. */
 export async function kampanjMottagare(admin: any, k: Kampanj): Promise<{ kvar: Mottagare[]; redan: number }> {
-  const { data, error } = await admin
-    .from('profiles')
-    .select(
-      'id, email, quota_emails_opt_out, erbjudanden_mejl, subscription_id, subscription_status, paket_started_at, premium_source'
-    )
-    .not('email', 'is', null);
-  if (error) throw error;
+  // Båda läsningarna sida för sida: en kapad lista över redan loggade skulle
+  // ge samma mottagare mejlet en gång till.
+  const data = await lasAlla<Rad>((fran, till) =>
+    admin
+      .from('profiles')
+      .select(
+        'id, email, quota_emails_opt_out, erbjudanden_mejl, subscription_id, subscription_status, paket_started_at, premium_source'
+      )
+      .not('email', 'is', null)
+      .order('id')
+      .range(fran, till)
+  );
 
-  const { data: loggade, error: logFel } = await admin
-    .from('email_log')
-    .select('user_id')
-    .eq('email_type', kampanjMejlTyp(k.nyckel));
-  if (logFel) throw logFel;
-  const redan = new Set<string>((loggade ?? []).map((r: { user_id: string }) => r.user_id));
+  const loggade = await lasAlla<{ user_id: string | null }>((fran, till) =>
+    admin.from('email_log').select('user_id').eq('email_type', kampanjMejlTyp(k.nyckel)).order('id').range(fran, till)
+  );
+  const redan = new Set<string>(loggade.map((r) => r.user_id).filter((id): id is string => Boolean(id)));
 
-  const kvar = ((data ?? []) as Rad[])
+  const kvar = data
     .filter(
       (r) =>
         giltigMejladress(r.email) &&

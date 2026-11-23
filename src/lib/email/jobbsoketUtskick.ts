@@ -20,7 +20,7 @@ import { hamtaUndantag } from '@/lib/admin/undantag';
 import { svenskDag } from '@/lib/kampanj/kampanj';
 import { kampanjHuvuden } from './campaign-kampanj';
 import type { UtskickResultat } from './kampanjUtskick';
-import { giltigMejladress, skickaOmgang } from './omgang';
+import { giltigMejladress, lasAlla, skickaOmgang } from './omgang';
 import { genereraJobbsoketMejl, JOBBSOKET_MEJL_TYP } from './lifecycle/templates/campaign-jobbsoket';
 
 export const JOBBSOKET_UTSKICK: { nyckel: 'jobbsoket-2026-12'; dag: string | null } = {
@@ -35,7 +35,6 @@ export const JOBBSOKET_AKTIV_DAGAR = 90;
 const FROM = 'Jobbcoach <noreply@jobbcoach.ai>';
 const BATCH = 100;
 const PAUS_MS = 700; // Resend tillåter ungefär två anrop i sekunden
-const SIDA = 1000; // PostgREST kapar tyst vid 1 000 rader
 
 /** Är `nu` utskicksdagen i svensk tid? Alltid falskt när dagen inte är satt. */
 export function arUtskicksdag(nu: Date, dag: string | null = JOBBSOKET_UTSKICK.dag): boolean {
@@ -48,19 +47,6 @@ export interface JobbsoketMottagare {
   email: string;
   full_name: string | null;
   harBrev: boolean;
-}
-
-/** Läser alla rader en fråga ger, sida för sida. */
-async function lasAlla<T>(fraga: (fran: number, till: number) => PromiseLike<{ data: T[] | null; error: any }>): Promise<T[]> {
-  const ut: T[] = [];
-  for (let fran = 0; ; fran += SIDA) {
-    const { data, error } = await fraga(fran, fran + SIDA - 1);
-    if (error) throw error;
-    const rader = data ?? [];
-    ut.push(...rader);
-    if (rader.length < SIDA) break;
-  }
-  return ut;
 }
 
 /** Mottagaren i en händelse från Resends webhook, med gemener. */

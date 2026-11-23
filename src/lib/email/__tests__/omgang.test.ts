@@ -77,9 +77,10 @@ describe('kampanjutskicket', () => {
     const loggade: any[] = []
     const client = {
       from(tabell: string) {
-        if (tabell === 'profiles') return { select: () => ({ not: async () => ({ data: profiler, error: null }) }) }
+        const sida = (rader: any[]) => ({ order: () => ({ range: async (fran: number, till: number) => ({ data: rader.slice(fran, till + 1), error: null }) }) })
+        if (tabell === 'profiles') return { select: () => ({ not: () => sida(profiler) }) }
         return {
-          select: () => ({ eq: async () => ({ data: loggade.map((r) => ({ user_id: r.user_id })), error: null }) }),
+          select: () => ({ eq: () => sida(loggade.map((r) => ({ user_id: r.user_id }))) }),
           insert: async (rader: any[]) => {
             loggade.push(...rader)
             return { error: null }
@@ -97,6 +98,15 @@ describe('kampanjutskicket', () => {
     ])
     const { kvar } = await kampanjMottagare(db.client, K)
     expect(kvar.map((m) => m.id)).toEqual(['u1'])
+  })
+
+  it('läser förbi 1 000 rader, så att ingen som redan fått mejlet får det igen', async () => {
+    const profiler = Array.from({ length: 1205 }, (_, i) => ({ id: `u${i}`, email: `m${i}@exempel.se` }))
+    const db = databas(profiler)
+    db.loggade.push(...profiler.slice(0, 1200).map((p) => ({ user_id: p.id })))
+    const { kvar, redan } = await kampanjMottagare(db.client, K)
+    expect(redan).toBe(1200)
+    expect(kvar.map((m) => m.id)).toEqual(['u1200', 'u1201', 'u1202', 'u1203', 'u1204'])
   })
 
   it('loggar bara dem Resend tog emot, så att resten kan skickas om', async () => {
