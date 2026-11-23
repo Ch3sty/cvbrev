@@ -318,6 +318,12 @@ export default function ValjSparClient({
   // villkoren, foten bär samtycket direkt intill knappen. Juridiken
   // (samtycket, villkorens värden) står ordagrant som förut, och kryssrutan
   // spärrar fortfarande knappen. data-rum="tran" ger indigons tokens.
+  // Den som inte bett om köp (ingen ?plats=, till exempel ett nytt konto som
+  // landar här direkt efter registreringen) ska se gratisvägen utan att
+  // rulla: länken står då i den fasta foten. Den som kom från en betalvägg
+  // eller ett mejl har länken kvar under korten.
+  const gratisIFot = !plats
+
   return (
     <div data-rum="tran" className="contents">
       <FlowShell
@@ -347,6 +353,13 @@ export default function ValjSparClient({
                 {samtycke ? KOPSTEG.fotnot : KOPSTEG.samtyckeSparr}
               </p>
             </div>
+            {gratisIFot ? (
+              <p className="kop-gratis kop-gratis-fot">
+                <button type="button" onClick={borjaGratis} disabled={busy}>
+                  {SPARVAL.sekundar}
+                </button>
+              </p>
+            ) : null}
           </div>
         }
       >
@@ -444,11 +457,13 @@ export default function ValjSparClient({
                 </div>
               </div>
             </section>
-            <p className="kop-gratis">
-              <button type="button" onClick={borjaGratis} disabled={busy}>
-                {SPARVAL.sekundar}
-              </button>
-            </p>
+            {gratisIFot ? null : (
+              <p className="kop-gratis">
+                <button type="button" onClick={borjaGratis} disabled={busy}>
+                  {SPARVAL.sekundar}
+                </button>
+              </p>
+            )}
           </div>
         </div>
       </FlowShell>

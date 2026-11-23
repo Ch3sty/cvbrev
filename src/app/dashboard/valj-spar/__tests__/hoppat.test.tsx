@@ -146,6 +146,21 @@ describe('köpsteget', () => {
     href.mockRestore()
   })
 
+  it('gratisvägen står i foten för den som inte bett om köp, och under korten för den som kom från en betalvägg', () => {
+    // Regression 2026-11-23: ett nytt konto landar här utan plats, och i
+    // telefon låg länken en och en halv skärm ned.
+    const utan = render(<ValjSparClient initialTrack="allt" />)
+    const iFot = utan.container.querySelectorAll('.kop-fot .kop-gratis button')
+    expect(iFot).toHaveLength(1)
+    expect(utan.container.querySelectorAll('.kop-gratis button')).toHaveLength(1)
+    utan.unmount()
+
+    const med = render(<ValjSparClient initialTrack="allt" plats="matning" />)
+    expect(med.container.querySelectorAll('.kop-fot .kop-gratis button')).toHaveLength(0)
+    expect(med.container.querySelectorAll('.kop-golv .kop-gratis button')).toHaveLength(1)
+    med.unmount()
+  })
+
   it('skickar platsen som source till kassan', async () => {
     fetchMock.mockImplementation(async (url: string) =>
       url.includes('onboarding') ? svar(200, { ok: true }) : svar(200, { url: 'https://checkout.stripe.com/x' })
