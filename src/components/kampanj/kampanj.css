@@ -131,6 +131,8 @@ html[data-kampanj] .p3-premium.km-yta::before { background: var(--km-form); righ
 html[data-kampanj] .p3-premium.km-yta::after { content: ''; position: absolute; z-index: -1; right: -130px; top: -170px; width: 440px; height: 440px; border-radius: 50%; background: var(--km-form); }
 html[data-kampanj] .p3-premium.km-yta .p3-premium-rad > * { min-width: 0; }
 html[data-kampanj] .p3-premium.km-yta :is(p, .p3-liten) { color: var(--km-mjuk); }
+/* Rubriken är ett p på Funktioner och i prissidans avslutande ö: den ska ha rubrikens färg som på startsidan, inte löptextens grå. */
+html[data-kampanj] .p3-premium.km-yta p:is(.p3-h1, .p3-h2, .p3-h3) { color: var(--km-ink); }
 html[data-kampanj] .p3-premium.km-yta .p3-ey { color: var(--km-accent-ljus); }
 html[data-kampanj] .p3-premium.km-yta .p3-bockar li { color: var(--km-ink); }
 html[data-kampanj] .p3-premium.km-yta .p3-bockar li::before { background-color: var(--km-accent); }
