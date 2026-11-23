@@ -205,6 +205,8 @@ export const ANNAN_MALL = {
   rubrik: 'Samma CV, annan mall',
   rad: (mall: string, n: number) => `Du har ${mall}. Så här ser ditt CV ut i ${talord(n)} ${n === 1 ? 'annan' : 'andra'}. Du provar fritt och betalar först när du laddar ner.`,
   radKort: 'Du provar fritt och betalar först när du laddar ner.',
+  /** Har betalat: samma rad utan sista meningen, på dator och mobil (beslutet 2026-11-23). */
+  radBetalt: (mall: string, n: number) => `Du har ${mall}. Så här ser ditt CV ut i ${talord(n)} ${n === 1 ? 'annan' : 'andra'}.`,
   alla: `Alla ${ANTAL} mallar`,
   allaKort: `Alla ${ANTAL}`,
   dinMall: (kort: string) => `Din mall nu. ${kort}.`,

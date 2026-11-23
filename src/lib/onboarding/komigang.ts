@@ -147,13 +147,35 @@ export function listaFor(paket: Paket, intent: SignupIntent | null = null): read
 }
 
 /**
- * Rubriken: "Kom igång med Premium". Gratis får bara "Kom igång". En
- * befintlig Dagspass-kund har scopet allt och får samma rubrik; Dagspasset
- * visas inte (ägarens beslut 2026-10-11). Parametern står kvar för anroparna.
+ * Den flytande radens rubrik: "Du har Premium. Kom igång." Gratis får bara
+ * "Kom igång". En befintlig Dagspass-kund har scopet allt och får samma
+ * rubrik; Dagspasset visas inte (ägarens beslut 2026-10-11). Arket har fast
+ * "Kom igång" (beslutet om första dagen som Premiumkund, 2026-11-23).
+ * Parametern står kvar för anroparna.
  */
 export function komIgangRubrik(paket: Paket, _dagspass = false): string {
-  if (paket) return `Kom igång med ${namnI(paket)}`
+  if (paket) return `Du har ${namnI(paket)}. Kom igång.`
   return 'Kom igång'
+}
+
+/** Arkets rubrik, samma namn som i profilmenyn, sidomenyn och på prissidan. */
+export const KOM_IGANG_ARK_RUBRIK = 'Kom igång'
+
+/**
+ * Raden under arkets rubrik. Dygnet styr för en Dagspass-kund, betalande
+ * får paketets namn, gratis med val får gratisraden och gratis utan val
+ * ingen rad.
+ */
+export function komIgangArkRad(lage: Pick<KomIgangLage, 'paket' | 'dagspass' | 'gratisMedVal'>): string | null {
+  if (lage.dagspass) return KOM_IGANG.dygnRad
+  if (lage.paket) return `Du har ${namnI(lage.paket)}. Allt här är öppet.`
+  if (lage.gratisMedVal) return KOM_IGANG.gratisUnder
+  return null
+}
+
+/** Radens tillgängliga namn: rubriken slutar redan på punkt för betalande. */
+export function komIgangAriaEtikett(rubrik: string, rad: string): string {
+  return /[.!?]$/.test(rubrik) ? `${rubrik} ${rad}` : `${rubrik}. ${rad}`
 }
 
 /**
@@ -321,8 +343,8 @@ export function brickaText(
         // grundtestet (analysen 2026-11-08, punkt 1). Båda räknas som gjorda
         // (brickorForTestType).
         titel: 'Nivåkollen',
-        text:
-          paket === 'tester'
+        // Alla betalande får texten utan "Gratis" (beslutet 2026-11-23).
+        text: paket
             ? 'Cirka åtta minuter, sedan träning på din nivå'
             : 'Gratis, cirka åtta minuter, sedan träning på din nivå',
         klarText:
@@ -481,9 +503,6 @@ export const KOM_IGANG = {
   nastaEtikett: 'Föreslaget nästa',
   /** Raden under arkets rubrik för Dagspasset: dygnet är det som styr. */
   dygnRad: 'Hela jobbsöket är öppet i ett dygn. Ta CV:t först, så har resten ett uppdaterat CV att arbeta med.',
-  /** Arkets sista rad under den öppnade brickan (sektion 4, vänster). */
-  ingarI: (paket: Paket) =>
-    paket ? `Ingår i ${namnI(paket)}, utan tak` : 'Ingår i gratisnivån',
 } as const
 
 /* -------------------------------------------- välkomstskärmen, sektion 1 */
@@ -580,15 +599,17 @@ export function valkommenMedCv(
 } {
   void dagspass
   const namn = namnI(paket)
+  // Poängen räknas likadant för alla (senasteAnalysPoang), så raden säger
+  // inget om nivån (beslutet om första dagen som Premiumkund, 2026-11-23).
   const delar = [
     uppladdat ? `Uppladdat ${uppladdat}.` : null,
-    typeof poang === 'number' ? `Poäng ${poang} med gratisnivån.` : null,
+    typeof poang === 'number' ? `Poäng ${poang} av 100.` : null,
   ]
   return {
     rubrik: `Du har ${namn}. Och ett CV redan.`,
-    ingress: `${cvNamn} ligger här sedan tidigare. Vi föreslår att du öppnar CV-analysen för det nu, så ser du poängen och vad som saknas i varje del innan du uppdaterar och väljer mall.`,
+    ingress: `${cvNamn} ligger här sedan tidigare. Vi föreslår att du börjar i CV-analysen. Nu är alla åtgärder öppna där, med färdiga formuleringar, och Jobbcoachens förslag hämtar du så ofta du vill.`,
     cvRad: delar.filter(Boolean).join(' '),
-    primar: 'Kör hela CV-analysen',
+    primar: 'Öppna CV-analysen',
     primarHref: '/dashboard/cv-analys',
     sekundar: 'Ladda upp ett annat CV',
   }

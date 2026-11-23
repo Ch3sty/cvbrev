@@ -946,8 +946,14 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
             {ANNAN_MALL.rubrik}
           </h2>
           <p className="t3-sektion-rad">
-            <span className="hidden xl:inline">{ANNAN_MALL.rad(mall.namn, urval.length)}</span>
-            <span className="xl:hidden">{ANNAN_MALL.radKort}</span>
+            {data.harBetalt ? (
+              ANNAN_MALL.radBetalt(mall.namn, urval.length)
+            ) : (
+              <>
+                <span className="hidden xl:inline">{ANNAN_MALL.rad(mall.namn, urval.length)}</span>
+                <span className="xl:hidden">{ANNAN_MALL.radKort}</span>
+              </>
+            )}
           </p>
         </div>
         <Link href={mallarHref()} className="t3-lank inline-flex whitespace-nowrap">
@@ -967,9 +973,12 @@ export default function DittCvClient({ data }: { data: DittCvData }) {
                 <span className="cv3-mall-text">
                   <span className="cv3-mall-namn">
                     <b>{m.namn}</b>
-                    <span className="cv3-tagg" data-ton={m.niva === 'gratis' ? 'gratis' : undefined}>
-                      {m.niva === 'gratis' ? ANNAN_MALL.gratis : ANNAN_MALL.premium}
-                    </span>
+                    {/* Har betalat: inga Gratis/Premium-taggar (samma mönster som DRAR_NER med analysFull). */}
+                    {data.harBetalt ? null : (
+                      <span className="cv3-tagg" data-ton={m.niva === 'gratis' ? 'gratis' : undefined}>
+                        {m.niva === 'gratis' ? ANNAN_MALL.gratis : ANNAN_MALL.premium}
+                      </span>
+                    )}
                   </span>
                   <span className="cv3-mall-kort">
                     {vald ? (

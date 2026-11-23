@@ -66,7 +66,7 @@ function datum(iso: string | null): string {
  * rubriken säger att dagen är klar, och texten slutar med morgondagens fråga
  * när den är en annan än dagens.
  */
-function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date, imorgon: FragaId | null) {
+function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, now: Date, imorgon: FragaId | null, betalande = false) {
   if (h.kind === 'lasIgen' && arHogstaBetyg(h)) {
     const delar = [NASTA.omskrivning.text(h.prov.level, nar(h.prov.createdAt, now), null, h.prov.question), NASTA.lasIgen.tillagg]
     if (imorgon && imorgon !== h.prov.question) delar.push(NASTA.lasIgen.imorgon(imorgon))
@@ -82,7 +82,7 @@ function handlingensCopy(h: HubbHandling, kvotKvar: boolean, utanTak: boolean, n
     case 'nyFraga':
       return { ogon: 'Nästa fråga', rubrik: NASTA.nyFraga.rubrik(h.fraga), text: NASTA.nyFraga.text(h.fraga), knapp: NASTA.nyFraga.knapp, href: nyttProvHref(h.fraga), fraga: h.fraga }
     case 'helaTestet':
-      return { ogon: 'Nästa steg', rubrik: NASTA.helaTestet.rubrik, text: NASTA.helaTestet.text, knapp: NASTA.helaTestet.knapp, href: GRUNDTEST_HREF, fraga: null }
+      return { ogon: 'Nästa steg', rubrik: NASTA.helaTestet.rubrik, text: NASTA.helaTestetText(betalande), knapp: NASTA.helaTestet.knapp, href: GRUNDTEST_HREF, fraga: null }
   }
 }
 
@@ -118,7 +118,7 @@ export default function IntervjuHubb({ data, intervjuer, valbara = [], now }: { 
   const imorgon = hogst
     ? imorgonFraga({ prov: data.prov, kvotKvar: data.kvotKvar, harSmakprov: Boolean(data.smakprov), harProfil: Boolean(data.profil) })
     : null
-  const c = handlingensCopy(data.handling, data.kvotKvar, data.utanTak, now, imorgon)
+  const c = handlingensCopy(data.handling, data.kvotKvar, data.utanTak, now, imorgon, Boolean(data.scope))
   const senaste = senastePerFraga(data.prov)
   const ovade = senaste.size
   const nastaFraga: FragaId | null = c.fraga ?? (data.prov.length ? rekommenderadFraga(data.prov) : null)

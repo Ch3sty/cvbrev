@@ -8,6 +8,21 @@ import { render, screen } from '@testing-library/react'
 import { gorTesterna } from '../ProfileStrengthCard'
 import SectionCard, { StegKontext } from '../SectionCard'
 import { normalizeFullName } from '@/lib/profile/backfillContact'
+import { verifieradeUnderrad } from '../VerifiedResultsCard'
+
+describe('Dina verifierade resultat, underraden (beslutet 2026-11-23)', () => {
+  it('med tests_above_base: testerna utan tak; gratis och CV-paketet oförändrat', () => {
+    const utanTak =
+      'Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. Du har testerna utan tak, på alla nivåer.'
+    const gratis =
+      'Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. En omgång om dagen ingår gratis.'
+    expect(verifieradeUnderrad('allt')).toBe(utanTak)
+    expect(verifieradeUnderrad('tester')).toBe(utanTak)
+    expect(verifieradeUnderrad(null)).toBe(gratis)
+    expect(verifieradeUnderrad(undefined)).toBe(gratis)
+    expect(verifieradeUnderrad('cv')).toBe(gratis)
+  })
+})
 
 describe('testens namn i löptext', () => {
   it('är korrekt svenska för ett, två och tre test', () => {

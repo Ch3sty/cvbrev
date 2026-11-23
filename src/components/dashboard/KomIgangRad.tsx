@@ -22,7 +22,7 @@
  */
 
 import { useKomIgang } from './KomIgangContext'
-import { komIgangRadText, komIgangRubrik } from '@/lib/onboarding/komigang'
+import { komIgangAriaEtikett, komIgangRadText, komIgangRubrik } from '@/lib/onboarding/komigang'
 
 export interface KomIgangRadProps {
   variant: 'flytande' | 'sidomeny'
@@ -56,7 +56,7 @@ export default function KomIgangRad({ variant, className }: KomIgangRadProps) {
       onClick={() => oppna('rad')}
       aria-haspopup="dialog"
       aria-expanded={arkOppet}
-      aria-label={`${rubrik}. ${rad}`}
+      aria-label={komIgangAriaEtikett(rubrik, rad)}
       data-komigang-rad={variant}
       style={variant === 'flytande' ? { bottom: 'calc(var(--bottom-nav-h) + 8px)' } : undefined}
       className={`flex items-center gap-3 rounded-2xl border border-kant bg-papper px-4 py-3 text-left hover:bg-papper-2 ${placering} ${className ?? ''}`}

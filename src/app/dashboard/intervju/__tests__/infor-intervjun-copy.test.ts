@@ -1,5 +1,38 @@
 import { describe, expect, it } from 'vitest'
-import { NASTA, TOM } from '../infor-intervjun-copy'
+import { HEM, NASTA, SIDA, TOM } from '../infor-intervjun-copy'
+import { scopeHasFeature } from '@/lib/access/features'
+
+describe('första dagen som Premiumkund (beslutet 2026-11-23)', () => {
+  it('kortet Förbereder intervjun: utan tak med interview_unlimited, gratis oförändrat', () => {
+    const forbereder = (scope: 'cv' | 'tester' | 'allt' | null) =>
+      HEM.forberederText(scopeHasFeature(scope, 'interview_unlimited'))
+    expect(forbereder('allt')).toBe(
+      'Öva på frågorna du kommer att få. Vi säger vad rekryteraren hör och vad som saknas. Du har intervjuprovet utan tak.'
+    )
+    expect(forbereder('tester')).toBe(forbereder('allt'))
+    expect(forbereder(null)).toBe(
+      'Öva på frågorna du kommer att få. Vi säger vad rekryteraren hör och vad som saknas. Ett prov om dagen ingår gratis.'
+    )
+    // CV-paketet har tak på intervjuprovet: gratistexten står kvar.
+    expect(forbereder('cv')).toBe(forbereder(null))
+  })
+
+  it('sidans beskrivning utan tak säger paketet', () => {
+    expect(SIDA.beskrivningUtanTak('allt')).toBe(
+      'Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Du har Premium, så du övar utan tak.'
+    )
+    expect(SIDA.beskrivning).toBe('Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil.')
+  })
+
+  it('hela testet: betalande utan "gratis", gratis oförändrat', () => {
+    expect(NASTA.helaTestetText(true)).toBe(
+      'Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår.'
+    )
+    expect(NASTA.helaTestetText(false)).toBe(
+      'Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår gratis.'
+    )
+  })
+})
 
 describe('kvottext på Inför intervjun', () => {
   it('med tak och dagens prov kvar: kvotmeningen i Börja här och i den tomma listan', () => {

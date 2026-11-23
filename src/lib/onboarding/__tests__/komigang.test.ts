@@ -7,6 +7,10 @@ import {
   komIgangLage,
   komIgangRadText,
   komIgangRubrik,
+  komIgangArkRad,
+  komIgangAriaEtikett,
+  KOM_IGANG,
+  KOM_IGANG_ARK_RUBRIK,
   valkommen,
   valkommenMedCv,
 } from '../komigang'
@@ -115,10 +119,49 @@ describe('läget', () => {
   })
 
   it('rubriken följer paketet', () => {
-    expect(komIgangRubrik('cv')).toBe('Kom igång med CV-paketet')
-    expect(komIgangRubrik('tester')).toBe('Kom igång med Träningspaketet')
-    expect(komIgangRubrik('allt')).toBe('Kom igång med Premium')
+    expect(komIgangRubrik('cv')).toBe('Du har CV-paketet. Kom igång.')
+    expect(komIgangRubrik('tester')).toBe('Du har Träningspaketet. Kom igång.')
+    expect(komIgangRubrik('allt')).toBe('Du har Premium. Kom igång.')
     expect(komIgangRubrik(null)).toBe('Kom igång')
+  })
+})
+
+describe('första dagen som Premiumkund (beslutet 2026-11-23)', () => {
+  it('arkets rubrik är fast "Kom igång" för alla', () => {
+    expect(KOM_IGANG_ARK_RUBRIK).toBe('Kom igång')
+  })
+
+  it('raden under arkets rubrik: betalande får paketet, gratis oförändrat', () => {
+    expect(komIgangArkRad(komIgangLage('allt', []))).toBe('Du har Premium. Allt här är öppet.')
+    expect(komIgangArkRad(komIgangLage('cv', []))).toBe('Du har CV-paketet. Allt här är öppet.')
+    expect(komIgangArkRad(komIgangLage('tester', []))).toBe('Du har Träningspaketet. Allt här är öppet.')
+    // Dygnet: befintliga dygnRad i stället.
+    expect(komIgangArkRad(komIgangLage('allt', [], true))).toBe(KOM_IGANG.dygnRad)
+    // Gratis med val: oförändrat. Gratis utan val: ingen rad.
+    expect(komIgangArkRad(komIgangLage(null, [], false, 'cv'))).toBe('Allt här ingår gratis.')
+    expect(komIgangArkRad(komIgangLage(null, []))).toBeNull()
+  })
+
+  it('gratis radtext är oförändrad, betalandes undertext likaså', () => {
+    expect(komIgangRadText(komIgangLage(null, ['analys_gratis', 'brev'], false, 'cv'))).toBe(
+      '2 av 7 provade, allt ingår gratis'
+    )
+    expect(komIgangRadText(komIgangLage('allt', []))).toBe('0 av 12 provade. Nästa: fyll i profilen.')
+  })
+
+  it('radens tillgängliga namn får ingen dubbel punkt', () => {
+    expect(komIgangAriaEtikett('Du har Premium. Kom igång.', '0 av 12 provade.')).toBe(
+      'Du har Premium. Kom igång. 0 av 12 provade.'
+    )
+    expect(komIgangAriaEtikett('Kom igång', '1 av 6 provade.')).toBe('Kom igång. 1 av 6 provade.')
+  })
+
+  it('Nivåkollen: betalande utan "Gratis", gratis oförändrat', () => {
+    for (const paket of ['cv', 'tester', 'allt'] as const) {
+      expect(brickaText('matris_grund', paket).text).toBe('Cirka åtta minuter, sedan träning på din nivå')
+    }
+    expect(brickaText('matris_grund', null).text).toBe('Gratis, cirka åtta minuter, sedan träning på din nivå')
+    expect(brickaText('matris_grund', null, {}, true).text).toBe('Gratis, cirka åtta minuter, sedan träning på din nivå')
   })
 })
 
@@ -197,8 +240,13 @@ describe('välkomstskärmen', () => {
   it('den som redan har ett CV får analysen som första steg', () => {
     const v = valkommenMedCv('cv', 'Anna_CV.pdf', '14 september', 61)
     expect(v.rubrik).toBe('Du har CV-paketet. Och ett CV redan.')
-    expect(v.primar).toBe('Kör hela CV-analysen')
-    expect(v.cvRad).toBe('Uppladdat 14 september. Poäng 61 med gratisnivån.')
+    expect(v.primar).toBe('Öppna CV-analysen')
+    expect(v.cvRad).toBe('Uppladdat 14 september. Poäng 61 av 100.')
+    expect(v.ingress).toBe(
+      'Anna_CV.pdf ligger här sedan tidigare. Vi föreslår att du börjar i CV-analysen. Nu är alla åtgärder öppna där, med färdiga formuleringar, och Jobbcoachens förslag hämtar du så ofta du vill.'
+    )
+    expect(v.sekundar).toBe('Ladda upp ett annat CV')
+    expect(valkommenMedCv('allt', 'cv.pdf', '3 november', null).cvRad).toBe('Uppladdat 3 november.')
   })
 })
 
@@ -257,10 +305,10 @@ describe('menyn', () => {
 describe('Kom igång för Dagspasset (köptestet 2026-09-24, Kvar)', () => {
   it('Dagspasset visas aldrig: en befintlig Dagspass-kund får Premium i rubriken', async () => {
     const { komIgangRubrik, komIgangLage } = await import('../komigang')
-    expect(komIgangRubrik('allt', true)).toBe('Kom igång med Premium')
-    expect(komIgangRubrik('allt')).toBe('Kom igång med Premium')
+    expect(komIgangRubrik('allt', true)).toBe('Du har Premium. Kom igång.')
+    expect(komIgangRubrik('allt')).toBe('Du har Premium. Kom igång.')
     // Flaggan betyder bara något för scopet allt.
-    expect(komIgangRubrik('cv', true)).toBe('Kom igång med CV-paketet')
+    expect(komIgangRubrik('cv', true)).toBe('Du har CV-paketet. Kom igång.')
     expect(komIgangLage('allt', [], true).dagspass).toBe(true)
     expect(komIgangLage('cv', [], true).dagspass).toBe(false)
     // Samma lista som Hela paketet: dygnet ger allt.

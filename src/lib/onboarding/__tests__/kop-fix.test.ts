@@ -46,7 +46,12 @@ describe('välkomstskärmen för en befintlig Dagspass-kund', () => {
     expect(JSON.stringify(v)).not.toMatch(/Dagspass/)
   })
   it('med CV sedan tidigare', () => {
-    expect(valkommenMedCv('allt', 'cv.pdf', null, null, true).rubrik).toBe('Du har Premium. Och ett CV redan.')
+    const v = valkommenMedCv('allt', 'cv.pdf', null, null, true)
+    expect(v.rubrik).toBe('Du har Premium. Och ett CV redan.')
+    // Beslutet 2026-11-23: poängen räknas likadant för alla, knappen öppnar analysen.
+    expect(v.primar).toBe('Öppna CV-analysen')
+    expect(v.cvRad).toBe('')
+    expect(JSON.stringify(v)).not.toMatch(/gratisnivån/)
   })
   it('Premium: fulla namnet i toppraden, kortformen i rubriken', () => {
     expect(valkommen('allt').topp).toBe('Jobbcoach Premium')

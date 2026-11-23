@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Topprad from '@/components/rum/Topprad';
 import { BLI_UPPTACKT } from '@/lib/rum/copy';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import {
   GlasKnapp,
   Golv,
@@ -137,6 +138,8 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
 
   const [profile, setProfile] = useState<CandidateProfileState>(initialData.profile);
   const [summary, setSummary] = useState<SummaryData | null>(initialData.summary);
+  // Kontots scope till kortet Dina verifierade resultat (beslutet 2026-11-23).
+  const { summary: dashboard } = useDashboardData();
   const [saving, setSaving] = useState(false);
   const [consentOpen, setConsentOpen] = useState(false);
   const [consentEverOpened, setConsentEverOpened] = useState(false);
@@ -505,7 +508,7 @@ export default function BliUpptacktClient({ initialData, userId }: { initialData
                 {harTaggar
                   ? steg('kontexttaggar', <ContextTagsCard options={summary!.personality.contextTagOptions} selected={profile.context_tags} onChange={(context_tags) => saveProfile({ context_tags })} />, 'kontexttaggar')
                   : null}
-                {steg('resultat', <VerifiedResultsCard summary={summary} profile={profile} onPatch={patchResultat} collapse={collapseFor('arbetsstil')} />, 'arbetsstilsrapport')}
+                {steg('resultat', <VerifiedResultsCard summary={summary} profile={profile} onPatch={patchResultat} collapse={collapseFor('arbetsstil')} scope={dashboard?.paket?.scope ?? null} />, 'arbetsstilsrapport')}
               </div>
             </LyftPanel>
 

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from '@/components/illustrations/RumIkoner';
 import { CONTEXT_TAG_MICROCOPY } from '@/lib/recruiter/workStyle';
+import { scopeHasFeature, type Scope } from '@/lib/access/features';
 import SectionCard, { type CollapseProps } from './SectionCard';
 import WorkStyleReportView from './WorkStyleReportView';
 import {
@@ -21,6 +22,19 @@ interface VerifiedResultsCardProps {
   /** Sparar patchen direkt mot candidate_profiles (samma som sidans upsert). */
   onPatch: (patch: Partial<CandidateProfileState>) => void;
   collapse?: CollapseProps;
+  /** Kontots scope ur summary.paket.scope. Null är gratisnivån. */
+  scope?: Scope | null;
+}
+
+/**
+ * Kortets underrad. Med tests_above_base säger den att testerna är öppna,
+ * annars gratisnivåns dagsomgång (beslutet om första dagen som
+ * Premiumkund, 2026-11-23).
+ */
+export function verifieradeUnderrad(scope: Scope | null | undefined): string {
+  return scopeHasFeature(scope, 'tests_above_base')
+    ? 'Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. Du har testerna utan tak, på alla nivåer.'
+    : 'Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. En omgång om dagen ingår gratis.';
 }
 
 const FAMILY_ORDER: FamilyKey[] = ['matrislogik', 'verbal', 'numerisk'];
@@ -38,7 +52,7 @@ function formatDate(iso: string | null): string {
  * delningsnivåerna: nivå 1 (styrkor + arketyp) och nivå 2 (fullständiga
  * arbetsstilsrapporten) med exakt förhandsvisning av rekryterarens vy.
  */
-export default function VerifiedResultsCard({ summary, profile, onPatch, collapse }: VerifiedResultsCardProps) {
+export default function VerifiedResultsCard({ summary, profile, onPatch, collapse, scope = null }: VerifiedResultsCardProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   const personality = summary?.personality;
@@ -64,7 +78,7 @@ export default function VerifiedResultsCard({ summary, profile, onPatch, collaps
   return (
     <SectionCard
       title="Dina verifierade resultat"
-      sub="Resultat en rekryterare kan lita på, i stället för påståenden i ett brev. En omgång om dagen ingår gratis."
+      sub={verifieradeUnderrad(scope)}
       delay={0.2}
       {...collapse}
     >

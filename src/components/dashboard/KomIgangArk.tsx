@@ -22,8 +22,9 @@ import Sheet from '@/components/shell/Sheet'
 import { useKomIgang } from './KomIgangContext'
 import {
   brickaText,
-  komIgangRubrik,
+  komIgangArkRad,
   KOM_IGANG,
+  KOM_IGANG_ARK_RUBRIK,
   OMRADE_FOR_BRICKA,
   OMRADE_FOR_INTENT,
   utanforIntent,
@@ -85,7 +86,8 @@ export default function KomIgangArk() {
   const { lage, fakta, arkOppet, stang, dolj } = useKomIgang()
   if (!lage) return null
 
-  const rubrik = komIgangRubrik(lage.paket, lage.dagspass)
+  const rubrik = KOM_IGANG_ARK_RUBRIK
+  const underRad = komIgangArkRad(lage)
 
   return (
     <Sheet open={arkOppet} onClose={stang} bare size="md">
@@ -111,11 +113,16 @@ export default function KomIgangArk() {
           </button>
         </div>
 
-        {lage.dagspass ? (
-          <p className="mt-1 text-sm leading-5 text-ink-2">{KOM_IGANG.dygnRad}</p>
-        ) : null}
-        {lage.gratisMedVal ? (
-          <p className="mt-0.5 text-sm leading-[22px] text-ink-2">{KOM_IGANG.gratisUnder}</p>
+        {underRad ? (
+          <p
+            className={
+              lage.gratisMedVal
+                ? 'mt-0.5 text-sm leading-[22px] text-ink-2'
+                : 'mt-1 text-sm leading-5 text-ink-2'
+            }
+          >
+            {underRad}
+          </p>
         ) : null}
 
         {grupper(lage.lista, lage.gratisMedVal ? lage.intent : null).map((grupp) => (

@@ -20,7 +20,17 @@
 
 import { useState } from 'react';
 import { IkonX } from '@/components/illustrations/RumSymboler';
+import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { EPOSTBANNER_AVFARDAD_COOKIE, EPOSTBANNER_AVFARDAD_SEKUNDER } from './epostbanner-cookie';
+
+/**
+ * Radens text. Spärren gäller bara obetalda obekräftade konton, så den
+ * betalande får ingen mening om att spara permanent (beslutet om första
+ * dagen som Premiumkund, 2026-11-23).
+ */
+export function epostradText(betalande: boolean): string {
+  return betalande ? 'Bekräfta din e-post' : 'Bekräfta din e-post för att spara dokument permanent.';
+}
 
 export default function EmailVerificationBanner({
   userId,
@@ -31,6 +41,9 @@ export default function EmailVerificationBanner({
   email: string;
   fullName: string;
 }) {
+  // Betalande: kontot har ett betalt scope i summeringen (summary.paket.scope).
+  const { summary } = useDashboardData();
+  const betalande = Boolean(summary?.paket?.scope);
   const [isDismissed, setIsDismissed] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
@@ -87,7 +100,7 @@ export default function EmailVerificationBanner({
             resendMessage && !resendMessage.startsWith('Mejlet') ? 'text-koppar-ljus' : 'text-vagg-mjuk'
           }`}
         >
-          {resendMessage ?? 'Bekräfta din e-post för att spara dokument permanent.'}
+          {resendMessage ?? epostradText(betalande)}
         </p>
 
         <button

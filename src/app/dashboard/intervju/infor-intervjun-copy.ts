@@ -35,9 +35,9 @@ export const SIDA = {
   eyebrow: 'Träna',
   titel: 'Inför intervjun',
   beskrivning: 'Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil.',
-  /** Med interview_unlimited: "... Utan tak i Premium." */
+  /** Med interview_unlimited: "... Du har Premium, så du övar utan tak." */
   beskrivningUtanTak: (scope: PlanScope) =>
-    `Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Utan tak i ${namnFor(scope)}.`,
+    `Öva på frågorna du kommer att få, och se vad rekryteraren läser ut av din profil. Du har ${namnFor(scope)}, så du övar utan tak.`,
   knapp: 'Nytt intervjuprov',
 } as const
 
@@ -80,8 +80,13 @@ export const NASTA = {
   helaTestet: {
     rubrik: 'Gör hela personlighetstestet',
     text: 'Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår gratis.',
+    /** För betalande (scope satt): utan "gratis" (beslutet 2026-11-23). */
+    textBetalande:
+      'Smakprovet gav en riktning. Femtio påståenden ger profilen rekryteraren faktiskt jämför med, och den ingår.',
     knapp: 'Starta testet',
   },
+  helaTestetText: (betalande: boolean): string =>
+    betalande ? NASTA.helaTestet.textBetalande : NASTA.helaTestet.text,
 } as const
 
 export const LISTA = {
@@ -182,6 +187,13 @@ export const HEM = {
     knapp: 'Starta testet',
   },
   senare: 'Senare',
+  /** Kortet "Förbereder intervjun" på hemskärmen utan CV. Villkoret är interview_unlimited. */
+  forbereder: {
+    text: 'Öva på frågorna du kommer att få. Vi säger vad rekryteraren hör och vad som saknas. Ett prov om dagen ingår gratis.',
+    textUtanTak:
+      'Öva på frågorna du kommer att få. Vi säger vad rekryteraren hör och vad som saknas. Du har intervjuprovet utan tak.',
+  },
+  forberederText: (utanTak: boolean): string => (utanTak ? HEM.forbereder.textUtanTak : HEM.forbereder.text),
   /**
    * Träningsfokus: Träningspaketet utan CV (ägarens beslut 2026-09-24).
    * Omskrivningen och hela testet återanvänder texterna ovan.

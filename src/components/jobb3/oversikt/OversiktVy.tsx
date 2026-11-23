@@ -76,6 +76,7 @@ import { korsreferens } from '@/lib/rum/jobbsok'
 import { CHIP, KORS, MER } from '@/lib/rum/copy'
 import { HEM } from '@/app/dashboard/intervju/infor-intervjun-copy'
 import { traningsHandling } from '@/lib/intervju/nasta'
+import { scopeHasFeature } from '@/lib/access/features'
 import { dagensDatum, halsning } from '@/app/dashboard/(oversikt)/HemHuvud'
 import { startvy } from '@/app/dashboard/(oversikt)/startvy'
 import OversiktKlient from '@/app/dashboard/(oversikt)/OversiktKlient'
@@ -416,7 +417,7 @@ function NyVy({ data, klient }: { data: JobbsokOversikt; klient: ReactNode }) {
               nr={<IkonFlagga size={16} />}
               koppar
               rubrik="Förbereder intervjun"
-              text="Öva på frågorna du kommer att få. Vi säger vad rekryteraren hör och vad som saknas. Ett prov om dagen ingår gratis."
+              text={HEM.forberederText(scopeHasFeature(data.summering?.paket?.scope ?? null, 'interview_unlimited'))}
               bild={<Rutor antal={4} />}
             />
           </StegKortRad>
