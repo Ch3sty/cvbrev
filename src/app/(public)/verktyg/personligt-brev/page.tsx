@@ -18,7 +18,7 @@ import Link from 'next/link'
 import { BREV_FAQ_ITEMS } from './components/brev-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { MedKampanjPris } from '@/components/kampanj/Kampanj'
+import { KampanjVarianter } from '@/components/kampanj/Kampanj'
 import { PREVIEW_PARAGRAPHS } from '@/lib/letters/public-draft-tal'
 import { FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import { storForst, talOrd } from '@/components/publikt/talord'
@@ -685,7 +685,9 @@ export default function PersonligtBrevSida() {
             etikett={
               // Priset följer kampanjen som biljetten under (kampanjmärket 2026-11-23).
               <>
-                {paketNamn(SALD_PLAN)}, <MedKampanjPris text={PRIS} />
+                {/* Under en kampanj bär biljetten bredvid priset: etiketten säger då bara
+                    paketets namn, annars stod priset två gånger med märket mitt i versalraden. */}
+                <KampanjVarianter ord={`${paketNamn(SALD_PLAN)}, ${PRIS}`} kampanj={() => paketNamn(SALD_PLAN)} />
               </>
             }
             rubrik="Ditt nästa brev tar tre minuter, inte tre timmar."

@@ -15,7 +15,7 @@
 import { JOBBMATCHNING_FAQ_ITEMS } from './components/jobbmatchning-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { MedKampanjPris } from '@/components/kampanj/Kampanj'
+import { KampanjVarianter } from '@/components/kampanj/Kampanj'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { NO_RESPONSE_NUDGE_DAYS } from '@/lib/applications/status'
 import { BREV_MALL_ANTAL } from '@/components/publikt/brevmallar'
@@ -510,7 +510,9 @@ export default function JobbmatchningSida() {
             etikett={
               // Priset följer kampanjen som biljetten under (kampanjmärket 2026-11-23).
               <>
-                {paketNamn(SALD_PLAN)}, <MedKampanjPris text={prisPeriod(SALD_PLAN)} />
+                {/* Under en kampanj bär biljetten bredvid priset: etiketten säger då bara
+                    paketets namn, annars stod priset två gånger med märket mitt i versalraden. */}
+                <KampanjVarianter ord={`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}`} kampanj={() => paketNamn(SALD_PLAN)} />
               </>
             }
             rubrik="Hitta ditt nästa jobb automatiskt."
