@@ -20,6 +20,7 @@ import { hamtaUndantag } from '@/lib/admin/undantag';
 import { svenskDag } from '@/lib/kampanj/kampanj';
 import { kampanjHuvuden } from './campaign-kampanj';
 import type { UtskickResultat } from './kampanjUtskick';
+import { giltigMejladress, skickaOmgang } from './omgang';
 import { genereraJobbsoketMejl, JOBBSOKET_MEJL_TYP } from './lifecycle/templates/campaign-jobbsoket';
 
 export const JOBBSOKET_UTSKICK: { nyckel: 'jobbsoket-2026-12'; dag: string | null } = {
@@ -119,8 +120,7 @@ export async function jobbsoketMottagare(
 
   const kvar = profiler.filter(
     (p) =>
-      typeof p.email === 'string' &&
-      p.email.includes('@') &&
+      giltigMejladress(p.email) &&
       !undantag.har(p.id) &&
       p.quota_emails_opt_out !== true &&
       p.erbjudanden_mejl !== false &&
@@ -162,25 +162,20 @@ export async function skickaJobbsoket(admin: any, mottagare: JobbsoketMottagare[
       return { from: FROM, to: [m.email], subject, html, headers: kampanjHuvuden(m.id) };
     });
 
-    const { data, error } = await resend.batch.send(mejl);
-    if (error) {
-      // Hela omgången föll: logga inget, så tar nästa körning dem igen.
-      console.error(`[Jobbsöket ${JOBBSOKET_UTSKICK.nyckel}] omgången misslyckades:`, error);
-      misslyckade += del.length;
-    } else {
-      const svar = (data as any)?.data ?? [];
-      const rader = del.map((m, j) => ({
-        resend_id: svar[j]?.id ?? null,
-        user_id: m.id,
-        email_type: JOBBSOKET_MEJL_TYP,
-        feature: 'jobbsoket',
-        recipient: m.email,
-        subject: mejl[j].subject,
-      }));
+    // Bara de som Resend tog emot loggas. Resten står kvar som mottagare,
+    // så att ett nytt utskick samma dag (admin-rutten) tar dem.
+    const svar = await skickaOmgang(resend, mejl, PAUS_MS, `Jobbsöket ${JOBBSOKET_UTSKICK.nyckel}`);
+    const rader = del.flatMap((m, j) =>
+      svar[j]?.ok
+        ? [{ resend_id: svar[j].id, user_id: m.id, email_type: JOBBSOKET_MEJL_TYP, feature: 'jobbsoket', recipient: m.email, subject: mejl[j].subject }]
+        : []
+    );
+    if (rader.length > 0) {
       const { error: logFel } = await admin.from('email_log').insert(rader);
       if (logFel) console.error(`[Jobbsöket ${JOBBSOKET_UTSKICK.nyckel}] kunde inte logga omgången:`, logFel);
-      skickade += del.length;
     }
+    skickade += rader.length;
+    misslyckade += del.length - rader.length;
 
     if (i + BATCH < mottagare.length) await new Promise((r) => setTimeout(r, PAUS_MS));
   }

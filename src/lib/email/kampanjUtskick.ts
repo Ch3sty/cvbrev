@@ -12,6 +12,7 @@
 import { Resend } from 'resend';
 import { harBetalat, type BetalProfil, type Kampanj } from '@/lib/kampanj/kampanj';
 import { genereraKampanjMejl, kampanjHuvuden, kampanjMejlTyp } from './campaign-kampanj';
+import { giltigMejladress, skickaOmgang } from './omgang';
 
 const FROM = 'Jobbcoach <noreply@jobbcoach.ai>';
 const BATCH = 100;
@@ -49,8 +50,7 @@ export async function kampanjMottagare(admin: any, k: Kampanj): Promise<{ kvar: 
   const kvar = ((data ?? []) as Rad[])
     .filter(
       (r) =>
-        typeof r.email === 'string' &&
-        r.email.includes('@') &&
+        giltigMejladress(r.email) &&
         r.quota_emails_opt_out !== true &&
         r.erbjudanden_mejl !== false &&
         !harBetalat(r) &&
@@ -82,25 +82,20 @@ export async function skickaKampanj(admin: any, k: Kampanj, mottagare: Mottagare
       return { from: FROM, to: [m.email], subject, html, headers: kampanjHuvuden(m.id) };
     });
 
-    const { data, error } = await resend.batch.send(mejl);
-    if (error) {
-      // Hela batchen föll: logga inget, så tar nästa körning dem igen.
-      console.error(`[Kampanj ${k.nyckel}] batch misslyckades:`, error);
-      misslyckade += del.length;
-    } else {
-      const ids = (data as any)?.data ?? [];
-      const rader = del.map((m, j) => ({
-        resend_id: ids[j]?.id ?? null,
-        user_id: m.id,
-        email_type: typ,
-        feature: k.nyckel,
-        recipient: m.email,
-        subject: mejl[j].subject,
-      }));
+    // Bara de som Resend tog emot loggas. Resten står kvar som mottagare,
+    // så att ett nytt utskick samma dag (admin-rutten) tar dem.
+    const svar = await skickaOmgang(resend, mejl, PAUS_MS, `Kampanj ${k.nyckel}`);
+    const rader = del.flatMap((m, j) =>
+      svar[j]?.ok
+        ? [{ resend_id: svar[j].id, user_id: m.id, email_type: typ, feature: k.nyckel, recipient: m.email, subject: mejl[j].subject }]
+        : []
+    );
+    if (rader.length > 0) {
       const { error: logFel } = await admin.from('email_log').insert(rader);
       if (logFel) console.error(`[Kampanj ${k.nyckel}] kunde inte logga batch:`, logFel);
-      skickade += del.length;
     }
+    skickade += rader.length;
+    misslyckade += del.length - rader.length;
 
     if (i + BATCH < mottagare.length) await new Promise((r) => setTimeout(r, PAUS_MS));
   }
