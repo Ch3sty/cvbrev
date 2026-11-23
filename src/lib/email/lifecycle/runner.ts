@@ -15,6 +15,7 @@ import { harPaket } from '@/lib/plans/harPaket';
 import { PLAN_BY_KEY, foregaendeDragning } from '@/lib/plans/plans';
 import { scheduleEmail, sendAfterStockholm, isoWeekKey } from './schedule';
 import { valjTraningsmejl } from './traningsmejl';
+import { giltigMejladress } from '../omgang';
 
 /** Avsändaren som redan är verifierad för domänen i Resend. */
 export const LIFECYCLE_FROM = 'Jobbcoach.ai <noreply@jobbcoach.ai>';
@@ -94,6 +95,15 @@ async function processRow(
   const profile = profiles.get(row.user_id);
   if (!profile || !profile.email) {
     await cancelRow(admin, row.id, 'no_email');
+    return 'canceled';
+  }
+
+  // En adress med fel form (till exempel utan toppdomän) underkänns av Resend
+  // varje gång. Utan den här spärren stod raden kvar och prövades varje
+  // morgon tills försöken tog slut, och kön visade ett fel som inte gick att
+  // rätta härifrån (winback_14 och winback_30, november 2026).
+  if (!giltigMejladress(profile.email)) {
+    await cancelRow(admin, row.id, 'ogiltig_adress');
     return 'canceled';
   }
 
